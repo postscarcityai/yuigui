@@ -1,0 +1,262 @@
+I'm obsessed with this idea of generative UI. Generative UI is different from
+regular UI because it's more of a system and it can be totally unique each time.
+What I would really love is a mobile app and the mobile app will be able to hook
+up to a GrokBot or an OpenClaw or an Ermes agent and you can talk to it but it also is an app.
+The default state is you're just talking to it.
+Although, yeah, the default state is you can just talk to it and it's a vessel for communication.
+And then also it can just take over the screen at any time and generate UI for you.
+So for example, like I can have a bunch of different agents that I have hooked up and
+this one app is approved on the App Store.
+You can hook your agent up to it.
+There will probably be a skill of some type to tell the agent how to generate the UI.
+And it just does it.
+Each agent can have their own color scheme and unique features.
+Again, within a general framework.
+And the real example I'm thinking of is if I am doing a workout, I'm talking to Arnold.
+Arnold happens to be my agent.
+And he's got a picture of Arnold Schwarzenegger on there and more or less he talks like that.
+And I want him to be able to kind of show on the screen any workout feature I ask.
+So, you know, hey Arnold, I want to do a countdown timer.
+Or I just want him to list my workout.
+You know, maybe he could manage like any number of screens.
+Let's call it three screens.
+And like they all start as kind of blank templates.
+The first screen is probably just chat.
+The chat could probably link to another view.
+But then like, yeah, all right.
+So here's your countdown timer.
+And like, all right.
+And I can just tell Arnold, all right, I want intervals of this and this and that.
+And it can just, you know, it can actually navigate for you to just pull it up.
+And again, within a set of guidelines, I'd want it to be able to just generate UI.
+And I think this is really important.
+I want it to be a mobile app.
+And this would kind of be like your agent hub where you could hook in agents from anywhere.
+I would want it to kind of have the ability to replace.
+Like I use, I don't use open claw, but I use ear me's agent.
+H-E-R-M-E-S.
+But in general, like I'm just, maybe I'll just call it a lobster.
+You know, I have my lobster.
+And he, you know, he like, you know, he's wired up to my Mac mini.
+And I can, I can talk to him via telegram.
+And I can still talk to him via telegram.
+As a matter of fact, like, if I'm talking to Arnold on my telegram, I want to be able to say,
+all right, you know, pull this up on, let's just call it Nexus for now.
+Like, Project Nexus.
+And with the Project Nexus,
+is where I, you know, talk to him.
+And then I can like, again, talk to him on telegram.
+And he should be able to push live updates to that app.
+But I guess you should be able to,
+and again, maybe this is, maybe this is different.
+Maybe this is a different app altogether.
+But I definitely think like this, like open agent framework, like open claw.
+And I should be able to, you know, I do want to be able to wire it into my existing open claw setting right now,
+or my, my lobster setting.
+But I'm actually thinking, okay, well, I definitely need out of the box,
+people that don't have anything set up, to be able to just set up this agent.
+You know, I think for onboarding Scream, it's like, hey, welcome to your, welcome to the, you know, the Nexus,
+this generative UI app.
+And it should probably start with like a bit of an interview, you know, where they can just like,
+again, it, it generates text.
+So it's like, you know, it, it, it can probably generate however it decides to say,
+hey, welcome to Nexus.
+What's your name?
+And it would generate a type form.
+And then like, maybe what's your level of knowledge in AI?
+And you can just have a little slider back and forth of like, okay, I'm here.
+And then maybe it, maybe it's like, okay, tell me about some of the things you want to do.
+And maybe then it comes up with like a type form or, but also like a, a little button.
+You know what I mean?
+Like a little microphone button so I can just talk to it.
+And again, hopefully on device, but I don't really care.
+Sends the audio through.
+And then you're just talking to it via that.
+And again, we'd probably want a couple other things.
+And again, like, all right, well, here's a couple suggestions of what you should do.
+You should definitely start a workout agent, you know, and, and the workout,
+you know, and, and maybe you even have some to start with.
+You have like your personal trainer, your nutritionist.
+A good example is a nutritionist is, you know, you, you have, you know, you, you have your nutritionist and it would be very easy to build a little, like, take a picture.
+And do whatever you want.
+And, and I'll, I'll track your macros and your calories.
+I think that's a great idea.
+And then like, maybe a personal agent, but like, you know, we should really be telling them, you know, anything they want.
+I think there should kind of be like an internal database, like, and you can create as many tables as you want.
+Um, I don't know if that's in the cloud.
+I think it would be, um, anything that we can, I'm always open to ideas of how we can keep things on device.
+But again, like, uh, obviously we should have a table, like a spreadsheet.
+And, and really, I just kind of want to base it on HTML, like whatever, like, you know, HTML is a good example because you could have like HTML,
+you've gotten like, which is the overall structure and then the CSS and then JavaScript to kind of do some things to work.
+And then like, you have these different frameworks.
+So like material UI or, um, or, uh, shad CN, which is S H A D C N.
+Uh, you know, shad CN would be a really good example of like a kind of a toolkit, except this is going to be, um,
+um, I'm not sure.
+I guess I would want to make it react native, but I'm also pretty curious whether, um,
+it would be cool to do anything in Swift.
+So again, in this overall, um, plan that you're putting it together for me, I,
+what are some of the native agent things that we can do on, um, on Swift?
+Um, and like, what are the main advantages?
+Uh, because at the end of the day, I definitely want to build this app in a way that scales really well.
+And, um, and then as more AI features come out and again, like,
+I should be able to talk to it, like with my voice, I should be able to text to it.
+Like, that would be pretty cool.
+Like if I could just text it from my phone number and then I can push, push notification,
+like, give me this.
+And then I'll get a push notification and it deep links me to the dashboard it just built,
+or again, the workout timer.
+So, um, you know, in any way, uh, you know, we want it to connect everything just like Claude
+has connectors and, you know, and OpenAI has tool use.
+Um, you know, we'd want it to be able to, like, like obviously it plugs into HubSpot and it can make,
+it can make queries there.
+Like then, um, you know, I, I definitely think like there should be a little MCP library that's
+model context protocol.
+So we should have just a library of connectors that you can just log in.
+Um, it would definitely be kind of like a Grokbot of the world.
+But again, I think our real value proposition is its ability to be able to just like show
+you whatever you want.
+You know what I mean?
+Like, I think that there's too many templates and I know it might be a little slow, but again,
+like maybe we can come up with some type of parameter system that the AI, you know, it has
+a bunch of, it can just build, um, and it can just like kind of show you these things.
+So I'm not very familiar with iOS, Android, or, uh, React Native at all.
+So you're going to need to educate me on the best way to handle this.
+But again, generative UI is really the name of the game.
+And like, you know, I think out of the box, it should have some nice smooth transitions that
+things kind of animate in and out in a little way.
+And it should be very like intuitive, big buttons, like, you know, really, uh, you know,
+and I, I would want any two people to be able to generate wildly different things.
+Um, although we, again, we do need to like give it UX principles out of the box about like
+calls to action and, you know, and, um, of course, like the design system of this will
+evolve, but yeah, I'm just really curious what this app could look like.
+Um, again, one of the big blockers for people, um, creating iOS apps is that there's so many
+iOS apps being, uh, it's, it's hard to get on the iOS store right now.
+So I think if I can get an AI product like this, that has a totally unique user experience and,
+you know, can show me just the stuff I need because, you know, I think the real problem
+I'm having with my, uh, my lobster agents is that like, I just can talk to them via text.
+Like, you know, if it asks me a question, I just want a button, like, you know, if it's a yes or no.
+And, um, you know, I kind of like Claude.
+Claude has this idea of plan mode, you know, plan mode is, um, is, is really awesome because it kind
+of gives you only two options, but like, I can select a multiple choice question.
+I can always have the option to type in an answer.
+And I'm sometimes I can have a multiple select, uh, like a multi-select or like, you know,
+multiple choice.
+I think that's, that's like a pretty key one that we can have.
+Like, which one do you want this, this, this, or this?
+And again, it's, um, you know, you would, uh, yeah, I think that there's kind of infinite
+possibility here.
+Again, I definitely, probably for V1, I would love it to just plug into my open claw, uh,
+just because I have so much set up and I would love this to be an open claw.
+Like, and I think my early adopters of this are going to be open claw users.
+So maybe they would be curious.
+And I think that can be like a first step one is like before it becomes a competitor
+to Elon Musk's GrokBot, you know, maybe it's to say you're already set up here and let's,
+uh, let's, let's start this generative UI train.
+Um, and we can make it really experimental, really fun, not boring.
+You know, I definitely want to, you know, plug into an image generator and, uh, um,
+you know, and offer these different, uh, you know, every, every, every person should have
+a face like you're in, and, you know, and I think later down the road and a very future
+version, of course, that there's going to be an actual person you can talk to.
+And then, you know, and I don't think we're going to do that right now.
+I think I'm more interested in just this being a tool.
+Um, I think I should be able to easily switch, uh, whether I talk to it or type to it, uh,
+depending on my scenarios down the road, maybe it, you know, gets my location somehow while
+I'm using the app and, uh, and it kind of knows I'm at work so I can't talk or, you know,
+it can just like, or, or maybe it's just agent by agent, you know, in general, you know,
+I talk to the, I talk to one and not the other.
+Um, you know, I, I definitely don't want to lose the idea of a Mac keyboard.
+I think it's important that, again, I think that comes back to connectors.
+You know, I want to be able to work with this from any channel.
+Um, uh, Cloudflare just recently released, released their own agent to deploy anywhere.
+And I'm curious how we can use that.
+Uh, I'm curious to use Cloudflare because since Cloudflare does the majority of gating on the
+internet, um, you know, like if, if, if I go to like true people search.com and I start,
+you know, trying to harvest data, it's Cloudflare usually that blocks me.
+So I'm curious, like, you know, on this agentic internet is Cloudflare.
+I think it's Flo, uh, I think it's Flu, F-L-U-E.
+And, um, and yeah.
+So help me think of some names.
+Um, you know, how, how can this be white labeled, but I'm not as interested in that.
+Like at the end of the day, it's a personal project for me.
+I want to interact with my agents like I do on Telegram, except the problem with Telegram
+is that, ah, these, you know, this, this agent is, was whatever.
+Um, um, I would be curious again.
+It's just like, like, obviously you're going to break this up into like a long, like flow.
+And, you know, you're not going to one shot this whole company.
+Um, so in the, in the glory of not one shotting the whole company, um, I'd be very curious to see,
+uh, you know, in, in the plan, I want you to do some research on how, you know, if this idea
+is not an app and it never gets in, like, how can I better use custom Telegram UIs?
+Because I actually think Telegram itself has a robust, like bit of, um, UI components that
+I'm not really using.
+I'd be curious what that is.
+But, but again, that's, that's like a like late sidetrack.
+Maybe we can have some interaction.
+Like I, you know, I, you know, at the end of the day, the goal is that you download this
+app, you put in your credit card and you're off to the races with a multi-agent in your life.
+Um, and the, in the meantime, and I think it should, where we should start before
+we do our own payment processing is just like, Hey, do you want image?
+Like, you know, here you can definitely buy images, but if you have a fall, which is F-A-L
+API key, you can generate images with, with this, like, you know, or replicate or, uh, you
+know, I can plug straight into my Claude.
+Um, I don't know how we're going to use Claude CLI on a mobile app.
+Um, I, I'm thinking that we're probably going to have to pay per token via a router, like
+open router to just, you know, plug and play all the different models you can use.
+Um, I'd be curious again, far, far down the road, how do we leverage on device AI capabilities
+to just help make this even faster?
+Like, uh, like, like how can we use the on device text to speech?
+Uh, how can we leverage these different things?
+But again, um, this is going to be a long plan over a long time.
+Um, I'd be curious how you could, you know, break this work up, uh, to, to make it come
+to life.
+Um, I, I think we should spin up just a little Vercel site, again, V-E-R-C-E-L, like just
+throw a little site up.
+And I want this site to kind of be like a project management tool, um, almost like a V1 of what
+we're doing.
+Um, and, uh, and, and yeah, yeah.
+And I, I definitely want a mobile app, but maybe some early mock-ups in this site, which
+is again, a full business plan and pitch deck and kind of like a general purpose, like information
+and really just a tool for me to look at while like, you know, just so I can see what you're
+building.
+Um, you know, again, how does that look?
+Um, you know, how can this thing have dynamic databasing?
+So, you know, it can, like, you know, like a CRM and like a workout routine health could
+probably be out of the box.
+But, you know, if I have a really unique use case, how can I leverage different AI tools
+to, you know, spin up some cool shit and, you know, just like, and, and then again, like
+I, I would like, there's so much basic shit.
+Like, I don't know, I don't know how we're going to run databasing for something like this,
+but, um, you know, I know when I use Claude, you know, it can spin up any type of database
+it wants.
+It can really have, it has so much flexibility and, you know, the, and I, and I think that
+as people start to be able to build whatever they want at any time, it's really the on-demand
+generative UI, which is the real value proposition.
+So I think, you know, um, I want you to, again, put something in, like, how do we phase this
+out?
+Like, I want to just kind of start it as an app that you can download and again, plug in
+your agent and, you know, start to leverage this as like, and kind of focus, um, for the,
+like the technical user and just speed to market again, before we pay for, like, I want them
+to be able to just generate images and have credits and buy it right from us.
+But on, in the meantime, like, I don't want to set all that up and I want to use it.
+So I just want to be able to dynamically store an API key and just use other systems.
+And I think that's kind of always going to be a thing, right?
+Because if I plug my Claude API in, like, it's going to take for my own Claude.
+And, you know, because we want it to be able to plug in, um, you know, I think in all phase
+ones, we're plugging into outstanding services and then slowly but surely we bring them in
+house.
+You know, I think image generation would be the easiest one.
+You know, you can't just, you know, image generation is in no way free.
+So people have to pay for it.
+They're going to have to manage their own credits, but it makes it a lot easier if you just plug
+an API key and you manage it all in separate places for someone like me.
+But the average user is not going to want to do all that.
+Like, even the idea of an API key would scare them.
+So again, um, I'm putting this in your hands.
+Um, I want you to work really fast on this.
+You know, don't, don't take like an hour break.
+Like, I feel like we should always have little things working.
+Um, again, with, you know, this is going to be a longer roadmap, but honestly, I think I
+gave you everything I need here, uh, to, to like, you shouldn't need a lot of my help.
+You should only be just updating on my progress.
+Um, and, uh, and again, like I'm leaving this up to you.
+Like you're the super intelligence.
+Uh, let's build this app together.

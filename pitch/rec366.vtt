@@ -1,0 +1,788 @@
+WEBVTT
+
+00:00.000 --> 00:06.120
+I'm obsessed with this idea of generative UI. Generative UI is different from
+
+00:06.120 --> 00:14.600
+regular UI because it's more of a system and it can be totally unique each time.
+
+00:15.260 --> 00:25.680
+What I would really love is a mobile app and the mobile app will be able to hook
+
+00:25.680 --> 00:39.680
+up to a GrokBot or an OpenClaw or an Ermes agent and you can talk to it but it also is an app.
+
+00:39.680 --> 00:42.860
+The default state is you're just talking to it.
+
+00:42.860 --> 00:56.860
+Although, yeah, the default state is you can just talk to it and it's a vessel for communication.
+
+00:56.860 --> 01:05.860
+And then also it can just take over the screen at any time and generate UI for you.
+
+01:05.860 --> 01:14.240
+So for example, like I can have a bunch of different agents that I have hooked up and
+
+01:15.240 --> 01:18.340
+this one app is approved on the App Store.
+
+01:18.740 --> 01:20.620
+You can hook your agent up to it.
+
+01:22.800 --> 01:29.920
+There will probably be a skill of some type to tell the agent how to generate the UI.
+
+01:31.180 --> 01:32.220
+And it just does it.
+
+01:32.220 --> 01:40.220
+Each agent can have their own color scheme and unique features.
+
+01:41.100 --> 01:43.300
+Again, within a general framework.
+
+01:46.600 --> 01:54.300
+And the real example I'm thinking of is if I am doing a workout, I'm talking to Arnold.
+
+01:54.520 --> 01:56.720
+Arnold happens to be my agent.
+
+01:56.720 --> 02:02.720
+And he's got a picture of Arnold Schwarzenegger on there and more or less he talks like that.
+
+02:02.720 --> 02:10.180
+And I want him to be able to kind of show on the screen any workout feature I ask.
+
+02:10.180 --> 02:19.380
+So, you know, hey Arnold, I want to do a countdown timer.
+
+02:19.380 --> 02:23.320
+Or I just want him to list my workout.
+
+02:27.540 --> 02:31.900
+You know, maybe he could manage like any number of screens.
+
+02:32.000 --> 02:33.460
+Let's call it three screens.
+
+02:34.020 --> 02:36.800
+And like they all start as kind of blank templates.
+
+02:37.480 --> 02:39.880
+The first screen is probably just chat.
+
+02:39.880 --> 02:43.180
+The chat could probably link to another view.
+
+02:44.280 --> 02:46.080
+But then like, yeah, all right.
+
+02:46.180 --> 02:47.780
+So here's your countdown timer.
+
+02:47.960 --> 02:48.680
+And like, all right.
+
+02:48.840 --> 02:53.600
+And I can just tell Arnold, all right, I want intervals of this and this and that.
+
+02:53.660 --> 02:58.120
+And it can just, you know, it can actually navigate for you to just pull it up.
+
+02:58.120 --> 03:05.800
+And again, within a set of guidelines, I'd want it to be able to just generate UI.
+
+03:06.060 --> 03:07.420
+And I think this is really important.
+
+03:07.560 --> 03:08.840
+I want it to be a mobile app.
+
+03:12.180 --> 03:19.660
+And this would kind of be like your agent hub where you could hook in agents from anywhere.
+
+03:19.660 --> 03:27.920
+I would want it to kind of have the ability to replace.
+
+03:28.120 --> 03:32.380
+Like I use, I don't use open claw, but I use ear me's agent.
+
+03:32.680 --> 03:35.040
+H-E-R-M-E-S.
+
+03:35.200 --> 03:38.900
+But in general, like I'm just, maybe I'll just call it a lobster.
+
+03:39.460 --> 03:40.800
+You know, I have my lobster.
+
+03:41.900 --> 03:48.420
+And he, you know, he like, you know, he's wired up to my Mac mini.
+
+03:49.660 --> 03:54.420
+And I can, I can talk to him via telegram.
+
+03:54.540 --> 03:56.340
+And I can still talk to him via telegram.
+
+03:56.460 --> 04:01.700
+As a matter of fact, like, if I'm talking to Arnold on my telegram, I want to be able to say,
+
+04:02.060 --> 04:06.300
+all right, you know, pull this up on, let's just call it Nexus for now.
+
+04:06.440 --> 04:08.220
+Like, Project Nexus.
+
+04:14.680 --> 04:16.640
+And with the Project Nexus,
+
+04:16.640 --> 04:22.900
+is where I, you know, talk to him.
+
+04:23.100 --> 04:25.880
+And then I can like, again, talk to him on telegram.
+
+04:26.920 --> 04:30.880
+And he should be able to push live updates to that app.
+
+04:30.880 --> 04:36.200
+But I guess you should be able to,
+
+04:37.340 --> 04:40.440
+and again, maybe this is, maybe this is different.
+
+04:40.540 --> 04:42.740
+Maybe this is a different app altogether.
+
+04:42.740 --> 04:48.620
+But I definitely think like this, like open agent framework, like open claw.
+
+04:48.620 --> 04:56.960
+And I should be able to, you know, I do want to be able to wire it into my existing open claw setting right now,
+
+04:57.000 --> 04:58.600
+or my, my lobster setting.
+
+04:58.740 --> 05:03.020
+But I'm actually thinking, okay, well, I definitely need out of the box,
+
+05:03.100 --> 05:06.380
+people that don't have anything set up, to be able to just set up this agent.
+
+05:06.380 --> 05:15.540
+You know, I think for onboarding Scream, it's like, hey, welcome to your, welcome to the, you know, the Nexus,
+
+05:16.040 --> 05:18.660
+this generative UI app.
+
+05:18.660 --> 05:28.220
+And it should probably start with like a bit of an interview, you know, where they can just like,
+
+05:28.420 --> 05:30.720
+again, it, it generates text.
+
+05:30.720 --> 05:35.880
+So it's like, you know, it, it, it can probably generate however it decides to say,
+
+05:36.000 --> 05:37.040
+hey, welcome to Nexus.
+
+05:37.540 --> 05:38.540
+What's your name?
+
+05:38.560 --> 05:40.780
+And it would generate a type form.
+
+05:41.040 --> 05:45.640
+And then like, maybe what's your level of knowledge in AI?
+
+05:45.640 --> 05:50.560
+And you can just have a little slider back and forth of like, okay, I'm here.
+
+05:50.860 --> 05:57.280
+And then maybe it, maybe it's like, okay, tell me about some of the things you want to do.
+
+05:59.080 --> 06:07.320
+And maybe then it comes up with like a type form or, but also like a, a little button.
+
+06:07.700 --> 06:08.600
+You know what I mean?
+
+06:08.600 --> 06:11.580
+Like a little microphone button so I can just talk to it.
+
+06:11.600 --> 06:14.700
+And again, hopefully on device, but I don't really care.
+
+06:15.640 --> 06:17.240
+Sends the audio through.
+
+06:18.320 --> 06:21.780
+And then you're just talking to it via that.
+
+06:22.940 --> 06:25.380
+And again, we'd probably want a couple other things.
+
+06:25.380 --> 06:29.960
+And again, like, all right, well, here's a couple suggestions of what you should do.
+
+06:30.040 --> 06:33.860
+You should definitely start a workout agent, you know, and, and the workout,
+
+06:33.860 --> 06:38.200
+you know, and, and maybe you even have some to start with.
+
+06:38.280 --> 06:42.600
+You have like your personal trainer, your nutritionist.
+
+06:42.600 --> 06:57.160
+A good example is a nutritionist is, you know, you, you have, you know, you, you have your nutritionist and it would be very easy to build a little, like, take a picture.
+
+06:57.160 --> 06:59.680
+And do whatever you want.
+
+07:01.080 --> 07:03.980
+And, and I'll, I'll track your macros and your calories.
+
+07:04.420 --> 07:05.460
+I think that's a great idea.
+
+07:05.460 --> 07:16.360
+And then like, maybe a personal agent, but like, you know, we should really be telling them, you know, anything they want.
+
+07:16.460 --> 07:23.360
+I think there should kind of be like an internal database, like, and you can create as many tables as you want.
+
+07:23.360 --> 07:26.160
+Um, I don't know if that's in the cloud.
+
+07:26.360 --> 07:33.800
+I think it would be, um, anything that we can, I'm always open to ideas of how we can keep things on device.
+
+07:33.960 --> 07:39.080
+But again, like, uh, obviously we should have a table, like a spreadsheet.
+
+07:39.680 --> 07:47.680
+And, and really, I just kind of want to base it on HTML, like whatever, like, you know, HTML is a good example because you could have like HTML,
+
+07:47.680 --> 07:53.860
+you've gotten like, which is the overall structure and then the CSS and then JavaScript to kind of do some things to work.
+
+07:54.180 --> 07:56.500
+And then like, you have these different frameworks.
+
+07:56.500 --> 08:06.240
+So like material UI or, um, or, uh, shad CN, which is S H A D C N.
+
+08:08.240 --> 08:16.980
+Uh, you know, shad CN would be a really good example of like a kind of a toolkit, except this is going to be, um,
+
+08:16.980 --> 08:19.120
+um, I'm not sure.
+
+08:19.220 --> 08:26.000
+I guess I would want to make it react native, but I'm also pretty curious whether, um,
+
+08:26.740 --> 08:28.780
+it would be cool to do anything in Swift.
+
+08:28.920 --> 08:37.380
+So again, in this overall, um, plan that you're putting it together for me, I,
+
+08:37.380 --> 08:46.440
+what are some of the native agent things that we can do on, um, on Swift?
+
+08:46.980 --> 08:50.940
+Um, and like, what are the main advantages?
+
+08:51.480 --> 08:57.240
+Uh, because at the end of the day, I definitely want to build this app in a way that scales really well.
+
+08:57.240 --> 09:01.200
+And, um, and then as more AI features come out and again, like,
+
+09:01.720 --> 09:09.040
+I should be able to talk to it, like with my voice, I should be able to text to it.
+
+09:09.040 --> 09:16.440
+Like, that would be pretty cool.
+
+09:16.640 --> 09:25.720
+Like if I could just text it from my phone number and then I can push, push notification,
+
+09:25.820 --> 09:26.660
+like, give me this.
+
+09:26.660 --> 09:32.840
+And then I'll get a push notification and it deep links me to the dashboard it just built,
+
+09:32.960 --> 09:34.200
+or again, the workout timer.
+
+09:35.460 --> 09:41.040
+So, um, you know, in any way, uh, you know, we want it to connect everything just like Claude
+
+09:41.040 --> 09:44.980
+has connectors and, you know, and OpenAI has tool use.
+
+09:44.980 --> 09:51.360
+Um, you know, we'd want it to be able to, like, like obviously it plugs into HubSpot and it can make,
+
+09:51.580 --> 09:53.020
+it can make queries there.
+
+09:53.240 --> 09:58.520
+Like then, um, you know, I, I definitely think like there should be a little MCP library that's
+
+09:58.520 --> 09:59.960
+model context protocol.
+
+09:59.960 --> 10:03.880
+So we should have just a library of connectors that you can just log in.
+
+10:03.880 --> 10:11.500
+Um, it would definitely be kind of like a Grokbot of the world.
+
+10:11.940 --> 10:17.820
+But again, I think our real value proposition is its ability to be able to just like show
+
+10:17.820 --> 10:19.060
+you whatever you want.
+
+10:19.220 --> 10:19.980
+You know what I mean?
+
+10:20.140 --> 10:26.300
+Like, I think that there's too many templates and I know it might be a little slow, but again,
+
+10:26.380 --> 10:31.120
+like maybe we can come up with some type of parameter system that the AI, you know, it has
+
+10:31.120 --> 10:36.580
+a bunch of, it can just build, um, and it can just like kind of show you these things.
+
+10:36.660 --> 10:42.280
+So I'm not very familiar with iOS, Android, or, uh, React Native at all.
+
+10:42.360 --> 10:45.220
+So you're going to need to educate me on the best way to handle this.
+
+10:45.220 --> 10:49.360
+But again, generative UI is really the name of the game.
+
+10:49.560 --> 10:53.960
+And like, you know, I think out of the box, it should have some nice smooth transitions that
+
+10:53.960 --> 10:56.520
+things kind of animate in and out in a little way.
+
+10:56.520 --> 11:04.920
+And it should be very like intuitive, big buttons, like, you know, really, uh, you know,
+
+11:04.980 --> 11:09.220
+and I, I would want any two people to be able to generate wildly different things.
+
+11:09.540 --> 11:15.900
+Um, although we, again, we do need to like give it UX principles out of the box about like
+
+11:15.900 --> 11:22.140
+calls to action and, you know, and, um, of course, like the design system of this will
+
+11:22.140 --> 11:27.600
+evolve, but yeah, I'm just really curious what this app could look like.
+
+11:28.260 --> 11:35.600
+Um, again, one of the big blockers for people, um, creating iOS apps is that there's so many
+
+11:35.600 --> 11:41.260
+iOS apps being, uh, it's, it's hard to get on the iOS store right now.
+
+11:41.260 --> 11:49.240
+So I think if I can get an AI product like this, that has a totally unique user experience and,
+
+11:49.240 --> 11:53.520
+you know, can show me just the stuff I need because, you know, I think the real problem
+
+11:53.520 --> 12:00.660
+I'm having with my, uh, my lobster agents is that like, I just can talk to them via text.
+
+12:00.660 --> 12:06.320
+Like, you know, if it asks me a question, I just want a button, like, you know, if it's a yes or no.
+
+12:06.980 --> 12:09.540
+And, um, you know, I kind of like Claude.
+
+12:09.880 --> 12:17.180
+Claude has this idea of plan mode, you know, plan mode is, um, is, is really awesome because it kind
+
+12:17.180 --> 12:22.220
+of gives you only two options, but like, I can select a multiple choice question.
+
+12:22.460 --> 12:25.280
+I can always have the option to type in an answer.
+
+12:25.820 --> 12:31.020
+And I'm sometimes I can have a multiple select, uh, like a multi-select or like, you know,
+
+12:31.400 --> 12:32.260
+multiple choice.
+
+12:32.460 --> 12:36.040
+I think that's, that's like a pretty key one that we can have.
+
+12:36.040 --> 12:38.080
+Like, which one do you want this, this, this, or this?
+
+12:38.080 --> 12:45.920
+And again, it's, um, you know, you would, uh, yeah, I think that there's kind of infinite
+
+12:45.920 --> 12:47.440
+possibility here.
+
+12:48.240 --> 12:54.560
+Again, I definitely, probably for V1, I would love it to just plug into my open claw, uh,
+
+12:54.560 --> 12:58.100
+just because I have so much set up and I would love this to be an open claw.
+
+12:58.100 --> 13:01.980
+Like, and I think my early adopters of this are going to be open claw users.
+
+13:02.240 --> 13:03.660
+So maybe they would be curious.
+
+13:03.660 --> 13:09.460
+And I think that can be like a first step one is like before it becomes a competitor
+
+13:09.460 --> 13:16.760
+to Elon Musk's GrokBot, you know, maybe it's to say you're already set up here and let's,
+
+13:16.820 --> 13:19.700
+uh, let's, let's start this generative UI train.
+
+13:20.220 --> 13:24.040
+Um, and we can make it really experimental, really fun, not boring.
+
+13:24.880 --> 13:33.020
+You know, I definitely want to, you know, plug into an image generator and, uh, um,
+
+13:33.660 --> 13:39.400
+you know, and offer these different, uh, you know, every, every, every person should have
+
+13:39.400 --> 13:44.100
+a face like you're in, and, you know, and I think later down the road and a very future
+
+13:44.100 --> 13:47.400
+version, of course, that there's going to be an actual person you can talk to.
+
+13:47.660 --> 13:50.800
+And then, you know, and I don't think we're going to do that right now.
+
+13:50.860 --> 13:53.580
+I think I'm more interested in just this being a tool.
+
+13:53.580 --> 14:02.160
+Um, I think I should be able to easily switch, uh, whether I talk to it or type to it, uh,
+
+14:02.160 --> 14:10.500
+depending on my scenarios down the road, maybe it, you know, gets my location somehow while
+
+14:10.500 --> 14:16.400
+I'm using the app and, uh, and it kind of knows I'm at work so I can't talk or, you know,
+
+14:16.420 --> 14:21.000
+it can just like, or, or maybe it's just agent by agent, you know, in general, you know,
+
+14:21.000 --> 14:24.280
+I talk to the, I talk to one and not the other.
+
+14:24.900 --> 14:28.440
+Um, you know, I, I definitely don't want to lose the idea of a Mac keyboard.
+
+14:28.700 --> 14:31.660
+I think it's important that, again, I think that comes back to connectors.
+
+14:32.260 --> 14:34.900
+You know, I want to be able to work with this from any channel.
+
+14:35.900 --> 14:41.740
+Um, uh, Cloudflare just recently released, released their own agent to deploy anywhere.
+
+14:41.740 --> 14:43.640
+And I'm curious how we can use that.
+
+14:44.000 --> 14:50.700
+Uh, I'm curious to use Cloudflare because since Cloudflare does the majority of gating on the
+
+14:50.700 --> 14:58.580
+internet, um, you know, like if, if, if I go to like true people search.com and I start,
+
+14:58.800 --> 15:02.720
+you know, trying to harvest data, it's Cloudflare usually that blocks me.
+
+15:02.880 --> 15:07.780
+So I'm curious, like, you know, on this agentic internet is Cloudflare.
+
+15:07.780 --> 15:13.040
+I think it's Flo, uh, I think it's Flu, F-L-U-E.
+
+15:13.840 --> 15:15.920
+And, um, and yeah.
+
+15:16.120 --> 15:17.880
+So help me think of some names.
+
+15:18.880 --> 15:24.040
+Um, you know, how, how can this be white labeled, but I'm not as interested in that.
+
+15:24.280 --> 15:27.240
+Like at the end of the day, it's a personal project for me.
+
+15:27.240 --> 15:32.900
+I want to interact with my agents like I do on Telegram, except the problem with Telegram
+
+15:32.900 --> 15:36.760
+is that, ah, these, you know, this, this agent is, was whatever.
+
+15:37.300 --> 15:40.700
+Um, um, I would be curious again.
+
+15:40.720 --> 15:46.340
+It's just like, like, obviously you're going to break this up into like a long, like flow.
+
+15:46.340 --> 15:49.180
+And, you know, you're not going to one shot this whole company.
+
+15:49.180 --> 16:01.440
+Um, so in the, in the glory of not one shotting the whole company, um, I'd be very curious to see,
+
+16:01.440 --> 16:10.220
+uh, you know, in, in the plan, I want you to do some research on how, you know, if this idea
+
+16:10.220 --> 16:16.060
+is not an app and it never gets in, like, how can I better use custom Telegram UIs?
+
+16:16.060 --> 16:23.740
+Because I actually think Telegram itself has a robust, like bit of, um, UI components that
+
+16:23.740 --> 16:24.680
+I'm not really using.
+
+16:24.780 --> 16:25.940
+I'd be curious what that is.
+
+16:26.180 --> 16:28.640
+But, but again, that's, that's like a like late sidetrack.
+
+16:28.960 --> 16:30.920
+Maybe we can have some interaction.
+
+16:30.920 --> 16:35.060
+Like I, you know, I, you know, at the end of the day, the goal is that you download this
+
+16:35.060 --> 16:41.500
+app, you put in your credit card and you're off to the races with a multi-agent in your life.
+
+16:41.960 --> 16:45.980
+Um, and the, in the meantime, and I think it should, where we should start before
+
+16:45.980 --> 16:50.060
+we do our own payment processing is just like, Hey, do you want image?
+
+16:50.140 --> 16:55.480
+Like, you know, here you can definitely buy images, but if you have a fall, which is F-A-L
+
+16:55.480 --> 17:01.860
+API key, you can generate images with, with this, like, you know, or replicate or, uh, you
+
+17:01.860 --> 17:03.980
+know, I can plug straight into my Claude.
+
+17:04.460 --> 17:09.100
+Um, I don't know how we're going to use Claude CLI on a mobile app.
+
+17:09.100 --> 17:14.400
+Um, I, I'm thinking that we're probably going to have to pay per token via a router, like
+
+17:14.400 --> 17:20.040
+open router to just, you know, plug and play all the different models you can use.
+
+17:20.320 --> 17:28.900
+Um, I'd be curious again, far, far down the road, how do we leverage on device AI capabilities
+
+17:28.900 --> 17:32.060
+to just help make this even faster?
+
+17:32.060 --> 17:36.340
+Like, uh, like, like how can we use the on device text to speech?
+
+17:36.960 --> 17:38.740
+Uh, how can we leverage these different things?
+
+17:39.160 --> 17:44.320
+But again, um, this is going to be a long plan over a long time.
+
+17:44.920 --> 17:52.340
+Um, I'd be curious how you could, you know, break this work up, uh, to, to make it come
+
+17:52.340 --> 17:52.920
+to life.
+
+17:52.920 --> 18:03.720
+Um, I, I think we should spin up just a little Vercel site, again, V-E-R-C-E-L, like just
+
+18:03.720 --> 18:05.180
+throw a little site up.
+
+18:05.400 --> 18:11.460
+And I want this site to kind of be like a project management tool, um, almost like a V1 of what
+
+18:11.460 --> 18:12.000
+we're doing.
+
+18:12.520 --> 18:17.220
+Um, and, uh, and, and yeah, yeah.
+
+18:17.220 --> 18:23.100
+And I, I definitely want a mobile app, but maybe some early mock-ups in this site, which
+
+18:23.100 --> 18:28.680
+is again, a full business plan and pitch deck and kind of like a general purpose, like information
+
+18:28.680 --> 18:32.860
+and really just a tool for me to look at while like, you know, just so I can see what you're
+
+18:32.860 --> 18:33.300
+building.
+
+18:34.020 --> 18:36.080
+Um, you know, again, how does that look?
+
+18:36.580 --> 18:40.280
+Um, you know, how can this thing have dynamic databasing?
+
+18:40.280 --> 18:47.760
+So, you know, it can, like, you know, like a CRM and like a workout routine health could
+
+18:47.760 --> 18:49.040
+probably be out of the box.
+
+18:49.040 --> 18:54.260
+But, you know, if I have a really unique use case, how can I leverage different AI tools
+
+18:54.260 --> 19:01.360
+to, you know, spin up some cool shit and, you know, just like, and, and then again, like
+
+19:01.360 --> 19:04.840
+I, I would like, there's so much basic shit.
+
+19:04.840 --> 19:10.340
+Like, I don't know, I don't know how we're going to run databasing for something like this,
+
+19:10.440 --> 19:15.820
+but, um, you know, I know when I use Claude, you know, it can spin up any type of database
+
+19:15.820 --> 19:16.480
+it wants.
+
+19:17.360 --> 19:23.920
+It can really have, it has so much flexibility and, you know, the, and I, and I think that
+
+19:23.920 --> 19:29.980
+as people start to be able to build whatever they want at any time, it's really the on-demand
+
+19:29.980 --> 19:33.040
+generative UI, which is the real value proposition.
+
+19:33.040 --> 19:38.940
+So I think, you know, um, I want you to, again, put something in, like, how do we phase this
+
+19:38.940 --> 19:39.220
+out?
+
+19:39.280 --> 19:45.180
+Like, I want to just kind of start it as an app that you can download and again, plug in
+
+19:45.180 --> 19:53.140
+your agent and, you know, start to leverage this as like, and kind of focus, um, for the,
+
+19:53.280 --> 20:00.560
+like the technical user and just speed to market again, before we pay for, like, I want them
+
+20:00.560 --> 20:04.540
+to be able to just generate images and have credits and buy it right from us.
+
+20:04.540 --> 20:08.660
+But on, in the meantime, like, I don't want to set all that up and I want to use it.
+
+20:08.660 --> 20:13.880
+So I just want to be able to dynamically store an API key and just use other systems.
+
+20:13.880 --> 20:16.120
+And I think that's kind of always going to be a thing, right?
+
+20:16.120 --> 20:20.780
+Because if I plug my Claude API in, like, it's going to take for my own Claude.
+
+20:20.780 --> 20:27.180
+And, you know, because we want it to be able to plug in, um, you know, I think in all phase
+
+20:27.180 --> 20:33.000
+ones, we're plugging into outstanding services and then slowly but surely we bring them in
+
+20:33.000 --> 20:33.360
+house.
+
+20:33.900 --> 20:36.640
+You know, I think image generation would be the easiest one.
+
+20:36.840 --> 20:40.800
+You know, you can't just, you know, image generation is in no way free.
+
+20:41.040 --> 20:42.860
+So people have to pay for it.
+
+20:42.960 --> 20:47.280
+They're going to have to manage their own credits, but it makes it a lot easier if you just plug
+
+20:47.280 --> 20:51.380
+an API key and you manage it all in separate places for someone like me.
+
+20:51.480 --> 20:53.640
+But the average user is not going to want to do all that.
+
+20:53.720 --> 20:56.380
+Like, even the idea of an API key would scare them.
+
+20:56.560 --> 20:59.980
+So again, um, I'm putting this in your hands.
+
+21:00.560 --> 21:03.460
+Um, I want you to work really fast on this.
+
+21:04.320 --> 21:07.100
+You know, don't, don't take like an hour break.
+
+21:07.120 --> 21:09.660
+Like, I feel like we should always have little things working.
+
+21:10.240 --> 21:15.660
+Um, again, with, you know, this is going to be a longer roadmap, but honestly, I think I
+
+21:15.660 --> 21:22.120
+gave you everything I need here, uh, to, to like, you shouldn't need a lot of my help.
+
+21:22.180 --> 21:24.600
+You should only be just updating on my progress.
+
+21:25.240 --> 21:32.480
+Um, and, uh, and again, like I'm leaving this up to you.
+
+21:32.480 --> 21:34.260
+Like you're the super intelligence.
+
+21:35.020 --> 21:36.680
+Uh, let's build this app together.
+

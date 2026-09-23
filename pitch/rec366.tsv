@@ -1,0 +1,263 @@
+start	end	text
+0	6120	I'm obsessed with this idea of generative UI. Generative UI is different from
+6120	14600	regular UI because it's more of a system and it can be totally unique each time.
+15260	25680	What I would really love is a mobile app and the mobile app will be able to hook
+25680	39680	up to a GrokBot or an OpenClaw or an Ermes agent and you can talk to it but it also is an app.
+39680	42860	The default state is you're just talking to it.
+42860	56860	Although, yeah, the default state is you can just talk to it and it's a vessel for communication.
+56860	65860	And then also it can just take over the screen at any time and generate UI for you.
+65860	74240	So for example, like I can have a bunch of different agents that I have hooked up and
+75240	78340	this one app is approved on the App Store.
+78740	80620	You can hook your agent up to it.
+82800	89920	There will probably be a skill of some type to tell the agent how to generate the UI.
+91180	92220	And it just does it.
+92220	100220	Each agent can have their own color scheme and unique features.
+101100	103300	Again, within a general framework.
+106600	114300	And the real example I'm thinking of is if I am doing a workout, I'm talking to Arnold.
+114520	116720	Arnold happens to be my agent.
+116720	122720	And he's got a picture of Arnold Schwarzenegger on there and more or less he talks like that.
+122720	130180	And I want him to be able to kind of show on the screen any workout feature I ask.
+130180	139380	So, you know, hey Arnold, I want to do a countdown timer.
+139380	143320	Or I just want him to list my workout.
+147540	151900	You know, maybe he could manage like any number of screens.
+152000	153460	Let's call it three screens.
+154020	156800	And like they all start as kind of blank templates.
+157480	159880	The first screen is probably just chat.
+159880	163180	The chat could probably link to another view.
+164280	166080	But then like, yeah, all right.
+166180	167780	So here's your countdown timer.
+167960	168680	And like, all right.
+168840	173600	And I can just tell Arnold, all right, I want intervals of this and this and that.
+173660	178120	And it can just, you know, it can actually navigate for you to just pull it up.
+178120	185800	And again, within a set of guidelines, I'd want it to be able to just generate UI.
+186060	187420	And I think this is really important.
+187560	188840	I want it to be a mobile app.
+192180	199660	And this would kind of be like your agent hub where you could hook in agents from anywhere.
+199660	207920	I would want it to kind of have the ability to replace.
+208120	212380	Like I use, I don't use open claw, but I use ear me's agent.
+212680	215040	H-E-R-M-E-S.
+215200	218900	But in general, like I'm just, maybe I'll just call it a lobster.
+219460	220800	You know, I have my lobster.
+221900	228420	And he, you know, he like, you know, he's wired up to my Mac mini.
+229660	234420	And I can, I can talk to him via telegram.
+234540	236340	And I can still talk to him via telegram.
+236460	241700	As a matter of fact, like, if I'm talking to Arnold on my telegram, I want to be able to say,
+242060	246300	all right, you know, pull this up on, let's just call it Nexus for now.
+246440	248220	Like, Project Nexus.
+254680	256640	And with the Project Nexus,
+256640	262900	is where I, you know, talk to him.
+263100	265880	And then I can like, again, talk to him on telegram.
+266920	270880	And he should be able to push live updates to that app.
+270880	276200	But I guess you should be able to,
+277340	280440	and again, maybe this is, maybe this is different.
+280540	282740	Maybe this is a different app altogether.
+282740	288620	But I definitely think like this, like open agent framework, like open claw.
+288620	296960	And I should be able to, you know, I do want to be able to wire it into my existing open claw setting right now,
+297000	298600	or my, my lobster setting.
+298740	303020	But I'm actually thinking, okay, well, I definitely need out of the box,
+303100	306380	people that don't have anything set up, to be able to just set up this agent.
+306380	315540	You know, I think for onboarding Scream, it's like, hey, welcome to your, welcome to the, you know, the Nexus,
+316040	318660	this generative UI app.
+318660	328220	And it should probably start with like a bit of an interview, you know, where they can just like,
+328420	330720	again, it, it generates text.
+330720	335880	So it's like, you know, it, it, it can probably generate however it decides to say,
+336000	337040	hey, welcome to Nexus.
+337540	338540	What's your name?
+338560	340780	And it would generate a type form.
+341040	345640	And then like, maybe what's your level of knowledge in AI?
+345640	350560	And you can just have a little slider back and forth of like, okay, I'm here.
+350860	357280	And then maybe it, maybe it's like, okay, tell me about some of the things you want to do.
+359080	367320	And maybe then it comes up with like a type form or, but also like a, a little button.
+367700	368600	You know what I mean?
+368600	371580	Like a little microphone button so I can just talk to it.
+371600	374700	And again, hopefully on device, but I don't really care.
+375640	377240	Sends the audio through.
+378320	381780	And then you're just talking to it via that.
+382940	385380	And again, we'd probably want a couple other things.
+385380	389960	And again, like, all right, well, here's a couple suggestions of what you should do.
+390040	393860	You should definitely start a workout agent, you know, and, and the workout,
+393860	398200	you know, and, and maybe you even have some to start with.
+398280	402600	You have like your personal trainer, your nutritionist.
+402600	417160	A good example is a nutritionist is, you know, you, you have, you know, you, you have your nutritionist and it would be very easy to build a little, like, take a picture.
+417160	419680	And do whatever you want.
+421080	423980	And, and I'll, I'll track your macros and your calories.
+424420	425460	I think that's a great idea.
+425460	436360	And then like, maybe a personal agent, but like, you know, we should really be telling them, you know, anything they want.
+436460	443360	I think there should kind of be like an internal database, like, and you can create as many tables as you want.
+443360	446160	Um, I don't know if that's in the cloud.
+446360	453800	I think it would be, um, anything that we can, I'm always open to ideas of how we can keep things on device.
+453960	459080	But again, like, uh, obviously we should have a table, like a spreadsheet.
+459680	467680	And, and really, I just kind of want to base it on HTML, like whatever, like, you know, HTML is a good example because you could have like HTML,
+467680	473860	you've gotten like, which is the overall structure and then the CSS and then JavaScript to kind of do some things to work.
+474180	476500	And then like, you have these different frameworks.
+476500	486240	So like material UI or, um, or, uh, shad CN, which is S H A D C N.
+488240	496980	Uh, you know, shad CN would be a really good example of like a kind of a toolkit, except this is going to be, um,
+496980	499120	um, I'm not sure.
+499220	506000	I guess I would want to make it react native, but I'm also pretty curious whether, um,
+506740	508780	it would be cool to do anything in Swift.
+508920	517380	So again, in this overall, um, plan that you're putting it together for me, I,
+517380	526440	what are some of the native agent things that we can do on, um, on Swift?
+526980	530940	Um, and like, what are the main advantages?
+531480	537240	Uh, because at the end of the day, I definitely want to build this app in a way that scales really well.
+537240	541200	And, um, and then as more AI features come out and again, like,
+541720	549040	I should be able to talk to it, like with my voice, I should be able to text to it.
+549040	556440	Like, that would be pretty cool.
+556640	565720	Like if I could just text it from my phone number and then I can push, push notification,
+565820	566660	like, give me this.
+566660	572840	And then I'll get a push notification and it deep links me to the dashboard it just built,
+572960	574200	or again, the workout timer.
+575460	581040	So, um, you know, in any way, uh, you know, we want it to connect everything just like Claude
+581040	584980	has connectors and, you know, and OpenAI has tool use.
+584980	591360	Um, you know, we'd want it to be able to, like, like obviously it plugs into HubSpot and it can make,
+591580	593020	it can make queries there.
+593240	598520	Like then, um, you know, I, I definitely think like there should be a little MCP library that's
+598520	599960	model context protocol.
+599960	603880	So we should have just a library of connectors that you can just log in.
+603880	611500	Um, it would definitely be kind of like a Grokbot of the world.
+611940	617820	But again, I think our real value proposition is its ability to be able to just like show
+617820	619060	you whatever you want.
+619220	619980	You know what I mean?
+620140	626300	Like, I think that there's too many templates and I know it might be a little slow, but again,
+626380	631120	like maybe we can come up with some type of parameter system that the AI, you know, it has
+631120	636580	a bunch of, it can just build, um, and it can just like kind of show you these things.
+636660	642280	So I'm not very familiar with iOS, Android, or, uh, React Native at all.
+642360	645220	So you're going to need to educate me on the best way to handle this.
+645220	649360	But again, generative UI is really the name of the game.
+649560	653960	And like, you know, I think out of the box, it should have some nice smooth transitions that
+653960	656520	things kind of animate in and out in a little way.
+656520	664920	And it should be very like intuitive, big buttons, like, you know, really, uh, you know,
+664980	669220	and I, I would want any two people to be able to generate wildly different things.
+669540	675900	Um, although we, again, we do need to like give it UX principles out of the box about like
+675900	682140	calls to action and, you know, and, um, of course, like the design system of this will
+682140	687600	evolve, but yeah, I'm just really curious what this app could look like.
+688260	695600	Um, again, one of the big blockers for people, um, creating iOS apps is that there's so many
+695600	701260	iOS apps being, uh, it's, it's hard to get on the iOS store right now.
+701260	709240	So I think if I can get an AI product like this, that has a totally unique user experience and,
+709240	713520	you know, can show me just the stuff I need because, you know, I think the real problem
+713520	720660	I'm having with my, uh, my lobster agents is that like, I just can talk to them via text.
+720660	726320	Like, you know, if it asks me a question, I just want a button, like, you know, if it's a yes or no.
+726980	729540	And, um, you know, I kind of like Claude.
+729880	737180	Claude has this idea of plan mode, you know, plan mode is, um, is, is really awesome because it kind
+737180	742220	of gives you only two options, but like, I can select a multiple choice question.
+742460	745280	I can always have the option to type in an answer.
+745820	751020	And I'm sometimes I can have a multiple select, uh, like a multi-select or like, you know,
+751400	752260	multiple choice.
+752460	756040	I think that's, that's like a pretty key one that we can have.
+756040	758080	Like, which one do you want this, this, this, or this?
+758080	765920	And again, it's, um, you know, you would, uh, yeah, I think that there's kind of infinite
+765920	767440	possibility here.
+768240	774560	Again, I definitely, probably for V1, I would love it to just plug into my open claw, uh,
+774560	778100	just because I have so much set up and I would love this to be an open claw.
+778100	781980	Like, and I think my early adopters of this are going to be open claw users.
+782240	783660	So maybe they would be curious.
+783660	789460	And I think that can be like a first step one is like before it becomes a competitor
+789460	796760	to Elon Musk's GrokBot, you know, maybe it's to say you're already set up here and let's,
+796820	799700	uh, let's, let's start this generative UI train.
+800220	804040	Um, and we can make it really experimental, really fun, not boring.
+804880	813020	You know, I definitely want to, you know, plug into an image generator and, uh, um,
+813660	819400	you know, and offer these different, uh, you know, every, every, every person should have
+819400	824100	a face like you're in, and, you know, and I think later down the road and a very future
+824100	827400	version, of course, that there's going to be an actual person you can talk to.
+827660	830800	And then, you know, and I don't think we're going to do that right now.
+830860	833580	I think I'm more interested in just this being a tool.
+833580	842160	Um, I think I should be able to easily switch, uh, whether I talk to it or type to it, uh,
+842160	850500	depending on my scenarios down the road, maybe it, you know, gets my location somehow while
+850500	856400	I'm using the app and, uh, and it kind of knows I'm at work so I can't talk or, you know,
+856420	861000	it can just like, or, or maybe it's just agent by agent, you know, in general, you know,
+861000	864280	I talk to the, I talk to one and not the other.
+864900	868440	Um, you know, I, I definitely don't want to lose the idea of a Mac keyboard.
+868700	871660	I think it's important that, again, I think that comes back to connectors.
+872260	874900	You know, I want to be able to work with this from any channel.
+875900	881740	Um, uh, Cloudflare just recently released, released their own agent to deploy anywhere.
+881740	883640	And I'm curious how we can use that.
+884000	890700	Uh, I'm curious to use Cloudflare because since Cloudflare does the majority of gating on the
+890700	898580	internet, um, you know, like if, if, if I go to like true people search.com and I start,
+898800	902720	you know, trying to harvest data, it's Cloudflare usually that blocks me.
+902880	907780	So I'm curious, like, you know, on this agentic internet is Cloudflare.
+907780	913040	I think it's Flo, uh, I think it's Flu, F-L-U-E.
+913840	915920	And, um, and yeah.
+916120	917880	So help me think of some names.
+918880	924040	Um, you know, how, how can this be white labeled, but I'm not as interested in that.
+924280	927240	Like at the end of the day, it's a personal project for me.
+927240	932900	I want to interact with my agents like I do on Telegram, except the problem with Telegram
+932900	936760	is that, ah, these, you know, this, this agent is, was whatever.
+937300	940700	Um, um, I would be curious again.
+940720	946340	It's just like, like, obviously you're going to break this up into like a long, like flow.
+946340	949180	And, you know, you're not going to one shot this whole company.
+949180	961440	Um, so in the, in the glory of not one shotting the whole company, um, I'd be very curious to see,
+961440	970220	uh, you know, in, in the plan, I want you to do some research on how, you know, if this idea
+970220	976060	is not an app and it never gets in, like, how can I better use custom Telegram UIs?
+976060	983740	Because I actually think Telegram itself has a robust, like bit of, um, UI components that
+983740	984680	I'm not really using.
+984780	985940	I'd be curious what that is.
+986180	988640	But, but again, that's, that's like a like late sidetrack.
+988960	990920	Maybe we can have some interaction.
+990920	995060	Like I, you know, I, you know, at the end of the day, the goal is that you download this
+995060	1001500	app, you put in your credit card and you're off to the races with a multi-agent in your life.
+1001960	1005980	Um, and the, in the meantime, and I think it should, where we should start before
+1005980	1010060	we do our own payment processing is just like, Hey, do you want image?
+1010140	1015480	Like, you know, here you can definitely buy images, but if you have a fall, which is F-A-L
+1015480	1021860	API key, you can generate images with, with this, like, you know, or replicate or, uh, you
+1021860	1023980	know, I can plug straight into my Claude.
+1024460	1029100	Um, I don't know how we're going to use Claude CLI on a mobile app.
+1029100	1034400	Um, I, I'm thinking that we're probably going to have to pay per token via a router, like
+1034400	1040040	open router to just, you know, plug and play all the different models you can use.
+1040320	1048900	Um, I'd be curious again, far, far down the road, how do we leverage on device AI capabilities
+1048900	1052060	to just help make this even faster?
+1052060	1056340	Like, uh, like, like how can we use the on device text to speech?
+1056960	1058740	Uh, how can we leverage these different things?
+1059160	1064320	But again, um, this is going to be a long plan over a long time.
+1064920	1072340	Um, I'd be curious how you could, you know, break this work up, uh, to, to make it come
+1072340	1072920	to life.
+1072920	1083720	Um, I, I think we should spin up just a little Vercel site, again, V-E-R-C-E-L, like just
+1083720	1085180	throw a little site up.
+1085400	1091460	And I want this site to kind of be like a project management tool, um, almost like a V1 of what
+1091460	1092000	we're doing.
+1092520	1097220	Um, and, uh, and, and yeah, yeah.
+1097220	1103100	And I, I definitely want a mobile app, but maybe some early mock-ups in this site, which
+1103100	1108680	is again, a full business plan and pitch deck and kind of like a general purpose, like information
+1108680	1112860	and really just a tool for me to look at while like, you know, just so I can see what you're
+1112860	1113300	building.
+1114020	1116080	Um, you know, again, how does that look?
+1116580	1120280	Um, you know, how can this thing have dynamic databasing?
+1120280	1127760	So, you know, it can, like, you know, like a CRM and like a workout routine health could
+1127760	1129040	probably be out of the box.
+1129040	1134260	But, you know, if I have a really unique use case, how can I leverage different AI tools
+1134260	1141360	to, you know, spin up some cool shit and, you know, just like, and, and then again, like
+1141360	1144840	I, I would like, there's so much basic shit.
+1144840	1150340	Like, I don't know, I don't know how we're going to run databasing for something like this,
+1150440	1155820	but, um, you know, I know when I use Claude, you know, it can spin up any type of database
+1155820	1156480	it wants.
+1157360	1163920	It can really have, it has so much flexibility and, you know, the, and I, and I think that
+1163920	1169980	as people start to be able to build whatever they want at any time, it's really the on-demand
+1169980	1173040	generative UI, which is the real value proposition.
+1173040	1178940	So I think, you know, um, I want you to, again, put something in, like, how do we phase this
+1178940	1179220	out?
+1179280	1185180	Like, I want to just kind of start it as an app that you can download and again, plug in
+1185180	1193140	your agent and, you know, start to leverage this as like, and kind of focus, um, for the,
+1193280	1200560	like the technical user and just speed to market again, before we pay for, like, I want them
+1200560	1204540	to be able to just generate images and have credits and buy it right from us.
+1204540	1208660	But on, in the meantime, like, I don't want to set all that up and I want to use it.
+1208660	1213880	So I just want to be able to dynamically store an API key and just use other systems.
+1213880	1216120	And I think that's kind of always going to be a thing, right?
+1216120	1220780	Because if I plug my Claude API in, like, it's going to take for my own Claude.
+1220780	1227180	And, you know, because we want it to be able to plug in, um, you know, I think in all phase
+1227180	1233000	ones, we're plugging into outstanding services and then slowly but surely we bring them in
+1233000	1233360	house.
+1233900	1236640	You know, I think image generation would be the easiest one.
+1236840	1240800	You know, you can't just, you know, image generation is in no way free.
+1241040	1242860	So people have to pay for it.
+1242960	1247280	They're going to have to manage their own credits, but it makes it a lot easier if you just plug
+1247280	1251380	an API key and you manage it all in separate places for someone like me.
+1251480	1253640	But the average user is not going to want to do all that.
+1253720	1256380	Like, even the idea of an API key would scare them.
+1256560	1259980	So again, um, I'm putting this in your hands.
+1260560	1263460	Um, I want you to work really fast on this.
+1264320	1267100	You know, don't, don't take like an hour break.
+1267120	1269660	Like, I feel like we should always have little things working.
+1270240	1275660	Um, again, with, you know, this is going to be a longer roadmap, but honestly, I think I
+1275660	1282120	gave you everything I need here, uh, to, to like, you shouldn't need a lot of my help.
+1282180	1284600	You should only be just updating on my progress.
+1285240	1292480	Um, and, uh, and again, like I'm leaving this up to you.
+1292480	1294260	Like you're the super intelligence.
+1295020	1296680	Uh, let's build this app together.
