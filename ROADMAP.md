@@ -16,18 +16,35 @@ yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch re
 
 Short version: chat first, screens on demand, many agents in one app, Chris's own Hermes fleet is customer zero.
 
-## The core bet, and the one design decision that everything hangs on
+## The core bet: presets and settings, not generated UI code
 
-The agent should not write raw HTML or code into the app. It should emit a small declarative document (JSON) that references a fixed catalog of Yui components: `timer`, `list`, `form`, `choice`, `table`, `chart`, `image`, `card`, `button`, `stack`, `tabs`. The app renders it natively, with the agent's theme applied.
+Chris, Sep 23: optimize for speed. The UI should work like settings. The agent picks a preset and fills in a few parameters. It never writes HTML, and even JSON is too heavy.
 
-Why:
+- **Presets carry the weight.** The app ships prebuilt presets: `timer`, `ask`, `choose`, `pick`, `slide`, `form`, `list`, `table`, `card`, `image`, `camera`, `mic`, `chart`. Each already has its layout, animation, big tap targets, and one primary call to action. Target: presets alone deliver 80% of the value at launch.
+- **Yui Lines (YL) is the wire format.** One line per component: preset name plus terse positional args, defaults for everything else. No braces, no quoted keys. The app renders each line the moment it arrives.
+  ```
+  timer 40/20x8 Tabata                  # 40s work, 20s rest, 8 rounds
+  ask "Log this set?"                   # yes/no by default
+  choose "Split?" Push|Pull|Legs +other # single choice + type your own
+  pick "Gear" DB|Bench|Bands            # multi-select
+  slide "AI experience" 1-5
+  form name:text goal:voice level:1-5
+  list Today "Squat 5x5 225" "Bench 5x5 185"
+  table meals                           # bound to an agent data table
+  >2 timer 60                           # send to screen 2
+  ~timer rounds=10                      # patch a live component, no re-send
+  save workout / show workout           # named screens, reopened in two tokens
+  ```
+  Estimate: the Tabata timer is about 8 tokens in YL versus 60+ as a JSON document. Phase 1 measures this with a real tokenizer.
+- **The skill is the cheatsheet.** The Hermes skill is about 40 lines listing every preset and its args, so each agent carries the whole vocabulary for a few hundred tokens.
+- **Escape hatch, then promotion.** `custom {json}` covers the long tail. Every custom use is logged. Patterns that repeat get promoted to presets. That is the flywheel that grows the 80% toward 95%.
 
-1. App Store. Apps that download and run new executable code get rejected (guideline 2.5.2). Rendering a data document against a fixed native component set is the pattern Apple accepts. This protects Chris's "one app approved on the App Store" point.
-2. Speed. A JSON spec streams and renders in under a second. Generating HTML/CSS/JS per screen is slow, which Chris already flagged ("I know it might be a little slow").
-3. Quality. UX rules (one primary call to action, big tap targets, animation in and out) live in the components, not in every prompt.
-4. Portability. The same spec renders in the app, on the web tracker site, and degrades to Telegram buttons.
+Why this over generated code:
 
-This spec is the **Yui UI Protocol**. It ships with a Hermes skill that teaches any agent how to write it, which is exactly the "skill of some type to tell the agent how to generate the UI" from the pitch. An escape hatch (a sandboxed web view for truly custom one-offs) can come later if the catalog proves too tight.
+1. App Store. Apps that download and run new executable code get rejected (guideline 2.5.2). Rendering data against a fixed native preset set is the pattern Apple accepts.
+2. Speed. No codegen, no build. A screen costs one short line of output and renders instantly.
+3. Quality. UX rules live in the presets, not in every prompt, so an agent cannot produce a bad layout.
+4. Portability. The same line renders in the app, on the web tracker, and degrades to Telegram buttons (`ask` and `choose` map straight to inline keyboards).
 
 ## Stack recommendation: React Native (Expo) now, Swift modules where native wins
 
@@ -173,6 +190,6 @@ Chris mentioned a new Cloudflare deploy-anywhere agent he thinks is called "Flue
 ## Next actions (proposed cards, not yet created)
 
 - Vercel tracker site with roadmap, summary and mockups (urza).
-- Yui UI Protocol v0 spec and JSON schema (urza).
+- Yui Lines v0 grammar, 12 presets, web playground, token benchmark vs JSON (urza).
 - Telegram inline-keyboard buttons for Hermes yes/no and multiple-choice asks (urza, infra).
 - Research: Cloudflare "Flue", Agents SDK pricing, Telegram Mini Apps limits (urza).
