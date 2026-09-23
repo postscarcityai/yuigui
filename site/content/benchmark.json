@@ -1,0 +1,367 @@
+{
+  "generated": "2026-09-23T21:48:01.246Z",
+  "tokenizers": {
+    "o200k": "o200k_base via js-tiktoken (GPT-4o / GPT-5 family)",
+    "cl100k": "cl100k_base via js-tiktoken (GPT-4 / GPT-3.5)",
+    "claude": "@anthropic-ai/tokenizer (Anthropic's published legacy Claude tokenizer; current Claude models are not public offline)"
+  },
+  "rows": [
+    {
+      "n": 1,
+      "name": "Tabata timer",
+      "components": 1,
+      "counts": {
+        "yl": {
+          "chars": 20,
+          "o200k": 9,
+          "cl100k": 9,
+          "claude": 8
+        },
+        "min": {
+          "chars": 66,
+          "o200k": 25,
+          "cl100k": 25,
+          "claude": 23
+        },
+        "pretty": {
+          "chars": 103,
+          "o200k": 43,
+          "cl100k": 43,
+          "claude": 40
+        },
+        "tree": {
+          "chars": 262,
+          "o200k": 75,
+          "cl100k": 75,
+          "claude": 72
+        }
+      },
+      "yl": "timer 40/20x8 Tabata",
+      "min": "[{\"type\":\"timer\",\"work\":40,\"rest\":20,\"rounds\":8,\"label\":\"Tabata\"}]"
+    },
+    {
+      "n": 2,
+      "name": "Log a set",
+      "components": 2,
+      "counts": {
+        "yl": {
+          "chars": 69,
+          "o200k": 24,
+          "cl100k": 24,
+          "claude": 22
+        },
+        "min": {
+          "chars": 104,
+          "o200k": 36,
+          "cl100k": 36,
+          "claude": 33
+        },
+        "pretty": {
+          "chars": 141,
+          "o200k": 54,
+          "cl100k": 54,
+          "claude": 52
+        },
+        "tree": {
+          "chars": 335,
+          "o200k": 93,
+          "cl100k": 93,
+          "claude": 91
+        }
+      },
+      "yl": "say \"Set 3 done. 225 x 5, bar speed looked good.\"\nask \"Log this set?\"",
+      "min": "[{\"type\":\"say\",\"text\":\"Set 3 done. 225 x 5, bar speed looked good.\"},{\"type\":\"ask\",\"q\":\"Log this set?\"}]"
+    },
+    {
+      "n": 3,
+      "name": "Pick a split",
+      "components": 1,
+      "counts": {
+        "yl": {
+          "chars": 58,
+          "o200k": 16,
+          "cl100k": 16,
+          "claude": 16
+        },
+        "min": {
+          "chars": 99,
+          "o200k": 29,
+          "cl100k": 28,
+          "claude": 28
+        },
+        "pretty": {
+          "chars": 156,
+          "o200k": 50,
+          "cl100k": 50,
+          "claude": 50
+        },
+        "tree": {
+          "chars": 339,
+          "o200k": 82,
+          "cl100k": 82,
+          "claude": 82
+        }
+      },
+      "yl": "choose \"What are we training today?\" Push|Pull|Legs +other",
+      "min": "[{\"type\":\"choose\",\"options\":[\"Push\",\"Pull\",\"Legs\"],\"q\":\"What are we training today?\",\"other\":true}]"
+    },
+    {
+      "n": 4,
+      "name": "Gear check",
+      "components": 1,
+      "counts": {
+        "yl": {
+          "chars": 83,
+          "o200k": 25,
+          "cl100k": 28,
+          "claude": 30
+        },
+        "min": {
+          "chars": 126,
+          "o200k": 39,
+          "cl100k": 40,
+          "claude": 41
+        },
+        "pretty": {
+          "chars": 197,
+          "o200k": 64,
+          "cl100k": 66,
+          "claude": 67
+        },
+        "tree": {
+          "chars": 396,
+          "o200k": 96,
+          "cl100k": 98,
+          "claude": 99
+        }
+      },
+      "yl": "pick \"What gear do you have?\" Dumbbells|Bench|Bands|\"Pull-up bar\"|Kettlebell +other",
+      "min": "[{\"type\":\"pick\",\"options\":[\"Dumbbells\",\"Bench\",\"Bands\",\"Pull-up bar\",\"Kettlebell\"],\"q\":\"What gear do you have?\",\"other\":true}]"
+    },
+    {
+      "n": 5,
+      "name": "Onboarding",
+      "components": 3,
+      "counts": {
+        "yl": {
+          "chars": 158,
+          "o200k": 47,
+          "cl100k": 47,
+          "claude": 49
+        },
+        "min": {
+          "chars": 296,
+          "o200k": 86,
+          "cl100k": 85,
+          "claude": 86
+        },
+        "pretty": {
+          "chars": 464,
+          "o200k": 151,
+          "cl100k": 151,
+          "claude": 149
+        },
+        "tree": {
+          "chars": 837,
+          "o200k": 197,
+          "cl100k": 197,
+          "claude": 195
+        }
+      },
+      "yl": "say \"Nice to meet you. A couple of quick ones.\"\nform name:text! goal:voice submit=\"Next\"\nslide \"How much do you know about AI?\" 1-5 \"Brand new\"|\"I run agents\"",
+      "min": "[{\"type\":\"say\",\"text\":\"Nice to meet you. A couple of quick ones.\"},{\"type\":\"form\",\"fields\":[{\"key\":\"name\",\"type\":\"text\",\"required\":true},{\"key\":\"goal\",\"type\":\"voice\"}],\"submit\":\"Next\"},{\"type\":\"slide\",\"min\":1,\"max\":5,\"lo\":\"Brand new\",\"hi\":\"I run agents\",\"label\":\"How much do you know about AI?\"}]"
+    },
+    {
+      "n": 6,
+      "name": "Today's workout",
+      "components": 2,
+      "counts": {
+        "yl": {
+          "chars": 108,
+          "o200k": 50,
+          "cl100k": 51,
+          "claude": 44
+        },
+        "min": {
+          "chars": 183,
+          "o200k": 69,
+          "cl100k": 69,
+          "claude": 62
+        },
+        "pretty": {
+          "chars": 277,
+          "o200k": 108,
+          "cl100k": 109,
+          "claude": 101
+        },
+        "tree": {
+          "chars": 575,
+          "o200k": 158,
+          "cl100k": 159,
+          "claude": 152
+        }
+      },
+      "yl": "list Today \"Back squat 5x5 @ 225\" \"Bench 5x5 @ 185\" \"Barbell row 3x10\" \"Plank 3x60s\" +check\n>2 timer 90 Rest",
+      "min": "[{\"type\":\"list\",\"items\":[\"Back squat 5x5 @ 225\",\"Bench 5x5 @ 185\",\"Barbell row 3x10\",\"Plank 3x60s\"],\"title\":\"Today\",\"check\":true},{\"type\":\"timer\",\"screen\":2,\"work\":90,\"label\":\"Rest\"}]"
+    },
+    {
+      "n": 7,
+      "name": "Meal photo log",
+      "components": 2,
+      "counts": {
+        "yl": {
+          "chars": 36,
+          "o200k": 8,
+          "cl100k": 8,
+          "claude": 9
+        },
+        "min": {
+          "chars": 78,
+          "o200k": 22,
+          "cl100k": 22,
+          "claude": 22
+        },
+        "pretty": {
+          "chars": 115,
+          "o200k": 41,
+          "cl100k": 41,
+          "claude": 42
+        },
+        "tree": {
+          "chars": 309,
+          "o200k": 80,
+          "cl100k": 80,
+          "claude": 81
+        }
+      },
+      "yl": "camera \"Snap your plate\"\ntable meals",
+      "min": "[{\"type\":\"camera\",\"prompt\":\"Snap your plate\"},{\"type\":\"table\",\"name\":\"meals\"}]"
+    },
+    {
+      "n": 8,
+      "name": "Macros so far",
+      "components": 2,
+      "counts": {
+        "yl": {
+          "chars": 149,
+          "o200k": 57,
+          "cl100k": 59,
+          "claude": 57
+        },
+        "min": {
+          "chars": 238,
+          "o200k": 82,
+          "cl100k": 85,
+          "claude": 82
+        },
+        "pretty": {
+          "chars": 506,
+          "o200k": 163,
+          "cl100k": 167,
+          "claude": 148
+        },
+        "tree": {
+          "chars": 948,
+          "o200k": 202,
+          "cl100k": 206,
+          "claude": 187
+        }
+      },
+      "yl": "table Macros Food|Cal|Protein \"Eggs|140|12\" \"Oats|300|10\" \"Chicken|280|53\" \"Greek yogurt|150|20\"\nslide \"Protein left today (g)\" 0-200 value=85 step=5",
+      "min": "[{\"type\":\"table\",\"rows\":[[\"Eggs\",140,12],[\"Oats\",300,10],[\"Chicken\",280,53],[\"Greek yogurt\",150,20]],\"name\":\"Macros\",\"cols\":[\"Food\",\"Cal\",\"Protein\"]},{\"type\":\"slide\",\"min\":0,\"max\":200,\"label\":\"Protein left today (g)\",\"value\":85,\"step\":5}]"
+    },
+    {
+      "n": 9,
+      "name": "Book a client call",
+      "components": 3,
+      "counts": {
+        "yl": {
+          "chars": 140,
+          "o200k": 46,
+          "cl100k": 46,
+          "claude": 47
+        },
+        "min": {
+          "chars": 220,
+          "o200k": 65,
+          "cl100k": 63,
+          "claude": 63
+        },
+        "pretty": {
+          "chars": 331,
+          "o200k": 111,
+          "cl100k": 111,
+          "claude": 111
+        },
+        "tree": {
+          "chars": 656,
+          "o200k": 157,
+          "cl100k": 157,
+          "claude": 157
+        }
+      },
+      "yl": "say \"Thursday works. Which slot?\"\nchoose \"Client call, Thursday\" \"3:00 pm\"|\"4:00 pm\" +other\nask \"Send the invite now?\" \"Yes, send\"|\"Not yet\"",
+      "min": "[{\"type\":\"say\",\"text\":\"Thursday works. Which slot?\"},{\"type\":\"choose\",\"options\":[\"3:00 pm\",\"4:00 pm\"],\"q\":\"Client call, Thursday\",\"other\":true},{\"type\":\"ask\",\"options\":[\"Yes, send\",\"Not yet\"],\"q\":\"Send the invite now?\"}]"
+    },
+    {
+      "n": 10,
+      "name": "Leg day card + voice log",
+      "components": 3,
+      "counts": {
+        "yl": {
+          "chars": 185,
+          "o200k": 56,
+          "cl100k": 57,
+          "claude": 59
+        },
+        "min": {
+          "chars": 272,
+          "o200k": 77,
+          "cl100k": 76,
+          "claude": 82
+        },
+        "pretty": {
+          "chars": 357,
+          "o200k": 119,
+          "cl100k": 120,
+          "claude": 122
+        },
+        "tree": {
+          "chars": 650,
+          "o200k": 165,
+          "cl100k": 166,
+          "claude": 168
+        }
+      },
+      "yl": "card \"Leg day\" \"Squat, RDL, walking lunges. About 45 minutes.\" sub=\"Thursday\" img=/yl/legday.svg cta=\"Start workout\"\nimage /yl/meal.svg Last night's dinner\nmic \"What did you eat today?\"",
+      "min": "[{\"type\":\"card\",\"title\":\"Leg day\",\"body\":\"Squat, RDL, walking lunges. About 45 minutes.\",\"sub\":\"Thursday\",\"img\":\"/yl/legday.svg\",\"cta\":\"Start workout\"},{\"type\":\"image\",\"src\":\"/yl/meal.svg\",\"caption\":\"Last night's dinner\"},{\"type\":\"mic\",\"prompt\":\"What did you eat today?\"}]"
+    }
+  ],
+  "totals": {
+    "yl": {
+      "chars": 1006,
+      "o200k": 338,
+      "cl100k": 345,
+      "claude": 341
+    },
+    "min": {
+      "chars": 1682,
+      "o200k": 530,
+      "cl100k": 529,
+      "claude": 522
+    },
+    "pretty": {
+      "chars": 2647,
+      "o200k": 904,
+      "cl100k": 912,
+      "claude": 882
+    },
+    "tree": {
+      "chars": 5307,
+      "o200k": 1305,
+      "cl100k": 1313,
+      "claude": 1284
+    }
+  },
+  "sampleTree": "{\n  \"screens\": [\n    {\n      \"id\": \"1\",\n      \"children\": [\n        {\n          \"type\": \"Timer\",\n          \"props\": {\n            \"work\": 40,\n            \"rest\": 20,\n            \"rounds\": 8,\n            \"label\": \"Tabata\"\n          }\n        }\n      ]\n    }\n  ]\n}"
+}

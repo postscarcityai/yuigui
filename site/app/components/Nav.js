@@ -7,6 +7,8 @@ const links = [
   ["/plan", "Plan"],
   ["/deck", "Deck"],
   ["/mockups", "Mockups"],
+  ["/playground", "Playground"],
+  ["/yl", "YL spec"],
 ];
 
 export default function Nav() {

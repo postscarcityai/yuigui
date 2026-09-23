@@ -1,0 +1,7 @@
+{
+  "name": "yui-bench",
+  "private": true,
+  "type": "module",
+  "scripts": { "bench": "node bench.mjs", "test": "node --test test.mjs" },
+  "dependencies": { "@anthropic-ai/tokenizer": "^0.0.4", "js-tiktoken": "^1.0.21" }
+}

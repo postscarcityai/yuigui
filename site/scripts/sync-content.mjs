@@ -1,6 +1,8 @@
-// Copies ../ROADMAP.md into content/ so Vercel (which only uploads site/) can read it.
+// Copies files from the repo root into content/ so Vercel (which only uploads site/) can read them.
 import { copyFileSync, existsSync } from "node:fs";
-const src = new URL("../../ROADMAP.md", import.meta.url);
-const dst = new URL("../content/ROADMAP.md", import.meta.url);
-if (existsSync(src)) { copyFileSync(src, dst); console.log("synced ROADMAP.md"); }
-else console.log("ROADMAP.md not found above site/, using committed copy");
+for (const [from, to] of [["../../ROADMAP.md", "ROADMAP.md"], ["../../spec/YL.md", "YL.md"]]) {
+  const src = new URL(from, import.meta.url);
+  const dst = new URL(`../content/${to}`, import.meta.url);
+  if (existsSync(src)) { copyFileSync(src, dst); console.log(`synced ${to}`); }
+  else console.log(`${from} not found, using committed copy`);
+}

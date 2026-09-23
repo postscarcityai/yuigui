@@ -1,0 +1,479 @@
+// Yui Lines (YL) v0 parser. Spec: ~/dev/yui/spec/YL.md
+// Pure, dependency free. Used by the playground, the benchmark and the tests.
+//
+// One line in, one op out. Ops:
+//   { op: "add",   screen, preset, id, props, line }
+//   { op: "patch", screen, target, props, line }
+//   { op: "save",  screen, name, line }       save the screen under a name
+//   { op: "show",  screen, name, line }       restore a saved screen
+//   { op: "clear", screen, line }
+//   { op: "focus", screen, line }             bare ">2": later lines go to screen 2
+//   { op: "error", screen, message, line }
+// `props` holds only what the line actually said. Defaults live in resolve().
+
+export const PRESETS = [
+  "timer", "ask", "choose", "pick", "slide", "form",
+  "list", "table", "card", "image", "camera", "mic",
+];
+// Not presets, but valid line heads.
+export const CORE = ["say", "custom", "save", "show", "clear"];
+
+const IDENT = /^[a-z_][\w-]*$/i;
+
+// ---------- tokenizer ----------
+
+// Splits a line into tokens. A token is a run of non-space characters in
+// which double-quoted segments may contain spaces. For each token we keep:
+//   raw     the exact source text
+//   text    the text with quotes removed
+//   quoted  true when the whole token was one quoted string
+//   parts   segments split on "|" outside quotes (null when there is no "|")
+//   key     set when the token is key=value (key must be an identifier)
+//   value   the unquoted text after "=", or its parts when it has "|"
+export function tokenize(line) {
+  const tokens = [];
+  let i = 0;
+  const n = line.length;
+  while (i < n) {
+    while (i < n && /\s/.test(line[i])) i++;
+    if (i >= n) break;
+    // Comment: a "#" that starts a token and is followed by space or EOL.
+    if (line[i] === "#" && (i + 1 >= n || /\s/.test(line[i + 1]))) break;
+    const start = i;
+    let segs = [""];
+    let anyQuote = false;
+    let wholeQuoted = line[i] === '"';
+    let eqAt = -1; // index into segs[0] text where "=" appeared, outside quotes
+    while (i < n && !/\s/.test(line[i])) {
+      const c = line[i];
+      if (c === '"') {
+        anyQuote = true;
+        i++;
+        while (i < n && line[i] !== '"') {
+          if (line[i] === "\\" && i + 1 < n) { segs[segs.length - 1] += line[i + 1]; i += 2; continue; }
+          segs[segs.length - 1] += line[i++];
+        }
+        i++; // closing quote (or EOL for an unterminated string)
+        if (i < n && !/\s/.test(line[i])) wholeQuoted = false;
+        continue;
+      }
+      if (c === "|") { segs.push(""); wholeQuoted = false; i++; continue; }
+      if (c === "=" && eqAt < 0 && segs.length === 1 && !anyQuote && IDENT.test(segs[0])) {
+        eqAt = segs[0].length;
+      }
+      segs[segs.length - 1] += c;
+      i++;
+    }
+    const raw = line.slice(start, i);
+    const t = { raw, text: segs.join("|"), quoted: wholeQuoted && segs.length === 1, parts: segs.length > 1 ? segs : null };
+    if (eqAt >= 0) {
+      t.key = segs[0].slice(0, eqAt);
+      const first = segs[0].slice(eqAt + 1);
+      const vparts = [first, ...segs.slice(1)];
+      t.value = vparts.length > 1 ? vparts : first;
+      t.parts = null;
+    }
+    tokens.push(t);
+  }
+  return tokens;
+}
+
+// Strips a trailing comment and returns the JSON text after "custom".
+function afterHead(line, head) {
+  const at = line.indexOf(head);
+  return line.slice(at + head.length).trim();
+}
+
+// ---------- value helpers ----------
+
+const NUM = /^-?\d+(\.\d+)?$/;
+const RANGE = /^(-?\d+(?:\.\d+)?)-(-?\d+(?:\.\d+)?)$/;
+const DUR = "(\\d+(?::\\d{1,2})?(?:\\.\\d+)?[smh]?)";
+const TIMESPEC = new RegExp(`^${DUR}(?:\\/${DUR})?(?:x(\\d+))?$`);
+
+export function seconds(s) {
+  if (s == null) return undefined;
+  const m = String(s).match(/^(\d+)(?::(\d{1,2}))?(\.\d+)?([smh]?)$/);
+  if (!m) return undefined;
+  if (m[2] != null) return Number(m[1]) * 60 + Number(m[2]);
+  const v = Number(m[1] + (m[3] || ""));
+  return m[4] === "m" ? v * 60 : m[4] === "h" ? v * 3600 : v;
+}
+
+function coerce(v) {
+  if (Array.isArray(v)) return v.map(coerce);
+  if (NUM.test(v)) return Number(v);
+  if (v === "on" || v === "true") return true;
+  if (v === "off" || v === "false") return false;
+  return v;
+}
+
+// Splits tokens into key/values, +flags and positionals.
+function split(tokens) {
+  const kv = {};
+  const flags = {};
+  const pos = [];
+  for (const t of tokens) {
+    if (t.key) kv[t.key] = coerce(t.value);
+    else if (!t.quoted && !t.parts && /^\+[a-z][\w-]*$/i.test(t.raw)) flags[t.raw.slice(1)] = true;
+    else pos.push(t);
+  }
+  return { kv, flags, pos };
+}
+
+const joinText = (toks) => toks.map((t) => t.text).join(" ");
+const clean = (o) => { for (const k of Object.keys(o)) if (o[k] === undefined || (Array.isArray(o[k]) && !o[k].length)) delete o[k]; return o; };
+
+// ---------- presets ----------
+// Each takes positionals and returns explicit props. Key/values and flags are
+// merged on top by parseArgs, so any prop can also be set as key=value.
+
+const P = {
+  timer(pos) {
+    const o = {};
+    const rest = [];
+    for (const t of pos) {
+      const m = !t.quoted && o.work === undefined && t.text.match(TIMESPEC);
+      if (m) {
+        o.work = seconds(m[1]);
+        if (m[2]) o.rest = seconds(m[2]);
+        if (m[3]) o.rounds = Number(m[3]);
+      } else rest.push(t);
+    }
+    if (rest.length) o.label = joinText(rest);
+    return o;
+  },
+
+  ask(pos) {
+    const o = {};
+    const q = [];
+    for (const t of pos) {
+      if (t.parts && !o.options) o.options = t.parts;
+      else q.push(t);
+    }
+    if (q.length) o.q = joinText(q);
+    return o;
+  },
+
+  choose(pos) { return P.ask(pos); },
+  pick(pos) { return P.ask(pos); },
+
+  slide(pos) {
+    const o = {};
+    const label = [];
+    for (const t of pos) {
+      const m = !t.quoted && o.min === undefined && t.text.match(RANGE);
+      if (m) { o.min = Number(m[1]); o.max = Number(m[2]); }
+      else if (t.parts && t.parts.length === 2 && !o.lo) { o.lo = t.parts[0]; o.hi = t.parts[1]; }
+      else label.push(t);
+    }
+    if (label.length) o.label = joinText(label);
+    return o;
+  },
+
+  form(pos) {
+    const o = { fields: [] };
+    const title = [];
+    for (const t of pos) {
+      const f = field(t);
+      if (f) o.fields.push(f);
+      else title.push(t);
+    }
+    if (title.length) o.title = joinText(title);
+    return o;
+  },
+
+  list(pos) {
+    const o = { items: [] };
+    for (const t of pos) {
+      if (o.title === undefined && !o.items.length && !t.quoted && !t.parts) { o.title = t.text; continue; }
+      if (t.parts) o.items.push(...t.parts);
+      else o.items.push(t.text);
+    }
+    return o;
+  },
+
+  table(pos) {
+    const o = { rows: [] };
+    for (const t of pos) {
+      if (o.name === undefined && !o.cols && !t.parts && !t.quoted) { o.name = t.text; continue; }
+      const cells = t.parts || (t.text.includes("|") ? t.text.split("|") : [t.text]);
+      if (!o.cols) o.cols = cells;
+      else o.rows.push(cells.map(coerce));
+    }
+    return o;
+  },
+
+  card(pos) {
+    const o = {};
+    if (pos[0]) o.title = pos[0].text;
+    if (pos.length > 1) o.body = joinText(pos.slice(1));
+    return o;
+  },
+
+  image(pos) {
+    const o = {};
+    const cap = [];
+    for (const t of pos) {
+      if (!o.src && /^(https?:\/\/|\/|data:)/.test(t.text)) o.src = t.text;
+      else cap.push(t);
+    }
+    if (cap.length) o[o.src ? "caption" : "prompt"] = joinText(cap);
+    return o;
+  },
+
+  camera(pos) {
+    const o = {};
+    const q = [];
+    for (const t of pos) {
+      if (!t.quoted && (t.text === "front" || t.text === "back")) o.facing = t.text;
+      else q.push(t);
+    }
+    if (q.length) o.prompt = joinText(q);
+    return o;
+  },
+
+  mic(pos) {
+    const o = {};
+    if (pos.length) o.prompt = joinText(pos);
+    return o;
+  },
+
+  say(pos) { return { text: joinText(pos) }; },
+};
+
+// Form field token: key:type, "Label":type, optional trailing "!" = required.
+// A bare identifier is a text field.
+const FIELD = /^(?:"((?:[^"\\]|\\.)*)"|([a-z_][\w-]*))(?::(.+?))?(!)?$/i;
+const FIELD_TYPES = new Set(["text", "long", "voice", "number", "email", "phone", "date", "time", "yes", "photo", "url"]);
+
+function field(t) {
+  if (t.quoted) return null; // a quoted token alone is the form title
+  const m = t.raw.match(FIELD);
+  if (!m) return null;
+  const label = m[1] != null ? m[1].replace(/\\(.)/g, "$1") : null;
+  const key = m[2] || slug(label);
+  let type = m[3];
+  if (type === undefined && label !== null) return null; // "Title" without a type
+  const f = { key };
+  if (label) f.label = label;
+  if (type) {
+    const r = type.match(RANGE);
+    if (r) { f.type = "range"; f.min = Number(r[1]); f.max = Number(r[2]); }
+    else if (type.includes("|")) { f.type = "choice"; f.options = type.split("|").map((s) => s.replace(/^"|"$/g, "")); }
+    else if (FIELD_TYPES.has(type)) f.type = type;
+    else return null;
+  }
+  if (m[4]) f.required = true;
+  return f;
+}
+
+const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, "");
+
+export function parseArgs(preset, tokens) {
+  const { kv, flags, pos } = split(tokens);
+  const fn = P[preset];
+  const base = fn ? fn(pos) : {};
+  return clean({ ...base, ...flags, ...kv });
+}
+
+// ---------- line parser ----------
+
+// Stateful: remembers the focused screen and which preset each id belongs to,
+// so "~hiit rounds=10" knows to parse its args as a timer.
+export class Parser {
+  constructor() {
+    this.screen = "1";
+    this.ids = new Map(); // id -> preset
+    this.auto = 0;
+  }
+
+  line(src) {
+    const line = src.replace(/\r$/, "");
+    let body = line.trim();
+    if (!body || /^#(\s|$)/.test(body)) return null;
+
+    let screen = this.screen;
+    const route = body.match(/^>([\w-]+)(?:\s+|$)/);
+    if (route) {
+      screen = route[1];
+      body = body.slice(route[0].length);
+      if (!body || /^#(\s|$)/.test(body)) { this.screen = screen; return { op: "focus", screen, line }; }
+    }
+
+    // custom {json}: the rest of the line is JSON, not YL tokens.
+    const cm = body.match(/^custom(?:@([\w-]+))?\s+(.*)$/);
+    if (cm) {
+      try {
+        const spec = JSON.parse(cm[2]);
+        const id = cm[1] || `c${++this.auto}`;
+        this.ids.set(id, "custom");
+        return { op: "add", screen, preset: "custom", id, props: { spec }, line };
+      } catch (e) {
+        return { op: "error", screen, message: `custom: bad JSON (${e.message})`, line };
+      }
+    }
+
+    const tokens = tokenize(body);
+    if (!tokens.length) return null;
+    const head = tokens.shift().raw;
+
+    if (head.startsWith("~")) {
+      const target = head.slice(1);
+      const preset = PRESETS.includes(target) || target === "say" ? target : this.ids.get(target);
+      if (!preset) return { op: "error", screen, message: `patch: nothing called "${target}"`, line };
+      if (preset === "custom") return { op: "error", screen, message: "patch: custom blocks are replaced, not patched", line };
+      return { op: "patch", screen, target, props: parseArgs(preset, tokens), line };
+    }
+
+    if (head === "save" || head === "show") {
+      const name = tokens[0] && tokens[0].text;
+      if (!name) return { op: "error", screen, message: `${head}: needs a name`, line };
+      return { op: head, screen, name, line };
+    }
+    if (head === "clear") return { op: "clear", screen, line };
+
+    const hm = head.match(/^([a-z]+)(?:@([\w-]+))?$/);
+    if (!hm || !(PRESETS.includes(hm[1]) || hm[1] === "say")) {
+      return { op: "error", screen, message: `unknown preset "${head}"`, line };
+    }
+    const preset = hm[1];
+    const id = hm[2] || `n${++this.auto}`;
+    this.ids.set(id, preset);
+    return { op: "add", screen, preset, id, props: parseArgs(preset, tokens), line };
+  }
+}
+
+// Parse a whole document at once.
+export function parse(text) {
+  const p = new Parser();
+  return text.split("\n").map((l) => p.line(l)).filter(Boolean);
+}
+
+// Streaming: feed chunks as they arrive, get ops for every completed line.
+// Lines render the moment their newline lands; flush() finishes the tail.
+export class StreamParser {
+  constructor() { this.buf = ""; this.p = new Parser(); }
+  push(chunk) {
+    this.buf += chunk;
+    const out = [];
+    let nl;
+    while ((nl = this.buf.indexOf("\n")) >= 0) {
+      const op = this.p.line(this.buf.slice(0, nl));
+      this.buf = this.buf.slice(nl + 1);
+      if (op) out.push(op);
+    }
+    return out;
+  }
+  flush() {
+    const rest = this.buf;
+    this.buf = "";
+    const op = rest.trim() ? this.p.line(rest) : null;
+    return op ? [op] : [];
+  }
+}
+
+// ---------- defaults ----------
+
+export function resolve(preset, props) {
+  const p = { ...props };
+  switch (preset) {
+    case "timer":
+      return { work: 60, rest: 0, rounds: 1, label: "", up: false, auto: false, sound: true, ...p };
+    case "ask":
+      return { q: "Continue?", options: ["Yes", "No"], ...p };
+    case "choose":
+    case "pick":
+      return { q: "", options: [], other: false, ...(preset === "pick" ? { submit: "Done" } : {}), ...p };
+    case "slide": {
+      const r = { label: "", min: 1, max: 5, step: 1, ...p };
+      if (r.value === undefined) r.value = Math.round((r.min + r.max) / 2);
+      return r;
+    }
+    case "form":
+      return { title: "", fields: [], submit: "Submit", ...p };
+    case "list":
+      return { title: "", items: [], check: false, num: false, ...p };
+    case "table":
+      return { name: "", cols: null, rows: [], ...p };
+    case "card":
+      return { title: "", body: "", ...p };
+    case "image":
+      return { fit: "cover", ...p };
+    case "camera":
+      return { prompt: "Take a photo", facing: "back", scan: false, ...p };
+    case "mic":
+      return { prompt: "Tap and talk", auto: false, ...p };
+    default:
+      return p;
+  }
+}
+
+// ---------- screen state ----------
+// Reduces ops into screens. Components keep their key across patches so a
+// live timer keeps ticking when "~timer rounds=10" lands.
+
+export function initialState() {
+  return { focus: "1", screens: { "1": [] }, saved: {}, errors: [], customs: [] };
+}
+
+export function apply(state, op) {
+  const s = { ...state, screens: { ...state.screens } };
+  const scr = (k) => (s.screens[k] = s.screens[k] ? [...s.screens[k]] : []);
+  switch (op.op) {
+    case "focus":
+      s.focus = op.screen; scr(op.screen); break;
+    case "add":
+      s.seq = (s.seq || 0) + 1;
+      scr(op.screen).push({ key: `${op.id}`, id: op.id, preset: op.preset, props: op.props, seq: s.seq });
+      if (op.preset === "custom") s.customs = [...s.customs, op.line.trim()];
+      s.focus = op.screen;
+      break;
+    case "patch": {
+      // Newest matching component on any screen wins.
+      let hit = null;
+      for (const [k, list] of Object.entries(s.screens)) {
+        list.forEach((c, i) => {
+          if ((c.id === op.target || c.preset === op.target) && (!hit || c.seq > hit.c.seq)) hit = { k, i, c };
+        });
+      }
+      if (hit) {
+        const next = [...s.screens[hit.k]];
+        next[hit.i] = { ...hit.c, props: { ...hit.c.props, ...op.props } };
+        s.screens[hit.k] = next;
+      } else s.errors = [...s.errors, `patch: no live "${op.target}" on screen`];
+      break;
+    }
+    case "save":
+      s.saved = { ...s.saved, [op.name]: s.screens[op.screen] || [] }; break;
+    case "show":
+      if (s.saved[op.name]) { s.screens[op.screen] = s.saved[op.name]; s.focus = op.screen; }
+      else s.errors = [...s.errors, `show: no saved screen "${op.name}"`];
+      break;
+    case "clear":
+      s.screens[op.screen] = []; break;
+    case "error":
+      s.errors = [...s.errors, `${op.message}: ${op.line.trim()}`]; break;
+  }
+  return s;
+}
+
+// ---------- JSON equivalent (for the benchmark) ----------
+// The same information as the YL, as the JSON an agent would otherwise emit.
+// Only explicit props, so JSON gets the same defaults YL does.
+export function toJSON(ops) {
+  return ops.map((o) => {
+    const scr = o.screen !== "1" ? { screen: isNaN(o.screen) ? o.screen : Number(o.screen) } : {};
+    switch (o.op) {
+      case "add":
+        if (o.preset === "custom") return { type: "custom", ...scr, spec: o.props.spec };
+        return { type: o.preset, ...(/^n\d+$/.test(o.id) ? {} : { id: o.id }), ...scr, ...o.props };
+      case "patch": return { patch: o.target, ...scr, ...o.props };
+      case "save": return { save: o.name, ...scr };
+      case "show": return { show: o.name, ...scr };
+      case "clear": return { clear: true, ...scr };
+      case "focus": return { focus: Number(o.screen) || o.screen };
+      default: return { error: o.message };
+    }
+  });
+}

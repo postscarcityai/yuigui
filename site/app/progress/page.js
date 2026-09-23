@@ -4,6 +4,11 @@ export const metadata = { title: "Progress | Yui" };
 const log = [
   {
     date: "2026-09-23",
+    title: "Yui Lines v0: spec, 12 presets, playground, token benchmark",
+    body: "Agents now speak Yui Lines: one short line per component, no UI code, no JSON. Spec at /yl, live playground at /playground with all 12 presets (timer, ask, choose, pick, slide, form, list, table, card, image, camera, mic), line-by-line streaming, ~patch, >screen routing, save/show and the custom {json} escape hatch. Benchmark on 10 screens with real tokenizers: YL is 1.6x smaller than minified JSON, 2.7x smaller than pretty JSON, 3.9x smaller than a component-tree document.",
+  },
+  {
+    date: "2026-09-23",
     title: "Hub site live (Phase 0)",
     body: "This site: overview, roadmap, progress log, business plan draft, pitch deck, three phone mockups. Deployed to Vercel as project yui. yuigui.com not attached yet.",
   },
@@ -20,8 +25,8 @@ const log = [
 ];
 
 const phases = [
-  ["0", "Hub site on Vercel", "now"],
-  ["1", "UI protocol v0 + component kit + web playground", ""],
+  ["0", "Hub site on Vercel", "done"],
+  ["1", "Yui Lines v0 + 12 presets + web playground", "done"],
   ["2", "Relay + Hermes connector, Arnold first", ""],
   ["3", "Expo app on TestFlight", ""],
   ["4", "Onboarding interview + starter agents", ""],
@@ -39,7 +44,7 @@ export default function Progress() {
       <div className="grid">
         {phases.map(([n, t, s]) => (
           <div className="card" key={n}>
-            <span className={`pill ${s}`}>{s === "now" ? "In progress" : "Up next"}</span>
+            <span className={`pill ${s}`}>{s === "now" ? "In progress" : s === "done" ? "Shipped" : "Up next"}</span>
             <h3 style={{ marginTop: 10 }}>Phase {n}</h3>
             <p>{t}</p>
           </div>
