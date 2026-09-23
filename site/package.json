@@ -1,0 +1,17 @@
+{
+  "name": "yui-hub",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "sync": "node scripts/sync-content.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "marked": "^14.1.0",
+    "next": "^15.5.26",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  }
+}
