@@ -77,13 +77,15 @@ Goals: a place to watch the project, and the protocol written down before any ap
 Deliverables:
 - DONE Sep 23: hub site (roadmap, progress log, business plan draft, deck outline, mockups), source on GitHub at postscarcityai/yuigui.
 - DONE Sep 23: Yui Lines v0 (spec, 12 presets, JS parser, web playground, token benchmark). Replaces the JSON protocol from draft 1.
-- yuigui.com pointed at the hub site. Yui is built in public: the progress log updates as work ships, plus a weekly update.
+- DONE Sep 23: yuigui.com live, built in public (progress log per ship, weekly update Fridays).
+- DONE Sep 23: waitlist on yuigui.com, stored in `yui_waitlist` in the existing PostScarcity AI Supabase project (PROOF). All Yui tables use the `yui_` prefix there; no new Supabase instance.
+- DONE Sep 23: Apple Developer account (Chris, individual enrollment, no D-U-N-S).
 - Yui Lines conformance suite (the contract the Swift parser must pass), theme schema (colors, avatar, voice per agent), event schema (tap, submit, voice).
 - Full Xcode on the Mac mini and a TestFlight pipeline, so Phase 1 starts shipping on day one.
 - Clickable web mockups of the three canonical screens: chat, Arnold interval timer, nutrition photo log.
 - Telegram quick win for the current fleet: inline keyboard buttons for yes/no and multiple choice on Hermes questions. This fixes his top pain ("I just want a button") in days, not months, and doubles as the fallback path.
 
-Dependencies: DNS access for yuigui.com. Apple Developer account for the TestFlight pipeline.
+Dependencies: Xcode finishing its install on the Mac mini.
 
 ### Phase 1 | mid Oct to end Nov 2026: prototype app, one agent, one screen that matters
 
@@ -189,7 +191,7 @@ Chris mentioned a new Cloudflare deploy-anywhere agent he thinks is called "Flue
 
 1. ANSWERED Sep 23: all Swift, iPhone first, no Watch yet, Android later.
 2. ANSWERED Sep 23: yuigui.com goes live now. Built in public.
-3. Apple Developer enrollment in your name or PostScarcity AI's (the org route needs a D-U-N-S number)? Either is a browser step for you plus $99/yr.
+3. ANSWERED Sep 23: enrolled and paid, no D-U-N-S. Trademark search deferred until there is something to protect.
 4. Should R0SS's AMC agent be in Yui at all, given client confidentiality, or is Yui personal agents only (urza, Arnold) for now?
 5. Is Yui a product you intend to sell, or a personal tool that might become one? It changes how much Phase 4 to 6 matters.
 

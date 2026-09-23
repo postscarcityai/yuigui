@@ -244,3 +244,11 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 }
 .md pre { background: #0a0b10; border: 1px solid var(--line); border-radius: 12px; padding: 14px; overflow-x: auto; }
 .md pre code { background: none; padding: 0; font-size: 13px; }
+
+/* Waitlist */
+.waitlist { margin: 24px 0; }
+.wl-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.wl-row input { flex: 1 1 200px; background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; color: var(--text); font: inherit; font-size: 15px; padding: 9px 12px; }
+.wl-row input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.wl-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.card p.wl-err { color: #ff8a8a; margin-top: 10px; }

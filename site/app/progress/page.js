@@ -1,5 +1,6 @@
 // Newest first. Entries live in content/progress.json, see BUILD-IN-PUBLIC.md.
 import log from "../../content/progress.json";
+import Waitlist from "../components/Waitlist";
 
 export const metadata = { title: "Progress | Yui" };
 
@@ -40,6 +41,7 @@ export default function Progress() {
           </li>
         ))}
       </ul>
+      <Waitlist source="progress" />
     </>
   );
 }

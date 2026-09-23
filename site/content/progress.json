@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-09-23",
+    "title": "Waitlist open",
+    "body": "The waitlist is live on yuigui.com. Sign up for TestFlight invites and occasional updates. Signups land in a small table in PostScarcity AI's existing database, no new infrastructure."
+  },
+  {
+    "date": "2026-09-23",
+    "title": "Apple Developer account active",
+    "body": "Yui has an Apple Developer account, so TestFlight is unblocked. Xcode is installing on the build machine. Next: the Swift project and an automatic TestFlight build on every push."
+  },
+  {
+    "date": "2026-09-23",
     "title": "yuigui.com is live",
     "body": "The hub now lives at yuigui.com. Yui is built in public: this log updates as work ships, and a weekly update lands every Friday."
   },

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Waitlist from "./components/Waitlist";
 
 const pillars = [
   ["Chat first", "The default screen is a conversation with your agent. Type it or say it."],
@@ -19,12 +20,14 @@ const quotes = [
 export default function Home() {
   return (
     <>
-      <div className="eyebrow">Phase 0 | build hub</div>
+      <div className="eyebrow">Phase 0 | built in public</div>
       <h1>Yui is a mobile hub for your AI agents.</h1>
       <p className="lede">
         You talk to your agent. When a button, a timer or a table would work better than text,
         the agent takes over the screen and generates that UI on the spot, inside one shared design system.
       </p>
+
+      <Waitlist source="home-top" />
 
       <h2>What it does</h2>
       <div className="grid">
