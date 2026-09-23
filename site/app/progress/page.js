@@ -4,6 +4,16 @@ export const metadata = { title: "Progress | Yui" };
 const log = [
   {
     date: "2026-09-23",
+    title: "Stack decision: all Swift",
+    body: "Yui will be a native SwiftUI iPhone app, not React Native. The reason is the product: Yui should feel like part of the phone, and the features that set it apart (a workout timer on the lock screen, Siri and the Action button, Apple's on-device model and speech) are native Apple surfaces. The preset design keeps the app small, so an Android port later is a port of the presets, not a rewrite. No Apple Watch app yet. Yui Lines stays platform-neutral: the web playground and the Swift app parse it the same way.",
+  },
+  {
+    date: "2026-09-23",
+    title: "Source on GitHub",
+    body: "The hub, roadmap, Yui Lines spec and benchmark now live at postscarcityai/yuigui. The app code gets its own repo, yui.",
+  },
+  {
+    date: "2026-09-23",
     title: "Yui Lines v0: spec, 12 presets, playground, token benchmark",
     body: "Agents now speak Yui Lines: one short line per component, no UI code, no JSON. Spec at /yl, live playground at /playground with all 12 presets (timer, ask, choose, pick, slide, form, list, table, card, image, camera, mic), line-by-line streaming, ~patch, >screen routing, save/show and the custom {json} escape hatch. Benchmark on 10 screens with real tokenizers: YL is 1.6x smaller than minified JSON, 2.7x smaller than pretty JSON, 3.9x smaller than a component-tree document.",
   },
@@ -25,13 +35,13 @@ const log = [
 ];
 
 const phases = [
-  ["0", "Hub site on Vercel", "done"],
-  ["1", "Yui Lines v0 + 12 presets + web playground", "done"],
-  ["2", "Relay + Hermes connector, Arnold first", ""],
-  ["3", "Expo app on TestFlight", ""],
-  ["4", "Onboarding interview + starter agents", ""],
-  ["5", "Data layer, connectors, SMS", ""],
-  ["6", "App Store, hosted agents, payments", ""],
+  ["0", "Foundations: hub site, Yui Lines v0, SwiftUI stack, TestFlight pipeline", "now"],
+  ["1", "SwiftUI app on TestFlight: chat, 6 presets, relay, Arnold's timer", ""],
+  ["2", "Many agents, voice, push, lock-screen timer", ""],
+  ["3", "On-device data tables and key vault", ""],
+  ["4", "Onboarding interview + built-in agent", ""],
+  ["5", "Open adapters + private beta", ""],
+  ["6", "Payments, widgets, Siri, Android decision", ""],
 ];
 
 export default function Progress() {

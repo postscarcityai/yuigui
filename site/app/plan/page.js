@@ -13,7 +13,7 @@ const sections = [
     h: "Solution",
     p: [
       "Yui is one approved mobile app that any agent can plug into. Chat is the home screen. The agent can take over the screen at any time and render UI from a shared component kit: buttons, multi-select with free text, forms, sliders, timers, lists, tables, charts, camera and mic.",
-      "The agent sends a JSON UI spec, not code. That keeps it safe, fast and native, and lets every agent carry its own colors, face and voice.",
+      "The agent sends Yui Lines, one short line per screen element, never code. The app is native SwiftUI and renders each line with a built-in preset. That keeps it safe, fast and native, and lets every agent carry its own colors, face and voice.",
     ],
   },
   {
@@ -37,7 +37,7 @@ const sections = [
     h: "Why now",
     p: [
       "Personal agents moved from demos to daily tools in 2026. Their owners hit the text ceiling every day.",
-      "Generative UI is now practical: models reliably emit structured specs, and React Native renders them natively on both platforms.",
+      "Generative UI is now practical: models reliably emit short structured lines, and iOS 26 gives a native app on-device models, speech, Live Activities and Siri hooks that a web wrapper cannot reach.",
       "Edge platforms (Cloudflare Workers and Durable Objects) make a cheap, always-on relay between agent and phone easy to run.",
     ],
   },
@@ -61,7 +61,7 @@ const sections = [
   {
     h: "Milestones",
     p: [
-      "Week 1: this hub. Weeks 1-3: UI protocol and web playground. Weeks 2-5: Arnold drives a screen from Telegram. Weeks 4-8: TestFlight on Chris's phone. Weeks 8-12: onboarding and starter agents. Q1 2027: data layer and connectors. Q1-Q2 2027: public App Store listing.",
+      "Week 1: this hub. Weeks 1-3: UI protocol and web playground. Weeks 2-5: Arnold drives a screen from Telegram. Weeks 4-8: native SwiftUI build on TestFlight on Chris's phone. Weeks 8-12: onboarding and starter agents. Q1 2027: data layer and connectors. Q1-Q2 2027: public App Store listing.",
     ],
   },
   {

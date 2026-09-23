@@ -1,6 +1,6 @@
-# Yui | roadmap (draft 1, Sep 23 2026)
+# Yui | roadmap (draft 2, Sep 23 2026)
 
-yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `~/dev/yui/pitch/rec366.txt`, summary `~/dev/yui/pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
+yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
 ## What the pitch actually says
 
@@ -46,20 +46,21 @@ Why this over generated code:
 3. Quality. UX rules live in the presets, not in every prompt, so an agent cannot produce a bad layout.
 4. Portability. The same line renders in the app, on the web tracker, and degrades to Telegram buttons (`ask` and `choose` map straight to inline keyboards).
 
-## Stack recommendation: React Native (Expo) now, Swift modules where native wins
+## Stack: native SwiftUI on iPhone (decided Sep 23 2026)
 
-Chris asked for education here, so the short answer with reasons:
+Chris decided: all Swift. Draft 1 recommended Expo/React Native with Swift modules; draft 2 reverses that. Why:
 
-- **Expo / React Native for the app shell.** One codebase for iOS and later Android, over-the-air updates for JS changes, and component-catalog work maps closely to the shadcn/React mental model he already knows. Fastest path to TestFlight.
-- **Swift native modules, added as needed**, for the things only native does well:
-  - App Intents: Siri, Shortcuts, Spotlight and the Action button can call "Ask Arnold to start intervals" without opening the app.
-  - Apple Foundation Models framework (on-device model, iOS 26): free, private, offline routing and short replies. Good for "is this a UI request or a chat message" before paying for a cloud call.
-  - On-device speech-to-text and text-to-speech: covers the mic button with no per-minute cost.
-  - Live Activities and Dynamic Island: a workout timer that keeps running on the lock screen. This is the Arnold demo's killer feature.
-  - Widgets and push with deep links into a generated screen.
-- **Pure Swift/SwiftUI** would give the best feel and the easiest access to all of the above, but costs Android and slows early iteration. Revisit at month 6 if Android is off the table.
+- **The product is native feel.** Yui should behave like part of the phone: Apple's navigation, sheets, haptics, Dynamic Type, accessibility and the iOS 26 Liquid Glass look come free in SwiftUI and are imitations anywhere else.
+- **The differentiators are Apple surfaces.** Live Activities and the Dynamic Island (a timer on the lock screen), widgets, App Intents (Siri, Shortcuts, Spotlight, Action button), the on-device Foundation Models framework, and on-device speech. In React Native every one of these is Swift glue anyway.
+- **The preset design makes native cheap.** The app is a Yui Lines parser, roughly 13 presets, a chat view and a relay client. New screens arrive as data, so React Native's over-the-air updates buy little, and an Android port later is a port of the presets, not a redesign.
 
-Open question for Chris below: confirm iOS first, Android later.
+Rules that follow from the decision:
+
+- **iPhone only for now. No Apple Watch app yet** (Chris, Sep 23). Revisit after the Phase 1 demo.
+- **Yui Lines stays platform-neutral.** `spec/YL.md` plus a shared conformance suite (input lines, expected parse) is the contract. The JS parser (web playground) and the Swift parser must both pass it. An Android build later (Kotlin + Jetpack Compose) passes the same suite.
+- **The web stays React.** The hub site and playground keep the JS renderer as the public, clickable reference.
+- **Fast feedback loop.** The Mac mini builds and ships a TestFlight build on every push to main, so Chris sees each change on his phone in about 15 minutes with no cable. Requires full Xcode on the mini (today it only has Command Line Tools).
+- **Target iOS 26.** It is the current release, it has Foundation Models and Liquid Glass, and a new app has no install base to protect.
 
 ## Architecture in one paragraph
 
@@ -74,21 +75,25 @@ Dates assume work starts the week of Sep 28 2026. Each phase ends with something
 Goals: a place to watch the project, and the protocol written down before any app code.
 
 Deliverables:
-- Vercel site (on a `*.vercel.app` URL until Chris approves pointing yuigui.com at it): project tracker, this roadmap, pitch summary, early mockups, business plan outline, pitch deck outline.
-- Yui UI Protocol v0: component catalog, JSON schema, theme schema (colors, avatar, voice per agent), event schema (tap, submit, voice).
+- DONE Sep 23: hub site (roadmap, progress log, business plan draft, deck outline, mockups), source on GitHub at postscarcityai/yuigui.
+- DONE Sep 23: Yui Lines v0 (spec, 12 presets, JS parser, web playground, token benchmark). Replaces the JSON protocol from draft 1.
+- yuigui.com pointed at the hub site. Yui is built in public: the progress log updates as work ships, plus a weekly update.
+- Yui Lines conformance suite (the contract the Swift parser must pass), theme schema (colors, avatar, voice per agent), event schema (tap, submit, voice).
+- Full Xcode on the Mac mini and a TestFlight pipeline, so Phase 1 starts shipping on day one.
 - Clickable web mockups of the three canonical screens: chat, Arnold interval timer, nutrition photo log.
 - Telegram quick win for the current fleet: inline keyboard buttons for yes/no and multiple choice on Hermes questions. This fixes his top pain ("I just want a button") in days, not months, and doubles as the fallback path.
 
-Dependencies: none. Decision from Chris on the site domain.
+Dependencies: DNS access for yuigui.com. Apple Developer account for the TestFlight pipeline.
 
 ### Phase 1 | mid Oct to end Nov 2026: prototype app, one agent, one screen that matters
 
 Goals: Chris talks to Arnold in Yui and Arnold puts a timer on the screen.
 
 Deliverables:
-- Expo app on TestFlight (Chris's device only).
+- SwiftUI app on TestFlight (Chris's iPhone only). Code lives in its own repo, postscarcityai/yui.
+- Swift Yui Lines parser passing the conformance suite.
 - Chat screen (text in, text out, streaming).
-- Renderer for the first 6 components: text, button, choice (single, multi, free-text escape), form, list, timer.
+- SwiftUI presets, first 6: ask, choose, pick, form, list, timer.
 - Yui relay v0 on Cloudflare, with pairing by QR code or code.
 - Hermes skill + plugin: `yui_show(document)`, `yui_ask(question, options)`. Arnold wired first.
 - Demo: "Hey Arnold, intervals 40 on 20 off, 8 rounds" renders a working timer with sound.
@@ -104,7 +109,8 @@ Deliverables:
 - Three screens per agent (chat plus two agent-controlled slots), with animated transitions.
 - Push notifications with deep links to a generated screen.
 - Cross-channel handoff: from Telegram, "pull this up on Yui" pushes the screen to the phone.
-- Voice input via on-device speech, per-agent default of talk vs type.
+- Voice input via Apple's on-device Speech framework, per-agent default of talk vs type.
+- Live Activity for the timer preset: rounds keep counting on the lock screen and Dynamic Island.
 
 Dependencies: Phase 1 relay stable. APNs key from the Apple account.
 
@@ -137,7 +143,7 @@ Dependencies: Phase 3 vault. Cost model for hosted agent calls.
 Goals: other agent owners can plug in.
 
 Deliverables:
-- Published Yui UI Protocol spec and adapters: Hermes (done), OpenClaw-style frameworks, a generic HTTP/webhook adapter, an MCP server so any MCP-capable agent can render to Yui.
+- Published Yui Lines spec and adapters: Hermes (done), OpenClaw-style frameworks, a generic HTTP/webhook adapter, an MCP server so any MCP-capable agent can render to Yui.
 - Private beta, 20 to 50 technical users from the Hermes/OpenClaw communities.
 - App Store review prep: privacy labels, review notes explaining the component-catalog approach, demo account.
 - SMS channel (text a number, get a push that opens the screen).
@@ -151,15 +157,15 @@ Goals: the "put in your credit card and go" version.
 Deliverables:
 - In-app purchase credits for image generation and hosted model usage (keys stay optional for power users).
 - On-device Foundation Models for routing and quick replies, cutting cloud cost and latency.
-- Live Activities for timers, widgets for agent dashboards, App Intents for Siri.
+- Widgets for agent dashboards, App Intents for Siri, Shortcuts and the Action button.
 - Design system v1 from beta feedback.
-- Decision gate: Android build, public launch, or keep it personal.
+- Decision gate: Android port (Kotlin + Jetpack Compose against the same Yui Lines suite), Apple Watch app, public launch.
 
 Dependencies: beta learnings, payments setup (financial, needs Chris).
 
 ### Parallel track | Telegram fallback (any time)
 
-If Apple rejects the app or it stalls, Telegram already supports most of what the pitch needs: inline keyboards with callback buttons, reply keyboards, and **Telegram Mini Apps** (full web apps inside Telegram, with theme colors, haptics, and cloud storage). The same Yui UI Protocol documents can render as a Mini App. This is the insurance policy, and Phase 0 already starts it.
+If Apple rejects the app or it stalls, Telegram already supports most of what the pitch needs: inline keyboards with callback buttons, reply keyboards, and **Telegram Mini Apps** (full web apps inside Telegram, with theme colors, haptics, and cloud storage). The same Yui Lines can render as a Mini App using the web renderer. This is the insurance policy, and Phase 0 already starts it.
 
 ## Cloudflare
 
@@ -181,15 +187,17 @@ Chris mentioned a new Cloudflare deploy-anywhere agent he thinks is called "Flue
 
 ## Open questions for Chris
 
-1. iOS first with Expo, Android later. OK?
-2. Point yuigui.com at the tracker site now, or keep it on a vercel.app URL until there is something to show?
+1. ANSWERED Sep 23: all Swift, iPhone first, no Watch yet, Android later.
+2. ANSWERED Sep 23: yuigui.com goes live now. Built in public.
 3. Apple Developer enrollment in your name or PostScarcity AI's (the org route needs a D-U-N-S number)? Either is a browser step for you plus $99/yr.
 4. Should R0SS's AMC agent be in Yui at all, given client confidentiality, or is Yui personal agents only (urza, Arnold) for now?
 5. Is Yui a product you intend to sell, or a personal tool that might become one? It changes how much Phase 4 to 6 matters.
 
 ## Next actions (proposed cards, not yet created)
 
-- Vercel tracker site with roadmap, summary and mockups (urza).
-- Yui Lines v0 grammar, 12 presets, web playground, token benchmark vs JSON (urza).
+- DONE: hub site, Yui Lines v0, GitHub repo.
+- yuigui.com on the hub site, weekly build-in-public updates (urza).
+- Yui Lines conformance suite (urza).
+- Xcode + TestFlight pipeline on the Mac mini (urza, needs the Apple Developer account).
 - Telegram inline-keyboard buttons for Hermes yes/no and multiple-choice asks (urza, infra).
 - Research: Cloudflare "Flue", Agents SDK pricing, Telegram Mini Apps limits (urza).
