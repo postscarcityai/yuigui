@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Home and Business pages, cleaned up for a first visit",
+    "card": "SITE-22",
+    "body": "The two pages a stranger lands on first got a polish pass. Under the home page buttons, one line now says where the beta stands: the public beta is open, and you bring your own agent, Hermes running on your own computer. Yui does not come with an agent of its own yet. Follow along gained two cards: Community, where you draw your best screen in three lines, and the go-to-market plan. The app gallery points to See it, where every screen has its own link to share. The Business page lists the docs in reading order: the one-page plan, the go-to-market plan, the beta list, then the detail, each with one plain line on what it is. The Google Doc links came off the pages for now, because those copies are not shared publicly yet and a visitor would hit a sign-in wall. Checked at 390 pixels wide: no sideways scroll, no layout shift on the hero, every link on both pages resolves.",
+    "images": [
+      {
+        "src": "/progress/site22-home.webp",
+        "alt": "The Yui home page on a phone: the headline, the TestFlight and GitHub buttons, and a line saying the public beta is open and needs your own Hermes"
+      },
+      {
+        "src": "/progress/site22-business.webp",
+        "alt": "The Business page on a phone: the plan, the go-to-market plan and the beta list first, each card with a one-line description"
+      },
+      {
+        "src": "/progress/site22-home-desktop.webp",
+        "alt": "The Yui home page on a laptop, with the hero, the beta status line and two phone screenshots"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Anyone can try Yui",
     "card": "YUI-22",
     "body": "Apple approved Yui for public beta testing. Anyone with an iPhone can install it from TestFlight at https://testflight.apple.com/join/ykrYHwet, no invite needed, up to 10,000 testers. Yui is bring your own agent: you sign in with Apple, then connect your own Hermes with one command and one pairing code (the Getting started page walks through it). New builds now reach the public link on their own: each upload joins the public group and goes to Apple's review when nothing else is waiting. The Get the TestFlight beta button is live on every page. Nothing new to see in the app itself, so no screenshots."

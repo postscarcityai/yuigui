@@ -12,7 +12,7 @@ Companion docs: [BIZ-2 outreach plan](https://www.yuigui.com/business/biz-2-outr
 - **Who:** Hermes users first, because the Hermes plugin is the only one that ships today. OpenClaw users second: they can try it now through `hermes claw migrate` (Hermes' own OpenClaw import), and natively once the OpenClaw adapter (INT-1) exists.
 - **Where:** 32 public venues below. Two Discords hold most of the audience: Nous Research (140K members) and OpenClaw (177K). Both have a channel made for exactly this kind of post.
 - **How many at a time:** 5, then 20, then 50. Each step waits for the one before it to go well. We would rather have 20 testers we answer within a day than 200 we ignore.
-- **The link:** [testflight.apple.com/join/ykrYHwet](https://testflight.apple.com/join/ykrYHwet). On Sep 24 it says "This beta isn't accepting any new testers right now" because Apple's Beta App Review is still pending (YUI-22). Nothing goes out until it opens.
+- **The link:** [testflight.apple.com/join/ykrYHwet](https://testflight.apple.com/join/ykrYHwet). Apple approved the public beta on Sep 24 (YUI-22), so the link is open. Invites still go out only after Chris says yes to each one.
 
 ## Part 1 | Who we want
 
@@ -182,7 +182,7 @@ These come from BIZ-2 and apply here unchanged.
 
 | Item | Owner | Status Sep 24 |
 |---|---|---|
-| Public TestFlight link accepting testers (Beta App Review) | YUI-22 | Waiting on Apple. The link loads but refuses new testers |
+| Public TestFlight link accepting testers (Beta App Review) | YUI-22 | Done Sep 24. The link is open |
 | `testflight` set in site links.json so every beta button turns on | YUI-22 | Not set |
 | YUI-29 tester picked | Chris | Not started |
 | YUI-29 acceptance run passes | YUI-29 | Not started |

@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 57,
-    "site": 134,
+    "site": 135,
     "builds": 21,
-    "shipped": 82,
-    "screenshots": 144
+    "shipped": 83,
+    "screenshots": 147
   },
   "days": [
     {
@@ -13,15 +13,43 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T22:02:10.962Z",
+          "at": "2026-09-24T22:07:04.635Z",
+          "title": "Home and Business pages, cleaned up for a first visit",
+          "card": "SITE-22",
+          "anchor": "home-and-business-pages-cleaned-up-for-a-first-visit",
+          "images": [
+            {
+              "src": "/progress/site22-home.webp",
+              "alt": "The Yui home page on a phone: the headline, the TestFlight and GitHub buttons, and a line saying the public beta is open and needs your own Hermes"
+            },
+            {
+              "src": "/progress/site22-business.webp",
+              "alt": "The Business page on a phone: the plan, the go-to-market plan and the beta list first, each card with a one-line description"
+            },
+            {
+              "src": "/progress/site22-home-desktop.webp",
+              "alt": "The Yui home page on a laptop, with the hero, the beta status line and two phone screenshots"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 57,
+            "site": 135,
+            "builds": 21,
+            "shipped": 83
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T22:02:37.000Z",
           "title": "Anyone can try Yui",
           "card": "YUI-22",
           "anchor": "anyone-can-try-yui",
           "images": [],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 57,
-            "site": 134,
+            "site": 135,
             "builds": 21,
             "shipped": 82
           }
@@ -1695,6 +1723,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "7418986",
+          "at": "2026-09-24T22:02:37.000Z",
+          "text": "Public TestFlight link is live: Apple approved the beta, links.json turns on the Get the TestFlight beta button on every page and the...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7418986"
+        },
         {
           "repo": "site",
           "sha": "e8aac8f",

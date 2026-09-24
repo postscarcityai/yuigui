@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T21:38:52.004Z",
+  "updated": "2026-09-24T22:06:56.918Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -77,6 +77,11 @@
           "key": "YUI-48",
           "title": "Text a number",
           "summary": "SMS channel"
+        },
+        {
+          "key": "YUI-54",
+          "title": "Top-left menu becomes the agent's home",
+          "summary": "Drop-up switcher, pinned screens, to review, about"
         },
         {
           "key": "OSS-3",
@@ -191,13 +196,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-22",
-          "title": "Public TestFlight link",
-          "summary": "Public TestFlight link (external group + Beta App Review)",
-          "mvp": true,
-          "waiting": true
-        },
-        {
           "key": "YUI-30",
           "title": "Timer on the lock screen",
           "summary": "The timer keeps counting on the lock screen",
@@ -248,14 +246,10 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "SOC-3",
-          "title": "Three marketing videos"
-        },
-        {
-          "key": "SITE-21",
-          "title": "Polish pass on /roadmap, /board, /progress and /changelog",
-          "summary": "Polish: the Roadmap tabs read current",
-          "progress": "/progress#polish-the-roadmap-tabs-read-current"
+          "key": "SITE-22",
+          "title": "Polish pass on / (home) and /business",
+          "summary": "Home and Business pages, cleaned up for a first visit",
+          "progress": "/progress#home-and-business-pages-cleaned-up-for-a-first-visit"
         }
       ]
     },
@@ -263,6 +257,27 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-22",
+          "title": "Public TestFlight link",
+          "summary": "Anyone can try Yui",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#anyone-can-try-yui"
+        },
+        {
+          "key": "SOC-3",
+          "title": "Three marketing videos",
+          "shipped": "2026-09-24",
+          "progress": "/progress#three-short-videos-yui-in-15-seconds-yui-lines-in-30-your-hermes-on-your-phone-i"
+        },
+        {
+          "key": "SITE-21",
+          "title": "Polish pass on /roadmap, /board, /progress and /changelog",
+          "summary": "Polish: the Roadmap tabs read current",
+          "shipped": "2026-09-24",
+          "progress": "/progress#polish-the-roadmap-tabs-read-current"
+        },
         {
           "key": "SITE-19",
           "title": "Shareable moments",

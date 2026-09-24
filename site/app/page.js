@@ -54,6 +54,11 @@ export default function Home() {
             <CtaLink cta="github" where="/hero" className="btn soft" href={links.github}>Star on GitHub</CtaLink>
             <Link className="btn ghost" href="/progress">See what shipped</Link>
           </div>
+          <p className="hero-note">
+            {links.testflight
+              ? "The public beta is open. Bring your own agent: Yui talks to Hermes running on your own computer."
+              : "Public beta: waiting on Apple\u2019s review. Bring your own agent: Yui talks to Hermes running on your own computer."}
+          </p>
         </div>
         <div className="shots">
           <img src="/app/chat-light.webp" alt="Yui in light mode: the agent answers a tabata request with a live interval timer and Yes or No buttons" width="460" height="1000" />
@@ -103,7 +108,7 @@ export default function Home() {
       </div>
 
       <h2>The app today</h2>
-      <p className="lede" style={{ fontSize: 18 }}>Real screenshots from the current test build. Nothing here is a mockup.</p>
+      <p className="lede" style={{ fontSize: 18 }}>Real screenshots from the current test build. Nothing here is a mockup. <Link href="/mockups">See every screen</Link>, each with its own link to share.</p>
       <div className="gallery">
         {shots.map(([src, cap]) => (
           <figure key={src}>
@@ -121,6 +126,8 @@ export default function Home() {
       <div className="grid">
         <Link className="card" href="/roadmap"><h3>Roadmap</h3><p>Where Yui is headed, with the live board and a dated log of what shipped.</p></Link>
         <Link className="card" href="/developers"><h3>Developers</h3><p>How it works, every spec, the Yui Lines screen language, and a playground to try it in your browser.</p></Link>
+        <Link className="card" href="/developers/community"><h3>Community</h3><p>Draw your best screen in three lines. Every entry goes in a live gallery, open in the playground.</p></Link>
+        <Link className="card" href="/business/gtm"><h3>The plan, in the open</h3><p>How Yui finds its first testers, and every business doc behind it.</p></Link>
       </div>
     </>
   );

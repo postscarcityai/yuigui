@@ -657,6 +657,9 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 
 /* MVP progress bar (home + roadmap) */
 .mvp { margin: 28px 0; }
+.mvp p a, .lede a { display: inline-block; padding: 11px 0; margin: -11px 0; }
+.hero-note { color: var(--muted); font-size: 15px; margin: 14px 0 0; }
+.biz-key { color: var(--muted); font-size: 13px; font-weight: 700; margin-top: 6px; }
 .mvp-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .mvp-head h3 { margin: 0; }
 .mvp-count { color: var(--muted); font-weight: 700; font-size: 15px; }
