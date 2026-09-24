@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T13:11:02.609Z",
+  "updated": "2026-09-24T13:40:09.864Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -219,10 +219,6 @@
           "title": "Playground a11y labels (Lighthouse 89 -> 95+)"
         },
         {
-          "key": "SITE-8",
-          "title": "Responsive navigation on yuigui.com (mobile menu)"
-        },
-        {
           "key": "SITE-9",
           "title": "Kill horizontal scroll on every yuigui.com page"
         },
@@ -246,6 +242,12 @@
           "summary": "Public TestFlight link (external group + Beta App Review)",
           "mvp": true,
           "waiting": true
+        },
+        {
+          "key": "SITE-8",
+          "title": "Responsive navigation on yuigui.com (mobile menu)",
+          "summary": "The site menu works on a phone",
+          "progress": "/progress#the-site-menu-works-on-a-phone"
         }
       ]
     },

@@ -296,5 +296,13 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Every full screen has a way out: a real X, a swipe down, compare full screen"
+    },
+    {
+      "text": "Demo clips: record every preset in the simulator, cut 9:16 and 16:9 with a caption",
+      "card": "SOC-2"
+    }
+  ]
 }
