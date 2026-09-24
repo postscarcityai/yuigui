@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T21:17:00.700Z",
+  "updated": "2026-09-24T21:38:52.004Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -183,10 +183,6 @@
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
-        },
-        {
-          "key": "SOC-3",
-          "title": "Three marketing videos"
         }
       ]
     },
@@ -252,9 +248,14 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "SITE-19",
-          "title": "Shareable moments",
-          "summary": "Share links, OG cards, and a 'this line draws this screen' embed"
+          "key": "SOC-3",
+          "title": "Three marketing videos"
+        },
+        {
+          "key": "SITE-21",
+          "title": "Polish pass on /roadmap, /board, /progress and /changelog",
+          "summary": "Polish: the Roadmap tabs read current",
+          "progress": "/progress#polish-the-roadmap-tabs-read-current"
         }
       ]
     },
@@ -262,6 +263,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-19",
+          "title": "Shareable moments",
+          "summary": "Share any screen: a link with a real preview, a Share button, an embed and a badge",
+          "shipped": "2026-09-24",
+          "progress": "/progress#share-any-screen-a-link-with-a-real-preview-a-share-button-an-embed-and-a-badge"
+        },
         {
           "key": "OSS-5",
           "title": "Grassroots kit for Yui Lines",
@@ -358,6 +366,12 @@
           "summary": "The playground reads right to a screen reader",
           "shipped": "2026-09-24",
           "progress": "/progress#the-playground-reads-right-to-a-screen-reader"
+        },
+        {
+          "key": "BIZ-6",
+          "title": "Private beta list",
+          "shipped": "2026-09-24",
+          "progress": "/progress#who-the-first-outside-testers-are"
         },
         {
           "key": "SITE-13",
@@ -564,6 +578,12 @@
           "progress": "/progress#a-content-plan-built-from-what-ships"
         },
         {
+          "key": "BIZ-2",
+          "title": "Outreach plan, Hermes users first",
+          "shipped": "2026-09-24",
+          "progress": "/progress#how-we-will-find-our-first-users"
+        },
+        {
           "key": "YUI-7",
           "title": "Hermes plugin: agents answer with screens",
           "summary": "Talk to your agent in Yui",
@@ -577,6 +597,12 @@
           "summary": "The site now looks like the app",
           "shipped": "2026-09-24",
           "progress": "/progress#the-site-now-looks-like-the-app"
+        },
+        {
+          "key": "BIZ-1",
+          "title": "Marketing + positioning brief",
+          "shipped": "2026-09-24",
+          "progress": "/progress#business-docs-in-the-open"
         },
         {
           "key": "YUI-17",

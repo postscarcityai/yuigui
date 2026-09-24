@@ -1,6 +1,7 @@
 // Newest first. Entries live in content/progress.json, see BUILD-IN-PUBLIC.md.
 import log from "../../content/progress.json";
 import { slug } from "../../lib/slug.mjs";
+import { day } from "../../lib/day.mjs";
 import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
 
@@ -20,7 +21,7 @@ export default function Progress() {
       <ul className="log">
         {log.map((e) => (
           <li key={e.title} id={slug(e.title)}>
-            <div className="date">{e.date}</div>
+            <div className="date">{day(e.date)}</div>
             <h3 style={{ margin: "2px 0 4px" }}>{e.title}</h3>
             <div style={{ color: "var(--muted)" }}>{e.body}</div>
             <Shots images={shotsOf(e)} label={e.title} />

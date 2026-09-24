@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import Link from "next/link";
+import { day } from "../../lib/day.mjs";
 
 // MVP progress: percent of MVP cards shipped. scripts/export-board.mjs writes the statuses in content/mvp.json.
 export function mvpStats() {
@@ -25,7 +26,7 @@ export default function MvpBar({ detail = false }) {
       <p>
         The smallest Yui a stranger can use: install from TestFlight, sign in, connect your own Hermes in minutes,
         get screens and pushes from your agents, and delete your account.
-        {detail ? ` Updated ${updated}.` : <> <Link href="/roadmap#mvp">What counts</Link>.</>}
+        {detail ? ` Updated ${day(updated)}.` : <> <Link href="/roadmap#mvp">What counts</Link>.</>}
       </p>
       {detail && (
         <>

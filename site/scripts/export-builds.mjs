@@ -33,7 +33,9 @@ const builds = asc(`/v1/builds?filter[app]=${APP_ID}&limit=200&sort=-uploadedDat
 
 const commits = execFileSync("git", ["-C", APP, "log", "--reverse", "--first-parent", "--format=%h%x09%s", "main"], { encoding: "utf8" })
   .trim().split("\n").map((l, i) => {
-    const [sha, subject] = l.split("\t");
+    const [sha, raw] = l.split("\t");
+    // Some commits end with a board task id, "(t_bfeecff2)", instead of a card key. It is private, so drop it.
+    const subject = raw.replace(/\s*\(t_[0-9a-f]{6,}\)\s*$/i, "");
     const m = subject.match(/\s*\(([A-Z]+-\d+)\)\s*$/);
     return { n: i + 1, card: m ? m[1] : KEYS[sha] || null, text: m ? subject.slice(0, m.index) : subject };
   });

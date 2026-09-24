@@ -896,3 +896,12 @@ body:has(.embed-root) main.wrap { padding: 0; max-width: none; }
 .dev-snippet pre { background: var(--raised); border: 1.5px solid var(--outline); border-radius: 14px; padding: 12px 14px; font-size: 12.5px; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0 0 8px; }
 .dev-embed { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
 .dev-embed iframe { border: 0; border-radius: 40px; max-width: 100%; }
+
+/* SITE-21: the board stacks on phones (no sideways scroll), the next build says what it waits on */
+@media (max-width: 640px) {
+  .board { grid-template-columns: 1fr; overflow-x: visible; }
+  .bcol.building ul, .bcol.next ul { max-height: none; overflow-y: visible; }
+  .bcol ul { max-height: 60vh; }
+}
+.pill.wait { color: #2A2238; background: var(--butter); border-color: var(--butter); }
+.build-note { color: var(--muted); font-size: 15px; margin: 4px 0 10px; }

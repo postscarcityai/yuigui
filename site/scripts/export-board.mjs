@@ -63,16 +63,19 @@ const rows = sql(`
   where ${PREFIXES.map((p) => `t.title glob '${p}-[0-9]*'`).join(" or ")}
 `);
 
+// Progress log links: an entry with "card": "YUI-7" (or an array) links that card's board tile.
+const progress = JSON.parse(readFileSync(content("progress.json"), "utf8"));
+const logged = new Set(progress.flatMap((e) => [].concat(e.card || [])));
+
+// A BIZ- or FLOW- card with an entry in the ship log is Yui work even when its brief never says "yui".
 const tasks = [];
 for (const r of rows) {
   const p = parseTitle(r.title);
   if (!p || !PREFIXES.includes(p.prefix)) continue;
-  if (NEEDS_YUI_TAG.has(p.prefix) && !r.about_yui) continue;
+  if (NEEDS_YUI_TAG.has(p.prefix) && !r.about_yui && !logged.has(p.key)) continue;
   tasks.push({ ...r, ...p });
 }
 
-// Progress log links: an entry with "card": "YUI-7" (or an array) links that card's board tile.
-const progress = JSON.parse(readFileSync(content("progress.json"), "utf8"));
 const linkFor = new Map();
 for (const e of progress) {
   for (const key of [].concat(e.card || [])) {

@@ -16,7 +16,7 @@ function Tile({ c, col, first }) {
       <div className="btile-top">
         <span className="bkey">{c.key}</span>
         {c.mvp && <span className="pill bmvp">MVP</span>}
-        {c.waiting && <span className="pill">Waiting</span>}
+        {c.waiting && <span className="pill" title="Parked until something it depends on lands">Waiting</span>}
       </div>
       <h3>{c.title}</h3>
       {c.summary && <p>{c.summary}</p>}

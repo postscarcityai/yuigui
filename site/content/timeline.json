@@ -2,15 +2,47 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 56,
-    "site": 127,
+    "site": 129,
     "builds": 21,
-    "shipped": 78,
-    "screenshots": 133
+    "shipped": 79,
+    "screenshots": 137
   },
   "days": [
     {
       "date": "2026-09-24",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-24T21:21:34.000Z",
+          "title": "Share any screen: a link with a real preview, a Share button, an embed and a badge",
+          "card": "SITE-19",
+          "anchor": "share-any-screen-a-link-with-a-real-preview-a-share-button-an-embed-and-a-badge",
+          "images": [
+            {
+              "src": "/progress/site19-preview.webp",
+              "alt": "A link preview card: the Yui wordmark, the headline Intervals, rounds and rest, the one line timer 40/20x8 Tabata on a dark panel, and beside it a phone showing the Tabata timer at 0:40 with Reset and Start buttons."
+            },
+            {
+              "src": "/progress/site19-playground-preview.webp",
+              "alt": "The preview card for a playground share link: four lines of Yui Lines on the left, and a simple drawing of the screen they make on the right, a note, an energy slider, a three-way choice and a weekend checklist."
+            },
+            {
+              "src": "/progress/site19-share-page.webp",
+              "alt": "A share page for a plan with pages: the title and a one-line description, a live phone showing the Build review plan at step 1 of 4, and beside it the six Yui Lines that draw it with Copy link and Copy embed code buttons."
+            },
+            {
+              "src": "/progress/site19-embed.webp",
+              "alt": "The Share, embed, badge section on the Developers page: a live Tabata timer in an iframe with a Made with Yui Lines link under it, and next to it the iframe snippet with a Copy button and the three ways to choose a screen."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 56,
+            "site": 128,
+            "builds": 21,
+            "shipped": 79
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-24T21:06:10.000Z",
@@ -1588,6 +1620,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "06161c4",
+          "at": "2026-09-24T21:24:48.000Z",
+          "text": "Share previews: declare the twitter-image route config in place instead of re-exporting it, so Next reads dynamicParams (SITE-19)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/06161c4"
+        },
+        {
+          "repo": "site",
+          "sha": "7131406",
+          "at": "2026-09-24T21:21:34.000Z",
+          "text": "Share any screen: every See it entry, playground sample and clip gets a link at /s/<id> with its own 1200x630 preview (the Yui Lines...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7131406"
+        },
         {
           "repo": "site",
           "sha": "5b5f627",

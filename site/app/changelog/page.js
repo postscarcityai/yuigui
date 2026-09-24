@@ -5,6 +5,7 @@ import Link from "next/link";
 import builds from "../../content/builds.json";
 import log from "../../content/progress.json";
 import { slug } from "../../lib/slug.mjs";
+import { day as date } from "../../lib/day.mjs";
 import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
 
@@ -15,7 +16,6 @@ export const metadata = {
 
 // Housekeeping commits that say nothing to someone using the app.
 const CHORE = /^(ignore|bump|merge|chore|fix typo)\b/i;
-const date = (d) => new Date(`${d}T12:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 
 function entriesFor(b, cards) {
   return log.filter((e) => e.build === b || (e.card && cards.has(e.card) && e.build === undefined));
@@ -63,8 +63,12 @@ export default function Changelog() {
         <section className="build" id="next">
           <div className="build-head">
             <h2>Next build</h2>
-            <span className="pill">Not uploaded yet</span>
+            <span className="pill wait">Waiting on Apple</span>
           </div>
+          <p className="build-note">
+            Done in the code, not on TestFlight yet. We upload once per release and Apple caps uploads per day, so
+            these go up together as the next build. It gets its number when it uploads.
+          </p>
           <Changes changes={builds.next} />
         </section>
       )}

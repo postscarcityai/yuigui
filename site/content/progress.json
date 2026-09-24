@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Polish: the Roadmap tabs read current",
+    "card": "SITE-21",
+    "body": "A polish pass on Roadmap, Board, Shipped and Builds. The roadmap matches the live board again: the chat polish, reactions, the lock screen timer, no dead buttons and three screens per agent read as done in the code and waiting for the next build, SITE-15, INT-1 and INT-2 moved to shipped, and every card id on the page has a tile on the board (the beta list, BIZ-6, now shows there too). Builds had stopped at build 33's changes because two app commits named an internal task; the export now drops those, so the next build lists all 23 changes since, under a Waiting on Apple label with no made-up build number. On a phone the board stacks its columns instead of scrolling sideways, the roadmap opens with a headline like the other tabs, and dates read Sep 24, 2026. All four pages load at 390 and 1280 with no sideways scroll, and all 287 links on them resolve.",
+    "images": [
+      {
+        "src": "/progress/site21-board-phone.webp",
+        "alt": "The board on a phone: the Building column stacked full width, with YUI-22, YUI-30, YUI-49 and YUI-53 tiles and their Waiting labels."
+      },
+      {
+        "src": "/progress/site21-builds-next.webp",
+        "alt": "The Builds page on a phone: Next build with a Waiting on Apple label and a note on why it is not on TestFlight yet."
+      },
+      {
+        "src": "/progress/site21-roadmap-top.webp",
+        "alt": "The Roadmap page on a phone: the draft 10 eyebrow, the headline Where Yui is going, and the MVP bar at 19 of 23 cards."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Share any screen: a link with a real preview, a Share button, an embed and a badge",
     "card": "SITE-19",
     "body": "Every screen on See it, every playground sample and every recorded clip now has its own short link, like yuigui.com/s/timer. Paste one into a chat or a post and the preview card shows the Yui Lines on the left and the real screen they draw on the right, captured from the same renderer you can tap on the page. The playground has a Share button: it packs whatever you typed into the link itself, copies it, and anyone who opens it gets that exact screen, ready to edit, with a preview card drawn from your lines. For your own site or blog there is an embed: one iframe that draws a live, tappable screen with no nav and no tracking inside the frame. And if you build on Yui Lines, there is a Made with Yui Lines badge for your README. Snippets for all of it are on the Developers page. While checking the board we also found the social lane (SOC) was missing from yuigui.com/board, so SOC-3, the three short videos in this epic, now shows up there.",

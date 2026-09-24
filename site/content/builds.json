@@ -324,6 +324,60 @@
     },
     {
       "text": "Long turns read as work, not trouble: \"Yui is working · 2m 20s\" counts up, no time limit, no restart advice, resumes on reopen"
+    },
+    {
+      "text": "Narration never speaks in a robot voice: skip the Eloquence, MacinTalk and novelty voices and Personal Voice, pick premium > enhanced > Samantha, per agent within the best tier"
+    },
+    {
+      "text": "Send photos and talk from the composer: one + for the photo library and camera, hold the mic to talk, let go to send"
+    },
+    {
+      "text": "The timer keeps counting on the lock screen and in the Dynamic Island: a Live Activity per running timer with round x of n, work and rest phases, pause and resume from the buttons, ends cleanly when the rounds are done",
+      "card": "YUI-30"
+    },
+    {
+      "text": "Hold an agent's message to react: six reactions float above it (build it, no, not sure, love it, later, priority), the pick goes to the agent as one turn with the message quoted, and the badge stays on the bubble",
+      "card": "YUI-49"
+    },
+    {
+      "text": "A plan's last button says Send instead of Create project, and agents get channel guide v8: every button does something, no \"Got it\" buttons",
+      "card": "YUI-53"
+    },
+    {
+      "text": "Scrolled up a long thread: a round arrow above the composer counts the agent's new messages and brings you back to the newest in one tap; a sent bubble fades in under Reduce Motion",
+      "card": "YUI-50"
+    },
+    {
+      "text": "Findings, then questions, in one full-screen flow: a plan shows pages to read before its questions, opens full screen, closes itself on Send, and leaves a record in the chat (title, pages, answers, reopens the flow) plus your answers as your own message; channel guide v9",
+      "card": "YUI-51"
+    },
+    {
+      "text": "Saved screens get a shelf: the agent's saves sit as chips at the top of its thread, a tap reopens one full screen with no turn, hold to remove; show busy day works in a later reply, forget takes it off, events from a screen that came back carry saved=; the shelf rebuilds from the thread and is kept on the phone; channel guide v10",
+      "card": "YUI-32"
+    },
+    {
+      "text": "The preset flywheel: with yui.flywheel on, the Hermes plugin notes every custom screen an agent sends by its shape only (type tree and key names, never a value) plus unknown preset words, in a local log; flywheel_report.py ranks shapes by days and uses and flags the ones past the bar (5 uses on 3 days); tests prove no text, number or URL reaches the log",
+      "card": "YUI-42"
+    },
+    {
+      "text": "Flywheel report --seen: the weekly job announces a shape once, not every Friday",
+      "card": "YUI-42"
+    },
+    {
+      "text": "Webhook bridge, Python and Node: any agent that answers an HTTP POST can talk in Yui. Pair with the app's code, point the bridge at your agent's URL; each turn arrives as one signed POST with the channel guide, the answer goes back exactly once (outbox on disk, meta.turn, delivered/handled acks, replay after a crash), a clean stop reads offline. Ten-line example agents answer with a choose screen. Live test on a throwaway account: 44/44",
+      "card": "INT-2"
+    },
+    {
+      "text": "Three screens per agent: the chat, then screens 2 and 3 a swipe away, with Chat, 2, 3 tabs above the composer and a dot on a page with something on it; a reply that sends a line to a page brings it forward with a spring, or a cross-fade under Reduce Motion, and the chat keeps an On screen 2 pill that goes there; pages keep their content across replies, >2 clear empties one, the page is remembered per agent; YuiLines.page(of:), 349/349 vectors; the shelf and the jump-to-bottom arrow stay on the chat page; channel guide v11",
+      "card": "YUI-31"
+    },
+    {
+      "text": "OpenClaw channel plugin: an OpenClaw agent talks in Yui the way a Hermes agent does. openclaw plugins install, openclaw yui pair <code> --agent main, restart the gateway; each turn runs through OpenClaw's own inbound dispatch with the channel guide and a plain 'Yui Lines, not A2UI' note in the trusted system prompt, the reply lands exactly once (outbox on disk, meta.turn, delivered/handled acks, replay after a crash), a clean stop reads offline, cron and the message tool deliver as handoffs. New connector kind openclaw. Live test on a throwaway account with a real gateway in a throwaway OpenClaw home: 24/24",
+      "card": "INT-1"
+    },
+    {
+      "text": "CONTRIBUTING: point to the community page and the three lines challenge",
+      "card": "OSS-5"
     }
   ]
 }
