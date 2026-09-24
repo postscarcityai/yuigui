@@ -1,0 +1,354 @@
+{
+  "version": "YL v0",
+  "area": "form",
+  "vectors": [
+    {
+      "name": "typed fields, required, key submit",
+      "input": "form name:text! goal:voice level:1-5 submit=\"Next\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "name",
+                "type": "text",
+                "required": true
+              },
+              {
+                "key": "goal",
+                "type": "voice"
+              },
+              {
+                "key": "level",
+                "type": "range",
+                "min": 1,
+                "max": 5
+              }
+            ],
+            "submit": "Next"
+          }
+        }
+      ]
+    },
+    {
+      "name": "quoted title, labeled field, choice",
+      "input": "form \"Check-in\" sleep:1-10 \"Home gym\":yes split:Push|Pull|Legs",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "sleep",
+                "type": "range",
+                "min": 1,
+                "max": 10
+              },
+              {
+                "key": "home_gym",
+                "label": "Home gym",
+                "type": "yes"
+              },
+              {
+                "key": "split",
+                "type": "choice",
+                "options": [
+                  "Push",
+                  "Pull",
+                  "Legs"
+                ]
+              }
+            ],
+            "title": "Check-in"
+          }
+        }
+      ]
+    },
+    {
+      "name": "every named type",
+      "input": "form a:text b:long c:voice d:number e:email f:phone g:date h:time i:url j:yes k:photo",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "a",
+                "type": "text"
+              },
+              {
+                "key": "b",
+                "type": "long"
+              },
+              {
+                "key": "c",
+                "type": "voice"
+              },
+              {
+                "key": "d",
+                "type": "number"
+              },
+              {
+                "key": "e",
+                "type": "email"
+              },
+              {
+                "key": "f",
+                "type": "phone"
+              },
+              {
+                "key": "g",
+                "type": "date"
+              },
+              {
+                "key": "h",
+                "type": "time"
+              },
+              {
+                "key": "i",
+                "type": "url"
+              },
+              {
+                "key": "j",
+                "type": "yes"
+              },
+              {
+                "key": "k",
+                "type": "photo"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "bare identifier is a text field",
+      "input": "form \"About you\" name email",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "name"
+              },
+              {
+                "key": "email"
+              }
+            ],
+            "title": "About you"
+          }
+        }
+      ]
+    },
+    {
+      "name": "required without a type",
+      "input": "form name!",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "name",
+                "required": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "label slug",
+      "input": "form \"Your Email Address\":email!",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "your_email_address",
+                "label": "Your Email Address",
+                "type": "email",
+                "required": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "quoted choice options",
+      "input": "form when:\"3 pm\"|\"4 pm\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "when",
+                "type": "choice",
+                "options": [
+                  "3 pm",
+                  "4 pm"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "required choice",
+      "input": "form level:Beginner|Mid|Pro!",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "level",
+                "type": "choice",
+                "options": [
+                  "Beginner",
+                  "Mid",
+                  "Pro"
+                ],
+                "required": true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "unknown type is kept as written",
+      "input": "form \"Setup\" colour:mauve name",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "colour",
+                "type": "mauve"
+              },
+              {
+                "key": "name"
+              }
+            ],
+            "title": "Setup"
+          }
+        }
+      ]
+    },
+    {
+      "name": "field with an empty type is title text",
+      "input": "form Re: note",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "note"
+              }
+            ],
+            "title": "Re:"
+          }
+        }
+      ]
+    },
+    {
+      "name": "quoted label without type is title",
+      "input": "form \"Daily check-in\" mood:1-5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "mood",
+                "type": "range",
+                "min": 1,
+                "max": 5
+              }
+            ],
+            "title": "Daily check-in"
+          }
+        }
+      ]
+    },
+    {
+      "name": "bare words are fields, so titles are quoted",
+      "input": "form Daily check-in",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "fields": [
+              {
+                "key": "Daily"
+              },
+              {
+                "key": "check-in"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "no fields",
+      "input": "form \"Just a title\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "form",
+          "id": "n1",
+          "props": {
+            "title": "Just a title"
+          }
+        }
+      ]
+    }
+  ]
+}

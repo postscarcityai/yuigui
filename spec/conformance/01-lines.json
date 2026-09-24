@@ -1,0 +1,161 @@
+{
+  "version": "YL v0",
+  "area": "lines",
+  "vectors": [
+    {
+      "name": "blank lines produce nothing",
+      "input": "\n\n   \n\t\n",
+      "expected": []
+    },
+    {
+      "name": "whole-line comment",
+      "input": "# rest block",
+      "expected": []
+    },
+    {
+      "name": "bare hash is a comment",
+      "input": "#",
+      "expected": []
+    },
+    {
+      "name": "comment after leading spaces",
+      "input": "   # indented comment\ntimer 60",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        }
+      ]
+    },
+    {
+      "name": "hash glued to a word is not a comment",
+      "input": "#hashtag",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "one op per line, blanks skipped",
+      "input": "timer 60\n\nask Ready?\n# note\nsay Go.",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Ready?"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "Go."
+          }
+        }
+      ]
+    },
+    {
+      "name": "CRLF line endings",
+      "input": "timer 60\r\nask Ready?\r\n",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Ready?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "leading and trailing spaces are trimmed",
+      "input": "   timer 60   ",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        }
+      ]
+    },
+    {
+      "name": "tabs separate tokens",
+      "input": "timer\t40/20x8\tTabata",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8,
+            "label": "Tabata"
+          }
+        }
+      ]
+    },
+    {
+      "name": "no trailing newline",
+      "input": "say one\nsay two",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "one"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "two"
+          }
+        }
+      ]
+    }
+  ]
+}

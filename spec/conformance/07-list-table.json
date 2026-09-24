@@ -1,0 +1,198 @@
+{
+  "version": "YL v0",
+  "area": "list-table",
+  "vectors": [
+    {
+      "name": "title and checklist items",
+      "input": "list Today \"Squat 5x5 @ 225\" \"Bench 5x5 @ 185\" +check",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "list",
+          "id": "n1",
+          "props": {
+            "items": [
+              "Squat 5x5 @ 225",
+              "Bench 5x5 @ 185"
+            ],
+            "title": "Today",
+            "check": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "options items, numbered",
+      "input": "list Warmup \"Jumping jacks\"|\"Hip openers\" +num",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "list",
+          "id": "n1",
+          "props": {
+            "items": [
+              "Jumping jacks",
+              "Hip openers"
+            ],
+            "title": "Warmup",
+            "num": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "quoted first token is an item",
+      "input": "list \"Eggs\" \"Milk\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "list",
+          "id": "n1",
+          "props": {
+            "items": [
+              "Eggs",
+              "Milk"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "bare words after the title are items",
+      "input": "list Groceries milk eggs",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "list",
+          "id": "n1",
+          "props": {
+            "items": [
+              "milk",
+              "eggs"
+            ],
+            "title": "Groceries"
+          }
+        }
+      ]
+    },
+    {
+      "name": "title only",
+      "input": "list Empty",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "list",
+          "id": "n1",
+          "props": {
+            "title": "Empty"
+          }
+        }
+      ]
+    },
+    {
+      "name": "bound table",
+      "input": "table meals",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "table",
+          "id": "n1",
+          "props": {
+            "name": "meals"
+          }
+        }
+      ]
+    },
+    {
+      "name": "inline table, cells coerced to numbers",
+      "input": "table Macros Food|Cal|Protein \"Eggs|140|12\" \"Oats|300|10\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "table",
+          "id": "n1",
+          "props": {
+            "rows": [
+              [
+                "Eggs",
+                140,
+                12
+              ],
+              [
+                "Oats",
+                300,
+                10
+              ]
+            ],
+            "name": "Macros",
+            "cols": [
+              "Food",
+              "Cal",
+              "Protein"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "inline table without a name",
+      "input": "table Food|Cal Eggs|140",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "table",
+          "id": "n1",
+          "props": {
+            "rows": [
+              [
+                "Eggs",
+                140
+              ]
+            ],
+            "cols": [
+              "Food",
+              "Cal"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "table cells coerce booleans",
+      "input": "table Habits Habit|Done \"Water|on\" \"Walk|off\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "table",
+          "id": "n1",
+          "props": {
+            "rows": [
+              [
+                "Water",
+                true
+              ],
+              [
+                "Walk",
+                false
+              ]
+            ],
+            "name": "Habits",
+            "cols": [
+              "Habit",
+              "Done"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "version": "YL v0",
+  "area": "custom",
+  "vectors": [
+    {
+      "name": "custom object",
+      "input": "custom {\"type\":\"text\",\"text\":\"hi\",\"size\":\"lg\"}",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "custom",
+          "id": "c1",
+          "props": {
+            "spec": {
+              "type": "text",
+              "text": "hi",
+              "size": "lg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "custom with id",
+      "input": "custom@countdown {\"type\":\"stat\",\"value\":\"3\",\"label\":\"days\"}",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "custom",
+          "id": "countdown",
+          "props": {
+            "spec": {
+              "type": "stat",
+              "value": "3",
+              "label": "days"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "custom nested",
+      "input": "custom {\"type\":\"stack\",\"children\":[{\"type\":\"badge\",\"text\":\"PR\"},{\"type\":\"divider\"},{\"type\":\"stat\",\"value\":1.5,\"label\":\"km\"}]}",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "custom",
+          "id": "c1",
+          "props": {
+            "spec": {
+              "type": "stack",
+              "children": [
+                {
+                  "type": "badge",
+                  "text": "PR"
+                },
+                {
+                  "type": "divider"
+                },
+                {
+                  "type": "stat",
+                  "value": 1.5,
+                  "label": "km"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "custom scalar JSON",
+      "input": "custom 42",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "custom",
+          "id": "c1",
+          "props": {
+            "spec": 42
+          }
+        }
+      ]
+    },
+    {
+      "name": "custom array JSON",
+      "input": "custom [1,true,null,\"x\"]",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "custom",
+          "id": "c1",
+          "props": {
+            "spec": [
+              1,
+              true,
+              null,
+              "x"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "custom takes no comments",
+      "input": "custom {\"type\":\"divider\"} # note",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "custom bad JSON is an error",
+      "input": "custom {type: text}",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "custom with nothing after it is an error",
+      "input": "custom",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "custom escapes and unicode",
+      "input": "custom {\"type\":\"text\",\"text\":\"a \\\"q\\\" \\u00e9 \\n end\"}",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "custom",
+          "id": "c1",
+          "props": {
+            "spec": {
+              "type": "text",
+              "text": "a \"q\" é \n end"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "custom routed",
+      "input": ">2 custom {\"type\":\"divider\"}",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "custom",
+          "id": "c1",
+          "props": {
+            "spec": {
+              "type": "divider"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

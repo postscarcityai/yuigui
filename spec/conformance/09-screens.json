@@ -1,0 +1,145 @@
+{
+  "version": "YL v0",
+  "area": "screens",
+  "vectors": [
+    {
+      "name": "route one line",
+      "input": ">2 timer 90 Rest\nask Ready?",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 90,
+            "label": "Rest"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Ready?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "focus moves later lines",
+      "input": ">2\ntimer 90\nask Ready?\n>1\nsay back",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "2"
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 90
+          }
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Ready?"
+          }
+        },
+        {
+          "op": "focus",
+          "screen": "1"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "back"
+          }
+        }
+      ]
+    },
+    {
+      "name": "named screen",
+      "input": ">stats-view say hello",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "stats-view",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "hello"
+          }
+        }
+      ]
+    },
+    {
+      "name": "focus with trailing comment",
+      "input": ">3 # summary screen\nsay here",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "3"
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "here"
+          }
+        }
+      ]
+    },
+    {
+      "name": "route does not move focus",
+      "input": ">2\n>3 say once\nsay still two",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "2"
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "once"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "still two"
+          }
+        }
+      ]
+    },
+    {
+      "name": "space after > is not a route",
+      "input": "> 2 timer 60",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    }
+  ]
+}

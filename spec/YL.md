@@ -8,7 +8,7 @@ ask "Log this set?"
 choose "What are we training?" Push|Pull|Legs +other
 ```
 
-Reference implementation: `site/lib/yl/yl.mjs` (parser, stream parser, defaults, screen state). Tests: `bench/test.mjs`. Playground: `/playground` on the hub site. Token numbers: `spec/BENCHMARK.md`.
+Reference implementation: `site/lib/yl/yl.mjs` (parser, stream parser, defaults, screen state). Conformance suite: `spec/conformance/` (section 12). Tests: `bench/test.mjs`. Playground: `/playground` on the hub site. Token numbers: `spec/BENCHMARK.md`.
 
 ## 1. Lines
 
@@ -16,7 +16,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 
 | Line | Op | Example |
 |---|---|---|
-| blank, or starts with `# ` | none | `# rest block` |
+| blank, `#` alone, or starts with `# ` | none | `# rest block` |
 | `preset args...` | add a component | `timer 60` |
 | `preset@id args...` | add with a name you can patch later | `timer@hiit 40/20x8` |
 | `~target args...` | patch a live component | `~hiit rounds=10` |
@@ -30,20 +30,24 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 
 Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen.
 
+Lines end at `\n`; a trailing `\r` is dropped, so CRLF works. Leading and trailing whitespace is ignored. Preset names and core words are lowercase (`Timer 60` is an unknown preset). Ids are `[A-Za-z0-9_-]+`. `> 2` (space after `>`) is not a route.
+
 ## 2. Tokens
 
 After the head word, a line is split on whitespace into tokens.
 
 - **Bare word**: `Tabata`, `1-5`, `40/20x8`.
-- **Quoted string**: `"Log this set?"`. Double quotes only. `\"` and `\\` escape. Quotes may sit inside a token: `"Pull-up bar"|Bands` is one token.
+- **Quoted string**: `"Log this set?"`. Double quotes only. Inside quotes a backslash escapes the next character (`\"`, `\\`); outside quotes a backslash is literal. Quotes may sit inside a token: `"Pull-up bar"|Bands` is one token, and `pre"fix and"post` is the text `prefix andpost`. An unterminated quote runs to the end of the line.
 - **Options**: a token containing `|` outside quotes is split into options: `Push|Pull|Legs`, `"3:00 pm"|"4:00 pm"`.
-- **Key/value**: `key=value` where key is an identifier (`[A-Za-z_][\w-]*`). The value may be quoted (`cta="Start workout"`) or options (`cols=Food|Cal`). Numbers become numbers; `on`/`true` and `off`/`false` become booleans.
-- **Flag**: `+name` sets `name` to true: `+other`, `+check`, `+auto`.
+- **Key/value**: `key=value` where key is an identifier (`[A-Za-z_][\w-]*`). The value may be quoted (`cta="Start workout"`) or options (`cols=Food|Cal`). Unquoted values that look like `-?digits[.digits]` become numbers (`1e5` and `.5` stay text); `on`/`true` and `off`/`false` become booleans. A quoted value always stays text: `cta="5"` is the string `"5"`, and in options each part is judged on its own (`tags=1|"2"` is `[1, "2"]`). Only the first `=` splits: `sub=a=b` is `"a=b"`. `key=` is the empty string.
+- **Flag**: `+name` sets `name` to true: `+other`, `+check`, `+auto`. The name starts with a letter, so `+1` is text.
 - **Comment**: a `#` that starts a token and is followed by a space or the end of the line ends the line. `color=#ff6b3d` and `#hashtag` are not comments. `custom` lines take no comments.
 
-Everything that is not a key/value or a flag is **positional**. Each preset decides what its positionals mean (section 4). Any prop can also be set by key/value, which wins over positionals: `timer 60 rounds=3`.
+Everything that is not a key/value or a flag is **positional**. Each preset decides what its positionals mean (section 4). Any prop can also be set by key/value, which wins over positionals and flags: `timer 60 rounds=3`. For a repeated key the last one wins.
 
-Quotes are only needed when a positional would otherwise be misread. Consecutive bare words used as text are joined with spaces, so `ask Log this set?` and `ask "Log this set?"` are the same line.
+Whitespace means ASCII space and tab. Other Unicode spaces are undefined in v0; agents should not send them between tokens.
+
+Quotes are only needed when a positional would otherwise be misread, and they always force text: `timer "60" Rest` has no work time and the label `60 Rest`. Consecutive bare words used as text are joined with spaces, so `ask Log this set?` and `ask "Log this set?"` are the same line.
 
 ## 3. Values
 
@@ -89,7 +93,7 @@ pick "Gear" Dumbbells|Bench|Bands +other
 ```
 
 ### slide
-`slide label... RANGE [lo|hi]`. Slider. The options token, if given, labels the two ends. Emits `{value}` on release.
+`slide label... RANGE [lo|hi]`. Slider. The first options token with exactly two parts labels the two ends; any other options token is label text. Emits `{value}` on release.
 Props: `min` [1], `max` [5], `step` [1], `value` [midpoint], `unit`, `lo`, `hi`.
 ```
 slide "AI experience" 1-5 "Brand new"|"I run agents"
@@ -99,7 +103,8 @@ slide "Protein left (g)" 0-200 value=85 step=5
 ### form
 `form [title...] field field ...`. Emits `{form: {key: value}}` on submit.
 Field syntax: `key[:type][!]` or `"Label":type[!]`. `!` means required. No type means `text`. Labels default to the key with `_` as spaces.
-Types: `text`, `long`, `voice` (text box plus mic), `number`, `email`, `phone`, `date`, `time`, `url`, `yes` (toggle), `photo`, a range (`1-5`), or options (`Beginner|Mid|Pro`).
+Types: `text`, `long`, `voice` (text box plus mic), `number`, `email`, `phone`, `date`, `time`, `url`, `yes` (toggle), `photo`, a range (`1-5`, sent as `type: "range", min, max`), or options (`Beginner|Mid|Pro`, sent as `type: "choice", options`). Any other type is kept as written and renders as `text`, so a field type added later degrades on an older app.
+Any bare identifier is a field, so a title must be quoted unless it cannot be read as one: `form "Daily check-in" mood:1-5`, not `form Daily check-in` (two text fields). A quoted label with no type (`"Check-in"`) is title text, and so is anything else that is not a field (`Re:`).
 Props: `title`, `fields`, `submit` [Submit].
 ```
 form name:text! goal:voice level:1-5 submit="Next"
@@ -107,7 +112,7 @@ form "Check-in" sleep:1-10 "Home gym":yes split:Push|Pull|Legs
 ```
 
 ### list
-`list [Title] items...`. The first bare word is the title; quoted tokens and options are items. Emits `{item, checked}` when `+check` is on.
+`list [Title] items...`. The first token, if it is a bare word, is the title. Every token after it is an item: quoted tokens, each part of an options token, and each bare word on its own (`list Groceries milk eggs` has two items). Emits `{item, checked}` when `+check` is on.
 Props: `title`, `items`, `+check` (checklist), `+num` (numbered).
 ```
 list Today "Squat 5x5 @ 225" "Bench 5x5 @ 185" +check
@@ -128,7 +133,7 @@ card "Leg day" "Squat, RDL, lunges." sub=Thursday img=/yl/legday.svg cta="Start 
 ```
 
 ### image
-`image URL [caption...]`, or `image prompt...` with no URL, which shows a "to generate" placeholder until the image pipeline fills it (Phase 3). Props: `src`, `caption`, `prompt`, `alt`, `fit` [cover].
+`image URL [caption...]`, or `image prompt...` with no URL (a URL is a token starting `http://`, `https://`, `/` or `data:`; the first one found is `src` wherever it sits, and the other text is the caption), which shows a "to generate" placeholder until the image pipeline fills it (Phase 3). Props: `src`, `caption`, `prompt`, `alt`, `fit` [cover].
 ```
 image /yl/meal.svg Last night's dinner
 image "a calm blue avatar with a wizard hat"
@@ -178,7 +183,7 @@ Custom blocks can take an id (`custom@countdown {...}`) but cannot be patched; s
 
 ## 7. Events back to the agent
 
-Every interaction goes back as one small event: `{id, preset, ...value}`. Ids are the `@id` from the line, or `n1`, `n2`, ... in line order when none was given. Examples:
+Every interaction goes back as one small event: `{id, preset, ...value}`. Ids are the `@id` from the line, or `n1`, `n2`, ... in line order when none was given. `custom` blocks without an id get `c` plus the same counter, so `say`, `custom`, `say` gives `n1`, `c2`, `n3`. Only adds advance the counter; patches, errors and explicit ids do not. Examples:
 
 ```
 {"id":"n1","preset":"ask","answer":"Yes"}
@@ -194,6 +199,8 @@ The stream parser keeps a line buffer. Every time a newline arrives, that line i
 
 A line that fails (unknown preset, bad JSON, patch target that does not exist, `show` of a name never saved) is skipped and reported. Nothing else on the screen is affected. The playground lists errors under the wire log.
 
+Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show` without a name, a patch whose target is neither a preset name nor an id seen earlier in the reply, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
+
 ## 10. Telegram fallback
 
 `ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. Everything else degrades to its text plus a link to open it in Yui.
@@ -201,3 +208,7 @@ A line that fails (unknown preset, bad JSON, patch target that does not exist, `
 ## 11. Versioning
 
 This is v0. Adding presets and props is non-breaking: an old app shows an error line for an unknown preset and renders the rest. Changing what a positional means is breaking and bumps the version, which the relay handshake will carry (Phase 1 relay).
+
+## 12. Conformance
+
+YL is platform neutral. Every parser (JS reference, Swift app, later Kotlin) must pass the shared vectors in `spec/conformance/`: one JSON file per area, each `{version, area, vectors: [{name, input, expected, error?, chunks?, emits?}]}`. `expected` is the op list for the whole `input`, minus each op's `line` and each error's `message`. A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`; when `chunks` is present, pushing those chunks then flushing must give `emits` (the ops returned by each push, then by the flush). Run the JS side with `cd spec/conformance && node run.mjs`. A change to this spec lands with the vectors that pin it.

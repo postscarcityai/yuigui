@@ -1,0 +1,104 @@
+{
+  "version": "YL v0",
+  "area": "save-show-clear",
+  "vectors": [
+    {
+      "name": "save and show",
+      "input": "timer 60\nsave workout\nclear\nshow workout",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "save",
+          "screen": "1",
+          "name": "workout"
+        },
+        {
+          "op": "clear",
+          "screen": "1"
+        },
+        {
+          "op": "show",
+          "screen": "1",
+          "name": "workout"
+        }
+      ]
+    },
+    {
+      "name": "quoted save name",
+      "input": "save \"leg day\"",
+      "expected": [
+        {
+          "op": "save",
+          "screen": "1",
+          "name": "leg day"
+        }
+      ]
+    },
+    {
+      "name": "save without a name is an error",
+      "input": "save",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "show without a name is an error",
+      "input": "show",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "clear ignores args",
+      "input": "clear everything now",
+      "expected": [
+        {
+          "op": "clear",
+          "screen": "1"
+        }
+      ]
+    },
+    {
+      "name": "show of a name never saved is not a parse error",
+      "input": "show nothing",
+      "expected": [
+        {
+          "op": "show",
+          "screen": "1",
+          "name": "nothing"
+        }
+      ]
+    },
+    {
+      "name": "routed save and clear",
+      "input": ">2 save stats\n>2 clear",
+      "expected": [
+        {
+          "op": "save",
+          "screen": "2",
+          "name": "stats"
+        },
+        {
+          "op": "clear",
+          "screen": "2"
+        }
+      ]
+    }
+  ]
+}

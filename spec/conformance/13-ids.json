@@ -1,0 +1,150 @@
+{
+  "version": "YL v0",
+  "area": "ids",
+  "vectors": [
+    {
+      "name": "auto ids count adds in line order",
+      "input": "say a\nask b\ntimer 60",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "a"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "b"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n3",
+          "props": {
+            "work": 60
+          }
+        }
+      ]
+    },
+    {
+      "name": "custom takes a c id from the same counter",
+      "input": "say a\ncustom {\"type\":\"divider\"}\nsay b",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "a"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "custom",
+          "id": "c2",
+          "props": {
+            "spec": {
+              "type": "divider"
+            }
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "b"
+          }
+        }
+      ]
+    },
+    {
+      "name": "explicit ids do not advance the counter",
+      "input": "say@x a\nsay b",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "x",
+          "props": {
+            "text": "a"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "b"
+          }
+        }
+      ]
+    },
+    {
+      "name": "errors do not advance the counter",
+      "input": "bogus\nsay a",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "a"
+          }
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "patches do not advance the counter",
+      "input": "timer 60\n~timer 30\nsay a",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "timer",
+          "props": {
+            "work": 30
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "a"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,207 @@
+{
+  "version": "YL v0",
+  "area": "patch",
+  "vectors": [
+    {
+      "name": "patch by id parses with the target preset",
+      "input": "timer@hiit 40/20x8\n~hiit rounds=10\n~hiit 30/10",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "hiit",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "hiit",
+          "props": {
+            "rounds": 10
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "hiit",
+          "props": {
+            "work": 30,
+            "rest": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "patch by preset name",
+      "input": "timer 60\n~timer rounds=3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "timer",
+          "props": {
+            "rounds": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "patch say",
+      "input": "say hi\n~say bye",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "hi"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "say",
+          "props": {
+            "text": "bye"
+          }
+        }
+      ]
+    },
+    {
+      "name": "patch unknown id is an error",
+      "input": "~nope rounds=3",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "patch before the id exists is an error",
+      "input": "~later 30\ntimer@later 60",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "later",
+          "props": {
+            "work": 60
+          }
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "patch a custom block is an error",
+      "input": "custom@box {\"type\":\"divider\"}\n~box x=1",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "custom",
+          "id": "box",
+          "props": {
+            "spec": {
+              "type": "divider"
+            }
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "patch on a routed line",
+      "input": ">2 ~timer 45",
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "2",
+          "target": "timer",
+          "props": {
+            "work": 45
+          }
+        }
+      ]
+    },
+    {
+      "name": "patch ask by id with options",
+      "input": "ask@q1 Ready?\n~q1 Go|Wait",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "q1",
+          "props": {
+            "q": "Ready?"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "q1",
+          "props": {
+            "options": [
+              "Go",
+              "Wait"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "patch by preset name is not checked against the screen",
+      "input": "~ask Go|Wait",
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "ask",
+          "props": {
+            "options": [
+              "Go",
+              "Wait"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tilde alone is an error",
+      "input": "~ 30",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    }
+  ]
+}

@@ -1,0 +1,286 @@
+{
+  "version": "YL v0",
+  "area": "card-image-camera-mic-say",
+  "vectors": [
+    {
+      "name": "card full",
+      "input": "card \"Leg day\" \"Squat, RDL, lunges.\" sub=Thursday img=/yl/legday.svg cta=\"Start workout\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "Leg day",
+            "body": "Squat, RDL, lunges.",
+            "sub": "Thursday",
+            "img": "/yl/legday.svg",
+            "cta": "Start workout"
+          }
+        }
+      ]
+    },
+    {
+      "name": "card bare title and body",
+      "input": "card Leg day is today",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "Leg",
+            "body": "day is today"
+          }
+        }
+      ]
+    },
+    {
+      "name": "card title only",
+      "input": "card Done",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "Done"
+          }
+        }
+      ]
+    },
+    {
+      "name": "image path and caption",
+      "input": "image /yl/meal.svg Last night's dinner",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "image",
+          "id": "n1",
+          "props": {
+            "src": "/yl/meal.svg",
+            "caption": "Last night's dinner"
+          }
+        }
+      ]
+    },
+    {
+      "name": "image https",
+      "input": "image https://example.com/a.png",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "image",
+          "id": "n1",
+          "props": {
+            "src": "https://example.com/a.png"
+          }
+        }
+      ]
+    },
+    {
+      "name": "image data url",
+      "input": "image data:image/png;base64,AAAA Dot",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "image",
+          "id": "n1",
+          "props": {
+            "src": "data:image/png;base64,AAAA",
+            "caption": "Dot"
+          }
+        }
+      ]
+    },
+    {
+      "name": "image prompt only",
+      "input": "image \"a calm blue avatar with a wizard hat\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "image",
+          "id": "n1",
+          "props": {
+            "prompt": "a calm blue avatar with a wizard hat"
+          }
+        }
+      ]
+    },
+    {
+      "name": "image url after text makes text a caption",
+      "input": "image Dinner /yl/meal.svg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "image",
+          "id": "n1",
+          "props": {
+            "src": "/yl/meal.svg",
+            "caption": "Dinner"
+          }
+        }
+      ]
+    },
+    {
+      "name": "image relative path is not a url",
+      "input": "image yl/meal.svg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "image",
+          "id": "n1",
+          "props": {
+            "prompt": "yl/meal.svg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "camera prompt",
+      "input": "camera \"Snap your plate\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "camera",
+          "id": "n1",
+          "props": {
+            "prompt": "Snap your plate"
+          }
+        }
+      ]
+    },
+    {
+      "name": "camera scan",
+      "input": "camera \"Scan the receipt\" +scan",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "camera",
+          "id": "n1",
+          "props": {
+            "prompt": "Scan the receipt",
+            "scan": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "camera facing",
+      "input": "camera front Selfie time",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "camera",
+          "id": "n1",
+          "props": {
+            "facing": "front",
+            "prompt": "Selfie time"
+          }
+        }
+      ]
+    },
+    {
+      "name": "camera quoted facing word is prompt",
+      "input": "camera \"front\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "camera",
+          "id": "n1",
+          "props": {
+            "prompt": "front"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mic prompt auto lang",
+      "input": "mic \"What did you eat today?\" +auto lang=en-US",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "mic",
+          "id": "n1",
+          "props": {
+            "prompt": "What did you eat today?",
+            "auto": true,
+            "lang": "en-US"
+          }
+        }
+      ]
+    },
+    {
+      "name": "mic no args",
+      "input": "mic",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "mic",
+          "id": "n1",
+          "props": {}
+        }
+      ]
+    },
+    {
+      "name": "say text",
+      "input": "say Nice work.",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Nice work."
+          }
+        }
+      ]
+    },
+    {
+      "name": "say empty",
+      "input": "say",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "say with id",
+      "input": "say@hello Hi there",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "hello",
+          "props": {
+            "text": "Hi there"
+          }
+        }
+      ]
+    }
+  ]
+}

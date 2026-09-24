@@ -1,0 +1,324 @@
+{
+  "version": "YL v0",
+  "area": "streaming",
+  "vectors": [
+    {
+      "name": "line renders when its newline lands",
+      "input": "timer 40/20x8 Tabata\nask Log this set?\n",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8,
+            "label": "Tabata"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Log this set?"
+          }
+        }
+      ],
+      "chunks": [
+        "tim",
+        "er 40/20x8 Tab",
+        "ata\nask Log",
+        " this set?\n"
+      ],
+      "emits": [
+        [],
+        [],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "timer",
+            "id": "n1",
+            "props": {
+              "work": 40,
+              "rest": 20,
+              "rounds": 8,
+              "label": "Tabata"
+            }
+          }
+        ],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "ask",
+            "id": "n2",
+            "props": {
+              "q": "Log this set?"
+            }
+          }
+        ],
+        []
+      ]
+    },
+    {
+      "name": "flush parses the tail",
+      "input": "say one\nsay two",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "one"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "two"
+          }
+        }
+      ],
+      "chunks": [
+        "say one\nsay ",
+        "two"
+      ],
+      "emits": [
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "say",
+            "id": "n1",
+            "props": {
+              "text": "one"
+            }
+          }
+        ],
+        [],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "say",
+            "id": "n2",
+            "props": {
+              "text": "two"
+            }
+          }
+        ]
+      ]
+    },
+    {
+      "name": "CR and LF in different chunks",
+      "input": "timer 60\r\nsay hi\r\n",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "hi"
+          }
+        }
+      ],
+      "chunks": [
+        "timer 60\r",
+        "\nsay hi\r",
+        "\n"
+      ],
+      "emits": [
+        [],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "timer",
+            "id": "n1",
+            "props": {
+              "work": 60
+            }
+          }
+        ],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "say",
+            "id": "n2",
+            "props": {
+              "text": "hi"
+            }
+          }
+        ],
+        []
+      ]
+    },
+    {
+      "name": "several lines in one chunk",
+      "input": "say a\nsay b\nsay c\n",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "a"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "b"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "c"
+          }
+        }
+      ],
+      "chunks": [
+        "say a\nsay b\nsay c\n"
+      ],
+      "emits": [
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "say",
+            "id": "n1",
+            "props": {
+              "text": "a"
+            }
+          },
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "say",
+            "id": "n2",
+            "props": {
+              "text": "b"
+            }
+          },
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "say",
+            "id": "n3",
+            "props": {
+              "text": "c"
+            }
+          }
+        ],
+        []
+      ]
+    },
+    {
+      "name": "whitespace-only tail is dropped on flush",
+      "input": "say a\n   ",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "a"
+          }
+        }
+      ],
+      "chunks": [
+        "say a\n",
+        "   "
+      ],
+      "emits": [
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "say",
+            "id": "n1",
+            "props": {
+              "text": "a"
+            }
+          }
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "name": "focus carries across chunks",
+      "input": ">2\nsay a\n",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "2"
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "a"
+          }
+        }
+      ],
+      "chunks": [
+        ">2",
+        "\nsay",
+        " a\n"
+      ],
+      "emits": [
+        [],
+        [
+          {
+            "op": "focus",
+            "screen": "2"
+          }
+        ],
+        [
+          {
+            "op": "add",
+            "screen": "2",
+            "preset": "say",
+            "id": "n1",
+            "props": {
+              "text": "a"
+            }
+          }
+        ],
+        []
+      ]
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "version": "YL v0",
+  "area": "timer",
+  "vectors": [
+    {
+      "name": "seconds",
+      "input": "timer 45",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 45
+          }
+        }
+      ]
+    },
+    {
+      "name": "seconds suffix",
+      "input": "timer 90s",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 90
+          }
+        }
+      ]
+    },
+    {
+      "name": "minutes",
+      "input": "timer 5m Plank hold",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 300,
+            "label": "Plank hold"
+          }
+        }
+      ]
+    },
+    {
+      "name": "hours",
+      "input": "timer 1h",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 3600
+          }
+        }
+      ]
+    },
+    {
+      "name": "m:ss",
+      "input": "timer 1:30",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 90
+          }
+        }
+      ]
+    },
+    {
+      "name": "decimal minutes",
+      "input": "timer 1.5m",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 90
+          }
+        }
+      ]
+    },
+    {
+      "name": "work/rest x rounds",
+      "input": "timer 40/20x8 Tabata",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8,
+            "label": "Tabata"
+          }
+        }
+      ]
+    },
+    {
+      "name": "m:ss work with rounds",
+      "input": "timer 1:00/30x5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "rest": 30,
+            "rounds": 5
+          }
+        }
+      ]
+    },
+    {
+      "name": "work x rounds, no rest",
+      "input": "timer 30x4 Sprints",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 30,
+            "rounds": 4,
+            "label": "Sprints"
+          }
+        }
+      ]
+    },
+    {
+      "name": "count up",
+      "input": "timer 0 +up Run",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 0,
+            "label": "Run",
+            "up": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "label only, no timespec",
+      "input": "timer Tabata",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "label": "Tabata"
+          }
+        }
+      ]
+    },
+    {
+      "name": "second timespec is label text",
+      "input": "timer 60 90",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "label": "90"
+          }
+        }
+      ]
+    },
+    {
+      "name": "quoted number is label, not work",
+      "input": "timer \"60\" Rest",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "label": "60 Rest"
+          }
+        }
+      ]
+    },
+    {
+      "name": "id on a timer",
+      "input": "timer@hiit 40/20x8",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "hiit",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8
+          }
+        }
+      ]
+    },
+    {
+      "name": "no args",
+      "input": "timer",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {}
+        }
+      ]
+    }
+  ]
+}

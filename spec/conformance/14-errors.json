@@ -1,0 +1,90 @@
+{
+  "version": "YL v0",
+  "area": "errors",
+  "vectors": [
+    {
+      "name": "unknown preset",
+      "input": "dance 5 minutes",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "preset names are lowercase",
+      "input": "Timer 60",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "quoted head is not a preset",
+      "input": "\"timer\" 60",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "bad id characters",
+      "input": "timer@ 60",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "error does not stop later lines",
+      "input": "timer 60\nnonsense here\nask Ready?",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Ready?"
+          }
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "save with id syntax is unknown",
+      "input": "save@x name",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    }
+  ]
+}

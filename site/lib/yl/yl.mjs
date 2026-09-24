@@ -1,4 +1,5 @@
-// Yui Lines (YL) v0 parser. Spec: ~/dev/yui/spec/YL.md
+// Yui Lines (YL) v0 parser. Spec: ~/dev/yuigui/spec/YL.md
+// Conformance: ~/dev/yuigui/spec/conformance (node run.mjs)
 // Pure, dependency free. Used by the playground, the benchmark and the tests.
 //
 // One line in, one op out. Ops:
@@ -30,6 +31,8 @@ const IDENT = /^[a-z_][\w-]*$/i;
 //   parts   segments split on "|" outside quotes (null when there is no "|")
 //   key     set when the token is key=value (key must be an identifier)
 //   value   the unquoted text after "=", or its parts when it has "|"
+//   vquoted per value part, true when that part held a quoted string
+//           (quoted values stay text: cta="5" is the string "5")
 export function tokenize(line) {
   const tokens = [];
   let i = 0;
@@ -41,6 +44,7 @@ export function tokenize(line) {
     if (line[i] === "#" && (i + 1 >= n || /\s/.test(line[i + 1]))) break;
     const start = i;
     let segs = [""];
+    const segQ = [false]; // per segment: held a quoted string
     let anyQuote = false;
     let wholeQuoted = line[i] === '"';
     let eqAt = -1; // index into segs[0] text where "=" appeared, outside quotes
@@ -48,6 +52,7 @@ export function tokenize(line) {
       const c = line[i];
       if (c === '"') {
         anyQuote = true;
+        segQ[segQ.length - 1] = true;
         i++;
         while (i < n && line[i] !== '"') {
           if (line[i] === "\\" && i + 1 < n) { segs[segs.length - 1] += line[i + 1]; i += 2; continue; }
@@ -57,7 +62,7 @@ export function tokenize(line) {
         if (i < n && !/\s/.test(line[i])) wholeQuoted = false;
         continue;
       }
-      if (c === "|") { segs.push(""); wholeQuoted = false; i++; continue; }
+      if (c === "|") { segs.push(""); segQ.push(false); wholeQuoted = false; i++; continue; }
       if (c === "=" && eqAt < 0 && segs.length === 1 && !anyQuote && IDENT.test(segs[0])) {
         eqAt = segs[0].length;
       }
@@ -71,6 +76,7 @@ export function tokenize(line) {
       const first = segs[0].slice(eqAt + 1);
       const vparts = [first, ...segs.slice(1)];
       t.value = vparts.length > 1 ? vparts : first;
+      t.vquoted = segQ;
       t.parts = null;
     }
     tokens.push(t);
@@ -114,7 +120,9 @@ function split(tokens) {
   const flags = {};
   const pos = [];
   for (const t of tokens) {
-    if (t.key) kv[t.key] = coerce(t.value);
+    if (t.key) kv[t.key] = Array.isArray(t.value)
+      ? t.value.map((v, i) => (t.vquoted[i] ? v : coerce(v)))
+      : t.vquoted[0] ? t.value : coerce(t.value);
     else if (!t.quoted && !t.parts && /^\+[a-z][\w-]*$/i.test(t.raw)) flags[t.raw.slice(1)] = true;
     else pos.push(t);
   }
@@ -245,7 +253,9 @@ const P = {
 // Form field token: key:type, "Label":type, optional trailing "!" = required.
 // A bare identifier is a text field.
 const FIELD = /^(?:"((?:[^"\\]|\\.)*)"|([a-z_][\w-]*))(?::(.+?))?(!)?$/i;
-const FIELD_TYPES = new Set(["text", "long", "voice", "number", "email", "phone", "date", "time", "yes", "photo", "url"]);
+// Known field types. Any other type is kept as written and renders as text,
+// so a newer agent's field type degrades on an older app.
+export const FIELD_TYPES = new Set(["text", "long", "voice", "number", "email", "phone", "date", "time", "yes", "photo", "url"]);
 
 function field(t) {
   if (t.quoted) return null; // a quoted token alone is the form title
@@ -261,8 +271,7 @@ function field(t) {
     const r = type.match(RANGE);
     if (r) { f.type = "range"; f.min = Number(r[1]); f.max = Number(r[2]); }
     else if (type.includes("|")) { f.type = "choice"; f.options = type.split("|").map((s) => s.replace(/^"|"$/g, "")); }
-    else if (FIELD_TYPES.has(type)) f.type = type;
-    else return null;
+    else f.type = type;
   }
   if (m[4]) f.required = true;
   return f;

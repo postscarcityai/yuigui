@@ -1,0 +1,565 @@
+{
+  "version": "YL v0",
+  "area": "tokens",
+  "vectors": [
+    {
+      "name": "quoted string keeps spaces",
+      "input": "ask \"Log this set?\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Log this set?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "bare words join with single spaces",
+      "input": "ask   Log   this   set?",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Log this set?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "escaped quote and backslash inside quotes",
+      "input": "say \"She said \\\"hi\\\" and left a \\\\\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "She said \"hi\" and left a \\"
+          }
+        }
+      ]
+    },
+    {
+      "name": "backslash outside quotes is literal",
+      "input": "say C:\\path\\to",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "C:\\path\\to"
+          }
+        }
+      ]
+    },
+    {
+      "name": "quotes inside a token",
+      "input": "say pre\"fix and\"post",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "prefix andpost"
+          }
+        }
+      ]
+    },
+    {
+      "name": "unterminated quote runs to end of line",
+      "input": "ask \"Log this set",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Log this set"
+          }
+        }
+      ]
+    },
+    {
+      "name": "options split on pipe",
+      "input": "choose Split? Push|Pull|Legs",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n1",
+          "props": {
+            "options": [
+              "Push",
+              "Pull",
+              "Legs"
+            ],
+            "q": "Split?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "quoted options",
+      "input": "choose When? \"3:00 pm\"|\"4:00 pm\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n1",
+          "props": {
+            "options": [
+              "3:00 pm",
+              "4:00 pm"
+            ],
+            "q": "When?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "quoted part next to bare part",
+      "input": "pick Gear \"Pull-up bar\"|Bands",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pick",
+          "id": "n1",
+          "props": {
+            "options": [
+              "Pull-up bar",
+              "Bands"
+            ],
+            "q": "Gear"
+          }
+        }
+      ]
+    },
+    {
+      "name": "pipe inside quotes is not a split",
+      "input": "say \"a|b\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "a|b"
+          }
+        }
+      ]
+    },
+    {
+      "name": "key=value number",
+      "input": "timer 60 rounds=3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "rounds": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "key=value decimals and negatives",
+      "input": "slide Temp min=-10 max=2.5 step=0.5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "slide",
+          "id": "n1",
+          "props": {
+            "label": "Temp",
+            "min": -10,
+            "max": 2.5,
+            "step": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "name": "key=value booleans",
+      "input": "timer 60 sound=off auto=on up=false",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "sound": false,
+            "auto": true,
+            "up": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "key=value true stays boolean",
+      "input": "timer 60 up=true",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "up": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "quoted key=value stays text",
+      "input": "card Leg cta=\"5\" sub=\"on\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "Leg",
+            "cta": "5",
+            "sub": "on"
+          }
+        }
+      ]
+    },
+    {
+      "name": "key=value with spaces needs quotes",
+      "input": "card Leg cta=\"Start workout\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "Leg",
+            "cta": "Start workout"
+          }
+        }
+      ]
+    },
+    {
+      "name": "key=value options",
+      "input": "table Macros cols=Food|Cal",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "table",
+          "id": "n1",
+          "props": {
+            "name": "Macros",
+            "cols": [
+              "Food",
+              "Cal"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "key=value options mix quoted and bare",
+      "input": "card X tags=1|\"2\"|three",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "X",
+            "tags": [
+              1,
+              "2",
+              "three"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "value keeps later equals signs",
+      "input": "card X sub=a=b",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "X",
+            "sub": "a=b"
+          }
+        }
+      ]
+    },
+    {
+      "name": "empty value",
+      "input": "card X sub=",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "X",
+            "sub": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "exponent is not a number",
+      "input": "card X sub=1e5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "X",
+            "sub": "1e5"
+          }
+        }
+      ]
+    },
+    {
+      "name": "leading-dot decimal is not a number",
+      "input": "card X sub=.5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "X",
+            "sub": ".5"
+          }
+        }
+      ]
+    },
+    {
+      "name": "key=value wins over positionals",
+      "input": "timer 40/20x8 rounds=3 work=30",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 30,
+            "rest": 20,
+            "rounds": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "last duplicate key wins",
+      "input": "timer 60 rounds=3 rounds=5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "rounds": 5
+          }
+        }
+      ]
+    },
+    {
+      "name": "key=value wins over flag",
+      "input": "timer 60 +auto auto=off",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "auto": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "flag sets true",
+      "input": "choose Split? Push|Pull +other",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n1",
+          "props": {
+            "options": [
+              "Push",
+              "Pull"
+            ],
+            "q": "Split?",
+            "other": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "quoted plus is not a flag",
+      "input": "say \"+other\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "+other"
+          }
+        }
+      ]
+    },
+    {
+      "name": "plus with digits is not a flag",
+      "input": "say +1 for that",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "+1 for that"
+          }
+        }
+      ]
+    },
+    {
+      "name": "comment after tokens",
+      "input": "timer 60 Rest # between sets",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "label": "Rest"
+          }
+        }
+      ]
+    },
+    {
+      "name": "hash at end of line ends it",
+      "input": "timer 60 Rest #",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "label": "Rest"
+          }
+        }
+      ]
+    },
+    {
+      "name": "hash color value is not a comment",
+      "input": "card Brand color=#ff6b3d",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "Brand",
+            "color": "#ff6b3d"
+          }
+        }
+      ]
+    },
+    {
+      "name": "hash inside a word is not a comment",
+      "input": "ask Is #1 the best?",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Is #1 the best?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "hash inside quotes is not a comment",
+      "input": "say \"we are # one\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "we are # one"
+          }
+        }
+      ]
+    },
+    {
+      "name": "unicode and emoji text",
+      "input": "say Great set 💪 café",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Great set 💪 café"
+          }
+        }
+      ]
+    }
+  ]
+}
