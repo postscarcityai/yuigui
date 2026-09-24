@@ -2,6 +2,8 @@
 import log from "../../content/progress.json";
 import Waitlist from "../components/Waitlist";
 import { slug } from "../../lib/slug.mjs";
+import { shotsOf } from "../../lib/shots.mjs";
+import Shots from "../components/Shots";
 
 export const metadata = { title: "Progress | Yui" };
 
@@ -20,6 +22,10 @@ export default function Progress() {
     <>
       <div className="eyebrow">Progress</div>
       <h1>What shipped, and when.</h1>
+      <p className="lede">
+        Every change, newest first, with screenshots. Tap one to see it full size. The <a href="/changelog">changelog</a> groups
+        the same work by TestFlight build.
+      </p>
 
       <h2>Phase status</h2>
       <div className="grid">
@@ -39,7 +45,7 @@ export default function Progress() {
             <div className="date">{e.date}</div>
             <h3 style={{ margin: "2px 0 4px" }}>{e.title}</h3>
             <div style={{ color: "var(--muted)" }}>{e.body}</div>
-            {e.image && <img className="logimg" src={e.image} alt={e.imageAlt || e.title} loading="lazy" />}
+            <Shots images={shotsOf(e)} label={e.title} />
           </li>
         ))}
       </ul>

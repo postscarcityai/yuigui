@@ -6,6 +6,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { slug } from "../lib/slug.mjs";
+import { PRIVATE_RE, LEAKS } from "../lib/public-guard.mjs";
 
 const DB = process.env.KANBAN_DB || `${homedir()}/.hermes/kanban.db`;
 const CHECK = process.argv.includes("--check");
@@ -17,24 +18,6 @@ const PREFIXES = ["YUI", "SITE", "OSS", "INT", "MVP", "BIZ", "FLOW"];
 const NEEDS_YUI_TAG = new Set(["BIZ", "FLOW"]);
 const TITLE_ONLY = new Set(["BIZ"]);
 const ORDER = Object.fromEntries(PREFIXES.map((p, i) => [p, i]));
-
-// Words that must never reach the public board: clients, other projects, other agents, people.
-const PRIVATE = [
-  "AMC", "Aaron", "Cohen", "Justice Watch", "Docket", "Heathos", "Hubble", "Plannix", "Moon", "imo", "Apollo",
-  "Sean Rush", "Luna", "Air Nomadics", "markzaid", "Zaid", "Healing Alliance", "Lending Genie", "WaterDamageIQ",
-  "Finesse", "SigEp", "Arnold", "R0SS", "Ross", "Urza", "Monk", "Hank", "Gimp", "Akasha", "Wendy",
-  "Mick", "Selene", "Firecrawl",
-];
-const PRIVATE_RE = new RegExp(`\\b(${PRIVATE.map((w) => w.replace(/ /g, "\\s+")).join("|")})\\b`, "i");
-// Shapes that must never appear anywhere in the output.
-const LEAKS = [
-  [/\bt_[0-9a-f]{6,}\b/i, "task id"],
-  [/(\/Users\/|~\/|\.hermes|\.openclaw|\/dev\/)/i, "path"],
-  [/\$\s?\d|\b\d+\s?(usd|dollars)\b/i, "cost"],
-  [/[\w.+-]+@[\w-]+\.[\w.]+/, "email"],
-  [/\(\d{3}\)\s?\d{3}-\d{4}|\b\d{3}-\d{3}-\d{4}\b/, "phone"],
-  [PRIVATE_RE, "private name"],
-];
 
 function sql(q) {
   // query_only instead of -readonly: a read-only open of a WAL database fails here ("unable to open database file").

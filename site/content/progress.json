@@ -1,21 +1,64 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Screenshots everywhere, and a changelog",
+    "card": "SITE-3",
+    "body": "Chris loves screenshots, so this log has them now. Entries carry a small gallery of real screens: tap one to see it full size, and step through with the arrow keys. We went back through the cards that built Yui and added their screenshots to past entries, all the way to the first chat screen with the cat. There is also a new page, the changelog. It groups the same work by TestFlight build: the build number, the day it went out, what changed and what it looks like. It updates itself when a new build lands. From here on, every card that ships something you can see adds its screenshots here.",
+    "images": [
+      {
+        "src": "/progress/site3-progress.webp",
+        "alt": "The progress log with a row of app screenshots under an entry"
+      },
+      {
+        "src": "/progress/site3-lightbox.webp",
+        "alt": "A screenshot opened full size over the progress page, with previous, next and close buttons"
+      },
+      {
+        "src": "/progress/site3-changelog.webp",
+        "alt": "The changelog page: each TestFlight build with its date, what changed and its screenshots"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Who Yui is on each platform",
     "body": "Yui will be @yuiguiai everywhere, and we checked: the name is free on X, Instagram, Threads, TikTok, YouTube, Bluesky, Reddit and GitHub (Product Hunt blocked our check). For each account we wrote the bio, the voice, what it posts and why someone would follow it, plus ten example posts that show the voice. Every example is a draft; nothing has been posted and Chris creates the accounts. Avatars and banners use the coral wordmark on cream. Read it at yuigui.com/business/biz-5-social-accounts."
   },
   {
     "date": "2026-09-24",
     "title": "Decks, plan mode and narrated walkthroughs",
-    "body": "Three new kinds of screen. A deck is a presentation: the agent sends one line per slide, with a picture, a few words and speaker notes, and you swipe through it or go full screen. Put a question at the end with the right answer and it becomes a quiz that tells you why. Plan mode turns a string of questions into steps with a progress bar, Back and Next, and a review screen, and the agent gets all your answers at once, as a project it can bring back later with one tap. Narrate has the agent talk you through something while it shows it: a lesson deck page by page, or a website update, before and after, one change at a time, with the words lighting up as they are spoken. Each agent can have its own voice. Try them in the playground: ?demo=deck-lesson, plan-website and narrate-site. The images in the vaccine lesson were generated for it, and the site in the walkthrough is a made-up pottery studio."
+    "card": "YUI-18",
+    "body": "Three new kinds of screen. A deck is a presentation: the agent sends one line per slide, with a picture, a few words and speaker notes, and you swipe through it or go full screen. Put a question at the end with the right answer and it becomes a quiz that tells you why. Plan mode turns a string of questions into steps with a progress bar, Back and Next, and a review screen, and the agent gets all your answers at once, as a project it can bring back later with one tap. Narrate has the agent talk you through something while it shows it: a lesson deck page by page, or a website update, before and after, one change at a time, with the words lighting up as they are spoken. Each agent can have its own voice. Try them in the playground: ?demo=deck-lesson, plan-website and narrate-site. The images in the vaccine lesson were generated for it, and the site in the walkthrough is a made-up pottery studio.",
+    "images": [
+      {
+        "src": "/progress/yui18-deck.webp",
+        "alt": "The cover of a lesson deck about mRNA vaccines"
+      },
+      {
+        "src": "/progress/yui18-quiz.webp",
+        "alt": "A quiz question at the end of the deck, answered right"
+      },
+      {
+        "src": "/progress/yui18-plan.webp",
+        "alt": "The review screen at the end of plan mode"
+      },
+      {
+        "src": "/progress/yui18-narrate.webp",
+        "alt": "A narrated website walkthrough: before and after, one change at a time"
+      }
+    ]
   },
   {
     "date": "2026-09-24",
     "title": "The board is public",
     "card": "SITE-2",
     "body": "You can now watch us work. yuigui.com/board shows every Yui card in four columns: backlog, up next, building, and what shipped in the last 30 days. It comes straight from the kanban board our agents use, so when an agent picks up a card or finishes one, the page follows within half an hour. Shipped cards link to their entry in this log. The MVP bar now counts itself from the same board, and it just moved to 11 of 21. Only titles and short summaries go out. A script checks every export for private details before anything is published, and refuses to write the file if it finds one.",
-    "image": "/progress/board.webp",
-    "imageAlt": "The yuigui.com board: backlog, up next, building and shipped columns of Yui cards, with the MVP bar above"
+    "images": [
+      {
+        "src": "/progress/board.webp",
+        "alt": "The yuigui.com board: backlog, up next, building and shipped columns of Yui cards, with the MVP bar above"
+      }
+    ]
   },
   {
     "date": "2026-09-24",
@@ -28,8 +71,12 @@
     "title": "The MVP, and a bar that shows how close it is",
     "card": "MVP-0",
     "body": "Chris asked us not to lose focus, so the roadmap now opens with the MVP: the smallest Yui a stranger can use. Someone who already runs Hermes installs Yui from a public TestFlight link, signs in with Apple, connects their own agents in a few minutes, gets screens and pushes back, and can delete their account from inside the app. That is 21 cards. 10 have shipped, 1 is being built, and the last one is a real outside tester doing the whole path with a stopwatch. The bar on the home page and the roadmap counts them; once the live board lands it will update itself. Everything else went into a deep backlog of 30-odd parked ideas, from a lock-screen timer and group threads to an Android prototype and flows written in Mermaid, so there is always a next card but never a distraction.",
-    "image": "/progress/mvp-bar.webp",
-    "imageAlt": "The MVP progress bar on the yuigui.com roadmap: 48 percent shipped, 10 of 21 cards, with the cards still to go"
+    "images": [
+      {
+        "src": "/progress/mvp-bar.webp",
+        "alt": "The MVP progress bar on the yuigui.com roadmap: 48 percent shipped, 10 of 21 cards, with the cards still to go"
+      }
+    ]
   },
   {
     "date": "2026-09-24",
@@ -48,8 +95,16 @@
     "title": "The site now looks like the app",
     "card": "SITE-1",
     "body": "yuigui.com wears the same clothes as the iPhone app now. Cream paper, soft plum ink, the coral wordmark up top, rounded type, pastel accents. The colors come straight from the app's theme file, so when the app changes, the site can follow. Light is the default and the moon button in the corner switches to dark. The home page tells the story in plain words: what Yui is, who it is for (people who already run agents, Hermes first), and real screenshots from the current test build. The icon and the link preview use the wordmark too. We also fixed contrast across the site. Every page but the playground now scores 100 on Google's accessibility check, and the playground's last few fixes are queued.",
-    "image": "/progress/site-rebrand.webp",
-    "imageAlt": "The new yuigui.com home page in light mode"
+    "images": [
+      {
+        "src": "/progress/site-rebrand.webp",
+        "alt": "The new yuigui.com home page in light mode"
+      },
+      {
+        "src": "/progress/site1-before.webp",
+        "alt": "Before the rebrand: the old dark site"
+      }
+    ]
   },
   {
     "date": "2026-09-24",
@@ -67,7 +122,21 @@
     "date": "2026-09-24",
     "title": "Yui Lines learn charts, equations and experiments",
     "card": "YUI-17",
-    "body": "Agents can now show numbers and teach with them, one line each. chart draws line, bar, area, scatter, pie and donut charts from data written right in the line, with more series, stacking and error bars (write 12.5±0.4), or from a live table on the same screen, so when the table changes the chart redraws. Every chart has a Table view and follows the app's light or dark theme; each theme has its own set of chart colors, checked so people with color blindness can tell the series apart. stat is one big number with its change and a small trend line, and tapping lb or °C shows kg or °F. math typesets equations. step walks through a derivation or a lab protocol one step at a time, with optional timers. calc turns a formula into sliders that redraw a chart as you drag: slide the launch angle and watch the range peak at 45 degrees. Tables can now be sorted and carry units. 53 new test cases pin the syntax, 251 in all. The app picks these up next."
+    "body": "Agents can now show numbers and teach with them, one line each. chart draws line, bar, area, scatter, pie and donut charts from data written right in the line, with more series, stacking and error bars (write 12.5±0.4), or from a live table on the same screen, so when the table changes the chart redraws. Every chart has a Table view and follows the app's light or dark theme; each theme has its own set of chart colors, checked so people with color blindness can tell the series apart. stat is one big number with its change and a small trend line, and tapping lb or °C shows kg or °F. math typesets equations. step walks through a derivation or a lab protocol one step at a time, with optional timers. calc turns a formula into sliders that redraw a chart as you drag: slide the launch angle and watch the range peak at 45 degrees. Tables can now be sorted and carry units. 53 new test cases pin the syntax, 251 in all. The app picks these up next.",
+    "images": [
+      {
+        "src": "/progress/yui17-line.webp",
+        "alt": "A weight chart with a tooltip on one day"
+      },
+      {
+        "src": "/progress/yui17-projectile.webp",
+        "alt": "A projectile calculator: an equation, a live curve and two sliders"
+      },
+      {
+        "src": "/progress/yui17-pie.webp",
+        "alt": "Pie and donut charts with a chart and table toggle"
+      }
+    ]
   },
   {
     "date": "2026-09-24",
@@ -79,7 +148,21 @@
     "date": "2026-09-24",
     "title": "Yui Lines learn pictures and video",
     "card": "YUI-16",
-    "body": "Agents can now show media, not just describe it. Four new one-line presets: gallery (photos and clips as a swipe row, a vertical feed, a 3D coverflow stack or a grid, with tap to go full screen and an optional pick-your-favorites mode), video, compare (before and after with a drag slider, side by side or tap to toggle, plus numbered boxes where the agent points at what changed) and storyboard (ordered frames you can reorder and comment on, or a script with no pictures yet). An image can also be marked up: circle the part you want changed, type what you want, and the agent gets the area and the instruction, runs the edit and answers with a before and after. Every demo on the playground uses images we generated for it. 33 new test cases pin the syntax, 198 in all. The app picks these up next."
+    "body": "Agents can now show media, not just describe it. Four new one-line presets: gallery (photos and clips as a swipe row, a vertical feed, a 3D coverflow stack or a grid, with tap to go full screen and an optional pick-your-favorites mode), video, compare (before and after with a drag slider, side by side or tap to toggle, plus numbered boxes where the agent points at what changed) and storyboard (ordered frames you can reorder and comment on, or a script with no pictures yet). An image can also be marked up: circle the part you want changed, type what you want, and the agent gets the area and the instruction, runs the edit and answers with a before and after. Every demo on the playground uses images we generated for it. 33 new test cases pin the syntax, 198 in all. The app picks these up next.",
+    "images": [
+      {
+        "src": "/progress/yui16-gallery.webp",
+        "alt": "A photo gallery screen, cards stacked in 3D"
+      },
+      {
+        "src": "/progress/yui16-compare.webp",
+        "alt": "A before and after slider on a room photo, with numbered changes"
+      },
+      {
+        "src": "/progress/yui16-lightbox.webp",
+        "alt": "A gallery photo opened full screen"
+      }
+    ]
   },
   {
     "date": "2026-09-23",
@@ -97,19 +180,57 @@
     "date": "2026-09-23",
     "title": "Yui drops the cat",
     "card": "YUI-9",
-    "body": "The round cat is gone. Chris noticed the hand-drawn Yui wordmark already looks like a cat, abstractly: the bunny-ear arms on the Y read as ears. So the logo is the face now. Yui's own avatar in chat is that Y on its own, in coral. Each agent gets a small pastel chip with its first letter in heavy rounded type, colored from the theme file, so when agents get their own looks their chips change with them. The empty chat screen and settings show the wordmark with a few warm words, no drawing. Build 10 is on TestFlight."
+    "body": "The round cat is gone. Chris noticed the hand-drawn Yui wordmark already looks like a cat, abstractly: the bunny-ear arms on the Y read as ears. So the logo is the face now. Yui's own avatar in chat is that Y on its own, in coral. Each agent gets a small pastel chip with its first letter in heavy rounded type, colored from the theme file, so when agents get their own looks their chips change with them. The empty chat screen and settings show the wordmark with a few warm words, no drawing. Build 10 is on TestFlight.",
+    "images": [
+      {
+        "src": "/progress/yui9-empty.webp",
+        "alt": "The empty chat after the cat was dropped: just the coral wordmark, dark theme"
+      },
+      {
+        "src": "/progress/yui9-chat.webp",
+        "alt": "A chat with a timer card and no mascot"
+      }
+    ]
   },
   {
     "date": "2026-09-23",
     "title": "Yui draws its first six screens",
     "card": "YUI-4",
-    "body": "An agent can now reply with a timer, a question, a multiple choice, a pick-several, a form or a list, and Yui draws it as a real card inside the chat instead of plain text. The timer counts rounds on a ring and beeps on the last three seconds. Forms handle text, numbers, dates, sliders, yes/no toggles and voice notes, and will not submit until the required fields are filled. Every tap goes back to the agent as one small event, and your answer shows up as your own chat bubble. All the styling comes from the same theme file, so a restyle changes these cards too. A hidden paste box lets us test any Yui Lines reply by hand. Build 9 is on TestFlight."
+    "body": "An agent can now reply with a timer, a question, a multiple choice, a pick-several, a form or a list, and Yui draws it as a real card inside the chat instead of plain text. The timer counts rounds on a ring and beeps on the last three seconds. Forms handle text, numbers, dates, sliders, yes/no toggles and voice notes, and will not submit until the required fields are filled. Every tap goes back to the agent as one small event, and your answer shows up as your own chat bubble. All the styling comes from the same theme file, so a restyle changes these cards too. A hidden paste box lets us test any Yui Lines reply by hand. Build 9 is on TestFlight.",
+    "images": [
+      {
+        "src": "/progress/yui4-choose.webp",
+        "alt": "A choose screen in chat: which split today, push, pull or legs"
+      },
+      {
+        "src": "/progress/yui4-tabata.webp",
+        "alt": "A Tabata timer card counting down in chat, dark theme"
+      },
+      {
+        "src": "/progress/yui4-checkin.webp",
+        "alt": "A daily check-in form with a mood slider, switches and notes"
+      }
+    ]
   },
   {
     "date": "2026-09-23",
     "title": "The wordmark moves into the app",
     "card": "YUI-5",
-    "body": "Chris's hand-drawn Yui wordmark, the one with bunny-ear arms on the Y, now sits in the app's top bar, on the empty chat screen and in settings. Its coral is now the app's main color too: the send button, your chat bubbles and the selected toggle all use it, with the pastels kept for the smaller touches. The coral is stored in the same theme file as everything else, so an agent that restyles the app recolors the logo along with it. It reads clearly on both the cream light mode and the dark plum mode, so one logo file covers both. Yui the cat stays as the face of the agent. Build 8 is on TestFlight."
+    "body": "Chris's hand-drawn Yui wordmark, the one with bunny-ear arms on the Y, now sits in the app's top bar, on the empty chat screen and in settings. Its coral is now the app's main color too: the send button, your chat bubbles and the selected toggle all use it, with the pastels kept for the smaller touches. The coral is stored in the same theme file as everything else, so an agent that restyles the app recolors the logo along with it. It reads clearly on both the cream light mode and the dark plum mode, so one logo file covers both. Yui the cat stays as the face of the agent. Build 8 is on TestFlight.",
+    "images": [
+      {
+        "src": "/progress/yui5-empty.webp",
+        "alt": "The empty chat with the coral Yui wordmark"
+      },
+      {
+        "src": "/progress/yui5-chat.webp",
+        "alt": "A chat with the wordmark in the top bar"
+      },
+      {
+        "src": "/progress/yui5-settings.webp",
+        "alt": "Settings in the dark theme with the wordmark"
+      }
+    ]
   },
   {
     "date": "2026-09-23",
@@ -121,11 +242,26 @@
     "date": "2026-09-23",
     "title": "Yui gets a face",
     "card": "YUI-2",
-    "body": "Yui now has a look: a round white cat named Yui, soft pastels on warm cream paper, rounded type, and a little bounce when you tap send. The feel borrows from Korean character apps like Kakao Friends: cute, but not childish. There is a light and dark mode with a toggle in settings. Under the hood every color, corner and animation lives in one small data file, so later an agent can restyle the whole app on the fly. Build 5 is on TestFlight with the new icon."
+    "body": "Yui now has a look: a round white cat named Yui, soft pastels on warm cream paper, rounded type, and a little bounce when you tap send. The feel borrows from Korean character apps like Kakao Friends: cute, but not childish. There is a light and dark mode with a toggle in settings. Under the hood every color, corner and animation lives in one small data file, so later an agent can restyle the whole app on the fly. Build 5 is on TestFlight with the new icon.",
+    "images": [
+      {
+        "src": "/progress/yui2-chat-light.webp",
+        "alt": "The first chat screen in the light theme, with the cat mascot"
+      },
+      {
+        "src": "/progress/yui2-chat-dark.webp",
+        "alt": "The same chat in the dark theme"
+      },
+      {
+        "src": "/progress/yui2-mascot.webp",
+        "alt": "The cat mascot we picked, later dropped"
+      }
+    ]
   },
   {
     "date": "2026-09-23",
     "title": "First TestFlight build",
+    "build": 4,
     "body": "The Swift app exists. Build 4 is a bare SwiftUI chat screen with a placeholder icon, signed and uploaded to TestFlight straight from the build machine with no one opening Xcode. It does nothing useful yet. What matters is the pipeline: from here every change can reach a phone in minutes. First upload was rejected for a missing app icon, fixed in one commit."
   },
   {
@@ -157,13 +293,29 @@
     "date": "2026-09-23",
     "title": "Yui Lines v0: spec, 12 presets, playground, token benchmark",
     "card": "YUI-1",
-    "body": "Agents now speak Yui Lines: one short line per component, no UI code, no JSON. Spec at /yl, live playground at /playground with all 12 presets (timer, ask, choose, pick, slide, form, list, table, card, image, camera, mic), line-by-line streaming, ~patch, >screen routing, save/show and the custom {json} escape hatch. Benchmark on 10 screens with real tokenizers: YL is 1.6x smaller than minified JSON, 2.7x smaller than pretty JSON, 3.9x smaller than a component-tree document."
+    "body": "Agents now speak Yui Lines: one short line per component, no UI code, no JSON. Spec at /yl, live playground at /playground with all 12 presets (timer, ask, choose, pick, slide, form, list, table, card, image, camera, mic), line-by-line streaming, ~patch, >screen routing, save/show and the custom {json} escape hatch. Benchmark on 10 screens with real tokenizers: YL is 1.6x smaller than minified JSON, 2.7x smaller than pretty JSON, 3.9x smaller than a component-tree document.",
+    "images": [
+      {
+        "src": "/progress/yui1-presets.webp",
+        "alt": "The first twelve Yui Lines presets rendered in the web playground"
+      },
+      {
+        "src": "/progress/yui1-benchmark.webp",
+        "alt": "The token benchmark table: Yui Lines against JSON for the same screens"
+      }
+    ]
   },
   {
     "date": "2026-09-23",
     "title": "Hub site live (Phase 0)",
     "card": "YUI-0",
-    "body": "This site: overview, roadmap, progress log, business plan draft, pitch deck, three phone mockups. Deployed to Vercel as project yui. yuigui.com not attached yet."
+    "body": "This site: overview, roadmap, progress log, business plan draft, pitch deck, three phone mockups. Deployed to Vercel as project yui. yuigui.com not attached yet.",
+    "images": [
+      {
+        "src": "/progress/yui0-home.webp",
+        "alt": "The first hub site, dark and plain, the day it went live"
+      }
+    ]
   },
   {
     "date": "2026-09-23",
