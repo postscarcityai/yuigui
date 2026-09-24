@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The site catches up: what is on your phone, and what comes with build 57",
+    "card": "SITE-25",
+    "body": "Before going back to the app, the site had to match the app. Cards that are done in the code but not on TestFlight yet now say so: on the Shipped log, on See it and on the board they read Next build, with a line that they reach TestFlight with the next build. Those labels come from the Builds page's data, so they turn into Shipped on their own the day build 57 goes live. The roadmap names build 57 and the eight cards it carries, drops the lock screen timer from the parked list (it is in that build), and lists accounts and the relay as one line. The sign-up form at the bottom of each page now says join for updates, since the beta is open to anyone. And a push to GitHub deploys the site again: the hosting project was pointed at the wrong folder.",
+    "images": [
+      {
+        "src": "/progress/site25-next-build.webp",
+        "alt": "A Shipped log entry for three screens per agent with a Next build pill and the line: Done in the code, reaches TestFlight with the next build"
+      },
+      {
+        "src": "/progress/site25-roadmap.webp",
+        "alt": "The roadmap paragraph Next release: build 57, chat feels right, listing the eight cards it carries"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Yui@home: lend your idle agent to Yui",
     "card": "SITE-24",
     "body": "Like SETI@home, but for AI tokens. If your Claude or ChatGPT Codex plan has tokens left over, your agent can pick a card off the Yui backlog and open a pull request that a person reviews. Today this ships the story and the signposts: the note Donate your idle tokens to Yui, a Contribute with your agent page under Developers with a prompt to try now and a feature spec template (docs/specs in the hub repo), a Lend your agent option at the bottom of every page and on Get started, a For AI agents section on Developers, and llms.txt at the site root so an assistant researching Yui can pass the invitation on. The agent-ready backlog export and weekly routine prompts per platform are OSS-6, after the MVP.",

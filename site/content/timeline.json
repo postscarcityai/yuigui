@@ -2,15 +2,39 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 57,
-    "site": 142,
+    "site": 143,
     "builds": 21,
-    "shipped": 85,
-    "screenshots": 155
+    "shipped": 86,
+    "screenshots": 157
   },
   "days": [
     {
       "date": "2026-09-24",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-24T23:38:27.480Z",
+          "title": "The site catches up: what is on your phone, and what comes with build 57",
+          "card": "SITE-25",
+          "anchor": "the-site-catches-up-what-is-on-your-phone-and-what-comes-with-build-57",
+          "images": [
+            {
+              "src": "/progress/site25-next-build.webp",
+              "alt": "A Shipped log entry for three screens per agent with a Next build pill and the line: Done in the code, reaches TestFlight with the next build"
+            },
+            {
+              "src": "/progress/site25-roadmap.webp",
+              "alt": "The roadmap paragraph Next release: build 57, chat feels right, listing the eight cards it carries"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 57,
+            "site": 143,
+            "builds": 21,
+            "shipped": 86
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-24T23:05:46.000Z",
@@ -653,7 +677,7 @@
               "alt": "The Dynamic Island closed: a small orange ring on the left and 0:14 on the right"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 45,
             "site": 102,
@@ -1787,6 +1811,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "fd0d5ea",
+          "at": "2026-09-24T23:34:52.000Z",
+          "text": "Site fully current before the switch back to the app: git pushes deploy again (Vercel Root Directory is now site, deploy notes say push,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fd0d5ea"
+        },
         {
           "repo": "site",
           "sha": "23655ad",
