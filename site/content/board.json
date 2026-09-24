@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T19:40:42.728Z",
+  "updated": "2026-09-24T20:10:28.742Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -89,10 +89,6 @@
         {
           "key": "INT-1",
           "title": "OpenClaw adapter"
-        },
-        {
-          "key": "INT-2",
-          "title": "Generic webhook adapter, Python and Node"
         },
         {
           "key": "INT-3",
@@ -249,10 +245,12 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "YUI-42",
-          "title": "The preset flywheel",
-          "summary": "The preset flywheel: custom screens that keep coming back become presets",
-          "progress": "/progress#the-preset-flywheel-custom-screens-that-keep-coming-back-become-presets"
+          "key": "INT-2",
+          "title": "Generic webhook adapter, Python and Node"
+        },
+        {
+          "key": "SITE-18",
+          "title": "Polish pass on /developers and /playground"
         }
       ]
     },
@@ -260,6 +258,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-42",
+          "title": "The preset flywheel",
+          "summary": "The preset flywheel: custom screens that keep coming back become presets",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-preset-flywheel-custom-screens-that-keep-coming-back-become-presets"
+        },
         {
           "key": "SITE-17",
           "title": "Polish pass on /mockups, /start and /timeline",
