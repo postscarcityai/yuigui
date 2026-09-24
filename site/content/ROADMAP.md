@@ -71,8 +71,11 @@ Up next:
 
 ### Next after the MVP
 
-Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos) and INT-0 (the adapters plan). What is left to pull once the MVP passes, roughly in this order:
+Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions) and INT-0 (the adapters plan). What is left to pull once the MVP passes, roughly in this order:
 
+- YUI-51: one full-screen flow holds the pages and the questions, with one submit at the end. Afterwards the chat keeps a record you can expand, and your answers read as if you typed them.
+- YUI-53: no dead buttons. Submit buttons say what they do, and agents stop adding "Got it".
+- SITE-15: Yui Lines back on the home page, and every spec doc readable on the site.
 - YUI-14: voice in, text out, fast.
 - INT-1 onward: adapters for other agent frameworks, Hermes first (see Adapters below).
 - The phase backlog below, from YUI-30 on.
@@ -324,7 +327,6 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.
 - YUI-36: optional encrypted sync for agent tables, off by default.
 - YUI-44: group threads, several agents in one conversation.
-- YUI-51: a run of questions plays as one full-screen flow, then folds back into the chat with your answers as if you typed them.
 - YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP).
 
 **People with no agent yet**
