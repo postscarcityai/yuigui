@@ -16,12 +16,13 @@ export const sections = [
   },
   {
     href: "/developers", label: "Developers",
-    pages: [["/developers", "Overview"], ["/playground", "Playground"], ["/yl", "Yui Lines"], ["/channel", "Channel guide"]],
+    pages: [["/developers", "Overview"], ["/playground", "Playground"], ["/yl", "Yui Lines"], ["/channel", "Channel guide"], ["/notes", "Notes"]],
   },
   { href: "/start", label: "Get Yui", cta: true },
 ];
 
-const sectionOf = (path) => sections.find((s) => s.href === path || s.pages?.some(([href]) => href === path));
+// A page's own subpages (/notes/<slug>) light up its section too.
+const sectionOf = (path) => sections.find((s) => s.href === path || s.pages?.some(([href]) => href === path || (href !== "/" && path.startsWith(`${href}/`))));
 
 export default function Nav() {
   const path = usePathname();

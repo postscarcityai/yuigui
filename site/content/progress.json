@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Notes: longer pieces, starting with why Yui is open source",
+    "card": "SITE-5",
+    "body": "yuigui.com has a new page for longer writing: /notes. Each note is a plain markdown file in the repo's docs/notes folder, rendered on the site the same way the business docs are. The index lists notes newest first, with the date and one line on what each is about. Notes sits under Developers in the menu and in the footer, and the site now has a sitemap that lists every page, note and business doc. The first note is Why Yui is open source, business docs included: what is public (both repos, Apache-2.0, the Yui Lines spec with its conformance tests, the adapters plan, the business plan), why each part is open, and what being open does not buy us.",
+    "images": [
+      {
+        "src": "/progress/site5-notes.webp",
+        "alt": "The Notes page on a laptop: the headline Notes, a line saying these are longer pieces on how Yui is built and why, and one card dated Sep 24, 2026 for the note Why Yui is open source, business docs included. Notes is highlighted in the Developers menu row"
+      },
+      {
+        "src": "/progress/site5-note-phone.webp",
+        "alt": "The open source note on a phone: the title, the opening paragraphs and the What is public section with links to both GitHub repos"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "See everything Yui can draw",
     "card": "SITE-14",
     "body": "The See it page used to hold three static mockups drawn by hand. Now it shows every screen Yui can draw today: 36 of them, from 25 shipped cards. Each preset is a live phone that draws the same Yui Lines an agent sends, so you can tap it, with the line printed beside it. Where the iPhone app has a recording or a screenshot, it sits next to the live one: nine demo clips, plus first run, change your answer and full screen. Every entry names the card that built it and the day it shipped, and the card id opens it on the board. The board links back with a See it button, and card ids on the roadmap now link to their screens. Four planned cards (voice, the onboarding interview, meal photo to macros, more screens per agent) get a mock drawn on the web and a clear label: not built. This also closes SITE-7, the preset gallery.",

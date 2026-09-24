@@ -166,6 +166,16 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .md li { margin: 4px 0; }
 .md code { background: var(--raised); padding: 1px 6px; border-radius: 6px; font-size: 14px; }
 
+/* notes: one column, newest first, set for long reading */
+.notes { display: grid; gap: 16px; max-width: 720px; margin: 24px 0; }
+.note-card { display: block; }
+.note-card:hover { text-decoration: none; border-color: var(--brand); }
+.note-card time, .eyebrow time { color: var(--mint-ink); font-size: 14px; font-weight: 700; }
+.note-card h3 { margin: 4px 0 8px; }
+.md.note { max-width: 680px; font-size: 18px; line-height: 1.65; }
+.md.note h2 { margin-top: 36px; }
+@media (max-width: 560px) { .md.note { font-size: 17px; } .md.note h1 { font-size: 32px; } }
+
 /* progress log */
 .log { list-style: none; padding: 0; margin: 24px 0; border-left: 2px dashed var(--outline); }
 .log li { position: relative; padding: 0 0 26px 26px; }
