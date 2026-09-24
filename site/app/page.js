@@ -89,7 +89,7 @@ export default function Home() {
       <div className="grid">
         <Link className="card" href="/progress"><h3>Progress</h3><p>A dated log of everything that shipped.</p></Link>
         <Link className="card" href="/roadmap"><h3>Roadmap</h3><p>Where Yui is headed, phase by phase.</p></Link>
-        <div className="card"><h3>The board</h3><p>Every card we are working on, live. Coming soon.</p></div>
+        <Link className="card" href="/board"><h3>The board</h3><p>Every card we are working on, live.</p></Link>
         <Link className="card" href="/playground"><h3>Playground</h3><p>Try the screen language in your browser.</p></Link>
       </div>
     </>

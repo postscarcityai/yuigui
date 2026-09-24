@@ -1,0 +1,427 @@
+{
+  "updated": "2026-09-24T04:46:01.702Z",
+  "shippedDays": 30,
+  "columns": [
+    {
+      "key": "backlog",
+      "title": "Backlog",
+      "cards": [
+        {
+          "key": "YUI-13",
+          "title": "Immersive full-screen mode, agent decides; workouts always full screen"
+        },
+        {
+          "key": "YUI-14",
+          "title": "Voice in, text out, smooth and fast"
+        },
+        {
+          "key": "YUI-30",
+          "title": "Timer on the lock screen",
+          "summary": "Live Activity and Dynamic Island"
+        },
+        {
+          "key": "YUI-31",
+          "title": "Three screens per agent with animated transitions"
+        },
+        {
+          "key": "YUI-32",
+          "title": "Named screens",
+          "summary": "Save and reopen a screen in two tokens"
+        },
+        {
+          "key": "YUI-33",
+          "title": "Agent tables on the phone",
+          "summary": "Create, upsert, query"
+        },
+        {
+          "key": "YUI-34",
+          "title": "Key vault for bring-your-own keys"
+        },
+        {
+          "key": "YUI-35",
+          "title": "Meal photo to macros"
+        },
+        {
+          "key": "YUI-36",
+          "title": "Optional encrypted sync for agent tables"
+        },
+        {
+          "key": "YUI-37",
+          "title": "A starter agent for people with no agent"
+        },
+        {
+          "key": "YUI-38",
+          "title": "Onboarding interview that builds your first agents"
+        },
+        {
+          "key": "YUI-39",
+          "title": "Connector library",
+          "summary": "Log in to your tools once"
+        },
+        {
+          "key": "YUI-40",
+          "title": "Widgets and Siri",
+          "summary": "Agents outside the app"
+        },
+        {
+          "key": "YUI-41",
+          "title": "On-device model for routing and quick replies"
+        },
+        {
+          "key": "YUI-42",
+          "title": "The preset flywheel",
+          "summary": "Log custom screens, promote the repeats"
+        },
+        {
+          "key": "YUI-43",
+          "title": "Restyle the app by asking"
+        },
+        {
+          "key": "YUI-44",
+          "title": "Group threads",
+          "summary": "Several agents in one conversation"
+        },
+        {
+          "key": "YUI-45",
+          "title": "Credits",
+          "summary": "Pay as you go for images and hosted models"
+        },
+        {
+          "key": "YUI-46",
+          "title": "Android",
+          "summary": "Decision and a Compose prototype"
+        },
+        {
+          "key": "YUI-47",
+          "title": "Apple Watch",
+          "summary": "Timer and quick answers on the wrist"
+        },
+        {
+          "key": "YUI-48",
+          "title": "Text a number",
+          "summary": "SMS channel"
+        },
+        {
+          "key": "SITE-5",
+          "title": "Evolution timeline from GitHub history"
+        },
+        {
+          "key": "SITE-7",
+          "title": "Preset gallery",
+          "summary": "Every screen, live, with its line"
+        },
+        {
+          "key": "OSS-2",
+          "title": "Yui Lines parsers in more languages"
+        },
+        {
+          "key": "OSS-3",
+          "title": "Open backlog on GitHub for contributors"
+        },
+        {
+          "key": "INT-1",
+          "title": "OpenClaw adapter"
+        },
+        {
+          "key": "INT-2",
+          "title": "Generic webhook adapter, Python and Node"
+        },
+        {
+          "key": "INT-3",
+          "title": "Yui MCP server"
+        },
+        {
+          "key": "INT-4",
+          "title": "Telegram fallback",
+          "summary": "Yui Lines as buttons and a Mini App"
+        },
+        {
+          "key": "INT-5",
+          "title": "Zero-install connect",
+          "summary": "Hosted connector via hermes gateway enroll"
+        },
+        {
+          "key": "INT-6",
+          "title": "Research",
+          "summary": "Cloudflare Agents SDK and 'Flue' for relay v1"
+        },
+        {
+          "key": "FLOW-1",
+          "title": "Flows",
+          "summary": "Saved series of Yui screens, authored in Mermaid, run by any agent"
+        },
+        {
+          "key": "FLOW-2",
+          "title": "Yui library/store on yuigui.com",
+          "summary": "Browse components and flows; agents can search and 'shop' them"
+        }
+      ]
+    },
+    {
+      "key": "next",
+      "title": "Up next",
+      "cards": [
+        {
+          "key": "YUI-10",
+          "title": "Channel guide for every agent",
+          "summary": "Instructions every agent gets on the yui channel + eval",
+          "mvp": true
+        },
+        {
+          "key": "YUI-12",
+          "title": "Change your answer after tapping",
+          "summary": "Change your answer on choose/pick (and ask/slide)",
+          "mvp": true
+        },
+        {
+          "key": "YUI-23",
+          "title": "One-command plugin install",
+          "summary": "One-command yui plugin install on any Hermes host",
+          "mvp": true
+        },
+        {
+          "key": "YUI-24",
+          "title": "Push when an agent answers",
+          "summary": "APNs notification when an agent answers and the app is closed",
+          "mvp": true
+        },
+        {
+          "key": "YUI-25",
+          "title": "First run with no guessing",
+          "summary": "Sign in to first agent screen, no guessing",
+          "mvp": true
+        },
+        {
+          "key": "YUI-26",
+          "title": "Safe for strangers",
+          "summary": "Limits, abuse switch and RLS re-audit on the shared backend",
+          "mvp": true
+        },
+        {
+          "key": "YUI-27",
+          "title": "Ready for beta review",
+          "summary": "Privacy labels, review notes, demo account, support link",
+          "mvp": true
+        },
+        {
+          "key": "YUI-28",
+          "title": "No lost messages",
+          "summary": "Offline agents, reconnect, no lost messages",
+          "mvp": true
+        },
+        {
+          "key": "YUI-29",
+          "title": "A stranger does the whole path",
+          "mvp": true
+        },
+        {
+          "key": "YUI-19",
+          "title": "Native SwiftUI versions of the YUI-16/17/18 presets"
+        },
+        {
+          "key": "YUI-20",
+          "title": "Every agent has its own look and feel (theme per agent, light + dark, preferred screens)"
+        },
+        {
+          "key": "YUI-21",
+          "title": "Media pipeline",
+          "summary": "Agents generate and send images and videos into Yui"
+        },
+        {
+          "key": "SITE-3",
+          "title": "Screenshots on the site + changelog with screenshots"
+        },
+        {
+          "key": "SITE-4",
+          "title": "Site drives traffic to the open source repo and the app (CTAs, waitlist, TestFlight)"
+        },
+        {
+          "key": "SITE-5",
+          "title": "/notes long-form route on yuigui.com"
+        },
+        {
+          "key": "SITE-6",
+          "title": "Playground a11y labels (Lighthouse 89 -> 95+)"
+        },
+        {
+          "key": "INT-0",
+          "title": "Agent framework adapters roadmap (every framework, Hermes first)"
+        }
+      ]
+    },
+    {
+      "key": "building",
+      "title": "Building",
+      "cards": [
+        {
+          "key": "YUI-18",
+          "title": "Learn + plan",
+          "summary": "Presentations, plan mode, narrated walkthroughs (spec + web)"
+        },
+        {
+          "key": "YUI-8",
+          "title": "Push handoff",
+          "summary": "'pick this up in Yui' from Telegram in one step"
+        },
+        {
+          "key": "YUI-22",
+          "title": "Public TestFlight link",
+          "summary": "Public TestFlight link (external group + Beta App Review)",
+          "mvp": true,
+          "waiting": true
+        },
+        {
+          "key": "SITE-2",
+          "title": "Live kanban board on yuigui.com",
+          "summary": "The board is public",
+          "progress": "/progress#the-board-is-public"
+        },
+        {
+          "key": "BIZ-5",
+          "title": "yuiguiai social handles"
+        }
+      ]
+    },
+    {
+      "key": "shipped",
+      "title": "Shipped (last 30 days)",
+      "cards": [
+        {
+          "key": "MVP-0",
+          "title": "MVP roadmap + deep backlog, reflected on yuigui.com",
+          "summary": "The MVP, and a bar that shows how close it is",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-mvp-and-a-bar-that-shows-how-close-it-is"
+        },
+        {
+          "key": "BIZ-4",
+          "title": "Content plan for Yui",
+          "shipped": "2026-09-24",
+          "progress": "/progress#a-content-plan-built-from-what-ships"
+        },
+        {
+          "key": "YUI-7",
+          "title": "Hermes plugin: agents answer with screens",
+          "summary": "Talk to your agent in Yui",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#talk-to-your-agent-in-yui"
+        },
+        {
+          "key": "SITE-1",
+          "title": "yuigui.com rebrand",
+          "summary": "The site now looks like the app",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-site-now-looks-like-the-app"
+        },
+        {
+          "key": "YUI-17",
+          "title": "Charts, graphs and science tools (spec + web)",
+          "summary": "Yui Lines learn charts, equations and experiments",
+          "shipped": "2026-09-24",
+          "progress": "/progress#yui-lines-learn-charts-equations-and-experiments"
+        },
+        {
+          "key": "OSS-1",
+          "title": "Open-source readiness",
+          "summary": "Yui is open source",
+          "shipped": "2026-09-24",
+          "progress": "/progress#yui-is-open-source"
+        },
+        {
+          "key": "YUI-15",
+          "title": "Add and manage your own agents",
+          "summary": "Your agents are yours to add",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#your-agents-are-yours-to-add"
+        },
+        {
+          "key": "YUI-16",
+          "title": "Media presets (spec + web)",
+          "summary": "Yui Lines learn pictures and video",
+          "shipped": "2026-09-24",
+          "progress": "/progress#yui-lines-learn-pictures-and-video"
+        },
+        {
+          "key": "YUI-11",
+          "title": "Debug screen gone, agents one tap away",
+          "summary": "Beta feedback: the debug screen is gone",
+          "mvp": true,
+          "shipped": "2026-09-23",
+          "progress": "/progress#beta-feedback-the-debug-screen-is-gone"
+        },
+        {
+          "key": "YUI-6",
+          "title": "Sign in with Apple and account deletion",
+          "summary": "Accounts: Sign in with Apple, and delete it in the app",
+          "mvp": true,
+          "shipped": "2026-09-23",
+          "progress": "/progress#accounts-sign-in-with-apple-and-delete-it-in-the-app"
+        },
+        {
+          "key": "YUI-9",
+          "title": "Typographic identity",
+          "summary": "Yui drops the cat",
+          "mvp": true,
+          "shipped": "2026-09-23",
+          "progress": "/progress#yui-drops-the-cat"
+        },
+        {
+          "key": "YUI-4",
+          "title": "First six screens in chat",
+          "summary": "Yui draws its first six screens",
+          "mvp": true,
+          "shipped": "2026-09-23",
+          "progress": "/progress#yui-draws-its-first-six-screens"
+        },
+        {
+          "key": "YUI-5",
+          "title": "Coral wordmark in the app",
+          "summary": "The wordmark moves into the app",
+          "mvp": true,
+          "shipped": "2026-09-23",
+          "progress": "/progress#the-wordmark-moves-into-the-app"
+        },
+        {
+          "key": "YUI-6",
+          "title": "Relay on Supabase Realtime",
+          "summary": "Relay v0 on Supabase Realtime + Hermes yui skill",
+          "mvp": true,
+          "shipped": "2026-09-23"
+        },
+        {
+          "key": "YUI-3",
+          "title": "Shared test suite and Swift parser",
+          "summary": "Yui Lines has a test suite",
+          "mvp": true,
+          "shipped": "2026-09-23",
+          "progress": "/progress#yui-lines-has-a-test-suite"
+        },
+        {
+          "key": "YUI-2",
+          "title": "The app's look, light and dark",
+          "summary": "Yui gets a face",
+          "mvp": true,
+          "shipped": "2026-09-23",
+          "progress": "/progress#yui-gets-a-face"
+        },
+        {
+          "key": "YUI-1",
+          "title": "Yui Lines and the web renderer",
+          "summary": "Yui Lines v0: spec, 12 presets, playground, token benchmark",
+          "mvp": true,
+          "shipped": "2026-09-23",
+          "progress": "/progress#yui-lines-v0-spec-12-presets-playground-token-benchmark"
+        },
+        {
+          "key": "YUI-0",
+          "title": "Hub site on Vercel (roadmap, progress log, plan, deck, mockups)",
+          "summary": "Hub site live (Phase 0)",
+          "shipped": "2026-09-23",
+          "progress": "/progress#hub-site-live-phase-0"
+        }
+      ]
+    }
+  ]
+}

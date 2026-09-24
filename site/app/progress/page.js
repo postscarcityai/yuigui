@@ -1,6 +1,7 @@
 // Newest first. Entries live in content/progress.json, see BUILD-IN-PUBLIC.md.
 import log from "../../content/progress.json";
 import Waitlist from "../components/Waitlist";
+import { slug } from "../../lib/slug.mjs";
 
 export const metadata = { title: "Progress | Yui" };
 
@@ -34,7 +35,7 @@ export default function Progress() {
       <h2>Log</h2>
       <ul className="log">
         {log.map((e) => (
-          <li key={e.title}>
+          <li key={e.title} id={slug(e.title)}>
             <div className="date">{e.date}</div>
             <h3 style={{ margin: "2px 0 4px" }}>{e.title}</h3>
             <div style={{ color: "var(--muted)" }}>{e.body}</div>

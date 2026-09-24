@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import Link from "next/link";
 
-// MVP progress: percent of MVP cards shipped. content/mvp.json is kept by hand until SITE-2's board export writes it.
+// MVP progress: percent of MVP cards shipped. scripts/export-board.mjs writes the statuses in content/mvp.json.
 export function mvpStats() {
   const { updated, cards } = JSON.parse(readFileSync(path.join(process.cwd(), "content", "mvp.json"), "utf8"));
   const shipped = cards.filter((c) => c.status === "shipped").length;

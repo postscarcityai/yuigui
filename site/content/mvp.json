@@ -1,6 +1,6 @@
 {
   "updated": "2026-09-24",
-  "source": "Kept by hand until the live board (SITE-2) exports it. The MVP list lives in ROADMAP.md.",
+  "source": "Statuses written by scripts/export-board.mjs from the live board. The MVP list lives in ROADMAP.md; add or remove keys here by hand.",
   "cards": [
     {
       "key": "YUI-1",
@@ -55,7 +55,7 @@
     {
       "key": "YUI-7",
       "title": "Hermes plugin: agents answer with screens",
-      "status": "building"
+      "status": "shipped"
     },
     {
       "key": "YUI-10",
@@ -100,7 +100,7 @@
     {
       "key": "YUI-22",
       "title": "Public TestFlight link",
-      "status": "next"
+      "status": "building"
     },
     {
       "key": "YUI-29",

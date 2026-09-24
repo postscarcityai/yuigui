@@ -1,12 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The board is public",
+    "card": "SITE-2",
+    "body": "You can now watch us work. yuigui.com/board shows every Yui card in four columns: backlog, up next, building, and what shipped in the last 30 days. It comes straight from the kanban board our agents use, so when an agent picks up a card or finishes one, the page follows within half an hour. Shipped cards link to their entry in this log. The MVP bar now counts itself from the same board, and it just moved to 11 of 21. Only titles and short summaries go out. A script checks every export for private details before anything is published, and refuses to write the file if it finds one.",
+    "image": "/progress/board.webp",
+    "imageAlt": "The yuigui.com board: backlog, up next, building and shipped columns of Yui cards, with the MVP bar above"
+  },
+  {
+    "date": "2026-09-24",
     "title": "A content plan, built from what ships",
+    "card": "BIZ-4",
     "body": "How Yui will show up online: every post starts from a line in this log and the screenshot or clip that proves it, so nothing gets written about work that hasn't shipped. It borrows from a blog our agents already run every day: one source, an agent that drafts, a script that rejects bad copy before anyone sees it, and posts scheduled a week ahead. Chris approves every social post. The plan covers four kinds of content (ship posts, this weekly update, longer pieces, short demo clips), what goes on which platform, a six-week calendar and the automation we'd build. Read it at yuigui.com/business/biz-4-content-plan."
   },
   {
     "date": "2026-09-24",
     "title": "The MVP, and a bar that shows how close it is",
+    "card": "MVP-0",
     "body": "Chris asked us not to lose focus, so the roadmap now opens with the MVP: the smallest Yui a stranger can use. Someone who already runs Hermes installs Yui from a public TestFlight link, signs in with Apple, connects their own agents in a few minutes, gets screens and pushes back, and can delete their account from inside the app. That is 21 cards. 10 have shipped, 1 is being built, and the last one is a real outside tester doing the whole path with a stopwatch. The bar on the home page and the roadmap counts them; once the live board lands it will update itself. Everything else went into a deep backlog of 30-odd parked ideas, from a lock-screen timer and group threads to an Android prototype and flows written in Mermaid, so there is always a next card but never a distraction.",
     "image": "/progress/mvp-bar.webp",
     "imageAlt": "The MVP progress bar on the yuigui.com roadmap: 48 percent shipped, 10 of 21 cards, with the cards still to go"
@@ -14,16 +24,19 @@
   {
     "date": "2026-09-24",
     "title": "How we will find our first users",
+    "card": "BIZ-2",
     "body": "The outreach plan is public at yuigui.com/business. Hermes users come first, and we found where they gather: the official plugin catalog, a Discord channel the Hermes team names for sharing plugins, and a few dozen builders whose projects sit right next to ours. The plan lists 39 places by name, drafts a message for each kind of place, and sets a pace of two new posts a week at most. Nothing has been sent. Every message waits for Chris to approve it, and nothing goes out at all until a stranger can install the plugin and see a screen from their own agent without help. One honest correction from the research: native agent-drawn screens are not ours alone anymore, since the A2UI project now has a SwiftUI renderer. What we can say is that Yui is a finished iPhone app where Hermes agents draw native screens today."
   },
   {
     "date": "2026-09-24",
     "title": "Talk to your agent in Yui",
+    "card": "YUI-7",
     "body": "Yui is now a messaging platform for Hermes, next to Telegram. Each agent you add gets its own thread in the app and keeps one memory across both, so what you tell it on Telegram it still knows in Yui. Replies can carry Yui Lines, and the app draws them as buttons, pickers, forms and timers; ask for intervals and you get a running timer, not a paragraph. Your taps go back to the agent as short lines like \"[yui] n1 ask answer=Yes\", and it keeps going from there. The agent's computer dials out, so it opens no ports, and it gets a key that can only read and answer the threads of its own agents. Remove the computer in the app and it is cut off at once. We tested that, and 37 other rules, against the live backend. Every agent also gets the same short guide to the channel on each turn, and agents that don't run Hermes can fetch it too. How it works: spec/RELAY.md."
   },
   {
     "date": "2026-09-24",
     "title": "The site now looks like the app",
+    "card": "SITE-1",
     "body": "yuigui.com wears the same clothes as the iPhone app now. Cream paper, soft plum ink, the coral wordmark up top, rounded type, pastel accents. The colors come straight from the app's theme file, so when the app changes, the site can follow. Light is the default and the moon button in the corner switches to dark. The home page tells the story in plain words: what Yui is, who it is for (people who already run agents, Hermes first), and real screenshots from the current test build. The icon and the link preview use the wordmark too. We also fixed contrast across the site. Every page but the playground now scores 100 on Google's accessibility check, and the playground's last few fixes are queued.",
     "image": "/progress/site-rebrand.webp",
     "imageAlt": "The new yuigui.com home page in light mode"
@@ -31,61 +44,73 @@
   {
     "date": "2026-09-24",
     "title": "Business docs, in the open",
+    "card": "BIZ-1",
     "body": "The business side of Yui is now public at yuigui.com/business. Two docs so far. A marketing and positioning brief: who Yui is for first (people already running Hermes agents), how we will launch (private beta, open source, Show HN, then the App Store) and what we will measure. And a revenue plan with the rules we hold ourselves to: free and open source for anyone who brings their own agent, no dark patterns, charge only where we carry a cost. The research was humbling. Phone apps for self-hosted agents already exist, and OpenClaw's own app lets agents draw widgets, in a web view. What nobody ships yet is native screens drawn by your agent, and no Hermes agent can draw a screen at all. That is where Yui starts. The competitor notes are published too, sources and all."
   },
   {
     "date": "2026-09-24",
     "title": "Yui is open source",
+    "card": "OSS-1",
     "body": "Both repos are public now, under the Apache-2.0 license. postscarcityai/yuigui holds the Yui Lines spec, the test cases every parser must pass, the reference parser and this site. postscarcityai/yui holds the iPhone app, the Swift parser, the backend and the Hermes plugin. Before flipping them we scanned every commit in both repos for keys and tokens and found none. The one key in the app is a public client key that can't read anyone's data. Each repo now has a README with screenshots, a guide for contributors, a code of conduct and a private way to report security problems. A good place to start: write a Yui Lines parser in a language we don't have yet."
   },
   {
     "date": "2026-09-24",
     "title": "Yui Lines learn charts, equations and experiments",
+    "card": "YUI-17",
     "body": "Agents can now show numbers and teach with them, one line each. chart draws line, bar, area, scatter, pie and donut charts from data written right in the line, with more series, stacking and error bars (write 12.5±0.4), or from a live table on the same screen, so when the table changes the chart redraws. Every chart has a Table view and follows the app's light or dark theme; each theme has its own set of chart colors, checked so people with color blindness can tell the series apart. stat is one big number with its change and a small trend line, and tapping lb or °C shows kg or °F. math typesets equations. step walks through a derivation or a lab protocol one step at a time, with optional timers. calc turns a formula into sliders that redraw a chart as you drag: slide the launch angle and watch the range peak at 45 degrees. Tables can now be sorted and carry units. 53 new test cases pin the syntax, 251 in all. The app picks these up next."
   },
   {
     "date": "2026-09-24",
     "title": "Your agents are yours to add",
+    "card": "YUI-15",
     "body": "Chris's next piece of feedback: agents are added by you, not baked into the app. So the Urza and Arnold placeholders are gone. The agents screen now starts empty with an Add your first agent button, and each agent shows its avatar, an online or offline dot and when it was last seen. You can rename, recolor, reorder, pick a default or remove one (which also deletes that conversation). There are three ways to add one, and all land in the same place. In the app: name it, get a 6-digit code, type one command on the computer it runs on. From that computer: once it is paired, any other agent on it can join with one command and no code. Or ask an agent: Settings has an Agent access token you can hand to one of your agents so it can add and manage agents for you. That token can't read your messages, and 59 new automated checks try to make it. For testing, one agent is set up: Yui itself. Build 14 is on TestFlight."
   },
   {
     "date": "2026-09-24",
     "title": "Yui Lines learn pictures and video",
+    "card": "YUI-16",
     "body": "Agents can now show media, not just describe it. Four new one-line presets: gallery (photos and clips as a swipe row, a vertical feed, a 3D coverflow stack or a grid, with tap to go full screen and an optional pick-your-favorites mode), video, compare (before and after with a drag slider, side by side or tap to toggle, plus numbered boxes where the agent points at what changed) and storyboard (ordered frames you can reorder and comment on, or a script with no pictures yet). An image can also be marked up: circle the part you want changed, type what you want, and the agent gets the area and the instruction, runs the edit and answers with a before and after. Every demo on the playground uses images we generated for it. 33 new test cases pin the syntax, 198 in all. The app picks these up next."
   },
   {
     "date": "2026-09-23",
     "title": "Beta feedback: the debug screen is gone",
+    "card": "YUI-11",
     "body": "First real TestFlight feedback, from Chris: the Paste YL screen had to go. It was a developer tool that showed the raw lines agents write, parse counts and event data, and no one using Yui should ever see that. Yui Lines stay under the hood. The button it lived behind now opens Your agents: Yui is there today, and Urza and Arnold wait with a Connect Hermes to start note until the Hermes channel lands. How to use Yui is something the agents learn at the start of every chat, not something you read. Build 13 is on TestFlight."
   },
   {
     "date": "2026-09-23",
     "title": "Accounts: Sign in with Apple, and delete it in the app",
+    "card": "YUI-6",
     "body": "Yui now has accounts. You sign in with Apple, no password, and Settings has a Delete account button that wipes everything Yui stores for you and removes Yui from your Apple ID. The App Store requires that, and it is the right default anyway. The server side is locked down on purpose: Yui accounts get their own database role that can only see Yui's own tables, and each account only its own rows. 63 automated checks try to break that, including one that creates a test account, fills every table, deletes it, and counts zero rows left. Plain-language privacy page at yuigui.com/privacy."
   },
   {
     "date": "2026-09-23",
     "title": "Yui drops the cat",
+    "card": "YUI-9",
     "body": "The round cat is gone. Chris noticed the hand-drawn Yui wordmark already looks like a cat, abstractly: the bunny-ear arms on the Y read as ears. So the logo is the face now. Yui's own avatar in chat is that Y on its own, in coral. Each agent gets a small pastel chip with its first letter in heavy rounded type, colored from the theme file, so when agents get their own looks their chips change with them. The empty chat screen and settings show the wordmark with a few warm words, no drawing. Build 10 is on TestFlight."
   },
   {
     "date": "2026-09-23",
     "title": "Yui draws its first six screens",
+    "card": "YUI-4",
     "body": "An agent can now reply with a timer, a question, a multiple choice, a pick-several, a form or a list, and Yui draws it as a real card inside the chat instead of plain text. The timer counts rounds on a ring and beeps on the last three seconds. Forms handle text, numbers, dates, sliders, yes/no toggles and voice notes, and will not submit until the required fields are filled. Every tap goes back to the agent as one small event, and your answer shows up as your own chat bubble. All the styling comes from the same theme file, so a restyle changes these cards too. A hidden paste box lets us test any Yui Lines reply by hand. Build 9 is on TestFlight."
   },
   {
     "date": "2026-09-23",
     "title": "The wordmark moves into the app",
+    "card": "YUI-5",
     "body": "Chris's hand-drawn Yui wordmark, the one with bunny-ear arms on the Y, now sits in the app's top bar, on the empty chat screen and in settings. Its coral is now the app's main color too: the send button, your chat bubbles and the selected toggle all use it, with the pastels kept for the smaller touches. The coral is stored in the same theme file as everything else, so an agent that restyles the app recolors the logo along with it. It reads clearly on both the cream light mode and the dark plum mode, so one logo file covers both. Yui the cat stays as the face of the agent. Build 8 is on TestFlight."
   },
   {
     "date": "2026-09-23",
     "title": "Yui Lines has a test suite",
+    "card": "YUI-3",
     "body": "Yui Lines is the one-line format an agent uses to put a timer or a question on your screen. It now has a shared test suite: 165 small cases, each a bit of input plus the exact result a parser must return. The web playground's parser and the new Swift parser inside the app both pass every case, and any future parser, Android included, has to pass the same files. Writing the cases turned up a few gaps in the spec, such as what a mistyped form field should do. Those answers are now written down."
   },
   {
     "date": "2026-09-23",
     "title": "Yui gets a face",
+    "card": "YUI-2",
     "body": "Yui now has a look: a round white cat named Yui, soft pastels on warm cream paper, rounded type, and a little bounce when you tap send. The feel borrows from Korean character apps like Kakao Friends: cute, but not childish. There is a light and dark mode with a toggle in settings. Under the hood every color, corner and animation lives in one small data file, so later an agent can restyle the whole app on the fly. Build 5 is on TestFlight with the new icon."
   },
   {
@@ -121,11 +146,13 @@
   {
     "date": "2026-09-23",
     "title": "Yui Lines v0: spec, 12 presets, playground, token benchmark",
+    "card": "YUI-1",
     "body": "Agents now speak Yui Lines: one short line per component, no UI code, no JSON. Spec at /yl, live playground at /playground with all 12 presets (timer, ask, choose, pick, slide, form, list, table, card, image, camera, mic), line-by-line streaming, ~patch, >screen routing, save/show and the custom {json} escape hatch. Benchmark on 10 screens with real tokenizers: YL is 1.6x smaller than minified JSON, 2.7x smaller than pretty JSON, 3.9x smaller than a component-tree document."
   },
   {
     "date": "2026-09-23",
     "title": "Hub site live (Phase 0)",
+    "card": "YUI-0",
     "body": "This site: overview, roadmap, progress log, business plan draft, pitch deck, three phone mockups. Deployed to Vercel as project yui. yuigui.com not attached yet."
   },
   {
