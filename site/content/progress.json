@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Yui is open source",
+    "body": "Both repos are public now, under the Apache-2.0 license. postscarcityai/yuigui holds the Yui Lines spec, the test cases every parser must pass, the reference parser and this site. postscarcityai/yui holds the iPhone app, the Swift parser, the backend and the Hermes plugin. Before flipping them we scanned every commit in both repos for keys and tokens and found none. The one key in the app is a public client key that can't read anyone's data. Each repo now has a README with screenshots, a guide for contributors, a code of conduct and a private way to report security problems. A good place to start: write a Yui Lines parser in a language we don't have yet."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Yui Lines learn charts, equations and experiments",
     "body": "Agents can now show numbers and teach with them, one line each. chart draws line, bar, area, scatter, pie and donut charts from data written right in the line, with more series, stacking and error bars (write 12.5±0.4), or from a live table on the same screen, so when the table changes the chart redraws. Every chart has a Table view and follows the app's light or dark theme; each theme has its own set of chart colors, checked so people with color blindness can tell the series apart. stat is one big number with its change and a small trend line, and tapping lb or °C shows kg or °F. math typesets equations. step walks through a derivation or a lab protocol one step at a time, with optional timers. calc turns a formula into sliders that redraw a chart as you drag: slide the launch angle and watch the range peak at 45 degrees. Tables can now be sorted and carry units. 53 new test cases pin the syntax, 251 in all. The app picks these up next."
   },
