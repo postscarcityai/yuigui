@@ -1,7 +1,7 @@
 {
   "floor": "2026-09-24",
   "hwm": "2026-09-24",
-  "updated": "2026-09-24T13:06:33.897Z",
+  "updated": "2026-09-24T22:01:58.423Z",
   "done": [
     "2026-09-23|Apple Developer account active",
     "2026-09-23|First TestFlight build",
@@ -30,6 +30,7 @@
     "2026-09-24|SITE-2",
     "2026-09-24|SITE-3",
     "2026-09-24|SITE-4",
+    "2026-09-24|SOC-3",
     "2026-09-24|Who Yui is on each platform",
     "2026-09-24|YUI-10",
     "2026-09-24|YUI-12",
