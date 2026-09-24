@@ -72,6 +72,7 @@ function Entry({ e, planned }) {
         <ul className="sc-cards">{e.cards.map((k) => <CardRef k={k} key={k} planned={planned} />)}</ul>
         {e.link ? <p className="sc-more"><Link href={e.link}>Open {e.link}</Link></p> : null}
         {s?.slug ? <p className="sc-more"><Link href={`/playground?demo=${s.slug}`}>Edit it in the playground</Link></p> : null}
+        <p className="sc-more"><Link href={`/s/${e.id}`}>Share this screen</Link></p>
         {shots.length ? <Shots images={shots} label={e.title} /> : null}
       </div>
     </article>

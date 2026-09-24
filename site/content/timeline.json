@@ -1,8 +1,8 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 55,
-    "site": 125,
+    "app": 56,
+    "site": 127,
     "builds": 21,
     "shipped": 78,
     "screenshots": 133
@@ -13,7 +13,7 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T21:06:28.846Z",
+          "at": "2026-09-24T21:06:10.000Z",
           "title": "Draw your best screen in three lines: a community page and the first open challenge",
           "card": "OSS-5",
           "anchor": "draw-your-best-screen-in-three-lines-a-community-page-and-the-first-open-challen",
@@ -31,10 +31,10 @@
               "alt": "Two card grids: who builds with Yui Lines (the app, the Hermes plugin, the OpenClaw plugin, the webhook bridge, this website) and six ways to contribute, each with a link."
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
             "app": 55,
-            "site": 125,
+            "site": 126,
             "builds": 21,
             "shipped": 78
           }
@@ -1588,6 +1588,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "5b5f627",
+          "at": "2026-09-24T21:10:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5b5f627"
+        },
+        {
+          "repo": "app",
+          "sha": "909e948",
+          "at": "2026-09-24T21:08:59.000Z",
+          "text": "CONTRIBUTING: point to the community page and the three lines challenge (OSS-5)",
+          "url": "https://github.com/postscarcityai/yui/commit/909e948"
+        },
+        {
+          "repo": "site",
+          "sha": "f25d5a2",
+          "at": "2026-09-24T21:06:10.000Z",
+          "text": "Community page under Developers: who builds with Yui Lines, six ways to contribute, and the first open challenge, draw your best screen...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f25d5a2"
+        },
         {
           "repo": "site",
           "sha": "95c545f",

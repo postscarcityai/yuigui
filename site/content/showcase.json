@@ -33,6 +33,7 @@
     "YUI-50": { "title": "Jump to the newest message", "shipped": "2026-09-24" },
     "SITE-15": { "title": "Yui Lines back in sight: How it works and every spec on the site", "shipped": "2026-09-24" },
     "SITE-16": { "title": "Watch Yui grow: the whole history on one page", "shipped": "2026-09-24" },
+    "SITE-19": { "title": "Share any screen: links, previews, embeds and a badge", "shipped": "2026-09-24" },
     "OSS-5": { "title": "Community page and the three lines challenge", "shipped": "2026-09-24" },
     "YUI-14": { "title": "Voice in, text out, smooth and fast" },
     "YUI-31": { "title": "Three screens per agent with animated transitions", "shipped": "2026-09-24" },
@@ -127,7 +128,8 @@
       "entries": [
         { "id": "quick-start", "title": "Five lines, five screens", "what": "The quick start at the top of /yl. Tap a line to draw it; the app draws the same line the same way.", "cards": ["SITE-15"], "yl": "choose \"What are we training?\" Push|Pull|Legs +other", "agent": "Yui", "app": "site", "link": "/yl", "shots": ["/progress/site15-home-band.webp", "/progress/site15-yl-quickstart.webp"] },
         { "id": "timeline", "title": "Watch Yui grow", "what": "The Timeline page replays every shipped change that has a screenshot, oldest first, while the commit and build counters climb. Drag the slider to jump to any day.", "cards": ["SITE-16"], "app": "site", "link": "/timeline", "shots": ["/progress/site16-timeline.webp", "/progress/site16-grow-phone.webp"] },
-        { "id": "three-lines", "title": "The three lines challenge", "what": "Anyone can add a screen of three lines or fewer to the community gallery with a pull request. Every entry is drawn live and opens in the playground.", "cards": ["OSS-5"], "yl": "say \"Three votes in. Tacos lead.\"\nchoose \"Your vote?\" Tacos|Ramen|Pizza +other\ntable Votes Dish|Votes \"Tacos|2\" \"Ramen|1\" \"Pizza|0\"", "agent": "Yui", "app": "site", "link": "/developers/community", "shots": ["/progress/oss5-gallery.webp"] }
+        { "id": "three-lines", "title": "The three lines challenge", "what": "Anyone can add a screen of three lines or fewer to the community gallery with a pull request. Every entry is drawn live and opens in the playground.", "cards": ["OSS-5"], "yl": "say \"Three votes in. Tacos lead.\"\nchoose \"Your vote?\" Tacos|Ramen|Pizza +other\ntable Votes Dish|Votes \"Tacos|2\" \"Ramen|1\" \"Pizza|0\"", "agent": "Yui", "app": "site", "link": "/developers/community", "shots": ["/progress/oss5-gallery.webp"] },
+        {"id": "share", "title": "Share any screen", "what": "Every screen here has its own link with a preview that shows the lines and the screen they draw. Share in the playground puts your lines in the link, and one iframe puts a live screen on your own page.", "cards": ["SITE-19"], "yl": "say \"Friday check-in. Two quick ones.\"\nslide@energy \"Energy this week\" 1-5 lo=Flat hi=Buzzing\nchoose@next \"What should we plan next?\" Launch|Rest|Both", "agent": "Yui", "app": "site", "link": "/developers#share", "shots": ["/progress/site19-preview.webp", "/progress/site19-share-page.webp", "/progress/site19-embed.webp"]}
       ]
     },
     {

@@ -14,9 +14,10 @@ const content = (f) => new URL(`../content/${f}`, import.meta.url);
 const SHIPPED_DAYS = 30;
 
 // Yui lanes. BIZ- and FLOW- cards are only included when the card itself is about Yui.
-const PREFIXES = ["YUI", "SITE", "OSS", "INT", "MVP", "BIZ", "FLOW"];
+// SOC- (social and video, GTM-1) publishes titles only: its bodies hold drafts not yet cleared to post.
+const PREFIXES = ["YUI", "SITE", "OSS", "INT", "MVP", "BIZ", "FLOW", "SOC"];
 const NEEDS_YUI_TAG = new Set(["BIZ", "FLOW"]);
-const TITLE_ONLY = new Set(["BIZ"]);
+const TITLE_ONLY = new Set(["BIZ", "SOC"]);
 const ORDER = Object.fromEntries(PREFIXES.map((p, i) => [p, i]));
 
 function sql(q) {

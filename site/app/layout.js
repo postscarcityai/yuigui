@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Nunito } from "next/font/google";
 import Nav from "./components/Nav";
 import GetYui from "./components/GetYui";
+import NotOnEmbed from "./components/NotOnEmbed";
 
 const GA_ID = "G-VYENQDDF00";
 // Apple devices get SF Rounded through ui-rounded, like the app. Everyone else gets Nunito.
@@ -44,13 +45,15 @@ export default function RootLayout({ children }) {
             gtag('config', '${GA_ID}');
           `}
         </Script>
-        <Nav />
+        <NotOnEmbed><Nav /></NotOnEmbed>
         <main className="wrap">{children}</main>
-        <GetYui />
-        <footer className="wrap foot">
-          <img src="/brand/yui-wordmark-coral.png" alt="" width="31" height="20" />
-          <span>Built in public at yuigui.com</span> | <a href="/business">Business</a> | <a href="/notes">Notes</a> | <a href="https://github.com/postscarcityai/yuigui">GitHub</a> | <a href="/help">Help</a> | <a href="/privacy">Privacy</a>
-        </footer>
+        <NotOnEmbed>
+          <GetYui />
+          <footer className="wrap foot">
+            <img src="/brand/yui-wordmark-coral.png" alt="" width="31" height="20" />
+            <span>Built in public at yuigui.com</span> | <a href="/business">Business</a> | <a href="/notes">Notes</a> | <a href="https://github.com/postscarcityai/yuigui">GitHub</a> | <a href="/help">Help</a> | <a href="/privacy">Privacy</a>
+          </footer>
+        </NotOnEmbed>
       </body>
     </html>
   );

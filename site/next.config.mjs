@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 export default {
   reactStrictMode: true,
+  // SITE-19: /og draws previews at request time with these fonts and captured screens.
+  outputFileTracingIncludes: { "/og": ["./lib/og/fonts/*", "./public/og/screens/*"] },
   // SITE-13 merged these pages. Old links keep working.
   async redirects() {
     return [

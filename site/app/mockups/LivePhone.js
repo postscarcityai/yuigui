@@ -58,9 +58,9 @@ function Screen({ yl, agent, light }) {
   );
 }
 
-export default function LivePhone({ yl, agent = "Yui", light = false, label }) {
+export default function LivePhone({ yl, agent = "Yui", light = false, label, eager = false }) {
   const box = useRef(null);
-  const [on, setOn] = useState(false);
+  const [on, setOn] = useState(eager);
   useEffect(() => {
     const el = box.current;
     if (!el || on) return;

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import links from "../../content/links.json";
 import { specDocs } from "../../lib/spec.mjs";
+import Cmd from "../components/Cmd";
+import { BADGE_HTML, BADGE_MD, embedSnippet } from "../../lib/share-code.mjs";
 
 export const metadata = {
   title: "Developers | Yui",
@@ -19,6 +21,7 @@ const cards = [
   ["/channel", "Channel guide", "What every agent on the Yui channel is told, and the eval that scores it."],
   ["/reactions", "Reactions", "Hold a message and react. What each of the six tells your agent to do."],
   ["/developers/community", "Community", "Who builds with Yui Lines, how to contribute, and the open challenge: draw your best screen in three lines."],
+  ["/developers#share", "Share, embed, badge", "A link with a preview for any screen, a live screen for your own page, and a README badge."],
   ["/developers/flywheel", "Preset flywheel", "Custom screens agents keep sending become presets. What is logged (shapes, never values) and the promotion checklist."],
 ];
 
@@ -77,6 +80,34 @@ export default function Developers() {
         POST, through the <Link href="/developers/webhook">webhook bridge</Link>. An MCP server and more come after the
         MVP. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
       </p>
+
+      <h2 id="share">Share, embed, badge</h2>
+      <p>
+        Every screen on <Link href="/mockups">See it</Link> has its own link, <code>/s/&lt;id&gt;</code>, with a preview image that shows
+        the lines and the screen they draw. In the <Link href="/playground">playground</Link>, Share packs whatever you typed into the link
+        itself, so it opens that exact screen for anyone.
+      </p>
+
+      <h3 id="embed">Embed a live screen</h3>
+      <p>Paste this into any page. The screen is live: people can tap it. Nothing is tracked inside the frame.</p>
+      <div className="dev-embed">
+        <iframe src="/embed?demo=tabata-timer" title="A Tabata timer drawn from one line of Yui Lines" width="340" height="690" loading="lazy" />
+        <div className="dev-snippet" style={{ flex: "1 1 300px", minWidth: 0 }}>
+          <Cmd>{embedSnippet("/embed?demo=tabata-timer", "A Tabata timer drawn by Yui")}</Cmd>
+          <ul>
+            <li><code>?demo=&lt;name&gt;</code> draws a playground sample, <code>?id=&lt;id&gt;</code> a See it screen.</li>
+            <li><code>?yl=&lt;code&gt;</code> draws your own lines: press Share in the playground and copy the <code>yl</code> part of the link.</li>
+            <li>Add <code>&amp;theme=light</code> for a light phone.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 id="badge">Made with Yui Lines</h3>
+      <p>
+        Building on Yui Lines? Put the badge in your README. <img src="/badge/made-with-yui-lines.svg" alt="Made with Yui Lines" width="136" height="20" style={{ verticalAlign: "middle" }} />
+      </p>
+      <Cmd>{BADGE_MD}</Cmd>
+      <Cmd>{BADGE_HTML}</Cmd>
 
       <h2>Source</h2>
       <ul>

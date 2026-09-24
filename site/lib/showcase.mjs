@@ -17,7 +17,7 @@ export function linkCards(html, onBoard) {
     const tag = part.match(/^<(\/?)(a|code|pre|h[1-6])\b/i);
     if (tag) { skip += tag[1] ? -1 : 1; return part; }
     if (part.startsWith("<") || skip > 0) return part;
-    return part.replace(/\b((?:YUI|SITE|INT|OSS|BIZ|MVP|FLOW)-\d+)\b/g, (k) => {
+    return part.replace(/\b((?:YUI|SITE|INT|OSS|BIZ|MVP|FLOW|SOC)-\d+)\b/g, (k) => {
       const href = seeIt(k) || (onBoard.has(k) ? `/board#${k}` : null);
       return href ? `<a href="${href}">${k}</a>` : k;
     });

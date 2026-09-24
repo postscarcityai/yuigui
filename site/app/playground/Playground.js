@@ -7,9 +7,12 @@ import { Render, StepGroup, TABLES } from "./presets";
 import { Group, groupNodes } from "./flows";
 import { ScreenCtx } from "./science";
 import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
+import { encodeYL, readYL } from "../../lib/share-code.mjs";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS];
+// Agent names a share link may carry (?as=), so a shared screen reopens with the same header.
+const AGENTS = new Set(ALL.map((s) => s.agent));
 const COLORS = { Coach: "var(--arnold)", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)" };
 
 function build(text) {
@@ -44,11 +47,14 @@ export default function Playground() {
   const [editing, setEditing] = useState(false); // phones pin the output above the keyboard while typing
   // Sent plans, by group key: the chat shows a summary chip and the answers as the person's message.
   const [folds, setFolds] = useState({});
+  // Share (SITE-19): a link that carries the lines themselves. shared = opened from such a link.
+  const [shared, setShared] = useState(null); // the agent name a shared link opened with
+  const [link, setLink] = useState(null);
   const agentParser = useRef(null);
   const timer = useRef(null);
   const emits = useRef(new Map());
 
-  const agent = ALL[idx].agent;
+  const agent = shared || ALL[idx].agent;
 
   // Live mode: every edit re-renders the whole document. Keys are stable, so
   // components that did not change keep their state.
@@ -74,13 +80,17 @@ export default function Playground() {
     if (q.get("theme") === "light") setLight(true);
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
-    else if (yl) { load(0); setText(yl); setState(build(yl)); setCmd(""); }
+    // ?yl= holds a Share code (SITE-19) or plain lines (the community gallery); readYL takes both.
+    else if (yl) readYL(yl).then((t) => { if (t) openShared(t, AGENTS.has(q.get("as")) ? q.get("as") : "Yui"); });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const pick = (i) => {
     load(i);
+    setShared(null);
     const url = new URL(window.location.href);
+    url.searchParams.delete("yl");
+    url.searchParams.delete("as");
     if (ALL[i].slug) url.searchParams.set("demo", ALL[i].slug); else url.searchParams.delete("demo");
     window.history.replaceState(null, "", url);
   };
@@ -97,6 +107,27 @@ export default function Playground() {
     setFolds({});
     setStreamed(null);
   };
+
+  const openShared = (yl, as) => {
+    load(0);
+    setCmd("");
+    setShared(as);
+    setText(yl);
+    setState(build(yl));
+  };
+
+  // Share: pack the lines into the URL, copy it, and show it so it can be copied by hand too.
+  const share = async () => {
+    const url = new URL(window.location.href);
+    url.searchParams.delete("demo");
+    url.searchParams.set("yl", await encodeYL(text));
+    url.searchParams.set("as", agent);
+    window.history.replaceState(null, "", url);
+    setLink(url.toString());
+    try { await navigator.clipboard.writeText(url.toString()); } catch { /* the box below still has it */ }
+    try { window.gtag?.("event", "cta_click", { cta: "share:playground", where: "/playground" }); } catch {}
+  };
+  useEffect(() => { setLink(null); }, [text]);
 
   const stopStream = () => { clearInterval(timer.current); setStreaming(false); };
 
@@ -207,7 +238,8 @@ export default function Playground() {
     <div className={editing ? "pg editing" : "pg"} onFocus={(e) => setEditing(e.target.matches(".pg-code, .pg-agent input"))} onBlur={() => setEditing(false)}>
       <div className="pg-left">
         <div className="pg-row">
-          <select aria-label="Screen" value={idx} onChange={(e) => pick(Number(e.target.value))}>
+          <select aria-label="Screen" value={shared ? "shared" : idx} onChange={(e) => pick(Number(e.target.value))}>
+            {shared ? <option value="shared" disabled>Shared with you</option> : null}
             <optgroup label="Benchmark screens">
               {SCREENS.map((s, i) => <option key={s.name} value={i}>{i + 1}. {s.name}</option>)}
             </optgroup>
@@ -225,7 +257,14 @@ export default function Playground() {
             </optgroup>
           </select>
           <button className="pg-btn" onClick={streaming ? stopStream : stream}>{streaming ? "Stop" : "▶ Stream it"}</button>
+          <button className="pg-btn" onClick={share} disabled={!text.trim()}>Share</button>
         </div>
+        {link ? (
+          <div className="pg-share">
+            <input readOnly value={link} aria-label="Share link" onFocus={(e) => e.target.select()} />
+            <span className="share-said" role="status">Link copied. It opens this exact screen.</span>
+          </div>
+        ) : null}
         <label className="pg-hint">
           YL the agent sends ({lines} line{lines === 1 ? "" : "s"}, {text.length} chars). Edit it, the phone updates live.
         </label>

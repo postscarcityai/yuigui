@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Share any screen: a link with a real preview, a Share button, an embed and a badge",
+    "card": "SITE-19",
+    "body": "Every screen on See it, every playground sample and every recorded clip now has its own short link, like yuigui.com/s/timer. Paste one into a chat or a post and the preview card shows the Yui Lines on the left and the real screen they draw on the right, captured from the same renderer you can tap on the page. The playground has a Share button: it packs whatever you typed into the link itself, copies it, and anyone who opens it gets that exact screen, ready to edit, with a preview card drawn from your lines. For your own site or blog there is an embed: one iframe that draws a live, tappable screen with no nav and no tracking inside the frame. And if you build on Yui Lines, there is a Made with Yui Lines badge for your README. Snippets for all of it are on the Developers page. While checking the board we also found the social lane (SOC) was missing from yuigui.com/board, so SOC-3, the three short videos in this epic, now shows up there.",
+    "images": [
+      {
+        "src": "/progress/site19-preview.webp",
+        "alt": "A link preview card: the Yui wordmark, the headline Intervals, rounds and rest, the one line timer 40/20x8 Tabata on a dark panel, and beside it a phone showing the Tabata timer at 0:40 with Reset and Start buttons."
+      },
+      {
+        "src": "/progress/site19-playground-preview.webp",
+        "alt": "The preview card for a playground share link: four lines of Yui Lines on the left, and a simple drawing of the screen they make on the right, a note, an energy slider, a three-way choice and a weekend checklist."
+      },
+      {
+        "src": "/progress/site19-share-page.webp",
+        "alt": "A share page for a plan with pages: the title and a one-line description, a live phone showing the Build review plan at step 1 of 4, and beside it the six Yui Lines that draw it with Copy link and Copy embed code buttons."
+      },
+      {
+        "src": "/progress/site19-embed.webp",
+        "alt": "The Share, embed, badge section on the Developers page: a live Tabata timer in an iframe with a Made with Yui Lines link under it, and next to it the iframe snippet with a Copy button and the three ways to choose a screen."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Draw your best screen in three lines: a community page and the first open challenge",
     "card": "OSS-5",
     "body": "Yui Lines is open, and now there is a front door for people who want to build with it. The new Community page, under Developers, says who builds with Yui Lines today (honestly: us, plus the Hermes, OpenClaw and webhook adapters), and lists six ways to join in: a parser (Rust is next), a preset idea, a renderer, an adapter, a conformance vector, or the app itself. It also opens the first challenge: draw your best screen in three lines or fewer. You add your lines to one file in the repo and open a pull request. A small checker runs on every pull request: it parses each entry with the reference parser and says ok, or exactly what to fix, like a misspelled preset or a fourth line. Merged entries show up in a gallery on the page, drawn live in your browser, each with an Open in the playground link that loads its lines ready to edit. We seeded it with five of our own. Both CONTRIBUTING guides now point there.",

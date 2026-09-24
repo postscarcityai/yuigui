@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="136" height="20" role="img" aria-label="Made with Yui Lines">
+  <title>Made with Yui Lines</title>
+  <linearGradient id="s" x2="0" y2="100%"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset="1" stop-opacity=".08"/></linearGradient>
+  <clipPath id="r"><rect width="136" height="20" rx="10" fill="#fff"/></clipPath>
+  <g clip-path="url(#r)">
+    <rect width="70" height="20" fill="#231D33"/>
+    <rect x="70" width="66" height="20" fill="#FF7E8A"/>
+    <rect width="136" height="20" fill="url(#s)"/>
+  </g>
+  <g font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="11" text-rendering="geometricPrecision">
+    <text x="36" y="14" fill="#F6EEF7" text-anchor="middle">made with</text>
+    <text x="103" y="14" fill="#231D33" text-anchor="middle" font-weight="bold">Yui Lines</text>
+  </g>
+</svg>
