@@ -18,6 +18,7 @@
     "YUI-16": { "title": "Media presets", "shipped": "2026-09-24" },
     "YUI-17": { "title": "Charts, graphs and science tools", "shipped": "2026-09-24" },
     "YUI-18": { "title": "Decks, plan mode and narrated walkthroughs", "shipped": "2026-09-24" },
+    "YUI-51": { "title": "One full-screen flow that folds back into the chat", "shipped": "2026-09-24" },
     "YUI-19": { "title": "Every preset, native on iPhone", "shipped": "2026-09-24" },
     "YUI-20": { "title": "Every agent has its own look", "shipped": "2026-09-24" },
     "YUI-21": { "title": "Pictures in, photos out", "shipped": "2026-09-24" },
@@ -87,6 +88,7 @@
       "entries": [
         { "id": "deck", "title": "deck", "what": "Pages to swipe through, with a quiz at the end.", "cards": ["YUI-18", "YUI-19"], "demo": "deck-lesson", "agent": "Tutor", "app": "native", "shots": ["/progress/yui19-deck.webp", "/progress/yui18-quiz.webp"] },
         { "id": "plan", "title": "plan", "what": "Plan mode: one question at a time, ending in a project card that reopens it.", "cards": ["YUI-18", "YUI-19"], "demo": "plan-website", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-plan.webp"] },
+        { "id": "plan-findings", "title": "plan with pages", "what": "Findings to read, then questions, full screen with one Send. The answers land in the chat as your own message.", "cards": ["YUI-51"], "demo": "plan-findings", "agent": "Studio", "app": "native", "shots": ["/progress/yui51-flow-page.webp", "/progress/yui51-folded.webp", "/progress/yui51-record.webp"] },
         { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] }
       ]
     },

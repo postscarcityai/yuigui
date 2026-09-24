@@ -72,4 +72,34 @@ export function StagePill({ nodes, live, onOpen }) {
   );
 }
 
-const NAMES = { timer: "Timer", camera: "Camera", mic: "Voice note", deck: "Deck", gallery: "Gallery" };
+// A sent plan in the chat (YL.md, plan: folding back): what it held, folded.
+// Tap to see the pages; Open brings the flow back on the stage.
+export function PlanRecord({ rec, onOpen }) {
+  const [open, setOpen] = useState(false);
+  const n = rec.pages.length;
+  const held = [n ? `${n} page${n === 1 ? "" : "s"}` : null, `${rec.answers} answer${rec.answers === 1 ? "" : "s"}`].filter(Boolean).join(", ");
+  return (
+    <div className={`yl-record ${open ? "open" : ""}`}>
+      <button className="yl-recordhead" onClick={() => setOpen(!open)} aria-expanded={open}>
+        <span className="yl-stagedot" />
+        <b>{rec.title}</b>
+        <span className="yl-sub">{held}</span>
+        <span className="yl-recordchev">{open ? "▴" : "▾"}</span>
+      </button>
+      {open ? (
+        <div className="yl-recordbody">
+          {rec.pages.map((p, i) => (
+            <details key={i} className="yl-recordpage">
+              <summary>{p.title || `Page ${i + 1}`}</summary>
+              {p.body ? <p>{p.body}</p> : null}
+              {p.points.length ? <ul>{p.points.map((t, j) => <li key={j}>{t}</li>)}</ul> : null}
+            </details>
+          ))}
+          <button className="yl-recordopen" onClick={onOpen}>⤢ Open the flow</button>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+const NAMES = { timer: "Timer", camera: "Camera", mic: "Voice note", deck: "Deck", plan: "Plan", gallery: "Gallery" };

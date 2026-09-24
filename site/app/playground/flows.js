@@ -179,21 +179,48 @@ const VALUE = { ask: "answer", choose: "choice", pick: "picked", slide: "value",
 const question = (m) => { const p = m.props; return p.q || p.label || p.title || p.prompt || ""; };
 const show = (v) => (v == null ? "" : Array.isArray(v) ? v.join(", ") : typeof v === "object" ? Object.entries(v).map(([k, x]) => `${k}: ${x}`).join(", ") : String(v));
 
+// The fold-back (YL.md, plan): what the person answered, as the message they
+// would have typed. One line per answered question, in step order.
+export function foldText(steps, ans) {
+  const lines = steps.filter((m) => m.preset !== "page" && ans[m.id] !== undefined)
+    .map((m) => {
+      const q = question(m) || m.id;
+      // "Next? Files" and "Budget: 5", never "Next?: Files".
+      return `${q}${/[?:]$/.test(q) ? "" : ":"} ${m.preset === "camera" ? "Photo" : show(ans[m.id])}`;
+    });
+  return lines.length ? lines.join("\n") : "Sent";
+}
+
 export function Plan({ g, emitFor, Render }) {
   const p = resolve("plan", g.group.props);
   const steps = g.members.filter((m) => !m.group);
+  // Pages are steps to read; only questions are answered and reviewed.
+  const questions = steps.filter((m) => m.preset !== "page");
   const n = steps.length;
+  const screen = useContext(ScreenCtx);
   const [at, setAt] = useState(0);
   const [ans, setAns] = useState({});
   const [done, setDone] = useState(false);
   const cur = Math.min(at, n);
   const has = (m) => ans[m.id] !== undefined;
 
-  const submit = (a) => { emitFor(g.group)({ plan: a }); setDone(true); };
+  const submit = (a) => {
+    const plan = Object.fromEntries(questions.filter((m) => a[m.id] !== undefined).map((m) => [m.id, a[m.id]]));
+    emitFor(g.group)({ plan });
+    setDone(true);
+    // Fold back into the chat: a summary chip plus the answers as the person's message.
+    screen?.fold?.(g.group.key, {
+      title: p.title || "Plan",
+      pages: steps.filter((m) => m.preset === "page").map((m) => resolve("page", m.props)),
+      answers: questions.length,
+      text: foldText(steps, a),
+    });
+    screen?.closeStage?.();
+  };
   const next = (a = ans) => {
     if (cur >= n - 1 && !p.review) return submit(a);
-    // Back from an edit: once every step has an answer, go straight to review.
-    if (p.review && steps.every((m) => a[m.id] !== undefined)) return setAt(n);
+    // Back from an edit: once every question has an answer, go straight to review.
+    if (p.review && questions.length && cur >= steps.indexOf(questions[0]) && questions.every((m) => a[m.id] !== undefined)) return setAt(n);
     setAt(Math.min(cur + 1, n));
   };
   const capture = (m) => (v) => {
@@ -203,7 +230,7 @@ export function Plan({ g, emitFor, Render }) {
     if (m.preset === "ask" || m.preset === "choose") setTimeout(() => next(a), 380);
     else if (m.preset !== "slide") next(a);
   };
-  const nextOk = cur < n && (has(steps[cur]) || steps[cur].preset === "slide");
+  const nextOk = cur < n && (has(steps[cur]) || steps[cur].preset === "slide" || steps[cur].preset === "page");
   const onNext = () => {
     const m = steps[cur];
     if (m.preset === "slide" && !has(m)) {
@@ -217,9 +244,9 @@ export function Plan({ g, emitFor, Render }) {
   if (done) {
     return (
       <div className="yl-block yl-project">
-        <div className="yl-projhead"><span className="pill done">Plan saved</span><span className="yl-sub">{n} answers</span></div>
+        <div className="yl-projhead"><span className="pill done">Sent</span><span className="yl-sub">{questions.length} answers</span></div>
         <div className="yl-q">{p.title || "Project"}</div>
-        <Facts rows={steps.map((m) => [question(m) || m.id, show(ans[m.id])])} />
+        <Facts rows={questions.map((m) => [question(m) || m.id, show(ans[m.id])])} />
         <button className="bigbtn s full" onClick={() => { setDone(false); setAt(n > 0 && p.review ? n : 0); }}>Edit answers</button>
       </div>
     );
@@ -238,12 +265,12 @@ export function Plan({ g, emitFor, Render }) {
       </div>
       {steps.map((m, i) => (
         <div key={m.key} className="yl-planstep" style={{ display: i === cur ? undefined : "none" }}>
-          <Render node={m} emit={capture(m)} />
+          {m.preset === "page" ? <div className="yl-planpage"><Page p={resolve("page", m.props)} /></div> : <Render node={m} emit={capture(m)} />}
         </div>
       ))}
       {review ? (
         <div className="yl-planreview">
-          {steps.map((m, i) => (
+          {steps.map((m, i) => m.preset === "page" ? null : (
             <button key={m.key} className="yl-planrow" onClick={() => setAt(i)}>
               <span className="lbl">{question(m) || `Step ${i + 1}`}</span>
               <b>{has(m) ? show(ans[m.id]) : <i>Not answered</i>}</b>

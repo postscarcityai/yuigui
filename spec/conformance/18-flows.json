@@ -728,7 +728,7 @@
    ]
   },
   {
-   "name": "plan: a page is not a plan member",
+   "name": "plan: a page is a plan step",
    "input": "plan P\npage Nope",
    "expected": [
     {
@@ -745,8 +745,80 @@
      "screen": "1",
      "preset": "page",
      "id": "n2",
+     "in": "n1",
      "props": {
       "title": "Nope"
+     }
+    }
+   ]
+  },
+  {
+   "name": "plan: findings then questions are one flow",
+   "input": "plan@review \"Build review\" submit=\"Send picks\"\npage \"What broke\" \"Two taps went missing on the stage.\" points=\"Gallery X|Done pill\"\npage \"What works\" body=\"Reactions land in one turn.\"\nchoose@next \"Next?\" Files|Voice +other\npick@ship \"Ship\" Web|App",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "review",
+     "props": {
+      "title": "Build review",
+      "submit": "Send picks"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n1",
+     "in": "review",
+     "props": {
+      "title": "What broke",
+      "body": "Two taps went missing on the stage.",
+      "points": [
+       "Gallery X",
+       "Done pill"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "review",
+     "props": {
+      "title": "What works",
+      "body": "Reactions land in one turn."
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "choose",
+     "id": "next",
+     "in": "review",
+     "props": {
+      "q": "Next?",
+      "options": [
+       "Files",
+       "Voice"
+      ],
+      "other": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "pick",
+     "id": "ship",
+     "in": "review",
+     "props": {
+      "q": "Ship",
+      "options": [
+       "Web",
+       "App"
+      ]
      }
     }
    ]

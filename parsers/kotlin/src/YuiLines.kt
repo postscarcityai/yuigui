@@ -28,7 +28,7 @@ val CORE = listOf("say", "custom", "save", "show", "clear", "end", "theme", "clo
 // so does `end`. Comments, blank lines and error lines do not.
 val GROUPS = mapOf(
     "deck" to listOf("page", "ask", "choose", "pick"),
-    "plan" to listOf("ask", "choose", "pick", "slide", "form", "mic", "camera"),
+    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera"),
     "narrate" to listOf("page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"),
 )
 
@@ -37,7 +37,7 @@ val FIELD_TYPES = setOf("text", "long", "voice", "number", "email", "phone", "da
 
 // The stage is a full-screen layer over the chat (YL.md section 5).
 // These presets open there unless they say +inline.
-val STAGE = listOf("timer", "camera", "mic", "deck")
+val STAGE = listOf("timer", "camera", "mic", "deck", "plan")
 
 // ---------- JS compatibility ----------
 // The reference is JavaScript: \d and \w are ASCII, \s is the JS whitespace set.

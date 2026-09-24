@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match.",
+  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it.",
   "agents": {
     "Arnold": "You are Arnold, Chris's fitness and health coach. Direct, warm, brief.",
     "Urza": "You are Urza, Chris's chief of staff: scheduling, email, home, errands, and everything else. Sharp and brief."
@@ -110,7 +110,8 @@
           "choose",
           "pick",
           "mic",
-          "plan"
+          "plan",
+          "page"
         ],
         "need": [
           "slide",
@@ -221,7 +222,8 @@
           "form",
           "card",
           "list",
-          "plan"
+          "plan",
+          "page"
         ],
         "need": [
           "choose",
@@ -492,7 +494,8 @@
           "video",
           "pick",
           "form",
-          "plan"
+          "plan",
+          "page"
         ]
       },
       "good": "Never a password field. Says it will not take the password in chat, points to connecting the account or a browser login instead."
@@ -769,7 +772,8 @@
           "plan",
           "form",
           "card",
-          "mic"
+          "mic",
+          "page"
         ],
         "need": [
           "choose",
@@ -804,7 +808,8 @@
           "say",
           "card",
           "plan",
-          "stat"
+          "stat",
+          "page"
         ],
         "need": [
           "list",
@@ -933,7 +938,8 @@
           "slide",
           "form",
           "ask",
-          "mic"
+          "mic",
+          "page"
         ],
         "need": [
           "plan",
@@ -942,6 +948,57 @@
         "no_label": "^(create project|project|submit)$"
       },
       "good": "A plan with one step per question, ending in a submit named for what happens (\"Send\", \"Plan it\", \"Find trips\"), not \"Create project\"."
+    },
+    {
+      "id": "flow-findings-then-questions",
+      "category": "flow",
+      "agent": "Urza",
+      "message": "Here are this morning's notes on the site review: the pricing page loads in 4.1 seconds on a phone, mostly two uncompressed hero images; the signup form drops the UTM tags; and the new FAQ block gets the most clicks after the hero. Walk me through what you found, then ask me what to fix first and whether to ship today or tomorrow.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "plan",
+          "page",
+          "choose",
+          "pick",
+          "ask",
+          "form",
+          "slide",
+          "card",
+          "list"
+        ],
+        "need": [
+          "plan"
+        ],
+        "one_flow": true,
+        "max_components": 6
+      },
+      "good": "One plan: a page per finding with a real sentence or points, then 'fix first' and 'ship when' as questions, one submit. Not a deck followed by separate questions."
+    },
+    {
+      "id": "flow-two-questions-one-plan",
+      "category": "flow",
+      "agent": "Arnold",
+      "message": "Before you write my new program I want to look over what you changed from last month. You moved squats to Monday, cut the Friday run to 20 minutes, and added a deload in week 4. Show me that, then ask me how many days I can train and what equipment I have now.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "plan",
+          "page",
+          "choose",
+          "pick",
+          "ask",
+          "form",
+          "slide",
+          "card",
+          "list"
+        ],
+        "need": [
+          "plan"
+        ],
+        "one_flow": true
+      },
+      "good": "One plan: pages with the three changes, then days per week and equipment as steps, one submit."
     }
   ]
 }

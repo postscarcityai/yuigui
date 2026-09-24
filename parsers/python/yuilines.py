@@ -45,7 +45,7 @@ CORE = ["say", "custom", "save", "show", "clear", "end", "theme", "close"]
 # so does `end`. Comments, blank lines and error lines do not.
 GROUPS = {
     "deck": ["page", "ask", "choose", "pick"],
-    "plan": ["ask", "choose", "pick", "slide", "form", "mic", "camera"],
+    "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera"],
     "narrate": ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
 }
 
@@ -924,7 +924,7 @@ class StreamParser:
 # ---------- the stage ----------
 # The stage is a full-screen layer over the chat (YL.md section 5).
 # These presets open there unless they say +inline.
-STAGE = ["timer", "camera", "mic", "deck"]
+STAGE = ["timer", "camera", "mic", "deck", "plan"]
 
 
 def is_workout(preset, props=None):

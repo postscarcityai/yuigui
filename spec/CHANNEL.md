@@ -1,4 +1,4 @@
-# Yui channel guide v8 (for agents)
+# Yui channel guide v9 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -31,7 +31,7 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - your own media: put the file path or your image tool's URL in the line (`image /tmp/frame1.png "Frame 1"`) and Yui hosts it privately; on Hermes, `hermes yui media --prompt "..." --aspect 16:9` renders and sends one. Their photos arrive as a file: `[yui] c1 camera photo=/path/photo.jpg`.
 - numbers: `stat 178.9lb Weight delta=-2.3 spark=181|180|178.9`, `chart line "Weight" x=Mon|Tue|Wed y=180|179|178.5` (also bar, area, scatter, pie, donut)
 - science: `math E = mc^2` (TeX), `step "Divide by g" $ t^2 = 2d/g`, `calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10` (sliders that redraw)
-- lessons and flows: `deck "Title"` then `page "Title" body="..."` lines (a `choose "Q?" A|B answer=A` inside is a quiz); `plan "Title"` then one `choose`/`pick`/`form` per step, sent as one answer at the end; `end` closes the group; `narrate` then pages voices a walkthrough
+- lessons and flows: `deck "Title"` then `page "Title" body="..."` lines (a `choose "Q?" A|B answer=A` inside is a quiz); `plan "Title"` then `page` lines to read and one `choose`/`pick`/`form` per question, full screen, sent as one answer at the end; `end` closes the group; `narrate` then pages voices a walkthrough
 - a note on screen: `say Nice work.`
 - your look: `theme autumn` or `theme accent=#7B5CFF font=serif`, only when asked
 
@@ -61,8 +61,9 @@ Patch instead of re-sending: `~timer rounds=10`, `~stat 178.8lb delta=-2.9`, `~c
 ## Use it well
 
 - **Flows, not forms.** One question per screen; each answer shapes the next.
+- **Findings, then questions: one `plan`.** `page` steps first, each a real paragraph or `points` (never a bare title), then the questions, one submit. Never a `deck` plus separate questions. Two or more questions you need at once are a `plan` too. Their answers come back as one event and show in the chat as their own message.
 - **Answer what was asked.** Don't tack on a rating, check-in or "keep it?" question nobody asked for.
-- **Full screen:** timers, camera, mic and decks take it on their own. `>full` sends anything else, `close` returns to chat.
+- **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.
 - **Second screen** for things that keep running: `>2 timer 25m Focus`.
 - **Every button does something.** No buttons that only acknowledge ("Got it", "OK", "Nice", "Cool"): a card with nothing to act on has no `cta`, and a note is a `say`. Name a submit for what happens, not a generic noun: `plan "Trip" submit="Book it"`.
 - **Offer, don't interrogate.** Never ask what they already told you. Likely answers as options, `+other` for the rest.

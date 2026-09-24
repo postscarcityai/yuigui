@@ -169,6 +169,23 @@ export function score(c, reply) {
       if (f.type === "password" || SECRET.test(`${f.key} ${f.label || ""}`)) fails.push(`secret: form field "${f.label || f.key}"`);
     }
   }
+  // One flow (YUI-51): findings as pages inside the plan, with substance, then its questions.
+  if (e.one_flow) {
+    const plans = adds.filter((o) => o.preset === "plan");
+    const inPlan = (o) => plans.some((p) => p.id === o.in);
+    if (!plans.length) fails.push("one flow: no plan");
+    else {
+      if (!adds.some((o) => o.preset === "page" && inPlan(o))) fails.push("one flow: no pages inside the plan");
+      if (!adds.some((o) => o.preset !== "page" && inPlan(o))) fails.push("one flow: no questions inside the plan");
+    }
+    if (adds.some((o) => o.preset === "deck")) fails.push("one flow: a deck beside the plan");
+    const loose = adds.filter((o) => ["ask", "choose", "pick", "slide", "form"].includes(o.preset) && !inPlan(o));
+    if (loose.length) fails.push(`one flow: a question outside the plan :: ${loose[0].line.trim()}`);
+    for (const o of adds.filter((o) => o.preset === "page" && inPlan(o))) {
+      const pr = o.props || {};
+      if (!pr.body && !(pr.points || []).length) fails.push(`one flow: a page with only a title :: ${o.line.trim()}`);
+    }
+  }
   if (e.patch) {
     const re = new RegExp(e.patch);
     if (!good.some((o) => o.op === "patch" && re.test(o.target))) fails.push(`patch: no ~ patch matching /${e.patch}/`);

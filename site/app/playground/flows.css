@@ -118,3 +118,19 @@
 .yl-stagelive { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent2); }
 .yl-stageopen { color: var(--muted); }
 .bigbtn.p.ink { color: #2A2238; }
+
+/* A plan's pages read full size; a sent plan folds back into the chat (YUI-51). */
+.yl-planpage .yl-page { min-height: 0; }
+.yl-planpage .yl-pagebody { font-size: 15px; line-height: 1.5; }
+.yl-record { align-self: flex-start; max-width: 92%; background: #10121d; border: 1px solid #23263a; border-radius: 16px; overflow: hidden; }
+.yl-recordhead { display: flex; align-items: center; gap: 8px; width: 100%; padding: 9px 12px; background: none; border: 0; color: var(--text); text-align: left; cursor: pointer; }
+.yl-recordhead b { font-size: 14px; }
+.yl-recordchev { margin-left: auto; color: var(--muted); }
+.yl-recordbody { display: flex; flex-direction: column; gap: 6px; padding: 0 12px 12px; }
+.yl-recordpage { border-top: 1px solid #23263a; padding-top: 6px; font-size: 13px; }
+.yl-recordpage summary { cursor: pointer; font-weight: 700; }
+.yl-recordpage p, .yl-recordpage ul { margin: 6px 0 0; color: var(--muted); }
+.yl-recordopen { align-self: flex-start; margin-top: 4px; background: none; border: 1px solid #2f3350; border-radius: 999px; padding: 6px 12px; color: var(--text); font-size: 13px; font-weight: 700; cursor: pointer; }
+.yl-me { align-self: flex-end; max-width: 85%; margin-left: auto; white-space: pre-line; background: var(--user-bubble); color: #2a1a1e; border-radius: 22px 22px 8px 22px; padding: 10px 14px; font-size: 14px; font-weight: 600; line-height: 1.45; }
+.screen.light .yl-record { background: #fff; border-color: #e3e4ee; color: #1b1d2b; }
+.screen.light .yl-recordhead, .screen.light .yl-recordopen { color: #1b1d2b; }

@@ -298,6 +298,64 @@
       "stage": []
     },
     {
+      "name": "a plan opens on the stage, its steps ride inside",
+      "input": "plan Trip\npage Hi\nask Go?\nplan Other +inline\nask Stay?",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "plan",
+          "id": "n1",
+          "props": {
+            "title": "Trip"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "title": "Hi"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "q": "Go?"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "plan",
+          "id": "n4",
+          "props": {
+            "title": "Other",
+            "inline": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n5",
+          "in": "n4",
+          "props": {
+            "q": "Stay?"
+          }
+        }
+      ],
+      "stage": [
+        "n1"
+      ]
+    },
+    {
       "name": "a workout ignores +inline",
       "input": "timer 40/20x8 Tabata +inline\ntimer 90/30 Rest +inline\ntimer 60x3 +inline",
       "expected": [

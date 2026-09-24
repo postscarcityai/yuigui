@@ -33,7 +33,7 @@ export const CORE = ["say", "custom", "save", "show", "clear", "end", "theme", "
 // narrate can hold another group (a deck).
 export const GROUPS = {
   deck: ["page", "ask", "choose", "pick"],
-  plan: ["ask", "choose", "pick", "slide", "form", "mic", "camera"],
+  plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera"],
   narrate: ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
 };
 
@@ -695,7 +695,7 @@ export class StreamParser {
 // ---------- the stage ----------
 // The stage is a full-screen layer over the chat (spec section 5, The stage).
 // These presets open there unless they say +inline.
-export const STAGE = ["timer", "camera", "mic", "deck"];
+export const STAGE = ["timer", "camera", "mic", "deck", "plan"];
 
 // A timer with rounds or rest. Workouts always open on the stage.
 export function isWorkout(preset, props = {}) {

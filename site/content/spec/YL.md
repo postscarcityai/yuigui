@@ -294,7 +294,7 @@ Three presets are **group heads**. A group head collects the lines that follow i
 | Head | Members | What the group is |
 |---|---|---|
 | `deck` | `page`, `ask`, `choose`, `pick` | a swipeable presentation |
-| `plan` | `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera` | a guided set of questions with one answer at the end |
+| `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera` | one full-screen flow: pages to read, then questions, one answer at the end |
 | `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
 
 **Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest only one way: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate.
@@ -328,7 +328,10 @@ choose "Where is the mRNA read?" Nucleus|Cytoplasm|"The blood" answer=Cytoplasm 
 **Quiz.** `ask`, `choose` and `pick` take `answer=` anywhere, inside a deck or not. `answer` is the right option's text (for `pick`, a list: `answer=A|C`; it is always text, so `answer=4` matches the option `4`). A graded question marks the right option once the person answers, shows `why` (a short explanation) or the right answer, and adds `correct: true|false` to its event: `{choice: "Nucleus", correct: false}`. For `pick`, `correct` means the exact set. Answers stay open, so the person can try again; each try is an event.
 
 #### plan
-`plan [title...] [submit=] [review=off]`, then one question line per step. Plan mode: the questions become steps with a progress bar, Back and Next, and a final review screen that lists every answer with an Edit link; `ask` and `choose` move on by themselves after a tap. Members do **not** send their own events. The plan emits once, when the person submits the review: `{plan: {id: answer, ...}}`, keyed by each step's id (so name them: `choose@kind ...`), where each answer is what that step would have sent (`ask` answer, `choose` choice, `pick` list, `slide` value, `form` object, `mic` transcript, `camera` photo). After submitting, the plan folds into a project summary with an Edit answers button; submitting again sends a new `{plan}` (answers are never locked).
+`plan [title...] [submit=] [review=off]`, then one line per step: `page` lines to read, question lines to answer. Plan mode: the steps become one flow with a progress bar, Back and Next, and a final review screen that lists every answer with an Edit link; `ask` and `choose` move on by themselves after a tap. Members do **not** send their own events. The plan emits once, when the person submits the review: `{plan: {id: answer, ...}}`, keyed by each step's id (so name them: `choose@kind ...`), where each answer is what that step would have sent (`ask` answer, `choose` choice, `pick` list, `slide` value, `form` object, `mic` transcript, `camera` photo). After submitting, the plan folds into a project summary with an Edit answers button; submitting again sends a new `{plan}` (answers are never locked).
+- **Pages in a plan.** A `page` inside a plan is a step to read: it shows full size, has no answer, and Next moves on. Put what the agent found first and what it needs to know after, in one plan, so the person reads and answers without leaving the flow and sends everything with one button. Pages are not keyed in `{plan}`; the review lists only the questions. A page with nothing but a title is a weak step: give it a `body` paragraph or `points`.
+- **Full screen.** A plan opens on the stage (section 5) unless it says `+inline`. Submitting closes the stage.
+- **Folding back into the chat.** When the person submits, the flow leaves a record in the thread: (1) the plan's own spot becomes a summary chip, its title and what it held (`Build review · 2 pages, 2 answers`), which expands to the page titles and reopens the flow; (2) the answers land as the person's own message, as if they had typed them: one line per answered question, `<question>: <answer>`, in step order (no colon after a question that already ends in `?` or `:`, so `Launch before the holidays? No rush`). The answer text is what the step would have echoed on its own: a `choose` or `ask` option, a `pick` joined with `, `, a `slide` number, a `form` as `field: value` pairs joined with `, `, a `mic` transcript, `Photo` for a camera. Unanswered questions are left out; with none answered the message is `Sent`. The agent still gets exactly one event, the `{plan}` above; the text is for the person's history, not a second event.
 - `submit` [Send] labels the last button. `review=off` skips the review; the last answer submits.
 Props: `title`, `submit` [Send], `review` [on].
 Plan mode is the first workflow, and it is linear: every step shows, in line order. Saved, branching workflows come later (FLOW-1, see the roadmap).
@@ -341,6 +344,20 @@ form@brand "About the brand" name:text! vibe:Calm|Bold|Playful
 ask@launch "Launch before the holidays?" "Yes, Dec 1"|"No rush"
 ```
 emits `{"id":"site","preset":"plan","plan":{"kind":"Shop","pages":["Home","Contact"],"budget":5,"brand":{"name":"Kiln & Co.","vibe":"Calm"},"launch":"No rush"}}`.
+
+Findings first, then questions, in one flow:
+```
+plan@review "Build 47 review" submit="Send picks"
+page "What broke" "Two buttons took taps on the glyph only, so the gallery X felt dead." points="Gallery X: fixed, 44pt target|Done pill: fixed, no longer covered"
+page "What is new" "Hold any reply to react. The reaction goes to the agent as one turn, with the message quoted." points="Six reactions|Badge stays on the bubble"
+choose@next "What should the composer get next?" Files|"Voice notes as audio" +other
+pick@ship "Ship it where?" TestFlight|Site
+```
+emits `{"id":"review","preset":"plan","plan":{"next":"Files","ship":["TestFlight","Site"]}}`, and the thread shows the person's message:
+```
+What should the composer get next? Files
+Ship it where? TestFlight, Site
+```
 
 #### project
 `project title [body...] [status=] [progress=N] [facts="Label: value|..."] [next=a|b] [img=URL] [open=name] [cta=]`. A project card the agent can show any time to pick work back up. `facts` is a list of `Label: value` rows, `next` a list of next steps, `progress` a percent bar, `status` a pill. The button emits `{cta}`. With `open=name` the button reopens the saved screen `name` on the device at once, the same as the agent sending `show name`, and emits `{open: name}`; the button reads Open unless `cta` says otherwise. The usual pattern: run a `plan`, `save` its screen, and later show a `project` with `open=` pointing at it.
@@ -393,7 +410,7 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 **The stage.** Some moments deserve the whole phone. The stage is a full-screen layer over the chat, in the agent's own look, with the chat right underneath.
 
 - `>full` alone opens the stage and routes the lines that follow onto it; `>full timer 40/20x8 Tabata` sends one line there. `close`, or `>chat` alone, closes it and sends the lines that follow back to screen 1. `close` takes nothing else. The op is `{op: "close", screen: "full"}`.
-- Some components open on the stage by themselves: `timer`, `camera`, `mic`, `deck`, and a `gallery` laid out as `row3d`. `+inline` keeps one in the chat: `timer 5m Plank hold +inline`.
+- Some components open on the stage by themselves: `timer`, `camera`, `mic`, `deck`, `plan`, and a `gallery` laid out as `row3d`. `+inline` keeps one in the chat: `timer 5m Plank hold +inline`.
 - **Workouts are always full screen.** A `timer` with rounds or rest (`40/20x8`, `90/30`) is a workout. It opens on the stage even with `+inline` and even when the agent prefers the chat.
 - The agent's style profile sets the default for everything else (section 4, theme): `screen=full` opens every component on the stage unless it says `+inline`, and `screen=chat` keeps everything in the chat unless it is routed with `>full` or is a workout.
 - A member of a group (a `page` under a `deck`) goes wherever its group went. Patches never move a component.
@@ -470,7 +487,7 @@ Errors come from two layers. The **parser** rejects a line on its own: an unknow
 
 ## 10. Telegram fallback
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, and a `narrate` sends a voice note per step with its picture. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, and a `narrate` sends a voice note per step with its picture. Everything else degrades to its text plus a link to open it in Yui.
 
 ## 11. Versioning
 

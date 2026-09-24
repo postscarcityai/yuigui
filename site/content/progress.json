@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Read, answer, send once: a plan is now one full-screen flow",
+    "card": "YUI-51",
+    "body": "Chris got three thin pages of findings, had to close them, and then answered two questions somewhere else. Now it is one flow. A plan can hold pages to read before its questions, it opens full screen, and one button at the end sends every answer. When it closes, the chat keeps a record: a small card with the plan's title and what it held (2 pages, 2 answers) that opens to the pages, and the answers as your own message, as if you had typed them. The agent still gets one event with everything. The Yui Lines spec, all four parsers (335 of 335 test cases each), the playground and the app all do it. The channel guide (v9) tells agents that findings then questions is one plan and that a page needs a real paragraph. The old guide failed both new test cases the same way Chris saw it live; v9 scored 42 of 42.",
+    "images": [
+      {
+        "src": "/progress/yui51-flow-page.webp",
+        "alt": "A plan open full screen in Yui: step 1 of 4, a page titled What broke with a paragraph and two bullet points, and Back and Next buttons."
+      },
+      {
+        "src": "/progress/yui51-folded.webp",
+        "alt": "The chat after sending: a small card that says Build review, 2 pages, 2 answers, and under it the person's own purple message listing both answers."
+      },
+      {
+        "src": "/progress/yui51-record.webp",
+        "alt": "The Build review card opened: the What broke page expanded with its paragraph and bullets, a collapsed What is new page, and an Open the flow button."
+      },
+      {
+        "src": "/progress/yui51-web.webp",
+        "alt": "The same flow in the web playground after sending: the Build review record opened to its page titles, and the answers as a pink message from the person."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Scroll up, and one arrow brings you back",
     "card": "YUI-50",
     "body": "Long threads now have a way home. Scroll up more than about a screen and a round down arrow shows just above the composer. If your agent answers while you're up there, the arrow counts the new messages. One tap and you're back at the newest one, and the arrow goes away. Scroll down by hand and it goes too, and sending a message from up the thread takes you straight to it. We also checked the composer empties in every way you can send: typing, a photo with a caption, a tap on a screen, a reaction, and a message queued while offline, each with its own test. With Reduce Motion on, a sent message fades in instead of floating up.",

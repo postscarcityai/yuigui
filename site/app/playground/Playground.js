@@ -6,7 +6,7 @@ import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../../lib/yl/samples.mjs"
 import { Render, StepGroup, TABLES } from "./presets";
 import { Group, groupNodes } from "./flows";
 import { ScreenCtx } from "./science";
-import { LiveSlot, Stage, StagePill } from "./stage";
+import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS];
@@ -41,6 +41,8 @@ export default function Playground() {
   const [cmd, setCmd] = useState("");
   const [epoch, setEpoch] = useState(0); // bumps on load/stream so components start fresh
   const [light, setLight] = useState(false); // phone theme: charts and presets in light or dark
+  // Sent plans, by group key: the chat shows a summary chip and the answers as the person's message.
+  const [folds, setFolds] = useState({});
   const agentParser = useRef(null);
   const timer = useRef(null);
   const emits = useRef(new Map());
@@ -89,6 +91,7 @@ export default function Playground() {
     setState(build(ALL[i].yl));
     setView(null);
     setEvents([]);
+    setFolds({});
     setStreamed(null);
   };
 
@@ -157,6 +160,7 @@ export default function Playground() {
   const onLive = useCallback((k, t) => setLive((l) => (l[k] === t ? l : { ...l, [k]: t })), []);
   const closeStage = useCallback(() => setState((s) => ({ ...s, stage: false })), []);
   const openStage = () => setState((s) => ({ ...s, stage: true }));
+  const fold = useCallback((key, rec) => setFolds((f) => ({ ...f, [key]: rec })), []);
 
   const screens = Object.keys(state.screens).filter((k) => k !== "full");
   const focus = state.focus === "full" ? "1" : state.focus;
@@ -180,7 +184,15 @@ export default function Playground() {
   ) : (
     <div key={`${epoch}:${n.key}:${n.preset}`} className="pg-node"><Render node={n} emit={emitFor(n)} /></div>
   );
-  const pill = (p, i) => <StagePill key={`pill:${p.nodes[0].key}:${i}`} nodes={p.nodes} live={live} onOpen={openStage} />;
+  // A sent plan leaves its record where its pill was: the chip, then the person's answers.
+  const pill = (p, i) => {
+    const rec = folds[p.nodes[0].key];
+    if (!rec) return <StagePill key={`pill:${p.nodes[0].key}:${i}`} nodes={p.nodes} live={live} onOpen={openStage} />;
+    return [
+      <PlanRecord key={`rec:${p.nodes[0].key}`} rec={rec} onOpen={openStage} />,
+      <div key={`me:${p.nodes[0].key}`} className="yl-me">{rec.text}</div>,
+    ];
+  };
   const lines = useMemo(() => text.split("\n").filter((l) => l.trim() && !l.trim().startsWith("# ")).length, [text]);
 
   return (
@@ -281,7 +293,7 @@ export default function Playground() {
               <div><div className="nm">{agent}</div><div className="st">{streaming ? "generating..." : `screen ${shown}`}</div></div>
             </div>
             <div className="pg-screen">
-              <ScreenCtx.Provider value={{ nodes, tables: TABLES, agent, screen: shown, dispatch }}>
+              <ScreenCtx.Provider value={{ nodes, tables: TABLES, agent, screen: shown, dispatch, fold, closeStage }}>
                 {pillAt(null).map(pill)}
                 {groupNodes(nodes).flatMap((n) => [renderNode(n), ...pillAt(n.key).map(pill)])}
                 {pills.filter((p) => p.end).map(pill)}
@@ -289,7 +301,7 @@ export default function Playground() {
               {!nodes.length && !pills.length ? <div className="pg-hint" style={{ textAlign: "center", marginTop: 40 }}>Empty screen</div> : null}
             </div>
             <Stage open={state.stage && staged.length > 0} onClose={closeStage} agent={agent}>
-              <ScreenCtx.Provider value={{ nodes: staged, tables: TABLES, agent, screen: "full", dispatch }}>
+              <ScreenCtx.Provider value={{ nodes: staged, tables: TABLES, agent, screen: "full", dispatch, fold, closeStage }}>
                 {groupNodes(staged).map((n) => <LiveSlot key={`${epoch}:${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
               </ScreenCtx.Provider>
             </Stage>

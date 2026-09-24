@@ -381,6 +381,17 @@ page "Three rules" points="Write fast, fix later|Leave gaps as [TK] and keep goi
 page "Tomorrow" body="Read it once, cut a third, then send it to one person." notes="End on the next action, not a summary."`,
   },
   {
+    slug: "plan-findings",
+    name: "Plan: findings, then questions, one Send",
+    agent: "Yui",
+    yl: `say "Here is what the last build fixed, then two picks for next."
+plan@review "Build review" submit="Send picks"
+page "What broke" "Two buttons only took taps on their icon, so the gallery X felt dead and the Done pill hid under a tile." points="Gallery X: now a full 44pt target|Done pill: no tile covers it anymore|Checked with taps off center, not just dead center"
+page "What is new" "Hold any reply to react. Your reaction goes to the agent as one turn, with the message quoted, and the badge stays on the bubble." points="Six reactions: build it, no, not sure, love it, later, priority|Works on handoffs from other agents too"
+choose@next "What should the composer get next?" Files|"Voice notes as audio"|"Ship a TestFlight build" +other
+pick@where "Where should it show up first?" "The app"|"The site"|"Both"`,
+  },
+  {
     slug: "plan-website",
     name: "Plan: a new website, step by step",
     agent: "Urza",
