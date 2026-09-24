@@ -241,7 +241,8 @@ Deliverables:
 - OPEN: the private beta of 20 to 50 technical users from the Hermes and OpenClaw communities. The public link may replace it; Chris's call.
 - NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
 - DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
-- NOT STARTED, INT-1 and INT-3 onward: adapters for OpenClaw-style frameworks, a Yui MCP server so any MCP-capable agent can render to Yui, and more (see Adapters below).
+- DONE Sep 24, INT-1: the OpenClaw channel plugin. An OpenClaw agent talks in Yui the way a Hermes agent does, screens and taps included.
+- NOT STARTED, INT-3 onward: a Yui MCP server so any MCP-capable agent can render to Yui, and more (see Adapters below).
 - NOT STARTED, YUI-48: SMS channel (text a number, get a push that opens the screen).
 
 Dependencies: App Store submission sign-off from Chris.
@@ -297,7 +298,7 @@ There are only five ways in, so five pieces of code cover every framework:
 
 Every one of them ends in the same messages and the same screens, and every agent gets the same channel guide, so it knows it can draw.
 
-Order: Hermes and the webhook (done), then OpenClaw and the MCP server, then Claude, ChatGPT, open models, Flue and A2A, then the rest. Each framework is a card on the board, INT-1 to INT-18.
+Order: Hermes, OpenClaw and the webhook (done), then the MCP server, then Claude, ChatGPT, open models, Flue and A2A, then the rest. Each framework is a card on the board, INT-1 to INT-18.
 
 ## Cloudflare
 
@@ -360,7 +361,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 **Other agents and channels**
 
-- INT-1: an OpenClaw adapter.
+- INT-1 (done Sep 24): an OpenClaw channel plugin. Install it, pair with the app's code, and your OpenClaw agent answers in Yui.
 - INT-2 (done Sep 24): a webhook bridge in Python and Node. If your agent can answer an HTTP request, it can talk in Yui.
 - INT-3: a Yui MCP server, so any MCP agent can draw a screen.
 - INT-4: the Telegram fallback: Yui Lines as buttons and a Telegram Mini App.

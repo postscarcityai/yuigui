@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 53,
-    "site": 119,
+    "app": 55,
+    "site": 123,
     "builds": 21,
-    "shipped": 74,
-    "screenshots": 123
+    "shipped": 76,
+    "screenshots": 128
   },
   "days": [
     {
@@ -13,7 +13,59 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T20:20:02.065Z",
+          "at": "2026-09-24T20:46:51.944Z",
+          "title": "OpenClaw agents can talk in Yui now",
+          "card": "INT-1",
+          "anchor": "openclaw-agents-can-talk-in-yui-now",
+          "images": [
+            {
+              "src": "/progress/int1-openclaw-spec.webp",
+              "alt": "The OpenClaw page on yuigui.com: install the Yui channel plugin, pair with the app's code, turn the channel on and restart the gateway."
+            },
+            {
+              "src": "/progress/int1-developers.webp",
+              "alt": "The Developers page on yuigui.com with a new OpenClaw card next to Connect your agent and the Webhook bridge."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 55,
+            "site": 123,
+            "builds": 21,
+            "shipped": 76
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T20:32:35.000Z",
+          "title": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
+          "card": "YUI-31",
+          "anchor": "three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away",
+          "images": [
+            {
+              "src": "/progress/yui31-screen3.webp",
+              "alt": "Yui on screen 3: a Shopping list with Eggs, Spinach, Rice and Gochujang, and Chat, 2, 3 tabs above the composer with 3 highlighted."
+            },
+            {
+              "src": "/progress/yui31-screen2-dark.webp",
+              "alt": "Screen 2 in dark mode: a 25 minute Focus timer with a Start button, and the 2 tab highlighted."
+            },
+            {
+              "src": "/progress/yui31-chat-pills.webp",
+              "alt": "The chat: the agent says the timer is on screen 2 and the list on screen 3, with two pills under it, On screen 2 Focus and On screen 3 Shopping."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 53,
+            "site": 121,
+            "builds": 21,
+            "shipped": 75
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T20:19:50.000Z",
           "title": "Polish: Developers and the playground",
           "card": "SITE-18",
           "anchor": "polish-developers-and-the-playground",
@@ -31,10 +83,10 @@
               "alt": "The Every spec row on the Developers page: Yui Lines, Channel guide, Reactions, Benchmark, Agents, Relay, Adapters and Preset flywheel."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 53,
-            "site": 119,
+            "site": 120,
             "builds": 21,
             "shipped": 74
           }
@@ -1484,6 +1536,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "08d05cf",
+          "at": "2026-09-24T20:45:55.000Z",
+          "text": "OpenClaw channel plugin: an OpenClaw agent talks in Yui the way a Hermes agent does. openclaw plugins install, openclaw yui pair <code>...",
+          "url": "https://github.com/postscarcityai/yui/commit/08d05cf"
+        },
+        {
+          "repo": "site",
+          "sha": "0cb5d82",
+          "at": "2026-09-24T20:40:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0cb5d82"
+        },
+        {
+          "repo": "site",
+          "sha": "4ade4ad",
+          "at": "2026-09-24T20:39:38.000Z",
+          "text": "Roadmap: ship in epics; GTM-1 grassroots go-to-market is the current epic",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4ade4ad"
+        },
+        {
+          "repo": "app",
+          "sha": "e27fe51",
+          "at": "2026-09-24T20:33:44.000Z",
+          "text": "Three screens per agent: the chat, then screens 2 and 3 a swipe away, with Chat, 2, 3 tabs above the composer and a dot on a page with...",
+          "url": "https://github.com/postscarcityai/yui/commit/e27fe51"
+        },
+        {
+          "repo": "site",
+          "sha": "a903fbe",
+          "at": "2026-09-24T20:32:35.000Z",
+          "text": "Three screens per agent: the chat, then screens 2 and 3 a swipe away; pages keep what lands on them across replies, a reply sent there...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a903fbe"
+        },
+        {
+          "repo": "site",
+          "sha": "5f72dc2",
+          "at": "2026-09-24T20:19:50.000Z",
+          "text": "Polish Developers and the playground: every spec one tap from /developers, a Start here heading (Lighthouse a11y 100), 44pt targets on...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5f72dc2"
+        },
         {
           "repo": "site",
           "sha": "7eddcda",

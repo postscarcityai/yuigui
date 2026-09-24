@@ -12,7 +12,7 @@ There are only five ways an agent can reach Yui. Every framework below uses one 
 
 | # | Path | Who runs the agent | Who holds the conversation | Covers |
 | --- | --- | --- | --- | --- |
-| A | **Channel plugin** inside the agent's own runtime | the user | the agent's host | Hermes (shipped), OpenClaw, Flue |
+| A | **Channel plugin** inside the agent's own runtime | the user | the agent's host | Hermes and OpenClaw (shipped), Flue |
 | B | **Hosted connector** that speaks a standard protocol | the user or a vendor | the agent | Hermes via relay contract, A2A agents (Gemini, LangGraph, CrewAI, Microsoft Agent Framework) |
 | C | **Model connector**: Yui calls a chat API for you | Yui | Yui | any OpenAI-compatible endpoint: Meta Muse Spark, Grok, Gemini, Ollama, LM Studio, vLLM, OpenRouter |
 | D | **Yui MCP server**: the agent calls Yui as a tool | the user's AI app | the AI app | Claude, ChatGPT, Grok, n8n, Cursor, anything MCP |
@@ -25,7 +25,7 @@ Two rules hold for all of them:
 
 ## What each path needs from Yui
 
-- **A, channel plugin.** A connector token (`yui_ct_...`) from pairing, `yui-connect session`, Realtime on `yui_messages`. Already built for Hermes. Connector kind `hermes`; other plugins reuse it with their own kind.
+- **A, channel plugin.** A connector token (`yui_ct_...`) from pairing, `yui-connect session`, Realtime on `yui_messages`. Built for Hermes (kind `hermes`) and OpenClaw (kind `openclaw`, INT-1); other plugins reuse it with their own kind.
 - **B, hosted connector.** A long-running service Yui owns, holding outbound sessions to many agents. Supabase edge functions cannot hold a socket open, so this needs a real host. INT-6 decides where (Cloudflare Workers + Durable Objects is the leading answer). Connector kind `hosted`.
 - **C, model connector.** Same hosted service, plus a key vault (YUI-34) for the user's own API keys, plus Yui-side memory of the thread. This is the only path where Yui is the agent's brain, not just its screen, so it overlaps Phase 4's built-in agent (YUI-37).
 - **D, MCP server.** A public remote MCP server with OAuth (Sign in with Apple through Yui's account). Connector kind `mcp`.
@@ -35,7 +35,7 @@ Two rules hold for all of them:
 
 | Path | Where the guide goes |
 | --- | --- |
-| A | Injected by the plugin as the platform's system-prompt hint, every Yui turn (done for Hermes). |
+| A | Injected by the plugin into the agent's system prompt, every Yui turn: Hermes through the platform hint, OpenClaw through the channel's `GroupSystemPrompt` (both done). |
 | B | Relay contract: the descriptor's `platform_hint`. A2A: sent as a context part on the first message of each task, since Yui cannot touch a remote agent's system prompt. |
 | C | Yui owns the prompt: the guide is the system message. |
 | D | Short form in the tool descriptions, full text as an MCP prompt `yui_guide` and a resource `yui://guide`. |
@@ -55,12 +55,12 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Depends on:** the relay contract leaving experimental status; the hosted service (INT-6).
 - **Priority:** 1. It is the MVP.
 
-### OpenClaw | INT-1
+### OpenClaw | INT-1, shipped Sep 24
 
-- **Connects:** path A. OpenClaw's plugin SDK has channel plugins: `api.registerChannel()` plus a message adapter from `openclaw/plugin-sdk/channel-outbound`. Core owns the send and edit tools; a channel owns pairing, session grammar and outbound delivery. That maps one to one onto our Hermes plugin: dial out, trade the connector token for a session, read user rows, write agent rows.
-- **Learns:** CHANNEL.md, from the channel's platform hint. OpenClaw's own app already draws A2UI widgets, so the guide must say plainly: on Yui, use Yui Lines, not A2UI.
-- **Effort:** M. Node, not Python, so the connector client is ported, not reused.
-- **Depends on:** nothing past the MVP.
+- **Connects:** path A, as an OpenClaw channel plugin: `adapters/openclaw/` in the app repo, TypeScript with no dependencies, loaded by OpenClaw from source. `defineChannelPluginEntry` registers the channel (`api.registerChannel`) and a `channel-outbound` message adapter; `gateway.startAccount` runs the connector loop, each turn goes through OpenClaw's own inbound dispatch, so the agent's session, memory and tools are untouched. Install: clone, `openclaw plugins install ./yui/adapters/openclaw`, `openclaw yui pair <code> --agent main`, `openclaw config set channels.yui.enabled true`, restart the gateway. Connector kind `openclaw`. Guide: `spec/OPENCLAW.md`.
+- **Delivery:** the relay rules from RELAY.md, the connector client ported from the webhook bridge: unfinished rows only, `delivered_at` then `handled_at`, one turn at a time per agent with the backlog folded in, an on-disk outbox, `meta.turn`, replay after a crash, `bye` on a clean stop. Cron and the `message` tool deliver to target `yui:<agent>` as a handoff with a push.
+- **Learns:** the full CHANNEL.md, fresh from `yui-connect session`, in the trusted system prompt every turn (the channel's `GroupSystemPrompt`), under a plain note: on Yui, use Yui Lines, not A2UI; the canvas and A2UI tools do not reach the phone. The channel's formatting hints say the same.
+- **Tests:** `adapters/openclaw/tests/openclaw_e2e.py` runs a real OpenClaw gateway in a throwaway home with a fake model that records its prompt, on a throwaway account: pairing, the guide and the A2UI note in the system prompt, a screen round trip, a tap, kill -9 mid-turn, a crash between answer and ack, a clean stop, a backlog, a handoff. 24 of 24 live checks passed on Sep 24.
 - **Priority:** 2. The pitch names OpenClaw users as the early adopters.
 
 ### Generic webhook, Python and Node | INT-2, shipped Sep 24
@@ -189,7 +189,7 @@ Not an agent framework, but the same idea in reverse: Yui Lines rendered as Tele
 ## Order
 
 1. Hermes plugin (done), then INT-5 hosted Hermes.
-2. INT-1 OpenClaw, INT-2 webhook (done Sep 24), INT-3 MCP server. These three open the door for everyone else.
+2. INT-1 OpenClaw (done Sep 24), INT-2 webhook (done Sep 24), INT-3 MCP server. These three open the door for everyone else.
 3. INT-7 Claude and INT-8 ChatGPT (cheap once INT-3 exists), INT-12 model connector, INT-13 Flue, INT-18 A2A.
 4. INT-9 Gemini, INT-10 Grok, INT-11 Meta, INT-14 LangGraph, INT-17 n8n: mostly presets on the pieces above.
 5. INT-15 CrewAI, INT-16 Microsoft Agent Framework.
