@@ -1,9 +1,10 @@
 "use client";
 
-// Web renderers for the 12 YL presets, plus say and custom.
+// Web renderers for the YL presets, plus say and custom.
 // Each preset gets resolved props and emit(value). emit() is the event that
 // goes back to the agent.
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { resolve } from "../../lib/yl/yl.mjs";
 
 // Sample agent data tables, so `table meals` has something to bind to.
@@ -321,13 +322,328 @@ function Card({ p, emit }) {
   );
 }
 
-function Image({ p }) {
+function Image({ p, emit }) {
+  if (p.edit && p.src) return <ImageEdit p={p} emit={emit} />;
   return (
     <figure className="yl-image">
       {p.src ? <img src={p.src} alt={p.alt || p.caption || ""} style={{ objectFit: p.fit }} />
         : <div className="yl-imgph"><span>Image to generate</span><b>{p.prompt || "no prompt"}</b></div>}
       {p.caption ? <figcaption>{p.caption}</figcaption> : null}
     </figure>
+  );
+}
+
+// ---------- media ----------
+
+const isVideo = (src) => /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src || "");
+const r1 = (n) => Math.round(n * 10) / 10;
+
+function Media({ src, alt, className, controls, onClick }) {
+  if (isVideo(src)) return <video src={src} className={className} playsInline muted loop autoPlay={!controls} controls={controls} onClick={onClick} />;
+  return <img src={src} alt={alt || ""} className={className} onClick={onClick} draggable={false} />;
+}
+
+// Full-screen viewer, drawn over the phone screen (not the page).
+function Lightbox({ items, caps = [], index, onClose, onIndex, anchor }) {
+  const [host, setHost] = useState(null);
+  useEffect(() => { setHost((anchor.current && anchor.current.closest(".screen")) || document.body); }, [anchor]);
+  useEffect(() => {
+    const k = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight" && index < items.length - 1) onIndex(index + 1);
+      if (e.key === "ArrowLeft" && index > 0) onIndex(index - 1);
+    };
+    window.addEventListener("keydown", k);
+    return () => window.removeEventListener("keydown", k);
+  }, [index, items.length, onClose, onIndex]);
+  if (!host) return null;
+  return createPortal(
+    <div className="yl-lb" onClick={onClose}>
+      <button className="yl-lb-x" onClick={onClose} aria-label="Close">×</button>
+      <div className="yl-lb-media" onClick={(e) => e.stopPropagation()}>
+        <Media src={items[index]} alt={caps[index]} controls />
+      </div>
+      <div className="yl-lb-foot" onClick={(e) => e.stopPropagation()}>
+        <button disabled={index === 0} onClick={() => onIndex(index - 1)} aria-label="Previous">‹</button>
+        <span>{caps[index] || `${index + 1} of ${items.length}`}</span>
+        <button disabled={index >= items.length - 1} onClick={() => onIndex(index + 1)} aria-label="Next">›</button>
+      </div>
+    </div>,
+    host,
+  );
+}
+
+function useViewer(emit) {
+  const [open, setOpen] = useState(null);
+  const anchor = useRef(null);
+  const show = (i) => { setOpen(i); emit({ open: true, index: i }); };
+  return { anchor, show, open, close: () => setOpen(null), setIndex: setOpen };
+}
+
+function Gallery({ p, emit }) {
+  const [sel, setSel] = useState([]);
+  const [cur, setCur] = useState(0);
+  const v = useViewer(emit);
+  const drag = useRef(null);
+  const n = p.items.length;
+  const tog = (i) => setSel((s) => (s.includes(i) ? s.filter((x) => x !== i) : p.max && s.length >= p.max ? s : [...s, i]));
+
+  const tile = (src, i, style, onClick) => (
+    <div key={i} className={`yl-gtile ${sel.includes(i) ? "on" : ""}`} style={style}>
+      <Media src={src} alt={p.caps[i]} onClick={onClick || (() => v.show(i))} />
+      {p.caps[i] && p.layout !== "grid" ? <div className="yl-gcap">{p.caps[i]}</div> : null}
+      {p.pick ? <button className="yl-gpick" onClick={(e) => { e.stopPropagation(); tog(i); }} aria-label="Pick">{sel.includes(i) ? "✓" : ""}</button> : null}
+    </div>
+  );
+
+  let body;
+  if (!n) body = <div className="yl-imgph"><span>Gallery</span><b>No media yet</b></div>;
+  else if (p.layout === "row3d") {
+    // Coverflow: the current item faces front, neighbours turn away.
+    const down = (e) => { drag.current = e.clientX; };
+    const up = (e) => {
+      if (drag.current == null) return;
+      const dx = e.clientX - drag.current;
+      drag.current = null;
+      if (dx < -30 && cur < n - 1) setCur(cur + 1);
+      if (dx > 30 && cur > 0) setCur(cur - 1);
+    };
+    body = (
+      <>
+        <div className="yl-g3d" onPointerDown={down} onPointerUp={up} onPointerLeave={() => (drag.current = null)}>
+          {p.items.map((src, i) => {
+            const o = i - cur;
+            const a = Math.abs(o);
+            return tile(src, i, {
+              transform: `translateX(${o * 46}%) translateZ(${-a * 90}px) rotateY(${o === 0 ? 0 : o > 0 ? -38 : 38}deg)`,
+              zIndex: 100 - a,
+              opacity: a > 2 ? 0 : 1,
+            }, () => (o === 0 ? v.show(i) : setCur(i)));
+          })}
+        </div>
+        <div className="yl-gdots">{p.items.map((_, i) => <button key={i} className={i === cur ? "on" : ""} onClick={() => setCur(i)} aria-label={`Item ${i + 1}`} />)}</div>
+      </>
+    );
+  } else body = <div className={`yl-g yl-g-${p.layout}`}>{p.items.map((src, i) => tile(src, i))}</div>;
+
+  return (
+    <div className="yl-block yl-gallery" ref={v.anchor}>
+      {p.title ? <div className="yl-q">{p.title}</div> : null}
+      {body}
+      {p.pick ? <button className="bigbtn p acc full" onClick={() => emit({ picked: sel })}>{p.submit}{sel.length ? ` (${sel.length})` : ""}</button> : null}
+      {v.open != null ? <Lightbox items={p.items} caps={p.caps} index={v.open} onClose={v.close} onIndex={v.setIndex} anchor={v.anchor} /> : null}
+    </div>
+  );
+}
+
+function Video({ p, emit }) {
+  const played = useRef(false);
+  if (!p.src) return <figure className="yl-image"><div className="yl-imgph"><span>Video to generate</span><b>{p.prompt || "no prompt"}</b></div></figure>;
+  return (
+    <figure className="yl-image yl-video">
+      <video src={p.src} poster={p.poster} controls playsInline loop={p.loop} autoPlay={p.auto} muted={p.mute || p.auto}
+        onPlay={() => { if (!played.current) { played.current = true; emit({ played: true }); } }}
+        onEnded={() => emit({ ended: true })} />
+      {p.caption ? <figcaption>{p.caption}</figcaption> : null}
+    </figure>
+  );
+}
+
+// Numbered highlight boxes, in percent of the image.
+function Boxes({ hl }) {
+  return hl.map((b, i) => (
+    <div key={i} className="yl-hl" style={{ left: `${b[0]}%`, top: `${b[1]}%`, width: `${b[2]}%`, height: `${b[3]}%` }}><span>{i + 1}</span></div>
+  ));
+}
+
+function Compare({ p, emit }) {
+  const [x, setX] = useState(50);
+  const [showAfter, setShowAfter] = useState(true);
+  const [mode, setMode] = useState(p.mode);
+  const [chose, setChose] = useState(null);
+  const box = useRef(null);
+  useEffect(() => setMode(p.mode), [p.mode]);
+  const [la, lb] = [p.labels[0] || "Before", p.labels[1] || "After"];
+  const move = (e) => {
+    if (e.type === "pointermove" && !e.buttons) return;
+    const r = box.current.getBoundingClientRect();
+    setX(Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100)));
+  };
+
+  let view;
+  if (mode === "side") view = (
+    <div className="yl-cside">
+      <div className="yl-cpane"><img src={p.before} alt={la} /><span className="yl-ctag">{la}</span></div>
+      <div className="yl-cpane"><img src={p.after} alt={lb} /><Boxes hl={p.hl} /><span className="yl-ctag r">{lb}</span></div>
+    </div>
+  );
+  else if (mode === "toggle") view = (
+    <>
+      <div className="yl-cpane" onClick={() => setShowAfter(!showAfter)}>
+        <img src={showAfter ? p.after : p.before} alt={showAfter ? lb : la} />
+        {showAfter ? <Boxes hl={p.hl} /> : null}
+        <span className="yl-ctag">{showAfter ? lb : la}</span>
+      </div>
+      <div className="yl-seg">
+        <button className={!showAfter ? "on" : ""} onClick={() => setShowAfter(false)}>{la}</button>
+        <button className={showAfter ? "on" : ""} onClick={() => setShowAfter(true)}>{lb}</button>
+      </div>
+    </>
+  );
+  else view = (
+    <div className="yl-cpane yl-cslider" ref={box} onPointerDown={move} onPointerMove={move}>
+      <img src={p.after} alt={lb} draggable={false} />
+      <img className="yl-cbefore" src={p.before} alt={la} draggable={false} style={{ clipPath: `inset(0 ${100 - x}% 0 0)` }} />
+      <Boxes hl={p.hl} />
+      <div className="yl-cbar" style={{ left: `${x}%` }}><span>‹ ›</span></div>
+      <span className="yl-ctag">{la}</span><span className="yl-ctag r">{lb}</span>
+    </div>
+  );
+
+  return (
+    <div className="yl-block yl-compare">
+      {p.title ? <div className="yl-q">{p.title}</div> : null}
+      {view}
+      <div className="yl-seg sm">
+        {["slider", "side", "toggle"].map((m) => <button key={m} className={mode === m ? "on" : ""} onClick={() => setMode(m)}>{m}</button>)}
+      </div>
+      {p.notes.length ? (
+        <ol className="yl-cnotes">{p.notes.map((t, i) => <li key={i}><b>{i + 1}</b>{t}</li>)}</ol>
+      ) : null}
+      {p.pick ? (
+        <div className="bigbtns">
+          {[la, lb].map((l) => <button key={l} className={`bigbtn s ${chose && chose !== l ? "dim" : ""} ${chose === l ? "p acc" : ""}`} onClick={() => { setChose(l); emit({ choice: l }); }}>{l}</button>)}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function Storyboard({ p, emit }) {
+  const count = Math.max(p.frames.length, p.notes.length);
+  const [order, setOrder] = useState(() => Array.from({ length: count }, (_, i) => i));
+  const [moved, setMoved] = useState(false);
+  const [open, setOpen] = useState(null); // frame whose comment box is open
+  const [said, setSaid] = useState({});
+  const v = useViewer(emit);
+  useEffect(() => { setOrder(Array.from({ length: count }, (_, i) => i)); setMoved(false); }, [count]);
+  const swap = (at, d) => {
+    const o = [...order];
+    [o[at], o[at + d]] = [o[at + d], o[at]];
+    setOrder(o);
+    setMoved(true);
+  };
+  const send = (e, f) => {
+    e.preventDefault();
+    const t = e.target.c.value.trim();
+    if (!t) return;
+    setSaid((s) => ({ ...s, [f]: [...(s[f] || []), t] }));
+    emit({ frame: f, comment: t });
+    setOpen(null);
+  };
+  return (
+    <div className="yl-block yl-story" ref={v.anchor}>
+      {p.title ? <div className="yl-q">{p.title}<span className="yl-bound">{count} frames</span></div> : null}
+      {order.map((f, at) => (
+        <div key={f} className="yl-frame">
+          <div className="yl-fnum">{at + 1}</div>
+          {p.frames[f] ? <Media src={p.frames[f]} className="yl-fthumb" onClick={() => v.show(f)} /> : <div className="yl-fthumb ph">{f + 1}</div>}
+          <div className="yl-fbody">
+            <div className="yl-fnote">{p.notes[f] || <span className="yl-sub">Frame {f + 1}</span>}</div>
+            {(said[f] || []).map((c, i) => <div key={i} className="yl-fcom">{c}</div>)}
+            {open === f ? (
+              <form className="yl-otherin" onSubmit={(e) => send(e, f)}>
+                <input name="c" autoFocus placeholder="Comment on this frame" />
+                <button className="chip on">Send</button>
+              </form>
+            ) : p.comment ? <button className="yl-flink" onClick={() => setOpen(f)}>Comment</button> : null}
+          </div>
+          {p.reorder ? (
+            <div className="yl-fmove">
+              <button disabled={at === 0} onClick={() => swap(at, -1)} aria-label="Move up">▲</button>
+              <button disabled={at === order.length - 1} onClick={() => swap(at, 1)} aria-label="Move down">▼</button>
+            </div>
+          ) : null}
+        </div>
+      ))}
+      {p.reorder ? <button className="bigbtn p acc full" disabled={!moved} onClick={() => { emit({ order }); setMoved(false); }}>{moved ? "Save order" : "Order saved"}</button> : null}
+      {v.open != null ? <Lightbox items={p.frames} caps={p.notes} index={v.open} onClose={v.close} onIndex={v.setIndex} anchor={v.anchor} /> : null}
+    </div>
+  );
+}
+
+// image URL +edit: circle or box an area, say what to change. The agent gets
+// the box (percent of the image), the lasso path when drawn freehand, and the
+// instruction, runs the edit, and can answer with a compare.
+function ImageEdit({ p, emit }) {
+  const [tool, setTool] = useState("circle");
+  const [pts, setPts] = useState([]);
+  const [rect, setRect] = useState(null);
+  const [sent, setSent] = useState(false);
+  const [text, setText] = useState("");
+  const area = useRef(null);
+  const drawing = useRef(false);
+  const at = (e) => {
+    const r = area.current.getBoundingClientRect();
+    return [Math.max(0, Math.min(100, ((e.clientX - r.left) / r.width) * 100)), Math.max(0, Math.min(100, ((e.clientY - r.top) / r.height) * 100))];
+  };
+  const down = (e) => {
+    e.preventDefault();
+    e.currentTarget.setPointerCapture(e.pointerId);
+    drawing.current = true;
+    setSent(false);
+    const q = at(e);
+    if (tool === "circle") { setPts([q]); setRect(null); } else { setRect([q, q]); setPts([]); }
+  };
+  const moveTo = (e) => {
+    if (!drawing.current) return;
+    const q = at(e);
+    if (tool === "circle") setPts((s) => [...s, q]); else setRect((r) => [r[0], q]);
+  };
+  const up = () => { drawing.current = false; };
+  const bbox = () => {
+    const src = tool === "circle" ? pts : rect || [];
+    if (src.length < 2) return null;
+    const xs = src.map((q) => q[0]);
+    const ys = src.map((q) => q[1]);
+    const x = Math.min(...xs), y = Math.min(...ys);
+    const w = Math.max(...xs) - x, h = Math.max(...ys) - y;
+    return w < 1 || h < 1 ? null : [r1(x), r1(y), r1(w), r1(h)];
+  };
+  const b = bbox();
+  const submit = (e) => {
+    e.preventDefault();
+    if (!b || !text.trim()) return;
+    const edit = { box: b, instruction: text.trim() };
+    if (tool === "circle" && pts.length > 2) {
+      const step = Math.max(1, Math.ceil(pts.length / 24));
+      edit.path = pts.filter((_, i) => i % step === 0).map((q) => [r1(q[0]), r1(q[1])]);
+    }
+    emit({ edit });
+    setSent(true);
+  };
+  const clear = () => { setPts([]); setRect(null); setSent(false); };
+  return (
+    <div className="yl-block yl-edit">
+      {p.caption ? <div className="yl-q">{p.caption}</div> : null}
+      <div className="yl-editarea" ref={area} onPointerDown={down} onPointerMove={moveTo} onPointerUp={up} onPointerCancel={up}>
+        <img src={p.src} alt={p.alt || ""} draggable={false} />
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          {pts.length > 1 ? <polygon points={pts.map((q) => q.join(",")).join(" ")} className="yl-lasso" /> : null}
+          {rect ? <rect x={Math.min(rect[0][0], rect[1][0])} y={Math.min(rect[0][1], rect[1][1])} width={Math.abs(rect[1][0] - rect[0][0])} height={Math.abs(rect[1][1] - rect[0][1])} className="yl-lasso" /> : null}
+        </svg>
+        {!b ? <div className="yl-edithint">{tool === "circle" ? "Circle" : "Drag a box around"} what to change</div> : null}
+      </div>
+      <div className="yl-seg sm">
+        <button className={tool === "circle" ? "on" : ""} onClick={() => { setTool("circle"); clear(); }}>Circle</button>
+        <button className={tool === "box" ? "on" : ""} onClick={() => { setTool("box"); clear(); }}>Box</button>
+        <button onClick={clear}>Clear</button>
+      </div>
+      <form className="yl-otherin" onSubmit={submit}>
+        <input value={text} onChange={(e) => setText(e.target.value)} placeholder={b ? "What should change here?" : "Mark an area first"} />
+        <button className={`chip ${b && text.trim() ? "on" : ""}`}>{sent ? "Sent" : "Send"}</button>
+      </form>
+    </div>
   );
 }
 
@@ -425,7 +741,8 @@ function Custom({ spec, emit }) {
   return <div className="yl-block yl-custom"><span className="yl-bound">custom</span>{r(spec, 0)}</div>;
 }
 
-const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, form: Form, list: List, table: Table, card: Card, image: Image, camera: Camera, mic: Mic, say: Say };
+const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, form: Form, list: List, table: Table, card: Card, image: Image, camera: Camera, mic: Mic, say: Say,
+  gallery: Gallery, video: Video, compare: Compare, storyboard: Storyboard };
 
 export function Render({ node, emit }) {
   if (node.preset === "custom") return <Custom spec={node.props.spec} emit={emit} />;

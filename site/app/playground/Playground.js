@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Parser, StreamParser, apply, initialState, parse } from "../../lib/yl/yl.mjs";
-import { SCREENS, DEMOS } from "../../lib/yl/samples.mjs";
+import { SCREENS, DEMOS, MEDIA } from "../../lib/yl/samples.mjs";
 import { Render } from "./presets";
 
-const ALL = [...SCREENS, ...DEMOS];
+const ALL = [...SCREENS, ...DEMOS, ...MEDIA];
 const COLORS = { Arnold: "var(--arnold)", Urza: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)" };
 
 function build(text) {
@@ -39,8 +39,24 @@ export default function Playground() {
     return () => clearTimeout(t);
   }, [text, streaming]);
 
+  // /playground?demo=<slug> opens a media demo directly.
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get("demo");
+    const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
+    if (i > 0) load(i);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const pick = (i) => {
+    load(i);
+    const url = new URL(window.location.href);
+    if (ALL[i].slug) url.searchParams.set("demo", ALL[i].slug); else url.searchParams.delete("demo");
+    window.history.replaceState(null, "", url);
+  };
+
   const load = (i) => {
     stopStream();
+    setCmd(ALL[i].next || "");
     setEpoch((x) => x + 1);
     setIdx(i);
     setText(ALL[i].yl);
@@ -114,12 +130,15 @@ export default function Playground() {
     <div className="pg">
       <div className="pg-left">
         <div className="pg-row">
-          <select value={idx} onChange={(e) => load(Number(e.target.value))}>
+          <select value={idx} onChange={(e) => pick(Number(e.target.value))}>
             <optgroup label="Benchmark screens">
               {SCREENS.map((s, i) => <option key={s.name} value={i}>{i + 1}. {s.name}</option>)}
             </optgroup>
             <optgroup label="Line types">
               {DEMOS.map((s, i) => <option key={s.name} value={SCREENS.length + i}>{s.name}</option>)}
+            </optgroup>
+            <optgroup label="Media">
+              {MEDIA.map((s, i) => <option key={s.name} value={SCREENS.length + DEMOS.length + i}>{s.name}</option>)}
             </optgroup>
           </select>
           <button className="pg-btn" onClick={streaming ? stopStream : stream}>{streaming ? "Stop" : "▶ Stream it"}</button>

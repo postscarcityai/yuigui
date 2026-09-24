@@ -29,7 +29,10 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - time: `timer 40/20x8 Tabata` (work/rest x rounds) or `timer 5m Plank`
 - a photo from them: `camera "Snap your plate"`
 - their voice: `mic "Tell me about your day" +auto`
-- a picture: `image https://... caption`
+- a picture: `image https://... caption`, or `image URL +edit` so they can circle what to change
+- several pictures or clips: `gallery URL URL URL layout=row|feed|row3d|grid`, add `+pick` to let them choose; one clip: `video URL caption`
+- before/after: `compare BEFORE AFTER notes="What changed|..."` (add `+pick` for an A/B choice)
+- a sequence to review: `storyboard "Reel" URL|Hook URL|Payoff +reorder`
 - a note inside the screen: `say Nice work.`
 
 Values: durations `45`, `90s`, `5m`, `1:30`. Options `a|b|c`. Quote anything with spaces.

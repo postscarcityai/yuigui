@@ -133,10 +133,14 @@ card "Leg day" "Squat, RDL, lunges." sub=Thursday img=/yl/legday.svg cta="Start 
 ```
 
 ### image
-`image URL [caption...]`, or `image prompt...` with no URL (a URL is a token starting `http://`, `https://`, `/` or `data:`; the first one found is `src` wherever it sits, and the other text is the caption), which shows a "to generate" placeholder until the image pipeline fills it (Phase 3). Props: `src`, `caption`, `prompt`, `alt`, `fit` [cover].
+`image URL [caption...]`, or `image prompt...` with no URL (a URL is a token starting `http://`, `https://`, `/` or `data:`; the first one found is `src` wherever it sits, and the other text is the caption), which shows a "to generate" placeholder until the image pipeline fills it (Phase 3). Props: `src`, `caption`, `prompt`, `alt`, `fit` [cover], `+edit`.
 ```
 image /yl/meal.svg Last night's dinner
 image "a calm blue avatar with a wizard hat"
+```
+**`+edit`** turns the image into an edit request. The person circles (freehand) or boxes an area and types what should change. Emits `{edit: {box, path?, instruction}}`: `box` is `[x, y, w, h]` in percent of the image, `path` is the freehand outline as `[[x, y], ...]` percent points (at most about 24, only when circled), so the agent can build a mask. The agent runs the edit and answers with a `compare` of the two.
+```
+image /demo/room.jpg +edit "Circle what to change"
 ```
 
 ### camera
@@ -150,6 +154,52 @@ camera "Scan the receipt" +scan
 `mic [prompt...] [+auto]`. Big talk button, speech to text, emits `{transcript}`. Falls back to typing. Props: `prompt` ["Tap and talk"], `+auto` (start listening on arrival), `lang`.
 ```
 mic "What did you eat today?"
+```
+
+### Media: gallery, video, compare, storyboard
+
+Media is referenced by URL, never sent inline. A token starting `http://`, `https://`, `/` or `data:` is a URL. A URL ending in `.mp4`, `.webm`, `.mov` or `.m4v` (before any `?` or `#`) plays as video wherever media is shown; anything else is an image. Layout and behaviour are props, so the same few presets combine freely.
+
+**Captions ride on the URL.** In `gallery` and `storyboard`, a media token may carry a caption after its first `|`: `/a.jpg|Wheel`, `"/a.jpg|Two words"` and `/a.jpg|"Two words"` are the same. Media with no caption gets `""` in the caption list only when some other item has one.
+
+**List props split on `|`.** `caps`, `notes`, `labels`, `items` and `frames` are always lists. A plain value is split on `|` even when quoted, so `notes="Hook|Problem|CTA"` and `notes=Hook|Problem|CTA` are the same line. Numbers in these lists stay text.
+
+#### gallery
+`gallery [title...] URL URL ... [layout=row|feed|row3d|grid] [+pick]`. Images and/or videos. URLs become `items`, inline captions become `caps`, any other text is the title. Tap an item to open it full screen with swipe to the next. Emits `{open: true, index}` on open, and with `+pick` a check on each item plus a submit button that emits `{picked: [index, ...]}` (0-based, in tap order).
+Props: `title`, `items`, `caps`, `layout` [row], `+pick`, `max` (cap picks), `submit` [Done].
+Layouts: `row` flat horizontal swipe, `feed` vertical full width, `row3d` coverflow-style 3D stack, `grid` square tiles, three across.
+```
+gallery "Studio shoot" /demo/g1.jpg|"On the wheel" /demo/g2.jpg /demo/g3.jpg layout=row3d
+gallery /demo/g1.jpg /demo/g2.jpg /demo/g3.jpg /demo/g4.jpg layout=grid +pick max=2 submit="Use these"
+gallery "This week" /demo/reel.mp4|"First cut" /demo/g4.jpg layout=feed
+```
+
+#### video
+`video URL [caption...] [+loop] [+auto] [+mute]`. One video with controls. With no URL it is a "to generate" placeholder and the text is the `prompt`, like `image`. `+auto` starts playing on arrival and implies muted (browsers only autoplay muted video). Emits `{played: true}` the first time it plays and `{ended: true}` at the end.
+Props: `src`, `caption`, `prompt`, `poster` (URL), `+loop`, `+auto`, `+mute`.
+```
+video /demo/reel.mp4 "Launch reel, first cut" poster=/demo/reel-poster.jpg
+video /demo/reel.mp4 +loop +auto
+```
+
+#### compare
+`compare BEFORE AFTER [title...] [mode=slider|side|toggle] [notes=a|b] [hl=x,y,w,h|...]`. Before and after. The first URL is `before`, the second `after`; anything else, a third URL included, is the title. The person can switch modes on the card.
+- `mode`: `slider` [default] drags a divider across the two, `side` puts them side by side, `toggle` shows one and taps between them.
+- `hl`: highlight boxes on the after image so the agent can point at what changed. Each box is `x,y,w,h` in percent of the image; boxes are separated by `|`. A box that is not exactly four numbers is dropped. Sent as `[[x, y, w, h], ...]`.
+- `notes`: one line per change, numbered to match the boxes. Notes without boxes are a plain numbered list.
+- `labels` [Before|After] names the two sides. `+pick` adds one button per side for an A/B choice and emits `{choice: label}`.
+Props: `before`, `after`, `title`, `mode` [slider], `labels`, `notes`, `hl`, `+pick`.
+```
+compare /demo/before_room.jpg /demo/after_room.jpg "Living room" notes="Sage wall|Bigger plant|Jute rug" hl=45,4,53,45|19,25,20,54|16,78,83,21
+compare /demo/v1.jpg /demo/v2.jpg "Which shot?" mode=side labels=Studio|Window +pick
+```
+
+#### storyboard
+`storyboard [title...] URL|note URL|note ... [+reorder]`, or with key/values `frames=URL|URL notes=a|b`. Ordered frames for a video, a site or a post. A storyboard can be all notes and no pictures yet (a script); the frame count is the longer of `frames` and `notes`. Tap a frame to see it full screen (`{open: true, index}`). Every frame takes a comment, which emits `{frame, comment}` (`frame` is the frame's original 0-based index); `comment=off` turns that off. `+reorder` adds up/down controls and a Save order button that emits `{order: [index, ...]}`, the original indices in their new order.
+Props: `title`, `frames`, `notes`, `+reorder`, `comment` [on].
+```
+storyboard "Launch reel" /demo/s1.jpg|Hook /demo/s2.jpg|Problem /demo/s3.jpg|CTA +reorder
+storyboard "Post: why handmade" notes="Hook|Problem|Proof|CTA"
 ```
 
 ### say (core, not a preset)
@@ -189,6 +239,9 @@ Every interaction goes back as one small event: `{id, preset, ...value}`. Ids ar
 {"id":"n1","preset":"ask","answer":"Yes"}
 {"id":"n3","preset":"pick","picked":["Dumbbells","Bands"]}
 {"id":"hiit","preset":"timer","done":true,"rounds":8}
+{"id":"n2","preset":"gallery","picked":[0,2]}
+{"id":"n1","preset":"storyboard","order":[1,0,2,3]}
+{"id":"n1","preset":"image","edit":{"box":[48,10,44,40],"instruction":"Paint this wall sage green"}}
 ```
 
 ## 8. Streaming
@@ -203,7 +256,7 @@ Errors come from two layers. The **parser** rejects a line on its own: an unknow
 
 ## 10. Telegram fallback
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. Everything else degrades to its text plus a link to open it in Yui.
 
 ## 11. Versioning
 

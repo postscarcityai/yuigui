@@ -89,3 +89,97 @@ custom {"type":"stack","children":[{"type":"badge","text":"Launch"},{"type":"tex
 custom {oops not json}`,
   },
 ];
+
+// Media presets. Each has a slug so /playground?demo=<slug> opens it.
+// Images and the reel live in site/public/demo/.
+export const MEDIA = [
+  {
+    slug: "gallery-row3d",
+    name: "Gallery: coverflow (row3d)",
+    agent: "Urza",
+    yl: `gallery "Studio shoot" /demo/g1.jpg|"On the wheel" /demo/g2.jpg|"Mug shelf" /demo/g3.jpg|"The kiln room" /demo/g5.jpg|Trimming /demo/g6.jpg|"First coffee" layout=row3d
+say "Swipe the stack, tap the front photo to open it full screen."`,
+  },
+  {
+    slug: "gallery-pick",
+    name: "Gallery: pick favorites (grid)",
+    agent: "Urza",
+    yl: `say "Six shots from the studio. Pick up to three for the homepage."
+gallery /demo/g1.jpg /demo/g2.jpg /demo/g3.jpg /demo/g4.jpg /demo/g5.jpg /demo/g6.jpg layout=grid +pick max=3 submit="Use these"`,
+  },
+  {
+    slug: "gallery-feed",
+    name: "Gallery: feed, images and a video",
+    agent: "Urza",
+    yl: `gallery "This week at the studio" /demo/reel.mp4|"Launch reel, first cut" /demo/g4.jpg|"Figs on the speckled plate" /demo/g2.jpg|"New glazes" layout=feed`,
+  },
+  {
+    slug: "gallery-row",
+    name: "Gallery: swipe row",
+    agent: "Urza",
+    yl: `gallery Mugs /demo/g2.jpg /demo/g6.jpg /demo/after_mug.jpg /demo/before_mug.jpg
+ask "Add these to the shop page?"`,
+  },
+  {
+    slug: "video",
+    name: "Video: review a cut",
+    agent: "Urza",
+    yl: `video /demo/reel.mp4 "Launch reel, first cut" poster=/demo/reel-poster.jpg
+ask "Ship this cut?" Ship|"One more pass"`,
+  },
+  {
+    slug: "video-loop",
+    name: "Video: loop + autoplay, and one to generate",
+    agent: "Urza",
+    yl: `video /demo/reel.mp4 +loop +auto
+video "a slow pan across glazed mugs on a sunny shelf"`,
+  },
+  {
+    slug: "compare-slider",
+    name: "Compare: slider with highlights",
+    agent: "Urza",
+    yl: `say "Here's the room with your three changes. Drag the handle."
+compare /demo/before_room.jpg /demo/after_room.jpg "Living room" notes="Sage green wall|Bigger plant, moved|Jute rug" hl=45,4,53,45|19,25,20,54|16,78,83,21
+ask "Keep it?" Keep|"Try another color"`,
+  },
+  {
+    slug: "compare-pick",
+    name: "Compare: A/B pick (side by side)",
+    agent: "Urza",
+    yl: `compare /demo/before_mug.jpg /demo/after_mug.jpg "Which shot for the shop?" mode=side labels=Studio|Window +pick`,
+  },
+  {
+    slug: "compare-toggle",
+    name: "Compare: tap to toggle",
+    agent: "Urza",
+    yl: `compare /demo/before_mug.jpg /demo/after_mug.jpg "Background swap" mode=toggle notes="Same mug, new scene"`,
+  },
+  {
+    slug: "storyboard",
+    name: "Storyboard: launch reel",
+    agent: "Urza",
+    yl: `storyboard "Launch reel" /demo/s1.jpg|"Quiet morning" /demo/s2.jpg|"The old chipped mug" /demo/s3.jpg|"Unwrap the new one" /demo/s4.jpg|"First sip, logo" +reorder
+say "Reorder the frames or comment on any one. Then I'll cut the video."`,
+  },
+  {
+    slug: "storyboard-script",
+    name: "Storyboard: script before pictures",
+    agent: "Urza",
+    yl: `storyboard "Post: why handmade" notes="Hook: your mug is lying to you|Problem: factory glaze chips|Proof: 1,300 degree firing|CTA: shop the drop" +reorder`,
+  },
+  {
+    slug: "image-edit",
+    name: "Image edit: mark what to change",
+    agent: "Urza",
+    yl: `image /demo/before_room.jpg +edit "Circle or box what to change"`,
+  },
+  {
+    slug: "edit-loop",
+    name: "Image edit: mark it, get a compare back",
+    agent: "Urza",
+    yl: `say "Mark the wall and tell me what you want."
+image@room /demo/before_room.jpg +edit
+say "When the edit event lands, the agent answers with the agent line below."`,
+    next: `compare /demo/before_room.jpg /demo/after_room.jpg Done notes="Sage green wall" hl=45,4,53,45`,
+  },
+];

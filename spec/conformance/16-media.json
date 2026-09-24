@@ -1,0 +1,697 @@
+{
+  "version": "YL v0",
+  "area": "media: gallery, video, compare, storyboard, image +edit",
+  "vectors": [
+    {
+      "name": "gallery: urls become items, other text is the title",
+      "input": "gallery \"Studio shoot\" /g/1.jpg https://x.com/2.jpg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "title": "Studio shoot",
+            "items": [
+              "/g/1.jpg",
+              "https://x.com/2.jpg"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "gallery: default layout is not sent",
+      "input": "gallery /a.jpg /b.jpg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "items": [
+              "/a.jpg",
+              "/b.jpg"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "gallery: layout, pick and max",
+      "input": "gallery /a.jpg /b.jpg /c.jpg layout=row3d +pick max=2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "items": [
+              "/a.jpg",
+              "/b.jpg",
+              "/c.jpg"
+            ],
+            "pick": true,
+            "layout": "row3d",
+            "max": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "gallery: inline captions, three spellings",
+      "input": "gallery /a.jpg|Wheel \"/b.jpg|Sage mugs\" /c.jpg|\"Kiln room\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "items": [
+              "/a.jpg",
+              "/b.jpg",
+              "/c.jpg"
+            ],
+            "caps": [
+              "Wheel",
+              "Sage mugs",
+              "Kiln room"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "gallery: captions pad with empty strings",
+      "input": "gallery /a.jpg /b.jpg|Two /c.jpg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "items": [
+              "/a.jpg",
+              "/b.jpg",
+              "/c.jpg"
+            ],
+            "caps": [
+              "",
+              "Two",
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "gallery: items and caps as key/values",
+      "input": "gallery items=/a.jpg|/b.jpg caps=\"First one|Second one\" layout=grid",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "items": [
+              "/a.jpg",
+              "/b.jpg"
+            ],
+            "caps": [
+              "First one",
+              "Second one"
+            ],
+            "layout": "grid"
+          }
+        }
+      ]
+    },
+    {
+      "name": "gallery: numeric captions stay text",
+      "input": "gallery /a.jpg /b.jpg caps=1|2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "items": [
+              "/a.jpg",
+              "/b.jpg"
+            ],
+            "caps": [
+              "1",
+              "2"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "gallery: urls with query strings",
+      "input": "gallery https://img.test/a.jpg?w=400&q=80 /b.mp4",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "items": [
+              "https://img.test/a.jpg?w=400&q=80",
+              "/b.mp4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "gallery: no urls is still a gallery",
+      "input": "gallery Coming soon",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "title": "Coming soon"
+          }
+        }
+      ]
+    },
+    {
+      "name": "gallery: patch the layout by id",
+      "input": "gallery@shoot /a.jpg /b.jpg\n~shoot layout=feed",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "shoot",
+          "props": {
+            "items": [
+              "/a.jpg",
+              "/b.jpg"
+            ]
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "shoot",
+          "props": {
+            "layout": "feed"
+          }
+        }
+      ]
+    },
+    {
+      "name": "video: url and caption",
+      "input": "video /demo/reel.mp4 Launch reel",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "video",
+          "id": "n1",
+          "props": {
+            "src": "/demo/reel.mp4",
+            "caption": "Launch reel"
+          }
+        }
+      ]
+    },
+    {
+      "name": "video: flags",
+      "input": "video https://cdn.test/a.mp4 +loop +auto +mute",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "video",
+          "id": "n1",
+          "props": {
+            "src": "https://cdn.test/a.mp4",
+            "loop": true,
+            "auto": true,
+            "mute": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "video: poster by key",
+      "input": "video /a.mp4 poster=/a.jpg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "video",
+          "id": "n1",
+          "props": {
+            "src": "/a.mp4",
+            "poster": "/a.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "video: no url is a prompt",
+      "input": "video \"slow pan across glazed mugs\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "video",
+          "id": "n1",
+          "props": {
+            "prompt": "slow pan across glazed mugs"
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: before, after, title",
+      "input": "compare /before.jpg /after.jpg Living room",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/before.jpg",
+            "after": "/after.jpg",
+            "title": "Living room"
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: modes",
+      "input": "compare /a.jpg /b.jpg mode=side\ncompare /a.jpg /b.jpg mode=toggle",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg",
+            "mode": "side"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n2",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg",
+            "mode": "toggle"
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: notes quoted whole split on |",
+      "input": "compare /a.jpg /b.jpg notes=\"Sage wall|New plant\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg",
+            "notes": [
+              "Sage wall",
+              "New plant"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: notes as options",
+      "input": "compare /a.jpg /b.jpg notes=\"Sage wall\"|Rug",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg",
+            "notes": [
+              "Sage wall",
+              "Rug"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: highlight boxes",
+      "input": "compare /a.jpg /b.jpg hl=10,5,80,40|2,40,20,50",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg",
+            "hl": [
+              [
+                10,
+                5,
+                80,
+                40
+              ],
+              [
+                2,
+                40,
+                20,
+                50
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: one box, decimals",
+      "input": "compare /a.jpg /b.jpg hl=12.5,0,50,33.3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg",
+            "hl": [
+              [
+                12.5,
+                0,
+                50,
+                33.3
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: a box that is not four numbers is dropped",
+      "input": "compare /a.jpg /b.jpg hl=1,2,3|4,5,6,7|a,b,c,d",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg",
+            "hl": [
+              [
+                4,
+                5,
+                6,
+                7
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: all boxes bad means no hl",
+      "input": "compare /a.jpg /b.jpg hl=1,2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: labels and pick",
+      "input": "compare /v1.jpg /v2.jpg labels=\"Option A|Option B\" +pick",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/v1.jpg",
+            "after": "/v2.jpg",
+            "pick": true,
+            "labels": [
+              "Option A",
+              "Option B"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: a third url is title text",
+      "input": "compare /a.jpg /b.jpg /c.jpg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg",
+            "title": "/c.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "compare: before/after by key win over positionals",
+      "input": "compare /a.jpg /b.jpg after=/c.jpg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "n1",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/c.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "name": "storyboard: positional frames with notes",
+      "input": "storyboard \"Launch reel\" /s1.jpg|Hook /s2.jpg|Problem /s3.jpg|CTA",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "storyboard",
+          "id": "n1",
+          "props": {
+            "title": "Launch reel",
+            "frames": [
+              "/s1.jpg",
+              "/s2.jpg",
+              "/s3.jpg"
+            ],
+            "notes": [
+              "Hook",
+              "Problem",
+              "CTA"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "storyboard: frames and notes as key/values",
+      "input": "storyboard \"Launch reel\" frames=/s1.jpg|/s2.jpg|/s3.jpg notes=\"Hook|Problem|CTA\" +reorder",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "storyboard",
+          "id": "n1",
+          "props": {
+            "title": "Launch reel",
+            "reorder": true,
+            "frames": [
+              "/s1.jpg",
+              "/s2.jpg",
+              "/s3.jpg"
+            ],
+            "notes": [
+              "Hook",
+              "Problem",
+              "CTA"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "storyboard: notes only, a script with no pictures yet",
+      "input": "storyboard Script notes=Hook|Problem|Payoff comment=off",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "storyboard",
+          "id": "n1",
+          "props": {
+            "title": "Script",
+            "notes": [
+              "Hook",
+              "Problem",
+              "Payoff"
+            ],
+            "comment": false
+          }
+        }
+      ]
+    },
+    {
+      "name": "image: +edit",
+      "input": "image /room.jpg +edit Mark what to change",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "image",
+          "id": "n1",
+          "props": {
+            "src": "/room.jpg",
+            "caption": "Mark what to change",
+            "edit": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "image: edit=on",
+      "input": "image /room.jpg edit=on",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "image",
+          "id": "n1",
+          "props": {
+            "src": "/room.jpg",
+            "edit": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "media ids count like any add",
+      "input": "gallery /a.jpg\nvideo /b.mp4\ncompare@c /a.jpg /b.jpg\nstoryboard /s.jpg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "items": [
+              "/a.jpg"
+            ]
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "video",
+          "id": "n2",
+          "props": {
+            "src": "/b.mp4"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "compare",
+          "id": "c",
+          "props": {
+            "before": "/a.jpg",
+            "after": "/b.jpg"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "storyboard",
+          "id": "n3",
+          "props": {
+            "frames": [
+              "/s.jpg"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "media on another screen",
+      "input": ">2 gallery /a.jpg /b.jpg layout=feed",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "gallery",
+          "id": "n1",
+          "props": {
+            "items": [
+              "/a.jpg",
+              "/b.jpg"
+            ],
+            "layout": "feed"
+          }
+        }
+      ]
+    },
+    {
+      "name": "uppercase media preset is unknown",
+      "input": "Gallery /a.jpg",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    }
+  ]
+}

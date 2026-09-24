@@ -15,6 +15,7 @@
 export const PRESETS = [
   "timer", "ask", "choose", "pick", "slide", "form",
   "list", "table", "card", "image", "camera", "mic",
+  "gallery", "video", "compare", "storyboard",
 ];
 // Not presets, but valid line heads.
 export const CORE = ["say", "custom", "save", "show", "clear"];
@@ -130,6 +131,33 @@ function split(tokens) {
 }
 
 const joinText = (toks) => toks.map((t) => t.text).join(" ");
+// Media: a URL is a token starting http://, https://, / or data:.
+const URL_RE = /^(https?:\/\/|\/|data:)/;
+const isURL = (s) => URL_RE.test(s);
+// A media token is a URL with an optional caption after the first "|":
+// /a.jpg, /a.jpg|Caption, "/a.jpg|Two words" or /a.jpg|"Two words".
+function mediaToken(t) {
+  const segs = t.parts || [t.text];
+  if (!isURL(segs[0])) return null;
+  const i = segs[0].indexOf("|");
+  if (i > 0) return { src: segs[0].slice(0, i), caption: segs[0].slice(i + 1) };
+  return { src: segs[0], caption: segs.length > 1 ? segs.slice(1).join("|") : "" };
+}
+// Positionals of a media set: URLs become items, any other text is the title.
+function mediaSet(pos, itemsKey, capsKey) {
+  const o = {};
+  const items = [];
+  const caps = [];
+  const title = [];
+  for (const t of pos) {
+    const m = mediaToken(t);
+    if (m) { items.push(m.src); caps.push(m.caption); } else title.push(t);
+  }
+  if (title.length) o.title = joinText(title);
+  if (items.length) o[itemsKey] = items;
+  if (caps.some(Boolean)) o[capsKey] = caps;
+  return o;
+}
 const clean = (o) => { for (const k of Object.keys(o)) if (o[k] === undefined || (Array.isArray(o[k]) && !o[k].length)) delete o[k]; return o; };
 
 // ---------- presets ----------
@@ -248,7 +276,48 @@ const P = {
   },
 
   say(pos) { return { text: joinText(pos) }; },
+
+  gallery(pos) { return mediaSet(pos, "items", "caps"); },
+
+  video(pos) { return P.image(pos); },
+
+  compare(pos) {
+    const o = {};
+    const title = [];
+    for (const t of pos) {
+      if (o.after === undefined && !t.parts && isURL(t.text)) o[o.before === undefined ? "before" : "after"] = t.text;
+      else title.push(t);
+    }
+    if (title.length) o.title = joinText(title);
+    return o;
+  },
+
+  storyboard(pos) { return mediaSet(pos, "frames", "notes"); },
 };
+
+// Props that are always lists. A plain value, quoted or not, is split on "|",
+// so notes="Hook|Problem|CTA" and notes=Hook|Problem|CTA are the same.
+const LISTS = {
+  gallery: ["items", "caps"],
+  storyboard: ["frames", "notes"],
+  compare: ["notes", "labels"],
+};
+const asList = (v) => (Array.isArray(v) ? v : String(v).split("|")).map((x) => (typeof x === "string" ? x : String(x)));
+// Highlight boxes: hl=x,y,w,h|x,y,w,h in percent of the image. A box that is
+// not four numbers is dropped.
+function boxes(v) {
+  const out = [];
+  for (const b of Array.isArray(v) ? v : String(v).split("|")) {
+    const n = String(b).split(",").map((x) => x.trim());
+    if (n.length === 4 && n.every((x) => NUM.test(x))) out.push(n.map(Number));
+  }
+  return out;
+}
+function normalize(preset, o) {
+  for (const k of LISTS[preset] || []) if (o[k] !== undefined && o[k] !== true) o[k] = asList(o[k]);
+  if (preset === "compare" && o.hl !== undefined) o.hl = boxes(o.hl);
+  return o;
+}
 
 // Form field token: key:type, "Label":type, optional trailing "!" = required.
 // A bare identifier is a text field.
@@ -283,7 +352,7 @@ export function parseArgs(preset, tokens) {
   const { kv, flags, pos } = split(tokens);
   const fn = P[preset];
   const base = fn ? fn(pos) : {};
-  return clean({ ...base, ...flags, ...kv });
+  return clean(normalize(preset, { ...base, ...flags, ...kv }));
 }
 
 // ---------- line parser ----------
@@ -408,11 +477,19 @@ export function resolve(preset, props) {
     case "card":
       return { title: "", body: "", ...p };
     case "image":
-      return { fit: "cover", ...p };
+      return { fit: "cover", edit: false, ...p };
     case "camera":
       return { prompt: "Take a photo", facing: "back", scan: false, ...p };
     case "mic":
       return { prompt: "Tap and talk", auto: false, ...p };
+    case "gallery":
+      return { title: "", items: [], caps: [], layout: "row", pick: false, submit: "Done", ...p };
+    case "video":
+      return { loop: false, auto: false, mute: false, ...p };
+    case "compare":
+      return { title: "", mode: "slider", labels: ["Before", "After"], notes: [], hl: [], pick: false, ...p };
+    case "storyboard":
+      return { title: "", frames: [], notes: [], reorder: false, comment: true, ...p };
     default:
       return p;
   }
