@@ -165,6 +165,12 @@ Deliverables:
 
 Dependencies: beta learnings, payments setup (financial, needs Chris).
 
+### Look and feel | friendly by default, restyled by agents later
+
+Chris, Sep 23: friendlier, a South Korean aesthetic, happy-cat energy, a little fun by default, light and dark mode. v1 (card YUI-2): soft pastels, rounded type, a round cat mascot named Yui, gentle spring motion, warm microcopy.
+
+**Generative app styling (future).** All styling lives in one token set (colors, radii, type, motion, mascot) stored as plain data, not code. That makes the app itself restylable at runtime: an agent sends a `theme` line in Yui Lines (for example `theme peach round mascot=fox`) or a full token set, and the whole app re-skins, within guardrails that keep contrast readable and tap targets big. Per-agent themes (Arnold in Arnold's colors) are the first use; a user asking "make Yui feel like autumn" is the second. Target: Phase 2 for per-agent themes, Phase 4 for user-requested restyles.
+
 ### Parallel track | Telegram fallback (any time)
 
 If Apple rejects the app or it stalls, Telegram already supports most of what the pitch needs: inline keyboards with callback buttons, reply keyboards, and **Telegram Mini Apps** (full web apps inside Telegram, with theme colors, haptics, and cloud storage). The same Yui Lines can render as a Mini App using the web renderer. This is the insurance policy, and Phase 0 already starts it.
