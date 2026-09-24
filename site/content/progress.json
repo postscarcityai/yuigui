@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-09-24",
+    "title": "No dead buttons: a plan ends in Send, and agents stop adding 'Got it'",
+    "card": "YUI-53",
+    "body": "Chris spotted two things. The last button of a question flow said \"Create project\" even when nothing was a project. And agents sometimes ended a card with a lone \"Got it\" button that did nothing. Now a plan's last button says Send, in the app, on the site and in all three Yui Lines parsers. The channel guide every agent gets (v8) says every button does something: no buttons that only acknowledge, a card with nothing to act on has no button, and a submit is named for what happens. The channel eval now fails any reply with a dead button and has three new cases that tempt one. It scored 38 of 40, and neither miss was a button.",
+    "images": [
+      {
+        "src": "/progress/yui53-plan-send-light.webp",
+        "alt": "The review step of a plan in Yui: the last answer, Home and Contact, with one purple Send button under it."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Yui Lines back on the front page, and every spec on the site",
     "card": "SITE-15",
     "body": "The home page now says how Yui works: one line of Yui Lines next to the timer it draws, live, with the honest benchmark (1.6x fewer tokens than minified JSON, 3.9x fewer than a component tree). /yl opens with a quick start: five lines, five screens, tap one to draw it, copy one into your agent. And every spec in the repo now reads on the site under Developers > Specs: agents, the relay, adapters and the benchmark join Yui Lines, the channel guide and reactions, each with an index on the left and a link to every section. The pages are built from the repo files on every deploy, and the build stops if a spec names someone it should not.",
