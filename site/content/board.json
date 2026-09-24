@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T17:10:19.488Z",
+  "updated": "2026-09-24T17:40:24.030Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -93,17 +93,12 @@
           "summary": "SMS channel"
         },
         {
+          "key": "YUI-51",
+          "title": "Multi-step screens that fold back into chat as your own messages"
+        },
+        {
           "key": "SITE-5",
           "title": "Evolution timeline from GitHub history"
-        },
-        {
-          "key": "SITE-7",
-          "title": "Preset gallery",
-          "summary": "Every screen, live, with its line"
-        },
-        {
-          "key": "OSS-2",
-          "title": "Yui Lines parsers in more languages"
         },
         {
           "key": "OSS-3",
@@ -201,13 +196,21 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-52",
+          "title": "New TestFlight build with the feedback fixes",
+          "summary": "Ship the unshipped TestFlight-feedback fixes (builds 34-44 never reached TestFlight)",
+          "mvp": true
+        },
+        {
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
         },
         {
-          "key": "SITE-5",
-          "title": "/notes long-form route on yuigui.com"
+          "key": "YUI-50",
+          "title": "Chat polish: composer clears, send animation, jump to bottom",
+          "summary": "Composer clears on send, bubble floats up, jump-to-bottom arrow",
+          "mvp": true
         }
       ]
     },
@@ -223,19 +226,17 @@
           "waiting": true
         },
         {
-          "key": "SITE-14",
-          "title": "Mockups show everything built, each tied to its roadmap item and ship date"
-        },
-        {
-          "key": "SITE-6",
-          "title": "Playground a11y labels (Lighthouse 89 -> 95+)",
-          "summary": "The playground reads right to a screen reader",
-          "progress": "/progress#the-playground-reads-right-to-a-screen-reader"
-        },
-        {
           "key": "YUI-30",
           "title": "Timer on the lock screen",
           "summary": "Live Activity and Dynamic Island"
+        },
+        {
+          "key": "YUI-49",
+          "title": "React to a message (👍 build it, 👎, 🤔 ask me, ❤️, ⏳, 🔥)"
+        },
+        {
+          "key": "OSS-2",
+          "title": "Yui Lines parsers in more languages"
         }
       ]
     },
@@ -243,6 +244,33 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-5",
+          "title": "/notes long-form route on yuigui.com",
+          "summary": "Notes: longer pieces, starting with why Yui is open source",
+          "shipped": "2026-09-24",
+          "progress": "/progress#notes-longer-pieces-starting-with-why-yui-is-open-source"
+        },
+        {
+          "key": "SITE-14",
+          "title": "Mockups show everything built, each tied to its roadmap item and ship date",
+          "summary": "See everything Yui can draw",
+          "shipped": "2026-09-24",
+          "progress": "/progress#see-everything-yui-can-draw"
+        },
+        {
+          "key": "SITE-7",
+          "title": "Preset gallery",
+          "summary": "Every screen, live, with its line",
+          "shipped": "2026-09-24"
+        },
+        {
+          "key": "SITE-6",
+          "title": "Playground a11y labels (Lighthouse 89 -> 95+)",
+          "summary": "The playground reads right to a screen reader",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-playground-reads-right-to-a-screen-reader"
+        },
         {
           "key": "SITE-13",
           "title": "yuigui.com overhaul",
