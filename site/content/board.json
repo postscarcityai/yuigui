@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T07:40:58.587Z",
+  "updated": "2026-09-24T08:10:02.685Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -247,10 +247,6 @@
           "mvp": true
         },
         {
-          "key": "YUI-19",
-          "title": "Native SwiftUI versions of the YUI-16/17/18 presets"
-        },
-        {
           "key": "SITE-5",
           "title": "/notes long-form route on yuigui.com"
         },
@@ -272,9 +268,8 @@
           "waiting": true
         },
         {
-          "key": "YUI-21",
-          "title": "Media pipeline",
-          "summary": "Agents generate and send images and videos into Yui"
+          "key": "YUI-19",
+          "title": "Native SwiftUI versions of the YUI-16/17/18 presets"
         }
       ]
     },
@@ -282,6 +277,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-21",
+          "title": "Media pipeline",
+          "summary": "Pictures in, photos out",
+          "shipped": "2026-09-24",
+          "progress": "/progress#pictures-in-photos-out"
+        },
         {
           "key": "YUI-10",
           "title": "Channel guide for every agent",

@@ -1,6 +1,26 @@
 {
   "builds": [
     {
+      "build": 26,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-24T00:43:57-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Channel guide: answers can change, newest wins, ~choose +lock",
+          "card": "YUI-12"
+        },
+        {
+          "text": "Sync channel guide v5 from yuigui",
+          "card": "YUI-10"
+        },
+        {
+          "text": "Pictures in, photos out: agent media through a private bucket",
+          "card": "YUI-21"
+        }
+      ]
+    },
+    {
       "build": 23,
       "date": "2026-09-24",
       "uploaded": "2026-09-23T23:18:11-07:00",
@@ -208,18 +228,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Channel guide: answers can change, newest wins, ~choose +lock",
-      "card": "YUI-12"
-    },
-    {
-      "text": "Sync channel guide v5 from yuigui",
-      "card": "YUI-10"
-    },
-    {
-      "text": "Pictures in, photos out: agent media through a private bucket",
-      "card": "YUI-21"
-    }
-  ]
+  "next": []
 }
