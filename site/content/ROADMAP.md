@@ -1,4 +1,4 @@
-# Yui | roadmap (draft 8, Sep 24 2026)
+# Yui | roadmap (draft 9, Sep 24 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
@@ -33,7 +33,7 @@ And they do all of that without help from us. Card YUI-29 is the test: a real ou
 
 **Not in the MVP:** people with no agent yet, other frameworks, full-screen mode, voice, per-agent themes, the bigger preset families, Android, the Watch, payments. All of those are good, and all of them wait.
 
-The progress bar on yuigui.com counts the cards below. Until the live board ships (SITE-2) it is kept by hand in `site/content/mvp.json`; after that it comes from the board export.
+The progress bar on yuigui.com counts the cards below. Their statuses come from the live board every 30 minutes; the list of which cards count is kept by hand in `site/content/mvp.json`.
 
 ### In the MVP
 
@@ -57,7 +57,7 @@ Shipped:
 - YUI-25: first run, from sign-in to your agent's first screen, with no guessing.
 - YUI-28: messages survive a sleeping Mac, a dropped network or a killed app.
 - YUI-26: safe for strangers: rate limits, a kill switch, and a fresh security audit of the shared backend.
-- YUI-27: ready for Apple's beta review: privacy labels, review notes, a demo account, a help link.
+- YUI-27: ready for Apple's beta review: privacy labels, review notes, a demo code with a scripted demo agent for the reviewer, a help link.
 
 Building now:
 
@@ -81,7 +81,7 @@ Chris, Sep 24: "I want these to be truly unique experiences." Every decision get
 
 1. **Immersive by default when it matters.** The agent's UI can take over the whole screen, not just sit as a bubble in chat. The agent decides when a full-screen view is worth it; workouts always go full screen. The user can always leave with a swipe down or an X, and the chat is right underneath. Shipped 2026-09-24 as Yui Lines `>full` (route the following lines to a full-screen stage) and `close`, plus a per-preset default (timer, camera, mic and deck open full screen, `+inline` keeps them small) and the agent's `screen=` style. Card YUI-13.
 2. **Voice in, text out, fast.** Talk naturally, read the answer. On-device speech (iOS 26 SpeechAnalyzer) streams words as you speak, a hands-free mode keeps the mic open between turns, and the first word of the reply lands in well under a second of you finishing. Card YUI-14.
-3. **Answers are never locked.** Change your mind on any choice and the agent adapts (YUI-12, shipping in Phase 1). An agent can lock something on purpose, like a confirmed booking.
+3. **Answers are never locked.** Change your mind on any choice and the agent adapts (YUI-12, shipped Sep 24). An agent can lock something on purpose, like a confirmed booking.
 
 In-chat screens stay: they are right for quick asks. Full screen is for the moments that deserve it.
 
@@ -105,7 +105,7 @@ Chris, Sep 23: optimize for speed. The UI should work like settings. The agent p
   save workout / show workout           # named screens, reopened in two tokens
   ```
   Measured Sep 23 (o200k tokenizer): the Tabata timer is 9 tokens in YL, 25 as minified JSON, 75 as a component tree. Across ten screens YL is 1.6x smaller than lean JSON and 3.9x smaller than a tree. Details in `spec/BENCHMARK.md`.
-- **The skill is the cheatsheet.** The Hermes skill is about 40 lines listing every preset and its args, so each agent carries the whole vocabulary for a few hundred tokens.
+- **The channel guide is the cheatsheet.** Every agent on the Yui channel gets a short guide (`spec/CHANNEL.md`, YUI-10) listing the presets and their args, so it carries the whole vocabulary for a few hundred tokens. An eval scores every change to it.
 - **Escape hatch, then promotion.** `custom {json}` covers the long tail. Every custom use is logged. Patterns that repeat get promoted to presets. That is the flywheel that grows the 80% toward 95%.
 
 Why this over generated code:
@@ -125,15 +125,15 @@ Chris decided: all Swift. Draft 1 recommended Expo/React Native with Swift modul
 
 Rules that follow from the decision:
 
-- **iPhone only for now. No Apple Watch app yet** (Chris, Sep 23). Revisit after the Phase 1 demo.
+- **iPhone only for now. No Apple Watch app yet** (Chris, Sep 23). Parked until after the MVP (YUI-47).
 - **Yui Lines stays platform-neutral.** `spec/YL.md` plus a shared conformance suite (input lines, expected parse) is the contract. The JS parser (web playground) and the Swift parser must both pass it. An Android build later (Kotlin + Jetpack Compose) passes the same suite.
 - **The web stays React.** The hub site and playground keep the JS renderer as the public, clickable reference.
-- **Fast feedback loop.** The Mac mini builds and ships a TestFlight build on every push to main, so Chris sees each change on his phone in about 15 minutes with no cable. Requires full Xcode on the mini (today it only has Command Line Tools).
+- **Fast feedback loop.** The Mac mini builds and ships a TestFlight build on every push to main, so Chris sees each change on his phone in about 15 minutes with no cable. Running since Sep 23.
 - **Target iOS 26.** It is the current release, it has Foundation Models and Liquid Glass, and a new app has no install base to protect.
 
 ## Architecture in one paragraph
 
-Agents stay where they live (Hermes on the Mac mini today). Each agent connects to a small **Yui relay** (hosted, Cloudflare Workers + Durable Objects is a strong fit: one durable object per user session, websockets, cheap, global). The agent sends chat messages and UI documents to the relay; the relay pushes them to the phone (websocket when open, APNs push when closed). The phone sends taps, form results and voice transcripts back as events. A Hermes plugin/skill speaks the relay protocol, so "pull this up on Yui" from Telegram is one tool call. Data tables live on device (SQLite) with optional sync through the relay.
+Agents stay where they live: Hermes on the owner's own Mac or Linux box. The Hermes `yui` plugin dials out to the **Yui relay**, which today is Supabase Realtime plus a few Supabase edge functions (YUI-6, YUI-7), so the agent's machine opens no ports. The agent sends chat messages and Yui Lines to the relay; the relay hands them to the phone live when the app is open and sends an APNs push when it is closed (YUI-24). The phone sends taps, picks and form results back as events. Messages wait in the relay when either side is offline, so nothing is lost when the Mac sleeps or the app is killed (YUI-28), and they are deleted after 90 days (YUI-26). Pictures and videos go through a private storage bucket (YUI-21). "Pull this up on Yui" from Telegram is one tool call (YUI-8). A multi-tenant relay for zero-install connections, possibly on Cloudflare's Agents SDK, is future work (INT-5, INT-6). On-device data tables are Phase 3 (YUI-33).
 
 ## Phases
 
@@ -259,7 +259,7 @@ Chris, Sep 24: in most agent tools every agent sits in the same interface and th
 
 Chris, Sep 23: friendlier, a South Korean aesthetic, happy-cat energy, a little fun by default, light and dark mode. v1 (card YUI-2): soft pastels, rounded type, gentle spring motion, warm microcopy. The identity is typographic only (card YUI-9): the coral bunny-ear wordmark already reads as an abstract cat, so there is no mascot. Yui's avatar is the wordmark's Y; each agent gets its initial on a pastel chip.
 
-**Generative app styling (future).** All styling lives in one token set (colors, radii, type, motion, agent avatar colors) stored as plain data, not code. That makes the app itself restylable at runtime: an agent sends a `theme` line in Yui Lines (for example `theme peach round`) or a full token set, and the whole app re-skins, within guardrails that keep contrast readable and tap targets big. Per-agent themes (Arnold in Arnold's colors) are the first use; a user asking "make Yui feel like autumn" is the second. Target: Phase 2 for per-agent themes, Phase 4 for user-requested restyles.
+**Generative app styling (future).** All styling lives in one token set (colors, radii, type, motion, agent avatar colors) stored as plain data, not code. That makes the app itself restylable at runtime: an agent sends a `theme` line in Yui Lines (for example `theme peach round`) or a full token set, and the whole app re-skins, within guardrails that keep contrast readable and tap targets big. Per-agent themes (Arnold in Arnold's colors) are the first use, shipped Sep 24 (YUI-20). A user asking "make Yui feel like autumn" is the second (YUI-43, backlog).
 
 ### Parallel track | Telegram fallback (any time)
 
@@ -294,17 +294,18 @@ Chris mentioned a new Cloudflare agent he thought was called "Flue". Checked Sep
 
 ## Risks
 
-1. App Store review. Mitigated by the component-catalog design and the Telegram Mini App fallback.
-2. Generative UI quality. Agents will produce ugly or broken screens. Mitigated by strict schema validation, a small catalog, and the protocol skill with examples.
-3. Shared Claude quota. Heavy agent use through the Max pool affects the whole fleet. Yui on OpenRouter keys keeps it separate.
-4. Scope. Every phase above is cut to one demo that works. New ideas go on the board, not into the current phase.
+1. App Store review. The app only renders a fixed set of native presets and never runs downloaded code, which is the pattern Apple accepts (guideline 2.5.2). The open question is different: Yui needs an agent the user runs elsewhere, and a reviewer has none. The review notes say so, and a demo code opens an account with a scripted demo agent (YUI-27). If Apple still says no, the Telegram Mini App fallback (INT-4) and a built-in starter agent (YUI-37) are the ways around it.
+2. Bad screens. Agents will get lines wrong. Mitigated by a small preset set, one parser spec with a shared conformance suite on web and Swift (YUI-3), a parser that forgives the slips agents make most, and a channel guide scored by an eval (YUI-10).
+3. A shared backend open to strangers. Anyone with the beta can reach the relay. Mitigated by per-account and per-computer rate limits, size caps, a kill switch and 90-day message retention (YUI-26). Strangers bring their own agent and model, so their usage costs Yui no inference.
+4. Nobody outside has done the whole path yet. Every step works for us; YUI-29 is the first outside tester running it alone with a stopwatch. What they trip on is the next work.
+5. Scope. Every phase is cut to one demo that works. New ideas go on the board, not into the current phase.
 
 ## Open questions for Chris
 
 1. ANSWERED Sep 23: all Swift, iPhone first, no Watch yet, Android later.
 2. ANSWERED Sep 23: yuigui.com goes live now. Built in public.
 3. ANSWERED Sep 23: enrolled and paid, no D-U-N-S. Trademark search deferred until there is something to protect.
-4. Should R0SS's AMC agent be in Yui at all, given client confidentiality, or is Yui personal agents only (urza, Arnold) for now?
+4. Should agents that do client work be in Yui at all, given client confidentiality, or is Yui for personal agents only for now?
 5. Is Yui a product you intend to sell, or a personal tool that might become one? It changes how much Phase 4 to 6 matters.
 
 ## Deep backlog

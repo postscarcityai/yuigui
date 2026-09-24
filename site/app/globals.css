@@ -665,3 +665,18 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .cmd code { flex: 1; min-width: 0; color: #d9dcff; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; overflow-x: auto; white-space: nowrap; }
 .cmd button { background: var(--lavender); color: #2A2238; border: 0; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
 .card p code, .start-more code { background: var(--raised); padding: 1px 6px; border-radius: 6px; font-size: 14px; overflow-wrap: anywhere; }
+
+/* SITE-11: phones get the whole command, the step card full width, and the live board columns first */
+@media (max-width: 640px) {
+  .steps > li { padding-left: 0; }
+  .steps > li::before { left: 20px; top: 20px; z-index: 1; }
+  .steps > li > .card > h3:first-child { padding-left: 42px; min-height: 30px; }
+  .cmd code { white-space: pre-wrap; overflow-wrap: anywhere; }
+}
+@media (max-width: 1000px) {
+  .board { align-items: start; }
+  .bcol.building { order: -3; }
+  .bcol.next { order: -2; }
+  .bcol.shipped { order: -1; }
+  .bcol ul { max-height: 70vh; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 2px; }
+}

@@ -5,7 +5,7 @@ import MvpBar from "./components/MvpBar";
 
 const what = [
   ["Screens, not walls of text", "Ask for a workout and get a timer. Get asked a question and get buttons. Change your answer any time."],
-  ["Chat when words are enough", "Talk to your agent the way you text a friend. Type it or say it."],
+  ["Chat when words are enough", "Talk to your agent the way you text a friend. When it answers while you are away, you get a push."],
   ["Every agent looks like itself", "Each agent gets its own name chip and colors, so you always know who you are talking to."],
   ["Your agents stay yours", "Yui connects to agents you already run. You add them, rename them and remove them."],
 ];

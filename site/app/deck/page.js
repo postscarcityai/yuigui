@@ -9,14 +9,14 @@ const slides = [
   { h: "Who first", li: ["Hermes and OpenClaw users who already run an agent", "Bring your own keys: OpenRouter, fal, Replicate", "Then everyone else, through a guided onboarding interview"] },
   { h: "Why us, why now", li: ["Agents went daily in 2026 and hit the text ceiling", "Models now emit reliable structured UI", "We run a multi-agent fleet every day. We are the user."] },
   { h: "Business model", li: ["Free with your own agent and keys", "Subscription for hosted agents", "Credits for models and images, connectors for work"] },
-  { h: "Roadmap", li: ["Now: hub site", "Weeks 1-5: UI protocol, relay, Arnold on a real screen", "Weeks 4-12: TestFlight, onboarding, starter agents", "2027: data layer, connectors, App Store"] },
+  { h: "Roadmap", li: ["Shipped in two days: Yui Lines, the native app, the Hermes plugin, pushes", "Now: the public TestFlight beta, in Apple's review", "Next: an outside tester runs the whole path alone, then voice and other agent frameworks", "Later: starter agents, data layer, connectors, App Store"] },
   { h: "Yui", p: "Talk to your agents. Let them show you. yuigui.com" },
 ];
 
 export default function Deck() {
   return (
     <>
-      <div className="eyebrow">Pitch deck | v1</div>
+      <div className="eyebrow">Pitch deck | v2, Sep 24 2026</div>
       <h1>Ten slides.</h1>
       <p className="lede">Draft deck built from the pitch. Scroll through.</p>
       <div style={{ marginTop: 32 }}>

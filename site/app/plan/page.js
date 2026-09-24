@@ -38,7 +38,7 @@ const sections = [
     p: [
       "Personal agents moved from demos to daily tools in 2026. Their owners hit the text ceiling every day.",
       "Generative UI is now practical: models reliably emit short structured lines, and iOS 26 gives a native app on-device models, speech, Live Activities and Siri hooks that a web wrapper cannot reach.",
-      "Edge platforms (Cloudflare Workers and Durable Objects) make a cheap, always-on relay between agent and phone easy to run.",
+      "Hosted realtime databases make a cheap, always-on relay between agent and phone easy to run. Yui's runs on Supabase Realtime today.",
     ],
   },
   {
@@ -61,13 +61,14 @@ const sections = [
   {
     h: "Milestones",
     p: [
-      "Week 1: this hub. Weeks 1-3: UI protocol and web playground. Weeks 2-5: Arnold drives a screen from Telegram. Weeks 4-8: native SwiftUI build on TestFlight on Chris's phone. Weeks 8-12: onboarding and starter agents. Q1 2027: data layer and connectors. Q1-Q2 2027: public App Store listing.",
+      "The first draft planned twelve weeks to a TestFlight build. It took two days. Sep 23: this hub, Yui Lines, the native app on TestFlight. Sep 24: the Hermes plugin, pushes, first run with no guessing, safety limits, and the public beta sent to Apple's review.",
+      "Next: an outside tester runs the whole path alone (the MVP test), then voice and adapters for other agent frameworks. After that: starter agents, the data layer and connectors, then the App Store. Those dates are not set yet. The roadmap has the current order.",
     ],
   },
   {
-    h: "What it costs to get to TestFlight",
+    h: "What it takes to get to TestFlight",
     p: [
-      "Apple Developer account: $99 a year. Vercel and Cloudflare free tiers cover the hub and relay at this scale. Model usage runs through existing keys. Every spend gets Chris's sign-off first.",
+      "An Apple Developer account, plus free or existing plans for the hub and the relay at this scale. Model usage runs through the user's own agent. Every spend gets Chris's sign-off first.",
     ],
   },
 ];
@@ -75,7 +76,7 @@ const sections = [
 export default function Plan() {
   return (
     <>
-      <div className="eyebrow">Business plan | draft 1, Sep 23 2026</div>
+      <div className="eyebrow">Business plan | draft 2, Sep 24 2026</div>
       <h1>Yui business plan</h1>
       <p className="lede">A first draft built from the pitch. Numbers stay out until we have real ones.</p>
       <p>The detailed working docs (positioning, revenue models, outreach) are public too: <a href="/business">business docs</a>.</p>

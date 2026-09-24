@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The site catches up with the app",
+    "card": "SITE-11",
+    "body": "A walk through every page of yuigui.com on a phone and a laptop, fixing what had fallen behind. The roadmap still said the relay would run on Cloudflare Workers; it runs on Supabase Realtime, and that paragraph now says how messages actually travel. The risks now name the real open question for Apple's review: Yui needs an agent you run yourself, and a reviewer has none. The business plan and the deck still planned twelve weeks to a first TestFlight build. It took two days, and both now say so. On a phone, the Get started page shows each install command in full instead of cutting it off, and the board opens on what is being built now instead of 44 parked ideas.",
+    "images": [
+      {
+        "src": "/progress/site11-start-phone.webp",
+        "alt": "The Get started page on a phone: step 2 shows the whole plugin install command, wrapped, with a Copy button"
+      },
+      {
+        "src": "/progress/site11-board-phone.webp",
+        "alt": "The board on a phone, opening on the Building column with the public TestFlight link card"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Every color on one screen",
     "body": "Beta feedback: \"I'm going to want a wider variety of colors.\" The Add agent picker was a sideways row that showed six warm looks and hid the rest past the edge, so it read as oranges and pinks only. It is now a grid with every look on screen, sorted around the hue wheel, and six new colors fill the gaps: cherry, honey, lime, teal, grape and slate. That makes 22 colors plus the six personality sets, all passing the AA contrast check in light and dark. Agents can pick the new ones too: theme teal.",
     "images": [
