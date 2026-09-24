@@ -3,7 +3,7 @@ import { notes } from "../lib/notes.mjs";
 import { specDocs } from "../lib/spec.mjs";
 
 const base = "https://www.yuigui.com";
-const pages = ["/", "/mockups", "/roadmap", "/board", "/progress", "/changelog", "/developers", "/playground", "/yl", "/channel", "/reactions", "/developers/specs", "/notes", "/business", "/start", "/help", "/privacy"];
+const pages = ["/", "/mockups", "/roadmap", "/board", "/progress", "/changelog", "/timeline", "/developers", "/playground", "/yl", "/channel", "/reactions", "/developers/specs", "/notes", "/business", "/start", "/help", "/privacy"];
 
 export default function sitemap() {
   return [

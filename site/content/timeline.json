@@ -1,0 +1,2834 @@
+{
+  "since": "2026-09-23T21:31:33.000Z",
+  "totals": {
+    "app": 47,
+    "site": 110,
+    "builds": 21,
+    "shipped": 67,
+    "screenshots": 103
+  },
+  "days": [
+    {
+      "date": "2026-09-24",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-24T18:39:34.721Z",
+          "title": "Watch Yui grow: the whole history on one page",
+          "card": "SITE-16",
+          "anchor": "watch-yui-grow-the-whole-history-on-one-page",
+          "images": [
+            {
+              "src": "/progress/site16-timeline.webp",
+              "alt": "The Timeline page on a laptop: Watch Yui grow, with a Coach tabata timer screenshot on the left and counters on the right reading 19 app commits, 48 site commits, 16 builds and 35 shipped, above a play button and a slider at 16 of 39."
+            },
+            {
+              "src": "/progress/site16-grow-phone.webp",
+              "alt": "The same player on a phone: the screenshot on top, then Every agent has its own look, four small counters in a row, and the play button with the slider."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 47,
+            "site": 110,
+            "builds": 21,
+            "shipped": 67
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T18:15:16.000Z",
+          "title": "No dead buttons: a plan ends in Send, and agents stop adding 'Got it'",
+          "card": "YUI-53",
+          "anchor": "no-dead-buttons-a-plan-ends-in-send-and-agents-stop-adding-got-it",
+          "images": [
+            {
+              "src": "/progress/yui53-plan-send-light.webp",
+              "alt": "The review step of a plan in Yui: the last answer, Home and Contact, with one purple Send button under it."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 47,
+            "site": 110,
+            "builds": 21,
+            "shipped": 66
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T18:07:50.000Z",
+          "title": "Yui Lines back on the front page, and every spec on the site",
+          "card": "SITE-15",
+          "anchor": "yui-lines-back-on-the-front-page-and-every-spec-on-the-site",
+          "images": [
+            {
+              "src": "/progress/site15-home-band.webp",
+              "alt": "The home page How it works band: the line timer 40/20x8 Tabata beside a live phone drawing that Tabata timer, two stat boxes saying 1.6x fewer tokens than minified JSON and 3.9x fewer than a component tree, and buttons to the Yui Lines spec and the playground."
+            },
+            {
+              "src": "/progress/site15-yl-quickstart.webp",
+              "alt": "The Yui Lines page: a quick start listing five lines, each with a Copy button, a phone drawing the selected line, and the spec below with an index of every section on the left."
+            },
+            {
+              "src": "/progress/site15-spec-index.webp",
+              "alt": "The Agents spec on the site, with the list of all seven specs on the left and this page sections nested under Agents."
+            },
+            {
+              "src": "/progress/site15-home-phone.webp",
+              "alt": "The How it works band on a phone: the line, the two stats and the buttons stacked above the live timer."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 46,
+            "site": 108,
+            "builds": 21,
+            "shipped": 65
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T17:54:43.000Z",
+          "title": "React to a message: hold it, tap 👍, and your agent builds it",
+          "card": "YUI-49",
+          "anchor": "react-to-a-message-hold-it-tap-and-your-agent-builds-it",
+          "images": [
+            {
+              "src": "/progress/yui49-bar-light.webp",
+              "alt": "Holding the agent's message: the thread dims, the message lifts and a bar of six reactions sits above it with a label under each, build it, no, not sure, love it, later, priority, and Copy below."
+            },
+            {
+              "src": "/progress/yui49-reacted-light.webp",
+              "alt": "The message with a thumbs up badge on its corner after the tap."
+            },
+            {
+              "src": "/progress/yui49-built-it-dark.webp",
+              "alt": "Dark mode, after reopening: the thumbs up is still on the proposal, and under it the agent's answer, a Saturday session card, a checklist and a timer."
+            },
+            {
+              "src": "/progress/yui49-bar-dark.webp",
+              "alt": "The reaction bar in dark mode."
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 45,
+            "site": 105,
+            "builds": 21,
+            "shipped": 64
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T17:41:11.000Z",
+          "title": "Yui Lines in Python and Kotlin",
+          "card": "OSS-2",
+          "anchor": "yui-lines-in-python-and-kotlin",
+          "images": [
+            {
+              "src": "/progress/oss2-parsers.webp",
+              "alt": "The Developers page on yuigui.com: a new Parsers section lists four Yui Lines parsers, JavaScript, Swift, Python and Kotlin, each linked to its source, with a note that spec/conformance/run-all.sh runs them all and that Rust is next"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 45,
+            "site": 103,
+            "builds": 21,
+            "shipped": 63
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T17:40:42.000Z",
+          "title": "The timer keeps counting on the lock screen",
+          "card": "YUI-30",
+          "anchor": "the-timer-keeps-counting-on-the-lock-screen",
+          "images": [
+            {
+              "src": "/progress/yui30-lock.webp",
+              "alt": "The lock screen with a Tabata timer card: round 1 of 8, 3 seconds left in the work phase, 3:33 left in the workout, a pause button and an end button"
+            },
+            {
+              "src": "/progress/yui30-paused.webp",
+              "alt": "The same card paused in round 2 of 8 at 11 seconds, with a play button to resume"
+            },
+            {
+              "src": "/progress/yui30-island.webp",
+              "alt": "The Dynamic Island opened: Tabata, round 1 of 8, work, 11 seconds, a progress bar and pause and end buttons, in a purple serif agent look"
+            },
+            {
+              "src": "/progress/yui30-compact.webp",
+              "alt": "The Dynamic Island closed: a small orange ring on the left and 0:14 on the right"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 45,
+            "site": 102,
+            "builds": 21,
+            "shipped": 62
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T17:36:19.000Z",
+          "title": "Notes: longer pieces, starting with why Yui is open source",
+          "card": "SITE-5",
+          "anchor": "notes-longer-pieces-starting-with-why-yui-is-open-source",
+          "images": [
+            {
+              "src": "/progress/site5-notes.webp",
+              "alt": "The Notes page on a laptop: the headline Notes, a line saying these are longer pieces on how Yui is built and why, and one card dated Sep 24, 2026 for the note Why Yui is open source, business docs included. Notes is highlighted in the Developers menu row"
+            },
+            {
+              "src": "/progress/site5-note-phone.webp",
+              "alt": "The open source note on a phone: the title, the opening paragraphs and the What is public section with links to both GitHub repos"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 44,
+            "site": 99,
+            "builds": 21,
+            "shipped": 61
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T17:12:04.000Z",
+          "title": "See everything Yui can draw",
+          "card": "SITE-14",
+          "anchor": "see-everything-yui-can-draw",
+          "images": [
+            {
+              "src": "/progress/site14-see-it.webp",
+              "alt": "The See it page on a laptop: the headline Every screen Yui can draw today, and an index of all 36 screens grouped as questions and answers, pictures and video, numbers and science, lessons and plans, the app, and planned"
+            },
+            {
+              "src": "/progress/site14-chart.webp",
+              "alt": "The chart entry: a live phone drawing a weight stat and a line chart, the same screen recorded in the iPhone app, the Yui Line that draws it, and the cards YUI-17 and YUI-19 with their ship dates"
+            },
+            {
+              "src": "/progress/site14-planned.webp",
+              "alt": "A planned entry: the onboarding interview drawn on the web with a dashed outline and a yellow Planned, not built label, linked to card YUI-38"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 43,
+            "site": 97,
+            "builds": 21,
+            "shipped": 60
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T17:10:04.000Z",
+          "title": "Who the first outside testers are",
+          "card": "BIZ-6",
+          "anchor": "who-the-first-outside-testers-are",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 43,
+            "site": 95,
+            "builds": 21,
+            "shipped": 59
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T17:08:21.000Z",
+          "title": "The playground reads right to a screen reader",
+          "card": "SITE-6",
+          "anchor": "the-playground-reads-right-to-a-screen-reader",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 43,
+            "site": 94,
+            "builds": 21,
+            "shipped": 58
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T17:00:39.000Z",
+          "title": "One story, five menu items",
+          "card": "SITE-13",
+          "anchor": "one-story-five-menu-items",
+          "images": [
+            {
+              "src": "/progress/site13-nav-desktop.webp",
+              "alt": "The new menu on a laptop: What it does, See it, Roadmap, Developers and a coral Get Yui button, with Roadmap, Board, Shipped and Builds tabs under it"
+            },
+            {
+              "src": "/progress/site13-nav-phone.webp",
+              "alt": "The menu open on a phone: the five items, with each section's pages indented under it"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 43,
+            "site": 93,
+            "builds": 21,
+            "shipped": 57
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T16:09:05.000Z",
+          "title": "The site catches up with the app",
+          "card": "SITE-11",
+          "anchor": "the-site-catches-up-with-the-app",
+          "images": [
+            {
+              "src": "/progress/site11-start-phone.webp",
+              "alt": "The Get started page on a phone: step 2 shows the whole plugin install command, wrapped, with a Copy button"
+            },
+            {
+              "src": "/progress/site11-board-phone.webp",
+              "alt": "The board on a phone, opening on the Building column with the public TestFlight link card"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 41,
+            "site": 90,
+            "builds": 21,
+            "shipped": 56
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T16:06:08.000Z",
+          "title": "Every color on one screen",
+          "card": null,
+          "anchor": "every-color-on-one-screen",
+          "images": [
+            {
+              "src": "/progress/yui-look-colors-dark.webp",
+              "alt": "Add agent sheet in dark mode with 29 color chips in a grid, Teal selected"
+            },
+            {
+              "src": "/progress/yui-look-colors-light.webp",
+              "alt": "The same picker in light mode"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 41,
+            "site": 89,
+            "builds": 21,
+            "shipped": 55
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T15:49:51.000Z",
+          "title": "Two common slips now parse",
+          "card": null,
+          "anchor": "two-common-slips-now-parse",
+          "images": [
+            {
+              "src": "/progress/yl-loose-options.webp",
+              "alt": "A choose with Camera roll and Drafts buttons, an ask with Yes, send and Not yet, and a card patched to Mon legs, Thu rest"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 39,
+            "site": 88,
+            "builds": 21,
+            "shipped": 54
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T15:39:09.000Z",
+          "title": "Answers are still there when you come back",
+          "card": null,
+          "anchor": "answers-are-still-there-when-you-come-back",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 39,
+            "site": 86,
+            "builds": 21,
+            "shipped": 53
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T15:36:34.000Z",
+          "title": "The roadmap catches up with the work",
+          "card": "SITE-10",
+          "anchor": "the-roadmap-catches-up-with-the-work",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 38,
+            "site": 85,
+            "builds": 21,
+            "shipped": 52
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T14:17:13.000Z",
+          "title": "No page scrolls sideways on a phone",
+          "card": "SITE-9",
+          "anchor": "no-page-scrolls-sideways-on-a-phone",
+          "images": [
+            {
+              "src": "/progress/site9-table.webp",
+              "alt": "A wide comparison table on a phone, scrolled sideways inside its own box while the page margins stay in place."
+            },
+            {
+              "src": "/progress/site9-start.webp",
+              "alt": "The Get started page on a phone, with a long install command wrapping onto three lines instead of running off the screen."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 37,
+            "site": 84,
+            "builds": 21,
+            "shipped": 51
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T13:43:34.000Z",
+          "title": "Done buttons always do something",
+          "card": null,
+          "anchor": "done-buttons-always-do-something",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 36,
+            "site": 82,
+            "builds": 21,
+            "shipped": 50
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T13:36:04.000Z",
+          "title": "The site menu works on a phone",
+          "card": "SITE-8",
+          "anchor": "the-site-menu-works-on-a-phone",
+          "images": [
+            {
+              "src": "/progress/site8-phone-closed.webp",
+              "alt": "yuigui.com on a phone: the header shows the Yui logo, a dark mode button and a round menu button, with the page headline right below."
+            },
+            {
+              "src": "/progress/site8-phone-menu.webp",
+              "alt": "The phone menu open: a single list of every page, Home through Channel guide and GitHub, each on its own tall row."
+            },
+            {
+              "src": "/progress/site8-desktop-more.webp",
+              "alt": "yuigui.com at laptop width: six links in one row, then More opened to show Plan, Deck, Mockups, YL spec and Channel guide, then GitHub and the theme button."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 35,
+            "site": 80,
+            "builds": 21,
+            "shipped": 49
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T13:22:59.000Z",
+          "title": "Every full-screen view now has a way out",
+          "card": null,
+          "anchor": "every-full-screen-view-now-has-a-way-out",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 34,
+            "site": 79,
+            "builds": 21,
+            "shipped": 48
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T13:07:15.000Z",
+          "title": "The site now leads with what Yui is: a generative user interface",
+          "card": "SITE-12",
+          "anchor": "the-site-now-leads-with-what-yui-is-a-generative-user-interface",
+          "images": [
+            {
+              "src": "/progress/site12-hero.webp",
+              "alt": "The yuigui.com home page hero: the headline Meet Yui, a generative user interface, a short line about agents drawing timers, forms and choices, and two phone screenshots of a tabata timer in chat, light and dark"
+            },
+            {
+              "src": "/progress/site12-share-card.webp",
+              "alt": "The new link preview card: the coral Yui wordmark, the same headline, and a phone showing a tabata timer the agent drew mid-chat"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 33,
+            "site": 76,
+            "builds": 21,
+            "shipped": 47
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T12:55:57.000Z",
+          "build": 33,
+          "changes": 2,
+          "totals": {
+            "app": 33,
+            "site": 75,
+            "builds": 21,
+            "shipped": 46
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T12:53:41.000Z",
+          "title": "Ready for Apple's beta review: a demo agent, help, and a full privacy page",
+          "card": "YUI-27",
+          "anchor": "ready-for-apple-s-beta-review-a-demo-agent-help-and-a-full-privacy-page",
+          "images": [
+            {
+              "src": "/progress/yui27-signin.webp",
+              "alt": "Yui sign-in screen with Sign in with Apple and three small links under it: How it works, Your data, Demo code"
+            },
+            {
+              "src": "/progress/yui27-demo.webp",
+              "alt": "The Demo agent's thread: a greeting and a card asking What should we try? with Workout, Plan dinner, Focus timer, My week and Quick lesson buttons"
+            },
+            {
+              "src": "/progress/yui27-help.webp",
+              "alt": "Settings showing a Help and feedback card with Help and questions, Connect an agent and Email us, above the Account card that reads Demo account"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 33,
+            "site": 75,
+            "builds": 20,
+            "shipped": 46
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T12:15:46.000Z",
+          "title": "Safe for strangers: limits, an off switch, and 90 days of history",
+          "card": "YUI-26",
+          "anchor": "safe-for-strangers-limits-an-off-switch-and-90-days-of-history",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 32,
+            "site": 73,
+            "builds": 20,
+            "shipped": 45
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T11:06:40.000Z",
+          "build": 31,
+          "changes": 1,
+          "totals": {
+            "app": 31,
+            "site": 70,
+            "builds": 20,
+            "shipped": 44
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T11:04:07.000Z",
+          "title": "Nothing gets lost: sleeping Macs, dropped networks, killed apps",
+          "card": "YUI-28",
+          "anchor": "nothing-gets-lost-sleeping-macs-dropped-networks-killed-apps",
+          "images": [
+            {
+              "src": "/progress/yui28-offline-not-sent.webp",
+              "alt": "Two messages sent with no network, shown dimmed, with the line: Not sent yet. It goes the moment you're back online."
+            },
+            {
+              "src": "/progress/yui28-delivered.webp",
+              "alt": "Dark mode thread after the network came back: the two messages were delivered once each and the agent answered both in one reply."
+            },
+            {
+              "src": "/progress/yui28-asleep-thread.webp",
+              "alt": "Dark mode thread with the agent's computer asleep: two new messages and the note, Echo is asleep. It gets this when its computer wakes."
+            },
+            {
+              "src": "/progress/yui28-asleep-agents.webp",
+              "alt": "Your agents list showing Echo as Asleep, seen 5 minutes ago, with a lavender dot."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 31,
+            "site": 70,
+            "builds": 19,
+            "shipped": 44
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T10:20:38.000Z",
+          "build": 30,
+          "changes": 1,
+          "totals": {
+            "app": 30,
+            "site": 68,
+            "builds": 19,
+            "shipped": 43
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T10:20:14.000Z",
+          "title": "First run: from sign in to your agent's first screen",
+          "card": "YUI-25",
+          "anchor": "first-run-from-sign-in-to-your-agent-s-first-screen",
+          "images": [
+            {
+              "src": "/progress/yui25-first-run.webp",
+              "alt": "Yui on a new account: Let's connect your first agent, three numbered steps, an Add your first agent button and a link to the step-by-step guide."
+            },
+            {
+              "src": "/progress/yui25-pairing.webp",
+              "alt": "Add agent in dark mode: three numbered commands to run on your computer, install the Yui plugin, pair with code 482 913, restart the gateway, each with a copy button."
+            },
+            {
+              "src": "/progress/yui25-connected.webp",
+              "alt": "Nova is connected, running on the test host, with a Say hi to Nova button."
+            },
+            {
+              "src": "/progress/yui25-first-reply.webp",
+              "alt": "The new thread in dark mode: you said Hi, Nova answered with a card asking What should we try first? with Plan my day and Start a timer buttons."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 30,
+            "site": 68,
+            "builds": 18,
+            "shipped": 43
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T09:47:31.000Z",
+          "build": 29,
+          "changes": 2,
+          "totals": {
+            "app": 29,
+            "site": 66,
+            "builds": 18,
+            "shipped": 42
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T09:44:11.000Z",
+          "title": "A buzz when your agent answers",
+          "card": "YUI-24",
+          "anchor": "a-buzz-when-your-agent-answers",
+          "images": [
+            {
+              "src": "/progress/yui24-push.webp",
+              "alt": "iPhone home screen with a Yui notification from Coach: Your plan for tomorrow is ready."
+            },
+            {
+              "src": "/progress/yui24-thread.webp",
+              "alt": "Yui app opened from the notification on Coach's thread: the message and a Ready to start? card with Ship it and Not yet buttons."
+            },
+            {
+              "src": "/progress/yui24-mute.webp",
+              "alt": "Coach's settings in Yui with the Notifications switch off: Coach stays quiet. Its answers wait in the thread."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 29,
+            "site": 66,
+            "builds": 17,
+            "shipped": 42
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T09:21:32.000Z",
+          "title": "Connect your agent in three steps",
+          "card": "YUI-23",
+          "anchor": "connect-your-agent-in-three-steps",
+          "images": [
+            {
+              "src": "/progress/yui23-start.webp",
+              "alt": "yuigui.com Get started page: three numbered steps, get a pairing code, install the Yui plugin, pair and restart the gateway, each command with a copy button."
+            },
+            {
+              "src": "/progress/yui23-reply.webp",
+              "alt": "Yui app: an agent running on a fresh Linux machine answers Hello! Good to see you, then a Tea or coffee? card with two buttons."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 28,
+            "site": 64,
+            "builds": 17,
+            "shipped": 41
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T08:43:04.000Z",
+          "build": 27,
+          "changes": 1,
+          "totals": {
+            "app": 27,
+            "site": 62,
+            "builds": 17,
+            "shipped": 40
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T08:40:13.000Z",
+          "title": "Every preset, native on iPhone",
+          "card": "YUI-19",
+          "anchor": "every-preset-native-on-iphone",
+          "images": [
+            {
+              "src": "/progress/yui19-compare.webp",
+              "alt": "Yui app: a Living room compare card with the slider halfway, old room on the left, sage green wall on the right, numbered highlight boxes and notes."
+            },
+            {
+              "src": "/progress/yui19-deck.webp",
+              "alt": "Yui app: a full screen deck, How mRNA vaccines work, on slide 2 with an illustration and the heading 1. Delivery."
+            },
+            {
+              "src": "/progress/yui19-math.webp",
+              "alt": "Yui app: a Solve for t step card with typeset d equals one half g t squared, and a projectile calculator that plots range against angle."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 27,
+            "site": 62,
+            "builds": 16,
+            "shipped": 40
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T07:43:57.000Z",
+          "build": 26,
+          "changes": 3,
+          "totals": {
+            "app": 26,
+            "site": 59,
+            "builds": 16,
+            "shipped": 39
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T07:41:35.000Z",
+          "title": "Pictures in, photos out",
+          "card": "YUI-21",
+          "anchor": "pictures-in-photos-out",
+          "images": [
+            {
+              "src": "/progress/yui21-agent-picture.webp",
+              "alt": "Yui app: an agent's reply with a rendered storyboard frame, a coral mug on a sunny kitchen table, captioned Frame 1."
+            },
+            {
+              "src": "/progress/yui21-photo-sent.webp",
+              "alt": "Yui app: the agent asks Snap something for me; the chosen photo of hands shaping a bowl on a pottery wheel shows with Photo sent."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 26,
+            "site": 58,
+            "builds": 15,
+            "shipped": 39
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T07:09:55.000Z",
+          "title": "The channel guide, now tested",
+          "card": "YUI-10",
+          "anchor": "the-channel-guide-now-tested",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 24,
+            "site": 55,
+            "builds": 15,
+            "shipped": 38
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T06:18:11.000Z",
+          "build": 23,
+          "changes": 1,
+          "totals": {
+            "app": 24,
+            "site": 53,
+            "builds": 15,
+            "shipped": 37
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T06:17:18.000Z",
+          "title": "Change your answer",
+          "card": "YUI-12",
+          "anchor": "change-your-answer",
+          "images": [
+            {
+              "src": "/progress/yui12-choose.webp",
+              "alt": "Yui app: the question Which split today? with Pull highlighted after first tapping Push. The chat shows both replies, Push then Pull."
+            },
+            {
+              "src": "/progress/yui12-pick.webp",
+              "alt": "Yui app: a gear checklist where Bench and Kettlebell are now ticked after an earlier answer of Bench and Bands, with the Done button ready to send again."
+            },
+            {
+              "src": "/progress/yui12-events-chat.webp",
+              "alt": "Yui app: all three questions answered and changed. The chat shows each reply in order, and the send button reads Sent."
+            },
+            {
+              "src": "/progress/yui12-wire-log.webp",
+              "alt": "The web playground's wire log: each changed answer arrives with changed true, and the agent's ~choose +lock line at the top."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 23,
+            "site": 53,
+            "builds": 14,
+            "shipped": 37
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T06:00:34.000Z",
+          "build": 22,
+          "changes": 1,
+          "totals": {
+            "app": 22,
+            "site": 51,
+            "builds": 14,
+            "shipped": 36
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T05:55:48.000Z",
+          "title": "Full screen when it matters",
+          "card": "YUI-13",
+          "anchor": "full-screen-when-it-matters",
+          "images": [
+            {
+              "src": "/progress/yui13-stage-coach-light.webp",
+              "alt": "A coach agent's tabata workout full screen in light mode: a big timer ring with Pause, the coach's line and a Log it question"
+            },
+            {
+              "src": "/progress/yui13-pill-wizard-dark.webp",
+              "alt": "After swiping the stage away: the wizard's chat in dark mode, with a Tabata pill showing 0:10 and round 1 of 8 between the message and the question"
+            },
+            {
+              "src": "/progress/yui13-stage-wizard-dark.webp",
+              "alt": "The pill tapped: the wizard's tabata back full screen, still running"
+            },
+            {
+              "src": "/progress/yui13-playground-pill.webp",
+              "alt": "The web playground after the stage was swiped away: a live Tabata pill in the chat"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 21,
+            "site": 51,
+            "builds": 13,
+            "shipped": 36
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T05:34:11.000Z",
+          "build": 21,
+          "changes": 1,
+          "totals": {
+            "app": 20,
+            "site": 49,
+            "builds": 13,
+            "shipped": 35
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T05:31:26.000Z",
+          "build": 20,
+          "changes": 1,
+          "totals": {
+            "app": 20,
+            "site": 49,
+            "builds": 12,
+            "shipped": 35
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T05:28:38.000Z",
+          "build": 19,
+          "changes": 1,
+          "totals": {
+            "app": 19,
+            "site": 48,
+            "builds": 11,
+            "shipped": 35
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T05:26:19.000Z",
+          "title": "Every agent has its own look",
+          "card": "YUI-20",
+          "anchor": "every-agent-has-its-own-look",
+          "images": [
+            {
+              "src": "/progress/yui20-coach-light.webp",
+              "alt": "A coach agent's thread in light mode: orange-red accent, square corners, a tabata timer and stacked Yes/No buttons"
+            },
+            {
+              "src": "/progress/yui20-wizard-dark.webp",
+              "alt": "A wizard agent's thread in dark mode: violet accent on deep plum, serif type"
+            },
+            {
+              "src": "/progress/yui20-agents.webp",
+              "alt": "The agent list: Yui, Coach, Wizard, Counsel and Nova, each row in its own colors"
+            },
+            {
+              "src": "/progress/yui20-theme-line.webp",
+              "alt": "Nova just sent theme autumn: the chat turned brown and serif, with a note saying Nova changed its look"
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 19,
+            "site": 48,
+            "builds": 10,
+            "shipped": 35
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T05:08:20.000Z",
+          "title": "A plan for every agent framework",
+          "card": "INT-0",
+          "anchor": "a-plan-for-every-agent-framework",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 18,
+            "site": 46,
+            "builds": 10,
+            "shipped": 34
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T05:02:53.000Z",
+          "title": "Every page points to the code and the beta",
+          "card": "SITE-4",
+          "anchor": "every-page-points-to-the-code-and-the-beta",
+          "images": [
+            {
+              "src": "/progress/site4-cta-band.webp",
+              "alt": "The bottom of a yuigui.com page: a card for the TestFlight beta, a card with Star on GitHub and App code buttons, and the waitlist form"
+            },
+            {
+              "src": "/progress/site4-home-hero.webp",
+              "alt": "The home page hero with three buttons: Join the waitlist, Star on GitHub, See what shipped"
+            },
+            {
+              "src": "/progress/site4-mobile.webp",
+              "alt": "The same three cards stacked on a phone screen"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 18,
+            "site": 45,
+            "builds": 10,
+            "shipped": 33
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T05:00:41.000Z",
+          "title": "Pick it up in Yui",
+          "card": "YUI-8",
+          "anchor": "pick-it-up-in-yui",
+          "images": [
+            {
+              "src": "/progress/yui8-thread-opened.webp",
+              "alt": "The Yui thread after tapping the notification, showing Ship build 17 tonight? with Ship it and Hold buttons"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 18,
+            "site": 44,
+            "builds": 10,
+            "shipped": 32
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T05:00:33.000Z",
+          "build": 18,
+          "changes": 2,
+          "totals": {
+            "app": 18,
+            "site": 43,
+            "builds": 10,
+            "shipped": 31
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:57:13.000Z",
+          "title": "Screenshots everywhere, and a changelog",
+          "card": "SITE-3",
+          "anchor": "screenshots-everywhere-and-a-changelog",
+          "images": [
+            {
+              "src": "/progress/site3-progress.webp",
+              "alt": "The progress log with a row of app screenshots under an entry"
+            },
+            {
+              "src": "/progress/site3-lightbox.webp",
+              "alt": "A screenshot opened full size over the progress page, with previous, next and close buttons"
+            },
+            {
+              "src": "/progress/site3-changelog.webp",
+              "alt": "The changelog page: each TestFlight build with its date, what changed and its screenshots"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 17,
+            "site": 42,
+            "builds": 9,
+            "shipped": 31
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:52:23.000Z",
+          "title": "Who Yui is on each platform",
+          "card": null,
+          "anchor": "who-yui-is-on-each-platform",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 17,
+            "site": 41,
+            "builds": 9,
+            "shipped": 30
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:46:18.000Z",
+          "title": "The board is public",
+          "card": "SITE-2",
+          "anchor": "the-board-is-public",
+          "images": [
+            {
+              "src": "/progress/board.webp",
+              "alt": "The yuigui.com board: backlog, up next, building and shipped columns of Yui cards, with the MVP bar above"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 17,
+            "site": 40,
+            "builds": 9,
+            "shipped": 29
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:45:22.000Z",
+          "title": "Decks, plan mode and narrated walkthroughs",
+          "card": "YUI-18",
+          "anchor": "decks-plan-mode-and-narrated-walkthroughs",
+          "images": [
+            {
+              "src": "/progress/yui18-deck.webp",
+              "alt": "The cover of a lesson deck about mRNA vaccines"
+            },
+            {
+              "src": "/progress/yui18-quiz.webp",
+              "alt": "A quiz question at the end of the deck, answered right"
+            },
+            {
+              "src": "/progress/yui18-plan.webp",
+              "alt": "The review screen at the end of plan mode"
+            },
+            {
+              "src": "/progress/yui18-narrate.webp",
+              "alt": "A narrated website walkthrough: before and after, one change at a time"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 17,
+            "site": 39,
+            "builds": 9,
+            "shipped": 28
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:36:29.000Z",
+          "title": "A content plan, built from what ships",
+          "card": "BIZ-4",
+          "anchor": "a-content-plan-built-from-what-ships",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 17,
+            "site": 38,
+            "builds": 9,
+            "shipped": 27
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:35:52.000Z",
+          "title": "The MVP, and a bar that shows how close it is",
+          "card": "MVP-0",
+          "anchor": "the-mvp-and-a-bar-that-shows-how-close-it-is",
+          "images": [
+            {
+              "src": "/progress/mvp-bar.webp",
+              "alt": "The MVP progress bar on the yuigui.com roadmap: 48 percent shipped, 10 of 21 cards, with the cards still to go"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 16,
+            "site": 37,
+            "builds": 9,
+            "shipped": 26
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:31:38.000Z",
+          "title": "How we will find our first users",
+          "card": "BIZ-2",
+          "anchor": "how-we-will-find-our-first-users",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 16,
+            "site": 35,
+            "builds": 9,
+            "shipped": 25
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T04:30:23.000Z",
+          "build": 16,
+          "changes": 2,
+          "totals": {
+            "app": 16,
+            "site": 34,
+            "builds": 9,
+            "shipped": 24
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:27:49.000Z",
+          "title": "Talk to your agent in Yui",
+          "card": "YUI-7",
+          "anchor": "talk-to-your-agent-in-yui",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 16,
+            "site": 34,
+            "builds": 8,
+            "shipped": 24
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:23:07.000Z",
+          "title": "The site now looks like the app",
+          "card": "SITE-1",
+          "anchor": "the-site-now-looks-like-the-app",
+          "images": [
+            {
+              "src": "/progress/site-rebrand.webp",
+              "alt": "The new yuigui.com home page in light mode"
+            },
+            {
+              "src": "/progress/site1-before.webp",
+              "alt": "Before the rebrand: the old dark site"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 15,
+            "site": 33,
+            "builds": 8,
+            "shipped": 23
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:21:38.000Z",
+          "title": "Business docs, in the open",
+          "card": "BIZ-1",
+          "anchor": "business-docs-in-the-open",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 15,
+            "site": 32,
+            "builds": 8,
+            "shipped": 22
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:18:50.000Z",
+          "title": "Yui is open source",
+          "card": "OSS-1",
+          "anchor": "yui-is-open-source",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 15,
+            "site": 31,
+            "builds": 8,
+            "shipped": 21
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:18:06.000Z",
+          "title": "Yui Lines learn charts, equations and experiments",
+          "card": "YUI-17",
+          "anchor": "yui-lines-learn-charts-equations-and-experiments",
+          "images": [
+            {
+              "src": "/progress/yui17-line.webp",
+              "alt": "A weight chart with a tooltip on one day"
+            },
+            {
+              "src": "/progress/yui17-projectile.webp",
+              "alt": "A projectile calculator: an equation, a live curve and two sliders"
+            },
+            {
+              "src": "/progress/yui17-pie.webp",
+              "alt": "Pie and donut charts with a chart and table toggle"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 15,
+            "site": 30,
+            "builds": 8,
+            "shipped": 20
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T04:01:22.000Z",
+          "build": 14,
+          "changes": 1,
+          "totals": {
+            "app": 14,
+            "site": 27,
+            "builds": 8,
+            "shipped": 19
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T04:01:14.000Z",
+          "title": "Your agents are yours to add",
+          "card": "YUI-15",
+          "anchor": "your-agents-are-yours-to-add",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 14,
+            "site": 27,
+            "builds": 7,
+            "shipped": 19
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "19cf10a",
+          "at": "2026-09-24T18:15:16.000Z",
+          "text": "Progress: YUI-53 no dead buttons, with the plan ending in Send; roadmap lists it as shipped early",
+          "url": "https://github.com/postscarcityai/yuigui/commit/19cf10a"
+        },
+        {
+          "repo": "app",
+          "sha": "3c3ebad",
+          "at": "2026-09-24T18:13:54.000Z",
+          "text": "A plan's last button says Send instead of Create project, and agents get channel guide v8: every button does something, no \"Got it\"...",
+          "url": "https://github.com/postscarcityai/yui/commit/3c3ebad"
+        },
+        {
+          "repo": "site",
+          "sha": "65216e2",
+          "at": "2026-09-24T18:11:39.000Z",
+          "text": "No dead buttons: a plan's last button says Send, and the channel guide (v8) bans buttons that only acknowledge (\"Got it\", \"OK\", \"Nice\");...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/65216e2"
+        },
+        {
+          "repo": "site",
+          "sha": "61973cf",
+          "at": "2026-09-24T18:07:50.000Z",
+          "text": "Yui Lines back in sight: How it works band on the home page, a five-line quick start on /yl, and every spec rendered under Developers >...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/61973cf"
+        },
+        {
+          "repo": "site",
+          "sha": "00fc70a",
+          "at": "2026-09-24T17:58:17.000Z",
+          "text": "Roadmap page: sync YUI-49 into the site copy",
+          "url": "https://github.com/postscarcityai/yuigui/commit/00fc70a"
+        },
+        {
+          "repo": "site",
+          "sha": "b7bb48b",
+          "at": "2026-09-24T17:57:21.000Z",
+          "text": "Roadmap: YUI-49 reactions shipped early, under Next after the MVP",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b7bb48b"
+        },
+        {
+          "repo": "app",
+          "sha": "d6f7d87",
+          "at": "2026-09-24T17:54:48.000Z",
+          "text": "Hold an agent's message to react: six reactions float above it (build it, no, not sure, love it, later, priority), the pick goes to the...",
+          "url": "https://github.com/postscarcityai/yui/commit/d6f7d87"
+        },
+        {
+          "repo": "site",
+          "sha": "a67e85c",
+          "at": "2026-09-24T17:54:43.000Z",
+          "text": "Reactions: hold a message, pick one of six, and each one tells the agent what to do; spec/REACTIONS.md is the single source, it writes...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a67e85c"
+        },
+        {
+          "repo": "site",
+          "sha": "476aae9",
+          "at": "2026-09-24T17:51:48.000Z",
+          "text": "Roadmap: YUI-51 flows, YUI-53 no dead buttons, SITE-15 docs lead the post-MVP list",
+          "url": "https://github.com/postscarcityai/yuigui/commit/476aae9"
+        },
+        {
+          "repo": "site",
+          "sha": "bd87ddd",
+          "at": "2026-09-24T17:41:11.000Z",
+          "text": "Yui Lines parsers in Python and Kotlin, run-all.sh for every language (OSS-2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bd87ddd"
+        },
+        {
+          "repo": "site",
+          "sha": "e0b7132",
+          "at": "2026-09-24T17:40:42.000Z",
+          "text": "Progress: the timer keeps counting on the lock screen (YUI-30)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e0b7132"
+        },
+        {
+          "repo": "site",
+          "sha": "7a3950e",
+          "at": "2026-09-24T17:40:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7a3950e"
+        },
+        {
+          "repo": "site",
+          "sha": "2637f58",
+          "at": "2026-09-24T17:39:54.000Z",
+          "text": "Roadmap: YUI-52 ships the feedback fixes to TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2637f58"
+        },
+        {
+          "repo": "app",
+          "sha": "5bce07d",
+          "at": "2026-09-24T17:38:30.000Z",
+          "text": "The timer keeps counting on the lock screen and in the Dynamic Island: a Live Activity per running timer with round x of n, work and...",
+          "url": "https://github.com/postscarcityai/yui/commit/5bce07d"
+        },
+        {
+          "repo": "site",
+          "sha": "3ae8bb4",
+          "at": "2026-09-24T17:36:19.000Z",
+          "text": "Notes: a home for long-form pieces at /notes, first up Why Yui is open source; sitemap and robots (SITE-5)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3ae8bb4"
+        },
+        {
+          "repo": "site",
+          "sha": "b638bd1",
+          "at": "2026-09-24T17:34:44.000Z",
+          "text": "Roadmap: YUI-50 chat polish joins the MVP, YUI-51 folding flows parked",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b638bd1"
+        },
+        {
+          "repo": "app",
+          "sha": "9e75dec",
+          "at": "2026-09-24T17:24:14.000Z",
+          "text": "Send photos and talk from the composer: one + for the photo library and camera, hold the mic to talk, let go to send",
+          "url": "https://github.com/postscarcityai/yui/commit/9e75dec"
+        },
+        {
+          "repo": "site",
+          "sha": "07330fa",
+          "at": "2026-09-24T17:12:04.000Z",
+          "text": "See it shows every screen Yui can draw: live Yui Lines, app clips and screenshots, each tied to its card and ship date; board and...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/07330fa"
+        },
+        {
+          "repo": "site",
+          "sha": "da2a7cf",
+          "at": "2026-09-24T17:10:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/da2a7cf"
+        },
+        {
+          "repo": "site",
+          "sha": "f58b06b",
+          "at": "2026-09-24T17:10:04.000Z",
+          "text": "Private beta list: tester criteria, cohorts of 1/5/20/50, 32 public Hermes and OpenClaw venues with rules, draft invites (BIZ-6)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f58b06b"
+        },
+        {
+          "repo": "site",
+          "sha": "cb36513",
+          "at": "2026-09-24T17:08:21.000Z",
+          "text": "Playground names its controls and the timer button passes contrast: Lighthouse a11y 89 to 100 (SITE-6)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cb36513"
+        },
+        {
+          "repo": "site",
+          "sha": "282af27",
+          "at": "2026-09-24T17:00:39.000Z",
+          "text": "One story, five menu items: Roadmap and Developers sections, plan and deck folded into /business/plan with redirects (SITE-13)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/282af27"
+        },
+        {
+          "repo": "app",
+          "sha": "854f692",
+          "at": "2026-09-24T16:49:43.000Z",
+          "text": "Narration never speaks in a robot voice: skip the Eloquence, MacinTalk and novelty voices and Personal Voice, pick premium > enhanced >...",
+          "url": "https://github.com/postscarcityai/yui/commit/854f692"
+        },
+        {
+          "repo": "site",
+          "sha": "d90210c",
+          "at": "2026-09-24T16:40:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d90210c"
+        },
+        {
+          "repo": "app",
+          "sha": "aa358f6",
+          "at": "2026-09-24T16:16:30.000Z",
+          "text": "Long turns read as work, not trouble: \"Yui is working · 2m 20s\" counts up, no time limit, no restart advice, resumes on reopen",
+          "url": "https://github.com/postscarcityai/yui/commit/aa358f6"
+        },
+        {
+          "repo": "site",
+          "sha": "570b1e9",
+          "at": "2026-09-24T16:10:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/570b1e9"
+        },
+        {
+          "repo": "site",
+          "sha": "f23fcd9",
+          "at": "2026-09-24T16:09:05.000Z",
+          "text": "The site catches up with the app: Supabase relay, real risks, two-day milestones, full commands and live columns first on phones (SITE-11)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f23fcd9"
+        },
+        {
+          "repo": "site",
+          "sha": "0f49880",
+          "at": "2026-09-24T16:06:08.000Z",
+          "text": "YL theme sets: cherry, honey, lime, teal, grape, slate, listed by hue; ship log for the wider color picker",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0f49880"
+        },
+        {
+          "repo": "app",
+          "sha": "554704b",
+          "at": "2026-09-24T16:06:08.000Z",
+          "text": "Every look on screen: the Add agent picker is a grid sorted by hue, six new colors (cherry, honey, lime, teal, grape, slate)",
+          "url": "https://github.com/postscarcityai/yui/commit/554704b"
+        },
+        {
+          "repo": "app",
+          "sha": "67d25b6",
+          "at": "2026-09-24T15:50:20.000Z",
+          "text": "Loose quoted options become buttons and ~card@week patches the card (YL sections 4 and 5)",
+          "url": "https://github.com/postscarcityai/yui/commit/67d25b6"
+        },
+        {
+          "repo": "site",
+          "sha": "1a12772",
+          "at": "2026-09-24T15:49:51.000Z",
+          "text": "YL tolerates the two slips agents make most: loose quoted options, ~preset@id patches",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1a12772"
+        },
+        {
+          "repo": "site",
+          "sha": "02cfad2",
+          "at": "2026-09-24T15:41:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/02cfad2"
+        },
+        {
+          "repo": "site",
+          "sha": "fa51ae0",
+          "at": "2026-09-24T15:39:09.000Z",
+          "text": "Progress: answers are still there when you come back",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fa51ae0"
+        },
+        {
+          "repo": "app",
+          "sha": "91ca04d",
+          "at": "2026-09-24T15:39:00.000Z",
+          "text": "Answers are still there when you reopen a thread: chosen, picked, slid, asked and sent forms rebuilt from the thread's event rows,...",
+          "url": "https://github.com/postscarcityai/yui/commit/91ca04d"
+        },
+        {
+          "repo": "site",
+          "sha": "da8742d",
+          "at": "2026-09-24T15:36:34.000Z",
+          "text": "Roadmap phases match the work: real ship dates, card per open item, no guessed months (SITE-10)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/da8742d"
+        },
+        {
+          "repo": "app",
+          "sha": "5751b0e",
+          "at": "2026-09-24T14:17:27.000Z",
+          "text": "Sent words leave the composer, and the bubble lifts into the thread",
+          "url": "https://github.com/postscarcityai/yui/commit/5751b0e"
+        },
+        {
+          "repo": "site",
+          "sha": "808c485",
+          "at": "2026-09-24T14:17:13.000Z",
+          "text": "No sideways scroll on phones: tables scroll in their own box, long links wrap, playground fits 320 (SITE-9)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/808c485"
+        },
+        {
+          "repo": "site",
+          "sha": "0bbfd36",
+          "at": "2026-09-24T14:10:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0bbfd36"
+        },
+        {
+          "repo": "app",
+          "sha": "b9cfaed",
+          "at": "2026-09-24T14:03:41.000Z",
+          "text": "Gallery photos keep to their own space: layout test at 1-7 photos, every layout",
+          "url": "https://github.com/postscarcityai/yui/commit/b9cfaed"
+        },
+        {
+          "repo": "site",
+          "sha": "be2c7d0",
+          "at": "2026-09-24T13:43:34.000Z",
+          "text": "Progress: Done buttons always do something",
+          "url": "https://github.com/postscarcityai/yuigui/commit/be2c7d0"
+        },
+        {
+          "repo": "app",
+          "sha": "9b285c9",
+          "at": "2026-09-24T13:43:12.000Z",
+          "text": "Done always does something: gallery and pick answer with nothing ticked, photos stop covering it",
+          "url": "https://github.com/postscarcityai/yui/commit/9b285c9"
+        },
+        {
+          "repo": "site",
+          "sha": "e201c32",
+          "at": "2026-09-24T13:40:10.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e201c32"
+        },
+        {
+          "repo": "site",
+          "sha": "5a19f91",
+          "at": "2026-09-24T13:36:04.000Z",
+          "text": "Responsive header: menu button under 960px, More on desktop, 44px targets (SITE-8)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5a19f91"
+        },
+        {
+          "repo": "app",
+          "sha": "6fc0cbb",
+          "at": "2026-09-24T13:25:41.000Z",
+          "text": "Demo clips: record every preset in the simulator, cut 9:16 and 16:9 with a caption (SOC-2)",
+          "url": "https://github.com/postscarcityai/yui/commit/6fc0cbb"
+        },
+        {
+          "repo": "site",
+          "sha": "e68e7cb",
+          "at": "2026-09-24T13:22:59.000Z",
+          "text": "Progress: every full-screen view has a way out",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e68e7cb"
+        },
+        {
+          "repo": "app",
+          "sha": "e676fa3",
+          "at": "2026-09-24T13:22:43.000Z",
+          "text": "Every full screen has a way out: a real X, a swipe down, compare full screen",
+          "url": "https://github.com/postscarcityai/yui/commit/e676fa3"
+        },
+        {
+          "repo": "site",
+          "sha": "381117f",
+          "at": "2026-09-24T13:11:03.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/381117f"
+        },
+        {
+          "repo": "site",
+          "sha": "278e799",
+          "at": "2026-09-24T13:07:29.000Z",
+          "text": "Social drafter groundwork: copy validator, high-water mark, first draft (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/278e799"
+        },
+        {
+          "repo": "site",
+          "sha": "b4619d9",
+          "at": "2026-09-24T13:07:15.000Z",
+          "text": "Lead with the generative UI: \"Meet Yui, a generative user interface.\" (SITE-12)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b4619d9"
+        },
+        {
+          "repo": "site",
+          "sha": "218dddf",
+          "at": "2026-09-24T12:53:41.000Z",
+          "text": "Beta review ready: /help, full privacy page, progress entry (YUI-27)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/218dddf"
+        },
+        {
+          "repo": "app",
+          "sha": "5a9421a",
+          "at": "2026-09-24T12:52:36.000Z",
+          "text": "Ready for beta review: demo code + demo agent, Help and feedback, App Privacy answers (YUI-27)",
+          "url": "https://github.com/postscarcityai/yui/commit/5a9421a"
+        },
+        {
+          "repo": "site",
+          "sha": "d272b31",
+          "at": "2026-09-24T12:41:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d272b31"
+        },
+        {
+          "repo": "site",
+          "sha": "8ce48cf",
+          "at": "2026-09-24T12:15:46.000Z",
+          "text": "Safe for strangers: progress entry, privacy says 90-day retention (YUI-26)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8ce48cf"
+        },
+        {
+          "repo": "app",
+          "sha": "9b83d65",
+          "at": "2026-09-24T12:15:40.000Z",
+          "text": "Safe for strangers: rate limits, size caps, kill switch, 90-day retention (YUI-26)",
+          "url": "https://github.com/postscarcityai/yui/commit/9b83d65"
+        },
+        {
+          "repo": "site",
+          "sha": "33cbe16",
+          "at": "2026-09-24T11:40:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/33cbe16"
+        },
+        {
+          "repo": "site",
+          "sha": "978d227",
+          "at": "2026-09-24T11:10:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/978d227"
+        },
+        {
+          "repo": "site",
+          "sha": "2fc5fba",
+          "at": "2026-09-24T11:04:07.000Z",
+          "text": "Reliable connection: relay delivery spec, progress entry (YUI-28)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2fc5fba"
+        },
+        {
+          "repo": "app",
+          "sha": "6cdbac5",
+          "at": "2026-09-24T11:03:34.000Z",
+          "text": "Nothing lost when the Mac sleeps, the network drops or the app is killed (YUI-28)",
+          "url": "https://github.com/postscarcityai/yui/commit/6cdbac5"
+        },
+        {
+          "repo": "site",
+          "sha": "112b007",
+          "at": "2026-09-24T10:40:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/112b007"
+        },
+        {
+          "repo": "site",
+          "sha": "7cd6dbd",
+          "at": "2026-09-24T10:20:14.000Z",
+          "text": "First run progress entry, /start matches the new pairing screen (YUI-25)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7cd6dbd"
+        },
+        {
+          "repo": "app",
+          "sha": "f57df9b",
+          "at": "2026-09-24T10:18:04.000Z",
+          "text": "First run: no agents says how to connect one, three pairing commands, say hi (YUI-25)",
+          "url": "https://github.com/postscarcityai/yui/commit/f57df9b"
+        },
+        {
+          "repo": "site",
+          "sha": "dbc17d8",
+          "at": "2026-09-24T10:10:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dbc17d8"
+        },
+        {
+          "repo": "site",
+          "sha": "752b061",
+          "at": "2026-09-24T09:44:11.000Z",
+          "text": "Reply pushes: presence, per-agent mute, progress entry (YUI-24)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/752b061"
+        },
+        {
+          "repo": "app",
+          "sha": "b90f75a",
+          "at": "2026-09-24T09:43:42.000Z",
+          "text": "Reply pushes only when they help: presence, per-agent mute, killed-app E2E (YUI-24)",
+          "url": "https://github.com/postscarcityai/yui/commit/b90f75a"
+        },
+        {
+          "repo": "site",
+          "sha": "a3a8a92",
+          "at": "2026-09-24T09:40:17.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a3a8a92"
+        },
+        {
+          "repo": "site",
+          "sha": "49b101f",
+          "at": "2026-09-24T09:21:32.000Z",
+          "text": "Get started page: connect a Hermes agent in three steps (YUI-23)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/49b101f"
+        },
+        {
+          "repo": "site",
+          "sha": "897742c",
+          "at": "2026-09-24T09:10:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/897742c"
+        },
+        {
+          "repo": "app",
+          "sha": "25215dd",
+          "at": "2026-09-24T09:04:03.000Z",
+          "text": "Yui plugin installs on any Hermes host: default profile, Linux host name, next steps (YUI-23)",
+          "url": "https://github.com/postscarcityai/yui/commit/25215dd"
+        },
+        {
+          "repo": "site",
+          "sha": "6540a11",
+          "at": "2026-09-24T08:40:13.000Z",
+          "text": "Progress entry: every preset native on iPhone (YUI-19)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6540a11"
+        },
+        {
+          "repo": "site",
+          "sha": "95535e3",
+          "at": "2026-09-24T08:40:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/95535e3"
+        },
+        {
+          "repo": "app",
+          "sha": "cff56b3",
+          "at": "2026-09-24T08:39:59.000Z",
+          "text": "Native media, data and learning presets (YUI-19)",
+          "url": "https://github.com/postscarcityai/yui/commit/cff56b3"
+        },
+        {
+          "repo": "site",
+          "sha": "5233e1b",
+          "at": "2026-09-24T08:10:03.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5233e1b"
+        },
+        {
+          "repo": "site",
+          "sha": "13ce7da",
+          "at": "2026-09-24T07:42:20.000Z",
+          "text": "Sync channel guide v6 into the site (YUI-21)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/13ce7da"
+        },
+        {
+          "repo": "site",
+          "sha": "d56b95b",
+          "at": "2026-09-24T07:41:35.000Z",
+          "text": "Media: channel guide v6, RELAY media section, privacy covers photos, progress entry (YUI-21)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d56b95b"
+        },
+        {
+          "repo": "site",
+          "sha": "457068a",
+          "at": "2026-09-24T07:40:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/457068a"
+        },
+        {
+          "repo": "app",
+          "sha": "2f2cab5",
+          "at": "2026-09-24T07:40:27.000Z",
+          "text": "Pictures in, photos out: agent media through a private bucket (YUI-21)",
+          "url": "https://github.com/postscarcityai/yui/commit/2f2cab5"
+        },
+        {
+          "repo": "site",
+          "sha": "bbb66f0",
+          "at": "2026-09-24T07:10:54.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bbb66f0"
+        },
+        {
+          "repo": "app",
+          "sha": "bf8ec39",
+          "at": "2026-09-24T07:10:39.000Z",
+          "text": "Sync channel guide v5 from yuigui (YUI-10)",
+          "url": "https://github.com/postscarcityai/yui/commit/bf8ec39"
+        },
+        {
+          "repo": "site",
+          "sha": "a5ef916",
+          "at": "2026-09-24T07:09:55.000Z",
+          "text": "Channel guide v5, tested: 34-case eval, runner, example-line test, /channel page, progress entry (YUI-10)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a5ef916"
+        },
+        {
+          "repo": "site",
+          "sha": "d519b77",
+          "at": "2026-09-24T06:40:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d519b77"
+        },
+        {
+          "repo": "app",
+          "sha": "8741d83",
+          "at": "2026-09-24T06:17:53.000Z",
+          "text": "Channel guide: answers can change, newest wins, ~choose +lock (YUI-12)",
+          "url": "https://github.com/postscarcityai/yui/commit/8741d83"
+        },
+        {
+          "repo": "site",
+          "sha": "4a499fe",
+          "at": "2026-09-24T06:17:18.000Z",
+          "text": "Change your answer: changed events, +lock, playground demo, progress entry (YUI-12)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4a499fe"
+        },
+        {
+          "repo": "app",
+          "sha": "0c61cdf",
+          "at": "2026-09-24T06:15:32.000Z",
+          "text": "Change your answer: choose, pick, ask and slide stay live, +lock freezes (YUI-12)",
+          "url": "https://github.com/postscarcityai/yui/commit/0c61cdf"
+        },
+        {
+          "repo": "site",
+          "sha": "fc4e6ab",
+          "at": "2026-09-24T06:10:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fc4e6ab"
+        },
+        {
+          "repo": "app",
+          "sha": "994b307",
+          "at": "2026-09-24T05:58:34.000Z",
+          "text": "TestFlight: never reuse a build number App Store Connect already has (YUI-13)",
+          "url": "https://github.com/postscarcityai/yui/commit/994b307"
+        },
+        {
+          "repo": "site",
+          "sha": "88c9648",
+          "at": "2026-09-24T05:55:48.000Z",
+          "text": "Full screen when it matters: the stage in YL, playground, progress entry (YUI-13)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/88c9648"
+        },
+        {
+          "repo": "app",
+          "sha": "1137cbd",
+          "at": "2026-09-24T05:53:37.000Z",
+          "text": "Full screen when it matters: the stage, workouts always (YUI-13)",
+          "url": "https://github.com/postscarcityai/yui/commit/1137cbd"
+        },
+        {
+          "repo": "site",
+          "sha": "193b7fe",
+          "at": "2026-09-24T05:40:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/193b7fe"
+        },
+        {
+          "repo": "site",
+          "sha": "9985a2f",
+          "at": "2026-09-24T05:28:44.000Z",
+          "text": "Looks: generic personality set names, screenshots without private names (YUI-20)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9985a2f"
+        },
+        {
+          "repo": "app",
+          "sha": "1b3587f",
+          "at": "2026-09-24T05:28:43.000Z",
+          "text": "Looks: personality sets get generic names, demo crew too (YUI-20)",
+          "url": "https://github.com/postscarcityai/yui/commit/1b3587f"
+        },
+        {
+          "repo": "site",
+          "sha": "24abd0f",
+          "at": "2026-09-24T05:26:19.000Z",
+          "text": "YL theme line + per-agent looks: spec, parser, vectors, progress entry (YUI-20)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/24abd0f"
+        },
+        {
+          "repo": "app",
+          "sha": "11db97e",
+          "at": "2026-09-24T05:26:10.000Z",
+          "text": "Every agent has its own look: per-agent themes, theme lines, style profiles (YUI-20)",
+          "url": "https://github.com/postscarcityai/yui/commit/11db97e"
+        },
+        {
+          "repo": "site",
+          "sha": "5511bd1",
+          "at": "2026-09-24T05:10:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5511bd1"
+        },
+        {
+          "repo": "site",
+          "sha": "162aa3c",
+          "at": "2026-09-24T05:08:20.000Z",
+          "text": "Adapters plan for every agent framework, Hermes first (INT-0)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/162aa3c"
+        },
+        {
+          "repo": "site",
+          "sha": "b1b87bb",
+          "at": "2026-09-24T05:02:53.000Z",
+          "text": "Every page points to the repo, the beta and the waitlist (SITE-4)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b1b87bb"
+        },
+        {
+          "repo": "site",
+          "sha": "9df2b89",
+          "at": "2026-09-24T05:00:41.000Z",
+          "text": "Pick it up in Yui: push handoff spec + progress entry (YUI-8)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9df2b89"
+        },
+        {
+          "repo": "site",
+          "sha": "5012348",
+          "at": "2026-09-24T04:58:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5012348"
+        },
+        {
+          "repo": "app",
+          "sha": "a3c1532",
+          "at": "2026-09-24T04:58:04.000Z",
+          "text": "Pick it up in Yui: push handoff from any channel (YUI-8)",
+          "url": "https://github.com/postscarcityai/yui/commit/a3c1532"
+        },
+        {
+          "repo": "site",
+          "sha": "62dc14a",
+          "at": "2026-09-24T04:57:13.000Z",
+          "text": "Screenshots on every progress entry, and a changelog by TestFlight build (SITE-3)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/62dc14a"
+        },
+        {
+          "repo": "site",
+          "sha": "8a92df2",
+          "at": "2026-09-24T04:52:23.000Z",
+          "text": "BIZ-5 social accounts: @yuiguiai voice, bios, example posts, handle check",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8a92df2"
+        },
+        {
+          "repo": "site",
+          "sha": "3270fb6",
+          "at": "2026-09-24T04:46:18.000Z",
+          "text": "Live board at /board, exported from the kanban DB; MVP bar counts itself (SITE-2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3270fb6"
+        },
+        {
+          "repo": "site",
+          "sha": "a1c12a4",
+          "at": "2026-09-24T04:45:22.000Z",
+          "text": "YL decks, plan mode and narrated walkthroughs (YUI-18)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a1c12a4"
+        },
+        {
+          "repo": "site",
+          "sha": "d5ef8f5",
+          "at": "2026-09-24T04:36:29.000Z",
+          "text": "BIZ-4 content plan: built from what ships",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d5ef8f5"
+        },
+        {
+          "repo": "app",
+          "sha": "a18aedf",
+          "at": "2026-09-24T04:36:29.000Z",
+          "text": "Public TestFlight: every VALID build goes to the Public group and beta review (YUI-22)",
+          "url": "https://github.com/postscarcityai/yui/commit/a18aedf"
+        },
+        {
+          "repo": "site",
+          "sha": "9385580",
+          "at": "2026-09-24T04:35:52.000Z",
+          "text": "MVP roadmap + deep backlog, MVP progress bar on home and roadmap (MVP-0)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9385580"
+        },
+        {
+          "repo": "site",
+          "sha": "049c384",
+          "at": "2026-09-24T04:32:02.000Z",
+          "text": "Roadmap: plan mode is a workflow, not a preset",
+          "url": "https://github.com/postscarcityai/yuigui/commit/049c384"
+        },
+        {
+          "repo": "site",
+          "sha": "2526b02",
+          "at": "2026-09-24T04:31:38.000Z",
+          "text": "BIZ-2 outreach plan, Hermes users first",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2526b02"
+        },
+        {
+          "repo": "site",
+          "sha": "dd0e152",
+          "at": "2026-09-24T04:27:49.000Z",
+          "text": "Relay spec v1 + progress: talk to your agent in Yui (YUI-7)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dd0e152"
+        },
+        {
+          "repo": "app",
+          "sha": "ec9c683",
+          "at": "2026-09-24T04:27:38.000Z",
+          "text": "Talk to your agents in Yui: Hermes platform plugin + relay (YUI-7)",
+          "url": "https://github.com/postscarcityai/yui/commit/ec9c683"
+        },
+        {
+          "repo": "site",
+          "sha": "3fe3402",
+          "at": "2026-09-24T04:23:07.000Z",
+          "text": "Site rebrand: the app's look on yuigui.com (SITE-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3fe3402"
+        },
+        {
+          "repo": "site",
+          "sha": "680b944",
+          "at": "2026-09-24T04:21:38.000Z",
+          "text": "Business docs in the open: BIZ-1 positioning brief + /business route",
+          "url": "https://github.com/postscarcityai/yuigui/commit/680b944"
+        },
+        {
+          "repo": "site",
+          "sha": "d1488eb",
+          "at": "2026-09-24T04:18:50.000Z",
+          "text": "progress: Yui is open source",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d1488eb"
+        },
+        {
+          "repo": "site",
+          "sha": "913bd93",
+          "at": "2026-09-24T04:18:06.000Z",
+          "text": "YL data + science presets: chart, stat, math, step, calc, table units/sort (YUI-17)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/913bd93"
+        },
+        {
+          "repo": "site",
+          "sha": "721dd5b",
+          "at": "2026-09-24T04:17:37.000Z",
+          "text": "Open source readiness: Apache-2.0, README, contributing, security, templates",
+          "url": "https://github.com/postscarcityai/yuigui/commit/721dd5b"
+        },
+        {
+          "repo": "app",
+          "sha": "1a8fbcd",
+          "at": "2026-09-24T04:17:37.000Z",
+          "text": "Open source readiness: Apache-2.0, README, contributing, security, templates",
+          "url": "https://github.com/postscarcityai/yui/commit/1a8fbcd"
+        },
+        {
+          "repo": "site",
+          "sha": "9465d90",
+          "at": "2026-09-24T04:05:17.000Z",
+          "text": "Keep docs/business private (gitignore)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9465d90"
+        },
+        {
+          "repo": "site",
+          "sha": "439e66a",
+          "at": "2026-09-24T04:01:14.000Z",
+          "text": "Agents spec v1 + progress: your agents are yours to add (YUI-15)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/439e66a"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-23",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-24T03:59:08.000Z",
+          "title": "Yui Lines learn pictures and video",
+          "card": "YUI-16",
+          "anchor": "yui-lines-learn-pictures-and-video",
+          "images": [
+            {
+              "src": "/progress/yui16-gallery.webp",
+              "alt": "A photo gallery screen, cards stacked in 3D"
+            },
+            {
+              "src": "/progress/yui16-compare.webp",
+              "alt": "A before and after slider on a room photo, with numbered changes"
+            },
+            {
+              "src": "/progress/yui16-lightbox.webp",
+              "alt": "A gallery photo opened full screen"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 14,
+            "site": 26,
+            "builds": 7,
+            "shipped": 18
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T03:40:46.000Z",
+          "title": "Beta feedback: the debug screen is gone",
+          "card": "YUI-11",
+          "anchor": "beta-feedback-the-debug-screen-is-gone",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 13,
+            "site": 24,
+            "builds": 7,
+            "shipped": 17
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T03:40:41.000Z",
+          "build": 13,
+          "changes": 2,
+          "totals": {
+            "app": 13,
+            "site": 23,
+            "builds": 7,
+            "shipped": 16
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T03:27:26.000Z",
+          "build": 11,
+          "changes": 1,
+          "totals": {
+            "app": 11,
+            "site": 22,
+            "builds": 6,
+            "shipped": 16
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T03:24:20.000Z",
+          "title": "Accounts: Sign in with Apple, and delete it in the app",
+          "card": "YUI-6",
+          "anchor": "accounts-sign-in-with-apple-and-delete-it-in-the-app",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 10,
+            "site": 22,
+            "builds": 5,
+            "shipped": 16
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T03:12:47.000Z",
+          "build": 10,
+          "changes": 1,
+          "totals": {
+            "app": 10,
+            "site": 21,
+            "builds": 5,
+            "shipped": 15
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T03:12:08.000Z",
+          "title": "Yui drops the cat",
+          "card": "YUI-9",
+          "anchor": "yui-drops-the-cat",
+          "images": [
+            {
+              "src": "/progress/yui9-empty.webp",
+              "alt": "The empty chat after the cat was dropped: just the coral wordmark, dark theme"
+            },
+            {
+              "src": "/progress/yui9-chat.webp",
+              "alt": "A chat with a timer card and no mascot"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 10,
+            "site": 21,
+            "builds": 4,
+            "shipped": 15
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T03:07:14.000Z",
+          "title": "Yui draws its first six screens",
+          "card": "YUI-4",
+          "anchor": "yui-draws-its-first-six-screens",
+          "images": [
+            {
+              "src": "/progress/yui4-choose.webp",
+              "alt": "A choose screen in chat: which split today, push, pull or legs"
+            },
+            {
+              "src": "/progress/yui4-tabata.webp",
+              "alt": "A Tabata timer card counting down in chat, dark theme"
+            },
+            {
+              "src": "/progress/yui4-checkin.webp",
+              "alt": "A daily check-in form with a mood slider, switches and notes"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 9,
+            "site": 20,
+            "builds": 4,
+            "shipped": 14
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T03:06:42.000Z",
+          "build": 9,
+          "changes": 1,
+          "totals": {
+            "app": 9,
+            "site": 19,
+            "builds": 4,
+            "shipped": 13
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T02:51:45.000Z",
+          "build": 8,
+          "changes": 3,
+          "totals": {
+            "app": 8,
+            "site": 18,
+            "builds": 3,
+            "shipped": 13
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T02:51:25.000Z",
+          "title": "The wordmark moves into the app",
+          "card": "YUI-5",
+          "anchor": "the-wordmark-moves-into-the-app",
+          "images": [
+            {
+              "src": "/progress/yui5-empty.webp",
+              "alt": "The empty chat with the coral Yui wordmark"
+            },
+            {
+              "src": "/progress/yui5-chat.webp",
+              "alt": "A chat with the wordmark in the top bar"
+            },
+            {
+              "src": "/progress/yui5-settings.webp",
+              "alt": "Settings in the dark theme with the wordmark"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 8,
+            "site": 18,
+            "builds": 2,
+            "shipped": 13
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T02:33:29.000Z",
+          "title": "Yui Lines has a test suite",
+          "card": "YUI-3",
+          "anchor": "yui-lines-has-a-test-suite",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 5,
+            "site": 15,
+            "builds": 2,
+            "shipped": 12
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T02:29:02.000Z",
+          "build": 5,
+          "changes": 1,
+          "totals": {
+            "app": 5,
+            "site": 14,
+            "builds": 2,
+            "shipped": 11
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T02:28:27.000Z",
+          "title": "Yui gets a face",
+          "card": "YUI-2",
+          "anchor": "yui-gets-a-face",
+          "images": [
+            {
+              "src": "/progress/yui2-chat-light.webp",
+              "alt": "The first chat screen in the light theme, with the cat mascot"
+            },
+            {
+              "src": "/progress/yui2-chat-dark.webp",
+              "alt": "The same chat in the dark theme"
+            },
+            {
+              "src": "/progress/yui2-mascot.webp",
+              "alt": "The cat mascot we picked, later dropped"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 5,
+            "site": 14,
+            "builds": 1,
+            "shipped": 11
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T00:16:22.000Z",
+          "title": "First TestFlight build",
+          "card": null,
+          "anchor": "first-testflight-build",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 4,
+            "site": 12,
+            "builds": 1,
+            "shipped": 10
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-24T00:14:51.000Z",
+          "build": 4,
+          "changes": 4,
+          "totals": {
+            "app": 4,
+            "site": 11,
+            "builds": 1,
+            "shipped": 9
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-23T23:27:17.000Z",
+          "title": "Waitlist open",
+          "card": null,
+          "anchor": "waitlist-open",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 0,
+            "site": 10,
+            "builds": 0,
+            "shipped": 9
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-23T23:27:17.000Z",
+          "title": "Apple Developer account active",
+          "card": null,
+          "anchor": "apple-developer-account-active",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 0,
+            "site": 10,
+            "builds": 0,
+            "shipped": 8
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-23T23:05:53.000Z",
+          "title": "yuigui.com is live",
+          "card": null,
+          "anchor": "yuigui-com-is-live",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 0,
+            "site": 9,
+            "builds": 0,
+            "shipped": 7
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-23T23:05:53.000Z",
+          "title": "Stack decision: all Swift",
+          "card": null,
+          "anchor": "stack-decision-all-swift",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 0,
+            "site": 9,
+            "builds": 0,
+            "shipped": 6
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-23T23:05:53.000Z",
+          "title": "Source on GitHub",
+          "card": null,
+          "anchor": "source-on-github",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 0,
+            "site": 9,
+            "builds": 0,
+            "shipped": 5
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-23T23:05:53.000Z",
+          "title": "Yui Lines v0: spec, 12 presets, playground, token benchmark",
+          "card": "YUI-1",
+          "anchor": "yui-lines-v0-spec-12-presets-playground-token-benchmark",
+          "images": [
+            {
+              "src": "/progress/yui1-presets.webp",
+              "alt": "The first twelve Yui Lines presets rendered in the web playground"
+            },
+            {
+              "src": "/progress/yui1-benchmark.webp",
+              "alt": "The token benchmark table: Yui Lines against JSON for the same screens"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 0,
+            "site": 9,
+            "builds": 0,
+            "shipped": 4
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-23T23:05:53.000Z",
+          "title": "Hub site live (Phase 0)",
+          "card": "YUI-0",
+          "anchor": "hub-site-live-phase-0",
+          "images": [
+            {
+              "src": "/progress/yui0-home.webp",
+              "alt": "The first hub site, dark and plain, the day it went live"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 0,
+            "site": 9,
+            "builds": 0,
+            "shipped": 3
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-23T23:05:53.000Z",
+          "title": "Roadmap v1",
+          "card": null,
+          "anchor": "roadmap-v1",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 0,
+            "site": 9,
+            "builds": 0,
+            "shipped": 2
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-23T23:05:53.000Z",
+          "title": "Pitch recorded and transcribed",
+          "card": null,
+          "anchor": "pitch-recorded-and-transcribed",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 0,
+            "site": 9,
+            "builds": 0,
+            "shipped": 1
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "3117160",
+          "at": "2026-09-24T03:59:08.000Z",
+          "text": "YL media presets: gallery, video, compare, storyboard, image +edit (YUI-16)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3117160"
+        },
+        {
+          "repo": "app",
+          "sha": "86b7f70",
+          "at": "2026-09-24T03:59:05.000Z",
+          "text": "Agents are yours: registry, pairing codes, agent access tokens, Agents sheet (YUI-15)",
+          "url": "https://github.com/postscarcityai/yui/commit/86b7f70"
+        },
+        {
+          "repo": "site",
+          "sha": "8b0094b",
+          "at": "2026-09-24T03:49:50.000Z",
+          "text": "Roadmap draft 5: preset library + per-agent look and feel",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8b0094b"
+        },
+        {
+          "repo": "site",
+          "sha": "0e98316",
+          "at": "2026-09-24T03:40:46.000Z",
+          "text": "Progress: beta feedback, the debug screen is gone (YUI-11)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0e98316"
+        },
+        {
+          "repo": "app",
+          "sha": "0a198af",
+          "at": "2026-09-24T03:38:29.000Z",
+          "text": "Remove the Paste YL debug screen; top-left button opens your agents (YUI-11)",
+          "url": "https://github.com/postscarcityai/yui/commit/0a198af"
+        },
+        {
+          "repo": "site",
+          "sha": "913b286",
+          "at": "2026-09-24T03:37:10.000Z",
+          "text": "Roadmap draft 4: north star, immersive full screen, voice in/text out, editable answers",
+          "url": "https://github.com/postscarcityai/yuigui/commit/913b286"
+        },
+        {
+          "repo": "app",
+          "sha": "4be0cf7",
+          "at": "2026-09-24T03:35:40.000Z",
+          "text": "Ignore supabase CLI temp dir",
+          "url": "https://github.com/postscarcityai/yui/commit/4be0cf7"
+        },
+        {
+          "repo": "app",
+          "sha": "d8515b7",
+          "at": "2026-09-24T03:25:10.000Z",
+          "text": "Accounts: Sign in with Apple and in-app account deletion (YUI-6)",
+          "url": "https://github.com/postscarcityai/yui/commit/d8515b7"
+        },
+        {
+          "repo": "site",
+          "sha": "faa0993",
+          "at": "2026-09-24T03:24:20.000Z",
+          "text": "Privacy page: what the app stores and how deletion works (YUI-6)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/faa0993"
+        },
+        {
+          "repo": "site",
+          "sha": "16bb84a",
+          "at": "2026-09-24T03:12:08.000Z",
+          "text": "Progress: Yui drops the cat (build 10)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/16bb84a"
+        },
+        {
+          "repo": "app",
+          "sha": "bee7944",
+          "at": "2026-09-24T03:10:28.000Z",
+          "text": "Drop the cat: typographic identity only",
+          "url": "https://github.com/postscarcityai/yui/commit/bee7944"
+        },
+        {
+          "repo": "site",
+          "sha": "60067d7",
+          "at": "2026-09-24T03:07:14.000Z",
+          "text": "Progress: Yui draws its first six screens (build 9)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/60067d7"
+        },
+        {
+          "repo": "app",
+          "sha": "c699523",
+          "at": "2026-09-24T03:02:56.000Z",
+          "text": "First six presets render in chat: ask, choose, pick, form, list, timer",
+          "url": "https://github.com/postscarcityai/yui/commit/c699523"
+        },
+        {
+          "repo": "site",
+          "sha": "dac0d13",
+          "at": "2026-09-24T03:00:50.000Z",
+          "text": "Yui channel guide v0: instructions every agent gets on the yui channel",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dac0d13"
+        },
+        {
+          "repo": "site",
+          "sha": "88970ed",
+          "at": "2026-09-24T02:51:25.000Z",
+          "text": "Progress: the wordmark moves into the app (build 8)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/88970ed"
+        },
+        {
+          "repo": "app",
+          "sha": "f85580a",
+          "at": "2026-09-24T02:48:28.000Z",
+          "text": "Coral wordmark in the app: nav, empty state, settings; coral is the brand token",
+          "url": "https://github.com/postscarcityai/yui/commit/f85580a"
+        },
+        {
+          "repo": "site",
+          "sha": "03b500f",
+          "at": "2026-09-24T02:46:28.000Z",
+          "text": "Roadmap draft 3: Phase 1 = Hermes platform plugin, accounts + deletion, push handoff",
+          "url": "https://github.com/postscarcityai/yuigui/commit/03b500f"
+        },
+        {
+          "repo": "app",
+          "sha": "6ca3ca3",
+          "at": "2026-09-24T02:39:17.000Z",
+          "text": "App icon: coral Yui wordmark on cream (Chris's sketch)",
+          "url": "https://github.com/postscarcityai/yui/commit/6ca3ca3"
+        },
+        {
+          "repo": "site",
+          "sha": "2997854",
+          "at": "2026-09-24T02:34:27.000Z",
+          "text": "Brand: Yui wordmark from Chris's sketch, transparent PNGs in 5 colorways",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2997854"
+        },
+        {
+          "repo": "app",
+          "sha": "d350f2d",
+          "at": "2026-09-24T02:33:35.000Z",
+          "text": "YuiLines: Swift Yui Lines parser package, passes the shared conformance suite",
+          "url": "https://github.com/postscarcityai/yui/commit/d350f2d"
+        },
+        {
+          "repo": "site",
+          "sha": "3e55112",
+          "at": "2026-09-24T02:33:29.000Z",
+          "text": "Yui Lines conformance suite: 165 shared vectors + JS runner",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3e55112"
+        },
+        {
+          "repo": "site",
+          "sha": "0620cfc",
+          "at": "2026-09-24T02:28:27.000Z",
+          "text": "Progress: Yui gets a face",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0620cfc"
+        },
+        {
+          "repo": "app",
+          "sha": "e963d62",
+          "at": "2026-09-24T02:26:52.000Z",
+          "text": "Yui gets a face: Korean-cute theme, cat mascot, light/dark toggle",
+          "url": "https://github.com/postscarcityai/yui/commit/e963d62"
+        },
+        {
+          "repo": "site",
+          "sha": "b132d0e",
+          "at": "2026-09-24T02:22:43.000Z",
+          "text": "Roadmap: look and feel + generative app styling",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b132d0e"
+        },
+        {
+          "repo": "site",
+          "sha": "71965c2",
+          "at": "2026-09-24T00:16:22.000Z",
+          "text": "Progress: first TestFlight build",
+          "url": "https://github.com/postscarcityai/yuigui/commit/71965c2"
+        },
+        {
+          "repo": "app",
+          "sha": "94d0082",
+          "at": "2026-09-24T00:12:54.000Z",
+          "text": "Placeholder app icon (brand gradient)",
+          "url": "https://github.com/postscarcityai/yui/commit/94d0082"
+        },
+        {
+          "repo": "site",
+          "sha": "978d8dc",
+          "at": "2026-09-24T00:10:33.000Z",
+          "text": "Site: add Google Analytics tag (G-VYENQDDF00) to root layout",
+          "url": "https://github.com/postscarcityai/yuigui/commit/978d8dc"
+        },
+        {
+          "repo": "app",
+          "sha": "0e3950d",
+          "at": "2026-09-23T23:58:59.000Z",
+          "text": "ASC API client script",
+          "url": "https://github.com/postscarcityai/yui/commit/0e3950d"
+        },
+        {
+          "repo": "app",
+          "sha": "f47b21f",
+          "at": "2026-09-23T23:30:58.000Z",
+          "text": "TestFlight upload script (ASC API key)",
+          "url": "https://github.com/postscarcityai/yui/commit/f47b21f"
+        },
+        {
+          "repo": "app",
+          "sha": "b253658",
+          "at": "2026-09-23T23:30:41.000Z",
+          "text": "Yui iOS shell: SwiftUI chat screen, xcodegen project",
+          "url": "https://github.com/postscarcityai/yui/commit/b253658"
+        },
+        {
+          "repo": "site",
+          "sha": "5fccad2",
+          "at": "2026-09-23T23:27:17.000Z",
+          "text": "Waitlist (yui_waitlist in PSAI Supabase), Apple account live, progress + roadmap",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5fccad2"
+        },
+        {
+          "repo": "site",
+          "sha": "5ff9145",
+          "at": "2026-09-23T23:05:53.000Z",
+          "text": "Build in public: progress log as data, weekly update procedure, yuigui.com live",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5ff9145"
+        },
+        {
+          "repo": "site",
+          "sha": "267e216",
+          "at": "2026-09-23T23:04:41.000Z",
+          "text": "Stack: native SwiftUI, no Watch yet; site synced",
+          "url": "https://github.com/postscarcityai/yuigui/commit/267e216"
+        },
+        {
+          "repo": "site",
+          "sha": "c0f7f4c",
+          "at": "2026-09-23T22:40:35.000Z",
+          "text": "Pitch rec 366: recording, transcript, summary",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c0f7f4c"
+        },
+        {
+          "repo": "site",
+          "sha": "9c91fd3",
+          "at": "2026-09-23T21:52:55.000Z",
+          "text": "Yui Lines v0: spec, parser, 12 presets, playground, token benchmark",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9c91fd3"
+        },
+        {
+          "repo": "site",
+          "sha": "e7bac92",
+          "at": "2026-09-23T21:40:27.000Z",
+          "text": "Site: sync roadmap with presets + Yui Lines",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e7bac92"
+        },
+        {
+          "repo": "site",
+          "sha": "d85b31b",
+          "at": "2026-09-23T21:38:38.000Z",
+          "text": "Roadmap: presets + Yui Lines replace JSON protocol",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d85b31b"
+        },
+        {
+          "repo": "site",
+          "sha": "90fe252",
+          "at": "2026-09-23T21:38:17.000Z",
+          "text": "Roadmap: preset system + Yui Lines wire format",
+          "url": "https://github.com/postscarcityai/yuigui/commit/90fe252"
+        },
+        {
+          "repo": "site",
+          "sha": "9a9e488",
+          "at": "2026-09-23T21:36:49.000Z",
+          "text": "Yui hub site (Phase 0): overview, roadmap, progress, plan, deck, mockups",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9a9e488"
+        },
+        {
+          "repo": "site",
+          "sha": "2a33677",
+          "at": "2026-09-23T21:31:33.000Z",
+          "text": "Yui roadmap v1 from pitch rec 366",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2a33677"
+        }
+      ]
+    }
+  ]
+}

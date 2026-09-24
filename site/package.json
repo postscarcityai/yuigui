@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "sync": "node scripts/sync-content.mjs",
+    "sync": "node scripts/sync-content.mjs && node scripts/export-timeline.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"

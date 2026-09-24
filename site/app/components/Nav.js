@@ -12,7 +12,7 @@ export const sections = [
   { href: "/mockups", label: "See it" },
   {
     href: "/roadmap", label: "Roadmap",
-    pages: [["/roadmap", "Roadmap"], ["/board", "Board"], ["/progress", "Shipped"], ["/changelog", "Builds"]],
+    pages: [["/roadmap", "Roadmap"], ["/board", "Board"], ["/progress", "Shipped"], ["/changelog", "Builds"], ["/timeline", "Timeline"]],
   },
   {
     href: "/developers", label: "Developers",

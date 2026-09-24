@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Watch Yui grow: the whole history on one page",
+    "card": "SITE-16",
+    "body": "Yui is built in public, so every step is already on GitHub. The new Timeline page, under Roadmap, reads it back. Press play and it steps through every shipped change that has a screenshot, oldest first, while four counters climb: app commits, site commits, TestFlight builds and changes shipped. Drag the slider to jump to any moment. Below it, each day lists what shipped and each build, by the minute, with its screenshots, and every commit that day links to GitHub. It rebuilds itself from the git history whenever the site deploys, and it checks every line against the same list that keeps private names off the public board.",
+    "images": [
+      {
+        "src": "/progress/site16-timeline.webp",
+        "alt": "The Timeline page on a laptop: Watch Yui grow, with a Coach tabata timer screenshot on the left and counters on the right reading 19 app commits, 48 site commits, 16 builds and 35 shipped, above a play button and a slider at 16 of 39."
+      },
+      {
+        "src": "/progress/site16-grow-phone.webp",
+        "alt": "The same player on a phone: the screenshot on top, then Every agent has its own look, four small counters in a row, and the play button with the slider."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "No dead buttons: a plan ends in Send, and agents stop adding 'Got it'",
     "card": "YUI-53",
     "body": "Chris spotted two things. The last button of a question flow said \"Create project\" even when nothing was a project. And agents sometimes ended a card with a lone \"Got it\" button that did nothing. Now a plan's last button says Send, in the app, on the site and in all three Yui Lines parsers. The channel guide every agent gets (v8) says every button does something: no buttons that only acknowledge, a card with nothing to act on has no button, and a submit is named for what happens. The channel eval now fails any reply with a dead button and has three new cases that tempt one. It scored 38 of 40, and neither miss was a button.",
@@ -241,7 +257,7 @@
     "images": [
       {
         "src": "/progress/site8-phone-closed.webp",
-        "alt": "yuigui.com on a phone: the header shows the Yui logo, a moon theme button and a round menu button, with the page headline right below."
+        "alt": "yuigui.com on a phone: the header shows the Yui logo, a dark mode button and a round menu button, with the page headline right below."
       },
       {
         "src": "/progress/site8-phone-menu.webp",

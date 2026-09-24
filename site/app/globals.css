@@ -781,3 +781,51 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
   .qs { grid-template-columns: 1fr; }
   .qs-phone { position: static; }
 }
+
+/* Timeline (SITE-16): the "watch Yui grow" player and the day-by-day log. */
+.grow { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 22px; align-items: center; margin: 28px 0 40px; background: var(--surface); border: 1.5px solid var(--outline); border-radius: var(--r-card); padding: 18px; box-shadow: var(--shadow); }
+.grow-stage { height: 440px; display: flex; align-items: center; justify-content: center; background: var(--raised); border-radius: 20px; overflow: hidden; }
+.grow-stage img { max-width: 100%; max-height: 100%; object-fit: contain; animation: grow-in .5s ease-out; }
+@keyframes grow-in { from { opacity: 0; transform: scale(.96) translateY(8px); } to { opacity: 1; transform: none; } }
+.grow-when { color: var(--mint-ink); font-size: 14px; font-weight: 700; display: flex; gap: 8px; align-items: baseline; }
+.grow-title { display: block; margin: 6px 0 14px; font-size: 22px; font-weight: 800; line-height: 1.25; color: var(--ink); text-decoration: none; min-height: 2.5em; }
+.grow-title:hover { color: var(--link); }
+.grow-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 16px; }
+.grow-stats div { background: var(--raised); border-radius: 16px; padding: 10px 14px; }
+.grow-stats dt { font-size: 12px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.grow-stats dd { margin: 2px 0 0; font-size: 28px; font-weight: 800; color: var(--ink); font-variant-numeric: tabular-nums; }
+.grow-ctl { display: flex; align-items: center; gap: 12px; }
+.grow-play { flex: none; width: 48px; height: 48px; border-radius: 50%; border: 0; background: var(--brand); color: var(--on-brand); font-size: 17px; font-weight: 800; cursor: pointer; box-shadow: var(--shadow); }
+.grow-ctl input[type="range"] { flex: 1; min-width: 0; accent-color: var(--brand); }
+.grow-n { flex: none; font-size: 13px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tl-day h2 { margin-bottom: 2px; }
+.tl-sum { margin: 0; color: var(--muted); font-weight: 600; }
+.log.tl h3 { margin: 2px 0 4px; font-size: 18px; }
+.log.tl h3 a { color: inherit; text-decoration: none; }
+.log.tl h3 a:hover { color: var(--link); }
+.log.tl h3 .bkey { margin-left: 8px; }
+.log.tl .thumb img { height: 150px; max-width: 220px; }
+.log.tl .thumbs.one .thumb { max-width: 360px; }
+.log.tl .thumbs.one .thumb img { max-height: 240px; }
+.log.tl li.tl-build { padding-bottom: 18px; }
+.log.tl li.tl-build::before { background: var(--mint); }
+.log.tl .tl-build .pill { margin-top: 4px; text-decoration: none; }
+.tl-note { margin-left: 8px; color: var(--muted); font-size: 14px; }
+.tl-commits { margin: -8px 0 36px; background: var(--surface); border: 1.5px solid var(--outline); border-radius: 18px; padding: 12px 16px; }
+.tl-commits summary { cursor: pointer; font-weight: 800; }
+.tl-commits ul { list-style: none; padding: 0; margin: 10px 0 0; font-size: 14px; }
+.tl-commits li { padding: 5px 0; border-top: 1px solid var(--outline); overflow-wrap: anywhere; }
+.tl-time { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 8px; }
+.tl-repo { display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; border-radius: 999px; padding: 1px 8px; margin-right: 8px; color: #2A2238; background: var(--lavender); }
+.tl-repo.app { background: var(--brand); }
+@media (max-width: 760px) {
+  .grow { grid-template-columns: 1fr; gap: 14px; padding: 12px; }
+  .grow-stage { height: 360px; }
+  .grow-title { font-size: 19px; min-height: 0; }
+  .grow-stats { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+  .grow-stats div { padding: 8px 6px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+  .grow-stats dt { font-size: 10px; letter-spacing: 0; }
+  .grow-stats dd { font-size: 22px; }
+  .log.tl .thumb img { height: 120px; max-width: 150px; }
+}
+@media (prefers-reduced-motion: reduce) { .grow-stage img { animation: none; } }
