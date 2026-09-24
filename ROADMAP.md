@@ -65,6 +65,7 @@ Building now:
 
 Up next:
 
+- YUI-52: a new TestFlight build with today's feedback fixes: the composer clears, the gallery closes, photos stop overlapping, a natural voice, more colors, photos and hold-to-talk in the composer.
 - YUI-50: chat polish. The composer clears when you send (a bug today), your text floats up into its bubble, and a down arrow takes you back to the newest message.
 - YUI-29: the acceptance run. A stranger does the whole path.
 
