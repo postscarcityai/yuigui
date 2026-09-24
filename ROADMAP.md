@@ -1,4 +1,4 @@
-# Yui | roadmap (draft 3, Sep 23 2026)
+# Yui | roadmap (draft 4, Sep 24 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
@@ -15,6 +15,16 @@ yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch re
 - "You're not going to one shot this whole company."
 
 Short version: chat first, screens on demand, many agents in one app, Chris's own Hermes fleet is customer zero.
+
+## North star: not just another AI chatbot
+
+Chris, Sep 24: "I want these to be truly unique experiences." Every decision gets checked against this. Chat is the doorway, not the product. Three commitments follow:
+
+1. **Immersive by default when it matters.** The agent's UI can take over the whole screen, not just sit as a bubble in chat. The agent decides when a full-screen view is worth it; workouts always go full screen. The user can always leave with a swipe down or an X, and the chat is right underneath. Planned as Yui Lines `>full` (route the following lines to a full-screen stage) plus a per-preset default (timer, camera and mic default to full screen). Card YUI-13.
+2. **Voice in, text out, fast.** Talk naturally, read the answer. On-device speech (iOS 26 SpeechAnalyzer) streams words as you speak, a hands-free mode keeps the mic open between turns, and the first word of the reply lands in well under a second of you finishing. Card YUI-14.
+3. **Answers are never locked.** Change your mind on any choice and the agent adapts (YUI-12, shipping in Phase 1). An agent can lock something on purpose, like a confirmed booking.
+
+In-chat screens stay: they are right for quick asks. Full screen is for the moments that deserve it.
 
 ## The core bet: presets and settings, not generated UI code
 
@@ -116,6 +126,8 @@ Deliverables:
 - Live Activity for the timer preset: rounds keep counting on the lock screen and Dynamic Island.
 
 Dependencies: Phase 1 relay stable. APNs key from the Apple account.
+
+Phase 2 also carries the immersive work (North star 1 and 2): the full-screen stage with swipe-down or X to exit, full-screen workouts with a lock-screen Live Activity, and hands-free voice in with text out.
 
 ### Phase 3 | January 2027: data and keys
 
