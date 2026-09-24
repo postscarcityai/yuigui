@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Ready for Apple's beta review: a demo agent, help, and a full privacy page",
+    "card": "YUI-27",
+    "body": "Apple's reviewer needs to see Yui work, but a new account has no agent until you connect your own. So the sign-in screen now has a small Demo code link. The code lives only in the review notes, and it opens one shared demo account with an agent called Demo. Demo is scripted, with no AI model behind it and no access to any computer: say hi and it answers with a menu, tap Workout and the next screen asks what gear you have. If the reviewer deletes the demo account, it comes back empty and Demo reconnects within about a minute. Settings has a new Help and feedback section: a help page at yuigui.com/help, the connect guide, and an email link that fills in your app version. The privacy page now lists everything Yui keeps: the computers your agents run on, agent access keys, the counters behind the limits, one day of addresses for wrong pairing codes, and what we declare on Apple's privacy label. Tested live: 21 checks on the demo sign-in and agent, plus a simulator run from the demo code to Settings.",
+    "images": [
+      {
+        "src": "/progress/yui27-signin.webp",
+        "alt": "Yui sign-in screen with Sign in with Apple and three small links under it: How it works, Your data, Demo code"
+      },
+      {
+        "src": "/progress/yui27-demo.webp",
+        "alt": "The Demo agent's thread: a greeting and a card asking What should we try? with Workout, Plan dinner, Focus timer, My week and Quick lesson buttons"
+      },
+      {
+        "src": "/progress/yui27-help.webp",
+        "alt": "Settings showing a Help and feedback card with Help and questions, Connect an agent and Email us, above the Account card that reads Demo account"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Safe for strangers: limits, an off switch, and 90 days of history",
     "card": "YUI-26",
     "body": "Before anyone outside can install Yui, the backend has to hold up against people we don't know. Yui now has limits on how fast an account can send and how fast an agent's computer can answer, sized so a phone that was offline or a Mac that slept can still catch up in one go. A refused message is not lost: the app and the agent's computer keep it and try again a little later. There are also caps on message size, pictures per day, agents, connected computers and phones per account. We can switch off one account or one computer at once if it misbehaves, without deleting anything, and switch it back on. Messages older than 90 days are now deleted automatically. We tested it with two strangers' accounts trying to read, write, edit, delete and upload into each other's threads and reach anything outside Yui's own tables: 85 live checks, all passing. Nothing to see in the app for this one, it is all on the server. The full limits table is in the app repo's README."
