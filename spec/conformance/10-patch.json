@@ -202,6 +202,75 @@
         }
       ],
       "error": true
+    },
+    {
+      "name": "patch preset@id resolves to the id made in this reply",
+      "input": "card@week \"This week\" body=\"Mon legs\"\n~card@week body=\"Mon rest\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "week",
+          "props": {
+            "title": "This week",
+            "body": "Mon legs"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "week",
+          "props": {
+            "body": "Mon rest"
+          }
+        }
+      ]
+    },
+    {
+      "name": "patch preset@id with no such id falls back to the preset name",
+      "input": "~card@week body=\"Mon rest\"",
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "card",
+          "props": {
+            "body": "Mon rest"
+          }
+        }
+      ]
+    },
+    {
+      "name": "patch preset@id whose id is another preset is an error",
+      "input": "timer@week 60\n~card@week body=x",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "week",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "patch preset@id with an unknown preset is an error",
+      "input": "~cards@week body=x",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
     }
   ]
 }

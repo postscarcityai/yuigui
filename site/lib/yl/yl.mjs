@@ -209,6 +209,13 @@ const P = {
       if (t.parts && !o.options) o.options = t.parts;
       else q.push(t);
     }
+    // Loose options (section 4, ask): with no options token, two or more
+    // quoted tokens at the end, after at least one question token, are the options.
+    if (!o.options) {
+      let k = q.length;
+      while (k > 1 && q[k - 1].quoted) k--;
+      if (q.length - k >= 2) o.options = q.splice(k).map((t) => t.text);
+    }
     if (q.length) o.q = joinText(q);
     return o;
   },
@@ -614,7 +621,15 @@ export class Parser {
     const head = tokens.shift().raw;
 
     if (head.startsWith("~")) {
-      const target = head.slice(1);
+      let target = head.slice(1);
+      // ~preset@id (section 5): the id when this reply made it, else the preset name.
+      const pm = target.match(/^([a-z]+)@([\w-]+)$/);
+      if (pm) {
+        if (!PRESETS.includes(pm[1]) && pm[1] !== "say" && pm[1] !== "custom") return { op: "error", screen, message: `patch: unknown preset "${pm[1]}"`, line };
+        const known = this.ids.get(pm[2]);
+        if (known && known !== pm[1]) return { op: "error", screen, message: `patch: "${pm[2]}" is a ${known}, not a ${pm[1]}`, line };
+        target = known ? pm[2] : pm[1];
+      }
       const preset = PRESETS.includes(target) || target === "say" ? target : this.ids.get(target);
       if (!preset) return { op: "error", screen, message: `patch: nothing called "${target}"`, line };
       if (preset === "custom") return { op: "error", screen, message: "patch: custom blocks are replaced, not patched", line };

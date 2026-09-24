@@ -13,10 +13,11 @@ Does the channel guide (`spec/CHANNEL.md`) make an agent use Yui well? 34 realis
 | v4 | 703 | 32/34 (94%) | 28/34 (82%) | patch by bare preset name; "never ask what they already told you"; "free text is a form or mic" (this one backfired: Sonnet turned questions into forms) |
 | v5 | 702 | 33/34 (97%) | 27/34 (79%) | v3 plus v4's first two changes, without the free-text line. |
 | **v6** | **750** | **33/34 (97%)** | | v5 plus one media line (YUI-21): file paths and tool URLs in a line get hosted, `hermes yui media`, photos arrive as files. No regression; the miss is `patch-timer-rounds`. **Shipped.** |
+| v6, tolerant parser | 750 | 33/34 (97%) | 30/34 (88%) | same guide; the parser reads loose quoted options and `~preset@id` (YL.md sections 4 and 5). Scorer counts a line as failed only when it still has nothing to tap. |
 
 Before and after, on the fleet's model (Opus 5.5): **74% to 97%**, with the guide 20% shorter. On Sonnet 5, 68% to 79%. Scores between v2 and v5 are within run-to-run noise (about two cases either way), so v5 ships because it adds a correct rule (patch by bare preset name), not because of its last point.
 
-Every score above uses the final scorer and final cases. Each report was re-scored with `run.mjs --rescore`, and the saved replies were not re-run.
+Every score up to v6 uses the final cases and the scorer as it stood before the tolerant parser, re-scored with `run.mjs --rescore` without re-running the saved replies. The tolerant-parser rows use the current parser and scorer.
 
 ## What the eval found
 
@@ -27,8 +28,8 @@ Every score above uses the final scorer and final cases. Each report was re-scor
 
 ## Known gaps
 
-- **Sonnet 5 sits around 80%.** Its steady misses: `~card@week` (a preset and an id together, which never parses), forms where a question would do, a `pick` with no options, and an unclosed fence. Two of its misses in each run were harness noise: with tools off, it sometimes tries to read a memory file instead of answering (today-plan, decision-three-options, list-groceries).
-- **Two parser changes would fix whole classes of failure better than more words in the guide:** read loose quoted tokens after the question as options, and resolve `~preset@id` to the id. Either one is a YL spec change and belongs on its own card.
+- **Sonnet 5 sits around 80-88%.** Its steady misses: forms or plain text where a question would do (schedule-call, flow-onboard-goal), a `pick` where a list was asked for, and an unclosed fence. Some misses in each run are harness noise: with tools off, it sometimes tries to read a memory file instead of answering (today-plan, decision-three-options, list-groceries).
+- **The parser now tolerates the two slips agents make most** (YL.md sections 4 and 5): `choose "Q?" "A" "B"` reads the trailing quoted tokens as options, and `~card@week` patches `week` when that reply made it and the newest `card` otherwise. Honest size of the win: Sonnet's `~card@week` shows up in patch-plan-card in every Sonnet run (v3, v4, v5, v6) and now passes, so that is one case. Loose options appeared in v0 and v1 replies (up to nine lines in v1) and in none since the v2 guide rule, so today they are a safety net, not a score. Re-scoring the saved v5-sonnet replies with the new parser gives 28/34 (82%, was 27/34); the fresh v6 Sonnet run's 30/34 is that one case plus run-to-run noise.
 - **Multi-turn cases replay earlier turns as a transcript** in one user message. The fleet's shim resumes real sessions instead. Taps and patches still behave as expected (all patch cases pass on Opus), but this is a proxy, not the live channel.
 
 ## Method
@@ -39,4 +40,4 @@ Every score above uses the final scorer and final cases. Each report was re-scor
 
 ## Reports
 
-Full transcripts and per-case reasons are in `reports/<run>.md`, with raw replies in `reports/<run>.json` (the guide text each run used is inside the JSON). Runs: v0-baseline, v1, v2, v3, v4, v5 (Opus 5.5), and v0-sonnet, v3-sonnet, v4-sonnet, v5-sonnet (Sonnet 5).
+Full transcripts and per-case reasons are in `reports/<run>.md`, with raw replies in `reports/<run>.json` (the guide text each run used is inside the JSON). Runs: v0-baseline, v1, v2, v3, v4, v5, v6, v6-tolerant (Opus 5.5), and v0-sonnet, v3-sonnet, v4-sonnet, v5-sonnet, v5-sonnet-tolerant (the v5 replies re-scored with the tolerant parser), v6-tolerant-sonnet (Sonnet 5). Rows up to v6 were scored before the tolerant parser; re-scoring them now would credit early guides for loose options the parser fixes, so they are left as they were.

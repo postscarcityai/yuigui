@@ -129,11 +129,13 @@ export function score(c, reply) {
   if (HTML.test(reply)) fails.push("html: HTML in the reply");
   if (/^\s*\|.*\|\s*$\n^\s*\|?\s*:?-{3,}/m.test(text)) fails.push("text: markdown table instead of a table component");
   if (adds.some((o) => o.preset === "custom")) fails.push("custom: used custom {json}");
-  // Options must be one |-joined token. `choose "Q?" "A" "B"` parses, but as one long
-  // question with nothing to tap (ask falls back to Yes/No). The parser cannot see it.
+  // Something to tap. Since the loose-options rule (YL.md section 4, ask) the parser reads
+  // `choose "Q?" "A" "B"` as options, so only a line that still has none fails
+  // (an ask with two or more stray quoted tokens would fall back to Yes/No).
   for (const o of adds.filter((o) => ["ask", "choose", "pick"].includes(o.preset))) {
+    if ((o.props.options || []).length) continue;
     const loose = tokenize(o.line.trim().replace(/^>[\w-]+\s+/, "")).slice(1).filter((t) => t.quoted && !t.parts && !t.key).length;
-    if (loose > 1 || (o.preset !== "ask" && !(o.props.options || []).length)) fails.push(`options: not joined with | :: ${o.line.trim()}`);
+    if (o.preset !== "ask" || loose > 1) fails.push(`options: nothing to tap :: ${o.line.trim()}`);
   }
   if (e.presets) for (const p of used) if (!CORE_OPS.has(p) && p !== "say" && p !== "custom" && !e.presets.includes(p)) fails.push(`preset: ${p} not in [${e.presets.join(" ")}]`);
   if (e.need && !e.need.some((p) => used.has(p))) fails.push(`need: none of [${e.need.join(" ")}]`);

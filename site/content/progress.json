@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Two common slips now parse",
+    "body": "Agents writing Yui Lines make the same two mistakes. They write options as separate quoted strings, choose \"Where?\" \"Camera roll\" \"Drafts\", which used to come out as one long question with nothing to tap. And they patch with the add's own head, ~card@week, which never parsed. The parser now reads two or more trailing quoted strings as the options, and ~preset@id patches that id, or the newest card of that preset when the id is from an earlier reply. Both rules are in the spec (YL.md sections 4 and 5), in the web and Swift parsers, and in six new conformance vectors. The honest size of the win on the channel eval: Sonnet 5 went from 79% to 88%, but only one of those cases is the parser. The rest is run-to-run noise.",
+    "images": [
+      {
+        "src": "/progress/yl-loose-options.webp",
+        "alt": "A choose with Camera roll and Drafts buttons, an ask with Yes, send and Not yet, and a card patched to Mon legs, Thu rest"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "The roadmap catches up with the work",
     "card": "SITE-10",
     "body": "The roadmap still said work would start Sep 28 and spread across monthly phases to June 2027. Work started Sep 23, and by Sep 24 Phases 0 and 1 had shipped, with half of Phase 2 and the first part of Phase 5. The phases on /roadmap now show real ship dates taken from the board and the git log, and name the card behind every piece of work still to come. Phases that have not shipped carry no date for now: the old month targets stopped meaning anything, and new ones are a decision, not a guess. The MVP list and the phase cards on /progress match the board too. Nothing to screenshot: this is a text change."

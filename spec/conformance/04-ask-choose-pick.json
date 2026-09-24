@@ -241,6 +241,114 @@
           }
         }
       ]
+    },
+    {
+      "name": "loose options: quoted tokens after a quoted question",
+      "input": "choose \"Where should it go?\" \"Camera roll\" \"Drafts\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n1",
+          "props": {
+            "options": [
+              "Camera roll",
+              "Drafts"
+            ],
+            "q": "Where should it go?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "loose options: bare question, quoted options",
+      "input": "pick Which gear? \"Pull-up bar\" \"Bands\" \"Dumbbells\" +other",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pick",
+          "id": "n1",
+          "props": {
+            "options": [
+              "Pull-up bar",
+              "Bands",
+              "Dumbbells"
+            ],
+            "q": "Which gear?",
+            "other": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "loose options on ask",
+      "input": "ask \"Send the invite now?\" \"Yes, send\" \"Not yet\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "options": [
+              "Yes, send",
+              "Not yet"
+            ],
+            "q": "Send the invite now?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "loose options: one quoted token is not a list, it stays question text",
+      "input": "choose \"Which one?\" \"the red\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n1",
+          "props": {
+            "q": "Which one? the red"
+          }
+        }
+      ]
+    },
+    {
+      "name": "loose options: a bare word after the quotes stops the run",
+      "input": "choose \"Pick\" \"Red\" \"Blue\" please",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n1",
+          "props": {
+            "q": "Pick Red Blue please"
+          }
+        }
+      ]
+    },
+    {
+      "name": "loose options: an options token wins, quotes stay question text",
+      "input": "choose \"Q?\" \"A\" \"B\" C|D",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n1",
+          "props": {
+            "options": [
+              "C",
+              "D"
+            ],
+            "q": "Q? A B"
+          }
+        }
+      ]
     }
   ]
 }

@@ -85,6 +85,7 @@ Props: `q` ["Continue?"], `options` [Yes|No], `+lock`.
 ask "Log this set?"
 ask "Send the invite now?" "Yes, send"|"Not yet"
 ```
+**Loose options.** Options are one `|`-joined token, but agents often write them as separate quoted strings. So in `ask`, `choose` and `pick`, when the line has no options token, two or more quoted tokens at the end of the positionals, after at least one question token, are read as the options: `choose "Where?" "Camera roll" "Drafts"` is the same line as `choose "Where?" "Camera roll"|Drafts`. One trailing quoted token is still question text, a bare word after the quotes ends the run (`choose "Pick" "Red" "Blue" please` is all question), and an options token anywhere on the line wins, leaving the quoted tokens as question text.
 
 ### choose
 `choose question... options [+other]`. Single choice. `+other` adds "Type your own". Emits `{choice}` (plus `other: true` for typed answers). Tapping another option changes the answer (section 7). Props: `+lock`.
@@ -387,7 +388,7 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 
 **Routing.** `>2 timer 90` sends one line to screen 2 and brings screen 2 forward. `>2` alone moves focus: every following line goes to screen 2 until the next bare `>S`.
 
-**Patching.** `~target args` updates a component already on screen without re-sending it. `target` is an id (`timer@hiit` gives id `hiit`) or a preset name. The newest matching component on any screen wins. Args are parsed with the target's preset rules, so `~hiit 30/10` and `~hiit rounds=10` both work. A live timer keeps running through a patch; the time left is clamped to the new phase length.
+**Patching.** `~target args` updates a component already on screen without re-sending it. `target` is an id (`timer@hiit` gives id `hiit`) or a preset name. The newest matching component on any screen wins. Args are parsed with the target's preset rules, so `~hiit 30/10` and `~hiit rounds=10` both work. `~preset@id` (the add's head with a `~` in front, a common slip) aims at the id when this reply made it and it is that preset, and otherwise at the preset name: `~card@week` in a later reply patches the newest `card`. An id this reply gave to another preset makes it an error. A live timer keeps running through a patch; the time left is clamped to the new phase length.
 
 **The stage.** Some moments deserve the whole phone. The stage is a full-screen layer over the chat, in the agent's own look, with the chat right underneath.
 
@@ -465,7 +466,7 @@ The stream parser keeps a line buffer. Every time a newline arrives, that line i
 
 A line that fails (unknown preset, bad JSON, patch target that does not exist, `show` of a name never saved) is skipped and reported. Nothing else on the screen is affected. The playground lists errors under the wire log.
 
-Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show` without a name, `close` with anything after it, a patch whose target is neither a preset name nor an id seen earlier in the reply, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
+Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show` without a name, `close` with anything after it, a patch whose target is neither a preset name nor an id seen earlier in the reply, a `~preset@id` with an unknown preset or an id that belongs to another preset, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
 
 ## 10. Telegram fallback
 
