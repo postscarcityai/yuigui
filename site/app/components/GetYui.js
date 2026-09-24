@@ -1,12 +1,13 @@
 "use client";
 import { useEffect } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import links from "../../content/links.json";
-import { keepUtm } from "../../lib/track.mjs";
+import { keepUtm, trackCta } from "../../lib/track.mjs";
 import CtaLink from "./CtaLink";
 import Waitlist from "./Waitlist";
 
-// The three ways in, at the bottom of every page: the beta, the code, the waitlist.
+// The ways in, at the bottom of every page: the beta, the code, lending your agent (SITE-24), the waitlist.
 export default function GetYui() {
   const where = usePathname() || "/";
   useEffect(keepUtm, []);
@@ -32,6 +33,11 @@ export default function GetYui() {
             <CtaLink cta="github" where={where} href={links.github}>Star on GitHub</CtaLink>
             <CtaLink cta="github-app" where={where} className="btn soft" href={links.appRepo}>App code</CtaLink>
           </div>
+        </div>
+        <div className="card">
+          <h3>Lend your agent</h3>
+          <p>Spare tokens on Claude or ChatGPT Codex? Your agent can pick a card off our backlog and open a pull request. Yui@home, like SETI@home.</p>
+          <Link className="btn" href={links.contribute} onClick={() => trackCta("lend-agent", where)}>Lend your agent</Link>
         </div>
       </div>
       <Waitlist source={`cta:${where}`.slice(0, 60)} />

@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 57,
-    "site": 138,
+    "site": 140,
     "builds": 21,
-    "shipped": 84,
-    "screenshots": 151
+    "shipped": 85,
+    "screenshots": 155
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T22:41:24.822Z",
+          "at": "2026-09-24T23:05:30.430Z",
+          "title": "Yui@home: lend your idle agent to Yui",
+          "card": "SITE-24",
+          "anchor": "yui-home-lend-your-idle-agent-to-yui",
+          "images": [
+            {
+              "src": "/progress/site24-lend-band.webp",
+              "alt": "The bottom of every page now has three cards: Get the TestFlight beta, Star it on GitHub, and Lend your agent."
+            },
+            {
+              "src": "/progress/site24-contribute.webp",
+              "alt": "The Contribute with your agent page: Lend your agent to Yui, and four steps: pick, build, open a pull request, repeat weekly."
+            },
+            {
+              "src": "/progress/site24-try-now.webp",
+              "alt": "A prompt to paste into a coding agent today, and the six-line feature spec template, each with a copy button."
+            },
+            {
+              "src": "/progress/site24-for-agents.webp",
+              "alt": "The For AI agents section on Developers, with a plain How you can help block an assistant can pass on."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 57,
+            "site": 140,
+            "builds": 21,
+            "shipped": 85
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T22:41:20.000Z",
           "title": "Get started, the specs and Privacy, checked for strangers",
           "card": "SITE-23",
           "anchor": "get-started-the-specs-and-privacy-checked-for-strangers",
@@ -38,7 +70,7 @@
           "commits": 0,
           "totals": {
             "app": 57,
-            "site": 138,
+            "site": 139,
             "builds": 21,
             "shipped": 84
           }
@@ -110,7 +142,7 @@
               "alt": "Step 3 in the 9:16 cut of the 60 second video: Pair with the code. Restart the gateway, over a dark terminal showing the plugin install command, hermes yui pair 123456 and hermes gateway restart."
             }
           ],
-          "commits": 4,
+          "commits": 5,
           "totals": {
             "app": 57,
             "site": 132,
@@ -1755,6 +1787,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "a3df7d3",
+          "at": "2026-09-24T23:00:47.000Z",
+          "text": "Roadmap: Yui@home, lend your idle agent (SITE-24 story in GTM-1, OSS-6 machinery parked)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a3df7d3"
+        },
+        {
+          "repo": "site",
+          "sha": "7382044",
+          "at": "2026-09-24T22:41:20.000Z",
+          "text": "Polish Get started, the specs and Privacy for strangers: /start opens with a TestFlight button from links.json, says iOS 26 and bring...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7382044"
+        },
         {
           "repo": "site",
           "sha": "cd6e97e",

@@ -75,6 +75,15 @@ export default function Start() {
         adds to every turn.
       </p>
 
+      <div className="start-byo">
+        <p>
+          <strong>No iPhone, or rather build than try?</strong> Read the code on <a href={links.github}>GitHub</a>, or lend
+          your agent: if you have spare tokens on Claude or ChatGPT Codex, it can pick a card off our backlog and open a
+          pull request.
+        </p>
+        <p style={{ marginBottom: 0 }}><a className="btn soft" href={links.contribute}>Lend your agent</a></p>
+      </div>
+
       <div className="start-more">
         <h2>Good to know</h2>
         <ul>

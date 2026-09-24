@@ -87,6 +87,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - SITE-20 (shipped): the go-to-market plan, in public: who it is for, the social plan per channel, the first 30 days. Read it: [go-to-market plan](https://www.yuigui.com/business/gtm).
 - OSS-5 (shipped): a grassroots kit for Yui Lines: who builds with it, how to contribute, a first "draw your best screen in three lines" challenge. Live at [/developers/community](/developers/community).
 - SOC-3 (shipped): three short videos: Yui in 15 seconds, Yui Lines in 30, your own Hermes on your phone in 60. Watch them on [See it](/mockups).
+- SITE-24 (shipped): Yui@home, the story. Like SETI@home, but you lend idle AI tokens: the note [Donate your idle tokens to Yui](/notes/donate-your-idle-tokens-to-yui), a [Contribute with your agent](/developers/contribute) page with a feature spec template, a "Lend your agent" option at the bottom of every page, and an [llms.txt](/llms.txt) so assistants that read the site can pass the invitation on.
 - BIZ-7 (parked): one brand system from the website to social to print.
 
 **Next release: chat feels right (the next TestFlight build).** Today's TestFlight feedback fixes, chat polish (YUI-50), message reactions (YUI-49), the lock screen timer (YUI-30), no dead buttons (YUI-53) and three screens per agent (YUI-31), in one build once Apple's daily upload limit lifts. Everything on the app's main branch since build 33 goes in it; [Builds](/changelog#next) lists it. YUI-52 checks every fix against the original feedback.
@@ -337,6 +338,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-34: a key vault for your own fal, OpenRouter and Anthropic keys.
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.
 - YUI-36: optional encrypted sync for agent tables, off by default.
+- OSS-6: Yui@home, the machinery. An agent-ready backlog exported from the board, a weekly routine prompt for Claude, Codex, Gemini, Cursor and Copilot, and pull requests reviewed before merge.
 - YUI-54: the top-left menu becomes each agent's home: switch agents from a drop-up at the bottom, pinned screens you reopen (your workout), things waiting for you, and a page about the agent.
 - YUI-44: group threads, several agents in one conversation.
 - YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP).

@@ -702,6 +702,8 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .steps .card p + p, .steps .card p + .cmd, .steps .card .cmd + p { margin-top: 10px; }
 .cmd { display: flex; align-items: center; gap: 10px; background: #0a0b10; border-radius: 14px; padding: 10px 10px 10px 16px; margin-top: 12px; }
 .cmd code { flex: 1; min-width: 0; color: #d9dcff; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; overflow-x: auto; white-space: nowrap; }
+.cmd.multi { align-items: flex-start; }
+.cmd.multi code { white-space: pre-wrap; overflow-wrap: anywhere; }
 .cmd button { flex: none; min-height: 44px; min-width: 64px; background: var(--lavender); color: #2A2238; border: 0; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
 .start-byo { background: var(--raised); border: 1.5px solid var(--outline); border-radius: 18px; padding: 14px 18px; margin: 20px 0; }
 .start-byo p { margin: 0 0 10px; }
