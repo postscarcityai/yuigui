@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T17:40:24.030Z",
+  "updated": "2026-09-24T19:40:42.728Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -9,15 +9,6 @@
         {
           "key": "YUI-14",
           "title": "Voice in, text out, smooth and fast"
-        },
-        {
-          "key": "YUI-31",
-          "title": "Three screens per agent with animated transitions"
-        },
-        {
-          "key": "YUI-32",
-          "title": "Named screens",
-          "summary": "Save and reopen a screen in two tokens"
         },
         {
           "key": "YUI-33",
@@ -59,11 +50,6 @@
           "title": "On-device model for routing and quick replies"
         },
         {
-          "key": "YUI-42",
-          "title": "The preset flywheel",
-          "summary": "Log custom screens, promote the repeats"
-        },
-        {
           "key": "YUI-43",
           "title": "Restyle the app by asking"
         },
@@ -93,16 +79,12 @@
           "summary": "SMS channel"
         },
         {
-          "key": "YUI-51",
-          "title": "Multi-step screens that fold back into chat as your own messages"
-        },
-        {
-          "key": "SITE-5",
-          "title": "Evolution timeline from GitHub history"
-        },
-        {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors"
+        },
+        {
+          "key": "OSS-4",
+          "title": "Yui Lines parser in Rust"
         },
         {
           "key": "INT-1",
@@ -205,12 +187,6 @@
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
-        },
-        {
-          "key": "YUI-50",
-          "title": "Chat polish: composer clears, send animation, jump to bottom",
-          "summary": "Composer clears on send, bubble floats up, jump-to-bottom arrow",
-          "mvp": true
         }
       ]
     },
@@ -228,15 +204,55 @@
         {
           "key": "YUI-30",
           "title": "Timer on the lock screen",
-          "summary": "Live Activity and Dynamic Island"
+          "summary": "The timer keeps counting on the lock screen",
+          "waiting": true,
+          "progress": "/progress#the-timer-keeps-counting-on-the-lock-screen"
         },
         {
           "key": "YUI-49",
-          "title": "React to a message (👍 build it, 👎, 🤔 ask me, ❤️, ⏳, 🔥)"
+          "title": "React to a message (👍 build it, 👎, 🤔 ask me, ❤️, ⏳, 🔥)",
+          "summary": "React to a message: hold it, tap 👍, and your agent builds it",
+          "waiting": true,
+          "progress": "/progress#react-to-a-message-hold-it-tap-and-your-agent-builds-it"
         },
         {
-          "key": "OSS-2",
-          "title": "Yui Lines parsers in more languages"
+          "key": "YUI-53",
+          "title": "No dead buttons",
+          "summary": "No dead buttons: a plan ends in Send, and agents stop adding 'Got it'",
+          "waiting": true,
+          "progress": "/progress#no-dead-buttons-a-plan-ends-in-send-and-agents-stop-adding-got-it"
+        },
+        {
+          "key": "YUI-50",
+          "title": "Chat polish: composer clears, send animation, jump to bottom",
+          "summary": "Scroll up, and one arrow brings you back",
+          "mvp": true,
+          "waiting": true,
+          "progress": "/progress#scroll-up-and-one-arrow-brings-you-back"
+        },
+        {
+          "key": "YUI-51",
+          "title": "Multi-step screens that fold back into chat as your own messages",
+          "summary": "Read, answer, send once: a plan is now one full-screen flow",
+          "waiting": true,
+          "progress": "/progress#read-answer-send-once-a-plan-is-now-one-full-screen-flow"
+        },
+        {
+          "key": "YUI-31",
+          "title": "Three screens per agent with animated transitions"
+        },
+        {
+          "key": "YUI-32",
+          "title": "Named screens",
+          "summary": "Save a screen, bring it back with two tokens: every agent gets a shelf",
+          "waiting": true,
+          "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
+        },
+        {
+          "key": "YUI-42",
+          "title": "The preset flywheel",
+          "summary": "The preset flywheel: custom screens that keep coming back become presets",
+          "progress": "/progress#the-preset-flywheel-custom-screens-that-keep-coming-back-become-presets"
         }
       ]
     },
@@ -244,6 +260,34 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-17",
+          "title": "Polish pass on /mockups, /start and /timeline",
+          "summary": "A polish pass on See it, Get started and Timeline",
+          "shipped": "2026-09-24",
+          "progress": "/progress#a-polish-pass-on-see-it-get-started-and-timeline"
+        },
+        {
+          "key": "SITE-16",
+          "title": "Evolution timeline from GitHub history (was SITE-5, key already used by /notes)",
+          "summary": "Watch Yui grow: the whole history on one page",
+          "shipped": "2026-09-24",
+          "progress": "/progress#watch-yui-grow-the-whole-history-on-one-page"
+        },
+        {
+          "key": "SITE-15",
+          "title": "Yui Lines back in sight",
+          "summary": "Yui Lines back on the front page, and every spec on the site",
+          "shipped": "2026-09-24",
+          "progress": "/progress#yui-lines-back-on-the-front-page-and-every-spec-on-the-site"
+        },
+        {
+          "key": "OSS-2",
+          "title": "Yui Lines parsers in more languages",
+          "summary": "Yui Lines in Python and Kotlin",
+          "shipped": "2026-09-24",
+          "progress": "/progress#yui-lines-in-python-and-kotlin"
+        },
         {
           "key": "SITE-5",
           "title": "/notes long-form route on yuigui.com",
