@@ -1,16 +1,76 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 56,
-    "site": 129,
+    "app": 57,
+    "site": 131,
     "builds": 21,
-    "shipped": 79,
-    "screenshots": 137
+    "shipped": 81,
+    "screenshots": 144
   },
   "days": [
     {
       "date": "2026-09-24",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-24T21:57:37.676Z",
+          "title": "Three short videos: Yui in 15 seconds, Yui Lines in 30, your Hermes on your phone in 60",
+          "card": "SOC-3",
+          "anchor": "three-short-videos-yui-in-15-seconds-yui-lines-in-30-your-hermes-on-your-phone-i",
+          "images": [
+            {
+              "src": "/progress/soc3-yui-15s.webp",
+              "alt": "The 16:9 cut of Yui in 15 seconds: the coral Yui wordmark and the caption You ask. Your agent answers with a screen, next to a phone running a Tabata timer."
+            },
+            {
+              "src": "/progress/soc3-yui-lines-30s.webp",
+              "alt": "The 16:9 cut of Yui Lines in 30 seconds: the caption Yui draws it. A real timer, running, next to the phone with the Tabata timer counting down."
+            },
+            {
+              "src": "/progress/soc3-your-hermes-60s.webp",
+              "alt": "The 16:9 cut of Your Hermes on your phone: the caption Your own Hermes agent. On your iPhone, next to a chat where an agent named Nova says hi and asks What should we try first, with Plan my day, Start a timer and Show me a chart buttons."
+            },
+            {
+              "src": "/progress/soc3-your-hermes-60s-step3.webp",
+              "alt": "Step 3 in the 9:16 cut of the 60 second video: Pair with the code. Restart the gateway, over a dark terminal showing the plugin install command, hermes yui pair 123456 and hermes gateway restart."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 57,
+            "site": 131,
+            "builds": 21,
+            "shipped": 81
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T21:39:16.000Z",
+          "title": "Polish: the Roadmap tabs read current",
+          "card": "SITE-21",
+          "anchor": "polish-the-roadmap-tabs-read-current",
+          "images": [
+            {
+              "src": "/progress/site21-board-phone.webp",
+              "alt": "The board on a phone: the Building column stacked full width, with YUI-22, YUI-30, YUI-49 and YUI-53 tiles and their Waiting labels."
+            },
+            {
+              "src": "/progress/site21-builds-next.webp",
+              "alt": "The Builds page on a phone: Next build with a Waiting on Apple label and a note on why it is not on TestFlight yet."
+            },
+            {
+              "src": "/progress/site21-roadmap-top.webp",
+              "alt": "The Roadmap page on a phone: the draft 10 eyebrow, the headline Where Yui is going, and the MVP bar at 19 of 23 cards."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 56,
+            "site": 130,
+            "builds": 21,
+            "shipped": 80
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-24T21:21:34.000Z",
@@ -486,7 +546,7 @@
               "alt": "The Dynamic Island closed: a small orange ring on the left and 0:14 on the right"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 45,
             "site": 102,
@@ -1620,6 +1680,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "31d61e7",
+          "at": "2026-09-24T21:57:14.000Z",
+          "text": "Marketing videos: scripts/promo_videos.py records four scripted scenes on the demo account (YuiPromoTests: a timer, a choice, a chart,...",
+          "url": "https://github.com/postscarcityai/yui/commit/31d61e7"
+        },
+        {
+          "repo": "site",
+          "sha": "9dd068a",
+          "at": "2026-09-24T21:54:25.000Z",
+          "text": "Roadmap: YUI-54 agent home menu parked in the deep backlog",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9dd068a"
+        },
+        {
+          "repo": "site",
+          "sha": "680825b",
+          "at": "2026-09-24T21:39:16.000Z",
+          "text": "Polish the Roadmap tabs: the roadmap matches the live board (YUI-30, 31, 49, 50, 51, 53 wait for the next build; SITE-15, INT-1, INT-2...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/680825b"
+        },
         {
           "repo": "site",
           "sha": "06161c4",
