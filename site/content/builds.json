@@ -321,6 +321,9 @@
     },
     {
       "text": "Every look on screen: the Add agent picker is a grid sorted by hue, six new colors (cherry, honey, lime, teal, grape, slate)"
+    },
+    {
+      "text": "Long turns read as work, not trouble: \"Yui is working · 2m 20s\" counts up, no time limit, no restart advice, resumes on reopen"
     }
   ]
 }

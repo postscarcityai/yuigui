@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T16:10:06.248Z",
+  "updated": "2026-09-24T16:40:10.535Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -230,12 +230,6 @@
           "summary": "Public TestFlight link (external group + Beta App Review)",
           "mvp": true,
           "waiting": true
-        },
-        {
-          "key": "SITE-11",
-          "title": "Full freshness + polish pass on yuigui.com",
-          "summary": "The site catches up with the app",
-          "progress": "/progress#the-site-catches-up-with-the-app"
         }
       ]
     },
@@ -243,6 +237,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-11",
+          "title": "Full freshness + polish pass on yuigui.com",
+          "summary": "The site catches up with the app",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-site-catches-up-with-the-app"
+        },
         {
           "key": "SITE-10",
           "title": "Phases on yuigui.com are out of date, bring them current",
