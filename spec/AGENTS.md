@@ -2,7 +2,7 @@
 
 Agents are added by the user. Nothing is hardcoded in the app. This file is the source of truth for the agent registry; the Hermes platform plugin (YUI-7) implements the host side of it.
 
-Code: `~/dev/yui` (app repo). Migration `supabase/migrations/20260924000000_yui_agent_registry.sql`, edge functions `supabase/functions/yui-agents` and `supabase/functions/yui-connect`, host client `hermes-plugin/yui_connect.py`, tests `supabase/tests/agents_test.py`.
+Code: `~/dev/yui` (app repo). Migration `supabase/migrations/20260924000000_yui_agent_registry.sql`, edge functions `supabase/functions/yui-agents` and `supabase/functions/yui-connect`, host side: the Hermes plugin `hermes-plugin/yui/` (see `spec/RELAY.md`), tests `supabase/tests/agents_test.py`.
 
 ## What it takes to connect an agent
 
@@ -141,9 +141,9 @@ Code guessing: 10 wrong codes per client address per 10 minutes, then 429. With 
 
 ## Host credential
 
-One connector per machine, shared by all its profiles: `~/.hermes/yui/connector.json`, mode 600, `{token, connector_id, name}`. `hermes-plugin/yui_connect.py` reads and writes it today (`pair`, `add`, `heartbeat`, `status`); the YUI-7 plugin wraps the same calls as `hermes -p <profile> yui pair|add` via `ctx.register_cli_command` and runs the heartbeat inside the gateway.
+One connector per machine, shared by all its profiles: `~/.hermes/yui/connector.json`, mode 600, `{token, connector_id, name}`. `hermes-plugin/yui/connector.py` reads and writes it (`pair`, `add`, `heartbeat`, `status`); the plugin exposes the same calls as `hermes -p <profile> yui pair|add|status` and runs the heartbeat inside the gateway.
 
-The connector token authenticates the registry calls above. Message transport (Realtime on `yui_messages`) needs a scoped database credential; YUI-7 defines it (a `yui_connector` role minted from this token), not this spec.
+The connector token authenticates the registry calls above. Message transport (Realtime on `yui_messages`) uses a scoped database credential minted from this token, role `yui_connector`: see `spec/RELAY.md`.
 
 ## Default agent while testing
 

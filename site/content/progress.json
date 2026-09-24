@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Talk to your agent in Yui",
+    "body": "Yui is now a messaging platform for Hermes, next to Telegram. Each agent you add gets its own thread in the app and keeps one memory across both, so what you tell it on Telegram it still knows in Yui. Replies can carry Yui Lines, and the app draws them as buttons, pickers, forms and timers; ask for intervals and you get a running timer, not a paragraph. Your taps go back to the agent as short lines like \"[yui] n1 ask answer=Yes\", and it keeps going from there. The agent's computer dials out, so it opens no ports, and it gets a key that can only read and answer the threads of its own agents. Remove the computer in the app and it is cut off at once. We tested that, and 37 other rules, against the live backend. Every agent also gets the same short guide to the channel on each turn, and agents that don't run Hermes can fetch it too. How it works: spec/RELAY.md."
+  },
+  {
+    "date": "2026-09-24",
     "title": "The site now looks like the app",
     "body": "yuigui.com wears the same clothes as the iPhone app now. Cream paper, soft plum ink, the coral wordmark up top, rounded type, pastel accents. The colors come straight from the app's theme file, so when the app changes, the site can follow. Light is the default and the moon button in the corner switches to dark. The home page tells the story in plain words: what Yui is, who it is for (people who already run agents, Hermes first), and real screenshots from the current test build. The icon and the link preview use the wordmark too. We also fixed contrast across the site. Every page but the playground now scores 100 on Google's accessibility check, and the playground's last few fixes are queued.",
     "image": "/progress/site-rebrand.webp",
