@@ -1,6 +1,6 @@
 # Channel guide eval results
 
-Does the channel guide (`spec/CHANNEL.md`) make an agent use Yui well? 34 realistic turns (`cases.json`) go to an agent with the guide injected the way the `yui` plugin injects it. Each reply is scored automatically against the real Yui Lines parser. Run it with `node spec/channel-eval/run.mjs`. Every example line in the guide must parse: `node spec/channel-eval/guide.test.mjs`.
+Does the channel guide (`spec/CHANNEL.md`) make an agent use Yui well? 40 realistic turns (`cases.json`) go to an agent with the guide injected the way the `yui` plugin injects it. Each reply is scored automatically against the real Yui Lines parser. Run it with `node spec/channel-eval/run.mjs`. Every example line in the guide must parse: `node spec/channel-eval/guide.test.mjs`.
 
 ## Scores
 
@@ -15,6 +15,7 @@ Does the channel guide (`spec/CHANNEL.md`) make an agent use Yui well? 34 realis
 | **v6** | **750** | **33/34 (97%)** | | v5 plus one media line (YUI-21): file paths and tool URLs in a line get hosted, `hermes yui media`, photos arrive as files. No regression; the miss is `patch-timer-rounds`. **Shipped.** |
 | v6, tolerant parser | 750 | 33/34 (97%) | 30/34 (88%) | same guide; the parser reads loose quoted options and `~preset@id` (YL.md sections 4 and 5). Scorer counts a line as failed only when it still has nothing to tap. |
 | **v7** | **915** | **37/37 (100%)** | | v6 plus the Reactions section (YUI-49, generated from `spec/REACTIONS.md`), and three new reaction cases (👍 builds it, 🤔 asks one screen at a time, 👎 drops it). No regression on the first 34. The first run had one harness timeout (focus-second-screen) and one case bug (the 👍 case proposed 185 lb squats to someone with 50 lb dumbbells; the agent built it and asked about the swap, which was right). Both re-run after fixing the case. **Shipped.** |
+| **v8** | **960** | **38/40 (95%)** | | v7 plus "Every button does something" (YUI-53): no acknowledgement-only buttons ("Got it", "OK", "Nice"), a card with nothing to act on has no `cta`, submits are named for what happens. The scorer now fails any case on a dead button, and three new cases tempt one (overnight report, logging water, a trip plan that must not end in "Create project"). All three pass. The two misses are not buttons: secret-bank ran 88 words (cap 70), and dead-status-report wrapped a good screen in a four-backtick outer fence, copying the guide's own example. **Shipped.** |
 
 Before and after, on the fleet's model (Opus 5.5): **74% to 97%**, with the guide 20% shorter. On Sonnet 5, 68% to 79%. Scores between v2 and v5 are within run-to-run noise (about two cases either way), so v5 ships because it adds a correct rule (patch by bare preset name), not because of its last point.
 
@@ -33,6 +34,9 @@ Every score up to v6 uses the final cases and the scorer as it stood before the 
 - **The parser now tolerates the two slips agents make most** (YL.md sections 4 and 5): `choose "Q?" "A" "B"` reads the trailing quoted tokens as options, and `~card@week` patches `week` when that reply made it and the newest `card` otherwise. Honest size of the win: Sonnet's `~card@week` shows up in patch-plan-card in every Sonnet run (v3, v4, v5, v6) and now passes, so that is one case. Loose options appeared in v0 and v1 replies (up to nine lines in v1) and in none since the v2 guide rule, so today they are a safety net, not a score. Re-scoring the saved v5-sonnet replies with the new parser gives 28/34 (82%, was 27/34); the fresh v6 Sonnet run's 30/34 is that one case plus run-to-run noise.
 - **Multi-turn cases replay earlier turns as a transcript** in one user message. The fleet's shim resumes real sessions instead. Taps and patches still behave as expected (all patch cases pass on Opus), but this is a proxy, not the live channel.
 
+- **Dead buttons are rare in the harness and showed up live.** Rescoring every saved reply (v0 to v8, Opus and Sonnet) finds no acknowledgement-only button, and the v7 guide passes the three new cases too. The live case that started YUI-53 was Yui confirming a saved rule: `card "New rule saved" ... cta="Got it"`. That turn doesn't reproduce here: with tools off, the CLI tries to write the rule to memory and times out. So the new check is a regression guard. The rule in the guide is what fixes the live channel.
+- **Outer fences get copied.** One v8 reply put its whole answer in the four-backtick fence the guide uses to show an example. It happened once in 40.
+
 ## Method
 
 - The runner calls the `claude` CLI the way the fleet's shim does: the agent persona and today's context, then `Yui channel guide <version>` and the guide text (the same extraction and version hash as `yui/hermes-plugin/sync_channel.py`), and the per-agent look line, all appended to the CLI's system prompt. No tools. Calls are killed after 180 s and retried once.
@@ -41,4 +45,4 @@ Every score up to v6 uses the final cases and the scorer as it stood before the 
 
 ## Reports
 
-Full transcripts and per-case reasons are in `reports/<run>.md`, with raw replies in `reports/<run>.json` (the guide text each run used is inside the JSON). Runs: v0-baseline, v1, v2, v3, v4, v5, v6, v6-tolerant (Opus 5.5), and v0-sonnet, v3-sonnet, v4-sonnet, v5-sonnet, v5-sonnet-tolerant (the v5 replies re-scored with the tolerant parser), v6-tolerant-sonnet (Sonnet 5). Rows up to v6 were scored before the tolerant parser; re-scoring them now would credit early guides for loose options the parser fixes, so they are left as they were.
+Full transcripts and per-case reasons are in `reports/<run>.md`, with raw replies in `reports/<run>.json` (the guide text each run used is inside the JSON). Runs: v0-baseline, v1, v2, v3, v4, v5, v6, v6-tolerant, v7, v8, v7-dead-cases (the v7 guide on the three dead-button cases) (Opus 5.5), and v0-sonnet, v3-sonnet, v4-sonnet, v5-sonnet, v5-sonnet-tolerant (the v5 replies re-scored with the tolerant parser), v6-tolerant-sonnet (Sonnet 5). Rows up to v6 were scored before the tolerant parser; re-scoring them now would credit early guides for loose options the parser fixes, so they are left as they were.

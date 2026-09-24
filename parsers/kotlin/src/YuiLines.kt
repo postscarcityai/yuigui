@@ -793,7 +793,7 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "calc" to mapOf("title" to "", "digits" to 3.0),
     "deck" to mapOf("title" to "", "layout" to "slides", "full" to false, "notes" to false),
     "page" to mapOf("title" to "", "body" to "", "points" to emptyList<String>(), "notes" to ""),
-    "plan" to mapOf("title" to "", "submit" to "Create project", "review" to true),
+    "plan" to mapOf("title" to "", "submit" to "Send", "review" to true),
     "narrate" to mapOf("title" to "", "voice" to "agent", "rate" to 1.0, "auto" to false, "captions" to true),
 )
 

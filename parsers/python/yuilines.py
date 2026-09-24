@@ -985,7 +985,7 @@ _DEFAULTS = {
     "calc": {"title": "", "digits": 3},
     "deck": {"title": "", "layout": "slides", "full": False, "notes": False},
     "page": {"title": "", "body": "", "points": [], "notes": ""},
-    "plan": {"title": "", "submit": "Create project", "review": True},
+    "plan": {"title": "", "submit": "Send", "review": True},
     "narrate": {"title": "", "voice": "agent", "rate": 1, "auto": False, "captions": True},
 }
 

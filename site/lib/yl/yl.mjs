@@ -771,7 +771,7 @@ export function resolve(preset, props) {
     case "page":
       return { title: "", body: "", points: [], notes: "", ...p };
     case "plan":
-      return { title: "", submit: "Create project", review: true, ...p };
+      return { title: "", submit: "Send", review: true, ...p };
     case "project":
       return { title: "", body: "", facts: [], next: [], status: "", ...p, cta: p.cta ?? (p.open ? "Open" : "") };
     case "narrate":

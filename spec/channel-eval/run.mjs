@@ -19,7 +19,7 @@
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { Parser, PRESETS, tokenize } from "../../site/lib/yl/yl.mjs";
+import { Parser, PRESETS, resolve, tokenize } from "../../site/lib/yl/yl.mjs";
 
 const HERE = new URL(".", import.meta.url);
 const arg = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : d; };
@@ -83,6 +83,8 @@ function once(sys, user, model, limit) {
 const CORE_OPS = new Set(["theme", "save", "show", "clear", "focus", "end", "close"]);
 const SECRET = /pass(word|code|phrase)?|\bpin\b|card.?(number|no\b|num)|\bcvv|\bcvc|\bssn\b|social.?security|secret|token|api.?key|\bkey\b|routing|account.?(number|no\b|num)|\blogin\b|credential/i;
 const NARRATE = /\b(here (are|is) (some|a|the|your) (buttons?|options?|form|screen|slider|picker|checklist)|tap (one of )?(the )?(buttons?|options?)( below| above)?|(buttons?|options?|form|slider|checklist) (below|above)|i('ve| have) (put|added|created|set up) (a|some|the) (buttons?|form|screen|slider|picker)|you (chose|picked|selected|tapped))\b/i;
+// A button that only acknowledges (YUI-53): tapping it does nothing for anyone.
+const ACK = /^(got it|ok(ay)?|k|nice|cool|great|sweet|awesome|perfect|thanks|thank you|understood|noted|sounds good|love it|will do)[.!]*$/i;
 const HTML = /<\/?(div|button|input|table|tr|td|span|form|select|ul|li|html|style|svg)\b/i;
 const HEADS = /^\s*(>[\w-]+\s+)?(~[\w-]+|(timer|ask|choose|pick|slide|form|list|table|card|image|camera|mic|gallery|video|compare|storyboard|chart|stat|math|step|calc|deck|page|plan|project|narrate|say|theme)(@[\w-]+)?)\s+\S/;
 
@@ -136,6 +138,25 @@ export function score(c, reply) {
     if ((o.props.options || []).length) continue;
     const loose = tokenize(o.line.trim().replace(/^>[\w-]+\s+/, "")).slice(1).filter((t) => t.quoted && !t.parts && !t.key).length;
     if (o.preset !== "ask" || loose > 1) fails.push(`options: nothing to tap :: ${o.line.trim()}`);
+  }
+  // Dead buttons: every option is an acknowledgement, or a card cta / submit that only says "Got it".
+  for (const o of adds) {
+    const pr = o.props || {};
+    const opts = pr.options || [];
+    let dead = opts.length && opts.every((x) => ACK.test(String(x).trim()));
+    if (!opts.length && ["ask", "choose", "pick"].includes(o.preset)) {
+      // `ask "Shipped" "Got it"` reads as one question; the last token was meant as the button.
+      const toks = tokenize(o.line.trim().replace(/^>[\w-]+\s+/, "")).slice(1).filter((t) => !t.key);
+      dead = toks.length > 1 && ACK.test(String(toks.at(-1).value ?? toks.at(-1).text ?? "").trim());
+    }
+    for (const k of ["cta", "submit"]) if (typeof pr[k] === "string" && ACK.test(pr[k].trim())) dead = true;
+    if (dead) fails.push(`dead button: nothing to act on :: ${o.line.trim()}`);
+    if (e.no_label) {
+      // Labels as the app draws them, defaults included (resolve), so a bare `plan` shows its default submit.
+      const r = resolve(o.preset, pr), re = new RegExp(e.no_label, "i");
+      const bad = [...(r.options || []), r.cta, r.submit].filter((x) => typeof x === "string" && re.test(x.trim()));
+      if (bad.length) fails.push(`label: "${bad[0]}" misdescribes the button :: ${o.line.trim()}`);
+    }
   }
   if (e.presets) for (const p of used) if (!CORE_OPS.has(p) && p !== "say" && p !== "custom" && !e.presets.includes(p)) fails.push(`preset: ${p} not in [${e.presets.join(" ")}]`);
   if (e.need && !e.need.some((p) => used.has(p))) fails.push(`need: none of [${e.need.join(" ")}]`);

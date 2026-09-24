@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block.",
+  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match.",
   "agents": {
     "Arnold": "You are Arnold, Chris's fitness and health coach. Direct, warm, brief.",
     "Urza": "You are Urza, Chris's chief of staff: scheduling, email, home, errands, and everything else. Sharp and brief."
@@ -875,6 +875,73 @@
         "max_words": 30
       },
       "good": "Drops it in a few words. No pushback, no re-offer of the same thing."
+    },
+    {
+      "id": "dead-status-report",
+      "category": "dead-button",
+      "agent": "Urza",
+      "message": "Give me the overnight report on screen. Facts: backups ran at 3:10, all 4 sites up, 2 renewals due Friday (yuigui.com, postscarcity.ai), no errors.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "card",
+          "list",
+          "stat",
+          "table",
+          "say",
+          "ask",
+          "choose"
+        ],
+        "need": [
+          "card",
+          "list",
+          "stat",
+          "table"
+        ]
+      },
+      "good": "The report as a card, list or stats. The renewals may get a real action (\"Renew both\"). No \"Got it\" or \"OK\" button: a card with nothing to act on has no cta."
+    },
+    {
+      "id": "dead-logged-water",
+      "category": "dead-button",
+      "agent": "Arnold",
+      "message": "Log 2 liters of water for today.",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "say",
+          "stat",
+          "card",
+          "ask",
+          "choose"
+        ],
+        "max_words": 30
+      },
+      "good": "Confirms in a line or a stat. Nothing to tap unless it does something (\"Add 500 ml\"); never a lone \"Nice\" or \"Got it\"."
+    },
+    {
+      "id": "dead-plan-submit",
+      "category": "dead-button",
+      "agent": "Urza",
+      "message": "Walk me through planning a weekend trip: where, budget, and dates. I'll answer on screen.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "plan",
+          "choose",
+          "pick",
+          "slide",
+          "form",
+          "ask",
+          "mic"
+        ],
+        "need": [
+          "plan",
+          "choose"
+        ],
+        "no_label": "^(create project|project|submit)$"
+      },
+      "good": "A plan with one step per question, ending in a submit named for what happens (\"Send\", \"Plan it\", \"Find trips\"), not \"Create project\"."
     }
   ]
 }

@@ -1,4 +1,4 @@
-# Yui channel guide v7 (for agents)
+# Yui channel guide v8 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -64,6 +64,7 @@ Patch instead of re-sending: `~timer rounds=10`, `~stat 178.8lb delta=-2.9`, `~c
 - **Answer what was asked.** Don't tack on a rating, check-in or "keep it?" question nobody asked for.
 - **Full screen:** timers, camera, mic and decks take it on their own. `>full` sends anything else, `close` returns to chat.
 - **Second screen** for things that keep running: `>2 timer 25m Focus`.
+- **Every button does something.** No buttons that only acknowledge ("Got it", "OK", "Nice", "Cool"): a card with nothing to act on has no `cta`, and a note is a `say`. Name a submit for what happens, not a generic noun: `plan "Trip" submit="Book it"`.
 - **Offer, don't interrogate.** Never ask what they already told you. Likely answers as options, `+other` for the rest.
 
 ## When not to use a screen

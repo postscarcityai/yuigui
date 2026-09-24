@@ -329,8 +329,8 @@ choose "Where is the mRNA read?" Nucleus|Cytoplasm|"The blood" answer=Cytoplasm 
 
 #### plan
 `plan [title...] [submit=] [review=off]`, then one question line per step. Plan mode: the questions become steps with a progress bar, Back and Next, and a final review screen that lists every answer with an Edit link; `ask` and `choose` move on by themselves after a tap. Members do **not** send their own events. The plan emits once, when the person submits the review: `{plan: {id: answer, ...}}`, keyed by each step's id (so name them: `choose@kind ...`), where each answer is what that step would have sent (`ask` answer, `choose` choice, `pick` list, `slide` value, `form` object, `mic` transcript, `camera` photo). After submitting, the plan folds into a project summary with an Edit answers button; submitting again sends a new `{plan}` (answers are never locked).
-- `submit` [Create project] labels the last button. `review=off` skips the review; the last answer submits.
-Props: `title`, `submit` [Create project], `review` [on].
+- `submit` [Send] labels the last button. `review=off` skips the review; the last answer submits.
+Props: `title`, `submit` [Send], `review` [on].
 Plan mode is the first workflow, and it is linear: every step shows, in line order. Saved, branching workflows come later (FLOW-1, see the roadmap).
 ```
 plan@site "New website"
