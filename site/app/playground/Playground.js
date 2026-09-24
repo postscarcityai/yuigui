@@ -187,7 +187,7 @@ export default function Playground() {
     <div className="pg">
       <div className="pg-left">
         <div className="pg-row">
-          <select value={idx} onChange={(e) => pick(Number(e.target.value))}>
+          <select aria-label="Screen" value={idx} onChange={(e) => pick(Number(e.target.value))}>
             <optgroup label="Benchmark screens">
               {SCREENS.map((s, i) => <option key={s.name} value={i}>{i + 1}. {s.name}</option>)}
             </optgroup>
@@ -214,11 +214,11 @@ export default function Playground() {
             {streamed}{streaming ? <span className="pg-caret">▍</span> : <span className="pg-hint"> (click to edit again)</span>}
           </pre>
         ) : (
-          <textarea className="pg-code" value={text} spellCheck={false} onChange={(e) => setText(e.target.value)} rows={9} />
+          <textarea className="pg-code" aria-label="YL source" value={text} spellCheck={false} onChange={(e) => setText(e.target.value)} rows={9} />
         )}
         <div className="pg-row pg-hint">
           Stream speed
-          <input type="range" min={10} max={150} value={160 - speed} onChange={(e) => setSpeed(160 - Number(e.target.value))} />
+          <input type="range" aria-label="Stream speed" min={10} max={150} value={160 - speed} onChange={(e) => setSpeed(160 - Number(e.target.value))} />
         </div>
 
         <form className="pg-agent" onSubmit={send}>

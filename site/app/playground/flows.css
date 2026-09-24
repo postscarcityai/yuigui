@@ -117,3 +117,4 @@
 .yl-stagedot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
 .yl-stagelive { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent2); }
 .yl-stageopen { color: var(--muted); }
+.bigbtn.p.ink { color: #2A2238; }

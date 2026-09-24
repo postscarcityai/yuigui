@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The playground reads right to a screen reader",
+    "card": "SITE-6",
+    "body": "The playground was the one page under 95 on Lighthouse accessibility. The screen picker, the YL text box and the stream speed slider now carry names a screen reader can announce, and the Start button on the Arnold timer uses dark ink on orange instead of white, which was too faint to pass contrast. Every page on the site now scores 95 or better."
+  },
+  {
+    "date": "2026-09-24",
     "title": "One story, five menu items",
     "card": "SITE-13",
     "body": "The site grew a page at a time and it showed: eleven menu items, three pages that each told you where Yui was headed, and phase lists that disagreed. Now the menu has five items: What it does, See it, Roadmap, Developers and Get Yui. Roadmap holds the live board, the ship log (this page) and the build list in one row of tabs. Developers is a new page that points at the playground, the Yui Lines spec and the channel guide. The old business plan and pitch deck pages became one short plan under Business, linked from the footer, and their old addresses forward there. Phases are listed only on the roadmap now, so they cannot drift apart again.",

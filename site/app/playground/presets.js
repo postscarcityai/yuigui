@@ -106,7 +106,7 @@ function Timer({ p, emit }) {
       ) : null}
       <div className="bigbtns">
         <button className="bigbtn s" onClick={reset}>Reset</button>
-        <button className="bigbtn p" onClick={() => { if (done) reset(); setRun(!run); if (!run) emit({ started: true }); }}>
+        <button className="bigbtn p ink" onClick={() => { if (done) reset(); setRun(!run); if (!run) emit({ started: true }); }}>
           {run ? "Pause" : done ? "Again" : "Start"}
         </button>
       </div>
