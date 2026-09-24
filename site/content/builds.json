@@ -280,5 +280,10 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Safe for strangers: rate limits, size caps, kill switch, 90-day retention",
+      "card": "YUI-26"
+    }
+  ]
 }

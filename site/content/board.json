@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T11:40:36.703Z",
+  "updated": "2026-09-24T12:41:42.330Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -206,12 +206,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-27",
-          "title": "Ready for beta review",
-          "summary": "Privacy labels, review notes, demo account, support link",
-          "mvp": true
-        },
-        {
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
@@ -223,6 +217,22 @@
         {
           "key": "SITE-6",
           "title": "Playground a11y labels (Lighthouse 89 -> 95+)"
+        },
+        {
+          "key": "SITE-8",
+          "title": "Responsive navigation on yuigui.com (mobile menu)"
+        },
+        {
+          "key": "SITE-9",
+          "title": "Kill horizontal scroll on every yuigui.com page"
+        },
+        {
+          "key": "SITE-10",
+          "title": "Phases on yuigui.com are out of date, bring them current"
+        },
+        {
+          "key": "SITE-11",
+          "title": "Full freshness + polish pass on yuigui.com"
         }
       ]
     },
@@ -238,9 +248,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-26",
-          "title": "Safe for strangers",
-          "summary": "Limits, abuse switch and RLS re-audit on the shared backend",
+          "key": "YUI-27",
+          "title": "Ready for beta review",
+          "summary": "Privacy labels, review notes, demo account, support link",
           "mvp": true
         }
       ]
@@ -249,6 +259,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-26",
+          "title": "Safe for strangers",
+          "summary": "Safe for strangers: limits, an off switch, and 90 days of history",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#safe-for-strangers-limits-an-off-switch-and-90-days-of-history"
+        },
         {
           "key": "YUI-28",
           "title": "No lost messages",
