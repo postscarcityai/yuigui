@@ -29,7 +29,20 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
   const headerRef = useRef(null);
 
+  const subRef = useRef(null);
+
   useEffect(() => { setOpen(false); }, [path]);
+
+  // On a phone the subnav scrolls sideways; bring the current page into view so it is never cut off.
+  useEffect(() => {
+    const row = subRef.current;
+    const a = row?.querySelector('[aria-current="page"]');
+    if (!a) return;
+    const { left, right } = a.getBoundingClientRect();
+    const box = row.getBoundingClientRect();
+    if (right > box.right) row.scrollLeft += right - box.right + 24;
+    else if (left < box.left) row.scrollLeft -= box.left - left + 24;
+  }, [path]);
 
   useEffect(() => {
     if (!open) return;
@@ -66,7 +79,7 @@ export default function Nav() {
       </div>
       {here?.pages && (
         <nav aria-label={here.label} className="subnav">
-          <div className="wrap">
+          <div className="wrap" ref={subRef}>
             {here.pages.map(([href, label]) => (
               <Link key={href} href={href} aria-current={cur(href)}>{label}</Link>
             ))}

@@ -18,6 +18,13 @@ export default function Start() {
         Yui talks to Hermes running on your own Mac or Linux box. If Hermes already answers you somewhere, this takes
         about five minutes.
       </p>
+      <div className="start-byo">
+        <p>
+          <strong>Bring your own Hermes.</strong> In the beta, Yui has no agent of its own. The app answers once your Hermes is
+          paired, with your model, your memory and your tools. No Hermes yet? Install it first, pick a model, then start at step 1:
+        </p>
+        <Cmd>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</Cmd>
+      </div>
 
       <ol className="steps">
         <li>
@@ -86,10 +93,6 @@ export default function Start() {
           </li>
           <li>
             The plugin dials out. It opens no ports on your machine, and your agent keeps its own memory and tools.
-          </li>
-          <li>
-            No Hermes yet? Install it with{" "}
-            <code>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</code>, pick a model, then start at step 1.
           </li>
         </ul>
         <p>

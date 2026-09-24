@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 48,
-    "site": 111,
+    "app": 49,
+    "site": 113,
     "builds": 21,
-    "shipped": 68,
-    "screenshots": 107
+    "shipped": 70,
+    "screenshots": 115
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T18:52:47.689Z",
+          "at": "2026-09-24T19:12:57.300Z",
+          "title": "A polish pass on See it, Get started and Timeline",
+          "card": "SITE-17",
+          "anchor": "a-polish-pass-on-see-it-get-started-and-timeline",
+          "images": [
+            {
+              "src": "/progress/site17-start-byo.webp",
+              "alt": "Get started on a phone: a box that says Bring your own Hermes, explaining that Yui has no agent of its own in the beta, with the Hermes install command and a Copy button, above step 1."
+            },
+            {
+              "src": "/progress/site17-subnav.webp",
+              "alt": "The Timeline page on a phone in dark mode. The row of pages under the menu, Roadmap, Board, Shipped, Builds and Timeline, is scrolled so the highlighted Timeline tab sits fully in view."
+            },
+            {
+              "src": "/progress/site17-plan-send.webp",
+              "alt": "The See it page entry plan ends in Send: a live phone asking Which pages? with four choices, the Yui Lines that draw it, the card YUI-53, and an app screenshot whose last button says Send."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 49,
+            "site": 113,
+            "builds": 21,
+            "shipped": 70
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T18:52:59.000Z",
           "title": "Scroll up, and one arrow brings you back",
           "card": "YUI-50",
           "anchor": "scroll-up-and-one-arrow-brings-you-back",
@@ -35,10 +63,42 @@
               "alt": "Eight frames 40 milliseconds apart: a sent message starts small at the composer and floats up into its place in the thread."
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 48,
-            "site": 111,
+            "site": 113,
+            "builds": 21,
+            "shipped": 69
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T18:52:41.000Z",
+          "title": "Read, answer, send once: a plan is now one full-screen flow",
+          "card": "YUI-51",
+          "anchor": "read-answer-send-once-a-plan-is-now-one-full-screen-flow",
+          "images": [
+            {
+              "src": "/progress/yui51-flow-page.webp",
+              "alt": "A plan open full screen in Yui: step 1 of 4, a page titled What broke with a paragraph and two bullet points, and Back and Next buttons."
+            },
+            {
+              "src": "/progress/yui51-folded.webp",
+              "alt": "The chat after sending: a small card that says Build review, 2 pages, 2 answers, and under it the person's own purple message listing both answers."
+            },
+            {
+              "src": "/progress/yui51-record.webp",
+              "alt": "The Build review card opened: the What broke page expanded with its paragraph and bullets, a collapsed What is new page, and an Open the flow button."
+            },
+            {
+              "src": "/progress/yui51-web.webp",
+              "alt": "The same flow in the web playground after sending: the Build review record opened to its page titles, and the answers as a pink message from the person."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 48,
+            "site": 112,
             "builds": 21,
             "shipped": 68
           }
@@ -1018,6 +1078,10 @@
           "anchor": "pick-it-up-in-yui",
           "images": [
             {
+              "src": "/progress/yui8-push-banner.webp",
+              "alt": "A notification on the home screen from Yui: an agent has something for you in Yui. The agent's name is blurred."
+            },
+            {
               "src": "/progress/yui8-thread-opened.webp",
               "alt": "The Yui thread after tapping the notification, showing Ship build 17 tonight? with Ship it and Hold buttons"
             }
@@ -1325,6 +1389,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "576f220",
+          "at": "2026-09-24T18:54:34.000Z",
+          "text": "Findings, then questions, in one full-screen flow: a plan shows pages to read before its questions, opens full screen, closes itself on...",
+          "url": "https://github.com/postscarcityai/yui/commit/576f220"
+        },
+        {
+          "repo": "site",
+          "sha": "35b7021",
+          "at": "2026-09-24T18:52:59.000Z",
+          "text": "Progress: scroll up, and one arrow brings you back (YUI-50)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/35b7021"
+        },
+        {
+          "repo": "site",
+          "sha": "9c83f86",
+          "at": "2026-09-24T18:52:41.000Z",
+          "text": "One full-screen flow: a plan holds pages to read before its questions, opens full screen, sends once, and folds back into the chat as a...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9c83f86"
+        },
         {
           "repo": "app",
           "sha": "0edd274",

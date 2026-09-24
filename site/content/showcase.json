@@ -1,5 +1,5 @@
 {
-  "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far.",
+  "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far, site = a page on yuigui.com (`link` opens it).",
   "cards": {
     "YUI-1": { "title": "Yui Lines and the web renderer", "shipped": "2026-09-23" },
     "YUI-2": { "title": "The app's look, light and dark", "shipped": "2026-09-23" },
@@ -19,6 +19,7 @@
     "YUI-17": { "title": "Charts, graphs and science tools", "shipped": "2026-09-24" },
     "YUI-18": { "title": "Decks, plan mode and narrated walkthroughs", "shipped": "2026-09-24" },
     "YUI-51": { "title": "One full-screen flow that folds back into the chat", "shipped": "2026-09-24" },
+    "YUI-53": { "title": "No dead buttons: a plan ends in Send", "shipped": "2026-09-24" },
     "YUI-19": { "title": "Every preset, native on iPhone", "shipped": "2026-09-24" },
     "YUI-20": { "title": "Every agent has its own look", "shipped": "2026-09-24" },
     "YUI-21": { "title": "Pictures in, photos out", "shipped": "2026-09-24" },
@@ -31,6 +32,7 @@
     "YUI-49": { "title": "React to a message", "shipped": "2026-09-24" },
     "YUI-50": { "title": "Jump to the newest message", "shipped": "2026-09-24" },
     "SITE-15": { "title": "Yui Lines back in sight: How it works and every spec on the site", "shipped": "2026-09-24" },
+    "SITE-16": { "title": "Watch Yui grow: the whole history on one page", "shipped": "2026-09-24" },
     "YUI-14": { "title": "Voice in, text out, smooth and fast" },
     "YUI-31": { "title": "Three screens per agent with animated transitions" },
     "YUI-32": { "title": "Named screens: save and reopen a screen in two tokens" },
@@ -89,6 +91,7 @@
         { "id": "deck", "title": "deck", "what": "Pages to swipe through, with a quiz at the end.", "cards": ["YUI-18", "YUI-19"], "demo": "deck-lesson", "agent": "Tutor", "app": "native", "shots": ["/progress/yui19-deck.webp", "/progress/yui18-quiz.webp"] },
         { "id": "plan", "title": "plan", "what": "Plan mode: one question at a time, ending in a project card that reopens it.", "cards": ["YUI-18", "YUI-19"], "demo": "plan-website", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-plan.webp"] },
         { "id": "plan-findings", "title": "plan with pages", "what": "Findings to read, then questions, full screen with one Send. The answers land in the chat as your own message.", "cards": ["YUI-51"], "demo": "plan-findings", "agent": "Studio", "app": "native", "shots": ["/progress/yui51-flow-page.webp", "/progress/yui51-folded.webp", "/progress/yui51-record.webp"] },
+        { "id": "plan-send", "title": "plan ends in Send", "what": "The last button of a plan says Send, and a card with nothing to act on has no button at all. No Got it, no OK: every button does something.", "cards": ["YUI-53"], "yl": "say \"Two quick ones, then I send the brief to the studio.\"\nplan@brief \"Site brief\"\npick@pages \"Which pages?\" Home|About|Classes|Contact\nask@launch \"Launch before the holidays?\" \"Yes, Dec 1\"|\"No rush\"", "agent": "Studio", "app": "native", "shots": ["/progress/yui53-plan-send-light.webp"] },
         { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] }
       ]
     },
@@ -116,10 +119,11 @@
     },
     {
       "id": "site",
-      "title": "Yui Lines on yuigui.com",
-      "lede": "The screen language, shown where people land: one line and the screen it draws on the home page, and a five-line quick start on the spec.",
+      "title": "On yuigui.com",
+      "lede": "The screen language, shown where people land, and the whole build history played back day by day.",
       "entries": [
-        { "id": "quick-start", "title": "Five lines, five screens", "what": "The quick start at the top of /yl. Tap a line to draw it; the app draws the same line the same way.", "cards": ["SITE-15"], "yl": "choose \"What are we training?\" Push|Pull|Legs +other", "agent": "Yui", "shots": ["/progress/site15-home-band.webp", "/progress/site15-yl-quickstart.webp"] }
+        { "id": "quick-start", "title": "Five lines, five screens", "what": "The quick start at the top of /yl. Tap a line to draw it; the app draws the same line the same way.", "cards": ["SITE-15"], "yl": "choose \"What are we training?\" Push|Pull|Legs +other", "agent": "Yui", "app": "site", "link": "/yl", "shots": ["/progress/site15-home-band.webp", "/progress/site15-yl-quickstart.webp"] },
+        { "id": "timeline", "title": "Watch Yui grow", "what": "The Timeline page replays every shipped change that has a screenshot, oldest first, while the commit and build counters climb. Drag the slider to jump to any day.", "cards": ["SITE-16"], "app": "site", "link": "/timeline", "shots": ["/progress/site16-timeline.webp", "/progress/site16-grow-phone.webp"] }
       ]
     },
     {

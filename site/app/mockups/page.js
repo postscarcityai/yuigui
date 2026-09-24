@@ -66,9 +66,11 @@ function Entry({ e, planned }) {
         <p>{e.what}</p>
         {planned ? <span className="pill sc-planned">Planned, not built</span>
           : e.app === "later" ? <span className="pill">On the web now, in the app later</span>
+          : e.app === "site" ? <span className="pill">On yuigui.com</span>
           : <span className="pill sc-native">In the iPhone app</span>}
         {yl ? <pre className="sc-yl"><code>{yl.split("\n").filter((l) => !l.trim().startsWith("#")).join("\n")}</code></pre> : null}
         <ul className="sc-cards">{e.cards.map((k) => <CardRef k={k} key={k} planned={planned} />)}</ul>
+        {e.link ? <p className="sc-more"><Link href={e.link}>Open {e.link}</Link></p> : null}
         {s?.slug ? <p className="sc-more"><Link href={`/playground?demo=${s.slug}`}>Edit it in the playground</Link></p> : null}
         {shots.length ? <Shots images={shots} label={e.title} /> : null}
       </div>

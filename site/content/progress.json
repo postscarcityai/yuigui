@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "A polish pass on See it, Get started and Timeline",
+    "card": "SITE-17",
+    "body": "A look at three pages on a phone and a laptop, light and dark. No page scrolls sideways at 390 pixels and all 539 links and pictures on them load. Get started now says it up front: in the beta Yui has no agent of its own, you bring your own Hermes, with the install command right there to copy. On a phone, the row of pages under Roadmap and Developers now scrolls so the page you are on is never cut off at the edge. See it gained two entries: a plan that ends in Send (YUI-53) and the Timeline page (SITE-16), and site pages now say On yuigui.com instead of claiming the app. Its live phones start drawing a screen earlier, so a quick scroll does not catch them blank. One older screenshot showed a private agent name in a notification; the name is now blurred.",
+    "images": [
+      {
+        "src": "/progress/site17-start-byo.webp",
+        "alt": "Get started on a phone: a box that says Bring your own Hermes, explaining that Yui has no agent of its own in the beta, with the Hermes install command and a Copy button, above step 1."
+      },
+      {
+        "src": "/progress/site17-subnav.webp",
+        "alt": "The Timeline page on a phone in dark mode. The row of pages under the menu, Roadmap, Board, Shipped, Builds and Timeline, is scrolled so the highlighted Timeline tab sits fully in view."
+      },
+      {
+        "src": "/progress/site17-plan-send.webp",
+        "alt": "The See it page entry plan ends in Send: a live phone asking Which pages? with four choices, the Yui Lines that draw it, the card YUI-53, and an app screenshot whose last button says Send."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Read, answer, send once: a plan is now one full-screen flow",
     "card": "YUI-51",
     "body": "Chris got three thin pages of findings, had to close them, and then answered two questions somewhere else. Now it is one flow. A plan can hold pages to read before its questions, it opens full screen, and one button at the end sends every answer. When it closes, the chat keeps a record: a small card with the plan's title and what it held (2 pages, 2 answers) that opens to the pages, and the answers as your own message, as if you had typed them. The agent still gets one event with everything. The Yui Lines spec, all four parsers (335 of 335 test cases each), the playground and the app all do it. The channel guide (v9) tells agents that findings then questions is one plan and that a page needs a real paragraph. The old guide failed both new test cases the same way Chris saw it live; v9 scored 42 of 42.",
@@ -596,7 +616,7 @@
     "images": [
       {
         "src": "/progress/yui8-push-banner.webp",
-        "alt": "A notification on the home screen: Yui, Urza has something for you in Yui"
+        "alt": "A notification on the home screen from Yui: an agent has something for you in Yui. The agent's name is blurred."
       },
       {
         "src": "/progress/yui8-thread-opened.webp",

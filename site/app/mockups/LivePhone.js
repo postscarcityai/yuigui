@@ -1,6 +1,6 @@
 "use client";
 // One phone that draws a Yui Lines reply with the playground's renderers (SITE-14).
-// It mounts when it scrolls near the viewport, so a page of forty phones stays light.
+// It mounts a screen or so before it scrolls into view, so a page of forty phones stays light.
 import { useCallback, useEffect, useRef, useState } from "react";
 import { apply, initialState, parse } from "../../lib/yl/yl.mjs";
 import { Render, StepGroup, TABLES } from "../playground/presets";
@@ -64,7 +64,7 @@ export default function LivePhone({ yl, agent = "Yui", light = false, label }) {
   useEffect(() => {
     const el = box.current;
     if (!el || on) return;
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setOn(true); io.disconnect(); } }, { rootMargin: "400px" });
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setOn(true); io.disconnect(); } }, { rootMargin: "800px" });
     io.observe(el);
     return () => io.disconnect();
   }, [on]);

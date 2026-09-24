@@ -675,6 +675,8 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .cmd { display: flex; align-items: center; gap: 10px; background: #0a0b10; border-radius: 14px; padding: 10px 10px 10px 16px; margin-top: 12px; }
 .cmd code { flex: 1; min-width: 0; color: #d9dcff; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; overflow-x: auto; white-space: nowrap; }
 .cmd button { background: var(--lavender); color: #2A2238; border: 0; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+.start-byo { background: var(--raised); border: 1.5px solid var(--outline); border-radius: 18px; padding: 14px 18px; margin: 20px 0; }
+.start-byo p { margin: 0 0 10px; }
 .card p code, .start-more code { background: var(--raised); padding: 1px 6px; border-radius: 6px; font-size: 14px; overflow-wrap: anywhere; }
 
 /* SITE-11: phones get the whole command, the step card full width, and the live board columns first */
