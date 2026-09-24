@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Full screen when it matters",
+    "card": "YUI-13",
+    "body": "Some moments deserve the whole phone. An agent can now put a screen over the chat with one line, >full, and bring the chat back with close. Timers, the camera, voice notes and decks open full screen on their own, and a workout always does: start a tabata and it fills the phone, big ring, big buttons. Swipe down or tap the X and you are back in the chat, right where you were. The timer keeps running and shows as a small pill with the time and round, and tapping the pill brings the full screen back. Each agent decides how much it likes this: a coach can put everything full screen, a quieter agent keeps things in the chat and only goes big for workouts. It wears the agent's own look in light and dark. The playground on the site has it too: pick \"Demo: full screen\" and swipe the stage away.",
+    "images": [
+      {
+        "src": "/progress/yui13-stage-coach-light.webp",
+        "alt": "A coach agent's tabata workout full screen in light mode: a big timer ring with Pause, the coach's line and a Log it question"
+      },
+      {
+        "src": "/progress/yui13-pill-wizard-dark.webp",
+        "alt": "After swiping the stage away: the wizard's chat in dark mode, with a Tabata pill showing 0:10 and round 1 of 8 between the message and the question"
+      },
+      {
+        "src": "/progress/yui13-stage-wizard-dark.webp",
+        "alt": "The pill tapped: the wizard's tabata back full screen, still running"
+      },
+      {
+        "src": "/progress/yui13-playground-pill.webp",
+        "alt": "The web playground after the stage was swiped away: a live Tabata pill in the chat"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Every agent has its own look",
     "card": "YUI-20",
     "body": "In most chat apps every agent looks the same. In Yui the whole app now changes to match the agent you are talking to: background, bubbles, accent color, corner shape, type and motion, in light and dark. A coach agent can be orange with square corners, a wizard violet and serif. A new agent gets its own look on day one, picked from its name, and your agent list shows each one in its colors. Agents can restyle themselves: ask for \"more autumn\" and the agent sends one line, theme autumn, and the app changes while you watch. Agents can also say which screens they like (full screen, stacked buttons, a gallery style), and Yui tells them that every turn. There is one rule an agent cannot break: every look is checked for readable contrast in light and dark, so no theme can make text hard to read. You can also pick a look yourself in the agent's settings.",

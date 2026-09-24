@@ -25,6 +25,8 @@ One file per area, `NN-area.json`:
 - `error: true`: the vector expects at least one error op.
 - `chunks` + `emits`: streaming. Push each chunk into a fresh stream parser, then flush. `emits[i]` is what push `i` returned; the last entry is what `flush()` returned.
 
+- `stage` + `style`: the ids of the adds that open on the stage (YL.md section 5, The stage), when the agent's style profile is `style` (default `{}`). Checked against `onStage` in the JS parser and `YuiLines.opensOnStage` in Swift.
+
 A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`, and (with `chunks`) the per-chunk emits match.
 
 ## Changing the suite

@@ -6,6 +6,7 @@ import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../../lib/yl/samples.mjs"
 import { Render, StepGroup, TABLES } from "./presets";
 import { Group, groupNodes } from "./flows";
 import { ScreenCtx } from "./science";
+import { LiveSlot, Stage, StagePill } from "./stage";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS];
@@ -15,6 +16,17 @@ function build(text) {
   let s = initialState();
   for (const op of parse(text)) s = apply(s, op);
   return s;
+}
+
+// The key of the last non-staged node before `n` on its screen (null: none),
+// which is where the pill for `n` goes. Group members count as their group.
+function lastInline(list, n) {
+  let key = null;
+  for (const x of list) {
+    if (x === n) return key;
+    if (!x.stage && !x.in) key = x.key;
+  }
+  return key;
 }
 
 export default function Playground() {
@@ -39,7 +51,15 @@ export default function Playground() {
   // components that did not change keep their state.
   useEffect(() => {
     if (streaming) return;
-    const t = setTimeout(() => { setState(build(text)); agentParser.current = null; }, 150);
+    const t = setTimeout(() => {
+      // Editing keeps the stage the way the person left it, unless what is on it changed.
+      const stagedKeys = (st) => Object.values(st.screens).flat().filter((n) => n.stage).map((n) => n.key).join();
+      setState((prev) => {
+        const next = build(text);
+        return stagedKeys(prev) === stagedKeys(next) ? { ...next, stage: prev.stage } : next;
+      });
+      agentParser.current = null;
+    }, 150);
     return () => clearTimeout(t);
   }, [text, streaming]);
 
@@ -131,9 +151,36 @@ export default function Playground() {
   // saved screen (show name) without a round trip to the agent.
   const dispatch = useCallback((op) => setState((s) => apply(s, op)), []);
 
-  const screens = Object.keys(state.screens);
-  const shown = view && state.screens[view] ? view : state.focus;
-  const nodes = state.screens[shown] || [];
+  // The stage (YL.md section 5): staged components from every screen, drawn
+  // over the phone. The chat keeps a pill where they were.
+  const [live, setLive] = useState({});
+  const onLive = useCallback((k, t) => setLive((l) => (l[k] === t ? l : { ...l, [k]: t })), []);
+  const closeStage = useCallback(() => setState((s) => ({ ...s, stage: false })), []);
+  const openStage = () => setState((s) => ({ ...s, stage: true }));
+
+  const screens = Object.keys(state.screens).filter((k) => k !== "full");
+  const focus = state.focus === "full" ? "1" : state.focus;
+  const shown = view && state.screens[view] && view !== "full" ? view : focus;
+  const nodes = (state.screens[shown] || []).filter((n) => !n.stage);
+  const staged = Object.values(state.screens).flat().filter((n) => n.stage).sort((a, b) => a.seq - b.seq);
+  // Where staged nodes sat on this screen: one pill per run of them.
+  const pills = [];
+  for (const n of state.screens[shown] || []) {
+    if (!n.stage) continue;
+    const prev = pills[pills.length - 1];
+    if (prev && prev.after === lastInline(state.screens[shown], n)) prev.nodes.push(n);
+    else pills.push({ after: lastInline(state.screens[shown], n), nodes: [n] });
+  }
+  if ((state.screens.full || []).length && shown === "1") pills.push({ after: null, nodes: state.screens.full, end: true });
+  const pillAt = (key) => pills.filter((p) => !p.end && p.after === key);
+  const renderNode = (n) => n.steps ? (
+    <div key={`${epoch}:${n.key}:steps`} className="pg-node"><StepGroup nodes={n.steps} emitFor={emitFor} /></div>
+  ) : n.group ? (
+    <div key={`${epoch}:${n.key}:${n.group.preset}`} className="pg-node"><Group g={n} emitFor={emitFor} Render={Render} /></div>
+  ) : (
+    <div key={`${epoch}:${n.key}:${n.preset}`} className="pg-node"><Render node={n} emit={emitFor(n)} /></div>
+  );
+  const pill = (p, i) => <StagePill key={`pill:${p.nodes[0].key}:${i}`} nodes={p.nodes} live={live} onOpen={openStage} />;
   const lines = useMemo(() => text.split("\n").filter((l) => l.trim() && !l.trim().startsWith("# ")).length, [text]);
 
   return (
@@ -213,6 +260,11 @@ export default function Playground() {
               Screen {k}{state.screens[k].length ? ` · ${state.screens[k].length}` : ""}
             </button>
           ))}
+          {staged.length ? (
+            <button className={`pg-tab ${state.stage ? "on" : ""}`} onClick={state.stage ? closeStage : openStage}>
+              ⤢ Full screen · {staged.length}
+            </button>
+          ) : null}
           <button className="pg-tab" onClick={() => {
             const url = new URL(window.location.href);
             if (light) url.searchParams.delete("theme"); else url.searchParams.set("theme", "light");
@@ -230,16 +282,17 @@ export default function Playground() {
             </div>
             <div className="pg-screen">
               <ScreenCtx.Provider value={{ nodes, tables: TABLES, agent, screen: shown, dispatch }}>
-                {groupNodes(nodes).map((n) => n.steps ? (
-                  <div key={`${epoch}:${n.key}:steps`} className="pg-node"><StepGroup nodes={n.steps} emitFor={emitFor} /></div>
-                ) : n.group ? (
-                  <div key={`${epoch}:${n.key}:${n.group.preset}`} className="pg-node"><Group g={n} emitFor={emitFor} Render={Render} /></div>
-                ) : (
-                  <div key={`${epoch}:${n.key}:${n.preset}`} className="pg-node"><Render node={n} emit={emitFor(n)} /></div>
-                ))}
+                {pillAt(null).map(pill)}
+                {groupNodes(nodes).flatMap((n) => [renderNode(n), ...pillAt(n.key).map(pill)])}
+                {pills.filter((p) => p.end).map(pill)}
               </ScreenCtx.Provider>
-              {!nodes.length ? <div className="pg-hint" style={{ textAlign: "center", marginTop: 40 }}>Empty screen</div> : null}
+              {!nodes.length && !pills.length ? <div className="pg-hint" style={{ textAlign: "center", marginTop: 40 }}>Empty screen</div> : null}
             </div>
+            <Stage open={state.stage && staged.length > 0} onClose={closeStage} agent={agent}>
+              <ScreenCtx.Provider value={{ nodes: staged, tables: TABLES, agent, screen: "full", dispatch }}>
+                {groupNodes(staged).map((n) => <LiveSlot key={`${epoch}:${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
+              </ScreenCtx.Provider>
+            </Stage>
           </div>
         </div>
       </div>

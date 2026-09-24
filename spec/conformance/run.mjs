@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import { parse, StreamParser } from "../../site/lib/yl/yl.mjs";
+import { onStage, parse, StreamParser } from "../../site/lib/yl/yl.mjs";
 
 // Parser ops minus the fields that are not compared: `line` (the source
 // text) and an error's `message` (wording is up to each parser).
@@ -32,6 +32,10 @@ function check(v) {
     const emits = v.chunks.map((c) => normalize(s.push(c)));
     emits.push(normalize(s.flush()));
     if (!isDeepStrictEqual(emits, v.emits)) fails.push(["stream (chunks)", emits]);
+  }
+  if (v.stage) {
+    const staged = parse(v.input).filter((o) => onStage(o, v.style || {})).map((o) => o.id);
+    if (!isDeepStrictEqual(staged, v.stage)) fails.push(["stage (ids that open on the stage)", staged]);
   }
   const hasError = v.expected.some((o) => o.op === "error");
   if (hasError !== (v.error === true)) fails.push(["vector: `error` flag does not match expected", v.error]);

@@ -22,6 +22,8 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `~target args...` | patch a live component | `~hiit rounds=10` |
 | `>S line` | send one line to screen S | `>2 timer 90 Rest` |
 | `>S` alone | focus screen S for the lines that follow | `>2` |
+| `>full` alone | open the stage: the lines that follow fill the whole screen (section 5, The stage) | `>full` |
+| `>chat` alone, or `close` | close the stage; the lines that follow go back to screen 1 | `close` |
 | `say text` | plain text bubble | `say Nice work.` |
 | `save name` | save the current screen | `save workout` |
 | `show name` | restore a saved screen | `show workout` |
@@ -30,7 +32,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `theme [set] key=value...` | restyle this agent's look (section 4, theme) | `theme autumn radius=square` |
 | `custom {json}` | escape hatch, rest of line is JSON | `custom {"type":"text","text":"hi"}` |
 
-Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen.
+Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen. Two screen names are reserved: `full` is the stage, and `chat` means screen `1` (`>chat ask Ready?` sends one line back to screen 1).
 
 Lines end at `\n`; a trailing `\r` is dropped, so CRLF works. Leading and trailing whitespace is ignored. Preset names and core words are lowercase (`Timer 60` is an unknown preset). Ids are `[A-Za-z0-9_-]+`. `> 2` (space after `>`) is not a route.
 
@@ -69,7 +71,7 @@ Defaults in brackets. Only what the line says is sent; the app fills in the rest
 
 ### timer
 `timer TIMESPEC [label...]`. Work/rest interval timer with rounds, a progress ring, beeps on the last 3 seconds and on phase changes. Emits `{started}` and `{done, rounds}`.
-Props: `work` [60], `rest` [0], `rounds` [1], `label`, `+up` (count up, stopwatch), `+auto` (start on arrival), `sound` [on].
+Props: `work` [60], `rest` [0], `rounds` [1], `label`, `+up` (count up, stopwatch), `+auto` (start on arrival), `sound` [on], `+inline` (stay in the chat instead of opening on the stage; workouts ignore it, section 5).
 ```
 timer 40/20x8 Tabata
 timer 5m Plank hold
@@ -377,7 +379,7 @@ ask "Publish the update?" "Yes, publish"|"Not yet"
 - **Keys alone** change only what they say: `theme accent=#7B5CFF bg=cream radius=round`.
 - `accent=` a `#RRGGBB` hex or a set name used as a color. `bg=` a hex or `cream|paper|white|mist|sand|blush` (the light-mode paper; dark mode is derived from the accent).
 - `radius=round|soft|square`, `font=rounded|default|serif|mono`, `weight=regular|bold|heavy` (headings and names), `motion=bouncy|calm|snappy`.
-- **Style profile**, the screens this agent prefers: `screen=chat|full`, `gallery=row|feed|row3d|grid`, `chart=line|bar|area|scatter|pie|donut`, `buttons=row|stack`. The agent is told its profile every turn, and renderers use it as their default.
+- **Style profile**, the screens this agent prefers: `screen=chat|full` (whether components open on the stage by default, section 5), `gallery=row|feed|row3d|grid`, `chart=line|bar|area|scatter|pie|donut`, `buttons=row|stack`. The agent is told its profile every turn, and renderers use it as their default.
 
 Guardrails: the app never lets a theme make text unreadable. Colors are adjusted until body text reaches 4.5:1 against its background and controls 3:1 (WCAG AA). Sizes and tap targets never change, radii and type come from fixed scales, and unknown names or values are ignored. The op is `{op: "theme", screen, props}`, with the set name in `props.name`. It takes no `@id`, advances no counter, sends no event, and leaves an open group open.
 
@@ -386,6 +388,18 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 **Routing.** `>2 timer 90` sends one line to screen 2 and brings screen 2 forward. `>2` alone moves focus: every following line goes to screen 2 until the next bare `>S`.
 
 **Patching.** `~target args` updates a component already on screen without re-sending it. `target` is an id (`timer@hiit` gives id `hiit`) or a preset name. The newest matching component on any screen wins. Args are parsed with the target's preset rules, so `~hiit 30/10` and `~hiit rounds=10` both work. A live timer keeps running through a patch; the time left is clamped to the new phase length.
+
+**The stage.** Some moments deserve the whole phone. The stage is a full-screen layer over the chat, in the agent's own look, with the chat right underneath.
+
+- `>full` alone opens the stage and routes the lines that follow onto it; `>full timer 40/20x8 Tabata` sends one line there. `close`, or `>chat` alone, closes it and sends the lines that follow back to screen 1. `close` takes nothing else. The op is `{op: "close", screen: "full"}`.
+- Some components open on the stage by themselves: `timer`, `camera`, `mic`, `deck`, and a `gallery` laid out as `row3d`. `+inline` keeps one in the chat: `timer 5m Plank hold +inline`.
+- **Workouts are always full screen.** A `timer` with rounds or rest (`40/20x8`, `90/30`) is a workout. It opens on the stage even with `+inline` and even when the agent prefers the chat.
+- The agent's style profile sets the default for everything else (section 4, theme): `screen=full` opens every component on the stage unless it says `+inline`, and `screen=chat` keeps everything in the chat unless it is routed with `>full` or is a workout.
+- A member of a group (a `page` under a `deck`) goes wherever its group went. Patches never move a component.
+- The person closes the stage with a swipe down or the X. Nothing is lost: a running timer keeps running and shows as a small pill in the chat, and tapping any pill brings the stage back. Opening and closing sends no event.
+- Where the renderer has no room for a stage (Telegram, a watch), staged components render in line as usual.
+
+The reference function is `onStage(op, style)` in `yl.mjs` (and `YuiLines.opensOnStage` in the app). Conformance vectors may carry `stage`, the ids of the adds that open on the stage, and `style`, the agent's style profile for that vector.
 
 **Saved screens.** `save workout` stores the current screen. `show workout` puts it back (on the current screen). Reopening a whole screen costs two tokens.
 
@@ -439,7 +453,7 @@ The stream parser keeps a line buffer. Every time a newline arrives, that line i
 
 A line that fails (unknown preset, bad JSON, patch target that does not exist, `show` of a name never saved) is skipped and reported. Nothing else on the screen is affected. The playground lists errors under the wire log.
 
-Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show` without a name, a patch whose target is neither a preset name nor an id seen earlier in the reply, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
+Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show` without a name, `close` with anything after it, a patch whose target is neither a preset name nor an id seen earlier in the reply, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
 
 ## 10. Telegram fallback
 
@@ -451,4 +465,4 @@ This is v0. Adding presets and props is non-breaking: an old app shows an error 
 
 ## 12. Conformance
 
-YL is platform neutral. Every parser (JS reference, Swift app, later Kotlin) must pass the shared vectors in `spec/conformance/`: one JSON file per area, each `{version, area, vectors: [{name, input, expected, error?, chunks?, emits?}]}`. `expected` is the op list for the whole `input`, minus each op's `line` and each error's `message`. A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`; when `chunks` is present, pushing those chunks then flushing must give `emits` (the ops returned by each push, then by the flush). Run the JS side with `cd spec/conformance && node run.mjs`. A change to this spec lands with the vectors that pin it.
+YL is platform neutral. Every parser (JS reference, Swift app, later Kotlin) must pass the shared vectors in `spec/conformance/`: one JSON file per area, each `{version, area, vectors: [{name, input, expected, error?, chunks?, emits?}]}`. `expected` is the op list for the whole `input`, minus each op's `line` and each error's `message`. A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`; when `chunks` is present, pushing those chunks then flushing must give `emits` (the ops returned by each push, then by the flush). When `stage` is present, the adds that open on the stage under `style` (default `{}`) must be exactly those ids. Run the JS side with `cd spec/conformance && node run.mjs`. A change to this spec lands with the vectors that pin it.

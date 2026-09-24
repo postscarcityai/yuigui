@@ -98,3 +98,22 @@
 .screen.light .yl-facts, .screen.light .yl-fact + .yl-fact { border-color: #e3e4ee; }
 .screen.light .yl-quiznote.ok { color: #13663f; }
 .screen.light .yl-quiznote.no { color: #9c2f20; }
+
+/* The stage (YL.md section 5): a full-screen layer over the chat. It stays
+   mounted while closed (slid down, out of sight) so timers keep running. */
+.yl-stage { position: absolute; inset: 0; z-index: 70; display: flex; flex-direction: column; background: #0b0c14; border-radius: 34px; transform: translateY(104%); opacity: 0; pointer-events: none; transition: transform .42s cubic-bezier(.2,.9,.25,1.05), opacity .3s ease; }
+.yl-stage.open { transform: none; opacity: 1; pointer-events: auto; }
+.screen.light .yl-stage { background: #fbfbfe; }
+.yl-stagebar { position: relative; display: flex; align-items: center; justify-content: center; padding: 34px 14px 8px; touch-action: none; cursor: grab; user-select: none; }
+.yl-stagegrab { position: absolute; top: 12px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 3px; background: #3a3e55; }
+.screen.light .yl-stagegrab { background: #d5d6e3; }
+.yl-stagewho { font-size: 12px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); }
+.yl-stagex { position: absolute; right: 14px; top: 26px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: #23263a; color: #fff; font-size: 20px; cursor: pointer; }
+.screen.light .yl-stagex { background: #e9eaf3; color: #1b1d2b; }
+.yl-stagebody { flex: 1; overflow-y: auto; padding: 8px 14px 22px; display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.yl-stagepill { display: flex; align-items: center; gap: 8px; align-self: flex-start; max-width: 100%; margin: 4px 0; padding: 8px 12px; border-radius: 999px; border: 1px solid #2a2e42; background: #161827; color: var(--text); font-size: 13px; cursor: pointer; animation: pop .2s ease-out; }
+.screen.light .yl-stagepill { background: #fff; border-color: #e3e4ee; color: #1b1d2b; }
+.yl-stagepill b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.yl-stagedot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+.yl-stagelive { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--accent2); }
+.yl-stageopen { color: var(--muted); }

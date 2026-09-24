@@ -83,7 +83,7 @@ These are the first things we pull once the MVP passes, roughly in this order:
 
 Chris, Sep 24: "I want these to be truly unique experiences." Every decision gets checked against this. Chat is the doorway, not the product. Three commitments follow:
 
-1. **Immersive by default when it matters.** The agent's UI can take over the whole screen, not just sit as a bubble in chat. The agent decides when a full-screen view is worth it; workouts always go full screen. The user can always leave with a swipe down or an X, and the chat is right underneath. Planned as Yui Lines `>full` (route the following lines to a full-screen stage) plus a per-preset default (timer, camera and mic default to full screen). Card YUI-13.
+1. **Immersive by default when it matters.** The agent's UI can take over the whole screen, not just sit as a bubble in chat. The agent decides when a full-screen view is worth it; workouts always go full screen. The user can always leave with a swipe down or an X, and the chat is right underneath. Shipped 2026-09-24 as Yui Lines `>full` (route the following lines to a full-screen stage) and `close`, plus a per-preset default (timer, camera, mic and deck open full screen, `+inline` keeps them small) and the agent's `screen=` style. Card YUI-13.
 2. **Voice in, text out, fast.** Talk naturally, read the answer. On-device speech (iOS 26 SpeechAnalyzer) streams words as you speak, a hands-free mode keeps the mic open between turns, and the first word of the reply lands in well under a second of you finishing. Card YUI-14.
 3. **Answers are never locked.** Change your mind on any choice and the agent adapts (YUI-12, shipping in Phase 1). An agent can lock something on purpose, like a confirmed booking.
 

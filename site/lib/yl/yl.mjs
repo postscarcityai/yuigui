@@ -11,6 +11,7 @@
 //   { op: "focus", screen, line }             bare ">2": later lines go to screen 2
 //   { op: "end",   screen, target, line }     close the open group (deck, plan, narrate)
 //   { op: "theme", screen, props, line }      restyle this agent's look (props.name = a named set)
+//   { op: "close", screen: "full", line }     `close` or bare ">chat": close the stage, back to screen 1
 //   { op: "error", screen, message, line }
 // `props` holds only what the line actually said. Defaults live in resolve().
 // An add that joins an open group (a page under a deck) also carries `in`,
@@ -24,7 +25,7 @@ export const PRESETS = [
   "deck", "page", "plan", "project", "narrate",
 ];
 // Not presets, but valid line heads.
-export const CORE = ["say", "custom", "save", "show", "clear", "end", "theme"];
+export const CORE = ["say", "custom", "save", "show", "clear", "end", "theme", "close"];
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -561,6 +562,8 @@ export class Parser {
   group(op) {
     // A theme line restyles the app, not the screen: it leaves groups alone.
     if (!op || op.op === "error" || op.op === "theme") return op;
+    // Closing the stage ends whatever group was open on it, like `>2` would.
+    if (op.op === "close") { this.open = []; return op; }
     if (op.op === "end") {
       const g = this.open.pop();
       if (!g) return { op: "error", screen: op.screen, message: "end: no open deck, plan or narrate", line: op.line };
@@ -584,9 +587,13 @@ export class Parser {
     let screen = this.screen;
     const route = body.match(/^>([\w-]+)(?:\s+|$)/);
     if (route) {
-      screen = route[1];
+      // `chat` is screen 1 (spec section 1); a bare ">chat" closes the stage.
+      screen = route[1] === "chat" ? "1" : route[1];
       body = body.slice(route[0].length);
-      if (!body || /^#(\s|$)/.test(body)) { this.screen = screen; return { op: "focus", screen, line }; }
+      if (!body || /^#(\s|$)/.test(body)) {
+        this.screen = screen;
+        return route[1] === "chat" ? { op: "close", screen: "full", line } : { op: "focus", screen, line };
+      }
     }
 
     // custom {json}: the rest of the line is JSON, not YL tokens.
@@ -622,6 +629,11 @@ export class Parser {
     }
     if (head === "clear") return { op: "clear", screen, line };
     if (head === "end") return { op: "end", screen, line };
+    if (head === "close") {
+      if (tokens.length) return { op: "error", screen, message: "close: takes nothing else", line };
+      this.screen = "1";
+      return { op: "close", screen: "full", line };
+    }
     if (head === "theme") return { op: "theme", screen, props: parseArgs("theme", tokens), line };
 
     const hm = head.match(/^([a-z]+)(?:@([\w-]+))?$/);
@@ -663,6 +675,31 @@ export class StreamParser {
     const op = rest.trim() ? this.p.line(rest) : null;
     return op ? [op] : [];
   }
+}
+
+// ---------- the stage ----------
+// The stage is a full-screen layer over the chat (spec section 5, The stage).
+// These presets open there unless they say +inline.
+export const STAGE = ["timer", "camera", "mic", "deck"];
+
+// A timer with rounds or rest. Workouts always open on the stage.
+export function isWorkout(preset, props = {}) {
+  return preset === "timer" && props.up !== true && ((props.rounds ?? 1) > 1 || (props.rest ?? 0) > 0);
+}
+
+// Whether an add op opens on the stage. `style` is the agent's style profile
+// (theme style: screen=chat|full, gallery=...). Group members follow their
+// head; screen state handles that (apply), since the op alone cannot know.
+export function onStage(op, style = {}) {
+  if (!op || op.op !== "add") return false;
+  if (op.screen === "full") return true;
+  const p = op.props || {};
+  if (isWorkout(op.preset, p)) return true;
+  if (p.inline === true) return false;
+  if (style.screen === "chat") return false;
+  if (style.screen === "full") return true;
+  if (STAGE.includes(op.preset)) return true;
+  return op.preset === "gallery" && (p.layout ?? style.gallery) === "row3d";
 }
 
 // ---------- defaults ----------
@@ -733,22 +770,33 @@ export function resolve(preset, props) {
 // Reduces ops into screens. Components keep their key across patches so a
 // live timer keeps ticking when "~timer rounds=10" lands.
 
+// `stage` is true while the stage is open over the chat. Staged components
+// stay on their own screen with `stage: true`; renderers draw them on the stage.
 export function initialState() {
-  return { focus: "1", screens: { "1": [] }, saved: {}, errors: [], customs: [] };
+  return { focus: "1", screens: { "1": [] }, saved: {}, errors: [], customs: [], stage: false };
 }
 
-export function apply(state, op) {
+export function apply(state, op, style = {}) {
   const s = { ...state, screens: { ...state.screens } };
   const scr = (k) => (s.screens[k] = s.screens[k] ? [...s.screens[k]] : []);
   switch (op.op) {
     case "focus":
-      s.focus = op.screen; scr(op.screen); break;
-    case "add":
+      s.focus = op.screen; scr(op.screen);
+      if (op.screen === "full") s.stage = true;
+      break;
+    case "close":
+      s.stage = false; s.focus = "1"; scr("1"); break;
+    case "add": {
       s.seq = (s.seq || 0) + 1;
-      scr(op.screen).push({ key: `${op.id}`, id: op.id, preset: op.preset, props: op.props, seq: s.seq, ...(op.in ? { in: op.in } : {}) });
+      const head = op.in && Object.values(s.screens).flat().find((c) => c.id === op.in);
+      // A theme line earlier in the reply wins over the stored style profile.
+      const stage = head ? !!head.stage : onStage(op, { ...style, ...(s.theme || {}) });
+      if (stage) s.stage = true;
+      scr(op.screen).push({ key: `${op.id}`, id: op.id, preset: op.preset, props: op.props, seq: s.seq, ...(op.in ? { in: op.in } : {}), ...(stage ? { stage } : {}) });
       if (op.preset === "custom") s.customs = [...s.customs, op.line.trim()];
       s.focus = op.screen;
       break;
+    }
     case "patch": {
       // Newest matching component on any screen wins.
       let hit = null;
@@ -797,6 +845,7 @@ export function toJSON(ops) {
       case "end": return { end: o.target };
       case "theme": return { theme: o.props };
       case "focus": return { focus: Number(o.screen) || o.screen };
+      case "close": return { close: true };
       default: return { error: o.message };
     }
   });

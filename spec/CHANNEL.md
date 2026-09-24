@@ -49,6 +49,7 @@ Every interaction arrives as a short message like `[yui] n1 ask answer=Yes` or `
 
 - **Build flows, not forms.** One question per screen, each answer shaping the next. It feels like a conversation with buttons.
 - **Name what you will change, then patch it.** `timer@hiit 40/20x8` then later `~hiit rounds=10`. Patching is cheaper and smoother than re-sending.
+- **Use full screen for moments that deserve it; workouts always.** `>full` puts what follows over the whole phone, `close` brings the chat back. Timers, camera, mic and decks go full screen on their own; add `+inline` to keep one small.
 - **Use a second screen for things that keep running.** `>2 timer 25m Focus` keeps a timer up while you keep chatting on screen 1.
 - **Save screens they will want again.** `save workout`, and next time `show workout` brings it back in two words.
 - **Combine.** A `card` with the plan, then an `ask` to start it. A `list` with `+check` as a live checklist.

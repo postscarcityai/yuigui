@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 import { resolve } from "../../lib/yl/yl.mjs";
 import { Calc, Chart, DataTable, MathBlock, Stat, Steps } from "./science";
 import { LonePage, Project } from "./flows";
+import { useLive } from "./stage";
 
 // Sample agent data tables, so `table meals` has something to bind to.
 export const TABLES = {
@@ -87,6 +88,8 @@ function Timer({ p, emit }) {
   const pct = p.up ? 100 : dur ? (left / dur) * 100 : 0;
   const col = phase === "work" ? "var(--arnold)" : "var(--accent2)";
   const reset = () => { setRun(false); setDone(false); setRound(1); setPhase("work"); setLeft(p.up ? 0 : p.work); };
+  // What the stage pill in the chat shows while this timer is on the stage.
+  useLive(done ? "Done" : run ? `${fmt(left)}${p.rounds > 1 ? ` · ${round}/${p.rounds}` : ""}` : null);
 
   return (
     <div className="yl-timer">

@@ -82,6 +82,18 @@ save warmup
 show warmup`,
   },
   {
+    name: "Demo: full screen (>full, close)",
+    slug: "stage",
+    agent: "Arnold",
+    yl: `say "Tabata time. Eight rounds, 20 on and 10 off."
+timer@hiit 20/10x8 Tabata +auto
+ask "Log it when you're done?"
+# swipe the stage down or tap the X: the timer keeps running in the pill
+# a workout always opens full screen; +inline keeps anything else in the chat
+timer 5m Cooldown walk +inline`,
+    next: "close",
+  },
+  {
     name: "Demo: custom {json} escape hatch",
     agent: "Urza",
     yl: `say "No preset fits a split-flap countdown, so the agent drops to custom."

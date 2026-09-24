@@ -1,0 +1,565 @@
+{
+  "version": "YL v0",
+  "area": "stage",
+  "vectors": [
+    {
+      "name": "open the stage",
+      "input": ">full\ntimer 60 Plank\nask Done?",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "label": "Plank"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Done?"
+          }
+        }
+      ],
+      "stage": [
+        "n1",
+        "n2"
+      ]
+    },
+    {
+      "name": "one line to the stage",
+      "input": ">full timer 60 Plank\nask Done?",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60,
+            "label": "Plank"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Done?"
+          }
+        }
+      ],
+      "stage": [
+        "n1"
+      ]
+    },
+    {
+      "name": "close goes back to screen 1",
+      "input": ">full\ntimer 60\nclose\nask Log it?",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "close",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Log it?"
+          }
+        }
+      ],
+      "stage": [
+        "n1"
+      ]
+    },
+    {
+      "name": "bare >chat closes the stage",
+      "input": ">full\ncamera\n>chat\nsay Nice.",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "camera",
+          "id": "n1",
+          "props": {}
+        },
+        {
+          "op": "close",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "Nice."
+          }
+        }
+      ],
+      "stage": [
+        "n1"
+      ]
+    },
+    {
+      "name": ">chat with a line is screen 1",
+      "input": ">full\ntimer 60\n>chat ask Ready?\nmic",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Ready?"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "mic",
+          "id": "n3",
+          "props": {}
+        }
+      ],
+      "stage": [
+        "n1",
+        "n3"
+      ]
+    },
+    {
+      "name": "close takes nothing else",
+      "input": "close now",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "stage": []
+    },
+    {
+      "name": "close with a comment",
+      "input": "close # done",
+      "expected": [
+        {
+          "op": "close",
+          "screen": "full"
+        }
+      ],
+      "stage": []
+    },
+    {
+      "name": "close when nothing is open",
+      "input": "close\nask Hi",
+      "expected": [
+        {
+          "op": "close",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Hi"
+          }
+        }
+      ],
+      "stage": []
+    },
+    {
+      "name": "timer, camera and mic open on the stage",
+      "input": "timer 5m Plank hold\ncamera\nmic\nask Ready?\nlist Today Squat|Bench",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 300,
+            "label": "Plank hold"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "camera",
+          "id": "n2",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "mic",
+          "id": "n3",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n4",
+          "props": {
+            "q": "Ready?"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "list",
+          "id": "n5",
+          "props": {
+            "items": [
+              "Squat",
+              "Bench"
+            ],
+            "title": "Today"
+          }
+        }
+      ],
+      "stage": [
+        "n1",
+        "n2",
+        "n3"
+      ]
+    },
+    {
+      "name": "+inline keeps one in the chat",
+      "input": "timer 5m Plank hold +inline\ncamera +inline",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 300,
+            "label": "Plank hold",
+            "inline": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "camera",
+          "id": "n2",
+          "props": {
+            "inline": true
+          }
+        }
+      ],
+      "stage": []
+    },
+    {
+      "name": "a workout ignores +inline",
+      "input": "timer 40/20x8 Tabata +inline\ntimer 90/30 Rest +inline\ntimer 60x3 +inline",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8,
+            "label": "Tabata",
+            "inline": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n2",
+          "props": {
+            "work": 90,
+            "rest": 30,
+            "label": "Rest",
+            "inline": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n3",
+          "props": {
+            "work": 60,
+            "rounds": 3,
+            "inline": true
+          }
+        }
+      ],
+      "stage": [
+        "n1",
+        "n2",
+        "n3"
+      ]
+    },
+    {
+      "name": "a stopwatch is not a workout",
+      "input": "timer 0 +up Run +inline",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 0,
+            "label": "Run",
+            "up": true,
+            "inline": true
+          }
+        }
+      ],
+      "stage": []
+    },
+    {
+      "name": "screen=chat keeps presets in the chat",
+      "input": "timer 5m Plank\ncamera\n>full ask Ready?",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 300,
+            "label": "Plank"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "camera",
+          "id": "n2",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "ask",
+          "id": "n3",
+          "props": {
+            "q": "Ready?"
+          }
+        }
+      ],
+      "style": {
+        "screen": "chat"
+      },
+      "stage": [
+        "n3"
+      ]
+    },
+    {
+      "name": "screen=chat still stages workouts",
+      "input": "timer 40/20x8 Tabata\ntimer 5m Plank",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8,
+            "label": "Tabata"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n2",
+          "props": {
+            "work": 300,
+            "label": "Plank"
+          }
+        }
+      ],
+      "style": {
+        "screen": "chat"
+      },
+      "stage": [
+        "n1"
+      ]
+    },
+    {
+      "name": "screen=full stages everything",
+      "input": "say Hi.\nask Ready?\nchoose Split Push|Pull\nask Stay? +inline",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Hi."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Ready?"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n3",
+          "props": {
+            "options": [
+              "Push",
+              "Pull"
+            ],
+            "q": "Split"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n4",
+          "props": {
+            "q": "Stay?",
+            "inline": true
+          }
+        }
+      ],
+      "style": {
+        "screen": "full"
+      },
+      "stage": [
+        "n1",
+        "n2",
+        "n3"
+      ]
+    },
+    {
+      "name": "patches never move a component",
+      "input": "timer@t 5m Plank +inline\n~t rounds=3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "t",
+          "props": {
+            "work": 300,
+            "label": "Plank",
+            "inline": true
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "t",
+          "props": {
+            "rounds": 3
+          }
+        }
+      ],
+      "stage": []
+    },
+    {
+      "name": "ids stay stable across the stage",
+      "input": ">full\ntimer@hiit 40/20x8\nclose\nask Log it?\n~hiit rounds=10",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "timer",
+          "id": "hiit",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8
+          }
+        },
+        {
+          "op": "close",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Log it?"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "hiit",
+          "props": {
+            "rounds": 10
+          }
+        }
+      ],
+      "stage": [
+        "hiit"
+      ]
+    }
+  ]
+}
