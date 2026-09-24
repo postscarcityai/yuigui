@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T08:10:02.685Z",
+  "updated": "2026-09-24T09:10:11.754Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -206,12 +206,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-23",
-          "title": "One-command plugin install",
-          "summary": "One-command yui plugin install on any Hermes host",
-          "mvp": true
-        },
-        {
           "key": "YUI-24",
           "title": "Push when an agent answers",
           "summary": "APNs notification when an agent answers and the app is closed",
@@ -268,8 +262,10 @@
           "waiting": true
         },
         {
-          "key": "YUI-19",
-          "title": "Native SwiftUI versions of the YUI-16/17/18 presets"
+          "key": "YUI-23",
+          "title": "One-command plugin install",
+          "summary": "One-command yui plugin install on any Hermes host",
+          "mvp": true
         }
       ]
     },
@@ -277,6 +273,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-19",
+          "title": "Native SwiftUI versions of the YUI-16/17/18 presets",
+          "summary": "Every preset, native on iPhone",
+          "shipped": "2026-09-24",
+          "progress": "/progress#every-preset-native-on-iphone"
+        },
         {
           "key": "YUI-21",
           "title": "Media pipeline",

@@ -1,6 +1,18 @@
 {
   "builds": [
     {
+      "build": 27,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-24T01:43:04-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Native media, data and learning presets",
+          "card": "YUI-19"
+        }
+      ]
+    },
+    {
       "build": 26,
       "date": "2026-09-24",
       "uploaded": "2026-09-24T00:43:57-07:00",
@@ -230,8 +242,8 @@
   ],
   "next": [
     {
-      "text": "Native media, data and learning presets",
-      "card": "YUI-19"
+      "text": "Yui plugin installs on any Hermes host: default profile, Linux host name, next steps",
+      "card": "YUI-23"
     }
   ]
 }
