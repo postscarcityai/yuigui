@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T20:10:28.742Z",
+  "updated": "2026-09-24T20:40:31.393Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -87,10 +87,6 @@
           "title": "Yui Lines parser in Rust"
         },
         {
-          "key": "INT-1",
-          "title": "OpenClaw adapter"
-        },
-        {
           "key": "INT-3",
           "title": "Yui MCP server"
         },
@@ -158,6 +154,10 @@
           "title": "A2A client, add any agent by its Agent Card"
         },
         {
+          "key": "BIZ-7",
+          "title": "Brand direction"
+        },
+        {
           "key": "FLOW-1",
           "title": "Flows",
           "summary": "Saved series of Yui screens, authored in Mermaid, run by any agent"
@@ -183,6 +183,21 @@
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
+        },
+        {
+          "key": "SITE-19",
+          "title": "Shareable moments",
+          "summary": "Share links, OG cards, and a 'this line draws this screen' embed"
+        },
+        {
+          "key": "SITE-20",
+          "title": "Go-to-market plan on the site",
+          "summary": "Social strategy, channels, first 30 days, join the movement"
+        },
+        {
+          "key": "OSS-5",
+          "title": "Grassroots kit for Yui Lines",
+          "summary": "Community page, first 'build a screen' challenge, contributor paths"
         }
       ]
     },
@@ -235,7 +250,9 @@
         },
         {
           "key": "YUI-31",
-          "title": "Three screens per agent with animated transitions"
+          "title": "Three screens per agent with animated transitions",
+          "summary": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
+          "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away"
         },
         {
           "key": "YUI-32",
@@ -245,12 +262,8 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "INT-2",
-          "title": "Generic webhook adapter, Python and Node"
-        },
-        {
-          "key": "SITE-18",
-          "title": "Polish pass on /developers and /playground"
+          "key": "INT-1",
+          "title": "OpenClaw adapter"
         }
       ]
     },
@@ -258,6 +271,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-18",
+          "title": "Polish pass on /developers and /playground",
+          "summary": "Polish: Developers and the playground",
+          "shipped": "2026-09-24",
+          "progress": "/progress#polish-developers-and-the-playground"
+        },
+        {
+          "key": "INT-2",
+          "title": "Generic webhook adapter, Python and Node",
+          "summary": "Not on Hermes? Any agent that answers a web request can talk in Yui now",
+          "shipped": "2026-09-24",
+          "progress": "/progress#not-on-hermes-any-agent-that-answers-a-web-request-can-talk-in-yui-now"
+        },
         {
           "key": "YUI-42",
           "title": "The preset flywheel",
