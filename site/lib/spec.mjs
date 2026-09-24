@@ -14,6 +14,7 @@ const ORDER = [
   ["agents", "Agents", null, "How an agent gets into Yui: pairing codes, the host API, names and colors."],
   ["relay", "Relay", null, "How messages travel between your machine and the app, and how push works."],
   ["adapters", "Adapters", null, "Every agent framework Yui plans to reach, Hermes first, and in what order."],
+  ["flywheel", "Preset flywheel", null, "How custom screens agents keep sending become presets: the shape log, the weekly report and the checklist."],
 ];
 
 // [{ slug, label, href, blurb, title, md }]. A spec file missing from ORDER still shows, last.

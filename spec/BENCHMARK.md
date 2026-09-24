@@ -1,6 +1,6 @@
 # Yui Lines token benchmark
 
-Generated 2026-09-24 by `~/dev/yui/bench/bench.mjs` (`npm run bench`). Ten sample screens from `site/lib/yl/samples.mjs`, the same ones the playground renders.
+Generated 2026-09-24 by `bench/bench.mjs` (`npm run bench`). Ten sample screens from `site/lib/yl/samples.mjs`, the same ones the playground renders.
 
 The JSON side is generated from the parsed YL, so it carries exactly the same information and the same defaults. Three JSON shapes:
 

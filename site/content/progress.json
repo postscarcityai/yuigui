@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The preset flywheel: custom screens that keep coming back become presets",
+    "card": "YUI-42",
+    "body": "Presets cover what agents usually show. For the rest there is custom, a small JSON escape hatch. Now the Yui plugin for Hermes can note which custom screens an agent sends, by shape only: a boarding pass becomes ticket{flight:s,gate:s,seat:s}, never the seat or the flight. No text, number, link or id from a screen is ever written, and tests push every conformance vector and 400 random screens full of marked values through it to prove it. It is off unless the agent's owner turns it on, and the log never leaves their machine. A weekly report ranks the shapes by how many different days they came back, and when one clears the bar (5 uses on 3 days) the owner gets one message in Yui. The checklist for promoting a shape, from the spec line to all four parsers, the playground, the native iPhone view and the channel guide, is a new spec page. Nothing to see in the app itself: this one is plumbing."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Save a screen, bring it back with two tokens: every agent gets a shelf",
     "card": "YUI-32",
     "body": "An agent can now keep a screen for later. save busy day puts the screen it just drew on a shelf at the top of the thread. Tap a chip on the shelf and it opens full screen, fresh, with no message sent and no tokens spent. In a later reply the agent brings it back with show busy day, and forget busy day takes it off. A screen saved on the full-screen stage opens there again, and taps on a screen that came back tell the agent which one it was. Hold a chip to remove it yourself. The shelf rebuilds from the thread, so it follows you to a new phone. Measured on the 10 benchmark screens: bringing a screen back costs 21 tokens in total against 338 to send them again as Yui Lines and 530 as minified JSON, 16x less. show workout is 2 tokens. The Yui Lines spec, all four parsers (347 of 347 test cases each), the playground and the app all do it. The channel guide (v10) tells agents to save what people will reuse. The eval scores it 42 of 44 on Opus 5.5, and both new saved-screen cases pass.",

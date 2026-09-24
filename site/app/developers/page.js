@@ -15,6 +15,7 @@ const cards = [
   ["/developers/specs", "All specs", "Every spec, rendered from the repo: agents, the relay, adapters, the token benchmark and more."],
   ["/channel", "Channel guide", "What every agent on the Yui channel is told, and the eval that scores it."],
   ["/reactions", "Reactions", "Hold a message and react. What each of the six tells your agent to do."],
+  ["/developers/flywheel", "Preset flywheel", "Custom screens agents keep sending become presets. What is logged (shapes, never values) and the promotion checklist."],
 ];
 
 const parsers = [

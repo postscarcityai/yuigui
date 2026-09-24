@@ -86,7 +86,7 @@ writeFileSync(new URL("../site/content/benchmark.json", import.meta.url), JSON.s
 const L = [];
 L.push("# Yui Lines token benchmark");
 L.push("");
-L.push(`Generated ${out.generated.slice(0, 10)} by \`~/dev/yui/bench/bench.mjs\` (\`npm run bench\`). Ten sample screens from \`site/lib/yl/samples.mjs\`, the same ones the playground renders.`);
+L.push(`Generated ${out.generated.slice(0, 10)} by \`bench/bench.mjs\` (\`npm run bench\`). Ten sample screens from \`site/lib/yl/samples.mjs\`, the same ones the playground renders.`);
 L.push("");
 L.push("The JSON side is generated from the parsed YL, so it carries exactly the same information and the same defaults. Three JSON shapes:");
 L.push("");

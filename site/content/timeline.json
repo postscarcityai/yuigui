@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 49,
-    "site": 113,
+    "app": 51,
+    "site": 115,
     "builds": 21,
-    "shipped": 70,
-    "screenshots": 115
+    "shipped": 72,
+    "screenshots": 118
   },
   "days": [
     {
@@ -13,7 +13,50 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T19:12:57.300Z",
+          "at": "2026-09-24T19:37:47.633Z",
+          "title": "The preset flywheel: custom screens that keep coming back become presets",
+          "card": "YUI-42",
+          "anchor": "the-preset-flywheel-custom-screens-that-keep-coming-back-become-presets",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 51,
+            "site": 115,
+            "builds": 21,
+            "shipped": 72
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T19:18:21.000Z",
+          "title": "Save a screen, bring it back with two tokens: every agent gets a shelf",
+          "card": "YUI-32",
+          "anchor": "save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf",
+          "images": [
+            {
+              "src": "/progress/yui32-shelf-dark.webp",
+              "alt": "A chat with Yui in dark mode. Two chips at the top, check-in and busy day, are saved screens. Further down, the agent answered 'Pull up my busy day workout' with the Tabata timer."
+            },
+            {
+              "src": "/progress/yui32-shelf-stage-light.webp",
+              "alt": "The busy day Tabata reopened full screen from the shelf in light mode: 0:20 work, round 1 of 8, and a Start button."
+            },
+            {
+              "src": "/progress/yui32-shelf-light.webp",
+              "alt": "The same chat in light mode, with the shelf of saved screens under the agent's name."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 49,
+            "site": 115,
+            "builds": 21,
+            "shipped": 71
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T19:13:45.000Z",
           "title": "A polish pass on See it, Get started and Timeline",
           "card": "SITE-17",
           "anchor": "a-polish-pass-on-see-it-get-started-and-timeline",
@@ -34,7 +77,7 @@
           "commits": 0,
           "totals": {
             "app": 49,
-            "site": 113,
+            "site": 114,
             "builds": 21,
             "shipped": 70
           }
@@ -139,7 +182,7 @@
               "alt": "The review step of a plan in Yui: the last answer, Home and Contact, with one purple Send button under it."
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 47,
             "site": 110,
@@ -1389,6 +1432,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "b3fb3c4",
+          "at": "2026-09-24T19:37:24.000Z",
+          "text": "The preset flywheel: with yui.flywheel on, the Hermes plugin notes every custom screen an agent sends by its shape only (type tree and...",
+          "url": "https://github.com/postscarcityai/yui/commit/b3fb3c4"
+        },
+        {
+          "repo": "app",
+          "sha": "440b65d",
+          "at": "2026-09-24T19:20:52.000Z",
+          "text": "Saved screens get a shelf: the agent's saves sit as chips at the top of its thread, a tap reopens one full screen with no turn, hold to...",
+          "url": "https://github.com/postscarcityai/yui/commit/440b65d"
+        },
+        {
+          "repo": "site",
+          "sha": "169cc77",
+          "at": "2026-09-24T19:18:21.000Z",
+          "text": "Named screens and the shelf: save busy day keeps a screen, show busy day brings it back in a later reply for two tokens, forget takes it...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/169cc77"
+        },
+        {
+          "repo": "site",
+          "sha": "5069132",
+          "at": "2026-09-24T19:13:45.000Z",
+          "text": "Polish See it, Get started and Timeline: bring-your-own-Hermes note with a copyable install, subnav keeps the current page in view on...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5069132"
+        },
         {
           "repo": "app",
           "sha": "576f220",

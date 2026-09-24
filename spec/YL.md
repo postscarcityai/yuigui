@@ -444,7 +444,7 @@ The long tail. Everything after `custom ` is one JSON value. v0 renders a fixed 
 | `button` | `text`, `action` (emitted as `{action}`) |
 | `divider` | none |
 
-Unknown types render as raw JSON so the gap is visible. Bad JSON is an error line. Every `custom` line is logged. When the same custom shape shows up again and again, it gets promoted to a preset. That is how the preset set grows from 80% coverage toward 95%.
+Unknown types render as raw JSON so the gap is visible. Bad JSON is an error line. Every `custom` line is logged by its shape only (the type tree and key names, never a value), on the agent's own machine and only when its owner turns it on. When the same custom shape shows up again and again, it gets promoted to a preset. That is how the preset set grows from 80% coverage toward 95%. The log, the weekly report, the bar a shape must clear and the promotion checklist are in `spec/FLYWHEEL.md`, rendered at https://www.yuigui.com/developers/flywheel.
 
 Custom blocks can take an id (`custom@countdown {...}`) but cannot be patched; send a new one.
 

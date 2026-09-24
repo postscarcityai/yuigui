@@ -1,6 +1,6 @@
 # Yui Lines token benchmark
 
-Generated 2026-09-23 by `bench/bench.mjs` (`npm run bench`). Ten sample screens from `site/lib/yl/samples.mjs`, the same ones the playground renders.
+Generated 2026-09-24 by `bench/bench.mjs` (`npm run bench`). Ten sample screens from `site/lib/yl/samples.mjs`, the same ones the playground renders.
 
 The JSON side is generated from the parsed YL, so it carries exactly the same information and the same defaults. Three JSON shapes:
 
@@ -37,6 +37,24 @@ Tokenizers:
 | cl100k | 345 | 529 | 912 | 1313 | 1.5x | 2.6x | 3.8x |
 | claude | 341 | 522 | 882 | 1284 | 1.5x | 2.6x | 3.8x |
 | characters | 1006 | 1682 | 2647 | 5307 | 1.7x | 2.6x | 5.3x |
+
+## Saved screens: bringing one back (o200k_base)
+
+An agent that saved a screen (`save workout`) reopens it later with `show workout` instead of sending the whole screen again (YL.md section 5). The person can also tap it on the shelf, which costs no tokens at all.
+
+| # | Screen | `show` line | Tokens | Resend as YL | Resend as JSON min | YL / show |
+|---|---|---|---:|---:|---:|---:|
+| 1 | Tabata timer | `show tabata` | 3 | 9 | 25 | 3.0x |
+| 2 | Log a set | `show log` | 2 | 24 | 36 | 12.0x |
+| 3 | Pick a split | `show pick` | 2 | 16 | 29 | 8.0x |
+| 4 | Gear check | `show gear` | 2 | 25 | 39 | 12.5x |
+| 5 | Onboarding | `show onboarding` | 2 | 47 | 86 | 23.5x |
+| 6 | Today's workout | `show today` | 2 | 50 | 69 | 25.0x |
+| 7 | Meal photo log | `show meal` | 2 | 8 | 22 | 4.0x |
+| 8 | Macros so far | `show macros` | 2 | 57 | 82 | 28.5x |
+| 9 | Book a client call | `show book` | 2 | 46 | 65 | 23.0x |
+| 10 | Leg day card + voice log | `show leg` | 2 | 56 | 77 | 28.0x |
+| | **Total** | | **21** | **338** | **530** | **16.1x** |
 
 ## Screen 1, all four encodings
 
