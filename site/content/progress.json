@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The site menu works on a phone",
+    "card": "SITE-8",
+    "body": "The header had thirteen links, a GitHub button and a theme switch in one row. On a phone it wrapped into three or four lines of small pills that ate the top of every page, and it wrapped on a laptop too. Now a phone gets the logo, the theme switch and a menu button. The button opens one list with every page, each row a full 44 points tall, and it closes on a tap outside, on Escape, or when you pick a page. On a wide screen the six pages people use most stay in the bar and the rest sit under More. An automated check loads 14 pages at seven widths, from 375 to 1280, and fails if any link wraps, clips, or is smaller than 44 points.",
+    "images": [
+      {
+        "src": "/progress/site8-phone-closed.webp",
+        "alt": "yuigui.com on a phone: the header shows the Yui logo, a moon theme button and a round menu button, with the page headline right below."
+      },
+      {
+        "src": "/progress/site8-phone-menu.webp",
+        "alt": "The phone menu open: a single list of every page, Home through Channel guide and GitHub, each on its own tall row."
+      },
+      {
+        "src": "/progress/site8-desktop-more.webp",
+        "alt": "yuigui.com at laptop width: six links in one row, then More opened to show Plan, Deck, Mockups, YL spec and Channel guide, then GitHub and the theme button."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Every full-screen view now has a way out",
     "body": "A tester opened a photo in the gallery, tapped the X, and nothing happened. There was no other way out, so they were stuck. The cause: the X only answered taps on the 22-point glyph itself, up in the corner where a thumb lands short. Now every full-screen view in Yui (photos, zoomed images, storyboards, decks, narrated walkthroughs) has a 44-point X with a larger touch area around it, and a swipe down closes it too. The stage and deck close buttons had the same flaw and got the same fix. Before/after compare can now go full screen as well, keeping its mode and slider, and side by side stacks top and bottom on a tall phone. New UI tests tap slightly off the X's center, swipe down, switch apps and come back, and keep a timer running behind the viewer."
   },
