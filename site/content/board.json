@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T10:40:28.074Z",
+  "updated": "2026-09-24T11:10:32.141Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -242,12 +242,6 @@
           "summary": "Public TestFlight link (external group + Beta App Review)",
           "mvp": true,
           "waiting": true
-        },
-        {
-          "key": "YUI-28",
-          "title": "No lost messages",
-          "summary": "Offline agents, reconnect, no lost messages",
-          "mvp": true
         }
       ]
     },
@@ -255,6 +249,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-28",
+          "title": "No lost messages",
+          "summary": "Nothing gets lost: sleeping Macs, dropped networks, killed apps",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#nothing-gets-lost-sleeping-macs-dropped-networks-killed-apps"
+        },
         {
           "key": "YUI-25",
           "title": "First run with no guessing",
