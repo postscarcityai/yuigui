@@ -337,6 +337,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-34: a key vault for your own fal, OpenRouter and Anthropic keys.
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.
 - YUI-36: optional encrypted sync for agent tables, off by default.
+- YUI-54: the top-left menu becomes each agent's home: switch agents from a drop-up at the bottom, pinned screens you reopen (your workout), things waiting for you, and a page about the agent.
 - YUI-44: group threads, several agents in one conversation.
 - YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP).
 
