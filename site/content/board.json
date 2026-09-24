@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T09:10:11.754Z",
+  "updated": "2026-09-24T09:40:17.146Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -206,12 +206,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-24",
-          "title": "Push when an agent answers",
-          "summary": "APNs notification when an agent answers and the app is closed",
-          "mvp": true
-        },
-        {
           "key": "YUI-25",
           "title": "First run with no guessing",
           "summary": "Sign in to first agent screen, no guessing",
@@ -262,9 +256,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-23",
-          "title": "One-command plugin install",
-          "summary": "One-command yui plugin install on any Hermes host",
+          "key": "YUI-24",
+          "title": "Push when an agent answers",
+          "summary": "APNs notification when an agent answers and the app is closed",
           "mvp": true
         }
       ]
@@ -273,6 +267,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-23",
+          "title": "One-command plugin install",
+          "summary": "Connect your agent in three steps",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#connect-your-agent-in-three-steps"
+        },
         {
           "key": "YUI-19",
           "title": "Native SwiftUI versions of the YUI-16/17/18 presets",
