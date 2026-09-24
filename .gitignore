@@ -1,2 +1,3 @@
-# Business docs stay private until Chris decides the repo goes public
-docs/business/
+.DS_Store
+.env
+.env.*

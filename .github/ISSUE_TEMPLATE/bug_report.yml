@@ -1,0 +1,35 @@
+name: Bug report
+description: Something is broken or behaves in a way you did not expect.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you got instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Tap ...
+        3. See ...
+  - type: textarea
+    id: yl
+    attributes:
+      label: Yui Lines involved
+      description: If a screen rendered wrong, paste the lines the agent sent.
+      render: text
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: App build number, iOS version and device, or the commit you ran.
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or logs
+      description: Please remove tokens, keys and personal details first.

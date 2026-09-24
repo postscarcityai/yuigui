@@ -1,0 +1,22 @@
+name: Idea or feature request
+description: Something Yui should do, or do better.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do
+      description: Start with the moment. What were you doing when text was not enough?
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help
+      description: A new preset, a change to Yui Lines, a new agent connector, anything.
+  - type: textarea
+    id: example
+    attributes:
+      label: Example
+      description: If it is a screen, sketch the Yui Lines you wish the agent could send.
+      render: text
