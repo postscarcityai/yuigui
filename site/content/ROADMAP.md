@@ -1,4 +1,4 @@
-# Yui | roadmap (draft 2, Sep 23 2026)
+# Yui | roadmap (draft 3, Sep 23 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
@@ -87,20 +87,21 @@ Deliverables:
 
 Dependencies: Xcode finishing its install on the Mac mini.
 
-### Phase 1 | mid Oct to end Nov 2026: prototype app, one agent, one screen that matters
+### Phase 1 | now to end Nov 2026: talk to your own Hermes agents in Yui
 
-Goals: Chris talks to Arnold in Yui and Arnold puts a timer on the screen.
+Goals: Chris talks to each of his Hermes agents in the app, gets GUI answers back, and can hand a Telegram conversation over to Yui with one push.
 
-Deliverables:
-- SwiftUI app on TestFlight (Chris's iPhone only). Code lives in its own repo, postscarcityai/yui.
-- Swift Yui Lines parser passing the conformance suite.
-- Chat screen (text in, text out, streaming).
-- SwiftUI presets, first 6: ask, choose, pick, form, list, timer.
-- Yui relay v0 on Cloudflare, with pairing by QR code or code.
-- Hermes skill + plugin: `yui_show(document)`, `yui_ask(question, options)`. Arnold wired first.
-- Demo: "Hey Arnold, intervals 40 on 20 off, 8 rounds" renders a working timer with sound.
+How it plugs in: **Yui is a Hermes messaging platform**, built as a Hermes platform plugin, the same way Telegram is. Each agent keeps one brain and one memory across Telegram and Yui. Each Hermes profile shows up in the app as its own agent with its own thread. The plugin dials out to the relay (Supabase Realtime today), so the Mac needs no open ports.
 
-Dependencies: Apple Developer account in Chris's name (enrollment is a browser action for Chris, $99/yr, needs his sign-off). Arnold's owner is Arnold, so the Arnold integration is a card for Arnold's lane, not urza's.
+Deliverables, in build order:
+- DONE: SwiftUI app on TestFlight, Korean-cute theme with light/dark, cat mascot, coral wordmark icon. Yui Lines Swift parser passing the shared conformance suite.
+- YUI-4: first 6 presets in chat (ask, choose, pick, form, list, timer).
+- YUI-6: accounts. Sign in with Apple, and in-app account deletion as App Store rule 5.1.1(v) requires, including Apple token revocation. Yui users are kept fully separate from any other PostScarcity data.
+- YUI-7: the Hermes `yui` platform plugin. Pairing by code, one thread per agent (urza and Arnold first), agents taught Yui Lines so they answer with screens, taps flow back as messages.
+- YUI-8: push handoff. From Telegram, "send it to Yui" drops the screen into that agent's thread and sends a push that opens it.
+- YUI-5: coral wordmark across the UI.
+
+Dependencies: an Apple key with Push Notifications and Sign in with Apple (browser step for Chris, free).
 
 ### Phase 2 | December 2026: many agents, identities, cross-channel
 
@@ -145,6 +146,7 @@ Dependencies: Phase 3 vault. Cost model for hosted agent calls.
 Goals: other agent owners can plug in.
 
 Deliverables:
+- Other people's Hermes installs connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app. Same plugin behavior, no code on their side.
 - Published Yui Lines spec and adapters: Hermes (done), OpenClaw-style frameworks, a generic HTTP/webhook adapter, an MCP server so any MCP-capable agent can render to Yui.
 - Private beta, 20 to 50 technical users from the Hermes/OpenClaw communities.
 - App Store review prep: privacy labels, review notes explaining the component-catalog approach, demo account.
