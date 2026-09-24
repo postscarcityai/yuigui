@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Pick it up in Yui",
+    "card": "YUI-8",
+    "body": "Any agent can now hand you something from another channel in one step. Say \"send it to Yui\" (or type /yui) while talking to an agent on Telegram, and it puts what you were working on into Yui as a screen, not a wall of text. Your phone gets a notification, \"Urza has something for you in Yui\", and tapping it opens the thread with the buttons ready. Every agent reply now pushes too, except for the thread you already have open. It works even for an agent you have not added to Yui yet: its handoff lands in your main agent's thread with its name on it. Tested end to end on the simulator with a real push from Apple. Ships in build 18.",
+    "images": [
+      {
+        "src": "/progress/yui8-push-banner.webp",
+        "alt": "A notification on the home screen: Yui, Urza has something for you in Yui"
+      },
+      {
+        "src": "/progress/yui8-thread-opened.webp",
+        "alt": "The Yui thread after tapping the notification, showing Ship build 17 tonight? with Ship it and Hold buttons"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Screenshots everywhere, and a changelog",
     "card": "SITE-3",
     "body": "Chris loves screenshots, so this log has them now. Entries carry a small gallery of real screens: tap one to see it full size, and step through with the arrow keys. We went back through the cards that built Yui and added their screenshots to past entries, all the way to the first chat screen with the cat. There is also a new page, the changelog. It groups the same work by TestFlight build: the build number, the day it went out, what changed and what it looks like. It updates itself when a new build lands. From here on, every card that ships something you can see adds its screenshots here.",

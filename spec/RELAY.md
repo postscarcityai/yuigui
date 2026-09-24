@@ -67,6 +67,30 @@ All of this is tested live in `supabase/tests/relay_test.py` (38 checks, includi
 
 `session` also counts as a heartbeat.
 
+## Push and handoff (YUI-8)
+
+The phone gets a push for every agent message, so "send it to Yui" from Telegram (or any channel) is one step: the agent writes into a thread, the phone buzzes, the tap opens that thread with the screen rendered.
+
+```
+yui-push  (edge function)
+{"action":"register","token","environment","name"}   Bearer app access token
+  the phone's APNs device token; "sandbox" for Xcode builds, "production" for TestFlight/App Store.
+  One row per phone in yui_devices: a token that was on another account moves to this one.
+{"action":"unregister","token"}                      Bearer app access token   (sign out)
+{"action":"notify","message_id","from"?,"handoff"?}  Bearer yui_ct_...
+  push agent message `message_id` to every phone of its user. Only for threads of agents
+  bound to this connector, written in the last 10 minutes.
+  -> {devices, delivered, results:[{status, reason}]}
+```
+
+- Alert: title is the thread's agent; body is "<from or agent> has something for you in Yui" for a handoff, otherwise a preview of the text outside the ```yui fences. Payload carries `agent_id`, `message_id` and `url: yui://agent/<agent id>/thread`.
+- The app opens `yui://agent/<id>/thread` from a tap or any link, and shows no banner for the thread already on screen.
+- APNs token auth (ES256), HTTP/2 straight to Apple from the function. The key never leaves the function's secrets; hosts never see device tokens (the connector role has no grant on `yui_devices`). A 410 from Apple deletes the row.
+- The plugin calls `notify` after every insert. In-gateway, a send is a handoff when it comes from another profile or the thread had no inbound for 15 minutes; out-of-process sends (cron, `hermes send`, another channel's session) are always handoffs.
+- **Any profile can hand off**, even one with no Yui agent of its own: install the plugin on it. `send_message(target="yui")`, `hermes -p <profile> send --to yui`, and cron `--deliver yui` resolve to the profile's own agent, else the user's first agent, and the push names the sender ("Urza has something for you in Yui"). Taps on that screen go to the thread's own agent, so for two-way flows add the profile as its own agent in the app.
+- The fast trigger on other channels: the plugin's `pre_llm_call` hook adds the how-to plus the channel guide to any turn that mentions Yui ("send it to Yui", "pull this up on Yui"), and nothing otherwise. `/yui [note]` is rewritten by `pre_gateway_dispatch` into the same request before the gateway looks for commands.
+- Tests: `python3 supabase/tests/push_test.py` (live; a fake token must come back BadDeviceToken, which proves Apple accepted the provider token). `YuiUITests/PushHandoffTests` is the full simulator round trip. Never pass a real phone's token to `push_test.py --device`: the test account is deleted at the end and takes the row with it.
+
 ## Channel guide for any agent
 
 The text every agent gets on the Yui channel is `spec/CHANNEL.md` from "## You are talking to someone in Yui" to the end, verbatim. Its version is the title's version plus the first 8 hex of the text's SHA-256 (`v0+433d13ff`), so any edit is a new version.
@@ -84,14 +108,14 @@ The text every agent gets on the Yui channel is `spec/CHANNEL.md` from "## You a
 - Then `hermes -p <profile> gateway restart`. The gateway serves every agent whose `remote_ref` is that profile's name.
 - Runtime: trades the connector token for a session, subscribes to Realtime, and on each insert (or every 20 s, every 3 s while Realtime is down) reads new user rows past a cursor saved in `<profile home>/yui/cursor.json`. A restart resumes where it stopped; a new agent starts from now, not from old history. Heartbeat every 45 s; the session refreshes 10 minutes before it expires.
 - Inbound is authorized upstream (RLS already limits it to the paired user), so there is no `YUI_ALLOWED_USERS` list to keep.
-- The profile's Yui thread is its home channel (`YUI_HOME_CHANNEL` defaults to the profile name), so cron and cross-channel sends can target `yui`.
+- The profile's Yui thread is its home channel (`YUI_HOME_CHANNEL` and `platforms.yui.home_channel` default to the profile name), so cron and cross-channel sends can target `yui`.
 - Pictures from tools become a YL `image` line.
 
-On the reference host only the `yui` profile has the channel on. Other profiles get it when the user adds them from the app.
+On the reference host the `yui` profile serves the Yui agent; `urza` has the plugin for handoffs only (no agent of its own). Other profiles get a thread when the user adds them from the app.
 
 ## Not yet
 
-- The app polls its open thread every 1.5 s. Realtime on the app side (and push when it is closed, YUI-8) comes later.
+- The app polls its open thread every 1.5 s. Realtime on the app side comes later; when the app is closed, pushes (YUI-8) cover it.
 - Typing indicator is app-side: dots from the moment the person sends until the agent's next row (or 3 minutes).
 - No streaming of partial replies: the agent's reply lands whole.
 
