@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T06:10:41.566Z",
+  "updated": "2026-09-24T06:40:48.739Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -206,12 +206,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-10",
-          "title": "Channel guide for every agent",
-          "summary": "Instructions every agent gets on the yui channel + eval",
-          "mvp": true
-        },
-        {
           "key": "YUI-23",
           "title": "One-command plugin install",
           "summary": "One-command yui plugin install on any Hermes host",
@@ -283,9 +277,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-12",
-          "title": "Change your answer after tapping",
-          "summary": "Change your answer on choose/pick (and ask/slide)",
+          "key": "YUI-10",
+          "title": "Channel guide for every agent",
+          "summary": "Instructions every agent gets on the yui channel + eval",
           "mvp": true
         }
       ]
@@ -294,6 +288,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-12",
+          "title": "Change your answer after tapping",
+          "summary": "Change your answer",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#change-your-answer"
+        },
         {
           "key": "YUI-13",
           "title": "Immersive full-screen mode, agent decides; workouts always full screen",

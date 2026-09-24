@@ -1,6 +1,18 @@
 {
   "builds": [
     {
+      "build": 23,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-23T23:18:11-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Change your answer: choose, pick, ask and slide stay live, +lock freezes",
+          "card": "YUI-12"
+        }
+      ]
+    },
+    {
       "build": 22,
       "date": "2026-09-24",
       "uploaded": "2026-09-23T23:00:34-07:00",
@@ -196,5 +208,10 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Channel guide: answers can change, newest wins, ~choose +lock",
+      "card": "YUI-12"
+    }
+  ]
 }

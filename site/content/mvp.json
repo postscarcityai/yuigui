@@ -60,12 +60,12 @@
     {
       "key": "YUI-10",
       "title": "Channel guide for every agent",
-      "status": "next"
+      "status": "building"
     },
     {
       "key": "YUI-12",
       "title": "Change your answer after tapping",
-      "status": "building"
+      "status": "shipped"
     },
     {
       "key": "YUI-23",
