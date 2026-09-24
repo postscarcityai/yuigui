@@ -3,19 +3,19 @@
     "date": "2026-09-24",
     "title": "Every agent has its own look",
     "card": "YUI-20",
-    "body": "In most chat apps every agent looks the same. In Yui the whole app now changes to match the agent you are talking to: background, bubbles, accent color, corner shape, type and motion, in light and dark. Open Arnold and it turns orange with square corners. Open Urza and it goes violet and serif. A new agent gets its own look on day one, picked from its name, and your agent list shows each one in its colors. Agents can restyle themselves: ask for \"more autumn\" and the agent sends one line, theme autumn, and the app changes while you watch. Agents can also say which screens they like (full screen, stacked buttons, a gallery style), and Yui tells them that every turn. There is one rule an agent cannot break: every look is checked for readable contrast in light and dark, so no theme can make text hard to read. You can also pick a look yourself in the agent's settings.",
+    "body": "In most chat apps every agent looks the same. In Yui the whole app now changes to match the agent you are talking to: background, bubbles, accent color, corner shape, type and motion, in light and dark. A coach agent can be orange with square corners, a wizard violet and serif. A new agent gets its own look on day one, picked from its name, and your agent list shows each one in its colors. Agents can restyle themselves: ask for \"more autumn\" and the agent sends one line, theme autumn, and the app changes while you watch. Agents can also say which screens they like (full screen, stacked buttons, a gallery style), and Yui tells them that every turn. There is one rule an agent cannot break: every look is checked for readable contrast in light and dark, so no theme can make text hard to read. You can also pick a look yourself in the agent's settings.",
     "images": [
       {
-        "src": "/progress/yui20-arnold-light.webp",
-        "alt": "Arnold's thread in light mode: orange-red accent, square corners, a tabata timer and stacked Yes/No buttons"
+        "src": "/progress/yui20-coach-light.webp",
+        "alt": "A coach agent's thread in light mode: orange-red accent, square corners, a tabata timer and stacked Yes/No buttons"
       },
       {
-        "src": "/progress/yui20-urza-dark.webp",
-        "alt": "Urza's thread in dark mode: violet accent on deep plum, serif type"
+        "src": "/progress/yui20-wizard-dark.webp",
+        "alt": "A wizard agent's thread in dark mode: violet accent on deep plum, serif type"
       },
       {
         "src": "/progress/yui20-agents.webp",
-        "alt": "The agent list: Yui, Arnold, Urza, R0SS and Nova, each row in its own colors"
+        "alt": "The agent list: Yui, Coach, Wizard, Counsel and Nova, each row in its own colors"
       },
       {
         "src": "/progress/yui20-theme-line.webp",

@@ -373,7 +373,7 @@ ask "Publish the update?" "Yes, publish"|"Not yet"
 ### theme (core, not a preset)
 `theme [set] key=value...`. Restyles the agent's own look in the app: background, bubbles, accent, avatar chip, corner radius, type and motion, in light and dark, for every screen of its thread and its row in the agent list. Nothing renders on screen except a one-line note; the look is saved on the agent (`yui_agents.theme`, spec `AGENTS.md`) until the next theme line or the person changes it.
 
-- A **set name** starts fresh from that set: `theme autumn`. Sets: `yui coral peach sunset autumn lemon matcha forest mint ocean sky lavender berry candy midnight mono`, plus the agent sets `urza arnold monk hank luna r0ss`. `theme reset` goes back to the agent's own default (seeded from its name, so every agent looks different out of the box).
+- A **set name** starts fresh from that set: `theme autumn`. Sets: `yui coral peach sunset autumn lemon matcha forest mint ocean sky lavender berry candy midnight mono`, plus the personality sets `wizard coach zen studio night counsel`. `theme reset` goes back to the agent's own default (seeded from its name, so every agent looks different out of the box).
 - **Keys alone** change only what they say: `theme accent=#7B5CFF bg=cream radius=round`.
 - `accent=` a `#RRGGBB` hex or a set name used as a color. `bg=` a hex or `cream|paper|white|mist|sand|blush` (the light-mode paper; dark mode is derived from the accent).
 - `radius=round|soft|square`, `font=rounded|default|serif|mono`, `weight=regular|bold|heavy` (headings and names), `motion=bouncy|calm|snappy`.
