@@ -89,6 +89,12 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - SITE-24 (shipped): Yui@home, the story. Like SETI@home, but you lend idle AI tokens: the note [Donate your idle tokens to Yui](/notes/donate-your-idle-tokens-to-yui), a [Contribute with your agent](/developers/contribute) page with a feature spec template, a "Lend your agent" option at the bottom of every page, and an [llms.txt](/llms.txt) so assistants that read the site can pass the invitation on.
 - BIZ-7 (parked): one brand system from the website to social to print.
 
+**Next: INV-1, invite-only beta and client onboarding.** A request-an-invite form (name, Apple ID email, phone) replaces the waitlist. Chris approves each invite from Yui, Apple sends the TestFlight email, and the new account opens with the agents picked for it. Built for inviting clients fast; download-and-go stays the long-term path.
+
+- YUI-56: invites end to end, from request to first sign-in.
+- YUI-57: default agents per invite, client-safe agents only.
+- SITE-26: Request an invite replaces the waitlist on the site.
+
 **Next release: build 57, chat feels right.** Build 57 is on its way to TestFlight as soon as Apple's daily upload limit lifts. It carries today's TestFlight feedback fixes and eight cards: the lock screen timer (YUI-30), three screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51) and no dead buttons (YUI-53). Everything on the app's main branch since build 33 goes in it; [Builds](/changelog#next) lists it. YUI-52 checks every fix against the original feedback.
 
 ## North star: not just another AI chatbot
