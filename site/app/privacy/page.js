@@ -23,7 +23,7 @@ export default function Privacy() {
         <li>A token from Apple that lets us remove Yui from your Apple ID when you delete your account.</li>
         <li>Your devices: a name and a push notification token, so your agents can reach you. While Yui is open, which agent&apos;s thread is on screen, so an answer you are already reading does not buzz too. It is cleared when you leave the app.</li>
         <li>Your agents and pairings: which agents you connected to Yui.</li>
-        <li>Your messages with those agents, so a conversation shows up on your phone.</li>
+        <li>Your messages with those agents, so a conversation shows up on your phone. Messages older than 90 days are deleted automatically, and so are photos and pictures no remaining message uses.</li>
         <li>
           Photos you send an agent (from the camera or your library) and pictures or videos your agents send you. They
           sit in private storage that only your account and the agent you sent them to can open, through links that

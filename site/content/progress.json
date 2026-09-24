@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Safe for strangers: limits, an off switch, and 90 days of history",
+    "card": "YUI-26",
+    "body": "Before anyone outside can install Yui, the backend has to hold up against people we don't know. Yui now has limits on how fast an account can send and how fast an agent's computer can answer, sized so a phone that was offline or a Mac that slept can still catch up in one go. A refused message is not lost: the app and the agent's computer keep it and try again a little later. There are also caps on message size, pictures per day, agents, connected computers and phones per account. We can switch off one account or one computer at once if it misbehaves, without deleting anything, and switch it back on. Messages older than 90 days are now deleted automatically. We tested it with two strangers' accounts trying to read, write, edit, delete and upload into each other's threads and reach anything outside Yui's own tables: 85 live checks, all passing. Nothing to see in the app for this one, it is all on the server. The full limits table is in the app repo's README."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Nothing gets lost: sleeping Macs, dropped networks, killed apps",
     "card": "YUI-28",
     "body": "Your agent lives on a computer, and computers sleep. Now Yui holds on to every message both ways until it can be delivered, then delivers it once, in order. On the phone, a message goes to a small outbox on the device before it is sent. If the network is gone it stays there, dimmed, with one quiet line saying it goes the moment you're back online, even if you close the app. On the agent's computer, Yui only marks a message done when the agent has finished answering it. If the computer crashes mid-answer, the message is picked up again when it comes back, and an answer that already went out is never sent twice. Replies that can't get out wait on the computer and follow in order. The app also tells the truth about where your agent is: online, asleep (its computer went quiet, with when it was last seen), or offline (its gateway was stopped). We tested it by killing the agent mid-answer, cutting its network while it replied, and killing the app with unsent messages on a simulator. Every message arrived exactly once. A real airplane-mode test on a phone is next, on TestFlight.",
