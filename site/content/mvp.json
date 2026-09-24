@@ -1,0 +1,111 @@
+{
+  "updated": "2026-09-24",
+  "source": "Kept by hand until the live board (SITE-2) exports it. The MVP list lives in ROADMAP.md.",
+  "cards": [
+    {
+      "key": "YUI-1",
+      "title": "Yui Lines and the web renderer",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-2",
+      "title": "The app's look, light and dark",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-3",
+      "title": "Shared test suite and Swift parser",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-4",
+      "title": "First six screens in chat",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-5",
+      "title": "Coral wordmark in the app",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-6",
+      "title": "Sign in with Apple and account deletion",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-6",
+      "title": "Relay on Supabase Realtime",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-9",
+      "title": "Typographic identity",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-11",
+      "title": "Debug screen gone, agents one tap away",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-15",
+      "title": "Add and manage your own agents",
+      "status": "shipped"
+    },
+    {
+      "key": "YUI-7",
+      "title": "Hermes plugin: agents answer with screens",
+      "status": "building"
+    },
+    {
+      "key": "YUI-10",
+      "title": "Channel guide for every agent",
+      "status": "next"
+    },
+    {
+      "key": "YUI-12",
+      "title": "Change your answer after tapping",
+      "status": "next"
+    },
+    {
+      "key": "YUI-23",
+      "title": "One-command plugin install",
+      "status": "next"
+    },
+    {
+      "key": "YUI-24",
+      "title": "Push when an agent answers",
+      "status": "next"
+    },
+    {
+      "key": "YUI-25",
+      "title": "First run with no guessing",
+      "status": "next"
+    },
+    {
+      "key": "YUI-28",
+      "title": "No lost messages",
+      "status": "next"
+    },
+    {
+      "key": "YUI-26",
+      "title": "Safe for strangers",
+      "status": "next"
+    },
+    {
+      "key": "YUI-27",
+      "title": "Ready for beta review",
+      "status": "next"
+    },
+    {
+      "key": "YUI-22",
+      "title": "Public TestFlight link",
+      "status": "next"
+    },
+    {
+      "key": "YUI-29",
+      "title": "A stranger does the whole path",
+      "status": "next"
+    }
+  ]
+}

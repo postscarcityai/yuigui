@@ -1,6 +1,13 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The MVP, and a bar that shows how close it is",
+    "body": "Chris asked us not to lose focus, so the roadmap now opens with the MVP: the smallest Yui a stranger can use. Someone who already runs Hermes installs Yui from a public TestFlight link, signs in with Apple, connects their own agents in a few minutes, gets screens and pushes back, and can delete their account from inside the app. That is 21 cards. 10 have shipped, 1 is being built, and the last one is a real outside tester doing the whole path with a stopwatch. The bar on the home page and the roadmap counts them; once the live board lands it will update itself. Everything else went into a deep backlog of 30-odd parked ideas, from a lock-screen timer and group threads to an Android prototype and flows written in Mermaid, so there is always a next card but never a distraction.",
+    "image": "/progress/mvp-bar.webp",
+    "imageAlt": "The MVP progress bar on the yuigui.com roadmap: 48 percent shipped, 10 of 21 cards, with the cards still to go"
+  },
+  {
+    "date": "2026-09-24",
     "title": "How we will find our first users",
     "body": "The outreach plan is public at yuigui.com/business. Hermes users come first, and we found where they gather: the official plugin catalog, a Discord channel the Hermes team names for sharing plugins, and a few dozen builders whose projects sit right next to ours. The plan lists 39 places by name, drafts a message for each kind of place, and sets a pace of two new posts a week at most. Nothing has been sent. Every message waits for Chris to approve it, and nothing goes out at all until a stranger can install the plugin and see a screen from their own agent without help. One honest correction from the research: native agent-drawn screens are not ours alone anymore, since the A2UI project now has a SwiftUI renderer. What we can say is that Yui is a finished iPhone app where Hermes agents draw native screens today."
   },

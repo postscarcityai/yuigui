@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Waitlist from "./components/Waitlist";
+import MvpBar from "./components/MvpBar";
 
 const what = [
   ["Chat first", "Talk to your agent the way you text a friend. Type it or say it."],
@@ -47,6 +48,8 @@ export default function Home() {
           <img src="/app/chat-dark.webp" alt="The same chat in dark mode" width="460" height="1000" />
         </div>
       </section>
+
+      <MvpBar />
 
       <h2>What Yui is</h2>
       <div className="grid">

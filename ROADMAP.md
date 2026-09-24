@@ -1,4 +1,4 @@
-# Yui | roadmap (draft 5, Sep 24 2026)
+# Yui | roadmap (draft 6, Sep 24 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
@@ -15,6 +15,69 @@ yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch re
 - "You're not going to one shot this whole company."
 
 Short version: chat first, screens on demand, many agents in one app, Chris's own Hermes fleet is customer zero.
+
+## MVP: the smallest Yui a stranger can use
+
+Chris, Sep 24: do not lose focus on the MVP, and keep a deep backlog to pull from. This section is the focus. Everything else in this document is the backlog.
+
+**The MVP is done when someone outside PostScarcity who already runs Hermes can:**
+
+1. Install Yui from a public TestFlight link.
+2. Sign in with Apple.
+3. Connect their own Hermes in minutes: one command to install the plugin, one code to pair.
+4. Talk to their agents and get screens back: buttons, choices, forms, timers. They can change an answer after tapping.
+5. Get a push when an agent answers while the app is closed.
+6. Delete their account from inside the app, and have it actually gone.
+
+And they do all of that without help from us. Card YUI-29 is the test: a real outside tester runs the whole path with a stopwatch.
+
+**Not in the MVP:** people with no agent yet, other frameworks, full-screen mode, voice, per-agent themes, the bigger preset families, Android, the Watch, payments. All of those are good, and all of them wait.
+
+The progress bar on yuigui.com counts the cards below. Until the live board ships (SITE-2) it is kept by hand in `site/content/mvp.json`; after that it comes from the board export.
+
+### In the MVP
+
+Shipped:
+
+- YUI-1: Yui Lines, the screen language, with a web renderer.
+- YUI-2: the app's look, light and dark.
+- YUI-3: the shared test suite and the Swift parser.
+- YUI-4: the first six screens in chat: ask, choose, pick, form, list, timer.
+- YUI-5: the coral wordmark in the app.
+- YUI-6: accounts. Sign in with Apple and in-app account deletion.
+- YUI-6: the relay on Supabase Realtime.
+- YUI-9: typographic identity, no mascot.
+- YUI-11: the debug screen is gone; the top button opens your agents.
+- YUI-15: you add, rename and remove your own agents.
+
+Building now:
+
+- YUI-7: the Hermes `yui` plugin. Each agent gets a thread and answers with screens.
+
+Up next, in order:
+
+- YUI-10: the channel guide every agent gets, with an eval.
+- YUI-12: change your answer after tapping.
+- YUI-23: one-command plugin install on any Hermes host, plus a Getting started page.
+- YUI-24: a push when an agent answers and the app is closed.
+- YUI-25: first run, from sign-in to your agent's first screen, with no guessing.
+- YUI-28: messages survive a sleeping Mac, a dropped network or a killed app.
+- YUI-26: safe for strangers: rate limits, a kill switch, and a fresh security audit of the shared backend.
+- YUI-27: ready for Apple's beta review: privacy labels, review notes, a demo account, a help link.
+- YUI-22: the public TestFlight link.
+- YUI-29: the acceptance run. A stranger does the whole path.
+
+### Next after the MVP
+
+These are the first things we pull once the MVP passes, roughly in this order:
+
+- YUI-20: every agent has its own look, light and dark.
+- YUI-8: "pick this up in Yui" from Telegram in one step.
+- YUI-13: full-screen mode; workouts always full screen.
+- YUI-14: voice in, text out, fast.
+- YUI-16, YUI-17, YUI-18: media, charts and science, learn and plan presets (spec and web are shipping now; YUI-19 brings them to the app).
+- YUI-21: agents send real images and videos.
+- INT-0: adapters for every agent framework, Hermes first.
 
 ## North star: not just another AI chatbot
 
@@ -45,7 +108,7 @@ Chris, Sep 23: optimize for speed. The UI should work like settings. The agent p
   ~timer rounds=10                      # patch a live component, no re-send
   save workout / show workout           # named screens, reopened in two tokens
   ```
-  Estimate: the Tabata timer is about 8 tokens in YL versus 60+ as a JSON document. Phase 1 measures this with a real tokenizer.
+  Measured Sep 23 (o200k tokenizer): the Tabata timer is 9 tokens in YL, 25 as minified JSON, 75 as a component tree. Across ten screens YL is 1.6x smaller than lean JSON and 3.9x smaller than a tree. Details in `spec/BENCHMARK.md`.
 - **The skill is the cheatsheet.** The Hermes skill is about 40 lines listing every preset and its args, so each agent carries the whole vocabulary for a few hundred tokens.
 - **Escape hatch, then promotion.** `custom {json}` covers the long tail. Every custom use is logged. Patterns that repeat get promoted to presets. That is the flywheel that grows the 80% toward 95%.
 
@@ -229,11 +292,59 @@ Chris mentioned a new Cloudflare deploy-anywhere agent he thinks is called "Flue
 4. Should R0SS's AMC agent be in Yui at all, given client confidentiality, or is Yui personal agents only (urza, Arnold) for now?
 5. Is Yui a product you intend to sell, or a personal tool that might become one? It changes how much Phase 4 to 6 matters.
 
-## Next actions (proposed cards, not yet created)
+## Deep backlog
 
-- DONE: hub site, Yui Lines v0, GitHub repo.
-- yuigui.com on the hub site, weekly build-in-public updates (urza).
-- Yui Lines conformance suite (urza).
-- Xcode + TestFlight pipeline on the Mac mini (urza, needs the Apple Developer account).
-- Telegram inline-keyboard buttons for Hermes yes/no and multiple-choice asks (urza, infra).
-- Research: Cloudflare "Flue", Agents SDK pricing, Telegram Mini Apps limits (urza).
+Parked cards, so the build never runs dry. None of these start until the MVP lane has nothing ready. Each one is on the board with a short brief. Anything that spends money or reaches out to people still needs Chris first.
+
+**The app**
+
+- YUI-30: the timer keeps counting on the lock screen and in the Dynamic Island.
+- YUI-31: three screens per agent, with animated transitions.
+- YUI-32: save a screen by name and reopen it in two tokens.
+- YUI-33: agent tables on the phone: workout log, macros, a simple CRM.
+- YUI-34: a key vault for your own fal, OpenRouter and Anthropic keys.
+- YUI-35: photo of a meal to a macro estimate to a row in your macros table.
+- YUI-36: optional encrypted sync for agent tables, off by default.
+- YUI-44: group threads, several agents in one conversation.
+- YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP).
+
+**People with no agent yet**
+
+- YUI-37: a starter agent that works with no setup.
+- YUI-38: an onboarding interview that suggests your first agents.
+- YUI-39: log in to your tools once (Google Calendar, Gmail, HubSpot) through MCP.
+
+**Smarter and faster**
+
+- YUI-41: an on-device model answers the easy things for free.
+- YUI-42: the preset flywheel. Log custom screens, turn the repeats into presets.
+- YUI-43: restyle the app by asking ("make Yui feel like autumn"), with contrast guardrails.
+- YUI-40: widgets and Siri, so agents work outside the app.
+
+**Flows**
+
+- FLOW-1: flows. A saved series of screens, written in Mermaid, that any agent can run: client intake, scoping a project, an investor deck. Agents can make variants. You manage your flows in the app.
+- FLOW-2: a library of components and flows on yuigui.com that people browse and agents can search and "shop". Later, a store.
+
+**Other agents and channels**
+
+- INT-1: an OpenClaw adapter.
+- INT-2: a webhook adapter in Python and Node. If your agent can send an HTTP request, it can talk in Yui.
+- INT-3: a Yui MCP server, so any MCP agent can draw a screen.
+- INT-4: the Telegram fallback: Yui Lines as buttons and a Telegram Mini App.
+- INT-5: connect without installing anything, through a hosted connector.
+- INT-6: research Cloudflare's Agents SDK and "Flue" for the next relay.
+- YUI-48: text an agent from any phone over SMS.
+
+**Money and platforms**
+
+- YUI-45: pay-as-you-go credits for images and hosted models.
+- YUI-46: Android, starting with a prototype that passes the shared test suite.
+
+**Open source and the site**
+
+- OSS-2: Yui Lines parsers in Python, Kotlin and Rust.
+- OSS-3: the public backlog mirrored as GitHub issues for contributors.
+- SITE-5: a timeline of how Yui grew, from the GitHub history.
+- SITE-7: a gallery of every screen, live, next to the one line that draws it.
+- BIZ-6: who the first 20 to 50 outside testers are, and how we find them.
