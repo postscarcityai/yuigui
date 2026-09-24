@@ -17,13 +17,13 @@ This builds on `spec/AGENTS.md` (who the agents are, how a host is paired) and `
 
 ## Messages
 
-`yui_messages(id, user_id, agent_id, sender, body, kind, meta, created_at)`
+`yui_messages(id, user_id, agent_id, sender, body, kind, meta, created_at, delivered_at, handled_at)`
 
 | sender | kind | body | meta |
 | --- | --- | --- | --- |
 | `user` | `text` | what the person typed | `{}` |
 | `user` | `event` | `[yui] <id> <preset> key=value ...`, the line the agent reads | `{id, preset, value, echo?}` |
-| `agent` | `text` | chat text with Yui Lines inside ```` ```yui ```` fences | `{}` |
+| `agent` | `text` | chat text with Yui Lines inside ```` ```yui ```` fences | `{}`, or `{turn: [row ids]}` for a reply (see Delivery) |
 
 Body is 1 to 32,000 characters. A thread is `(user_id, agent_id)`; deleting the agent deletes its thread.
 
@@ -50,22 +50,54 @@ Quiet events stay on the phone: a timer starting, a checklist tick. An event goe
 | who | token | may |
 | --- | --- | --- |
 | App | `yui_user` JWT (15 min, from `yui-auth`) | read its own threads; insert `sender='user'` rows (text or event) into its own agents' threads; delete its messages. No updates. |
-| Host | `yui_connector` JWT (60 min, from `yui-connect` `session`) | read the user's rows and insert `sender='agent'`, `kind='text'` rows, **only** in threads of agents bound to its own connector; see those agents (id, name, handle, remote_ref). Nothing else: no other user, no unbound agent, no registry tables, no edits, no deletes. |
+| Host | `yui_connector` JWT (60 min, from `yui-connect` `session`) | read the user's rows and insert `sender='agent'`, `kind='text'` rows (choosing their `id`), **only** in threads of agents bound to its own connector; set `delivered_at` and `handled_at` on the person's rows there, and nothing else on them; see those agents (id, name, handle, remote_ref). Nothing else: no other user, no unbound agent, no registry tables, no edits, no deletes. |
 
 The host's JWT: `role=yui_connector`, `sub` = the paired user, `cid` = the connector. It is minted from the connector token (`yui_ct_...`, AGENTS.md) and signed like the app's token. Every policy calls `yui_connector_serves(agent_id)`, which also checks the connector is not revoked, so removing a host in the app cuts it off at once, even with an unexpired JWT. Realtime applies the same RLS: a host only hears inserts it could read.
 
-All of this is tested live in `supabase/tests/relay_test.py` (38 checks, including Realtime isolation and instant revoke).
+All of this is tested live in `supabase/tests/relay_test.py` (49 checks, including Realtime isolation, instant revoke, and the delivery acks).
 
 ## Host API additions (`yui-connect`)
 
 ```
 {"action":"session"}     Bearer yui_ct_...
   -> {access_token, expires_at, user_id, connector:{id,name}, agents:[{id,name,handle,remote_ref}], guide:{version, body}}
+{"action":"bye"}         Bearer yui_ct_...      (YUI-28)
+  the host is stopping cleanly: its agents read offline at once, not asleep.
+  The next heartbeat or session clears it.
+  -> {stopped_at}
 {"action":"guide"}       no auth
   -> {guide:{version, body}}
 ```
 
 `session` also counts as a heartbeat.
+
+## Delivery (YUI-28)
+
+Messages survive a sleeping Mac, a dropped network and a killed app: every message arrives, in order, once. Migration `supabase/migrations/20260924060000_yui_delivery.sql`.
+
+**Phone to agent.**
+- The app writes each message (and each answered tap) to an outbox file on the phone **before** the first try, with an id it chose. It sends oldest first. A resend of a row that already landed hits the primary key (409) and counts as sent, so nothing is written twice. Failures back off quietly (1 s up to 30 s) and start over when the network returns or the app comes forward. A killed app sends what was waiting on its next launch.
+- In the thread, a message still on the phone is dimmed; while the network is down one quiet line says "Not sent yet. It goes the moment you're back online." No red errors for a network blip.
+- The host reads the person's rows it has **not finished** (`handled_at is null`), oldest first, not a moving cursor, so a restart or a row that committed late can't be skipped. It sets `delivered_at` when it hands a row to the agent and `handled_at` when the agent's turn on it completes.
+- **One turn at a time per agent.** Rows that arrive while the agent works wait, then go in together as the next turn, one line each, in order. (Hermes' own busy handling would interrupt the turn and keep only the newest message.) Commands (`/stop`, `/new`) go straight in and are never replayed.
+- A host killed mid-turn leaves `handled_at` empty: after the restart the row is replayed. A turn that already answered is not run twice: each reply carries `meta.turn`, the ids of the rows it answers, and a row whose answer is already written (or waiting in the host's outbox) is only marked handled. A failed or cancelled turn is marked handled only if the gateway is still running 5 seconds later, so shutting down replays it instead of dropping it. Hermes' "gateway shutting down, your task will be interrupted" notice is off on Yui for that reason.
+
+**Agent to phone.**
+- The host gives each reply its id. A reply it cannot write (network down, the Mac waking, Yui unreachable) goes to `<profile home>/yui/outbox.jsonl` and out again oldest first, with backoff up to 60 s; later replies queue behind it so they never overtake. 409 counts as sent. Out-of-process senders (cron, `hermes send --to yui`) append to the same file when Yui is unreachable, and the profile's gateway delivers them.
+- The app polls with a 10-second overlap and drops ids it has already shown.
+
+**Honest status.** `yui_agent_list.presence`, straight from the host's heartbeat (every 45 s), never guessed:
+
+| presence | means | app says |
+| --- | --- | --- |
+| `online` | heartbeat in the last 2 minutes | Online; typing dots after you send |
+| `asleep` | went quiet without saying goodbye: the computer slept or lost its network | "Asleep, seen 5 minutes ago"; after you send, "<Agent> is asleep. It gets this when its computer wakes." |
+| `offline` | the gateway stopped (said `bye`) or the host was removed | "Offline, seen ..."; messages wait until it's back |
+| `pending` | never paired | Waiting to connect |
+
+`status` (`connected`/`offline`/`pending`) stays for older app builds.
+
+**Tests.** `supabase/tests/offline_e2e.py` runs the real adapter under Hermes' real turn lifecycle with a scripted echo agent and kills it mid-turn, sends while it is dead, cuts its network while it answers, kills it with the reply only on disk, and checks every message is answered exactly once, in order. With `--sim <udid>` it also drives `YuiUITests/OfflineTests`: the phone goes offline, two messages wait, the app is killed and relaunched, the network returns, and the agent goes asleep (light and dark). Airplane mode on a real phone is a manual TestFlight check.
 
 ## Push and handoff (YUI-8)
 
@@ -112,7 +144,7 @@ The text every agent gets on the Yui channel is `spec/CHANNEL.md` from "## You a
 - Install per profile: `hermes-plugin/install.sh <profile>`. Hermes loads plugins from the profile's own home (`~/.hermes/profiles/<p>/plugins/`), not `~/.hermes/plugins/`, so each profile that talks in Yui needs it. The script symlinks the plugin (a git pull updates every profile), adds `yui` to `plugins.enabled` and sets `platforms.yui.enabled: true`. Nothing else in the profile changes.
 - Pair: `hermes -p <profile> yui pair <code>` (code from the app's Add agent), or `hermes -p <profile> yui add` on an already-paired machine; `hermes -p <profile> yui status` shows the connector and its agents.
 - Then `hermes -p <profile> gateway restart`. The gateway serves every agent whose `remote_ref` is that profile's name.
-- Runtime: trades the connector token for a session, subscribes to Realtime, and on each insert (or every 20 s, every 3 s while Realtime is down) reads new user rows past a cursor saved in `<profile home>/yui/cursor.json`. A restart resumes where it stopped; a new agent starts from now, not from old history. Heartbeat every 45 s; the session refreshes 10 minutes before it expires.
+- Runtime: trades the connector token for a session, subscribes to Realtime, and on each insert (or every 20 s, every 3 s while Realtime is down) reads the person's unfinished rows (see Delivery). `<profile home>/yui/cursor.json` only holds a floor per agent: a new agent starts from now, not from old history. Heartbeat every 45 s; a clean stop says `bye`; the session refreshes 10 minutes before it expires.
 - Inbound is authorized upstream (RLS already limits it to the paired user), so there is no `YUI_ALLOWED_USERS` list to keep.
 - The profile's Yui thread is its home channel (`YUI_HOME_CHANNEL` and `platforms.yui.home_channel` default to the profile name), so cron and cross-channel sends can target `yui`.
 - Pictures from tools become a YL `image` line, and local files and generator URLs are re-hosted (see Media).

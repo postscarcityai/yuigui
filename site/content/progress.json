@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Nothing gets lost: sleeping Macs, dropped networks, killed apps",
+    "card": "YUI-28",
+    "body": "Your agent lives on a computer, and computers sleep. Now Yui holds on to every message both ways until it can be delivered, then delivers it once, in order. On the phone, a message goes to a small outbox on the device before it is sent. If the network is gone it stays there, dimmed, with one quiet line saying it goes the moment you're back online, even if you close the app. On the agent's computer, Yui only marks a message done when the agent has finished answering it. If the computer crashes mid-answer, the message is picked up again when it comes back, and an answer that already went out is never sent twice. Replies that can't get out wait on the computer and follow in order. The app also tells the truth about where your agent is: online, asleep (its computer went quiet, with when it was last seen), or offline (its gateway was stopped). We tested it by killing the agent mid-answer, cutting its network while it replied, and killing the app with unsent messages on a simulator. Every message arrived exactly once. A real airplane-mode test on a phone is next, on TestFlight.",
+    "images": [
+      {
+        "src": "/progress/yui28-offline-not-sent.webp",
+        "alt": "Two messages sent with no network, shown dimmed, with the line: Not sent yet. It goes the moment you're back online."
+      },
+      {
+        "src": "/progress/yui28-delivered.webp",
+        "alt": "Dark mode thread after the network came back: the two messages were delivered once each and the agent answered both in one reply."
+      },
+      {
+        "src": "/progress/yui28-asleep-thread.webp",
+        "alt": "Dark mode thread with the agent's computer asleep: two new messages and the note, Echo is asleep. It gets this when its computer wakes."
+      },
+      {
+        "src": "/progress/yui28-asleep-agents.webp",
+        "alt": "Your agents list showing Echo as Asleep, seen 5 minutes ago, with a lavender dot."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "First run: from sign in to your agent's first screen",
     "card": "YUI-25",
     "body": "A new Yui account has no agents, and the app used to hide that behind a friendly greeting that could not actually answer. Now it says so plainly: \"Let's connect your first agent\", three short steps and one button. Tapping it names the agent and shows the three commands to run on your computer (install the plugin, pair with the code, restart the gateway), with the code already filled in and a copy button on each. If nothing happens after a couple of minutes, or the code runs out, a small card says exactly what to check. The moment your computer connects, the screen flips to connected with a Say hi button that drops you into the new thread. Yui also waits to ask about notifications until you have an agent that could send one. We tested the whole path on a simulator with a fresh throwaway account, in light and dark, playing the computer's side from a script: first screen, code, pairing, hello, and the agent's first screen back.",
