@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Who the first outside testers are",
+    "card": "BIZ-6",
+    "body": "A plan for the first 20 to 50 people outside the project to try Yui: what a tester needs (an iPhone on iOS 26 and a Hermes that already works), cohorts of 1, 5, 20 and 50 with a gate before each, and 32 public places where Hermes and OpenClaw users gather, each with its size, its rules on self-promotion and what we would say there. The invites are drafts: nothing has been posted or sent, and each one waits for Chris. OpenClaw users are told the honest route for now, importing into Hermes, until the OpenClaw adapter exists. A plan with nothing to see, so no screenshots. Read it at yuigui.com/business/beta-list."
+  },
+  {
+    "date": "2026-09-24",
     "title": "The playground reads right to a screen reader",
     "card": "SITE-6",
     "body": "The playground was the one page under 95 on Lighthouse accessibility. The screen picker, the YL text box and the stream speed slider now carry names a screen reader can announce, and the Start button on the Arnold timer uses dark ink on orange instead of white, which was too faint to pass contrast. Every page on the site now scores 95 or better."
