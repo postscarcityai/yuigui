@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T04:46:01.702Z",
+  "updated": "2026-09-24T04:58:57.783Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -228,10 +228,6 @@
           "summary": "Agents generate and send images and videos into Yui"
         },
         {
-          "key": "SITE-3",
-          "title": "Screenshots on the site + changelog with screenshots"
-        },
-        {
           "key": "SITE-4",
           "title": "Site drives traffic to the open source repo and the app (CTAs, waitlist, TestFlight)"
         },
@@ -254,11 +250,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-18",
-          "title": "Learn + plan",
-          "summary": "Presentations, plan mode, narrated walkthroughs (spec + web)"
-        },
-        {
           "key": "YUI-8",
           "title": "Push handoff",
           "summary": "'pick this up in Yui' from Telegram in one step"
@@ -271,14 +262,10 @@
           "waiting": true
         },
         {
-          "key": "SITE-2",
-          "title": "Live kanban board on yuigui.com",
-          "summary": "The board is public",
-          "progress": "/progress#the-board-is-public"
-        },
-        {
-          "key": "BIZ-5",
-          "title": "yuiguiai social handles"
+          "key": "SITE-3",
+          "title": "Screenshots on the site + changelog with screenshots",
+          "summary": "Screenshots everywhere, and a changelog",
+          "progress": "/progress#screenshots-everywhere-and-a-changelog"
         }
       ]
     },
@@ -286,6 +273,25 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "BIZ-5",
+          "title": "yuiguiai social handles",
+          "shipped": "2026-09-24"
+        },
+        {
+          "key": "YUI-18",
+          "title": "Learn + plan",
+          "summary": "Decks, plan mode and narrated walkthroughs",
+          "shipped": "2026-09-24",
+          "progress": "/progress#decks-plan-mode-and-narrated-walkthroughs"
+        },
+        {
+          "key": "SITE-2",
+          "title": "Live kanban board on yuigui.com",
+          "summary": "The board is public",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-board-is-public"
+        },
         {
           "key": "MVP-0",
           "title": "MVP roadmap + deep backlog, reflected on yuigui.com",

@@ -136,6 +136,10 @@
     {
       "text": "Public TestFlight: every VALID build goes to the Public group and beta review",
       "card": "YUI-22"
+    },
+    {
+      "text": "Pick it up in Yui: push handoff from any channel",
+      "card": "YUI-8"
     }
   ]
 }
