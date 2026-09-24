@@ -1,4 +1,4 @@
-# Yui | roadmap (draft 6, Sep 24 2026)
+# Yui | roadmap (draft 7, Sep 24 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
@@ -266,9 +266,25 @@ Chris, Sep 23: friendlier, a South Korean aesthetic, happy-cat energy, a little 
 
 If Apple rejects the app or it stalls, Telegram already supports most of what the pitch needs: inline keyboards with callback buttons, reply keyboards, and **Telegram Mini Apps** (full web apps inside Telegram, with theme colors, haptics, and cloud storage). The same Yui Lines can render as a Mini App using the web renderer. This is the insurance policy, and Phase 0 already starts it.
 
+## Adapters | every agent framework, Hermes first (INT-0)
+
+Chris, Sep 24: Yui should work with any agent, not just ours. The full plan is `spec/ADAPTERS.md`. It all waits until the MVP passes.
+
+There are only five ways in, so five pieces of code cover every framework:
+
+- **A plugin inside the agent's own app.** Hermes today. OpenClaw and Flue next.
+- **A hosted connector** that speaks a standard protocol: Hermes's relay contract, and A2A, which Gemini, LangGraph, CrewAI and Microsoft's Agent Framework all speak.
+- **A model connector.** Point Yui at any OpenAI-compatible API: Meta's Muse Spark, Grok, Gemini, or a model on your own machine through Ollama, LM Studio or vLLM.
+- **A Yui MCP server.** Claude, ChatGPT, Grok and n8n add it as a tool and push screens to your phone.
+- **A webhook.** If your code can send an HTTP request, it can talk in Yui.
+
+Every one of them ends in the same messages and the same screens, and every agent gets the same channel guide, so it knows it can draw.
+
+Order: Hermes (done), then OpenClaw, the webhook and the MCP server, then Claude, ChatGPT, open models, Flue and A2A, then the rest. Each framework is a card on the board, INT-1 to INT-18.
+
 ## Cloudflare
 
-Chris mentioned a new Cloudflare deploy-anywhere agent he thinks is called "Flue". I have not verified that product name. Cloudflare's Agents SDK (Workers + Durable Objects, websockets, scheduling, built-in MCP support) is the confirmed fit for the Yui relay and hosted agent. Research card to confirm "Flue" and whether it changes anything. His point about Cloudflare gating the agentic web (bot blocking) is relevant to connectors that scrape; Yui should prefer official APIs and MCP.
+Chris mentioned a new Cloudflare agent he thought was called "Flue". Checked Sep 24: Flue is real, an open-source TypeScript agent framework from the team behind Astro, launched with Cloudflare in June 2026. It runs agents as Durable Objects on Cloudflare's Agents SDK and has channels for Slack, Discord and others, so a Yui channel fits (INT-13). Cloudflare's Agents SDK is also the leading candidate to host Yui's own connector; INT-6 confirms. His point about Cloudflare gating the agentic web (bot blocking) is relevant to connectors that scrape; Yui should prefer official APIs and MCP.
 
 ## What stays out of scope for now
 
@@ -334,6 +350,18 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-4: the Telegram fallback: Yui Lines as buttons and a Telegram Mini App.
 - INT-5: connect without installing anything, through a hosted connector.
 - INT-6: research Cloudflare's Agents SDK and "Flue" for the next relay.
+- INT-7: Claude, through the MCP server, and Yui screens drawn inside Claude as an MCP App.
+- INT-8: ChatGPT, the same way.
+- INT-9: Gemini, as a model or as an A2A agent.
+- INT-10: Grok, as a model or calling the MCP server.
+- INT-11: Meta's Muse Spark, through the Meta Model API.
+- INT-12: open models on your own machine (Ollama, LM Studio, vLLM) and any OpenAI-compatible API.
+- INT-13: a Yui channel for Flue.
+- INT-14: LangGraph.
+- INT-15: CrewAI.
+- INT-16: Microsoft Agent Framework, the successor to AutoGen.
+- INT-17: n8n, as a node and through MCP.
+- INT-18: an A2A client, so any agent with an Agent Card can join.
 - YUI-48: text an agent from any phone over SMS.
 
 **Money and platforms**

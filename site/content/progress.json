@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-24",
+    "title": "A plan for every agent framework",
+    "card": "INT-0",
+    "body": "Yui talks to Hermes today. The goal is any agent, so we mapped how each framework would get in: OpenClaw, Claude, ChatGPT, Gemini, Grok, Meta's Muse Spark, local models through Ollama, LM Studio or vLLM, Flue on Cloudflare, LangGraph, CrewAI, Microsoft's Agent Framework and n8n. The good news: there are only five ways in (a plugin, a hosted connector, a model connector, an MCP server and a webhook), so five pieces of code cover the whole list. Every framework now has a card on the board, and the plan is on the roadmap. None of it starts before the MVP ships. This one is a plan, so there is nothing to screenshot yet."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Every page points to the code and the beta",
     "card": "SITE-4",
     "body": "The site now ends every page the same way: three ways in. Get the TestFlight beta, star the code on GitHub, or join the waitlist. The public beta is waiting on Apple's review, so for now that card says so and points to the waitlist; the button appears the day Apple says yes. The beta is bring your own agent: you need Hermes running on your own computer. Both repos are open source under Apache 2.0, and GitHub is now in the menu and the footer too. We also made a list of tagged links for social posts, so we can see which posts bring people here. No new tracking was added: the site already had Google Analytics, and a button click now counts as an event there.",
