@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Draw your best screen in three lines: a community page and the first open challenge",
+    "card": "OSS-5",
+    "body": "Yui Lines is open, and now there is a front door for people who want to build with it. The new Community page, under Developers, says who builds with Yui Lines today (honestly: us, plus the Hermes, OpenClaw and webhook adapters), and lists six ways to join in: a parser (Rust is next), a preset idea, a renderer, an adapter, a conformance vector, or the app itself. It also opens the first challenge: draw your best screen in three lines or fewer. You add your lines to one file in the repo and open a pull request. A small checker runs on every pull request: it parses each entry with the reference parser and says ok, or exactly what to fix, like a misspelled preset or a fourth line. Merged entries show up in a gallery on the page, drawn live in your browser, each with an Open in the playground link that loads its lines ready to edit. We seeded it with five of our own. Both CONTRIBUTING guides now point there.",
+    "images": [
+      {
+        "src": "/progress/oss5-gallery.webp",
+        "alt": "The gallery on the community page in dark mode: three live phones showing a morning check-in with a sleep slider, a Tabata timer, and a weekly weigh-in with a stat and a line chart, each with its Yui Lines below and an Open in the playground link."
+      },
+      {
+        "src": "/progress/oss5-challenge-phone.webp",
+        "alt": "The community page on a phone in light mode: the heading Build with Yui Lines, and the open challenge, draw your best screen in 3 lines."
+      },
+      {
+        "src": "/progress/oss5-contribute.webp",
+        "alt": "Two card grids: who builds with Yui Lines (the app, the Hermes plugin, the OpenClaw plugin, the webhook bridge, this website) and six ways to contribute, each with a link."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "The go-to-market plan is public",
     "card": "SITE-20",
     "body": "How Yui finds its people now lives on one page: yuigui.com/business/gtm. It folds the content plan and the social accounts plan into a single current plan. Who it is for, in order: Hermes users, then OpenClaw users, then other agent builders and people who like specs. What we say and never say, with the token numbers always given as the split (1.6x fewer than minified JSON, 3.9x fewer than a component tree). Five content pillars, a plan for each channel with its gate, a weekly rhythm, and the first 30 days, starting Monday Sep 28. It also says what grassroots means for us: an open screen language anyone can parse and render, real ways to contribute at every size, show-and-tell with credit, and a monthly Yui Lines challenge. Nothing has been posted and no account has been created. Every post and every community message waits for Chris, and the plan ends with his five open questions. There is a matching Google Doc, linked from the page.",

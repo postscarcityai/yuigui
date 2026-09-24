@@ -861,3 +861,12 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 @media (max-width: 759px) {
   .md td > a:only-child { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
 }
+
+/* Community (OSS-5): the three-lines gallery, phones in a grid. */
+.cm-gallery { display: grid; gap: 32px 24px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: 20px; }
+.cm-entry { min-width: 0; scroll-margin-top: 90px; }
+.cm-entry .phone.sc-phone { height: 540px; max-width: 300px; margin: 0 auto; }
+.cm-entry h3 { margin: 16px 0 2px; font-size: 20px; }
+.cm-entry:target h3 { color: var(--brand); }
+.cm-by { margin: 0; color: var(--muted); font-size: 14px; }
+.card p.cm-link { margin-top: 12px; font-weight: 700; }

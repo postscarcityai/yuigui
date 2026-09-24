@@ -1,5 +1,5 @@
 // Copies files from the repo root into content/ so Vercel (which only uploads site/) can read them.
-import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { findDocLeak } from "../lib/public-guard.mjs";
 for (const [from, to] of [["../../ROADMAP.md", "ROADMAP.md"], ["../../spec/channel-eval/RESULTS.md", "CHANNEL-RESULTS.md"]]) {
   const src = new URL(from, import.meta.url);
@@ -19,5 +19,22 @@ for (const [from, name] of [["../../spec/", "spec"], ["../../docs/business/", "b
     if (leak) { console.error(`spec/${f}: ${leak[0]} "${leak[1]}" must not reach the site`); process.exit(1); }
     copyFileSync(new URL(f, src), new URL(`../content/${name}/${f}`, import.meta.url));
     console.log(`synced ${name}/${f}`);
+  }
+}
+// The community gallery (OSS-5): only entries that pass community/check.mjs reach the site,
+// so one bad merge can never break a deploy. CI blocks them at the pull request anyway.
+{
+  const src = new URL("../../community/gallery.json", import.meta.url);
+  if (!existsSync(src)) console.log("community/gallery.json not found, using committed copy");
+  else {
+    const { checkEntry } = await import("../../community/check.mjs");
+    const g = JSON.parse(readFileSync(src, "utf8"));
+    const entries = g.entries.filter((e) => {
+      const p = checkEntry(e);
+      if (p.length) console.warn(`gallery: skipped ${e.id}: ${p.join("; ")}`);
+      return !p.length;
+    });
+    writeFileSync(new URL("../content/gallery.json", import.meta.url), `${JSON.stringify({ ...g, entries }, null, 2)}\n`);
+    console.log(`synced gallery.json (${entries.length} entries)`);
   }
 }

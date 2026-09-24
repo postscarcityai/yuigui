@@ -1,0 +1,19 @@
+# Community gallery (OSS-5): every entry must parse and fit in three lines.
+name: gallery
+on:
+  pull_request:
+    paths: ["community/**", "site/lib/yl/**"]
+  push:
+    branches: [main]
+    paths: ["community/**", "site/lib/yl/**"]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node community/check.mjs

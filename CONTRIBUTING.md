@@ -4,8 +4,11 @@ Thanks for looking. Yui is built in public, and help is welcome at any size: a t
 
 This repo is the hub: the Yui Lines spec, the conformance vectors, the reference parser and the site. App and plugin code live in [postscarcityai/yui](https://github.com/postscarcityai/yui).
 
+New here? The [community page](https://www.yuigui.com/developers/community) shows who builds with Yui Lines and every way to join in.
+
 ## Good first contributions
 
+- **The three lines challenge.** Draw your best screen in three lines of Yui Lines or fewer and add it to `community/gallery.json`. `node community/check.mjs` checks it, and merged entries show up live in the [gallery](https://www.yuigui.com/developers/community#gallery). How to enter: [community/README.md](community/README.md).
 - **A parser in a new language.** We have JavaScript, Swift, Python and Kotlin (see `parsers/`). Rust is next on our list, but any language helps. Make it pass every file in `spec/conformance/`, add it to `spec/conformance/run-all.sh`, then open a pull request.
 - **Conformance vectors.** Found an edge case the spec is vague about? Add a vector and say what you think the answer should be.
 - **Preset ideas.** Open an issue with the screen you wish an agent could put up, written as Yui Lines.

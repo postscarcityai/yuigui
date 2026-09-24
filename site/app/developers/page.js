@@ -18,6 +18,7 @@ const cards = [
   ["/developers/specs", "All specs", "Every spec, rendered from the repo: agents, the relay, adapters, the token benchmark and more."],
   ["/channel", "Channel guide", "What every agent on the Yui channel is told, and the eval that scores it."],
   ["/reactions", "Reactions", "Hold a message and react. What each of the six tells your agent to do."],
+  ["/developers/community", "Community", "Who builds with Yui Lines, how to contribute, and the open challenge: draw your best screen in three lines."],
   ["/developers/flywheel", "Preset flywheel", "Custom screens agents keep sending become presets. What is logged (shapes, never values) and the promotion checklist."],
 ];
 
@@ -82,7 +83,7 @@ export default function Developers() {
         <li><a href={links.appRepo}>postscarcityai/yui</a>: the iPhone app, the Hermes plugin and the backend.</li>
         <li><a href={links.github}>postscarcityai/yuigui</a>: the spec, this website and the roadmap.</li>
       </ul>
-      <p>Both are open source under Apache-2.0. Issues and pull requests are welcome; start with CONTRIBUTING.md in either repo.</p>
+      <p>Both are open source under Apache-2.0. Issues and pull requests are welcome; start with CONTRIBUTING.md in either repo, or the <Link href="/developers/community">community page</Link>.</p>
     </>
   );
 }

@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 55,
-    "site": 124,
+    "site": 125,
     "builds": 21,
-    "shipped": 77,
-    "screenshots": 130
+    "shipped": 78,
+    "screenshots": 133
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T21:05:55.343Z",
+          "at": "2026-09-24T21:06:28.846Z",
+          "title": "Draw your best screen in three lines: a community page and the first open challenge",
+          "card": "OSS-5",
+          "anchor": "draw-your-best-screen-in-three-lines-a-community-page-and-the-first-open-challen",
+          "images": [
+            {
+              "src": "/progress/oss5-gallery.webp",
+              "alt": "The gallery on the community page in dark mode: three live phones showing a morning check-in with a sleep slider, a Tabata timer, and a weekly weigh-in with a stat and a line chart, each with its Yui Lines below and an Open in the playground link."
+            },
+            {
+              "src": "/progress/oss5-challenge-phone.webp",
+              "alt": "The community page on a phone in light mode: the heading Build with Yui Lines, and the open challenge, draw your best screen in 3 lines."
+            },
+            {
+              "src": "/progress/oss5-contribute.webp",
+              "alt": "Two card grids: who builds with Yui Lines (the app, the Hermes plugin, the OpenClaw plugin, the webhook bridge, this website) and six ways to contribute, each with a link."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 55,
+            "site": 125,
+            "builds": 21,
+            "shipped": 78
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T21:06:01.000Z",
           "title": "The go-to-market plan is public",
           "card": "SITE-20",
           "anchor": "the-go-to-market-plan-is-public",
@@ -30,7 +58,7 @@
           "commits": 0,
           "totals": {
             "app": 55,
-            "site": 124,
+            "site": 125,
             "builds": 21,
             "shipped": 77
           }
@@ -1379,7 +1407,7 @@
           "card": "BIZ-4",
           "anchor": "a-content-plan-built-from-what-ships",
           "images": [],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 17,
             "site": 38,
@@ -1560,6 +1588,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "95c545f",
+          "at": "2026-09-24T21:06:01.000Z",
+          "text": "Go-to-market plan in public: docs/business/GTM.md at /business/gtm folds the content plan and social accounts plan into one current plan...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/95c545f"
+        },
         {
           "repo": "site",
           "sha": "b5c3af6",

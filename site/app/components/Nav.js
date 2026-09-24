@@ -16,7 +16,7 @@ export const sections = [
   },
   {
     href: "/developers", label: "Developers",
-    pages: [["/developers", "Overview"], ["/playground", "Playground"], ["/yl", "Yui Lines"], ["/developers/specs", "Specs"], ["/channel", "Channel guide"], ["/reactions", "Reactions"], ["/notes", "Notes"]],
+    pages: [["/developers", "Overview"], ["/playground", "Playground"], ["/yl", "Yui Lines"], ["/developers/specs", "Specs"], ["/channel", "Channel guide"], ["/reactions", "Reactions"], ["/developers/community", "Community"], ["/notes", "Notes"]],
   },
   { href: "/start", label: "Get Yui", cta: true },
 ];

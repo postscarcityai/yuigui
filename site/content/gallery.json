@@ -1,0 +1,44 @@
+{
+  "challenge": {
+    "title": "Draw your best screen in 3 lines",
+    "opened": "2026-09-24",
+    "rules": "Three lines of Yui Lines or fewer. Comments and blank lines are free. It has to parse with no errors and draw at least one thing."
+  },
+  "entries": [
+    {
+      "id": "morning-check-in",
+      "title": "Morning check-in",
+      "by": "Yui project",
+      "date": "2026-09-24",
+      "yl": "say \"Morning. How did you sleep?\"\nslide \"Sleep\" 1-5 Rough|Great\npick \"Today I want to\" Move|Focus|Rest|\"See people\""
+    },
+    {
+      "id": "tabata-in-one",
+      "title": "A whole workout in one line",
+      "by": "Yui project",
+      "date": "2026-09-24",
+      "yl": "timer 40/20x8 Tabata"
+    },
+    {
+      "id": "weigh-in",
+      "title": "Weekly weigh-in",
+      "by": "Yui project",
+      "date": "2026-09-24",
+      "yl": "stat 178.9lb Weight delta=-2.3 spark=181.2|180.6|179.8|178.9 good=down sub=\"this week\"\nchart line \"Last 4 weeks\" x=W1|W2|W3|W4 y=181.2|180.6|179.8|178.9\nask \"Keep the same plan?\""
+    },
+    {
+      "id": "how-far",
+      "title": "How far does it fly?",
+      "by": "Yui project",
+      "date": "2026-09-24",
+      "yl": "say \"Drag the sliders. The answer moves with you.\"\ncalc \"How far does it fly?\" f=\"R = v^2*sin(2*a)/g\" v=5-40@20m/s a=0-90@30deg g=9.81m/s^2 plot=a unit=m"
+    },
+    {
+      "id": "dinner-vote",
+      "title": "Settle dinner",
+      "by": "Yui project",
+      "date": "2026-09-24",
+      "yl": "say \"Three votes in. Tacos lead.\"\nchoose \"Your vote?\" Tacos|Ramen|Pizza +other\ntable Votes Dish|Votes \"Tacos|2\" \"Ramen|1\" \"Pizza|0\""
+    }
+  ]
+}

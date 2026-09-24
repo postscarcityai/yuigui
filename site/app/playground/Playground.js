@@ -66,13 +66,15 @@ export default function Playground() {
     return () => clearTimeout(t);
   }, [text, streaming]);
 
-  // /playground?demo=<slug> opens a media demo directly.
+  // /playground?demo=<slug> opens a media demo directly; ?yl=<lines> opens any lines (the community gallery links here).
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
     const slug = q.get("demo");
+    const yl = q.get("yl");
     if (q.get("theme") === "light") setLight(true);
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
+    else if (yl) { load(0); setText(yl); setState(build(yl)); setCmd(""); }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
