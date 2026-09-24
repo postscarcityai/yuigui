@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T12:41:42.330Z",
+  "updated": "2026-09-24T13:11:02.609Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -246,12 +246,6 @@
           "summary": "Public TestFlight link (external group + Beta App Review)",
           "mvp": true,
           "waiting": true
-        },
-        {
-          "key": "YUI-27",
-          "title": "Ready for beta review",
-          "summary": "Privacy labels, review notes, demo account, support link",
-          "mvp": true
         }
       ]
     },
@@ -259,6 +253,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-12",
+          "title": "Reposition yuigui.com around the generative UI, sell the MVP",
+          "summary": "The site now leads with what Yui is: a generative user interface",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-site-now-leads-with-what-yui-is-a-generative-user-interface"
+        },
+        {
+          "key": "YUI-27",
+          "title": "Ready for beta review",
+          "summary": "Ready for Apple's beta review: a demo agent, help, and a full privacy page",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#ready-for-apple-s-beta-review-a-demo-agent-help-and-a-full-privacy-page"
+        },
         {
           "key": "YUI-26",
           "title": "Safe for strangers",

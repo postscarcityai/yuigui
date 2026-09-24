@@ -1,6 +1,22 @@
 {
   "builds": [
     {
+      "build": 33,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-24T05:55:57-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Safe for strangers: rate limits, size caps, kill switch, 90-day retention",
+          "card": "YUI-26"
+        },
+        {
+          "text": "Ready for beta review: demo code + demo agent, Help and feedback, App Privacy answers",
+          "card": "YUI-27"
+        }
+      ]
+    },
+    {
       "build": 31,
       "date": "2026-09-24",
       "uploaded": "2026-09-24T04:06:40-07:00",
@@ -280,10 +296,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Safe for strangers: rate limits, size caps, kill switch, 90-day retention",
-      "card": "YUI-26"
-    }
-  ]
+  "next": []
 }
