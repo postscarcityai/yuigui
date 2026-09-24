@@ -77,11 +77,17 @@ yui-push  (edge function)
   the phone's APNs device token; "sandbox" for Xcode builds, "production" for TestFlight/App Store.
   One row per phone in yui_devices: a token that was on another account moves to this one.
 {"action":"unregister","token"}                      Bearer app access token   (sign out)
+{"action":"presence","token","active","agent_id"?}   Bearer app access token   (YUI-24)
+  the app is open on agent_id's thread (active: true, repeated every 60 s) or just went to
+  the background (active: false). Stale after 90 s, so a killed app counts as closed.
+  -> {tracked}  (false when this phone is not registered to the caller)
 {"action":"notify","message_id","from"?,"handoff"?}  Bearer yui_ct_...
   push agent message `message_id` to every phone of its user. Only for threads of agents
   bound to this connector, written in the last 10 minutes.
-  -> {devices, delivered, results:[{status, reason}]}
+  -> {devices, delivered, skipped, muted?, results:[{status, reason}]}
 ```
+
+- **When it pushes (YUI-24).** Not for an agent the person muted (`yui_agents.push_muted`, the Notifications switch in that agent's settings): `{muted: true, devices: 0}`, handoffs included. Not to a phone that is open on that agent's thread right now (presence younger than 90 s): the answer is already on screen, so it would ring twice; those count in `skipped`. A phone open on another agent's thread still gets it and shows the banner.
 
 - Alert: title is the thread's agent; body is "<from or agent> has something for you in Yui" for a handoff, otherwise a preview of the text outside the ```yui fences. Payload carries `agent_id`, `message_id` and `url: yui://agent/<agent id>/thread`.
 - The app opens `yui://agent/<id>/thread` from a tap or any link, and shows no banner for the thread already on screen.
@@ -89,7 +95,7 @@ yui-push  (edge function)
 - The plugin calls `notify` after every insert. In-gateway, a send is a handoff when it comes from another profile or the thread had no inbound for 15 minutes; out-of-process sends (cron, `hermes send`, another channel's session) are always handoffs.
 - **Any profile can hand off**, even one with no Yui agent of its own: install the plugin on it. `send_message(target="yui")`, `hermes -p <profile> send --to yui`, and cron `--deliver yui` resolve to the profile's own agent, else the user's first agent, and the push names the sender ("Urza has something for you in Yui"). Taps on that screen go to the thread's own agent, so for two-way flows add the profile as its own agent in the app.
 - The fast trigger on other channels: the plugin's `pre_llm_call` hook adds the how-to plus the channel guide to any turn that mentions Yui ("send it to Yui", "pull this up on Yui"), and nothing otherwise. `/yui [note]` is rewritten by `pre_gateway_dispatch` into the same request before the gateway looks for commands.
-- Tests: `python3 supabase/tests/push_test.py` (live; a fake token must come back BadDeviceToken, which proves Apple accepted the provider token). `YuiUITests/PushHandoffTests` is the full simulator round trip. Never pass a real phone's token to `push_test.py --device`: the test account is deleted at the end and takes the row with it.
+- Tests: `python3 supabase/tests/push_test.py` (live; a fake token must come back BadDeviceToken, which proves Apple accepted the provider token). `YuiUITests/PushHandoffTests` is the full simulator round trip; `python3 supabase/tests/push_killed_e2e.py --sim <udid>` drives its killed-app case (open thread: no push; app killed: push, tap opens the right thread) on a throwaway account. Never pass a real phone's token to `push_test.py --device`: the test account is deleted at the end and takes the row with it.
 
 ## Channel guide for any agent
 

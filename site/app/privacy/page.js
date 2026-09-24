@@ -21,7 +21,7 @@ export default function Privacy() {
         <li>Your account: Apple's ID for you, your email or relay address, and when you created the account and last signed in.</li>
         <li>Sign-in sessions, so you stay signed in. We store only a scrambled (hashed) form of each session key.</li>
         <li>A token from Apple that lets us remove Yui from your Apple ID when you delete your account.</li>
-        <li>Your devices: a name and a push notification token, so your agents can reach you.</li>
+        <li>Your devices: a name and a push notification token, so your agents can reach you. While Yui is open, which agent&apos;s thread is on screen, so an answer you are already reading does not buzz too. It is cleared when you leave the app.</li>
         <li>Your agents and pairings: which agents you connected to Yui.</li>
         <li>Your messages with those agents, so a conversation shows up on your phone.</li>
         <li>

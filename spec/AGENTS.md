@@ -39,6 +39,7 @@ All tables live in PROOF, `public` schema, and cascade from `yui_users` (`ON DEL
 | color | palette token: `lavender`, `mint`, `butter`, `brand`. Legacy since YUI-20: the chip wears the agent's look |
 | avatar | null = initial chip in the agent's accent; `yui` = Yui's own mark |
 | theme | jsonb, the agent's look (see Look below). `{}` = its own default, seeded from its name. Object only, at most 2 KB (check constraint) |
+| push_muted | boolean, default false. True: this agent's answers never push to the person's phones (YUI-24, RELAY.md "Push") |
 | kind | same set as connectors |
 | connector_id | null until a host claims the agent; `ON DELETE SET NULL` |
 | remote_ref | Hermes profile name; unique per connector |
@@ -70,7 +71,7 @@ Failed code claims per client address, used for throttling. No user data.
 
 | caller | how it authenticates | may | may not |
 | --- | --- | --- | --- |
-| App | Yui access token (role `yui_user`, 15 min) | read own agents, connectors, pairing status and `yui_agent_list`; edit an agent's name, color, avatar, theme, sort, is_default; delete own agents; everything in `yui-agents` | insert agents, set `connector_id`/`remote_ref`, write pairing rows, read any hash, see another user's rows |
+| App | Yui access token (role `yui_user`, 15 min) | read own agents, connectors, pairing status and `yui_agent_list`; edit an agent's name, color, avatar, theme, sort, is_default, push_muted; delete own agents; everything in `yui-agents` | insert agents, set `connector_id`/`remote_ref`, write pairing rows, read any hash, see another user's rows |
 | Management token | `yui_mt_...` to `yui-agents` only | list, create, update, delete, reorder agents, mint pairing codes, bind an agent to one of the user's existing connectors | read messages (it is not a database credential: PostgREST answers 401), manage tokens, revoke hosts, delete the account, touch another user |
 | Host (connector) | `yui_ct_...` to `yui-connect` only | heartbeat, register more of its own profiles | anything in `yui-agents`, anything of another user |
 

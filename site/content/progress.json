@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "A buzz when your agent answers",
+    "card": "YUI-24",
+    "body": "When an agent answers and Yui is closed, your phone now gets a notification, and tapping it opens that agent's thread with the answer already on screen, even if the app was fully closed. While you are reading a thread, its answers just appear there without buzzing a second time: the open app tells the server which thread is on screen, and a closed app stops counting as open within 90 seconds. Each agent has a Notifications switch in its settings, so a chatty agent can stay quiet and let its answers wait. We tested it on a simulator with real Apple push notifications: an answer in the open thread sent no push, then with the app closed another agent answered, the banner arrived, and the tap landed in the right thread.",
+    "images": [
+      {
+        "src": "/progress/yui24-push.webp",
+        "alt": "iPhone home screen with a Yui notification from Coach: Your plan for tomorrow is ready."
+      },
+      {
+        "src": "/progress/yui24-thread.webp",
+        "alt": "Yui app opened from the notification on Coach's thread: the message and a Ready to start? card with Ship it and Not yet buttons."
+      },
+      {
+        "src": "/progress/yui24-mute.webp",
+        "alt": "Coach's settings in Yui with the Notifications switch off: Coach stays quiet. Its answers wait in the thread."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Connect your agent in three steps",
     "card": "YUI-23",
     "body": "Any Hermes agent can now join Yui with one install command, on a Mac or on Linux. Get a pairing code in the app, run hermes plugins install postscarcityai/yui/hermes-plugin/yui --enable, then hermes yui pair with the code and restart the gateway. The new Get started page at yuigui.com/start walks through it. We tested the whole path in an empty Linux container: installing Hermes, the plugin, pairing and the first answer in the app took 86 seconds, and the Yui part (code to answer) took 35. The plugin now works on Hermes's default profile, names Linux machines properly, and prints the next step after each command.",
