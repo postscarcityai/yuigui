@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-23",
+    "title": "Yui drops the cat",
+    "body": "The round cat is gone. Chris noticed the hand-drawn Yui wordmark already looks like a cat, abstractly: the bunny-ear arms on the Y read as ears. So the logo is the face now. Yui's own avatar in chat is that Y on its own, in coral. Each agent gets a small pastel chip with its first letter in heavy rounded type, colored from the theme file, so when agents get their own looks their chips change with them. The empty chat screen and settings show the wordmark with a few warm words, no drawing. Build 10 is on TestFlight."
+  },
+  {
+    "date": "2026-09-23",
     "title": "Yui draws its first six screens",
     "body": "An agent can now reply with a timer, a question, a multiple choice, a pick-several, a form or a list, and Yui draws it as a real card inside the chat instead of plain text. The timer counts rounds on a ring and beeps on the last three seconds. Forms handle text, numbers, dates, sliders, yes/no toggles and voice notes, and will not submit until the required fields are filled. Every tap goes back to the agent as one small event, and your answer shows up as your own chat bubble. All the styling comes from the same theme file, so a restyle changes these cards too. A hidden paste box lets us test any Yui Lines reply by hand. Build 9 is on TestFlight."
   },
