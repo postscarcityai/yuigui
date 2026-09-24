@@ -58,7 +58,7 @@ function TimerMock() {
         <div className="b in" style={{ alignSelf: "center", textAlign: "center" }}>Push. Rest is 20 seconds away.</div>
         <div className="bigbtns">
           <div className="bigbtn s">Pause</div>
-          <div className="bigbtn p">Skip rest</div>
+          <div className="bigbtn p ink">Skip rest</div>
         </div>
       </div>
       <div className="compose"><div className="in">Tell Arnold</div><Mic /></div>

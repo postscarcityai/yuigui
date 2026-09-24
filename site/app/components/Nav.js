@@ -1,7 +1,10 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
-  ["/", "Overview"],
+  ["/", "Home"],
   ["/roadmap", "Roadmap"],
   ["/progress", "Progress"],
   ["/plan", "Plan"],
@@ -12,14 +15,18 @@ const links = [
 ];
 
 export default function Nav() {
+  const path = usePathname();
   return (
     <header className="nav">
       <div className="wrap navin">
-        <Link href="/" className="brand"><span className="dot" />Yui</Link>
-        <nav>
+        <Link href="/" className="brand" aria-label="Yui home">
+          <img src="/brand/yui-wordmark-coral.png" alt="Yui" width="52" height="34" />
+        </Link>
+        <nav aria-label="Main">
           {links.map(([href, label]) => (
-            <Link key={href} href={href}>{label}</Link>
+            <Link key={href} href={href} aria-current={path === href ? "page" : undefined}>{label}</Link>
           ))}
+          <ThemeToggle />
         </nav>
       </div>
     </header>

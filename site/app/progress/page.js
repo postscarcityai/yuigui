@@ -38,6 +38,7 @@ export default function Progress() {
             <div className="date">{e.date}</div>
             <h3 style={{ margin: "2px 0 4px" }}>{e.title}</h3>
             <div style={{ color: "var(--muted)" }}>{e.body}</div>
+            {e.image && <img className="logimg" src={e.image} alt={e.imageAlt || e.title} loading="lazy" />}
           </li>
         ))}
       </ul>

@@ -1,6 +1,13 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The site now looks like the app",
+    "body": "yuigui.com wears the same clothes as the iPhone app now. Cream paper, soft plum ink, the coral wordmark up top, rounded type, pastel accents. The colors come straight from the app's theme file, so when the app changes, the site can follow. Light is the default and the moon button in the corner switches to dark. The home page tells the story in plain words: what Yui is, who it is for (people who already run agents, Hermes first), and real screenshots from the current test build. The icon and the link preview use the wordmark too. We also fixed contrast across the site. Every page but the playground now scores 100 on Google's accessibility check, and the playground's last few fixes are queued.",
+    "image": "/progress/site-rebrand.webp",
+    "imageAlt": "The new yuigui.com home page in light mode"
+  },
+  {
+    "date": "2026-09-24",
     "title": "Business docs, in the open",
     "body": "The business side of Yui is now public at yuigui.com/business. Two docs so far. A marketing and positioning brief: who Yui is for first (people already running Hermes agents), how we will launch (private beta, open source, Show HN, then the App Store) and what we will measure. And a revenue plan with the rules we hold ourselves to: free and open source for anyone who brings their own agent, no dark patterns, charge only where we carry a cost. The research was humbling. Phone apps for self-hosted agents already exist, and OpenClaw's own app lets agents draw widgets, in a web view. What nobody ships yet is native screens drawn by your agent, and no Hermes agent can draw a screen at all. That is where Yui starts. The competitor notes are published too, sources and all."
   },
