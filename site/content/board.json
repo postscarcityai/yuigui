@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T10:10:23.162Z",
+  "updated": "2026-09-24T10:40:28.074Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -218,12 +218,6 @@
           "mvp": true
         },
         {
-          "key": "YUI-28",
-          "title": "No lost messages",
-          "summary": "Offline agents, reconnect, no lost messages",
-          "mvp": true
-        },
-        {
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
@@ -250,9 +244,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-25",
-          "title": "First run with no guessing",
-          "summary": "Sign in to first agent screen, no guessing",
+          "key": "YUI-28",
+          "title": "No lost messages",
+          "summary": "Offline agents, reconnect, no lost messages",
           "mvp": true
         }
       ]
@@ -261,6 +255,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-25",
+          "title": "First run with no guessing",
+          "summary": "First run: from sign in to your agent's first screen",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#first-run-from-sign-in-to-your-agent-s-first-screen"
+        },
         {
           "key": "YUI-24",
           "title": "Push when an agent answers",

@@ -1,6 +1,18 @@
 {
   "builds": [
     {
+      "build": 30,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-24T03:20:38-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "First run: no agents says how to connect one, three pairing commands, say hi",
+          "card": "YUI-25"
+        }
+      ]
+    },
+    {
       "build": 29,
       "date": "2026-09-24",
       "uploaded": "2026-09-24T02:47:31-07:00",

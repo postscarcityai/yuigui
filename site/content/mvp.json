@@ -80,12 +80,12 @@
     {
       "key": "YUI-25",
       "title": "First run with no guessing",
-      "status": "building"
+      "status": "shipped"
     },
     {
       "key": "YUI-28",
       "title": "No lost messages",
-      "status": "next"
+      "status": "building"
     },
     {
       "key": "YUI-26",
