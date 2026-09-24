@@ -2,6 +2,7 @@
 // The section's other pages (playground, Yui Lines, channel guide) show in the nav's second row.
 import Link from "next/link";
 import links from "../../content/links.json";
+import { specDocs } from "../../lib/spec.mjs";
 
 export const metadata = {
   title: "Developers | Yui",
@@ -32,15 +33,21 @@ export default function Developers() {
       <div className="eyebrow">Developers</div>
       <h1>How Yui works.</h1>
       <p className="lede">
-        Your agent sends short lines of text. The app turns each line into a native screen: a timer, a form, a choice.
-        The agent never sends code, and it keeps running on your own machine.
+        Works today on iPhone, with Hermes or any agent behind a webhook. Your agent sends short lines of text, and the app turns each line into a
+        native screen: a timer, a form, a choice. The agent never sends code, and it keeps running on your own machine.
       </p>
 
+      <h2>Start here</h2>
       <div className="grid">
         {cards.map(([href, t, d]) => (
           <Link className="card" key={href} href={href}><h3>{t}</h3><p>{d}</p></Link>
         ))}
       </div>
+
+      <h2>Every spec</h2>
+      <ul className="spec-links">
+        {specDocs().map((d) => <li key={d.slug}><Link href={d.href}>{d.label}</Link></li>)}
+      </ul>
 
       <h2>The pieces</h2>
       <ul>

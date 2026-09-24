@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Polish: Developers and the playground",
+    "card": "SITE-18",
+    "body": "A polish pass on /developers, the spec pages and /playground. Every spec is now one tap from /developers. On a phone the sample picker sits above the phone, and while you type the phone pins to the top so the keyboard never hides what you are drawing. Every button, tab and link on these pages is at least 44 points tall on a phone, the footer and spec index included. The playground samples use generic agent names. Lighthouse accessibility is 100 on both pages, no page scrolls sideways at 390 or 1280 in light or dark, and all 56 samples render with no console errors.",
+    "images": [
+      {
+        "src": "/progress/site18-playground-typing.webp",
+        "alt": "The playground on a phone while typing: the phone with a Tabata timer pinned above the code editor."
+      },
+      {
+        "src": "/progress/site18-playground-picker.webp",
+        "alt": "The playground on a phone: the sample picker and Stream button above the phone, with 44 point tall tabs."
+      },
+      {
+        "src": "/progress/site18-developers-specs.webp",
+        "alt": "The Every spec row on the Developers page: Yui Lines, Channel guide, Reactions, Benchmark, Agents, Relay, Adapters and Preset flywheel."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Not on Hermes? Any agent that answers a web request can talk in Yui now",
     "card": "INT-2",
     "body": "Until today, an agent needed Hermes to reach Yui. Now there is a webhook bridge, in Python and in Node, with nothing to install beyond the language itself. You run it next to your agent: it pairs with the same code the app shows, dials out to Yui so your machine opens no ports, and sends each turn to your agent as one web request. Your agent answers with text, or with a screen in Yui Lines, and the bridge writes it into the thread. Every request carries the channel guide, so the agent knows it can draw. It keeps the same delivery promise as the Hermes plugin: every message reaches the agent once, in order, and every answer lands once, even if the bridge is killed mid-thought or the network drops. Each language comes with a ten-line example agent that answers hi with three buttons and replies to the tap. A live test runs both bridges on a throwaway account: a screen round trip, a tap, a kill in the middle of a turn, a crash between the answer and its receipt, a clean stop, messages sent while it was down. 44 of 44 checks passed. A developer tool, so nothing new on the phone. The guide is on the site under Developers, Webhook bridge.",

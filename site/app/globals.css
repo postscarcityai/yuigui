@@ -103,7 +103,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .subnav { border-top: 1.5px solid var(--outline); }
 .subnav .wrap { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; font-size: 14px; padding-top: 4px; padding-bottom: 4px; }
 .subnav .wrap::-webkit-scrollbar { display: none; }
-.subnav a { min-height: 40px !important; }
+.subnav a { min-height: 44px !important; }
 .nav-panel[hidden] { display: none; }
 .nav-panel { border-top: 1.5px solid var(--outline); max-height: calc(100dvh - 64px); overflow-y: auto; overscroll-behavior: contain; }
 .nav-panel .wrap { display: flex; flex-direction: column; padding-top: 8px; padding-bottom: 14px; font-size: 17px; }
@@ -129,6 +129,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 main.wrap { padding-top: 48px; padding-bottom: 72px; }
 .foot { color: var(--muted); font-size: 14px; padding-bottom: 40px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .foot img { height: 20px; width: auto; }
+.foot a { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center; }
 
 h1 { font-size: 48px; line-height: 1.1; margin: 0 0 16px; letter-spacing: -0.02em; font-weight: 800; }
 h2 { font-size: 28px; margin: 48px 0 14px; letter-spacing: -0.01em; font-weight: 800; }
@@ -147,6 +148,9 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .quote { background: var(--surface); border: 1.5px solid var(--outline); border-radius: var(--r-bubble) var(--r-bubble) var(--r-bubble) var(--r-tail); padding: 12px 18px; color: var(--agent-ink); margin: 12px 0; max-width: 760px; }
 
 .pill { display: inline-block; font-size: 13px; font-weight: 700; padding: 3px 12px; border-radius: 999px; background: var(--raised); border: 1.5px solid var(--outline); color: var(--muted); }
+.spec-links { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.spec-links a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 16px; border-radius: 999px; background: var(--raised); border: 1.5px solid var(--outline); color: var(--ink); font-weight: 700; text-decoration: none; }
+.spec-links a:hover { border-color: var(--brand); }
 .pill.done { color: #2A2238; background: var(--mint); border-color: var(--mint); }
 .pill.now { color: #2A2238; background: var(--brand); border-color: var(--brand); }
 
@@ -475,9 +479,23 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .bench pre { background: var(--raised); border: 1px solid var(--line); border-radius: 12px; padding: 12px; font-size: 12px; overflow-x: auto; }
 
 @media (max-width: 900px) {
-  .pg { grid-template-columns: 1fr; }
+  /* Phone: the sample picker first, then the phone, then the editor right under it. */
+  .pg { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+  .pg-left { display: contents; }
+  .pg-left > .pg-row:first-child { order: -2; }
+  .pg-left > .pg-row:first-child select { flex: 1; min-width: 0; }
   .pg-right { position: static; order: -1; }
   .pg-phone { width: min(340px, 100%); height: 660px; }
+  .pg select, .pg-agent input, .pg-btn { min-height: 44px; font-size: 16px; }
+  .pg-tab { min-height: 44px; padding: 5px 14px; }
+  .pg input[type=range] { height: 44px; flex: 1; }
+  /* Typing: the phone pins to the top, shorter, so the keyboard never hides the output. */
+  .pg.editing .pg-right { position: sticky; top: 0; z-index: 6; background: var(--background); padding: 6px 0; }
+  .pg.editing .pg-tabs { display: none; }
+  .pg.editing .pg-phone { height: min(300px, 45svh); }
+  .pg.editing .pg-code { min-height: 140px; height: 140px; }
+  .pg.editing .pg-code, .pg.editing .pg-agent { scroll-margin-top: calc(min(300px, 45svh) + 24px); }
+  body:has(.pg.editing) .nav { position: static; }
 }
 .md pre { background: var(--raised); border: 1.5px solid var(--outline); border-radius: 16px; padding: 14px; overflow-x: auto; }
 .md pre code { background: none; padding: 0; font-size: 13px; }
@@ -754,8 +772,9 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
   .docs { grid-template-columns: 1fr; gap: 0; }
   .docs-side { display: none; }
   .docs-fold { display: block; background: var(--raised); border: 1.5px solid var(--outline); border-radius: 16px; padding: 10px 14px; margin-bottom: 20px; font-size: 15px; }
-  .docs-fold summary { font-weight: 700; cursor: pointer; }
+  .docs-fold summary { font-weight: 700; cursor: pointer; min-height: 44px; display: flex; align-items: center; }
   .docs-fold .docs-list { margin-top: 10px; }
+  .docs-fold .docs-list a { min-height: 44px; display: flex; align-items: center; }
 }
 
 /* Home: how it works (SITE-15). */
@@ -838,3 +857,7 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
   .log.tl .thumb img { height: 120px; max-width: 150px; }
 }
 @media (prefers-reduced-motion: reduce) { .grow-stage img { animation: none; } }
+/* A link alone in a spec table cell gets a full tap target on phones (SITE-18). */
+@media (max-width: 759px) {
+  .md td > a:only-child { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+}

@@ -372,8 +372,8 @@ function narrSteps(members) {
 // on the web we pick the closest system voice by name.
 const AGENT_VOICES = {
   Yui: ["Samantha", "Google US English", "Karen", "Zira"],
-  Urza: ["Daniel", "Google UK English Male", "Arthur", "Oliver"],
-  Arnold: ["Fred", "Aaron", "Alex", "Google US English"],
+  Scout: ["Daniel", "Google UK English Male", "Arthur", "Oliver"],
+  Coach: ["Fred", "Alex", "Google US English"],
 };
 function pickVoice(voices, want, agent, lang) {
   if (!voices.length) return null;

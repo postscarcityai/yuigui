@@ -10,7 +10,7 @@ import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS];
-const COLORS = { Arnold: "var(--arnold)", Urza: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)" };
+const COLORS = { Coach: "var(--arnold)", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)" };
 
 function build(text) {
   let s = initialState();
@@ -41,6 +41,7 @@ export default function Playground() {
   const [cmd, setCmd] = useState("");
   const [epoch, setEpoch] = useState(0); // bumps on load/stream so components start fresh
   const [light, setLight] = useState(false); // phone theme: charts and presets in light or dark
+  const [editing, setEditing] = useState(false); // phones pin the output above the keyboard while typing
   // Sent plans, by group key: the chat shows a summary chip and the answers as the person's message.
   const [folds, setFolds] = useState({});
   const agentParser = useRef(null);
@@ -201,7 +202,7 @@ export default function Playground() {
   const lines = useMemo(() => text.split("\n").filter((l) => l.trim() && !l.trim().startsWith("# ")).length, [text]);
 
   return (
-    <div className="pg">
+    <div className={editing ? "pg editing" : "pg"} onFocus={(e) => setEditing(e.target.matches(".pg-code, .pg-agent input"))} onBlur={() => setEditing(false)}>
       <div className="pg-left">
         <div className="pg-row">
           <select aria-label="Screen" value={idx} onChange={(e) => pick(Number(e.target.value))}>
