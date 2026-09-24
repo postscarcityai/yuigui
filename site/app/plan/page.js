@@ -78,6 +78,7 @@ export default function Plan() {
       <div className="eyebrow">Business plan | draft 1, Sep 23 2026</div>
       <h1>Yui business plan</h1>
       <p className="lede">A first draft built from the pitch. Numbers stay out until we have real ones.</p>
+      <p>The detailed working docs (positioning, revenue models, outreach) are public too: <a href="/business">business docs</a>.</p>
       {sections.map((s) => (
         <section key={s.h}>
           <h2>{s.h}</h2>
