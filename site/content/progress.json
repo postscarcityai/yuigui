@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-23",
+    "title": "First TestFlight build",
+    "body": "The Swift app exists. Build 4 is a bare SwiftUI chat screen with a placeholder icon, signed and uploaded to TestFlight straight from the build machine with no one opening Xcode. It does nothing useful yet. What matters is the pipeline: from here every change can reach a phone in minutes. First upload was rejected for a missing app icon, fixed in one commit."
+  },
+  {
+    "date": "2026-09-23",
     "title": "Waitlist open",
     "body": "The waitlist is live on yuigui.com. Sign up for TestFlight invites and occasional updates. Signups land in a small table in PostScarcity AI's existing database, no new infrastructure."
   },
