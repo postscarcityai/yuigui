@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T20:40:31.393Z",
+  "updated": "2026-09-24T21:10:36.855Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -183,21 +183,6 @@
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
-        },
-        {
-          "key": "SITE-19",
-          "title": "Shareable moments",
-          "summary": "Share links, OG cards, and a 'this line draws this screen' embed"
-        },
-        {
-          "key": "SITE-20",
-          "title": "Go-to-market plan on the site",
-          "summary": "Social strategy, channels, first 30 days, join the movement"
-        },
-        {
-          "key": "OSS-5",
-          "title": "Grassroots kit for Yui Lines",
-          "summary": "Community page, first 'build a screen' challenge, contributor paths"
         }
       ]
     },
@@ -252,6 +237,7 @@
           "key": "YUI-31",
           "title": "Three screens per agent with animated transitions",
           "summary": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
+          "waiting": true,
           "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away"
         },
         {
@@ -262,8 +248,9 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "INT-1",
-          "title": "OpenClaw adapter"
+          "key": "SITE-19",
+          "title": "Shareable moments",
+          "summary": "Share links, OG cards, and a 'this line draws this screen' embed"
         }
       ]
     },
@@ -271,6 +258,27 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "OSS-5",
+          "title": "Grassroots kit for Yui Lines",
+          "summary": "Draw your best screen in three lines: a community page and the first open challenge",
+          "shipped": "2026-09-24",
+          "progress": "/progress#draw-your-best-screen-in-three-lines-a-community-page-and-the-first-open-challen"
+        },
+        {
+          "key": "SITE-20",
+          "title": "Go-to-market plan on the site",
+          "summary": "The go-to-market plan is public",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-go-to-market-plan-is-public"
+        },
+        {
+          "key": "INT-1",
+          "title": "OpenClaw adapter",
+          "summary": "OpenClaw agents can talk in Yui now",
+          "shipped": "2026-09-24",
+          "progress": "/progress#openclaw-agents-can-talk-in-yui-now"
+        },
         {
           "key": "SITE-18",
           "title": "Polish pass on /developers and /playground",
