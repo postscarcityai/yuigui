@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Change your answer",
+    "card": "YUI-12",
+    "body": "Tapped the wrong option? Tap another one. Single choice, multiple choice, yes/no buttons and sliders now stay live after you answer. Your choice stays marked, and a new tap changes it. For multiple choice, change your picks and the button reads Done again; send it and the agent gets the new list. Every change goes back to the agent marked as changed, and the newest answer wins, so the agent adjusts instead of arguing. When an answer really is final, say a booking just got confirmed, the agent can lock it with one line, ~choose +lock, and the buttons stop responding. The playground has it too: pick \"Demo: change your answer\", tap around, and watch the wire log.",
+    "images": [
+      {
+        "src": "/progress/yui12-choose.webp",
+        "alt": "Yui app: the question Which split today? with Pull highlighted after first tapping Push. The chat shows both replies, Push then Pull."
+      },
+      {
+        "src": "/progress/yui12-pick.webp",
+        "alt": "Yui app: a gear checklist where Bench and Kettlebell are now ticked after an earlier answer of Bench and Bands, with the Done button ready to send again."
+      },
+      {
+        "src": "/progress/yui12-events-chat.webp",
+        "alt": "Yui app: all three questions answered and changed. The chat shows each reply in order, and the send button reads Sent."
+      },
+      {
+        "src": "/progress/yui12-wire-log.webp",
+        "alt": "The web playground's wire log: each changed answer arrives with changed true, and the agent's ~choose +lock line at the top."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Full screen when it matters",
     "card": "YUI-13",
     "body": "Some moments deserve the whole phone. An agent can now put a screen over the chat with one line, >full, and bring the chat back with close. Timers, the camera, voice notes and decks open full screen on their own, and a workout always does: start a tabata and it fills the phone, big ring, big buttons. Swipe down or tap the X and you are back in the chat, right where you were. The timer keeps running and shows as a small pill with the time and round, and tapping the pill brings the full screen back. Each agent decides how much it likes this: a coach can put everything full screen, a quieter agent keeps things in the chat and only goes big for workouts. It wears the agent's own look in light and dark. The playground on the site has it too: pick \"Demo: full screen\" and swipe the stage away.",

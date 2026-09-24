@@ -79,29 +79,29 @@ timer 0 +up Run
 ```
 
 ### ask
-`ask question... [options]`. Yes/no, or any two to four big buttons. Emits `{answer}`.
-Props: `q` ["Continue?"], `options` [Yes|No].
+`ask question... [options]`. Yes/no, or any two to four big buttons. Emits `{answer}`. Answers can change (section 7).
+Props: `q` ["Continue?"], `options` [Yes|No], `+lock`.
 ```
 ask "Log this set?"
 ask "Send the invite now?" "Yes, send"|"Not yet"
 ```
 
 ### choose
-`choose question... options [+other]`. Single choice. `+other` adds "Type your own". Emits `{choice}` (plus `other: true` for typed answers).
+`choose question... options [+other]`. Single choice. `+other` adds "Type your own". Emits `{choice}` (plus `other: true` for typed answers). Tapping another option changes the answer (section 7). Props: `+lock`.
 ```
 choose "Split?" Push|Pull|Legs +other
 ```
 
 ### pick
-`pick question... options [+other]`. Multi-select with a submit button. Emits `{picked: [...]}`.
-Props: `max` (cap selections), `submit` [Done].
+`pick question... options [+other]`. Multi-select with a submit button. Emits `{picked: [...]}`. After a submit the picks stay open: change them and submit again (section 7).
+Props: `max` (cap selections), `submit` [Done], `+lock`.
 ```
 pick "Gear" Dumbbells|Bench|Bands +other
 ```
 
 ### slide
-`slide label... RANGE [lo|hi]`. Slider. The first options token with exactly two parts labels the two ends; any other options token is label text. Emits `{value}` on release.
-Props: `min` [1], `max` [5], `step` [1], `value` [midpoint], `unit`, `lo`, `hi`.
+`slide label... RANGE [lo|hi]`. Slider. The first options token with exactly two parts labels the two ends; any other options token is label text. Emits `{value}` on release, and again on each later release with a new value (section 7).
+Props: `min` [1], `max` [5], `step` [1], `value` [midpoint], `unit`, `lo`, `hi`, `+lock`.
 ```
 slide "AI experience" 1-5 "Brand new"|"I run agents"
 slide "Protein left (g)" 0-200 value=85 step=5
@@ -442,6 +442,18 @@ Every interaction goes back as one small event: `{id, preset, ...value}`. Ids ar
 {"id":"n2","preset":"project","open":"site-plan"}
 {"id":"n1","preset":"narrate","done":true,"steps":3}
 ```
+
+**Answers can change.** `ask`, `choose`, `pick` and `slide` stay live after the first answer. The chosen option stays marked, and the person can tap another option, change their picks and submit again, or move the slider again. Every answer after the first goes back as a new event with `changed: true`; an answer identical to the last one sent is not sent again:
+
+```
+{"id":"n1","preset":"choose","choice":"Push"}
+{"id":"n1","preset":"choose","choice":"Pull","changed":true}
+{"id":"n2","preset":"pick","picked":["Bench","Bands"],"changed":true}
+```
+
+The newest event for an id is the answer. The agent adjusts to it rather than arguing with it. Graded questions (a quiz with `answer=`) stay open too, so the person can try again.
+
+**Locking.** `+lock` freezes a component on purpose: the answer shown stays, and taps, picks and the slider do nothing. It is off by default. Send it on the line (`choose "Table for" 2|4|6 +lock`) or, more often, patch it on once the answer is final, for example after the booking is confirmed. Ids only resolve inside the reply that made them (section 9), so from a later reply aim at the preset name: `~choose +lock` reaches the newest `choose` on any screen, including one from an earlier reply. `~choose lock=off` opens it again.
 
 A line that joins a group comes out of the parser with the group's id: `deck` then `page "Intro"` gives `{op: "add", preset: "page", id: "n2", in: "n1", ...}`. `end` gives `{op: "end", screen, target}` with the id of the group it closed. Members of a `plan` send no events of their own.
 

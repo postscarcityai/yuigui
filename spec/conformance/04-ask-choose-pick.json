@@ -164,6 +164,83 @@
           }
         }
       ]
+    },
+    {
+      "name": "choose +lock on the line",
+      "input": "choose \"Table for\" 2|4|6 +lock",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n1",
+          "props": {
+            "options": [
+              "2",
+              "4",
+              "6"
+            ],
+            "q": "Table for",
+            "lock": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "lock patched on by id",
+      "input": "choose@booking \"Table for\" 2|4|6\n~booking +lock",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "booking",
+          "props": {
+            "options": [
+              "2",
+              "4",
+              "6"
+            ],
+            "q": "Table for"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "booking",
+          "props": {
+            "lock": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "lock patched on by preset name (reaches an earlier reply)",
+      "input": "~choose +lock",
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "choose",
+          "props": {
+            "lock": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "lock patched off",
+      "input": "~pick lock=off",
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "pick",
+          "props": {
+            "lock": false
+          }
+        }
+      ]
     }
   ]
 }

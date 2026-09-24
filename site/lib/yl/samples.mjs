@@ -94,6 +94,17 @@ timer 5m Cooldown walk +inline`,
     next: "close",
   },
   {
+    name: "Demo: change your answer (+lock)",
+    slug: "change-answers",
+    agent: "Arnold",
+    yl: `choose "Which split today?" Push|Pull|Legs
+pick "What gear do you have?" Dumbbells|Bench|Bands|Kettlebell
+slide "Energy" 1-5 "Wiped"|"Fired up"
+# tap again to change an answer: the new event says changed: true
+# send ~choose +lock from the agent console to freeze the choose`,
+    next: "~choose +lock",
+  },
+  {
     name: "Demo: custom {json} escape hatch",
     agent: "Urza",
     yl: `say "No preset fits a split-flap countdown, so the agent drops to custom."

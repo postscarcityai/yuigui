@@ -467,7 +467,7 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .screen.light .b.in { background: #e9eaf3; color: var(--text); }
 .screen.light .bigbtn.s { background: #eef0f6; color: var(--text); border-color: #dcdfea; }
 .screen.light .chip { background: #fff; border-color: #d6d9e6; color: var(--text); }
-.screen.light .chip.on { color: #fff; }
+.screen.light .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
 .screen.light .yl-seg { background: #eef0f6; }
 .screen.light .yl-seg button.on { background: #fff; color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
 .screen.light .yl-table th { border-bottom-color: #e3e4ee; }
@@ -578,6 +578,9 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .yl-steptimer.done { border-color: var(--yl-good); color: var(--yl-good); }
 .yl-stepmore { text-align: center; }
 .pg-screen .bigbtn:disabled { opacity: .4; cursor: default; }
+.pg-screen .yl-block.locked button:disabled { opacity: 1; cursor: default; }
+.pg-screen .yl-block.locked button.dim:disabled { opacity: .35; }
+.yl-range:disabled { cursor: default; }
 
 .yl-calcf { overflow-x: auto; }
 .yl-calcf .katex-display { margin: 2px 0; }

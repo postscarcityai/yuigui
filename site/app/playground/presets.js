@@ -129,16 +129,25 @@ function QuizNote({ p, correct }) {
   return <div className={`yl-quiznote ${correct ? "ok" : "no"}`}><b>{correct ? "Right." : "Not quite."}</b> {p.why || (correct ? "" : `It's ${Array.isArray(p.answer) ? p.answer.join(", ") : p.answer}.`)}</div>;
 }
 
+// Answers can change (YL.md section 7): every answer after the first goes
+// back with `changed: true` and the agent treats the newest as the answer.
+// `+lock` freezes the component: the answer shown stays, taps do nothing.
+function useAnswer(emit) {
+  const n = useRef(0);
+  return (v) => emit(n.current++ ? { ...v, changed: true } : v);
+}
+
 function Ask({ p, emit }) {
   const [a, setA] = useState(null);
+  const send = useAnswer(emit);
   const quiz = graded(p);
   return (
-    <div className="yl-block">
+    <div className={`yl-block ${p.lock ? "locked" : ""}`}>
       <div className="yl-q">{p.q}</div>
       <div className="bigbtns">
         {p.options.map((o, i) => (
-          <button key={o} className={`bigbtn ${i === 0 && !quiz ? "p acc" : "s"} ${a && a !== o && !quiz ? "dim" : ""} ${quizClass(p, o, a ? [a] : null)}`}
-            onClick={() => { setA(o); emit(quiz ? { answer: o, correct: o === p.answer } : { answer: o }); }}>{o}</button>
+          <button key={o} disabled={!!p.lock} className={`bigbtn ${i === 0 && !quiz ? "p acc" : "s"} ${a && a !== o && !quiz ? "dim" : ""} ${quizClass(p, o, a ? [a] : null)}`}
+            onClick={() => { if (a === o) return; setA(o); send(quiz ? { answer: o, correct: o === p.answer } : { answer: o }); }}>{o}</button>
         ))}
       </div>
       <QuizNote p={p} correct={a == null ? null : a === p.answer} />
@@ -160,17 +169,20 @@ function Other({ onSubmit }) {
 
 function Choose({ p, emit }) {
   const [sel, setSel] = useState(null);
+  const send = useAnswer(emit);
   const quiz = graded(p);
   const pickIt = (o, other) => {
+    if (sel === o) return;
     setSel(o);
-    emit({ choice: o, ...(other ? { other: true } : {}), ...(quiz ? { correct: o === p.answer } : {}) });
+    send({ choice: o, ...(other ? { other: true } : {}), ...(quiz ? { correct: o === p.answer } : {}) });
   };
   return (
-    <div className="yl-block">
+    <div className={`yl-block ${p.lock ? "locked" : ""}`}>
       {p.q ? <div className="yl-q">{p.q}</div> : null}
       <div className="chips big">
-        {p.options.map((o) => <button key={o} className={`chip ${sel === o && !quiz ? "on" : ""} ${quizClass(p, o, sel ? [sel] : null)}`} onClick={() => pickIt(o)}>{o}</button>)}
-        {p.other ? <Other onSubmit={(v) => pickIt(v, true)} /> : null}
+        {p.options.map((o) => <button key={o} disabled={!!p.lock} className={`chip ${sel === o && !quiz ? "on" : ""} ${quizClass(p, o, sel ? [sel] : null)}`} onClick={() => pickIt(o)}>{o}</button>)}
+        {sel && !p.options.includes(sel) ? <button className="chip on" disabled>{sel}</button> : null}
+        {p.other && !p.lock ? <Other onSubmit={(v) => pickIt(v, true)} /> : null}
       </div>
       <QuizNote p={p} correct={sel == null ? null : sel === p.answer} />
     </div>
@@ -181,34 +193,42 @@ function Pick({ p, emit }) {
   const [sel, setSel] = useState([]);
   const [extra, setExtra] = useState([]);
   const [sent, setSent] = useState(null);
+  const [shown, setShown] = useState(null); // the last sent picks, for the quiz marks
+  const send = useAnswer(emit);
   const quiz = graded(p);
-  const tog = (o) => { setSent(null); setSel((s) => (s.includes(o) ? s.filter((x) => x !== o) : p.max && s.length >= p.max ? s : [...s, o])); };
+  const tog = (o) => { setShown(null); setSel((s) => (s.includes(o) ? s.filter((x) => x !== o) : p.max && s.length >= p.max ? s : [...s, o])); };
+  const fresh = sel.length > 0 && !(sent && same(sel, sent));
   const done = () => {
+    if (!fresh) return;
     setSent(sel);
-    emit(quiz ? { picked: sel, correct: same(sel, p.answer) } : { picked: sel });
+    setShown(sel);
+    send(quiz ? { picked: sel, correct: same(sel, p.answer) } : { picked: sel });
   };
   return (
-    <div className="yl-block">
+    <div className={`yl-block ${p.lock ? "locked" : ""}`}>
       {p.q ? <div className="yl-q">{p.q}</div> : null}
       <div className="chips big">
-        {[...p.options, ...extra].map((o) => <button key={o} className={`chip ${sel.includes(o) && !(quiz && sent) ? "on" : ""} ${quizClass(p, o, sent)}`} onClick={() => tog(o)}>{sel.includes(o) ? "✓ " : ""}{o}</button>)}
-        {p.other ? <Other onSubmit={(v) => { setExtra((e) => [...e, v]); setSel((s) => [...s, v]); }} /> : null}
+        {[...p.options, ...extra].map((o) => <button key={o} disabled={!!p.lock} className={`chip ${sel.includes(o) && !(quiz && shown) ? "on" : ""} ${quizClass(p, o, shown)}`} onClick={() => tog(o)}>{sel.includes(o) ? "✓ " : ""}{o}</button>)}
+        {p.other && !p.lock ? <Other onSubmit={(v) => { setShown(null); setExtra((e) => [...e, v]); setSel((s) => [...s, v]); }} /> : null}
       </div>
-      <button className="bigbtn p acc full" onClick={done}>{p.submit}{sel.length ? ` (${sel.length})` : ""}</button>
-      <QuizNote p={p} correct={sent == null || !quiz ? null : same(sent, p.answer)} />
+      {p.lock ? null : <button className="bigbtn p acc full" disabled={!fresh} onClick={done}>{sent && !fresh ? "Sent" : `${p.submit}${sel.length ? ` (${sel.length})` : ""}`}</button>}
+      <QuizNote p={p} correct={shown == null || !quiz ? null : same(shown, p.answer)} />
     </div>
   );
 }
 
 function Slide({ p, emit }) {
   const [v, setV] = useState(p.value);
+  const last = useRef(null);
+  const send = useAnswer(emit);
+  const release = () => { if (v === last.current) return; last.current = v; send({ value: v }); };
   useEffect(() => setV(p.value), [p.value]);
   return (
-    <div className="yl-block">
+    <div className={`yl-block ${p.lock ? "locked" : ""}`}>
       {p.label ? <div className="yl-q">{p.label}</div> : null}
       <div className="yl-slideval">{v}{p.unit ? ` ${p.unit}` : ""}</div>
-      <input type="range" className="yl-range" min={p.min} max={p.max} step={p.step} value={v}
-        onChange={(e) => setV(Number(e.target.value))} onPointerUp={() => emit({ value: v })} onKeyUp={() => emit({ value: v })} />
+      <input type="range" className="yl-range" min={p.min} max={p.max} step={p.step} value={v} disabled={!!p.lock}
+        onChange={(e) => setV(Number(e.target.value))} onPointerUp={release} onKeyUp={release} />
       <div className="slabels"><span>{p.lo ?? p.min}</span><span>{p.hi ?? p.max}</span></div>
     </div>
   );

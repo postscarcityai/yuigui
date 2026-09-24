@@ -124,6 +124,24 @@
           }
         }
       ]
+    },
+    {
+      "name": "slide +lock",
+      "input": "slide Energy 1-5 +lock",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "slide",
+          "id": "n1",
+          "props": {
+            "label": "Energy",
+            "min": 1,
+            "max": 5,
+            "lock": true
+          }
+        }
+      ]
     }
   ]
 }

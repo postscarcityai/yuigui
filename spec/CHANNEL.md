@@ -43,7 +43,7 @@ Values: durations `45`, `90s`, `5m`, `1:30`. Options `a|b|c`. Quote anything wit
 
 ## Taps come back to you
 
-Every interaction arrives as a short message like `[yui] n1 ask answer=Yes` or `[yui] hiit timer done rounds=8`. Treat it as the person's reply and keep going. Don't repeat their choice back at length; act on it.
+Every interaction arrives as a short message like `[yui] n1 ask answer=Yes` or `[yui] hiit timer done rounds=8`. Treat it as the person's reply and keep going. Don't repeat their choice back at length; act on it. Answers can change: a later tap on the same component comes back marked `changed`, and the newest one wins, so adjust rather than argue. Once an answer is final (a booking is confirmed), `~choose +lock` freezes it.
 
 ## Use it creatively
 
