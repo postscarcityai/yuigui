@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Three short videos: Yui in 15 seconds, Yui Lines in 30, your Hermes on your phone in 60",
+    "card": "SOC-3",
+    "body": "Three videos you can watch with the sound off, each in 9:16 for phones and 16:9 for everything else. Yui in 15 seconds: you ask, a screen answers, three times over: a Tabata timer, a question with buttons, a chart. Yui Lines in 30 seconds: one line of text typed out, then the timer it draws, running, then the honest token count from the benchmark: 1.6x fewer tokens than minified JSON, 2.7x fewer than pretty JSON, 3.9x fewer than a component tree, across the same ten screens. Your Hermes on your phone in 60 seconds: add an agent in the app, get a code, install the plugin, pair, restart the gateway, and the agent says hi with its first screen. The commands are the same ones on yuigui.com/start. Everything is recorded in the iPhone simulator on the demo account, so the pairing code is the placeholder 123456 and the agent's words are scripted; in the app it is your own Hermes and your own model talking. They live on See it under Videos, with a press kit at the bottom of that page (both cuts, posters and the wordmark to download), and each has a share link. Social posts are drafts for now: nothing goes out until Chris says so.",
+    "images": [
+      {
+        "src": "/progress/soc3-yui-15s.webp",
+        "alt": "The 16:9 cut of Yui in 15 seconds: the coral Yui wordmark and the caption You ask. Your agent answers with a screen, next to a phone running a Tabata timer."
+      },
+      {
+        "src": "/progress/soc3-yui-lines-30s.webp",
+        "alt": "The 16:9 cut of Yui Lines in 30 seconds: the caption Yui draws it. A real timer, running, next to the phone with the Tabata timer counting down."
+      },
+      {
+        "src": "/progress/soc3-your-hermes-60s.webp",
+        "alt": "The 16:9 cut of Your Hermes on your phone: the caption Your own Hermes agent. On your iPhone, next to a chat where an agent named Nova says hi and asks What should we try first, with Plan my day, Start a timer and Show me a chart buttons."
+      },
+      {
+        "src": "/progress/soc3-your-hermes-60s-step3.webp",
+        "alt": "Step 3 in the 9:16 cut of the 60 second video: Pair with the code. Restart the gateway, over a dark terminal showing the plugin install command, hermes yui pair 123456 and hermes gateway restart."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Polish: the Roadmap tabs read current",
     "card": "SITE-21",
     "body": "A polish pass on Roadmap, Board, Shipped and Builds. The roadmap matches the live board again: the chat polish, reactions, the lock screen timer, no dead buttons and three screens per agent read as done in the code and waiting for the next build, SITE-15, INT-1 and INT-2 moved to shipped, and every card id on the page has a tile on the board (the beta list, BIZ-6, now shows there too). Builds had stopped at build 33's changes because two app commits named an internal task; the export now drops those, so the next build lists all 23 changes since, under a Waiting on Apple label with no made-up build number. On a phone the board stacks its columns instead of scrolling sideways, the roadmap opens with a headline like the other tabs, and dates read Sep 24, 2026. All four pages load at 390 and 1280 with no sideways scroll, and all 287 links on them resolve.",

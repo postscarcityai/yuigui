@@ -40,9 +40,20 @@
     "YUI-32": { "title": "Named screens: save and reopen a screen in two tokens", "shipped": "2026-09-24" },
     "YUI-33": { "title": "Agent tables on the phone" },
     "YUI-35": { "title": "Meal photo to macros" },
-    "YUI-38": { "title": "Onboarding interview that builds your first agents" }
+    "YUI-38": { "title": "Onboarding interview that builds your first agents" },
+    "SOC-3": { "title": "Three marketing videos", "shipped": "2026-09-24" }
   },
   "groups": [
+    {
+      "id": "videos",
+      "title": "Videos",
+      "lede": "Short cuts of the real app, sound off with captions burned in, in 9:16 and 16:9. Everything on screen is recorded in the iPhone simulator on the demo account; the agent's words are scripted. Download them from the press kit at the bottom of this page.",
+      "entries": [
+        { "id": "yui-15s", "title": "Yui in 15 seconds", "what": "Ask your agent a question. It answers with a screen you can tap.", "cards": ["SOC-3"], "app": "site", "video": "yui-15s" },
+        { "id": "yui-lines-30s", "title": "Yui Lines in 30 seconds", "what": "One line of Yui Lines becomes a screen. 1.6x fewer tokens than minified JSON.", "cards": ["SOC-3"], "app": "site", "video": "yui-lines-30s" },
+        { "id": "your-hermes-60s", "title": "Your Hermes on your phone in 60 seconds", "what": "Install the plugin, pair, and your own Hermes agent answers on your iPhone with a screen.", "cards": ["SOC-3"], "app": "site", "video": "your-hermes-60s" }
+      ]
+    },
     {
       "id": "basics",
       "title": "Questions and answers",

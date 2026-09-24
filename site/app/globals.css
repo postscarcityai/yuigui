@@ -747,6 +747,17 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .sc-key { font-weight: 800; font-variant-numeric: tabular-nums; }
 .sc-date { color: var(--muted); font-size: 13px; }
 .sc-more { font-size: 14px; margin: 6px 0; }
+/* Press kit and video downloads (SOC-3) */
+.pk-downloads { list-style: none; padding: 0; margin: 10px 0; display: grid; gap: 10px; font-size: 14px; }
+.pk-downloads li { display: flex; flex-wrap: wrap; align-items: center; column-gap: 18px; }
+.pk-downloads span { flex-basis: 100%; color: var(--muted); }
+.pk-downloads a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 800; }
+.pk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; margin-top: 16px; }
+.pk-item { border: 1.5px solid var(--outline); border-radius: 20px; padding: 16px; min-width: 0; }
+.pk-item img { width: 100%; height: auto; border-radius: 12px; display: block; }
+.pk-item img.pk-mark { background: #FFF9F0; padding: 28px 40px; box-sizing: border-box; aspect-ratio: 16 / 9; object-fit: contain; }
+.pk-item h3 { margin: 12px 0 4px; }
+.pk-item p { margin: 0 0 4px; }
 .sc-entry.planned .sc-phone { opacity: .92; outline: 2px dashed var(--butter); outline-offset: 6px; }
 .btile:target { outline: 3px solid var(--brand); outline-offset: 2px; }
 .btile { scroll-margin-top: 110px; }

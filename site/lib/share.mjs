@@ -4,6 +4,7 @@
 // Never rename an id once it has shipped: people have posted the link.
 import showcase from "../content/showcase.json";
 import clips from "../public/demo/clips/clips.json";
+import videos from "../public/demo/videos/videos.json";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "./yl/samples.mjs";
 import { slug } from "./slug.mjs";
 
@@ -31,7 +32,7 @@ for (const g of showcase.groups) {
     items.push({
       id: e.id, kind: "entry", title: headlineOf(e), preset: /^[a-z]+$/.test(e.title) ? e.title : null, what: e.what, yl: cleanYL(e.yl || s?.yl), agent: e.agent || "Yui",
       planned: !!g.planned, clip: clipOf(e.clip), shots: e.shots || [], cards: e.cards || [], home: `/mockups#${e.id}`,
-      sample: s ? sampleSlug(s) : null,
+      sample: s ? sampleSlug(s) : null, video: e.video ? videos[e.video] : null,
     });
   }
 }

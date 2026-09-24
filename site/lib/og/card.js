@@ -7,7 +7,7 @@ import { join } from "node:path";
 import { apply, initialState, parse } from "../yl/yl.mjs";
 
 export const OG_SIZE = { width: 1200, height: 630 };
-export const eyebrowOf = (it) => (it?.preset ? `THE ${it.preset.toUpperCase()} SCREEN` : it?.planned ? "PLANNED, NOT BUILT YET" : "MADE WITH YUI LINES");
+export const eyebrowOf = (it) => (it?.video ? `A ${Math.round(it.video["9x16"].seconds)} SECOND VIDEO` : it?.preset ? `THE ${it.preset.toUpperCase()} SCREEN` : it?.planned ? "PLANNED, NOT BUILT YET" : "MADE WITH YUI LINES");
 
 const C = { bg: "#FFF9F0", ink: "#3A3340", soft: "#8C8294", brand: "#FF7E8A", plum: "#231D33", plum2: "#2F2842", code: "#F6EEF7", lav: "#D9CCF7", mint: "#BDEBD6", butter: "#FFE8A3", link: "#C23B4F" };
 

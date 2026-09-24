@@ -1,0 +1,53 @@
+{
+  "yui-15s": {
+    "title": "Yui in 15 seconds",
+    "what": "Ask your agent a question. It answers with a screen you can tap.",
+    "made": "2026-09-24",
+    "9x16": {
+      "src": "/demo/videos/yui-15s-9x16.mp4",
+      "poster": "/demo/videos/yui-15s-9x16.jpg",
+      "seconds": 15.0,
+      "mb": 0.4
+    },
+    "16x9": {
+      "src": "/demo/videos/yui-15s-16x9.mp4",
+      "poster": "/demo/videos/yui-15s-16x9.jpg",
+      "seconds": 15.0,
+      "mb": 0.3
+    }
+  },
+  "yui-lines-30s": {
+    "title": "Yui Lines in 30 seconds",
+    "what": "One line of Yui Lines becomes a screen. 1.6x fewer tokens than minified JSON.",
+    "made": "2026-09-24",
+    "9x16": {
+      "src": "/demo/videos/yui-lines-30s-9x16.mp4",
+      "poster": "/demo/videos/yui-lines-30s-9x16.jpg",
+      "seconds": 30.03,
+      "mb": 0.5
+    },
+    "16x9": {
+      "src": "/demo/videos/yui-lines-30s-16x9.mp4",
+      "poster": "/demo/videos/yui-lines-30s-16x9.jpg",
+      "seconds": 30.03,
+      "mb": 0.5
+    }
+  },
+  "your-hermes-60s": {
+    "title": "Your Hermes on your phone in 60 seconds",
+    "what": "Install the plugin, pair, and your own Hermes agent answers on your iPhone with a screen.",
+    "made": "2026-09-24",
+    "9x16": {
+      "src": "/demo/videos/your-hermes-60s-9x16.mp4",
+      "poster": "/demo/videos/your-hermes-60s-9x16.jpg",
+      "seconds": 60.0,
+      "mb": 1.3
+    },
+    "16x9": {
+      "src": "/demo/videos/your-hermes-60s-16x9.mp4",
+      "poster": "/demo/videos/your-hermes-60s-16x9.jpg",
+      "seconds": 60.0,
+      "mb": 1.1
+    }
+  }
+}

@@ -6,9 +6,11 @@ import showcase from "../../content/showcase.json";
 import board from "../../content/board.json";
 import progress from "../../content/progress.json";
 import clips from "../../public/demo/clips/clips.json";
+import videos from "../../public/demo/videos/videos.json";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../../lib/yl/samples.mjs";
 import Shots from "../components/Shots";
 import LivePhone from "./LivePhone";
+import VideoDownloads from "../components/VideoDownloads";
 
 export const metadata = {
   title: "See it | Yui",
@@ -43,6 +45,7 @@ function Entry({ e, planned }) {
   const s = e.demo ? sample(e.demo) : null;
   const yl = e.yl || s?.yl;
   const clip = clipOf(e.clip);
+  const video = e.video ? videos[e.video] : null;
   const shots = (e.shots || []).map((src) => ({ src, alt: ALTS[src] || e.title }));
   const preset = /^[a-z]+$/.test(e.title);
   return (
@@ -52,6 +55,12 @@ function Entry({ e, planned }) {
           <figure>
             <LivePhone yl={yl} agent={e.agent || "Yui"} label={`${e.title}, drawn live from Yui Lines`} />
             <figcaption>{planned ? "Planned: drawn on the web, not in the app" : "Live: tap it, it answers"}</figcaption>
+          </figure>
+        ) : null}
+        {video ? (
+          <figure>
+            <video className="sc-clip" src={video["9x16"].src} poster={video["9x16"].poster} controls muted playsInline preload="none" aria-label={`${e.title}, a ${Math.round(video["9x16"].seconds)} second video`} />
+            <figcaption>{Math.round(video["9x16"].seconds)} seconds, sound off</figcaption>
           </figure>
         ) : null}
         {clip ? (
@@ -70,12 +79,45 @@ function Entry({ e, planned }) {
           : <span className="pill sc-native">In the iPhone app</span>}
         {yl ? <pre className="sc-yl"><code>{yl.split("\n").filter((l) => !l.trim().startsWith("#")).join("\n")}</code></pre> : null}
         <ul className="sc-cards">{e.cards.map((k) => <CardRef k={k} key={k} planned={planned} />)}</ul>
+        {video ? <VideoDownloads v={video} /> : null}
+        {video ? <p className="sc-more"><Link href={`/s/${e.id}`}>Share link /s/{e.id}</Link></p> : null}
         {e.link ? <p className="sc-more"><Link href={e.link}>Open {e.link}</Link></p> : null}
         {s?.slug ? <p className="sc-more"><Link href={`/playground?demo=${s.slug}`}>Edit it in the playground</Link></p> : null}
         <p className="sc-more"><Link href={`/s/${e.id}`}>Share this screen</Link></p>
         {shots.length ? <Shots images={shots} label={e.title} /> : null}
       </div>
     </article>
+  );
+}
+
+// Press kit (SOC-3): everything someone writing about Yui can take, free to use.
+function PressKit() {
+  return (
+    <section className="sc-group" aria-labelledby="press-kit">
+      <h2 id="press-kit">Press kit</h2>
+      <p className="sc-lede">
+        Free to use when you write or post about Yui. Videos are sound off with captions burned in, H.264 MP4. The agent&apos;s
+        words in them are scripted on the demo account; in the app, your own Hermes answers. Yui is open source and in public
+        beta on iPhone, bring your own Hermes.
+      </p>
+      <div className="pk-grid">
+        {Object.entries(videos).map(([k, v]) => (
+          <article key={k} className="pk-item">
+            <img src={v["16x9"].poster} alt={`${v.title}, poster frame`} loading="lazy" width="1920" height="1080" />
+            <h3>{v.title}</h3>
+            <p>{v.what}</p>
+            <VideoDownloads v={v} />
+            <p className="sc-more"><Link href={`/s/${k}`}>Share link</Link></p>
+          </article>
+        ))}
+        <article className="pk-item">
+          <img src="/brand/yui-wordmark-coral.png" alt="The Yui wordmark in coral" loading="lazy" className="pk-mark" />
+          <h3>Wordmark</h3>
+          <p>Coral #FF7E8A on cream #FFF9F0. Type only, no mascot. Keep it coral or ink, and give it room.</p>
+          <ul className="pk-downloads"><li><a href="/brand/yui-wordmark-coral.png" download>Wordmark PNG</a> <span>coral, transparent</span></li></ul>
+        </article>
+      </div>
+    </section>
   );
 }
 
@@ -99,6 +141,10 @@ export default function SeeIt() {
             {g.entries.map((e) => <a key={e.id} href={`#${e.id}`}>{e.title}</a>)}
           </div>
         ))}
+        <div>
+          <a href="#press-kit" className="sc-gl">Press kit</a>
+          <a href="#press-kit">Videos and wordmark</a>
+        </div>
       </nav>
       {showcase.groups.map((g) => (
         <section key={g.id} className="sc-group" aria-labelledby={g.id}>
@@ -107,6 +153,7 @@ export default function SeeIt() {
           {g.entries.map((e) => <Entry e={e} key={e.id} planned={g.planned} />)}
         </section>
       ))}
+      <PressKit />
     </>
   );
 }
