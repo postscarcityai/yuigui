@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T06:40:48.739Z",
+  "updated": "2026-09-24T07:10:54.306Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -279,8 +279,9 @@
         {
           "key": "YUI-10",
           "title": "Channel guide for every agent",
-          "summary": "Instructions every agent gets on the yui channel + eval",
-          "mvp": true
+          "summary": "The channel guide, now tested",
+          "mvp": true,
+          "progress": "/progress#the-channel-guide-now-tested"
         }
       ]
     },

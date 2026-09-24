@@ -212,6 +212,10 @@
     {
       "text": "Channel guide: answers can change, newest wins, ~choose +lock",
       "card": "YUI-12"
+    },
+    {
+      "text": "Sync channel guide v5 from yuigui",
+      "card": "YUI-10"
     }
   ]
 }
