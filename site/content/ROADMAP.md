@@ -1,4 +1,4 @@
-# Yui | roadmap (draft 4, Sep 24 2026)
+# Yui | roadmap (draft 5, Sep 24 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
@@ -178,6 +178,20 @@ Deliverables:
 - Decision gate: Android port (Kotlin + Jetpack Compose against the same Yui Lines suite), Apple Watch app, public launch.
 
 Dependencies: beta learnings, payments setup (financial, needs Chris).
+
+### Preset library | what agents can build on your screen (Chris, Sep 24)
+
+Simple first, flexible combinations always: layout and style are props, so a handful of presets cover a lot of experiences. Each family ships in the web playground first, then natively in the app.
+
+- **Media (YUI-16):** gallery of images and videos with layouts feed, flat row, 3D row and grid; single video; before/after compare (slider, side by side, toggle) with highlights pointing at what changed; storyboards for videos, sites and posts with reorder and per-frame notes; image edit where you mark an area and say what to change.
+- **Data and science (YUI-17):** line, bar, area, scatter, pie charts, live from agent tables; big-number stats with sparklines; rendered equations; a formula tool whose sliders redraw a chart as you move them; step-by-step derivations and protocols.
+- **Learn and plan (YUI-18):** presentations built on any topic you want to understand, with generated images and a quiz at the end; plan mode, a guided set of questions that ends in a project; narrated walkthroughs where the agent talks you through what changed, before and after, step by step.
+- **Media pipeline (YUI-21):** agents generate and send real images and videos into Yui; your photos go back to the agent.
+- **Native versions (YUI-19)** of all of the above.
+
+### Every agent looks like itself (YUI-20)
+
+Chris, Sep 24: in most agent tools every agent sits in the same interface and the only tell is a tiny ID in a corner. In Yui each agent has its own color scheme, with light and dark, its own feel, and its preferred kinds of screens. Open Arnold and the whole app is Arnold's. Ask an agent to change its look and it restyles itself.
 
 ### Look and feel | friendly by default, restyled by agents later
 
