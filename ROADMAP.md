@@ -78,6 +78,20 @@ Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20
 - INT-1 onward: adapters for other agent frameworks, Hermes first (see Adapters below).
 - The phase backlog below, from YUI-30 on.
 
+## Epics
+
+Work ships in epics: a set of cards that together make one release worth trying. Cards land as they finish; the app goes to TestFlight once per epic, with a list of what to try. Crashes and blockers ship on their own.
+
+**Now: GTM-1, grassroots go-to-market.** While the next build waits on Apple, the site and the story come first. Investor material is out for now; nothing gets posted without Chris.
+
+- SITE-19: shareable moments. Share links and preview cards for every screen, a Share button in the playground, an embed that shows a live Yui Lines screen, a "Made with Yui Lines" badge.
+- SITE-20: the go-to-market plan, in public: who it is for, the social plan per channel, the first 30 days.
+- OSS-5: a grassroots kit for Yui Lines: who builds with it, how to contribute, a first "draw your best screen in three lines" challenge.
+- SOC-3: three short videos: Yui in 15 seconds, Yui Lines in 30, your own Hermes on your phone in 60.
+- BIZ-7 (parked): one brand system from the website to social to print.
+
+**Next release: chat feels right (build 47).** Today's TestFlight feedback fixes, message reactions (YUI-49), the lock screen timer (YUI-30) and no dead buttons (YUI-53), in one build once Apple's daily upload limit lifts. YUI-52 checks every fix against the original feedback.
+
 ## North star: not just another AI chatbot
 
 Chris, Sep 24: "I want these to be truly unique experiences." Every decision gets checked against this. Chat is the doorway, not the product. Three commitments follow:
