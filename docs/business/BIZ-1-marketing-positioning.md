@@ -6,7 +6,7 @@ Companion docs: [BIZ-3 revenue models and mission principles](https://www.yuigui
 
 ## The short version
 
-- **One line:** Yui is a beautiful native home for the agents you already run.
+- **One line:** Meet Yui, a generative user interface. (Chris picked it Sep 24 2026; it leads the site.)
 - **The line under it:** your agent stops describing things and starts showing them. A question becomes two buttons, a workout becomes a timer, a plan becomes a screen you can tap.
 - **Who first:** people who already run Hermes. Then OpenClaw and other self-hosted agent people. Then anyone with an AI subscription.
 - **What sets it apart:** your agent draws native iPhone screens, not web pages in a frame, and Hermes agents get a screen for the first time. Phone apps for self-hosted agents already exist (OpenClaw's own app, Hermex); agent-drawn native screens do not.
@@ -29,9 +29,11 @@ Every line of copy, every launch post and every metric below gets checked agains
 
 ### One line
 
-**Yui: a beautiful native home for the agents you already run.**
+**Meet Yui, a generative user interface.**
 
-Alternates, for testing on the site and in posts:
+Chris picked this line on Sep 24 2026, and the site hero uses it. The first draft pitched Yui as a nicer place to talk to the agents you already run. The competitor notes show why that lost: phone apps for self-hosted agents already exist, so a place to talk to agents is not what sets Yui apart. The screens are.
+
+Alternates, for testing in posts:
 
 - "Your agents, on a screen that fits them."
 - "Stop reading your agent. Start using it."
@@ -275,6 +277,6 @@ Few, honest, and tied to the guardrail. Track weekly in the Friday update where 
 
 ## Open questions for Chris
 
-1. The one line: "a beautiful native home for the agents you already run" or one of the alternates? Pick one and the site hero follows (SITE-1).
+1. The one line: answered Sep 24 2026. "Meet Yui, a generative user interface." The site hero follows it (SITE-12).
 2. Show HN timing: wait for the Stage 2 gate (my recommendation), or go earlier with Hermes-only support?
 3. Who posts: launch posts under Chris's name (best for Show HN) or the yuiguiai handles?

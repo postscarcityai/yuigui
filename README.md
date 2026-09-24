@@ -1,6 +1,6 @@
 # Yui
 
-Yui is a phone app for talking to your own AI agents. You chat like normal. When a button, a timer or a table would work better than text, the agent puts one on the screen, and your taps go straight back to it.
+Meet Yui, a generative user interface. Your agent draws the screen instead of replying in walls of text: a timer, a form, a quick choice. You chat like normal, and when a button or a timer would work better than text, the agent puts one on the screen. Your taps go straight back to it. Native on iPhone, Hermes first.
 
 It is not another chatbot. Yui brings no brain of its own. You bring the agent (Hermes first, others later), and Yui gives it a face, a voice and a screen it can draw on.
 

@@ -11,9 +11,9 @@ const themeInit = `try{var t=localStorage.getItem("yui-theme");document.document
 
 export const metadata = {
   metadataBase: new URL("https://www.yuigui.com"),
-  title: "Yui | a home for your AI agents",
-  description: "Yui is an iPhone app for talking to your AI agents. When words are not enough, your agent draws the screen: a timer, a form, a choice.",
-  openGraph: { title: "Yui | a home for your AI agents", description: "Talk to your agents. When words are not enough, they draw the screen.", url: "https://www.yuigui.com", siteName: "Yui", type: "website" },
+  title: "Yui | a generative user interface",
+  description: "Meet Yui, a generative user interface. Your agent draws the screen instead of replying in walls of text: a timer, a form, a choice. A native iPhone app, built for Hermes first.",
+  openGraph: { title: "Meet Yui, a generative user interface.", description: "Your agent draws the screen: a timer, a form, a choice. A native iPhone app, built for Hermes first.", url: "https://www.yuigui.com", siteName: "Yui", type: "website" },
   twitter: { card: "summary_large_image" },
 };
 

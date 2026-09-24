@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The site now leads with what Yui is: a generative user interface",
+    "card": "SITE-12",
+    "body": "The home page used to call Yui a friendly place for your AI agents. That undersold it. Plenty of apps let you text an agent. What Yui does that they do not is let the agent draw the screen. So the headline is now \"Meet Yui, a generative user interface.\" The line under it says what works in the test build today: your agent answers with a timer, a form or a quick choice instead of a wall of text, in a native iPhone app, built for Hermes first. The page title, the link preview card and the README say the same thing. Further down, the who-it-is-for cards now say plainly which parts work today (Hermes) and which are next on the roadmap (other agents, starter agents). The mission did not change.",
+    "images": [
+      {
+        "src": "/progress/site12-hero.webp",
+        "alt": "The yuigui.com home page hero: the headline Meet Yui, a generative user interface, a short line about agents drawing timers, forms and choices, and two phone screenshots of a tabata timer in chat, light and dark"
+      },
+      {
+        "src": "/progress/site12-share-card.webp",
+        "alt": "The new link preview card: the coral Yui wordmark, the same headline, and a phone showing a tabata timer the agent drew mid-chat"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Ready for Apple's beta review: a demo agent, help, and a full privacy page",
     "card": "YUI-27",
     "body": "Apple's reviewer needs to see Yui work, but a new account has no agent until you connect your own. So the sign-in screen now has a small Demo code link. The code lives only in the review notes, and it opens one shared demo account with an agent called Demo. Demo is scripted, with no AI model behind it and no access to any computer: say hi and it answers with a menu, tap Workout and the next screen asks what gear you have. If the reviewer deletes the demo account, it comes back empty and Demo reconnects within about a minute. Settings has a new Help and feedback section: a help page at yuigui.com/help, the connect guide, and an email link that fills in your app version. The privacy page now lists everything Yui keeps: the computers your agents run on, agent access keys, the counters behind the limits, one day of addresses for wrong pairing codes, and what we declare on Apple's privacy label. Tested live: 21 checks on the demo sign-in and agent, plus a simulator run from the demo code to Settings.",

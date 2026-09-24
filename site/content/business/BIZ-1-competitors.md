@@ -171,7 +171,7 @@ Small Hermes iOS repos also exist (Bourbon24k/hermes-agent-ios, tinyleed/hermes-
 - **Platforms:** Go, Bun and Electron. macOS download.
 - **Mobile:** none verified.
 - **Source:** https://github.com/gluonfield/jaz
-- **Why it matters:** its positioning overlaps Yui's "home for your agents" pitch.
+- **Why it matters:** its positioning overlaps Yui's first "place for your agents" pitch, since dropped.
 
 ### Pal Chat (iOS)
 - **What it is:** closed-source native Apple client.
@@ -348,7 +348,7 @@ Other results:
 ## Gaps nobody fills (blunt read)
 
 **Where Yui is NOT differentiated. Don't claim these:**
-1. **"A phone home for your self-hosted agent."**
+1. **"A phone app for your self-hosted agent."**
    - OpenClaw has an official, free, native iOS/Android/Watch app.
    - Hermes already has Hermex (free, MIT, native SwiftUI, 93 ratings), Conduit (Flutter, lists Hermes), Onepilot (paid) and the hermes-webui PWA.
    - Telegram is the default, and it works.
