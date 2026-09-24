@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
         </Script>
         <Nav />
         <main className="wrap">{children}</main>
-        <footer className="wrap foot">Yui | yuigui.com | build hub, updated as we ship</footer>
+        <footer className="wrap foot">Yui | yuigui.com | build hub, updated as we ship | <a href="/privacy">Privacy</a></footer>
       </body>
     </html>
   );

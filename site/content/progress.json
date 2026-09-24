@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-23",
+    "title": "Accounts: Sign in with Apple, and delete it in the app",
+    "body": "Yui now has accounts. You sign in with Apple, no password, and Settings has a Delete account button that wipes everything Yui stores for you and removes Yui from your Apple ID. The App Store requires that, and it is the right default anyway. The server side is locked down on purpose: Yui accounts get their own database role that can only see Yui's own tables, and each account only its own rows. 63 automated checks try to break that, including one that creates a test account, fills every table, deletes it, and counts zero rows left. Plain-language privacy page at yuigui.com/privacy."
+  },
+  {
+    "date": "2026-09-23",
     "title": "Yui drops the cat",
     "body": "The round cat is gone. Chris noticed the hand-drawn Yui wordmark already looks like a cat, abstractly: the bunny-ear arms on the Y read as ears. So the logo is the face now. Yui's own avatar in chat is that Y on its own, in coral. Each agent gets a small pastel chip with its first letter in heavy rounded type, colored from the theme file, so when agents get their own looks their chips change with them. The empty chat screen and settings show the wordmark with a few warm words, no drawing. Build 10 is on TestFlight."
   },
