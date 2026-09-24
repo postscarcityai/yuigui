@@ -7,6 +7,11 @@
   },
   {
     "date": "2026-09-24",
+    "title": "Answers are still there when you come back",
+    "body": "A tester answered a few questions in a chat, left, came back, and every button and slider was blank again, as if nothing had been picked. The answers had reached the agent. Only the phone forgot them, because each component kept its answer in memory and nowhere else. Now the chat rebuilds every answer from the thread itself: the choice, the picks, where the slider stopped, the button tapped, a sent form. When a question was answered twice, the newest answer wins. Replies can reuse the same component name, so each answer goes back to the reply that asked it. A tap after coming back counts as a change of answer, the same as before leaving. A new test opens a saved thread with no network and checks all of it. With the fix switched off, that test fails on every one of those components."
+  },
+  {
+    "date": "2026-09-24",
     "title": "No page scrolls sideways on a phone",
     "card": "SITE-9",
     "body": "Ten pages slid sideways on a phone. Wide tables in the spec, the channel results and every business doc pushed the whole page out, and so did long links, the playground's picker and phone frame, the benchmark tables, and one long install command on Get started. Now a wide table scrolls inside its own box while the page stays put, long links and commands wrap, and the playground fits a 320 point screen. A script loads all 21 pages at 320, 375, 390 and 430 points wide and fails if any of them is wider than the screen. The first version of that script passed everything: a phone browser quietly zooms out to fit a page that is too wide, so the page's own width grew with it. It now measures against the phone's real width.",
