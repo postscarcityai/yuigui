@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Every page points to the code and the beta",
+    "card": "SITE-4",
+    "body": "The site now ends every page the same way: three ways in. Get the TestFlight beta, star the code on GitHub, or join the waitlist. The public beta is waiting on Apple's review, so for now that card says so and points to the waitlist; the button appears the day Apple says yes. The beta is bring your own agent: you need Hermes running on your own computer. Both repos are open source under Apache 2.0, and GitHub is now in the menu and the footer too. We also made a list of tagged links for social posts, so we can see which posts bring people here. No new tracking was added: the site already had Google Analytics, and a button click now counts as an event there.",
+    "images": [
+      {
+        "src": "/progress/site4-cta-band.webp",
+        "alt": "The bottom of a yuigui.com page: a card for the TestFlight beta, a card with Star on GitHub and App code buttons, and the waitlist form"
+      },
+      {
+        "src": "/progress/site4-home-hero.webp",
+        "alt": "The home page hero with three buttons: Join the waitlist, Star on GitHub, See what shipped"
+      },
+      {
+        "src": "/progress/site4-mobile.webp",
+        "alt": "The same three cards stacked on a phone screen"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Pick it up in Yui",
     "card": "YUI-8",
     "body": "Any agent can now hand you something from another channel in one step. Say \"send it to Yui\" (or type /yui) while talking to an agent on Telegram, and it puts what you were working on into Yui as a screen, not a wall of text. Your phone gets a notification, \"Urza has something for you in Yui\", and tapping it opens the thread with the buttons ready. Every agent reply now pushes too, except for the thread you already have open. It works even for an agent you have not added to Yui yet: its handoff lands in your main agent's thread with its name on it. Tested end to end on the simulator with a real push from Apple. Ships in build 18.",

@@ -619,3 +619,11 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .log li { scroll-margin-top: 90px; }
 .log li:target h3 { color: var(--link); }
 @media (max-width: 1000px) { .board { grid-template-columns: repeat(4, 260px); } }
+
+/* Get Yui band, bottom of every page (SITE-4) */
+.getyui { padding-top: 8px; padding-bottom: 8px; }
+.getyui-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+.getyui-grid .card .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 14px; }
+.getyui-grid .card > .btn { margin-top: 14px; }
+.btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--outline); }
+.nav nav a.nav-gh { color: var(--ink); border: 1.5px solid var(--outline); }

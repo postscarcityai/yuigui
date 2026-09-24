@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { savedUtm, trackCta } from "../../lib/track.mjs";
 
 export default function Waitlist({ source = "home" }) {
   const [state, setState] = useState("idle");
@@ -13,10 +14,10 @@ export default function Waitlist({ source = "home" }) {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: f.get("email"), name: f.get("name"), website: f.get("website"), source }),
+        body: JSON.stringify({ email: f.get("email"), name: f.get("name"), website: f.get("website"), source, note: savedUtm() }),
       });
       const data = await res.json();
-      if (data.ok) return setState("done");
+      if (data.ok) { trackCta("waitlist", source); return setState("done"); }
       setError(data.error || "Try again."); setState("idle");
     } catch { setError("Network error. Try again."); setState("idle"); }
   }

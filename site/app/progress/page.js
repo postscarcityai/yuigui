@@ -1,6 +1,5 @@
 // Newest first. Entries live in content/progress.json, see BUILD-IN-PUBLIC.md.
 import log from "../../content/progress.json";
-import Waitlist from "../components/Waitlist";
 import { slug } from "../../lib/slug.mjs";
 import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
@@ -49,7 +48,6 @@ export default function Progress() {
           </li>
         ))}
       </ul>
-      <Waitlist source="progress" />
     </>
   );
 }

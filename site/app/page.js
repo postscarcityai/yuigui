@@ -1,5 +1,6 @@
 import Link from "next/link";
-import Waitlist from "./components/Waitlist";
+import CtaLink from "./components/CtaLink";
+import links from "../content/links.json";
 import MvpBar from "./components/MvpBar";
 
 const what = [
@@ -32,15 +33,18 @@ export default function Home() {
     <>
       <section className="hero">
         <div>
-          <div className="eyebrow">Built in public | private beta</div>
+          <div className="eyebrow">Built in public | open source</div>
           <h1>A friendly home for your AI agents.</h1>
           <p className="lede">
             Yui is an iPhone app for talking to the agents you already run. When words are not enough,
             your agent draws the screen: a timer, a form, a quick choice. You tap, and it keeps going.
           </p>
           <div className="cta">
-            <a className="btn" href="#waitlist">Join the waitlist</a>
-            <Link className="btn soft" href="/progress">See what shipped</Link>
+            {links.testflight
+              ? <CtaLink cta="testflight" where="/hero" href={links.testflight}>Get the TestFlight beta</CtaLink>
+              : <a className="btn" href="#waitlist">Join the waitlist</a>}
+            <CtaLink cta="github" where="/hero" className="btn soft" href={links.github}>Star on GitHub</CtaLink>
+            <Link className="btn ghost" href="/progress">See what shipped</Link>
           </div>
         </div>
         <div className="shots">
@@ -82,8 +86,6 @@ export default function Home() {
       <h2>Why we are building it</h2>
       {quotes.map((q) => <div className="quote" key={q}>&ldquo;{q}&rdquo;</div>)}
       <p style={{ color: "var(--muted)", fontSize: 15 }}>Chris Johnston, who started Yui.</p>
-
-      <Waitlist source="home-top" />
 
       <h2>Follow along</h2>
       <div className="grid">

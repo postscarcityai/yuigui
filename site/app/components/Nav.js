@@ -28,6 +28,7 @@ export default function Nav() {
           {links.map(([href, label]) => (
             <Link key={href} href={href} aria-current={path === href ? "page" : undefined}>{label}</Link>
           ))}
+          <a href="https://github.com/postscarcityai/yuigui" className="nav-gh" target="_blank" rel="noopener">GitHub</a>
           <ThemeToggle />
         </nav>
       </div>
