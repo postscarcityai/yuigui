@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-23",
+    "title": "The wordmark moves into the app",
+    "body": "Chris's hand-drawn Yui wordmark, the one with bunny-ear arms on the Y, now sits in the app's top bar, on the empty chat screen and in settings. Its coral is now the app's main color too: the send button, your chat bubbles and the selected toggle all use it, with the pastels kept for the smaller touches. The coral is stored in the same theme file as everything else, so an agent that restyles the app recolors the logo along with it. It reads clearly on both the cream light mode and the dark plum mode, so one logo file covers both. Yui the cat stays as the face of the agent. Build 8 is on TestFlight."
+  },
+  {
+    "date": "2026-09-23",
     "title": "Yui Lines has a test suite",
     "body": "Yui Lines is the one-line format an agent uses to put a timer or a question on your screen. It now has a shared test suite: 165 small cases, each a bit of input plus the exact result a parser must return. The web playground's parser and the new Swift parser inside the app both pass every case, and any future parser, Android included, has to pass the same files. Writing the cases turned up a few gaps in the spec, such as what a mistyped form field should do. Those answers are now written down."
   },
