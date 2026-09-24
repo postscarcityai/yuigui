@@ -58,10 +58,10 @@ Shipped:
 - YUI-28: messages survive a sleeping Mac, a dropped network or a killed app.
 - YUI-26: safe for strangers: rate limits, a kill switch, and a fresh security audit of the shared backend.
 - YUI-27: ready for Apple's beta review: privacy labels, review notes, a demo code with a scripted demo agent for the reviewer, a help link.
+- YUI-22: the public TestFlight link. Apple approved the beta on Sep 24: [https://testflight.apple.com/join/ykrYHwet](https://testflight.apple.com/join/ykrYHwet).
 
 Building now:
 
-- YUI-22: the public TestFlight link. Submitted to Apple's beta review Sep 24; waiting on Apple.
 - YUI-50: chat polish. The composer clears when you send, your text floats up into its bubble, and a down arrow takes you back to the newest message. Done in the code; it reaches phones with the next build.
 
 Up next:
@@ -236,7 +236,7 @@ Deliverables:
 - DONE Sep 24, YUI-23: other people's Hermes installs connect with one command to install the plugin and one code to pair.
 - DONE Sep 24, OSS-1: Yui is open source (Apache-2.0), Yui Lines spec included.
 - DONE Sep 24, YUI-27: beta review prep: privacy answers, review notes, demo account, help link.
-- BUILDING, YUI-22: public TestFlight link. Submitted to Apple's beta review Sep 24.
+- DONE Sep 24, YUI-22: public TestFlight link. Anyone can install Yui: https://testflight.apple.com/join/ykrYHwet
 - OPEN: the private beta of 20 to 50 technical users from the Hermes and OpenClaw communities. The public link may replace it; Chris's call.
 - NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
 - DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
