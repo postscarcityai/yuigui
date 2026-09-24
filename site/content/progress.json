@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Your agents are yours to add",
+    "body": "Chris's next piece of feedback: agents are added by you, not baked into the app. So the Urza and Arnold placeholders are gone. The agents screen now starts empty with an Add your first agent button, and each agent shows its avatar, an online or offline dot and when it was last seen. You can rename, recolor, reorder, pick a default or remove one (which also deletes that conversation). There are three ways to add one, and all land in the same place. In the app: name it, get a 6-digit code, type one command on the computer it runs on. From that computer: once it is paired, any other agent on it can join with one command and no code. Or ask an agent: Settings has an Agent access token you can hand to one of your agents so it can add and manage agents for you. That token can't read your messages, and 59 new automated checks try to make it. For testing, one agent is set up: Yui itself. Build 14 is on TestFlight."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Yui Lines learn pictures and video",
     "body": "Agents can now show media, not just describe it. Four new one-line presets: gallery (photos and clips as a swipe row, a vertical feed, a 3D coverflow stack or a grid, with tap to go full screen and an optional pick-your-favorites mode), video, compare (before and after with a drag slider, side by side or tap to toggle, plus numbered boxes where the agent points at what changed) and storyboard (ordered frames you can reorder and comment on, or a script with no pictures yet). An image can also be marked up: circle the part you want changed, type what you want, and the agent gets the area and the instruction, runs the edit and answers with a before and after. Every demo on the playground uses images we generated for it. 33 new test cases pin the syntax, 198 in all. The app picks these up next."
   },
