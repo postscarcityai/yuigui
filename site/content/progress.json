@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Scroll up, and one arrow brings you back",
+    "card": "YUI-50",
+    "body": "Long threads now have a way home. Scroll up more than about a screen and a round down arrow shows just above the composer. If your agent answers while you're up there, the arrow counts the new messages. One tap and you're back at the newest one, and the arrow goes away. Scroll down by hand and it goes too, and sending a message from up the thread takes you straight to it. We also checked the composer empties in every way you can send: typing, a photo with a caption, a tap on a screen, a reaction, and a message queued while offline, each with its own test. With Reduce Motion on, a sent message fades in instead of floating up.",
+    "images": [
+      {
+        "src": "/progress/yui50-arrow-light.webp",
+        "alt": "A long chat scrolled up, light mode. A round down arrow sits above the composer with a red 3 on its corner for three new messages."
+      },
+      {
+        "src": "/progress/yui50-arrow-dark.webp",
+        "alt": "The same arrow with its count of 3 in dark mode."
+      },
+      {
+        "src": "/progress/yui50-bottom-light.webp",
+        "alt": "After the tap: the thread at its newest message, the three new notes from the agent in view, and no arrow."
+      },
+      {
+        "src": "/progress/yui50-lift-frames.webp",
+        "alt": "Eight frames 40 milliseconds apart: a sent message starts small at the composer and floats up into its place in the thread."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Watch Yui grow: the whole history on one page",
     "card": "SITE-16",
     "body": "Yui is built in public, so every step is already on GitHub. The new Timeline page, under Roadmap, reads it back. Press play and it steps through every shipped change that has a screenshot, oldest first, while four counters climb: app commits, site commits, TestFlight builds and changes shipped. Drag the slider to jump to any moment. Below it, each day lists what shipped and each build, by the minute, with its screenshots, and every commit that day links to GitHub. It rebuilds itself from the git history whenever the site deploys, and it checks every line against the same list that keeps private names off the public board.",

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 47,
-    "site": 110,
+    "app": 48,
+    "site": 111,
     "builds": 21,
-    "shipped": 67,
-    "screenshots": 103
+    "shipped": 68,
+    "screenshots": 107
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T18:39:34.721Z",
+          "at": "2026-09-24T18:52:47.689Z",
+          "title": "Scroll up, and one arrow brings you back",
+          "card": "YUI-50",
+          "anchor": "scroll-up-and-one-arrow-brings-you-back",
+          "images": [
+            {
+              "src": "/progress/yui50-arrow-light.webp",
+              "alt": "A long chat scrolled up, light mode. A round down arrow sits above the composer with a red 3 on its corner for three new messages."
+            },
+            {
+              "src": "/progress/yui50-arrow-dark.webp",
+              "alt": "The same arrow with its count of 3 in dark mode."
+            },
+            {
+              "src": "/progress/yui50-bottom-light.webp",
+              "alt": "After the tap: the thread at its newest message, the three new notes from the agent in view, and no arrow."
+            },
+            {
+              "src": "/progress/yui50-lift-frames.webp",
+              "alt": "Eight frames 40 milliseconds apart: a sent message starts small at the composer and floats up into its place in the thread."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 48,
+            "site": 111,
+            "builds": 21,
+            "shipped": 68
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T18:42:34.000Z",
           "title": "Watch Yui grow: the whole history on one page",
           "card": "SITE-16",
           "anchor": "watch-yui-grow-the-whole-history-on-one-page",
@@ -27,10 +59,10 @@
               "alt": "The same player on a phone: the screenshot on top, then Every agent has its own look, four small counters in a row, and the play button with the slider."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 47,
-            "site": 110,
+            "site": 111,
             "builds": 21,
             "shipped": 67
           }
@@ -1293,6 +1325,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "0edd274",
+          "at": "2026-09-24T18:52:41.000Z",
+          "text": "Scrolled up a long thread: a round arrow above the composer counts the agent's new messages and brings you back to the newest in one...",
+          "url": "https://github.com/postscarcityai/yui/commit/0edd274"
+        },
+        {
+          "repo": "site",
+          "sha": "3e40af4",
+          "at": "2026-09-24T18:42:34.000Z",
+          "text": "Watch Yui grow: /timeline replays the GitHub history of the app and this site, day by day, with builds, screenshots and a play/scrub...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3e40af4"
+        },
         {
           "repo": "site",
           "sha": "19cf10a",
