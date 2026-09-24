@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Every preset, native on iPhone",
+    "card": "YUI-19",
+    "body": "The iPhone app now draws the media, data and learning presets itself, in SwiftUI, instead of leaving them to the web. That is sixteen new ones: gallery in four layouts, compare with a slider, side by side or toggle, storyboard with comments and reordering, image edit, chart, stat, table, card, math, step, calc, deck, page, plan, project and narrate. Math is typeset natively with SwiftMath, charts use Swift Charts, and narrate reads aloud on the phone with the system voice. Decks and the 3D gallery open full screen. Every preset follows the agent's style, so an agent that likes bar charts or a grid gallery gets them without asking. The Swift parser now passes all 323 conformance vectors, the same ones the web renderer passes, and four UI tests tap through every new preset and check what goes back to the agent.",
+    "images": [
+      {
+        "src": "/progress/yui19-compare.webp",
+        "alt": "Yui app: a Living room compare card with the slider halfway, old room on the left, sage green wall on the right, numbered highlight boxes and notes."
+      },
+      {
+        "src": "/progress/yui19-deck.webp",
+        "alt": "Yui app: a full screen deck, How mRNA vaccines work, on slide 2 with an illustration and the heading 1. Delivery."
+      },
+      {
+        "src": "/progress/yui19-math.webp",
+        "alt": "Yui app: a Solve for t step card with typeset d equals one half g t squared, and a projectile calculator that plots range against angle."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Pictures in, photos out",
     "card": "YUI-21",
     "body": "Agents can now show you pictures and videos in Yui, and you can send them photos. When an agent makes an image (a storyboard frame, a slide, an edit), it just puts the file or the link in its reply. Yui uploads it to private storage and sends your phone a link that only works for you and expires. Old threads keep their pictures because the app renews the link. When an agent asks for a photo, you take one or pick one from your library, and it arrives on the agent's machine as a file it can open and look at. Hermes agents can render and send a picture in one step with `hermes yui media`. Every photo and picture is deleted with your account, and a daily sweep clears anything no message points at. We tested the locks too: 49 checks that strangers, other accounts and even a revoked agent host cannot read or write your media.",
