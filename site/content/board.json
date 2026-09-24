@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T15:41:01.455Z",
+  "updated": "2026-09-24T16:10:06.248Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -217,10 +217,6 @@
         {
           "key": "SITE-6",
           "title": "Playground a11y labels (Lighthouse 89 -> 95+)"
-        },
-        {
-          "key": "SITE-11",
-          "title": "Full freshness + polish pass on yuigui.com"
         }
       ]
     },
@@ -234,6 +230,12 @@
           "summary": "Public TestFlight link (external group + Beta App Review)",
           "mvp": true,
           "waiting": true
+        },
+        {
+          "key": "SITE-11",
+          "title": "Full freshness + polish pass on yuigui.com",
+          "summary": "The site catches up with the app",
+          "progress": "/progress#the-site-catches-up-with-the-app"
         }
       ]
     },
