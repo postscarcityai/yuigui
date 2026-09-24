@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T11:10:32.141Z",
+  "updated": "2026-09-24T11:40:36.703Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -206,12 +206,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-26",
-          "title": "Safe for strangers",
-          "summary": "Limits, abuse switch and RLS re-audit on the shared backend",
-          "mvp": true
-        },
-        {
           "key": "YUI-27",
           "title": "Ready for beta review",
           "summary": "Privacy labels, review notes, demo account, support link",
@@ -242,6 +236,12 @@
           "summary": "Public TestFlight link (external group + Beta App Review)",
           "mvp": true,
           "waiting": true
+        },
+        {
+          "key": "YUI-26",
+          "title": "Safe for strangers",
+          "summary": "Limits, abuse switch and RLS re-audit on the shared backend",
+          "mvp": true
         }
       ]
     },
