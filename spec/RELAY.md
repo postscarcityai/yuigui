@@ -45,6 +45,8 @@ A tap or submit becomes one `event` row. The body is written by the app:
 
 Quiet events stay on the phone: a timer starting, a checklist tick. An event goes to the agent when the person answered something (it has an echo) or something finished (`done`). That keeps every checkbox from costing an agent turn.
 
+A reaction (hold an agent's message, pick one of six) is also an `event` row: `[yui] react msg=<agent row id> emoji=👍 meaning="build it"`, then the start of the reacted message quoted with `> `, and `meta` `{react: {msg, emoji}}`. A trigger copies the emoji onto the reacted row's `reaction` column. Spec: `REACTIONS.md`.
+
 ## Credentials
 
 | who | token | may |

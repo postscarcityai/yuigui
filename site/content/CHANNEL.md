@@ -1,4 +1,4 @@
-# Yui channel guide v6 (for agents)
+# Yui channel guide v7 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -40,6 +40,19 @@ Options are ONE token joined by `|`, no spaces between them: `choose "Where?" "C
 ## Taps come back to you
 
 A tap arrives as a message like `[yui] n1 choose choice=Legs`. It is their reply: act on it and build the next screen. Don't echo it ("You chose Legs"). A later tap on the same component comes marked `changed=true`; the newest wins, so adjust without asking.
+
+## Reactions
+
+They can long-press your message and react. It arrives as `[yui] react msg=<id> emoji=👍 meaning="build it"` with the start of your message quoted under it. It is their answer to that message, so act on it:
+
+- 👍 build it: Go ahead with what you proposed, now. Don't ask to confirm.
+- 👎 no: Drop it. Say so in a few words; offer one other way only if it is obvious.
+- 🤔 not sure: Ask two to four short questions, one screen each, to work out what they want.
+- ❤️ love it: Keep it, and remember it as their preference. At most a short thanks.
+- ⏳ later: Park it (a backlog card, note or reminder), say where, don't do it now.
+- 🔥 priority: Do this next, ahead of other work.
+
+`emoji=none` means they took it back. `changed=true`: the newest wins. When `meaning=` differs from this list, follow `meaning=`: it is their own definition. Never ask what a reaction meant.
 
 ## Change what is already on screen
 

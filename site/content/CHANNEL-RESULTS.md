@@ -14,6 +14,7 @@ Does the channel guide (`spec/CHANNEL.md`) make an agent use Yui well? 34 realis
 | v5 | 702 | 33/34 (97%) | 27/34 (79%) | v3 plus v4's first two changes, without the free-text line. |
 | **v6** | **750** | **33/34 (97%)** | | v5 plus one media line (YUI-21): file paths and tool URLs in a line get hosted, `hermes yui media`, photos arrive as files. No regression; the miss is `patch-timer-rounds`. **Shipped.** |
 | v6, tolerant parser | 750 | 33/34 (97%) | 30/34 (88%) | same guide; the parser reads loose quoted options and `~preset@id` (YL.md sections 4 and 5). Scorer counts a line as failed only when it still has nothing to tap. |
+| **v7** | **915** | **37/37 (100%)** | | v6 plus the Reactions section (YUI-49, generated from `spec/REACTIONS.md`), and three new reaction cases (👍 builds it, 🤔 asks one screen at a time, 👎 drops it). No regression on the first 34. The first run had one harness timeout (focus-second-screen) and one case bug (the 👍 case proposed 185 lb squats to someone with 50 lb dumbbells; the agent built it and asked about the swap, which was right). Both re-run after fixing the case. **Shipped.** |
 
 Before and after, on the fleet's model (Opus 5.5): **74% to 97%**, with the guide 20% shorter. On Sonnet 5, 68% to 79%. Scores between v2 and v5 are within run-to-run noise (about two cases either way), so v5 ships because it adds a correct rule (patch by bare preset name), not because of its last point.
 

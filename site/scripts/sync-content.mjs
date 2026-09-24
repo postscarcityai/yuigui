@@ -1,6 +1,6 @@
 // Copies files from the repo root into content/ so Vercel (which only uploads site/) can read them.
 import { copyFileSync, existsSync, mkdirSync, readdirSync } from "node:fs";
-for (const [from, to] of [["../../ROADMAP.md", "ROADMAP.md"], ["../../spec/YL.md", "YL.md"], ["../../spec/CHANNEL.md", "CHANNEL.md"], ["../../spec/channel-eval/RESULTS.md", "CHANNEL-RESULTS.md"]]) {
+for (const [from, to] of [["../../ROADMAP.md", "ROADMAP.md"], ["../../spec/YL.md", "YL.md"], ["../../spec/CHANNEL.md", "CHANNEL.md"], ["../../spec/REACTIONS.md", "REACTIONS.md"], ["../../spec/channel-eval/RESULTS.md", "CHANNEL-RESULTS.md"]]) {
   const src = new URL(from, import.meta.url);
   const dst = new URL(`../content/${to}`, import.meta.url);
   if (existsSync(src)) { copyFileSync(src, dst); console.log(`synced ${to}`); }

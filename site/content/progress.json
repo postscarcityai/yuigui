@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "React to a message: hold it, tap 👍, and your agent builds it",
+    "card": "YUI-49",
+    "body": "Hold any message from your agent and a bar of six reactions floats above it, the way Telegram and iMessage do it. Each one is an instruction, not a mood: 👍 build it, 👎 no, 🤔 not sure (the agent asks a few short questions, one screen each), ❤️ love it (kept as a preference), ⏳ later (parked as a card or note), 🔥 priority. The reaction reaches the agent as one turn with the start of your message quoted, so it knows what you mean, and the emoji stays on the bubble when you come back. What each one means lives in one file, spec/REACTIONS.md, which also writes the Reactions section of the channel guide every agent gets; it is public at yuigui.com/reactions. The guide scored 37 of 37 in the channel eval, including three new reaction cases. End to end in the simulator: a real model got the 👍 and built the plan (a card, a checklist and timers) without asking again.",
+    "images": [
+      {
+        "src": "/progress/yui49-bar-light.webp",
+        "alt": "Holding the agent's message: the thread dims, the message lifts and a bar of six reactions sits above it with a label under each, build it, no, not sure, love it, later, priority, and Copy below."
+      },
+      {
+        "src": "/progress/yui49-reacted-light.webp",
+        "alt": "The message with a thumbs up badge on its corner after the tap."
+      },
+      {
+        "src": "/progress/yui49-built-it-dark.webp",
+        "alt": "Dark mode, after reopening: the thumbs up is still on the proposal, and under it the agent's answer, a Saturday session card, a checklist and a timer."
+      },
+      {
+        "src": "/progress/yui49-bar-dark.webp",
+        "alt": "The reaction bar in dark mode."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Yui Lines in Python and Kotlin",
     "card": "OSS-2",
     "body": "Yui Lines had two parsers: JavaScript for the site and Swift for the app. Now it has four. Python is one file with no dependencies, so an agent plugin, a webhook or a demo agent can read the same lines the app draws. Kotlin runs on the JVM and is the start of an Android parser. Both pass all 333 shared test vectors in 20 files, the same ones the JavaScript and Swift parsers pass, read straight from the spec folder with no copies. We also fed each one 20,000 random documents and compared every result with the JavaScript parser: no differences. One new script, spec/conformance/run-all.sh, runs every language and prints a pass count for each. The Developers page now lists all four parsers. Rust is next, and it is a good first contribution.",

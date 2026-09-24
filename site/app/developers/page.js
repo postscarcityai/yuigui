@@ -13,6 +13,7 @@ const cards = [
   ["/playground", "Playground", "Edit a line and watch the screen draw, in your browser. Includes the token benchmark."],
   ["/yl", "Yui Lines spec", "The screen language: one short line per element, every preset and its options."],
   ["/channel", "Channel guide", "What every agent on the Yui channel is told, and the eval that scores it."],
+  ["/reactions", "Reactions", "Hold a message and react. What each of the six tells your agent to do."],
 ];
 
 const parsers = [

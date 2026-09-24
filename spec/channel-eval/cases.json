@@ -780,6 +780,101 @@
         ]
       },
       "good": "The first question of a flow as buttons (goal or days per week), or a short plan. Not a 6-field form."
+    },
+    {
+      "id": "react-build-it",
+      "category": "reaction",
+      "agent": "Arnold",
+      "history": [
+        {
+          "role": "user",
+          "text": "Saturday workout?"
+        },
+        {
+          "role": "agent",
+          "text": "Want me to set up Saturday? Goblet squats 5x5 with the 50s, then a 20 minute tabata, done by 10."
+        }
+      ],
+      "message": "[yui] react msg=3a6ee9c1-4d97-40dd-901f-e5f0a7db1864 emoji=👍 meaning=\"build it\"\n> Want me to set up Saturday? Goblet squats 5x5 with the 50s, then a 20 minute tabata, done by 10.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "list",
+          "timer",
+          "say",
+          "card",
+          "plan",
+          "stat"
+        ],
+        "need": [
+          "list",
+          "timer",
+          "plan",
+          "card"
+        ],
+        "max_words": 40
+      },
+      "good": "Builds the Saturday plan right away (a list and/or timer). No confirming question, no echo of the reaction."
+    },
+    {
+      "id": "react-not-sure",
+      "category": "reaction",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "This week is a mess."
+        },
+        {
+          "role": "agent",
+          "text": "I can move your Tuesday call to Wednesday at 3 and book the gym at 5 on Tuesday instead."
+        }
+      ],
+      "message": "[yui] react msg=0f1d2c3b-4a59-4687-9a0b-1c2d3e4f5a6b emoji=🤔 meaning=\"not sure\"\n> I can move your Tuesday call to Wednesday at 3 and book the gym at 5 on Tuesday instead.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "choose",
+          "ask",
+          "pick",
+          "say",
+          "slide"
+        ],
+        "need": [
+          "choose",
+          "ask",
+          "pick"
+        ],
+        "max_components": 2,
+        "max_words": 40
+      },
+      "good": "Asks the first of a few short questions as one screen (a choose or ask), not a form and not a wall of questions."
+    },
+    {
+      "id": "react-no",
+      "category": "reaction",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "Anything I should know today?"
+        },
+        {
+          "role": "agent",
+          "text": "Want me to draft a follow-up to the three people who didn't reply last week?"
+        }
+      ],
+      "message": "[yui] react msg=7b8c9d0e-1f2a-4b3c-8d4e-5f6a7b8c9d0e emoji=👎 meaning=no\n> Want me to draft a follow-up to the three people who didn't reply last week?",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "say",
+          "ask",
+          "choose"
+        ],
+        "max_words": 30
+      },
+      "good": "Drops it in a few words. No pushback, no re-offer of the same thing."
     }
   ]
 }
