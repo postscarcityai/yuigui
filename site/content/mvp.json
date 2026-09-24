@@ -103,6 +103,11 @@
       "status": "building"
     },
     {
+      "key": "YUI-50",
+      "title": "Chat polish: composer clears, send animation, jump to bottom",
+      "status": "next"
+    },
+    {
       "key": "YUI-29",
       "title": "A stranger does the whole path",
       "status": "next"

@@ -65,6 +65,7 @@ Building now:
 
 Up next:
 
+- YUI-50: chat polish. The composer clears when you send (a bug today), your text floats up into its bubble, and a down arrow takes you back to the newest message.
 - YUI-29: the acceptance run. A stranger does the whole path.
 
 ### Next after the MVP
@@ -322,6 +323,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.
 - YUI-36: optional encrypted sync for agent tables, off by default.
 - YUI-44: group threads, several agents in one conversation.
+- YUI-51: a run of questions plays as one full-screen flow, then folds back into the chat with your answers as if you typed them.
 - YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP).
 
 **People with no agent yet**
