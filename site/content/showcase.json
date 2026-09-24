@@ -1,0 +1,121 @@
+{
+  "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far.",
+  "cards": {
+    "YUI-1": { "title": "Yui Lines and the web renderer", "shipped": "2026-09-23" },
+    "YUI-2": { "title": "The app's look, light and dark", "shipped": "2026-09-23" },
+    "YUI-4": { "title": "First six screens in chat", "shipped": "2026-09-23" },
+    "YUI-5": { "title": "Coral wordmark in the app", "shipped": "2026-09-23" },
+    "YUI-6": { "title": "Sign in with Apple, account deletion, and the relay", "shipped": "2026-09-23" },
+    "YUI-7": { "title": "Hermes plugin: agents answer with screens", "shipped": "2026-09-24" },
+    "YUI-8": { "title": "Push handoff from Telegram", "shipped": "2026-09-24" },
+    "YUI-9": { "title": "Typographic identity", "shipped": "2026-09-23" },
+    "YUI-10": { "title": "Channel guide for every agent", "shipped": "2026-09-24" },
+    "YUI-11": { "title": "Debug screen gone, agents one tap away", "shipped": "2026-09-23" },
+    "YUI-12": { "title": "Change your answer after tapping", "shipped": "2026-09-24" },
+    "YUI-13": { "title": "Full screen when it matters", "shipped": "2026-09-24" },
+    "YUI-15": { "title": "Add and manage your own agents", "shipped": "2026-09-24" },
+    "YUI-16": { "title": "Media presets", "shipped": "2026-09-24" },
+    "YUI-17": { "title": "Charts, graphs and science tools", "shipped": "2026-09-24" },
+    "YUI-18": { "title": "Decks, plan mode and narrated walkthroughs", "shipped": "2026-09-24" },
+    "YUI-19": { "title": "Every preset, native on iPhone", "shipped": "2026-09-24" },
+    "YUI-20": { "title": "Every agent has its own look", "shipped": "2026-09-24" },
+    "YUI-21": { "title": "Pictures in, photos out", "shipped": "2026-09-24" },
+    "YUI-23": { "title": "One-command plugin install", "shipped": "2026-09-24" },
+    "YUI-24": { "title": "Push when an agent answers", "shipped": "2026-09-24" },
+    "YUI-25": { "title": "First run with no guessing", "shipped": "2026-09-24" },
+    "YUI-26": { "title": "Safe for strangers", "shipped": "2026-09-24" },
+    "YUI-27": { "title": "Ready for beta review", "shipped": "2026-09-24" },
+    "YUI-28": { "title": "No lost messages", "shipped": "2026-09-24" },
+    "YUI-14": { "title": "Voice in, text out, smooth and fast" },
+    "YUI-31": { "title": "Three screens per agent with animated transitions" },
+    "YUI-32": { "title": "Named screens: save and reopen a screen in two tokens" },
+    "YUI-33": { "title": "Agent tables on the phone" },
+    "YUI-35": { "title": "Meal photo to macros" },
+    "YUI-38": { "title": "Onboarding interview that builds your first agents" }
+  },
+  "groups": [
+    {
+      "id": "basics",
+      "title": "Questions and answers",
+      "lede": "The first screens an agent learned. Each is one line of text from the agent; each tap goes back to it as an event.",
+      "entries": [
+        { "id": "ask", "title": "ask", "what": "A yes or no question with big buttons.", "cards": ["YUI-1", "YUI-4"], "demo": "Log a set", "agent": "Coach", "app": "native", "shots": ["/progress/yui4-checkin.webp"] },
+        { "id": "choose", "title": "choose", "what": "One answer from a few, with a type-your-own escape hatch.", "cards": ["YUI-1", "YUI-4"], "yl": "choose \"Which split today?\" Push|Pull|Legs +other", "agent": "Coach", "app": "native", "clip": "choose", "shots": ["/progress/yui4-choose.webp"] },
+        { "id": "pick", "title": "pick", "what": "Several answers at once, with a cap and a Done button.", "cards": ["YUI-1", "YUI-4"], "yl": "pick \"What gear do you have?\" Dumbbells|Bench|Bands|\"Pull-up bar\"|Kettlebell +other max=3", "agent": "Coach", "app": "native", "clip": "pick" },
+        { "id": "slide", "title": "slide", "what": "A number on a scale, with words at each end.", "cards": ["YUI-1"], "yl": "slide \"Energy today\" 1-5 \"Wiped\"|\"Fired up\"", "agent": "Coach", "app": "native" },
+        { "id": "form", "title": "form", "what": "A few fields in one card: text, sliders, switches, choices.", "cards": ["YUI-1", "YUI-4"], "yl": "form \"Daily check-in\" mood:1-5 \"Trained today\":yes split:Push|Pull|Legs submit=\"Log it\"", "agent": "Coach", "app": "native", "clip": "form" },
+        { "id": "list", "title": "list", "what": "A checklist the person ticks off as they go.", "cards": ["YUI-1", "YUI-4"], "yl": "list Today \"Back squat 5x5 @ 225\" \"Bench 5x5 @ 185\" \"Barbell row 3x10\" \"Plank 3x60s\" +check", "agent": "Coach", "app": "native" },
+        { "id": "timer", "title": "timer", "what": "Intervals, rounds and rest. A workout timer opens full screen.", "cards": ["YUI-1", "YUI-4"], "demo": "Tabata timer", "agent": "Coach", "app": "native", "clip": "timer", "shots": ["/progress/yui4-tabata.webp"] },
+        { "id": "card", "title": "card", "what": "A picture, a title, a line of detail and one button.", "cards": ["YUI-1"], "yl": "card \"Leg day\" \"Squat, RDL, walking lunges. About 45 minutes.\" sub=\"Thursday\" img=/yl/legday.svg cta=\"Start workout\"", "agent": "Coach", "app": "native" },
+        { "id": "table", "title": "table", "what": "Rows and columns, sortable, with units.", "cards": ["YUI-1", "YUI-17"], "demo": "table-sort", "agent": "Tutor", "app": "native" },
+        { "id": "camera", "title": "camera", "what": "Asks for a photo. The picture goes to the agent.", "cards": ["YUI-1", "YUI-21"], "yl": "camera \"Snap your plate\"", "agent": "Coach", "app": "native", "shots": ["/progress/yui21-photo-sent.webp"] },
+        { "id": "mic", "title": "mic", "what": "Asks for a voice note. Drawn on the web today; the app gets it with voice (YUI-14).", "cards": ["YUI-1"], "yl": "mic \"What did you eat today?\"", "agent": "Coach", "app": "later" }
+      ]
+    },
+    {
+      "id": "media",
+      "title": "Pictures and video",
+      "lede": "For anyone who works with images: pick the best shots, compare an edit, review a cut, plan a reel.",
+      "entries": [
+        { "id": "image", "title": "image", "what": "One picture. With +edit, the person circles what to change.", "cards": ["YUI-1", "YUI-16", "YUI-19"], "demo": "image-edit", "agent": "Studio", "app": "native", "shots": ["/progress/yui21-agent-picture.webp"] },
+        { "id": "gallery", "title": "gallery", "what": "A grid, row, feed or coverflow of photos. Tap to open, or pick favorites.", "cards": ["YUI-16", "YUI-19"], "demo": "gallery-pick", "agent": "Studio", "app": "native", "clip": "gallery", "shots": ["/progress/yui16-gallery.webp", "/progress/yui16-lightbox.webp"] },
+        { "id": "video", "title": "video", "what": "A clip to watch, loop or approve.", "cards": ["YUI-16", "YUI-19"], "demo": "video", "agent": "Studio", "app": "native" },
+        { "id": "compare", "title": "compare", "what": "Before and after: a slider, side by side, or tap to flip, with the changes marked.", "cards": ["YUI-16", "YUI-19"], "demo": "compare-slider", "agent": "Studio", "app": "native", "clip": "compare", "shots": ["/progress/yui19-compare.webp", "/progress/yui16-compare.webp"] },
+        { "id": "storyboard", "title": "storyboard", "what": "Frames of a video or post, in order. Drag to reorder, comment on any one.", "cards": ["YUI-16", "YUI-19"], "demo": "storyboard", "agent": "Studio", "app": "native", "clip": "storyboard" }
+      ]
+    },
+    {
+      "id": "science",
+      "title": "Numbers, charts and science",
+      "lede": "For tracking progress and for learning: charts drawn from data, big numbers, equations, and calculators you can drag.",
+      "entries": [
+        { "id": "stat", "title": "stat", "what": "A big number with its change and a sparkline.", "cards": ["YUI-17", "YUI-19"], "demo": "stat", "agent": "Coach", "app": "native" },
+        { "id": "chart", "title": "chart", "what": "Line, bar, area, scatter, pie and donut, from numbers in the line or a live table.", "cards": ["YUI-17", "YUI-19"], "yl": "say \"Down 2.3 pounds this week, right on plan.\"\nstat 178.9lb Weight delta=-2.3 spark=181.2|180.6|179.8|178.9 good=down sub=\"this week\"\nchart line \"Weight\" x=Mon|Tue|Wed|Thu y=180|179|178.5|178.9 y2=180|179.5|179|178.5 names=Actual|Plan unit=lb", "agent": "Coach", "app": "native", "clip": "chart", "shots": ["/progress/yui17-line.webp", "/progress/yui17-pie.webp"] },
+        { "id": "math", "title": "math", "what": "Typeset equations, from one line of TeX.", "cards": ["YUI-17", "YUI-19"], "demo": "math", "agent": "Tutor", "app": "native", "shots": ["/progress/yui19-math.webp"] },
+        { "id": "step", "title": "step", "what": "A derivation or a protocol, one step at a time, with timers where needed.", "cards": ["YUI-17", "YUI-19"], "demo": "step-protocol", "agent": "Tutor", "app": "native" },
+        { "id": "calc", "title": "calc", "what": "A formula with sliders. Drag a value and the answer and chart follow.", "cards": ["YUI-17", "YUI-19"], "yl": "calc \"How far does it fly?\" f=\"R = v^2*sin(2*a)/g\" v=5-40@20m/s a=0-90@30deg g=9.81m/s^2 plot=a unit=m", "agent": "Tutor", "app": "native", "clip": "calc", "shots": ["/progress/yui17-projectile.webp"] }
+      ]
+    },
+    {
+      "id": "flows",
+      "title": "Lessons and plans",
+      "lede": "Screens that hold other screens: a deck of pages, a plan that asks one thing at a time, a walkthrough read aloud.",
+      "entries": [
+        { "id": "deck", "title": "deck", "what": "Pages to swipe through, with a quiz at the end.", "cards": ["YUI-18", "YUI-19"], "demo": "deck-lesson", "agent": "Tutor", "app": "native", "shots": ["/progress/yui19-deck.webp", "/progress/yui18-quiz.webp"] },
+        { "id": "plan", "title": "plan", "what": "Plan mode: one question at a time, ending in a project card that reopens it.", "cards": ["YUI-18", "YUI-19"], "demo": "plan-website", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-plan.webp"] },
+        { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] }
+      ]
+    },
+    {
+      "id": "app",
+      "title": "The app around the screens",
+      "lede": "Everything here is a real capture from the iPhone simulator.",
+      "entries": [
+        { "id": "first-run", "title": "First run", "what": "From sign-in to your agent's first screen, with nothing to guess.", "cards": ["YUI-25"], "app": "native", "clip": "first-run", "shots": ["/progress/yui25-first-run.webp", "/progress/yui25-first-reply.webp"] },
+        { "id": "connect", "title": "Connect your agent", "what": "Three commands on your computer and a pairing code. Your agent dials out; your machine opens no ports.", "cards": ["YUI-23", "YUI-7", "YUI-6"], "app": "native", "shots": ["/progress/yui25-pairing.webp", "/progress/yui25-connected.webp", "/progress/yui23-start.webp"] },
+        { "id": "agent-chat", "title": "Your agent answers with screens", "what": "Each agent gets a thread, and a short guide that teaches it every screen above.", "cards": ["YUI-7", "YUI-10"], "app": "native", "shots": ["/progress/yui23-reply.webp", "/progress/yui12-events-chat.webp"] },
+        { "id": "agents", "title": "Your agents, your list", "what": "Add, rename and remove agents yourself. The top button opens the list.", "cards": ["YUI-15", "YUI-11"], "app": "native", "shots": ["/progress/yui20-agents.webp", "/progress/yui28-asleep-agents.webp"] },
+        { "id": "looks", "title": "A look for every agent", "what": "Coral wordmark, letter avatars, light and dark, and a theme per agent that the agent can change with one line.", "cards": ["YUI-20", "YUI-2", "YUI-5", "YUI-9"], "app": "native", "shots": ["/progress/yui20-coach-light.webp", "/progress/yui20-wizard-dark.webp", "/progress/yui-look-colors-light.webp", "/progress/yui9-chat.webp", "/progress/yui5-empty.webp"] },
+        { "id": "full-screen", "title": "Full screen when it matters", "what": "Workouts take the whole phone. Swipe down and a pill keeps the timer running in the chat.", "cards": ["YUI-13"], "demo": "stage", "agent": "Coach", "app": "native", "clip": "full-screen", "shots": ["/progress/yui13-stage-coach-light.webp", "/progress/yui13-pill-wizard-dark.webp"] },
+        { "id": "change-your-answer", "title": "Change your answer", "what": "Tap again to change a choice; the agent hears changed: true. It can lock one on purpose with +lock.", "cards": ["YUI-12"], "demo": "change-answers", "agent": "Coach", "app": "native", "clip": "change-answers", "shots": ["/progress/yui12-choose.webp", "/progress/yui12-pick.webp"] },
+        { "id": "media", "title": "Pictures in, photos out", "what": "Agents send images and videos they make; you send photos from your camera roll.", "cards": ["YUI-21"], "app": "native", "shots": ["/progress/yui21-agent-picture.webp", "/progress/yui21-photo-sent.webp"] },
+        { "id": "pushes", "title": "A buzz when your agent answers", "what": "A push when the app is closed, none while you are watching the thread, and a mute switch per agent.", "cards": ["YUI-24"], "app": "native", "shots": ["/progress/yui24-push.webp", "/progress/yui24-thread.webp", "/progress/yui24-mute.webp"] },
+        { "id": "handoff", "title": "Pick it up in Yui", "what": "From Telegram, \"send it to Yui\" drops the screen into that agent's thread and pushes it to your phone.", "cards": ["YUI-8"], "app": "native", "shots": ["/progress/yui8-push-banner.webp", "/progress/yui8-thread-opened.webp"] },
+        { "id": "delivery", "title": "Nothing gets lost", "what": "Messages wait for a sleeping Mac or a dropped network, with a clear mark when they land. History is kept 90 days, with limits that keep the service safe for strangers.", "cards": ["YUI-28", "YUI-26"], "app": "native", "shots": ["/progress/yui28-offline-not-sent.webp", "/progress/yui28-delivered.webp", "/progress/yui28-asleep-thread.webp"] },
+        { "id": "accounts", "title": "Sign in, try the demo, get help", "what": "Sign in with Apple, delete your account in the app, a demo code for reviewers, and help one tap away.", "cards": ["YUI-6", "YUI-27"], "app": "native", "shots": ["/progress/yui27-signin.webp", "/progress/yui27-demo.webp", "/progress/yui27-help.webp"] }
+      ]
+    },
+    {
+      "id": "planned",
+      "title": "Planned, not built",
+      "planned": true,
+      "lede": "What these cards will look like, drawn by the web renderer from Yui Lines that parse today. None of this is in the app yet.",
+      "entries": [
+        { "id": "planned-voice", "title": "Voice in, text out", "what": "Talk, read the answer. The mic screen is drawn on the web; on-device speech in the app is not built.", "cards": ["YUI-14"], "yl": "mic \"What did you eat today?\"", "agent": "Coach" },
+        { "id": "planned-onboarding", "title": "Onboarding interview", "what": "A first-run interview that suggests your first agents.", "cards": ["YUI-38"], "demo": "Onboarding", "agent": "Yui" },
+        { "id": "planned-macros", "title": "Meal photo to macros", "what": "Snap a plate, get an estimate, log it to a table on the phone.", "cards": ["YUI-35", "YUI-33"], "demo": "Macros so far", "agent": "Coach" },
+        { "id": "planned-screens", "title": "More than one screen per agent", "what": "Agent-controlled screens beside the chat, and named screens reopened in two tokens.", "cards": ["YUI-31", "YUI-32"], "demo": "Demo: screens (>) and save/show", "agent": "Coach" }
+      ]
+    }
+  ]
+}

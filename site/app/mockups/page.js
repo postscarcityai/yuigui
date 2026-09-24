@@ -1,119 +1,109 @@
-export const metadata = { title: "Mockups | Yui" };
+// See it (SITE-14): every shipped screen, live or recorded in the app, tied to its card and ship date.
+// Entries live in content/showcase.json. Nothing here is drawn by hand: phones render real Yui Lines with
+// the playground's renderers, clips and screenshots come from the iPhone simulator.
+import Link from "next/link";
+import showcase from "../../content/showcase.json";
+import board from "../../content/board.json";
+import progress from "../../content/progress.json";
+import clips from "../../public/demo/clips/clips.json";
+import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../../lib/yl/samples.mjs";
+import Shots from "../components/Shots";
+import LivePhone from "./LivePhone";
 
-function Mic() {
+export const metadata = {
+  title: "See it | Yui",
+  description: "Every screen Yui can draw today, live in your browser or recorded in the app, each tied to the card that built it and the day it shipped.",
+};
+
+const SAMPLES = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS];
+const sample = (k) => SAMPLES.find((s) => s.slug === k || s.name === k);
+const ALTS = Object.fromEntries(progress.flatMap((e) => (e.images || []).map((im) => [im.src, im.alt])));
+const LOGS = Object.fromEntries(board.columns.flatMap((c) => c.cards).filter((c) => c.progress).map((c) => [c.key, c.progress]));
+const day = (iso) => new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+
+function clipOf(name) {
+  if (!name) return null;
+  const c = clips[name];
+  return c ? { src: c["9x16"].src, poster: c["9x16"].poster } : { src: `/demo/clips/${name}.mp4`, poster: `/demo/clips/${name}.jpg` };
+}
+
+function CardRef({ k, planned }) {
+  const c = showcase.cards[k] || {};
   return (
-    <div className="mic">
-      <svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z" /></svg>
-    </div>
+    <li>
+      <Link href={`/board#${k}`} className="sc-key">{k}</Link>
+      <span>{c.title}</span>
+      {c.shipped ? <span className="sc-date">Shipped {day(c.shipped)}</span> : <span className="sc-date planned">{planned ? "Not built" : ""}</span>}
+      {LOGS[k] ? <Link href={LOGS[k]}>Ship log</Link> : null}
+    </li>
   );
 }
 
-function Phone({ children }) {
+function Entry({ e, planned }) {
+  const s = e.demo ? sample(e.demo) : null;
+  const yl = e.yl || s?.yl;
+  const clip = clipOf(e.clip);
+  const shots = (e.shots || []).map((src) => ({ src, alt: ALTS[src] || e.title }));
+  const preset = /^[a-z]+$/.test(e.title);
   return (
-    <div className="phone"><div className="screen"><div className="notch" /><div className="sbar" />{children}</div></div>
-  );
-}
-
-function Header({ name, status, color, initial }) {
-  return (
-    <div className="ahead">
-      <div className="avatar" style={{ background: color }}>{initial}</div>
-      <div><div className="nm">{name}</div><div className="st">{status}</div></div>
-    </div>
-  );
-}
-
-function ChatMock() {
-  return (
-    <Phone>
-      <Header name="Urza" status="online | chief of staff" color="linear-gradient(135deg,#8b7cff,#4fd1c5)" initial="U" />
-      <div className="msgs">
-        <div className="b out">Book the client call for Thursday</div>
-        <div className="b in">Thursday works. Which slot?</div>
-        <div className="chips">
-          <span className="chip">3:00 pm</span>
-          <span className="chip on">4:00 pm</span>
-          <span className="chip">Type your own</span>
-        </div>
-        <div className="b out">4:00 pm</div>
-        <div className="b in">Done. Should I send the invite now?</div>
-        <div className="bigbtns">
-          <div className="bigbtn p" style={{ background: "var(--accent)", height: 44 }}>Yes, send</div>
-          <div className="bigbtn s" style={{ height: 44 }}>Not yet</div>
-        </div>
+    <article id={e.id} className={`sc-entry${planned ? " planned" : ""}`}>
+      <div className="sc-media">
+        {yl ? (
+          <figure>
+            <LivePhone yl={yl} agent={e.agent || "Yui"} label={`${e.title}, drawn live from Yui Lines`} />
+            <figcaption>{planned ? "Planned: drawn on the web, not in the app" : "Live: tap it, it answers"}</figcaption>
+          </figure>
+        ) : null}
+        {clip ? (
+          <figure>
+            <video className="sc-clip" src={clip.src} poster={clip.poster} controls muted loop playsInline preload="none" aria-label={`${e.title}, recorded in the iPhone app`} />
+            <figcaption>Recorded in the iPhone app</figcaption>
+          </figure>
+        ) : null}
       </div>
-      <div className="compose"><div className="in">Message Urza</div><Mic /></div>
-    </Phone>
-  );
-}
-
-function TimerMock() {
-  return (
-    <Phone>
-      <Header name="Arnold" status="training | intervals 40/20 x 8" color="var(--arnold)" initial="A" />
-      <div className="timer">
-        <div className="lbl" style={{ color: "var(--arnold)" }}>Round 5 of 8</div>
-        <div className="ring"><div className="innr"><div className="t">0:26</div><div className="ph">WORK</div></div></div>
-        <div className="rounds">{[1,2,3,4,5,6,7,8].map((r) => <span key={r} className={r < 5 ? "d" : ""} />)}</div>
-        <div className="b in" style={{ alignSelf: "center", textAlign: "center" }}>Push. Rest is 20 seconds away.</div>
-        <div className="bigbtns">
-          <div className="bigbtn s">Pause</div>
-          <div className="bigbtn p ink">Skip rest</div>
-        </div>
+      <div className="sc-text">
+        <h3>{preset ? <code>{e.title}</code> : e.title} <a href={`#${e.id}`} className="sc-hash" aria-label={`Link to ${e.title}`}>#</a></h3>
+        <p>{e.what}</p>
+        {planned ? <span className="pill sc-planned">Planned, not built</span>
+          : e.app === "later" ? <span className="pill">On the web now, in the app later</span>
+          : <span className="pill sc-native">In the iPhone app</span>}
+        {yl ? <pre className="sc-yl"><code>{yl.split("\n").filter((l) => !l.trim().startsWith("#")).join("\n")}</code></pre> : null}
+        <ul className="sc-cards">{e.cards.map((k) => <CardRef k={k} key={k} planned={planned} />)}</ul>
+        {s?.slug ? <p className="sc-more"><Link href={`/playground?demo=${s.slug}`}>Edit it in the playground</Link></p> : null}
+        {shots.length ? <Shots images={shots} label={e.title} /> : null}
       </div>
-      <div className="compose"><div className="in">Tell Arnold</div><Mic /></div>
-    </Phone>
+    </article>
   );
 }
 
-function OnboardingMock() {
-  return (
-    <Phone>
-      <div className="ob">
-        <div className="progressdots"><span /><span className="on" /><span /><span /></div>
-        <div className="lbl">Welcome to Yui</div>
-        <div className="q">Nice to meet you, Chris. A couple of quick ones.</div>
-        <div>
-          <div className="lbl" style={{ marginBottom: 6 }}>Your name</div>
-          <div className="field">Chris</div>
-        </div>
-        <div>
-          <div className="lbl">How much do you know about AI?</div>
-          <div className="slider"><div className="fill" /><div className="knob" /></div>
-          <div className="slabels"><span>Brand new</span><span>I run agents</span></div>
-        </div>
-        <div>
-          <div className="lbl" style={{ marginBottom: 8 }}>What do you want help with? Pick any.</div>
-          <div className="chips">
-            <span className="chip on">Workouts</span>
-            <span className="chip on">Nutrition</span>
-            <span className="chip">Calendar</span>
-            <span className="chip on">Clients</span>
-            <span className="chip">Email</span>
-            <span className="chip">Type your own</span>
-          </div>
-        </div>
-        <div className="bigbtn p" style={{ background: "var(--accent)", marginTop: "auto", height: 46, flex: "none" }}>Continue</div>
-      </div>
-      <div className="compose"><div className="in">Or just tell me</div><Mic /></div>
-    </Phone>
-  );
-}
-
-export default function Mockups() {
+export default function SeeIt() {
+  const shipped = showcase.groups.filter((g) => !g.planned);
+  const nScreens = shipped.reduce((n, g) => n + g.entries.length, 0);
+  const nCards = new Set(shipped.flatMap((g) => g.entries.flatMap((e) => e.cards))).size;
   return (
     <>
-      <div className="eyebrow">Mockups | static, early</div>
-      <h1>Three screens.</h1>
+      <div className="eyebrow">See it | everything built so far</div>
+      <h1>Every screen Yui can draw today.</h1>
       <p className="lede">
-        What the agent could render with the component kit. Chat is home. Arnold builds a timer on request.
-        New users get an interview that is itself generated UI.
+        {nScreens} things you can see, from {nCards} shipped cards. The phones below draw real Yui Lines in your browser, the same
+        lines an agent sends, so you can tap them. Clips and screenshots are recorded in the iPhone app. Each one names the card that
+        built it and the day it shipped; the card id opens it on the <Link href="/board">board</Link>.
       </p>
-      <div className="phones">
-        <div className="phonebox"><ChatMock /><div className="cap"><b>Chat</b>. Questions come back as buttons, with a type-your-own escape hatch.</div></div>
-        <div className="phonebox"><TimerMock /><div className="cap"><b>Arnold&apos;s interval timer</b>. &quot;Intervals of 40/20 x 8&quot; becomes this screen, in Arnold&apos;s colors.</div></div>
-        <div className="phonebox"><OnboardingMock /><div className="cap"><b>Onboarding interview</b>. Name field, AI-level slider, multi-select goals, mic button.</div></div>
-      </div>
+      <nav className="sc-index" aria-label="On this page">
+        {showcase.groups.map((g) => (
+          <div key={g.id}>
+            <a href={`#${g.id}`} className="sc-gl">{g.title}</a>
+            {g.entries.map((e) => <a key={e.id} href={`#${e.id}`}>{e.title}</a>)}
+          </div>
+        ))}
+      </nav>
+      {showcase.groups.map((g) => (
+        <section key={g.id} className="sc-group" aria-labelledby={g.id}>
+          <h2 id={g.id}>{g.title}</h2>
+          <p className="sc-lede">{g.lede}</p>
+          {g.entries.map((e) => <Entry e={e} key={e.id} planned={g.planned} />)}
+        </section>
+      ))}
     </>
   );
 }

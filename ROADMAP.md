@@ -153,7 +153,7 @@ Deliverables:
 - DONE Sep 23: Apple Developer account (Chris, individual enrollment, no D-U-N-S).
 - DONE Sep 23: the Yui Lines conformance suite, and the Swift parser that passes it (YUI-3). Events back to the agent (tap, submit) are in the spec from day one; voice events wait for YUI-14.
 - DONE Sep 23: Xcode on the Mac mini and a TestFlight pipeline on the App Store Connect API. The first build went out the same day.
-- DONE Sep 23: web mockups of the canonical screens at /mockups. They are static, not clickable; the playground and the app replaced the need.
+- DONE Sep 23: web mockups of the canonical screens at /mockups. Replaced Sep 24 by See it (SITE-14): every shipped screen, drawn live from Yui Lines or recorded in the app, each tied to its card and ship date.
 - DONE Sep 24: theme schema, as per-agent themes and theme lines (YUI-20).
 - MOVED: the Telegram quick win (inline buttons on Hermes questions) became INT-4 on the backlog. Not started.
 
@@ -374,5 +374,4 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - OSS-2: Yui Lines parsers in Python, Kotlin and Rust.
 - OSS-3: the public backlog mirrored as GitHub issues for contributors.
 - SITE-5: a timeline of how Yui grew, from the GitHub history.
-- SITE-7: a gallery of every screen, live, next to the one line that draws it.
 - BIZ-6: who the first 20 to 50 outside testers are, and how we find them.

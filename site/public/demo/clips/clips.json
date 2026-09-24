@@ -1,0 +1,128 @@
+{
+  "timer": {
+    "caption": "One line from your agent. A Tabata timer on your phone.",
+    "recorded": "2026-09-24",
+    "9x16": {
+      "src": "/demo/clips/timer-9x16.mp4",
+      "poster": "/demo/clips/timer-9x16.jpg",
+      "seconds": 12.43
+    },
+    "16x9": {
+      "src": "/demo/clips/timer-16x9.mp4",
+      "poster": "/demo/clips/timer-16x9.jpg",
+      "seconds": 12.43
+    }
+  },
+  "choose": {
+    "caption": "Your agent asks. You tap an answer. No typing.",
+    "recorded": "2026-09-24",
+    "9x16": {
+      "src": "/demo/clips/choose-9x16.mp4",
+      "poster": "/demo/clips/choose-9x16.jpg",
+      "seconds": 9.03
+    },
+    "16x9": {
+      "src": "/demo/clips/choose-16x9.mp4",
+      "poster": "/demo/clips/choose-16x9.jpg",
+      "seconds": 9.03
+    }
+  },
+  "pick": {
+    "caption": "Pick a few. Your agent gets the list.",
+    "recorded": "2026-09-24",
+    "9x16": {
+      "src": "/demo/clips/pick-9x16.mp4",
+      "poster": "/demo/clips/pick-9x16.jpg",
+      "seconds": 16.87
+    },
+    "16x9": {
+      "src": "/demo/clips/pick-16x9.mp4",
+      "poster": "/demo/clips/pick-16x9.jpg",
+      "seconds": 16.87
+    }
+  },
+  "form": {
+    "caption": "A check-in form, drawn from one line of text.",
+    "recorded": "2026-09-24",
+    "9x16": {
+      "src": "/demo/clips/form-9x16.mp4",
+      "poster": "/demo/clips/form-9x16.jpg",
+      "seconds": 19.67
+    },
+    "16x9": {
+      "src": "/demo/clips/form-16x9.mp4",
+      "poster": "/demo/clips/form-16x9.jpg",
+      "seconds": 19.67
+    }
+  },
+  "gallery": {
+    "caption": "Photos to choose from, right in the chat.",
+    "recorded": "2026-09-24",
+    "9x16": {
+      "src": "/demo/clips/gallery-9x16.mp4",
+      "poster": "/demo/clips/gallery-9x16.jpg",
+      "seconds": 15.47
+    },
+    "16x9": {
+      "src": "/demo/clips/gallery-16x9.mp4",
+      "poster": "/demo/clips/gallery-16x9.jpg",
+      "seconds": 15.47
+    }
+  },
+  "compare": {
+    "caption": "Before and after, with every change marked.",
+    "recorded": "2026-09-24",
+    "9x16": {
+      "src": "/demo/clips/compare-9x16.mp4",
+      "poster": "/demo/clips/compare-9x16.jpg",
+      "seconds": 16.1
+    },
+    "16x9": {
+      "src": "/demo/clips/compare-16x9.mp4",
+      "poster": "/demo/clips/compare-16x9.jpg",
+      "seconds": 16.1
+    }
+  },
+  "chart": {
+    "caption": "Numbers come back as a chart, not a paragraph.",
+    "recorded": "2026-09-24",
+    "9x16": {
+      "src": "/demo/clips/chart-9x16.mp4",
+      "poster": "/demo/clips/chart-9x16.jpg",
+      "seconds": 8.33
+    },
+    "16x9": {
+      "src": "/demo/clips/chart-16x9.mp4",
+      "poster": "/demo/clips/chart-16x9.jpg",
+      "seconds": 8.33
+    }
+  },
+  "storyboard": {
+    "caption": "Reorder the storyboard. Your agent sees the new order.",
+    "recorded": "2026-09-24",
+    "9x16": {
+      "src": "/demo/clips/storyboard-9x16.mp4",
+      "poster": "/demo/clips/storyboard-9x16.jpg",
+      "seconds": 12.5
+    },
+    "16x9": {
+      "src": "/demo/clips/storyboard-16x9.mp4",
+      "poster": "/demo/clips/storyboard-16x9.jpg",
+      "seconds": 12.5
+    }
+  },
+  "calc": {
+    "caption": "Drag the angle. Watch the range change.",
+    "recorded": "2026-09-24",
+    "9x16": {
+      "src": "/demo/clips/calc-9x16.mp4",
+      "poster": "/demo/clips/calc-9x16.jpg",
+      "seconds": 17.83
+    },
+    "16x9": {
+      "src": "/demo/clips/calc-16x9.mp4",
+      "poster": "/demo/clips/calc-16x9.jpg",
+      "seconds": 17.83
+    }
+  }
+}

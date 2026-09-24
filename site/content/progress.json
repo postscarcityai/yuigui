@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "See everything Yui can draw",
+    "card": "SITE-14",
+    "body": "The See it page used to hold three static mockups drawn by hand. Now it shows every screen Yui can draw today: 36 of them, from 25 shipped cards. Each preset is a live phone that draws the same Yui Lines an agent sends, so you can tap it, with the line printed beside it. Where the iPhone app has a recording or a screenshot, it sits next to the live one: nine demo clips, plus first run, change your answer and full screen. Every entry names the card that built it and the day it shipped, and the card id opens it on the board. The board links back with a See it button, and card ids on the roadmap now link to their screens. Four planned cards (voice, the onboarding interview, meal photo to macros, more screens per agent) get a mock drawn on the web and a clear label: not built. This also closes SITE-7, the preset gallery.",
+    "images": [
+      {
+        "src": "/progress/site14-see-it.webp",
+        "alt": "The See it page on a laptop: the headline Every screen Yui can draw today, and an index of all 36 screens grouped as questions and answers, pictures and video, numbers and science, lessons and plans, the app, and planned"
+      },
+      {
+        "src": "/progress/site14-chart.webp",
+        "alt": "The chart entry: a live phone drawing a weight stat and a line chart, the same screen recorded in the iPhone app, the Yui Line that draws it, and the cards YUI-17 and YUI-19 with their ship dates"
+      },
+      {
+        "src": "/progress/site14-planned.webp",
+        "alt": "A planned entry: the onboarding interview drawn on the web with a dashed outline and a yellow Planned, not built label, linked to card YUI-38"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Who the first outside testers are",
     "card": "BIZ-6",
     "body": "A plan for the first 20 to 50 people outside the project to try Yui: what a tester needs (an iPhone on iOS 26 and a Hermes that already works), cohorts of 1, 5, 20 and 50 with a gate before each, and 32 public places where Hermes and OpenClaw users gather, each with its size, its rules on self-promotion and what we would say there. The invites are drafts: nothing has been posted or sent, and each one waits for Chris. OpenClaw users are told the honest route for now, importing into Hermes, until the OpenClaw adapter exists. A plan with nothing to see, so no screenshots. Read it at yuigui.com/business/beta-list."
