@@ -25,3 +25,19 @@ export function findLeak(text) {
   }
   return null;
 }
+
+// Specs are published whole (SITE-15). Their examples carry prices, emails-shaped ranges and
+// the documented `~/.hermes/...` install paths, so they get a narrower check: names, task ids,
+// and paths that only exist on the build machine.
+const DOC_LEAKS = [
+  [/\bt_[0-9a-f]{6,}\b/i, "task id"],
+  [/(\/Users\/|~\/dev\/|\.hermes\/profiles\/(?!yui\b|<))/i, "path"],
+  [PRIVATE_RE, "private name"],
+];
+export function findDocLeak(text) {
+  for (const [re, what] of DOC_LEAKS) {
+    const hit = text.match(re);
+    if (hit) return [what, hit[0]];
+  }
+  return null;
+}

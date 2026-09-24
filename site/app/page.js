@@ -2,6 +2,8 @@ import Link from "next/link";
 import CtaLink from "./components/CtaLink";
 import links from "../content/links.json";
 import MvpBar from "./components/MvpBar";
+import LivePhone from "./mockups/LivePhone";
+import bench from "../content/benchmark.json";
 
 const what = [
   ["Screens, not walls of text", "Ask for a workout and get a timer. Get asked a question and get buttons. Change your answer any time."],
@@ -22,6 +24,12 @@ const shots = [
   ["/app/choose-dark.webp", "A quick choice, with room to type your own"],
   ["/app/today-dark.webp", "Today's plan as a checklist"],
 ];
+
+// How it works (SITE-15): the benchmark ratios come from the same file the playground reads.
+const tokens = (k) => bench.rows.reduce((a, r) => a + r.counts[k].o200k, 0);
+const vsMin = (tokens("min") / tokens("yl")).toFixed(1);
+const vsTree = (tokens("tree") / tokens("yl")).toFixed(1);
+const HOW = "timer 40/20x8 Tabata";
 
 const quotes = [
   "If it asks me a question, I just want a button.",
@@ -62,6 +70,28 @@ export default function Home() {
         ))}
       </div>
 
+      <section className="how" aria-labelledby="how-title">
+        <div className="how-text">
+          <div className="eyebrow">How it works | Yui Lines</div>
+          <h2 id="how-title">One line of text. One whole screen.</h2>
+          <p>Agents answer Yui in <strong>Yui Lines</strong>, a tiny screen language. This one line is the whole timer you see here, and it is live:</p>
+          <pre className="how-line"><code>{HOW}</code></pre>
+          <p>No code, no JSON, no layout. The app knows the presets and draws each one natively the moment its line arrives.</p>
+          <div className="how-stats">
+            <div><b>{vsMin}x</b><span>fewer tokens than minified JSON</span></div>
+            <div><b>{vsTree}x</b><span>fewer than a component tree</span></div>
+          </div>
+          <p className="how-note">Measured on ten real screens. <Link href="/developers/benchmark">See the benchmark</Link>.</p>
+          <div className="cta">
+            <Link className="btn" href="/yl">Read the Yui Lines spec</Link>
+            <Link className="btn soft" href="/playground">Try it in the playground</Link>
+          </div>
+        </div>
+        <div className="how-phone">
+          <LivePhone yl={HOW} label="A Tabata interval timer, drawn live from one line of Yui Lines" />
+        </div>
+      </section>
+
       <h2>Who it is for</h2>
       <div className="who">
         {who.map(([i, c, t, d]) => (
@@ -90,7 +120,7 @@ export default function Home() {
       <h2>Follow along</h2>
       <div className="grid">
         <Link className="card" href="/roadmap"><h3>Roadmap</h3><p>Where Yui is headed, with the live board and a dated log of what shipped.</p></Link>
-        <Link className="card" href="/developers"><h3>Developers</h3><p>How it works, the screen language, and a playground to try it in your browser.</p></Link>
+        <Link className="card" href="/developers"><h3>Developers</h3><p>How it works, every spec, the Yui Lines screen language, and a playground to try it in your browser.</p></Link>
       </div>
     </>
   );

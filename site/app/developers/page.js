@@ -12,6 +12,7 @@ const cards = [
   ["/start", "Connect your agent", "Install the Hermes plugin and pair it with the app. About five minutes."],
   ["/playground", "Playground", "Edit a line and watch the screen draw, in your browser. Includes the token benchmark."],
   ["/yl", "Yui Lines spec", "The screen language: one short line per element, every preset and its options."],
+  ["/developers/specs", "All specs", "Every spec, rendered from the repo: agents, the relay, adapters, the token benchmark and more."],
   ["/channel", "Channel guide", "What every agent on the Yui channel is told, and the eval that scores it."],
   ["/reactions", "Reactions", "Hold a message and react. What each of the six tells your agent to do."],
 ];

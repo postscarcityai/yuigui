@@ -1,0 +1,199 @@
+# Yui adapters | every agent framework, Hermes first (INT-0, Sep 24 2026)
+
+Chris, Sep 24: Yui should work with any agent. Hermes first, then OpenClaw, Meta, Grok, Claude, ChatGPT, Gemini, open-source models, Flue, and whatever comes next.
+
+This is the plan for getting there. It is backlog: nothing here starts until the MVP passes (YUI-29). Each framework has a parked card on the board, named in its section.
+
+Read first: `spec/RELAY.md` (how messages move), `spec/AGENTS.md` (connectors and agents), `spec/CHANNEL.md` (what an agent is told about Yui).
+
+## The short version
+
+There are only five ways an agent can reach Yui. Every framework below uses one of them, so five pieces of code cover the whole list.
+
+| # | Path | Who runs the agent | Who holds the conversation | Covers |
+| --- | --- | --- | --- | --- |
+| A | **Channel plugin** inside the agent's own runtime | the user | the agent's host | Hermes (shipped), OpenClaw, Flue |
+| B | **Hosted connector** that speaks a standard protocol | the user or a vendor | the agent | Hermes via relay contract, A2A agents (Gemini, LangGraph, CrewAI, Microsoft Agent Framework) |
+| C | **Model connector**: Yui calls a chat API for you | Yui | Yui | any OpenAI-compatible endpoint: Meta Muse Spark, Grok, Gemini, Ollama, LM Studio, vLLM, OpenRouter |
+| D | **Yui MCP server**: the agent calls Yui as a tool | the user's AI app | the AI app | Claude, ChatGPT, Grok, n8n, Cursor, anything MCP |
+| E | **Webhook**: plain HTTP both ways | the user | the user's code | n8n, Zapier-style tools, scripts, everything else |
+
+Two rules hold for all of them:
+
+1. **Rows in `yui_messages` are the contract.** Every adapter ends in the same table, the same RLS, the same event lines (`[yui] id preset k=v`). The app never learns which framework is on the other end.
+2. **The agent must get the channel guide.** An agent that has not read CHANNEL.md sends plain text and never a screen. Each path below says how the guide gets in.
+
+## What each path needs from Yui
+
+- **A, channel plugin.** A connector token (`yui_ct_...`) from pairing, `yui-connect session`, Realtime on `yui_messages`. Already built for Hermes. Connector kind `hermes`; other plugins reuse it with their own kind.
+- **B, hosted connector.** A long-running service Yui owns, holding outbound sessions to many agents. Supabase edge functions cannot hold a socket open, so this needs a real host. INT-6 decides where (Cloudflare Workers + Durable Objects is the leading answer). Connector kind `hosted`.
+- **C, model connector.** Same hosted service, plus a key vault (YUI-34) for the user's own API keys, plus Yui-side memory of the thread. This is the only path where Yui is the agent's brain, not just its screen, so it overlaps Phase 4's built-in agent (YUI-37).
+- **D, MCP server.** A public remote MCP server with OAuth (Sign in with Apple through Yui's account). Connector kind `mcp`.
+- **E, webhook.** An inbound URL per agent plus an outbound webhook for taps, both signed. Connector kind `http`.
+
+## How the channel guide gets in
+
+| Path | Where the guide goes |
+| --- | --- |
+| A | Injected by the plugin as the platform's system-prompt hint, every Yui turn (done for Hermes). |
+| B | Relay contract: the descriptor's `platform_hint`. A2A: sent as a context part on the first message of each task, since Yui cannot touch a remote agent's system prompt. |
+| C | Yui owns the prompt: the guide is the system message. |
+| D | Short form in the tool descriptions, full text as an MCP prompt `yui_guide` and a resource `yui://guide`. |
+| E | Returned by `yui-connect guide`; the developer pastes it into their agent's prompt. The SDKs do it for them. |
+
+The guide is written once. Paths D and E get a shorter cut (screens and events only, no Hermes tool names) as `CHANNEL-lite`, generated from the same file by `sync_channel.py`.
+
+## Framework by framework
+
+Effort is for one person and assumes the path's shared piece already exists. S = a day or two, M = about a week, L = two weeks or more.
+
+### Hermes | shipped (YUI-7), hosted next (INT-5)
+
+- **Connects:** path A today. The `yui` platform plugin in the app repo, one command to install, a code to pair. Next is path B through Hermes's relay connector contract (`hermes gateway enroll`), so other people's Hermes connects with nothing installed.
+- **Learns:** the full CHANNEL.md, injected by the plugin.
+- **Effort:** plugin done. Hosted connector L.
+- **Depends on:** the relay contract leaving experimental status; the hosted service (INT-6).
+- **Priority:** 1. It is the MVP.
+
+### OpenClaw | INT-1
+
+- **Connects:** path A. OpenClaw's plugin SDK has channel plugins: `api.registerChannel()` plus a message adapter from `openclaw/plugin-sdk/channel-outbound`. Core owns the send and edit tools; a channel owns pairing, session grammar and outbound delivery. That maps one to one onto our Hermes plugin: dial out, trade the connector token for a session, read user rows, write agent rows.
+- **Learns:** CHANNEL.md, from the channel's platform hint. OpenClaw's own app already draws A2UI widgets, so the guide must say plainly: on Yui, use Yui Lines, not A2UI.
+- **Effort:** M. Node, not Python, so the connector client is ported, not reused.
+- **Depends on:** nothing past the MVP.
+- **Priority:** 2. The pitch names OpenClaw users as the early adopters.
+
+### Generic webhook, Python and Node | INT-2
+
+- **Connects:** path E. `POST` a reply into a thread with the connector token; receive user messages and taps as a signed webhook. Tiny SDKs (`yui-py`, `yui-js`) wrap both and ship the guide.
+- **Learns:** CHANNEL-lite, via the SDK.
+- **Effort:** M including SDKs.
+- **Depends on:** a webhook delivery function (retries, signing).
+- **Priority:** 2. It is the floor under every other adapter.
+
+### Yui MCP server | INT-3
+
+- **Connects:** path D. Tools: `yui_show` (put a screen on the phone, returns a screen id), `yui_answers` (read taps for a screen, with a wait), `yui_say` (plain message), `yui_threads`. Remote, over HTTP, with OAuth.
+- **Learns:** tool descriptions plus the `yui_guide` prompt.
+- **Effort:** M.
+- **Depends on:** OAuth for Yui accounts; rate limits from YUI-26.
+- **Priority:** 2. One server serves every MCP client below.
+- **Note:** here the conversation stays in the other app. Yui is the second screen: the agent pushes a timer or a form to your phone while you keep talking on your laptop.
+
+### Claude | INT-7
+
+- **Connects:** two ways. Claude's apps (web, desktop, mobile) and Claude Code add Yui as a custom connector through path D. Agents built on the Claude Agent SDK load the same MCP server, or use path E when they run as a service.
+- **Learns:** from the MCP server. Agent SDK builders can also paste CHANNEL-lite into their system prompt.
+- **Later:** Claude renders MCP Apps (the `io.modelcontextprotocol/ui` extension). Our web renderer could ship as an MCP App, so a Yui screen draws inside Claude too. Same Yui Lines, a second renderer.
+- **Effort:** S once INT-3 exists. MCP App M.
+- **Depends on:** INT-3.
+- **Priority:** 3.
+
+### ChatGPT | INT-8
+
+- **Connects:** path D. ChatGPT connects to MCP servers and fully supports MCP Apps; OpenAI's Apps SDK is built on the same standard. Custom connectors cover personal use; the ChatGPT app directory needs a review.
+- **Learns:** from the MCP server.
+- **Effort:** S for the connector, M for a listed app with a web-renderer MCP App.
+- **Depends on:** INT-3. A directory listing is public outreach, so Chris signs off first.
+- **Priority:** 3.
+
+### Gemini | INT-9
+
+- **Connects:** two ways. The Gemini API has an OpenAI-compatible endpoint, so a plain Gemini model is path C. Agents built with Google's Agent Development Kit, or registered in Gemini Enterprise, speak A2A, so they are path B through the A2A client (INT-18).
+- **Learns:** path C, the guide is the system message. A2A, a context part on each task.
+- **Effort:** S on top of INT-12 or INT-18.
+- **Depends on:** INT-12 or INT-18.
+- **Priority:** 4.
+
+### Grok | INT-10
+
+- **Connects:** two ways. xAI's API is OpenAI-compatible (path C), and it accepts remote MCP servers as tools in the request, so a Grok agent can call the Yui MCP server directly (path D).
+- **Learns:** path C system message, or the MCP tool descriptions.
+- **Effort:** S.
+- **Depends on:** INT-12 or INT-3.
+- **Priority:** 4.
+
+### Meta | INT-11
+
+- **Name check:** Chris said "Meta Muse". The real names: **Muse Spark** is Meta's model (from Meta Superintelligence Labs), it runs the Meta AI app's Thinking mode, and developers reach it through the **Meta Model API**, which takes existing OpenAI SDK code. There is no public way for a third party to plug into the Meta AI app itself.
+- **Connects:** path C, Muse Spark through the Meta Model API with the user's own key.
+- **Learns:** the guide as system message. Muse Spark reads images, so it can also see screenshots of screens it drew.
+- **Effort:** S.
+- **Depends on:** INT-12, YUI-34 (key vault).
+- **Priority:** 4.
+
+### Open-source models: Ollama, LM Studio, vLLM | INT-12
+
+- **Connects:** path C. All three serve an OpenAI-compatible `/v1/chat/completions`. One model connector with a base URL, a model name and an optional key covers them, plus Meta, xAI, Gemini's compatible endpoint and OpenRouter. Self-hosted servers sit on the user's own machine, so the connector runs there too (a small host process, like the Hermes plugin), not in our cloud. Cloud endpoints use the hosted connector.
+- **Learns:** the guide as system message. Small local models may not follow it well: YUI-10's eval runs against each model we list as supported, and a model under the bar gets plain text only.
+- **Effort:** M for the connector, then S per provider preset.
+- **Depends on:** YUI-34 key vault, thread memory on the Yui side, YUI-10 eval.
+- **Priority:** 3. One piece of code, many frameworks.
+
+### Flue and Cloudflare Agents | INT-13 (research in INT-6)
+
+- **Name check:** "Flue" is real. It is an open-source TypeScript agent framework from the team behind Astro (`withastro/flue`, 1.0 beta), announced with Cloudflare in June 2026. Flue is the framework, the Pi harness runs it, and on Cloudflare each agent is a Durable Object on the Agents SDK. It also runs on Node and GitHub Actions.
+- **Connects:** path A. Flue has **channels** (Slack, GitHub, Linear, Discord) added with `flue add channel <name>`, which writes a markdown blueprint the developer's coding agent merges in. A Yui channel is that blueprint plus the connector client in TypeScript. On Cloudflare the Durable Object holds the socket, which is the same thing INT-6 wants for our own hosted connector.
+- **Learns:** CHANNEL.md, from the channel blueprint's instructions.
+- **Effort:** M, sharing the TypeScript client with INT-1.
+- **Depends on:** INT-6 findings.
+- **Priority:** 3.
+
+### LangGraph | INT-14
+
+- **Connects:** path B. LangGraph agents deployed on LangGraph Platform expose a threads and runs API, and LangGraph also speaks A2A. The A2A client covers most cases; a thin LangGraph threads adapter covers deployments without A2A.
+- **Learns:** a context part per task, or the SDK pastes CHANNEL-lite into the graph's system prompt.
+- **Effort:** S with INT-18, M without.
+- **Depends on:** INT-18.
+- **Priority:** 4.
+
+### CrewAI | INT-15
+
+- **Connects:** path B through A2A, which CrewAI supports; path E for crews run as scripts.
+- **Learns:** as LangGraph.
+- **Effort:** S.
+- **Depends on:** INT-18 or INT-2.
+- **Priority:** 5.
+
+### AutoGen, now Microsoft Agent Framework | INT-16
+
+- **Name check:** AutoGen went into maintenance in October 2025. Its successor is **Microsoft Agent Framework** (1.0 in April 2026), which merged AutoGen and Semantic Kernel and speaks MCP, A2A and AG-UI.
+- **Connects:** path B through A2A. AG-UI is an agent-to-frontend event stream, which is close to what Yui is; worth a spike to see whether Yui can be an AG-UI client, since several frameworks emit it.
+- **Learns:** as LangGraph.
+- **Effort:** S with INT-18. AG-UI spike M.
+- **Depends on:** INT-18.
+- **Priority:** 5.
+
+### n8n | INT-17
+
+- **Connects:** two ways. n8n's AI Agent node calls MCP servers through its MCP Client Tool node (path D), and any workflow can call the webhook (path E). A small community node, "Yui: send screen / wait for answer", makes it drag and drop.
+- **Learns:** the MCP tool descriptions, or the node's built-in prompt.
+- **Effort:** S with INT-3, M for the community node.
+- **Depends on:** INT-3 or INT-2.
+- **Priority:** 4.
+
+### A2A client | INT-18
+
+- **Connects:** path B. You add an agent by its Agent Card URL; Yui's hosted connector sends your messages as A2A tasks and turns the agent's replies back into rows. One adapter covers Gemini Enterprise and ADK, LangGraph, CrewAI, Microsoft Agent Framework and anything else with an Agent Card.
+- **Learns:** a context part carrying CHANNEL-lite on each task. Remote agents we do not control may ignore it; their replies still show as plain chat.
+- **Effort:** L.
+- **Depends on:** the hosted service (INT-6), auth for remote agents (per-agent keys in YUI-34).
+- **Priority:** 3.
+
+### Telegram fallback | INT-4
+
+Not an agent framework, but the same idea in reverse: Yui Lines rendered as Telegram buttons and a Mini App, for when the app is not around. Already on the board.
+
+## Order
+
+1. Hermes plugin (done), then INT-5 hosted Hermes.
+2. INT-1 OpenClaw, INT-2 webhook, INT-3 MCP server. These three open the door for everyone else.
+3. INT-7 Claude and INT-8 ChatGPT (cheap once INT-3 exists), INT-12 model connector, INT-13 Flue, INT-18 A2A.
+4. INT-9 Gemini, INT-10 Grok, INT-11 Meta, INT-14 LangGraph, INT-17 n8n: mostly presets on the pieces above.
+5. INT-15 CrewAI, INT-16 Microsoft Agent Framework.
+
+## Open questions
+
+1. Where does the hosted connector live? INT-6 answers it. Everything in paths B and C waits on that.
+2. Path C makes Yui the agent, with thread memory and model spend. That is a product decision, not an adapter detail: it lines up with Phase 4's built-in agent and Phase 6's credits.
+3. A listed ChatGPT app or Claude directory entry is public. Chris signs off before either.

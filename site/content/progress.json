@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Yui Lines back on the front page, and every spec on the site",
+    "card": "SITE-15",
+    "body": "The home page now says how Yui works: one line of Yui Lines next to the timer it draws, live, with the honest benchmark (1.6x fewer tokens than minified JSON, 3.9x fewer than a component tree). /yl opens with a quick start: five lines, five screens, tap one to draw it, copy one into your agent. And every spec in the repo now reads on the site under Developers > Specs: agents, the relay, adapters and the benchmark join Yui Lines, the channel guide and reactions, each with an index on the left and a link to every section. The pages are built from the repo files on every deploy, and the build stops if a spec names someone it should not.",
+    "images": [
+      {
+        "src": "/progress/site15-home-band.webp",
+        "alt": "The home page How it works band: the line timer 40/20x8 Tabata beside a live phone drawing that Tabata timer, two stat boxes saying 1.6x fewer tokens than minified JSON and 3.9x fewer than a component tree, and buttons to the Yui Lines spec and the playground."
+      },
+      {
+        "src": "/progress/site15-yl-quickstart.webp",
+        "alt": "The Yui Lines page: a quick start listing five lines, each with a Copy button, a phone drawing the selected line, and the spec below with an index of every section on the left."
+      },
+      {
+        "src": "/progress/site15-spec-index.webp",
+        "alt": "The Agents spec on the site, with the list of all seven specs on the left and this page sections nested under Agents."
+      },
+      {
+        "src": "/progress/site15-home-phone.webp",
+        "alt": "The How it works band on a phone: the line, the two stats and the buttons stacked above the live timer."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "React to a message: hold it, tap 👍, and your agent builds it",
     "card": "YUI-49",
     "body": "Hold any message from your agent and a bar of six reactions floats above it, the way Telegram and iMessage do it. Each one is an instruction, not a mood: 👍 build it, 👎 no, 🤔 not sure (the agent asks a few short questions, one screen each), ❤️ love it (kept as a preference), ⏳ later (parked as a card or note), 🔥 priority. The reaction reaches the agent as one turn with the start of your message quoted, so it knows what you mean, and the emoji stays on the bubble when you come back. What each one means lives in one file, spec/REACTIONS.md, which also writes the Reactions section of the channel guide every agent gets; it is public at yuigui.com/reactions. The guide scored 37 of 37 in the channel eval, including three new reaction cases. End to end in the simulator: a real model got the 👍 and built the plan (a card, a checklist and timers) without asking again.",

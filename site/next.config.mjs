@@ -6,6 +6,10 @@ export default {
     return [
       { source: "/plan", destination: "/business/plan", permanent: true },
       { source: "/deck", destination: "/business/plan", permanent: true },
+      // SITE-15: these specs already had their own page.
+      { source: "/developers/yl", destination: "/yl", permanent: true },
+      { source: "/developers/channel", destination: "/channel", permanent: true },
+      { source: "/developers/reactions", destination: "/reactions", permanent: true },
     ];
   },
 };
