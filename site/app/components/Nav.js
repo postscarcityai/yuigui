@@ -14,6 +14,7 @@ const links = [
   ["/mockups", "Mockups"],
   ["/playground", "Playground"],
   ["/yl", "YL spec"],
+  ["/channel", "Channel guide"],
 ];
 
 export default function Nav() {

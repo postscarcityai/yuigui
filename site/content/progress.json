@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The channel guide, now tested",
+    "card": "YUI-10",
+    "body": "Every agent on the Yui channel gets a short guide with each turn: how to put buttons, lists, timers and charts on your screen, and when to just answer in words. We now test that guide. 34 real-life messages (a leg day, a grocery list, a booking, a plain question, a request for a password) go to an agent with the guide, and a script checks every reply with the real Yui Lines parser. The first draft scored 74%. The test caught two bugs no one had seen. The guide taught a way to update a screen that the app actually throws away. And agents often wrote answer options in a way that parses fine but leaves nothing to tap. The rewrite scores 97% and is 20% shorter. It is live for every agent now, and you can read it, with the scores, at yuigui.com/channel. Nothing visual in this one: it is a text guide and a test script."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Change your answer",
     "card": "YUI-12",
     "body": "Tapped the wrong option? Tap another one. Single choice, multiple choice, yes/no buttons and sliders now stay live after you answer. Your choice stays marked, and a new tap changes it. For multiple choice, change your picks and the button reads Done again; send it and the agent gets the new list. Every change goes back to the agent marked as changed, and the newest answer wins, so the agent adjusts instead of arguing. When an answer really is final, say a booking just got confirmed, the agent can lock it with one line, ~choose +lock, and the buttons stop responding. The playground has it too: pick \"Demo: change your answer\", tap around, and watch the wire log.",
