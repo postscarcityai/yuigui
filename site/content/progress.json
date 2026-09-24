@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-24",
+    "title": "A content plan, built from what ships",
+    "body": "How Yui will show up online: every post starts from a line in this log and the screenshot or clip that proves it, so nothing gets written about work that hasn't shipped. It borrows from a blog our agents already run every day: one source, an agent that drafts, a script that rejects bad copy before anyone sees it, and posts scheduled a week ahead. Chris approves every social post. The plan covers four kinds of content (ship posts, this weekly update, longer pieces, short demo clips), what goes on which platform, a six-week calendar and the automation we'd build. Read it at yuigui.com/business/biz-4-content-plan."
+  },
+  {
+    "date": "2026-09-24",
     "title": "The MVP, and a bar that shows how close it is",
     "body": "Chris asked us not to lose focus, so the roadmap now opens with the MVP: the smallest Yui a stranger can use. Someone who already runs Hermes installs Yui from a public TestFlight link, signs in with Apple, connects their own agents in a few minutes, gets screens and pushes back, and can delete their account from inside the app. That is 21 cards. 10 have shipped, 1 is being built, and the last one is a real outside tester doing the whole path with a stopwatch. The bar on the home page and the roadmap counts them; once the live board lands it will update itself. Everything else went into a deep backlog of 30-odd parked ideas, from a lock-screen timer and group threads to an Android prototype and flows written in Mermaid, so there is always a next card but never a distraction.",
     "image": "/progress/mvp-bar.webp",
