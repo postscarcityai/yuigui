@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T22:06:56.918Z",
+  "updated": "2026-09-24T22:40:49.477Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -246,10 +246,8 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "SITE-22",
-          "title": "Polish pass on / (home) and /business",
-          "summary": "Home and Business pages, cleaned up for a first visit",
-          "progress": "/progress#home-and-business-pages-cleaned-up-for-a-first-visit"
+          "key": "SITE-23",
+          "title": "Polish pass on /start, /yl, /channel and /privacy"
         }
       ]
     },
@@ -257,6 +255,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-22",
+          "title": "Polish pass on / (home) and /business",
+          "summary": "Home and Business pages, cleaned up for a first visit",
+          "shipped": "2026-09-24",
+          "progress": "/progress#home-and-business-pages-cleaned-up-for-a-first-visit"
+        },
         {
           "key": "YUI-22",
           "title": "Public TestFlight link",
