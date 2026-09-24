@@ -303,6 +303,12 @@
     {
       "text": "Demo clips: record every preset in the simulator, cut 9:16 and 16:9 with a caption",
       "card": "SOC-2"
+    },
+    {
+      "text": "Done always does something: gallery and pick answer with nothing ticked, photos stop covering it"
+    },
+    {
+      "text": "Gallery photos keep to their own space: layout test at 1-7 photos, every layout"
     }
   ]
 }

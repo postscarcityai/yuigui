@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T13:40:09.864Z",
+  "updated": "2026-09-24T14:10:19.838Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -219,10 +219,6 @@
           "title": "Playground a11y labels (Lighthouse 89 -> 95+)"
         },
         {
-          "key": "SITE-9",
-          "title": "Kill horizontal scroll on every yuigui.com page"
-        },
-        {
           "key": "SITE-10",
           "title": "Phases on yuigui.com are out of date, bring them current"
         },
@@ -244,10 +240,8 @@
           "waiting": true
         },
         {
-          "key": "SITE-8",
-          "title": "Responsive navigation on yuigui.com (mobile menu)",
-          "summary": "The site menu works on a phone",
-          "progress": "/progress#the-site-menu-works-on-a-phone"
+          "key": "SITE-9",
+          "title": "Kill horizontal scroll on every yuigui.com page"
         }
       ]
     },
@@ -255,6 +249,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-8",
+          "title": "Responsive navigation on yuigui.com (mobile menu)",
+          "summary": "The site menu works on a phone",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-site-menu-works-on-a-phone"
+        },
         {
           "key": "SITE-12",
           "title": "Reposition yuigui.com around the generative UI, sell the MVP",
