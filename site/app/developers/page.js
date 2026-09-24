@@ -10,6 +10,7 @@ export const metadata = {
 
 const cards = [
   ["/start", "Connect your agent", "Install the Hermes plugin and pair it with the app. About five minutes."],
+  ["/developers/webhook", "Webhook bridge", "Not on Hermes? Any agent that answers an HTTP POST can talk in Yui. Python and Node, ten-line examples."],
   ["/playground", "Playground", "Edit a line and watch the screen draw, in your browser. Includes the token benchmark."],
   ["/yl", "Yui Lines spec", "The screen language: one short line per element, every preset and its options."],
   ["/developers/specs", "All specs", "Every spec, rendered from the repo: agents, the relay, adapters, the token benchmark and more."],
@@ -63,8 +64,9 @@ export default function Developers() {
 
       <h2>Other agent frameworks</h2>
       <p>
-        Hermes works today. Adapters for OpenClaw, a webhook, an MCP server and more come after the MVP. The plan is in
-        the <Link href="/roadmap#adapters">roadmap</Link>.
+        Hermes works today, and so does anything that answers an HTTP POST, through the{" "}
+        <Link href="/developers/webhook">webhook bridge</Link>. Adapters for OpenClaw, an MCP server and more come after
+        the MVP. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
       </p>
 
       <h2>Source</h2>

@@ -226,7 +226,8 @@ Deliverables:
 - BUILDING, YUI-22: public TestFlight link. Submitted to Apple's beta review Sep 24.
 - OPEN: the private beta of 20 to 50 technical users from the Hermes and OpenClaw communities. The public link may replace it; Chris's call.
 - NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
-- NOT STARTED, INT-1 onward: adapters for OpenClaw-style frameworks, a generic HTTP/webhook adapter, a Yui MCP server so any MCP-capable agent can render to Yui, and more (see Adapters below).
+- DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
+- NOT STARTED, INT-1 and INT-3 onward: adapters for OpenClaw-style frameworks, a Yui MCP server so any MCP-capable agent can render to Yui, and more (see Adapters below).
 - NOT STARTED, YUI-48: SMS channel (text a number, get a push that opens the screen).
 
 Dependencies: App Store submission sign-off from Chris.
@@ -278,11 +279,11 @@ There are only five ways in, so five pieces of code cover every framework:
 - **A hosted connector** that speaks a standard protocol: Hermes's relay contract, and A2A, which Gemini, LangGraph, CrewAI and Microsoft's Agent Framework all speak.
 - **A model connector.** Point Yui at any OpenAI-compatible API: Meta's Muse Spark, Grok, Gemini, or a model on your own machine through Ollama, LM Studio or vLLM.
 - **A Yui MCP server.** Claude, ChatGPT, Grok and n8n add it as a tool and push screens to your phone.
-- **A webhook.** If your code can send an HTTP request, it can talk in Yui.
+- **A webhook.** If your code can answer an HTTP request, it can talk in Yui. Shipped Sep 24 (INT-2): the webhook bridge, `spec/WEBHOOK.md`.
 
 Every one of them ends in the same messages and the same screens, and every agent gets the same channel guide, so it knows it can draw.
 
-Order: Hermes (done), then OpenClaw, the webhook and the MCP server, then Claude, ChatGPT, open models, Flue and A2A, then the rest. Each framework is a card on the board, INT-1 to INT-18.
+Order: Hermes and the webhook (done), then OpenClaw and the MCP server, then Claude, ChatGPT, open models, Flue and A2A, then the rest. Each framework is a card on the board, INT-1 to INT-18.
 
 ## Cloudflare
 
@@ -347,7 +348,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 **Other agents and channels**
 
 - INT-1: an OpenClaw adapter.
-- INT-2: a webhook adapter in Python and Node. If your agent can send an HTTP request, it can talk in Yui.
+- INT-2 (done Sep 24): a webhook bridge in Python and Node. If your agent can answer an HTTP request, it can talk in Yui.
 - INT-3: a Yui MCP server, so any MCP agent can draw a screen.
 - INT-4: the Telegram fallback: Yui Lines as buttons and a Telegram Mini App.
 - INT-5: connect without installing anything, through a hosted connector.

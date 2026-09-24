@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Not on Hermes? Any agent that answers a web request can talk in Yui now",
+    "card": "INT-2",
+    "body": "Until today, an agent needed Hermes to reach Yui. Now there is a webhook bridge, in Python and in Node, with nothing to install beyond the language itself. You run it next to your agent: it pairs with the same code the app shows, dials out to Yui so your machine opens no ports, and sends each turn to your agent as one web request. Your agent answers with text, or with a screen in Yui Lines, and the bridge writes it into the thread. Every request carries the channel guide, so the agent knows it can draw. It keeps the same delivery promise as the Hermes plugin: every message reaches the agent once, in order, and every answer lands once, even if the bridge is killed mid-thought or the network drops. Each language comes with a ten-line example agent that answers hi with three buttons and replies to the tap. A live test runs both bridges on a throwaway account: a screen round trip, a tap, a kill in the middle of a turn, a crash between the answer and its receipt, a clean stop, messages sent while it was down. 44 of 44 checks passed. A developer tool, so nothing new on the phone. The guide is on the site under Developers, Webhook bridge.",
+    "images": [
+      {
+        "src": "/progress/int2-webhook-spec.webp",
+        "alt": "The Webhook bridge page on yuigui.com: what the bridge does, the Python and Node clients with their ten-line example agents, and the five-minute setup."
+      },
+      {
+        "src": "/progress/int2-developers.webp",
+        "alt": "The Developers page on yuigui.com with a new Webhook bridge card: not on Hermes, any agent that answers an HTTP POST can talk in Yui."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "The preset flywheel: custom screens that keep coming back become presets",
     "card": "YUI-42",
     "body": "Presets cover what agents usually show. For the rest there is custom, a small JSON escape hatch. Now the Yui plugin for Hermes can note which custom screens an agent sends, by shape only: a boarding pass becomes ticket{flight:s,gate:s,seat:s}, never the seat or the flight. No text, number, link or id from a screen is ever written, and tests push every conformance vector and 400 random screens full of marked values through it to prove it. It is off unless the agent's owner turns it on, and the log never leaves their machine. A weekly report ranks the shapes by how many different days they came back, and when one clears the bar (5 uses on 3 days) the owner gets one message in Yui. The checklist for promoting a shape, from the spec line to all four parsers, the playground, the native iPhone view and the channel guide, is a new spec page. Nothing to see in the app itself: this one is plumbing."

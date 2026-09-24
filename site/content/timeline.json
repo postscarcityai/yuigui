@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 51,
-    "site": 115,
+    "app": 53,
+    "site": 118,
     "builds": 21,
-    "shipped": 72,
+    "shipped": 73,
     "screenshots": 118
   },
   "days": [
@@ -13,15 +13,30 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T19:37:47.633Z",
+          "at": "2026-09-24T20:14:42.152Z",
+          "title": "Not on Hermes? Any agent that answers a web request can talk in Yui now",
+          "card": "INT-2",
+          "anchor": "not-on-hermes-any-agent-that-answers-a-web-request-can-talk-in-yui-now",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 53,
+            "site": 118,
+            "builds": 21,
+            "shipped": 73
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T19:38:04.000Z",
           "title": "The preset flywheel: custom screens that keep coming back become presets",
           "card": "YUI-42",
           "anchor": "the-preset-flywheel-custom-screens-that-keep-coming-back-become-presets",
           "images": [],
-          "commits": 1,
+          "commits": 3,
           "totals": {
             "app": 51,
-            "site": 115,
+            "site": 116,
             "builds": 21,
             "shipped": 72
           }
@@ -1432,6 +1447,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "bbd06eb",
+          "at": "2026-09-24T20:13:19.000Z",
+          "text": "Webhook bridge, Python and Node: any agent that answers an HTTP POST can talk in Yui. Pair with the app's code, point the bridge at your...",
+          "url": "https://github.com/postscarcityai/yui/commit/bbd06eb"
+        },
+        {
+          "repo": "site",
+          "sha": "c1d2bd0",
+          "at": "2026-09-24T20:10:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c1d2bd0"
+        },
+        {
+          "repo": "app",
+          "sha": "787aca2",
+          "at": "2026-09-24T19:41:04.000Z",
+          "text": "Flywheel report --seen: the weekly job announces a shape once, not every Friday (YUI-42)",
+          "url": "https://github.com/postscarcityai/yui/commit/787aca2"
+        },
+        {
+          "repo": "site",
+          "sha": "99617ee",
+          "at": "2026-09-24T19:40:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/99617ee"
+        },
+        {
+          "repo": "site",
+          "sha": "10a9420",
+          "at": "2026-09-24T19:38:04.000Z",
+          "text": "The preset flywheel: spec/FLYWHEEL.md (what the plugin logs, shapes never values; the weekly report; the 5-uses-on-3-days bar; the...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/10a9420"
+        },
         {
           "repo": "app",
           "sha": "b3fb3c4",

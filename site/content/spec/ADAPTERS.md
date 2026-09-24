@@ -16,7 +16,7 @@ There are only five ways an agent can reach Yui. Every framework below uses one 
 | B | **Hosted connector** that speaks a standard protocol | the user or a vendor | the agent | Hermes via relay contract, A2A agents (Gemini, LangGraph, CrewAI, Microsoft Agent Framework) |
 | C | **Model connector**: Yui calls a chat API for you | Yui | Yui | any OpenAI-compatible endpoint: Meta Muse Spark, Grok, Gemini, Ollama, LM Studio, vLLM, OpenRouter |
 | D | **Yui MCP server**: the agent calls Yui as a tool | the user's AI app | the AI app | Claude, ChatGPT, Grok, n8n, Cursor, anything MCP |
-| E | **Webhook**: plain HTTP both ways | the user | the user's code | n8n, Zapier-style tools, scripts, everything else |
+| E | **Webhook**: plain HTTP both ways (shipped, INT-2) | the user | the user's code | n8n, Zapier-style tools, scripts, everything else |
 
 Two rules hold for all of them:
 
@@ -29,7 +29,7 @@ Two rules hold for all of them:
 - **B, hosted connector.** A long-running service Yui owns, holding outbound sessions to many agents. Supabase edge functions cannot hold a socket open, so this needs a real host. INT-6 decides where (Cloudflare Workers + Durable Objects is the leading answer). Connector kind `hosted`.
 - **C, model connector.** Same hosted service, plus a key vault (YUI-34) for the user's own API keys, plus Yui-side memory of the thread. This is the only path where Yui is the agent's brain, not just its screen, so it overlaps Phase 4's built-in agent (YUI-37).
 - **D, MCP server.** A public remote MCP server with OAuth (Sign in with Apple through Yui's account). Connector kind `mcp`.
-- **E, webhook.** An inbound URL per agent plus an outbound webhook for taps, both signed. Connector kind `http`.
+- **E, webhook.** Shipped as a local bridge (INT-2): a small process next to the agent dials out like the Hermes plugin and POSTs each turn to the agent's own URL, so no server-side webhook delivery is needed. Connector kind `http`. A hosted inbound URL per agent (for code that cannot run a process, like Zapier) can come later on the INT-6 host.
 
 ## How the channel guide gets in
 
@@ -39,7 +39,7 @@ Two rules hold for all of them:
 | B | Relay contract: the descriptor's `platform_hint`. A2A: sent as a context part on the first message of each task, since Yui cannot touch a remote agent's system prompt. |
 | C | Yui owns the prompt: the guide is the system message. |
 | D | Short form in the tool descriptions, full text as an MCP prompt `yui_guide` and a resource `yui://guide`. |
-| E | Returned by `yui-connect guide`; the developer pastes it into their agent's prompt. The SDKs do it for them. |
+| E | In every webhook POST (`guide.version`, `guide.body`), from `yui-connect session`; the developer puts it in the agent's prompt. |
 
 The guide is written once. Paths D and E get a shorter cut (screens and events only, no Hermes tool names) as `CHANNEL-lite`, generated from the same file by `sync_channel.py`.
 
@@ -63,13 +63,15 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Depends on:** nothing past the MVP.
 - **Priority:** 2. The pitch names OpenClaw users as the early adopters.
 
-### Generic webhook, Python and Node | INT-2
+### Generic webhook, Python and Node | INT-2, shipped Sep 24
 
-- **Connects:** path E. `POST` a reply into a thread with the connector token; receive user messages and taps as a signed webhook. Tiny SDKs (`yui-py`, `yui-js`) wrap both and ship the guide.
-- **Learns:** CHANNEL-lite, via the SDK.
-- **Effort:** M including SDKs.
-- **Depends on:** a webhook delivery function (retries, signing).
-- **Priority:** 2. It is the floor under every other adapter.
+- **Connects:** path E, as a bridge the developer runs next to their agent: `adapters/webhook/` in the app repo, `python/yui_webhook.py` (stdlib only) and `node/yui-webhook.mjs` (Node 20, no dependencies), same behaviour and the same state file. Pair with the app's code (connector kind `http`), then `run --webhook <url>`. The bridge dials out, so the agent's machine opens no ports and Yui needs no webhook delivery function.
+- **The contract:** one POST per turn with the agent, the turn's row ids, the text (one line per message), each message with its event JSON for taps, and the channel guide. The agent answers `{"reply"}`, `{"replies"}`, plain text, or an empty 2xx for no reply; anything else is retried with backoff. `--secret` adds an HMAC-SHA256 signature over `<timestamp>.<body>`. Full contract: `spec/WEBHOOK.md`.
+- **Delivery:** the relay's rules from RELAY.md: unfinished rows only, `delivered_at` then `handled_at`, one turn at a time per agent with the backlog folded into the next, replies written to an on-disk outbox first and tagged with `meta.turn`, a crash mid-turn replays it, an answered row is never sent twice, a clean stop says `bye`.
+- **Learns:** the full channel guide, in every POST. CHANNEL-lite is still to do; the full text works today.
+- **Examples:** a ten-line agent per language that answers with a `choose` screen and replies to the tap.
+- **Tests:** `adapters/webhook/tests/webhook_e2e.py` runs both clients against a fake webhook on a throwaway account: pairing, a screen round trip, a tap, kill -9 mid-turn, a crash between answer and ack, a clean stop, a backlog, a handoff. 44 of 44 live checks passed on Sep 24.
+- **Later:** a hosted inbound URL for tools that cannot run a process (Zapier-style), on the INT-6 host.
 
 ### Yui MCP server | INT-3
 
@@ -187,7 +189,7 @@ Not an agent framework, but the same idea in reverse: Yui Lines rendered as Tele
 ## Order
 
 1. Hermes plugin (done), then INT-5 hosted Hermes.
-2. INT-1 OpenClaw, INT-2 webhook, INT-3 MCP server. These three open the door for everyone else.
+2. INT-1 OpenClaw, INT-2 webhook (done Sep 24), INT-3 MCP server. These three open the door for everyone else.
 3. INT-7 Claude and INT-8 ChatGPT (cheap once INT-3 exists), INT-12 model connector, INT-13 Flue, INT-18 A2A.
 4. INT-9 Gemini, INT-10 Grok, INT-11 Meta, INT-14 LangGraph, INT-17 n8n: mostly presets on the pieces above.
 5. INT-15 CrewAI, INT-16 Microsoft Agent Framework.
