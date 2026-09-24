@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-23",
+    "title": "Beta feedback: the debug screen is gone",
+    "body": "First real TestFlight feedback, from Chris: the Paste YL screen had to go. It was a developer tool that showed the raw lines agents write, parse counts and event data, and no one using Yui should ever see that. Yui Lines stay under the hood. The button it lived behind now opens Your agents: Yui is there today, and Urza and Arnold wait with a Connect Hermes to start note until the Hermes channel lands. How to use Yui is something the agents learn at the start of every chat, not something you read. Build 13 is on TestFlight."
+  },
+  {
+    "date": "2026-09-23",
     "title": "Accounts: Sign in with Apple, and delete it in the app",
     "body": "Yui now has accounts. You sign in with Apple, no password, and Settings has a Delete account button that wipes everything Yui stores for you and removes Yui from your Apple ID. The App Store requires that, and it is the right default anyway. The server side is locked down on purpose: Yui accounts get their own database role that can only see Yui's own tables, and each account only its own rows. 63 automated checks try to break that, including one that creates a test account, fills every table, deletes it, and counts zero rows left. Plain-language privacy page at yuigui.com/privacy."
   },
