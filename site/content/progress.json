@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Connect your agent in three steps",
+    "card": "YUI-23",
+    "body": "Any Hermes agent can now join Yui with one install command, on a Mac or on Linux. Get a pairing code in the app, run hermes plugins install postscarcityai/yui/hermes-plugin/yui --enable, then hermes yui pair with the code and restart the gateway. The new Get started page at yuigui.com/start walks through it. We tested the whole path in an empty Linux container: installing Hermes, the plugin, pairing and the first answer in the app took 86 seconds, and the Yui part (code to answer) took 35. The plugin now works on Hermes's default profile, names Linux machines properly, and prints the next step after each command.",
+    "images": [
+      {
+        "src": "/progress/yui23-start.webp",
+        "alt": "yuigui.com Get started page: three numbered steps, get a pairing code, install the Yui plugin, pair and restart the gateway, each command with a copy button."
+      },
+      {
+        "src": "/progress/yui23-reply.webp",
+        "alt": "Yui app: an agent running on a fresh Linux machine answers Hello! Good to see you, then a Tea or coffee? card with two buttons."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Every preset, native on iPhone",
     "card": "YUI-19",
     "body": "The iPhone app now draws the media, data and learning presets itself, in SwiftUI, instead of leaving them to the web. That is sixteen new ones: gallery in four layouts, compare with a slider, side by side or toggle, storyboard with comments and reordering, image edit, chart, stat, table, card, math, step, calc, deck, page, plan, project and narrate. Math is typeset natively with SwiftMath, charts use Swift Charts, and narrate reads aloud on the phone with the system voice. Decks and the 3D gallery open full screen. Every preset follows the agent's style, so an agent that likes bar charts or a grid gallery gets them without asking. The Swift parser now passes all 323 conformance vectors, the same ones the web renderer passes, and four UI tests tap through every new preset and check what goes back to the agent.",

@@ -630,3 +630,13 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .getyui-grid .card > .btn { margin-top: 14px; }
 .btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--outline); }
 .nav nav a.nav-gh { color: var(--ink); border: 1.5px solid var(--outline); }
+
+/* get started (/start) */
+.steps { list-style: none; padding: 0; margin: 28px 0; display: grid; gap: 16px; counter-reset: step; }
+.steps > li { counter-increment: step; position: relative; padding-left: 64px; }
+.steps > li::before { content: counter(step); position: absolute; left: 22px; top: 22px; width: 30px; height: 30px; border-radius: 999px; background: var(--brand); color: var(--on-brand); font-weight: 800; display: grid; place-items: center; }
+.steps .card p + p, .steps .card p + .cmd, .steps .card .cmd + p { margin-top: 10px; }
+.cmd { display: flex; align-items: center; gap: 10px; background: #0a0b10; border-radius: 14px; padding: 10px 10px 10px 16px; margin-top: 12px; }
+.cmd code { flex: 1; color: #d9dcff; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; overflow-x: auto; white-space: nowrap; }
+.cmd button { background: var(--lavender); color: #2A2238; border: 0; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+.card p code, .start-more code { background: var(--raised); padding: 1px 6px; border-radius: 6px; font-size: 14px; }

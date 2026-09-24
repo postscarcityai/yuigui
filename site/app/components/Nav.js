@@ -5,6 +5,7 @@ import ThemeToggle from "./ThemeToggle";
 
 const links = [
   ["/", "Home"],
+  ["/start", "Get started"],
   ["/roadmap", "Roadmap"],
   ["/progress", "Progress"],
   ["/changelog", "Changelog"],
