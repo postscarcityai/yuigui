@@ -33,7 +33,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `theme [set] key=value...` | restyle this agent's look (section 4, theme) | `theme autumn radius=square` |
 | `custom {json}` | escape hatch, rest of line is JSON | `custom {"type":"text","text":"hi"}` |
 
-Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen. Two screen names are reserved: `full` is the stage, and `chat` means screen `1` (`>chat ask Ready?` sends one line back to screen 1).
+Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen. Two screen names are reserved: `full` is the stage, and `chat` means screen `1` (`>chat ask Ready?` sends one line back to screen 1). Screens `2` and `3` are pages beside the chat in the app (section 5, Pages).
 
 Lines end at `\n`; a trailing `\r` is dropped, so CRLF works. Leading and trailing whitespace is ignored. Preset names and core words are lowercase (`Timer 60` is an unknown preset). Ids are `[A-Za-z0-9_-]+`. `> 2` (space after `>`) is not a route.
 
@@ -411,7 +411,7 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 **The stage.** Some moments deserve the whole phone. The stage is a full-screen layer over the chat, in the agent's own look, with the chat right underneath.
 
 - `>full` alone opens the stage and routes the lines that follow onto it; `>full timer 40/20x8 Tabata` sends one line there. `close`, or `>chat` alone, closes it and sends the lines that follow back to screen 1. `close` takes nothing else. The op is `{op: "close", screen: "full"}`.
-- Some components open on the stage by themselves: `timer`, `camera`, `mic`, `deck`, `plan`, and a `gallery` laid out as `row3d`. `+inline` keeps one in the chat: `timer 5m Plank hold +inline`.
+- Some components on screen 1 open on the stage by themselves: `timer`, `camera`, `mic`, `deck`, `plan`, and a `gallery` laid out as `row3d`. `+inline` keeps one in the chat: `timer 5m Plank hold +inline`.
 - **Workouts are always full screen.** A `timer` with rounds or rest (`40/20x8`, `90/30`) is a workout. It opens on the stage even with `+inline` and even when the agent prefers the chat.
 - The agent's style profile sets the default for everything else (section 4, theme): `screen=full` opens every component on the stage unless it says `+inline`, and `screen=chat` keeps everything in the chat unless it is routed with `>full` or is a workout.
 - A member of a group (a `page` under a `deck`) goes wherever its group went. Patches never move a component.
@@ -419,6 +419,17 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 - Where the renderer has no room for a stage (Telegram, a watch), staged components render in line as usual.
 
 The reference function is `onStage(op, style)` in `yl.mjs` (and `YuiLines.opensOnStage` in the app). Conformance vectors may carry `stage`, the ids of the adds that open on the stage, and `style`, the agent's style profile for that vector.
+
+**Pages.** The app gives every agent three screens side by side: the chat, screen `2` and screen `3`. Screen `1` lines render in the chat as usual; screens `2` and `3` are pages the person swipes to, left to right, with small tabs (Chat, 2, 3) to jump between them and a dot on a page that has something on it.
+
+- A page keeps what lands on it across replies, so an agent can leave a focus timer on `2` and a running list on `3` while the chat goes on. Adds stack in order, a later reply patches them by preset name (`~timer`, section 9), and `>2 clear` empties the page.
+- A route to a page beats the stage defaults: `>2 timer 25m Focus` sits on page 2, not on the stage, whatever the agent's style profile says. Workouts still always open on the stage.
+- A reply that sends a line to `2` or `3` brings that page forward with a spring (a cross-fade under Reduce Motion). A line that only patches a page does not move the person. The chat keeps a small "On screen 2" pill where the line was sent; tapping it goes to the page.
+- Any other screen name (`>stats-view`) has no page of its own and renders in the chat, in line order. The stage (`>full`, and the presets that open there) is a layer over whichever page is showing, the same as over the chat.
+- Swiping between pages sends no event. The page an agent's thread was on is remembered per agent.
+- Where there is no room for pages (Telegram, a watch, the playground's single phone), everything renders in one column in line order, as before.
+
+The reference function is `pageOf(screen)` in `yl.mjs` (`YuiLines.page(of:)` in the app, `page_of` in Python, `pageOf` in Kotlin): `2` and `3` for those screens, `1` for everything else, `full` and `chat` included. Conformance vectors may carry `pages`, the page of each add in order.
 
 **Saved screens and the shelf.** A screen the person will want again gets a name, and from then on it costs two tokens to bring back.
 
@@ -504,4 +515,4 @@ This is v0. Adding presets and props is non-breaking: an old app shows an error 
 
 ## 12. Conformance
 
-YL is platform neutral. Every parser (JS reference, Swift app, later Kotlin) must pass the shared vectors in `spec/conformance/`: one JSON file per area, each `{version, area, vectors: [{name, input, expected, error?, chunks?, emits?}]}`. `expected` is the op list for the whole `input`, minus each op's `line` and each error's `message`. A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`; when `chunks` is present, pushing those chunks then flushing must give `emits` (the ops returned by each push, then by the flush). When `stage` is present, the adds that open on the stage under `style` (default `{}`) must be exactly those ids. Run the JS side with `cd spec/conformance && node run.mjs`. A change to this spec lands with the vectors that pin it.
+YL is platform neutral. Every parser (JS reference, Swift app, later Kotlin) must pass the shared vectors in `spec/conformance/`: one JSON file per area, each `{version, area, vectors: [{name, input, expected, error?, chunks?, emits?}]}`. `expected` is the op list for the whole `input`, minus each op's `line` and each error's `message`. A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`; when `chunks` is present, pushing those chunks then flushing must give `emits` (the ops returned by each push, then by the flush). When `stage` is present, the adds that open on the stage under `style` (default `{}`) must be exactly those ids. When `pages` is present, `pageOf` of each add's screen, in order, must equal it. Run the JS side with `cd spec/conformance && node run.mjs`. A change to this spec lands with the vectors that pin it.

@@ -71,12 +71,26 @@ Up next:
 
 ### Next after the MVP
 
-Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions), YUI-53 (no dead buttons: a plan ends in Send, and the channel guide bans "Got it" buttons), YUI-51 (one full-screen flow holds the pages and the questions with one Send, and afterwards the chat keeps an expandable record and your answers as your own message), YUI-32 (named screens: an agent saves a screen, it sits on a shelf at the top of the thread, and `show busy day` or one tap brings it back), YUI-42 (the preset flywheel: custom screens agents keep sending get flagged for promotion to presets, checklist in spec/FLYWHEEL.md), SITE-16 (watch Yui grow: the whole GitHub history, builds and screenshots, day by day, at /timeline) and INT-0 (the adapters plan). What is left to pull once the MVP passes, roughly in this order:
+Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions), YUI-53 (no dead buttons: a plan ends in Send, and the channel guide bans "Got it" buttons), YUI-51 (one full-screen flow holds the pages and the questions with one Send, and afterwards the chat keeps an expandable record and your answers as your own message), YUI-32 (named screens: an agent saves a screen, it sits on a shelf at the top of the thread, and `show busy day` or one tap brings it back), YUI-31 (three screens per agent: the chat plus screens 2 and 3 a swipe away, which keep what the agent puts there), YUI-42 (the preset flywheel: custom screens agents keep sending get flagged for promotion to presets, checklist in spec/FLYWHEEL.md), SITE-16 (watch Yui grow: the whole GitHub history, builds and screenshots, day by day, at /timeline) and INT-0 (the adapters plan). What is left to pull once the MVP passes, roughly in this order:
 
 - SITE-15: Yui Lines back on the home page, and every spec doc readable on the site.
 - YUI-14: voice in, text out, fast.
 - INT-1 onward: adapters for other agent frameworks, Hermes first (see Adapters below).
 - The phase backlog below, from YUI-30 on.
+
+## Epics
+
+Work ships in epics: a set of cards that together make one release worth trying. Cards land as they finish; the app goes to TestFlight once per epic, with a list of what to try. Crashes and blockers ship on their own.
+
+**Now: GTM-1, grassroots go-to-market.** While the next build waits on Apple, the site and the story come first. Investor material is out for now; nothing gets posted without Chris.
+
+- SITE-19: shareable moments. Share links and preview cards for every screen, a Share button in the playground, an embed that shows a live Yui Lines screen, a "Made with Yui Lines" badge.
+- SITE-20: the go-to-market plan, in public: who it is for, the social plan per channel, the first 30 days.
+- OSS-5: a grassroots kit for Yui Lines: who builds with it, how to contribute, a first "draw your best screen in three lines" challenge.
+- SOC-3: three short videos: Yui in 15 seconds, Yui Lines in 30, your own Hermes on your phone in 60.
+- BIZ-7 (parked): one brand system from the website to social to print.
+
+**Next release: chat feels right (build 47).** Today's TestFlight feedback fixes, message reactions (YUI-49), the lock screen timer (YUI-30) and no dead buttons (YUI-53), in one build once Apple's daily upload limit lifts. YUI-52 checks every fix against the original feedback.
 
 ## North star: not just another AI chatbot
 
@@ -187,7 +201,7 @@ Deliverables:
 - DONE Sep 24, YUI-24: push notifications when an agent answers, with presence and per-agent mute. YUI-8 pushes open the handed-off screen.
 - DONE Sep 24, YUI-8: cross-channel handoff. From Telegram, "pull this up on Yui" pushes the screen to the phone.
 - DONE Sep 24, YUI-13: the full-screen stage with swipe-down or X to exit, and workouts always full screen.
-- NOT STARTED, YUI-31: three screens per agent (chat plus two agent-controlled slots), with animated transitions.
+- DONE Sep 24, YUI-31: three screens per agent. The chat, then screens 2 and 3 a swipe away; agents send things that should stay put there (`>2 timer 25m Focus`), and the page slides forward with a spring, or cross-fades with Reduce Motion.
 - NOT STARTED, YUI-14: voice input via Apple's on-device Speech framework, per-agent default of talk vs type, hands-free voice in with text out.
 - NOT STARTED, YUI-30: Live Activity for the timer preset: rounds keep counting on the lock screen and Dynamic Island.
 
@@ -319,7 +333,6 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 **The app**
 
 - YUI-30: the timer keeps counting on the lock screen and in the Dynamic Island.
-- YUI-31: three screens per agent, with animated transitions.
 - YUI-33: agent tables on the phone: workout log, macros, a simple CRM.
 - YUI-34: a key vault for your own fal, OpenRouter and Anthropic keys.
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.

@@ -1,0 +1,301 @@
+{
+  "version": "YL v0",
+  "area": "pages",
+  "vectors": [
+    {
+      "name": "pages of routed lines",
+      "input": ">2 list@shop Milk|Eggs\n>3 say Notes live here.\nsay Back in the chat.",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "list",
+          "id": "shop",
+          "props": {
+            "items": [
+              "Milk",
+              "Eggs"
+            ]
+          }
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Notes live here."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "Back in the chat."
+          }
+        }
+      ],
+      "stage": [],
+      "pages": [
+        2,
+        3,
+        1
+      ]
+    },
+    {
+      "name": "focus a page, then back to the chat",
+      "input": ">3\nlist Pack Charger|Passport +check\nsay Still three.\n>1\nask Ready?",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "3"
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "list",
+          "id": "n1",
+          "props": {
+            "items": [
+              "Charger",
+              "Passport"
+            ],
+            "title": "Pack",
+            "check": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "Still three."
+          }
+        },
+        {
+          "op": "focus",
+          "screen": "1"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n3",
+          "props": {
+            "q": "Ready?"
+          }
+        }
+      ],
+      "stage": [],
+      "pages": [
+        3,
+        3,
+        1
+      ]
+    },
+    {
+      "name": "chat, full and named screens are page 1",
+      "input": ">chat say one\n>stats-view say two\n>full say three\n>4 say four",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "one"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "stats-view",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "two"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "three"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "4",
+          "preset": "say",
+          "id": "n4",
+          "props": {
+            "text": "four"
+          }
+        }
+      ],
+      "stage": [
+        "n3"
+      ],
+      "pages": [
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "name": "a route to a page beats the stage presets",
+      "input": ">2 timer 25m Focus\n>3 camera\ntimer 5m Plank",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 1500,
+            "label": "Focus"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "camera",
+          "id": "n2",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n3",
+          "props": {
+            "work": 300,
+            "label": "Plank"
+          }
+        }
+      ],
+      "stage": [
+        "n3"
+      ],
+      "pages": [
+        2,
+        3,
+        1
+      ]
+    },
+    {
+      "name": "workouts on a page still take the stage",
+      "input": ">2 timer 40/20x8 Tabata\n>3 timer 90/30 Rest",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8,
+            "label": "Tabata"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "timer",
+          "id": "n2",
+          "props": {
+            "work": 90,
+            "rest": 30,
+            "label": "Rest"
+          }
+        }
+      ],
+      "stage": [
+        "n1",
+        "n2"
+      ],
+      "pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "a page beats a full-screen style",
+      "input": ">2 list Today Squat|Bench\nlist Later Row",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "list",
+          "id": "n1",
+          "props": {
+            "items": [
+              "Squat",
+              "Bench"
+            ],
+            "title": "Today"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "list",
+          "id": "n2",
+          "props": {
+            "items": [
+              "Row"
+            ],
+            "title": "Later"
+          }
+        }
+      ],
+      "style": {
+        "screen": "full"
+      },
+      "stage": [
+        "n2"
+      ],
+      "pages": [
+        2,
+        1
+      ]
+    },
+    {
+      "name": "clear and patch on a page add nothing",
+      "input": ">2 clear\n>3 ~timer 10m\n>3 say done",
+      "expected": [
+        {
+          "op": "clear",
+          "screen": "2"
+        },
+        {
+          "op": "patch",
+          "screen": "3",
+          "target": "timer",
+          "props": {
+            "work": 600
+          }
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "done"
+          }
+        }
+      ],
+      "stage": [],
+      "pages": [
+        3
+      ]
+    }
+  ]
+}

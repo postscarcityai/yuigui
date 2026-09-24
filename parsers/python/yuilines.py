@@ -28,7 +28,7 @@ import re
 __all__ = [
     "PRESETS", "CORE", "GROUPS", "STAGE", "CHART_TYPES", "FIELD_TYPES",
     "tokenize", "seconds", "quantity", "calc_var", "parse_args",
-    "Parser", "StreamParser", "parse", "on_stage", "is_workout", "resolve",
+    "Parser", "StreamParser", "parse", "on_stage", "is_workout", "page_of", "resolve",
 ]
 
 PRESETS = [
@@ -939,6 +939,11 @@ def is_workout(preset, props=None):
     return _to_number(1 if rounds is None else rounds) > 1 or _to_number(0 if rest is None else rest) > 0
 
 
+def page_of(screen):
+    """The page a screen lives on (YL.md section 5, Pages): 2 and 3 are pages
+    beside the chat; every other screen renders in the chat, page 1."""
+    return 2 if screen == "2" else 3 if screen == "3" else 1
+
 def on_stage(op, style=None):
     """Whether an add op opens on the stage. `style` is the agent's style
     profile (theme style: screen=chat|full, gallery=...)."""
@@ -950,6 +955,8 @@ def on_stage(op, style=None):
     p = op.get("props") or {}
     if is_workout(op.get("preset"), p):
         return True
+    if page_of(op.get("screen")) != 1:
+        return False
     if p.get("inline") is True:
         return False
     if style.get("screen") == "chat":

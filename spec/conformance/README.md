@@ -36,6 +36,8 @@ One file per area, `NN-area.json`:
 
 - `stage` + `style`: the ids of the adds that open on the stage (YL.md section 5, The stage), when the agent's style profile is `style` (default `{}`). Checked against `onStage` in the JS parser, `YuiLines.opensOnStage` in Swift, `on_stage` in Python and `onStage` in Kotlin.
 
+- `pages`: the page each add lands on, in order (YL.md section 5, Pages): `2` and `3` for those screens, `1` for every other. Checked against `pageOf` in JS and Kotlin, `YuiLines.page(of:)` in Swift and `page_of` in Python.
+
 A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`, and (with `chunks`) the per-chunk emits match.
 
 ## Changing the suite

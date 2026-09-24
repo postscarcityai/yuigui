@@ -754,6 +754,10 @@ fun isWorkout(preset: String?, props: Map<String, Any?> = emptyMap()): Boolean =
     preset == "timer" && props["up"] != true &&
         (toNumber(props["rounds"] ?: 1.0) > 1 || toNumber(props["rest"] ?: 0.0) > 0)
 
+// The page a screen lives on (YL.md section 5, Pages): 2 and 3 are pages
+// beside the chat; every other screen renders in the chat, page 1.
+fun pageOf(screen: String?): Int = when (screen) { "2" -> 2; "3" -> 3; else -> 1 }
+
 // Whether an add op opens on the stage. `style` is the agent's style profile
 // (theme style: screen=chat|full, gallery=...).
 fun onStage(op: Op?, style: Map<String, Any?> = emptyMap()): Boolean {
@@ -762,6 +766,7 @@ fun onStage(op: Op?, style: Map<String, Any?> = emptyMap()): Boolean {
     @Suppress("UNCHECKED_CAST")
     val p = op["props"] as? Map<String, Any?> ?: emptyMap()
     if (isWorkout(op["preset"] as String?, p)) return true
+    if (pageOf(op["screen"] as String?) != 1) return false
     if (p["inline"] == true) return false
     if (style["screen"] == "chat") return false
     if (style["screen"] == "full") return true

@@ -10,7 +10,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from yuilines import StreamParser, on_stage, parse  # noqa: E402
+from yuilines import StreamParser, on_stage, page_of, parse  # noqa: E402
 
 DEFAULT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "spec", "conformance")
 
@@ -61,6 +61,10 @@ def check(v):
         staged = [o["id"] for o in parse(v["input"]) if on_stage(o, v.get("style") or {})]
         if not same(staged, v["stage"]):
             fails.append(("stage (ids that open on the stage)", staged))
+    if v.get("pages") is not None:
+        pages = [page_of(o["screen"]) for o in parse(v["input"]) if o["op"] == "add"]
+        if not same(pages, v["pages"]):
+            fails.append(("pages (page of each add)", pages))
     has_error = any(o["op"] == "error" for o in v["expected"])
     if has_error != (v.get("error") is True):
         fails.append(("vector: `error` flag does not match expected", v.get("error")))

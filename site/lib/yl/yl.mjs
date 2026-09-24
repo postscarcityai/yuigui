@@ -712,11 +712,19 @@ export function onStage(op, style = {}) {
   if (op.screen === "full") return true;
   const p = op.props || {};
   if (isWorkout(op.preset, p)) return true;
+  if (pageOf(op.screen) !== 1) return false;
   if (p.inline === true) return false;
   if (style.screen === "chat") return false;
   if (style.screen === "full") return true;
   if (STAGE.includes(op.preset)) return true;
   return op.preset === "gallery" && (p.layout ?? style.gallery) === "row3d";
+}
+
+// ---------- pages ----------
+// The app shows three screens per agent side by side (spec section 5, Pages):
+// the chat, then screens 2 and 3. Every other screen name renders in the chat.
+export function pageOf(screen) {
+  return screen === "2" ? 2 : screen === "3" ? 3 : 1;
 }
 
 // ---------- defaults ----------

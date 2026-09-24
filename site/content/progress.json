@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
+    "card": "YUI-31",
+    "body": "Every agent in Yui now has three screens side by side. The chat is the first. Screens 2 and 3 sit to its right, a swipe away, with small Chat, 2, 3 tabs above the composer. An agent sends there what should stay put while you keep talking: a focus timer on 2, your shopping list on 3. A page keeps what lands on it across replies until the agent clears it. When a reply sends something there, the page slides over with a spring, or cross-fades if Reduce Motion is on, and the chat keeps a small On screen 3 pill that takes you back. A line sent to a page beats the full-screen defaults, so a focus timer stays on its page; a workout still takes the whole phone. The Yui Lines spec has a new Pages rule and a pageOf function, and all four parsers pass 349 of 349 test cases. The channel guide (v11) tells agents when to use a page. It scored 44 of 45 on Opus 5.5, and the new case (keep a list in sight while planning a recipe) put the list on screen 3.",
+    "images": [
+      {
+        "src": "/progress/yui31-screen3.webp",
+        "alt": "Yui on screen 3: a Shopping list with Eggs, Spinach, Rice and Gochujang, and Chat, 2, 3 tabs above the composer with 3 highlighted."
+      },
+      {
+        "src": "/progress/yui31-screen2-dark.webp",
+        "alt": "Screen 2 in dark mode: a 25 minute Focus timer with a Start button, and the 2 tab highlighted."
+      },
+      {
+        "src": "/progress/yui31-chat-pills.webp",
+        "alt": "The chat: the agent says the timer is on screen 2 and the list on screen 3, with two pills under it, On screen 2 Focus and On screen 3 Shopping."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Polish: Developers and the playground",
     "card": "SITE-18",
     "body": "A polish pass on /developers, the spec pages and /playground. Every spec is now one tap from /developers. On a phone the sample picker sits above the phone, and while you type the phone pins to the top so the keyboard never hides what you are drawing. Every button, tab and link on these pages is at least 44 points tall on a phone, the footer and spec index included. The playground samples use generic agent names. Lighthouse accessibility is 100 on both pages, no page scrolls sideways at 390 or 1280 in light or dark, and all 56 samples render with no console errors.",

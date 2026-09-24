@@ -1055,6 +1055,30 @@
         "max_words": 40
       },
       "good": "`show busy-day` (the name it saved), one short line, no re-sent timer."
+    },
+    {
+      "id": "keep-list-on-page",
+      "category": "flow",
+      "agent": "Arnold",
+      "message": "I'm cooking bibimbap tonight. Keep the shopping list somewhere I can see it while we work out the recipe: eggs, spinach, rice, gochujang, carrots.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "list",
+          "card",
+          "ask",
+          "choose",
+          "pick",
+          "step",
+          "timer",
+          "table"
+        ],
+        "need": [
+          "list"
+        ],
+        "page": true
+      },
+      "good": "`>2 list@shop Shopping Eggs|Spinach|Rice|Gochujang|Carrots +check` so the list stays on a page beside the chat, then the recipe in the chat."
     }
   ]
 }

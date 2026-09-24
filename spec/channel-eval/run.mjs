@@ -19,7 +19,7 @@
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { Parser, PRESETS, resolve, tokenize } from "../../site/lib/yl/yl.mjs";
+import { Parser, PRESETS, resolve, tokenize, pageOf } from "../../site/lib/yl/yl.mjs";
 
 const HERE = new URL(".", import.meta.url);
 const arg = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : d; };
@@ -186,6 +186,8 @@ export function score(c, reply) {
       if (!pr.body && !(pr.points || []).length) fails.push(`one flow: a page with only a title :: ${o.line.trim()}`);
     }
   }
+  // Pages (YUI-31): something meant to stay put goes on screen 2 or 3.
+  if (e.page && !adds.some((o) => pageOf(o.screen) !== 1)) fails.push("page: nothing on screen 2 or 3");
   if (e.patch) {
     const re = new RegExp(e.patch);
     if (!good.some((o) => o.op === "patch" && re.test(o.target))) fails.push(`patch: no ~ patch matching /${e.patch}/`);

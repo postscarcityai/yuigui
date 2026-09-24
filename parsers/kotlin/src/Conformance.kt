@@ -52,6 +52,10 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
         val staged = parse(input).filter { onStage(it, style) }.map { it["id"] }
         if (!same(staged, v["stage"])) fails.add("stage (ids that open on the stage)" to staged)
     }
+    if (v["pages"] != null) {
+        val pages = parse(input).filter { it["op"] == "add" }.map { pageOf(it["screen"] as String?).toDouble() }
+        if (!same(pages, v["pages"])) fails.add("pages (page of each add)" to pages)
+    }
     val hasError = expected.any { it["op"] == "error" }
     if (hasError != (v["error"] == true)) fails.add("vector: `error` flag does not match expected" to v["error"])
     return fails
