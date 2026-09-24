@@ -1,6 +1,37 @@
 {
   "builds": [
     {
+      "build": 21,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-23T22:34:11-07:00",
+      "state": "live",
+      "changes": []
+    },
+    {
+      "build": 20,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-23T22:31:26-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Looks: personality sets get generic names, demo crew too",
+          "card": "YUI-20"
+        }
+      ]
+    },
+    {
+      "build": 19,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-23T22:28:38-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Every agent has its own look: per-agent themes, theme lines, style profiles",
+          "card": "YUI-20"
+        }
+      ]
+    },
+    {
       "build": 18,
       "date": "2026-09-24",
       "uploaded": "2026-09-23T22:00:33-07:00",

@@ -1,15 +1,11 @@
 {
-  "updated": "2026-09-24T05:10:31.719Z",
+  "updated": "2026-09-24T05:40:36.562Z",
   "shippedDays": 30,
   "columns": [
     {
       "key": "backlog",
       "title": "Backlog",
       "cards": [
-        {
-          "key": "YUI-13",
-          "title": "Immersive full-screen mode, agent decides; workouts always full screen"
-        },
         {
           "key": "YUI-14",
           "title": "Voice in, text out, smooth and fast"
@@ -293,8 +289,8 @@
           "waiting": true
         },
         {
-          "key": "YUI-20",
-          "title": "Every agent has its own look and feel (theme per agent, light + dark, preferred screens)"
+          "key": "YUI-13",
+          "title": "Immersive full-screen mode, agent decides; workouts always full screen"
         }
       ]
     },
@@ -302,6 +298,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-20",
+          "title": "Every agent has its own look and feel (theme per agent, light + dark, preferred screens)",
+          "summary": "Every agent has its own look",
+          "shipped": "2026-09-24",
+          "progress": "/progress#every-agent-has-its-own-look"
+        },
         {
           "key": "INT-0",
           "title": "Agent framework adapters roadmap (every framework, Hermes first)",
