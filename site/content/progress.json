@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The timer keeps counting on the lock screen",
+    "card": "YUI-30",
+    "body": "Start a timer an agent sent and lock the phone: it keeps going. The lock screen shows the timer's name, the round you are on, work or rest, the time left in this phase and in the whole workout, and a bar that fills as the phase runs. The Dynamic Island shows a ring and the clock, and opens to the same controls. Pause, resume or end the timer right there, no need to open the app. The rounds advance and the beeps keep sounding with the phone locked, and it wears the look of the agent that sent it. When the last round ends it says Done and leaves on its own. A timer set to silent has no sound to play, so on the lock screen it counts the current phase and catches up on the next round when you open Yui.",
+    "images": [
+      {
+        "src": "/progress/yui30-lock.webp",
+        "alt": "The lock screen with a Tabata timer card: round 1 of 8, 3 seconds left in the work phase, 3:33 left in the workout, a pause button and an end button"
+      },
+      {
+        "src": "/progress/yui30-paused.webp",
+        "alt": "The same card paused in round 2 of 8 at 11 seconds, with a play button to resume"
+      },
+      {
+        "src": "/progress/yui30-island.webp",
+        "alt": "The Dynamic Island opened: Tabata, round 1 of 8, work, 11 seconds, a progress bar and pause and end buttons, in a purple serif agent look"
+      },
+      {
+        "src": "/progress/yui30-compact.webp",
+        "alt": "The Dynamic Island closed: a small orange ring on the left and 0:14 on the right"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Notes: longer pieces, starting with why Yui is open source",
     "card": "SITE-5",
     "body": "yuigui.com has a new page for longer writing: /notes. Each note is a plain markdown file in the repo's docs/notes folder, rendered on the site the same way the business docs are. The index lists notes newest first, with the date and one line on what each is about. Notes sits under Developers in the menu and in the footer, and the site now has a sitemap that lists every page, note and business doc. The first note is Why Yui is open source, business docs included: what is public (both repos, Apache-2.0, the Yui Lines spec with its conformance tests, the adapters plan, the business plan), why each part is open, and what being open does not buy us.",
