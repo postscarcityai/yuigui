@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T23:34:14.755Z",
+  "updated": "2026-09-24T23:40:57.301Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -252,7 +252,9 @@
         },
         {
           "key": "SITE-25",
-          "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)"
+          "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)",
+          "summary": "The site catches up: what is on your phone, and what comes with build 57",
+          "progress": "/progress#the-site-catches-up-what-is-on-your-phone-and-what-comes-with-build-57"
         }
       ]
     },
