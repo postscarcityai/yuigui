@@ -6,7 +6,7 @@ This repo is the hub: the Yui Lines spec, the conformance vectors, the reference
 
 ## Good first contributions
 
-- **A parser in a new language.** Kotlin is next on our list (for Android), but any language helps. Make it pass every file in `spec/conformance/`, then open an issue so we can link it.
+- **A parser in a new language.** We have JavaScript, Swift, Python and Kotlin (see `parsers/`). Rust is next on our list, but any language helps. Make it pass every file in `spec/conformance/`, add it to `spec/conformance/run-all.sh`, then open a pull request.
 - **Conformance vectors.** Found an edge case the spec is vague about? Add a vector and say what you think the answer should be.
 - **Preset ideas.** Open an issue with the screen you wish an agent could put up, written as Yui Lines.
 - **Site fixes.** Anything in `site/`.
@@ -27,7 +27,7 @@ cd site && npm install && npm run sync && npm run dev
 `spec/YL.md` is the contract between agents and the app, so changes there go slower than code changes.
 
 1. Open an issue first and describe the change with a before and after.
-2. Update `spec/YL.md`, the reference parser in `site/lib/yl/yl.mjs`, and add or change vectors in `spec/conformance/` in the same pull request.
+2. Update `spec/YL.md`, the reference parser in `site/lib/yl/yl.mjs`, the ports in `parsers/`, and add or change vectors in `spec/conformance/` in the same pull request. `spec/conformance/run-all.sh` must pass.
 3. Keep lines short. Every token an agent writes costs money on every turn. If a change makes common screens longer, it needs a strong reason. Rerun `npm run bench` in `bench/` and paste the numbers.
 
 ## Pull requests

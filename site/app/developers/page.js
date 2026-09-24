@@ -15,6 +15,13 @@ const cards = [
   ["/channel", "Channel guide", "What every agent on the Yui channel is told, and the eval that scores it."],
 ];
 
+const parsers = [
+  ["JavaScript", `${links.github}/blob/main/site/lib/yl/yl.mjs`, "site/lib/yl/yl.mjs, the reference. The playground and the site run it."],
+  ["Swift", `${links.appRepo}/tree/main/Packages/YuiLines`, "Packages/YuiLines in the app repo. The iPhone app runs it."],
+  ["Python", `${links.github}/tree/main/parsers/python`, "parsers/python. One file, standard library only."],
+  ["Kotlin", `${links.github}/tree/main/parsers/kotlin`, "parsers/kotlin. JVM, Kotlin standard library only. Android later."],
+];
+
 export default function Developers() {
   return (
     <>
@@ -33,11 +40,23 @@ export default function Developers() {
 
       <h2>The pieces</h2>
       <ul>
-        <li><strong>Yui Lines.</strong> The wire format. <code>timer 40/20x8 Tabata</code> is a whole interval timer. One spec, one shared test suite, parsers in JavaScript and Swift.</li>
+        <li><strong>Yui Lines.</strong> The wire format. <code>timer 40/20x8 Tabata</code> is a whole interval timer. One spec, one shared test suite, parsers in four languages (below).</li>
         <li><strong>The app.</strong> Native SwiftUI on iPhone. It draws every screen from a fixed set of presets built into the app.</li>
         <li><strong>The plugin.</strong> A Hermes platform plugin. It dials out to the relay, so your machine opens no ports, and each Hermes profile shows up as its own agent.</li>
         <li><strong>The relay.</strong> Supabase Realtime and a few edge functions carry messages both ways, hold them while either side is offline, and send a push when the app is closed.</li>
       </ul>
+
+      <h2>Parsers</h2>
+      <p>
+        Every parser passes the same shared conformance vectors. Use one to read Yui Lines in your own agent,
+        adapter or app. <code>spec/conformance/run-all.sh</code> runs them all.
+      </p>
+      <ul>
+        {parsers.map(([lang, href, where]) => (
+          <li key={lang}><strong>{lang}.</strong> <a href={href}>{where}</a></li>
+        ))}
+      </ul>
+      <p>Want another language? Rust is next. Port the JavaScript one, make it pass the vectors, and open a pull request.</p>
 
       <h2>Other agent frameworks</h2>
       <p>

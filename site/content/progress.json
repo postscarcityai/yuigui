@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Yui Lines in Python and Kotlin",
+    "card": "OSS-2",
+    "body": "Yui Lines had two parsers: JavaScript for the site and Swift for the app. Now it has four. Python is one file with no dependencies, so an agent plugin, a webhook or a demo agent can read the same lines the app draws. Kotlin runs on the JVM and is the start of an Android parser. Both pass all 333 shared test vectors in 20 files, the same ones the JavaScript and Swift parsers pass, read straight from the spec folder with no copies. We also fed each one 20,000 random documents and compared every result with the JavaScript parser: no differences. One new script, spec/conformance/run-all.sh, runs every language and prints a pass count for each. The Developers page now lists all four parsers. Rust is next, and it is a good first contribution.",
+    "images": [
+      {
+        "src": "/progress/oss2-parsers.webp",
+        "alt": "The Developers page on yuigui.com: a new Parsers section lists four Yui Lines parsers, JavaScript, Swift, Python and Kotlin, each linked to its source, with a note that spec/conformance/run-all.sh runs them all and that Rust is next"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "The timer keeps counting on the lock screen",
     "card": "YUI-30",
     "body": "Start a timer an agent sent and lock the phone: it keeps going. The lock screen shows the timer's name, the round you are on, work or rest, the time left in this phase and in the whole workout, and a bar that fills as the phase runs. The Dynamic Island shows a ring and the clock, and opens to the same controls. Pause, resume or end the timer right there, no need to open the app. The rounds advance and the beeps keep sounding with the phone locked, and it wears the look of the agent that sent it. When the last round ends it says Done and leaves on its own. A timer set to silent has no sound to play, so on the lock screen it counts the current phase and catches up on the next round when you open Yui.",
