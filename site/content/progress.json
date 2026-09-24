@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Who Yui is on each platform",
+    "body": "Yui will be @yuiguiai everywhere, and we checked: the name is free on X, Instagram, Threads, TikTok, YouTube, Bluesky, Reddit and GitHub (Product Hunt blocked our check). For each account we wrote the bio, the voice, what it posts and why someone would follow it, plus ten example posts that show the voice. Every example is a draft; nothing has been posted and Chris creates the accounts. Avatars and banners use the coral wordmark on cream. Read it at yuigui.com/business/biz-5-social-accounts."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Decks, plan mode and narrated walkthroughs",
     "body": "Three new kinds of screen. A deck is a presentation: the agent sends one line per slide, with a picture, a few words and speaker notes, and you swipe through it or go full screen. Put a question at the end with the right answer and it becomes a quiz that tells you why. Plan mode turns a string of questions into steps with a progress bar, Back and Next, and a review screen, and the agent gets all your answers at once, as a project it can bring back later with one tap. Narrate has the agent talk you through something while it shows it: a lesson deck page by page, or a website update, before and after, one change at a time, with the words lighting up as they are spoken. Each agent can have its own voice. Try them in the playground: ?demo=deck-lesson, plan-website and narrate-site. The images in the vaccine lesson were generated for it, and the site in the walkthrough is a made-up pottery studio."
   },
