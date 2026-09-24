@@ -1,6 +1,22 @@
 {
   "builds": [
     {
+      "build": 29,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-24T02:47:31-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Yui plugin installs on any Hermes host: default profile, Linux host name, next steps",
+          "card": "YUI-23"
+        },
+        {
+          "text": "Reply pushes only when they help: presence, per-agent mute, killed-app E2E",
+          "card": "YUI-24"
+        }
+      ]
+    },
+    {
       "build": 27,
       "date": "2026-09-24",
       "uploaded": "2026-09-24T01:43:04-07:00",
@@ -240,10 +256,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Yui plugin installs on any Hermes host: default profile, Linux host name, next steps",
-      "card": "YUI-23"
-    }
-  ]
+  "next": []
 }
