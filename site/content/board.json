@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T16:40:10.535Z",
+  "updated": "2026-09-24T17:10:19.488Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -9,11 +9,6 @@
         {
           "key": "YUI-14",
           "title": "Voice in, text out, smooth and fast"
-        },
-        {
-          "key": "YUI-30",
-          "title": "Timer on the lock screen",
-          "summary": "Live Activity and Dynamic Island"
         },
         {
           "key": "YUI-31",
@@ -213,10 +208,6 @@
         {
           "key": "SITE-5",
           "title": "/notes long-form route on yuigui.com"
-        },
-        {
-          "key": "SITE-6",
-          "title": "Playground a11y labels (Lighthouse 89 -> 95+)"
         }
       ]
     },
@@ -230,6 +221,21 @@
           "summary": "Public TestFlight link (external group + Beta App Review)",
           "mvp": true,
           "waiting": true
+        },
+        {
+          "key": "SITE-14",
+          "title": "Mockups show everything built, each tied to its roadmap item and ship date"
+        },
+        {
+          "key": "SITE-6",
+          "title": "Playground a11y labels (Lighthouse 89 -> 95+)",
+          "summary": "The playground reads right to a screen reader",
+          "progress": "/progress#the-playground-reads-right-to-a-screen-reader"
+        },
+        {
+          "key": "YUI-30",
+          "title": "Timer on the lock screen",
+          "summary": "Live Activity and Dynamic Island"
         }
       ]
     },
@@ -237,6 +243,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-13",
+          "title": "yuigui.com overhaul",
+          "summary": "One story, five menu items",
+          "shipped": "2026-09-24",
+          "progress": "/progress#one-story-five-menu-items"
+        },
         {
           "key": "SITE-11",
           "title": "Full freshness + polish pass on yuigui.com",
