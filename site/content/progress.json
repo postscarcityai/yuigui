@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Pictures in, photos out",
+    "card": "YUI-21",
+    "body": "Agents can now show you pictures and videos in Yui, and you can send them photos. When an agent makes an image (a storyboard frame, a slide, an edit), it just puts the file or the link in its reply. Yui uploads it to private storage and sends your phone a link that only works for you and expires. Old threads keep their pictures because the app renews the link. When an agent asks for a photo, you take one or pick one from your library, and it arrives on the agent's machine as a file it can open and look at. Hermes agents can render and send a picture in one step with `hermes yui media`. Every photo and picture is deleted with your account, and a daily sweep clears anything no message points at. We tested the locks too: 49 checks that strangers, other accounts and even a revoked agent host cannot read or write your media.",
+    "images": [
+      {
+        "src": "/progress/yui21-agent-picture.webp",
+        "alt": "Yui app: an agent's reply with a rendered storyboard frame, a coral mug on a sunny kitchen table, captioned Frame 1."
+      },
+      {
+        "src": "/progress/yui21-photo-sent.webp",
+        "alt": "Yui app: the agent asks Snap something for me; the chosen photo of hands shaping a bowl on a pottery wheel shows with Photo sent."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "The channel guide, now tested",
     "card": "YUI-10",
     "body": "Every agent on the Yui channel gets a short guide with each turn: how to put buttons, lists, timers and charts on your screen, and when to just answer in words. We now test that guide. 34 real-life messages (a leg day, a grocery list, a booking, a plain question, a request for a password) go to an agent with the guide, and a script checks every reply with the real Yui Lines parser. The first draft scored 74%. The test caught two bugs no one had seen. The guide taught a way to update a screen that the app actually throws away. And agents often wrote answer options in a way that parses fine but leaves nothing to tap. The rewrite scores 97% and is 20% shorter. It is live for every agent now, and you can read it, with the scores, at yuigui.com/channel. Nothing visual in this one: it is a text guide and a test script."

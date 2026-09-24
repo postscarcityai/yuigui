@@ -109,9 +109,21 @@ The text every agent gets on the Yui channel is `spec/CHANNEL.md` from "## You a
 - Runtime: trades the connector token for a session, subscribes to Realtime, and on each insert (or every 20 s, every 3 s while Realtime is down) reads new user rows past a cursor saved in `<profile home>/yui/cursor.json`. A restart resumes where it stopped; a new agent starts from now, not from old history. Heartbeat every 45 s; the session refreshes 10 minutes before it expires.
 - Inbound is authorized upstream (RLS already limits it to the paired user), so there is no `YUI_ALLOWED_USERS` list to keep.
 - The profile's Yui thread is its home channel (`YUI_HOME_CHANNEL` and `platforms.yui.home_channel` default to the profile name), so cron and cross-channel sends can target `yui`.
-- Pictures from tools become a YL `image` line.
+- Pictures from tools become a YL `image` line, and local files and generator URLs are re-hosted (see Media).
 
 On the reference host the `yui` profile serves the Yui agent; `urza` has the plugin for handoffs only (no agent of its own). Other profiles get a thread when the user adds them from the app.
+
+## Media (YUI-21)
+
+Pictures and videos travel as URLs, never inside a message row. They live in one private Storage bucket in PROOF, `yui-media`, at `<user>/<agent>/<from>/<uuid>.<ext>` (`from` is `agent` or `user`). Migration: `supabase/migrations/20260924040000_yui_media.sql` in the app repo.
+
+- **Who can do what.** The same two roles as the tables, never `authenticated` or anon. `yui_user` reads and deletes its own media and uploads under `from=user` into its own agents' threads. `yui_connector` reads media in threads it serves and uploads under `from=agent`. Nobody updates or overwrites: a new picture is a new path. Tests: `supabase/tests/media_test.py` (49 live checks, most of them refusals).
+- **Agent to app.** The plugin walks the ```yui fences of every reply. A local media file (absolute path, `~/...`, `file://`) anywhere in a line, and a remote media URL on a media line (`image`, `gallery`, `video`, `compare`, `storyboard`, `page`, `card`), is uploaded and swapped for a signed URL. A `list` or `card` link to a web page stays a link. The bytes decide the type (jpg, png, webp, gif, heic, mp4, mov), not the extension; anything else stays as written. `send_image`, `send_image_file`, `send_video`, `hermes send --to yui` with media and cron deliveries go the same way.
+- **One step from an agent.** `hermes -p <profile> yui media <file|URL> [caption]` sends a picture or video; `--prompt "..." [--aspect 16:9]` renders one first with fal `nano-banana-2` on the owner's own `FAL_KEY` (env or the profile's `.env`), `--prompt ... <file>` edits that picture instead.
+- **App to agent.** The app uploads the person's photo (camera, library, a form's `photo` field) as JPEG, 2048 px on the long side, and the event carries the bucket path: `[yui] c1 camera photo=<user>/<agent>/user/<uuid>.jpg`. The plugin downloads it to `~/.hermes/cache/yui/` (mode 600), puts that local path in the line the agent reads, and hands the file to Hermes as vision media.
+- **Signed links.** The host signs for 7 days. The app re-signs an expired link with the person's own token, so old threads keep their pictures. A signed link is a bearer link while it lives; revoking a host stops it signing at once, though Storage's CDN may replay an object that host already downloaded until its 60-minute token ends.
+- **Limits.** 50 MB per object (the bucket's cap). Video is stored and played as sent: no transcoding yet, so send mp4 (H.264) or mov; webm will not play on iPhone and is refused. Transcoding waits until someone needs it.
+- **Deletion and cleanup.** Account deletion (`yui-delete`) removes every object under the user before the user row. `supabase/scripts/media_sweep.py --delete` removes orphans: media whose owner or agent is gone, and uploads older than a day that no message references (a send that failed, or a message the person deleted). The rule lives in SQL, `yui_media_orphans(grace)`. Run the sweep daily.
 
 ## Not yet
 

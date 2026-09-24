@@ -1,5 +1,5 @@
 // Linked from the app (sign-in screen and Settings). Keep in step with
-// ~/dev/yui/supabase/migrations: every yui_ table must be listed here.
+// ~/dev/yui/supabase/migrations: every yui_ table (and the yui-media bucket) must be listed here.
 export const metadata = { title: "Privacy | Yui" };
 
 export default function Privacy() {
@@ -7,7 +7,7 @@ export default function Privacy() {
     <>
       <div className="eyebrow">Privacy</div>
       <h1>What Yui keeps, and how to delete it.</h1>
-      <p style={{ color: "var(--muted)" }}>Last updated September 23, 2026.</p>
+      <p style={{ color: "var(--muted)" }}>Last updated September 24, 2026.</p>
 
       <h2>Signing in</h2>
       <p>
@@ -24,6 +24,11 @@ export default function Privacy() {
         <li>Your devices: a name and a push notification token, so your agents can reach you.</li>
         <li>Your agents and pairings: which agents you connected to Yui.</li>
         <li>Your messages with those agents, so a conversation shows up on your phone.</li>
+        <li>
+          Photos you send an agent (from the camera or your library) and pictures or videos your agents send you. They
+          sit in private storage that only your account and the agent you sent them to can open, through links that
+          expire. Yui only sees a photo when you pick or take one to send.
+        </li>
       </ul>
       <p>
         That data lives in a Supabase database in the United States. Each account can read only its own rows. We do
@@ -34,7 +39,7 @@ export default function Privacy() {
       <h2>Deleting your account</h2>
       <p>
         In the app, open Settings, then Account, then Delete account, and confirm. Deletion happens right away: your
-        account, sessions, devices, agents, pairings and messages are removed from our servers, and Yui is removed
+        account, sessions, devices, agents, pairings, messages, photos and pictures are removed from our servers, and Yui is removed
         from your Apple ID. It cannot be undone. Signing in with Apple again later starts a new, empty account.
       </p>
       <p>
