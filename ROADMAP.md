@@ -1,4 +1,4 @@
-# Yui | roadmap (draft 7, Sep 24 2026)
+# Yui | roadmap (draft 8, Sep 24 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
@@ -49,13 +49,7 @@ Shipped:
 - YUI-9: typographic identity, no mascot.
 - YUI-11: the debug screen is gone; the top button opens your agents.
 - YUI-15: you add, rename and remove your own agents.
-
-Building now:
-
 - YUI-7: the Hermes `yui` plugin. Each agent gets a thread and answers with screens.
-
-Up next, in order:
-
 - YUI-10: the channel guide every agent gets, with an eval.
 - YUI-12: change your answer after tapping.
 - YUI-23: one-command plugin install on any Hermes host, plus a Getting started page.
@@ -64,20 +58,22 @@ Up next, in order:
 - YUI-28: messages survive a sleeping Mac, a dropped network or a killed app.
 - YUI-26: safe for strangers: rate limits, a kill switch, and a fresh security audit of the shared backend.
 - YUI-27: ready for Apple's beta review: privacy labels, review notes, a demo account, a help link.
-- YUI-22: the public TestFlight link.
+
+Building now:
+
+- YUI-22: the public TestFlight link. Submitted to Apple's beta review Sep 24; waiting on Apple.
+
+Up next:
+
 - YUI-29: the acceptance run. A stranger does the whole path.
 
 ### Next after the MVP
 
-These are the first things we pull once the MVP passes, roughly in this order:
+Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos) and INT-0 (the adapters plan). What is left to pull once the MVP passes, roughly in this order:
 
-- YUI-20: every agent has its own look, light and dark.
-- YUI-8: "pick this up in Yui" from Telegram in one step.
-- YUI-13: full-screen mode; workouts always full screen.
 - YUI-14: voice in, text out, fast.
-- YUI-16, YUI-17, YUI-18: media, charts and science, learn and plan presets (spec and web are shipping now; YUI-19 brings them to the app).
-- YUI-21: agents send real images and videos.
-- INT-0: adapters for every agent framework, Hermes first.
+- INT-1 onward: adapters for other agent frameworks, Hermes first (see Adapters below).
+- The phase backlog below, from YUI-30 on.
 
 ## North star: not just another AI chatbot
 
@@ -139,11 +135,13 @@ Rules that follow from the decision:
 
 Agents stay where they live (Hermes on the Mac mini today). Each agent connects to a small **Yui relay** (hosted, Cloudflare Workers + Durable Objects is a strong fit: one durable object per user session, websockets, cheap, global). The agent sends chat messages and UI documents to the relay; the relay pushes them to the phone (websocket when open, APNs push when closed). The phone sends taps, form results and voice transcripts back as events. A Hermes plugin/skill speaks the relay protocol, so "pull this up on Yui" from Telegram is one tool call. Data tables live on device (SQLite) with optional sync through the relay.
 
-## Phases by month
+## Phases
 
-Dates assume work starts the week of Sep 28 2026. Each phase ends with something Chris can touch.
+Updated Sep 24 2026 (SITE-10). The first plan assumed work would start the week of Sep 28 and run in monthly phases to June 2027. Work started Sep 23 instead. By Sep 24, Phases 0 and 1 had shipped, and so had half of Phase 2. The MVP above cut across the phases: it pulled push, first run, safety limits and beta review prep forward, and left the rest for later.
 
-### Phase 0 | late Sep to mid Oct 2026: foundations and the tracker site
+Dates below are real ship dates from the board and the git log. A phase that has not shipped carries no date. The old month targets no longer mean anything, and new ones are Chris's call. Each phase still ends with something Chris can touch.
+
+### Phase 0 | shipped Sep 23 2026: foundations and the tracker site
 
 Goals: a place to watch the project, and the protocol written down before any app code.
 
@@ -153,92 +151,93 @@ Deliverables:
 - DONE Sep 23: yuigui.com live, built in public (progress log per ship, weekly update Fridays).
 - DONE Sep 23: waitlist on yuigui.com, stored in `yui_waitlist` in the existing PostScarcity AI Supabase project (PROOF). All Yui tables use the `yui_` prefix there; no new Supabase instance.
 - DONE Sep 23: Apple Developer account (Chris, individual enrollment, no D-U-N-S).
-- Yui Lines conformance suite (the contract the Swift parser must pass), theme schema (colors, avatar, voice per agent), event schema (tap, submit, voice).
-- Full Xcode on the Mac mini and a TestFlight pipeline, so Phase 1 starts shipping on day one.
-- Clickable web mockups of the three canonical screens: chat, Arnold interval timer, nutrition photo log.
-- Telegram quick win for the current fleet: inline keyboard buttons for yes/no and multiple choice on Hermes questions. This fixes his top pain ("I just want a button") in days, not months, and doubles as the fallback path.
+- DONE Sep 23: the Yui Lines conformance suite, and the Swift parser that passes it (YUI-3). Events back to the agent (tap, submit) are in the spec from day one; voice events wait for YUI-14.
+- DONE Sep 23: Xcode on the Mac mini and a TestFlight pipeline on the App Store Connect API. The first build went out the same day.
+- DONE Sep 23: web mockups of the canonical screens at /mockups. They are static, not clickable; the playground and the app replaced the need.
+- DONE Sep 24: theme schema, as per-agent themes and theme lines (YUI-20).
+- MOVED: the Telegram quick win (inline buttons on Hermes questions) became INT-4 on the backlog. Not started.
 
-Dependencies: Xcode finishing its install on the Mac mini.
-
-### Phase 1 | now to end Nov 2026: talk to your own Hermes agents in Yui
+### Phase 1 | shipped Sep 24 2026: talk to your own Hermes agents in Yui
 
 Goals: Chris talks to each of his Hermes agents in the app, gets GUI answers back, and can hand a Telegram conversation over to Yui with one push.
 
 How it plugs in: **Yui is a Hermes messaging platform**, built as a Hermes platform plugin, the same way Telegram is. Each agent keeps one brain and one memory across Telegram and Yui. Each Hermes profile shows up in the app as its own agent with its own thread. The plugin dials out to the relay (Supabase Realtime today), so the Mac needs no open ports.
 
 Deliverables, in build order:
-- DONE: SwiftUI app on TestFlight, Korean-cute theme with light/dark, typographic identity (coral wordmark, letter avatars), coral wordmark icon. Yui Lines Swift parser passing the shared conformance suite.
-- YUI-4: first 6 presets in chat (ask, choose, pick, form, list, timer).
-- YUI-6: accounts. Sign in with Apple, and in-app account deletion as App Store rule 5.1.1(v) requires, including Apple token revocation. Yui users are kept fully separate from any other PostScarcity data.
-- YUI-7: the Hermes `yui` platform plugin. Pairing by code, one thread per agent (urza and Arnold first), agents taught Yui Lines so they answer with screens, taps flow back as messages.
-- YUI-8: push handoff. From Telegram, "send it to Yui" drops the screen into that agent's thread and sends a push that opens it.
-- YUI-5: coral wordmark across the UI.
+- DONE Sep 23: SwiftUI app on TestFlight, Korean-cute theme with light/dark (YUI-2), typographic identity with coral wordmark and letter avatars (YUI-9), coral wordmark icon. Yui Lines Swift parser passing the shared conformance suite (YUI-3).
+- DONE Sep 23, YUI-4: first 6 presets in chat (ask, choose, pick, form, list, timer).
+- DONE Sep 23, YUI-6: accounts. Sign in with Apple, and in-app account deletion as App Store rule 5.1.1(v) requires, including Apple token revocation. Yui users are kept fully separate from any other PostScarcity data.
+- DONE Sep 23, YUI-5: coral wordmark across the UI.
+- DONE Sep 24, YUI-7: the Hermes `yui` platform plugin. Pairing by code, one thread per agent, agents taught Yui Lines so they answer with screens, taps flow back as messages.
+- DONE Sep 24, YUI-8: push handoff. From Telegram, "send it to Yui" drops the screen into that agent's thread and sends a push that opens it.
 
-Dependencies: an Apple key with Push Notifications and Sign in with Apple (browser step for Chris, free).
+Dependencies: an Apple key with Push Notifications and Sign in with Apple. Done: both are live in the app.
 
-### Phase 2 | December 2026: many agents, identities, cross-channel
+### Phase 2 | partly shipped Sep 24 2026: many agents, identities, cross-channel
 
 Goals: Yui is a hub, not an Arnold app.
 
 Deliverables:
-- Agent list with per-agent theme, avatar and voice. Urza, Arnold, R0SS all connected.
-- Three screens per agent (chat plus two agent-controlled slots), with animated transitions.
-- Push notifications with deep links to a generated screen.
-- Cross-channel handoff: from Telegram, "pull this up on Yui" pushes the screen to the phone.
-- Voice input via Apple's on-device Speech framework, per-agent default of talk vs type.
-- Live Activity for the timer preset: rounds keep counting on the lock screen and Dynamic Island.
+- DONE Sep 23, YUI-15: an agent list you manage yourself: add, rename, remove.
+- OPEN: Urza, Arnold and R0SS all connected in Chris's app. Not tracked on a card, so not confirmed here.
+- DONE Sep 24, YUI-20: per-agent theme and avatar, light and dark. Per-agent voice is not built; it comes with YUI-14.
+- DONE Sep 24, YUI-24: push notifications when an agent answers, with presence and per-agent mute. YUI-8 pushes open the handed-off screen.
+- DONE Sep 24, YUI-8: cross-channel handoff. From Telegram, "pull this up on Yui" pushes the screen to the phone.
+- DONE Sep 24, YUI-13: the full-screen stage with swipe-down or X to exit, and workouts always full screen.
+- NOT STARTED, YUI-31: three screens per agent (chat plus two agent-controlled slots), with animated transitions.
+- NOT STARTED, YUI-14: voice input via Apple's on-device Speech framework, per-agent default of talk vs type, hands-free voice in with text out.
+- NOT STARTED, YUI-30: Live Activity for the timer preset: rounds keep counting on the lock screen and Dynamic Island.
 
-Dependencies: Phase 1 relay stable. APNs key from the Apple account.
-
-Phase 2 also carries the immersive work (North star 1 and 2): the full-screen stage with swipe-down or X to exit, full-screen workouts with a lock-screen Live Activity, and hands-free voice in with text out.
-
-### Phase 3 | January 2027: data and keys
+### Phase 3 | not started: data and keys
 
 Goals: agents can make things that persist.
 
 Deliverables:
-- On-device tables: agents create tables and rows through the protocol (`table.create`, `row.upsert`, `query`). Views render as table, list, or chart. Starter schemas: workout log, macros, simple CRM.
-- Key vault in the iOS Keychain for BYO keys: fal, Replicate, OpenRouter, Anthropic.
-- Image generation through the user's own fal key (agent avatars first, then in-chat images).
-- Nutrition demo: photo of a meal to macro estimate to a row in the macros table.
-- Optional encrypted sync of tables via the relay (off by default, on-device first per Chris).
+- YUI-33: on-device tables: agents create tables and rows through the protocol (`table.create`, `row.upsert`, `query`). Views render as table, list, or chart. Starter schemas: workout log, macros, simple CRM.
+- YUI-34: key vault in the iOS Keychain for BYO keys: fal, Replicate, OpenRouter, Anthropic.
+- Image generation through the user's own fal key (agent avatars first, then in-chat images). YUI-21 (Sep 24) already lets agents send images they made elsewhere.
+- YUI-35: nutrition demo: photo of a meal to macro estimate to a row in the macros table.
+- YUI-36: optional encrypted sync of tables via the relay (off by default, on-device first per Chris).
 
-Dependencies: Phase 2. Decision on whether sync is needed at all for v1.
+Dependencies: a decision on whether sync is needed at all for v1.
 
-### Phase 4 | February 2027: onboarding and a built-in agent
+### Phase 4 | not started: onboarding and a built-in agent
 
 Goals: someone with no agent can download Yui and start.
 
 Deliverables:
-- Hosted default agent (runs on the relay, model via OpenRouter on the user's key at first).
-- Generative onboarding interview: name form, AI-knowledge slider, "what do you want to do" with a mic button, then starter agents suggested (trainer, nutritionist, personal assistant).
-- Connector library v0: MCP servers the user logs in to via OAuth (HubSpot, Google Calendar, Gmail first).
+- YUI-37: hosted default agent (runs on the relay, model via OpenRouter on the user's key at first).
+- YUI-38: generative onboarding interview: name form, AI-knowledge slider, "what do you want to do" with a mic button, then starter agents suggested (trainer, nutritionist, personal assistant).
+- YUI-39: connector library v0: MCP servers the user logs in to via OAuth (HubSpot, Google Calendar, Gmail first).
 
-Dependencies: Phase 3 vault. Cost model for hosted agent calls.
+Dependencies: the Phase 3 vault. Cost model for hosted agent calls.
 
-### Phase 5 | March 2027: open adapters and a private beta
+### Phase 5 | started: open adapters and a beta
 
 Goals: other agent owners can plug in.
 
 Deliverables:
-- Other people's Hermes installs connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app. Same plugin behavior, no code on their side.
-- Published Yui Lines spec and adapters: Hermes (done), OpenClaw-style frameworks, a generic HTTP/webhook adapter, an MCP server so any MCP-capable agent can render to Yui.
-- Private beta, 20 to 50 technical users from the Hermes/OpenClaw communities.
-- App Store review prep: privacy labels, review notes explaining the component-catalog approach, demo account.
-- SMS channel (text a number, get a push that opens the screen).
+- DONE Sep 24, YUI-23: other people's Hermes installs connect with one command to install the plugin and one code to pair.
+- DONE Sep 24, OSS-1: Yui is open source (Apache-2.0), Yui Lines spec included.
+- DONE Sep 24, YUI-27: beta review prep: privacy answers, review notes, demo account, help link.
+- BUILDING, YUI-22: public TestFlight link. Submitted to Apple's beta review Sep 24.
+- OPEN: the private beta of 20 to 50 technical users from the Hermes and OpenClaw communities. The public link may replace it; Chris's call.
+- NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
+- NOT STARTED, INT-1 onward: adapters for OpenClaw-style frameworks, a generic HTTP/webhook adapter, a Yui MCP server so any MCP-capable agent can render to Yui, and more (see Adapters below).
+- NOT STARTED, YUI-48: SMS channel (text a number, get a push that opens the screen).
 
-Dependencies: beta invite list, App Store submission sign-off from Chris.
+Dependencies: App Store submission sign-off from Chris.
 
-### Phase 6 | April to June 2027: money, polish, on-device
+### Phase 6 | not started: money, polish, on-device
 
 Goals: the "put in your credit card and go" version.
 
 Deliverables:
-- In-app purchase credits for image generation and hosted model usage (keys stay optional for power users).
-- On-device Foundation Models for routing and quick replies, cutting cloud cost and latency.
-- Widgets for agent dashboards, App Intents for Siri, Shortcuts and the Action button.
+- YUI-45: in-app purchase credits for image generation and hosted model usage (keys stay optional for power users).
+- YUI-41: on-device Foundation Models for routing and quick replies, cutting cloud cost and latency.
+- YUI-40: widgets for agent dashboards, App Intents for Siri, Shortcuts and the Action button.
 - Design system v1 from beta feedback.
-- Decision gate: Android port (Kotlin + Jetpack Compose against the same Yui Lines suite), Apple Watch app, public launch.
+- Decision gate: Android port (YUI-46, Kotlin + Jetpack Compose against the same Yui Lines suite), Apple Watch app (YUI-47), public launch.
 
 Dependencies: beta learnings, payments setup (financial, needs Chris).
 
@@ -264,7 +263,7 @@ Chris, Sep 23: friendlier, a South Korean aesthetic, happy-cat energy, a little 
 
 ### Parallel track | Telegram fallback (any time)
 
-If Apple rejects the app or it stalls, Telegram already supports most of what the pitch needs: inline keyboards with callback buttons, reply keyboards, and **Telegram Mini Apps** (full web apps inside Telegram, with theme colors, haptics, and cloud storage). The same Yui Lines can render as a Mini App using the web renderer. This is the insurance policy, and Phase 0 already starts it.
+If Apple rejects the app or it stalls, Telegram already supports most of what the pitch needs: inline keyboards with callback buttons, reply keyboards, and **Telegram Mini Apps** (full web apps inside Telegram, with theme colors, haptics, and cloud storage). The same Yui Lines can render as a Mini App using the web renderer. This is the insurance policy. It is card INT-4 on the backlog and has not started.
 
 ## Adapters | every agent framework, Hermes first (INT-0)
 

@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The roadmap catches up with the work",
+    "card": "SITE-10",
+    "body": "The roadmap still said work would start Sep 28 and spread across monthly phases to June 2027. Work started Sep 23, and by Sep 24 Phases 0 and 1 had shipped, with half of Phase 2 and the first part of Phase 5. The phases on /roadmap now show real ship dates taken from the board and the git log, and name the card behind every piece of work still to come. Phases that have not shipped carry no date for now: the old month targets stopped meaning anything, and new ones are a decision, not a guess. The MVP list and the phase cards on /progress match the board too. Nothing to screenshot: this is a text change."
+  },
+  {
+    "date": "2026-09-24",
     "title": "No page scrolls sideways on a phone",
     "card": "SITE-9",
     "body": "Ten pages slid sideways on a phone. Wide tables in the spec, the channel results and every business doc pushed the whole page out, and so did long links, the playground's picker and phone frame, the benchmark tables, and one long install command on Get started. Now a wide table scrolls inside its own box while the page stays put, long links and commands wrap, and the playground fits a 320 point screen. A script loads all 21 pages at 320, 375, 390 and 430 points wide and fails if any of them is wider than the screen. The first version of that script passed everything: a phone browser quietly zooms out to fit a page that is too wide, so the page's own width grew with it. It now measures against the phone's real width.",

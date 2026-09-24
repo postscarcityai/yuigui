@@ -7,12 +7,12 @@ import Shots from "../components/Shots";
 export const metadata = { title: "Progress | Yui" };
 
 const phases = [
-  ["0", "Foundations: hub site, Yui Lines v0, SwiftUI stack, TestFlight pipeline", "now"],
-  ["1", "SwiftUI app on TestFlight: chat, 6 presets, relay, Arnold's timer", ""],
-  ["2", "Many agents, voice, push, lock-screen timer", ""],
+  ["0", "Foundations: hub site, Yui Lines v0, SwiftUI stack, TestFlight pipeline. Shipped Sep 23.", "done"],
+  ["1", "Talk to your own Hermes agents: app on TestFlight, first presets, accounts, plugin, handoff. Shipped Sep 24.", "done"],
+  ["2", "Many agents: own looks, push, handoff, full screen shipped Sep 24. Voice, lock-screen timer and three screens come after the MVP.", ""],
   ["3", "On-device data tables and key vault", ""],
   ["4", "Onboarding interview + built-in agent", ""],
-  ["5", "Open adapters + private beta", ""],
+  ["5", "Open adapters and the beta: one-command install and open source shipped, public TestFlight in Apple's review", "now"],
   ["6", "Payments, widgets, Siri, Android decision", ""],
 ];
 
