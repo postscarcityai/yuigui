@@ -99,6 +99,154 @@
           "screen": "2"
         }
       ]
+    },
+    {
+      "name": "forget",
+      "input": "save workout\nforget workout",
+      "expected": [
+        {
+          "op": "save",
+          "screen": "1",
+          "name": "workout"
+        },
+        {
+          "op": "forget",
+          "screen": "1",
+          "name": "workout"
+        }
+      ]
+    },
+    {
+      "name": "forget without a name is an error",
+      "input": "forget",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "forget of a name never saved is not a parse error",
+      "input": "forget nothing",
+      "expected": [
+        {
+          "op": "forget",
+          "screen": "1",
+          "name": "nothing"
+        }
+      ]
+    },
+    {
+      "name": "the name is the rest of the line",
+      "input": "save leg day\nshow  leg   day\nforget \"leg day\"",
+      "expected": [
+        {
+          "op": "save",
+          "screen": "1",
+          "name": "leg day"
+        },
+        {
+          "op": "show",
+          "screen": "1",
+          "name": "leg day"
+        },
+        {
+          "op": "forget",
+          "screen": "1",
+          "name": "leg day"
+        }
+      ]
+    },
+    {
+      "name": "save on the stage",
+      "input": ">full\ntimer 40/20x8 Tabata\nsave workout\nclose\nshow workout",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "full"
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "timer",
+          "id": "n1",
+          "props": {
+            "work": 40,
+            "rest": 20,
+            "rounds": 8,
+            "label": "Tabata"
+          }
+        },
+        {
+          "op": "save",
+          "screen": "full",
+          "name": "workout"
+        },
+        {
+          "op": "close",
+          "screen": "full"
+        },
+        {
+          "op": "show",
+          "screen": "1",
+          "name": "workout"
+        }
+      ],
+      "stage": [
+        "n1"
+      ]
+    },
+    {
+      "name": "save, show and forget advance no counter",
+      "input": "say hi\nsave a\nshow a\nforget a\nsay bye",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "hi"
+          }
+        },
+        {
+          "op": "save",
+          "screen": "1",
+          "name": "a"
+        },
+        {
+          "op": "show",
+          "screen": "1",
+          "name": "a"
+        },
+        {
+          "op": "forget",
+          "screen": "1",
+          "name": "a"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "bye"
+          }
+        }
+      ]
+    },
+    {
+      "name": "forget with id syntax is unknown",
+      "input": "forget@x name",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
     }
   ]
 }

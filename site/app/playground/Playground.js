@@ -145,7 +145,7 @@ export default function Playground() {
     const k = `${node.key}:${node.preset}:${node.seq}`;
     if (!emits.current.has(k)) {
       emits.current.set(k, (value) =>
-        setEvents((ev) => [{ dir: "user", t: new Date(), ev: { id: node.id, preset: node.preset, ...value } }, ...ev].slice(0, 40)));
+        setEvents((ev) => [{ dir: "user", t: new Date(), ev: { id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) } }, ...ev].slice(0, 40)));
     }
     return emits.current.get(k);
   }, []);
@@ -153,6 +153,11 @@ export default function Playground() {
   // Lets a preset act on the screen itself, e.g. a project card reopening a
   // saved screen (show name) without a round trip to the agent.
   const dispatch = useCallback((op) => setState((s) => apply(s, op)), []);
+
+  // The shelf (YL.md section 5): the agent's saved screens, newest first. A tap
+  // reopens one on the stage with no turn and no tokens; x takes it off.
+  const shelf = Object.entries(state.saved).sort((a, b) => b[1].at - a[1].at).map(([name]) => name);
+  const reopen = (name) => dispatch({ op: "show", screen: "full", name, line: `show ${name}` });
 
   // The stage (YL.md section 5): staged components from every screen, drawn
   // over the phone. The chat keeps a pill where they were.
@@ -292,6 +297,16 @@ export default function Playground() {
               <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>
               <div><div className="nm">{agent}</div><div className="st">{streaming ? "generating..." : `screen ${shown}`}</div></div>
             </div>
+            {shelf.length ? (
+              <div className="yl-shelf" role="list" aria-label="Saved screens">
+                {shelf.map((name) => (
+                  <span key={name} className="yl-shelf-chip" role="listitem">
+                    <button onClick={() => reopen(name)}>{name}</button>
+                    <button className="x" aria-label={`Remove ${name}`} onClick={() => dispatch({ op: "forget", screen: "1", name, line: `forget ${name}` })}>×</button>
+                  </span>
+                ))}
+              </div>
+            ) : null}
             <div className="pg-screen">
               <ScreenCtx.Provider value={{ nodes, tables: TABLES, agent, screen: shown, dispatch, fold, closeStage }}>
                 {pillAt(null).map(pill)}

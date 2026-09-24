@@ -95,6 +95,31 @@ show s3`);
   assert.deepEqual(s.errors, []);
 });
 
+test("the shelf: stage saves come back on the stage, fresh and tagged", () => {
+  let s = initialState();
+  for (const o of parse(`>full
+timer@hiit 40/20x8 Tabata
+ask "Log it?"
+save workout
+close
+say later
+show workout
+say leg day
+save leg day
+forget leg day
+forget nothing`)) s = apply(s, o);
+  assert.deepEqual(Object.keys(s.saved), ["workout"]);
+  assert.equal(s.saved.workout.stage, true);
+  assert.equal(s.stage, true);
+  const back = s.screens.full;
+  assert.deepEqual(back.map((n) => n.id), ["hiit", "n1"]);
+  assert.ok(back.every((n) => n.saved === "workout" && n.stage && n.key.includes("~workout~")));
+  // A patch after show lands on the copy that came back.
+  s = apply(s, parse("~timer rounds=4")[0]);
+  assert.equal(s.screens.full[0].props.rounds, 4);
+  assert.deepEqual(s.errors, []);
+});
+
 test("custom and errors never break the rest of the screen", () => {
   const ops = parse(`custom {"type":"text","text":"hi"}
 custom {bad

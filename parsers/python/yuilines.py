@@ -8,6 +8,7 @@ One line in, one op out. Ops are dicts:
   {"op": "patch", "screen", "target", "props", "line"}
   {"op": "save",  "screen", "name", "line"}       save the screen under a name
   {"op": "show",  "screen", "name", "line"}       restore a saved screen
+  {"op": "forget", "screen", "name", "line"}      take a saved screen off the shelf
   {"op": "clear", "screen", "line"}
   {"op": "focus", "screen", "line"}               bare ">2": later lines go to screen 2
   {"op": "end",   "screen", "target", "line"}     close the open group (deck, plan, narrate)
@@ -38,7 +39,7 @@ PRESETS = [
     "deck", "page", "plan", "project", "narrate",
 ]
 # Not presets, but valid line heads.
-CORE = ["say", "custom", "save", "show", "clear", "end", "theme", "close"]
+CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close"]
 
 # Groups: a group head collects the lines that follow it on the same screen,
 # as long as each one is a member preset. Anything else ends the group, and
@@ -860,8 +861,9 @@ class Parser:
             props = _raw_args(preset, body[len(head):]) if preset in RAW else parse_args(preset, tokens)
             return {"op": "patch", "screen": screen, "target": target, "props": props, "line": line}
 
-        if head in ("save", "show"):
-            name = tokens[0].text if tokens else ""
+        if head in ("save", "show", "forget"):
+            # The name is the rest of the line: `save leg day` is "leg day".
+            name = " ".join(t.text for t in tokens if t.text)
             if not name:
                 return {"op": "error", "screen": screen, "message": f"{head}: needs a name", "line": line}
             return {"op": head, "screen": screen, "name": name, "line": line}

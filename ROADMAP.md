@@ -71,7 +71,7 @@ Up next:
 
 ### Next after the MVP
 
-Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions), YUI-53 (no dead buttons: a plan ends in Send, and the channel guide bans "Got it" buttons), YUI-51 (one full-screen flow holds the pages and the questions with one Send, and afterwards the chat keeps an expandable record and your answers as your own message), SITE-16 (watch Yui grow: the whole GitHub history, builds and screenshots, day by day, at /timeline) and INT-0 (the adapters plan). What is left to pull once the MVP passes, roughly in this order:
+Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions), YUI-53 (no dead buttons: a plan ends in Send, and the channel guide bans "Got it" buttons), YUI-51 (one full-screen flow holds the pages and the questions with one Send, and afterwards the chat keeps an expandable record and your answers as your own message), YUI-32 (named screens: an agent saves a screen, it sits on a shelf at the top of the thread, and `show busy day` or one tap brings it back), SITE-16 (watch Yui grow: the whole GitHub history, builds and screenshots, day by day, at /timeline) and INT-0 (the adapters plan). What is left to pull once the MVP passes, roughly in this order:
 
 - SITE-15: Yui Lines back on the home page, and every spec doc readable on the site.
 - YUI-14: voice in, text out, fast.
@@ -319,7 +319,6 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 - YUI-30: the timer keeps counting on the lock screen and in the Dynamic Island.
 - YUI-31: three screens per agent, with animated transitions.
-- YUI-32: save a screen by name and reopen it in two tokens.
 - YUI-33: agent tables on the phone: workout log, macros, a simple CRM.
 - YUI-34: a key vault for your own fal, OpenRouter and Anthropic keys.
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.

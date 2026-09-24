@@ -35,7 +35,7 @@
     "SITE-16": { "title": "Watch Yui grow: the whole history on one page", "shipped": "2026-09-24" },
     "YUI-14": { "title": "Voice in, text out, smooth and fast" },
     "YUI-31": { "title": "Three screens per agent with animated transitions" },
-    "YUI-32": { "title": "Named screens: save and reopen a screen in two tokens" },
+    "YUI-32": { "title": "Named screens: save and reopen a screen in two tokens", "shipped": "2026-09-24" },
     "YUI-33": { "title": "Agent tables on the phone" },
     "YUI-35": { "title": "Meal photo to macros" },
     "YUI-38": { "title": "Onboarding interview that builds your first agents" }
@@ -106,6 +106,7 @@
         { "id": "agents", "title": "Your agents, your list", "what": "Add, rename and remove agents yourself. The top button opens the list.", "cards": ["YUI-15", "YUI-11"], "app": "native", "shots": ["/progress/yui20-agents.webp", "/progress/yui28-asleep-agents.webp"] },
         { "id": "looks", "title": "A look for every agent", "what": "Coral wordmark, letter avatars, light and dark, and a theme per agent that the agent can change with one line.", "cards": ["YUI-20", "YUI-2", "YUI-5", "YUI-9"], "app": "native", "shots": ["/progress/yui20-coach-light.webp", "/progress/yui20-wizard-dark.webp", "/progress/yui-look-colors-light.webp", "/progress/yui9-chat.webp", "/progress/yui5-empty.webp"] },
         { "id": "full-screen", "title": "Full screen when it matters", "what": "Workouts take the whole phone. Swipe down and a pill keeps the timer running in the chat.", "cards": ["YUI-13"], "demo": "stage", "agent": "Coach", "app": "native", "clip": "full-screen", "shots": ["/progress/yui13-stage-coach-light.webp", "/progress/yui13-pill-wizard-dark.webp"] },
+        { "id": "shelf", "title": "The shelf", "what": "An agent saves a screen by name and it lands on a shelf at the top of the thread. Tap it to reopen it full screen, no message needed; the agent brings it back with two tokens (show busy day).", "cards": ["YUI-32"], "demo": "shelf", "agent": "Coach", "app": "native", "shots": ["/progress/yui32-shelf-dark.webp", "/progress/yui32-shelf-stage-light.webp", "/progress/yui32-shelf-light.webp"] },
         { "id": "live-timer", "title": "Timer on the lock screen", "what": "A running timer keeps counting on the lock screen and in the Dynamic Island, in the agent's look. Pause, resume or end it without opening the app.", "cards": ["YUI-30"], "demo": "Tabata timer", "agent": "Coach", "app": "native", "shots": ["/progress/yui30-lock.webp", "/progress/yui30-island.webp"]},
         { "id": "change-your-answer", "title": "Change your answer", "what": "Tap again to change a choice; the agent hears changed: true. It can lock one on purpose with +lock.", "cards": ["YUI-12"], "demo": "change-answers", "agent": "Coach", "app": "native", "clip": "change-answers", "shots": ["/progress/yui12-choose.webp", "/progress/yui12-pick.webp"] },
         { "id": "media", "title": "Pictures in, photos out", "what": "Agents send images and videos they make; you send photos from your camera roll.", "cards": ["YUI-21"], "app": "native", "shots": ["/progress/yui21-agent-picture.webp", "/progress/yui21-photo-sent.webp"] },
@@ -135,7 +136,7 @@
         { "id": "planned-voice", "title": "Voice in, text out", "what": "Talk, read the answer. The mic screen is drawn on the web; on-device speech in the app is not built.", "cards": ["YUI-14"], "yl": "mic \"What did you eat today?\"", "agent": "Coach" },
         { "id": "planned-onboarding", "title": "Onboarding interview", "what": "A first-run interview that suggests your first agents.", "cards": ["YUI-38"], "demo": "Onboarding", "agent": "Yui" },
         { "id": "planned-macros", "title": "Meal photo to macros", "what": "Snap a plate, get an estimate, log it to a table on the phone.", "cards": ["YUI-35", "YUI-33"], "demo": "Macros so far", "agent": "Coach" },
-        { "id": "planned-screens", "title": "More than one screen per agent", "what": "Agent-controlled screens beside the chat, and named screens reopened in two tokens.", "cards": ["YUI-31", "YUI-32"], "demo": "Demo: screens (>) and save/show", "agent": "Coach" }
+        { "id": "planned-screens", "title": "More than one screen per agent", "what": "Agent-controlled screens beside the chat.", "cards": ["YUI-31"], "demo": "Demo: screens (>) and save/show", "agent": "Coach" }
       ]
     }
   ]

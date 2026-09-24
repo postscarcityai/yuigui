@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Save a screen, bring it back with two tokens: every agent gets a shelf",
+    "card": "YUI-32",
+    "body": "An agent can now keep a screen for later. save busy day puts the screen it just drew on a shelf at the top of the thread. Tap a chip on the shelf and it opens full screen, fresh, with no message sent and no tokens spent. In a later reply the agent brings it back with show busy day, and forget busy day takes it off. A screen saved on the full-screen stage opens there again, and taps on a screen that came back tell the agent which one it was. Hold a chip to remove it yourself. The shelf rebuilds from the thread, so it follows you to a new phone. Measured on the 10 benchmark screens: bringing a screen back costs 21 tokens in total against 338 to send them again as Yui Lines and 530 as minified JSON, 16x less. show workout is 2 tokens. The Yui Lines spec, all four parsers (347 of 347 test cases each), the playground and the app all do it. The channel guide (v10) tells agents to save what people will reuse. The eval scores it 42 of 44 on Opus 5.5, and both new saved-screen cases pass.",
+    "images": [
+      {
+        "src": "/progress/yui32-shelf-dark.webp",
+        "alt": "A chat with Yui in dark mode. Two chips at the top, check-in and busy day, are saved screens. Further down, the agent answered 'Pull up my busy day workout' with the Tabata timer."
+      },
+      {
+        "src": "/progress/yui32-shelf-stage-light.webp",
+        "alt": "The busy day Tabata reopened full screen from the shelf in light mode: 0:20 work, round 1 of 8, and a Start button."
+      },
+      {
+        "src": "/progress/yui32-shelf-light.webp",
+        "alt": "The same chat in light mode, with the shelf of saved screens under the agent's name."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "A polish pass on See it, Get started and Timeline",
     "card": "SITE-17",
     "body": "A look at three pages on a phone and a laptop, light and dark. No page scrolls sideways at 390 pixels and all 539 links and pictures on them load. Get started now says it up front: in the beta Yui has no agent of its own, you bring your own Hermes, with the install command right there to copy. On a phone, the row of pages under Roadmap and Developers now scrolls so the page you are on is never cut off at the edge. See it gained two entries: a plan that ends in Send (YUI-53) and the Timeline page (SITE-16), and site pages now say On yuigui.com instead of claiming the app. Its live phones start drawing a screen earlier, so a quick scroll does not catch them blank. One older screenshot showed a private agent name in a notification; the name is now blurred.",

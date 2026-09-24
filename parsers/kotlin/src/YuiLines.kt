@@ -21,7 +21,7 @@ val PRESETS = listOf(
 )
 
 // Not presets, but valid line heads.
-val CORE = listOf("say", "custom", "save", "show", "clear", "end", "theme", "close")
+val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close")
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -688,8 +688,9 @@ class Parser {
         }
 
         when (head) {
-            "save", "show" -> {
-                val name = tokens.firstOrNull()?.text ?: ""
+            "save", "show", "forget" -> {
+                // The name is the rest of the line: `save leg day` is "leg day".
+                val name = tokens.map { it.text }.filter { it.isNotEmpty() }.joinToString(" ")
                 if (name.isEmpty()) return err("$head: needs a name")
                 return op("op" to head, "screen" to screen, "name" to name, "line" to line)
             }

@@ -999,6 +999,62 @@
         "one_flow": true
       },
       "good": "One plan: pages with the three changes, then days per week and equipment as steps, one submit."
+    },
+    {
+      "id": "save-reusable-workout",
+      "category": "saved",
+      "agent": "Arnold",
+      "message": "Give me a quick 20 minute Tabata I can come back to on busy days.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "timer",
+          "say",
+          "list",
+          "card",
+          "ask",
+          "choose"
+        ],
+        "need": [
+          "save"
+        ]
+      },
+      "good": "A Tabata timer (it takes the stage on its own) and a `save` with a short name so it lands on the shelf. No re-asking what they want."
+    },
+    {
+      "id": "show-saved-workout",
+      "category": "saved",
+      "agent": "Arnold",
+      "history": [
+        {
+          "role": "user",
+          "text": "Give me a quick 20 minute Tabata I can come back to on busy days."
+        },
+        {
+          "role": "agent",
+          "text": "Twenty minutes, five blocks of Tabata.\n```yui\ntimer 20/10x40 Tabata\nsave busy-day\n```"
+        },
+        {
+          "role": "user",
+          "text": "[yui] n1 timer done=true rounds=40"
+        }
+      ],
+      "message": "Slammed again today. Pull up my busy day workout.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "timer",
+          "say"
+        ],
+        "need": [
+          "show"
+        ],
+        "no_add": [
+          "timer"
+        ],
+        "max_words": 40
+      },
+      "good": "`show busy-day` (the name it saved), one short line, no re-sent timer."
     }
   ]
 }

@@ -58,6 +58,16 @@ for (const k of ["yl", "min", "pretty", "tree"]) {
 }
 const ratio = (a, b) => (a / b).toFixed(1);
 
+// Saved screens (YL.md section 5): bringing a screen back with `show name`
+// instead of sending it again. The name is the screen's first word.
+const saved = rows.map((r) => {
+  const name = r.name.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean)[0];
+  const line = `show ${name}`;
+  return { n: r.n, name: r.name, line, show: TOK.o200k(line), yl: r.counts.yl.o200k, min: r.counts.min.o200k };
+});
+const savedTotals = { show: saved.reduce((a, r) => a + r.show, 0), yl: T0("yl"), min: T0("min") };
+function T0(k) { return saved.reduce((a, r) => a + r[k], 0); }
+
 const out = {
   generated: new Date().toISOString(),
   tokenizers: {
@@ -68,6 +78,7 @@ const out = {
   rows: rows.map(({ text, ...r }) => ({ ...r, yl: text.yl, min: text.min })),
   totals,
   sampleTree: rows[0].text.tree,
+  saved: { rows: saved, totals: savedTotals },
 };
 writeFileSync(new URL("../site/content/benchmark.json", import.meta.url), JSON.stringify(out, null, 2));
 
@@ -104,6 +115,15 @@ L.push("|---|---:|---:|---:|---:|---:|---:|---:|");
 for (const t of [...Object.keys(TOK), "chars"]) {
   L.push(`| ${t === "chars" ? "characters" : t} | ${T.yl[t]} | ${T.min[t]} | ${T.pretty[t]} | ${T.tree[t]} | ${ratio(T.min[t], T.yl[t])}x | ${ratio(T.pretty[t], T.yl[t])}x | ${ratio(T.tree[t], T.yl[t])}x |`);
 }
+L.push("");
+L.push("## Saved screens: bringing one back (o200k_base)");
+L.push("");
+L.push("An agent that saved a screen (`save workout`) reopens it later with `show workout` instead of sending the whole screen again (YL.md section 5). The person can also tap it on the shelf, which costs no tokens at all.");
+L.push("");
+L.push("| # | Screen | `show` line | Tokens | Resend as YL | Resend as JSON min | YL / show |");
+L.push("|---|---|---|---:|---:|---:|---:|");
+for (const r of saved) L.push(`| ${r.n} | ${r.name} | \`${r.line}\` | ${r.show} | ${r.yl} | ${r.min} | ${ratio(r.yl, r.show)}x |`);
+L.push(`| | **Total** | | **${savedTotals.show}** | **${savedTotals.yl}** | **${savedTotals.min}** | **${ratio(savedTotals.yl, savedTotals.show)}x** |`);
 L.push("");
 L.push("## Screen 1, all four encodings");
 L.push("");

@@ -7,6 +7,7 @@
 //   { op: "patch", screen, target, props, line }
 //   { op: "save",  screen, name, line }       save the screen under a name
 //   { op: "show",  screen, name, line }       restore a saved screen
+//   { op: "forget", screen, name, line }      take a saved screen off the shelf
 //   { op: "clear", screen, line }
 //   { op: "focus", screen, line }             bare ">2": later lines go to screen 2
 //   { op: "end",   screen, target, line }     close the open group (deck, plan, narrate)
@@ -25,7 +26,7 @@ export const PRESETS = [
   "deck", "page", "plan", "project", "narrate",
 ];
 // Not presets, but valid line heads.
-export const CORE = ["say", "custom", "save", "show", "clear", "end", "theme", "close"];
+export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close"];
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -637,8 +638,9 @@ export class Parser {
       return { op: "patch", screen, target, props, line };
     }
 
-    if (head === "save" || head === "show") {
-      const name = tokens[0] && tokens[0].text;
+    if (head === "save" || head === "show" || head === "forget") {
+      // The name is the rest of the line: `save leg day` is "leg day".
+      const name = tokens.map((t) => t.text).filter(Boolean).join(" ");
       if (!name) return { op: "error", screen, message: `${head}: needs a name`, line };
       return { op: head, screen, name, line };
     }
@@ -827,12 +829,33 @@ export function apply(state, op, style = {}) {
       } else s.errors = [...s.errors, `patch: no live "${op.target}" on screen`];
       break;
     }
-    case "save":
-      s.saved = { ...s.saved, [op.name]: s.screens[op.screen] || [] }; break;
-    case "show":
-      if (s.saved[op.name]) { s.screens[op.screen] = s.saved[op.name]; s.focus = op.screen; }
-      else s.errors = [...s.errors, `show: no saved screen "${op.name}"`];
+    case "save": {
+      // The shelf: newest save wins, and a screen saved from the stage remembers it.
+      s.seq = (s.seq || 0) + 1;
+      s.saved = { ...s.saved, [op.name]: { nodes: s.screens[op.screen] || [], stage: op.screen === "full", at: s.seq } };
       break;
+    }
+    case "show": {
+      const shot = s.saved[op.name];
+      if (!shot) { s.errors = [...s.errors, `show: no saved screen "${op.name}"`]; break; }
+      // Back fresh: new keys (timers start over, nothing answered), tagged with
+      // the name so their events carry `saved`. Saved from the stage, back on it.
+      const to = shot.stage ? "full" : op.screen;
+      s.screens[to] = shot.nodes.map((n) => {
+        s.seq = (s.seq || 0) + 1;
+        const stage = to === "full" || !!n.stage;
+        const { stage: _, ...rest } = n;
+        return { ...rest, key: `${n.id}~${op.name}~${s.seq}`, seq: s.seq, saved: op.name, ...(stage ? { stage } : {}) };
+      });
+      if (s.screens[to].some((n) => n.stage)) s.stage = true;
+      s.focus = to;
+      break;
+    }
+    case "forget": {
+      const { [op.name]: _, ...rest } = s.saved;
+      s.saved = rest;
+      break;
+    }
     case "clear":
       s.screens[op.screen] = []; break;
     case "theme":
@@ -856,6 +879,7 @@ export function toJSON(ops) {
       case "patch": return { patch: o.target, ...scr, ...o.props };
       case "save": return { save: o.name, ...scr };
       case "show": return { show: o.name, ...scr };
+      case "forget": return { forget: o.name, ...scr };
       case "clear": return { clear: true, ...scr };
       case "end": return { end: o.target };
       case "theme": return { theme: o.props };

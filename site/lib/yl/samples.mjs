@@ -82,6 +82,19 @@ save warmup
 show warmup`,
   },
   {
+    name: "Demo: the shelf (save, show, forget)",
+    slug: "shelf",
+    agent: "Arnold",
+    yl: `say "Busy-day Tabata. It's on your shelf now: tap it up top any time."
+>full
+timer@hiit 20/10x8 Tabata
+save busy day
+close
+form "Morning check-in" sleep:1-10 energy:1-5 submit="Log it"
+save check-in
+say "Try the agent line below: show busy day  or  forget check-in"`,
+  },
+  {
     name: "Demo: full screen (>full, close)",
     slug: "stage",
     agent: "Arnold",

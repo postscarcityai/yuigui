@@ -27,6 +27,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `say text` | plain text bubble | `say Nice work.` |
 | `save name` | save the current screen | `save workout` |
 | `show name` | restore a saved screen | `show workout` |
+| `forget name` | take a saved screen off the shelf | `forget workout` |
 | `clear` | empty the current screen | `clear` |
 | `end` | close the open group (section 4, Groups) | `end` |
 | `theme [set] key=value...` | restyle this agent's look (section 4, theme) | `theme autumn radius=square` |
@@ -419,7 +420,15 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 
 The reference function is `onStage(op, style)` in `yl.mjs` (and `YuiLines.opensOnStage` in the app). Conformance vectors may carry `stage`, the ids of the adds that open on the stage, and `style`, the agent's style profile for that vector.
 
-**Saved screens.** `save workout` stores the current screen. `show workout` puts it back (on the current screen). Reopening a whole screen costs two tokens.
+**Saved screens and the shelf.** A screen the person will want again gets a name, and from then on it costs two tokens to bring back.
+
+- `save workout` stores the screen the line is on: every component on it, as the agent wrote it with its patches. After `>full` that screen is the stage. The name is the rest of the line, words joined by single spaces (`save leg day` and `save "leg day"` are both `leg day`), and names match exactly. Saving a name again replaces it.
+- `show workout` puts it back, fresh: timers start from the top, nothing is answered yet. It lands on the current screen, except that a screen saved from the stage opens on the stage again, and a workout goes to the stage as always. A `show` in a later reply works: saved screens outlive the reply that saved them.
+- `forget workout` takes it off the shelf. Forgetting a name that was never saved does nothing.
+- **The shelf.** Every agent has one in its thread: a row of its saved screens, newest first, at the top of the chat. Tapping one reopens it on the stage without a turn and without a token. The person can take one off the shelf too (hold it, Remove). The shelf lives on the phone and is rebuilt from the thread, so it follows the person to a new install.
+- Events from a component that came back through `show` or the shelf carry the name: `{"id":"hiit","preset":"timer","done":true,"rounds":8,"saved":"workout"}`.
+
+The ops are `{op: "save" | "show" | "forget", screen, name}`. None of them takes an `@id` or advances the counter. The reference functions are `apply()` in `yl.mjs` (with `state.saved`) and `ChatStore.shelf` in the app.
 
 ## 6. custom {json}
 
@@ -483,7 +492,7 @@ The stream parser keeps a line buffer. Every time a newline arrives, that line i
 
 A line that fails (unknown preset, bad JSON, patch target that does not exist, `show` of a name never saved) is skipped and reported. Nothing else on the screen is affected. The playground lists errors under the wire log.
 
-Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show` without a name, `close` with anything after it, a patch whose target is neither a preset name nor an id seen earlier in the reply, a `~preset@id` with an unknown preset or an id that belongs to another preset, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
+Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show`/`forget` without a name, `close` with anything after it, a patch whose target is neither a preset name nor an id seen earlier in the reply, a `~preset@id` with an unknown preset or an id that belongs to another preset, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
 
 ## 10. Telegram fallback
 
