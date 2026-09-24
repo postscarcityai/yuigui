@@ -216,6 +216,10 @@
     {
       "text": "Sync channel guide v5 from yuigui",
       "card": "YUI-10"
+    },
+    {
+      "text": "Pictures in, photos out: agent media through a private bucket",
+      "card": "YUI-21"
     }
   ]
 }

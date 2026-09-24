@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T07:10:54.306Z",
+  "updated": "2026-09-24T07:40:58.587Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -251,11 +251,6 @@
           "title": "Native SwiftUI versions of the YUI-16/17/18 presets"
         },
         {
-          "key": "YUI-21",
-          "title": "Media pipeline",
-          "summary": "Agents generate and send images and videos into Yui"
-        },
-        {
           "key": "SITE-5",
           "title": "/notes long-form route on yuigui.com"
         },
@@ -277,11 +272,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-10",
-          "title": "Channel guide for every agent",
-          "summary": "The channel guide, now tested",
-          "mvp": true,
-          "progress": "/progress#the-channel-guide-now-tested"
+          "key": "YUI-21",
+          "title": "Media pipeline",
+          "summary": "Agents generate and send images and videos into Yui"
         }
       ]
     },
@@ -289,6 +282,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-10",
+          "title": "Channel guide for every agent",
+          "summary": "The channel guide, now tested",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-channel-guide-now-tested"
+        },
         {
           "key": "YUI-12",
           "title": "Change your answer after tapping",
