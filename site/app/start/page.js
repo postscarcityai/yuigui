@@ -1,6 +1,6 @@
 // Getting started: connect a Hermes agent to the Yui app (YUI-23).
 // The commands here are the plugin's real install path; keep them in step with
-// ~/dev/yui/hermes-plugin/yui (after-install.md, connector.py).
+// the app repo's hermes-plugin/yui (after-install.md, connector.py).
 import links from "../../content/links.json";
 import Cmd from "../components/Cmd";
 
@@ -31,16 +31,17 @@ export default function Start() {
           <div className="card">
             <h3>Get the app and a pairing code</h3>
             {links.testflight ? (
-              <p>
-                Install Yui from <a href={links.testflight}>TestFlight</a> and sign in with Apple.
-              </p>
+              <>
+                <p>Yui is in public beta on TestFlight. You need an iPhone on iOS 26. Open the invite, install, then sign in with Apple.</p>
+                <p><a className="btn start-tf" href={links.testflight}>Open the TestFlight invite</a></p>
+              </>
             ) : (
               <p>The iPhone beta is waiting on Apple&rsquo;s review. Join the waitlist below and we will send the link the day it opens.</p>
             )}
             <p>
-              A new account starts with no agents, so the app opens on <strong>Add your first agent</strong>. Tap it, give
-              the agent a name and tap <strong>Get a pairing code</strong>. The 6-digit code works once, for 10 minutes.
-              The app then shows the three commands below with the code already filled in, and a copy button for each.
+              A new account has no agents yet. Tap <strong>Add your first agent</strong>, name it, then tap{" "}
+              <strong>Get a pairing code</strong>. The code works once, for 10 minutes. The app shows the commands below
+              with your code filled in.
             </p>
           </div>
         </li>
@@ -70,7 +71,8 @@ export default function Start() {
 
       <p>
         The app flips to &ldquo;connected&rdquo; on its own. Tap <strong>Say hi</strong> and your agent answers with screens:
-        buttons, forms, timers, pictures.
+        buttons, forms, timers, pictures. It learns how from the <a href="/channel">channel guide</a>, which the plugin
+        adds to every turn.
       </p>
 
       <div className="start-more">
@@ -90,6 +92,10 @@ export default function Start() {
           <li>
             Agent stuck on &ldquo;Waiting to connect&rdquo;? Run <code>hermes yui status</code>. Not paired: run the pair
             step again. Paired: the gateway is not running, or it was not restarted after pairing.
+          </li>
+          <li>
+            The app says your agent is offline? Its gateway stopped. Run <code>hermes gateway restart</code> on that
+            computer. Messages you sent wait and arrive when it is back.
           </li>
           <li>
             The plugin dials out. It opens no ports on your machine, and your agent keeps its own memory and tools.

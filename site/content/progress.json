@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Get started, the specs and Privacy, checked for strangers",
+    "card": "SITE-23",
+    "body": "The public beta is open, so the pages a builder reads next got a polish pass. Get started now opens with a TestFlight button, says you need an iPhone on iOS 26, and stays honest: Yui has no agent of its own yet, you bring your Hermes. Step 1 fits on one phone screen, every command has a copy button you can hit with a thumb, and there is a new line for an agent that shows as offline. The channel guide page opens with its own examples drawn live: a pick, a choose, a card, a plan that shows findings and then asks, screens 2 and 3, and the saved-screen shelf. Each one opens in the playground, and the samples have a share link. Privacy now lists every table the app keeps, by name, with what it holds, and matches the database migrations in the app repo. It also says what stays on your phone (saved screens, messages waiting to send), what the plugin keeps on your agent's computer, and what the waitlist form stores. Checked at 390 and 1280 pixels wide: no sideways scroll, no tap target under 44 pixels outside running text, every link resolves.",
+    "images": [
+      {
+        "src": "/progress/site23-start.webp",
+        "alt": "Get started on a phone: step 1 with a line about the public beta and iOS 26, a big Open the TestFlight invite button, then step 2 with the install command and a Copy button"
+      },
+      {
+        "src": "/progress/site23-channel-desktop.webp",
+        "alt": "The channel guide page: six example lines on the left, and a phone on the right drawing the plan example, a Build review with Back and Next, plus Open in the playground and Share link buttons"
+      },
+      {
+        "src": "/progress/site23-channel.webp",
+        "alt": "The channel guide page on a phone: the heading What the guide asks for, drawn, and the example lines as tappable cards"
+      },
+      {
+        "src": "/progress/site23-privacy.webp",
+        "alt": "The Privacy page on a phone: a two-column table of every Yui table name and what it holds"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Home and Business pages, cleaned up for a first visit",
     "card": "SITE-22",
     "body": "The two pages a stranger lands on first got a polish pass. Under the home page buttons, one line now says where the beta stands: the public beta is open, and you bring your own agent, Hermes running on your own computer. Yui does not come with an agent of its own yet. Follow along gained two cards: Community, where you draw your best screen in three lines, and the go-to-market plan. The app gallery points to See it, where every screen has its own link to share. The Business page lists the docs in reading order: the one-page plan, the go-to-market plan, the beta list, then the detail, each with one plain line on what it is. The Google Doc links came off the pages for now, because those copies are not shared publicly yet and a visitor would hit a sign-in wall. Checked at 390 pixels wide: no sideways scroll, no layout shift on the hero, every link on both pages resolves.",

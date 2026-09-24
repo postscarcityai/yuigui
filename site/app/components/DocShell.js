@@ -22,7 +22,7 @@ function Index({ docs, current, toc }) {
   );
 }
 
-export default function DocShell({ slug, eyebrow, after }) {
+export default function DocShell({ slug, eyebrow, links, after }) {
   const docs = specDocs();
   const d = docs.find((x) => x.slug === slug);
   const { html, toc } = renderDoc(d.md);
@@ -39,6 +39,11 @@ export default function DocShell({ slug, eyebrow, after }) {
           <Index docs={docs} current={slug} toc={all.filter((h) => h.level === 2)} />
         </details>
         <div className="eyebrow">{eyebrow}</div>
+        {links?.length > 0 && (
+          <nav className="doc-links" aria-label="Related">
+            {links.map(([href, label]) => <Link key={href} className="btn soft" href={href}>{label}</Link>)}
+          </nav>
+        )}
         <article className="md" dangerouslySetInnerHTML={{ __html: html }} />
         {after && <article className="md" dangerouslySetInnerHTML={{ __html: renderDoc(after).html }} />}
       </div>

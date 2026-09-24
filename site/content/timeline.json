@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 57,
-    "site": 135,
+    "site": 138,
     "builds": 21,
-    "shipped": 83,
-    "screenshots": 147
+    "shipped": 84,
+    "screenshots": 151
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T22:07:04.635Z",
+          "at": "2026-09-24T22:41:24.822Z",
+          "title": "Get started, the specs and Privacy, checked for strangers",
+          "card": "SITE-23",
+          "anchor": "get-started-the-specs-and-privacy-checked-for-strangers",
+          "images": [
+            {
+              "src": "/progress/site23-start.webp",
+              "alt": "Get started on a phone: step 1 with a line about the public beta and iOS 26, a big Open the TestFlight invite button, then step 2 with the install command and a Copy button"
+            },
+            {
+              "src": "/progress/site23-channel-desktop.webp",
+              "alt": "The channel guide page: six example lines on the left, and a phone on the right drawing the plan example, a Build review with Back and Next, plus Open in the playground and Share link buttons"
+            },
+            {
+              "src": "/progress/site23-channel.webp",
+              "alt": "The channel guide page on a phone: the heading What the guide asks for, drawn, and the example lines as tappable cards"
+            },
+            {
+              "src": "/progress/site23-privacy.webp",
+              "alt": "The Privacy page on a phone: a two-column table of every Yui table name and what it holds"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 57,
+            "site": 138,
+            "builds": 21,
+            "shipped": 84
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T22:06:31.000Z",
           "title": "Home and Business pages, cleaned up for a first visit",
           "card": "SITE-22",
           "anchor": "home-and-business-pages-cleaned-up-for-a-first-visit",
@@ -31,10 +63,10 @@
               "alt": "The Yui home page on a laptop, with the hero, the beta status line and two phone screenshots"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 57,
-            "site": 135,
+            "site": 136,
             "builds": 21,
             "shipped": 83
           }
@@ -1723,6 +1755,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "cd6e97e",
+          "at": "2026-09-24T22:40:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cd6e97e"
+        },
+        {
+          "repo": "site",
+          "sha": "260a0b5",
+          "at": "2026-09-24T22:32:17.000Z",
+          "text": "Social drafts: 17 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/260a0b5"
+        },
+        {
+          "repo": "site",
+          "sha": "1be95bd",
+          "at": "2026-09-24T22:06:31.000Z",
+          "text": "Polish the home and Business pages: the hero says where the beta stands (public beta open, bring your own Hermes), Follow along adds...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1be95bd"
+        },
         {
           "repo": "site",
           "sha": "7418986",

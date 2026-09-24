@@ -10,7 +10,11 @@ export default function YLSpec() {
   return (
     <>
       <QuickStart />
-      <DocShell slug="yl" eyebrow={<>Developers | Yui Lines spec | rendered from spec/YL.md | <a href="/playground">try it in the playground</a> | <a href="/developers/benchmark">token benchmark</a></>} />
+      <DocShell
+        slug="yl"
+        eyebrow="Developers | Yui Lines spec | rendered from spec/YL.md"
+        links={[["/playground", "Try it in the playground"], ["/channel", "Channel guide"], ["/developers/benchmark", "Token benchmark"]]}
+      />
     </>
   );
 }

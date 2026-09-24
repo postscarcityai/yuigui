@@ -702,9 +702,17 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .steps .card p + p, .steps .card p + .cmd, .steps .card .cmd + p { margin-top: 10px; }
 .cmd { display: flex; align-items: center; gap: 10px; background: #0a0b10; border-radius: 14px; padding: 10px 10px 10px 16px; margin-top: 12px; }
 .cmd code { flex: 1; min-width: 0; color: #d9dcff; font: 14px/1.5 ui-monospace, "SF Mono", Menlo, monospace; overflow-x: auto; white-space: nowrap; }
-.cmd button { background: var(--lavender); color: #2A2238; border: 0; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+.cmd button { flex: none; min-height: 44px; min-width: 64px; background: var(--lavender); color: #2A2238; border: 0; border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
 .start-byo { background: var(--raised); border: 1.5px solid var(--outline); border-radius: 18px; padding: 14px 18px; margin: 20px 0; }
 .start-byo p { margin: 0 0 10px; }
+.steps .card .start-tf { min-height: 44px; margin-top: 2px; }
+/* Links under a spec page's eyebrow (SITE-23): real buttons, 44px on a phone. */
+.doc-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.doc-links .btn { min-height: 44px; font-size: 15px; padding: 8px 18px; }
+/* /channel: the guide's own examples, drawn (SITE-23). Reuses the /yl quick start layout. */
+.qs-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; justify-content: center; }
+.qs-links .btn { min-height: 44px; font-size: 15px; padding: 8px 18px; }
+.qs-phone.qs-stack { flex-direction: column; align-items: center; }
 .card p code, .start-more code { background: var(--raised); padding: 1px 6px; border-radius: 6px; font-size: 14px; overflow-wrap: anywhere; }
 
 /* SITE-11: phones get the whole command, the step card full width, and the live board columns first */
@@ -817,7 +825,7 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .qs-show code { background: none; padding: 0; font-size: 14px; overflow-wrap: anywhere; }
 .qs-show span { font-size: 13px; color: var(--muted); }
 .qs-lines li.on .qs-show { border-color: var(--brand); background: var(--raised); }
-.qs-copy { flex: none; padding: 0 14px; border-radius: 14px; border: 1.5px solid var(--outline); background: var(--raised); color: var(--ink); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+.qs-copy { flex: none; min-width: 64px; min-height: 44px; padding: 0 14px; border-radius: 14px; border: 1.5px solid var(--outline); background: var(--raised); color: var(--ink); font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
 .qs-phone { display: flex; justify-content: center; position: sticky; top: 120px; }
 @media (max-width: 860px) {
   .qs { grid-template-columns: 1fr; }
@@ -919,3 +927,10 @@ body:has(.embed-root) main.wrap { padding: 0; max-width: none; }
 }
 .pill.wait { color: #2A2238; background: var(--butter); border-color: var(--butter); }
 .build-note { color: var(--muted); font-size: 15px; margin: 4px 0 10px; }
+
+/* /privacy table list (SITE-23): table names wrap on a phone instead of pushing the page wide. */
+.privacy-tables table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.privacy-tables th, .privacy-tables td { text-align: left; padding: 10px 12px; border-bottom: 1.5px solid var(--outline); vertical-align: top; }
+.privacy-tables th { color: var(--muted); font-weight: 700; }
+.privacy-tables code { font-size: 13px; }
+@media (max-width: 560px) { .privacy-tables th, .privacy-tables td { padding: 8px 6px; } }

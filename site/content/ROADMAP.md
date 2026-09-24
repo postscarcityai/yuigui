@@ -81,12 +81,12 @@ Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20
 
 Work ships in epics: a set of cards that together make one release worth trying. Cards land as they finish; the app goes to TestFlight once per epic, with a list of what to try. Crashes and blockers ship on their own.
 
-**Now: GTM-1, grassroots go-to-market.** While the next build waits on Apple, the site and the story come first. Investor material is out for now; nothing gets posted without Chris.
+**Done: GTM-1, grassroots go-to-market (complete Sep 24).** While the next build waited on Apple, the site and the story came first. Investor material is out for now; nothing gets posted without Chris.
 
 - SITE-19 (shipped): shareable moments. Every screen on See it, every playground sample and every clip has its own link at /s/, with a preview card that shows the lines and the screen they draw; a Share button in the playground; an embed that shows a live Yui Lines screen; a "Made with Yui Lines" badge. How to use them: [/developers#share](/developers#share).
 - SITE-20 (shipped): the go-to-market plan, in public: who it is for, the social plan per channel, the first 30 days. Read it: [go-to-market plan](https://www.yuigui.com/business/gtm).
 - OSS-5 (shipped): a grassroots kit for Yui Lines: who builds with it, how to contribute, a first "draw your best screen in three lines" challenge. Live at [/developers/community](/developers/community).
-- SOC-3 (in progress): three short videos: Yui in 15 seconds, Yui Lines in 30, your own Hermes on your phone in 60.
+- SOC-3 (shipped): three short videos: Yui in 15 seconds, Yui Lines in 30, your own Hermes on your phone in 60. Watch them on [See it](/mockups).
 - BIZ-7 (parked): one brand system from the website to social to print.
 
 **Next release: chat feels right (the next TestFlight build).** Today's TestFlight feedback fixes, chat polish (YUI-50), message reactions (YUI-49), the lock screen timer (YUI-30), no dead buttons (YUI-53) and three screens per agent (YUI-31), in one build once Apple's daily upload limit lifts. Everything on the app's main branch since build 33 goes in it; [Builds](/changelog#next) lists it. YUI-52 checks every fix against the original feedback.
