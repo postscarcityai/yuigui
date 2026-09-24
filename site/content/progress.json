@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "No page scrolls sideways on a phone",
+    "card": "SITE-9",
+    "body": "Ten pages slid sideways on a phone. Wide tables in the spec, the channel results and every business doc pushed the whole page out, and so did long links, the playground's picker and phone frame, the benchmark tables, and one long install command on Get started. Now a wide table scrolls inside its own box while the page stays put, long links and commands wrap, and the playground fits a 320 point screen. A script loads all 21 pages at 320, 375, 390 and 430 points wide and fails if any of them is wider than the screen. The first version of that script passed everything: a phone browser quietly zooms out to fit a page that is too wide, so the page's own width grew with it. It now measures against the phone's real width.",
+    "images": [
+      {
+        "src": "/progress/site9-table.webp",
+        "alt": "A wide comparison table on a phone, scrolled sideways inside its own box while the page margins stay in place."
+      },
+      {
+        "src": "/progress/site9-start.webp",
+        "alt": "The Get started page on a phone, with a long install command wrapping onto three lines instead of running off the screen."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Done buttons always do something",
     "body": "A tester got a set of photos to pick from, tapped Done, and nothing happened. Two things went wrong on that one screen. Done stayed switched off until you ticked a small circle on a photo, and nothing said so. And the photos drew taller than their row, so they covered Done and took its taps. Now Done always answers, even with nothing picked (the agent hears \"None of these\"), a line under the photos says to tap the circles, and every photo stays inside its own frame. Multi-pick questions got the same Done fix. New UI tests tap Done slightly off center with and without picks, and they fail on the old build."
   },

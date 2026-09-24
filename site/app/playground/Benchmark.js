@@ -13,7 +13,7 @@ export default function Benchmark() {
         <b> min</b> is minified JSON (the cheapest JSON can get), <b>pretty</b> is how models usually emit it,
         and <b>tree</b> is the usual generative-UI component tree.
       </p>
-      <table>
+      <div className="bench-table"><table>
         <thead>
           <tr><th>Screen (o200k_base)</th><th>YL</th><th>JSON min</th><th>JSON pretty</th><th>JSON tree</th><th>min / YL</th><th>tree / YL</th></tr>
         </thead>
@@ -33,15 +33,15 @@ export default function Benchmark() {
         <tfoot>
           <tr><td>Total</td><td className="x">{T.yl.o200k}</td><td>{T.min.o200k}</td><td>{T.pretty.o200k}</td><td>{T.tree.o200k}</td><td>{x(T.min.o200k, T.yl.o200k)}</td><td>{x(T.tree.o200k, T.yl.o200k)}</td></tr>
         </tfoot>
-      </table>
-      <table>
+      </table></div>
+      <div className="bench-table"><table>
         <thead><tr><th>Tokenizer (totals)</th><th>YL</th><th>JSON min</th><th>JSON pretty</th><th>JSON tree</th><th>pretty / YL</th><th>tree / YL</th></tr></thead>
         <tbody>
           {Object.entries(data.tokenizers).map(([k, label]) => (
             <tr key={k}><td title={label}>{label.split(" (")[0]}</td><td className="x">{T.yl[k]}</td><td>{T.min[k]}</td><td>{T.pretty[k]}</td><td>{T.tree[k]}</td><td>{x(T.pretty[k], T.yl[k])}</td><td>{x(T.tree[k], T.yl[k])}</td></tr>
           ))}
         </tbody>
-      </table>
+      </table></div>
       <p className="pg-hint">
         Read it straight: against the leanest possible JSON, YL saves about a third of the tokens. Against JSON as
         models actually write it, 2.6x to 3.9x. The win is biggest on short control screens (a timer, a camera) and

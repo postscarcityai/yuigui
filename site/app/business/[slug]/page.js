@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { marked } from "marked";
+import { renderMd } from "../../../lib/md.mjs";
 import { businessDocs } from "../../../lib/business.mjs";
 
 export const dynamicParams = false;
@@ -23,7 +23,7 @@ export default async function BusinessDoc({ params }) {
       <div className="eyebrow">
         <a href="/business">Business docs</a> | {d.card}{d.doc && <> | <a href={d.doc}>Google Doc</a></>}
       </div>
-      <article className="md" dangerouslySetInnerHTML={{ __html: marked.parse(d.md) }} />
+      <article className="md" dangerouslySetInnerHTML={{ __html: renderMd(d.md) }} />
     </>
   );
 }

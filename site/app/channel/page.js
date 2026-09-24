@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { marked } from "marked";
+import { renderMd } from "../../lib/md.mjs";
 
 export const metadata = { title: "Channel guide | Yui" };
 
@@ -13,8 +13,8 @@ export default function ChannelGuide() {
   return (
     <>
       <div className="eyebrow">Spec | rendered from spec/CHANNEL.md | grammar in the <a href="/yl">YL spec</a></div>
-      <article className="md" dangerouslySetInnerHTML={{ __html: marked.parse(guide) }} />
-      <article className="md" dangerouslySetInnerHTML={{ __html: marked.parse(results) }} />
+      <article className="md" dangerouslySetInnerHTML={{ __html: renderMd(guide) }} />
+      <article className="md" dangerouslySetInnerHTML={{ __html: renderMd(results) }} />
     </>
   );
 }
