@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-23",
+    "title": "Yui draws its first six screens",
+    "body": "An agent can now reply with a timer, a question, a multiple choice, a pick-several, a form or a list, and Yui draws it as a real card inside the chat instead of plain text. The timer counts rounds on a ring and beeps on the last three seconds. Forms handle text, numbers, dates, sliders, yes/no toggles and voice notes, and will not submit until the required fields are filled. Every tap goes back to the agent as one small event, and your answer shows up as your own chat bubble. All the styling comes from the same theme file, so a restyle changes these cards too. A hidden paste box lets us test any Yui Lines reply by hand. Build 9 is on TestFlight."
+  },
+  {
+    "date": "2026-09-23",
     "title": "The wordmark moves into the app",
     "body": "Chris's hand-drawn Yui wordmark, the one with bunny-ear arms on the Y, now sits in the app's top bar, on the empty chat screen and in settings. Its coral is now the app's main color too: the send button, your chat bubbles and the selected toggle all use it, with the pastels kept for the smaller touches. The coral is stored in the same theme file as everything else, so an agent that restyles the app recolors the logo along with it. It reads clearly on both the cream light mode and the dark plum mode, so one logo file covers both. Yui the cat stays as the face of the agent. Build 8 is on TestFlight."
   },
