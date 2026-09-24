@@ -1,0 +1,1341 @@
+{
+  "version": "YL v0",
+  "area": "data and science: chart, stat, math, step, calc, table units and sort",
+  "vectors": [
+    {
+      "name": "chart: type, title, x and y lists",
+      "input": "chart line \"Weight\" x=Mon|Tue|Wed y=180|179|178.5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "line",
+            "title": "Weight",
+            "x": [
+              "Mon",
+              "Tue",
+              "Wed"
+            ],
+            "y": [
+              180,
+              179,
+              178.5
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: no type word, type not sent",
+      "input": "chart x=1|2 y=3|4",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "x": [
+              1,
+              2
+            ],
+            "y": [
+              3,
+              4
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: only the first chart type word is the type",
+      "input": "chart bar line chart",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "bar",
+            "title": "line chart"
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: a quoted type word is title text",
+      "input": "chart \"pie\" x=a|b y=1|2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "title": "pie",
+            "x": [
+              "a",
+              "b"
+            ],
+            "y": [
+              1,
+              2
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: every chart type",
+      "input": "chart line\nchart bar\nchart area\nchart scatter\nchart pie\nchart donut",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "line"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n2",
+          "props": {
+            "type": "bar"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n3",
+          "props": {
+            "type": "area"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n4",
+          "props": {
+            "type": "scatter"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n5",
+          "props": {
+            "type": "pie"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n6",
+          "props": {
+            "type": "donut"
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: a single y value is still a list",
+      "input": "chart bar x=Total y=5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "bar",
+            "x": [
+              "Total"
+            ],
+            "y": [
+              5
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: numeric x stays numbers, text x stays text",
+      "input": "chart scatter x=0.5|1|2 y=1|2|3\nchart line x=Q1|Q2 y=1|2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "scatter",
+            "x": [
+              0.5,
+              1,
+              2
+            ],
+            "y": [
+              1,
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n2",
+          "props": {
+            "type": "line",
+            "x": [
+              "Q1",
+              "Q2"
+            ],
+            "y": [
+              1,
+              2
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: y2 and y3 are more series, names label them",
+      "input": "chart area x=a|b y=1|2 y2=3|4 y3=5|6 names=A|B|C +stack",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "area",
+            "stack": true,
+            "x": [
+              "a",
+              "b"
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "y2": [
+              3,
+              4
+            ],
+            "y3": [
+              5,
+              6
+            ],
+            "names": [
+              "A",
+              "B",
+              "C"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: inline ± becomes a number and an err list",
+      "input": "chart bar x=a|b|c y=10±1|12|9.5±0.5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "bar",
+            "x": [
+              "a",
+              "b",
+              "c"
+            ],
+            "y": [
+              10,
+              12,
+              9.5
+            ],
+            "err": [
+              1,
+              0,
+              0.5
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: ASCII +- works like ±",
+      "input": "chart scatter x=1|2 y=3+-0.2|4+-0.1",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "scatter",
+            "x": [
+              1,
+              2
+            ],
+            "y": [
+              3,
+              4
+            ],
+            "err": [
+              0.2,
+              0.1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: inline errors on y2 go to err2",
+      "input": "chart bar x=a|b y=1|2 y2=3±0.3|4±0.4",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "bar",
+            "x": [
+              "a",
+              "b"
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "y2": [
+              3,
+              4
+            ],
+            "err2": [
+              0.3,
+              0.4
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: an explicit err list wins over inline ±",
+      "input": "chart bar x=a|b y=1±0.1|2±0.2 err=0.5|0.6",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "bar",
+            "x": [
+              "a",
+              "b"
+            ],
+            "y": [
+              1,
+              2
+            ],
+            "err": [
+              0.5,
+              0.6
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: a single err value is a one item list",
+      "input": "chart scatter x=1|2|3 y=2|4|6 err=0.3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "scatter",
+            "x": [
+              1,
+              2,
+              3
+            ],
+            "y": [
+              2,
+              4,
+              6
+            ],
+            "err": [
+              0.3
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: data binding, x and y name columns",
+      "input": "chart bar data=meals x=Meal y=Cal|Protein",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "bar",
+            "data": "meals",
+            "x": [
+              "Meal"
+            ],
+            "y": [
+              "Cal",
+              "Protein"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: unit, xlabel, min, max, color",
+      "input": "chart line x=1|2 y=5|6 unit=lb xlabel=\"Day of trial\" min=0 max=10 color=accent|#ff0000",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "line",
+            "x": [
+              1,
+              2
+            ],
+            "y": [
+              5,
+              6
+            ],
+            "unit": "lb",
+            "xlabel": "Day of trial",
+            "min": 0,
+            "max": 10,
+            "color": [
+              "accent",
+              "#ff0000"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: a quoted number in x stays text",
+      "input": "chart bar x=\"2024\"|\"2025\" y=1|2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "bar",
+            "x": [
+              "2024",
+              "2025"
+            ],
+            "y": [
+              1,
+              2
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "chart: a patch re-sends a series",
+      "input": "chart@w line x=a|b y=1|2\n~w y=3|4",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "w",
+          "props": {
+            "type": "line",
+            "x": [
+              "a",
+              "b"
+            ],
+            "y": [
+              1,
+              2
+            ]
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "w",
+          "props": {
+            "y": [
+              3,
+              4
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "stat: quantity value with unit, label",
+      "input": "stat 178.5lb Weight delta=-1.5 spark=180|179|178.5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n1",
+          "props": {
+            "value": 178.5,
+            "unit": "lb",
+            "label": "Weight",
+            "delta": -1.5,
+            "spark": [
+              180,
+              179,
+              178.5
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "stat: percent, currency and exponent quantities",
+      "input": "stat 12% Body fat\nstat $40 \"Spent today\"\nstat 3e8m/s \"Speed of light\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n1",
+          "props": {
+            "value": 12,
+            "unit": "%",
+            "label": "Body fat"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n2",
+          "props": {
+            "value": 40,
+            "unit": "$",
+            "label": "Spent today"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n3",
+          "props": {
+            "value": 300000000,
+            "unit": "m/s",
+            "label": "Speed of light"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stat: a plain number has no unit",
+      "input": "stat 7.38 Buffer pH",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n1",
+          "props": {
+            "value": 7.38,
+            "label": "Buffer pH"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stat: no quantity, the first token is the value as text",
+      "input": "stat A+ Grade",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n1",
+          "props": {
+            "value": "A+",
+            "label": "Grade"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stat: a quoted number is label text, not the value",
+      "input": "stat \"42\" answer 7kg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n1",
+          "props": {
+            "value": 7,
+            "unit": "kg",
+            "label": "42 answer"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stat: unit symbols and ascii units",
+      "input": "stat 37.4degC Incubator\nstat 9.81m/s^2 g",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n1",
+          "props": {
+            "value": 37.4,
+            "unit": "degC",
+            "label": "Incubator"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n2",
+          "props": {
+            "value": 9.81,
+            "unit": "m/s^2",
+            "label": "g"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stat: good, sub, delta with its own unit",
+      "input": "stat 52bpm \"Resting HR\" delta=-2% good=down sub=\"this week\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n1",
+          "props": {
+            "value": 52,
+            "unit": "bpm",
+            "label": "Resting HR",
+            "delta": "-2%",
+            "good": "down",
+            "sub": "this week"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stat: currency and a unit together is not a quantity",
+      "input": "stat $40kg x",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "stat",
+          "id": "n1",
+          "props": {
+            "value": "$40kg",
+            "label": "x"
+          }
+        }
+      ]
+    },
+    {
+      "name": "math: the rest of the line is tex, verbatim",
+      "input": "math E = mc^2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "math",
+          "id": "n1",
+          "props": {
+            "tex": "E = mc^2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "math: one wrapping pair of quotes is dropped",
+      "input": "math \"E = mc^2\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "math",
+          "id": "n1",
+          "props": {
+            "tex": "E = mc^2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "math: backslashes, pipes, equals and # are tex",
+      "input": "math P(A|B) = \\frac{P(B|A)\\,P(A)}{P(B)} # not a comment",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "math",
+          "id": "n1",
+          "props": {
+            "tex": "P(A|B) = \\frac{P(B|A)\\,P(A)}{P(B)} # not a comment"
+          }
+        }
+      ]
+    },
+    {
+      "name": "math: leading caption and size are props",
+      "input": "math caption=\"Bayes' rule\" size=lg a = b",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "math",
+          "id": "n1",
+          "props": {
+            "caption": "Bayes' rule",
+            "size": "lg",
+            "tex": "a = b"
+          }
+        }
+      ]
+    },
+    {
+      "name": "math: props only lead; later key=value is tex",
+      "input": "math x=1 caption=late",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "math",
+          "id": "n1",
+          "props": {
+            "tex": "x=1 caption=late"
+          }
+        }
+      ]
+    },
+    {
+      "name": "math: inner quotes are kept",
+      "input": "math \\text{\"quoted\"} = 1",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "math",
+          "id": "n1",
+          "props": {
+            "tex": "\\text{\"quoted\"} = 1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "math: no tex, only a caption",
+      "input": "math caption=Empty",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "math",
+          "id": "n1",
+          "props": {
+            "caption": "Empty"
+          }
+        }
+      ]
+    },
+    {
+      "name": "math: a patch replaces tex the same way",
+      "input": "math@eq x = 1\n~eq caption=Now y=\\frac{1}{2}",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "math",
+          "id": "eq",
+          "props": {
+            "tex": "x = 1"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "eq",
+          "props": {
+            "caption": "Now",
+            "tex": "y=\\frac{1}{2}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "math: routed to a screen",
+      "input": ">2 math a^2 + b^2 = c^2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "math",
+          "id": "n1",
+          "props": {
+            "tex": "a^2 + b^2 = c^2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "step: text and tex split at a lone $",
+      "input": "step \"Divide by g/2\" $ t^2 = \\frac{2d}{g}",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "n1",
+          "props": {
+            "text": "Divide by g/2",
+            "tex": "t^2 = \\frac{2d}{g}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "step: tex only",
+      "input": "step $ x = 1",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "n1",
+          "props": {
+            "tex": "x = 1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "step: $ inside a word is text",
+      "input": "step Costs $5 each",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "n1",
+          "props": {
+            "text": "Costs $5 each"
+          }
+        }
+      ]
+    },
+    {
+      "name": "step: title, time in seconds, image url",
+      "input": "step title=\"Gram stain\" \"Flood with crystal violet\" time=1m /demo/s1.jpg",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "n1",
+          "props": {
+            "img": "/demo/s1.jpg",
+            "text": "Flood with crystal violet",
+            "title": "Gram stain",
+            "time": 60
+          }
+        }
+      ]
+    },
+    {
+      "name": "step: +all and a bare time number",
+      "input": "step +all Jumping jacks time=45",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "n1",
+          "props": {
+            "text": "Jumping jacks",
+            "all": true,
+            "time": 45
+          }
+        }
+      ]
+    },
+    {
+      "name": "step: tex after $ keeps quotes and backslashes",
+      "input": "step Then $ \\text{\"done\"} \\# 1",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "n1",
+          "props": {
+            "text": "Then",
+            "tex": "\\text{\"done\"} \\# 1"
+          }
+        }
+      ]
+    },
+    {
+      "name": "step: consecutive steps get their own ids",
+      "input": "step One\nstep Two\nstep@last Three",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "n1",
+          "props": {
+            "text": "One"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "n2",
+          "props": {
+            "text": "Two"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "last",
+          "props": {
+            "text": "Three"
+          }
+        }
+      ]
+    },
+    {
+      "name": "calc: formula, sliders, constant, plot, unit",
+      "input": "calc \"Range\" f=\"R = v^2*sin(2*a)/g\" v=5-40@20m/s a=0-90@30deg g=9.81m/s^2 plot=a unit=m",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "calc",
+          "id": "n1",
+          "props": {
+            "title": "Range",
+            "f": "R = v^2*sin(2*a)/g",
+            "v": {
+              "min": 5,
+              "max": 40,
+              "value": 20,
+              "unit": "m/s"
+            },
+            "a": {
+              "min": 0,
+              "max": 90,
+              "value": 30,
+              "unit": "deg"
+            },
+            "g": {
+              "value": 9.81,
+              "unit": "m/s^2"
+            },
+            "plot": "a",
+            "unit": "m"
+          }
+        }
+      ]
+    },
+    {
+      "name": "calc: slider start defaults to the midpoint",
+      "input": "calc f=x^2 x=-10-10",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "calc",
+          "id": "n1",
+          "props": {
+            "f": "x^2",
+            "x": {
+              "min": -10,
+              "max": 10,
+              "value": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "calc: a plain number is a constant",
+      "input": "calc f=k*x x=0-5 k=3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "calc",
+          "id": "n1",
+          "props": {
+            "f": "k*x",
+            "x": {
+              "min": 0,
+              "max": 5,
+              "value": 2.5
+            },
+            "k": {
+              "value": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "calc: a percent constant and a year slider",
+      "input": "calc f=N0*exp(-t) t=0-30000@5730yr N0=100%",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "calc",
+          "id": "n1",
+          "props": {
+            "f": "N0*exp(-t)",
+            "t": {
+              "min": 0,
+              "max": 30000,
+              "value": 5730,
+              "unit": "yr"
+            },
+            "N0": {
+              "value": 100,
+              "unit": "%"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "calc: reserved keys are never variables",
+      "input": "calc f=x x=1-2 plot=off digits=4 unit=s",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "calc",
+          "id": "n1",
+          "props": {
+            "f": "x",
+            "x": {
+              "min": 1,
+              "max": 2,
+              "value": 1.5
+            },
+            "plot": false,
+            "digits": 4,
+            "unit": "s"
+          }
+        }
+      ]
+    },
+    {
+      "name": "calc: a value that is not a range or quantity is kept as written",
+      "input": "calc f=x x=0-1 note=hello",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "calc",
+          "id": "n1",
+          "props": {
+            "f": "x",
+            "x": {
+              "min": 0,
+              "max": 1,
+              "value": 0.5
+            },
+            "note": "hello"
+          }
+        }
+      ]
+    },
+    {
+      "name": "calc: a patch replaces a variable whole",
+      "input": "calc@c f=v*t v=0-10 t=2\n~c v=0-60@30m/s",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "calc",
+          "id": "c",
+          "props": {
+            "f": "v*t",
+            "v": {
+              "min": 0,
+              "max": 10,
+              "value": 5
+            },
+            "t": {
+              "value": 2
+            }
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "c",
+          "props": {
+            "v": {
+              "min": 0,
+              "max": 60,
+              "value": 30,
+              "unit": "m/s"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "table: units and +sort",
+      "input": "table Macros Food|Cal|Protein \"Eggs|140|12\" units=|kcal|g +sort",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "table",
+          "id": "n1",
+          "props": {
+            "rows": [
+              [
+                "Eggs",
+                140,
+                12
+              ]
+            ],
+            "name": "Macros",
+            "cols": [
+              "Food",
+              "Cal",
+              "Protein"
+            ],
+            "sort": true,
+            "units": [
+              "",
+              "kcal",
+              "g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "table: a single unit is still a list",
+      "input": "table meals units=g",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "table",
+          "id": "n1",
+          "props": {
+            "name": "meals",
+            "units": [
+              "g"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "table: an id makes a live table a chart can bind",
+      "input": "table@wk Weigh-ins Day|Weight \"Mon|181.2\" \"Tue|180.6\"\nchart line data=wk x=Day y=Weight",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "table",
+          "id": "wk",
+          "props": {
+            "rows": [
+              [
+                "Mon",
+                181.2
+              ],
+              [
+                "Tue",
+                180.6
+              ]
+            ],
+            "name": "Weigh-ins",
+            "cols": [
+              "Day",
+              "Weight"
+            ]
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chart",
+          "id": "n1",
+          "props": {
+            "type": "line",
+            "data": "wk",
+            "x": [
+              "Day"
+            ],
+            "y": [
+              "Weight"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "table: patching the whole table",
+      "input": "table@wk Weigh-ins Day|Weight \"Mon|181.2\"\n~wk Day|Weight \"Mon|181.2\" \"Tue|180.6\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "table",
+          "id": "wk",
+          "props": {
+            "rows": [
+              [
+                "Mon",
+                181.2
+              ]
+            ],
+            "name": "Weigh-ins",
+            "cols": [
+              "Day",
+              "Weight"
+            ]
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "wk",
+          "props": {
+            "rows": [
+              [
+                "Mon",
+                181.2
+              ],
+              [
+                "Tue",
+                180.6
+              ]
+            ],
+            "cols": [
+              "Day",
+              "Weight"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "streaming: raw tex lines emit once their newline lands",
+      "input": "math \\frac{a}{b}\nstep One $ x",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "math",
+          "id": "n1",
+          "props": {
+            "tex": "\\frac{a}{b}"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "step",
+          "id": "n2",
+          "props": {
+            "text": "One",
+            "tex": "x"
+          }
+        }
+      ],
+      "chunks": [
+        "math \\fr",
+        "ac{a}{b}",
+        "\nstep On",
+        "e $ x"
+      ],
+      "emits": [
+        [],
+        [],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "math",
+            "id": "n1",
+            "props": {
+              "tex": "\\frac{a}{b}"
+            }
+          }
+        ],
+        [],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "step",
+            "id": "n2",
+            "props": {
+              "text": "One",
+              "tex": "x"
+            }
+          }
+        ]
+      ]
+    }
+  ]
+}

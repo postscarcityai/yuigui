@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Yui Lines learn charts, equations and experiments",
+    "body": "Agents can now show numbers and teach with them, one line each. chart draws line, bar, area, scatter, pie and donut charts from data written right in the line, with more series, stacking and error bars (write 12.5±0.4), or from a live table on the same screen, so when the table changes the chart redraws. Every chart has a Table view and follows the app's light or dark theme; each theme has its own set of chart colors, checked so people with color blindness can tell the series apart. stat is one big number with its change and a small trend line, and tapping lb or °C shows kg or °F. math typesets equations. step walks through a derivation or a lab protocol one step at a time, with optional timers. calc turns a formula into sliders that redraw a chart as you drag: slide the launch angle and watch the range peak at 45 degrees. Tables can now be sorted and carry units. 53 new test cases pin the syntax, 251 in all. The app picks these up next."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Your agents are yours to add",
     "body": "Chris's next piece of feedback: agents are added by you, not baked into the app. So the Urza and Arnold placeholders are gone. The agents screen now starts empty with an Add your first agent button, and each agent shows its avatar, an online or offline dot and when it was last seen. You can rename, recolor, reorder, pick a default or remove one (which also deletes that conversation). There are three ways to add one, and all land in the same place. In the app: name it, get a 6-digit code, type one command on the computer it runs on. From that computer: once it is paired, any other agent on it can join with one command and no code. Or ask an agent: Settings has an Agent access token you can hand to one of your agents so it can add and manage agents for you. That token can't read your messages, and 59 new automated checks try to make it. For testing, one agent is set up: Yui itself. Build 14 is on TestFlight."
   },

@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { parse, StreamParser, apply, initialState, tokenize, seconds } from "../site/lib/yl/yl.mjs";
-import { SCREENS, DEMOS, MEDIA } from "../site/lib/yl/samples.mjs";
+import { SCREENS, DEMOS, MEDIA, SCIENCE } from "../site/lib/yl/samples.mjs";
 
 const one = (l) => parse(l)[0];
 const props = (l) => one(l).props;
@@ -129,4 +129,20 @@ test("every sample and demo screen parses (demos may include one deliberate erro
   for (const s of SCREENS) assert.equal(parse(s.yl).filter((o) => o.op === "error").length, 0, s.name);
   for (const s of DEMOS) assert.ok(parse(s.yl).filter((o) => o.op === "error").length <= 1, s.name);
   for (const s of MEDIA) assert.equal(parse(`${s.yl}\n${s.next || ""}`).filter((o) => o.op === "error").length, 0, s.name);
+  for (const s of SCIENCE) assert.equal(parse(`${s.yl}\n${s.next || ""}`).filter((o) => o.op === "error").length, 0, s.name);
+});
+
+test("calc expressions: precedence, functions, degrees are the caller's job", async () => {
+  const { parseExpr, evalExpr, toTeX, splitFormula } = await import("../site/lib/yl/expr.mjs");
+  const ev = (f, v = {}) => evalExpr(parseExpr(f), v);
+  assert.equal(ev("2^3^2"), 512);
+  assert.equal(ev("-x^2", { x: 3 }), -9);
+  assert.equal(ev("2**-1"), 0.5);
+  assert.equal(ev("1 + 2 * 3"), 7);
+  assert.equal(ev("max(1, 4, 2) + log(100)"), 6);
+  assert.equal(ev("e", { e: 5 }), 5);
+  assert.ok(Math.abs(ev("v^2*sin(2*a)/g", { v: 20, a: Math.PI / 4, g: 9.81 }) - 40.7747) < 1e-3);
+  for (const bad of ["2+", "foo(1)", "(1", "1 2", "2a"]) assert.throws(() => parseExpr(bad), bad);
+  assert.deepEqual(splitFormula("R = v*t"), { out: "R", expr: " v*t" });
+  assert.equal(toTeX(parseExpr("v^2*sin(2*a)/g")), "\\frac{v^{2}\\,\\sin\\left(2a\\right)}{g}");
 });

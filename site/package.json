@@ -9,6 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "katex": "^0.16.47",
     "marked": "^14.1.0",
     "next": "^15.5.26",
     "react": "19.1.1",

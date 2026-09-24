@@ -317,3 +317,145 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .wl-row input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 .wl-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .card p.wl-err { color: #ff8a8a; margin-top: 10px; }
+
+/* ---------- data + science (YUI-17) ---------- */
+/* Chart slots are validated per theme (CVD and contrast against each screen
+   surface); the light set is its own stepped palette, not an auto flip. */
+.screen {
+  --yl-c1: #8b7cff; --yl-c2: #e8663a; --yl-c3: #199e8f; --yl-c4: #c98500; --yl-c5: #d55181; --yl-c6: #3987e5;
+  --screen-bg: #0f1019; --yl-ink: #eceef6; --yl-ink2: #9aa0b8; --yl-grid: #23263a; --yl-axis: #3a3f58; --yl-good: #3fbf8a; --yl-bad: #ff7a6b;
+}
+.screen.light {
+  --yl-c1: #6a5ae0; --yl-c2: #d9541f; --yl-c3: #0f8a7a; --yl-c4: #b37600; --yl-c5: #d6457c; --yl-c6: #2a78d6;
+  --screen-bg: #f6f6fa; --yl-ink: #16172a; --yl-ink2: #5d6280; --yl-grid: #e6e7ef; --yl-axis: #c9ccda; --yl-good: #13875a; --yl-bad: #c93c2c;
+  --text: #16172a; --muted: #5d6280; --accent: #6a5ae0; --accent2: #0f8a7a;
+  background: #f6f6fa; color: var(--text);
+}
+.screen.light .ahead { border-bottom-color: #e3e4ee; }
+.screen.light .yl-block, .screen.light .yl-card { background: #fff; border-color: #e3e4ee; }
+.screen.light .yl-text { color: #3b3f58; }
+.screen.light .b.in { background: #e9eaf3; color: var(--text); }
+.screen.light .bigbtn.s { background: #eef0f6; color: var(--text); border-color: #dcdfea; }
+.screen.light .chip { background: #fff; border-color: #d6d9e6; color: var(--text); }
+.screen.light .chip.on { color: #fff; }
+.screen.light .yl-seg { background: #eef0f6; }
+.screen.light .yl-seg button.on { background: #fff; color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.screen.light .yl-table th { border-bottom-color: #e3e4ee; }
+.screen.light .yl-table td { border-bottom-color: #eef0f6; }
+.screen.light .yl-bound { border-color: #bfe3dd; }
+.screen.light .yl-err, .screen.light .yl-texerr { color: #c93c2c; }
+
+.yl-charthead { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.yl-charthead .yl-q { flex-wrap: wrap; }
+.yl-charttabs { flex: none; }
+.yl-charttabs button { padding: 3px 8px; font-size: 11px; }
+.yl-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--yl-ink2); }
+.yl-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.yl-legend i, .yl-tip i, .yl-pielegend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; flex: none; }
+.yl-plot { position: relative; }
+.yl-svg { width: 100%; height: auto; display: block; overflow: visible; touch-action: pan-y; cursor: crosshair; }
+.yl-grid { stroke: var(--yl-grid); stroke-width: 1; }
+.yl-grid.zero { stroke: var(--yl-axis); }
+.yl-tick { fill: var(--yl-ink2); font-size: 9.5px; font-variant-numeric: tabular-nums; }
+.yl-cross { stroke: var(--yl-axis); stroke-width: 1; stroke-dasharray: 3 3; }
+.yl-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: yl-draw .7s ease-out forwards; }
+.yl-line.static { animation: none; stroke-dasharray: none; stroke-dashoffset: 0; }
+.yl-area { opacity: .22; animation: yl-fade .6s ease-out; }
+.yl-dot { stroke: var(--screen-bg, #0f1019); stroke-width: 2; transition: r .12s; }
+.screen.light .yl-dot { stroke: #fff; }
+.yl-dot.sc { opacity: .9; }
+.yl-bar { transform-box: fill-box; transform-origin: bottom; animation: yl-grow .5s ease-out both; }
+.yl-bar.hot { filter: brightness(1.15); }
+.yl-err line { stroke-width: 1.3; opacity: .85; }
+.yl-slice { stroke: #151726; stroke-width: 2; cursor: pointer; transition: transform .15s; }
+.screen.light .yl-slice { stroke: #fff; }
+@keyframes yl-draw { to { stroke-dashoffset: 0; } }
+@keyframes yl-fade { from { opacity: 0; } }
+@keyframes yl-grow { from { transform: scaleY(0); } }
+.yl-tip { position: absolute; top: 0; transform: translateX(-50%); background: var(--yl-ink); color: var(--screen-bg, #0f1019); border-radius: 10px; padding: 6px 9px; font-size: 11.5px; pointer-events: none; min-width: 92px; box-shadow: 0 4px 16px rgba(0,0,0,.35); }
+.screen.light .yl-tip { color: #fff; }
+.yl-tip b { display: block; font-size: 11px; opacity: .7; }
+.yl-tip div { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+.yl-tip div.on span { font-weight: 700; }
+.yl-axisnote { display: flex; justify-content: space-between; font-size: 10.5px; color: var(--yl-ink2); margin-top: -2px; }
+.yl-pie { display: flex; align-items: center; gap: 10px; }
+.yl-pie svg { width: 46%; flex: none; }
+.yl-pietotal { fill: var(--yl-ink); font-size: 17px; font-weight: 800; }
+.yl-pietotal .lbl { fill: var(--yl-ink2); font-size: 9.5px; font-weight: 500; }
+.yl-pielegend { list-style: none; margin: 0; padding: 0; flex: 1; display: flex; flex-direction: column; gap: 5px; font-size: 12px; min-width: 0; }
+.yl-pielegend li { display: grid; grid-template-columns: 10px 1fr auto; gap: 2px 7px; align-items: center; cursor: pointer; padding: 2px 4px; border-radius: 6px; }
+.yl-pielegend li.on { background: var(--yl-grid); }
+.yl-pielegend span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--yl-ink2); }
+.yl-pielegend b { font-variant-numeric: tabular-nums; font-size: 12px; }
+.yl-pielegend em { grid-column: 2 / 4; font-style: normal; font-size: 10.5px; color: var(--yl-ink2); display: none; }
+.yl-pielegend li.on em { display: block; }
+
+.yl-table th.num, .yl-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.yl-table.sortable th { cursor: pointer; user-select: none; white-space: nowrap; }
+.yl-thunit { display: block; font-weight: 500; font-size: 10.5px; opacity: .75; }
+.yl-sortic { margin-left: 4px; font-size: 9px; opacity: .6; }
+.yl-table th[aria-sort] .yl-sortic { opacity: 1; color: var(--accent); }
+
+.yl-stat { padding: 14px 16px; }
+.yl-statrow { display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; }
+.yl-statlbl { font-size: 11.5px; color: var(--yl-ink2); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+.yl-statval { display: flex; align-items: baseline; gap: 5px; }
+.yl-statval b { font-size: 36px; font-weight: 800; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.yl-unit { background: none; border: 0; padding: 0; color: var(--yl-ink2); font-size: 15px; font-weight: 600; }
+.yl-unit.tap { border-bottom: 1px dashed var(--yl-axis); }
+.yl-delta { display: flex; align-items: center; gap: 4px; font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.yl-delta span { font-size: 9px; }
+.yl-delta.good { color: var(--yl-good); }
+.yl-delta.bad { color: var(--yl-bad); }
+.yl-delta.flat { color: var(--yl-ink2); }
+.yl-delta em { font-style: normal; font-weight: 500; color: var(--yl-ink2); margin-left: 4px; }
+.yl-spark { width: 96px; height: 32px; flex: none; overflow: visible; }
+.yl-spark .line { fill: none; stroke: var(--yl-c1); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: yl-draw .8s ease-out forwards; }
+.yl-spark .fill { fill: var(--yl-c1); opacity: .12; }
+.yl-spark circle { fill: var(--yl-c1); }
+.yl-spark circle.good { fill: var(--yl-good); }
+.yl-spark circle.bad { fill: var(--yl-bad); }
+
+.yl-math { margin: 0; align-items: center; }
+.yl-mathscroll { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.yl-math .katex-display { margin: 4px 0; }
+.yl-math.sm .katex { font-size: 1em; }
+.yl-math.md .katex { font-size: 1.25em; }
+.yl-math.lg .katex { font-size: 1.6em; }
+.yl-math figcaption { text-align: center; }
+.yl-texerr { font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; color: #ff8a8a; white-space: pre-wrap; }
+
+.yl-stephead { display: flex; flex-direction: column; gap: 6px; }
+.yl-stepbar { height: 4px; border-radius: 4px; background: var(--yl-grid); overflow: hidden; }
+.yl-stepbar span { display: block; height: 100%; background: var(--accent); transition: width .3s; }
+.yl-steplist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.yl-step { display: flex; gap: 10px; align-items: flex-start; animation: pop .28s ease-out; }
+.yl-stepnum { width: 26px; height: 26px; border-radius: 50%; flex: none; display: grid; place-items: center; font-size: 12.5px; font-weight: 800; background: var(--yl-grid); color: var(--yl-ink2); }
+.yl-step.now .yl-stepnum { background: var(--accent); color: #fff; }
+.yl-step.done .yl-stepnum { background: var(--yl-good); color: #fff; }
+.yl-step.open { cursor: pointer; }
+.yl-step.done .yl-steptext { color: var(--yl-ink2); }
+.yl-stepbody { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding-top: 3px; }
+.yl-steptext { font-size: 14px; line-height: 1.4; }
+.yl-step.now .yl-steptext { font-weight: 600; }
+.yl-steptex { overflow-x: auto; }
+.yl-steptex .katex-display { margin: 2px 0; text-align: left; }
+.yl-steptex .katex-display > .katex { text-align: left; }
+.yl-step.done .yl-steptex { opacity: .7; }
+.yl-stepimg { width: 100%; border-radius: 10px; }
+.yl-steptimer { align-self: flex-start; border: 1px solid var(--yl-axis); background: none; color: var(--yl-ink); border-radius: 999px; padding: 3px 10px; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.yl-steptimer.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.yl-steptimer.done { border-color: var(--yl-good); color: var(--yl-good); }
+.yl-stepmore { text-align: center; }
+.pg-screen .bigbtn:disabled { opacity: .4; cursor: default; }
+
+.yl-calcf { overflow-x: auto; }
+.yl-calcf .katex-display { margin: 2px 0; }
+.yl-calcres { display: flex; align-items: baseline; justify-content: center; gap: 8px; }
+.yl-calcres .lbl { color: var(--yl-ink2); font-size: 15px; }
+.yl-calcres b { font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.yl-calcvar { display: grid; grid-template-columns: 34px 1fr 86px; align-items: center; gap: 8px; }
+.yl-calcvar .nm { font-size: 15px; text-align: center; }
+.yl-calcvar b { text-align: right; font-size: 13px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.yl-calcconst { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--yl-ink2); justify-content: center; }
+.yl-calcvar .yl-range { height: 22px; }

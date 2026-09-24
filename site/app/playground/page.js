@@ -1,5 +1,6 @@
 import Playground from "./Playground";
 import Benchmark from "./Benchmark";
+import "katex/dist/katex.min.css";
 
 export const metadata = { title: "Playground | Yui" };
 

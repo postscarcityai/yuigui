@@ -2,10 +2,11 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Parser, StreamParser, apply, initialState, parse } from "../../lib/yl/yl.mjs";
-import { SCREENS, DEMOS, MEDIA } from "../../lib/yl/samples.mjs";
-import { Render } from "./presets";
+import { SCREENS, DEMOS, MEDIA, SCIENCE } from "../../lib/yl/samples.mjs";
+import { Render, StepGroup, TABLES, groupSteps } from "./presets";
+import { ScreenCtx } from "./science";
 
-const ALL = [...SCREENS, ...DEMOS, ...MEDIA];
+const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE];
 const COLORS = { Arnold: "var(--arnold)", Urza: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)" };
 
 function build(text) {
@@ -25,6 +26,7 @@ export default function Playground() {
   const [speed, setSpeed] = useState(40);
   const [cmd, setCmd] = useState("");
   const [epoch, setEpoch] = useState(0); // bumps on load/stream so components start fresh
+  const [light, setLight] = useState(false); // phone theme: charts and presets in light or dark
   const agentParser = useRef(null);
   const timer = useRef(null);
   const emits = useRef(new Map());
@@ -41,7 +43,9 @@ export default function Playground() {
 
   // /playground?demo=<slug> opens a media demo directly.
   useEffect(() => {
-    const slug = new URLSearchParams(window.location.search).get("demo");
+    const q = new URLSearchParams(window.location.search);
+    const slug = q.get("demo");
+    if (q.get("theme") === "light") setLight(true);
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -140,6 +144,9 @@ export default function Playground() {
             <optgroup label="Media">
               {MEDIA.map((s, i) => <option key={s.name} value={SCREENS.length + DEMOS.length + i}>{s.name}</option>)}
             </optgroup>
+            <optgroup label="Data and science">
+              {SCIENCE.map((s, i) => <option key={s.name} value={SCREENS.length + DEMOS.length + MEDIA.length + i}>{s.name}</option>)}
+            </optgroup>
           </select>
           <button className="pg-btn" onClick={streaming ? stopStream : stream}>{streaming ? "Stop" : "▶ Stream it"}</button>
         </div>
@@ -197,9 +204,15 @@ export default function Playground() {
               Screen {k}{state.screens[k].length ? ` · ${state.screens[k].length}` : ""}
             </button>
           ))}
+          <button className="pg-tab" onClick={() => {
+            const url = new URL(window.location.href);
+            if (light) url.searchParams.delete("theme"); else url.searchParams.set("theme", "light");
+            window.history.replaceState(null, "", url);
+            setLight(!light);
+          }}>{light ? "☾ Dark" : "☀ Light"}</button>
         </div>
         <div className="phone pg-phone">
-          <div className="screen">
+          <div className={`screen ${light ? "light" : ""}`}>
             <div className="notch" />
             <div className="sbar" />
             <div className="ahead">
@@ -207,9 +220,13 @@ export default function Playground() {
               <div><div className="nm">{agent}</div><div className="st">{streaming ? "generating..." : `screen ${shown}`}</div></div>
             </div>
             <div className="pg-screen">
-              {nodes.map((n) => (
-                <div key={`${epoch}:${n.key}:${n.preset}`} className="pg-node"><Render node={n} emit={emitFor(n)} /></div>
-              ))}
+              <ScreenCtx.Provider value={{ nodes, tables: TABLES }}>
+                {groupSteps(nodes).map((n) => n.steps ? (
+                  <div key={`${epoch}:${n.key}:steps`} className="pg-node"><StepGroup nodes={n.steps} emitFor={emitFor} /></div>
+                ) : (
+                  <div key={`${epoch}:${n.key}:${n.preset}`} className="pg-node"><Render node={n} emit={emitFor(n)} /></div>
+                ))}
+              </ScreenCtx.Provider>
               {!nodes.length ? <div className="pg-hint" style={{ textAlign: "center", marginTop: 40 }}>Empty screen</div> : null}
             </div>
           </div>

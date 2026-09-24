@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { resolve } from "../../lib/yl/yl.mjs";
+import { Calc, Chart, DataTable, MathBlock, Stat, Steps } from "./science";
 
 // Sample agent data tables, so `table meals` has something to bind to.
 export const TABLES = {
@@ -288,23 +289,9 @@ function List({ p, emit }) {
   );
 }
 
-function Table({ p }) {
+function Table({ p, emit }) {
   const bound = !p.cols && p.name ? TABLES[p.name] : null;
-  const cols = p.cols || (bound && bound.cols);
-  const rows = p.cols ? p.rows : bound ? bound.rows : [];
-  return (
-    <div className="yl-block">
-      <div className="yl-q">{p.name ? human(p.name) : "Table"}{bound ? <span className="yl-bound">bound: {p.name}</span> : null}</div>
-      {cols ? (
-        <div className="yl-tablewrap">
-          <table className="yl-table">
-            <thead><tr>{cols.map((c) => <th key={c}>{c}</th>)}</tr></thead>
-            <tbody>{rows.map((r, i) => <tr key={i}>{cols.map((_, j) => <td key={j}>{r[j]}</td>)}</tr>)}</tbody>
-          </table>
-        </div>
-      ) : <div className="yl-sub">No rows in "{p.name}" yet.</div>}
-    </div>
-  );
+  return <DataTable p={p} emit={emit} bound={bound} human={human} />;
 }
 
 function Card({ p, emit }) {
@@ -742,7 +729,23 @@ function Custom({ spec, emit }) {
 }
 
 const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, form: Form, list: List, table: Table, card: Card, image: Image, camera: Camera, mic: Mic, say: Say,
-  gallery: Gallery, video: Video, compare: Compare, storyboard: Storyboard };
+  gallery: Gallery, video: Video, compare: Compare, storyboard: Storyboard,
+  chart: Chart, stat: Stat, math: MathBlock, calc: Calc };
+
+// Consecutive `step` nodes render as one stepper; everything else one by one.
+export function groupSteps(nodes) {
+  const out = [];
+  for (const n of nodes) {
+    const last = out[out.length - 1];
+    if (n.preset === "step" && last && last.steps) last.steps.push(n);
+    else out.push(n.preset === "step" ? { key: n.key, steps: [n] } : n);
+  }
+  return out;
+}
+
+export function StepGroup({ nodes, emitFor }) {
+  return <Steps nodes={nodes} emitFor={emitFor} resolveProps={(n) => resolve("step", n.props)} />;
+}
 
 export function Render({ node, emit }) {
   if (node.preset === "custom") return <Custom spec={node.props.spec} emit={emit} />;

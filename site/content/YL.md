@@ -57,6 +57,9 @@ Quotes are only needed when a positional would otherwise be misread, and they al
 | timespec | `work[/rest][xRounds]`, durations as above | `60`, `40/20x8`, `1:00/30x5` |
 | range | `min-max` | `1-5`, `0-200` |
 | options | `a|b|c` | `Yes|No` |
+| quantity | a number with its unit stuck on, or a leading currency sign | `72.5kg`, `9.81m/s^2`, `37.2degC`, `12%`, `3e8m/s`, `$40` |
+
+**Quantities (units-aware numbers).** Where a preset takes a quantity (`stat`, `calc`), the number is `-?digits[.digits][e-?digits]` and the unit is whatever non-space text follows it, starting with a non-digit (`72.5kg`, `3e8m/s`; a space is not allowed between them). `$ € £ ¥` may lead instead of a unit (`$40`). The number goes out as a number and the unit as text, so `72.5kg` is `value: 72.5, unit: "kg"`. Units are written in ASCII and the app draws them properly: `^2` and `^-1` become superscripts, `deg` °, `degC` °C, `degF` °F, `ohm` Ω, `uL`/`ug`/`um`/`us`/`umol` µ, `*` a middle dot. The app may offer a converted reading when the person taps a unit (kg/lb, g/oz, km/mi, m/ft, cm/in, degC/degF, L/gal, kcal/kJ, km/h/mph); that is display only, and events keep the unit the agent sent.
 
 ## 4. Presets
 
@@ -121,9 +124,11 @@ list Warmup "Jumping jacks"|"Hip openers" +num
 
 ### table
 Two forms. `table name` binds to the agent data table called `name` (Phase 3 makes these real on device). `table [Name] Col|Col|Col "cell|cell|cell" ...` is an inline table: the first options token is the header, each later token is a row split on `|`.
+Props: `name`, `cols`, `rows`, `units` (one per column, `|` separated, empty for none: `units=|kcal|g`; shown under the header), `+sort` (tap a header to sort, tap again to reverse; emits `{sort: column, dir: "asc"|"desc"}`). Number columns align right. A table with an id (`table@wk ...`) is a live data source for `chart data=wk`; re-send it as a patch (`~wk Col|Col "row" ...`) and every chart bound to it redraws.
 ```
 table meals
 table Macros Food|Cal|Protein "Eggs|140|12" "Oats|300|10"
+table Planets Planet|Mass|Radius "Earth|5.97|6371" "Mars|0.642|3390" units=|10^24kg|km +sort
 ```
 
 ### card
@@ -202,6 +207,81 @@ storyboard "Launch reel" /demo/s1.jpg|Hook /demo/s2.jpg|Problem /demo/s3.jpg|CTA
 storyboard "Post: why handmade" notes="Hook|Problem|Proof|CTA"
 ```
 
+### Data and science: chart, stat, math, step, calc
+
+Numbers, charts and equations as presets, so an agent can teach, track and explain with one line each. They take the theme's colors, and look right in light and dark: the app ships one categorical palette per theme, each checked for color-blind separation and contrast against its own surface. Every chart has a Table view of the same data.
+
+#### chart
+`chart [type] [title...] x=a|b|c y=1|2|3 [y2=...] [names=a|b] [unit=lb]`. The first bare word that is a chart type sets `type`: `line` [default], `bar`, `area`, `scatter`, `pie`, `donut`. Other positional text is the title.
+- **Series.** `y` is the first series, `y2`, `y3` ... the next ones (any `y` followed by digits; drawn in number order), all on one shared axis. There is never a second y-axis: two measures on different scales go in two charts. `names` labels the series in order; a legend shows when there are two or more. `x` holds the labels (or numbers) along the bottom; with no `x` the points are numbered from 1. `x` and every `y` are always lists, even with one value.
+- **Error bars.** Write a point as `12.5±0.4` (or ASCII `12.5+-0.4`) and it goes out as `12.5` with `0.4` in the matching error list: `err` for `y`, `err2` for `y2`, and so on (points with no error get `0`). Or send the list yourself: `err=0.4|0.3|0.5`, and a single value (`err=0.3`) applies to every point. An explicit `err` wins over inline `±`. Drawn as whiskers on line, bar and scatter.
+- **Live data.** `data=<id>` charts a table instead: an inline `table@id` on the same screen (newest wins), or an agent table by name (`data=meals`). Then `x` names one column and `y` names one or more (`data=meals x=Meal y=Cal|Protein`). With no `y`, every all-number column is a series. The unit comes from the table's `units` when one column is charted. When the table is patched, the chart follows.
+- **Scales.** `bar` and `area` start at zero; `line` and `scatter` fit the data. `min=` and `max=` fix the y-axis. `scatter`, and a `line`/`area` whose `x` is all numbers, use a true number axis. `+stack` stacks `bar` and `area` series. `xlabel` names the x-axis.
+- **Colors.** Series take the theme palette in fixed order. `color=` overrides per series with a theme name (`accent`, `accent2`, `arnold`, `c1`..`c6`) or any CSS color.
+- **Pie and donut** chart the first series against the `x` labels; the donut shows the total in the middle.
+Tapping a point, bar or slice emits `{point: {series, index, x, y}}` (plus `name` when there are two or more series). Mouse hover shows a tooltip; nothing is emitted for hover.
+Props: `type` [line], `title`, `x`, `y`, `y2`..., `err`, `err2`..., `names`, `unit`, `xlabel`, `data`, `min`, `max`, `color`, `+stack`, `+dots` (always draw point dots; they are on by default up to 24 points).
+```
+chart line "Weight" x=Mon|Tue|Wed y=180|179|178.5
+chart bar "Yield" x=None|Low|High y=2.1±0.3|3.4±0.4|4.8±0.7 y2=2.0|3.1|4.0 names=Tomato|Pepper unit=kg
+chart scatter "Rate vs substrate" x=0.5|1|2|4|8 y=0.9|1.6|2.6|3.7|4.5 err=0.2 xlabel="Substrate (mM)"
+chart donut "Where the week went" x="Deep work"|Meetings|Email y=14|9|6 unit=h
+table@wk Weigh-ins Day|Weight "Mon|181.2" "Tue|180.6"
+chart line data=wk x=Day y=Weight
+```
+
+#### stat
+`stat VALUE [label...] [delta=N] [spark=a|b|c] [good=up|down]`. One big number: the promoted form of the `custom` `stat` primitive. The first quantity among the positionals is `value` (and its unit, `unit`); if no positional is a quantity, the first one is the value as text (`stat A+ Grade`). The rest is the label.
+- `delta` is the change, shown as ▲/▼ with its size. `good` [up] says which way is good, so a falling weight with `good=down` is green. A delta may carry its own unit (`delta=-2%`); otherwise it uses the value's unit.
+- `spark` is a small trend line ending at the latest point.
+- `sub` is a short note next to the delta. `cta` makes the whole tile a button that emits `{cta}`.
+Tapping a convertible unit shows the other system (section 3); no event. Props: `value`, `unit`, `label`, `delta`, `good` [up], `spark`, `sub`, `cta`.
+```
+stat 178.9lb Weight delta=-2.3 spark=181.2|180.6|179.8|178.9 good=down sub="this week"
+stat 37.4degC Incubator delta=0.2 sub="target 37.0"
+stat $1840 "Grant left" delta=-420
+```
+
+#### math
+`math TEX`. An equation, typeset (KaTeX on the web, the platform's math renderer in the app). **The rest of the line is TeX, verbatim**: backslashes, quotes, `|`, `=` and `#` are all TeX, never escapes, options, key/values or comments, so `math \frac{a}{b}` works as written. A leading `caption=` and/or `size=` (`sm`, `md` [default], `lg`) are props; the first token that is neither starts the TeX. One wrapping pair of double quotes is dropped, so `math "E = mc^2"` and `math E = mc^2` are the same line. TeX that does not parse shows as its source text. Use `\\` for line breaks and `\begin{aligned}` for aligned steps. No events.
+A patch follows the same rule: `~eq caption="Now with c"` changes the caption, `~eq E^2 = (pc)^2 + (mc^2)^2` replaces the TeX.
+Props: `tex`, `caption`, `size` [md].
+```
+math E = mc^2
+math caption="Bayes' rule" P(A \mid B) = \frac{P(B \mid A)\,P(A)}{P(B)}
+math size=lg x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+```
+
+#### step
+`step [text...] [URL] [$ TEX]`. One step of a derivation or a protocol. **Consecutive `step` lines on a screen are one stepper** (anything else between them starts a new one), so steps stream in one line each. By default the stepper shows one step at a time, earlier ones stay above as done, with Back and Next and a progress bar; `+all` on the first step shows every step at once and each is tapped to check it off.
+- A lone `$` token starts the TeX part: everything after it, to the end of the line, is TeX, verbatim (as in `math`). Text before it is tokenized normally.
+- `title` (on the first step) heads the stepper. A URL token is `img`. `time` (a duration, sent in seconds) adds a small countdown for protocol steps.
+Passing a step (Next, Done on the last one, or a tap in `+all`) emits `{done: true, index}` from that step's own id, with `last: true` on the final step. `index` is the step's 0-based position in its stepper.
+Props: `text`, `tex`, `title`, `img`, `time`, `+all`.
+```
+step title="Solve for t" "Start from rest" $ d = \tfrac{1}{2} g t^2
+step "Divide by g/2" $ t^2 = \frac{2d}{g}
+step "Take the positive root" $ t = \sqrt{2d/g}
+step title="Gram stain" "Flood with crystal violet" time=1m
+step "Rinse, then iodine" time=1m
+```
+
+#### calc
+`calc [title...] f="out = expr" name=min-max[@value][unit] ... [plot=name] [unit=u]`. A formula whose inputs are sliders; the result and a chart of it update live as the person drags. Good for teaching: "slide the angle and watch the range peak at 45°".
+- `f` is the formula, `out = expr` or just `expr`. Quote it when it has spaces.
+- **Every other key is a variable.** `v=0-40@20m/s` is a slider from 0 to 40 starting at 20, unit `m/s` (the start defaults to the midpoint). `g=9.81m/s^2` or `g=9.81` is a constant, shown under the sliders. Each variable goes out as an object: `v: {min: 0, max: 40, value: 20, unit: "m/s"}`, `g: {value: 9.81, unit: "m/s^2"}`. The reserved keys `title`, `f`, `plot`, `unit` and `digits` are never variables; any other value that is not a range or a quantity is kept as written.
+- A variable with unit `deg` (or `°`) is shown in degrees and enters the formula in radians.
+- `plot` names the slider to sweep along the x-axis of the result chart [the first slider]; `plot=off` hides the chart. `unit` is the result's unit, `digits` [3] its significant digits.
+- Patching a variable replaces its whole definition: `~c v=0-60@30m/s`.
+**Expressions.** Numbers (`3`, `0.5`, `6.02e23`), variable names, `+ - * / ^` (and `**`), unary minus, parentheses. `^` binds tighter than unary minus and is right associative (`-x^2` is `-(x^2)`, `2^3^2` is `2^9`). There is no implicit multiplication: write `2*a`. Functions: `sin cos tan asin acos atan sqrt abs exp ln log` (log is base 10) `min max floor ceil round`. Constants `pi` and `e`, unless a variable has that name. A formula that does not parse shows its error; a variable it uses that the line never gave shows as "needs x".
+Releasing a slider emits `{values: {name: value, ...}, result}` (values as shown, degrees stay degrees; `result` is `null` when undefined).
+Props: `title`, `f`, `plot`, `unit`, `digits` [3], plus one per variable.
+```
+calc "How far does it fly?" f="R = v^2*sin(2*a)/g" v=5-40@20m/s a=0-90@30deg g=9.81m/s^2 plot=a unit=m
+calc Pendulum f="T = 2*pi*sqrt(L/g)" L=0.1-3@1m g=1.6-25@9.81m/s^2 unit=s
+calc "Carbon-14 left" f="N = N0*exp(-ln(2)*t/h)" t=0-30000@5730yr N0=100% h=5730yr unit=%
+```
+
 ### say (core, not a preset)
 `say text...`. A plain text bubble inside a screen.
 
@@ -242,6 +322,10 @@ Every interaction goes back as one small event: `{id, preset, ...value}`. Ids ar
 {"id":"n2","preset":"gallery","picked":[0,2]}
 {"id":"n1","preset":"storyboard","order":[1,0,2,3]}
 {"id":"n1","preset":"image","edit":{"box":[48,10,44,40],"instruction":"Paint this wall sage green"}}
+{"id":"n2","preset":"chart","point":{"series":1,"index":3,"x":"Thu","y":179.5,"name":"Plan"}}
+{"id":"n1","preset":"calc","values":{"v":20,"a":45,"g":9.81},"result":40.7747}
+{"id":"n3","preset":"step","done":true,"index":2}
+{"id":"n1","preset":"table","sort":"Mass","dir":"desc"}
 ```
 
 ## 8. Streaming
@@ -256,7 +340,7 @@ Errors come from two layers. The **parser** rejects a line on its own: an unknow
 
 ## 10. Telegram fallback
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. Everything else degrades to its text plus a link to open it in Yui.
 
 ## 11. Versioning
 

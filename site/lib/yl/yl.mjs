@@ -16,6 +16,7 @@ export const PRESETS = [
   "timer", "ask", "choose", "pick", "slide", "form",
   "list", "table", "card", "image", "camera", "mic",
   "gallery", "video", "compare", "storyboard",
+  "chart", "stat", "math", "step", "calc",
 ];
 // Not presets, but valid line heads.
 export const CORE = ["say", "custom", "save", "show", "clear"];
@@ -293,7 +294,85 @@ const P = {
   },
 
   storyboard(pos) { return mediaSet(pos, "frames", "notes"); },
+
+  // chart [type] [title...]: the first bare chart type is the type, other
+  // text is the title. Data rides on x=, y=, y2= ... or data=<table>.
+  chart(pos) {
+    const o = {};
+    const title = [];
+    for (const t of pos) {
+      if (o.type === undefined && !t.quoted && !t.parts && CHART_TYPES.includes(t.text)) o.type = t.text;
+      else title.push(t);
+    }
+    if (title.length) o.title = joinText(title);
+    return o;
+  },
+
+  // stat VALUE [label...]: the first quantity (72.5kg, 12%, $40, -3) is the
+  // value and its unit; with no quantity the first token is the value as text.
+  stat(pos) {
+    const o = {};
+    const label = [];
+    for (const t of pos) {
+      const q = o.value === undefined && !t.quoted && !t.parts && quantity(t.text);
+      if (q) { o.value = q.value; if (q.unit) o.unit = q.unit; } else label.push(t);
+    }
+    if (o.value === undefined && label.length) o.value = label.shift().text;
+    if (label.length) o.label = joinText(label);
+    return o;
+  },
+
+  // step text... [$ TEX]: the TeX part is split off raw in Parser.line.
+  step(pos) {
+    const o = {};
+    const text = [];
+    for (const t of pos) {
+      if (o.img === undefined && !t.parts && isURL(t.text)) o.img = t.text;
+      else text.push(t);
+    }
+    if (text.length) o.text = joinText(text);
+    return o;
+  },
+
+  calc(pos) {
+    const o = {};
+    if (pos.length) o.title = joinText(pos);
+    return o;
+  },
 };
+
+export const CHART_TYPES = ["line", "bar", "area", "scatter", "pie", "donut"];
+
+// Quantity: a number with an optional unit stuck to it. 72.5kg, 9.81m/s^2,
+// 37.2degC, 12%, 3e8m/s, $40. A unit starts with a non-digit. The currency
+// signs $ € £ ¥ may lead instead. Returns { value, unit } or null.
+const QTY = /^([$€£¥])?(-?\d+(?:\.\d+)?(?:[eE]-?\d+)?)\s*([^\d\s.,+\-|=][^\s]*)?$/;
+export function quantity(s) {
+  if (typeof s === "number") return { value: s };
+  const m = String(s).match(QTY);
+  if (!m || (m[1] && m[3])) return null;
+  const q = { value: Number(m[2]) };
+  if (m[1] || m[3]) q.unit = m[1] || m[3];
+  return q;
+}
+
+// calc variable: min-max[@value][unit] is a slider, a quantity is a constant.
+const VAR_RANGE = /^(-?\d+(?:\.\d+)?)-(-?\d+(?:\.\d+)?)(?:@(-?\d+(?:\.\d+)?))?\s*([^\d\s][^\s]*)?$/;
+export function calcVar(v) {
+  if (typeof v === "number") return { value: v };
+  if (typeof v !== "string") return null;
+  const r = v.trim().match(VAR_RANGE);
+  if (r) {
+    const min = Number(r[1]), max = Number(r[2]);
+    const o = { min, max, value: r[3] != null ? Number(r[3]) : (min + max) / 2 };
+    if (r[4]) o.unit = r[4];
+    return o;
+  }
+  return quantity(v.trim());
+}
+const CALC_PROPS = new Set(["title", "f", "plot", "unit", "digits"]);
+// A y value with an error: 12.5±0.4 or 12.5+-0.4.
+const PM = /^(-?\d+(?:\.\d+)?)(?:±|\+-)(\d+(?:\.\d+)?)$/;
 
 // Props that are always lists. A plain value, quoted or not, is split on "|",
 // so notes="Hook|Problem|CTA" and notes=Hook|Problem|CTA are the same.
@@ -301,6 +380,8 @@ const LISTS = {
   gallery: ["items", "caps"],
   storyboard: ["frames", "notes"],
   compare: ["notes", "labels"],
+  chart: ["names", "color"],
+  table: ["units"],
 };
 const asList = (v) => (Array.isArray(v) ? v : String(v).split("|")).map((x) => (typeof x === "string" ? x : String(x)));
 // Highlight boxes: hl=x,y,w,h|x,y,w,h in percent of the image. A box that is
@@ -316,8 +397,72 @@ function boxes(v) {
 function normalize(preset, o) {
   for (const k of LISTS[preset] || []) if (o[k] !== undefined && o[k] !== true) o[k] = asList(o[k]);
   if (preset === "compare" && o.hl !== undefined) o.hl = boxes(o.hl);
+  if (preset === "chart") chartSeries(o);
+  if (preset === "stat" && o.spark !== undefined && !Array.isArray(o.spark)) o.spark = [o.spark];
+  if (preset === "step" && o.time !== undefined) o.time = seconds(o.time) ?? o.time;
+  if (preset === "calc") {
+    for (const k of Object.keys(o)) {
+      if (CALC_PROPS.has(k)) continue;
+      const v = calcVar(o[k]);
+      if (v) o[k] = v;
+    }
+  }
   return o;
 }
+
+// Chart series: x is a list of labels or numbers. y, y2, y3 ... are lists;
+// a part written 12.5±0.4 (or 12.5+-0.4) becomes 12.5 with an error of 0.4,
+// collected into err, err2, ... unless the line set that err list itself.
+// err lists hold numbers; one value applies to every point.
+function chartSeries(o) {
+  // Values were already typed by the tokenizer (a quoted "2024" stays text),
+  // so a lone value is only wrapped, never re-read.
+  if (o.x !== undefined && !Array.isArray(o.x)) o.x = [o.x];
+  for (const k of Object.keys(o)) {
+    const m = k.match(/^(y|err)(\d*)$/);
+    if (!m) continue;
+    const list = Array.isArray(o[k]) ? o[k] : [o[k]];
+    if (m[1] === "err") { o[k] = list; continue; }
+    const errs = [];
+    o[k] = list.map((v) => {
+      const pm = typeof v === "string" && v.match(PM);
+      if (!pm) { errs.push(0); return v; }
+      errs.push(Number(pm[2]));
+      return Number(pm[1]);
+    });
+    const ek = `err${m[2]}`;
+    if (errs.some(Boolean) && o[ek] === undefined) o[ek] = errs;
+  }
+}
+
+// Raw-TeX presets. math: the rest of the line is TeX, verbatim, after any
+// leading caption= / size= props; one wrapping pair of quotes is dropped.
+// step: a lone "$" token starts the TeX part, which runs to the end of the
+// line. Backslashes, quotes and "#" in TeX are never escapes or comments.
+const MATH_PROP = /^(caption|size)=("(?:[^"\\]|\\.)*"|\S*)(?:\s+|$)/;
+function mathArgs(rest) {
+  const o = {};
+  let r = rest.trim();
+  for (let m; (m = r.match(MATH_PROP)); r = r.slice(m[0].length)) {
+    o[m[1]] = m[2].startsWith('"') ? m[2].slice(1, -1).replace(/\\(.)/g, "$1") : m[2];
+  }
+  r = r.trim();
+  if (/^"[^"]*"$/.test(r)) r = r.slice(1, -1);
+  if (r) o.tex = r;
+  return o;
+}
+function stepArgs(rest) {
+  const m = rest.match(/(^|\s)\$(\s|$)/);
+  const head = m ? rest.slice(0, m.index) : rest;
+  const o = parseArgs("step", tokenize(head));
+  if (m) {
+    const tex = rest.slice(m.index + m[0].length).trim();
+    if (tex) o.tex = tex;
+  }
+  return o;
+}
+const rawArgs = (preset, rest) => (preset === "math" ? mathArgs(rest) : stepArgs(rest));
+const RAW = new Set(["math", "step"]);
 
 // Form field token: key:type, "Label":type, optional trailing "!" = required.
 // A bare identifier is a text field.
@@ -401,7 +546,8 @@ export class Parser {
       const preset = PRESETS.includes(target) || target === "say" ? target : this.ids.get(target);
       if (!preset) return { op: "error", screen, message: `patch: nothing called "${target}"`, line };
       if (preset === "custom") return { op: "error", screen, message: "patch: custom blocks are replaced, not patched", line };
-      return { op: "patch", screen, target, props: parseArgs(preset, tokens), line };
+      const props = RAW.has(preset) ? rawArgs(preset, body.slice(head.length)) : parseArgs(preset, tokens);
+      return { op: "patch", screen, target, props, line };
     }
 
     if (head === "save" || head === "show") {
@@ -418,7 +564,8 @@ export class Parser {
     const preset = hm[1];
     const id = hm[2] || `n${++this.auto}`;
     this.ids.set(id, preset);
-    return { op: "add", screen, preset, id, props: parseArgs(preset, tokens), line };
+    const props = RAW.has(preset) ? rawArgs(preset, body.slice(head.length)) : parseArgs(preset, tokens);
+    return { op: "add", screen, preset, id, props, line };
   }
 }
 
@@ -473,7 +620,7 @@ export function resolve(preset, props) {
     case "list":
       return { title: "", items: [], check: false, num: false, ...p };
     case "table":
-      return { name: "", cols: null, rows: [], ...p };
+      return { name: "", cols: null, rows: [], units: [], sort: false, ...p };
     case "card":
       return { title: "", body: "", ...p };
     case "image":
@@ -490,6 +637,16 @@ export function resolve(preset, props) {
       return { title: "", mode: "slider", labels: ["Before", "After"], notes: [], hl: [], pick: false, ...p };
     case "storyboard":
       return { title: "", frames: [], notes: [], reorder: false, comment: true, ...p };
+    case "chart":
+      return { type: "line", title: "", x: [], names: [], unit: "", stack: false, ...p };
+    case "stat":
+      return { label: "", unit: "", good: "up", ...p };
+    case "math":
+      return { tex: "", size: "md", ...p };
+    case "step":
+      return { text: "", all: false, ...p };
+    case "calc":
+      return { title: "", digits: 3, ...p };
     default:
       return p;
   }

@@ -33,6 +33,8 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - several pictures or clips: `gallery URL URL URL layout=row|feed|row3d|grid`, add `+pick` to let them choose; one clip: `video URL caption`
 - before/after: `compare BEFORE AFTER notes="What changed|..."` (add `+pick` for an A/B choice)
 - a sequence to review: `storyboard "Reel" URL|Hook URL|Payoff +reorder`
+- numbers: `stat 178.9lb Weight delta=-2.3 spark=181|180|178.9`, `chart line "Weight" x=Mon|Tue|Wed y=180|179|178.5` (`y2=` adds a series, `12±0.4` an error bar, `data=<table id>` charts a live table; bar|area|scatter|pie|donut), `table ... units=|kg +sort`
+- science: `math E = mc^2` (the rest of the line is TeX), `step "Divide by g" $ t^2 = 2d/g` (one line per step), `calc f="R = v^2*sin(2*a)/g" v=5-40@20m/s a=0-90@30deg` (sliders that redraw a chart)
 - a note inside the screen: `say Nice work.`
 
 Values: durations `45`, `90s`, `5m`, `1:30`. Options `a|b|c`. Quote anything with spaces.

@@ -183,3 +183,152 @@ say "When the edit event lands, the agent answers with the agent line below."`,
     next: `compare /demo/before_room.jpg /demo/after_room.jpg Done notes="Sage green wall" hl=45,4,53,45`,
   },
 ];
+
+// Data and science presets (YUI-17): chart, stat, math, step, calc, table.
+// Each has a slug so /playground?demo=<slug> opens it; add &theme=light for
+// the light phone.
+export const SCIENCE = [
+  {
+    slug: "chart-line",
+    name: "Chart: line, two series",
+    agent: "Yui",
+    yl: `chart line "Weight this week" x=Mon|Tue|Wed|Thu|Fri|Sat|Sun y=181.2|180.6|180.9|179.8|179.4|179.6|178.9 y2=181|180.5|180|179.5|179|178.5|178 names=Actual|Plan unit=lb
+say "Half a pound ahead of plan. Tap a day for the numbers."`,
+  },
+  {
+    slug: "chart-bar",
+    name: "Chart: bars with error bars",
+    agent: "Yui",
+    yl: `chart bar "Yield by fertilizer" x=None|Low|Mid|High y=2.1±0.3|3.4±0.4|4.6±0.5|4.8±0.7 y2=2.0±0.2|3.1±0.3|4.1±0.4|4.0±0.6 names=Tomato|Pepper unit=kg
+say "Error bars are one standard deviation over 5 plots. Mid and High overlap, so Mid is the better buy."`,
+  },
+  {
+    slug: "chart-area",
+    name: "Chart: stacked area and stacked bars",
+    agent: "Yui",
+    yl: `chart area "Macros by day" x=Mon|Tue|Wed|Thu|Fri y=160|172|150|181|166 y2=210|240|180|260|220 y3=70|64|80|72|68 names=Protein|Carbs|Fat unit=g +stack
+chart bar "Sleep stages" x=Mon|Tue|Wed|Thu|Fri y=1.6|1.2|1.9|1.4|1.7 y2=4.1|3.8|4.4|3.6|4.2 y3=1.8|1.5|2.0|1.3|1.9 names=Deep|Light|REM unit=h +stack`,
+  },
+  {
+    slug: "chart-scatter",
+    name: "Chart: scatter with error bars (dose response)",
+    agent: "Yui",
+    yl: `chart scatter "Enzyme rate vs substrate" x=0.5|1|2|4|8|16|32 y=0.9|1.6|2.6|3.7|4.5|5.0|5.2 err=0.15|0.2|0.2|0.3|0.3|0.35|0.4 unit=µmol/min xlabel="Substrate (mM)"
+math caption="Michaelis-Menten: the curve flattens at V_max" v = \\frac{V_{max}[S]}{K_m + [S]}`,
+  },
+  {
+    slug: "chart-pie",
+    name: "Chart: donut and pie",
+    agent: "Yui",
+    yl: `chart donut "Where the week went" x="Deep work"|Meetings|Email|Admin|Breaks y=14|9|6|4|5 unit=h
+chart pie "Air by volume" x=Nitrogen|Oxygen|Argon|Other y=78.08|20.95|0.93|0.04 unit=%`,
+  },
+  {
+    slug: "chart-table",
+    name: "Chart: bound to a live table",
+    agent: "Yui",
+    yl: `table@wk Weigh-ins Day|Weight|Waist "Mon|181.2|34.5" "Tue|180.6|34.4" "Wed|180.9|34.4" "Thu|179.8|34.2" units=|lb|in +sort
+chart line data=wk x=Day y=Weight
+say "Send the agent line below: the table updates and the chart follows."`,
+    next: `~wk Day|Weight|Waist "Mon|181.2|34.5" "Tue|180.6|34.4" "Wed|180.9|34.4" "Thu|179.8|34.2" "Fri|179.1|34.1" "Sat|178.7|34.0"`,
+  },
+  {
+    slug: "stat",
+    name: "Stat: big numbers with deltas and sparklines",
+    agent: "Yui",
+    yl: `stat 178.9lb Weight delta=-2.3 spark=181.2|180.6|180.9|179.8|179.4|179.6|178.9 good=down sub="this week"
+stat 52bpm "Resting heart rate" delta=-3 spark=56|55|55|54|53|53|52 good=down
+stat 7.4h Sleep delta=+0.6 spark=6.5|6.9|7.1|6.8|7.3|7.6|7.4 sub="7-day average"
+say "Tap lb to see kg."`,
+  },
+  {
+    slug: "stat-lab",
+    name: "Stat: lab readings, units aware",
+    agent: "Yui",
+    yl: `stat 37.4degC "Incubator" delta=0.2 spark=37.1|37.2|37.2|37.3|37.4 sub="target 37.0"
+stat 7.38 "Buffer pH" delta=-0.02 spark=7.41|7.40|7.40|7.39|7.38
+stat 1.2e-3mol/L "Stock concentration"
+stat $1840 "Grant left this month" delta=-420 good=up`,
+  },
+  {
+    slug: "math",
+    name: "Math: equations (KaTeX)",
+    agent: "Yui",
+    yl: `math E = mc^2
+math caption="Bayes' rule" P(A \\mid B) = \\frac{P(B \\mid A)\\,P(A)}{P(B)}
+math caption="Schrödinger, time dependent" size=sm i\\hbar\\frac{\\partial}{\\partial t}\\Psi(\\mathbf{r},t) = \\hat{H}\\Psi(\\mathbf{r},t)`,
+  },
+  {
+    slug: "math-lesson",
+    name: "Math: a mini lesson with a quiz",
+    agent: "Yui",
+    yl: `say "The quadratic formula solves any ax² + bx + c = 0."
+math size=lg x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}
+math caption="The discriminant decides how many real roots" \\Delta = b^2 - 4ac
+choose "If Δ < 0, how many real roots?" "Two"|"One"|"None"`,
+  },
+  {
+    slug: "table-sort",
+    name: "Table: sortable, with units",
+    agent: "Yui",
+    yl: `table Planets Planet|Mass|Radius|Day "Mercury|0.330|2440|4222.6" "Venus|4.87|6052|2802" "Earth|5.97|6371|24" "Mars|0.642|3390|24.7" "Jupiter|1898|69911|9.9" units=|10^24kg|km|h +sort
+say "Tap a column to sort."`,
+  },
+  {
+    slug: "table-bound",
+    name: "Table: bound agent table, sortable",
+    agent: "Arnold",
+    yl: `table meals units=|||g +sort
+chart bar data=meals x=Meal y=Protein unit=g`,
+  },
+  {
+    slug: "calc-projectile",
+    name: "Calc: projectile range (sliders drive the chart)",
+    agent: "Yui",
+    yl: `calc "How far does it fly?" f="R = v^2*sin(2*a)/g" v=5-40@20m/s a=0-90@30deg g=9.81m/s^2 plot=a unit=m
+say "Slide the angle. The range peaks at 45 degrees, whatever the speed."`,
+  },
+  {
+    slug: "calc-decay",
+    name: "Calc: radioactive decay",
+    agent: "Yui",
+    yl: `calc "Carbon-14 left after t years" f="N = N0*exp(-ln(2)*t/h)" t=0-30000@5730yr N0=100% h=5730yr unit=%
+ask "Guess: how much is left after two half-lives?" 50%|25%|"12.5%"`,
+  },
+  {
+    slug: "calc-pendulum",
+    name: "Calc: pendulum period",
+    agent: "Yui",
+    yl: `calc Pendulum f="T = 2*pi*sqrt(L/g)" L=0.1-3@1m g=1.6-25@9.81m/s^2 plot=L unit=s digits=3
+say "Slide g to 1.62 to swing it on the Moon."`,
+  },
+  {
+    slug: "step-derivation",
+    name: "Step: a derivation, one step at a time",
+    agent: "Yui",
+    yl: `step title="How long to fall d meters?" "Start from constant acceleration, from rest" $ d = \\tfrac{1}{2} g t^2
+step "Multiply both sides by 2" $ 2d = g t^2
+step "Divide by g" $ t^2 = \\frac{2d}{g}
+step "Take the positive root" $ t = \\sqrt{\\frac{2d}{g}}
+step "Check: 20 m on Earth" $ t = \\sqrt{\\frac{2 \\cdot 20}{9.81}} \\approx 2.0\\,\\text{s}`,
+  },
+  {
+    slug: "step-protocol",
+    name: "Step: a lab protocol with timers",
+    agent: "Yui",
+    yl: `step title="Gram stain" "Heat-fix the smear. Flood with crystal violet." time=1m
+step "Rinse gently with water. Flood with iodine." time=1m
+step "Decolorize with alcohol, drop by drop, until it runs clear." time=10s
+step "Rinse. Counterstain with safranin." time=45s
+step "Rinse, blot dry, and view under oil immersion. Purple is Gram positive, pink is Gram negative."`,
+  },
+  {
+    slug: "step-all",
+    name: "Step: all at once, tap to check off",
+    agent: "Arnold",
+    yl: `step title="Warm-up" +all "Jumping jacks" time=1m
+step "Hip openers, 5 each side"
+step "Goblet squat, 10 slow reps"
+step "Band pull-aparts" time=45s`,
+  },
+];
