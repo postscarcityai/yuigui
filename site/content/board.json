@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T22:40:49.477Z",
+  "updated": "2026-09-24T23:10:53.615Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -90,6 +90,11 @@
         {
           "key": "OSS-4",
           "title": "Yui Lines parser in Rust"
+        },
+        {
+          "key": "OSS-6",
+          "title": "Yui@home",
+          "summary": "Idle AI agents pull from an agent-ready backlog and send PRs"
         },
         {
           "key": "INT-3",
@@ -188,6 +193,10 @@
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
+        },
+        {
+          "key": "SITE-25",
+          "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)"
         }
       ]
     },
@@ -246,8 +255,10 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "SITE-23",
-          "title": "Polish pass on /start, /yl, /channel and /privacy"
+          "key": "SITE-24",
+          "title": "Yui@home story",
+          "summary": "Yui@home: lend your idle agent to Yui",
+          "progress": "/progress#yui-home-lend-your-idle-agent-to-yui"
         }
       ]
     },
@@ -255,6 +266,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-23",
+          "title": "Polish pass on /start, /yl, /channel and /privacy",
+          "summary": "Get started, the specs and Privacy, checked for strangers",
+          "shipped": "2026-09-24",
+          "progress": "/progress#get-started-the-specs-and-privacy-checked-for-strangers"
+        },
         {
           "key": "SITE-22",
           "title": "Polish pass on / (home) and /business",
