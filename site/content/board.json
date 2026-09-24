@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T04:58:57.783Z",
+  "updated": "2026-09-24T05:10:31.719Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -146,6 +146,54 @@
           "summary": "Cloudflare Agents SDK and 'Flue' for relay v1"
         },
         {
+          "key": "INT-7",
+          "title": "Claude adapter, MCP connector plus Yui screens as an MCP App"
+        },
+        {
+          "key": "INT-8",
+          "title": "ChatGPT adapter through the Yui MCP server"
+        },
+        {
+          "key": "INT-9",
+          "title": "Gemini adapter, as a model or an A2A agent"
+        },
+        {
+          "key": "INT-10",
+          "title": "Grok adapter, model connector or remote MCP"
+        },
+        {
+          "key": "INT-11",
+          "title": "Meta Muse Spark adapter via the Meta Model API"
+        },
+        {
+          "key": "INT-12",
+          "title": "Model connector for any OpenAI-compatible API (Ollama, LM Studio, vLLM)"
+        },
+        {
+          "key": "INT-13",
+          "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)"
+        },
+        {
+          "key": "INT-14",
+          "title": "LangGraph adapter"
+        },
+        {
+          "key": "INT-15",
+          "title": "CrewAI adapter"
+        },
+        {
+          "key": "INT-16",
+          "title": "Microsoft Agent Framework (AutoGen successor) adapter plus an AG-UI spike"
+        },
+        {
+          "key": "INT-17",
+          "title": "N8n adapter, MCP client plus a community node"
+        },
+        {
+          "key": "INT-18",
+          "title": "A2A client, add any agent by its Agent Card"
+        },
+        {
           "key": "FLOW-1",
           "title": "Flows",
           "summary": "Saved series of Yui screens, authored in Mermaid, run by any agent"
@@ -219,17 +267,9 @@
           "title": "Native SwiftUI versions of the YUI-16/17/18 presets"
         },
         {
-          "key": "YUI-20",
-          "title": "Every agent has its own look and feel (theme per agent, light + dark, preferred screens)"
-        },
-        {
           "key": "YUI-21",
           "title": "Media pipeline",
           "summary": "Agents generate and send images and videos into Yui"
-        },
-        {
-          "key": "SITE-4",
-          "title": "Site drives traffic to the open source repo and the app (CTAs, waitlist, TestFlight)"
         },
         {
           "key": "SITE-5",
@@ -238,10 +278,6 @@
         {
           "key": "SITE-6",
           "title": "Playground a11y labels (Lighthouse 89 -> 95+)"
-        },
-        {
-          "key": "INT-0",
-          "title": "Agent framework adapters roadmap (every framework, Hermes first)"
         }
       ]
     },
@@ -250,11 +286,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-8",
-          "title": "Push handoff",
-          "summary": "'pick this up in Yui' from Telegram in one step"
-        },
-        {
           "key": "YUI-22",
           "title": "Public TestFlight link",
           "summary": "Public TestFlight link (external group + Beta App Review)",
@@ -262,10 +293,8 @@
           "waiting": true
         },
         {
-          "key": "SITE-3",
-          "title": "Screenshots on the site + changelog with screenshots",
-          "summary": "Screenshots everywhere, and a changelog",
-          "progress": "/progress#screenshots-everywhere-and-a-changelog"
+          "key": "YUI-20",
+          "title": "Every agent has its own look and feel (theme per agent, light + dark, preferred screens)"
         }
       ]
     },
@@ -273,6 +302,34 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-0",
+          "title": "Agent framework adapters roadmap (every framework, Hermes first)",
+          "summary": "A plan for every agent framework",
+          "shipped": "2026-09-24",
+          "progress": "/progress#a-plan-for-every-agent-framework"
+        },
+        {
+          "key": "SITE-4",
+          "title": "Site drives traffic to the open source repo and the app (CTAs, waitlist, TestFlight)",
+          "summary": "Every page points to the code and the beta",
+          "shipped": "2026-09-24",
+          "progress": "/progress#every-page-points-to-the-code-and-the-beta"
+        },
+        {
+          "key": "YUI-8",
+          "title": "Push handoff",
+          "summary": "Pick it up in Yui",
+          "shipped": "2026-09-24",
+          "progress": "/progress#pick-it-up-in-yui"
+        },
+        {
+          "key": "SITE-3",
+          "title": "Screenshots on the site + changelog with screenshots",
+          "summary": "Screenshots everywhere, and a changelog",
+          "shipped": "2026-09-24",
+          "progress": "/progress#screenshots-everywhere-and-a-changelog"
+        },
         {
           "key": "BIZ-5",
           "title": "yuiguiai social handles",

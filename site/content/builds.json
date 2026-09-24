@@ -1,6 +1,22 @@
 {
   "builds": [
     {
+      "build": 18,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-23T22:00:33-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Public TestFlight: every VALID build goes to the Public group and beta review",
+          "card": "YUI-22"
+        },
+        {
+          "text": "Pick it up in Yui: push handoff from any channel",
+          "card": "YUI-8"
+        }
+      ]
+    },
+    {
       "build": 16,
       "date": "2026-09-24",
       "uploaded": "2026-09-23T21:30:23-07:00",
@@ -132,14 +148,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Public TestFlight: every VALID build goes to the Public group and beta review",
-      "card": "YUI-22"
-    },
-    {
-      "text": "Pick it up in Yui: push handoff from any channel",
-      "card": "YUI-8"
-    }
-  ]
+  "next": []
 }
