@@ -9,17 +9,31 @@
 //   { op: "show",  screen, name, line }       restore a saved screen
 //   { op: "clear", screen, line }
 //   { op: "focus", screen, line }             bare ">2": later lines go to screen 2
+//   { op: "end",   screen, target, line }     close the open group (deck, plan, narrate)
 //   { op: "error", screen, message, line }
 // `props` holds only what the line actually said. Defaults live in resolve().
+// An add that joins an open group (a page under a deck) also carries `in`,
+// the group's id.
 
 export const PRESETS = [
   "timer", "ask", "choose", "pick", "slide", "form",
   "list", "table", "card", "image", "camera", "mic",
   "gallery", "video", "compare", "storyboard",
   "chart", "stat", "math", "step", "calc",
+  "deck", "page", "plan", "project", "narrate",
 ];
 // Not presets, but valid line heads.
-export const CORE = ["say", "custom", "save", "show", "clear"];
+export const CORE = ["say", "custom", "save", "show", "clear", "end"];
+
+// Groups: a group head collects the lines that follow it on the same screen,
+// as long as each one is a member preset. Anything else ends the group, and
+// so does `end`. Comments, blank lines and error lines do not. Only a
+// narrate can hold another group (a deck).
+export const GROUPS = {
+  deck: ["page", "ask", "choose", "pick"],
+  plan: ["ask", "choose", "pick", "slide", "form", "mic", "camera"],
+  narrate: ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
+};
 
 const IDENT = /^[a-z_][\w-]*$/i;
 
@@ -116,13 +130,18 @@ function coerce(v) {
   return v;
 }
 
+// Keys whose values are never typed: a quiz answer is compared with option
+// text, so answer=4 and answer=on stay "4" and "on".
+const TEXT_KEYS = new Set(["answer"]);
+
 // Splits tokens into key/values, +flags and positionals.
 function split(tokens) {
   const kv = {};
   const flags = {};
   const pos = [];
   for (const t of tokens) {
-    if (t.key) kv[t.key] = Array.isArray(t.value)
+    if (t.key && TEXT_KEYS.has(t.key)) kv[t.key] = t.value;
+    else if (t.key) kv[t.key] = Array.isArray(t.value)
       ? t.value.map((v, i) => (t.vquoted[i] ? v : coerce(v)))
       : t.vquoted[0] ? t.value : coerce(t.value);
     else if (!t.quoted && !t.parts && /^\+[a-z][\w-]*$/i.test(t.raw)) flags[t.raw.slice(1)] = true;
@@ -339,6 +358,26 @@ const P = {
     if (pos.length) o.title = joinText(pos);
     return o;
   },
+
+  deck(pos) { return P.calc(pos); },
+  plan(pos) { return P.calc(pos); },
+  narrate(pos) { return P.calc(pos); },
+
+  // page title [body...] [URL]: the first URL is img, the first text token
+  // the title, the rest the body (as in card).
+  page(pos) {
+    const o = {};
+    const text = [];
+    for (const t of pos) {
+      if (o.img === undefined && !t.parts && isURL(t.text)) o.img = t.text;
+      else text.push(t);
+    }
+    if (text[0]) o.title = text[0].text;
+    if (text.length > 1) o.body = joinText(text.slice(1));
+    return o;
+  },
+
+  project(pos) { return P.card(pos); },
 };
 
 export const CHART_TYPES = ["line", "bar", "area", "scatter", "pie", "donut"];
@@ -382,6 +421,9 @@ const LISTS = {
   compare: ["notes", "labels"],
   chart: ["names", "color"],
   table: ["units"],
+  page: ["points"],
+  project: ["facts", "next"],
+  pick: ["answer"],
 };
 const asList = (v) => (Array.isArray(v) ? v : String(v).split("|")).map((x) => (typeof x === "string" ? x : String(x)));
 // Highlight boxes: hl=x,y,w,h|x,y,w,h in percent of the image. A box that is
@@ -509,9 +551,28 @@ export class Parser {
     this.screen = "1";
     this.ids = new Map(); // id -> preset
     this.auto = 0;
+    this.open = []; // open groups, innermost last: { id, preset, screen }
   }
 
-  line(src) {
+  // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
+  group(op) {
+    if (!op || op.op === "error") return op;
+    if (op.op === "end") {
+      const g = this.open.pop();
+      if (!g) return { op: "error", screen: op.screen, message: "end: no open deck, plan or narrate", line: op.line };
+      return { ...op, target: g.id };
+    }
+    const joins = (g) => op.op === "add" && op.screen === g.screen && GROUPS[g.preset].includes(op.preset);
+    while (this.open.length && !joins(this.open[this.open.length - 1])) this.open.pop();
+    const g = this.open[this.open.length - 1];
+    const out = g ? { op: op.op, screen: op.screen, preset: op.preset, id: op.id, in: g.id, props: op.props, line: op.line } : op;
+    if (op.op === "add" && GROUPS[op.preset]) this.open.push({ id: op.id, preset: op.preset, screen: op.screen });
+    return out;
+  }
+
+  line(src) { return this.group(this.parseLine(src)); }
+
+  parseLine(src) {
     const line = src.replace(/\r$/, "");
     let body = line.trim();
     if (!body || /^#(\s|$)/.test(body)) return null;
@@ -556,6 +617,7 @@ export class Parser {
       return { op: head, screen, name, line };
     }
     if (head === "clear") return { op: "clear", screen, line };
+    if (head === "end") return { op: "end", screen, line };
 
     const hm = head.match(/^([a-z]+)(?:@([\w-]+))?$/);
     if (!hm || !(PRESETS.includes(hm[1]) || hm[1] === "say")) {
@@ -647,6 +709,16 @@ export function resolve(preset, props) {
       return { text: "", all: false, ...p };
     case "calc":
       return { title: "", digits: 3, ...p };
+    case "deck":
+      return { title: "", layout: "slides", full: false, notes: false, ...p };
+    case "page":
+      return { title: "", body: "", points: [], notes: "", ...p };
+    case "plan":
+      return { title: "", submit: "Create project", review: true, ...p };
+    case "project":
+      return { title: "", body: "", facts: [], next: [], status: "", ...p, cta: p.cta ?? (p.open ? "Open" : "") };
+    case "narrate":
+      return { title: "", voice: "agent", rate: 1, auto: false, captions: true, ...p };
     default:
       return p;
   }
@@ -668,7 +740,7 @@ export function apply(state, op) {
       s.focus = op.screen; scr(op.screen); break;
     case "add":
       s.seq = (s.seq || 0) + 1;
-      scr(op.screen).push({ key: `${op.id}`, id: op.id, preset: op.preset, props: op.props, seq: s.seq });
+      scr(op.screen).push({ key: `${op.id}`, id: op.id, preset: op.preset, props: op.props, seq: s.seq, ...(op.in ? { in: op.in } : {}) });
       if (op.preset === "custom") s.customs = [...s.customs, op.line.trim()];
       s.focus = op.screen;
       break;
@@ -710,11 +782,12 @@ export function toJSON(ops) {
     switch (o.op) {
       case "add":
         if (o.preset === "custom") return { type: "custom", ...scr, spec: o.props.spec };
-        return { type: o.preset, ...(/^n\d+$/.test(o.id) ? {} : { id: o.id }), ...scr, ...o.props };
+        return { type: o.preset, ...(/^n\d+$/.test(o.id) ? {} : { id: o.id }), ...scr, ...(o.in ? { in: o.in } : {}), ...o.props };
       case "patch": return { patch: o.target, ...scr, ...o.props };
       case "save": return { save: o.name, ...scr };
       case "show": return { show: o.name, ...scr };
       case "clear": return { clear: true, ...scr };
+      case "end": return { end: o.target };
       case "focus": return { focus: Number(o.screen) || o.screen };
       default: return { error: o.message };
     }

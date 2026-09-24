@@ -35,6 +35,7 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - a sequence to review: `storyboard "Reel" URL|Hook URL|Payoff +reorder`
 - numbers: `stat 178.9lb Weight delta=-2.3 spark=181|180|178.9`, `chart line "Weight" x=Mon|Tue|Wed y=180|179|178.5` (`y2=` adds a series, `12±0.4` an error bar, `data=<table id>` charts a live table; bar|area|scatter|pie|donut), `table ... units=|kg +sort`
 - science: `math E = mc^2` (the rest of the line is TeX), `step "Divide by g" $ t^2 = 2d/g` (one line per step), `calc f="R = v^2*sin(2*a)/g" v=5-40@20m/s a=0-90@30deg` (sliders that redraw a chart)
+- lessons and flows: `deck "Title"` then one `page "Title" /img.jpg body=... notes=...` per slide (a `choose ... answer=X` inside is a quiz), `plan "Title"` then one `choose@id`/`pick@id`/`form@id` per step (one `{plan}` answer at the end; `project ... open=<saved screen>` reopens it later), `narrate` then pages or `compare ... say="..."` lines for a spoken walkthrough; `end` closes the group
 - a note inside the screen: `say Nice work.`
 
 Values: durations `45`, `90s`, `5m`, `1:30`. Options `a|b|c`. Quote anything with spaces.

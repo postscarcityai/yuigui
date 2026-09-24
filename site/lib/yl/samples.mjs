@@ -332,3 +332,95 @@ step "Goblet squat, 10 slow reps"
 step "Band pull-aparts" time=45s`,
   },
 ];
+
+// Decks, plans and walkthroughs (YUI-18). Each has a slug for /playground?demo=.
+export const FLOWS = [
+  {
+    slug: "deck-lesson",
+    name: "Deck: a lesson with a quiz",
+    agent: "Yui",
+    yl: `deck "How mRNA vaccines work"
+page "How mRNA vaccines work" /demo/mrna1.jpg notes="An mRNA vaccine is a set of instructions wrapped in a tiny bubble of fat. Four steps."
+page "1. Delivery" /demo/mrna2.jpg body="The shot goes into your arm muscle. Lipid nanoparticles carry the mRNA into nearby cells." notes="The fat bubble matters: bare mRNA falls apart fast and cannot get into a cell on its own."
+page "2. Your cells read it" /demo/mrna3.jpg body="Ribosomes read the mRNA like a recipe and build the spike protein, the same shape that sits on the virus." notes="The mRNA never enters the nucleus, where your DNA is kept. It is read out in the cytoplasm."
+page "3. The immune system learns" /demo/mrna4.jpg points="Spike pieces show up on the cell surface|B cells make antibodies that fit them|T cells learn to spot infected cells" notes="The body gets a practice target without ever meeting the virus."
+page "4. The message fades" /demo/mrna5.jpg body="Cells break the mRNA down within days. Memory B and T cells stay, ready if the real virus shows up."
+choose "Where is the mRNA read?" Nucleus|Cytoplasm|"The blood" answer=Cytoplasm why="Ribosomes in the cytoplasm read it. It never reaches your DNA."
+pick "What is still there a month later?" "Memory B cells"|"Memory T cells"|"The mRNA"|"The fat bubbles" answer="Memory B cells"|"Memory T cells" why="The message and its bubble break down in days. The memory cells are what last."`,
+  },
+  {
+    slug: "deck-scroll",
+    name: "Deck: text pages, scroll layout",
+    agent: "Urza",
+    yl: `deck "Writing a first draft" layout=scroll
+page "Get it down, then get it right" body="A first draft is for you. Nobody else reads it."
+page "Three rules" points="Write fast, fix later|Leave gaps as [TK] and keep going|Stop mid-sentence so tomorrow starts easy"
+page "Tomorrow" body="Read it once, cut a third, then send it to one person." notes="End on the next action, not a summary."`,
+  },
+  {
+    slug: "plan-website",
+    name: "Plan: a new website, step by step",
+    agent: "Urza",
+    yl: `say "Five quick ones and I'll set up the project."
+plan@site "New website"
+choose@kind "What kind of site?" Portfolio|Shop|"Local business"|Blog +other
+pick@pages "Which pages?" Home|About|Services|Pricing|Contact|Blog
+slide@budget "Budget, in thousands of dollars" 1-20 value=5
+form@brand "About the brand" name:text! tagline:text vibe:Calm|Bold|Playful submit="Next"
+ask@launch "Launch before the holidays?" "Yes, Dec 1"|"No rush"`,
+  },
+  {
+    slug: "plan-training",
+    name: "Plan: a training intake",
+    agent: "Arnold",
+    yl: `plan@month "Your first month" submit="Build my plan"
+choose@goal "What's the goal?" "Get stronger"|"Lose fat"|"Run a 5k" +other
+slide@days "Days a week you can train" 2-6 value=3
+pick@gear "What do you have?" Dumbbells|Barbell|Bands|Kettlebell|"Just me"
+mic@notes "Anything I should know? Injuries, schedule, what you hate."`,
+  },
+  {
+    slug: "project-card",
+    name: "Project: a card that reopens the plan",
+    agent: "Urza",
+    yl: `>plan
+plan@site "Kiln & Co. website"
+choose@kind "What kind of site?" Portfolio|Shop|"Local business" +other
+pick@pages "Which pages?" Home|Classes|Visit|Shop
+ask@launch "Launch before the holidays?" "Yes, Dec 1"|"No rush"
+save site-plan
+>1
+say "Picking up where we left off."
+project "Kiln & Co. website" status=Planning progress=40 img=/demo/site_after_hero.jpg body="A small site for a pottery studio: book a class in two taps." facts="Kind: Local business|Pages: Home, Classes, Visit|Launch: Dec 1" next="Pick a template|Write the class copy" open=site-plan cta="Reopen the plan"`,
+  },
+  {
+    slug: "narrate-site",
+    name: "Narrate: a website update, before and after",
+    agent: "Urza",
+    next: `ask "Publish the update?" "Yes, publish"|"Not yet"`,
+    yl: `narrate "What changed on the site" voice=agent
+compare /demo/site_before_hero.jpg /demo/site_after_hero.jpg "1. The hero" hl=3,28,50,46|84,2,15,8 notes="Headline says what you get|One booking button, top right too" say="First, the hero. The old headline said welcome to our website. The new one says what you will make, and when. There is one clear button to book, and it repeats top right."
+compare /demo/site_before_classes.jpg /demo/site_after_classes.jpg "2. Classes" hl=3,16,94,56 notes="Three cards with a photo and a price" say="Next, classes. A wall of text became three cards, each with a photo and a price, so nobody has to email to ask what it costs."
+compare /demo/site_before_visit.jpg /demo/site_after_visit.jpg "3. Visit us" hl=4,7,54,86|62,7,35,80 notes="A map|Hours and parking in a table" say="Last, the visit section. There is a map, the hours and parking sit in a table, and the same booking button closes the page."`,
+  },
+  {
+    slug: "narrate-lesson",
+    name: "Narrate: the lesson deck, read aloud",
+    agent: "Yui",
+    yl: `narrate "mRNA vaccines in one minute" voice=agent
+deck "How mRNA vaccines work"
+page "How mRNA vaccines work" /demo/mrna1.jpg notes="An mRNA vaccine is a set of instructions wrapped in a tiny bubble of fat. Here is what happens after the shot."
+page "1. Delivery" /demo/mrna2.jpg body="Lipid nanoparticles carry the mRNA into arm muscle cells." notes="The shot goes into your arm. Tiny fat bubbles carry the message into nearby cells."
+page "2. Your cells read it" /demo/mrna3.jpg body="Ribosomes build the spike protein from the recipe." notes="Ribosomes read the message like a recipe and build the spike protein. The message never touches your DNA."
+page "3. The immune system learns" /demo/mrna4.jpg body="Antibodies and T cells learn the spike's shape." notes="The spike shows up on the cell surface, and your immune system learns its shape."
+page "4. The message fades" /demo/mrna5.jpg body="The mRNA is gone in days. Memory cells stay." notes="Within days the message is broken down. The memory cells stay, ready for the real thing."
+choose "Where is the mRNA read?" Nucleus|Cytoplasm|"The blood" answer=Cytoplasm why="Ribosomes in the cytoplasm read it." say="Quick check. Where is the message read?"`,
+  },
+  {
+    slug: "narrate-storyboard",
+    name: "Narrate: a storyboard, frame by frame",
+    agent: "Yui",
+    yl: `narrate "Launch reel, the script" voice=agent rate=1.05
+storyboard "Launch reel" /demo/s1.jpg|"Open on hands at the wheel. No music yet." /demo/s2.jpg|"The problem: every mug in the shop looks the same." /demo/s3.jpg|"Cut to the glaze wall, slow push in." /demo/s4.jpg|"End card: book a class, link in bio."`,
+  },
+];

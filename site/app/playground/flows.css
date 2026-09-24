@@ -1,0 +1,100 @@
+/* Deck, page, plan, project and narrate (YUI-18). Own file so the group
+   presets stay out of the site theme in globals.css. */
+
+.yl-deck { gap: 10px; }
+.yl-slidebox { position: relative; border-radius: 14px; overflow: hidden; background: #0f111c; border: 1px solid #23263a; }
+.yl-track { touch-action: pan-y; user-select: none; }
+.yl-trackin { display: flex; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+.yl-trackpage { flex: 0 0 100%; min-width: 0; }
+.yl-deckscroll { display: flex; flex-direction: column; gap: 10px; }
+.yl-deckbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.yl-deckbar > button { width: 34px; height: 34px; border-radius: 50%; border: 0; background: #23263a; color: var(--text); font-size: 20px; line-height: 1; flex: none; }
+.yl-deckbar > button:disabled { opacity: .3; }
+.yl-deckbar .yl-gdots { flex: 1; justify-content: center; }
+.yl-deckfoot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+.yl-page { display: flex; flex-direction: column; min-height: 220px; }
+.yl-pageimg { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.yl-pagetext { padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+.yl-pagetitle { font-size: 19px; font-weight: 800; line-height: 1.2; letter-spacing: -.2px; }
+.yl-pagebody { font-size: 13.5px; line-height: 1.5; color: #c9cce0; }
+.yl-pagepts { margin: 0; padding-left: 18px; font-size: 13.5px; line-height: 1.5; color: #c9cce0; display: flex; flex-direction: column; gap: 4px; }
+.yl-pagepts li::marker { color: var(--accent2); }
+.yl-page.cover { position: relative; }
+.yl-page.cover .yl-pageimg { aspect-ratio: 3 / 4; }
+.yl-page.cover .yl-pagetext { position: absolute; left: 0; right: 0; bottom: 0; padding-top: 60px; background: linear-gradient(transparent, rgba(5,6,12,.88)); }
+.yl-page.cover .yl-pagetitle { color: #fff; font-size: 22px; }
+.yl-page.text { justify-content: center; min-height: 260px; }
+.yl-page.text .yl-pagetitle { font-size: 23px; }
+
+.yl-notes { display: flex; flex-direction: column; gap: 6px; }
+.yl-notestext { font-size: 13px; line-height: 1.5; color: var(--muted); background: #10121d; border-radius: 10px; padding: 10px 12px; border-left: 3px solid var(--accent); }
+
+.yl-quizpage { padding: 12px; display: flex; flex-direction: column; gap: 8px; min-height: 260px; justify-content: center; }
+.yl-quizpage .yl-block { background: none; border: 0; padding: 0; }
+.yl-quiztag { align-self: flex-start; font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--accent2); }
+.chip.ok, .bigbtn.ok { background: #1f8f5f; border-color: #1f8f5f; color: #fff; }
+.chip.no, .bigbtn.no { background: #b3402f; border-color: #b3402f; color: #fff; }
+.yl-quiznote { font-size: 13px; line-height: 1.45; border-radius: 10px; padding: 9px 11px; }
+.yl-quiznote.ok { background: rgba(31,143,95,.14); color: #7fe0b3; }
+.yl-quiznote.no { background: rgba(179,64,47,.14); color: #ffab9c; }
+
+/* Full screen: the block turns into an overlay over the phone screen. It is
+   absolutely placed against .screen, so it does not scroll with the chat. */
+.yl-block.yl-full { position: absolute; inset: 0; z-index: 60; border: 0; border-radius: 34px; background: #0b0c14; padding: 70px 14px 18px; overflow-y: auto; justify-content: center; animation: pop .2s ease-out; }
+.yl-fullx { z-index: 2; }
+.yl-stagetitle { font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.screen.light .yl-block.yl-full { background: #fbfbfe; }
+
+/* Plan */
+.yl-plansegs, .yl-narrsegs { display: flex; gap: 4px; }
+.yl-plansegs button, .yl-narrsegs button { flex: 1; height: 5px; border-radius: 4px; border: 0; padding: 0; background: #2a2e42; }
+.yl-plansegs button.d, .yl-narrsegs button.d { background: var(--accent2); }
+.yl-plansegs button.now, .yl-narrsegs button.now { background: var(--accent); }
+.yl-planstep > .yl-block, .yl-planstep > .yl-card { background: none; border: 0; padding: 0; }
+.yl-planreview { display: flex; flex-direction: column; gap: 6px; }
+.yl-planrow { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; text-align: left; background: #10121d; border: 1px solid #23263a; border-radius: 12px; padding: 10px 12px; color: var(--text); }
+.yl-planrow .lbl { grid-column: 1 / -1; font-size: 11.5px; color: var(--muted); }
+.yl-planrow b { font-size: 14px; }
+.yl-planrow b i { color: var(--muted); font-weight: 500; }
+.yl-planrow .yl-flink { align-self: center; }
+
+/* Project */
+.yl-project .yl-cardbody { display: flex; flex-direction: column; gap: 10px; }
+.yl-projhead { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.yl-facts { display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; border: 1px solid #23263a; }
+.yl-fact { display: flex; justify-content: space-between; gap: 12px; padding: 8px 11px; font-size: 13px; }
+.yl-fact + .yl-fact { border-top: 1px solid #23263a; }
+.yl-fact span { color: var(--muted); }
+.yl-fact b { text-align: right; }
+.yl-projnext ul { margin: 4px 0 0; padding-left: 18px; font-size: 13.5px; color: #c9cce0; }
+.yl-projnext .lbl { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+
+/* Narrate */
+.yl-narrate { gap: 10px; }
+.yl-narrdot { width: 9px; height: 9px; border-radius: 50%; background: #3a3f58; flex: none; }
+.yl-narrdot[data-on="true"] { background: var(--arnold); box-shadow: 0 0 0 4px rgba(255,107,61,.2); animation: yl-pulse 1.2s infinite; }
+@keyframes yl-pulse { 50% { box-shadow: 0 0 0 7px rgba(255,107,61,.05); } }
+.yl-narrstage > .yl-block, .yl-narrstage > .yl-card { background: none; border: 0; padding: 0; }
+.yl-narrframe { display: flex; flex-direction: column; gap: 8px; }
+.yl-narrmedia { width: 100%; border-radius: 12px; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
+.yl-fthumb.ph.big { width: 100%; height: 180px; font-size: 28px; }
+.yl-caption { font-size: 14px; line-height: 1.45; color: var(--muted); background: #10121d; border-radius: 12px; padding: 10px 12px; min-height: 44px; }
+.yl-caption .said { color: var(--text); }
+.yl-narrbar { display: flex; align-items: center; justify-content: center; gap: 18px; }
+.yl-narrbar button { width: 40px; height: 40px; border-radius: 50%; border: 0; background: #23263a; color: var(--text); font-size: 14px; }
+.yl-narrbar button:disabled { opacity: .3; }
+.yl-narrbar button.play { width: 56px; height: 56px; background: var(--accent); color: #fff; font-size: 18px; }
+
+/* Light phone */
+.screen.light .yl-slidebox { background: #f6f7fb; border-color: #e3e4ee; }
+.screen.light .yl-pagebody, .screen.light .yl-pagepts, .screen.light .yl-projnext ul { color: #3b3f58; }
+.screen.light .yl-page.cover .yl-pagetext .yl-pagebody { color: #e9eaf3; }
+.screen.light .yl-notestext, .screen.light .yl-caption, .screen.light .yl-planrow { background: #f3f4f9; border-color: #e3e4ee; }
+.screen.light .yl-deckbar > button, .screen.light .yl-narrbar button:not(.play) { background: #eef0f6; }
+.screen.light .yl-plansegs button, .screen.light .yl-narrsegs button { background: #e3e4ee; }
+.screen.light .yl-plansegs button.d, .screen.light .yl-narrsegs button.d { background: var(--accent2); }
+.screen.light .yl-plansegs button.now, .screen.light .yl-narrsegs button.now { background: var(--accent); }
+.screen.light .yl-facts, .screen.light .yl-fact + .yl-fact { border-color: #e3e4ee; }
+.screen.light .yl-quiznote.ok { color: #13663f; }
+.screen.light .yl-quiznote.no { color: #9c2f20; }

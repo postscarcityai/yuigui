@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { parse, StreamParser, apply, initialState, tokenize, seconds } from "../site/lib/yl/yl.mjs";
-import { SCREENS, DEMOS, MEDIA, SCIENCE } from "../site/lib/yl/samples.mjs";
+import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../site/lib/yl/samples.mjs";
 
 const one = (l) => parse(l)[0];
 const props = (l) => one(l).props;
@@ -130,6 +130,7 @@ test("every sample and demo screen parses (demos may include one deliberate erro
   for (const s of DEMOS) assert.ok(parse(s.yl).filter((o) => o.op === "error").length <= 1, s.name);
   for (const s of MEDIA) assert.equal(parse(`${s.yl}\n${s.next || ""}`).filter((o) => o.op === "error").length, 0, s.name);
   for (const s of SCIENCE) assert.equal(parse(`${s.yl}\n${s.next || ""}`).filter((o) => o.op === "error").length, 0, s.name);
+  for (const s of FLOWS) assert.equal(parse(`${s.yl}\n${s.next || ""}`).filter((o) => o.op === "error").length, 0, s.name);
 });
 
 test("calc expressions: precedence, functions, degrees are the caller's job", async () => {

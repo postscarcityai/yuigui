@@ -1,0 +1,1496 @@
+{
+ "version": "YL v0",
+ "area": "deck, page, plan, project, narrate, quiz answers, groups and end",
+ "vectors": [
+  {
+   "name": "deck: title, then pages join it",
+   "input": "deck \"How mRNA vaccines work\"\npage \"Intro\" /demo/m1.jpg notes=\"Four steps.\"\npage \"Delivery\" body=\"Into the arm.\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "How mRNA vaccines work"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "img": "/demo/m1.jpg",
+      "title": "Intro",
+      "notes": "Four steps."
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "Delivery",
+      "body": "Into the arm."
+     }
+    }
+   ]
+  },
+  {
+   "name": "deck: layout and flags",
+   "input": "deck Lesson layout=scroll +full +notes",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "Lesson",
+      "full": true,
+      "notes": true,
+      "layout": "scroll"
+     }
+    }
+   ]
+  },
+  {
+   "name": "page: URL is img, first text is title, rest is body",
+   "input": "page \"Your cells read it\" /demo/m3.jpg Ribosomes build the spike",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n1",
+     "props": {
+      "img": "/demo/m3.jpg",
+      "title": "Your cells read it",
+      "body": "Ribosomes build the spike"
+     }
+    }
+   ]
+  },
+  {
+   "name": "page: points is always a list, quoted or not",
+   "input": "page Rules points=\"Write fast|Fix later\"\npage Rules points=One",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n1",
+     "props": {
+      "title": "Rules",
+      "points": [
+       "Write fast",
+       "Fix later"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "props": {
+      "title": "Rules",
+      "points": [
+       "One"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "page: a video URL is still img",
+   "input": "page Reel /demo/reel.mp4",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n1",
+     "props": {
+      "img": "/demo/reel.mp4",
+      "title": "Reel"
+     }
+    }
+   ]
+  },
+  {
+   "name": "page: layout prop",
+   "input": "page Title /a.jpg layout=split",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n1",
+     "props": {
+      "img": "/a.jpg",
+      "title": "Title",
+      "layout": "split"
+     }
+    }
+   ]
+  },
+  {
+   "name": "page outside a deck has no group",
+   "input": "page Alone",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n1",
+     "props": {
+      "title": "Alone"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deck: ask, choose and pick are quiz pages",
+   "input": "deck Quiz\npage One\nchoose \"Where?\" Nucleus|Cytoplasm answer=Cytoplasm why=\"Ribosomes.\"\npick \"Which stay?\" A|B|C answer=A|C\nask \"Ready?\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "Quiz"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "choose",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "options": [
+       "Nucleus",
+       "Cytoplasm"
+      ],
+      "q": "Where?",
+      "answer": "Cytoplasm",
+      "why": "Ribosomes."
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "pick",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "options": [
+       "A",
+       "B",
+       "C"
+      ],
+      "q": "Which stay?",
+      "answer": [
+       "A",
+       "C"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "n5",
+     "in": "n1",
+     "props": {
+      "q": "Ready?"
+     }
+    }
+   ]
+  },
+  {
+   "name": "quiz: answer is always text",
+   "input": "choose \"2+2?\" 3|4|5 answer=4\nask \"Is it on?\" on|off answer=on",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "choose",
+     "id": "n1",
+     "props": {
+      "options": [
+       "3",
+       "4",
+       "5"
+      ],
+      "q": "2+2?",
+      "answer": "4"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "n2",
+     "props": {
+      "options": [
+       "on",
+       "off"
+      ],
+      "q": "Is it on?",
+      "answer": "on"
+     }
+    }
+   ]
+  },
+  {
+   "name": "quiz: a one-item pick answer is still a list",
+   "input": "pick \"Pick\" A|B answer=A",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "pick",
+     "id": "n1",
+     "props": {
+      "options": [
+       "A",
+       "B"
+      ],
+      "q": "Pick",
+      "answer": [
+       "A"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "group ends at the first non-member line",
+   "input": "deck D\npage One\nsay Outside\npage Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n3",
+     "props": {
+      "text": "Outside"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n4",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ]
+  },
+  {
+   "name": "group: blank lines, comments and errors do not end it",
+   "input": "deck D\npage One\n\n# note\nbogus line\npage Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "error",
+     "screen": "1"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "group: a line for another screen ends it",
+   "input": "deck D\npage One\n>2 page Two\npage Three",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "2",
+     "preset": "page",
+     "id": "n3",
+     "props": {
+      "title": "Two"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n4",
+     "props": {
+      "title": "Three"
+     }
+    }
+   ]
+  },
+  {
+   "name": "group: a new head of the same kind starts a new group",
+   "input": "deck A\npage One\ndeck B\npage Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n3",
+     "props": {
+      "title": "B"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ]
+  },
+  {
+   "name": "group: a patch ends it",
+   "input": "deck@d D\npage One\n~d title=New\npage Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "d",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n1",
+     "in": "d",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "d",
+     "props": {
+      "title": "New"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ]
+  },
+  {
+   "name": "end closes the group",
+   "input": "deck D\npage One\nend\nask \"Ready?\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n1"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "n3",
+     "props": {
+      "q": "Ready?"
+     }
+    }
+   ]
+  },
+  {
+   "name": "end with nothing open is an error",
+   "input": "end",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "end after the group already ended is an error",
+   "input": "deck D\nsay hi\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n2",
+     "props": {
+      "text": "hi"
+     }
+    },
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "plan: question presets are steps",
+   "input": "plan@site \"New website\" submit=\"Create it\"\nchoose@kind \"Kind?\" Shop|Blog +other\npick@pages \"Pages\" Home|About\nslide@budget Budget 1-20 value=5\nform@brand \"Brand\" name:text!\nmic@notes \"Anything else?\"\ncamera@logo \"Snap the logo\"\nask@launch \"Soon?\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "site",
+     "props": {
+      "title": "New website",
+      "submit": "Create it"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "choose",
+     "id": "kind",
+     "in": "site",
+     "props": {
+      "options": [
+       "Shop",
+       "Blog"
+      ],
+      "q": "Kind?",
+      "other": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "pick",
+     "id": "pages",
+     "in": "site",
+     "props": {
+      "options": [
+       "Home",
+       "About"
+      ],
+      "q": "Pages"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "slide",
+     "id": "budget",
+     "in": "site",
+     "props": {
+      "min": 1,
+      "max": 20,
+      "label": "Budget",
+      "value": 5
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "form",
+     "id": "brand",
+     "in": "site",
+     "props": {
+      "fields": [
+       {
+        "key": "name",
+        "type": "text",
+        "required": true
+       }
+      ],
+      "title": "Brand"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mic",
+     "id": "notes",
+     "in": "site",
+     "props": {
+      "prompt": "Anything else?"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "camera",
+     "id": "logo",
+     "in": "site",
+     "props": {
+      "prompt": "Snap the logo"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "launch",
+     "in": "site",
+     "props": {
+      "q": "Soon?"
+     }
+    }
+   ]
+  },
+  {
+   "name": "plan: review=off",
+   "input": "plan \"Quick\" review=off",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "n1",
+     "props": {
+      "title": "Quick",
+      "review": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "plan: a card ends the plan",
+   "input": "plan P\nask A?\ncard Done",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "q": "A?"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "card",
+     "id": "n3",
+     "props": {
+      "title": "Done"
+     }
+    }
+   ]
+  },
+  {
+   "name": "plan: a page is not a plan member",
+   "input": "plan P\npage Nope",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "props": {
+      "title": "Nope"
+     }
+    }
+   ]
+  },
+  {
+   "name": "project: title, body and list props",
+   "input": "project \"Kiln & Co. website\" \"A site for a studio.\" status=Planning progress=40 facts=\"Kind: Local|Pages: 3\" next=\"Pick a template|Write copy\" img=/demo/a.jpg open=site-plan cta=\"Reopen the plan\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "project",
+     "id": "n1",
+     "props": {
+      "title": "Kiln & Co. website",
+      "body": "A site for a studio.",
+      "status": "Planning",
+      "progress": 40,
+      "facts": [
+       "Kind: Local",
+       "Pages: 3"
+      ],
+      "next": [
+       "Pick a template",
+       "Write copy"
+      ],
+      "img": "/demo/a.jpg",
+      "open": "site-plan",
+      "cta": "Reopen the plan"
+     }
+    }
+   ]
+  },
+  {
+   "name": "project: a single fact is still a list",
+   "input": "project Site facts=\"Launch: Dec 1\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "project",
+     "id": "n1",
+     "props": {
+      "title": "Site",
+      "facts": [
+       "Launch: Dec 1"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "narrate: props",
+   "input": "narrate \"Site update\" voice=agent rate=1.1 lang=en-GB +auto captions=off",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "Site update",
+      "auto": true,
+      "voice": "agent",
+      "rate": 1.1,
+      "lang": "en-GB",
+      "captions": false
+     }
+    }
+   ]
+  },
+  {
+   "name": "narrate: compare steps with say",
+   "input": "narrate Walk\ncompare /a.jpg /b.jpg Hero say=\"The new hero.\"\ncompare /c.jpg /d.jpg Classes",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "Walk"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "compare",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "before": "/a.jpg",
+      "after": "/b.jpg",
+      "title": "Hero",
+      "say": "The new hero."
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "compare",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "before": "/c.jpg",
+      "after": "/d.jpg",
+      "title": "Classes"
+     }
+    }
+   ]
+  },
+  {
+   "name": "narrate: holds a deck; pages join the deck",
+   "input": "narrate N\ndeck D\npage One\npage Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "N"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "in": "n2",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n4",
+     "in": "n2",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ]
+  },
+  {
+   "name": "narrate: the deck ends at a non-page, the narrate goes on",
+   "input": "narrate N\ndeck D\npage One\ncompare /a.jpg /b.jpg\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "N"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "in": "n2",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "compare",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "before": "/a.jpg",
+      "after": "/b.jpg"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n1"
+    }
+   ]
+  },
+  {
+   "name": "narrate: end closes the deck first, then the narrate",
+   "input": "narrate N\ndeck D\npage One\nend\ncompare /a.jpg /b.jpg\nend\nask \"Publish?\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "N"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "in": "n2",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n2"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "compare",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "before": "/a.jpg",
+      "after": "/b.jpg"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n1"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "n5",
+     "props": {
+      "q": "Publish?"
+     }
+    }
+   ]
+  },
+  {
+   "name": "narrate: a quiz page inside a narrated deck",
+   "input": "narrate N\ndeck D\nchoose \"Q?\" A|B answer=A say=\"Quick check.\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "N"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "choose",
+     "id": "n3",
+     "in": "n2",
+     "props": {
+      "options": [
+       "A",
+       "B"
+      ],
+      "q": "Q?",
+      "answer": "A",
+      "say": "Quick check."
+     }
+    }
+   ]
+  },
+  {
+   "name": "narrate: storyboard, gallery and other members",
+   "input": "narrate N\nstoryboard /s1.jpg|Hook /s2.jpg|CTA\ngallery /g1.jpg /g2.jpg\nimage /a.jpg Caption\nvideo /r.mp4\ncard Title Body\nstat 12kg Weight\nchart bar x=a|b y=1|2\nmath E = mc^2",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "N"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "storyboard",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "frames": [
+       "/s1.jpg",
+       "/s2.jpg"
+      ],
+      "notes": [
+       "Hook",
+       "CTA"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "gallery",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "items": [
+       "/g1.jpg",
+       "/g2.jpg"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "image",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "src": "/a.jpg",
+      "caption": "Caption"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "video",
+     "id": "n5",
+     "in": "n1",
+     "props": {
+      "src": "/r.mp4"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "card",
+     "id": "n6",
+     "in": "n1",
+     "props": {
+      "title": "Title",
+      "body": "Body"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "stat",
+     "id": "n7",
+     "in": "n1",
+     "props": {
+      "value": 12,
+      "unit": "kg",
+      "label": "Weight"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "chart",
+     "id": "n8",
+     "in": "n1",
+     "props": {
+      "type": "bar",
+      "x": [
+       "a",
+       "b"
+      ],
+      "y": [
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "math",
+     "id": "n9",
+     "in": "n1",
+     "props": {
+      "tex": "E = mc^2"
+     }
+    }
+   ]
+  },
+  {
+   "name": "narrate: ask is not a member",
+   "input": "narrate N\npage One\nask \"Done?\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "N"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "n3",
+     "props": {
+      "q": "Done?"
+     }
+    }
+   ]
+  },
+  {
+   "name": "narrate: a plan inside ends the narrate",
+   "input": "narrate N\nplan P\nask A?",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "N"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "n2",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "n3",
+     "in": "n2",
+     "props": {
+      "q": "A?"
+     }
+    }
+   ]
+  },
+  {
+   "name": "groups: members keep auto ids in line order",
+   "input": "say hi\ndeck D\npage One\npage@two Two\npage Three",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n1",
+     "props": {
+      "text": "hi"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n2",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "in": "n2",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "two",
+     "in": "n2",
+     "props": {
+      "title": "Two"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n4",
+     "in": "n2",
+     "props": {
+      "title": "Three"
+     }
+    }
+   ]
+  },
+  {
+   "name": "groups: routed group lives on its screen",
+   "input": ">2 deck D\n>2 page One\npage Home",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "2",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "2",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "props": {
+      "title": "Home"
+     }
+    }
+   ]
+  },
+  {
+   "name": "groups: focus a screen, then the group follows it",
+   "input": ">lesson\ndeck D\npage One\n>1\npage Two",
+   "expected": [
+    {
+     "op": "focus",
+     "screen": "lesson"
+    },
+    {
+     "op": "add",
+     "screen": "lesson",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "lesson",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "focus",
+     "screen": "1"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ]
+  },
+  {
+   "name": "groups: save ends the group",
+   "input": "plan P\nask A?\nsave p1\nask B?",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "q": "A?"
+     }
+    },
+    {
+     "op": "save",
+     "screen": "1",
+     "name": "p1"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "ask",
+     "id": "n3",
+     "props": {
+      "q": "B?"
+     }
+    }
+   ]
+  },
+  {
+   "name": "streaming: pages join the deck as their lines land",
+   "input": "deck D\npage One\npage Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ],
+   "chunks": [
+    "deck D\npa",
+    "ge One\npage",
+    " Two"
+   ],
+   "emits": [
+    [
+     {
+      "op": "add",
+      "screen": "1",
+      "preset": "deck",
+      "id": "n1",
+      "props": {
+       "title": "D"
+      }
+     }
+    ],
+    [
+     {
+      "op": "add",
+      "screen": "1",
+      "preset": "page",
+      "id": "n2",
+      "in": "n1",
+      "props": {
+       "title": "One"
+      }
+     }
+    ],
+    [],
+    [
+     {
+      "op": "add",
+      "screen": "1",
+      "preset": "page",
+      "id": "n3",
+      "in": "n1",
+      "props": {
+       "title": "Two"
+      }
+     }
+    ]
+   ]
+  }
+ ]
+}

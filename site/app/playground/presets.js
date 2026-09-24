@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { resolve } from "../../lib/yl/yl.mjs";
 import { Calc, Chart, DataTable, MathBlock, Stat, Steps } from "./science";
+import { LonePage, Project } from "./flows";
 
 // Sample agent data tables, so `table meals` has something to bind to.
 export const TABLES = {
@@ -110,17 +111,34 @@ function Timer({ p, emit }) {
   );
 }
 
+// Quiz: with answer= set, a pick is graded. The event carries `correct` and
+// the card shows the right option and the `why` line. Answers stay open, so
+// the person can try again.
+const graded = (p) => p.answer !== undefined && p.answer !== true;
+const same = (a, b) => a.length === b.length && a.every((x) => b.includes(x));
+const quizClass = (p, o, chosen) => {
+  if (!graded(p) || !chosen) return "";
+  const right = Array.isArray(p.answer) ? p.answer.includes(o) : o === p.answer;
+  return right ? "ok" : chosen.includes(o) ? "no" : "";
+};
+function QuizNote({ p, correct }) {
+  if (!graded(p) || correct == null) return null;
+  return <div className={`yl-quiznote ${correct ? "ok" : "no"}`}><b>{correct ? "Right." : "Not quite."}</b> {p.why || (correct ? "" : `It's ${Array.isArray(p.answer) ? p.answer.join(", ") : p.answer}.`)}</div>;
+}
+
 function Ask({ p, emit }) {
   const [a, setA] = useState(null);
+  const quiz = graded(p);
   return (
     <div className="yl-block">
       <div className="yl-q">{p.q}</div>
       <div className="bigbtns">
         {p.options.map((o, i) => (
-          <button key={o} className={`bigbtn ${i === 0 ? "p acc" : "s"} ${a && a !== o ? "dim" : ""}`}
-            onClick={() => { setA(o); emit({ answer: o }); }}>{o}</button>
+          <button key={o} className={`bigbtn ${i === 0 && !quiz ? "p acc" : "s"} ${a && a !== o && !quiz ? "dim" : ""} ${quizClass(p, o, a ? [a] : null)}`}
+            onClick={() => { setA(o); emit(quiz ? { answer: o, correct: o === p.answer } : { answer: o }); }}>{o}</button>
         ))}
       </div>
+      <QuizNote p={p} correct={a == null ? null : a === p.answer} />
     </div>
   );
 }
@@ -139,14 +157,19 @@ function Other({ onSubmit }) {
 
 function Choose({ p, emit }) {
   const [sel, setSel] = useState(null);
-  const pickIt = (o, other) => { setSel(o); emit(other ? { choice: o, other: true } : { choice: o }); };
+  const quiz = graded(p);
+  const pickIt = (o, other) => {
+    setSel(o);
+    emit({ choice: o, ...(other ? { other: true } : {}), ...(quiz ? { correct: o === p.answer } : {}) });
+  };
   return (
     <div className="yl-block">
       {p.q ? <div className="yl-q">{p.q}</div> : null}
       <div className="chips big">
-        {p.options.map((o) => <button key={o} className={`chip ${sel === o ? "on" : ""}`} onClick={() => pickIt(o)}>{o}</button>)}
+        {p.options.map((o) => <button key={o} className={`chip ${sel === o && !quiz ? "on" : ""} ${quizClass(p, o, sel ? [sel] : null)}`} onClick={() => pickIt(o)}>{o}</button>)}
         {p.other ? <Other onSubmit={(v) => pickIt(v, true)} /> : null}
       </div>
+      <QuizNote p={p} correct={sel == null ? null : sel === p.answer} />
     </div>
   );
 }
@@ -154,15 +177,22 @@ function Choose({ p, emit }) {
 function Pick({ p, emit }) {
   const [sel, setSel] = useState([]);
   const [extra, setExtra] = useState([]);
-  const tog = (o) => setSel((s) => (s.includes(o) ? s.filter((x) => x !== o) : p.max && s.length >= p.max ? s : [...s, o]));
+  const [sent, setSent] = useState(null);
+  const quiz = graded(p);
+  const tog = (o) => { setSent(null); setSel((s) => (s.includes(o) ? s.filter((x) => x !== o) : p.max && s.length >= p.max ? s : [...s, o])); };
+  const done = () => {
+    setSent(sel);
+    emit(quiz ? { picked: sel, correct: same(sel, p.answer) } : { picked: sel });
+  };
   return (
     <div className="yl-block">
       {p.q ? <div className="yl-q">{p.q}</div> : null}
       <div className="chips big">
-        {[...p.options, ...extra].map((o) => <button key={o} className={`chip ${sel.includes(o) ? "on" : ""}`} onClick={() => tog(o)}>{sel.includes(o) ? "✓ " : ""}{o}</button>)}
+        {[...p.options, ...extra].map((o) => <button key={o} className={`chip ${sel.includes(o) && !(quiz && sent) ? "on" : ""} ${quizClass(p, o, sent)}`} onClick={() => tog(o)}>{sel.includes(o) ? "✓ " : ""}{o}</button>)}
         {p.other ? <Other onSubmit={(v) => { setExtra((e) => [...e, v]); setSel((s) => [...s, v]); }} /> : null}
       </div>
-      <button className="bigbtn p acc full" onClick={() => emit({ picked: sel })}>{p.submit}{sel.length ? ` (${sel.length})` : ""}</button>
+      <button className="bigbtn p acc full" onClick={done}>{p.submit}{sel.length ? ` (${sel.length})` : ""}</button>
+      <QuizNote p={p} correct={sent == null || !quiz ? null : same(sent, p.answer)} />
     </div>
   );
 }
@@ -730,18 +760,8 @@ function Custom({ spec, emit }) {
 
 const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, form: Form, list: List, table: Table, card: Card, image: Image, camera: Camera, mic: Mic, say: Say,
   gallery: Gallery, video: Video, compare: Compare, storyboard: Storyboard,
-  chart: Chart, stat: Stat, math: MathBlock, calc: Calc };
-
-// Consecutive `step` nodes render as one stepper; everything else one by one.
-export function groupSteps(nodes) {
-  const out = [];
-  for (const n of nodes) {
-    const last = out[out.length - 1];
-    if (n.preset === "step" && last && last.steps) last.steps.push(n);
-    else out.push(n.preset === "step" ? { key: n.key, steps: [n] } : n);
-  }
-  return out;
-}
+  chart: Chart, stat: Stat, math: MathBlock, calc: Calc,
+  page: LonePage, project: Project };
 
 export function StepGroup({ nodes, emitFor }) {
   return <Steps nodes={nodes} emitFor={emitFor} resolveProps={(n) => resolve("step", n.props)} />;

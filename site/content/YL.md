@@ -26,6 +26,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `save name` | save the current screen | `save workout` |
 | `show name` | restore a saved screen | `show workout` |
 | `clear` | empty the current screen | `clear` |
+| `end` | close the open group (section 4, Groups) | `end` |
 | `custom {json}` | escape hatch, rest of line is JSON | `custom {"type":"text","text":"hi"}` |
 
 Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen.
@@ -282,6 +283,89 @@ calc Pendulum f="T = 2*pi*sqrt(L/g)" L=0.1-3@1m g=1.6-25@9.81m/s^2 unit=s
 calc "Carbon-14 left" f="N = N0*exp(-ln(2)*t/h)" t=0-30000@5730yr N0=100% h=5730yr unit=%
 ```
 
+### Groups: deck, plan, narrate
+
+Three presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
+
+| Head | Members | What the group is |
+|---|---|---|
+| `deck` | `page`, `ask`, `choose`, `pick` | a swipeable presentation |
+| `plan` | `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera` | a guided set of questions with one answer at the end |
+| `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
+
+**Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest only one way: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate.
+
+To put a question *after* a deck rather than inside it, write `end` first:
+```
+deck "Warm-up" ...
+page ...
+end
+ask "Ready for the real thing?"
+```
+
+#### deck
+`deck [title...] [layout=slides|scroll] [+full] [+notes]`, then one `page` line per slide. Swipe, arrows or dots move between pages; a Full screen button (or `+full`, which opens that way) puts the deck over the whole screen, where arrow keys also work. Each page's `notes` are speaker notes behind a Notes toggle (`+notes` shows them open).
+- `layout`: `slides` [default] one page at a time, `scroll` every page in a vertical feed.
+- **Quiz pages.** An `ask`, `choose` or `pick` inside a deck is a page of its own. Give it `answer=` and it is graded (see Quiz below), which is how an agent ends a lesson with a check.
+- When the person has seen every page and answered every question, the deck emits `{done: true, pages}`, plus `score` and `of` when some questions were graded. Quiz pages also send their own events as they are answered.
+Props: `title`, `layout` [slides], `+full`, `+notes`.
+
+#### page
+`page title [body...] [URL] [body=] [points=a|b] [notes=] [img=]`. One slide. The first URL is `img` (an image, or a video when it ends in a video extension), the first text token is the title, the rest is the body, as in `card`. `points` is a bullet list (always a list, split on `|`). `layout` picks the look: `cover` (the picture full bleed, title over it; the default when a page has a picture and no body or points), `split` (picture on top, text under it; the default when it has both) and `text` (the default with no picture). A `page` outside a deck is a single slide. No events of its own.
+Props: `title`, `body`, `img`, `points`, `notes`, `layout`, `say` (in a narrate).
+```
+deck "How mRNA vaccines work"
+page "How mRNA vaccines work" /demo/mrna1.jpg notes="A set of instructions wrapped in a tiny bubble of fat."
+page "1. Delivery" /demo/mrna2.jpg body="Lipid nanoparticles carry the mRNA into arm muscle cells."
+page "2. The immune system learns" points="Spike pieces show on the cell|B cells make antibodies|T cells learn the shape"
+choose "Where is the mRNA read?" Nucleus|Cytoplasm|"The blood" answer=Cytoplasm why="Ribosomes in the cytoplasm read it."
+```
+
+**Quiz.** `ask`, `choose` and `pick` take `answer=` anywhere, inside a deck or not. `answer` is the right option's text (for `pick`, a list: `answer=A|C`; it is always text, so `answer=4` matches the option `4`). A graded question marks the right option once the person answers, shows `why` (a short explanation) or the right answer, and adds `correct: true|false` to its event: `{choice: "Nucleus", correct: false}`. For `pick`, `correct` means the exact set. Answers stay open, so the person can try again; each try is an event.
+
+#### plan
+`plan [title...] [submit=] [review=off]`, then one question line per step. Plan mode: the questions become steps with a progress bar, Back and Next, and a final review screen that lists every answer with an Edit link; `ask` and `choose` move on by themselves after a tap. Members do **not** send their own events. The plan emits once, when the person submits the review: `{plan: {id: answer, ...}}`, keyed by each step's id (so name them: `choose@kind ...`), where each answer is what that step would have sent (`ask` answer, `choose` choice, `pick` list, `slide` value, `form` object, `mic` transcript, `camera` photo). After submitting, the plan folds into a project summary with an Edit answers button; submitting again sends a new `{plan}` (answers are never locked).
+- `submit` [Create project] labels the last button. `review=off` skips the review; the last answer submits.
+Props: `title`, `submit` [Create project], `review` [on].
+Plan mode is the first workflow, and it is linear: every step shows, in line order. Saved, branching workflows come later (FLOW-1, see the roadmap).
+```
+plan@site "New website"
+choose@kind "What kind of site?" Portfolio|Shop|"Local business" +other
+pick@pages "Which pages?" Home|About|Pricing|Contact
+slide@budget "Budget, in thousands of dollars" 1-20 value=5
+form@brand "About the brand" name:text! vibe:Calm|Bold|Playful
+ask@launch "Launch before the holidays?" "Yes, Dec 1"|"No rush"
+```
+emits `{"id":"site","preset":"plan","plan":{"kind":"Shop","pages":["Home","Contact"],"budget":5,"brand":{"name":"Kiln & Co.","vibe":"Calm"},"launch":"No rush"}}`.
+
+#### project
+`project title [body...] [status=] [progress=N] [facts="Label: value|..."] [next=a|b] [img=URL] [open=name] [cta=]`. A project card the agent can show any time to pick work back up. `facts` is a list of `Label: value` rows, `next` a list of next steps, `progress` a percent bar, `status` a pill. The button emits `{cta}`. With `open=name` the button reopens the saved screen `name` on the device at once, the same as the agent sending `show name`, and emits `{open: name}`; the button reads Open unless `cta` says otherwise. The usual pattern: run a `plan`, `save` its screen, and later show a `project` with `open=` pointing at it.
+Props: `title`, `body`, `status`, `progress`, `facts`, `next`, `img`, `open`, `cta`.
+```
+>plan
+plan@site "Kiln & Co. website"
+...
+save site-plan
+>1
+project "Kiln & Co. website" status=Planning progress=40 facts="Pages: Home, Classes, Visit|Launch: Dec 1" next="Pick a template" open=site-plan cta="Reopen the plan"
+```
+
+#### narrate
+`narrate [title...] [voice=agent] [rate=1] [lang=] [+auto] [captions=off]`, then the things to walk through. A text-to-speech walkthrough: each step is shown while its line is spoken, with the words lighting up in a caption as they are said, and the walkthrough moves on by itself when the line ends. Play and pause, back and next, a progress bar per step, and a Full screen button.
+- **Steps.** Each member is one step, except a `deck` (one step per page, the deck turns as it speaks), a `storyboard` (one per frame) and a `gallery` (one per item).
+- **What is said.** A member's `say=` line. Without one, the step speaks what it shows: a page's `notes` (else its title and body), a compare's title and notes, a card's title and body, a caption, a frame's note.
+- **Voice.** `voice=agent` [default] uses the speaking agent's own voice, so every agent can sound like itself (the app keeps one voice per agent). Any other value asks for a voice by name (`voice=Samantha`) or language (`voice=en-GB`), falling back to the agent voice. `rate` [1] is the speed, `lang` the language. The web renderer uses the Web Speech API; with no speech engine the captions run on their own timing.
+- A question step (a quiz page) is read, then waits for the answer before the walkthrough goes on. `+auto` starts playing on arrival (a browser may hold speech until the first tap).
+Emits `{played: true}` the first time it plays and `{done: true, steps}` after the last step.
+Props: `title`, `voice` [agent], `rate` [1], `lang`, `+auto`, `captions` [on].
+```
+narrate "What changed on the site" voice=agent
+compare /demo/site_before_hero.jpg /demo/site_after_hero.jpg "1. The hero" hl=3,28,50,46 say="The new headline says what you will make, and when."
+compare /demo/site_before_classes.jpg /demo/site_after_classes.jpg "2. Classes" say="A wall of text became three cards with prices."
+end
+ask "Publish the update?" "Yes, publish"|"Not yet"
+```
+
 ### say (core, not a preset)
 `say text...`. A plain text bubble inside a screen.
 
@@ -326,7 +410,14 @@ Every interaction goes back as one small event: `{id, preset, ...value}`. Ids ar
 {"id":"n1","preset":"calc","values":{"v":20,"a":45,"g":9.81},"result":40.7747}
 {"id":"n3","preset":"step","done":true,"index":2}
 {"id":"n1","preset":"table","sort":"Mass","dir":"desc"}
+{"id":"n7","preset":"choose","choice":"Cytoplasm","correct":true}
+{"id":"n1","preset":"deck","done":true,"pages":7,"score":2,"of":2}
+{"id":"site","preset":"plan","plan":{"kind":"Shop","pages":["Home","Contact"],"launch":"No rush"}}
+{"id":"n2","preset":"project","open":"site-plan"}
+{"id":"n1","preset":"narrate","done":true,"steps":3}
 ```
+
+A line that joins a group comes out of the parser with the group's id: `deck` then `page "Intro"` gives `{op: "add", preset: "page", id: "n2", in: "n1", ...}`. `end` gives `{op: "end", screen, target}` with the id of the group it closed. Members of a `plan` send no events of their own.
 
 ## 8. Streaming
 
@@ -340,7 +431,7 @@ Errors come from two layers. The **parser** rejects a line on its own: an unknow
 
 ## 10. Telegram fallback
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, and a `narrate` sends a voice note per step with its picture. Everything else degrades to its text plus a link to open it in Yui.
 
 ## 11. Versioning
 
