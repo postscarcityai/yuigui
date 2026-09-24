@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-23",
+    "title": "Yui gets a face",
+    "body": "Yui now has a look: a round white cat named Yui, soft pastels on warm cream paper, rounded type, and a little bounce when you tap send. The feel borrows from Korean character apps like Kakao Friends: cute, but not childish. There is a light and dark mode with a toggle in settings. Under the hood every color, corner and animation lives in one small data file, so later an agent can restyle the whole app on the fly. Build 5 is on TestFlight with the new icon."
+  },
+  {
+    "date": "2026-09-23",
     "title": "First TestFlight build",
     "body": "The Swift app exists. Build 4 is a bare SwiftUI chat screen with a placeholder icon, signed and uploaded to TestFlight straight from the build machine with no one opening Xcode. It does nothing useful yet. What matters is the pipeline: from here every change can reach a phone in minutes. First upload was rejected for a missing app icon, fixed in one commit."
   },
