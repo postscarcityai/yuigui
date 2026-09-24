@@ -309,6 +309,12 @@
     },
     {
       "text": "Gallery photos keep to their own space: layout test at 1-7 photos, every layout"
+    },
+    {
+      "text": "Sent words leave the composer, and the bubble lifts into the thread"
+    },
+    {
+      "text": "Answers are still there when you reopen a thread: chosen, picked, slid, asked and sent forms rebuilt from the thread's event rows, newest per id"
     }
   ]
 }

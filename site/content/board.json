@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T14:10:19.838Z",
+  "updated": "2026-09-24T15:41:01.455Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -219,10 +219,6 @@
           "title": "Playground a11y labels (Lighthouse 89 -> 95+)"
         },
         {
-          "key": "SITE-10",
-          "title": "Phases on yuigui.com are out of date, bring them current"
-        },
-        {
           "key": "SITE-11",
           "title": "Full freshness + polish pass on yuigui.com"
         }
@@ -238,10 +234,6 @@
           "summary": "Public TestFlight link (external group + Beta App Review)",
           "mvp": true,
           "waiting": true
-        },
-        {
-          "key": "SITE-9",
-          "title": "Kill horizontal scroll on every yuigui.com page"
         }
       ]
     },
@@ -249,6 +241,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-10",
+          "title": "Phases on yuigui.com are out of date, bring them current",
+          "summary": "The roadmap catches up with the work",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-roadmap-catches-up-with-the-work"
+        },
+        {
+          "key": "SITE-9",
+          "title": "Kill horizontal scroll on every yuigui.com page",
+          "summary": "No page scrolls sideways on a phone",
+          "shipped": "2026-09-24",
+          "progress": "/progress#no-page-scrolls-sideways-on-a-phone"
+        },
         {
           "key": "SITE-8",
           "title": "Responsive navigation on yuigui.com (mobile menu)",
