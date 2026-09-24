@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T23:10:53.615Z",
+  "updated": "2026-09-24T23:34:14.755Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -193,10 +193,6 @@
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
-        },
-        {
-          "key": "SITE-25",
-          "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)"
         }
       ]
     },
@@ -255,10 +251,8 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "SITE-24",
-          "title": "Yui@home story",
-          "summary": "Yui@home: lend your idle agent to Yui",
-          "progress": "/progress#yui-home-lend-your-idle-agent-to-yui"
+          "key": "SITE-25",
+          "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)"
         }
       ]
     },
@@ -266,6 +260,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-24",
+          "title": "Yui@home story",
+          "summary": "Yui@home: lend your idle agent to Yui",
+          "shipped": "2026-09-24",
+          "progress": "/progress#yui-home-lend-your-idle-agent-to-yui"
+        },
         {
           "key": "SITE-23",
           "title": "Polish pass on /start, /yl, /channel and /privacy",
@@ -681,9 +682,8 @@
         },
         {
           "key": "YUI-6",
-          "title": "Sign in with Apple and account deletion",
+          "title": "Accounts",
           "summary": "Accounts: Sign in with Apple, and delete it in the app",
-          "mvp": true,
           "shipped": "2026-09-23",
           "progress": "/progress#accounts-sign-in-with-apple-and-delete-it-in-the-app"
         },
@@ -713,7 +713,7 @@
         },
         {
           "key": "YUI-6",
-          "title": "Relay on Supabase Realtime",
+          "title": "Accounts and the relay on Supabase Realtime",
           "summary": "Relay v0 on Supabase Realtime + Hermes yui skill",
           "mvp": true,
           "shipped": "2026-09-23"

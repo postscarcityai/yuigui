@@ -44,8 +44,7 @@ Shipped:
 - YUI-3: the shared test suite and the Swift parser.
 - YUI-4: the first six screens in chat: ask, choose, pick, form, list, timer.
 - YUI-5: the coral wordmark in the app.
-- YUI-6: accounts. Sign in with Apple and in-app account deletion.
-- YUI-6: the relay on Supabase Realtime.
+- YUI-6: accounts (Sign in with Apple and in-app account deletion) and the relay on Supabase Realtime.
 - YUI-9: typographic identity, no mascot.
 - YUI-11: the debug screen is gone; the top button opens your agents.
 - YUI-15: you add, rename and remove your own agents.
@@ -90,7 +89,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - SITE-24 (shipped): Yui@home, the story. Like SETI@home, but you lend idle AI tokens: the note [Donate your idle tokens to Yui](/notes/donate-your-idle-tokens-to-yui), a [Contribute with your agent](/developers/contribute) page with a feature spec template, a "Lend your agent" option at the bottom of every page, and an [llms.txt](/llms.txt) so assistants that read the site can pass the invitation on.
 - BIZ-7 (parked): one brand system from the website to social to print.
 
-**Next release: chat feels right (the next TestFlight build).** Today's TestFlight feedback fixes, chat polish (YUI-50), message reactions (YUI-49), the lock screen timer (YUI-30), no dead buttons (YUI-53) and three screens per agent (YUI-31), in one build once Apple's daily upload limit lifts. Everything on the app's main branch since build 33 goes in it; [Builds](/changelog#next) lists it. YUI-52 checks every fix against the original feedback.
+**Next release: build 57, chat feels right.** Build 57 is on its way to TestFlight as soon as Apple's daily upload limit lifts. It carries today's TestFlight feedback fixes and eight cards: the lock screen timer (YUI-30), three screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51) and no dead buttons (YUI-53). Everything on the app's main branch since build 33 goes in it; [Builds](/changelog#next) lists it. YUI-52 checks every fix against the original feedback.
 
 ## North star: not just another AI chatbot
 
@@ -333,7 +332,6 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 **The app**
 
-- YUI-30: the timer keeps counting on the lock screen and in the Dynamic Island.
 - YUI-33: agent tables on the phone: workout log, macros, a simple CRM.
 - YUI-34: a key vault for your own fal, OpenRouter and Anthropic keys.
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.

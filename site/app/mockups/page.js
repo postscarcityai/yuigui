@@ -11,6 +11,7 @@ import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../../lib/yl/samples.mjs"
 import Shots from "../components/Shots";
 import LivePhone from "./LivePhone";
 import VideoDownloads from "../components/VideoDownloads";
+import { NEXT_BUILD, inNextBuild } from "../../lib/nextbuild.mjs";
 
 export const metadata = {
   title: "See it | Yui",
@@ -35,7 +36,8 @@ function CardRef({ k, planned }) {
     <li>
       <Link href={`/board#${k}`} className="sc-key">{k}</Link>
       <span>{c.title}</span>
-      {c.shipped ? <span className="sc-date">Shipped {day(c.shipped)}</span> : <span className="sc-date planned">{planned ? "Not built" : ""}</span>}
+      {NEXT_BUILD.has(k) ? <Link href="/changelog#next" className="sc-date">Next build</Link>
+        : c.shipped ? <span className="sc-date">Shipped {day(c.shipped)}</span> : <span className="sc-date planned">{planned ? "Not built" : ""}</span>}
       {LOGS[k] ? <Link href={LOGS[k]}>Ship log</Link> : null}
     </li>
   );
@@ -76,6 +78,7 @@ function Entry({ e, planned }) {
         {planned ? <span className="pill sc-planned">Planned, not built</span>
           : e.app === "later" ? <span className="pill">On the web now, in the app later</span>
           : e.app === "site" ? <span className="pill">On yuigui.com</span>
+          : inNextBuild(e.cards) ? <span className="pill" title="Done in the code, reaches TestFlight with the next build">Next build, not on TestFlight yet</span>
           : <span className="pill sc-native">In the iPhone app</span>}
         {yl ? <pre className="sc-yl"><code>{yl.split("\n").filter((l) => !l.trim().startsWith("#")).join("\n")}</code></pre> : null}
         <ul className="sc-cards">{e.cards.map((k) => <CardRef k={k} key={k} planned={planned} />)}</ul>

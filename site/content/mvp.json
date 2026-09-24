@@ -29,12 +29,7 @@
     },
     {
       "key": "YUI-6",
-      "title": "Sign in with Apple and account deletion",
-      "status": "shipped"
-    },
-    {
-      "key": "YUI-6",
-      "title": "Relay on Supabase Realtime",
+      "title": "Accounts and the relay on Supabase Realtime",
       "status": "shipped"
     },
     {

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import board from "../../content/board.json";
 import { seeIt } from "../../lib/showcase.mjs";
+import { NEXT_BUILD } from "../../lib/nextbuild.mjs";
 
 export const metadata = { title: "Board | Yui", description: "Every Yui card we are working on, live from our kanban board." };
 
@@ -22,7 +23,7 @@ function Tile({ c, col, first }) {
       {c.summary && <p>{c.summary}</p>}
       {(c.shipped || c.progress || see) && (
         <div className="btile-foot">
-          {c.shipped && <span>Shipped {c.shipped}</span>}
+          {c.shipped && (NEXT_BUILD.has(c.key) ? <Link href="/changelog#next">Next build</Link> : <span>Shipped {c.shipped}</span>)}
           {c.progress && <Link href={c.progress}>Read the log</Link>}
           {see && <Link href={see}>{c.shipped ? "See it" : "See the plan"}</Link>}
         </div>

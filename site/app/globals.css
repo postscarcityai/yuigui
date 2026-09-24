@@ -153,6 +153,7 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .spec-links a:hover { border-color: var(--brand); }
 .pill.done { color: #2A2238; background: var(--mint); border-color: var(--mint); }
 .pill.now { color: #2A2238; background: var(--brand); border-color: var(--brand); }
+.next-build { margin: 0 0 6px; font-size: 14px; color: var(--muted); } .next-build .pill { text-decoration: none; margin-right: 6px; }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--brand); color: var(--on-brand); border: 0; border-radius: 999px; padding: 11px 22px; font: inherit; font-weight: 800; font-size: 16px; cursor: pointer; white-space: nowrap; transition: transform .2s cubic-bezier(.3,1.6,.5,1); }
 .btn:hover { transform: scale(1.04); text-decoration: none; }

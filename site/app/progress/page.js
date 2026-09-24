@@ -4,6 +4,7 @@ import { slug } from "../../lib/slug.mjs";
 import { day } from "../../lib/day.mjs";
 import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
+import { inNextBuild, NEXT_BUILD_NOTE } from "../../lib/nextbuild.mjs";
 
 export const metadata = { title: "Shipped | Yui" };
 
@@ -23,6 +24,7 @@ export default function Progress() {
           <li key={e.title} id={slug(e.title)}>
             <div className="date">{day(e.date)}</div>
             <h3 style={{ margin: "2px 0 4px" }}>{e.title}</h3>
+            {inNextBuild(e.card) && <p className="next-build"><a href="/changelog#next" className="pill">Next build</a> {NEXT_BUILD_NOTE}</p>}
             <div style={{ color: "var(--muted)" }}>{e.body}</div>
             <Shots images={shotsOf(e)} label={e.title} />
           </li>

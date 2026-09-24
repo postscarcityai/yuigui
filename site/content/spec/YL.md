@@ -348,7 +348,7 @@ emits `{"id":"site","preset":"plan","plan":{"kind":"Shop","pages":["Home","Conta
 
 Findings first, then questions, in one flow:
 ```
-plan@review "Build 47 review" submit="Send picks"
+plan@review "Weekly review" submit="Send picks"
 page "What broke" "Two buttons took taps on the glyph only, so the gallery X felt dead." points="Gallery X: fixed, 44pt target|Done pill: fixed, no longer covered"
 page "What is new" "Hold any reply to react. The reaction goes to the agent as one turn, with the message quoted." points="Six reactions|Badge stays on the bubble"
 choose@next "What should the composer get next?" Files|"Voice notes as audio" +other
