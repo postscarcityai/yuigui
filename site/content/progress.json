@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-24",
+    "title": "How we will find our first users",
+    "body": "The outreach plan is public at yuigui.com/business. Hermes users come first, and we found where they gather: the official plugin catalog, a Discord channel the Hermes team names for sharing plugins, and a few dozen builders whose projects sit right next to ours. The plan lists 39 places by name, drafts a message for each kind of place, and sets a pace of two new posts a week at most. Nothing has been sent. Every message waits for Chris to approve it, and nothing goes out at all until a stranger can install the plugin and see a screen from their own agent without help. One honest correction from the research: native agent-drawn screens are not ours alone anymore, since the A2UI project now has a SwiftUI renderer. What we can say is that Yui is a finished iPhone app where Hermes agents draw native screens today."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Talk to your agent in Yui",
     "body": "Yui is now a messaging platform for Hermes, next to Telegram. Each agent you add gets its own thread in the app and keeps one memory across both, so what you tell it on Telegram it still knows in Yui. Replies can carry Yui Lines, and the app draws them as buttons, pickers, forms and timers; ask for intervals and you get a running timer, not a paragraph. Your taps go back to the agent as short lines like \"[yui] n1 ask answer=Yes\", and it keeps going from there. The agent's computer dials out, so it opens no ports, and it gets a key that can only read and answer the threads of its own agents. Remove the computer in the app and it is cut off at once. We tested that, and 37 other rules, against the live backend. Every agent also gets the same short guide to the channel on each turn, and agents that don't run Hermes can fetch it too. How it works: spec/RELAY.md."
   },
