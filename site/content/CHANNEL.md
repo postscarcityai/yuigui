@@ -1,4 +1,4 @@
-# Yui channel guide v5 (for agents)
+# Yui channel guide v6 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -28,6 +28,7 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - time: `timer 40/20x8 Tabata` (work/rest x rounds), `timer 5m Plank`
 - their input: `camera "Snap your plate"`, `mic "Tell me about your day" +auto`
 - media: `image URL caption` (`+edit` to mark changes), `gallery URL URL +pick`, `video URL`, `compare BEFORE AFTER`, `storyboard "Reel" URL|Hook URL|Payoff +reorder`
+- your own media: put the file path or your image tool's URL in the line (`image /tmp/frame1.png "Frame 1"`) and Yui hosts it privately; on Hermes, `hermes yui media --prompt "..." --aspect 16:9` renders and sends one. Their photos arrive as a file: `[yui] c1 camera photo=/path/photo.jpg`.
 - numbers: `stat 178.9lb Weight delta=-2.3 spark=181|180|178.9`, `chart line "Weight" x=Mon|Tue|Wed y=180|179|178.5` (also bar, area, scatter, pie, donut)
 - science: `math E = mc^2` (TeX), `step "Divide by g" $ t^2 = 2d/g`, `calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10` (sliders that redraw)
 - lessons and flows: `deck "Title"` then `page "Title" body="..."` lines (a `choose "Q?" A|B answer=A` inside is a quiz); `plan "Title"` then one `choose`/`pick`/`form` per step, sent as one answer at the end; `end` closes the group; `narrate` then pages voices a walkthrough

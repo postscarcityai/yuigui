@@ -11,7 +11,8 @@ Does the channel guide (`spec/CHANNEL.md`) make an agent use Yui well? 34 realis
 | v2 | 732 | 34/34 (100%) | | options are one `\|`-joined token, with the failure spelled out |
 | v3 | 700 | 34/34 (100%) | 26/34 (76%) | trimmed to 700 words |
 | v4 | 703 | 32/34 (94%) | 28/34 (82%) | patch by bare preset name; "never ask what they already told you"; "free text is a form or mic" (this one backfired: Sonnet turned questions into forms) |
-| **v5** | **702** | **33/34 (97%)** | **27/34 (79%)** | v3 plus v4's first two changes, without the free-text line. **Shipped.** |
+| v5 | 702 | 33/34 (97%) | 27/34 (79%) | v3 plus v4's first two changes, without the free-text line. |
+| **v6** | **750** | **33/34 (97%)** | | v5 plus one media line (YUI-21): file paths and tool URLs in a line get hosted, `hermes yui media`, photos arrive as files. No regression; the miss is `patch-timer-rounds`. **Shipped.** |
 
 Before and after, on the fleet's model (Opus 5.5): **74% to 97%**, with the guide 20% shorter. On Sonnet 5, 68% to 79%. Scores between v2 and v5 are within run-to-run noise (about two cases either way), so v5 ships because it adds a correct rule (patch by bare preset name), not because of its last point.
 
