@@ -1,11 +1,28 @@
 {
   "builds": [
     {
+      "build": 22,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-23T23:00:34-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "TestFlight: never reuse a build number App Store Connect already has",
+          "card": "YUI-13"
+        }
+      ]
+    },
+    {
       "build": 21,
       "date": "2026-09-24",
       "uploaded": "2026-09-23T22:34:11-07:00",
       "state": "live",
-      "changes": []
+      "changes": [
+        {
+          "text": "Full screen when it matters: the stage, workouts always",
+          "card": "YUI-13"
+        }
+      ]
     },
     {
       "build": 20,
