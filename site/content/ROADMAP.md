@@ -85,7 +85,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 **Now: GTM-1, grassroots go-to-market.** While the next build waits on Apple, the site and the story come first. Investor material is out for now; nothing gets posted without Chris.
 
 - SITE-19: shareable moments. Share links and preview cards for every screen, a Share button in the playground, an embed that shows a live Yui Lines screen, a "Made with Yui Lines" badge.
-- SITE-20: the go-to-market plan, in public: who it is for, the social plan per channel, the first 30 days.
+- SITE-20: the go-to-market plan, in public: who it is for, the social plan per channel, the first 30 days. Read it: [go-to-market plan](https://www.yuigui.com/business/gtm).
 - OSS-5: a grassroots kit for Yui Lines: who builds with it, how to contribute, a first "draw your best screen in three lines" challenge.
 - SOC-3: three short videos: Yui in 15 seconds, Yui Lines in 30, your own Hermes on your phone in 60.
 - BIZ-7 (parked): one brand system from the website to social to print.

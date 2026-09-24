@@ -2,6 +2,8 @@
 
 Draft 1, Sep 24 2026. Card BIZ-4. Public, like the rest of the project. Google Doc: https://docs.google.com/document/d/18RkaUzHQTy8FhnKnEGP0sqE7KLfBhJFkaxLbl5_KAaY/edit
 
+**Current plan:** the [go-to-market plan](https://www.yuigui.com/business/gtm) (SITE-20, Sep 24) pulls this doc and BIZ-5 (social accounts) into one page with the first 30 days. This doc stays as the detail. Where they differ, the GTM plan wins.
+
 Companion docs: [BIZ-1 marketing and positioning](https://www.yuigui.com/business/biz-1-marketing-positioning) (what we say, what we never claim), [BIZ-2 outreach plan](https://www.yuigui.com/business/biz-2-outreach-plan) (where Hermes users are, message drafts), [BIZ-3 revenue models](https://www.yuigui.com/business/biz-3-revenue-models) (no dark patterns). Per-account bios and voice are BIZ-5.
 
 **Nothing in this doc has been posted.** Every social post below is a draft. The open source grant covers publishing code, docs and progress on yuigui.com and GitHub. It does not cover posts on social accounts or in other people's communities. Those go out only after Chris approves them.

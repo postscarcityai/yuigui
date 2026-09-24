@@ -4,7 +4,9 @@ import { businessDocs } from "../../lib/business.mjs";
 export const metadata = { title: "Business docs | Yui" };
 
 export default function Business() {
-  const docs = businessDocs().sort((a, b) => (b.slug === "plan") - (a.slug === "plan"));
+  const first = ["plan", "gtm"];
+  const rank = (d) => (first.includes(d.slug) ? first.indexOf(d.slug) : first.length);
+  const docs = businessDocs().sort((a, b) => rank(a) - rank(b));
   return (
     <>
       <div className="eyebrow">Business | rendered from docs/business</div>
@@ -16,7 +18,7 @@ export default function Business() {
         {docs.map((d) => (
           <Link className="card" key={d.slug} href={`/business/${d.slug}`}>
             <h3>{d.title}</h3>
-            <p>{d.card || "Start here"}</p>
+            <p>{d.card || (d.slug === "gtm" ? "Go-to-market, current" : "Start here")}</p>
           </Link>
         ))}
       </div>

@@ -2,6 +2,8 @@
 
 Draft 1, Sep 24 2026. Card BIZ-5. Public, like the rest of the project. Google Doc: https://docs.google.com/document/d/1ODItVuNyB493joVkMM8T4g8_OrxiXHvvT3ShqdyUDXw/edit
 
+**Current plan:** the [go-to-market plan](https://www.yuigui.com/business/gtm) (SITE-20, Sep 24) pulls this doc and BIZ-4 (content plan) into one page with the first 30 days. This doc stays as the detail. Where they differ, the GTM plan wins.
+
 Companion docs: [BIZ-1 marketing and positioning](https://www.yuigui.com/business/biz-1-marketing-positioning) (what we say, what we never claim), [BIZ-2 outreach plan](https://www.yuigui.com/business/biz-2-outreach-plan) (communities, Chris-gated), [BIZ-4 content plan](https://www.yuigui.com/business/biz-4-content-plan) (the engine, formats, cadence, first six weeks). BIZ-4 decides what gets posted and when. This doc decides who each account is.
 
 **Nothing here has been posted and no account has been created.** Chris creates the pages. Every post below is an example of the voice, not an approved post. Posts on social accounts go out only after Chris approves them (BIZ-4 Part 4).

@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "The go-to-market plan is public",
+    "card": "SITE-20",
+    "body": "How Yui finds its people now lives on one page: yuigui.com/business/gtm. It folds the content plan and the social accounts plan into a single current plan. Who it is for, in order: Hermes users, then OpenClaw users, then other agent builders and people who like specs. What we say and never say, with the token numbers always given as the split (1.6x fewer than minified JSON, 3.9x fewer than a component tree). Five content pillars, a plan for each channel with its gate, a weekly rhythm, and the first 30 days, starting Monday Sep 28. It also says what grassroots means for us: an open screen language anyone can parse and render, real ways to contribute at every size, show-and-tell with credit, and a monthly Yui Lines challenge. Nothing has been posted and no account has been created. Every post and every community message waits for Chris, and the plan ends with his five open questions. There is a matching Google Doc, linked from the page.",
+    "images": [
+      {
+        "src": "/progress/site20-first-30-days.webp",
+        "alt": "The go-to-market page on yuigui.com: the weekly rhythm table, then the first 30 days, days 1 to 7."
+      },
+      {
+        "src": "/progress/site20-gtm-phone.webp",
+        "alt": "The top of the go-to-market plan on a phone: the title, the Google Doc link and the links to the older content and social plans."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "OpenClaw agents can talk in Yui now",
     "card": "INT-1",
     "body": "Yui worked with Hermes agents and with anything that answers a web request. Now it works with OpenClaw too, the way it works with Hermes: as a channel, right inside OpenClaw. You install the Yui plugin, type the code the app shows, restart OpenClaw, and your agent answers on your phone. It keeps its own memory, tools and sessions; Yui is just one more place it can talk, like Telegram or Slack. Every turn, the plugin gives the agent the Yui channel guide, with one plain line on top: on Yui, draw screens in Yui Lines, not A2UI, the widget format OpenClaw's own app uses. So the agent answers hi with buttons, and gets the tap back. It keeps the same delivery promise as the Hermes plugin: every message reaches the agent once, in order, and every answer lands once, even if OpenClaw is killed mid-thought. Cron jobs can send to Yui too. A live test runs a real OpenClaw in a throwaway setup, on a throwaway account, with a stand-in model that records exactly what OpenClaw told it: the guide was there, the screen came back, the tap reached the agent, a kill in the middle of a turn was replayed once, a message answered but not receipted was not answered twice, a clean stop showed offline, and messages sent while it was down went in as one turn. 24 of 24 checks passed. A developer tool, so nothing new on the phone. The guide is on the site under Developers, OpenClaw.",
