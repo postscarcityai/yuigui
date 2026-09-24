@@ -1,0 +1,162 @@
+{
+  "version": "YL v0",
+  "area": "theme",
+  "vectors": [
+    {
+      "name": "named set",
+      "input": "theme autumn",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "name": "autumn"
+          }
+        }
+      ]
+    },
+    {
+      "name": "keys only change what they say",
+      "input": "theme accent=#7B5CFF bg=cream radius=round",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "accent": "#7B5CFF",
+            "bg": "cream",
+            "radius": "round"
+          }
+        }
+      ]
+    },
+    {
+      "name": "named set plus overrides",
+      "input": "theme ocean font=serif motion=calm weight=bold",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "name": "ocean",
+            "font": "serif",
+            "motion": "calm",
+            "weight": "bold"
+          }
+        }
+      ]
+    },
+    {
+      "name": "reset to the agent's default",
+      "input": "theme reset",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "name": "reset"
+          }
+        }
+      ]
+    },
+    {
+      "name": "style profile keys",
+      "input": "theme screen=full gallery=row3d chart=bar buttons=stack",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "screen": "full",
+            "gallery": "row3d",
+            "chart": "bar",
+            "buttons": "stack"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a number stays a number",
+      "input": "theme radius=12",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "radius": 12
+          }
+        }
+      ]
+    },
+    {
+      "name": "hex with a hash is not a comment",
+      "input": "theme accent=#ff6b3d # warmer",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "accent": "#ff6b3d"
+          }
+        }
+      ]
+    },
+    {
+      "name": "theme takes no id and advances no counter",
+      "input": "theme mint\nask Ready?",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "name": "mint"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Ready?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "routed theme keeps its screen",
+      "input": ">2 theme mono",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "2",
+          "props": {
+            "name": "mono"
+          }
+        }
+      ]
+    },
+    {
+      "name": "theme with an id is an unknown preset",
+      "input": "theme@look mint",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "theme cannot be patched",
+      "input": "~theme accent=#000000",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    }
+  ]
+}

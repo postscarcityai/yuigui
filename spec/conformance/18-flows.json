@@ -1491,6 +1491,38 @@
      }
     ]
    ]
+  },
+  {
+   "name": "theme inside a deck leaves the group open",
+   "input": "deck Intro\ntheme candy\npage One",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "Intro"
+     }
+    },
+    {
+     "op": "theme",
+     "screen": "1",
+     "props": {
+      "name": "candy"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    }
+   ]
   }
  ]
 }

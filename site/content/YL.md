@@ -27,6 +27,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `show name` | restore a saved screen | `show workout` |
 | `clear` | empty the current screen | `clear` |
 | `end` | close the open group (section 4, Groups) | `end` |
+| `theme [set] key=value...` | restyle this agent's look (section 4, theme) | `theme autumn radius=square` |
 | `custom {json}` | escape hatch, rest of line is JSON | `custom {"type":"text","text":"hi"}` |
 
 Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen.
@@ -368,6 +369,17 @@ ask "Publish the update?" "Yes, publish"|"Not yet"
 
 ### say (core, not a preset)
 `say text...`. A plain text bubble inside a screen.
+
+### theme (core, not a preset)
+`theme [set] key=value...`. Restyles the agent's own look in the app: background, bubbles, accent, avatar chip, corner radius, type and motion, in light and dark, for every screen of its thread and its row in the agent list. Nothing renders on screen except a one-line note; the look is saved on the agent (`yui_agents.theme`, spec `AGENTS.md`) until the next theme line or the person changes it.
+
+- A **set name** starts fresh from that set: `theme autumn`. Sets: `yui coral peach sunset autumn lemon matcha forest mint ocean sky lavender berry candy midnight mono`, plus the agent sets `urza arnold monk hank luna r0ss`. `theme reset` goes back to the agent's own default (seeded from its name, so every agent looks different out of the box).
+- **Keys alone** change only what they say: `theme accent=#7B5CFF bg=cream radius=round`.
+- `accent=` a `#RRGGBB` hex or a set name used as a color. `bg=` a hex or `cream|paper|white|mist|sand|blush` (the light-mode paper; dark mode is derived from the accent).
+- `radius=round|soft|square`, `font=rounded|default|serif|mono`, `weight=regular|bold|heavy` (headings and names), `motion=bouncy|calm|snappy`.
+- **Style profile**, the screens this agent prefers: `screen=chat|full`, `gallery=row|feed|row3d|grid`, `chart=line|bar|area|scatter|pie|donut`, `buttons=row|stack`. The agent is told its profile every turn, and renderers use it as their default.
+
+Guardrails: the app never lets a theme make text unreadable. Colors are adjusted until body text reaches 4.5:1 against its background and controls 3:1 (WCAG AA). Sizes and tap targets never change, radii and type come from fixed scales, and unknown names or values are ignored. The op is `{op: "theme", screen, props}`, with the set name in `props.name`. It takes no `@id`, advances no counter, sends no event, and leaves an open group open.
 
 ## 5. Screens, patches, saved screens
 

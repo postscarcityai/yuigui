@@ -10,6 +10,7 @@
 //   { op: "clear", screen, line }
 //   { op: "focus", screen, line }             bare ">2": later lines go to screen 2
 //   { op: "end",   screen, target, line }     close the open group (deck, plan, narrate)
+//   { op: "theme", screen, props, line }      restyle this agent's look (props.name = a named set)
 //   { op: "error", screen, message, line }
 // `props` holds only what the line actually said. Defaults live in resolve().
 // An add that joins an open group (a page under a deck) also carries `in`,
@@ -23,7 +24,7 @@ export const PRESETS = [
   "deck", "page", "plan", "project", "narrate",
 ];
 // Not presets, but valid line heads.
-export const CORE = ["say", "custom", "save", "show", "clear", "end"];
+export const CORE = ["say", "custom", "save", "show", "clear", "end", "theme"];
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -296,6 +297,8 @@ const P = {
   },
 
   say(pos) { return { text: joinText(pos) }; },
+  // theme [named set] key=value...: the positional text is the set's name.
+  theme(pos) { return pos.length ? { name: joinText(pos) } : {}; },
 
   gallery(pos) { return mediaSet(pos, "items", "caps"); },
 
@@ -556,7 +559,8 @@ export class Parser {
 
   // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
   group(op) {
-    if (!op || op.op === "error") return op;
+    // A theme line restyles the app, not the screen: it leaves groups alone.
+    if (!op || op.op === "error" || op.op === "theme") return op;
     if (op.op === "end") {
       const g = this.open.pop();
       if (!g) return { op: "error", screen: op.screen, message: "end: no open deck, plan or narrate", line: op.line };
@@ -618,6 +622,7 @@ export class Parser {
     }
     if (head === "clear") return { op: "clear", screen, line };
     if (head === "end") return { op: "end", screen, line };
+    if (head === "theme") return { op: "theme", screen, props: parseArgs("theme", tokens), line };
 
     const hm = head.match(/^([a-z]+)(?:@([\w-]+))?$/);
     if (!hm || !(PRESETS.includes(hm[1]) || hm[1] === "say")) {
@@ -767,6 +772,8 @@ export function apply(state, op) {
       break;
     case "clear":
       s.screens[op.screen] = []; break;
+    case "theme":
+      s.theme = op.props.name ? { ...op.props } : { ...(s.theme || {}), ...op.props }; break;
     case "error":
       s.errors = [...s.errors, `${op.message}: ${op.line.trim()}`]; break;
   }
@@ -788,6 +795,7 @@ export function toJSON(ops) {
       case "show": return { show: o.name, ...scr };
       case "clear": return { clear: true, ...scr };
       case "end": return { end: o.target };
+      case "theme": return { theme: o.props };
       case "focus": return { focus: Number(o.screen) || o.screen };
       default: return { error: o.message };
     }

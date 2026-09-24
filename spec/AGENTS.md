@@ -36,9 +36,9 @@ All tables live in PROOF, `public` schema, and cascade from `yui_users` (`ON DEL
 | id, user_id | owner |
 | name | 1 to 40 chars, what the app shows |
 | handle | slug, unique per user (`yui`, `monk`, `monk-2`) |
-| color | palette token: `lavender`, `mint`, `butter`, `brand` |
-| avatar | null = initial chip in `color`; `yui` = Yui's own mark |
-| theme | jsonb, empty now; reserved for per-agent themes |
+| color | palette token: `lavender`, `mint`, `butter`, `brand`. Legacy since YUI-20: the chip wears the agent's look |
+| avatar | null = initial chip in the agent's accent; `yui` = Yui's own mark |
+| theme | jsonb, the agent's look (see Look below). `{}` = its own default, seeded from its name. Object only, at most 2 KB (check constraint) |
 | kind | same set as connectors |
 | connector_id | null until a host claims the agent; `ON DELETE SET NULL` |
 | remote_ref | Hermes profile name; unique per connector |
@@ -145,12 +145,28 @@ One connector per machine, shared by all its profiles: `~/.hermes/yui/connector.
 
 The connector token authenticates the registry calls above. Message transport (Realtime on `yui_messages`) uses a scoped database credential minted from this token, role `yui_connector`: see `spec/RELAY.md`.
 
+## Look (YUI-20)
+
+Every agent has its own look, so you always know who you are talking to. While an agent's thread is open the whole app wears it: background, bubbles, accent, avatar chip, corner radius, type, heading weight and motion, in light and dark. Its row in the agent list wears it too.
+
+`theme` stores a recipe, not a token set. The app compiles it into full light and dark palettes (`Yui/Sources/Theme/AgentLook.swift`), and the guardrails run there: text 4.5:1 and controls 3:1 against their backgrounds (WCAG AA), fixed radius and type scales, tap targets untouched. `scripts/check_themes.sh` in the app repo checks every set, a spread of seeded names and hostile inputs.
+
+```json
+{"preset": "autumn", "accent": "#C8642B", "bg": "#F7F0E6", "radius": "square", "font": "serif",
+ "weight": "bold", "motion": "calm", "style": {"screen": "full", "buttons": "stack"},
+ "at": "2026-09-24T12:00:00.123+00:00", "by": "agent"}
+```
+
+- Every key is optional. `preset` names a set (list in `YL.md`, "theme"); the other keys override it. An empty look is seeded from the handle, and an agent whose handle matches a set (`arnold`, `urza`, `r0ss`, ...) starts in that set.
+- `style` is the agent's style profile, the screens it prefers: `screen=chat|full`, `gallery=row|feed|row3d|grid`, `chart=line|bar|area|scatter|pie|donut`, `buttons=row|stack`. Renderers use it as their defaults, and the host plugin tells the agent its look and profile on every turn (Hermes `channel_prompt`).
+- `at` / `by` say when and who. An agent restyles itself with a YL `theme` line; the app applies it and saves it here through `yui-agents` `update`. A theme line older than `at` never overrides a newer pick, so replaying a thread is safe. The person picks a look in the agent's settings (`by: "user"`).
+- `yui-agents` cleans the object (known keys, known words, `#RRGGBB` hex) and drops the rest. `yui-connect` `session` and `heartbeat` return each agent's `theme`, so a restyle reaches the host within a heartbeat.
+
 ## Default agent while testing
 
 Chris's account holds one agent: **Yui**, `remote_ref` `yui` (the Hermes profile at `~/.hermes/profiles/yui`), default, Yui's own mark as avatar, bound to the Mac mini's connector. Everything else Chris adds himself through the flows above.
 
 ## Not yet
 
-- Per-agent themes (`theme` is stored, not rendered).
 - `http`, `mcp`, `hosted` connectors: the kinds exist, no host code yet.
 - Realtime push of registry changes; the app polls while the Agents sheet is open.
