@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "First run: from sign in to your agent's first screen",
+    "card": "YUI-25",
+    "body": "A new Yui account has no agents, and the app used to hide that behind a friendly greeting that could not actually answer. Now it says so plainly: \"Let's connect your first agent\", three short steps and one button. Tapping it names the agent and shows the three commands to run on your computer (install the plugin, pair with the code, restart the gateway), with the code already filled in and a copy button on each. If nothing happens after a couple of minutes, or the code runs out, a small card says exactly what to check. The moment your computer connects, the screen flips to connected with a Say hi button that drops you into the new thread. Yui also waits to ask about notifications until you have an agent that could send one. We tested the whole path on a simulator with a fresh throwaway account, in light and dark, playing the computer's side from a script: first screen, code, pairing, hello, and the agent's first screen back.",
+    "images": [
+      {
+        "src": "/progress/yui25-first-run.webp",
+        "alt": "Yui on a new account: Let's connect your first agent, three numbered steps, an Add your first agent button and a link to the step-by-step guide."
+      },
+      {
+        "src": "/progress/yui25-pairing.webp",
+        "alt": "Add agent in dark mode: three numbered commands to run on your computer, install the Yui plugin, pair with code 482 913, restart the gateway, each with a copy button."
+      },
+      {
+        "src": "/progress/yui25-connected.webp",
+        "alt": "Nova is connected, running on the test host, with a Say hi to Nova button."
+      },
+      {
+        "src": "/progress/yui25-first-reply.webp",
+        "alt": "The new thread in dark mode: you said Hi, Nova answered with a card asking What should we try first? with Plan my day and Start a timer buttons."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "A buzz when your agent answers",
     "card": "YUI-24",
     "body": "When an agent answers and Yui is closed, your phone now gets a notification, and tapping it opens that agent's thread with the answer already on screen, even if the app was fully closed. While you are reading a thread, its answers just appear there without buzzing a second time: the open app tells the server which thread is on screen, and a closed app stops counting as open within 90 seconds. Each agent has a Notifications switch in its settings, so a chatty agent can stay quiet and let its answers wait. We tested it on a simulator with real Apple push notifications: an answer in the open thread sent no push, then with the app closed another agent answered, the banner arrived, and the tap landed in the right thread.",

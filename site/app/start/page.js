@@ -31,8 +31,9 @@ export default function Start() {
               <p>The iPhone beta is waiting on Apple&rsquo;s review. Join the waitlist below and we will send the link the day it opens.</p>
             )}
             <p>
-              Open <strong>Agents</strong>, tap <strong>Add agent</strong>, give it a name and tap <strong>Get a pairing code</strong>.
-              The 6-digit code works once, for 10 minutes.
+              A new account starts with no agents, so the app opens on <strong>Add your first agent</strong>. Tap it, give
+              the agent a name and tap <strong>Get a pairing code</strong>. The 6-digit code works once, for 10 minutes.
+              The app then shows the three commands below with the code already filled in, and a copy button for each.
             </p>
           </div>
         </li>
@@ -60,7 +61,10 @@ export default function Start() {
         </li>
       </ol>
 
-      <p>Say hi in the app. Your agent answers with screens: buttons, forms, timers, pictures.</p>
+      <p>
+        The app flips to &ldquo;connected&rdquo; on its own. Tap <strong>Say hi</strong> and your agent answers with screens:
+        buttons, forms, timers, pictures.
+      </p>
 
       <div className="start-more">
         <h2>Good to know</h2>
@@ -77,7 +81,8 @@ export default function Start() {
             &ldquo;invalid_or_expired_code&rdquo; means the code ran out or was used. Tap the agent in the app for a fresh one.
           </li>
           <li>
-            Agent stuck on &ldquo;Waiting to connect&rdquo;? The gateway is not running, or it was not restarted after pairing.
+            Agent stuck on &ldquo;Waiting to connect&rdquo;? Run <code>hermes yui status</code>. Not paired: run the pair
+            step again. Paired: the gateway is not running, or it was not restarted after pairing.
           </li>
           <li>
             The plugin dials out. It opens no ports on your machine, and your agent keeps its own memory and tools.
