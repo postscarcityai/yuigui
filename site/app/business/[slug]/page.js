@@ -21,7 +21,7 @@ export default async function BusinessDoc({ params }) {
   return (
     <>
       <div className="eyebrow">
-        <a href="/business">Business docs</a> | {d.card}{d.doc && <> | <a href={d.doc}>Google Doc</a></>}
+        <a href="/business">Business docs</a>{d.card && <> | {d.card}</>}{d.doc && <> | <a href={d.doc}>Google Doc</a></>}
       </div>
       <article className="md" dangerouslySetInnerHTML={{ __html: renderMd(d.md) }} />
     </>

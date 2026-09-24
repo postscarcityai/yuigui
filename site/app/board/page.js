@@ -2,7 +2,6 @@
 // and a cron re-exports and redeploys it when a card moves (at most every 30 minutes).
 import Link from "next/link";
 import board from "../../content/board.json";
-import MvpBar from "../components/MvpBar";
 
 export const metadata = { title: "Board | Yui", description: "Every Yui card we are working on, live from our kanban board." };
 
@@ -36,9 +35,8 @@ export default function Board() {
       <h1>What we are building, right now.</h1>
       <p className="lede">
         Every Yui card, from parked ideas to what shipped this month. Agents pick cards up and move them along;
-        this page follows on its own. Updated {when(board.updated)} ET.
+        this page follows on its own. Updated {when(board.updated)} ET. MVP cards carry a tag; the <Link href="/roadmap#mvp">roadmap</Link> has the MVP total.
       </p>
-      <MvpBar />
       <div className="board">
         {board.columns.map((col) => (
           <section className={`bcol ${col.key}`} key={col.key} aria-labelledby={`col-${col.key}`}>
@@ -48,7 +46,7 @@ export default function Board() {
         ))}
       </div>
       <p style={{ color: "var(--muted)", fontSize: 15 }}>
-        Titles only, straight from the board. The full story of each shipped card is in the <Link href="/progress">progress log</Link>.
+        Titles only, straight from the board. The full story of each shipped card is in the <Link href="/progress">ship log</Link>.
       </p>
     </>
   );

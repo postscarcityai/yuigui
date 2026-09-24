@@ -9,7 +9,7 @@ import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
 
 export const metadata = {
-  title: "Changelog | Yui",
+  title: "Builds | Yui",
   description: "Every Yui TestFlight build: when it shipped, what changed, and what it looks like.",
 };
 
@@ -51,12 +51,12 @@ function Changes({ changes, build }) {
 export default function Changelog() {
   return (
     <>
-      <div className="eyebrow">Changelog</div>
+      <div className="eyebrow">Builds</div>
       <h1>Every build, and what it changed.</h1>
       <p className="lede">
         Each TestFlight build of the Yui app, newest first, with the screens it brought. The build number counts the
         commits in the <a href="https://github.com/postscarcityai/yui">app repo</a>, so every build has a clear list of
-        changes. The <a href="/progress">progress log</a> has the full story, including work on this site and the spec.
+        changes. The <a href="/progress">ship log</a> has the full story, including work on this site and the spec.
       </p>
 
       {builds.next.filter((c) => !CHORE.test(c.text)).length > 0 && (

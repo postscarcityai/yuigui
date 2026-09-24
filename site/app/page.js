@@ -12,8 +12,8 @@ const what = [
 
 const who = [
   ["H", "var(--brand)", "People who run Hermes", "Works today. A small plugin on your own machine connects your Hermes profiles, and each one shows up in Yui as its own agent."],
-  ["O", "var(--lavender)", "People with other agents", "Next on the roadmap. OpenClaw and other setups connect through the same connector. If your agent can send a message, it can draw a screen."],
-  ["+", "var(--mint)", "People with no agent yet", "Later on the roadmap. Starter agents, for anyone who wants the app without setting anything up."],
+  ["O", "var(--lavender)", "People with other agents", "After the MVP. OpenClaw and other setups connect through adapters. If your agent can send a message, it can draw a screen."],
+  ["+", "var(--mint)", "People with no agent yet", "Later. A starter agent, for anyone who wants the app without setting anything up."],
 ];
 
 const shots = [
@@ -89,10 +89,8 @@ export default function Home() {
 
       <h2>Follow along</h2>
       <div className="grid">
-        <Link className="card" href="/progress"><h3>Progress</h3><p>A dated log of everything that shipped.</p></Link>
-        <Link className="card" href="/roadmap"><h3>Roadmap</h3><p>Where Yui is headed, phase by phase.</p></Link>
-        <Link className="card" href="/board"><h3>The board</h3><p>Every card we are working on, live.</p></Link>
-        <Link className="card" href="/playground"><h3>Playground</h3><p>Try the screen language in your browser.</p></Link>
+        <Link className="card" href="/roadmap"><h3>Roadmap</h3><p>Where Yui is headed, with the live board and a dated log of what shipped.</p></Link>
+        <Link className="card" href="/developers"><h3>Developers</h3><p>How it works, the screen language, and a playground to try it in your browser.</p></Link>
       </div>
     </>
   );

@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "One story, five menu items",
+    "card": "SITE-13",
+    "body": "The site grew a page at a time and it showed: eleven menu items, three pages that each told you where Yui was headed, and phase lists that disagreed. Now the menu has five items: What it does, See it, Roadmap, Developers and Get Yui. Roadmap holds the live board, the ship log (this page) and the build list in one row of tabs. Developers is a new page that points at the playground, the Yui Lines spec and the channel guide. The old business plan and pitch deck pages became one short plan under Business, linked from the footer, and their old addresses forward there. Phases are listed only on the roadmap now, so they cannot drift apart again.",
+    "images": [
+      {
+        "src": "/progress/site13-nav-desktop.webp",
+        "alt": "The new menu on a laptop: What it does, See it, Roadmap, Developers and a coral Get Yui button, with Roadmap, Board, Shipped and Builds tabs under it"
+      },
+      {
+        "src": "/progress/site13-nav-phone.webp",
+        "alt": "The menu open on a phone: the five items, with each section's pages indented under it"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "The site catches up with the app",
     "card": "SITE-11",
     "body": "A walk through every page of yuigui.com on a phone and a laptop, fixing what had fallen behind. The roadmap still said the relay would run on Cloudflare Workers; it runs on Supabase Realtime, and that paragraph now says how messages actually travel. The risks now name the real open question for Apple's review: Yui needs an agent you run yourself, and a reviewer has none. The business plan and the deck still planned twelve weeks to a first TestFlight build. It took two days, and both now say so. On a phone, the Get started page shows each install command in full instead of cutting it off, and the board opens on what is being built now instead of 44 parked ideas.",

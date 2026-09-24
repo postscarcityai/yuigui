@@ -7,7 +7,7 @@ export const metadata = { title: "Playground | Yui" };
 export default function Page() {
   return (
     <>
-      <div className="eyebrow">Playground | Yui Lines v0</div>
+      <div className="eyebrow">Developers | Playground | Yui Lines v0</div>
       <h1>Playground</h1>
       <p className="lede">
         The agent never writes UI code. It sends one short line per component, and the app renders a

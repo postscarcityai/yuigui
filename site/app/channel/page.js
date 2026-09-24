@@ -12,7 +12,7 @@ export default function ChannelGuide() {
   const results = read("CHANNEL-RESULTS.md");
   return (
     <>
-      <div className="eyebrow">Spec | rendered from spec/CHANNEL.md | grammar in the <a href="/yl">YL spec</a></div>
+      <div className="eyebrow">Developers | Channel guide | rendered from spec/CHANNEL.md | grammar in the <a href="/yl">YL spec</a></div>
       <article className="md" dangerouslySetInnerHTML={{ __html: renderMd(guide) }} />
       <article className="md" dangerouslySetInnerHTML={{ __html: renderMd(results) }} />
     </>

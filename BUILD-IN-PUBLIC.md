@@ -14,7 +14,7 @@ Chris, Sep 23 2026: Yui is a build-in-public app. yuigui.com is the public recor
 - Add `"build": 4` only for an entry about a build that has no card (it then tells that build's story on /changelog).
 - **Screenshots on every card (Chris, Sep 24 2026: he loves them).** Anything visual ships with 1 to 4 real screenshots in `images`: the new screen in the app (simulator, light and dark when both matter), the web preset in the playground, the page on the site. No mockups passed off as the product. The progress page shows them as thumbnails that open full size; /changelog shows them under their build. A card with nothing to see (a spec, a script) says so in its body and skips `images`.
 - Plain words, short sentences, no em dashes, no hype vocabulary. Written for a curious outsider, not the fleet.
-- Update the `phases` pills in `site/app/progress/page.js` when a phase starts or ships.
+- Phases live in one place, the Phases section of `ROADMAP.md` (rendered at /roadmap). Update it when a phase starts or ships. No other page lists phases (SITE-13).
 - Never publish: credentials, costs or spend, client names, Chris's personal details, other agents' private data, anything from AMC.
 
 ## Screenshots
