@@ -1,6 +1,21 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Every color on one screen",
+    "body": "Beta feedback: \"I'm going to want a wider variety of colors.\" The Add agent picker was a sideways row that showed six warm looks and hid the rest past the edge, so it read as oranges and pinks only. It is now a grid with every look on screen, sorted around the hue wheel, and six new colors fill the gaps: cherry, honey, lime, teal, grape and slate. That makes 22 colors plus the six personality sets, all passing the AA contrast check in light and dark. Agents can pick the new ones too: theme teal.",
+    "images": [
+      {
+        "src": "/progress/yui-look-colors-dark.webp",
+        "alt": "Add agent sheet in dark mode with 29 color chips in a grid, Teal selected"
+      },
+      {
+        "src": "/progress/yui-look-colors-light.webp",
+        "alt": "The same picker in light mode"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Two common slips now parse",
     "body": "Agents writing Yui Lines make the same two mistakes. They write options as separate quoted strings, choose \"Where?\" \"Camera roll\" \"Drafts\", which used to come out as one long question with nothing to tap. And they patch with the add's own head, ~card@week, which never parsed. The parser now reads two or more trailing quoted strings as the options, and ~preset@id patches that id, or the newest card of that preset when the id is from an earlier reply. Both rules are in the spec (YL.md sections 4 and 5), in the web and Swift parsers, and in six new conformance vectors. The honest size of the win on the channel eval: Sonnet 5 went from 79% to 88%, but only one of those cases is the parser. The rest is run-to-run noise.",
     "images": [
