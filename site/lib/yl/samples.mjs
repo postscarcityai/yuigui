@@ -475,7 +475,7 @@ storyboard "Launch reel" /demo/s1.jpg|"Open on hands at the wheel. No music yet.
     name: "Timeline: what shipped, what runs, what is next",
     agent: "Yui",
     next: `ask "Pull YUI-66 next?" "Yes, pull it"|"Not yet"`,
-    yl: `timeline "Yui, this week" fold=4
+    yl: `timeline "Yui, this week" fold=4 +reorder board=yui
 done "Three screens per agent" at="Sep 24" tag=YUI-31
 done "Saved screens, the shelf" at="Sep 24" tag=YUI-32
 done "Full-screen flows fold back into chat" at="Sep 24" tag=YUI-51

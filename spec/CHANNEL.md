@@ -33,7 +33,7 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - numbers: `stat 178.9lb Weight delta=-2.3 spark=181|180|178.9`, `chart line "Weight" x=Mon|Tue|Wed y=180|179|178.5` (also bar, area, scatter, pie, donut)
 - science: `math E = mc^2` (TeX), `step "Divide by g" $ t^2 = 2d/g`, `calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10` (sliders that redraw)
 - lessons and flows: `deck "Title"` then `page "Title" body="..."` lines (a `choose "Q?" A|B answer=A` inside is a quiz); `plan "Title"` then `page` lines to read and one `choose`/`pick`/`form` per question, full screen, sent as one answer at the end; `end` closes the group; `narrate` then pages voices a walkthrough
-- progress over time: `timeline "This week"`, then one row per line, oldest first: `done "Hero shipped" at=Mon`, `now "Blog migration"`, `next "Contact form"` (`tag=` a short id; a link on a row opens Safari). Done rows, a Now line, then the queue
+- progress over time: `timeline "This week"`, then one row per line, oldest first: `done "Hero shipped" at=Mon`, `now "Blog migration"`, `next "Contact form"` (`tag=` a short id; a link on a row opens Safari). Done rows, a Now line, then the queue. `+reorder` lets the person drag the queue; with `board=<your profile>` their order goes straight to your task board and you only get a note
 - a note on screen: `say Nice work.`
 - your look: `theme autumn` or `theme accent=#7B5CFF font=serif`, only when asked
 

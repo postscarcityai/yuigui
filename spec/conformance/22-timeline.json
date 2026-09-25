@@ -84,6 +84,90 @@
       ]
     },
     {
+      "name": "timeline: +reorder and board= for a queue the person can reorder",
+      "input": "timeline@war \"War room\" +reorder board=yui\nnow \"Panels\" tag=YUI-73\nnext \"Drag to reorder\" tag=YUI-66\nnext \"Reply to a message\" tag=YUI-68",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "war",
+          "props": {
+            "title": "War room",
+            "reorder": true,
+            "board": "yui"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "n1",
+          "in": "war",
+          "props": {
+            "text": "Panels",
+            "tag": "YUI-73"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n2",
+          "in": "war",
+          "props": {
+            "text": "Drag to reorder",
+            "tag": "YUI-66"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n3",
+          "in": "war",
+          "props": {
+            "text": "Reply to a message",
+            "tag": "YUI-68"
+          }
+        }
+      ]
+    },
+    {
+      "name": "timeline: reorder=off and a quoted board name",
+      "input": "timeline \"Trip\" reorder=off board=\"trip plan\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Trip",
+            "reorder": false,
+            "board": "trip plan"
+          }
+        }
+      ]
+    },
+    {
+      "name": "next: key= names the row for a reorder and is not text",
+      "input": "next \"The gallery X is dead\" tag=Feedback key=t_713f9b94",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n1",
+          "props": {
+            "text": "The gallery X is dead",
+            "tag": "Feedback",
+            "key": "t_713f9b94"
+          }
+        }
+      ]
+    },
+    {
       "name": "done: the first https token is url, anywhere in the line",
       "input": "done Links open Safari https://www.yuigui.com/progress#yui-67 at=\"Sep 25\"",
       "expected": [

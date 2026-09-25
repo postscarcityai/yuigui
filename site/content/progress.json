@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Drag the war room queue into your own order",
+    "card": "YUI-66",
+    "body": "Chris wanted to reorder the queue by dragging it, and wanted the order to land on the board, not to start a conversation. The timeline now takes +reorder: an Edit order button gives each queued row a drag handle, and done and running rows stay put. Save sends one event. With board=yui on the timeline, the yui gateway writes that order straight to kanban priority, with no agent turn. Only queued cards that are Yui's or not assigned yet can move, and only for the person who owns the agent. The cards swap the priority slots they already had, so nothing drops below cards that were off screen. The lane driver now pulls in that order. The agent sees a one-line note on its next turn. Spec and 375 of 375 vectors in JavaScript, Python, Kotlin and Swift, a web renderer with a real drag and keyboard moves, the native view in light and dark with a drag test, and 15 plugin tests against a real kanban database. Rides the next app build.",
+    "images": [
+      {
+        "src": "/progress/yui66-reorder-drag-light.webp",
+        "alt": "Edit order on the war room in the app: YUI-70 dragged to the top of the queue, drag handles on the three queued rows, Cancel and Save order below"
+      },
+      {
+        "src": "/progress/yui66-reorder-edit-dark.webp",
+        "alt": "The same edit mode in dark, before anything moved, with Save order dimmed"
+      },
+      {
+        "src": "/progress/yui66-reorder-saved.webp",
+        "alt": "After Save: the queue keeps the new order and the Edit order button is back"
+      },
+      {
+        "src": "/progress/yui66-reorder-web.webp",
+        "alt": "The web playground mid-drag: YUI-68 lifted above the queue"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "A timeline for the war room",
     "card": "YUI-65",
     "body": "Chris called the war room, six link cards on screen 2, oversimplified. He wanted to see what shipped and what is queued. A list or a table could not carry it: no running row, no now line, no link per row. So Yui Lines has a new group, timeline, with one row per line: done for what shipped, now for what is running, next for the queue. Done rows sit above a Now line, the running row glows on it, the queue follows in order, and older done rows fold behind an N earlier button. A row with a link opens Safari and sends nothing. Spec, parsers in JavaScript, Python, Kotlin and Swift (372 of 372 vectors each), the web renderer, the native view in light and dark, and channel guide v12, which scored 45 of 46. The war room redraw from the board rides the next app build.",

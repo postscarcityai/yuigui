@@ -163,3 +163,15 @@
 @keyframes yl-tlpulse { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 12%, transparent); } }
 @media (prefers-reduced-motion: reduce) { .yl-tlrow.now .yl-tldot { animation: none; } }
 .screen.light .yl-tlrow > a:hover { background: rgba(0,0,0,.03); }
+.yl-tlhead { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.yl-tlrow.edit > div { grid-template-columns: 50px 24px 1fr auto; touch-action: none; }
+.yl-tlrow.drag { position: relative; z-index: 2; }
+.yl-tlrow.drag > div { background: var(--screen-bg); box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+.yl-tlmove { display: flex; align-items: center; gap: 2px; padding-right: 2px; position: relative; }
+/* Move up / down are for the keyboard and screen readers; the grip is what shows. */
+.yl-tlmove button { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); border: 0; padding: 0; }
+.yl-tlmove button:focus-visible { position: static; width: 28px; height: 28px; clip: auto; border-radius: 50%; border: 1px solid var(--accent); background: none; color: var(--yl-ink2); font-size: 10px; }
+.yl-tlgrip { width: 32px; height: 36px; display: grid; place-items: center; font-size: 20px; color: var(--yl-ink2); cursor: grab; touch-action: none; user-select: none; }
+.yl-tlrow.drag .yl-tlgrip { cursor: grabbing; }
+.yl-tledit { display: flex; gap: 8px; margin-top: 10px; }
+.yl-tledit .bigbtn { flex: 1; }

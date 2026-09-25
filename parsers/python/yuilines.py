@@ -1018,7 +1018,7 @@ _DEFAULTS = {
     "page": {"title": "", "body": "", "points": [], "notes": ""},
     "plan": {"title": "", "submit": "Send", "review": True},
     "narrate": {"title": "", "voice": "agent", "rate": 1, "auto": False, "captions": True},
-    "timeline": {"title": "", "mark": "Now", "fold": 5},
+    "timeline": {"title": "", "mark": "Now", "fold": 5, "reorder": False},
     "done": {"text": ""}, "now": {"text": ""}, "next": {"text": ""},
 }
 

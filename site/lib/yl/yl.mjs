@@ -808,7 +808,7 @@ export function resolve(preset, props) {
     case "narrate":
       return { title: "", voice: "agent", rate: 1, auto: false, captions: true, ...p };
     case "timeline":
-      return { title: "", mark: "Now", fold: 5, ...p };
+      return { title: "", mark: "Now", fold: 5, reorder: false, ...p };
     case "done":
     case "now":
     case "next":

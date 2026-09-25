@@ -390,14 +390,16 @@ ask "Publish the update?" "Yes, publish"|"Not yet"
 ```
 
 #### timeline
-`timeline [title...] [mark=Now] [fold=5]`, then one row per line: `done` for what has happened, `now` for what is running, `next` for what is queued. A vertical track the person reads top to bottom: done rows (oldest first), then the **now marker**, a line across the track labelled `mark` [Now], then the running rows lit up on it, then the queued rows in the order they will happen. Rows keep their line order; the marker sits before the first `now` or `next` row. Good for a project board, a build log, a trip, a treatment plan: anything with a past and a queue.
+`timeline [title...] [mark=Now] [fold=5] [+reorder] [board=]`, then one row per line: `done` for what has happened, `now` for what is running, `next` for what is queued. A vertical track the person reads top to bottom: done rows (oldest first), then the **now marker**, a line across the track labelled `mark` [Now], then the running rows lit up on it, then the queued rows in the order they will happen. Rows keep their line order; the marker sits before the first `now` or `next` row. Good for a project board, a build log, a trip, a treatment plan: anything with a past and a queue.
 - **Folding.** Only the last `fold` [5] done rows show; the older ones fold behind an "N earlier" button that opens them in place (no event). `fold=0` shows every row.
 - **A timeline with no `now` row** still draws the marker between the last done row and the first queued one, so "nothing running" reads as a gap, not a missing piece. With no `next` row the marker ends the track.
-Props: `title`, `mark` [Now], `fold` [5].
+- **Reordering the queue.** `+reorder` adds an Edit order button. In edit mode each `next` row gets a drag handle and the person drags the queue into a new order; `done` and `now` rows stay where they are. Save emits `{order: [key, ...]}`, the queued rows in their new order, where a row's key is its `key`, else its `tag`, else its `text`. Cancel puts the rows back and sends nothing. The saved order stays on screen until the timeline is sent again. VoiceOver gets Move up and Move down on each queued row.
+- **Board order, no turn.** `board=name` names the task board the queue belongs to (the Hermes kanban assignee, `board=yui`), and the event carries it: `{order: [...], board: "yui"}`. The agent's own gateway applies that order to the board's priority for those cards directly, with no agent turn, and only for the person who owns the agent. The agent sees a note that the order changed on its next turn. Without `board` the order is an ordinary event the agent answers.
+Props: `title`, `mark` [Now], `fold` [5], `+reorder`, `board`.
 
 #### done, now, next
-`done text... [https://link] [at=] [tag=] [sub=] [url=]` (and the same for `now` and `next`). One row. The first bare token starting `https://` is `url`, and the rest of the positional text is the row's `text`. `at` is when, shown in the row's gutter (`Sep 24`, `2h ago`, `Fri`); `tag` a short chip, like a card id (`YUI-65`); `sub` a second, smaller line. A row with `url` opens the link in the browser when tapped (Safari in the app) and sends nothing to the chat, like a `card` link; the row shows an arrow. A quoted `"https://..."` stays text, and so does a relative path. A row outside a timeline stands alone as a one-row timeline. Rows send no events of their own.
-Props: `text`, `at`, `tag`, `sub`, `url`.
+`done text... [https://link] [at=] [tag=] [sub=] [url=] [key=]` (and the same for `now` and `next`). One row. The first bare token starting `https://` is `url`, and the rest of the positional text is the row's `text`. `at` is when, shown in the row's gutter (`Sep 24`, `2h ago`, `Fri`); `tag` a short chip, like a card id (`YUI-65`); `sub` a second, smaller line; `key` is never shown, it names the row in a reorder event (a task id when two rows share a tag). A row with `url` opens the link in the browser when tapped (Safari in the app) and sends nothing to the chat, like a `card` link; the row shows an arrow. A quoted `"https://..."` stays text, and so does a relative path. A row outside a timeline stands alone as a one-row timeline. Rows send no events of their own.
+Props: `text`, `at`, `tag`, `sub`, `url`, `key`.
 ```
 timeline "Yui this week" fold=3
 done "Saved screens" at="Sep 24" tag=YUI-32
@@ -490,6 +492,7 @@ Every interaction goes back as one small event: `{id, preset, ...value}`. Ids ar
 {"id":"hiit","preset":"timer","done":true,"rounds":8}
 {"id":"n2","preset":"gallery","picked":[0,2]}
 {"id":"n1","preset":"storyboard","order":[1,0,2,3]}
+{"id":"war","preset":"timeline","order":["YUI-73","YUI-66"],"board":"yui"}
 {"id":"n1","preset":"image","edit":{"box":[48,10,44,40],"instruction":"Paint this wall sage green"}}
 {"id":"n2","preset":"chart","point":{"series":1,"index":3,"x":"Thu","y":179.5,"name":"Plan"}}
 {"id":"n1","preset":"calc","values":{"v":20,"a":45,"g":9.81},"result":40.7747}
