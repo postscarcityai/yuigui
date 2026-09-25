@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T06:40:08.837Z",
+  "updated": "2026-09-25T07:10:32.925Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -152,10 +152,6 @@
           "waiting": true
         },
         {
-          "key": "INT-3",
-          "title": "Yui MCP server"
-        },
-        {
           "key": "INT-4",
           "title": "Telegram fallback",
           "summary": "Yui Lines as buttons and a Mini App"
@@ -269,11 +265,6 @@
           "mvp": true
         },
         {
-          "key": "YUI-68",
-          "title": "Reply to a message",
-          "summary": "Swipe a bubble left, or hold it (reactions, copy, reply)"
-        },
-        {
           "key": "YUI-73",
           "title": "The war room, built out",
           "summary": "Needs you, running now, timeline, builds, feedback, MVP bar"
@@ -306,8 +297,13 @@
           "summary": "Drop-up switcher, pinned screens, to review, about"
         },
         {
-          "key": "SITE-32",
-          "title": "Site polish and depth pass"
+          "key": "INT-3",
+          "title": "Yui MCP server"
+        },
+        {
+          "key": "YUI-68",
+          "title": "Reply to a message",
+          "summary": "Swipe a bubble left, or hold it (reactions, copy, reply)"
         }
       ]
     },
@@ -315,6 +311,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-32",
+          "title": "Site polish and depth pass",
+          "summary": "Polish and depth: every page checked, See it catches up",
+          "shipped": "2026-09-25",
+          "progress": "/progress#polish-and-depth-every-page-checked-see-it-catches-up"
+        },
         {
           "key": "YUI-59",
           "title": "Game presets",
