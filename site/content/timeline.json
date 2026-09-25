@@ -2,9 +2,9 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 108,
-    "site": 268,
+    "site": 270,
     "builds": 28,
-    "shipped": 143,
+    "shipped": 144,
     "screenshots": 289
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T19:48:37.442Z",
+          "at": "2026-09-25T20:05:17.929Z",
+          "title": "Yui in the browser has a brief, open for contributors",
+          "card": "YUI-71",
+          "anchor": "yui-in-the-browser-has-a-brief-open-for-contributors",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 108,
+            "site": 270,
+            "builds": 28,
+            "shipped": 144
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T19:47:49.000Z",
           "title": "The site reads like the app now",
           "card": "SITE-34",
           "anchor": "the-site-reads-like-the-app-now",
@@ -27,10 +42,10 @@
               "alt": "The Shipped page on a wide screen, before and after. After, the headings are on the shared scale and the intro stops at a comfortable line length."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 108,
-            "site": 268,
+            "site": 269,
             "builds": 28,
             "shipped": 143
           }
@@ -1309,6 +1324,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "6153538",
+          "at": "2026-09-25T19:49:02.000Z",
+          "text": "spec/YL.md: the war room choose example names a neutral need id, so npm run sync passes its public guard again and the site gets the...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6153538"
+        },
+        {
+          "repo": "site",
+          "sha": "8ef8e22",
+          "at": "2026-09-25T19:47:49.000Z",
+          "text": "One type scale for the site (SITE-34). globals.css gets type tokens (--fs-display/h1/h2/h3, --fs-lede, --fs-small, --lh-title/head,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8ef8e22"
+        },
         {
           "repo": "site",
           "sha": "9946cc7",

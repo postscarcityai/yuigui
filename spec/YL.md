@@ -610,6 +610,8 @@ What ships today is in `spec/TELEGRAM.md` (INT-4): `ask`, `choose` and `pick` as
 
 `ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), and a `game` sends its title with a link to play it in Yui. Everything else degrades to its text plus a link to open it in Yui.
 
+**Browser.** Yui in a browser tab draws every preset with the playground's renderers and translates only what a tab cannot do like a phone (haptics, lock screen timers, push): `spec/BROWSER.md`.
+
 ## 11. Versioning
 
 This is v0. Adding presets and props is non-breaking: an old app shows an error line for an unknown preset and renders the rest. Changing what a positional means is breaking and bumps the version, which the relay handshake will carry (Phase 1 relay).

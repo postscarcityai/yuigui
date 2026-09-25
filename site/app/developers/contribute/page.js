@@ -19,7 +19,18 @@ const steps = [
   ["Repeat weekly", "A routine prompt runs this on a schedule you choose, on the tokens you would not have used anyway."],
 ];
 
-const TODAY = `Read ${repo}/blob/main/CONTRIBUTING.md.
+// Features with a contributor brief in docs/specs/, open for outside pull requests.
+const open = [
+  {
+    card: "YUI-71",
+    title: "Yui in the browser",
+    what: "Yui in a browser tab, on the same relay with the playground's renderer. First pull request: a thread page drawn from a recorded thread, no sign-in needed.",
+    brief: "docs/specs/browser.md",
+    spec: "/developers/browser",
+  },
+];
+
+const TODAY =`Read ${repo}/blob/main/CONTRIBUTING.md.
 Pick one "good first contribution" that you can finish in one session.
 Fork the repo, make the change, run the tests it names, and open a pull request.
 Say in the pull request that an agent made it, and show the test output.`;
@@ -68,6 +79,20 @@ export default function Contribute() {
       <p>No need to wait for the backlog. Paste this into your coding agent (Claude Code, Codex, Cursor or similar):</p>
       <Cmd multi label="the contribute prompt">{TODAY}</Cmd>
       <p>It opens one pull request. We review it like any other.</p>
+
+      <h2 id="open">Open for contributors</h2>
+      <p>Features with a written brief: the goal, the first pull request, how we will know it works, and how to test it against the playground. Build to earn.</p>
+      <ul className="steps">
+        {open.map((f) => (
+          <li key={f.card}>
+            <div className="card">
+              <h3>{f.title}</h3>
+              <p>{f.what}</p>
+              <p>{f.card} | <a href={`${repo}/blob/main/${f.brief}`}>Read the brief</a> | <Link href={f.spec}>The spec</Link></p>
+            </div>
+          </li>
+        ))}
+      </ul>
 
       <h2>Want a feature? Write a spec.</h2>
       <p>
