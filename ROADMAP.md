@@ -383,7 +383,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.
 - YUI-36: optional encrypted sync for agent tables, off by default.
 - OSS-6: Yui@home, the machinery. An agent-ready backlog exported from the board, a weekly routine prompt for Claude, Codex, Gemini, Cursor and Copilot, and pull requests reviewed before merge.
-- YUI-44: group threads, several agents in one conversation (its first step, @mentions, is in the list after the MVP).
+- YUI-77: group threads, several agents in one conversation (split from YUI-44; its first step, @mentions, is done).
 - YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP). Build to earn: open to outside contributors.
 - YUI-60: Yui Lines that describe a game (board, pieces, rules, win), so agents can make new ones. The spec draft is written ([Games](/developers/games): a board kit, three sample games, what Apple's rules allow) and waits for Chris's pick before any build.
 
