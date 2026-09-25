@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 79,
-    "site": 206,
+    "app": 80,
+    "site": 207,
     "builds": 25,
-    "shipped": 113,
-    "screenshots": 231
+    "shipped": 114,
+    "screenshots": 233
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T10:44:37.673Z",
+          "at": "2026-09-25T10:46:16.757Z",
+          "title": "Yui screens in ChatGPT too",
+          "card": "INT-8",
+          "anchor": "yui-screens-in-chatgpt-too",
+          "images": [
+            {
+              "src": "/progress/int8-chatgpt-dark.webp",
+              "alt": "A ChatGPT-style chat in dark mode: the person asks what is for lunch, and a Yui screen below shows Lunch? with Salad, Soup and Tacos, Soup tapped, a Focus timer pill, and Sent: Soup"
+            },
+            {
+              "src": "/progress/int8-chatgpt-light.webp",
+              "alt": "The same chat in light mode with Tacos tapped and Sent: Tacos under the Yui screen"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 80,
+            "site": 207,
+            "builds": 25,
+            "shipped": 114
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T10:45:04.000Z",
           "title": "One working row instead of dots plus a timer",
           "card": "YUI-63",
           "anchor": "one-working-row-instead-of-dots-plus-a-timer",
@@ -31,10 +55,10 @@
               "alt": "A long turn in dark mode: the row says Tinkering · 2m 20s, with a line under it saying long jobs are fine and the answer lands here"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 79,
-            "site": 206,
+            "site": 207,
             "builds": 25,
             "shipped": 113
           }
@@ -572,6 +596,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "4c92b96",
+          "at": "2026-09-25T10:46:04.000Z",
+          "text": "Yui in ChatGPT: yui-mcp 0.3.0 speaks ChatGPT's Apps SDK dialect next to the MCP Apps standard. Every tool declares securitySchemes...",
+          "url": "https://github.com/postscarcityai/yui/commit/4c92b96"
+        },
+        {
+          "repo": "site",
+          "sha": "c2b8c1e",
+          "at": "2026-09-25T10:45:04.000Z",
+          "text": "One working row (YUI-63 step 1): progress entry with three simulator shots (light + dark), See it entry, ROADMAP marks it done in the...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c2b8c1e"
+        },
         {
           "repo": "app",
           "sha": "4d64356",
