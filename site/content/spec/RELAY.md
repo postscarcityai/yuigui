@@ -82,6 +82,7 @@ B must be another agent of the same person (`400 mention_agent_not_found` otherw
 | asleep | "Coach is asleep. It gets this when its computer wakes." |
 | offline | "Coach is offline. It gets this when it's back." |
 | pending | "Coach isn't connected yet. It gets this once it is." |
+| not listening | "Coach isn't listening yet. It gets this once its gateway starts." |
 | muted | "Coach is muted. It still gets this, and its answer lands here quietly." |
 
 **In the app.** `@` anywhere in the composer opens the suggestion popover (the one `/` uses) with the person's other agents: face, name, `@handle`, presence. Typing filters (names that start with it first). A tap puts `@Name ` in the draft, and a "Goes to Coach" line shows above the composer while the draft names one. The sent bubble says "To Coach". B's answer shows in A's thread in B's own look (face, colors, name over the bubble) with "Open its thread"; B's screens stay in B's thread ("Sent a screen. It's in Coach's thread."). In B's thread the copy shows only the person's words, with "You, from Alpha's thread".
@@ -108,17 +109,20 @@ All of this is tested live in `supabase/tests/relay_test.py` (51 checks, includi
 ## Host API additions (`yui-connect`)
 
 ```
-{"action":"session"}     Bearer yui_ct_...
+{"action":"session", "serving"?:["<profile>"]}     Bearer yui_ct_...
   -> {access_token, expires_at, user_id, connector:{id,name}, agents:[{id,name,handle,remote_ref}], guide:{version, body}}
-{"action":"bye"}         Bearer yui_ct_...      (YUI-28)
+{"action":"heartbeat", "serving"?:["<profile>"]}   Bearer yui_ct_...
+{"action":"bye", "serving"?:["<profile>"]}         Bearer yui_ct_...      (YUI-28)
   the host is stopping cleanly: its agents read offline at once, not asleep.
   The next heartbeat or session clears it.
-  -> {stopped_at}
+  -> {stopped_at}   (null when other gateways on that computer still run)
 {"action":"guide"}       no auth
   -> {guide:{version, body}}
 ```
 
 `session` also counts as a heartbeat.
+
+**`serving` (YUI-64).** One connector token is one computer, and a computer runs one gateway per Hermes profile. Each gateway names the profile it reads threads for in every heartbeat, session and bye; `yui pair` and `yui add` send `[]` (a CLI serves nothing). Any call carrying `serving` marks the computer as one that reports it (`yui_connectors.serving_at`), and each agent of a named profile gets `yui_agents.served_at`. Binding an agent to a computer or profile sets `yui_agents.bound_at` and clears `served_at`. A bye with `serving` takes only that gateway's agents offline; the computer reads offline only when no other gateway on it still reports. Hosts that never send `serving` (older plugins, MCP, OpenClaw, webhooks) keep per-computer presence.
 
 ## Delivery (YUI-28)
 
@@ -139,14 +143,15 @@ Messages survive a sleeping Mac, a dropped network and a killed app: every messa
 
 | presence | means | app says |
 | --- | --- | --- |
-| `online` | heartbeat in the last 2 minutes | Online; typing dots after you send |
+| `online` | heartbeat in the last 2 minutes (and, on a computer that reports `serving`, from this agent's own gateway) | Online; the working row after you send |
+| `not_listening` | paired on a computer that reports `serving`, but no gateway has served its profile since (YUI-64) | "Not listening yet"; its sheet shows "One step left" with `hermes -p <profile> gateway restart` and a copy button; after you send, "<Agent> isn't listening yet. This waits and goes the moment its gateway starts." with the same command, no timer. The message waits undelivered and is answered once the gateway starts |
 | `asleep` | went quiet without saying goodbye: the computer slept or lost its network | "Asleep, seen 5 minutes ago"; after you send, "<Agent> is asleep. It gets this when its computer wakes." |
-| `offline` | the gateway stopped (said `bye`) or the host was removed | "Offline, seen ..."; messages wait until it's back |
+| `offline` | the gateway stopped (said `bye`, or its own reports stopped while the computer's other gateways still run) or the host was removed | "Offline, seen ..."; messages wait until it's back |
 | `pending` | never paired | Waiting to connect |
 
-`status` (`connected`/`offline`/`pending`) stays for older app builds.
+`status` (`connected`/`offline`/`pending`) stays per computer, for older app builds. The rule lives in one function, `public.yui_presence(...)` (migration `20260925040000_yui_serving.sql`), used by the list and by mentions.
 
-**Tests.** `supabase/tests/offline_e2e.py` runs the real adapter under Hermes' real turn lifecycle with a scripted echo agent and kills it mid-turn, sends while it is dead, cuts its network while it answers, kills it with the reply only on disk, and checks every message is answered exactly once, in order. With `--sim <udid>` it also drives `YuiUITests/OfflineTests`: the phone goes offline, two messages wait, the app is killed and relaunched, the network returns, and the agent goes asleep (light and dark). Airplane mode on a real phone is a manual TestFlight check.
+**Tests.** `supabase/tests/offline_e2e.py` runs the real adapter under Hermes' real turn lifecycle with a scripted echo agent and kills it mid-turn, sends while it is dead, cuts its network while it answers, kills it with the reply only on disk, and checks every message is answered exactly once, in order. With `--sim <udid>` it also drives `YuiUITests/OfflineTests`: the phone goes offline, two messages wait, the app is killed and relaunched, the network returns, and the agent goes asleep (light and dark). `supabase/tests/listening_e2e.py` pairs two agents on one computer, runs a real adapter for one of them and checks the other reads `not_listening`, its message waits, and it is answered once its gateway starts; with `--sim <udid>` it drives `YuiUITests/ListeningTests` (the list, the one step left, the waiting note, light and dark). `agents_test.py` covers every presence transition. Airplane mode on a real phone is a manual TestFlight check.
 
 ## Push and handoff (YUI-8)
 
