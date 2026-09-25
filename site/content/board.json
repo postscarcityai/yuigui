@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T14:40:08.145Z",
+  "updated": "2026-09-25T15:10:12.816Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -101,10 +101,6 @@
           "title": "Ids on a page patch across replies, so the war room refreshes in place"
         },
         {
-          "key": "YUI-76",
-          "title": "Agent bubbles render basic markdown (bold, code, lists)"
-        },
-        {
           "key": "YUI-77",
           "title": "Group threads, several agents in one conversation (YUI-44 step 2)"
         },
@@ -140,10 +136,6 @@
         {
           "key": "INT-13",
           "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)"
-        },
-        {
-          "key": "INT-14",
-          "title": "LangGraph adapter"
         },
         {
           "key": "INT-15",
@@ -261,10 +253,12 @@
           "title": "Open backlog on GitHub for contributors"
         },
         {
-          "key": "INT-11",
-          "title": "Meta Muse Spark adapter via the Meta Model API",
-          "summary": "Meta's Muse Spark in Yui",
-          "progress": "/progress#meta-s-muse-spark-in-yui"
+          "key": "INT-14",
+          "title": "LangGraph adapter"
+        },
+        {
+          "key": "YUI-76",
+          "title": "Agent bubbles render basic markdown (bold, code, lists)"
         }
       ]
     },
@@ -272,6 +266,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-11",
+          "title": "Meta Muse Spark adapter via the Meta Model API",
+          "summary": "Meta's Muse Spark in Yui",
+          "shipped": "2026-09-25",
+          "progress": "/progress#meta-s-muse-spark-in-yui"
+        },
         {
           "key": "INT-10",
           "title": "Grok adapter, model connector or remote MCP",
