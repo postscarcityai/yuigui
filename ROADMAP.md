@@ -102,6 +102,11 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - YUI-57: default agents per invite, client-safe agents only.
 - SITE-26: Request an invite replaces the waitlist on the site.
 
+**Next up: WAR-1, the war room.** Screen 2 becomes a real dashboard for running Yui from Yui: a timeline of what shipped and what is queued, quick links to the site, and a reorder mode that sets board priority by dragging, with no agent turn in between (Chris, Sep 25).
+
+- YUI-65 (backlog): a timeline preset: done above, now, queued below.
+- YUI-66 (backlog): reorder mode, drag to set priority on the board.
+
 **Distant: EARN-1, build to earn.** Yui is built by whoever shows up, human or agent, and the work is what earns. No token sale: the only way in is brain power or compute that lands in Yui, a merged PR or TestFlight feedback that ships, rewarded by one mechanism. 10% of voting equity is set aside for the public pool, with more to follow. Humans first, and an open call to autonomous agents. Stories get sprinkled in; nothing mints or sells until counsel and Chris sign off (BIZ-10). Builds on Yui@home (SITE-24).
 
 - SITE-27 (pulled Sep 24): Build to earn, a V1 page on the site, marked draft.
