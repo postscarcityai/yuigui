@@ -15,7 +15,7 @@ There are only five ways an agent can reach Yui. Every framework below uses one 
 | A | **Channel plugin** inside the agent's own runtime | the user | the agent's host | Hermes and OpenClaw (shipped), Flue |
 | B | **Hosted connector** that speaks a standard protocol | the user or a vendor | the agent | Hermes via relay contract, A2A agents (Gemini, LangGraph, CrewAI, Microsoft Agent Framework) |
 | C | **Model connector**: Yui calls a chat API for you | Yui | Yui | any OpenAI-compatible endpoint: Meta Muse Spark, Grok, Gemini, Ollama, LM Studio, vLLM, OpenRouter |
-| D | **Yui MCP server**: the agent calls Yui as a tool (shipped, INT-3) | the user's AI app | the AI app | Claude, ChatGPT, Grok, n8n, Cursor, anything MCP |
+| D | **Yui MCP server**: the agent calls Yui as a tool, and its screens draw inside MCP App hosts (shipped, INT-3, INT-7) | the user's AI app | the AI app | Claude, ChatGPT, Grok, n8n, Cursor, anything MCP |
 | E | **Webhook**: plain HTTP both ways (shipped, INT-2) | the user | the user's code | n8n, Zapier-style tools, scripts, everything else |
 
 Two rules hold for all of them:
@@ -82,14 +82,14 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Priority:** 2. One server serves every MCP client below.
 - **Note:** here the conversation stays in the other app. Yui is the second screen: the agent pushes a timer or a form to your phone while you keep talking on your laptop.
 
-### Claude | INT-7
+### Claude | INT-7, shipped Sep 25
 
-- **Connects:** two ways. Claude's apps (web, desktop, mobile) and Claude Code add Yui as a custom connector through path D. Agents built on the Claude Agent SDK load the same MCP server, or use path E when they run as a service.
-- **Learns:** from the MCP server. Agent SDK builders can also paste CHANNEL-lite into their system prompt.
-- **Later:** Claude renders MCP Apps (the `io.modelcontextprotocol/ui` extension). Our web renderer could ship as an MCP App, so a Yui screen draws inside Claude too. Same Yui Lines, a second renderer.
-- **Effort:** S once INT-3 exists. MCP App M.
-- **Depends on:** INT-3.
-- **Priority:** 3.
+- **Connects:** path D. Claude's apps (web, desktop, mobile) add Yui as a custom connector by URL and sign in with OAuth; Claude Code does the same with `claude mcp add --transport http` (then `claude mcp get`, `claude mcp login`), or with a pasted token. Agents on the Claude Agent SDK load the same server in `mcpServers`, or use path E when they run as a service. Steps for each: `spec/MCP.md` "Claude", on /developers/mcp.
+- **Learns:** from the MCP server (tool descriptions, instructions, the `yui_guide` prompt). Agent SDK builders append CHANNEL.md to the system prompt; the snippet in the guide does it.
+- **Draws in the chat too:** the web renderer ships as an MCP App, `ui://yui/screen`, named by `yui_show`. Hosts that render MCP Apps (the `io.modelcontextprotocol/ui` extension) show the screen inline, and a tap there comes back as the same event a phone tap sends, through the app-only `yui_tap`. Same Yui Lines, a second renderer.
+- **Checked:** the MCP Apps reference host draws the screen and a tap round-trips (dark and light); a real Claude Code on this Mac adds Yui over OAuth and puts a screen on the simulator. Inside claude.ai itself needs a person's browser session, one check left for Chris.
+- **Not listed** in Claude's connector directory. A listing is public; Chris signs off first.
+- **Depends on:** INT-3, INT-19.
 
 ### ChatGPT | INT-8
 

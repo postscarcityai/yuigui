@@ -1,0 +1,22 @@
+/* The Yui screen inside an MCP host (INT-7): no phone frame, the host's
+   width, as tall as the content. Dark like the app by default; light when the
+   host says so. */
+/* next/font is not here: without this, --font is invalid and text falls to serif. */
+:root { --font-nunito: "Nunito"; }
+html, body { margin: 0; padding: 0; background: transparent; }
+body, .yui-embed, .yui-embed button, .yui-embed input, .yui-embed textarea { font-family: var(--font); }
+.yui-embed.phone { width: 100%; height: auto; padding: 0; border-radius: 0; box-shadow: none; background: #0f1019; overflow: hidden; }
+.yui-embed.phone.is-light { background: #f6f6fb; --text: #16172a; --muted: #5d6280; color: var(--text); }
+.screen.light .ring .innr { background: #fbfbfe; }
+.yui-embed .screen { height: auto; min-height: 120px; border-radius: 0; }
+.yui-embed .screen.staged { min-height: 520px; }
+.yui-embed .pg-screen { overflow: visible; }
+.yui-head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #1f2233; font-size: 13px; }
+.is-light .yui-head { border-bottom-color: #e3e4ee; }
+.yui-mark { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 8px; background: #FF7E8A; color: #231D33; font-weight: 800; font-size: 13px; }
+.yui-who { font-weight: 700; }
+.yui-where { margin-left: auto; color: var(--muted); font-size: 12px; }
+.yui-note { padding: 10px 14px; font-size: 13px; color: var(--muted); }
+.yui-note.ok { color: var(--accent2); }
+.is-light .yui-note.ok { color: #0f7a6c; }
+.yui-note.bad { color: #ff8a8a; }

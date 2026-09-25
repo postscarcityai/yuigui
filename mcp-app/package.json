@@ -1,0 +1,14 @@
+{
+  "name": "yui-mcp-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Yui screens as an MCP App: the site's web renderer in one HTML file, served by yui-mcp as ui://yui/screen (INT-7).",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.10"
+  }
+}

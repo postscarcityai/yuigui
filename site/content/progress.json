@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Yui in Claude, and Yui screens inside the chat",
+    "card": "INT-7",
+    "body": "Claude can now reach Yui from every place you use it. In Claude on the web, desktop or phone, add a custom connector with Yui's URL and approve it in the app. In Claude Code, add the server, check it, and log in; no token to copy. Agents built on the Claude Agent SDK load the same server, and the guide has a snippet that also puts the channel guide in their prompt. The steps for all three are on the MCP page under Developers. The bigger part: a Yui screen can now draw inside the chat itself. The site's web renderer ships as an MCP App, so an app that supports them shows the same buttons, pickers and timers next to the tool call, in light or dark. Tap one there and it goes back as the very same event a tap on your phone sends, and the agent reads it as your next message. Proof: the official MCP Apps reference host draws the screen and a tap round-trips in dark and light (13 checks); a real Claude Code on a Mac signed in over OAuth, asked on the simulator, the tap came back and it answered with a timer (15 checks); the MCP server's live suite grew to 92 checks. Along the way we found that Claude Code's login needs one health check first, because Yui lives under a path on a shared host; the guide says so. Nothing is listed in any public directory. No app change: it works with the build you have.",
+    "images": [
+      {
+        "src": "/progress/int7-mcp-app-dark.webp",
+        "alt": "The MCP Apps reference host in dark mode after a yui_show call: the Yui screen draws inside it with the question Lunch? and Salad, Soup and Tacos, Soup chosen, a Focus timer pill, the note Sent: Soup, and the host's message log showing [yui] n1 choose choice=Soup"
+      },
+      {
+        "src": "/progress/int7-mcp-app-light.webp",
+        "alt": "The same screen in light mode with Tacos chosen and the message [yui] n1 choose choice=Tacos"
+      },
+      {
+        "src": "/progress/int7-claude-code-ask.webp",
+        "alt": "Yui on the iPhone simulator: Claude Code, signed in over OAuth, says Quick one. and asks Ready for a tabata? with Yes and Not now"
+      },
+      {
+        "src": "/progress/int7-claude-code-timer.webp",
+        "alt": "After Yes was tapped, Claude Code answered with a tabata timer on the phone"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Type / to see what your agent can do",
     "card": "YUI-61",
     "body": "Type a slash at the start of the composer and a list opens above it: the commands your agent already understands, each with one line on what it does. For a Hermes agent that is /new, /model, /retry, /status and the rest, plus its skills. Keep typing to narrow it (/mo shows /model and /moa), tap one to fill it in, and Send passes it to the agent as is. The list comes from the agent's computer: the Hermes plugin reports it when the gateway starts and again whenever it changes, so a new skill shows up on its own. Commands that only make sense in a terminal or for running the computer are left out. Agents with no list, like MCP ones, show nothing. The list above the composer is built to be reused: @mentions (YUI-44) come next in the same spot. Proof: the simulator, signed in to the real Yui agent, typed /, filtered, filled /new, and sent /status, which the gateway answered in about a second; 8 new live server checks, 11 plugin tests, relay tests still green. It rides the next build.",

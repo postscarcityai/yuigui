@@ -16,6 +16,7 @@ const cards = [
   ["/developers/openclaw", "OpenClaw", "On OpenClaw? Install the Yui channel plugin, pair with the app's code, and your agent answers on your phone."],
   ["/developers/webhook", "Webhook bridge", "Not on Hermes? Any agent that answers an HTTP POST can talk in Yui. Python and Node, ten-line examples."],
   ["/developers/mcp", "MCP server", "Claude Code, Cursor or any MCP client puts a screen on your phone with a tool call, and gets your taps back."],
+  ["/developers/mcp#claude", "Claude", "Add Yui to Claude on the web, desktop or phone, Claude Code, or an Agent SDK agent. Where Claude draws MCP Apps, the screen shows in the chat too."],
   ["/playground", "Playground", "Edit a line and watch the screen draw, in your browser. Includes the token benchmark."],
   ["/yl", "Yui Lines spec", "The screen language: one short line per element, every preset and its options."],
   ["/developers/specs", "All specs", "Every spec, rendered from the repo: agents, the relay, adapters, the token benchmark and more."],

@@ -1,4 +1,4 @@
-# Yui MCP server | spec v2 (INT-3, OAuth INT-19, Sep 25 2026)
+# Yui MCP server | spec v3 (INT-3, OAuth INT-19, Claude + MCP App INT-7, Sep 25 2026)
 
 Path D of `spec/ADAPTERS.md`. The code lives in the app repo, [postscarcityai/yui `supabase/functions/yui-mcp`](https://github.com/postscarcityai/yui/tree/main/supabase/functions/yui-mcp); this page is what an MCP client needs.
 
@@ -12,6 +12,67 @@ Any AI app that speaks MCP can put a screen on your phone. You keep talking to C
 - **Endpoint:** `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp`
 - **Transport:** MCP streamable HTTP, stateless. Every request is one POST with a JSON-RPC message (or a batch) and gets `application/json` back. No session id, no SSE stream: GET answers 405.
 - **Auth:** either OAuth 2.1 (paste the URL, sign in, approve it in Yui: [below](#oauth)) or `Authorization: Bearer yui_ct_...`, a connection token you get by pairing (the three steps below). The Claude and ChatGPT apps' custom connectors only do OAuth; Claude Code, Cursor and n8n can use either.
+
+## Claude
+
+Every Claude surface reaches Yui through this server. Pick the one you use.
+
+### Claude on the web, desktop and phone
+
+Needs a plan that allows custom connectors. Nothing here lists Yui in Claude's directory: it is your own connector, visible only to you.
+
+1. In Claude, open **Settings > Connectors > Add custom connector**.
+2. Name it **Yui**. URL: `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp`. Leave the OAuth fields empty.
+3. Tap **Connect**. Claude opens www.yuigui.com/connect; approve it in the Yui app ([OAuth](#oauth) below).
+4. In a chat, turn Yui on under the tools menu and ask: "Put a 5 minute focus timer on my phone."
+
+A connector added on the web also shows up in the desktop and phone apps. Where Claude draws MCP Apps, the screen also appears in the chat itself and you can tap it there ([MCP App](#mcp-app)).
+
+### Claude Code
+
+```
+claude mcp add --transport http yui https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp
+claude mcp get yui      # "Needs authentication"
+claude mcp login yui    # opens the browser; approve in Yui
+```
+
+Run `claude mcp get yui` (or `/mcp` inside a session) before `claude mcp login`. The check gets the server's 401, which tells Claude Code where Yui's sign-in lives. Yui runs under a path on a shared host, so a cold `login` looks at the host's root, finds nothing and fails with `Dynamic Client Registration rejected (HTTP 404)`. On a machine with no browser add `--no-browser` and paste the address you land on back into the prompt.
+
+Prefer a token? Pair with a code and pass the header ([below](#pair-with-a-code-three-steps)).
+
+### Agents on the Claude Agent SDK
+
+The SDK takes the same server. Give it a connection token from pairing, and put the channel guide in the system prompt so the agent knows every screen it can draw:
+
+```ts
+import { query } from "@anthropic-ai/claude-agent-sdk";
+
+// The full channel guide; a short form already rides in the tool descriptions.
+const guide = await (await fetch("https://raw.githubusercontent.com/postscarcityai/yuigui/main/spec/CHANNEL.md")).text();
+
+for await (const m of query({
+  prompt: "Ask me on my phone how the workout went, then log it.",
+  options: {
+    mcpServers: {
+      yui: {
+        type: "http",
+        url: "https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp",
+        headers: { Authorization: `Bearer ${process.env.YUI_TOKEN}` }, // yui_ct_... from pairing
+      },
+    },
+    allowedTools: ["mcp__yui__yui_show", "mcp__yui__yui_answers", "mcp__yui__yui_say", "mcp__yui__yui_threads"],
+    systemPrompt: {
+      type: "preset",
+      preset: "claude_code",
+      append: "You reach the person's phone through the yui tools. Where the guide says to write a ```yui block, call yui_show with those lines instead.\n\n" + guide,
+    },
+  },
+})) {
+  if (m.type === "result") console.log(m.result);
+}
+```
+
+An agent that runs as a service with its own HTTP endpoint can use the [webhook bridge](/developers/webhook) instead.
 
 ## OAuth
 
@@ -74,6 +135,7 @@ Then ask: "Put a 5 minute focus timer on my phone." The agent calls `yui_show` w
 | `yui_answers` | `screen_id` (optional), `wait` (0 to 25 s), `agent` | What the person sent back, oldest first: taps (`[yui] n1 choose choice=Walk` plus the event JSON) and anything they typed. With `screen_id`, only what came after that screen. `wait` holds the call open until something arrives; call again to keep waiting. Each answer is returned once. |
 | `yui_say` | `text`, `agent` | A plain chat message. |
 | `yui_threads` | none | The agents this token serves, with unread counts. The first is the default. |
+| `yui_tap` | `screen_id`, `event`, `told_model` | App-only: the [MCP App](#mcp-app) calls it for a tap in the screen drawn in the chat. Hosts hide it from the model. |
 
 A typical turn: `yui_show` a question, then `yui_answers(screen_id, wait=25)` until the tap comes, then the next screen. A photo the person sends comes back as an hour-long signed link in `photos`.
 
@@ -87,6 +149,17 @@ An agent that has not read the channel guide sends text and never a screen, so t
 - **Prompt `yui_guide`** and **resource `yui://guide`**: the full channel guide (`spec/CHANNEL.md`, the same text Hermes and the webhook bridge get), with a short preamble that maps "write a yui block" to "call yui_show".
 - **Server instructions** in the `initialize` answer: when to reach for a screen, and to wait with `yui_answers`.
 
+## MCP App
+
+Hosts that draw [MCP Apps](https://modelcontextprotocol.io/extensions/apps) (Claude, ChatGPT, the ext-apps reference host) show the screen right in the chat as well as on the phone. The same Yui Lines, drawn by the web renderer from yuigui.com/playground.
+
+- `yui_show` names the resource in `_meta.ui.resourceUri`: `ui://yui/screen`, type `text/html;profile=mcp-app`. It is one HTML file with the renderer inside, built from [`mcp-app/`](https://github.com/postscarcityai/yuigui/tree/main/mcp-app) in this repo and copied into the function by `supabase/scripts/sync_mcp_app.py` in the app repo.
+- Its result carries `structuredContent`: `screen_id`, `agent`, the tap `ids` and the `lines`, which is what the view draws. Hosts that do not draw apps read the same text result as before.
+- Its CSP loads images only from Yui's own storage and fal's CDN, and connects nowhere. KaTeX's fonts are left out, so math falls back to the system serif.
+- A tap goes back as the same event a phone tap sends. The view hands the host the line (`ui/message`, so the model reads `[yui] n1 choose choice=Soup` as the person's next message) and then calls the app-only tool `yui_tap`, which writes the event row into the thread: the same `[yui]` body, `meta` `{id, preset, value, echo, via: "mcp-app"}`. If the host took the message, the row is written handled, so `yui_answers` does not hand it over a second time. If the host refused it, `yui_answers` returns it like any tap.
+- `yui_tap` answers only for a component that is on that screen, in a thread the connection serves. Quiet events (a timer starting, a checklist tick) stay on the screen, as on the phone. The line and echo are worked out on the server from the event, never taken from the view.
+- Staged components (a timer, a deck) start as their pill in the chat, so a question on the same screen stays in view. Theme follows the host's light or dark.
+
 ## Limits and safety
 
 - Each connection has its own rate bucket, `mcp` in `yui_limits`: 60 calls at once, 30 a minute sustained. Past it, HTTP 429. Messages it writes also count against the host limits in the app repo README.
@@ -96,9 +169,10 @@ An agent that has not read the channel guide sends text and never a screen, so t
 
 ## Checks
 
-`python3 supabase/tests/mcp_test.py` in the app repo: 77 live checks on a throwaway account (auth, handshake, tools, a tap during a wait, once-only answers, scope, the rate limit, and 43 for OAuth: discovery, registration, PKCE and a wrong verifier, codes once, refresh rotation and reuse, deny, expiry, removing the computer, revoke). `supabase/tests/mcp_oauth_e2e.py --sim <udid>` runs the MCP TypeScript SDK's own OAuth client against the simulator: it registers, the app's sheet allows it, and it asks and gets a timer back. `supabase/tests/mcp_claude_e2e.py --sim <udid>` runs a real Claude Code against the simulator: it asks "Ready for a tabata?", the UI test taps Yes, and Claude puts up the timer.
+`python3 supabase/tests/mcp_test.py` in the app repo: 92 live checks on a throwaway account (auth, handshake, tools, a tap during a wait, once-only answers, scope, the rate limit, 15 for the MCP App, and 43 for OAuth: discovery, registration, PKCE and a wrong verifier, codes once, refresh rotation and reuse, deny, expiry, removing the computer, revoke). `supabase/tests/mcp_oauth_e2e.py --sim <udid>` runs the MCP TypeScript SDK's own OAuth client against the simulator: it registers, the app's sheet allows it, and it asks and gets a timer back. `supabase/tests/mcp_claude_e2e.py --sim <udid>` runs a real Claude Code against the simulator: it asks "Ready for a tabata?", the UI test taps Yes, and Claude puts up the timer. With `--oauth` it adds Yui the way the Claude section says (no header, `claude mcp get`, `claude mcp login`, approved with the Add agent code on the connect page). `supabase/tests/mcp_app_host_e2e.py` runs the MCP App in the MCP Apps reference host (modelcontextprotocol/ext-apps `examples/basic-host`) in dark and light: the host calls `yui_show`, draws `ui://yui/screen`, Playwright taps an option inside it, and the host gets the `[yui]` line while the thread gets the same event row. `mcp_test.py` checks the resource, the tool metadata and `yui_tap` too.
 
 ## Next
 
 - **Sign in with Apple on the connect page**, for when no iPhone with Yui is at hand.
-- **MCP Apps**: our web renderer as an MCP App, so a Yui screen can also draw inside Claude or ChatGPT (INT-7, INT-8).
+- **ChatGPT** (INT-8): the same connector and MCP App; a listed app in its directory needs Chris's sign-off.
+- **Claude's directory**: not listed. Listing is public outreach, Chris signs off first.

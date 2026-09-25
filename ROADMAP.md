@@ -88,7 +88,7 @@ Then:
 - YUI-63 (backlog): one working row instead of three dots plus a timer. A working word and the seconds ("Pondering · 12s") first; later the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
 - YUI-64 (backlog): an agent that is paired but not listening says so. Presence per agent, not per machine; right after pairing the agent sheet shows the one step left (restart its gateway); a message to it says it will wait instead of a timer that counts forever. From Chris's R0SS feedback on build 61.
 - YUI-69 (backlog): talk about a setting. Bring a piece of the agent (its personality, a memory, a skill) into the chat, the agent proposes the change as a before and after, one tap applies it. After YUI-70.
-- INT-19 onward: more agent frameworks. The Yui MCP server shipped Sep 25 (INT-3); next is OAuth for it (INT-19), then Claude and ChatGPT connectors (see Adapters below).
+- INT-19 onward: more agent frameworks. The Yui MCP server shipped Sep 25 (INT-3), with OAuth (INT-19) and Claude, screens in the chat included (INT-7); ChatGPT is next (see Adapters below).
 - The phase backlog below, from YUI-33 on.
 
 ## Epics
@@ -286,6 +286,7 @@ Deliverables:
 - DONE Sep 24, INT-1: the OpenClaw channel plugin. An OpenClaw agent talks in Yui the way a Hermes agent does, screens and taps included.
 - DONE Sep 25, INT-3: the Yui MCP server. Claude Code, Cursor or any MCP client puts a screen on your phone and reads the taps back (`spec/MCP.md`).
 - DONE Sep 25, INT-19: OAuth for the MCP server. The Claude and ChatGPT apps add Yui by pasting one URL; you approve in the app. The approval sheet rides the next build.
+- DONE Sep 25, INT-7: Claude. A guide for Claude's apps, Claude Code and Agent SDK agents (`spec/MCP.md` "Claude"), and Yui screens drawn inside the chat as an MCP App, tappable there too. Checked in the MCP Apps reference host and with Claude Code on a Mac; one look inside claude.ai itself is still to come.
 - NOT STARTED, YUI-48: SMS channel (text a number, get a push that opens the screen).
 
 Dependencies: App Store submission sign-off from Chris.
@@ -412,7 +413,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-4: the Telegram fallback: Yui Lines as buttons and a Telegram Mini App.
 - INT-5: connect without installing anything, through a hosted connector.
 - INT-6: research Cloudflare's Agents SDK and "Flue" for the next relay.
-- INT-7: Claude, through the MCP server, and Yui screens drawn inside Claude as an MCP App.
+- INT-7 (done Sep 25): Claude, through the MCP server, and Yui screens drawn inside Claude as an MCP App.
 - INT-8: ChatGPT, the same way.
 - INT-9: Gemini, as a model or as an A2A agent.
 - INT-10: Grok, as a model or calling the MCP server.
