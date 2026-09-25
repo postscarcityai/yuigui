@@ -5,4 +5,6 @@ import builds from "../content/builds.json";
 
 export const NEXT_BUILD = new Set((builds.next || []).map((c) => c.card).filter((k) => /^YUI-/.test(k || "")));
 export const inNextBuild = (keys) => [].concat(keys || []).some((k) => NEXT_BUILD.has(k));
+// A See it entry for a change with no card (a TestFlight feedback fix) names its commit's opening words in `change`.
+export const changeInNextBuild = (words) => !!words && (builds.next || []).some((c) => (c.text || "").startsWith(words));
 export const NEXT_BUILD_NOTE = "Done in the code, reaches TestFlight with the next build.";

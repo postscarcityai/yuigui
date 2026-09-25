@@ -101,7 +101,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - SITE-20 (shipped): the go-to-market plan, in public: who it is for, the social plan per channel, the first 30 days. Read it: [go-to-market plan](https://www.yuigui.com/business/gtm).
 - OSS-5 (shipped): a grassroots kit for Yui Lines: who builds with it, how to contribute, a first "draw your best screen in three lines" challenge. Live at [/developers/community](/developers/community).
 - SOC-3 (shipped): three short videos: Yui in 15 seconds, Yui Lines in 30, your own Hermes on your phone in 60. Watch them on [See it](/mockups).
-- SITE-24 (shipped): Yui@home, the story. Like SETI@home, but you lend idle AI tokens: the note [Donate your idle tokens to Yui](/notes/donate-your-idle-tokens-to-yui), a [Contribute with your agent](/developers/contribute) page with a feature spec template, a "Lend your agent" option at the bottom of every page, and an [llms.txt](/llms.txt) so assistants that read the site can pass the invitation on.
+- SITE-24 (shipped): Yui@home, the story. Like SETI@home, but you lend idle AI tokens: the post [Donate your idle tokens to Yui](/thoughts/donate-your-idle-tokens-to-yui), a [Contribute with your agent](/developers/contribute) page with a feature spec template, a "Lend your agent" option at the bottom of every page, and an [llms.txt](/llms.txt) so assistants that read the site can pass the invitation on.
 - BIZ-7 (parked): one brand system from the website to social to print.
 
 **Now: INV-1, invite-only beta and client onboarding.** A request-an-invite form (name, Apple ID email, phone) replaced the waitlist. Chris approves each invite from Yui, Apple sends the TestFlight email, and the new account opens with the agents picked for it. Built for inviting clients fast; download-and-go stays the long-term path.
@@ -112,8 +112,8 @@ Work ships in epics: a set of cards that together make one release worth trying.
 
 **Next up: WAR-1, the war room.** Screen 2 becomes a real dashboard for running Yui from Yui: a timeline of what shipped and what is queued, quick links to the site, and a reorder mode that sets board priority by dragging, with no agent turn in between (Chris, Sep 25).
 
-- YUI-65 (building now): a timeline preset: done above, now, queued below.
-- YUI-66 (backlog): reorder mode, drag to set priority on the board.
+- YUI-65 (shipped Sep 25): a timeline preset: done above, now, queued below. In the code, reaches phones with the next build.
+- YUI-66 (shipped Sep 25): reorder mode, drag to set priority on the board, with no agent turn. Also in the next build.
 - YUI-73 (next): the rest of the war room. Needs you (cards waiting on Chris, with one-tap answers), running now (one row per lane), builds with the Install button, the latest feedback and the card it became, the MVP bar, quick links.
 
 **Distant: EARN-1, build to earn.** Yui is built by whoever shows up, human or agent, and the work is what earns. No token sale: the only way in is brain power or compute that lands in Yui, a merged PR or TestFlight feedback that ships, rewarded by one mechanism. 10% of voting equity is set aside for the public pool, with more to follow. Humans first, and an open call to autonomous agents. Stories get sprinkled in; nothing mints or sells until counsel and Chris sign off (BIZ-10). Builds on Yui@home (SITE-24).
@@ -132,7 +132,7 @@ Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /ear
 
 **Latest release: build 64, Sep 25.** Build 57 (Sep 24) was the big one, chat feels right: the lock screen timer (YUI-30), screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51), no dead buttons (YUI-53), and every Sep 24 feedback fix checked again (YUI-52). Build 61 fixed a crash in hold to talk and brought invites (YUI-56) and test builds by link (YUI-55). Build 64 made hold to talk work like WhatsApp and gave screens 2 to 12 the whole phone.
 
-**The next build** carries what is on the app's main branch past 64: links in a card open Safari instead of sending a tap (YUI-67), a test build's Install link that stays whole, and Select text, so you can copy any part of a message (from Chris's TestFlight feedback, the first piece of YUI-68). [Builds](/changelog#next) lists it. The fix for a newly added agent that missed messages sent before its gateway came up is in the Hermes plugin, so it needs no build. After that, the next epic is Chris's Sep 25 picks: YUI-54 and YUI-70 (each agent's home and its controls), then YUI-68 (reply).
+**The next build** carries what is on the app's main branch past 64: links in a card open Safari instead of sending a tap (YUI-67), a test build's Install link that stays whole, Select text, so you can copy any part of a message (from Chris's TestFlight feedback, the first piece of YUI-68), and the war room's timeline (YUI-65) with drag to reorder (YUI-66). [Builds](/changelog#next) lists it. The fix for a newly added agent that missed messages sent before its gateway came up is in the Hermes plugin, so it needs no build. After that, the next epic is Chris's Sep 25 picks: YUI-54 and YUI-70 (each agent's home and its controls), then YUI-68 (reply).
 
 ## North star: not just another AI chatbot
 

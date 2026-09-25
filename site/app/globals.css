@@ -103,6 +103,9 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .subnav { border-top: 1.5px solid var(--outline); }
 .subnav .wrap { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; font-size: 14px; padding-top: 4px; padding-bottom: 4px; }
 .subnav .wrap::-webkit-scrollbar { display: none; }
+.subnav .wrap[data-more="r"] { mask-image: linear-gradient(to right, #000 calc(100% - 48px), transparent); }
+.subnav .wrap[data-more="l"] { mask-image: linear-gradient(to left, #000 calc(100% - 48px), transparent); }
+.subnav .wrap[data-more="lr"] { mask-image: linear-gradient(to right, transparent, #000 48px, #000 calc(100% - 48px), transparent); }
 .subnav a { min-height: 44px !important; }
 .nav-panel[hidden] { display: none; }
 .nav-panel { border-top: 1.5px solid var(--outline); max-height: calc(100dvh - 64px); overflow-y: auto; overscroll-behavior: contain; }

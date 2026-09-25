@@ -44,6 +44,21 @@ export default function Nav() {
     else if (left < box.left) row.scrollLeft -= box.left - left + 24;
   }, [path]);
 
+  // A fade on the side that has more pages hidden, so a cut-off row reads as scrollable.
+  const [edges, setEdges] = useState("");
+  useEffect(() => {
+    const row = subRef.current;
+    if (!row) { setEdges(""); return; }
+    const measure = () => {
+      const max = row.scrollWidth - row.clientWidth;
+      setEdges(`${row.scrollLeft > 2 ? "l" : ""}${row.scrollLeft < max - 2 ? "r" : ""}`);
+    };
+    measure();
+    row.addEventListener("scroll", measure, { passive: true });
+    window.addEventListener("resize", measure);
+    return () => { row.removeEventListener("scroll", measure); window.removeEventListener("resize", measure); };
+  }, [path]);
+
   useEffect(() => {
     if (!open) return;
     function onKey(e) { if (e.key === "Escape") setOpen(false); }
@@ -79,7 +94,7 @@ export default function Nav() {
       </div>
       {here?.pages && (
         <nav aria-label={here.label} className="subnav">
-          <div className="wrap" ref={subRef}>
+          <div className="wrap" ref={subRef} data-more={edges || undefined}>
             {here.pages.map(([href, label]) => (
               <Link key={href} href={href} aria-current={cur(href)}>{label}</Link>
             ))}

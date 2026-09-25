@@ -474,18 +474,19 @@ storyboard "Launch reel" /demo/s1.jpg|"Open on hands at the wheel. No music yet.
     slug: "timeline-warroom",
     name: "Timeline: what shipped, what runs, what is next",
     agent: "Yui",
-    next: `ask "Pull YUI-66 next?" "Yes, pull it"|"Not yet"`,
+    next: `ask "Pull YUI-68 next?" "Yes, pull it"|"Not yet"`,
     yl: `timeline "Yui, this week" fold=4 +reorder board=yui
-done "Three screens per agent" at="Sep 24" tag=YUI-31
 done "Saved screens, the shelf" at="Sep 24" tag=YUI-32
 done "Full-screen flows fold back into chat" at="Sep 24" tag=YUI-51
 done "No dead buttons" at="Sep 24" tag=YUI-53
 done "Test builds by link" at="Sep 24" tag=YUI-55
 done "Links open Safari" at="Sep 25" tag=YUI-67 https://www.yuigui.com/progress
-now "The war room timeline" tag=YUI-65 sub="spec, parsers, web done; native view next"
-next "Drag to reorder the queue" tag=YUI-66
-next "War room panels" tag=YUI-73 sub="needs you, running, builds, feedback"
-next "Reply to a message" tag=YUI-68`,
+done "The war room timeline" at="Sep 25" tag=YUI-65
+done "Drag to reorder the queue" at="Sep 25" tag=YUI-66
+now "War room panels" tag=YUI-73 sub="needs you, running, builds, feedback"
+next "Reply to a message" tag=YUI-68
+next "Each agent's home" tag=YUI-54
+next "Agent controls in the drawer" tag=YUI-70`,
   },
   {
     slug: "timeline-trip",
@@ -496,7 +497,7 @@ done "Landed, checked in at Casa do Largo" at=Thu
 done "Tram 28 and the castle" at=Fri
 now "Time Out Market for lunch" at=12:30 sub="10 min walk, table for two"
 next "Sunset at Miradouro da Graca" at=19:40
-next "Fado in Alfama" at=21:30 https://www.example.com/fado
+next "Fado in Alfama" at=21:30 https://en.wikipedia.org/wiki/Fado
 next "Train to Sintra" at=Sun sub="Rossio, 9:11"`,
   },
   {

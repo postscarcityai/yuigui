@@ -350,7 +350,7 @@ function Table({ p, emit }) {
 }
 
 function Card({ p, emit }) {
-  // url= opens an https page (or an itms-services test build install) as well as emitting {cta}.
+  // url= opens an https page (or an itms-services test build install) and sends nothing, like the app (YUI-67).
   const link = typeof p.url === "string" && /^(https|itms-services):/i.test(p.url) ? p.url : null;
   const cta = p.cta || (link ? "Open" : null);
   return (
@@ -361,7 +361,7 @@ function Card({ p, emit }) {
         {p.sub ? <div className="yl-sub">{p.sub}</div> : null}
         <div className="yl-q">{p.title}</div>
         {p.body ? <div className="yl-text">{p.body}</div> : null}
-        {cta ? <button className="bigbtn p acc full" onClick={() => { if (link) window.open(link, "_blank", "noopener"); emit({ cta }); }}>{cta}</button> : null}
+        {cta ? <button className="bigbtn p acc full" aria-label={link ? `${cta}, opens in the browser` : undefined} onClick={() => { if (link) window.open(link, "_blank", "noopener"); else emit({ cta }); }}>{link ? `${cta} ↗` : cta}</button> : null}
       </div>
     </div>
   );

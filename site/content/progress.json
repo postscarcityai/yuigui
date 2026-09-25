@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Polish and depth: every page checked, See it catches up",
+    "card": "SITE-32",
+    "body": "Chris asked for polish and depth. I loaded all 164 pages in the sitemap at phone and desktop width and checked every link and picture. Nothing inside the site was broken. One outside link was: a sample trip in the playground linked to a page that does not exist, so it now opens a real one about fado. No page runs off the side of a phone. The one thing that read wrong was the row of pages under Roadmap: on a phone, Thoughts sat past the edge with nothing saying you could scroll. The row now fades on the side that has more. See it gains what shipped since yesterday: drag the queue into your own order, copy any part of a message, links that open Safari, and screens that get the whole phone. Select text has no card, so it now finds its place in the next build by its commit. The war room sample shows the war room as it is today. Card links on the web now do what the app does: an arrow, the page opens, nothing goes to the chat. The spec said otherwise, and now it agrees. The Get started commands still work: I installed the plugin from them into a throwaway Hermes. The roadmap no longer calls the timeline building.",
+    "images": [
+      { "src": "/progress/site32-seeit-reorder.webp", "alt": "See it on a phone: the war room timeline drawn live with Edit order, done rows up to drag to reorder, then War room panels running now" },
+      { "src": "/progress/site32-seeit-links-dark.webp", "alt": "See it in dark mode: a card titled A new test build with an Install button carrying an arrow, and a question below it" },
+      { "src": "/progress/site32-subnav-fade.webp", "alt": "The page row under the Yui header on a phone, fading out at the right edge where Thoughts is hidden" }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Games: tic-tac-toe, snake and memory",
     "card": "YUI-59",
     "body": "Chris wanted a few games in Yui, to get people imagining what else fits on the screen. Now one line does it: game tictactoe, game snake, game memory. It opens full screen. Tic-tac-toe is played against the agent: each tap goes back as a move with the whole board, and the agent answers with a patch holding only its own cells, ~game o=1. The phone draws the winning line and calls the result. Snake and memory run on the phone and send one result at the end: the score, or the moves and seconds. Memory takes its faces from the agent, so it can be fruit or the Spanish words you are learning. Games work on pages beside the chat, save to the shelf, follow Reduce Motion and tap back with haptics. Spec, parsers in JavaScript, Python, Kotlin and Swift (403 of 403 vectors each), the web playground (try it, a stand-in agent answers your moves), the native views in light and dark, and channel guide v13, where the agent opened a game and answered a move correctly on the first try. The app part rides the next build.",
@@ -150,7 +161,10 @@
     "date": "2026-09-25",
     "title": "Links in a card open Safari",
     "card": "YUI-67",
-    "body": "Chris tapped Install on a card that was meant to open a web page. Instead the app sent the word Install back to the agent, and the agent answered with the same card again. Now a card with a link gets a small arrow on its button. Tapping it opens the page in Safari and sends nothing to the chat, so the agent never answers a tap that already did its job. Buttons without a link still answer the agent as before. We also checked that long install links survive whole: over 300 characters, with a fragment, encoded parts, & and =, even when they arrive one character at a time. On main now, it rides the next TestFlight build. No screenshot yet, the build entry will carry one."
+    "body": "Chris tapped Install on a card that was meant to open a web page. Instead the app sent the word Install back to the agent, and the agent answered with the same card again. Now a card with a link gets a small arrow on its button. Tapping it opens the page in Safari and sends nothing to the chat, so the agent never answers a tap that already did its job. Buttons without a link still answer the agent as before. We also checked that long install links survive whole: over 300 characters, with a fragment, encoded parts, & and =, even when they arrive one character at a time. On main now, it rides the next TestFlight build. The picture is the web playground drawing the same card; the build entry will carry the phone.",
+    "images": [
+      { "src": "/progress/yui67-card-link-web.webp", "alt": "The web playground drawing a card titled A new test build, its Install button carrying an arrow that says it opens a page" }
+    ]
   },
   {
     "date": "2026-09-25",
