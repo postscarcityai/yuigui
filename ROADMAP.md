@@ -286,6 +286,7 @@ Deliverables:
 - NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
 - DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
 - DONE Sep 24, INT-1: the OpenClaw channel plugin. An OpenClaw agent talks in Yui the way a Hermes agent does, screens and taps included.
+- DONE Sep 25, INT-12 step 1: the model bridge. Put a model you run yourself (Ollama, LM Studio, vLLM, llama.cpp) into Yui; Yui holds the thread and the guide is the system message (`spec/MODELS.md`). Cloud APIs on the hosted connector come later.
 - DONE Sep 25, INT-18 step 1: the A2A bridge. Add any A2A agent (ADK, LangGraph, CrewAI, Microsoft Agent Framework) by its Agent Card URL; A2A 1.0 and 0.3 (`spec/A2A.md`). The hosted version is step 2.
 - DONE Sep 25, INT-3: the Yui MCP server. Claude Code, Cursor or any MCP client puts a screen on your phone and reads the taps back (`spec/MCP.md`).
 - DONE Sep 25, INT-19: OAuth for the MCP server. The Claude and ChatGPT apps add Yui by pasting one URL; you approve in the app. The approval sheet shipped in build 82.
@@ -341,7 +342,7 @@ There are only five ways in, so five pieces of code cover every framework:
 
 - **A plugin inside the agent's own app.** Hermes today. OpenClaw and Flue next.
 - **A hosted connector** that speaks a standard protocol: Hermes's relay contract, and A2A, which Gemini, LangGraph, CrewAI and Microsoft's Agent Framework all speak. The A2A part shipped Sep 25 as a bridge you run yourself (INT-18): add any A2A agent by its card URL, `spec/A2A.md`. The hosted version comes next.
-- **A model connector.** Point Yui at any OpenAI-compatible API: Meta's Muse Spark, Grok, Gemini, or a model on your own machine through Ollama, LM Studio or vLLM.
+- **A model connector.** Point Yui at any OpenAI-compatible API: Meta's Muse Spark, Grok, Gemini, or a model on your own machine through Ollama, LM Studio or vLLM. The local part shipped Sep 25 (INT-12): a bridge next to your model server, `spec/MODELS.md`. Cloud APIs come with the hosted connector.
 - **A Yui MCP server.** Claude, ChatGPT, Grok and n8n add it as a tool and push screens to your phone. Shipped Sep 25 (INT-3) for clients that take a header, like Claude Code and Cursor: `spec/MCP.md`.
 - **A webhook.** If your code can answer an HTTP request, it can talk in Yui. Shipped Sep 24 (INT-2): the webhook bridge, `spec/WEBHOOK.md`.
 
@@ -422,7 +423,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-9: Gemini, as a model or as an A2A agent.
 - INT-10: Grok, as a model or calling the MCP server.
 - INT-11: Meta's Muse Spark, through the Meta Model API.
-- INT-12: open models on your own machine (Ollama, LM Studio, vLLM) and any OpenAI-compatible API.
+- INT-12 (step 1 done Sep 25): open models on your own machine (Ollama, LM Studio, vLLM) and any OpenAI-compatible API. Today as a bridge next to the model server (spec/MODELS.md); cloud APIs on the hosted connector next, with YUI-34's key vault.
 - INT-13: a Yui channel for Flue.
 - INT-14: LangGraph.
 - INT-15: CrewAI.

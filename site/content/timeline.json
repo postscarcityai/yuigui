@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 81,
-    "site": 213,
-    "builds": 25,
-    "shipped": 117,
-    "screenshots": 241
+    "app": 84,
+    "site": 220,
+    "builds": 26,
+    "shipped": 119,
+    "screenshots": 246
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T11:56:12.358Z",
+          "at": "2026-09-25T12:53:25.062Z",
+          "title": "Your own model, in Yui",
+          "card": "INT-12",
+          "anchor": "your-own-model-in-yui",
+          "images": [
+            {
+              "src": "/progress/int12-screen-light.webp",
+              "alt": "Yui chat with Qwen, a local model: asked for a choose screen, it drew a Drink card with Tea and Coffee buttons"
+            },
+            {
+              "src": "/progress/int12-tap-light.webp",
+              "alt": "Tea tapped: the choice goes back to the model as the next turn and it answers, asking if you want to know about tea's health benefits"
+            },
+            {
+              "src": "/progress/int12-remembers-dark.webp",
+              "alt": "Dark mode after a relaunch: asked which drink was picked, the model answers TEA from the thread Yui sent it"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 84,
+            "site": 220,
+            "builds": 26,
+            "shipped": 119
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T12:48:31.000Z",
+          "title": "The chat stays on your newest message",
+          "card": "YUI-74",
+          "anchor": "the-chat-stays-on-your-newest-message",
+          "images": [
+            {
+              "src": "/progress/yui74-photo-sent-dark.webp",
+              "alt": "Yui chat in dark mode after sending a photo: the photo and its caption sit fully above the composer"
+            },
+            {
+              "src": "/progress/yui74-photo-sent-light.webp",
+              "alt": "The same chat in light mode: the photo, its caption and the agent's answer all visible above the composer"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 83,
+            "site": 220,
+            "builds": 26,
+            "shipped": 118
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-25T12:04:58.000Z",
+          "build": 82,
+          "changes": 8,
+          "totals": {
+            "app": 82,
+            "site": 214,
+            "builds": 26,
+            "shipped": 117
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T11:57:20.000Z",
           "title": "Add any A2A agent by its Agent Card",
           "card": "INT-18",
           "anchor": "add-any-a2a-agent-by-its-agent-card",
@@ -35,10 +99,10 @@
               "alt": "Dark: the agent asks Which color?, the person says Blue, the same task answers Blue it is."
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
-            "app": 81,
-            "site": 213,
+            "app": 82,
+            "site": 214,
             "builds": 25,
             "shipped": 117
           }
@@ -226,7 +290,7 @@
               "alt": "After tapping /new, the composer holds /new with a space and the list has closed"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 76,
             "site": 197,
@@ -675,6 +739,76 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "e015c15",
+          "at": "2026-09-25T12:52:42.000Z",
+          "text": "Model bridge: any OpenAI-compatible model in Yui. node adapters/openai-compat/yui-openai.ts pair <code> --model qwen2.5:7b [--server...",
+          "url": "https://github.com/postscarcityai/yui/commit/e015c15"
+        },
+        {
+          "repo": "site",
+          "sha": "ef7f4ec",
+          "at": "2026-09-25T12:48:31.000Z",
+          "text": "Progress: the chat stays on your newest message (YUI-74)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ef7f4ec"
+        },
+        {
+          "repo": "app",
+          "sha": "211c184",
+          "at": "2026-09-25T12:48:11.000Z",
+          "text": "The thread rests on the newest message after a photo send and a keyboard dismiss: it was a real bug, not only the test's drag. After a...",
+          "url": "https://github.com/postscarcityai/yui/commit/211c184"
+        },
+        {
+          "repo": "site",
+          "sha": "a12cc21",
+          "at": "2026-09-25T12:47:25.000Z",
+          "text": "ROADMAP: YUI-79 no text bombs (TestFlight feedback Sep 25)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a12cc21"
+        },
+        {
+          "repo": "site",
+          "sha": "17ce8ae",
+          "at": "2026-09-25T12:40:15.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/17ce8ae"
+        },
+        {
+          "repo": "site",
+          "sha": "336160f",
+          "at": "2026-09-25T12:17:25.000Z",
+          "text": "Roadmap: YUI-78, the hold menu fits on long messages (TestFlight feedback AFduDX-JwEKyTFAt4pnYIPY), next to YUI-76",
+          "url": "https://github.com/postscarcityai/yuigui/commit/336160f"
+        },
+        {
+          "repo": "site",
+          "sha": "bca7e04",
+          "at": "2026-09-25T12:10:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bca7e04"
+        },
+        {
+          "repo": "site",
+          "sha": "46618c5",
+          "at": "2026-09-25T12:06:31.000Z",
+          "text": "Build 82 is on TestFlight: ROADMAP latest release is build 82 (YUI-61 slash commands, YUI-44 step 1 @mentions, YUI-63 one working row,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/46618c5"
+        },
+        {
+          "repo": "site",
+          "sha": "7d2cb66",
+          "at": "2026-09-25T11:57:20.000Z",
+          "text": "INT-18 step 1: the A2A bridge. spec/A2A.md (/developers/a2a): add any A2A agent by its Agent Card, how threads, turns, tasks,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7d2cb66"
+        },
+        {
+          "repo": "app",
+          "sha": "2df140d",
+          "at": "2026-09-25T11:57:13.000Z",
+          "text": "A2A bridge: add any A2A agent to Yui by its Agent Card. node adapters/a2a/yui-a2a.ts pair <code> --card <url>, then run; add --card...",
+          "url": "https://github.com/postscarcityai/yui/commit/2df140d"
+        },
         {
           "repo": "site",
           "sha": "9fa68bc",

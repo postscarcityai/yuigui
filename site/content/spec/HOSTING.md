@@ -87,7 +87,7 @@ At 10,000 users the bigger cost is not either host. It is database compute: ever
 
 Changes from the card: the first step needs no host.
 
-1. **Local first.** A small process on the user's machine, forked from the webhook bridge (INT-2, same pairing, same delivery rules, same outbox), that calls any `/v1/chat/completions` URL with a model name. The channel guide is the system message; the thread history comes from the agent's own rows. Test against Ollama on a Mac. No Cloudflare, no key vault, since local servers need no key.
+1. **Local first** (done Sep 25, `spec/MODELS.md`). A small process on the user's machine, forked from the webhook bridge (INT-2, same pairing, same delivery rules, same outbox), that calls any `/v1/chat/completions` URL with a model name. The channel guide is the system message; the thread history comes from the agent's own rows. Test against Ollama on a Mac. No Cloudflare, no key vault, since local servers need no key.
 2. **YUI-10's eval** on each local model we name, so a model under the bar gets plain text only.
 3. **Then hosted,** for cloud endpoints (Meta, xAI, Gemini, OpenRouter): the same code inside the Durable Object, after YUI-34 stores the user's key. This step waits on the Cloudflare account.
 

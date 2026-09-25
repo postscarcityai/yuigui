@@ -16,6 +16,7 @@ const cards = [
   ["/developers/openclaw", "OpenClaw", "On OpenClaw? Install the Yui channel plugin, pair with the app's code, and your agent answers on your phone."],
   ["/developers/webhook", "Webhook bridge", "Not on Hermes? Any agent that answers an HTTP POST can talk in Yui. Python and Node, ten-line examples."],
   ["/developers#a2a", "A2A agents", "Built with ADK, LangGraph, CrewAI or Microsoft Agent Framework? Add it by its Agent Card URL."],
+  ["/developers#models", "Your own model", "Running Ollama, LM Studio or vLLM? Put the model in Yui. It gets the guide and the thread, and answers with screens."],
   ["/developers/mcp", "MCP server", "Claude Code, Cursor or any MCP client puts a screen on your phone with a tool call, and gets your taps back."],
   ["/developers/mcp#claude", "Claude", "Add Yui to Claude on the web, desktop or phone, Claude Code, or an Agent SDK agent. Where Claude draws MCP Apps, the screen shows in the chat too."],
   ["/developers/mcp#chatgpt", "ChatGPT", "Add Yui to ChatGPT in developer mode with one URL. The screen shows in the chat and on your phone, and a tap in either place answers."],
@@ -83,7 +84,8 @@ export default function Developers() {
       <p>
         Hermes works today, and so do <Link href="/developers/openclaw">OpenClaw</Link> and anything that answers an HTTP
         POST, through the <Link href="/developers/webhook">webhook bridge</Link>. MCP clients like Claude Code and Cursor
-        use the <Link href="/developers/mcp">Yui MCP server</Link>, and A2A agents join by their Agent Card (below). More come
+        use the <Link href="/developers/mcp">Yui MCP server</Link>, A2A agents join by their Agent Card, and a model you run
+        yourself joins through the model bridge (both below). More come
         after the MVP. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
       </p>
 
@@ -104,6 +106,27 @@ node yui-a2a.ts run`}</Cmd>
       <p>
         Yui's channel guide rides along on each new task, so an agent that passes it to its model can answer with screens.
         Today the bridge runs on your machine; a hosted version comes next. Details in the <Link href="/developers/a2a">A2A spec</Link>.
+      </p>
+
+      <h2 id="models">Add a model you run yourself</h2>
+      <p>
+        Running a model on your own machine with Ollama, LM Studio, vLLM or llama.cpp? The model bridge puts it in Yui. Each turn it
+        sends the model Yui's channel guide as the system message and as much of the thread as fits, so even a small model answers
+        with screens, and your taps go back as its next turn. It streams when the server does, and a restart never sends an answer
+        twice. Node 22.18 or newer, no dependencies.
+      </p>
+      <ol>
+        <li>In the app, <strong>Agents &gt; Add agent</strong>. Note the 6-digit code.</li>
+        <li>On the computer running the model:</li>
+      </ol>
+      <Cmd multi label="the model bridge commands">{`git clone https://github.com/postscarcityai/yui && cd yui/adapters/openai-compat
+node yui-openai.ts try "Help me pick lunch" --model qwen2.5:7b
+node yui-openai.ts pair 123456 --model qwen2.5:7b
+node yui-openai.ts run`}</Cmd>
+      <p>
+        <code>try</code> shows whether a model draws screens before you pair it. Ollama is the default; <code>--server lmstudio</code>,{" "}
+        <code>vllm</code> or <code>--url</code> pick another. Cloud APIs come later on Yui's hosted connector. Details in the{" "}
+        <Link href="/developers/models">model bridge spec</Link>.
       </p>
 
       <h2 id="share">Share, embed, badge</h2>

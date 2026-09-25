@@ -125,7 +125,9 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Depends on:** INT-12, YUI-34 (key vault).
 - **Priority:** 4.
 
-### Open-source models: Ollama, LM Studio, vLLM | INT-12
+### Open-source models: Ollama, LM Studio, vLLM | INT-12 (local bridge done Sep 25, `spec/MODELS.md`)
+
+- **Status:** step 1 shipped Sep 25: the model bridge (`adapters/openai-compat` in the app repo) runs next to the model server, calls any `/v1/chat/completions` with a base URL, a model and an optional key (from an environment variable, never stored in chat), sends the channel guide as the system message and the thread's newest rows that fit the context, streams when the server does, and keeps the relay's delivery rules. Tested live against qwen2.5:7b on Ollama, on the iPhone simulator too. Next: YUI-10's eval per model, then cloud endpoints on the hosted connector with YUI-34's key vault.
 
 - **Connects:** path C. All three serve an OpenAI-compatible `/v1/chat/completions`. One model connector with a base URL, a model name and an optional key covers them, plus Meta, xAI, Gemini's compatible endpoint and OpenRouter. Self-hosted servers sit on the user's own machine, so the connector runs there too (a small host process, like the Hermes plugin), not in our cloud. Cloud endpoints use the hosted connector.
 - **Learns:** the guide as system message. Small local models may not follow it well: YUI-10's eval runs against each model we list as supported, and a model under the bar gets plain text only.
@@ -192,7 +194,7 @@ Not an agent framework, but the same idea in reverse: Yui Lines rendered as Tele
 
 1. Hermes plugin (done), then INT-5 hosted Hermes.
 2. INT-1 OpenClaw (done Sep 24), INT-2 webhook (done Sep 24), INT-3 MCP server (done Sep 25, OAuth next in INT-19). These three open the door for everyone else.
-3. INT-7 Claude and INT-8 ChatGPT (done Sep 25), INT-12 model connector, INT-13 Flue, INT-18 A2A (local bridge done Sep 25, hosted next).
+3. INT-7 Claude and INT-8 ChatGPT (done Sep 25), INT-12 model connector (local bridge done Sep 25, hosted next), INT-13 Flue, INT-18 A2A (local bridge done Sep 25, hosted next).
 4. INT-9 Gemini, INT-10 Grok, INT-11 Meta, INT-14 LangGraph, INT-17 n8n: mostly presets on the pieces above.
 5. INT-15 CrewAI, INT-16 Microsoft Agent Framework.
 
