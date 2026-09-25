@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T08:40:39.771Z",
+  "updated": "2026-09-25T09:10:05.892Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -80,10 +80,6 @@
         {
           "key": "YUI-58",
           "title": "Yui for macOS, a matching desktop app [agent-ready]"
-        },
-        {
-          "key": "YUI-61",
-          "title": "Slash commands in the composer"
         },
         {
           "key": "YUI-62",
@@ -291,8 +287,8 @@
           "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
         },
         {
-          "key": "INT-19",
-          "title": "Yui MCP server step 2, OAuth (Sign in with Apple through Yui)"
+          "key": "YUI-61",
+          "title": "Slash commands in the composer"
         }
       ]
     },
@@ -300,6 +296,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-19",
+          "title": "Yui MCP server step 2, OAuth (Sign in with Apple through Yui)",
+          "summary": "Add Yui to Claude or ChatGPT by pasting one URL",
+          "shipped": "2026-09-25",
+          "progress": "/progress#add-yui-to-claude-or-chatgpt-by-pasting-one-url"
+        },
         {
           "key": "YUI-67",
           "title": "Card cta with url= sends a tap instead of opening Safari",
