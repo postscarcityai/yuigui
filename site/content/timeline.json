@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 123,
-    "site": 304,
+    "app": 126,
+    "site": 305,
     "builds": 29,
-    "shipped": 161,
-    "screenshots": 331
+    "shipped": 162,
+    "screenshots": 335
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T23:34:21.266Z",
+          "at": "2026-09-25T23:38:18.592Z",
+          "title": "Share an agent with a client, and take it back",
+          "card": "YUI-95",
+          "anchor": "share-an-agent-with-a-client-and-take-it-back",
+          "images": [
+            {
+              "src": "/progress/yui95-list-light.webp",
+              "alt": "Light mode, the invitee's agent list: Penny, in pink, online. It is the only agent, shared by its owner."
+            },
+            {
+              "src": "/progress/yui95-thread-dark.webp",
+              "alt": "Dark mode, Penny's thread with the first message waiting: Hi Maya! I'm Penny, Sam's assistant. What can I take off your plate this week?"
+            },
+            {
+              "src": "/progress/yui95-thread-light.webp",
+              "alt": "Light mode, the same thread in Penny's pink look with her first message."
+            },
+            {
+              "src": "/progress/yui95-revoked-light.webp",
+              "alt": "Light mode, after the owner revoked the grant: Penny is gone and the list says Add your first agent."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 126,
+            "site": 305,
+            "builds": 29,
+            "shipped": 162
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T23:36:12.000Z",
           "title": "Settings says exactly which Yui is on your phone",
           "card": "YUI-92",
           "anchor": "settings-says-exactly-which-yui-is-on-your-phone",
@@ -33,8 +65,8 @@
           ],
           "commits": 2,
           "totals": {
-            "app": 123,
-            "site": 304,
+            "app": 125,
+            "site": 305,
             "builds": 29,
             "shipped": 161
           }
@@ -1772,6 +1804,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "fb9ef1d",
+          "at": "2026-09-25T23:36:44.000Z",
+          "text": "Shared agents on the simulator (YUI-95): shared_agents_e2e.py + YuiUITests/SharedAgentTests. A throwaway owner's host reports a shell,...",
+          "url": "https://github.com/postscarcityai/yui/commit/fb9ef1d"
+        },
+        {
+          "repo": "site",
+          "sha": "e996ad0",
+          "at": "2026-09-25T23:36:12.000Z",
+          "text": "0.2.0 catch-up (SITE-37): YUI-92 on /progress and See it, group threads step 2 reads next build. Progress entry for YUI-92 (build 122):...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e996ad0"
+        },
+        {
+          "repo": "app",
+          "sha": "eea45a2",
+          "at": "2026-09-25T23:34:48.000Z",
+          "text": "Hermes plugin: shared agents on the host (YUI-95). The heartbeat and session report this profile's sandbox (sandbox.py) so Yui can mark...",
+          "url": "https://github.com/postscarcityai/yui/commit/eea45a2"
+        },
+        {
+          "repo": "app",
+          "sha": "48a7ea1",
+          "at": "2026-09-25T23:30:25.000Z",
+          "text": "Shared agents, database side (YUI-95, step 2 of YUI-57; spec yuigui spec/AGENTS.md \"Shared agents\"). WIP: plugin + app proof follow.",
+          "url": "https://github.com/postscarcityai/yui/commit/48a7ea1"
+        },
         {
           "repo": "site",
           "sha": "bfe1da2",

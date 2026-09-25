@@ -185,7 +185,7 @@ Every agent has its own look, so you always know who you are talking to. While a
 
 ## Shared agents (YUI-57, draft)
 
-Status: step 1, the spec and a playground mock (`/playground?demo=client-invite`). Nothing below is migrated or built yet. Step 2 is the migration, the grant script with tests and a simulator proof.
+Status: built (YUI-95, Sep 25): the database, the grant script, the host checks and a first sign-in on the simulator. What differs from the draft below is under "As built" at the end of this section. The owner's invite plan and the client's "Shared by" settings sheet are still to come in the app.
 
 The goal: the owner invites a client, and the client opens Yui for the first time with the agents the owner picked already there, each in the look the owner picked, each with a first message waiting. No pairing, no host, nothing to set up on the client's side.
 
@@ -355,6 +355,23 @@ The client signs in with Apple, the invite is claimed, and the agent list is alr
 
 No Add agent button until the client asks for one; an invited account starts with what it was given. The client can mute a shared agent and move it; its settings sheet says "Shared by Sam" instead of rename and delete.
 
+### As built (YUI-95)
+
+App repo migration `supabase/migrations/20260925080000_yui_shared_agents.sql`, script `supabase/scripts/grant.py`, host `hermes-plugin/yui/sandbox.py`. Tests: `supabase/tests/shared_agents_test.py` (live), `hermes-plugin/tests/test_shared.py`, and `supabase/tests/shared_agents_e2e.py --sim <udid>` (the invitee signs in on the simulator, light and dark, then a revoke).
+
+What changed from the draft above:
+
+- **Who shared it.** Templates and grants carry `shared_by` (the name the client sees, "Sam"), set with `grant.py ... --by Sam`. Accounts hold no names of their own.
+- **Whose template.** `yui_invites.template_owner` names the owner when two accounts use the same template name; with one template of that name, the name is enough.
+- **A new, empty thread after a revoke.** Message policies read a granted thread only from the moment the live grant began (`yui_grant_since`), so a revoked thread stays hidden and a later grant starts empty. The rows are not deleted yet; the 30-day cleanup is a follow-up.
+- **The host's side of the test.** `yui_grant_serves(agent, user)` is the grant's start while the grant is live AND the agent is client-safe right now. A host whose sandbox breaks reads and writes only its owner's threads until it passes again.
+- **The list.** `yui_agent_list` gains `shared`, `shared_by`, `first_message` and `client_safe`. A granted row carries no `remote_ref`, connector name or commands, and reads `presence: "paused"` while the agent is not client-safe.
+- **The claim.** `yui_claim_invite` itself applies the template, so yui-auth needed no change: one grant per item whose agent is client-safe at that moment (an item that stopped passing is skipped, never a failed sign-in), then the first messages (`meta.first`).
+- **The messages trigger.** The composite foreign key became `yui_messages_agent_fk` (agent only) plus `yui_messages_owner`: the owner, or a live grant, else `agent_not_yours`. A shared thread takes no mentions and no group rows (`not_in_a_shared_thread`), and an agent's @s in it are dropped.
+- **The sandbox report.** Two more fields than the draft: `profile` (`own` unless it is the default profile) and `extra_keys` (how many keys in the profile's `.env` are not a model key; names only, never values). `memory` passes only as `off`: Hermes has no per-person memory yet, and it injects memory into every turn while enabled. `runner` is `cli-agent` for any model on this machine's loopback (the Claude Code shim is one), since the host cannot tell a local model server from a local agent. A gateway that serves a profile and sends no report clears the mark.
+- **One session per person.** The host's Hermes chat for a shared thread is `<agent id>~<user id>`; the owner's stays the agent id. Board and mention notes go only into the owner's turns.
+- **Mute and order.** `yui-agents` `update` on a shared agent changes the grant's `push_muted` and `sort`, and refuses rename, look, default and delete with `shared_agent` (403). `yui-push` notifies a granted client with their own mute.
+
 ## Default agent while testing
 
 Chris's account holds one agent: **Yui**, `remote_ref` `yui` (the Hermes profile at `~/.hermes/profiles/yui`), default, Yui's own mark as avatar, bound to the Mac mini's connector. Everything else Chris adds himself through the flows above.
@@ -363,4 +380,4 @@ Chris's account holds one agent: **Yui**, `remote_ref` `yui` (the Hermes profile
 
 - `http`, `mcp`, `hosted` connectors: the kinds exist, no host code yet.
 - Realtime push of registry changes; the app polls while the Agents sheet is open.
-- Shared agents (above): templates, grants, the client-safe check and revoke are specced, not built (YUI-57 step 2).
+- Shared agents in the app: the owner's invite plan, the "Hi Maya" header and the "Shared by" settings sheet. The data, the script and the host side are built (YUI-95).
