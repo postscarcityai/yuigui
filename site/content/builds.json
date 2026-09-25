@@ -628,6 +628,18 @@
     },
     {
       "text": "yui-mcp and Telegram vendor copies synced for lasting ids (YUI-75, yuigui d047831, 9b7399d): sync_yl.py, sync_mcp_app.py, adapters/telegram sync-vendor. yui-mcp deployed; mcp_test.py 105/105 live, Telegram 66/66."
+    },
+    {
+      "text": "Presets the phone can't draw go out as words (YUI-87, beta feedback ANJPrtB7CHynwGR5mqNVPSM on build 96: \"I don't know what happened here but something looks broken\"). Yui sent a `sketch` (frame=phone, row/after/row); build 96 predates sketch (104) and drew each line as a red \"unknown preset\" with the raw Yui Lines under it."
+    },
+    {
+      "text": "flywheel_report: run on the cron's Python 3.9 (future annotations)"
+    },
+    {
+      "text": "Agents fill the drawer (YUI-86, yuigui spec YL.md section 5, The drawer). A reply's `menu` lines draw nothing in the chat and fill three lists in the agent's drawer: `menu review` items sit under the thread's open asks in Review as cards (\"From Wizard\") and count on the menu button, `menu backlog` gets its own Backlog section on Home, and `menu shortcut` sits above the host's commands. A tap on a review or backlog item opens its `show=` screen on the stage or its `url=` in Safari, else goes back to the agent as `[yui] <id> menu bucket=... tapped` with the label as the person's reply; a shortcut sends its words, or with a `say=` ending in a space fills the composer. Hold any item for Remove. Kept per agent on the phone (AgentMenu, yui-menu-<agent>.json) and rebuilt from the thread like the shelf; older replies replayed on open are skipped."
+    },
+    {
+      "text": "Lines this build can't draw fold into one Update chip (YUI-87, beta feedback ANJPrtB7CHynwGR5mqNVPSM on build 96: a `sketch` drew as red \"unknown preset\" rows with the raw Yui Lines under them)."
     }
   ]
 }

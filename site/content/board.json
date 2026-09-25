@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T20:40:27.928Z",
+  "updated": "2026-09-25T21:10:02.840Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -9,11 +9,6 @@
         {
           "key": "YUI-14",
           "title": "Voice in, text out, smooth and fast"
-        },
-        {
-          "key": "YUI-33",
-          "title": "Agent tables on the phone",
-          "summary": "Create, upsert, query"
         },
         {
           "key": "YUI-34",
@@ -190,10 +185,9 @@
           "summary": "YL 'menu' word (review, backlog, shortcut) and the drawer's Backlog section"
         },
         {
-          "key": "YUI-58",
-          "title": "Yui for macOS, a matching desktop app [agent-ready]",
-          "summary": "Yui for macOS has a brief, open for contributors",
-          "progress": "/progress#yui-for-macos-has-a-brief-open-for-contributors"
+          "key": "YUI-33",
+          "title": "Agent tables on the phone",
+          "summary": "Create, upsert, query"
         }
       ]
     },
@@ -202,9 +196,32 @@
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "YUI-87",
+          "title": "Screens the phone's build can't draw arrive as words, not raw lines",
+          "summary": "Screens your Yui can't draw yet turn into words",
+          "shipped": "2026-09-25",
+          "progress": "/progress#screens-your-yui-can-t-draw-yet-turn-into-words"
+        },
+        {
+          "key": "YUI-88",
+          "title": "Cron failures never reach Chris, Yui handles them (Yui beta feedback)",
+          "summary": "Cron failures go to Yui, not to your chat",
+          "shipped": "2026-09-25",
+          "progress": "/progress#cron-failures-go-to-yui-not-to-your-chat"
+        },
+        {
+          "key": "YUI-58",
+          "title": "Yui for macOS, a matching desktop app [agent-ready]",
+          "summary": "Yui for macOS has a brief, open for contributors",
+          "shipped": "2026-09-25",
+          "progress": "/progress#yui-for-macos-has-a-brief-open-for-contributors"
+        },
+        {
           "key": "YUI-75",
           "title": "Ids on a page patch across replies, so the war room refreshes in place",
-          "shipped": "2026-09-25"
+          "summary": "Screens update in place instead of piling up",
+          "shipped": "2026-09-25",
+          "progress": "/progress#screens-update-in-place-instead-of-piling-up"
         },
         {
           "key": "FLOW-2",
