@@ -390,6 +390,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 **Money and platforms**
 
 - YUI-45: pay-as-you-go credits for images and hosted models.
+- YUI-58: Yui for macOS, a matching desktop app under the same App Store listing. The first card marked for Yui@home contributors.
 - YUI-46: Android, starting with a prototype that passes the shared test suite.
 
 **Open source and the site**
