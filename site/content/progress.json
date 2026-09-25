@@ -1,6 +1,21 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Copy any part of a message",
+    "body": "Chris wanted to copy just a piece of what his agent said, not the whole message. Now when you hold an agent's message, the menu has Select text under Copy. It opens the words on their own page, where you can read them but not type. Drag to pick the part you want and tap Copy, or tap Copy all. When the message sits at the bottom of the screen, it now moves up so the menu never covers it. Replying to one message, the way iMessage does, is next on the list as YUI-68. On main now, it goes out with the next TestFlight build.",
+    "images": [
+      {
+        "src": "/progress/select-text-menu.webp",
+        "alt": "A held message in dark mode, with the six reactions above it and Copy and Select text below it"
+      },
+      {
+        "src": "/progress/select-text-sheet.webp",
+        "alt": "The message open on its own page in light mode, with one word selected and the Copy menu showing"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Links in a card open Safari",
     "card": "YUI-67",
     "body": "Chris tapped Install on a card that was meant to open a web page. Instead the app sent the word Install back to the agent, and the agent answered with the same card again. Now a card with a link gets a small arrow on its button. Tapping it opens the page in Safari and sends nothing to the chat, so the agent never answers a tap that already did its job. Buttons without a link still answer the agent as before. We also checked that long install links survive whole: over 300 characters, with a fragment, encoded parts, & and =, even when they arrive one character at a time. On main now, it rides the next TestFlight build. No screenshot yet, the build entry will carry one."
