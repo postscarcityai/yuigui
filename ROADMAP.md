@@ -79,6 +79,7 @@ Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20
 - YUI-14: voice in, text out, fast.
 - YUI-62 (backlog): chat with a screen. Screens are full screen with no composer now; an agent will be able to keep the composer on a page, and what you type there reaches it tagged with that screen.
 - YUI-63 (backlog): one working row instead of three dots plus a timer. A working word and the seconds ("Pondering · 12s") first; later the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
+- YUI-64 (backlog): an agent that is paired but not listening says so. Presence per agent, not per machine; right after pairing the agent sheet shows the one step left (restart its gateway); a message to it says it will wait instead of a timer that counts forever. From Chris's R0SS feedback on build 61.
 - INT-3 onward: more agent frameworks, starting with a Yui MCP server (see Adapters below).
 - The phase backlog below, from YUI-33 on.
 
