@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T16:40:26.758Z",
+  "updated": "2026-09-25T17:10:31.151Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -133,12 +133,12 @@
           "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)"
         },
         {
-          "key": "INT-16",
-          "title": "Microsoft Agent Framework (AutoGen successor) adapter plus an AG-UI spike"
-        },
-        {
           "key": "INT-20",
           "title": "Hosted A2A, the INT-18 client in a Cloudflare Durable Object"
+        },
+        {
+          "key": "INT-21",
+          "title": "AG-UI client, Yui screens as frontend tools (Agent Framework, CopilotKit, Mastra and others)"
         },
         {
           "key": "BIZ-7",
@@ -238,6 +238,10 @@
         {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors"
+        },
+        {
+          "key": "INT-16",
+          "title": "Microsoft Agent Framework (AutoGen successor) adapter plus an AG-UI spike"
         }
       ]
     },
@@ -245,6 +249,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-81",
+          "title": "The build-ready deck reads like a changelog for people",
+          "summary": "A real title per page, plain words, nothing cut off",
+          "shipped": "2026-09-25"
+        },
         {
           "key": "INT-15",
           "title": "CrewAI adapter",
