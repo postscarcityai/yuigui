@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T15:40:33.090Z",
+  "updated": "2026-09-25T16:10:23.287Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -242,15 +242,6 @@
         {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors"
-        },
-        {
-          "key": "INT-17",
-          "title": "N8n adapter, MCP client plus a community node"
-        },
-        {
-          "key": "YUI-78",
-          "title": "The hold menu fits on tall messages",
-          "summary": "Reactions and Copy never overlap, premium chat polish"
         }
       ]
     },
@@ -258,6 +249,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-17",
+          "title": "N8n adapter, MCP client plus a community node",
+          "summary": "N8n workflows in Yui",
+          "shipped": "2026-09-25",
+          "progress": "/progress#n8n-workflows-in-yui"
+        },
+        {
+          "key": "YUI-78",
+          "title": "The hold menu fits on tall messages",
+          "summary": "The hold menu fits any message",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-hold-menu-fits-any-message"
+        },
         {
           "key": "YUI-76",
           "title": "Agent bubbles render basic markdown (bold, code, lists)",
