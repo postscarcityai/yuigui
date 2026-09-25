@@ -1,4 +1,4 @@
-# Yui | roadmap (draft 10, Sep 24 2026)
+# Yui | roadmap (draft 11, Sep 25 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
@@ -73,13 +73,24 @@ Up next:
 
 Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-42 (the preset flywheel: custom screens agents keep sending get flagged for promotion to presets, checklist in spec/FLYWHEEL.md), SITE-15 (Yui Lines back on the home page, and every spec doc readable on the site), SITE-16 (watch Yui grow: the whole GitHub history, builds and screenshots, day by day, at /timeline), INT-0 (the adapters plan), INT-1 (OpenClaw agents talk in Yui) and INT-2 (a webhook bridge for any agent that answers HTTP). More are done in the code and reach phones with the next build: YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions), YUI-53 (no dead buttons: a plan ends in Send, and the channel guide bans "Got it" buttons), YUI-51 (one full-screen flow holds the pages and the questions with one Send, and afterwards the chat keeps an expandable record and your answers as your own message), YUI-32 (named screens: an agent saves a screen, it sits on a shelf at the top of the thread, and `show busy day` or one tap brings it back), YUI-31 (three screens per agent: the chat plus screens 2 and 3 a swipe away, which keep what the agent puts there) and YUI-30 (the timer keeps counting on the lock screen). What is left to pull once the MVP passes, roughly in this order:
 
+Chris's picks for the short term (Sep 25), in this order. The site cards run alongside in their own lane:
+
 - YUI-54 (first, Chris Sep 24): the top-left menu becomes each agent's home. Your agents in a drop-up at the bottom left that springs open, and the rest of the menu about the agent you are talking to: pinned screens, things waiting for you, a page about it.
+- YUI-70 (with YUI-54, Chris Sep 25): agent controls in that drawer. Basic create, read, update and delete for what the agent is made of: its personality file, its memory, its skills, its schedules. Changes go straight to the agent's host with no chat turn in between, secrets never leave the host, and deletes ask first.
+- WAR-1, the war room, built out (Chris Sep 25: "to the fullest extent"): YUI-65 the timeline, YUI-73 the other panels (needs you, running now, builds, feedback, the MVP bar, quick links), YUI-66 drag to reorder.
+- YUI-68 (Chris Sep 25): reply to a message, and the gestures around it. Hold a bubble for reactions, Copy, Select text and Reply. Swipe a bubble left to reply. Drag the background to switch screens. The agent gets the quote with your answer. Copying any part of a message (Select text) shipped the same day from his TestFlight feedback.
+- SITE-29 (site, Chris Sep 25): the Build to earn proposal on /earn. Our position (ownership here is earned by work, never sold) and numbered open questions for a crypto lawyer. Page only; no token work.
+- SITE-30 (site, Chris Sep 25): Thoughts, Yui's blog. Epic releases, the reasons behind decisions, and open calls to agents that want to earn by sending pull requests. Screenshots, clips and live screens, not walls of text.
+
+Then:
+
 - YUI-61 (second): slash commands. Type / to see what your agent already understands (Hermes commands first); later, Yui's own /commands that run a skill or a flow.
 - YUI-44 step 1 (third): @mention another agent from the composer and its reply lands in the thread. Group threads come after.
 - YUI-14: voice in, text out, fast.
 - YUI-62 (backlog): chat with a screen. Screens are full screen with no composer now; an agent will be able to keep the composer on a page, and what you type there reaches it tagged with that screen.
 - YUI-63 (backlog): one working row instead of three dots plus a timer. A working word and the seconds ("Pondering · 12s") first; later the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
 - YUI-64 (backlog): an agent that is paired but not listening says so. Presence per agent, not per machine; right after pairing the agent sheet shows the one step left (restart its gateway); a message to it says it will wait instead of a timer that counts forever. From Chris's R0SS feedback on build 61.
+- YUI-69 (backlog): talk about a setting. Bring a piece of the agent (its personality, a memory, a skill) into the chat, the agent proposes the change as a before and after, one tap applies it. After YUI-70.
 - INT-3 onward: more agent frameworks, starting with a Yui MCP server (see Adapters below).
 - The phase backlog below, from YUI-33 on.
 
@@ -106,10 +117,14 @@ Work ships in epics: a set of cards that together make one release worth trying.
 
 - YUI-65 (backlog): a timeline preset: done above, now, queued below.
 - YUI-66 (backlog): reorder mode, drag to set priority on the board.
+- YUI-73 (next): the rest of the war room. Needs you (cards waiting on Chris, with one-tap answers), running now (one row per lane), builds with the Install button, the latest feedback and the card it became, the MVP bar, quick links.
 
 **Distant: EARN-1, build to earn.** Yui is built by whoever shows up, human or agent, and the work is what earns. No token sale: the only way in is brain power or compute that lands in Yui, a merged PR or TestFlight feedback that ships, rewarded by one mechanism. 10% of voting equity is set aside for the public pool, with more to follow. Humans first, and an open call to autonomous agents. Stories get sprinkled in; nothing mints or sells until counsel and Chris sign off (BIZ-10). Builds on Yui@home (SITE-24).
 
-- SITE-27 (pulled Sep 24): Build to earn, a V1 page on the site, marked draft.
+Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /earn; the token, chain, NFT and ledger cards stay frozen until then.
+
+- SITE-27 (shipped Sep 24): Build to earn, a V1 page on the site, marked draft.
+- SITE-29 (next): the proposal. Our position, the forms it could take (points plus equity, stock options or units for contributions, a community round kept separate), and open questions for counsel.
 - BIZ-8 (backlog): tokenomics v1: supply, emissions, how value holds.
 - BIZ-9 (backlog): the chain. Chris picked Sui on Sep 24; Polygon is the fallback.
 - BIZ-10 (backlog): legal review, token and equity.
@@ -368,7 +383,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-36: optional encrypted sync for agent tables, off by default.
 - OSS-6: Yui@home, the machinery. An agent-ready backlog exported from the board, a weekly routine prompt for Claude, Codex, Gemini, Cursor and Copilot, and pull requests reviewed before merge.
 - YUI-44: group threads, several agents in one conversation (its first step, @mentions, is in the list after the MVP).
-- YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP).
+- YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP). Build to earn: open to outside contributors.
 - YUI-59: game presets: tic-tac-toe, snake and a few basics, to get people imagining what else fits on the screen.
 - YUI-60: Yui Lines that describe a game (board, pieces, rules, win), so agents can make new ones. Spec first, after YUI-59.
 
@@ -415,7 +430,12 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 **Money and platforms**
 
 - YUI-45: pay-as-you-go credits for images and hosted models.
-- YUI-58: Yui for macOS, a matching desktop app under the same App Store listing. The first card marked for Yui@home contributors.
+- YUI-58: Yui for macOS, a matching desktop app under the same App Store listing. The first card marked for Yui@home contributors. Build to earn.
+- YUI-71: Yui in the browser, on the same relay with the web renderer. Build to earn. Watch, desktop and browser each translate Yui Lines where they must: what fits renders, the rest says "open on your iPhone".
+
+**Running Yui**
+
+- YUI-72: the admin console, scope first. Roles (owner, super user, admin, support, a client's own admin), what each can control (invites, accounts, default agents, the kill switch, feature flags, an audit log), and whether it lives on the web, in the app or both. Admins never read messages by default.
 - YUI-46: Android, starting with a prototype that passes the shared test suite.
 
 **Open source and the site**
