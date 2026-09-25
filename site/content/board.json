@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T11:10:08.164Z",
+  "updated": "2026-09-25T11:40:07.478Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -182,10 +182,6 @@
           "title": "N8n adapter, MCP client plus a community node"
         },
         {
-          "key": "INT-18",
-          "title": "A2A client, add any agent by its Agent Card"
-        },
-        {
           "key": "BIZ-7",
           "title": "Brand direction"
         },
@@ -281,14 +277,8 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "INT-6",
-          "title": "Research",
-          "summary": "Where the hosted connector will run",
-          "progress": "/progress#where-the-hosted-connector-will-run"
-        },
-        {
-          "key": "YUI-64",
-          "title": "An agent that is paired but not listening says so"
+          "key": "INT-18",
+          "title": "A2A client, add any agent by its Agent Card"
         }
       ]
     },
@@ -296,6 +286,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-64",
+          "title": "An agent that is paired but not listening says so",
+          "summary": "An agent that isn't listening yet says so",
+          "shipped": "2026-09-25",
+          "progress": "/progress#an-agent-that-isn-t-listening-yet-says-so"
+        },
+        {
+          "key": "INT-6",
+          "title": "Research",
+          "summary": "Where the hosted connector will run",
+          "shipped": "2026-09-25",
+          "progress": "/progress#where-the-hosted-connector-will-run"
+        },
         {
           "key": "YUI-63",
           "title": "One working row instead of dots plus a timer",
