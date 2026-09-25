@@ -98,6 +98,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** S for the connector, M for a listed app with a web-renderer MCP App.
 - **Depends on:** INT-3. A directory listing is public outreach, so Chris signs off first.
 - **Priority:** 3.
+- **Status:** the connector shipped Sep 25: add Yui in ChatGPT developer mode by its URL (`spec/MCP.md` "ChatGPT"), OAuth approved in the app, the screen drawn in the chat as the same MCP App. yui-mcp 0.3.0 adds ChatGPT's own metadata and the view falls back to `window.openai`. Checked in a ChatGPT-shaped test host; one look inside chatgpt.com is still to come. Not listed in the directory.
 
 ### Gemini | INT-9
 

@@ -11,6 +11,11 @@
 // the host to hand the line to the model with ui/message. When the host takes
 // the message, the row is written as handled, so yui_answers does not return
 // it a second time. When it refuses, yui_answers picks the tap up as usual.
+//
+// ChatGPT (INT-8) speaks the same bridge. It also puts window.openai in the
+// frame (its Apps SDK API, older than the bridge): when that is there, the
+// view reads the tool result and theme from it too, and when the bridge never
+// answers, taps go out with window.openai.callTool and sendFollowUpMessage.
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { apply, initialState, parse } from "../../site/lib/yl/yl.mjs";
@@ -137,8 +142,19 @@ function App() {
   const screenRef = useRef(null);
   screenRef.current = screen;
   const queue = useRef([]); // taps before the tool result named the screen
+  const bridge = useRef(false); // the host answered ui/initialize
 
   const theme = (ctx) => { if (ctx?.theme) setLight(ctx.theme === "light"); };
+
+  // A tool result, from the bridge or from window.openai.
+  const result = useCallback((sc, isError, content) => {
+    if (isError || !sc?.screen_id) {
+      setError(content?.find((c) => c.type === "text")?.text || "Yui did not take this screen.");
+      return;
+    }
+    if (typeof sc.lines === "string") setLines(sc.lines);
+    setScreen({ screen_id: sc.screen_id, agent: sc.agent || "Yui" });
+  }, []);
 
   const deliver = useCallback(async (ev) => {
     const s = screenRef.current;
@@ -147,16 +163,20 @@ function App() {
     if (!s) { queue.current.push(ev); return; }
     const line = eventLine(ev);
     setStatus({ text: `Sending: ${echo ?? line}` });
+    const oa = !bridge.current && window.openai?.callTool ? window.openai : null;
     let told = false;
     try {
-      const r = await request("ui/message", { role: "user", content: [{ type: "text", text: line }] });
-      told = !r?.isError;
+      if (oa) {
+        await oa.sendFollowUpMessage({ prompt: line });
+        told = true;
+      } else {
+        const r = await request("ui/message", { role: "user", content: [{ type: "text", text: line }] });
+        told = !r?.isError;
+      }
     } catch { /* host said no: the model reads it with yui_answers */ }
     try {
-      const r = await request("tools/call", {
-        name: "yui_tap",
-        arguments: { screen_id: s.screen_id, event: ev, echo: echo ?? undefined, told_model: told },
-      });
+      const args = { screen_id: s.screen_id, event: ev, echo: echo ?? undefined, told_model: told };
+      const r = oa ? await oa.callTool("yui_tap", args) : await request("tools/call", { name: "yui_tap", arguments: args });
       if (r?.isError) throw new Error(r.content?.[0]?.text || "refused");
       setStatus({ text: `Sent: ${echo ?? line}`, ok: true });
     } catch (e) {
@@ -168,15 +188,7 @@ function App() {
     on("ui/notifications/tool-input", (p) => {
       if (typeof p.arguments?.lines === "string") setLines((l) => l ?? unfence(p.arguments.lines));
     });
-    on("ui/notifications/tool-result", (p) => {
-      const sc = p.structuredContent;
-      if (p.isError || !sc?.screen_id) {
-        setError(p.content?.find((c) => c.type === "text")?.text || "Yui did not take this screen.");
-        return;
-      }
-      if (typeof sc.lines === "string") setLines(sc.lines);
-      setScreen({ screen_id: sc.screen_id, agent: sc.agent || "Yui" });
-    });
+    on("ui/notifications/tool-result", (p) => result(p.structuredContent, p.isError, p.content));
     on("ui/notifications/tool-cancelled", () => setError("The screen was cancelled."));
     on("ui/notifications/host-context-changed", theme);
     on("ui/resource-teardown", () => ({}));
@@ -184,10 +196,24 @@ function App() {
       appInfo: APP,
       appCapabilities: { availableDisplayModes: ["inline"] },
       protocolVersion: PROTOCOL,
-    }).then((r) => {
+    }, window.openai ? 5000 : 30000).then((r) => {
+      bridge.current = true;
       theme(r?.hostContext);
       notify("ui/notifications/initialized", {});
-    }).catch((e) => setError(`This host did not answer: ${e.message}`));
+    }).catch((e) => { if (!window.openai) setError(`This host did not answer: ${e.message}`); });
+
+    // ChatGPT's window.openai: the same tool input, result and theme.
+    const oa = window.openai;
+    if (!oa) return;
+    const globals = (g) => {
+      if (typeof g.toolInput?.lines === "string") setLines((l) => l ?? unfence(g.toolInput.lines));
+      if (g.toolOutput?.screen_id) result(g.toolOutput, false);
+      if (g.theme) setLight(g.theme === "light");
+    };
+    globals(oa);
+    const onGlobals = (e) => globals(e.detail?.globals ?? {});
+    window.addEventListener("openai:set_globals", onGlobals);
+    return () => window.removeEventListener("openai:set_globals", onGlobals);
   }, []);
 
   // Taps made before the screen id arrived go out once it does.
@@ -206,11 +232,23 @@ function App() {
       const r = document.getElementById("root").getBoundingClientRect();
       const size = { width: Math.ceil(r.width), height: Math.ceil(r.height) };
       const k = `${size.width}x${size.height}`;
-      if (k !== last) { last = k; notify("ui/notifications/size-changed", size); }
+      if (k !== last) {
+        last = k;
+        notify("ui/notifications/size-changed", size);
+        if (!bridge.current) window.openai?.notifyIntrinsicHeight?.(size.height);
+      }
     });
     ro.observe(document.getElementById("root"));
     return () => ro.disconnect();
   }, []);
+
+  // The frame's color scheme follows the host's theme: a dark scheme in a light
+  // chat paints an opaque dark canvas under the edges.
+  useEffect(() => {
+    const t = light ? "light" : "dark";
+    document.documentElement.dataset.theme = t;
+    document.documentElement.style.colorScheme = t;
+  }, [light]);
 
   const agent = screen?.agent || "Yui";
   return (

@@ -88,7 +88,7 @@ Then:
 - YUI-63 step 1 (done in the code Sep 25, rides the next build): one working row instead of three dots plus a timer, a working word and the seconds ("Pondering · 12s"). Step 2, later: the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
 - YUI-64 (backlog): an agent that is paired but not listening says so. Presence per agent, not per machine; right after pairing the agent sheet shows the one step left (restart its gateway); a message to it says it will wait instead of a timer that counts forever. From Chris's R0SS feedback on build 61.
 - YUI-69 (backlog): talk about a setting. Bring a piece of the agent (its personality, a memory, a skill) into the chat, the agent proposes the change as a before and after, one tap applies it. After YUI-70.
-- INT-19 onward: more agent frameworks. The Yui MCP server shipped Sep 25 (INT-3), with OAuth (INT-19) and Claude, screens in the chat included (INT-7); ChatGPT is next (see Adapters below).
+- INT-19 onward: more agent frameworks. The Yui MCP server shipped Sep 25 (INT-3), with OAuth (INT-19), Claude (INT-7) and ChatGPT (INT-8), screens in the chat included (see Adapters below).
 - The phase backlog below, from YUI-33 on.
 
 ## Epics
@@ -287,6 +287,7 @@ Deliverables:
 - DONE Sep 25, INT-3: the Yui MCP server. Claude Code, Cursor or any MCP client puts a screen on your phone and reads the taps back (`spec/MCP.md`).
 - DONE Sep 25, INT-19: OAuth for the MCP server. The Claude and ChatGPT apps add Yui by pasting one URL; you approve in the app. The approval sheet rides the next build.
 - DONE Sep 25, INT-7: Claude. A guide for Claude's apps, Claude Code and Agent SDK agents (`spec/MCP.md` "Claude"), and Yui screens drawn inside the chat as an MCP App, tappable there too. Checked in the MCP Apps reference host and with Claude Code on a Mac; one look inside claude.ai itself is still to come.
+- DONE Sep 25, INT-8: ChatGPT. Add Yui in ChatGPT developer mode by its URL (`spec/MCP.md` "ChatGPT"); the screen draws in the chat as the same MCP App. Checked in a ChatGPT-shaped test host, both of ChatGPT's ways of talking to an app; one look inside chatgpt.com itself is still to come. Not listed in ChatGPT's directory.
 - NOT STARTED, YUI-48: SMS channel (text a number, get a push that opens the screen).
 
 Dependencies: App Store submission sign-off from Chris.
@@ -414,7 +415,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-5: connect without installing anything, through a hosted connector.
 - INT-6: research Cloudflare's Agents SDK and "Flue" for the next relay.
 - INT-7 (done Sep 25): Claude, through the MCP server, and Yui screens drawn inside Claude as an MCP App.
-- INT-8: ChatGPT, the same way.
+- INT-8 (done Sep 25): ChatGPT, the same way, as a developer-mode connection.
 - INT-9: Gemini, as a model or as an A2A agent.
 - INT-10: Grok, as a model or calling the MCP server.
 - INT-11: Meta's Muse Spark, through the Meta Model API.

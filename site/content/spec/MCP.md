@@ -1,4 +1,4 @@
-# Yui MCP server | spec v3 (INT-3, OAuth INT-19, Claude + MCP App INT-7, Sep 25 2026)
+# Yui MCP server | spec v4 (INT-3, OAuth INT-19, Claude + MCP App INT-7, ChatGPT INT-8, Sep 25 2026)
 
 Path D of `spec/ADAPTERS.md`. The code lives in the app repo, [postscarcityai/yui `supabase/functions/yui-mcp`](https://github.com/postscarcityai/yui/tree/main/supabase/functions/yui-mcp); this page is what an MCP client needs.
 
@@ -73,6 +73,37 @@ for await (const m of query({
 ```
 
 An agent that runs as a service with its own HTTP endpoint can use the [webhook bridge](/developers/webhook) instead.
+
+## ChatGPT
+
+ChatGPT adds Yui the same way Claude does: one URL, OAuth, approved in the Yui app. It is your own connection in developer mode, visible only to you. Nothing here lists Yui in ChatGPT's app directory.
+
+### Add Yui in ChatGPT
+
+Needs an account whose plan and workspace allow developer mode. Do it on chatgpt.com in a browser.
+
+1. **Settings > Security and login**, turn on **Developer mode**.
+2. Open [chatgpt.com/plugins](https://chatgpt.com/plugins) and press **+**.
+3. Name **Yui**, description "Screens on my phone". Public endpoint, URL: `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp`. Authentication: OAuth. Create.
+4. ChatGPT opens www.yuigui.com/connect. Scan its QR with your iPhone (or type an Add agent code from the app) and tap **Allow** in Yui ([OAuth](#oauth) below). A new agent named ChatGPT shows up in Yui.
+5. Start a new chat, add Yui from the tools menu, and ask: "Ask me on my phone what we are having for lunch: Salad, Soup or Tacos."
+
+After Yui's server changes, open the connection at chatgpt.com/plugins and press **Refresh** so ChatGPT reads the new tool list.
+
+### What works
+
+- Everything Claude gets: `yui_show`, `yui_answers`, `yui_say`, `yui_threads`, the channel guide, taps back.
+- The screen draws in the chat too ([MCP App](#mcp-app)), and a tap there reaches ChatGPT as your next message, while the phone thread shows it as your reply.
+- ChatGPT shows a short status while a tool runs: "Putting it on your phone", then "On your phone".
+
+### What differs from Claude
+
+- **Developer mode only.** A listed app in ChatGPT's directory is a public submission with a review, and needs a fixed widget domain (`_meta.ui.domain`). That waits for Chris's sign-off.
+- **Confidential client.** ChatGPT registers itself with a client secret (`client_secret_post`) and comes back to `https://chatgpt.com/connector_platform_oauth_redirect`, or `https://chatgpt.com/connector/oauth/<id>` on older paths. Both register like any https callback. It sends `resource=` with the MCP URL on `/authorize` and `/token`, and Yui returns `iss` on the redirect.
+- **Discovery.** Yui's issuer sits under a path on Supabase's shared host, so the two root `.well-known` URLs answer 401. The MCP spec's third try, `{issuer}/.well-known/openid-configuration`, answers. If a client only tries the root, it cannot find Yui (the same thing Claude Code does cold, see above).
+- **Extra metadata.** ChatGPT reads the MCP Apps keys and, for its older paths, its own: `openai/outputTemplate` (same URI as `ui.resourceUri`), `openai/toolInvocation/invoking` and `invoked`, `securitySchemes` per tool (`oauth2`, scope `yui`, top level and in `_meta`), `openai/visibility: "private"` plus `openai/widgetAccessible: true` on `yui_tap`, and on the resource `openai/widgetCSP` (the same image domains, `connect_domains: []`), `openai/widgetDescription` and `openai/widgetPrefersBorder`. Other hosts ignore them.
+- **window.openai.** If the host never answers the MCP Apps bridge, the view falls back to ChatGPT's older `window.openai`: it reads `toolInput`, `toolOutput` and `theme`, and sends a tap with `sendFollowUpMessage` and `callTool("yui_tap")`.
+- **One agent per connection.** Like every OAuth client, ChatGPT talks as the one agent you picked when you allowed it.
 
 ## OAuth
 
@@ -158,7 +189,8 @@ Hosts that draw [MCP Apps](https://modelcontextprotocol.io/extensions/apps) (Cla
 - Its CSP loads images only from Yui's own storage and fal's CDN, and connects nowhere. KaTeX's fonts are left out, so math falls back to the system serif.
 - A tap goes back as the same event a phone tap sends. The view hands the host the line (`ui/message`, so the model reads `[yui] n1 choose choice=Soup` as the person's next message) and then calls the app-only tool `yui_tap`, which writes the event row into the thread: the same `[yui]` body, `meta` `{id, preset, value, echo, via: "mcp-app"}`. If the host took the message, the row is written handled, so `yui_answers` does not hand it over a second time. If the host refused it, `yui_answers` returns it like any tap.
 - `yui_tap` answers only for a component that is on that screen, in a thread the connection serves. Quiet events (a timer starting, a checklist tick) stay on the screen, as on the phone. The line and echo are worked out on the server from the event, never taken from the view.
-- Staged components (a timer, a deck) start as their pill in the chat, so a question on the same screen stays in view. Theme follows the host's light or dark.
+- Staged components (a timer, a deck) start as their pill in the chat, so a question on the same screen stays in view. Theme follows the host's light or dark, color scheme included.
+- ChatGPT reads the same resource through its own aliases too; see [What differs from Claude](#what-differs-from-claude).
 
 ## Limits and safety
 
@@ -169,10 +201,10 @@ Hosts that draw [MCP Apps](https://modelcontextprotocol.io/extensions/apps) (Cla
 
 ## Checks
 
-`python3 supabase/tests/mcp_test.py` in the app repo: 92 live checks on a throwaway account (auth, handshake, tools, a tap during a wait, once-only answers, scope, the rate limit, 15 for the MCP App, and 43 for OAuth: discovery, registration, PKCE and a wrong verifier, codes once, refresh rotation and reuse, deny, expiry, removing the computer, revoke). `supabase/tests/mcp_oauth_e2e.py --sim <udid>` runs the MCP TypeScript SDK's own OAuth client against the simulator: it registers, the app's sheet allows it, and it asks and gets a timer back. `supabase/tests/mcp_claude_e2e.py --sim <udid>` runs a real Claude Code against the simulator: it asks "Ready for a tabata?", the UI test taps Yes, and Claude puts up the timer. With `--oauth` it adds Yui the way the Claude section says (no header, `claude mcp get`, `claude mcp login`, approved with the Add agent code on the connect page). `supabase/tests/mcp_app_host_e2e.py` runs the MCP App in the MCP Apps reference host (modelcontextprotocol/ext-apps `examples/basic-host`) in dark and light: the host calls `yui_show`, draws `ui://yui/screen`, Playwright taps an option inside it, and the host gets the `[yui]` line while the thread gets the same event row. `mcp_test.py` checks the resource, the tool metadata and `yui_tap` too.
+`python3 supabase/tests/mcp_test.py` in the app repo: 105 live checks on a throwaway account (auth, handshake, tools, a tap during a wait, once-only answers, scope, the rate limit, 15 for the MCP App, 13 for ChatGPT's shape, and 43 for OAuth: discovery, registration, PKCE and a wrong verifier, codes once, refresh rotation and reuse, deny, expiry, removing the computer, revoke). `supabase/tests/mcp_oauth_e2e.py --sim <udid>` runs the MCP TypeScript SDK's own OAuth client against the simulator: it registers, the app's sheet allows it, and it asks and gets a timer back. `supabase/tests/mcp_claude_e2e.py --sim <udid>` runs a real Claude Code against the simulator: it asks "Ready for a tabata?", the UI test taps Yes, and Claude puts up the timer. With `--oauth` it adds Yui the way the Claude section says (no header, `claude mcp get`, `claude mcp login`, approved with the Add agent code on the connect page). `supabase/tests/mcp_app_host_e2e.py` runs the MCP App in the MCP Apps reference host (modelcontextprotocol/ext-apps `examples/basic-host`) in dark and light: the host calls `yui_show`, draws `ui://yui/screen`, Playwright taps an option inside it, and the host gets the `[yui]` line while the thread gets the same event row. `mcp_test.py` checks the resource, the tool metadata and `yui_tap` too. `supabase/tests/mcp_chatgpt_e2e.py` plays ChatGPT's side from OpenAI's Apps SDK docs: OAuth as ChatGPT does it (discovery in the MCP spec's order, registration with ChatGPT's callback and a secret, PKCE, `resource`, refresh), the model's tool list without `yui_tap`, the template through `openai/outputTemplate`, then a host page that frames it under a CSP built from `openai/widgetCSP`, once over the MCP Apps bridge and once with `window.openai` only, and taps it: 32 checks.
 
 ## Next
 
 - **Sign in with Apple on the connect page**, for when no iPhone with Yui is at hand.
-- **ChatGPT** (INT-8): the same connector and MCP App; a listed app in its directory needs Chris's sign-off.
+- **ChatGPT's directory**: not listed. A listed app is public and needs a fixed widget domain; Chris signs off first.
 - **Claude's directory**: not listed. Listing is public outreach, Chris signs off first.
