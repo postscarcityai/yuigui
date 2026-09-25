@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T17:40:41.354Z",
+  "updated": "2026-09-25T18:10:39.880Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -231,13 +231,14 @@
           "title": "Open backlog on GitHub for contributors"
         },
         {
-          "key": "INT-13",
-          "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)"
+          "key": "YUI-82",
+          "title": "Full-screen pages tell a story",
+          "summary": "Type-led, one idea per page, no card inside full screen, motion"
         },
         {
-          "key": "YUI-62",
-          "title": "Chat with a screen",
-          "summary": "An agent can keep the composer on a page"
+          "key": "YUI-83",
+          "title": "Draw, don't describe",
+          "summary": "A YL preset for little drawn windows with rows struck out and highlighted"
         }
       ]
     },
@@ -245,6 +246,26 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-33",
+          "title": "Yui's core values page, from Chris's feedback",
+          "summary": "Yui's values, written down",
+          "shipped": "2026-09-25",
+          "progress": "/progress#yui-s-values-written-down"
+        },
+        {
+          "key": "YUI-62",
+          "title": "Chat with a screen",
+          "shipped": "2026-09-25",
+          "progress": "/progress#chat-with-a-screen"
+        },
+        {
+          "key": "INT-13",
+          "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)",
+          "summary": "Flue agents in Yui",
+          "shipped": "2026-09-25",
+          "progress": "/progress#flue-agents-in-yui"
+        },
         {
           "key": "INT-16",
           "title": "Microsoft Agent Framework (AutoGen successor) adapter plus an AG-UI spike",
