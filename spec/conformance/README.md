@@ -43,6 +43,10 @@ One file per area, `NN-area.json`:
 
 - `typed`: `{screen, words, body}`, words typed on a screen (YL.md section 7). `typedBody(screen, words)` must give `body`, and `readTyped(body)` must give back `{screen, words}`, or nothing when the screen has no page. These vectors have an empty `input`.
 
+- `route`: `{answers, path, open, event}`, a flow's runtime (FLOWS.md, section 4): for these answers, `flowPath` of the input's flow gives `{path, open}` and `flowEvent` gives `event`.
+
+**JavaScript only for now: `js-NN-*.json`.** Flows (FLOWS.md) are parsed by the JavaScript parser only in step 1 (FLOW-1). Their vectors live in `js-26-flow.json`, which `run.mjs` reads and the Swift, Python, Kotlin and Rust runners skip (they read `NN-*.json`). When a parser learns flows, rename the file to `26-flow.json` and every runner picks it up.
+
 A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`, and (with `chunks`) the per-chunk emits match.
 
 ## Changing the suite

@@ -102,4 +102,4 @@ export function PlanRecord({ rec, onOpen }) {
   );
 }
 
-const NAMES = { timer: "Timer", camera: "Camera", mic: "Voice note", deck: "Deck", plan: "Plan", gallery: "Gallery" };
+const NAMES = { timer: "Timer", camera: "Camera", mic: "Voice note", deck: "Deck", plan: "Plan", flow: "Flow", gallery: "Gallery" };

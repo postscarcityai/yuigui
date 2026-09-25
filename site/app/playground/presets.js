@@ -11,6 +11,7 @@ import { LonePage, Project } from "./flows";
 import { LoneRow, Timeline } from "./timeline";
 import { LoneSketchRow, Sketch } from "./sketch";
 import { Game } from "./games";
+import { Flow } from "./flow";
 import { useLive } from "./stage";
 
 // Sample agent data tables, so `table meals` has something to bind to.
@@ -806,6 +807,7 @@ export function StepGroup({ nodes, emitFor }) {
 
 export function Render({ node, emit }) {
   if (node.preset === "custom") return <Custom spec={node.props.spec} emit={emit} />;
+  if (node.preset === "flow") return <Flow node={node} emit={emit} Render={Render} />;
   const C = MAP[node.preset];
   if (!C) return null;
   return <C p={resolve(node.preset, node.props)} emit={emit} />;

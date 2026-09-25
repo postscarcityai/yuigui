@@ -192,9 +192,9 @@ export function Deck({ g, emitFor, Render, index, onIndex, bare }) {
 // ---------- plan ----------
 
 // What each member's answer is, taken from the event it would have sent.
-const VALUE = { ask: "answer", choose: "choice", pick: "picked", slide: "value", form: "form", mic: "transcript", camera: "photo" };
-const question = (m) => { const p = m.props; return p.q || p.label || p.title || p.prompt || ""; };
-const show = (v) => (v == null ? "" : Array.isArray(v) ? v.join(", ") : typeof v === "object" ? Object.entries(v).map(([k, x]) => `${k}: ${x}`).join(", ") : String(v));
+export const VALUE = { ask: "answer", choose: "choice", pick: "picked", slide: "value", form: "form", mic: "transcript", camera: "photo" };
+export const question = (m) => { const p = m.props; return p.q || p.label || p.title || p.prompt || ""; };
+export const show = (v) => (v == null ? "" : Array.isArray(v) ? v.join(", ") : typeof v === "object" ? Object.entries(v).map(([k, x]) => `${k}: ${x}`).join(", ") : String(v));
 
 // The fold-back (YL.md, plan): what the person answered, as the message they
 // would have typed. One line per answered question, in step order.
@@ -305,7 +305,7 @@ export function Plan({ g, emitFor, Render }) {
   );
 }
 
-function Facts({ rows }) {
+export function Facts({ rows }) {
   return (
     <div className="yl-facts">
       {rows.map(([k, v], i) => <div key={i} className="yl-fact"><span>{k}</span><b>{v || "—"}</b></div>)}

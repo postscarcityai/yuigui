@@ -338,7 +338,10 @@ choose "Where is the mRNA read?" Nucleus|Cytoplasm|"The blood" answer=Cytoplasm 
 - **Folding back into the chat.** When the person submits, the flow leaves a record in the thread: (1) the plan's own spot becomes a summary chip, its title and what it held (`Build review · 2 pages, 2 answers`), which expands to the page titles and reopens the flow; (2) the answers land as the person's own message, as if they had typed them: one line per answered question, `<question>: <answer>`, in step order (no colon after a question that already ends in `?` or `:`, so `Launch before the holidays? No rush`). The answer text is what the step would have echoed on its own: a `choose` or `ask` option, a `pick` joined with `, `, a `slide` number, a `form` as `field: value` pairs joined with `, `, a `mic` transcript, `Photo` for a camera. Unanswered questions are left out; with none answered the message is `Sent`. The agent still gets exactly one event, the `{plan}` above; the text is for the person's history, not a second event.
 - `submit` [Send] labels the last button. `review=off` skips the review; the last answer submits.
 Props: `title`, `submit` [Send], `review` [on].
-Plan mode is the first workflow, and it is linear: every step shows, in line order. Saved, branching workflows come later (FLOW-1, see the roadmap).
+Plan mode is the first workflow, and it is linear: every step shows, in line order. A plan is a flow with no branches.
+
+#### flow
+`flow [title or name] [submit=] [review=off]`, then a Mermaid flowchart up to `end`: plan mode with branches. Each node carries one step (`%% kind: choose "What are we building?" Website|Shop`), edge labels are conditions on earlier answers (`kind -->|Shop| products`, `-->|budget>=15| meet`), Back walks the path taken and the review lists only the answered steps on it. One event at submit: `{flow: {id: answer, ...}, path: [...]}`, the same shape as `{plan}` plus the path. `flow website-intake` alone runs a saved flow by name. The head is an add; the flow's `end` gives one patch with the graph. Everything else is in its own spec: [FLOWS.md](FLOWS.md).
 ```
 plan@site "New website"
 choose@kind "What kind of site?" Portfolio|Shop|"Local business" +other

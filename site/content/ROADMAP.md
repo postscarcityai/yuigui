@@ -319,7 +319,7 @@ Simple first, flexible combinations always: layout and style are props, so a han
 
 - **Media (YUI-16):** gallery of images and videos with layouts feed, flat row, 3D row and grid; single video; before/after compare (slider, side by side, toggle) with highlights pointing at what changed; storyboards for videos, sites and posts with reorder and per-frame notes; image edit where you mark an area and say what to change.
 - **Data and science (YUI-17):** line, bar, area, scatter, pie charts, live from agent tables; big-number stats with sparklines; rendered equations; a formula tool whose sliders redraw a chart as you move them; step-by-step derivations and protocols.
-- **Learn and plan (YUI-18):** presentations built on any topic you want to understand, with generated images and a quiz at the end; workflows, starting with plan mode, a guided series of screens that ends in a project (saved, branching workflows authored in Mermaid come later, FLOW-1); narrated walkthroughs where the agent talks you through what changed, before and after, step by step.
+- **Learn and plan (YUI-18):** presentations built on any topic you want to understand, with generated images and a quiz at the end; workflows, starting with plan mode, a guided series of screens that ends in a project (saved, branching workflows authored in Mermaid: FLOW-1, step 1 on the web); narrated walkthroughs where the agent talks you through what changed, before and after, step by step.
 - **Media pipeline (YUI-21):** agents generate and send real images and videos into Yui; your photos go back to the agent.
 - **Native versions (YUI-19)** of all of the above.
 - **Games (YUI-59, built Sep 25; the app part shipped in build 74):** tic-tac-toe against the agent, snake and memory match, each one Yui Line (`game tictactoe`), playable on the phone, moves and scores coming back to the agent. Live in the web playground now. Later, Yui Lines that describe a whole new game instead of picking one (YUI-60, spec draft written, parked by Chris for later).
@@ -412,7 +412,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 **Flows**
 
-- FLOW-1: flows. A saved series of screens, written in Mermaid, that any agent can run: client intake, scoping a project, an investor deck. Agents can make variants. You manage your flows in the app.
+- FLOW-1: flows. A saved series of screens, written in Mermaid, that any agent can run: client intake, scoping a project, an investor deck. Agents can make variants. You manage your flows in the app. Step 1 done Sep 25: spec/FLOWS.md (steps on the nodes, conditions on the edges, one `{flow}` event with the path), the JavaScript parser and the web runtime, three starter flows in the playground (website intake, self-scoping, workout check-in). Next: the app runs flows, then My flows.
 - FLOW-2: a library of components and flows on yuigui.com that people browse and agents can search and "shop". Later, a store.
 
 **Other agents and channels**

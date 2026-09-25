@@ -1,3 +1,5 @@
+import { STARTER_FLOWS, flowLines } from "./starter-flows.mjs";
+
 // The 10 benchmark screens. The playground loads these too, so what is
 // measured is exactly what renders.
 export const SCREENS = [
@@ -369,7 +371,7 @@ step "Band pull-aparts" time=45s`,
   },
 ];
 
-// Decks, plans and walkthroughs (YUI-18). Each has a slug for /playground?demo=.
+// Decks, plans, flows and walkthroughs (YUI-18, FLOW-1). Each has a slug for /playground?demo=.
 export const FLOWS = [
   {
     slug: "deck-lesson",
@@ -554,5 +556,14 @@ game tictactoe "Beat me"`,
     name: "Game: memory match with your own words",
     agent: "Scout",
     yl: `game memory "Spanish animals" pairs=6 items=perro|gato|pájaro|pez|caballo|vaca`,
+  },
+  // Flows (FLOW-1): the starter flows, sent inline as Mermaid, then one run by name.
+  ...STARTER_FLOWS.map((f) => ({ slug: `flow-${f.name}`, name: `Flow: ${f.title.toLowerCase()}`, agent: f.agent, yl: flowLines(f) })),
+  {
+    slug: "flow-saved",
+    name: "Flow: a saved flow, run by name",
+    agent: "Scout",
+    yl: `say "New client? Let's get the brief."
+flow website-intake`,
   },
 ];

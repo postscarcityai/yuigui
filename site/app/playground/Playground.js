@@ -263,7 +263,7 @@ export default function Playground() {
             <optgroup label="Data and science">
               {SCIENCE.map((s, i) => <option key={s.name} value={SCREENS.length + DEMOS.length + MEDIA.length + i}>{s.name}</option>)}
             </optgroup>
-            <optgroup label="Decks, plans and walkthroughs">
+            <optgroup label="Decks, plans, flows and walkthroughs">
               {FLOWS.map((s, i) => <option key={s.name} value={SCREENS.length + DEMOS.length + MEDIA.length + SCIENCE.length + i}>{s.name}</option>)}
             </optgroup>
           </select>

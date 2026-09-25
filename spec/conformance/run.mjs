@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import { onStage, pageOf, parse, readTyped, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
+import { flowEvent, flowPath, onStage, pageOf, parse, readTyped, resolve, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 
 // Parser ops minus the fields that are not compared: `line` (the source
 // text) and an error's `message` (wording is up to each parser).
@@ -53,6 +53,17 @@ function check(v) {
     const want = pageOf(screen) === 1 ? null : { screen, words };
     if (!isDeepStrictEqual(read, want)) fails.push(["typed (read back)", read]);
   }
+  if (v.route) {
+    // A flow's route (spec/FLOWS.md): the path the answers take, the first
+    // open question, and the event at submit. Uses the input's first flow.
+    const patch = parse(v.input).find((o) => o.op === "patch");
+    const g = resolve("flow", patch ? patch.props : {});
+    const { answers, path, open, event } = v.route;
+    const got = flowPath(g, answers);
+    if (!isDeepStrictEqual(got, { path, open })) fails.push(["route (path, open)", got]);
+    const ev = flowEvent(g, answers);
+    if (!isDeepStrictEqual(ev, event)) fails.push(["route (event)", ev]);
+  }
   const hasError = v.expected.some((o) => o.op === "error");
   if (hasError !== (v.error === true)) fails.push(["vector: `error` flag does not match expected", v.error]);
   return fails;
@@ -60,7 +71,8 @@ function check(v) {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const dir = new URL(".", import.meta.url);
-  const files = readdirSync(dir).filter((f) => /^\d\d-.*\.json$/.test(f)).sort();
+  // js-NN-*.json: vectors only this parser runs yet (see README).
+  const files = readdirSync(dir).filter((f) => /^(js-)?\d\d-.*\.json$/.test(f)).sort((a, b) => a.replace(/^js-/, "").localeCompare(b.replace(/^js-/, "")));
   let pass = 0, fail = 0;
   for (const f of files) {
     const { vectors } = JSON.parse(readFileSync(new URL(f, dir), "utf8"));

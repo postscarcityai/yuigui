@@ -15,6 +15,9 @@
 //   { op: "close", screen: "full", line }     `close` or bare ">chat": close the stage, back to screen 1
 //   { op: "talk",  screen, props: { on }, line }  `>2 talk`: page 2 keeps the composer (`talk off` takes it away)
 //   { op: "error", screen, message, line }
+// A `flow` head is an add; the Mermaid lines after it are buffered and its
+// `end` (or the end of the input) gives one patch on the flow with the graph
+// (spec/FLOWS.md). Call finish() after the last line (parse and flush do).
 // `props` holds only what the line actually said. Defaults live in resolve().
 // An add that joins an open group (a page under a deck) also carries `in`,
 // the group's id.
@@ -27,7 +30,7 @@ export const PRESETS = [
   "deck", "page", "plan", "project", "narrate",
   "timeline", "done", "now", "next",
   "sketch", "row", "after",
-  "game",
+  "game", "flow",
 ];
 // Not presets, but valid line heads.
 export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk"];
@@ -379,6 +382,7 @@ const P = {
 
   deck(pos) { return P.calc(pos); },
   plan(pos) { return P.calc(pos); },
+  flow(pos) { return P.calc(pos); },
   narrate(pos) { return P.calc(pos); },
 
   // page title [body...] [URL]: the first URL is img, the first text token
@@ -607,6 +611,320 @@ export function parseArgs(preset, tokens) {
   return clean(normalize(preset, { ...base, ...flags, ...kv }));
 }
 
+// ---------- flows (spec/FLOWS.md) ----------
+// A flow is a Mermaid flowchart between `flow` and `end`. Each node can carry
+// one step (a YL line), in a `%% node: <line>` comment or as its label; edge
+// labels are conditions on earlier answers. Only the subset below is read;
+// any other Mermaid line (style, classDef, click...) is kept in `source` and
+// otherwise ignored, so the chart still renders anywhere Mermaid does.
+
+// Presets a flow step can be.
+export const FLOW_STEPS = ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera"];
+const FLOW_HEADER = /^(flowchart|graph)(\s|$)/;
+const FLOW_SKIP = /^(classDef|class|style|linkStyle|click|direction|accTitle|accDescr)(\s|:|$)/;
+const STEP_LINE = new RegExp(`^(${FLOW_STEPS.join("|")})(?=\\s|$)`);
+const NODE_ID = /^\w+/;
+// Node shapes, longest opener first. Each opener lists its closers.
+const SHAPES = [
+  ["(((", [")))"]], ["([", ["])"]], ["[[", ["]]"]], ["[(", [")]"]], ["((", ["))"]], ["{{", ["}}"]],
+  ["[/", ["/]", "\\]"]], ["[\\", ["\\]", "/]"]], ["[", ["]"]], ["(", [")"]], ["{", ["}"]], [">", ["]"]],
+];
+// Links: `-- text -->` first, then plain arrows with an optional |label|.
+const TEXT_LINK = /^\s*<?(?:--|==|-\.)(?![->=.])\s*(.*?)\s*(?:-{2,}>|={2,}>|\.-+>|-{3,}|={3,}|\.-+)(?=[\s\w])/;
+const LINK = /^\s*(<?)(-{2,}>|-{3,}|={2,}>|={3,}|-\.+->|-\.+-|--[ox]|==[ox]|~{3,})/;
+const PIPE = /^\s*\|([^|]*)\|/;
+
+function newFlow(head, header) {
+  return { id: head.id, screen: head.screen, src: [...head.pre, header], depth: 0, dir: (header.trim().split(/\s+/)[1] || "TD").toUpperCase(), nodes: new Map(), edges: [], steps: new Map() };
+}
+
+// Mermaid label text: quotes, markdown backticks, entity codes and <br> undone.
+function unlabel(s) {
+  let t = s.trim();
+  if (/^".*"$/s.test(t)) t = t.slice(1, -1);
+  if (/^`.*`$/s.test(t)) t = t.slice(1, -1);
+  return t.replace(/<br\s*\/?>/gi, " ")
+    .replace(/#(quot|amp|lt|gt|nbsp|35);/g, (_, k) => ({ quot: '"', amp: "&", lt: "<", gt: ">", nbsp: " ", 35: "#" })[k])
+    .replace(/#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+    .trim();
+}
+
+// A step from a YL line, or null when the line is not a flow step.
+function stepOf(text) {
+  const m = text.match(STEP_LINE);
+  if (!m) return null;
+  return { preset: m[1], props: parseArgs(m[1], tokenize(text.slice(m[0].length))) };
+}
+
+// Splits a Mermaid line on ";" outside quotes and brackets.
+function statements(line) {
+  const out = [];
+  let cur = "", q = false, depth = 0;
+  for (const c of line) {
+    if (c === '"') q = !q;
+    else if (!q && "[({".includes(c)) depth++;
+    else if (!q && "])}".includes(c)) depth = Math.max(0, depth - 1);
+    if (c === ";" && !q && !depth) { out.push(cur); cur = ""; } else cur += c;
+  }
+  out.push(cur);
+  return out.map((x) => x.trim()).filter(Boolean);
+}
+
+// Reads one node at the start of `s`: id, then an optional shape with a label.
+// Returns { id, label?, rest } or null.
+function readNode(s) {
+  const m = s.match(NODE_ID);
+  if (!m) return null;
+  let rest = s.slice(m[0].length);
+  const node = { id: m[0] };
+  const shape = SHAPES.find(([open]) => rest.startsWith(open));
+  if (shape) {
+    const [open, closers] = shape;
+    let body = rest.slice(open.length);
+    let end = -1, len = 0;
+    const from = body.trimStart().startsWith('"') ? body.indexOf('"', body.indexOf('"') + 1) + 1 : 0;
+    for (const c of closers) {
+      const i = body.indexOf(c, Math.max(0, from));
+      if (i >= 0 && (end < 0 || i < end)) { end = i; len = c.length; }
+    }
+    if (end < 0) return null;
+    node.label = unlabel(body.slice(0, end));
+    rest = body.slice(end + len);
+  }
+  rest = rest.replace(/^:::\w+/, "");
+  return { ...node, rest };
+}
+
+// A node, or several joined with "&".
+function readNodes(s) {
+  const out = [];
+  let rest = s.trimStart();
+  for (;;) {
+    const n = readNode(rest);
+    if (!n) return out.length ? { nodes: out, rest } : null;
+    out.push(n);
+    rest = n.rest;
+    const amp = rest.match(/^\s*&\s*/);
+    if (!amp) return { nodes: out, rest };
+    rest = rest.slice(amp[0].length);
+  }
+}
+
+function addNode(f, n) {
+  const had = f.nodes.get(n.id);
+  if (!had) f.nodes.set(n.id, { id: n.id, ...(n.label !== undefined ? { label: n.label } : {}), order: f.nodes.size });
+  else if (n.label !== undefined) had.label = n.label;
+}
+
+// One Mermaid line of an open flow. Returns an error message or null.
+function flowStatement(f, t) {
+  if (!t) return null;
+  if (t.startsWith("%%")) {
+    if (t.startsWith("%%{")) return null; // a directive
+    const m = t.match(/^%%\s*(\w+)\s*:\s*(.*)$/);
+    if (!m) return null;
+    const head = m[2].match(/^([a-z]+)(?=\s|$)/);
+    if (head && PRESETS.includes(head[1]) && !FLOW_STEPS.includes(head[1])) return `flow: a ${head[1]} cannot be a step (${FLOW_STEPS.join(", ")})`;
+    const step = stepOf(m[2]);
+    if (step) f.steps.set(m[1], step);
+    return null;
+  }
+  if (/^subgraph(\s|$)/.test(t)) { f.depth++; return null; }
+  if (FLOW_SKIP.test(t) || FLOW_HEADER.test(t)) return null;
+  for (const st of statements(t)) {
+    let g = readNodes(st);
+    if (!g) continue;
+    g.nodes.forEach((n) => addNode(f, n));
+    for (;;) {
+      let rest = g.rest, label, hidden = false;
+      const tl = rest.match(TEXT_LINK);
+      if (tl) { label = tl[1]; rest = rest.slice(tl[0].length); }
+      else {
+        const l = rest.match(LINK);
+        if (!l) break;
+        hidden = l[2].startsWith("~");
+        rest = rest.slice(l[0].length);
+        const p = rest.match(PIPE);
+        if (p) { label = p[1]; rest = rest.slice(p[0].length); }
+      }
+      const to = readNodes(rest);
+      if (!to) break;
+      to.nodes.forEach((n) => addNode(f, n));
+      if (!hidden) {
+        for (const a of g.nodes) for (const b of to.nodes) {
+          const e = { from: a.id, to: b.id };
+          const text = label === undefined ? "" : unlabel(label);
+          if (text) e.label = text;
+          f.edges.push(e);
+        }
+      }
+      g = to;
+    }
+  }
+  return null;
+}
+
+// Splits on a word (" or ") outside double quotes.
+function splitWord(t, word) {
+  const out = [];
+  const re = new RegExp(`^\\s+${word}\\s+`, "i");
+  let cur = "", q = false;
+  for (let i = 0; i < t.length; i++) {
+    if (t[i] === '"') q = !q;
+    const m = !q && /\s/.test(t[i]) && t.slice(i).match(re);
+    if (m) { out.push(cur); cur = ""; i += m[0].length - 1; continue; }
+    cur += t[i];
+  }
+  out.push(cur);
+  return out;
+}
+
+// Edge label -> condition: a list of alternatives ("or"), each a list of
+// clauses that must all hold ("and"). null for a default edge.
+const CLAUSE = /^([A-Za-z_]\w*(?:\.[\w-]+)*)\s*(>=|<=|!=|=|>|<|~)\s*(.*)$/;
+export function flowWhen(label, from) {
+  const t = (label || "").trim();
+  if (!t || /^(else|default|otherwise)$/i.test(t)) return null;
+  return splitWord(t, "or").map((alt) => splitWord(alt, "and").map((c) => {
+    const m = c.trim().match(CLAUSE);
+    const raw = m ? m[3].trim() : c.trim();
+    const v = /^".*"$/.test(raw) ? raw.slice(1, -1) : NUM.test(raw) ? Number(raw) : raw;
+    if (m) return { path: m[1], op: m[2], value: v };
+    // A bare label ("Shop", "yes") is the answer of the step it leaves.
+    return from ? { path: from, op: "=", value: v } : { op: "=", value: v };
+  }));
+}
+
+// The graph a flow's end patches onto it.
+function flowGraph(f) {
+  const nodes = [...f.nodes.values()].map(({ order, ...n }) => {
+    const said = f.steps.get(n.id);
+    const step = said || (n.label !== undefined ? stepOf(n.label) : null);
+    if (!step) return n;
+    // A label that is the step's own line is not kept twice.
+    const { label, ...rest } = n;
+    return { ...(said ? n : rest), preset: step.preset, props: step.props };
+  });
+  const isStep = new Set(nodes.filter((n) => n.preset).map((n) => n.id));
+  const into = new Set(f.edges.map((e) => e.to));
+  const start = (nodes.find((n) => !into.has(n.id)) || nodes[0] || {}).id;
+  const edges = f.edges.map((e) => {
+    const when = flowWhen(e.label, isStep.has(e.from) ? e.from : null);
+    return when ? { ...e, when } : e;
+  });
+  return clean({ dir: f.dir, start, nodes, edges, source: f.src.join("\n") });
+}
+
+// ---------- flow runtime ----------
+// Pure helpers the renderers share: where Next goes, the path taken, and
+// what goes in the event. `g` is a flow's props (resolve("flow", props)).
+
+const isQuestion = (n) => n && n.preset && n.preset !== "page";
+const low = (v) => (typeof v === "boolean" ? (v ? "yes" : "no") : String(v).trim().toLowerCase());
+function num(v) {
+  if (typeof v === "number") return v;
+  if (typeof v === "string" && NUM.test(v.trim())) return Number(v.trim());
+  return null;
+}
+
+// One clause against the answers. `last` is the question answered before a
+// step-less node, for bare labels on its edges.
+function clauseHolds(c, answers, last) {
+  const parts = c.path ? c.path.split(".") : [last];
+  let v = answers[parts[0]];
+  for (const k of parts.slice(1)) v = v && typeof v === "object" ? v[k] : undefined;
+  if (v === undefined || v === null || parts[0] == null) return c.op === "!=";
+  const want = c.value;
+  if (Array.isArray(v)) {
+    const has = v.some((x) => low(x) === low(want));
+    if (c.op === "=" || c.op === "~") return has;
+    if (c.op === "!=") return !has;
+    v = v.length;
+  }
+  const a = num(v), b = num(want);
+  switch (c.op) {
+    case "=": return a !== null && b !== null ? a === b : low(v) === low(want);
+    case "!=": return a !== null && b !== null ? a !== b : low(v) !== low(want);
+    case "~": return low(v).includes(low(want));
+    default:
+      if (a === null || b === null) return false;
+      return c.op === ">" ? a > b : c.op === ">=" ? a >= b : c.op === "<" ? a < b : a <= b;
+  }
+}
+export function flowTest(when, answers, last) {
+  return !when || when.some((alt) => alt.every((c) => clauseHolds(c, answers, last)));
+}
+
+const nodeOf = (g, id) => (g.nodes || []).find((n) => n.id === id);
+
+// The edge taken out of `from`: the first labelled edge that holds, else the
+// first default edge. With `guess`, a question with no answer yet still takes
+// a labelled edge that earlier answers already decide, else the default (or
+// its first edge), to estimate what is left.
+function edgeOut(g, answers, from, last, guess) {
+  const out = (g.edges || []).filter((e) => e.from === from);
+  const unknown = guess && isQuestion(nodeOf(g, from)) && answers[from] === undefined;
+  const hit = out.find((e) => e.when && flowTest(e.when, answers, last));
+  if (hit) return hit;
+  return out.find((e) => !e.when) || (unknown ? out[0] : null) || null;
+}
+
+// The next step after `from`, passing through nodes with no step. null: the
+// flow ends (the review comes next).
+export function flowNext(g, answers, from, guess = false) {
+  const seen = new Set([from]);
+  let last = isQuestion(nodeOf(g, from)) ? from : null;
+  let at = from;
+  for (;;) {
+    const e = edgeOut(g, answers, at, last, guess);
+    if (!e || seen.has(e.to)) return null;
+    const n = nodeOf(g, e.to);
+    if (!n) return null;
+    if (n.preset) return n.id;
+    seen.add(n.id);
+    at = n.id;
+  }
+}
+
+// The first step: the start node, or the first step after it.
+export function flowFirst(g) {
+  const s = nodeOf(g, g.start);
+  if (!s) return null;
+  return s.preset ? s.id : flowNext(g, {}, s.id);
+}
+
+// The path the answers take from the start: step ids in order. It stops at
+// the first question with no answer (`open`, not in the path) or at the end
+// (`open` null). A step already on the path ends it: flows do not loop.
+export function flowPath(g, answers) {
+  const path = [];
+  let at = flowFirst(g);
+  while (at && !path.includes(at)) {
+    if (isQuestion(nodeOf(g, at)) && answers[at] === undefined) return { path, open: at };
+    path.push(at);
+    at = flowNext(g, answers, at);
+  }
+  return { path, open: null };
+}
+
+// The steps still ahead of `from` (not counting it), guessing at branches
+// not answered yet. For the progress bar.
+export function flowAhead(g, answers, from) {
+  const out = [];
+  let at = from && flowNext(g, answers, from, true);
+  while (at && !out.includes(at) && at !== from) { out.push(at); at = flowNext(g, answers, at, true); }
+  return out;
+}
+
+// What a flow sends at submit: the answers of the questions on the path,
+// keyed by step id, and the path itself (pages included).
+export function flowEvent(g, answers) {
+  const { path } = flowPath(g, answers);
+  const flow = {};
+  for (const id of path) if (isQuestion(nodeOf(g, id)) && answers[id] !== undefined) flow[id] = answers[id];
+  return { flow, path };
+}
+
 // ---------- line parser ----------
 
 // Stateful: remembers the focused screen and which preset each id belongs to,
@@ -617,6 +935,8 @@ export class Parser {
     this.ids = new Map(); // id -> preset
     this.auto = 0;
     this.open = []; // open groups, innermost last: { id, preset, screen }
+    this.flowHead = null; // a flow head just added: { id, screen }
+    this.flow = null; // an open flow's Mermaid, being read
   }
 
   // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
@@ -638,7 +958,50 @@ export class Parser {
     return out;
   }
 
-  line(src) { return this.group(this.parseLine(src)); }
+  line(src) {
+    if (this.flow) return this.flowLine(src);
+    if (this.flowHead) {
+      // The line after a flow head decides: a Mermaid header starts the
+      // chart (inline flow), anything else leaves it a saved flow by name.
+      const t = src.trim();
+      if (!t || /^#(\s|$)/.test(t)) return null;
+      // Mermaid comments may come before the header.
+      if (t.startsWith("%%")) { this.flowHead.pre.push(src.replace(/\r$/, "")); return null; }
+      const h = this.flowHead;
+      this.flowHead = null;
+      if (FLOW_HEADER.test(t)) { this.flow = newFlow(h, src.replace(/\r$/, "")); return null; }
+    }
+    const op = this.group(this.parseLine(src));
+    if (op && op.op === "add" && op.preset === "flow") this.flowHead = { id: op.id, screen: op.screen, pre: [] };
+    return op;
+  }
+
+  // Ends the input: an open flow gives its graph now.
+  finish() {
+    this.flowHead = null;
+    return this.flow ? this.flowDone("") : null;
+  }
+
+  // One line of an open flow: Mermaid, not YL. `end` closes a subgraph
+  // first, then the flow.
+  flowLine(src) {
+    const f = this.flow;
+    const line = src.replace(/\r$/, "");
+    const t = line.trim();
+    if (/^end\s*;?$/.test(t)) {
+      if (f.depth > 0) { f.depth--; f.src.push(line); return null; }
+      return this.flowDone(line);
+    }
+    f.src.push(line);
+    const err = flowStatement(f, t);
+    return err ? { op: "error", screen: f.screen, message: err, line } : null;
+  }
+
+  flowDone(line) {
+    const f = this.flow;
+    this.flow = null;
+    return { op: "patch", screen: f.screen, target: f.id, props: flowGraph(f), line };
+  }
 
   parseLine(src) {
     const line = src.replace(/\r$/, "");
@@ -727,7 +1090,9 @@ export class Parser {
 // Parse a whole document at once.
 export function parse(text) {
   const p = new Parser();
-  return text.split("\n").map((l) => p.line(l)).filter(Boolean);
+  const ops = text.split("\n").map((l) => p.line(l));
+  ops.push(p.finish());
+  return ops.filter(Boolean);
 }
 
 // Streaming: feed chunks as they arrive, get ops for every completed line.
@@ -749,14 +1114,14 @@ export class StreamParser {
     const rest = this.buf;
     this.buf = "";
     const op = rest.trim() ? this.p.line(rest) : null;
-    return op ? [op] : [];
+    return [op, this.p.finish()].filter(Boolean);
   }
 }
 
 // ---------- the stage ----------
 // The stage is a full-screen layer over the chat (spec section 5, The stage).
 // These presets open there unless they say +inline.
-export const STAGE = ["timer", "camera", "mic", "deck", "plan", "game"];
+export const STAGE = ["timer", "camera", "mic", "deck", "plan", "game", "flow"];
 
 // A timer with rounds or rest. Workouts always open on the stage.
 export function isWorkout(preset, props = {}) {
@@ -870,6 +1235,7 @@ export function resolve(preset, props) {
     case "page":
       return { title: "", body: "", points: [], notes: "", ...p };
     case "plan":
+    case "flow":
       return { title: "", submit: "Send", review: true, ...p };
     case "project":
       return { title: "", body: "", facts: [], next: [], status: "", ...p, cta: p.cta ?? (p.open ? "Open" : "") };
