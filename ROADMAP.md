@@ -322,7 +322,7 @@ Simple first, flexible combinations always: layout and style are props, so a han
 - **Learn and plan (YUI-18):** presentations built on any topic you want to understand, with generated images and a quiz at the end; workflows, starting with plan mode, a guided series of screens that ends in a project (saved, branching workflows authored in Mermaid come later, FLOW-1); narrated walkthroughs where the agent talks you through what changed, before and after, step by step.
 - **Media pipeline (YUI-21):** agents generate and send real images and videos into Yui; your photos go back to the agent.
 - **Native versions (YUI-19)** of all of the above.
-- **Games (YUI-59, built Sep 25; the app part shipped in build 74):** tic-tac-toe against the agent, snake and memory match, each one Yui Line (`game tictactoe`), playable on the phone, moves and scores coming back to the agent. Live in the web playground now. Later, Yui Lines that describe a whole new game instead of picking one (YUI-60, spec draft written, waiting on a pick).
+- **Games (YUI-59, built Sep 25; the app part shipped in build 74):** tic-tac-toe against the agent, snake and memory match, each one Yui Line (`game tictactoe`), playable on the phone, moves and scores coming back to the agent. Live in the web playground now. Later, Yui Lines that describe a whole new game instead of picking one (YUI-60, spec draft written, parked by Chris for later).
 - **Drawings (YUI-83, web and spec shipped Sep 25; TestFlight feedback, Chris: "draw a little window that has certain things crossed out and other things highlighted"):** `sketch` draws a small window, phone or chat bubble with rows struck out, highlighted or called out with an arrow, and an optional before and after, so an agent shows a change instead of describing it. No image to generate, no screenshot. Live in the web playground and the MCP App; the native view is next.
 
 ### Every agent looks like itself (YUI-20)
@@ -395,7 +395,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - OSS-6: Yui@home, the machinery. An agent-ready backlog exported from the board, a weekly routine prompt for Claude, Codex, Gemini, Cursor and Copilot, and pull requests reviewed before merge.
 - YUI-77: group threads, several agents in one conversation (split from YUI-44; its first step, @mentions, is done).
 - YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP). Build to earn: open to outside contributors.
-- YUI-60: Yui Lines that describe a game (board, pieces, rules, win), so agents can make new ones. The spec draft is written ([Games](/developers/games): a board kit, three sample games, what Apple's rules allow) and waits for Chris's pick before any build.
+- YUI-60: Yui Lines that describe a game (board, pieces, rules, win), so agents can make new ones. The spec draft is written ([Games](/developers/games): a board kit, three sample games, what Apple's rules allow). Parked by Chris on Sep 25: no build until he picks it back up.
 
 **People with no agent yet**
 

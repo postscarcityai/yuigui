@@ -1,6 +1,6 @@
 # Games in Yui Lines (draft)
 
-**Draft. Nothing here is built.** It proposes how an agent could describe a whole new game in Yui Lines, and waits for a pick before any parser or app work starts. The fixed games that ship today (`game tictactoe`, `snake`, `memory`) are in the YL spec, section 4, game.
+**Draft. Nothing here is built.** It proposes how an agent could describe a whole new game in Yui Lines. Chris parked it on Sep 25, 2026: no parser or app work until he picks it back up. The fixed games that ship today (`game tictactoe`, `snake`, `memory`) are in the YL spec, section 4, game.
 
 The question: how can an agent define a new game (board, pieces, rules, how you win, timing) in lines, without sending code, and without giving up the core bet that the app draws presets and settings, not generated UI?
 
