@@ -60,11 +60,11 @@ Shipped:
 - YUI-52: build 57 on TestFlight with every fix from the Sep 24 feedback, each one checked again on that build: the composer clears, the gallery closes, photos stop overlapping (tall screenshots too), a working note on long answers, a natural voice, more colors, photos and hold-to-talk in the composer.
 - YUI-22: the public TestFlight link. Apple approved the beta on Sep 24: [https://testflight.apple.com/join/ykrYHwet](https://testflight.apple.com/join/ykrYHwet).
 - YUI-50: chat polish. The composer clears when you send, your text floats up into its bubble, and a down arrow takes you back to the newest message. Shipped in build 57.
+- YUI-74 (shipped Sep 25, in build 91): after sending a photo and dragging the keyboard away, check the thread settles on the newest message and nothing sits under the page pill.
 
 Up next, the last MVP card:
 
 - YUI-29: the acceptance run. A stranger does the whole path.
-- YUI-74 (backlog): after sending a photo and dragging the keyboard away, check the thread settles on the newest message and nothing sits under the page pill.
 
 ### Next after the MVP
 
@@ -83,8 +83,8 @@ Then:
 
 - YUI-61 (second, shipped in build 82): slash commands. Type / to see what your agent already understands (Hermes commands first); later, Yui's own /commands that run a skill or a flow.
 - YUI-44 step 1 (third, shipped in build 82): @mention another agent from the composer and its reply lands in the thread in its own look. Group threads come after.
-- YUI-80 (backlog, TestFlight feedback Sep 25, Chris: "the whole app shrinks and has a border... I can't undo it"): the chat never gets stuck stepped back. The shrink is the full-screen stage stepping the chat back; it will only happen while a stage is really on screen, and a tap on the chat always brings it back. Lands before YUI-54 reworks that top-left button.
-- YUI-79 (shipped Sep 25, app part in the next build; TestFlight feedback, Chris: "the whole reason of this app is I don't want these text bombs"): no text bombs. Board reports and long agent answers arrive as one line and a card, with the detail as pages you swipe through. The channel guide caps chat text, and the app folds any long message into pages instead of a wall.
+- YUI-80 (shipped Sep 25, in build 91; TestFlight feedback Sep 25, Chris: "the whole app shrinks and has a border... I can't undo it"): the chat never gets stuck stepped back. The shrink is the full-screen stage stepping the chat back; it will only happen while a stage is really on screen, and a tap on the chat always brings it back. Lands before YUI-54 reworks that top-left button.
+- YUI-79 (shipped Sep 25, app part in build 91; TestFlight feedback, Chris: "the whole reason of this app is I don't want these text bombs"): no text bombs. Board reports and long agent answers arrive as one line and a card, with the detail as pages you swipe through. The channel guide caps chat text, and the app folds any long message into pages instead of a wall.
 - YUI-78 (backlog, TestFlight feedback Sep 25): the hold menu fits on long messages. A tall message lifts as a shortened preview, the reactions stay above it and Reply, Copy and Select text below, never on top of each other. Part of making chat feel premium, next to YUI-76 (agent bubbles show bold, code and lists instead of raw ** marks).
 - YUI-14: voice in, text out, fast.
 - YUI-62 (backlog): chat with a screen. Screens are full screen with no composer now; an agent will be able to keep the composer on a page, and what you type there reaches it tagged with that screen.
@@ -133,9 +133,9 @@ Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /ear
 - SITE-28 (backlog): "How can I help?" around the site, and an open call to agents.
 - BIZ-12 (backlog): build to earn in the go-to-market plan and the pitch.
 
-**Latest release: build 82, Sep 25: slash commands (YUI-61), @mentions of your other agents (YUI-44 step 1), one working row (YUI-63), agents that say when they are not listening yet (YUI-64) and the approval sheet for Claude and ChatGPT (INT-19).** Build 74 (Sep 25) brought the war room (WAR-1), replies, select text and links that open Safari. Build 57 (Sep 24) was the big one, chat feels right: the lock screen timer (YUI-30), screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51), no dead buttons (YUI-53), and every Sep 24 feedback fix checked again (YUI-52). Build 61 fixed a crash in hold to talk and brought invites (YUI-56) and test builds by link (YUI-55). Build 64 made hold to talk work like WhatsApp and gave screens 2 to 12 the whole phone.
+**Latest release: build 91, Sep 25: no text bombs, long answers fold to pages (YUI-79), the chat never gets stuck shrunk (YUI-80) and the thread rests on a photo you just sent (YUI-74).** Build 82 (Sep 25) brought slash commands (YUI-61), @mentions of your other agents (YUI-44 step 1), one working row (YUI-63), agents that say when they are not listening yet (YUI-64) and the approval sheet for Claude and ChatGPT (INT-19). Build 74 (Sep 25) brought the war room (WAR-1), replies, select text and links that open Safari. Build 57 (Sep 24) was the big one, chat feels right: the lock screen timer (YUI-30), screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51), no dead buttons (YUI-53), and every Sep 24 feedback fix checked again (YUI-52). Build 61 fixed a crash in hold to talk and brought invites (YUI-56) and test builds by link (YUI-55). Build 64 made hold to talk work like WhatsApp and gave screens 2 to 12 the whole phone.
 
-**The next build** carries what lands on the app's main branch past 82. [Builds](/changelog#next) lists it. The next epic is Chris's Sep 25 picks: YUI-54 and YUI-70 (each agent's home and its controls).
+**The next build** carries what lands on the app's main branch past 91. [Builds](/changelog#next) lists it. The next epic is Chris's Sep 25 picks: YUI-54 and YUI-70 (each agent's home and its controls).
 
 ## North star: not just another AI chatbot
 
