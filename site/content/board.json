@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T09:10:05.892Z",
+  "updated": "2026-09-25T09:40:11.017Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -52,10 +52,6 @@
         {
           "key": "YUI-43",
           "title": "Restyle the app by asking"
-        },
-        {
-          "key": "YUI-44",
-          "title": "@mention an agent, then group threads"
         },
         {
           "key": "YUI-45",
@@ -118,6 +114,10 @@
           "title": "Ids on a page patch across replies, so the war room refreshes in place"
         },
         {
+          "key": "YUI-76",
+          "title": "Agent bubbles render basic markdown (bold, code, lists)"
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -154,10 +154,6 @@
           "key": "INT-6",
           "title": "Research",
           "summary": "Cloudflare Agents SDK and 'Flue' for relay v1"
-        },
-        {
-          "key": "INT-7",
-          "title": "Claude adapter, MCP connector plus Yui screens as an MCP App"
         },
         {
           "key": "INT-8",
@@ -287,8 +283,12 @@
           "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
         },
         {
-          "key": "YUI-61",
-          "title": "Slash commands in the composer"
+          "key": "YUI-44",
+          "title": "@mention an agent, then group threads"
+        },
+        {
+          "key": "INT-7",
+          "title": "Claude adapter, MCP connector plus Yui screens as an MCP App"
         }
       ]
     },
@@ -296,6 +296,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-61",
+          "title": "Slash commands in the composer",
+          "summary": "Type / to see what your agent can do",
+          "shipped": "2026-09-25",
+          "progress": "/progress#type-to-see-what-your-agent-can-do"
+        },
         {
           "key": "INT-19",
           "title": "Yui MCP server step 2, OAuth (Sign in with Apple through Yui)",
