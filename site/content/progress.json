@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-09-25",
+    "title": "The war room, built out",
+    "card": "YUI-73",
+    "body": "Screen 2 in Yui's own thread is now the place to run the project from. Top to bottom: Needs you, a count and every card waiting on an answer; Running now, one card per lane with its last note and how long since it checked in; the timeline of what shipped, what is running and what is next, which you can drag into a new order; Builds, the newest TestFlight build with what to try and the newest test build with an Install button; Feedback, the latest TestFlight notes and the card each one became; the MVP bar, the same number as this site; and quick links to the site. When a waiting card offers choices, they are buttons. One tap writes your answer on the card and sends it back to the queue, with no agent turn in between, and only the person who owns the agent can do it. A card that needs a typed answer gets a small form instead. It is all built from screens the app already draws, so it shows up with the next build. Tested on the simulator in light and dark with the live board, plus a real tap that unblocked a test card.",
+    "images": [
+      { "src": "/progress/yui73-needs-light.webp", "alt": "Screen 2 in Yui, light: Needs you with the number 3, a card asking to pick a direction for games with four answer buttons, and a card asking for a typed answer." },
+      { "src": "/progress/yui73-running-dark.webp", "alt": "The war room in dark mode: one card per lane showing what is running and when it last checked in, idle lanes, then the top of the timeline." },
+      { "src": "/progress/yui73-builds-dark.webp", "alt": "The war room in dark mode: the queued cards on the timeline, then the newest TestFlight build with what to try and the newest test build with an Install button." },
+      { "src": "/progress/yui73-mvp-light.webp", "alt": "The war room, light: recent TestFlight feedback cards tagged with the card each became, the MVP bar at 95 percent, and quick links to the site." }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Reply to one message",
     "card": "YUI-68",
     "body": "You can now answer a specific message, the way iMessage and Telegram do. Swipe a bubble left, or hold it and tap Reply. The message's first line sits above the keyboard with an x to drop it. Once sent, your reply carries a small quote, and tapping it scrolls back to the original, which glows for a moment. Holding works on every bubble now: your agent's messages keep the six reactions with Reply, Copy and Select text under them, your own get the menu alone, and a card can be replied to as well (the quote is its question or title). The swipe only counts on the bubble itself, so dragging the empty space beside a bubble or starting at the screen's right edge still flips to your screens. Your agent gets the quote on the line above your words, so it knows what you are answering. That works on any host (Hermes, OpenClaw and the webhook bridge) with no update needed on their side. Tested on the simulator in light, dark and Reduce Motion, plus a live relay check. It reaches phones with the next build.",

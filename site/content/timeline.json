@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 73,
-    "site": 189,
+    "app": 74,
+    "site": 191,
     "builds": 24,
-    "shipped": 107,
-    "screenshots": 210
+    "shipped": 108,
+    "screenshots": 214
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T07:53:30.685Z",
+          "at": "2026-09-25T08:23:59.806Z",
+          "title": "The war room, built out",
+          "card": "YUI-73",
+          "anchor": "the-war-room-built-out",
+          "images": [
+            {
+              "src": "/progress/yui73-needs-light.webp",
+              "alt": "Screen 2 in Yui, light: Needs you with the number 3, a card asking to pick a direction for games with four answer buttons, and a card asking for a typed answer."
+            },
+            {
+              "src": "/progress/yui73-running-dark.webp",
+              "alt": "The war room in dark mode: one card per lane showing what is running and when it last checked in, idle lanes, then the top of the timeline."
+            },
+            {
+              "src": "/progress/yui73-builds-dark.webp",
+              "alt": "The war room in dark mode: the queued cards on the timeline, then the newest TestFlight build with what to try and the newest test build with an Install button."
+            },
+            {
+              "src": "/progress/yui73-mvp-light.webp",
+              "alt": "The war room, light: recent TestFlight feedback cards tagged with the card each became, the MVP bar at 95 percent, and quick links to the site."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 74,
+            "site": 191,
+            "builds": 24,
+            "shipped": 108
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T07:53:19.000Z",
           "title": "Reply to one message",
           "card": "YUI-68",
           "anchor": "reply-to-one-message",
@@ -35,10 +67,10 @@
               "alt": "Holding your own message: Reply, Copy and Select text, with no reactions."
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 73,
-            "site": 189,
+            "site": 190,
             "builds": 24,
             "shipped": 107
           }
@@ -380,6 +412,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "0d9d938",
+          "at": "2026-09-25T08:22:56.000Z",
+          "text": "The war room, built out: Needs you answers in one tap. Screen 2 now draws seven panels from presets the app already has (Needs you count...",
+          "url": "https://github.com/postscarcityai/yui/commit/0d9d938"
+        },
+        {
+          "repo": "site",
+          "sha": "8c759e0",
+          "at": "2026-09-25T08:10:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8c759e0"
+        },
+        {
+          "repo": "site",
+          "sha": "ba629f0",
+          "at": "2026-09-25T07:53:19.000Z",
+          "text": "Reply to a message: channel guide v14 adds Replies (the line [yui] reply to=<id> from=agent quote=\"...\" above the person's words; answer...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ba629f0"
+        },
         {
           "repo": "app",
           "sha": "403b591",
