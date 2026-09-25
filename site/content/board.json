@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T12:10:10.514Z",
+  "updated": "2026-09-25T12:40:15.168Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -97,10 +97,6 @@
           "summary": "Roles, controls, where it lives"
         },
         {
-          "key": "YUI-74",
-          "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)"
-        },
-        {
           "key": "YUI-75",
           "title": "Ids on a page patch across replies, so the war room refreshes in place"
         },
@@ -111,6 +107,11 @@
         {
           "key": "YUI-77",
           "title": "Group threads, several agents in one conversation (YUI-44 step 2)"
+        },
+        {
+          "key": "YUI-78",
+          "title": "The hold menu fits on tall messages",
+          "summary": "Reactions and Copy never overlap, premium chat polish"
         },
         {
           "key": "SITE-28",
@@ -152,10 +153,6 @@
         {
           "key": "INT-11",
           "title": "Meta Muse Spark adapter via the Meta Model API"
-        },
-        {
-          "key": "INT-12",
-          "title": "Model connector for any OpenAI-compatible API (Ollama, LM Studio, vLLM)"
         },
         {
           "key": "INT-13",
@@ -279,6 +276,14 @@
         {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors"
+        },
+        {
+          "key": "INT-12",
+          "title": "Model connector for any OpenAI-compatible API (Ollama, LM Studio, vLLM)"
+        },
+        {
+          "key": "YUI-74",
+          "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)"
         }
       ]
     },
