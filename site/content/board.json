@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T19:40:12.130Z",
+  "updated": "2026-09-25T20:10:15.364Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -83,10 +83,6 @@
           "summary": "Bring it into the chat, the agent proposes the edit"
         },
         {
-          "key": "YUI-71",
-          "title": "Yui in the browser [agent-ready, build to earn]"
-        },
-        {
           "key": "YUI-75",
           "title": "Ids on a page patch across replies, so the war room refreshes in place"
         },
@@ -98,6 +94,11 @@
           "key": "YUI-85",
           "title": "The channel guide teaches a sketch under a page",
           "waiting": true
+        },
+        {
+          "key": "YUI-86",
+          "title": "Agents fill the drawer",
+          "summary": "YL 'menu' word (review, backlog, shortcut) and the drawer's Backlog section"
         },
         {
           "key": "SITE-28",
@@ -156,11 +157,6 @@
           "key": "BIZ-12",
           "title": "Weave build to earn into GTM and the pitch",
           "waiting": true
-        },
-        {
-          "key": "FLOW-2",
-          "title": "Yui library/store on yuigui.com",
-          "summary": "Browse components and flows; agents can search and 'shop' them"
         }
       ]
     },
@@ -207,8 +203,9 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "SITE-34",
-          "title": "yuigui.com type pass, the site reads like the app's story pages"
+          "key": "FLOW-2",
+          "title": "Yui library/store on yuigui.com",
+          "summary": "Browse components and flows; agents can search and 'shop' them"
         }
       ]
     },
@@ -216,6 +213,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-71",
+          "title": "Yui in the browser [agent-ready, build to earn]",
+          "summary": "Yui in the browser has a brief, open for contributors",
+          "shipped": "2026-09-25",
+          "progress": "/progress#yui-in-the-browser-has-a-brief-open-for-contributors"
+        },
+        {
+          "key": "SITE-34",
+          "title": "yuigui.com type pass, the site reads like the app's story pages",
+          "summary": "The site reads like the app now",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-site-reads-like-the-app-now"
+        },
         {
           "key": "FLOW-1",
           "title": "Flows",
