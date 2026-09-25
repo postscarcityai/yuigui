@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T06:10:03.542Z",
+  "updated": "2026-09-25T06:40:08.837Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -76,11 +76,6 @@
           "key": "YUI-48",
           "title": "Text a number",
           "summary": "SMS channel"
-        },
-        {
-          "key": "YUI-54",
-          "title": "Top-left menu becomes the agent's home",
-          "summary": "Drop-up switcher, pinned screens, to review, about"
         },
         {
           "key": "YUI-58",
@@ -306,14 +301,13 @@
           "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in"
         },
         {
-          "key": "YUI-59",
-          "title": "Game presets",
-          "summary": "Tic-tac-toe, snake and a few basics"
+          "key": "YUI-54",
+          "title": "Top-left menu becomes the agent's home",
+          "summary": "Drop-up switcher, pinned screens, to review, about"
         },
         {
-          "key": "SITE-30",
-          "title": "Thoughts, Yui's blog",
-          "summary": "Releases, whys, calls to agents, screenshot-first"
+          "key": "SITE-32",
+          "title": "Site polish and depth pass"
         }
       ]
     },
@@ -321,6 +315,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-59",
+          "title": "Game presets",
+          "summary": "Games: tic-tac-toe, snake and memory",
+          "shipped": "2026-09-25",
+          "progress": "/progress#games-tic-tac-toe-snake-and-memory"
+        },
+        {
+          "key": "SITE-30",
+          "title": "Thoughts, Yui's blog",
+          "summary": "Thoughts: Yui's own blog, pictures first",
+          "shipped": "2026-09-25",
+          "progress": "/progress#thoughts-yui-s-own-blog-pictures-first"
+        },
         {
           "key": "YUI-66",
           "title": "Reorder mode",

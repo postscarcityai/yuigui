@@ -452,6 +452,10 @@
     {
       "text": "Reorder the war room queue by dragging, and the board follows with no agent turn. Timeline +reorder: Edit order gives each queued row a handle (drag, or VoiceOver Move up/down), done and running rows never move, Save sends one {order, board} event, Cancel restores; link rows stop opening Safari while editing. Plugin board.py: a timeline order with board=<this profile> from the paired owner goes straight to kanban priority for queued cards that are this profile's or unassigned (never another agent's, never running/blocked/done); the cards trade the priority slots they held, one transaction, a reprioritized event each (by yui-app); the person gets a one-line confirmation with no push, the agent a note on its next turn; anyone else gets \"Only the owner can reorder\". Swift 375/375 vectors, TimelineTests 4/4 on iPhone 18 Pro sim (real drag, light + dark), test_board.py 15/15 against a real kanban DB",
       "card": "YUI-66"
+    },
+    {
+      "text": "Games in one Yui Line: game tictactoe, game snake, game memory, full screen by default. Tic-tac-toe against the agent: each tap relays {kind, move, x, o} (+ winner), the agent answers ~game o=... and the phone calls the winner with the winning line and Play again; snake (swipe or arrow pad, speed, size, best) and memory (pairs, agent-picked faces) run on the phone and send one result at game over. An unknown kind shows \"This game isn't in this version of Yui\". A patch aimed at a game an earlier reply drew lands on it. Reduce Motion fades, haptics per move, win and crash. Swift parser: game preset, 403/403 vectors (23-game synced from yuigui). Flywheel PRESETS follows yl.mjs. GameTests 2/2 on the sim, light + dark, with a demo stand-in agent answering moves",
+      "card": "YUI-59"
     }
   ]
 }
