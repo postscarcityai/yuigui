@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T13:41:01.642Z",
+  "updated": "2026-09-25T14:10:04.237Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -138,10 +138,6 @@
           "summary": "Hosted connector via hermes gateway enroll"
         },
         {
-          "key": "INT-10",
-          "title": "Grok adapter, model connector or remote MCP"
-        },
-        {
           "key": "INT-11",
           "title": "Meta Muse Spark adapter via the Meta Model API"
         },
@@ -267,15 +263,6 @@
         {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors"
-        },
-        {
-          "key": "YUI-80",
-          "title": "The chat never gets stuck shrunk",
-          "summary": "Top-left tap leaves the app scaled in a border with no way back"
-        },
-        {
-          "key": "INT-9",
-          "title": "Gemini adapter, as a model or an A2A agent"
         }
       ]
     },
@@ -283,6 +270,26 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-10",
+          "title": "Grok adapter, model connector or remote MCP",
+          "summary": "Grok in Yui, two ways",
+          "shipped": "2026-09-25",
+          "progress": "/progress#grok-in-yui-two-ways"
+        },
+        {
+          "key": "YUI-80",
+          "title": "The chat never gets stuck shrunk",
+          "summary": "Top-left tap leaves the app scaled in a border with no way back",
+          "shipped": "2026-09-25"
+        },
+        {
+          "key": "INT-9",
+          "title": "Gemini adapter, as a model or an A2A agent",
+          "summary": "Gemini in Yui, two ways",
+          "shipped": "2026-09-25",
+          "progress": "/progress#gemini-in-yui-two-ways"
+        },
         {
           "key": "INT-4",
           "title": "Telegram fallback",
