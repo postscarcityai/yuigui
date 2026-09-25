@@ -427,7 +427,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-11 (step 1 done Sep 25): Meta's Muse Spark, as a model (`--server meta` on the model bridge, spec/MODELS.md). The Model API is in public preview for US developers. Next: one live call with a Model API key, then the hosted connector.
 - INT-12 (step 1 done Sep 25): open models on your own machine (Ollama, LM Studio, vLLM) and any OpenAI-compatible API. Today as a bridge next to the model server (spec/MODELS.md); cloud APIs on the hosted connector next, with YUI-34's key vault.
 - INT-13: a Yui channel for Flue.
-- INT-14: LangGraph.
+- INT-14 (step 1 done Sep 25): LangGraph, as an A2A agent on LangGraph's own Agent Server; the guide reaches the graph's state (spec/A2A.md). Next: the hosted connector.
 - INT-15: CrewAI.
 - INT-16: Microsoft Agent Framework, the successor to AutoGen.
 - INT-17: n8n, as a node and through MCP.

@@ -154,6 +154,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** S with INT-18, M without.
 - **Depends on:** INT-18.
 - **Priority:** 4.
+- **Status:** step 1 shipped Sep 25. LangGraph's own Agent Server (`langgraph dev`, and LangSmith deployments) serves every graph over A2A, so the A2A bridge pairs a graph by its `?assistant_id=` card. That server keeps one text part per message and drops part metadata, so for LangGraph the bridge sends the guide and taps as a data part the graph reads as state keys (`yui_channel_guide`, `yui_events`). A scripted graph paired, answered, drew a screen from the guide and read a tap from its data on live Yui, 12 of 12 (`spec/A2A.md` "LangGraph agents"). No threads and runs adapter: every Agent Server serves A2A unless its owner turns it off.
 
 ### CrewAI | INT-15
 

@@ -39,7 +39,7 @@ Needs Node 22.18 or newer. No dependencies.
 | the agent asks something back | `input-required`: the question lands, and the person's next message continues that task |
 | a tap on a screen | the tap's line (`[yui] <id> <preset> key=value`) as text, and its JSON as a data part |
 
-- **The channel guide is a context part.** On the first message of each new task, Yui's channel guide goes in as a text part before the person's words, marked `metadata: {"yui": "channel_guide", "version": "..."}`. Yui cannot touch a remote agent's system prompt, so this is how it learns it can answer with [Yui Lines](/yl). An agent that hands it to its model can draw screens: put the lines in a ```` ```yui ```` fence. One that ignores it still works; its answers show as chat.
+- **The channel guide is a context part.** On the first message of each new task, Yui's channel guide goes in as a text part before the person's words, marked `metadata: {"yui": "channel_guide", "version": "..."}`. A LangGraph server gets it as a data part instead (see LangGraph agents below). Yui cannot touch a remote agent's system prompt, so this is how it learns it can answer with [Yui Lines](/yl). An agent that hands it to its model can draw screens: put the lines in a ```` ```yui ```` fence. One that ignores it still works; its answers show as chat.
 - **Text parts become the message.** A file part shows as its link. Data parts are skipped for now.
 - **Failed, rejected or canceled:** the person reads one line saying so, then the agent's reason.
 - **`auth-required`:** the person reads that the agent needs a sign-in first. Keys per agent, kept by Yui, are YUI-34.
@@ -97,13 +97,47 @@ def use_yui_guide(callback_context, llm_request):
 
 (The example also drops the tap's JSON data part, whose text line says the same, and keeps the history short for a 4,096-token local model.) An agent in Gemini Enterprise is reached the same way, by its card URL, with its key as `--header "authorization: Bearer ..."`.
 
+## LangGraph agents
+
+LangGraph's own server, the Agent Server (what `langgraph dev` runs locally and what LangSmith deployments run, cloud or self-hosted), serves every graph over A2A at `/a2a/{assistant_id}`, with its card at `/.well-known/agent-card.json?assistant_id={assistant_id}` (A2A 1.0 JSON-RPC, 0.3 method names too, streaming). It needs `langgraph-api` 0.13 or later and a graph whose state has a `messages` key. LangChain's docs: [A2A endpoint in Agent Server](https://docs.langchain.com/langsmith/server-a2a). Pair by that card URL, quoted for the `?` (INT-14):
+
+```
+(cd tests/sdk && uv run --with 'langgraph-cli[inmem]' langgraph dev --port 8790 --no-browser)   # another terminal
+curl -s -X POST localhost:8790/assistants/search -H 'content-type: application/json' -d '{"graph_id":"yui_helper"}'
+node yui-a2a.ts card 'http://127.0.0.1:8790/.well-known/agent-card.json?assistant_id=<assistant_id>'
+node yui-a2a.ts pair 123456 --card 'http://127.0.0.1:8790/.well-known/agent-card.json?assistant_id=<assistant_id>'
+node yui-a2a.ts run
+```
+
+Yui's thread is the graph's thread: the bridge's `contextId` (the Yui agent's id) becomes LangGraph's `thread_id`, so the graph keeps its state across turns.
+
+**How the guide gets in.** LangGraph's A2A endpoint turns each text part into its own human message under the message's one id, so a second text part replaces the first, and it drops part metadata. Data parts, though, become keys of the graph's input. So when a card lists LangChain's A2A extensions, the bridge sends one text part (the person's words) and one data part:
+
+```json
+{"yui_channel_guide": {"version": "v16+...", "body": "..."},
+ "yui_events": [{"id": "n1", "preset": "choose", "value": {"choice": "Tea"}, "row": "..."}]}
+```
+
+`yui_channel_guide` comes when a task starts, `yui_events` with a tap. Declare them in the graph's state and read them in a node; a graph with a model puts the guide's body in its system prompt. The guide stays in the thread's state, and it never shows up as a chat message:
+
+```python
+class State(TypedDict, total=False):
+    messages: Annotated[list, add_messages]
+    yui_channel_guide: dict   # {"version", "body"}
+    yui_events: list          # taps on a screen
+```
+
+`adapters/a2a/tests/sdk/langgraph_agent.py` is a working example with no model: plain-function nodes say hello, draw a Tea or Coffee `choose` screen (only when the guide says `choose` exists), and answer the tap from its data.
+
+**Deployments without A2A.** A threads and runs adapter (create a thread, stream a run) is not built, because every Agent Server serves A2A by default. The gaps are a server older than 0.13 (upgrade it), one whose owner set `http.disable_a2a` (turn it back on), and a graph with no `messages` key, which a threads adapter could not talk to either without knowing its input.
+
 ## Tested
 
-- The client, 42 unit tests: event stream parsing, both versions' shapes, errors, and live calls against a scripted agent in 1.0 and 0.3, including picking a task back up.
+- The client, 45 unit tests: event stream parsing, both versions' shapes, errors, and live calls against a scripted agent in 1.0 and 0.3, including picking a task back up, and the LangGraph message shape.
 - Against the official A2A SDK (`a2a-sdk` for Python, 1.x and 0.3): card, send, stream, `GetTask`.
 - End to end on live Yui, 66 checks on throwaway accounts: A2A 1.0, 0.3, and 1.0 without streaming. A long task shows the working row, then its whole answer lands once. A bridge killed mid-task resumes the same task after a restart and answers once. The agent's question continues the same task. And on the iPhone simulator: the working row, the long answer, a screen from the A2A agent, a tap on it, and a question, light and dark.
 
-The test agent is scripted, with fixed answers and no model. One more run uses a real one: a Google ADK agent served by ADK's own `to_a2a`, its model qwen2.5:7b on Ollama (`a2a_e2e.py --protocol adk`). It pairs by its card, answers a turn, draws a screen the Yui Lines parser reads (only because the guide reached its model: its own instruction never mentions Yui), and answers a tap on it.
+The test agent is scripted, with fixed answers and no model. One more run uses a real one: a Google ADK agent served by ADK's own `to_a2a`, its model qwen2.5:7b on Ollama (`a2a_e2e.py --protocol adk`). It pairs by its card, answers a turn, draws a screen the Yui Lines parser reads (only because the guide reached its model: its own instruction never mentions Yui), and answers a tap on it. Another runs a scripted LangGraph graph on LangGraph's own Agent Server (`a2a_e2e.py --protocol langgraph`, 12 checks): it pairs by the `?assistant_id=` card, answers a turn, draws a screen only because the guide reached its state, reads the tap from its data, holds the guide in the thread's state without it ever becoming a chat message, and stops clean.
 
 ## Not yet
 
