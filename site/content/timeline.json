@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 94,
-    "site": 236,
+    "app": 95,
+    "site": 238,
     "builds": 27,
-    "shipped": 127,
-    "screenshots": 257
+    "shipped": 128,
+    "screenshots": 261
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T15:14:04.691Z",
+          "at": "2026-09-25T15:59:21.408Z",
+          "title": "The hold menu fits any message",
+          "card": "YUI-78",
+          "anchor": "the-hold-menu-fits-any-message",
+          "images": [
+            {
+              "src": "/progress/yui78-long-light.webp",
+              "alt": "A checklist taller than the screen, held: the reaction row sits on top, the list shows its first lines and fades out, and the menu with Reply, Copy, Select text, Share and Remove sits below it."
+            },
+            {
+              "src": "/progress/yui78-card-dark.webp",
+              "alt": "A tall card held in dark mode: reactions above, the top of the card fading out, the menu below."
+            },
+            {
+              "src": "/progress/yui78-small-ax3.webp",
+              "alt": "The same held checklist on a smaller iPhone with large accessibility text, every piece still on screen and apart."
+            },
+            {
+              "src": "/progress/yui78-bottom-dark.webp",
+              "alt": "The last message in the thread held in dark mode: it lifts just enough for the menu to fit under it."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 95,
+            "site": 238,
+            "builds": 27,
+            "shipped": 128
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T15:14:29.000Z",
           "title": "Agent answers read clean",
           "card": "YUI-76",
           "anchor": "agent-answers-read-clean",
@@ -27,10 +59,10 @@
               "alt": "The same chat in dark mode, markdown drawn in the agent's bubbles"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 94,
-            "site": 236,
+            "site": 237,
             "builds": 27,
             "shipped": 127
           }
@@ -919,6 +951,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "8432a1c",
+          "at": "2026-09-25T15:58:37.000Z",
+          "text": "The hold menu fits any message (YUI-78, TestFlight feedback AFduDX-JwEKyTFAt4pnYIPY: \"the copy button and the emojis are competing here,...",
+          "url": "https://github.com/postscarcityai/yui/commit/8432a1c"
+        },
+        {
+          "repo": "site",
+          "sha": "b4639b4",
+          "at": "2026-09-25T15:40:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b4639b4"
+        },
+        {
+          "repo": "site",
+          "sha": "3bdf506",
+          "at": "2026-09-25T15:14:29.000Z",
+          "text": "Progress: agent answers read clean, markdown drawn in agent bubbles (YUI-76). App side: yui d57e9ee.",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3bdf506"
+        },
         {
           "repo": "app",
           "sha": "d57e9ee",
