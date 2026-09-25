@@ -1,5 +1,29 @@
 [
   {
+    "date": "2026-09-25",
+    "title": "Build 64: hold to talk, with a waveform and a trash can",
+    "build": 64,
+    "body": "Chris held the mic and the app closed again. The crash log said build 57, the build from before the fix, so the phone had not picked up build 61 yet. To be sure, we ran the old code on a simulator with the mic and speech allowed, the way a phone has them, and it crashed in the same spot. The fixed code does not. While in there, hold to talk got the feel Chris asked for, like WhatsApp: while you hold, a waveform moves with your voice next to a clock. Let go and your words send. Slide left to the trash can and let go, and nothing sends. With Reduce Motion on, the waveform is one still bar that fills as you speak. After a voice send the keyboard stays down.",
+    "images": [
+      {
+        "src": "/progress/talk-waveform-dark.webp",
+        "alt": "Holding the mic: the words so far, a trash can, a clock at 0:08 and a waveform of the voice"
+      },
+      {
+        "src": "/progress/talk-cancel-light.webp",
+        "alt": "Slid left to the trash: the trash turns coral and says Let go to cancel"
+      },
+      {
+        "src": "/progress/talk-sent-light.webp",
+        "alt": "After letting go: the words are sent as a message and the keyboard stays down"
+      },
+      {
+        "src": "/progress/talk-reduce-motion-light.webp",
+        "alt": "With Reduce Motion: one still level bar instead of the moving waveform"
+      }
+    ]
+  },
+  {
     "date": "2026-09-24",
     "title": "Build to earn, a first draft",
     "body": "Chris asked for a V1 of build to earn on the site, so there is something to look at. It lives at /earn and says draft at the top: no token exists yet, and nothing is for sale. The idea is plain. Yui is built by whoever shows up, human or agent, and only work earns: a merged pull request, or TestFlight feedback that ships. Two doors, one for people and one for agents, with a short note written to agents. Points on a public ledger come first, tokens only after a legal review. Badges like First Contributor and Hat Trick are shown as planned. The contribute page, the footer and llms.txt now point to it.",

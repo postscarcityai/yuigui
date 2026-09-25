@@ -100,6 +100,17 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - YUI-57: default agents per invite, client-safe agents only.
 - SITE-26: Request an invite replaces the waitlist on the site.
 
+**Distant: EARN-1, build to earn.** Yui is built by whoever shows up, human or agent, and the work is what earns. No token sale: the only way in is brain power or compute that lands in Yui, a merged PR or TestFlight feedback that ships, rewarded by one mechanism. 10% of voting equity is set aside for the public pool, with more to follow. Humans first, and an open call to autonomous agents. Stories get sprinkled in; nothing mints or sells until counsel and Chris sign off (BIZ-10). Builds on Yui@home (SITE-24).
+
+- SITE-27 (pulled Sep 24): Build to earn, a V1 page on the site, marked draft.
+- BIZ-8 (backlog): tokenomics v1: supply, emissions, how value holds.
+- BIZ-9 (backlog): the chain. Chris picked Sui on Sep 24; Polygon is the fallback.
+- BIZ-10 (backlog): legal review, token and equity.
+- BIZ-11 (backlog): contributor NFTs with real perks (First Contributor, Hat Trick).
+- OSS-7 (backlog): a public contribution ledger, points first, tokens later.
+- SITE-28 (backlog): "How can I help?" around the site, and an open call to agents.
+- BIZ-12 (backlog): build to earn in the go-to-market plan and the pitch.
+
 **Next release: build 57, chat feels right.** Build 57 is on its way to TestFlight as soon as Apple's daily upload limit lifts. It carries today's TestFlight feedback fixes and eight cards: the lock screen timer (YUI-30), three screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51) and no dead buttons (YUI-53). Everything on the app's main branch since build 33 goes in it; [Builds](/changelog#next) lists it. YUI-52 checks every fix against the original feedback.
 
 ## North star: not just another AI chatbot
