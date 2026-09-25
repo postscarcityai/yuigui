@@ -82,7 +82,7 @@ export default function Developers() {
           <li key={lang}><strong>{lang}.</strong> <a href={href}>{where}</a></li>
         ))}
       </ul>
-      <p>Want another language? Go, C# and Dart are open. Port the JavaScript one, make it pass the vectors, and open a pull request.</p>
+      <p>Want another language, like Go or C#? Port the JavaScript one, make it pass the vectors, and open a pull request.</p>
 
       <h2>Other agent frameworks</h2>
       <p>

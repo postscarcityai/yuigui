@@ -1,0 +1,10 @@
+[package]
+name = "yuilines"
+version = "0.1.0"
+edition = "2021"
+description = "Yui Lines (YL) parser, a port of the JS reference. std only."
+license = "Apache-2.0"
+repository = "https://github.com/postscarcityai/yuigui"
+publish = false
+
+[dependencies]

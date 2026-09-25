@@ -452,5 +452,6 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 **Open source and the site**
 
 - OSS-2 (done Sep 24): Yui Lines parsers in Python and Kotlin, next to the JavaScript and Swift ones.
+- OSS-4 (done Sep 25): a Yui Lines parser in Rust, a crate with no dependencies (parsers/rust). All 445 vectors pass, and it matches the JavaScript parser on 35,000 random documents.
 - OSS-3: the public backlog mirrored as GitHub issues for contributors.
 - BIZ-6 (done Sep 24): who the first 20 to 50 outside testers are, and where they gather. Read it: [beta list](/business/beta-list).
