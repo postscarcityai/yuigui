@@ -30,7 +30,7 @@ Needs Node 22.18 or newer. No dependencies.
 
 ## Servers and keys
 
-Ollama is the default. `--server lmstudio`, `vllm`, `llamacpp`, `openrouter`, `gemini` or `grok` pick the others by their usual address, and `--url http://host:port/v1` takes any other (the full `.../chat/completions` URL works too). `models` lists what a server has.
+Ollama is the default. `--server lmstudio`, `vllm`, `llamacpp`, `openrouter`, `gemini`, `grok` or `meta` pick the others by their usual address, and `--url http://host:port/v1` takes any other (the full `.../chat/completions` URL works too). `models` lists what a server has.
 
 Local servers need no key. For one that does, `--key-env NAME` reads it from that environment variable each time the bridge runs, and nothing is stored; `--key-stdin` keeps it in the bridge's state file on your machine (mode 600). A key never goes in chat, in a form or on the command line.
 
@@ -82,6 +82,36 @@ node yui-openai.ts run
 
 xAI now calls Chat Completions its legacy endpoint (new features land on its Responses API), and it still takes every chat model. Grok can also come in the other way, calling Yui's MCP server as a tool from inside a Responses API request: `spec/MCP.md`, "Grok".
 
+## Meta Muse Spark
+
+Meta's Model API is OpenAI-compatible, so Muse Spark is one preset (INT-11). "Meta Muse" is Muse Spark: Meta's model, the one behind the Meta AI app's Thinking mode. There is no way for a third party to plug into the Meta AI app itself; this is the developer API with your own key.
+
+The Model API is in public preview for developers in the US, pay as you go ($1.25 per million tokens in, $4.25 out for `muse-spark-1.3` when this was written). Get a key at [dev.meta.ai](https://dev.meta.ai) under **API keys**. Sources: Meta's [quickstart](https://dev.meta.ai/docs/quickstart), [models](https://dev.meta.ai/docs/models), [Chat Completions](https://dev.meta.ai/docs/protocols/chat-completions), [reasoning](https://dev.meta.ai/docs/reasoning), [errors](https://dev.meta.ai/docs/error-handling), [pricing and rate limits](https://dev.meta.ai/docs/pricing-rate-limits) and the [launch post](https://dev.meta.ai/resources/blog/build-with-muse-spark/). Meta retired its older Llama API (`api.llama.com`) in July 2026; this replaces it.
+
+```
+export MODEL_API_KEY=...         # in your shell, never in a file you share
+node yui-openai.ts models --server meta
+node yui-openai.ts try "Help me pick lunch" --server meta
+node yui-openai.ts pair 123456 --server meta
+node yui-openai.ts run
+```
+
+`--server meta` (or `--server muse`) means `https://api.meta.ai/v1`, the key read from `$MODEL_API_KEY` each run (the name Meta's docs use; nothing stored), the model `muse-spark-1.3` (the one Meta recommends; `--model` picks `muse-spark-1.2`, `muse-spark-1.1` or another from `models`), and a 32,768-token window for the thread instead of 4,096 (Muse Spark's is a million; `--context` sets another). The `-contributor` models cost less because Meta may train on what you send; the preset never picks them. Where Meta's API differs from OpenAI's, the bridge copes:
+
+- A bad key is a `401` (`invalid_api_key`) and reads as a key problem.
+- A `402` (`billing_error`) means the balance ran out. The person reads that, not that the key is wrong, and the bridge does not keep retrying.
+- A `403` means the key works but has no access to that model or feature. The person reads that too, not "bad key".
+- A message the content policy blocks comes back as a `400`. The person reads that the model's safety filter turned it down and to try saying it another way.
+- A thread too long for the window is a `400` ("input_tokens + max_output_tokens must fit"). The person reads it, and the bridge's log says to lower `--context` or `--max-tokens`.
+- `429` (the team's requests or tokens per minute) waits as long as the `Retry-After` header says, then tries again. The bridge now honors `Retry-After` from any server.
+- A plain answer that takes too long is a `504` `gateway_timeout`. Asking again would take as long, so the bridge says to let it stream (drop `--no-stream`) instead of retrying.
+- An error in the middle of a stream comes as an `error` event with the usual `{"error": {...}}`. Overloaded or rate-limited waits and asks again; anything else is read once.
+- A path it doesn't have is a `404` with no body; it still reads as not found.
+- Muse Spark always reasons, so the first words can take a while. Its `reasoning_content` is always there and always empty (Meta redacts it for callers outside Meta); nothing changes for the person.
+- Muse Spark refuses `stop`, `n` above 1, `logit_bias` and `reasoning_effort: "none"` with a 400. The bridge never sends them.
+
+Meta points agent work at its Responses API, because Chat Completions does not carry reasoning from one turn to the next. The bridge sends the thread every turn, so that costs nothing here.
+
 ## What the model is sent
 
 | Yui | chat API |
@@ -101,7 +131,7 @@ xAI now calls Chat Completions its legacy endpoint (new features land on its Res
 ## Streams, errors and restarts
 
 - It streams when the server does. A server that answers plain JSON anyway is read as plain; one that refuses to stream is asked plain from then on.
-- **Down or busy** (connection refused, 429, 5xx, a broken or silent stream): the turn waits and is tried again, backing off up to a minute. After 90 seconds the person reads one line: the model can't be reached, and their message goes when it's back.
+- **Down or busy** (connection refused, 429, 5xx, a broken or silent stream): the turn waits and is tried again, backing off up to a minute, or as long as the server's `Retry-After` says. After 90 seconds the person reads one line: the model can't be reached, and their message goes when it's back.
 - **The server says no** (a bad key, an unknown model, too long): the person reads why, once.
 - **Exactly once into Yui**, with the relay's delivery rules (`spec/RELAY.md`): rows are marked delivered when the turn starts and handled once the answer is written, each answer names its rows in `meta.turn`, and answers wait in an outbox on disk until Yui has them.
 - **A restart never sends an answer twice.** The turn in flight is on disk. A crash while the model answers means the model is asked again after the restart (a chat API has no task to pick back up), and one answer lands. A crash after the answer was written only marks the turn done.
@@ -113,7 +143,7 @@ xAI now calls Chat Completions its legacy endpoint (new features land on its Res
 
 ## Tested
 
-- The client and the thread builder, 37 unit tests against a scripted server: streaming and plain, a server that ignores or refuses streams, a stream with no `[DONE]`, a broken or silent stream, 400, 401, 404 and 503, keys, `<think>` blocks, and what fits the context. Eleven of them replay Gemini's shapes (INT-9): the preset, `models/` ids, the stream without an opener, the system message, thoughts streamed and plain, a blocked answer, a wrapped error, a 429 and a bad key. Eleven more replay xAI's (INT-10): the preset, models, none of the refused arguments sent, a screen, `reasoning_content` streamed and plain, a refusal streamed and plain, the `{code, error}` shape, a 429, a 403 out of credits, a bad key's 400. 48 in all.
+- The client and the thread builder, 37 unit tests against a scripted server: streaming and plain, a server that ignores or refuses streams, a stream with no `[DONE]`, a broken or silent stream, 400, 401, 404 and 503, keys, `<think>` blocks, and what fits the context. Eleven of them replay Gemini's shapes (INT-9): the preset, `models/` ids, the stream without an opener, the system message, thoughts streamed and plain, a blocked answer, a wrapped error, a 429 and a bad key. Eleven more replay xAI's (INT-10): the preset, models, none of the refused arguments sent, a screen, `reasoning_content` streamed and plain, a refusal streamed and plain, the `{code, error}` shape, a 429, a 403 out of credits, a bad key's 400. Seventeen more replay Meta's Model API (INT-11): the preset and its `muse` name, a key with `|` in it, none of the refused arguments sent, a screen, the empty `reasoning_content` streamed and plain, a bad key's 401, an unknown model, a 404 with no body, a 429 with `Retry-After`, a 402, a 403 without access, a content policy 400, a context 400, a plain 504, an `error` event mid-stream, and `Retry-After` read as seconds or a date. 65 in all.
 - End to end on live Yui, on throwaway accounts: 47 checks. Against the scripted server: pairing (the key's name stored, never the key), the guide as the system message, a screen and a tap, the thread sent in order, the working row while it streams, a bridge killed mid-stream answering once after a restart, an answer written but never acked, a 400 answered once with why, a 503 tried again, a server down for a while (one note, then the answer), messages sent while it was stopped going as one turn, and a server that refuses streams.
 - With a real model: qwen2.5:7b on Ollama on a Mac mini. Its answer drew a `choose` screen that the Yui Lines parser reads, a tap on it went back as the next turn and was answered, it named the pick when asked later (the thread came from Yui), and a bridge killed mid-answer still ended in one reply. On the iPhone simulator: the working row, the model's screen, a tap and its answer in light, and a follow-up it could only answer from the thread in dark.
 
@@ -122,6 +152,7 @@ xAI now calls Chat Completions its legacy endpoint (new features land on its Res
 - Cloud APIs on Yui's hosted connector, with keys kept by Yui (YUI-34). The local bridge can already call one with `--key-env`, but only local servers are tested.
 - One live call to Gemini itself. The Gemini cases replay its documented and reported shapes; the first run with a real AI Studio key checks them.
 - One live call to Grok itself, the same way: the Grok cases replay xAI's documented and reported shapes until an xAI key runs them.
+- One live call to Muse Spark itself, the same way: the Meta cases replay the Model API's documented shapes until a Model API key runs them.
 - YUI-10's eval per model, and a list of models we call supported.
 - LM Studio, vLLM and llama.cpp are covered by the scripted server's shapes, not yet run for real.
 - Images in or out, and tool calls.

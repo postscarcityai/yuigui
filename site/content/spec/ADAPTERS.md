@@ -126,6 +126,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** S.
 - **Depends on:** INT-12, YUI-34 (key vault).
 - **Priority:** 4.
+- **Status:** step 1 shipped Sep 25. A Muse Spark model: `--server meta` (or `muse`) on the model bridge (the Meta Model API's base URL, `$MODEL_API_KEY`, `muse-spark-1.3` by default), with Meta's differences handled and tested against its documented shapes (`spec/MODELS.md` "Meta Muse Spark"). The Model API is in public preview for US developers. The first live call waits on a Model API key; the hosted version rides INT-12 step 3 and YUI-34.
 
 ### Open-source models: Ollama, LM Studio, vLLM | INT-12 (local bridge done Sep 25, `spec/MODELS.md`)
 

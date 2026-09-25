@@ -424,7 +424,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-8 (done Sep 25): ChatGPT, the same way, as a developer-mode connection.
 - INT-9 (step 1 done Sep 25): Gemini, as a model (`--server gemini` on the model bridge, spec/MODELS.md) or as an A2A agent (a Google ADK agent, spec/A2A.md). Next: one live call with an AI Studio key, then the hosted connector.
 - INT-10 (step 1 done Sep 25): Grok, as a model (`--server grok` on the model bridge, spec/MODELS.md) or calling the MCP server from a Responses API request (spec/MCP.md). Next: one live call with an xAI key, then the hosted connector.
-- INT-11: Meta's Muse Spark, through the Meta Model API.
+- INT-11 (step 1 done Sep 25): Meta's Muse Spark, as a model (`--server meta` on the model bridge, spec/MODELS.md). The Model API is in public preview for US developers. Next: one live call with a Model API key, then the hosted connector.
 - INT-12 (step 1 done Sep 25): open models on your own machine (Ollama, LM Studio, vLLM) and any OpenAI-compatible API. Today as a bridge next to the model server (spec/MODELS.md); cloud APIs on the hosted connector next, with YUI-34's key vault.
 - INT-13: a Yui channel for Flue.
 - INT-14: LangGraph.
