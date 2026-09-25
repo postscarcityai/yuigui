@@ -19,6 +19,7 @@ const ORDER = [
   ["openclaw", "OpenClaw", null, "Your OpenClaw agent in Yui: install the channel plugin, pair, and what the agent is told."],
   ["webhook", "Webhook bridge", null, "Any agent that answers an HTTP POST, in Yui: what each turn sends and what to answer."],
   ["a2a", "A2A bridge", null, "Add any A2A agent (ADK, LangGraph, CrewAI) by its Agent Card: how turns, tasks and restarts map."],
+  ["agui", "AG-UI bridge", null, "Add any AG-UI agent (Agent Framework, CopilotKit, Mastra) by its URL: screens as a tool the agent calls, the tap as its result."],
   ["models", "Model bridge", null, "A model you run yourself (Ollama, LM Studio, vLLM) in Yui: what it is sent each turn, and how restarts work."],
   ["telegram", "Telegram", null, "Yui Lines in Telegram: questions as buttons, the rest in a Mini App, taps back as the phone's line."],
   ["mcp", "MCP server", null, "Any MCP client (Claude Code, Cursor, n8n) puts a screen on your phone and reads the taps back."],

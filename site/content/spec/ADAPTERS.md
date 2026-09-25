@@ -177,7 +177,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Depends on:** INT-18.
 - **Priority:** 5.
 - **Status:** step 1 shipped Sep 25. Agent Framework hosts an agent over A2A with its own `A2AExecutor` on the A2A SDK's server (A2A 1.0), so the A2A bridge pairs it by its card. The executor joins every text part into the person's words and makes an empty session each turn, so the example puts Yui's guide in the run's `instructions` (Agent Framework appends them to the agent's own) and keeps one session per thread. Without streaming the executor sends its answer as a working status and completes with none; the bridge now falls back to that message. An Agent Framework agent on a local 7B model paired, answered, drew a screen from the guide, answered a tap and recalled it the next turn on live Yui, 10 of 10 (`spec/A2A.md` "Microsoft Agent Framework agents").
-- **AG-UI spike (notes, Sep 25):** yes, Yui can be an AG-UI client, and it is a real build, parked as INT-21. AG-UI is a run-per-turn protocol: the client POSTs the thread's messages plus the tools it offers and reads a stream of events back (text, tool calls, state, run finished). Agent Framework's AG-UI endpoint hands the client's tools to the model as declaration-only tools, so when the model calls one the run ends and the client executes it. That fits Yui well: a `yui_show` tool whose argument is Yui Lines puts a screen on the phone, and the tap goes back as the tool's result in the next run, which is AG-UI's own human-in-the-loop pattern. One catch: Agent Framework passes AG-UI's `context` to the model only for A2UI, Google's declarative UI format, so Yui's guide would ride in the tool's description. Verdict: worth building as a second bridge mode beside A2A (M), since CopilotKit, Mastra, Pydantic AI and LangGraph serve AG-UI too; not needed for Agent Framework itself, which A2A already covers.
+- **AG-UI spike (notes, Sep 25):** yes, Yui can be an AG-UI client, and it is a real build, parked as INT-21. AG-UI is a run-per-turn protocol: the client POSTs the thread's messages plus the tools it offers and reads a stream of events back (text, tool calls, state, run finished). Agent Framework's AG-UI endpoint hands the client's tools to the model as declaration-only tools, so when the model calls one the run ends and the client executes it. That fits Yui well: a `yui_show` tool whose argument is Yui Lines puts a screen on the phone, and the tap goes back as the tool's result in the next run, which is AG-UI's own human-in-the-loop pattern. One catch: Agent Framework passes AG-UI's `context` to the model only for A2UI, Google's declarative UI format, so Yui's guide would ride in the tool's description. Verdict: worth building as a second bridge mode beside A2A (M), since CopilotKit, Mastra, Pydantic AI and LangGraph serve AG-UI too; not needed for Agent Framework itself, which A2A already covers. Built the same day as INT-21 (below).
 
 ### n8n | INT-17
 
@@ -197,6 +197,15 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Priority:** 3.
 - **Status:** step 1 shipped Sep 25: a local A2A bridge, spec `spec/A2A.md`, code in the app repo's `adapters/a2a`. Pair with the app's code and the agent's card URL. It speaks A2A 1.0 and 0.3 over JSON-RPC, streams tasks, picks a task back up after a drop or a restart, and continues a task that asked the person something. The client module is runtime-neutral (fetch and an event stream parser), so step 2 runs the same code in the hosted connector on Cloudflare; that step waits on a Cloudflare account and on YUI-34 for keys.
 
+### AG-UI client | INT-21
+
+- **Connects:** path B, by URL. AG-UI (docs.ag-ui.com) is the agent-to-frontend event stream that Microsoft Agent Framework, CopilotKit, Mastra, Pydantic AI and LangGraph's AG-UI adapter serve. Yui is the frontend: each turn is one run, the bridge keeps the thread.
+- **Learns:** the channel guide as a system message (or in the `yui_show` tool's description, or AG-UI's `context`); screens are the frontend tool `yui_show(lines)`, and the tap goes back as its result.
+- **Effort:** M.
+- **Depends on:** INT-18 (it shares the relay code); hosted with INT-20.
+- **Priority:** 4.
+- **Status:** step 1 shipped Sep 25: a local AG-UI bridge in the app repo's `adapters/agui`, spec `spec/AGUI.md`. Agent Framework's own AG-UI endpoint on a local 7B model, with instructions that never mention Yui, called `yui_show` for a Tea or Coffee picker, took the tap back as the tool's result, remembered it, and survived a `kill -9` mid-turn on live Yui, 16 of 16. Open for Chris: A2UI, Google's declarative UI JSON, as a second input format or not (recommendation in `spec/AGUI.md`: not now).
+
 ### Telegram fallback | INT-4 (renderer and Mini App done Sep 25, `spec/TELEGRAM.md`)
 
 Not an agent framework, but the same idea in reverse: Yui Lines rendered as Telegram buttons and a Mini App, for when the app is not around.
@@ -209,7 +218,7 @@ Not an agent framework, but the same idea in reverse: Yui Lines rendered as Tele
 2. INT-1 OpenClaw (done Sep 24), INT-2 webhook (done Sep 24), INT-3 MCP server (done Sep 25, OAuth next in INT-19). These three open the door for everyone else.
 3. INT-7 Claude and INT-8 ChatGPT (done Sep 25), INT-12 model connector (local bridge done Sep 25, hosted next), INT-13 Flue (step 1 done Sep 25), INT-18 A2A (local bridge done Sep 25, hosted next).
 4. INT-9 Gemini, INT-10 Grok, INT-11 Meta, INT-14 LangGraph, INT-17 n8n: mostly presets on the pieces above.
-5. INT-15 CrewAI, INT-16 Microsoft Agent Framework.
+5. INT-15 CrewAI, INT-16 Microsoft Agent Framework, INT-21 AG-UI (step 1 done Sep 25).
 
 ## Open questions
 

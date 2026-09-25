@@ -16,6 +16,7 @@ const cards = [
   ["/developers/openclaw", "OpenClaw", "On OpenClaw? Install the Yui channel plugin, pair with the app's code, and your agent answers on your phone."],
   ["/developers/webhook", "Webhook bridge", "Not on Hermes? Any agent that answers an HTTP POST can talk in Yui. Python and Node, ten-line examples."],
   ["/developers#a2a", "A2A agents", "Built with ADK, LangGraph, CrewAI or Microsoft Agent Framework? Add it by its Agent Card URL."],
+  ["/developers#agui", "AG-UI agents", "Served over AG-UI by Agent Framework, CopilotKit or Mastra? Add it by its URL."],
   ["/developers#models", "Your own model", "Running Ollama, LM Studio or vLLM? Put the model in Yui. It gets the guide and the thread, and answers with screens."],
   ["/developers#telegram", "Telegram", "No Yui app nearby? The same screens in Telegram: questions as buttons, the rest in a Mini App at yuigui.com/tg."],
   ["/developers/mcp", "MCP server", "Claude Code, Cursor or any MCP client puts a screen on your phone with a tool call, and gets your taps back."],
@@ -38,6 +39,7 @@ const parsers = [
   ["Swift", `${links.appRepo}/tree/main/Packages/YuiLines`, "Packages/YuiLines in the app repo. The iPhone app runs it."],
   ["Python", `${links.github}/tree/main/parsers/python`, "parsers/python. One file, standard library only."],
   ["Kotlin", `${links.github}/tree/main/parsers/kotlin`, "parsers/kotlin. JVM, Kotlin standard library only. Android later."],
+  ["Rust", `${links.github}/tree/main/parsers/rust`, "parsers/rust. A crate with no dependencies, standard library only."],
 ];
 
 export default function Developers() {
@@ -64,7 +66,7 @@ export default function Developers() {
 
       <h2>The pieces</h2>
       <ul>
-        <li><strong>Yui Lines.</strong> The wire format. <code>timer 40/20x8 Tabata</code> is a whole interval timer. One spec, one shared test suite, parsers in four languages (below).</li>
+        <li><strong>Yui Lines.</strong> The wire format. <code>timer 40/20x8 Tabata</code> is a whole interval timer. One spec, one shared test suite, parsers in five languages (below).</li>
         <li><strong>The app.</strong> Native SwiftUI on iPhone. It draws every screen from a fixed set of presets built into the app.</li>
         <li><strong>The plugin.</strong> A Hermes platform plugin. It dials out to the relay, so your machine opens no ports, and each Hermes profile shows up as its own agent.</li>
         <li><strong>The relay.</strong> Supabase Realtime and a few edge functions carry messages both ways, hold them while either side is offline, and send a push when the app is closed.</li>
@@ -80,7 +82,7 @@ export default function Developers() {
           <li key={lang}><strong>{lang}.</strong> <a href={href}>{where}</a></li>
         ))}
       </ul>
-      <p>Want another language? Rust is next. Port the JavaScript one, make it pass the vectors, and open a pull request.</p>
+      <p>Want another language? Go, C# and Dart are open. Port the JavaScript one, make it pass the vectors, and open a pull request.</p>
 
       <h2>Other agent frameworks</h2>
       <p>
@@ -108,6 +110,21 @@ node yui-a2a.ts run`}</Cmd>
       <p>
         Yui's channel guide rides along on each new task, so an agent that passes it to its model can answer with screens.
         Today the bridge runs on your machine; a hosted version comes next. Details in the <Link href="/developers/a2a">A2A spec</Link>.
+      </p>
+
+      <h2 id="agui">Add an AG-UI agent</h2>
+      <p>
+        Microsoft Agent Framework, CopilotKit, Mastra and Pydantic AI can serve an agent over AG-UI, the protocol agents use
+        to talk to apps. The AG-UI bridge adds one to Yui by its URL. Each turn is one run, and Yui screens are a tool the
+        agent calls, <code>yui_show</code>: the screen goes to your phone, and your tap comes back as the tool's result.
+        Node 22.18 or newer, no dependencies.
+      </p>
+      <Cmd multi label="the AG-UI bridge commands">{`git clone https://github.com/postscarcityai/yui && cd yui/adapters/agui
+node yui-agui.ts pair 123456 --url http://127.0.0.1:8000/ --name "My agent"
+node yui-agui.ts run`}</Cmd>
+      <p>
+        Today the bridge runs on your machine; a hosted version comes with the A2A one. Details in the{" "}
+        <Link href="/developers/agui">AG-UI spec</Link>.
       </p>
 
       <h2 id="models">Add a model you run yourself</h2>
