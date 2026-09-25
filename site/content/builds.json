@@ -649,6 +649,9 @@
     },
     {
       "text": "asc.py: 60s network timeout so a stalled Apple call can't hang the TestFlight watch cron"
+    },
+    {
+      "text": "Test builds install as Yui Dev beside TestFlight Yui (YUI-91). Chris tapped Install on link build 119.1 and iOS refused: \"Yui is Already Installed\", same bundle id as the TestFlight app."
     }
   ]
 }

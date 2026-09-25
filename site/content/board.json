@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T21:40:44.785Z",
+  "updated": "2026-09-25T22:10:14.231Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -25,11 +25,6 @@
         {
           "key": "YUI-37",
           "title": "A starter agent for people with no agent"
-        },
-        {
-          "key": "YUI-39",
-          "title": "Connector library",
-          "summary": "Log in to your tools once"
         },
         {
           "key": "YUI-40",
@@ -166,6 +161,10 @@
           "key": "YUI-57",
           "title": "Default agents per invite",
           "summary": "Clients open Yui and see their agents (client-safe agents only)"
+        },
+        {
+          "key": "SITE-36",
+          "title": "The site catches up to Yui 0.2.0 the moment build 118 is VALID"
         }
       ]
     },
@@ -186,13 +185,13 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "YUI-38",
-          "title": "Onboarding interview that builds your first agents"
+          "key": "YUI-39",
+          "title": "Connector library",
+          "summary": "Log in to your tools once"
         },
         {
-          "key": "SITE-35",
-          "title": "See it catches up",
-          "summary": "Showcase entries for the 0.2.0 drawer, menu, lasting ids, sketch and Update chip"
+          "key": "YUI-91",
+          "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
         }
       ]
     },
@@ -200,6 +199,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-38",
+          "title": "Onboarding interview that builds your first agents",
+          "summary": "Meet Yui: an onboarding interview that suggests your first agents",
+          "shipped": "2026-09-25",
+          "progress": "/progress#meet-yui-an-onboarding-interview-that-suggests-your-first-agents"
+        },
+        {
+          "key": "SITE-35",
+          "title": "See it catches up",
+          "summary": "See it catches up with 0.2.0",
+          "shipped": "2026-09-25",
+          "progress": "/progress#see-it-catches-up-with-0-2-0"
+        },
         {
           "key": "YUI-33",
           "title": "Agent tables on the phone",
