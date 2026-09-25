@@ -95,6 +95,7 @@ Then:
 - YUI-63 step 1 (shipped in build 82): one working row instead of three dots plus a timer, a working word and the seconds ("Pondering · 12s"). Step 2, later: the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
 - YUI-64 (shipped in build 82): an agent that is paired but not listening says so. Presence is per agent now, not per computer: each gateway names the profile it serves. Right after pairing, the agent's sheet shows the one step left with the exact `hermes -p <profile> gateway restart`; a message to it says it waits, with no timer, and is answered once the gateway starts. From Chris's feedback on build 61.
 - YUI-69 (backlog): talk about a setting. Bring a piece of the agent (its personality, a memory, a skill) into the chat, the agent proposes the change as a before and after, one tap applies it. After YUI-70.
+- YUI-92 (backlog; Chris Sep 25, from Settings on build 96: "so I can know what version I'm looking at at any given time"): the bottom of Settings says exactly which Yui is on the phone. Version and build, channel (TestFlight, Dev link build from YUI-91, App Store), commit and build date, channel guide version, tap to copy for feedback. Pairs with YUI-91, so a Dev copy and the TestFlight copy never get mixed up.
 - INT-19 onward: more agent frameworks. The Yui MCP server shipped Sep 25 (INT-3), with OAuth (INT-19), Claude (INT-7) and ChatGPT (INT-8), screens in the chat included (see Adapters below).
 - The phase backlog below, from YUI-33 on.
 
