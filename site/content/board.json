@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T17:10:31.151Z",
+  "updated": "2026-09-25T17:40:41.354Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -78,11 +78,6 @@
           "title": "Yui for macOS, a matching desktop app [agent-ready]"
         },
         {
-          "key": "YUI-62",
-          "title": "Chat with a screen",
-          "summary": "An agent can keep the composer on a page"
-        },
-        {
           "key": "YUI-69",
           "title": "Talk about a setting",
           "summary": "Bring it into the chat, the agent proposes the edit"
@@ -127,10 +122,6 @@
           "key": "INT-5",
           "title": "Zero-install connect",
           "summary": "Hosted connector via hermes gateway enroll"
-        },
-        {
-          "key": "INT-13",
-          "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)"
         },
         {
           "key": "INT-20",
@@ -240,8 +231,13 @@
           "title": "Open backlog on GitHub for contributors"
         },
         {
-          "key": "INT-16",
-          "title": "Microsoft Agent Framework (AutoGen successor) adapter plus an AG-UI spike"
+          "key": "INT-13",
+          "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)"
+        },
+        {
+          "key": "YUI-62",
+          "title": "Chat with a screen",
+          "summary": "An agent can keep the composer on a page"
         }
       ]
     },
@@ -249,6 +245,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-16",
+          "title": "Microsoft Agent Framework (AutoGen successor) adapter plus an AG-UI spike",
+          "summary": "Microsoft Agent Framework agents in Yui",
+          "shipped": "2026-09-25",
+          "progress": "/progress#microsoft-agent-framework-agents-in-yui"
+        },
         {
           "key": "YUI-81",
           "title": "The build-ready deck reads like a changelog for people",
