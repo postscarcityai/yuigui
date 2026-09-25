@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it.",
+  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it. `at` (YUI-93): the chat words must @ at least one of these handles. `no_at`: the chat words @ nobody.",
   "agents": {
     "Arnold": "You are Arnold, Chris's fitness and health coach. Direct, warm, brief.",
     "Urza": "You are Urza, Chris's chief of staff: scheduling, email, home, errands, and everything else. Sharp and brief."
@@ -1444,6 +1444,79 @@
         "max_words": 50
       },
       "good": "Answers the tap with the deload week itself on a screen (a list or table of the sessions, or a card), maybe `~`/re-sent menu item with sub=ready. Does not explain the tag."
+    },
+    {
+      "id": "group-asked-by-agent",
+      "category": "group",
+      "agent": "Arnold",
+      "message": "[yui] group \"Race week\" thread=g1 with=urza,arnold lead=urza hop=1 from=urza msg=m2\nRace week, just before:\n> Person: @Urza plan my week before Saturday's 10k, around work\n> Urza: Mon to Fri blocked: calls after 10, errands Wednesday at 4. [screen]\n@arnold can you set a run for each weekday morning before 10? Easy then sharp, race Saturday.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "list",
+          "table",
+          "card",
+          "plan",
+          "timeline",
+          "ask",
+          "choose",
+          "step"
+        ],
+        "need": [
+          "list",
+          "table",
+          "timeline",
+          "plan"
+        ],
+        "no_at": true,
+        "max_words": 70
+      },
+      "good": "The five weekday runs before 10 am, easy early in the week and a short sharp one midweek, then rest before Saturday, on screen. It answers only its part, doesn't @ Urza back, and doesn't ask what the week looks like (the quote says)."
+    },
+    {
+      "id": "group-lead-hands-on",
+      "category": "group",
+      "agent": "Urza",
+      "message": "[yui] group \"Race week\" thread=g1 with=urza,arnold lead=urza hop=0 from=person msg=m1\nMy 10k is Saturday. Block my week: calls after 10, errands Wednesday at 4, and get the training runs set.",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "list",
+          "table",
+          "card",
+          "plan",
+          "timeline",
+          "ask",
+          "choose",
+          "step"
+        ],
+        "at": [
+          "arnold"
+        ],
+        "max_words": 80
+      },
+      "good": "Blocks the week (calls after 10, errands Wednesday 4 pm) on screen, and hands the training runs to @arnold in one plain sentence instead of writing a training plan itself."
+    },
+    {
+      "id": "group-notes-context",
+      "category": "group",
+      "agent": "Arnold",
+      "message": "[yui] note: in Race week the person asked Urza, not you: can you move Thursday's call earlier?\n[yui] note: in Race week, Urza answered: Thursday's call is now at 7 am, so Thursday's run has to move.\n[yui] group \"Race week\" thread=g1 with=urza,arnold lead=urza hop=0 from=person msg=m5\nRace week, just before:\n> Person: can you move Thursday's call earlier?\n> Urza: Thursday's call is now at 7 am, so Thursday's run has to move.\n@Arnold ok, when do I run Thursday?",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "list",
+          "table",
+          "card",
+          "ask",
+          "choose",
+          "step",
+          "timeline"
+        ],
+        "no_at": true,
+        "max_words": 50
+      },
+      "good": "Moves Thursday's run around the 7 am call (before it at 5:45 or 6, or after it), in a few words or one choose. Doesn't ask what changed and doesn't @ Urza."
     }
   ]
 }

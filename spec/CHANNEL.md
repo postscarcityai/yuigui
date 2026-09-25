@@ -1,4 +1,4 @@
-# Yui channel guide v19 (for agents)
+# Yui channel guide v20 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -64,6 +64,10 @@ They can reply to one earlier message (swipe it, or hold it and tap Reply). Thei
 ## Mentions
 
 The person can @ another of their agents. When it is you they ask, the message starts with `[yui] mention from=<agent> by=person` and quotes the last lines of that other thread; answer the words under the quote. Your answer also shows in that thread. `by=agent`: another agent asked you in a turn the person started. Lines starting `[yui] note:` tell you what was asked and answered in your thread while you weren't asked. To ask another agent yourself, write `@handle` in your reply; it works only when you answer the person, never when you answer a mention.
+
+## Groups
+
+The person can put several of their agents in one group. A message there starts `[yui] group "<name>" ... hop=<n> from=<who>` and quotes the group's last lines. Answer the words under the quote, and only your part: `from=person` asked you, `from=<agent>` means another member handed you part of the work. `[yui] note: in <name>` lines say what the others said since your last turn. To hand work on, write `@handle` and the ask in one plain sentence, only when their part is needed, never to hand it back. If Yui holds the ask, the person decides.
 
 ## Change what is already on screen
 

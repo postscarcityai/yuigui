@@ -2,7 +2,7 @@
 
 Two or more of your agents in one conversation. You talk to the group, @ the one you mean, and they hand work to each other where you can see it.
 
-Status: step 1 (YUI-77), this spec and a playground mock (pick "Group thread: three agents, one handoff", or open `/playground?demo=group-thread`). Nothing here runs yet. Step 2 is the migration, the Hermes plugin and the native app. It builds on [Mentions](RELAY.md) (YUI-44 step 1, in the app since build 82): one row the app writes, triggers that route it, `meta.mentioned` and `meta.mention_reply`, depth 1.
+Status: the database and the Hermes plugin are live (YUI-93, step 2): migration `supabase/migrations/20260925070000_yui_groups.sql` in the app repo, tested by `supabase/tests/group_test.py` (69 checks against the live project), `hermes-plugin/yui/groups.py`, and a Groups section in the [channel guide](CHANNEL.md) (v20). The native app is YUI-94, so no phone can make a group yet. Step 1 (YUI-77) was this spec and a playground mock (pick "Group thread: three agents, one handoff", or open `/playground?demo=group-thread`). It builds on [Mentions](RELAY.md) (YUI-44 step 1, in the app since build 82): one row the app writes, triggers that route it, `meta.mentioned` and `meta.mention_reply`, depth 1. Section 7 lists where the build differs from this draft.
 
 The examples use three agents, each in its own look ([Agents](AGENTS.md), "Look"): **Coach** (the `coach` set), **Quill** (`wizard`) and **Sage** (`zen`).
 
@@ -60,7 +60,7 @@ In a solo thread a mention stays depth 1. In a group, agents may keep handing of
 
 ## 4. Storage
 
-Today a thread is `(user, agent)`: every row in `yui_messages` has one `agent_id`, and the app loads a thread by it. A group needs an id of its own. Proposed for step 2, as SQL; **not applied anywhere yet**.
+Today a thread is `(user, agent)`: every row in `yui_messages` has one `agent_id`, and the app loads a thread by it. A group needs an id of its own. The step 1 draft, as SQL; the build is this plus the notes in section 7.
 
 ```sql
 create table public.yui_threads (
@@ -124,7 +124,7 @@ Race week, just before:
 - **Delivery and `handled_at` are unchanged.** Each addressed agent has its own row, so the plugin's poll (`agent_id`, `sender = user`, `handled_at is null`) picks it up and marks it handled after the turn, exactly as today. Two agents on the same Mac never race for one row.
 - **`meta.turn` is unchanged.** The reply names the row it answers; the trigger reads the thread and hop from that row. An older plugin that knows nothing of groups still answers correctly in the right group.
 - **`meta.mentions`**: the plugin already fills it from `@handles`. In a group the database routes it by the hop budget instead of refusing it at depth 1.
-- **New: notes on the next turn.** Like `mentions.py`, the plugin puts group rows since the agent's last turn first, one line each (`[yui] note: in Race week, Coach answered: ...`). Until it does, the quote in the row carries the last six lines anyway.
+- **New: notes on the next turn.** Like `mentions.py`, the plugin puts group rows since the agent's last turn first, one line each (`[yui] note: in Race week, Coach answered: ...`). It reads them through one database function, since a host never reads the other members' rows (section 7).
 - **New in the channel guide**: a short Groups section. In a group, answer only what you were asked, @ another member only when their part is needed, never @ yourself, and say it plainly when you hand off.
 
 ## 5. Old app builds
@@ -138,7 +138,22 @@ A group is made in the app, so a phone that is too old simply never makes one. T
 
 ## 6. What step 2 builds
 
-1. The migration above, plus its tests (routing, copies, hops, the turn cap, guard, Let it, Stop, RLS, a connector reading another agent's row and getting nothing).
-2. The Hermes plugin's group notes and the channel guide's Groups section, with eval cases.
-3. The app: a New group sheet (pick two or more agents, a name, the lead), the group in the agent list with stacked faces, the header, per-agent working rows with Stop, the handoff row, the guard row with Let it and Stop, and group settings (max hops, members, lead).
-4. An end-to-end test with two real adapters on one Mac, like the mentions one, light and dark.
+1. The migration above, plus its tests (routing, copies, hops, the turn cap, guard, Let it, Stop, RLS, a connector reading another agent's row and getting nothing). **Done** (YUI-93).
+2. The Hermes plugin's group notes and the channel guide's Groups section, with eval cases. **Done** (YUI-93; guide v20, three new cases, 3/3).
+3. The app: a New group sheet (pick two or more agents, a name, the lead), the group in the agent list with stacked faces, the header, per-agent working rows with Stop, the handoff row, the guard row with Let it and Stop, and group settings (max hops, members, lead). **YUI-94.**
+4. An end-to-end test with two real adapters on one Mac, like the mentions one, light and dark. **YUI-94.**
+
+## 7. As built (YUI-93)
+
+Where the running database differs from, or adds to, the draft above.
+
+- **The person's row is rewritten.** The app writes the words with `thread_id` and `meta.group.to` (agent ids, three at most; none means the lead). The trigger picks `agent_id` (the first addressee), puts the `[yui] group ...` header and the quote above the words in `body`, and keeps the words in `meta.group.words`. The app draws `meta.group.words`, so the person never sees the quote.
+- **The header** is `[yui] group "<title>" thread=<id> with=<handles> lead=<handle> hop=<n> from=<person|handle> msg=<id>`: the same shape for the person's message, its copies and every handoff.
+- **Let it and Stop are rows, not calls.** Let it is `[yui] group continue guard=<id>` with `meta.group {control: "continue", guard}`; Stop is `[yui] group stop` with `meta.group {control: "stop"}`. Both land handled in the lead's thread, so no agent is asked and the app's outbox sends them like any message. A guard lets through once. The app cannot set `stopped_at` by hand.
+- **A guard row** is the asking agent's row with `meta.group.guard {to, to_name, from, msg, hop, reason, state}`; `reason` is `hops` or `turns`, `state` goes `held` to `continued`, `stopped` or `gone` (the agent it would ask left).
+- **Stop** cancels every handoff not delivered yet (`meta.group.cancelled`), marks held guards `stopped`, and writes one line in the lead's look: "Stopped. Quill won't pick up Sage's ask." A reply to anything rooted before the Stop hands nothing on. A new message starts a fresh chain.
+- **Notes come from one function.** `yui_group_notes(agent, thread, since, upto)` answers only a host token, only for an agent it serves, only while that agent is a member: one plain line per row (what the person asked others, what the others answered, a Stop), 20 at most. Hosts still have no grant on `yui_threads` or `yui_thread_members` and still cannot read another agent's rows; the plugin gets its notes this way instead of by reading rows.
+- **Status lines** sit in the thread of the agent they are about, `meta.group.status` (`asleep`, `offline`, `pending`, `muted`, `stopped`), a microsecond after the row they follow.
+- **Limits.** 50 groups per account, 12 members per group. Making a group needs the newest app build on the account to be at least `group_min_build` in the limits table; it answers `update_needed` below it. It is set high until the app ships the New group sheet (YUI-94), which lowers it to that build.
+- **Errors the app maps to words:** `group_not_found`, `group_archived`, `group_agent_not_member`, `group_too_many`, `group_uses_to` (a group row cannot also be a mention), `group_guard_gone`, `group_lead_not_member`, `group_lead_cannot_leave`, `limit_reached`, `update_needed`.
+- **Solo threads are unchanged.** A reply's `meta.group` is always set by the database, never by a host; outside a group, @s in a reply are still depth-1 mentions.

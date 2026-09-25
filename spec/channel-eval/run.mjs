@@ -193,6 +193,11 @@ export function score(c, reply) {
     if (!good.some((o) => o.op === "patch" && re.test(o.target))) fails.push(`patch: no ~ patch matching /${e.patch}/`);
     for (const p of e.no_add || []) if (adds.some((o) => o.preset === p)) fails.push(`patch: re-sent a ${p} instead of patching`);
   } else for (const p of e.no_add || []) if (adds.some((o) => o.preset === p)) fails.push(`re-sent a ${p}`);
+  // Groups (YUI-93): @handles in the chat words hand work on, as the plugin reads them
+  // (yui/hermes-plugin/yui/mentions.py handles_in: not in fences or inline code).
+  const ats = [...text.replace(/`[^`\n]*`/g, " ").matchAll(/(?<![\w@.])@([a-z0-9][a-z0-9-]{0,31})\b/gi)].map((m) => m[1].toLowerCase());
+  if (e.at && !e.at.some((h) => ats.includes(h))) fails.push(`at: no @${e.at.join(" or @")} to hand it on`);
+  if (e.no_at && ats.length) fails.push(`at: handed on to @${ats[0]} when nobody else was needed`);
   return { pass: fails.length === 0, fails, components, words, used: [...used] };
 }
 

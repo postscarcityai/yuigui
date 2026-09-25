@@ -2,9 +2,9 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 122,
-    "site": 298,
+    "site": 300,
     "builds": 28,
-    "shipped": 157,
+    "shipped": 158,
     "screenshots": 319
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T22:42:34.899Z",
+          "at": "2026-09-25T23:03:39.740Z",
+          "title": "Group threads: the plumbing is live",
+          "card": "YUI-93",
+          "anchor": "group-threads-the-plumbing-is-live",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 122,
+            "site": 300,
+            "builds": 28,
+            "shipped": 158
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T22:43:16.000Z",
           "title": "Group threads: several agents in one conversation, on paper and in the playground",
           "card": "YUI-77",
           "anchor": "group-threads-several-agents-in-one-conversation-on-paper-and-in-the-playground",
@@ -35,10 +50,10 @@
               "alt": "Light mode, after Stop here: the thread ends with Stopped. Quill won't pick up Sage's ask."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 122,
-            "site": 298,
+            "site": 300,
             "builds": 28,
             "shipped": 157
           }
@@ -1651,6 +1666,13 @@
       "commits": [
         {
           "repo": "site",
+          "sha": "e252e75",
+          "at": "2026-09-25T22:43:16.000Z",
+          "text": "Group threads (YUI-77 step 1): spec/GROUPS.md and a playground mock. The agent you @ answers, else the thread's lead; nobody jumps in. A...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e252e75"
+        },
+        {
+          "repo": "site",
           "sha": "e42f7e1",
           "at": "2026-09-25T22:40:19.000Z",
           "text": "board: sync from kanban and TestFlight",
@@ -1676,6 +1698,13 @@
           "at": "2026-09-25T22:31:03.000Z",
           "text": "Settings > About this build shows exactly which Yui is on the phone (YUI-92). Chris on build 96: \"down here I would like to have all of...",
           "url": "https://github.com/postscarcityai/yui/commit/430289c"
+        },
+        {
+          "repo": "site",
+          "sha": "dcb4725",
+          "at": "2026-09-25T22:19:19.000Z",
+          "text": "Roadmap: YUI-92, version info at the bottom of Settings (backlog)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dcb4725"
         },
         {
           "repo": "site",
