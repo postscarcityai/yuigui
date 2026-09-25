@@ -13,8 +13,8 @@ export function normalize(ops) {
 }
 
 // Feeds `input` to a stream parser one character at a time.
-function byChar(input) {
-  const s = new StreamParser();
+function byChar(input, known) {
+  const s = new StreamParser(known);
   const out = [];
   for (const ch of input) out.push(...s.push(ch));
   out.push(...s.flush());
@@ -23,26 +23,28 @@ function byChar(input) {
 
 function check(v) {
   const fails = [];
-  const got = normalize(parse(v.input));
+  // `known`: ids that last from earlier replies (YL.md section 5), id -> preset.
+  const known = v.known || {};
+  const got = normalize(parse(v.input, known));
   if (!isDeepStrictEqual(got, v.expected)) fails.push(["parse", got]);
-  const streamed = byChar(v.input);
+  const streamed = byChar(v.input, known);
   if (!isDeepStrictEqual(streamed, v.expected)) fails.push(["stream (1 char per chunk)", streamed]);
   if (v.chunks) {
-    const s = new StreamParser();
+    const s = new StreamParser(known);
     const emits = v.chunks.map((c) => normalize(s.push(c)));
     emits.push(normalize(s.flush()));
     if (!isDeepStrictEqual(emits, v.emits)) fails.push(["stream (chunks)", emits]);
   }
   if (v.stage) {
-    const staged = parse(v.input).filter((o) => onStage(o, v.style || {})).map((o) => o.id);
+    const staged = parse(v.input, known).filter((o) => onStage(o, v.style || {})).map((o) => o.id);
     if (!isDeepStrictEqual(staged, v.stage)) fails.push(["stage (ids that open on the stage)", staged]);
   }
   if (v.pages) {
-    const pages = parse(v.input).filter((o) => o.op === "add").map((o) => pageOf(o.screen));
+    const pages = parse(v.input, known).filter((o) => o.op === "add").map((o) => pageOf(o.screen));
     if (!isDeepStrictEqual(pages, v.pages)) fails.push(["pages (page of each add)", pages]);
   }
   if (v.talk) {
-    const on = talking(parse(v.input));
+    const on = talking(parse(v.input, known));
     if (!isDeepStrictEqual(on, v.talk)) fails.push(["talk (pages with the composer on)", on]);
   }
   if (v.typed) {
@@ -56,7 +58,7 @@ function check(v) {
   if (v.route) {
     // A flow's route (spec/FLOWS.md): the path the answers take, the first
     // open question, and the event at submit. Uses the input's first flow.
-    const patch = parse(v.input).find((o) => o.op === "patch");
+    const patch = parse(v.input, known).find((o) => o.op === "patch");
     const g = resolve("flow", patch ? patch.props : {});
     const { answers, path, open, event } = v.route;
     const got = flowPath(g, answers);

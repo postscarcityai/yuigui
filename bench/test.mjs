@@ -1,7 +1,7 @@
 // Parser tests. Run: npm test (node --test).
 import test from "node:test";
 import assert from "node:assert/strict";
-import { parse, StreamParser, apply, initialState, tokenize, seconds } from "../site/lib/yl/yl.mjs";
+import { parse, StreamParser, apply, initialState, tokenize, seconds, lastingIds } from "../site/lib/yl/yl.mjs";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../site/lib/yl/samples.mjs";
 
 const one = (l) => parse(l)[0];
@@ -171,4 +171,35 @@ test("calc expressions: precedence, functions, degrees are the caller's job", as
   for (const bad of ["2+", "foo(1)", "(1", "1 2", "2a"]) assert.throws(() => parseExpr(bad), bad);
   assert.deepEqual(splitFormula("R = v*t"), { out: "R", expr: " v*t" });
   assert.equal(toTeX(parseExpr("v^2*sin(2*a)/g")), "\\frac{v^{2}\\,\\sin\\left(2a\\right)}{g}");
+});
+
+test("ids on a page last into the next reply (YUI-75)", () => {
+  const run = (st, text) => parse(text, lastingIds(st)).reduce((s, o) => apply(s, o), st);
+  let st = run(initialState(), [
+    ">2",
+    'choose@need-t_a "Ship it?" Yes|No',
+    'choose@need-t_b "Merge it?" Yes|No',
+    "timeline@war",
+    'now@lane-app "YUI-54 drawer"',
+    "list Scratch a|b",
+    ">1",
+    "timer@chat-only 60",
+    "save board",
+  ].join("\n"));
+  // Explicit ids on page 2 last; auto ids and ids in the chat do not.
+  assert.deepEqual(lastingIds(st), { "need-t_a": "choose", "need-t_b": "choose", war: "timeline", "lane-app": "now" });
+  // A later reply patches one of two chooses by id, not the newest one.
+  st = run(st, '~need-t_a +lock\n~lane-app "Build 106 is VALID"');
+  const page = st.screens["2"];
+  assert.equal(page.find((c) => c.id === "need-t_a").props.lock, true);
+  assert.equal(page.find((c) => c.id === "need-t_b").props.lock, undefined);
+  assert.equal(page.find((c) => c.id === "lane-app").props.text, "Build 106 is VALID");
+  assert.deepEqual(st.errors, []);
+  // Without the lasting ids the same reply is a parse error.
+  assert.equal(parse("~need-t_a +lock")[0].op, "error");
+  // A cleared page takes its ids with it; a shown saved screen brings its own.
+  st = run(st, ">2 clear");
+  assert.deepEqual(lastingIds(st), {});
+  st = run(st, "show board");
+  assert.deepEqual(lastingIds(st), { "chat-only": "timer" });
 });

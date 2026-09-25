@@ -1491,7 +1491,9 @@ struct Open {
 }
 
 /// Stateful: remembers the focused screen and which preset each id belongs to,
-/// so "~hiit rounds=10" knows to parse its args as a timer.
+/// so "~hiit rounds=10" knows to parse its args as a timer. `with_known` starts
+/// it with the ids that last from earlier replies (YL.md section 5), id -> preset;
+/// this reply's own ids shadow them.
 pub struct Parser {
     screen: String,
     ids: HashMap<String, String>, // id -> preset
@@ -1508,6 +1510,10 @@ impl Default for Parser {
 impl Parser {
     pub fn new() -> Self {
         Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new() }
+    }
+
+    pub fn with_known(known: &HashMap<String, String>) -> Self {
+        Parser { ids: known.clone(), ..Self::new() }
     }
 
     /// Group bookkeeping for one parsed op. Errors (and None) leave groups open.
@@ -1627,7 +1633,7 @@ impl Parser {
 
         if let Some(t) = head.strip_prefix('~') {
             let mut target = t.to_string();
-            // ~preset@id (section 5): the id when this reply made it, else the preset name.
+            // ~preset@id (section 5): the id when this reply made it or it lasts, else the preset name.
             if let Some((p, Some(id))) = head_parts(t, true) {
                 if !PRESETS.contains(&p) && p != "say" && p != "custom" {
                     return Some(error(sc, format!("patch: unknown preset \"{}\"", p), line));
@@ -1722,7 +1728,12 @@ impl Parser {
 
 /// Parse a whole document at once.
 pub fn parse(text: &str) -> Vec<Value> {
-    let mut p = Parser::new();
+    parse_with(text, &HashMap::new())
+}
+
+/// Parse a whole document, starting from the ids that last (Parser::with_known).
+pub fn parse_with(text: &str, known: &HashMap<String, String>) -> Vec<Value> {
+    let mut p = Parser::with_known(known);
     text.split('\n').filter_map(|l| p.line(l)).collect()
 }
 
@@ -1737,6 +1748,10 @@ pub struct StreamParser {
 impl StreamParser {
     pub fn new() -> Self {
         Self::default()
+    }
+
+    pub fn with_known(known: &HashMap<String, String>) -> Self {
+        StreamParser { buf: String::new(), p: Parser::with_known(known) }
     }
 
     pub fn push(&mut self, chunk: &str) -> Vec<Value> {

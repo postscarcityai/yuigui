@@ -928,11 +928,13 @@ export function flowEvent(g, answers) {
 // ---------- line parser ----------
 
 // Stateful: remembers the focused screen and which preset each id belongs to,
-// so "~hiit rounds=10" knows to parse its args as a timer.
+// so "~hiit rounds=10" knows to parse its args as a timer. `known` is the ids
+// that last from earlier replies (spec section 5, Ids that last), id -> preset,
+// as `lastingIds(state)` gives them; this reply's own ids shadow them.
 export class Parser {
-  constructor() {
+  constructor(known = {}) {
     this.screen = "1";
-    this.ids = new Map(); // id -> preset
+    this.ids = new Map(known instanceof Map ? known : Object.entries(known || {})); // id -> preset
     this.auto = 0;
     this.open = []; // open groups, innermost last: { id, preset, screen }
     this.flowHead = null; // a flow head just added: { id, screen }
@@ -1039,7 +1041,7 @@ export class Parser {
 
     if (head.startsWith("~")) {
       let target = head.slice(1);
-      // ~preset@id (section 5): the id when this reply made it, else the preset name.
+      // ~preset@id (section 5): the id when this reply made it or it lasts, else the preset name.
       const pm = target.match(/^([a-z]+)@([\w-]+)$/);
       if (pm) {
         if (!PRESETS.includes(pm[1]) && pm[1] !== "say" && pm[1] !== "custom") return { op: "error", screen, message: `patch: unknown preset "${pm[1]}"`, line };
@@ -1087,9 +1089,9 @@ export class Parser {
   }
 }
 
-// Parse a whole document at once.
-export function parse(text) {
-  const p = new Parser();
+// Parse a whole document at once. `known`: ids that last (Parser above).
+export function parse(text, known = {}) {
+  const p = new Parser(known);
   const ops = text.split("\n").map((l) => p.line(l));
   ops.push(p.finish());
   return ops.filter(Boolean);
@@ -1098,7 +1100,7 @@ export function parse(text) {
 // Streaming: feed chunks as they arrive, get ops for every completed line.
 // Lines render the moment their newline lands; flush() finishes the tail.
 export class StreamParser {
-  constructor() { this.buf = ""; this.p = new Parser(); }
+  constructor(known = {}) { this.buf = ""; this.p = new Parser(known); }
   push(chunk) {
     this.buf += chunk;
     const out = [];
@@ -1152,6 +1154,23 @@ export const MAX_PAGE = 12;
 export function pageOf(screen) {
   const n = Number(screen);
   return Number.isInteger(n) && String(n) === screen && n >= 2 && n <= MAX_PAGE ? n : 1;
+}
+
+// Ids that last (spec section 5): explicit ids on a page (2 to 12) or on a
+// component that came back from a saved screen, id -> preset, newest last.
+// Hand them to the next reply's parser so `~need-t_x +lock` can reach one
+// component among many. Auto ids (n1, c2) restart every reply and never last.
+export const AUTO_ID = /^[nc]\d+$/;
+
+export function lastingIds(state) {
+  const out = {};
+  const all = Object.entries(state.screens || {}).flatMap(([k, list]) => list.map((c) => ({ k, c })));
+  all.sort((a, b) => (a.c.seq || 0) - (b.c.seq || 0));
+  for (const { k, c } of all) {
+    if (AUTO_ID.test(c.id) || c.preset === "custom") continue;
+    if (pageOf(k) !== 1 || c.saved) out[c.id] = c.preset;
+  }
+  return out;
 }
 
 // Chat with a screen (spec section 5, Pages): the pages whose composer is on

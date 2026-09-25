@@ -1,0 +1,210 @@
+{
+  "version": "YL v0",
+  "area": "lasting ids",
+  "vectors": [
+    {
+      "name": "a lasting id patches from a later reply",
+      "input": "~need-t_a +lock",
+      "known": {
+        "need-t_a": "choose"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "need-t_a",
+          "props": {
+            "lock": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "a lasting id parses its args with its own preset",
+      "input": "~lane-app \"Build 106 is VALID\" sub=\"12m ago\"",
+      "known": {
+        "lane-app": "now"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "lane-app",
+          "props": {
+            "text": "Build 106 is VALID",
+            "sub": "12m ago"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a lasting timer id takes a timespec",
+      "input": "~focus 30/10",
+      "known": {
+        "focus": "timer"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "focus",
+          "props": {
+            "work": 30,
+            "rest": 10
+          }
+        }
+      ]
+    },
+    {
+      "name": "without it the same patch is an error",
+      "input": "~need-t_a +lock",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "this reply's id shadows a lasting one",
+      "input": "timer@hiit 60\n~hiit rounds=3",
+      "known": {
+        "hiit": "choose"
+      },
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "hiit",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "hiit",
+          "props": {
+            "rounds": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "~preset@id aims at a lasting id of that preset",
+      "input": "~choose@need-t_a +lock",
+      "known": {
+        "need-t_a": "choose"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "need-t_a",
+          "props": {
+            "lock": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "~preset@id with a lasting id of another preset is an error",
+      "input": "~card@need-t_a +lock",
+      "known": {
+        "need-t_a": "choose"
+      },
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "a preset name still wins over a lasting id of the same name",
+      "input": "~timer rounds=2",
+      "known": {
+        "timer": "choose"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "timer",
+          "props": {
+            "rounds": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "patches to lasting ids on a routed page, many in one reply",
+      "input": ">2\n~need-t_a +lock\n~need-t_b lock=off\n~mvp 14 of=\"20\"",
+      "known": {
+        "need-t_a": "choose",
+        "need-t_b": "choose",
+        "mvp": "stat"
+      },
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "2"
+        },
+        {
+          "op": "patch",
+          "screen": "2",
+          "target": "need-t_a",
+          "props": {
+            "lock": true
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "2",
+          "target": "need-t_b",
+          "props": {
+            "lock": false
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "2",
+          "target": "mvp",
+          "props": {
+            "value": 14,
+            "of": "20"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a lasting id does not advance the auto counter",
+      "input": "~need-t_a +lock\nsay Done.",
+      "known": {
+        "need-t_a": "choose"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "need-t_a",
+          "props": {
+            "lock": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Done."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -5,7 +5,8 @@
 
 use std::path::{Path, PathBuf};
 use std::{env, fs, panic, process};
-use yuilines::{json, on_stage, page_of, parse, read_typed, talking, typed_body, Map, StreamParser, Value};
+use std::collections::HashMap;
+use yuilines::{json, on_stage, page_of, parse_with, read_typed, talking, typed_body, Map, StreamParser, Value};
 
 /// Parser ops minus `line` and an error's `message`.
 fn normalize(ops: Vec<Value>) -> Value {
@@ -29,8 +30,8 @@ fn same(a: &Value, b: &Value) -> bool {
     }
 }
 
-fn by_char(text: &str) -> Value {
-    let mut s = StreamParser::new();
+fn by_char(text: &str, known: &HashMap<String, String>) -> Value {
+    let mut s = StreamParser::with_known(known);
     let mut out = Vec::new();
     let mut buf = [0u8; 4];
     for ch in text.chars() {
@@ -48,16 +49,22 @@ fn check(v: &Value) -> Vec<(&'static str, Value)> {
     let mut fails = Vec::new();
     let input = v.get("input").and_then(Value::as_str).unwrap_or("");
     let expected = v.get("expected").cloned().unwrap_or(Value::Arr(vec![]));
+    // `known`: ids that last from earlier replies (YL.md section 5), id -> preset.
+    let known: HashMap<String, String> = match v.get("known").and_then(Value::as_obj) {
+        Some(m) => m.0.iter().filter_map(|(k, v)| v.as_str().map(|s| (k.clone(), s.to_string()))).collect(),
+        None => HashMap::new(),
+    };
+    let parse = |t: &str| parse_with(t, &known);
     let got = normalize(parse(input));
     if !same(&got, &expected) {
         fails.push(("parse", got));
     }
-    let streamed = by_char(input);
+    let streamed = by_char(input, &known);
     if !same(&streamed, &expected) {
         fails.push(("stream (1 char per chunk)", streamed));
     }
     if let Some(chunks) = v.get("chunks").and_then(Value::as_arr) {
-        let mut s = StreamParser::new();
+        let mut s = StreamParser::with_known(&known);
         let mut emits: Vec<Value> = chunks.iter().map(|c| normalize(s.push(c.as_str().unwrap_or("")))).collect();
         emits.push(normalize(s.flush()));
         let emits = Value::Arr(emits);

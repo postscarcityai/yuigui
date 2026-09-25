@@ -34,8 +34,8 @@ def same(a, b):
     return type(a) is type(b) and a == b
 
 
-def by_char(text):
-    s = StreamParser()
+def by_char(text, known):
+    s = StreamParser(known)
     out = []
     for ch in text:
         out.extend(s.push(ch))
@@ -45,28 +45,30 @@ def by_char(text):
 
 def check(v):
     fails = []
-    got = normalize(parse(v["input"]))
+    # `known`: ids that last from earlier replies (YL.md section 5), id -> preset.
+    known = v.get("known") or {}
+    got = normalize(parse(v["input"], known))
     if not same(got, v["expected"]):
         fails.append(("parse", got))
-    streamed = by_char(v["input"])
+    streamed = by_char(v["input"], known)
     if not same(streamed, v["expected"]):
         fails.append(("stream (1 char per chunk)", streamed))
     if "chunks" in v:
-        s = StreamParser()
+        s = StreamParser(known)
         emits = [normalize(s.push(c)) for c in v["chunks"]]
         emits.append(normalize(s.flush()))
         if not same(emits, v["emits"]):
             fails.append(("stream (chunks)", emits))
     if v.get("stage") is not None:
-        staged = [o["id"] for o in parse(v["input"]) if on_stage(o, v.get("style") or {})]
+        staged = [o["id"] for o in parse(v["input"], known) if on_stage(o, v.get("style") or {})]
         if not same(staged, v["stage"]):
             fails.append(("stage (ids that open on the stage)", staged))
     if v.get("pages") is not None:
-        pages = [page_of(o["screen"]) for o in parse(v["input"]) if o["op"] == "add"]
+        pages = [page_of(o["screen"]) for o in parse(v["input"], known) if o["op"] == "add"]
         if not same(pages, v["pages"]):
             fails.append(("pages (page of each add)", pages))
     if v.get("talk") is not None:
-        on = talking(parse(v["input"]))
+        on = talking(parse(v["input"], known))
         if not same(on, v["talk"]):
             fails.append(("talk (pages with the composer on)", on))
     if v.get("typed") is not None:

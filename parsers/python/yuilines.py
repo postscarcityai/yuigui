@@ -826,11 +826,13 @@ def _no_constants(name):
 
 class Parser:
     """Stateful: remembers the focused screen and which preset each id belongs
-    to, so "~hiit rounds=10" knows to parse its args as a timer."""
+    to, so "~hiit rounds=10" knows to parse its args as a timer. `known` is the
+    ids that last from earlier replies (YL.md section 5), id -> preset; this
+    reply's own ids shadow them."""
 
-    def __init__(self):
+    def __init__(self, known=None):
         self.screen = "1"
-        self.ids = {}  # id -> preset
+        self.ids = dict(known or {})  # id -> preset
         self.auto = 0
         self.open = []  # open groups, innermost last: {id, preset, screen}
 
@@ -903,7 +905,7 @@ class Parser:
 
         if head.startswith("~"):
             target = head[1:]
-            # ~preset@id: the id when this reply made it, else the preset name.
+            # ~preset@id: the id when this reply made it or it lasts, else the preset name.
             pm = PATCH_AT.fullmatch(target)
             if pm:
                 if pm[1] not in PRESETS and pm[1] not in ("say", "custom"):
@@ -958,9 +960,9 @@ class Parser:
         return {"op": "add", "screen": screen, "preset": preset, "id": id_, "props": props, "line": line}
 
 
-def parse(text):
-    """Parse a whole document at once."""
-    p = Parser()
+def parse(text, known=None):
+    """Parse a whole document at once. `known`: ids that last (Parser)."""
+    p = Parser(known)
     return [op for op in (p.line(l) for l in text.split("\n")) if op]
 
 
@@ -968,9 +970,9 @@ class StreamParser:
     """Feed chunks as they arrive, get ops for every completed line.
     Lines render the moment their newline lands; flush() finishes the tail."""
 
-    def __init__(self):
+    def __init__(self, known=None):
         self.buf = ""
-        self.p = Parser()
+        self.p = Parser(known)
 
     def push(self, chunk):
         self.buf += chunk

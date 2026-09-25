@@ -648,10 +648,12 @@ private val HEAD = rx("([a-z]+)(?:@([\\w-]+))?")
 private fun op(vararg kv: Pair<String, Any?>): Op = linkedMapOf(*kv)
 
 // Stateful: remembers the focused screen and which preset each id belongs to,
-// so "~hiit rounds=10" knows to parse its args as a timer.
-class Parser {
+// so "~hiit rounds=10" knows to parse its args as a timer. `known` is the ids
+// that last from earlier replies (YL.md section 5), id -> preset; this reply's
+// own ids shadow them.
+class Parser(known: Map<String, String> = emptyMap()) {
     private var screen = "1"
-    private val ids = HashMap<String, String>() // id -> preset
+    private val ids = HashMap<String, String>(known) // id -> preset
     private var auto = 0
     private val open = ArrayList<Triple<String, String, String>>() // open groups: (id, preset, screen)
 
@@ -718,7 +720,7 @@ class Parser {
 
         if (head.startsWith("~")) {
             var target = head.substring(1)
-            // ~preset@id: the id when this reply made it, else the preset name.
+            // ~preset@id: the id when this reply made it or it lasts, else the preset name.
             val pm = PATCH_AT.full(target)
             if (pm != null) {
                 val (p, id) = pm.destructured
@@ -767,17 +769,17 @@ class Parser {
     }
 }
 
-// Parse a whole document at once.
-fun parse(text: String): List<Op> {
-    val p = Parser()
+// Parse a whole document at once. `known`: ids that last (Parser above).
+fun parse(text: String, known: Map<String, String> = emptyMap()): List<Op> {
+    val p = Parser(known)
     return text.split("\n").mapNotNull { p.line(it) }
 }
 
 // Streaming: feed chunks as they arrive, get ops for every completed line.
 // Lines render the moment their newline lands; flush() finishes the tail.
-class StreamParser {
+class StreamParser(known: Map<String, String> = emptyMap()) {
     private val buf = StringBuilder()
-    private val p = Parser()
+    private val p = Parser(known)
 
     fun push(chunk: String): List<Op> {
         buf.append(chunk)

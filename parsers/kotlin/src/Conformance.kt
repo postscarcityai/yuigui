@@ -18,8 +18,8 @@ fun same(a: Any?, b: Any?): Boolean = when {
     else -> a == b
 }
 
-private fun byChar(input: String): List<Map<String, Any?>> {
-    val s = StreamParser()
+private fun byChar(input: String, known: Map<String, String>): List<Map<String, Any?>> {
+    val s = StreamParser(known)
     val out = ArrayList<Op>()
     var i = 0
     while (i < input.length) { // one code point per chunk, like JS for...of
@@ -36,28 +36,30 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
     val fails = ArrayList<Pair<String, Any?>>()
     val input = v["input"] as String
     val expected = v["expected"] as List<Map<String, Any?>>
-    val got = normalizeOps(parse(input))
+    // `known`: ids that last from earlier replies (YL.md section 5), id -> preset.
+    val known = (v["known"] as Map<String, Any?>?)?.mapValues { it.value as String } ?: emptyMap()
+    val got = normalizeOps(parse(input, known))
     if (!same(got, expected)) fails.add("parse" to got)
-    val streamed = byChar(input)
+    val streamed = byChar(input, known)
     if (!same(streamed, expected)) fails.add("stream (1 char per chunk)" to streamed)
     val chunks = v["chunks"] as List<String>?
     if (chunks != null) {
-        val s = StreamParser()
+        val s = StreamParser(known)
         val emits = chunks.map { normalizeOps(s.push(it)) }.toMutableList()
         emits.add(normalizeOps(s.flush()))
         if (!same(emits, v["emits"])) fails.add("stream (chunks)" to emits)
     }
     if (v["stage"] != null) {
         val style = v["style"] as Map<String, Any?>? ?: emptyMap()
-        val staged = parse(input).filter { onStage(it, style) }.map { it["id"] }
+        val staged = parse(input, known).filter { onStage(it, style) }.map { it["id"] }
         if (!same(staged, v["stage"])) fails.add("stage (ids that open on the stage)" to staged)
     }
     if (v["pages"] != null) {
-        val pages = parse(input).filter { it["op"] == "add" }.map { pageOf(it["screen"] as String?).toDouble() }
+        val pages = parse(input, known).filter { it["op"] == "add" }.map { pageOf(it["screen"] as String?).toDouble() }
         if (!same(pages, v["pages"])) fails.add("pages (page of each add)" to pages)
     }
     if (v["talk"] != null) {
-        val on = talking(parse(input)).map { it.toDouble() }
+        val on = talking(parse(input, known)).map { it.toDouble() }
         if (!same(on, v["talk"])) fails.add("talk (pages with the composer on)" to on)
     }
     val typed = v["typed"] as Map<String, Any?>?
