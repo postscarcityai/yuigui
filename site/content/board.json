@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T14:10:04.237Z",
+  "updated": "2026-09-25T14:40:08.145Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -138,10 +138,6 @@
           "summary": "Hosted connector via hermes gateway enroll"
         },
         {
-          "key": "INT-11",
-          "title": "Meta Muse Spark adapter via the Meta Model API"
-        },
-        {
           "key": "INT-13",
           "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)"
         },
@@ -263,6 +259,12 @@
         {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors"
+        },
+        {
+          "key": "INT-11",
+          "title": "Meta Muse Spark adapter via the Meta Model API",
+          "summary": "Meta's Muse Spark in Yui",
+          "progress": "/progress#meta-s-muse-spark-in-yui"
         }
       ]
     },
@@ -280,8 +282,8 @@
         {
           "key": "YUI-80",
           "title": "The chat never gets stuck shrunk",
-          "summary": "Top-left tap leaves the app scaled in a border with no way back",
-          "shipped": "2026-09-25"
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-chat-never-gets-stuck-shrunk"
         },
         {
           "key": "INT-9",
