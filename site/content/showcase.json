@@ -1,6 +1,7 @@
 {
   "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far, site = a page on yuigui.com (`link` opens it). `change` (a fix with no card) is the opening words of its app commit, so the entry reads Next build until that commit is on TestFlight.",
   "cards": {
+    "FLOW-2": { "title": "The library: every screen and flow", "shipped": "2026-09-25" },
     "FLOW-1": { "title": "Flows: saved series of screens in Mermaid", "shipped": "2026-09-25" },
     "YUI-62": { "title": "Chat with a screen", "shipped": "2026-09-25" },
     "YUI-63": { "title": "One working row", "shipped": "2026-09-25" },
@@ -187,6 +188,7 @@
       "title": "On yuigui.com",
       "lede": "The screen language, shown where people land, and the whole build history played back day by day.",
       "entries": [
+        {"id": "library", "title": "The library", "what": "Every screen an agent can send, live, with its line, and every saved flow drawn as its Mermaid chart. Search it, copy a line, or open one in the playground. Agents read the same list at /library.json.", "cards": ["FLOW-2"], "demo": "flow-workout-checkin", "agent": "Coach", "app": "site", "link": "/developers/library", "shots": ["/progress/flow2-library-screens-light.webp", "/progress/flow2-library-flows-dark.webp", "/progress/flow2-library-search.webp"]},
         { "id": "quick-start", "title": "Five lines, five screens", "what": "The quick start at the top of /yl. Tap a line to draw it; the app draws the same line the same way.", "cards": ["SITE-15"], "yl": "choose \"What are we training?\" Push|Pull|Legs +other", "agent": "Yui", "app": "site", "link": "/yl", "shots": ["/progress/site15-home-band.webp", "/progress/site15-yl-quickstart.webp"] },
         { "id": "timeline", "title": "Watch Yui grow", "what": "The Timeline page replays every shipped change that has a screenshot, oldest first, while the commit and build counters climb. Drag the slider to jump to any day.", "cards": ["SITE-16"], "app": "site", "link": "/timeline", "shots": ["/progress/site16-timeline.webp", "/progress/site16-grow-phone.webp"] },
         { "id": "three-lines", "title": "The three lines challenge", "what": "Anyone can add a screen of three lines or fewer to the community gallery with a pull request. Every entry is drawn live and opens in the playground.", "cards": ["OSS-5"], "yl": "say \"Three votes in. Tacos lead.\"\nchoose \"Your vote?\" Tacos|Ramen|Pizza +other\ntable Votes Dish|Votes \"Tacos|2\" \"Ramen|1\" \"Pizza|0\"", "agent": "Yui", "app": "site", "link": "/developers/community", "shots": ["/progress/oss5-gallery.webp"] },

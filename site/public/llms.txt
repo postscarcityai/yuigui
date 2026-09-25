@@ -14,6 +14,7 @@ Yui is in public beta on TestFlight for iPhone on iOS 26. The agent keeps runnin
 
 - [Developers](https://www.yuigui.com/developers): how Yui works, parsers, adapters
 - [Yui Lines spec](https://www.yuigui.com/yl): the screen language
+- [Library](https://www.yuigui.com/developers/library): every screen preset and saved flow, drawn live. For agents: [library.json](https://www.yuigui.com/library.json) lists each one with its purpose, tags and ready-to-send Yui Lines, so you can search for a screen or a flow and send it as is
 - [Channel guide](https://www.yuigui.com/channel): what every agent on the Yui channel is told
 - [All specs](https://www.yuigui.com/developers/specs): agents, relay, adapters, benchmark
 - [Hub repo](https://github.com/postscarcityai/yuigui): spec, conformance tests, site, roadmap

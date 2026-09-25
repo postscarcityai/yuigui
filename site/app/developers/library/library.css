@@ -1,0 +1,63 @@
+/* The library (FLOW-2). Every class is lib- prefixed: globals.css owns bare .btn, .phone, .pill, .shots, .thumbs. */
+/* Tiles and flow cards set display, which would beat the hidden attribute search sets. */
+.lib [hidden] { display: none !important; }
+.lib-agents { font-size: var(--fs-small); color: var(--muted); margin-top: -4px; }
+.lib-agents a { font-weight: 700; }
+
+.lib-bar { position: sticky; top: 124px; z-index: 5; display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; margin: 28px 0 8px; padding: 12px; background: var(--nav-glass); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1.5px solid var(--outline); border-radius: 999px; }
+.lib-search { flex: 1 1 260px; display: flex; align-items: center; gap: 10px; min-width: 0; padding: 0 16px; height: 48px; background: var(--surface); border: 1.5px solid var(--outline); border-radius: 999px; color: var(--muted); }
+.lib-search:focus-within { border-color: var(--brand); box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 18%, transparent); }
+.lib-search svg { width: 20px; height: 20px; flex: none; }
+.lib-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 17px; color: var(--ink); }
+.lib-search input::placeholder { color: var(--muted); }
+.lib-tabs { display: flex; gap: 4px; padding: 4px; background: var(--raised); border-radius: 999px; }
+.lib-tabs button { min-height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; font: inherit; font-weight: 800; font-size: 16px; color: var(--muted); cursor: pointer; }
+.lib-tabs button span { display: inline-block; min-width: 24px; margin-left: 4px; padding: 0 7px; border-radius: 999px; background: var(--outline); color: var(--ink); font-size: 13px; }
+.lib-tabs button[aria-selected="true"] { background: var(--brand); color: #2A2238; box-shadow: 0 4px 12px color-mix(in srgb, var(--brand) 35%, transparent); }
+.lib-tabs button[aria-selected="true"] span { background: rgba(255, 255, 255, .55); color: #2A2238; }
+@media (max-width: 640px) {
+  .lib-bar { top: 120px; border-radius: 24px; }
+  /* A chart shrunk to the phone's width has 9px words; keep them readable and let the chart scroll. */
+  .lib-graph svg { min-width: 440px; }
+  .lib-tabs { width: 100%; }
+  .lib-tabs button { flex: 1; }
+}
+
+.lib-shelf { margin-top: 40px; }
+.lib-shelf > h2 { margin-bottom: 16px; }
+.lib-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.lib-tile { display: flex; flex-direction: column; min-width: 0; background: var(--surface); border: 1.5px solid var(--outline); border-radius: var(--r-card); box-shadow: var(--shadow); overflow: hidden; scroll-margin-top: 150px; transition: transform .25s cubic-bezier(.3,1.6,.5,1); }
+.lib-tile:hover { transform: translateY(-3px); }
+.lib-tile:target { outline: 3px solid var(--brand); outline-offset: 3px; }
+.lib-tile .phone.sc-phone { width: auto; height: 460px; margin: 16px 16px 0; border-radius: 36px; padding: 9px; box-shadow: 0 14px 34px rgba(58, 51, 64, .22), 0 0 0 2px #2d3044; }
+.lib-tile .phone.sc-phone .screen { border-radius: 28px; }
+.lib-body { display: flex; flex-direction: column; gap: 10px; padding: 16px 18px 18px; flex: 1; }
+.lib-body h3 { margin: 0; }
+.lib-body h3 code { font-size: var(--fs-h3); background: color-mix(in srgb, var(--brand) 16%, transparent); color: var(--ink); padding: 2px 10px; border-radius: 10px; }
+.lib-body p { margin: 0; color: var(--muted); font-size: var(--fs-small); }
+.lib-yl { margin: 0; padding: 10px 12px; background: var(--raised); border: 1.5px solid var(--outline); border-radius: 14px; font-size: 13px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 9.5em; overflow: auto; }
+.lib-yl code { background: none; padding: 0; font-size: inherit; color: var(--ink); }
+.lib-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.lib-tag { font-size: 13px; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--lavender); color: #2A2238; }
+.lib-tag:nth-child(3n+2) { background: var(--mint); }
+.lib-tag:nth-child(3n) { background: var(--butter); }
+.lib-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; margin-top: auto; padding-top: 4px; }
+.btn.lib-btn { min-height: 44px; padding: 8px 18px; font-size: 15px; }
+.lib-doc { font-size: var(--fs-small); font-weight: 700; margin-left: 4px; }
+.lib-none { margin-top: 28px; color: var(--muted); }
+.lib-link { border: 0; background: none; padding: 0; font: inherit; font-weight: 800; color: var(--link); cursor: pointer; text-decoration: underline; }
+
+.lib-flow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 20px 32px; align-items: start; margin-top: 28px; padding: 24px; background: var(--surface); border: 1.5px solid var(--outline); border-radius: var(--r-card); box-shadow: var(--shadow); scroll-margin-top: 150px; }
+.lib-flow-head { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 220px; }
+.lib-flow-head h3 { margin: 0; }
+.lib-flow-head p { margin: 0; color: var(--muted); }
+.lib-graph { min-height: 200px; padding: 12px; background: var(--background); border: 1.5px dashed var(--outline); border-radius: 20px; overflow-x: auto; }
+.lib-graph svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.lib-graph-wait, .lib-graph-err { display: grid; place-items: center; color: var(--muted); font-size: var(--fs-small); }
+.lib-src { grid-column: 1 / -1; }
+.lib-src summary { cursor: pointer; font-weight: 700; color: var(--muted); }
+.lib-src pre { margin: 10px 0 0; padding: 12px; background: var(--raised); border-radius: 14px; font-size: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 820px) {
+  .lib-flow { grid-template-columns: 1fr; padding: 18px; }
+  .lib-flow-head { position: static; }
+}
