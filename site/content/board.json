@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T12:40:15.168Z",
+  "updated": "2026-09-25T13:10:18.931Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -131,11 +131,6 @@
           "key": "OSS-7",
           "title": "Contribution ledger, off-chain first",
           "waiting": true
-        },
-        {
-          "key": "INT-4",
-          "title": "Telegram fallback",
-          "summary": "Yui Lines as buttons and a Mini App"
         },
         {
           "key": "INT-5",
@@ -278,12 +273,20 @@
           "title": "Open backlog on GitHub for contributors"
         },
         {
-          "key": "INT-12",
-          "title": "Model connector for any OpenAI-compatible API (Ollama, LM Studio, vLLM)"
+          "key": "YUI-79",
+          "title": "No text bombs",
+          "summary": "No more text bombs",
+          "progress": "/progress#no-more-text-bombs"
         },
         {
-          "key": "YUI-74",
-          "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)"
+          "key": "INT-4",
+          "title": "Telegram fallback",
+          "summary": "Yui Lines as buttons and a Mini App"
+        },
+        {
+          "key": "YUI-80",
+          "title": "The chat never gets stuck shrunk",
+          "summary": "Top-left tap leaves the app scaled in a border with no way back"
         }
       ]
     },
@@ -291,6 +294,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-12",
+          "title": "Model connector for any OpenAI-compatible API (Ollama, LM Studio, vLLM)",
+          "summary": "Your own model, in Yui",
+          "shipped": "2026-09-25",
+          "progress": "/progress#your-own-model-in-yui"
+        },
+        {
+          "key": "YUI-74",
+          "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)",
+          "summary": "The chat stays on your newest message",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-chat-stays-on-your-newest-message"
+        },
         {
           "key": "INT-18",
           "title": "A2A client, add any agent by its Agent Card",
