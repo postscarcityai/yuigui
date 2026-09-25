@@ -337,7 +337,7 @@ Chris, Sep 24: in most agent tools every agent sits in the same interface and th
 
 Chris, Sep 23: friendlier, a South Korean aesthetic, happy-cat energy, a little fun by default, light and dark mode. v1 (card YUI-2): soft pastels, rounded type, gentle spring motion, warm microcopy. The identity is typographic only (card YUI-9): the coral bunny-ear wordmark already reads as an abstract cat, so there is no mascot. Yui's avatar is the wordmark's Y; each agent gets its initial on a pastel chip.
 
-**Generative app styling (future).** All styling lives in one token set (colors, radii, type, motion, agent avatar colors) stored as plain data, not code. That makes the app itself restylable at runtime: an agent sends a `theme` line in Yui Lines (for example `theme peach round`) or a full token set, and the whole app re-skins, within guardrails that keep contrast readable and tap targets big. Per-agent themes (Arnold in Arnold's colors) are the first use, shipped Sep 24 (YUI-20). A user asking "make Yui feel like autumn" is the second (YUI-43, backlog).
+**Generative app styling (future).** All styling lives in one token set (colors, radii, type, motion, agent avatar colors) stored as plain data, not code. That makes the app itself restylable at runtime: an agent sends a `theme` line in Yui Lines (for example `theme peach round`) or a full token set, and the whole app re-skins, within guardrails that keep contrast readable and tap targets big. Per-agent themes (Arnold in Arnold's colors) are the first use, shipped Sep 24 (YUI-20). A user asking "make Yui feel like autumn" is the second (YUI-43): step 1, the spec, the `theme app` line and a playground mock, shipped Sep 25 ([Restyle Yui](/developers/restyle)); step 2 is YUI-96, the native app.
 
 ### Parallel track | Telegram fallback (any time)
 
@@ -411,7 +411,8 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 - YUI-41: an on-device model answers the easy things for free.
 - YUI-42: the preset flywheel. Log custom screens, turn the repeats into presets. Shipped Sep 24: the Hermes plugin logs custom shapes (never values) when its owner turns it on, a weekly report flags repeats, checklist in spec/FLYWHEEL.md.
-- YUI-43: restyle the app by asking ("make Yui feel like autumn"), with contrast guardrails.
+- YUI-43: restyle the app by asking ("make Yui feel like autumn"), with contrast guardrails. Step 1 shipped Sep 25: [Restyle Yui](/developers/restyle), `theme app` in the parser, `/playground?demo=restyle`.
+- YUI-96 (backlog): step 2 of YUI-43, the native side: the preview card, the chrome that follows the look, Settings > Look, the saved look and the build gate.
 - YUI-40: widgets and Siri, so agents work outside the app.
 
 **Flows**

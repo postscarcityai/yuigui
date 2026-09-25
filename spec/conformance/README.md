@@ -55,6 +55,10 @@ One file per area, `NN-area.json`:
 
 **JavaScript only for now, also: `js-30-tables.json`.** Agent tables (TABLES.md) are parsed and stored by the JavaScript side only in step 1 (YUI-33). The Swift, Python, Kotlin and Rust parsers learn `table create`, `put` and `query` in step 2, when the file becomes `30-tables.json`.
 
+**JavaScript only for now, also: `js-31-theme-app.json`.** App restyles (RESTYLE.md, YUI-43 step 1). The other parsers read `theme app autumn` as an agent theme until step 2, when the file becomes `31-theme-app.json`.
+
+- `look`: `{light, dark}`, for an app restyle: the colors the contrast guard had to move in each mode for the look the input's last `theme app` line asks for. Checked against `appLook` in `site/lib/yl/look.mjs`, which also fails the vector if any text, button or bubble pair is under WCAG AA. The app's own guard is `AgentLook.swift`.
+
 A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`, and (with `chunks`) the per-chunk emits match.
 
 ## Changing the suite

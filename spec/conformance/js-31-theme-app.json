@@ -1,0 +1,354 @@
+{
+  "version": "YL v0",
+  "area": "theme app (YUI-43 step 1: the JavaScript parser only)",
+  "vectors": [
+    {
+      "name": "a set for the whole app",
+      "input": "theme app autumn",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "name": "autumn"
+          }
+        }
+      ],
+      "look": {
+        "light": [
+          "accent"
+        ],
+        "dark": [
+          "accent"
+        ]
+      }
+    },
+    {
+      "name": "set plus keys",
+      "input": "theme app ocean font=serif motion=calm",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "name": "ocean",
+            "font": "serif",
+            "motion": "calm"
+          }
+        }
+      ],
+      "look": {
+        "light": [
+          "accent"
+        ],
+        "dark": [
+          "accent"
+        ]
+      }
+    },
+    {
+      "name": "keys alone",
+      "input": "theme app accent=#7B5CFF bg=cream radius=round",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "accent": "#7B5CFF",
+            "bg": "cream",
+            "radius": "round"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a set name used as a color, a paper by name",
+      "input": "theme app accent=lemon bg=sand",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "accent": "lemon",
+            "bg": "sand"
+          }
+        }
+      ],
+      "look": {
+        "light": [
+          "accent"
+        ],
+        "dark": []
+      }
+    },
+    {
+      "name": "the guard darkens a yellow that white text cannot sit on",
+      "input": "theme app accent=#FFE600",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "accent": "#FFE600"
+          }
+        }
+      ],
+      "look": {
+        "light": [
+          "accent"
+        ],
+        "dark": []
+      }
+    },
+    {
+      "name": "the guard lightens a dark accent on the dark paper",
+      "input": "theme app mono",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "name": "mono"
+          }
+        }
+      ],
+      "look": {
+        "light": [],
+        "dark": [
+          "accent"
+        ]
+      }
+    },
+    {
+      "name": "reset is Yui's own look",
+      "input": "theme app reset",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "name": "reset"
+          }
+        }
+      ],
+      "look": {
+        "light": [],
+        "dark": []
+      }
+    },
+    {
+      "name": "hex with a hash is not a comment",
+      "input": "theme app accent=#ff6b3d # warmer",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "accent": "#ff6b3d"
+          }
+        }
+      ]
+    },
+    {
+      "name": "routed app theme keeps its screen",
+      "input": ">2 theme app mint",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "2",
+          "props": {
+            "scope": "app",
+            "name": "mint"
+          }
+        }
+      ]
+    },
+    {
+      "name": "an app theme takes no id and advances no counter",
+      "input": "theme app sky\nask Keep it?",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "name": "sky"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Keep it?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "an agent's own theme is untouched",
+      "input": "theme autumn",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "name": "autumn"
+          }
+        }
+      ]
+    },
+    {
+      "name": "needs a set, reset or keys",
+      "input": "theme app",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "style profile keys are one agent's, not the app's",
+      "input": "theme app autumn screen=full",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "no flag skips the preview",
+      "input": "theme app ocean +now",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "unknown set",
+      "input": "theme app sparkle",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "two set names",
+      "input": "theme app autumn ocean",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "reset takes nothing else",
+      "input": "theme app reset font=serif",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "radius comes from the fixed scale, not a number",
+      "input": "theme app radius=12",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "a short hex is refused, not guessed",
+      "input": "theme app accent=#F80",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "unknown key",
+      "input": "theme app wallpaper=leaves",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "unknown paper",
+      "input": "theme app bg=neon",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "unknown font",
+      "input": "theme app font=comic",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "theme app with an id is an unknown preset",
+      "input": "theme@look app autumn",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "theme app cannot be patched",
+      "input": "~theme app accent=#000000",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    }
+  ]
+}

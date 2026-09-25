@@ -12,6 +12,7 @@ import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
 import { encodeYL, readYL } from "../../lib/share-code.mjs";
 import { GroupBefore, GroupHead, Guard, LOOKS, Turn } from "./group";
 import { ClientOpen, INVITE_VIEWS } from "./invite";
+import { RESTYLE_VIEWS, RestyleDemo } from "./restyle";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA];
@@ -84,7 +85,16 @@ export default function Playground() {
   // A shared agents demo (spec/AGENTS.md): the owner's plan, or the client's first open.
   const invite = shared ? null : ALL[idx].invite;
   const [inviteView, setInviteView] = useState("make");
-  const client = invite && inviteView !== "make";
+  // A restyle demo (spec/RESTYLE.md): the app's own screens around a `theme app` reply.
+  const restyle = shared ? null : ALL[idx].restyle;
+  const [restyleView, setRestyleView] = useState("ask");
+  const client = (invite && inviteView !== "make") || !!restyle;
+  const goRestyle = useCallback((k) => {
+    const url = new URL(window.location.href);
+    if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
+    window.history.replaceState(null, "", url);
+    setRestyleView(k);
+  }, []);
 
   // Live mode: every edit re-renders the whole document. Keys are stable, so
   // components that did not change keep their state.
@@ -109,6 +119,7 @@ export default function Playground() {
     const yl = q.get("yl");
     if (q.get("theme") === "light") setLight(true);
     if (INVITE_VIEWS.some(([k]) => k === q.get("view"))) setInviteView(q.get("view"));
+    if (RESTYLE_VIEWS.some(([k]) => k === q.get("view"))) setRestyleView(q.get("view"));
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
     // ?yl= holds a Share code (SITE-19) or plain lines (the community gallery); readYL takes both.
@@ -395,6 +406,9 @@ export default function Playground() {
               setInviteView(k);
             }}>{label}</button>
           )) : null}
+          {restyle ? RESTYLE_VIEWS.map(([k, label]) => (
+            <button key={k} className={`pg-tab ${k === restyleView ? "on" : ""}`} onClick={() => goRestyle(k)}>{label}</button>
+          )) : null}
           {client ? null : screens.map((k) => (
             <button key={k} className={`pg-tab ${k === shown ? "on" : ""}`} onClick={() => setView(k)}>
               Screen {k}{state.screens[k].length ? ` · ${state.screens[k].length}` : ""}
@@ -416,7 +430,8 @@ export default function Playground() {
           <div className={`screen ${light ? "light" : ""}`}>
             <div className="notch" />
             <div className="sbar" />
-            {client ? <ClientOpen key={`ci:${inviteView}:${epoch}`} invite={invite} view={inviteView} onEvent={groupEvent} /> : null}
+            {client && invite ? <ClientOpen key={`ci:${inviteView}:${epoch}`} invite={invite} view={inviteView} onEvent={groupEvent} /> : null}
+            {restyle ? <RestyleDemo key={`rs:${epoch}`} text={text} dark={!light} view={restyleView} setView={goRestyle} onEvent={groupEvent} /> : null}
             {client ? null : group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
               <div className="ahead">
                 <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>

@@ -13,6 +13,7 @@ const ORDER = [
   ["reactions", "Reactions", "/reactions", "Hold a message and react. What each of the six tells your agent to do."],
   ["benchmark", "Benchmark", null, "Yui Lines against JSON, token by token, on ten real screens."],
   ["agents", "Agents", null, "How an agent gets into Yui: pairing codes, the host API, names and colors, and sharing agents with the people you invite."],
+  ["restyle", "Restyle Yui (draft)", null, "Ask any agent to make Yui feel like autumn: a preview beside the look you have, one tap to apply, one to undo, and the contrast guard in between."],
   ["relay", "Relay", null, "How messages travel between your machine and the app, and how push works."],
   ["groups", "Group threads (draft)", null, "Several of your agents in one conversation: who answers, how a handoff shows, the loop guard, and how a group is stored."],
   ["adapters", "Adapters", null, "Every agent framework Yui plans to reach, Hermes first, and in what order."],

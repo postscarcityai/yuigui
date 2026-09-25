@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 import { flowEvent, flowPath, menuOf, onStage, pageOf, parse, readTyped, resolve, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 import { emptyStore, query, replay } from "../../site/lib/yl/tables.mjs";
+import { appLook, checks } from "../../site/lib/yl/look.mjs";
 
 // Parser ops minus the fields that are not compared: `line` (the source
 // text) and an error's `message` (wording is up to each parser).
@@ -83,6 +84,17 @@ function check(v) {
     // A query that cannot run gives { error: true }: the wording is up to each implementation.
     const results = ops.filter((o) => o.op === "add" && o.preset === "query").map((o) => query(store, resolve("query", o.props), ctx)).map((r) => (r.error ? { error: true } : r));
     if (!isDeepStrictEqual(results, v.tables.results || [])) fails.push(["tables (query results)", results]);
+  }
+  if (v.look) {
+    // An app restyle (YL.md, theme app): the look the input's last `theme app`
+    // line asks for. Every contrast pair must pass AA in light and dark, and
+    // `look` names the colors the guard had to move, per mode.
+    const op = parse(v.input, known).filter((o) => o.op === "theme" && o.props.scope === "app").pop();
+    const look = op ? appLook(op.props) : null;
+    const moved = look ? look.adjusted : null;
+    if (!isDeepStrictEqual(moved, v.look)) fails.push(["look (colors the guard moved)", moved]);
+    const under = look && look.name !== "yui" ? ["light", "dark"].flatMap((m) => checks(look[m]).filter((c) => !c.ok).map((c) => `${m}: ${c.what} ${c.ratio}`)) : [];
+    if (under.length) fails.push(["look (pairs under AA)", under]);
   }
   const hasError = v.expected.some((o) => o.op === "error");
   if (hasError !== (v.error === true)) fails.push(["vector: `error` flag does not match expected", v.error]);

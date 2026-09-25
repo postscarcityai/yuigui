@@ -173,6 +173,18 @@ form@hello "What does each one say first?" "Penny says":long! "Basil says":long!
 choose@save "Save this as a template?" "Save as client-default"|"Just this once"`,
   },
   {
+    // Restyle Yui by asking (spec/RESTYLE.md, YUI-43 step 1): the lines are the
+    // agent's reply. The preview card, the restyled chrome and Settings are the
+    // app's own screens (playground/restyle.js), switched with the tabs above
+    // the phone. Try `theme app ocean`, `theme app accent=#FFE600` or `theme app reset`.
+    name: "Restyle Yui by asking: preview, apply, reset",
+    slug: "restyle",
+    agent: "Yui",
+    restyle: true,
+    yl: `say "Autumn for all of Yui. Here it is beside what you have now."
+theme app autumn`,
+  },
+  {
     name: "Demo: custom {json} escape hatch",
     agent: "Scout",
     yl: `say "No preset fits a split-flap countdown, so the agent drops to custom."

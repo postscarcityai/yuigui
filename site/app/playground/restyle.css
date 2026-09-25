@@ -1,0 +1,56 @@
+/* Restyle mock (spec/RESTYLE.md). Every class is rs-, so no site chrome leaks in. */
+.rs-app { display: flex; flex-direction: column; flex: 1; min-height: 0; background: var(--rs-bg); color: var(--rs-ink); font-family: var(--rs-font); transition: background .25s, color .25s; }
+@media (prefers-reduced-motion: reduce) { .rs-app { transition: none; } }
+.rs-top { display: flex; align-items: center; gap: 10px; padding: 14px 16px 8px; }
+.rs-word { font-weight: var(--rs-w); font-size: 24px; color: var(--rs-acc); letter-spacing: -0.02em; }
+.rs-top-sub { font-weight: 700; font-size: 15px; }
+.rs-note { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 2px 14px 6px; padding: 10px 12px; border-radius: calc(var(--rs-r) * .6); background: var(--rs-surface); border: 1px solid var(--rs-line); font-size: 13px; font-weight: 600; }
+.rs-link { background: none; border: 0; color: var(--rs-ink); font: inherit; font-weight: 800; text-decoration: underline; min-height: 44px; min-width: 44px; cursor: pointer; }
+.rs-list { display: flex; flex-direction: column; gap: 8px; padding: 6px 14px; flex: 1; overflow-y: auto; }
+.rs-row, .rs-set { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: var(--rs-r); background: var(--rs-surface); border: 1px solid var(--rs-line); color: var(--rs-ink); font: inherit; text-align: left; width: 100%; }
+.rs-face { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 14px; flex: none; }
+.rs-txt { display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 2px; }
+.rs-nm { font-weight: var(--rs-w); font-size: 14.5px; }
+.rs-last { font-size: 12.5px; color: var(--rs-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rs-tabs { display: flex; border-top: 1px solid var(--rs-line); background: var(--rs-surface); padding: 4px 8px 10px; }
+.rs-tab { flex: 1; min-height: 44px; background: none; border: 0; font: inherit; font-size: 12px; font-weight: 700; color: var(--rs-soft); cursor: pointer; }
+.rs-tab.on { color: var(--rs-ink); box-shadow: inset 0 3px 0 var(--rs-acc); }
+
+.rs-sec { font-size: 12px; font-weight: 700; color: var(--rs-soft); text-transform: uppercase; letter-spacing: .04em; margin: 8px 4px 0; }
+.rs-sw { width: 28px; height: 28px; border-radius: 50%; flex: none; }
+.rs-toggle, .rs-reset { cursor: pointer; min-height: 44px; }
+.rs-knob { width: 44px; height: 26px; border-radius: 13px; background: var(--rs-line); position: relative; flex: none; }
+.rs-knob::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.25); }
+.rs-knob.on { background: var(--rs-acc); }
+.rs-knob.on::after { left: 21px; }
+.rs-reset { justify-content: center; font-weight: 800; color: var(--rs-ink); }
+
+.rs-msgs { display: flex; flex-direction: column; gap: 8px; padding: 6px 12px 14px; overflow-y: auto; flex: 1; }
+.rs-me { align-self: flex-end; max-width: 80%; background: var(--rs-user); color: var(--rs-user-ink); padding: 9px 13px; border-radius: var(--rs-r); font-size: 14px; }
+.rs-say { align-self: flex-start; max-width: 85%; background: var(--rs-agent); color: var(--rs-agent-ink); border: 1px solid var(--rs-line); padding: 9px 13px; border-radius: var(--rs-r); font-size: 14px; }
+.rs-err { font-size: 12px; color: var(--rs-soft); border: 1px dashed var(--rs-line); border-radius: 10px; padding: 8px 10px; }
+
+.rs-card { display: flex; flex-direction: column; gap: 10px; padding: 12px; border-radius: 20px; background: var(--rs-surface); border: 1px solid var(--rs-line); }
+.rs-done { font-size: 13px; color: var(--rs-soft); padding: 10px 12px; }
+.rs-card-head { display: flex; align-items: center; justify-content: space-between; font-weight: 800; font-size: 14px; }
+.rs-seg { display: inline-flex; border: 1px solid var(--rs-line); border-radius: 999px; overflow: hidden; }
+.rs-seg button { background: none; border: 0; font: inherit; font-size: 11.5px; font-weight: 700; color: var(--rs-soft); padding: 0 10px; min-height: 30px; cursor: pointer; }
+.rs-seg button.on { background: var(--rs-ink); color: var(--rs-surface); }
+.rs-pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+.rs-pair figure { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.rs-pair figcaption { text-align: center; font-size: 11.5px; font-weight: 700; color: var(--rs-soft); }
+.rs-mini { height: 172px; border-radius: 16px; overflow: hidden; border: 1px solid rgba(127,127,127,.35); pointer-events: none; flex: none; }
+.rs-mini .rs-top { padding: 8px 8px 4px; }
+.rs-mini .rs-word { font-size: 15px; }
+.rs-mini .rs-list { gap: 4px; padding: 2px 6px; overflow: hidden; }
+.rs-mini .rs-row { padding: 5px; gap: 6px; border-radius: calc(var(--rs-r) * .45); }
+.rs-mini .rs-face { width: 18px; height: 18px; font-size: 9px; }
+.rs-mini .rs-nm { font-size: 10px; }
+.rs-mini .rs-last { font-size: 8.5px; }
+.rs-mini .rs-tabs { padding: 0 4px 3px; }
+.rs-mini .rs-tab { min-height: 22px; font-size: 8.5px; }
+.rs-guard { font-size: 12px; color: var(--rs-soft); line-height: 1.4; }
+.rs-btns { display: flex; gap: 8px; }
+.rs-btns button { flex: 1; min-height: 44px; border-radius: 14px; font: inherit; font-weight: 800; font-size: 14px; cursor: pointer; }
+.rs-go { background: var(--rs-acc); color: var(--rs-on); border: 0; }
+.rs-keep { background: transparent; color: var(--rs-ink); border: 1px solid var(--rs-line); }

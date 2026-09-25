@@ -12,6 +12,8 @@
 //   { op: "focus", screen, line }             bare ">2": later lines go to screen 2
 //   { op: "end",   screen, target, line }     close the open group (deck, plan, narrate)
 //   { op: "theme", screen, props, line }      restyle this agent's look (props.name = a named set)
+//                                             `theme app ...`: props.scope "app", a restyle of Yui's own
+//                                             chrome the person previews and applies (never silent)
 //   { op: "close", screen: "full", line }     `close` or bare ">chat": close the stage, back to screen 1
 //   { op: "talk",  screen, props: { on }, line }  `>2 talk`: page 2 keeps the composer (`talk off` takes it away)
 //   { op: "menu",  screen, id, props: { bucket, label, sub?, say?, show?, url? }, line }
@@ -27,6 +29,7 @@
 // the group's id.
 
 import { emptyStore, write as writeTable } from "./tables.mjs";
+import { FONTS, MOTIONS, PAPERS, RADII, SETS, WEIGHTS } from "./look.mjs";
 
 export const PRESETS = [
   "timer", "ask", "choose", "pick", "slide", "form",
@@ -1100,7 +1103,11 @@ export class Parser {
       this.screen = "1";
       return { op: "close", screen: "full", line };
     }
-    if (head === "theme") return { op: "theme", screen, props: parseArgs("theme", tokens), line };
+    if (head === "theme") {
+      const t0 = tokens[0];
+      if (t0 && !t0.key && !t0.quoted && !t0.parts && t0.text === "app") return appTheme(screen, tokens.slice(1), line);
+      return { op: "theme", screen, props: parseArgs("theme", tokens), line };
+    }
     if (head === "talk") {
       // `talk` or `talk on` turns the composer on for this page, `talk off` takes it away.
       const word = tokens.length === 0 ? "on" : tokens.length === 1 ? tokens[0].text : null;
@@ -1140,6 +1147,47 @@ export const MENU_LABEL = 60;
 // other characters as one "-": "Start today's workout" is start-today-s-workout.
 export function menuId(label) {
   return String(label).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "item";
+}
+
+// `theme app [set] key=value...` (spec/YL.md, theme app): a restyle of Yui's
+// own chrome, not the agent's look. Stricter than an agent's theme: the app
+// shows the person exactly what will change before anything does, so an
+// unknown set, key or value is an error line, never quietly dropped. Style
+// profile keys belong to one agent, and there is no flag that skips the preview.
+const APP_KEYS = {
+  accent: (v) => /^#[0-9a-f]{6}$/i.test(v) || Object.hasOwn(SETS, v),
+  bg: (v) => /^#[0-9a-f]{6}$/i.test(v) || Object.hasOwn(PAPERS, v),
+  radius: (v) => RADII.includes(v),
+  font: (v) => FONTS.includes(v),
+  weight: (v) => WEIGHTS.includes(v),
+  motion: (v) => MOTIONS.includes(v),
+};
+const STYLE_KEYS = ["screen", "gallery", "chart", "buttons"];
+function appTheme(screen, tokens, line) {
+  const bad = (message) => ({ op: "error", screen, message: `theme app: ${message}`, line });
+  const props = { scope: "app" };
+  const words = [];
+  for (const t of tokens) {
+    if (t.key) {
+      const v = Array.isArray(t.value) ? t.value.join("|") : t.value;
+      if (STYLE_KEYS.includes(t.key)) return bad(`${t.key}= is one agent's style, not the app's`);
+      if (!APP_KEYS[t.key]) return bad(`unknown key ${t.key}=`);
+      if (!APP_KEYS[t.key](v)) return bad(`${t.key}=${v} is not a value the app takes`);
+      props[t.key] = v;
+    } else if (!t.quoted && !t.parts && /^\+[a-z][\w-]*$/i.test(t.raw)) {
+      return bad(`${t.raw} is not a flag here; the person always sees a preview first`);
+    } else words.push(t.text);
+  }
+  if (words.length > 1) return bad(`one set name, not "${words.join(" ")}"`);
+  if (words.length) {
+    const name = words[0];
+    if (name === "reset") {
+      if (Object.keys(props).length > 1) return bad("reset takes nothing else");
+    } else if (!Object.hasOwn(SETS, name)) return bad(`no set named ${name}`);
+    props.name = name;
+  }
+  if (Object.keys(props).length === 1) return bad("needs a set name, reset or keys");
+  return { op: "theme", screen, props, line };
 }
 
 function menuLine(screen, tokens, line) {
@@ -1519,6 +1567,9 @@ export function apply(state, op, style = {}) {
     case "menu":
       s.menu = menuOf([op], s.menu || undefined); break;
     case "theme":
+      // An app restyle is only a proposal until the person taps Apply: it
+      // waits in `restyle` and leaves the agent's own look alone.
+      if (op.props.scope === "app") { const { scope, ...rest } = op.props; s.restyle = rest; break; }
       s.theme = op.props.name ? { ...op.props } : { ...(s.theme || {}), ...op.props }; break;
     // Agent tables (spec/TABLES.md) live in the agent's store, not on a screen.
     // Every query on screen reads it, so a put redraws them. `style.today`
