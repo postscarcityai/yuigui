@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 64,
-    "site": 163,
+    "app": 67,
+    "site": 168,
     "builds": 21,
-    "shipped": 95,
+    "shipped": 96,
     "screenshots": 177
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T04:13:06.893Z",
+          "at": "2026-09-25T05:02:05.574Z",
+          "title": "Links in a card open Safari",
+          "card": "YUI-67",
+          "anchor": "links-in-a-card-open-safari",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 67,
+            "site": 168,
+            "builds": 21,
+            "shipped": 96
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T04:13:32.000Z",
           "title": "Build 64: hold to talk, with a waveform and a trash can",
           "card": null,
           "anchor": "build-64-hold-to-talk-with-a-waveform-and-a-trash-can",
@@ -38,13 +53,69 @@
           "commits": 0,
           "totals": {
             "app": 64,
-            "site": 163,
+            "site": 164,
             "builds": 21,
             "shipped": 95
           }
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "0241f5e",
+          "at": "2026-09-25T04:35:45.000Z",
+          "text": "A test build's Install link parses whole: card url= keeps a 300+ character signed link with a fragment, an encoded manifest url, & and =...",
+          "url": "https://github.com/postscarcityai/yui/commit/0241f5e"
+        },
+        {
+          "repo": "site",
+          "sha": "329fcf3",
+          "at": "2026-09-25T04:31:02.000Z",
+          "text": "Channel guide: a link out is card ... url=, the button opens Safari and sends nothing (TestFlight feedback AHbFq_lhBMRFGDoCfVzMf4A)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/329fcf3"
+        },
+        {
+          "repo": "app",
+          "sha": "dc11e1d",
+          "at": "2026-09-25T04:31:02.000Z",
+          "text": "Links look like links: a card with url= gets an arrow on its button, opens the page in Safari and sends nothing to the chat, so the...",
+          "url": "https://github.com/postscarcityai/yui/commit/dc11e1d"
+        },
+        {
+          "repo": "site",
+          "sha": "25c912c",
+          "at": "2026-09-25T04:29:27.000Z",
+          "text": "ROADMAP: WAR-1 the war room, YUI-65 timeline and YUI-66 drag to reorder (backlog)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/25c912c"
+        },
+        {
+          "repo": "site",
+          "sha": "b477d9e",
+          "at": "2026-09-25T04:24:15.000Z",
+          "text": "Roadmap: YUI-64 (backlog) an agent that is paired but not listening says so, after YUI-63 (TestFlight feedback AMiI7ezKx6x1KcexlzOKYJc)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b477d9e"
+        },
+        {
+          "repo": "app",
+          "sha": "834a2a0",
+          "at": "2026-09-25T04:23:46.000Z",
+          "text": "A newly added agent answers what you sent before its gateway came up: pairing and the gateway restart are separate steps, and the plugin...",
+          "url": "https://github.com/postscarcityai/yui/commit/834a2a0"
+        },
+        {
+          "repo": "site",
+          "sha": "1c469ec",
+          "at": "2026-09-25T04:18:26.000Z",
+          "text": "Roadmap: YUI-63 (backlog), one working row instead of dots plus a timer, from TestFlight feedback ACK-hbTx0hrN6RLtOf2btc8",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1c469ec"
+        },
+        {
+          "repo": "site",
+          "sha": "b3d3430",
+          "at": "2026-09-25T04:13:32.000Z",
+          "text": "Progress: build 64, hold to talk with a waveform, let go sends, slide to the trash cancels; the crash Chris hit was build 57, before the...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b3d3430"
+        },
         {
           "repo": "app",
           "sha": "8caa7b3",

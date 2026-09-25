@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Links in a card open Safari",
+    "card": "YUI-67",
+    "body": "Chris tapped Install on a card that was meant to open a web page. Instead the app sent the word Install back to the agent, and the agent answered with the same card again. Now a card with a link gets a small arrow on its button. Tapping it opens the page in Safari and sends nothing to the chat, so the agent never answers a tap that already did its job. Buttons without a link still answer the agent as before. We also checked that long install links survive whole: over 300 characters, with a fragment, encoded parts, & and =, even when they arrive one character at a time. On main now, it rides the next TestFlight build. No screenshot yet, the build entry will carry one."
+  },
+  {
+    "date": "2026-09-25",
     "title": "Build 64: hold to talk, with a waveform and a trash can",
     "build": 64,
     "body": "Chris held the mic and the app closed again. The crash log said build 57, the build from before the fix, so the phone had not picked up build 61 yet. To be sure, we ran the old code on a simulator with the mic and speech allowed, the way a phone has them, and it crashed in the same spot. The fixed code does not. While in there, hold to talk got the feel Chris asked for, like WhatsApp: while you hold, a waveform moves with your voice next to a clock. Let go and your words send. Slide left to the trash can and let go, and nothing sends. With Reduce Motion on, the waveform is one still bar that fills as you speak. After a voice send the keyboard stays down.",

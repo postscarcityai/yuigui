@@ -78,6 +78,8 @@ Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20
 - YUI-44 step 1 (third): @mention another agent from the composer and its reply lands in the thread. Group threads come after.
 - YUI-14: voice in, text out, fast.
 - YUI-62 (backlog): chat with a screen. Screens are full screen with no composer now; an agent will be able to keep the composer on a page, and what you type there reaches it tagged with that screen.
+- YUI-63 (backlog): one working row instead of three dots plus a timer. A working word and the seconds ("Pondering · 12s") first; later the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
+- YUI-64 (backlog): an agent that is paired but not listening says so. Presence per agent, not per machine; right after pairing the agent sheet shows the one step left (restart its gateway); a message to it says it will wait instead of a timer that counts forever. From Chris's R0SS feedback on build 61.
 - INT-3 onward: more agent frameworks, starting with a Yui MCP server (see Adapters below).
 - The phase backlog below, from YUI-33 on.
 
@@ -99,6 +101,11 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - YUI-56: invites end to end, from request to first sign-in.
 - YUI-57: default agents per invite, client-safe agents only.
 - SITE-26: Request an invite replaces the waitlist on the site.
+
+**Next up: WAR-1, the war room.** Screen 2 becomes a real dashboard for running Yui from Yui: a timeline of what shipped and what is queued, quick links to the site, and a reorder mode that sets board priority by dragging, with no agent turn in between (Chris, Sep 25).
+
+- YUI-65 (backlog): a timeline preset: done above, now, queued below.
+- YUI-66 (backlog): reorder mode, drag to set priority on the board.
 
 **Distant: EARN-1, build to earn.** Yui is built by whoever shows up, human or agent, and the work is what earns. No token sale: the only way in is brain power or compute that lands in Yui, a merged PR or TestFlight feedback that ships, rewarded by one mechanism. 10% of voting equity is set aside for the public pool, with more to follow. Humans first, and an open call to autonomous agents. Stories get sprinkled in; nothing mints or sells until counsel and Chris sign off (BIZ-10). Builds on Yui@home (SITE-24).
 

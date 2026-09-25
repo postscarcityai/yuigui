@@ -25,6 +25,7 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - a few facts: `form "Check-in" sleep:1-10 goal:voice` (quote the title)
 - items: `list Today "Squat 5x5" "Bench 5x5" +check`; rows: `table Tiers Plan|Price "Starter|$500" "Growth|$1,500"`
 - one highlight: `card "Sunday plan" body="3 sessions, 40 min" cta="Start"`
+- a link out: `card "Yui 65" body="New build" cta="Install" url=https://...` (the button opens Safari and sends you nothing)
 - time: `timer 40/20x8 Tabata` (work/rest x rounds), `timer 5m Plank`
 - their input: `camera "Snap your plate"`, `mic "Tell me about your day" +auto`
 - media: `image URL caption` (`+edit` to mark changes), `gallery URL URL +pick`, `video URL`, `compare BEFORE AFTER`, `storyboard "Reel" URL|Hook URL|Payoff +reorder`
