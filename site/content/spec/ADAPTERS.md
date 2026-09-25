@@ -163,6 +163,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** S.
 - **Depends on:** INT-18 or INT-2.
 - **Priority:** 5.
+- **Status:** step 1 shipped Sep 25. CrewAI serves an agent over A2A with its own `A2AServerConfig` and task executor, on the A2A SDK's server (A2A 0.3), so the A2A bridge pairs it by its card with no change. CrewAI reads every text part as the task and drops part labels, so the example moves Yui's guide into the agent's backstory, its system prompt. A CrewAI agent on a local 7B model paired, answered, drew a screen from the guide and answered a tap on live Yui, 9 of 9 (`spec/A2A.md` "CrewAI agents"). A crew run as a script comes in through the webhook bridge instead (path E, `crewai_crew.py` in the webhook bridge's Python folder).
 
 ### AutoGen, now Microsoft Agent Framework | INT-16
 

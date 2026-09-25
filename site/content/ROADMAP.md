@@ -428,7 +428,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-12 (step 1 done Sep 25): open models on your own machine (Ollama, LM Studio, vLLM) and any OpenAI-compatible API. Today as a bridge next to the model server (spec/MODELS.md); cloud APIs on the hosted connector next, with YUI-34's key vault.
 - INT-13: a Yui channel for Flue.
 - INT-14 (step 1 done Sep 25): LangGraph, as an A2A agent on LangGraph's own Agent Server; the guide reaches the graph's state (spec/A2A.md). Next: the hosted connector.
-- INT-15: CrewAI.
+- INT-15 (step 1 done Sep 25): CrewAI, as an A2A agent served by CrewAI's own A2A server config; the guide goes into the agent's backstory (spec/A2A.md). Crews run as scripts use the webhook bridge. Next: the hosted connector.
 - INT-16: Microsoft Agent Framework, the successor to AutoGen.
 - INT-17 (step 1 done Sep 25): n8n, as a node ("Yui: ask and wait"), through the MCP Client Tool and through a Webhook trigger (spec/MCP.md "n8n"). Next: publish the node on npm and n8n's community list.
 - INT-18 (step 1 done Sep 25): an A2A client, so any agent with an Agent Card can join. Today as a bridge on your own computer (spec/A2A.md); hosted next, once Yui has a Cloudflare account.

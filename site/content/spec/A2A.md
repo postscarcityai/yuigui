@@ -131,13 +131,42 @@ class State(TypedDict, total=False):
 
 **Deployments without A2A.** A threads and runs adapter (create a thread, stream a run) is not built, because every Agent Server serves A2A by default. The gaps are a server older than 0.13 (upgrade it), one whose owner set `http.disable_a2a` (turn it back on), and a graph with no `messages` key, which a threads adapter could not talk to either without knowing its input.
 
+## CrewAI agents
+
+[CrewAI](https://docs.crewai.com/en/learn/a2a-agent-delegation) (1.15, `pip install 'crewai[a2a]'`) exposes an agent as an A2A server with an `A2AServerConfig` on the agent: `agent.to_agent_card(url)` makes its card, and `crewai.a2a.utils.task.execute` runs each A2A task as one CrewAI task. CrewAI does not ship a server process, so the official A2A SDK's Starlette app serves it (A2A 0.3, JSON-RPC, streaming). Pair it like any other (INT-15):
+
+```
+uv run --with 'crewai[a2a,litellm]' --with uvicorn adapters/a2a/tests/sdk/crewai_agent.py 8791
+node yui-a2a.ts card http://127.0.0.1:8791
+node yui-a2a.ts pair 123456 --card http://127.0.0.1:8791
+node yui-a2a.ts run
+```
+
+`crewai_agent.py` is a working example on local Ollama qwen2.5:7b through LiteLLM, so it needs no key. `CREWAI_MODEL` (and that provider's key) runs it on another model.
+
+**How the guide gets in.** CrewAI joins every text part of the message into the task's description and drops part metadata, so left alone Yui's guide reads as part of the person's words, and a tap's data part is added as "Structured Data". The example's executor fixes both before CrewAI sees the message: the part marked `{"yui": "channel_guide"}` goes into the agent's backstory, which is CrewAI's system prompt, and the tap's data part is dropped (its text line says the same). The bridge sends CrewAI the same parts as any other agent.
+
+```python
+class YuiCrewExecutor(AgentExecutor):
+    async def execute(self, context, event_queue):
+        guide = next((p.root.text for p in context.message.parts
+                      if (p.root.metadata or {}).get("yui") == "channel_guide"), None)
+        context.message.parts = [p for p in context.message.parts
+                                 if p.root.kind == "text" and (p.root.metadata or {}).get("yui") != "channel_guide"]
+        await execute(helper(guide), context, event_queue)  # an Agent with the guide in its backstory
+```
+
+Each A2A task is a fresh CrewAI task, so the agent keeps no memory between turns; the prompt holds the guide and the turn, which fits a 4,096-token local model.
+
+**Crews run as scripts.** A crew you kick off from a script, not a server, comes in through the webhook bridge (path E). `adapters/webhook/python/crewai_crew.py` is a planner and a writer: as a webhook, each turn kicks off the crew with the guide in the writer's backstory; with `send "..."` it runs once, say from cron, and puts the answer in the thread.
+
 ## Tested
 
 - The client, 45 unit tests: event stream parsing, both versions' shapes, errors, and live calls against a scripted agent in 1.0 and 0.3, including picking a task back up, and the LangGraph message shape.
 - Against the official A2A SDK (`a2a-sdk` for Python, 1.x and 0.3): card, send, stream, `GetTask`.
 - End to end on live Yui, 66 checks on throwaway accounts: A2A 1.0, 0.3, and 1.0 without streaming. A long task shows the working row, then its whole answer lands once. A bridge killed mid-task resumes the same task after a restart and answers once. The agent's question continues the same task. And on the iPhone simulator: the working row, the long answer, a screen from the A2A agent, a tap on it, and a question, light and dark.
 
-The test agent is scripted, with fixed answers and no model. One more run uses a real one: a Google ADK agent served by ADK's own `to_a2a`, its model qwen2.5:7b on Ollama (`a2a_e2e.py --protocol adk`). It pairs by its card, answers a turn, draws a screen the Yui Lines parser reads (only because the guide reached its model: its own instruction never mentions Yui), and answers a tap on it. Another runs a scripted LangGraph graph on LangGraph's own Agent Server (`a2a_e2e.py --protocol langgraph`, 12 checks): it pairs by the `?assistant_id=` card, answers a turn, draws a screen only because the guide reached its state, reads the tap from its data, holds the guide in the thread's state without it ever becoming a chat message, and stops clean.
+The test agent is scripted, with fixed answers and no model. One more run uses a real one: a Google ADK agent served by ADK's own `to_a2a`, its model qwen2.5:7b on Ollama (`a2a_e2e.py --protocol adk`). It pairs by its card, answers a turn, draws a screen the Yui Lines parser reads (only because the guide reached its model: its own instruction never mentions Yui), and answers a tap on it. Another runs a scripted LangGraph graph on LangGraph's own Agent Server (`a2a_e2e.py --protocol langgraph`, 12 checks): it pairs by the `?assistant_id=` card, answers a turn, draws a screen only because the guide reached its state, reads the tap from its data, holds the guide in the thread's state without it ever becoming a chat message, and stops clean. And a CrewAI agent on the same local model (`a2a_e2e.py --protocol crewai`, 9 checks): it pairs by its A2A 0.3 card, answers a turn, draws a screen only because the guide reached its backstory, answers a tap on it, and stops clean.
 
 ## Not yet
 

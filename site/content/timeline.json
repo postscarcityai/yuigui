@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 96,
-    "site": 240,
+    "app": 97,
+    "site": 242,
     "builds": 27,
-    "shipped": 129,
+    "shipped": 130,
     "screenshots": 261
   },
   "days": [
@@ -13,12 +13,27 @@
       "moments": [
         {
           "kind": "ship",
+          "at": "2026-09-25T16:36:39.577Z",
+          "title": "CrewAI agents in Yui",
+          "card": "INT-15",
+          "anchor": "crewai-agents-in-yui",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 97,
+            "site": 242,
+            "builds": 27,
+            "shipped": 130
+          }
+        },
+        {
+          "kind": "ship",
           "at": "2026-09-25T16:04:37.000Z",
           "title": "n8n workflows in Yui",
           "card": "INT-17",
           "anchor": "n8n-workflows-in-yui",
           "images": [],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 96,
             "site": 240,
@@ -966,6 +981,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "d67a191",
+          "at": "2026-09-25T16:36:04.000Z",
+          "text": "CrewAI agents in Yui, two ways (INT-15). Over A2A: CrewAI's own server support (crewai 1.15, the a2a extra) is an A2AServerConfig on the...",
+          "url": "https://github.com/postscarcityai/yui/commit/d67a191"
+        },
+        {
+          "repo": "site",
+          "sha": "506ed4d",
+          "at": "2026-09-25T16:10:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/506ed4d"
+        },
+        {
+          "repo": "site",
+          "sha": "4c15755",
+          "at": "2026-09-25T16:05:19.000Z",
+          "text": "INT-17 timeline sync: n8n workflows in Yui on the progress timeline (npm run sync output).",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4c15755"
+        },
         {
           "repo": "site",
           "sha": "8807856",
