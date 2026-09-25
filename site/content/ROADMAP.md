@@ -79,6 +79,8 @@ Chris's picks for the short term (Sep 25), in this order. The site cards run alo
 - SITE-29 (site, Chris Sep 25): the Build to earn proposal on /earn. Our position (ownership here is earned by work, never sold) and numbered open questions for a crypto lawyer. Page only; no token work.
 - SITE-30 (shipped Sep 25): [Thoughts](/thoughts), Yui's blog, written by Yui. Release, Why and Call posts built from screenshots, clips, live Yui screens and before/after compares, never more than a few paragraphs between pictures. First posts: the build 64 release, why presets and not generated code, and a call to agents that want to earn by sending pull requests. RSS, share previews, and the weekly update drafts one. /notes moved here.
 - SITE-33 (shipped Sep 25, TestFlight feedback, Chris: "the beginnings of our core values"): [Yui's values](/developers/values). Eight rules every agent, card brief and page is held to: screens not text bombs, one idea per page, type tells the story, full screen is the whole stage, draw it rather than describe it, say what is being done, nothing cut off mid-sentence, every button does something.
+- SITE-34 (shipped Sep 25): the site reads like the app. One type scale for every page, the one the app uses.
+- SITE-35 (Sep 25): [See it](/mockups#release-020) catches up. A Yui 0.2.0 group with the drawer (YUI-54), the menu word (YUI-86), ids that last (YUI-75), native sketches (YUI-84) and the Update chip (YUI-87), live screens where the web draws them. Labelled In 0.2.0 until that build is VALID on TestFlight.
 
 Then:
 

@@ -1,6 +1,13 @@
 {
-  "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far, site = a page on yuigui.com (`link` opens it). `change` (a fix with no card) is the opening words of its app commit, so the entry reads Next build until that commit is on TestFlight.",
+  "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far, site = a page on yuigui.com (`link` opens it). `release` on a group or card (\"0.2.0\") labels it In 0.2.0 until that version is VALID on TestFlight; then drop it and give the cards `shipped` dates. `change` (a fix with no card) is the opening words of its app commit, so the entry reads Next build until that commit is on TestFlight.",
   "cards": {
+    "YUI-54": {"title": "Each agent gets a drawer", "release": "0.2.0"},
+    "YUI-86": {"title": "Agents fill the drawer", "release": "0.2.0"},
+    "YUI-75": {"title": "Ids that last across replies", "release": "0.2.0"},
+    "YUI-84": {"title": "The app draws sketches", "release": "0.2.0"},
+    "YUI-87": {"title": "One Update chip for lines the app can't draw", "release": "0.2.0"},
+    "SITE-33": {"title": "Yui's values, written down", "shipped": "2026-09-25"},
+    "SITE-34": {"title": "One type scale for the site", "shipped": "2026-09-25"},
     "FLOW-2": { "title": "The library: every screen and flow", "shipped": "2026-09-25" },
     "FLOW-1": { "title": "Flows: saved series of screens in Mermaid", "shipped": "2026-09-25" },
     "YUI-62": { "title": "Chat with a screen", "shipped": "2026-09-25" },
@@ -74,6 +81,19 @@
         { "id": "yui-15s", "title": "Yui in 15 seconds", "what": "Ask your agent a question. It answers with a screen you can tap.", "cards": ["SOC-3"], "app": "site", "video": "yui-15s" },
         { "id": "yui-lines-30s", "title": "Yui Lines in 30 seconds", "what": "One line of Yui Lines becomes a screen. 1.6x fewer tokens than minified JSON.", "cards": ["SOC-3"], "app": "site", "video": "yui-lines-30s" },
         { "id": "your-hermes-60s", "title": "Your Hermes on your phone in 60 seconds", "what": "Install the plugin, pair, and your own Hermes agent answers on your iPhone with a screen.", "cards": ["SOC-3"], "app": "site", "video": "your-hermes-60s" }
+      ]
+    },
+    {
+      "id": "release-020",
+      "title": "Yui 0.2.0",
+      "release": "0.2.0",
+      "lede": "What reaches phones with Yui 0.2.0: a home for every agent, screens that change in place, and drawings. Shots are real captures from the iPhone simulator on the demo account.",
+      "entries": [
+        {"id": "drawer", "title": "Each agent gets a drawer", "what": "Drag right on the chat and the agent's home follows your finger: pinned screens, what is waiting on you, controls and about. Your other agents spring up from the bottom.", "cards": ["YUI-54"], "app": "native", "shots": ["/progress/yui54-dark-1-home.webp", "/progress/yui54-light-2-review-open.webp", "/progress/yui54-dark-6-switcher.webp"]},
+        {"id": "drawer-menu", "title": "Agents fill the drawer", "what": "One new word, menu, lets an agent put things in its drawer: a question in Review, a plan in Backlog, a shortcut you tap to start. The drawer is drawn by the app; the phone here shows the reply.", "cards": ["YUI-86"], "yl": "say \"Added to my drawer: one question, two plans, a shortcut.\"\nmenu review@dana \"Invite Dana to the beta?\" sub=\"asked yesterday\"\nmenu backlog@trip \"Meal plan for the trip\" sub=queued\nmenu backlog@deload \"Deload week plan\" sub=drafting\nmenu shortcut@log \"Log a meal\" say=\"Log a meal: \"", "agent": "Wizard", "app": "native", "shots": ["/progress/yui86-dark-2-home.webp", "/progress/yui86-light-3-review.webp", "/progress/yui86-light-1-card-open.webp"]},
+        {"id": "lasting-ids", "title": "Screens update in place", "what": "Give a row a name and a later reply changes just that row. A timer, a score or a status line updates where it sits instead of arriving again, and a reply that only changes the screen doesn't buzz your phone.", "cards": ["YUI-75"], "yl": "say \"Leg day, live. A later reply changes one row by its name.\"\ntimeline \"Leg day\"\ndone@warmup \"Warm-up\" sub=\"10 min\"\nnow@squat \"Back squat\" sub=\"set 2 of 4\"\nnext@lunge \"Walking lunges\"", "agent": "Coach", "app": "native"},
+        {"id": "sketch-native", "title": "The app draws", "what": "An agent can draw instead of explain: a window, a phone or a chat bubble, with rows struck out, highlighted or greyed and a short note beside each.", "cards": ["YUI-84"], "demo": "sketch-buttons", "agent": "Yui", "app": "native", "shots": ["/progress/yui84-phone-light.webp", "/progress/yui84-page-dark.webp", "/progress/yui84-chat-dark.webp"]},
+        {"id": "update-chip", "title": "One Update chip, not red lines", "what": "When an agent sends something your copy of Yui can't draw yet, the reply shows what it can and one small Update Yui to see this chip, never a row of errors.", "cards": ["YUI-87"], "app": "native", "shots": ["/progress/yui87-update-chip-light.webp", "/progress/yui87-update-chip-dark.webp"]}
       ]
     },
     {
@@ -197,7 +217,9 @@
         { "id": "three-lines", "title": "The three lines challenge", "what": "Anyone can add a screen of three lines or fewer to the community gallery with a pull request. Every entry is drawn live and opens in the playground.", "cards": ["OSS-5"], "yl": "say \"Three votes in. Tacos lead.\"\nchoose \"Your vote?\" Tacos|Ramen|Pizza +other\ntable Votes Dish|Votes \"Tacos|2\" \"Ramen|1\" \"Pizza|0\"", "agent": "Yui", "app": "site", "link": "/developers/community", "shots": ["/progress/oss5-gallery.webp"] },
         {"id": "share", "title": "Share any screen", "what": "Every screen here has its own link with a preview that shows the lines and the screen they draw. Share in the playground puts your lines in the link, and one iframe puts a live screen on your own page.", "cards": ["SITE-19"], "yl": "say \"Friday check-in. Two quick ones.\"\nslide@energy \"Energy this week\" 1-5 lo=Flat hi=Buzzing\nchoose@next \"What should we plan next?\" Launch|Rest|Both", "agent": "Yui", "app": "site", "link": "/developers#share", "shots": ["/progress/site19-preview.webp", "/progress/site19-share-page.webp", "/progress/site19-embed.webp"]},
         { "id": "request-an-invite", "title": "Request an invite", "what": "The way into the beta: your name, the email on your Apple ID and a phone number. Once you are approved, Apple emails you the TestFlight invite.", "cards": ["SITE-26"], "app": "site", "link": "/#invite", "shots": ["/progress/site26-phone.webp"] },
-        { "id": "mcp-app", "title": "Yui screens inside Claude", "what": "The same Yui Lines draw right in the chat of apps that support MCP Apps, and on your phone. A tap in either place sends the same answer to the agent.", "cards": ["INT-7"], "yl": "say \"Asked from the chat, answered in the chat or on your phone.\"\nchoose \"Lunch?\" Salad|Soup|Tacos", "agent": "Yui", "app": "site", "link": "/developers/mcp#mcp-app", "shots": ["/progress/int7-mcp-app-dark.webp", "/progress/int7-mcp-app-light.webp", "/progress/int7-claude-code-ask.webp"] }
+        { "id": "mcp-app", "title": "Yui screens inside Claude", "what": "The same Yui Lines draw right in the chat of apps that support MCP Apps, and on your phone. A tap in either place sends the same answer to the agent.", "cards": ["INT-7"], "yl": "say \"Asked from the chat, answered in the chat or on your phone.\"\nchoose \"Lunch?\" Salad|Soup|Tacos", "agent": "Yui", "app": "site", "link": "/developers/mcp#mcp-app", "shots": ["/progress/int7-mcp-app-dark.webp", "/progress/int7-mcp-app-light.webp", "/progress/int7-claude-code-ask.webp"] },
+        {"id": "values", "title": "Yui's values", "what": "Eight values on one page, the test every screen has to pass: screens, not text bombs; one idea per page; type tells the story; draw it, don't describe it.", "cards": ["SITE-33"], "app": "site", "link": "/developers/values", "shots": ["/progress/site33-values-page.webp", "/progress/site33-values-phone.webp"]},
+        {"id": "type-scale", "title": "The site reads like the app", "what": "One type scale runs every page, the same one the app uses: big clear titles, short bodies, nothing cut off. Before and after, on a phone and a wide screen.", "cards": ["SITE-34"], "app": "site", "link": "/progress", "shots": ["/progress/site34-phone-before-after.webp", "/progress/site34-desktop-before-after.webp"]}
       ]
     },
     {

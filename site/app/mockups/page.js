@@ -36,14 +36,15 @@ function CardRef({ k, planned }) {
     <li>
       <Link href={`/board#${k}`} className="sc-key">{k}</Link>
       <span>{c.title}</span>
-      {NEXT_BUILD.has(k) ? <Link href="/changelog#next" className="sc-date">Next build</Link>
+      {c.release ? <span className="sc-date">In {c.release}</span>
+        : NEXT_BUILD.has(k) ? <Link href="/changelog#next" className="sc-date">Next build</Link>
         : c.shipped ? <span className="sc-date">Shipped {day(c.shipped)}</span> : <span className="sc-date planned">{planned ? "Not built" : ""}</span>}
       {LOGS[k] ? <Link href={LOGS[k]}>Ship log</Link> : null}
     </li>
   );
 }
 
-function Entry({ e, planned }) {
+function Entry({ e, planned, release }) {
   const s = e.demo ? sample(e.demo) : null;
   const yl = e.yl || s?.yl;
   const clip = clipOf(e.clip);
@@ -78,6 +79,7 @@ function Entry({ e, planned }) {
         {planned ? <span className="pill sc-planned">Planned, not built</span>
           : e.app === "later" ? <span className="pill">On the web now, in the app later</span>
           : e.app === "site" ? <span className="pill">On yuigui.com</span>
+          : release ? <span className="pill" title={`Done in the code, reaches phones when Yui ${release} is on TestFlight`}>In Yui {release}</span>
           : inNextBuild(e.cards) || changeInNextBuild(e.change) ? <span className="pill" title="Done in the code, reaches TestFlight with the next build">Next build, not on TestFlight yet</span>
           : <span className="pill sc-native">In the iPhone app</span>}
         {yl ? <pre className="sc-yl"><code>{yl.split("\n").filter((l) => !l.trim().startsWith("#")).join("\n")}</code></pre> : null}
@@ -127,7 +129,7 @@ function PressKit() {
 export default function SeeIt() {
   const shipped = showcase.groups.filter((g) => !g.planned);
   const nScreens = shipped.reduce((n, g) => n + g.entries.length, 0);
-  const nCards = new Set(shipped.flatMap((g) => g.entries.flatMap((e) => e.cards))).size;
+  const nCards = new Set(shipped.filter((g) => !g.release).flatMap((g) => g.entries.flatMap((e) => e.cards))).size;
   return (
     <>
       <div className="eyebrow">See it | everything built so far</div>
@@ -153,7 +155,7 @@ export default function SeeIt() {
         <section key={g.id} className="sc-group" aria-labelledby={g.id}>
           <h2 id={g.id}>{g.title}</h2>
           <p className="sc-lede">{g.lede}</p>
-          {g.entries.map((e) => <Entry e={e} key={e.id} planned={g.planned} />)}
+          {g.entries.map((e) => <Entry e={e} key={e.id} planned={g.planned} release={g.release} />)}
         </section>
       ))}
       <PressKit />
