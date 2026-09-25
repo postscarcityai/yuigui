@@ -1003,3 +1003,9 @@ body:has(.embed-root) main.wrap { padding: 0; max-width: none; }
 .privacy-tables th { color: var(--muted); font-weight: 700; }
 .privacy-tables code { font-size: 13px; }
 @media (max-width: 560px) { .privacy-tables th, .privacy-tables td { padding: 8px 6px; } }
+
+/* /connect (INT-19): approve an MCP client on your phone. */
+.connect-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 14px; }
+.connect-qr { width: 148px; height: 148px; background: #fff; border-radius: 16px; padding: 8px; box-sizing: border-box; }
+.connect-qr svg { width: 100%; height: 100%; display: block; }
+button.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-decoration: underline; cursor: pointer; }

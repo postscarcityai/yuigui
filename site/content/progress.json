@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Add Yui to Claude or ChatGPT by pasting one URL",
+    "card": "INT-19",
+    "body": "The Yui MCP server now signs in with OAuth, so the apps that only take a URL (Claude's and ChatGPT's custom connectors, MCP Inspector) can add Yui with no token to copy. Paste the endpoint, and your browser lands on yuigui.com/connect, which says which app is asking and where it will return. Approve on your iPhone: tap Open Yui on the phone, or scan the QR code from a computer. Yui asks which agent the app talks as, a new one named after it or one it had, and you tap Allow. No build with that sheet yet? Add an agent in Yui and type its 6-digit code on the page instead. The app then reaches that one thread and nothing else, and removing it in Yui stops its keys at once. Under the hood: discovery from the 401, self-registration, PKCE, one-hour access keys and single-use refresh keys (replaying an old one ends the connection), only hashes stored, the same limits and kill switch as any paired computer. Proof: 77 live server checks (43 of them OAuth), and the MCP SDK's own OAuth client connecting to the simulator, where the test taps Allow, then Yes, and a tabata timer comes back. The sheet in the app rides the next build. Trying it in claude.ai and ChatGPT is next.",
+    "images": [
+      {"src": "/progress/int19-connect-page.webp", "alt": "yuigui.com/connect in a desktop browser: Connect Claude to Yui, claude.ai wants to put screens on your phone, an Open Yui button next to a QR code, and a box for a 6-digit code."},
+      {"src": "/progress/int19-allow.webp", "alt": "The Yui app, light: a Connect sheet asking Connect SDK Agent?, Talks as New agent: SDK Agent with a check, a coral Allow button and Don't allow."},
+      {"src": "/progress/int19-timer.webp", "alt": "The new SDK Agent thread in Yui showing a Tabata timer at 0:20, round 1 of 8, sent by the OAuth client after the person tapped Yes."}
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "The war room, built out",
     "card": "YUI-73",
     "body": "Screen 2 in Yui's own thread is now the place to run the project from. Top to bottom: Needs you, a count and every card waiting on an answer; Running now, one card per lane with its last note and how long since it checked in; the timeline of what shipped, what is running and what is next, which you can drag into a new order; Builds, the newest TestFlight build with what to try and the newest test build with an Install button; Feedback, the latest TestFlight notes and the card each one became; the MVP bar, the same number as this site; and quick links to the site. When a waiting card offers choices, they are buttons. One tap writes your answer on the card and sends it back to the queue, with no agent turn in between, and only the person who owns the agent can do it. A card that needs a typed answer gets a small form instead. It is all built from screens the app already draws, so it shows up with the next build. Tested on the simulator in light and dark with the live board, plus a real tap that unblocked a test card.",

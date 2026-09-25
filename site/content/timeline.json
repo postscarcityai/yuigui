@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 74,
-    "site": 191,
+    "site": 194,
     "builds": 24,
-    "shipped": 108,
-    "screenshots": 214
+    "shipped": 109,
+    "screenshots": 217
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T08:23:59.806Z",
+          "at": "2026-09-25T08:56:09.363Z",
+          "title": "Add Yui to Claude or ChatGPT by pasting one URL",
+          "card": "INT-19",
+          "anchor": "add-yui-to-claude-or-chatgpt-by-pasting-one-url",
+          "images": [
+            {
+              "src": "/progress/int19-connect-page.webp",
+              "alt": "yuigui.com/connect in a desktop browser: Connect Claude to Yui, claude.ai wants to put screens on your phone, an Open Yui button next to a QR code, and a box for a 6-digit code."
+            },
+            {
+              "src": "/progress/int19-allow.webp",
+              "alt": "The Yui app, light: a Connect sheet asking Connect SDK Agent?, Talks as New agent: SDK Agent with a check, a coral Allow button and Don't allow."
+            },
+            {
+              "src": "/progress/int19-timer.webp",
+              "alt": "The new SDK Agent thread in Yui showing a Tabata timer at 0:20, round 1 of 8, sent by the OAuth client after the person tapped Yes."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 74,
+            "site": 194,
+            "builds": 24,
+            "shipped": 109
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T08:24:24.000Z",
           "title": "The war room, built out",
           "card": "YUI-73",
           "anchor": "the-war-room-built-out",
@@ -35,10 +63,10 @@
               "alt": "The war room, light: recent TestFlight feedback cards tagged with the card each became, the MVP bar at 95 percent, and quick links to the site."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 74,
-            "site": 191,
+            "site": 192,
             "builds": 24,
             "shipped": 108
           }
@@ -412,6 +440,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "9854822",
+          "at": "2026-09-25T08:40:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9854822"
+        },
+        {
+          "repo": "site",
+          "sha": "8f0dbed",
+          "at": "2026-09-25T08:33:40.000Z",
+          "text": "Release Thought draft for build 74 (WAR-1): the war room (Needs you in one tap, Running now, timeline, drag to reorder), reply,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8f0dbed"
+        },
+        {
+          "repo": "site",
+          "sha": "0216ee8",
+          "at": "2026-09-25T08:24:24.000Z",
+          "text": "The war room, built out: progress entry with four simulator shots (Needs you with one-tap answers, running per lane, builds with...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0216ee8"
+        },
         {
           "repo": "app",
           "sha": "0d9d938",
