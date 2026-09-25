@@ -9,7 +9,7 @@ dek: The first real release after a week of hourly builds. Each agent has a draw
 /progress/yui54-dark-1-home.webp | An agent's drawer open in dark mode: Home, Review, Controls and About, the chat peeking out on the right
 ```
 
-Yui 0.2.0 is on TestFlight as build 118. It is the first build since we stopped shipping every hour, so it carries a whole week of work in one go.
+Yui 0.2.0 is on TestFlight as build 122. It is the first build since we stopped shipping every hour, so it carries a whole week of work in one go.
 
 ## Each agent gets a drawer
 
@@ -48,6 +48,8 @@ An agent can keep the composer on one of its screens, so you type about the plan
 
 - Everything waiting on you is one block: the question on top, the buttons under it.
 - Anything your Yui can't draw yet shows as plain words or one Update chip, never raw lines.
+- Settings ends with About this build: version, build, channel, commit and date. Tap it to copy for feedback.
+- Test links install as Yui Dev, beside the TestFlight copy, so you always know which one you are in.
 
 ## What to try
 

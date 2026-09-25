@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 122,
-    "site": 300,
-    "builds": 28,
-    "shipped": 158,
-    "screenshots": 319
+    "app": 123,
+    "site": 301,
+    "builds": 29,
+    "shipped": 159,
+    "screenshots": 324
   },
   "days": [
     {
@@ -13,17 +13,65 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T23:03:39.740Z",
+          "at": "2026-09-25T23:04:53.679Z",
+          "title": "Yui 0.2.0: every agent gets a home",
+          "card": "YUI-SHIP",
+          "anchor": "yui-0-2-0-every-agent-gets-a-home",
+          "images": [
+            {
+              "src": "/progress/yui54-dark-1-home.webp",
+              "alt": "Dark mode, an agent's drawer open: Home, Review, Controls and About, the chat peeking out on the right."
+            },
+            {
+              "src": "/progress/yui86-light-3-review.webp",
+              "alt": "Light mode, Review in the drawer with an ask the agent put there."
+            },
+            {
+              "src": "/progress/yui82-after-dark.webp",
+              "alt": "Dark mode, one idea on the whole screen in big type, a bar per page across the top."
+            },
+            {
+              "src": "/progress/yui84-phone-light.webp",
+              "alt": "Light mode, a drawn phone with a Got it button struck out and an Install button highlighted."
+            },
+            {
+              "src": "/progress/yui87-update-chip-dark.webp",
+              "alt": "Dark mode, a reply with one small Update Yui to see this chip instead of error rows."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 123,
+            "site": 301,
+            "builds": 29,
+            "shipped": 159
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T23:04:25.000Z",
           "title": "Group threads: the plumbing is live",
           "card": "YUI-93",
           "anchor": "group-threads-the-plumbing-is-live",
           "images": [],
-          "commits": 0,
+          "commits": 2,
+          "totals": {
+            "app": 122,
+            "site": 301,
+            "builds": 29,
+            "shipped": 158
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-25T22:57:32.000Z",
+          "build": 122,
+          "changes": 24,
           "totals": {
             "app": 122,
             "site": 300,
-            "builds": 28,
-            "shipped": 158
+            "builds": 29,
+            "shipped": 157
           }
         },
         {
@@ -1664,6 +1712,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "8e71550",
+          "at": "2026-09-25T23:04:46.000Z",
+          "text": "Group threads in the database and the Hermes plugin (YUI-93, step 2 of YUI-77; spec yuigui spec/GROUPS.md, section 7 \"As built\")....",
+          "url": "https://github.com/postscarcityai/yui/commit/8e71550"
+        },
+        {
+          "repo": "site",
+          "sha": "f861ece",
+          "at": "2026-09-25T23:04:25.000Z",
+          "text": "Group threads step 2 (YUI-93): the database and the Hermes plugin are live. spec/GROUPS.md gets section 7, \"As built\": the person's row...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f861ece"
+        },
         {
           "repo": "site",
           "sha": "e252e75",

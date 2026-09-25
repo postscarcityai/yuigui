@@ -1,11 +1,11 @@
 {
   "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far, site = a page on yuigui.com (`link` opens it). `release` on a group or card (\"0.2.0\") labels it In 0.2.0 until that version is VALID on TestFlight; then drop it and give the cards `shipped` dates. `change` (a fix with no card) is the opening words of its app commit, so the entry reads Next build until that commit is on TestFlight.",
   "cards": {
-    "YUI-54": {"title": "Each agent gets a drawer", "release": "0.2.0"},
-    "YUI-86": {"title": "Agents fill the drawer", "release": "0.2.0"},
-    "YUI-75": {"title": "Ids that last across replies", "release": "0.2.0"},
-    "YUI-84": {"title": "The app draws sketches", "release": "0.2.0"},
-    "YUI-87": {"title": "One Update chip for lines the app can't draw", "release": "0.2.0"},
+    "YUI-54": {"title": "Each agent gets a drawer", "shipped": "2026-09-25"},
+    "YUI-86": {"title": "Agents fill the drawer", "shipped": "2026-09-25"},
+    "YUI-75": {"title": "Ids that last across replies", "shipped": "2026-09-25"},
+    "YUI-84": {"title": "The app draws sketches", "shipped": "2026-09-25"},
+    "YUI-87": {"title": "One Update chip for lines the app can't draw", "shipped": "2026-09-25"},
     "SITE-33": {"title": "Yui's values, written down", "shipped": "2026-09-25"},
     "SITE-34": {"title": "One type scale for the site", "shipped": "2026-09-25"},
     "YUI-38": { "title": "Meet Yui: the onboarding interview", "shipped": "2026-09-25" },
@@ -87,8 +87,7 @@
     {
       "id": "release-020",
       "title": "Yui 0.2.0",
-      "release": "0.2.0",
-      "lede": "What reaches phones with Yui 0.2.0: a home for every agent, screens that change in place, and drawings. Shots are real captures from the iPhone simulator on the demo account.",
+      "lede": "What reached phones with Yui 0.2.0 (build 122, Sep 25): a home for every agent, screens that change in place, and drawings. Shots are real captures from the iPhone simulator on the demo account.",
       "entries": [
         {"id": "drawer", "title": "Each agent gets a drawer", "what": "Drag right on the chat and the agent's home follows your finger: pinned screens, what is waiting on you, controls and about. Your other agents spring up from the bottom.", "cards": ["YUI-54"], "app": "native", "shots": ["/progress/yui54-dark-1-home.webp", "/progress/yui54-light-2-review-open.webp", "/progress/yui54-dark-6-switcher.webp"]},
         {"id": "drawer-menu", "title": "Agents fill the drawer", "what": "One new word, menu, lets an agent put things in its drawer: a question in Review, a plan in Backlog, a shortcut you tap to start. The drawer is drawn by the app; the phone here shows the reply.", "cards": ["YUI-86"], "yl": "say \"Added to my drawer: one question, two plans, a shortcut.\"\nmenu review@dana \"Invite Dana to the beta?\" sub=\"asked yesterday\"\nmenu backlog@trip \"Meal plan for the trip\" sub=queued\nmenu backlog@deload \"Deload week plan\" sub=drafting\nmenu shortcut@log \"Log a meal\" say=\"Log a meal: \"", "agent": "Wizard", "app": "native", "shots": ["/progress/yui86-dark-2-home.webp", "/progress/yui86-light-3-review.webp", "/progress/yui86-light-1-card-open.webp"]},
@@ -156,7 +155,7 @@
         {"id": "connect-tools", "title": "Connect your tools", "what": "Pick Google Calendar, Gmail or HubSpot, read what each one allows in plain words, and allow or skip each. Then the agent answers with one Sign in button per tool you allowed. Here the buttons open the spec: nothing signs in yet.", "cards": ["YUI-39"], "demo": "flow-connect", "agent": "Yui", "app": "later", "shots": ["/progress/yui39-consent-dark.webp", "/progress/yui39-tools-light.webp", "/progress/yui39-buttons-light.webp"]},
         { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] },
         { "id": "timeline", "title": "timeline", "what": "What shipped, what is running, what is next: done rows, a Now line, then the queue. Older rows fold; a row with a link opens Safari.", "cards": ["YUI-65"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui65-timeline-light.webp", "/progress/yui65-timeline-dark.webp"] },
-        { "id": "sketch", "title": "sketch", "what": "A small drawn picture: a window, phone or chat bubble with rows struck out, highlighted or called out with an arrow, and an optional before and after. Shows a change instead of describing it.", "cards": ["YUI-83"], "demo": "sketch-card-ids", "agent": "Yui", "app": "later", "shots": ["/progress/yui83-sketch-card-ids-light.webp", "/progress/yui83-sketch-buttons-dark.webp"] },
+        { "id": "sketch", "title": "sketch", "what": "A small drawn picture: a window, phone or chat bubble with rows struck out, highlighted or called out with an arrow, and an optional before and after. Shows a change instead of describing it.", "cards": ["YUI-83"], "demo": "sketch-card-ids", "agent": "Yui", "app": "native", "shots": ["/progress/yui83-sketch-card-ids-light.webp", "/progress/yui83-sketch-buttons-dark.webp"] },
         { "id": "reorder", "title": "Drag the queue into your own order", "what": "Tap Edit order on a timeline and each queued row gets a drag handle; done and running rows stay put. Save sends the new order once. In the war room it lands straight on the board's priority, with no agent turn in between, and only the person who owns the agent can do it.", "cards": ["YUI-66"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui66-reorder-drag-light.webp", "/progress/yui66-reorder-edit-dark.webp", "/progress/yui66-reorder-saved.webp"] },
         { "id": "war-room", "title": "The war room", "what": "One screen to run a project from: what needs you (tap an answer and it lands on the card), what is running in each lane, the timeline, the newest builds with an Install button, the latest feedback and the card it became, and the MVP bar.", "cards": ["YUI-73"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui73-needs-light.webp", "/progress/yui73-running-dark.webp", "/progress/yui73-builds-dark.webp", "/progress/yui73-mvp-light.webp"] }
       ]
