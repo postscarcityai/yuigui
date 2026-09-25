@@ -10,12 +10,13 @@ import { Group, groupNodes } from "./flows";
 import { ScreenCtx } from "./science";
 import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
 import { encodeYL, readYL } from "../../lib/share-code.mjs";
+import { GroupBefore, GroupHead, Guard, LOOKS, Turn } from "./group";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA];
 // Agent names a share link may carry (?as=), so a shared screen reopens with the same header.
 const AGENTS = new Set(ALL.map((s) => s.agent));
-const COLORS = { Coach: "var(--arnold)", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)" };
+const COLORS = { Coach: "var(--arnold)", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)", Sage: LOOKS.Sage.c, Quill: LOOKS.Quill.c };
 
 // `log`: data lines sent after the reply (the agent line, a tapped checkbox),
 // replayed on top so agent tables keep them (spec/TABLES.md).
@@ -76,6 +77,9 @@ export default function Playground() {
   const emits = useRef(new Map());
 
   const agent = shared || ALL[idx].agent;
+  // A group thread demo (spec/GROUPS.md): the app's rows around the live reply.
+  const group = shared ? null : ALL[idx].group;
+  const groupEvent = useCallback((ev) => setEvents((evs) => [{ dir: "user", t: new Date(), ev }, ...evs].slice(0, 40)), []);
 
   // Live mode: every edit re-renders the whole document. Keys are stable, so
   // components that did not change keep their state.
@@ -398,10 +402,12 @@ export default function Playground() {
           <div className={`screen ${light ? "light" : ""}`}>
             <div className="notch" />
             <div className="sbar" />
-            <div className="ahead">
-              <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>
-              <div><div className="nm">{agent}</div><div className="st">{streaming ? "generating..." : `screen ${shown}`}</div></div>
-            </div>
+            {group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
+              <div className="ahead">
+                <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>
+                <div><div className="nm">{agent}</div><div className="st">{streaming ? "generating..." : `screen ${shown}`}</div></div>
+              </div>
+            )}
             {shelf.length ? (
               <div className="yl-shelf" role="list" aria-label="Saved screens">
                 {shelf.map((name) => (
@@ -414,9 +420,21 @@ export default function Playground() {
             ) : null}
             <div className="pg-screen">
               <ScreenCtx.Provider value={{ nodes, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, write: addData, agent, screen: shown, dispatch, fold, closeStage }}>
-                {pillAt(null).map(pill)}
-                {groupNodes(nodes).flatMap((n) => [renderNode(n), ...pillAt(n.key).map(pill)])}
-                {pills.filter((p) => p.end).map(pill)}
+                {group && shown === "1" ? <GroupBefore key={`gb:${epoch}`} items={group.before} onEvent={groupEvent} /> : null}
+                {group && shown === "1" ? (
+                  <Turn agent={agent}>
+                    {pillAt(null).map(pill)}
+                    {groupNodes(nodes).flatMap((n) => [renderNode(n), ...pillAt(n.key).map(pill)])}
+                    {pills.filter((p) => p.end).map(pill)}
+                  </Turn>
+                ) : (
+                  <>
+                    {pillAt(null).map(pill)}
+                    {groupNodes(nodes).flatMap((n) => [renderNode(n), ...pillAt(n.key).map(pill)])}
+                    {pills.filter((p) => p.end).map(pill)}
+                  </>
+                )}
+                {group && shown === "1" && !streaming ? <Guard key={`gg:${epoch}`} guard={group.guard} onEvent={groupEvent} /> : null}
               </ScreenCtx.Provider>
               {!nodes.length && !pills.length ? <div className="pg-hint" style={{ textAlign: "center", marginTop: 40 }}>Empty screen</div> : null}
             </div>

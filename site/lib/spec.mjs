@@ -14,6 +14,7 @@ const ORDER = [
   ["benchmark", "Benchmark", null, "Yui Lines against JSON, token by token, on ten real screens."],
   ["agents", "Agents", null, "How an agent gets into Yui: pairing codes, the host API, names and colors."],
   ["relay", "Relay", null, "How messages travel between your machine and the app, and how push works."],
+  ["groups", "Group threads (draft)", null, "Several of your agents in one conversation: who answers, how a handoff shows, the loop guard, and how a group is stored."],
   ["adapters", "Adapters", null, "Every agent framework Yui plans to reach, Hermes first, and in what order."],
   ["hosting", "Hosting", null, "Where Yui's hosted connector runs (Cloudflare, beside the Supabase relay), what it costs, and why."],
   ["openclaw", "OpenClaw", null, "Your OpenClaw agent in Yui: install the channel plugin, pair, and what the agent is told."],

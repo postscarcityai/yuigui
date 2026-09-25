@@ -120,6 +120,30 @@ slide "Energy" 1-5 "Wiped"|"Fired up"
     next: "~choose +lock",
   },
   {
+    // Group threads (spec/GROUPS.md, YUI-77 step 1): the lines are Sage's reply,
+    // answering Coach's handoff. The rows above and the guard below are the app's.
+    name: "Group thread: three agents, one handoff",
+    slug: "group-thread",
+    agent: "Sage",
+    group: {
+      title: "Race week", members: ["Coach", "Sage", "Quill"], lead: "Coach", hops: 1,
+      before: [
+        { me: "@Coach plan my week before Saturday's 10k" },
+        { agent: "Coach", yl: `say "Five days, easy then sharp. Rest Friday."
+list Week "Mon easy 5k"|"Tue strides"|"Thu 3k at race pace"|"Fri rest"|"Sat 10k" +check
+say "@Sage can you fit a wind-down before bed each night?"` },
+        { handoff: { from: "Coach", to: "Sage", ask: "fit a wind-down before bed each night" } },
+      ],
+      guard: { from: "Sage", to: "Quill", ask: "turn the wind-down into flash cards", hops: 2,
+        then: `say "Four cards, one per step. Tap to flip."
+card "Box breathing" "In 4, hold 4, out 4, hold 4. Four rounds." cta="Start"` },
+    },
+    yl: `say "Four minutes each night, lights low, after the run days."
+list Wind-down "Lights low"|"Box breathing, 4 rounds"|"Legs up the wall, 2 min"|"Phone out of the room"
+choose "Which nights?" "Run days"|"Every night"
+say "@Quill can you turn the wind-down into flash cards?"`,
+  },
+  {
     name: "Demo: custom {json} escape hatch",
     agent: "Scout",
     yl: `say "No preset fits a split-flap countdown, so the agent drops to custom."

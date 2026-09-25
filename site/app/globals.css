@@ -618,6 +618,8 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .screen.light .chip { background: #fff; border-color: #d6d9e6; color: var(--text); }
 .screen.light .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
 .screen.light .yl-seg { background: #eef0f6; }
+.screen.light .yl-list li { background: #eef0f6; color: var(--text); }
+.screen.light .yl-list .box { border-color: #cfd3e2; }
 .screen.light .yl-seg button.on { background: #fff; color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.08); }
 .screen.light .yl-table th { border-bottom-color: #e3e4ee; }
 .screen.light .yl-table td { border-bottom-color: #eef0f6; }
