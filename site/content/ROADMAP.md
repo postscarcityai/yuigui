@@ -77,6 +77,7 @@ Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20
 - YUI-61 (second): slash commands. Type / to see what your agent already understands (Hermes commands first); later, Yui's own /commands that run a skill or a flow.
 - YUI-44 step 1 (third): @mention another agent from the composer and its reply lands in the thread. Group threads come after.
 - YUI-14: voice in, text out, fast.
+- YUI-62 (backlog): chat with a screen. Screens are full screen with no composer now; an agent will be able to keep the composer on a page, and what you type there reaches it tagged with that screen.
 - INT-3 onward: more agent frameworks, starting with a Yui MCP server (see Adapters below).
 - The phase backlog below, from YUI-33 on.
 

@@ -33,7 +33,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `theme [set] key=value...` | restyle this agent's look (section 4, theme) | `theme autumn radius=square` |
 | `custom {json}` | escape hatch, rest of line is JSON | `custom {"type":"text","text":"hi"}` |
 
-Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen. Two screen names are reserved: `full` is the stage, and `chat` means screen `1` (`>chat ask Ready?` sends one line back to screen 1). Screens `2` and `3` are pages beside the chat in the app (section 5, Pages).
+Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen. Two screen names are reserved: `full` is the stage, and `chat` means screen `1` (`>chat ask Ready?` sends one line back to screen 1). Screens `2` to `12` are pages beside the chat in the app (section 5, Pages).
 
 Lines end at `\n`; a trailing `\r` is dropped, so CRLF works. Leading and trailing whitespace is ignored. Preset names and core words are lowercase (`Timer 60` is an unknown preset). Ids are `[A-Za-z0-9_-]+`. `> 2` (space after `>`) is not a route.
 
@@ -420,7 +420,7 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 
 The reference function is `onStage(op, style)` in `yl.mjs` (and `YuiLines.opensOnStage` in the app). Conformance vectors may carry `stage`, the ids of the adds that open on the stage, and `style`, the agent's style profile for that vector.
 
-**Pages.** Beside the chat, the app gives every agent up to eleven more screens, `2` through `12`. Screen `1` lines render in the chat as usual; a screen from `2` to `12` becomes a page the person swipes to, left to right, as soon as something lands on it. Pages run in number order and a number can be skipped (`>5` alone makes the chat and one page). Above the composer a small indicator shows a chat glyph and one dot per page; with only the chat there is no indicator at all.
+**Pages.** Beside the chat, the app gives every agent up to eleven more screens, `2` through `12`. Screen `1` lines render in the chat as usual; a screen from `2` to `12` becomes a page the person swipes to, left to right, as soon as something lands on it. Pages run in number order and a number can be skipped (`>5` alone makes the chat and one page). At the bottom a small indicator shows a chat glyph and one dot per page; with only the chat there is no indicator at all. A page is full screen: the top bar (agents, settings) and the composer stay with the chat, so a page is for reading and tapping, and the indicator's chat glyph is the way back to type.
 
 - A page keeps what lands on it across replies, so an agent can leave a focus timer on `2` and a running list on `3` while the chat goes on. Adds stack in order, a later reply patches them by preset name (`~timer`, section 9), and `>2 clear` empties the page, which removes it; if it was showing, the person goes back to the chat.
 - A route to a page beats the stage defaults: `>2 timer 25m Focus` sits on page 2, not on the stage, whatever the agent's style profile says. Workouts still always open on the stage.

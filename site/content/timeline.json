@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 61,
-    "site": 157,
+    "app": 63,
+    "site": 159,
     "builds": 21,
-    "shipped": 91,
-    "screenshots": 165
+    "shipped": 93,
+    "screenshots": 171
   },
   "days": [
     {
@@ -13,7 +13,63 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T03:01:24.525Z",
+          "at": "2026-09-25T03:18:00.560Z",
+          "title": "Screens get the whole phone",
+          "card": null,
+          "anchor": "screens-get-the-whole-phone",
+          "images": [
+            {
+              "src": "/progress/screens-full-screen.webp",
+              "alt": "Screen 2 full screen: a plan with no top bar or composer, just the dots"
+            },
+            {
+              "src": "/progress/screens-full-chat.webp",
+              "alt": "Back on the chat: top bar and composer are back"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 63,
+            "site": 159,
+            "builds": 21,
+            "shipped": 93
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T03:11:22.000Z",
+          "title": "As many screens as the agent needs, up to 12",
+          "card": null,
+          "anchor": "as-many-screens-as-the-agent-needs-up-to-12",
+          "images": [
+            {
+              "src": "/progress/screens-dynamic-chat-only.webp",
+              "alt": "Only the chat: no switcher above the composer"
+            },
+            {
+              "src": "/progress/screens-dynamic-two.webp",
+              "alt": "Two pages: a chat icon and one dot"
+            },
+            {
+              "src": "/progress/screens-dynamic-five.webp",
+              "alt": "Five pages: a chat icon and four dots"
+            },
+            {
+              "src": "/progress/screens-dynamic-twelve.webp",
+              "alt": "Twelve pages, the most, with screen 13 left in the chat"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 62,
+            "site": 159,
+            "builds": 21,
+            "shipped": 92
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T03:01:27.000Z",
           "title": "Build 61: holding the mic no longer crashes",
           "card": null,
           "anchor": "build-61-holding-the-mic-no-longer-crashes",
@@ -21,7 +77,7 @@
           "commits": 0,
           "totals": {
             "app": 61,
-            "site": 157,
+            "site": 158,
             "builds": 21,
             "shipped": 91
           }
@@ -1921,6 +1977,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "3ea3aa6",
+          "at": "2026-09-25T03:17:48.000Z",
+          "text": "Screens are full screen: off the chat, the top bar (agents, settings) and the composer go away and the page gets the whole phone, with...",
+          "url": "https://github.com/postscarcityai/yui/commit/3ea3aa6"
+        },
+        {
+          "repo": "site",
+          "sha": "7f7e3df",
+          "at": "2026-09-25T03:11:22.000Z",
+          "text": "Screens 2 to 12: pageOf takes any screen from 2 to 12 (written plainly, no leading zero), 13 and up stay in the chat, in JS, Python and...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7f7e3df"
+        },
+        {
+          "repo": "app",
+          "sha": "6afaf56",
+          "at": "2026-09-25T03:10:31.000Z",
+          "text": "Screens are dynamic, 2 to 12: the chat, then a page for each screen the agent puts something on (>5 alone makes chat and screen 5), and...",
+          "url": "https://github.com/postscarcityai/yui/commit/6afaf56"
+        },
+        {
+          "repo": "site",
+          "sha": "ca09094",
+          "at": "2026-09-25T03:01:27.000Z",
+          "text": "Progress: build 61, holding the mic no longer crashes (TestFlight hotfix)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ca09094"
+        },
         {
           "repo": "app",
           "sha": "d2d5731",

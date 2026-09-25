@@ -1,6 +1,21 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Screens get the whole phone",
+    "body": "Chris looked at a plan on screen 2 on build 57 and said the screens should be full screen. Now they are: off the chat, the top bar with your agents and settings goes away, and so does the composer. A screen is for reading and tapping; the small chat icon at the bottom takes you back to type, and the top bar and composer come back with the chat. Some screens may want a composer later, so chatting with a screen is parked on the backlog as YUI-62. The spec and the agent guide say so. It rides the next build.",
+    "images": [
+      {
+        "src": "/progress/screens-full-screen.webp",
+        "alt": "Screen 2 full screen: a plan with no top bar or composer, just the dots"
+      },
+      {
+        "src": "/progress/screens-full-chat.webp",
+        "alt": "Back on the chat: top bar and composer are back"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "As many screens as the agent needs, up to 12",
     "body": "Chris sent a screen to screen 2 on build 57 and asked for more. Now an agent can use screens 2 through 12, and a screen only exists once something is on it: send to screen 5 alone and you get the chat plus one page. Clearing a screen takes it away. The switcher above the composer is now a small chat icon and one dot per screen, and with only the chat it is gone. Screen 13 and up stay in the chat. The rule changed in the spec and all four parsers, with new test vectors, and the agent guide now says screens 2 to 12. It rides the next build.",
     "images": [
