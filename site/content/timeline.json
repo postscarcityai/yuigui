@@ -4,8 +4,8 @@
     "app": 108,
     "site": 268,
     "builds": 28,
-    "shipped": 142,
-    "screenshots": 287
+    "shipped": 143,
+    "screenshots": 289
   },
   "days": [
     {
@@ -13,7 +13,7 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T19:47:20.788Z",
+          "at": "2026-09-25T19:48:37.442Z",
           "title": "The site reads like the app now",
           "card": "SITE-34",
           "anchor": "the-site-reads-like-the-app-now",
@@ -25,6 +25,30 @@
             {
               "src": "/progress/site34-desktop-before-after.webp",
               "alt": "The Shipped page on a wide screen, before and after. After, the headings are on the shared scale and the intro stops at a comfortable line length."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 108,
+            "site": 268,
+            "builds": 28,
+            "shipped": 143
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T19:45:03.000Z",
+          "title": "Asks sit with what they ask about",
+          "card": "Feedback",
+          "anchor": "asks-sit-with-what-they-ask-about",
+          "images": [
+            {
+              "src": "/progress/needs-one-block-dark.webp",
+              "alt": "The war room's INT-8 ask in dark mode, one card: the INT-8 tag, ChatGPT adapter through the Yui MCP server, the browser step, How did it go? with Works, Phone only, Failed, Not yet, You decide"
+            },
+            {
+              "src": "/progress/needs-one-block-light.webp",
+              "alt": "The same asks in light mode"
             }
           ],
           "commits": 0,

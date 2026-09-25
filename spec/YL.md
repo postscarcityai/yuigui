@@ -93,7 +93,7 @@ ask "Send the invite now?" "Yes, send"|"Not yet"
 `choose question... options [+other]`. Single choice. `+other` adds "Type your own". Emits `{choice}` (plus `other: true` for typed answers). Tapping another option changes the answer (section 7). Props: `+lock`, and `tag`, `title`, `body` to put the context in the same card as the question: a tag pill, a heading and a paragraph above it, so the answer sits under what it is about instead of in a card of its own. With `title`, the question reads as the smaller line under the context. An app without them shows the question and options only.
 ```
 choose "Split?" Push|Pull|Legs +other
-choose@need-t_8b02462c "How did it go?" Works|"Not yet"|"You decide" tag=INT-7 title="Claude connector" body="In claude.ai add Yui as a custom connector, then ask for a 5 minute timer."
+choose@need-int7 "How did it go?" Works|"Not yet"|"You decide" tag=INT-7 title="Claude connector" body="In claude.ai add Yui as a custom connector, then ask for a 5 minute timer."
 ```
 
 ### pick

@@ -90,14 +90,15 @@ ask "Send the invite now?" "Yes, send"|"Not yet"
 **Loose options.** Options are one `|`-joined token, but agents often write them as separate quoted strings. So in `ask`, `choose` and `pick`, when the line has no options token, two or more quoted tokens at the end of the positionals, after at least one question token, are read as the options: `choose "Where?" "Camera roll" "Drafts"` is the same line as `choose "Where?" "Camera roll"|Drafts`. One trailing quoted token is still question text, a bare word after the quotes ends the run (`choose "Pick" "Red" "Blue" please` is all question), and an options token anywhere on the line wins, leaving the quoted tokens as question text.
 
 ### choose
-`choose question... options [+other]`. Single choice. `+other` adds "Type your own". Emits `{choice}` (plus `other: true` for typed answers). Tapping another option changes the answer (section 7). Props: `+lock`.
+`choose question... options [+other]`. Single choice. `+other` adds "Type your own". Emits `{choice}` (plus `other: true` for typed answers). Tapping another option changes the answer (section 7). Props: `+lock`, and `tag`, `title`, `body` to put the context in the same card as the question: a tag pill, a heading and a paragraph above it, so the answer sits under what it is about instead of in a card of its own. With `title`, the question reads as the smaller line under the context. An app without them shows the question and options only.
 ```
 choose "Split?" Push|Pull|Legs +other
+choose@need-int7 "How did it go?" Works|"Not yet"|"You decide" tag=INT-7 title="Claude connector" body="In claude.ai add Yui as a custom connector, then ask for a 5 minute timer."
 ```
 
 ### pick
 `pick question... options [+other]`. Multi-select with a submit button. Emits `{picked: [...]}`. After a submit the picks stay open: change them and submit again (section 7).
-Props: `max` (cap selections), `submit` [Done], `+lock`.
+Props: `max` (cap selections), `submit` [Done], `+lock`, and `tag`, `title`, `body` as in `choose`.
 ```
 pick "Gear" Dumbbells|Bench|Bands +other
 ```
