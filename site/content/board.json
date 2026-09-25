@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T07:10:32.925Z",
+  "updated": "2026-09-25T07:40:23.152Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -80,10 +80,6 @@
         {
           "key": "YUI-58",
           "title": "Yui for macOS, a matching desktop app [agent-ready]"
-        },
-        {
-          "key": "YUI-60",
-          "title": "Yui Lines can describe a game, not just pick one"
         },
         {
           "key": "YUI-61",
@@ -215,6 +211,10 @@
           "title": "A2A client, add any agent by its Agent Card"
         },
         {
+          "key": "INT-19",
+          "title": "Yui MCP server step 2, OAuth (Sign in with Apple through Yui)"
+        },
+        {
           "key": "BIZ-7",
           "title": "Brand direction"
         },
@@ -297,13 +297,15 @@
           "summary": "Drop-up switcher, pinned screens, to review, about"
         },
         {
-          "key": "INT-3",
-          "title": "Yui MCP server"
-        },
-        {
           "key": "YUI-68",
           "title": "Reply to a message",
           "summary": "Swipe a bubble left, or hold it (reactions, copy, reply)"
+        },
+        {
+          "key": "YUI-60",
+          "title": "Yui Lines can describe a game, not just pick one",
+          "summary": "How an agent could make up a whole game",
+          "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
         }
       ]
     },
@@ -311,6 +313,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-3",
+          "title": "Yui MCP server",
+          "summary": "Claude Code can put a screen on your phone now",
+          "shipped": "2026-09-25",
+          "progress": "/progress#claude-code-can-put-a-screen-on-your-phone-now"
+        },
         {
           "key": "SITE-32",
           "title": "Site polish and depth pass",

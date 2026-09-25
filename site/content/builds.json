@@ -456,6 +456,10 @@
     {
       "text": "Games in one Yui Line: game tictactoe, game snake, game memory, full screen by default. Tic-tac-toe against the agent: each tap relays {kind, move, x, o} (+ winner), the agent answers ~game o=... and the phone calls the winner with the winning line and Play again; snake (swipe or arrow pad, speed, size, best) and memory (pairs, agent-picked faces) run on the phone and send one result at game over. An unknown kind shows \"This game isn't in this version of Yui\". A patch aimed at a game an earlier reply drew lands on it. Reduce Motion fades, haptics per move, win and crash. Swift parser: game preset, 403/403 vectors (23-game synced from yuigui). Flywheel PRESETS follows yl.mjs. GameTests 2/2 on the sim, light + dark, with a demo stand-in agent answering moves",
       "card": "YUI-59"
+    },
+    {
+      "text": "Yui MCP server: any MCP client puts a screen on the phone. Edge function yui-mcp (streamable HTTP, stateless, JSON-RPC by hand): yui_show parses Yui Lines with a synced copy of yl.mjs, refuses bad lines with the parser's message, writes one agent row and returns the screen id plus the tap ids; yui_answers returns taps and typed text once each (marked delivered and handled), waits up to 25 s, signs the person's photos for an hour; yui_say; yui_threads with unread counts. The full channel guide is the yui_guide prompt and yui://guide resource, a short form rides in the tool descriptions. Auth is a kind-mcp connector token from the app's pairing code (a Hermes token gets 403), own rate bucket mcp in yui_limits (60 burst, 30/min). mcp_test.py 34/34 live; mcp_claude_e2e.py: a real Claude Code (claude mcp add --transport http) asks on the simulator, MCPRoundTripTests taps Yes, Claude puts up a 20/10x8 timer, 9/9. OAuth is INT-19",
+      "card": "INT-3"
     }
   ]
 }
