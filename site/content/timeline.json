@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 58,
-    "site": 147,
+    "app": 59,
+    "site": 150,
     "builds": 21,
-    "shipped": 87,
-    "screenshots": 157
+    "shipped": 88,
+    "screenshots": 159
   },
   "days": [
     {
@@ -13,15 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T00:08:35.581Z",
+          "at": "2026-09-25T00:46:46.174Z",
+          "title": "Invites: ask, get approved, Apple emails you, sign in and you're in",
+          "card": "YUI-56",
+          "anchor": "invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in",
+          "images": [
+            {
+              "src": "/progress/yui56-01-link-pending.webp",
+              "alt": "Yui's sign-in screen with an invite waiting: Invite ABCDE-FGHJK is ready. Sign in to join."
+            },
+            {
+              "src": "/progress/yui56-03-bad-code.webp",
+              "alt": "A note at the top of Yui: That invite code didn't work. It may be used already. Ask for a new link."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 59,
+            "site": 150,
+            "builds": 21,
+            "shipped": 88
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T00:09:03.000Z",
           "title": "Test builds by link: new app builds on the phone without TestFlight",
           "card": "YUI-55",
           "anchor": "test-builds-by-link-new-app-builds-on-the-phone-without-testflight",
           "images": [],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 58,
-            "site": 147,
+            "site": 148,
             "builds": 21,
             "shipped": 87
           }
@@ -1826,6 +1850,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "f76599c",
+          "at": "2026-09-25T00:46:24.000Z",
+          "text": "Invites: yui_invites in PROOF (server only, RLS, no grants; the waitlist comes over as requests), supabase/scripts/invite.py lists,...",
+          "url": "https://github.com/postscarcityai/yui/commit/f76599c"
+        },
+        {
+          "repo": "site",
+          "sha": "05c7a9f",
+          "at": "2026-09-25T00:40:05.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/05c7a9f"
+        },
+        {
+          "repo": "site",
+          "sha": "014501e",
+          "at": "2026-09-25T00:11:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/014501e"
+        },
+        {
+          "repo": "site",
+          "sha": "0857232",
+          "at": "2026-09-25T00:09:03.000Z",
+          "text": "Test builds by link: install.html (Safari fallback that reads the build's manifest link from the URL fragment), card url= in YL.md and...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0857232"
+        },
         {
           "repo": "site",
           "sha": "e1ba815",

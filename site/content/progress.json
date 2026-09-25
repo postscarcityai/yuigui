@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Invites: ask, get approved, Apple emails you, sign in and you're in",
+    "card": "YUI-56",
+    "body": "Yui's beta now has an invite path next to the public TestFlight link. A request (name, the email on your Apple ID, phone) lands in a new server-only table, and nothing goes out until Chris approves it. Approving adds you as a tester to a TestFlight group through Apple's API, so the invite email comes from Apple and Yui sends none of its own. When you first sign in with Apple, the app matches your invite by that email. If you hide your email, the invite link yuigui.com/i/<code> opens the app with the code, or you type it under Invite code on the sign-in screen. Codes work once, are stored only as a hash, and wrong guesses are rate limited. Deleting your account deletes your invite. The privacy page lists the new fields. Next: the request form on the site (SITE-26) and agents that come with an invite (YUI-57).",
+    "images": [
+      {
+        "src": "/progress/yui56-01-link-pending.webp",
+        "alt": "Yui's sign-in screen with an invite waiting: Invite ABCDE-FGHJK is ready. Sign in to join."
+      },
+      {
+        "src": "/progress/yui56-03-bad-code.webp",
+        "alt": "A note at the top of Yui: That invite code didn't work. It may be used already. Ask for a new link."
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Test builds by link: new app builds on the phone without TestFlight",
     "card": "YUI-55",
     "body": "Apple lets an app upload only so many TestFlight builds a day, and Yui hit that limit today. So main now has a second way onto the phone. scripts/devbuild.sh builds the app straight from main as an ad hoc build, keeps it in a private storage bucket behind links that expire in 7 days, and sends a card with an Install button into the Yui thread. Tap it and iOS installs the new build over the old one, sign-in and threads included. Ad hoc builds install only on iPhones registered to the developer account, so a forwarded link does nothing anywhere else. It runs when asked, and on its own when new app work lands on main, at most once every few hours. Along the way the card component learned url=: its button can now open a web page or an install link as well as answering the agent. This one is a script and a button, so no screenshots."

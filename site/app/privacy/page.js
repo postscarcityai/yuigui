@@ -19,6 +19,7 @@ const TABLES = [
   ["yui_messages", "Your messages, when each was delivered and handled, and your reactions."],
   ["yui_rate_buckets", "Usage counters for limits. Idle ones are deleted after a day."],
   ["yui_pair_attempts", "Wrong pairing codes and the IP they came from, for one day."],
+  ["yui_invites", "Invite requests and invites: name, email, phone, status. Server only."],
   ["yui_limits", "The limit numbers themselves. Nothing about you."],
   ["yui_channel_guides", "The guide text agents get. Nothing about you."],
   ["yui-media (storage)", "Photos and pictures in your threads. Private, links expire."],
@@ -30,6 +31,21 @@ export default function Privacy() {
       <div className="eyebrow">Privacy</div>
       <h1>What Yui keeps, and how to delete it.</h1>
       <p style={{ color: "var(--muted)" }}>Last updated September 24, 2026.</p>
+
+      <h2>Invites</h2>
+      <p>
+        Yui&apos;s beta is by invite. When you ask for one, or we invite you, we store your first and last name, the
+        email you give us (the one on your Apple ID, because that is where TestFlight sends the invite), your phone
+        number, which page and link brought you, your browser type, and where your invite stands: requested, approved,
+        invited, claimed or declined. Nobody but Yui&apos;s server can read that table.
+      </p>
+      <ul>
+        <li>We use it only to review your request and get you into Yui. Your phone number is for reaching you about your invite, never for marketing.</li>
+        <li>When we approve you, we send your name and email to Apple, which adds you to Yui&apos;s TestFlight beta and emails you the invite. We send no email of our own.</li>
+        <li>Your invite also carries a one-time code for a link like yuigui.com/i/&hellip;. We keep only a scrambled (hashed) form of it. It works once.</li>
+        <li>When you first sign in to the app, Yui matches your invite by that email, or by the code if you hid your email, and links it to your account.</li>
+        <li>An invite we decline is deleted 30 days later. An invite you claimed stays with your account and is deleted with it. To remove a request or an invite you have not used, email us.</li>
+      </ul>
 
       <h2>Signing in</h2>
       <p>
@@ -92,7 +108,7 @@ export default function Privacy() {
       <h2>Deleting your account</h2>
       <p>
         In the app, open Settings, then Account, then Delete account, and confirm. Deletion happens right away: your
-        account, sessions, devices, agents, computers, pairings, access keys, messages, photos and pictures are removed from our servers, and Yui is removed
+        account, sessions, devices, agents, computers, pairings, access keys, messages, photos and pictures, and your invite, are removed from our servers, and Yui is removed
         from your Apple ID. It cannot be undone. Signing in with Apple again later starts a new, empty account.
       </p>
       <p>
@@ -131,9 +147,10 @@ export default function Privacy() {
 
       <h2>This website</h2>
       <p>
-        yuigui.com uses Google Analytics to count visits. If you join the waitlist we store your email, your name if
-        you give one, which page and link brought you there, and your browser type, in the <code>yui_waitlist</code>{" "}
-        table. We use it to send you Yui news. To be removed, email us.
+        yuigui.com uses Google Analytics to count visits. It never sees an invite code: an invite link is counted as
+        yuigui.com/i/ without it. If you join the waitlist we store your email, your name if you give one, which page
+        and link brought you there, and your browser type, in the <code>yui_waitlist</code> table. We use it to send
+        you Yui news, and waitlist entries become invite requests (above). To be removed, email us.
       </p>
     </>
   );

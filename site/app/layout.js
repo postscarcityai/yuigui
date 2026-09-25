@@ -42,7 +42,9 @@ export default function RootLayout({ children }) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${GA_ID}');
+            // An invite link's code never reaches analytics (YUI-56).
+            gtag('config', '${GA_ID}', location.pathname.indexOf('/i/') === 0
+              ? { page_location: location.origin + '/i/', page_referrer: document.referrer.split('/i/')[0] } : {});
           `}
         </Script>
         <NotOnEmbed><Nav /></NotOnEmbed>
