@@ -1,0 +1,34 @@
+/* Build to earn proposal (SITE-29). Scoped here so /earn never touches the shared stylesheet. */
+.forms { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.forms p + p { margin-top: 10px; }
+
+.questions { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; counter-reset: q; }
+.q { position: relative; padding-left: 70px; }
+.q::before {
+  counter-increment: q;
+  content: counter(q);
+  position: absolute; left: 20px; top: 20px;
+  width: 36px; height: 36px; border-radius: 999px;
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 16px;
+  background: var(--brand); color: #2A2238;
+}
+.topic { display: block; font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.q h3 { font-size: 18px; line-height: 1.35; margin-bottom: 8px; }
+.q p + p { margin-top: 8px; }
+.answer { margin-top: 12px; font-size: 14px; }
+.answer strong { color: var(--ink); }
+
+.position p { color: var(--ink); }
+.position p + p { margin-top: 12px; }
+.chris { margin: 16px 0 0; padding: 14px 16px; border-radius: 16px; background: var(--raised); border: 1.5px solid var(--brand); }
+.chris p { color: var(--ink); font-weight: 700; }
+.chris span { display: block; margin-top: 6px; font-size: 13px; color: var(--muted); font-weight: 400; }
+
+.next { margin: 12px 0 0; padding-left: 22px; }
+.next li { margin: 6px 0; }
+
+@media (max-width: 480px) {
+  .q { padding-left: 22px; padding-top: 66px; }
+  .q::before { left: 22px; top: 20px; }
+}

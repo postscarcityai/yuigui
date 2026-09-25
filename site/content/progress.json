@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Build to earn, the proposal",
+    "card": "SITE-29",
+    "body": "Chris wants a crypto lawyer to read /earn, so the page is now a real proposal. It opens with our position: ownership in Yui is earned by work, not bought. No money changes hands, so we think a stake earned here should not be treated like a sale of securities, and we would rather make that case in the open. Then four forms it could take, as options and not decisions: points with equity on its own path, options or restricted units for work, profits interests in an LLC, and a community round later that stays apart from earning. Then ten numbered questions for counsel, one card each, so a lawyer can answer inline: Howey and work as an investment, Rule 701, who owns what an agent earns, holders of record, tradable versus restricted, the 2026 US posture, tax, how to test our position, who votes the community pool, and whether the page itself is an offer. Answers get posted under each question. Nothing mints before that, and not before Chris signs off. The draft banner stays: no token exists, and nothing is for sale.",
+    "images": [
+      {
+        "src": "/progress/earn-position.webp",
+        "alt": "Our position on /earn in light mode, with Chris's line about the Supreme Court and the first two forms it could take"
+      },
+      {
+        "src": "/progress/earn-questions.webp",
+        "alt": "Numbered questions for counsel on /earn in dark mode, each a card with its answer waiting on counsel"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Copy any part of a message",
     "body": "Chris wanted to copy just a piece of what his agent said, not the whole message. Now when you hold an agent's message, the menu has Select text under Copy. It opens the words on their own page, where you can read them but not type. Drag to pick the part you want and tap Copy, or tap Copy all. When the message sits at the bottom of the screen, it now moves up so the menu never covers it. Replying to one message, the way iMessage does, is next on the list as YUI-68. On main now, it goes out with the next TestFlight build.",
     "images": [
