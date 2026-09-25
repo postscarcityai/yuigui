@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T10:10:15.669Z",
+  "updated": "2026-09-25T10:40:04.694Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -83,11 +83,6 @@
           "summary": "An agent can keep the composer on a page"
         },
         {
-          "key": "YUI-63",
-          "title": "One working row instead of dots plus a timer",
-          "summary": "A working word and the seconds, later a few words on what it is doing"
-        },
-        {
           "key": "YUI-64",
           "title": "An agent that is paired but not listening says so"
         },
@@ -116,6 +111,10 @@
         {
           "key": "YUI-76",
           "title": "Agent bubbles render basic markdown (bold, code, lists)"
+        },
+        {
+          "key": "YUI-77",
+          "title": "Group threads, several agents in one conversation (YUI-44 step 2)"
         },
         {
           "key": "SITE-28",
@@ -154,10 +153,6 @@
           "key": "INT-6",
           "title": "Research",
           "summary": "Cloudflare Agents SDK and 'Flue' for relay v1"
-        },
-        {
-          "key": "INT-8",
-          "title": "ChatGPT adapter through the Yui MCP server"
         },
         {
           "key": "INT-9",
@@ -283,14 +278,19 @@
           "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
         },
         {
-          "key": "YUI-44",
-          "title": "@mention an agent, then group threads"
-        },
-        {
           "key": "INT-7",
           "title": "Claude adapter, MCP connector plus Yui screens as an MCP App",
           "summary": "Yui in Claude, and Yui screens inside the chat",
           "progress": "/progress#yui-in-claude-and-yui-screens-inside-the-chat"
+        },
+        {
+          "key": "INT-8",
+          "title": "ChatGPT adapter through the Yui MCP server"
+        },
+        {
+          "key": "YUI-63",
+          "title": "One working row instead of dots plus a timer",
+          "summary": "A working word and the seconds, later a few words on what it is doing"
         }
       ]
     },
@@ -298,6 +298,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-44",
+          "title": "@mention an agent, then group threads",
+          "summary": "@ another agent from any thread",
+          "shipped": "2026-09-25",
+          "progress": "/progress#another-agent-from-any-thread"
+        },
         {
           "key": "YUI-61",
           "title": "Slash commands in the composer",
