@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T23:40:57.301Z",
+  "updated": "2026-09-25T00:11:01.581Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -82,6 +82,10 @@
           "key": "YUI-54",
           "title": "Top-left menu becomes the agent's home",
           "summary": "Drop-up switcher, pinned screens, to review, about"
+        },
+        {
+          "key": "YUI-58",
+          "title": "Yui for macOS, a matching desktop app [agent-ready]"
         },
         {
           "key": "OSS-3",
@@ -193,6 +197,21 @@
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
+        },
+        {
+          "key": "YUI-56",
+          "title": "Invites end to end",
+          "summary": "Request, Chris approves, Apple's TestFlight email, claim on first sign-in"
+        },
+        {
+          "key": "YUI-57",
+          "title": "Default agents per invite",
+          "summary": "Clients open Yui and see their agents (client-safe agents only)"
+        },
+        {
+          "key": "SITE-26",
+          "title": "'Request an invite' replaces the waitlist",
+          "summary": "Name, Apple ID email, phone"
         }
       ]
     },
@@ -251,10 +270,10 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "SITE-25",
-          "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)",
-          "summary": "The site catches up: what is on your phone, and what comes with build 57",
-          "progress": "/progress#the-site-catches-up-what-is-on-your-phone-and-what-comes-with-build-57"
+          "key": "YUI-55",
+          "title": "Test builds by link",
+          "summary": "Test builds by link: new app builds on the phone without TestFlight",
+          "progress": "/progress#test-builds-by-link-new-app-builds-on-the-phone-without-testflight"
         }
       ]
     },
@@ -262,6 +281,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-25",
+          "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)",
+          "summary": "The site catches up: what is on your phone, and what comes with build 57",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-site-catches-up-what-is-on-your-phone-and-what-comes-with-build-57"
+        },
         {
           "key": "SITE-24",
           "title": "Yui@home story",

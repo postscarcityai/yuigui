@@ -378,6 +378,14 @@
     {
       "text": "CONTRIBUTING: point to the community page and the three lines challenge",
       "card": "OSS-5"
+    },
+    {
+      "text": "Marketing videos: scripts/promo_videos.py records four scripted scenes on the demo account (YuiPromoTests: a timer, a choice, a chart, and adding an agent through pairing to its first screen) and cuts Yui in 15s, Yui Lines in 30s and your Hermes on your phone in 60s, 9:16 and 16:9, captions burned in, cards drawn by scripts/promo_card.swift; debug-only demo hooks: -yuiDemoPairAfter brings a new agent online, -yuiDemoReply answers what you send, -yuiNoAgents shows first run on the demo account, and the demo pairing code is the 123456 placeholder yuigui.com/start shows",
+      "card": "SOC-3"
+    },
+    {
+      "text": "Test builds by link: scripts/devbuild.sh archives a clean worktree of origin/main as an ad hoc build (<commit count>.<n>, production APNs), hosts the .ipa and its itms-services manifest in the private yui-builds bucket behind 7-day signed links, and sends a card with an Install button into the Yui thread; no TestFlight, no upload limit, installs only on registered iPhones. card url= opens an https or itms-services link as well as emitting {cta}. media_sweep removes builds older than 8 days. README Test builds",
+      "card": "YUI-55"
     }
   ]
 }
