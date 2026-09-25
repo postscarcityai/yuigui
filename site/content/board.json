@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T22:40:19.563Z",
+  "updated": "2026-09-25T23:10:22.781Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -80,8 +80,13 @@
           "summary": "A big, always-current view of where the next version stands"
         },
         {
-          "key": "YUI-93",
-          "title": "Group threads in the app, step 2 of YUI-77 (migration, plugin, native)"
+          "key": "YUI-94",
+          "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
+          "waiting": true
+        },
+        {
+          "key": "YUI-95",
+          "title": "Shared agents in the app, step 2 of YUI-57 (migration, grant script, client-safe check, sim proof)"
         },
         {
           "key": "SITE-28",
@@ -156,15 +161,6 @@
           "key": "YUI-70",
           "title": "Agent controls in the drawer",
           "summary": "Basic CRUD over soul, memory, skills, schedules"
-        },
-        {
-          "key": "YUI-57",
-          "title": "Default agents per invite",
-          "summary": "Clients open Yui and see their agents (client-safe agents only)"
-        },
-        {
-          "key": "SITE-36",
-          "title": "The site catches up to Yui 0.2.0 the moment build 118 is VALID"
         }
       ]
     },
@@ -189,8 +185,9 @@
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
         },
         {
-          "key": "YUI-77",
-          "title": "Group threads, several agents in one conversation (YUI-44 step 2)"
+          "key": "YUI-57",
+          "title": "Default agents per invite",
+          "summary": "Clients open Yui and see their agents (client-safe agents only)"
         }
       ]
     },
@@ -198,6 +195,25 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-36",
+          "title": "The site catches up to Yui 0.2.0 the moment build 118 is VALID",
+          "shipped": "2026-09-25"
+        },
+        {
+          "key": "YUI-93",
+          "title": "Group threads in the app, step 2 of YUI-77 (migration, plugin, native)",
+          "summary": "Group threads: the plumbing is live",
+          "shipped": "2026-09-25",
+          "progress": "/progress#group-threads-the-plumbing-is-live"
+        },
+        {
+          "key": "YUI-77",
+          "title": "Group threads, several agents in one conversation (YUI-44 step 2)",
+          "summary": "Group threads: several agents in one conversation, on paper and in the playground",
+          "shipped": "2026-09-25",
+          "progress": "/progress#group-threads-several-agents-in-one-conversation-on-paper-and-in-the-playground"
+        },
         {
           "key": "YUI-92",
           "title": "Settings shows the version you are running, at the bottom (rides 0.2.0)",
