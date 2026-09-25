@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T09:40:11.017Z",
+  "updated": "2026-09-25T10:10:15.669Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -288,7 +288,9 @@
         },
         {
           "key": "INT-7",
-          "title": "Claude adapter, MCP connector plus Yui screens as an MCP App"
+          "title": "Claude adapter, MCP connector plus Yui screens as an MCP App",
+          "summary": "Yui in Claude, and Yui screens inside the chat",
+          "progress": "/progress#yui-in-claude-and-yui-screens-inside-the-chat"
         }
       ]
     },
