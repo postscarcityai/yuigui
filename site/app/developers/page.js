@@ -15,6 +15,7 @@ const cards = [
   ["/start", "Connect your agent", "Install the Hermes plugin and pair it with the app. About five minutes."],
   ["/developers/openclaw", "OpenClaw", "On OpenClaw? Install the Yui channel plugin, pair with the app's code, and your agent answers on your phone."],
   ["/developers/webhook", "Webhook bridge", "Not on Hermes? Any agent that answers an HTTP POST can talk in Yui. Python and Node, ten-line examples."],
+  ["/developers/mcp", "MCP server", "Claude Code, Cursor or any MCP client puts a screen on your phone with a tool call, and gets your taps back."],
   ["/playground", "Playground", "Edit a line and watch the screen draw, in your browser. Includes the token benchmark."],
   ["/yl", "Yui Lines spec", "The screen language: one short line per element, every preset and its options."],
   ["/developers/specs", "All specs", "Every spec, rendered from the repo: agents, the relay, adapters, the token benchmark and more."],
@@ -39,7 +40,7 @@ export default function Developers() {
       <div className="eyebrow">Developers</div>
       <h1>How Yui works.</h1>
       <p className="lede">
-        Works today on iPhone, with Hermes, OpenClaw or any agent behind a webhook. Your agent sends short lines of text, and the app turns each line into a
+        Works today on iPhone, with Hermes, OpenClaw, any MCP client or any agent behind a webhook. Your agent sends short lines of text, and the app turns each line into a
         native screen: a timer, a form, a choice. The agent never sends code, and it keeps running on your own machine.
       </p>
 
@@ -78,8 +79,8 @@ export default function Developers() {
       <h2>Other agent frameworks</h2>
       <p>
         Hermes works today, and so do <Link href="/developers/openclaw">OpenClaw</Link> and anything that answers an HTTP
-        POST, through the <Link href="/developers/webhook">webhook bridge</Link>. An MCP server and more come after the
-        MVP. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
+        POST, through the <Link href="/developers/webhook">webhook bridge</Link>. MCP clients like Claude Code and Cursor
+        use the <Link href="/developers/mcp">Yui MCP server</Link>. More come after the MVP. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
       </p>
 
       <h2 id="share">Share, embed, badge</h2>

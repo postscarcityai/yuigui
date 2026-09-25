@@ -88,7 +88,7 @@ Then:
 - YUI-63 (backlog): one working row instead of three dots plus a timer. A working word and the seconds ("Pondering · 12s") first; later the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
 - YUI-64 (backlog): an agent that is paired but not listening says so. Presence per agent, not per machine; right after pairing the agent sheet shows the one step left (restart its gateway); a message to it says it will wait instead of a timer that counts forever. From Chris's R0SS feedback on build 61.
 - YUI-69 (backlog): talk about a setting. Bring a piece of the agent (its personality, a memory, a skill) into the chat, the agent proposes the change as a before and after, one tap applies it. After YUI-70.
-- INT-3 onward: more agent frameworks, starting with a Yui MCP server (see Adapters below).
+- INT-19 onward: more agent frameworks. The Yui MCP server shipped Sep 25 (INT-3); next is OAuth for it (INT-19), then Claude and ChatGPT connectors (see Adapters below).
 - The phase backlog below, from YUI-33 on.
 
 ## Epics
@@ -284,7 +284,8 @@ Deliverables:
 - NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
 - DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
 - DONE Sep 24, INT-1: the OpenClaw channel plugin. An OpenClaw agent talks in Yui the way a Hermes agent does, screens and taps included.
-- NOT STARTED, INT-3 onward: a Yui MCP server so any MCP-capable agent can render to Yui, and more (see Adapters below).
+- DONE Sep 25, INT-3: the Yui MCP server. Claude Code, Cursor or any MCP client puts a screen on your phone and reads the taps back (`spec/MCP.md`).
+- NOT STARTED, INT-19: OAuth for the MCP server, so the Claude and ChatGPT apps add Yui in one click.
 - NOT STARTED, YUI-48: SMS channel (text a number, get a push that opens the screen).
 
 Dependencies: App Store submission sign-off from Chris.
@@ -336,7 +337,7 @@ There are only five ways in, so five pieces of code cover every framework:
 - **A plugin inside the agent's own app.** Hermes today. OpenClaw and Flue next.
 - **A hosted connector** that speaks a standard protocol: Hermes's relay contract, and A2A, which Gemini, LangGraph, CrewAI and Microsoft's Agent Framework all speak.
 - **A model connector.** Point Yui at any OpenAI-compatible API: Meta's Muse Spark, Grok, Gemini, or a model on your own machine through Ollama, LM Studio or vLLM.
-- **A Yui MCP server.** Claude, ChatGPT, Grok and n8n add it as a tool and push screens to your phone.
+- **A Yui MCP server.** Claude, ChatGPT, Grok and n8n add it as a tool and push screens to your phone. Shipped Sep 25 (INT-3) for clients that take a header, like Claude Code and Cursor: `spec/MCP.md`.
 - **A webhook.** If your code can answer an HTTP request, it can talk in Yui. Shipped Sep 24 (INT-2): the webhook bridge, `spec/WEBHOOK.md`.
 
 Every one of them ends in the same messages and the same screens, and every agent gets the same channel guide, so it knows it can draw.
@@ -407,7 +408,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 - INT-1 (done Sep 24): an OpenClaw channel plugin. Install it, pair with the app's code, and your OpenClaw agent answers in Yui.
 - INT-2 (done Sep 24): a webhook bridge in Python and Node. If your agent can answer an HTTP request, it can talk in Yui.
-- INT-3: a Yui MCP server, so any MCP agent can draw a screen.
+- INT-3 (done Sep 25): a Yui MCP server, so any MCP agent can draw a screen. Claude Code and Cursor today; OAuth for the Claude and ChatGPT apps is INT-19.
 - INT-4: the Telegram fallback: Yui Lines as buttons and a Telegram Mini App.
 - INT-5: connect without installing anything, through a hosted connector.
 - INT-6: research Cloudflare's Agents SDK and "Flue" for the next relay.

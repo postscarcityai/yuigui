@@ -1,6 +1,16 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Claude Code can put a screen on your phone now",
+    "card": "INT-3",
+    "body": "Yui has an MCP server. Any AI app that speaks MCP, like Claude Code or Cursor, can now draw on your phone with a tool call and get your taps back. You keep talking on your laptop; Yui is the second screen. Add an agent in the app, trade its 6-digit code for a token, and add one line to your client. Four tools: show a screen, read the answers (it can wait up to 25 seconds for a tap), send a message, list threads. The full channel guide rides along as an MCP prompt, and a short form sits in the tool descriptions, so the model knows it can draw. Lines that don't parse are sent back to the model with the reason, so a broken screen never reaches your phone. In the live test a real Claude Code asked \"Ready for a tabata?\" on the simulator, the test tapped Yes, and Claude put up the timer. 34 of 34 server checks and 9 of 9 end-to-end checks passed. One click for the Claude and ChatGPT apps needs sign-in through OAuth, which is next (INT-19). The guide is on the site under Developers, MCP.",
+    "images": [
+      { "src": "/progress/int3-claude-ask.webp", "alt": "Yui on an iPhone simulator: an agent named Claude, connected from Claude Code through MCP, asks \"Ready for a tabata?\" with Yes and Not now buttons." },
+      { "src": "/progress/int3-claude-timer.webp", "alt": "After the Yes tap, Claude answers through MCP with a full-screen Tabata timer: 0:20 work, round 1 of 8, and a Start button." }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Polish and depth: every page checked, See it catches up",
     "card": "SITE-32",
     "body": "Chris asked for polish and depth. I loaded all 164 pages in the sitemap at phone and desktop width and checked every link and picture. Nothing inside the site was broken. One outside link was: a sample trip in the playground linked to a page that does not exist, so it now opens a real one about fado. No page runs off the side of a phone. The one thing that read wrong was the row of pages under Roadmap: on a phone, Thoughts sat past the edge with nothing saying you could scroll. The row now fades on the side that has more. See it gains what shipped since yesterday: drag the queue into your own order, copy any part of a message, links that open Safari, and screens that get the whole phone. Select text has no card, so it now finds its place in the next build by its commit. The war room sample shows the war room as it is today. Card links on the web now do what the app does: an arrow, the page opens, nothing goes to the chat. The spec said otherwise, and now it agrees. The Get started commands still work: I installed the plugin from them into a throwaway Hermes. The roadmap no longer calls the timeline building.",

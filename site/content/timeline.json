@@ -2,7 +2,7 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 71,
-    "site": 184,
+    "site": 186,
     "builds": 24,
     "shipped": 104,
     "screenshots": 204
@@ -13,7 +13,7 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T07:00:31.467Z",
+          "at": "2026-09-25T06:59:56.000Z",
           "title": "Polish and depth: every page checked, See it catches up",
           "card": "SITE-32",
           "anchor": "polish-and-depth-every-page-checked-see-it-catches-up",
@@ -31,10 +31,10 @@
               "alt": "The page row under the Yui header on a phone, fading out at the right edge where Thoughts is hidden"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 71,
-            "site": 184,
+            "site": 185,
             "builds": 24,
             "shipped": 104
           }
@@ -309,6 +309,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "15756a7",
+          "at": "2026-09-25T07:10:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/15756a7"
+        },
+        {
+          "repo": "site",
+          "sha": "c7bc0cf",
+          "at": "2026-09-25T06:59:56.000Z",
+          "text": "Polish and depth (SITE-32): all 164 sitemap routes crawled at 390 and 1280 (no broken internal links or images, no page overflow; the...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c7bc0cf"
+        },
         {
           "repo": "site",
           "sha": "7eccb6b",

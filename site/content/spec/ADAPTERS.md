@@ -15,7 +15,7 @@ There are only five ways an agent can reach Yui. Every framework below uses one 
 | A | **Channel plugin** inside the agent's own runtime | the user | the agent's host | Hermes and OpenClaw (shipped), Flue |
 | B | **Hosted connector** that speaks a standard protocol | the user or a vendor | the agent | Hermes via relay contract, A2A agents (Gemini, LangGraph, CrewAI, Microsoft Agent Framework) |
 | C | **Model connector**: Yui calls a chat API for you | Yui | Yui | any OpenAI-compatible endpoint: Meta Muse Spark, Grok, Gemini, Ollama, LM Studio, vLLM, OpenRouter |
-| D | **Yui MCP server**: the agent calls Yui as a tool | the user's AI app | the AI app | Claude, ChatGPT, Grok, n8n, Cursor, anything MCP |
+| D | **Yui MCP server**: the agent calls Yui as a tool (shipped, INT-3) | the user's AI app | the AI app | Claude, ChatGPT, Grok, n8n, Cursor, anything MCP |
 | E | **Webhook**: plain HTTP both ways (shipped, INT-2) | the user | the user's code | n8n, Zapier-style tools, scripts, everything else |
 
 Two rules hold for all of them:
@@ -75,10 +75,10 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 
 ### Yui MCP server | INT-3
 
-- **Connects:** path D. Tools: `yui_show` (put a screen on the phone, returns a screen id), `yui_answers` (read taps for a screen, with a wait), `yui_say` (plain message), `yui_threads`. Remote, over HTTP, with OAuth.
-- **Learns:** tool descriptions plus the `yui_guide` prompt.
+- **Status:** step 1 shipped Sep 25: the `yui-mcp` edge function, spec `spec/MCP.md`. Tools: `yui_show` (put a screen on the phone, returns a screen id), `yui_answers` (read taps for a screen, with a wait), `yui_say` (plain message), `yui_threads`. Remote, streamable HTTP, stateless. Auth is a connection token from the app's pairing code, so clients that take a header (Claude Code, Cursor, n8n) work today. Step 2 is OAuth (Sign in with Apple through Yui), INT-19, for the Claude and ChatGPT apps' one-click connectors.
+- **Learns:** a short form in the tool descriptions, the full guide as the `yui_guide` prompt and the `yui://guide` resource.
 - **Effort:** M.
-- **Depends on:** OAuth for Yui accounts; rate limits from YUI-26.
+- **Depends on:** rate limits from YUI-26 (its own `mcp` bucket). OAuth is INT-19.
 - **Priority:** 2. One server serves every MCP client below.
 - **Note:** here the conversation stays in the other app. Yui is the second screen: the agent pushes a timer or a form to your phone while you keep talking on your laptop.
 
@@ -189,7 +189,7 @@ Not an agent framework, but the same idea in reverse: Yui Lines rendered as Tele
 ## Order
 
 1. Hermes plugin (done), then INT-5 hosted Hermes.
-2. INT-1 OpenClaw (done Sep 24), INT-2 webhook (done Sep 24), INT-3 MCP server. These three open the door for everyone else.
+2. INT-1 OpenClaw (done Sep 24), INT-2 webhook (done Sep 24), INT-3 MCP server (done Sep 25, OAuth next in INT-19). These three open the door for everyone else.
 3. INT-7 Claude and INT-8 ChatGPT (cheap once INT-3 exists), INT-12 model connector, INT-13 Flue, INT-18 A2A.
 4. INT-9 Gemini, INT-10 Grok, INT-11 Meta, INT-14 LangGraph, INT-17 n8n: mostly presets on the pieces above.
 5. INT-15 CrewAI, INT-16 Microsoft Agent Framework.
