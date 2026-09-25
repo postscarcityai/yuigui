@@ -110,11 +110,11 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - YUI-57 (next): default agents per invite, client-safe agents only.
 - SITE-26 (shipped Sep 24): Request an invite replaced the waitlist on the site.
 
-**Next up: WAR-1, the war room.** Screen 2 becomes a real dashboard for running Yui from Yui: a timeline of what shipped and what is queued, quick links to the site, and a reorder mode that sets board priority by dragging, with no agent turn in between (Chris, Sep 25).
+**Done: WAR-1, the war room (shipped in build 74, Sep 25).** Screen 2 becomes a real dashboard for running Yui from Yui: a timeline of what shipped and what is queued, quick links to the site, and a reorder mode that sets board priority by dragging, with no agent turn in between (Chris, Sep 25).
 
-- YUI-65 (shipped Sep 25): a timeline preset: done above, now, queued below. In the code, reaches phones with the next build.
-- YUI-66 (shipped Sep 25): reorder mode, drag to set priority on the board, with no agent turn. Also in the next build.
-- YUI-73 (shipped Sep 25): the rest of the war room. Needs you (cards waiting on Chris; a card with choices gets one-tap answers that land on the card and send it back to the queue, with no agent turn), running now (one row per lane), builds with the Install button, the latest feedback and the card it became, the MVP bar, quick links. Built from presets the app already draws, so it shows up with the next build.
+- YUI-65 (shipped Sep 25): a timeline preset: done above, now, queued below. In build 74.
+- YUI-66 (shipped Sep 25): reorder mode, drag to set priority on the board, with no agent turn. In build 74.
+- YUI-73 (shipped Sep 25): the rest of the war room. Needs you (cards waiting on Chris; a card with choices gets one-tap answers that land on the card and send it back to the queue, with no agent turn), running now (one row per lane), builds with the Install button, the latest feedback and the card it became, the MVP bar, quick links. Built from presets the app already draws. In build 74.
 
 **Distant: EARN-1, build to earn.** Yui is built by whoever shows up, human or agent, and the work is what earns. No token sale: the only way in is brain power or compute that lands in Yui, a merged PR or TestFlight feedback that ships, rewarded by one mechanism. 10% of voting equity is set aside for the public pool, with more to follow. Humans first, and an open call to autonomous agents. Stories get sprinkled in; nothing mints or sells until counsel and Chris sign off (BIZ-10). Builds on Yui@home (SITE-24).
 
@@ -130,9 +130,9 @@ Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /ear
 - SITE-28 (backlog): "How can I help?" around the site, and an open call to agents.
 - BIZ-12 (backlog): build to earn in the go-to-market plan and the pitch.
 
-**Latest release: build 64, Sep 25.** Build 57 (Sep 24) was the big one, chat feels right: the lock screen timer (YUI-30), screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51), no dead buttons (YUI-53), and every Sep 24 feedback fix checked again (YUI-52). Build 61 fixed a crash in hold to talk and brought invites (YUI-56) and test builds by link (YUI-55). Build 64 made hold to talk work like WhatsApp and gave screens 2 to 12 the whole phone.
+**Latest release: build 74, Sep 25: the war room (WAR-1), replies, select text, and links that open Safari.** Build 57 (Sep 24) was the big one, chat feels right: the lock screen timer (YUI-30), screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51), no dead buttons (YUI-53), and every Sep 24 feedback fix checked again (YUI-52). Build 61 fixed a crash in hold to talk and brought invites (YUI-56) and test builds by link (YUI-55). Build 64 made hold to talk work like WhatsApp and gave screens 2 to 12 the whole phone.
 
-**The next build** carries what is on the app's main branch past 64: links in a card open Safari instead of sending a tap (YUI-67), a test build's Install link that stays whole, Select text, so you can copy any part of a message (from Chris's TestFlight feedback, the first piece of YUI-68), the war room's timeline (YUI-65) with drag to reorder (YUI-66), and replies: swipe a message left, or hold it and tap Reply (YUI-68). [Builds](/changelog#next) lists it. The fix for a newly added agent that missed messages sent before its gateway came up is in the Hermes plugin, so it needs no build. After that, the next epic is Chris's Sep 25 picks: YUI-54 and YUI-70 (each agent's home and its controls), then YUI-68 (reply).
+**The next build** carries what is on the app's main branch past 74: slash commands in the composer (YUI-61) and the approval sheet for MCP apps that sign in with OAuth (INT-19). [Builds](/changelog#next) lists it. The next epic is Chris's Sep 25 picks: YUI-54 and YUI-70 (each agent's home and its controls), then @mentions (YUI-44).
 
 ## North star: not just another AI chatbot
 
@@ -285,7 +285,7 @@ Deliverables:
 - DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
 - DONE Sep 24, INT-1: the OpenClaw channel plugin. An OpenClaw agent talks in Yui the way a Hermes agent does, screens and taps included.
 - DONE Sep 25, INT-3: the Yui MCP server. Claude Code, Cursor or any MCP client puts a screen on your phone and reads the taps back (`spec/MCP.md`).
-- NOT STARTED, INT-19: OAuth for the MCP server, so the Claude and ChatGPT apps add Yui in one click.
+- DONE Sep 25, INT-19: OAuth for the MCP server. The Claude and ChatGPT apps add Yui by pasting one URL; you approve in the app. The approval sheet rides the next build.
 - NOT STARTED, YUI-48: SMS channel (text a number, get a push that opens the screen).
 
 Dependencies: App Store submission sign-off from Chris.
