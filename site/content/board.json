@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T00:11:01.581Z",
+  "updated": "2026-09-25T00:40:05.907Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -199,11 +199,6 @@
           "mvp": true
         },
         {
-          "key": "YUI-56",
-          "title": "Invites end to end",
-          "summary": "Request, Chris approves, Apple's TestFlight email, claim on first sign-in"
-        },
-        {
           "key": "YUI-57",
           "title": "Default agents per invite",
           "summary": "Clients open Yui and see their agents (client-safe agents only)"
@@ -270,10 +265,9 @@
           "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
         },
         {
-          "key": "YUI-55",
-          "title": "Test builds by link",
-          "summary": "Test builds by link: new app builds on the phone without TestFlight",
-          "progress": "/progress#test-builds-by-link-new-app-builds-on-the-phone-without-testflight"
+          "key": "YUI-56",
+          "title": "Invites end to end",
+          "summary": "Request, Chris approves, Apple's TestFlight email, claim on first sign-in"
         }
       ]
     },
@@ -281,6 +275,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-55",
+          "title": "Test builds by link",
+          "summary": "Test builds by link: new app builds on the phone without TestFlight",
+          "shipped": "2026-09-24",
+          "progress": "/progress#test-builds-by-link-new-app-builds-on-the-phone-without-testflight"
+        },
         {
           "key": "SITE-25",
           "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)",
