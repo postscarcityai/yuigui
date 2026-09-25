@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T18:40:57.344Z",
+  "updated": "2026-09-25T19:10:48.824Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -87,17 +87,17 @@
           "title": "Yui in the browser [agent-ready, build to earn]"
         },
         {
-          "key": "YUI-72",
-          "title": "Admin console, scope only",
-          "summary": "Roles, controls, where it lives"
-        },
-        {
           "key": "YUI-75",
           "title": "Ids on a page patch across replies, so the war room refreshes in place"
         },
         {
           "key": "YUI-77",
           "title": "Group threads, several agents in one conversation (YUI-44 step 2)"
+        },
+        {
+          "key": "YUI-85",
+          "title": "The channel guide teaches a sketch under a page",
+          "waiting": true
         },
         {
           "key": "SITE-28",
@@ -151,11 +151,6 @@
           "key": "BIZ-12",
           "title": "Weave build to earn into GTM and the pitch",
           "waiting": true
-        },
-        {
-          "key": "FLOW-1",
-          "title": "Flows",
-          "summary": "Saved series of Yui screens, authored in Mermaid, run by any agent"
         },
         {
           "key": "FLOW-2",
@@ -217,16 +212,9 @@
           "title": "Open backlog on GitHub for contributors"
         },
         {
-          "key": "YUI-84",
-          "title": "The app draws sketch pictures on story pages (native port of YUI-83)"
-        },
-        {
-          "key": "OSS-4",
-          "title": "Yui Lines parser in Rust"
-        },
-        {
-          "key": "INT-21",
-          "title": "AG-UI client, Yui screens as frontend tools (Agent Framework, CopilotKit, Mastra and others)"
+          "key": "FLOW-1",
+          "title": "Flows",
+          "summary": "Saved series of Yui screens, authored in Mermaid, run by any agent"
         }
       ]
     },
@@ -234,6 +222,34 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-72",
+          "title": "Admin console, scope only",
+          "summary": "The admin console, scoped",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-admin-console-scoped"
+        },
+        {
+          "key": "YUI-84",
+          "title": "The app draws sketch pictures on story pages (native port of YUI-83)",
+          "summary": "The app draws",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-app-draws"
+        },
+        {
+          "key": "OSS-4",
+          "title": "Yui Lines parser in Rust",
+          "summary": "Yui Lines in Rust",
+          "shipped": "2026-09-25",
+          "progress": "/progress#yui-lines-in-rust"
+        },
+        {
+          "key": "INT-21",
+          "title": "AG-UI client, Yui screens as frontend tools (Agent Framework, CopilotKit, Mastra and others)",
+          "summary": "AG-UI agents in Yui",
+          "shipped": "2026-09-25",
+          "progress": "/progress#ag-ui-agents-in-yui"
+        },
         {
           "key": "YUI-60",
           "title": "Yui Lines can describe a game, not just pick one",
