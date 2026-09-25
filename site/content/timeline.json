@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 60,
-    "site": 153,
+    "app": 61,
+    "site": 157,
     "builds": 21,
-    "shipped": 90,
+    "shipped": 91,
     "screenshots": 165
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T02:20:31.640Z",
+          "at": "2026-09-25T03:01:24.525Z",
+          "title": "Build 61: holding the mic no longer crashes",
+          "card": null,
+          "anchor": "build-61-holding-the-mic-no-longer-crashes",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 61,
+            "site": 157,
+            "builds": 21,
+            "shipped": 91
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T02:20:47.000Z",
           "title": "Build 57: every fix you sent is on your phone",
           "card": "YUI-52",
           "anchor": "build-57-every-fix-you-sent-is-on-your-phone",
@@ -35,10 +50,10 @@
               "alt": "The Add agent screen with a grid of 29 colors sorted by hue"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 60,
-            "site": 153,
+            "site": 154,
             "builds": 21,
             "shipped": 90
           }
@@ -1906,6 +1921,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "d2d5731",
+          "at": "2026-09-25T02:55:03.000Z",
+          "text": "Hold to talk no longer crashes: the speech permission answer, the mic tap and the recognizer's results come back on system threads, and...",
+          "url": "https://github.com/postscarcityai/yui/commit/d2d5731"
+        },
+        {
+          "repo": "site",
+          "sha": "52609d2",
+          "at": "2026-09-25T02:28:41.000Z",
+          "text": "Roadmap: after the MVP, YUI-54 then YUI-61 (slash commands) then YUI-44 step 1 (@mentions)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/52609d2"
+        },
+        {
+          "repo": "site",
+          "sha": "2cab612",
+          "at": "2026-09-25T02:27:12.000Z",
+          "text": "Roadmap: @mentions join YUI-44, slash commands are YUI-61, both in the backlog",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2cab612"
+        },
+        {
+          "repo": "site",
+          "sha": "4e0c2dc",
+          "at": "2026-09-25T02:22:33.000Z",
+          "text": "Roadmap: YUI-54 (the agent's home menu, drop-up switcher) moves from the deep backlog to first after the MVP",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4e0c2dc"
+        },
+        {
+          "repo": "site",
+          "sha": "9d0b023",
+          "at": "2026-09-25T02:20:47.000Z",
+          "text": "Build 57: every fix you sent is on your phone. Progress entry with four shots from the verify pass on build 57; roadmap moves YUI-52 to...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9d0b023"
+        },
         {
           "repo": "app",
           "sha": "2365ad2",

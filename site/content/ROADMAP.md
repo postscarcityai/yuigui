@@ -73,6 +73,9 @@ Up next:
 
 Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-42 (the preset flywheel: custom screens agents keep sending get flagged for promotion to presets, checklist in spec/FLYWHEEL.md), SITE-15 (Yui Lines back on the home page, and every spec doc readable on the site), SITE-16 (watch Yui grow: the whole GitHub history, builds and screenshots, day by day, at /timeline), INT-0 (the adapters plan), INT-1 (OpenClaw agents talk in Yui) and INT-2 (a webhook bridge for any agent that answers HTTP). More are done in the code and reach phones with the next build: YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions), YUI-53 (no dead buttons: a plan ends in Send, and the channel guide bans "Got it" buttons), YUI-51 (one full-screen flow holds the pages and the questions with one Send, and afterwards the chat keeps an expandable record and your answers as your own message), YUI-32 (named screens: an agent saves a screen, it sits on a shelf at the top of the thread, and `show busy day` or one tap brings it back), YUI-31 (three screens per agent: the chat plus screens 2 and 3 a swipe away, which keep what the agent puts there) and YUI-30 (the timer keeps counting on the lock screen). What is left to pull once the MVP passes, roughly in this order:
 
+- YUI-54 (first, Chris Sep 24): the top-left menu becomes each agent's home. Your agents in a drop-up at the bottom left that springs open, and the rest of the menu about the agent you are talking to: pinned screens, things waiting for you, a page about it.
+- YUI-61 (second): slash commands. Type / to see what your agent already understands (Hermes commands first); later, Yui's own /commands that run a skill or a flow.
+- YUI-44 step 1 (third): @mention another agent from the composer and its reply lands in the thread. Group threads come after.
 - YUI-14: voice in, text out, fast.
 - INT-3 onward: more agent frameworks, starting with a Yui MCP server (see Adapters below).
 - The phase backlog below, from YUI-33 on.
@@ -345,8 +348,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.
 - YUI-36: optional encrypted sync for agent tables, off by default.
 - OSS-6: Yui@home, the machinery. An agent-ready backlog exported from the board, a weekly routine prompt for Claude, Codex, Gemini, Cursor and Copilot, and pull requests reviewed before merge.
-- YUI-54: the top-left menu becomes each agent's home: switch agents from a drop-up at the bottom, pinned screens you reopen (your workout), things waiting for you, and a page about the agent.
-- YUI-44: group threads, several agents in one conversation.
+- YUI-44: group threads, several agents in one conversation (its first step, @mentions, is in the list after the MVP).
 - YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP).
 - YUI-59: game presets: tic-tac-toe, snake and a few basics, to get people imagining what else fits on the screen.
 - YUI-60: Yui Lines that describe a game (board, pieces, rules, win), so agents can make new ones. Spec first, after YUI-59.

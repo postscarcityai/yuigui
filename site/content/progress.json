@@ -1,6 +1,11 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Build 61: holding the mic no longer crashes",
+    "body": "A tester held the talk button on build 57 and the app closed. The crash log showed why: the speech permission answer, the mic and the live transcript all arrive on system threads, and the code that took them expected the main one, so Swift stopped the app on the spot. They now hand off to the main thread properly, and a mic with no usable input (a call, a route change) says it can't listen instead of crashing. A new test crashed on the old code and passes now. Shipped alone as a hotfix in build 61."
+  },
+  {
+    "date": "2026-09-24",
     "title": "Build 57: every fix you sent is on your phone",
     "card": "YUI-52",
     "body": "This morning's TestFlight notes were all fixed in the code by lunch, but none of them reached a phone: Apple's daily upload limit held every build after 33. Build 57 went live tonight, so we checked each note again on that exact code. The message box empties after you send, on every path. The X and Done on a photo gallery close it. Photos keep to their own space, including tall phone screenshots, which were the ones still overlapping in the last note; a new test sends four of them in every gallery layout and checks nothing runs under the card below. A long answer shows the agent is working and for how long, instead of telling you to restart. Narration skips the robot voices. There are more colors to pick from. And you can send a photo, or hold the mic to talk.",
