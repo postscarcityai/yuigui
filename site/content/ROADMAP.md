@@ -348,7 +348,7 @@ Order: Hermes, OpenClaw and the webhook (done), then the MCP server, then Claude
 
 ## Cloudflare
 
-Chris mentioned a new Cloudflare agent he thought was called "Flue". Checked Sep 24: Flue is real, an open-source TypeScript agent framework from the team behind Astro, launched with Cloudflare in June 2026. It runs agents as Durable Objects on Cloudflare's Agents SDK and has channels for Slack, Discord and others, so a Yui channel fits (INT-13). Cloudflare's Agents SDK is also the leading candidate to host Yui's own connector; INT-6 confirms. His point about Cloudflare gating the agentic web (bot blocking) is relevant to connectors that scrape; Yui should prefer official APIs and MCP.
+Chris mentioned a new Cloudflare agent he thought was called "Flue". Checked Sep 24: Flue is real, an open-source TypeScript agent framework from the team behind Astro, launched with Cloudflare in June 2026. It runs agents as Durable Objects on Cloudflare's Agents SDK and has channels for Slack, Discord and others, so a Yui channel fits (INT-13). Decided Sep 25 (INT-6, [the hosting memo](/developers/hosting)): Yui's hosted connector for paths B and C runs on Cloudflare Workers and Durable Objects through the Agents SDK, beside the Supabase relay, not replacing it. The relay, its limits and its kill switch stay in Postgres. Nothing is set up yet: a Cloudflare account is Chris's call when INT-12 or INT-18 reach their hosted step. His point about Cloudflare gating the agentic web (bot blocking) is relevant to connectors that scrape; Yui should prefer official APIs and MCP.
 
 ## What stays out of scope for now
 
@@ -413,7 +413,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-3 (done Sep 25): a Yui MCP server, so any MCP agent can draw a screen. Claude Code and Cursor today; OAuth for the Claude and ChatGPT apps is INT-19.
 - INT-4: the Telegram fallback: Yui Lines as buttons and a Telegram Mini App.
 - INT-5: connect without installing anything, through a hosted connector.
-- INT-6: research Cloudflare's Agents SDK and "Flue" for the next relay.
+- INT-6 (done Sep 25): where the hosted connector runs. Cloudflare, beside the Supabase relay (spec/HOSTING.md).
 - INT-7 (done Sep 25): Claude, through the MCP server, and Yui screens drawn inside Claude as an MCP App.
 - INT-8 (done Sep 25): ChatGPT, the same way, as a developer-mode connection.
 - INT-9: Gemini, as a model or as an A2A agent.

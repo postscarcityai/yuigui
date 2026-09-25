@@ -2,9 +2,9 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 80,
-    "site": 207,
+    "site": 209,
     "builds": 25,
-    "shipped": 114,
+    "shipped": 115,
     "screenshots": 233
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T10:46:16.757Z",
+          "at": "2026-09-25T11:07:02.673Z",
+          "title": "Where the hosted connector will run",
+          "card": "INT-6",
+          "anchor": "where-the-hosted-connector-will-run",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 80,
+            "site": 209,
+            "builds": 25,
+            "shipped": 115
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T10:46:05.000Z",
           "title": "Yui screens in ChatGPT too",
           "card": "INT-8",
           "anchor": "yui-screens-in-chatgpt-too",
@@ -27,10 +42,10 @@
               "alt": "The same chat in light mode with Tacos tapped and Sent: Tacos under the Yui screen"
             }
           ],
-          "commits": 1,
+          "commits": 3,
           "totals": {
             "app": 80,
-            "site": 207,
+            "site": 208,
             "builds": 25,
             "shipped": 114
           }
@@ -596,6 +611,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "7d3a4c7",
+          "at": "2026-09-25T10:46:37.000Z",
+          "text": "timeline: sync after INT-8 (INT-8)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7d3a4c7"
+        },
+        {
+          "repo": "site",
+          "sha": "75e22b4",
+          "at": "2026-09-25T10:46:05.000Z",
+          "text": "ChatGPT (INT-8): spec/MCP.md v4 adds \"ChatGPT\": add Yui in developer mode by its URL, what works, what differs from Claude (developer...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/75e22b4"
+        },
         {
           "repo": "app",
           "sha": "4c92b96",

@@ -26,7 +26,7 @@ Two rules hold for all of them:
 ## What each path needs from Yui
 
 - **A, channel plugin.** A connector token (`yui_ct_...`) from pairing, `yui-connect session`, Realtime on `yui_messages`. Built for Hermes (kind `hermes`) and OpenClaw (kind `openclaw`, INT-1); other plugins reuse it with their own kind.
-- **B, hosted connector.** A long-running service Yui owns, holding outbound sessions to many agents. Supabase edge functions cannot hold a socket open, so this needs a real host. INT-6 decides where (Cloudflare Workers + Durable Objects is the leading answer). Connector kind `hosted`.
+- **B, hosted connector.** A long-running service Yui owns, holding outbound sessions to many agents. Supabase edge functions cannot hold a socket open, so this needs a real host. Decided in INT-6 (`spec/HOSTING.md`): Cloudflare Workers + Durable Objects through the Agents SDK, beside Supabase, not replacing it. Connector kind `hosted`.
 - **C, model connector.** Same hosted service, plus a key vault (YUI-34) for the user's own API keys, plus Yui-side memory of the thread. This is the only path where Yui is the agent's brain, not just its screen, so it overlaps Phase 4's built-in agent (YUI-37).
 - **D, MCP server.** A public remote MCP server with OAuth (Sign in with Apple through Yui's account). Connector kind `mcp`.
 - **E, webhook.** Shipped as a local bridge (INT-2): a small process next to the agent dials out like the Hermes plugin and POSTs each turn to the agent's own URL, so no server-side webhook delivery is needed. Connector kind `http`. A hosted inbound URL per agent (for code that cannot run a process, like Zapier) can come later on the INT-6 host.
@@ -133,7 +133,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Depends on:** YUI-34 key vault, thread memory on the Yui side, YUI-10 eval.
 - **Priority:** 3. One piece of code, many frameworks.
 
-### Flue and Cloudflare Agents | INT-13 (research in INT-6)
+### Flue and Cloudflare Agents | INT-13 (research done in INT-6, `spec/HOSTING.md`)
 
 - **Name check:** "Flue" is real. It is an open-source TypeScript agent framework from the team behind Astro (`withastro/flue`, 1.0 beta), announced with Cloudflare in June 2026. Flue is the framework, the Pi harness runs it, and on Cloudflare each agent is a Durable Object on the Agents SDK. It also runs on Node and GitHub Actions.
 - **Connects:** path A. Flue has **channels** (Slack, GitHub, Linear, Discord) added with `flue add channel <name>`, which writes a markdown blueprint the developer's coding agent merges in. A Yui channel is that blueprint plus the connector client in TypeScript. On Cloudflare the Durable Object holds the socket, which is the same thing INT-6 wants for our own hosted connector.
@@ -197,6 +197,6 @@ Not an agent framework, but the same idea in reverse: Yui Lines rendered as Tele
 
 ## Open questions
 
-1. Where does the hosted connector live? INT-6 answers it. Everything in paths B and C waits on that.
+1. Where does the hosted connector live? Answered by INT-6 in `spec/HOSTING.md`: on Cloudflare, beside the Supabase relay. INT-12 and INT-18 each start with a local step that needs no host.
 2. Path C makes Yui the agent, with thread memory and model spend. That is a product decision, not an adapter detail: it lines up with Phase 4's built-in agent and Phase 6's credits.
 3. A listed ChatGPT app or Claude directory entry is public. Chris signs off before either.
