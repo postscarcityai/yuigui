@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T05:40:59.532Z",
+  "updated": "2026-09-25T06:10:03.542Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -87,11 +87,6 @@
           "title": "Yui for macOS, a matching desktop app [agent-ready]"
         },
         {
-          "key": "YUI-59",
-          "title": "Game presets",
-          "summary": "Tic-tac-toe, snake and a few basics"
-        },
-        {
           "key": "YUI-60",
           "title": "Yui Lines can describe a game, not just pick one"
         },
@@ -112,11 +107,6 @@
         {
           "key": "YUI-64",
           "title": "An agent that is paired but not listening says so"
-        },
-        {
-          "key": "YUI-66",
-          "title": "Reorder mode",
-          "summary": "Drag cards to set board priority, no agent turn"
         },
         {
           "key": "YUI-67",
@@ -299,11 +289,6 @@
           "summary": "Basic CRUD over soul, memory, skills, schedules"
         },
         {
-          "key": "SITE-30",
-          "title": "Thoughts, Yui's blog",
-          "summary": "Releases, whys, calls to agents, screenshot-first"
-        },
-        {
           "key": "YUI-57",
           "title": "Default agents per invite",
           "summary": "Clients open Yui and see their agents (client-safe agents only)"
@@ -321,9 +306,14 @@
           "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in"
         },
         {
-          "key": "YUI-65",
-          "title": "War room dashboard",
-          "summary": "A timeline of done and queued"
+          "key": "YUI-59",
+          "title": "Game presets",
+          "summary": "Tic-tac-toe, snake and a few basics"
+        },
+        {
+          "key": "SITE-30",
+          "title": "Thoughts, Yui's blog",
+          "summary": "Releases, whys, calls to agents, screenshot-first"
         }
       ]
     },
@@ -331,6 +321,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-66",
+          "title": "Reorder mode",
+          "summary": "Drag the war room queue into your own order",
+          "shipped": "2026-09-25",
+          "progress": "/progress#drag-the-war-room-queue-into-your-own-order"
+        },
+        {
+          "key": "YUI-65",
+          "title": "War room dashboard",
+          "summary": "A timeline for the war room",
+          "shipped": "2026-09-25",
+          "progress": "/progress#a-timeline-for-the-war-room"
+        },
         {
           "key": "SITE-31",
           "title": "yuigui.com freshness sweep",

@@ -444,6 +444,14 @@
     },
     {
       "text": "Copy any part of a message: hold an agent bubble, Select text opens its words read-only, drag to select and Copy (or Copy all); a bubble at the bottom lifts so the menu never covers it (TestFlight feedback AG9JzU4LeWl-TFeKWftiFIE). Reply to a message is YUI-68. SelectTextTests 2/2 light + dark (no keyboard, whole text, Done closes), ComposerTests.testReactionLeavesTheComposerEmpty, YuiTests 44/44"
+    },
+    {
+      "text": "The war room gets a timeline: Yui Lines timeline with done, now and next rows, drawn natively. Done rows oldest first with a check on the rail, a Now line across it, the running row lit up with a pulse (still under Reduce Motion), the queue in order; older done rows fold behind \"N earlier\"; a row with an https link opens Safari and sends nothing; a lone row is a one-row track. Swift parser: timeline group + rows, 372/372 vectors (22-timeline synced from yuigui). Flywheel PRESETS follows yl.mjs (13/13). TimelineTests 2/2 light + dark: fold opens in place, the link row opens Safari with no event",
+      "card": "YUI-65"
+    },
+    {
+      "text": "Reorder the war room queue by dragging, and the board follows with no agent turn. Timeline +reorder: Edit order gives each queued row a handle (drag, or VoiceOver Move up/down), done and running rows never move, Save sends one {order, board} event, Cancel restores; link rows stop opening Safari while editing. Plugin board.py: a timeline order with board=<this profile> from the paired owner goes straight to kanban priority for queued cards that are this profile's or unassigned (never another agent's, never running/blocked/done); the cards trade the priority slots they held, one transaction, a reprioritized event each (by yui-app); the person gets a one-line confirmation with no push, the agent a note on its next turn; anyone else gets \"Only the owner can reorder\". Swift 375/375 vectors, TimelineTests 4/4 on iPhone 18 Pro sim (real drag, light + dark), test_board.py 15/15 against a real kanban DB",
+      "card": "YUI-66"
     }
   ]
 }
