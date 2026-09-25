@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "source": "Statuses written by scripts/export-board.mjs from the live board. The MVP list lives in ROADMAP.md; add or remove keys here by hand.",
   "cards": [
     {
@@ -100,12 +100,12 @@
     {
       "key": "YUI-52",
       "title": "New TestFlight build with the feedback fixes",
-      "status": "next"
+      "status": "shipped"
     },
     {
       "key": "YUI-50",
       "title": "Chat polish: composer clears, send animation, jump to bottom",
-      "status": "building"
+      "status": "shipped"
     },
     {
       "key": "YUI-29",

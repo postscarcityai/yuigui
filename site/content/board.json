@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T00:40:05.907Z",
+  "updated": "2026-09-25T05:22:08.219Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -55,8 +55,7 @@
         },
         {
           "key": "YUI-44",
-          "title": "Group threads",
-          "summary": "Several agents in one conversation"
+          "title": "@mention an agent, then group threads"
         },
         {
           "key": "YUI-45",
@@ -71,7 +70,7 @@
         {
           "key": "YUI-47",
           "title": "Apple Watch",
-          "summary": "Timer and quick answers on the wrist"
+          "summary": "Timer and quick answers on the wrist [build to earn]"
         },
         {
           "key": "YUI-48",
@@ -86,6 +85,56 @@
         {
           "key": "YUI-58",
           "title": "Yui for macOS, a matching desktop app [agent-ready]"
+        },
+        {
+          "key": "YUI-59",
+          "title": "Game presets",
+          "summary": "Tic-tac-toe, snake and a few basics"
+        },
+        {
+          "key": "YUI-60",
+          "title": "Yui Lines can describe a game, not just pick one"
+        },
+        {
+          "key": "YUI-61",
+          "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)"
+        },
+        {
+          "key": "YUI-61",
+          "title": "Slash commands in the composer"
+        },
+        {
+          "key": "YUI-62",
+          "title": "Chat with a screen",
+          "summary": "An agent can keep the composer on a page"
+        },
+        {
+          "key": "YUI-63",
+          "title": "One working row instead of dots plus a timer",
+          "summary": "A working word and the seconds, later a few words on what it is doing"
+        },
+        {
+          "key": "YUI-64",
+          "title": "An agent that is paired but not listening says so"
+        },
+        {
+          "key": "YUI-66",
+          "title": "Reorder mode",
+          "summary": "Drag cards to set board priority, no agent turn"
+        },
+        {
+          "key": "YUI-69",
+          "title": "Talk about a setting",
+          "summary": "Bring it into the chat, the agent proposes the edit"
+        },
+        {
+          "key": "YUI-71",
+          "title": "Yui in the browser [agent-ready, build to earn]"
+        },
+        {
+          "key": "YUI-72",
+          "title": "Admin console, scope only",
+          "summary": "Roles, controls, where it lives"
         },
         {
           "key": "OSS-3",
@@ -188,25 +237,39 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-52",
-          "title": "New TestFlight build with the feedback fixes",
-          "summary": "Ship the unshipped TestFlight-feedback fixes (builds 34-44 never reached TestFlight)",
-          "mvp": true
-        },
-        {
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
         },
         {
+          "key": "YUI-68",
+          "title": "Reply to a message",
+          "summary": "Swipe a bubble left, or hold it (reactions, copy, reply)"
+        },
+        {
+          "key": "YUI-73",
+          "title": "The war room, built out",
+          "summary": "Needs you, running now, timeline, builds, feedback, MVP bar"
+        },
+        {
+          "key": "YUI-70",
+          "title": "Agent controls in the drawer",
+          "summary": "Basic CRUD over soul, memory, skills, schedules"
+        },
+        {
+          "key": "SITE-29",
+          "title": "Build to earn proposal",
+          "summary": "Our position + open legal questions for counsel"
+        },
+        {
+          "key": "SITE-30",
+          "title": "Thoughts, Yui's blog",
+          "summary": "Releases, whys, calls to agents, screenshot-first"
+        },
+        {
           "key": "YUI-57",
           "title": "Default agents per invite",
           "summary": "Clients open Yui and see their agents (client-safe agents only)"
-        },
-        {
-          "key": "SITE-26",
-          "title": "'Request an invite' replaces the waitlist",
-          "summary": "Name, Apple ID email, phone"
         }
       ]
     },
@@ -214,35 +277,6 @@
       "key": "building",
       "title": "Building",
       "cards": [
-        {
-          "key": "YUI-30",
-          "title": "Timer on the lock screen",
-          "summary": "The timer keeps counting on the lock screen",
-          "waiting": true,
-          "progress": "/progress#the-timer-keeps-counting-on-the-lock-screen"
-        },
-        {
-          "key": "YUI-49",
-          "title": "React to a message (👍 build it, 👎, 🤔 ask me, ❤️, ⏳, 🔥)",
-          "summary": "React to a message: hold it, tap 👍, and your agent builds it",
-          "waiting": true,
-          "progress": "/progress#react-to-a-message-hold-it-tap-and-your-agent-builds-it"
-        },
-        {
-          "key": "YUI-53",
-          "title": "No dead buttons",
-          "summary": "No dead buttons: a plan ends in Send, and agents stop adding 'Got it'",
-          "waiting": true,
-          "progress": "/progress#no-dead-buttons-a-plan-ends-in-send-and-agents-stop-adding-got-it"
-        },
-        {
-          "key": "YUI-50",
-          "title": "Chat polish: composer clears, send animation, jump to bottom",
-          "summary": "Scroll up, and one arrow brings you back",
-          "mvp": true,
-          "waiting": true,
-          "progress": "/progress#scroll-up-and-one-arrow-brings-you-back"
-        },
         {
           "key": "YUI-51",
           "title": "Multi-step screens that fold back into chat as your own messages",
@@ -267,7 +301,49 @@
         {
           "key": "YUI-56",
           "title": "Invites end to end",
-          "summary": "Request, Chris approves, Apple's TestFlight email, claim on first sign-in"
+          "summary": "Invites: ask, get approved, Apple emails you, sign in and you're in",
+          "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in"
+        },
+        {
+          "key": "BIZ-8",
+          "title": "Tokenomics v1, supply, emissions, value",
+          "waiting": true
+        },
+        {
+          "key": "BIZ-9",
+          "title": "Chain pick, Sui vs Polygon vs Solana vs Bitcoin",
+          "waiting": true
+        },
+        {
+          "key": "BIZ-10",
+          "title": "🔴 legal review, token vs equity",
+          "waiting": true
+        },
+        {
+          "key": "BIZ-11",
+          "title": "Contributor NFTs with real value",
+          "waiting": true
+        },
+        {
+          "key": "OSS-7",
+          "title": "Contribution ledger, off-chain first",
+          "waiting": true
+        },
+        {
+          "key": "SITE-28",
+          "title": "Earn calls to action around the site + agent open call",
+          "waiting": true
+        },
+        {
+          "key": "BIZ-12",
+          "title": "Weave build to earn into GTM and the pitch",
+          "waiting": true
+        },
+        {
+          "key": "YUI-65",
+          "title": "War room dashboard",
+          "summary": "A timeline of done and queued",
+          "waiting": true
         }
       ]
     },
@@ -275,6 +351,68 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-70",
+          "title": "Chat gestures",
+          "summary": "Swipe a bubble left to reply, hold for reactions + copy, drag the background to switch screens",
+          "shipped": "2026-09-25"
+        },
+        {
+          "key": "YUI-67",
+          "title": "Card cta with url= sends a tap instead of opening Safari",
+          "summary": "Links in a card open Safari",
+          "shipped": "2026-09-25",
+          "progress": "/progress#links-in-a-card-open-safari"
+        },
+        {
+          "key": "SITE-27",
+          "title": "Build to earn, V1 page on yuigui.com",
+          "shipped": "2026-09-24"
+        },
+        {
+          "key": "YUI-49",
+          "title": "React to a message (👍 build it, 👎, 🤔 ask me, ❤️, ⏳, 🔥)",
+          "summary": "React to a message: hold it, tap 👍, and your agent builds it",
+          "shipped": "2026-09-24",
+          "progress": "/progress#react-to-a-message-hold-it-tap-and-your-agent-builds-it"
+        },
+        {
+          "key": "YUI-52",
+          "title": "New TestFlight build with the feedback fixes",
+          "summary": "Build 57: every fix you sent is on your phone",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#build-57-every-fix-you-sent-is-on-your-phone"
+        },
+        {
+          "key": "YUI-50",
+          "title": "Chat polish: composer clears, send animation, jump to bottom",
+          "summary": "Scroll up, and one arrow brings you back",
+          "mvp": true,
+          "shipped": "2026-09-24",
+          "progress": "/progress#scroll-up-and-one-arrow-brings-you-back"
+        },
+        {
+          "key": "YUI-53",
+          "title": "No dead buttons",
+          "summary": "No dead buttons: a plan ends in Send, and agents stop adding 'Got it'",
+          "shipped": "2026-09-24",
+          "progress": "/progress#no-dead-buttons-a-plan-ends-in-send-and-agents-stop-adding-got-it"
+        },
+        {
+          "key": "YUI-30",
+          "title": "Timer on the lock screen",
+          "summary": "The timer keeps counting on the lock screen",
+          "shipped": "2026-09-24",
+          "progress": "/progress#the-timer-keeps-counting-on-the-lock-screen"
+        },
+        {
+          "key": "SITE-26",
+          "title": "'Request an invite' replaces the waitlist",
+          "summary": "Request an invite: the waitlist is now the way into the beta",
+          "shipped": "2026-09-24",
+          "progress": "/progress#request-an-invite-the-waitlist-is-now-the-way-into-the-beta"
+        },
         {
           "key": "YUI-55",
           "title": "Test builds by link",
