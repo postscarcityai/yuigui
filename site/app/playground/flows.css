@@ -32,6 +32,8 @@
 
 .yl-quizpage { padding: 12px; display: flex; flex-direction: column; gap: 8px; min-height: 260px; justify-content: center; }
 .yl-quizpage .yl-block { background: none; border: 0; padding: 0; }
+.yl-pagesk { padding: 14px 14px 0; }
+.yl-pagesk .yl-block { background: none; border: 0; padding: 0; margin: 0; }
 .yl-quiztag { align-self: flex-start; font-size: 11px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; color: var(--accent2); }
 .chip.ok, .bigbtn.ok { background: #1f8f5f; border-color: #1f8f5f; color: #fff; }
 .chip.no, .bigbtn.no { background: #b3402f; border-color: #b3402f; color: #fff; }

@@ -295,13 +295,13 @@ Five presets are **group heads**. A group head collects the lines that follow it
 
 | Head | Members | What the group is |
 |---|---|---|
-| `deck` | `page`, `ask`, `choose`, `pick` | a swipeable presentation |
-| `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera` | one full-screen flow: pages to read, then questions, one answer at the end |
+| `deck` | `page`, `ask`, `choose`, `pick`, `sketch` | a swipeable presentation |
+| `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, `sketch` | one full-screen flow: pages to read, then questions, one answer at the end |
 | `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
 | `timeline` | `done`, `now`, `next` | what has shipped, what is running, what is queued |
 | `sketch` | `row`, `after` | a small drawn picture: rows struck out, highlighted, called out |
 
-**Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest only one way: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate.
+**Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest in two places: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate. A `deck` or a `plan` can hold a `sketch` the same way: its `row` and `after` lines join the sketch, and the first line that is neither ends the sketch and is then checked against the deck or plan. The sketch is the picture of the page right before it (see sketch below).
 
 To put a question *after* a deck rather than inside it, write `end` first:
 ```
@@ -417,6 +417,7 @@ To refresh a live row later, give it an id and patch it: `now@w65 ...`, then `~w
 `sketch [title...] [frame=window] [before=Before]`, then one `row` per line, and at most one `after` line. A small drawn picture, so an agent can show instead of tell: how a screen should read, what changed, what to cut. A frame with rows inside it, some struck out, some highlighted, each with an optional short callout and an arrow pointing at it. No picture to generate, no screenshot to take, and nothing to tap: a sketch sends no events.
 - **Frames.** `frame=window` [window] is a small app window, three dots and the `title` in its bar. `frame=phone` is a phone outline with the title at the top. `frame=bubble` is a chat bubble whose rows are its lines, with the title above it. Any other frame draws as `window`, so frames can be added without a new YL version.
 - **Before and after.** An `after` line splits the sketch into two frames of the same kind: the rows above it in the first, labelled `before` [Before], the rows below it in the second, labelled with the `after` line's text [After]. Side by side when there is room, before on top on a phone. Only the first `after` splits; a later one is ignored. With no `after`, one frame and no labels.
+- **On a page.** Inside a `deck` or a `plan`, a sketch right after a `page` is that page's picture: it draws where the page's `img` would go (a page with both draws the sketch). A sketch with no page right before it (first in the group, after a question, or after a page that already has one) is a page of its own, just the drawing. On a phone's full screen the rows come on one after another with the page; a plan's sketch pages are steps to read, never keyed in `{plan}`.
 Props: `title`, `frame` [window], `before` [Before].
 
 #### row, after
@@ -437,6 +438,15 @@ row "Build 97 is ready"
 row +dim
 row "Got it" +button +x note="does nothing"
 row "Install" +button +hi note="does the thing"
+```
+A story page with its picture:
+```
+deck "Read as pages"
+page "No card ids" body="Plain words say what the card is."
+sketch frame=bubble
+row "Parked YUI-83 in the backlog" +x note="an id"
+row "Parked the drawing card in the backlog" +hi note="plain words"
+page "One idea per page"
 ```
 Why this shape: the pictures agents need to explain Yui (and most apps) are a frame with a few lines in it and marks on some of them. `image +edit` and `compare` need a real picture first; a `list` has no per-row marks; `custom` would make every agent draw its own. Marks are flags because they read as what they are (`+x`, `+hi`), cost one token and combine. The pair is one `after` line inside the group, not a second sketch, so the two frames always share a frame kind and sit together.
 

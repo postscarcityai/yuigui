@@ -48,11 +48,11 @@ function FullClose({ onClose }) {
 
 // ---------- page ----------
 
-export function Page({ p }) {
-  const layout = p.layout || (p.img && !p.body && !p.points.length ? "cover" : p.img ? "split" : "text");
+export function Page({ p, sketch }) {
+  const layout = sketch ? "split sk" : p.layout || (p.img && !p.body && !p.points.length ? "cover" : p.img ? "split" : "text");
   return (
     <div className={`yl-page ${layout}`}>
-      {p.img ? <Media src={p.img} className="yl-pageimg" /> : null}
+      {sketch ? <div className="yl-pagesk"><Sketch g={sketch} /></div> : p.img ? <Media src={p.img} className="yl-pageimg" /> : null}
       <div className="yl-pagetext">
         {p.title ? <div className="yl-pagetitle">{p.title}</div> : null}
         {p.body ? <div className="yl-pagebody">{p.body}</div> : null}
@@ -86,10 +86,25 @@ function Notes({ text, open, onToggle }) {
 
 const QUIZ = new Set(["ask", "choose", "pick"]);
 
+// A deck's or plan's steps: a sketch is the picture of the page right before
+// it; one with no page there (or after a page that has one) is a page itself.
+export function stepsOf(members) {
+  const out = [];
+  for (const m of members) {
+    if (!m.group) { out.push(m); continue; }
+    if (m.group.preset !== "sketch") continue;
+    const last = out[out.length - 1];
+    if (last && last.preset === "page" && !last.sketch) out[out.length - 1] = { ...last, sketch: m };
+    else out.push({ key: m.key, id: m.group.id, preset: "page", props: {}, sketch: m });
+  }
+  return out;
+}
+const slidePage = (m) => <Page p={resolve("page", m.props)} sketch={m.sketch} />;
+
 // `index` and `onIndex` make the deck controlled (a narrate drives it).
 export function Deck({ g, emitFor, Render, index, onIndex, bare }) {
   const p = resolve("deck", g.group.props);
-  const pages = g.members.filter((m) => !m.group);
+  const pages = stepsOf(g.members);
   const n = pages.length;
   const [own, setOwn] = useState(0);
   const cur = Math.min(index ?? own, Math.max(0, n - 1));
@@ -135,7 +150,7 @@ export function Deck({ g, emitFor, Render, index, onIndex, bare }) {
 
   const slide = (m) => (QUIZ.has(m.preset)
     ? <div className="yl-quizpage"><span className="yl-quiztag">Quiz</span><Render node={m} emit={quizEmit(m)} /></div>
-    : <Page p={resolve("page", m.props)} />);
+    : slidePage(m));
   const curNotes = pages[cur] && pages[cur].preset === "page" ? resolve("page", pages[cur].props).notes : "";
 
   const body = (big) => (
@@ -195,7 +210,7 @@ export function foldText(steps, ans) {
 
 export function Plan({ g, emitFor, Render }) {
   const p = resolve("plan", g.group.props);
-  const steps = g.members.filter((m) => !m.group);
+  const steps = stepsOf(g.members);
   // Pages are steps to read; only questions are answered and reviewed.
   const questions = steps.filter((m) => m.preset !== "page");
   const n = steps.length;
@@ -267,7 +282,7 @@ export function Plan({ g, emitFor, Render }) {
       </div>
       {steps.map((m, i) => (
         <div key={m.key} className="yl-planstep" style={{ display: i === cur ? undefined : "none" }}>
-          {m.preset === "page" ? <div className="yl-planpage"><Page p={resolve("page", m.props)} /></div> : <Render node={m} emit={capture(m)} />}
+          {m.preset === "page" ? <div className="yl-planpage">{slidePage(m)}</div> : <Render node={m} emit={capture(m)} />}
         </div>
       ))}
       {review ? (

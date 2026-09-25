@@ -30,8 +30,8 @@ val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "th
 // as long as each one is a member preset. Anything else ends the group, and
 // so does `end`. Comments, blank lines and error lines do not.
 val GROUPS = mapOf(
-    "deck" to listOf("page", "ask", "choose", "pick"),
-    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera"),
+    "deck" to listOf("page", "ask", "choose", "pick", "sketch"),
+    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch"),
     "narrate" to listOf("page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"),
     "timeline" to listOf("done", "now", "next"),
     "sketch" to listOf("row", "after"),

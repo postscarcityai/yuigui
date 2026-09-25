@@ -611,7 +611,7 @@
    ]
   },
   {
-   "name": "a sketch can't nest in a timeline or a deck",
+   "name": "a sketch can't nest in a timeline, and a row alone can't join a deck",
    "input": "timeline T\ndone Shipped\nsketch S\nrow R\ndeck D\nrow X",
    "expected": [
     {
@@ -722,6 +722,267 @@
     }
    ],
    "error": true
+  },
+  {
+   "name": "deck: a sketch joins the deck and its rows join the sketch; the next page goes back to the deck",
+   "input": "deck D\npage \"No ids\"\nsketch Ids frame=bubble\nrow \"Parked YUI-83\" +x\nafter\nrow \"Parked the drawing card\" +hi\npage Next",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "No ids"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "Ids",
+      "frame": "bubble"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "text": "Parked YUI-83",
+      "x": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "after",
+     "id": "n5",
+     "in": "n3",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n6",
+     "in": "n3",
+     "props": {
+      "text": "Parked the drawing card",
+      "hi": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n7",
+     "in": "n1",
+     "props": {
+      "title": "Next"
+     }
+    }
+   ]
+  },
+  {
+   "name": "plan: a sketch joins the plan; a question after it goes back to the plan",
+   "input": "plan P\npage Look\nsketch\nrow Old +x\nchoose@c \"Keep it?\" Yes|No",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "Look"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n3",
+     "in": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "text": "Old",
+      "x": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "choose",
+     "id": "c",
+     "in": "n1",
+     "props": {
+      "q": "Keep it?",
+      "options": [
+       "Yes",
+       "No"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "deck: end closes the sketch first, a second end closes the deck",
+   "input": "deck D\nsketch S\nrow R\nend\npage P\nend\npage Q",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "S"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n3",
+     "in": "n2",
+     "props": {
+      "text": "R"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n2"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n1"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n5",
+     "props": {
+      "title": "Q"
+     }
+    }
+   ]
+  },
+  {
+   "name": "a line that is neither a row nor a deck member ends both",
+   "input": "deck D\npage P\nsketch S\nrow R\nsay hi\nrow X",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "S"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "text": "R"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n5",
+     "props": {
+      "text": "hi"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n6",
+     "props": {
+      "text": "X"
+     }
+    }
+   ]
   },
   {
    "name": "streaming: each row lands as its newline arrives",
