@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 59,
-    "site": 150,
+    "site": 151,
     "builds": 21,
-    "shipped": 88,
-    "screenshots": 159
+    "shipped": 89,
+    "screenshots": 161
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T00:46:46.174Z",
+          "at": "2026-09-25T01:05:36.446Z",
+          "title": "Request an invite: the waitlist is now the way into the beta",
+          "card": "SITE-26",
+          "anchor": "request-an-invite-the-waitlist-is-now-the-way-into-the-beta",
+          "images": [
+            {
+              "src": "/progress/site26-phone.webp",
+              "alt": "The Request an invite form on a phone: first name, last name, email with the hint to use the email on your Apple ID, phone, three next steps and a Request an invite button"
+            },
+            {
+              "src": "/progress/site26-desktop.webp",
+              "alt": "The Request an invite form on a desktop page, below the TestFlight, GitHub and Lend your agent cards"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 59,
+            "site": 151,
+            "builds": 21,
+            "shipped": 89
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T00:47:35.000Z",
           "title": "Invites: ask, get approved, Apple emails you, sign in and you're in",
           "card": "YUI-56",
           "anchor": "invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in",
@@ -27,10 +51,10 @@
               "alt": "A note at the top of Yui: That invite code didn't work. It may be used already. Ask for a new link."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 59,
-            "site": 150,
+            "site": 151,
             "builds": 21,
             "shipped": 88
           }
@@ -1850,6 +1874,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "146d5bf",
+          "at": "2026-09-25T00:47:35.000Z",
+          "text": "Invites on the site: yuigui.com/i/<code> walks an invitee through TestFlight, Open in Yui and Sign in with Apple, never checks the code...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/146d5bf"
+        },
         {
           "repo": "app",
           "sha": "f76599c",

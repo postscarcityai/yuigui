@@ -32,7 +32,7 @@ export default function Privacy() {
       <h1>What Yui keeps, and how to delete it.</h1>
       <p style={{ color: "var(--muted)" }}>Last updated September 24, 2026.</p>
 
-      <h2>Invites</h2>
+      <h2 id="invites">Invites</h2>
       <p>
         Yui&apos;s beta is by invite. When you ask for one, or we invite you, we store your first and last name, the
         email you give us (the one on your Apple ID, because that is where TestFlight sends the invite), your phone
@@ -148,9 +148,8 @@ export default function Privacy() {
       <h2>This website</h2>
       <p>
         yuigui.com uses Google Analytics to count visits. It never sees an invite code: an invite link is counted as
-        yuigui.com/i/ without it. If you join the waitlist we store your email, your name if you give one, which page
-        and link brought you there, and your browser type, in the <code>yui_waitlist</code> table. We use it to send
-        you Yui news, and waitlist entries become invite requests (above). To be removed, email us.
+        yuigui.com/i/ without it. The request-an-invite form writes to the <code>yui_invites</code> table, described under Invites above. The old
+        waitlist (<code>yui_waitlist</code>) is closed, and its entries became invite requests. To be removed, email us.
       </p>
     </>
   );

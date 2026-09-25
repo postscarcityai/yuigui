@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Request an invite: the waitlist is now the way into the beta",
+    "card": "SITE-26",
+    "body": "The waitlist on yuigui.com is gone. In its place, at the bottom of every page, is Request an invite: first name, last name, email and phone. The email field says to use the one on your Apple ID, because that is where TestFlight sends the invite. Under the form, three steps say what happens next: we review your request, Apple emails you a TestFlight invite, you open it on your iPhone, install Yui and sign in with Apple. A request lands in the invites table as requested, written by the site's server, never by the browser. Asking twice with the same email just says thank you again. The public TestFlight link stays for people who already run Hermes. Bots get a hidden field and a rate limit, UTM tags still say which post brought someone, and the privacy page has a link right under the form. Next: agents that come with an invite (YUI-57).",
+    "images": [
+      {
+        "src": "/progress/site26-phone.webp",
+        "alt": "The Request an invite form on a phone: first name, last name, email with the hint to use the email on your Apple ID, phone, three next steps and a Request an invite button"
+      },
+      {
+        "src": "/progress/site26-desktop.webp",
+        "alt": "The Request an invite form on a desktop page, below the TestFlight, GitHub and Lend your agent cards"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Invites: ask, get approved, Apple emails you, sign in and you're in",
     "card": "YUI-56",
     "body": "Yui's beta now has an invite path next to the public TestFlight link. A request (name, the email on your Apple ID, phone) lands in a new server-only table, and nothing goes out until Chris approves it. Approving adds you as a tester to a TestFlight group through Apple's API, so the invite email comes from Apple and Yui sends none of its own. When you first sign in with Apple, the app matches your invite by that email. If you hide your email, the invite link yuigui.com/i/<code> opens the app with the code, or you type it under Invite code on the sign-in screen. Codes work once, are stored only as a hash, and wrong guesses are rate limited. Deleting your account deletes your invite. The privacy page lists the new fields. Next: the request form on the site (SITE-26) and agents that come with an invite (YUI-57).",

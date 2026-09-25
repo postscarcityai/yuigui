@@ -50,7 +50,7 @@ export default function Home() {
           <div className="cta">
             {links.testflight
               ? <CtaLink cta="testflight" where="/hero" href={links.testflight}>Get the TestFlight beta</CtaLink>
-              : <a className="btn" href="#waitlist">Join the waitlist</a>}
+              : <a className="btn" href="#invite">Request an invite</a>}
             <CtaLink cta="github" where="/hero" className="btn soft" href={links.github}>Star on GitHub</CtaLink>
             <Link className="btn ghost" href="/progress">See what shipped</Link>
           </div>

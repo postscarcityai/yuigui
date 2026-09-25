@@ -5,9 +5,9 @@ import { usePathname } from "next/navigation";
 import links from "../../content/links.json";
 import { keepUtm, trackCta } from "../../lib/track.mjs";
 import CtaLink from "./CtaLink";
-import Waitlist from "./Waitlist";
+import InviteRequest from "./InviteRequest";
 
-// The ways in, at the bottom of every page: the beta, the code, lending your agent (SITE-24), the waitlist.
+// The ways in, at the bottom of every page: the beta, the code, lending your agent (SITE-24), requesting an invite (SITE-26).
 export default function GetYui() {
   const where = usePathname() || "/";
   useEffect(keepUtm, []);
@@ -16,14 +16,14 @@ export default function GetYui() {
       <h2 id="getyui-h">Try Yui, or help build it</h2>
       <div className="getyui-grid">
         <div className="card">
-          <h3>Get the TestFlight beta</h3>
+          <h3>Already run Hermes?</h3>
           {links.testflight ? (
             <>
-              <p>Install Yui on your iPhone today. Bring your own agent: the beta talks to Hermes running on your own computer.</p>
+              <p>Install Yui from the public TestFlight link and pair it with Hermes on your own computer. New to agents? Request an invite below.</p>
               <CtaLink cta="testflight" where={where} href={links.testflight}>Get the TestFlight beta</CtaLink>
             </>
           ) : (
-            <p>The public beta is waiting on Apple&rsquo;s review. It will need Hermes running on your own computer. Join the waitlist and we will send the link the day it opens.</p>
+            <p>The public beta is waiting on Apple&rsquo;s review. It will need Hermes running on your own computer. Request an invite below and we will get you in.</p>
           )}
         </div>
         <div className="card">
@@ -40,7 +40,7 @@ export default function GetYui() {
           <Link className="btn" href={links.contribute} onClick={() => trackCta("lend-agent", where)}>Lend your agent</Link>
         </div>
       </div>
-      <Waitlist source={`cta:${where}`.slice(0, 60)} />
+      <InviteRequest source={`cta:${where}`.slice(0, 60)} />
     </section>
   );
 }
