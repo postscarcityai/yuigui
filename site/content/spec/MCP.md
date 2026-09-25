@@ -1,4 +1,4 @@
-# Yui MCP server | spec v4 (INT-3, OAuth INT-19, Claude + MCP App INT-7, ChatGPT INT-8, Grok INT-10, Sep 25 2026)
+# Yui MCP server | spec v4 (INT-3, OAuth INT-19, Claude + MCP App INT-7, ChatGPT INT-8, Grok INT-10, n8n INT-17, Sep 25 2026)
 
 Path D of `spec/ADAPTERS.md`. The code lives in the app repo, [postscarcityai/yui `supabase/functions/yui-mcp`](https://github.com/postscarcityai/yui/tree/main/supabase/functions/yui-mcp); this page is what an MCP client needs.
 
@@ -11,7 +11,7 @@ Any AI app that speaks MCP can put a screen on your phone. You keep talking to C
 
 - **Endpoint:** `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp`
 - **Transport:** MCP streamable HTTP, stateless. Every request is one POST with a JSON-RPC message (or a batch) and gets `application/json` back. No session id, no SSE stream: GET answers 405.
-- **Auth:** either OAuth 2.1 (paste the URL, sign in, approve it in Yui: [below](#oauth)) or `Authorization: Bearer yui_ct_...`, a connection token you get by pairing (the three steps below). The Claude and ChatGPT apps' custom connectors only do OAuth; Claude Code, Cursor and n8n can use either.
+- **Auth:** either OAuth 2.1 (paste the URL, sign in, approve it in Yui: [below](#oauth)) or `Authorization: Bearer yui_ct_...`, a connection token you get by pairing (the three steps below). The Claude and ChatGPT apps' custom connectors only do OAuth; Claude Code, Cursor and n8n ([below](#n8n)) can use either.
 
 ## Claude
 
@@ -143,6 +143,53 @@ The shell fills in `$YUI_TOKEN`; the example holds no token. In xAI's Python SDK
 - **The token leaves your machine.** xAI's servers hold it for the request so they can call Yui. It reaches only the agents paired to it, and removing that computer in the app revokes it.
 - **No screen in the chat.** Grok does not draw MCP Apps; the screen shows on the phone.
 - **Not run yet.** This follows xAI's remote MCP docs. The first live run waits on an xAI key, like the model path (`spec/MODELS.md`, "Grok").
+
+## n8n
+
+n8n reaches Yui three ways (INT-17). Two use this server; the third uses the [webhook bridge](/developers/webhook). Importable workflows for all three are in the app repo, [`adapters/n8n/workflows`](https://github.com/postscarcityai/yui/tree/main/adapters/n8n/workflows).
+
+| | Use it when | LLM |
+| --- | --- | --- |
+| **Yui node** | A workflow needs a person's answer: approve, pick one, fill a form | no |
+| **MCP Client Tool** | An AI Agent node should decide when to ask | yes |
+| **Webhook trigger** | Yui should be the chat front end of a workflow | no |
+
+For the first two, pair a code as kind `mcp` and keep the `yui_ct_...` token ([three steps](#pair-with-a-code-three-steps)). It goes in an n8n credential, never in a workflow.
+
+### The Yui node
+
+"Yui: send screen / wait for answer", the community node `n8n-nodes-yui` in [`adapters/n8n`](https://github.com/postscarcityai/yui/tree/main/adapters/n8n). Drag it in after any trigger:
+
+- **Ask and Wait**: shows the screen (Yui Lines, expressions allowed: `=choose "{{ $json.question }}" Yes|No`) and holds until the tap. The next node gets `choice`, `echo`, `value`, the `[yui]` line and `screen_id`.
+- **Send Screen**, then **Wait for Answer** later in the workflow by `screen_id`.
+- **Send Message**: a plain chat line.
+
+It calls `yui_show`, then `yui_answers(wait=25)` in a loop up to its Timeout (300 s by default; fail or output `timed_out`). Lines Yui can't read fail the node with the parser's message and nothing is sent. It is also usable as a tool for the AI Agent. Not on npm yet: install it from the repo (`npm pack`, then `npm install` the file in `~/.n8n/nodes`; the README has the lines).
+
+### MCP Client Tool
+
+1. An **AI Agent** node with any chat model.
+2. Its tool: **MCP Client Tool**. Endpoint `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp`, Server Transport **HTTP Streamable**, Authentication **Bearer Auth** with the token (or **MCP OAuth2**, [OAuth](#oauth)).
+3. Tools to Include: `yui_show`, `yui_answers`, `yui_say`. Leave out `yui_tap`, it is app-only.
+4. Options, Timeout: 40000 ms or more. `yui_answers` holds a call up to 25 s and n8n's default is 60 s, which is fine for one call, but leave room.
+5. The system message: the tool descriptions carry a short guide, and n8n does not read MCP prompts, so spell out the steps. This one got a 7B local model (qwen2.5:7b on Ollama) through it:
+
+```
+You reach the person's phone through the Yui tools.
+1. To ask a question with set answers, call yui_show. Its `lines` argument is one line that starts with the word choose, then the question in double quotes, then the options joined by |. Example lines: choose "Lunch?" Salad|Soup|Tacos
+2. yui_show returns a screen_id. Call yui_answers with that exact screen_id and wait=25. If it says nothing yet, call it again.
+3. Their tap comes back as a line like [yui] n1 choose choice=Soup. Then answer in one short sentence that names what they picked.
+```
+
+A bigger model can take the whole channel guide instead (`spec/CHANNEL.md`) for every screen Yui has. When a line doesn't parse, `yui_show` returns the parser's message as a tool error and the agent tries again; with a small model, give it room (Max Iterations 12).
+
+### Webhook trigger
+
+A **Webhook** node (POST, respond with a Respond to Webhook node), your logic, then **Respond to Webhook** with `{"reply": "..."}`. Run the webhook bridge next to n8n and point it at the webhook: `yui_webhook.py run --webhook http://127.0.0.1:5678/webhook/yui-turn`. Every message arrives once as one POST; a tap is a message with `kind: "event"` and its JSON in `event`. Contract: [spec/WEBHOOK.md](/developers/webhook).
+
+### Tested
+
+`adapters/n8n/tests/n8n_e2e.py` runs a real n8n 2.40.7 with an empty user folder, the node installed from `npm pack` and the three workflows published, on a throwaway account in live Yui, 22 of 22 on Sep 25: the AI Agent put one choose screen up through the MCP Client Tool, it parsed with the YL parser, the tap came back through `yui_answers` and the agent said "You picked Soup for lunch."; the Yui node returned the tap as fields and the next node used it; the bridge's "hi" got a screen and the tap got an answer naming it. `npm test` in the package: 10 unit tests.
 
 ## OAuth
 

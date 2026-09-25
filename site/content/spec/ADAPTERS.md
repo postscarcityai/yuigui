@@ -180,6 +180,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** S with INT-3, M for the community node.
 - **Depends on:** INT-3 or INT-2.
 - **Priority:** 4.
+- **Status:** step 1 shipped Sep 25. The community node `n8n-nodes-yui` ("Yui": Ask and Wait, Send Screen, Wait for Answer, Send Message) in the app repo's `adapters/n8n`, on yui-mcp with a connection token; the AI Agent with n8n's MCP Client Tool; a Webhook trigger behind the webhook bridge. Three importable workflows. A real n8n ran all three on live Yui, 22 of 22, the MCP one on a local 7B model (`spec/MCP.md` "n8n"). Not on npm or n8n's community list yet: publishing is Chris's call.
 
 ### A2A client | INT-18
 
