@@ -1,0 +1,660 @@
+{
+  "version": "YL v0",
+  "area": "timeline, done, now, next",
+  "vectors": [
+    {
+      "name": "timeline: title, then rows join it in line order",
+      "input": "timeline \"Yui this week\"\ndone \"Saved screens\" at=\"Sep 24\" tag=YUI-32\nnow \"Timeline preset\" tag=YUI-65\nnext \"Drag to reorder\" tag=YUI-66",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Yui this week"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "text": "Saved screens",
+            "at": "Sep 24",
+            "tag": "YUI-32"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "text": "Timeline preset",
+            "tag": "YUI-65"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n4",
+          "in": "n1",
+          "props": {
+            "text": "Drag to reorder",
+            "tag": "YUI-66"
+          }
+        }
+      ]
+    },
+    {
+      "name": "timeline: no title, mark and fold props",
+      "input": "timeline mark=Today fold=3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "mark": "Today",
+            "fold": 3
+          }
+        }
+      ]
+    },
+    {
+      "name": "timeline: fold=0 shows every done row",
+      "input": "timeline Build fold=0",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Build",
+            "fold": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "done: the first https token is url, anywhere in the line",
+      "input": "done Links open Safari https://www.yuigui.com/progress#yui-67 at=\"Sep 25\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n1",
+          "props": {
+            "url": "https://www.yuigui.com/progress#yui-67",
+            "text": "Links open Safari",
+            "at": "Sep 25"
+          }
+        }
+      ]
+    },
+    {
+      "name": "done: a quoted https token is text, not a url",
+      "input": "done \"https://example.com is live\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n1",
+          "props": {
+            "text": "https://example.com is live"
+          }
+        }
+      ]
+    },
+    {
+      "name": "done: only the first https token is url, the second is text",
+      "input": "done https://a.example https://b.example",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n1",
+          "props": {
+            "url": "https://a.example",
+            "text": "https://b.example"
+          }
+        }
+      ]
+    },
+    {
+      "name": "done: a relative path is text",
+      "input": "done /progress shipped",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n1",
+          "props": {
+            "text": "/progress shipped"
+          }
+        }
+      ]
+    },
+    {
+      "name": "done: url= key wins over a positional link",
+      "input": "done Shipped https://a.example url=https://b.example",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n1",
+          "props": {
+            "url": "https://b.example",
+            "text": "Shipped"
+          }
+        }
+      ]
+    },
+    {
+      "name": "now: sub and tag",
+      "input": "now \"Timeline on the war room\" sub=\"web renderer done\" tag=YUI-65",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "n1",
+          "props": {
+            "text": "Timeline on the war room",
+            "sub": "web renderer done",
+            "tag": "YUI-65"
+          }
+        }
+      ]
+    },
+    {
+      "name": "next: bare words join into text",
+      "input": "next Drag   to reorder",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n1",
+          "props": {
+            "text": "Drag to reorder"
+          }
+        }
+      ]
+    },
+    {
+      "name": "rows with ids and a patch by id",
+      "input": "timeline Board\nnow@w65 Timeline\n~w65 sub=\"native view next\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Board"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "w65",
+          "in": "n1",
+          "props": {
+            "text": "Timeline"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "w65",
+          "props": {
+            "sub": "native view next"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a row outside a timeline stands alone",
+      "input": "done \"Shipped build 66\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n1",
+          "props": {
+            "text": "Shipped build 66"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a non-member ends the timeline",
+      "input": "timeline Week\ndone One\nsay Then this\nnext Two",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Week"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "text": "One"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "Then this"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n4",
+          "props": {
+            "text": "Two"
+          }
+        }
+      ]
+    },
+    {
+      "name": "end closes the timeline, a question follows",
+      "input": "timeline Week\ndone One\nnext Two\nend\nask \"Pull YUI-66 next?\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Week"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "text": "One"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "text": "Two"
+          }
+        },
+        {
+          "op": "end",
+          "screen": "1",
+          "target": "n1"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n4",
+          "props": {
+            "q": "Pull YUI-66 next?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "comments, blanks and an error line keep the timeline open",
+      "input": "timeline Week\ndone One\n\n# queued\nbogus line\nnext Two",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Week"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "text": "One"
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "text": "Two"
+          }
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "a second timeline ends the first",
+      "input": "timeline A\ndone One\ntimeline B\nnext Two",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "text": "One"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n3",
+          "props": {
+            "title": "B"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n4",
+          "in": "n3",
+          "props": {
+            "text": "Two"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a row routed to another screen does not join",
+      "input": "timeline Week\n>2 done Elsewhere\nnext Here",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Week"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "done",
+          "id": "n2",
+          "props": {
+            "text": "Elsewhere"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n3",
+          "props": {
+            "text": "Here"
+          }
+        }
+      ]
+    },
+    {
+      "name": "timeline on screen 2 with its rows",
+      "input": ">2\ntimeline \"War room\"\ndone \"Links open Safari\" tag=YUI-67\nnow Timeline tag=YUI-65",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "2"
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "War room"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "done",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "text": "Links open Safari",
+            "tag": "YUI-67"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "now",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "text": "Timeline",
+            "tag": "YUI-65"
+          }
+        }
+      ]
+    },
+    {
+      "name": "timeline inside a deck ends the deck",
+      "input": "deck Lesson\npage Intro\ntimeline Week\ndone One",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "deck",
+          "id": "n1",
+          "props": {
+            "title": "Lesson"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "title": "Intro"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n3",
+          "props": {
+            "title": "Week"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n4",
+          "in": "n3",
+          "props": {
+            "text": "One"
+          }
+        }
+      ]
+    },
+    {
+      "name": "theme inside a timeline leaves it open",
+      "input": "timeline Week\ndone One\ntheme coral\nnext Two",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Week"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "text": "One"
+          }
+        },
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "name": "coral"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "text": "Two"
+          }
+        }
+      ]
+    },
+    {
+      "name": "streaming: each row lands as its newline arrives",
+      "input": "timeline Week\ndone One\nnow Two",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Week"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "text": "One"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "text": "Two"
+          }
+        }
+      ],
+      "chunks": [
+        "timeline Week\ndo",
+        "ne One\nnow Tw",
+        "o"
+      ],
+      "emits": [
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "timeline",
+            "id": "n1",
+            "props": {
+              "title": "Week"
+            }
+          }
+        ],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "done",
+            "id": "n2",
+            "in": "n1",
+            "props": {
+              "text": "One"
+            }
+          }
+        ],
+        [],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "now",
+            "id": "n3",
+            "in": "n1",
+            "props": {
+              "text": "Two"
+            }
+          }
+        ]
+      ]
+    }
+  ]
+}

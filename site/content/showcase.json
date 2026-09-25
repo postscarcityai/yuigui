@@ -43,7 +43,8 @@
     "YUI-33": { "title": "Agent tables on the phone" },
     "YUI-35": { "title": "Meal photo to macros" },
     "YUI-38": { "title": "Onboarding interview that builds your first agents" },
-    "SOC-3": { "title": "Three marketing videos", "shipped": "2026-09-24" }
+    "SOC-3": { "title": "Three marketing videos", "shipped": "2026-09-24" },
+    "YUI-65": { "title": "War room timeline", "shipped": "2026-09-25" }
   },
   "groups": [
     {
@@ -107,7 +108,8 @@
         { "id": "plan", "title": "plan", "what": "Plan mode: one question at a time, ending in a project card that reopens it.", "cards": ["YUI-18", "YUI-19"], "demo": "plan-website", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-plan.webp"] },
         { "id": "plan-findings", "title": "plan with pages", "what": "Findings to read, then questions, full screen with one Send. The answers land in the chat as your own message.", "cards": ["YUI-51"], "demo": "plan-findings", "agent": "Studio", "app": "native", "shots": ["/progress/yui51-flow-page.webp", "/progress/yui51-folded.webp", "/progress/yui51-record.webp"] },
         { "id": "plan-send", "title": "plan ends in Send", "what": "The last button of a plan says Send, and a card with nothing to act on has no button at all. No Got it, no OK: every button does something.", "cards": ["YUI-53"], "yl": "say \"Two quick ones, then I send the brief to the studio.\"\nplan@brief \"Site brief\"\npick@pages \"Which pages?\" Home|About|Classes|Contact\nask@launch \"Launch before the holidays?\" \"Yes, Dec 1\"|\"No rush\"", "agent": "Studio", "app": "native", "shots": ["/progress/yui53-plan-send-light.webp"] },
-        { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] }
+        { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] },
+        { "id": "timeline", "title": "timeline", "what": "What shipped, what is running, what is next: done rows, a Now line, then the queue. Older rows fold; a row with a link opens Safari.", "cards": ["YUI-65"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui65-timeline-light.webp", "/progress/yui65-timeline-dark.webp"] }
       ]
     },
     {

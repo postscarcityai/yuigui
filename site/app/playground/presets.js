@@ -8,6 +8,7 @@ import { createPortal } from "react-dom";
 import { resolve } from "../../lib/yl/yl.mjs";
 import { Calc, Chart, DataTable, MathBlock, Stat, Steps } from "./science";
 import { LonePage, Project } from "./flows";
+import { LoneRow, Timeline } from "./timeline";
 import { useLive } from "./stage";
 
 // Sample agent data tables, so `table meals` has something to bind to.
@@ -787,7 +788,11 @@ function Custom({ spec, emit }) {
 const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, form: Form, list: List, table: Table, card: Card, image: Image, camera: Camera, mic: Mic, say: Say,
   gallery: Gallery, video: Video, compare: Compare, storyboard: Storyboard,
   chart: Chart, stat: Stat, math: MathBlock, calc: Calc,
-  page: LonePage, project: Project };
+  page: LonePage, project: Project,
+  done: ({ p }) => <LoneRow node={{ key: "row", preset: "done", props: p }} />,
+  now: ({ p }) => <LoneRow node={{ key: "row", preset: "now", props: p }} />,
+  next: ({ p }) => <LoneRow node={{ key: "row", preset: "next", props: p }} />,
+  timeline: ({ p }) => <Timeline g={{ group: { props: p }, members: [] }} /> };
 
 export function StepGroup({ nodes, emitFor }) {
   return <Steps nodes={nodes} emitFor={emitFor} resolveProps={(n) => resolve("step", n.props)} />;

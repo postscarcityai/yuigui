@@ -134,3 +134,32 @@
 .yl-me { align-self: flex-end; max-width: 85%; margin-left: auto; white-space: pre-line; background: var(--user-bubble); color: #2a1a1e; border-radius: 22px 22px 8px 22px; padding: 10px 14px; font-size: 14px; font-weight: 600; line-height: 1.45; }
 .screen.light .yl-record { background: #fff; border-color: #e3e4ee; color: #1b1d2b; }
 .screen.light .yl-recordhead, .screen.light .yl-recordopen { color: #1b1d2b; }
+
+/* Timeline (YUI-65): gutter date, rail with a dot per row, the now marker. */
+.yl-tlrail { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; position: relative; }
+.yl-tlrail::before { content: ""; position: absolute; left: 61px; top: 10px; bottom: 10px; width: 2px; border-radius: 2px; background: var(--yl-grid); }
+.yl-tl.lone .yl-tlrail::before { display: none; }
+.yl-tlrow > a, .yl-tlrow > div { display: grid; grid-template-columns: 50px 24px 1fr; column-gap: 0; align-items: start; padding: 6px 0; color: inherit; text-decoration: none; border-radius: 10px; }
+.yl-tlrow > a:hover { background: rgba(255,255,255,.04); }
+.yl-tlat { font-size: 11px; font-weight: 700; color: var(--yl-ink2); text-align: right; padding: 3px 8px 0 0; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.yl-tldot { position: relative; z-index: 1; justify-self: center; margin-top: 3px; width: 16px; height: 16px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: 900; line-height: 1; }
+.yl-tlbody { display: flex; flex-direction: column; gap: 2px; padding-left: 6px; min-width: 0; }
+.yl-tltext { font-size: 14px; line-height: 1.35; font-weight: 600; overflow-wrap: anywhere; }
+.yl-tltag { display: inline-block; font-size: 10.5px; font-weight: 800; letter-spacing: .2px; padding: 1px 7px; margin-right: 6px; border-radius: 999px; background: var(--yl-grid); color: var(--yl-ink2); vertical-align: 1px; }
+.yl-tlsub { font-size: 12px; color: var(--yl-ink2); line-height: 1.35; }
+.yl-tlgo { margin-left: 5px; color: var(--accent); font-weight: 800; }
+.yl-tlrow.done .yl-tldot { background: var(--accent2); color: var(--screen-bg); }
+.yl-tlrow.done .yl-tltext { color: var(--yl-ink2); font-weight: 500; }
+.yl-tlrow.now > a, .yl-tlrow.now > div { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.yl-tlrow.now .yl-tldot { background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent); animation: yl-tlpulse 1.8s ease-in-out infinite; }
+.yl-tlrow.now .yl-tltag { background: var(--accent); color: #fff; }
+.yl-tlrow.now .yl-tltext { font-weight: 800; }
+.yl-tlrow.next .yl-tldot { background: var(--screen-bg); border: 2px solid var(--yl-axis); width: 14px; height: 14px; margin-top: 4px; }
+.yl-tlmark { display: grid; grid-template-columns: 50px 24px 1fr; align-items: center; margin: 6px 0; }
+.yl-tlmark span { grid-column: 1 / 4; display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--accent); }
+.yl-tlmark span::before { content: ""; width: 50px; flex: none; }
+.yl-tlmark span::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: var(--accent); }
+.yl-tlfold button { margin: 0 0 4px 74px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--yl-grid); background: none; color: var(--yl-ink2); font-size: 12px; font-weight: 700; cursor: pointer; min-height: 32px; }
+@keyframes yl-tlpulse { 50% { box-shadow: 0 0 0 7px color-mix(in srgb, var(--accent) 12%, transparent); } }
+@media (prefers-reduced-motion: reduce) { .yl-tlrow.now .yl-tldot { animation: none; } }
+.screen.light .yl-tlrow > a:hover { background: rgba(0,0,0,.03); }

@@ -288,15 +288,16 @@ calc Pendulum f="T = 2*pi*sqrt(L/g)" L=0.1-3@1m g=1.6-25@9.81m/s^2 unit=s
 calc "Carbon-14 left" f="N = N0*exp(-ln(2)*t/h)" t=0-30000@5730yr N0=100% h=5730yr unit=%
 ```
 
-### Groups: deck, plan, narrate
+### Groups: deck, plan, narrate, timeline
 
-Three presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
+Four presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
 
 | Head | Members | What the group is |
 |---|---|---|
 | `deck` | `page`, `ask`, `choose`, `pick` | a swipeable presentation |
 | `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera` | one full-screen flow: pages to read, then questions, one answer at the end |
 | `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
+| `timeline` | `done`, `now`, `next` | what has shipped, what is running, what is queued |
 
 **Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest only one way: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate.
 
@@ -387,6 +388,26 @@ compare /demo/site_before_classes.jpg /demo/site_after_classes.jpg "2. Classes" 
 end
 ask "Publish the update?" "Yes, publish"|"Not yet"
 ```
+
+#### timeline
+`timeline [title...] [mark=Now] [fold=5]`, then one row per line: `done` for what has happened, `now` for what is running, `next` for what is queued. A vertical track the person reads top to bottom: done rows (oldest first), then the **now marker**, a line across the track labelled `mark` [Now], then the running rows lit up on it, then the queued rows in the order they will happen. Rows keep their line order; the marker sits before the first `now` or `next` row. Good for a project board, a build log, a trip, a treatment plan: anything with a past and a queue.
+- **Folding.** Only the last `fold` [5] done rows show; the older ones fold behind an "N earlier" button that opens them in place (no event). `fold=0` shows every row.
+- **A timeline with no `now` row** still draws the marker between the last done row and the first queued one, so "nothing running" reads as a gap, not a missing piece. With no `next` row the marker ends the track.
+Props: `title`, `mark` [Now], `fold` [5].
+
+#### done, now, next
+`done text... [https://link] [at=] [tag=] [sub=] [url=]` (and the same for `now` and `next`). One row. The first bare token starting `https://` is `url`, and the rest of the positional text is the row's `text`. `at` is when, shown in the row's gutter (`Sep 24`, `2h ago`, `Fri`); `tag` a short chip, like a card id (`YUI-65`); `sub` a second, smaller line. A row with `url` opens the link in the browser when tapped (Safari in the app) and sends nothing to the chat, like a `card` link; the row shows an arrow. A quoted `"https://..."` stays text, and so does a relative path. A row outside a timeline stands alone as a one-row timeline. Rows send no events of their own.
+Props: `text`, `at`, `tag`, `sub`, `url`.
+```
+timeline "Yui this week" fold=3
+done "Saved screens" at="Sep 24" tag=YUI-32
+done "Screens 2 to 12" at="Sep 25" tag=YUI-62
+done "Links open Safari" at="Sep 25" tag=YUI-67 https://www.yuigui.com/progress
+now "The war room timeline" tag=YUI-65 sub="web renderer done, native view next"
+next "Drag to reorder" tag=YUI-66
+next "War room panels" tag=YUI-73
+```
+To refresh a live row later, give it an id and patch it: `now@w65 ...`, then `~w65 sub="native view done"`. Moving a row from `now` to `done` means sending the timeline again (a row's kind is its preset); `save` the screen and a later reply brings it back with `show`.
 
 ### say (core, not a preset)
 `say text...`. A plain text bubble inside a screen.

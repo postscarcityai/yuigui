@@ -37,6 +37,7 @@ PRESETS = [
     "gallery", "video", "compare", "storyboard",
     "chart", "stat", "math", "step", "calc",
     "deck", "page", "plan", "project", "narrate",
+    "timeline", "done", "now", "next",
 ]
 # Not presets, but valid line heads.
 CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close"]
@@ -48,6 +49,7 @@ GROUPS = {
     "deck": ["page", "ask", "choose", "pick"],
     "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera"],
     "narrate": ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
+    "timeline": ["done", "now", "next"],
 }
 
 # ---------- JS compatibility ----------
@@ -415,6 +417,19 @@ def _card(pos):
     return o
 
 
+def _row(pos):
+    """done / now / next text... [https://link]: the first bare https token is url."""
+    o, text = {}, []
+    for t in pos:
+        if "url" not in o and not t.parts and not t.quoted and t.text.startswith("https://"):
+            o["url"] = t.text
+        else:
+            text.append(t)
+    if text:
+        o["text"] = _join(text)
+    return o
+
+
 def _image(pos):
     o, cap = {}, []
     for t in pos:
@@ -544,6 +559,8 @@ P = {
     "calc": _titled, "deck": _titled, "plan": _titled, "narrate": _titled,
     "page": _page,
     "project": _card,
+    "timeline": _titled,
+    "done": _row, "now": _row, "next": _row,
 }
 
 # Quantity: a number with an optional unit stuck to it. 72.5kg, 12%, $40.
@@ -784,7 +801,7 @@ class Parser:
             return op
         if op["op"] == "end":
             if not self.open:
-                return {"op": "error", "screen": op["screen"], "message": "end: no open deck, plan or narrate", "line": op["line"]}
+                return {"op": "error", "screen": op["screen"], "message": "end: no open deck, plan, narrate or timeline", "line": op["line"]}
             g = self.open.pop()
             return {**op, "target": g["id"]}
 
@@ -1001,6 +1018,8 @@ _DEFAULTS = {
     "page": {"title": "", "body": "", "points": [], "notes": ""},
     "plan": {"title": "", "submit": "Send", "review": True},
     "narrate": {"title": "", "voice": "agent", "rate": 1, "auto": False, "captions": True},
+    "timeline": {"title": "", "mark": "Now", "fold": 5},
+    "done": {"text": ""}, "now": {"text": ""}, "next": {"text": ""},
 }
 
 

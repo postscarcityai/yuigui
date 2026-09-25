@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-25",
+    "title": "A timeline for the war room",
+    "card": "YUI-65",
+    "body": "Chris called the war room, six link cards on screen 2, oversimplified. He wanted to see what shipped and what is queued. A list or a table could not carry it: no running row, no now line, no link per row. So Yui Lines has a new group, timeline, with one row per line: done for what shipped, now for what is running, next for the queue. Done rows sit above a Now line, the running row glows on it, the queue follows in order, and older done rows fold behind an N earlier button. A row with a link opens Safari and sends nothing. Spec, parsers in JavaScript, Python, Kotlin and Swift (372 of 372 vectors each), the web renderer, the native view in light and dark, and channel guide v12, which scored 45 of 46. The war room redraw from the board rides the next app build.",
+    "images": [
+      {
+        "src": "/progress/yui65-timeline-light.webp",
+        "alt": "The war room on screen 2 in the app, light: three done rows, the Now line, the running card lit up, three queued cards, and a link card below"
+      },
+      {
+        "src": "/progress/yui65-timeline-dark.webp",
+        "alt": "The same war room timeline in dark mode"
+      },
+      {
+        "src": "/progress/yui65-timeline-unfolded.webp",
+        "alt": "After tapping 3 earlier, all six done rows show"
+      },
+      {
+        "src": "/progress/yui65-timeline-web.webp",
+        "alt": "The timeline drawn by the web playground"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "The site catches up, again",
     "card": "SITE-31",
     "body": "Chris still saw old content on the site, and he was right. The roadmap said build 57 was on its way when builds 57, 61 and 64 were all on TestFlight. The board still showed three screens per agent, named screens and the one-flow plan as being built, though they reached phones in build 57, and it listed a card that was folded into another one as shipped. Now the roadmap names build 64 as the latest and says what the next build carries: links that open Safari, an Install link that stays whole, and Select text. Invites are the epic in progress. The board exporter only counts a card as shipped when it really finished, and parks frozen backlog cards in the backlog instead of Building. See it gains Hold to talk and Request an invite. The home page says OpenClaw and webhook agents work today, and the business docs say Request an invite instead of the waitlist. A new check, site/scripts/freshness.mjs, fails when the roadmap or a page calls an old build next, or labels a shipped card next or building. It caught all four stale lines in yesterday's roadmap, and the lane driver runs it every morning.",

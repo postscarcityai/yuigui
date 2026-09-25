@@ -24,6 +24,7 @@ export const PRESETS = [
   "gallery", "video", "compare", "storyboard",
   "chart", "stat", "math", "step", "calc",
   "deck", "page", "plan", "project", "narrate",
+  "timeline", "done", "now", "next",
 ];
 // Not presets, but valid line heads.
 export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close"];
@@ -36,6 +37,7 @@ export const GROUPS = {
   deck: ["page", "ask", "choose", "pick"],
   plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera"],
   narrate: ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
+  timeline: ["done", "now", "next"],
 };
 
 const IDENT = /^[a-z_][\w-]*$/i;
@@ -390,6 +392,22 @@ const P = {
   },
 
   project(pos) { return P.card(pos); },
+
+  // timeline [title...], then one row per line: done / now / next text...
+  // [https://link]. The first https token is the row's url, the rest its text.
+  timeline(pos) { return P.calc(pos); },
+  done(pos) {
+    const o = {};
+    const text = [];
+    for (const t of pos) {
+      if (o.url === undefined && !t.parts && !t.quoted && /^https:\/\//.test(t.text)) o.url = t.text;
+      else text.push(t);
+    }
+    if (text.length) o.text = joinText(text);
+    return o;
+  },
+  now(pos) { return P.done(pos); },
+  next(pos) { return P.done(pos); },
 };
 
 export const CHART_TYPES = ["line", "bar", "area", "scatter", "pie", "donut"];
@@ -574,7 +592,7 @@ export class Parser {
     if (op.op === "close") { this.open = []; return op; }
     if (op.op === "end") {
       const g = this.open.pop();
-      if (!g) return { op: "error", screen: op.screen, message: "end: no open deck, plan or narrate", line: op.line };
+      if (!g) return { op: "error", screen: op.screen, message: "end: no open deck, plan, narrate or timeline", line: op.line };
       return { ...op, target: g.id };
     }
     const joins = (g) => op.op === "add" && op.screen === g.screen && GROUPS[g.preset].includes(op.preset);
@@ -789,6 +807,12 @@ export function resolve(preset, props) {
       return { title: "", body: "", facts: [], next: [], status: "", ...p, cta: p.cta ?? (p.open ? "Open" : "") };
     case "narrate":
       return { title: "", voice: "agent", rate: 1, auto: false, captions: true, ...p };
+    case "timeline":
+      return { title: "", mark: "Now", fold: 5, ...p };
+    case "done":
+    case "now":
+    case "next":
+      return { text: "", ...p };
     default:
       return p;
   }

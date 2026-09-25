@@ -197,7 +197,11 @@
           "ask",
           "slide",
           "timer",
-          "table"
+          "table",
+          "timeline",
+          "done",
+          "now",
+          "next"
         ],
         "need": [
           "list",
@@ -1079,6 +1083,31 @@
         "page": true
       },
       "good": "`>2 list@shop Shopping Eggs|Spinach|Rice|Gochujang|Carrots +check` so the list stays on a page beside the chat, then the recipe in the chat."
+    },
+    {
+      "id": "project-timeline",
+      "category": "flow",
+      "agent": "Urza",
+      "message": "Where are we on the site rebuild? We shipped the new hero Monday and the pricing page Tuesday, the blog migration is running now, and the contact form and analytics are next. Show me.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "card",
+          "stat",
+          "ask",
+          "choose",
+          "pick",
+          "say"
+        ],
+        "need": [
+          "timeline"
+        ]
+      },
+      "good": "One `timeline` with the two shipped items as `done` rows (at=Mon, at=Tue), the blog migration as `now`, then the contact form and analytics as `next`, in that order. At most a short line of chat and maybe one question about what to pull next."
     }
   ]
 }

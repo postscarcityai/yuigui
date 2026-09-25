@@ -18,6 +18,7 @@ val PRESETS = listOf(
     "gallery", "video", "compare", "storyboard",
     "chart", "stat", "math", "step", "calc",
     "deck", "page", "plan", "project", "narrate",
+    "timeline", "done", "now", "next",
 )
 
 // Not presets, but valid line heads.
@@ -30,6 +31,7 @@ val GROUPS = mapOf(
     "deck" to listOf("page", "ask", "choose", "pick"),
     "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera"),
     "narrate" to listOf("page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"),
+    "timeline" to listOf("done", "now", "next"),
 )
 
 val CHART_TYPES = listOf("line", "bar", "area", "scatter", "pie", "donut")
@@ -322,6 +324,17 @@ private fun card(pos: List<Token>): Obj {
     return o
 }
 
+// done / now / next text... [https://link]: the first bare https token is url.
+private fun row(pos: List<Token>): Obj {
+    val o = Obj()
+    val text = ArrayList<Token>()
+    for (t in pos) {
+        if (o["url"] == null && t.parts == null && !t.quoted && t.text.startsWith("https://")) o["url"] = t.text else text.add(t)
+    }
+    if (text.isNotEmpty()) o["text"] = joinText(text)
+    return o
+}
+
 private fun image(pos: List<Token>): Obj {
     val o = Obj()
     val cap = ArrayList<Token>()
@@ -416,7 +429,8 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "chart" -> chart(pos)
     "stat" -> stat(pos)
     "step" -> step(pos)
-    "calc", "deck", "plan", "narrate" -> titled("title", pos)
+    "calc", "deck", "plan", "narrate", "timeline" -> titled("title", pos)
+    "done", "now", "next" -> row(pos)
     "page" -> page(pos)
     else -> Obj()
 }
@@ -613,7 +627,7 @@ class Parser {
         if (o == null || o["op"] == "error" || o["op"] == "theme") return o
         if (o["op"] == "close") { open.clear(); return o }
         if (o["op"] == "end") {
-            if (open.isEmpty()) return op("op" to "error", "screen" to o["screen"], "message" to "end: no open deck, plan or narrate", "line" to o["line"])
+            if (open.isEmpty()) return op("op" to "error", "screen" to o["screen"], "message" to "end: no open deck, plan, narrate or timeline", "line" to o["line"])
             val g = open.removeAt(open.size - 1)
             return LinkedHashMap(o).also { it["target"] = g.first }
         }
@@ -806,6 +820,8 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "page" to mapOf("title" to "", "body" to "", "points" to emptyList<String>(), "notes" to ""),
     "plan" to mapOf("title" to "", "submit" to "Send", "review" to true),
     "narrate" to mapOf("title" to "", "voice" to "agent", "rate" to 1.0, "auto" to false, "captions" to true),
+    "timeline" to mapOf("title" to "", "mark" to "Now", "fold" to 5.0),
+    "done" to mapOf("text" to ""), "now" to mapOf("text" to ""), "next" to mapOf("text" to ""),
 )
 
 // Explicit props over the preset's defaults.
