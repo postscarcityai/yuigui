@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T05:34:40.914Z",
+  "updated": "2026-09-25T05:40:59.532Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -117,6 +117,13 @@
           "key": "YUI-66",
           "title": "Reorder mode",
           "summary": "Drag cards to set board priority, no agent turn"
+        },
+        {
+          "key": "YUI-67",
+          "title": "Card cta with url= sends a tap instead of opening Safari",
+          "summary": "Links in a card open Safari",
+          "waiting": true,
+          "progress": "/progress#links-in-a-card-open-safari"
         },
         {
           "key": "YUI-69",
@@ -314,21 +321,9 @@
           "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in"
         },
         {
-          "key": "SITE-31",
-          "title": "yuigui.com freshness sweep",
-          "summary": "The site catches up, again",
-          "progress": "/progress#the-site-catches-up-again"
-        },
-        {
           "key": "YUI-65",
           "title": "War room dashboard",
           "summary": "A timeline of done and queued"
-        },
-        {
-          "key": "SITE-29",
-          "title": "Build to earn proposal",
-          "summary": "Build to earn, the proposal",
-          "progress": "/progress#build-to-earn-the-proposal"
         }
       ]
     },
@@ -336,6 +331,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-31",
+          "title": "yuigui.com freshness sweep",
+          "summary": "The site catches up, again",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-site-catches-up-again"
+        },
+        {
+          "key": "SITE-29",
+          "title": "Build to earn proposal",
+          "summary": "Build to earn, the proposal",
+          "shipped": "2026-09-25",
+          "progress": "/progress#build-to-earn-the-proposal"
+        },
         {
           "key": "YUI-51",
           "title": "Multi-step screens that fold back into chat as your own messages",
@@ -356,13 +365,6 @@
           "summary": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
           "shipped": "2026-09-25",
           "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away"
-        },
-        {
-          "key": "YUI-67",
-          "title": "Card cta with url= sends a tap instead of opening Safari",
-          "summary": "Links in a card open Safari",
-          "shipped": "2026-09-25",
-          "progress": "/progress#links-in-a-card-open-safari"
         },
         {
           "key": "SITE-27",
