@@ -14,6 +14,7 @@ One line in, one op out. Ops are dicts:
   {"op": "end",   "screen", "target", "line"}     close the open group (deck, plan, narrate)
   {"op": "theme", "screen", "props", "line"}      restyle this agent's look
   {"op": "close", "screen": "full", "line"}       `close` or bare ">chat"
+  {"op": "talk",  "screen", "props": {"on"}, "line"}  `>2 talk`: page 2 keeps the composer
   {"op": "error", "screen", "message", "line"}
 `props` holds only what the line actually said. Defaults live in resolve().
 An add that joins an open group (a page under a deck) also carries "in".
@@ -41,7 +42,7 @@ PRESETS = [
     "game",
 ]
 # Not presets, but valid line heads.
-CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close"]
+CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk"]
 
 # Groups: a group head collects the lines that follow it on the same screen,
 # as long as each one is a member preset. Anything else ends the group, and
@@ -929,6 +930,12 @@ class Parser:
                 return {"op": "error", "screen": screen, "message": "close: takes nothing else", "line": line}
             self.screen = "1"
             return {"op": "close", "screen": "full", "line": line}
+        if head == "talk":
+            # `talk` or `talk on` turns the composer on for this page, `talk off` takes it away.
+            word = "on" if not tokens else tokens[0].text if len(tokens) == 1 else None
+            if word not in ("on", "off"):
+                return {"op": "error", "screen": screen, "message": "talk: takes nothing, on or off", "line": line}
+            return {"op": "talk", "screen": screen, "props": {"on": word == "on"}, "line": line}
         if head == "theme":
             return {"op": "theme", "screen": screen, "props": parse_args("theme", tokens), "line": line}
 
@@ -1001,6 +1008,39 @@ def page_of(screen):
     if isinstance(screen, str) and screen.isdigit() and str(int(screen)) == screen and 2 <= int(screen) <= MAX_PAGE:
         return int(screen)
     return 1
+
+def talking(ops):
+    """Chat with a screen (YL.md section 5, Pages): the pages whose composer is
+    on after these ops, in number order. `talk` turns it on, `talk off` and
+    `clear` take it away; only pages 2 to 12 have one to turn on."""
+    on = set()
+    for o in ops:
+        n = page_of(o.get("screen"))
+        if n == 1:
+            continue
+        if o["op"] == "talk" and o["props"]["on"]:
+            on.add(n)
+        elif o["op"] in ("clear", "talk"):
+            on.discard(n)
+    return sorted(on)
+
+
+def typed_body(screen, words):
+    """What the person typed on a page, as the agent reads it (YL.md section 7):
+    a `[yui] screen=2` line, then the words. Anywhere else the words as they are."""
+    return words if page_of(screen) == 1 else f"[yui] screen={screen}\n{words}"
+
+
+_TYPED = re.compile(r"\[yui\] screen=(\S+)\r?\n")
+
+
+def read_typed(body):
+    """The other way: {"screen", "words"} for a message typed on a page, else None."""
+    m = _TYPED.match(body)
+    if not m or page_of(m.group(1)) == 1:
+        return None
+    return {"screen": m.group(1), "words": body[m.end():]}
+
 
 def on_stage(op, style=None):
     """Whether an add op opens on the stage. `style` is the agent's style

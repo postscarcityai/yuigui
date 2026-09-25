@@ -29,6 +29,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `show name` | restore a saved screen | `show workout` |
 | `forget name` | take a saved screen off the shelf | `forget workout` |
 | `clear` | empty the current screen | `clear` |
+| `talk` or `talk off` | keep the composer on this page, or take it away (section 5, Pages) | `>2 talk` |
 | `end` | close the open group (section 4, Groups) | `end` |
 | `theme [set] key=value...` | restyle this agent's look (section 4, theme) | `theme autumn radius=square` |
 | `custom {json}` | escape hatch, rest of line is JSON | `custom {"type":"text","text":"hi"}` |
@@ -461,16 +462,17 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 
 The reference function is `onStage(op, style)` in `yl.mjs` (and `YuiLines.opensOnStage` in the app). Conformance vectors may carry `stage`, the ids of the adds that open on the stage, and `style`, the agent's style profile for that vector.
 
-**Pages.** Beside the chat, the app gives every agent up to eleven more screens, `2` through `12`. Screen `1` lines render in the chat as usual; a screen from `2` to `12` becomes a page the person swipes to, left to right, as soon as something lands on it. Pages run in number order and a number can be skipped (`>5` alone makes the chat and one page). At the bottom a small indicator shows a chat glyph and one dot per page; with only the chat there is no indicator at all. A page is full screen: the top bar (agents, settings) and the composer stay with the chat, so a page is for reading and tapping, and the indicator's chat glyph is the way back to type.
+**Pages.** Beside the chat, the app gives every agent up to eleven more screens, `2` through `12`. Screen `1` lines render in the chat as usual; a screen from `2` to `12` becomes a page the person swipes to, left to right, as soon as something lands on it. Pages run in number order and a number can be skipped (`>5` alone makes the chat and one page). At the bottom a small indicator shows a chat glyph and one dot per page; with only the chat there is no indicator at all. A page is full screen: the top bar (agents, settings) and the composer stay with the chat, so a page is for reading and tapping, and the indicator's chat glyph is the way back to type, unless the agent keeps the composer on it with `talk` (below).
 
 - A page keeps what lands on it across replies, so an agent can leave a focus timer on `2` and a running list on `3` while the chat goes on. Adds stack in order, a later reply patches them by preset name (`~timer`, section 9), and `>2 clear` empties the page, which removes it; if it was showing, the person goes back to the chat.
 - A route to a page beats the stage defaults: `>2 timer 25m Focus` sits on page 2, not on the stage, whatever the agent's style profile says. Workouts still always open on the stage.
 - A reply that sends a line to a page brings that page forward with a spring (a cross-fade under Reduce Motion). A line that only patches a page does not move the person. The chat keeps a small "On screen 2" pill where the line was sent; tapping it goes to the page.
 - Any other screen name (`>stats-view`, `>13`, `>0`, `>02`) has no page of its own and renders in the chat, in line order. The stage (`>full`, and the presets that open there) is a layer over whichever page is showing, the same as over the chat.
 - Swiping between pages sends no event. The page an agent's thread was on is remembered per agent.
+- **Chat with a screen.** `talk` keeps the composer on the page the line is on: `>2 talk`, or `talk` after `>2`. The page stays full screen, with the composer at the bottom. What the person types there goes to the agent as a normal message tagged with the page (section 7), and shows in the chat with a "From screen 2" mark that goes back to the page. `talk off` takes the composer away, and so does `>2 clear`, since the page goes with it. Like the page's content, it lasts across replies. `talk` is one word because it rides on the routing the page already has: a flag on `>2` would make `>2 +talk` a second grammar for routes. On any screen that is not a page (`1`, `full`, `13`) it does nothing; the chat always has its composer. It takes nothing but `on` or `off`. The op is `{op: "talk", screen, props: {on}}`; it takes no `@id`, advances no counter and sends no event.
 - Where there is no room for pages (Telegram, a watch, the playground's single phone), everything renders in one column in line order, as before.
 
-The reference function is `pageOf(screen)` in `yl.mjs` (`YuiLines.page(of:)` in the app, `page_of` in Python, `pageOf` in Kotlin): the number for `2` to `12` (written plainly, no leading zero), `1` for everything else, `full`, `chat` and `13` included. Conformance vectors may carry `pages`, the page of each add in order.
+The reference function is `pageOf(screen)` in `yl.mjs` (`YuiLines.page(of:)` in the app, `page_of` in Python, `pageOf` in Kotlin): the number for `2` to `12` (written plainly, no leading zero), `1` for everything else, `full`, `chat` and `13` included. Conformance vectors may carry `pages`, the page of each add in order. `talking(ops)` (`YuiLines.talking` in the app, `talking` in Python and Kotlin) gives the pages whose composer is on after a run of ops, in number order; vectors may carry it as `talk`.
 
 **Saved screens and the shelf.** A screen the person will want again gets a name, and from then on it costs two tokens to bring back.
 
@@ -537,6 +539,15 @@ Every interaction goes back as one small event: `{id, preset, ...value}`. Ids ar
 
 The newest event for an id is the answer. The agent adjusts to it rather than arguing with it. Graded questions (a quiz with `answer=`) stay open too, so the person can try again.
 
+**Typed on a screen.** Words the person types on a page the agent keeps talking on (section 5, Pages) are not an event. They go as a normal message whose first line names the page, then the words:
+
+```
+[yui] screen=2
+Make Thursday a swim instead.
+```
+
+The words are about what is on that page, so the agent answers there: a patch (`~list ...`) or a line sent to it (`>2 say Done.`). Typed in the chat, the words go as they are. A slash command is still a command and carries no tag. The reference functions are `typedBody(screen, words)` and `readTyped(body)` in `yl.mjs` (`YuiLines.typedBody`/`readTyped` in the app, `typed_body`/`read_typed` in Python, `typedBody`/`readTyped` in Kotlin). Conformance vectors may carry `typed: {screen, words, body}`: `typedBody` must give `body`, and `readTyped(body)` must give back the screen and words, or nothing when the screen has no page.
+
 **Locking.** `+lock` freezes a component on purpose: the answer shown stays, and taps, picks and the slider do nothing. It is off by default. Send it on the line (`choose "Table for" 2|4|6 +lock`) or, more often, patch it on once the answer is final, for example after the booking is confirmed. Ids only resolve inside the reply that made them (section 9), so from a later reply aim at the preset name: `~choose +lock` reaches the newest `choose` on any screen, including one from an earlier reply. `~choose lock=off` opens it again.
 
 A line that joins a group comes out of the parser with the group's id: `deck` then `page "Intro"` gives `{op: "add", preset: "page", id: "n2", in: "n1", ...}`. `end` gives `{op: "end", screen, target}` with the id of the group it closed. Members of a `plan` send no events of their own.
@@ -549,7 +560,7 @@ The stream parser keeps a line buffer. Every time a newline arrives, that line i
 
 A line that fails (unknown preset, bad JSON, patch target that does not exist, `show` of a name never saved) is skipped and reported. Nothing else on the screen is affected. The playground lists errors under the wire log.
 
-Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show`/`forget` without a name, `close` with anything after it, a patch whose target is neither a preset name nor an id seen earlier in the reply, a `~preset@id` with an unknown preset or an id that belongs to another preset, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
+Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show`/`forget` without a name, `close` with anything after it, `talk` with anything but `on` or `off`, a patch whose target is neither a preset name nor an id seen earlier in the reply, a `~preset@id` with an unknown preset or an id that belongs to another preset, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
 
 ## 10. Telegram fallback
 

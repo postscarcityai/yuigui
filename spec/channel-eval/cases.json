@@ -1263,6 +1263,62 @@
         "max_words": 50
       },
       "good": "A deck (or plan) of short pages, one change per page, under one short chat line. Not a long bulleted or prose message."
+    },
+    {
+      "id": "talk-keep-plan-editable",
+      "category": "flow",
+      "agent": "Arnold",
+      "message": "Lay out my runs for this week somewhere I can keep looking at it, and I'll tell you what to change as the week goes.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "list",
+          "card",
+          "table",
+          "step",
+          "timeline",
+          "plan",
+          "stat",
+          "ask",
+          "choose",
+          "pick"
+        ],
+        "need": [
+          "talk"
+        ],
+        "page": true
+      },
+      "good": "The week on a page (`>2 list@runs Runs \"Tue 5k\"|\"Thu 5k\"|\"Sat 10k\" +check`) with `>2 talk` so they can type changes right there, and one short line in the chat."
+    },
+    {
+      "id": "talk-typed-on-screen",
+      "category": "flow",
+      "agent": "Arnold",
+      "history": [
+        {
+          "role": "user",
+          "text": "Lay out my runs for this week where I can change them by typing."
+        },
+        {
+          "role": "agent",
+          "text": "Your week is on screen 2. Type changes there.\n```yui\n>2 list@runs Runs \"Tue 5k easy\"|\"Thu 5k tempo\"|\"Sat 10k long\" +check\n>2 talk\n```"
+        }
+      ],
+      "message": "[yui] screen=2\nMake Thursday a swim instead.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "list",
+          "say",
+          "card"
+        ],
+        "patch": "^(list|runs)$",
+        "no_add": [
+          "list"
+        ],
+        "max_words": 40
+      },
+      "good": "Patches the list on screen 2 by preset name (`~list \"Tue 5k easy\" \"Thu swim\" \"Sat 10k long\" +check`), at most a short line. Does not re-send the list or explain the tag."
     }
   ]
 }

@@ -23,7 +23,7 @@ val PRESETS = listOf(
 )
 
 // Not presets, but valid line heads.
-val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close")
+val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk")
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -745,6 +745,12 @@ class Parser {
                 return op("op" to "close", "screen" to "full", "line" to line)
             }
             "theme" -> return op("op" to "theme", "screen" to screen, "props" to parseArgs("theme", tokens), "line" to line)
+            "talk" -> {
+                // `talk` or `talk on` turns the composer on for this page, `talk off` takes it away.
+                val word = if (tokens.isEmpty()) "on" else if (tokens.size == 1) tokens[0].text else null
+                if (word != "on" && word != "off") return err("talk: takes nothing, on or off")
+                return op("op" to "talk", "screen" to screen, "props" to linkedMapOf<String, Any?>("on" to (word == "on")), "line" to line)
+            }
         }
 
         val hm = HEAD.full(head)
@@ -804,6 +810,34 @@ const val MAX_PAGE = 12
 fun pageOf(screen: String?): Int {
     val n = screen?.toIntOrNull() ?: return 1
     return if (n.toString() == screen && n in 2..MAX_PAGE) n else 1
+}
+
+// Chat with a screen (spec section 5, Pages): the pages whose composer is on
+// after these ops, in number order. `talk` turns it on, `talk off` and `clear`
+// take it away; only pages 2 to 12 have one to turn on.
+fun talking(ops: List<Op>): List<Int> {
+    val on = sortedSetOf<Int>()
+    for (o in ops) {
+        val n = pageOf(o["screen"] as String?)
+        if (n == 1) continue
+        if (o["op"] == "talk" && (o["props"] as Map<*, *>)["on"] == true) on.add(n)
+        else if (o["op"] == "clear" || o["op"] == "talk") on.remove(n)
+    }
+    return on.toList()
+}
+
+// What the person typed on a page, as the agent reads it (spec section 7):
+// a `[yui] screen=2` line, then the words. Anywhere else the words as they are.
+fun typedBody(screen: String, words: String): String =
+    if (pageOf(screen) == 1) words else "[yui] screen=$screen\n$words"
+
+private val TYPED = Regex("""^\[yui] screen=(\S+)\r?\n""")
+
+// The other way: screen and words for a message typed on a page, else null.
+fun readTyped(body: String): Map<String, Any?>? {
+    val m = TYPED.find(body) ?: return null
+    if (pageOf(m.groupValues[1]) == 1) return null
+    return mapOf("screen" to m.groupValues[1], "words" to body.substring(m.range.last + 1))
 }
 
 // Whether an add op opens on the stage. `style` is the agent's style profile

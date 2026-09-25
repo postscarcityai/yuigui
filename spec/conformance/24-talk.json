@@ -1,0 +1,390 @@
+{
+  "version": "YL v0",
+  "area": "talk",
+  "vectors": [
+    {
+      "name": "talk keeps the composer on a page",
+      "input": ">2 card \"Week one\" body=\"Three runs, one long\"\n>2 talk",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "Week one",
+            "body": "Three runs, one long"
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "2",
+          "props": {
+            "on": true
+          }
+        }
+      ],
+      "talk": [
+        2
+      ],
+      "pages": [
+        2
+      ]
+    },
+    {
+      "name": "talk on the focused page",
+      "input": ">3\nlist Pack Charger|Passport +check\ntalk",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "3"
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "list",
+          "id": "n1",
+          "props": {
+            "items": [
+              "Charger",
+              "Passport"
+            ],
+            "title": "Pack",
+            "check": true
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "3",
+          "props": {
+            "on": true
+          }
+        }
+      ],
+      "talk": [
+        3
+      ],
+      "pages": [
+        3
+      ]
+    },
+    {
+      "name": "talk on, talk off",
+      "input": ">2 talk on\n>4 talk\n>2 talk off",
+      "expected": [
+        {
+          "op": "talk",
+          "screen": "2",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "4",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "2",
+          "props": {
+            "on": false
+          }
+        }
+      ],
+      "talk": [
+        4
+      ]
+    },
+    {
+      "name": "clear takes the page and its composer",
+      "input": ">2 say Plan.\n>3 say Notes.\n>2 talk\n>3 talk\n>2 clear",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Plan."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "Notes."
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "2",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "3",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "clear",
+          "screen": "2"
+        }
+      ],
+      "talk": [
+        3
+      ],
+      "pages": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "talk off a page that never talked does nothing",
+      "input": ">5 talk off",
+      "expected": [
+        {
+          "op": "talk",
+          "screen": "5",
+          "props": {
+            "on": false
+          }
+        }
+      ],
+      "talk": []
+    },
+    {
+      "name": "only pages talk: the chat, the stage, 13 and 02 stay as they are",
+      "input": "talk\n>chat talk\n>full talk\n>13 talk\n>02 talk",
+      "expected": [
+        {
+          "op": "talk",
+          "screen": "1",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "1",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "full",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "13",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "02",
+          "props": {
+            "on": true
+          }
+        }
+      ],
+      "talk": []
+    },
+    {
+      "name": "talk advances no counter",
+      "input": "ask Ready?\n>2 talk\nask Set?",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Ready?"
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "2",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n2",
+          "props": {
+            "q": "Set?"
+          }
+        }
+      ],
+      "talk": [
+        2
+      ],
+      "pages": [
+        1,
+        1
+      ]
+    },
+    {
+      "name": "talk takes nothing else",
+      "input": ">2 talk loud",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "2"
+        }
+      ],
+      "error": true,
+      "talk": []
+    },
+    {
+      "name": "talk takes one word at most",
+      "input": ">2 talk on off",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "2"
+        }
+      ],
+      "error": true,
+      "talk": []
+    },
+    {
+      "name": "talk is not a preset: no ids, no patches",
+      "input": "talk@t1\n~talk on",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "talk": []
+    },
+    {
+      "name": "talk streams like any line",
+      "input": ">2 talk\n>3 talk",
+      "expected": [
+        {
+          "op": "talk",
+          "screen": "2",
+          "props": {
+            "on": true
+          }
+        },
+        {
+          "op": "talk",
+          "screen": "3",
+          "props": {
+            "on": true
+          }
+        }
+      ],
+      "chunks": [
+        ">2 ta",
+        "lk\n>3 talk"
+      ],
+      "emits": [
+        [],
+        [
+          {
+            "op": "talk",
+            "screen": "2",
+            "props": {
+              "on": true
+            }
+          }
+        ],
+        [
+          {
+            "op": "talk",
+            "screen": "3",
+            "props": {
+              "on": true
+            }
+          }
+        ]
+      ],
+      "talk": [
+        2,
+        3
+      ]
+    },
+    {
+      "name": "a comment after talk",
+      "input": ">2 talk # keep typing here",
+      "expected": [
+        {
+          "op": "talk",
+          "screen": "2",
+          "props": {
+            "on": true
+          }
+        }
+      ],
+      "talk": [
+        2
+      ]
+    },
+    {
+      "name": "typed on page 2",
+      "input": "",
+      "expected": [],
+      "typed": {
+        "screen": "2",
+        "words": "Swap Tuesday for a rest day",
+        "body": "[yui] screen=2\nSwap Tuesday for a rest day"
+      }
+    },
+    {
+      "name": "typed on page 12, two lines",
+      "input": "",
+      "expected": [],
+      "typed": {
+        "screen": "12",
+        "words": "Two things:\nmore sleep",
+        "body": "[yui] screen=12\nTwo things:\nmore sleep"
+      }
+    },
+    {
+      "name": "typed in the chat carries no tag",
+      "input": "",
+      "expected": [],
+      "typed": {
+        "screen": "1",
+        "words": "hello",
+        "body": "hello"
+      }
+    },
+    {
+      "name": "a screen with no page carries no tag",
+      "input": "",
+      "expected": [],
+      "typed": {
+        "screen": "13",
+        "words": "hello",
+        "body": "hello"
+      }
+    }
+  ]
+}

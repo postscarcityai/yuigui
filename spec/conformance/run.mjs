@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import { onStage, pageOf, parse, StreamParser } from "../../site/lib/yl/yl.mjs";
+import { onStage, pageOf, parse, readTyped, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 
 // Parser ops minus the fields that are not compared: `line` (the source
 // text) and an error's `message` (wording is up to each parser).
@@ -40,6 +40,18 @@ function check(v) {
   if (v.pages) {
     const pages = parse(v.input).filter((o) => o.op === "add").map((o) => pageOf(o.screen));
     if (!isDeepStrictEqual(pages, v.pages)) fails.push(["pages (page of each add)", pages]);
+  }
+  if (v.talk) {
+    const on = talking(parse(v.input));
+    if (!isDeepStrictEqual(on, v.talk)) fails.push(["talk (pages with the composer on)", on]);
+  }
+  if (v.typed) {
+    const { screen, words, body } = v.typed;
+    const made = typedBody(screen, words);
+    if (made !== body) fails.push(["typed (body for words typed on the screen)", made]);
+    const read = readTyped(body);
+    const want = pageOf(screen) === 1 ? null : { screen, words };
+    if (!isDeepStrictEqual(read, want)) fails.push(["typed (read back)", read]);
   }
   const hasError = v.expected.some((o) => o.op === "error");
   if (hasError !== (v.error === true)) fails.push(["vector: `error` flag does not match expected", v.error]);

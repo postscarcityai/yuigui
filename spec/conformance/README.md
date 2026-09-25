@@ -38,6 +38,10 @@ One file per area, `NN-area.json`:
 
 - `pages`: the page each add lands on, in order (YL.md section 5, Pages): `2` to `12` for those screens, `1` for every other (`13`, `02`, `chat`, `full` included). Checked against `pageOf` in JS and Kotlin, `YuiLines.page(of:)` in Swift and `page_of` in Python.
 
+- `talk`: the pages whose composer is on after the whole input, in number order (YL.md section 5, Pages, chat with a screen). Checked against `talking` in JS, Python and Kotlin and `YuiLines.talking` in Swift.
+
+- `typed`: `{screen, words, body}`, words typed on a screen (YL.md section 7). `typedBody(screen, words)` must give `body`, and `readTyped(body)` must give back `{screen, words}`, or nothing when the screen has no page. These vectors have an empty `input`.
+
 A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`, and (with `chunks`) the per-chunk emits match.
 
 ## Changing the suite

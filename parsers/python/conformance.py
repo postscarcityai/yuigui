@@ -10,7 +10,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from yuilines import StreamParser, on_stage, page_of, parse  # noqa: E402
+from yuilines import StreamParser, on_stage, page_of, parse, read_typed, talking, typed_body  # noqa: E402
 
 DEFAULT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "spec", "conformance")
 
@@ -65,6 +65,19 @@ def check(v):
         pages = [page_of(o["screen"]) for o in parse(v["input"]) if o["op"] == "add"]
         if not same(pages, v["pages"]):
             fails.append(("pages (page of each add)", pages))
+    if v.get("talk") is not None:
+        on = talking(parse(v["input"]))
+        if not same(on, v["talk"]):
+            fails.append(("talk (pages with the composer on)", on))
+    if v.get("typed") is not None:
+        t = v["typed"]
+        made = typed_body(t["screen"], t["words"])
+        if made != t["body"]:
+            fails.append(("typed (body for words typed on the screen)", made))
+        read = read_typed(t["body"])
+        want = None if page_of(t["screen"]) == 1 else {"screen": t["screen"], "words": t["words"]}
+        if read != want:
+            fails.append(("typed (read back)", read))
     has_error = any(o["op"] == "error" for o in v["expected"])
     if has_error != (v.get("error") is True):
         fails.append(("vector: `error` flag does not match expected", v.get("error")))

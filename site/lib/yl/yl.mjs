@@ -13,6 +13,7 @@
 //   { op: "end",   screen, target, line }     close the open group (deck, plan, narrate)
 //   { op: "theme", screen, props, line }      restyle this agent's look (props.name = a named set)
 //   { op: "close", screen: "full", line }     `close` or bare ">chat": close the stage, back to screen 1
+//   { op: "talk",  screen, props: { on }, line }  `>2 talk`: page 2 keeps the composer (`talk off` takes it away)
 //   { op: "error", screen, message, line }
 // `props` holds only what the line actually said. Defaults live in resolve().
 // An add that joins an open group (a page under a deck) also carries `in`,
@@ -28,7 +29,7 @@ export const PRESETS = [
   "game",
 ];
 // Not presets, but valid line heads.
-export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close"];
+export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk"];
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -696,6 +697,12 @@ export class Parser {
       return { op: "close", screen: "full", line };
     }
     if (head === "theme") return { op: "theme", screen, props: parseArgs("theme", tokens), line };
+    if (head === "talk") {
+      // `talk` or `talk on` turns the composer on for this page, `talk off` takes it away.
+      const word = tokens.length === 0 ? "on" : tokens.length === 1 ? tokens[0].text : null;
+      if (word !== "on" && word !== "off") return { op: "error", screen, message: "talk: takes nothing, on or off", line };
+      return { op: "talk", screen, props: { on: word === "on" }, line };
+    }
 
     const hm = head.match(/^([a-z]+)(?:@([\w-]+))?$/);
     if (!hm || !(PRESETS.includes(hm[1]) || hm[1] === "say")) {
@@ -772,6 +779,33 @@ export const MAX_PAGE = 12;
 export function pageOf(screen) {
   const n = Number(screen);
   return Number.isInteger(n) && String(n) === screen && n >= 2 && n <= MAX_PAGE ? n : 1;
+}
+
+// Chat with a screen (spec section 5, Pages): the pages whose composer is on
+// after these ops, in number order. `talk` turns it on, `talk off` and `clear`
+// take it away; only pages 2 to 12 have one to turn on.
+export function talking(ops) {
+  const on = new Set();
+  for (const o of ops) {
+    const n = pageOf(o.screen);
+    if (n === 1) continue;
+    if (o.op === "talk" && o.props.on) on.add(n);
+    else if (o.op === "clear" || o.op === "talk") on.delete(n);
+  }
+  return [...on].sort((a, b) => a - b);
+}
+
+// What the person typed on a page, as the agent reads it (spec section 7):
+// a `[yui] screen=2` line, then the words. Anywhere else the words go as they are.
+export function typedBody(screen, words) {
+  return pageOf(screen) === 1 ? words : `[yui] screen=${screen}\n${words}`;
+}
+
+// The other way: `{ screen, words }` for a message typed on a page, else null.
+export function readTyped(body) {
+  const m = /^\[yui\] screen=(\S+)\r?\n/.exec(body);
+  if (!m || pageOf(m[1]) === 1) return null;
+  return { screen: m[1], words: body.slice(m[0].length) };
 }
 
 // ---------- defaults ----------
@@ -860,7 +894,7 @@ export function resolve(preset, props) {
 // `stage` is true while the stage is open over the chat. Staged components
 // stay on their own screen with `stage: true`; renderers draw them on the stage.
 export function initialState() {
-  return { focus: "1", screens: { "1": [] }, saved: {}, errors: [], customs: [], stage: false };
+  return { focus: "1", screens: { "1": [] }, saved: {}, errors: [], customs: [], stage: false, talk: {} };
 }
 
 export function apply(state, op, style = {}) {
@@ -926,8 +960,20 @@ export function apply(state, op, style = {}) {
       s.saved = rest;
       break;
     }
-    case "clear":
-      s.screens[op.screen] = []; break;
+    case "clear": {
+      s.screens[op.screen] = [];
+      // An emptied page is gone, and its composer with it.
+      const { [op.screen]: _, ...rest } = s.talk || {};
+      s.talk = rest;
+      break;
+    }
+    case "talk": {
+      // Only pages (2 to 12) take it: the chat has its composer already.
+      if (pageOf(op.screen) === 1) break;
+      const { [op.screen]: _, ...rest } = s.talk || {};
+      s.talk = op.props.on ? { ...rest, [op.screen]: true } : rest;
+      break;
+    }
     case "theme":
       s.theme = op.props.name ? { ...op.props } : { ...(s.theme || {}), ...op.props }; break;
     case "error":
@@ -955,6 +1001,7 @@ export function toJSON(ops) {
       case "theme": return { theme: o.props };
       case "focus": return { focus: Number(o.screen) || o.screen };
       case "close": return { close: true };
+      case "talk": return { talk: o.props.on, ...scr };
       default: return { error: o.message };
     }
   });

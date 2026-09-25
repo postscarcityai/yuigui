@@ -56,6 +56,20 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
         val pages = parse(input).filter { it["op"] == "add" }.map { pageOf(it["screen"] as String?).toDouble() }
         if (!same(pages, v["pages"])) fails.add("pages (page of each add)" to pages)
     }
+    if (v["talk"] != null) {
+        val on = talking(parse(input)).map { it.toDouble() }
+        if (!same(on, v["talk"])) fails.add("talk (pages with the composer on)" to on)
+    }
+    val typed = v["typed"] as Map<String, Any?>?
+    if (typed != null) {
+        val screen = typed["screen"] as String
+        val words = typed["words"] as String
+        val made = typedBody(screen, words)
+        if (made != typed["body"]) fails.add("typed (body for words typed on the screen)" to made)
+        val read = readTyped(typed["body"] as String)
+        val want = if (pageOf(screen) == 1) null else mapOf("screen" to screen, "words" to words)
+        if (!same(read, want)) fails.add("typed (read back)" to read)
+    }
     val hasError = expected.any { it["op"] == "error" }
     if (hasError != (v["error"] == true)) fails.add("vector: `error` flag does not match expected" to v["error"])
     return fails
