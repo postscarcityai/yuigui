@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-25",
+    "title": "How an agent could make up a whole game",
+    "card": "YUI-60",
+    "body": "Today an agent can pick one of three games. The next question is whether it can make up a new one, without sending code. We wrote a draft spec to answer it. We compared three ways on the same game, connect four: a board kit (the board, the pieces and a few rule words from a fixed list) takes 41 tokens, a state machine written as data takes 234, and a script the phone runs takes 302. The script is also what Apple's guideline 2.5.2 rules out: an app may not download and run code that adds features. The board kit is data, like new levels for a puzzle game, so it fits. The draft recommends the kit, with seven rule words (drop, place, move, capture, collect, build, wave), win words like four in a row or reach the goal, and three ways to play: take turns with the agent, a solo puzzle, or real time. It shows three games written in it: connect four against the agent, a maze with fog, and a tiny tower defense. Nothing is built yet. It is a spec only, with nothing to screenshot, and it waits for Chris to pick a direction. Read it under Developers, Games."
+  },
+  {
+    "date": "2026-09-25",
     "title": "Claude Code can put a screen on your phone now",
     "card": "INT-3",
     "body": "Yui has an MCP server. Any AI app that speaks MCP, like Claude Code or Cursor, can now draw on your phone with a tool call and get your taps back. You keep talking on your laptop; Yui is the second screen. Add an agent in the app, trade its 6-digit code for a token, and add one line to your client. Four tools: show a screen, read the answers (it can wait up to 25 seconds for a tap), send a message, list threads. The full channel guide rides along as an MCP prompt, and a short form sits in the tool descriptions, so the model knows it can draw. Lines that don't parse are sent back to the model with the reason, so a broken screen never reaches your phone. In the live test a real Claude Code asked \"Ready for a tabata?\" on the simulator, the test tapped Yes, and Claude put up the timer. 34 of 34 server checks and 9 of 9 end-to-end checks passed. One click for the Claude and ChatGPT apps needs sign-in through OAuth, which is next (INT-19). The guide is on the site under Developers, MCP.",

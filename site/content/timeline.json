@@ -1,16 +1,55 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 71,
-    "site": 186,
+    "app": 72,
+    "site": 187,
     "builds": 24,
-    "shipped": 104,
-    "screenshots": 204
+    "shipped": 106,
+    "screenshots": 206
   },
   "days": [
     {
       "date": "2026-09-25",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-25T07:37:29.715Z",
+          "title": "How an agent could make up a whole game",
+          "card": "YUI-60",
+          "anchor": "how-an-agent-could-make-up-a-whole-game",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 72,
+            "site": 187,
+            "builds": 24,
+            "shipped": 106
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T07:16:33.000Z",
+          "title": "Claude Code can put a screen on your phone now",
+          "card": "INT-3",
+          "anchor": "claude-code-can-put-a-screen-on-your-phone-now",
+          "images": [
+            {
+              "src": "/progress/int3-claude-ask.webp",
+              "alt": "Yui on an iPhone simulator: an agent named Claude, connected from Claude Code through MCP, asks \"Ready for a tabata?\" with Yes and Not now buttons."
+            },
+            {
+              "src": "/progress/int3-claude-timer.webp",
+              "alt": "After the Yes tap, Claude answers through MCP with a full-screen Tabata timer: 0:20 work, round 1 of 8, and a Start button."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 72,
+            "site": 187,
+            "builds": 24,
+            "shipped": 105
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-25T06:59:56.000Z",
@@ -309,6 +348,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "577d462",
+          "at": "2026-09-25T07:16:33.000Z",
+          "text": "Yui MCP server on the site: spec/MCP.md (endpoint, three steps from pairing code to claude mcp add, the four tools, how the guide gets...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/577d462"
+        },
+        {
+          "repo": "app",
+          "sha": "34d3620",
+          "at": "2026-09-25T07:15:41.000Z",
+          "text": "Yui MCP server: any MCP client puts a screen on the phone. Edge function yui-mcp (streamable HTTP, stateless, JSON-RPC by hand):...",
+          "url": "https://github.com/postscarcityai/yui/commit/34d3620"
+        },
         {
           "repo": "site",
           "sha": "15756a7",

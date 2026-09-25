@@ -17,6 +17,7 @@ const ORDER = [
   ["openclaw", "OpenClaw", null, "Your OpenClaw agent in Yui: install the channel plugin, pair, and what the agent is told."],
   ["webhook", "Webhook bridge", null, "Any agent that answers an HTTP POST, in Yui: what each turn sends and what to answer."],
   ["mcp", "MCP server", null, "Any MCP client (Claude Code, Cursor, n8n) puts a screen on your phone and reads the taps back."],
+  ["games", "Games (draft)", null, "Draft: how an agent could describe a whole new game in lines, a board kit with rule words, not code."],
   ["flywheel", "Preset flywheel", null, "How custom screens agents keep sending become presets: the shape log, the weekly report and the checklist."],
 ];
 
