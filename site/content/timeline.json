@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 68,
-    "site": 173,
+    "site": 175,
     "builds": 24,
-    "shipped": 97,
-    "screenshots": 179
+    "shipped": 98,
+    "screenshots": 181
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T05:28:06.515Z",
+          "at": "2026-09-25T05:30:14.000Z",
+          "title": "Build to earn, the proposal",
+          "card": "SITE-29",
+          "anchor": "build-to-earn-the-proposal",
+          "images": [
+            {
+              "src": "/progress/earn-position.webp",
+              "alt": "Our position on /earn in light mode, with Chris's line about the Supreme Court and the first two forms it could take"
+            },
+            {
+              "src": "/progress/earn-questions.webp",
+              "alt": "Numbered questions for counsel on /earn in dark mode, each a card with its answer waiting on counsel"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 68,
+            "site": 175,
+            "builds": 24,
+            "shipped": 98
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T05:28:53.000Z",
           "title": "Copy any part of a message",
           "card": null,
           "anchor": "copy-any-part-of-a-message",
@@ -30,7 +54,7 @@
           "commits": 0,
           "totals": {
             "app": 68,
-            "site": 173,
+            "site": 174,
             "builds": 24,
             "shipped": 97
           }
@@ -96,6 +120,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "9fc3bf7",
+          "at": "2026-09-25T05:30:14.000Z",
+          "text": "Build to earn, the proposal (SITE-29): our position, four forms, ten numbered questions for counsel",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9fc3bf7"
+        },
+        {
+          "repo": "site",
+          "sha": "994e19b",
+          "at": "2026-09-25T05:28:53.000Z",
+          "text": "Progress: copy any part of a message (Select text, TestFlight feedback AG9JzU4LeWl-TFeKWftiFIE, app commit ac11695); content sync",
+          "url": "https://github.com/postscarcityai/yuigui/commit/994e19b"
+        },
         {
           "repo": "app",
           "sha": "ac11695",

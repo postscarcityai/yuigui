@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T05:22:08.219Z",
+  "updated": "2026-09-25T05:31:47.298Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -97,10 +97,6 @@
         },
         {
           "key": "YUI-61",
-          "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)"
-        },
-        {
-          "key": "YUI-61",
           "title": "Slash commands in the composer"
         },
         {
@@ -135,6 +131,10 @@
           "key": "YUI-72",
           "title": "Admin console, scope only",
           "summary": "Roles, controls, where it lives"
+        },
+        {
+          "key": "YUI-74",
+          "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)"
         },
         {
           "key": "OSS-3",
@@ -257,11 +257,6 @@
           "summary": "Basic CRUD over soul, memory, skills, schedules"
         },
         {
-          "key": "SITE-29",
-          "title": "Build to earn proposal",
-          "summary": "Our position + open legal questions for counsel"
-        },
-        {
           "key": "SITE-30",
           "title": "Thoughts, Yui's blog",
           "summary": "Releases, whys, calls to agents, screenshot-first"
@@ -277,27 +272,6 @@
       "key": "building",
       "title": "Building",
       "cards": [
-        {
-          "key": "YUI-51",
-          "title": "Multi-step screens that fold back into chat as your own messages",
-          "summary": "Read, answer, send once: a plan is now one full-screen flow",
-          "waiting": true,
-          "progress": "/progress#read-answer-send-once-a-plan-is-now-one-full-screen-flow"
-        },
-        {
-          "key": "YUI-31",
-          "title": "Three screens per agent with animated transitions",
-          "summary": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
-          "waiting": true,
-          "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away"
-        },
-        {
-          "key": "YUI-32",
-          "title": "Named screens",
-          "summary": "Save a screen, bring it back with two tokens: every agent gets a shelf",
-          "waiting": true,
-          "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
-        },
         {
           "key": "YUI-56",
           "title": "Invites end to end",
@@ -340,10 +314,20 @@
           "waiting": true
         },
         {
+          "key": "SITE-31",
+          "title": "yuigui.com freshness sweep",
+          "summary": "Every page matches the board, builds and app today"
+        },
+        {
           "key": "YUI-65",
           "title": "War room dashboard",
-          "summary": "A timeline of done and queued",
-          "waiting": true
+          "summary": "A timeline of done and queued"
+        },
+        {
+          "key": "SITE-29",
+          "title": "Build to earn proposal",
+          "summary": "Build to earn, the proposal",
+          "progress": "/progress#build-to-earn-the-proposal"
         }
       ]
     },
@@ -351,6 +335,27 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-51",
+          "title": "Multi-step screens that fold back into chat as your own messages",
+          "summary": "Read, answer, send once: a plan is now one full-screen flow",
+          "shipped": "2026-09-25",
+          "progress": "/progress#read-answer-send-once-a-plan-is-now-one-full-screen-flow"
+        },
+        {
+          "key": "YUI-32",
+          "title": "Named screens",
+          "summary": "Save a screen, bring it back with two tokens: every agent gets a shelf",
+          "shipped": "2026-09-25",
+          "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
+        },
+        {
+          "key": "YUI-31",
+          "title": "Three screens per agent with animated transitions",
+          "summary": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
+          "shipped": "2026-09-25",
+          "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away"
+        },
         {
           "key": "YUI-70",
           "title": "Chat gestures",
