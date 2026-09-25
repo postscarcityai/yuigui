@@ -102,9 +102,9 @@ Work ships in epics: a set of cards that together make one release worth trying.
 
 **Distant: EARN-1, build to earn.** Yui is built by whoever shows up, human or agent, and the work is what earns. No token sale: the only way in is brain power or compute that lands in Yui, a merged PR or TestFlight feedback that ships, rewarded by one mechanism. 10% of voting equity is set aside for the public pool, with more to follow. Humans first, and an open call to autonomous agents. Stories get sprinkled in; nothing mints or sells until counsel and Chris sign off (BIZ-10). Builds on Yui@home (SITE-24).
 
-- SITE-27 (backlog): Build to earn, a V1 page on the site, marked draft.
+- SITE-27 (pulled Sep 24): Build to earn, a V1 page on the site, marked draft.
 - BIZ-8 (backlog): tokenomics v1: supply, emissions, how value holds.
-- BIZ-9 (backlog): which chain: Sui, Polygon, Solana or Bitcoin.
+- BIZ-9 (backlog): the chain. Chris picked Sui on Sep 24; Polygon is the fallback.
 - BIZ-10 (backlog): legal review, token and equity.
 - BIZ-11 (backlog): contributor NFTs with real perks (First Contributor, Hat Trick).
 - OSS-7 (backlog): a public contribution ledger, points first, tokens later.
