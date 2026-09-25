@@ -1,6 +1,140 @@
 {
   "builds": [
     {
+      "build": 64,
+      "date": "2026-09-25",
+      "uploaded": "2026-09-24T21:13:44-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Screens are dynamic, 2 to 12: the chat, then a page for each screen the agent puts something on (>5 alone makes chat and screen 5), and >N clear takes the page away, back to the chat if it was showing. The indicator above the composer is a small chat glyph and one dot per screen, the one on show filled and wider; with only the chat there is no indicator and no sideways swipe. >13, >0 and >02 stay in the chat. YuiLines.page(of:) takes 2 to 12 (YuiLines.maxPage), vectors 351/351. Reduce Motion re-scrolls a jump that stopped short on a page still being laid out. Channel guide: Screens 2 to 12. PageCountTests: chat only has no indicator, 2, 5 and 12 screens have 2, 5 and 12 tabs, no 13th, clear removes a page; PagesTests 3/3, YuiTests 41/41 (TestFlight feedback AHBOxACTsmO3vFCHkz29T9Q, build 57)"
+        },
+        {
+          "text": "Screens are full screen: off the chat, the top bar (agents, settings) and the composer go away and the page gets the whole phone, with only the chat glyph and dots at the bottom; both come back on the chat, and the keyboard drops when you swipe to a screen. PageCountTests.testScreensAreFullScreen: no composer or nav bar on screen 2, both back on the chat; PageCountTests 6/6, PagesTests 3/3 (TestFlight feedback AK_HP72Gl1E_xK9soizV4Mc, build 57)"
+        },
+        {
+          "text": "Hold to talk like WhatsApp: a live waveform and a clock while it listens, let go sends, slide left to the trash cancels (the trash arms at 110pt and says Let go to cancel); Reduce Motion gets one still level bar; a voice send leaves the keyboard down. The crash in this feedback came from build 57, before the fix in build 61: the pre-fix code traps on the simulator with speech + mic granted in the same frame as the phone (closure in PushToTalk.authorized, from TCC), the fixed code passes. PushToTalkTests 4/4 (waveform peaks, cancel discards), ComposerAttachTests 8/8 light + dark (real hold, slide and let-go through -yuiPTTFake), ComposerTests 4/4, YuiTests 45/45 (YUI-hotfix)"
+        }
+      ]
+    },
+    {
+      "build": 61,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-24T19:58:45-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Test builds by link: scripts/devbuild.sh archives a clean worktree of origin/main as an ad hoc build (<commit count>.<n>, production APNs), hosts the .ipa and its itms-services manifest in the private yui-builds bucket behind 7-day signed links, and sends a card with an Install button into the Yui thread; no TestFlight, no upload limit, installs only on registered iPhones. card url= opens an https or itms-services link as well as emitting {cta}. media_sweep removes builds older than 8 days. README Test builds",
+          "card": "YUI-55"
+        },
+        {
+          "text": "Invites: yui_invites in PROOF (server only, RLS, no grants; the waitlist comes over as requests), supabase/scripts/invite.py lists, adds, approves and declines, and approve makes a one-time code (stored hashed) and adds the person to the external TestFlight group Invited through App Store Connect, so Apple sends the email and Yui sends none; the first Sign in with Apple claims the invite by the verified Apple ID email, or by the code from yuigui.com/i/<code> (a universal link, or yui://invite/<code>) or typed under Invite code on the sign-in screen; a signed-in person opening a link claims it at once, a bad code says so; wrong codes are rate limited; deleting the account deletes its invite, declined ones go after 30 days; testflight_public.py fills Invited too. invites_test 54/54, invite_claim_e2e 2/2",
+          "card": "YUI-56"
+        },
+        {
+          "text": "Tall screenshots stay inside their gallery: TallGalleryTests sends four phone screenshots (about 1:2.2) with a question card under them, every layout with and without +pick, and checks no photo runs under the card and no two overlap; Chris's 'still overlap' from build 33 is gone on build 57",
+          "card": "YUI-52"
+        },
+        {
+          "text": "Hold to talk no longer crashes: the speech permission answer, the mic tap and the recognizer's results come back on system threads, and the closures that took them were written inside the main-actor PushToTalk, so Swift 6 trapped the moment one ran (TestFlight crash ANv4a2bHdXMMaEjjhTva5ZA, build 57, _dispatch_assert_queue_fail in PushToTalk.authorized). They are now built in nonisolated code and hop to the main actor. A mic with no usable input (a call, a route change) shows can't listen instead of crashing in installTap. PushToTalkTests: start() with speech + mic granted trapped before, passes now; the tap and results called from a background thread reach the main actor. YuiTests 43/43"
+        }
+      ]
+    },
+    {
+      "build": 57,
+      "date": "2026-09-24",
+      "uploaded": "2026-09-24T17:45:40-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Every full screen has a way out: a real X, a swipe down, compare full screen"
+        },
+        {
+          "text": "Demo clips: record every preset in the simulator, cut 9:16 and 16:9 with a caption",
+          "card": "SOC-2"
+        },
+        {
+          "text": "Done always does something: gallery and pick answer with nothing ticked, photos stop covering it"
+        },
+        {
+          "text": "Gallery photos keep to their own space: layout test at 1-7 photos, every layout"
+        },
+        {
+          "text": "Sent words leave the composer, and the bubble lifts into the thread"
+        },
+        {
+          "text": "Answers are still there when you reopen a thread: chosen, picked, slid, asked and sent forms rebuilt from the thread's event rows, newest per id"
+        },
+        {
+          "text": "Loose quoted options become buttons and ~card@week patches the card (YL sections 4 and 5)"
+        },
+        {
+          "text": "Every look on screen: the Add agent picker is a grid sorted by hue, six new colors (cherry, honey, lime, teal, grape, slate)"
+        },
+        {
+          "text": "Long turns read as work, not trouble: \"Yui is working · 2m 20s\" counts up, no time limit, no restart advice, resumes on reopen"
+        },
+        {
+          "text": "Narration never speaks in a robot voice: skip the Eloquence, MacinTalk and novelty voices and Personal Voice, pick premium > enhanced > Samantha, per agent within the best tier"
+        },
+        {
+          "text": "Send photos and talk from the composer: one + for the photo library and camera, hold the mic to talk, let go to send"
+        },
+        {
+          "text": "The timer keeps counting on the lock screen and in the Dynamic Island: a Live Activity per running timer with round x of n, work and rest phases, pause and resume from the buttons, ends cleanly when the rounds are done",
+          "card": "YUI-30"
+        },
+        {
+          "text": "Hold an agent's message to react: six reactions float above it (build it, no, not sure, love it, later, priority), the pick goes to the agent as one turn with the message quoted, and the badge stays on the bubble",
+          "card": "YUI-49"
+        },
+        {
+          "text": "A plan's last button says Send instead of Create project, and agents get channel guide v8: every button does something, no \"Got it\" buttons",
+          "card": "YUI-53"
+        },
+        {
+          "text": "Scrolled up a long thread: a round arrow above the composer counts the agent's new messages and brings you back to the newest in one tap; a sent bubble fades in under Reduce Motion",
+          "card": "YUI-50"
+        },
+        {
+          "text": "Findings, then questions, in one full-screen flow: a plan shows pages to read before its questions, opens full screen, closes itself on Send, and leaves a record in the chat (title, pages, answers, reopens the flow) plus your answers as your own message; channel guide v9",
+          "card": "YUI-51"
+        },
+        {
+          "text": "Saved screens get a shelf: the agent's saves sit as chips at the top of its thread, a tap reopens one full screen with no turn, hold to remove; show busy day works in a later reply, forget takes it off, events from a screen that came back carry saved=; the shelf rebuilds from the thread and is kept on the phone; channel guide v10",
+          "card": "YUI-32"
+        },
+        {
+          "text": "The preset flywheel: with yui.flywheel on, the Hermes plugin notes every custom screen an agent sends by its shape only (type tree and key names, never a value) plus unknown preset words, in a local log; flywheel_report.py ranks shapes by days and uses and flags the ones past the bar (5 uses on 3 days); tests prove no text, number or URL reaches the log",
+          "card": "YUI-42"
+        },
+        {
+          "text": "Flywheel report --seen: the weekly job announces a shape once, not every Friday",
+          "card": "YUI-42"
+        },
+        {
+          "text": "Webhook bridge, Python and Node: any agent that answers an HTTP POST can talk in Yui. Pair with the app's code, point the bridge at your agent's URL; each turn arrives as one signed POST with the channel guide, the answer goes back exactly once (outbox on disk, meta.turn, delivered/handled acks, replay after a crash), a clean stop reads offline. Ten-line example agents answer with a choose screen. Live test on a throwaway account: 44/44",
+          "card": "INT-2"
+        },
+        {
+          "text": "Three screens per agent: the chat, then screens 2 and 3 a swipe away, with Chat, 2, 3 tabs above the composer and a dot on a page with something on it; a reply that sends a line to a page brings it forward with a spring, or a cross-fade under Reduce Motion, and the chat keeps an On screen 2 pill that goes there; pages keep their content across replies, >2 clear empties one, the page is remembered per agent; YuiLines.page(of:), 349/349 vectors; the shelf and the jump-to-bottom arrow stay on the chat page; channel guide v11",
+          "card": "YUI-31"
+        },
+        {
+          "text": "OpenClaw channel plugin: an OpenClaw agent talks in Yui the way a Hermes agent does. openclaw plugins install, openclaw yui pair <code> --agent main, restart the gateway; each turn runs through OpenClaw's own inbound dispatch with the channel guide and a plain 'Yui Lines, not A2UI' note in the trusted system prompt, the reply lands exactly once (outbox on disk, meta.turn, delivered/handled acks, replay after a crash), a clean stop reads offline, cron and the message tool deliver as handoffs. New connector kind openclaw. Live test on a throwaway account with a real gateway in a throwaway OpenClaw home: 24/24",
+          "card": "INT-1"
+        },
+        {
+          "text": "CONTRIBUTING: point to the community page and the three lines challenge",
+          "card": "OSS-5"
+        },
+        {
+          "text": "Marketing videos: scripts/promo_videos.py records four scripted scenes on the demo account (YuiPromoTests: a timer, a choice, a chart, and adding an agent through pairing to its first screen) and cuts Yui in 15s, Yui Lines in 30s and your Hermes on your phone in 60s, 9:16 and 16:9, captions burned in, cards drawn by scripts/promo_card.swift; debug-only demo hooks: -yuiDemoPairAfter brings a new agent online, -yuiDemoReply answers what you send, -yuiNoAgents shows first run on the demo account, and the demo pairing code is the 123456 placeholder yuigui.com/start shows",
+          "card": "SOC-3"
+        }
+      ]
+    },
+    {
       "build": 33,
       "date": "2026-09-24",
       "uploaded": "2026-09-24T05:55:57-07:00",
@@ -298,94 +432,13 @@
   ],
   "next": [
     {
-      "text": "Every full screen has a way out: a real X, a swipe down, compare full screen"
+      "text": "A newly added agent answers what you sent before its gateway came up: pairing and the gateway restart are separate steps, and the plugin started a first-seen agent's cursor at \"now\", so anything sent in between was skipped for good and the app sat on \"Sent to an agent\" (TestFlight feedback AMiI7ezKx6x1KcexlzOKYJc: an agent paired 22:36, gateway never restarted, \"Did we stall?\" never answered). A new agent now starts a day back (new_agent_floor); only unhandled user rows are fetched, so nothing already answered replays. Proof on the live case: cleared the agent's cursor, restarted, both waiting messages went in as one turn and an agent replied in 21s. Plugin only, no app build needed."
     },
     {
-      "text": "Demo clips: record every preset in the simulator, cut 9:16 and 16:9 with a caption",
-      "card": "SOC-2"
+      "text": "Links look like links: a card with url= gets an arrow on its button, opens the page in Safari and sends nothing to the chat, so the agent no longer answers a tap that already did its job (TestFlight feedback AHbFq_lhBMRFGDoCfVzMf4A: Install only posted \"Install\" and Yui replied with a second card). The test build card now points at yuigui.com/install.html, so Install opens Safari and installs from there. Channel guide: a link out is card ... url=. PresetFamiliesTests.testCardLink: Install opens Safari with no card event, Start still emits; testFlows passes"
     },
     {
-      "text": "Done always does something: gallery and pick answer with nothing ticked, photos stop covering it"
-    },
-    {
-      "text": "Gallery photos keep to their own space: layout test at 1-7 photos, every layout"
-    },
-    {
-      "text": "Sent words leave the composer, and the bubble lifts into the thread"
-    },
-    {
-      "text": "Answers are still there when you reopen a thread: chosen, picked, slid, asked and sent forms rebuilt from the thread's event rows, newest per id"
-    },
-    {
-      "text": "Loose quoted options become buttons and ~card@week patches the card (YL sections 4 and 5)"
-    },
-    {
-      "text": "Every look on screen: the Add agent picker is a grid sorted by hue, six new colors (cherry, honey, lime, teal, grape, slate)"
-    },
-    {
-      "text": "Long turns read as work, not trouble: \"Yui is working · 2m 20s\" counts up, no time limit, no restart advice, resumes on reopen"
-    },
-    {
-      "text": "Narration never speaks in a robot voice: skip the Eloquence, MacinTalk and novelty voices and Personal Voice, pick premium > enhanced > Samantha, per agent within the best tier"
-    },
-    {
-      "text": "Send photos and talk from the composer: one + for the photo library and camera, hold the mic to talk, let go to send"
-    },
-    {
-      "text": "The timer keeps counting on the lock screen and in the Dynamic Island: a Live Activity per running timer with round x of n, work and rest phases, pause and resume from the buttons, ends cleanly when the rounds are done",
-      "card": "YUI-30"
-    },
-    {
-      "text": "Hold an agent's message to react: six reactions float above it (build it, no, not sure, love it, later, priority), the pick goes to the agent as one turn with the message quoted, and the badge stays on the bubble",
-      "card": "YUI-49"
-    },
-    {
-      "text": "A plan's last button says Send instead of Create project, and agents get channel guide v8: every button does something, no \"Got it\" buttons",
-      "card": "YUI-53"
-    },
-    {
-      "text": "Scrolled up a long thread: a round arrow above the composer counts the agent's new messages and brings you back to the newest in one tap; a sent bubble fades in under Reduce Motion",
-      "card": "YUI-50"
-    },
-    {
-      "text": "Findings, then questions, in one full-screen flow: a plan shows pages to read before its questions, opens full screen, closes itself on Send, and leaves a record in the chat (title, pages, answers, reopens the flow) plus your answers as your own message; channel guide v9",
-      "card": "YUI-51"
-    },
-    {
-      "text": "Saved screens get a shelf: the agent's saves sit as chips at the top of its thread, a tap reopens one full screen with no turn, hold to remove; show busy day works in a later reply, forget takes it off, events from a screen that came back carry saved=; the shelf rebuilds from the thread and is kept on the phone; channel guide v10",
-      "card": "YUI-32"
-    },
-    {
-      "text": "The preset flywheel: with yui.flywheel on, the Hermes plugin notes every custom screen an agent sends by its shape only (type tree and key names, never a value) plus unknown preset words, in a local log; flywheel_report.py ranks shapes by days and uses and flags the ones past the bar (5 uses on 3 days); tests prove no text, number or URL reaches the log",
-      "card": "YUI-42"
-    },
-    {
-      "text": "Flywheel report --seen: the weekly job announces a shape once, not every Friday",
-      "card": "YUI-42"
-    },
-    {
-      "text": "Webhook bridge, Python and Node: any agent that answers an HTTP POST can talk in Yui. Pair with the app's code, point the bridge at your agent's URL; each turn arrives as one signed POST with the channel guide, the answer goes back exactly once (outbox on disk, meta.turn, delivered/handled acks, replay after a crash), a clean stop reads offline. Ten-line example agents answer with a choose screen. Live test on a throwaway account: 44/44",
-      "card": "INT-2"
-    },
-    {
-      "text": "Three screens per agent: the chat, then screens 2 and 3 a swipe away, with Chat, 2, 3 tabs above the composer and a dot on a page with something on it; a reply that sends a line to a page brings it forward with a spring, or a cross-fade under Reduce Motion, and the chat keeps an On screen 2 pill that goes there; pages keep their content across replies, >2 clear empties one, the page is remembered per agent; YuiLines.page(of:), 349/349 vectors; the shelf and the jump-to-bottom arrow stay on the chat page; channel guide v11",
-      "card": "YUI-31"
-    },
-    {
-      "text": "OpenClaw channel plugin: an OpenClaw agent talks in Yui the way a Hermes agent does. openclaw plugins install, openclaw yui pair <code> --agent main, restart the gateway; each turn runs through OpenClaw's own inbound dispatch with the channel guide and a plain 'Yui Lines, not A2UI' note in the trusted system prompt, the reply lands exactly once (outbox on disk, meta.turn, delivered/handled acks, replay after a crash), a clean stop reads offline, cron and the message tool deliver as handoffs. New connector kind openclaw. Live test on a throwaway account with a real gateway in a throwaway OpenClaw home: 24/24",
-      "card": "INT-1"
-    },
-    {
-      "text": "CONTRIBUTING: point to the community page and the three lines challenge",
-      "card": "OSS-5"
-    },
-    {
-      "text": "Marketing videos: scripts/promo_videos.py records four scripted scenes on the demo account (YuiPromoTests: a timer, a choice, a chart, and adding an agent through pairing to its first screen) and cuts Yui in 15s, Yui Lines in 30s and your Hermes on your phone in 60s, 9:16 and 16:9, captions burned in, cards drawn by scripts/promo_card.swift; debug-only demo hooks: -yuiDemoPairAfter brings a new agent online, -yuiDemoReply answers what you send, -yuiNoAgents shows first run on the demo account, and the demo pairing code is the 123456 placeholder yuigui.com/start shows",
-      "card": "SOC-3"
-    },
-    {
-      "text": "Test builds by link: scripts/devbuild.sh archives a clean worktree of origin/main as an ad hoc build (<commit count>.<n>, production APNs), hosts the .ipa and its itms-services manifest in the private yui-builds bucket behind 7-day signed links, and sends a card with an Install button into the Yui thread; no TestFlight, no upload limit, installs only on registered iPhones. card url= opens an https or itms-services link as well as emitting {cta}. media_sweep removes builds older than 8 days. README Test builds",
-      "card": "YUI-55"
+      "text": "A test build's Install link parses whole: card url= keeps a 300+ character signed link with a fragment, an encoded manifest url, & and = and a JWT, quoted or not, whole or streamed one character at a time, for https and itms-services (TestFlight feedback AMbvlwiMPj49qT1jeKlZID4, build 61.1). The tap-instead-of-Safari bug itself is the url= link fix in dc11e1d, commit 66, after 61.1. CardLinkTests 2/2, YuiLines 11/11"
     }
   ]
 }
