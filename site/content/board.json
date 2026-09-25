@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T07:40:23.152Z",
+  "updated": "2026-09-25T08:10:32.645Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -211,10 +211,6 @@
           "title": "A2A client, add any agent by its Agent Card"
         },
         {
-          "key": "INT-19",
-          "title": "Yui MCP server step 2, OAuth (Sign in with Apple through Yui)"
-        },
-        {
           "key": "BIZ-7",
           "title": "Brand direction"
         },
@@ -265,11 +261,6 @@
           "mvp": true
         },
         {
-          "key": "YUI-73",
-          "title": "The war room, built out",
-          "summary": "Needs you, running now, timeline, builds, feedback, MVP bar"
-        },
-        {
           "key": "YUI-70",
           "title": "Agent controls in the drawer",
           "summary": "Basic CRUD over soul, memory, skills, schedules"
@@ -297,15 +288,19 @@
           "summary": "Drop-up switcher, pinned screens, to review, about"
         },
         {
-          "key": "YUI-68",
-          "title": "Reply to a message",
-          "summary": "Swipe a bubble left, or hold it (reactions, copy, reply)"
-        },
-        {
           "key": "YUI-60",
           "title": "Yui Lines can describe a game, not just pick one",
           "summary": "How an agent could make up a whole game",
           "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
+        },
+        {
+          "key": "YUI-73",
+          "title": "The war room, built out",
+          "summary": "Needs you, running now, timeline, builds, feedback, MVP bar"
+        },
+        {
+          "key": "INT-19",
+          "title": "Yui MCP server step 2, OAuth (Sign in with Apple through Yui)"
         }
       ]
     },
@@ -313,6 +308,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-68",
+          "title": "Reply to a message",
+          "summary": "Reply to one message",
+          "shipped": "2026-09-25",
+          "progress": "/progress#reply-to-one-message"
+        },
         {
           "key": "INT-3",
           "title": "Yui MCP server",
