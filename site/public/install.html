@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Install a Yui test build</title>
+<title>Install Yui Dev</title>
 <!-- YUI-55: the link to a test build rides in the fragment (#b=<build>&m=<manifest URL>),
      which the browser never sends to this server. The page only accepts manifests in Yui's
      private build bucket, and ad hoc builds install only on registered iPhones. -->
@@ -14,9 +14,11 @@ a.btn{display:block;margin:32px auto;padding:16px;border-radius:18px;background:
 @media (prefers-color-scheme:dark){body{background:#221B29;color:#F4ECF7}p{color:#B9ADC2}}
 </style></head>
 <body>
-<h1 id="t">Yui test build</h1>
+<h1 id="t">Yui Dev</h1>
 <p id="s">Open this page on your iPhone, then tap Install.</p>
 <a class="btn" id="go" hidden>Install</a>
+<p>It installs as Yui Dev, next to your TestFlight Yui. Nothing to delete.</p>
+<p>Yui Dev starts empty: sign in once and your agents are there.</p>
 <p>Test builds install only on registered iPhones. Each link works for 7 days.</p>
 <script>
 (function () {
@@ -24,7 +26,7 @@ a.btn{display:block;margin:32px auto;padding:16px;border-radius:18px;background:
   var m = q.get("m") || "", b = (q.get("b") || "").replace(/[^0-9.]/g, "");
   var ok = /^https:\/\/[a-z0-9]+\.supabase\.co\/storage\/v1\/object\/sign\/yui-builds\/[^?#]+\/manifest\.plist\?token=[\w.-]+$/.test(m);
   if (!ok) { document.getElementById("s").textContent = "This link is incomplete or has expired. Ask Yui for a new build."; return; }
-  if (b) document.getElementById("t").textContent = "Yui " + b;
+  if (b) document.getElementById("t").textContent = "Yui Dev " + b;
   var a = document.getElementById("go");
   a.href = "itms-services://?action=download-manifest&url=" + encodeURIComponent(m);
   a.hidden = false;
