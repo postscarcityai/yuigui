@@ -446,7 +446,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 **Running Yui**
 
-- YUI-72: the admin console, scope first. Roles (owner, super user, admin, support, a client's own admin), what each can control (invites, accounts, default agents, the kill switch, feature flags, an audit log), and whether it lives on the web, in the app or both. Admins never read messages by default.
+- YUI-72 (scope done Sep 25, spec/ADMIN.md): the admin console. Five roles (owner, super user, admin, support, a client's own admin), what each can control (invites, accounts, default agents, the kill switch and limits, feature flags, announcements, feedback, usage numbers, an audit log). Recommendation: an Admin section inside the app, Sign in with Apple plus a role row, a second check for anything destructive. Admins never read messages. Three phases and six card candidates wait on a pick. Read it: [admin console](/developers/admin).
 - YUI-46: Android, starting with a prototype that passes the shared test suite.
 
 **Open source and the site**

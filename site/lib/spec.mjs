@@ -25,6 +25,7 @@ const ORDER = [
   ["mcp", "MCP server", null, "Any MCP client (Claude Code, Cursor, n8n) puts a screen on your phone and reads the taps back."],
   ["games", "Games (draft)", null, "Draft: how an agent could describe a whole new game in lines, a board kit with rule words, not code."],
   ["flywheel", "Preset flywheel", null, "How custom screens agents keep sending become presets: the shape log, the weekly report and the checklist."],
+  ["admin", "Admin console (scope)", null, "Who runs Yui from the top: five roles, what each controls, why it lives in the app, and what admins can never see."],
 ];
 
 // [{ slug, label, href, blurb, title, md }]. A spec file missing from ORDER still shows, last.

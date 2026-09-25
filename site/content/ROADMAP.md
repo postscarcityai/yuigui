@@ -323,7 +323,7 @@ Simple first, flexible combinations always: layout and style are props, so a han
 - **Media pipeline (YUI-21):** agents generate and send real images and videos into Yui; your photos go back to the agent.
 - **Native versions (YUI-19)** of all of the above.
 - **Games (YUI-59, built Sep 25; the app part shipped in build 74):** tic-tac-toe against the agent, snake and memory match, each one Yui Line (`game tictactoe`), playable on the phone, moves and scores coming back to the agent. Live in the web playground now. Later, Yui Lines that describe a whole new game instead of picking one (YUI-60, spec draft written, parked by Chris for later).
-- **Drawings (YUI-83, web and spec shipped Sep 25; TestFlight feedback, Chris: "draw a little window that has certain things crossed out and other things highlighted"):** `sketch` draws a small window, phone or chat bubble with rows struck out, highlighted or called out with an arrow, and an optional before and after, so an agent shows a change instead of describing it. No image to generate, no screenshot. Live in the web playground and the MCP App; the native view is next.
+- **Drawings (YUI-83, web and spec shipped Sep 25; YUI-84, the app draws them, on main Sep 25, rides the next build; TestFlight feedback, Chris: "draw a little window that has certain things crossed out and other things highlighted"):** `sketch` draws a small window, phone or chat bubble with rows struck out, highlighted or called out with an arrow, and an optional before and after, so an agent shows a change instead of describing it. No image to generate, no screenshot. Live in the web playground, the MCP App and the app. A sketch right after a page is that page's picture on a full-screen story page, its rows coming on one by one.
 
 ### Every agent looks like itself (YUI-20)
 
@@ -446,7 +446,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 **Running Yui**
 
-- YUI-72: the admin console, scope first. Roles (owner, super user, admin, support, a client's own admin), what each can control (invites, accounts, default agents, the kill switch, feature flags, an audit log), and whether it lives on the web, in the app or both. Admins never read messages by default.
+- YUI-72 (scope done Sep 25, spec/ADMIN.md): the admin console. Five roles (owner, super user, admin, support, a client's own admin), what each can control (invites, accounts, default agents, the kill switch and limits, feature flags, announcements, feedback, usage numbers, an audit log). Recommendation: an Admin section inside the app, Sign in with Apple plus a role row, a second check for anything destructive. Admins never read messages. Three phases and six card candidates wait on a pick. Read it: [admin console](/developers/admin).
 - YUI-46: Android, starting with a prototype that passes the shared test suite.
 
 **Open source and the site**
