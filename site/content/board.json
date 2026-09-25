@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T22:10:14.231Z",
+  "updated": "2026-09-25T22:40:19.563Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -65,10 +65,6 @@
           "summary": "Bring it into the chat, the agent proposes the edit"
         },
         {
-          "key": "YUI-77",
-          "title": "Group threads, several agents in one conversation (YUI-44 step 2)"
-        },
-        {
           "key": "YUI-85",
           "title": "The channel guide teaches a sketch under a page",
           "waiting": true
@@ -82,6 +78,10 @@
           "key": "YUI-90",
           "title": "The release timeline is live in the war room",
           "summary": "A big, always-current view of where the next version stands"
+        },
+        {
+          "key": "YUI-93",
+          "title": "Group threads in the app, step 2 of YUI-77 (migration, plugin, native)"
         },
         {
           "key": "SITE-28",
@@ -185,13 +185,12 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "YUI-39",
-          "title": "Connector library",
-          "summary": "Log in to your tools once"
-        },
-        {
           "key": "YUI-91",
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
+        },
+        {
+          "key": "YUI-77",
+          "title": "Group threads, several agents in one conversation (YUI-44 step 2)"
         }
       ]
     },
@@ -199,6 +198,18 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-92",
+          "title": "Settings shows the version you are running, at the bottom (rides 0.2.0)",
+          "shipped": "2026-09-25"
+        },
+        {
+          "key": "YUI-39",
+          "title": "Connector library",
+          "summary": "Connect your tools: the plan, and a flow you can try",
+          "shipped": "2026-09-25",
+          "progress": "/progress#connect-your-tools-the-plan-and-a-flow-you-can-try"
+        },
         {
           "key": "YUI-38",
           "title": "Onboarding interview that builds your first agents",
