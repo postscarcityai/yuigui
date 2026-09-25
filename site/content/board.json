@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T19:10:48.824Z",
+  "updated": "2026-09-25T19:40:12.130Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -105,6 +105,11 @@
           "waiting": true
         },
         {
+          "key": "OSS-3",
+          "title": "Open backlog on GitHub for contributors",
+          "waiting": true
+        },
+        {
           "key": "OSS-6",
           "title": "Yui@home",
           "summary": "Idle AI agents pull from an agent-ready backlog and send PRs"
@@ -185,12 +190,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-56",
-          "title": "Invites end to end",
-          "summary": "Invites: ask, get approved, Apple emails you, sign in and you're in",
-          "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in"
-        },
-        {
           "key": "YUI-54",
           "title": "Top-left menu becomes the agent's home",
           "summary": "Drop-up switcher, pinned screens, to review, about"
@@ -208,13 +207,8 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "OSS-3",
-          "title": "Open backlog on GitHub for contributors"
-        },
-        {
-          "key": "FLOW-1",
-          "title": "Flows",
-          "summary": "Saved series of Yui screens, authored in Mermaid, run by any agent"
+          "key": "SITE-34",
+          "title": "yuigui.com type pass, the site reads like the app's story pages"
         }
       ]
     },
@@ -222,6 +216,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "FLOW-1",
+          "title": "Flows",
+          "summary": "Flows, written in Mermaid",
+          "shipped": "2026-09-25",
+          "progress": "/progress#flows-written-in-mermaid"
+        },
+        {
+          "key": "YUI-56",
+          "title": "Invites end to end",
+          "summary": "Invites: ask, get approved, Apple emails you, sign in and you're in",
+          "shipped": "2026-09-25",
+          "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in"
+        },
         {
           "key": "YUI-72",
           "title": "Admin console, scope only",
