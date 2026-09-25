@@ -80,7 +80,7 @@ function once(sys, user, model, limit) {
 
 // ---------- scoring ----------
 
-const CORE_OPS = new Set(["theme", "save", "show", "forget", "clear", "focus", "end", "close", "talk"]);
+const CORE_OPS = new Set(["theme", "save", "show", "forget", "clear", "focus", "end", "close", "talk", "menu"]);
 const SECRET = /pass(word|code|phrase)?|\bpin\b|card.?(number|no\b|num)|\bcvv|\bcvc|\bssn\b|social.?security|secret|token|api.?key|\bkey\b|routing|account.?(number|no\b|num)|\blogin\b|credential/i;
 const NARRATE = /\b(here (are|is) (some|a|the|your) (buttons?|options?|form|screen|slider|picker|checklist)|tap (one of )?(the )?(buttons?|options?)( below| above)?|(buttons?|options?|form|slider|checklist) (below|above)|i('ve| have) (put|added|created|set up) (a|some|the) (buttons?|form|screen|slider|picker)|you (chose|picked|selected|tapped))\b/i;
 // A button that only acknowledges (YUI-53): tapping it does nothing for anyone.

@@ -14,6 +14,8 @@
 //   { op: "theme", screen, props, line }      restyle this agent's look (props.name = a named set)
 //   { op: "close", screen: "full", line }     `close` or bare ">chat": close the stage, back to screen 1
 //   { op: "talk",  screen, props: { on }, line }  `>2 talk`: page 2 keeps the composer (`talk off` takes it away)
+//   { op: "menu",  screen, id, props: { bucket, label, sub?, say?, show?, url? }, line }
+//                                             an item in the agent's drawer (`menu done id`: props { done: true })
 //   { op: "error", screen, message, line }
 // A `flow` head is an add; the Mermaid lines after it are buffered and its
 // `end` (or the end of the input) gives one patch on the flow with the graph
@@ -33,7 +35,7 @@ export const PRESETS = [
   "game", "flow",
 ];
 // Not presets, but valid line heads.
-export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk"];
+export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu"];
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -943,8 +945,9 @@ export class Parser {
 
   // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
   group(op) {
-    // A theme line restyles the app, not the screen: it leaves groups alone.
-    if (!op || op.op === "error" || op.op === "theme") return op;
+    // A theme line restyles the app and a menu line fills the drawer, not the
+    // screen: they leave groups alone.
+    if (!op || op.op === "error" || op.op === "theme" || op.op === "menu") return op;
     // Closing the stage ends whatever group was open on it, like `>2` would.
     if (op.op === "close") { this.open = []; return op; }
     if (op.op === "end") {
@@ -1062,6 +1065,7 @@ export class Parser {
       if (!name) return { op: "error", screen, message: `${head}: needs a name`, line };
       return { op: head, screen, name, line };
     }
+    if (head === "menu") return menuLine(screen, tokens, line);
     if (head === "clear") return { op: "clear", screen, line };
     if (head === "end") return { op: "end", screen, line };
     if (head === "close") {
@@ -1087,6 +1091,64 @@ export class Parser {
     const props = RAW.has(preset) ? rawArgs(preset, body.slice(head.length)) : parseArgs(preset, tokens);
     return { op: "add", screen, preset, id, props, line };
   }
+}
+
+// ---------- menu (spec section 5, The drawer) ----------
+// `menu review@dana "Invite Dana?" sub="requested yesterday"` puts an item in
+// one of three drawer sections; `menu done dana` takes it out. No @id counter,
+// no screen routing, no event of its own.
+export const MENU_BUCKETS = ["review", "backlog", "shortcut"];
+export const MENU_KEYS = ["sub", "say", "show", "url"];
+export const MENU_MAX = 20;
+export const MENU_LABEL = 60;
+
+// An item with no @id is known by its label, lowercased, with every run of
+// other characters as one "-": "Start today's workout" is start-today-s-workout.
+export function menuId(label) {
+  return String(label).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "item";
+}
+
+function menuLine(screen, tokens, line) {
+  const bad = (message) => ({ op: "error", screen, message, line });
+  if (!tokens.length) return bad("menu: needs review, backlog, shortcut or done");
+  const hm = tokens[0].raw.match(/^([a-z]+)(?:@([\w-]+))?$/);
+  if (!hm || !(MENU_BUCKETS.includes(hm[1]) || (hm[1] === "done" && !hm[2]))) {
+    return bad(`menu: "${tokens[0].raw}" is not review, backlog, shortcut or done`);
+  }
+  const rest = tokens.slice(1);
+  if (hm[1] === "done") {
+    // Same as a saved screen's name: the rest of the line. An id, or the label.
+    const name = rest.map((t) => t.text).filter(Boolean).join(" ");
+    if (!name) return bad("menu done: needs an id");
+    return { op: "menu", screen, id: /^[\w-]+$/.test(name) ? name : menuId(name), props: { done: true }, line };
+  }
+  const props = { bucket: hm[1] };
+  const words = [];
+  for (const t of rest) {
+    if (t.key) {
+      if (MENU_KEYS.includes(t.key)) props[t.key] = Array.isArray(t.value) ? t.value.join("|") : t.value;
+    } else if (!(!t.quoted && !t.parts && /^\+[a-z][\w-]*$/i.test(t.raw))) words.push(t.text);
+  }
+  const label = words.filter(Boolean).join(" ");
+  if (!label) return bad("menu: needs a label");
+  return { op: "menu", screen, id: hm[2] || menuId(label), props: { bucket: props.bucket, label, ...props }, line };
+}
+
+// The drawer's items after these ops, newest first in each section. A later
+// item with the same id replaces it wherever it was; `menu done` removes it.
+// Labels are cut at MENU_LABEL characters, and a section keeps MENU_MAX items.
+export function menuOf(ops, menu = { review: [], backlog: [], shortcut: [] }) {
+  let m = { review: [...menu.review], backlog: [...menu.backlog], shortcut: [...menu.shortcut] };
+  for (const o of ops) {
+    if (o.op !== "menu") continue;
+    for (const b of MENU_BUCKETS) m[b] = m[b].filter((it) => it.id !== o.id);
+    if (o.props.done) continue;
+    const { bucket, label, ...rest } = o.props;
+    const chars = [...label];
+    const cut = chars.length > MENU_LABEL ? chars.slice(0, MENU_LABEL - 1).join("").trimEnd() + "\u2026" : label;
+    m[bucket] = [{ id: o.id, label: cut, ...rest }, ...m[bucket]].slice(0, MENU_MAX);
+  }
+  return m;
 }
 
 // Parse a whole document at once. `known`: ids that last (Parser above).
@@ -1293,7 +1355,7 @@ export function resolve(preset, props) {
 // `stage` is true while the stage is open over the chat. Staged components
 // stay on their own screen with `stage: true`; renderers draw them on the stage.
 export function initialState() {
-  return { focus: "1", screens: { "1": [] }, saved: {}, errors: [], customs: [], stage: false, talk: {} };
+  return { focus: "1", screens: { "1": [] }, saved: {}, errors: [], customs: [], stage: false, talk: {}, menu: { review: [], backlog: [], shortcut: [] } };
 }
 
 export function apply(state, op, style = {}) {
@@ -1373,6 +1435,8 @@ export function apply(state, op, style = {}) {
       s.talk = op.props.on ? { ...rest, [op.screen]: true } : rest;
       break;
     }
+    case "menu":
+      s.menu = menuOf([op], s.menu || undefined); break;
     case "theme":
       s.theme = op.props.name ? { ...op.props } : { ...(s.theme || {}), ...op.props }; break;
     case "error":
@@ -1401,6 +1465,7 @@ export function toJSON(ops) {
       case "focus": return { focus: Number(o.screen) || o.screen };
       case "close": return { close: true };
       case "talk": return { talk: o.props.on, ...scr };
+      case "menu": return { menu: o.id, ...o.props };
       default: return { error: o.message };
     }
   });

@@ -1381,6 +1381,69 @@
         "max_words": 50
       },
       "good": "A `sketch` of the screen (frame=phone) with the headline and notes as rows, Got it as a +button row struck out (+x) with a short note (it does nothing), Install as a +button row highlighted. At most a line of chat."
+    },
+    {
+      "id": "menu-shortcut",
+      "category": "flow",
+      "agent": "Arnold",
+      "message": "I log breakfast every single morning. Give me a one-tap way to do it from now on.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say",
+          "card",
+          "form",
+          "ask",
+          "choose",
+          "pick",
+          "list",
+          "camera"
+        ],
+        "need": [
+          "menu"
+        ],
+        "max_words": 40
+      },
+      "good": "A shortcut in the drawer (`menu shortcut@breakfast \"Log breakfast\" say=\"Log breakfast: \"`) and one short line saying where it lives. No button that only acknowledges."
+    },
+    {
+      "id": "menu-tapped",
+      "category": "flow",
+      "agent": "Arnold",
+      "history": [
+        {
+          "role": "user",
+          "text": "Start working on a deload week for me, no rush."
+        },
+        {
+          "role": "agent",
+          "text": "On it. It's in your drawer while I draft it.\n```yui\nmenu backlog@deload \"Deload week plan\" sub=drafting\n```"
+        }
+      ],
+      "message": "[yui] deload menu bucket=backlog tapped",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "list",
+          "table",
+          "card",
+          "deck",
+          "page",
+          "plan",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "step",
+          "choose",
+          "ask",
+          "pick",
+          "stat",
+          "say"
+        ],
+        "max_words": 50
+      },
+      "good": "Answers the tap with the deload week itself on a screen (a list or table of the sessions, or a card), maybe `~`/re-sent menu item with sub=ready. Does not explain the tag."
     }
   ]
 }

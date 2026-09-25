@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import { flowEvent, flowPath, onStage, pageOf, parse, readTyped, resolve, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
+import { flowEvent, flowPath, menuOf, onStage, pageOf, parse, readTyped, resolve, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 
 // Parser ops minus the fields that are not compared: `line` (the source
 // text) and an error's `message` (wording is up to each parser).
@@ -46,6 +46,10 @@ function check(v) {
   if (v.talk) {
     const on = talking(parse(v.input, known));
     if (!isDeepStrictEqual(on, v.talk)) fails.push(["talk (pages with the composer on)", on]);
+  }
+  if (v.menu) {
+    const m = menuOf(parse(v.input));
+    if (!isDeepStrictEqual(m, v.menu)) fails.push(["menu (the drawer's items after the input)", m]);
   }
   if (v.typed) {
     const { screen, words, body } = v.typed;

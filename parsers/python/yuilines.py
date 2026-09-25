@@ -15,6 +15,7 @@ One line in, one op out. Ops are dicts:
   {"op": "theme", "screen", "props", "line"}      restyle this agent's look
   {"op": "close", "screen": "full", "line"}       `close` or bare ">chat"
   {"op": "talk",  "screen", "props": {"on"}, "line"}  `>2 talk`: page 2 keeps the composer
+  {"op": "menu",  "screen", "id", "props": {"bucket", "label", ...}, "line"}  an item in the drawer
   {"op": "error", "screen", "message", "line"}
 `props` holds only what the line actually said. Defaults live in resolve().
 An add that joins an open group (a page under a deck) also carries "in".
@@ -43,7 +44,7 @@ PRESETS = [
     "game",
 ]
 # Not presets, but valid line heads.
-CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk"]
+CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu"]
 
 # Groups: a group head collects the lines that follow it on the same screen,
 # as long as each one is a member preset. Anything else ends the group, and
@@ -824,6 +825,50 @@ def _no_constants(name):
     raise ValueError(f"bad JSON constant {name}")
 
 
+
+# ---------- menu (spec section 5, The drawer) ----------
+
+MENU_BUCKETS = ("review", "backlog", "shortcut")
+MENU_KEYS = ("sub", "say", "show", "url")
+_MENU_HEAD = re.compile(r"([a-z]+)(?:@([A-Za-z0-9_-]+))?")
+_MENU_WORD = re.compile(r"[A-Za-z0-9_-]+")
+
+
+def menu_id(label):
+    """An item with no @id is known by its label: lowercase, runs of anything else as one "-"."""
+    return re.sub(r"[^a-z0-9]+", "-", label.lower()).strip("-") or "item"
+
+
+def _menu_line(screen, tokens, line):
+    def bad(message):
+        return {"op": "error", "screen": screen, "message": message, "line": line}
+    if not tokens:
+        return bad("menu: needs review, backlog, shortcut or done")
+    hm = _MENU_HEAD.fullmatch(tokens[0].raw)
+    if not hm or not (hm[1] in MENU_BUCKETS or (hm[1] == "done" and not hm[2])):
+        return bad(f'menu: "{tokens[0].raw}" is not review, backlog, shortcut or done')
+    rest = tokens[1:]
+    if hm[1] == "done":
+        name = " ".join(t.text for t in rest if t.text)
+        if not name:
+            return bad("menu done: needs an id")
+        return {"op": "menu", "screen": screen, "id": name if _MENU_WORD.fullmatch(name) else menu_id(name),
+                "props": {"done": True}, "line": line}
+    props = {"bucket": hm[1]}
+    words = []
+    for t in rest:
+        if t.key:
+            if t.key in MENU_KEYS:
+                props[t.key] = "|".join(t.value) if isinstance(t.value, list) else t.value
+        elif not (not t.quoted and not t.parts and FLAG.fullmatch(t.raw)):
+            words.append(t.text)
+    label = " ".join(w for w in words if w)
+    if not label:
+        return bad("menu: needs a label")
+    props["label"] = label
+    return {"op": "menu", "screen": screen, "id": hm[2] or menu_id(label), "props": props, "line": line}
+
+
 class Parser:
     """Stateful: remembers the focused screen and which preset each id belongs
     to, so "~hiit rounds=10" knows to parse its args as a timer. `known` is the
@@ -838,7 +883,8 @@ class Parser:
 
     def group(self, op):
         """Group bookkeeping for one parsed op. Errors (and None) leave groups open."""
-        if not op or op["op"] in ("error", "theme"):
+        # theme restyles the app and menu fills the drawer: they leave groups alone.
+        if not op or op["op"] in ("error", "theme", "menu"):
             return op
         if op["op"] == "close":
             self.open = []
@@ -928,6 +974,8 @@ class Parser:
             if not name:
                 return {"op": "error", "screen": screen, "message": f"{head}: needs a name", "line": line}
             return {"op": head, "screen": screen, "name": name, "line": line}
+        if head == "menu":
+            return _menu_line(screen, tokens, line)
         if head == "clear":
             return {"op": "clear", "screen": screen, "line": line}
         if head == "end":

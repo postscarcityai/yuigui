@@ -450,6 +450,13 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .yl-card { background: #151726; border: 1px solid #23263a; border-radius: 18px; overflow: hidden; }
 .yl-card img { width: 100%; height: 130px; object-fit: cover; display: block; }
 .yl-cardbody { padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.yl-foldhead { all: unset; cursor: pointer; display: flex; gap: 10px; align-items: flex-start; }
+.yl-foldhead:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+.yl-foldtext { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.yl-foldchev { font-size: 18px; line-height: 1; opacity: .6; transition: transform .25s; }
+.yl-cardfold:not(.yl-folded) .yl-foldchev { transform: rotate(180deg); }
+.yl-folded .yl-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; opacity: .7; }
+@media (prefers-reduced-motion: reduce) { .yl-foldchev { transition: none; } }
 .yl-image { margin: 0; border-radius: 18px; overflow: hidden; background: #151726; border: 1px solid #23263a; }
 .yl-image img { width: 100%; height: 190px; display: block; }
 .yl-image figcaption { font-size: 12.5px; color: var(--muted); padding: 8px 12px; }

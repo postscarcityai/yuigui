@@ -53,6 +53,24 @@
       ]
     },
     {
+      "name": "card +fold",
+      "input": "card \"Invite Dana?\" \"She asked for the beta yesterday. Two mocks attached, and the proof is on the board.\" sub=\"requested yesterday\" +fold",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "card",
+          "id": "n1",
+          "props": {
+            "title": "Invite Dana?",
+            "body": "She asked for the beta yesterday. Two mocks attached, and the proof is on the board.",
+            "fold": true,
+            "sub": "requested yesterday"
+          }
+        }
+      ]
+    },
+    {
       "name": "image path and caption",
       "input": "image /yl/meal.svg Last night's dinner",
       "expected": [

@@ -1,0 +1,965 @@
+{
+  "version": "YL v0",
+  "area": "menu",
+  "vectors": [
+    {
+      "name": "review item with an id and a sub",
+      "input": "menu review@dana \"Invite Dana?\" sub=\"requested yesterday\"",
+      "menu": {
+        "review": [
+          {
+            "id": "dana",
+            "label": "Invite Dana?",
+            "sub": "requested yesterday"
+          }
+        ],
+        "backlog": [],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "dana",
+          "props": {
+            "bucket": "review",
+            "label": "Invite Dana?",
+            "sub": "requested yesterday"
+          }
+        }
+      ]
+    },
+    {
+      "name": "backlog item",
+      "input": "menu backlog@deload \"Deload week plan\" sub=drafting",
+      "menu": {
+        "review": [],
+        "backlog": [
+          {
+            "id": "deload",
+            "label": "Deload week plan",
+            "sub": "drafting"
+          }
+        ],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "deload",
+          "props": {
+            "bucket": "backlog",
+            "label": "Deload week plan",
+            "sub": "drafting"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shortcut with no id is known by its label",
+      "input": "menu shortcut \"Start today's workout\"",
+      "menu": {
+        "review": [],
+        "backlog": [],
+        "shortcut": [
+          {
+            "id": "start-today-s-workout",
+            "label": "Start today's workout"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "start-today-s-workout",
+          "props": {
+            "bucket": "shortcut",
+            "label": "Start today's workout"
+          }
+        }
+      ]
+    },
+    {
+      "name": "unquoted label words join with single spaces",
+      "input": "menu shortcut   Log   a meal",
+      "menu": {
+        "review": [],
+        "backlog": [],
+        "shortcut": [
+          {
+            "id": "log-a-meal",
+            "label": "Log a meal"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "log-a-meal",
+          "props": {
+            "bucket": "shortcut",
+            "label": "Log a meal"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shortcut with say=",
+      "input": "menu shortcut@log \"Log a meal\" say=\"Log a meal: \"",
+      "menu": {
+        "review": [],
+        "backlog": [],
+        "shortcut": [
+          {
+            "id": "log",
+            "label": "Log a meal",
+            "say": "Log a meal: "
+          }
+        ]
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "log",
+          "props": {
+            "bucket": "shortcut",
+            "label": "Log a meal",
+            "say": "Log a meal: "
+          }
+        }
+      ]
+    },
+    {
+      "name": "show= and url= stay text",
+      "input": "menu backlog@w \"Leg day\" show=\"leg day\"\nmenu review@pr \"Read the PR\" url=https://example.com/pr/7",
+      "menu": {
+        "review": [
+          {
+            "id": "pr",
+            "label": "Read the PR",
+            "url": "https://example.com/pr/7"
+          }
+        ],
+        "backlog": [
+          {
+            "id": "w",
+            "label": "Leg day",
+            "show": "leg day"
+          }
+        ],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "w",
+          "props": {
+            "bucket": "backlog",
+            "label": "Leg day",
+            "show": "leg day"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "pr",
+          "props": {
+            "bucket": "review",
+            "label": "Read the PR",
+            "url": "https://example.com/pr/7"
+          }
+        }
+      ]
+    },
+    {
+      "name": "numbers in values stay text",
+      "input": "menu backlog@b5 \"Build 5\" sub=5",
+      "menu": {
+        "review": [],
+        "backlog": [
+          {
+            "id": "b5",
+            "label": "Build 5",
+            "sub": "5"
+          }
+        ],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "b5",
+          "props": {
+            "bucket": "backlog",
+            "label": "Build 5",
+            "sub": "5"
+          }
+        }
+      ]
+    },
+    {
+      "name": "unknown keys and flags are dropped",
+      "input": "menu review@x \"Check this\" color=red +big",
+      "menu": {
+        "review": [
+          {
+            "id": "x",
+            "label": "Check this"
+          }
+        ],
+        "backlog": [],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "x",
+          "props": {
+            "bucket": "review",
+            "label": "Check this"
+          }
+        }
+      ]
+    },
+    {
+      "name": "newest first in each section",
+      "input": "menu review@a \"First\"\nmenu review@b \"Second\"\nmenu shortcut \"Go\"",
+      "menu": {
+        "review": [
+          {
+            "id": "b",
+            "label": "Second"
+          },
+          {
+            "id": "a",
+            "label": "First"
+          }
+        ],
+        "backlog": [],
+        "shortcut": [
+          {
+            "id": "go",
+            "label": "Go"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "a",
+          "props": {
+            "bucket": "review",
+            "label": "First"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "b",
+          "props": {
+            "bucket": "review",
+            "label": "Second"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "go",
+          "props": {
+            "bucket": "shortcut",
+            "label": "Go"
+          }
+        }
+      ]
+    },
+    {
+      "name": "same id replaces, even across sections",
+      "input": "menu review@dana \"Invite Dana?\"\nmenu backlog@dana \"Dana, later\"",
+      "menu": {
+        "review": [],
+        "backlog": [
+          {
+            "id": "dana",
+            "label": "Dana, later"
+          }
+        ],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "dana",
+          "props": {
+            "bucket": "review",
+            "label": "Invite Dana?"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "dana",
+          "props": {
+            "bucket": "backlog",
+            "label": "Dana, later"
+          }
+        }
+      ]
+    },
+    {
+      "name": "done removes by id",
+      "input": "menu review@dana \"Invite Dana?\"\nmenu review@sam \"Invite Sam?\"\nmenu done dana",
+      "menu": {
+        "review": [
+          {
+            "id": "sam",
+            "label": "Invite Sam?"
+          }
+        ],
+        "backlog": [],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "dana",
+          "props": {
+            "bucket": "review",
+            "label": "Invite Dana?"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "sam",
+          "props": {
+            "bucket": "review",
+            "label": "Invite Sam?"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "dana",
+          "props": {
+            "done": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "done by label",
+      "input": "menu shortcut \"Start today's workout\"\nmenu done Start today's workout",
+      "menu": {
+        "review": [],
+        "backlog": [],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "start-today-s-workout",
+          "props": {
+            "bucket": "shortcut",
+            "label": "Start today's workout"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "start-today-s-workout",
+          "props": {
+            "done": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "done of an unknown id does nothing",
+      "input": "menu review@a \"A\"\nmenu done zzz",
+      "menu": {
+        "review": [
+          {
+            "id": "a",
+            "label": "A"
+          }
+        ],
+        "backlog": [],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "a",
+          "props": {
+            "bucket": "review",
+            "label": "A"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "zzz",
+          "props": {
+            "done": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "an item comes back after done",
+      "input": "menu review@a \"A\"\nmenu done a\nmenu review@a \"A again\"",
+      "menu": {
+        "review": [
+          {
+            "id": "a",
+            "label": "A again"
+          }
+        ],
+        "backlog": [],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "a",
+          "props": {
+            "bucket": "review",
+            "label": "A"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "a",
+          "props": {
+            "done": true
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "a",
+          "props": {
+            "bucket": "review",
+            "label": "A again"
+          }
+        }
+      ]
+    },
+    {
+      "name": "labels are cut at 60 characters",
+      "input": "menu backlog@long \"Plan the whole deload week with lighter sets, more sleep and two walks\"",
+      "menu": {
+        "review": [],
+        "backlog": [
+          {
+            "id": "long",
+            "label": "Plan the whole deload week with lighter sets, more sleep an…"
+          }
+        ],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "long",
+          "props": {
+            "bucket": "backlog",
+            "label": "Plan the whole deload week with lighter sets, more sleep and two walks"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a section keeps 20 items",
+      "input": "menu review@r1 \"Ask 1\"\nmenu review@r2 \"Ask 2\"\nmenu review@r3 \"Ask 3\"\nmenu review@r4 \"Ask 4\"\nmenu review@r5 \"Ask 5\"\nmenu review@r6 \"Ask 6\"\nmenu review@r7 \"Ask 7\"\nmenu review@r8 \"Ask 8\"\nmenu review@r9 \"Ask 9\"\nmenu review@r10 \"Ask 10\"\nmenu review@r11 \"Ask 11\"\nmenu review@r12 \"Ask 12\"\nmenu review@r13 \"Ask 13\"\nmenu review@r14 \"Ask 14\"\nmenu review@r15 \"Ask 15\"\nmenu review@r16 \"Ask 16\"\nmenu review@r17 \"Ask 17\"\nmenu review@r18 \"Ask 18\"\nmenu review@r19 \"Ask 19\"\nmenu review@r20 \"Ask 20\"\nmenu review@r21 \"Ask 21\"\nmenu review@r22 \"Ask 22\"",
+      "menu": {
+        "review": [
+          {
+            "id": "r22",
+            "label": "Ask 22"
+          },
+          {
+            "id": "r21",
+            "label": "Ask 21"
+          },
+          {
+            "id": "r20",
+            "label": "Ask 20"
+          },
+          {
+            "id": "r19",
+            "label": "Ask 19"
+          },
+          {
+            "id": "r18",
+            "label": "Ask 18"
+          },
+          {
+            "id": "r17",
+            "label": "Ask 17"
+          },
+          {
+            "id": "r16",
+            "label": "Ask 16"
+          },
+          {
+            "id": "r15",
+            "label": "Ask 15"
+          },
+          {
+            "id": "r14",
+            "label": "Ask 14"
+          },
+          {
+            "id": "r13",
+            "label": "Ask 13"
+          },
+          {
+            "id": "r12",
+            "label": "Ask 12"
+          },
+          {
+            "id": "r11",
+            "label": "Ask 11"
+          },
+          {
+            "id": "r10",
+            "label": "Ask 10"
+          },
+          {
+            "id": "r9",
+            "label": "Ask 9"
+          },
+          {
+            "id": "r8",
+            "label": "Ask 8"
+          },
+          {
+            "id": "r7",
+            "label": "Ask 7"
+          },
+          {
+            "id": "r6",
+            "label": "Ask 6"
+          },
+          {
+            "id": "r5",
+            "label": "Ask 5"
+          },
+          {
+            "id": "r4",
+            "label": "Ask 4"
+          },
+          {
+            "id": "r3",
+            "label": "Ask 3"
+          }
+        ],
+        "backlog": [],
+        "shortcut": []
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r1",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 1"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r2",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 2"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r3",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 3"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r4",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 4"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r5",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 5"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r6",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 6"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r7",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 7"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r8",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 8"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r9",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 9"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r10",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 10"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r11",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 11"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r12",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 12"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r13",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 13"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r14",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 14"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r15",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 15"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r16",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 16"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r17",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 17"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r18",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 18"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r19",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 19"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r20",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 20"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r21",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 21"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "r22",
+          "props": {
+            "bucket": "review",
+            "label": "Ask 22"
+          }
+        }
+      ]
+    },
+    {
+      "name": "no counter: the next add is still n1",
+      "input": "menu review@a \"A\"\nask \"Ready?\"",
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "a",
+          "props": {
+            "bucket": "review",
+            "label": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Ready?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "rides the focused screen",
+      "input": ">2\nmenu shortcut@go \"Go\"",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "2"
+        },
+        {
+          "op": "menu",
+          "screen": "2",
+          "id": "go",
+          "props": {
+            "bucket": "shortcut",
+            "label": "Go"
+          }
+        }
+      ]
+    },
+    {
+      "name": "leaves an open group alone",
+      "input": "deck\npage \"One\"\nmenu backlog@x \"Later\"\npage \"Two\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "deck",
+          "id": "n1",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "title": "One"
+          }
+        },
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "x",
+          "props": {
+            "bucket": "backlog",
+            "label": "Later"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "title": "Two"
+          }
+        }
+      ]
+    },
+    {
+      "name": "empty id falls back to item",
+      "input": "menu shortcut \"?!\"",
+      "menu": {
+        "review": [],
+        "backlog": [],
+        "shortcut": [
+          {
+            "id": "item",
+            "label": "?!"
+          }
+        ]
+      },
+      "expected": [
+        {
+          "op": "menu",
+          "screen": "1",
+          "id": "item",
+          "props": {
+            "bucket": "shortcut",
+            "label": "?!"
+          }
+        }
+      ]
+    },
+    {
+      "name": "error: menu alone",
+      "input": "menu",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "error: unknown section",
+      "input": "menu note@x \"Hi\"",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "error: done takes no @id",
+      "input": "menu done@x",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "error: done needs an id",
+      "input": "menu done",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "error: an item needs a label",
+      "input": "menu review@x sub=later",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "error: bad id",
+      "input": "menu review@ \"Hi\"",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "error: uppercase section",
+      "input": "menu Review \"Hi\"",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    }
+  ]
+}

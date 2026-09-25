@@ -24,7 +24,7 @@ val PRESETS = listOf(
 )
 
 // Not presets, but valid line heads.
-val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk")
+val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu")
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -647,6 +647,43 @@ private val HEAD = rx("([a-z]+)(?:@([\\w-]+))?")
 
 private fun op(vararg kv: Pair<String, Any?>): Op = linkedMapOf(*kv)
 
+// ---------- menu (spec section 5, The drawer) ----------
+val MENU_BUCKETS = listOf("review", "backlog", "shortcut")
+val MENU_KEYS = listOf("sub", "say", "show", "url")
+private val MENU_WORD = rx("[\\w-]+")
+
+// An item with no @id is known by its label: lowercase, runs of anything else as one "-".
+fun menuId(label: String): String =
+    label.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-').ifEmpty { "item" }
+
+private fun menuLine(screen: String, tokens: List<Token>, line: String): Op {
+    fun bad(msg: String) = op("op" to "error", "screen" to screen, "message" to msg, "line" to line)
+    if (tokens.isEmpty()) return bad("menu: needs review, backlog, shortcut or done")
+    val hm = HEAD.full(tokens[0].raw)
+    if (hm == null || !(hm.groupValues[1] in MENU_BUCKETS || (hm.groupValues[1] == "done" && hm.g(2) == null))) {
+        return bad("menu: \"${tokens[0].raw}\" is not review, backlog, shortcut or done")
+    }
+    val rest = tokens.drop(1)
+    if (hm.groupValues[1] == "done") {
+        val name = rest.map { it.text }.filter { it.isNotEmpty() }.joinToString(" ")
+        if (name.isEmpty()) return bad("menu done: needs an id")
+        return op("op" to "menu", "screen" to screen, "id" to (if (MENU_WORD.test(name)) name else menuId(name)),
+            "props" to op("done" to true), "line" to line)
+    }
+    val props = linkedMapOf<String, Any?>("bucket" to hm.groupValues[1])
+    val words = ArrayList<String>()
+    for (t in rest) {
+        val k = t.key
+        if (k != null) {
+            if (k in MENU_KEYS) props[k] = (t.value as? List<*>)?.joinToString("|") ?: t.value
+        } else if (!(!t.quoted && t.parts == null && FLAG.test(t.raw))) words.add(t.text)
+    }
+    val label = words.filter { it.isNotEmpty() }.joinToString(" ")
+    if (label.isEmpty()) return bad("menu: needs a label")
+    props["label"] = label
+    return op("op" to "menu", "screen" to screen, "id" to (hm.g(2) ?: menuId(label)), "props" to props, "line" to line)
+}
+
 // Stateful: remembers the focused screen and which preset each id belongs to,
 // so "~hiit rounds=10" knows to parse its args as a timer. `known` is the ids
 // that last from earlier replies (YL.md section 5), id -> preset; this reply's
@@ -659,7 +696,8 @@ class Parser(known: Map<String, String> = emptyMap()) {
 
     // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
     private fun group(o: Op?): Op? {
-        if (o == null || o["op"] == "error" || o["op"] == "theme") return o
+        // theme restyles the app and menu fills the drawer: they leave groups alone.
+        if (o == null || o["op"] == "error" || o["op"] == "theme" || o["op"] == "menu") return o
         if (o["op"] == "close") { open.clear(); return o }
         if (o["op"] == "end") {
             if (open.isEmpty()) return op("op" to "error", "screen" to o["screen"], "message" to "end: no open deck, plan, narrate, timeline or sketch", "line" to o["line"])
@@ -743,6 +781,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
                 if (name.isEmpty()) return err("$head: needs a name")
                 return op("op" to head, "screen" to screen, "name" to name, "line" to line)
             }
+            "menu" -> return menuLine(screen, tokens, line)
             "clear" -> return op("op" to "clear", "screen" to screen, "line" to line)
             "end" -> return op("op" to "end", "screen" to screen, "line" to line)
             "close" -> {

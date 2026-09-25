@@ -369,15 +369,28 @@ function Card({ p, emit }) {
   // url= opens an https page (or an itms-services test build install) and sends nothing, like the app (YUI-67).
   const link = typeof p.url === "string" && /^(https|itms-services):/i.test(p.url) ? p.url : null;
   const cta = p.cta || (link ? "Open" : null);
+  // +fold (YUI-86): tag, title, sub and the body's first line; a tap opens the rest in place. No event.
+  const [open, setOpen] = useState(false);
+  const folded = !!p.fold && !open;
+  const head = (
+    <>
+      {p.tag ? <span className="pill now">{p.tag}</span> : null}
+      {p.sub ? <div className="yl-sub">{p.sub}</div> : null}
+      <div className="yl-q">{p.title}</div>
+      {p.body ? <div className="yl-text">{p.body}</div> : null}
+    </>
+  );
   return (
-    <div className="yl-card">
-      {p.img ? <img src={p.img} alt="" /> : null}
+    <div className={"yl-card" + (p.fold ? " yl-cardfold" : "") + (folded ? " yl-folded" : "")}>
+      {p.img && !folded ? <img src={p.img} alt="" /> : null}
       <div className="yl-cardbody">
-        {p.tag ? <span className="pill now">{p.tag}</span> : null}
-        {p.sub ? <div className="yl-sub">{p.sub}</div> : null}
-        <div className="yl-q">{p.title}</div>
-        {p.body ? <div className="yl-text">{p.body}</div> : null}
-        {cta ? <button className="bigbtn p acc full" aria-label={link ? `${cta}, opens in the browser` : undefined} onClick={() => { if (link) window.open(link, "_blank", "noopener"); else emit({ cta }); }}>{link ? `${cta} ↗` : cta}</button> : null}
+        {p.fold ? (
+          <button type="button" className="yl-foldhead" aria-expanded={open} onClick={() => setOpen(!open)}>
+            <span className="yl-foldtext">{head}</span>
+            <span className="yl-foldchev" aria-hidden="true">⌄</span>
+          </button>
+        ) : head}
+        {cta && !folded ? <button className="bigbtn p acc full" aria-label={link ? `${cta}, opens in the browser` : undefined} onClick={() => { if (link) window.open(link, "_blank", "noopener"); else emit({ cta }); }}>{link ? `${cta} ↗` : cta}</button> : null}
       </div>
     </div>
   );

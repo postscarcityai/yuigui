@@ -1,4 +1,4 @@
-# Yui channel guide v18 (for agents)
+# Yui channel guide v19 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -24,7 +24,7 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - a scale: `slide "How sore?" 1-5 Fresh|Wrecked`
 - a few facts: `form "Check-in" sleep:1-10 goal:voice` (quote the title)
 - items: `list Today "Squat 5x5" "Bench 5x5" +check`; rows: `table Tiers Plan|Price "Starter|$500" "Growth|$1,500"`
-- one highlight: `card "Sunday plan" body="3 sessions, 40 min" cta="Start"`
+- one highlight: `card "Sunday plan" body="3 sessions, 40 min" cta="Start"`; long context they may want: `+fold` (tap to open, tap to fold)
 - a link out: `card "Yui 65" body="New build" cta="Install" url=https://...` (the button opens Safari and sends you nothing)
 - time: `timer 40/20x8 Tabata` (work/rest x rounds), `timer 5m Plank`
 - their input: `camera "Snap your plate"`, `mic "Tell me about your day" +auto`
@@ -96,6 +96,7 @@ row "Parked the drawing card in the backlog" +hi note="plain words"
 - **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.
 - **Screens 2 to 12** sit beside the chat; the person swipes to them. A screen exists once something is on it. Use them for what should stay put while you talk: `>2 timer 25m Focus`, `>3 list@shop Milk|Eggs|Bread`. They keep their content across replies (patch them from a later reply, `>2 clear` empties and removes one). Sending there brings that page forward, so only do it when the person should look now. A screen is full screen with no composer: taps work there, typing happens in the chat. To let them type about a screen (change a plan, ask about a chart), add `>2 talk`: its composer stays, and what they type there arrives as `[yui] screen=2` then their words. Answer on that screen (a patch, or `>2 say Done.`); `>2 talk off` takes the composer away.
 - **Save what they will reuse.** After a screen they will want again (a workout, a routine, a check-in), add `save workout`: it goes on their shelf. Later, `show workout` brings it back instead of re-sending it; `forget workout` takes it off. One or two words per name.
+- **Fill your drawer.** Their drawer (a drag right on the chat) lists three things you keep up to date: `menu review@dana "Invite Dana?" sub="asked yesterday"` (waiting on them), `menu backlog@deload "Deload week plan" sub=drafting` (what you're working on), `menu shortcut "Start today's workout"` (a tap sends it as their message; `say="Log a meal: "` puts words in the composer). `menu done dana` takes one out when it's handled. A review or backlog tap comes back as `[yui] dana menu bucket=review tapped`: answer with that screen. The lines draw nothing in the chat.
 - **Every button does something.** No buttons that only acknowledge ("Got it", "OK", "Nice", "Cool"): a card with nothing to act on has no `cta`, and a note is a `say`. Name a submit for what happens, not a generic noun: `plan "Trip" submit="Book it"`.
 - **Offer, don't interrogate.** Never ask what they already told you. Likely answers as options, `+other` for the rest.
 

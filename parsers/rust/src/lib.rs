@@ -36,7 +36,7 @@ pub const PRESETS: &[&str] = &[
     "game",
 ];
 /// Not presets, but valid line heads.
-pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk"];
+pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu"];
 
 /// Groups: a group head collects the lines that follow it on the same screen,
 /// as long as each one is a member preset. Anything else ends the group, and
@@ -1477,6 +1477,74 @@ fn custom_line(body: &str) -> Option<(Option<&str>, &str)> {
 }
 
 /// `^([a-z]+)(?:@([\w-]+))?$` (and without the optional group for patches).
+// ---------- menu (spec section 5, The drawer) ----------
+
+pub const MENU_BUCKETS: &[&str] = &["review", "backlog", "shortcut"];
+pub const MENU_KEYS: &[&str] = &["sub", "say", "show", "url"];
+
+/// An item with no @id is known by its label: lowercase, runs of anything else as one "-".
+pub fn menu_id(label: &str) -> String {
+    let mut out = String::new();
+    let mut dash = false;
+    for c in label.to_lowercase().chars() {
+        if c.is_ascii_lowercase() || c.is_ascii_digit() {
+            if dash && !out.is_empty() {
+                out.push('-');
+            }
+            dash = false;
+            out.push(c);
+        } else {
+            dash = true;
+        }
+    }
+    if out.is_empty() { "item".into() } else { out }
+}
+
+fn menu_line(sc: &str, tokens: &[Token], line: &str) -> Value {
+    let Some(first) = tokens.first() else {
+        return error(sc, "menu: needs review, backlog, shortcut or done".into(), line);
+    };
+    let head = head_parts(&first.raw, false).filter(|(b, id)| MENU_BUCKETS.contains(b) || (*b == "done" && id.is_none()));
+    let Some((bucket, id)) = head else {
+        return error(sc, format!("menu: \"{}\" is not review, backlog, shortcut or done", first.raw), line);
+    };
+    let rest = &tokens[1..];
+    if bucket == "done" {
+        let name = rest.iter().map(|t| t.text.as_str()).filter(|s| !s.is_empty()).collect::<Vec<_>>().join(" ");
+        if name.is_empty() {
+            return error(sc, "menu done: needs an id".into(), line);
+        }
+        let id = if is_word_run(&name) { name } else { menu_id(&name) };
+        let mut props = Map::new();
+        props.set("done", Value::Bool(true));
+        return op(vec![("op", Value::str("menu")), ("screen", Value::str(sc)), ("id", Value::Str(id)), ("props", Value::Obj(props)), ("line", Value::str(line))]);
+    }
+    let mut props = Map::new();
+    props.set("bucket", Value::str(bucket));
+    let mut words: Vec<&str> = Vec::new();
+    let mut extra: Vec<(String, String)> = Vec::new();
+    for t in rest {
+        if let Some(k) = &t.key {
+            if MENU_KEYS.contains(&k.as_str()) {
+                extra.retain(|(e, _)| e != k);
+                extra.push((k.clone(), t.value.join("|")));
+            }
+        } else if !(!t.quoted && t.parts.is_none() && is_flag(&t.raw)) {
+            words.push(&t.text);
+        }
+    }
+    let label = words.into_iter().filter(|w| !w.is_empty()).collect::<Vec<_>>().join(" ");
+    if label.is_empty() {
+        return error(sc, "menu: needs a label".into(), line);
+    }
+    let id = id.map(str::to_string).unwrap_or_else(|| menu_id(&label));
+    props.set("label", Value::Str(label));
+    for (k, v) in extra {
+        props.set(&k, Value::Str(v));
+    }
+    op(vec![("op", Value::str("menu")), ("screen", Value::str(sc)), ("id", Value::Str(id)), ("props", Value::Obj(props)), ("line", Value::str(line))])
+}
+
 fn head_parts(s: &str, need_id: bool) -> Option<(&str, Option<&str>)> {
     match s.split_once('@') {
         Some((p, id)) => (is_lower(p) && is_word_run(id)).then_some((p, Some(id))),
@@ -1521,8 +1589,9 @@ impl Parser {
         let o = o?;
         let m = o.as_obj().unwrap();
         let kind = m.get("op").and_then(Value::as_str).unwrap();
-        // A theme line restyles the app, not the screen: it leaves groups alone.
-        if kind == "error" || kind == "theme" {
+        // A theme line restyles the app and a menu line fills the drawer, not the
+        // screen: they leave groups alone.
+        if kind == "error" || kind == "theme" || kind == "menu" {
             return Some(o);
         }
         // Closing the stage ends whatever group was open on it, like `>2` would.
@@ -1675,6 +1744,7 @@ impl Parser {
                 }
                 return Some(op(vec![("op", Value::str(&head)), ("screen", Value::str(sc)), ("name", Value::Str(name)), ("line", Value::str(line))]));
             }
+            "menu" => return Some(menu_line(sc, &tokens, line)),
             "clear" => return Some(simple("clear")),
             "end" => return Some(simple("end")),
             "close" => {

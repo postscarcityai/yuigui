@@ -45,6 +45,8 @@ One file per area, `NN-area.json`:
 
 - `known`: ids that last from earlier replies (YL.md section 5, Ids that last), as `{id: preset}`. Every parse of the vector, whole, by character and by chunks, starts from a parser given these ids: `parse(input, known)` and `new StreamParser(known)` in JS, `YuiLines.parse(_:known:)` and `YLStreamParser(known:)` in Swift, `parse(text, known)` and `StreamParser(known)` in Python and Kotlin, `parse_with(text, &known)` and `StreamParser::with_known` in Rust. Missing means none.
 
+- `menu`: `{review, backlog, shortcut}`, the drawer's items after the whole input, each newest first (YL.md section 5, The drawer): an item is `{id, label, sub?, say?, show?, url?}`, labels cut at 60 characters. Checked against `menuOf` in JS and `YuiLines.menu` in Swift; the Python, Kotlin and Rust parsers pass the parse side of these vectors.
+
 - `route`: `{answers, path, open, event}`, a flow's runtime (FLOWS.md, section 4): for these answers, `flowPath` of the input's flow gives `{path, open}` and `flowEvent` gives `event`.
 
 **JavaScript only for now: `js-NN-*.json`.** Flows (FLOWS.md) are parsed by the JavaScript parser only in step 1 (FLOW-1). Their vectors live in `js-26-flow.json`, which `run.mjs` reads and the Swift, Python, Kotlin and Rust runners skip (they read `NN-*.json`). When a parser learns flows, rename the file to `26-flow.json` and every runner picks it up.

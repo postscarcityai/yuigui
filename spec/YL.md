@@ -28,6 +28,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `save name` | save the current screen | `save workout` |
 | `show name` | restore a saved screen | `show workout` |
 | `forget name` | take a saved screen off the shelf | `forget workout` |
+| `menu section[@id] label...` | put an item in the agent's drawer (section 5, The drawer) | `menu shortcut "Start today's workout"` |
 | `clear` | empty the current screen | `clear` |
 | `talk` or `talk off` | keep the composer on this page, or take it away (section 5, Pages) | `>2 talk` |
 | `end` | close the open group (section 4, Groups) | `end` |
@@ -140,9 +141,15 @@ table Planets Planet|Mass|Radius "Earth|5.97|6371" "Mars|0.642|3390" units=|10^2
 ```
 
 ### card
-`card title [body...]`. Props: `title`, `body`, `sub`, `tag`, `img` (URL), `cta` (button label, emits `{cta}`), `url` (an `https:` or `itms-services:` link the button opens in the browser, Safari in the app; a button with a link shows an arrow and sends nothing to the chat; the button reads Open unless `cta` says otherwise; other schemes are ignored).
+`card title [body...]`. Props: `title`, `body`, `sub`, `tag`, `img` (URL), `cta` (button label, emits `{cta}`), `url` (an `https:` or `itms-services:` link the button opens in the browser, Safari in the app; a button with a link shows an arrow and sends nothing to the chat; the button reads Open unless `cta` says otherwise; other schemes are ignored), `fold` (flag).
 ```
 card "Leg day" "Squat, RDL, lunges." sub=Thursday img=/yl/legday.svg cta="Start workout"
+```
+
+`+fold` makes a card that opens in place. Folded, it shows its tag, title and sub, the first line of its body and a chevron. A tap opens it: the whole body, the picture and the button, with a spring (a cross-fade under Reduce Motion). Another tap folds it again. Opening and folding stay on the phone and send nothing, so the agent can hand over a long ask, its mocks and its proof in one card without filling the chat. Use it for context the person may want, not for the question itself: the answer buttons go on a `choose` under it, which stays in view. Where a renderer cannot fold (Telegram), the card shows open.
+```
+card "Invite Dana?" "She asked for the beta yesterday. Two mocks attached, proof on the board." sub="requested yesterday" +fold
+choose "Invite her?" Approve|Decline
 ```
 
 ### image
@@ -530,6 +537,26 @@ The reference function is `pageOf(screen)` in `yl.mjs` (`YuiLines.page(of:)` in 
 
 The ops are `{op: "save" | "show" | "forget", screen, name}`. None of them takes an `@id` or advances the counter. The reference functions are `apply()` in `yl.mjs` (with `state.saved`) and `ChatStore.shelf` in the app.
 
+**The drawer.** Each agent has a drawer in the app: drag right on the chat and it slides out from the left. The app owns its sections, their order and their look. Most of it fills itself: pinned screens are the shelf, To review lists the asks in the thread that have no answer yet, and About comes from the host. `menu` lets the agent fill three more lists with plain items, and nothing else, so no agent can crowd the drawer or restyle it.
+
+```
+menu review@dana "Invite Dana?" sub="requested yesterday"
+menu backlog@deload "Deload week plan" sub=drafting
+menu shortcut "Start today's workout"
+menu shortcut@log "Log a meal" say="Log a meal: "
+menu done dana
+```
+
+- The word after `menu` is the section: `review` (things waiting on the person, under the thread's own asks in Review), `backlog` (what the agent is working on or has queued, on Home) and `shortcut` (things the person asks for often, on Home beside the host's commands). `@id` names the item; without one it is known by its label, lowercased, with every run of other characters as one `-` (`Start today's workout` is `start-today-s-workout`).
+- The label is the rest of the line, words joined by single spaces. The keys are `sub` (a quieter line under it), `say` (what a shortcut sends), `show` (a saved screen's name) and `url` (an `https:` link). Values stay text. Other keys and flags are dropped.
+- An item with an id already in the drawer replaces it, in whichever section it now names. `menu done dana` takes it out; `menu done` takes an id or a label. Taking out an item that is not there does nothing.
+- Each section shows its newest item first and keeps 20; the oldest falls off. Labels longer than 60 characters are cut to 59 and an ellipsis.
+- A tap on a shortcut sends its `say=`, or its label, as the person's message, as if typed (a `say=` that ends in a space goes in the composer to finish instead). A tap on a review or backlog item opens its `show=` screen on the stage, or its `url=` in the browser, with no turn; with neither, it goes back to the agent as an event (section 7) and the agent answers with the screen.
+- The drawer lives on the phone, per agent, and is rebuilt from the thread like the shelf, so it follows the person to a new install.
+- `menu` is a core word like `save`: no `@id` counter, no screen, and it leaves an open group alone. The op is `{op: "menu", screen, id, props: {bucket, label, sub?, say?, show?, url?}}`, and `menu done id` gives `{op: "menu", screen, id, props: {done: true}}`. Where there is no drawer (Telegram, the playground, a watch) the line does nothing.
+
+The reference function is `menuOf(ops, menu)` in `yl.mjs` (`YuiLines.menu(_:into:)` in the app): the three sections after a run of ops, each newest first, labels cut. Conformance vectors may carry `menu`, the sections after the input.
+
 ## 6. custom {json}
 
 The long tail. Everything after `custom ` is one JSON value. v0 renders a fixed set of primitives:
@@ -554,6 +581,7 @@ Every interaction goes back as one small event: `{id, preset, ...value}`. Ids ar
 
 ```
 {"id":"n1","preset":"ask","answer":"Yes"}
+{"id":"dana","preset":"menu","bucket":"review","tapped":true}
 {"id":"n3","preset":"pick","picked":["Dumbbells","Bands"]}
 {"id":"hiit","preset":"timer","done":true,"rounds":8}
 {"id":"n2","preset":"gallery","picked":[0,2]}
@@ -606,13 +634,13 @@ The stream parser keeps a line buffer. Every time a newline arrives, that line i
 
 A line that fails (unknown preset, bad JSON, patch target that does not exist, `show` of a name never saved) is skipped and reported. Nothing else on the screen is affected. The playground lists errors under the wire log.
 
-Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show`/`forget` without a name, `close` with anything after it, `talk` with anything but `on` or `off`, a patch whose target is neither a preset name, nor an id seen earlier in the reply, nor an id that lasts (section 5), a `~preset@id` with an unknown preset or an id that belongs to another preset, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
+Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show`/`forget` without a name, `close` with anything after it, `talk` with anything but `on` or `off`, `menu` without a section, with a section other than `review`, `backlog`, `shortcut` or `done`, with an item that has no label or a `done` with nothing after it, a patch whose target is neither a preset name, nor an id seen earlier in the reply, nor an id that lasts (section 5), a `~preset@id` with an unknown preset or an id that belongs to another preset, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
 
 ## 10. Telegram fallback
 
 What ships today is in `spec/TELEGRAM.md` (INT-4): `ask`, `choose` and `pick` as inline keyboards, text presets as text, and the rest in a Telegram Mini App that draws the whole screen. The mapping below is where it goes next.
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), and a `game` sends its title with a link to play it in Yui. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), and a `game` sends its title with a link to play it in Yui. A `menu` line sends nothing: Telegram has no drawer. Everything else degrades to its text plus a link to open it in Yui.
 
 **Browser.** Yui in a browser tab draws every preset with the playground's renderers and translates only what a tab cannot do like a phone (haptics, lock screen timers, push): `spec/BROWSER.md`.
 
