@@ -2,5 +2,7 @@
   "github": "https://github.com/postscarcityai/yuigui",
   "appRepo": "https://github.com/postscarcityai/yui",
   "testflight": "https://testflight.apple.com/join/ykrYHwet",
-  "contribute": "/developers/contribute"
+  "contribute": "/developers/contribute",
+  "goodFirstIssues": "https://github.com/postscarcityai/yuigui/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22",
+  "appGoodFirstIssues": "https://github.com/postscarcityai/yui/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22"
 }

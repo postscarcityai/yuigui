@@ -8,6 +8,7 @@ New here? The [community page](https://www.yuigui.com/developers/community) show
 
 ## Good first contributions
 
+- **Pick an issue.** Cards from our board that suit a first pull request are open as [good first issues](https://github.com/postscarcityai/yuigui/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22), with what to build and when it is done. The app repo has [its own list](https://github.com/postscarcityai/yui/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22). Say you are taking one in a comment first.
 - **The three lines challenge.** Draw your best screen in three lines of Yui Lines or fewer and add it to `community/gallery.json`. `node community/check.mjs` checks it, and merged entries show up live in the [gallery](https://www.yuigui.com/developers/community#gallery). How to enter: [community/README.md](community/README.md).
 - **A parser in a new language.** We have JavaScript, Swift, Python and Kotlin (see `parsers/`). Rust is next on our list, but any language helps. Make it pass every file in `spec/conformance/`, add it to `spec/conformance/run-all.sh`, then open a pull request.
 - **Conformance vectors.** Found an edge case the spec is vague about? Add a vector and say what you think the answer should be.

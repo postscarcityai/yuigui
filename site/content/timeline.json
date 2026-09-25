@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 81,
-    "site": 213,
+    "app": 82,
+    "site": 214,
     "builds": 25,
-    "shipped": 117,
+    "shipped": 118,
     "screenshots": 241
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T11:56:12.358Z",
+          "at": "2026-09-25T12:05:08.761Z",
+          "title": "Pick an issue: eleven board cards open on GitHub",
+          "card": "OSS-3",
+          "anchor": "pick-an-issue-eleven-board-cards-open-on-github",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 82,
+            "site": 214,
+            "builds": 25,
+            "shipped": 118
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T11:57:20.000Z",
           "title": "Add any A2A agent by its Agent Card",
           "card": "INT-18",
           "anchor": "add-any-a2a-agent-by-its-agent-card",
@@ -35,10 +50,10 @@
               "alt": "Dark: the agent asks Which color?, the person says Blue, the same task answers Blue it is."
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
-            "app": 81,
-            "site": 213,
+            "app": 82,
+            "site": 214,
             "builds": 25,
             "shipped": 117
           }
@@ -675,6 +690,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "7d2cb66",
+          "at": "2026-09-25T11:57:20.000Z",
+          "text": "INT-18 step 1: the A2A bridge. spec/A2A.md (/developers/a2a): add any A2A agent by its Agent Card, how threads, turns, tasks,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7d2cb66"
+        },
+        {
+          "repo": "app",
+          "sha": "2df140d",
+          "at": "2026-09-25T11:57:13.000Z",
+          "text": "A2A bridge: add any A2A agent to Yui by its Agent Card. node adapters/a2a/yui-a2a.ts pair <code> --card <url>, then run; add --card...",
+          "url": "https://github.com/postscarcityai/yui/commit/2df140d"
+        },
         {
           "repo": "site",
           "sha": "9fa68bc",

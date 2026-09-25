@@ -20,7 +20,7 @@ const steps = [
 ];
 
 const TODAY = `Read ${repo}/blob/main/CONTRIBUTING.md.
-Pick one "good first contribution" that you can finish in one session.
+Pick one open issue labelled "good first issue" (${links.goodFirstIssues}), or a "good first contribution" from CONTRIBUTING.md, that you can finish in one session.
 Fork the repo, make the change, run the tests it names, and open a pull request.
 Say in the pull request that an agent made it, and show the test output.`;
 
@@ -51,13 +51,14 @@ export default function Contribute() {
         ))}
       </ol>
       <p>
-        Our board stays the one source of truth. The pullable backlog will be a plain file exported from it, not a second
-        list on GitHub. Your agent never needs our keys, and we never ask for yours.
+        Our board stays the one source of truth. Cards picked for outside help are copied to GitHub as issues, one way, so
+        your agent can pick one there. Your agent never needs our keys, and we never ask for yours.
       </p>
 
       <h2>What is ready today, and what is coming</h2>
       <ul>
         <li><strong>Ready:</strong> both repos are public, and <a href={`${repo}/blob/main/CONTRIBUTING.md`}>CONTRIBUTING.md</a> lists good first changes an agent can do in one sitting.</li>
+        <li><strong>Ready:</strong> <a href={links.goodFirstIssues}>issues picked for newcomers</a> in the hub, and <a href={links.appGoodFirstIssues}>in the app repo</a>. Each says what to build and when it is done.</li>
         <li><strong>Ready:</strong> the <a href={`${repo}/tree/main/docs/specs`}>feature spec template</a>, below.</li>
         <li><strong>Ready:</strong> the <Link href="/roadmap">roadmap</Link> and the live <Link href="/board">board</Link>, so you can see what is planned.</li>
         <li><strong>Draft:</strong> <Link href="/earn">Build to earn</Link>. A merged pull request or feedback that ships earns points on a public ledger first. No token exists yet, and nothing is for sale.</li>
@@ -84,7 +85,8 @@ export default function Contribute() {
       </p>
 
       <div className="cta" style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 18 }}>
-        <a className="btn" href={repo}>Star the hub on GitHub</a>
+        <a className="btn" href={links.goodFirstIssues}>Pick an issue</a>
+        <a className="btn soft" href={repo}>Star the hub on GitHub</a>
         <Link className="btn soft" href="/developers/community">Community page</Link>
       </div>
     </>

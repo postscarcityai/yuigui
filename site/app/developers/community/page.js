@@ -82,6 +82,13 @@ export default function Community() {
       </div>
 
       <h2 id="contribute">Ways to contribute</h2>
+      <p>
+        The quickest start: <a href={links.goodFirstIssues}>pick an issue</a>. Some cards from our board are open on GitHub with
+        what to build and how we will know it is done. The app has its own list in <a href={links.appGoodFirstIssues}>the app repo</a>.
+      </p>
+      <div className="cta" style={{ display: "flex", gap: 12, flexWrap: "wrap", margin: "6px 0 18px" }}>
+        <a className="btn" href={links.goodFirstIssues}>Pick an issue</a>
+      </div>
       <div className="grid">
         {paths.map(([t, d, href, cta]) => (
           <div className="card" key={t}>
