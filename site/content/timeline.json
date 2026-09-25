@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 95,
-    "site": 238,
+    "app": 96,
+    "site": 240,
     "builds": 27,
-    "shipped": 128,
+    "shipped": 129,
     "screenshots": 261
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T15:59:21.408Z",
+          "at": "2026-09-25T16:04:37.000Z",
+          "title": "n8n workflows in Yui",
+          "card": "INT-17",
+          "anchor": "n8n-workflows-in-yui",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 96,
+            "site": 240,
+            "builds": 27,
+            "shipped": 129
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T15:59:14.000Z",
           "title": "The hold menu fits any message",
           "card": "YUI-78",
           "anchor": "the-hold-menu-fits-any-message",
@@ -35,10 +50,10 @@
               "alt": "The last message in the thread held in dark mode: it lifts just enough for the menu to fit under it."
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 95,
-            "site": 238,
+            "site": 239,
             "builds": 27,
             "shipped": 128
           }
@@ -951,6 +966,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "8807856",
+          "at": "2026-09-25T16:04:37.000Z",
+          "text": "INT-17 step 1: n8n. spec/MCP.md \"n8n\": three ways in, with when to use each. The Yui node (community node n8n-nodes-yui in the app repo:...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8807856"
+        },
+        {
+          "repo": "app",
+          "sha": "e3af2a8",
+          "at": "2026-09-25T16:03:13.000Z",
+          "text": "n8n workflows in Yui, three ways (INT-17). adapters/n8n is n8n-nodes-yui, a community node \"Yui\" (TypeScript, n8n's node conventions, no...",
+          "url": "https://github.com/postscarcityai/yui/commit/e3af2a8"
+        },
+        {
+          "repo": "site",
+          "sha": "1b0d5af",
+          "at": "2026-09-25T15:59:14.000Z",
+          "text": "YUI-78 progress entry: the hold menu fits any message. Reactions always above the held message, the menu always below, both on screen...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1b0d5af"
+        },
         {
           "repo": "app",
           "sha": "8432a1c",
