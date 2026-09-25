@@ -12,7 +12,7 @@ There are only five ways an agent can reach Yui. Every framework below uses one 
 
 | # | Path | Who runs the agent | Who holds the conversation | Covers |
 | --- | --- | --- | --- | --- |
-| A | **Channel plugin** inside the agent's own runtime | the user | the agent's host | Hermes and OpenClaw (shipped), Flue |
+| A | **Channel plugin** inside the agent's own runtime | the user | the agent's host | Hermes, OpenClaw and Flue (shipped) |
 | B | **Hosted connector** that speaks a standard protocol | the user or a vendor | the agent | Hermes via relay contract, A2A agents (Gemini, LangGraph, CrewAI, Microsoft Agent Framework) |
 | C | **Model connector**: Yui calls a chat API for you | Yui | Yui | any OpenAI-compatible endpoint: Meta Muse Spark, Grok, Gemini, Ollama, LM Studio, vLLM, OpenRouter |
 | D | **Yui MCP server**: the agent calls Yui as a tool, and its screens draw inside MCP App hosts (shipped, INT-3, INT-7) | the user's AI app | the AI app | Claude, ChatGPT, Grok, n8n, Cursor, anything MCP |
@@ -146,6 +146,9 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** M, sharing the TypeScript client with INT-1.
 - **Depends on:** INT-6 findings.
 - **Priority:** 3.
+- **Status:** step 1 shipped Sep 25, on Flue 2.1.1. The app repo's `adapters/flue` has the blueprint `flue add channel` would hand a coding agent (`channel--yui.md`, in Flue's own format, marker `channel/yui@1`) and `yui-flue`, the connector. On Node the Flue app dials out to Yui with the A2A bridge's relay code (now `adapters/a2a/src/relay.ts`, shared, not copied), sends each turn to the agent with Flue's `init().dispatch()` as a user message, a tap as its `[yui]` line, with the turn's rows as the idempotency key, and writes `read().text` back once. `withYuiGuide()` puts CHANNEL.md in the agent's instructions. A signed `POST /channels/yui/webhook` takes pushed turns in the webhook bridge's format. A Flue agent on local qwen2.5:7b, whose own instructions never mention Yui, ran on Node through live Yui: it answered, drew a Tea or Coffee screen the YL parser reads, answered the tap, recalled it the next turn, and a kill -9 mid-turn still got one answer, 14 of 14. Not on npm and not in Flue's blueprint list: publishing is Chris's call.
+- **On Cloudflare (not built):** there each Flue agent is a Durable Object, and a Durable Object should not hold a polling loop: the timer keeps it awake and bills wall clock, and there is no disk for the state file. So the direction flips. Yui's hosted connector (INT-20, the A2A client in a Durable Object) keeps the relay side (session, acks, outbox) in its own SQLite and POSTs each turn, signed, to the Flue Worker's `/channels/yui/webhook`. The Flue app imports only `yui-flue/channel`, which is Fetch and Web Crypto with no Node modules. The turn key is the dispatch `idempotencyKey`, and Cloudflare's dispatch is durable and retries after an interruption, so a replay converges on the first run. The `keepAliveWhile` trap (`spec/HOSTING.md`) is on our side: a plain `fetch` to the Flue Worker does not keep the connector's object awake while the model thinks, so that call runs inside `keepAliveWhile`, and long turns want a `202` now and the reply posted back later, which the channel does not have yet. Presence comes from the hosted connector, not the Flue app. The shared secret is a Worker secret on the Flue side and a per-agent key on ours (YUI-34).
+- **Waits on:** INT-20 for the hosted connector, and a Cloudflare account, which is Chris's call (🔴).
 
 ### LangGraph | INT-14
 
@@ -204,7 +207,7 @@ Not an agent framework, but the same idea in reverse: Yui Lines rendered as Tele
 
 1. Hermes plugin (done), then INT-5 hosted Hermes.
 2. INT-1 OpenClaw (done Sep 24), INT-2 webhook (done Sep 24), INT-3 MCP server (done Sep 25, OAuth next in INT-19). These three open the door for everyone else.
-3. INT-7 Claude and INT-8 ChatGPT (done Sep 25), INT-12 model connector (local bridge done Sep 25, hosted next), INT-13 Flue, INT-18 A2A (local bridge done Sep 25, hosted next).
+3. INT-7 Claude and INT-8 ChatGPT (done Sep 25), INT-12 model connector (local bridge done Sep 25, hosted next), INT-13 Flue (step 1 done Sep 25), INT-18 A2A (local bridge done Sep 25, hosted next).
 4. INT-9 Gemini, INT-10 Grok, INT-11 Meta, INT-14 LangGraph, INT-17 n8n: mostly presets on the pieces above.
 5. INT-15 CrewAI, INT-16 Microsoft Agent Framework.
 
