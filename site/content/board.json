@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T15:10:12.816Z",
+  "updated": "2026-09-25T15:40:33.090Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -105,11 +105,6 @@
           "title": "Group threads, several agents in one conversation (YUI-44 step 2)"
         },
         {
-          "key": "YUI-78",
-          "title": "The hold menu fits on tall messages",
-          "summary": "Reactions and Copy never overlap, premium chat polish"
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -144,10 +139,6 @@
         {
           "key": "INT-16",
           "title": "Microsoft Agent Framework (AutoGen successor) adapter plus an AG-UI spike"
-        },
-        {
-          "key": "INT-17",
-          "title": "N8n adapter, MCP client plus a community node"
         },
         {
           "key": "INT-20",
@@ -253,12 +244,13 @@
           "title": "Open backlog on GitHub for contributors"
         },
         {
-          "key": "INT-14",
-          "title": "LangGraph adapter"
+          "key": "INT-17",
+          "title": "N8n adapter, MCP client plus a community node"
         },
         {
-          "key": "YUI-76",
-          "title": "Agent bubbles render basic markdown (bold, code, lists)"
+          "key": "YUI-78",
+          "title": "The hold menu fits on tall messages",
+          "summary": "Reactions and Copy never overlap, premium chat polish"
         }
       ]
     },
@@ -266,6 +258,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-76",
+          "title": "Agent bubbles render basic markdown (bold, code, lists)",
+          "summary": "Agent answers read clean",
+          "shipped": "2026-09-25",
+          "progress": "/progress#agent-answers-read-clean"
+        },
+        {
+          "key": "INT-14",
+          "title": "LangGraph adapter",
+          "summary": "LangGraph agents in Yui",
+          "shipped": "2026-09-25",
+          "progress": "/progress#langgraph-agents-in-yui"
+        },
         {
           "key": "INT-11",
           "title": "Meta Muse Spark adapter via the Meta Model API",
