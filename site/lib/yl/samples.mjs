@@ -489,6 +489,42 @@ next "Each agent's home" tag=YUI-54
 next "Agent controls in the drawer" tag=YUI-70`,
   },
   {
+    slug: "sketch-card-ids",
+    name: "Sketch: before and after, drawn",
+    agent: "Yui",
+    yl: `say "Card ids are gone from my answers. Here is the difference."
+sketch "Where it landed" frame=bubble before="Before"
+row "Parked YUI-83 in the backlog" +x note="an id means nothing to you"
+row "Feedback #2291 added to YUI-83" +x
+after "Now"
+row "Parked the drawing card in the backlog" +hi note="plain words"
+row "Your note is on that card" +hi`,
+  },
+  {
+    slug: "sketch-buttons",
+    name: "Sketch: which buttons stay",
+    agent: "Yui",
+    yl: `sketch "Build ready" frame=phone
+row "Build 97 is ready" +hi note="the headline"
+row
+row
+row "Got it" +button +x note="does nothing, cut it"
+row "Install" +button +hi note="does the thing"`,
+  },
+  {
+    slug: "sketch-home-page",
+    name: "Sketch: what to cut from a page",
+    agent: "Studio",
+    next: `ask "Cut those two?" "Yes, cut them"|"Keep them"`,
+    yl: `sketch "Home" frame=window
+row "Wheel-thrown mugs, made in Asheville" +hi note="keep, it says what you do"
+row "Welcome to our website!" +x note="says nothing"
+row
+row "Book a class" +button +hi
+row "Subscribe to our newsletter" +button +dim note="move to the footer"
+row "Follow us on 6 networks" +x`,
+  },
+  {
     slug: "timeline-trip",
     name: "Timeline: a trip, day by day",
     agent: "Scout",

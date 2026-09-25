@@ -26,6 +26,7 @@ export const PRESETS = [
   "chart", "stat", "math", "step", "calc",
   "deck", "page", "plan", "project", "narrate",
   "timeline", "done", "now", "next",
+  "sketch", "row", "after",
   "game",
 ];
 // Not presets, but valid line heads.
@@ -40,6 +41,7 @@ export const GROUPS = {
   plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera"],
   narrate: ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
   timeline: ["done", "now", "next"],
+  sketch: ["row", "after"],
 };
 
 const IDENT = /^[a-z_][\w-]*$/i;
@@ -411,6 +413,12 @@ const P = {
   now(pos) { return P.done(pos); },
   next(pos) { return P.done(pos); },
 
+  // sketch [title...], then row text... lines (+x +hi +dim +button note=),
+  // and at most one `after [label...]` that splits it into a before|after pair.
+  sketch(pos) { return P.calc(pos); },
+  row(pos) { return pos.length ? { text: joinText(pos) } : {}; },
+  after(pos) { return pos.length ? { label: joinText(pos) } : {}; },
+
   // game KIND [title...]: the first bare word (not quoted, not options) is
   // the kind, wherever it sits; the rest is the title.
   game(pos) {
@@ -619,7 +627,7 @@ export class Parser {
     if (op.op === "close") { this.open = []; return op; }
     if (op.op === "end") {
       const g = this.open.pop();
-      if (!g) return { op: "error", screen: op.screen, message: "end: no open deck, plan, narrate or timeline", line: op.line };
+      if (!g) return { op: "error", screen: op.screen, message: "end: no open deck, plan, narrate, timeline or sketch", line: op.line };
       return { ...op, target: g.id };
     }
     const joins = (g) => op.op === "add" && op.screen === g.screen && GROUPS[g.preset].includes(op.preset);
@@ -873,6 +881,12 @@ export function resolve(preset, props) {
     case "now":
     case "next":
       return { text: "", ...p };
+    case "sketch":
+      return { title: "", frame: "window", before: "Before", ...p };
+    case "row":
+      return { text: "", ...p };
+    case "after":
+      return { label: "After", ...p };
     case "game": {
       // Cells outside 1-9 are ignored, and a cell both marks claim is x's.
       const cells = (v) => [...new Set((v || []).filter((n) => Number.isInteger(n) && n >= 1 && n <= 9))];

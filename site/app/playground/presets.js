@@ -9,6 +9,7 @@ import { resolve } from "../../lib/yl/yl.mjs";
 import { Calc, Chart, DataTable, MathBlock, Stat, Steps } from "./science";
 import { LonePage, Project } from "./flows";
 import { LoneRow, Timeline } from "./timeline";
+import { LoneSketchRow, Sketch } from "./sketch";
 import { Game } from "./games";
 import { useLive } from "./stage";
 
@@ -794,6 +795,9 @@ const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, 
   now: ({ p }) => <LoneRow node={{ key: "row", preset: "now", props: p }} />,
   next: ({ p }) => <LoneRow node={{ key: "row", preset: "next", props: p }} />,
   timeline: ({ p }) => <Timeline g={{ group: { props: p }, members: [] }} />,
+  sketch: ({ p }) => <Sketch g={{ group: { props: p }, members: [] }} />,
+  row: LoneSketchRow,
+  after: () => null,
   game: Game };
 
 export function StepGroup({ nodes, emitFor }) {

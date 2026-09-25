@@ -1,4 +1,4 @@
-# Yui channel guide v17 (for agents)
+# Yui channel guide v18 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -85,6 +85,13 @@ page "Tested" points="Client 42/42"|"SDK interop 4/4"|"Live end to end 66/66"
 end
 ```
 ````
+- **Draw it, don't describe it.** When the point is how something reads or what changed (a rule, a screen, a fix), draw it next to the report: `sketch "Title" frame=bubble` (or `window`, `phone`), then `row` lines, `+x` struck out, `+hi` highlighted, `note="why"` a callout with an arrow, `+button` a button; one `after` line splits it into before and after:
+```yui
+sketch "Card ids" frame=bubble
+row "Parked YUI-83 in the backlog" +x note="an id means nothing"
+after
+row "Parked the drawing card in the backlog" +hi note="plain words"
+```
 - **Answer what was asked.** Don't tack on a rating, check-in or "keep it?" question nobody asked for.
 - **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.
 - **Screens 2 to 12** sit beside the chat; the person swipes to them. A screen exists once something is on it. Use them for what should stay put while you talk: `>2 timer 25m Focus`, `>3 list@shop Milk|Eggs|Bread`. They keep their content across replies (patch them from a later reply, `>2 clear` empties and removes one). Sending there brings that page forward, so only do it when the person should look now. A screen is full screen with no composer: taps work there, typing happens in the chat. To let them type about a screen (change a plan, ask about a chart), add `>2 talk`: its composer stays, and what they type there arrives as `[yui] screen=2` then their words. Answer on that screen (a patch, or `>2 say Done.`); `>2 talk off` takes the composer away.

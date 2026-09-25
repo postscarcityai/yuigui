@@ -39,6 +39,7 @@ PRESETS = [
     "chart", "stat", "math", "step", "calc",
     "deck", "page", "plan", "project", "narrate",
     "timeline", "done", "now", "next",
+    "sketch", "row", "after",
     "game",
 ]
 # Not presets, but valid line heads.
@@ -52,6 +53,7 @@ GROUPS = {
     "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera"],
     "narrate": ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
     "timeline": ["done", "now", "next"],
+    "sketch": ["row", "after"],
 }
 
 # ---------- JS compatibility ----------
@@ -581,6 +583,9 @@ P = {
     "project": _card,
     "timeline": _titled,
     "done": _row, "now": _row, "next": _row,
+    "sketch": _titled,
+    "row": lambda pos: {"text": _join(pos)} if pos else {},
+    "after": lambda pos: {"label": _join(pos)} if pos else {},
     "game": _game,
 }
 
@@ -838,7 +843,7 @@ class Parser:
             return op
         if op["op"] == "end":
             if not self.open:
-                return {"op": "error", "screen": op["screen"], "message": "end: no open deck, plan, narrate or timeline", "line": op["line"]}
+                return {"op": "error", "screen": op["screen"], "message": "end: no open deck, plan, narrate, timeline or sketch", "line": op["line"]}
             g = self.open.pop()
             return {**op, "target": g["id"]}
 
@@ -1096,6 +1101,8 @@ _DEFAULTS = {
     "narrate": {"title": "", "voice": "agent", "rate": 1, "auto": False, "captions": True},
     "timeline": {"title": "", "mark": "Now", "fold": 5, "reorder": False},
     "done": {"text": ""}, "now": {"text": ""}, "next": {"text": ""},
+    "sketch": {"title": "", "frame": "window", "before": "Before"},
+    "row": {"text": ""}, "after": {"label": "After"},
     "game": {"title": "", "you": "x", "first": "you", "speed": 2, "size": 15, "pairs": 6, "items": []},
 }
 

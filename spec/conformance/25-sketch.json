@@ -1,0 +1,829 @@
+{
+ "version": "YL v0",
+ "area": "sketch, row, after",
+ "vectors": [
+  {
+   "name": "sketch: title, rows join it with their marks and notes",
+   "input": "sketch \"Card ids\" frame=bubble\nrow \"Parked t_2f464301 (YUI-83)\" +x note=\"an id means nothing to you\"\nrow \"Parked the drawing card\" +hi note=\"plain words\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "Card ids",
+      "frame": "bubble"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "Parked t_2f464301 (YUI-83)",
+      "x": true,
+      "note": "an id means nothing to you"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "text": "Parked the drawing card",
+      "hi": true,
+      "note": "plain words"
+     }
+    }
+   ]
+  },
+  {
+   "name": "sketch: no title, defaults left out",
+   "input": "sketch",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {}
+    }
+   ]
+  },
+  {
+   "name": "sketch: frame and before label",
+   "input": "sketch Home frame=phone before=\"Build 96\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "Home",
+      "frame": "phone",
+      "before": "Build 96"
+     }
+    }
+   ]
+  },
+  {
+   "name": "sketch: an unknown frame still parses (renderers draw a window)",
+   "input": "sketch Mock frame=tablet",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "Mock",
+      "frame": "tablet"
+     }
+    }
+   ]
+  },
+  {
+   "name": "row: every mark as a flag, they combine",
+   "input": "sketch\nrow \"Got it\" +button +x +dim\nrow Install +button +hi",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "Got it",
+      "button": true,
+      "x": true,
+      "dim": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "text": "Install",
+      "button": true,
+      "hi": true
+     }
+    }
+   ]
+  },
+  {
+   "name": "row: marks as keys, off stays false",
+   "input": "sketch\nrow Keep x=off hi=on",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "Keep",
+      "x": false,
+      "hi": true
+     }
+    }
+   ]
+  },
+  {
+   "name": "row: no text is a blank placeholder bar",
+   "input": "sketch Window\nrow\nrow +dim\nrow Title +hi",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "Window"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "dim": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "text": "Title",
+      "hi": true
+     }
+    }
+   ]
+  },
+  {
+   "name": "row: bare words join into the text, options stay one token's text",
+   "input": "row Moved it to the backlog\nrow Push|Pull|Legs",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n1",
+     "props": {
+      "text": "Moved it to the backlog"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "props": {
+      "text": "Push|Pull|Legs"
+     }
+    }
+   ]
+  },
+  {
+   "name": "row: a quoted https link stays text, rows have no url",
+   "input": "row \"https://www.yuigui.com\" https://www.yuigui.com",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n1",
+     "props": {
+      "text": "https://www.yuigui.com https://www.yuigui.com"
+     }
+    }
+   ]
+  },
+  {
+   "name": "after: splits the sketch, label from its text",
+   "input": "sketch \"Card ids\" before=Was\nrow \"Parked t_2f464301\" +x\nafter \"Now\"\nrow \"Parked the drawing card\" +hi",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "Card ids",
+      "before": "Was"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "Parked t_2f464301",
+      "x": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "after",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "label": "Now"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "text": "Parked the drawing card",
+      "hi": true
+     }
+    }
+   ]
+  },
+  {
+   "name": "after: no text leaves the label to the default",
+   "input": "sketch\nrow Old +x\nafter\nrow New +hi",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "Old",
+      "x": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "after",
+     "id": "n3",
+     "in": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "text": "New",
+      "hi": true
+     }
+    }
+   ]
+  },
+  {
+   "name": "after: a second after still joins the sketch",
+   "input": "sketch\nrow A\nafter\nrow B\nafter Later\nrow C",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "after",
+     "id": "n3",
+     "in": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "text": "B"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "after",
+     "id": "n5",
+     "in": "n1",
+     "props": {
+      "label": "Later"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n6",
+     "in": "n1",
+     "props": {
+      "text": "C"
+     }
+    }
+   ]
+  },
+  {
+   "name": "row and after outside a sketch stand alone",
+   "input": "row Alone +hi\nafter Then",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n1",
+     "props": {
+      "text": "Alone",
+      "hi": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "after",
+     "id": "n2",
+     "props": {
+      "label": "Then"
+     }
+    }
+   ]
+  },
+  {
+   "name": "sketch@id and row@id, then a patch ends the group",
+   "input": "sketch@s1 Plan\nrow@r1 Draft +x\n~r1 x=off hi=on\nrow Final",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "s1",
+     "props": {
+      "title": "Plan"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "r1",
+     "in": "s1",
+     "props": {
+      "text": "Draft",
+      "x": true
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "r1",
+     "props": {
+      "x": false,
+      "hi": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n1",
+     "props": {
+      "text": "Final"
+     }
+    }
+   ]
+  },
+  {
+   "name": "a say ends the sketch; a later row stands alone",
+   "input": "sketch A\nrow One\nsay Two\nrow Three",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n3",
+     "props": {
+      "text": "Two"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "props": {
+      "text": "Three"
+     }
+    }
+   ]
+  },
+  {
+   "name": "end closes the sketch; a second end is an error",
+   "input": "sketch A\nrow One\nend\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "One"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n1"
+    },
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "a sketch on another screen, and a row routed elsewhere ends it",
+   "input": "sketch A\n>2 row B\nrow C",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "2",
+     "preset": "row",
+     "id": "n2",
+     "props": {
+      "text": "B"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n3",
+     "props": {
+      "text": "C"
+     }
+    }
+   ]
+  },
+  {
+   "name": "a new sketch ends the old one",
+   "input": "sketch A\nrow One\nsketch B\nrow Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n3",
+     "props": {
+      "title": "B"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "text": "Two"
+     }
+    }
+   ]
+  },
+  {
+   "name": "a sketch can't nest in a timeline or a deck",
+   "input": "timeline T\ndone Shipped\nsketch S\nrow R\ndeck D\nrow X",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "timeline",
+     "id": "n1",
+     "props": {
+      "title": "T"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "done",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "Shipped"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n3",
+     "props": {
+      "title": "S"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "text": "R"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n5",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n6",
+     "props": {
+      "text": "X"
+     }
+    }
+   ]
+  },
+  {
+   "name": "comments, blanks and an error line keep the sketch open",
+   "input": "sketch A\nrow One\n\n# filler\nRow bogus\nrow Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "One"
+     }
+    },
+    {
+     "op": "error",
+     "screen": "1"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "text": "Two"
+     }
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "Sketch in capitals is an unknown preset",
+   "input": "Sketch A",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "streaming: each row lands as its newline arrives",
+   "input": "sketch A frame=bubble\nrow One +x\nafter\nrow Two +hi",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "sketch",
+     "id": "n1",
+     "props": {
+      "title": "A",
+      "frame": "bubble"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "text": "One",
+      "x": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "after",
+     "id": "n3",
+     "in": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "row",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "text": "Two",
+      "hi": true
+     }
+    }
+   ],
+   "chunks": [
+    "sketch A fra",
+    "me=bubble\nrow One +x\naf",
+    "ter\nrow Tw",
+    "o +hi"
+   ],
+   "emits": [
+    [],
+    [
+     {
+      "op": "add",
+      "screen": "1",
+      "preset": "sketch",
+      "id": "n1",
+      "props": {
+       "title": "A",
+       "frame": "bubble"
+      }
+     },
+     {
+      "op": "add",
+      "screen": "1",
+      "preset": "row",
+      "id": "n2",
+      "in": "n1",
+      "props": {
+       "text": "One",
+       "x": true
+      }
+     }
+    ],
+    [
+     {
+      "op": "add",
+      "screen": "1",
+      "preset": "after",
+      "id": "n3",
+      "in": "n1",
+      "props": {}
+     }
+    ],
+    [],
+    [
+     {
+      "op": "add",
+      "screen": "1",
+      "preset": "row",
+      "id": "n4",
+      "in": "n1",
+      "props": {
+       "text": "Two",
+       "hi": true
+      }
+     }
+    ]
+   ]
+  }
+ ]
+}

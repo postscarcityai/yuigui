@@ -22,6 +22,7 @@ Status: step 1 shipped Sep 25. The renderer, the tap handler, the Mini App page 
 | `table` with rows | a monospaced table. A live data table (`table meals`) opens in the Mini App. |
 | `step` | consecutive steps become one numbered message, equations in code. |
 | `timeline` | ✓ done, ▶ now, ○ next. `+reorder` also lists it under Open in Yui, where dragging works. |
+| `sketch` | Its rows as text: struck rows struck through, highlighted rows bold, buttons in brackets, notes after an arrow, a before and after labelled; blank filler rows left out. The drawing itself is in the Mini App. |
 | `timer`, `slide`, `form`, `image`, `camera`, `mic`, `gallery`, `video`, `compare`, `storyboard`, `chart`, `math`, `calc`, `deck`, `plan`, `project`, `narrate`, `game`, `custom` | listed by name in one **Open in Yui** message, placed where the first of them was. Its button opens the whole screen in the Mini App. |
 
 Text outside ```` ```yui ```` fences is sent as a plain message. Screens (`>2`) and the stage do not exist in Telegram, so everything goes in line order (YL.md section 10). `+lock` shows the question with no buttons. Every preset in `yl.mjs` is covered, and a test fails when a new preset has no mapping.

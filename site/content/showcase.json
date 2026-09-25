@@ -55,11 +55,13 @@
     "YUI-38": { "title": "Onboarding interview that builds your first agents" },
     "SOC-3": { "title": "Three marketing videos", "shipped": "2026-09-24" },
     "YUI-65": { "title": "War room timeline", "shipped": "2026-09-25" },
+    "YUI-83": { "title": "Agents draw: sketch", "shipped": "2026-09-25" },
     "YUI-66": { "title": "Drag the war room queue into your own order", "shipped": "2026-09-25" },
     "YUI-73": { "title": "The war room, built out", "shipped": "2026-09-25" },
     "YUI-67": { "title": "Links in a card open Safari", "shipped": "2026-09-25" },
     "YUI-59": { "title": "Games: tic-tac-toe, snake, memory", "shipped": "2026-09-25" },
-    "YUI-79": { "title": "No text bombs: long messages read as pages", "shipped": "2026-09-25" }
+    "YUI-79": { "title": "No text bombs: long messages read as pages", "shipped": "2026-09-25" },
+    "YUI-82": { "title": "Full-screen pages tell a story" }
   },
   "groups": [
     {
@@ -125,6 +127,7 @@
         { "id": "plan-send", "title": "plan ends in Send", "what": "The last button of a plan says Send, and a card with nothing to act on has no button at all. No Got it, no OK: every button does something.", "cards": ["YUI-53"], "yl": "say \"Two quick ones, then I send the brief to the studio.\"\nplan@brief \"Site brief\"\npick@pages \"Which pages?\" Home|About|Classes|Contact\nask@launch \"Launch before the holidays?\" \"Yes, Dec 1\"|\"No rush\"", "agent": "Studio", "app": "native", "shots": ["/progress/yui53-plan-send-light.webp"] },
         { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] },
         { "id": "timeline", "title": "timeline", "what": "What shipped, what is running, what is next: done rows, a Now line, then the queue. Older rows fold; a row with a link opens Safari.", "cards": ["YUI-65"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui65-timeline-light.webp", "/progress/yui65-timeline-dark.webp"] },
+        { "id": "sketch", "title": "sketch", "what": "A small drawn picture: a window, phone or chat bubble with rows struck out, highlighted or called out with an arrow, and an optional before and after. Shows a change instead of describing it.", "cards": ["YUI-83"], "demo": "sketch-card-ids", "agent": "Yui", "app": "later", "shots": ["/progress/yui83-sketch-card-ids-light.webp", "/progress/yui83-sketch-buttons-dark.webp"] },
         { "id": "reorder", "title": "Drag the queue into your own order", "what": "Tap Edit order on a timeline and each queued row gets a drag handle; done and running rows stay put. Save sends the new order once. In the war room it lands straight on the board's priority, with no agent turn in between, and only the person who owns the agent can do it.", "cards": ["YUI-66"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui66-reorder-drag-light.webp", "/progress/yui66-reorder-edit-dark.webp", "/progress/yui66-reorder-saved.webp"] },
         { "id": "war-room", "title": "The war room", "what": "One screen to run a project from: what needs you (tap an answer and it lands on the card), what is running in each lane, the timeline, the newest builds with an Install button, the latest feedback and the card it became, and the MVP bar.", "cards": ["YUI-73"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui73-needs-light.webp", "/progress/yui73-running-dark.webp", "/progress/yui73-builds-dark.webp", "/progress/yui73-mvp-light.webp"] }
       ]
@@ -173,7 +176,8 @@
         { "id": "a2a-agent", "title": "Any A2A agent", "what": "Agents built with ADK, LangGraph, CrewAI or Microsoft Agent Framework join by their Agent Card. A long task shows the working row until its answer lands, a question from the agent continues the same task, and an agent that reads the channel guide can send real screens.", "cards": ["INT-18"], "app": "native", "shots": ["/progress/int18-done-light.webp", "/progress/int18-tap-light.webp", "/progress/int18-asks-dark.webp"] },
         { "id": "own-model", "title": "Your own model", "what": "A model you run yourself with Ollama, LM Studio or vLLM joins through the model bridge. Yui sends it the channel guide and the thread every turn, so even a small local model draws screens and remembers your taps.", "cards": ["INT-12"], "app": "native", "shots": ["/progress/int12-screen-light.webp", "/progress/int12-tap-light.webp", "/progress/int12-remembers-dark.webp"] },
         { "id": "telegram", "title": "Yui screens in Telegram", "what": "When the app is not around, the same screen reaches you in Telegram. Questions are buttons under the message and a tap answers your agent. A timer, a chart or a form opens in a Telegram Mini App, in the chat's own colors.", "cards": ["INT-4"], "app": "site", "shots": ["/progress/int4-questions-light.webp", "/progress/int4-open-in-yui-dark.webp", "/progress/int4-chart-dark.webp"] },
-        { "id": "read-as-pages", "title": "Long messages read as pages", "what": "A long agent message never fills the thread. It folds to its first lines and a Read as pages button, which opens it as pages you swipe through, one idea per page.", "cards": ["YUI-79"], "app": "native", "shots": ["/progress/yui79-after-light.webp", "/progress/yui79-pages-dark.webp", "/progress/yui79-pages-middle-light.webp"] }
+        { "id": "read-as-pages", "title": "Long messages read as pages", "what": "A long agent message never fills the thread. It folds to its first lines and a Read as pages button, which opens it as pages you swipe through, one idea per page.", "cards": ["YUI-79"], "app": "native", "shots": ["/progress/yui79-after-light.webp", "/progress/yui79-pages-dark.webp", "/progress/yui79-pages-middle-light.webp"] },
+        { "id": "story-pages", "title": "Full-screen pages tell a story", "what": "Full screen is the whole stage, with no card on it. One idea per page, the headline set big and sized to its words, the body in a quieter voice, and words that spring on and off with the page.", "cards": ["YUI-82"], "app": "native", "shots": ["/progress/yui82-after-dark.webp", "/progress/yui82-after-light.webp", "/progress/yui82-build-after-light.webp"] }
       ]
     },
     {

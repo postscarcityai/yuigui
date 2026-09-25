@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Agents can draw now",
+    "card": "YUI-83",
+    "body": "From TestFlight feedback: \"Yui should be pretty good at just drawing different stuff so we don't even have to generate images or screenshots.\" Now an agent can draw a small picture in a few lines. A sketch is a little window, phone or chat bubble with rows in it. A row can be struck out, highlighted, greyed, drawn as a button, or left blank as filler, and a short note beside the frame points at it with an arrow. One line in the middle splits it into before and after. It sends nothing back; it is there to show instead of tell. Agents learn it in channel guide v18, next to long reports. In the eval, the old guide answered \"show me the difference\" with a table and words; the new one drew it both times. Live in the web playground and in the MCP App now. The iPhone view comes next.",
+    "images": [
+      {
+        "src": "/progress/yui83-sketch-card-ids-light.webp",
+        "alt": "A before and after drawn as two chat bubbles: the old message with a card id struck out in red, the new one in plain words highlighted in yellow, each with an arrow note"
+      },
+      {
+        "src": "/progress/yui83-sketch-buttons-dark.webp",
+        "alt": "A phone drawn in dark mode: the headline highlighted, two blank filler lines, a Got it button struck out with the note 'does nothing, cut it', and an Install button highlighted"
+      },
+      {
+        "src": "/progress/yui83-sketch-home-page-light.webp",
+        "alt": "A small browser window for a pottery shop's home page: the tagline highlighted to keep, 'Welcome to our website!' struck out, the newsletter button greyed with the note 'move to the footer'"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Yui's values, written down",
     "card": "SITE-33",
     "body": "Feedback on a build-ready deck said it plainly: three cards of split-up text is not what Yui is. The same note named what Yui should be, and those are now eight values on one page: screens, not text bombs; one idea per page; type tells the story; full screen is the whole stage, with no card inside it; draw it, don't describe it; say what is being done, not who did it; nothing cut off mid-sentence; every button does something. Each comes with one example. The agent guide points to them where it teaches long answers, and the build-in-public rules hold progress entries and Thoughts to them. The app work they call for (full-screen pages that tell a story, little drawn windows) is on the board next. Page: /developers/values.",

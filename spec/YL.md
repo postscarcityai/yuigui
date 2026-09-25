@@ -289,9 +289,9 @@ calc Pendulum f="T = 2*pi*sqrt(L/g)" L=0.1-3@1m g=1.6-25@9.81m/s^2 unit=s
 calc "Carbon-14 left" f="N = N0*exp(-ln(2)*t/h)" t=0-30000@5730yr N0=100% h=5730yr unit=%
 ```
 
-### Groups: deck, plan, narrate, timeline
+### Groups: deck, plan, narrate, timeline, sketch
 
-Four presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
+Five presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
 
 | Head | Members | What the group is |
 |---|---|---|
@@ -299,6 +299,7 @@ Four presets are **group heads**. A group head collects the lines that follow it
 | `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera` | one full-screen flow: pages to read, then questions, one answer at the end |
 | `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
 | `timeline` | `done`, `now`, `next` | what has shipped, what is running, what is queued |
+| `sketch` | `row`, `after` | a small drawn picture: rows struck out, highlighted, called out |
 
 **Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest only one way: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate.
 
@@ -411,6 +412,33 @@ next "Drag to reorder" tag=YUI-66
 next "War room panels" tag=YUI-73
 ```
 To refresh a live row later, give it an id and patch it: `now@w65 ...`, then `~w65 sub="native view done"`. Moving a row from `now` to `done` means sending the timeline again (a row's kind is its preset); `save` the screen and a later reply brings it back with `show`.
+
+#### sketch
+`sketch [title...] [frame=window] [before=Before]`, then one `row` per line, and at most one `after` line. A small drawn picture, so an agent can show instead of tell: how a screen should read, what changed, what to cut. A frame with rows inside it, some struck out, some highlighted, each with an optional short callout and an arrow pointing at it. No picture to generate, no screenshot to take, and nothing to tap: a sketch sends no events.
+- **Frames.** `frame=window` [window] is a small app window, three dots and the `title` in its bar. `frame=phone` is a phone outline with the title at the top. `frame=bubble` is a chat bubble whose rows are its lines, with the title above it. Any other frame draws as `window`, so frames can be added without a new YL version.
+- **Before and after.** An `after` line splits the sketch into two frames of the same kind: the rows above it in the first, labelled `before` [Before], the rows below it in the second, labelled with the `after` line's text [After]. Side by side when there is room, before on top on a phone. Only the first `after` splits; a later one is ignored. With no `after`, one frame and no labels.
+Props: `title`, `frame` [window], `before` [Before].
+
+#### row, after
+`row [text...] [+x] [+hi] [+dim] [+button] [note=]`. One line of the drawing. `+x` strikes it through (the thing to drop), `+hi` puts a highlighter swipe behind it (the thing to look at), `+dim` greys it (context that does not matter here); they can combine. `+button` draws the text as a button instead of a line, for drawing a screen's controls. `note` is a callout of a few words beside the frame, with an arrow to the row. A row with no text is a blank placeholder bar, for the parts of the picture that are only filler. A row outside a sketch stands alone as a one-row sketch.
+Props: `text`, `x`, `hi`, `dim`, `button`, `note`.
+
+`after [label...]` splits a sketch (above). Outside a sketch it draws nothing.
+Props: `label` [After].
+```
+sketch "Card ids" frame=bubble
+row "Parked YUI-83 in the backlog" +x note="an id means nothing to you"
+after
+row "Parked the drawing card in the backlog" +hi note="plain words"
+```
+```
+sketch "Build ready" frame=phone
+row "Build 97 is ready"
+row +dim
+row "Got it" +button +x note="does nothing"
+row "Install" +button +hi note="does the thing"
+```
+Why this shape: the pictures agents need to explain Yui (and most apps) are a frame with a few lines in it and marks on some of them. `image +edit` and `compare` need a real picture first; a `list` has no per-row marks; `custom` would make every agent draw its own. Marks are flags because they read as what they are (`+x`, `+hi`), cost one token and combine. The pair is one `after` line inside the group, not a second sketch, so the two frames always share a frame kind and sit together.
 
 ### game
 `game KIND [title...]`. A small game the person plays on the phone, so an agent can put something playable on screen in one line. The first bare word (not quoted, not options, starting with a letter) is the `kind`, wherever it sits; the rest of the positional text is the `title`. Kinds are matched without case. A game opens on the stage (section 5) unless it says `+inline`, and like any component it can go to a page (`>2 game snake`), be saved and shown, and sit on the shelf. Every game event carries `kind`.
@@ -566,7 +594,7 @@ Errors come from two layers. The **parser** rejects a line on its own: an unknow
 
 What ships today is in `spec/TELEGRAM.md` (INT-4): `ask`, `choose` and `pick` as inline keyboards, text presets as text, and the rest in a Telegram Mini App that draws the whole screen. The mapping below is where it goes next.
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, and a `game` sends its title with a link to play it in Yui. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), and a `game` sends its title with a link to play it in Yui. Everything else degrades to its text plus a link to open it in Yui.
 
 ## 11. Versioning
 

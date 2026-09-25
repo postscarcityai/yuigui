@@ -219,3 +219,48 @@
   .yl-memcard.up .face { opacity: 1; }
 }
 .yl-memcard .face.word { font-size: 13px; font-weight: 800; overflow-wrap: normal; word-break: keep-all; line-height: 1.15; }
+
+/* Sketch (YUI-83): a drawn frame with rows, marks and callouts. */
+.yl-skpair { display: flex; flex-wrap: wrap; gap: 12px; }
+.yl-skpair > .yl-skside { flex: 1 1 240px; }
+.yl-skside { margin: 0; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.yl-sklabel { font-size: 11px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; color: var(--yl-ink2); }
+.yl-sk.sk-pair .yl-skside:last-child .yl-sklabel { color: var(--yl-good); }
+.yl-sktop { font-size: 14px; font-weight: 800; color: var(--yl-ink); }
+.yl-skgrid { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; position: relative; }
+.yl-skside.sk-notes .yl-skgrid { grid-template-columns: minmax(0, 5fr) minmax(0, 3fr); }
+.yl-skbox { grid-column: 1; border: 2px solid var(--yl-axis); border-radius: 12px; background: var(--screen-bg); }
+.yl-skgrid.sk-phone .yl-skbox { border-width: 3px; border-radius: 26px; }
+.yl-skgrid.sk-bubble .yl-skbox { border: 0; border-radius: 18px 18px 18px 6px; background: var(--yl-grid); }
+.yl-skhead, .yl-skcell, .yl-skfoot { grid-column: 1; position: relative; z-index: 1; min-width: 0; }
+.yl-skhead { display: flex; align-items: center; gap: 8px; min-height: 10px; }
+.yl-skgrid.sk-window .yl-skhead { padding: 7px 10px; border-bottom: 2px solid var(--yl-axis); margin-bottom: 6px; }
+.yl-skgrid.sk-phone .yl-skhead { flex-direction: column; gap: 6px; padding: 8px 14px 6px; }
+.yl-skgrid.sk-bubble .yl-skhead { padding: 0 2px 6px; }
+.yl-skdots { display: flex; gap: 4px; }
+.yl-skdots i { width: 7px; height: 7px; border-radius: 50%; background: var(--yl-axis); }
+.yl-sknotch { width: 54px; height: 7px; border-radius: 7px; background: var(--yl-axis); }
+.yl-sktitle { font-size: 12px; font-weight: 800; color: var(--yl-ink2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.yl-skgrid.sk-phone .yl-sktitle { color: var(--yl-ink); font-size: 13px; align-self: flex-start; }
+.yl-skcell { padding: 3px 12px; display: flex; align-items: center; }
+.yl-skgrid.sk-phone .yl-skcell { padding: 3px 16px; }
+.yl-skgrid.sk-bubble .yl-skcell { padding: 2px 14px; }
+.yl-skgrid.sk-bubble .yl-skcell:nth-child(3) { padding-top: 11px; }
+.yl-skfoot { min-height: 10px; }
+.yl-skgrid.sk-phone .yl-skfoot { min-height: 18px; }
+.yl-skrow { font-size: 13.5px; line-height: 1.35; color: var(--yl-ink); overflow-wrap: anywhere; min-width: 0; width: 100%; }
+.yl-skrow s { text-decoration: line-through 2px var(--yl-bad); color: var(--yl-ink2); }
+.yl-sk { --yl-marker: rgba(255, 210, 63, .34); }
+.screen.light .yl-sk { --yl-marker: rgba(255, 204, 0, .45); }
+.yl-skrow mark { color: inherit; font-weight: 700; background: linear-gradient(100deg, transparent 2%, var(--yl-marker) 4%, var(--yl-marker) 96%, transparent 98%); padding: 0 3px; margin: 0 -3px; border-radius: 4px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.yl-skrow.sk-dim { opacity: .4; }
+.yl-skfill { display: block; height: 8px; border-radius: 4px; background: var(--yl-axis); opacity: .6; margin: 3px 0; }
+.yl-skrow.sk-btn { display: flex; }
+.yl-skbtn { display: inline-flex; justify-content: center; text-align: center; min-width: 60%; max-width: 100%; padding: 6px 14px; border-radius: 999px; border: 2px solid var(--yl-axis); font-weight: 700; font-size: 13px; }
+.yl-skrow.sk-hi .yl-skbtn { border-color: #e0b000; background: var(--yl-marker); }
+.yl-skrow.sk-hi .yl-skbtn mark { background: none; padding: 0; margin: 0; }
+.yl-skrow.sk-x .yl-skbtn { border-style: dashed; border-color: var(--yl-bad); }
+.yl-sknote { grid-column: 2; display: flex; align-items: center; gap: 4px; margin-left: -10px; position: relative; z-index: 2; font-size: 12px; font-weight: 700; line-height: 1.25; color: var(--yl-ink2); min-width: 0; }
+.yl-sknote svg { flex: none; width: 22px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.yl-sknote span { overflow-wrap: anywhere; }
+.yl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

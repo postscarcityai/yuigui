@@ -1221,7 +1221,10 @@
           "ask",
           "choose",
           "pick",
-          "table"
+          "table",
+          "sketch",
+          "row",
+          "after"
         ],
         "need": [
           "deck",
@@ -1254,7 +1257,10 @@
           "ask",
           "choose",
           "pick",
-          "table"
+          "table",
+          "sketch",
+          "row",
+          "after"
         ],
         "need": [
           "deck",
@@ -1319,6 +1325,62 @@
         "max_words": 40
       },
       "good": "Patches the list on screen 2 by preset name (`~list \"Tue 5k easy\" \"Thu swim\" \"Sat 10k long\" +check`), at most a short line. Does not re-send the list or explain the tag."
+    },
+    {
+      "id": "report-draw-change",
+      "category": "report",
+      "agent": "Urza",
+      "message": "What changed in how you word your updates to me? You used to write things like \"Parked YUI-83, feedback #2291 attached\". Now you just say what the card is, like \"Parked the drawing card, your note is on it\". Show me the difference, don't describe it.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "sketch",
+          "row",
+          "after",
+          "card",
+          "deck",
+          "page",
+          "say",
+          "stat",
+          "list",
+          "ask",
+          "choose",
+          "end"
+        ],
+        "need": [
+          "sketch"
+        ],
+        "max_words": 50
+      },
+      "good": "One short line and a `sketch` (a bubble fits) with the old wording struck out (+x) and the new wording highlighted (+hi), ideally split with `after`, a note or two. No paragraph explaining it."
+    },
+    {
+      "id": "draw-screen-fix",
+      "category": "report",
+      "agent": "Urza",
+      "message": "The build-ready screen shows the headline, two lines of notes, then a Got it button and an Install button. Which of those should go, and why? Show me on the screen itself.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "sketch",
+          "row",
+          "after",
+          "card",
+          "deck",
+          "page",
+          "say",
+          "stat",
+          "list",
+          "ask",
+          "choose",
+          "end"
+        ],
+        "need": [
+          "sketch"
+        ],
+        "max_words": 50
+      },
+      "good": "A `sketch` of the screen (frame=phone) with the headline and notes as rows, Got it as a +button row struck out (+x) with a short note (it does nothing), Install as a +button row highlighted. At most a line of chat."
     }
   ]
 }

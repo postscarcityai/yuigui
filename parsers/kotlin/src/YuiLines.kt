@@ -19,6 +19,7 @@ val PRESETS = listOf(
     "chart", "stat", "math", "step", "calc",
     "deck", "page", "plan", "project", "narrate",
     "timeline", "done", "now", "next",
+    "sketch", "row", "after",
     "game",
 )
 
@@ -33,6 +34,7 @@ val GROUPS = mapOf(
     "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera"),
     "narrate" to listOf("page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"),
     "timeline" to listOf("done", "now", "next"),
+    "sketch" to listOf("row", "after"),
 )
 
 val CHART_TYPES = listOf("line", "bar", "area", "scatter", "pie", "donut")
@@ -445,7 +447,9 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "chart" -> chart(pos)
     "stat" -> stat(pos)
     "step" -> step(pos)
-    "calc", "deck", "plan", "narrate", "timeline" -> titled("title", pos)
+    "calc", "deck", "plan", "narrate", "timeline", "sketch" -> titled("title", pos)
+    "row" -> titled("text", pos)
+    "after" -> titled("label", pos)
     "done", "now", "next" -> row(pos)
     "game" -> game(pos)
     "page" -> page(pos)
@@ -656,7 +660,7 @@ class Parser {
         if (o == null || o["op"] == "error" || o["op"] == "theme") return o
         if (o["op"] == "close") { open.clear(); return o }
         if (o["op"] == "end") {
-            if (open.isEmpty()) return op("op" to "error", "screen" to o["screen"], "message" to "end: no open deck, plan, narrate or timeline", "line" to o["line"])
+            if (open.isEmpty()) return op("op" to "error", "screen" to o["screen"], "message" to "end: no open deck, plan, narrate, timeline or sketch", "line" to o["line"])
             val g = open.removeAt(open.size - 1)
             return LinkedHashMap(o).also { it["target"] = g.first }
         }
@@ -885,6 +889,8 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "narrate" to mapOf("title" to "", "voice" to "agent", "rate" to 1.0, "auto" to false, "captions" to true),
     "timeline" to mapOf("title" to "", "mark" to "Now", "fold" to 5.0),
     "done" to mapOf("text" to ""), "now" to mapOf("text" to ""), "next" to mapOf("text" to ""),
+    "sketch" to mapOf("title" to "", "frame" to "window", "before" to "Before"),
+    "row" to mapOf("text" to ""), "after" to mapOf("label" to "After"),
     "game" to mapOf("title" to "", "you" to "x", "first" to "you", "speed" to 2.0, "size" to 15.0, "pairs" to 6.0, "items" to emptyList<String>()),
 )
 

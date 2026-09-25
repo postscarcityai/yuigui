@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 100,
-    "site": 251,
+    "site": 253,
     "builds": 28,
-    "shipped": 134,
-    "screenshots": 264
+    "shipped": 135,
+    "screenshots": 269
   },
   "days": [
     {
@@ -13,15 +13,52 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T18:04:47.375Z",
-          "title": "Yui's values, written down",
-          "card": "SITE-33",
-          "anchor": "yui-s-values-written-down",
-          "images": [],
+          "at": "2026-09-25T18:20:32.542Z",
+          "title": "Agents can draw now",
+          "card": "YUI-83",
+          "anchor": "agents-can-draw-now",
+          "images": [
+            {
+              "src": "/progress/yui83-sketch-card-ids-light.webp",
+              "alt": "A before and after drawn as two chat bubbles: the old message with a card id struck out in red, the new one in plain words highlighted in yellow, each with an arrow note"
+            },
+            {
+              "src": "/progress/yui83-sketch-buttons-dark.webp",
+              "alt": "A phone drawn in dark mode: the headline highlighted, two blank filler lines, a Got it button struck out with the note 'does nothing, cut it', and an Install button highlighted"
+            },
+            {
+              "src": "/progress/yui83-sketch-home-page-light.webp",
+              "alt": "A small browser window for a pottery shop's home page: the tagline highlighted to keep, 'Welcome to our website!' struck out, the newsletter button greyed with the note 'move to the footer'"
+            }
+          ],
           "commits": 0,
           "totals": {
             "app": 100,
-            "site": 251,
+            "site": 253,
+            "builds": 28,
+            "shipped": 135
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T18:05:59.000Z",
+          "title": "Yui's values, written down",
+          "card": "SITE-33",
+          "anchor": "yui-s-values-written-down",
+          "images": [
+            {
+              "src": "/progress/site33-values-page.webp",
+              "alt": "The Yui's values page on yuigui.com, with the eight values listed in the side index and the first four shown"
+            },
+            {
+              "src": "/progress/site33-values-phone.webp",
+              "alt": "The values page on a phone: the title Yui's values, the intro and the first value, Screens, not text bombs"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 100,
+            "site": 252,
             "builds": 28,
             "shipped": 134
           }
@@ -1066,6 +1103,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "043e2d6",
+          "at": "2026-09-25T18:10:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/043e2d6"
+        },
+        {
+          "repo": "site",
+          "sha": "7679962",
+          "at": "2026-09-25T18:05:59.000Z",
+          "text": "Yui's values (SITE-33). spec/VALUES.md, rendered at /developers/values and first in the spec index: eight values from TestFlight...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7679962"
+        },
         {
           "repo": "site",
           "sha": "9f1f8ce",
