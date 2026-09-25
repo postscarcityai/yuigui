@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T21:10:02.840Z",
+  "updated": "2026-09-25T21:40:44.785Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -25,10 +25,6 @@
         {
           "key": "YUI-37",
           "title": "A starter agent for people with no agent"
-        },
-        {
-          "key": "YUI-38",
-          "title": "Onboarding interview that builds your first agents"
         },
         {
           "key": "YUI-39",
@@ -81,6 +77,16 @@
           "key": "YUI-85",
           "title": "The channel guide teaches a sketch under a page",
           "waiting": true
+        },
+        {
+          "key": "YUI-89",
+          "title": "Agent tables in the app",
+          "summary": "SQLite store, native query views, the other parsers"
+        },
+        {
+          "key": "YUI-90",
+          "title": "The release timeline is live in the war room",
+          "summary": "A big, always-current view of where the next version stands"
         },
         {
           "key": "SITE-28",
@@ -180,14 +186,13 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "YUI-86",
-          "title": "Agents fill the drawer",
-          "summary": "YL 'menu' word (review, backlog, shortcut) and the drawer's Backlog section"
+          "key": "YUI-38",
+          "title": "Onboarding interview that builds your first agents"
         },
         {
-          "key": "YUI-33",
-          "title": "Agent tables on the phone",
-          "summary": "Create, upsert, query"
+          "key": "SITE-35",
+          "title": "See it catches up",
+          "summary": "Showcase entries for the 0.2.0 drawer, menu, lasting ids, sketch and Update chip"
         }
       ]
     },
@@ -195,6 +200,19 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-33",
+          "title": "Agent tables on the phone",
+          "summary": "Agents keep data on your phone: tables",
+          "shipped": "2026-09-25",
+          "progress": "/progress#agents-keep-data-on-your-phone-tables"
+        },
+        {
+          "key": "YUI-86",
+          "title": "Agents fill the drawer",
+          "shipped": "2026-09-25",
+          "progress": "/progress#agents-fill-the-drawer"
+        },
         {
           "key": "YUI-87",
           "title": "Screens the phone's build can't draw arrive as words, not raw lines",

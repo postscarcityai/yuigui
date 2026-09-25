@@ -640,6 +640,15 @@
     },
     {
       "text": "Lines this build can't draw fold into one Update chip (YUI-87, beta feedback ANJPrtB7CHynwGR5mqNVPSM on build 96: a `sketch` drew as red \"unknown preset\" rows with the raw Yui Lines under them)."
+    },
+    {
+      "text": "flywheel: query and put are Yui Lines words now (YUI-33, yuigui cf44acd)"
+    },
+    {
+      "text": "Yui 0.2.0 (YUI-SHIP): MARKETING_VERSION 0.1.0 -> 0.2.0. One release for the drawer as the agent's home (YUI-54), agents fill the drawer (YUI-86), screens refresh in place (YUI-75), plus story pages, sketches, chat with a screen, Needs you as one block, Update chip (YUI-87)."
+    },
+    {
+      "text": "asc.py: 60s network timeout so a stalled Apple call can't hang the TestFlight watch cron"
     }
   ]
 }
