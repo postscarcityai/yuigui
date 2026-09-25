@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 84,
-    "site": 220,
+    "app": 86,
+    "site": 222,
     "builds": 26,
-    "shipped": 119,
-    "screenshots": 246
+    "shipped": 120,
+    "screenshots": 250
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T12:53:25.062Z",
+          "at": "2026-09-25T13:09:15.405Z",
+          "title": "No more text bombs",
+          "card": "YUI-79",
+          "anchor": "no-more-text-bombs",
+          "images": [
+            {
+              "src": "/progress/yui79-before-dark.webp",
+              "alt": "Before: the build report as one tall bubble that fills the whole screen"
+            },
+            {
+              "src": "/progress/yui79-after-light.webp",
+              "alt": "After: the same report folded to four lines with a Read as pages button, 6 pages"
+            },
+            {
+              "src": "/progress/yui79-pages-dark.webp",
+              "alt": "Read as pages, dark: the report's first page full screen with page dots and arrows"
+            },
+            {
+              "src": "/progress/yui79-pages-middle-light.webp",
+              "alt": "A middle page of the same report in light mode"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 86,
+            "site": 222,
+            "builds": 26,
+            "shipped": 120
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T12:53:53.000Z",
           "title": "Your own model, in Yui",
           "card": "INT-12",
           "anchor": "your-own-model-in-yui",
@@ -31,10 +63,10 @@
               "alt": "Dark mode after a relaunch: asked which drink was picked, the model answers TEA from the thread Yui sent it"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 84,
-            "site": 220,
+            "site": 221,
             "builds": 26,
             "shipped": 119
           }
@@ -99,7 +131,7 @@
               "alt": "Dark: the agent asks Which color?, the person says Blue, the same task answers Blue it is."
             }
           ],
-          "commits": 2,
+          "commits": 4,
           "totals": {
             "app": 82,
             "site": 214,
@@ -739,6 +771,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "6f884df",
+          "at": "2026-09-25T13:06:45.000Z",
+          "text": "A long plain answer is never a wall in the thread (TestFlight build 82, \"I don't want these text bombs\"): an agent's plain message over...",
+          "url": "https://github.com/postscarcityai/yui/commit/6f884df"
+        },
+        {
+          "repo": "site",
+          "sha": "08bc470",
+          "at": "2026-09-25T13:03:07.000Z",
+          "text": "ROADMAP: YUI-80 the chat never gets stuck shrunk (TestFlight feedback Sep 25)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/08bc470"
+        },
+        {
+          "repo": "app",
+          "sha": "62b1003",
+          "at": "2026-09-25T12:56:31.000Z",
+          "text": "No text bombs from the host side: a report helper that turns build pings and board reports into a short line, a card and a deck of...",
+          "url": "https://github.com/postscarcityai/yui/commit/62b1003"
+        },
+        {
+          "repo": "site",
+          "sha": "3214b14",
+          "at": "2026-09-25T12:53:53.000Z",
+          "text": "INT-12 step 1: the model bridge. spec/MODELS.md (rendered at /developers/models): put a model you run yourself (Ollama, LM Studio, vLLM,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3214b14"
+        },
         {
           "repo": "app",
           "sha": "e015c15",

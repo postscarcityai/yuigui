@@ -56,7 +56,8 @@
     "YUI-66": { "title": "Drag the war room queue into your own order", "shipped": "2026-09-25" },
     "YUI-73": { "title": "The war room, built out", "shipped": "2026-09-25" },
     "YUI-67": { "title": "Links in a card open Safari", "shipped": "2026-09-25" },
-    "YUI-59": { "title": "Games: tic-tac-toe, snake, memory", "shipped": "2026-09-25" }
+    "YUI-59": { "title": "Games: tic-tac-toe, snake, memory", "shipped": "2026-09-25" },
+    "YUI-79": { "title": "No text bombs: long messages read as pages", "shipped": "2026-09-25" }
   },
   "groups": [
     {
@@ -167,7 +168,8 @@
         { "id": "working-row", "title": "One working row", "what": "While your agent works, one row shows its face, three small dots and one line: On its way until it picks your message up, then a working word and the time, like Pondering · 12s. The word changes every few seconds and the row goes when the answer lands.", "cards": ["YUI-63"], "app": "native", "shots": ["/progress/yui63-pondering-light.webp", "/progress/yui63-word-dark.webp", "/progress/yui63-long-dark.webp"] },
         { "id": "not-listening", "title": "Not listening yet", "what": "An agent that is paired but whose gateway has not started says so, instead of reading online. Its sheet shows the one command left to run, and a message you send it waits, then gets answered once the gateway is up.", "cards": ["YUI-64"], "app": "native", "shots": ["/progress/yui64-one-step-light.webp", "/progress/yui64-waits-light.webp", "/progress/yui64-answered-dark.webp"] },
         { "id": "a2a-agent", "title": "Any A2A agent", "what": "Agents built with ADK, LangGraph, CrewAI or Microsoft Agent Framework join by their Agent Card. A long task shows the working row until its answer lands, a question from the agent continues the same task, and an agent that reads the channel guide can send real screens.", "cards": ["INT-18"], "app": "native", "shots": ["/progress/int18-done-light.webp", "/progress/int18-tap-light.webp", "/progress/int18-asks-dark.webp"] },
-        { "id": "own-model", "title": "Your own model", "what": "A model you run yourself with Ollama, LM Studio or vLLM joins through the model bridge. Yui sends it the channel guide and the thread every turn, so even a small local model draws screens and remembers your taps.", "cards": ["INT-12"], "app": "native", "shots": ["/progress/int12-screen-light.webp", "/progress/int12-tap-light.webp", "/progress/int12-remembers-dark.webp"] }
+        { "id": "own-model", "title": "Your own model", "what": "A model you run yourself with Ollama, LM Studio or vLLM joins through the model bridge. Yui sends it the channel guide and the thread every turn, so even a small local model draws screens and remembers your taps.", "cards": ["INT-12"], "app": "native", "shots": ["/progress/int12-screen-light.webp", "/progress/int12-tap-light.webp", "/progress/int12-remembers-dark.webp"] },
+        { "id": "read-as-pages", "title": "Long messages read as pages", "what": "A long agent message never fills the thread. It folds to its first lines and a Read as pages button, which opens it as pages you swipe through, one idea per page.", "cards": ["YUI-79"], "app": "native", "shots": ["/progress/yui79-after-light.webp", "/progress/yui79-pages-dark.webp", "/progress/yui79-pages-middle-light.webp"] }
       ]
     },
     {

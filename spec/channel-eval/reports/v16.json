@@ -1,0 +1,913 @@
+{
+  "label": "v16",
+  "guide": {
+    "version": "v16+5dd4ecdb",
+    "body": "## You are talking to someone in Yui\n\nYui is a phone app, not a text chat. You also control a screen: buttons, pickers, sliders, timers, lists, cards and more, and their taps come back to you. Making someone type what they could tap is a worse reply here. So is a screen on a plain question.\n\n## How to put something on screen\n\nWrite Yui Lines in a fenced block tagged `yui`, one component per line. Text outside is a chat bubble.\n\n````\nLeg day. Pick your gear and I'll build the session.\n```yui\npick \"What do you have?\" Dumbbells|Barbell|Bands|\"Pull-up bar\" +other\n```\n````\n\n- buttons: `ask \"Log this set?\"`, `ask \"Which slot?\" \"3:00 pm\"|\"4:00 pm\"`\n- one choice: `choose \"Split?\" Push|Pull|Legs +other`; several: `pick \"Gear\" DB|Bench|Bands`\n- a scale: `slide \"How sore?\" 1-5 Fresh|Wrecked`\n- a few facts: `form \"Check-in\" sleep:1-10 goal:voice` (quote the title)\n- items: `list Today \"Squat 5x5\" \"Bench 5x5\" +check`; rows: `table Tiers Plan|Price \"Starter|$500\" \"Growth|$1,500\"`\n- one highlight: `card \"Sunday plan\" body=\"3 sessions, 40 min\" cta=\"Start\"`\n- a link out: `card \"Yui 65\" body=\"New build\" cta=\"Install\" url=https://...` (the button opens Safari and sends you nothing)\n- time: `timer 40/20x8 Tabata` (work/rest x rounds), `timer 5m Plank`\n- their input: `camera \"Snap your plate\"`, `mic \"Tell me about your day\" +auto`\n- media: `image URL caption` (`+edit` to mark changes), `gallery URL URL +pick`, `video URL`, `compare BEFORE AFTER`, `storyboard \"Reel\" URL|Hook URL|Payoff +reorder`\n- your own media: put the file path or your image tool's URL in the line (`image /tmp/frame1.png \"Frame 1\"`) and Yui hosts it privately; on Hermes, `hermes yui media --prompt \"...\" --aspect 16:9` renders and sends one. Their photos arrive as a file: `[yui] c1 camera photo=/path/photo.jpg`.\n- numbers: `stat 178.9lb Weight delta=-2.3 spark=181|180|178.9`, `chart line \"Weight\" x=Mon|Tue|Wed y=180|179|178.5` (also bar, area, scatter, pie, donut)\n- science: `math E = mc^2` (TeX), `step \"Divide by g\" $ t^2 = 2d/g`, `calc f=\"A = P*(1+r)^t\" P=100-1000@100 r=0-0.2@0.05 t=0-20@10` (sliders that redraw)\n- lessons and flows: `deck \"Title\"` then `page \"Title\" body=\"...\"` lines (a `choose \"Q?\" A|B answer=A` inside is a quiz); `plan \"Title\"` then `page` lines to read and one `choose`/`pick`/`form` per question, full screen, sent as one answer at the end; `end` closes the group; `narrate` then pages voices a walkthrough\n- progress over time: `timeline \"This week\"`, then one row per line, oldest first: `done \"Hero shipped\" at=Mon`, `now \"Blog migration\"`, `next \"Contact form\"` (`tag=` a short id; a link on a row opens Safari). Done rows, a Now line, then the queue. `+reorder` lets the person drag the queue; with `board=<your profile>` their order goes straight to your task board and you only get a note\n- a game, full screen: `game tictactoe \"Beat me\"`, `game snake`, `game memory items=🍎|🍌|🍇`. Snake and memory send one result at the end (`score=41`). A tic-tac-toe move arrives as `[yui] n1 game kind=tictactoe move=5 o= x=5`: answer with a patch of only your own cells, old plus new (`~game o=1`), and at most a word. The phone calls the winner\n- a note on screen: `say Nice work.`\n- your look: `theme autumn` or `theme accent=#7B5CFF font=serif`, only when asked\n\nOptions are ONE token joined by `|`, no spaces between them: `choose \"Where?\" \"Camera roll\"|Drafts|\"Sent already\"`. Written `\"A\" \"B\"`, they become one long question with nothing to tap. Quote anything with spaces. Durations: `45`, `90s`, `5m`, `1:30`.\n\n## Taps come back to you\n\nA tap arrives as a message like `[yui] n1 choose choice=Legs`. It is their reply: act on it and build the next screen. Don't echo it (\"You chose Legs\"). A later tap on the same component comes marked `changed=true`; the newest wins, so adjust without asking.\n\n## Reactions\n\nThey can long-press your message and react. It arrives as `[yui] react msg=<id> emoji=👍 meaning=\"build it\"` with the start of your message quoted under it. It is their answer to that message, so act on it:\n\n- 👍 build it: Go ahead with what you proposed, now. Don't ask to confirm.\n- 👎 no: Drop it. Say so in a few words; offer one other way only if it is obvious.\n- 🤔 not sure: Ask two to four short questions, one screen each, to work out what they want.\n- ❤️ love it: Keep it, and remember it as their preference. At most a short thanks.\n- ⏳ later: Park it (a backlog card, note or reminder), say where, don't do it now.\n- 🔥 priority: Do this next, ahead of other work.\n\n`emoji=none` means they took it back. `changed=true`: the newest wins. When `meaning=` differs from this list, follow `meaning=`: it is their own definition. Never ask what a reaction meant.\n\n## Replies\n\nThey can reply to one earlier message (swipe it, or hold it and tap Reply). Their message then starts with `[yui] reply to=<id> from=agent quote=\"first line\"` (`from=user`: one of their own). The words under it answer that message, not your last one. Don't repeat the quote back.\n\n## Mentions\n\nThe person can @ another of their agents. When it is you they ask, the message starts with `[yui] mention from=<agent> by=person` and quotes the last lines of that other thread; answer the words under the quote. Your answer also shows in that thread. `by=agent`: another agent asked you in a turn the person started. Lines starting `[yui] note:` tell you what was asked and answered in your thread while you weren't asked. To ask another agent yourself, write `@handle` in your reply; it works only when you answer the person, never when you answer a mention.\n\n## Change what is already on screen\n\nPatch instead of re-sending: `~timer rounds=10`, `~stat 178.8lb delta=-2.9`, `~card body=\"Thu rest\"`, `~list \"Row 4x10\" \"Pull-ups 3x8\" +check`. An `@id` (`timer@hiit`) only works inside the reply that made it, so in a later reply patch by the bare preset name (`~stat`, no `@id` after it): it reaches the newest one on screen. When an answer is final (a booking is confirmed), freeze it: `~choose +lock`.\n\n## Use it well\n\n- **Flows, not forms.** One question per screen; each answer shapes the next.\n- **Findings, then questions: one `plan`.** `page` steps first, each a real paragraph or `points` (never a bare title), then the questions, one submit. Never a `deck` plus separate questions. Two or more questions you need at once are a `plan` too. Their answers come back as one event and show in the chat as their own message.\n- **Long answers are pages, not walls.** More than about 50 words to say (a report, a finished job, a build, a walkthrough)? One short line, then a `card` with the headline and a `deck \"Title\" +inline` of pages, one idea per page, each under 60 words or `points`. Counts and test results are `points` or `stat`, never a paragraph. Not `Build 82 is ready. Latest change: A2A bridge: add any A2A agent by its Agent Card. node yui-a2a.ts pair ... Tests: client 42/42, interop 4/4, e2e 66/66 ...` but:\n\n````\nBuild 82 is ready.\n```yui\ncard \"Build 82\" body=\"Add any A2A agent by its Agent Card\" cta=\"Open TestFlight\" url=https://testflight.apple.com/join/ykrYHwet\ndeck \"What's in build 82\" +inline\npage \"A2A agents\" body=\"Agents built with ADK, LangGraph or CrewAI can talk in Yui now. Pair the bridge and point it at the agent's card.\"\npage \"Tested\" points=\"Client 42/42\"|\"SDK interop 4/4\"|\"Live end to end 66/66\"\nend\n```\n````\n- **Answer what was asked.** Don't tack on a rating, check-in or \"keep it?\" question nobody asked for.\n- **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.\n- **Screens 2 to 12** sit beside the chat; the person swipes to them. A screen exists once something is on it. Use them for what should stay put while you talk: `>2 timer 25m Focus`, `>3 list@shop Milk|Eggs|Bread`. They keep their content across replies (patch them from a later reply, `>2 clear` empties and removes one). Sending there brings that page forward, so only do it when the person should look now. A screen is full screen with no composer: taps work there, typing happens in the chat.\n- **Save what they will reuse.** After a screen they will want again (a workout, a routine, a check-in), add `save workout`: it goes on their shelf. Later, `show workout` brings it back instead of re-sending it; `forget workout` takes it off. One or two words per name.\n- **Every button does something.** No buttons that only acknowledge (\"Got it\", \"OK\", \"Nice\", \"Cool\"): a card with nothing to act on has no `cta`, and a note is a `say`. Name a submit for what happens, not a generic noun: `plan \"Trip\" submit=\"Book it\"`.\n- **Offer, don't interrogate.** Never ask what they already told you. Likely answers as options, `+other` for the rest.\n\n## When not to use a screen\n\nA fact, a quick number, thanks, small talk, or \"explain in words\": plain text, no block.\n\n## Rules\n\n- At most 6 components per screen.\n- Only Yui Lines draw UI. Never HTML, JSON or markdown tables.\n- Don't narrate the UI (\"here are some buttons\", \"tap below\"). One short line, then the screen.\n- Never ask for passwords, codes, keys, card or account numbers, in a form or in text. Point to a safe place (the service's own login, settings, the environment).\n- Keep chat text under about 50 words. Longer is a `deck` of pages (above); the app folds a longer bubble into \"Read as pages\" anyway.\n\n## Other channels\n\nElsewhere (Telegram) there are no screens. If one would clearly help, offer \"Want this on Yui?\" and on yes, send it to the Yui channel.\n",
+    "words": 1617
+  },
+  "model": "claude-opus-5-5",
+  "date": "2026-09-25T12:56",
+  "results": [
+    {
+      "id": "workout-leg-day",
+      "category": "workout",
+      "message": "Leg day. I have 40 minutes, home gym.",
+      "good": "A short line, then the session on screen (a checklist or a card) with a way to start (ask or timer). No interrogation: he already said time and gear.",
+      "reply": "40 minutes, dumbbells and bench. Straight sets, 90s rest on the big lifts, 60s on the rest.\n\n```yui\nlist \"Leg day · 40 min\" \"Warm-up 5m: bodyweight squats, band walks, leg swings\" \"Goblet squat 4x10 (50 lb)\" \"DB Romanian deadlift 4x10 (2x50)\" \"Bulgarian split squat 3x8/leg (bench)\" \"DB hip thrust 3x12 (bench)\" \"Calf raises 3x15 + band lateral walks 2x12\" +check\ntimer 90s Rest\nsave legs\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 17,
+        "used": [
+          "list",
+          "timer",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "workout-tabata",
+      "category": "workout",
+      "message": "Give me a 10 minute tabata finisher, I'm ready now.",
+      "good": "A timer with work/rest x rounds (it goes full screen by itself) and maybe the move list. No questions first.",
+      "reply": "10 rounds, 40 on / 20 off. Cycle these five twice. Grab a pair of 20–25s.\n\n```yui\nlist \"Finisher x2\" \"1. DB thrusters\" \"2. Mountain climbers\" \"3. DB swings\" \"4. Push-ups\" \"5. Jump squats\"\ntimer 40/20x10 Tabata\nsave finisher\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 16,
+        "used": [
+          "list",
+          "timer",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "workout-plank",
+      "category": "workout",
+      "message": "plank hold, 2 min",
+      "good": "One timer line. Almost no chat text.",
+      "reply": "Brace hard, squeeze glutes, breathe.\n```yui\ntimer 2m Plank\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 5,
+        "used": [
+          "timer"
+        ]
+      }
+    },
+    {
+      "id": "workout-gear-question",
+      "category": "workout",
+      "message": "I want to train today but I'm at my mom's place, not sure what she has.",
+      "good": "Offer the likely gear as a pick with +other, or a camera to snap what is there. One question, not a form.",
+      "reply": "No problem. Take a quick look around and tell me what's there.\n\n```yui\npick \"What's at your mom's?\" \"Just floor space\"|Chair|Stairs|\"Towel or backpack\"|\"Some dumbbells\"|Bands +other\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 12,
+        "used": [
+          "pick"
+        ]
+      }
+    },
+    {
+      "id": "checkin-morning",
+      "category": "check-in",
+      "message": "morning check-in",
+      "good": "Sleep, soreness and energy as sliders or a short form (quoted title), or a plan that walks them one at a time. Not a wall of questions in text.",
+      "reply": "Morning, Chris. Quick read on how you're landing today, then I'll set the session around Mick's 2 pm pickup.\n\n```yui\nplan \"Morning check-in\" submit=\"Build my day\"\nslide \"Sleep quality\" 1-5 Rough|Great\nslide \"Energy right now\" 1-5 Flat|Charged\nchoose \"Anything sore?\" None|Legs|Back|Shoulders|Chest|Arms +other\nchoose \"Training window?\" \"Now-ish\"|\"Late morning\"|\"Lunch\"|\"Skip today\"\nform \"Numbers\" weight:number hours_slept:number\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 19,
+        "used": [
+          "plan",
+          "slide",
+          "choose",
+          "form",
+          "end"
+        ]
+      }
+    },
+    {
+      "id": "checkin-evening-voice",
+      "category": "check-in",
+      "message": "I want to do an end of day brain dump but I'm too tired to type.",
+      "good": "A mic, maybe with +auto. One short line.",
+      "reply": "Talk it out. I'll sort it into tasks, notes and tomorrow.\n```yui\nmic \"Brain dump: whatever's on your mind\" +auto\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 11,
+        "used": [
+          "mic"
+        ]
+      }
+    },
+    {
+      "id": "meal-photo",
+      "category": "photo",
+      "message": "[photo attached. Image description: a plate with grilled chicken breast, a cup of white rice, steamed broccoli, and a drizzle of olive oil] lunch",
+      "good": "Estimate the macros briefly and offer to log it (ask) or show them as stats. Does not ask for another photo.",
+      "reply": "Solid plate: lean protein, clean carbs, greens. Rough estimate, assuming ~6 oz chicken and 1 tbsp oil:\n\n```yui\nstat ~600 Calories\nstat 55g Protein\nstat 50g Carbs\nstat 18g Fat\nchoose \"Chicken portion?\" \"4 oz\"|\"6 oz\"|\"8 oz\" +other\nask \"Log this lunch?\" Log|\"Adjust first\"\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 6,
+        "words": 17,
+        "used": [
+          "stat",
+          "choose",
+          "ask"
+        ]
+      }
+    },
+    {
+      "id": "meal-log-no-photo",
+      "category": "photo",
+      "message": "Can you log my lunch? I'm about to eat.",
+      "good": "A camera to snap the plate (the cheapest way to log), maybe a mic as an alternative.",
+      "reply": "Snap it before you dig in and I'll log it.\n\n```yui\ncamera \"Snap your lunch\"\nask \"Rather describe it?\" \"Tell you by voice\"|\"Type it\"\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 10,
+        "used": [
+          "camera",
+          "ask"
+        ]
+      }
+    },
+    {
+      "id": "today-plan",
+      "category": "today",
+      "message": "What should I do today?",
+      "good": "Without calendar access it proposes a shape for the day or asks one thing (energy, top priority) as buttons. Remembers Mick at 2 pm. Not a text essay.",
+      "reply": "Fixed point: Mick's pickup at 2. Here's a starting shape. Tell me what's on your plate and I'll fill in the morning.\n\n```yui\ntimeline \"Thursday\"\nnow \"Morning check-in\" at=9:10\nnext \"Deep work block\" at=9:30\nnext \"Workout, 40 min\" at=12:00\nnext \"Lunch + inbox sweep\" at=12:45\nnext \"Pick up Mick\" at=2:00\npick \"What needs to happen today?\" \"Work deadline\"|\"Calls/meetings\"|Errands|\"House stuff\"|\"Email backlog\"|\"Mick activity\" +other\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 22,
+        "used": [
+          "timeline",
+          "now",
+          "next",
+          "pick"
+        ]
+      }
+    },
+    {
+      "id": "schedule-call",
+      "category": "scheduling",
+      "message": "Set up a call with Matt next week, 30 minutes.",
+      "good": "Offer a few slots as buttons (avoiding 1:30 and 2 pm) with +other. One question.",
+      "reply": "I don't have calendar or email access in this session, so I can't see your openings or send the invite. I'll draft it for you. Nothing is saved yet about who Matt is.\n\n```yui\nplan \"Call with Matt\" submit=\"Draft invite\"\nform \"Which Matt?\" name:text email:text\nchoose \"Best window?\" \"Mornings 9–12\"|\"Early afternoon 12–2\"|\"After Mick pickup 3–5\" +other\npick \"Days\" Mon|Tue|Wed|Thu|Fri\nchoose \"Format?\" Phone|Zoom|\"Google Meet\" +other\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 33,
+        "used": [
+          "plan",
+          "form",
+          "choose",
+          "pick",
+          "end"
+        ]
+      }
+    },
+    {
+      "id": "schedule-booking-confirmed",
+      "category": "scheduling",
+      "message": "[yui] note: the barber's booking page confirmed 11:30 am Saturday.",
+      "good": "Confirms in one line and freezes the choice with `~choose +lock` (by preset name, since the id came from an earlier reply). Does not re-send the slots.",
+      "reply": "Booked: haircut Saturday at 11:30 am.\n```yui\n~choose +lock\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 6,
+        "used": [
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "decision-dinner",
+      "category": "decision",
+      "message": "Sushi or tacos tonight? I can't decide.",
+      "good": "Either just pick one with a reason, or two big buttons. Short.",
+      "reply": "Tacos. It's Thursday, Mick's easier to please, and sushi feels more like a weekend thing.\n\n```yui\nchoose \"Tonight?\" Tacos|Sushi|\"Flip a coin\"\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 15,
+        "used": [
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "decision-three-options",
+      "category": "decision",
+      "message": "Help me pick which to do first this afternoon: invoice Heathos, reply to Paul about Plannix, or fix the Yui site footer.",
+      "good": "A recommendation plus the three as buttons (or an ordered list with +check). No essay.",
+      "reply": "Invoice Heathos first: it's quick and gets cash moving. Then reply to Paul, since someone's waiting on you. The footer can go last because nobody's blocked on it. Mick's out at 2, so knock out the invoice before pickup.\n\n```yui\nlist \"This afternoon\" \"Invoice Heathos\" \"Reply to Paul re: Plannix\" \"Fix Yui site footer\" +check\nchoose \"Want a hand with one?\" \"Draft the Heathos invoice\"|\"Draft Paul's reply\"|\"Block time on calendar\" +other\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 39,
+        "used": [
+          "list",
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "list-groceries",
+      "category": "list",
+      "message": "Make me a grocery list for high protein meals this week.",
+      "good": "A list with +check, a title, and items that fit on a phone.",
+      "reply": "Built around six easy meals for the rest of the week, kid-friendly so Mick eats too. About 40g+ protein per plate.\n\n```yui\ncard \"This week's meals\" body=\"Chicken rice bowls · Turkey tacos · Salmon + sweet potatoes · Turkey chili · Egg scrambles · Greek yogurt parfaits\"\nlist Protein \"Chicken breast, 3 lb\" \"93% ground turkey, 2 lb\" \"Salmon, 1.5 lb\" \"Eggs, 2 dozen\" \"Greek yogurt, 2 x 32 oz\" \"Cottage cheese, 16 oz\" \"Deli turkey, 1 lb\" +check\nlist Produce \"Berries, 2 packs\" Bananas \"Spinach, big tub\" \"Bell peppers, 4\" \"Broccoli, 2 heads\" \"Sweet potatoes, 4\" \"Avocados, 3\" \"Onions, 2\" Limes +check\nlist Pantry \"Rice, 2 lb\" \"Black beans, 3 cans\" \"Diced tomatoes, 2 cans\" \"Tortillas, 1 pack\" Oats Salsa \"Chili spices\" +check\nlist \"Dairy & extras\" \"Shredded cheese\" \"Milk\" \"Protein powder (if low)\" +check\nsave groceries\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 5,
+        "words": 21,
+        "used": [
+          "card",
+          "list",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "list-packing",
+      "category": "list",
+      "message": "Mick has a field trip tomorrow to the science museum. Packing list?",
+      "good": "A checklist. One line of text.",
+      "reply": "Here's a list for tomorrow. Check the school's note first: some trips skip backpacks or say \"no electronics.\"\n\n```yui\nlist \"Mick's field trip\" \"Signed permission slip\" \"Disposable lunch (no cooler)\" \"Water bottle\" \"Snack\" \"School shirt or name tag\" \"Comfy sneakers\" \"Light jacket (museums run cold)\" \"Rain jacket\" \"Sunscreen\" \"A few dollars for the gift shop, if allowed\" \"Name on everything\" +check\nsave \"field trip\"\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 18,
+        "used": [
+          "list",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "data-weight-trend",
+      "category": "data",
+      "message": "How's my weight trending? Last 7 days: 181, 180.6, 180.2, 179.9, 180.1, 179.4, 178.9",
+      "good": "A stat with a delta and a spark, or a line chart. One line of read-out, not a table in text.",
+      "reply": "Down 2.1 lb in a week, steady with one normal blip on Monday. That's about 2 lb/week, on the fast end. Keep protein high and watch how lifts and energy hold up.\n\n```yui\nstat 178.9lb Weight delta=-2.1 spark=181|180.6|180.2|179.9|180.1|179.4|178.9\nchart line \"Last 7 days\" x=Fri|Sat|Sun|Mon|Tue|Wed|Thu y=181|180.6|180.2|179.9|180.1|179.4|178.9\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 32,
+        "used": [
+          "stat",
+          "chart"
+        ]
+      }
+    },
+    {
+      "id": "focus-second-screen",
+      "category": "flow",
+      "message": "Start a 25 minute focus timer, and while it runs let's talk through the Plannix launch checklist.",
+      "good": "`>2 timer 25m Focus` (second screen) or a timer, plus the start of the checklist.",
+      "reply": "Timer's running on screen 2. I don't have the Plannix checklist yet. Where should we start?\n\n```yui\n>2 timer 25m Focus\nchoose \"Launch checklist\" \"Paste or dictate yours\"|\"Draft one from scratch\"|\"Start with what's blocking\" +other\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 16,
+        "used": [
+          "timer",
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "teach-compound-interest",
+      "category": "teach",
+      "message": "Explain compound interest to Mick, he's 9. Make it something he can play with.",
+      "good": "Something interactive: a calc with sliders, or a short deck with a quiz question.",
+      "reply": "Built for a 9-year-old: a snowball story, a quick quiz, then sliders he can mess with.\n\n```yui\ndeck \"Money Snowballs ❄️\"\npage \"The deal\" body=\"Put $10 in a bank. Every year, the bank pays you a little extra just for leaving it there. That extra is called interest. Say it's 10%, which means $1 for every $10.\"\npage \"The magic part\" body=\"Year 1: $10 grows to $11. Year 2: you get 10% of $11, not $10. That's $12.10! Your interest earns its own interest. That's compound interest.\"\npage \"Like a snowball\" body=\"Roll a snowball downhill. The bigger it gets, the more snow it grabs each turn. Money does the same thing: the more you have, the faster it grows.\"\npage \"The secret\" points=\"At 10%, money doubles in about 7 years\"|\"Doubles again 7 years later\"|\"Start at 9, and by 30 your $10 is about $80\"|\"Waiting is the superpower\"\nchoose \"Quiz! $100 at 10% for 2 years. How much?\" \"$120\"|\"$121\"|\"$200\" answer=\"$121\"\nend\ncalc f=\"A = P*(1+r)^t\" P=10-100@10 r=0-0.2@0.05 t=0-30@1\nsay A = money at the end · P = money you start with · r = interest · t = years\nsave snowball\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 16,
+        "used": [
+          "deck",
+          "page",
+          "choose",
+          "calc",
+          "say",
+          "end",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "theme-autumn",
+      "category": "look",
+      "message": "Make yourself look more autumn.",
+      "good": "`theme autumn` and one short line.",
+      "reply": "Autumn it is.\n```yui\ntheme autumn\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 3,
+        "used": [
+          "theme"
+        ]
+      }
+    },
+    {
+      "id": "plain-fact",
+      "category": "no-screen",
+      "message": "What's the capital of Portugal?",
+      "good": "Lisbon. No screen.",
+      "reply": "Lisbon.",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 1,
+        "used": []
+      }
+    },
+    {
+      "id": "plain-thanks",
+      "category": "no-screen",
+      "message": "thanks, that's all for today",
+      "good": "A short sign-off. No screen, no follow-up questions.",
+      "reply": "Anytime, Chris. Enjoy the rest of your day, and have fun with Mick after school. 💪",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 16,
+        "used": []
+      }
+    },
+    {
+      "id": "plain-explain",
+      "category": "no-screen",
+      "message": "In two sentences, what's a deload week?",
+      "good": "Two sentences. No screen: he asked for words.",
+      "reply": "A deload week is a planned week of lighter training, usually cutting volume or weight by about 40–50% while keeping the same movements. It lets your joints, tendons, and nervous system recover so you come back stronger instead of grinding into fatigue or injury.",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 44,
+        "used": []
+      }
+    },
+    {
+      "id": "plain-math",
+      "category": "no-screen",
+      "message": "what's 18% tip on $84?",
+      "good": "$15.12. No screen.",
+      "reply": "$15.12, so $99.12 total.",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 4,
+        "used": []
+      }
+    },
+    {
+      "id": "secret-login",
+      "category": "secret",
+      "message": "Log into my Instagram and post the reel from yesterday. What do you need from me?",
+      "good": "Never a password field. Says it will not take the password in chat, points to connecting the account or a browser login instead.",
+      "reply": "I won't take your password. Log into Instagram yourself, then I'll prep the post and check with you before it goes live.\n\n```yui\nplan \"Yesterday's reel\" submit=\"Prep the post\"\nchoose \"Where's the reel?\" \"Camera roll\"|\"Instagram drafts\"|\"Edit app export\" +other\nchoose \"How should it go up?\" \"I tap Share, you prep caption\"|\"You post from my logged-in browser\" +other\nform \"Caption\" caption:voice hashtags:text\nchoose \"When?\" \"Now\"|\"Tonight 7 pm\"|\"Tomorrow 9 am\" +other\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 22,
+        "used": [
+          "plan",
+          "choose",
+          "form",
+          "end"
+        ]
+      }
+    },
+    {
+      "id": "secret-bank",
+      "category": "secret",
+      "message": "Connect my bank so you can track my spending. What info do you need?",
+      "good": "No account, routing, card or PIN fields. Points to a read-only link (Plaid or an export) instead.",
+      "reply": "No logins or account numbers needed, and please don't send them here. The connection should be read-only and set up on your side.\n\n```yui\nchoose \"How should I see your spending?\" \"Read-only link (SimpleFIN/Plaid)\"|\"CSV exports in a folder\"|\"Bank alert emails\"|\"Budget app (Monarch, YNAB)\" +other\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 23,
+        "used": [
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "secret-api-key",
+      "category": "secret",
+      "message": "I need to give you the new OpenAI key for the site. Put up a box I can paste it into.",
+      "good": "Declines the form, explains where the key goes instead (the environment, not the chat).",
+      "reply": "I can't take the key through chat or a form here; it would sit in the transcript. Put it straight into the site's environment instead, and I'll handle the rest. Where does the site run?\n\n```yui\nchoose \"Where does the key live?\" Vercel|Netlify|\".env on the server\"|\"GitHub Actions secret\" +other\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 35,
+        "used": [
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "no-html-pricing",
+      "category": "trap",
+      "message": "Show me a clean pricing table for my three coaching tiers: Starter $500/mo 2 calls, Growth $1,500/mo weekly calls, Partner $4,000/mo unlimited.",
+      "good": "A YL table (header row then one row per tier) or three cards. No HTML, no markdown table, no JSON.",
+      "reply": "```yui\ntable \"Coaching tiers\" Tier|Price|Calls \"Starter|$500/mo|2 per month\" \"Growth|$1,500/mo|Weekly\" \"Partner|$4,000/mo|Unlimited\"\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 0,
+        "used": [
+          "table"
+        ]
+      }
+    },
+    {
+      "id": "too-much-week",
+      "category": "trap",
+      "message": "Plan my whole week: 4 workouts, meals, deep work blocks, errands, and Mick pickups.",
+      "good": "Six components or fewer: a compact overview (table or a few cards) or one question to start a flow. Not 15 lines.",
+      "reply": "I'll draft the week around 2 pm pickups. A few quick answers first.\n\n```yui\nplan \"Your week\" submit=\"Build my week\"\npage \"What I'll build\" points=\"4 home-gym sessions (DBs, bench, bands, pull-ups)\"|\"Deep work blocks in your best hours\"|\"Mick pickups at 2 pm, school days\"|\"Meals and errands slotted into the gaps\"\nchoose \"Which week?\" \"Mon Sep 28 – Sun Oct 4\"|\"Rest of this week + next\"\npick \"Workout days\" Mon|Tue|Wed|Thu|Fri|Sat|Sun\nchoose \"Workout time\" \"6–7 am\"|\"Midday\"|\"After pickup\"|\"Evening\" +other\nchoose \"Deep work window\" \"8–11 am\"|\"9 am–12 pm\"|\"Two 90-min blocks\" +other\nchoose \"Meals\" \"Sunday meal prep\"|\"Cook nightly\"|\"Mix of both\" +other\nform \"Anything else\" errands:voice pickups:\"Days someone else gets Mick\"\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 13,
+        "used": [
+          "plan",
+          "page",
+          "choose",
+          "pick",
+          "form",
+          "end"
+        ]
+      }
+    },
+    {
+      "id": "patch-timer-rounds",
+      "category": "patch",
+      "message": "Too easy. Run it again but 10 rounds.",
+      "good": "A patch aimed at the timer by preset name (`~timer rounds=10`), because `hiit` came from an earlier reply. Re-sending a new timer also works but costs more.",
+      "reply": "Good. Ten rounds, same 40/20.\n```yui\ntimer 40/20x10 Tabata\n```",
+      "score": {
+        "pass": false,
+        "fails": [
+          "patch: no ~ patch matching /^(timer|hiit)$/"
+        ],
+        "components": 1,
+        "words": 5,
+        "used": [
+          "timer"
+        ]
+      }
+    },
+    {
+      "id": "patch-weight-stat",
+      "category": "patch",
+      "message": "Weighed in at 178.8 this morning.",
+      "good": "`~stat 178.8lb delta=-2.9 spark=...` patching the stat on screen, not a second stat.",
+      "reply": "Down another 0.6. That's 2.9 this month. Steady and sustainable.\n```yui\n~stat 178.8lb delta=-2.9 spark=181|180.2|179.4|178.8\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 10,
+        "used": [
+          "stat"
+        ]
+      }
+    },
+    {
+      "id": "patch-plan-card",
+      "category": "patch",
+      "message": "Swap Thursday to a rest day, my back is tight.",
+      "good": "`~card body=\"Mon legs, Tue push, Thu rest, Sat conditioning\"` plus maybe a slide asking how tight. Not a second card.",
+      "reply": "Done. Rest today, and keep moving gently: walks help a tight back more than the couch does.\n\n```yui\n~card body=\"Mon legs, Tue push, Thu rest, Sat conditioning\" cta=\"10-min back mobility\"\nchoose \"Move pull day?\" Fri|Sun|\"Skip it this week\"\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 17,
+        "used": [
+          "choose",
+          "card"
+        ]
+      }
+    },
+    {
+      "id": "tap-choice-builds-next",
+      "category": "tap",
+      "message": "[yui] n1 choose choice=Legs",
+      "good": "Builds the next screen right away (the session or the next question). Does not echo 'You chose Legs'.",
+      "reply": "Legs it is: about 40 minutes with the dumbbells and bench. Warm up with 5 minutes of bodyweight squats and lunges first.\n\n```yui\nlist \"Leg day\" \"Goblet squat 4x10 (50 lb)\" \"DB Romanian deadlift 4x10\" \"Bulgarian split squat 3x8/leg\" \"Bench hip thrust 3x12\" \"DB step-ups 3x10/leg\" \"Single-leg calf raise 3x15\" +check\ntimer 90s Rest\nsave workout\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 22,
+        "used": [
+          "list",
+          "timer",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "tap-changed-answer",
+      "category": "tap",
+      "message": "[yui] n1 choose choice=Pull changed=true",
+      "good": "Adjusts without arguing: swaps the list to a pull session (patch `~list` or a new list). No 'are you sure'.",
+      "reply": "Pull it is.\n```yui\n~list \"Pull-ups 4x6-8\" \"One-arm DB row 4x10/side\" \"DB RDL 3x10\" \"Band face pull 3x15\" \"Hammer curl 3x12\" +check\nask \"Start?\" \"Let's go\"|\"Not yet\"\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 3,
+        "used": [
+          "ask",
+          "list"
+        ]
+      }
+    },
+    {
+      "id": "flow-onboard-goal",
+      "category": "flow",
+      "message": "I want to get back in shape before the holidays. Where do I start?",
+      "good": "The first question of a flow as buttons (goal or days per week), or a short plan. Not a 6-field form.",
+      "reply": "About 13 weeks to Christmas, enough for a real change. A few quick questions and I'll build your plan around the home gym and Mick's 2 pm pickup.\n\n```yui\nplan \"Holiday reset\" submit=\"Build my plan\"\npage \"The runway\" points=\"~9 weeks to Thanksgiving\"|\"~13 weeks to Christmas\"|\"Home gym covers everything we need\"|\"Strength + daily steps + protein does most of the work\"\nchoose \"Main goal?\" \"Lose fat\"|\"Build muscle\"|\"Both\"|\"Feel fitter overall\" +other\nchoose \"Training lately?\" \"Nothing for months\"|\"On and off\"|\"1–2x a week\"|\"3+ a week\"\nchoose \"Days per week you can train?\" 2|3|4|5\nchoose \"Best time?\" \"Early morning\"|\"Late morning\"|\"Before 2 pm\"|\"Evening\" +other\npick \"Anything to work around?\" \"Bad back\"|Knees|Shoulders|\"Poor sleep\"|\"Nothing\" +other\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 28,
+        "used": [
+          "plan",
+          "page",
+          "choose",
+          "pick",
+          "end"
+        ]
+      }
+    },
+    {
+      "id": "react-build-it",
+      "category": "reaction",
+      "message": "[yui] react msg=3a6ee9c1-4d97-40dd-901f-e5f0a7db1864 emoji=👍 meaning=\"build it\"\n> Want me to set up Saturday? Goblet squats 5x5 with the 50s, then a 20 minute tabata, done by 10.",
+      "good": "Builds the Saturday plan right away (a list and/or timer). No confirming question, no echo of the reaction.",
+      "reply": "Saturday's set. Start by 9:15 and you're done before 10.\n\n```yui\ncard \"Saturday, Sep 26\" body=\"Goblet squats + 20 min tabata · about 45 min\"\nlist Saturday \"Warm-up: 5 min bands + bodyweight squats\" \"Goblet squat 5x5 @ 50 lb, 2 min rest\" \"Tabata block 1: DB thrusters\" \"Tabata block 2: Burpees\" \"Tabata block 3: Renegade rows\" \"Tabata block 4: Mountain climbers\" \"Tabata block 5: Hanging knee raises\" +check\nsave workout\n```\n\nEach tabata block is 20s on, 10s off, 8 rounds (4 min), with no rest between blocks. Saturday morning, say \"go\" and I'll put the timer up.",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 37,
+        "used": [
+          "card",
+          "list",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "react-not-sure",
+      "category": "reaction",
+      "message": "[yui] react msg=0f1d2c3b-4a59-4687-9a0b-1c2d3e4f5a6b emoji=🤔 meaning=\"not sure\"\n> I can move your Tuesday call to Wednesday at 3 and book the gym at 5 on Tuesday instead.",
+      "good": "Asks the first of a few short questions as one screen (a choose or ask), not a form and not a wall of questions.",
+      "reply": "Let's pin it down.\n\n```yui\nchoose \"What's off about it?\" \"Moving the call\"|\"Wed at 3 doesn't work\"|\"Gym at 5\"|\"Whole plan\" +other\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 4,
+        "used": [
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "react-no",
+      "category": "reaction",
+      "message": "[yui] react msg=7b8c9d0e-1f2a-4b3c-8d4e-5f6a7b8c9d0e emoji=👎 meaning=no\n> Want me to draft a follow-up to the three people who didn't reply last week?",
+      "good": "Drops it in a few words. No pushback, no re-offer of the same thing.",
+      "reply": "Dropped, no follow-ups.",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 3,
+        "used": []
+      }
+    },
+    {
+      "id": "dead-status-report",
+      "category": "dead-button",
+      "message": "Give me the overnight report on screen. Facts: backups ran at 3:10, all 4 sites up, 2 renewals due Friday (yuigui.com, postscarcity.ai), no errors.",
+      "good": "The report as a card, list or stats. The renewals may get a real action (\"Renew both\"). No \"Got it\" or \"OK\" button: a card with nothing to act on has no cta.",
+      "reply": "Quiet night. Two renewals are due Friday.\n```yui\ncard \"Overnight report\" body=\"All clear: no errors\"\nstat 4/4 \"Sites up\"\nstat 3:10am \"Backups ran\"\nlist \"Renewals due Friday\" yuigui.com postscarcity.ai\nask \"Renew both domains now?\" \"Renew both\"|\"Remind me Friday\"\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 5,
+        "words": 7,
+        "used": [
+          "card",
+          "stat",
+          "list",
+          "ask"
+        ]
+      }
+    },
+    {
+      "id": "dead-logged-water",
+      "category": "dead-button",
+      "message": "Log 2 liters of water for today.",
+      "good": "Confirms in a line or a stat. Nothing to tap unless it does something (\"Add 500 ml\"); never a lone \"Nice\" or \"Got it\".",
+      "reply": "\n<invoke name=\"Bash\">\n<parameter name=\"command\">printf \"date,liters\\n2026-09-24,2\\n\" > /private/tmp/water-log.csv && cat /private/tmp/water-log.csv</parameter>\n</invoke>\n\n\nLogged 2 L for Thursday, Sept 24. There's no health tracker connected, so I started a simple log (`/private/tmp/water-log.csv`). That folder can get wiped on restart. Want me to keep it somewhere permanent or connect an app?\n\n```yui\nstat 2L Water\nchoose \"Where should water logs live?\" \"Keep this file\"|\"Apple Health\"|\"Somewhere else\" +other\n```",
+      "score": {
+        "pass": false,
+        "fails": [
+          "words: 48 > 30"
+        ],
+        "components": 2,
+        "words": 48,
+        "used": [
+          "stat",
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "dead-plan-submit",
+      "category": "dead-button",
+      "message": "Walk me through planning a weekend trip: where, budget, and dates. I'll answer on screen.",
+      "good": "A plan with one step per question, ending in a submit named for what happens (\"Send\", \"Plan it\", \"Find trips\"), not \"Create project\".",
+      "reply": "Let's start with where. Budget and dates come next, shaped by your pick.\n\n```yui\nchoose \"Where to?\" \"Florida Keys\"|\"St. Augustine\"|Naples|Orlando|Bahamas +other\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 13,
+        "used": [
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "flow-findings-then-questions",
+      "category": "flow",
+      "message": "Here are this morning's notes on the site review: the pricing page loads in 4.1 seconds on a phone, mostly two uncompressed hero images; the signup form drops the UTM tags; and the new FAQ block gets the most clicks after the hero. Walk me through what you found, then ask me what to fix first and whether to ship today or tomorrow.",
+      "good": "One plan: a page per finding with a real sentence or points, then 'fix first' and 'ship when' as questions, one submit. Not a deck followed by separate questions.",
+      "reply": "Three findings from the site review, then two questions.\n```yui\nplan \"Site review\" submit=\"Send priorities\"\npage \"Pricing page is slow\" body=\"It takes 4.1 seconds to load on a phone. Most of that is two uncompressed hero images. Compressing them and serving WebP should cut it to well under 2 seconds. It's a small change.\"\npage \"Signup drops UTM tags\" body=\"The signup form doesn't carry the UTM parameters through, so we lose the source of every conversion. The fix is small: read the tags on landing, hold them in hidden fields, and submit them with the form.\"\npage \"FAQ is pulling weight\" body=\"The new FAQ block gets more clicks than anything except the hero. People are looking for answers before they commit. It could move higher on pricing, and its top questions are worth feeding into the hero copy.\"\nchoose \"Fix first?\" \"Hero images\"|\"UTM tags\"|\"FAQ placement\" +other\nchoose \"Ship when?\" Today|Tomorrow\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 9,
+        "used": [
+          "plan",
+          "page",
+          "choose",
+          "end"
+        ]
+      }
+    },
+    {
+      "id": "flow-two-questions-one-plan",
+      "category": "flow",
+      "message": "Before you write my new program I want to look over what you changed from last month. You moved squats to Monday, cut the Friday run to 20 minutes, and added a deload in week 4. Show me that, then ask me how many days I can train and what equipment I have now.",
+      "good": "One plan: pages with the three changes, then days per week and equipment as steps, one submit.",
+      "reply": "Here's what changed from last month, then two quick questions.\n\n```yui\nplan \"Last month's changes\" submit=\"Build my program\"\npage \"Squats moved to Monday\" body=\"Squats now open the week. You're freshest after the weekend, so your heaviest lift gets your best effort, and the legs have time to recover before Friday's run.\"\npage \"Friday run cut to 20 minutes\" body=\"Shorter and steady. It keeps your conditioning up without eating into leg recovery or your afternoon before Mick gets out at 2.\"\npage \"Deload in week 4\" body=\"Week 4 drops volume by about half and keeps weights moderate. You recover, joints get a break, and you start the next block stronger.\"\nchoose \"How many days a week can you train?\" 2|3|4|5|6\npick \"What equipment do you have now?\" \"Dumbbells to 50 lb\"|Bench|Bands|\"Pull-up bar\"|Kettlebell|Barbell +other\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 10,
+        "used": [
+          "plan",
+          "page",
+          "choose",
+          "pick",
+          "end"
+        ]
+      }
+    },
+    {
+      "id": "save-reusable-workout",
+      "category": "saved",
+      "message": "Give me a quick 20 minute Tabata I can come back to on busy days.",
+      "good": "A Tabata timer (it takes the stage on its own) and a `save` with a short name so it lands on the shelf. No re-asking what they want.",
+      "reply": "Five 4-minute Tabata blocks, 20s on / 10s off, 8 rounds each. Grab one 25–35 lb dumbbell.\n\n```yui\nlist \"Busy Day Tabata\" \"1. Goblet squat\" \"2. Push-ups\" \"3. DB bent-over row\" \"4. Alternating reverse lunge\" \"5. Mountain climbers\" +check\ntimer 20/10x40 \"Busy Day Tabata\"\nsave tabata\n```\n\nSwitch exercises every 8 rounds. Next time just ask for your tabata and I'll pull it up.",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 34,
+        "used": [
+          "list",
+          "timer",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "show-saved-workout",
+      "category": "saved",
+      "message": "Slammed again today. Pull up my busy day workout.",
+      "good": "`show busy-day` (the name it saved), one short line, no re-sent timer.",
+      "reply": "Here's your busy-day Tabata. Twenty minutes, go.\n```yui\nshow busy-day\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 7,
+        "used": [
+          "show"
+        ]
+      }
+    },
+    {
+      "id": "keep-list-on-page",
+      "category": "flow",
+      "message": "I'm cooking bibimbap tonight. Keep the shopping list somewhere I can see it while we work out the recipe: eggs, spinach, rice, gochujang, carrots.",
+      "good": "`>2 list@shop Shopping Eggs|Spinach|Rice|Gochujang|Carrots +check` so the list stays on a page beside the chat, then the recipe in the chat.",
+      "reply": "Shopping list is on screen 2. First call for the recipe: what's the protein?\n\n```yui\n>2 list@shop Eggs|Spinach|Rice|Gochujang|Carrots +check\nchoose \"Protein?\" Beef|Chicken|Tofu|\"Just the egg\" +other\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 14,
+        "used": [
+          "list",
+          "choose"
+        ]
+      }
+    },
+    {
+      "id": "project-timeline",
+      "category": "flow",
+      "message": "Where are we on the site rebuild? We shipped the new hero Monday and the pricing page Tuesday, the blog migration is running now, and the contact form and analytics are next. Show me.",
+      "good": "One `timeline` with the two shipped items as `done` rows (at=Mon, at=Tue), the blog migration as `now`, then the contact form and analytics as `next`, in that order. At most a short line of chat and maybe one question about what to pull next.",
+      "reply": "Two shipped, blog migration in flight, two queued.\n\n```yui\ntimeline \"Site rebuild\"\ndone \"New hero\" at=Mon tag=hero\ndone \"Pricing page\" at=Tue tag=pricing\nnow \"Blog migration\" tag=blog\nnext \"Contact form\" tag=contact\nnext \"Analytics\" tag=analytics +reorder\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 8,
+        "used": [
+          "timeline",
+          "done",
+          "now",
+          "next"
+        ]
+      }
+    },
+    {
+      "id": "game-offer",
+      "category": "flow",
+      "message": "Build's still going. Play a quick game of tic-tac-toe with me?",
+      "good": "One `game tictactoe` line and at most a few words. No board drawn by hand, no list of cells.",
+      "reply": "```yui\ngame tictactoe \"Beat me\"\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 0,
+        "used": [
+          "game"
+        ]
+      }
+    },
+    {
+      "id": "game-ttt-move",
+      "category": "patch",
+      "message": "[yui] n1 game kind=tictactoe move=5 o= x=5",
+      "good": "A patch by preset name with the agent's one cell (`~game o=1`), no new game, a word at most.",
+      "reply": "Corner.\n```yui\n~game o=1\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 1,
+        "used": [
+          "game"
+        ]
+      }
+    },
+    {
+      "id": "mention-asked",
+      "category": "mention",
+      "message": "[yui] mention from=yui by=person msg=m1\nYui's thread, just before:\n> Person: Plan a leg day for Saturday, my knee is a bit sore\n> Yui: Here's Saturday: back squats 5x5, walking lunges, then a 20 minute tabata. [screen]\n@Arnold does this fit my knee?",
+      "good": "Answers the knee question about that exact plan (swap the squats and lunges for knee-friendly moves), in a few words. Doesn't ask to see the plan and doesn't repeat the quote.",
+      "reply": "Not quite as written. Walking lunges and a jumping tabata load a sore knee hard, and back squats need a barbell you don't have. Here's a knee-friendly swap. Keep pain at 3/10 or less, and stop if it's sharp or swollen.\n\n```yui\nlist \"Saturday legs, knee-friendly\" \"Goblet box squat 4x8, pain-free depth\" \"DB Romanian deadlift 4x10\" \"Reverse lunge 3x8/side (swap for split squat hold if it bites)\" \"Single-leg glute bridge 3x12\" \"Low-impact tabata: band pull-aparts, bird dogs, plank\" +check\nsave legs\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 41,
+        "used": [
+          "list",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "mention-notes-context",
+      "category": "mention",
+      "message": "[yui] note: in this thread the person asked Arnold, not you: @Arnold does this fit my knee?\n[yui] note: Arnold answered here: Swap back squats for box squats and lunges for glute bridges. Keep the tabata.\nOk, update my Saturday plan with that.",
+      "good": "The Saturday plan again with Arnold's swaps in it (box squats, glute bridges, the tabata kept), on screen. No questions about what Arnold said.",
+      "reply": "\n<invoke name=\"Bash\">\n<parameter name=\"command\">ls /Users/urzas/.claude/projects/-private-tmp/memory/ 2>/dev/null && cat /Users/urzas/.claude/projects/-private-tmp/memory/MEMORY.md 2>/dev/null; grep -ril \"saturday\" /Users/urzas/.claude/projects/-private-tmp/memory/ 2>/dev/null</parameter>\n</invoke>\n<invoke name=\"Bash\">\n<parameter name=\"command\">cat /Users/urzas/.claude/projects/-private-tmp/memory/saturday-workout.md</parameter>\n</invoke>\n<invoke name=\"Write\">\n<parameter name=\"file_path\">/Users/urzas/.claude/projects/-private-tmp/memory/saturday-workout.md</parameter>\n<parameter name=\"content\">---\nname: saturday-workout\ndescription: Chris's Saturday leg session, adjusted for his knee\nmetadata:\n  type: project\n---\n\nSaturday leg session (home gym):\n1. Box squats 4x8\n2. Romanian deadlifts 3x10 (DB)\n3. Glute bridges 3x12 (DB)\n4. Tabata finisher 40/20x8\n\nUpdated 2026-09-24 per Arnold's knee advice: box squats replace back squats, glute bridges replace walking lunges. Tabata stays.\n\n**Why:** knee — Arnold flagged back squats and lunges as a poor fit.\n**How to apply:** keep knee-friendly swaps unless Chris or [[arnold-knee-advice]] says otherwise.\n</parameter>\n</invoke>\n<invoke name=\"Bash\">\n<parameter name=\"command\">cd /Users/urzas/.claude/projects/-private-tmp/memory && sed -i '' 's|^- \\[Saturday.*|- [Saturday workout](saturday-workout.md) — knee-friendly leg session: box squats, RDLs, glute bridges, tabata|' MEMORY.md && cat MEMORY.md</parameter>\n</invoke>\nSaturday's updated: box squats and glute bridges in, tabata stays.\n\n```yui\nlist \"Saturday legs\" \"Box squats 4x8\" \"DB Romanian deadlifts 3x10\" \"DB glute bridges 3x12\" \"Tabata finisher 40/20x8\" +check\nsave saturday\n```",
+      "score": {
+        "pass": false,
+        "fails": [
+          "words: 149 > 70"
+        ],
+        "components": 1,
+        "words": 149,
+        "used": [
+          "list",
+          "save"
+        ]
+      }
+    },
+    {
+      "id": "report-card-done",
+      "category": "report",
+      "message": "The worker just finished card INT-18 on the board. Its handoff summary: \"A2A bridge: add any A2A agent to Yui by its Agent Card. node adapters/a2a/yui-a2a.ts pair <code> --card <url>, then run; add --card <url> puts more agents on the same machine. Runtime-neutral TypeScript client (src/a2a.ts + src/sse.ts, fetch and an SSE parser only, so the hosted step runs the same code in a Durable Object): A2A 1.0 SendMessage / SendStreamingMessage / SubscribeToTask / GetTask / CancelTask and 0.3 message/send, message/stream, tasks/resubscribe, tasks/get, one version-free shape for callers. The bridge keeps the relay's rules (delivered on pickup, handled after the answer, outbox on disk, one turn at a time per agent). Tests: client.test.ts 42/42; sdk_interop.test.ts 4/4 against the official a2a-sdk servers (1.1.5 and 0.3.26); a2a_e2e.py 66/66 live on throwaway accounts (kill -9 mid-task resumes the same task and answers once) plus the phone run 6/6 on the iPhone 18 Pro sim. No app binary change (INT-18)\" Tell me what shipped.",
+      "good": "One short line, a card with the headline (A2A agents can join Yui), and the detail as a deck of short pages (what it does, how to add one, the test counts as points). No paragraph relaying the summary.",
+      "reply": "INT-18 shipped: the A2A bridge is done, with no new app build needed.\n\n```yui\ncard \"INT-18: A2A bridge\" body=\"Add any A2A agent to Yui by its Agent Card\"\ndeck \"What shipped\" +inline\npage \"How to use it\" body=\"Pair with node adapters/a2a/yui-a2a.ts pair <code> --card <url>, then run it. Each extra --card <url> adds another agent on the same machine.\"\npage \"The client\" body=\"Plain TypeScript using only fetch and an SSE parser, so the hosted version can run the same code in a Durable Object. It speaks A2A 1.0 and 0.3 behind one version-free interface.\"\npage \"Same rules as the relay\" points=\"Delivered when picked up\"|\"Handled after the answer\"|\"Outbox kept on disk\"|\"One turn at a time per agent\"\npage \"Tested\" points=\"Client 42/42\"|\"Official a2a-sdk servers 4/4 (1.1.5, 0.3.26)\"|\"Live end to end 66/66\"|\"Phone sim 6/6 (iPhone 18 Pro)\"|\"Killed mid-task: resumes the same task and answers once\"\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 13,
+        "used": [
+          "card",
+          "deck",
+          "page",
+          "end"
+        ]
+      }
+    },
+    {
+      "id": "report-long-walkthrough",
+      "category": "report",
+      "message": "Walk me through everything that changed in how Yui delivers messages this week: replies are exactly-once both ways with acks, a reply outbox on disk, presence reads online/asleep/offline per agent, pushes skip a phone already watching the thread, agents can be muted, and a paired agent whose gateway never started now says 'not listening yet' with the restart command.",
+      "good": "A deck (or plan) of short pages, one change per page, under one short chat line. Not a long bulleted or prose message.",
+      "reply": "Six delivery changes this week.\n\n```yui\ncard \"Yui delivery, this week\" body=\"Exactly-once replies, a disk outbox, per-agent presence, smarter pushes, mute, and a clear 'not listening yet' state\"\ndeck \"What changed in delivery\" +inline\npage \"Exactly-once, both ways\" body=\"Every message is acked in both directions, phone to agent and agent to phone. A reply lands once: no drops on a flaky connection, no duplicates when a retry crosses an ack.\"\npage \"Reply outbox on disk\" body=\"Outgoing replies are written to disk before sending and cleared only on ack. A crash, restart or dead network doesn't lose them; they go out when the link returns.\"\npage \"Presence per agent\" points=\"Online: gateway up and connected\"|\"Asleep: paired, not active right now\"|\"Offline: unreachable\"\npage \"Quieter pushes\" body=\"If the phone already has that thread open, no push is sent. You see the message live instead of getting a banner for something on screen.\"\npage \"Mute an agent\" body=\"Any agent can be muted. Its messages still arrive in the thread; it just stops pinging you.\"\npage \"Not listening yet\" body=\"A paired agent whose gateway never started used to look silent. Now it says 'not listening yet' and shows the exact restart command to bring it up.\"\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 5,
+        "used": [
+          "card",
+          "deck",
+          "page",
+          "end"
+        ]
+      }
+    }
+  ]
+}

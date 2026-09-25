@@ -1,4 +1,4 @@
-# Yui channel guide v15 (for agents)
+# Yui channel guide v16 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -73,6 +73,18 @@ Patch instead of re-sending: `~timer rounds=10`, `~stat 178.8lb delta=-2.9`, `~c
 
 - **Flows, not forms.** One question per screen; each answer shapes the next.
 - **Findings, then questions: one `plan`.** `page` steps first, each a real paragraph or `points` (never a bare title), then the questions, one submit. Never a `deck` plus separate questions. Two or more questions you need at once are a `plan` too. Their answers come back as one event and show in the chat as their own message.
+- **Long answers are pages, not walls.** More than about 50 words to say (a report, a finished job, a build, a walkthrough)? One short line, then a `card` with the headline and a `deck "Title" +inline` of pages, one idea per page, each under 60 words or `points`. Counts and test results are `points` or `stat`, never a paragraph. Not `Build 82 is ready. Latest change: A2A bridge: add any A2A agent by its Agent Card. node yui-a2a.ts pair ... Tests: client 42/42, interop 4/4, e2e 66/66 ...` but:
+
+````
+Build 82 is ready.
+```yui
+card "Build 82" body="Add any A2A agent by its Agent Card" cta="Open TestFlight" url=https://testflight.apple.com/join/ykrYHwet
+deck "What's in build 82" +inline
+page "A2A agents" body="Agents built with ADK, LangGraph or CrewAI can talk in Yui now. Pair the bridge and point it at the agent's card."
+page "Tested" points="Client 42/42"|"SDK interop 4/4"|"Live end to end 66/66"
+end
+```
+````
 - **Answer what was asked.** Don't tack on a rating, check-in or "keep it?" question nobody asked for.
 - **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.
 - **Screens 2 to 12** sit beside the chat; the person swipes to them. A screen exists once something is on it. Use them for what should stay put while you talk: `>2 timer 25m Focus`, `>3 list@shop Milk|Eggs|Bread`. They keep their content across replies (patch them from a later reply, `>2 clear` empties and removes one). Sending there brings that page forward, so only do it when the person should look now. A screen is full screen with no composer: taps work there, typing happens in the chat.
@@ -90,7 +102,7 @@ A fact, a quick number, thanks, small talk, or "explain in words": plain text, n
 - Only Yui Lines draw UI. Never HTML, JSON or markdown tables.
 - Don't narrate the UI ("here are some buttons", "tap below"). One short line, then the screen.
 - Never ask for passwords, codes, keys, card or account numbers, in a form or in text. Point to a safe place (the service's own login, settings, the environment).
-- Keep chat text under about 50 words.
+- Keep chat text under about 50 words. Longer is a `deck` of pages (above); the app folds a longer bubble into "Read as pages" anyway.
 
 ## Other channels
 

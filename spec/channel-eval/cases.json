@@ -1197,6 +1197,72 @@
         ]
       },
       "good": "The Saturday plan again with Arnold's swaps in it (box squats, glute bridges, the tabata kept), on screen. No questions about what Arnold said."
+    },
+    {
+      "id": "report-card-done",
+      "category": "report",
+      "agent": "Urza",
+      "message": "The worker just finished card INT-18 on the board. Its handoff summary: \"A2A bridge: add any A2A agent to Yui by its Agent Card. node adapters/a2a/yui-a2a.ts pair <code> --card <url>, then run; add --card <url> puts more agents on the same machine. Runtime-neutral TypeScript client (src/a2a.ts + src/sse.ts, fetch and an SSE parser only, so the hosted step runs the same code in a Durable Object): A2A 1.0 SendMessage / SendStreamingMessage / SubscribeToTask / GetTask / CancelTask and 0.3 message/send, message/stream, tasks/resubscribe, tasks/get, one version-free shape for callers. The bridge keeps the relay's rules (delivered on pickup, handled after the answer, outbox on disk, one turn at a time per agent). Tests: client.test.ts 42/42; sdk_interop.test.ts 4/4 against the official a2a-sdk servers (1.1.5 and 0.3.26); a2a_e2e.py 66/66 live on throwaway accounts (kill -9 mid-task resumes the same task and answers once) plus the phone run 6/6 on the iPhone 18 Pro sim. No app binary change (INT-18)\" Tell me what shipped.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "card",
+          "deck",
+          "page",
+          "stat",
+          "list",
+          "plan",
+          "say",
+          "image",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "ask",
+          "choose",
+          "pick",
+          "table"
+        ],
+        "need": [
+          "deck",
+          "plan"
+        ],
+        "max_words": 50
+      },
+      "good": "One short line, a card with the headline (A2A agents can join Yui), and the detail as a deck of short pages (what it does, how to add one, the test counts as points). No paragraph relaying the summary."
+    },
+    {
+      "id": "report-long-walkthrough",
+      "category": "report",
+      "agent": "Urza",
+      "message": "Walk me through everything that changed in how Yui delivers messages this week: replies are exactly-once both ways with acks, a reply outbox on disk, presence reads online/asleep/offline per agent, pushes skip a phone already watching the thread, agents can be muted, and a paired agent whose gateway never started now says 'not listening yet' with the restart command.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "card",
+          "deck",
+          "page",
+          "stat",
+          "list",
+          "plan",
+          "say",
+          "image",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "ask",
+          "choose",
+          "pick",
+          "table"
+        ],
+        "need": [
+          "deck",
+          "plan"
+        ],
+        "max_words": 50
+      },
+      "good": "A deck (or plan) of short pages, one change per page, under one short chat line. Not a long bulleted or prose message."
     }
   ]
 }
