@@ -33,6 +33,8 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `talk` or `talk off` | keep the composer on this page, or take it away (section 5, Pages) | `>2 talk` |
 | `end` | close the open group (section 4, Groups) | `end` |
 | `theme [set] key=value...` | restyle this agent's look (section 4, theme) | `theme autumn radius=square` |
+| `table create name col:type...` | make or change a table of this agent's data on the phone (section 4, Agent tables) | `table create meals Day:date Cal:number` |
+| `put table [key] col=value...` | write one row of an agent table, by key (section 4, Agent tables) | `put meals Day=today Cal=640` |
 | `custom {json}` | escape hatch, rest of line is JSON | `custom {"type":"text","text":"hi"}` |
 
 Screens are named by `[A-Za-z0-9_-]+`. The app starts on screen `1`. Chat is its own channel and is not a screen. Two screen names are reserved: `full` is the stage, and `chat` means screen `1` (`>chat ask Ready?` sends one line back to screen 1). Screens `2` to `12` are pages beside the chat in the app (section 5, Pages).
@@ -132,7 +134,7 @@ list Warmup "Jumping jacks"|"Hip openers" +num
 ```
 
 ### table
-Two forms. `table name` binds to the agent data table called `name` (Phase 3 makes these real on device). `table [Name] Col|Col|Col "cell|cell|cell" ...` is an inline table: the first options token is the header, each later token is a row split on `|`.
+Two forms. `table name` binds to the agent table called `name` (section 4, Agent tables). `table [Name] Col|Col|Col "cell|cell|cell" ...` is an inline table: the first options token is the header, each later token is a row split on `|`.
 Props: `name`, `cols`, `rows`, `units` (one per column, `|` separated, empty for none: `units=|kcal|g`; shown under the header), `+sort` (tap a header to sort, tap again to reverse; emits `{sort: column, dir: "asc"|"desc"}`). Number columns align right. A table with an id (`table@wk ...`) is a live data source for `chart data=wk`; re-send it as a patch (`~wk Col|Col "row" ...`) and every chart bound to it redraws.
 ```
 table meals
@@ -493,6 +495,20 @@ game memory "Fruit pairs" pairs=4 items=🍎|🍌|🍇|🍓
 
 Guardrails: the app never lets a theme make text unreadable. Colors are adjusted until body text reaches 4.5:1 against its background and controls 3:1 (WCAG AA). Sizes and tap targets never change, radii and type come from fixed scales, and unknown names or values are ignored. The op is `{op: "theme", screen, props}`, with the set name in `props.name`. It takes no `@id`, advances no counter, sends no event, and leaves an open group open.
 
+### Agent tables: table create, put, query
+An agent keeps data on the phone, per agent, across replies: a workout log, macros, a small CRM. The full spec is `spec/TABLES.md` (yuigui.com/developers/tables); this is the grammar.
+
+- `table create name col:type...` (core) makes a table or changes its columns. Types are `text`, `number` (a unit may follow: `Cal:number:kcal`), `date` and `bool`; 12 columns at most. The op is `{op: "table", screen, name, cols: [{name, type, unit?}]}`.
+- `put table [key] col=value... [+delete]` (core) upserts one row by key: only the named columns change. With no key the row is appended. `+Col` sets a bool column, `col=` empties a cell, `+delete` takes the keyed row out. The op is `{op: "put", screen, table, key?, values, delete?}`. A put that does not fit its table is refused whole on the phone, and the agent is told.
+- Neither core word takes an `@id`, advances the counter, draws anything or ends an open group. Dates may be written `today`, `today-7` or `now`; the phone reads them in its own time zone.
+- `query table [where=] [sort=] [limit=] [cols=] [group= sum= avg= min= max= +count] [as table|list|chart|stat|send] [title...]` is a preset: a live view of the rows, drawn with `table`, `list`, `chart` or `stat`, or a card that sends the rows to the agent when the person taps Send. `where` clauses (`Day>=today-6|Cal>100`), `sort` (`-Cal` high to low), `cols` and the totals are lists. It takes an `@id` and patches like any preset (`~today where=Day=today-1`), and redraws when a `put` lands.
+```
+table create meals Day:date Food:text Cal:number:kcal Protein:number:g
+put meals Day=today Food="Chicken bowl" Cal=640 Protein=52
+query meals where=Day=today sum=Cal|Protein as stat y=Cal label="Today"
+query meals group=Day sum=Cal sort=Day as chart bar x=Day y=Cal
+```
+
 ## 5. Screens, patches, saved screens
 
 **Routing.** `>2 timer 90` sends one line to screen 2 and brings screen 2 forward. `>2` alone moves focus: every following line goes to screen 2 until the next bare `>S`.
@@ -601,7 +617,11 @@ Every interaction goes back as one small event: `{id, preset, ...value}`. Ids ar
 {"id":"n1","preset":"game","kind":"tictactoe","move":3,"x":[5,7,3],"o":[1,9],"winner":"x"}
 {"id":"n2","preset":"game","kind":"snake","over":true,"score":41}
 {"id":"n1","preset":"game","kind":"memory","over":true,"moves":14,"seconds":52}
+{"id":"n2","preset":"query","op":"row","table":"todo","key":"t3","values":{"Done":true}}
+{"id":"n4","preset":"query","op":"query","table":"meals","cols":["Day","Food","Cal"],"rows":[["2026-09-25","Oats",300]],"count":1}
 ```
+
+Agent tables (spec `TABLES.md`) add one event with no component: a `put` the phone refused comes back once after the reply as `{"op":"row","table","key","error","line"}`.
 
 **Answers can change.** `ask`, `choose`, `pick` and `slide` stay live after the first answer. The chosen option stays marked, and the person can tap another option, change their picks and submit again, or move the slider again. Every answer after the first goes back as a new event with `changed: true`; an answer identical to the last one sent is not sent again:
 
@@ -634,13 +654,13 @@ The stream parser keeps a line buffer. Every time a newline arrives, that line i
 
 A line that fails (unknown preset, bad JSON, patch target that does not exist, `show` of a name never saved) is skipped and reported. Nothing else on the screen is affected. The playground lists errors under the wire log.
 
-Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show`/`forget` without a name, `close` with anything after it, `talk` with anything but `on` or `off`, `menu` without a section, with a section other than `review`, `backlog`, `shortcut` or `done`, with an item that has no label or a `done` with nothing after it, a patch whose target is neither a preset name, nor an id seen earlier in the reply, nor an id that lasts (section 5), a `~preset@id` with an unknown preset or an id that belongs to another preset, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen. The parser emits those as normal ops. Error wording is up to each implementation.
+Errors come from two layers. The **parser** rejects a line on its own: an unknown or malformed head, `custom` without valid JSON after it (comments are not stripped, so `custom {...} # note` is bad JSON), `save`/`show`/`forget` without a name, `close` with anything after it, `talk` with anything but `on` or `off`, `menu` without a section, with a section other than `review`, `backlog`, `shortcut` or `done`, with an item that has no label or a `done` with nothing after it, a `table create` without a name or with a column that is not `col:type` of a known type, a `put` without a table or a value, with a second key, or with `+delete` and values or without a key, a patch whose target is neither a preset name, nor an id seen earlier in the reply, nor an id that lasts (section 5), a `~preset@id` with an unknown preset or an id that belongs to another preset, a patch aimed at a `custom` block. The **screen state** rejects what only it can know: `show` of a name never saved, `~ask` when no ask is on screen, a `put` that does not fit its table. The parser emits those as normal ops. Error wording is up to each implementation.
 
 ## 10. Telegram fallback
 
 What ships today is in `spec/TELEGRAM.md` (INT-4): `ask`, `choose` and `pick` as inline keyboards, text presets as text, and the rest in a Telegram Mini App that draws the whole screen. The mapping below is where it goes next.
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), and a `game` sends its title with a link to play it in Yui. A `menu` line sends nothing: Telegram has no drawer. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), and a `game` sends its title with a link to play it in Yui. A `menu` line sends nothing: Telegram has no drawer. Nor do `table create` and `put`, since the tables live on the phone; a `query` sends a link to open it in Yui. Everything else degrades to its text plus a link to open it in Yui.
 
 **Browser.** Yui in a browser tab draws every preset with the playground's renderers and translates only what a tab cannot do like a phone (haptics, lock screen timers, push): `spec/BROWSER.md`.
 
@@ -652,4 +672,4 @@ This is v0. Adding presets and props is non-breaking: an old app shows an error 
 
 ## 12. Conformance
 
-YL is platform neutral. Every parser (JS reference, Swift app, later Kotlin) must pass the shared vectors in `spec/conformance/`: one JSON file per area, each `{version, area, vectors: [{name, input, expected, error?, chunks?, emits?}]}`. `expected` is the op list for the whole `input`, minus each op's `line` and each error's `message`. A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`; when `chunks` is present, pushing those chunks then flushing must give `emits` (the ops returned by each push, then by the flush). When `stage` is present, the adds that open on the stage under `style` (default `{}`) must be exactly those ids. When `pages` is present, `pageOf` of each add's screen, in order, must equal it. When `known` is present, it is the ids that last from earlier replies (section 5), id to preset, and every parse of the vector (whole, by character, by chunks) starts with them. Run the JS side with `cd spec/conformance && node run.mjs`. A change to this spec lands with the vectors that pin it.
+YL is platform neutral. Every parser (JS reference, Swift app, later Kotlin) must pass the shared vectors in `spec/conformance/`: one JSON file per area, each `{version, area, vectors: [{name, input, expected, error?, chunks?, emits?}]}`. `expected` is the op list for the whole `input`, minus each op's `line` and each error's `message`. A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`; when `chunks` is present, pushing those chunks then flushing must give `emits` (the ops returned by each push, then by the flush). When `stage` is present, the adds that open on the stage under `style` (default `{}`) must be exactly those ids. When `pages` is present, `pageOf` of each add's screen, in order, must equal it. When `known` is present, it is the ids that last from earlier replies (section 5), id to preset, and every parse of the vector (whole, by character, by chunks) starts with them. When `tables` is present, the input's `table create` and `put` lines are replayed onto an empty agent store (`today` and `now` fix the dates), `failed` lists the write lines the store refused, and `results` is each `query` add's result against the store the whole input left (`spec/TABLES.md`, section 6). Run the JS side with `cd spec/conformance && node run.mjs`. A change to this spec lands with the vectors that pin it.

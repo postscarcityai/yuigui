@@ -5,10 +5,10 @@
 import showcase from "../content/showcase.json";
 import clips from "../public/demo/clips/clips.json";
 import videos from "../public/demo/videos/videos.json";
-import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "./yl/samples.mjs";
+import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "./yl/samples.mjs";
 import { slug } from "./slug.mjs";
 
-export const SAMPLES = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS];
+export const SAMPLES = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA];
 export const sampleSlug = (s) => s.slug || slug(s.name.replace(/^demo:\s*/i, ""));
 export const findSample = (k) => SAMPLES.find((s) => s.slug === k || s.name === k || sampleSlug(s) === k);
 

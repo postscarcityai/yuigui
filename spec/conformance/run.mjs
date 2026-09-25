@@ -5,6 +5,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
 import { flowEvent, flowPath, menuOf, onStage, pageOf, parse, readTyped, resolve, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
+import { emptyStore, query, replay } from "../../site/lib/yl/tables.mjs";
 
 // Parser ops minus the fields that are not compared: `line` (the source
 // text) and an error's `message` (wording is up to each parser).
@@ -69,6 +70,19 @@ function check(v) {
     if (!isDeepStrictEqual(got, { path, open })) fails.push(["route (path, open)", got]);
     const ev = flowEvent(g, answers);
     if (!isDeepStrictEqual(ev, event)) fails.push(["route (event)", ev]);
+  }
+  if (v.tables) {
+    // Agent tables (TABLES.md): replay the input's `table create` and `put`
+    // lines onto an empty store (dates resolve against `today`), then run
+    // every query add against the store as the whole input left it.
+    const ops = parse(v.input, known);
+    const ctx = { today: v.tables.today, now: v.tables.now };
+    const { store, errors } = replay(emptyStore(), ops, ctx);
+    const failed = errors.map((e) => e.line);
+    if (!isDeepStrictEqual(failed, v.tables.failed || [])) fails.push(["tables (write lines the store refused)", failed]);
+    // A query that cannot run gives { error: true }: the wording is up to each implementation.
+    const results = ops.filter((o) => o.op === "add" && o.preset === "query").map((o) => query(store, resolve("query", o.props), ctx)).map((r) => (r.error ? { error: true } : r));
+    if (!isDeepStrictEqual(results, v.tables.results || [])) fails.push(["tables (query results)", results]);
   }
   const hasError = v.expected.some((o) => o.op === "error");
   if (hasError !== (v.error === true)) fails.push(["vector: `error` flag does not match expected", v.error]);

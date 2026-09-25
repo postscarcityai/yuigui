@@ -7,7 +7,7 @@ import board from "../../content/board.json";
 import progress from "../../content/progress.json";
 import clips from "../../public/demo/clips/clips.json";
 import videos from "../../public/demo/videos/videos.json";
-import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../../lib/yl/samples.mjs";
+import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../../lib/yl/samples.mjs";
 import Shots from "../components/Shots";
 import LivePhone from "./LivePhone";
 import VideoDownloads from "../components/VideoDownloads";
@@ -18,7 +18,7 @@ export const metadata = {
   description: "Every screen Yui can draw today, live in your browser or recorded in the app, each tied to the card that built it and the day it shipped.",
 };
 
-const SAMPLES = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS];
+const SAMPLES = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA];
 const sample = (k) => SAMPLES.find((s) => s.slug === k || s.name === k);
 const ALTS = Object.fromEntries(progress.flatMap((e) => (e.images || []).map((im) => [im.src, im.alt])));
 const LOGS = Object.fromEntries(board.columns.flatMap((c) => c.cards).filter((c) => c.progress).map((c) => [c.key, c.progress]));

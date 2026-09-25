@@ -1,0 +1,1697 @@
+{
+ "version": "YL v0",
+ "area": "agent tables: table create, put, query and the store (JS only until the native ports; see README)",
+ "vectors": [
+  {
+   "name": "table create: columns and types",
+   "input": "table create lifts Day:date Lift:text Weight:number:lb Done:bool",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "lifts",
+     "cols": [
+      {
+       "name": "Day",
+       "type": "date"
+      },
+      {
+       "name": "Lift",
+       "type": "text"
+      },
+      {
+       "name": "Weight",
+       "type": "number",
+       "unit": "lb"
+      },
+      {
+       "name": "Done",
+       "type": "bool"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "table create: a unit only on number columns",
+   "input": "table create t Note:text:words",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "table create: unknown type is an error",
+   "input": "table create t Note:string",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "table create: needs a column",
+   "input": "table create t",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "table create: col:type shape only",
+   "input": "table create t Note text",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "table create: takes no @id",
+   "input": "table@t create t Note:text",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "table name: binding is unchanged",
+   "input": "table meals",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "table",
+     "id": "n1",
+     "props": {
+      "name": "meals"
+     }
+    }
+   ]
+  },
+  {
+   "name": "put: key and values, typed by the tokenizer",
+   "input": "put lifts squat-0925 Day=2026-09-25 Lift=Squat Weight=235 Done=on",
+   "expected": [
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "lifts",
+     "key": "squat-0925",
+     "values": {
+      "Day": "2026-09-25",
+      "Lift": "Squat",
+      "Weight": 235,
+      "Done": true
+     }
+    }
+   ]
+  },
+  {
+   "name": "put: no key appends",
+   "input": "put meals Food=\"Greek yogurt\" Cal=150",
+   "expected": [
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "meals",
+     "values": {
+      "Food": "Greek yogurt",
+      "Cal": 150
+     }
+    }
+   ]
+  },
+  {
+   "name": "put: a quoted key keeps its spaces",
+   "input": "put crm \"Acme Co\" Stage=Lead",
+   "expected": [
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "Acme Co",
+     "values": {
+      "Stage": "Lead"
+     }
+    }
+   ]
+  },
+  {
+   "name": "put: +Flag sets a bool column",
+   "input": "put todo t1 +Done",
+   "expected": [
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "todo",
+     "key": "t1",
+     "values": {
+      "Done": true
+     }
+    }
+   ]
+  },
+  {
+   "name": "put: +delete needs only a key",
+   "input": "put crm acme +delete",
+   "expected": [
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "acme",
+     "values": {},
+     "delete": true
+    }
+   ]
+  },
+  {
+   "name": "put: +delete without a key",
+   "input": "put crm +delete",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "put: +delete with values",
+   "input": "put crm acme Stage=Won +delete",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "put: needs a table",
+   "input": "put",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "put: needs a value",
+   "input": "put crm acme",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "put: two keys",
+   "input": "put crm acme corp Stage=Won",
+   "expected": [
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "put: an empty value clears the cell",
+   "input": "put crm acme Next=",
+   "expected": [
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "acme",
+     "values": {
+      "Next": ""
+     }
+    }
+   ]
+  },
+  {
+   "name": "put and table create leave a deck open",
+   "input": "deck Week\npage One\nput log Note=hi\npage Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "Week"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "log",
+     "values": {
+      "Note": "hi"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ]
+  },
+  {
+   "name": "query: table, view and title",
+   "input": "query meals as chart bar \"Calories by day\" group=Day sum=Cal",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "meals",
+      "as": "chart",
+      "type": "bar",
+      "title": "Calories by day",
+      "group": "Day",
+      "sum": [
+       "Cal"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "query: defaults to table view",
+   "input": "query meals",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "meals"
+     }
+    }
+   ]
+  },
+  {
+   "name": "query: where, sort, limit, cols are lists",
+   "input": "query@top meals where=Day=today|Cal>100 sort=-Cal limit=3 cols=Food|Cal",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "top",
+     "props": {
+      "table": "meals",
+      "where": [
+       "Day=today",
+       "Cal>100"
+      ],
+      "sort": [
+       "-Cal"
+      ],
+      "limit": 3,
+      "cols": [
+       "Food",
+       "Cal"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "query: as list with a check column",
+   "input": "query todo as list check=Done where=Done=off",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "todo",
+      "as": "list",
+      "check": "Done",
+      "where": [
+       "Done=off"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "query: patch by id",
+   "input": "query@q crm as table\n~q where=Stage=Won",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "q",
+     "props": {
+      "table": "crm",
+      "as": "table"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "q",
+     "props": {
+      "where": [
+       "Stage=Won"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "query: an unknown view word is title text",
+   "input": "query meals as grid",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "meals",
+      "title": "as grid"
+     }
+    }
+   ]
+  },
+  {
+   "name": "store: upsert merges by key",
+   "input": "table create crm Name:text Stage:text Value:number:$\nput crm acme Name=\"Acme Co\" Stage=Lead Value=12000\nput crm acme Stage=Proposal\nput crm zed Name=Zed Stage=Lead Value=3000\nquery crm sort=-Value",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "crm",
+     "cols": [
+      {
+       "name": "Name",
+       "type": "text"
+      },
+      {
+       "name": "Stage",
+       "type": "text"
+      },
+      {
+       "name": "Value",
+       "type": "number",
+       "unit": "$"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "acme",
+     "values": {
+      "Name": "Acme Co",
+      "Stage": "Lead",
+      "Value": 12000
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "acme",
+     "values": {
+      "Stage": "Proposal"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "zed",
+     "values": {
+      "Name": "Zed",
+      "Stage": "Lead",
+      "Value": 3000
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "crm",
+      "sort": [
+       "-Value"
+      ]
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Name",
+        "type": "text"
+       },
+       {
+        "name": "Stage",
+        "type": "text"
+       },
+       {
+        "name": "Value",
+        "type": "number",
+        "unit": "$"
+       }
+      ],
+      "rows": [
+       [
+        "Acme Co",
+        "Proposal",
+        12000
+       ],
+       [
+        "Zed",
+        "Lead",
+        3000
+       ]
+      ],
+      "keys": [
+       "acme",
+       "zed"
+      ],
+      "count": 2
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: keyless puts get r1, r2",
+   "input": "table create log Note:text\nput log Note=one\nput log Note=two\nquery log",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "log",
+     "cols": [
+      {
+       "name": "Note",
+       "type": "text"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "log",
+     "values": {
+      "Note": "one"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "log",
+     "values": {
+      "Note": "two"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "log"
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Note",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "one"
+       ],
+       [
+        "two"
+       ]
+      ],
+      "keys": [
+       "r1",
+       "r2"
+      ],
+      "count": 2
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: delete a row",
+   "input": "table create crm Name:text\nput crm a Name=A\nput crm b Name=B\nput crm a +delete\nquery crm",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "crm",
+     "cols": [
+      {
+       "name": "Name",
+       "type": "text"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "a",
+     "values": {
+      "Name": "A"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "b",
+     "values": {
+      "Name": "B"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "a",
+     "values": {},
+     "delete": true
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "crm"
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Name",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "B"
+       ]
+      ],
+      "keys": [
+       "b"
+      ],
+      "count": 1
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: today, today-1 and now",
+   "input": "table create meals Day:date Food:text Cal:number\nput meals Day=today Food=Eggs Cal=140\nput meals Day=today-1 Food=Oats Cal=300\nput meals Day=now Food=Tea Cal=0\nquery meals where=Day=today\nquery meals where=Day>=today-1 sort=Day",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "meals",
+     "cols": [
+      {
+       "name": "Day",
+       "type": "date"
+      },
+      {
+       "name": "Food",
+       "type": "text"
+      },
+      {
+       "name": "Cal",
+       "type": "number"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "meals",
+     "values": {
+      "Day": "today",
+      "Food": "Eggs",
+      "Cal": 140
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "meals",
+     "values": {
+      "Day": "today-1",
+      "Food": "Oats",
+      "Cal": 300
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "meals",
+     "values": {
+      "Day": "now",
+      "Food": "Tea",
+      "Cal": 0
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "meals",
+      "where": [
+       "Day=today"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n2",
+     "props": {
+      "table": "meals",
+      "where": [
+       "Day>=today-1"
+      ],
+      "sort": [
+       "Day"
+      ]
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Day",
+        "type": "date"
+       },
+       {
+        "name": "Food",
+        "type": "text"
+       },
+       {
+        "name": "Cal",
+        "type": "number"
+       }
+      ],
+      "rows": [
+       [
+        "2026-09-25",
+        "Eggs",
+        140
+       ],
+       [
+        "2026-09-25T12:30",
+        "Tea",
+        0
+       ]
+      ],
+      "keys": [
+       "r1",
+       "r3"
+      ],
+      "count": 2
+     },
+     {
+      "cols": [
+       {
+        "name": "Day",
+        "type": "date"
+       },
+       {
+        "name": "Food",
+        "type": "text"
+       },
+       {
+        "name": "Cal",
+        "type": "number"
+       }
+      ],
+      "rows": [
+       [
+        "2026-09-24",
+        "Oats",
+        300
+       ],
+       [
+        "2026-09-25",
+        "Eggs",
+        140
+       ],
+       [
+        "2026-09-25T12:30",
+        "Tea",
+        0
+       ]
+      ],
+      "keys": [
+       "r2",
+       "r1",
+       "r3"
+      ],
+      "count": 3
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: a bad value refuses the whole put",
+   "input": "table create meals Food:text Cal:number\nput meals x Food=Soup Cal=lots\nput meals y Food=Soup Cal=90 Fat=3\nput nope Food=Soup\nquery meals",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "meals",
+     "cols": [
+      {
+       "name": "Food",
+       "type": "text"
+      },
+      {
+       "name": "Cal",
+       "type": "number"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "meals",
+     "key": "x",
+     "values": {
+      "Food": "Soup",
+      "Cal": "lots"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "meals",
+     "key": "y",
+     "values": {
+      "Food": "Soup",
+      "Cal": 90,
+      "Fat": 3
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "nope",
+     "values": {
+      "Food": "Soup"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "meals"
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "failed": [
+     "put meals x Food=Soup Cal=lots",
+     "put meals y Food=Soup Cal=90 Fat=3",
+     "put nope Food=Soup"
+    ],
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Food",
+        "type": "text"
+       },
+       {
+        "name": "Cal",
+        "type": "number"
+       }
+      ],
+      "rows": [],
+      "keys": [],
+      "count": 0
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: where operators",
+   "input": "table create crm Name:text Stage:text Value:number Hot:bool\nput crm a Name=\"Acme Co\" Stage=Lead Value=12000 Hot=on\nput crm b Name=Bolt Stage=Won Value=3000 Hot=off\nput crm c Name=Cedar Stage=lead Value=500\nquery crm where=Stage=lead cols=Name\nquery crm where=Value>=3000|Hot=on cols=Name\nquery crm where=Name~co cols=Name\nquery crm where=Hot= cols=Name\nquery crm where=Stage!=Won cols=Name\nquery crm where=key=b cols=Name",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "crm",
+     "cols": [
+      {
+       "name": "Name",
+       "type": "text"
+      },
+      {
+       "name": "Stage",
+       "type": "text"
+      },
+      {
+       "name": "Value",
+       "type": "number"
+      },
+      {
+       "name": "Hot",
+       "type": "bool"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "a",
+     "values": {
+      "Name": "Acme Co",
+      "Stage": "Lead",
+      "Value": 12000,
+      "Hot": true
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "b",
+     "values": {
+      "Name": "Bolt",
+      "Stage": "Won",
+      "Value": 3000,
+      "Hot": false
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "c",
+     "values": {
+      "Name": "Cedar",
+      "Stage": "lead",
+      "Value": 500
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "crm",
+      "where": [
+       "Stage=lead"
+      ],
+      "cols": [
+       "Name"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n2",
+     "props": {
+      "table": "crm",
+      "where": [
+       "Value>=3000",
+       "Hot=on"
+      ],
+      "cols": [
+       "Name"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n3",
+     "props": {
+      "table": "crm",
+      "where": [
+       "Name~co"
+      ],
+      "cols": [
+       "Name"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n4",
+     "props": {
+      "table": "crm",
+      "where": [
+       "Hot="
+      ],
+      "cols": [
+       "Name"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n5",
+     "props": {
+      "table": "crm",
+      "where": [
+       "Stage!=Won"
+      ],
+      "cols": [
+       "Name"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n6",
+     "props": {
+      "table": "crm",
+      "where": [
+       "key=b"
+      ],
+      "cols": [
+       "Name"
+      ]
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Name",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "Acme Co"
+       ],
+       [
+        "Cedar"
+       ]
+      ],
+      "keys": [
+       "a",
+       "c"
+      ],
+      "count": 2
+     },
+     {
+      "cols": [
+       {
+        "name": "Name",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "Acme Co"
+       ]
+      ],
+      "keys": [
+       "a"
+      ],
+      "count": 1
+     },
+     {
+      "cols": [
+       {
+        "name": "Name",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "Acme Co"
+       ]
+      ],
+      "keys": [
+       "a"
+      ],
+      "count": 1
+     },
+     {
+      "cols": [
+       {
+        "name": "Name",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "Cedar"
+       ]
+      ],
+      "keys": [
+       "c"
+      ],
+      "count": 1
+     },
+     {
+      "cols": [
+       {
+        "name": "Name",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "Acme Co"
+       ],
+       [
+        "Cedar"
+       ]
+      ],
+      "keys": [
+       "a",
+       "c"
+      ],
+      "count": 2
+     },
+     {
+      "cols": [
+       {
+        "name": "Name",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "Bolt"
+       ]
+      ],
+      "keys": [
+       "b"
+      ],
+      "count": 1
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: group, sum, max, count",
+   "input": "table create lifts Day:date Lift:text Weight:number:lb Reps:number\nput lifts Day=2026-09-23 Lift=Squat Weight=225 Reps=5\nput lifts Day=2026-09-23 Lift=Bench Weight=185 Reps=5\nput lifts Day=2026-09-25 Lift=Squat Weight=235 Reps=5\nput lifts Day=2026-09-25 Lift=Squat Weight=245 Reps=3\nquery lifts group=Lift max=Weight sum=Reps +count sort=Lift\nquery lifts sum=Reps|Weight avg=Weight",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "lifts",
+     "cols": [
+      {
+       "name": "Day",
+       "type": "date"
+      },
+      {
+       "name": "Lift",
+       "type": "text"
+      },
+      {
+       "name": "Weight",
+       "type": "number",
+       "unit": "lb"
+      },
+      {
+       "name": "Reps",
+       "type": "number"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "lifts",
+     "values": {
+      "Day": "2026-09-23",
+      "Lift": "Squat",
+      "Weight": 225,
+      "Reps": 5
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "lifts",
+     "values": {
+      "Day": "2026-09-23",
+      "Lift": "Bench",
+      "Weight": 185,
+      "Reps": 5
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "lifts",
+     "values": {
+      "Day": "2026-09-25",
+      "Lift": "Squat",
+      "Weight": 235,
+      "Reps": 5
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "lifts",
+     "values": {
+      "Day": "2026-09-25",
+      "Lift": "Squat",
+      "Weight": 245,
+      "Reps": 3
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "lifts",
+      "count": true,
+      "group": "Lift",
+      "max": [
+       "Weight"
+      ],
+      "sum": [
+       "Reps"
+      ],
+      "sort": [
+       "Lift"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n2",
+     "props": {
+      "table": "lifts",
+      "sum": [
+       "Reps",
+       "Weight"
+      ],
+      "avg": [
+       "Weight"
+      ]
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Lift",
+        "type": "text"
+       },
+       {
+        "name": "Reps",
+        "type": "number"
+       },
+       {
+        "name": "Weight",
+        "type": "number",
+        "unit": "lb"
+       },
+       {
+        "name": "Count",
+        "type": "number"
+       }
+      ],
+      "rows": [
+       [
+        "Bench",
+        5,
+        185,
+        1
+       ],
+       [
+        "Squat",
+        13,
+        245,
+        3
+       ]
+      ],
+      "keys": [
+       null,
+       null
+      ],
+      "count": 2
+     },
+     {
+      "cols": [
+       {
+        "name": "Reps",
+        "type": "number"
+       },
+       {
+        "name": "Weight",
+        "type": "number",
+        "unit": "lb"
+       },
+       {
+        "name": "avg Weight",
+        "type": "number",
+        "unit": "lb"
+       }
+      ],
+      "rows": [
+       [
+        18,
+        890,
+        222.5
+       ]
+      ],
+      "keys": [
+       null
+      ],
+      "count": 1
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: schema change keeps rows",
+   "input": "table create crm Name:text Value:text Old:text\nput crm a Name=Acme Value=12000 Old=x\nput crm b Name=Bolt Value=soon\ntable create crm Name:text Value:number Stage:text\nquery crm",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "crm",
+     "cols": [
+      {
+       "name": "Name",
+       "type": "text"
+      },
+      {
+       "name": "Value",
+       "type": "text"
+      },
+      {
+       "name": "Old",
+       "type": "text"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "a",
+     "values": {
+      "Name": "Acme",
+      "Value": 12000,
+      "Old": "x"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "crm",
+     "key": "b",
+     "values": {
+      "Name": "Bolt",
+      "Value": "soon"
+     }
+    },
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "crm",
+     "cols": [
+      {
+       "name": "Name",
+       "type": "text"
+      },
+      {
+       "name": "Value",
+       "type": "number"
+      },
+      {
+       "name": "Stage",
+       "type": "text"
+      }
+     ]
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "crm"
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Name",
+        "type": "text"
+       },
+       {
+        "name": "Value",
+        "type": "number"
+       },
+       {
+        "name": "Stage",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "Acme",
+        12000,
+        null
+       ],
+       [
+        "Bolt",
+        null,
+        null
+       ]
+      ],
+      "keys": [
+       "a",
+       "b"
+      ],
+      "count": 2
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: sort puts empty cells last",
+   "input": "table create t N:text V:number\nput t a N=A V=2\nput t b N=B\nput t c N=C V=1\nquery t sort=V cols=N\nquery t sort=-V cols=N",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "t",
+     "cols": [
+      {
+       "name": "N",
+       "type": "text"
+      },
+      {
+       "name": "V",
+       "type": "number"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "t",
+     "key": "a",
+     "values": {
+      "N": "A",
+      "V": 2
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "t",
+     "key": "b",
+     "values": {
+      "N": "B"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "t",
+     "key": "c",
+     "values": {
+      "N": "C",
+      "V": 1
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "t",
+      "sort": [
+       "V"
+      ],
+      "cols": [
+       "N"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n2",
+     "props": {
+      "table": "t",
+      "sort": [
+       "-V"
+      ],
+      "cols": [
+       "N"
+      ]
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "N",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "C"
+       ],
+       [
+        "A"
+       ],
+       [
+        "B"
+       ]
+      ],
+      "keys": [
+       "c",
+       "a",
+       "b"
+      ],
+      "count": 3
+     },
+     {
+      "cols": [
+       {
+        "name": "N",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "A"
+       ],
+       [
+        "C"
+       ],
+       [
+        "B"
+       ]
+      ],
+      "keys": [
+       "a",
+       "c",
+       "b"
+      ],
+      "count": 3
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: a query on a missing table",
+   "input": "query ghosts as list",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "ghosts",
+      "as": "list"
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "missing": "ghosts"
+     }
+    ]
+   }
+  },
+  {
+   "name": "store: a query error names the column",
+   "input": "table create t N:text\nput t a N=A\nquery t where=Size>2",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "t",
+     "cols": [
+      {
+       "name": "N",
+       "type": "text"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "t",
+     "key": "a",
+     "values": {
+      "N": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "t",
+      "where": [
+       "Size>2"
+      ]
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "error": true
+     }
+    ]
+   }
+  }
+ ]
+}

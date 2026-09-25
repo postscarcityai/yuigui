@@ -567,3 +567,55 @@ game tictactoe "Beat me"`,
 flow website-intake`,
   },
 ];
+
+// Agent tables (spec/TABLES.md): data an agent keeps on the phone. Each
+// starter makes its table, writes a few rows and draws them; `next` is a put
+// to send from the agent line, so the views redraw.
+export const DATA = [
+  {
+    name: "Tables: workout log",
+    slug: "tables-workout",
+    agent: "Coach",
+    yl: `table create lifts Day:date Lift:text Weight:number:lb Reps:number
+put lifts Day=today-6 Lift=Squat Weight=215 Reps=5
+put lifts Day=today-6 Lift=Bench Weight=175 Reps=5
+put lifts Day=today-4 Lift=Squat Weight=225 Reps=5
+put lifts Day=today-4 Lift=Bench Weight=180 Reps=5
+put lifts Day=today-2 Lift=Squat Weight=230 Reps=5
+put lifts Day=today-2 Lift=Deadlift Weight=275 Reps=3
+put lifts Day=today Lift=Squat Weight=235 Reps=5
+query lifts where=Lift=Squat sort=Day as chart x=Day y=Weight "Squat, top set"
+query lifts group=Lift max=Weight sum=Reps +count sort=-Weight as table "Best set per lift"`,
+    next: "put lifts Day=today Lift=Bench Weight=185 Reps=5",
+  },
+  {
+    name: "Tables: macros",
+    slug: "tables-macros",
+    agent: "Coach",
+    yl: `table create meals Day:date Food:text Cal:number:kcal Protein:number:g
+put meals Day=today-2 Food="Chicken bowl" Cal=640 Protein=52
+put meals Day=today-2 Food=Oats Cal=300 Protein=10
+put meals Day=today-1 Food="Salmon and rice" Cal=720 Protein=45
+put meals Day=today-1 Food="Greek yogurt" Cal=150 Protein=20
+put meals Day=today Food="Eggs and toast" Cal=420 Protein=26
+put meals Day=today Food="Turkey wrap" Cal=510 Protein=38
+query meals group=Day sum=Cal sort=Day as stat y=Cal label="Calories today" good=down
+query meals where=Day=today cols=Food|Cal|Protein as table "Today so far"
+query meals group=Day sum=Protein sort=Day as chart bar x=Day y=Protein "Protein by day"`,
+    next: `put meals Day=today Food="Protein shake" Cal=160 Protein=30`,
+  },
+  {
+    name: "Tables: a simple CRM",
+    slug: "tables-crm",
+    agent: "Scout",
+    yl: `table create crm Name:text Stage:text Value:number:$ Next:date Won:bool
+put crm acme Name="Acme Co" Stage=Proposal Value=12000 Next=today+2
+put crm bolt Name="Bolt Studio" Stage=Lead Value=3000 Next=today+5
+put crm cedar Name="Cedar Dental" Stage=Call Value=8000 Next=today+1
+put crm dune Name="Dune Coffee" Stage=Won Value=4500 +Won
+query crm where=Stage!=Won sort=Next cols=Name|Stage|Value|Next as table "Open deals"
+query crm group=Stage sum=Value as chart bar x=Stage y=Value "Pipeline"
+query crm sort=Next cols=Name|Stage|Won as list check=Won "Mark a deal won"`,
+    next: "put crm cedar Stage=Proposal Next=today+3",
+  },
+];

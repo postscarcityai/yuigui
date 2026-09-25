@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Parser, StreamParser, apply, initialState, parse } from "../../lib/yl/yl.mjs";
-import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../../lib/yl/samples.mjs";
+import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../../lib/yl/samples.mjs";
+import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, StepGroup, TABLES } from "./presets";
 import { demoReply } from "./games";
 import { Group, groupNodes } from "./flows";
@@ -11,15 +12,32 @@ import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
 import { encodeYL, readYL } from "../../lib/share-code.mjs";
 import "./flows.css";
 
-const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS];
+const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA];
 // Agent names a share link may carry (?as=), so a shared screen reopens with the same header.
 const AGENTS = new Set(ALL.map((s) => s.agent));
 const COLORS = { Coach: "var(--arnold)", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)" };
 
-function build(text) {
+// `log`: data lines sent after the reply (the agent line, a tapped checkbox),
+// replayed on top so agent tables keep them (spec/TABLES.md).
+function build(text, log = []) {
   let s = initialState();
   for (const op of parse(text)) s = apply(s, op);
+  return replayLog(s, log);
+}
+const isData = (op) => op.op === "table" || op.op === "put";
+function replayLog(s, log) {
+  if (log.length) for (const op of parse(log.join("\n"))) if (isData(op)) s = apply(s, op);
   return s;
+}
+
+// The playground's agent tables live in this browser: rows added on top of a
+// sample stay until Reset data, one log per sample.
+const logKey = (i, shared) => `yui-playground-tables:${shared ? "shared" : ALL[i].slug || ALL[i].name}`;
+function readLog(key) {
+  try { const v = JSON.parse(localStorage.getItem(key) || "[]"); return Array.isArray(v) ? v.filter((x) => typeof x === "string") : []; } catch { return []; }
+}
+function writeLog(key, log) {
+  try { if (log.length) localStorage.setItem(key, JSON.stringify(log.slice(-500))); else localStorage.removeItem(key); } catch { /* private mode: the rows just do not last */ }
 }
 
 // The key of the last non-staged node before `n` on its screen (null: none),
@@ -52,6 +70,8 @@ export default function Playground() {
   const [shared, setShared] = useState(null); // the agent name a shared link opened with
   const [link, setLink] = useState(null);
   const agentParser = useRef(null);
+  const [log, setLog] = useState([]); // data lines on top of the sample (agent tables)
+  const logRef = useRef({ key: logKey(0, false), lines: [] });
   const timer = useRef(null);
   const emits = useRef(new Map());
 
@@ -65,7 +85,7 @@ export default function Playground() {
       // Editing keeps the stage the way the person left it, unless what is on it changed.
       const stagedKeys = (st) => Object.values(st.screens).flat().filter((n) => n.stage).map((n) => n.key).join();
       setState((prev) => {
-        const next = build(text);
+        const next = build(text, logRef.current.lines);
         return stagedKeys(prev) === stagedKeys(next) ? { ...next, stage: prev.stage } : next;
       });
       agentParser.current = null;
@@ -96,13 +116,17 @@ export default function Playground() {
     window.history.replaceState(null, "", url);
   };
 
-  const load = (i) => {
+  const load = (i, shared = false) => {
     stopStream();
+    const key = logKey(i, shared);
+    const lines = readLog(key);
+    logRef.current = { key, lines };
+    setLog(lines);
     setCmd(ALL[i].next || "");
     setEpoch((x) => x + 1);
     setIdx(i);
     setText(ALL[i].yl);
-    setState(build(ALL[i].yl));
+    setState(build(ALL[i].yl, lines));
     setView(null);
     setEvents([]);
     setFolds({});
@@ -110,11 +134,26 @@ export default function Playground() {
   };
 
   const openShared = (yl, as) => {
-    load(0);
+    load(0, true);
     setCmd("");
     setShared(as);
     setText(yl);
-    setState(build(yl));
+    setState(build(yl, logRef.current.lines));
+  };
+
+  // A data line on top of the reply: written to the store and kept in this browser.
+  const addData = useCallback((op) => {
+    const lines = [...logRef.current.lines, op.line.trim()];
+    logRef.current = { ...logRef.current, lines };
+    writeLog(logRef.current.key, lines);
+    setLog(lines);
+    setState((s) => apply(s, op));
+  }, []);
+  const resetData = () => {
+    logRef.current = { ...logRef.current, lines: [] };
+    writeLog(logRef.current.key, []);
+    setLog([]);
+    setState(build(text));
   };
 
   // Share: pack the lines into the URL, copy it, and show it so it can be copied by hand too.
@@ -152,7 +191,10 @@ export default function Playground() {
       setStreamed(src.slice(0, i));
       const ops = chunk ? sp.push(chunk) : [];
       if (i >= src.length) ops.push(...sp.flush());
-      if (ops.length) { for (const op of ops) s = apply(s, op); setState(s); }
+      for (const op of ops) s = apply(s, op);
+      // Rows added on top of the sample come back once the reply is in.
+      if (i >= src.length) s = replayLog(s, logRef.current.lines);
+      if (ops.length || i >= src.length) setState(s);
       if (i >= src.length) { clearInterval(timer.current); setStreaming(false); }
     }, speed);
   };
@@ -174,7 +216,8 @@ export default function Playground() {
       agentParser.current = p;
     }
     const op = agentParser.current.line(line);
-    if (op) setState((s) => apply(s, op));
+    if (op && isData(op)) addData(op);
+    else if (op) setState((s) => apply(s, op));
     setEvents((ev) => [{ dir: "agent", t: new Date(), line }, ...ev].slice(0, 40));
   };
 
@@ -266,6 +309,9 @@ export default function Playground() {
             <optgroup label="Decks, plans, flows and walkthroughs">
               {FLOWS.map((s, i) => <option key={s.name} value={SCREENS.length + DEMOS.length + MEDIA.length + SCIENCE.length + i}>{s.name}</option>)}
             </optgroup>
+            <optgroup label="Agent tables">
+              {DATA.map((s, i) => <option key={s.name} value={SCREENS.length + DEMOS.length + MEDIA.length + SCIENCE.length + FLOWS.length + i}>{s.name}</option>)}
+            </optgroup>
           </select>
           <button className="pg-btn" onClick={streaming ? stopStream : stream}>{streaming ? "Stop" : "▶ Stream it"}</button>
           <button className="pg-btn" onClick={share} disabled={!text.trim()}>Share</button>
@@ -297,6 +343,12 @@ export default function Playground() {
             <input value={cmd} onChange={(e) => setCmd(e.target.value)} placeholder="~timer rounds=10   >2 ask Ready?   show warmup" spellCheck={false} />
             <button className="pg-btn">Send</button>
           </div>
+          {log.length ? (
+            <div className="pg-row pg-hint">
+              {log.length} data line{log.length === 1 ? "" : "s"} kept in this browser, on top of the sample.
+              <button type="button" className="pg-btn" onClick={resetData}>Reset data</button>
+            </div>
+          ) : null}
         </form>
 
         <div className="pg-log">
@@ -361,7 +413,7 @@ export default function Playground() {
               </div>
             ) : null}
             <div className="pg-screen">
-              <ScreenCtx.Provider value={{ nodes, tables: TABLES, agent, screen: shown, dispatch, fold, closeStage }}>
+              <ScreenCtx.Provider value={{ nodes, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, write: addData, agent, screen: shown, dispatch, fold, closeStage }}>
                 {pillAt(null).map(pill)}
                 {groupNodes(nodes).flatMap((n) => [renderNode(n), ...pillAt(n.key).map(pill)])}
                 {pills.filter((p) => p.end).map(pill)}
@@ -369,7 +421,7 @@ export default function Playground() {
               {!nodes.length && !pills.length ? <div className="pg-hint" style={{ textAlign: "center", marginTop: 40 }}>Empty screen</div> : null}
             </div>
             <Stage open={state.stage && staged.length > 0} onClose={closeStage} agent={agent}>
-              <ScreenCtx.Provider value={{ nodes: staged, tables: TABLES, agent, screen: "full", dispatch, fold, closeStage }}>
+              <ScreenCtx.Provider value={{ nodes: staged, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, write: addData, agent, screen: "full", dispatch, fold, closeStage }}>
                 {groupNodes(staged).map((n) => <LiveSlot key={`${epoch}:${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
               </ScreenCtx.Provider>
             </Stage>

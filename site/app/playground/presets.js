@@ -12,6 +12,7 @@ import { LoneRow, Timeline } from "./timeline";
 import { LoneSketchRow, Sketch } from "./sketch";
 import { Game } from "./games";
 import { Flow } from "./flow";
+import { Query } from "./data";
 import { useLive } from "./stage";
 
 // Sample agent data tables, so `table meals` has something to bind to.
@@ -826,7 +827,8 @@ const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, 
   sketch: ({ p }) => <Sketch g={{ group: { props: p }, members: [] }} />,
   row: LoneSketchRow,
   after: () => null,
-  game: Game };
+  game: Game,
+  query: Query };
 
 export function StepGroup({ nodes, emitFor }) {
   return <Steps nodes={nodes} emitFor={emitFor} resolveProps={(n) => resolve("step", n.props)} />;

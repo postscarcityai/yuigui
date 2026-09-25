@@ -51,6 +51,10 @@ One file per area, `NN-area.json`:
 
 **JavaScript only for now: `js-NN-*.json`.** Flows (FLOWS.md) are parsed by the JavaScript parser only in step 1 (FLOW-1). Their vectors live in `js-26-flow.json`, which `run.mjs` reads and the Swift, Python, Kotlin and Rust runners skip (they read `NN-*.json`). When a parser learns flows, rename the file to `26-flow.json` and every runner picks it up.
 
+- `tables`: `{today, now, failed?, results}`, agent tables (TABLES.md). Replay the input's `table create` and `put` ops onto an empty store, with `today` and `now` as the phone's date and time. `failed` is the `line` of every write the store refused (none when missing). `results` is, for each `query` add in order, what the query gives against the store the whole input left: `{cols: [{name, type, unit?}], rows, keys, count}`, `{missing: table}`, or `{error: true}` (wording is up to each store). Checked against `replay` and `query` in `site/lib/yl/tables.mjs`; the app's store is step 2.
+
+**JavaScript only for now, also: `js-30-tables.json`.** Agent tables (TABLES.md) are parsed and stored by the JavaScript side only in step 1 (YUI-33). The Swift, Python, Kotlin and Rust parsers learn `table create`, `put` and `query` in step 2, when the file becomes `30-tables.json`.
+
 A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`, and (with `chunks`) the per-chunk emits match.
 
 ## Changing the suite

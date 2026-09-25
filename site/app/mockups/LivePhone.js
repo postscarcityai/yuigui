@@ -3,6 +3,7 @@
 // It mounts a screen or so before it scrolls into view, so a page of forty phones stays light.
 import { useCallback, useEffect, useRef, useState } from "react";
 import { apply, initialState, parse } from "../../lib/yl/yl.mjs";
+import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, StepGroup, TABLES } from "../playground/presets";
 import { Group, groupNodes } from "../playground/flows";
 import { ScreenCtx } from "../playground/science";
@@ -44,13 +45,13 @@ function Screen({ yl, agent, light }) {
         <div><div className="nm">{agent}</div><div className="st">{tapped ? `sent: ${Object.keys(tapped).filter((k) => !["id", "preset"].includes(k)).join(", ") || tapped.preset}` : "live Yui Lines"}</div></div>
       </div>
       <div className="pg-screen">
-        <ScreenCtx.Provider value={{ nodes, tables: TABLES, agent, screen: shown, dispatch }}>
+        <ScreenCtx.Provider value={{ nodes, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, agent, screen: shown, dispatch }}>
           {groupNodes(nodes).map(renderNode)}
           {staged.length ? <StagePill nodes={staged} live={live} onOpen={() => setState((s) => ({ ...s, stage: true }))} /> : null}
         </ScreenCtx.Provider>
       </div>
       <Stage open={state.stage && staged.length > 0} onClose={() => setState((s) => ({ ...s, stage: false }))} agent={agent}>
-        <ScreenCtx.Provider value={{ nodes: staged, tables: TABLES, agent, screen: "full", dispatch }}>
+        <ScreenCtx.Provider value={{ nodes: staged, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, agent, screen: "full", dispatch }}>
           {groupNodes(staged).map((n) => <LiveSlot key={`${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
         </ScreenCtx.Provider>
       </Stage>

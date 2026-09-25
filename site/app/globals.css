@@ -411,6 +411,9 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .yl-text { font-size: 13.5px; color: #c9cce0; }
 .yl-say { max-width: 90%; font-size: 14px; }
 .yl-bound { align-self: flex-start; font-size: 10.5px; font-weight: 600; color: var(--accent2); border: 1px solid #2c4a4a; border-radius: 999px; padding: 1px 8px; letter-spacing: .04em; }
+/* Agent tables (TABLES.md): a query view and its footer. */
+.yl-qwrap { display: flex; flex-direction: column; gap: 4px; }
+.yl-qfoot { font-size: 11px; opacity: .7; padding: 0 4px; }
 .yl-err { color: #ff8a8a; font-size: 12.5px; }
 .pg-screen .bigbtn { border: 0; }
 .pg-screen .bigbtn.s { border: 1px solid #2f3348; }

@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { parse, StreamParser, apply, initialState, tokenize, seconds, lastingIds } from "../site/lib/yl/yl.mjs";
-import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../site/lib/yl/samples.mjs";
+import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../site/lib/yl/samples.mjs";
 
 const one = (l) => parse(l)[0];
 const props = (l) => one(l).props;
@@ -156,6 +156,32 @@ test("every sample and demo screen parses (demos may include one deliberate erro
   for (const s of MEDIA) assert.equal(parse(`${s.yl}\n${s.next || ""}`).filter((o) => o.op === "error").length, 0, s.name);
   for (const s of SCIENCE) assert.equal(parse(`${s.yl}\n${s.next || ""}`).filter((o) => o.op === "error").length, 0, s.name);
   for (const s of FLOWS) assert.equal(parse(`${s.yl}\n${s.next || ""}`).filter((o) => o.op === "error").length, 0, s.name);
+});
+
+test("agent table starters: every write lands and every query runs (TABLES.md)", async () => {
+  const { query } = await import("../site/lib/yl/tables.mjs");
+  const style = { today: "2026-09-25", now: "2026-09-25T12:30" };
+  for (const s of DATA) {
+    let st = initialState();
+    for (const op of parse(`${s.yl}\n${s.next}`)) st = apply(st, op, style);
+    assert.deepEqual(st.errors, [], s.name);
+    const qs = parse(s.yl).filter((o) => o.preset === "query");
+    assert.ok(qs.length >= 2, s.name);
+    for (const q of qs) {
+      const r = query(st.data, q.props, style);
+      assert.ok(r.rows && r.rows.length > 0, `${s.name}: ${q.line}`);
+    }
+  }
+  // A put redraws: the same query sees the new row.
+  let st = initialState();
+  for (const op of parse("table create log Note:text\nput log Note=one")) st = apply(st, op);
+  assert.equal(query(st.data, { table: "log" }).count, 1);
+  st = apply(st, parse("put log Note=two")[0]);
+  assert.equal(query(st.data, { table: "log" }).count, 2);
+  // A refused put is a screen-state error, and writes nothing.
+  st = apply(st, parse("put log Size=3")[0]);
+  assert.equal(st.errors.length, 1);
+  assert.equal(query(st.data, { table: "log" }).count, 2);
 });
 
 test("calc expressions: precedence, functions, degrees are the caller's job", async () => {

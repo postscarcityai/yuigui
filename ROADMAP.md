@@ -252,12 +252,12 @@ Deliverables:
 - NOT STARTED, YUI-14: voice input via Apple's on-device Speech framework, per-agent default of talk vs type, hands-free voice in with text out. Hold to talk in the composer already shipped (builds 57 and 64).
 - DONE Sep 24 (build 57), YUI-30: Live Activity for the timer preset: rounds keep counting on the lock screen and Dynamic Island.
 
-### Phase 3 | not started: data and keys
+### Phase 3 | started Sep 25 2026: data and keys
 
 Goals: agents can make things that persist.
 
 Deliverables:
-- YUI-33: on-device tables: agents create tables and rows through the protocol (`table.create`, `row.upsert`, `query`). Views render as table, list, or chart. Starter schemas: workout log, macros, simple CRM.
+- YUI-33: on-device tables: agents create tables and rows through the protocol (`table create`, `put`, `query`). Views render as table, list, chart or one number. Starter schemas: workout log, macros, simple CRM. Step 1, the spec and the web playground, shipped Sep 25 ([Agent tables](/developers/tables)); the app's store and views are YUI-89.
 - YUI-34: key vault in the iOS Keychain for BYO keys: fal, Replicate, OpenRouter, Anthropic.
 - Image generation through the user's own fal key (agent avatars first, then in-chat images). YUI-21 (Sep 24) already lets agents send images they made elsewhere.
 - YUI-35: nutrition demo: photo of a meal to macro estimate to a row in the macros table.
@@ -388,7 +388,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 **The app**
 
-- YUI-33: agent tables on the phone: workout log, macros, a simple CRM.
+- YUI-89: agent tables in the app, step 2 of YUI-33 (the spec and the playground shipped Sep 25): the phone's store, native views, the other parsers.
 - YUI-34: a key vault for your own fal, OpenRouter and Anthropic keys.
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table.
 - YUI-36: optional encrypted sync for agent tables, off by default.
