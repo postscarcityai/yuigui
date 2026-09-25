@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 74,
-    "site": 194,
-    "builds": 24,
-    "shipped": 109,
-    "screenshots": 217
+    "app": 76,
+    "site": 196,
+    "builds": 25,
+    "shipped": 110,
+    "screenshots": 220
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T08:56:09.363Z",
+          "at": "2026-09-25T09:18:02.103Z",
+          "title": "Type / to see what your agent can do",
+          "card": "YUI-61",
+          "anchor": "type-to-see-what-your-agent-can-do",
+          "images": [
+            {
+              "src": "/progress/yui61-slash-light.webp",
+              "alt": "Yui chat in light mode with / typed in the composer; a list above it shows /new [name], Start a new session, then /retry, /undo and /title, each with a one-line description"
+            },
+            {
+              "src": "/progress/yui61-filter-dark.webp",
+              "alt": "The same list in dark mode after typing /mo: /moa, /model, /memory and a skill whose name contains model"
+            },
+            {
+              "src": "/progress/yui61-filled-light.webp",
+              "alt": "After tapping /new, the composer holds /new with a space and the list has closed"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 76,
+            "site": 196,
+            "builds": 25,
+            "shipped": 110
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T08:56:51.000Z",
           "title": "Add Yui to Claude or ChatGPT by pasting one URL",
           "card": "INT-19",
           "anchor": "add-yui-to-claude-or-chatgpt-by-pasting-one-url",
@@ -31,12 +59,24 @@
               "alt": "The new SDK Agent thread in Yui showing a Tabata timer at 0:20, round 1 of 8, sent by the OAuth client after the person tapped Yes."
             }
           ],
-          "commits": 2,
+          "commits": 4,
+          "totals": {
+            "app": 75,
+            "site": 195,
+            "builds": 25,
+            "shipped": 109
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-25T08:35:32.000Z",
+          "build": 74,
+          "changes": 10,
           "totals": {
             "app": 74,
-            "site": 194,
-            "builds": 24,
-            "shipped": 109
+            "site": 193,
+            "builds": 25,
+            "shipped": 108
           }
         },
         {
@@ -440,6 +480,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "594a8a9",
+          "at": "2026-09-25T09:17:56.000Z",
+          "text": "Slash commands in the composer: type / and the agent's own commands appear, one line each, filtered as you type; a tap fills the...",
+          "url": "https://github.com/postscarcityai/yui/commit/594a8a9"
+        },
+        {
+          "repo": "site",
+          "sha": "7c05205",
+          "at": "2026-09-25T09:10:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7c05205"
+        },
+        {
+          "repo": "site",
+          "sha": "4cb9c8e",
+          "at": "2026-09-25T08:56:51.000Z",
+          "text": "yuigui.com/connect: the OAuth sign-in page for the Yui MCP server. Names the app and where it returns, Open Yui (yui://connect/<id>) or...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4cb9c8e"
+        },
+        {
+          "repo": "app",
+          "sha": "a8454e8",
+          "at": "2026-09-25T08:56:43.000Z",
+          "text": "Add Yui to an OAuth-only MCP client by pasting one URL: the Claude and ChatGPT apps' custom connectors, MCP Inspector, Claude Code with...",
+          "url": "https://github.com/postscarcityai/yui/commit/a8454e8"
+        },
         {
           "repo": "site",
           "sha": "9854822",

@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Type / to see what your agent can do",
+    "card": "YUI-61",
+    "body": "Type a slash at the start of the composer and a list opens above it: the commands your agent already understands, each with one line on what it does. For a Hermes agent that is /new, /model, /retry, /status and the rest, plus its skills. Keep typing to narrow it (/mo shows /model and /moa), tap one to fill it in, and Send passes it to the agent as is. The list comes from the agent's computer: the Hermes plugin reports it when the gateway starts and again whenever it changes, so a new skill shows up on its own. Commands that only make sense in a terminal or for running the computer are left out. Agents with no list, like MCP ones, show nothing. The list above the composer is built to be reused: @mentions (YUI-44) come next in the same spot. Proof: the simulator, signed in to the real Yui agent, typed /, filtered, filled /new, and sent /status, which the gateway answered in about a second; 8 new live server checks, 11 plugin tests, relay tests still green. It rides the next build.",
+    "images": [
+      {
+        "src": "/progress/yui61-slash-light.webp",
+        "alt": "Yui chat in light mode with / typed in the composer; a list above it shows /new [name], Start a new session, then /retry, /undo and /title, each with a one-line description"
+      },
+      {
+        "src": "/progress/yui61-filter-dark.webp",
+        "alt": "The same list in dark mode after typing /mo: /moa, /model, /memory and a skill whose name contains model"
+      },
+      {
+        "src": "/progress/yui61-filled-light.webp",
+        "alt": "After tapping /new, the composer holds /new with a space and the list has closed"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Add Yui to Claude or ChatGPT by pasting one URL",
     "card": "INT-19",
     "body": "The Yui MCP server now signs in with OAuth, so the apps that only take a URL (Claude's and ChatGPT's custom connectors, MCP Inspector) can add Yui with no token to copy. Paste the endpoint, and your browser lands on yuigui.com/connect, which says which app is asking and where it will return. Approve on your iPhone: tap Open Yui on the phone, or scan the QR code from a computer. Yui asks which agent the app talks as, a new one named after it or one it had, and you tap Allow. No build with that sheet yet? Add an agent in Yui and type its 6-digit code on the page instead. The app then reaches that one thread and nothing else, and removing it in Yui stops its keys at once. Under the hood: discovery from the 401, self-registration, PKCE, one-hour access keys and single-use refresh keys (replaying an old one ends the connection), only hashes stored, the same limits and kill switch as any paired computer. Proof: 77 live server checks (43 of them OAuth), and the MCP SDK's own OAuth client connecting to the simulator, where the test taps Allow, then Yes, and a tabata timer comes back. The sheet in the app rides the next build. Trying it in claude.ai and ChatGPT is next.",

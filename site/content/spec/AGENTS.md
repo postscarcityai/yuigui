@@ -45,6 +45,7 @@ All tables live in PROOF, `public` schema, and cascade from `yui_users` (`ON DEL
 | remote_ref | Hermes profile name; unique per connector |
 | is_default | at most one per user (partial unique index). Setting it clears the old default in the same write; deleting the default hands it to the first remaining agent (triggers) |
 | sort | display order |
+| commands, commands_at | jsonb, the /commands its host accepts, and when it last reported them. Null = no registry, no suggestions (see Commands below) |
 | created_at, updated_at | |
 
 **status** is derived, never stored. The view `yui_agent_list` (security invoker, so RLS applies) adds it:
@@ -134,6 +135,9 @@ Errors are `{"error": "<code>"}`: `unauthorized` 401, `forbidden` 403, `not_foun
     -> {created: bool, agent}
 {"action":"heartbeat"}                                     Bearer yui_ct_...
     -> {connector, seen_at, agents:[{id,name,handle,remote_ref}]}
+{"action":"commands","remote_ref":"coach","commands":[{name,description,args?}] | null}   Bearer yui_ct_...
+    -> {agents: <rows updated>, commands: <kept>, at}
+    400 invalid_commands (not a list)
 ```
 
 Heartbeat at least every 60 seconds while the gateway runs; the app shows offline after 2 minutes of silence. The heartbeat reply is how the plugin learns which of its profiles are registered.
@@ -145,6 +149,22 @@ Code guessing: 10 wrong codes per client address per 10 minutes, then 429. With 
 One connector per machine, shared by all its profiles: `~/.hermes/yui/connector.json`, mode 600, `{token, connector_id, name}`. `hermes-plugin/yui/connector.py` reads and writes it (`pair`, `add`, `heartbeat`, `status`); the plugin exposes the same calls as `hermes -p <profile> yui pair|add|status` and runs the heartbeat inside the gateway.
 
 The connector token authenticates the registry calls above. Message transport (Realtime on `yui_messages`) uses a scoped database credential minted from this token, role `yui_connector`: see `spec/RELAY.md`.
+
+## Commands (YUI-61)
+
+Typing `/` at the start of the composer shows the commands the agent's host already accepts, one line each, filtered as you type. A tap fills the composer (`/new ` with a space when the command takes arguments); Send passes it through bare, as the host expects.
+
+```json
+[{"name": "new", "description": "Start a new session (fresh session ID + history)", "args": "[name]"},
+ {"name": "stop", "description": "Kill all running background processes"}]
+```
+
+- **Who reports it.** The host, per profile, with `yui-connect` `commands` (above). The Hermes plugin (`hermes-plugin/yui/commands.py`) sends it when the gateway starts, when `hermes yui pair` binds a profile, when the gateway starts serving a new agent, and whenever the list changes (checked on every heartbeat, sent only when it differs). `hermes -p <profile> yui commands [--send]` prints it and reports it by hand.
+- **What Hermes lists.** Its own registry, gateway-available commands only (`hermes_cli/commands.py`: never the CLI/terminal-only ones), in registry order, then plugin commands, then skills by their real `/skill-name`, the same sources as the Telegram menu. Left out because they make no sense from a phone thread: `start`, `topic`, `sethome`, `platform`, `restart`, `update`, `debug`, `codex-runtime`, `footer`, `commands` (the popover replaces it), `yolo` (never one tap from off-for-everything), `yui`. Aliases are not listed twice.
+- **Cleaning.** `yui-connect` keeps entries whose `name` matches `^[a-z0-9][a-z0-9_-]{0,31}$` (a leading `/` is dropped, lowercased), one per name, description one line up to 100 characters, `args` up to 60, at most 200 entries; anything else is dropped silently so one odd plugin command cannot cost the whole list. The column holds at most 32 KB. `commands: null` clears it.
+- **Where it lives.** `yui_agents.commands`, written only by the service role through `yui-connect`; the app cannot write it. The app reads it with the agent list (`yui_agent_list`, `yui-agents` `list`), so it is cached per agent with the rest of the agent and refreshes when the list does.
+- **No registry, no popover.** MCP, OpenClaw, webhook and pending agents have `commands: null` and the composer shows nothing for `/`.
+- Next (FLOW-1, later): Yui's own `/commands` that run a skill or a saved flow, authored per agent. The popover is shared with @mentions (YUI-44).
 
 ## Look (YUI-20)
 
