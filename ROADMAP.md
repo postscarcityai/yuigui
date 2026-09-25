@@ -85,7 +85,7 @@ Then:
 - YUI-44 step 1 (third, done in the code Sep 25, rides the next build): @mention another agent from the composer and its reply lands in the thread in its own look. Group threads come after.
 - YUI-14: voice in, text out, fast.
 - YUI-62 (backlog): chat with a screen. Screens are full screen with no composer now; an agent will be able to keep the composer on a page, and what you type there reaches it tagged with that screen.
-- YUI-63 (backlog): one working row instead of three dots plus a timer. A working word and the seconds ("Pondering · 12s") first; later the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
+- YUI-63 step 1 (done in the code Sep 25, rides the next build): one working row instead of three dots plus a timer, a working word and the seconds ("Pondering · 12s"). Step 2, later: the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
 - YUI-64 (backlog): an agent that is paired but not listening says so. Presence per agent, not per machine; right after pairing the agent sheet shows the one step left (restart its gateway); a message to it says it will wait instead of a timer that counts forever. From Chris's R0SS feedback on build 61.
 - YUI-69 (backlog): talk about a setting. Bring a piece of the agent (its personality, a memory, a skill) into the chat, the agent proposes the change as a before and after, one tap applies it. After YUI-70.
 - INT-19 onward: more agent frameworks. The Yui MCP server shipped Sep 25 (INT-3), with OAuth (INT-19) and Claude, screens in the chat included (INT-7); ChatGPT is next (see Adapters below).
@@ -132,7 +132,7 @@ Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /ear
 
 **Latest release: build 74, Sep 25: the war room (WAR-1), replies, select text, and links that open Safari.** Build 57 (Sep 24) was the big one, chat feels right: the lock screen timer (YUI-30), screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51), no dead buttons (YUI-53), and every Sep 24 feedback fix checked again (YUI-52). Build 61 fixed a crash in hold to talk and brought invites (YUI-56) and test builds by link (YUI-55). Build 64 made hold to talk work like WhatsApp and gave screens 2 to 12 the whole phone.
 
-**The next build** carries what is on the app's main branch past 74: slash commands in the composer (YUI-61), the approval sheet for MCP apps that sign in with OAuth (INT-19) and @mentions of your other agents (YUI-44 step 1). [Builds](/changelog#next) lists it. The next epic is Chris's Sep 25 picks: YUI-54 and YUI-70 (each agent's home and its controls).
+**The next build** carries what is on the app's main branch past 74: slash commands in the composer (YUI-61), the approval sheet for MCP apps that sign in with OAuth (INT-19) @mentions of your other agents (YUI-44 step 1) and one working row while an agent is on it (YUI-63). [Builds](/changelog#next) lists it. The next epic is Chris's Sep 25 picks: YUI-54 and YUI-70 (each agent's home and its controls).
 
 ## North star: not just another AI chatbot
 

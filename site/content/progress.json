@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-09-25",
+    "title": "One working row instead of dots plus a timer",
+    "card": "YUI-63",
+    "body": "While your agent works, the chat used to show three dots in a bubble and, under them, a line saying it was sent and for how long. Two things saying the same thing. Now it is one row: the agent's face, three small dots and one line. \"On its way · 3s\" until the agent's computer picks your message up, then a working word and the time, like \"Pondering · 12s\". The word changes every few seconds (Figuring it out, Mulling it over, Tinkering), and the row goes away when the answer lands. Long jobs still say it's fine to leave. With Reduce Motion on, the dots hold still and the words swap without moving. Next, the agent itself will send a few words on what it is doing. Proof: the simulator sent a message and watched the row go from On its way to Pondering to the next word to gone, in light and dark.",
+    "images": [
+      {"src": "/progress/yui63-pondering-light.webp", "alt": "Light mode chat with Wizard: the question sent, and under it one row with Wizard's face, three dots and Pondering · 0s"},
+      {"src": "/progress/yui63-word-dark.webp", "alt": "The same chat in dark mode a few seconds later: the row now says Figuring it out · 4s"},
+      {"src": "/progress/yui63-long-dark.webp", "alt": "A long turn in dark mode: the row says Tinkering · 2m 20s, with a line under it saying long jobs are fine and the answer lands here"}
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "@ another agent from any thread",
     "card": "YUI-44",
     "body": "Type @ anywhere in the composer and your other agents come up, each with its face, name and whether it is online. Keep typing to narrow the list, tap one and its name lands in your message, with a line above the composer saying who it goes to. The agent you are talking to is not asked. The one you named gets your words plus the last few lines of this thread, answers in its own thread, and its answer shows up here too, in its own colors, with a link to its thread. If it is asleep, offline or muted, you get one line saying so right away instead of silence. The agent you were in reads what was asked and answered as context on its next turn. Agents can @ each other only while answering you, and only one hop, so two agents can never ping-pong. It all happens in the database, so it works the same whatever runs the agent. This is step one of group threads. Proof: two real agent hosts on one Mac and a throwaway account; the simulator typed @, picked the second agent, got its answer back in the first thread, and saw an offline agent say so, in light and dark. 38 live database checks, 11 plugin tests, 8 app tests.",

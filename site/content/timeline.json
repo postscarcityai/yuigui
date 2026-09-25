@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 78,
-    "site": 203,
+    "app": 79,
+    "site": 206,
     "builds": 25,
-    "shipped": 112,
-    "screenshots": 228
+    "shipped": 113,
+    "screenshots": 231
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T10:16:18.708Z",
+          "at": "2026-09-25T10:44:37.673Z",
+          "title": "One working row instead of dots plus a timer",
+          "card": "YUI-63",
+          "anchor": "one-working-row-instead-of-dots-plus-a-timer",
+          "images": [
+            {
+              "src": "/progress/yui63-pondering-light.webp",
+              "alt": "Light mode chat with Wizard: the question sent, and under it one row with Wizard's face, three dots and Pondering · 0s"
+            },
+            {
+              "src": "/progress/yui63-word-dark.webp",
+              "alt": "The same chat in dark mode a few seconds later: the row now says Figuring it out · 4s"
+            },
+            {
+              "src": "/progress/yui63-long-dark.webp",
+              "alt": "A long turn in dark mode: the row says Tinkering · 2m 20s, with a line under it saying long jobs are fine and the answer lands here"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 79,
+            "site": 206,
+            "builds": 25,
+            "shipped": 113
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T10:16:42.000Z",
           "title": "@ another agent from any thread",
           "card": "YUI-44",
           "anchor": "another-agent-from-any-thread",
@@ -35,10 +63,10 @@
               "alt": "Bravo's own thread in dark mode: the question marked You, from Alpha's thread, and Bravo's answer under it"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 78,
-            "site": 203,
+            "site": 204,
             "builds": 25,
             "shipped": 112
           }
@@ -544,6 +572,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "4d64356",
+          "at": "2026-09-25T10:43:55.000Z",
+          "text": "One working row while the agent is on it: the three-dot bubble and the \"Sent to X · 5s\" line said the same thing twice, so they are now...",
+          "url": "https://github.com/postscarcityai/yui/commit/4d64356"
+        },
+        {
+          "repo": "site",
+          "sha": "58b8d5b",
+          "at": "2026-09-25T10:40:05.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/58b8d5b"
+        },
+        {
+          "repo": "site",
+          "sha": "60b5303",
+          "at": "2026-09-25T10:20:23.000Z",
+          "text": "ROADMAP: group threads is YUI-77, split from YUI-44 now that @mentions is done",
+          "url": "https://github.com/postscarcityai/yuigui/commit/60b5303"
+        },
+        {
+          "repo": "site",
+          "sha": "8942c90",
+          "at": "2026-09-25T10:16:42.000Z",
+          "text": "@mentions (YUI-44 step 1): spec/RELAY.md Mentions section (the one row the app writes, the triggers that route it: the host agent is not...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8942c90"
+        },
         {
           "repo": "app",
           "sha": "1783873",
