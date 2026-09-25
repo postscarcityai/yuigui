@@ -107,6 +107,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** S on top of INT-12 or INT-18.
 - **Depends on:** INT-12 or INT-18.
 - **Priority:** 4.
+- **Status:** step 1 shipped Sep 25. A Gemini model: `--server gemini` on the model bridge, with Gemini's differences handled and tested against its shapes (`spec/MODELS.md` "Gemini"). A Gemini agent: a Google ADK agent over A2A paired, answered, drew a screen and took a tap on live Yui, on a local model (`spec/A2A.md` "Gemini and ADK agents"). One live call to Gemini waits on an AI Studio key; the hosted version rides INT-12 step 3 and YUI-34.
 
 ### Grok | INT-10
 

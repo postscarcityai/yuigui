@@ -30,9 +30,33 @@ Needs Node 22.18 or newer. No dependencies.
 
 ## Servers and keys
 
-Ollama is the default. `--server lmstudio`, `vllm`, `llamacpp` or `openrouter` pick the others by their usual address, and `--url http://host:port/v1` takes any other (the full `.../chat/completions` URL works too). `models` lists what a server has.
+Ollama is the default. `--server lmstudio`, `vllm`, `llamacpp`, `openrouter` or `gemini` pick the others by their usual address, and `--url http://host:port/v1` takes any other (the full `.../chat/completions` URL works too). `models` lists what a server has.
 
 Local servers need no key. For one that does, `--key-env NAME` reads it from that environment variable each time the bridge runs, and nothing is stored; `--key-stdin` keeps it in the bridge's state file on your machine (mode 600). A key never goes in chat, in a form or on the command line.
+
+## Gemini
+
+Google's Gemini API has an OpenAI-compatible endpoint, so a Gemini model is one preset (INT-9). A free key from [Google AI Studio](https://aistudio.google.com/apikey) works.
+
+```
+export GEMINI_API_KEY=...        # in your shell, never in a file you share
+node yui-openai.ts models --server gemini
+node yui-openai.ts try "Help me pick lunch" --server gemini --model gemini-2.5-flash
+node yui-openai.ts pair 123456 --server gemini --model gemini-2.5-flash
+node yui-openai.ts run
+```
+
+`--server gemini` means `https://generativelanguage.googleapis.com/v1beta/openai`, the key read from `$GEMINI_API_KEY` each run (nothing stored), and a 32,768-token window for the thread instead of 4,096 (Gemini takes far more; `--context` sets another). Where Gemini's endpoint differs from OpenAI's, the bridge copes:
+
+- `models` lists ids as `models/gemini-2.5-flash`; the bridge takes the `models/` off so the names match what chat takes.
+- Errors come wrapped in a list (`[{"error": {...}}]`); the person reads the message inside.
+- A bad key is a `400 INVALID_ARGUMENT` ("API key not valid"), not a 401; it still reads as a key problem.
+- `429 RESOURCE_EXHAUSTED` (the free tier's rate limit) waits and tries again, like any busy server.
+- Thought summaries, when a model sends them, stay out of the answer: a piece marked `extra_content.google.thought`, or a leading `<thought>` block.
+- A blocked answer (no text, finish `content_filter`) gets one line saying the model's filter stopped it.
+- Streams have no role-only first piece, and the last piece carries both text and the finish; both are read as normal.
+
+Agents built with Google's Agent Development Kit, or run in Gemini Enterprise, come in the other way: over A2A, by their Agent Card (`spec/A2A.md`, "Gemini and ADK agents").
 
 ## What the model is sent
 
@@ -65,13 +89,14 @@ Local servers need no key. For one that does, `--key-env NAME` reads it from tha
 
 ## Tested
 
-- The client and the thread builder, 26 unit tests against a scripted server: streaming and plain, a server that ignores or refuses streams, a stream with no `[DONE]`, a broken or silent stream, 400, 401, 404 and 503, keys, `<think>` blocks, and what fits the context.
+- The client and the thread builder, 37 unit tests against a scripted server: streaming and plain, a server that ignores or refuses streams, a stream with no `[DONE]`, a broken or silent stream, 400, 401, 404 and 503, keys, `<think>` blocks, and what fits the context. Eleven of them replay Gemini's shapes (INT-9): the preset, `models/` ids, the stream without an opener, the system message, thoughts streamed and plain, a blocked answer, a wrapped error, a 429 and a bad key.
 - End to end on live Yui, on throwaway accounts: 47 checks. Against the scripted server: pairing (the key's name stored, never the key), the guide as the system message, a screen and a tap, the thread sent in order, the working row while it streams, a bridge killed mid-stream answering once after a restart, an answer written but never acked, a 400 answered once with why, a 503 tried again, a server down for a while (one note, then the answer), messages sent while it was stopped going as one turn, and a server that refuses streams.
 - With a real model: qwen2.5:7b on Ollama on a Mac mini. Its answer drew a `choose` screen that the Yui Lines parser reads, a tap on it went back as the next turn and was answered, it named the pick when asked later (the thread came from Yui), and a bridge killed mid-answer still ended in one reply. On the iPhone simulator: the working row, the model's screen, a tap and its answer in light, and a follow-up it could only answer from the thread in dark.
 
 ## Not yet
 
 - Cloud APIs on Yui's hosted connector, with keys kept by Yui (YUI-34). The local bridge can already call one with `--key-env`, but only local servers are tested.
+- One live call to Gemini itself. The Gemini cases replay its documented and reported shapes; the first run with a real AI Studio key checks them.
 - YUI-10's eval per model, and a list of models we call supported.
 - LM Studio, vLLM and llama.cpp are covered by the scripted server's shapes, not yet run for real.
 - Images in or out, and tool calls.

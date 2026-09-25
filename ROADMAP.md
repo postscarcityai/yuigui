@@ -422,7 +422,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-6 (done Sep 25): where the hosted connector runs. Cloudflare, beside the Supabase relay (spec/HOSTING.md).
 - INT-7 (done Sep 25): Claude, through the MCP server, and Yui screens drawn inside Claude as an MCP App.
 - INT-8 (done Sep 25): ChatGPT, the same way, as a developer-mode connection.
-- INT-9: Gemini, as a model or as an A2A agent.
+- INT-9 (step 1 done Sep 25): Gemini, as a model (`--server gemini` on the model bridge, spec/MODELS.md) or as an A2A agent (a Google ADK agent, spec/A2A.md). Next: one live call with an AI Studio key, then the hosted connector.
 - INT-10: Grok, as a model or calling the MCP server.
 - INT-11: Meta's Muse Spark, through the Meta Model API.
 - INT-12 (step 1 done Sep 25): open models on your own machine (Ollama, LM Studio, vLLM) and any OpenAI-compatible API. Today as a bridge next to the model server (spec/MODELS.md); cloud APIs on the hosted connector next, with YUI-34's key vault.

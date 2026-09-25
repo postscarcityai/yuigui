@@ -70,13 +70,40 @@ A card that lists both gets 1.0, and 1.0 calls carry `A2A-Version: 1.0`. The gRP
 
 `adapters/a2a/src/a2a.ts` is the client, `src/sse.ts` its event stream parser. They use only `fetch`, `TextDecoder` and streams, so the same code runs in Node, a Cloudflare Worker and a browser. That is the piece step 2 moves into the hosted connector.
 
+## Gemini and ADK agents
+
+Agents built with Google's [Agent Development Kit](https://google.github.io/adk-docs/) (ADK), the kit behind Gemini Enterprise agents, speak A2A: ADK's `to_a2a` serves any agent with an Agent Card at `/.well-known/agent-card.json` (A2A 1.0, JSON-RPC, streaming). Pair it like any other (INT-9):
+
+```
+uv run --with google-adk --with litellm --with 'a2a-sdk[http-server]' --with uvicorn \
+  adapters/a2a/tests/sdk/adk_agent.py 8765
+node yui-a2a.ts card http://127.0.0.1:8765
+node yui-a2a.ts pair 123456 --card http://127.0.0.1:8765
+node yui-a2a.ts run
+```
+
+`adk_agent.py` is a working example: an `LlmAgent` on local Ollama qwen2.5:7b through LiteLLM, so it needs no key. Set `ADK_MODEL=gemini-2.5-flash` and `GEMINI_API_KEY` to run the same agent on Gemini.
+
+To answer with screens, an ADK agent passes Yui's guide to its model. ADK keeps each A2A part's metadata, so a `before_model_callback` finds the part marked `{"yui": "channel_guide"}`, adds it to the model's instructions and takes every copy out of the conversation:
+
+```python
+def use_yui_guide(callback_context, llm_request):
+    for c in llm_request.contents:
+        guide = [p for p in c.parts if (p.part_metadata or {}).get("yui") == "channel_guide"]
+        if guide:
+            llm_request.append_instructions([guide[-1].text])
+            c.parts = [p for p in c.parts if p not in guide]
+```
+
+(The example also drops the tap's JSON data part, whose text line says the same, and keeps the history short for a 4,096-token local model.) An agent in Gemini Enterprise is reached the same way, by its card URL, with its key as `--header "authorization: Bearer ..."`.
+
 ## Tested
 
 - The client, 42 unit tests: event stream parsing, both versions' shapes, errors, and live calls against a scripted agent in 1.0 and 0.3, including picking a task back up.
 - Against the official A2A SDK (`a2a-sdk` for Python, 1.x and 0.3): card, send, stream, `GetTask`.
 - End to end on live Yui, 66 checks on throwaway accounts: A2A 1.0, 0.3, and 1.0 without streaming. A long task shows the working row, then its whole answer lands once. A bridge killed mid-task resumes the same task after a restart and answers once. The agent's question continues the same task. And on the iPhone simulator: the working row, the long answer, a screen from the A2A agent, a tap on it, and a question, light and dark.
 
-The test agent is scripted, with fixed answers and no model.
+The test agent is scripted, with fixed answers and no model. One more run uses a real one: a Google ADK agent served by ADK's own `to_a2a`, its model qwen2.5:7b on Ollama (`a2a_e2e.py --protocol adk`). It pairs by its card, answers a turn, draws a screen the Yui Lines parser reads (only because the guide reached its model: its own instruction never mentions Yui), and answers a tap on it.
 
 ## Not yet
 
