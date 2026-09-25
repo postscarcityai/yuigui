@@ -939,10 +939,15 @@ def is_workout(preset, props=None):
     return _to_number(1 if rounds is None else rounds) > 1 or _to_number(0 if rest is None else rest) > 0
 
 
+MAX_PAGE = 12
+
+
 def page_of(screen):
-    """The page a screen lives on (YL.md section 5, Pages): 2 and 3 are pages
+    """The page a screen lives on (YL.md section 5, Pages): 2 to 12 are pages
     beside the chat; every other screen renders in the chat, page 1."""
-    return 2 if screen == "2" else 3 if screen == "3" else 1
+    if isinstance(screen, str) and screen.isdigit() and str(int(screen)) == screen and 2 <= int(screen) <= MAX_PAGE:
+        return int(screen)
+    return 1
 
 def on_stage(op, style=None):
     """Whether an add op opens on the stage. `style` is the agent's style

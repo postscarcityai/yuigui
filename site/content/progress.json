@@ -1,6 +1,29 @@
 [
   {
     "date": "2026-09-24",
+    "title": "As many screens as the agent needs, up to 12",
+    "body": "Chris sent a screen to screen 2 on build 57 and asked for more. Now an agent can use screens 2 through 12, and a screen only exists once something is on it: send to screen 5 alone and you get the chat plus one page. Clearing a screen takes it away. The switcher above the composer is now a small chat icon and one dot per screen, and with only the chat it is gone. Screen 13 and up stay in the chat. The rule changed in the spec and all four parsers, with new test vectors, and the agent guide now says screens 2 to 12. It rides the next build.",
+    "images": [
+      {
+        "src": "/progress/screens-dynamic-chat-only.webp",
+        "alt": "Only the chat: no switcher above the composer"
+      },
+      {
+        "src": "/progress/screens-dynamic-two.webp",
+        "alt": "Two pages: a chat icon and one dot"
+      },
+      {
+        "src": "/progress/screens-dynamic-five.webp",
+        "alt": "Five pages: a chat icon and four dots"
+      },
+      {
+        "src": "/progress/screens-dynamic-twelve.webp",
+        "alt": "Twelve pages, the most, with screen 13 left in the chat"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Build 61: holding the mic no longer crashes",
     "body": "A tester held the talk button on build 57 and the app closed. The crash log showed why: the speech permission answer, the mic and the live transcript all arrive on system threads, and the code that took them expected the main one, so Swift stopped the app on the spot. They now hand off to the main thread properly, and a mic with no usable input (a call, a route change) says it can't listen instead of crashing. A new test crashed on the old code and passes now. Shipped alone as a hotfix in build 61."
   },

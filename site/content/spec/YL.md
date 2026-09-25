@@ -420,16 +420,16 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 
 The reference function is `onStage(op, style)` in `yl.mjs` (and `YuiLines.opensOnStage` in the app). Conformance vectors may carry `stage`, the ids of the adds that open on the stage, and `style`, the agent's style profile for that vector.
 
-**Pages.** The app gives every agent three screens side by side: the chat, screen `2` and screen `3`. Screen `1` lines render in the chat as usual; screens `2` and `3` are pages the person swipes to, left to right, with small tabs (Chat, 2, 3) to jump between them and a dot on a page that has something on it.
+**Pages.** Beside the chat, the app gives every agent up to eleven more screens, `2` through `12`. Screen `1` lines render in the chat as usual; a screen from `2` to `12` becomes a page the person swipes to, left to right, as soon as something lands on it. Pages run in number order and a number can be skipped (`>5` alone makes the chat and one page). Above the composer a small indicator shows a chat glyph and one dot per page; with only the chat there is no indicator at all.
 
-- A page keeps what lands on it across replies, so an agent can leave a focus timer on `2` and a running list on `3` while the chat goes on. Adds stack in order, a later reply patches them by preset name (`~timer`, section 9), and `>2 clear` empties the page.
+- A page keeps what lands on it across replies, so an agent can leave a focus timer on `2` and a running list on `3` while the chat goes on. Adds stack in order, a later reply patches them by preset name (`~timer`, section 9), and `>2 clear` empties the page, which removes it; if it was showing, the person goes back to the chat.
 - A route to a page beats the stage defaults: `>2 timer 25m Focus` sits on page 2, not on the stage, whatever the agent's style profile says. Workouts still always open on the stage.
-- A reply that sends a line to `2` or `3` brings that page forward with a spring (a cross-fade under Reduce Motion). A line that only patches a page does not move the person. The chat keeps a small "On screen 2" pill where the line was sent; tapping it goes to the page.
-- Any other screen name (`>stats-view`) has no page of its own and renders in the chat, in line order. The stage (`>full`, and the presets that open there) is a layer over whichever page is showing, the same as over the chat.
+- A reply that sends a line to a page brings that page forward with a spring (a cross-fade under Reduce Motion). A line that only patches a page does not move the person. The chat keeps a small "On screen 2" pill where the line was sent; tapping it goes to the page.
+- Any other screen name (`>stats-view`, `>13`, `>0`, `>02`) has no page of its own and renders in the chat, in line order. The stage (`>full`, and the presets that open there) is a layer over whichever page is showing, the same as over the chat.
 - Swiping between pages sends no event. The page an agent's thread was on is remembered per agent.
 - Where there is no room for pages (Telegram, a watch, the playground's single phone), everything renders in one column in line order, as before.
 
-The reference function is `pageOf(screen)` in `yl.mjs` (`YuiLines.page(of:)` in the app, `page_of` in Python, `pageOf` in Kotlin): `2` and `3` for those screens, `1` for everything else, `full` and `chat` included. Conformance vectors may carry `pages`, the page of each add in order.
+The reference function is `pageOf(screen)` in `yl.mjs` (`YuiLines.page(of:)` in the app, `page_of` in Python, `pageOf` in Kotlin): the number for `2` to `12` (written plainly, no leading zero), `1` for everything else, `full`, `chat` and `13` included. Conformance vectors may carry `pages`, the page of each add in order.
 
 **Saved screens and the shelf.** A screen the person will want again gets a name, and from then on it costs two tokens to bring back.
 

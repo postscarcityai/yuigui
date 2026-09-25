@@ -97,8 +97,8 @@
       ]
     },
     {
-      "name": "chat, full and named screens are page 1",
-      "input": ">chat say one\n>stats-view say two\n>full say three\n>4 say four",
+      "name": "chat, full, named and out-of-range screens are page 1",
+      "input": ">chat say one\n>stats-view say two\n>full say three\n>13 say four",
       "expected": [
         {
           "op": "add",
@@ -129,7 +129,7 @@
         },
         {
           "op": "add",
-          "screen": "4",
+          "screen": "13",
           "preset": "say",
           "id": "n4",
           "props": {
@@ -295,6 +295,92 @@
       "stage": [],
       "pages": [
         3
+      ]
+    },
+    {
+      "name": "any screen from 2 to 12 is a page",
+      "input": ">4 say four\n>7 say seven\n>12 say twelve",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "4",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "four"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "7",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "seven"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "12",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "twelve"
+          }
+        }
+      ],
+      "pages": [
+        4,
+        7,
+        12
+      ]
+    },
+    {
+      "name": "past 12, zero and padded numbers stay in the chat",
+      "input": ">13 say thirteen\n>0 say zero\n>02 say padded\n>99 say far",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "13",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "thirteen"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "0",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "zero"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "02",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "padded"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "99",
+          "preset": "say",
+          "id": "n4",
+          "props": {
+            "text": "far"
+          }
+        }
+      ],
+      "pages": [
+        1,
+        1,
+        1,
+        1
       ]
     }
   ]

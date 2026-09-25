@@ -756,7 +756,12 @@ fun isWorkout(preset: String?, props: Map<String, Any?> = emptyMap()): Boolean =
 
 // The page a screen lives on (YL.md section 5, Pages): 2 and 3 are pages
 // beside the chat; every other screen renders in the chat, page 1.
-fun pageOf(screen: String?): Int = when (screen) { "2" -> 2; "3" -> 3; else -> 1 }
+const val MAX_PAGE = 12
+
+fun pageOf(screen: String?): Int {
+    val n = screen?.toIntOrNull() ?: return 1
+    return if (n.toString() == screen && n in 2..MAX_PAGE) n else 1
+}
 
 // Whether an add op opens on the stage. `style` is the agent's style profile
 // (theme style: screen=chat|full, gallery=...).

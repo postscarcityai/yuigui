@@ -6,7 +6,7 @@ import { findSample, sampleSlug, cleanYL, shareItem, shareUrl } from "../../lib/
 
 export const metadata = {
   title: "Channel guide | Yui",
-  description: "The guide every agent gets on the Yui channel: how to answer with screens, taps, reactions, plans, screens 2 and 3, and saved screens.",
+  description: "The guide every agent gets on the Yui channel: how to answer with screens, taps, reactions, plans, screens 2 to 12, and saved screens.",
 };
 
 // Lines taken from spec/CHANNEL.md, plus the playground samples that show the rest.
@@ -17,7 +17,7 @@ const LINES = [
 ];
 const SAMPLES = [
   ["plan-findings", "plan", "Findings, then questions, in one plan. One submit at the end."],
-  ["Demo: screens (>) and save/show", ">2", "Screens 2 and 3 sit beside the chat. The playground has the tabs."],
+  ["Demo: screens (>) and save/show", ">2", "Screens 2 to 12 sit beside the chat. The playground has the tabs."],
   ["shelf", "save", "save puts a screen on the shelf. show brings it back, forget takes it off."],
 ];
 

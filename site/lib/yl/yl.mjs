@@ -721,10 +721,13 @@ export function onStage(op, style = {}) {
 }
 
 // ---------- pages ----------
-// The app shows three screens per agent side by side (spec section 5, Pages):
-// the chat, then screens 2 and 3. Every other screen name renders in the chat.
+// The app shows the chat, then a page for each screen 2 to 12 with something
+// on it (spec section 5, Pages). Every other screen name renders in the chat.
+export const MAX_PAGE = 12;
+
 export function pageOf(screen) {
-  return screen === "2" ? 2 : screen === "3" ? 3 : 1;
+  const n = Number(screen);
+  return Number.isInteger(n) && String(n) === screen && n >= 2 && n <= MAX_PAGE ? n : 1;
 }
 
 // ---------- defaults ----------
