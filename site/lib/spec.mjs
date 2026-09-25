@@ -7,6 +7,7 @@ const dir = path.join(process.cwd(), "content", "spec");
 // Every spec/*.md, in reading order (SITE-15). `npm run sync` copies them into content/spec.
 // Three already had their own page before SITE-15 and keep it; the rest live at /developers/<slug>.
 const ORDER = [
+  ["values", "Values", null, "What makes a screen feel like Yui: eight rules every agent, brief and page is held to."],
   ["yl", "Yui Lines", "/yl", "The screen language: one short line per element, every preset and its options."],
   ["channel", "Channel guide", "/channel", "What every agent on the Yui channel is told, and the eval that scores it."],
   ["reactions", "Reactions", "/reactions", "Hold a message and react. What each of the six tells your agent to do."],

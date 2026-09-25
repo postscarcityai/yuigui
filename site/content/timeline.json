@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 98,
-    "site": 249,
+    "app": 100,
+    "site": 251,
     "builds": 28,
-    "shipped": 132,
+    "shipped": 134,
     "screenshots": 264
   },
   "days": [
@@ -13,7 +13,37 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T17:43:40.243Z",
+          "at": "2026-09-25T18:04:47.375Z",
+          "title": "Yui's values, written down",
+          "card": "SITE-33",
+          "anchor": "yui-s-values-written-down",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 100,
+            "site": 251,
+            "builds": 28,
+            "shipped": 134
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T17:52:40.000Z",
+          "title": "Flue agents in Yui",
+          "card": "INT-13",
+          "anchor": "flue-agents-in-yui",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 100,
+            "site": 251,
+            "builds": 28,
+            "shipped": 133
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T17:52:27.000Z",
           "title": "Chat with a screen",
           "card": "YUI-62",
           "anchor": "chat-with-a-screen",
@@ -31,10 +61,10 @@
               "alt": "The chat with Swap Thursday for a swim as the person's message, marked From screen 2 above it, and the agent's answer below."
             }
           ],
-          "commits": 1,
+          "commits": 3,
           "totals": {
-            "app": 98,
-            "site": 249,
+            "app": 100,
+            "site": 250,
             "builds": 28,
             "shipped": 132
           }
@@ -1036,6 +1066,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "9f1f8ce",
+          "at": "2026-09-25T17:52:40.000Z",
+          "text": "INT-13 step 1: Flue. spec/ADAPTERS.md \"Flue and Cloudflare Agents\": status (yui b6482d1: adapters/flue, the blueprint `flue add channel`...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9f1f8ce"
+        },
+        {
+          "repo": "site",
+          "sha": "96264ac",
+          "at": "2026-09-25T17:52:27.000Z",
+          "text": "Chat with a screen (YUI-62). YL gets one core word, `talk`: `>2 talk` keeps the composer on page 2, `talk off` or `>2 clear` takes it...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/96264ac"
+        },
+        {
+          "repo": "app",
+          "sha": "b6482d1",
+          "at": "2026-09-25T17:51:57.000Z",
+          "text": "Flue agents in Yui (INT-13). adapters/flue is a Yui channel for Flue (withastro/flue, @flue/runtime 2.1.1): blueprint/channel--yui.md is...",
+          "url": "https://github.com/postscarcityai/yui/commit/b6482d1"
+        },
+        {
+          "repo": "app",
+          "sha": "1309238",
+          "at": "2026-09-25T17:51:43.000Z",
+          "text": "Chat with a screen (YUI-62, TestFlight feedback AK_HP72Gl1E_xK9soizV4Mc on build 57: \"we might want to chat with a specific screen in...",
+          "url": "https://github.com/postscarcityai/yui/commit/1309238"
+        },
         {
           "repo": "site",
           "sha": "9db5a17",

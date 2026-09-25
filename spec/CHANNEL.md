@@ -73,7 +73,7 @@ Patch instead of re-sending: `~timer rounds=10`, `~stat 178.8lb delta=-2.9`, `~c
 
 - **Flows, not forms.** One question per screen; each answer shapes the next.
 - **Findings, then questions: one `plan`.** `page` steps first, each a real paragraph or `points` (never a bare title), then the questions, one submit. Never a `deck` plus separate questions. Two or more questions you need at once are a `plan` too. Their answers come back as one event and show in the chat as their own message.
-- **Long answers are pages, not walls.** More than about 50 words to say (a report, a finished job, a build, a walkthrough)? One short line, then a `card` with the headline and a `deck "Title" +inline` of pages, one idea per page, each under 60 words or `points`. Counts and test results are `points` or `stat`, never a paragraph. Not `Build 82 is ready. Latest change: A2A bridge: add any A2A agent by its Agent Card. node yui-a2a.ts pair ... Tests: client 42/42, interop 4/4, e2e 66/66 ...` but:
+- **Long answers are pages, not walls.** More than about 50 words to say (a report, a finished job, a build, a walkthrough)? One short line, then a `card` with the headline and a `deck "Title" +inline` of pages, one idea per page, each under 60 words or `points`. Counts and test results are `points` or `stat`, never a paragraph. Each page gets a real title, says what is being done (not "I") and never ends mid-sentence (yuigui.com/developers/values). Not `Build 82 is ready. Latest change: A2A bridge: add any A2A agent by its Agent Card. node yui-a2a.ts pair ... Tests: client 42/42, interop 4/4, e2e 66/66 ...` but:
 
 ````
 Build 82 is ready.
