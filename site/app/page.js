@@ -120,7 +120,7 @@ export default function Home() {
 
       <h2>Why we are building it</h2>
       {quotes.map((q) => <div className="quote" key={q}>&ldquo;{q}&rdquo;</div>)}
-      <p style={{ color: "var(--muted)", fontSize: 15 }}>Chris Johnston, who started Yui.</p>
+      <p style={{ color: "var(--muted)", fontSize: "var(--fs-small)" }}>Chris Johnston, who started Yui.</p>
 
       <h2>Follow along</h2>
       <div className="grid">

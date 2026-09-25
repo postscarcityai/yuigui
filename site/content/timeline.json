@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 100,
-    "site": 253,
+    "app": 108,
+    "site": 268,
     "builds": 28,
-    "shipped": 135,
-    "screenshots": 269
+    "shipped": 142,
+    "screenshots": 287
   },
   "days": [
     {
@@ -13,7 +13,189 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T18:20:32.542Z",
+          "at": "2026-09-25T19:47:20.788Z",
+          "title": "The site reads like the app now",
+          "card": "SITE-34",
+          "anchor": "the-site-reads-like-the-app-now",
+          "images": [
+            {
+              "src": "/progress/site34-phone-before-after.webp",
+              "alt": "The Get Yui page on a phone, before on the left and after on the right. After, the step title wraps as two even lines and the headings sit closer to their text."
+            },
+            {
+              "src": "/progress/site34-desktop-before-after.webp",
+              "alt": "The Shipped page on a wide screen, before and after. After, the headings are on the shared scale and the intro stops at a comfortable line length."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 108,
+            "site": 268,
+            "builds": 28,
+            "shipped": 142
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T19:26:25.000Z",
+          "title": "Flows, written in Mermaid",
+          "card": "FLOW-1",
+          "anchor": "flows-written-in-mermaid",
+          "images": [
+            {
+              "src": "/progress/flow1-branch-step-dark.webp",
+              "alt": "Client website intake in the playground, dark: step 3 of 7, What are we building? New site, Redesign, Shop, Landing page"
+            },
+            {
+              "src": "/progress/flow1-shop-branch-light.webp",
+              "alt": "After Shop, light: step 4 of 9, How many products? on a slider from 1 to 500"
+            },
+            {
+              "src": "/progress/flow1-landing-branch-light.webp",
+              "alt": "After Landing page instead, light: step 4 of 6, What should a visitor do first? Call, Book, Buy, Sign up, Read"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 104,
+            "site": 265,
+            "builds": 28,
+            "shipped": 141
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T19:05:30.000Z",
+          "title": "The admin console, scoped",
+          "card": "YUI-72",
+          "anchor": "the-admin-console-scoped",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 104,
+            "site": 263,
+            "builds": 28,
+            "shipped": 140
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T18:57:53.000Z",
+          "title": "The app draws",
+          "card": "YUI-84",
+          "anchor": "the-app-draws",
+          "images": [
+            {
+              "src": "/progress/yui84-page-dark.webp",
+              "alt": "A full-screen page, dark: a chat bubble drawn before and after, the old line with a card id struck through ('an id tells you nothing'), the new line in plain words highlighted ('plain words'), and under it the headline 'No card or feedback ids'"
+            },
+            {
+              "src": "/progress/yui84-page-light.webp",
+              "alt": "The same page in light mode"
+            },
+            {
+              "src": "/progress/yui84-phone-light.webp",
+              "alt": "The next page: a phone drawn with 'Build 97 is ready', a 'Got it' button struck through ('does nothing') and an 'Install' button highlighted ('does the thing'), headline 'Every button does something'"
+            },
+            {
+              "src": "/progress/yui84-chat-dark.webp",
+              "alt": "In the chat, dark: the same drawing on the deck's card, and a small window sketch on its own card below with 'Hold menu fits' highlighted and an id struck and greyed"
+            },
+            {
+              "src": "/progress/yui84-page-ax3.webp",
+              "alt": "The drawn page at the largest accessibility text size"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 104,
+            "site": 262,
+            "builds": 28,
+            "shipped": 139
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T18:46:56.000Z",
+          "title": "Yui Lines in Rust",
+          "card": "OSS-4",
+          "anchor": "yui-lines-in-rust",
+          "images": [
+            {
+              "src": "/progress/oss4-parsers-light.webp",
+              "alt": "The Parsers section of the Developers page on yuigui.com, light: JavaScript, Swift, Python, Kotlin and now Rust, 'parsers/rust. A crate with no dependencies, standard library only.'"
+            },
+            {
+              "src": "/progress/oss4-parsers-dark.webp",
+              "alt": "The same Parsers section in dark mode, five parsers listed with Rust last"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 103,
+            "site": 260,
+            "builds": 28,
+            "shipped": 138
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T18:44:24.000Z",
+          "title": "AG-UI agents in Yui",
+          "card": "INT-21",
+          "anchor": "ag-ui-agents-in-yui",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 103,
+            "site": 259,
+            "builds": 28,
+            "shipped": 137
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T18:29:05.000Z",
+          "title": "Full-screen pages tell a story",
+          "card": "YUI-82",
+          "anchor": "full-screen-pages-tell-a-story",
+          "images": [
+            {
+              "src": "/progress/yui82-before-dark.webp",
+              "alt": "Before: the long answer as a card inside the full screen, its title cut off at 'with the…', four bullets crammed on page 2 of 3"
+            },
+            {
+              "src": "/progress/yui82-after-dark.webp",
+              "alt": "After: one idea on the whole screen, 'Nothing gets cut off mid-sentence.' in big type, a bar per page across the top"
+            },
+            {
+              "src": "/progress/yui82-after-light.webp",
+              "alt": "After, light: 'Each page gets a real title, like Hold menu fits.' set large on its own page"
+            },
+            {
+              "src": "/progress/yui82-build-before-light.webp",
+              "alt": "Before: the build 96 deck full screen, a small title and a mostly empty page"
+            },
+            {
+              "src": "/progress/yui82-build-after-light.webp",
+              "alt": "After: 'The hold menu fits any message' as a big headline with the body under it in a quieter voice"
+            },
+            {
+              "src": "/progress/yui82-after-ax3.webp",
+              "alt": "After at the largest text size: the first page's words still fit, no word broken"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 102,
+            "site": 256,
+            "builds": 28,
+            "shipped": 136
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T18:21:48.000Z",
           "title": "Agents can draw now",
           "card": "YUI-83",
           "anchor": "agents-can-draw-now",
@@ -31,10 +213,10 @@
               "alt": "A small browser window for a pottery shop's home page: the tagline highlighted to keep, 'Welcome to our website!' struck out, the newsletter button greyed with the note 'move to the footer'"
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
             "app": 100,
-            "site": 253,
+            "site": 254,
             "builds": 28,
             "shipped": 135
           }
@@ -626,7 +808,7 @@
               "alt": "After Yes was tapped, Claude Code answered with a tabata timer on the phone"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 76,
             "site": 201,
@@ -773,7 +955,7 @@
           "card": "YUI-60",
           "anchor": "how-an-agent-could-make-up-a-whole-game",
           "images": [],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 72,
             "site": 188,
@@ -1103,6 +1285,167 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "9946cc7",
+          "at": "2026-09-25T19:45:03.000Z",
+          "text": "Progress: asks sit with what they ask about, Feedback); MCP App bundle rebuilt for choose context.",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9946cc7"
+        },
+        {
+          "repo": "app",
+          "sha": "9a3739d",
+          "at": "2026-09-25T19:44:55.000Z",
+          "text": "yui-mcp screen synced for choose context (yuigui 0e05b1c,; deployed, mcp_test.py 105/105.",
+          "url": "https://github.com/postscarcityai/yui/commit/9a3739d"
+        },
+        {
+          "repo": "site",
+          "sha": "723ff6a",
+          "at": "2026-09-25T19:40:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/723ff6a"
+        },
+        {
+          "repo": "site",
+          "sha": "cbb2f34",
+          "at": "2026-09-25T19:39:13.000Z",
+          "text": "choose and pick carry their context, TestFlight feedback ACWuC4SU8t38eKV1eotAtbg: \"combine the top and bottom of each so we see the...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cbb2f34"
+        },
+        {
+          "repo": "app",
+          "sha": "df22d88",
+          "at": "2026-09-25T19:38:34.000Z",
+          "text": "A needs sample (yuiYL=needs): the war room's INT-7 and INT-8 asks as one block each, context above the question, Not yet and You decide...",
+          "url": "https://github.com/postscarcityai/yui/commit/df22d88"
+        },
+        {
+          "repo": "app",
+          "sha": "c50a2fb",
+          "at": "2026-09-25T19:37:45.000Z",
+          "text": "Needs you asks are one block, with Not yet and You decide (TestFlight feedback ACWuC4SU8t38eKV1eotAtbg and AHXVQBgPh5V_gO8VHkVjffk)....",
+          "url": "https://github.com/postscarcityai/yui/commit/c50a2fb"
+        },
+        {
+          "repo": "app",
+          "sha": "b5ab985",
+          "at": "2026-09-25T19:26:31.000Z",
+          "text": "Flows reach the vendor copies (FLOW-1, yuigui 7979e75). yl.mjs has a new preset, `flow` (a Mermaid flowchart run as screens,...",
+          "url": "https://github.com/postscarcityai/yui/commit/b5ab985"
+        },
+        {
+          "repo": "site",
+          "sha": "cd2e80d",
+          "at": "2026-09-25T19:26:25.000Z",
+          "text": "Flows, written in Mermaid (FLOW-1 step 1). A flow is plan mode with a map: a Mermaid flowchart between `flow` and `end`, pure Mermaid so...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cd2e80d"
+        },
+        {
+          "repo": "site",
+          "sha": "09bc7b2",
+          "at": "2026-09-25T19:10:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/09bc7b2"
+        },
+        {
+          "repo": "site",
+          "sha": "430a03e",
+          "at": "2026-09-25T19:05:30.000Z",
+          "text": "The admin console, scoped (YUI-72). spec/ADMIN.md: five roles (owner, super user, admin, support, a client's own org admin), a role x...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/430a03e"
+        },
+        {
+          "repo": "site",
+          "sha": "250538b",
+          "at": "2026-09-25T18:57:53.000Z",
+          "text": "Progress: the app draws (YUI-84). Ship log entry with the drawn story page (dark, light, AX3), the phone page and the chat card; ROADMAP...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/250538b"
+        },
+        {
+          "repo": "app",
+          "sha": "d7214ee",
+          "at": "2026-09-25T18:57:13.000Z",
+          "text": "The app draws sketches (YUI-84, native side of YUI-83; TestFlight feedback ALUttyXBpVz3lQ3wUPtf9js on build 96: \"draw a little window...",
+          "url": "https://github.com/postscarcityai/yui/commit/d7214ee"
+        },
+        {
+          "repo": "site",
+          "sha": "6440398",
+          "at": "2026-09-25T18:56:45.000Z",
+          "text": "A sketch is a story page's picture (YUI-84, spec side; TestFlight feedback ALUttyXBpVz3lQ3wUPtf9js on build 96: \"draw a little window...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6440398"
+        },
+        {
+          "repo": "site",
+          "sha": "46e160b",
+          "at": "2026-09-25T18:46:56.000Z",
+          "text": "Yui Lines in Rust (OSS-4). parsers/rust: a crate with no dependencies (std only, no regex crate, no serde), a line-by-line port of...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/46e160b"
+        },
+        {
+          "repo": "site",
+          "sha": "da7b929",
+          "at": "2026-09-25T18:44:24.000Z",
+          "text": "AG-UI agents in Yui (INT-21 step 1). spec/AGUI.md: add any agent served over AG-UI (Agent Framework, CopilotKit, Mastra, Pydantic AI) by...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/da7b929"
+        },
+        {
+          "repo": "app",
+          "sha": "035de54",
+          "at": "2026-09-25T18:44:18.000Z",
+          "text": "AG-UI agents in Yui (INT-21). adapters/agui is a bridge beside the A2A one: any agent served over AG-UI (Microsoft Agent Framework's...",
+          "url": "https://github.com/postscarcityai/yui/commit/035de54"
+        },
+        {
+          "repo": "site",
+          "sha": "a0e72ae",
+          "at": "2026-09-25T18:40:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a0e72ae"
+        },
+        {
+          "repo": "site",
+          "sha": "63c78c4",
+          "at": "2026-09-25T18:35:25.000Z",
+          "text": "Games in lines (YUI-60) parked by Chris. Roadmap and the draft spec say so; no build until he picks it back up.",
+          "url": "https://github.com/postscarcityai/yuigui/commit/63c78c4"
+        },
+        {
+          "repo": "site",
+          "sha": "7284ddf",
+          "at": "2026-09-25T18:29:05.000Z",
+          "text": "Progress: full-screen pages tell a story (YUI-82), the ship log entry for the shots in eb12e5a (the entry itself was lost in a parallel...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7284ddf"
+        },
+        {
+          "repo": "site",
+          "sha": "eb12e5a",
+          "at": "2026-09-25T18:28:44.000Z",
+          "text": "Progress: full-screen pages tell a story (YUI-82). Ship log entry with before and after shots (the build 96 feedback message, dark and...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/eb12e5a"
+        },
+        {
+          "repo": "app",
+          "sha": "adf1825",
+          "at": "2026-09-25T18:28:28.000Z",
+          "text": "Full-screen pages tell a story (YUI-82, TestFlight feedback ALUttyXBpVz3lQ3wUPtf9js on build 96: \"we're telling a story visually with...",
+          "url": "https://github.com/postscarcityai/yui/commit/adf1825"
+        },
+        {
+          "repo": "app",
+          "sha": "ff8cf26",
+          "at": "2026-09-25T18:22:17.000Z",
+          "text": "Agents draw, the web and plugin side (YUI-83). yuigui's YL gets `sketch`, `row` and `after` (a small drawn window, phone or chat bubble;...",
+          "url": "https://github.com/postscarcityai/yui/commit/ff8cf26"
+        },
+        {
+          "repo": "site",
+          "sha": "008accd",
+          "at": "2026-09-25T18:21:48.000Z",
+          "text": "Agents draw (YUI-83): YL sketch, a small drawn picture so a page shows instead of tells. `sketch [title] frame=window|phone|bubble...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/008accd"
+        },
         {
           "repo": "site",
           "sha": "043e2d6",

@@ -51,7 +51,7 @@ export default function Board() {
           </section>
         ))}
       </div>
-      <p style={{ color: "var(--muted)", fontSize: 15 }}>
+      <p style={{ color: "var(--muted)", fontSize: "var(--fs-small)" }}>
         Titles only, straight from the board. The full story of each shipped card is in the <Link href="/progress">ship log</Link>.
       </p>
     </>
