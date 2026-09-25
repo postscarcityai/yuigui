@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T20:10:15.364Z",
+  "updated": "2026-09-25T20:40:27.928Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -74,17 +74,9 @@
           "summary": "SMS channel"
         },
         {
-          "key": "YUI-58",
-          "title": "Yui for macOS, a matching desktop app [agent-ready]"
-        },
-        {
           "key": "YUI-69",
           "title": "Talk about a setting",
           "summary": "Bring it into the chat, the agent proposes the edit"
-        },
-        {
-          "key": "YUI-75",
-          "title": "Ids on a page patch across replies, so the war room refreshes in place"
         },
         {
           "key": "YUI-77",
@@ -94,11 +86,6 @@
           "key": "YUI-85",
           "title": "The channel guide teaches a sketch under a page",
           "waiting": true
-        },
-        {
-          "key": "YUI-86",
-          "title": "Agents fill the drawer",
-          "summary": "YL 'menu' word (review, backlog, shortcut) and the drawer's Backlog section"
         },
         {
           "key": "SITE-28",
@@ -186,11 +173,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-54",
-          "title": "Top-left menu becomes the agent's home",
-          "summary": "Drop-up switcher, pinned screens, to review, about"
-        },
-        {
           "key": "INT-7",
           "title": "Claude adapter, MCP connector plus Yui screens as an MCP App",
           "summary": "Yui in Claude, and Yui screens inside the chat",
@@ -203,9 +185,15 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "FLOW-2",
-          "title": "Yui library/store on yuigui.com",
-          "summary": "Browse components and flows; agents can search and 'shop' them"
+          "key": "YUI-86",
+          "title": "Agents fill the drawer",
+          "summary": "YL 'menu' word (review, backlog, shortcut) and the drawer's Backlog section"
+        },
+        {
+          "key": "YUI-58",
+          "title": "Yui for macOS, a matching desktop app [agent-ready]",
+          "summary": "Yui for macOS has a brief, open for contributors",
+          "progress": "/progress#yui-for-macos-has-a-brief-open-for-contributors"
         }
       ]
     },
@@ -213,6 +201,25 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-75",
+          "title": "Ids on a page patch across replies, so the war room refreshes in place",
+          "shipped": "2026-09-25"
+        },
+        {
+          "key": "FLOW-2",
+          "title": "Yui library/store on yuigui.com",
+          "summary": "The library: every screen and flow, live and searchable",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-library-every-screen-and-flow-live-and-searchable"
+        },
+        {
+          "key": "YUI-54",
+          "title": "Top-left menu becomes the agent's home",
+          "summary": "Each agent gets a drawer",
+          "shipped": "2026-09-25",
+          "progress": "/progress#each-agent-gets-a-drawer"
+        },
         {
           "key": "YUI-71",
           "title": "Yui in the browser [agent-ready, build to earn]",

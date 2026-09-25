@@ -616,6 +616,18 @@
     },
     {
       "text": "yui-mcp screen synced for choose context (yuigui 0e05b1c,); deployed, mcp_test.py 105/105."
+    },
+    {
+      "text": "The agent's drawer (YUI-54, Chris's pick: Peek and tabs). A drag right on the chat pulls a drawer out from the left; it stops at 86% so the chat peeks out, and a tap on that sliver, a drag left or the X closes it. On screens 2..N a drag right pages back to the chat first. The top-left button opens the same drawer for now, with a count of what's waiting on you (Chris is picking what that button becomes). Tabs: Home (pinned screens from the shelf, next up for you, the thread's screens), Review (each ask opens in place with its answer buttons), Controls (name, look and notifications, the YUI-70 slot), About (placeholder until the host profile card). The current agent sits at the bottom; tapping it springs the switcher up (Add an agent, Edit list). Reduce Motion fades instead of sliding. Tests: DrawerTests 3/3 (light, dark, Reduce Motion); UI regression 30 passed, 1 skipped (Offline, e2e only); YuiTests 111/111. StuckStage, PageCount and Offline tests follow the button to \"Agent menu\"."
+    },
+    {
+      "text": "YuiLines: ids that last (YUI-75, yuigui d047831). YuiLines.parse(_:known:), YLParser(known:) and YLStreamParser(known:) start from the ids that last from earlier replies (spec YL.md section 5), so a later reply's `~need-t_x +lock` parses as a patch on that one component. Vectors synced (27-lasting-ids.json); the conformance runner passes each vector's `known`. swift test: 12 tests, 455 conformance vectors."
+    },
+    {
+      "text": "Ids on a page last across replies (YUI-75, yuigui spec YL.md section 5). ChatStore.lastingIds (explicit ids on pages 2-12 or back from a saved screen, id -> preset) goes to the parser for every reply, so `~need-t_x +lock` from a later reply locks that one ask among many on page 2 instead of erroring, and the war room can patch a panel instead of re-sending the page. Such a patch also reaches the shelf's saved copy of that id (Shelf.patch), unless the name was saved again after it, so the war room reopens current from the shelf. A cleared page takes its ids with it. Plugin: connector.quiet() spots a reply of only patches (no words, only ~ lines and bare >S in its fences); the adapter sends it with no push, in process, from the outbox and from `hermes send`. Tests: YuiTests 115/115 incl. LastingIdsTests 4/4 (one of two chooses locked by id, a lane row rewritten, shelf copy patched, an older patch skips a newer save, cleared page); test_quiet 2/2; test_needs, test_board, test_screen_talk, test_commands OK."
+    },
+    {
+      "text": "yui-mcp and Telegram vendor copies synced for lasting ids (YUI-75, yuigui d047831, 9b7399d): sync_yl.py, sync_mcp_app.py, adapters/telegram sync-vendor. yui-mcp deployed; mcp_test.py 105/105 live, Telegram 66/66."
     }
   ]
 }
