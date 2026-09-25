@@ -7,7 +7,7 @@
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
-import { findLeak } from "../lib/public-guard.mjs";
+import { findLeak, PRIVATE_RE } from "../lib/public-guard.mjs";
 
 const APP = process.env.YUI_APP_REPO || `${homedir()}/dev/yui`;
 const APP_ID = "6815454240";
@@ -35,12 +35,23 @@ const commits = execFileSync("git", ["-C", APP, "log", "--reverse", "--first-par
   .trim().split("\n").map((l, i) => {
     const [sha, raw] = l.split("\t");
     // Some commits end with a board task id, "(t_bfeecff2)", instead of a card key. It is private, so drop it.
-    const subject = raw.replace(/\s*\(t_[0-9a-f]{6,}\)\s*$/i, "");
+    // It can also sit inside a card note, "(YUI-hotfix t_713f9b94)": keep the note, drop the id.
+    const subject = raw
+      .replace(/\s*\(t_[0-9a-f]{6,}\)\s*$/i, "")
+      .replace(/\(([^()]*?)\s+t_[0-9a-f]{6,}\)/gi, "($1)")
+      .replace(/\s*\bt_[0-9a-f]{6,}\b/gi, "");
     const m = subject.match(/\s*\(([A-Z]+-\d+)\)\s*$/);
     return { n: i + 1, card: m ? m[1] : KEYS[sha] || null, text: m ? subject.slice(0, m.index) : subject };
   });
 
-const change = (c) => (c.card ? { text: c.text, card: c.card } : { text: c.text });
+// Commit subjects are written for the repo, not the site: swap private agent and client names for
+// "an agent", and if anything else private is left, show a plain line instead of stopping the sync.
+const NAME_G = new RegExp(PRIVATE_RE.source + "('s)?", "gi");
+const scrub = (t) => {
+  const s = t.replace(NAME_G, (_, _n, poss) => (poss ? "the agent's" : "an agent"));
+  return findLeak(s) ? "A fix with private details, kept off the site." : s;
+};
+const change = (c) => (c.card ? { text: scrub(c.text), card: c.card } : { text: scrub(c.text) });
 let prev = 0;
 const out = [];
 for (const b of builds) {
