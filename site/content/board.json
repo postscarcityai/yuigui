@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T18:10:39.880Z",
+  "updated": "2026-09-25T18:40:57.344Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -105,10 +105,6 @@
           "waiting": true
         },
         {
-          "key": "OSS-4",
-          "title": "Yui Lines parser in Rust"
-        },
-        {
           "key": "OSS-6",
           "title": "Yui@home",
           "summary": "Idle AI agents pull from an agent-ready backlog and send PRs"
@@ -126,10 +122,6 @@
         {
           "key": "INT-20",
           "title": "Hosted A2A, the INT-18 client in a Cloudflare Durable Object"
-        },
-        {
-          "key": "INT-21",
-          "title": "AG-UI client, Yui screens as frontend tools (Agent Framework, CopilotKit, Mastra and others)"
         },
         {
           "key": "BIZ-7",
@@ -209,12 +201,6 @@
           "summary": "Drop-up switcher, pinned screens, to review, about"
         },
         {
-          "key": "YUI-60",
-          "title": "Yui Lines can describe a game, not just pick one",
-          "summary": "How an agent could make up a whole game",
-          "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
-        },
-        {
           "key": "INT-7",
           "title": "Claude adapter, MCP connector plus Yui screens as an MCP App",
           "summary": "Yui in Claude, and Yui screens inside the chat",
@@ -231,14 +217,16 @@
           "title": "Open backlog on GitHub for contributors"
         },
         {
-          "key": "YUI-82",
-          "title": "Full-screen pages tell a story",
-          "summary": "Type-led, one idea per page, no card inside full screen, motion"
+          "key": "YUI-84",
+          "title": "The app draws sketch pictures on story pages (native port of YUI-83)"
         },
         {
-          "key": "YUI-83",
-          "title": "Draw, don't describe",
-          "summary": "A YL preset for little drawn windows with rows struck out and highlighted"
+          "key": "OSS-4",
+          "title": "Yui Lines parser in Rust"
+        },
+        {
+          "key": "INT-21",
+          "title": "AG-UI client, Yui screens as frontend tools (Agent Framework, CopilotKit, Mastra and others)"
         }
       ]
     },
@@ -246,6 +234,26 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-60",
+          "title": "Yui Lines can describe a game, not just pick one",
+          "summary": "How an agent could make up a whole game",
+          "shipped": "2026-09-25",
+          "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
+        },
+        {
+          "key": "YUI-82",
+          "title": "Full-screen pages tell a story",
+          "shipped": "2026-09-25",
+          "progress": "/progress#full-screen-pages-tell-a-story"
+        },
+        {
+          "key": "YUI-83",
+          "title": "Draw, don't describe",
+          "summary": "Agents can draw now",
+          "shipped": "2026-09-25",
+          "progress": "/progress#agents-can-draw-now"
+        },
         {
           "key": "SITE-33",
           "title": "Yui's core values page, from Chris's feedback",
