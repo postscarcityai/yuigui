@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 87,
-    "site": 224,
-    "builds": 26,
-    "shipped": 121,
-    "screenshots": 253
+    "app": 94,
+    "site": 236,
+    "builds": 27,
+    "shipped": 127,
+    "screenshots": 257
   },
   "days": [
     {
@@ -13,7 +13,127 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T13:21:36.577Z",
+          "at": "2026-09-25T15:14:04.691Z",
+          "title": "Agent answers read clean",
+          "card": "YUI-76",
+          "anchor": "agent-answers-read-clean",
+          "images": [
+            {
+              "src": "/progress/yui76-markdown-light.webp",
+              "alt": "Yui chat in light mode: a /status answer with bold labels and the model name in code, then a sample with a bold heading, bullets, a numbered list, a code block and a link"
+            },
+            {
+              "src": "/progress/yui76-markdown-dark.webp",
+              "alt": "The same chat in dark mode, markdown drawn in the agent's bubbles"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 94,
+            "site": 236,
+            "builds": 27,
+            "shipped": 127
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T15:13:31.000Z",
+          "title": "LangGraph agents in Yui",
+          "card": "INT-14",
+          "anchor": "langgraph-agents-in-yui",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 93,
+            "site": 236,
+            "builds": 27,
+            "shipped": 126
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T14:37:33.000Z",
+          "title": "Meta's Muse Spark in Yui",
+          "card": "INT-11",
+          "anchor": "meta-s-muse-spark-in-yui",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 92,
+            "site": 232,
+            "builds": 27,
+            "shipped": 125
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-25T14:36:14.000Z",
+          "build": 91,
+          "changes": 9,
+          "totals": {
+            "app": 91,
+            "site": 231,
+            "builds": 27,
+            "shipped": 124
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T14:31:34.000Z",
+          "title": "The chat never gets stuck shrunk",
+          "card": "YUI-80",
+          "anchor": "the-chat-never-gets-stuck-shrunk",
+          "images": [
+            {
+              "src": "/progress/yui80-full-size-light.webp",
+              "alt": "Light: the chat back at full size after a new look closes the screen"
+            },
+            {
+              "src": "/progress/yui80-back-in-chat-dark.webp",
+              "alt": "Dark: after the war room, the agents sheet and an agent switch, the chat is full size"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 91,
+            "site": 230,
+            "builds": 26,
+            "shipped": 124
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T14:06:28.000Z",
+          "title": "Grok in Yui, two ways",
+          "card": "INT-10",
+          "anchor": "grok-in-yui-two-ways",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 91,
+            "site": 228,
+            "builds": 26,
+            "shipped": 123
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T13:42:56.000Z",
+          "title": "Gemini in Yui, two ways",
+          "card": "INT-9",
+          "anchor": "gemini-in-yui-two-ways",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 89,
+            "site": 227,
+            "builds": 26,
+            "shipped": 122
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T13:24:45.000Z",
           "title": "Yui screens in Telegram",
           "card": "INT-4",
           "anchor": "yui-screens-in-telegram",
@@ -31,10 +151,10 @@
               "alt": "A weight chart for the week drawn inside the Telegram Mini App on Telegram's black background"
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
-            "app": 87,
-            "site": 224,
+            "app": 88,
+            "site": 225,
             "builds": 26,
             "shipped": 121
           }
@@ -63,7 +183,7 @@
               "alt": "A middle page of the same report in light mode"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 86,
             "site": 223,
@@ -799,6 +919,139 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "d57e9ee",
+          "at": "2026-09-25T15:13:33.000Z",
+          "text": "Agent bubbles draw markdown (YUI-76). A slash command's answer (/status: **Model:** `claude-...`) and any host's markdown no longer show...",
+          "url": "https://github.com/postscarcityai/yui/commit/d57e9ee"
+        },
+        {
+          "repo": "site",
+          "sha": "962639f",
+          "at": "2026-09-25T15:13:31.000Z",
+          "text": "INT-14 step 1: LangGraph agents. spec/A2A.md \"LangGraph agents\": LangGraph's Agent Server serves every graph over A2A at...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/962639f"
+        },
+        {
+          "repo": "app",
+          "sha": "065da80",
+          "at": "2026-09-25T15:13:23.000Z",
+          "text": "LangGraph agents in Yui (INT-14). LangGraph's own Agent Server (langgraph dev, and LangSmith deployments; langgraph-api 0.13+,...",
+          "url": "https://github.com/postscarcityai/yui/commit/065da80"
+        },
+        {
+          "repo": "site",
+          "sha": "f777170",
+          "at": "2026-09-25T15:10:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f777170"
+        },
+        {
+          "repo": "site",
+          "sha": "e32fb77",
+          "at": "2026-09-25T14:40:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e32fb77"
+        },
+        {
+          "repo": "site",
+          "sha": "ff2d01f",
+          "at": "2026-09-25T14:38:18.000Z",
+          "text": "Build 91 release: draft Thought (no text bombs, never stuck shrunk, photo send) and ROADMAP latest release (YUI-79, YUI-80, YUI-74)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ff2d01f"
+        },
+        {
+          "repo": "site",
+          "sha": "f3d3c19",
+          "at": "2026-09-25T14:37:33.000Z",
+          "text": "INT-11 step 1: Meta's Muse Spark as a model. spec/MODELS.md \"Meta Muse Spark\": --server meta (or muse) on the model bridge (exact...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f3d3c19"
+        },
+        {
+          "repo": "app",
+          "sha": "54d0605",
+          "at": "2026-09-25T14:36:36.000Z",
+          "text": "Meta Muse Spark in Yui as a model (INT-11). --server meta (or muse) on the model bridge: Meta Model API's base URL...",
+          "url": "https://github.com/postscarcityai/yui/commit/54d0605"
+        },
+        {
+          "repo": "site",
+          "sha": "3065eee",
+          "at": "2026-09-25T14:31:46.000Z",
+          "text": "Progress: keep one entry per line",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3065eee"
+        },
+        {
+          "repo": "site",
+          "sha": "4b1fc9f",
+          "at": "2026-09-25T14:31:34.000Z",
+          "text": "Progress: YUI-80, the chat never gets stuck shrunk",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4b1fc9f"
+        },
+        {
+          "repo": "site",
+          "sha": "6427b0f",
+          "at": "2026-09-25T14:10:04.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6427b0f"
+        },
+        {
+          "repo": "site",
+          "sha": "06d3404",
+          "at": "2026-09-25T14:06:28.000Z",
+          "text": "INT-10 step 1: Grok, two ways. spec/MODELS.md \"Grok\": --server grok on the model bridge (exact commands, key from $XAI_API_KEY, grok-4.7...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/06d3404"
+        },
+        {
+          "repo": "app",
+          "sha": "ec7b2a5",
+          "at": "2026-09-25T14:06:11.000Z",
+          "text": "Grok in Yui as a model (INT-10). --server grok on the model bridge: xAI's base URL (https://api.x.ai/v1), key from $XAI_API_KEY at run...",
+          "url": "https://github.com/postscarcityai/yui/commit/ec7b2a5"
+        },
+        {
+          "repo": "app",
+          "sha": "0e6b5a2",
+          "at": "2026-09-25T14:05:27.000Z",
+          "text": "The chat never gets stuck shrunk (TestFlight AFaeNewCPfYfPseXB1jvNq8, \"the whole app shrinks and has a border and I can't undo it\"): the...",
+          "url": "https://github.com/postscarcityai/yui/commit/0e6b5a2"
+        },
+        {
+          "repo": "site",
+          "sha": "833f6cf",
+          "at": "2026-09-25T13:42:56.000Z",
+          "text": "INT-9 step 1: Gemini, two ways. spec/MODELS.md \"Gemini\": --server gemini on the model bridge (exact commands, key from $GEMINI_API_KEY,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/833f6cf"
+        },
+        {
+          "repo": "app",
+          "sha": "93cbe1f",
+          "at": "2026-09-25T13:42:48.000Z",
+          "text": "Gemini in Yui, two ways (INT-9). A Gemini model: --server gemini on the model bridge (Google's OpenAI-compatible base URL, key from...",
+          "url": "https://github.com/postscarcityai/yui/commit/93cbe1f"
+        },
+        {
+          "repo": "site",
+          "sha": "9d8260e",
+          "at": "2026-09-25T13:41:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9d8260e"
+        },
+        {
+          "repo": "site",
+          "sha": "3c2f970",
+          "at": "2026-09-25T13:24:45.000Z",
+          "text": "INT-4 step 1: Yui screens in Telegram. /tg is the Telegram Mini App: it draws a Yui screen from ?yl=<share code> (or ?demo=, or a...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3c2f970"
+        },
+        {
+          "repo": "app",
+          "sha": "2ecdf95",
+          "at": "2026-09-25T13:24:36.000Z",
+          "text": "Yui in Telegram, step 1: the renderer (INT-4). adapters/telegram turns an agent reply (chat text and ```yui fences) into Telegram Bot...",
+          "url": "https://github.com/postscarcityai/yui/commit/2ecdf95"
+        },
         {
           "repo": "app",
           "sha": "e393896",
