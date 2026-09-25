@@ -116,6 +116,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** S.
 - **Depends on:** INT-12 or INT-3.
 - **Priority:** 4.
+- **Status:** step 1 shipped Sep 25. A Grok model: `--server grok` on the model bridge (xAI's base URL, `$XAI_API_KEY`, `grok-4.7` by default), with xAI's differences handled and tested against its shapes (`spec/MODELS.md` "Grok"). A Grok agent calling Yui: the Responses API request that passes the Yui MCP server as a remote MCP tool with a connection token (`spec/MCP.md` "Grok"). The first live call either way waits on an xAI key; the hosted version rides INT-12 step 3 and YUI-34.
 
 ### Meta | INT-11
 

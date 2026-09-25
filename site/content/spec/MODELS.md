@@ -30,7 +30,7 @@ Needs Node 22.18 or newer. No dependencies.
 
 ## Servers and keys
 
-Ollama is the default. `--server lmstudio`, `vllm`, `llamacpp`, `openrouter` or `gemini` pick the others by their usual address, and `--url http://host:port/v1` takes any other (the full `.../chat/completions` URL works too). `models` lists what a server has.
+Ollama is the default. `--server lmstudio`, `vllm`, `llamacpp`, `openrouter`, `gemini` or `grok` pick the others by their usual address, and `--url http://host:port/v1` takes any other (the full `.../chat/completions` URL works too). `models` lists what a server has.
 
 Local servers need no key. For one that does, `--key-env NAME` reads it from that environment variable each time the bridge runs, and nothing is stored; `--key-stdin` keeps it in the bridge's state file on your machine (mode 600). A key never goes in chat, in a form or on the command line.
 
@@ -57,6 +57,30 @@ node yui-openai.ts run
 - Streams have no role-only first piece, and the last piece carries both text and the finish; both are read as normal.
 
 Agents built with Google's Agent Development Kit, or run in Gemini Enterprise, come in the other way: over A2A, by their Agent Card (`spec/A2A.md`, "Gemini and ADK agents").
+
+## Grok
+
+xAI's API is OpenAI-compatible too, so a Grok model is one preset (INT-10). You need a key from the [xAI console](https://console.x.ai) with credits on the team.
+
+```
+export XAI_API_KEY=...           # in your shell, never in a file you share
+node yui-openai.ts models --server grok
+node yui-openai.ts try "Help me pick lunch" --server grok
+node yui-openai.ts pair 123456 --server grok
+node yui-openai.ts run
+```
+
+`--server grok` means `https://api.x.ai/v1`, the key read from `$XAI_API_KEY` each run (nothing stored), the model `grok-4.7` (the one xAI points chat at; `--model` picks another from `models`), and a 32,768-token window for the thread instead of 4,096 (`--context` sets another). Where xAI's API differs from OpenAI's, the bridge copes:
+
+- Errors come as `{"code": "Some requested entity was not found", "error": "..."}`; the person reads the `error`, not the code words.
+- A bad key is a `400` ("Incorrect API key provided"), not a 401; it still reads as a key problem.
+- A team with no credits left, or at its monthly spending limit, gets a `403`. The person reads that the account is out of credits, not that the key is wrong, and the bridge does not keep retrying.
+- `429` (the team's rate limit) waits and tries again, like any busy server.
+- Reasoning models may send `reasoning_content` before the answer; it stays out of what the person reads, streamed or plain.
+- A model that declines can leave the answer empty and say why in `refusal`; the person reads the refusal instead of nothing.
+- Reasoning models refuse `stop`, `presence_penalty` and `frequency_penalty` with a 400. The bridge never sends them.
+
+xAI now calls Chat Completions its legacy endpoint (new features land on its Responses API), and it still takes every chat model. Grok can also come in the other way, calling Yui's MCP server as a tool from inside a Responses API request: `spec/MCP.md`, "Grok".
 
 ## What the model is sent
 
@@ -89,7 +113,7 @@ Agents built with Google's Agent Development Kit, or run in Gemini Enterprise, c
 
 ## Tested
 
-- The client and the thread builder, 37 unit tests against a scripted server: streaming and plain, a server that ignores or refuses streams, a stream with no `[DONE]`, a broken or silent stream, 400, 401, 404 and 503, keys, `<think>` blocks, and what fits the context. Eleven of them replay Gemini's shapes (INT-9): the preset, `models/` ids, the stream without an opener, the system message, thoughts streamed and plain, a blocked answer, a wrapped error, a 429 and a bad key.
+- The client and the thread builder, 37 unit tests against a scripted server: streaming and plain, a server that ignores or refuses streams, a stream with no `[DONE]`, a broken or silent stream, 400, 401, 404 and 503, keys, `<think>` blocks, and what fits the context. Eleven of them replay Gemini's shapes (INT-9): the preset, `models/` ids, the stream without an opener, the system message, thoughts streamed and plain, a blocked answer, a wrapped error, a 429 and a bad key. Eleven more replay xAI's (INT-10): the preset, models, none of the refused arguments sent, a screen, `reasoning_content` streamed and plain, a refusal streamed and plain, the `{code, error}` shape, a 429, a 403 out of credits, a bad key's 400. 48 in all.
 - End to end on live Yui, on throwaway accounts: 47 checks. Against the scripted server: pairing (the key's name stored, never the key), the guide as the system message, a screen and a tap, the thread sent in order, the working row while it streams, a bridge killed mid-stream answering once after a restart, an answer written but never acked, a 400 answered once with why, a 503 tried again, a server down for a while (one note, then the answer), messages sent while it was stopped going as one turn, and a server that refuses streams.
 - With a real model: qwen2.5:7b on Ollama on a Mac mini. Its answer drew a `choose` screen that the Yui Lines parser reads, a tap on it went back as the next turn and was answered, it named the pick when asked later (the thread came from Yui), and a bridge killed mid-answer still ended in one reply. On the iPhone simulator: the working row, the model's screen, a tap and its answer in light, and a follow-up it could only answer from the thread in dark.
 
@@ -97,6 +121,7 @@ Agents built with Google's Agent Development Kit, or run in Gemini Enterprise, c
 
 - Cloud APIs on Yui's hosted connector, with keys kept by Yui (YUI-34). The local bridge can already call one with `--key-env`, but only local servers are tested.
 - One live call to Gemini itself. The Gemini cases replay its documented and reported shapes; the first run with a real AI Studio key checks them.
+- One live call to Grok itself, the same way: the Grok cases replay xAI's documented and reported shapes until an xAI key runs them.
 - YUI-10's eval per model, and a list of models we call supported.
 - LM Studio, vLLM and llama.cpp are covered by the scripted server's shapes, not yet run for real.
 - Images in or out, and tool calls.

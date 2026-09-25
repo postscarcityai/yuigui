@@ -1,4 +1,4 @@
-# Yui MCP server | spec v4 (INT-3, OAuth INT-19, Claude + MCP App INT-7, ChatGPT INT-8, Sep 25 2026)
+# Yui MCP server | spec v4 (INT-3, OAuth INT-19, Claude + MCP App INT-7, ChatGPT INT-8, Grok INT-10, Sep 25 2026)
 
 Path D of `spec/ADAPTERS.md`. The code lives in the app repo, [postscarcityai/yui `supabase/functions/yui-mcp`](https://github.com/postscarcityai/yui/tree/main/supabase/functions/yui-mcp); this page is what an MCP client needs.
 
@@ -104,6 +104,45 @@ After Yui's server changes, open the connection at chatgpt.com/plugins and press
 - **Extra metadata.** ChatGPT reads the MCP Apps keys and, for its older paths, its own: `openai/outputTemplate` (same URI as `ui.resourceUri`), `openai/toolInvocation/invoking` and `invoked`, `securitySchemes` per tool (`oauth2`, scope `yui`, top level and in `_meta`), `openai/visibility: "private"` plus `openai/widgetAccessible: true` on `yui_tap`, and on the resource `openai/widgetCSP` (the same image domains, `connect_domains: []`), `openai/widgetDescription` and `openai/widgetPrefersBorder`. Other hosts ignore them.
 - **window.openai.** If the host never answers the MCP Apps bridge, the view falls back to ChatGPT's older `window.openai`: it reads `toolInput`, `toolOutput` and `theme`, and sends a tap with `sendFollowUpMessage` and `callTool("yui_tap")`.
 - **One agent per connection.** Like every OAuth client, ChatGPT talks as the one agent you picked when you allowed it.
+
+## Grok
+
+xAI's Responses API takes remote MCP servers as tools in the request itself, so a Grok agent you run calls Yui's server with no MCP client of its own (INT-10). xAI's servers make the calls, over streamable HTTP, with the header you give them.
+
+1. Pair with a code and keep the `yui_ct_...` token ([three steps](#pair-with-a-code-three-steps)). Grok has no OAuth step for remote MCP, so it takes the token.
+2. Put both keys in your shell, never in a file you share or a prompt: `export XAI_API_KEY=...` and `export YUI_TOKEN=yui_ct_...`.
+3. Send a request with Yui as an `mcp` tool:
+
+```
+curl -s https://api.x.ai/v1/responses \
+  -H "Authorization: Bearer $XAI_API_KEY" -H "content-type: application/json" \
+  -d @- <<JSON
+{
+  "model": "grok-4.7",
+  "input": [
+    {"role": "system", "content": "You reach the person's phone through the yui tools. Call yui_show for a screen, then yui_answers with wait=25 for the tap."},
+    {"role": "user", "content": "Ask me on my phone what we are having for lunch: Salad, Soup or Tacos."}
+  ],
+  "tools": [{
+    "type": "mcp",
+    "server_url": "https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp",
+    "server_label": "yui",
+    "server_description": "Screens on my phone",
+    "allowed_tools": ["yui_show", "yui_answers", "yui_say", "yui_threads"],
+    "authorization": "Bearer $YUI_TOKEN"
+  }]
+}
+JSON
+```
+
+The shell fills in `$YUI_TOKEN`; the example holds no token. In xAI's Python SDK the same tool is `mcp(server_url=..., server_label="yui", allowed_tool_names=[...], authorization=f"Bearer {token}")`.
+
+- **What Grok is told.** The tool descriptions and the server's instructions carry the short guide. For every screen Yui has, put the full guide in the system message, the way the Claude Agent SDK example above does (`spec/CHANNEL.md`).
+- **Leave out `yui_tap`.** It is app-only; `allowed_tools` keeps it from the model.
+- **A wait is part of the request.** Grok calls the tools while it answers, so `yui_answers(wait=25)` keeps that request open until the tap comes or the wait ends. Send the next request with `previous_response_id` to keep waiting.
+- **The token leaves your machine.** xAI's servers hold it for the request so they can call Yui. It reaches only the agents paired to it, and removing that computer in the app revokes it.
+- **No screen in the chat.** Grok does not draw MCP Apps; the screen shows on the phone.
+- **Not run yet.** This follows xAI's remote MCP docs. The first live run waits on an xAI key, like the model path (`spec/MODELS.md`, "Grok").
 
 ## OAuth
 
