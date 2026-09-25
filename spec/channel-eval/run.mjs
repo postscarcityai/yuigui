@@ -255,7 +255,12 @@ async function main() {
       // Re-run some cases of an earlier run: replace those results, keep the rest.
       const old = JSON.parse(readFileSync(into, "utf8"));
       if (old.guide.version !== guide.version || old.model !== model) throw new Error("--into needs the same guide and model");
-      for (const r of results) old.results[old.results.findIndex((x) => x.id === r.id)] = r;
+      // A case new to that report is added (findIndex -1 used to drop it silently).
+      for (const r of results) {
+        const i = old.results.findIndex((x) => x.id === r.id);
+        if (i < 0) old.results.push(r);
+        else old.results[i] = r;
+      }
       run = old;
     } else run.results = results;
   }

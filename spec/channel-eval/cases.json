@@ -1155,6 +1155,48 @@
         "max_words": 15
       },
       "good": "A patch by preset name with the agent's one cell (`~game o=1`), no new game, a word at most."
+    },
+    {
+      "id": "mention-asked",
+      "category": "mention",
+      "agent": "Arnold",
+      "message": "[yui] mention from=yui by=person msg=m1\nYui's thread, just before:\n> Person: Plan a leg day for Saturday, my knee is a bit sore\n> Yui: Here's Saturday: back squats 5x5, walking lunges, then a 20 minute tabata. [screen]\n@Arnold does this fit my knee?",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "list",
+          "card",
+          "ask",
+          "choose",
+          "table"
+        ],
+        "max_words": 70
+      },
+      "good": "Answers the knee question about that exact plan (swap the squats and lunges for knee-friendly moves), in a few words. Doesn't ask to see the plan and doesn't repeat the quote."
+    },
+    {
+      "id": "mention-notes-context",
+      "category": "mention",
+      "agent": "Urza",
+      "message": "[yui] note: in this thread the person asked Arnold, not you: @Arnold does this fit my knee?\n[yui] note: Arnold answered here: Swap back squats for box squats and lunges for glute bridges. Keep the tabata.\nOk, update my Saturday plan with that.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "list",
+          "card",
+          "timer",
+          "ask",
+          "plan",
+          "table"
+        ],
+        "need": [
+          "list",
+          "card",
+          "plan",
+          "table"
+        ]
+      },
+      "good": "The Saturday plan again with Arnold's swaps in it (box squats, glute bridges, the tabata kept), on screen. No questions about what Arnold said."
     }
   ]
 }

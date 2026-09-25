@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 76,
-    "site": 196,
+    "app": 78,
+    "site": 203,
     "builds": 25,
-    "shipped": 110,
-    "screenshots": 220
+    "shipped": 112,
+    "screenshots": 228
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T09:18:31.528Z",
+          "at": "2026-09-25T10:16:18.708Z",
+          "title": "@ another agent from any thread",
+          "card": "YUI-44",
+          "anchor": "another-agent-from-any-thread",
+          "images": [
+            {
+              "src": "/progress/yui44-popover-light.webp",
+              "alt": "Yui chat with Alpha in light mode, @ typed in the composer; a list above it shows Bravo, online, and Cleo, offline, each with a colored letter badge"
+            },
+            {
+              "src": "/progress/yui44-answer-light.webp",
+              "alt": "Alpha's thread after asking Bravo: the sent message says To Bravo, Bravo's answer sits below in Bravo's orange with an Open its thread link, then a question to Cleo and Cleo's line saying it is offline"
+            },
+            {
+              "src": "/progress/yui44-thread-dark.webp",
+              "alt": "The same thread reopened in dark mode, each agent's answer in its own color"
+            },
+            {
+              "src": "/progress/yui44-other-thread-dark.webp",
+              "alt": "Bravo's own thread in dark mode: the question marked You, from Alpha's thread, and Bravo's answer under it"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 78,
+            "site": 203,
+            "builds": 25,
+            "shipped": 112
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T10:02:33.000Z",
+          "title": "Yui in Claude, and Yui screens inside the chat",
+          "card": "INT-7",
+          "anchor": "yui-in-claude-and-yui-screens-inside-the-chat",
+          "images": [
+            {
+              "src": "/progress/int7-mcp-app-dark.webp",
+              "alt": "The MCP Apps reference host in dark mode after a yui_show call: the Yui screen draws inside it with the question Lunch? and Salad, Soup and Tacos, Soup chosen, a Focus timer pill, the note Sent: Soup, and the host's message log showing [yui] n1 choose choice=Soup"
+            },
+            {
+              "src": "/progress/int7-mcp-app-light.webp",
+              "alt": "The same screen in light mode with Tacos chosen and the message [yui] n1 choose choice=Tacos"
+            },
+            {
+              "src": "/progress/int7-claude-code-ask.webp",
+              "alt": "Yui on the iPhone simulator: Claude Code, signed in over OAuth, says Quick one. and asks Ready for a tabata? with Yes and Not now"
+            },
+            {
+              "src": "/progress/int7-claude-code-timer.webp",
+              "alt": "After Yes was tapped, Claude Code answered with a tabata timer on the phone"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 76,
+            "site": 201,
+            "builds": 25,
+            "shipped": 111
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T09:18:23.000Z",
           "title": "Type / to see what your agent can do",
           "card": "YUI-61",
           "anchor": "type-to-see-what-your-agent-can-do",
@@ -31,10 +95,10 @@
               "alt": "After tapping /new, the composer holds /new with a space and the list has closed"
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
             "app": 76,
-            "site": 196,
+            "site": 197,
             "builds": 25,
             "shipped": 110
           }
@@ -59,7 +123,7 @@
               "alt": "The new SDK Agent thread in Yui showing a Tabata timer at 0:20, round 1 of 8, sent by the OAuth client after the person tapped Yes."
             }
           ],
-          "commits": 4,
+          "commits": 5,
           "totals": {
             "app": 75,
             "site": 195,
@@ -480,6 +544,69 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "1783873",
+          "at": "2026-09-25T10:16:04.000Z",
+          "text": "@mention another of your agents: type @ anywhere in the composer and the person's other agents come up in the shared SuggestionPopover...",
+          "url": "https://github.com/postscarcityai/yui/commit/1783873"
+        },
+        {
+          "repo": "site",
+          "sha": "b14d3d4",
+          "at": "2026-09-25T10:10:16.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b14d3d4"
+        },
+        {
+          "repo": "site",
+          "sha": "06c8b60",
+          "at": "2026-09-25T10:06:29.000Z",
+          "text": "See it: share preview for the MCP App entry, lines that keep the question in view (INT-7)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/06c8b60"
+        },
+        {
+          "repo": "app",
+          "sha": "568a85a",
+          "at": "2026-09-25T10:02:41.000Z",
+          "text": "Yui screens draw inside Claude and other MCP App hosts: yui-mcp 0.2.0 serves ui://yui/screen (text/html;profile=mcp-app, the yuigui web...",
+          "url": "https://github.com/postscarcityai/yui/commit/568a85a"
+        },
+        {
+          "repo": "site",
+          "sha": "ab6084b",
+          "at": "2026-09-25T10:02:33.000Z",
+          "text": "Claude + Yui screens as an MCP App (INT-7): spec/MCP.md v3 adds \"Claude\" (custom connector in Claude's apps, Claude Code over OAuth with...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ab6084b"
+        },
+        {
+          "repo": "site",
+          "sha": "3107155",
+          "at": "2026-09-25T09:40:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3107155"
+        },
+        {
+          "repo": "site",
+          "sha": "150e672",
+          "at": "2026-09-25T09:31:01.000Z",
+          "text": "ROADMAP: build 74 shipped WAR-1, INT-19 done, next build carries YUI-61 + INT-19",
+          "url": "https://github.com/postscarcityai/yuigui/commit/150e672"
+        },
+        {
+          "repo": "site",
+          "sha": "881bbc2",
+          "at": "2026-09-25T09:18:34.000Z",
+          "text": "timeline: sync after board update (YUI-61)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/881bbc2"
+        },
+        {
+          "repo": "site",
+          "sha": "655cadc",
+          "at": "2026-09-25T09:18:23.000Z",
+          "text": "Slash commands (YUI-61): spec/AGENTS.md Commands section (yui_agents.commands, yui-connect action commands, what Hermes lists and hides,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/655cadc"
+        },
         {
           "repo": "app",
           "sha": "594a8a9",

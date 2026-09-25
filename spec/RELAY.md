@@ -49,6 +49,51 @@ A reaction (hold an agent's message, pick one of six) is also an `event` row: `[
 
 A reply (swipe a message left, or hold it and tap Reply) is an ordinary `text` row whose body starts with one line the app writes, then the person's words: `[yui] reply to=<row id> from=agent quote="first line"`, `from=user` when they answer one of their own. `meta.reply_to` carries the same `{msg, from, quote}` (next to `photos` when there are any). The quote is the message's first line, or a card's title, at most 120 characters. The app draws the words with a chip for the quote and drops the line; hosts pass the body through, so every agent reads it.
 
+## Mentions (YUI-44)
+
+The person can @ another of their agents from any thread. Step 1 of group threads: one hop, one agent per message. Migration `supabase/migrations/20260925030000_yui_mentions.sql` in the app repo; the database does the routing, so every host kind (Hermes, OpenClaw, MCP, webhook) works unchanged.
+
+**The app writes one row** in the thread it is in (agent A), an ordinary text row:
+
+| field | value |
+| --- | --- |
+| body | `[yui] mention to=<handle>` then the person's words |
+| meta | `{"mention": {"to": "<B's agent id>", "handle": "coach", "name": "Coach"}}` (next to `photos` when there are any) |
+
+B must be another agent of the same person (`400 mention_agent_not_found` otherwise, `mention_needs_agent` without an id). A mention carries no reply quote: the quote would point at a row B can't see.
+
+**Then, in the same transaction** (security definer triggers on `yui_messages`):
+
+1. **A is not asked.** The row lands with `delivered_at` and `handled_at` already set, so A's host never runs a turn on it. A's plugin reads it as context on A's next turn (below).
+2. **B gets a copy** in its own thread, as the person's row:
+   ```
+   [yui] mention from=<A handle> by=person msg=<A row id>
+   Alpha's thread, just before:
+   > Person: Plan a leg day for Saturday
+   > Alpha: Here it is [screen]
+   @Coach does this fit my knee?
+   ```
+   `meta.mentioned` = `{from, from_name, from_handle, msg, by, depth: 1}`. The quote is A's last six chat lines (screens as `[screen]`, 200 characters a line, status lines left out). B's host answers it like any message, and B's reply lands in B's own thread first, where its screens and taps work.
+3. **B's answer comes back.** Every agent row in B's thread whose `meta.turn` names a `mentioned` row is copied into A's thread as an agent row: same body, `meta.mention_reply` = `{agent, name, handle, msg, to}` (`msg` B's row, `to` the person's mention). No `meta.turn`, so it never triggers anything. No push of its own: B's host already pushed its reply.
+4. **Can't answer yet? One line, not silence.** If B is not online, or muted, A's thread gets a status row in B's name right away, `meta.mention_reply.status` set; the mention is still delivered and B answers when it can.
+
+| B | line |
+| --- | --- |
+| asleep | "Coach is asleep. It gets this when its computer wakes." |
+| offline | "Coach is offline. It gets this when it's back." |
+| pending | "Coach isn't connected yet. It gets this once it is." |
+| muted | "Coach is muted. It still gets this, and its answer lands here quietly." |
+
+**In the app.** `@` anywhere in the composer opens the suggestion popover (the one `/` uses) with the person's other agents: face, name, `@handle`, presence. Typing filters (names that start with it first). A tap puts `@Name ` in the draft, and a "Goes to Coach" line shows above the composer while the draft names one. The sent bubble says "To Coach". B's answer shows in A's thread in B's own look (face, colors, name over the bubble) with "Open its thread"; B's screens stay in B's thread ("Sent a screen. It's in Coach's thread."). In B's thread the copy shows only the person's words, with "You, from Alpha's thread".
+
+**What the host agent sees.** Nothing mid-conversation: A takes no turn on a mention or on B's answer. On A's next turn the Hermes plugin (`hermes-plugin/yui/mentions.py`) puts the thread's mention rows and answers since A's last turn first, one line each: `[yui] note: in this thread the person asked Coach, not you: <words>` and `[yui] note: Coach answered here: <words>` (600 characters, screens as `[screen]`; status lines are skipped). Other hosts can read the same rows: `meta ? 'mention'` or `meta ? 'mention_reply'`.
+
+**Agents @ each other, only inside a turn the person started.** A reply may carry `meta.mentions: ["coach"]` (handles or names, at most three). The Hermes plugin fills it from `@handle`s in the reply's words, outside ```` ```yui ```` fences and code. Yui honours it only when the reply's `meta.turn` names a row the person wrote in that thread and no `mentioned` row. B's copy then says `by=agent` and quotes A's thread including the person's ask. Depth is 1: an agent answering a mention can never mention anyone, and copies and status lines never carry a turn, so nothing loops. Each agent's own red lines are untouched: a mention is just a message to it.
+
+Tests: `supabase/tests/mention_test.py` (37 live checks: routing, refusals, resend 409, statuses, the depth guard), `hermes-plugin/tests/test_mentions.py` (11), `supabase/tests/mention_e2e.py` (two real Yui adapters on one Mac; `--sim <udid>` drives `YuiUITests/MentionTests` light then dark).
+
+Next (step 2, later): group threads, several agents in one conversation handing work to each other.
+
 ## Credentials
 
 | who | token | may |
