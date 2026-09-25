@@ -1,6 +1,38 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Full-screen pages tell a story",
+    "card": "YUI-82",
+    "body": "Feedback on build 96 held up a long answer read as pages: a card inside the full screen, a title cut off at \"with the…\", and a bullet list split across three pages. Now full screen is the whole stage. There is no card on it. Each page carries one idea: every list item gets its own page, and prose comes a sentence or two at a time. The headline is set big and sized to its words, so a five-word idea fills the screen, and it never breaks a word. The body is a second, quieter voice. A thin bar per page runs across the top. Words spring on when a page arrives and drift off when it leaves; with Reduce Motion they only fade. Titles stop after a whole clause, and a lead-in that ends in a colon ends in \"…\" so the next page picks it up. Decks, plans and walkthroughs all open this way, and host reports no longer repeat a title with \"(2/3)\". Each page leaves room for a picture. Drawn ones come next. Lands with the next build.",
+    "images": [
+      {
+        "src": "/progress/yui82-before-dark.webp",
+        "alt": "Before: the long answer as a card inside the full screen, its title cut off at 'with the…', four bullets crammed on page 2 of 3"
+      },
+      {
+        "src": "/progress/yui82-after-dark.webp",
+        "alt": "After: one idea on the whole screen, 'Nothing gets cut off mid-sentence.' in big type, a bar per page across the top"
+      },
+      {
+        "src": "/progress/yui82-after-light.webp",
+        "alt": "After, light: 'Each page gets a real title, like Hold menu fits.' set large on its own page"
+      },
+      {
+        "src": "/progress/yui82-build-before-light.webp",
+        "alt": "Before: the build 96 deck full screen, a small title and a mostly empty page"
+      },
+      {
+        "src": "/progress/yui82-build-after-light.webp",
+        "alt": "After: 'The hold menu fits any message' as a big headline with the body under it in a quieter voice"
+      },
+      {
+        "src": "/progress/yui82-after-ax3.webp",
+        "alt": "After at the largest text size: the first page's words still fit, no word broken"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Agents can draw now",
     "card": "YUI-83",
     "body": "From TestFlight feedback: \"Yui should be pretty good at just drawing different stuff so we don't even have to generate images or screenshots.\" Now an agent can draw a small picture in a few lines. A sketch is a little window, phone or chat bubble with rows in it. A row can be struck out, highlighted, greyed, drawn as a button, or left blank as filler, and a short note beside the frame points at it with an arrow. One line in the middle splits it into before and after. It sends nothing back; it is there to show instead of tell. Agents learn it in channel guide v18, next to long reports. In the eval, the old guide answered \"show me the difference\" with a table and words; the new one drew it both times. Live in the web playground and in the MCP App now. The iPhone view comes next.",
