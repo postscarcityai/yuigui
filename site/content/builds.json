@@ -1,6 +1,52 @@
 {
   "builds": [
     {
+      "build": 74,
+      "date": "2026-09-25",
+      "uploaded": "2026-09-25T01:35:32-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "A newly added agent answers what you sent before its gateway came up: pairing and the gateway restart are separate steps, and the plugin started a first-seen agent's cursor at \"now\", so anything sent in between was skipped for good and the app sat on \"Sent to an agent\" (TestFlight feedback AMiI7ezKx6x1KcexlzOKYJc: an agent paired 22:36, gateway never restarted, \"Did we stall?\" never answered). A new agent now starts a day back (new_agent_floor); only unhandled user rows are fetched, so nothing already answered replays. Proof on the live case: cleared the agent's cursor, restarted, both waiting messages went in as one turn and an agent replied in 21s. Plugin only, no app build needed."
+        },
+        {
+          "text": "Links look like links: a card with url= gets an arrow on its button, opens the page in Safari and sends nothing to the chat, so the agent no longer answers a tap that already did its job (TestFlight feedback AHbFq_lhBMRFGDoCfVzMf4A: Install only posted \"Install\" and Yui replied with a second card). The test build card now points at yuigui.com/install.html, so Install opens Safari and installs from there. Channel guide: a link out is card ... url=. PresetFamiliesTests.testCardLink: Install opens Safari with no card event, Start still emits; testFlows passes",
+          "card": "YUI-67"
+        },
+        {
+          "text": "A test build's Install link parses whole: card url= keeps a 300+ character signed link with a fragment, an encoded manifest url, & and = and a JWT, quoted or not, whole or streamed one character at a time, for https and itms-services (TestFlight feedback AMbvlwiMPj49qT1jeKlZID4, build 61.1). The tap-instead-of-Safari bug itself is the url= link fix in dc11e1d, commit 66, after 61.1. CardLinkTests 2/2, YuiLines 11/11",
+          "card": "YUI-67"
+        },
+        {
+          "text": "Copy any part of a message: hold an agent bubble, Select text opens its words read-only, drag to select and Copy (or Copy all); a bubble at the bottom lifts so the menu never covers it (TestFlight feedback AG9JzU4LeWl-TFeKWftiFIE). Reply to a message is YUI-68. SelectTextTests 2/2 light + dark (no keyboard, whole text, Done closes), ComposerTests.testReactionLeavesTheComposerEmpty, YuiTests 44/44"
+        },
+        {
+          "text": "The war room gets a timeline: Yui Lines timeline with done, now and next rows, drawn natively. Done rows oldest first with a check on the rail, a Now line across it, the running row lit up with a pulse (still under Reduce Motion), the queue in order; older done rows fold behind \"N earlier\"; a row with an https link opens Safari and sends nothing; a lone row is a one-row track. Swift parser: timeline group + rows, 372/372 vectors (22-timeline synced from yuigui). Flywheel PRESETS follows yl.mjs (13/13). TimelineTests 2/2 light + dark: fold opens in place, the link row opens Safari with no event",
+          "card": "YUI-65"
+        },
+        {
+          "text": "Reorder the war room queue by dragging, and the board follows with no agent turn. Timeline +reorder: Edit order gives each queued row a handle (drag, or VoiceOver Move up/down), done and running rows never move, Save sends one {order, board} event, Cancel restores; link rows stop opening Safari while editing. Plugin board.py: a timeline order with board=<this profile> from the paired owner goes straight to kanban priority for queued cards that are this profile's or unassigned (never another agent's, never running/blocked/done); the cards trade the priority slots they held, one transaction, a reprioritized event each (by yui-app); the person gets a one-line confirmation with no push, the agent a note on its next turn; anyone else gets \"Only the owner can reorder\". Swift 375/375 vectors, TimelineTests 4/4 on iPhone 18 Pro sim (real drag, light + dark), test_board.py 15/15 against a real kanban DB",
+          "card": "YUI-66"
+        },
+        {
+          "text": "Games in one Yui Line: game tictactoe, game snake, game memory, full screen by default. Tic-tac-toe against the agent: each tap relays {kind, move, x, o} (+ winner), the agent answers ~game o=... and the phone calls the winner with the winning line and Play again; snake (swipe or arrow pad, speed, size, best) and memory (pairs, agent-picked faces) run on the phone and send one result at game over. An unknown kind shows \"This game isn't in this version of Yui\". A patch aimed at a game an earlier reply drew lands on it. Reduce Motion fades, haptics per move, win and crash. Swift parser: game preset, 403/403 vectors (23-game synced from yuigui). Flywheel PRESETS follows yl.mjs. GameTests 2/2 on the sim, light + dark, with a demo stand-in agent answering moves",
+          "card": "YUI-59"
+        },
+        {
+          "text": "Yui MCP server: any MCP client puts a screen on the phone. Edge function yui-mcp (streamable HTTP, stateless, JSON-RPC by hand): yui_show parses Yui Lines with a synced copy of yl.mjs, refuses bad lines with the parser's message, writes one agent row and returns the screen id plus the tap ids; yui_answers returns taps and typed text once each (marked delivered and handled), waits up to 25 s, signs the person's photos for an hour; yui_say; yui_threads with unread counts. The full channel guide is the yui_guide prompt and yui://guide resource, a short form rides in the tool descriptions. Auth is a kind-mcp connector token from the app's pairing code (a Hermes token gets 403), own rate bucket mcp in yui_limits (60 burst, 30/min). mcp_test.py 34/34 live; mcp_claude_e2e.py: a real Claude Code (claude mcp add --transport http) asks on the simulator, MCPRoundTripTests taps Yes, Claude puts up a 20/10x8 timer, 9/9. OAuth is INT-19",
+          "card": "INT-3"
+        },
+        {
+          "text": "Reply to a message: swipe a bubble left, or hold a bubble or a card and tap Reply (TestFlight feedback AG9JzU4LeWl-TFeKWftiFIE). The quote sits above the composer with an x; sent, the reply wears a chip (whose message, its first line) and tapping it scrolls back to the original, which glows. The hold menu is Reply, Copy, Select text on every bubble: the agent's keep the six reactions above it, your own get the menu alone, and a card takes reactions and Reply too (it quotes its question or title). The swipe is a UIKit pan that declines anything but a clear left drag on the bubble itself, so up and down still scroll, right still pages, the background beside a bubble and the screen's right edge still go to screen 2; a haptic tick at the threshold, Reduce Motion sets the quote with no slide. On the wire the app writes the line into an ordinary text row, like a reaction: body `[yui] reply to=<row id> from=agent quote=\"...\"` then the words, meta.reply_to {msg, from, quote} next to any photos, so Hermes, OpenClaw and the webhook hosts all hand it to the agent unchanged; a slash command goes out bare. Channel guide v14 adds Replies. ReplyTests 3/3 on the iPhone 18 Pro sim (hold menu Reply, own bubble has no reactions, card quotes its question, gutter drag pages to screen 2, left swipe replies and stays on the chat, x clears, chip scrolls back, Reduce Motion), ReplyFormatTests 8/8, YuiTests 51/51, relay_test 51/51 live with a reply row, Pages/PageCount/SelectText/Timeline/Game/JumpToBottom green",
+          "card": "YUI-68"
+        },
+        {
+          "text": "The war room, built out: Needs you answers in one tap. Screen 2 now draws seven panels from presets the app already has (Needs you count + blocked cards, Running now per lane, the timeline, Builds with Install, Feedback and the card it became, the MVP bar, quick links), generated by the yui profile's yui_war_room.py. A Needs-you card with choices is choose@need-<task id> (a typed answer is form@need-<task id>): plugin needs.py takes the tap with no agent turn, comments the answer on the kanban card as chris (yui-app) and unblocks it (ready, or todo under an open parent), only for the paired owner and only yui's or unassigned cards; the person gets a one-line confirmation, the agent a note. test_needs.py 15/15 against real kanban DBs, test_board.py 15/15, WarRoomTests 3/3 on the iPhone 18 Pro sim with live board data (light + dark walk of every panel, one tap sends {id: need-t_..., choice})",
+          "card": "YUI-73"
+        }
+      ]
+    },
+    {
       "build": 64,
       "date": "2026-09-25",
       "uploaded": "2026-09-24T21:13:44-07:00",
@@ -430,40 +476,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "A newly added agent answers what you sent before its gateway came up: pairing and the gateway restart are separate steps, and the plugin started a first-seen agent's cursor at \"now\", so anything sent in between was skipped for good and the app sat on \"Sent to an agent\" (TestFlight feedback AMiI7ezKx6x1KcexlzOKYJc: an agent paired 22:36, gateway never restarted, \"Did we stall?\" never answered). A new agent now starts a day back (new_agent_floor); only unhandled user rows are fetched, so nothing already answered replays. Proof on the live case: cleared the agent's cursor, restarted, both waiting messages went in as one turn and an agent replied in 21s. Plugin only, no app build needed."
-    },
-    {
-      "text": "Links look like links: a card with url= gets an arrow on its button, opens the page in Safari and sends nothing to the chat, so the agent no longer answers a tap that already did its job (TestFlight feedback AHbFq_lhBMRFGDoCfVzMf4A: Install only posted \"Install\" and Yui replied with a second card). The test build card now points at yuigui.com/install.html, so Install opens Safari and installs from there. Channel guide: a link out is card ... url=. PresetFamiliesTests.testCardLink: Install opens Safari with no card event, Start still emits; testFlows passes",
-      "card": "YUI-67"
-    },
-    {
-      "text": "A test build's Install link parses whole: card url= keeps a 300+ character signed link with a fragment, an encoded manifest url, & and = and a JWT, quoted or not, whole or streamed one character at a time, for https and itms-services (TestFlight feedback AMbvlwiMPj49qT1jeKlZID4, build 61.1). The tap-instead-of-Safari bug itself is the url= link fix in dc11e1d, commit 66, after 61.1. CardLinkTests 2/2, YuiLines 11/11",
-      "card": "YUI-67"
-    },
-    {
-      "text": "Copy any part of a message: hold an agent bubble, Select text opens its words read-only, drag to select and Copy (or Copy all); a bubble at the bottom lifts so the menu never covers it (TestFlight feedback AG9JzU4LeWl-TFeKWftiFIE). Reply to a message is YUI-68. SelectTextTests 2/2 light + dark (no keyboard, whole text, Done closes), ComposerTests.testReactionLeavesTheComposerEmpty, YuiTests 44/44"
-    },
-    {
-      "text": "The war room gets a timeline: Yui Lines timeline with done, now and next rows, drawn natively. Done rows oldest first with a check on the rail, a Now line across it, the running row lit up with a pulse (still under Reduce Motion), the queue in order; older done rows fold behind \"N earlier\"; a row with an https link opens Safari and sends nothing; a lone row is a one-row track. Swift parser: timeline group + rows, 372/372 vectors (22-timeline synced from yuigui). Flywheel PRESETS follows yl.mjs (13/13). TimelineTests 2/2 light + dark: fold opens in place, the link row opens Safari with no event",
-      "card": "YUI-65"
-    },
-    {
-      "text": "Reorder the war room queue by dragging, and the board follows with no agent turn. Timeline +reorder: Edit order gives each queued row a handle (drag, or VoiceOver Move up/down), done and running rows never move, Save sends one {order, board} event, Cancel restores; link rows stop opening Safari while editing. Plugin board.py: a timeline order with board=<this profile> from the paired owner goes straight to kanban priority for queued cards that are this profile's or unassigned (never another agent's, never running/blocked/done); the cards trade the priority slots they held, one transaction, a reprioritized event each (by yui-app); the person gets a one-line confirmation with no push, the agent a note on its next turn; anyone else gets \"Only the owner can reorder\". Swift 375/375 vectors, TimelineTests 4/4 on iPhone 18 Pro sim (real drag, light + dark), test_board.py 15/15 against a real kanban DB",
-      "card": "YUI-66"
-    },
-    {
-      "text": "Games in one Yui Line: game tictactoe, game snake, game memory, full screen by default. Tic-tac-toe against the agent: each tap relays {kind, move, x, o} (+ winner), the agent answers ~game o=... and the phone calls the winner with the winning line and Play again; snake (swipe or arrow pad, speed, size, best) and memory (pairs, agent-picked faces) run on the phone and send one result at game over. An unknown kind shows \"This game isn't in this version of Yui\". A patch aimed at a game an earlier reply drew lands on it. Reduce Motion fades, haptics per move, win and crash. Swift parser: game preset, 403/403 vectors (23-game synced from yuigui). Flywheel PRESETS follows yl.mjs. GameTests 2/2 on the sim, light + dark, with a demo stand-in agent answering moves",
-      "card": "YUI-59"
-    },
-    {
-      "text": "Yui MCP server: any MCP client puts a screen on the phone. Edge function yui-mcp (streamable HTTP, stateless, JSON-RPC by hand): yui_show parses Yui Lines with a synced copy of yl.mjs, refuses bad lines with the parser's message, writes one agent row and returns the screen id plus the tap ids; yui_answers returns taps and typed text once each (marked delivered and handled), waits up to 25 s, signs the person's photos for an hour; yui_say; yui_threads with unread counts. The full channel guide is the yui_guide prompt and yui://guide resource, a short form rides in the tool descriptions. Auth is a kind-mcp connector token from the app's pairing code (a Hermes token gets 403), own rate bucket mcp in yui_limits (60 burst, 30/min). mcp_test.py 34/34 live; mcp_claude_e2e.py: a real Claude Code (claude mcp add --transport http) asks on the simulator, MCPRoundTripTests taps Yes, Claude puts up a 20/10x8 timer, 9/9. OAuth is INT-19",
-      "card": "INT-3"
-    },
-    {
-      "text": "Reply to a message: swipe a bubble left, or hold a bubble or a card and tap Reply (TestFlight feedback AG9JzU4LeWl-TFeKWftiFIE). The quote sits above the composer with an x; sent, the reply wears a chip (whose message, its first line) and tapping it scrolls back to the original, which glows. The hold menu is Reply, Copy, Select text on every bubble: the agent's keep the six reactions above it, your own get the menu alone, and a card takes reactions and Reply too (it quotes its question or title). The swipe is a UIKit pan that declines anything but a clear left drag on the bubble itself, so up and down still scroll, right still pages, the background beside a bubble and the screen's right edge still go to screen 2; a haptic tick at the threshold, Reduce Motion sets the quote with no slide. On the wire the app writes the line into an ordinary text row, like a reaction: body `[yui] reply to=<row id> from=agent quote=\"...\"` then the words, meta.reply_to {msg, from, quote} next to any photos, so Hermes, OpenClaw and the webhook hosts all hand it to the agent unchanged; a slash command goes out bare. Channel guide v14 adds Replies. ReplyTests 3/3 on the iPhone 18 Pro sim (hold menu Reply, own bubble has no reactions, card quotes its question, gutter drag pages to screen 2, left swipe replies and stays on the chat, x clears, chip scrolls back, Reduce Motion), ReplyFormatTests 8/8, YuiTests 51/51, relay_test 51/51 live with a reply row, Pages/PageCount/SelectText/Timeline/Game/JumpToBottom green",
-      "card": "YUI-68"
-    }
-  ]
+  "next": []
 }

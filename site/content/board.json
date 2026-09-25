@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T08:10:32.645Z",
+  "updated": "2026-09-25T08:40:39.771Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -100,13 +100,6 @@
           "title": "An agent that is paired but not listening says so"
         },
         {
-          "key": "YUI-67",
-          "title": "Card cta with url= sends a tap instead of opening Safari",
-          "summary": "Links in a card open Safari",
-          "waiting": true,
-          "progress": "/progress#links-in-a-card-open-safari"
-        },
-        {
           "key": "YUI-69",
           "title": "Talk about a setting",
           "summary": "Bring it into the chat, the agent proposes the edit"
@@ -123,6 +116,10 @@
         {
           "key": "YUI-74",
           "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)"
+        },
+        {
+          "key": "YUI-75",
+          "title": "Ids on a page patch across replies, so the war room refreshes in place"
         },
         {
           "key": "SITE-28",
@@ -294,11 +291,6 @@
           "progress": "/progress#how-an-agent-could-make-up-a-whole-game"
         },
         {
-          "key": "YUI-73",
-          "title": "The war room, built out",
-          "summary": "Needs you, running now, timeline, builds, feedback, MVP bar"
-        },
-        {
           "key": "INT-19",
           "title": "Yui MCP server step 2, OAuth (Sign in with Apple through Yui)"
         }
@@ -308,6 +300,19 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-67",
+          "title": "Card cta with url= sends a tap instead of opening Safari",
+          "summary": "Links in a card open Safari",
+          "shipped": "2026-09-25",
+          "progress": "/progress#links-in-a-card-open-safari"
+        },
+        {
+          "key": "YUI-73",
+          "title": "The war room, built out",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-war-room-built-out"
+        },
         {
           "key": "YUI-68",
           "title": "Reply to a message",
