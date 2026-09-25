@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T16:10:23.287Z",
+  "updated": "2026-09-25T16:40:26.758Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -133,10 +133,6 @@
           "title": "Yui channel for Flue (Astro's agent framework on Cloudflare)"
         },
         {
-          "key": "INT-15",
-          "title": "CrewAI adapter"
-        },
-        {
           "key": "INT-16",
           "title": "Microsoft Agent Framework (AutoGen successor) adapter plus an AG-UI spike"
         },
@@ -249,6 +245,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-15",
+          "title": "CrewAI adapter",
+          "summary": "CrewAI agents in Yui",
+          "shipped": "2026-09-25",
+          "progress": "/progress#crewai-agents-in-yui"
+        },
         {
           "key": "INT-17",
           "title": "N8n adapter, MCP client plus a community node",
