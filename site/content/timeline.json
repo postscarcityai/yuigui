@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 123,
-    "site": 303,
+    "site": 304,
     "builds": 29,
-    "shipped": 160,
-    "screenshots": 328
+    "shipped": 161,
+    "screenshots": 331
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T23:11:52.449Z",
+          "at": "2026-09-25T23:34:21.266Z",
+          "title": "Settings says exactly which Yui is on your phone",
+          "card": "YUI-92",
+          "anchor": "settings-says-exactly-which-yui-is-on-your-phone",
+          "images": [
+            {
+              "src": "/progress/yui92-about-light.webp",
+              "alt": "Light mode, the bottom of Settings under Sign out and Delete account: About this build, with Tap to copy. Yui 0.2.0 (1), Xcode, Commit a531dfe built 9/25/2026 6:30 PM, Channel guide v19."
+            },
+            {
+              "src": "/progress/yui92-about-dark.webp",
+              "alt": "Dark mode, the same About this build block at the bottom of Settings: version, channel, commit and build date, channel guide version."
+            },
+            {
+              "src": "/progress/yui92-copied-light.webp",
+              "alt": "Light mode, after a tap: Tap to copy has turned into a check mark and Copied."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 123,
+            "site": 304,
+            "builds": 29,
+            "shipped": 161
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T23:11:42.000Z",
           "title": "Invite a client and their agents are already there, on paper and in the playground",
           "card": "YUI-57",
           "anchor": "invite-a-client-and-their-agents-are-already-there-on-paper-and-in-the-playgroun",
@@ -35,10 +63,10 @@
               "alt": "Dark mode, after a revoke: only Penny is left in the list, and one quiet line says Basil is no longer shared with you."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 123,
-            "site": 303,
+            "site": 304,
             "builds": 29,
             "shipped": 160
           }
@@ -98,7 +126,7 @@
           "kind": "build",
           "at": "2026-09-25T22:57:32.000Z",
           "build": 122,
-          "changes": 24,
+          "changes": 26,
           "totals": {
             "app": 122,
             "site": 300,
@@ -1744,6 +1772,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "bfe1da2",
+          "at": "2026-09-25T23:11:42.000Z",
+          "text": "Shared agents (YUI-57 step 1): spec/AGENTS.md \"Shared agents\" and a playground mock. An invite carries a template (named set of the...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bfe1da2"
+        },
         {
           "repo": "site",
           "sha": "eda8cdf",

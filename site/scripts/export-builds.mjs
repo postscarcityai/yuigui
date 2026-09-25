@@ -19,6 +19,10 @@ const KEYS = {
   bee7944: "YUI-9", "1a8fbcd": "OSS-1",
   // Later commits that name the TestFlight feedback instead of their card.
   dc11e1d: "YUI-67", "0241f5e": "YUI-67",
+  // Its subject ends "(YUI-93, step 2 of YUI-77; ...).", which the card match misses.
+  "8e71550": "YUI-93",
+  // Ends with a quote after the key.
+  "430289c": "YUI-92",
 };
 
 const asc = (path) => {

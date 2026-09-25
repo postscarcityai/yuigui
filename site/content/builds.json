@@ -77,6 +77,13 @@
         },
         {
           "text": "Test builds install as Yui Dev beside TestFlight Yui (YUI-91). Chris tapped Install on link build 119.1 and iOS refused: \"Yui is Already Installed\", same bundle id as the TestFlight app."
+        },
+        {
+          "text": "Settings > About this build shows exactly which Yui is on the phone (YUI-92). Chris on build 96: \"down here I would like to have all of the versioning information so I can know what version I'm looking at at any given time.\"",
+          "card": "YUI-92"
+        },
+        {
+          "text": "0.2.0 test pass (YUI-SHIP): two UI tests caught up with YUI-87 and the picks-as-your-message scroll."
         }
       ]
     },
@@ -660,5 +667,10 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Group threads in the database and the Hermes plugin (YUI-93, step 2 of YUI-77; spec yuigui spec/GROUPS.md, section 7 \"As built\"). Migration 20260925070000_yui_groups.sql, applied to PROOF: yui_threads (lead, max_hops 1-5, max_turns 1-12, stopped_at, archived_at) and yui_thread_members, yui_messages.thread_id. The person's row goes to the agents it names (meta.group.to, three at most) or the lead, rewritten to a `[yui] group \"<title>\" ... hop= from= msg=` header with the group's last six lines quoted, words kept in meta.group.words; the second and third get copies. Agent replies are stamped into the group from meta.turn, and their @s become handoff asks while the hop budget and the turn cap hold, else a guard row (held until Let it or Stop). Let it and Stop are rows that land handled in the lead's thread; Stop cancels undelivered handoffs and says so in one line, and replies rooted before it hand nothing on. Status lines for asleep, offline, not connected and muted agents. Making a group needs the newest app build at or above yui_limits group_min_build (set high until YUI-94 ships the sheet): update_needed below it. yui_user owns threads and members (no delete: archive); yui_connector has no grant on either table and cannot set thread_id or meta.group; its only view of the rest of a group is the quote and yui_group_notes(), one plain line per row, member agents only. In a group @s never become depth-1 mentions; solo threads are unchanged. Plugin groups.py: a turn that answers a group row starts with `[yui] note: in <group>` lines from yui_group_notes(), cursor per agent and group. Channel guide v20 (Groups), published. group_test.py 69/69 live, mention_test 38/38, relay_test 51/51, reactions_test 22/22, test_groups 7/7 and every plugin test green.",
+      "card": "YUI-93"
+    }
+  ]
 }
