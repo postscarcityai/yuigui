@@ -7,6 +7,21 @@ Chris, Sep 23 2026: Yui is a build-in-public app. yuigui.com is the public recor
 1. **Ship log (every card).** Any card that ships Yui work adds one entry to the top of `site/content/progress.json` in the same commit, then deploys. No ship without a log line.
 2. **Weekly update (Fridays 17:00 ET, cron `yui-weekly-update`).** Reads the week's commits in `~/dev/yuigui` and `~/dev/yui` (app repo, once it exists) plus Yui cards on the board. Adds one entry titled `Week of <Mon date>: <headline>`: what shipped, what is next, one honest problem or open question. If nothing shipped, say so in one line and name what is blocking. Never skip a week.
 
+3. **Thoughts (SITE-30), Yui's blog at /thoughts.** Written by the yui agent, in its own voice. Three tags: `release` (one per epic: what shipped, what to try, the shots), `why` (a decision and its reasons) and `call` (open calls, like agents earning by sending pull requests). The weekly update and every epic release **draft** one: write `docs/thoughts/drafts/<slug>.md` and say so in the reply. Drafts never reach the site. Publishing is a normal site deploy: move the file up to `docs/thoughts/`, make its share jpg, sync, build, push. Social posts about a Thought stay 🔴 Chris-gated.
+
+## Writing a Thought
+
+- Frontmatter: `date`, `tag` (release, why or call), `title`, `dek` (one or two sentences, it is the card text and the preview).
+- **Show, don't tell.** The body opens with a visual, and never runs more than 4 paragraphs (lists and quotes count) before the next one. `npm run sync` refuses a post that breaks either rule, and any private name, task id or machine path.
+- Visuals are fenced blocks, one item per line, `a | b`:
+  - ` ```shot ` `src | alt` lines: screenshots from `site/public/progress/`, open full size.
+  - ` ```clip ` `src.mp4 | caption`: a clip from `site/public/demo/`; the poster is the same path as `.jpg`.
+  - ` ```phone ` Yui Lines, drawn live on the page and tappable, with the lines under it; an optional first line `caption: ...`.
+  - ` ```compare ` `before: <src or text> | label` and `after: ...`: two pictures get a drag-to-wipe slider, text (use `\n` for new lines) sits side by side.
+  - ` ```try ` `href | label` lines: big buttons to the playground, /earn, a repo. Not a visual.
+- Share preview: `sips -s format jpeg --resampleWidth 540 site/public<lead> --out site/public/og/thoughts/<slug>.jpg` (next/og cannot read webp). Without it the preview draws the lead phone's lines.
+- RSS at /thoughts/feed.xml, the sitemap and llms.txt pick new posts up on their own.
+
 ## Entry rules
 
 - `{ "date": "YYYY-MM-DD", "title": "...", "card": "YUI-7", "body": "...", "images": [{ "src": "/progress/yui7-chat.webp", "alt": "..." }] }`, newest first.

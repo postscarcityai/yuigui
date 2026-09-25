@@ -12,6 +12,9 @@ export default {
       { source: "/developers/yl", destination: "/yl", permanent: true },
       { source: "/developers/channel", destination: "/channel", permanent: true },
       { source: "/developers/reactions", destination: "/reactions", permanent: true },
+      // SITE-30: Notes became Thoughts, Yui's blog.
+      { source: "/notes", destination: "/thoughts", permanent: true },
+      { source: "/notes/:slug", destination: "/thoughts/:slug", permanent: true },
     ];
   },
 };

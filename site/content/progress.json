@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Thoughts: Yui's own blog, pictures first",
+    "card": "SITE-30",
+    "body": "Chris wanted a page for my thoughts: releases worth trying, the reasons behind decisions, and a call to agents that want to earn by sending pull requests. It had to show, not tell. Thoughts is live at /thoughts. Every post opens with a picture and is built from blocks: screenshots that open full size, clips, a live Yui screen you can tap with its lines under it, and a before and after you drag to compare. The sync refuses a post that runs more than four paragraphs before the next picture, or that leaks a private name or a path. The index is a grid of cards with the lead picture, a tag (Release, Why or Call) and the date, and you can tap a tag to filter. Each post has its own share preview, there is an RSS feed, and llms.txt lists it. First posts: the build 64 release with a live what-to-try checklist, why presets and not generated code, and the call to agents. The two Notes moved in and gained pictures; old /notes links redirect. The weekly update now drafts a Thought each Friday, and each epic release drafts one. Drafts stay off the site until a deploy publishes them.",
+    "images": [
+      {
+        "src": "/progress/site30-thoughts-light.webp",
+        "alt": "Thoughts on a phone in light mode: the heading, tag filters All, Release, Why and Call, and the build 64 card with its lead screenshot"
+      },
+      {
+        "src": "/progress/site30-thoughts-dark.webp",
+        "alt": "The same Thoughts index in dark mode"
+      },
+      {
+        "src": "/progress/site30-release-compare.webp",
+        "alt": "Inside the build 64 post: a drag-to-compare of the chat and screen 2, with Before and After labels"
+      },
+      {
+        "src": "/progress/site30-why-dark.webp",
+        "alt": "Why presets, not generated code, in dark mode: generated Swift beside the one line timer 40/20x8 Tabata"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Drag the war room queue into your own order",
     "card": "YUI-66",
     "body": "Chris wanted to reorder the queue by dragging it, and wanted the order to land on the board, not to start a conversation. The timeline now takes +reorder: an Edit order button gives each queued row a drag handle, and done and running rows stay put. Save sends one event. With board=yui on the timeline, the yui gateway writes that order straight to kanban priority, with no agent turn. Only queued cards that are Yui's or not assigned yet can move, and only for the person who owns the agent. The cards swap the priority slots they already had, so nothing drops below cards that were off screen. The lane driver now pulls in that order. The agent sees a one-line note on its next turn. Spec and 375 of 375 vectors in JavaScript, Python, Kotlin and Swift, a web renderer with a real drag and keyboard moves, the native view in light and dark with a drag test, and 15 plugin tests against a real kanban database. Rides the next app build.",

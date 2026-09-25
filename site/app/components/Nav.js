@@ -12,16 +12,16 @@ export const sections = [
   { href: "/mockups", label: "See it" },
   {
     href: "/roadmap", label: "Roadmap",
-    pages: [["/roadmap", "Roadmap"], ["/board", "Board"], ["/progress", "Shipped"], ["/changelog", "Builds"], ["/timeline", "Timeline"]],
+    pages: [["/roadmap", "Roadmap"], ["/board", "Board"], ["/progress", "Shipped"], ["/changelog", "Builds"], ["/timeline", "Timeline"], ["/thoughts", "Thoughts"]],
   },
   {
     href: "/developers", label: "Developers",
-    pages: [["/developers", "Overview"], ["/playground", "Playground"], ["/yl", "Yui Lines"], ["/developers/specs", "Specs"], ["/channel", "Channel guide"], ["/reactions", "Reactions"], ["/developers/community", "Community"], ["/developers/contribute", "Contribute"], ["/notes", "Notes"]],
+    pages: [["/developers", "Overview"], ["/playground", "Playground"], ["/yl", "Yui Lines"], ["/developers/specs", "Specs"], ["/channel", "Channel guide"], ["/reactions", "Reactions"], ["/developers/community", "Community"], ["/developers/contribute", "Contribute"]],
   },
   { href: "/start", label: "Get Yui", cta: true },
 ];
 
-// A page's own subpages (/notes/<slug>) light up its section too.
+// A page's own subpages (/thoughts/<slug>) light up its section too.
 const sectionOf = (path) => sections.find((s) => s.href === path || s.pages?.some(([href]) => href === path || (href !== "/" && path.startsWith(`${href}/`))));
 
 export default function Nav() {

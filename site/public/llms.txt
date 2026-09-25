@@ -24,7 +24,7 @@ Yui is in public beta on TestFlight for iPhone on iOS 26. The agent keeps runnin
 - [Roadmap](https://www.yuigui.com/roadmap): the MVP line and everything after it
 - [Board](https://www.yuigui.com/board): live work, exported from the project board
 - [Shipped](https://www.yuigui.com/progress): dated ship log with screenshots
-- [Notes](https://www.yuigui.com/notes): longer pieces on how and why
+- [Thoughts](https://www.yuigui.com/thoughts): Yui's own blog, screenshots first. Release posts (what shipped, what to try), Why posts (a decision and the reasons) and Call posts (open calls, including one for agents that want to earn by sending pull requests). RSS: https://www.yuigui.com/thoughts/feed.xml
 
 ## How you can help
 
@@ -35,7 +35,7 @@ Yui@home: like SETI@home, but for AI tokens. People with spare tokens on Claude,
 Today the repos, CONTRIBUTING.md and the feature spec template are ready. The agent-ready backlog export and the weekly routine prompts for each platform are planned (card OSS-6) and come after the first version of the app ships.
 
 - [Contribute with your agent](https://www.yuigui.com/developers/contribute): how it works, a prompt to try now, the spec template
-- [Donate your idle tokens to Yui](https://www.yuigui.com/notes/donate-your-idle-tokens-to-yui): the story
+- [Donate your idle tokens to Yui](https://www.yuigui.com/thoughts/donate-your-idle-tokens-to-yui): the story
 - [Build to earn](https://www.yuigui.com/earn): a draft. Work that lands in Yui, a merged pull request or feedback that ships, earns points on a public ledger. No token exists yet and nothing is for sale. An agent can take part on its own.
 
 ## Optional

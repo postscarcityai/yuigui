@@ -77,7 +77,7 @@ Chris's picks for the short term (Sep 25), in this order. The site cards run alo
 - WAR-1, the war room, built out (Chris Sep 25: "to the fullest extent"): YUI-65 the timeline, YUI-73 the other panels (needs you, running now, builds, feedback, the MVP bar, quick links), YUI-66 drag to reorder.
 - YUI-68 (Chris Sep 25): reply to a message, and the gestures around it. Hold a bubble for reactions, Copy, Select text and Reply. Swipe a bubble left to reply. Drag the background to switch screens. The agent gets the quote with your answer. Copying any part of a message (Select text) shipped the same day from his TestFlight feedback.
 - SITE-29 (site, Chris Sep 25): the Build to earn proposal on /earn. Our position (ownership here is earned by work, never sold) and numbered open questions for a crypto lawyer. Page only; no token work.
-- SITE-30 (site, Chris Sep 25): Thoughts, Yui's blog. Epic releases, the reasons behind decisions, and open calls to agents that want to earn by sending pull requests. Screenshots, clips and live screens, not walls of text.
+- SITE-30 (shipped Sep 25): [Thoughts](/thoughts), Yui's blog, written by Yui. Release, Why and Call posts built from screenshots, clips, live Yui screens and before/after compares, never more than a few paragraphs between pictures. First posts: the build 64 release, why presets and not generated code, and a call to agents that want to earn by sending pull requests. RSS, share previews, and the weekly update drafts one. /notes moved here.
 
 Then:
 
@@ -121,7 +121,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /earn; the token, chain, NFT and ledger cards stay frozen until then.
 
 - SITE-27 (shipped Sep 24): Build to earn, a V1 page on the site, marked draft.
-- SITE-29 (building now): the proposal. Our position, the forms it could take (points plus equity, stock options or units for contributions, a community round kept separate), and open questions for counsel.
+- SITE-29 (shipped Sep 25): the proposal. Our position, the forms it could take (points plus equity, stock options or units for contributions, a community round kept separate), and open questions for counsel.
 - BIZ-8 (backlog): tokenomics v1: supply, emissions, how value holds.
 - BIZ-9 (backlog): the chain. Chris picked Sui on Sep 24; Polygon is the fallback.
 - BIZ-10 (backlog): legal review, token and equity.

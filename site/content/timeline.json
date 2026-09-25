@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 68,
-    "site": 176,
+    "app": 70,
+    "site": 181,
     "builds": 24,
-    "shipped": 99,
-    "screenshots": 184
+    "shipped": 101,
+    "screenshots": 192
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T05:34:40.810Z",
+          "at": "2026-09-25T05:58:52.000Z",
+          "title": "Drag the war room queue into your own order",
+          "card": "YUI-66",
+          "anchor": "drag-the-war-room-queue-into-your-own-order",
+          "images": [
+            {
+              "src": "/progress/yui66-reorder-drag-light.webp",
+              "alt": "Edit order on the war room in the app: YUI-70 dragged to the top of the queue, drag handles on the three queued rows, Cancel and Save order below"
+            },
+            {
+              "src": "/progress/yui66-reorder-edit-dark.webp",
+              "alt": "The same edit mode in dark, before anything moved, with Save order dimmed"
+            },
+            {
+              "src": "/progress/yui66-reorder-saved.webp",
+              "alt": "After Save: the queue keeps the new order and the Edit order button is back"
+            },
+            {
+              "src": "/progress/yui66-reorder-web.webp",
+              "alt": "The web playground mid-drag: YUI-68 lifted above the queue"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 70,
+            "site": 180,
+            "builds": 24,
+            "shipped": 101
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T05:40:43.000Z",
+          "title": "A timeline for the war room",
+          "card": "YUI-65",
+          "anchor": "a-timeline-for-the-war-room",
+          "images": [
+            {
+              "src": "/progress/yui65-timeline-light.webp",
+              "alt": "The war room on screen 2 in the app, light: three done rows, the Now line, the running card lit up, three queued cards, and a link card below"
+            },
+            {
+              "src": "/progress/yui65-timeline-dark.webp",
+              "alt": "The same war room timeline in dark mode"
+            },
+            {
+              "src": "/progress/yui65-timeline-unfolded.webp",
+              "alt": "After tapping 3 earlier, all six done rows show"
+            },
+            {
+              "src": "/progress/yui65-timeline-web.webp",
+              "alt": "The timeline drawn by the web playground"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 68,
+            "site": 178,
+            "builds": 24,
+            "shipped": 100
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T05:34:28.000Z",
           "title": "The site catches up, again",
           "card": "SITE-31",
           "anchor": "the-site-catches-up-again",
@@ -31,10 +95,10 @@
               "alt": "See it on a phone: the new Hold to talk entry with three app screenshots, the waveform, slide to cancel and the sent message"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 68,
-            "site": 176,
+            "site": 177,
             "builds": 24,
             "shipped": 99
           }
@@ -148,6 +212,55 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "69ce9b8",
+          "at": "2026-09-25T06:10:04.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/69ce9b8"
+        },
+        {
+          "repo": "site",
+          "sha": "4295a92",
+          "at": "2026-09-25T05:58:52.000Z",
+          "text": "Drag the queue into your own order: timeline +reorder gives queued rows a drag handle behind Edit order (done and now rows stay put),...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4295a92"
+        },
+        {
+          "repo": "app",
+          "sha": "e650890",
+          "at": "2026-09-25T05:58:52.000Z",
+          "text": "Reorder the war room queue by dragging, and the board follows with no agent turn. Timeline +reorder: Edit order gives each queued row a...",
+          "url": "https://github.com/postscarcityai/yui/commit/e650890"
+        },
+        {
+          "repo": "app",
+          "sha": "b14ea17",
+          "at": "2026-09-25T05:41:08.000Z",
+          "text": "The war room gets a timeline: Yui Lines timeline with done, now and next rows, drawn natively. Done rows oldest first with a check on...",
+          "url": "https://github.com/postscarcityai/yui/commit/b14ea17"
+        },
+        {
+          "repo": "site",
+          "sha": "5408535",
+          "at": "2026-09-25T05:40:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5408535"
+        },
+        {
+          "repo": "site",
+          "sha": "77f9f16",
+          "at": "2026-09-25T05:40:43.000Z",
+          "text": "A timeline for the war room: YL timeline group with done, now and next rows (done above a Now line, the running row lit up, the queue in...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/77f9f16"
+        },
+        {
+          "repo": "site",
+          "sha": "9cfc95b",
+          "at": "2026-09-25T05:34:28.000Z",
+          "text": "The site catches up, again (SITE-31): ROADMAP draft 12 (latest release build 64, what the next build carries, YUI-50 shipped, INV-1 now,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9cfc95b"
+        },
         {
           "repo": "site",
           "sha": "6347306",

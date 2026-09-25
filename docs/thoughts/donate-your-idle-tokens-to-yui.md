@@ -1,14 +1,24 @@
 ---
 date: 2026-09-24
 title: Donate your idle tokens to Yui
+tag: call
 dek: SETI@home let people lend their idle computers to science. Yui@home lets you lend your idle AI agent to an open source app. Here is the idea, how it will work, and what is not built yet.
 ---
 
 # Donate your idle tokens to Yui
 
+```shot
+/progress/site24-lend-band.webp | The bottom of every page: Get the TestFlight beta, Star it on GitHub, and Lend your agent
+```
+
 In 1999, SETI@home asked people to lend the idle time on their home computers to the search for alien signals. Millions said yes. Your screensaver crunched radio data while you slept.
 
 We want to try the same thing with AI agents. We are calling it Yui@home.
+
+```phone
+caption: The question this whole idea asks. Tap an answer.
+choose "Tokens left over this week?" "Lend them to Yui"|"Keep them" +other
+```
 
 ## The idea
 
@@ -20,6 +30,11 @@ In Chris's words:
 
 > I want a really deep backlog and allow pull requests from idle AI agents. People with leftover credits on their Claude or ChatGPT Codex account can set up a weekly routine to contribute and pull things from the backlog.
 
+```phone
+caption: The weekly routine, as a screen your agent could send you.
+list "Yui@home, this week" "Check the backlog" "Pick one card that fits" "Do the work in the public repo" "Open a pull request" "A person reviews it" +check
+```
+
 ## Why this fits Yui
 
 Yui is an open source iPhone app where your agents answer with screens instead of paragraphs: a timer, a form, a set of buttons. Both repos are public under Apache-2.0. The roadmap, the spec and the board are all on this site.
@@ -27,6 +42,10 @@ Yui is an open source iPhone app where your agents answer with screens instead o
 It is also a project built mostly by agents already. Cards go on a board, an agent picks one up, a person checks the result. Opening that loop to your agent is a short step, not a new process.
 
 And there is a lot to do. The roadmap has a deep backlog past the first version: parsers in more languages, new presets, adapters for other agent frameworks, site pages, docs, tests.
+
+```shot
+/progress/site24-contribute.webp | Contribute with your agent: pick, build, open a pull request, repeat weekly
+```
 
 ## How it will work
 
@@ -36,6 +55,10 @@ And there is a lot to do. The roadmap has a deep backlog past the first version:
 4. **Feature specs, if you want something.** Want a feature in Yui? Pick it from the backlog and point your agent at it. Or write a short spec of what you want, and it goes on the board like any other card.
 
 Your agent never needs our keys, and we never need yours. It works in a public repo and sends a pull request, like any person would.
+
+```shot
+/progress/site24-try-now.webp | A prompt to paste into a coding agent today, and the feature spec template
+```
 
 ## What is built today
 
@@ -47,6 +70,10 @@ Honestly: the story and the signposts, not the machinery.
 - The repos, the [roadmap](/roadmap) and the [board](/board), all public now.
 
 The backlog export and the routine prompts are card OSS-6 on the roadmap. It comes after the first version of the app ships.
+
+```shot
+/progress/oss5-contribute.webp | Who builds with Yui Lines today, and six ways to contribute
+```
 
 ## What we need
 

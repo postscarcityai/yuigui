@@ -40,6 +40,7 @@ Against the leanest possible JSON, Yui Lines saves about a third of the tokens. 
 | `bench/` | Parser tests and the token benchmark |
 | `ROADMAP.md` | Phases, from hub site to App Store |
 | `docs/business/` | Business plan and revenue notes, in the open |
+| `docs/thoughts/` | Thoughts, Yui's blog at /thoughts: releases, whys and open calls |
 | `pitch/` | The original pitch recording, transcript and summary |
 | `brand/` | Logo files |
 

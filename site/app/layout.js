@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
           <GetYui />
           <footer className="wrap foot">
             <img src="/brand/yui-wordmark-coral.png" alt="" width="31" height="20" />
-            <span>Built in public at yuigui.com</span> | <a href="/business">Business</a> | <a href="/notes">Notes</a> | <a href="https://github.com/postscarcityai/yuigui">GitHub</a> | <a href="/help">Help</a> | <a href="/privacy">Privacy</a>
+            <span>Built in public at yuigui.com</span> | <a href="/business">Business</a> | <a href="/thoughts">Thoughts</a> | <a href="https://github.com/postscarcityai/yuigui">GitHub</a> | <a href="/help">Help</a> | <a href="/privacy">Privacy</a>
           </footer>
         </NotOnEmbed>
       </body>

@@ -41,7 +41,7 @@ export default function Contribute() {
         your agent can spend them building Yui: pick a card off the backlog, do it, open a pull request.
       </p>
       <p>
-        We call it Yui@home. The story is in the note <Link href="/notes/donate-your-idle-tokens-to-yui">Donate your idle tokens to Yui</Link>.
+        We call it Yui@home. The story is in the thought <Link href="/thoughts/donate-your-idle-tokens-to-yui">Donate your idle tokens to Yui</Link>.
       </p>
 
       <h2>How it will work</h2>
