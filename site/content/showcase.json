@@ -5,6 +5,7 @@
     "YUI-64": { "title": "Not listening yet", "shipped": "2026-09-25" },
     "INT-18": { "title": "A2A agents", "shipped": "2026-09-25" },
     "INT-12": { "title": "Your own model", "shipped": "2026-09-25" },
+    "INT-4": { "title": "Yui screens in Telegram", "shipped": "2026-09-25" },
     "YUI-44": { "title": "@mention another agent", "shipped": "2026-09-25" },
     "INT-7": { "title": "Claude, and Yui screens inside the chat", "shipped": "2026-09-25" },
     "YUI-1": { "title": "Yui Lines and the web renderer", "shipped": "2026-09-23" },
@@ -169,6 +170,7 @@
         { "id": "not-listening", "title": "Not listening yet", "what": "An agent that is paired but whose gateway has not started says so, instead of reading online. Its sheet shows the one command left to run, and a message you send it waits, then gets answered once the gateway is up.", "cards": ["YUI-64"], "app": "native", "shots": ["/progress/yui64-one-step-light.webp", "/progress/yui64-waits-light.webp", "/progress/yui64-answered-dark.webp"] },
         { "id": "a2a-agent", "title": "Any A2A agent", "what": "Agents built with ADK, LangGraph, CrewAI or Microsoft Agent Framework join by their Agent Card. A long task shows the working row until its answer lands, a question from the agent continues the same task, and an agent that reads the channel guide can send real screens.", "cards": ["INT-18"], "app": "native", "shots": ["/progress/int18-done-light.webp", "/progress/int18-tap-light.webp", "/progress/int18-asks-dark.webp"] },
         { "id": "own-model", "title": "Your own model", "what": "A model you run yourself with Ollama, LM Studio or vLLM joins through the model bridge. Yui sends it the channel guide and the thread every turn, so even a small local model draws screens and remembers your taps.", "cards": ["INT-12"], "app": "native", "shots": ["/progress/int12-screen-light.webp", "/progress/int12-tap-light.webp", "/progress/int12-remembers-dark.webp"] },
+        { "id": "telegram", "title": "Yui screens in Telegram", "what": "When the app is not around, the same screen reaches you in Telegram. Questions are buttons under the message and a tap answers your agent. A timer, a chart or a form opens in a Telegram Mini App, in the chat's own colors.", "cards": ["INT-4"], "app": "site", "shots": ["/progress/int4-questions-light.webp", "/progress/int4-open-in-yui-dark.webp", "/progress/int4-chart-dark.webp"] },
         { "id": "read-as-pages", "title": "Long messages read as pages", "what": "A long agent message never fills the thread. It folds to its first lines and a Read as pages button, which opens it as pages you swipe through, one idea per page.", "cards": ["YUI-79"], "app": "native", "shots": ["/progress/yui79-after-light.webp", "/progress/yui79-pages-dark.webp", "/progress/yui79-pages-middle-light.webp"] }
       ]
     },

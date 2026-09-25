@@ -217,7 +217,7 @@ Deliverables:
 - DONE Sep 23: Xcode on the Mac mini and a TestFlight pipeline on the App Store Connect API. The first build went out the same day.
 - DONE Sep 23: web mockups of the canonical screens at /mockups. Replaced Sep 24 by See it (SITE-14): every shipped screen, drawn live from Yui Lines or recorded in the app, each tied to its card and ship date.
 - DONE Sep 24: theme schema, as per-agent themes and theme lines (YUI-20).
-- MOVED: the Telegram quick win (inline buttons on Hermes questions) became INT-4 on the backlog. Not started.
+- MOVED: the Telegram quick win (inline buttons on Hermes questions) became INT-4. Step 1 (renderer and Mini App) done Sep 25, `spec/TELEGRAM.md`.
 
 ### Phase 1 | shipped Sep 24 2026: talk to your own Hermes agents in Yui
 
@@ -287,6 +287,7 @@ Deliverables:
 - NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
 - DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
 - DONE Sep 24, INT-1: the OpenClaw channel plugin. An OpenClaw agent talks in Yui the way a Hermes agent does, screens and taps included.
+- DONE Sep 25, INT-4 step 1: Yui in Telegram. Questions as inline keyboards whose taps come back as the phone's event line, the rest in a Telegram Mini App at yuigui.com/tg (`spec/TELEGRAM.md`). A bot that runs it is next.
 - DONE Sep 25, INT-12 step 1: the model bridge. Put a model you run yourself (Ollama, LM Studio, vLLM, llama.cpp) into Yui; Yui holds the thread and the guide is the system message (`spec/MODELS.md`). Cloud APIs on the hosted connector come later.
 - DONE Sep 25, INT-18 step 1: the A2A bridge. Add any A2A agent (ADK, LangGraph, CrewAI, Microsoft Agent Framework) by its Agent Card URL; A2A 1.0 and 0.3 (`spec/A2A.md`). The hosted version is step 2.
 - DONE Sep 25, INT-3: the Yui MCP server. Claude Code, Cursor or any MCP client puts a screen on your phone and reads the taps back (`spec/MCP.md`).
@@ -333,7 +334,7 @@ Chris, Sep 23: friendlier, a South Korean aesthetic, happy-cat energy, a little 
 
 ### Parallel track | Telegram fallback (any time)
 
-If Apple rejects the app or it stalls, Telegram already supports most of what the pitch needs: inline keyboards with callback buttons, reply keyboards, and **Telegram Mini Apps** (full web apps inside Telegram, with theme colors, haptics, and cloud storage). The same Yui Lines can render as a Mini App using the web renderer. This is the insurance policy. It is card INT-4 on the backlog and has not started.
+If Apple rejects the app or it stalls, Telegram already supports most of what the pitch needs: inline keyboards with callback buttons, reply keyboards, and **Telegram Mini Apps** (full web apps inside Telegram, with theme colors, haptics, and cloud storage). The same Yui Lines can render as a Mini App using the web renderer. This is the insurance policy, card INT-4. Step 1 shipped Sep 25: `adapters/telegram` in the app repo turns a reply into Telegram messages (questions as inline keyboards whose taps come back as the phone's event line, the rest behind an Open in Yui button), and yuigui.com/tg is the Mini App, in the chat's own theme colors (`spec/TELEGRAM.md`). A bot that runs it is step 2 and needs its own Telegram bot token.
 
 ## Adapters | every agent framework, Hermes first (INT-0)
 
@@ -416,7 +417,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-1 (done Sep 24): an OpenClaw channel plugin. Install it, pair with the app's code, and your OpenClaw agent answers in Yui.
 - INT-2 (done Sep 24): a webhook bridge in Python and Node. If your agent can answer an HTTP request, it can talk in Yui.
 - INT-3 (done Sep 25): a Yui MCP server, so any MCP agent can draw a screen. Claude Code and Cursor today; OAuth for the Claude and ChatGPT apps is INT-19.
-- INT-4: the Telegram fallback: Yui Lines as buttons and a Telegram Mini App.
+- INT-4 (step 1 done Sep 25): the Telegram fallback: Yui Lines as buttons and a Telegram Mini App (spec/TELEGRAM.md). Next: a bot that runs it, then a live test.
 - INT-5: connect without installing anything, through a hosted connector.
 - INT-6 (done Sep 25): where the hosted connector runs. Cloudflare, beside the Supabase relay (spec/HOSTING.md).
 - INT-7 (done Sep 25): Claude, through the MCP server, and Yui screens drawn inside Claude as an MCP App.

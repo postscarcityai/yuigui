@@ -17,6 +17,7 @@ const cards = [
   ["/developers/webhook", "Webhook bridge", "Not on Hermes? Any agent that answers an HTTP POST can talk in Yui. Python and Node, ten-line examples."],
   ["/developers#a2a", "A2A agents", "Built with ADK, LangGraph, CrewAI or Microsoft Agent Framework? Add it by its Agent Card URL."],
   ["/developers#models", "Your own model", "Running Ollama, LM Studio or vLLM? Put the model in Yui. It gets the guide and the thread, and answers with screens."],
+  ["/developers#telegram", "Telegram", "No Yui app nearby? The same screens in Telegram: questions as buttons, the rest in a Mini App at yuigui.com/tg."],
   ["/developers/mcp", "MCP server", "Claude Code, Cursor or any MCP client puts a screen on your phone with a tool call, and gets your taps back."],
   ["/developers/mcp#claude", "Claude", "Add Yui to Claude on the web, desktop or phone, Claude Code, or an Agent SDK agent. Where Claude draws MCP Apps, the screen shows in the chat too."],
   ["/developers/mcp#chatgpt", "ChatGPT", "Add Yui to ChatGPT in developer mode with one URL. The screen shows in the chat and on your phone, and a tap in either place answers."],
@@ -127,6 +128,22 @@ node yui-openai.ts run`}</Cmd>
         <code>try</code> shows whether a model draws screens before you pair it. Ollama is the default; <code>--server lmstudio</code>,{" "}
         <code>vllm</code> or <code>--url</code> pick another. Cloud APIs come later on Yui's hosted connector. Details in the{" "}
         <Link href="/developers/models">model bridge spec</Link>.
+      </p>
+
+      <h2 id="telegram">Yui in Telegram</h2>
+      <p>
+        For when the app is not around, the same Yui Lines render in Telegram. <code>ask</code>, <code>choose</code> and{" "}
+        <code>pick</code> become buttons under the message, and a tap goes back to the agent as the exact line the phone sends.
+        Lists, cards, stats and tables become formatted text. A timer, a chart, a deck or a form goes behind one{" "}
+        <strong>Open in Yui</strong> button that opens the whole screen in a Telegram Mini App at <code>yuigui.com/tg</code>, in the
+        chat's own colors. Try it without a bot:
+      </p>
+      <Cmd multi label="the Telegram renderer commands">{`git clone https://github.com/postscarcityai/yui && cd yui/adapters/telegram
+echo 'choose "What today?" Push|Pull|Legs' | node yui-telegram.ts render --yl --tap 2`}</Cmd>
+      <p>
+        It prints the Bot API calls a bot would make and the line the tap sends. Step 1 is the renderer and the Mini App; a bot
+        that runs them comes next. Details in the <Link href="/developers/telegram">Telegram spec</Link>, and{" "}
+        <a href="/tg?demo=book-a-client-call">here is the Mini App</a> outside Telegram.
       </p>
 
       <h2 id="share">Share, embed, badge</h2>

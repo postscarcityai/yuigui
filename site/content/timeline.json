@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 86,
-    "site": 222,
+    "app": 87,
+    "site": 224,
     "builds": 26,
-    "shipped": 120,
-    "screenshots": 250
+    "shipped": 121,
+    "screenshots": 253
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T13:09:15.405Z",
+          "at": "2026-09-25T13:21:36.577Z",
+          "title": "Yui screens in Telegram",
+          "card": "INT-4",
+          "anchor": "yui-screens-in-telegram",
+          "images": [
+            {
+              "src": "/progress/int4-questions-light.webp",
+              "alt": "The Telegram Mini App in Telegram's light theme: Scout asks which slot for a client call, with 3:00 pm, 4:00 pm and Type your own, then Send the invite now with a blue Yes, send button"
+            },
+            {
+              "src": "/progress/int4-open-in-yui-dark.webp",
+              "alt": "Opened from a Telegram Open in Yui button in the dark theme: Coach's What today? with Push, Pull and Legs, and the Tabata timer waiting as a pill"
+            },
+            {
+              "src": "/progress/int4-chart-dark.webp",
+              "alt": "A weight chart for the week drawn inside the Telegram Mini App on Telegram's black background"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 87,
+            "site": 224,
+            "builds": 26,
+            "shipped": 121
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T13:09:02.000Z",
           "title": "No more text bombs",
           "card": "YUI-79",
           "anchor": "no-more-text-bombs",
@@ -35,10 +63,10 @@
               "alt": "A middle page of the same report in light mode"
             }
           ],
-          "commits": 1,
+          "commits": 3,
           "totals": {
             "app": 86,
-            "site": 222,
+            "site": 223,
             "builds": 26,
             "shipped": 120
           }
@@ -771,6 +799,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "e393896",
+          "at": "2026-09-25T13:12:43.000Z",
+          "text": "Channel guide v16 bundled with the plugin: long answers are pages, not walls (YUI-79)",
+          "url": "https://github.com/postscarcityai/yui/commit/e393896"
+        },
+        {
+          "repo": "site",
+          "sha": "3ddb116",
+          "at": "2026-09-25T13:10:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3ddb116"
+        },
+        {
+          "repo": "site",
+          "sha": "6cb9d89",
+          "at": "2026-09-25T13:09:02.000Z",
+          "text": "Channel guide v16: long answers are pages, not walls (YUI-79). Over about 50 words (a report, a finished job, a build, a walkthrough),...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6cb9d89"
+        },
         {
           "repo": "app",
           "sha": "6f884df",

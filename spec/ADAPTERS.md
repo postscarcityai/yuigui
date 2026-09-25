@@ -186,9 +186,11 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Priority:** 3.
 - **Status:** step 1 shipped Sep 25: a local A2A bridge, spec `spec/A2A.md`, code in the app repo's `adapters/a2a`. Pair with the app's code and the agent's card URL. It speaks A2A 1.0 and 0.3 over JSON-RPC, streams tasks, picks a task back up after a drop or a restart, and continues a task that asked the person something. The client module is runtime-neutral (fetch and an event stream parser), so step 2 runs the same code in the hosted connector on Cloudflare; that step waits on a Cloudflare account and on YUI-34 for keys.
 
-### Telegram fallback | INT-4
+### Telegram fallback | INT-4 (renderer and Mini App done Sep 25, `spec/TELEGRAM.md`)
 
-Not an agent framework, but the same idea in reverse: Yui Lines rendered as Telegram buttons and a Mini App, for when the app is not around. Already on the board.
+Not an agent framework, but the same idea in reverse: Yui Lines rendered as Telegram buttons and a Mini App, for when the app is not around.
+
+- **Status:** step 1 shipped Sep 25: `adapters/telegram` in the app repo turns a reply into Bot API messages (ask, choose and pick as inline keyboards whose taps come back as the phone's exact event line; text presets as formatted text; everything else behind one Open in Yui button), and yuigui.com/tg is the Mini App that draws the whole screen in the chat's theme and sends taps back through `sendData` or a bridge the bot checks with Telegram's signed initData. Next: a bot that runs it, which needs its own BotFather token, then a live test.
 
 ## Order
 

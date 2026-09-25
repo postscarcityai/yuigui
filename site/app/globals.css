@@ -1009,3 +1009,24 @@ body:has(.embed-root) main.wrap { padding: 0; max-width: none; }
 .connect-qr { width: 148px; height: 148px; background: #fff; border-radius: 16px; padding: 8px; box-sizing: border-box; }
 .connect-qr svg { width: 100%; height: 100%; display: block; }
 button.linkish { background: none; border: 0; padding: 0; font: inherit; color: var(--link); text-decoration: underline; cursor: pointer; }
+
+/* INT-4: the Telegram Mini App (/tg). No phone frame, the whole Telegram sheet.
+   Telegram's theme colors arrive as --tg-* and the screen's own vars (TgApp.js). */
+.tg-root { min-height: 100svh; display: flex; flex-direction: column; background: var(--tg-bg, #0f1019); color: var(--text, #eceef6);
+  --text: #F6EEF7; --muted: #A99FB8; --panel: #2F2842; --panel2: #352D4A; --line: #3D3452; --accent2: #9FCDB9; }
+.tg-root.is-light { background: var(--tg-bg, #f6f6fa); --text: #16172a; --muted: #5d6280; --panel: #fff; --line: #e3e4ee; }
+html:has(.tg-root), body:has(.tg-root) { background: var(--tg-bg, transparent); }
+body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
+.tg-root .screen { height: auto; flex: 1; min-height: 60svh; border-radius: 0; background: var(--tg-bg, var(--screen-bg)); }
+.tg-root .screen.staged { min-height: 100svh; }
+.tg-root .pg-screen { overflow: visible; }
+.tg-root .bigbtn.p.acc, .tg-root .chip.on { color: var(--tg-button-text, #fff); }
+.tg-head { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--tg-line, #1f2233); font-size: 13px; }
+.tg-root.is-light .tg-head { border-bottom-color: var(--tg-line, #e3e4ee); }
+.tg-mark { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 8px; background: #FF7E8A; color: #231D33; font-weight: 800; font-size: 13px; }
+.tg-who { font-weight: 700; }
+.tg-where { margin-left: auto; color: var(--muted); font-size: 12px; }
+.tg-note { padding: 12px 14px; font-size: 13px; color: var(--muted); }
+.tg-note.ok { color: var(--accent2); }
+.tg-root.is-light .tg-note.ok { color: #0f7a6c; }
+.tg-note.bad { color: #ff8a8a; }

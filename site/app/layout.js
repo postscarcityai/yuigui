@@ -42,9 +42,10 @@ export default function RootLayout({ children }) {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            // An invite link's code never reaches analytics (YUI-56).
+            // An invite link's code never reaches analytics (YUI-56), nor a Mini App's screen (INT-4).
             gtag('config', '${GA_ID}', location.pathname.indexOf('/i/') === 0
-              ? { page_location: location.origin + '/i/', page_referrer: document.referrer.split('/i/')[0] } : {});
+              ? { page_location: location.origin + '/i/', page_referrer: document.referrer.split('/i/')[0] }
+              : location.pathname === '/tg' ? { page_location: location.origin + '/tg', page_referrer: '' } : {});
           `}
         </Script>
         <NotOnEmbed><Nav /></NotOnEmbed>

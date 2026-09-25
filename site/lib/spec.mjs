@@ -19,6 +19,7 @@ const ORDER = [
   ["webhook", "Webhook bridge", null, "Any agent that answers an HTTP POST, in Yui: what each turn sends and what to answer."],
   ["a2a", "A2A bridge", null, "Add any A2A agent (ADK, LangGraph, CrewAI) by its Agent Card: how turns, tasks and restarts map."],
   ["models", "Model bridge", null, "A model you run yourself (Ollama, LM Studio, vLLM) in Yui: what it is sent each turn, and how restarts work."],
+  ["telegram", "Telegram", null, "Yui Lines in Telegram: questions as buttons, the rest in a Mini App, taps back as the phone's line."],
   ["mcp", "MCP server", null, "Any MCP client (Claude Code, Cursor, n8n) puts a screen on your phone and reads the taps back."],
   ["games", "Games (draft)", null, "Draft: how an agent could describe a whole new game in lines, a board kit with rule words, not code."],
   ["flywheel", "Preset flywheel", null, "How custom screens agents keep sending become presets: the shape log, the weekly report and the checklist."],

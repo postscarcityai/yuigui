@@ -553,6 +553,8 @@ Errors come from two layers. The **parser** rejects a line on its own: an unknow
 
 ## 10. Telegram fallback
 
+What ships today is in `spec/TELEGRAM.md` (INT-4): `ask`, `choose` and `pick` as inline keyboards, text presets as text, and the rest in a Telegram Mini App that draws the whole screen. The mapping below is where it goes next.
+
 `ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, and a `game` sends its title with a link to play it in Yui. Everything else degrades to its text plus a link to open it in Yui.
 
 ## 11. Versioning
