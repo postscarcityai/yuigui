@@ -70,6 +70,15 @@ form name:text! email:email goal:voice submit="Next"`,
     tags: ["grid", "rows", "spreadsheet", "compare", "log", "sort"],
     yl: `table Macros Food|Cal|Protein "Eggs|140|12" "Oats|300|10" "Chicken|280|53" "Greek yogurt|150|20" units=||g +sort`,
   },
+  query: {
+    shelf: "data", doc: "agent-tables-table-create-put-query",
+    purpose: "A live view of an agent table: rows, a list, a chart or one number. Redraws when a row lands.",
+    tags: ["table", "log", "tracker", "totals", "macros", "crm", "database"],
+    yl: `table create meals Day:date Food:text Cal:number
+put meals Day=today Food=Oats Cal=300
+put meals Day=today Food=Eggs Cal=140
+query meals where=Day=today sum=Cal as stat y=Cal label="Today"`,
+  },
   card: {
     shelf: "show", doc: "card",
     purpose: "A card with a picture, a line of text and one button that does something.",

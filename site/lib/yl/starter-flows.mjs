@@ -114,6 +114,55 @@ export const STARTER_FLOWS = [
   %% note: mic "Anything your coach should know?"
   note[Note] --> done((Coach))`,
   },
+  {
+    name: "onboarding",
+    id: "onboard",
+    title: "Meet Yui",
+    submit: "Meet my agents",
+    agent: "Yui",
+    blurb: "The first run: your name, how much you know about AI, what you want help with. Ends with two starter agents picked for you.",
+    source: `flowchart TD
+  %% hi: page "Hi, I'm Yui" body="Three quick questions, then I suggest your first agents. You can change any answer before you send."
+  hi([Start]) --> you
+  %% you: form "What should I call you?" name:text!
+  you[Your name] --> know
+  %% know: slide "How much do you know about AI?" 1-5 "Brand new"|"I run agents"
+  know{AI so far}
+  know -->|know<=2| basics
+  know -->|know>=4| runs
+  know --> want
+  %% basics: page "An agent, in one line" body="An AI helper with one job, like a trainer or a planner. It remembers you, and in Yui it answers with screens, not walls of text." points="You talk or tap|It answers with a screen|You stay in charge"
+  basics[What is an agent?] --> want
+  %% runs: choose "Do you run an agent already?" Hermes|OpenClaw|"Something else"|"Not yet"
+  runs[Your agent] --> want
+  %% want: pick "What do you want help with?" "Get fit"|"Eat better"|"Get organized"|"Learn something" +other
+  want[What you want] --> words
+  %% words: mic "Tell me more, in your own words"
+  words[In your words] --> suggest{Suggest}
+  suggest -->|want=Get fit and want=Eat better| duo
+  suggest -->|want=Get fit| fit
+  suggest -->|want=Eat better| food
+  suggest -->|want=Learn something| learn
+  suggest --> organized
+  %% duo: page "Coach and Basil" body="A trainer and a nutritionist. They see the same week, so meals follow the training." points="Coach plans your workouts and runs the timer. Look: coach|Basil turns a photo of a meal into macros. Look: matcha"
+  duo[Coach and Basil] --> team
+  %% fit: page "Coach and Penny" body="A trainer, and an assistant who keeps the week clear for it." points="Coach plans your workouts and runs the timer. Look: coach|Penny keeps your lists, reminders and plans. Look: studio"
+  fit[Coach and Penny] --> team
+  %% food: page "Basil and Coach" body="A nutritionist first. A trainer is there when you want to move more." points="Basil turns a photo of a meal into macros. Look: matcha|Coach plans your workouts and runs the timer. Look: coach"
+  food[Basil and Coach] --> team
+  %% learn: page "Quill and Penny" body="A study buddy, and an assistant who makes the time for it." points="Quill quizzes you with cards and slides. Look: wizard|Penny keeps your lists, reminders and plans. Look: studio"
+  learn[Quill and Penny] --> team
+  %% organized: page "Penny and Quill" body="A personal assistant first. A study buddy for anything new you pick up." points="Penny keeps your lists, reminders and plans. Look: studio|Quill quizzes you with cards and slides. Look: wizard"
+  organized[Penny and Quill] --> team
+  %% team: pick "Which ones do you want?" Coach|Basil|Penny|Quill
+  team[Your agents] --> connect{Connect}
+  connect -->|runs=Hermes or runs=OpenClaw| plug
+  connect --> bring
+  %% plug: page "Plug in the agent you run" body="Install the Yui plugin and pair with a code. Each agent you picked becomes a profile on it, with its own look. The steps are at yuigui.com/start."
+  plug[Plug in] --> done((Agents))
+  %% bring: page "Yui brings the screens, you bring the agent" body="Yui has no built-in agent yet. Set up Hermes once, free, on your own computer, and each agent you picked becomes a profile on it. The steps are at yuigui.com/start."
+  bring[Bring an agent] --> done`,
+  },
 ];
 
 const slug = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

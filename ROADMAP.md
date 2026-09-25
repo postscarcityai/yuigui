@@ -274,7 +274,7 @@ Goals: someone with no agent can download Yui and start.
 
 Deliverables:
 - YUI-37: hosted default agent (runs on the relay, model via OpenRouter on the user's key at first).
-- YUI-38: generative onboarding interview: name form, AI-knowledge slider, "what do you want to do" with a mic button, then starter agents suggested (trainer, nutritionist, personal assistant).
+- YUI-38: generative onboarding interview: name form, AI-knowledge slider, "what do you want to do" with a mic button, then starter agents suggested (trainer, nutritionist, personal assistant). Step 1, the spec and a saved flow that runs in the playground, shipped Sep 25 ([Onboarding](/developers/onboarding), `flow onboarding`). Step 2, native in the app on first launch, is parked until after 0.2.0.
 - YUI-39: connector library v0: MCP servers the user logs in to via OAuth (HubSpot, Google Calendar, Gmail first).
 
 Dependencies: the Phase 3 vault. Cost model for hosted agent calls.
@@ -403,7 +403,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 **People with no agent yet**
 
 - YUI-37: a starter agent that works with no setup.
-- YUI-38: an onboarding interview that suggests your first agents.
+- YUI-38: an onboarding interview that suggests your first agents. Step 1 (spec + playground flow) shipped Sep 25; step 2, native in the app, after 0.2.0.
 - YUI-39: log in to your tools once (Google Calendar, Gmail, HubSpot) through MCP.
 
 **Smarter and faster**

@@ -1,4 +1,4 @@
-// FLOW-1 e2e: runs branch scenarios of the three starter flows in the
+// FLOW-1 e2e: runs branch scenarios of the starter flows in the
 // playground (every edge at least once) and checks the path, Back, edit from
 // the review, the fold-back and the one {flow} event.
 //   npx next dev -p 3117 &   then   node scripts/flow-e2e.mjs
@@ -82,6 +82,11 @@ const SC = [
   ["workout-checkin", "bad night, it hurts", { sleep: 3, energy: "Low", sore: ["Back"], hurt: "It hurts", today: "Mobility only", time: 20, note: "Lower back tight" }],
   ["workout-checkin", "ok day, legs just sore, full session", { sleep: 7, energy: "OK", sore: ["Legs"], hurt: "Just sore", today: "Full session", time: 60, note: "Ready" }],
   ["workout-checkin", "great day, nothing sore, rest day", { sleep: 9, energy: "High", sore: ["Nothing"], today: "Rest day", note: "All good" }],
+  ["onboarding", "new to AI, fit and food, no agent yet", { you: 1, know: 2, want: ["Get fit", "Eat better"], words: "Lose ten pounds", team: ["Coach", "Basil"] }],
+  ["onboarding", "runs Hermes, get fit", { you: 1, know: 5, runs: "Hermes", want: ["Get fit"], words: "Run a 10k", team: ["Coach"] }],
+  ["onboarding", "middle, eat better", { you: 1, know: 3, want: ["Eat better"], words: "Cook more", team: ["Basil"] }],
+  ["onboarding", "knows AI, no agent, learn", { you: 1, know: 4, runs: "Not yet", want: ["Learn something"], words: "Spanish", team: ["Quill", "Penny"] }],
+  ["onboarding", "runs OpenClaw, get organized", { you: 1, know: 4, runs: "OpenClaw", want: ["Get organized"], words: "My week", team: ["Penny"] }],
 ];
 for (const [name, label, plan] of SC) {
   const f = STARTER_FLOWS.find((x) => x.name === name);

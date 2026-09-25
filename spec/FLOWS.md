@@ -112,11 +112,12 @@ Conformance: `spec/conformance/js-26-flow.json`, run by the JavaScript runner on
 
 ## 7. Starter flows
 
-Every Yui has three, from real work. Each is under a dozen steps with at least one branch, and each runs in the playground: pick it under "Decks, plans, flows and walkthroughs".
+Every Yui has four: three from real work, and the first run. Each is under a dozen steps with at least one branch, and each runs in the playground: pick it under "Decks, plans, flows and walkthroughs".
 
 - **`website-intake`**, client website intake. Sit with a client and get everything out of them: the business, what we are building (a redesign asks about the site today, a shop about products and payments, a landing page skips the page list), the first action, brand, budget (15k and up offers a call).
 - **`self-scope`**, scope a project yourself. What done looks like, the kind of work (software asks where it runs), how big it feels (months or no idea get a page on cutting it down and ask for the smallest version), who does it (hiring out asks the budget), timing, the biggest worry.
 - **`workout-checkin`**, before a session. Sleep and energy (a bad night or low energy gets an easy-day page), anything sore (sore or does it hurt; a real hurt gets a rest-it page), today's session (a rest day skips the time), a note for the coach.
+- **`onboarding`**, meet Yui (YUI-38). Your name, how much you know about AI (brand new gets a page on what an agent is, 4 and up asks if you run one), what you want help with, in taps and then your own words. Suggests two starter agents from those answers, lets you pick, and ends on how to connect them today. The whole interview: [Onboarding](ONBOARDING.md).
 
 To tailor one to a person, the agent sends it inline with its own wording and keeps the ids and edges, so the answers still line up.
 

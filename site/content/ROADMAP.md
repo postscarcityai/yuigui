@@ -122,6 +122,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - YUI-65 (shipped Sep 25): a timeline preset: done above, now, queued below. In build 74.
 - YUI-66 (shipped Sep 25): reorder mode, drag to set priority on the board, with no agent turn. In build 74.
 - YUI-73 (shipped Sep 25): the rest of the war room. Needs you (cards waiting on Chris; a card with choices gets one-tap answers that land on the card and send it back to the queue, with no agent turn), running now (one row per lane), builds with the Install button, the latest feedback and the card it became, the MVP bar, quick links. Built from presets the app already draws. In build 74.
+- YUI-90 (backlog, pull after 0.2.0 ships; Chris Sep 25: "a totally dynamic, live update of the harness... really good real estate in the war room"): the release timeline goes live. The next version gets its own big panel at the top of the war room, built from the board: the YUI-SHIP card, its parent cards as done, now and next, what is on main since the last TestFlight build, and the ship steps (tests, upload, VALID, link). It updates in place as cards move (YUI-75 ids), with no agent turn. Needs build 74+.
 
 **Distant: EARN-1, build to earn.** Yui is built by whoever shows up, human or agent, and the work is what earns. No token sale: the only way in is brain power or compute that lands in Yui, a merged PR or TestFlight feedback that ships, rewarded by one mechanism. 10% of voting equity is set aside for the public pool, with more to follow. Humans first, and an open call to autonomous agents. Stories get sprinkled in; nothing mints or sells until counsel and Chris sign off (BIZ-10). Builds on Yui@home (SITE-24).
 
@@ -273,7 +274,7 @@ Goals: someone with no agent can download Yui and start.
 
 Deliverables:
 - YUI-37: hosted default agent (runs on the relay, model via OpenRouter on the user's key at first).
-- YUI-38: generative onboarding interview: name form, AI-knowledge slider, "what do you want to do" with a mic button, then starter agents suggested (trainer, nutritionist, personal assistant).
+- YUI-38: generative onboarding interview: name form, AI-knowledge slider, "what do you want to do" with a mic button, then starter agents suggested (trainer, nutritionist, personal assistant). Step 1, the spec and a saved flow that runs in the playground, shipped Sep 25 ([Onboarding](/developers/onboarding), `flow onboarding`). Step 2, native in the app on first launch, is parked until after 0.2.0.
 - YUI-39: connector library v0: MCP servers the user logs in to via OAuth (HubSpot, Google Calendar, Gmail first).
 
 Dependencies: the Phase 3 vault. Cost model for hosted agent calls.
@@ -402,7 +403,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 **People with no agent yet**
 
 - YUI-37: a starter agent that works with no setup.
-- YUI-38: an onboarding interview that suggests your first agents.
+- YUI-38: an onboarding interview that suggests your first agents. Step 1 (spec + playground flow) shipped Sep 25; step 2, native in the app, after 0.2.0.
 - YUI-39: log in to your tools once (Google Calendar, Gmail, HubSpot) through MCP.
 
 **Smarter and faster**

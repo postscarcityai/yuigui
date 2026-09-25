@@ -8,6 +8,7 @@
     "YUI-87": {"title": "One Update chip for lines the app can't draw", "release": "0.2.0"},
     "SITE-33": {"title": "Yui's values, written down", "shipped": "2026-09-25"},
     "SITE-34": {"title": "One type scale for the site", "shipped": "2026-09-25"},
+    "YUI-38": { "title": "Meet Yui: the onboarding interview", "shipped": "2026-09-25" },
     "FLOW-2": { "title": "The library: every screen and flow", "shipped": "2026-09-25" },
     "FLOW-1": { "title": "Flows: saved series of screens in Mermaid", "shipped": "2026-09-25" },
     "YUI-62": { "title": "Chat with a screen", "shipped": "2026-09-25" },
@@ -61,7 +62,6 @@
     "YUI-32": { "title": "Named screens: save and reopen a screen in two tokens", "shipped": "2026-09-24" },
     "YUI-33": { "title": "Agent tables on the phone", "shipped": "2026-09-25" },
     "YUI-35": { "title": "Meal photo to macros" },
-    "YUI-38": { "title": "Onboarding interview that builds your first agents" },
     "SOC-3": { "title": "Three marketing videos", "shipped": "2026-09-24" },
     "YUI-65": { "title": "War room timeline", "shipped": "2026-09-25" },
     "YUI-83": { "title": "Agents draw: sketch", "shipped": "2026-09-25" },
@@ -151,6 +151,7 @@
         { "id": "plan-findings", "title": "plan with pages", "what": "Findings to read, then questions, full screen with one Send. The answers land in the chat as your own message.", "cards": ["YUI-51"], "demo": "plan-findings", "agent": "Studio", "app": "native", "shots": ["/progress/yui51-flow-page.webp", "/progress/yui51-folded.webp", "/progress/yui51-record.webp"] },
         { "id": "plan-send", "title": "plan ends in Send", "what": "The last button of a plan says Send, and a card with nothing to act on has no button at all. No Got it, no OK: every button does something.", "cards": ["YUI-53"], "yl": "say \"Two quick ones, then I send the brief to the studio.\"\nplan@brief \"Site brief\"\npick@pages \"Which pages?\" Home|About|Classes|Contact\nask@launch \"Launch before the holidays?\" \"Yes, Dec 1\"|\"No rush\"", "agent": "Studio", "app": "native", "shots": ["/progress/yui53-plan-send-light.webp"] },
         { "id": "flow", "title": "flow", "what": "A saved series of screens written in Mermaid, with branches: the answer to one question picks the next ones. Back walks the path you took, the review lists only what you answered on it, and one event goes back at the end.", "cards": ["FLOW-1"], "demo": "flow-website-intake", "agent": "Scout", "app": "later", "shots": ["/progress/flow1-branch-step-dark.webp", "/progress/flow1-shop-branch-light.webp", "/progress/flow1-landing-branch-light.webp"] },
+        {"id": "onboarding", "title": "Meet Yui", "what": "The first run as a flow: your name, how much you know about AI, what you want help with. Each answer changes the next screen, and it ends with two starter agents picked for you and how to connect them.", "cards": ["YUI-38"], "demo": "flow-onboarding", "agent": "Yui", "app": "later", "shots": ["/progress/yui38-suggest-dark.webp", "/progress/yui38-want-light.webp", "/progress/yui38-bring-light.webp"]},
         { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] },
         { "id": "timeline", "title": "timeline", "what": "What shipped, what is running, what is next: done rows, a Now line, then the queue. Older rows fold; a row with a link opens Safari.", "cards": ["YUI-65"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui65-timeline-light.webp", "/progress/yui65-timeline-dark.webp"] },
         { "id": "sketch", "title": "sketch", "what": "A small drawn picture: a window, phone or chat bubble with rows struck out, highlighted or called out with an arrow, and an optional before and after. Shows a change instead of describing it.", "cards": ["YUI-83"], "demo": "sketch-card-ids", "agent": "Yui", "app": "later", "shots": ["/progress/yui83-sketch-card-ids-light.webp", "/progress/yui83-sketch-buttons-dark.webp"] },
@@ -229,7 +230,6 @@
       "lede": "What these cards will look like, drawn by the web renderer from Yui Lines that parse today. None of it is in the app yet, except where an entry says so.",
       "entries": [
         { "id": "planned-voice", "title": "Voice in, text out", "what": "Talk, read the answer, hands free and fast. Hold to talk already works in the app (builds 57 and 64); hands-free voice, a talk or type default per agent and a first word in under a second are not built.", "cards": ["YUI-14"], "yl": "mic \"What did you eat today?\"", "agent": "Coach" },
-        { "id": "planned-onboarding", "title": "Onboarding interview", "what": "A first-run interview that suggests your first agents.", "cards": ["YUI-38"], "demo": "Onboarding", "agent": "Yui" },
         { "id": "planned-macros", "title": "Meal photo to macros", "what": "Snap a plate, get an estimate, log it to a table on the phone.", "cards": ["YUI-35", "YUI-33"], "demo": "Macros so far", "agent": "Coach" }
       ]
     }

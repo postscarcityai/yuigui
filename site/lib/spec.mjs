@@ -26,6 +26,7 @@ const ORDER = [
   ["telegram", "Telegram", null, "Yui Lines in Telegram: questions as buttons, the rest in a Mini App, taps back as the phone's line."],
   ["mcp", "MCP server", null, "Any MCP client (Claude Code, Cursor, n8n) puts a screen on your phone and reads the taps back."],
   ["flows", "Flows", null, "Saved series of screens written in Mermaid: steps on the nodes, conditions on the edges, one event at the end."],
+  ["onboarding", "Onboarding", null, "The first run: Yui asks three quick questions on full screens and suggests your first agents. A saved flow you can run in the playground."],
   ["tables", "Agent tables", null, "Data an agent keeps on your phone: a workout log, macros, a small CRM. Three words, and the rows never leave the phone."],
   ["games", "Games (draft)", null, "Draft: how an agent could describe a whole new game in lines, a board kit with rule words, not code."],
   ["flywheel", "Preset flywheel", null, "How custom screens agents keep sending become presets: the shape log, the weekly report and the checklist."],
