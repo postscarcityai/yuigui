@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 81,
-    "site": 211,
+    "site": 213,
     "builds": 25,
-    "shipped": 116,
-    "screenshots": 237
+    "shipped": 117,
+    "screenshots": 241
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T11:30:34.317Z",
+          "at": "2026-09-25T11:56:12.358Z",
+          "title": "Add any A2A agent by its Agent Card",
+          "card": "INT-18",
+          "anchor": "add-any-a2a-agent-by-its-agent-card",
+          "images": [
+            {
+              "src": "/progress/int18-working-light.webp",
+              "alt": "A message to Echo, an A2A agent, with the working row: Pondering, 3 seconds"
+            },
+            {
+              "src": "/progress/int18-done-light.webp",
+              "alt": "The long task's whole answer: step 1 to step 6, done after 6 steps"
+            },
+            {
+              "src": "/progress/int18-tap-light.webp",
+              "alt": "The A2A agent sends a Yui screen with Tea and Coffee buttons; a tap on Tea gets Tea it is."
+            },
+            {
+              "src": "/progress/int18-asks-dark.webp",
+              "alt": "Dark: the agent asks Which color?, the person says Blue, the same task answers Blue it is."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 81,
+            "site": 213,
+            "builds": 25,
+            "shipped": 117
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T11:30:38.000Z",
           "title": "An agent that isn't listening yet says so",
           "card": "YUI-64",
           "anchor": "an-agent-that-isn-t-listening-yet-says-so",
@@ -35,10 +67,10 @@
               "alt": "Dark: once Bravo's gateway starts, the message that waited is answered"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 81,
-            "site": 211,
+            "site": 212,
             "builds": 25,
             "shipped": 116
           }
@@ -643,6 +675,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "9fa68bc",
+          "at": "2026-09-25T11:40:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9fa68bc"
+        },
+        {
+          "repo": "site",
+          "sha": "6f797e1",
+          "at": "2026-09-25T11:30:38.000Z",
+          "text": "YUI-64: an agent that is paired but not listening says so. Progress entry with four sim shots, See it entry, ROADMAP line, RELAY.md...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6f797e1"
+        },
         {
           "repo": "app",
           "sha": "580a604",

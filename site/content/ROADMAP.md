@@ -284,6 +284,7 @@ Deliverables:
 - NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
 - DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
 - DONE Sep 24, INT-1: the OpenClaw channel plugin. An OpenClaw agent talks in Yui the way a Hermes agent does, screens and taps included.
+- DONE Sep 25, INT-18 step 1: the A2A bridge. Add any A2A agent (ADK, LangGraph, CrewAI, Microsoft Agent Framework) by its Agent Card URL; A2A 1.0 and 0.3 (`spec/A2A.md`). The hosted version is step 2.
 - DONE Sep 25, INT-3: the Yui MCP server. Claude Code, Cursor or any MCP client puts a screen on your phone and reads the taps back (`spec/MCP.md`).
 - DONE Sep 25, INT-19: OAuth for the MCP server. The Claude and ChatGPT apps add Yui by pasting one URL; you approve in the app. The approval sheet rides the next build.
 - DONE Sep 25, INT-7: Claude. A guide for Claude's apps, Claude Code and Agent SDK agents (`spec/MCP.md` "Claude"), and Yui screens drawn inside the chat as an MCP App, tappable there too. Checked in the MCP Apps reference host and with Claude Code on a Mac; one look inside claude.ai itself is still to come.
@@ -337,7 +338,7 @@ Chris, Sep 24: Yui should work with any agent, not just ours. The full plan is `
 There are only five ways in, so five pieces of code cover every framework:
 
 - **A plugin inside the agent's own app.** Hermes today. OpenClaw and Flue next.
-- **A hosted connector** that speaks a standard protocol: Hermes's relay contract, and A2A, which Gemini, LangGraph, CrewAI and Microsoft's Agent Framework all speak.
+- **A hosted connector** that speaks a standard protocol: Hermes's relay contract, and A2A, which Gemini, LangGraph, CrewAI and Microsoft's Agent Framework all speak. The A2A part shipped Sep 25 as a bridge you run yourself (INT-18): add any A2A agent by its card URL, `spec/A2A.md`. The hosted version comes next.
 - **A model connector.** Point Yui at any OpenAI-compatible API: Meta's Muse Spark, Grok, Gemini, or a model on your own machine through Ollama, LM Studio or vLLM.
 - **A Yui MCP server.** Claude, ChatGPT, Grok and n8n add it as a tool and push screens to your phone. Shipped Sep 25 (INT-3) for clients that take a header, like Claude Code and Cursor: `spec/MCP.md`.
 - **A webhook.** If your code can answer an HTTP request, it can talk in Yui. Shipped Sep 24 (INT-2): the webhook bridge, `spec/WEBHOOK.md`.
@@ -425,7 +426,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-15: CrewAI.
 - INT-16: Microsoft Agent Framework, the successor to AutoGen.
 - INT-17: n8n, as a node and through MCP.
-- INT-18: an A2A client, so any agent with an Agent Card can join.
+- INT-18 (step 1 done Sep 25): an A2A client, so any agent with an Agent Card can join. Today as a bridge on your own computer (spec/A2A.md); hosted next, once Yui has a Cloudflare account.
 - YUI-48: text an agent from any phone over SMS.
 
 **Money and platforms**

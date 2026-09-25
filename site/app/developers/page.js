@@ -15,6 +15,7 @@ const cards = [
   ["/start", "Connect your agent", "Install the Hermes plugin and pair it with the app. About five minutes."],
   ["/developers/openclaw", "OpenClaw", "On OpenClaw? Install the Yui channel plugin, pair with the app's code, and your agent answers on your phone."],
   ["/developers/webhook", "Webhook bridge", "Not on Hermes? Any agent that answers an HTTP POST can talk in Yui. Python and Node, ten-line examples."],
+  ["/developers#a2a", "A2A agents", "Built with ADK, LangGraph, CrewAI or Microsoft Agent Framework? Add it by its Agent Card URL."],
   ["/developers/mcp", "MCP server", "Claude Code, Cursor or any MCP client puts a screen on your phone with a tool call, and gets your taps back."],
   ["/developers/mcp#claude", "Claude", "Add Yui to Claude on the web, desktop or phone, Claude Code, or an Agent SDK agent. Where Claude draws MCP Apps, the screen shows in the chat too."],
   ["/developers/mcp#chatgpt", "ChatGPT", "Add Yui to ChatGPT in developer mode with one URL. The screen shows in the chat and on your phone, and a tap in either place answers."],
@@ -42,7 +43,7 @@ export default function Developers() {
       <div className="eyebrow">Developers</div>
       <h1>How Yui works.</h1>
       <p className="lede">
-        Works today on iPhone, with Hermes, OpenClaw, any MCP client or any agent behind a webhook. Your agent sends short lines of text, and the app turns each line into a
+        Works today on iPhone, with Hermes, OpenClaw, any MCP client, any A2A agent or any agent behind a webhook. Your agent sends short lines of text, and the app turns each line into a
         native screen: a timer, a form, a choice. The agent never sends code, and it keeps running on your own machine.
       </p>
 
@@ -82,7 +83,27 @@ export default function Developers() {
       <p>
         Hermes works today, and so do <Link href="/developers/openclaw">OpenClaw</Link> and anything that answers an HTTP
         POST, through the <Link href="/developers/webhook">webhook bridge</Link>. MCP clients like Claude Code and Cursor
-        use the <Link href="/developers/mcp">Yui MCP server</Link>. More come after the MVP. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
+        use the <Link href="/developers/mcp">Yui MCP server</Link>, and A2A agents join by their Agent Card (below). More come
+        after the MVP. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
+      </p>
+
+      <h2 id="a2a">Add an A2A agent</h2>
+      <p>
+        Agents built with Google's ADK, LangGraph, CrewAI or Microsoft Agent Framework speak A2A and publish an Agent Card.
+        The A2A bridge adds one to Yui by that card: your messages go to it as A2A tasks, and its answers land in the thread.
+        It speaks A2A 1.0 and 0.3, shows the working row while a task runs, and picks a task back up after a restart without
+        sending it twice. Node 22.18 or newer, no dependencies.
+      </p>
+      <ol>
+        <li>In the app, <strong>Agents &gt; Add agent</strong>. Note the 6-digit code.</li>
+        <li>On your computer:</li>
+      </ol>
+      <Cmd multi label="the A2A bridge commands">{`git clone https://github.com/postscarcityai/yui && cd yui/adapters/a2a
+node yui-a2a.ts pair 123456 --card https://your-agent.example.com
+node yui-a2a.ts run`}</Cmd>
+      <p>
+        Yui's channel guide rides along on each new task, so an agent that passes it to its model can answer with screens.
+        Today the bridge runs on your machine; a hosted version comes next. Details in the <Link href="/developers/a2a">A2A spec</Link>.
       </p>
 
       <h2 id="share">Share, embed, badge</h2>

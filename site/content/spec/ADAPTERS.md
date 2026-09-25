@@ -182,6 +182,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** L.
 - **Depends on:** the hosted service (INT-6), auth for remote agents (per-agent keys in YUI-34).
 - **Priority:** 3.
+- **Status:** step 1 shipped Sep 25: a local A2A bridge, spec `spec/A2A.md`, code in the app repo's `adapters/a2a`. Pair with the app's code and the agent's card URL. It speaks A2A 1.0 and 0.3 over JSON-RPC, streams tasks, picks a task back up after a drop or a restart, and continues a task that asked the person something. The client module is runtime-neutral (fetch and an event stream parser), so step 2 runs the same code in the hosted connector on Cloudflare; that step waits on a Cloudflare account and on YUI-34 for keys.
 
 ### Telegram fallback | INT-4
 
@@ -191,7 +192,7 @@ Not an agent framework, but the same idea in reverse: Yui Lines rendered as Tele
 
 1. Hermes plugin (done), then INT-5 hosted Hermes.
 2. INT-1 OpenClaw (done Sep 24), INT-2 webhook (done Sep 24), INT-3 MCP server (done Sep 25, OAuth next in INT-19). These three open the door for everyone else.
-3. INT-7 Claude and INT-8 ChatGPT (cheap once INT-3 exists), INT-12 model connector, INT-13 Flue, INT-18 A2A.
+3. INT-7 Claude and INT-8 ChatGPT (done Sep 25), INT-12 model connector, INT-13 Flue, INT-18 A2A (local bridge done Sep 25, hosted next).
 4. INT-9 Gemini, INT-10 Grok, INT-11 Meta, INT-14 LangGraph, INT-17 n8n: mostly presets on the pieces above.
 5. INT-15 CrewAI, INT-16 Microsoft Agent Framework.
 
