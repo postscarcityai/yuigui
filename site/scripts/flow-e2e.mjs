@@ -87,6 +87,10 @@ const SC = [
   ["onboarding", "middle, eat better", { you: 1, know: 3, want: ["Eat better"], words: "Cook more", team: ["Basil"] }],
   ["onboarding", "knows AI, no agent, learn", { you: 1, know: 4, runs: "Not yet", want: ["Learn something"], words: "Spanish", team: ["Quill", "Penny"] }],
   ["onboarding", "runs OpenClaw, get organized", { you: 1, know: 4, runs: "OpenClaw", want: ["Get organized"], words: "My week", team: ["Penny"] }],
+  ["connect", "all three, allow all", { tools: ["Google Calendar", "Gmail", "HubSpot"], cal: "Allow", mail: "Allow", crm: "Allow" }],
+  ["connect", "calendar only, allow", { tools: ["Google Calendar"], cal: "Allow" }],
+  ["connect", "gmail and hubspot, mail not now", { tools: ["Gmail", "HubSpot"], mail: "Not now", crm: "Allow" }],
+  ["connect", "hubspot only, not now: nothing connected", { tools: ["HubSpot"], crm: "Not now" }],
 ];
 for (const [name, label, plan] of SC) {
   const f = STARTER_FLOWS.find((x) => x.name === name);

@@ -163,6 +163,39 @@ export const STARTER_FLOWS = [
   %% bring: page "Yui brings the screens, you bring the agent" body="Yui has no built-in agent yet. Set up Hermes once, free, on your own computer, and each agent you picked becomes a profile on it. The steps are at yuigui.com/start."
   bring[Bring an agent] --> done`,
   },
+  {
+    name: "connect",
+    id: "connect",
+    title: "Connect your tools",
+    submit: "Connect",
+    agent: "Yui",
+    blurb: "Pick the tools your agent may use, read what each one allows in plain words, allow or skip each. Sign-in buttons come next.",
+    source: `flowchart TD
+  %% hi: page "Connect your tools" body="Sign in once and your agent can use them for you. You pick the tools and see what each one allows before anything happens." points="You sign in on Google or HubSpot, never in Yui|Yui never sees your password|Switch any tool off later, from the drawer"
+  hi([Start]) --> tools
+  %% tools: pick "Which tools should your agent use?" "Google Calendar"|Gmail|HubSpot
+  tools[Your tools] --> has_cal{Calendar?}
+  has_cal -->|tools=Google Calendar| cal
+  has_cal --> has_mail
+  %% cal: choose "Let your agent use it?" Allow|"Not now" tag=Calendar title="Google Calendar" body="It can see your calendars and events and find a time that works. Adding or moving an event is a separate ask, the first time you want one. It never shares your calendar."
+  cal[Calendar] --> has_mail{Gmail?}
+  has_mail -->|tools=Gmail| mail
+  has_mail --> has_crm
+  %% mail: choose "Let your agent use it?" Allow|"Not now" tag=Mail title="Gmail" body="It can search and read your mail, add labels and write drafts. It has no send button: every draft waits in Gmail for you."
+  mail[Gmail] --> has_crm{HubSpot?}
+  has_crm -->|tools=HubSpot| crm
+  has_crm --> sees
+  %% crm: choose "Let your agent use it?" Allow|"Not now" tag=CRM title="HubSpot" body="It can look up contacts, companies and deals, add notes and tasks, and update a record when you ask. It sees only what your own HubSpot login can see."
+  crm[HubSpot] --> sees
+  %% sees: page "What your agent sees" body="Only what a tool sends back when the agent asks it something. Your sign-in stays with your agent, never in the Yui app and never in a Yui database." points="Anything it changes shows up here first|Switch a tool off from the drawer|Or remove it on Google or HubSpot"
+  sees[What it sees] --> ready{Any allowed?}
+  ready -->|cal=Allow or mail=Allow or crm=Allow| signin
+  ready --> skip
+  %% signin: page "Next: one sign-in each" body="Send this and your agent answers with a sign-in button for each tool you allowed. Then you can ask it things like:" points="Find me an hour with Dana this week|What came in today that needs me?|Who is my next call, and what did we say last time?"
+  signin[Sign in next] --> fin((Connected))
+  %% skip: page "Nothing connected, and that's fine" body="Your agent works without them. Connect a tool any time from the drawer."
+  skip[Nothing yet] --> fin`,
+  },
 ];
 
 const slug = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

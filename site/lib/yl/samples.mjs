@@ -566,6 +566,18 @@ game tictactoe "Beat me"`,
     yl: `say "New client? Let's get the brief."
 flow website-intake`,
   },
+  {
+    // YUI-39: the agent's answer to the connect flow's {flow} event. The real
+    // button carries a sign-in link the agent's host makes for this person;
+    // here it opens the docs, never a live sign-in.
+    slug: "connect-signin",
+    name: "Connect: the sign-in buttons after the flow",
+    agent: "Yui",
+    yl: `say "Two sign-ins and I can get to work."
+card "Google Calendar" "See your events and find a time that works." sub="You sign in on Google" cta="Sign in with Google" url=https://www.yuigui.com/developers/connectors#6-sign-in
+card "HubSpot" "Look up contacts and deals, add notes and tasks." sub="You sign in on HubSpot" cta="Sign in with HubSpot" url=https://www.yuigui.com/developers/connectors#6-sign-in
+choose "Once you're in, what first?" "Find an hour this week"|"Who is my next call?" +other`,
+  },
 ];
 
 // Agent tables (spec/TABLES.md): data an agent keeps on the phone. Each
