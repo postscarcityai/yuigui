@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Build 57: every fix you sent is on your phone",
+    "card": "YUI-52",
+    "body": "This morning's TestFlight notes were all fixed in the code by lunch, but none of them reached a phone: Apple's daily upload limit held every build after 33. Build 57 went live tonight, so we checked each note again on that exact code. The message box empties after you send, on every path. The X and Done on a photo gallery close it. Photos keep to their own space, including tall phone screenshots, which were the ones still overlapping in the last note; a new test sends four of them in every gallery layout and checks nothing runs under the card below. A long answer shows the agent is working and for how long, instead of telling you to restart. Narration skips the robot voices. There are more colors to pick from. And you can send a photo, or hold the mic to talk.",
+    "images": [
+      {
+        "src": "/progress/yui52-composer.webp",
+        "alt": "The Yui chat right after sending a message: the message is in the thread and the text box is empty"
+      },
+      {
+        "src": "/progress/yui52-gallery.webp",
+        "alt": "A gallery of tall app screenshots in a row, with a question card below it and no overlap"
+      },
+      {
+        "src": "/progress/yui52-working.webp",
+        "alt": "A long answer in progress: Wizard is working, 2m 19s, long jobs are fine, the answer lands here"
+      },
+      {
+        "src": "/progress/yui52-looks.webp",
+        "alt": "The Add agent screen with a grid of 29 colors sorted by hue"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Request an invite: the waitlist is now the way into the beta",
     "card": "SITE-26",
     "body": "The waitlist on yuigui.com is gone. In its place, at the bottom of every page, is Request an invite: first name, last name, email and phone. The email field says to use the one on your Apple ID, because that is where TestFlight sends the invite. Under the form, three steps say what happens next: we review your request, Apple emails you a TestFlight invite, you open it on your iPhone, install Yui and sign in with Apple. A request lands in the invites table as requested, written by the site's server, never by the browser. Asking twice with the same email just says thank you again. The public TestFlight link stays for people who already run Hermes. Bots get a hidden field and a rate limit, UTM tags still say which post brought someone, and the privacy page has a link right under the form. Next: agents that come with an invite (YUI-57).",

@@ -57,6 +57,7 @@ Shipped:
 - YUI-28: messages survive a sleeping Mac, a dropped network or a killed app.
 - YUI-26: safe for strangers: rate limits, a kill switch, and a fresh security audit of the shared backend.
 - YUI-27: ready for Apple's beta review: privacy labels, review notes, a demo code with a scripted demo agent for the reviewer, a help link.
+- YUI-52: build 57 on TestFlight with every fix from the Sep 24 feedback, each one checked again on that build: the composer clears, the gallery closes, photos stop overlapping (tall screenshots too), a working note on long answers, a natural voice, more colors, photos and hold-to-talk in the composer.
 - YUI-22: the public TestFlight link. Apple approved the beta on Sep 24: [https://testflight.apple.com/join/ykrYHwet](https://testflight.apple.com/join/ykrYHwet).
 
 Building now:
@@ -65,8 +66,8 @@ Building now:
 
 Up next:
 
-- YUI-52: the next TestFlight build, with today's feedback fixes: the composer clears, the gallery closes, photos stop overlapping, a natural voice, more colors, photos and hold-to-talk in the composer. It goes up once Apple's daily upload limit lifts.
 - YUI-29: the acceptance run. A stranger does the whole path.
+- YUI-61 (backlog): after sending a photo and dragging the keyboard away, check the thread settles on the newest message and nothing sits under the page pill.
 
 ### Next after the MVP
 
@@ -274,6 +275,7 @@ Simple first, flexible combinations always: layout and style are props, so a han
 - **Learn and plan (YUI-18):** presentations built on any topic you want to understand, with generated images and a quiz at the end; workflows, starting with plan mode, a guided series of screens that ends in a project (saved, branching workflows authored in Mermaid come later, FLOW-1); narrated walkthroughs where the agent talks you through what changed, before and after, step by step.
 - **Media pipeline (YUI-21):** agents generate and send real images and videos into Yui; your photos go back to the agent.
 - **Native versions (YUI-19)** of all of the above.
+- **Games (YUI-59, backlog):** tic-tac-toe against the agent, snake, and a few more basics, each one Yui Line, playable on the phone, moves and scores coming back to the agent. Later, Yui Lines that describe a whole new game instead of picking one (YUI-60).
 
 ### Every agent looks like itself (YUI-20)
 
@@ -346,6 +348,8 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-54: the top-left menu becomes each agent's home: switch agents from a drop-up at the bottom, pinned screens you reopen (your workout), things waiting for you, and a page about the agent.
 - YUI-44: group threads, several agents in one conversation.
 - YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP).
+- YUI-59: game presets: tic-tac-toe, snake and a few basics, to get people imagining what else fits on the screen.
+- YUI-60: Yui Lines that describe a game (board, pieces, rules, win), so agents can make new ones. Spec first, after YUI-59.
 
 **People with no agent yet**
 

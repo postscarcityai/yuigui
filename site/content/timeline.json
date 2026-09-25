@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 59,
-    "site": 151,
+    "app": 60,
+    "site": 153,
     "builds": 21,
-    "shipped": 89,
-    "screenshots": 161
+    "shipped": 90,
+    "screenshots": 165
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T01:05:36.446Z",
+          "at": "2026-09-25T02:20:31.640Z",
+          "title": "Build 57: every fix you sent is on your phone",
+          "card": "YUI-52",
+          "anchor": "build-57-every-fix-you-sent-is-on-your-phone",
+          "images": [
+            {
+              "src": "/progress/yui52-composer.webp",
+              "alt": "The Yui chat right after sending a message: the message is in the thread and the text box is empty"
+            },
+            {
+              "src": "/progress/yui52-gallery.webp",
+              "alt": "A gallery of tall app screenshots in a row, with a question card below it and no overlap"
+            },
+            {
+              "src": "/progress/yui52-working.webp",
+              "alt": "A long answer in progress: Wizard is working, 2m 19s, long jobs are fine, the answer lands here"
+            },
+            {
+              "src": "/progress/yui52-looks.webp",
+              "alt": "The Add agent screen with a grid of 29 colors sorted by hue"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 60,
+            "site": 153,
+            "builds": 21,
+            "shipped": 90
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T01:06:01.000Z",
           "title": "Request an invite: the waitlist is now the way into the beta",
           "card": "SITE-26",
           "anchor": "request-an-invite-the-waitlist-is-now-the-way-into-the-beta",
@@ -27,10 +59,10 @@
               "alt": "The Request an invite form on a desktop page, below the TestFlight, GitHub and Lend your agent cards"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 59,
-            "site": 151,
+            "site": 152,
             "builds": 21,
             "shipped": 89
           }
@@ -1874,6 +1906,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "2365ad2",
+          "at": "2026-09-25T02:19:06.000Z",
+          "text": "Tall screenshots stay inside their gallery: TallGalleryTests sends four phone screenshots (about 1:2.2) with a question card under them,...",
+          "url": "https://github.com/postscarcityai/yui/commit/2365ad2"
+        },
+        {
+          "repo": "site",
+          "sha": "e5edaba",
+          "at": "2026-09-25T02:11:03.000Z",
+          "text": "Roadmap: games in the preset library, YUI-59 (tic-tac-toe, snake, basics) and YUI-60 (Yui Lines that describe a game) parked in the backlog",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e5edaba"
+        },
+        {
+          "repo": "site",
+          "sha": "b79e435",
+          "at": "2026-09-25T01:06:01.000Z",
+          "text": "Request an invite replaces the waitlist: first and last name, the email on your Apple ID (TestFlight sends the invite there), phone, and...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b79e435"
+        },
         {
           "repo": "site",
           "sha": "146d5bf",

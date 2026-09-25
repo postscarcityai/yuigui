@@ -57,6 +57,7 @@ Shipped:
 - YUI-28: messages survive a sleeping Mac, a dropped network or a killed app.
 - YUI-26: safe for strangers: rate limits, a kill switch, and a fresh security audit of the shared backend.
 - YUI-27: ready for Apple's beta review: privacy labels, review notes, a demo code with a scripted demo agent for the reviewer, a help link.
+- YUI-52: build 57 on TestFlight with every fix from the Sep 24 feedback, each one checked again on that build: the composer clears, the gallery closes, photos stop overlapping (tall screenshots too), a working note on long answers, a natural voice, more colors, photos and hold-to-talk in the composer.
 - YUI-22: the public TestFlight link. Apple approved the beta on Sep 24: [https://testflight.apple.com/join/ykrYHwet](https://testflight.apple.com/join/ykrYHwet).
 
 Building now:
@@ -65,8 +66,8 @@ Building now:
 
 Up next:
 
-- YUI-52: the next TestFlight build, with today's feedback fixes: the composer clears, the gallery closes, photos stop overlapping, a natural voice, more colors, photos and hold-to-talk in the composer. It goes up once Apple's daily upload limit lifts.
 - YUI-29: the acceptance run. A stranger does the whole path.
+- YUI-61 (backlog): after sending a photo and dragging the keyboard away, check the thread settles on the newest message and nothing sits under the page pill.
 
 ### Next after the MVP
 
