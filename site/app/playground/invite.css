@@ -1,0 +1,24 @@
+/* Shared agents mock (spec/AGENTS.md "Shared agents"). Every class is ci-, so no site chrome leaks in. */
+.ci-face { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 14px; color: #fff; flex: none; }
+
+.ci-list { display: flex; flex-direction: column; gap: 10px; padding: 18px 14px; overflow-y: auto; flex: 1; }
+.ci-top { padding: 6px 4px 8px; }
+.ci-hi { font-size: 22px; font-weight: 800; }
+.ci-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.ci-row { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 12px; border-radius: 16px; border: 1px solid color-mix(in srgb, var(--ci) 40%, #262a3d); background: color-mix(in srgb, var(--ci) 12%, #141624); color: inherit; font: inherit; cursor: pointer; }
+.screen.light .ci-row { background: color-mix(in srgb, var(--ci) 9%, #fff); border-color: color-mix(in srgb, var(--ci) 35%, #e3e4ee); }
+.ci-txt { display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 2px; }
+.ci-nm { font-weight: 700; font-size: 14.5px; display: flex; align-items: baseline; gap: 6px; }
+.ci-what { font-weight: 600; font-size: 11.5px; color: var(--ci); }
+.ci-prev { font-size: 12.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ci-new { width: 9px; height: 9px; border-radius: 50%; background: var(--ci); flex: none; }
+.ci-gone { align-self: center; font-size: 11.5px; color: var(--muted); padding: 4px 0; }
+.ci-note { margin-top: auto; font-size: 11.5px; line-height: 1.45; color: var(--muted); padding: 10px 6px 4px; text-align: center; }
+
+.ci-thread { display: flex; flex-direction: column; flex: 1; min-height: 0; background: color-mix(in srgb, var(--ci) 7%, #0f1019); }
+.screen.light .ci-thread { background: var(--ci-bg); }
+.ci-back { background: none; border: 0; color: var(--ci); font-size: 26px; line-height: 1; padding: 0 4px 0 0; cursor: pointer; }
+.ci-head .ci-face { width: 30px; height: 30px; font-size: 13px; }
+.ci-head .st { color: var(--ci); }
+.ci-body .yl-say { background: color-mix(in srgb, var(--ci) 22%, #1a1c2a); border-radius: 20px; }
+.screen.light .ci-body .yl-say { background: color-mix(in srgb, var(--ci) 16%, #fff); color: #1d2a1a; }

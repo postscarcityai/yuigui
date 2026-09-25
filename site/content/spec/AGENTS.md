@@ -183,6 +183,178 @@ Every agent has its own look, so you always know who you are talking to. While a
 - `at` / `by` say when and who. An agent restyles itself with a YL `theme` line; the app applies it and saves it here through `yui-agents` `update`. A theme line older than `at` never overrides a newer pick, so replaying a thread is safe. The person picks a look in the agent's settings (`by: "user"`).
 - `yui-agents` cleans the object (known keys, known words, `#RRGGBB` hex) and drops the rest. `yui-connect` `session` and `heartbeat` return each agent's `theme`, so a restyle reaches the host within a heartbeat.
 
+## Shared agents (YUI-57, draft)
+
+Status: step 1, the spec and a playground mock (`/playground?demo=client-invite`). Nothing below is migrated or built yet. Step 2 is the migration, the grant script with tests and a simulator proof.
+
+The goal: the owner invites a client, and the client opens Yui for the first time with the agents the owner picked already there, each in the look the owner picked, each with a first message waiting. No pairing, no host, nothing to set up on the client's side.
+
+### Owned and shared
+
+- **Owned agent.** What every section above describes: a `yui_agents` row in your account, bound to your connector, talking to you. You can rename it, restyle it, delete it.
+- **Shared agent.** An owned agent that its owner lets someone else talk to. The row stays in the owner's account and the agent keeps running on the owner's host. The other person gets a **grant**: the right to have their own thread with it. They see it in their agent list with the look the owner picked, can mute it and move it in the list, and cannot rename, restyle, pair or delete it.
+
+One agent, many threads. Every person who holds a grant has a separate thread with the agent, keyed by `(agent_id, user_id)` exactly as today. The host runs each thread as its own session, so one person's history never shows up in another's.
+
+### Templates: what an invite carries
+
+A template is a named set of the owner's agents to hand out together, for example `client-default`, or one per client.
+
+| field | notes |
+| --- | --- |
+| name | slug, the same shape as `yui_invites.agent_template` (`^[a-z0-9][a-z0-9-]{0,39}$`), unique per owner |
+| title | what the owner sees, "Client default" |
+| items | one per agent: the agent, its look for this template (a `theme` object as in Look above, `{}` = the agent's own), its first message (Yui Lines allowed, at most 2,000 characters), its place in the list |
+
+`yui_invites.agent_template` (YUI-56) already exists and names the template. When the invite is claimed (first Sign in with Apple, or the code), `yui-auth` applies the template in the same transaction as the claim: one grant per item, then each item's first message as an agent row at the top of the new thread. A template can be edited any time; that changes future claims only. Grants already made keep the look and first message they were made with.
+
+A template may name only client-safe agents (below). Saving one that names any other agent is refused.
+
+### Grants (proposed SQL, not migrated)
+
+```sql
+-- Templates: named sets of the owner's agents.
+create table public.yui_agent_templates (
+  id uuid primary key default gen_random_uuid(),
+  owner_id uuid not null references public.yui_users(id) on delete cascade,
+  name text not null check (name ~ '^[a-z0-9][a-z0-9-]{0,39}$'),
+  title text not null check (char_length(title) between 1 and 60),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (owner_id, name)
+);
+create table public.yui_agent_template_items (
+  template_id uuid not null references public.yui_agent_templates(id) on delete cascade,
+  agent_id uuid not null,
+  owner_id uuid not null,
+  theme jsonb not null default '{}' check (jsonb_typeof(theme) = 'object' and pg_column_size(theme) <= 2048),
+  first_message text check (char_length(first_message) between 1 and 2000),
+  sort int not null default 0,
+  primary key (template_id, agent_id),
+  foreign key (agent_id, owner_id) references public.yui_agents(id, user_id) on delete cascade
+);
+
+-- Grants: one person may talk to one of the owner's agents.
+create table public.yui_agent_grants (
+  id uuid primary key default gen_random_uuid(),
+  agent_id uuid not null,
+  owner_id uuid not null,
+  user_id uuid not null references public.yui_users(id) on delete cascade,
+  role text not null default 'user' check (role in ('user')),
+  theme jsonb not null default '{}' check (jsonb_typeof(theme) = 'object' and pg_column_size(theme) <= 2048),
+  first_message text check (char_length(first_message) between 1 and 2000),
+  template text check (template ~ '^[a-z0-9][a-z0-9-]{0,39}$'),
+  invite_id uuid references public.yui_invites(id) on delete set null,
+  push_muted boolean not null default false,
+  sort int not null default 0,
+  granted_at timestamptz not null default now(),
+  revoked_at timestamptz,
+  foreign key (agent_id, owner_id) references public.yui_agents(id, user_id) on delete cascade,
+  check (user_id <> owner_id)
+);
+create unique index yui_agent_grants_live on public.yui_agent_grants (agent_id, user_id)
+  where revoked_at is null;
+create index yui_agent_grants_user on public.yui_agent_grants (user_id) where revoked_at is null;
+
+revoke all on public.yui_agent_templates, public.yui_agent_template_items, public.yui_agent_grants
+  from public, anon, authenticated;
+alter table public.yui_agent_templates enable row level security;
+alter table public.yui_agent_template_items enable row level security;
+alter table public.yui_agent_grants enable row level security;
+
+-- True while the user holds a live grant for the agent.
+create function public.yui_granted(agent uuid, uid uuid) returns boolean
+language sql stable security definer set search_path = '' as $$
+  select exists (select 1 from public.yui_agent_grants g
+                  where g.agent_id = agent and g.user_id = uid and g.revoked_at is null)
+$$;
+
+-- The app: a person reads their own live grants and may change only mute and order.
+grant select on public.yui_agent_grants to yui_user;
+grant update (push_muted, sort) on public.yui_agent_grants to yui_user;
+create policy yui_grants_holder on public.yui_agent_grants for select to yui_user
+  using (user_id = public.yui_uid() and revoked_at is null);
+create policy yui_grants_holder_edit on public.yui_agent_grants for update to yui_user
+  using (user_id = public.yui_uid() and revoked_at is null)
+  with check (user_id = public.yui_uid() and revoked_at is null);
+-- The owner reads the grants they gave (who has which agent), never the threads.
+create policy yui_grants_owner on public.yui_agent_grants for select to yui_user
+  using (owner_id = public.yui_uid());
+-- Templates are read and written only by the service role (the grant script, yui-auth).
+
+-- Messages: today a row's (agent_id, user_id) must be the agent's owner. It becomes
+-- "the owner, or someone holding a live grant", checked by a trigger instead of the
+-- composite foreign key, and every policy below adds the same test.
+--   yui_user read/write/delete: user_id = yui_uid()
+--     and (agent owned by yui_uid() or yui_granted(agent_id, yui_uid()))
+--   yui_connector read/write: yui_connector_serves(agent_id)
+--     and (user_id = yui_uid() or yui_granted(agent_id, user_id))
+```
+
+What the rules add up to:
+
+- **A client reads only their own grants and their own thread.** `user_id = yui_uid()` stays on every message policy, so no client ever reads another client's messages, or the owner's, with the same agent.
+- **The owner does not read client threads in the app.** The owner's policies see who holds a grant, not what they said. The agent's host does keep the conversation (it runs the agent), and the client is told so on the first screen (below).
+- **The host serves a granted thread only while the grant is live.** `yui_granted` is checked on read and on write, so a revoked client's messages stop reaching the host and the agent can no longer write into that thread.
+- **The list.** `yui_agent_list` gains the person's live grants: the owner's agent row with the grant's `theme` merged over the agent's own, the grant's `push_muted` and `sort`, `shared: true` and the owner's first name. `status` is derived from the owner's connector, as for an owned agent.
+- **Deleting.** The client deleting their account cascades their grants and their threads. The owner deleting the agent cascades every grant and every thread with it. Revoking (below) keeps the rows hidden for 30 days, then deletes the thread.
+
+### Revoke
+
+Revoke sets `revoked_at`. From that moment the grant is gone from `yui_agent_list`, the thread is unreadable (the policies test a live grant) and the host cannot write to it. The app drops the agent from the list on its next list refresh, and a push (`kind: "revoked"`, no content) makes that refresh immediate. If the client has the thread open, it closes. The list shows one quiet line, "Basil is no longer shared with you." (with the agent's name), until the app is next opened. Nothing of the thread is shown again. Granting the same agent later starts a new, empty thread.
+
+### Client-safe: required before anyone else gets an agent
+
+A shared agent talks to someone who is not its owner, on the owner's machine. Agents on a developer's Mac usually run every turn with a full shell, the owner's files and the owner's keys. That is fine for the owner and never fine for a client: one prompt from a client could read the owner's data or another client's. It is also why the agent Apple's reviewers talk to is scripted.
+
+So a grant needs an agent marked `client_safe`, and an agent earns the mark only if its host reports all of this for it:
+
+1. **Its own profile.** A Hermes profile used for nothing else. No shared memory with the owner's own agents, no keys in its `.env` beyond its own model key.
+2. **No shell, no files outside its sandbox.** Terminal and code execution are off, or run in a container or on a separate host (Hermes terminal backends `docker`, `modal` or `ssh` to a machine with nothing of the owner's on it). File tools are off, or confined to the sandbox. No browser session with the owner's logins, no computer use.
+3. **No reach into the rest of the host.** No delegation, cron, kanban, skill editing, messaging to other platforms, or MCP servers holding the owner's accounts.
+4. **Nothing carried between people.** An agent shared with more than one person keeps memory and session search off, or scoped per person, so one client's facts never reach another's thread.
+5. **A model reached through an API.** Never a model runner that is itself an agent with a shell (a local CLI agent in bypass-permissions mode, for example the Claude Code shim), whatever the Hermes toolsets say.
+
+How it is enforced, three times:
+
+- **The host reports it.** The Hermes plugin sends each profile's `sandbox` summary with the heartbeat: `{terminal: "off"|"container"|"remote"|"local", files: "off"|"sandbox"|"host", reach: [...], memory: "off"|"per-user"|"shared", runner: "api"|"cli-agent"}`. `yui-connect` computes `safe` from it with the five rules; the owner's app shows it on the agent's settings as "Safe to share" or "Not safe to share: it has a shell on your computer".
+- **The grant script refuses.** `grant.py` (app repo, `supabase/scripts/`, step 2) refuses to save a template or make a grant for an agent that is not client-safe right now, and says which rule failed: `refused: coach is not client-safe (terminal: local shell)`, exit code 3. There is no `--force`. The same check runs in the database: an insert into `yui_agent_grants` or `yui_agent_template_items` raises unless the agent's `client_safe` is true, so neither `yui-auth` nor a hand-written query can skip it.
+- **The host checks again on every turn.** Before running a turn for anyone other than the owner, the plugin re-reads its own profile's sandbox. If it no longer passes (someone turned the shell back on), the turn does not run, the client sees "This agent is paused by its owner", the owner gets a card saying which rule broke, and `client_safe` is cleared on the next heartbeat, which pauses every grant of that agent until it passes again.
+
+New columns on `yui_agents` (written only by the service role, from the heartbeat): `client_safe boolean not null default false`, `sandbox jsonb`, `client_safe_at timestamptz`.
+
+Owner-only features stay owner-only. War room taps, invite approvals, board reorders and `choose@need-...` answers are acted on only when the sender is the agent's owner (`user_id` equals the agent's `user_id`); from a granted user they are ignored.
+
+### The owner's side: invite from Yui
+
+The owner makes templates and grants by asking Yui, not in a settings screen. Yui (the project agent) runs the grant script and answers with one plan, the owner fills it in once, and Invite sends it:
+
+```yui
+say "Two of your agents are safe to share. Pick who gets what."
+plan@invite "New client invite" submit=Invite
+page "Who can be shared" body="Only agents marked safe to share show up here. Each one runs in its own sandbox: no shell, none of your files, nothing from your other clients." points="Penny, an assistant. Safe to share|Basil, a nutritionist. Safe to share|Scout is hidden: it has a shell on your computer"
+form@who "Who is it for?" first:text! last:text! "Apple ID email":email! phone:phone
+pick@agents "Which agents do they get?" "Penny, assistant"|"Basil, nutritionist"
+choose@look "How should they look?" "Each agent's own"|Candy|Ocean|Forest
+form@hello "What does each one say first?" "Penny says":long! "Basil says":long!
+choose@save "Save this as a template?" "Save as client-default"|"Just this once"
+```
+
+On Invite, Yui runs `grant.py template save` (when asked to save) and `invite.py add` then `approve --template`, and answers with the invite link card as it does for any invite (YUI-56). A later "take Basil away from Maya" is `grant.py revoke basil <email>`, confirmed in one line.
+
+Script surface (step 2): `grant.py safe <agent>` (show the sandbox report and which rules pass), `template save|list|show|delete`, `grant <agent> <email|user> [--look] [--hello]`, `revoke <agent> <email|user>`, `list [--user]`. Tests: a non-client-safe agent is refused by the script and by the database; a claim applies the template; a client never reads another client's thread or the owner's; revoke hides the thread and stops the host at once.
+
+### The client's side: first open
+
+The client signs in with Apple, the invite is claimed, and the agent list is already filled:
+
+- A short header: "Hi Maya. Sam set these up for you."
+- One row per granted agent, in its look: face, name, what it does, and the first message as the preview with a New dot.
+- One plain line under the list: "These agents run on Sam's computer, which keeps your conversations. Other people Sam invites never see them."
+- Tap a row and the thread opens in that agent's look with the first message waiting.
+
+No Add agent button until the client asks for one; an invited account starts with what it was given. The client can mute a shared agent and move it; its settings sheet says "Shared by Sam" instead of rename and delete.
+
 ## Default agent while testing
 
 Chris's account holds one agent: **Yui**, `remote_ref` `yui` (the Hermes profile at `~/.hermes/profiles/yui`), default, Yui's own mark as avatar, bound to the Mac mini's connector. Everything else Chris adds himself through the flows above.
@@ -191,3 +363,4 @@ Chris's account holds one agent: **Yui**, `remote_ref` `yui` (the Hermes profile
 
 - `http`, `mcp`, `hosted` connectors: the kinds exist, no host code yet.
 - Realtime push of registry changes; the app polls while the Agents sheet is open.
+- Shared agents (above): templates, grants, the client-safe check and revoke are specced, not built (YUI-57 step 2).

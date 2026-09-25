@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 123,
-    "site": 301,
+    "site": 303,
     "builds": 29,
-    "shipped": 159,
-    "screenshots": 324
+    "shipped": 160,
+    "screenshots": 328
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T23:04:53.679Z",
+          "at": "2026-09-25T23:11:52.449Z",
+          "title": "Invite a client and their agents are already there, on paper and in the playground",
+          "card": "YUI-57",
+          "anchor": "invite-a-client-and-their-agents-are-already-there-on-paper-and-in-the-playgroun",
+          "images": [
+            {
+              "src": "/progress/yui57-invite-dark.webp",
+              "alt": "Dark mode, step 1 of 6 of New client invite: Who can be shared. Only agents marked safe to share show up. Penny, an assistant, and Basil, a nutritionist, are safe to share; Scout is hidden because it has a shell on your computer."
+            },
+            {
+              "src": "/progress/yui57-first-open-light.webp",
+              "alt": "Light mode, the client's first open: Hi Maya. Sam set these up for you. A blue Penny row and a green Basil row, each with its first message and a new dot. Under them: these agents run on Sam's computer, and other people Sam invites never see them."
+            },
+            {
+              "src": "/progress/yui57-thread-dark.webp",
+              "alt": "Dark mode, Basil's thread in green, Shared by Sam: Hi Maya, I'm Basil. Send me a photo of any meal. Then Want a quick check-in each evening? Yes, at 7 or Not now."
+            },
+            {
+              "src": "/progress/yui57-revoked-dark.webp",
+              "alt": "Dark mode, after a revoke: only Penny is left in the list, and one quiet line says Basil is no longer shared with you."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 123,
+            "site": 303,
+            "builds": 29,
+            "shipped": 160
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T23:04:44.000Z",
           "title": "Yui 0.2.0: every agent gets a home",
           "card": "YUI-SHIP",
           "anchor": "yui-0-2-0-every-agent-gets-a-home",
@@ -41,8 +73,8 @@
           ],
           "commits": 0,
           "totals": {
-            "app": 123,
-            "site": 301,
+            "app": 122,
+            "site": 302,
             "builds": 29,
             "shipped": 159
           }
@@ -1713,11 +1745,25 @@
       ],
       "commits": [
         {
+          "repo": "site",
+          "sha": "eda8cdf",
+          "at": "2026-09-25T23:10:22.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/eda8cdf"
+        },
+        {
           "repo": "app",
           "sha": "8e71550",
           "at": "2026-09-25T23:04:46.000Z",
           "text": "Group threads in the database and the Hermes plugin (YUI-93, step 2 of YUI-77; spec yuigui spec/GROUPS.md, section 7 \"As built\")....",
           "url": "https://github.com/postscarcityai/yui/commit/8e71550"
+        },
+        {
+          "repo": "site",
+          "sha": "6828ef2",
+          "at": "2026-09-25T23:04:44.000Z",
+          "text": "Yui 0.2.0 is on TestFlight (build 122), and the site says so (SITE-36). See it: the 0.2.0 group and its cards (YUI-54, 86, 75, 84, 87)...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6828ef2"
         },
         {
           "repo": "site",

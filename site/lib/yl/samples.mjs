@@ -144,6 +144,35 @@ choose "Which nights?" "Run days"|"Every night"
 say "@Quill can you turn the wind-down into flash cards?"`,
   },
   {
+    // Shared agents (spec/AGENTS.md "Shared agents", YUI-57 step 1): the lines are
+    // Yui's invite plan for the owner. The client's first open is the app's own
+    // screen (playground/invite.js), switched with the tabs above the phone.
+    name: "Invite a client: their agents are waiting",
+    slug: "client-invite",
+    agent: "Yui",
+    invite: {
+      owner: "Sam", client: "Maya", revoked: "Basil",
+      agents: [
+        { name: "Penny", what: "Assistant", c: "#4AA8F0", bg: "#F2F8FF",
+          preview: "Hi Maya, I'm Penny. I keep your week in order.",
+          hello: `say "Hi Maya, I'm Penny. I keep your week in order."
+choose "Where should we start?" "This week's plan"|"A to-do list"|"Just say hi"` },
+        { name: "Basil", what: "Nutritionist", c: "#7FA650", bg: "#F6F8EF",
+          preview: "Hi Maya, I'm Basil. Send me a photo of any meal.",
+          hello: `say "Hi Maya, I'm Basil. Send me a photo of any meal and I'll tell you what's in it."
+ask "Want a quick check-in each evening?" "Yes, at 7"|"Not now"` },
+      ],
+    },
+    yl: `say "Two of your agents are safe to share. Pick who gets what."
+plan@invite "New client invite" submit=Invite
+page "Who can be shared" body="Only agents marked safe to share show up here. Each one runs in its own sandbox: no shell, none of your files, nothing from your other clients." points="Penny, an assistant. Safe to share|Basil, a nutritionist. Safe to share|Scout is hidden: it has a shell on your computer"
+form@who "Who is it for?" first:text! last:text! "Apple ID email":email! phone:phone
+pick@agents "Which agents do they get?" "Penny, assistant"|"Basil, nutritionist"
+choose@look "How should they look?" "Each agent's own"|Candy|Ocean|Forest
+form@hello "What does each one say first?" "Penny says":long! "Basil says":long!
+choose@save "Save this as a template?" "Save as client-default"|"Just this once"`,
+  },
+  {
     name: "Demo: custom {json} escape hatch",
     agent: "Scout",
     yl: `say "No preset fits a split-flap countdown, so the agent drops to custom."

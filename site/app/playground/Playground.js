@@ -11,6 +11,7 @@ import { ScreenCtx } from "./science";
 import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
 import { encodeYL, readYL } from "../../lib/share-code.mjs";
 import { GroupBefore, GroupHead, Guard, LOOKS, Turn } from "./group";
+import { ClientOpen, INVITE_VIEWS } from "./invite";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA];
@@ -80,6 +81,10 @@ export default function Playground() {
   // A group thread demo (spec/GROUPS.md): the app's rows around the live reply.
   const group = shared ? null : ALL[idx].group;
   const groupEvent = useCallback((ev) => setEvents((evs) => [{ dir: "user", t: new Date(), ev }, ...evs].slice(0, 40)), []);
+  // A shared agents demo (spec/AGENTS.md): the owner's plan, or the client's first open.
+  const invite = shared ? null : ALL[idx].invite;
+  const [inviteView, setInviteView] = useState("make");
+  const client = invite && inviteView !== "make";
 
   // Live mode: every edit re-renders the whole document. Keys are stable, so
   // components that did not change keep their state.
@@ -103,6 +108,7 @@ export default function Playground() {
     const slug = q.get("demo");
     const yl = q.get("yl");
     if (q.get("theme") === "light") setLight(true);
+    if (INVITE_VIEWS.some(([k]) => k === q.get("view"))) setInviteView(q.get("view"));
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
     // ?yl= holds a Share code (SITE-19) or plain lines (the community gallery); readYL takes both.
@@ -381,12 +387,20 @@ export default function Playground() {
 
       <div className="pg-right">
         <div className="pg-tabs">
-          {screens.map((k) => (
+          {invite ? INVITE_VIEWS.map(([k, label]) => (
+            <button key={k} className={`pg-tab ${k === inviteView ? "on" : ""}`} onClick={() => {
+              const url = new URL(window.location.href);
+              if (k === "make") url.searchParams.delete("view"); else url.searchParams.set("view", k);
+              window.history.replaceState(null, "", url);
+              setInviteView(k);
+            }}>{label}</button>
+          )) : null}
+          {client ? null : screens.map((k) => (
             <button key={k} className={`pg-tab ${k === shown ? "on" : ""}`} onClick={() => setView(k)}>
               Screen {k}{state.screens[k].length ? ` · ${state.screens[k].length}` : ""}
             </button>
           ))}
-          {staged.length ? (
+          {staged.length && !client ? (
             <button className={`pg-tab ${state.stage ? "on" : ""}`} onClick={state.stage ? closeStage : openStage}>
               ⤢ Full screen · {staged.length}
             </button>
@@ -402,13 +416,14 @@ export default function Playground() {
           <div className={`screen ${light ? "light" : ""}`}>
             <div className="notch" />
             <div className="sbar" />
-            {group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
+            {client ? <ClientOpen key={`ci:${inviteView}:${epoch}`} invite={invite} view={inviteView} onEvent={groupEvent} /> : null}
+            {client ? null : group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
               <div className="ahead">
                 <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>
                 <div><div className="nm">{agent}</div><div className="st">{streaming ? "generating..." : `screen ${shown}`}</div></div>
               </div>
             )}
-            {shelf.length ? (
+            {shelf.length && !client ? (
               <div className="yl-shelf" role="list" aria-label="Saved screens">
                 {shelf.map((name) => (
                   <span key={name} className="yl-shelf-chip" role="listitem">
@@ -418,7 +433,7 @@ export default function Playground() {
                 ))}
               </div>
             ) : null}
-            <div className="pg-screen">
+            <div className="pg-screen" style={client ? { display: "none" } : undefined}>
               <ScreenCtx.Provider value={{ nodes, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, write: addData, agent, screen: shown, dispatch, fold, closeStage }}>
                 {group && shown === "1" ? <GroupBefore key={`gb:${epoch}`} items={group.before} onEvent={groupEvent} /> : null}
                 {group && shown === "1" ? (
@@ -438,7 +453,7 @@ export default function Playground() {
               </ScreenCtx.Provider>
               {!nodes.length && !pills.length ? <div className="pg-hint" style={{ textAlign: "center", marginTop: 40 }}>Empty screen</div> : null}
             </div>
-            <Stage open={state.stage && staged.length > 0} onClose={closeStage} agent={agent}>
+            <Stage open={state.stage && staged.length > 0 && !client} onClose={closeStage} agent={agent}>
               <ScreenCtx.Provider value={{ nodes: staged, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, write: addData, agent, screen: "full", dispatch, fold, closeStage }}>
                 {groupNodes(staged).map((n) => <LiveSlot key={`${epoch}:${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
               </ScreenCtx.Provider>

@@ -115,7 +115,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 **Now: INV-1, invite-only beta and client onboarding.** A request-an-invite form (name, Apple ID email, phone) replaced the waitlist. Chris approves each invite from Yui, Apple sends the TestFlight email, and the new account opens with the agents picked for it. Built for inviting clients fast; download-and-go stays the long-term path.
 
 - YUI-56 (built, in build 61): invites end to end, from request to first sign-in. It waits on one live test with Apple's TestFlight email before it counts as done.
-- YUI-57 (next): default agents per invite, client-safe agents only.
+- YUI-57: default agents per invite, client-safe agents only. Step 1, the spec and a playground mock, shipped Sep 25 ([Shared agents](/developers/agents): templates an invite carries, grants a client holds, revoke, and the client-safe rule a shared agent must pass). Step 2 is YUI-95: the migration, the grant script and a first sign-in on the simulator.
 - SITE-26 (shipped Sep 24): Request an invite replaced the waitlist on the site.
 
 **Done: WAR-1, the war room (shipped in build 74, Sep 25).** Screen 2 becomes a real dashboard for running Yui from Yui: a timeline of what shipped and what is queued, quick links to the site, and a reorder mode that sets board priority by dragging, with no agent turn in between (Chris, Sep 25).
