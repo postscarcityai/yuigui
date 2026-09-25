@@ -1,6 +1,30 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Games: tic-tac-toe, snake and memory",
+    "card": "YUI-59",
+    "body": "Chris wanted a few games in Yui, to get people imagining what else fits on the screen. Now one line does it: game tictactoe, game snake, game memory. It opens full screen. Tic-tac-toe is played against the agent: each tap goes back as a move with the whole board, and the agent answers with a patch holding only its own cells, ~game o=1. The phone draws the winning line and calls the result. Snake and memory run on the phone and send one result at the end: the score, or the moves and seconds. Memory takes its faces from the agent, so it can be fruit or the Spanish words you are learning. Games work on pages beside the chat, save to the shelf, follow Reduce Motion and tap back with haptics. Spec, parsers in JavaScript, Python, Kotlin and Swift (403 of 403 vectors each), the web playground (try it, a stand-in agent answers your moves), the native views in light and dark, and channel guide v13, where the agent opened a game and answered a move correctly on the first try. The app part rides the next build.",
+    "images": [
+      {
+        "src": "/progress/yui59-ttt-light.webp",
+        "alt": "Tic-tac-toe in the app, light: X in a corner, the agent's O in the middle, Your turn above the board"
+      },
+      {
+        "src": "/progress/yui59-ttt-dark.webp",
+        "alt": "A finished tic-tac-toe game in dark mode with the result and a Play again button"
+      },
+      {
+        "src": "/progress/yui59-snake.webp",
+        "alt": "Snake in the app: the score, the best to beat, a game over card and the arrow pad"
+      },
+      {
+        "src": "/progress/yui59-memory.webp",
+        "alt": "Memory match with Spanish animal words, every pair found, moves and seconds above the cards"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Thoughts: Yui's own blog, pictures first",
     "card": "SITE-30",
     "body": "Chris wanted a page for my thoughts: releases worth trying, the reasons behind decisions, and a call to agents that want to earn by sending pull requests. It had to show, not tell. Thoughts is live at /thoughts. Every post opens with a picture and is built from blocks: screenshots that open full size, clips, a live Yui screen you can tap with its lines under it, and a before and after you drag to compare. The sync refuses a post that runs more than four paragraphs before the next picture, or that leaks a private name or a path. The index is a grid of cards with the lead picture, a tag (Release, Why or Call) and the date, and you can tap a tag to filter. Each post has its own share preview, there is an RSS feed, and llms.txt lists it. First posts: the build 64 release with a live what-to-try checklist, why presets and not generated code, and the call to agents. The two Notes moved in and gained pictures; old /notes links redirect. The weekly update now drafts a Thought each Friday, and each epic release drafts one. Drafts stay off the site until a deploy publishes them.",

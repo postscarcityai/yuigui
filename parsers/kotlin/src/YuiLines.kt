@@ -19,6 +19,7 @@ val PRESETS = listOf(
     "chart", "stat", "math", "step", "calc",
     "deck", "page", "plan", "project", "narrate",
     "timeline", "done", "now", "next",
+    "game",
 )
 
 // Not presets, but valid line heads.
@@ -39,7 +40,7 @@ val FIELD_TYPES = setOf("text", "long", "voice", "number", "email", "phone", "da
 
 // The stage is a full-screen layer over the chat (YL.md section 5).
 // These presets open there unless they say +inline.
-val STAGE = listOf("timer", "camera", "mic", "deck", "plan")
+val STAGE = listOf("timer", "camera", "mic", "deck", "plan", "game")
 
 // ---------- JS compatibility ----------
 // The reference is JavaScript: \d and \w are ASCII, \s is the JS whitespace set.
@@ -335,6 +336,21 @@ private fun row(pos: List<Token>): Obj {
     return o
 }
 
+private val GAME_WORD = rx("[A-Za-z][A-Za-z0-9_-]*")
+// Game kinds this renderer can play. Any other kind still parses.
+val GAMES = listOf("tictactoe", "snake", "memory")
+
+// game KIND [title...]: the first bare word is the kind, wherever it sits.
+private fun game(pos: List<Token>): Obj {
+    val o = Obj()
+    val text = ArrayList<Token>()
+    for (t in pos) {
+        if (o["kind"] == null && t.parts == null && !t.quoted && GAME_WORD.test(t.text)) o["kind"] = t.text else text.add(t)
+    }
+    if (text.isNotEmpty()) o["title"] = joinText(text)
+    return o
+}
+
 private fun image(pos: List<Token>): Obj {
     val o = Obj()
     val cap = ArrayList<Token>()
@@ -431,6 +447,7 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "step" -> step(pos)
     "calc", "deck", "plan", "narrate", "timeline" -> titled("title", pos)
     "done", "now", "next" -> row(pos)
+    "game" -> game(pos)
     "page" -> page(pos)
     else -> Obj()
 }
@@ -483,6 +500,7 @@ private val LISTS = mapOf(
     "page" to listOf("points"),
     "project" to listOf("facts", "next"),
     "pick" to listOf("answer"),
+    "game" to listOf("items"),
 )
 
 private fun asList(v: Any?): List<String> = (if (v is List<*>) v else jsStr(v).split("|")).map { jsStr(it) }
@@ -497,9 +515,20 @@ private fun boxes(v: Any?): List<List<Double>> {
     return out
 }
 
+// Tic-tac-toe cells: always a list of numbers; a part that is not a number is dropped.
+private fun cellList(v: Any?): List<Double> =
+    (if (v is List<*>) v else listOf(v)).mapNotNull { c ->
+        when {
+            c is Double -> c
+            c is String && NUM.test(c) -> c.toDouble()
+            else -> null
+        }
+    }
+
 private fun normalize(preset: String, o: Obj): Obj {
     for (k in LISTS[preset] ?: emptyList()) if (k in o && o[k] != true) o[k] = asList(o[k])
     if (preset == "compare" && "hl" in o) o["hl"] = boxes(o["hl"])
+    if (preset == "game") for (k in listOf("x", "o")) if (k in o) o[k] = cellList(o[k])
     if (preset == "chart") chartSeries(o)
     if (preset == "stat" && "spark" in o && o["spark"] !is List<*>) o["spark"] = listOf(o["spark"])
     if (preset == "step" && "time" in o) o["time"] = seconds(o["time"]) ?: o["time"]
@@ -822,6 +851,7 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "narrate" to mapOf("title" to "", "voice" to "agent", "rate" to 1.0, "auto" to false, "captions" to true),
     "timeline" to mapOf("title" to "", "mark" to "Now", "fold" to 5.0),
     "done" to mapOf("text" to ""), "now" to mapOf("text" to ""), "next" to mapOf("text" to ""),
+    "game" to mapOf("title" to "", "you" to "x", "first" to "you", "speed" to 2.0, "size" to 15.0, "pairs" to 6.0, "items" to emptyList<String>()),
 )
 
 // Explicit props over the preset's defaults.
@@ -837,6 +867,17 @@ fun resolve(preset: String, props: Map<String, Any?>): Map<String, Any?> {
             r.putAll(mapOf("title" to "", "body" to "", "facts" to emptyList<String>(), "next" to emptyList<String>(), "status" to ""))
             r.putAll(props)
             r["cta"] = props["cta"] ?: if (props["open"] != null && props["open"] != false && props["open"] != "" && props["open"] != 0.0) "Open" else ""
+        }
+        "game" -> {
+            // Cells outside 1-9 are ignored, and a cell both marks claim is x's.
+            fun cells(v: Any?): List<Double> = (v as? List<*> ?: emptyList<Any?>())
+                .mapNotNull { it as? Double }.filter { it == Math.floor(it) && it in 1.0..9.0 }.distinct()
+            r.putAll(DEFAULTS["game"]!!)
+            r.putAll(props)
+            r["kind"] = jsStr(props["kind"] ?: "").lowercase()
+            val x = cells(props["x"])
+            r["x"] = x
+            r["o"] = cells(props["o"]).filter { it !in x }
         }
         else -> { r.putAll(DEFAULTS[preset] ?: emptyMap()); r.putAll(props) }
     }

@@ -499,4 +499,23 @@ next "Sunset at Miradouro da Graca" at=19:40
 next "Fado in Alfama" at=21:30 https://www.example.com/fado
 next "Train to Sintra" at=Sun sub="Rossio, 9:11"`,
   },
+  {
+    slug: "game-tictactoe",
+    name: "Game: tic-tac-toe against the agent",
+    agent: "Yui",
+    yl: `say Your move. You are X.
+game tictactoe "Beat me"`,
+  },
+  {
+    slug: "game-snake",
+    name: "Game: snake, score comes back",
+    agent: "Yui",
+    yl: `game snake "Beat 12" speed=2 best=12`,
+  },
+  {
+    slug: "game-memory",
+    name: "Game: memory match with your own words",
+    agent: "Scout",
+    yl: `game memory "Spanish animals" pairs=6 items=perro|gato|pájaro|pez|caballo|vaca`,
+  },
 ];

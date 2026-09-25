@@ -175,3 +175,47 @@
 .yl-tlrow.drag .yl-tlgrip { cursor: grabbing; }
 .yl-tledit { display: flex; gap: 8px; margin-top: 10px; }
 .yl-tledit .bigbtn { flex: 1; }
+
+/* game (YUI-59): tictactoe, snake, memory */
+.yl-game { display: flex; flex-direction: column; gap: 10px; }
+.yl-gamenote { font-size: 14px; color: var(--yl-ink2); padding: 12px; border-radius: 14px; background: var(--yl-grid); text-align: center; }
+.yl-gamestatus { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 800; min-height: 20px; }
+.yl-gamestatus.over { color: var(--accent); }
+.yl-gamebest { color: var(--yl-ink2); font-weight: 700; }
+.yl-ttt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; max-width: 300px; margin: 0 auto; }
+.yl-tttcell { aspect-ratio: 1; border-radius: 16px; border: 0; background: var(--yl-grid); color: var(--text); font-size: 38px; font-weight: 900; display: grid; place-items: center; cursor: pointer; transition: transform .12s ease, background .2s ease; }
+.yl-tttcell:not(:disabled):hover { transform: scale(1.03); }
+.yl-tttcell:disabled { cursor: default; }
+.yl-tttcell.x span { color: var(--accent); }
+.yl-tttcell.o span { color: var(--accent2); }
+.yl-tttcell span { animation: yl-gamepop .18s ease-out; }
+.yl-tttcell.hot { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.yl-snake { position: relative; display: grid; gap: 1px; width: 100%; max-width: 320px; aspect-ratio: 1; margin: 0 auto; padding: 4px; border-radius: 14px; background: var(--yl-grid); touch-action: none; outline: none; }
+.yl-snake:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 50%, transparent); }
+.yl-snake i { display: block; border-radius: 3px; }
+.yl-snake i.body { background: var(--accent); opacity: .75; }
+.yl-snake i.head { background: var(--accent); }
+.yl-snake i.food { background: var(--accent2); border-radius: 50%; }
+.yl-snakeover { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; border-radius: 14px; background: color-mix(in srgb, var(--screen-bg) 70%, transparent); font-size: 16px; }
+.yl-pad { display: grid; grid-template-columns: repeat(3, 52px); grid-template-rows: repeat(2, 44px); gap: 6px; justify-content: center; }
+.yl-pad button { border: 0; border-radius: 12px; background: var(--yl-grid); color: var(--text); font-size: 16px; cursor: pointer; }
+.yl-pad button:nth-child(1) { grid-column: 2; grid-row: 1; }
+.yl-pad button:nth-child(2) { grid-column: 1; grid-row: 2; }
+.yl-pad button:nth-child(3) { grid-column: 2; grid-row: 2; }
+.yl-pad button:nth-child(4) { grid-column: 3; grid-row: 2; }
+.yl-memory { display: grid; gap: 8px; width: 100%; max-width: 320px; margin: 0 auto; }
+.yl-memcard { position: relative; aspect-ratio: 3 / 4; border: 0; padding: 0; border-radius: 12px; background: none; cursor: pointer; perspective: 400px; }
+.yl-memcard span { position: absolute; inset: 0; display: grid; place-items: center; border-radius: 12px; backface-visibility: hidden; transition: transform .28s ease; }
+.yl-memcard .back { background: var(--accent); }
+.yl-memcard .face { background: var(--yl-grid); color: var(--text); font-size: 24px; font-weight: 800; transform: rotateY(180deg); overflow-wrap: anywhere; padding: 4px; }
+.yl-memcard.up .back { transform: rotateY(180deg); }
+.yl-memcard.up .face { transform: rotateY(0); }
+.yl-memcard.got .face { background: color-mix(in srgb, var(--accent2) 30%, transparent); }
+@keyframes yl-gamepop { from { transform: scale(.4); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .yl-tttcell, .yl-tttcell span { animation: none; transition: none; }
+  .yl-memcard span { transition: opacity .15s linear; transform: none !important; }
+  .yl-memcard .face { opacity: 0; }
+  .yl-memcard.up .face { opacity: 1; }
+}
+.yl-memcard .face.word { font-size: 13px; font-weight: 800; overflow-wrap: normal; word-break: keep-all; line-height: 1.15; }

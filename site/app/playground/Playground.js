@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Parser, StreamParser, apply, initialState, parse } from "../../lib/yl/yl.mjs";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS } from "../../lib/yl/samples.mjs";
 import { Render, StepGroup, TABLES } from "./presets";
+import { demoReply } from "./games";
 import { Group, groupNodes } from "./flows";
 import { ScreenCtx } from "./science";
 import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
@@ -161,7 +162,10 @@ export default function Playground() {
   // running agent would send a follow-up (~patch, >screen, show ...).
   const send = (e) => {
     e.preventDefault();
-    const line = cmd.trim();
+    agentLine(cmd.trim());
+    setCmd("");
+  };
+  const agentLine = (line) => {
     if (!line) return;
     if (!agentParser.current) {
       // Replay the document through a parser so ids and focus carry over.
@@ -172,14 +176,21 @@ export default function Playground() {
     const op = agentParser.current.line(line);
     if (op) setState((s) => apply(s, op));
     setEvents((ev) => [{ dir: "agent", t: new Date(), line }, ...ev].slice(0, 40));
-    setCmd("");
   };
 
+  // The playground has no agent, so a tic-tac-toe move gets a stand-in
+  // reply: the patch a real agent would send, through the agent console.
+  const agentRef = useRef(null);
+  agentRef.current = agentLine;
   const emitFor = useCallback((node) => {
     const k = `${node.key}:${node.preset}:${node.seq}`;
     if (!emits.current.has(k)) {
-      emits.current.set(k, (value) =>
-        setEvents((ev) => [{ dir: "user", t: new Date(), ev: { id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) } }, ...ev].slice(0, 40)));
+      emits.current.set(k, (value) => {
+        const ev = { id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) };
+        setEvents((evs) => [{ dir: "user", t: new Date(), ev }, ...evs].slice(0, 40));
+        const reply = demoReply(ev);
+        if (reply) setTimeout(() => agentRef.current(reply), 700);
+      });
     }
     return emits.current.get(k);
   }, []);

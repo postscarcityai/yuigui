@@ -411,6 +411,24 @@ next "War room panels" tag=YUI-73
 ```
 To refresh a live row later, give it an id and patch it: `now@w65 ...`, then `~w65 sub="native view done"`. Moving a row from `now` to `done` means sending the timeline again (a row's kind is its preset); `save` the screen and a later reply brings it back with `show`.
 
+### game
+`game KIND [title...]`. A small game the person plays on the phone, so an agent can put something playable on screen in one line. The first bare word (not quoted, not options, starting with a letter) is the `kind`, wherever it sits; the rest of the positional text is the `title`. Kinds are matched without case. A game opens on the stage (section 5) unless it says `+inline`, and like any component it can go to a page (`>2 game snake`), be saved and shown, and sit on the shelf. Every game event carries `kind`.
+
+v0 kinds:
+
+- **`tictactoe`**, turn-based against the agent. Cells are numbered 1 to 9 in reading order (1 top left, 5 the middle, 9 bottom right). The board is two lists of cells, `x` and `o`: `x=5|1 o=9`. `you` [x] is the person's mark, `first` [you] (or `agent`) who moves first. The person taps an empty cell on their turn and the game emits `{kind, move, x, o}`: the cell and the whole board after the move, plus `winner` (`x`, `o` or `draw`) when that move ends the game. The agent answers in its next reply with a patch of **its own list only**, its old cells plus the new one: `~game o=1|7`. It aims at the preset name because ids only resolve inside the reply that made them (section 7, Locking), and the newest game on any screen takes it. The person's cells stay as they are, since a patch only changes the props it names. While it is the agent's turn the board waits and the cells do nothing. When the agent's patch ends the game the app shows it and sends nothing. A finished game shows the winning line and Play again, which clears the board on the phone and emits `{kind, again: true}`; the agent's next patch starts the new round's list (with `first=agent`, that patch is its opening move). A cell outside 1 to 9 is ignored, and a cell in both lists is `x`'s. To start over from the agent's side, send the `game` line again.
+- **`snake`**, real time, runs on the phone. `speed` [2] from 1 (slow) to 5, `size` [15] cells a side, from 10 to 20, `best` a score to beat, shown on the board. Swipe on the board or use the arrow pad. Nothing is sent while playing. At game over it emits `{kind, over: true, score}`. Play again restarts on the phone and sends nothing until the next game over.
+- **`memory`**, match the pairs. `pairs` [6] from 2 to 12; `items` the faces, emoji or short words (a list, like `items=🍎|🍌|🍇`, numbers stay text); with no `items` the app picks emoji. Cards are shuffled on the phone. Finding every pair emits `{kind, over: true, moves, seconds}`. Play again reshuffles.
+
+Any other kind still parses, and the app shows "This game isn't in this version of Yui" in its place, so kinds can be added without a new YL version. Reduce Motion swaps card flips, the winning line and snake easing for plain fades and steps. Haptics: a light tap on a move, success on a win, a match or food, a warning on a loss or a crash.
+Props: `kind`, `title`, `you` [x], `first` [you], `x`, `o`, `speed` [2], `size` [15], `best`, `pairs` [6], `items`, `+inline`. `x` and `o` are always lists of numbers (`x=5` is `[5]`, a part that is not a number is dropped); `items` is always a list of text.
+```
+game tictactoe "Beat me"
+~game o=1
+game snake speed=3 best=41
+game memory "Fruit pairs" pairs=4 items=🍎|🍌|🍇|🍓
+```
+
 ### say (core, not a preset)
 `say text...`. A plain text bubble inside a screen.
 
@@ -434,7 +452,7 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 **The stage.** Some moments deserve the whole phone. The stage is a full-screen layer over the chat, in the agent's own look, with the chat right underneath.
 
 - `>full` alone opens the stage and routes the lines that follow onto it; `>full timer 40/20x8 Tabata` sends one line there. `close`, or `>chat` alone, closes it and sends the lines that follow back to screen 1. `close` takes nothing else. The op is `{op: "close", screen: "full"}`.
-- Some components on screen 1 open on the stage by themselves: `timer`, `camera`, `mic`, `deck`, `plan`, and a `gallery` laid out as `row3d`. `+inline` keeps one in the chat: `timer 5m Plank hold +inline`.
+- Some components on screen 1 open on the stage by themselves: `timer`, `camera`, `mic`, `deck`, `plan`, `game`, and a `gallery` laid out as `row3d`. `+inline` keeps one in the chat: `timer 5m Plank hold +inline`.
 - **Workouts are always full screen.** A `timer` with rounds or rest (`40/20x8`, `90/30`) is a workout. It opens on the stage even with `+inline` and even when the agent prefers the chat.
 - The agent's style profile sets the default for everything else (section 4, theme): `screen=full` opens every component on the stage unless it says `+inline`, and `screen=chat` keeps everything in the chat unless it is routed with `>full` or is a workout.
 - A member of a group (a `page` under a `deck`) goes wherever its group went. Patches never move a component.
@@ -503,6 +521,10 @@ Every interaction goes back as one small event: `{id, preset, ...value}`. Ids ar
 {"id":"site","preset":"plan","plan":{"kind":"Shop","pages":["Home","Contact"],"launch":"No rush"}}
 {"id":"n2","preset":"project","open":"site-plan"}
 {"id":"n1","preset":"narrate","done":true,"steps":3}
+{"id":"n1","preset":"game","kind":"tictactoe","move":5,"x":[5],"o":[]}
+{"id":"n1","preset":"game","kind":"tictactoe","move":3,"x":[5,7,3],"o":[1,9],"winner":"x"}
+{"id":"n2","preset":"game","kind":"snake","over":true,"score":41}
+{"id":"n1","preset":"game","kind":"memory","over":true,"moves":14,"seconds":52}
 ```
 
 **Answers can change.** `ask`, `choose`, `pick` and `slide` stay live after the first answer. The chosen option stays marked, and the person can tap another option, change their picks and submit again, or move the slider again. Every answer after the first goes back as a new event with `changed: true`; an answer identical to the last one sent is not sent again:
@@ -531,7 +553,7 @@ Errors come from two layers. The **parser** rejects a line on its own: an unknow
 
 ## 10. Telegram fallback
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, and a `narrate` sends a voice note per step with its picture. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, and a `game` sends its title with a link to play it in Yui. Everything else degrades to its text plus a link to open it in Yui.
 
 ## 11. Versioning
 

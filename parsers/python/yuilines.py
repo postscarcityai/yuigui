@@ -38,6 +38,7 @@ PRESETS = [
     "chart", "stat", "math", "step", "calc",
     "deck", "page", "plan", "project", "narrate",
     "timeline", "done", "now", "next",
+    "game",
 ]
 # Not presets, but valid line heads.
 CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close"]
@@ -430,6 +431,24 @@ def _row(pos):
     return o
 
 
+GAME_WORD = _re(r"[A-Za-z][A-Za-z0-9_-]*")
+# Game kinds this renderer can play. Any other kind still parses.
+GAMES = ["tictactoe", "snake", "memory"]
+
+
+def _game(pos):
+    """game KIND [title...]: the first bare word is the kind, wherever it sits."""
+    o, text = {}, []
+    for t in pos:
+        if "kind" not in o and not t.parts and not t.quoted and GAME_WORD.fullmatch(t.text):
+            o["kind"] = t.text
+        else:
+            text.append(t)
+    if text:
+        o["title"] = _join(text)
+    return o
+
+
 def _image(pos):
     o, cap = {}, []
     for t in pos:
@@ -561,6 +580,7 @@ P = {
     "project": _card,
     "timeline": _titled,
     "done": _row, "now": _row, "next": _row,
+    "game": _game,
 }
 
 # Quantity: a number with an optional unit stuck to it. 72.5kg, 12%, $40.
@@ -612,6 +632,7 @@ LISTS = {
     "page": ["points"],
     "project": ["facts", "next"],
     "pick": ["answer"],
+    "game": ["items"],
 }
 
 
@@ -629,12 +650,27 @@ def _boxes(v):
     return out
 
 
+def _cell_list(v):
+    """Tic-tac-toe cells: always a list of numbers; a part that is not a number is dropped."""
+    out = []
+    for c in v if isinstance(v, list) else [v]:
+        if isinstance(c, (int, float)) and not isinstance(c, bool):
+            out.append(c)
+        elif isinstance(c, str) and NUM.fullmatch(c):
+            out.append(_num(c))
+    return out
+
+
 def _normalize(preset, o):
     for k in LISTS.get(preset, []):
         if k in o and o[k] is not True:
             o[k] = _as_list(o[k])
     if preset == "compare" and "hl" in o:
         o["hl"] = _boxes(o["hl"])
+    if preset == "game":
+        for k in ("x", "o"):
+            if k in o:
+                o[k] = _cell_list(o[k])
     if preset == "chart":
         _chart_series(o)
     if preset == "stat" and "spark" in o and not isinstance(o["spark"], list):
@@ -943,7 +979,7 @@ class StreamParser:
 # ---------- the stage ----------
 # The stage is a full-screen layer over the chat (YL.md section 5).
 # These presets open there unless they say +inline.
-STAGE = ["timer", "camera", "mic", "deck", "plan"]
+STAGE = ["timer", "camera", "mic", "deck", "plan", "game"]
 
 
 def is_workout(preset, props=None):
@@ -1020,6 +1056,7 @@ _DEFAULTS = {
     "narrate": {"title": "", "voice": "agent", "rate": 1, "auto": False, "captions": True},
     "timeline": {"title": "", "mark": "Now", "fold": 5, "reorder": False},
     "done": {"text": ""}, "now": {"text": ""}, "next": {"text": ""},
+    "game": {"title": "", "you": "x", "first": "you", "speed": 2, "size": 15, "pairs": 6, "items": []},
 }
 
 
@@ -1035,4 +1072,17 @@ def resolve(preset, props):
         cta = p.get("cta")
         return {"title": "", "body": "", "facts": [], "next": [], "status": "", **p,
                 "cta": cta if cta is not None else ("Open" if p.get("open") else "")}
+    if preset == "game":
+        # Cells outside 1-9 are ignored, and a cell both marks claim is x's.
+        def cells(v):
+            out = []
+            for n in v or []:
+                if n == int(n) and 1 <= n <= 9 and int(n) not in out:
+                    out.append(int(n))
+            return out
+        r = {**json.loads(json.dumps(_DEFAULTS["game"])), **p}
+        r["kind"] = _js_str(p.get("kind", "")).lower()
+        r["x"] = cells(p.get("x"))
+        r["o"] = [n for n in cells(p.get("o")) if n not in r["x"]]
+        return r
     return {**json.loads(json.dumps(_DEFAULTS.get(preset, {}))), **p}

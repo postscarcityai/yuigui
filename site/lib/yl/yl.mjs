@@ -25,6 +25,7 @@ export const PRESETS = [
   "chart", "stat", "math", "step", "calc",
   "deck", "page", "plan", "project", "narrate",
   "timeline", "done", "now", "next",
+  "game",
 ];
 // Not presets, but valid line heads.
 export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close"];
@@ -408,7 +409,25 @@ const P = {
   },
   now(pos) { return P.done(pos); },
   next(pos) { return P.done(pos); },
+
+  // game KIND [title...]: the first bare word (not quoted, not options) is
+  // the kind, wherever it sits; the rest is the title.
+  game(pos) {
+    const o = {};
+    const text = [];
+    for (const t of pos) {
+      if (o.kind === undefined && !t.parts && !t.quoted && GAME_WORD.test(t.text)) o.kind = t.text;
+      else text.push(t);
+    }
+    if (text.length) o.title = joinText(text);
+    return o;
+  },
 };
+
+const GAME_WORD = /^[a-z][a-z0-9_-]*$/i;
+// Game kinds this renderer can play. Any other kind still parses; the
+// renderer says the game is not in this version (spec section 4, game).
+export const GAMES = ["tictactoe", "snake", "memory"];
 
 export const CHART_TYPES = ["line", "bar", "area", "scatter", "pie", "donut"];
 
@@ -454,6 +473,7 @@ const LISTS = {
   page: ["points"],
   project: ["facts", "next"],
   pick: ["answer"],
+  game: ["items"],
 };
 const asList = (v) => (Array.isArray(v) ? v : String(v).split("|")).map((x) => (typeof x === "string" ? x : String(x)));
 // Highlight boxes: hl=x,y,w,h|x,y,w,h in percent of the image. A box that is
@@ -466,9 +486,15 @@ function boxes(v) {
   }
   return out;
 }
+// Tic-tac-toe cells: x=5|1 o=9. Always a list of numbers; a part that is
+// not a number is dropped, so x=5 is [5] and x= is dropped (empty lists are).
+function cellList(v) {
+  return (Array.isArray(v) ? v : [v]).filter((c) => typeof c === "number" || (typeof c === "string" && NUM.test(c))).map(Number);
+}
 function normalize(preset, o) {
   for (const k of LISTS[preset] || []) if (o[k] !== undefined && o[k] !== true) o[k] = asList(o[k]);
   if (preset === "compare" && o.hl !== undefined) o.hl = boxes(o.hl);
+  if (preset === "game") for (const k of ["x", "o"]) if (o[k] !== undefined) o[k] = cellList(o[k]);
   if (preset === "chart") chartSeries(o);
   if (preset === "stat" && o.spark !== undefined && !Array.isArray(o.spark)) o.spark = [o.spark];
   if (preset === "step" && o.time !== undefined) o.time = seconds(o.time) ?? o.time;
@@ -715,7 +741,7 @@ export class StreamParser {
 // ---------- the stage ----------
 // The stage is a full-screen layer over the chat (spec section 5, The stage).
 // These presets open there unless they say +inline.
-export const STAGE = ["timer", "camera", "mic", "deck", "plan"];
+export const STAGE = ["timer", "camera", "mic", "deck", "plan", "game"];
 
 // A timer with rounds or rest. Workouts always open on the stage.
 export function isWorkout(preset, props = {}) {
@@ -813,6 +839,15 @@ export function resolve(preset, props) {
     case "now":
     case "next":
       return { text: "", ...p };
+    case "game": {
+      // Cells outside 1-9 are ignored, and a cell both marks claim is x's.
+      const cells = (v) => [...new Set((v || []).filter((n) => Number.isInteger(n) && n >= 1 && n <= 9))];
+      const r = { title: "", you: "x", first: "you", speed: 2, size: 15, pairs: 6, items: [], ...p };
+      r.kind = String(p.kind ?? "").toLowerCase();
+      r.x = cells(p.x);
+      r.o = cells(p.o).filter((n) => !r.x.includes(n));
+      return r;
+    }
     default:
       return p;
   }

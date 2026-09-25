@@ -9,6 +9,7 @@ import { resolve } from "../../lib/yl/yl.mjs";
 import { Calc, Chart, DataTable, MathBlock, Stat, Steps } from "./science";
 import { LonePage, Project } from "./flows";
 import { LoneRow, Timeline } from "./timeline";
+import { Game } from "./games";
 import { useLive } from "./stage";
 
 // Sample agent data tables, so `table meals` has something to bind to.
@@ -792,7 +793,8 @@ const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, 
   done: ({ p }) => <LoneRow node={{ key: "row", preset: "done", props: p }} />,
   now: ({ p }) => <LoneRow node={{ key: "row", preset: "now", props: p }} />,
   next: ({ p }) => <LoneRow node={{ key: "row", preset: "next", props: p }} />,
-  timeline: ({ p }) => <Timeline g={{ group: { props: p }, members: [] }} /> };
+  timeline: ({ p }) => <Timeline g={{ group: { props: p }, members: [] }} />,
+  game: Game };
 
 export function StepGroup({ nodes, emitFor }) {
   return <Steps nodes={nodes} emitFor={emitFor} resolveProps={(n) => resolve("step", n.props)} />;

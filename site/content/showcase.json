@@ -44,7 +44,8 @@
     "YUI-35": { "title": "Meal photo to macros" },
     "YUI-38": { "title": "Onboarding interview that builds your first agents" },
     "SOC-3": { "title": "Three marketing videos", "shipped": "2026-09-24" },
-    "YUI-65": { "title": "War room timeline", "shipped": "2026-09-25" }
+    "YUI-65": { "title": "War room timeline", "shipped": "2026-09-25" },
+    "YUI-59": { "title": "Games: tic-tac-toe, snake, memory", "shipped": "2026-09-25" }
   },
   "groups": [
     {
@@ -110,6 +111,16 @@
         { "id": "plan-send", "title": "plan ends in Send", "what": "The last button of a plan says Send, and a card with nothing to act on has no button at all. No Got it, no OK: every button does something.", "cards": ["YUI-53"], "yl": "say \"Two quick ones, then I send the brief to the studio.\"\nplan@brief \"Site brief\"\npick@pages \"Which pages?\" Home|About|Classes|Contact\nask@launch \"Launch before the holidays?\" \"Yes, Dec 1\"|\"No rush\"", "agent": "Studio", "app": "native", "shots": ["/progress/yui53-plan-send-light.webp"] },
         { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] },
         { "id": "timeline", "title": "timeline", "what": "What shipped, what is running, what is next: done rows, a Now line, then the queue. Older rows fold; a row with a link opens Safari.", "cards": ["YUI-65"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui65-timeline-light.webp", "/progress/yui65-timeline-dark.webp"] }
+      ]
+    },
+    {
+      "id": "games",
+      "title": "Games",
+      "lede": "One line puts a small game on the phone, full screen. Tic-tac-toe is played against the agent, one move per turn; snake and memory run on the phone and send the score back.",
+      "entries": [
+        { "id": "game-tictactoe", "title": "tic-tac-toe", "what": "You tap a cell, the agent answers with its move. The phone calls the winner and offers Play again.", "cards": ["YUI-59"], "demo": "game-tictactoe", "agent": "Yui", "app": "native", "shots": ["/progress/yui59-ttt-light.webp", "/progress/yui59-ttt-dark.webp"] },
+        { "id": "game-snake", "title": "snake", "what": "Swipe or use the arrow pad. At game over the score goes back to the agent, which can set a best to beat.", "cards": ["YUI-59"], "demo": "game-snake", "agent": "Yui", "app": "native", "shots": ["/progress/yui59-snake.webp"] },
+        { "id": "game-memory", "title": "memory", "what": "Match the pairs. The agent picks the faces: fruit, or the words you are learning.", "cards": ["YUI-59"], "demo": "game-memory", "agent": "Scout", "app": "native", "shots": ["/progress/yui59-memory.webp"] }
       ]
     },
     {

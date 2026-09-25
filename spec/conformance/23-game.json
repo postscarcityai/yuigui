@@ -1,0 +1,560 @@
+{
+  "version": "YL v0",
+  "area": "game",
+  "vectors": [
+    {
+      "name": "game: kind first, rest is the title",
+      "input": "game tictactoe \"Beat me\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "tictactoe",
+            "title": "Beat me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: kind alone",
+      "input": "game snake",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "snake"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: the first bare word is the kind wherever it sits",
+      "input": "game \"Your move\" tictactoe",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "tictactoe",
+            "title": "Your move"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: bare words after the kind join the title",
+      "input": "game memory Match the fruit",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "memory",
+            "title": "Match the fruit"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: no kind, only quoted text",
+      "input": "game \"Something fun\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "title": "Something fun"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: kind= wins over the positional",
+      "input": "game snake kind=memory",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "memory"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: an options token is title text, never the kind",
+      "input": "game Red|Blue snake",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "snake",
+            "title": "Red|Blue"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: a number is not a kind",
+      "input": "game 3 snake",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "snake",
+            "title": "3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: unknown kind still parses",
+      "input": "game chess \"Pawn to e4\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "chess",
+            "title": "Pawn to e4"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: kind keeps its case (renderers match without case)",
+      "input": "game Snake",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "Snake"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tictactoe: board as two cell lists",
+      "input": "game@ttt tictactoe x=5|1 o=9",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "ttt",
+          "props": {
+            "kind": "tictactoe",
+            "x": [
+              5,
+              1
+            ],
+            "o": [
+              9
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tictactoe: one cell is a number, not a list",
+      "input": "game tictactoe x=5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "tictactoe",
+            "x": [
+              5
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tictactoe: you and first",
+      "input": "game tictactoe you=o first=agent",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "tictactoe",
+            "you": "o",
+            "first": "agent"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tictactoe: the agent answers with a patch of its own list",
+      "input": "game@ttt tictactoe x=5\n~ttt o=1",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "ttt",
+          "props": {
+            "kind": "tictactoe",
+            "x": [
+              5
+            ]
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "ttt",
+          "props": {
+            "o": [
+              1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tictactoe: patch by preset name",
+      "input": "game tictactoe\n~game o=1|3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "tictactoe"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "game",
+          "props": {
+            "o": [
+              1,
+              3
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "tictactoe: an empty list is dropped, like any empty list",
+      "input": "game@ttt tictactoe x=5 o=1\n~ttt x= o=",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "ttt",
+          "props": {
+            "kind": "tictactoe",
+            "x": [
+              5
+            ],
+            "o": [
+              1
+            ]
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "ttt",
+          "props": {}
+        }
+      ]
+    },
+    {
+      "name": "tictactoe: a part that is not a number is dropped",
+      "input": "game tictactoe x=5|a|3 o=\"7\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "tictactoe",
+            "x": [
+              5,
+              3
+            ],
+            "o": [
+              7
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "snake: speed, size and best",
+      "input": "game snake speed=3 size=12 best=41",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "snake",
+            "speed": 3,
+            "size": 12,
+            "best": 41
+          }
+        }
+      ]
+    },
+    {
+      "name": "memory: pairs and items",
+      "input": "game memory pairs=4 items=🍎|🍌|🍇|🍓",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "memory",
+            "pairs": 4,
+            "items": [
+              "🍎",
+              "🍌",
+              "🍇",
+              "🍓"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "memory: quoted items are one list",
+      "input": "game memory \"Spanish words\" items=\"perro|gato|casa\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "memory",
+            "title": "Spanish words",
+            "items": [
+              "perro",
+              "gato",
+              "casa"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "memory: number items stay text",
+      "input": "game memory items=1|2|3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "memory",
+            "items": [
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: flags pass through",
+      "input": "game snake +inline",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "snake",
+            "inline": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: routed to a page",
+      "input": ">2 game snake",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "snake"
+          }
+        }
+      ]
+    },
+    {
+      "name": "game: saved and shown",
+      "input": "game@s snake\nsave arcade\nshow arcade",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "s",
+          "props": {
+            "kind": "snake"
+          }
+        },
+        {
+          "op": "save",
+          "screen": "1",
+          "name": "arcade"
+        },
+        {
+          "op": "show",
+          "screen": "1",
+          "name": "arcade"
+        }
+      ]
+    },
+    {
+      "name": "game opens on the stage by default",
+      "input": "game tictactoe\ngame snake +inline",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "tictactoe"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n2",
+          "props": {
+            "kind": "snake",
+            "inline": true
+          }
+        }
+      ],
+      "stage": [
+        "n1"
+      ]
+    },
+    {
+      "name": "game on a page stays on the page",
+      "input": ">2 game memory",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "memory"
+          }
+        }
+      ],
+      "stage": []
+    },
+    {
+      "name": "game under screen=chat stays in the chat",
+      "input": "game snake",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "snake"
+          }
+        }
+      ],
+      "style": {
+        "screen": "chat"
+      },
+      "stage": []
+    },
+    {
+      "name": "game: page of each add",
+      "input": "game snake\n>3 game memory\n>13 game tictactoe",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "game",
+          "id": "n1",
+          "props": {
+            "kind": "snake"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "3",
+          "preset": "game",
+          "id": "n2",
+          "props": {
+            "kind": "memory"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "13",
+          "preset": "game",
+          "id": "n3",
+          "props": {
+            "kind": "tictactoe"
+          }
+        }
+      ],
+      "pages": [
+        1,
+        3,
+        1
+      ]
+    }
+  ]
+}

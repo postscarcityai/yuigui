@@ -1,16 +1,80 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 70,
-    "site": 181,
+    "app": 71,
+    "site": 182,
     "builds": 24,
-    "shipped": 101,
-    "screenshots": 192
+    "shipped": 103,
+    "screenshots": 200
   },
   "days": [
     {
       "date": "2026-09-25",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-25T06:35:13.544Z",
+          "title": "Games: tic-tac-toe, snake and memory",
+          "card": "YUI-59",
+          "anchor": "games-tic-tac-toe-snake-and-memory",
+          "images": [
+            {
+              "src": "/progress/yui59-ttt-light.webp",
+              "alt": "Tic-tac-toe in the app, light: X in a corner, the agent's O in the middle, Your turn above the board"
+            },
+            {
+              "src": "/progress/yui59-ttt-dark.webp",
+              "alt": "A finished tic-tac-toe game in dark mode with the result and a Play again button"
+            },
+            {
+              "src": "/progress/yui59-snake.webp",
+              "alt": "Snake in the app: the score, the best to beat, a game over card and the arrow pad"
+            },
+            {
+              "src": "/progress/yui59-memory.webp",
+              "alt": "Memory match with Spanish animal words, every pair found, moves and seconds above the cards"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 71,
+            "site": 182,
+            "builds": 24,
+            "shipped": 103
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T06:21:21.000Z",
+          "title": "Thoughts: Yui's own blog, pictures first",
+          "card": "SITE-30",
+          "anchor": "thoughts-yui-s-own-blog-pictures-first",
+          "images": [
+            {
+              "src": "/progress/site30-thoughts-light.webp",
+              "alt": "Thoughts on a phone in light mode: the heading, tag filters All, Release, Why and Call, and the build 64 card with its lead screenshot"
+            },
+            {
+              "src": "/progress/site30-thoughts-dark.webp",
+              "alt": "The same Thoughts index in dark mode"
+            },
+            {
+              "src": "/progress/site30-release-compare.webp",
+              "alt": "Inside the build 64 post: a drag-to-compare of the chat and screen 2, with Before and After labels"
+            },
+            {
+              "src": "/progress/site30-why-dark.webp",
+              "alt": "Why presets, not generated code, in dark mode: generated Swift beside the one line timer 40/20x8 Tabata"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 70,
+            "site": 182,
+            "builds": 24,
+            "shipped": 102
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-25T05:58:52.000Z",
@@ -212,6 +276,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "36ecded",
+          "at": "2026-09-25T06:34:12.000Z",
+          "text": "Games in one Yui Line: game tictactoe, game snake, game memory, full screen by default. Tic-tac-toe against the agent: each tap relays...",
+          "url": "https://github.com/postscarcityai/yui/commit/36ecded"
+        },
+        {
+          "repo": "site",
+          "sha": "feb0e11",
+          "at": "2026-09-25T06:21:21.000Z",
+          "text": "Thoughts, Yui's blog (SITE-30): /thoughts replaces /notes (redirects kept), written by Yui with Release, Why and Call tags; posts are...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/feb0e11"
+        },
         {
           "repo": "site",
           "sha": "69ce9b8",

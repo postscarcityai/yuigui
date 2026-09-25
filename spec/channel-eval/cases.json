@@ -1108,6 +1108,53 @@
         ]
       },
       "good": "One `timeline` with the two shipped items as `done` rows (at=Mon, at=Tue), the blog migration as `now`, then the contact form and analytics as `next`, in that order. At most a short line of chat and maybe one question about what to pull next."
+    },
+    {
+      "id": "game-offer",
+      "category": "flow",
+      "agent": "Urza",
+      "message": "Build's still going. Play a quick game of tic-tac-toe with me?",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "game",
+          "say"
+        ],
+        "need": [
+          "game"
+        ],
+        "max_words": 30
+      },
+      "good": "One `game tictactoe` line and at most a few words. No board drawn by hand, no list of cells."
+    },
+    {
+      "id": "game-ttt-move",
+      "category": "patch",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "Tic-tac-toe?"
+        },
+        {
+          "role": "agent",
+          "text": "You're X.\n```yui\ngame tictactoe \"Beat me\"\n```"
+        }
+      ],
+      "message": "[yui] n1 game kind=tictactoe move=5 o= x=5",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "game",
+          "say"
+        ],
+        "patch": "^game$",
+        "no_add": [
+          "game"
+        ],
+        "max_words": 15
+      },
+      "good": "A patch by preset name with the agent's one cell (`~game o=1`), no new game, a word at most."
     }
   ]
 }
