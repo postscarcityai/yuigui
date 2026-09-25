@@ -138,7 +138,7 @@ table Planets Planet|Mass|Radius "Earth|5.97|6371" "Mars|0.642|3390" units=|10^2
 ```
 
 ### card
-`card title [body...]`. Props: `title`, `body`, `sub`, `tag`, `img` (URL), `cta` (button label, emits `{cta}`).
+`card title [body...]`. Props: `title`, `body`, `sub`, `tag`, `img` (URL), `cta` (button label, emits `{cta}`), `url` (an `https:` or `itms-services:` link the button opens as well as emitting `{cta}`; the button reads Open unless `cta` says otherwise; other schemes are ignored).
 ```
 card "Leg day" "Squat, RDL, lunges." sub=Thursday img=/yl/legday.svg cta="Start workout"
 ```

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Install a Yui test build</title>
+<!-- YUI-55: the link to a test build rides in the fragment (#b=<build>&m=<manifest URL>),
+     which the browser never sends to this server. The page only accepts manifests in Yui's
+     private build bucket, and ad hoc builds install only on registered iPhones. -->
+<style>
+body{font:17px/1.4 -apple-system,system-ui,sans-serif;margin:0;padding:56px 24px;background:#FFF8F0;color:#2B2233;text-align:center}
+h1{font-size:28px;margin:0 0 8px}
+p{color:#6B5F73;max-width:340px;margin:12px auto}
+a.btn{display:block;margin:32px auto;padding:16px;border-radius:18px;background:#FF7E8A;color:#fff;font-weight:700;text-decoration:none;max-width:320px}
+@media (prefers-color-scheme:dark){body{background:#221B29;color:#F4ECF7}p{color:#B9ADC2}}
+</style></head>
+<body>
+<h1 id="t">Yui test build</h1>
+<p id="s">Open this page on your iPhone, then tap Install.</p>
+<a class="btn" id="go" hidden>Install</a>
+<p>Test builds install only on registered iPhones. Each link works for 7 days.</p>
+<script>
+(function () {
+  var q = new URLSearchParams(location.hash.slice(1));
+  var m = q.get("m") || "", b = (q.get("b") || "").replace(/[^0-9.]/g, "");
+  var ok = /^https:\/\/[a-z0-9]+\.supabase\.co\/storage\/v1\/object\/sign\/yui-builds\/[^?#]+\/manifest\.plist\?token=[\w.-]+$/.test(m);
+  if (!ok) { document.getElementById("s").textContent = "This link is incomplete or has expired. Ask Yui for a new build."; return; }
+  if (b) document.getElementById("t").textContent = "Yui " + b;
+  var a = document.getElementById("go");
+  a.href = "itms-services://?action=download-manifest&url=" + encodeURIComponent(m);
+  a.hidden = false;
+})();
+</script>
+</body></html>

@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 57,
-    "site": 143,
+    "app": 58,
+    "site": 147,
     "builds": 21,
-    "shipped": 86,
+    "shipped": 87,
     "screenshots": 157
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-24T23:38:27.480Z",
+          "at": "2026-09-25T00:08:35.581Z",
+          "title": "Test builds by link: new app builds on the phone without TestFlight",
+          "card": "YUI-55",
+          "anchor": "test-builds-by-link-new-app-builds-on-the-phone-without-testflight",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 58,
+            "site": 147,
+            "builds": 21,
+            "shipped": 87
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T23:38:48.000Z",
           "title": "The site catches up: what is on your phone, and what comes with build 57",
           "card": "SITE-25",
           "anchor": "the-site-catches-up-what-is-on-your-phone-and-what-comes-with-build-57",
@@ -27,10 +42,10 @@
               "alt": "The roadmap paragraph Next release: build 57, chat feels right, listing the eight cards it carries"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 57,
-            "site": 143,
+            "site": 144,
             "builds": 21,
             "shipped": 86
           }
@@ -1811,6 +1826,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "e1ba815",
+          "at": "2026-09-25T00:07:59.000Z",
+          "text": "Roadmap: YUI-58 Yui for macOS, marked for Yui@home contributors",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e1ba815"
+        },
+        {
+          "repo": "app",
+          "sha": "b017306",
+          "at": "2026-09-25T00:07:41.000Z",
+          "text": "Test builds by link: scripts/devbuild.sh archives a clean worktree of origin/main as an ad hoc build (<commit count>.<n>, production...",
+          "url": "https://github.com/postscarcityai/yui/commit/b017306"
+        },
+        {
+          "repo": "site",
+          "sha": "135dabe",
+          "at": "2026-09-24T23:57:40.000Z",
+          "text": "Roadmap: INV-1 invite-only beta and client onboarding",
+          "url": "https://github.com/postscarcityai/yuigui/commit/135dabe"
+        },
+        {
+          "repo": "site",
+          "sha": "dfe1d63",
+          "at": "2026-09-24T23:40:57.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dfe1d63"
+        },
+        {
+          "repo": "site",
+          "sha": "a6d1856",
+          "at": "2026-09-24T23:38:48.000Z",
+          "text": "Progress entry: the site catches up, Next build labels and build 57 on the roadmap, with page shots (SITE-25)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a6d1856"
+        },
         {
           "repo": "site",
           "sha": "fd0d5ea",

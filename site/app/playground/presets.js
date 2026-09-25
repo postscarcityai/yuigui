@@ -348,6 +348,9 @@ function Table({ p, emit }) {
 }
 
 function Card({ p, emit }) {
+  // url= opens an https page (or an itms-services test build install) as well as emitting {cta}.
+  const link = typeof p.url === "string" && /^(https|itms-services):/i.test(p.url) ? p.url : null;
+  const cta = p.cta || (link ? "Open" : null);
   return (
     <div className="yl-card">
       {p.img ? <img src={p.img} alt="" /> : null}
@@ -356,7 +359,7 @@ function Card({ p, emit }) {
         {p.sub ? <div className="yl-sub">{p.sub}</div> : null}
         <div className="yl-q">{p.title}</div>
         {p.body ? <div className="yl-text">{p.body}</div> : null}
-        {p.cta ? <button className="bigbtn p acc full" onClick={() => emit({ cta: p.cta })}>{p.cta}</button> : null}
+        {cta ? <button className="bigbtn p acc full" onClick={() => { if (link) window.open(link, "_blank", "noopener"); emit({ cta }); }}>{cta}</button> : null}
       </div>
     </div>
   );

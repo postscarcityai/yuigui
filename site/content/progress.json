@@ -1,6 +1,12 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Test builds by link: new app builds on the phone without TestFlight",
+    "card": "YUI-55",
+    "body": "Apple lets an app upload only so many TestFlight builds a day, and Yui hit that limit today. So main now has a second way onto the phone. scripts/devbuild.sh builds the app straight from main as an ad hoc build, keeps it in a private storage bucket behind links that expire in 7 days, and sends a card with an Install button into the Yui thread. Tap it and iOS installs the new build over the old one, sign-in and threads included. Ad hoc builds install only on iPhones registered to the developer account, so a forwarded link does nothing anywhere else. It runs when asked, and on its own when new app work lands on main, at most once every few hours. Along the way the card component learned url=: its button can now open a web page or an install link as well as answering the agent. This one is a script and a button, so no screenshots."
+  },
+  {
+    "date": "2026-09-24",
     "title": "The site catches up: what is on your phone, and what comes with build 57",
     "card": "SITE-25",
     "body": "Before going back to the app, the site had to match the app. Cards that are done in the code but not on TestFlight yet now say so: on the Shipped log, on See it and on the board they read Next build, with a line that they reach TestFlight with the next build. Those labels come from the Builds page's data, so they turn into Shipped on their own the day build 57 goes live. The roadmap names build 57 and the eight cards it carries, drops the lock screen timer from the parked list (it is in that build), and lists accounts and the relay as one line. The sign-up form at the bottom of each page now says join for updates, since the beta is open to anyone. And a push to GitHub deploys the site again: the hosting project was pointed at the wrong folder.",
