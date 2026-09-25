@@ -616,6 +616,8 @@ What ships today is in `spec/TELEGRAM.md` (INT-4): `ask`, `choose` and `pick` as
 
 **Browser.** Yui in a browser tab draws every preset with the playground's renderers and translates only what a tab cannot do like a phone (haptics, lock screen timers, push): `spec/BROWSER.md`.
 
+**macOS.** Yui for macOS draws every preset with the shared SwiftUI views, answers them with the keyboard and the pointer, and says "Open on your iPhone" only for what needs the phone (Live Activities, adding agents): `spec/MACOS.md`.
+
 ## 11. Versioning
 
 This is v0. Adding presets and props is non-breaking: an old app shows an error line for an unknown preset and renders the rest. Changing what a positional means is breaking and bumps the version, which the relay handshake will carry (Phase 1 relay).

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 108,
-    "site": 270,
+    "app": 112,
+    "site": 278,
     "builds": 28,
-    "shipped": 144,
-    "screenshots": 289
+    "shipped": 147,
+    "screenshots": 295
   },
   "days": [
     {
@@ -13,15 +13,86 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T20:05:17.929Z",
+          "at": "2026-09-25T20:35:28.973Z",
+          "title": "Yui for macOS has a brief, open for contributors",
+          "card": "YUI-58",
+          "anchor": "yui-for-macos-has-a-brief-open-for-contributors",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 112,
+            "site": 278,
+            "builds": 28,
+            "shipped": 147
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T20:16:18.000Z",
+          "title": "Each agent gets a drawer",
+          "card": "YUI-54",
+          "anchor": "each-agent-gets-a-drawer",
+          "images": [
+            {
+              "src": "/progress/yui54-dark-1-home.webp",
+              "alt": "The drawer open in dark mode over the chat: Wizard in big type, tabs Home, Review with a 1, Controls, About; a pinned workout tile, Pick a drawer under Next up for you, the Leg day screen, and Wizard, Online at the bottom"
+            },
+            {
+              "src": "/progress/yui54-light-2-review-open.webp",
+              "alt": "The Review tab in light mode: 1 thing is waiting on you, the Pick a drawer ask opened in place with its context and the buttons Calm, Playful and Peek"
+            },
+            {
+              "src": "/progress/yui54-dark-6-switcher.webp",
+              "alt": "The switcher sprung up from the bottom in dark mode: Yui, Coach, Wizard with a check, Counsel offline, Nova, then Add an agent and Edit list"
+            }
+          ],
+          "commits": 6,
+          "totals": {
+            "app": 109,
+            "site": 274,
+            "builds": 28,
+            "shipped": 146
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T20:15:21.000Z",
+          "title": "The library: every screen and flow, live and searchable",
+          "card": "FLOW-2",
+          "anchor": "the-library-every-screen-and-flow-live-and-searchable",
+          "images": [
+            {
+              "src": "/progress/flow2-library-screens-light.webp",
+              "alt": "The library page on a wide screen: a search bar, Screens and Flows tabs, and a row of live phones for timer, ask and choose, each with its line, tags, Copy and Open in playground."
+            },
+            {
+              "src": "/progress/flow2-library-flows-dark.webp",
+              "alt": "The Flows tab in dark mode: the client website intake flow drawn as a Mermaid chart, with a Run it button beside it."
+            },
+            {
+              "src": "/progress/flow2-library-search.webp",
+              "alt": "Searching the library for intake: three screens and one flow match, and only those tiles stay on the page."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 108,
+            "site": 273,
+            "builds": 28,
+            "shipped": 145
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T20:05:56.000Z",
           "title": "Yui in the browser has a brief, open for contributors",
           "card": "YUI-71",
           "anchor": "yui-in-the-browser-has-a-brief-open-for-contributors",
           "images": [],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 108,
-            "site": 270,
+            "site": 271,
             "builds": 28,
             "shipped": 144
           }
@@ -1324,6 +1395,90 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "d07eb28",
+          "at": "2026-09-25T20:34:05.000Z",
+          "text": "site: spec synced, YL.md Ids that last (YUI-75).",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d07eb28"
+        },
+        {
+          "repo": "app",
+          "sha": "d828429",
+          "at": "2026-09-25T20:33:52.000Z",
+          "text": "yui-mcp and Telegram vendor copies synced for lasting ids (YUI-75, yuigui d047831, 9b7399d): sync_yl.py, sync_mcp_app.py,...",
+          "url": "https://github.com/postscarcityai/yui/commit/d828429"
+        },
+        {
+          "repo": "site",
+          "sha": "9b7399d",
+          "at": "2026-09-25T20:30:38.000Z",
+          "text": "mcp-app: rebuilt for lasting ids (YUI-75); also picks up the site type tokens already on main.",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9b7399d"
+        },
+        {
+          "repo": "site",
+          "sha": "763a31f",
+          "at": "2026-09-25T20:29:47.000Z",
+          "text": "spec/YL.md, Ids that last (YUI-75): a reply of only patches sends no push, and a patch to a lasting id reaches the saved screens holding...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/763a31f"
+        },
+        {
+          "repo": "app",
+          "sha": "37e0adf",
+          "at": "2026-09-25T20:28:27.000Z",
+          "text": "Ids on a page last across replies (YUI-75, yuigui spec YL.md section 5). ChatStore.lastingIds (explicit ids on pages 2-12 or back from a...",
+          "url": "https://github.com/postscarcityai/yui/commit/37e0adf"
+        },
+        {
+          "repo": "app",
+          "sha": "c1e7faf",
+          "at": "2026-09-25T20:25:49.000Z",
+          "text": "YuiLines: ids that last (YUI-75, yuigui d047831). YuiLines.parse(_:known:), YLParser(known:) and YLStreamParser(known:) start from the...",
+          "url": "https://github.com/postscarcityai/yui/commit/c1e7faf"
+        },
+        {
+          "repo": "site",
+          "sha": "d047831",
+          "at": "2026-09-25T20:25:38.000Z",
+          "text": "YL: ids that last (YUI-75). An @id on a page (screens 2 to 12) or on a component back from a saved screen stays addressable from later...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d047831"
+        },
+        {
+          "repo": "site",
+          "sha": "623539b",
+          "at": "2026-09-25T20:16:18.000Z",
+          "text": "Progress: each agent gets a drawer (YUI-54, app 183f610). Home, Review, Controls and About, the switcher at the bottom; dark home, light...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/623539b"
+        },
+        {
+          "repo": "app",
+          "sha": "183f610",
+          "at": "2026-09-25T20:15:42.000Z",
+          "text": "The agent's drawer (YUI-54, Chris's pick: Peek and tabs). A drag right on the chat pulls a drawer out from the left; it stops at 86% so...",
+          "url": "https://github.com/postscarcityai/yui/commit/183f610"
+        },
+        {
+          "repo": "site",
+          "sha": "334493d",
+          "at": "2026-09-25T20:15:21.000Z",
+          "text": "The library (FLOW-2 step 1): every screen and flow, live and searchable. /developers/library (Developers subnav) has a tile per preset...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/334493d"
+        },
+        {
+          "repo": "site",
+          "sha": "6075aab",
+          "at": "2026-09-25T20:10:15.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6075aab"
+        },
+        {
+          "repo": "site",
+          "sha": "2fdd701",
+          "at": "2026-09-25T20:05:56.000Z",
+          "text": "Yui in the browser: spec and contributor brief (YUI-71)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2fdd701"
+        },
         {
           "repo": "site",
           "sha": "6153538",

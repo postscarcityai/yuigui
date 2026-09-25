@@ -28,6 +28,13 @@ const open = [
     brief: "docs/specs/browser.md",
     spec: "/developers/browser",
   },
+  {
+    card: "YUI-58",
+    title: "Yui for macOS",
+    what: "A native Mac app on the same account: the agent drawer as a sidebar, Return to send, Command-K to switch agents. First pull request: the Mac target builds, signs in, and opens the demo chat.",
+    brief: "docs/specs/macos.md",
+    spec: "/developers/macos",
+  },
 ];
 
 const TODAY =`Read ${repo}/blob/main/CONTRIBUTING.md.
