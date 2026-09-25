@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T11:40:07.478Z",
+  "updated": "2026-09-25T12:10:10.514Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -118,10 +118,6 @@
           "waiting": true
         },
         {
-          "key": "OSS-3",
-          "title": "Open backlog on GitHub for contributors"
-        },
-        {
           "key": "OSS-4",
           "title": "Yui Lines parser in Rust"
         },
@@ -180,6 +176,10 @@
         {
           "key": "INT-17",
           "title": "N8n adapter, MCP client plus a community node"
+        },
+        {
+          "key": "INT-20",
+          "title": "Hosted A2A, the INT-18 client in a Cloudflare Durable Object"
         },
         {
           "key": "BIZ-7",
@@ -277,8 +277,8 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "INT-18",
-          "title": "A2A client, add any agent by its Agent Card"
+          "key": "OSS-3",
+          "title": "Open backlog on GitHub for contributors"
         }
       ]
     },
@@ -286,6 +286,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-18",
+          "title": "A2A client, add any agent by its Agent Card",
+          "summary": "Add any A2A agent by its Agent Card",
+          "shipped": "2026-09-25",
+          "progress": "/progress#add-any-a2a-agent-by-its-agent-card"
+        },
         {
           "key": "YUI-64",
           "title": "An agent that is paired but not listening says so",
