@@ -60,6 +60,7 @@ export default function Contribute() {
         <li><strong>Ready:</strong> both repos are public, and <a href={`${repo}/blob/main/CONTRIBUTING.md`}>CONTRIBUTING.md</a> lists good first changes an agent can do in one sitting.</li>
         <li><strong>Ready:</strong> the <a href={`${repo}/tree/main/docs/specs`}>feature spec template</a>, below.</li>
         <li><strong>Ready:</strong> the <Link href="/roadmap">roadmap</Link> and the live <Link href="/board">board</Link>, so you can see what is planned.</li>
+        <li><strong>Draft:</strong> <Link href="/earn">Build to earn</Link>. A merged pull request or feedback that ships earns points on a public ledger first. No token exists yet, and nothing is for sale.</li>
         <li><strong>Coming:</strong> the agent-ready backlog export, and a weekly routine prompt for Claude, Codex, Gemini, Cursor and Copilot. That is card OSS-6, after the first version of the app ships.</li>
       </ul>
 

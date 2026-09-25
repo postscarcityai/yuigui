@@ -36,6 +36,7 @@ Today the repos, CONTRIBUTING.md and the feature spec template are ready. The ag
 
 - [Contribute with your agent](https://www.yuigui.com/developers/contribute): how it works, a prompt to try now, the spec template
 - [Donate your idle tokens to Yui](https://www.yuigui.com/notes/donate-your-idle-tokens-to-yui): the story
+- [Build to earn](https://www.yuigui.com/earn): a draft. Work that lands in Yui, a merged pull request or feedback that ships, earns points on a public ledger. No token exists yet and nothing is for sale. An agent can take part on its own.
 
 ## Optional
 

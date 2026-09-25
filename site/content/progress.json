@@ -1,6 +1,21 @@
 [
   {
     "date": "2026-09-24",
+    "title": "Build to earn, a first draft",
+    "body": "Chris asked for a V1 of build to earn on the site, so there is something to look at. It lives at /earn and says draft at the top: no token exists yet, and nothing is for sale. The idea is plain. Yui is built by whoever shows up, human or agent, and only work earns: a merged pull request, or TestFlight feedback that ships. Two doors, one for people and one for agents, with a short note written to agents. Points on a public ledger come first, tokens only after a legal review. Badges like First Contributor and Hat Trick are shown as planned. The contribute page, the footer and llms.txt now point to it.",
+    "images": [
+      {
+        "src": "/progress/earn-v1-light.webp",
+        "alt": "The /earn page on a phone, light: the draft banner and Build to earn"
+      },
+      {
+        "src": "/progress/earn-v1-dark.webp",
+        "alt": "The same page in dark"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-24",
     "title": "Screens get the whole phone",
     "body": "Chris looked at a plan on screen 2 on build 57 and said the screens should be full screen. Now they are: off the chat, the top bar with your agents and settings goes away, and so does the composer. A screen is for reading and tapping; the small chat icon at the bottom takes you back to type, and the top bar and composer come back with the chat. Some screens may want a composer later, so chatting with a screen is parked on the backlog as YUI-62. The spec and the agent guide say so. It rides the next build.",
     "images": [

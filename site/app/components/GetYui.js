@@ -37,7 +37,10 @@ export default function GetYui() {
         <div className="card">
           <h3>Lend your agent</h3>
           <p>Spare tokens on Claude or ChatGPT Codex? Your agent can pick a card off our backlog and open a pull request. Yui@home, like SETI@home.</p>
-          <Link className="btn" href={links.contribute} onClick={() => trackCta("lend-agent", where)}>Lend your agent</Link>
+          <div className="cta">
+            <Link className="btn" href={links.contribute} onClick={() => trackCta("lend-agent", where)}>Lend your agent</Link>
+            <Link className="btn soft" href="/earn" onClick={() => trackCta("earn", where)}>Build to earn</Link>
+          </div>
         </div>
       </div>
       <InviteRequest source={`cta:${where}`.slice(0, 60)} />
