@@ -167,6 +167,8 @@ yui-push  (edge function)
   the app is open on agent_id's thread (active: true, repeated every 60 s) or just went to
   the background (active: false). Stale after 90 s, so a killed app counts as closed.
   -> {tracked}  (false when this phone is not registered to the caller)
+  register and presence also carry "build" (the app's CFBundleVersion); without it the
+  "Yui/<build> CFNetwork" user agent every build sends is read instead. Stored per phone.
 {"action":"notify","message_id","from"?,"handoff"?}  Bearer yui_ct_...
   push agent message `message_id` to every phone of its user. Only for threads of agents
   bound to this connector, written in the last 10 minutes.
@@ -190,6 +192,14 @@ The text every agent gets on the Yui channel is `spec/CHANNEL.md` from "## You a
 - Hermes: the plugin bundles a copy (`hermes-plugin/yui/CHANNEL.md`) and injects it as the `yui` platform's system-prompt hint, with its version line, on every Yui turn and no other.
 - Any other agent: `yui-connect` returns the current guide in `session` and `guide`, from the `yui_channel_guides` table. A non-Hermes host prepends it to its agent's system prompt when it connects.
 - After editing CHANNEL.md: `hermes-plugin/sync_channel.py --publish` rewrites the bundled copy and publishes the new version; `--check` fails when the copy is stale. Then restart the Yui-enabled gateways.
+
+### Min builds: the guide teaches more than an old phone can draw
+
+The guide teaches every preset, but each phone runs the build it has. A preset the build's parser doesn't know used to show as a red "unknown preset" with the raw line under it (build 96 got a `sketch`, beta feedback ANJPrtB7CHynwGR5mqNVPSM). Three parts keep that off the phone:
+
+- **The relay knows the build.** `yui-push` stores each phone's app build (`yui_devices.app_build`, above). `yui-connect` `session` returns `app_build`: the oldest build among the person's phones seen in the last 14 days, or null when none has said.
+- **The host sends only what it draws.** Each preset has a first build that draws it (the commit count of the commit that taught the app's parser, `MIN_BUILD` in `hermes-plugin/yui/compat.py`): `timeline`/`done`/`now`/`next` 69, `game` 71, `sketch`/`row`/`after` 104. Before a reply goes out, a gated preset becomes plain words in the chat (a sketch's rows as a list, struck `~~` and bold `**` marks) or, inside a `deck` or `plan`, a `page` with the rows as `points`. A null build counts as older than all of them. Each Yui turn also gets a line naming what not to send ("cannot draw sketch yet"). A new preset adds its line to `MIN_BUILD` in the commit that ships it. Other hosts: read `app_build` from `session` and do the same.
+- **The app never shows raw lines.** From 0.2.0, lines a build can't draw fold into one quiet "Update Yui to see this" chip that opens TestFlight.
 
 ## The Hermes plugin
 
