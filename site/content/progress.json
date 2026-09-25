@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-09-25",
+    "title": "Reply to one message",
+    "card": "YUI-68",
+    "body": "You can now answer a specific message, the way iMessage and Telegram do. Swipe a bubble left, or hold it and tap Reply. The message's first line sits above the keyboard with an x to drop it. Once sent, your reply carries a small quote, and tapping it scrolls back to the original, which glows for a moment. Holding works on every bubble now: your agent's messages keep the six reactions with Reply, Copy and Select text under them, your own get the menu alone, and a card can be replied to as well (the quote is its question or title). The swipe only counts on the bubble itself, so dragging the empty space beside a bubble or starting at the screen's right edge still flips to your screens. Your agent gets the quote on the line above your words, so it knows what you are answering. That works on any host (Hermes, OpenClaw and the webhook bridge) with no update needed on their side. Tested on the simulator in light, dark and Reduce Motion, plus a live relay check. It reaches phones with the next build.",
+    "images": [
+      { "src": "/progress/yui68-menu-light.webp", "alt": "Holding an agent's message in Yui: the six reactions above it, and Reply, Copy and Select text below." },
+      { "src": "/progress/yui68-quote-light.webp", "alt": "Replying: above the composer a bar reads Replying to Wizard with the message's first line and an x." },
+      { "src": "/progress/yui68-chip-dark.webp", "alt": "Dark mode: a sent reply, Yes, that one, with a small quote of Wizard's Message 2 above it." },
+      { "src": "/progress/yui68-own-menu-light.webp", "alt": "Holding your own message: Reply, Copy and Select text, with no reactions." }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "How an agent could make up a whole game",
     "card": "YUI-60",
     "body": "Today an agent can pick one of three games. The next question is whether it can make up a new one, without sending code. We wrote a draft spec to answer it. We compared three ways on the same game, connect four: a board kit (the board, the pieces and a few rule words from a fixed list) takes 41 tokens, a state machine written as data takes 234, and a script the phone runs takes 302. The script is also what Apple's guideline 2.5.2 rules out: an app may not download and run code that adds features. The board kit is data, like new levels for a puzzle game, so it fits. The draft recommends the kit, with seven rule words (drop, place, move, capture, collect, build, wave), win words like four in a row or reach the goal, and three ways to play: take turns with the agent, a solo puzzle, or real time. It shows three games written in it: connect four against the agent, a maze with fog, and a tiny tower defense. Nothing is built yet. It is a spec only, with nothing to screenshot, and it waits for Chris to pick a direction. Read it under Developers, Games."

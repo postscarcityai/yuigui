@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 72,
-    "site": 187,
+    "app": 73,
+    "site": 189,
     "builds": 24,
-    "shipped": 106,
-    "screenshots": 206
+    "shipped": 107,
+    "screenshots": 210
   },
   "days": [
     {
@@ -13,15 +13,47 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T07:37:29.715Z",
+          "at": "2026-09-25T07:53:30.685Z",
+          "title": "Reply to one message",
+          "card": "YUI-68",
+          "anchor": "reply-to-one-message",
+          "images": [
+            {
+              "src": "/progress/yui68-menu-light.webp",
+              "alt": "Holding an agent's message in Yui: the six reactions above it, and Reply, Copy and Select text below."
+            },
+            {
+              "src": "/progress/yui68-quote-light.webp",
+              "alt": "Replying: above the composer a bar reads Replying to Wizard with the message's first line and an x."
+            },
+            {
+              "src": "/progress/yui68-chip-dark.webp",
+              "alt": "Dark mode: a sent reply, Yes, that one, with a small quote of Wizard's Message 2 above it."
+            },
+            {
+              "src": "/progress/yui68-own-menu-light.webp",
+              "alt": "Holding your own message: Reply, Copy and Select text, with no reactions."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 73,
+            "site": 189,
+            "builds": 24,
+            "shipped": 107
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T07:37:59.000Z",
           "title": "How an agent could make up a whole game",
           "card": "YUI-60",
           "anchor": "how-an-agent-could-make-up-a-whole-game",
           "images": [],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 72,
-            "site": 187,
+            "site": 188,
             "builds": 24,
             "shipped": 106
           }
@@ -348,6 +380,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "403b591",
+          "at": "2026-09-25T07:51:56.000Z",
+          "text": "Reply to a message: swipe a bubble left, or hold a bubble or a card and tap Reply (TestFlight feedback AG9JzU4LeWl-TFeKWftiFIE). The...",
+          "url": "https://github.com/postscarcityai/yui/commit/403b591"
+        },
+        {
+          "repo": "site",
+          "sha": "05ea099",
+          "at": "2026-09-25T07:40:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/05ea099"
+        },
+        {
+          "repo": "site",
+          "sha": "5819288",
+          "at": "2026-09-25T07:37:59.000Z",
+          "text": "Games in lines, draft spec (YUI-60): spec/GAMES.md compares a board kit, a state machine as data and a sandboxed script on the same...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5819288"
+        },
         {
           "repo": "site",
           "sha": "577d462",

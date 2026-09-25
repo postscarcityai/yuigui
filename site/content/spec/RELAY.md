@@ -47,6 +47,8 @@ Quiet events stay on the phone: a timer starting, a checklist tick. An event goe
 
 A reaction (hold an agent's message, pick one of six) is also an `event` row: `[yui] react msg=<agent row id> emoji=👍 meaning="build it"`, then the start of the reacted message quoted with `> `, and `meta` `{react: {msg, emoji}}`. A trigger copies the emoji onto the reacted row's `reaction` column. Spec: `REACTIONS.md`.
 
+A reply (swipe a message left, or hold it and tap Reply) is an ordinary `text` row whose body starts with one line the app writes, then the person's words: `[yui] reply to=<row id> from=agent quote="first line"`, `from=user` when they answer one of their own. `meta.reply_to` carries the same `{msg, from, quote}` (next to `photos` when there are any). The quote is the message's first line, or a card's title, at most 120 characters. The app draws the words with a chip for the quote and drops the line; hosts pass the body through, so every agent reads it.
+
 ## Credentials
 
 | who | token | may |
@@ -56,7 +58,7 @@ A reaction (hold an agent's message, pick one of six) is also an `event` row: `[
 
 The host's JWT: `role=yui_connector`, `sub` = the paired user, `cid` = the connector. It is minted from the connector token (`yui_ct_...`, AGENTS.md) and signed like the app's token. Every policy calls `yui_connector_serves(agent_id)`, which also checks the connector is not revoked, so removing a host in the app cuts it off at once, even with an unexpired JWT. Realtime applies the same RLS: a host only hears inserts it could read.
 
-All of this is tested live in `supabase/tests/relay_test.py` (49 checks, including Realtime isolation, instant revoke, and the delivery acks).
+All of this is tested live in `supabase/tests/relay_test.py` (51 checks, including Realtime isolation, a reply row, instant revoke, and the delivery acks).
 
 ## Host API additions (`yui-connect`)
 
