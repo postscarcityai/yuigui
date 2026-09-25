@@ -171,6 +171,18 @@ function Other({ onSubmit }) {
   );
 }
 
+// Context and question in one block (t_f493137c): `tag=`, `title=` and `body=`
+// on choose and pick say what is being asked about; the question follows.
+function AskHead({ p }) {
+  return (
+    <>
+      {p.tag ? <span className="pill now" style={{ alignSelf: "flex-start" }}>{p.tag}</span> : null}
+      {p.title ? <div className="yl-q">{p.title}</div> : null}
+      {p.body ? <div className="yl-text">{p.body}</div> : null}
+    </>
+  );
+}
+
 function Choose({ p, emit }) {
   const [sel, setSel] = useState(null);
   const send = useAnswer(emit);
@@ -182,6 +194,7 @@ function Choose({ p, emit }) {
   };
   return (
     <div className={`yl-block ${p.lock ? "locked" : ""}`}>
+      <AskHead p={p} />
       {p.q ? <div className="yl-q">{p.q}</div> : null}
       <div className="chips big">
         {p.options.map((o) => <button key={o} disabled={!!p.lock} className={`chip ${sel === o && !quiz ? "on" : ""} ${quizClass(p, o, sel ? [sel] : null)}`} onClick={() => pickIt(o)}>{o}</button>)}
@@ -210,6 +223,7 @@ function Pick({ p, emit }) {
   };
   return (
     <div className={`yl-block ${p.lock ? "locked" : ""}`}>
+      <AskHead p={p} />
       {p.q ? <div className="yl-q">{p.q}</div> : null}
       <div className="chips big">
         {[...p.options, ...extra].map((o) => <button key={o} disabled={!!p.lock} className={`chip ${sel.includes(o) && !(quiz && shown) ? "on" : ""} ${quizClass(p, o, shown)}`} onClick={() => tog(o)}>{sel.includes(o) ? "✓ " : ""}{o}</button>)}
