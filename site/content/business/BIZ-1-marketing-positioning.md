@@ -91,7 +91,7 @@ Chris runs a small fleet of Hermes agents. One of them, Arnold, is his trainer. 
 
 **Message (later):** "A team of agents that know you, with screens that make sense on a phone."
 
-**What we do now:** let them join the waitlist and watch the build. Do not market to them yet.
+**What we do now:** let them request an invite and watch the build. Do not market to them yet.
 
 ### Who we are not chasing
 
@@ -265,7 +265,7 @@ Few, honest, and tied to the guardrail. Track weekly in the Friday update where 
 
 ### Is the word spreading?
 
-- Waitlist signups and yuigui.com to waitlist conversion.
+- Invite requests, and yuigui.com to invite request conversion.
 - GitHub stars, forks, outside issues and outside pull requests. Outside PRs are the real signal; stars are vanity.
 - Plugin installs (pairings started vs completed).
 - Show HN points and comment count, Product Hunt rank, mentions in Hermes and OpenClaw channels.

@@ -230,7 +230,7 @@ Weeks start Monday. "Ship slot" means whatever actually shipped that week become
 
 Few numbers, reported honestly in the Friday update where they are public-safe:
 
-- Waitlist signups and TestFlight installs per week, and which post or page they came from.
+- Invite requests and TestFlight installs per week, and which post or page they came from.
 - Outside GitHub issues and PRs. This matters more than stars.
 - Plays and completion on the preset clips (do people watch a 10-second clip to the end?).
 - Drafts approved unchanged vs edited vs rejected. This is the agent's report card.

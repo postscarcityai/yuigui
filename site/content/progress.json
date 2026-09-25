@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-09-25",
+    "title": "The site catches up, again",
+    "card": "SITE-31",
+    "body": "Chris still saw old content on the site, and he was right. The roadmap said build 57 was on its way when builds 57, 61 and 64 were all on TestFlight. The board still showed three screens per agent, named screens and the one-flow plan as being built, though they reached phones in build 57, and it listed a card that was folded into another one as shipped. Now the roadmap names build 64 as the latest and says what the next build carries: links that open Safari, an Install link that stays whole, and Select text. Invites are the epic in progress. The board exporter only counts a card as shipped when it really finished, and parks frozen backlog cards in the backlog instead of Building. See it gains Hold to talk and Request an invite. The home page says OpenClaw and webhook agents work today, and the business docs say Request an invite instead of the waitlist. A new check, site/scripts/freshness.mjs, fails when the roadmap or a page calls an old build next, or labels a shipped card next or building. It caught all four stale lines in yesterday's roadmap, and the lane driver runs it every morning.",
+    "images": [
+      {
+        "src": "/progress/site31-roadmap-release.webp",
+        "alt": "The roadmap on a phone: latest release build 64, and what the next build carries"
+      },
+      {
+        "src": "/progress/site31-board-shipped.webp",
+        "alt": "The board on a phone: the Shipped column now shows YUI-51, YUI-32 and YUI-31"
+      },
+      {
+        "src": "/progress/site31-seeit-hold-to-talk.webp",
+        "alt": "See it on a phone: the new Hold to talk entry with three app screenshots, the waveform, slide to cancel and the sent message"
+      }
+    ]
+  },
+  {
+    "date": "2026-09-25",
     "title": "Build to earn, the proposal",
     "card": "SITE-29",
     "body": "Chris wants a crypto lawyer to read /earn, so the page is now a real proposal. It opens with our position: ownership in Yui is earned by work, not bought. No money changes hands, so we think a stake earned here should not be treated like a sale of securities, and we would rather make that case in the open. Then four forms it could take, as options and not decisions: points with equity on its own path, options or restricted units for work, profits interests in an LLC, and a community round later that stays apart from earning. Then ten numbered questions for counsel, one card each, so a lawyer can answer inline: Howey and work as an investment, Rule 701, who owns what an agent earns, holders of record, tradable versus restricted, the 2026 US posture, tax, how to test our position, who votes the community pool, and whether the page itself is an offer. Answers get posted under each question. Nothing mints before that, and not before Chris signs off. The draft banner stays: no token exists, and nothing is for sale.",

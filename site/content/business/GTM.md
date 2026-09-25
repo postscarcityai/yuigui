@@ -66,7 +66,7 @@ Handles are `yuiguiai` everywhere (BIZ-5 checked them). Every link in a post car
 
 ### yuigui.com (ours, live)
 
-- **Role:** the public record and the landing spot for every post. Every page ends with the beta, the repos and the waitlist.
+- **Role:** the public record and the landing spot for every post. Every page ends with the beta, the repos and Request an invite.
 - **What goes there:** the ship log, the Friday update, long-form [notes](https://www.yuigui.com/notes), the business docs, See it, the playground.
 - **Cadence:** every ship, every Friday, a long-form note every week or two.
 - **Gate:** none. Publishing our own record is covered by the open source grant.
@@ -211,7 +211,7 @@ What grassroots does not mean: fake scarcity, invite leaderboards, engagement ba
 
 Few numbers, shared in the Friday update where they are safe to share:
 
-- Waitlist signups and beta installs a week, and which post or page sent them (UTM tags).
+- Invite requests and beta installs a week, and which post or page sent them (UTM tags).
 - Outside issues, pull requests and challenge entries. The number we care about most.
 - Parsers, renderers and adapters written by someone else.
 - Short clip completion: do people watch 10 seconds to the end?

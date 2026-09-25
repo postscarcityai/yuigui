@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T05:31:47.298Z",
+  "updated": "2026-09-25T05:34:40.914Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -137,6 +137,11 @@
           "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)"
         },
         {
+          "key": "SITE-28",
+          "title": "Earn calls to action around the site + agent open call",
+          "waiting": true
+        },
+        {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors"
         },
@@ -148,6 +153,11 @@
           "key": "OSS-6",
           "title": "Yui@home",
           "summary": "Idle AI agents pull from an agent-ready backlog and send PRs"
+        },
+        {
+          "key": "OSS-7",
+          "title": "Contribution ledger, off-chain first",
+          "waiting": true
         },
         {
           "key": "INT-3",
@@ -221,6 +231,31 @@
           "title": "Brand direction"
         },
         {
+          "key": "BIZ-8",
+          "title": "Tokenomics v1, supply, emissions, value",
+          "waiting": true
+        },
+        {
+          "key": "BIZ-9",
+          "title": "Chain pick, Sui vs Polygon vs Solana vs Bitcoin",
+          "waiting": true
+        },
+        {
+          "key": "BIZ-10",
+          "title": "🔴 legal review, token vs equity",
+          "waiting": true
+        },
+        {
+          "key": "BIZ-11",
+          "title": "Contributor NFTs with real value",
+          "waiting": true
+        },
+        {
+          "key": "BIZ-12",
+          "title": "Weave build to earn into GTM and the pitch",
+          "waiting": true
+        },
+        {
           "key": "FLOW-1",
           "title": "Flows",
           "summary": "Saved series of Yui screens, authored in Mermaid, run by any agent"
@@ -279,44 +314,10 @@
           "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in"
         },
         {
-          "key": "BIZ-8",
-          "title": "Tokenomics v1, supply, emissions, value",
-          "waiting": true
-        },
-        {
-          "key": "BIZ-9",
-          "title": "Chain pick, Sui vs Polygon vs Solana vs Bitcoin",
-          "waiting": true
-        },
-        {
-          "key": "BIZ-10",
-          "title": "🔴 legal review, token vs equity",
-          "waiting": true
-        },
-        {
-          "key": "BIZ-11",
-          "title": "Contributor NFTs with real value",
-          "waiting": true
-        },
-        {
-          "key": "OSS-7",
-          "title": "Contribution ledger, off-chain first",
-          "waiting": true
-        },
-        {
-          "key": "SITE-28",
-          "title": "Earn calls to action around the site + agent open call",
-          "waiting": true
-        },
-        {
-          "key": "BIZ-12",
-          "title": "Weave build to earn into GTM and the pitch",
-          "waiting": true
-        },
-        {
           "key": "SITE-31",
           "title": "yuigui.com freshness sweep",
-          "summary": "Every page matches the board, builds and app today"
+          "summary": "The site catches up, again",
+          "progress": "/progress#the-site-catches-up-again"
         },
         {
           "key": "YUI-65",
@@ -355,12 +356,6 @@
           "summary": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
           "shipped": "2026-09-25",
           "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away"
-        },
-        {
-          "key": "YUI-70",
-          "title": "Chat gestures",
-          "summary": "Swipe a bubble left to reply, hold for reactions + copy, drag the background to switch screens",
-          "shipped": "2026-09-25"
         },
         {
           "key": "YUI-67",
@@ -854,8 +849,9 @@
         },
         {
           "key": "YUI-6",
-          "title": "Accounts",
+          "title": "Accounts and the relay on Supabase Realtime",
           "summary": "Accounts: Sign in with Apple, and delete it in the app",
+          "mvp": true,
           "shipped": "2026-09-23",
           "progress": "/progress#accounts-sign-in-with-apple-and-delete-it-in-the-app"
         },
@@ -882,13 +878,6 @@
           "mvp": true,
           "shipped": "2026-09-23",
           "progress": "/progress#the-wordmark-moves-into-the-app"
-        },
-        {
-          "key": "YUI-6",
-          "title": "Accounts and the relay on Supabase Realtime",
-          "summary": "Relay v0 on Supabase Realtime + Hermes yui skill",
-          "mvp": true,
-          "shipped": "2026-09-23"
         },
         {
           "key": "YUI-3",

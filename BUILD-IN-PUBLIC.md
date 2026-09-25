@@ -39,6 +39,10 @@ A push to main deploys to production: the Vercel project's Root Directory is `si
 
 yuigui.com/board and the MVP bar are built from the kanban DB by `site/scripts/export-board.mjs` (titles and one-line summaries only; it refuses to write if it sees ids, paths, costs or private names). Cron `yui-board-sync` (urza, no-agent, every 30 min) runs `~/.hermes/profiles/urza/scripts/yui_board_sync.sh`: re-export in a dedicated clean worktree, and only when `board.json` or `mvp.json` changed, commit, push and `vercel --prod`. The MVP card list itself is the keys in `site/content/mvp.json`; edit them by hand when ROADMAP.md's MVP changes.
 
+## Freshness check
+
+`node site/scripts/freshness.mjs` (SITE-31) fails with file and line when ROADMAP.md, a page or See it says something the builds and the board moved past: a build at or below the newest VALID one called next or on its way, or a shipped card labelled next, building, NOT STARTED or IN THE NEXT BUILD. It reads the exported `board.json`, `mvp.json` and `builds.json`, so run it on a current tree. The lane driver runs it once a day; run it before any roadmap commit too.
+
 ## Changelog
 
 yuigui.com/changelog groups the log by TestFlight build: build number, date, what changed, screenshots. `site/scripts/export-builds.mjs` writes `site/content/builds.json` from App Store Connect (`~/dev/yui/scripts/asc.py`, the key never leaves this machine) and the app repo's git log: a build number is the app repo's commit count, so build N ships the commits after the previous build up to N. The page joins each change to its progress entry by card key. The `yui-board-sync` cron runs the export with the board and deploys when a new build appears. Run it by hand with `cd ~/dev/yuigui/site && node scripts/export-builds.mjs`. Early commits without a card key are mapped in its `KEYS` table.

@@ -30,10 +30,14 @@ export default function MvpBar({ detail = false }) {
       </p>
       {detail && (
         <>
-          <p className="mvp-label">Building now</p>
-          <div className="mvp-pills">{building.map((c) => <span className="pill now" key={c.key + c.title}>{c.key} {c.title}</span>)}</div>
-          <p className="mvp-label">Still to go</p>
-          <div className="mvp-pills">{next.map((c) => <span className="pill" key={c.key + c.title}>{c.key} {c.title}</span>)}</div>
+          {building.length > 0 && <>
+            <p className="mvp-label">Building now</p>
+            <div className="mvp-pills">{building.map((c) => <span className="pill now" key={c.key + c.title}>{c.key} {c.title}</span>)}</div>
+          </>}
+          {next.length > 0 && <>
+            <p className="mvp-label">Still to go</p>
+            <div className="mvp-pills">{next.map((c) => <span className="pill" key={c.key + c.title}>{c.key} {c.title}</span>)}</div>
+          </>}
         </>
       )}
     </div>

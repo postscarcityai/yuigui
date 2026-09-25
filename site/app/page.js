@@ -14,7 +14,7 @@ const what = [
 
 const who = [
   ["H", "var(--brand)", "People who run Hermes", "Works today. A small plugin on your own machine connects your Hermes profiles, and each one shows up in Yui as its own agent."],
-  ["O", "var(--lavender)", "People with other agents", "After the MVP. OpenClaw and other setups connect through adapters. If your agent can send a message, it can draw a screen."],
+  ["O", "var(--lavender)", "People with other agents", "Works today with OpenClaw, and with any agent that answers a webhook. More frameworks connect through adapters after the MVP. If your agent can send a message, it can draw a screen."],
   ["+", "var(--mint)", "People with no agent yet", "Later. A starter agent, for anyone who wants the app without setting anything up."],
 ];
 

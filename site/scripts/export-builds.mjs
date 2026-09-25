@@ -3,7 +3,7 @@
 // --check exits 0 when nothing changed, 3 when builds.json would change. Exits 2 and writes nothing on a leak.
 // Sources: App Store Connect (via the app repo's scripts/asc.py, key stays on this machine) and the app repo's git log.
 // A build number is the app repo's commit count at upload, so build N ships commits (previous build, N].
-// Commits name their card at the end of the subject, "... (YUI-7)". KEYS covers the early ones that do not.
+// Commits name their card at the end of the subject, "... (YUI-7)". KEYS covers the ones that do not.
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
@@ -17,6 +17,8 @@ const OUT = new URL("../content/builds.json", import.meta.url);
 const KEYS = {
   e963d62: "YUI-2", d350f2d: "YUI-3", "6ca3ca3": "YUI-5", f85580a: "YUI-5", c699523: "YUI-4",
   bee7944: "YUI-9", "1a8fbcd": "OSS-1",
+  // Later commits that name the TestFlight feedback instead of their card.
+  dc11e1d: "YUI-67", "0241f5e": "YUI-67",
 };
 
 const asc = (path) => {

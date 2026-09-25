@@ -6,7 +6,8 @@
     "sync": "node scripts/sync-content.mjs && node scripts/export-timeline.mjs",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "freshness": "node scripts/freshness.mjs"
   },
   "dependencies": {
     "katex": "^0.16.47",

@@ -58,6 +58,7 @@ function parseTitle(raw) {
 const rows = sql(`
   select t.id, t.title, t.status, t.priority, t.created_at, t.started_at, t.completed_at,
          (select max(e.created_at) from task_events e where e.task_id = t.id and e.kind in ('completed','archived')) as closed_at,
+         (select count(*) from task_events e where e.task_id = t.id and e.kind = 'completed') as completions,
          (lower(t.title || ' ' || coalesce(t.body, '')) like '%yui%') as about_yui
   from tasks t
   where ${PREFIXES.map((p) => `t.title glob '${p}-[0-9]*'`).join(" or ")}
@@ -67,12 +68,17 @@ const rows = sql(`
 const progress = JSON.parse(readFileSync(content("progress.json"), "utf8"));
 const logged = new Set(progress.flatMap((e) => [].concat(e.card || [])));
 
+// Shipped means finished: done, or archived after a completion. A card archived without ever
+// completing (folded into another, superseded) is not shipped and leaves the board.
+const landed = (t) => t.status === "done" || (t.status === "archived" && (t.completed_at || t.completions > 0));
+
 // A BIZ- or FLOW- card with an entry in the ship log is Yui work even when its brief never says "yui".
 const tasks = [];
 for (const r of rows) {
   const p = parseTitle(r.title);
   if (!p || !PREFIXES.includes(p.prefix)) continue;
   if (NEEDS_YUI_TAG.has(p.prefix) && !r.about_yui && !logged.has(p.key)) continue;
+  if (r.status === "archived" && !landed(r)) continue;
   tasks.push({ ...r, ...p });
 }
 
@@ -90,7 +96,7 @@ for (const e of progress) {
 const mvp = JSON.parse(readFileSync(content("mvp.json"), "utf8"));
 const mvpTitle = new Map();
 const used = new Set();
-const mvpStatus = (t) => (["done", "archived"].includes(t.status) ? "shipped" : ["running", "blocked", "scheduled"].includes(t.status) ? "building" : "next");
+const mvpStatus = (t) => (landed(t) ? "shipped" : ["running", "blocked", "scheduled"].includes(t.status) ? "building" : "next");
 const mvpCards = mvp.cards.map((c) => {
   const cands = tasks.filter((t) => t.key === c.key && !used.has(t.id));
   if (!cands.length) return c;
@@ -103,11 +109,13 @@ const mvpCards = mvp.cards.map((c) => {
 const now = Math.floor(Date.now() / 1000);
 const cols = { building: [], next: [], backlog: [], shipped: [] };
 for (const t of tasks) {
-  const shippedAt = ["done", "archived"].includes(t.status) ? t.completed_at || t.closed_at : null;
+  const shippedAt = landed(t) ? t.completed_at || t.closed_at : null;
+  const parked = t.tag.includes("backlog") || t.tag.includes("later");
   let col;
   if (shippedAt) { if (now - shippedAt > SHIPPED_DAYS * 86400) continue; col = "shipped"; }
-  else if (["running", "blocked", "scheduled"].includes(t.status)) col = "building";
-  else if (t.tag.includes("backlog") || t.tag.includes("later")) col = "backlog";
+  // A scheduled backlog card is parked (frozen, or waiting its turn), not being built.
+  else if (["running", "blocked"].includes(t.status) || (t.status === "scheduled" && !parked)) col = "building";
+  else if (parked) col = "backlog";
   else col = "next";
 
   const head = scrub(t.head);

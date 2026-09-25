@@ -1,4 +1,4 @@
-# Yui | roadmap (draft 11, Sep 25 2026)
+# Yui | roadmap (draft 12, Sep 25 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
@@ -59,19 +59,16 @@ Shipped:
 - YUI-27: ready for Apple's beta review: privacy labels, review notes, a demo code with a scripted demo agent for the reviewer, a help link.
 - YUI-52: build 57 on TestFlight with every fix from the Sep 24 feedback, each one checked again on that build: the composer clears, the gallery closes, photos stop overlapping (tall screenshots too), a working note on long answers, a natural voice, more colors, photos and hold-to-talk in the composer.
 - YUI-22: the public TestFlight link. Apple approved the beta on Sep 24: [https://testflight.apple.com/join/ykrYHwet](https://testflight.apple.com/join/ykrYHwet).
+- YUI-50: chat polish. The composer clears when you send, your text floats up into its bubble, and a down arrow takes you back to the newest message. Shipped in build 57.
 
-Building now:
-
-- YUI-50: chat polish. The composer clears when you send, your text floats up into its bubble, and a down arrow takes you back to the newest message. Done in the code; it reaches phones with the next build.
-
-Up next:
+Up next, the last MVP card:
 
 - YUI-29: the acceptance run. A stranger does the whole path.
-- YUI-61 (backlog): after sending a photo and dragging the keyboard away, check the thread settles on the newest message and nothing sits under the page pill.
+- YUI-74 (backlog): after sending a photo and dragging the keyboard away, check the thread settles on the newest message and nothing sits under the page pill.
 
 ### Next after the MVP
 
-Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-42 (the preset flywheel: custom screens agents keep sending get flagged for promotion to presets, checklist in spec/FLYWHEEL.md), SITE-15 (Yui Lines back on the home page, and every spec doc readable on the site), SITE-16 (watch Yui grow: the whole GitHub history, builds and screenshots, day by day, at /timeline), INT-0 (the adapters plan), INT-1 (OpenClaw agents talk in Yui) and INT-2 (a webhook bridge for any agent that answers HTTP). More are done in the code and reach phones with the next build: YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions), YUI-53 (no dead buttons: a plan ends in Send, and the channel guide bans "Got it" buttons), YUI-51 (one full-screen flow holds the pages and the questions with one Send, and afterwards the chat keeps an expandable record and your answers as your own message), YUI-32 (named screens: an agent saves a screen, it sits on a shelf at the top of the thread, and `show busy day` or one tap brings it back), YUI-31 (three screens per agent: the chat plus screens 2 and 3 a swipe away, which keep what the agent puts there) and YUI-30 (the timer keeps counting on the lock screen). What is left to pull once the MVP passes, roughly in this order:
+Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-42 (the preset flywheel: custom screens agents keep sending get flagged for promotion to presets, checklist in spec/FLYWHEEL.md), SITE-15 (Yui Lines back on the home page, and every spec doc readable on the site), SITE-16 (watch Yui grow: the whole GitHub history, builds and screenshots, day by day, at /timeline), INT-0 (the adapters plan), INT-1 (OpenClaw agents talk in Yui) and INT-2 (a webhook bridge for any agent that answers HTTP). Build 57 (Sep 24) brought more to phones: YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions), YUI-53 (no dead buttons: a plan ends in Send, and the channel guide bans "Got it" buttons), YUI-51 (one full-screen flow holds the pages and the questions with one Send, and afterwards the chat keeps an expandable record and your answers as your own message), YUI-32 (named screens: an agent saves a screen, it sits on a shelf at the top of the thread, and `show busy day` or one tap brings it back), YUI-31 (screens per agent: the chat plus screens a swipe away, which keep what the agent puts there) and YUI-30 (the timer keeps counting on the lock screen). Builds 61 and 64 (Sep 24 and 25) followed from TestFlight feedback: hold to talk no longer crashes and now works like WhatsApp (a waveform, let go sends, slide to the trash cancels), screens go from 2 to 12 and each one gets the whole phone. YUI-55 sends test builds by link, and YUI-67 (links in a card open Safari) is done in the code and reaches phones with the next build. What is left to pull once the MVP passes, roughly in this order:
 
 Chris's picks for the short term (Sep 25), in this order. The site cards run alongside in their own lane:
 
@@ -107,15 +104,15 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - SITE-24 (shipped): Yui@home, the story. Like SETI@home, but you lend idle AI tokens: the note [Donate your idle tokens to Yui](/notes/donate-your-idle-tokens-to-yui), a [Contribute with your agent](/developers/contribute) page with a feature spec template, a "Lend your agent" option at the bottom of every page, and an [llms.txt](/llms.txt) so assistants that read the site can pass the invitation on.
 - BIZ-7 (parked): one brand system from the website to social to print.
 
-**Next: INV-1, invite-only beta and client onboarding.** A request-an-invite form (name, Apple ID email, phone) replaces the waitlist. Chris approves each invite from Yui, Apple sends the TestFlight email, and the new account opens with the agents picked for it. Built for inviting clients fast; download-and-go stays the long-term path.
+**Now: INV-1, invite-only beta and client onboarding.** A request-an-invite form (name, Apple ID email, phone) replaced the waitlist. Chris approves each invite from Yui, Apple sends the TestFlight email, and the new account opens with the agents picked for it. Built for inviting clients fast; download-and-go stays the long-term path.
 
-- YUI-56: invites end to end, from request to first sign-in.
-- YUI-57: default agents per invite, client-safe agents only.
-- SITE-26: Request an invite replaces the waitlist on the site.
+- YUI-56 (built, in build 61): invites end to end, from request to first sign-in. It waits on one live test with Apple's TestFlight email before it counts as done.
+- YUI-57 (next): default agents per invite, client-safe agents only.
+- SITE-26 (shipped Sep 24): Request an invite replaced the waitlist on the site.
 
 **Next up: WAR-1, the war room.** Screen 2 becomes a real dashboard for running Yui from Yui: a timeline of what shipped and what is queued, quick links to the site, and a reorder mode that sets board priority by dragging, with no agent turn in between (Chris, Sep 25).
 
-- YUI-65 (backlog): a timeline preset: done above, now, queued below.
+- YUI-65 (building now): a timeline preset: done above, now, queued below.
 - YUI-66 (backlog): reorder mode, drag to set priority on the board.
 - YUI-73 (next): the rest of the war room. Needs you (cards waiting on Chris, with one-tap answers), running now (one row per lane), builds with the Install button, the latest feedback and the card it became, the MVP bar, quick links.
 
@@ -124,7 +121,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /earn; the token, chain, NFT and ledger cards stay frozen until then.
 
 - SITE-27 (shipped Sep 24): Build to earn, a V1 page on the site, marked draft.
-- SITE-29 (next): the proposal. Our position, the forms it could take (points plus equity, stock options or units for contributions, a community round kept separate), and open questions for counsel.
+- SITE-29 (building now): the proposal. Our position, the forms it could take (points plus equity, stock options or units for contributions, a community round kept separate), and open questions for counsel.
 - BIZ-8 (backlog): tokenomics v1: supply, emissions, how value holds.
 - BIZ-9 (backlog): the chain. Chris picked Sui on Sep 24; Polygon is the fallback.
 - BIZ-10 (backlog): legal review, token and equity.
@@ -133,7 +130,9 @@ Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /ear
 - SITE-28 (backlog): "How can I help?" around the site, and an open call to agents.
 - BIZ-12 (backlog): build to earn in the go-to-market plan and the pitch.
 
-**Next release: build 57, chat feels right.** Build 57 is on its way to TestFlight as soon as Apple's daily upload limit lifts. It carries today's TestFlight feedback fixes and eight cards: the lock screen timer (YUI-30), three screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51) and no dead buttons (YUI-53). Everything on the app's main branch since build 33 goes in it; [Builds](/changelog#next) lists it. YUI-52 checks every fix against the original feedback.
+**Latest release: build 64, Sep 25.** Build 57 (Sep 24) was the big one, chat feels right: the lock screen timer (YUI-30), screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51), no dead buttons (YUI-53), and every Sep 24 feedback fix checked again (YUI-52). Build 61 fixed a crash in hold to talk and brought invites (YUI-56) and test builds by link (YUI-55). Build 64 made hold to talk work like WhatsApp and gave screens 2 to 12 the whole phone.
+
+**The next build** carries what is on the app's main branch past 64: links in a card open Safari instead of sending a tap (YUI-67), a test build's Install link that stays whole, and Select text, so you can copy any part of a message (from Chris's TestFlight feedback, the first piece of YUI-68). [Builds](/changelog#next) lists it. The fix for a newly added agent that missed messages sent before its gateway came up is in the Hermes plugin, so it needs no build. After that, the next epic is Chris's Sep 25 picks: YUI-54 and YUI-70 (each agent's home and its controls), then YUI-68 (reply).
 
 ## North star: not just another AI chatbot
 
@@ -188,7 +187,7 @@ Rules that follow from the decision:
 - **iPhone only for now. No Apple Watch app yet** (Chris, Sep 23). Parked until after the MVP (YUI-47).
 - **Yui Lines stays platform-neutral.** `spec/YL.md` plus a shared conformance suite (input lines, expected parse) is the contract. The JS parser (web playground) and the Swift parser must both pass it. An Android build later (Kotlin + Jetpack Compose) passes the same suite.
 - **The web stays React.** The hub site and playground keep the JS renderer as the public, clickable reference.
-- **Fast feedback loop.** The Mac mini builds and ships a TestFlight build on every push to main, so Chris sees each change on his phone in about 15 minutes with no cable. Running since Sep 23.
+- **Fast feedback loop.** The Mac mini builds and ships TestFlight builds with no cable, running since Sep 23. Since Sep 24 TestFlight gets one build per epic (Apple caps uploads per day), and test builds by link (YUI-55) put the newest main on Chris's phone in between.
 - **Target iOS 26.** It is the current release, it has Foundation Models and Liquid Glass, and a new app has no install base to protect.
 
 ## Architecture in one paragraph
@@ -209,7 +208,7 @@ Deliverables:
 - DONE Sep 23: hub site (roadmap, progress log, business plan draft, deck outline, mockups), source on GitHub at postscarcityai/yuigui.
 - DONE Sep 23: Yui Lines v0 (spec, 12 presets, JS parser, web playground, token benchmark). Replaces the JSON protocol from draft 1.
 - DONE Sep 23: yuigui.com live, built in public (progress log per ship, weekly update Fridays).
-- DONE Sep 23: waitlist on yuigui.com, stored in `yui_waitlist` in the existing PostScarcity AI Supabase project (PROOF). All Yui tables use the `yui_` prefix there; no new Supabase instance.
+- DONE Sep 23: waitlist on yuigui.com (replaced by Request an invite on Sep 24, SITE-26), stored in `yui_waitlist` in the existing PostScarcity AI Supabase project (PROOF). All Yui tables use the `yui_` prefix there; no new Supabase instance.
 - DONE Sep 23: Apple Developer account (Chris, individual enrollment, no D-U-N-S).
 - DONE Sep 23: the Yui Lines conformance suite, and the Swift parser that passes it (YUI-3). Events back to the agent (tap, submit) are in the spec from day one; voice events wait for YUI-14.
 - DONE Sep 23: Xcode on the Mac mini and a TestFlight pipeline on the App Store Connect API. The first build went out the same day.
@@ -244,9 +243,9 @@ Deliverables:
 - DONE Sep 24, YUI-24: push notifications when an agent answers, with presence and per-agent mute. YUI-8 pushes open the handed-off screen.
 - DONE Sep 24, YUI-8: cross-channel handoff. From Telegram, "pull this up on Yui" pushes the screen to the phone.
 - DONE Sep 24, YUI-13: the full-screen stage with swipe-down or X to exit, and workouts always full screen.
-- IN THE NEXT BUILD, YUI-31: three screens per agent. The chat, then screens 2 and 3 a swipe away; agents send things that should stay put there (`>2 timer 25m Focus`), and the page slides forward with a spring, or cross-fades with Reduce Motion.
-- NOT STARTED, YUI-14: voice input via Apple's on-device Speech framework, per-agent default of talk vs type, hands-free voice in with text out.
-- IN THE NEXT BUILD, YUI-30: Live Activity for the timer preset: rounds keep counting on the lock screen and Dynamic Island.
+- DONE Sep 24 (build 57), YUI-31: screens per agent. The chat, then screens a swipe away; agents send things that should stay put there (`>2 timer 25m Focus`), and the page slides forward with a spring, or cross-fades with Reduce Motion. Build 64 (Sep 25) takes it to screens 2 to 12, each with the whole phone.
+- NOT STARTED, YUI-14: voice input via Apple's on-device Speech framework, per-agent default of talk vs type, hands-free voice in with text out. Hold to talk in the composer already shipped (builds 57 and 64).
+- DONE Sep 24 (build 57), YUI-30: Live Activity for the timer preset: rounds keep counting on the lock screen and Dynamic Island.
 
 ### Phase 3 | not started: data and keys
 
