@@ -160,13 +160,44 @@ Each A2A task is a fresh CrewAI task, so the agent keeps no memory between turns
 
 **Crews run as scripts.** A crew you kick off from a script, not a server, comes in through the webhook bridge (path E). `adapters/webhook/python/crewai_crew.py` is a planner and a writer: as a webhook, each turn kicks off the crew with the guide in the writer's backstory; with `send "..."` it runs once, say from cron, and puts the answer in the thread.
 
+## Microsoft Agent Framework agents
+
+[Microsoft Agent Framework](https://learn.microsoft.com/agent-framework/) is AutoGen's successor (AutoGen went into maintenance in October 2025). Its Python package hosts an agent over A2A with `A2AExecutor` (`agent-framework-a2a`, a beta), an executor for the official A2A SDK 1.x, so the agent speaks A2A 1.0 (JSON-RPC, streaming) and the bridge pairs it like any other (INT-16):
+
+```
+uv run --with 'agent-framework-a2a>=1.0.0b0' --with 'agent-framework-ollama>=1.0.0b0' \
+    --with 'a2a-sdk[http-server]' --with uvicorn adapters/a2a/tests/sdk/maf_agent.py 8792
+node yui-a2a.ts pair 123456 --card http://127.0.0.1:8792
+node yui-a2a.ts run
+```
+
+`maf_agent.py` is a working example on local Ollama qwen2.5:7b (`MAF_MODEL` swaps the model), so it needs no key. Both packages are betas: allow them by name as above. `--prerelease=allow` also pulls httpx 1.0.dev, and the A2A SDK fails to import on it.
+
+**How the guide gets in.** Left alone, `A2AExecutor` runs the agent on `context.get_user_input()`: every text part joined with newlines, so Yui's guide reads as part of the person's words, and data parts and part metadata are dropped. The example's executor keeps `A2AExecutor`'s output side and changes the input: the part marked `{"yui": "channel_guide"}` goes into the run's `instructions` option, which Agent Framework appends to the agent's own instructions (its system prompt), and only the person's words become the user message. A tap's data part is dropped; its text line says the same.
+
+```python
+class YuiMAFExecutor(A2AExecutor):
+    async def execute(self, context, event_queue):
+        guide = next((p.text for p in context.message.parts if is_guide(p)), None)
+        words = "\n".join(p.text for p in context.message.parts if p.HasField("text") and not is_guide(p))
+        ...
+        self._run_kwargs = {"options": {"instructions": guide}}
+        await self._run_stream(words, session, updater)
+```
+
+**Other quirks.**
+- `A2AExecutor` makes a new, empty session for each request (its id is the `contextId`, but nothing is kept), so out of the box the agent forgets the thread. The example keeps one session per `contextId`, which is the Yui agent, so the thread has memory. The guide rides on each new task's first message, so the executor also keeps the last guide per thread for a reply that continues a task.
+- `A2AExecutor` does not stream by default. Then the answer goes out as a `working` status message and the task completes with no message and no artifacts. The bridge used to read only the final status and lost that answer; it now falls back to the agent's last status message (or, from `GetTask`, its last message in the history) when a task completes with nothing else to show. The example streams anyway (`stream=True`), so the answer builds as it comes.
+- Streamed tokens arrive as artifact chunks with `append`, one text part each, which the bridge glues back together. A task fetched whole (`GetTask`) lists them as separate parts, one per token.
+- The card is yours to write (an `AgentCard` with a `JSONRPC` interface); Agent Framework does not make one from the agent.
+
 ## Tested
 
-- The client, 45 unit tests: event stream parsing, both versions' shapes, errors, and live calls against a scripted agent in 1.0 and 0.3, including picking a task back up, and the LangGraph message shape.
+- The client, 50 unit tests: event stream parsing, both versions' shapes, errors, and live calls against a scripted agent in 1.0 and 0.3, including picking a task back up, the LangGraph message shape, and an answer sent as a working status message.
 - Against the official A2A SDK (`a2a-sdk` for Python, 1.x and 0.3): card, send, stream, `GetTask`.
 - End to end on live Yui, 66 checks on throwaway accounts: A2A 1.0, 0.3, and 1.0 without streaming. A long task shows the working row, then its whole answer lands once. A bridge killed mid-task resumes the same task after a restart and answers once. The agent's question continues the same task. And on the iPhone simulator: the working row, the long answer, a screen from the A2A agent, a tap on it, and a question, light and dark.
 
-The test agent is scripted, with fixed answers and no model. One more run uses a real one: a Google ADK agent served by ADK's own `to_a2a`, its model qwen2.5:7b on Ollama (`a2a_e2e.py --protocol adk`). It pairs by its card, answers a turn, draws a screen the Yui Lines parser reads (only because the guide reached its model: its own instruction never mentions Yui), and answers a tap on it. Another runs a scripted LangGraph graph on LangGraph's own Agent Server (`a2a_e2e.py --protocol langgraph`, 12 checks): it pairs by the `?assistant_id=` card, answers a turn, draws a screen only because the guide reached its state, reads the tap from its data, holds the guide in the thread's state without it ever becoming a chat message, and stops clean. And a CrewAI agent on the same local model (`a2a_e2e.py --protocol crewai`, 9 checks): it pairs by its A2A 0.3 card, answers a turn, draws a screen only because the guide reached its backstory, answers a tap on it, and stops clean.
+The test agent is scripted, with fixed answers and no model. One more run uses a real one: a Google ADK agent served by ADK's own `to_a2a`, its model qwen2.5:7b on Ollama (`a2a_e2e.py --protocol adk`). It pairs by its card, answers a turn, draws a screen the Yui Lines parser reads (only because the guide reached its model: its own instruction never mentions Yui), and answers a tap on it. Another runs a scripted LangGraph graph on LangGraph's own Agent Server (`a2a_e2e.py --protocol langgraph`, 12 checks): it pairs by the `?assistant_id=` card, answers a turn, draws a screen only because the guide reached its state, reads the tap from its data, holds the guide in the thread's state without it ever becoming a chat message, and stops clean. And a CrewAI agent on the same local model (`a2a_e2e.py --protocol crewai`, 9 checks): it pairs by its A2A 0.3 card, answers a turn, draws a screen only because the guide reached its backstory, answers a tap on it, and stops clean. And a Microsoft Agent Framework agent on the same model (`a2a_e2e.py --protocol maf`, 10 checks): it pairs by its A2A 1.0 card, answers a turn, draws a screen only because the guide reached the run's instructions, answers a tap, recalls that tap on the next turn (one session per thread), and stops clean.
 
 ## Not yet
 

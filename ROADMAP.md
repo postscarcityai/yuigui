@@ -429,7 +429,8 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-13: a Yui channel for Flue.
 - INT-14 (step 1 done Sep 25): LangGraph, as an A2A agent on LangGraph's own Agent Server; the guide reaches the graph's state (spec/A2A.md). Next: the hosted connector.
 - INT-15 (step 1 done Sep 25): CrewAI, as an A2A agent served by CrewAI's own A2A server config; the guide goes into the agent's backstory (spec/A2A.md). Crews run as scripts use the webhook bridge. Next: the hosted connector.
-- INT-16: Microsoft Agent Framework, the successor to AutoGen.
+- INT-16 (step 1 done Sep 25): Microsoft Agent Framework, the successor to AutoGen, as an A2A agent served by its own A2AExecutor; the guide goes into the run's instructions (spec/A2A.md). The AG-UI spike says Yui can be an AG-UI client: parked as INT-21. Next: the hosted connector.
+- INT-21 (backlog): an AG-UI client, Yui screens as a frontend tool the agent calls, the tap as the tool's result. Serves Agent Framework, CopilotKit, Mastra and others.
 - INT-17 (step 1 done Sep 25): n8n, as a node ("Yui: ask and wait"), through the MCP Client Tool and through a Webhook trigger (spec/MCP.md "n8n"). Next: publish the node on npm and n8n's community list.
 - INT-18 (step 1 done Sep 25): an A2A client, so any agent with an Agent Card can join. Today as a bridge on your own computer (spec/A2A.md); hosted next, once Yui has a Cloudflare account.
 - YUI-48: text an agent from any phone over SMS.

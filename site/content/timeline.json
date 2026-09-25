@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 97,
-    "site": 242,
-    "builds": 27,
-    "shipped": 130,
+    "app": 98,
+    "site": 247,
+    "builds": 28,
+    "shipped": 131,
     "screenshots": 261
   },
   "days": [
@@ -13,17 +13,44 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T16:36:39.577Z",
+          "at": "2026-09-25T17:10:56.510Z",
+          "title": "Microsoft Agent Framework agents in Yui",
+          "card": "INT-16",
+          "anchor": "microsoft-agent-framework-agents-in-yui",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 98,
+            "site": 247,
+            "builds": 28,
+            "shipped": 131
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T16:36:51.000Z",
           "title": "CrewAI agents in Yui",
           "card": "INT-15",
           "anchor": "crewai-agents-in-yui",
           "images": [],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 97,
-            "site": 242,
-            "builds": 27,
+            "site": 244,
+            "builds": 28,
             "shipped": 130
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-25T16:34:46.000Z",
+          "build": 96,
+          "changes": 5,
+          "totals": {
+            "app": 96,
+            "site": 242,
+            "builds": 28,
+            "shipped": 129
           }
         },
         {
@@ -65,7 +92,7 @@
               "alt": "The last message in the thread held in dark mode: it lifts just enough for the menu to fit under it."
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 95,
             "site": 239,
@@ -981,6 +1008,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "4606ea9",
+          "at": "2026-09-25T17:10:47.000Z",
+          "text": "Microsoft Agent Framework agents in Yui (INT-16). Agent Framework, AutoGen's successor, hosts an agent over A2A with its own A2AExecutor...",
+          "url": "https://github.com/postscarcityai/yui/commit/4606ea9"
+        },
+        {
+          "repo": "site",
+          "sha": "4987ecc",
+          "at": "2026-09-25T17:10:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4987ecc"
+        },
+        {
+          "repo": "site",
+          "sha": "d4c7895",
+          "at": "2026-09-25T17:01:27.000Z",
+          "text": "YUI-81: progress entries may carry a short line for the build-ready deck",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d4c7895"
+        },
+        {
+          "repo": "site",
+          "sha": "5d42c95",
+          "at": "2026-09-25T16:40:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5d42c95"
+        },
+        {
+          "repo": "site",
+          "sha": "59d3b93",
+          "at": "2026-09-25T16:36:51.000Z",
+          "text": "INT-15 step 1: CrewAI. spec/A2A.md \"CrewAI agents\": CrewAI's own A2A server support (an A2AServerConfig on the agent, its card from...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/59d3b93"
+        },
+        {
+          "repo": "site",
+          "sha": "c8dbea6",
+          "at": "2026-09-25T16:36:45.000Z",
+          "text": "Build 96 release: ROADMAP latest release and YUI-78 shipped in build 96, next build past 96; release Thought draft (hold menu fits any...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c8dbea6"
+        },
         {
           "repo": "app",
           "sha": "d67a191",
