@@ -83,6 +83,7 @@ Then:
 
 - YUI-61 (second, shipped in build 82): slash commands. Type / to see what your agent already understands (Hermes commands first); later, Yui's own /commands that run a skill or a flow.
 - YUI-44 step 1 (third, shipped in build 82): @mention another agent from the composer and its reply lands in the thread in its own look. Group threads come after.
+- YUI-78 (backlog, TestFlight feedback Sep 25): the hold menu fits on long messages. A tall message lifts as a shortened preview, the reactions stay above it and Reply, Copy and Select text below, never on top of each other. Part of making chat feel premium, next to YUI-76 (agent bubbles show bold, code and lists instead of raw ** marks).
 - YUI-14: voice in, text out, fast.
 - YUI-62 (backlog): chat with a screen. Screens are full screen with no composer now; an agent will be able to keep the composer on a page, and what you type there reaches it tagged with that screen.
 - YUI-63 step 1 (shipped in build 82): one working row instead of three dots plus a timer, a working word and the seconds ("Pondering · 12s"). Step 2, later: the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
