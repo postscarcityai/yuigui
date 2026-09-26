@@ -1,27 +1,12 @@
 {
-  "updated": "2026-09-26T18:11:19.348Z",
+  "updated": "2026-09-26T18:41:36.261Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.3.0",
-    "status": "shipped",
-    "startedAt": "2026-09-26T05:16:02.000Z",
-    "shippedAt": "2026-09-26T06:25:29.000Z",
-    "cards": [
-      {
-        "key": "YUI-99",
-        "title": "Typing keeps up",
-        "status": "done",
-        "shipped": "2026-09-25",
-        "progress": "/progress#typing-keeps-up-even-on-a-long-thread"
-      },
-      {
-        "key": "YUI-101",
-        "title": "Telegram-smooth",
-        "status": "done",
-        "shipped": "2026-09-26",
-        "progress": "/progress#taps-answer-at-once-and-a-long-thread-scrolls-smooth"
-      }
-    ]
+    "version": "0.3.2",
+    "status": "open",
+    "startedAt": "2026-09-26T18:33:53.000Z",
+    "shippedAt": null,
+    "cards": []
   },
   "columns": [
     {
@@ -88,11 +73,6 @@
           "title": "Meal photo to macros in the app, step 2 of YUI-35"
         },
         {
-          "key": "YUI-107",
-          "title": "Speed rows send once",
-          "summary": "A row key so a resent batch is ignored"
-        },
-        {
           "key": "YUI-108",
           "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)"
         },
@@ -110,7 +90,8 @@
         },
         {
           "key": "YUI-115",
-          "title": "The app runs flows, then My flows (FLOW-1 app half)"
+          "title": "The app runs flows, then My flows (FLOW-1 app half)",
+          "waiting": true
         },
         {
           "key": "SITE-28",
@@ -195,6 +176,11 @@
           "key": "YUI-41",
           "title": "Step 2 (backlog)",
           "summary": "On-device model native in the app"
+        },
+        {
+          "key": "YUI-63",
+          "title": "Step 3 (infra)",
+          "summary": "Claude-shim agents send what they are doing to Yui mid-turn"
         }
       ]
     },
@@ -228,19 +214,22 @@
         {
           "key": "YUI-63",
           "title": "Step 2 (app) (backlog)",
-          "summary": "The working row shows what the agent is doing, with a bar"
+          "summary": "The working row shows what the agent is doing, with a bar",
+          "waiting": true
         },
         {
-          "key": "FLOW-1",
+          "key": "YUI-107",
+          "title": "Speed rows send once",
+          "summary": "A row key so a resent batch is ignored"
+        },
+        {
+          "key": "FLOW-2",
           "title": "Step 2 (web)",
-          "summary": "Flows, written in Mermaid",
-          "progress": "/progress#flows-written-in-mermaid"
+          "summary": "Agents look up screens and flows in the library, a search endpoint and an MCP tool"
         },
         {
-          "key": "SITE-47",
-          "title": "Help and Developers catch up to 0.3.1 and today's main",
-          "summary": "Help catches up with the app",
-          "progress": "/progress#help-catches-up-with-the-app"
+          "key": "SITE-48",
+          "title": "Every share link shows its real screen, the 49 missing previews go live and a check stops the drift"
         }
       ]
     },
@@ -248,6 +237,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "FLOW-1",
+          "title": "Step 2 (web)",
+          "summary": "Flows, written in Mermaid",
+          "shipped": "2026-09-26",
+          "progress": "/progress#flows-written-in-mermaid"
+        },
+        {
+          "key": "SITE-47",
+          "title": "Help and Developers catch up to 0.3.1 and today's main",
+          "summary": "Help catches up with the app",
+          "shipped": "2026-09-26",
+          "progress": "/progress#help-catches-up-with-the-app"
+        },
         {
           "key": "SITE-46",
           "title": "Get Yui catches up",
@@ -703,8 +706,9 @@
         {
           "key": "FLOW-1",
           "title": "Flows",
-          "summary": "Saved series of Yui screens, authored in Mermaid, run by any agent",
-          "shipped": "2026-09-25"
+          "summary": "Flows run the same in every parser, and My flows has a first look",
+          "shipped": "2026-09-25",
+          "progress": "/progress#flows-run-the-same-in-every-parser-and-my-flows-has-a-first-look"
         },
         {
           "key": "YUI-56",
