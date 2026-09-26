@@ -1818,6 +1818,80 @@
         "max_pages": 4
       },
       "good": "doing lines as it goes, plain words and a step (\"Reading your calendar\" 1/3, \"Checking your mail\" 2/3, \"Looking at the board\" 3/3), no card ids or tool names; then the answer: two calls, two replies to send, one choice on the tuner (YUI-63)."
+    },
+    {
+      "id": "music-jam-beat",
+      "category": "music",
+      "agent": "Urza",
+      "message": "Trying to get back into drumming. Give me a simple boom bap beat around 90 I can mess with.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "loop",
+          "drums",
+          "say",
+          "card",
+          "save"
+        ],
+        "need": [
+          "loop"
+        ],
+        "max_words": 40
+      },
+      "good": "One `loop` line near 90 BPM with a boom bap pattern in `p=` that plays (`+play`), a short line at most. No pattern written out in words, no drum tab, no advice paragraph."
+    },
+    {
+      "id": "music-finger-drums",
+      "category": "music",
+      "agent": "Urza",
+      "message": "Waiting on a call. Let me just tap out some drums on my phone for a minute.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "drums",
+          "loop",
+          "say"
+        ],
+        "need": [
+          "drums"
+        ],
+        "max_words": 25
+      },
+      "good": "One `drums` line (2x2 or 4x4), a few words at most."
+    },
+    {
+      "id": "music-beat-sent",
+      "category": "music",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "Give me a beat to jam over."
+        },
+        {
+          "role": "agent",
+          "text": "Here's a start. Change anything, then Send.\n```yui\nloop 90 \"Jam\" p=x...x...|....x...|..x...x.|x.x.x.x. +play\n```"
+        }
+      ],
+      "message": "[yui] n1 loop bpm=94 swing=25 steps=8 rows=kick|snare|clap|hat|open|rim|tom|shaker p=x..xx.x.|....x...|..x...x.|xxxxxxxx||||\nSent my beat, 94 BPM",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "loop",
+          "say",
+          "save",
+          "card"
+        ],
+        "need": [
+          "save"
+        ],
+        "patch": "^loop$",
+        "no_add": [
+          "loop"
+        ],
+        "max_words": 25
+      },
+      "good": "The person's version patched in by preset name (`~loop p=... bpm=94 swing=25`) and a `save` with a short name, a line at most. No re-sent loop, no critique of the beat."
     }
   ]
 }
