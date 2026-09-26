@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 132,
-    "site": 320,
+    "app": 133,
+    "site": 322,
     "builds": 29,
-    "shipped": 170,
+    "shipped": 171,
     "screenshots": 366
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T00:53:01.629Z",
+          "at": "2026-09-26T01:10:06.275Z",
+          "title": "The MCP server and Telegram read Yui Lines like the app again",
+          "card": "INT-22",
+          "anchor": "the-mcp-server-and-telegram-read-yui-lines-like-the-app-again",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 133,
+            "site": 322,
+            "builds": 29,
+            "shipped": 171
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T00:53:10.000Z",
           "title": "Shared agents in the app: Hi Maya, Shared by Sam, and a clean goodbye",
           "card": "YUI-97",
           "anchor": "shared-agents-in-the-app-hi-maya-shared-by-sam-and-a-clean-goodbye",
@@ -35,10 +50,10 @@
               "alt": "Light mode, the owner's settings for Wizard: Not safe to share: it has a shell on your computer."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 132,
-            "site": 320,
+            "site": 321,
             "builds": 29,
             "shipped": 170
           }
@@ -2056,6 +2071,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "4a23dfe",
+          "at": "2026-09-26T01:09:42.000Z",
+          "text": "yui-mcp and Telegram read Yui Lines like the app again (INT-22)",
+          "url": "https://github.com/postscarcityai/yui/commit/4a23dfe"
+        },
+        {
+          "repo": "site",
+          "sha": "703d2bf",
+          "at": "2026-09-26T00:58:16.000Z",
+          "text": "Roadmap: PERF-1 is the only focus until 0.3.0, which ships to TestFlight when it lands (Chris, Sep 25 night)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/703d2bf"
+        },
+        {
+          "repo": "site",
+          "sha": "34a2cd5",
+          "at": "2026-09-26T00:53:10.000Z",
+          "text": "Shared agents in the app, step 3 (YUI-97): spec AGENTS.md 'As built (YUI-97)', progress entry with four shots, See it card updated.",
+          "url": "https://github.com/postscarcityai/yuigui/commit/34a2cd5"
+        },
         {
           "repo": "site",
           "sha": "122123b",

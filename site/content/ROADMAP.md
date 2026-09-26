@@ -7,8 +7,8 @@ yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch re
 - **On phones:** Yui 0.2.0, build 122, on TestFlight. Every agent has a home: the drawer, screens that update where they sit, full-screen pages that tell a story, typing on a screen, and Settings says exactly which build you have.
 - **Built, on main, not on phones yet:** shapes that move (YUI-104), restyle Yui by asking (YUI-96), speed reporting (YUI-102), shared agents in the database and on the host (YUI-95), group threads in the database and the plugin (YUI-93). They ride 0.3.0.
 - **Building now:** YUI-97, the invite plan and "Shared by" in the app. YUI-104 is finishing its checks.
-- **Up next:** YUI-70, agent controls in the drawer. Then YUI-29, the MVP acceptance run, then PERF-1 (YUI-99 to YUI-101) and the rest of the backlog in the order below.
-- **TestFlight is on hold (Chris, Sep 25).** Work keeps landing on main. 0.3.0 goes up when Chris says, with the scope he picks. Test builds by link (Yui Dev, YUI-91) are paused too.
+- **Up next, and the only focus until 0.3.0 (Chris, Sep 25 night):** PERF-1, Telegram-smooth. YUI-101 (taps answer on the same frame, 120 fps scroll, fast thread open) and YUI-99 (typing as fast as Notes). Feel and ease of use only; integration work waits in the backlog. After 0.3.0: YUI-100 memory audit, YUI-70, YUI-29, then the backlog in the order below.
+- **0.3.0 goes to TestFlight when PERF-1 lands (Chris, Sep 25 night).** One upload, the smooth release, carrying everything built on main since 0.2.0. Test builds by link (Yui Dev, YUI-91) stay paused.
 - **Waiting on Chris:** one look in claude.ai (INT-7) and one in chatgpt.com (INT-8). YUI-91 and the first real speed numbers (YUI-102) wait on a Yui Dev install, parked with the test builds.
 - **MVP:** every card has shipped except YUI-29, a stranger running the whole path alone.
 

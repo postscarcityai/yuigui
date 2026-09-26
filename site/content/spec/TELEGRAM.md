@@ -23,7 +23,9 @@ Status: step 1 shipped Sep 25. The renderer, the tap handler, the Mini App page 
 | `step` | consecutive steps become one numbered message, equations in code. |
 | `timeline` | ✓ done, ▶ now, ○ next. `+reorder` also lists it under Open in Yui, where dragging works. |
 | `sketch` | Its rows as text: struck rows struck through, highlighted rows bold, buttons in brackets, notes after an arrow, a before and after labelled; blank filler rows left out. The drawing itself is in the Mini App. |
-| `timer`, `slide`, `form`, `image`, `camera`, `mic`, `gallery`, `video`, `compare`, `storyboard`, `chart`, `math`, `calc`, `deck`, `plan`, `project`, `narrate`, `game`, `custom` | listed by name in one **Open in Yui** message, placed where the first of them was. Its button opens the whole screen in the Mini App. |
+| `shapes` | its title in bold, the labels in line order with each connector as an arrow between them (`You → Board <i>ships</i> → Phone`), then the caption. The moving drawing is in the Mini App. |
+| `table create`, `put`, `theme app`, `menu` | nothing: the tables, the restyle offer and the drawer live on the phone. |
+| `timer`, `slide`, `form`, `image`, `camera`, `mic`, `gallery`, `video`, `compare`, `storyboard`, `chart`, `math`, `calc`, `deck`, `plan`, `project`, `narrate`, `game`, `query`, `custom` | listed by name in one **Open in Yui** message, placed where the first of them was. Its button opens the whole screen in the Mini App. |
 
 Text outside ```` ```yui ```` fences is sent as a plain message. Screens (`>2`) and the stage do not exist in Telegram, so everything goes in line order (YL.md section 10). `+lock` shows the question with no buttons. Every preset in `yl.mjs` is covered, and a test fails when a new preset has no mapping.
 
