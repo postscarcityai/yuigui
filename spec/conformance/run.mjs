@@ -7,6 +7,7 @@ import { isDeepStrictEqual } from "node:util";
 import { apply, attachBody, doingOf, flowEvent, flowPath, flowVariant, initialState, markAt, menuOf, onStage, pageOf, parse, readAttach, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 import { emptyStore, query, replay } from "../../site/lib/yl/tables.mjs";
 import { appLook, checks } from "../../site/lib/yl/look.mjs";
+import { loopVoices } from "../../site/lib/music/theory.mjs";
 
 // Parser ops minus the fields that are not compared: `line` (the source
 // text) and an error's `message` (wording is up to each parser).
@@ -57,6 +58,12 @@ function check(v) {
     // Each add's props over its preset's defaults (resolve), in line order.
     const got = parse(v.input, known).filter((o) => o.op === "add").map((o) => resolve(o.preset, o.props));
     if (!isDeepStrictEqual(got, v.resolved)) fails.push(["resolved (each add over its defaults)", got]);
+  }
+  if (v.voices) {
+    // The voice each row of the input's first loop plays (MUSIC.md section 4).
+    const r = resolve("loop", parse(v.input, known).find((o) => o.preset === "loop").props);
+    const got = loopVoices(r.rows, r.sound);
+    if (!isDeepStrictEqual(got, v.voices)) fails.push(["voices (what each loop row plays)", got]);
   }
   if (v.menu) {
     const m = menuOf(parse(v.input));

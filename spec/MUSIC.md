@@ -225,6 +225,27 @@ Pitched voices, for `keys`, `chords`, note rows and `sound=`:
 
 An unknown word still parses (`sound=theremin`); the app plays the family default (`keys` for a pitched slot, `tick` for a pad) and the playground does the same.
 
+**Row names.** A loop row can be named the way a musician would. Before lookup a word loses case, accents, spaces, `_` and `-` (`Ganzá` reads `ganza`, `hi-hat` reads `hihat`). Then it is a kit word or an alias (`ALIAS` in theory.mjs, `Words.alias` in the app, kept in step):
+
+| Plays | Aliases |
+| --- | --- |
+| `kick` | bd, bassdrum, kickdrum, cajon |
+| `snare` | sd, snaredrum, caixa, tarol |
+| `clap` | clapping, handclap, palmas |
+| `hat` | hh, hihat, hihats, closedhat |
+| `open` | openhat, oh |
+| `rim` | clave, claves, rimshot, sidestick, tamborim, woodblock |
+| `tom` | surdo, repinique, repique, floortom, taiko, dhol |
+| `shaker` | shake, maraca, maracas, tambourine, ganza, chocalho, guiro, cabasa, afuche, egg, pandeiro |
+| `crash` | ride, cymbal, splash, china |
+| `cow` | cowbell, agogo, gankogui |
+| `snap` | finger |
+| `conga` | bongo, bongos, cuica, timbal, timbale, timbales, djembe, tumba, quinto, tabla, darbuka |
+| `bell` | chime, glock, marimba, triangle |
+| `tick` | click |
+
+Two rows the kit does not know never share a voice. In a loop each unknown drum row takes the next kit voice, in pad order, that no other row plays (`loopVoices` in theory.mjs, `Words.loop` in the app), so `rows=kick|zap|zing` plays kick, snare, clap. Only once all twelve drums are taken does a row fall back to `tick`. A pad or a single `play` of an unknown word still plays `tick`.
+
 **In the app (AVAudioEngine).** One `AVAudioSourceNode` renders every voice in its render block, sample by sample, from the same recipes: a small voice pool (32 voices), each voice an oscillator phase, an envelope and a one-pole or state-variable filter, no allocation and no locks on the audio thread. Scheduled notes carry a sample time from the engine's clock, so the looper and the metronome land on the exact sample. A limiter and a small reverb (`AVAudioUnitReverb`) sit after it. The same recipe text drives both platforms, so a sound is fixed once.
 
 **In the browser (Web Audio).** Each hit builds a few nodes (`OscillatorNode`, `AudioBufferSourceNode` over one shared noise buffer, `BiquadFilterNode`, `GainNode` envelopes, `WaveShaperNode` for the soft clip) and lets them go when the envelope ends. A `DynamicsCompressorNode` is the limiter. That is what the playground mock does today.

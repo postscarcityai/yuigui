@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { KIT } from "../../../lib/yl/yl.mjs";
 import {
   IN_TUNE, PITCHED, chordNotes, detectPitch, fromPattern, inScale, knownTuning, midiName, nearestNote,
-  nearestString, noteToMidi, parseKey, pitchRange, pitchWindow, progression, quantize, soundFor,
+  loopVoices, nearestString, noteToMidi, parseKey, pitchRange, pitchWindow, progression, quantize, soundFor,
   stepBeats, stepTime, toPattern, tunerStrings,
 } from "../../../lib/music/theory.mjs";
 import { audio, clock, note, play, hold, running, session } from "./engine";
@@ -47,7 +47,8 @@ export function Loop({ p, emit }) {
   const [sent, setSent] = useState(false);
   const clk = useRef(null);
   const live = useRef(null);
-  live.current = { grid, bpm, swing, steps, rows, sound: p.sound };
+  const voices = loopVoices(rows, p.sound);
+  live.current = { grid, bpm, swing, steps, rows, voices, sound: p.sound };
 
   // A patch lands without stopping the music: the grid, tempo or swing change
   // and the clock keeps going.
@@ -56,17 +57,18 @@ export function Loop({ p, emit }) {
   useEffect(() => { setBpm(clampInt(p.bpm, 40, 240, 96)); }, [p.bpm]);
   useEffect(() => { setSwing(clampInt(p.swing, 0, 75, 0)); }, [p.swing]);
 
-  const sound = (row, when, s = live.current) => {
-    const m = noteToMidi(row);
+  // Row `ri` by its voice, so rows with names the kit does not know still sound apart.
+  const sound = (ri, when, s = live.current) => {
+    const m = noteToMidi(s.rows[ri]);
     if (m !== null) note(s.sound, m, { when, dur: (60 / s.bpm) * stepBeats(s.steps) * 0.9 });
-    else play(row, { when, vel: 0.9 });
+    else play(s.voices[ri], { when, vel: 0.9 });
   };
   const start = () => {
     audio();
     clk.current?.stop();
     clk.current = clock({
       gap: (i) => { const s = live.current; const k = i % s.steps; return stepTime(k + 1, s.bpm, s.steps, s.swing) - stepTime(k, s.bpm, s.steps, s.swing); },
-      onTick: (i, t) => { const s = live.current; const k = i % s.steps; s.rows.forEach((r, ri) => { if (s.grid[ri]?.[k]) sound(r, t, s); }); },
+      onTick: (i, t) => { const s = live.current; const k = i % s.steps; s.rows.forEach((r, ri) => { if (s.grid[ri]?.[k]) sound(ri, t, s); }); },
       onShow: (i) => setHead(i % live.current.steps),
     });
     setPlaying(true);
@@ -83,7 +85,7 @@ export function Loop({ p, emit }) {
   const toggle = (r, k) => {
     audio();
     const on = !grid[r][k];
-    if (on && !playing) sound(rows[r]);
+    if (on && !playing) sound(r);
     setGrid(grid.map((row, ri) => (ri === r ? row.map((x, ki) => (ki === k ? on : x)) : row)));
     setSent(false);
   };
@@ -103,7 +105,7 @@ export function Loop({ p, emit }) {
         <div key={bi} className="mu-grid" style={{ gridTemplateColumns: `50px repeat(${Math.min(steps, 8)}, minmax(0, 1fr))` }} role="grid"
           aria-label={banks.length > 1 ? `Steps ${from + 1} to ${to}` : "Pattern"}>
           {rows.map((r, ri) => [
-            <button key={`n${ri}`} className="mu-rowname" onPointerDown={() => { audio(); sound(r); }} aria-label={`Hear ${r}`}>{r}</button>,
+            <button key={`n${ri}`} className="mu-rowname" onPointerDown={() => { audio(); sound(ri); }} aria-label={`Hear ${r}`}>{r}</button>,
             ...Array.from({ length: to - from }, (_, j) => {
               const k = from + j;
               return (

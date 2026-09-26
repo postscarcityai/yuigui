@@ -235,21 +235,41 @@ export const FX = ["pop", "sweep", "tick"];
 export const PITCHED = ["keys", "pluck", "bell", "pad", "bass", "lead"];
 export const SOUNDS = [...DRUMS, ...FX, ...PITCHED];
 // Words agents reach for that mean one of ours.
-const ALIAS = {
+export const ALIAS = {
   bd: "kick", bassdrum: "kick", kickdrum: "kick", sd: "snare", snaredrum: "snare", hh: "hat", hihat: "hat", hihats: "hat",
   closedhat: "hat", openhat: "open", oh: "open", ride: "crash", cymbal: "crash", cowbell: "cow", clave: "rim", rimshot: "rim",
   shake: "shaker", maraca: "shaker", tambourine: "shaker", finger: "snap", click: "tick", bongo: "conga",
   piano: "keys", ep: "keys", organ: "keys", rhodes: "keys", guitar: "pluck", harp: "pluck", synth: "lead", saw: "lead",
   strings: "pad", choir: "pad", sub: "bass", "808": "bass", chime: "bell", glock: "bell", marimba: "bell",
+  // World percussion, by the kit voice closest to it.
+  surdo: "tom", repinique: "tom", repique: "tom", floortom: "tom", taiko: "tom", dhol: "tom", tabla: "conga",
+  caixa: "snare", tarol: "snare", tamborim: "rim", woodblock: "rim", sidestick: "rim", claves: "rim",
+  ganza: "shaker", chocalho: "shaker", guiro: "shaker", cabasa: "shaker", afuche: "shaker", maracas: "shaker", egg: "shaker",
+  agogo: "cow", gankogui: "cow", triangle: "bell", cuica: "conga", timbal: "conga", timbale: "conga",
+  timbales: "conga", djembe: "conga", tumba: "conga", quinto: "conga", bongos: "conga", darbuka: "conga", cajon: "kick",
+  pandeiro: "shaker", splash: "crash", china: "crash", clapping: "clap", handclap: "clap", palmas: "clap",
 };
+// A word as the lookup reads it: lower case, no accents, no spaces, _ or -.
+const bare = (word) => String(word || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[\s_-]/g, "");
 // The voice for a word. `pitched` is true where a note is being played (a
 // keyboard, a chord, a note row); an unknown word then plays keys, and an
 // unknown drum word plays tick.
 export function soundFor(word, pitched = false) {
-  const w = String(word || "").toLowerCase().replace(/[\s_-]/g, "");
-  const s = SOUNDS.includes(w) ? w : ALIAS[w];
+  const w = bare(word);
+  const s = SOUNDS.includes(w) ? w : Object.hasOwn(ALIAS, w) ? ALIAS[w] : null;
   if (s && (!pitched || PITCHED.includes(s))) return s;
   return pitched ? "keys" : s || "tick";
+}
+// The voice each of a loop's rows plays. A note row plays `sound`; a known
+// drum word plays its voice; an unknown one takes the next kit voice no other
+// row plays, so two unknown rows never sound the same (tick once all twelve
+// are taken).
+export function loopVoices(rows, sound = "pluck") {
+  const drum = (r) => !isNote(r);
+  const known = (r) => SOUNDS.includes(bare(r)) || Object.hasOwn(ALIAS, bare(r));
+  const taken = new Set(rows.filter((r) => drum(r) && known(r)).map((r) => soundFor(r)));
+  const free = DRUMS.filter((d) => !taken.has(d));
+  return rows.map((r) => (!drum(r) ? soundFor(sound, true) : known(r) ? soundFor(r) : free.shift() || "tick"));
 }
 
 // ---------- patterns ----------

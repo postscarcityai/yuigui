@@ -147,6 +147,66 @@
       ]
     },
     {
+      "name": "loop: samba rows by their own names, each its own voice",
+      "input": "loop 100 \"Samba\" rows=Surdo|Caixa|Tamborim|Ganzá|Agogô steps=16 +play",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "loop",
+          "id": "n1",
+          "props": {
+            "bpm": 100,
+            "title": "Samba",
+            "play": true,
+            "rows": [
+              "Surdo",
+              "Caixa",
+              "Tamborim",
+              "Ganzá",
+              "Agogô"
+            ],
+            "steps": 16
+          }
+        }
+      ],
+      "voices": [
+        "tom",
+        "snare",
+        "rim",
+        "shaker",
+        "cow"
+      ]
+    },
+    {
+      "name": "loop: unknown drum rows never share a voice",
+      "input": "loop 90 rows=kick|zap|zing|C4 sound=bell",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "loop",
+          "id": "n1",
+          "props": {
+            "bpm": 90,
+            "rows": [
+              "kick",
+              "zap",
+              "zing",
+              "C4"
+            ],
+            "sound": "bell"
+          }
+        }
+      ],
+      "voices": [
+        "kick",
+        "snare",
+        "clap",
+        "bell"
+      ]
+    },
+    {
       "name": "loop: a quoted number is text, so no tempo",
       "input": "loop \"808\" Dreams",
       "expected": [
