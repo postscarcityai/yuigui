@@ -782,6 +782,10 @@
   "next": [
     {
       "text": "Channel guide v24 (YUI-111): a timeline row moves on by patch, kind=done|now|next. Synced from yuigui dce6cb1."
+    },
+    {
+      "text": "Memory audit: leaks fixed, pictures downsampled and cached, a memory ceiling script",
+      "card": "YUI-100"
     }
   ]
 }
