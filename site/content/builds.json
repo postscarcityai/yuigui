@@ -1,6 +1,54 @@
 {
   "builds": [
     {
+      "build": 135,
+      "date": "2026-09-25",
+      "uploaded": "2026-09-25T19:10:43-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Group threads in the database and the Hermes plugin (YUI-93, step 2 of YUI-77; spec yuigui spec/GROUPS.md, section 7 \"As built\"). Migration 20260925070000_yui_groups.sql, applied to PROOF: yui_threads (lead, max_hops 1-5, max_turns 1-12, stopped_at, archived_at) and yui_thread_members, yui_messages.thread_id. The person's row goes to the agents it names (meta.group.to, three at most) or the lead, rewritten to a `[yui] group \"<title>\" ... hop= from= msg=` header with the group's last six lines quoted, words kept in meta.group.words; the second and third get copies. Agent replies are stamped into the group from meta.turn, and their @s become handoff asks while the hop budget and the turn cap hold, else a guard row (held until Let it or Stop). Let it and Stop are rows that land handled in the lead's thread; Stop cancels undelivered handoffs and says so in one line, and replies rooted before it hand nothing on. Status lines for asleep, offline, not connected and muted agents. Making a group needs the newest app build at or above yui_limits group_min_build (set high until YUI-94 ships the sheet): update_needed below it. yui_user owns threads and members (no delete: archive); yui_connector has no grant on either table and cannot set thread_id or meta.group; its only view of the rest of a group is the quote and yui_group_notes(), one plain line per row, member agents only. In a group @s never become depth-1 mentions; solo threads are unchanged. Plugin groups.py: a turn that answers a group row starts with `[yui] note: in <group>` lines from yui_group_notes(), cursor per agent and group. Channel guide v20 (Groups), published. group_test.py 69/69 live, mention_test 38/38, relay_test 51/51, reactions_test 22/22, test_groups 7/7 and every plugin test green.",
+          "card": "YUI-93"
+        },
+        {
+          "text": "Shared agents, database side (YUI-95, step 2 of YUI-57; spec yuigui spec/AGENTS.md \"Shared agents\"). WIP: plugin + app proof follow."
+        },
+        {
+          "text": "Hermes plugin: shared agents on the host (YUI-95). The heartbeat and session report this profile's sandbox (sandbox.py) so Yui can mark the agent client-safe. A shared thread is its own Hermes session (chat_id <agent id>~<user id>; the owner's stays the agent id) and replies go back to that person. Before any turn for someone other than the owner the sandbox is checked again: if it no longer passes, the turn does not run, the person reads \"This agent is paused by its owner.\", the owner gets one card naming the rule, and a heartbeat clears client_safe at once. War room, Needs you and invite taps from anyone but the owner are refused with one line; board and mention notes go only into the owner's turns; an agent's @s never leave a shared thread. test_shared 13/13, every plugin test green (test_screen_talk harness now names the owner)."
+        },
+        {
+          "text": "Shared agents on the simulator (YUI-95): shared_agents_e2e.py + YuiUITests/SharedAgentTests. A throwaway owner's host reports a shell, grant.py refuses (exit 3); the host reports a sandbox, the template (Penny, candy, a first message, by Sam) goes out on an @example.com invite (--no-testflight); the invitee claims it and signs in: Penny is in the list in her look and her first message waits (light, then dark); grant.py revoke mid-test and on relaunch she is gone. 8/8. Regression after the migration: agents_test 80/80, invites_test 54/54, mention_test 38/38, relay_test 51/51."
+        },
+        {
+          "text": "Shared agents follow-up (YUI-95): rows with no agent pass the owner-or-grant trigger and stay readable and deletable by their user, as before (accounts_test caught it); the two trigger functions are not callable by the app or a host. Migration 20260925090000_yui_shared_agents_fixes.sql, applied to PROOF. accounts_test and strangers_test allow the three grant checks the message policies call (strangers also names YUI-93's yui_group_notes, which failed before this card). accounts_test 73/73, strangers_test 85/85, shared_agents_test 81/81."
+        },
+        {
+          "text": "Restyle Yui by asking, native (YUI-96, step 2 of YUI-43; spec yuigui spec/RESTYLE.md)."
+        },
+        {
+          "text": "yui_perf: numbers-only speed rows, owner-only, 500 a day, 90 days",
+          "card": "YUI-102"
+        },
+        {
+          "text": "Speed reporting on the phone: signposts, MetricKit, memory, batches",
+          "card": "YUI-102"
+        },
+        {
+          "text": "Shapes that move, native (YUI-104; spec yuigui spec/YL.md \"shapes\"; Chris on build 96: \"simple SVG style vector graphics... basic shapes both geometric and organic to show some complex ideas very quickly... not an immersive experience, still just in the chat with captions\")."
+        },
+        {
+          "text": "Shared agents, step 3 (YUI-97, step 3 of YUI-57; spec yuigui spec/AGENTS.md \"As built (YUI-97)\")."
+        },
+        {
+          "text": "yui-mcp and Telegram read Yui Lines like the app again",
+          "card": "INT-22"
+        },
+        {
+          "text": "Typing keeps up on a long thread (YUI-99). Chris on build 96: \"when I hold the backspace button it goes very slow, and if I hit space twice, it is slow to create the period.\""
+        }
+      ]
+    },
+    {
       "build": 122,
       "date": "2026-09-25",
       "uploaded": "2026-09-25T15:57:32-07:00",
@@ -667,46 +715,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Group threads in the database and the Hermes plugin (YUI-93, step 2 of YUI-77; spec yuigui spec/GROUPS.md, section 7 \"As built\"). Migration 20260925070000_yui_groups.sql, applied to PROOF: yui_threads (lead, max_hops 1-5, max_turns 1-12, stopped_at, archived_at) and yui_thread_members, yui_messages.thread_id. The person's row goes to the agents it names (meta.group.to, three at most) or the lead, rewritten to a `[yui] group \"<title>\" ... hop= from= msg=` header with the group's last six lines quoted, words kept in meta.group.words; the second and third get copies. Agent replies are stamped into the group from meta.turn, and their @s become handoff asks while the hop budget and the turn cap hold, else a guard row (held until Let it or Stop). Let it and Stop are rows that land handled in the lead's thread; Stop cancels undelivered handoffs and says so in one line, and replies rooted before it hand nothing on. Status lines for asleep, offline, not connected and muted agents. Making a group needs the newest app build at or above yui_limits group_min_build (set high until YUI-94 ships the sheet): update_needed below it. yui_user owns threads and members (no delete: archive); yui_connector has no grant on either table and cannot set thread_id or meta.group; its only view of the rest of a group is the quote and yui_group_notes(), one plain line per row, member agents only. In a group @s never become depth-1 mentions; solo threads are unchanged. Plugin groups.py: a turn that answers a group row starts with `[yui] note: in <group>` lines from yui_group_notes(), cursor per agent and group. Channel guide v20 (Groups), published. group_test.py 69/69 live, mention_test 38/38, relay_test 51/51, reactions_test 22/22, test_groups 7/7 and every plugin test green.",
-      "card": "YUI-93"
-    },
-    {
-      "text": "Shared agents, database side (YUI-95, step 2 of YUI-57; spec yuigui spec/AGENTS.md \"Shared agents\"). WIP: plugin + app proof follow."
-    },
-    {
-      "text": "Hermes plugin: shared agents on the host (YUI-95). The heartbeat and session report this profile's sandbox (sandbox.py) so Yui can mark the agent client-safe. A shared thread is its own Hermes session (chat_id <agent id>~<user id>; the owner's stays the agent id) and replies go back to that person. Before any turn for someone other than the owner the sandbox is checked again: if it no longer passes, the turn does not run, the person reads \"This agent is paused by its owner.\", the owner gets one card naming the rule, and a heartbeat clears client_safe at once. War room, Needs you and invite taps from anyone but the owner are refused with one line; board and mention notes go only into the owner's turns; an agent's @s never leave a shared thread. test_shared 13/13, every plugin test green (test_screen_talk harness now names the owner)."
-    },
-    {
-      "text": "Shared agents on the simulator (YUI-95): shared_agents_e2e.py + YuiUITests/SharedAgentTests. A throwaway owner's host reports a shell, grant.py refuses (exit 3); the host reports a sandbox, the template (Penny, candy, a first message, by Sam) goes out on an @example.com invite (--no-testflight); the invitee claims it and signs in: Penny is in the list in her look and her first message waits (light, then dark); grant.py revoke mid-test and on relaunch she is gone. 8/8. Regression after the migration: agents_test 80/80, invites_test 54/54, mention_test 38/38, relay_test 51/51."
-    },
-    {
-      "text": "Shared agents follow-up (YUI-95): rows with no agent pass the owner-or-grant trigger and stay readable and deletable by their user, as before (accounts_test caught it); the two trigger functions are not callable by the app or a host. Migration 20260925090000_yui_shared_agents_fixes.sql, applied to PROOF. accounts_test and strangers_test allow the three grant checks the message policies call (strangers also names YUI-93's yui_group_notes, which failed before this card). accounts_test 73/73, strangers_test 85/85, shared_agents_test 81/81."
-    },
-    {
-      "text": "Restyle Yui by asking, native (YUI-96, step 2 of YUI-43; spec yuigui spec/RESTYLE.md)."
-    },
-    {
-      "text": "yui_perf: numbers-only speed rows, owner-only, 500 a day, 90 days",
-      "card": "YUI-102"
-    },
-    {
-      "text": "Speed reporting on the phone: signposts, MetricKit, memory, batches",
-      "card": "YUI-102"
-    },
-    {
-      "text": "Shapes that move, native (YUI-104; spec yuigui spec/YL.md \"shapes\"; Chris on build 96: \"simple SVG style vector graphics... basic shapes both geometric and organic to show some complex ideas very quickly... not an immersive experience, still just in the chat with captions\")."
-    },
-    {
-      "text": "Shared agents, step 3 (YUI-97, step 3 of YUI-57; spec yuigui spec/AGENTS.md \"As built (YUI-97)\")."
-    },
-    {
-      "text": "yui-mcp and Telegram read Yui Lines like the app again",
-      "card": "INT-22"
-    },
-    {
-      "text": "Typing keeps up on a long thread (YUI-99). Chris on build 96: \"when I hold the backspace button it goes very slow, and if I hit space twice, it is slow to create the period.\""
-    }
-  ]
+  "next": []
 }
