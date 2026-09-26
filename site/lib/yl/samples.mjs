@@ -556,6 +556,18 @@ next "Each agent's home" tag=YUI-54
 next "Agent controls in the drawer" tag=YUI-70`,
   },
   {
+    slug: "speed",
+    name: "War room: the Speed panel (sample numbers)",
+    agent: "Yui",
+    yl: `stat@speed-keys 22ms "Typing, p95" delta=-6 spark=31|29|28|28|22 good=down sub="build 125 · budget 33"
+stat@speed-arrive 172ms "Messages land, p95" delta=44 spark=131|126|130|128|172 good=down sub="build 125 · budget 150"
+stat@speed-hitch 3.1ms/s "Scroll hitches" delta=-1.4 spark=6.2|5.8|5.1|4.5|3.1 good=down sub="under 5 is smooth"
+stat@speed-hangs 0.8s/h "Hangs" delta=-1.1 spark=2.6|2.2|2.4|1.9|0.8 good=down sub="per foreground hour"
+stat@speed-mem 212MB "Memory peak" delta=-26 spark=251|246|240|238|212 good=down sub="budget 300"
+chart@speed-p95 line "p95 by build" x=121|122|123|124|125 y=31|29|28|28|22 y2=58|52|47|38|41 y3=131|126|130|128|172 names=Typing|Send|"Messages land" unit=ms
+card@speed-worst "Worst hang: 1.2 s, 3 times" "YuiLines.parse <- ChatStore.apply <- ThreadView.body" sub="build 125 · main thread"`,
+  },
+  {
     slug: "sketch-card-ids",
     name: "Sketch: before and after, drawn",
     agent: "Yui",

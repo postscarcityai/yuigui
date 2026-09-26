@@ -127,7 +127,8 @@ Work ships in epics: a set of cards that together make one release worth trying.
 
 **Next: PERF-1, Telegram-smooth (Chris Sep 25).** "Optimize for pure user experience... very efficient like Telegram." The design stays as it is; the app gets fast. Measure first, so every fix has a before and after, and Yui watches the numbers from then on.
 
-- YUI-98 (backlog, first): speed reporting. MetricKit and signposts on the phone (hangs, scroll hitches, memory, keystroke to render, send to bubble), numbers only into a yui_perf table, a daily report, and a Speed panel in the war room.
+- YUI-98: speed reporting. Step 1 shipped Sep 25: the speed budget ([Speed budget](/developers/perf)), seven named intervals with p50 and p95 targets, hang, hitch and memory budgets, what the phone sends (numbers only) and the proposed `yui_perf` table, the daily report and the rule for the briefing line, and the war room Speed panel in the playground (`/playground?demo=speed`). Step 2 is YUI-102 (backlog): MetricKit and signposts on the phone, the table, the report script and the live panel.
+- YUI-102 (backlog, next in PERF-1): speed reporting built. YUI-100 and YUI-101 wait on its numbers.
 - YUI-99 (backlog): typing keeps up. Holding backspace and double-space for a period run as fast as in Notes, even on a long thread.
 - YUI-100 (backlog, after YUI-98): memory audit. Leaks found and fixed, bounded image caches, and a memory ceiling test before every ship.
 - YUI-101 (backlog, after YUI-98): taps answer on the same frame, 120 fps scroll, fast thread open.

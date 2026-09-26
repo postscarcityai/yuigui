@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 128,
-    "site": 309,
+    "site": 310,
     "builds": 29,
-    "shipped": 164,
-    "screenshots": 346
+    "shipped": 165,
+    "screenshots": 348
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T00:04:12.742Z",
+          "at": "2026-09-26T00:10:33.433Z",
+          "title": "What fast means for Yui, in milliseconds",
+          "card": "YUI-98",
+          "anchor": "what-fast-means-for-yui-in-milliseconds",
+          "images": [
+            {
+              "src": "/progress/yui98-speed-dark.webp",
+              "alt": "The Speed panel in dark mode: five tiles (typing 22 ms, messages land 172 ms in red, scroll hitches 3.1 ms/s, hangs 0.8 s/h, memory peak 212 MB) each with a small trend line, a line chart of p95 by build, and a worst-hang card."
+            },
+            {
+              "src": "/progress/yui98-speed-light.webp",
+              "alt": "The same Speed panel in light mode."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 128,
+            "site": 310,
+            "builds": 29,
+            "shipped": 165
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T00:04:27.000Z",
           "title": "Ask any agent to restyle Yui, in the app",
           "card": "YUI-96",
           "anchor": "ask-any-agent-to-restyle-yui-in-the-app",
@@ -43,10 +67,10 @@
               "alt": "Light mode, Wizard's thread while Yui wears autumn: Wizard keeps its own purple serif look."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 128,
-            "site": 309,
+            "site": 310,
             "builds": 29,
             "shipped": 164
           }
@@ -1880,6 +1904,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "2b4e39d",
+          "at": "2026-09-26T00:04:27.000Z",
+          "text": "Restyle Yui by asking, built (YUI-96, step 2 of YUI-43; app yui b64501e). Every parser reads `theme app`: Python, Kotlin and Rust join...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2b4e39d"
+        },
         {
           "repo": "app",
           "sha": "b64501e",
