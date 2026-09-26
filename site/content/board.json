@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T08:40:43.402Z",
+  "updated": "2026-09-26T09:10:47.250Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -120,11 +120,6 @@
           "agentReady": true
         },
         {
-          "key": "YUI-112",
-          "title": "A timeline opened alone on the stage stretches its rows to fill the screen",
-          "waiting": true
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -218,10 +213,6 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "YUI-85",
-          "title": "The channel guide teaches a sketch under a page"
-        },
-        {
           "key": "YUI-91",
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
         },
@@ -240,6 +231,16 @@
           "title": "Step 3",
           "summary": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
           "waiting": true
+        },
+        {
+          "key": "YUI-112",
+          "title": "A timeline opened alone on the stage stretches its rows to fill the screen"
+        },
+        {
+          "key": "YUI-89",
+          "title": "Step 1",
+          "summary": "Agent tables in the Python, Kotlin and Rust parsers",
+          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers"
         }
       ]
     },
@@ -247,6 +248,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-85",
+          "title": "The channel guide teaches a sketch under a page",
+          "summary": "Every agent can put a picture on a page",
+          "shipped": "2026-09-26",
+          "progress": "/progress#every-agent-can-put-a-picture-on-a-page"
+        },
         {
           "key": "YUI-69",
           "title": "Step 2 (backlog)",
