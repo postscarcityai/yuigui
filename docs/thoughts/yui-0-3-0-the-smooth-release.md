@@ -3,7 +3,6 @@ date: 2026-09-26
 tag: release
 title: "Yui 0.3.0: the smooth release"
 dek: Taps answer at once, a long thread opens in about a third of a second, and typing keeps up. Plus shapes that move and two deck fixes. Build 138 is on TestFlight.
-draft: true
 ---
 
 ```shot

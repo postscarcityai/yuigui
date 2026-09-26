@@ -1,8 +1,8 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 148,
-    "site": 367,
+    "app": 149,
+    "site": 368,
     "builds": 31,
     "shipped": 188,
     "screenshots": 404
@@ -145,7 +145,7 @@
               "alt": "The same saved timeline after two patch lines: YUI-202 is done on Sep 26, the Now line moved below it and YUI-203 Slash commands is running"
             }
           ],
-          "commits": 3,
+          "commits": 5,
           "totals": {
             "app": 144,
             "site": 352,
@@ -184,7 +184,7 @@
               "alt": "The same timeline after one patch line: YUI-73 is done on Sep 26, the Now line moved below it and YUI-68 is running"
             }
           ],
-          "commits": 3,
+          "commits": 5,
           "totals": {
             "app": 141,
             "site": 347,
@@ -370,6 +370,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "0a733e3",
+          "at": "2026-09-26T12:04:38.000Z",
+          "text": "Channel guide v24 (YUI-111): a timeline row moves on by patch, kind=done|now|next. Synced from yuigui dce6cb1.",
+          "url": "https://github.com/postscarcityai/yui/commit/0a733e3"
+        },
+        {
+          "repo": "site",
+          "sha": "dce6cb1",
+          "at": "2026-09-26T12:04:23.000Z",
+          "text": "Channel guide v24, scored (YUI-111): a timeline row moves on by patch, `~now kind=done at=Fri` (spec/YL.md 'Moving a row', app yui...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dce6cb1"
+        },
         {
           "repo": "site",
           "sha": "f80c072",
