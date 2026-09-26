@@ -2,3 +2,7 @@
 .env
 .env.*
 .vercel
+
+# Video production (renders, frames, audio, the brag skill's output). Kept out of git on purpose.
+videos/
+brag-output*/
