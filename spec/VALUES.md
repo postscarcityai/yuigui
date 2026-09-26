@@ -54,7 +54,7 @@ Example: `plan "Trip" submit="Book it"`, and a card with nothing to act on has n
 
 ## Where these live
 
-- Agents: the [channel guide](/channel) teaches them turn by turn ("Long answers are pages, not walls").
+- Agents: the [channel guide](/channel) teaches them turn by turn ("Answer first, in one line").
 - The app: full-screen pages, the build-ready deck and drawn illustrations are being rebuilt around values 2 to 5.
 - This site: [Build in public](https://github.com/postscarcityai/yuigui/blob/main/BUILD-IN-PUBLIC.md) holds progress entries and Thoughts to the same rules.
 

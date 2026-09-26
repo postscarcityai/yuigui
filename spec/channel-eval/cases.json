@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it. `at` (YUI-93): the chat words must @ at least one of these handles. `no_at`: the chat words @ nobody. `app_theme` (YUI-96): exactly one `theme app` line, with this set name. `no_text`: a regex the chat words may not match. `max_sentences`: caps the chat sentences.",
+  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it. `at` (YUI-93): the chat words must @ at least one of these handles. `no_at`: the chat words @ nobody. `app_theme` (YUI-96): exactly one `theme app` line, with this set name. `no_text`: a regex the chat words may not match. `max_sentences`: caps the chat sentences. `max_pages` (YUI-118): caps `page` lines in the reply.",
   "agents": {
     "Arnold": "You are Arnold, Chris's fitness and health coach. Direct, warm, brief.",
     "Urza": "You are Urza, Chris's chief of staff: scheduling, email, home, errands, and everything else. Sharp and brief."
@@ -1270,7 +1270,8 @@
           "deck",
           "plan"
         ],
-        "max_words": 50
+        "max_words": 50,
+        "max_pages": 4
       },
       "good": "One short line, a card with the headline (A2A agents can join Yui), and the detail as a deck of short pages (what it does, how to add one, the test counts as points). No paragraph relaying the summary."
     },
@@ -1309,7 +1310,8 @@
           "deck",
           "plan"
         ],
-        "max_words": 50
+        "max_words": 50,
+        "max_pages": 4
       },
       "good": "A deck (or plan) of short pages, one change per page, under one short chat line. Not a long bulleted or prose message."
     },
@@ -1393,7 +1395,8 @@
         "need": [
           "sketch"
         ],
-        "max_words": 50
+        "max_words": 50,
+        "max_pages": 4
       },
       "good": "One short line and a `sketch` (a bubble fits) with the old wording struck out (+x) and the new wording highlighted (+hi), ideally split with `after`, a note or two. No paragraph explaining it."
     },
@@ -1421,7 +1424,8 @@
         "need": [
           "sketch"
         ],
-        "max_words": 50
+        "max_words": 50,
+        "max_pages": 4
       },
       "good": "A `sketch` of the screen (frame=phone) with the headline and notes as rows, Got it as a +button row struck out (+x) with a short note (it does nothing), Install as a +button row highlighted. At most a line of chat."
     },
@@ -1450,7 +1454,8 @@
           "plan"
         ],
         "page_picture": true,
-        "max_words": 50
+        "max_words": 50,
+        "max_pages": 4
       },
       "good": "One short line and a deck of three pages, one change each, and each page's picture a sketch right after it: the old wording or button struck out (+x), the new one highlighted (+hi), ideally split with `after`. No paragraph."
     },
@@ -1736,6 +1741,58 @@
         "max_words": 40
       },
       "good": "One short line and `flow website-intake`: the saved intake flow asks everything, branching on their answers. Not a hand-built plan of the same questions."
+    },
+    {
+      "id": "short-status-latest-build",
+      "category": "short",
+      "agent": "Yui",
+      "message": "Am I on the latest build? (What you just looked up: the newest build on TestFlight is 160, live since 12:58 pm today. This phone reports build 160. An iPad on the same account reports build 135. Five changes wait on main for the next release, 0.3.2: keys and chords in the music tools, and a faster Send tap that is still being built.)",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "card",
+          "say",
+          "ask",
+          "choose",
+          "stat",
+          "list"
+        ],
+        "max_words": 30,
+        "max_sentences": 3,
+        "max_pages": 0
+      },
+      "good": "One line: yes, build 160, the newest; the iPad is on 135. No deck, no pages, no 'what's coming' tour (YUI-118, feedback AJq7CcQS8fyM)."
+    },
+    {
+      "id": "short-release-go-ahead",
+      "category": "short",
+      "agent": "Yui",
+      "history": [
+        {
+          "role": "user",
+          "text": "Am I on the latest build?"
+        },
+        {
+          "role": "agent",
+          "text": "Yes, build 160, the newest. Your iPad is on 135. Keys and chords wait on main for 0.3.2."
+        }
+      ],
+      "message": "OK, yeah go ahead and release that. I want to play with the music tools. (What you just did: started the 0.3.2 release; a worker is building it now and it reaches TestFlight in about 40 minutes. It leaves out the faster Send tap, which is not done yet.)",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "card",
+          "say",
+          "ask",
+          "choose",
+          "stat",
+          "list"
+        ],
+        "max_words": 35,
+        "max_sentences": 3,
+        "max_pages": 0
+      },
+      "good": "One line: 0.3.2 is building, on TestFlight in about 40 minutes with keys and chords; the Send tap fix waits. No deck, no 'what happens next' pages (YUI-118)."
     }
   ]
 }

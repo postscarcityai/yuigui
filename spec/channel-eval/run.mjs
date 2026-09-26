@@ -241,6 +241,10 @@ export function score(c, reply) {
     const m = text.match(new RegExp(e.no_text, "i"));
     if (m) fails.push(`text: "${m[0]}"`);
   }
+  if (e.max_pages) {
+    const n = good.filter((o) => o.preset === "page").length;
+    if (n > e.max_pages) fails.push(`pages: ${n} > ${e.max_pages}`);
+  }
   if (e.max_sentences) {
     const n = text.split(/(?<=[.!?])\s+/).filter((x) => /\w/.test(x)).length;
     if (n > e.max_sentences) fails.push(`sentences: ${n} > ${e.max_sentences}`);
