@@ -11,14 +11,19 @@ export const eyebrowOf = (it) => (it?.video ? `A ${Math.round(it.video["9x16"].s
 
 const C = { bg: "#FFF9F0", ink: "#3A3340", soft: "#8C8294", brand: "#FF7E8A", plum: "#231D33", plum2: "#2F2842", code: "#F6EEF7", lav: "#D9CCF7", mint: "#BDEBD6", butter: "#FFE8A3", link: "#C23B4F" };
 
-export async function ogFonts() {
-  const dir = join(process.cwd(), "lib/og/fonts");
-  const [b, x, m] = await Promise.all(["nunito-latin-700-normal.ttf", "nunito-latin-800-normal.ttf", "jetbrains-mono-latin-500-normal.ttf"].map((f) => readFile(join(dir, f))));
-  return [
-    { name: "Nunito", data: b, weight: 700, style: "normal" },
-    { name: "Nunito", data: x, weight: 800, style: "normal" },
-    { name: "Mono", data: m, weight: 500, style: "normal" },
-  ];
+// Read once per process and shared by every image it draws.
+let fonts;
+export function ogFonts() {
+  fonts ??= (async () => {
+    const dir = join(process.cwd(), "lib/og/fonts");
+    const [b, x, m] = await Promise.all(["nunito-latin-700-normal.ttf", "nunito-latin-800-normal.ttf", "jetbrains-mono-latin-500-normal.ttf"].map((f) => readFile(join(dir, f))));
+    return [
+      { name: "Nunito", data: b, weight: 700, style: "normal" },
+      { name: "Nunito", data: x, weight: 800, style: "normal" },
+      { name: "Mono", data: m, weight: 500, style: "normal" },
+    ];
+  })();
+  return fonts;
 }
 
 export async function screenDataUrl(id) {
