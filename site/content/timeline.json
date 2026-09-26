@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 147,
-    "site": 359,
+    "app": 148,
+    "site": 363,
     "builds": 31,
-    "shipped": 187,
-    "screenshots": 402
+    "shipped": 188,
+    "screenshots": 404
   },
   "days": [
     {
@@ -13,15 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T09:08:57.826Z",
+          "at": "2026-09-26T09:11:05.000Z",
+          "title": "A timeline opened on its own sits at the top",
+          "card": "YUI-112",
+          "anchor": "a-timeline-opened-on-its-own-sits-at-the-top",
+          "images": [
+            {
+              "src": "/progress/yui112-stage-before.webp",
+              "alt": "Before: the Yui 0.4.0 timeline full screen, three rows spread down the whole phone with the running row's pink highlight filling a third of it"
+            },
+            {
+              "src": "/progress/yui112-stage-after.webp",
+              "alt": "After: the same timeline full screen, the done row, Now line, running row and queued row packed together at the top"
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 148,
+            "site": 363,
+            "builds": 31,
+            "shipped": 188
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T09:09:50.000Z",
           "title": "Agent tables in the Python, Kotlin and Rust parsers",
           "card": "YUI-89",
           "anchor": "agent-tables-in-the-python-kotlin-and-rust-parsers",
           "images": [],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 147,
-            "site": 359,
+            "site": 360,
             "builds": 31,
             "shipped": 187
           }
@@ -346,6 +370,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "c943df6",
+          "at": "2026-09-26T09:11:05.000Z",
+          "text": "Progress: fix a merge conflict left in progress.json (YUI-112)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c943df6"
+        },
+        {
+          "repo": "site",
+          "sha": "fd078b6",
+          "at": "2026-09-26T09:10:54.000Z",
+          "text": "Progress: a timeline opened on its own sits at the top (YUI-112)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fd078b6"
+        },
+        {
+          "repo": "app",
+          "sha": "15ccabd",
+          "at": "2026-09-26T09:10:52.000Z",
+          "text": "A timeline alone on the stage keeps its row heights and sits at the top (YUI-112)",
+          "url": "https://github.com/postscarcityai/yui/commit/15ccabd"
+        },
+        {
+          "repo": "site",
+          "sha": "719d48f",
+          "at": "2026-09-26T09:10:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/719d48f"
+        },
+        {
+          "repo": "site",
+          "sha": "094e6f7",
+          "at": "2026-09-26T09:09:50.000Z",
+          "text": "Agent tables in the Python, Kotlin and Rust parsers (YUI-89)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/094e6f7"
+        },
         {
           "repo": "site",
           "sha": "c84d9c1",
