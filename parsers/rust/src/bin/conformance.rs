@@ -6,7 +6,7 @@
 use std::path::{Path, PathBuf};
 use std::{env, fs, panic, process};
 use std::collections::HashMap;
-use yuilines::{doing_of, json, mark_at, on_stage, page_of, parse_with, read_typed, resolve, tables, talking, timeline_rows, typed_body, Map, StreamParser, Value};
+use yuilines::{doing_of, flow_event, flow_path, json, mark_at, on_stage, page_of, parse_with, read_typed, resolve, tables, talking, timeline_rows, typed_body, Map, StreamParser, Value};
 
 /// Parser ops minus `line` and an error's `message`.
 fn normalize(ops: Vec<Value>) -> Value {
@@ -124,6 +124,30 @@ fn check(v: &Value) -> Vec<(&'static str, Value)> {
         let d = doing_of(&parse(input)).unwrap_or(Value::Null);
         if !same(&d, want) {
             fails.push(("doing (the working row after the input)", d));
+        }
+    }
+    if let Some(r) = v.get("route") {
+        // A flow's route (spec/FLOWS.md): the path the answers take, the first
+        // open question, and the event at submit. Uses the input's first flow.
+        let empty = Map::new();
+        let ops = parse(input);
+        let patch = ops.iter().find(|o| o.get("op") == Some(&Value::str("patch")));
+        let g = resolve("flow", patch.and_then(|o| o.get("props")).and_then(Value::as_obj).unwrap_or(&empty));
+        let answers = r.get("answers").and_then(Value::as_obj).unwrap_or(&empty);
+        let (path, open) = flow_path(&g, answers);
+        let mut got = Map::new();
+        got.set("path", Value::strs(&path));
+        got.set("open", open.map_or(Value::Null, Value::Str));
+        let got = Value::Obj(got);
+        let mut want = Map::new();
+        want.set("path", r.get("path").cloned().unwrap_or(Value::Null));
+        want.set("open", r.get("open").cloned().unwrap_or(Value::Null));
+        if !same(&got, &Value::Obj(want)) {
+            fails.push(("route (path, open)", got));
+        }
+        let ev = flow_event(&g, answers);
+        if !same(&ev, r.get("event").unwrap_or(&Value::Null)) {
+            fails.push(("route (event)", ev));
         }
     }
     if let Some(t) = v.get("typed") {

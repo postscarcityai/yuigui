@@ -53,9 +53,11 @@ One file per area, `NN-area.json`:
 
 - `menu`: `{review, backlog, shortcut}`, the drawer's items after the whole input, each newest first (YL.md section 5, The drawer): an item is `{id, label, sub?, say?, show?, url?}`, labels cut at 60 characters. Checked against `menuOf` in JS and `YuiLines.menu` in Swift; the Python, Kotlin and Rust parsers pass the parse side of these vectors.
 
-- `route`: `{answers, path, open, event}`, a flow's runtime (FLOWS.md, section 4): for these answers, `flowPath` of the input's flow gives `{path, open}` and `flowEvent` gives `event`.
+- `route`: `{answers, path, open, event}`, a flow's runtime (FLOWS.md, section 4): for these answers, `flowPath` of the input's first flow gives `{path, open}` and `flowEvent` gives `event`. Checked against `flowPath`/`flowEvent` in JS and Kotlin and `flow_path`/`flow_event` in Python and Rust.
 
-**JavaScript only for now: `js-NN-*.json`.** Flows (FLOWS.md) are parsed by the JavaScript parser only in step 1 (FLOW-1). Their vectors live in `js-26-flow.json`, which `run.mjs` reads and the Swift, Python, Kotlin and Rust runners skip (they read `NN-*.json`). When a parser learns flows, rename the file to `26-flow.json` and every runner picks it up.
+**JavaScript only: `js-NN-*.json`.** A new area can land in the JavaScript parser first, as `js-NN-area.json`: `run.mjs` reads it and the Swift, Python, Kotlin and Rust runners skip it (they read `NN-*.json`). When the other parsers learn it, drop the `js-` and every runner picks it up. None is JavaScript only today.
+
+**Flows: `26-flow.json`.** The JavaScript, Python, Kotlin and Rust parsers read flows and run their `route` vectors (FLOW-1 step 2). The Swift parser learns them in the app half, so `26-flow.json` is on its not-yet list (`notYetInApp` in the app repo).
 
 - `tables`: `{today, now, failed?, results}`, agent tables (TABLES.md). Replay the input's `table create` and `put` ops onto an empty store, with `today` and `now` as the phone's date and time. `failed` is the `line` of every write the store refused (none when missing). `results` is, for each `query` add in order, what the query gives against the store the whole input left: `{cols: [{name, type, unit?}], rows, keys, count}`, `{missing: table}`, or `{error: true}` (wording is up to each store). Checked against `replay` and `query` in `site/lib/yl/tables.mjs` (JS) and in each port's own store: `replay` and `query` in `parsers/python/tables.py`, `Tables.replay` and `Tables.query` in Kotlin, `tables::replay` and `tables::query` in Rust. The app's store (Swift, SQLite) is YUI-89's app half.
 

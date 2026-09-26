@@ -22,6 +22,9 @@ One line in, one op out. Ops are dicts:
   {"op": "error", "screen", "message", "line"}
 `props` holds only what the line actually said. Defaults live in resolve().
 An add that joins an open group (a page under a deck) also carries "in".
+A `flow` head is an add; the Mermaid lines after it are buffered and its
+`end` (or the end of the input) gives one patch on the flow with the graph
+(spec/FLOWS.md). Call finish() after the last line (parse and flush do).
 """
 
 from __future__ import annotations
@@ -34,6 +37,7 @@ __all__ = [
     "PRESETS", "CORE", "GROUPS", "STAGE", "CHART_TYPES", "FIELD_TYPES",
     "tokenize", "seconds", "quantity", "calc_var", "parse_args",
     "Parser", "StreamParser", "parse", "on_stage", "is_workout", "page_of", "resolve",
+    "FLOW_STEPS", "flow_when", "flow_test", "flow_next", "flow_first", "flow_path", "flow_ahead", "flow_event",
 ]
 
 PRESETS = [
@@ -46,7 +50,7 @@ PRESETS = [
     "sketch", "row", "after",
     "shapes", "shape",
     "game",
-    "query",
+    "query", "flow",
 ]
 # Not presets, but valid line heads.
 CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing"]
@@ -632,7 +636,7 @@ P = {
     "chart": _chart,
     "stat": _stat,
     "step": _step,
-    "calc": _titled, "deck": _titled, "plan": _titled, "narrate": _titled,
+    "calc": _titled, "deck": _titled, "plan": _titled, "flow": _titled, "narrate": _titled,
     "page": _page,
     "project": _card,
     "timeline": _titled,
@@ -870,6 +874,417 @@ def parse_args(preset, tokens):
     return _clean(_normalize(preset, {**base, **flags, **kv}))
 
 
+# ---------- flows (spec/FLOWS.md) ----------
+# A flow is a Mermaid flowchart between `flow` and `end`. Each node can carry
+# one step (a YL line), in a `%% node: <line>` comment or as its label; edge
+# labels are conditions on earlier answers. Only the subset below is read;
+# any other Mermaid line (style, classDef, click...) is kept in `source` and
+# otherwise ignored, so the chart still renders anywhere Mermaid does.
+
+# Presets a flow step can be.
+FLOW_STEPS = ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera"]
+FLOW_HEADER = _re(rf"(flowchart|graph)({S}|\Z)")
+FLOW_SKIP = _re(rf"(classDef|class|style|linkStyle|click|direction|accTitle|accDescr)({S}|:|\Z)")
+STEP_LINE = _re(rf"({'|'.join(FLOW_STEPS)})(?={S}|\Z)")
+NODE_ID = _re(r"\w+")
+# Node shapes, longest opener first. Each opener lists its closers.
+SHAPES = [
+    ("(((", [")))"]), ("([", ["])"]), ("[[", ["]]"]), ("[(", [")]"]), ("((", ["))"]), ("{{", ["}}"]),
+    ("[/", ["/]", "\\]"]), ("[\\", ["\\]", "/]"]), ("[", ["]"]), ("(", [")"]), ("{", ["}"]), (">", ["]"]),
+]
+# Links: `-- text -->` first, then plain arrows with an optional |label|.
+TEXT_LINK = _re(rf"{S}*<?(?:--|==|-\.)(?![->=.]){S}*({DOT}*?){S}*(?:-{{2,}}>|={{2,}}>|\.-+>|-{{3,}}|={{3,}}|\.-+)(?=[{WS}\w])")
+LINK = _re(rf"{S}*(<?)(-{{2,}}>|-{{3,}}|={{2,}}>|={{3,}}|-\.+->|-\.+-|--[ox]|==[ox]|~{{3,}})")
+PIPE = _re(rf"{S}*\|([^|]*)\|")
+SUBGRAPH = _re(rf"subgraph({S}|\Z)")
+STEP_COMMENT = _re(rf"%%{S}*(\w+){S}*:{S}*({DOT}*)")
+STEP_HEAD = _re(rf"([a-z]+)(?={S}|\Z)")
+FLOW_END = _re(rf"end{S}*;?")
+_ENTITIES = {"quot": '"', "amp": "&", "lt": "<", "gt": ">", "nbsp": " ", "35": "#"}
+
+
+def _new_flow(head, header):
+    words = re.split(f"{S}+", _trim(header))
+    return {"id": head["id"], "screen": head["screen"], "src": [*head["pre"], header], "depth": 0,
+            "dir": (words[1] if len(words) > 1 and words[1] else "TD").upper(), "nodes": {}, "edges": [], "steps": {}}
+
+
+def _unlabel(s):
+    """Mermaid label text: quotes, markdown backticks, entity codes and <br> undone."""
+    t = _trim(s)
+    if re.fullmatch(r'".*"', t, re.S):
+        t = t[1:-1]
+    if re.fullmatch(r"`.*`", t, re.S):
+        t = t[1:-1]
+    t = re.sub(rf"<br{S}*/?>", " ", t, flags=re.I | re.ASCII)
+    t = re.sub(r"#(quot|amp|lt|gt|nbsp|35);", lambda m: _ENTITIES[m[1]], t)
+    t = re.sub(r"#(\d+);", lambda m: chr(int(float(m[1])) % 65536), t, flags=re.ASCII)
+    return _trim(t)
+
+
+def _step_of(text):
+    """A step from a YL line, or None when the line is not a flow step."""
+    m = STEP_LINE.match(text)
+    if not m:
+        return None
+    return {"preset": m[1], "props": parse_args(m[1], tokenize(text[m.end():]))}
+
+
+def _statements(line):
+    """Splits a Mermaid line on ";" outside quotes and brackets."""
+    out, cur, q, depth = [], "", False, 0
+    for c in line:
+        if c == '"':
+            q = not q
+        elif not q and c in "[({":
+            depth += 1
+        elif not q and c in "])}":
+            depth = max(0, depth - 1)
+        if c == ";" and not q and not depth:
+            out.append(cur)
+            cur = ""
+        else:
+            cur += c
+    out.append(cur)
+    return [x for x in (_trim(x) for x in out) if x]
+
+
+def _read_node(s):
+    """One node at the start of `s`: id, then an optional shape with a label."""
+    m = NODE_ID.match(s)
+    if not m:
+        return None
+    rest = s[m.end():]
+    node = {"id": m[0]}
+    shape = next((sh for sh in SHAPES if rest.startswith(sh[0])), None)
+    if shape:
+        opener, closers = shape
+        body = rest[len(opener):]
+        end, n = -1, 0
+        start = body.find('"', body.find('"') + 1) + 1 if body.lstrip(_WS_CHARS).startswith('"') else 0
+        for c in closers:
+            i = body.find(c, max(0, start))
+            if i >= 0 and (end < 0 or i < end):
+                end, n = i, len(c)
+        if end < 0:
+            return None
+        node["label"] = _unlabel(body[:end])
+        rest = body[end + n:]
+    rest = re.sub(r"^:::\w+", "", rest, flags=re.ASCII)
+    return {**node, "rest": rest}
+
+
+def _read_nodes(s):
+    """A node, or several joined with "&"."""
+    out = []
+    rest = s.lstrip(_WS_CHARS)
+    while True:
+        n = _read_node(rest)
+        if not n:
+            return {"nodes": out, "rest": rest} if out else None
+        out.append(n)
+        rest = n["rest"]
+        amp = re.match(rf"{S}*&{S}*", rest)
+        if not amp:
+            return {"nodes": out, "rest": rest}
+        rest = rest[amp.end():]
+
+
+def _add_node(f, n):
+    had = f["nodes"].get(n["id"])
+    if not had:
+        f["nodes"][n["id"]] = {"id": n["id"], **({"label": n["label"]} if "label" in n else {}), "order": len(f["nodes"])}
+    elif "label" in n:
+        had["label"] = n["label"]
+
+
+def _flow_statement(f, t):
+    """One Mermaid line of an open flow. Returns an error message or None."""
+    if not t:
+        return None
+    if t.startswith("%%"):
+        if t.startswith("%%{"):
+            return None  # a directive
+        m = STEP_COMMENT.fullmatch(t)
+        if not m:
+            return None
+        head = STEP_HEAD.match(m[2])
+        if head and head[1] in PRESETS and head[1] not in FLOW_STEPS:
+            return f"flow: a {head[1]} cannot be a step ({', '.join(FLOW_STEPS)})"
+        step = _step_of(m[2])
+        if step:
+            f["steps"][m[1]] = step
+        return None
+    if SUBGRAPH.match(t):
+        f["depth"] += 1
+        return None
+    if FLOW_SKIP.match(t) or FLOW_HEADER.match(t):
+        return None
+    for st in _statements(t):
+        g = _read_nodes(st)
+        if not g:
+            continue
+        for n in g["nodes"]:
+            _add_node(f, n)
+        while True:
+            rest, label, hidden = g["rest"], None, False
+            tl = TEXT_LINK.match(rest)
+            if tl:
+                label = tl[1]
+                rest = rest[tl.end():]
+            else:
+                lm = LINK.match(rest)
+                if not lm:
+                    break
+                hidden = lm[2].startswith("~")
+                rest = rest[lm.end():]
+                p = PIPE.match(rest)
+                if p:
+                    label = p[1]
+                    rest = rest[p.end():]
+            to = _read_nodes(rest)
+            if not to:
+                break
+            for n in to["nodes"]:
+                _add_node(f, n)
+            if not hidden:
+                text = "" if label is None else _unlabel(label)
+                for a in g["nodes"]:
+                    for b in to["nodes"]:
+                        e = {"from": a["id"], "to": b["id"]}
+                        if text:
+                            e["label"] = text
+                        f["edges"].append(e)
+            g = to
+    return None
+
+
+def _split_word(t, word):
+    """Splits on a word (" or ") outside double quotes."""
+    out, cur, q, i = [], "", False, 0
+    sep = re.compile(rf"{S}+{word}{S}+", re.I | re.ASCII)
+    while i < len(t):
+        if t[i] == '"':
+            q = not q
+        m = not q and _is_ws(t[i]) and sep.match(t, i)
+        if m:
+            out.append(cur)
+            cur = ""
+            i = m.end()
+            continue
+        cur += t[i]
+        i += 1
+    out.append(cur)
+    return out
+
+
+# Edge label -> condition: a list of alternatives ("or"), each a list of
+# clauses that must all hold ("and"). None for a default edge.
+CLAUSE = _re(rf"([A-Za-z_]\w*(?:\.[\w-]+)*){S}*(>=|<=|!=|=|>|<|~){S}*({DOT}*)")
+DEFAULT_EDGE = _re(r"else|default|otherwise", re.I)
+
+
+def flow_when(label, frm=None):
+    t = _trim(label or "")
+    if not t or DEFAULT_EDGE.fullmatch(t):
+        return None
+
+    def clause(c):
+        m = CLAUSE.fullmatch(_trim(c))
+        raw = _trim(m[3]) if m else _trim(c)
+        v = raw[1:-1] if re.fullmatch(rf'"{DOT}*"', raw) else _num(raw) if NUM.fullmatch(raw) else raw
+        if m:
+            return {"path": m[1], "op": m[2], "value": v}
+        # A bare label ("Shop", "yes") is the answer of the step it leaves.
+        return {"path": frm, "op": "=", "value": v} if frm else {"op": "=", "value": v}
+    return [[clause(c) for c in _split_word(alt, "and")] for alt in _split_word(t, "or")]
+
+
+def _flow_graph(f):
+    """The graph a flow's end patches onto it."""
+    nodes = []
+    for node in f["nodes"].values():
+        n = {k: v for k, v in node.items() if k != "order"}
+        said = f["steps"].get(n["id"])
+        step = said or (_step_of(n["label"]) if "label" in n else None)
+        if not step:
+            nodes.append(n)
+            continue
+        # A label that is the step's own line is not kept twice.
+        base = n if said else {k: v for k, v in n.items() if k != "label"}
+        nodes.append({**base, "preset": step["preset"], "props": step["props"]})
+    is_step = {n["id"] for n in nodes if n.get("preset")}
+    into = {e["to"] for e in f["edges"]}
+    first = next((n for n in nodes if n["id"] not in into), nodes[0] if nodes else {})
+    edges = []
+    for e in f["edges"]:
+        when = flow_when(e.get("label"), e["from"] if e["from"] in is_step else None)
+        edges.append({**e, "when": when} if when else e)
+    return _clean({"dir": f["dir"], "start": first.get("id"), "nodes": nodes, "edges": edges, "source": "\n".join(f["src"])})
+
+
+# ---------- flow runtime ----------
+# Pure helpers the renderers share: where Next goes, the path taken, and
+# what goes in the event. `g` is a flow's props (resolve("flow", props)).
+# An answer that is None (JSON null) is still an answer; a missing key is not.
+
+_UNDEF = object()
+
+
+def _is_question(n):
+    return bool(n and n.get("preset") and n["preset"] != "page")
+
+
+def _js_string(v):
+    """JS String(v) for answer values: lists join, objects are [object Object]."""
+    if isinstance(v, list):
+        return ",".join("" if x is None else _js_string(x) for x in v)
+    if isinstance(v, dict):
+        return "[object Object]"
+    if v is None:
+        return "null"
+    return _js_str(v)
+
+
+def _low(v):
+    if isinstance(v, bool):
+        return "yes" if v else "no"
+    return _trim(_js_string(v)).lower()
+
+
+def _flow_num(v):
+    if _is_number(v):
+        return v
+    if isinstance(v, str) and NUM.fullmatch(_trim(v)):
+        return _num(_trim(v))
+    return None
+
+
+def _prop(v, k):
+    """JS v[k] for an answer value, _UNDEF when it has no such key."""
+    if isinstance(v, dict):
+        return v.get(k, _UNDEF)
+    if isinstance(v, list):
+        if k == "length":
+            return len(v)
+        if re.fullmatch(r"0|[1-9]\d*", k, re.ASCII) and int(k) < len(v):
+            return v[int(k)]
+    return _UNDEF
+
+
+def _clause_holds(c, answers, last):
+    """One clause against the answers. `last` is the question answered before
+    a step-less node, for bare labels on its edges."""
+    parts = c["path"].split(".") if c.get("path") else [last]
+    if parts[0] is None:
+        return c["op"] == "!="
+    v = answers.get(parts[0], _UNDEF)
+    for k in parts[1:]:
+        v = _prop(v, k) if v is not _UNDEF and v is not None else _UNDEF
+    if v is _UNDEF or v is None:
+        return c["op"] == "!="
+    want = c["value"]
+    if isinstance(v, list):
+        has = any(_low(x) == _low(want) for x in v)
+        if c["op"] in ("=", "~"):
+            return has
+        if c["op"] == "!=":
+            return not has
+        v = len(v)
+    a, b = _flow_num(v), _flow_num(want)
+    op = c["op"]
+    if op == "=":
+        return a == b if a is not None and b is not None else _low(v) == _low(want)
+    if op == "!=":
+        return a != b if a is not None and b is not None else _low(v) != _low(want)
+    if op == "~":
+        return _low(want) in _low(v)
+    if a is None or b is None:
+        return False
+    return a > b if op == ">" else a >= b if op == ">=" else a < b if op == "<" else a <= b
+
+
+def flow_test(when, answers, last=None):
+    return not when or any(all(_clause_holds(c, answers, last) for c in alt) for alt in when)
+
+
+def _node_of(g, id_):
+    return next((n for n in g.get("nodes") or [] if n["id"] == id_), None)
+
+
+def _edge_out(g, answers, frm, last, guess):
+    """The edge taken out of `frm`: the first labelled edge that holds, else the
+    first default edge. With `guess`, a question with no answer yet still takes
+    a labelled edge that earlier answers already decide, else the default (or
+    its first edge), to estimate what is left."""
+    out = [e for e in g.get("edges") or [] if e["from"] == frm]
+    unknown = guess and _is_question(_node_of(g, frm)) and frm not in answers
+    hit = next((e for e in out if e.get("when") and flow_test(e["when"], answers, last)), None)
+    if hit:
+        return hit
+    return next((e for e in out if not e.get("when")), None) or (out[0] if unknown and out else None)
+
+
+def flow_next(g, answers, frm, guess=False):
+    """The next step after `frm`, passing through nodes with no step. None:
+    the flow ends (the review comes next)."""
+    seen = {frm}
+    last = frm if _is_question(_node_of(g, frm)) else None
+    at = frm
+    while True:
+        e = _edge_out(g, answers, at, last, guess)
+        if not e or e["to"] in seen:
+            return None
+        n = _node_of(g, e["to"])
+        if not n:
+            return None
+        if n.get("preset"):
+            return n["id"]
+        seen.add(n["id"])
+        at = n["id"]
+
+
+def flow_first(g):
+    """The first step: the start node, or the first step after it."""
+    s = _node_of(g, g.get("start"))
+    if not s:
+        return None
+    return s["id"] if s.get("preset") else flow_next(g, {}, s["id"])
+
+
+def flow_path(g, answers):
+    """The path the answers take from the start: step ids in order. It stops at
+    the first question with no answer (`open`, not in the path) or at the end
+    (`open` None). A step already on the path ends it: flows do not loop."""
+    path = []
+    at = flow_first(g)
+    while at and at not in path:
+        if _is_question(_node_of(g, at)) and at not in answers:
+            return {"path": path, "open": at}
+        path.append(at)
+        at = flow_next(g, answers, at)
+    return {"path": path, "open": None}
+
+
+def flow_ahead(g, answers, frm):
+    """The steps still ahead of `frm` (not counting it), guessing at branches
+    not answered yet. For the progress bar."""
+    out = []
+    at = frm and flow_next(g, answers, frm, True)
+    while at and at not in out and at != frm:
+        out.append(at)
+        at = flow_next(g, answers, at, True)
+    return out
+
+
+def flow_event(g, answers):
+    """What a flow sends at submit: the answers of the questions on the path,
+    keyed by step id, and the path itself (pages included)."""
+    path = flow_path(g, answers)["path"]
+    flow = {i: answers[i] for i in path if _is_question(_node_of(g, i)) and i in answers}
+    return {"flow": flow, "path": path}
+
+
 # ---------- line parser ----------
 
 ROUTE = _re(rf">([\w-]+)(?:{S}+|\Z)")
@@ -1098,6 +1513,8 @@ class Parser:
         self.ids = dict(known or {})  # id -> preset
         self.auto = 0
         self.open = []  # open groups, innermost last: {id, preset, screen}
+        self.flow_head = None  # a flow head just added: {id, screen, pre}
+        self.flow = None  # an open flow's Mermaid, being read
 
     def group(self, op):
         """Group bookkeeping for one parsed op. Errors (and None) leave groups open."""
@@ -1129,7 +1546,51 @@ class Parser:
         return out
 
     def line(self, src):
-        return self.group(self.parse_line(src))
+        if self.flow:
+            return self.flow_line(src)
+        if self.flow_head:
+            # The line after a flow head decides: a Mermaid header starts the
+            # chart (inline flow), anything else leaves it a saved flow by name.
+            t = _trim(src)
+            if not t or COMMENT.match(t):
+                return None
+            # Mermaid comments may come before the header.
+            if t.startswith("%%"):
+                self.flow_head["pre"].append(src[:-1] if src.endswith("\r") else src)
+                return None
+            h, self.flow_head = self.flow_head, None
+            if FLOW_HEADER.match(t):
+                self.flow = _new_flow(h, src[:-1] if src.endswith("\r") else src)
+                return None
+        op = self.group(self.parse_line(src))
+        if op and op["op"] == "add" and op["preset"] == "flow":
+            self.flow_head = {"id": op["id"], "screen": op["screen"], "pre": []}
+        return op
+
+    def finish(self):
+        """Ends the input: an open flow gives its graph now."""
+        self.flow_head = None
+        return self.flow_done("") if self.flow else None
+
+    def flow_line(self, src):
+        """One line of an open flow: Mermaid, not YL. `end` closes a subgraph
+        first, then the flow."""
+        f = self.flow
+        line = src[:-1] if src.endswith("\r") else src
+        t = _trim(line)
+        if FLOW_END.fullmatch(t):
+            if f["depth"] > 0:
+                f["depth"] -= 1
+                f["src"].append(line)
+                return None
+            return self.flow_done(line)
+        f["src"].append(line)
+        err = _flow_statement(f, t)
+        return {"op": "error", "screen": f["screen"], "message": err, "line": line} if err else None
+
+    def flow_done(self, line):
+        f, self.flow = self.flow, None
+        return {"op": "patch", "screen": f["screen"], "target": f["id"], "props": _flow_graph(f), "line": line}
 
     def parse_line(self, src):
         line = src[:-1] if src.endswith("\r") else src
@@ -1251,7 +1712,9 @@ class Parser:
 def parse(text, known=None):
     """Parse a whole document at once. `known`: ids that last (Parser)."""
     p = Parser(known)
-    return [op for op in (p.line(l) for l in text.split("\n")) if op]
+    ops = [p.line(l) for l in text.split("\n")]
+    ops.append(p.finish())
+    return [op for op in ops if op]
 
 
 class StreamParser:
@@ -1275,13 +1738,13 @@ class StreamParser:
     def flush(self):
         rest, self.buf = self.buf, ""
         op = self.p.line(rest) if _trim(rest) else None
-        return [op] if op else []
+        return [o for o in (op, self.p.finish()) if o]
 
 
 # ---------- the stage ----------
 # The stage is a full-screen layer over the chat (YL.md section 5).
 # These presets open there unless they say +inline.
-STAGE = ["timer", "camera", "mic", "deck", "plan", "game"]
+STAGE = ["timer", "camera", "mic", "deck", "plan", "game", "flow"]
 
 
 def is_workout(preset, props=None):
@@ -1432,6 +1895,7 @@ _DEFAULTS = {
     "deck": {"title": "", "layout": "slides", "full": False, "notes": False},
     "page": {"title": "", "body": "", "points": [], "notes": ""},
     "plan": {"title": "", "submit": "Send", "review": True},
+    "flow": {"title": "", "submit": "Send", "review": True},
     "narrate": {"title": "", "voice": "agent", "rate": 1, "auto": False, "captions": True},
     "timeline": {"title": "", "mark": "Now", "fold": 5, "reorder": False},
     "done": {"text": ""}, "now": {"text": ""}, "next": {"text": ""},

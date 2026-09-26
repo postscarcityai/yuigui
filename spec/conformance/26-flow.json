@@ -1,0 +1,5022 @@
+{
+ "version": "YL v0",
+ "area": "flow: Mermaid flows, their graph and routes (spec/FLOWS.md)",
+ "vectors": [
+  {
+   "name": "saved flow: flow and a name",
+   "input": "flow website-intake",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "n1",
+     "props": {
+      "title": "website-intake"
+     }
+    }
+   ]
+  },
+  {
+   "name": "saved flow: the next line is YL again",
+   "input": "flow website-intake submit=\"Send brief\"\nsay \"Here we go.\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "n1",
+     "props": {
+      "title": "website-intake",
+      "submit": "Send brief"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n2",
+     "props": {
+      "text": "Here we go."
+     }
+    }
+   ]
+  },
+  {
+   "name": "inline: steps as node labels, one path",
+   "input": "flow@checkin \"Check-in\"\nflowchart TD\n  sleep[slide Sleep 1-10] --> sore[pick Sore? Legs|Back|None] --> note[mic Anything else?]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "checkin",
+     "props": {
+      "title": "Check-in"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "checkin",
+     "props": {
+      "dir": "TD",
+      "start": "sleep",
+      "nodes": [
+       {
+        "id": "sleep",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 10,
+         "label": "Sleep"
+        }
+       },
+       {
+        "id": "sore",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Legs",
+          "Back",
+          "None"
+         ],
+         "q": "Sore?"
+        }
+       },
+       {
+        "id": "note",
+        "preset": "mic",
+        "props": {
+         "prompt": "Anything else?"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "sleep",
+        "to": "sore"
+       },
+       {
+        "from": "sore",
+        "to": "note"
+       }
+      ],
+      "source": "flowchart TD\n  sleep[slide Sleep 1-10] --> sore[pick Sore? Legs|Back|None] --> note[mic Anything else?]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inline: %% comments carry the steps, labels stay for the chart",
+   "input": "flow@scope \"Scope a project\"\nflowchart LR\n  %% what: ask \"What are you making?\" App|Site|Other\n  what{What?} --> when\n  %% when: form \"Timing\" start:date launch:date\n  when[Dates]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "scope",
+     "props": {
+      "title": "Scope a project"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "scope",
+     "props": {
+      "dir": "LR",
+      "start": "what",
+      "nodes": [
+       {
+        "id": "what",
+        "label": "What?",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "App",
+          "Site",
+          "Other"
+         ],
+         "q": "What are you making?"
+        }
+       },
+       {
+        "id": "when",
+        "label": "Dates",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "start",
+           "type": "date"
+          },
+          {
+           "key": "launch",
+           "type": "date"
+          }
+         ],
+         "title": "Timing"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "what",
+        "to": "when"
+       }
+      ],
+      "source": "flowchart LR\n  %% what: ask \"What are you making?\" App|Site|Other\n  what{What?} --> when\n  %% when: form \"Timing\" start:date launch:date\n  when[Dates]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "edges: bare label is the answer of the step it leaves",
+   "input": "flow@f\nflowchart TD\n  %% kind: choose Kind? Website|Shop\n  kind -->|Shop| shop\n  kind --> site\n  shop[ask Products? Few|Many]\n  site[ask Pages? Few|Many]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "kind",
+      "nodes": [
+       {
+        "id": "kind",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Website",
+          "Shop"
+         ],
+         "q": "Kind?"
+        }
+       },
+       {
+        "id": "shop",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Few",
+          "Many"
+         ],
+         "q": "Products?"
+        }
+       },
+       {
+        "id": "site",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Few",
+          "Many"
+         ],
+         "q": "Pages?"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "kind",
+        "to": "shop",
+        "label": "Shop",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Shop"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "site"
+       }
+      ],
+      "source": "flowchart TD\n  %% kind: choose Kind? Website|Shop\n  kind -->|Shop| shop\n  kind --> site\n  shop[ask Products? Few|Many]\n  site[ask Pages? Few|Many]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "edges: comparisons, and, or, quoted values, else",
+   "input": "flow@f\nflowchart TD\n  %% b: slide Budget 1-50\n  %% k: choose Kind? \"Landing page\"|Shop\n  k --> b\n  b -->|b>=20 and k=Shop| big\n  b -->|k=\"Landing page\" or b<5| small\n  b -->|else| mid\n  big[page Big]\n  small[page Small]\n  mid[page Mid]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "k",
+      "nodes": [
+       {
+        "id": "k",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Landing page",
+          "Shop"
+         ],
+         "q": "Kind?"
+        }
+       },
+       {
+        "id": "b",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 50,
+         "label": "Budget"
+        }
+       },
+       {
+        "id": "big",
+        "preset": "page",
+        "props": {
+         "title": "Big"
+        }
+       },
+       {
+        "id": "small",
+        "preset": "page",
+        "props": {
+         "title": "Small"
+        }
+       },
+       {
+        "id": "mid",
+        "preset": "page",
+        "props": {
+         "title": "Mid"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "k",
+        "to": "b"
+       },
+       {
+        "from": "b",
+        "to": "big",
+        "label": "b>=20 and k=Shop",
+        "when": [
+         [
+          {
+           "path": "b",
+           "op": ">=",
+           "value": 20
+          },
+          {
+           "path": "k",
+           "op": "=",
+           "value": "Shop"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "b",
+        "to": "small",
+        "label": "k=\"Landing page\" or b<5",
+        "when": [
+         [
+          {
+           "path": "k",
+           "op": "=",
+           "value": "Landing page"
+          }
+         ],
+         [
+          {
+           "path": "b",
+           "op": "<",
+           "value": 5
+          }
+         ]
+        ]
+       },
+       {
+        "from": "b",
+        "to": "mid",
+        "label": "else"
+       }
+      ],
+      "source": "flowchart TD\n  %% b: slide Budget 1-50\n  %% k: choose Kind? \"Landing page\"|Shop\n  k --> b\n  b -->|b>=20 and k=Shop| big\n  b -->|k=\"Landing page\" or b<5| small\n  b -->|else| mid\n  big[page Big]\n  small[page Small]\n  mid[page Mid]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "edges: a quoted value may hold or and and",
+   "input": "flow@f\nflowchart TD\n  %% k: choose Genre? \"Rock or roll\"|\"Salt and pepper\"\n  k -->|k=\"Rock or roll\"| a[page A]\n  k -->|k=\"Salt and pepper\" or k=Jazz| b[page B]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "k",
+      "nodes": [
+       {
+        "id": "k",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Rock or roll",
+          "Salt and pepper"
+         ],
+         "q": "Genre?"
+        }
+       },
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "A"
+        }
+       },
+       {
+        "id": "b",
+        "preset": "page",
+        "props": {
+         "title": "B"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "k",
+        "to": "a",
+        "label": "k=\"Rock or roll\"",
+        "when": [
+         [
+          {
+           "path": "k",
+           "op": "=",
+           "value": "Rock or roll"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "k",
+        "to": "b",
+        "label": "k=\"Salt and pepper\" or k=Jazz",
+        "when": [
+         [
+          {
+           "path": "k",
+           "op": "=",
+           "value": "Salt and pepper"
+          }
+         ],
+         [
+          {
+           "path": "k",
+           "op": "=",
+           "value": "Jazz"
+          }
+         ]
+        ]
+       }
+      ],
+      "source": "flowchart TD\n  %% k: choose Genre? \"Rock or roll\"|\"Salt and pepper\"\n  k -->|k=\"Rock or roll\"| a[page A]\n  k -->|k=\"Salt and pepper\" or k=Jazz| b[page B]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "edges: a node with no step routes; its bare labels read the question before it",
+   "input": "flow@f\nflowchart TD\n  %% q: ask Ready? Yes|No\n  q --> d{Ready?}\n  d -->|Yes| go[page Go]\n  d -->|No| stop[page Later]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "q",
+      "nodes": [
+       {
+        "id": "q",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Ready?"
+        }
+       },
+       {
+        "id": "d",
+        "label": "Ready?"
+       },
+       {
+        "id": "go",
+        "preset": "page",
+        "props": {
+         "title": "Go"
+        }
+       },
+       {
+        "id": "stop",
+        "preset": "page",
+        "props": {
+         "title": "Later"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "q",
+        "to": "d"
+       },
+       {
+        "from": "d",
+        "to": "go",
+        "label": "Yes",
+        "when": [
+         [
+          {
+           "op": "=",
+           "value": "Yes"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "d",
+        "to": "stop",
+        "label": "No",
+        "when": [
+         [
+          {
+           "op": "=",
+           "value": "No"
+          }
+         ]
+        ]
+       }
+      ],
+      "source": "flowchart TD\n  %% q: ask Ready? Yes|No\n  q --> d{Ready?}\n  d -->|Yes| go[page Go]\n  d -->|No| stop[page Later]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "links: -- text -->, chains, & and hidden ~~~",
+   "input": "flow@f\nflowchart TD\n  a[page A] -- else --> b[page B] --> c[page C]\n  a & b --> d[page D]\n  c ~~~ d\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "A"
+        }
+       },
+       {
+        "id": "b",
+        "preset": "page",
+        "props": {
+         "title": "B"
+        }
+       },
+       {
+        "id": "c",
+        "preset": "page",
+        "props": {
+         "title": "C"
+        }
+       },
+       {
+        "id": "d",
+        "preset": "page",
+        "props": {
+         "title": "D"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b",
+        "label": "else"
+       },
+       {
+        "from": "b",
+        "to": "c"
+       },
+       {
+        "from": "a",
+        "to": "d"
+       },
+       {
+        "from": "b",
+        "to": "d"
+       }
+      ],
+      "source": "flowchart TD\n  a[page A] -- else --> b[page B] --> c[page C]\n  a & b --> d[page D]\n  c ~~~ d"
+     }
+    }
+   ]
+  },
+  {
+   "name": "subgraph end does not close the flow",
+   "input": "flow@f\nflowchart TD\n  subgraph Intro\n    a[page Hi]\n  end\n  a --> b[page Bye]\nend\nsay done",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "Hi"
+        }
+       },
+       {
+        "id": "b",
+        "preset": "page",
+        "props": {
+         "title": "Bye"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       }
+      ],
+      "source": "flowchart TD\n  subgraph Intro\n    a[page Hi]\n  end\n  a --> b[page Bye]"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n1",
+     "props": {
+      "text": "done"
+     }
+    }
+   ]
+  },
+  {
+   "name": "styling lines and directives are kept in source and skipped",
+   "input": "flow@f\n%% a comment before the header is not YL\nflowchart TD\n  %%{init: {\"theme\": \"dark\"}}%%\n  classDef q fill:#fde\n  a[page Hi]:::q --> b[page Bye]\n  style a stroke:#333\n  click a \"https://example.com\"\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "Hi"
+        }
+       },
+       {
+        "id": "b",
+        "preset": "page",
+        "props": {
+         "title": "Bye"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       }
+      ],
+      "source": "%% a comment before the header is not YL\nflowchart TD\n  %%{init: {\"theme\": \"dark\"}}%%\n  classDef q fill:#fde\n  a[page Hi]:::q --> b[page Bye]\n  style a stroke:#333\n  click a \"https://example.com\""
+     }
+    }
+   ]
+  },
+  {
+   "name": "labels: quotes, entity codes and <br>",
+   "input": "flow@f\nflowchart TD\n  a[\"page #quot;Two words#quot; body=#quot;Line one#quot;\"] --> b[\"Plain<br>label\"]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "Two words",
+         "body": "Line one"
+        }
+       },
+       {
+        "id": "b",
+        "label": "Plain label"
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       }
+      ],
+      "source": "flowchart TD\n  a[\"page #quot;Two words#quot; body=#quot;Line one#quot;\"] --> b[\"Plain<br>label\"]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "a flow with no end: the graph comes at the end of the input",
+   "input": "flow@f \"Open\"\nflowchart TD\n  a[page A] --> b[page B]",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {
+      "title": "Open"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "A"
+        }
+       },
+       {
+        "id": "b",
+        "preset": "page",
+        "props": {
+         "title": "B"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       }
+      ],
+      "source": "flowchart TD\n  a[page A] --> b[page B]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "a flow on screen 2",
+   "input": ">2 flow@f\ngraph LR\n  a[page A]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "2",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "2",
+     "target": "f",
+     "props": {
+      "dir": "LR",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "A"
+        }
+       }
+      ],
+      "source": "graph LR\n  a[page A]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "error: a preset that cannot be a step; the flow goes on",
+   "input": "flow@f\nflowchart TD\n  %% t: timer 5m\n  a[page A] --> t\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "error",
+     "screen": "1"
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "A"
+        }
+       },
+       {
+        "id": "t"
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "t"
+       }
+      ],
+      "source": "flowchart TD\n  %% t: timer 5m\n  a[page A] --> t"
+     }
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "stream: the flow head renders at once, the graph when end lands",
+   "input": "flow@f\nflowchart TD\n  a[page A]\nend\n",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "A"
+        }
+       }
+      ],
+      "source": "flowchart TD\n  a[page A]"
+     }
+    }
+   ],
+   "chunks": [
+    "flow@f\nflow",
+    "chart TD\n  a[pa",
+    "ge A]\nen",
+    "d\n"
+   ],
+   "emits": [
+    [
+     {
+      "op": "add",
+      "screen": "1",
+      "preset": "flow",
+      "id": "f",
+      "props": {}
+     }
+    ],
+    [],
+    [],
+    [
+     {
+      "op": "patch",
+      "screen": "1",
+      "target": "f",
+      "props": {
+       "dir": "TD",
+       "start": "a",
+       "nodes": [
+        {
+         "id": "a",
+         "preset": "page",
+         "props": {
+          "title": "A"
+         }
+        }
+       ],
+       "source": "flowchart TD\n  a[page A]"
+      }
+     }
+    ],
+    []
+   ]
+  },
+  {
+   "name": "stage: a flow opens on the stage unless +inline",
+   "input": "flow@f\nflowchart TD\n  a[page A]\nend\nflow@g +inline\nflowchart TD\n  b[page B]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "f",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "f",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "page",
+        "props": {
+         "title": "A"
+        }
+       }
+      ],
+      "source": "flowchart TD\n  a[page A]"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "g",
+     "props": {
+      "inline": true
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "g",
+     "props": {
+      "dir": "TD",
+      "start": "b",
+      "nodes": [
+       {
+        "id": "b",
+        "preset": "page",
+        "props": {
+         "title": "B"
+        }
+       }
+      ],
+      "source": "flowchart TD\n  b[page B]"
+     }
+    }
+   ],
+   "stage": [
+    "f"
+   ]
+  },
+  {
+   "name": "route: nothing answered stops at the first question",
+   "input": "flow@intake \"Website intake\"\nflowchart TD\n  %% hi: page \"Let us build your site\"\n  hi([Start]) --> kind\n  %% kind: choose \"What are we building?\" Website|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Shop| products\n  kind -->|Landing page| goal\n  kind --> pages\n  %% products: slide \"How many products?\" 1-500\n  products --> pages\n  %% goal: ask \"Main goal?\" Leads|Sales\n  goal --> brief\n  %% pages: pick \"Which pages?\" Home|About|Blog|Contact\n  pages -->|pages=Blog| blog\n  pages --> brief\n  %% blog: ask \"Who writes the posts?\" \"I do\"|\"You do\"\n  blog --> brief\n  %% brief: form \"The basics\" name:text! budget:number\n  brief -->|brief.budget>=10000| call\n  brief --> done((Done))\n  %% call: ask \"Book a call?\" Yes|No\n  call --> done\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "intake",
+     "props": {
+      "title": "Website intake"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "intake",
+     "props": {
+      "dir": "TD",
+      "start": "hi",
+      "nodes": [
+       {
+        "id": "hi",
+        "label": "Start",
+        "preset": "page",
+        "props": {
+         "title": "Let us build your site"
+        }
+       },
+       {
+        "id": "kind",
+        "label": "What are we building?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Website",
+          "Shop",
+          "Landing page"
+         ],
+         "q": "What are we building?"
+        }
+       },
+       {
+        "id": "products",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 500,
+         "label": "How many products?"
+        }
+       },
+       {
+        "id": "goal",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Leads",
+          "Sales"
+         ],
+         "q": "Main goal?"
+        }
+       },
+       {
+        "id": "pages",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Home",
+          "About",
+          "Blog",
+          "Contact"
+         ],
+         "q": "Which pages?"
+        }
+       },
+       {
+        "id": "brief",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "name",
+           "type": "text",
+           "required": true
+          },
+          {
+           "key": "budget",
+           "type": "number"
+          }
+         ],
+         "title": "The basics"
+        }
+       },
+       {
+        "id": "blog",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "I do",
+          "You do"
+         ],
+         "q": "Who writes the posts?"
+        }
+       },
+       {
+        "id": "call",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Book a call?"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Done"
+       }
+      ],
+      "edges": [
+       {
+        "from": "hi",
+        "to": "kind"
+       },
+       {
+        "from": "kind",
+        "to": "products",
+        "label": "Shop",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Shop"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "goal",
+        "label": "Landing page",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Landing page"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "pages"
+       },
+       {
+        "from": "products",
+        "to": "pages"
+       },
+       {
+        "from": "goal",
+        "to": "brief"
+       },
+       {
+        "from": "pages",
+        "to": "blog",
+        "label": "pages=Blog",
+        "when": [
+         [
+          {
+           "path": "pages",
+           "op": "=",
+           "value": "Blog"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "pages",
+        "to": "brief"
+       },
+       {
+        "from": "blog",
+        "to": "brief"
+       },
+       {
+        "from": "brief",
+        "to": "call",
+        "label": "brief.budget>=10000",
+        "when": [
+         [
+          {
+           "path": "brief.budget",
+           "op": ">=",
+           "value": 10000
+          }
+         ]
+        ]
+       },
+       {
+        "from": "brief",
+        "to": "done"
+       },
+       {
+        "from": "call",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% hi: page \"Let us build your site\"\n  hi([Start]) --> kind\n  %% kind: choose \"What are we building?\" Website|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Shop| products\n  kind -->|Landing page| goal\n  kind --> pages\n  %% products: slide \"How many products?\" 1-500\n  products --> pages\n  %% goal: ask \"Main goal?\" Leads|Sales\n  goal --> brief\n  %% pages: pick \"Which pages?\" Home|About|Blog|Contact\n  pages -->|pages=Blog| blog\n  pages --> brief\n  %% blog: ask \"Who writes the posts?\" \"I do\"|\"You do\"\n  blog --> brief\n  %% brief: form \"The basics\" name:text! budget:number\n  brief -->|brief.budget>=10000| call\n  brief --> done((Done))\n  %% call: ask \"Book a call?\" Yes|No\n  call --> done"
+     }
+    }
+   ],
+   "route": {
+    "answers": {},
+    "path": [
+     "hi"
+    ],
+    "open": "kind",
+    "event": {
+     "flow": {},
+     "path": [
+      "hi"
+     ]
+    }
+   }
+  },
+  {
+   "name": "route: a shop goes by products",
+   "input": "flow@intake \"Website intake\"\nflowchart TD\n  %% hi: page \"Let us build your site\"\n  hi([Start]) --> kind\n  %% kind: choose \"What are we building?\" Website|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Shop| products\n  kind -->|Landing page| goal\n  kind --> pages\n  %% products: slide \"How many products?\" 1-500\n  products --> pages\n  %% goal: ask \"Main goal?\" Leads|Sales\n  goal --> brief\n  %% pages: pick \"Which pages?\" Home|About|Blog|Contact\n  pages -->|pages=Blog| blog\n  pages --> brief\n  %% blog: ask \"Who writes the posts?\" \"I do\"|\"You do\"\n  blog --> brief\n  %% brief: form \"The basics\" name:text! budget:number\n  brief -->|brief.budget>=10000| call\n  brief --> done((Done))\n  %% call: ask \"Book a call?\" Yes|No\n  call --> done\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "intake",
+     "props": {
+      "title": "Website intake"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "intake",
+     "props": {
+      "dir": "TD",
+      "start": "hi",
+      "nodes": [
+       {
+        "id": "hi",
+        "label": "Start",
+        "preset": "page",
+        "props": {
+         "title": "Let us build your site"
+        }
+       },
+       {
+        "id": "kind",
+        "label": "What are we building?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Website",
+          "Shop",
+          "Landing page"
+         ],
+         "q": "What are we building?"
+        }
+       },
+       {
+        "id": "products",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 500,
+         "label": "How many products?"
+        }
+       },
+       {
+        "id": "goal",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Leads",
+          "Sales"
+         ],
+         "q": "Main goal?"
+        }
+       },
+       {
+        "id": "pages",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Home",
+          "About",
+          "Blog",
+          "Contact"
+         ],
+         "q": "Which pages?"
+        }
+       },
+       {
+        "id": "brief",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "name",
+           "type": "text",
+           "required": true
+          },
+          {
+           "key": "budget",
+           "type": "number"
+          }
+         ],
+         "title": "The basics"
+        }
+       },
+       {
+        "id": "blog",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "I do",
+          "You do"
+         ],
+         "q": "Who writes the posts?"
+        }
+       },
+       {
+        "id": "call",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Book a call?"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Done"
+       }
+      ],
+      "edges": [
+       {
+        "from": "hi",
+        "to": "kind"
+       },
+       {
+        "from": "kind",
+        "to": "products",
+        "label": "Shop",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Shop"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "goal",
+        "label": "Landing page",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Landing page"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "pages"
+       },
+       {
+        "from": "products",
+        "to": "pages"
+       },
+       {
+        "from": "goal",
+        "to": "brief"
+       },
+       {
+        "from": "pages",
+        "to": "blog",
+        "label": "pages=Blog",
+        "when": [
+         [
+          {
+           "path": "pages",
+           "op": "=",
+           "value": "Blog"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "pages",
+        "to": "brief"
+       },
+       {
+        "from": "blog",
+        "to": "brief"
+       },
+       {
+        "from": "brief",
+        "to": "call",
+        "label": "brief.budget>=10000",
+        "when": [
+         [
+          {
+           "path": "brief.budget",
+           "op": ">=",
+           "value": 10000
+          }
+         ]
+        ]
+       },
+       {
+        "from": "brief",
+        "to": "done"
+       },
+       {
+        "from": "call",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% hi: page \"Let us build your site\"\n  hi([Start]) --> kind\n  %% kind: choose \"What are we building?\" Website|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Shop| products\n  kind -->|Landing page| goal\n  kind --> pages\n  %% products: slide \"How many products?\" 1-500\n  products --> pages\n  %% goal: ask \"Main goal?\" Leads|Sales\n  goal --> brief\n  %% pages: pick \"Which pages?\" Home|About|Blog|Contact\n  pages -->|pages=Blog| blog\n  pages --> brief\n  %% blog: ask \"Who writes the posts?\" \"I do\"|\"You do\"\n  blog --> brief\n  %% brief: form \"The basics\" name:text! budget:number\n  brief -->|brief.budget>=10000| call\n  brief --> done((Done))\n  %% call: ask \"Book a call?\" Yes|No\n  call --> done"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "kind": "Shop",
+     "products": 40,
+     "pages": [
+      "Home"
+     ],
+     "brief": {
+      "name": "Kiln",
+      "budget": 5000
+     }
+    },
+    "path": [
+     "hi",
+     "kind",
+     "products",
+     "pages",
+     "brief"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "kind": "Shop",
+      "products": 40,
+      "pages": [
+       "Home"
+      ],
+      "brief": {
+       "name": "Kiln",
+       "budget": 5000
+      }
+     },
+     "path": [
+      "hi",
+      "kind",
+      "products",
+      "pages",
+      "brief"
+     ]
+    }
+   }
+  },
+  {
+   "name": "route: pick contains, form field compares",
+   "input": "flow@intake \"Website intake\"\nflowchart TD\n  %% hi: page \"Let us build your site\"\n  hi([Start]) --> kind\n  %% kind: choose \"What are we building?\" Website|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Shop| products\n  kind -->|Landing page| goal\n  kind --> pages\n  %% products: slide \"How many products?\" 1-500\n  products --> pages\n  %% goal: ask \"Main goal?\" Leads|Sales\n  goal --> brief\n  %% pages: pick \"Which pages?\" Home|About|Blog|Contact\n  pages -->|pages=Blog| blog\n  pages --> brief\n  %% blog: ask \"Who writes the posts?\" \"I do\"|\"You do\"\n  blog --> brief\n  %% brief: form \"The basics\" name:text! budget:number\n  brief -->|brief.budget>=10000| call\n  brief --> done((Done))\n  %% call: ask \"Book a call?\" Yes|No\n  call --> done\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "intake",
+     "props": {
+      "title": "Website intake"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "intake",
+     "props": {
+      "dir": "TD",
+      "start": "hi",
+      "nodes": [
+       {
+        "id": "hi",
+        "label": "Start",
+        "preset": "page",
+        "props": {
+         "title": "Let us build your site"
+        }
+       },
+       {
+        "id": "kind",
+        "label": "What are we building?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Website",
+          "Shop",
+          "Landing page"
+         ],
+         "q": "What are we building?"
+        }
+       },
+       {
+        "id": "products",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 500,
+         "label": "How many products?"
+        }
+       },
+       {
+        "id": "goal",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Leads",
+          "Sales"
+         ],
+         "q": "Main goal?"
+        }
+       },
+       {
+        "id": "pages",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Home",
+          "About",
+          "Blog",
+          "Contact"
+         ],
+         "q": "Which pages?"
+        }
+       },
+       {
+        "id": "brief",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "name",
+           "type": "text",
+           "required": true
+          },
+          {
+           "key": "budget",
+           "type": "number"
+          }
+         ],
+         "title": "The basics"
+        }
+       },
+       {
+        "id": "blog",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "I do",
+          "You do"
+         ],
+         "q": "Who writes the posts?"
+        }
+       },
+       {
+        "id": "call",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Book a call?"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Done"
+       }
+      ],
+      "edges": [
+       {
+        "from": "hi",
+        "to": "kind"
+       },
+       {
+        "from": "kind",
+        "to": "products",
+        "label": "Shop",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Shop"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "goal",
+        "label": "Landing page",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Landing page"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "pages"
+       },
+       {
+        "from": "products",
+        "to": "pages"
+       },
+       {
+        "from": "goal",
+        "to": "brief"
+       },
+       {
+        "from": "pages",
+        "to": "blog",
+        "label": "pages=Blog",
+        "when": [
+         [
+          {
+           "path": "pages",
+           "op": "=",
+           "value": "Blog"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "pages",
+        "to": "brief"
+       },
+       {
+        "from": "blog",
+        "to": "brief"
+       },
+       {
+        "from": "brief",
+        "to": "call",
+        "label": "brief.budget>=10000",
+        "when": [
+         [
+          {
+           "path": "brief.budget",
+           "op": ">=",
+           "value": 10000
+          }
+         ]
+        ]
+       },
+       {
+        "from": "brief",
+        "to": "done"
+       },
+       {
+        "from": "call",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% hi: page \"Let us build your site\"\n  hi([Start]) --> kind\n  %% kind: choose \"What are we building?\" Website|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Shop| products\n  kind -->|Landing page| goal\n  kind --> pages\n  %% products: slide \"How many products?\" 1-500\n  products --> pages\n  %% goal: ask \"Main goal?\" Leads|Sales\n  goal --> brief\n  %% pages: pick \"Which pages?\" Home|About|Blog|Contact\n  pages -->|pages=Blog| blog\n  pages --> brief\n  %% blog: ask \"Who writes the posts?\" \"I do\"|\"You do\"\n  blog --> brief\n  %% brief: form \"The basics\" name:text! budget:number\n  brief -->|brief.budget>=10000| call\n  brief --> done((Done))\n  %% call: ask \"Book a call?\" Yes|No\n  call --> done"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "kind": "Website",
+     "pages": [
+      "Home",
+      "Blog"
+     ],
+     "blog": "I do",
+     "brief": {
+      "name": "Kiln",
+      "budget": 12000
+     },
+     "call": "Yes"
+    },
+    "path": [
+     "hi",
+     "kind",
+     "pages",
+     "blog",
+     "brief",
+     "call"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "kind": "Website",
+      "pages": [
+       "Home",
+       "Blog"
+      ],
+      "blog": "I do",
+      "brief": {
+       "name": "Kiln",
+       "budget": 12000
+      },
+      "call": "Yes"
+     },
+     "path": [
+      "hi",
+      "kind",
+      "pages",
+      "blog",
+      "brief",
+      "call"
+     ]
+    }
+   }
+  },
+  {
+   "name": "route: answers off the path are not sent",
+   "input": "flow@intake \"Website intake\"\nflowchart TD\n  %% hi: page \"Let us build your site\"\n  hi([Start]) --> kind\n  %% kind: choose \"What are we building?\" Website|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Shop| products\n  kind -->|Landing page| goal\n  kind --> pages\n  %% products: slide \"How many products?\" 1-500\n  products --> pages\n  %% goal: ask \"Main goal?\" Leads|Sales\n  goal --> brief\n  %% pages: pick \"Which pages?\" Home|About|Blog|Contact\n  pages -->|pages=Blog| blog\n  pages --> brief\n  %% blog: ask \"Who writes the posts?\" \"I do\"|\"You do\"\n  blog --> brief\n  %% brief: form \"The basics\" name:text! budget:number\n  brief -->|brief.budget>=10000| call\n  brief --> done((Done))\n  %% call: ask \"Book a call?\" Yes|No\n  call --> done\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "intake",
+     "props": {
+      "title": "Website intake"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "intake",
+     "props": {
+      "dir": "TD",
+      "start": "hi",
+      "nodes": [
+       {
+        "id": "hi",
+        "label": "Start",
+        "preset": "page",
+        "props": {
+         "title": "Let us build your site"
+        }
+       },
+       {
+        "id": "kind",
+        "label": "What are we building?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Website",
+          "Shop",
+          "Landing page"
+         ],
+         "q": "What are we building?"
+        }
+       },
+       {
+        "id": "products",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 500,
+         "label": "How many products?"
+        }
+       },
+       {
+        "id": "goal",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Leads",
+          "Sales"
+         ],
+         "q": "Main goal?"
+        }
+       },
+       {
+        "id": "pages",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Home",
+          "About",
+          "Blog",
+          "Contact"
+         ],
+         "q": "Which pages?"
+        }
+       },
+       {
+        "id": "brief",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "name",
+           "type": "text",
+           "required": true
+          },
+          {
+           "key": "budget",
+           "type": "number"
+          }
+         ],
+         "title": "The basics"
+        }
+       },
+       {
+        "id": "blog",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "I do",
+          "You do"
+         ],
+         "q": "Who writes the posts?"
+        }
+       },
+       {
+        "id": "call",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Book a call?"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Done"
+       }
+      ],
+      "edges": [
+       {
+        "from": "hi",
+        "to": "kind"
+       },
+       {
+        "from": "kind",
+        "to": "products",
+        "label": "Shop",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Shop"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "goal",
+        "label": "Landing page",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Landing page"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "pages"
+       },
+       {
+        "from": "products",
+        "to": "pages"
+       },
+       {
+        "from": "goal",
+        "to": "brief"
+       },
+       {
+        "from": "pages",
+        "to": "blog",
+        "label": "pages=Blog",
+        "when": [
+         [
+          {
+           "path": "pages",
+           "op": "=",
+           "value": "Blog"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "pages",
+        "to": "brief"
+       },
+       {
+        "from": "blog",
+        "to": "brief"
+       },
+       {
+        "from": "brief",
+        "to": "call",
+        "label": "brief.budget>=10000",
+        "when": [
+         [
+          {
+           "path": "brief.budget",
+           "op": ">=",
+           "value": 10000
+          }
+         ]
+        ]
+       },
+       {
+        "from": "brief",
+        "to": "done"
+       },
+       {
+        "from": "call",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% hi: page \"Let us build your site\"\n  hi([Start]) --> kind\n  %% kind: choose \"What are we building?\" Website|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Shop| products\n  kind -->|Landing page| goal\n  kind --> pages\n  %% products: slide \"How many products?\" 1-500\n  products --> pages\n  %% goal: ask \"Main goal?\" Leads|Sales\n  goal --> brief\n  %% pages: pick \"Which pages?\" Home|About|Blog|Contact\n  pages -->|pages=Blog| blog\n  pages --> brief\n  %% blog: ask \"Who writes the posts?\" \"I do\"|\"You do\"\n  blog --> brief\n  %% brief: form \"The basics\" name:text! budget:number\n  brief -->|brief.budget>=10000| call\n  brief --> done((Done))\n  %% call: ask \"Book a call?\" Yes|No\n  call --> done"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "kind": "landing page",
+     "products": 40,
+     "pages": [
+      "Blog"
+     ],
+     "goal": "Leads",
+     "brief": {
+      "name": "Kiln",
+      "budget": 800
+     }
+    },
+    "path": [
+     "hi",
+     "kind",
+     "goal",
+     "brief"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "kind": "landing page",
+      "goal": "Leads",
+      "brief": {
+       "name": "Kiln",
+       "budget": 800
+      }
+     },
+     "path": [
+      "hi",
+      "kind",
+      "goal",
+      "brief"
+     ]
+    }
+   }
+  },
+  {
+   "name": "starter website-intake: a shop with a big budget books a call",
+   "input": "flow@intake \"Client website intake\" submit=\"Send the brief\"\nflowchart TD\n  %% hi: page \"Let's plan your site\" body=\"About ten questions. Your answers become the brief, so guess when you are not sure.\"\n  hi([Start]) --> biz\n  %% biz: form \"Your business\" \"Business name\":text! \"What you do\":long \"Who it is for\":text\n  biz[Your business] --> kind\n  %% kind: choose \"What are we building?\" \"New site\"|Redesign|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Redesign| today\n  kind -->|Shop| products\n  kind --> goal\n  %% today: form \"The site today\" \"Current site\":url! \"What works\":long \"What you hate\":long\n  today[The site today] --> goal\n  %% products: slide \"How many products?\" 1-500\n  products[How many products?] --> pay\n  %% pay: pick \"How do you take payment?\" Stripe|Shopify|Square|\"Not sure yet\"\n  pay[Payments] --> goal\n  %% goal: choose \"What should a visitor do first?\" Call|Book|Buy|\"Sign up\"|Read\n  goal[First action]\n  goal -->|kind=Landing page| brand\n  goal --> pages\n  %% pages: pick \"Which pages?\" Home|About|Services|Pricing|Blog|Contact +other\n  pages[Pages] --> brand\n  %% brand: form \"Your brand\" logo:yes colors:text \"A site you like\":url\n  brand[Brand] --> budget\n  %% budget: slide \"Budget, in thousands\" 2-50 \"$2k\"|\"$50k\"\n  budget[Budget]\n  budget -->|budget>=15| meet\n  budget --> done\n  %% meet: ask \"Want a call to walk through it?\" \"Yes, book it\"|\"Email is fine\"\n  meet[Call?] --> done((Brief))\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "intake",
+     "props": {
+      "title": "Client website intake",
+      "submit": "Send the brief"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "intake",
+     "props": {
+      "dir": "TD",
+      "start": "hi",
+      "nodes": [
+       {
+        "id": "hi",
+        "label": "Start",
+        "preset": "page",
+        "props": {
+         "title": "Let's plan your site",
+         "body": "About ten questions. Your answers become the brief, so guess when you are not sure."
+        }
+       },
+       {
+        "id": "biz",
+        "label": "Your business",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "business_name",
+           "label": "Business name",
+           "type": "text",
+           "required": true
+          },
+          {
+           "key": "what_you_do",
+           "label": "What you do",
+           "type": "long"
+          },
+          {
+           "key": "who_it_is_for",
+           "label": "Who it is for",
+           "type": "text"
+          }
+         ],
+         "title": "Your business"
+        }
+       },
+       {
+        "id": "kind",
+        "label": "What are we building?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "New site",
+          "Redesign",
+          "Shop",
+          "Landing page"
+         ],
+         "q": "What are we building?"
+        }
+       },
+       {
+        "id": "today",
+        "label": "The site today",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "current_site",
+           "label": "Current site",
+           "type": "url",
+           "required": true
+          },
+          {
+           "key": "what_works",
+           "label": "What works",
+           "type": "long"
+          },
+          {
+           "key": "what_you_hate",
+           "label": "What you hate",
+           "type": "long"
+          }
+         ],
+         "title": "The site today"
+        }
+       },
+       {
+        "id": "products",
+        "label": "How many products?",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 500,
+         "label": "How many products?"
+        }
+       },
+       {
+        "id": "goal",
+        "label": "First action",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Call",
+          "Book",
+          "Buy",
+          "Sign up",
+          "Read"
+         ],
+         "q": "What should a visitor do first?"
+        }
+       },
+       {
+        "id": "pay",
+        "label": "Payments",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Stripe",
+          "Shopify",
+          "Square",
+          "Not sure yet"
+         ],
+         "q": "How do you take payment?"
+        }
+       },
+       {
+        "id": "brand",
+        "label": "Brand",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "logo",
+           "type": "yes"
+          },
+          {
+           "key": "colors",
+           "type": "text"
+          },
+          {
+           "key": "a_site_you_like",
+           "label": "A site you like",
+           "type": "url"
+          }
+         ],
+         "title": "Your brand"
+        }
+       },
+       {
+        "id": "pages",
+        "label": "Pages",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Home",
+          "About",
+          "Services",
+          "Pricing",
+          "Blog",
+          "Contact"
+         ],
+         "q": "Which pages?",
+         "other": true
+        }
+       },
+       {
+        "id": "budget",
+        "label": "Budget",
+        "preset": "slide",
+        "props": {
+         "min": 2,
+         "max": 50,
+         "lo": "$2k",
+         "hi": "$50k",
+         "label": "Budget, in thousands"
+        }
+       },
+       {
+        "id": "meet",
+        "label": "Call?",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes, book it",
+          "Email is fine"
+         ],
+         "q": "Want a call to walk through it?"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Brief"
+       }
+      ],
+      "edges": [
+       {
+        "from": "hi",
+        "to": "biz"
+       },
+       {
+        "from": "biz",
+        "to": "kind"
+       },
+       {
+        "from": "kind",
+        "to": "today",
+        "label": "Redesign",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Redesign"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "products",
+        "label": "Shop",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Shop"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "goal"
+       },
+       {
+        "from": "today",
+        "to": "goal"
+       },
+       {
+        "from": "products",
+        "to": "pay"
+       },
+       {
+        "from": "pay",
+        "to": "goal"
+       },
+       {
+        "from": "goal",
+        "to": "brand",
+        "label": "kind=Landing page",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Landing page"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "goal",
+        "to": "pages"
+       },
+       {
+        "from": "pages",
+        "to": "brand"
+       },
+       {
+        "from": "brand",
+        "to": "budget"
+       },
+       {
+        "from": "budget",
+        "to": "meet",
+        "label": "budget>=15",
+        "when": [
+         [
+          {
+           "path": "budget",
+           "op": ">=",
+           "value": 15
+          }
+         ]
+        ]
+       },
+       {
+        "from": "budget",
+        "to": "done"
+       },
+       {
+        "from": "meet",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% hi: page \"Let's plan your site\" body=\"About ten questions. Your answers become the brief, so guess when you are not sure.\"\n  hi([Start]) --> biz\n  %% biz: form \"Your business\" \"Business name\":text! \"What you do\":long \"Who it is for\":text\n  biz[Your business] --> kind\n  %% kind: choose \"What are we building?\" \"New site\"|Redesign|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Redesign| today\n  kind -->|Shop| products\n  kind --> goal\n  %% today: form \"The site today\" \"Current site\":url! \"What works\":long \"What you hate\":long\n  today[The site today] --> goal\n  %% products: slide \"How many products?\" 1-500\n  products[How many products?] --> pay\n  %% pay: pick \"How do you take payment?\" Stripe|Shopify|Square|\"Not sure yet\"\n  pay[Payments] --> goal\n  %% goal: choose \"What should a visitor do first?\" Call|Book|Buy|\"Sign up\"|Read\n  goal[First action]\n  goal -->|kind=Landing page| brand\n  goal --> pages\n  %% pages: pick \"Which pages?\" Home|About|Services|Pricing|Blog|Contact +other\n  pages[Pages] --> brand\n  %% brand: form \"Your brand\" logo:yes colors:text \"A site you like\":url\n  brand[Brand] --> budget\n  %% budget: slide \"Budget, in thousands\" 2-50 \"$2k\"|\"$50k\"\n  budget[Budget]\n  budget -->|budget>=15| meet\n  budget --> done\n  %% meet: ask \"Want a call to walk through it?\" \"Yes, book it\"|\"Email is fine\"\n  meet[Call?] --> done((Brief))"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "hi": true,
+     "biz": {
+      "Business name": "Tidewater Tees",
+      "What you do": "Screen printing"
+     },
+     "kind": "Shop",
+     "products": 120,
+     "pay": [
+      "Stripe"
+     ],
+     "goal": "Buy",
+     "pages": [
+      "Home",
+      "Contact"
+     ],
+     "brand": {
+      "logo": true,
+      "colors": "coral"
+     },
+     "budget": 20,
+     "meet": "Yes, book it"
+    },
+    "path": [
+     "hi",
+     "biz",
+     "kind",
+     "products",
+     "pay",
+     "goal",
+     "pages",
+     "brand",
+     "budget",
+     "meet"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "biz": {
+       "Business name": "Tidewater Tees",
+       "What you do": "Screen printing"
+      },
+      "kind": "Shop",
+      "products": 120,
+      "pay": [
+       "Stripe"
+      ],
+      "goal": "Buy",
+      "pages": [
+       "Home",
+       "Contact"
+      ],
+      "brand": {
+       "logo": true,
+       "colors": "coral"
+      },
+      "budget": 20,
+      "meet": "Yes, book it"
+     },
+     "path": [
+      "hi",
+      "biz",
+      "kind",
+      "products",
+      "pay",
+      "goal",
+      "pages",
+      "brand",
+      "budget",
+      "meet"
+     ]
+    }
+   }
+  },
+  {
+   "name": "starter website-intake: a landing page skips the pages and the call",
+   "input": "flow@intake \"Client website intake\" submit=\"Send the brief\"\nflowchart TD\n  %% hi: page \"Let's plan your site\" body=\"About ten questions. Your answers become the brief, so guess when you are not sure.\"\n  hi([Start]) --> biz\n  %% biz: form \"Your business\" \"Business name\":text! \"What you do\":long \"Who it is for\":text\n  biz[Your business] --> kind\n  %% kind: choose \"What are we building?\" \"New site\"|Redesign|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Redesign| today\n  kind -->|Shop| products\n  kind --> goal\n  %% today: form \"The site today\" \"Current site\":url! \"What works\":long \"What you hate\":long\n  today[The site today] --> goal\n  %% products: slide \"How many products?\" 1-500\n  products[How many products?] --> pay\n  %% pay: pick \"How do you take payment?\" Stripe|Shopify|Square|\"Not sure yet\"\n  pay[Payments] --> goal\n  %% goal: choose \"What should a visitor do first?\" Call|Book|Buy|\"Sign up\"|Read\n  goal[First action]\n  goal -->|kind=Landing page| brand\n  goal --> pages\n  %% pages: pick \"Which pages?\" Home|About|Services|Pricing|Blog|Contact +other\n  pages[Pages] --> brand\n  %% brand: form \"Your brand\" logo:yes colors:text \"A site you like\":url\n  brand[Brand] --> budget\n  %% budget: slide \"Budget, in thousands\" 2-50 \"$2k\"|\"$50k\"\n  budget[Budget]\n  budget -->|budget>=15| meet\n  budget --> done\n  %% meet: ask \"Want a call to walk through it?\" \"Yes, book it\"|\"Email is fine\"\n  meet[Call?] --> done((Brief))\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "intake",
+     "props": {
+      "title": "Client website intake",
+      "submit": "Send the brief"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "intake",
+     "props": {
+      "dir": "TD",
+      "start": "hi",
+      "nodes": [
+       {
+        "id": "hi",
+        "label": "Start",
+        "preset": "page",
+        "props": {
+         "title": "Let's plan your site",
+         "body": "About ten questions. Your answers become the brief, so guess when you are not sure."
+        }
+       },
+       {
+        "id": "biz",
+        "label": "Your business",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "business_name",
+           "label": "Business name",
+           "type": "text",
+           "required": true
+          },
+          {
+           "key": "what_you_do",
+           "label": "What you do",
+           "type": "long"
+          },
+          {
+           "key": "who_it_is_for",
+           "label": "Who it is for",
+           "type": "text"
+          }
+         ],
+         "title": "Your business"
+        }
+       },
+       {
+        "id": "kind",
+        "label": "What are we building?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "New site",
+          "Redesign",
+          "Shop",
+          "Landing page"
+         ],
+         "q": "What are we building?"
+        }
+       },
+       {
+        "id": "today",
+        "label": "The site today",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "current_site",
+           "label": "Current site",
+           "type": "url",
+           "required": true
+          },
+          {
+           "key": "what_works",
+           "label": "What works",
+           "type": "long"
+          },
+          {
+           "key": "what_you_hate",
+           "label": "What you hate",
+           "type": "long"
+          }
+         ],
+         "title": "The site today"
+        }
+       },
+       {
+        "id": "products",
+        "label": "How many products?",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 500,
+         "label": "How many products?"
+        }
+       },
+       {
+        "id": "goal",
+        "label": "First action",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Call",
+          "Book",
+          "Buy",
+          "Sign up",
+          "Read"
+         ],
+         "q": "What should a visitor do first?"
+        }
+       },
+       {
+        "id": "pay",
+        "label": "Payments",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Stripe",
+          "Shopify",
+          "Square",
+          "Not sure yet"
+         ],
+         "q": "How do you take payment?"
+        }
+       },
+       {
+        "id": "brand",
+        "label": "Brand",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "logo",
+           "type": "yes"
+          },
+          {
+           "key": "colors",
+           "type": "text"
+          },
+          {
+           "key": "a_site_you_like",
+           "label": "A site you like",
+           "type": "url"
+          }
+         ],
+         "title": "Your brand"
+        }
+       },
+       {
+        "id": "pages",
+        "label": "Pages",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Home",
+          "About",
+          "Services",
+          "Pricing",
+          "Blog",
+          "Contact"
+         ],
+         "q": "Which pages?",
+         "other": true
+        }
+       },
+       {
+        "id": "budget",
+        "label": "Budget",
+        "preset": "slide",
+        "props": {
+         "min": 2,
+         "max": 50,
+         "lo": "$2k",
+         "hi": "$50k",
+         "label": "Budget, in thousands"
+        }
+       },
+       {
+        "id": "meet",
+        "label": "Call?",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes, book it",
+          "Email is fine"
+         ],
+         "q": "Want a call to walk through it?"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Brief"
+       }
+      ],
+      "edges": [
+       {
+        "from": "hi",
+        "to": "biz"
+       },
+       {
+        "from": "biz",
+        "to": "kind"
+       },
+       {
+        "from": "kind",
+        "to": "today",
+        "label": "Redesign",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Redesign"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "products",
+        "label": "Shop",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Shop"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "goal"
+       },
+       {
+        "from": "today",
+        "to": "goal"
+       },
+       {
+        "from": "products",
+        "to": "pay"
+       },
+       {
+        "from": "pay",
+        "to": "goal"
+       },
+       {
+        "from": "goal",
+        "to": "brand",
+        "label": "kind=Landing page",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Landing page"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "goal",
+        "to": "pages"
+       },
+       {
+        "from": "pages",
+        "to": "brand"
+       },
+       {
+        "from": "brand",
+        "to": "budget"
+       },
+       {
+        "from": "budget",
+        "to": "meet",
+        "label": "budget>=15",
+        "when": [
+         [
+          {
+           "path": "budget",
+           "op": ">=",
+           "value": 15
+          }
+         ]
+        ]
+       },
+       {
+        "from": "budget",
+        "to": "done"
+       },
+       {
+        "from": "meet",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% hi: page \"Let's plan your site\" body=\"About ten questions. Your answers become the brief, so guess when you are not sure.\"\n  hi([Start]) --> biz\n  %% biz: form \"Your business\" \"Business name\":text! \"What you do\":long \"Who it is for\":text\n  biz[Your business] --> kind\n  %% kind: choose \"What are we building?\" \"New site\"|Redesign|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Redesign| today\n  kind -->|Shop| products\n  kind --> goal\n  %% today: form \"The site today\" \"Current site\":url! \"What works\":long \"What you hate\":long\n  today[The site today] --> goal\n  %% products: slide \"How many products?\" 1-500\n  products[How many products?] --> pay\n  %% pay: pick \"How do you take payment?\" Stripe|Shopify|Square|\"Not sure yet\"\n  pay[Payments] --> goal\n  %% goal: choose \"What should a visitor do first?\" Call|Book|Buy|\"Sign up\"|Read\n  goal[First action]\n  goal -->|kind=Landing page| brand\n  goal --> pages\n  %% pages: pick \"Which pages?\" Home|About|Services|Pricing|Blog|Contact +other\n  pages[Pages] --> brand\n  %% brand: form \"Your brand\" logo:yes colors:text \"A site you like\":url\n  brand[Brand] --> budget\n  %% budget: slide \"Budget, in thousands\" 2-50 \"$2k\"|\"$50k\"\n  budget[Budget]\n  budget -->|budget>=15| meet\n  budget --> done\n  %% meet: ask \"Want a call to walk through it?\" \"Yes, book it\"|\"Email is fine\"\n  meet[Call?] --> done((Brief))"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "biz": {
+      "Business name": "Glow Lab"
+     },
+     "kind": "Landing page",
+     "products": 40,
+     "goal": "Book",
+     "brand": {
+      "logo": false
+     },
+     "budget": 6
+    },
+    "path": [
+     "hi",
+     "biz",
+     "kind",
+     "goal",
+     "brand",
+     "budget"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "biz": {
+       "Business name": "Glow Lab"
+      },
+      "kind": "Landing page",
+      "goal": "Book",
+      "brand": {
+       "logo": false
+      },
+      "budget": 6
+     },
+     "path": [
+      "hi",
+      "biz",
+      "kind",
+      "goal",
+      "brand",
+      "budget"
+     ]
+    }
+   }
+  },
+  {
+   "name": "starter self-scope: a months-long app gets cut down and hired out",
+   "input": "flow@scope \"Scope a project yourself\" submit=\"Scope it\"\nflowchart TD\n  %% hi: page \"Scope it yourself\" body=\"Answer what you know and guess the rest. At the end you get a one-page scope.\"\n  hi([Start]) --> what\n  %% what: form \"The project\" \"Project name\":text! \"What done looks like\":long!\n  what[The project] --> kind\n  %% kind: choose \"What kind of work is it?\" Software|Content|Event|\"Something else\"\n  kind{Kind of work}\n  kind -->|Software| runs\n  kind --> size\n  %% runs: pick \"Where does it run?\" Web|iPhone|Android|\"Internal tool\"\n  runs[Platforms] --> size\n  %% size: choose \"How big does it feel?\" \"A weekend\"|\"A few weeks\"|\"A few months\"|\"No idea\"\n  size{How big?}\n  size -->|A few months or No idea| cut\n  size --> who\n  %% cut: page \"Let's cut it down\" body=\"Big projects slip. Name the smallest version someone would use or pay for, and ship that first.\" points=\"One user|One job|One screen if you can\"\n  cut[Cut it down] --> mvp\n  %% mvp: form \"The smallest version\" \"What ships first\":long!\n  mvp[Smallest version] --> who\n  %% who: choose \"Who does the work?\" \"Just me\"|\"Me and a team\"|\"I'll hire it out\"\n  who{Who does it?}\n  who -->|I'll hire it out| budget\n  who --> dates\n  %% budget: slide \"Budget, in thousands\" 1-100 \"$1k\"|\"$100k\"\n  budget[Budget] --> dates\n  %% dates: form \"Timing\" start:date deadline:date\n  dates[Timing] --> worry\n  %% worry: mic \"What worries you most about it?\"\n  worry[Biggest worry] --> done((Scope))\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "scope",
+     "props": {
+      "title": "Scope a project yourself",
+      "submit": "Scope it"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "scope",
+     "props": {
+      "dir": "TD",
+      "start": "hi",
+      "nodes": [
+       {
+        "id": "hi",
+        "label": "Start",
+        "preset": "page",
+        "props": {
+         "title": "Scope it yourself",
+         "body": "Answer what you know and guess the rest. At the end you get a one-page scope."
+        }
+       },
+       {
+        "id": "what",
+        "label": "The project",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "project_name",
+           "label": "Project name",
+           "type": "text",
+           "required": true
+          },
+          {
+           "key": "what_done_looks_like",
+           "label": "What done looks like",
+           "type": "long",
+           "required": true
+          }
+         ],
+         "title": "The project"
+        }
+       },
+       {
+        "id": "kind",
+        "label": "Kind of work",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Software",
+          "Content",
+          "Event",
+          "Something else"
+         ],
+         "q": "What kind of work is it?"
+        }
+       },
+       {
+        "id": "runs",
+        "label": "Platforms",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Web",
+          "iPhone",
+          "Android",
+          "Internal tool"
+         ],
+         "q": "Where does it run?"
+        }
+       },
+       {
+        "id": "size",
+        "label": "How big?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "A weekend",
+          "A few weeks",
+          "A few months",
+          "No idea"
+         ],
+         "q": "How big does it feel?"
+        }
+       },
+       {
+        "id": "cut",
+        "label": "Cut it down",
+        "preset": "page",
+        "props": {
+         "title": "Let's cut it down",
+         "body": "Big projects slip. Name the smallest version someone would use or pay for, and ship that first.",
+         "points": [
+          "One user",
+          "One job",
+          "One screen if you can"
+         ]
+        }
+       },
+       {
+        "id": "who",
+        "label": "Who does it?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Just me",
+          "Me and a team",
+          "I'll hire it out"
+         ],
+         "q": "Who does the work?"
+        }
+       },
+       {
+        "id": "mvp",
+        "label": "Smallest version",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "what_ships_first",
+           "label": "What ships first",
+           "type": "long",
+           "required": true
+          }
+         ],
+         "title": "The smallest version"
+        }
+       },
+       {
+        "id": "budget",
+        "label": "Budget",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 100,
+         "lo": "$1k",
+         "hi": "$100k",
+         "label": "Budget, in thousands"
+        }
+       },
+       {
+        "id": "dates",
+        "label": "Timing",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "start",
+           "type": "date"
+          },
+          {
+           "key": "deadline",
+           "type": "date"
+          }
+         ],
+         "title": "Timing"
+        }
+       },
+       {
+        "id": "worry",
+        "label": "Biggest worry",
+        "preset": "mic",
+        "props": {
+         "prompt": "What worries you most about it?"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Scope"
+       }
+      ],
+      "edges": [
+       {
+        "from": "hi",
+        "to": "what"
+       },
+       {
+        "from": "what",
+        "to": "kind"
+       },
+       {
+        "from": "kind",
+        "to": "runs",
+        "label": "Software",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Software"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "size"
+       },
+       {
+        "from": "runs",
+        "to": "size"
+       },
+       {
+        "from": "size",
+        "to": "cut",
+        "label": "A few months or No idea",
+        "when": [
+         [
+          {
+           "path": "size",
+           "op": "=",
+           "value": "A few months"
+          }
+         ],
+         [
+          {
+           "path": "size",
+           "op": "=",
+           "value": "No idea"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "size",
+        "to": "who"
+       },
+       {
+        "from": "cut",
+        "to": "mvp"
+       },
+       {
+        "from": "mvp",
+        "to": "who"
+       },
+       {
+        "from": "who",
+        "to": "budget",
+        "label": "I'll hire it out",
+        "when": [
+         [
+          {
+           "path": "who",
+           "op": "=",
+           "value": "I'll hire it out"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "who",
+        "to": "dates"
+       },
+       {
+        "from": "budget",
+        "to": "dates"
+       },
+       {
+        "from": "dates",
+        "to": "worry"
+       },
+       {
+        "from": "worry",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% hi: page \"Scope it yourself\" body=\"Answer what you know and guess the rest. At the end you get a one-page scope.\"\n  hi([Start]) --> what\n  %% what: form \"The project\" \"Project name\":text! \"What done looks like\":long!\n  what[The project] --> kind\n  %% kind: choose \"What kind of work is it?\" Software|Content|Event|\"Something else\"\n  kind{Kind of work}\n  kind -->|Software| runs\n  kind --> size\n  %% runs: pick \"Where does it run?\" Web|iPhone|Android|\"Internal tool\"\n  runs[Platforms] --> size\n  %% size: choose \"How big does it feel?\" \"A weekend\"|\"A few weeks\"|\"A few months\"|\"No idea\"\n  size{How big?}\n  size -->|A few months or No idea| cut\n  size --> who\n  %% cut: page \"Let's cut it down\" body=\"Big projects slip. Name the smallest version someone would use or pay for, and ship that first.\" points=\"One user|One job|One screen if you can\"\n  cut[Cut it down] --> mvp\n  %% mvp: form \"The smallest version\" \"What ships first\":long!\n  mvp[Smallest version] --> who\n  %% who: choose \"Who does the work?\" \"Just me\"|\"Me and a team\"|\"I'll hire it out\"\n  who{Who does it?}\n  who -->|I'll hire it out| budget\n  who --> dates\n  %% budget: slide \"Budget, in thousands\" 1-100 \"$1k\"|\"$100k\"\n  budget[Budget] --> dates\n  %% dates: form \"Timing\" start:date deadline:date\n  dates[Timing] --> worry\n  %% worry: mic \"What worries you most about it?\"\n  worry[Biggest worry] --> done((Scope))"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "what": {
+      "Project name": "Recipe app",
+      "What done looks like": "In the App Store"
+     },
+     "kind": "Software",
+     "runs": [
+      "iPhone"
+     ],
+     "size": "A few months",
+     "mvp": {
+      "What ships first": "Save a recipe"
+     },
+     "who": "I'll hire it out",
+     "budget": 30,
+     "dates": {
+      "start": "2026-10-01"
+     },
+     "worry": "Cost"
+    },
+    "path": [
+     "hi",
+     "what",
+     "kind",
+     "runs",
+     "size",
+     "cut",
+     "mvp",
+     "who",
+     "budget",
+     "dates",
+     "worry"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "what": {
+       "Project name": "Recipe app",
+       "What done looks like": "In the App Store"
+      },
+      "kind": "Software",
+      "runs": [
+       "iPhone"
+      ],
+      "size": "A few months",
+      "mvp": {
+       "What ships first": "Save a recipe"
+      },
+      "who": "I'll hire it out",
+      "budget": 30,
+      "dates": {
+       "start": "2026-10-01"
+      },
+      "worry": "Cost"
+     },
+     "path": [
+      "hi",
+      "what",
+      "kind",
+      "runs",
+      "size",
+      "cut",
+      "mvp",
+      "who",
+      "budget",
+      "dates",
+      "worry"
+     ]
+    }
+   }
+  },
+  {
+   "name": "starter self-scope: a weekend of content stops at the first open question",
+   "input": "flow@scope \"Scope a project yourself\" submit=\"Scope it\"\nflowchart TD\n  %% hi: page \"Scope it yourself\" body=\"Answer what you know and guess the rest. At the end you get a one-page scope.\"\n  hi([Start]) --> what\n  %% what: form \"The project\" \"Project name\":text! \"What done looks like\":long!\n  what[The project] --> kind\n  %% kind: choose \"What kind of work is it?\" Software|Content|Event|\"Something else\"\n  kind{Kind of work}\n  kind -->|Software| runs\n  kind --> size\n  %% runs: pick \"Where does it run?\" Web|iPhone|Android|\"Internal tool\"\n  runs[Platforms] --> size\n  %% size: choose \"How big does it feel?\" \"A weekend\"|\"A few weeks\"|\"A few months\"|\"No idea\"\n  size{How big?}\n  size -->|A few months or No idea| cut\n  size --> who\n  %% cut: page \"Let's cut it down\" body=\"Big projects slip. Name the smallest version someone would use or pay for, and ship that first.\" points=\"One user|One job|One screen if you can\"\n  cut[Cut it down] --> mvp\n  %% mvp: form \"The smallest version\" \"What ships first\":long!\n  mvp[Smallest version] --> who\n  %% who: choose \"Who does the work?\" \"Just me\"|\"Me and a team\"|\"I'll hire it out\"\n  who{Who does it?}\n  who -->|I'll hire it out| budget\n  who --> dates\n  %% budget: slide \"Budget, in thousands\" 1-100 \"$1k\"|\"$100k\"\n  budget[Budget] --> dates\n  %% dates: form \"Timing\" start:date deadline:date\n  dates[Timing] --> worry\n  %% worry: mic \"What worries you most about it?\"\n  worry[Biggest worry] --> done((Scope))\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "scope",
+     "props": {
+      "title": "Scope a project yourself",
+      "submit": "Scope it"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "scope",
+     "props": {
+      "dir": "TD",
+      "start": "hi",
+      "nodes": [
+       {
+        "id": "hi",
+        "label": "Start",
+        "preset": "page",
+        "props": {
+         "title": "Scope it yourself",
+         "body": "Answer what you know and guess the rest. At the end you get a one-page scope."
+        }
+       },
+       {
+        "id": "what",
+        "label": "The project",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "project_name",
+           "label": "Project name",
+           "type": "text",
+           "required": true
+          },
+          {
+           "key": "what_done_looks_like",
+           "label": "What done looks like",
+           "type": "long",
+           "required": true
+          }
+         ],
+         "title": "The project"
+        }
+       },
+       {
+        "id": "kind",
+        "label": "Kind of work",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Software",
+          "Content",
+          "Event",
+          "Something else"
+         ],
+         "q": "What kind of work is it?"
+        }
+       },
+       {
+        "id": "runs",
+        "label": "Platforms",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Web",
+          "iPhone",
+          "Android",
+          "Internal tool"
+         ],
+         "q": "Where does it run?"
+        }
+       },
+       {
+        "id": "size",
+        "label": "How big?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "A weekend",
+          "A few weeks",
+          "A few months",
+          "No idea"
+         ],
+         "q": "How big does it feel?"
+        }
+       },
+       {
+        "id": "cut",
+        "label": "Cut it down",
+        "preset": "page",
+        "props": {
+         "title": "Let's cut it down",
+         "body": "Big projects slip. Name the smallest version someone would use or pay for, and ship that first.",
+         "points": [
+          "One user",
+          "One job",
+          "One screen if you can"
+         ]
+        }
+       },
+       {
+        "id": "who",
+        "label": "Who does it?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Just me",
+          "Me and a team",
+          "I'll hire it out"
+         ],
+         "q": "Who does the work?"
+        }
+       },
+       {
+        "id": "mvp",
+        "label": "Smallest version",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "what_ships_first",
+           "label": "What ships first",
+           "type": "long",
+           "required": true
+          }
+         ],
+         "title": "The smallest version"
+        }
+       },
+       {
+        "id": "budget",
+        "label": "Budget",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 100,
+         "lo": "$1k",
+         "hi": "$100k",
+         "label": "Budget, in thousands"
+        }
+       },
+       {
+        "id": "dates",
+        "label": "Timing",
+        "preset": "form",
+        "props": {
+         "fields": [
+          {
+           "key": "start",
+           "type": "date"
+          },
+          {
+           "key": "deadline",
+           "type": "date"
+          }
+         ],
+         "title": "Timing"
+        }
+       },
+       {
+        "id": "worry",
+        "label": "Biggest worry",
+        "preset": "mic",
+        "props": {
+         "prompt": "What worries you most about it?"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Scope"
+       }
+      ],
+      "edges": [
+       {
+        "from": "hi",
+        "to": "what"
+       },
+       {
+        "from": "what",
+        "to": "kind"
+       },
+       {
+        "from": "kind",
+        "to": "runs",
+        "label": "Software",
+        "when": [
+         [
+          {
+           "path": "kind",
+           "op": "=",
+           "value": "Software"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "kind",
+        "to": "size"
+       },
+       {
+        "from": "runs",
+        "to": "size"
+       },
+       {
+        "from": "size",
+        "to": "cut",
+        "label": "A few months or No idea",
+        "when": [
+         [
+          {
+           "path": "size",
+           "op": "=",
+           "value": "A few months"
+          }
+         ],
+         [
+          {
+           "path": "size",
+           "op": "=",
+           "value": "No idea"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "size",
+        "to": "who"
+       },
+       {
+        "from": "cut",
+        "to": "mvp"
+       },
+       {
+        "from": "mvp",
+        "to": "who"
+       },
+       {
+        "from": "who",
+        "to": "budget",
+        "label": "I'll hire it out",
+        "when": [
+         [
+          {
+           "path": "who",
+           "op": "=",
+           "value": "I'll hire it out"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "who",
+        "to": "dates"
+       },
+       {
+        "from": "budget",
+        "to": "dates"
+       },
+       {
+        "from": "dates",
+        "to": "worry"
+       },
+       {
+        "from": "worry",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% hi: page \"Scope it yourself\" body=\"Answer what you know and guess the rest. At the end you get a one-page scope.\"\n  hi([Start]) --> what\n  %% what: form \"The project\" \"Project name\":text! \"What done looks like\":long!\n  what[The project] --> kind\n  %% kind: choose \"What kind of work is it?\" Software|Content|Event|\"Something else\"\n  kind{Kind of work}\n  kind -->|Software| runs\n  kind --> size\n  %% runs: pick \"Where does it run?\" Web|iPhone|Android|\"Internal tool\"\n  runs[Platforms] --> size\n  %% size: choose \"How big does it feel?\" \"A weekend\"|\"A few weeks\"|\"A few months\"|\"No idea\"\n  size{How big?}\n  size -->|A few months or No idea| cut\n  size --> who\n  %% cut: page \"Let's cut it down\" body=\"Big projects slip. Name the smallest version someone would use or pay for, and ship that first.\" points=\"One user|One job|One screen if you can\"\n  cut[Cut it down] --> mvp\n  %% mvp: form \"The smallest version\" \"What ships first\":long!\n  mvp[Smallest version] --> who\n  %% who: choose \"Who does the work?\" \"Just me\"|\"Me and a team\"|\"I'll hire it out\"\n  who{Who does it?}\n  who -->|I'll hire it out| budget\n  who --> dates\n  %% budget: slide \"Budget, in thousands\" 1-100 \"$1k\"|\"$100k\"\n  budget[Budget] --> dates\n  %% dates: form \"Timing\" start:date deadline:date\n  dates[Timing] --> worry\n  %% worry: mic \"What worries you most about it?\"\n  worry[Biggest worry] --> done((Scope))"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "what": {
+      "Project name": "Newsletter"
+     },
+     "kind": "Content",
+     "size": "A weekend"
+    },
+    "path": [
+     "hi",
+     "what",
+     "kind",
+     "size"
+    ],
+    "open": "who",
+    "event": {
+     "flow": {
+      "what": {
+       "Project name": "Newsletter"
+      },
+      "kind": "Content",
+      "size": "A weekend"
+     },
+     "path": [
+      "hi",
+      "what",
+      "kind",
+      "size"
+     ]
+    }
+   }
+  },
+  {
+   "name": "starter workout-checkin: a bad night and a hurt back",
+   "input": "flow@checkin \"Workout check-in\" submit=\"Send to my coach\"\nflowchart TD\n  %% sleep: slide \"How did you sleep?\" 1-10 Awful|Great\n  sleep[Sleep] --> energy\n  %% energy: choose \"Energy right now?\" Low|OK|High\n  energy[Energy] --> check{Rough day?}\n  check -->|sleep<5 or energy=Low| easy\n  check --> sore\n  %% easy: page \"Take it easy today\" body=\"Short sleep or low energy means a lighter session still counts. Your coach will see why.\"\n  easy[Easy day] --> sore\n  %% sore: pick \"Anything sore?\" Legs|Back|Shoulders|Arms|Nothing\n  sore[Sore spots]\n  sore -->|sore=Nothing| today\n  sore --> hurt\n  %% hurt: choose \"Sore, or does it hurt?\" \"Just sore\"|\"It hurts\"\n  hurt{Sore or hurt?}\n  hurt -->|It hurts| rest\n  hurt --> today\n  %% rest: page \"Skip that area today\" body=\"Sharp or joint pain means rest it. Your coach will swap those lifts.\"\n  rest[Rest it] --> today\n  %% today: choose \"Today's session?\" \"Full session\"|\"Lighter version\"|\"Mobility only\"|\"Rest day\"\n  today{Session}\n  today -->|Rest day| note\n  today --> time\n  %% time: slide \"Minutes you have\" 15-90\n  time[Time] --> note\n  %% note: mic \"Anything your coach should know?\"\n  note[Note] --> done((Coach))\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "checkin",
+     "props": {
+      "title": "Workout check-in",
+      "submit": "Send to my coach"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "checkin",
+     "props": {
+      "dir": "TD",
+      "start": "sleep",
+      "nodes": [
+       {
+        "id": "sleep",
+        "label": "Sleep",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 10,
+         "lo": "Awful",
+         "hi": "Great",
+         "label": "How did you sleep?"
+        }
+       },
+       {
+        "id": "energy",
+        "label": "Energy",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Low",
+          "OK",
+          "High"
+         ],
+         "q": "Energy right now?"
+        }
+       },
+       {
+        "id": "check",
+        "label": "Rough day?"
+       },
+       {
+        "id": "easy",
+        "label": "Easy day",
+        "preset": "page",
+        "props": {
+         "title": "Take it easy today",
+         "body": "Short sleep or low energy means a lighter session still counts. Your coach will see why."
+        }
+       },
+       {
+        "id": "sore",
+        "label": "Sore spots",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Legs",
+          "Back",
+          "Shoulders",
+          "Arms",
+          "Nothing"
+         ],
+         "q": "Anything sore?"
+        }
+       },
+       {
+        "id": "today",
+        "label": "Session",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Full session",
+          "Lighter version",
+          "Mobility only",
+          "Rest day"
+         ],
+         "q": "Today's session?"
+        }
+       },
+       {
+        "id": "hurt",
+        "label": "Sore or hurt?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Just sore",
+          "It hurts"
+         ],
+         "q": "Sore, or does it hurt?"
+        }
+       },
+       {
+        "id": "rest",
+        "label": "Rest it",
+        "preset": "page",
+        "props": {
+         "title": "Skip that area today",
+         "body": "Sharp or joint pain means rest it. Your coach will swap those lifts."
+        }
+       },
+       {
+        "id": "note",
+        "label": "Note",
+        "preset": "mic",
+        "props": {
+         "prompt": "Anything your coach should know?"
+        }
+       },
+       {
+        "id": "time",
+        "label": "Time",
+        "preset": "slide",
+        "props": {
+         "min": 15,
+         "max": 90,
+         "label": "Minutes you have"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Coach"
+       }
+      ],
+      "edges": [
+       {
+        "from": "sleep",
+        "to": "energy"
+       },
+       {
+        "from": "energy",
+        "to": "check"
+       },
+       {
+        "from": "check",
+        "to": "easy",
+        "label": "sleep<5 or energy=Low",
+        "when": [
+         [
+          {
+           "path": "sleep",
+           "op": "<",
+           "value": 5
+          }
+         ],
+         [
+          {
+           "path": "energy",
+           "op": "=",
+           "value": "Low"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "check",
+        "to": "sore"
+       },
+       {
+        "from": "easy",
+        "to": "sore"
+       },
+       {
+        "from": "sore",
+        "to": "today",
+        "label": "sore=Nothing",
+        "when": [
+         [
+          {
+           "path": "sore",
+           "op": "=",
+           "value": "Nothing"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "sore",
+        "to": "hurt"
+       },
+       {
+        "from": "hurt",
+        "to": "rest",
+        "label": "It hurts",
+        "when": [
+         [
+          {
+           "path": "hurt",
+           "op": "=",
+           "value": "It hurts"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "hurt",
+        "to": "today"
+       },
+       {
+        "from": "rest",
+        "to": "today"
+       },
+       {
+        "from": "today",
+        "to": "note",
+        "label": "Rest day",
+        "when": [
+         [
+          {
+           "path": "today",
+           "op": "=",
+           "value": "Rest day"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "today",
+        "to": "time"
+       },
+       {
+        "from": "time",
+        "to": "note"
+       },
+       {
+        "from": "note",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% sleep: slide \"How did you sleep?\" 1-10 Awful|Great\n  sleep[Sleep] --> energy\n  %% energy: choose \"Energy right now?\" Low|OK|High\n  energy[Energy] --> check{Rough day?}\n  check -->|sleep<5 or energy=Low| easy\n  check --> sore\n  %% easy: page \"Take it easy today\" body=\"Short sleep or low energy means a lighter session still counts. Your coach will see why.\"\n  easy[Easy day] --> sore\n  %% sore: pick \"Anything sore?\" Legs|Back|Shoulders|Arms|Nothing\n  sore[Sore spots]\n  sore -->|sore=Nothing| today\n  sore --> hurt\n  %% hurt: choose \"Sore, or does it hurt?\" \"Just sore\"|\"It hurts\"\n  hurt{Sore or hurt?}\n  hurt -->|It hurts| rest\n  hurt --> today\n  %% rest: page \"Skip that area today\" body=\"Sharp or joint pain means rest it. Your coach will swap those lifts.\"\n  rest[Rest it] --> today\n  %% today: choose \"Today's session?\" \"Full session\"|\"Lighter version\"|\"Mobility only\"|\"Rest day\"\n  today{Session}\n  today -->|Rest day| note\n  today --> time\n  %% time: slide \"Minutes you have\" 15-90\n  time[Time] --> note\n  %% note: mic \"Anything your coach should know?\"\n  note[Note] --> done((Coach))"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "sleep": 4,
+     "energy": "OK",
+     "sore": [
+      "Back"
+     ],
+     "hurt": "It hurts",
+     "today": "Lighter version",
+     "time": 30,
+     "note": "Lower back"
+    },
+    "path": [
+     "sleep",
+     "energy",
+     "easy",
+     "sore",
+     "hurt",
+     "rest",
+     "today",
+     "time",
+     "note"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "sleep": 4,
+      "energy": "OK",
+      "sore": [
+       "Back"
+      ],
+      "hurt": "It hurts",
+      "today": "Lighter version",
+      "time": 30,
+      "note": "Lower back"
+     },
+     "path": [
+      "sleep",
+      "energy",
+      "easy",
+      "sore",
+      "hurt",
+      "rest",
+      "today",
+      "time",
+      "note"
+     ]
+    }
+   }
+  },
+  {
+   "name": "starter workout-checkin: nothing sore and a rest day skips the time",
+   "input": "flow@checkin \"Workout check-in\" submit=\"Send to my coach\"\nflowchart TD\n  %% sleep: slide \"How did you sleep?\" 1-10 Awful|Great\n  sleep[Sleep] --> energy\n  %% energy: choose \"Energy right now?\" Low|OK|High\n  energy[Energy] --> check{Rough day?}\n  check -->|sleep<5 or energy=Low| easy\n  check --> sore\n  %% easy: page \"Take it easy today\" body=\"Short sleep or low energy means a lighter session still counts. Your coach will see why.\"\n  easy[Easy day] --> sore\n  %% sore: pick \"Anything sore?\" Legs|Back|Shoulders|Arms|Nothing\n  sore[Sore spots]\n  sore -->|sore=Nothing| today\n  sore --> hurt\n  %% hurt: choose \"Sore, or does it hurt?\" \"Just sore\"|\"It hurts\"\n  hurt{Sore or hurt?}\n  hurt -->|It hurts| rest\n  hurt --> today\n  %% rest: page \"Skip that area today\" body=\"Sharp or joint pain means rest it. Your coach will swap those lifts.\"\n  rest[Rest it] --> today\n  %% today: choose \"Today's session?\" \"Full session\"|\"Lighter version\"|\"Mobility only\"|\"Rest day\"\n  today{Session}\n  today -->|Rest day| note\n  today --> time\n  %% time: slide \"Minutes you have\" 15-90\n  time[Time] --> note\n  %% note: mic \"Anything your coach should know?\"\n  note[Note] --> done((Coach))\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "checkin",
+     "props": {
+      "title": "Workout check-in",
+      "submit": "Send to my coach"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "checkin",
+     "props": {
+      "dir": "TD",
+      "start": "sleep",
+      "nodes": [
+       {
+        "id": "sleep",
+        "label": "Sleep",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 10,
+         "lo": "Awful",
+         "hi": "Great",
+         "label": "How did you sleep?"
+        }
+       },
+       {
+        "id": "energy",
+        "label": "Energy",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Low",
+          "OK",
+          "High"
+         ],
+         "q": "Energy right now?"
+        }
+       },
+       {
+        "id": "check",
+        "label": "Rough day?"
+       },
+       {
+        "id": "easy",
+        "label": "Easy day",
+        "preset": "page",
+        "props": {
+         "title": "Take it easy today",
+         "body": "Short sleep or low energy means a lighter session still counts. Your coach will see why."
+        }
+       },
+       {
+        "id": "sore",
+        "label": "Sore spots",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Legs",
+          "Back",
+          "Shoulders",
+          "Arms",
+          "Nothing"
+         ],
+         "q": "Anything sore?"
+        }
+       },
+       {
+        "id": "today",
+        "label": "Session",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Full session",
+          "Lighter version",
+          "Mobility only",
+          "Rest day"
+         ],
+         "q": "Today's session?"
+        }
+       },
+       {
+        "id": "hurt",
+        "label": "Sore or hurt?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Just sore",
+          "It hurts"
+         ],
+         "q": "Sore, or does it hurt?"
+        }
+       },
+       {
+        "id": "rest",
+        "label": "Rest it",
+        "preset": "page",
+        "props": {
+         "title": "Skip that area today",
+         "body": "Sharp or joint pain means rest it. Your coach will swap those lifts."
+        }
+       },
+       {
+        "id": "note",
+        "label": "Note",
+        "preset": "mic",
+        "props": {
+         "prompt": "Anything your coach should know?"
+        }
+       },
+       {
+        "id": "time",
+        "label": "Time",
+        "preset": "slide",
+        "props": {
+         "min": 15,
+         "max": 90,
+         "label": "Minutes you have"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Coach"
+       }
+      ],
+      "edges": [
+       {
+        "from": "sleep",
+        "to": "energy"
+       },
+       {
+        "from": "energy",
+        "to": "check"
+       },
+       {
+        "from": "check",
+        "to": "easy",
+        "label": "sleep<5 or energy=Low",
+        "when": [
+         [
+          {
+           "path": "sleep",
+           "op": "<",
+           "value": 5
+          }
+         ],
+         [
+          {
+           "path": "energy",
+           "op": "=",
+           "value": "Low"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "check",
+        "to": "sore"
+       },
+       {
+        "from": "easy",
+        "to": "sore"
+       },
+       {
+        "from": "sore",
+        "to": "today",
+        "label": "sore=Nothing",
+        "when": [
+         [
+          {
+           "path": "sore",
+           "op": "=",
+           "value": "Nothing"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "sore",
+        "to": "hurt"
+       },
+       {
+        "from": "hurt",
+        "to": "rest",
+        "label": "It hurts",
+        "when": [
+         [
+          {
+           "path": "hurt",
+           "op": "=",
+           "value": "It hurts"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "hurt",
+        "to": "today"
+       },
+       {
+        "from": "rest",
+        "to": "today"
+       },
+       {
+        "from": "today",
+        "to": "note",
+        "label": "Rest day",
+        "when": [
+         [
+          {
+           "path": "today",
+           "op": "=",
+           "value": "Rest day"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "today",
+        "to": "time"
+       },
+       {
+        "from": "time",
+        "to": "note"
+       },
+       {
+        "from": "note",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% sleep: slide \"How did you sleep?\" 1-10 Awful|Great\n  sleep[Sleep] --> energy\n  %% energy: choose \"Energy right now?\" Low|OK|High\n  energy[Energy] --> check{Rough day?}\n  check -->|sleep<5 or energy=Low| easy\n  check --> sore\n  %% easy: page \"Take it easy today\" body=\"Short sleep or low energy means a lighter session still counts. Your coach will see why.\"\n  easy[Easy day] --> sore\n  %% sore: pick \"Anything sore?\" Legs|Back|Shoulders|Arms|Nothing\n  sore[Sore spots]\n  sore -->|sore=Nothing| today\n  sore --> hurt\n  %% hurt: choose \"Sore, or does it hurt?\" \"Just sore\"|\"It hurts\"\n  hurt{Sore or hurt?}\n  hurt -->|It hurts| rest\n  hurt --> today\n  %% rest: page \"Skip that area today\" body=\"Sharp or joint pain means rest it. Your coach will swap those lifts.\"\n  rest[Rest it] --> today\n  %% today: choose \"Today's session?\" \"Full session\"|\"Lighter version\"|\"Mobility only\"|\"Rest day\"\n  today{Session}\n  today -->|Rest day| note\n  today --> time\n  %% time: slide \"Minutes you have\" 15-90\n  time[Time] --> note\n  %% note: mic \"Anything your coach should know?\"\n  note[Note] --> done((Coach))"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "sleep": 8,
+     "energy": "High",
+     "sore": [
+      "Nothing"
+     ],
+     "today": "Rest day",
+     "time": 45,
+     "note": ""
+    },
+    "path": [
+     "sleep",
+     "energy",
+     "sore",
+     "today",
+     "note"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "sleep": 8,
+      "energy": "High",
+      "sore": [
+       "Nothing"
+      ],
+      "today": "Rest day",
+      "note": ""
+     },
+     "path": [
+      "sleep",
+      "energy",
+      "sore",
+      "today",
+      "note"
+     ]
+    }
+   }
+  },
+  {
+   "name": "in a reply: lines before and after the flow are ordinary YL",
+   "input": "say \"Before we start\"\nflow@m \"Mixed\" +inline\nflowchart LR\n  %% q: ask \"Ready?\" Yes|No\n  q --> done((Done))\nend\nlist \"After\" a|b",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n1",
+     "props": {
+      "text": "Before we start"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "m",
+     "props": {
+      "title": "Mixed",
+      "inline": true
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "m",
+     "props": {
+      "dir": "LR",
+      "start": "q",
+      "nodes": [
+       {
+        "id": "q",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Ready?"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Done"
+       }
+      ],
+      "edges": [
+       {
+        "from": "q",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart LR\n  %% q: ask \"Ready?\" Yes|No\n  q --> done((Done))"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "list",
+     "id": "n2",
+     "props": {
+      "items": [
+       "After",
+       "a",
+       "b"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "cycle: an edge back to a step on the path ends the flow there",
+   "input": "flow@loop \"Loop\"\nflowchart TD\n  %% a: choose \"Again?\" Yes|No\n  a[A] -->|Yes| b\n  a --> c\n  %% b: ask \"Sure?\" Yes|No\n  b[B] --> a\n  %% c: page \"Done\"\n  c[C]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "loop",
+     "props": {
+      "title": "Loop"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "loop",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "label": "A",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Again?"
+        }
+       },
+       {
+        "id": "b",
+        "label": "B",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Sure?"
+        }
+       },
+       {
+        "id": "c",
+        "label": "C",
+        "preset": "page",
+        "props": {
+         "title": "Done"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b",
+        "label": "Yes",
+        "when": [
+         [
+          {
+           "path": "a",
+           "op": "=",
+           "value": "Yes"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "a",
+        "to": "c"
+       },
+       {
+        "from": "b",
+        "to": "a"
+       }
+      ],
+      "source": "flowchart TD\n  %% a: choose \"Again?\" Yes|No\n  a[A] -->|Yes| b\n  a --> c\n  %% b: ask \"Sure?\" Yes|No\n  b[B] --> a\n  %% c: page \"Done\"\n  c[C]"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "a": "Yes",
+     "b": "Yes"
+    },
+    "path": [
+     "a",
+     "b"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "a": "Yes",
+      "b": "Yes"
+     },
+     "path": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "cycle: every node has an edge in, so the first node starts",
+   "input": "flow@ring\ngraph LR\n  %% x: ask \"X?\" Yes|No\n  %% y: ask \"Y?\" Yes|No\n  x --> y --> x\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "ring",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "ring",
+     "props": {
+      "dir": "LR",
+      "start": "x",
+      "nodes": [
+       {
+        "id": "x",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "X?"
+        }
+       },
+       {
+        "id": "y",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Y?"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "x",
+        "to": "y"
+       },
+       {
+        "from": "y",
+        "to": "x"
+       }
+      ],
+      "source": "graph LR\n  %% x: ask \"X?\" Yes|No\n  %% y: ask \"Y?\" Yes|No\n  x --> y --> x"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "x": "Yes",
+     "y": "No"
+    },
+    "path": [
+     "x",
+     "y"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "x": "Yes",
+      "y": "No"
+     },
+     "path": [
+      "x",
+      "y"
+     ]
+    }
+   }
+  },
+  {
+   "name": "missing edge: no condition holds and there is no default, so the flow ends",
+   "input": "flow@ne\nflowchart TD\n  %% a: choose \"Pick\" Red|Blue\n  a -->|Red| r\n  %% r: page \"Red\"\n  r[R]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "ne",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "ne",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Red",
+          "Blue"
+         ],
+         "q": "Pick"
+        }
+       },
+       {
+        "id": "r",
+        "label": "R",
+        "preset": "page",
+        "props": {
+         "title": "Red"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "r",
+        "label": "Red",
+        "when": [
+         [
+          {
+           "path": "a",
+           "op": "=",
+           "value": "Red"
+          }
+         ]
+        ]
+       }
+      ],
+      "source": "flowchart TD\n  %% a: choose \"Pick\" Red|Blue\n  a -->|Red| r\n  %% r: page \"Red\"\n  r[R]"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "a": "Blue"
+    },
+    "path": [
+     "a"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "a": "Blue"
+     },
+     "path": [
+      "a"
+     ]
+    }
+   }
+  },
+  {
+   "name": "bad Mermaid: lines the parser cannot read stay in source and are skipped",
+   "input": "flow@bad \"Bad\"\nflowchart TD\n  %% a: ask \"Go?\" Yes|No\n  a[Oops --> b\n  --> c\n  a -->\n  !!! nonsense\n  a --> b\n  %% b: page \"End\"\nend\nsay after",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "bad",
+     "props": {
+      "title": "Bad"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "bad",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Go?"
+        }
+       },
+       {
+        "id": "b",
+        "preset": "page",
+        "props": {
+         "title": "End"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       }
+      ],
+      "source": "flowchart TD\n  %% a: ask \"Go?\" Yes|No\n  a[Oops --> b\n  --> c\n  a -->\n  !!! nonsense\n  a --> b\n  %% b: page \"End\""
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n1",
+     "props": {
+      "text": "after"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "a": "No"
+    },
+    "path": [
+     "a",
+     "b"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "a": "No"
+     },
+     "path": [
+      "a",
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "unknown kind: a word that is not a preset is a comment, a step for a node not drawn is dropped",
+   "input": "flow@u\nflowchart TD\n  %% a: dance \"Shimmy\" fast\n  %% ghost: ask \"Never drawn?\" Yes|No\n  %% b: ask \"Real?\" Yes|No\n  a[Start] --> b\n  %% ask Chris first\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "u",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "u",
+     "props": {
+      "dir": "TD",
+      "start": "a",
+      "nodes": [
+       {
+        "id": "a",
+        "label": "Start"
+       },
+       {
+        "id": "b",
+        "preset": "ask",
+        "props": {
+         "options": [
+          "Yes",
+          "No"
+         ],
+         "q": "Real?"
+        }
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       }
+      ],
+      "source": "flowchart TD\n  %% a: dance \"Shimmy\" fast\n  %% ghost: ask \"Never drawn?\" Yes|No\n  %% b: ask \"Real?\" Yes|No\n  a[Start] --> b\n  %% ask Chris first"
+     }
+    }
+   ],
+   "route": {
+    "answers": {
+     "ghost": "Yes",
+     "b": "No"
+    },
+    "path": [
+     "b"
+    ],
+    "open": null,
+    "event": {
+     "flow": {
+      "b": "No"
+     },
+     "path": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "name": "empty flow: a header and end give a graph with no nodes",
+   "input": "flow@empty \"Nothing yet\"\nflowchart TD\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "empty",
+     "props": {
+      "title": "Nothing yet"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "empty",
+     "props": {
+      "dir": "TD",
+      "source": "flowchart TD"
+     }
+    }
+   ],
+   "route": {
+    "answers": {},
+    "path": [],
+    "open": null,
+    "event": {
+     "flow": {},
+     "path": []
+    }
+   }
+  },
+  {
+   "name": "not Mermaid: a misspelled header leaves a saved flow, and the line is YL",
+   "input": "flow website-intake\nflowchat TD\n  a --> b\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "n1",
+     "props": {
+      "title": "website-intake"
+     }
+    },
+    {
+     "op": "error",
+     "screen": "1"
+    },
+    {
+     "op": "error",
+     "screen": "1"
+    },
+    {
+     "op": "error",
+     "screen": "1"
+    }
+   ],
+   "error": true
+  },
+  {
+   "name": "stream: a starter in three chunks, the graph lands with end",
+   "input": "flow@checkin \"Workout check-in\" submit=\"Send to my coach\"\nflowchart TD\n  %% sleep: slide \"How did you sleep?\" 1-10 Awful|Great\n  sleep[Sleep] --> energy\n  %% energy: choose \"Energy right now?\" Low|OK|High\n  energy[Energy] --> check{Rough day?}\n  check -->|sleep<5 or energy=Low| easy\n  check --> sore\n  %% easy: page \"Take it easy today\" body=\"Short sleep or low energy means a lighter session still counts. Your coach will see why.\"\n  easy[Easy day] --> sore\n  %% sore: pick \"Anything sore?\" Legs|Back|Shoulders|Arms|Nothing\n  sore[Sore spots]\n  sore -->|sore=Nothing| today\n  sore --> hurt\n  %% hurt: choose \"Sore, or does it hurt?\" \"Just sore\"|\"It hurts\"\n  hurt{Sore or hurt?}\n  hurt -->|It hurts| rest\n  hurt --> today\n  %% rest: page \"Skip that area today\" body=\"Sharp or joint pain means rest it. Your coach will swap those lifts.\"\n  rest[Rest it] --> today\n  %% today: choose \"Today's session?\" \"Full session\"|\"Lighter version\"|\"Mobility only\"|\"Rest day\"\n  today{Session}\n  today -->|Rest day| note\n  today --> time\n  %% time: slide \"Minutes you have\" 15-90\n  time[Time] --> note\n  %% note: mic \"Anything your coach should know?\"\n  note[Note] --> done((Coach))\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "flow",
+     "id": "checkin",
+     "props": {
+      "title": "Workout check-in",
+      "submit": "Send to my coach"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "checkin",
+     "props": {
+      "dir": "TD",
+      "start": "sleep",
+      "nodes": [
+       {
+        "id": "sleep",
+        "label": "Sleep",
+        "preset": "slide",
+        "props": {
+         "min": 1,
+         "max": 10,
+         "lo": "Awful",
+         "hi": "Great",
+         "label": "How did you sleep?"
+        }
+       },
+       {
+        "id": "energy",
+        "label": "Energy",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Low",
+          "OK",
+          "High"
+         ],
+         "q": "Energy right now?"
+        }
+       },
+       {
+        "id": "check",
+        "label": "Rough day?"
+       },
+       {
+        "id": "easy",
+        "label": "Easy day",
+        "preset": "page",
+        "props": {
+         "title": "Take it easy today",
+         "body": "Short sleep or low energy means a lighter session still counts. Your coach will see why."
+        }
+       },
+       {
+        "id": "sore",
+        "label": "Sore spots",
+        "preset": "pick",
+        "props": {
+         "options": [
+          "Legs",
+          "Back",
+          "Shoulders",
+          "Arms",
+          "Nothing"
+         ],
+         "q": "Anything sore?"
+        }
+       },
+       {
+        "id": "today",
+        "label": "Session",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Full session",
+          "Lighter version",
+          "Mobility only",
+          "Rest day"
+         ],
+         "q": "Today's session?"
+        }
+       },
+       {
+        "id": "hurt",
+        "label": "Sore or hurt?",
+        "preset": "choose",
+        "props": {
+         "options": [
+          "Just sore",
+          "It hurts"
+         ],
+         "q": "Sore, or does it hurt?"
+        }
+       },
+       {
+        "id": "rest",
+        "label": "Rest it",
+        "preset": "page",
+        "props": {
+         "title": "Skip that area today",
+         "body": "Sharp or joint pain means rest it. Your coach will swap those lifts."
+        }
+       },
+       {
+        "id": "note",
+        "label": "Note",
+        "preset": "mic",
+        "props": {
+         "prompt": "Anything your coach should know?"
+        }
+       },
+       {
+        "id": "time",
+        "label": "Time",
+        "preset": "slide",
+        "props": {
+         "min": 15,
+         "max": 90,
+         "label": "Minutes you have"
+        }
+       },
+       {
+        "id": "done",
+        "label": "Coach"
+       }
+      ],
+      "edges": [
+       {
+        "from": "sleep",
+        "to": "energy"
+       },
+       {
+        "from": "energy",
+        "to": "check"
+       },
+       {
+        "from": "check",
+        "to": "easy",
+        "label": "sleep<5 or energy=Low",
+        "when": [
+         [
+          {
+           "path": "sleep",
+           "op": "<",
+           "value": 5
+          }
+         ],
+         [
+          {
+           "path": "energy",
+           "op": "=",
+           "value": "Low"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "check",
+        "to": "sore"
+       },
+       {
+        "from": "easy",
+        "to": "sore"
+       },
+       {
+        "from": "sore",
+        "to": "today",
+        "label": "sore=Nothing",
+        "when": [
+         [
+          {
+           "path": "sore",
+           "op": "=",
+           "value": "Nothing"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "sore",
+        "to": "hurt"
+       },
+       {
+        "from": "hurt",
+        "to": "rest",
+        "label": "It hurts",
+        "when": [
+         [
+          {
+           "path": "hurt",
+           "op": "=",
+           "value": "It hurts"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "hurt",
+        "to": "today"
+       },
+       {
+        "from": "rest",
+        "to": "today"
+       },
+       {
+        "from": "today",
+        "to": "note",
+        "label": "Rest day",
+        "when": [
+         [
+          {
+           "path": "today",
+           "op": "=",
+           "value": "Rest day"
+          }
+         ]
+        ]
+       },
+       {
+        "from": "today",
+        "to": "time"
+       },
+       {
+        "from": "time",
+        "to": "note"
+       },
+       {
+        "from": "note",
+        "to": "done"
+       }
+      ],
+      "source": "flowchart TD\n  %% sleep: slide \"How did you sleep?\" 1-10 Awful|Great\n  sleep[Sleep] --> energy\n  %% energy: choose \"Energy right now?\" Low|OK|High\n  energy[Energy] --> check{Rough day?}\n  check -->|sleep<5 or energy=Low| easy\n  check --> sore\n  %% easy: page \"Take it easy today\" body=\"Short sleep or low energy means a lighter session still counts. Your coach will see why.\"\n  easy[Easy day] --> sore\n  %% sore: pick \"Anything sore?\" Legs|Back|Shoulders|Arms|Nothing\n  sore[Sore spots]\n  sore -->|sore=Nothing| today\n  sore --> hurt\n  %% hurt: choose \"Sore, or does it hurt?\" \"Just sore\"|\"It hurts\"\n  hurt{Sore or hurt?}\n  hurt -->|It hurts| rest\n  hurt --> today\n  %% rest: page \"Skip that area today\" body=\"Sharp or joint pain means rest it. Your coach will swap those lifts.\"\n  rest[Rest it] --> today\n  %% today: choose \"Today's session?\" \"Full session\"|\"Lighter version\"|\"Mobility only\"|\"Rest day\"\n  today{Session}\n  today -->|Rest day| note\n  today --> time\n  %% time: slide \"Minutes you have\" 15-90\n  time[Time] --> note\n  %% note: mic \"Anything your coach should know?\"\n  note[Note] --> done((Coach))"
+     }
+    }
+   ],
+   "chunks": [
+    "flow@checkin \"Workout check-in\" submit=\"Send to my coach\"\n",
+    "flowchart TD\n  %% sleep: slide \"How did you sleep?\" 1-10 Awful|Great\n  sleep[Sleep] --> energy\n  %% energy: choose \"Energy right now?\" Low|OK|High\n  energy[Energy] --> check{Rough day?}\n  check -->|sleep<5 or energy=Low| easy\n  check --> sore\n  %% easy: page \"Take it easy today\" body=\"Short sleep or low energy means a lighter session still counts. Your coach will see why.\"\n  easy[Easy day] --> sore\n  %% sore: pick \"Anything sore?\" Legs|Back|Shoulders|Arms|Nothing\n  sore[Sore spots]\n  sore -->|sore=Nothing| today\n  sore --> hurt\n  %% hurt: choose \"Sore, or does it hurt?\" \"Just sore\"|\"It hurts\"\n  hurt{Sore or hurt?}\n  hurt -->|It hurts| rest\n  hurt --> today\n  %% rest: page \"Skip that area today\" body=\"Sharp or joint pain means rest it. Your coach will swap those lifts.\"\n  rest[Rest it] --> today\n  %% today: choose \"Today's session?\" \"Full session\"|\"Lighter version\"|\"Mobility only\"|\"Rest day\"\n  today{Session}\n  today -->|Rest day| note\n  today --> time\n  %% time: slide \"Minutes you have\" 15-90\n  time[Time] --> note\n  %% note: mic \"Anything your coach should know?\"\n  note[Note] --> done((Coach))",
+    "\nend"
+   ],
+   "emits": [
+    [
+     {
+      "op": "add",
+      "screen": "1",
+      "preset": "flow",
+      "id": "checkin",
+      "props": {
+       "title": "Workout check-in",
+       "submit": "Send to my coach"
+      }
+     }
+    ],
+    [],
+    [],
+    [
+     {
+      "op": "patch",
+      "screen": "1",
+      "target": "checkin",
+      "props": {
+       "dir": "TD",
+       "start": "sleep",
+       "nodes": [
+        {
+         "id": "sleep",
+         "label": "Sleep",
+         "preset": "slide",
+         "props": {
+          "min": 1,
+          "max": 10,
+          "lo": "Awful",
+          "hi": "Great",
+          "label": "How did you sleep?"
+         }
+        },
+        {
+         "id": "energy",
+         "label": "Energy",
+         "preset": "choose",
+         "props": {
+          "options": [
+           "Low",
+           "OK",
+           "High"
+          ],
+          "q": "Energy right now?"
+         }
+        },
+        {
+         "id": "check",
+         "label": "Rough day?"
+        },
+        {
+         "id": "easy",
+         "label": "Easy day",
+         "preset": "page",
+         "props": {
+          "title": "Take it easy today",
+          "body": "Short sleep or low energy means a lighter session still counts. Your coach will see why."
+         }
+        },
+        {
+         "id": "sore",
+         "label": "Sore spots",
+         "preset": "pick",
+         "props": {
+          "options": [
+           "Legs",
+           "Back",
+           "Shoulders",
+           "Arms",
+           "Nothing"
+          ],
+          "q": "Anything sore?"
+         }
+        },
+        {
+         "id": "today",
+         "label": "Session",
+         "preset": "choose",
+         "props": {
+          "options": [
+           "Full session",
+           "Lighter version",
+           "Mobility only",
+           "Rest day"
+          ],
+          "q": "Today's session?"
+         }
+        },
+        {
+         "id": "hurt",
+         "label": "Sore or hurt?",
+         "preset": "choose",
+         "props": {
+          "options": [
+           "Just sore",
+           "It hurts"
+          ],
+          "q": "Sore, or does it hurt?"
+         }
+        },
+        {
+         "id": "rest",
+         "label": "Rest it",
+         "preset": "page",
+         "props": {
+          "title": "Skip that area today",
+          "body": "Sharp or joint pain means rest it. Your coach will swap those lifts."
+         }
+        },
+        {
+         "id": "note",
+         "label": "Note",
+         "preset": "mic",
+         "props": {
+          "prompt": "Anything your coach should know?"
+         }
+        },
+        {
+         "id": "time",
+         "label": "Time",
+         "preset": "slide",
+         "props": {
+          "min": 15,
+          "max": 90,
+          "label": "Minutes you have"
+         }
+        },
+        {
+         "id": "done",
+         "label": "Coach"
+        }
+       ],
+       "edges": [
+        {
+         "from": "sleep",
+         "to": "energy"
+        },
+        {
+         "from": "energy",
+         "to": "check"
+        },
+        {
+         "from": "check",
+         "to": "easy",
+         "label": "sleep<5 or energy=Low",
+         "when": [
+          [
+           {
+            "path": "sleep",
+            "op": "<",
+            "value": 5
+           }
+          ],
+          [
+           {
+            "path": "energy",
+            "op": "=",
+            "value": "Low"
+           }
+          ]
+         ]
+        },
+        {
+         "from": "check",
+         "to": "sore"
+        },
+        {
+         "from": "easy",
+         "to": "sore"
+        },
+        {
+         "from": "sore",
+         "to": "today",
+         "label": "sore=Nothing",
+         "when": [
+          [
+           {
+            "path": "sore",
+            "op": "=",
+            "value": "Nothing"
+           }
+          ]
+         ]
+        },
+        {
+         "from": "sore",
+         "to": "hurt"
+        },
+        {
+         "from": "hurt",
+         "to": "rest",
+         "label": "It hurts",
+         "when": [
+          [
+           {
+            "path": "hurt",
+            "op": "=",
+            "value": "It hurts"
+           }
+          ]
+         ]
+        },
+        {
+         "from": "hurt",
+         "to": "today"
+        },
+        {
+         "from": "rest",
+         "to": "today"
+        },
+        {
+         "from": "today",
+         "to": "note",
+         "label": "Rest day",
+         "when": [
+          [
+           {
+            "path": "today",
+            "op": "=",
+            "value": "Rest day"
+           }
+          ]
+         ]
+        },
+        {
+         "from": "today",
+         "to": "time"
+        },
+        {
+         "from": "time",
+         "to": "note"
+        },
+        {
+         "from": "note",
+         "to": "done"
+        }
+       ],
+       "source": "flowchart TD\n  %% sleep: slide \"How did you sleep?\" 1-10 Awful|Great\n  sleep[Sleep] --> energy\n  %% energy: choose \"Energy right now?\" Low|OK|High\n  energy[Energy] --> check{Rough day?}\n  check -->|sleep<5 or energy=Low| easy\n  check --> sore\n  %% easy: page \"Take it easy today\" body=\"Short sleep or low energy means a lighter session still counts. Your coach will see why.\"\n  easy[Easy day] --> sore\n  %% sore: pick \"Anything sore?\" Legs|Back|Shoulders|Arms|Nothing\n  sore[Sore spots]\n  sore -->|sore=Nothing| today\n  sore --> hurt\n  %% hurt: choose \"Sore, or does it hurt?\" \"Just sore\"|\"It hurts\"\n  hurt{Sore or hurt?}\n  hurt -->|It hurts| rest\n  hurt --> today\n  %% rest: page \"Skip that area today\" body=\"Sharp or joint pain means rest it. Your coach will swap those lifts.\"\n  rest[Rest it] --> today\n  %% today: choose \"Today's session?\" \"Full session\"|\"Lighter version\"|\"Mobility only\"|\"Rest day\"\n  today{Session}\n  today -->|Rest day| note\n  today --> time\n  %% time: slide \"Minutes you have\" 15-90\n  time[Time] --> note\n  %% note: mic \"Anything your coach should know?\"\n  note[Note] --> done((Coach))"
+      }
+     }
+    ]
+   ]
+  }
+ ]
+}

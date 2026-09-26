@@ -858,6 +858,18 @@ game tictactoe "Beat me"`,
   // Flows (FLOW-1): the starter flows, sent inline as Mermaid, then one run by name.
   ...STARTER_FLOWS.map((f) => ({ slug: `flow-${f.name}`, name: `Flow: ${f.title.toLowerCase()}`, agent: f.agent, yl: flowLines(f) })),
   {
+    // My flows (spec/FLOWS.md, section 8): the lines are Yui saving a flow. The
+    // tabs above the phone are the app's My flows screen (playground/myflows.js):
+    // the starters and the person's own copies, running one in the real flow
+    // runtime, and the path a run took, branches and all.
+    name: "My flows: your saved flows, a run, and its path",
+    slug: "myflows",
+    agent: "Yui",
+    myflows: true,
+    yl: `say "Saved to My flows. Run it any time, or ask me to change it."
+flow workout-checkin`,
+  },
+  {
     slug: "flow-saved",
     name: "Flow: a saved flow, run by name",
     agent: "Scout",

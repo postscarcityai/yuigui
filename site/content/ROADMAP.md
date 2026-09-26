@@ -450,7 +450,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 **Flows**
 
-- FLOW-1: flows. A saved series of screens, written in Mermaid, that any agent can run: client intake, scoping a project, an investor deck. Agents can make variants. You manage your flows in the app. Step 1 done Sep 25: spec/FLOWS.md (steps on the nodes, conditions on the edges, one `{flow}` event with the path), the JavaScript parser and the web runtime, three starter flows in the playground (website intake, self-scoping, workout check-in). Next: the app runs flows, then My flows.
+- FLOW-1: flows. A saved series of screens, written in Mermaid, that any agent can run: client intake, scoping a project, an investor deck. Agents can make variants. You manage your flows in the app. Step 1 done Sep 25: spec/FLOWS.md (steps on the nodes, conditions on the edges, one `{flow}` event with the path), the JavaScript parser and the web runtime, three starter flows in the playground (website intake, self-scoping, workout check-in). Step 2 done Sep 26: every parser in the hub (JavaScript, Python, Kotlin, Rust) runs the same 36 flow vectors (starter flows, conditions, bad Mermaid, cycles), the spec says what the phone keeps per run and how it resumes after a kill, and the playground mocks My flows (/playground?demo=myflows). Next: YUI-115, the app runs flows, then My flows in the app.
 - FLOW-2: a library of components and flows on yuigui.com that people browse and agents can search and "shop". Later, a store.
 
 **Other agents and channels**

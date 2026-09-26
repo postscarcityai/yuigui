@@ -20,6 +20,9 @@
 //!   {op: "error", screen, message, line}
 //! `props` holds only what the line actually said. Defaults live in resolve().
 //! An add that joins an open group (a page under a deck) also carries `in`.
+//! A `flow` head is an add; the Mermaid lines after it are buffered and its
+//! `end` (or the end of the input) gives one patch on the flow with the graph
+//! (spec/FLOWS.md). Call finish() after the last line (parse and flush do).
 
 pub mod json;
 pub mod tables;
@@ -36,7 +39,7 @@ pub const PRESETS: &[&str] = &[
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
-    "game",
+    "game", "flow",
     "query",
 ];
 /// A timeline's rows. A patch's `kind=` moves one to another of these.
@@ -67,7 +70,7 @@ pub fn group_members(preset: &str) -> Option<&'static [&'static str]> {
     })
 }
 
-pub const STAGE: &[&str] = &["timer", "camera", "mic", "deck", "plan", "game"];
+pub const STAGE: &[&str] = &["timer", "camera", "mic", "deck", "plan", "game", "flow"];
 pub const CHART_TYPES: &[&str] = &["line", "bar", "area", "scatter", "pie", "donut"];
 /// Game kinds this renderer can play. Any other kind still parses.
 pub const GAMES: &[&str] = &["tictactoe", "snake", "memory"];
@@ -945,7 +948,7 @@ fn preset_props(preset: &str, pos: &[&Token]) -> Map {
         "chart" => chart(pos),
         "stat" => stat(pos),
         "step" => step(pos),
-        "calc" | "deck" | "plan" | "narrate" | "timeline" | "sketch" | "shapes" => all_text(pos, "title"),
+        "calc" | "deck" | "plan" | "flow" | "narrate" | "timeline" | "sketch" | "shapes" => all_text(pos, "title"),
         "shape" => game(pos, "label"),
         "page" => page(pos),
         "done" | "now" | "next" => timeline_row(pos),
@@ -1480,6 +1483,701 @@ pub fn parse_args(preset: &str, tokens: &[Token]) -> Map {
     clean(normalize(preset, o))
 }
 
+// ---------- flows (spec/FLOWS.md) ----------
+// A flow is a Mermaid flowchart between `flow` and `end`. Each node can carry
+// one step (a YL line), in a `%% node: <line>` comment or as its label; edge
+// labels are conditions on earlier answers. Only the subset below is read;
+// any other Mermaid line (style, classDef, click...) is kept in `source` and
+// otherwise ignored, so the chart still renders anywhere Mermaid does.
+
+/// Presets a flow step can be.
+pub const FLOW_STEPS: &[&str] = &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera"];
+
+/// `s` starts with `w` followed by whitespace, one of `also`, or the end.
+fn starts_word(s: &str, w: &str, also: &[char]) -> bool {
+    s.strip_prefix(w).is_some_and(|r| r.chars().next().is_none_or(|c| is_ws(c) || also.contains(&c)))
+}
+
+/// FLOW_HEADER, `^(flowchart|graph)(\s|$)`
+fn is_flow_header(t: &str) -> bool {
+    starts_word(t, "flowchart", &[]) || starts_word(t, "graph", &[])
+}
+
+/// FLOW_SKIP, `^(classDef|class|style|linkStyle|click|direction|accTitle|accDescr)(\s|:|$)`
+fn is_flow_skip(t: &str) -> bool {
+    ["classDef", "class", "style", "linkStyle", "click", "direction", "accTitle", "accDescr"].iter().any(|w| starts_word(t, w, &[':']))
+}
+
+/// Node shapes, longest opener first. Each opener lists its closers.
+const SHAPES: &[(&str, &[&str])] = &[
+    ("(((", &[")))"]), ("([", &["])"]), ("[[", &["]]"]), ("[(", &[")]"]), ("((", &["))"]), ("{{", &["}}"]),
+    ("[/", &["/]", "\\]"]), ("[\\", &["\\]", "/]"]), ("[", &["]"]), ("(", &[")"]), ("{", &["}"]), (">", &["]"]),
+];
+
+struct FlowNode {
+    id: String,
+    label: Option<String>,
+}
+
+struct FlowHead {
+    id: String,
+    screen: String,
+    pre: Vec<String>,
+}
+
+struct Flow {
+    id: String,
+    screen: String,
+    src: Vec<String>,
+    depth: usize,
+    dir: String,
+    nodes: Vec<FlowNode>,
+    edges: Vec<(String, String, String)>, // from, to, label ("" for none)
+    steps: HashMap<String, (String, Map)>,
+}
+
+fn new_flow(head: FlowHead, header: &str) -> Flow {
+    let dir = trim(header).split(is_ws).filter(|w| !w.is_empty()).nth(1).unwrap_or("TD").to_uppercase();
+    let mut src = head.pre;
+    src.push(header.to_string());
+    Flow { id: head.id, screen: head.screen, src, depth: 0, dir, nodes: Vec::new(), edges: Vec::new(), steps: HashMap::new() }
+}
+
+/// Global replace of each match `at` finds: at(s, i) gives (length, replacement).
+fn replace_all(s: &str, at: impl Fn(&str, usize) -> Option<(usize, String)>) -> String {
+    let mut out = String::new();
+    let mut i = 0;
+    while i < s.len() {
+        if let Some((len, r)) = at(s, i) {
+            out.push_str(&r);
+            i += len;
+            continue;
+        }
+        let c = char_at(s, i).unwrap();
+        out.push(c);
+        i += c.len_utf8();
+    }
+    out
+}
+
+/// `^X.*X$` for a quote char X (`dotall`: "." may cross line ends).
+fn wrapped(t: &str, q: char, dotall: bool) -> bool {
+    t.len() >= 2 && t.starts_with(q) && t.ends_with(q) && (dotall || !t[1..t.len() - 1].chars().any(is_line_end))
+}
+
+/// Mermaid label text: quotes, markdown backticks, entity codes and <br> undone.
+fn unlabel(s: &str) -> String {
+    let mut t = trim(s);
+    if wrapped(t, '"', true) {
+        t = &t[1..t.len() - 1];
+    }
+    if wrapped(t, '`', true) {
+        t = &t[1..t.len() - 1];
+    }
+    // `<br\s*\/?>` with the i flag
+    let t = replace_all(t, |s, i| {
+        let r = s.get(i..)?;
+        if !r.get(..3).is_some_and(|h| h.eq_ignore_ascii_case("<br")) {
+            return None;
+        }
+        let mut j = skip_ws(r, 3);
+        if r[j..].starts_with('/') {
+            j += 1;
+        }
+        r[j..].starts_with('>').then(|| (j + 1, " ".to_string()))
+    });
+    // `#(quot|amp|lt|gt|nbsp|35);`
+    let t = replace_all(&t, |s, i| {
+        let r = s[i..].strip_prefix('#')?;
+        let (k, v) = [("quot", "\""), ("amp", "&"), ("lt", "<"), ("gt", ">"), ("nbsp", " "), ("35", "#")].into_iter().find(|(k, _)| r.starts_with(k))?;
+        r[k.len()..].starts_with(';').then(|| (k.len() + 2, v.to_string()))
+    });
+    // `#(\d+);`: String.fromCharCode, a lone surrogate reads as U+FFFD
+    let t = replace_all(&t, |s, i| {
+        let b = s.as_bytes();
+        if b[i] != b'#' {
+            return None;
+        }
+        let e = digits(b, i + 1)?;
+        if b.get(e) != Some(&b';') {
+            return None;
+        }
+        let code = (num(&s[i + 1..e]) % 65536.0) as u32;
+        Some((e + 1 - i, char::from_u32(code).unwrap_or('\u{fffd}').to_string()))
+    });
+    trim(&t).to_string()
+}
+
+/// A step from a YL line, or None when the line is not a flow step.
+/// STEP_LINE, `^(page|ask|...)(?=\s|$)`
+fn step_of(text: &str) -> Option<(String, Map)> {
+    let p = FLOW_STEPS.iter().find(|p| starts_word(text, p, &[]))?;
+    Some((p.to_string(), parse_args(p, &tokenize(&text[p.len()..]))))
+}
+
+/// Splits a Mermaid line on ";" outside quotes and brackets.
+fn statements(line: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    let (mut cur, mut q, mut depth) = (String::new(), false, 0usize);
+    for c in line.chars() {
+        if c == '"' {
+            q = !q;
+        } else if !q && "[({".contains(c) {
+            depth += 1;
+        } else if !q && "])}".contains(c) {
+            depth = depth.saturating_sub(1);
+        }
+        if c == ';' && !q && depth == 0 {
+            out.push(std::mem::take(&mut cur));
+        } else {
+            cur.push(c);
+        }
+    }
+    out.push(cur);
+    out.iter().map(|x| trim(x).to_string()).filter(|x| !x.is_empty()).collect()
+}
+
+/// Reads one node at the start of `s`: id, then an optional shape with a label.
+/// Returns (node, rest).
+fn read_node(s: &str) -> Option<(FlowNode, &str)> {
+    // NODE_ID, `^\w+`
+    let e = s.find(|c: char| !is_word(c)).unwrap_or(s.len());
+    if e == 0 {
+        return None;
+    }
+    let mut rest = &s[e..];
+    let mut node = FlowNode { id: s[..e].to_string(), label: None };
+    if let Some((open, closers)) = SHAPES.iter().find(|(open, _)| rest.starts_with(open)) {
+        let body = &rest[open.len()..];
+        let from = if body.trim_start_matches(is_ws).starts_with('"') {
+            let q = body.find('"').unwrap();
+            body[q + 1..].find('"').map_or(0, |k| q + 1 + k + 1)
+        } else {
+            0
+        };
+        let mut end: Option<(usize, usize)> = None;
+        for c in closers.iter() {
+            if let Some(i) = body[from..].find(c).map(|i| i + from) {
+                if end.is_none_or(|(e, _)| i < e) {
+                    end = Some((i, c.len()));
+                }
+            }
+        }
+        let (end, len) = end?;
+        node.label = Some(unlabel(&body[..end]));
+        rest = &body[end + len..];
+    }
+    // `^:::\w+`
+    if let Some(r) = rest.strip_prefix(":::") {
+        let e = r.find(|c: char| !is_word(c)).unwrap_or(r.len());
+        if e > 0 {
+            rest = &r[e..];
+        }
+    }
+    Some((node, rest))
+}
+
+/// A node, or several joined with "&".
+fn read_nodes(s: &str) -> Option<(Vec<FlowNode>, &str)> {
+    let mut out = Vec::new();
+    let mut rest = s.trim_start_matches(is_ws);
+    loop {
+        let Some((n, r)) = read_node(rest) else {
+            return (!out.is_empty()).then_some((out, rest));
+        };
+        out.push(n);
+        rest = r;
+        // `^\s*&\s*`
+        let j = skip_ws(rest, 0);
+        if !rest[j..].starts_with('&') {
+            return Some((out, rest));
+        }
+        rest = &rest[skip_ws(rest, j + 1)..];
+    }
+}
+
+fn add_node(f: &mut Flow, n: &FlowNode) {
+    match f.nodes.iter_mut().find(|x| x.id == n.id) {
+        None => f.nodes.push(FlowNode { id: n.id.clone(), label: n.label.clone() }),
+        Some(had) => {
+            if n.label.is_some() {
+                had.label = n.label.clone();
+            }
+        }
+    }
+}
+
+/// Length of a run of `c` at byte `i`.
+fn run_of(b: &[u8], i: usize, c: u8) -> usize {
+    b[i.min(b.len())..].iter().take_while(|x| **x == c).count()
+}
+
+/// The closer of TEXT_LINK at `j`, `(?:-{2,}>|={2,}>|\.-+>|-{3,}|={3,}|\.-+)(?=[\s\w])`: its end.
+fn text_link_close(s: &str, j: usize) -> Option<usize> {
+    let b = s.as_bytes();
+    let ok = |e: usize| char_at(s, e).is_some_and(|c| is_ws(c) || is_word(c)).then_some(e);
+    let arrow = |e: usize| (b.get(e) == Some(&b'>')).then(|| e + 1).and_then(ok);
+    let d = run_of(b, j, b'-');
+    let q = run_of(b, j, b'=');
+    let dot = if b.get(j) == Some(&b'.') { run_of(b, j + 1, b'-') } else { 0 };
+    None.or_else(|| if d >= 2 { arrow(j + d) } else { None })
+        .or_else(|| if q >= 2 { arrow(j + q) } else { None })
+        .or_else(|| if dot >= 1 { arrow(j + 1 + dot) } else { None })
+        .or_else(|| if d >= 3 { ok(j + d) } else { None })
+        .or_else(|| if q >= 3 { ok(j + q) } else { None })
+        .or_else(|| if dot >= 1 { ok(j + 1 + dot) } else { None })
+}
+
+/// TEXT_LINK, `^\s*<?(?:--|==|-\.)(?![->=.])\s*(.*?)\s*CLOSER`: (label, length).
+fn text_link(s: &str) -> Option<(&str, usize)> {
+    let mut i = skip_ws(s, 0);
+    if s[i..].starts_with('<') {
+        i += 1;
+    }
+    let r = &s[i..];
+    if !(r.starts_with("--") || r.starts_with("==") || r.starts_with("-.")) {
+        return None;
+    }
+    i += 2;
+    if matches!(s.as_bytes().get(i), Some(b'-' | b'>' | b'=' | b'.')) {
+        return None;
+    }
+    let from = skip_ws(s, i);
+    let mut k = from;
+    loop {
+        if let Some(e) = text_link_close(s, skip_ws(s, k)) {
+            return Some((&s[from..k], e));
+        }
+        let c = char_at(s, k)?;
+        if is_line_end(c) {
+            return None;
+        }
+        k += c.len_utf8();
+    }
+}
+
+/// LINK, `^\s*(<?)(-{2,}>|-{3,}|={2,}>|={3,}|-\.+->|-\.+-|--[ox]|==[ox]|~{3,})`: (arrow, length).
+fn link(s: &str) -> Option<(&str, usize)> {
+    let mut i = skip_ws(s, 0);
+    if s[i..].starts_with('<') {
+        i += 1;
+    }
+    let b = s.as_bytes();
+    let d = run_of(b, i, b'-');
+    let q = run_of(b, i, b'=');
+    let dots = if d >= 1 { run_of(b, i + 1, b'.') } else { 0 };
+    let at = |k: usize, c: u8| b.get(k) == Some(&c);
+    let ox = |k: usize| matches!(b.get(k), Some(b'o' | b'x'));
+    let len = if d >= 2 && at(i + d, b'>') {
+        d + 1
+    } else if d >= 3 {
+        d
+    } else if q >= 2 && at(i + q, b'>') {
+        q + 1
+    } else if q >= 3 {
+        q
+    } else if dots >= 1 && at(i + 1 + dots, b'-') && at(i + 2 + dots, b'>') {
+        dots + 3
+    } else if dots >= 1 && at(i + 1 + dots, b'-') {
+        dots + 2
+    } else if d == 2 && ox(i + 2) || q == 2 && ox(i + 2) {
+        3
+    } else if run_of(b, i, b'~') >= 3 {
+        run_of(b, i, b'~')
+    } else {
+        return None;
+    };
+    Some((&s[i..i + len], i + len))
+}
+
+/// PIPE, `^\s*\|([^|]*)\|`: (label, length).
+fn pipe(s: &str) -> Option<(&str, usize)> {
+    let i = skip_ws(s, 0);
+    let r = s[i..].strip_prefix('|')?;
+    let e = r.find('|')?;
+    Some((&r[..e], i + 1 + e + 1))
+}
+
+/// `^%%\s*(\w+)\s*:\s*(.*)$`: (node, line).
+fn step_comment(t: &str) -> Option<(&str, &str)> {
+    let r = t.strip_prefix("%%")?;
+    let a = skip_ws(r, 0);
+    let e = r[a..].find(|c: char| !is_word(c)).map_or(r.len(), |e| e + a);
+    if e == a {
+        return None;
+    }
+    let j = skip_ws(r, e);
+    if !r[j..].starts_with(':') {
+        return None;
+    }
+    let rest = &r[skip_ws(r, j + 1)..];
+    (!rest.chars().any(is_line_end)).then_some((&r[a..e], rest))
+}
+
+/// One Mermaid line of an open flow. Returns an error message or None.
+fn flow_statement(f: &mut Flow, t: &str) -> Option<String> {
+    if t.is_empty() {
+        return None;
+    }
+    if t.starts_with("%%") {
+        if t.starts_with("%%{") {
+            return None; // a directive
+        }
+        let (node, text) = step_comment(t)?;
+        // `^([a-z]+)(?=\s|$)`
+        let e = text.find(|c: char| !c.is_ascii_lowercase()).unwrap_or(text.len());
+        let head = &text[..e];
+        if e > 0 && text[e..].chars().next().is_none_or(is_ws) && PRESETS.contains(&head) && !FLOW_STEPS.contains(&head) {
+            return Some(format!("flow: a {} cannot be a step ({})", head, FLOW_STEPS.join(", ")));
+        }
+        if let Some(step) = step_of(text) {
+            f.steps.insert(node.to_string(), step);
+        }
+        return None;
+    }
+    if starts_word(t, "subgraph", &[]) {
+        f.depth += 1;
+        return None;
+    }
+    if is_flow_skip(t) || is_flow_header(t) {
+        return None;
+    }
+    for st in statements(t) {
+        let Some((mut g, mut g_rest)) = read_nodes(&st) else { continue };
+        g.iter().for_each(|n| add_node(f, n));
+        loop {
+            let mut rest = g_rest;
+            let mut label = "";
+            let mut hidden = false;
+            if let Some((l, len)) = text_link(rest) {
+                label = l;
+                rest = &rest[len..];
+            } else {
+                let Some((arrow, len)) = link(rest) else { break };
+                hidden = arrow.starts_with('~');
+                rest = &rest[len..];
+                if let Some((l, len)) = pipe(rest) {
+                    label = l;
+                    rest = &rest[len..];
+                }
+            }
+            let Some((to, to_rest)) = read_nodes(rest) else { break };
+            to.iter().for_each(|n| add_node(f, n));
+            if !hidden {
+                let text = unlabel(label);
+                for a in &g {
+                    for b in &to {
+                        f.edges.push((a.id.clone(), b.id.clone(), text.clone()));
+                    }
+                }
+            }
+            g = to;
+            g_rest = to_rest;
+        }
+    }
+    None
+}
+
+/// Splits on a word (" or ") outside double quotes.
+fn split_word(t: &str, word: &str) -> Vec<String> {
+    let mut out = Vec::new();
+    let (mut cur, mut q) = (String::new(), false);
+    let mut i = 0;
+    while let Some(c) = char_at(t, i) {
+        if c == '"' {
+            q = !q;
+        }
+        // `^\s+word\s+` with the i flag
+        if !q && is_ws(c) {
+            let j = skip_ws(t, i);
+            let w = t.get(j..j + word.len()).filter(|w| w.eq_ignore_ascii_case(word));
+            if let Some(e) = w.map(|_| j + word.len()).filter(|e| char_at(t, *e).is_some_and(is_ws)) {
+                out.push(std::mem::take(&mut cur));
+                i = skip_ws(t, e);
+                continue;
+            }
+        }
+        cur.push(c);
+        i += c.len_utf8();
+    }
+    out.push(cur);
+    out
+}
+
+/// CLAUSE, `^([A-Za-z_]\w*(?:\.[\w-]+)*)\s*(>=|<=|!=|=|>|<|~)\s*(.*)$`: (path, op, value).
+fn clause(t: &str) -> Option<(&str, &str, &str)> {
+    let b = t.as_bytes();
+    if !b.first().is_some_and(|c| c.is_ascii_alphabetic() || *c == b'_') {
+        return None;
+    }
+    let mut e = t.find(|c: char| !is_word(c)).unwrap_or(t.len());
+    while b.get(e) == Some(&b'.') {
+        let n = t[e + 1..].find(|c: char| !(is_word(c) || c == '-')).map_or(t.len(), |n| n + e + 1);
+        if n == e + 1 {
+            break;
+        }
+        e = n;
+    }
+    let j = skip_ws(t, e);
+    let op = [">=", "<=", "!=", "=", ">", "<", "~"].into_iter().find(|o| t[j..].starts_with(o))?;
+    let rest = &t[skip_ws(t, j + op.len())..];
+    (!rest.chars().any(is_line_end)).then_some((&t[..e], op, rest))
+}
+
+/// Edge label -> condition: a list of alternatives ("or"), each a list of
+/// clauses that must all hold ("and"). None for a default edge.
+pub fn flow_when(label: &str, from: Option<&str>) -> Option<Value> {
+    let t = trim(label);
+    if t.is_empty() || ["else", "default", "otherwise"].iter().any(|w| t.eq_ignore_ascii_case(w)) {
+        return None;
+    }
+    let alts = split_word(t, "or").into_iter().map(|alt| {
+        Value::Arr(split_word(&alt, "and").iter().map(|c| {
+            let c = trim(c);
+            let m = clause(c);
+            let raw = m.map_or(c, |m| trim(m.2));
+            let v = if wrapped(raw, '"', false) {
+                Value::str(&raw[1..raw.len() - 1])
+            } else if is_num(raw) {
+                Value::Num(num(raw))
+            } else {
+                Value::str(raw)
+            };
+            let mut o = Map::new();
+            // A bare label ("Shop", "yes") is the answer of the step it leaves.
+            if let Some(p) = m.map(|m| m.0).or(from) {
+                o.set("path", Value::str(p));
+            }
+            o.set("op", Value::str(m.map_or("=", |m| m.1)));
+            o.set("value", v);
+            Value::Obj(o)
+        }).collect())
+    });
+    Some(Value::Arr(alts.collect()))
+}
+
+/// The graph a flow's end patches onto it.
+fn flow_graph(f: &Flow) -> Map {
+    let nodes: Vec<Map> = f.nodes.iter().map(|n| {
+        let mut o = Map::new();
+        o.set("id", Value::str(&n.id));
+        let said = f.steps.get(&n.id);
+        let step = said.cloned().or_else(|| n.label.as_deref().and_then(step_of));
+        // A label that is the step's own line is not kept twice.
+        if let Some(l) = n.label.as_ref().filter(|_| step.is_none() || said.is_some()) {
+            o.set("label", Value::str(l));
+        }
+        if let Some((preset, props)) = step {
+            o.set("preset", Value::Str(preset));
+            o.set("props", Value::Obj(props));
+        }
+        o
+    }).collect();
+    let is_step = |id: &str| nodes.iter().any(|n| n.get("id") == Some(&Value::str(id)) && n.has("preset"));
+    let start = f.nodes.iter().find(|n| !f.edges.iter().any(|e| e.1 == n.id)).or(f.nodes.first());
+    let edges: Vec<Value> = f.edges.iter().map(|(from, to, label)| {
+        let mut e = Map::new();
+        e.set("from", Value::str(from));
+        e.set("to", Value::str(to));
+        if !label.is_empty() {
+            e.set("label", Value::str(label));
+        }
+        if let Some(when) = flow_when(label, is_step(from).then_some(from.as_str())) {
+            e.set("when", when);
+        }
+        Value::Obj(e)
+    }).collect();
+    let mut o = Map::new();
+    o.set("dir", Value::str(&f.dir));
+    if let Some(s) = start {
+        o.set("start", Value::str(&s.id));
+    }
+    o.set("nodes", Value::Arr(nodes.into_iter().map(Value::Obj).collect()));
+    o.set("edges", Value::Arr(edges));
+    o.set("source", Value::Str(f.src.join("\n")));
+    clean(o)
+}
+
+// ---------- flow runtime ----------
+// Pure helpers the renderers share: where Next goes, the path taken, and
+// what goes in the event. `g` is a flow's props (resolve("flow", props)),
+// `answers` an object keyed by step id.
+
+fn node_of<'a>(g: &'a Map, id: &str) -> Option<&'a Value> {
+    g.get("nodes")?.as_arr()?.iter().find(|n| n.get("id").and_then(Value::as_str) == Some(id))
+}
+fn has_step(n: Option<&Value>) -> bool {
+    truthy(n.and_then(|n| n.get("preset")))
+}
+fn is_question(n: Option<&Value>) -> bool {
+    has_step(n) && n.and_then(|n| n.get("preset")) != Some(&Value::str("page"))
+}
+fn low(v: Option<&Value>) -> String {
+    match v {
+        None => "undefined".into(),
+        Some(Value::Bool(b)) => (if *b { "yes" } else { "no" }).into(),
+        Some(v) => trim(&js_str(v)).to_lowercase(),
+    }
+}
+fn num_of(v: &Value) -> Option<f64> {
+    match v {
+        Value::Num(n) => Some(*n),
+        Value::Str(s) if is_num(trim(s)) => Some(num(trim(s))),
+        _ => None,
+    }
+}
+
+/// One clause against the answers. `last` is the question answered before a
+/// step-less node, for bare labels on its edges.
+fn clause_holds(c: &Value, answers: &Map, last: Option<&str>) -> bool {
+    let op = c.get("op").and_then(Value::as_str).unwrap_or("");
+    let path = c.get("path").and_then(Value::as_str).filter(|p| !p.is_empty());
+    let parts: Vec<&str> = match path {
+        Some(p) => p.split('.').collect(),
+        None => match last {
+            Some(l) => vec![l],
+            None => return op == "!=",
+        },
+    };
+    let mut v = answers.get(parts[0]).cloned();
+    for k in &parts[1..] {
+        v = match v {
+            Some(Value::Obj(m)) => m.get(k).cloned(),
+            Some(Value::Arr(a)) if *k == "length" => Some(Value::Num(a.len() as f64)),
+            Some(Value::Arr(a)) => k.parse::<usize>().ok().filter(|i| i.to_string() == *k).and_then(|i| a.get(i).cloned()),
+            _ => None,
+        };
+    }
+    let mut v = match v {
+        None | Some(Value::Null) => return op == "!=",
+        Some(v) => v,
+    };
+    let want = c.get("value");
+    if let Value::Arr(a) = &v {
+        let has = a.iter().any(|x| low(Some(x)) == low(want));
+        match op {
+            "=" | "~" => return has,
+            "!=" => return !has,
+            _ => v = Value::Num(a.len() as f64),
+        }
+    }
+    let (a, b) = (num_of(&v), want.and_then(num_of));
+    match op {
+        "=" => match (a, b) {
+            (Some(a), Some(b)) => a == b,
+            _ => low(Some(&v)) == low(want),
+        },
+        "!=" => match (a, b) {
+            (Some(a), Some(b)) => a != b,
+            _ => low(Some(&v)) != low(want),
+        },
+        "~" => low(Some(&v)).contains(&low(want)),
+        _ => {
+            let (Some(a), Some(b)) = (a, b) else { return false };
+            match op {
+                ">" => a > b,
+                ">=" => a >= b,
+                "<" => a < b,
+                _ => a <= b,
+            }
+        }
+    }
+}
+
+pub fn flow_test(when: Option<&Value>, answers: &Map, last: Option<&str>) -> bool {
+    if !truthy(when) {
+        return true;
+    }
+    let alts = when.and_then(Value::as_arr).map(|a| a.as_slice()).unwrap_or(&[]);
+    alts.iter().any(|alt| alt.as_arr().map(|a| a.as_slice()).unwrap_or(&[]).iter().all(|c| clause_holds(c, answers, last)))
+}
+
+/// The edge taken out of `from`: the first labelled edge that holds, else the
+/// first default edge. With `guess`, a question with no answer yet still takes
+/// a labelled edge that earlier answers already decide, else the default (or
+/// its first edge), to estimate what is left.
+fn edge_out<'a>(g: &'a Map, answers: &Map, from: &str, last: Option<&str>, guess: bool) -> Option<&'a Value> {
+    let out: Vec<&Value> = g.get("edges").and_then(Value::as_arr).map(|a| a.iter().filter(|e| e.get("from").and_then(Value::as_str) == Some(from)).collect()).unwrap_or_default();
+    let unknown = guess && is_question(node_of(g, from)) && !answers.has(from);
+    if let Some(hit) = out.iter().find(|e| truthy(e.get("when")) && flow_test(e.get("when"), answers, last)) {
+        return Some(hit);
+    }
+    out.iter().find(|e| !truthy(e.get("when"))).or(if unknown { out.first() } else { None }).copied()
+}
+
+/// The next step after `from`, passing through nodes with no step. None: the
+/// flow ends (the review comes next).
+pub fn flow_next(g: &Map, answers: &Map, from: &str, guess: bool) -> Option<String> {
+    let mut seen = vec![from.to_string()];
+    let last = is_question(node_of(g, from)).then_some(from);
+    let mut at = from.to_string();
+    loop {
+        let e = edge_out(g, answers, &at, last, guess)?;
+        let to = e.get("to").and_then(Value::as_str)?;
+        if seen.iter().any(|s| s == to) {
+            return None;
+        }
+        let n = node_of(g, to)?;
+        let id = n.get("id").and_then(Value::as_str)?.to_string();
+        if has_step(Some(n)) {
+            return Some(id);
+        }
+        seen.push(id.clone());
+        at = id;
+    }
+}
+
+/// The first step: the start node, or the first step after it.
+pub fn flow_first(g: &Map) -> Option<String> {
+    let s = node_of(g, g.get("start")?.as_str()?)?;
+    let id = s.get("id").and_then(Value::as_str)?;
+    if has_step(Some(s)) { Some(id.to_string()) } else { flow_next(g, &Map::new(), id, false) }
+}
+
+/// The path the answers take from the start: step ids in order, and the
+/// first question with no answer (`open`, not in the path), or None at the
+/// end. A step already on the path ends it: flows do not loop.
+pub fn flow_path(g: &Map, answers: &Map) -> (Vec<String>, Option<String>) {
+    let mut path: Vec<String> = Vec::new();
+    let mut at = flow_first(g);
+    while let Some(id) = at.filter(|a| !a.is_empty() && !path.contains(a)) {
+        if is_question(node_of(g, &id)) && !answers.has(&id) {
+            return (path, Some(id));
+        }
+        at = flow_next(g, answers, &id, false);
+        path.push(id);
+    }
+    (path, None)
+}
+
+/// The steps still ahead of `from` (not counting it), guessing at branches
+/// not answered yet. For the progress bar.
+pub fn flow_ahead(g: &Map, answers: &Map, from: &str) -> Vec<String> {
+    let mut out: Vec<String> = Vec::new();
+    let mut at = if from.is_empty() { None } else { flow_next(g, answers, from, true) };
+    while let Some(id) = at.filter(|a| !a.is_empty() && !out.contains(a) && a != from) {
+        at = flow_next(g, answers, &id, true);
+        out.push(id);
+    }
+    out
+}
+
+/// What a flow sends at submit: {flow, path}, the answers of the questions
+/// on the path keyed by step id, and the path itself (pages included).
+pub fn flow_event(g: &Map, answers: &Map) -> Value {
+    let (path, _) = flow_path(g, answers);
+    let mut flow = Map::new();
+    for id in &path {
+        if let Some(a) = answers.get(id).filter(|_| is_question(node_of(g, id))) {
+            flow.set(id, a.clone());
+        }
+    }
+    let mut o = Map::new();
+    o.set("flow", Value::Obj(flow));
+    o.set("path", Value::strs(&path));
+    Value::Obj(o)
+}
+
 // ---------- line parser ----------
 
 fn op(fields: Vec<(&str, Value)>) -> Value {
@@ -1862,6 +2560,8 @@ pub struct Parser {
     ids: HashMap<String, String>, // id -> preset
     auto: u64,
     open: Vec<Open>, // open groups, innermost last
+    flow_head: Option<FlowHead>, // a flow head just added
+    flow: Option<Flow>,          // an open flow's Mermaid, being read
 }
 
 impl Default for Parser {
@@ -1872,7 +2572,7 @@ impl Default for Parser {
 
 impl Parser {
     pub fn new() -> Self {
-        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new() }
+        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new(), flow_head: None, flow: None }
     }
 
     pub fn with_known(known: &HashMap<String, String>) -> Self {
@@ -1934,8 +2634,75 @@ impl Parser {
 
     /// One line in, at most one op out.
     pub fn line(&mut self, src: &str) -> Option<Value> {
+        if self.flow.is_some() {
+            return self.flow_line(src);
+        }
+        let unr = src.strip_suffix('\r').unwrap_or(src);
+        if let Some(h) = self.flow_head.as_mut() {
+            // The line after a flow head decides: a Mermaid header starts the
+            // chart (inline flow), anything else leaves it a saved flow by name.
+            let t = trim(src);
+            if t.is_empty() || is_comment(t) {
+                return None;
+            }
+            // Mermaid comments may come before the header.
+            if t.starts_with("%%") {
+                h.pre.push(unr.to_string());
+                return None;
+            }
+            let h = self.flow_head.take().unwrap();
+            if is_flow_header(t) {
+                self.flow = Some(new_flow(h, unr));
+                return None;
+            }
+        }
         let o = self.parse_line(src);
-        self.group(o)
+        let o = self.group(o);
+        if let Some(m) = o.as_ref().and_then(Value::as_obj) {
+            if m.get("op") == Some(&Value::str("add")) && m.get("preset") == Some(&Value::str("flow")) {
+                let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
+                self.flow_head = Some(FlowHead { id: text("id"), screen: text("screen"), pre: Vec::new() });
+            }
+        }
+        o
+    }
+
+    /// Ends the input: an open flow gives its graph now.
+    pub fn finish(&mut self) -> Option<Value> {
+        self.flow_head = None;
+        self.flow.as_ref()?;
+        Some(self.flow_done(""))
+    }
+
+    /// One line of an open flow: Mermaid, not YL. `end` closes a subgraph
+    /// first, then the flow.
+    fn flow_line(&mut self, src: &str) -> Option<Value> {
+        let line = src.strip_suffix('\r').unwrap_or(src);
+        let t = trim(line);
+        let f = self.flow.as_mut().unwrap();
+        // `^end\s*;?$`
+        if t.strip_prefix("end").is_some_and(|r| matches!(r.trim_start_matches(is_ws), "" | ";")) {
+            if f.depth > 0 {
+                f.depth -= 1;
+                f.src.push(line.to_string());
+                return None;
+            }
+            return Some(self.flow_done(line));
+        }
+        f.src.push(line.to_string());
+        let err = flow_statement(f, t)?;
+        Some(error(&f.screen, err, line))
+    }
+
+    fn flow_done(&mut self, line: &str) -> Value {
+        let f = self.flow.take().unwrap();
+        op(vec![
+            ("op", Value::str("patch")),
+            ("screen", Value::str(&f.screen)),
+            ("target", Value::str(&f.id)),
+            ("props", Value::Obj(flow_graph(&f))),
+            ("line", Value::str(line)),
+        ])
     }
 
     fn next_id(&mut self, prefix: &str) -> String {
@@ -2134,7 +2901,9 @@ pub fn parse(text: &str) -> Vec<Value> {
 /// Parse a whole document, starting from the ids that last (Parser::with_known).
 pub fn parse_with(text: &str, known: &HashMap<String, String>) -> Vec<Value> {
     let mut p = Parser::with_known(known);
-    text.split('\n').filter_map(|l| p.line(l)).collect()
+    let mut ops: Vec<Value> = text.split('\n').filter_map(|l| p.line(l)).collect();
+    ops.extend(p.finish());
+    ops
 }
 
 /// Streaming: feed chunks as they arrive, get ops for every completed line.
@@ -2168,10 +2937,8 @@ impl StreamParser {
 
     pub fn flush(&mut self) -> Vec<Value> {
         let rest = std::mem::take(&mut self.buf);
-        if trim(&rest).is_empty() {
-            return Vec::new();
-        }
-        self.p.line(&rest).into_iter().collect()
+        let o = if trim(&rest).is_empty() { None } else { self.p.line(&rest) };
+        o.into_iter().chain(self.p.finish()).collect()
     }
 }
 
@@ -2336,7 +3103,7 @@ fn defaults(preset: &str) -> Map {
         "calc" => vec![("title", s("")), ("digits", n(3.0))],
         "deck" => vec![("title", s("")), ("layout", s("slides")), ("full", f.clone()), ("notes", f)],
         "page" => vec![("title", s("")), ("body", s("")), ("points", e()), ("notes", s(""))],
-        "plan" => vec![("title", s("")), ("submit", s("Send")), ("review", t)],
+        "plan" | "flow" => vec![("title", s("")), ("submit", s("Send")), ("review", t)],
         "project" => vec![("title", s("")), ("body", s("")), ("facts", e()), ("next", e()), ("status", s(""))],
         "narrate" => vec![("title", s("")), ("voice", s("agent")), ("rate", n(1.0)), ("auto", f), ("captions", t)],
         "timeline" => vec![("title", s("")), ("mark", s("Now")), ("fold", n(5.0)), ("reorder", f)],

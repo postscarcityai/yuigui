@@ -11,7 +11,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tables import empty_store, query, replay  # noqa: E402
-from yuilines import StreamParser, attach_body, doing_of, mark_at, on_stage, page_of, parse, read_attach, read_typed, resolve, talking, timeline_rows, typed_body  # noqa: E402
+from yuilines import StreamParser, attach_body, doing_of, flow_event, flow_path, mark_at, on_stage, page_of, parse, read_attach, read_typed, resolve, talking, timeline_rows, typed_body  # noqa: E402
 
 DEFAULT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "spec", "conformance")
 
@@ -99,6 +99,18 @@ def check(v):
         want = None if made == a["words"] else {**a["item"], "words": a["words"]}
         if read != want:
             fails.append(("attach (read back)", read))
+    if v.get("route") is not None:
+        # A flow's route (FLOWS.md): the path the answers take, the first open
+        # question, and the event at submit. Uses the input's first flow.
+        r = v["route"]
+        patch = next((o for o in parse(v["input"], known) if o["op"] == "patch"), None)
+        g = resolve("flow", patch["props"] if patch else {})
+        got = flow_path(g, r["answers"])
+        if not same(got, {"path": r["path"], "open": r["open"]}):
+            fails.append(("route (path, open)", got))
+        ev = flow_event(g, r["answers"])
+        if not same(ev, r["event"]):
+            fails.append(("route (event)", ev))
     if v.get("tables") is not None:
         # Agent tables (TABLES.md): replay the input's `table create` and `put`
         # lines onto an empty store (dates resolve against `today`), then run

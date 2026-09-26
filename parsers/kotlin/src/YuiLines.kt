@@ -21,7 +21,7 @@ val PRESETS = listOf(
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
-    "game",
+    "game", "flow",
     "query",
 )
 
@@ -52,7 +52,7 @@ val FIELD_TYPES = setOf("text", "long", "voice", "number", "email", "phone", "da
 
 // The stage is a full-screen layer over the chat (YL.md section 5).
 // These presets open there unless they say +inline.
-val STAGE = listOf("timer", "camera", "mic", "deck", "plan", "game")
+val STAGE = listOf("timer", "camera", "mic", "deck", "plan", "game", "flow")
 
 // ---------- JS compatibility ----------
 // The reference is JavaScript: \d and \w are ASCII, \s is the JS whitespace set.
@@ -486,7 +486,7 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "chart" -> chart(pos)
     "stat" -> stat(pos)
     "step" -> step(pos)
-    "calc", "deck", "plan", "narrate", "timeline", "sketch", "shapes" -> titled("title", pos)
+    "calc", "deck", "plan", "flow", "narrate", "timeline", "sketch", "shapes" -> titled("title", pos)
     "shape" -> game(pos, "label")
     "row" -> titled("text", pos)
     "after" -> titled("label", pos)
@@ -678,6 +678,382 @@ fun parseArgs(preset: String, tokens: List<Token>): LinkedHashMap<String, Any?> 
     o.putAll(sp.flags)
     o.putAll(sp.kv)
     return clean(normalize(preset, o))
+}
+
+// ---------- flows (spec/FLOWS.md) ----------
+// A flow is a Mermaid flowchart between `flow` and `end`. Each node can carry
+// one step (a YL line), in a `%% node: <line>` comment or as its label; edge
+// labels are conditions on earlier answers. Any other Mermaid line is kept in
+// `source` and otherwise ignored.
+
+// Presets a flow step can be.
+val FLOW_STEPS = listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera")
+private val FLOW_HEADER = rx("^(flowchart|graph)($S|\\z)")
+private val FLOW_SKIP = rx("^(classDef|class|style|linkStyle|click|direction|accTitle|accDescr)($S|:|\\z)")
+private val STEP_LINE = rx("^(${FLOW_STEPS.joinToString("|")})(?=$S|\\z)")
+private val NODE_ID = rx("^\\w+")
+// Node shapes, longest opener first. Each opener lists its closers.
+private val SHAPES = listOf(
+    "(((" to listOf(")))"), "([" to listOf("])"), "[[" to listOf("]]"), "[(" to listOf(")]"), "((" to listOf("))"), "{{" to listOf("}}"),
+    "[/" to listOf("/]", "\\]"), "[\\" to listOf("\\]", "/]"), "[" to listOf("]"), "(" to listOf(")"), "{" to listOf("}"), ">" to listOf("]"),
+)
+// Links: `-- text -->` first, then plain arrows with an optional |label|.
+private val TEXT_LINK = rx("^$S*<?(?:--|==|-\\.)(?![->=.])$S*($DOT*?)$S*(?:-{2,}>|={2,}>|\\.-+>|-{3,}|={3,}|\\.-+)(?=[$WS\\w])")
+private val LINK = rx("^$S*(<?)(-{2,}>|-{3,}|={2,}>|={3,}|-\\.+->|-\\.+-|--[ox]|==[ox]|~{3,})")
+private val PIPE = rx("^$S*\\|([^|]*)\\|")
+private val CLASS_SUFFIX = rx("^:::\\w+")
+private val AMP = rx("^$S*&$S*")
+private val BR = rx("<br$S*/?>", true)
+private val ENTITY = rx("#(quot|amp|lt|gt|nbsp|35);")
+private val CHAR_CODE = rx("#(\\d+);")
+private val STEP_COMMENT = rx("^%%$S*(\\w+)$S*:$S*($DOT*)\\z")
+private val WORD_HEAD = rx("^([a-z]+)(?=$S|\\z)")
+private val SUBGRAPH = rx("^subgraph($S|\\z)")
+private val FLOW_END = rx("end$S*;?")
+
+private class FlowHead(val id: String, val screen: String, val pre: MutableList<String> = ArrayList())
+
+private class Flow(head: FlowHead, header: String) {
+    val id = head.id
+    val screen = head.screen
+    val src = ArrayList(head.pre).also { it.add(header) }
+    val dir = (trim(header).split(Regex("$S+")).getOrNull(1) ?: "TD").uppercase()
+    var depth = 0
+    val nodes = LinkedHashMap<String, Obj>()
+    val edges = ArrayList<Obj>()
+    val steps = HashMap<String, Pair<String, Obj>>()
+}
+
+// Mermaid label text: quotes, markdown backticks, entity codes and <br> undone.
+private fun unlabel(s: String): String {
+    var t = trim(s)
+    if (t.length >= 2 && t.startsWith("\"") && t.endsWith("\"")) t = t.substring(1, t.length - 1)
+    if (t.length >= 2 && t.startsWith("`") && t.endsWith("`")) t = t.substring(1, t.length - 1)
+    t = BR.replace(t) { " " }
+    t = ENTITY.replace(t) {
+        when (it.groupValues[1]) { "quot" -> "\""; "amp" -> "&"; "lt" -> "<"; "gt" -> ">"; "nbsp" -> " "; else -> "#" }
+    }
+    // String.fromCharCode: the code wraps to 16 bits.
+    t = CHAR_CODE.replace(t) { (it.groupValues[1].toDouble() % 65536.0).toInt().toChar().toString() }
+    return trim(t)
+}
+
+// A step from a YL line, or null when the line is not a flow step.
+private fun stepOf(text: String): Pair<String, Obj>? {
+    val m = STEP_LINE.find(text) ?: return null
+    return m.groupValues[1] to parseArgs(m.groupValues[1], tokenize(text.substring(m.value.length)))
+}
+
+// Splits a Mermaid line on ";" outside quotes and brackets.
+private fun statements(line: String): List<String> {
+    val out = ArrayList<String>()
+    val cur = StringBuilder()
+    var q = false
+    var depth = 0
+    for (c in line) {
+        if (c == '"') q = !q
+        else if (!q && c in "[({") depth++
+        else if (!q && c in "])}") depth = maxOf(0, depth - 1)
+        if (c == ';' && !q && depth == 0) { out.add(cur.toString()); cur.setLength(0) } else cur.append(c)
+    }
+    out.add(cur.toString())
+    return out.map { trim(it) }.filter { it.isNotEmpty() }
+}
+
+private class FNode(val id: String, val label: String?, val rest: String)
+
+// Reads one node at the start of `s`: id, then an optional shape with a label.
+private fun readNode(s: String): FNode? {
+    val m = NODE_ID.find(s) ?: return null
+    var rest = s.substring(m.value.length)
+    var label: String? = null
+    val shape = SHAPES.find { rest.startsWith(it.first) }
+    if (shape != null) {
+        val body = rest.substring(shape.first.length)
+        var end = -1
+        var len = 0
+        val from = if (body.trimStart { isWs(it) }.startsWith("\"")) body.indexOf('"', body.indexOf('"') + 1) + 1 else 0
+        for (c in shape.second) {
+            val i = body.indexOf(c, maxOf(0, from))
+            if (i >= 0 && (end < 0 || i < end)) { end = i; len = c.length }
+        }
+        if (end < 0) return null
+        label = unlabel(body.substring(0, end))
+        rest = body.substring(end + len)
+    }
+    return FNode(m.value, label, CLASS_SUFFIX.replaceFirst(rest, ""))
+}
+
+// A node, or several joined with "&".
+private fun readNodes(s: String): Pair<List<FNode>, String>? {
+    val out = ArrayList<FNode>()
+    var rest = s.trimStart { isWs(it) }
+    while (true) {
+        val n = readNode(rest) ?: return if (out.isNotEmpty()) out to rest else null
+        out.add(n)
+        rest = n.rest
+        val amp = AMP.find(rest) ?: return out to rest
+        rest = rest.substring(amp.value.length)
+    }
+}
+
+private fun addNode(f: Flow, n: FNode) {
+    val had = f.nodes[n.id]
+    if (had == null) f.nodes[n.id] = Obj().also { it["id"] = n.id; if (n.label != null) it["label"] = n.label }
+    else if (n.label != null) had["label"] = n.label
+}
+
+// One Mermaid line of an open flow. Returns an error message or null.
+private fun flowStatement(f: Flow, t: String): String? {
+    if (t.isEmpty()) return null
+    if (t.startsWith("%%")) {
+        if (t.startsWith("%%{")) return null // a directive
+        val m = STEP_COMMENT.find(t) ?: return null
+        val head = WORD_HEAD.find(m.groupValues[2])?.groupValues?.get(1)
+        if (head != null && head in PRESETS && head !in FLOW_STEPS) return "flow: a $head cannot be a step (${FLOW_STEPS.joinToString(", ")})"
+        stepOf(m.groupValues[2])?.let { f.steps[m.groupValues[1]] = it }
+        return null
+    }
+    if (SUBGRAPH.containsMatchIn(t)) { f.depth++; return null }
+    if (FLOW_SKIP.containsMatchIn(t) || FLOW_HEADER.containsMatchIn(t)) return null
+    for (st in statements(t)) {
+        var g = readNodes(st) ?: continue
+        g.first.forEach { addNode(f, it) }
+        while (true) {
+            var rest = g.second
+            var label: String? = null
+            var hidden = false
+            val tl = TEXT_LINK.find(rest)
+            if (tl != null) { label = tl.groupValues[1]; rest = rest.substring(tl.value.length) }
+            else {
+                val l = LINK.find(rest) ?: break
+                hidden = l.groupValues[2].startsWith("~")
+                rest = rest.substring(l.value.length)
+                val p = PIPE.find(rest)
+                if (p != null) { label = p.groupValues[1]; rest = rest.substring(p.value.length) }
+            }
+            val to = readNodes(rest) ?: break
+            to.first.forEach { addNode(f, it) }
+            if (!hidden) {
+                for (a in g.first) for (b in to.first) {
+                    val e = Obj()
+                    e["from"] = a.id
+                    e["to"] = b.id
+                    val text = if (label == null) "" else unlabel(label)
+                    if (text.isNotEmpty()) e["label"] = text
+                    f.edges.add(e)
+                }
+            }
+            g = to
+        }
+    }
+    return null
+}
+
+// Splits on a word (" or ") outside double quotes.
+private fun splitWord(t: String, word: String): List<String> {
+    val out = ArrayList<String>()
+    val re = rx("^$S+$word$S+", true)
+    val cur = StringBuilder()
+    var q = false
+    var i = 0
+    while (i < t.length) {
+        if (t[i] == '"') q = !q
+        val m = if (!q && isWs(t[i])) re.find(t.substring(i)) else null
+        if (m != null) { out.add(cur.toString()); cur.setLength(0); i += m.value.length; continue }
+        cur.append(t[i])
+        i++
+    }
+    out.add(cur.toString())
+    return out
+}
+
+// Edge label -> condition: a list of alternatives ("or"), each a list of
+// clauses that must all hold ("and"). null for a default edge.
+private val CLAUSE = rx("^([A-Za-z_]\\w*(?:\\.[\\w-]+)*)$S*(>=|<=|!=|=|>|<|~)$S*($DOT*)\\z")
+private val DEFAULT_EDGE = rx("(else|default|otherwise)", true)
+private val QUOTED_VALUE = rx("\"$DOT*\"")
+
+fun flowWhen(label: String?, from: String?): List<List<Map<String, Any?>>>? {
+    val t = trim(label ?: "")
+    if (t.isEmpty() || DEFAULT_EDGE.test(t)) return null
+    return splitWord(t, "or").map { alt ->
+        splitWord(alt, "and").map { c ->
+            val m = CLAUSE.find(trim(c))
+            val raw = if (m != null) trim(m.groupValues[3]) else trim(c)
+            val v: Any = if (QUOTED_VALUE.test(raw)) raw.substring(1, raw.length - 1) else if (NUM.test(raw)) raw.toDouble() else raw
+            val o = Obj()
+            // A bare label ("Shop", "yes") is the answer of the step it leaves.
+            if (m != null) o["path"] = m.groupValues[1] else if (from != null) o["path"] = from
+            o["op"] = m?.groupValues?.get(2) ?: "="
+            o["value"] = v
+            o
+        }
+    }
+}
+
+// The graph a flow's end patches onto it.
+private fun flowGraph(f: Flow): Obj {
+    val nodes = f.nodes.values.map { n ->
+        val said = f.steps[n["id"]]
+        val step = said ?: (n["label"] as String?)?.let { stepOf(it) }
+        if (step == null) Obj(n) else {
+            // A label that is the step's own line is not kept twice.
+            val o = Obj()
+            o["id"] = n["id"]
+            if (said != null && "label" in n) o["label"] = n["label"]
+            o["preset"] = step.first
+            o["props"] = step.second
+            o
+        }
+    }
+    val isStep = nodes.filter { it["preset"] != null }.map { it["id"] }.toSet()
+    val into = f.edges.map { it["to"] }.toSet()
+    val start = (nodes.find { it["id"] !in into } ?: nodes.firstOrNull())?.get("id")
+    val edges = f.edges.map { e ->
+        val w = flowWhen(e["label"] as String?, if (e["from"] in isStep) e["from"] as String else null)
+        if (w == null) e else Obj(e).also { it["when"] = w }
+    }
+    val o = Obj()
+    o["dir"] = f.dir
+    o["start"] = start
+    o["nodes"] = nodes
+    o["edges"] = edges
+    o["source"] = f.src.joinToString("\n")
+    return clean(o)
+}
+
+// ---------- flow runtime ----------
+// Where Next goes, the path taken, and what goes in the event. `g` is a
+// flow's props (resolve("flow", props)).
+
+@Suppress("UNCHECKED_CAST")
+private fun nodeOf(g: Map<String, Any?>, id: String?): Map<String, Any?>? =
+    (g["nodes"] as? List<Map<String, Any?>>)?.find { it["id"] == id }
+
+private fun hasStep(n: Map<String, Any?>?) = n != null && !(n["preset"] as? String).isNullOrEmpty()
+private fun isQuestion(n: Map<String, Any?>?) = hasStep(n) && n!!["preset"] != "page"
+
+// JS String(v) for answer values.
+private fun jsString(v: Any?): String = when (v) {
+    null -> "null"
+    is Double -> Json.number(v)
+    is List<*> -> v.joinToString(",") { if (it == null) "" else jsString(it) }
+    is Map<*, *> -> "[object Object]"
+    else -> v.toString()
+}
+
+private fun low(v: Any?): String = if (v is Boolean) (if (v) "yes" else "no") else trim(jsString(v)).lowercase()
+
+private fun num(v: Any?): Double? = when {
+    v is Double -> v
+    v is String && NUM.test(trim(v)) -> trim(v).toDouble()
+    else -> null
+}
+
+private val INDEX = rx("0|[1-9]\\d*")
+
+// One clause against the answers. `last` is the question answered before a
+// step-less node, for bare labels on its edges.
+private fun clauseHolds(c: Map<String, Any?>, answers: Map<String, Any?>, last: String?): Boolean {
+    val path = c["path"] as String?
+    val parts: List<String?> = if (!path.isNullOrEmpty()) path.split(".") else listOf(last)
+    val op = c["op"]
+    var v: Any? = parts[0]?.let { answers[it] }
+    for (k in parts.drop(1)) v = when (v) {
+        is Map<*, *> -> v[k]
+        is List<*> -> if (k == "length") v.size.toDouble() else if (k != null && INDEX.test(k)) k.toIntOrNull()?.let { v.getOrNull(it) } else null
+        else -> null
+    }
+    if (v == null || parts[0] == null) return op == "!="
+    val want = c["value"]
+    if (v is List<*>) {
+        val has = v.any { low(it) == low(want) }
+        if (op == "=" || op == "~") return has
+        if (op == "!=") return !has
+        v = v.size.toDouble()
+    }
+    val a = num(v)
+    val b = num(want)
+    return when (op) {
+        "=" -> if (a != null && b != null) a == b else low(v) == low(want)
+        "!=" -> if (a != null && b != null) a != b else low(v) != low(want)
+        "~" -> low(v).contains(low(want))
+        else -> if (a == null || b == null) false else when (op) { ">" -> a > b; ">=" -> a >= b; "<" -> a < b; else -> a <= b }
+    }
+}
+
+@Suppress("UNCHECKED_CAST")
+fun flowTest(`when`: Any?, answers: Map<String, Any?>, last: String?): Boolean =
+    `when` == null || (`when` as List<List<Map<String, Any?>>>).any { alt -> alt.all { clauseHolds(it, answers, last) } }
+
+// The edge taken out of `from`: the first labelled edge that holds, else the
+// first default edge. With `guess`, a question with no answer yet still takes
+// a labelled edge that earlier answers already decide, else the default (or
+// its first edge), to estimate what is left.
+@Suppress("UNCHECKED_CAST")
+private fun edgeOut(g: Map<String, Any?>, answers: Map<String, Any?>, from: String, last: String?, guess: Boolean): Map<String, Any?>? {
+    val out = (g["edges"] as? List<Map<String, Any?>> ?: emptyList()).filter { it["from"] == from }
+    val unknown = guess && isQuestion(nodeOf(g, from)) && from !in answers
+    out.find { it["when"] != null && flowTest(it["when"], answers, last) }?.let { return it }
+    return out.find { it["when"] == null } ?: if (unknown) out.firstOrNull() else null
+}
+
+// The next step after `from`, passing through nodes with no step. null: the
+// flow ends (the review comes next).
+fun flowNext(g: Map<String, Any?>, answers: Map<String, Any?>, from: String, guess: Boolean = false): String? {
+    val seen = hashSetOf(from)
+    val last = if (isQuestion(nodeOf(g, from))) from else null
+    var at = from
+    while (true) {
+        val e = edgeOut(g, answers, at, last, guess) ?: return null
+        val to = e["to"] as String
+        if (to in seen) return null
+        val n = nodeOf(g, to) ?: return null
+        if (hasStep(n)) return to
+        seen.add(to)
+        at = to
+    }
+}
+
+// The first step: the start node, or the first step after it.
+fun flowFirst(g: Map<String, Any?>): String? {
+    val s = nodeOf(g, g["start"] as String?) ?: return null
+    val id = s["id"] as String
+    return if (hasStep(s)) id else flowNext(g, emptyMap(), id)
+}
+
+// The path the answers take from the start: step ids in order. It stops at
+// the first question with no answer (`open`, not in the path) or at the end
+// (`open` null). A step already on the path ends it: flows do not loop.
+fun flowPath(g: Map<String, Any?>, answers: Map<String, Any?>): Map<String, Any?> {
+    val path = ArrayList<String>()
+    var at = flowFirst(g)
+    while (at != null && at !in path) {
+        if (isQuestion(nodeOf(g, at)) && at !in answers) return mapOf("path" to path, "open" to at)
+        path.add(at)
+        at = flowNext(g, answers, at)
+    }
+    return mapOf("path" to path, "open" to null)
+}
+
+// The steps still ahead of `from` (not counting it), guessing at branches
+// not answered yet. For the progress bar.
+fun flowAhead(g: Map<String, Any?>, answers: Map<String, Any?>, from: String?): List<String> {
+    val out = ArrayList<String>()
+    var at = from?.let { flowNext(g, answers, it, true) }
+    while (at != null && at !in out && at != from) { out.add(at); at = flowNext(g, answers, at, true) }
+    return out
+}
+
+// What a flow sends at submit: the answers of the questions on the path,
+// keyed by step id, and the path itself (pages included).
+@Suppress("UNCHECKED_CAST")
+fun flowEvent(g: Map<String, Any?>, answers: Map<String, Any?>): Map<String, Any?> {
+    val path = flowPath(g, answers)["path"] as List<String>
+    val flow = Obj()
+    for (id in path) if (isQuestion(nodeOf(g, id)) && id in answers) flow[id] = answers[id]
+    return mapOf("flow" to flow, "path" to path)
 }
 
 // ---------- line parser ----------
@@ -874,6 +1250,8 @@ class Parser(known: Map<String, String> = emptyMap()) {
     private val ids = HashMap<String, String>(known) // id -> preset
     private var auto = 0
     private val open = ArrayList<Triple<String, String, String>>() // open groups: (id, preset, screen)
+    private var flowHead: FlowHead? = null // a flow head just added
+    private var flow: Flow? = null // an open flow's Mermaid, being read
 
     // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
     private fun group(o: Op?): Op? {
@@ -897,7 +1275,50 @@ class Parser(known: Map<String, String> = emptyMap()) {
         return out
     }
 
-    fun line(src: String): Op? = group(parseLine(src))
+    fun line(src: String): Op? {
+        if (flow != null) return flowLine(src)
+        val h = flowHead
+        if (h != null) {
+            // The line after a flow head decides: a Mermaid header starts the
+            // chart (inline flow), anything else leaves it a saved flow by name.
+            val t = trim(src)
+            if (t.isEmpty() || COMMENT.containsMatchIn(t)) return null
+            // Mermaid comments may come before the header.
+            if (t.startsWith("%%")) { h.pre.add(src.removeSuffix("\r")); return null }
+            flowHead = null
+            if (FLOW_HEADER.containsMatchIn(t)) { flow = Flow(h, src.removeSuffix("\r")); return null }
+        }
+        val o = group(parseLine(src))
+        if (o != null && o["op"] == "add" && o["preset"] == "flow") flowHead = FlowHead(o["id"] as String, o["screen"] as String)
+        return o
+    }
+
+    // Ends the input: an open flow gives its graph now.
+    fun finish(): Op? {
+        flowHead = null
+        return if (flow != null) flowDone("") else null
+    }
+
+    // One line of an open flow: Mermaid, not YL. `end` closes a subgraph
+    // first, then the flow.
+    private fun flowLine(src: String): Op? {
+        val f = flow!!
+        val line = src.removeSuffix("\r")
+        val t = trim(line)
+        if (FLOW_END.test(t)) {
+            if (f.depth > 0) { f.depth--; f.src.add(line); return null }
+            return flowDone(line)
+        }
+        f.src.add(line)
+        val err = flowStatement(f, t) ?: return null
+        return op("op" to "error", "screen" to f.screen, "message" to err, "line" to line)
+    }
+
+    private fun flowDone(line: String): Op {
+        val f = flow!!
+        flow = null
+        return op("op" to "patch", "screen" to f.screen, "target" to f.id, "props" to flowGraph(f), "line" to line)
+    }
 
     private fun parseLine(src: String): Op? {
         val line = src.removeSuffix("\r")
@@ -1013,7 +1434,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
 // Parse a whole document at once. `known`: ids that last (Parser above).
 fun parse(text: String, known: Map<String, String> = emptyMap()): List<Op> {
     val p = Parser(known)
-    return text.split("\n").mapNotNull { p.line(it) }
+    return text.split("\n").mapNotNull { p.line(it) } + listOfNotNull(p.finish())
 }
 
 // Streaming: feed chunks as they arrive, get ops for every completed line.
@@ -1039,7 +1460,7 @@ class StreamParser(known: Map<String, String> = emptyMap()) {
         val rest = buf.toString()
         buf.setLength(0)
         val op = if (trim(rest).isNotEmpty()) p.line(rest) else null
-        return listOfNotNull(op)
+        return listOfNotNull(op, p.finish())
     }
 }
 
@@ -1145,6 +1566,7 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "deck" to mapOf("title" to "", "layout" to "slides", "full" to false, "notes" to false),
     "page" to mapOf("title" to "", "body" to "", "points" to emptyList<String>(), "notes" to ""),
     "plan" to mapOf("title" to "", "submit" to "Send", "review" to true),
+    "flow" to mapOf("title" to "", "submit" to "Send", "review" to true),
     "narrate" to mapOf("title" to "", "voice" to "agent", "rate" to 1.0, "auto" to false, "captions" to true),
     "timeline" to mapOf("title" to "", "mark" to "Now", "fold" to 5.0),
     "done" to mapOf("text" to ""), "now" to mapOf("text" to ""), "next" to mapOf("text" to ""),

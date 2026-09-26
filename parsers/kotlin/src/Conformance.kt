@@ -82,6 +82,18 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
         val want = if (pageOf(screen) == 1) null else mapOf("screen" to screen, "words" to words)
         if (!same(read, want)) fails.add("typed (read back)" to read)
     }
+    val route = v["route"] as Map<String, Any?>?
+    if (route != null) {
+        // A flow's route (FLOWS.md): the path the answers take, the first
+        // open question, and the event at submit. Uses the input's first flow.
+        val patch = parse(input, known).find { it["op"] == "patch" }
+        val g = resolve("flow", patch?.get("props") as Map<String, Any?>? ?: emptyMap())
+        val answers = route["answers"] as Map<String, Any?>? ?: emptyMap()
+        val got = flowPath(g, answers)
+        if (!same(got, mapOf("path" to route["path"], "open" to route["open"]))) fails.add("route (path, open)" to got)
+        val ev = flowEvent(g, answers)
+        if (!same(ev, route["event"])) fails.add("route (event)" to ev)
+    }
     val tv = v["tables"] as Map<String, Any?>?
     if (tv != null) {
         // Agent tables (TABLES.md): replay the input's `table create` and `put`

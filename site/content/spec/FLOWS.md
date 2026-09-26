@@ -4,7 +4,7 @@ A flow is a saved series of Yui screens that any agent can run: a client website
 
 Plan mode (YL.md, section 4, plan) is the first flow, and it is linear. A flow is plan mode with a map: Next follows the edge your answers pick.
 
-Status: step 1 (FLOW-1). The spec, the JavaScript parser and the web runtime in the playground. The app runs flows in a later step; until then an older app shows the flow line as unknown and skips it.
+Status: step 2 (FLOW-1). Step 1 shipped the spec, the JavaScript parser and the web runtime in the playground. Step 2 gives every parser in the hub (JavaScript, Python, Kotlin, Rust) the same flow vectors, pins what a native runner keeps on the phone (section 5), and mocks My flows in the playground. The app runs flows in its own step; until then an older app shows the flow line as unknown and skips it.
 
 ## 1. A flow in Yui Lines
 
@@ -44,7 +44,7 @@ Each Mermaid node can carry one step, a YL line. The node's id is the step's id,
 - **In a comment** (preferred): `%% energy: choose "Energy right now?" Low|OK|High`, anywhere in the chart. The node keeps a short label for the chart (`energy[Energy]`) and the chart stays clean on GitHub.
 - **As the label**: `energy[choose Energy? Low|OK|High]`. Quick, but the chart shows the raw line, and a double quote inside a Mermaid label has to be written `#quot;`.
 
-A step is one of `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, the same as a plan's members, and means the same: a page is a step to read (not answered, not keyed), a question sends what it would send on its own (`choose` its choice, `pick` a list, `slide` a number, `form` an object, `mic` a transcript, `camera` a photo). Any other preset in a step comment is an error line and the node gets no step. A comment that is not a step (`%% ask Chris first`) is just a comment.
+A step is one of `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, the same as a plan's members, and means the same: a page is a step to read (not answered, not keyed), a question sends what it would send on its own (`choose` its choice, `pick` a list, `slide` a number, `form` an object, `mic` a transcript, `camera` a photo). Any other preset in a step comment is an error line and the node gets no step. A comment that is not a step (`%% ask Chris first`, `%% a: dance fast`: `dance` is no preset) is just a comment, and a label that is not a step is just a label. A step comment for a node the chart never draws is dropped.
 
 A node with no step shows nothing. It routes: `check{Rough day?}` above reads its edges and moves straight on. Use such nodes for decisions that look at several answers, and for the end (`done((Done))`).
 
@@ -71,7 +71,11 @@ A condition is clauses joined by `and`, alternatives joined by `or` (`and` binds
 
 Quote a value that holds `and` or `or`: `kind="Rock or roll"`. A question with no answer on the path fails every clause but `!=`.
 
-Flows do not loop: an edge back to a step already on the path ends the flow there.
+Flows do not loop: an edge back to a step already on the path ends the flow there. When every node has an edge into it (a ring), the first node in the source starts.
+
+A step with no edge out, or whose labelled edges all fail and that has no default, ends the flow: the review comes next. There is no missing node in Mermaid: naming an id in an edge draws it. An edge to a node with no step and no edges out ends the flow the same way.
+
+Lines the parser cannot read (an unclosed `a[Oops`, an arrow with nothing on one side) are kept in `source` and skipped, with no error line: Mermaid will flag them where the chart is drawn, and the steps that did read still run. A header and `end` with nothing between is a flow with no steps: the phone says so and sends nothing.
 
 ## 4. Running it
 
@@ -83,7 +87,17 @@ The runtime is plan mode with branches (YL.md, section 4, plan), and everything 
 - **The review** lists only the answered questions on the path, in path order, each with Edit. Edit opens that step; once the path from the start has every answer again, Next goes straight back to the review. If the new answer opened a branch with questions not answered yet, Next goes through them first.
 - **Folding back** is the same as a plan's: the flow's spot in the chat becomes a summary chip (its title, pages and answers on the path) that reopens it, and the answers land as the person's message, one `<question>: <answer>` line per answered question on the path.
 
-## 5. The event
+## 5. On the phone
+
+What a native runner keeps for each flow it shows, so a flow survives a killed app and never sends twice:
+
+- **The graph.** For an inline flow, the patch's props as they came (`source` included). For a saved flow by name, the saved copy it ran, not a live link: editing that flow later in My flows does not change a run already started.
+- **The run**, keyed by the message and the flow's id: every answer given (off-path answers too, section 4), the step on screen (a step id or `review`), and `sent` once the event is out.
+- **Resume.** Reopening the flow, after a kill or days later, rebuilds the path with `flowPath` from the stored answers and opens the stored step if it is still on the path, else `open` (the first question with no answer), else the review. Nothing is asked twice.
+- **Once.** The `{flow}` event goes into the app's outbox like any tap and is delivered exactly once (RELAY.md). `sent` makes the fold-back chip show at once; Edit and submit again sends a new event, as section 4 says.
+- The run lives with the thread and goes when the thread is cleared or the message is gone.
+
+## 6. The event
 
 A flow sends one event, when the person submits the review:
 
@@ -93,7 +107,7 @@ A flow sends one event, when the person submits the review:
 
 `flow` has the same shape as a plan's `{plan}`: answers keyed by step id, only for questions on the path. `path` is every step on the path in order, pages included, so the agent knows which branch the person took. Steps send no events of their own. Submitting again after Edit answers sends a new `{flow}`.
 
-## 6. What the parser gives
+## 7. What the parser gives
 
 The head is an add, as any preset line: `{op: "add", preset: "flow", id, props: {title, submit, ...}}`, so the phone can show the flow's spot at once while the chart streams in. The Mermaid lines give nothing (a bad step comment gives an error line). The flow's `end`, or the end of the reply, gives one patch on the flow with the graph:
 
@@ -108,9 +122,9 @@ The head is an add, as any preset line: `{op: "add", preset: "flow", id, props: 
 
 `when` is the condition: a list of alternatives, each a list of clauses that must all hold. A bare value has no `path` when the edge leaves a node with no step. An edge with no `when` is a default edge. `source` is the Mermaid as sent, so the flow can be saved or shown as a chart. A saved flow by name gets no patch: the phone reads its own copy.
 
-Conformance: `spec/conformance/js-26-flow.json`, run by the JavaScript runner only until the other parsers carry flows. Its `route` vectors pin the runtime too: for a set of answers, the path, the first open question and the event.
+Conformance: `spec/conformance/26-flow.json`, run by the JavaScript, Python, Kotlin and Rust runners; the Swift parser skips it until the app runs flows. It carries the starter flows, conditions on edges, bad Mermaid, cycles, a flow among other lines, and streaming. Its `route` vectors pin the runtime too: for a set of answers, the path, the first open question and the event.
 
-## 7. Starter flows
+## 8. Starter flows
 
 Every Yui has five: three from real work, the first run, and connecting your tools. Each is under a dozen steps with at least one branch, and each runs in the playground: pick it under "Decks, plans, flows and walkthroughs".
 
@@ -122,8 +136,8 @@ Every Yui has five: three from real work, the first run, and connecting your too
 
 To tailor one to a person, the agent sends it inline with its own wording and keeps the ids and edges, so the answers still line up.
 
-## 8. Next
+## 9. Next
 
-- The app runs flows (native runtime, the Swift parser and the other parsers carry the vectors).
-- My flows: the person's own saved flows, listed, duplicated, edited with the agent ("add a question about brand colors after the pages"), shared.
+- The app runs flows: the Swift parser takes `26-flow.json` off its not-yet list, and a native runtime keeps runs as section 5 says.
+- My flows: the person's own saved flows, listed, duplicated, edited with the agent ("add a question about brand colors after the pages"), shared. The playground mocks it: `/playground?demo=myflows`.
 - FLOW-2: a public library of flows on yuigui.com that people browse and agents can search.
