@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T06:40:52.253Z",
+  "updated": "2026-09-26T07:10:56.065Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -76,7 +76,8 @@
         {
           "key": "YUI-69",
           "title": "Talk about a setting",
-          "summary": "Bring it into the chat, the agent proposes the edit"
+          "summary": "Talk about a setting, designed: change your agent by talking",
+          "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking"
         },
         {
           "key": "YUI-85",
@@ -192,9 +193,9 @@
           "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of"
         },
         {
-          "key": "YUI-70",
-          "title": "Step 2 (next)",
-          "summary": "Agent controls native in the drawer"
+          "key": "YUI-69",
+          "title": "Step 2 (backlog)",
+          "summary": "Talk about a setting, native"
         }
       ]
     },
@@ -219,13 +220,18 @@
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
         },
         {
-          "key": "SITE-38",
-          "title": "The site catches up to Yui 0.3.0 (build 138 VALID)"
+          "key": "YUI-70",
+          "title": "Step 2 (next)",
+          "summary": "Agent controls native in the drawer"
         },
         {
-          "key": "YUI-70",
+          "key": "YUI-69",
           "title": "Step 1",
-          "summary": "Agent controls spec, host protocol and playground mock"
+          "summary": "Talk about a setting, spec and playground mock"
+        },
+        {
+          "key": "SITE-39",
+          "title": "Thought draft for Yui 0.3.0, the smooth release"
         }
       ]
     },
@@ -233,6 +239,17 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-70",
+          "title": "Step 1",
+          "summary": "Agent controls spec, host protocol and playground mock",
+          "shipped": "2026-09-26"
+        },
+        {
+          "key": "SITE-38",
+          "title": "The site catches up to Yui 0.3.0 (build 138 VALID)",
+          "shipped": "2026-09-26"
+        },
         {
           "key": "YUI-106",
           "title": "Send and drawer taps under 100 ms (YUI-101 follow-up)",
