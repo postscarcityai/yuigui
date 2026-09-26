@@ -121,6 +121,8 @@ query meals where=Day=today sum=Cal|Protein as table "Today so far"
 query meals group=Day sum=Cal sort=Day as stat y=Cal label="Calories today" good=down
 ```
 
+To log a meal from a photo, with an estimate the person fixes before it is saved, see [Meal photo to macros](/developers/meal).
+
 **A simple CRM.**
 ```
 table create crm Name:text Stage:text Value:number:$ Next:date Hot:bool

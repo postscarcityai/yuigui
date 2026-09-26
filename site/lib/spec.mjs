@@ -32,6 +32,7 @@ const ORDER = [
   ["onboarding", "Onboarding", null, "The first run: Yui asks three quick questions on full screens and suggests your first agents. A saved flow you can run in the playground."],
   ["connectors", "Connectors", null, "Log in to your tools once: Google Calendar, Gmail and HubSpot through their own MCP servers. What each allows, in plain words, and who holds the sign-in."],
   ["tables", "Agent tables", null, "Data an agent keeps on your phone: a workout log, macros, a small CRM. Three words, and the rows never leave the phone."],
+  ["meal", "Meal photo to macros", null, "Snap a meal, get a macro estimate that says how sure it is, fix the portion, and save it to your meals table. Two replies, no new words."],
   ["games", "Games (draft)", null, "Draft: how an agent could describe a whole new game in lines, a board kit with rule words, not code."],
   ["flywheel", "Preset flywheel", null, "How custom screens agents keep sending become presets: the shape log, the weekly report and the checklist."],
   ["admin", "Admin console (scope)", null, "Who runs Yui from the top: five roles, what each controls, why it lives in the app, and what admins can never see."],

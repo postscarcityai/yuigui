@@ -64,7 +64,7 @@
     "SITE-26": { "title": "Request an invite replaces the waitlist", "shipped": "2026-09-24" },
     "YUI-32": { "title": "Named screens: save and reopen a screen in two tokens", "shipped": "2026-09-24" },
     "YUI-33": { "title": "Agent tables on the phone", "shipped": "2026-09-25" },
-    "YUI-35": { "title": "Meal photo to macros" },
+    "YUI-35": { "title": "Meal photo to macros", "shipped": "2026-09-25" },
     "YUI-98": { "title": "The speed budget, and the Speed panel on paper", "shipped": "2026-09-25" },
     "YUI-102": { "title": "Speed reporting from real phones" },
     "SOC-3": { "title": "Three marketing videos", "shipped": "2026-09-24" },
@@ -143,7 +143,8 @@
         { "id": "calc", "title": "calc", "what": "A formula with sliders. Drag a value and the answer and chart follow.", "cards": ["YUI-17", "YUI-19"], "yl": "calc \"How far does it fly?\" f=\"R = v^2*sin(2*a)/g\" v=5-40@20m/s a=0-90@30deg g=9.81m/s^2 plot=a unit=m", "agent": "Tutor", "app": "native", "clip": "calc", "shots": ["/progress/yui17-projectile.webp"] },
         { "id": "tables-workout", "title": "Agent tables: a workout log", "what": "The agent keeps your sets on the phone and draws them: squat over time, best set per lift. Send a put and every view redraws.", "cards": ["YUI-33"], "demo": "tables-workout", "agent": "Coach", "app": "later", "shots": ["/progress/yui33-workout-dark.webp"] },
         { "id": "tables-macros", "title": "Agent tables: macros", "what": "Meals logged by day: calories today as one number, today's plate as a table, protein by day as a chart.", "cards": ["YUI-33"], "demo": "tables-macros", "agent": "Coach", "app": "later", "shots": ["/progress/yui33-macros-light.webp"] },
-        { "id": "tables-crm", "title": "Agent tables: a simple CRM", "what": "Deals with a stage, a value and a next date. Tick one won in the list and the phone writes it and tells the agent.", "cards": ["YUI-33"], "demo": "tables-crm", "agent": "Scout", "app": "later", "shots": ["/progress/yui33-crm-dark.webp", "/progress/yui33-crm-light.webp"] }
+        { "id": "tables-crm", "title": "Agent tables: a simple CRM", "what": "Deals with a stage, a value and a next date. Tick one won in the list and the phone writes it and tells the agent.", "cards": ["YUI-33"], "demo": "tables-crm", "agent": "Scout", "app": "later", "shots": ["/progress/yui33-crm-dark.webp", "/progress/yui33-crm-light.webp"] },
+        {"id": "meal", "title": "Meal photo to macros", "what": "Snap your plate and the agent guesses calories, protein, carbs and fat, and says how sure it is. Fix the portion, tap Save, and the meal lands in your log with today's totals. Try it in the playground with a sample photo; the app gets it after agent tables.", "cards": ["YUI-35"], "demo": "meal", "link": "/playground?demo=meal", "agent": "Coach", "app": "later", "shots": ["/progress/yui35-estimate-light.webp", "/progress/yui35-saved-dark.webp", "/progress/yui35-ask-dark.webp"]}
       ]
     },
     {
@@ -239,8 +240,7 @@
       "lede": "What these cards will look like, drawn by the web renderer from Yui Lines that parse today. None of it is in the app yet, except where an entry says so.",
       "entries": [
         { "id": "planned-voice", "title": "Voice in, text out", "what": "Talk, read the answer, hands free and fast. Hold to talk already works in the app (builds 57 and 64); hands-free voice, a talk or type default per agent and a first word in under a second are not built.", "cards": ["YUI-14"], "yl": "mic \"What did you eat today?\"", "agent": "Coach" },
-        {"id": "planned-speed", "title": "The Speed panel", "what": "How fast Yui is on real phones, in the war room: typing, messages landing, scrolling, hangs and memory, each with a trend per build, and a chart that steps down when a fix lands. The budget behind every number is written down. Sample numbers for now; the phone starts reporting with YUI-102.", "cards": ["YUI-98", "YUI-102"], "demo": "speed", "agent": "Yui", "link": "/developers/perf", "shots": ["/progress/yui98-speed-dark.webp", "/progress/yui98-speed-light.webp"]},
-        { "id": "planned-macros", "title": "Meal photo to macros", "what": "Snap a plate, get an estimate, log it to a table on the phone.", "cards": ["YUI-35", "YUI-33"], "demo": "Macros so far", "agent": "Coach" }
+        {"id": "planned-speed", "title": "The Speed panel", "what": "How fast Yui is on real phones, in the war room: typing, messages landing, scrolling, hangs and memory, each with a trend per build, and a chart that steps down when a fix lands. The budget behind every number is written down. Sample numbers for now; the phone starts reporting with YUI-102.", "cards": ["YUI-98", "YUI-102"], "demo": "speed", "agent": "Yui", "link": "/developers/perf", "shots": ["/progress/yui98-speed-dark.webp", "/progress/yui98-speed-light.webp"]}
       ]
     }
   ]

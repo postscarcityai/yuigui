@@ -1,0 +1,6 @@
+/* Meal photo to macros (spec/MEAL.md): the four estimate tiles sit two across. */
+.pg-screen.meal-demo { flex-flow: row wrap; align-content: flex-start; }
+.pg-screen.meal-demo > * { flex: 1 1 100%; min-width: 0; }
+.pg-screen.meal-demo > .pg-node:has(> .yl-stat) { flex: 1 1 calc(50% - 6px); }
+.pg-screen.meal-demo > .pg-node > .yl-stat { height: 100%; box-sizing: border-box; padding: 12px 14px; }
+.pg-screen.meal-demo > .pg-node > .yl-stat .yl-statval b { font-size: 26px; }

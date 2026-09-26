@@ -611,7 +611,7 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
   background: #f6f6fa; color: var(--text);
 }
 .screen.light .ahead { border-bottom-color: #e3e4ee; }
-.screen.light .yl-block, .screen.light .yl-card { background: #fff; border-color: #e3e4ee; }
+.screen.light .yl-block, .screen.light .yl-card, .screen.light .yl-image { background: #fff; border-color: #e3e4ee; }
 .screen.light .yl-text { color: #3b3f58; }
 .screen.light .b.in { background: #e9eaf3; color: var(--text); }
 .screen.light .bigbtn.s { background: #eef0f6; color: var(--text); border-color: #dcdfea; }
@@ -625,6 +625,7 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .screen.light .yl-table td { border-bottom-color: #eef0f6; }
 .screen.light .yl-bound { border-color: #bfe3dd; }
 .screen.light .yl-err, .screen.light .yl-texerr { color: #c93c2c; }
+.screen.light :is(.yl-otherin input, .yl-field input:not([type=range]):not([type=file]), .yl-field textarea, .yl-voicefield input) { background: #f4f5fa; border-color: #d6d9e6; }
 
 .yl-charthead { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
 .yl-charthead .yl-q { flex-wrap: wrap; }

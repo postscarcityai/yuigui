@@ -272,7 +272,7 @@ Deliverables:
 - YUI-33: on-device tables: agents create tables and rows through the protocol (`table create`, `put`, `query`). Views render as table, list, chart or one number. Starter schemas: workout log, macros, simple CRM. Step 1, the spec and the web playground, shipped Sep 25 ([Agent tables](/developers/tables)); the app's store and views are YUI-89.
 - YUI-34: key vault in the iOS Keychain for BYO keys: fal, Replicate, OpenRouter, Anthropic.
 - Image generation through the user's own fal key (agent avatars first, then in-chat images). YUI-21 (Sep 24) already lets agents send images they made elsewhere.
-- YUI-35: nutrition demo: photo of a meal to macro estimate to a row in the macros table.
+- YUI-35: nutrition demo: photo of a meal to macro estimate to a row in the macros table. Step 1, the spec and a playground demo, shipped Sep 25 ([Meal photo to macros](/developers/meal), `/playground?demo=meal`); the app is YUI-103, after YUI-89.
 - YUI-36: optional encrypted sync of tables via the relay (off by default, on-device first per Chris).
 
 Dependencies: a decision on whether sync is needed at all for v1.
@@ -402,7 +402,8 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 - YUI-89: agent tables in the app, step 2 of YUI-33 (the spec and the playground shipped Sep 25): the phone's store, native views, the other parsers.
 - YUI-34: a key vault for your own fal, OpenRouter and Anthropic keys.
-- YUI-35: photo of a meal to a macro estimate to a row in your macros table.
+- YUI-35: photo of a meal to a macro estimate to a row in your macros table. Step 1 shipped Sep 25: [Meal photo to macros](/developers/meal), `/playground?demo=meal`.
+- YUI-103 (backlog): step 2 of YUI-35, the app: camera in the chat, the host's vision call, the save into the phone's meals table. After YUI-89.
 - YUI-36: optional encrypted sync for agent tables, off by default.
 - OSS-6: Yui@home, the machinery. An agent-ready backlog exported from the board, a weekly routine prompt for Claude, Codex, Gemini, Cursor and Copilot, and pull requests reviewed before merge.
 - YUI-77: group threads, several agents in one conversation (split from YUI-44; @mentions shipped in build 82). Step 1, the spec and a playground mock, shipped Sep 25 ([Group threads](/developers/groups): the agent you @ answers, else the lead; a handoff row between agents; a hop budget with a Let it / Stop here guard; a thread id of its own). Step 2, the database and the Hermes plugin, is on the app's main branch since Sep 25, after build 122, and rides the next build (YUI-93: group tables and routing live, hop budget, turn cap, Let it and Stop, host notes, channel guide v20 with a Groups section). Step 3 is YUI-94: the native app (New group sheet, the thread, the guard) and an end-to-end test, after 0.2.0.

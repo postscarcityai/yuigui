@@ -13,6 +13,7 @@ import { encodeYL, readYL } from "../../lib/share-code.mjs";
 import { GroupBefore, GroupHead, Guard, LOOKS, Turn } from "./group";
 import { ClientOpen, INVITE_VIEWS } from "./invite";
 import { RESTYLE_VIEWS, RestyleDemo } from "./restyle";
+import { mealReply } from "./meal";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA];
@@ -244,16 +245,20 @@ export default function Playground() {
 
   // The playground has no agent, so a tic-tac-toe move gets a stand-in
   // reply: the patch a real agent would send, through the agent console.
+  // The meal demo (spec/MEAL.md) gets a stand-in too: the estimate after a
+  // photo, the save after the fix. It needs the ids already on screen.
   const agentRef = useRef(null);
   agentRef.current = agentLine;
+  const idsRef = useRef(new Set());
+  idsRef.current = new Set(Object.values(state.screens).flat().map((n) => n.id).filter(Boolean));
   const emitFor = useCallback((node) => {
     const k = `${node.key}:${node.preset}:${node.seq}`;
     if (!emits.current.has(k)) {
       emits.current.set(k, (value) => {
         const ev = { id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) };
         setEvents((evs) => [{ dir: "user", t: new Date(), ev }, ...evs].slice(0, 40));
-        const reply = demoReply(ev);
-        if (reply) setTimeout(() => agentRef.current(reply), 700);
+        const reply = demoReply(ev) || mealReply(ev, idsRef.current);
+        if (reply) [].concat(reply).forEach((l, i) => setTimeout(() => agentRef.current(l), 700 + i * 250));
       });
     }
     return emits.current.get(k);
@@ -448,7 +453,7 @@ export default function Playground() {
                 ))}
               </div>
             ) : null}
-            <div className="pg-screen" style={client ? { display: "none" } : undefined}>
+            <div className={`pg-screen ${ALL[idx].meal && !shared ? "meal-demo" : ""}`} style={client ? { display: "none" } : undefined}>
               <ScreenCtx.Provider value={{ nodes, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, write: addData, agent, screen: shown, dispatch, fold, closeStage }}>
                 {group && shown === "1" ? <GroupBefore key={`gb:${epoch}`} items={group.before} onEvent={groupEvent} /> : null}
                 {group && shown === "1" ? (

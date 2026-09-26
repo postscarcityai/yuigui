@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 128,
-    "site": 310,
+    "site": 312,
     "builds": 29,
-    "shipped": 165,
-    "screenshots": 348
+    "shipped": 166,
+    "screenshots": 352
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T00:10:33.433Z",
+          "at": "2026-09-26T00:15:49.286Z",
+          "title": "Meal photo to macros, in the playground",
+          "card": "YUI-35",
+          "anchor": "meal-photo-to-macros-in-the-playground",
+          "images": [
+            {
+              "src": "/progress/yui35-ask-dark.webp",
+              "alt": "Coach asks for a photo of the meal, with three sample photos to pick from, dark mode"
+            },
+            {
+              "src": "/progress/yui35-estimate-light.webp",
+              "alt": "The estimate for a poke bowl: the photo, a note on how sure the guess is, and calorie and protein tiles, light mode"
+            },
+            {
+              "src": "/progress/yui35-estimate-dark.webp",
+              "alt": "The estimate for grilled salmon with its confidence note and macro tiles, dark mode"
+            },
+            {
+              "src": "/progress/yui35-saved-light.webp",
+              "alt": "After Save: today's totals and the meals logged today, light mode"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 128,
+            "site": 312,
+            "builds": 29,
+            "shipped": 166
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T00:11:24.000Z",
           "title": "What fast means for Yui, in milliseconds",
           "card": "YUI-98",
           "anchor": "what-fast-means-for-yui-in-milliseconds",
@@ -27,10 +59,10 @@
               "alt": "The same Speed panel in light mode."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 128,
-            "site": 310,
+            "site": 312,
             "builds": 29,
             "shipped": 165
           }
@@ -1904,6 +1936,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "66b9039",
+          "at": "2026-09-26T00:11:24.000Z",
+          "text": "Speed budget (YUI-98 step 1, PERF-1): spec/PERF.md and the Speed panel in the playground. Seven named intervals (keystroke_render,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/66b9039"
+        },
+        {
+          "repo": "site",
+          "sha": "9861270",
+          "at": "2026-09-26T00:10:30.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9861270"
+        },
         {
           "repo": "site",
           "sha": "2b4e39d",

@@ -707,4 +707,18 @@ query crm group=Stage sum=Value as chart bar x=Stage y=Value "Pipeline"
 query crm sort=Next cols=Name|Stage|Won as list check=Won "Mark a deal won"`,
     next: "put crm cedar Stage=Proposal Next=today+3",
   },
+  {
+    // Meal photo to macros (spec/MEAL.md, YUI-35 step 1). Pick a sample photo
+    // (or take one) and a stand-in agent answers with the estimate; fix the
+    // portion, tap Save, and the row lands in the meals table with today's totals.
+    name: "Meal photo to macros",
+    slug: "meal",
+    agent: "Coach",
+    meal: true,
+    yl: `table create meals Day:date Food:text Cal:number:kcal Protein:number:g Carbs:number:g Fat:number:g
+put meals Day=today Food="Greek yogurt" Cal=150 Protein=20 Carbs=8 Fat=4
+say "Snap your plate. I'll guess the macros, you fix what I got wrong, and it goes in your log."
+camera@plate "Snap your meal" +inline
+gallery@samples "No meal handy? Try one of mine" /demo/meal-pancakes.jpg|Pancakes /demo/meal-salmon.jpg|"Grilled salmon" /demo/meal-poke.jpg|"Poke bowl" layout=grid +pick max=1 submit="Use this photo"`,
+  },
 ];
