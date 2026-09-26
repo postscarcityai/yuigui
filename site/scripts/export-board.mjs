@@ -1,6 +1,7 @@
 // Exports the public Yui board from the local kanban DB (read-only) into content/board.json,
-// and rewrites the statuses in content/mvp.json. Run: node scripts/export-board.mjs [--check]
+// and rewrites the statuses in content/mvp.json. Run: node scripts/export-board.mjs [--check | --stdout]
 // --check exits 0 when nothing changed, 3 when board.json or mvp.json would change.
+// --stdout prints the board as it is right now and writes nothing (the war room's release panel, YUI-105).
 // The DB never leaves this machine: only titles, a one-line summary, dates and progress links are published.
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -10,6 +11,7 @@ import { PRIVATE_RE, LEAKS } from "../lib/public-guard.mjs";
 
 const DB = process.env.KANBAN_DB || `${homedir()}/.hermes/kanban.db`;
 const CHECK = process.argv.includes("--check");
+const STDOUT = process.argv.includes("--stdout");
 const content = (f) => new URL(`../content/${f}`, import.meta.url);
 const SHIPPED_DAYS = 30;
 
@@ -191,6 +193,8 @@ for (const [file, obj] of [["board.json", board], ["mvp.json", { cards: mvpCards
     if (hit) { console.error(`refusing to write ${file}: ${what} "${hit[0]}"`); process.exit(2); }
   }
 }
+
+if (STDOUT) { process.stdout.write(JSON.stringify(board) + "\n"); process.exit(0); }
 
 const strip = (o) => JSON.stringify({ ...o, updated: undefined });
 const oldBoard = (() => { try { return JSON.parse(readFileSync(content("board.json"), "utf8")); } catch { return {}; } })();

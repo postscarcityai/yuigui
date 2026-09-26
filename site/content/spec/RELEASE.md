@@ -1,6 +1,6 @@
 # Release timeline (WAR-1, YUI-90)
 
-Status: step 1 shipped Sep 25. This page says what the release panel shows and where each row comes from. The web draws it today from the board's own exports: `/playground?demo=release`. Step 2 puts it at the top of the war room on the phone and keeps it current with no agent turn.
+Status: steps 1 and 2 shipped (Sep 25, Sep 26). This page says what the release panel shows and where each row comes from. The web draws it from the board's own exports: `/playground?demo=release`. On the phone it is the top of the war room, kept current with no agent turn.
 
 Chris, Sep 25: "make this a totally dynamic, live update of the harness. This timeline should have really good real estate in the war room." Until now the release timeline was typed by hand in chat, and it was out of date by the next card that moved.
 
@@ -65,10 +65,11 @@ Nothing in this panel is typed by an agent. Two exports, both written by the boa
 
 Every line carries an id that lasts (YUI-75, YL.md section 5). When a card moves, the war room script builds the lines again and compares them to the page the phone has:
 
-- Only a line's props changed (a row went from next to now, a step turned done, a count went up): it sends `~rel-YUI-54 ...` patches. No page jump, no push, no agent turn. The plugin marks a patch-only reply quiet.
-- The layout changed (a card was added to the scope or left it, a new ship card opened, the on-main list grew or emptied): it sends the whole page again, saved as `war room`.
+- Only a line's props changed (a count went up, a card's title or a commit's words changed, a step's day or link filled in): it sends `~rel-scope ...` or `~rel-YUI-54 ...` patches. No page jump, no push, no agent turn. The plugin marks a patch-only reply quiet.
+- A row changed kind (a card went from next to now to done, a step turned done): the whole page again. A row's kind is its preset (YL.md, timeline), and a patch only sets props, so today no patch can move a row. A patch that can is a format change for a later card.
+- The layout changed (a card was added to the scope or left it, a new ship card opened, the on-main list grew or emptied): the whole page again, saved as `war room`.
 
-What triggers the refresh is step 2: the board sync runs it after an export that changed `release` or `next`, so a card moving on the board is on the phone within minutes, with no model call.
+The board sync (`yui_board_sync.sh`, every 30 minutes) runs the refresh after an export that changed `release` or `next`, so a card moving on the board is on the phone within half an hour, with no model call. Between 23:00 and 08:00 ET only patches go out: a full send pushes and brings the page forward, so it waits for the first sync after 08:00.
 
 ## 5. What the phone needs
 
@@ -81,4 +82,4 @@ Where it sits: the war room is screen 2 of Yui's thread. The release panel goes 
 ## 6. Steps
 
 - **Step 1 (YUI-90, Sep 25):** this page, the `release` block in the board export, `lib/release.mjs`, the live demo in the playground and See it, a link from /changelog.
-- **Step 2 (YUI-105):** the war room script sends the release panel at the top of screen 2 and the board sync calls its refresh when the release changes, so it patches in place with no agent turn.
+- **Step 2 (YUI-105, Sep 26):** `yui_war_room.py` puts the release panel first on screen 2, above Needs you. It runs `lib/release.mjs` itself, on a fresh board export (`export-board.mjs --stdout`, which writes nothing) and the newest builds.json, so the phone and the site draw the same lines. The board sync calls `--refresh --quiet-hours` when the release or `next` changed. Phones older than build 74 get no panel; older than 111, a full page on every change. Tests: `test_yui_war_room.py` (full send + patches lands on the same page as a fresh full send, through `yl.mjs`).
