@@ -300,9 +300,9 @@ calc Pendulum f="T = 2*pi*sqrt(L/g)" L=0.1-3@1m g=1.6-25@9.81m/s^2 unit=s
 calc "Carbon-14 left" f="N = N0*exp(-ln(2)*t/h)" t=0-30000@5730yr N0=100% h=5730yr unit=%
 ```
 
-### Groups: deck, plan, narrate, timeline, sketch
+### Groups: deck, plan, narrate, timeline, sketch, shapes
 
-Five presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
+Six presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
 
 | Head | Members | What the group is |
 |---|---|---|
@@ -311,6 +311,7 @@ Five presets are **group heads**. A group head collects the lines that follow it
 | `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
 | `timeline` | `done`, `now`, `next` | what has shipped, what is running, what is queued |
 | `sketch` | `row`, `after` | a small drawn picture: rows struck out, highlighted, called out |
+| `shapes` | `shape` | a small moving diagram: shapes, labels and arrows that come on one by one |
 
 **Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest in two places: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate. A `deck` or a `plan` can hold a `sketch` the same way: its `row` and `after` lines join the sketch, and the first line that is neither ends the sketch and is then checked against the deck or plan. The sketch is the picture of the page right before it (see sketch below).
 
@@ -463,6 +464,48 @@ row "Parked the drawing card in the backlog" +hi note="plain words"
 page "One idea per page"
 ```
 Why this shape: the pictures agents need to explain Yui (and most apps) are a frame with a few lines in it and marks on some of them. `image +edit` and `compare` need a real picture first; a `list` has no per-row marks; `custom` would make every agent draw its own. Marks are flags because they read as what they are (`+x`, `+hi`), cost one token and combine. The pair is one `after` line inside the group, not a second sketch, so the two frames always share a frame kind and sit together.
+
+#### shapes
+`shapes [title...] [caption=] [w=10] [h=6]`, then one `shape` per line. A small diagram that moves, so an agent can explain an idea in a few lines instead of a paragraph or a generated picture: circles, boxes, blobs and arrows that come on one after another, with a caption under them. It is drawn on the phone from the lines (no picture, no network, no compute), it sits in the chat at the width of a bubble, and it sends no events.
+- **The canvas** is `w` units wide and `h` tall [10 by 6], `0,0` at the top left; it draws at the width of the chat and keeps its shape. `w` runs 4 to 24 and `h` 2 to 16 (outside that is clamped).
+- **Title and caption.** The `title` is a small heading above the drawing; the `caption` is a line or two under it, the sentence that says what the picture means. Both optional; a diagram should nearly always have a caption.
+- **Colors** come from the agent's own look (section 4, theme), so a diagram matches the agent that sent it in light and dark.
+- **Order is the story.** Parts come on in line order, a beat apart (about a third of a second), each in its own way (motion, below). A diagram of eight parts is done in about three seconds; then it rests, apart from anything that pulses.
+- **Reduce Motion** (and anywhere that cannot animate: a printout, the Telegram picture) shows the finished drawing at once: every part in its last place, nothing pulsing.
+Props: `title`, `caption`, `w` [10], `h` [6].
+
+#### shape
+`shape KIND [label...] [at=x,y] [size=] [tone=] [+fill] [+dash] [motion]`. One part of the drawing. The first bare word is the `kind`, wherever it sits (as in `game`); the rest of the positional text is its `label`. An id goes on the head as always: `shape@you circle You`.
+- **Kinds.** Closed shapes sit somewhere: `circle`, `box` (rounded corners), `pill`, `dot` (small and always filled), `blob` (a soft organic outline, the same blob every time for the same line) and `text` (just the label). Connectors join two places: `line` and `arrow`. `path` is a free curve through points. Any other kind draws as a `box`, so kinds can be added later.
+- **Where closed shapes go.** `at=x,y` puts the shape's centre there. With no `at`, the closed shapes that have none share one row across the middle of the canvas, evenly spaced in line order, and shrink to fit if the row is crowded. So a diagram of three boxes and two arrows needs no numbers at all.
+- **Size.** `size=3,2` is 3 wide and 2 tall; `size=2` is a circle's diameter or a box's width (the height keeps the kind's proportions). Defaults: circle 2, box 3 by 2, pill 3 by 1.2, dot 0.5, blob 2.6 by 2.2.
+- **Labels** sit inside circles, boxes, pills and blobs, under a dot, and above the middle of a line, arrow or path. They are a few words; the caption carries the sentence.
+- **Connectors.** `from=` and `to=` are each a shape's id or a point `x,y`; an arrow starts and ends at the outlines of the shapes it joins, and follows them when they move. `at=` also works as the start point. With no `from` (or no `to`), a connector joins the closed shape written before it (or after it), so `shape box A`, `shape arrow`, `shape box B` is A to B. A connector with an end it cannot find is not drawn.
+- **Paths.** `pts=x,y|x,y|...` is a smooth curve through two or more points, open at both ends: a trend, a road, a loop the eye can follow.
+- **Tone** is `accent` [the default], `mint`, `lavender`, `butter`, `ink` or `mute`, all from the agent's look (`text` defaults to `ink`). `+fill` fills a closed shape with a soft wash of its tone; `+dash` draws the outline or line dashed (what is planned, optional, not there yet).
+- **Motion** is one of three flags plus a move. No flag: the shape fades in (lines, arrows and paths trace themselves on instead). `+draw` traces the outline on, then fills. `+grow` springs up from its centre. `+pulse` comes on, then breathes gently for as long as it is on screen: the one thing to look at, at most one or two per diagram. `move=x,y` glides the shape from `at` (or its place in the row) to `x,y` after it comes on, and its connectors follow.
+Props: `kind` [box], `label`, `at`, `size`, `from`, `to`, `pts`, `tone`, `fill`, `dash`, `draw`, `grow`, `pulse`, `move`. `pts` is always a list. `at`, `size`, `move`, `from` and `to` go out as written (`"2,3"`); renderers read the numbers.
+
+A `shape` outside a `shapes` group stands alone as a one-part drawing.
+```
+shapes "How an ask reaches the app" caption="You ask, it lands on the board, a lane builds it, and it ships to your phone."
+shape@you circle You +grow
+shape arrow
+shape box Board +fill
+shape arrow
+shape pill Lane +pulse
+shape arrow label=ships
+shape circle Phone tone=mint
+```
+```
+shapes "Where the time goes" w=10 h=5 caption="Most of a reply is the model thinking. The phone draws in a blink."
+shape@think blob Thinking at=3,2.5 size=4,3 tone=lavender +fill +grow
+shape@draw dot at=8,2.5 tone=mint
+shape text "drawing" at=8,3.4
+shape arrow from=think to=draw +dash
+shape path pts=1,4.6|3,4|5,4.4|7,3.8|9,4.2 tone=mute
+```
+Why this shape: agents need a picture of an idea (a flow, a loop, parts and how they join) more often than a picture of a thing, and a generated image costs a render, a wait and a network round trip for every small idea. A handful of shapes, one row by default and arrows that find their ends cover most of those pictures in a few short lines, and the order of the lines is the order the idea unfolds. `sketch` draws a screen, `chart` draws numbers, `flow` draws a branching form; `shapes` draws a thought. `custom` would make every agent invent its own, and SVG in a line would be long, fragile and unsafe.
 
 ### game
 `game KIND [title...]`. A small game the person plays on the phone, so an agent can put something playable on screen in one line. The first bare word (not quoted, not options, starting with a letter) is the `kind`, wherever it sits; the rest of the positional text is the `title`. Kinds are matched without case. A game opens on the stage (section 5) unless it says `+inline`, and like any component it can go to a page (`>2 game snake`), be saved and shown, and sit on the shelf. Every game event carries `kind`.
@@ -666,7 +709,7 @@ Errors come from two layers. The **parser** rejects a line on its own: an unknow
 
 What ships today is in `spec/TELEGRAM.md` (INT-4): `ask`, `choose` and `pick` as inline keyboards, text presets as text, and the rest in a Telegram Mini App that draws the whole screen. The mapping below is where it goes next.
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), and a `game` sends its title with a link to play it in Yui. A `menu` line sends nothing: Telegram has no drawer. Nor do `table create` and `put`, since the tables live on the phone; a `query` sends a link to open it in Yui. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), a `shapes` diagram sends its finished drawing as a picture with its title, its labels in order (connectors as arrows between them) and its caption as text, and a `game` sends its title with a link to play it in Yui. A `menu` line sends nothing: Telegram has no drawer. Nor do `table create` and `put`, since the tables live on the phone; a `query` sends a link to open it in Yui. Everything else degrades to its text plus a link to open it in Yui.
 
 **Browser.** Yui in a browser tab draws every preset with the playground's renderers and translates only what a tab cannot do like a phone (haptics, lock screen timers, push): `spec/BROWSER.md`.
 

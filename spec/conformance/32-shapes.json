@@ -1,0 +1,763 @@
+{
+  "version": "YL v0",
+  "area": "shapes",
+  "vectors": [
+    {
+      "name": "shapes: title and caption, shapes join it",
+      "input": "shapes \"How it flows\" caption=\"Asks land on the board.\"\nshape circle You\nshape arrow\nshape box Board",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "How it flows",
+            "caption": "Asks land on the board."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "circle",
+            "label": "You"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "kind": "arrow"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "in": "n1",
+          "props": {
+            "kind": "box",
+            "label": "Board"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shapes: no title, canvas size as numbers",
+      "input": "shapes w=12 h=4\nshape dot",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "w": 12,
+            "h": 4
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "dot"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: the kind is the first bare word, the rest is the label",
+      "input": "shape circle \"Your idea\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "circle",
+            "label": "Your idea"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: bare words after the kind join into the label",
+      "input": "shape pill Lane one",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "pill",
+            "label": "Lane one"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: the kind can sit after a quoted label",
+      "input": "shape \"Board\" box",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "box",
+            "label": "Board"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: a quoted first word is label text, the next bare word is the kind",
+      "input": "shape \"circle\" blob",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "blob",
+            "label": "circle"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: no kind at all (renderers draw a box)",
+      "input": "shape \"Just words\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "label": "Just words"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: an unknown kind still parses",
+      "input": "shape hexagon Six",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "hexagon",
+            "label": "Six"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: Circle keeps its case in props (renderers lower it)",
+      "input": "shape Circle",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "Circle"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: positions and sizes stay as written, a single number is a number",
+      "input": "shape box at=2,3 size=3,2 move=8,3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "box",
+            "at": "2,3",
+            "size": "3,2",
+            "move": "8,3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: size as one number",
+      "input": "shape circle size=2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "circle",
+            "size": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: connectors name ids or points",
+      "input": "shape arrow from=you to=8,3 label=ships",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "arrow",
+            "from": "you",
+            "to": "8,3",
+            "label": "ships"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: pts is always a list",
+      "input": "shape path pts=1,4|3,2|5,4",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "path",
+            "pts": [
+              "1,4",
+              "3,2",
+              "5,4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: one point in pts is still a list",
+      "input": "shape path pts=1,4",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "path",
+            "pts": [
+              "1,4"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: tone and every flag",
+      "input": "shape blob tone=lavender +fill +dash +draw +grow +pulse",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "blob",
+            "fill": true,
+            "dash": true,
+            "draw": true,
+            "grow": true,
+            "pulse": true,
+            "tone": "lavender"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: flags as keys, off stays false",
+      "input": "shape box fill=off pulse=on",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "box",
+            "fill": false,
+            "pulse": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape@id, then a patch ends the group",
+      "input": "shapes A\nshape@you circle You\n~you tone=mint\nshape box Late",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "you",
+          "in": "n1",
+          "props": {
+            "kind": "circle",
+            "label": "You"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "you",
+          "props": {
+            "tone": "mint"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "props": {
+            "kind": "box",
+            "label": "Late"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a say ends the shapes; a later shape stands alone",
+      "input": "shapes A\nshape circle\nsay Done.\nshape box",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "circle"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "Done."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "props": {
+            "kind": "box"
+          }
+        }
+      ]
+    },
+    {
+      "name": "end closes the shapes; a second end is an error",
+      "input": "shapes A\nshape circle\nend\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "circle"
+          }
+        },
+        {
+          "op": "end",
+          "screen": "1",
+          "target": "n1"
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "a new shapes ends the old one",
+      "input": "shapes A\nshape circle\nshapes B\nshape box",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "circle"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n3",
+          "props": {
+            "title": "B"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "in": "n3",
+          "props": {
+            "kind": "box"
+          }
+        }
+      ]
+    },
+    {
+      "name": "a shape routed to another screen ends the group and stands alone there",
+      "input": "shapes A\nshape circle\n>2 shape box",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "circle"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "shape",
+          "id": "n3",
+          "props": {
+            "kind": "box"
+          }
+        }
+      ]
+    },
+    {
+      "name": "comments, blanks and an error line keep the shapes open",
+      "input": "shapes A\n# note\n\nshape circle\nShape box\nshape arrow",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "circle"
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "kind": "arrow"
+          }
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "a sketch row can't join shapes, and a shape can't join a sketch",
+      "input": "shapes A\nrow Nope\nsketch B\nshape circle",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "row",
+          "id": "n2",
+          "props": {
+            "text": "Nope"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "sketch",
+          "id": "n3",
+          "props": {
+            "title": "B"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "props": {
+            "kind": "circle"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shapes can't join a deck",
+      "input": "deck Talk\npage One\nshapes A\nshape circle",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "deck",
+          "id": "n1",
+          "props": {
+            "title": "Talk"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "title": "One"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n3",
+          "props": {
+            "title": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "in": "n3",
+          "props": {
+            "kind": "circle"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shapes in capitals is an unknown preset",
+      "input": "Shapes A",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "streaming: each shape lands as its newline arrives",
+      "input": "shapes A caption=Hi\nshape circle You +grow\nshape arrow\nshape box Board",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "A",
+            "caption": "Hi"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "circle",
+            "label": "You",
+            "grow": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "kind": "arrow"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "in": "n1",
+          "props": {
+            "kind": "box",
+            "label": "Board"
+          }
+        }
+      ],
+      "chunks": [
+        "shapes A cap",
+        "tion=Hi\nshape circle You +grow\nsha",
+        "pe arrow\nshape bo",
+        "x Board"
+      ],
+      "emits": [
+        [],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "shapes",
+            "id": "n1",
+            "props": {
+              "title": "A",
+              "caption": "Hi"
+            }
+          },
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "shape",
+            "id": "n2",
+            "in": "n1",
+            "props": {
+              "kind": "circle",
+              "label": "You",
+              "grow": true
+            }
+          }
+        ],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "shape",
+            "id": "n3",
+            "in": "n1",
+            "props": {
+              "kind": "arrow"
+            }
+          }
+        ],
+        [],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "shape",
+            "id": "n4",
+            "in": "n1",
+            "props": {
+              "kind": "box",
+              "label": "Board"
+            }
+          }
+        ]
+      ]
+    }
+  ]
+}

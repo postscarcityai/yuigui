@@ -266,3 +266,11 @@
 .yl-sknote svg { flex: none; width: 22px; height: 12px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .yl-sknote span { overflow-wrap: anywhere; }
 .yl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* shapes (YUI-104): a small moving diagram with a caption under it. */
+.yl-shapes { display: flex; flex-direction: column; gap: 8px; }
+.yl-shtitle { font-size: 12px; font-weight: 800; color: var(--yl-ink2); }
+.yl-shsvg { display: block; width: 100%; height: auto; overflow: visible; cursor: pointer; }
+.yl-shlabel { fill: var(--yl-ink); font-weight: 700; font-family: inherit; }
+.yl-shlabel.sh-in { font-weight: 800; }
+.yl-shcap { margin: 0; font-size: 13px; line-height: 1.45; color: var(--yl-ink2); }

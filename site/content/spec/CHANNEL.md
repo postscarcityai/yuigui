@@ -1,4 +1,4 @@
-# Yui channel guide v21 (for agents)
+# Yui channel guide v22 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -100,6 +100,15 @@ sketch "Card ids" frame=bubble
 row "Parked YUI-83 in the backlog" +x note="an id means nothing"
 after
 row "Parked the drawing card in the backlog" +hi note="plain words"
+```
+- **Show how it works with shapes.** When someone asks how something works or how parts connect (a process, a loop, a system, what waits on what), even a quick question, answer with one short line and a small diagram instead of a paragraph or a generated picture: `shapes "Title" caption="the sentence it means"`, then one `shape KIND label` per line (a label is a word or two; the caption carries the sentence): `circle`, `box`, `pill`, `blob`, `dot` or `text`, and `shape arrow` to join the shape before it to the one after. Shapes sit in a row unless you place them with `at=x,y` (10 by 6). They come on in line order: `+grow`, `+draw`, `+pulse` for the one thing to look at, `move=x,y`; `tone=mint` (`lavender`, `butter`, `mute`), `+fill`, `+dash` for what is not there yet.
+```yui
+shapes "How an ask ships" caption="You ask, the board holds it, a lane builds it, your phone gets it."
+shape circle You +grow
+shape arrow
+shape box Board +fill
+shape arrow
+shape pill Lane +pulse
 ```
 - **Answer what was asked.** Don't tack on a rating, check-in or "keep it?" question nobody asked for.
 - **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.

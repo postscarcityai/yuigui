@@ -42,6 +42,7 @@ PRESETS = [
     "deck", "page", "plan", "project", "narrate",
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
+    "shapes", "shape",
     "game",
 ]
 # Not presets, but valid line heads.
@@ -56,6 +57,7 @@ GROUPS = {
     "narrate": ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
     "timeline": ["done", "now", "next"],
     "sketch": ["row", "after"],
+    "shapes": ["shape"],
 }
 
 # ---------- JS compatibility ----------
@@ -441,17 +443,22 @@ GAME_WORD = _re(r"[A-Za-z][A-Za-z0-9_-]*")
 GAMES = ["tictactoe", "snake", "memory"]
 
 
-def _game(pos):
-    """game KIND [title...]: the first bare word is the kind, wherever it sits."""
-    o, text = {}, []
-    for t in pos:
-        if "kind" not in o and not t.parts and not t.quoted and GAME_WORD.fullmatch(t.text):
-            o["kind"] = t.text
-        else:
-            text.append(t)
-    if text:
-        o["title"] = _join(text)
-    return o
+def _kinded(rest):
+    """KIND [text...]: the first bare word is the kind, wherever it sits; the rest is `rest`."""
+    def f(pos):
+        o, text = {}, []
+        for t in pos:
+            if "kind" not in o and not t.parts and not t.quoted and GAME_WORD.fullmatch(t.text):
+                o["kind"] = t.text
+            else:
+                text.append(t)
+        if text:
+            o[rest] = _join(text)
+        return o
+    return f
+
+
+_game = _kinded("title")
 
 
 def _image(pos):
@@ -586,6 +593,8 @@ P = {
     "timeline": _titled,
     "done": _row, "now": _row, "next": _row,
     "sketch": _titled,
+    "shapes": _titled,
+    "shape": _kinded("label"),
     "row": lambda pos: {"text": _join(pos)} if pos else {},
     "after": lambda pos: {"label": _join(pos)} if pos else {},
     "game": _game,
@@ -641,6 +650,7 @@ LISTS = {
     "project": ["facts", "next"],
     "pick": ["answer"],
     "game": ["items"],
+    "shape": ["pts"],
 }
 
 
@@ -1215,6 +1225,8 @@ _DEFAULTS = {
     "done": {"text": ""}, "now": {"text": ""}, "next": {"text": ""},
     "sketch": {"title": "", "frame": "window", "before": "Before"},
     "row": {"text": ""}, "after": {"label": "After"},
+    "shapes": {"title": "", "caption": "", "w": 10, "h": 6},
+    "shape": {"kind": "box", "label": ""},
     "game": {"title": "", "you": "x", "first": "you", "speed": 2, "size": 15, "pairs": 6, "items": []},
 }
 

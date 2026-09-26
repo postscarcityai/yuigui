@@ -10,6 +10,7 @@ import { Calc, Chart, DataTable, MathBlock, Stat, Steps } from "./science";
 import { LonePage, Project } from "./flows";
 import { LoneRow, Timeline } from "./timeline";
 import { LoneSketchRow, Sketch } from "./sketch";
+import { LoneShape, Shapes } from "./shapes";
 import { Game } from "./games";
 import { Flow } from "./flow";
 import { Query } from "./data";
@@ -827,6 +828,8 @@ const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, 
   sketch: ({ p }) => <Sketch g={{ group: { props: p }, members: [] }} />,
   row: LoneSketchRow,
   after: () => null,
+  shapes: ({ p }) => <Shapes g={{ group: { props: p }, members: [] }} />,
+  shape: LoneShape,
   game: Game,
   query: Query };
 

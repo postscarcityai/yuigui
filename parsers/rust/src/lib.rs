@@ -34,6 +34,7 @@ pub const PRESETS: &[&str] = &[
     "deck", "page", "plan", "project", "narrate",
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
+    "shapes", "shape",
     "game",
 ];
 /// Not presets, but valid line heads.
@@ -50,6 +51,7 @@ pub fn group_members(preset: &str) -> Option<&'static [&'static str]> {
         "narrate" => &["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
         "timeline" => &["done", "now", "next"],
         "sketch" => &["row", "after"],
+        "shapes" => &["shape"],
         _ => return None,
     })
 }
@@ -855,7 +857,8 @@ fn is_game_word(s: &str) -> bool {
 
 /// game KIND [title...]: the first bare word (not quoted, not options) is
 /// the kind, wherever it sits; the rest is the title.
-fn game(pos: &[&Token]) -> Map {
+/// shape KIND [label...] the same way, with `rest` "label".
+fn game(pos: &[&Token], rest: &str) -> Map {
     let mut o = Map::new();
     let mut text = Vec::new();
     for t in pos {
@@ -866,7 +869,7 @@ fn game(pos: &[&Token]) -> Map {
         }
     }
     if !text.is_empty() {
-        o.set("title", Value::Str(join_text(&text)));
+        o.set(rest, Value::Str(join_text(&text)));
     }
     o
 }
@@ -896,12 +899,13 @@ fn preset_props(preset: &str, pos: &[&Token]) -> Map {
         "chart" => chart(pos),
         "stat" => stat(pos),
         "step" => step(pos),
-        "calc" | "deck" | "plan" | "narrate" | "timeline" | "sketch" => all_text(pos, "title"),
+        "calc" | "deck" | "plan" | "narrate" | "timeline" | "sketch" | "shapes" => all_text(pos, "title"),
+        "shape" => game(pos, "label"),
         "page" => page(pos),
         "done" | "now" | "next" => timeline_row(pos),
         "row" => all_text(pos, "text"),
         "after" => all_text(pos, "label"),
-        "game" => game(pos),
+        "game" => game(pos, "title"),
         _ => Map::new(),
     }
 }
@@ -1049,6 +1053,7 @@ fn list_props(preset: &str) -> &'static [&'static str] {
         "project" => &["facts", "next"],
         "pick" => &["answer"],
         "game" => &["items"],
+        "shape" => &["pts"],
         _ => &[],
     }
 }
@@ -2067,6 +2072,8 @@ fn defaults(preset: &str) -> Map {
         "done" | "now" | "next" | "row" => vec![("text", s(""))],
         "sketch" => vec![("title", s("")), ("frame", s("window")), ("before", s("Before"))],
         "after" => vec![("label", s("After"))],
+        "shapes" => vec![("title", s("")), ("caption", s("")), ("w", n(10.0)), ("h", n(6.0))],
+        "shape" => vec![("kind", s("box")), ("label", s(""))],
         "game" => vec![("title", s("")), ("you", s("x")), ("first", s("you")), ("speed", n(2.0)), ("size", n(15.0)), ("pairs", n(6.0)), ("items", e())],
         _ => vec![],
     };

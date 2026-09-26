@@ -71,6 +71,7 @@
     "SOC-3": { "title": "Three marketing videos", "shipped": "2026-09-24" },
     "YUI-65": { "title": "War room timeline", "shipped": "2026-09-25" },
     "YUI-83": { "title": "Agents draw: sketch", "shipped": "2026-09-25" },
+    "YUI-104": { "title": "Shapes that move" },
     "YUI-66": { "title": "Drag the war room queue into your own order", "shipped": "2026-09-25" },
     "YUI-73": { "title": "The war room, built out", "shipped": "2026-09-25" },
     "YUI-67": { "title": "Links in a card open Safari", "shipped": "2026-09-25" },
@@ -163,6 +164,7 @@
         { "id": "narrate", "title": "narrate", "what": "A walkthrough the agent reads aloud, frame by frame.", "cards": ["YUI-18", "YUI-19"], "demo": "narrate-site", "agent": "Studio", "app": "native", "shots": ["/progress/yui18-narrate.webp"] },
         { "id": "timeline", "title": "timeline", "what": "What shipped, what is running, what is next: done rows, a Now line, then the queue. Older rows fold; a row with a link opens Safari.", "cards": ["YUI-65"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui65-timeline-light.webp", "/progress/yui65-timeline-dark.webp"] },
         { "id": "sketch", "title": "sketch", "what": "A small drawn picture: a window, phone or chat bubble with rows struck out, highlighted or called out with an arrow, and an optional before and after. Shows a change instead of describing it.", "cards": ["YUI-83"], "demo": "sketch-card-ids", "agent": "Yui", "app": "native", "shots": ["/progress/yui83-sketch-card-ids-light.webp", "/progress/yui83-sketch-buttons-dark.webp"] },
+        { "id": "shapes", "title": "shapes", "what": "A small diagram that moves: circles, boxes, blobs, labels and arrows that come on one after another, with a caption under it. Explains how something works in a few lines, drawn on the phone instead of generated.", "cards": ["YUI-104"], "demo": "shapes-ask", "agent": "Yui", "app": "later", "shots": ["/progress/yui104-shapes-ask-dark.webp", "/progress/yui104-shapes-picture-light.webp"] },
         { "id": "reorder", "title": "Drag the queue into your own order", "what": "Tap Edit order on a timeline and each queued row gets a drag handle; done and running rows stay put. Save sends the new order once. In the war room it lands straight on the board's priority, with no agent turn in between, and only the person who owns the agent can do it.", "cards": ["YUI-66"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui66-reorder-drag-light.webp", "/progress/yui66-reorder-edit-dark.webp", "/progress/yui66-reorder-saved.webp"] },
         { "id": "war-room", "title": "The war room", "what": "One screen to run a project from: what needs you (tap an answer and it lands on the card), what is running in each lane, the timeline, the newest builds with an Install button, the latest feedback and the card it became, and the MVP bar.", "cards": ["YUI-73"], "demo": "timeline-warroom", "agent": "Yui", "app": "native", "shots": ["/progress/yui73-needs-light.webp", "/progress/yui73-running-dark.webp", "/progress/yui73-builds-dark.webp", "/progress/yui73-mvp-light.webp"] }
       ]

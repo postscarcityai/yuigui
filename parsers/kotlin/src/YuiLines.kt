@@ -20,6 +20,7 @@ val PRESETS = listOf(
     "deck", "page", "plan", "project", "narrate",
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
+    "shapes", "shape",
     "game",
 )
 
@@ -35,6 +36,7 @@ val GROUPS = mapOf(
     "narrate" to listOf("page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"),
     "timeline" to listOf("done", "now", "next"),
     "sketch" to listOf("row", "after"),
+    "shapes" to listOf("shape"),
 )
 
 val CHART_TYPES = listOf("line", "bar", "area", "scatter", "pie", "donut")
@@ -343,13 +345,14 @@ private val GAME_WORD = rx("[A-Za-z][A-Za-z0-9_-]*")
 val GAMES = listOf("tictactoe", "snake", "memory")
 
 // game KIND [title...]: the first bare word is the kind, wherever it sits.
-private fun game(pos: List<Token>): Obj {
+// shape KIND [label...] the same way.
+private fun game(pos: List<Token>, rest: String = "title"): Obj {
     val o = Obj()
     val text = ArrayList<Token>()
     for (t in pos) {
         if (o["kind"] == null && t.parts == null && !t.quoted && GAME_WORD.test(t.text)) o["kind"] = t.text else text.add(t)
     }
-    if (text.isNotEmpty()) o["title"] = joinText(text)
+    if (text.isNotEmpty()) o[rest] = joinText(text)
     return o
 }
 
@@ -447,7 +450,8 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "chart" -> chart(pos)
     "stat" -> stat(pos)
     "step" -> step(pos)
-    "calc", "deck", "plan", "narrate", "timeline", "sketch" -> titled("title", pos)
+    "calc", "deck", "plan", "narrate", "timeline", "sketch", "shapes" -> titled("title", pos)
+    "shape" -> game(pos, "label")
     "row" -> titled("text", pos)
     "after" -> titled("label", pos)
     "done", "now", "next" -> row(pos)
@@ -505,6 +509,7 @@ private val LISTS = mapOf(
     "project" to listOf("facts", "next"),
     "pick" to listOf("answer"),
     "game" to listOf("items"),
+    "shape" to listOf("pts"),
 )
 
 private fun asList(v: Any?): List<String> = (if (v is List<*>) v else jsStr(v).split("|")).map { jsStr(it) }
@@ -985,6 +990,8 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "done" to mapOf("text" to ""), "now" to mapOf("text" to ""), "next" to mapOf("text" to ""),
     "sketch" to mapOf("title" to "", "frame" to "window", "before" to "Before"),
     "row" to mapOf("text" to ""), "after" to mapOf("label" to "After"),
+    "shapes" to mapOf("title" to "", "caption" to "", "w" to 10.0, "h" to 6.0),
+    "shape" to mapOf("kind" to "box", "label" to ""),
     "game" to mapOf("title" to "", "you" to "x", "first" to "you", "speed" to 2.0, "size" to 15.0, "pairs" to 6.0, "items" to emptyList<String>()),
 )
 

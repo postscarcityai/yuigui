@@ -1537,6 +1537,68 @@
         "max_words": 25
       },
       "good": "One `theme app autumn` line and one short sentence (the app shows a preview). Not `theme autumn` (that is the agent's own look), and it never says Yui already changed."
+    },
+    {
+      "id": "idea-shapes-heatpump",
+      "category": "idea",
+      "agent": "Urza",
+      "message": "How does a heat pump heat the house when it's cold outside? Quick, I'm on my phone.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "shapes",
+          "shape",
+          "say",
+          "card",
+          "sketch",
+          "row",
+          "after",
+          "deck",
+          "page",
+          "list",
+          "ask",
+          "choose",
+          "end",
+          "stat",
+          "chart"
+        ],
+        "need": [
+          "shapes"
+        ],
+        "max_words": 45
+      },
+      "good": "One short line and a `shapes` diagram with a caption: cold outside air, the refrigerant loop picking up heat and the compressor squeezing it hotter, heat let out inside, arrows between, labels a word or two. No paragraph, no generated image."
+    },
+    {
+      "id": "idea-shapes-flywheel",
+      "category": "idea",
+      "agent": "Urza",
+      "message": "Explain the flywheel idea for Yui in one picture: more people use it, we see which screens agents reach for, the good ones become presets, agents get better, more people use it.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "shapes",
+          "shape",
+          "say",
+          "card",
+          "sketch",
+          "row",
+          "after",
+          "deck",
+          "page",
+          "list",
+          "ask",
+          "choose",
+          "end",
+          "stat",
+          "chart"
+        ],
+        "need": [
+          "shapes"
+        ],
+        "max_words": 45
+      },
+      "good": "A `shapes` loop (placed with at= or a row with arrows back to the start) with a caption, maybe one +pulse. Words kept to a line."
     }
   ]
 }

@@ -39,6 +39,7 @@ export const PRESETS = [
   "deck", "page", "plan", "project", "narrate",
   "timeline", "done", "now", "next",
   "sketch", "row", "after",
+  "shapes", "shape",
   "game", "flow",
   "query",
 ];
@@ -55,6 +56,7 @@ export const GROUPS = {
   narrate: ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
   timeline: ["done", "now", "next"],
   sketch: ["row", "after"],
+  shapes: ["shape"],
 };
 
 const IDENT = /^[a-z_][\w-]*$/i;
@@ -453,6 +455,21 @@ const P = {
   row(pos) { return pos.length ? { text: joinText(pos) } : {}; },
   after(pos) { return pos.length ? { label: joinText(pos) } : {}; },
 
+  // shapes [title...] (caption= w= h=), then `shape KIND [label...]` lines:
+  // the first bare word is the kind, wherever it sits (as in game), the rest
+  // is the label. Positions stay as written (at=2,3); the renderer reads them.
+  shapes(pos) { return P.calc(pos); },
+  shape(pos) {
+    const o = {};
+    const text = [];
+    for (const t of pos) {
+      if (o.kind === undefined && !t.parts && !t.quoted && GAME_WORD.test(t.text)) o.kind = t.text;
+      else text.push(t);
+    }
+    if (text.length) o.label = joinText(text);
+    return o;
+  },
+
   // game KIND [title...]: the first bare word (not quoted, not options) is
   // the kind, wherever it sits; the rest is the title.
   game(pos) {
@@ -518,6 +535,7 @@ const LISTS = {
   project: ["facts", "next"],
   pick: ["answer"],
   game: ["items"],
+  shape: ["pts"],
 };
 const asList = (v) => (Array.isArray(v) ? v : String(v).split("|")).map((x) => (typeof x === "string" ? x : String(x)));
 // Highlight boxes: hl=x,y,w,h|x,y,w,h in percent of the image. A box that is
@@ -1463,6 +1481,13 @@ export function resolve(preset, props) {
       return { table: "", as: "table", title: "", where: [], sort: [], ...p };
     case "after":
       return { label: "After", ...p };
+    case "shapes":
+      return { title: "", caption: "", w: 10, h: 6, ...p };
+    case "shape": {
+      const r = { label: "", ...p };
+      r.kind = String(p.kind ?? "box").toLowerCase();
+      return r;
+    }
     case "game": {
       // Cells outside 1-9 are ignored, and a cell both marks claim is x's.
       const cells = (v) => [...new Set((v || []).filter((n) => Number.isInteger(n) && n >= 1 && n <= 9))];

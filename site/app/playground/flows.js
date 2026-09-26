@@ -10,6 +10,7 @@ import { GROUPS, resolve } from "../../lib/yl/yl.mjs";
 import { ScreenCtx } from "./science";
 import { Timeline } from "./timeline";
 import { Sketch } from "./sketch";
+import { Shapes } from "./shapes";
 
 const isVideo = (src) => /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src || "");
 const Media = ({ src, className }) => (isVideo(src)
@@ -532,6 +533,6 @@ export function Narrate({ g, emitFor, Render }) {
 }
 
 export function Group({ g, emitFor, Render }) {
-  const C = { deck: Deck, plan: Plan, narrate: Narrate, timeline: Timeline, sketch: Sketch }[g.group.preset];
+  const C = { deck: Deck, plan: Plan, narrate: Narrate, timeline: Timeline, sketch: Sketch, shapes: Shapes }[g.group.preset];
   return C ? <C g={g} emitFor={emitFor} Render={Render} /> : null;
 }
