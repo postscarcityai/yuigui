@@ -66,7 +66,7 @@ export default function Developers() {
 
       <h2>The pieces</h2>
       <ul>
-        <li><strong>Yui Lines.</strong> The wire format. <code>timer 40/20x8 Tabata</code> is a whole interval timer. One spec, one shared test suite, parsers in five languages (below).</li>
+        <li><strong>Yui Lines.</strong> The wire format. <code>timer 40/20x8 Tabata</code> is a whole interval timer. One spec, one shared test suite, parsers in five languages (below). While it works, an agent can say what it is doing in the working row with <code>doing</code> (<Link href="/yl#5-screens-patches-saved-screens">section 5</Link>).</li>
         <li><strong>The app.</strong> Native SwiftUI on iPhone. It draws every screen from a fixed set of presets built into the app.</li>
         <li><strong>The plugin.</strong> A Hermes platform plugin. It dials out to the relay, so your machine opens no ports, and each Hermes profile shows up as its own agent.</li>
         <li><strong>The relay.</strong> Supabase Realtime and a few edge functions carry messages both ways, hold them while either side is offline, and send a push when the app is closed.</li>
