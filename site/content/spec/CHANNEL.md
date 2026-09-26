@@ -1,4 +1,4 @@
-# Yui channel guide v22 (for agents)
+# Yui channel guide v23 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -100,6 +100,16 @@ sketch "Card ids" frame=bubble
 row "Parked YUI-83 in the backlog" +x note="an id means nothing"
 after
 row "Parked the drawing card in the backlog" +hi note="plain words"
+```
+In a `deck` or `plan`, a sketch right after a `page` is that page's picture:
+```yui
+deck "What changed"
+page "Plain words" body="Cards say what they are."
+sketch frame=bubble
+row "Parked YUI-83" +x
+row "Parked the drawing card" +hi
+end
+end
 ```
 - **Show how it works with shapes.** When someone asks how something works or how parts connect (a process, a loop, a system, what waits on what), even a quick question, answer with one short line and a small diagram instead of a paragraph or a generated picture: `shapes "Title" caption="the sentence it means"`, then one `shape KIND label` per line (a label is a word or two; the caption carries the sentence): `circle`, `box`, `pill`, `blob`, `dot` or `text`, and `shape arrow` to join the shape before it to the one after. Shapes sit in a row unless you place them with `at=x,y` (10 by 6). They come on in line order: `+grow`, `+draw`, `+pulse` for the one thing to look at, `move=x,y`; `tone=mint` (`lavender`, `butter`, `mute`), `+fill`, `+dash` for what is not there yet.
 ```yui
