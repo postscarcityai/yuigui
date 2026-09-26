@@ -92,11 +92,12 @@ export default function Nav() {
           </button>
         </div>
       </div>
+      {/* The page row does not prefetch (SITE-41): it fetched every page in the section on each load, up to a dozen on phone data. */}
       {here?.pages && (
         <nav aria-label={here.label} className="subnav">
           <div className="wrap" ref={subRef} data-more={edges || undefined}>
             {here.pages.map(([href, label]) => (
-              <Link key={href} href={href} aria-current={cur(href)}>{label}</Link>
+              <Link key={href} href={href} aria-current={cur(href)} prefetch={false}>{label}</Link>
             ))}
           </div>
         </nav>
