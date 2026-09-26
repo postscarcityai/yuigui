@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 150,
-    "site": 370,
+    "app": 153,
+    "site": 374,
     "builds": 32,
-    "shipped": 189,
-    "screenshots": 404
+    "shipped": 191,
+    "screenshots": 410
   },
   "days": [
     {
@@ -13,15 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T12:23:36.959Z",
+          "at": "2026-09-26T12:48:13.063Z",
+          "title": "Talk to your agents hands-free, read the answers",
+          "card": "YUI-14",
+          "anchor": "talk-to-your-agents-hands-free-read-the-answers",
+          "images": [
+            {
+              "src": "/progress/yui14-listening-light.webp",
+              "alt": "Hands-free listening: your words live in the bar with a waveform, and a stop button"
+            },
+            {
+              "src": "/progress/yui14-waiting-dark.webp",
+              "alt": "Sent: Yui is on it, and the mic opens again when the answer lands"
+            },
+            {
+              "src": "/progress/yui14-reading-light.webp",
+              "alt": "The answer landed: Your turn, mic back in a sec"
+            },
+            {
+              "src": "/progress/yui14-paused-dark.webp",
+              "alt": "Paused after a long quiet: tap to keep talking"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 153,
+            "site": 374,
+            "builds": 32,
+            "shipped": 191
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T12:45:12.000Z",
+          "title": "A full screen takes the keyboard down with it",
+          "card": "Feedback",
+          "anchor": "a-full-screen-takes-the-keyboard-down-with-it",
+          "images": [
+            {
+              "src": "/progress/fb-acbsyysz-before.webp",
+              "alt": "Before: a Tabata timer full screen with the keyboard still up over the bottom third"
+            },
+            {
+              "src": "/progress/fb-acbsyysz-after.webp",
+              "alt": "After: the same timer full screen, centered, no keyboard"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 152,
+            "site": 373,
+            "builds": 32,
+            "shipped": 190
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T12:23:40.000Z",
           "title": "Yui holds less in memory, and a test checks it before every release",
           "card": "YUI-100",
           "anchor": "yui-holds-less-in-memory-and-a-test-checks-it-before-every-release",
           "images": [],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 150,
-            "site": 370,
+            "site": 371,
             "builds": 32,
             "shipped": 189
           }
@@ -397,6 +453,55 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "1541916",
+          "at": "2026-09-26T12:47:11.000Z",
+          "text": "Hands-free UI tests, state screenshots, Mac voice timing script (YUI-14)",
+          "url": "https://github.com/postscarcityai/yui/commit/1541916"
+        },
+        {
+          "repo": "site",
+          "sha": "ed7afa8",
+          "at": "2026-09-26T12:46:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ed7afa8"
+        },
+        {
+          "repo": "site",
+          "sha": "843d99c",
+          "at": "2026-09-26T12:45:12.000Z",
+          "text": "Progress: a full screen takes the keyboard down with it (feedback ACbsyYSZ)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/843d99c"
+        },
+        {
+          "repo": "app",
+          "sha": "1652ba1",
+          "at": "2026-09-26T12:44:50.000Z",
+          "text": "A full screen takes the keyboard down with it; closing it leaves it down (feedback ACbsyYSZ)",
+          "url": "https://github.com/postscarcityai/yui/commit/1652ba1"
+        },
+        {
+          "repo": "site",
+          "sha": "326855e",
+          "at": "2026-09-26T12:41:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/326855e"
+        },
+        {
+          "repo": "app",
+          "sha": "da7338c",
+          "at": "2026-09-26T12:33:27.000Z",
+          "text": "Voice in, text out (YUI-14): SpeechAnalyzer, hands-free, talk or type per agent",
+          "url": "https://github.com/postscarcityai/yui/commit/da7338c"
+        },
+        {
+          "repo": "site",
+          "sha": "35b4eb2",
+          "at": "2026-09-26T12:23:40.000Z",
+          "text": "Progress: Yui holds less in memory, a ceiling test before every release (YUI-100)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/35b4eb2"
+        },
         {
           "repo": "app",
           "sha": "f2103c4",
