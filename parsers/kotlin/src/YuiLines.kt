@@ -39,6 +39,13 @@ val GROUPS = mapOf(
     "shapes" to listOf("shape"),
 )
 
+// A timeline's rows. A patch's `kind=` moves one to another of these.
+val ROWS = GROUPS.getValue("timeline")
+
+// Where the now marker sits among a timeline's row kinds, in line order:
+// before the first row that is not done, or after the last when all are done.
+fun markAt(kinds: List<String>): Int = kinds.indexOfFirst { it != "done" }.let { if (it < 0) kinds.size else it }
+
 val CHART_TYPES = listOf("line", "bar", "area", "scatter", "pie", "donut")
 val FIELD_TYPES = setOf("text", "long", "voice", "number", "email", "phone", "date", "time", "yes", "photo", "url")
 
@@ -825,6 +832,13 @@ class Parser(known: Map<String, String> = emptyMap()) {
                 ?: return err("patch: nothing called \"$target\"")
             if (preset == "custom") return err("patch: custom blocks are replaced, not patched")
             val props = if (preset in RAW) rawArgs(preset, body.substring(head.length)) else parseArgs(preset, tokens)
+            // A timeline row moves with `kind=` (YUI-111): done, now or next. The
+            // row keeps its id and place; from here on the id is that preset.
+            if (preset in ROWS && "kind" in props) {
+                val kind = props["kind"]
+                if (kind !is String || kind !in ROWS) return err("patch: kind= is done, now or next")
+                if (target !in ROWS) ids[target] = kind
+            }
             return op("op" to "patch", "screen" to screen, "target" to target, "props" to props, "line" to line)
         }
 
@@ -918,6 +932,22 @@ fun pageOf(screen: String?): Int {
 // Chat with a screen (spec section 5, Pages): the pages whose composer is on
 // after these ops, in number order. `talk` turns it on, `talk off` and `clear`
 // take it away; only pages 2 to 12 have one to turn on.
+// A timeline's rows after these ops land on an empty screen (YL.md section 4,
+// timeline, Moving a row): id to kind in line order. A patch lands on the
+// newest id or preset match; `kind=` re-kinds a row in place.
+fun timelineRows(ops: List<Op>): List<Pair<String, String>> {
+    val parts = mutableListOf<Array<String>>()
+    for (o in ops) {
+        if (o["op"] == "add") parts.add(arrayOf(o["id"] as String, o["preset"] as String))
+        if (o["op"] == "patch") {
+            val hit = parts.lastOrNull { o["target"] in it } ?: continue
+            val kind = (o["props"] as Map<*, *>)["kind"]
+            if (hit[1] in ROWS && kind is String && kind in ROWS) hit[1] = kind
+        }
+    }
+    return parts.filter { it[1] in ROWS }.map { it[0] to it[1] }
+}
+
 fun talking(ops: List<Op>): List<Int> {
     val on = sortedSetOf<Int>()
     for (o in ops) {

@@ -10,7 +10,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from yuilines import StreamParser, on_stage, page_of, parse, read_typed, talking, typed_body  # noqa: E402
+from yuilines import StreamParser, mark_at, on_stage, page_of, parse, read_typed, talking, timeline_rows, typed_body  # noqa: E402
 
 DEFAULT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "spec", "conformance")
 
@@ -67,6 +67,11 @@ def check(v):
         pages = [page_of(o["screen"]) for o in parse(v["input"], known) if o["op"] == "add"]
         if not same(pages, v["pages"]):
             fails.append(("pages (page of each add)", pages))
+    if v.get("rows") is not None:
+        rows = timeline_rows(parse(v["input"], known))
+        got = {"rows": [{"id": i, "kind": k} for i, k in rows], "mark": mark_at([k for _, k in rows])}
+        if not same(got, v["rows"]):
+            fails.append(("rows (timeline rows and the now marker)", got))
     if v.get("talk") is not None:
         on = talking(parse(v["input"], known))
         if not same(on, v["talk"]):

@@ -58,6 +58,12 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
         val pages = parse(input, known).filter { it["op"] == "add" }.map { pageOf(it["screen"] as String?).toDouble() }
         if (!same(pages, v["pages"])) fails.add("pages (page of each add)" to pages)
     }
+    if (v["rows"] != null) {
+        val rows = timelineRows(parse(input, known))
+        val got = mapOf("rows" to rows.map { mapOf("id" to it.first, "kind" to it.second) },
+            "mark" to markAt(rows.map { it.second }).toDouble())
+        if (!same(got, v["rows"])) fails.add("rows (timeline rows and the now marker)" to got)
+    }
     if (v["talk"] != null) {
         val on = talking(parse(input, known)).map { it.toDouble() }
         if (!same(on, v["talk"])) fails.add("talk (pages with the composer on)" to on)

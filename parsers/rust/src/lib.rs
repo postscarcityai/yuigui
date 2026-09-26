@@ -37,6 +37,15 @@ pub const PRESETS: &[&str] = &[
     "shapes", "shape",
     "game",
 ];
+/// A timeline's rows. A patch's `kind=` moves one to another of these.
+pub const ROWS: &[&str] = &["done", "now", "next"];
+
+/// Where the now marker sits among a timeline's row kinds, in line order:
+/// before the first row that is not done, or after the last when all are done.
+pub fn mark_at(kinds: &[&str]) -> usize {
+    kinds.iter().position(|k| *k != "done").unwrap_or(kinds.len())
+}
+
 /// Not presets, but valid line heads.
 pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu"];
 
@@ -1803,6 +1812,21 @@ impl Parser {
                 return Some(error(sc, "patch: custom blocks are replaced, not patched".into(), line));
             }
             let props = if is_raw(&preset) { raw_args(&preset, &body[head.len()..]) } else { parse_args(&preset, &tokens) };
+            // A timeline row moves with `kind=` (YUI-111): done, now or next. The
+            // row keeps its id and place; from here on the id is that preset.
+            if ROWS.contains(&preset.as_str()) {
+                if let Some(kind) = props.get("kind") {
+                    let Value::Str(k) = kind else {
+                        return Some(error(sc, "patch: kind= is done, now or next".into(), line));
+                    };
+                    if !ROWS.contains(&k.as_str()) {
+                        return Some(error(sc, "patch: kind= is done, now or next".into(), line));
+                    }
+                    if !ROWS.contains(&target.as_str()) {
+                        self.ids.insert(target.clone(), k.clone());
+                    }
+                }
+            }
             return Some(op(vec![
                 ("op", Value::str("patch")),
                 ("screen", Value::str(sc)),
@@ -1993,6 +2017,30 @@ pub fn page_of(screen: &str) -> u32 {
 /// Chat with a screen (spec section 5, Pages): the pages whose composer is on
 /// after these ops, in number order. `talk` turns it on, `talk off` and `clear`
 /// take it away; only pages 2 to 12 have one to turn on.
+/// A timeline's rows after these ops land on an empty screen (YL.md section 4,
+/// timeline, Moving a row): (id, kind) in line order. A patch lands on the
+/// newest id or preset match; `kind=` re-kinds a row in place.
+pub fn timeline_rows(ops: &[Value]) -> Vec<(String, String)> {
+    let mut parts: Vec<(String, String)> = Vec::new();
+    let text = |o: &Value, k: &str| o.get(k).and_then(Value::as_str).unwrap_or("").to_string();
+    for o in ops {
+        match o.get("op").and_then(Value::as_str) {
+            Some("add") => parts.push((text(o, "id"), text(o, "preset"))),
+            Some("patch") => {
+                let t = text(o, "target");
+                let kind = o.get("props").and_then(|p| p.get("kind")).and_then(Value::as_str);
+                if let (Some(hit), Some(k)) = (parts.iter_mut().rev().find(|p| p.0 == t || p.1 == t), kind) {
+                    if ROWS.contains(&hit.1.as_str()) && ROWS.contains(&k) {
+                        hit.1 = k.to_string();
+                    }
+                }
+            }
+            _ => {}
+        }
+    }
+    parts.into_iter().filter(|p| ROWS.contains(&p.1.as_str())).collect()
+}
+
 pub fn talking(ops: &[Value]) -> Vec<u32> {
     let mut on: Vec<u32> = Vec::new();
     for o in ops {

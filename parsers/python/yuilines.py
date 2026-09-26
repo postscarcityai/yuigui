@@ -60,6 +60,16 @@ GROUPS = {
     "shapes": ["shape"],
 }
 
+# A timeline's rows. A patch's `kind=` moves one to another of these.
+ROWS = GROUPS["timeline"]
+
+
+def mark_at(kinds):
+    """Where the now marker sits among a timeline's row kinds, in line order:
+    before the first row that is not done, or after the last when all are done."""
+    return next((i for i, k in enumerate(kinds) if k != "done"), len(kinds))
+
+
 # ---------- JS compatibility ----------
 # The reference is JavaScript, so whitespace, digits and "trim" follow JS
 # rules: \d and \w are ASCII, \s is the JS whitespace set.
@@ -1035,6 +1045,13 @@ class Parser:
             if preset == "custom":
                 return {"op": "error", "screen": screen, "message": "patch: custom blocks are replaced, not patched", "line": line}
             props = _raw_args(preset, body[len(head):]) if preset in RAW else parse_args(preset, tokens)
+            # A timeline row moves with `kind=` (YUI-111): done, now or next. The
+            # row keeps its id and place; from here on the id is that preset.
+            if preset in ROWS and "kind" in props:
+                if props["kind"] not in ROWS:
+                    return {"op": "error", "screen": screen, "message": "patch: kind= is done, now or next", "line": line}
+                if target not in ROWS:
+                    self.ids[target] = props["kind"]
             return {"op": "patch", "screen": screen, "target": target, "props": props, "line": line}
 
         if head in ("save", "show", "forget"):
@@ -1135,6 +1152,22 @@ def page_of(screen):
     if isinstance(screen, str) and screen.isdigit() and str(int(screen)) == screen and 2 <= int(screen) <= MAX_PAGE:
         return int(screen)
     return 1
+
+def timeline_rows(ops):
+    """A timeline's rows after these ops land on an empty screen (YL.md
+    section 4, timeline, Moving a row): [(id, kind)] in line order. A patch
+    lands on the newest id or preset match; `kind=` re-kinds a row in place."""
+    parts = []
+    for o in ops:
+        if o["op"] == "add":
+            parts.append([o["id"], o["preset"]])
+        elif o["op"] == "patch":
+            hit = next((p for p in reversed(parts) if o["target"] in p), None)
+            kind = o["props"].get("kind")
+            if hit and hit[1] in ROWS and kind in ROWS:
+                hit[1] = kind
+    return [(i, k) for i, k in parts if k in ROWS]
+
 
 def talking(ops):
     """Chat with a screen (YL.md section 5, Pages): the pages whose composer is

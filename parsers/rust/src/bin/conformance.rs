@@ -6,7 +6,7 @@
 use std::path::{Path, PathBuf};
 use std::{env, fs, panic, process};
 use std::collections::HashMap;
-use yuilines::{json, on_stage, page_of, parse_with, read_typed, talking, typed_body, Map, StreamParser, Value};
+use yuilines::{json, mark_at, on_stage, page_of, parse_with, read_typed, talking, timeline_rows, typed_body, Map, StreamParser, Value};
 
 /// Parser ops minus `line` and an error's `message`.
 fn normalize(ops: Vec<Value>) -> Value {
@@ -89,6 +89,29 @@ fn check(v: &Value) -> Vec<(&'static str, Value)> {
         let pages = nums(pages);
         if !same(&pages, want) {
             fails.push(("pages (page of each add)", pages));
+        }
+    }
+    if let Some(want) = v.get("rows") {
+        let rows = timeline_rows(&parse(input));
+        let kinds: Vec<&str> = rows.iter().map(|r| r.1.as_str()).collect();
+        let mut got = Map::new();
+        got.set(
+            "rows",
+            Value::Arr(
+                rows.iter()
+                    .map(|(id, kind)| {
+                        let mut r = Map::new();
+                        r.set("id", Value::str(id));
+                        r.set("kind", Value::str(kind));
+                        Value::Obj(r)
+                    })
+                    .collect(),
+            ),
+        );
+        got.set("mark", Value::Num(mark_at(&kinds) as f64));
+        let got = Value::Obj(got);
+        if !same(&got, want) {
+            fails.push(("rows (timeline rows and the now marker)", got));
         }
     }
     if let Some(want) = v.get("talk") {

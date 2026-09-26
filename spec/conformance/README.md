@@ -41,7 +41,7 @@ One file per area, `NN-area.json`:
 
 - `talk`: the pages whose composer is on after the whole input, in number order (YL.md section 5, Pages, chat with a screen). Checked against `talking` in JS, Python, Kotlin and Rust and `YuiLines.talking` in Swift.
 
-- `rows`: `{rows: [{id, kind}], mark}`, a timeline's rows after the whole input is applied to an empty screen (YL.md section 4, timeline, Moving a row): every `done`, `now` and `next` in line order with its kind, and `mark`, the index the now marker sits before. Checked against `apply` and `markAt` in JS. Rows moved with `kind=` (YUI-111) are JavaScript only in step 1: their vectors live in `js-33-row-kind.json` until the Swift, Python, Kotlin and Rust parsers learn it in step 2, when the file becomes `33-row-kind.json`.
+- `rows`: `{rows: [{id, kind}], mark}`, a timeline's rows after the whole input is applied to an empty screen (YL.md section 4, timeline, Moving a row): every `done`, `now` and `next` in line order with its kind, and `mark`, the index the now marker sits before. Checked against `apply` and `markAt` in JS, `timeline_rows` and `mark_at` in Python and Rust, `timelineRows` and `markAt` in Kotlin, and in Swift with `rowKind(of:patch:)` and `markAt` (YUI-111).
 
 - `typed`: `{screen, words, body}`, words typed on a screen (YL.md section 7). `typedBody(screen, words)` must give `body`, and `readTyped(body)` must give back `{screen, words}`, or nothing when the screen has no page. These vectors have an empty `input`.
 
