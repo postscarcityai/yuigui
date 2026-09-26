@@ -803,6 +803,16 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .start-byo { background: var(--raised); border: 1.5px solid var(--outline); border-radius: 18px; padding: 14px 18px; margin: 20px 0; }
 .start-byo p { margin: 0 0 10px; }
 .steps .card .start-tf { min-height: 44px; margin-top: 2px; }
+/* /start "Not on Hermes?" (SITE-46): one card per path, two columns on a wide screen */
+.start-paths { margin: 36px 0 8px; scroll-margin-top: 80px; }
+.start-paths .paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr)); gap: 16px; margin-top: 16px; }
+.start-paths .card { min-width: 0; scroll-margin-top: 80px; }
+.start-paths .card h3 { margin: 0 0 8px; font-size: var(--fs-h3); line-height: var(--lh-head); }
+.start-paths .card p { margin: 0; }
+.start-paths .card .cmd + p { margin-top: 10px; }
+.start-paths .cmd code { white-space: pre-wrap; overflow-wrap: anywhere; }
+.start-paths .card p code { background: var(--raised); padding: 1px 6px; border-radius: 6px; font-size: 14px; }
+.steps .card .thumbs { margin-top: 14px; }
 /* Links under a spec page's eyebrow (SITE-23): real buttons, 44px on a phone. */
 .doc-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
 .doc-links .btn { min-height: 44px; font-size: 15px; padding: 8px 18px; }
