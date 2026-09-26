@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T22:02:50.193Z",
+  "updated": "2026-09-26T22:11:04.432Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.2",
@@ -221,11 +221,6 @@
           "mvp": true
         },
         {
-          "key": "YUI-63",
-          "title": "Claude-shim agents send what they are doing to Yui mid-turn",
-          "step": "Step 3"
-        },
-        {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4"
@@ -242,12 +237,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "INT-7",
-          "title": "Claude adapter, MCP connector plus Yui screens as an MCP App",
-          "summary": "Yui in Claude, and Yui screens inside the chat",
-          "progress": "/progress#yui-in-claude-and-yui-screens-inside-the-chat"
-        },
-        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -262,13 +251,6 @@
           "key": "YUI-37",
           "title": "The hosted starter agent on Cloudflare",
           "step": "Step 2"
-        },
-        {
-          "key": "YUI-63",
-          "title": "The working row shows what the agent is doing, with a bar",
-          "step": "Step 2",
-          "summary": "It says what it is doing",
-          "progress": "/progress#it-says-what-it-is-doing"
         },
         {
           "key": "YUI-108",
@@ -314,14 +296,9 @@
           "waiting": true
         },
         {
-          "key": "SITE-52",
-          "title": "Yui 0.3.2 on the site, a release Thought and a See it group",
-          "summary": "Yui 0.3.2 on the site: the release post and See it",
-          "progress": "/progress#yui-0-3-2-on-the-site-the-release-post-and-see-it"
-        },
-        {
-          "key": "YUI-116",
-          "title": "The channel guide teaches loop and drums (backlog)"
+          "key": "YUI-63",
+          "title": "Claude-shim agents send what they are doing to Yui mid-turn",
+          "step": "Step 3"
         }
       ]
     },
@@ -329,6 +306,35 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-63",
+          "title": "The working row shows what the agent is doing, with a bar",
+          "step": "Step 2",
+          "summary": "It says what it is doing",
+          "shipped": "2026-09-26",
+          "progress": "/progress#it-says-what-it-is-doing"
+        },
+        {
+          "key": "INT-7",
+          "title": "Claude adapter, MCP connector plus Yui screens as an MCP App",
+          "summary": "Yui in Claude, and Yui screens inside the chat",
+          "shipped": "2026-09-26",
+          "progress": "/progress#yui-in-claude-and-yui-screens-inside-the-chat"
+        },
+        {
+          "key": "YUI-116",
+          "title": "The channel guide teaches loop and drums (backlog)",
+          "summary": "Agents send a beat",
+          "shipped": "2026-09-26",
+          "progress": "/progress#agents-send-a-beat"
+        },
+        {
+          "key": "SITE-52",
+          "title": "Yui 0.3.2 on the site, a release Thought and a See it group",
+          "summary": "Yui 0.3.2 on the site: the release post and See it",
+          "shipped": "2026-09-26",
+          "progress": "/progress#yui-0-3-2-on-the-site-the-release-post-and-see-it"
+        },
         {
           "key": "YUI-118",
           "title": "Short answers first, a status question gets one line, decks capped at 4 pages",

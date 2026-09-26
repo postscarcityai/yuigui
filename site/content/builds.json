@@ -903,6 +903,9 @@
     },
     {
       "text": "Channel guide v30: say what you're doing (YUI-63 step 2, yuigui 3ccea6b)"
+    },
+    {
+      "text": "Channel guide v31: agents send loop and drums (YUI-116, yuigui 44d7edd)"
     }
   ]
 }
