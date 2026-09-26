@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-26T05:40:43.481Z",
+  "updated": "2026-09-26T06:40:52.253Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
-    "status": "shipping",
+    "status": "shipped",
     "startedAt": "2026-09-26T05:16:02.000Z",
-    "shippedAt": null,
+    "shippedAt": "2026-09-26T06:25:29.000Z",
     "cards": [
       {
         "key": "YUI-99",
@@ -108,6 +108,15 @@
           "summary": "Top of the war room, patched in place when the board moves"
         },
         {
+          "key": "YUI-107",
+          "title": "Speed rows send once",
+          "summary": "A row key so a resent batch is ignored"
+        },
+        {
+          "key": "YUI-108",
+          "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)"
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -179,7 +188,13 @@
         {
           "key": "YUI-70",
           "title": "Agent controls in the drawer",
-          "summary": "Basic CRUD over soul, memory, skills, schedules"
+          "summary": "Agent controls, designed: change what your agent is made of",
+          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of"
+        },
+        {
+          "key": "YUI-70",
+          "title": "Step 2 (next)",
+          "summary": "Agent controls native in the drawer"
         }
       ]
     },
@@ -204,19 +219,13 @@
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
         },
         {
-          "key": "YUI-102",
-          "title": "Speed reporting, step 2 (native)",
-          "summary": "Yui now times itself: speed numbers from real phones, every day",
-          "progress": "/progress#yui-now-times-itself-speed-numbers-from-real-phones-every-day"
+          "key": "SITE-38",
+          "title": "The site catches up to Yui 0.3.0 (build 138 VALID)"
         },
         {
-          "key": "YUI-104",
-          "title": "Shapes that move",
-          "progress": "/progress#shapes-that-move"
-        },
-        {
-          "key": "YUI-106",
-          "title": "Send and drawer taps under 100 ms (YUI-101 follow-up)"
+          "key": "YUI-70",
+          "title": "Step 1",
+          "summary": "Agent controls spec, host protocol and playground mock"
         }
       ]
     },
@@ -224,6 +233,24 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-106",
+          "title": "Send and drawer taps under 100 ms (YUI-101 follow-up)",
+          "shipped": "2026-09-26"
+        },
+        {
+          "key": "YUI-102",
+          "title": "Speed reporting, step 2 (native)",
+          "summary": "Yui now times itself: speed numbers from real phones, every day",
+          "shipped": "2026-09-26",
+          "progress": "/progress#yui-now-times-itself-speed-numbers-from-real-phones-every-day"
+        },
+        {
+          "key": "YUI-104",
+          "title": "Shapes that move",
+          "shipped": "2026-09-26",
+          "progress": "/progress#shapes-that-move"
+        },
         {
           "key": "YUI-101",
           "title": "Telegram-smooth",
