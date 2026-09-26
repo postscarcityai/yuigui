@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T13:11:01.149Z",
+  "updated": "2026-09-26T13:40:08.114Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -192,12 +192,6 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "OSS-6",
-          "title": "Step 2 (backlog)",
-          "summary": "Yui@home runs every week: a routine for each agent",
-          "progress": "/progress#yui-home-runs-every-week-a-routine-for-each-agent"
-        },
-        {
           "key": "YUI-111",
           "title": "Step 3",
           "summary": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
@@ -205,8 +199,17 @@
         },
         {
           "key": "YUI-37",
+          "title": "Step 2 (backlog)",
+          "summary": "The hosted starter agent on Cloudflare"
+        },
+        {
+          "key": "YUI-40",
           "title": "Step 1",
-          "summary": "Starter agent spec, cost model and playground mock (no spend)"
+          "summary": "Widgets and Siri spec + playground mock (home screen, lock screen, Siri sheet)"
+        },
+        {
+          "key": "SITE-40",
+          "title": "See it catches up to build 148 (agent controls, talk about a setting, timeline rows that move)"
         }
       ]
     },
@@ -214,6 +217,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "OSS-6",
+          "title": "Step 2 (backlog)",
+          "summary": "Yui@home runs every week: a routine for each agent",
+          "shipped": "2026-09-26",
+          "progress": "/progress#yui-home-runs-every-week-a-routine-for-each-agent"
+        },
+        {
+          "key": "YUI-37",
+          "title": "Step 1",
+          "summary": "A starter agent, planned and priced",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-starter-agent-planned-and-priced"
+        },
         {
           "key": "YUI-14",
           "title": "Voice in, text out, smooth and fast",
