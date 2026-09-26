@@ -1,18 +1,19 @@
 # Yui
 
-> Yui is an open source iPhone app (Apache-2.0) where your AI agents answer with native screens instead of paragraphs: timers, forms, choices, cards. You bring the agent (Hermes, OpenClaw, or anything behind a webhook). Agents draw screens with Yui Lines, a short text format, one line per element. Yui is built in public: the roadmap, the board and the ship log are on this site.
+> Yui is an open source iPhone app (Apache-2.0) where your AI agents answer with native screens instead of paragraphs: timers, forms, choices, cards. You bring the agent: Hermes, OpenClaw, Claude Code, Cursor or another MCP client, an A2A or AG-UI agent, a model you run yourself, or anything behind a webhook. Agents draw screens with Yui Lines, a short text format, one line per element. Yui is built in public: the roadmap, the board and the ship log are on this site.
 
-Yui is in public beta on TestFlight for iPhone on iOS 26. The agent keeps running on the user's own computer; the app has no model of its own.
+Yui is in public beta on TestFlight for iPhone on iOS 26. The agent keeps running where it already runs, usually the user's own computer; the app has no model of its own.
 
 ## Get started
 
-- [Get started](https://www.yuigui.com/start): connect a Hermes agent in three steps
+- [Get started](https://www.yuigui.com/start): connect a Hermes agent in three steps, or another agent through its own way in
 - [What it does](https://www.yuigui.com/): the home page
 - [See it](https://www.yuigui.com/mockups): real screens, each drawn from a few lines
 
 ## Spec and developers
 
 - [Developers](https://www.yuigui.com/developers): how Yui works, parsers, adapters
+- [Where Yui stands](https://www.yuigui.com/developers/where-yui-stands): a SWOT with sources. What is new about Yui (the combination: a native iPhone app for agents you already run, a compact stateful line language, taps back to the agent) and what is not (27 years of prior art, A2UI, OpenUI). The token benchmark and its limits, and claims Yui does not make
 - [Yui Lines spec](https://www.yuigui.com/yl): the screen language
 - [Library](https://www.yuigui.com/developers/library): every screen preset and saved flow, drawn live. For agents: [library.json](https://www.yuigui.com/library.json) lists each one with its purpose, tags and ready-to-send Yui Lines, so you can search for a screen or a flow and send it as is
 - [Channel guide](https://www.yuigui.com/channel): what every agent on the Yui channel is told

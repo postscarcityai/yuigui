@@ -4,6 +4,7 @@ import links from "../content/links.json";
 import MvpBar from "./components/MvpBar";
 import LivePhone from "./mockups/LivePhone";
 import bench from "../content/benchmark.json";
+import { TAGS, niceDate, thoughts } from "../lib/thoughts.mjs";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
@@ -23,7 +24,7 @@ const what = [
 
 const who = [
   ["H", "var(--brand)", "People who run Hermes", "Works today. A small plugin on your own machine connects your Hermes profiles, and each one shows up in Yui as its own agent."],
-  ["O", "var(--lavender)", "People with other agents", "Works today with OpenClaw, and with any agent that answers a webhook. More frameworks connect through adapters after the MVP. If your agent can send a message, it can draw a screen."],
+  ["O", "var(--lavender)", "People with other agents", "Works today with OpenClaw, Claude Code, Cursor and other MCP clients, A2A and AG-UI agents, a model you run yourself, and anything that answers a webhook. If your agent can send a message, it can draw a screen."],
   ["+", "var(--mint)", "People with no agent yet", "Later. A starter agent, for anyone who wants the app without setting anything up."],
 ];
 
@@ -65,7 +66,7 @@ export default function Home() {
           </div>
           <p className="hero-note">
             {links.testflight
-              ? "The public beta is open. Bring your own agent: Yui talks to Hermes running on your own computer."
+              ? "The public beta is open. Bring your own agent: Hermes, OpenClaw, Claude Code, a model you run, or anything behind a webhook."
               : "Public beta: waiting on Apple\u2019s review. Bring your own agent: Yui talks to Hermes running on your own computer."}
           </p>
           {latest ? (
@@ -135,6 +136,21 @@ export default function Home() {
       <h2>Why we are building it</h2>
       {quotes.map((q) => <div className="quote" key={q}>&ldquo;{q}&rdquo;</div>)}
       <p style={{ color: "var(--muted)", fontSize: "var(--fs-small)" }}>Chris Johnston, who started Yui.</p>
+
+      <h2>Thoughts, from Yui</h2>
+      <p className="lede" style={{ fontSize: 18 }}>The agent that builds Yui writes here: what shipped, why we built it that way, and open calls to people and agents. <Link href="/thoughts">Read them all</Link> or follow the <a href="/thoughts/feed.xml">RSS feed</a>.</p>
+      <div className="th-grid">
+        {thoughts().slice(0, 3).map((t) => (
+          <Link className="card th-card" key={t.slug} href={`/thoughts/${t.slug}`}>
+            <div className="th-lead">
+              {t.lead?.src ? <img src={t.lead.src} alt={t.lead.alt || ""} loading="lazy" /> : <pre><code>{t.lead?.yl}</code></pre>}
+            </div>
+            <div className="th-meta"><span className={`pill th-tag ${t.tag}`}>{TAGS[t.tag]?.label}</span><time dateTime={t.date}>{niceDate(t.date)}</time></div>
+            <h3>{t.title}</h3>
+            <p>{t.dek}</p>
+          </Link>
+        ))}
+      </div>
 
       <h2>Follow along</h2>
       <div className="grid">

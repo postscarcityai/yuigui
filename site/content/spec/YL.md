@@ -765,7 +765,7 @@ What ships today is in `spec/TELEGRAM.md` (INT-4): `ask`, `choose` and `pick` as
 
 ## 11. Versioning
 
-This is v0. Adding presets and props is non-breaking: an old app shows an error line for an unknown preset and renders the rest. Changing what a positional means is breaking and bumps the version, which the relay handshake will carry (Phase 1 relay).
+This is v0. Adding presets and props is non-breaking: an app that does not know a preset folds that line into one quiet "Update Yui to see this" chip (from Yui 0.2.0) and renders the rest. Today the phone's app build is the version signal: `yui-connect`'s `session` gives every host `app_build`, and a host leaves out what that build cannot draw (RELAY.md, Min builds). Changing what a positional means is breaking: it bumps this version, and `session` will carry it next to the build.
 
 ## 12. Conformance
 

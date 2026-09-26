@@ -1,0 +1,134 @@
+/* Where Yui stands (/developers/where-yui-stands). Scoped here so the page never touches the shared stylesheet. */
+.jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 0; padding: 0; list-style: none; }
+.jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 999px; background: var(--raised); border: 1.5px solid var(--outline); color: var(--ink); font-weight: 700; font-size: 14px; }
+.jump a:hover { text-decoration: none; border-color: var(--brand); }
+
+.claim { margin: 32px 0 0; padding: 24px; border-radius: var(--r-card); background: var(--surface); border: 1.5px solid var(--outline); box-shadow: var(--shadow); }
+.claim h2 { margin: 0 0 10px; font-size: 24px; }
+.claim p { margin: 0; max-width: 70ch; }
+.claim p + p { margin-top: 10px; color: var(--muted); font-size: var(--fs-small); }
+
+/* SWOT: two by two on wide screens, one column on a phone. Each quadrant is named in text and colored by a top rule. */
+.swot { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.quad { background: var(--surface); border: 1.5px solid var(--outline); border-top-width: 6px; border-radius: var(--r-card); padding: 20px 22px; box-shadow: var(--shadow); }
+.quad h3 { margin: 0; font-size: 22px; display: flex; align-items: baseline; gap: 10px; }
+.quad h3 span { font-size: 13px; font-weight: 700; color: var(--muted); }
+.qS { border-top-color: var(--mint); }
+.qW { border-top-color: var(--butter); }
+.qO { border-top-color: var(--lavender); }
+.qT { border-top-color: var(--brand); }
+.letter { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; font-size: 18px; font-weight: 800; color: #2A2238; flex: none; align-self: center; }
+.qS .letter { background: var(--mint); }
+.qW .letter { background: var(--butter); }
+.qO .letter { background: var(--lavender); }
+.qT .letter { background: var(--brand); }
+.items { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 14px; }
+.items li { padding-top: 14px; border-top: 1.5px solid var(--outline); }
+.items li:first-child { border-top: 0; padding-top: 0; }
+.items h4 { margin: 0 0 4px; font-size: 17px; line-height: 1.35; }
+.items p { margin: 0; color: var(--muted); font-size: var(--fs-small); line-height: 1.55; }
+.items code { font-size: 14px; background: var(--raised); padding: 1px 6px; border-radius: 6px; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 8px; }
+.tag { font-size: 12px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; color: var(--ink); background: var(--raised); border: 1.5px solid var(--outline); border-radius: 999px; padding: 2px 10px; }
+.refs { font-size: 12px; color: var(--muted); }
+.refs a { color: var(--link); padding: 0 2px; }
+
+/* The ten screens as one person's day. */
+.app { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 32px; align-items: start; padding: 24px; background: var(--surface); border: 1.5px solid var(--outline); border-radius: var(--r-card); box-shadow: var(--shadow); }
+.appGroup + .appGroup { margin-top: 12px; }
+.appLabel { display: block; font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font: inherit; font-size: 14px; font-weight: 700; min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--raised); color: var(--ink); cursor: pointer; }
+.chip:hover { border-color: var(--brand); }
+.chip[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: var(--on-brand); }
+.appLines { margin: 18px 0 0; background: var(--raised); border: 1.5px solid var(--outline); border-radius: 14px; padding: 12px 14px; font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.appLines code { background: none; padding: 0; }
+.appNums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 12px 0 0; }
+.appNums div { background: var(--raised); border-radius: 14px; padding: 10px 12px; }
+.appNums dt { font-size: 12px; color: var(--muted); font-weight: 700; }
+.appNums dd { margin: 2px 0 0; font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.appNums div:first-child dd { color: var(--link); }
+.appNote { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+.appPhone { display: flex; justify-content: center; }
+.appPhone :global(.phone.sc-phone) { width: min(300px, 100%); height: 580px; }
+.totals { display: flex; flex-wrap: wrap; gap: 14px; margin: 16px 0 0; }
+.totals div { flex: 1 1 200px; background: var(--raised); border: 1.5px solid var(--outline); border-radius: 16px; padding: 12px 16px; }
+.totals b { display: block; font-size: 28px; font-weight: 800; line-height: 1.1; }
+.totals span { font-size: 14px; color: var(--muted); }
+.today { margin-top: 16px; }
+
+/* Layers: how a line becomes a screen and a tap comes back. */
+.layers { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; counter-reset: layer; }
+.layers li { position: relative; background: var(--surface); border: 1.5px solid var(--outline); border-radius: 20px; padding: 16px; }
+.layers li::before { counter-increment: layer; content: counter(layer); display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 999px; background: var(--butter); color: #2A2238; font-weight: 800; font-size: 14px; margin-bottom: 8px; }
+.layers h4 { margin: 0 0 4px; font-size: 16px; }
+.layers p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.5; }
+.layers p + p { margin-top: 8px; color: var(--ink); }
+.layers code { font-size: 13px; background: var(--raised); padding: 1px 5px; border-radius: 6px; overflow-wrap: anywhere; }
+
+/* Proof scorecard. */
+.wrapT { overflow-x: auto; margin: 12px 0; }
+.table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); min-width: 640px; }
+.table th, .table td { text-align: left; padding: 12px; border-bottom: 1.5px solid var(--outline); vertical-align: top; }
+.table th { color: var(--muted); font-weight: 700; font-size: 13px; }
+.table td:first-child { font-weight: 700; color: var(--ink); }
+.table tr.us td { background: var(--raised); }
+.meter { display: inline-flex; gap: 3px; vertical-align: middle; margin-right: 8px; }
+.meter i { width: 14px; height: 8px; border-radius: 3px; background: var(--outline); }
+.meter i.on { background: var(--link); }
+.level { white-space: nowrap; font-weight: 700; }
+
+/* Token bars: one series, so no legend; each bar carries its own label. */
+.bars { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
+.bar { display: grid; grid-template-columns: minmax(120px, 190px) minmax(0, 1fr); gap: 12px; align-items: center; }
+.barName { font-size: 14px; font-weight: 700; }
+.barTrack { position: relative; display: flex; align-items: center; gap: 10px; min-height: 28px; }
+.barFill { height: 20px; border-radius: 0 4px 4px 0; background: var(--lavender); flex: none; }
+.barYl .barFill { background: var(--brand); }
+.barVal { font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.barVal span { color: var(--muted); }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 20px; }
+.cols .card h3 { font-size: 18px; }
+.cols ul { margin: 8px 0 0; padding-left: 20px; color: var(--muted); font-size: var(--fs-small); }
+.cols li { margin: 6px 0; }
+
+/* Prior art timeline. */
+.line { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid var(--outline); }
+.line li { position: relative; padding: 0 0 18px 8px; }
+.line li::before { content: ""; position: absolute; left: -30px; top: 6px; width: 12px; height: 12px; border-radius: 999px; background: var(--surface); border: 2.5px solid var(--lavender); }
+.line li.yui::before { background: var(--brand); border-color: var(--brand); }
+.year { font-size: 13px; font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; }
+.line h4 { margin: 0; font-size: 17px; }
+.line p { margin: 2px 0 0; color: var(--muted); font-size: var(--fs-small); max-width: 70ch; }
+
+/* Six moves. */
+.moves { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); counter-reset: move; }
+.moves li { background: var(--surface); border: 1.5px solid var(--outline); border-radius: 20px; padding: 16px 18px; }
+.moves h4 { margin: 0 0 4px; font-size: 17px; display: flex; gap: 10px; align-items: center; }
+.moves h4::before { counter-increment: move; content: counter(move); display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 999px; background: var(--lavender); color: #2A2238; font-size: 14px; flex: none; }
+.moves p { margin: 0; color: var(--muted); font-size: var(--fs-small); }
+
+/* What we say. */
+.say { font-size: 20px; line-height: 1.5; font-weight: 700; background: var(--surface); border: 1.5px solid var(--brand); border-radius: var(--r-bubble) var(--r-bubble) var(--r-bubble) var(--r-tail); padding: 16px 20px; max-width: 760px; margin: 12px 0 20px; }
+.avoid { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.avoid li { background: var(--raised); border-radius: 16px; padding: 12px 16px; }
+.avoid s { font-weight: 800; color: var(--ink); text-decoration-thickness: 2px; text-decoration-color: var(--brand); }
+.avoid span { display: block; margin-top: 4px; font-size: 14px; color: var(--muted); }
+
+.sources { font-size: 14px; color: var(--muted); padding-left: 28px; }
+.sources li { margin: 6px 0; overflow-wrap: anywhere; scroll-margin-top: 90px; }
+.sources li:target { color: var(--ink); }
+.fine { font-size: 13px; color: var(--muted); max-width: 80ch; }
+
+@media (max-width: 860px) {
+  .app { grid-template-columns: 1fr; padding: 18px; }
+  .layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .swot, .cols { grid-template-columns: 1fr; }
+  .appNums { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .layers { grid-template-columns: 1fr; }
+  .bar { grid-template-columns: 1fr; gap: 4px; }
+  .quad { padding: 18px; }
+}
+.moves p.call { margin: 0 0 8px; }

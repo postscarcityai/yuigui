@@ -74,7 +74,7 @@ export function leadOf(ps) {
   if (!v) return null;
   if (v.kind === "shot") return { src: v.images[0].src, alt: v.images[0].alt };
   if (v.kind === "clip") return { src: v.poster, alt: v.caption, clip: true };
-  if (v.kind === "compare") { const s = v.after.src ? v.after : v.before; return s.src ? { src: s.src, alt: s.label } : { yl: v.after.text, alt: v.after.label }; }
+  if (v.kind === "compare") { const s = v.after.src ? v.after : v.before; return s.src ? { src: s.src, alt: s.label } : { yl: v.after.text.replaceAll("\\n", "\n"), alt: v.after.label }; }
   return { yl: v.yl, alt: v.caption };
 }
 

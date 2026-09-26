@@ -22,6 +22,7 @@ const cards = [
   ["/developers/mcp", "MCP server", "Claude Code, Cursor or any MCP client puts a screen on your phone with a tool call, and gets your taps back."],
   ["/developers/mcp#claude", "Claude", "Add Yui to Claude on the web, desktop or phone, Claude Code, or an Agent SDK agent. Where Claude draws MCP Apps, the screen shows in the chat too."],
   ["/developers/mcp#chatgpt", "ChatGPT", "Add Yui to ChatGPT in developer mode with one URL. The screen shows in the chat and on your phone, and a tap in either place answers."],
+  ["/developers/where-yui-stands", "Where Yui stands", "A SWOT with the data behind it: the token numbers and their limits, 27 years of prior art and the nearest systems."],
   ["/playground", "Playground", "Edit a line and watch the screen draw, in your browser. Includes the token benchmark."],
   ["/developers/values", "Values", "What makes a screen feel like Yui: one idea per page, type tells the story, draw it, don't describe it."],
   ["/yl", "Yui Lines spec", "The screen language: one short line per element, every preset and its options."],
@@ -88,8 +89,8 @@ export default function Developers() {
       <p>
         Hermes works today, and so do <Link href="/developers/openclaw">OpenClaw</Link> and anything that answers an HTTP
         POST, through the <Link href="/developers/webhook">webhook bridge</Link>. MCP clients like Claude Code and Cursor
-        use the <Link href="/developers/mcp">Yui MCP server</Link>, A2A agents join by their Agent Card, and a model you run
-        yourself joins through the model bridge (both below). More come
+        use the <Link href="/developers/mcp">Yui MCP server</Link>, A2A and AG-UI agents join by their Agent Card or URL, and a
+        model you run yourself joins through the model bridge (all three below). More come
         after the MVP. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
       </p>
 

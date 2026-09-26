@@ -4,7 +4,7 @@ import { specDocs } from "../lib/spec.mjs";
 import { shareItems } from "../lib/share.mjs";
 
 const base = "https://www.yuigui.com";
-const pages = ["/", "/mockups", "/roadmap", "/board", "/progress", "/changelog", "/timeline", "/developers", "/playground", "/developers/library", "/yl", "/channel", "/reactions", "/developers/specs", "/developers/community", "/contribute", "/earn", "/thoughts", "/business", "/start", "/help", "/privacy"];
+const pages = ["/", "/mockups", "/roadmap", "/board", "/progress", "/changelog", "/timeline", "/developers", "/developers/where-yui-stands", "/playground", "/developers/library", "/yl", "/channel", "/reactions", "/developers/specs", "/developers/community", "/contribute", "/earn", "/thoughts", "/business", "/start", "/help", "/privacy"];
 
 export default function sitemap() {
   return [

@@ -30,6 +30,11 @@ export default function Business() {
         How Yui plans to find its people, earn its keep and stay honest. Start with the one-page plan. The rest are working drafts, published as they are written.
       </p>
       <div className="grid">
+        <Link className="card" href="/developers/where-yui-stands">
+          <h3>Where Yui stands</h3>
+          <p>The SWOT, with the data behind every point. What is new, what is not, and what is left to prove.</p>
+          <p className="biz-key">Sep 26 2026</p>
+        </Link>
         {docs.map((d) => (
           <Link className="card" key={d.slug} href={`/business/${d.slug}`}>
             <h3>{cap(d.title.replace(/ \([A-Z]+-\d+\)$/, ""))}</h3>

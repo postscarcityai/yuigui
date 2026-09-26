@@ -1,16 +1,40 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 164,
-    "site": 412,
+    "app": 165,
+    "site": 413,
     "builds": 34,
-    "shipped": 211,
-    "screenshots": 460
+    "shipped": 212,
+    "screenshots": 462
   },
   "days": [
     {
       "date": "2026-09-26",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-26T18:06:07.000Z",
+          "title": "Help catches up with the app",
+          "card": "SITE-47",
+          "anchor": "help-catches-up-with-the-app",
+          "images": [
+            {
+              "src": "/progress/site47-help-phone-light.webp",
+              "alt": "yuigui.com/help on a phone in light mode: the new answers How do I reply to one message? and What is the menu button for?"
+            },
+            {
+              "src": "/progress/site47-help-phone-dark.webp",
+              "alt": "yuigui.com/help on a phone in dark mode: Why is there a dot on the menu button? and Can I talk instead of type?"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 164,
+            "site": 413,
+            "builds": 34,
+            "shipped": 212
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-26T17:47:53.000Z",
@@ -995,6 +1019,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "deec1f8",
+          "at": "2026-09-26T18:07:08.000Z",
+          "text": "Swift skips the flow vectors until the app runs flows (FLOW-1)",
+          "url": "https://github.com/postscarcityai/yui/commit/deec1f8"
+        },
+        {
+          "repo": "site",
+          "sha": "1276e84",
+          "at": "2026-09-26T18:06:07.000Z",
+          "text": "Help catches up with the app: hold to reply, the menu dot, voice; Developers links the working row (SITE-47)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1276e84"
+        },
         {
           "repo": "site",
           "sha": "5e281d0",
@@ -2681,7 +2719,7 @@
               "alt": "After Landing page instead, light: step 4 of 6, What should a visitor do first? Call, Book, Buy, Sign up, Read"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 104,
             "site": 265,

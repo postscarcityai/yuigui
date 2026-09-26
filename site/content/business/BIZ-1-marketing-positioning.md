@@ -8,6 +8,8 @@ Companion docs: [BIZ-3 revenue models and mission principles](https://www.yuigui
 
 - **One line:** Meet Yui, a generative user interface. (Chris picked it Sep 24 2026; it leads the site.)
 - **The line under it:** your agent stops describing things and starts showing them. A question becomes two buttons, a workout becomes a timer, a plan becomes a screen you can tap.
+- **The long line (Sep 26 2026):** "Yui gives your own AI agents a native screen on your phone. A compact, stateful language turns their instructions into useful controls, and your taps go back to the agent." Use it where there is room for two sentences: developer pages, launch posts, the App Store description.
+- **What we can defend:** the combination, not the ideas. An open source iPhone app for agents you already run, plus a stateful line language that turns one short instruction into a working native control, plus taps sent back to the agent. Each idea on its own has prior art; the package did not turn up in any system we surveyed. The SWOT and the data are on [Where Yui stands](https://www.yuigui.com/developers/where-yui-stands).
 - **Who first:** people who already run Hermes. Then OpenClaw and other self-hosted agent people. Then anyone with an AI subscription.
 - **What sets it apart:** your agent draws native iPhone screens, not web pages in a frame, and Hermes agents get a screen for the first time. Phone apps for self-hosted agents already exist (OpenClaw's own app, Hermex); agent-drawn native screens do not.
 - **What we are not:** another AI chatbot. Chat is the doorway, not the product.
@@ -77,9 +79,9 @@ Chris runs a small fleet of Hermes agents. One of them, Arnold, is his trainer. 
 
 **Who:** OpenClaw users (Chris's original early-adopter call in the pitch), plus people running other agent frameworks and MCP-capable agents.
 
-**Watch out:** OpenClaw has its own official app with agent-drawn widgets (in a webview). For this group the pitch is native quality and one app for all their agents, and it only lands once the adapter ships.
+**Watch out:** OpenClaw has its own official app with agent-drawn widgets (in a webview). For this group the pitch is native quality and one app for all their agents. The OpenClaw channel shipped Sep 24, so the pitch can be made now.
 
-**Why second:** the connector for non-Hermes agents (generic adapter, MCP server) is roadmap Phase 5. Promising it before it works would break the guardrail.
+**Why second:** Hermes came first and gets the deepest support (the build check, Controls). The OpenClaw channel, the webhook bridge, the MCP server and the A2A, AG-UI and model bridges shipped Sep 24 and 25, each checked live on its own. Frameworks beyond those are untested, so we name the ones that work and never say "any agent".
 
 **Message:** "Yui Lines is an open spec. Any agent that can write a line of text can drive a native screen."
 
@@ -90,6 +92,8 @@ Chris runs a small fleet of Hermes agents. One of them, Arnold, is his trainer. 
 **Why third:** they need a hosted agent and an onboarding interview (Phase 4). Until then Yui has nothing for them to talk to.
 
 **Message (later):** "A team of agents that know you, with screens that make sense on a phone."
+
+**The story for them (Sep 26 2026):** the super app they would build if they could. They ask for a workout timer, a food log and a way to book client calls, and the agent draws each piece on the fly from Yui's native presets. Today that is three apps or a developer. The benchmark's ten screens are exactly that day: 338 tokens to draw, 21 to reopen once saved. Keep the status honest next to it: the starter agent they need is designed, not built.
 
 **What we do now:** let them request an invite and watch the build. Do not market to them yet.
 
@@ -147,8 +151,12 @@ Most Hermes and OpenClaw users reach their agent through Telegram today. It is f
 1. "The first phone app for your self-hosted agent." OpenClaw, Hermex, Conduit and Onepilot exist.
 2. "The first app where agents draw UI on your phone." OpenClaw has done it since July, in a webview.
 3. "The most compact UI format." OpenUI Lang already sells on this and nobody has compared the two. Our own number is 1.6x against lean JSON.
-4. "Works with any agent." Today it is Hermes. OpenClaw and generic adapters are roadmap.
+4. "Works with any agent." As of Sep 26: Hermes, OpenClaw, webhook, MCP, A2A, AG-UI and a model bridge, each checked live on its own. AG-UI is checked on Agent Framework only; the other frameworks are untested.
 5. "Open source" as a differentiator. The repos went public on Sep 24 (Apache-2.0), but Hermex, OpenClaw, Happy and Conduit are open too.
+6. "The first universal UI," or first semantic UI, first compact streaming format, first cross-platform agent UI. UIML (1999), the Personal Universal Controller (2002) and SUPPLE (2004) came first, then v0, the AI SDK, A2UI and OpenUI.
+7. "The only compact streaming UI language." A2UI streams JSONL and OpenUI is a compact streaming language.
+8. "3.9x faster." The benchmark counts tokens, not time. No latency study exists yet.
+9. "Works natively on every device." Today it is iPhone. Mac, Watch, Android and A2UI interchange are roadmap until they ship.
 
 ### Risks from competitors
 
@@ -159,7 +167,7 @@ Most Hermes and OpenClaw users reach their agent through Telegram today. It is f
 
 ## Part 4 | Differentiators
 
-Only what survived the competitor check. In order of strength.
+Only what survived the competitor check. In order of strength. The Sep 26 comparison against A2UI, OpenUI, json-render, Tambo, AG-UI and MCP Apps, with a SWOT and a proof score for each claim, is on [Where Yui stands](https://www.yuigui.com/developers/where-yui-stands). Its verdict: the defensible edge is the integrated product, and the moat worth building is shown task performance and reach.
 
 1. **Native screens, not web pages.** Every product that ships agent-drawn UI on a phone today renders HTML in a webview: OpenClaw's widgets and dashboards, MCP Apps, ChatGPT apps, Claude and Gemini visuals, Telegram Mini Apps. Yui renders real SwiftUI: iOS navigation, haptics, Dynamic Type, VoiceOver, light and dark, streaming line by line as the agent writes. That is the claim we lead with. It has a clock on it (A2UI Swift), so we use the lead to win Hermes users, not to rest.
 2. **The only screen a Hermes agent can draw on.** Hermes has no generative UI of its own and no Hermes client lets the agent draw. Hermes is the largest agent community without an official phone app (248K GitHub stars). Yui plugs in as a Hermes platform, the same way Telegram does, so the agent keeps one brain and one memory across both.
@@ -182,17 +190,19 @@ Words we avoid: revolutionary, seamless, AI-powered, next-generation, supercharg
 
 ## Part 6 | Proof points we can show today
 
-Everything here exists as of Sep 24 2026. Nothing on this list is a promise.
+Everything here exists as of Sep 26 2026. Nothing on this list is a promise.
 
 | Proof | Where | Status |
 |---|---|---|
-| Native SwiftUI app on TestFlight, 14 builds in two days | TestFlight (internal group today; public link planned, card SITE-4) | Live, internal |
+| Native SwiftUI app on public TestFlight, with a dated log of every build | [yuigui.com/start](https://www.yuigui.com/start), [/changelog](https://www.yuigui.com/changelog) | Live |
 | Agents screen: add your own agents with a 6-digit pairing code, per-agent avatar and online dot | App build 14 | Live |
 | Yui Lines spec, open | [yuigui.com/yl](https://www.yuigui.com/yl) | Live |
 | Web playground: every preset clickable in the browser | [yuigui.com/playground](https://www.yuigui.com/playground) | Live |
-| Media presets: gallery, video, before/after compare, storyboard, image mark-up edit | Playground | Live on web, app next |
+| Media presets: gallery, video, before/after compare, storyboard, image mark-up edit | Playground and the app | Live |
 | Token benchmark with the honest split (1.6x vs lean JSON, 3.9x vs tree) | [yuigui.com/yl](https://www.yuigui.com/yl), `spec/BENCHMARK.md` | Live |
-| 198 parser test cases, shared conformance suite for web and Swift | `spec/conformance` | Live |
+| Over 600 shared conformance vectors; parsers in JavaScript, Swift, Python, Kotlin and Rust all pass them | `spec/conformance` | Live |
+| Channel eval: how often a model's screens parse and make sense, scored on every guide change | [yuigui.com/channel](https://www.yuigui.com/channel) | Live |
+| Ways in beyond Hermes: OpenClaw, webhook, MCP, A2A, AG-UI, a model you run | [yuigui.com/developers](https://www.yuigui.com/developers) | Live |
 | Dated build log, weekly update every Friday | [yuigui.com/progress](https://www.yuigui.com/progress) | Live |
 | Roadmap, business plan, business docs in the open | [yuigui.com/roadmap](https://www.yuigui.com/roadmap), [/business](https://www.yuigui.com/business) | Live |
 | Privacy page listing every table we hold | [yuigui.com/privacy](https://www.yuigui.com/privacy) | Live |

@@ -44,14 +44,16 @@ export default function Help() {
       <h3>Why does Yui have no agents when I sign in?</h3>
       <p>
         Yui brings no AI of its own. You connect an agent you already run, like a Hermes profile on your Mac or Linux
-        box. Tap <strong>Add your first agent</strong> and follow <a href="/start">the three steps</a>.
+        box, an OpenClaw agent, or Claude Code through the MCP server. Tap <strong>Add your first agent</strong> and follow{" "}
+        <a href="/start">the three steps</a>, or <a href="/start#not-on-hermes">the way in for your agent</a> if it is not Hermes.
       </p>
 
       <h3>My agent says &quot;Waiting to connect&quot; or &quot;Offline&quot;.</h3>
       <p>
-        The computer running the agent has to be on, with its Hermes gateway running. Pairing codes last 10 minutes and
-        work once: if yours ran out, tap <strong>Get a new code</strong> and run the pairing step again with it. After pairing, run{" "}
-        <code>hermes gateway restart</code> on that computer. Messages you send while it is offline wait and arrive when
+        The computer running the agent has to be on, with its Hermes or OpenClaw gateway, or its bridge, running. Pairing
+        codes last 10 minutes and work once: if yours ran out, tap <strong>Get a new code</strong> and run the pairing step
+        again with it. After pairing a Hermes agent, run <code>hermes gateway restart</code> on that computer. Messages you
+        send while it is offline wait and arrive when
         it comes back.
       </p>
 

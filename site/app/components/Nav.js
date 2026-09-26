@@ -16,7 +16,7 @@ export const sections = [
   },
   {
     href: "/developers", label: "Developers",
-    pages: [["/developers", "Overview"], ["/playground", "Playground"], ["/developers/library", "Library"], ["/yl", "Yui Lines"], ["/developers/specs", "Specs"], ["/channel", "Channel guide"], ["/developers/mcp", "MCP"], ["/developers/controls", "Controls"], ["/developers/talk-about", "Talk about this"], ["/reactions", "Reactions"], ["/developers/community", "Community"], ["/contribute", "Contribute"]],
+    pages: [["/developers", "Overview"], ["/developers/where-yui-stands", "SWOT"], ["/playground", "Playground"], ["/developers/library", "Library"], ["/yl", "Yui Lines"], ["/developers/specs", "Specs"], ["/channel", "Channel guide"], ["/developers/mcp", "MCP"], ["/developers/controls", "Controls"], ["/developers/talk-about", "Talk about this"], ["/reactions", "Reactions"], ["/developers/community", "Community"], ["/contribute", "Contribute"]],
   },
   { href: "/start", label: "Get Yui", cta: true },
 ];
