@@ -120,6 +120,20 @@ slide "Energy" 1-5 "Wiped"|"Fired up"
     next: "~choose +lock",
   },
   {
+    // The working row (spec/YL.md section 5, YUI-63 step 2): the doing lines
+    // take the working word's place while the turn runs, then the reply lands.
+    name: "The working row: the agent says what it is doing",
+    slug: "working",
+    agent: "Yui",
+    working: { me: "Plan my runs this week around the weather" },
+    yl: `doing "Reading your calendar" 1/3
+doing "Checking the weather" 2/3
+doing "Drafting the plan" 3/3
+say "Three runs fit. Thursday is dry, so the long one goes there."
+list "Mon easy 5k"|"Thu long 10k"|"Sat tempo 6k" +check
+choose "Put them on your calendar?" "Add all three"|"Just Thursday" +other`,
+  },
+  {
     // Group threads (spec/GROUPS.md, YUI-77 step 1): the lines are Sage's reply,
     // answering Coach's handoff. The rows above and the guard below are the app's.
     name: "Group thread: three agents, one handoff",

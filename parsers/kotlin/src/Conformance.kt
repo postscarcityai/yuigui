@@ -68,6 +68,10 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
         val on = talking(parse(input, known)).map { it.toDouble() }
         if (!same(on, v["talk"])) fails.add("talk (pages with the composer on)" to on)
     }
+    if (v.containsKey("doing")) {
+        val d = doingOf(parse(input, known))
+        if (!same(d, v["doing"])) fails.add("doing (the working row after the input)" to d)
+    }
     val typed = v["typed"] as Map<String, Any?>?
     if (typed != null) {
         val screen = typed["screen"] as String

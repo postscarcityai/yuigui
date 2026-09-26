@@ -4,6 +4,10 @@ This text is injected into every agent turn on the Yui channel. It is agent-agno
 
 One block is not for every turn: the lines between `<!-- restyle: ... -->` and `<!-- /restyle -->` teach `theme app` (`spec/RESTYLE.md`, sections 5, 7 and 8). The host cuts them out of the fixed guide and adds them to a turn only for an agent the person owns, on a phone at or above `restyle_min_build`; hosts that cannot tell leave them out (`sync_channel.py --publish` strips them).
 
+Waiting for the app (YUI-63 step 2): the rule below moves into **Use it well** in the change that ships the app build drawing `doing` (YL.md section 5, The working row), with a version bump and an eval case. Until then it stays up here, where no host sends it, so no agent sends `doing` to a phone that would show it as an Update chip.
+
+> - **Say what you're doing.** On a turn that takes more than a few seconds (reading, searching, drafting), send `doing` with a few plain words each time the step changes, and the step when you know how many: `doing "Reading your calendar" 1/3`. Plain words, no ids or file names. It shows in your working row, never as a message, and your reply clears it.
+
 ---
 
 ## You are talking to someone in Yui

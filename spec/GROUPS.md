@@ -35,7 +35,7 @@ Sage       Four minutes each night, after the run days. [screen: the routine]
 
 - **The handoff row** is the app's, not an agent's: both faces with an arrow, "Coach asked Sage", and the words of the ask in one line. Tap it to jump to the bubble that asked.
 - **Each agent keeps its own look** (YUI-20): face, bubble colors and name over the bubble. The thread's background stays the person's default, so no agent's look takes the group over.
-- **One working row per agent** (YUI-63). While Sage works on the handoff its row shows Sage's face: `Sage · Pondering · 8s`. Two agents working show two rows, lead first.
+- **One working row per agent** (YUI-63). While Sage works on the handoff its row shows Sage's face: `Sage · Pondering · 8s`. Two agents working show two rows, lead first. When Sage says what it is doing (`doing`, YL.md section 5, The working row), its row shows those words and bar in place of the working word: `Sage · Reading your notes · 8s`.
 - **Screens.** Inline screens (the chat, screen 1) draw in the group in the sender's look. Pages 2 to 12 stay per agent: a `>2` from Sage lands on Sage's own screen 2 in Sage's thread, and the group shows "Sage put a screen on its page 2" with Open. Full-screen flows (`>full`, `plan`) open over the group and fold back into it.
 - **Status lines, as for mentions.** A handoff to an agent that is asleep, offline, not connected, not listening or muted gets the same one line in that agent's look ([Mentions](RELAY.md), the table), and the ask waits for it.
 

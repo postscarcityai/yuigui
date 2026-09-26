@@ -26,7 +26,7 @@ val PRESETS = listOf(
 )
 
 // Not presets, but valid line heads.
-val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put")
+val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing")
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -748,6 +748,47 @@ private val MENU_WORD = rx("[\\w-]+")
 fun menuId(label: String): String =
     label.lowercase().replace(Regex("[^a-z0-9]+"), "-").trim('-').ifEmpty { "item" }
 
+// `doing "Reading your calendar" 2/5` (YL.md section 5, The working row): a few
+// words on what the agent is doing, and a bar when a last bare `n/m` says how
+// far along it is. `doing off` puts the working word back. Words and a step
+// only: keys and flags are errors.
+private val STEP = rx("(\\d+)/(\\d+)")
+
+private fun doingLine(screen: String, tokens: List<Token>, line: String): Op {
+    fun bad(msg: String) = op("op" to "error", "screen" to screen, "message" to "doing: $msg", "line" to line)
+    if (tokens.size == 1 && !tokens[0].quoted && tokens[0].raw == "off") {
+        return op("op" to "doing", "screen" to screen, "props" to linkedMapOf<String, Any?>("off" to true), "line" to line)
+    }
+    if (tokens.any { it.key != null || (!it.quoted && it.parts == null && FLAG.test(it.raw)) }) return bad("takes words and a step like 2/5, no keys or flags")
+    val last = tokens.lastOrNull()
+    val sm = if (last != null && !last.quoted && last.parts == null) STEP.matchEntire(last.raw) else null
+    val words = if (sm != null) tokens.dropLast(1) else tokens
+    val text = words.map { it.text }.filter { it.isNotEmpty() }.joinToString(" ")
+    if (text.isEmpty() && sm == null) return bad("needs words, a step like 2/5, or off")
+    val props = linkedMapOf<String, Any?>()
+    if (text.isNotEmpty()) props["text"] = text
+    if (sm != null) {
+        val step = sm.groupValues[1].toDouble()
+        val of = sm.groupValues[2].toDouble()
+        if (of < 1 || step > of) return bad("the step is n/m with n from 0 to m")
+        props["step"] = step
+        props["of"] = of
+    }
+    return op("op" to "doing", "screen" to screen, "props" to props, "line" to line)
+}
+
+// The working row after these ops: the newest doing, or null when there is
+// none or the last one was `doing off`.
+fun doingOf(ops: List<Op>): Map<String, Any?>? {
+    var now: Map<String, Any?>? = null
+    for (o in ops) {
+        if (o["op"] != "doing") continue
+        val p = o["props"] as Map<String, Any?>
+        now = if (p["off"] == true) null else LinkedHashMap(p)
+    }
+    return now
+}
+
 private fun menuLine(screen: String, tokens: List<Token>, line: String): Op {
     fun bad(msg: String) = op("op" to "error", "screen" to screen, "message" to msg, "line" to line)
     if (tokens.isEmpty()) return bad("menu: needs review, backlog, shortcut or done")
@@ -838,7 +879,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
     private fun group(o: Op?): Op? {
         // theme restyles the app, menu fills the drawer and a data line (table
         // create, put) writes to the phone, not the screen: they leave groups alone.
-        if (o == null || o["op"] in listOf("error", "theme", "menu", "table", "put")) return o
+        if (o == null || o["op"] in listOf("error", "theme", "menu", "table", "put", "doing")) return o
         if (o["op"] == "close") { open.clear(); return o }
         if (o["op"] == "end") {
             if (open.isEmpty()) return op("op" to "error", "screen" to o["screen"], "message" to "end: no open deck, plan, narrate, timeline or sketch", "line" to o["line"])
@@ -948,6 +989,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
                 if (word != "on" && word != "off") return err("talk: takes nothing, on or off")
                 return op("op" to "talk", "screen" to screen, "props" to linkedMapOf<String, Any?>("on" to (word == "on")), "line" to line)
             }
+            "doing" -> return doingLine(screen, tokens, line)
         }
 
         // Agent tables (spec/TABLES.md): `table create` and `put` write to the phone.

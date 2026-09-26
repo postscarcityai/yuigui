@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import { apply, attachBody, flowEvent, flowPath, initialState, markAt, menuOf, onStage, pageOf, parse, readAttach, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
+import { apply, attachBody, doingOf, flowEvent, flowPath, initialState, markAt, menuOf, onStage, pageOf, parse, readAttach, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 import { emptyStore, query, replay } from "../../site/lib/yl/tables.mjs";
 import { appLook, checks } from "../../site/lib/yl/look.mjs";
 
@@ -48,6 +48,10 @@ function check(v) {
   if (v.talk) {
     const on = talking(parse(v.input, known));
     if (!isDeepStrictEqual(on, v.talk)) fails.push(["talk (pages with the composer on)", on]);
+  }
+  if (v.doing !== undefined) {
+    const d = doingOf(parse(v.input, known));
+    if (!isDeepStrictEqual(d, v.doing)) fails.push(["doing (the working row after the input)", d]);
   }
   if (v.menu) {
     const m = menuOf(parse(v.input));

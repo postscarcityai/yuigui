@@ -19,6 +19,7 @@ import { ONDEVICE_VIEWS, OnDeviceDemo } from "./ondevice";
 import { VAULT_VIEWS, VaultDemo } from "./vault";
 import { SYNC_VIEWS, SyncDemo } from "./sync";
 import { mealReply } from "./meal";
+import { WorkingRow, useWorkingTurn } from "./working";
 import { starterReply } from "./starter";
 import "./flows.css";
 
@@ -109,6 +110,9 @@ export default function Playground({ release = "" }) {
   // Encrypted sync (spec/SYNC.md): Settings > Sync, pairing by QR, devices, turn off.
   const sync = shared ? null : ALL[idx].sync;
   const [syncView, setSyncView] = useState("sync");
+  // The working row (YL.md section 5): the turn plays, `doing` lines in the row, then the reply.
+  const working = shared ? null : ALL[idx].working;
+  const [turn, playTurn] = useWorkingTurn(text, working ? idx : null);
   const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync;
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
@@ -487,6 +491,9 @@ export default function Playground({ release = "" }) {
               ⤢ Full screen · {staged.length}
             </button>
           ) : null}
+          {working ? (
+            <button className="pg-tab" onClick={playTurn} disabled={!!turn}>{turn ? "Working..." : "↻ Play the turn"}</button>
+          ) : null}
           <button className="pg-tab" onClick={() => {
             const url = new URL(window.location.href);
             if (light) url.searchParams.delete("theme"); else url.searchParams.set("theme", "light");
@@ -529,6 +536,17 @@ export default function Playground({ release = "" }) {
                     {groupNodes(nodes).flatMap((n) => [renderNode(n), ...pillAt(n.key).map(pill)])}
                     {pills.filter((p) => p.end).map(pill)}
                   </Turn>
+                ) : working && shown === "1" ? (
+                  <>
+                    <div className="yl-me">{working.me}</div>
+                    {turn ? <WorkingRow agent={agent} color={COLORS[agent] || "var(--accent)"} doing={turn.doing} secs={turn.secs} /> : (
+                      <>
+                        {pillAt(null).map(pill)}
+                        {groupNodes(nodes).flatMap((n) => [renderNode(n), ...pillAt(n.key).map(pill)])}
+                        {pills.filter((p) => p.end).map(pill)}
+                      </>
+                    )}
+                  </>
                 ) : (
                   <>
                     {pillAt(null).map(pill)}

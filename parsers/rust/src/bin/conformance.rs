@@ -6,7 +6,7 @@
 use std::path::{Path, PathBuf};
 use std::{env, fs, panic, process};
 use std::collections::HashMap;
-use yuilines::{json, mark_at, on_stage, page_of, parse_with, read_typed, resolve, tables, talking, timeline_rows, typed_body, Map, StreamParser, Value};
+use yuilines::{doing_of, json, mark_at, on_stage, page_of, parse_with, read_typed, resolve, tables, talking, timeline_rows, typed_body, Map, StreamParser, Value};
 
 /// Parser ops minus `line` and an error's `message`.
 fn normalize(ops: Vec<Value>) -> Value {
@@ -118,6 +118,12 @@ fn check(v: &Value) -> Vec<(&'static str, Value)> {
         let on = nums(talking(&parse(input)));
         if !same(&on, want) {
             fails.push(("talk (pages with the composer on)", on));
+        }
+    }
+    if let Some(want) = v.get("doing") {
+        let d = doing_of(&parse(input)).unwrap_or(Value::Null);
+        if !same(&d, want) {
+            fails.push(("doing (the working row after the input)", d));
         }
     }
     if let Some(t) = v.get("typed") {

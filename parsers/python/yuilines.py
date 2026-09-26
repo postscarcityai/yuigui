@@ -16,6 +16,8 @@ One line in, one op out. Ops are dicts:
                                                   `theme app ...`: props.scope "app", a restyle of Yui's own chrome
   {"op": "close", "screen": "full", "line"}       `close` or bare ">chat"
   {"op": "talk",  "screen", "props": {"on"}, "line"}  `>2 talk`: page 2 keeps the composer
+  {"op": "doing", "screen", "props": {"text"?, "step"?, "of"?}, "line"}  what the agent is doing,
+                                                  in the working row (`doing off`: props {"off": True})
   {"op": "menu",  "screen", "id", "props": {"bucket", "label", ...}, "line"}  an item in the drawer
   {"op": "error", "screen", "message", "line"}
 `props` holds only what the line actually said. Defaults live in resolve().
@@ -47,7 +49,7 @@ PRESETS = [
     "query",
 ]
 # Not presets, but valid line heads.
-CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put"]
+CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing"]
 
 # Groups: a group head collects the lines that follow it on the same screen,
 # as long as each one is a member preset. Anything else ends the group, and
@@ -953,6 +955,44 @@ def menu_id(label):
     return re.sub(r"[^a-z0-9]+", "-", label.lower()).strip("-") or "item"
 
 
+STEP = _re(r"(\d+)/(\d+)")
+
+
+def _doing_line(screen, tokens, line):
+    """`doing "Reading your calendar" 2/5` (YL.md section 5, The working row):
+    a few words on what the agent is doing, and a bar when a last bare `n/m`
+    says how far along it is. `doing off` puts the working word back. Words
+    and a step only: keys and flags are errors."""
+    def bad(m):
+        return {"op": "error", "screen": screen, "message": f"doing: {m}", "line": line}
+    if len(tokens) == 1 and not tokens[0].quoted and tokens[0].raw == "off":
+        return {"op": "doing", "screen": screen, "props": {"off": True}, "line": line}
+    if any(t.key is not None or (not t.quoted and not t.parts and FLAG.fullmatch(t.raw)) for t in tokens):
+        return bad("takes words and a step like 2/5, no keys or flags")
+    last = tokens[-1] if tokens else None
+    sm = STEP.fullmatch(last.raw) if last and not last.quoted and not last.parts else None
+    words = tokens[:-1] if sm else tokens
+    text = " ".join(t.text for t in words if t.text)
+    if not text and not sm:
+        return bad("needs words, a step like 2/5, or off")
+    props = {"text": text} if text else {}
+    if sm:
+        props["step"], props["of"] = int(sm.group(1)), int(sm.group(2))
+        if props["of"] < 1 or props["step"] > props["of"]:
+            return bad("the step is n/m with n from 0 to m")
+    return {"op": "doing", "screen": screen, "props": props, "line": line}
+
+
+def doing_of(ops):
+    """The working row after these ops: the newest doing, or None when there
+    is none or the last one was `doing off`."""
+    now = None
+    for o in ops:
+        if o and o["op"] == "doing":
+            now = None if o["props"].get("off") else dict(o["props"])
+    return now
+
+
 def _menu_line(screen, tokens, line):
     def bad(message):
         return {"op": "error", "screen": screen, "message": message, "line": line}
@@ -1061,9 +1101,10 @@ class Parser:
 
     def group(self, op):
         """Group bookkeeping for one parsed op. Errors (and None) leave groups open."""
-        # theme restyles the app, menu fills the drawer and a data line (table
-        # create, put) writes to the phone, not the screen: they leave groups alone.
-        if not op or op["op"] in ("error", "theme", "menu", "table", "put"):
+        # theme restyles the app, menu fills the drawer, a data line (table
+        # create, put) writes to the phone and doing sits in the working row,
+        # not on the screen: they leave groups alone.
+        if not op or op["op"] in ("error", "theme", "menu", "table", "put", "doing"):
             return op
         if op["op"] == "close":
             self.open = []
@@ -1177,6 +1218,8 @@ class Parser:
             if word not in ("on", "off"):
                 return {"op": "error", "screen": screen, "message": "talk: takes nothing, on or off", "line": line}
             return {"op": "talk", "screen": screen, "props": {"on": word == "on"}, "line": line}
+        if head == "doing":
+            return _doing_line(screen, tokens, line)
         if head == "theme":
             t0 = tokens[0] if tokens else None
             if t0 and not t0.key and not t0.quoted and not t0.parts and t0.text == "app":

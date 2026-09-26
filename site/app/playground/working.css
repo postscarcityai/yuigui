@@ -1,0 +1,19 @@
+/* The working row mock (spec/YL.md section 5, The working row). Every class is wk-, so no site chrome leaks in. */
+.wk-row { display: flex; align-items: flex-start; gap: 8px; max-width: 85%; }
+.wk-face { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 12px; color: #fff; flex: none; }
+.wk-main { display: flex; flex-direction: column; gap: 6px; min-width: 0; padding-top: 4px; }
+.wk-line { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); min-width: 0; }
+.wk-words { font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: wk-in .35s ease-out; }
+.wk-secs { flex: none; font-variant-numeric: tabular-nums; }
+.wk-dots { display: inline-flex; gap: 3px; flex: none; }
+.wk-dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--wk, var(--accent)); animation: wk-breathe 1s ease-in-out infinite alternate; }
+.wk-dots i:nth-child(2) { animation-delay: .15s; }
+.wk-dots i:nth-child(3) { animation-delay: .3s; }
+.wk-bar { width: 150px; max-width: 100%; height: 4px; border-radius: 4px; background: color-mix(in srgb, var(--muted) 22%, transparent); overflow: hidden; }
+.wk-bar span { display: block; height: 100%; border-radius: 4px; background: var(--wk, var(--accent)); transition: width .5s cubic-bezier(.3,1.3,.5,1); }
+@keyframes wk-breathe { from { opacity: .3; } to { opacity: 1; } }
+@keyframes wk-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .wk-dots i, .wk-words { animation: none; }
+  .wk-bar span { transition: none; }
+}

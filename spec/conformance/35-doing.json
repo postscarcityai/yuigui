@@ -1,0 +1,530 @@
+{
+  "version": "YL v0",
+  "area": "doing",
+  "vectors": [
+    {
+      "name": "words and a step",
+      "input": "doing \"Reading your calendar\" 2/5",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Reading your calendar",
+            "step": 2,
+            "of": 5
+          }
+        }
+      ],
+      "doing": {
+        "text": "Reading your calendar",
+        "step": 2,
+        "of": 5
+      }
+    },
+    {
+      "name": "bare words join",
+      "input": "doing Drafting   the plan 3/5",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Drafting the plan",
+            "step": 3,
+            "of": 5
+          }
+        }
+      ],
+      "doing": {
+        "text": "Drafting the plan",
+        "step": 3,
+        "of": 5
+      }
+    },
+    {
+      "name": "words alone, no bar",
+      "input": "doing Looking at your week",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Looking at your week"
+          }
+        }
+      ],
+      "doing": {
+        "text": "Looking at your week"
+      }
+    },
+    {
+      "name": "a step alone keeps the working word",
+      "input": "doing 1/4",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "step": 1,
+            "of": 4
+          }
+        }
+      ],
+      "doing": {
+        "step": 1,
+        "of": 4
+      }
+    },
+    {
+      "name": "step 0 of m is the start",
+      "input": "doing Starting 0/3",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Starting",
+            "step": 0,
+            "of": 3
+          }
+        }
+      ],
+      "doing": {
+        "text": "Starting",
+        "step": 0,
+        "of": 3
+      }
+    },
+    {
+      "name": "the last one wins",
+      "input": "doing Reading your calendar 1/3\ndoing Checking the weather 2/3\ndoing Drafting the plan 3/3",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Reading your calendar",
+            "step": 1,
+            "of": 3
+          }
+        },
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Checking the weather",
+            "step": 2,
+            "of": 3
+          }
+        },
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Drafting the plan",
+            "step": 3,
+            "of": 3
+          }
+        }
+      ],
+      "doing": {
+        "text": "Drafting the plan",
+        "step": 3,
+        "of": 3
+      }
+    },
+    {
+      "name": "doing off clears it",
+      "input": "doing Reading your notes 1/2\ndoing off",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Reading your notes",
+            "step": 1,
+            "of": 2
+          }
+        },
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "off": true
+          }
+        }
+      ],
+      "doing": null
+    },
+    {
+      "name": "a quoted off is words",
+      "input": "doing \"off\"",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "off"
+          }
+        }
+      ],
+      "doing": {
+        "text": "off"
+      }
+    },
+    {
+      "name": "a quoted step is words",
+      "input": "doing \"2/5\"",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "2/5"
+          }
+        }
+      ],
+      "doing": {
+        "text": "2/5"
+      }
+    },
+    {
+      "name": "n/m inside the words is words",
+      "input": "doing Reading 24/7 news",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Reading 24/7 news"
+          }
+        }
+      ],
+      "doing": {
+        "text": "Reading 24/7 news"
+      }
+    },
+    {
+      "name": "options stay words",
+      "input": "doing Comparing Push|Pull",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Comparing Push|Pull"
+          }
+        }
+      ],
+      "doing": {
+        "text": "Comparing Push|Pull"
+      }
+    },
+    {
+      "name": "a comment ends the line",
+      "input": "doing Searching flights 1/2 # slow site",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Searching flights",
+            "step": 1,
+            "of": 2
+          }
+        }
+      ],
+      "doing": {
+        "text": "Searching flights",
+        "step": 1,
+        "of": 2
+      }
+    },
+    {
+      "name": "routed, it still means the working row",
+      "input": ">2 doing Filling your list",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "2",
+          "props": {
+            "text": "Filling your list"
+          }
+        }
+      ],
+      "doing": {
+        "text": "Filling your list"
+      }
+    },
+    {
+      "name": "a doing before a screen in the same message",
+      "input": "doing Reading your calendar 2/3\nsay Free at 3.\nchoose \"Book it?\" Yes|No",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Reading your calendar",
+            "step": 2,
+            "of": 3
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Free at 3."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n2",
+          "props": {
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "q": "Book it?"
+          }
+        }
+      ],
+      "doing": {
+        "text": "Reading your calendar",
+        "step": 2,
+        "of": 3
+      }
+    },
+    {
+      "name": "no id, no counter",
+      "input": "doing Thinking\nask Ready?",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Thinking"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Ready?"
+          }
+        }
+      ],
+      "doing": {
+        "text": "Thinking"
+      }
+    },
+    {
+      "name": "leaves an open group open",
+      "input": "deck \"Plan\"\ndoing Writing page two 2/3\npage \"Week two\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "deck",
+          "id": "n1",
+          "props": {
+            "title": "Plan"
+          }
+        },
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Writing page two",
+            "step": 2,
+            "of": 3
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "title": "Week two"
+          }
+        }
+      ],
+      "doing": {
+        "text": "Writing page two",
+        "step": 2,
+        "of": 3
+      }
+    },
+    {
+      "name": "a step past the end is an error",
+      "input": "doing Six of five 6/5",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "doing": null
+    },
+    {
+      "name": "of 0 is an error",
+      "input": "doing Nothing 0/0",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "doing": null
+    },
+    {
+      "name": "alone is an error",
+      "input": "doing",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "doing": null
+    },
+    {
+      "name": "keys are an error",
+      "input": "doing Reading label=Calendar",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "doing": null
+    },
+    {
+      "name": "flags are an error",
+      "input": "doing Reading +fast",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "doing": null
+    },
+    {
+      "name": "no @id",
+      "input": "doing@row Reading",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "doing": null
+    },
+    {
+      "name": "not patched: send a new doing",
+      "input": "~doing Reading",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "doing": null
+    },
+    {
+      "name": "streamed: each line lands on its newline",
+      "input": "doing Reading your calendar 1/3\ndoing Drafting the plan 2/3\nsay Done.",
+      "expected": [
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Reading your calendar",
+            "step": 1,
+            "of": 3
+          }
+        },
+        {
+          "op": "doing",
+          "screen": "1",
+          "props": {
+            "text": "Drafting the plan",
+            "step": 2,
+            "of": 3
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Done."
+          }
+        }
+      ],
+      "chunks": [
+        "doing Reading your",
+        " calendar 1/3\ndoi",
+        "ng Drafting the plan 2/3\nsay Done."
+      ],
+      "emits": [
+        [],
+        [
+          {
+            "op": "doing",
+            "screen": "1",
+            "props": {
+              "text": "Reading your calendar",
+              "step": 1,
+              "of": 3
+            }
+          }
+        ],
+        [
+          {
+            "op": "doing",
+            "screen": "1",
+            "props": {
+              "text": "Drafting the plan",
+              "step": 2,
+              "of": 3
+            }
+          }
+        ],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "say",
+            "id": "n1",
+            "props": {
+              "text": "Done."
+            }
+          }
+        ]
+      ],
+      "doing": {
+        "text": "Drafting the plan",
+        "step": 2,
+        "of": 3
+      }
+    }
+  ]
+}

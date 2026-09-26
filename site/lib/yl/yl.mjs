@@ -16,6 +16,8 @@
 //                                             chrome the person previews and applies (never silent)
 //   { op: "close", screen: "full", line }     `close` or bare ">chat": close the stage, back to screen 1
 //   { op: "talk",  screen, props: { on }, line }  `>2 talk`: page 2 keeps the composer (`talk off` takes it away)
+//   { op: "doing", screen, props: { text?, step?, of? }, line }  what the agent is doing, in the working
+//                                             row (`doing off`: props { off: true })
 //   { op: "menu",  screen, id, props: { bucket, label, sub?, say?, show?, url? }, line }
 //                                             an item in the agent's drawer (`menu done id`: props { done: true })
 //   { op: "table", screen, name, cols: [{ name, type, unit? }], line }  `table create`: an agent table on the phone (spec/TABLES.md)
@@ -44,7 +46,7 @@ export const PRESETS = [
   "query",
 ];
 // Not presets, but valid line heads.
-export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put"];
+export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing"];
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -1003,9 +1005,9 @@ export class Parser {
   // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
   group(op) {
     // A theme line restyles the app, a menu line fills the drawer and a data
-    // line (table create, put) writes to the phone, not the screen: they
-    // leave groups alone.
-    if (!op || op.op === "error" || op.op === "theme" || op.op === "menu" || op.op === "table" || op.op === "put") return op;
+    // line (table create, put) writes to the phone and a doing line sits in
+    // the working row, not on the screen: they leave groups alone.
+    if (!op || op.op === "error" || op.op === "theme" || op.op === "menu" || op.op === "table" || op.op === "put" || op.op === "doing") return op;
     // Closing the stage ends whatever group was open on it, like `>2` would.
     if (op.op === "close") { this.open = []; return op; }
     if (op.op === "end") {
@@ -1148,6 +1150,7 @@ export class Parser {
       if (word !== "on" && word !== "off") return { op: "error", screen, message: "talk: takes nothing, on or off", line };
       return { op: "talk", screen, props: { on: word === "on" }, line };
     }
+    if (head === "doing") return doingLine(screen, tokens, line);
 
     // Agent tables (spec/TABLES.md): `table create` and `put` write to the phone.
     if (head === "put") return putLine(screen, tokens, line);
@@ -1166,6 +1169,37 @@ export class Parser {
     const props = RAW.has(preset) ? rawArgs(preset, body.slice(head.length)) : parseArgs(preset, tokens);
     return { op: "add", screen, preset, id, props, line };
   }
+}
+
+// ---------- doing (spec section 5, The working row) ----------
+// `doing "Reading your calendar" 2/5`: a few words on what the agent is doing,
+// and a bar when a last bare `n/m` says how far along it is. `doing off` puts
+// the working word back. Words and a step only: keys and flags are errors.
+const STEP = /^(\d+)\/(\d+)$/;
+function doingLine(screen, tokens, line) {
+  const bad = (m) => ({ op: "error", screen, message: `doing: ${m}`, line });
+  if (tokens.length === 1 && !tokens[0].quoted && tokens[0].raw === "off") return { op: "doing", screen, props: { off: true }, line };
+  if (tokens.some((t) => t.key !== undefined || (!t.quoted && !t.parts && /^\+[a-z][\w-]*$/i.test(t.raw)))) return bad("takes words and a step like 2/5, no keys or flags");
+  const last = tokens[tokens.length - 1];
+  const sm = last && !last.quoted && !last.parts && last.raw.match(STEP);
+  const words = sm ? tokens.slice(0, -1) : tokens;
+  const text = words.map((t) => t.text).filter(Boolean).join(" ");
+  if (!text && !sm) return bad("needs words, a step like 2/5, or off");
+  const props = text ? { text } : {};
+  if (sm) {
+    props.step = Number(sm[1]);
+    props.of = Number(sm[2]);
+    if (props.of < 1 || props.step > props.of) return bad("the step is n/m with n from 0 to m");
+  }
+  return { op: "doing", screen, props, line };
+}
+
+// The working row after these ops: the newest doing, or null when there is
+// none or the last one was `doing off`.
+export function doingOf(ops) {
+  let now = null;
+  for (const o of ops) if (o && o.op === "doing") now = o.props.off ? null : { ...o.props };
+  return now;
 }
 
 // ---------- menu (spec section 5, The drawer) ----------
@@ -1636,6 +1670,9 @@ export function apply(state, op, style = {}) {
     }
     case "menu":
       s.menu = menuOf([op], s.menu || undefined); break;
+    // The working row, not a screen: the newest doing wins, `doing off` clears it.
+    case "doing":
+      s.doing = doingOf([op]); break;
     case "theme":
       // An app restyle is only a proposal until the person taps Apply: it
       // waits in `restyle` and leaves the agent's own look alone.
@@ -1677,6 +1714,7 @@ export function toJSON(ops) {
       case "focus": return { focus: Number(o.screen) || o.screen };
       case "close": return { close: true };
       case "talk": return { talk: o.props.on, ...scr };
+      case "doing": return { doing: o.props };
       case "menu": return { menu: o.id, ...o.props };
       case "table": return { table: o.name, cols: o.cols };
       case "put": return { put: o.table, ...(o.key !== undefined ? { key: o.key } : {}), ...o.values, ...(o.delete ? { delete: true } : {}) };

@@ -17,7 +17,7 @@ let props = more[0].get("props").and_then(Value::as_obj).unwrap();
 let full = resolve("card", props);        // props over the preset's defaults
 ```
 
-Ops are `Value::Obj` with the same keys as the JS parser. `Value` is a JSON value: numbers are `f64`, objects keep their key order. `on_stage(op, style)` says whether an add opens on the full-screen stage, `page_of(screen)` gives its page, `talking(ops)` lists the pages with the composer on.
+Ops are `Value::Obj` with the same keys as the JS parser. `Value` is a JSON value: numbers are `f64`, objects keep their key order. `on_stage(op, style)` says whether an add opens on the full-screen stage, `page_of(screen)` gives its page, `talking(ops)` lists the pages with the composer on, `doing_of(ops)` gives the working row's words and step.
 
 The sources are in `src/`: `lib.rs` (the parser; each JS regex is a small matcher with the regex in its comment), `json.rs` (values and JSON), `bin/conformance.rs` (the runner) and `bin/yl.rs` (a CLI: YL on stdin, one JSON op per line on stdout).
 

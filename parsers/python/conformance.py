@@ -11,7 +11,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tables import empty_store, query, replay  # noqa: E402
-from yuilines import StreamParser, attach_body, mark_at, on_stage, page_of, parse, read_attach, read_typed, resolve, talking, timeline_rows, typed_body  # noqa: E402
+from yuilines import StreamParser, attach_body, doing_of, mark_at, on_stage, page_of, parse, read_attach, read_typed, resolve, talking, timeline_rows, typed_body  # noqa: E402
 
 DEFAULT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "spec", "conformance")
 
@@ -77,6 +77,10 @@ def check(v):
         on = talking(parse(v["input"], known))
         if not same(on, v["talk"]):
             fails.append(("talk (pages with the composer on)", on))
+    if "doing" in v:
+        d = doing_of(parse(v["input"], known))
+        if not same(d, v["doing"]):
+            fails.append(("doing (the working row after the input)", d))
     if v.get("typed") is not None:
         t = v["typed"]
         made = typed_body(t["screen"], t["words"])

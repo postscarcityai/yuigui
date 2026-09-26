@@ -49,6 +49,8 @@ One file per area, `NN-area.json`:
 
 - `known`: ids that last from earlier replies (YL.md section 5, Ids that last), as `{id: preset}`. Every parse of the vector, whole, by character and by chunks, starts from a parser given these ids: `parse(input, known)` and `new StreamParser(known)` in JS, `YuiLines.parse(_:known:)` and `YLStreamParser(known:)` in Swift, `parse(text, known)` and `StreamParser(known)` in Python and Kotlin, `parse_with(text, &known)` and `StreamParser::with_known` in Rust. Missing means none.
 
+- `doing`: the working row after the whole input (YL.md section 5, The working row): the newest `doing` line's props, `{text?, step?, of?}`, or `null` when there is none or the last was `doing off`. Checked against `doingOf` in JS and Kotlin and `doing_of` in Python and Rust. The Swift parser learns `doing` in the app half of YUI-63 step 2; until then `35-doing.json` is on its not-yet list (`notYetInApp` and `sync-vectors.sh` in the app repo).
+
 - `menu`: `{review, backlog, shortcut}`, the drawer's items after the whole input, each newest first (YL.md section 5, The drawer): an item is `{id, label, sub?, say?, show?, url?}`, labels cut at 60 characters. Checked against `menuOf` in JS and `YuiLines.menu` in Swift; the Python, Kotlin and Rust parsers pass the parse side of these vectors.
 
 - `route`: `{answers, path, open, event}`, a flow's runtime (FLOWS.md, section 4): for these answers, `flowPath` of the input's flow gives `{path, open}` and `flowEvent` gives `event`.

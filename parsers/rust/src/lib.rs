@@ -49,7 +49,7 @@ pub fn mark_at(kinds: &[&str]) -> usize {
 }
 
 /// Not presets, but valid line heads.
-pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put"];
+pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing"];
 
 /// Groups: a group head collects the lines that follow it on the same screen,
 /// as long as each one is a member preset. Anything else ends the group, and
@@ -1626,6 +1626,60 @@ pub fn menu_id(label: &str) -> String {
     if out.is_empty() { "item".into() } else { out }
 }
 
+/// `doing "Reading your calendar" 2/5` (YL.md section 5, The working row): a
+/// few words on what the agent is doing, and a bar when a last bare `n/m` says
+/// how far along it is. `doing off` puts the working word back. Words and a
+/// step only: keys and flags are errors.
+fn doing_line(sc: &str, tokens: &[Token], line: &str) -> Value {
+    let doing = |props: Map| op(vec![("op", Value::str("doing")), ("screen", Value::str(sc)), ("props", Value::Obj(props)), ("line", Value::str(line))]);
+    if tokens.len() == 1 && !tokens[0].quoted && tokens[0].raw == "off" {
+        let mut props = Map::new();
+        props.set("off", Value::Bool(true));
+        return doing(props);
+    }
+    if tokens.iter().any(|t| t.key.is_some() || (!t.quoted && t.parts.is_none() && is_flag(&t.raw))) {
+        return error(sc, "doing: takes words and a step like 2/5, no keys or flags".into(), line);
+    }
+    let digits = |s: &str| !s.is_empty() && s.bytes().all(|b| b.is_ascii_digit());
+    let step = tokens
+        .last()
+        .filter(|t| !t.quoted && t.parts.is_none())
+        .and_then(|t| t.raw.split_once('/'))
+        .filter(|(n, m)| digits(n) && digits(m))
+        .map(|(n, m)| (n.parse::<f64>().unwrap_or(0.0), m.parse::<f64>().unwrap_or(0.0)));
+    let words = if step.is_some() { &tokens[..tokens.len() - 1] } else { tokens };
+    let text = words.iter().map(|t| t.text.as_str()).filter(|s| !s.is_empty()).collect::<Vec<_>>().join(" ");
+    if text.is_empty() && step.is_none() {
+        return error(sc, "doing: needs words, a step like 2/5, or off".into(), line);
+    }
+    let mut props = Map::new();
+    if !text.is_empty() {
+        props.set("text", Value::Str(text));
+    }
+    if let Some((n, m)) = step {
+        if m < 1.0 || n > m {
+            return error(sc, "doing: the step is n/m with n from 0 to m".into(), line);
+        }
+        props.set("step", Value::Num(n));
+        props.set("of", Value::Num(m));
+    }
+    doing(props)
+}
+
+/// The working row after these ops: the newest doing's props, or None when
+/// there is none or the last one was `doing off`.
+pub fn doing_of(ops: &[Value]) -> Option<Value> {
+    let mut now = None;
+    for o in ops {
+        if o.get("op").and_then(Value::as_str) != Some("doing") {
+            continue;
+        }
+        let props = o.get("props").cloned().unwrap_or(Value::Obj(Map::new()));
+        now = if props.get("off") == Some(&Value::Bool(true)) { None } else { Some(props) };
+    }
+    now
+}
+
 fn menu_line(sc: &str, tokens: &[Token], line: &str) -> Value {
     let Some(first) = tokens.first() else {
         return error(sc, "menu: needs review, backlog, shortcut or done".into(), line);
@@ -1833,7 +1887,7 @@ impl Parser {
         // A theme line restyles the app, a menu line fills the drawer and a data
         // line (table create, put) writes to the phone, not the screen: they
         // leave groups alone.
-        if matches!(kind, "error" | "theme" | "menu" | "table" | "put") {
+        if matches!(kind, "error" | "theme" | "menu" | "table" | "put" | "doing") {
             return Some(o);
         }
         // Closing the stage ends whatever group was open on it, like `>2` would.
@@ -2034,6 +2088,7 @@ impl Parser {
                 props.set("on", Value::Bool(word == Some("on")));
                 return Some(op(vec![("op", Value::str("talk")), ("screen", Value::str(sc)), ("props", Value::Obj(props)), ("line", Value::str(line))]));
             }
+            "doing" => return Some(doing_line(sc, &tokens, line)),
             _ => {}
         }
 
