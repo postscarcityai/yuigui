@@ -47,7 +47,7 @@ Quiet events stay on the phone: a timer starting, a checklist tick. An event goe
 
 A reaction (hold an agent's message, pick one of six) is also an `event` row: `[yui] react msg=<agent row id> emoji=👍 meaning="build it"`, then the start of the reacted message quoted with `> `, and `meta` `{react: {msg, emoji}}`. A trigger copies the emoji onto the reacted row's `reaction` column. Spec: `REACTIONS.md`.
 
-A reply (swipe a message left, or hold it and tap Reply) is an ordinary `text` row whose body starts with one line the app writes, then the person's words: `[yui] reply to=<row id> from=agent quote="first line"`, `from=user` when they answer one of their own. `meta.reply_to` carries the same `{msg, from, quote}` (next to `photos` when there are any). The quote is the message's first line, or a card's title, at most 120 characters. The app draws the words with a chip for the quote and drops the line; hosts pass the body through, so every agent reads it.
+A reply (hold a message and tap Reply) is an ordinary `text` row whose body starts with one line the app writes, then the person's words: `[yui] reply to=<row id> from=agent quote="first line"`, `from=user` when they answer one of their own. `meta.reply_to` carries the same `{msg, from, quote}` (next to `photos` when there are any). The quote is the message's first line, or a card's title, at most 120 characters. The app draws the words with a chip for the quote and drops the line; hosts pass the body through, so every agent reads it.
 
 ## Mentions (YUI-44)
 

@@ -1,4 +1,4 @@
-# Yui channel guide v26 (for agents)
+# Yui channel guide v27 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -64,7 +64,7 @@ They can long-press your message and react. It arrives as `[yui] react msg=<id> 
 
 ## Replies
 
-They can reply to one earlier message (swipe it, or hold it and tap Reply). Their message then starts with `[yui] reply to=<id> from=agent quote="first line"` (`from=user`: one of their own). The words under it answer that message, not your last one. Don't repeat the quote back.
+They can reply to one earlier message (hold it and tap Reply). Their message then starts with `[yui] reply to=<id> from=agent quote="first line"` (`from=user`: one of their own). The words under it answer that message, not your last one. Don't repeat the quote back.
 
 ## Mentions
 
