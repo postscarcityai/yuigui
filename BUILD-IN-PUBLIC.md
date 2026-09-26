@@ -59,6 +59,10 @@ yuigui.com/board and the MVP bar are built from the kanban DB by `site/scripts/e
 
 `node site/scripts/freshness.mjs` (SITE-31) fails with file and line when ROADMAP.md, a page or See it says something the builds and the board moved past: a build at or below the newest VALID one called next or on its way, or a shipped card labelled next, building, NOT STARTED or IN THE NEXT BUILD. It reads the exported `board.json`, `mvp.json` and `builds.json`, so run it on a current tree. The lane driver runs it once a day; run it before any roadmap commit too.
 
+## Link check
+
+`npm run links` from `site/` (SITE-42, `node site/scripts/links.mjs`) crawls every sitemap URL on https://www.yuigui.com, or a local build with `--base http://localhost:3019`, and checks each internal link, image, video, poster and `#anchor` answers 200 after redirects. It fails with the source file and line (progress.json, showcase.json, ROADMAP.md, spec, docs, app) and the page it was found on. External links get a short HEAD and are reported, never failed; `--no-external` skips them. Fix a broken link at its source, and generated JSON only at its exporter. Run it after a deploy that adds pages, images or spec links. It is not part of the board-sync deploy.
+
 ## Changelog
 
 yuigui.com/changelog groups the log by TestFlight build: build number, date, what changed, screenshots. `site/scripts/export-builds.mjs` writes `site/content/builds.json` from App Store Connect (`~/dev/yui/scripts/asc.py`, the key never leaves this machine) and the app repo's git log: a build number is the app repo's commit count, so build N ships the commits after the previous build up to N. The page joins each change to its progress entry by card key. The `yui-board-sync` cron runs the export with the board and deploys when a new build appears. Run it by hand with `cd ~/dev/yuigui/site && node scripts/export-builds.mjs`. Early commits without a card key are mapped in its `KEYS` table.

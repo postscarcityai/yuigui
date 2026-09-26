@@ -89,6 +89,7 @@ Chris's picks for the short term (Sep 25), in this order. The site cards run alo
 - SITE-33 (shipped Sep 25, TestFlight feedback, Chris: "the beginnings of our core values"): [Yui's values](/developers/values). Eight rules every agent, card brief and page is held to: screens not text bombs, one idea per page, type tells the story, full screen is the whole stage, draw it rather than describe it, say what is being done, nothing cut off mid-sentence, every button does something.
 - SITE-34 (shipped Sep 25): the site reads like the app. One type scale for every page, the one the app uses.
 - SITE-35 (shipped Sep 25): [See it](/mockups#release-020) catches up. A Yui 0.2.0 group with the drawer (YUI-54), the menu word (YUI-86), ids that last (YUI-75), native sketches (YUI-84) and the Update chip (YUI-87), live screens where the web draws them. It reads In the iPhone app since build 122 went VALID (SITE-36).
+- SITE-42 (shipped Sep 26): every link and image on the site resolves. A checker crawls all 273 pages in the sitemap, tries every link, image, clip and #anchor, and names the source line of anything broken. The first run found 7 dead links between spec pages; they point at the right pages now.
 - PERF-1 (Chris Sep 25 night: "very efficient like Telegram"; shipped in 0.3.0, build 138, Sep 26): YUI-101 taps answer at once, smooth scroll and a fast thread open, YUI-99 typing keeps up, YUI-102 speed numbers from real phones. [See it](/mockups#release-030).
 
 Then:

@@ -60,8 +60,10 @@ export function specDocs() {
 }
 
 // Rendered html plus its h2/h3 outline, read back from the ids renderMd gives them.
+// A spec links its siblings as [Flows](FLOWS.md), which works on GitHub; on the site that points at the doc's page (SITE-42).
 export function renderDoc(md) {
-  const html = renderMd(md);
+  const pages = Object.fromEntries(specDocs().map((d) => [`${d.slug.toUpperCase()}.md`, d.href]));
+  const html = renderMd(md).replace(/href="([A-Z][A-Z-]*\.md)(#[^"]*)?"/g, (m, f, hash = "") => (pages[f] ? `href="${pages[f]}${hash}"` : m));
   const toc = [...html.matchAll(/<h([23]) id="([^"]+)">(.*?)<\/h\1>/g)]
     .map(([, n, id, t]) => ({ level: Number(n), id, text: t.replace(/<[^>]+>/g, "").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">") }));
   return { html, toc };
