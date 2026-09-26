@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T09:40:51.788Z",
+  "updated": "2026-09-26T12:10:43.532Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -72,12 +72,6 @@
           "key": "YUI-48",
           "title": "Text a number",
           "summary": "SMS channel"
-        },
-        {
-          "key": "YUI-69",
-          "title": "Talk about a setting",
-          "summary": "Talk about a setting, built: change your agent by talking",
-          "progress": "/progress#talk-about-a-setting-built-change-your-agent-by-talking"
         },
         {
           "key": "YUI-89",
@@ -182,12 +176,6 @@
           "key": "YUI-29",
           "title": "A stranger does the whole path",
           "mvp": true
-        },
-        {
-          "key": "YUI-70",
-          "title": "Agent controls in the drawer",
-          "summary": "Agent controls, built: your agent's settings in the drawer",
-          "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer"
         }
       ]
     },
@@ -224,8 +212,7 @@
         {
           "key": "YUI-111",
           "title": "Step 3",
-          "summary": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
-          "waiting": true
+          "summary": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID"
         },
         {
           "key": "YUI-100",
@@ -238,6 +225,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-69",
+          "title": "Talk about a setting",
+          "summary": "Talk about a setting, built: change your agent by talking",
+          "shipped": "2026-09-26",
+          "progress": "/progress#talk-about-a-setting-built-change-your-agent-by-talking"
+        },
+        {
+          "key": "YUI-70",
+          "title": "Agent controls in the drawer",
+          "summary": "Agent controls, built: your agent's settings in the drawer",
+          "shipped": "2026-09-26",
+          "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer"
+        },
         {
           "key": "YUI-112",
           "title": "A timeline opened alone on the stage stretches its rows to fill the screen",

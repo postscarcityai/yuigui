@@ -1,6 +1,49 @@
 {
   "builds": [
     {
+      "build": 148,
+      "date": "2026-09-26",
+      "uploaded": "2026-09-26T04:53:13-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Send and the menu drawer answer faster",
+          "card": "YUI-106"
+        },
+        {
+          "text": "CONTRIBUTING-AGENTS.md and AGENTS.md: how an agent picks, claims and hands in an agent-ready card",
+          "card": "OSS-6"
+        },
+        {
+          "text": "Agent controls in the drawer (YUI-70 step 2)"
+        },
+        {
+          "text": "checks CI on every pull request, CODEOWNERS on CI, signing, release and the backend, credit opt-in (OSS-6 step 2)"
+        },
+        {
+          "text": "Timeline rows move in place in the app: kind= on a row patch (YUI-111 step 2)"
+        },
+        {
+          "text": "Channel guide v23 bundled (YUI-85; spec yuigui spec/CHANNEL.md): a sketch right after a page is that page's picture."
+        },
+        {
+          "text": "Talk about this, host side: attach expansion, yui_propose, Apply and Keep with no turn",
+          "card": "YUI-69"
+        },
+        {
+          "text": "Talk about this: the button in Controls, the chip on the composer, proposals in the chat",
+          "card": "YUI-69"
+        },
+        {
+          "text": "Channel guide v23 bundled, final text (YUI-85): shapes go outside a deck."
+        },
+        {
+          "text": "A timeline alone on the stage keeps its row heights and sits at the top",
+          "card": "YUI-112"
+        }
+      ]
+    },
+    {
       "build": 138,
       "date": "2026-09-26",
       "uploaded": "2026-09-25T23:23:31-07:00",
@@ -738,39 +781,7 @@
   ],
   "next": [
     {
-      "text": "Send and the menu drawer answer faster",
-      "card": "YUI-106"
-    },
-    {
-      "text": "CONTRIBUTING-AGENTS.md and AGENTS.md: how an agent picks, claims and hands in an agent-ready card",
-      "card": "OSS-6"
-    },
-    {
-      "text": "Agent controls in the drawer (YUI-70 step 2)"
-    },
-    {
-      "text": "checks CI on every pull request, CODEOWNERS on CI, signing, release and the backend, credit opt-in (OSS-6 step 2)"
-    },
-    {
-      "text": "Timeline rows move in place in the app: kind= on a row patch (YUI-111 step 2)"
-    },
-    {
-      "text": "Channel guide v23 bundled (YUI-85; spec yuigui spec/CHANNEL.md): a sketch right after a page is that page's picture."
-    },
-    {
-      "text": "Talk about this, host side: attach expansion, yui_propose, Apply and Keep with no turn",
-      "card": "YUI-69"
-    },
-    {
-      "text": "Talk about this: the button in Controls, the chip on the composer, proposals in the chat",
-      "card": "YUI-69"
-    },
-    {
-      "text": "Channel guide v23 bundled, final text (YUI-85): shapes go outside a deck."
-    },
-    {
-      "text": "A timeline alone on the stage keeps its row heights and sits at the top",
-      "card": "YUI-112"
+      "text": "Channel guide v24 (YUI-111): a timeline row moves on by patch, kind=done|now|next. Synced from yuigui dce6cb1."
     }
   ]
 }
