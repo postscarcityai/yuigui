@@ -874,6 +874,15 @@
     },
     {
       "text": "yui-mcp reads and draws the music presets (YUI-116 step 1, yuigui 5414ba3)"
+    },
+    {
+      "text": "Working row says how long this agent usually takes"
+    },
+    {
+      "text": "Swift parser reads the six music presets; 37-music.json passes (YUI-116 step 2)"
+    },
+    {
+      "text": "YuiSound, and loop and drums that play (YUI-116 step 2)"
     }
   ]
 }
