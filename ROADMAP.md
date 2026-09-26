@@ -6,7 +6,8 @@ yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch re
 
 - **On phones:** Yui 0.3.0, build 138, on TestFlight since Sep 26. The smooth release: taps answer at once, a long thread scrolls smooth and opens fast (YUI-101), typing keeps up like Notes (YUI-99), shapes that move (YUI-104), restyle Yui by asking (YUI-96), shared agents (YUI-95, YUI-97), group threads in the database and the plugin (YUI-93), speed numbers from real phones (YUI-102), and two fixes from deck feedback (an inline deck as tall as its page, full-screen pages that never come up blank).
 - **Also on phones, build 148 (Sep 26):** YUI-106 (send and the drawer taps answer faster), YUI-70 (agent controls in the drawer), YUI-69 (talk about a setting), YUI-111 (a patch moves a timeline row in place) and YUI-112 (a timeline alone on the stage keeps its row heights). [See it](/mockups#build-148).
-- **Up next:** YUI-100 memory audit, YUI-29, then the backlog in the order below. Feel and ease of use first; integration work waits in the backlog.
+- **Also on phones, build 155 (Sep 26):** YUI-14 (talk hands-free, read the answer), YUI-100 (Yui holds less in memory, checked before every release), a full screen puts the keyboard away and a plan's question sits in the middle of the page (both TestFlight feedback). [See it](/mockups#build-155).
+- **Up next:** YUI-29, then the backlog in the order below. Feel and ease of use first; integration work waits in the backlog.
 - **Waiting on Chris:** one look in claude.ai (INT-7) and one in chatgpt.com (INT-8). YUI-91 waits on a Yui Dev install.
 - **MVP:** every card has shipped except YUI-29, a stranger running the whole path alone.
 
@@ -90,6 +91,7 @@ Chris's picks for the short term (Sep 25), in this order. The site cards run alo
 - SITE-34 (shipped Sep 25): the site reads like the app. One type scale for every page, the one the app uses.
 - SITE-35 (shipped Sep 25): [See it](/mockups#release-020) catches up. A Yui 0.2.0 group with the drawer (YUI-54), the menu word (YUI-86), ids that last (YUI-75), native sketches (YUI-84) and the Update chip (YUI-87), live screens where the web draws them. It reads In the iPhone app since build 122 went VALID (SITE-36).
 - SITE-42 (shipped Sep 26): every link and image on the site resolves. A checker crawls all 273 pages in the sitemap, tries every link, image, clip and #anchor, and names the source line of anything broken. The first run found 7 dead links between spec pages; they point at the right pages now.
+- SITE-43 (shipped Sep 26): [See it](/mockups#build-155) catches up to build 155. A Build 155 group with hands-free voice (YUI-14), the keyboard going down for a full screen, plan questions in the middle of the page, and the memory numbers from YUI-100 drawn live as stats and a chart. Each entry has its own share link.
 - PERF-1 (Chris Sep 25 night: "very efficient like Telegram"; shipped in 0.3.0, build 138, Sep 26): YUI-101 taps answer at once, smooth scroll and a fast thread open, YUI-99 typing keeps up, YUI-102 speed numbers from real phones. [See it](/mockups#release-030).
 
 Then:

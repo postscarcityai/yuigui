@@ -105,6 +105,17 @@
       ]
     },
     {
+      "id": "build-155",
+      "title": "Build 155",
+      "lede": "What build 155 (Sep 26) added to phones: talk to your agents hands-free and read the answers, a full screen that puts the keyboard away, plan questions in the middle of the page, and a Yui that holds less in memory. Shots are real captures from the iPhone simulator on the demo account; the memory numbers are drawn live from the release test.",
+      "entries": [
+        {"id": "hands-free-voice", "title": "Talk hands-free, read the answer", "what": "Tap the mic once and Yui keeps listening between turns. Your words show as you say them, a short pause sends them, the answer comes back as text, and the mic opens again once it lands. The bar says where you are: Listening, on it, Your turn or Paused. One button stops it, and holding the mic still works the old way.", "cards": ["YUI-14"], "agent": "Yui", "app": "native", "shots": ["/progress/yui14-listening-light.webp", "/progress/yui14-waiting-dark.webp", "/progress/yui14-reading-light.webp", "/progress/yui14-paused-dark.webp"]},
+        {"id": "keyboard-steps-aside", "title": "A full screen puts the keyboard away", "what": "Open anything full screen, a timer, a deck, a plan or a picture, and the keyboard goes down as it opens. Close it and the keyboard stays down, with what you typed still in the box. Before and after, from Chris's TestFlight feedback.", "cards": [], "change": "A full screen takes the keyboard down with it", "agent": "Wizard", "app": "native", "shots": ["/progress/fb-acbsyysz-before.webp", "/progress/fb-acbsyysz-after.webp"]},
+        {"id": "questions-centered", "title": "A plan's question sits in the middle", "what": "A short plan step, like a slider question, sits centered between the progress bar and Back and Next, with no card of its own: the page is the card. Long steps still start at the top and scroll.", "cards": [], "change": "A plan's question sits in the middle of the screen", "agent": "Yui", "app": "native", "shots": ["/progress/fb-apxu3dfu-before.webp", "/progress/fb-apxu3dfu-after.webp", "/progress/fb-apxu3dfu-after-form-light.webp"]},
+        {"id": "memory-lighter", "title": "Yui holds less in memory", "what": "One scripted session on the simulator: five agents with 486-message threads, galleries, decks, games and full screens. Peak memory fell from 243 MB to 203 MB and launch from 137 MB to 124 MB, and the session ends with no new leaks, down from about 1,550 leaked objects. The same session runs before every release now and fails on a new leak or a peak over 300 MB.", "cards": ["YUI-100"], "agent": "Yui", "app": "native", "yl": "say \"Memory in one long session, before and after build 155.\"\nstat 203MB \"Peak memory\" delta=-40 good=down sub=\"was 243 MB\"\nstat 124MB \"At launch\" delta=-13 good=down sub=\"was 137 MB\"\nstat 0 \"New leaks\" delta=-1550 good=down sub=\"was about 1,550 objects\"\nchart bar \"Memory in MB\" x=Launch|Peak y=137|243 y2=124|203 names=Before|After unit=MB"}
+      ]
+    },
+    {
       "id": "build-148",
       "title": "Build 148",
       "lede": "What build 148 (Sep 26) added to Yui 0.3.0: your agent's settings in its drawer, a way to change one by talking about it, and timeline rows that move without resending the page. Send and the drawer got faster too, under Taps answer at once. Shots are real captures from the iPhone simulator on the demo account.",
