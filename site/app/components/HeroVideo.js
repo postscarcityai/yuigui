@@ -1,53 +1,37 @@
 "use client";
-// The home hero's horizontal video. Today it is a placeholder, Yui in 15 seconds. The real hero video
-// replaces public/demo/hero/hero-16x9.mp4 and its poster hero-16x9.jpg; nothing in the code changes.
-// Muted, looping, with a pause button. With reduced motion it waits for a tap.
-import { useEffect, useRef, useState } from "react";
+// The home hero's video, "Meet Yui, a generative user interface", on YouTube. The page shows the video's
+// own preview image and a play button; YouTube's player (youtube-nocookie.com) loads only when someone
+// presses play, so the home page stays fast and sets no YouTube cookies for people who never watch.
+// A new hero video is a new id here.
+import { useState } from "react";
+import { trackCta } from "../../lib/track.mjs";
 
 const HERO = {
-  src: "/demo/hero/hero-16x9.mp4",
-  poster: "/demo/hero/hero-16x9.jpg",
-  label: "Yui on an iPhone: an agent answers with screens you can tap",
+  id: "4wmnzP6TQCw",
+  title: "Meet Yui, a generative user interface",
 };
 
 export default function HeroVideo() {
-  const ref = useRef(null);
-  const [playing, setPlaying] = useState(false);
-
-  useEffect(() => {
-    const v = ref.current;
-    if (!v) return;
-    let still = false;
-    try { still = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch {}
-    if (!still) v.play().catch(() => {});
-  }, []);
-
-  const toggle = () => {
-    const v = ref.current;
-    if (!v) return;
-    if (v.paused) v.play().catch(() => {}); else v.pause();
-  };
-
+  const [on, setOn] = useState(false);
+  const play = () => { setOn(true); trackCta("hero-video", "/"); };
   return (
     <figure className="hero-video">
-      <video
-        ref={ref}
-        src={HERO.src}
-        poster={HERO.poster}
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-label={HERO.label}
-        onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onClick={toggle}
-      />
-      <button type="button" className="hero-video-toggle" onClick={toggle} aria-label={playing ? "Pause the video" : "Play the video"}>
-        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-          {playing ? <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /> : <path d="M8 5.5v13l11-6.5z" />}
-        </svg>
-      </button>
+      {on ? (
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${HERO.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`}
+          title={HERO.title}
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
+          referrerPolicy="strict-origin-when-cross-origin"
+        />
+      ) : (
+        <button type="button" className="hero-video-play" onClick={play} aria-label={`Play the video: ${HERO.title}`}>
+          <img src={`https://i.ytimg.com/vi/${HERO.id}/maxresdefault.jpg`} alt="" width="1280" height="720" fetchPriority="high" />
+          <span className="hero-video-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
+          </span>
+        </button>
+      )}
     </figure>
   );
 }
