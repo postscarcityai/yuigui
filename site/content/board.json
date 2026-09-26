@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T12:46:33.032Z",
+  "updated": "2026-09-26T13:11:01.149Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -204,8 +204,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-14",
-          "title": "Voice in, text out, smooth and fast"
+          "key": "YUI-37",
+          "title": "Step 1",
+          "summary": "Starter agent spec, cost model and playground mock (no spend)"
         }
       ]
     },
@@ -213,6 +214,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-14",
+          "title": "Voice in, text out, smooth and fast",
+          "summary": "Talk to your agents hands-free, read the answers",
+          "shipped": "2026-09-26",
+          "progress": "/progress#talk-to-your-agents-hands-free-read-the-answers"
+        },
         {
           "key": "SITE-39",
           "title": "Thought draft for Yui 0.3.0, the smooth release",

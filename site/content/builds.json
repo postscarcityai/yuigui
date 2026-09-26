@@ -786,6 +786,19 @@
     {
       "text": "Memory audit: leaks fixed, pictures downsampled and cached, a memory ceiling script",
       "card": "YUI-100"
+    },
+    {
+      "text": "A full screen takes the keyboard down with it; closing it leaves it down (feedback ACbsyYSZ)"
+    },
+    {
+      "text": "Voice in, text out (YUI-14): SpeechAnalyzer, hands-free, talk or type per agent"
+    },
+    {
+      "text": "Hands-free UI tests, state screenshots, Mac voice timing script",
+      "card": "YUI-14"
+    },
+    {
+      "text": "CI: hands-off guard diffs the PR head, not the merge commit"
     }
   ]
 }
