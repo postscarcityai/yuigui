@@ -15,6 +15,7 @@ import { GroupBefore, GroupHead, Guard, LOOKS, Turn } from "./group";
 import { ClientOpen, INVITE_VIEWS } from "./invite";
 import { RESTYLE_VIEWS, RestyleDemo } from "./restyle";
 import { mealReply } from "./meal";
+import { starterReply } from "./starter";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA, ...RELEASE];
@@ -260,7 +261,7 @@ export default function Playground({ release = "" }) {
       emits.current.set(k, (value) => {
         const ev = { id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) };
         setEvents((evs) => [{ dir: "user", t: new Date(), ev }, ...evs].slice(0, 40));
-        const reply = demoReply(ev) || mealReply(ev, idsRef.current);
+        const reply = demoReply(ev) || mealReply(ev, idsRef.current) || starterReply(ev);
         if (reply) [].concat(reply).forEach((l, i) => setTimeout(() => agentRef.current(l), 700 + i * 250));
       });
     }

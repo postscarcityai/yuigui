@@ -173,6 +173,20 @@ form@hello "What does each one say first?" "Penny says":long! "Basil says":long!
 choose@save "Save this as a template?" "Save as client-default"|"Just this once"`,
   },
   {
+    // The starter agent (spec/STARTER.md, YUI-37 step 1): a first launch with no
+    // agent. Pick a starter and it answers right away; the playground has no
+    // model, so a stand-in (playground/starter.js) sends what a starter would.
+    name: "Starter agent: no agent yet, pick one, first answer",
+    slug: "starter",
+    agent: "Yui",
+    yl: `sketch "Agents" frame=phone
+row "Yui" +hi note="always here"
+row "No agents yet" +dim
+row "Add agent" +button +dim note="needs a computer today"
+say "No agents yet? Start with one of mine. It answers right here, nothing to install."
+choose@starter "Who do you want first?" "Coach, trainer"|"Basil, nutritionist"|"Penny, assistant"|"Quill, study buddy"`,
+  },
+  {
     // Restyle Yui by asking (spec/RESTYLE.md, YUI-43 step 1): the lines are the
     // agent's reply. The preview card, the restyled chrome and Settings are the
     // app's own screens (playground/restyle.js), switched with the tabs above
