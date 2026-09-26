@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 133,
-    "site": 322,
+    "app": 134,
+    "site": 325,
     "builds": 29,
-    "shipped": 171,
-    "screenshots": 366
+    "shipped": 172,
+    "screenshots": 368
   },
   "days": [
     {
@@ -13,15 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T01:10:06.275Z",
+          "at": "2026-09-26T01:26:02.454Z",
+          "title": "Typing keeps up, even on a long thread",
+          "card": "YUI-99",
+          "anchor": "typing-keeps-up-even-on-a-long-thread",
+          "images": [
+            {
+              "src": "/progress/yui99-typing-long-thread-light.webp",
+              "alt": "The Yui app in light mode on a long thread ending in a tabata card, with a sentence typed in the composer and the Speed readout showing the last key time"
+            },
+            {
+              "src": "/progress/yui99-before-4fps-light.webp",
+              "alt": "The same thread before the fix, the Speed readout at 4 fps after a run of backspaces"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 134,
+            "site": 325,
+            "builds": 29,
+            "shipped": 172
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T01:10:11.000Z",
           "title": "The MCP server and Telegram read Yui Lines like the app again",
           "card": "INT-22",
           "anchor": "the-mcp-server-and-telegram-read-yui-lines-like-the-app-again",
           "images": [],
-          "commits": 1,
+          "commits": 3,
           "totals": {
             "app": 133,
-            "site": 322,
+            "site": 324,
             "builds": 29,
             "shipped": 171
           }
@@ -2071,6 +2095,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "e78a4d3",
+          "at": "2026-09-26T01:25:46.000Z",
+          "text": "Typing keeps up on a long thread (YUI-99). Chris on build 96: \"when I hold the backspace button it goes very slow, and if I hit space...",
+          "url": "https://github.com/postscarcityai/yui/commit/e78a4d3"
+        },
+        {
+          "repo": "site",
+          "sha": "c8f25d9",
+          "at": "2026-09-26T01:14:07.000Z",
+          "text": "Telegram spec: plain shapes example (INT-22)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c8f25d9"
+        },
+        {
+          "repo": "site",
+          "sha": "c435b20",
+          "at": "2026-09-26T01:10:11.000Z",
+          "text": "Telegram spec: shapes as text, query opens in Yui, tables send nothing (INT-22)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c435b20"
+        },
+        {
+          "repo": "site",
+          "sha": "2cae29f",
+          "at": "2026-09-26T01:10:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2cae29f"
+        },
         {
           "repo": "app",
           "sha": "4a23dfe",
