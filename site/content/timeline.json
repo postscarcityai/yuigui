@@ -1,16 +1,43 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 149,
-    "site": 368,
-    "builds": 31,
-    "shipped": 188,
+    "app": 150,
+    "site": 370,
+    "builds": 32,
+    "shipped": 189,
     "screenshots": 404
   },
   "days": [
     {
       "date": "2026-09-26",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-26T12:23:36.959Z",
+          "title": "Yui holds less in memory, and a test checks it before every release",
+          "card": "YUI-100",
+          "anchor": "yui-holds-less-in-memory-and-a-test-checks-it-before-every-release",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 150,
+            "site": 370,
+            "builds": 32,
+            "shipped": 189
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-26T11:53:13.000Z",
+          "build": 148,
+          "changes": 10,
+          "totals": {
+            "app": 148,
+            "site": 366,
+            "builds": 32,
+            "shipped": 188
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-26T09:11:05.000Z",
@@ -370,6 +397,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "f2103c4",
+          "at": "2026-09-26T12:23:08.000Z",
+          "text": "Memory audit: leaks fixed, pictures downsampled and cached, a memory ceiling script (YUI-100)",
+          "url": "https://github.com/postscarcityai/yui/commit/f2103c4"
+        },
+        {
+          "repo": "site",
+          "sha": "f665ae2",
+          "at": "2026-09-26T12:10:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f665ae2"
+        },
+        {
+          "repo": "site",
+          "sha": "efe9a52",
+          "at": "2026-09-26T12:08:45.000Z",
+          "text": "Publish the Thought: Yui 0.3.0, the smooth release (SITE-39)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/efe9a52"
+        },
         {
           "repo": "app",
           "sha": "0a733e3",
