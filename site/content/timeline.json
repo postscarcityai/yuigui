@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 166,
-    "site": 416,
+    "site": 419,
     "builds": 34,
-    "shipped": 214,
-    "screenshots": 468
+    "shipped": 215,
+    "screenshots": 471
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T18:30:58.561Z",
+          "at": "2026-09-26T18:48:17.148Z",
+          "title": "Every share link shows its real screen",
+          "card": "SITE-48",
+          "anchor": "every-share-link-shows-its-real-screen",
+          "images": [
+            {
+              "src": "/progress/share-flow-before.webp",
+              "alt": "Before: the share preview for the flow screen, with a plain stand-in phone showing one Send the brief button."
+            },
+            {
+              "src": "/progress/share-flow-after.webp",
+              "alt": "After: the same preview with the real flow screen, Client website intake step 1 of 7 with Back and Next."
+            },
+            {
+              "src": "/progress/share-snake-after.webp",
+              "alt": "The Snake game's share preview with its real screen."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 166,
+            "site": 419,
+            "builds": 34,
+            "shipped": 215
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T18:31:57.000Z",
           "title": "The site says it plainly: Yui is in public beta",
           "card": null,
           "anchor": "the-site-says-it-plainly-yui-is-in-public-beta",
@@ -34,7 +62,7 @@
           "commits": 0,
           "totals": {
             "app": 166,
-            "site": 416,
+            "site": 417,
             "builds": 34,
             "shipped": 214
           }
@@ -207,7 +235,7 @@
           "kind": "build",
           "at": "2026-09-26T16:58:29.000Z",
           "build": 160,
-          "changes": 4,
+          "changes": 5,
           "totals": {
             "app": 161,
             "site": 403,
@@ -1075,6 +1103,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "92a95a8",
+          "at": "2026-09-26T18:42:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/92a95a8"
+        },
+        {
+          "repo": "site",
+          "sha": "6f1921b",
+          "at": "2026-09-26T18:34:06.000Z",
+          "text": "Builds read the app's origin/main, so the six changes since 0.3.1 show as next",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6f1921b"
+        },
+        {
+          "repo": "site",
+          "sha": "0228ff7",
+          "at": "2026-09-26T18:31:57.000Z",
+          "text": "The site says it plainly: Yui is in public beta",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0228ff7"
+        },
         {
           "repo": "site",
           "sha": "910a144",

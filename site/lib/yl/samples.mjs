@@ -788,7 +788,7 @@ shape circle Phone tone=mint +grow`,
   {
     slug: "shapes-heat-pump",
     name: "Shapes: how a heat pump works",
-    agent: "Urza",
+    agent: "Scout",
     yl: `say "Cold air still holds heat. The pump grabs it, squeezes it hot, and lets it out inside."
 shapes "Heat pump loop" caption="Refrigerant colder than the outdoor air soaks up heat, the compressor squeezes it hot, and the indoor coil lets it out into the house."
 shape blob "Outside air" tone=mute

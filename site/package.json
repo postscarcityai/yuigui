@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "freshness": "node scripts/freshness.mjs",
-    "links": "node scripts/links.mjs"
+    "links": "node scripts/links.mjs",
+    "og": "node scripts/og-check.mjs"
   },
   "dependencies": {
     "katex": "^0.16.47",

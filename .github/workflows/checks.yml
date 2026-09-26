@@ -45,6 +45,8 @@ jobs:
         with: { node-version: 20, cache: npm, cache-dependency-path: site/package-lock.json }
       # site/content is committed (the board export and npm run sync write it), so this builds what Vercel builds.
       - run: cd site && npm ci && npm run build
+      # Every share link has its committed preview capture (SITE-48).
+      - run: cd site && node scripts/og-check.mjs
   hands-off:
     # A pull request from a fork may not touch CI, deploy scripts or generated files (CONTRIBUTING-AGENTS.md, "Never touch").
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork

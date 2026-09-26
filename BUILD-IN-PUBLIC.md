@@ -50,6 +50,7 @@ cd ~/dev/yuigui/site && npm run sync && npm run build
 cd ~/dev/yuigui && git add BUILD-IN-PUBLIC.md ROADMAP.md spec site && git commit -m "..." && git push
 ```
 A push to main deploys to production: the Vercel project's Root Directory is `site` (SITE-25). Vercel only runs `next build`, so run `npm run sync` and commit what it writes (site/content) before pushing. If a push deploy fails, deploy by hand from the repo root, never from `site/` (with the root set to `site`, the CLI looks for `site/site` and stops): `cd ~/dev/yuigui && vercel --prod --yes` (the root `.vercel/project.json` links project yui). Commit author must be `CJohnDesign <cjohndesign@gmail.com>` (Vercel blocks other authors). Verify: `curl -sL https://www.yuigui.com/progress` contains the new title.
+Before pushing, `npm run og` from `site/` (SITE-48) must pass: every `/s/<id>` needs a committed `public/og/screens/<id>.jpg` and no private name in its agent or title (CI runs it on every push too); `--base https://www.yuigui.com` after the deploy checks each capture answers 200.
 
 ## Live board
 
