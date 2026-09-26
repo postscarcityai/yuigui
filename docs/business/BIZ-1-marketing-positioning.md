@@ -236,7 +236,7 @@ Four stages. Each has a gate. We do not move on because a date arrived; we move 
 ### Stage 4 | App Store (Phase 5 to 6, Mar to Jun 2027)
 
 - Public listing once review prep is done and a person without an agent has something to do (hosted default agent, Phase 4). Until then Yui stays on TestFlight, which suits the audience.
-- Store name changes from the placeholder "Yui Bot" before the first public release (renaming is free until then).
+- Store name is "Yui Gui" (changed from the placeholder "Yui Bot" on Sep 26, 2026, Chris's call). The home screen name stays "Yui".
 - Store copy reuses the four pillars. Screenshots from the shot list.
 
 ### Every stage
