@@ -747,6 +747,26 @@
     },
     {
       "text": "Agent controls in the drawer (YUI-70 step 2)"
+    },
+    {
+      "text": "checks CI on every pull request, CODEOWNERS on CI, signing, release and the backend, credit opt-in (OSS-6 step 2)"
+    },
+    {
+      "text": "Timeline rows move in place in the app: kind= on a row patch (YUI-111 step 2)"
+    },
+    {
+      "text": "Channel guide v23 bundled (YUI-85; spec yuigui spec/CHANNEL.md): a sketch right after a page is that page's picture."
+    },
+    {
+      "text": "Talk about this, host side: attach expansion, yui_propose, Apply and Keep with no turn",
+      "card": "YUI-69"
+    },
+    {
+      "text": "Talk about this: the button in Controls, the chip on the composer, proposals in the chat",
+      "card": "YUI-69"
+    },
+    {
+      "text": "Channel guide v23 bundled, final text (YUI-85): shapes go outside a deck."
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T08:10:38.284Z",
+  "updated": "2026-09-26T08:40:43.402Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -76,13 +76,8 @@
         {
           "key": "YUI-69",
           "title": "Talk about a setting",
-          "summary": "Talk about a setting, designed: change your agent by talking",
-          "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking"
-        },
-        {
-          "key": "YUI-85",
-          "title": "The channel guide teaches a sketch under a page",
-          "waiting": true
+          "summary": "Talk about a setting, built: change your agent by talking",
+          "progress": "/progress#talk-about-a-setting-built-change-your-agent-by-talking"
         },
         {
           "key": "YUI-89",
@@ -123,6 +118,11 @@
           "title": "Yui for macOS, first PR",
           "summary": "The Mac target builds and signs in",
           "agentReady": true
+        },
+        {
+          "key": "YUI-112",
+          "title": "A timeline opened alone on the stage stretches its rows to fill the screen",
+          "waiting": true
         },
         {
           "key": "SITE-28",
@@ -198,11 +198,6 @@
           "title": "Agent controls in the drawer",
           "summary": "Agent controls, built: your agent's settings in the drawer",
           "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer"
-        },
-        {
-          "key": "YUI-111",
-          "title": "Step 2",
-          "summary": "Timeline rows move in place in the app (kind= patch), then the war room uses it"
         }
       ]
     },
@@ -223,6 +218,10 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
+          "key": "YUI-85",
+          "title": "The channel guide teaches a sketch under a page"
+        },
+        {
           "key": "YUI-91",
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
         },
@@ -231,20 +230,16 @@
           "title": "Thought draft for Yui 0.3.0, the smooth release"
         },
         {
-          "key": "YUI-69",
+          "key": "OSS-6",
           "title": "Step 2 (backlog)",
-          "summary": "Talk about a setting, native"
+          "summary": "Yui@home runs every week: a routine for each agent",
+          "progress": "/progress#yui-home-runs-every-week-a-routine-for-each-agent"
         },
         {
           "key": "YUI-111",
-          "title": "A patch can move a timeline row (next to now to done), so the release panel updates in place",
-          "summary": "A timeline row can move without resending the page",
-          "progress": "/progress#a-timeline-row-can-move-without-resending-the-page"
-        },
-        {
-          "key": "OSS-6",
-          "title": "Step 2 (backlog)",
-          "summary": "Yui@home routine prompts per platform, review policy, first end-to-end run"
+          "title": "Step 3",
+          "summary": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
+          "waiting": true
         }
       ]
     },
@@ -252,6 +247,26 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-69",
+          "title": "Step 2 (backlog)",
+          "summary": "Talk about a setting, native",
+          "shipped": "2026-09-26"
+        },
+        {
+          "key": "YUI-111",
+          "title": "Step 2",
+          "summary": "The app moves timeline rows in place",
+          "shipped": "2026-09-26",
+          "progress": "/progress#the-app-moves-timeline-rows-in-place"
+        },
+        {
+          "key": "YUI-111",
+          "title": "A patch can move a timeline row (next to now to done), so the release panel updates in place",
+          "summary": "A timeline row can move without resending the page",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-timeline-row-can-move-without-resending-the-page"
+        },
         {
           "key": "YUI-70",
           "title": "Step 2 (next)",
@@ -275,8 +290,9 @@
         {
           "key": "YUI-69",
           "title": "Step 1",
-          "summary": "Talk about a setting, spec and playground mock",
-          "shipped": "2026-09-26"
+          "summary": "Talk about a setting, designed: change your agent by talking",
+          "shipped": "2026-09-26",
+          "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking"
         },
         {
           "key": "YUI-70",
@@ -293,7 +309,9 @@
         {
           "key": "YUI-106",
           "title": "Send and drawer taps under 100 ms (YUI-101 follow-up)",
-          "shipped": "2026-09-26"
+          "summary": "Send and the menu drawer answer faster",
+          "shipped": "2026-09-26",
+          "progress": "/progress#send-and-the-menu-drawer-answer-faster"
         },
         {
           "key": "YUI-102",
