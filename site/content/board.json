@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T19:10:42.743Z",
+  "updated": "2026-09-26T19:40:45.704Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.2",
@@ -218,14 +218,9 @@
           "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)"
         },
         {
-          "key": "INT-3",
-          "title": "Fix",
-          "summary": "Outside agents draw like the app",
-          "progress": "/progress#outside-agents-draw-like-the-app"
-        },
-        {
-          "key": "SITE-49",
-          "title": "A Thought on flows and the library, screens any agent can run and look up"
+          "key": "FLOW-1",
+          "title": "Step 3 (web)",
+          "summary": "Agents make their own flow variants"
         }
       ]
     },
@@ -233,6 +228,27 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-50",
+          "title": "A Thought, the MVP is done and Yui is in alpha",
+          "summary": "Yui is in alpha: a Thought on how the MVP got done",
+          "shipped": "2026-09-26",
+          "progress": "/progress#yui-is-in-alpha-a-thought-on-how-the-mvp-got-done"
+        },
+        {
+          "key": "SITE-49",
+          "title": "A Thought on flows and the library, screens any agent can run and look up",
+          "summary": "Flows and the library: a Thought on screens any agent can run",
+          "shipped": "2026-09-26",
+          "progress": "/progress#flows-and-the-library-a-thought-on-screens-any-agent-can-run"
+        },
+        {
+          "key": "INT-3",
+          "title": "Fix",
+          "summary": "Outside agents draw like the app",
+          "shipped": "2026-09-26",
+          "progress": "/progress#outside-agents-draw-like-the-app"
+        },
         {
           "key": "FLOW-2",
           "title": "Step 2 (web)",
