@@ -87,7 +87,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Connects:** path D. Claude's apps (web, desktop, mobile) add Yui as a custom connector by URL and sign in with OAuth; Claude Code does the same with `claude mcp add --transport http` (then `claude mcp get`, `claude mcp login`), or with a pasted token. Agents on the Claude Agent SDK load the same server in `mcpServers`, or use path E when they run as a service. Steps for each: `spec/MCP.md` "Claude", on /developers/mcp.
 - **Learns:** from the MCP server (tool descriptions, instructions, the `yui_guide` prompt). Agent SDK builders append CHANNEL.md to the system prompt; the snippet in the guide does it.
 - **Draws in the chat too:** the web renderer ships as an MCP App, `ui://yui/screen`, named by `yui_show`. Hosts that render MCP Apps (the `io.modelcontextprotocol/ui` extension) show the screen inline, and a tap there comes back as the same event a phone tap sends, through the app-only `yui_tap`. Same Yui Lines, a second renderer.
-- **Checked:** the MCP Apps reference host draws the screen and a tap round-trips (dark and light); a real Claude Code on this Mac adds Yui over OAuth and puts a screen on the simulator. Inside claude.ai itself needs a person's browser session, one check left for Chris.
+- **Checked:** the MCP Apps reference host draws the screen and a tap round-trips (dark and light); a real Claude Code on this Mac adds Yui over OAuth and puts a screen on the simulator. Chris checked it inside claude.ai on Sep 26: added as a custom connector, the screen drew in the chat and on the phone.
 - **Not listed** in Claude's connector directory. A listing is public; Chris signs off first.
 - **Depends on:** INT-3, INT-19.
 
