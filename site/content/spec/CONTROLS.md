@@ -153,7 +153,7 @@ Every accepted change is logged on the host, one JSON line in `<profile home>/yu
 - Before any item goes out (a memory entry, a SKILL.md, a schedule prompt), the plugin runs it through the host's secret redaction. A line that looks like a key shows as `[hidden on your Mac]` and the item is marked read only, so a save cannot write the placeholder back over the real value.
 - Changing a key stays a job for the host's own setup (`hermes setup`, `hermes config`), never the app.
 
-## 5. Relay changes (proposed SQL, not migrated)
+## 5. Relay changes (applied: migration `20260926000000_yui_controls`)
 
 ```sql
 alter table yui_messages drop constraint yui_messages_kind_check;
@@ -191,3 +191,14 @@ Done when all of this is true, with proof on the card:
 5. **Round trips on a real phone,** each with a screenshot before and after: edit SOUL.md and see it on the host; forget one memory; switch a skill off and on; pause a schedule, resume it, run it now.
 6. **No secrets.** A test profile with keys in `.env` and a token-shaped line in a memory entry: nothing key-shaped reaches `yui_messages` (checked with a query after the round trips).
 7. Shipped in a VALID TestFlight build, with a progress entry and screenshots.
+
+## As built (step 2, YUI-70)
+
+- **Relay.** Migration `20260926000000_yui_controls` (in the app repo, applied to the database): the `control` kind; a restrictive insert policy so only the agent's owner writes one (a grantee gets a row-level-security refusal); the host may answer a control only into its owner's thread; `meta` may hold 64 KB on a control row (room for a 32 KB SOUL.md), 16 KB on every other kind; `yui_agents.controls` and `controls_at`; `yui_agent_list.controls` (null on a shared agent's row); `yui_retention` deletes control rows after 7 days (`control_rows`).
+- **yui-connect** takes `{"action": "controls", "remote_ref", "controls"}`, keeps only the sections and modes above (a host cannot grant itself model writes), and refuses a `v` it does not know. **yui-push** refuses a control row (`control_row`).
+- **Answers** carry `meta.for` (the request row's id), not `meta.turn`, so no mention or group trigger wakes on a settings answer. The app finds its answer by `meta->>req`.
+- **Plugin.** `hermes-plugin/yui/controls.py`, wired in the adapter before any other routing. Ids: `SOUL.md`; `mem-<hash>` and `user-<hash>` for memory entries (the id follows the entry's text, so an edit answers with a new id); a skill's folder name; a cron job id; `model`; a platform name. Memory writes take the memory tool's lock and pass its injection scan and size limit. Switching a skill off writes `skills.disabled` through `hermes_cli.skills_config`. Schedules go through `cron.jobs` (update, pause, resume, trigger, remove). The capability report goes out on gateway start and when the gateway serves a new agent. Tests: `hermes-plugin/tests/test_controls.py`.
+- **Secrets.** Each line of an outgoing text is checked with the host's redaction (`agent.redact`, forced) and a set of token shapes of its own; a matching line goes out whole as `[hidden on your Mac]` and the item is read only. The model screen names the provider in words and never the key or URL.
+- **App.** The drawer's Controls tab lists the areas its host reports. Each opens its own screen; a pushed item has Edit (a full-screen editor with a draft kept on the phone), and every delete is an alert with the action and Keep it. A save on a stale rev opens the conflict screen: your version and the Mac's, Keep mine or Use the Mac's. The host not answering in 5 seconds reads "Your Mac didn't answer" with Try again. A host that is not online greys the rows out with one line. No report: the About card and "This agent's host doesn't share its settings yet." A shared agent's drawer has no Controls tab.
+- **Proof.** `supabase/tests/controls_test.py` (live relay), `supabase/tests/controls_e2e.py --sim` (the simulator's round trips against a throwaway host served by the plugin's own code, then a query for anything key-shaped in `yui_messages`), `YuiUITests/ControlsTests` (every screen in light and dark on the demo host).
+

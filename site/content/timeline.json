@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 139,
-    "site": 342,
+    "app": 141,
+    "site": 345,
     "builds": 31,
-    "shipped": 178,
-    "screenshots": 383
+    "shipped": 180,
+    "screenshots": 390
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T07:38:50.021Z",
+          "at": "2026-09-26T07:40:30.000Z",
+          "title": "Yui@home: the agent-ready backlog is live",
+          "card": "OSS-6",
+          "anchor": "yui-home-the-agent-ready-backlog-is-live",
+          "images": [
+            {
+              "src": "/progress/oss6-contribute-phone.webp",
+              "alt": "The contribute page on a phone, light: the first agent-ready card, Yui in the browser, marked Open, size M, with its done-when list and tests"
+            },
+            {
+              "src": "/progress/oss6-contribute-dark.webp",
+              "alt": "The contribute page on a desktop, dark: two agent-ready cards with their goals, acceptance lines and test commands"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 139,
+            "site": 344,
+            "builds": 31,
+            "shipped": 180
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T07:38:56.000Z",
           "title": "The release panel tops the war room, live from the board",
           "card": "YUI-105",
           "anchor": "the-release-panel-tops-the-war-room-live-from-the-board",
@@ -27,12 +51,12 @@
               "alt": "The same release panel in light mode"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 139,
-            "site": 342,
+            "site": 343,
             "builds": 31,
-            "shipped": 178
+            "shipped": 179
           }
         },
         {
@@ -60,6 +84,42 @@
             "app": 139,
             "site": 341,
             "builds": 31,
+            "shipped": 178
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T06:39:23.000Z",
+          "title": "Agent controls, built: your agent's settings in the drawer",
+          "card": "YUI-70",
+          "anchor": "agent-controls-built-your-agent-s-settings-in-the-drawer",
+          "images": [
+            {
+              "src": "/progress/yui70-native-tab.webp",
+              "alt": "The drawer's Controls tab in light mode: Personality, Memory, Skills, Schedules, Model and tools, Channels"
+            },
+            {
+              "src": "/progress/yui70-native-soul-dark.webp",
+              "alt": "The Personality screen in dark mode: SOUL.md rendered, with its headings as chips and an Edit button"
+            },
+            {
+              "src": "/progress/yui70-native-skills.webp",
+              "alt": "The Skills screen: three skills with switches, one marked as shipping with Hermes"
+            },
+            {
+              "src": "/progress/yui70-native-schedule-dark.webp",
+              "alt": "A paused schedule in dark mode with Resume, Run now, Time and Delete"
+            },
+            {
+              "src": "/progress/yui70-native-memory-hidden.webp",
+              "alt": "A memory with a key in it, shown as hidden on your Mac and read only"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 139,
+            "site": 337,
+            "builds": 31,
             "shipped": 177
           }
         },
@@ -83,7 +143,7 @@
               "alt": "Mock of the Schedules screen: a morning brief with Run now, a paused weekly review with Resume, and a form to edit the prompt and time"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 139,
             "site": 337,
@@ -129,6 +189,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "cdb5f02",
+          "at": "2026-09-26T07:44:25.000Z",
+          "text": "Agent controls in the drawer (YUI-70 step 2)",
+          "url": "https://github.com/postscarcityai/yui/commit/cdb5f02"
+        },
+        {
+          "repo": "app",
+          "sha": "bb5f4a7",
+          "at": "2026-09-26T07:41:32.000Z",
+          "text": "CONTRIBUTING-AGENTS.md and AGENTS.md: how an agent picks, claims and hands in an agent-ready card (OSS-6)",
+          "url": "https://github.com/postscarcityai/yui/commit/bb5f4a7"
+        },
+        {
+          "repo": "site",
+          "sha": "e041467",
+          "at": "2026-09-26T07:40:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e041467"
+        },
+        {
+          "repo": "site",
+          "sha": "3444235",
+          "at": "2026-09-26T07:40:30.000Z",
+          "text": "Yui@home: agent-ready backlog at /contribute and /contribute/backlog.json, CONTRIBUTING-AGENTS.md, spec template (OSS-6)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3444235"
+        },
+        {
+          "repo": "site",
+          "sha": "d296b6e",
+          "at": "2026-09-26T07:38:56.000Z",
+          "text": "Release panel on the phone: export-board --stdout, RELEASE.md steps 2 (YUI-105)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d296b6e"
+        },
         {
           "repo": "site",
           "sha": "0f669e0",
