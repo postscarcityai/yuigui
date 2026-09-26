@@ -5,7 +5,7 @@ yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch re
 ## Where Yui is now (Sep 26)
 
 - **On phones:** Yui 0.3.0, build 138, on TestFlight since Sep 26. The smooth release: taps answer at once, a long thread scrolls smooth and opens fast (YUI-101), typing keeps up like Notes (YUI-99), shapes that move (YUI-104), restyle Yui by asking (YUI-96), shared agents (YUI-95, YUI-97), group threads in the database and the plugin (YUI-93), speed numbers from real phones (YUI-102), and two fixes from deck feedback (an inline deck as tall as its page, full-screen pages that never come up blank).
-- **Also on phones, build 148 (Sep 26):** YUI-106 (send and the drawer taps answer faster), YUI-70 (agent controls in the drawer), YUI-69 (talk about a setting), YUI-111 (a patch moves a timeline row in place) and YUI-112 (a timeline alone on the stage keeps its row heights).
+- **Also on phones, build 148 (Sep 26):** YUI-106 (send and the drawer taps answer faster), YUI-70 (agent controls in the drawer), YUI-69 (talk about a setting), YUI-111 (a patch moves a timeline row in place) and YUI-112 (a timeline alone on the stage keeps its row heights). [See it](/mockups#build-148).
 - **Up next:** YUI-100 memory audit, YUI-29, then the backlog in the order below. Feel and ease of use first; integration work waits in the backlog.
 - **Waiting on Chris:** one look in claude.ai (INT-7) and one in chatgpt.com (INT-8). YUI-91 waits on a Yui Dev install.
 - **MVP:** every card has shipped except YUI-29, a stranger running the whole path alone.
