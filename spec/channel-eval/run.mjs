@@ -8,7 +8,9 @@
 //
 // Each case goes to the `claude` CLI the way the fleet's shim sends a Hermes
 // turn: the agent's persona plus the channel guide exactly as the yui plugin
-// injects it (yui/adapter.py platform_hint() + look_prompt()), appended to the
+// injects it (yui/adapter.py platform_hint() + look_prompt() + restyle_prompt():
+// the restyle block moves after the look line, as on the owner's turn on a new
+// enough phone, which every case here is), appended to the
 // CLI's own system prompt, no tools. Earlier turns of a multi-turn case are
 // replayed as a transcript in the user message. Replies are scored by the
 // real YL parser (site/lib/yl/yl.mjs), one fresh parser per reply, because
@@ -40,9 +42,19 @@ export function guideFrom(spec) {
 
 const LOOK = "Your look in Yui: your own default (seeded from your name). Change it with a `theme` line only when asked.";
 
+// The restyle block (YUI-96, yui/restyle.py split_guide): out of the fixed guide, into the turn.
+const RESTYLE = /<!-- restyle:[^\n]*-->\n([\s\S]*?)<!-- \/restyle -->\n?/;
+export function splitGuide(body) {
+  const m = body.match(RESTYLE);
+  if (!m) return { fixed: body, restyle: "" };
+  const text = m[1].trim().split("\n").map((l) => l.trim()).join(" ").replace(/^[-*]\s+/, "");
+  return { fixed: body.replace(RESTYLE, ""), restyle: text };
+}
+
 function system(g, suite, c) {
+  const { fixed, restyle } = splitGuide(g.body);
   return [suite.agents[c.agent], suite.context, "You are on the Yui channel with Chris.",
-    `Yui channel guide ${g.version}\n\n${g.body.trim()}`, LOOK].join("\n\n");
+    `Yui channel guide ${g.version}\n\n${fixed.trim()}`, [LOOK, restyle].filter(Boolean).join("\n")].join("\n\n");
 }
 
 function prompt(c) {
@@ -198,6 +210,20 @@ export function score(c, reply) {
   const ats = [...text.replace(/`[^`\n]*`/g, " ").matchAll(/(?<![\w@.])@([a-z0-9][a-z0-9-]{0,31})\b/gi)].map((m) => m[1].toLowerCase());
   if (e.at && !e.at.some((h) => ats.includes(h))) fails.push(`at: no @${e.at.join(" or @")} to hand it on`);
   if (e.no_at && ats.length) fails.push(`at: handed on to @${ats[0]} when nobody else was needed`);
+  // Restyle (YUI-96, spec/RESTYLE.md): exactly this many `theme app <name>` lines, and nothing claimed yet.
+  if (e.app_theme) {
+    const app = good.filter((o) => o.op === "theme" && o.props?.scope === "app");
+    if (app.length !== 1) fails.push(`app theme: ${app.length} theme app lines, want 1`);
+    else if (app[0].props.name !== e.app_theme) fails.push(`app theme: ${app[0].props.name || "keys only"}, want ${e.app_theme} :: ${app[0].line.trim()}`);
+  }
+  if (e.no_text) {
+    const m = text.match(new RegExp(e.no_text, "i"));
+    if (m) fails.push(`text: "${m[0]}"`);
+  }
+  if (e.max_sentences) {
+    const n = text.split(/(?<=[.!?])\s+/).filter((x) => /\w/.test(x)).length;
+    if (n > e.max_sentences) fails.push(`sentences: ${n} > ${e.max_sentences}`);
+  }
   return { pass: fails.length === 0, fails, components, words, used: [...used] };
 }
 

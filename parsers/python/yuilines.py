@@ -13,6 +13,7 @@ One line in, one op out. Ops are dicts:
   {"op": "focus", "screen", "line"}               bare ">2": later lines go to screen 2
   {"op": "end",   "screen", "target", "line"}     close the open group (deck, plan, narrate)
   {"op": "theme", "screen", "props", "line"}      restyle this agent's look
+                                                  `theme app ...`: props.scope "app", a restyle of Yui's own chrome
   {"op": "close", "screen": "full", "line"}       `close` or bare ">chat"
   {"op": "talk",  "screen", "props": {"on"}, "line"}  `>2 talk`: page 2 keeps the composer
   {"op": "menu",  "screen", "id", "props": {"bucket", "label", ...}, "line"}  an item in the drawer
@@ -828,6 +829,64 @@ def _no_constants(name):
 
 # ---------- menu (spec section 5, The drawer) ----------
 
+# ---------- theme app (spec/YL.md, theme app; RESTYLE.md) ----------
+# `theme app [set] key=value...`: a restyle of Yui's own chrome, not the
+# agent's look. Stricter than an agent's theme: an unknown set, key or value
+# is an error line, never quietly dropped. Same tables as site/lib/yl/look.mjs.
+
+APP_SETS = (
+    "yui", "candy", "berry", "cherry", "coral", "sunset", "peach", "autumn", "honey",
+    "lemon", "lime", "matcha", "forest", "mint", "teal", "sky", "ocean", "midnight",
+    "lavender", "grape", "slate", "mono", "wizard", "coach", "zen", "studio", "night", "counsel",
+)
+APP_PAPERS = ("cream", "paper", "white", "mist", "sand", "blush")
+APP_HEX = _re(r"#[0-9a-f]{6}", re.I)
+APP_KEYS = {
+    "accent": lambda v: bool(APP_HEX.fullmatch(v)) or v in APP_SETS,
+    "bg": lambda v: bool(APP_HEX.fullmatch(v)) or v in APP_PAPERS,
+    "radius": lambda v: v in ("round", "soft", "square"),
+    "font": lambda v: v in ("rounded", "default", "serif", "mono"),
+    "weight": lambda v: v in ("regular", "bold", "heavy"),
+    "motion": lambda v: v in ("bouncy", "calm", "snappy"),
+}
+APP_STYLE_KEYS = ("screen", "gallery", "chart", "buttons")
+
+
+def _app_theme(screen, tokens, line):
+    def bad(message):
+        return {"op": "error", "screen": screen, "message": f"theme app: {message}", "line": line}
+
+    props = {"scope": "app"}
+    words = []
+    for t in tokens:
+        if t.key:
+            v = "|".join(t.value) if isinstance(t.value, list) else t.value
+            if t.key in APP_STYLE_KEYS:
+                return bad(f"{t.key}= is one agent's style, not the app's")
+            if t.key not in APP_KEYS:
+                return bad(f"unknown key {t.key}=")
+            if not APP_KEYS[t.key](v):
+                return bad(f"{t.key}={v} is not a value the app takes")
+            props[t.key] = v
+        elif not t.quoted and not t.parts and FLAG.fullmatch(t.raw):
+            return bad(f"{t.raw} is not a flag here; the person always sees a preview first")
+        else:
+            words.append(t.text)
+    if len(words) > 1:
+        return bad(f'one set name, not "{" ".join(words)}"')
+    if words:
+        name = words[0]
+        if name == "reset":
+            if len(props) > 1:
+                return bad("reset takes nothing else")
+        elif name not in APP_SETS:
+            return bad(f"no set named {name}")
+        props["name"] = name
+    if len(props) == 1:
+        return bad("needs a set name, reset or keys")
+    return {"op": "theme", "screen": screen, "props": props, "line": line}
+
+
 MENU_BUCKETS = ("review", "backlog", "shortcut")
 MENU_KEYS = ("sub", "say", "show", "url")
 _MENU_HEAD = re.compile(r"([a-z]+)(?:@([A-Za-z0-9_-]+))?")
@@ -992,6 +1051,9 @@ class Parser:
                 return {"op": "error", "screen": screen, "message": "talk: takes nothing, on or off", "line": line}
             return {"op": "talk", "screen": screen, "props": {"on": word == "on"}, "line": line}
         if head == "theme":
+            t0 = tokens[0] if tokens else None
+            if t0 and not t0.key and not t0.quoted and not t0.parts and t0.text == "app":
+                return _app_theme(screen, tokens[1:], line)
             return {"op": "theme", "screen": screen, "props": parse_args("theme", tokens), "line": line}
 
         hm = HEAD.fullmatch(head)

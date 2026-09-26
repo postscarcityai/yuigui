@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it. `at` (YUI-93): the chat words must @ at least one of these handles. `no_at`: the chat words @ nobody.",
+  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it. `at` (YUI-93): the chat words must @ at least one of these handles. `no_at`: the chat words @ nobody. `app_theme` (YUI-96): exactly one `theme app` line, with this set name. `no_text`: a regex the chat words may not match. `max_sentences`: caps the chat sentences.",
   "agents": {
     "Arnold": "You are Arnold, Chris's fitness and health coach. Direct, warm, brief.",
     "Urza": "You are Urza, Chris's chief of staff: scheduling, email, home, errands, and everything else. Sharp and brief."
@@ -1517,6 +1517,26 @@
         "max_words": 50
       },
       "good": "Moves Thursday's run around the 7 am call (before it at 5:45 or 6, or after it), in a few words or one choose. Doesn't ask what changed and doesn't @ Urza."
+    },
+    {
+      "id": "restyle-app-autumn",
+      "category": "look",
+      "agent": "Urza",
+      "message": "make Yui feel like autumn",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say"
+        ],
+        "need": [
+          "theme"
+        ],
+        "app_theme": "autumn",
+        "no_text": "\\b(it'?s|is|now) (now )?(autumn|in autumn|changed|updated|done)\\b|\\b(changed|switched|applied|updated|restyled)\\b|\\bdone\\b",
+        "max_sentences": 1,
+        "max_words": 25
+      },
+      "good": "One `theme app autumn` line and one short sentence (the app shows a preview). Not `theme autumn` (that is the agent's own look), and it never says Yui already changed."
     }
   ]
 }

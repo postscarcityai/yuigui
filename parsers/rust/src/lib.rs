@@ -14,6 +14,7 @@
 //!   {op: "focus", screen, line}             bare ">2": later lines go to screen 2
 //!   {op: "end",   screen, target, line}     close the open group (deck, plan, narrate)
 //!   {op: "theme", screen, props, line}      restyle this agent's look
+//!                                           `theme app ...`: props.scope "app", a restyle of Yui's own chrome
 //!   {op: "close", screen: "full", line}     `close` or bare ">chat"
 //!   {op: "talk",  screen, props: {on}, line}  `>2 talk`: page 2 keeps the composer
 //!   {op: "error", screen, message, line}
@@ -1477,6 +1478,78 @@ fn custom_line(body: &str) -> Option<(Option<&str>, &str)> {
 }
 
 /// `^([a-z]+)(?:@([\w-]+))?$` (and without the optional group for patches).
+// ---------- theme app (spec/YL.md, theme app; RESTYLE.md) ----------
+// `theme app [set] key=value...`: a restyle of Yui's own chrome, not the
+// agent's look. Stricter than an agent's theme: an unknown set, key or value
+// is an error line, never quietly dropped. Same tables as site/lib/yl/look.mjs.
+
+pub const APP_SETS: &[&str] = &[
+    "yui", "candy", "berry", "cherry", "coral", "sunset", "peach", "autumn", "honey",
+    "lemon", "lime", "matcha", "forest", "mint", "teal", "sky", "ocean", "midnight",
+    "lavender", "grape", "slate", "mono", "wizard", "coach", "zen", "studio", "night", "counsel",
+];
+pub const APP_PAPERS: &[&str] = &["cream", "paper", "white", "mist", "sand", "blush"];
+const APP_STYLE_KEYS: &[&str] = &["screen", "gallery", "chart", "buttons"];
+
+/// `^#[0-9a-f]{6}$` with the i flag
+fn is_hex6(v: &str) -> bool {
+    v.strip_prefix('#').is_some_and(|h| h.len() == 6 && h.chars().all(|c| c.is_ascii_hexdigit()))
+}
+
+/// None for a key the app does not take, else whether it takes this value.
+fn app_value_ok(key: &str, v: &str) -> Option<bool> {
+    Some(match key {
+        "accent" => is_hex6(v) || APP_SETS.contains(&v),
+        "bg" => is_hex6(v) || APP_PAPERS.contains(&v),
+        "radius" => ["round", "soft", "square"].contains(&v),
+        "font" => ["rounded", "default", "serif", "mono"].contains(&v),
+        "weight" => ["regular", "bold", "heavy"].contains(&v),
+        "motion" => ["bouncy", "calm", "snappy"].contains(&v),
+        _ => return None,
+    })
+}
+
+fn app_theme(sc: &str, tokens: &[Token], line: &str) -> Value {
+    let bad = |m: String| error(sc, format!("theme app: {m}"), line);
+    let mut props = Map::new();
+    props.set("scope", Value::str("app"));
+    let mut words: Vec<&str> = Vec::new();
+    for t in tokens {
+        if let Some(k) = &t.key {
+            let v = t.value.join("|");
+            if APP_STYLE_KEYS.contains(&k.as_str()) {
+                return bad(format!("{k}= is one agent's style, not the app's"));
+            }
+            match app_value_ok(k, &v) {
+                None => return bad(format!("unknown key {k}=")),
+                Some(false) => return bad(format!("{k}={v} is not a value the app takes")),
+                Some(true) => props.set(k, Value::Str(v)),
+            }
+        } else if !t.quoted && t.parts.is_none() && is_flag(&t.raw) {
+            return bad(format!("{} is not a flag here; the person always sees a preview first", t.raw));
+        } else {
+            words.push(&t.text);
+        }
+    }
+    if words.len() > 1 {
+        return bad(format!("one set name, not \"{}\"", words.join(" ")));
+    }
+    if let Some(&name) = words.first() {
+        if name == "reset" {
+            if props.len() > 1 {
+                return bad("reset takes nothing else".into());
+            }
+        } else if !APP_SETS.contains(&name) {
+            return bad(format!("no set named {name}"));
+        }
+        props.set("name", Value::str(name));
+    }
+    if props.len() == 1 {
+        return bad("needs a set name, reset or keys".into());
+    }
+    op(vec![("op", Value::str("theme")), ("screen", Value::str(sc)), ("props", Value::Obj(props)), ("line", Value::str(line))])
+}
+
 // ---------- menu (spec section 5, The drawer) ----------
 
 pub const MENU_BUCKETS: &[&str] = &["review", "backlog", "shortcut"];
@@ -1755,6 +1828,11 @@ impl Parser {
                 return Some(op(vec![("op", Value::str("close")), ("screen", Value::str("full")), ("line", Value::str(line))]));
             }
             "theme" => {
+                if let Some(t0) = tokens.first() {
+                    if t0.key.is_none() && !t0.quoted && t0.parts.is_none() && t0.text == "app" {
+                        return Some(app_theme(sc, &tokens[1..], line));
+                    }
+                }
                 let props = parse_args("theme", &tokens);
                 return Some(op(vec![("op", Value::str("theme")), ("screen", Value::str(sc)), ("props", Value::Obj(props)), ("line", Value::str(line))]));
             }

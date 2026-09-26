@@ -647,6 +647,55 @@ private val HEAD = rx("([a-z]+)(?:@([\\w-]+))?")
 
 private fun op(vararg kv: Pair<String, Any?>): Op = linkedMapOf(*kv)
 
+// ---------- theme app (spec/YL.md, theme app; RESTYLE.md) ----------
+// `theme app [set] key=value...`: a restyle of Yui's own chrome, not the
+// agent's look. Stricter than an agent's theme: an unknown set, key or value
+// is an error line, never quietly dropped. Same tables as site/lib/yl/look.mjs.
+val APP_SETS = listOf(
+    "yui", "candy", "berry", "cherry", "coral", "sunset", "peach", "autumn", "honey",
+    "lemon", "lime", "matcha", "forest", "mint", "teal", "sky", "ocean", "midnight",
+    "lavender", "grape", "slate", "mono", "wizard", "coach", "zen", "studio", "night", "counsel",
+)
+val APP_PAPERS = listOf("cream", "paper", "white", "mist", "sand", "blush")
+private val APP_HEX = rx("#[0-9a-f]{6}", true)
+private val APP_KEYS: Map<String, (String) -> Boolean> = mapOf(
+    "accent" to { v -> APP_HEX.test(v) || v in APP_SETS },
+    "bg" to { v -> APP_HEX.test(v) || v in APP_PAPERS },
+    "radius" to { v -> v in listOf("round", "soft", "square") },
+    "font" to { v -> v in listOf("rounded", "default", "serif", "mono") },
+    "weight" to { v -> v in listOf("regular", "bold", "heavy") },
+    "motion" to { v -> v in listOf("bouncy", "calm", "snappy") },
+)
+private val APP_STYLE_KEYS = listOf("screen", "gallery", "chart", "buttons")
+
+private fun appTheme(screen: String, tokens: List<Token>, line: String): Op {
+    fun bad(msg: String) = op("op" to "error", "screen" to screen, "message" to "theme app: $msg", "line" to line)
+    val props = linkedMapOf<String, Any?>("scope" to "app")
+    val words = ArrayList<String>()
+    for (t in tokens) {
+        val k = t.key
+        if (k != null) {
+            val v = (t.value as? List<*>)?.joinToString("|") ?: t.value.toString()
+            if (k in APP_STYLE_KEYS) return bad("$k= is one agent's style, not the app's")
+            val check = APP_KEYS[k] ?: return bad("unknown key $k=")
+            if (!check(v)) return bad("$k=$v is not a value the app takes")
+            props[k] = v
+        } else if (!t.quoted && t.parts == null && FLAG.test(t.raw)) {
+            return bad("${t.raw} is not a flag here; the person always sees a preview first")
+        } else words.add(t.text)
+    }
+    if (words.size > 1) return bad("one set name, not \"${words.joinToString(" ")}\"")
+    if (words.isNotEmpty()) {
+        val name = words[0]
+        if (name == "reset") {
+            if (props.size > 1) return bad("reset takes nothing else")
+        } else if (name !in APP_SETS) return bad("no set named $name")
+        props["name"] = name
+    }
+    if (props.size == 1) return bad("needs a set name, reset or keys")
+    return op("op" to "theme", "screen" to screen, "props" to props, "line" to line)
+}
+
 // ---------- menu (spec section 5, The drawer) ----------
 val MENU_BUCKETS = listOf("review", "backlog", "shortcut")
 val MENU_KEYS = listOf("sub", "say", "show", "url")
@@ -789,7 +838,11 @@ class Parser(known: Map<String, String> = emptyMap()) {
                 this.screen = "1"
                 return op("op" to "close", "screen" to "full", "line" to line)
             }
-            "theme" -> return op("op" to "theme", "screen" to screen, "props" to parseArgs("theme", tokens), "line" to line)
+            "theme" -> {
+                val t0 = tokens.firstOrNull()
+                if (t0 != null && t0.key == null && !t0.quoted && t0.parts == null && t0.text == "app") return appTheme(screen, tokens.drop(1), line)
+                return op("op" to "theme", "screen" to screen, "props" to parseArgs("theme", tokens), "line" to line)
+            }
             "talk" -> {
                 // `talk` or `talk on` turns the composer on for this page, `talk off` takes it away.
                 val word = if (tokens.isEmpty()) "on" else if (tokens.size == 1) tokens[0].text else null

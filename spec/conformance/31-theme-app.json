@@ -1,6 +1,6 @@
 {
   "version": "YL v0",
-  "area": "theme app (YUI-43 step 1: the JavaScript parser only)",
+  "area": "theme app (YUI-43)",
   "vectors": [
     {
       "name": "a set for the whole app",

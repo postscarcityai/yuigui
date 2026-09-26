@@ -419,7 +419,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-41: an on-device model answers the easy things for free.
 - YUI-42: the preset flywheel. Log custom screens, turn the repeats into presets. Shipped Sep 24: the Hermes plugin logs custom shapes (never values) when its owner turns it on, a weekly report flags repeats, checklist in spec/FLYWHEEL.md.
 - YUI-43: restyle the app by asking ("make Yui feel like autumn"), with contrast guardrails. Step 1 shipped Sep 25: [Restyle Yui](/developers/restyle), `theme app` in the parser, `/playground?demo=restyle`.
-- YUI-96 (backlog): step 2 of YUI-43, the native side: the preview card, the chrome that follows the look, Settings > Look, the saved look and the build gate.
+- YUI-96: step 2 of YUI-43, the native side, built Sep 25: the preview card (Now beside the new look, light and dark, Use or Keep mine, then Undo), the chrome that follows the look while agent threads keep theirs, Settings > Look with Back to Yui's look, the look saved on the account, and the host gate. Rides the next Yui release.
 - YUI-40: widgets and Siri, so agents work outside the app.
 
 **Flows**

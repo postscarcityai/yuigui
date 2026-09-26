@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 126,
-    "site": 307,
+    "app": 128,
+    "site": 309,
     "builds": 29,
-    "shipped": 163,
-    "screenshots": 340
+    "shipped": 164,
+    "screenshots": 346
   },
   "days": [
     {
@@ -13,7 +13,47 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-25T23:43:14.156Z",
+          "at": "2026-09-26T00:04:12.742Z",
+          "title": "Ask any agent to restyle Yui, in the app",
+          "card": "YUI-96",
+          "anchor": "ask-any-agent-to-restyle-yui-in-the-app",
+          "images": [
+            {
+              "src": "/progress/yui96-preview-light.webp",
+              "alt": "Light mode, Yui's thread: a card titled A new look for Yui, two small phones, Now in coral and Autumn in brown, a Light and Dark switch, a line saying autumn was adjusted so text stays readable, and Use autumn and Keep mine buttons. An older ocean offer above reads A newer look was offered below."
+            },
+            {
+              "src": "/progress/yui96-applied-dark.webp",
+              "alt": "Dark mode after Use autumn: the thread is warm brown with a serif font, and the card is one line, Yui is autumn now, with Undo."
+            },
+            {
+              "src": "/progress/yui96-undo-light.webp",
+              "alt": "Light mode after Undo: Yui is coral again and the card reads Put back the look from before."
+            },
+            {
+              "src": "/progress/yui96-settings-dark.webp",
+              "alt": "Dark mode, Settings in autumn: the Look section names Autumn, the Agents keep their own looks switch is on, and Back to Yui's look sits under it."
+            },
+            {
+              "src": "/progress/yui96-reset-light.webp",
+              "alt": "Light mode, Settings after Back to Yui's look: coral again, the Look section names Yui's own."
+            },
+            {
+              "src": "/progress/yui96-agent-keeps-look-light.webp",
+              "alt": "Light mode, Wizard's thread while Yui wears autumn: Wizard keeps its own purple serif look."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 128,
+            "site": 309,
+            "builds": 29,
+            "shipped": 164
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T23:43:06.000Z",
           "title": "Make Yui feel like autumn: restyle the app by asking, on paper and in the playground",
           "card": "YUI-43",
           "anchor": "make-yui-feel-like-autumn-restyle-the-app-by-asking-on-paper-and-in-the-playgrou",
@@ -39,10 +79,10 @@
               "alt": "Dark mode, after Back to Yui's look: Settings in Yui's own coral again, with the line Back to Yui's look."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 126,
-            "site": 307,
+            "site": 308,
             "builds": 29,
             "shipped": 163
           }
@@ -71,7 +111,7 @@
               "alt": "Light mode, after the owner revoked the grant: Penny is gone and the list says Add your first agent."
             }
           ],
-          "commits": 4,
+          "commits": 5,
           "totals": {
             "app": 126,
             "site": 306,
@@ -1840,6 +1880,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "b64501e",
+          "at": "2026-09-26T00:03:34.000Z",
+          "text": "Restyle Yui by asking, native (YUI-96, step 2 of YUI-43; spec yuigui spec/RESTYLE.md).",
+          "url": "https://github.com/postscarcityai/yui/commit/b64501e"
+        },
+        {
+          "repo": "site",
+          "sha": "6008cfb",
+          "at": "2026-09-26T00:00:22.000Z",
+          "text": "Roadmap: PERF-1 epic, Telegram-smooth (YUI-98 to YUI-101)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6008cfb"
+        },
+        {
+          "repo": "app",
+          "sha": "2531191",
+          "at": "2026-09-25T23:53:58.000Z",
+          "text": "Shared agents follow-up (YUI-95): rows with no agent pass the owner-or-grant trigger and stay readable and deletable by their user, as...",
+          "url": "https://github.com/postscarcityai/yui/commit/2531191"
+        },
+        {
+          "repo": "site",
+          "sha": "c22431f",
+          "at": "2026-09-25T23:43:06.000Z",
+          "text": "Restyle Yui by asking (YUI-43 step 1): spec/RESTYLE.md and a playground mock. A new line, `theme app <set> key=value...`, lets any agent...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c22431f"
+        },
         {
           "repo": "site",
           "sha": "00bc081",

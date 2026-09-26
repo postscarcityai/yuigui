@@ -1,6 +1,6 @@
-# Restyle Yui by asking (YUI-43, draft)
+# Restyle Yui by asking (YUI-43)
 
-Status: step 1, the spec, the parser and a playground mock (`/playground?demo=restyle`). The app does not do this yet. Step 2 is the native side: the preview card, the chrome that follows the look, the saved look and the Settings row.
+Status: built. Step 1 (Sep 25) was the spec, the parser and a playground mock (`/playground?demo=restyle`). Step 2, YUI-96 (Sep 25), is the native side: every parser reads `theme app`, the app draws the preview card and applies the look to its chrome, Settings has Look, the look is saved on the account (`yui_users.look`, the `yui-account` function) and cached on the phone, and the host gates the line with `restyle_min_build` and keeps it away from shared agents. Phones get it with the next Yui release.
 
 The goal: say "make Yui feel like autumn" to any of your agents. The agent answers with one line, you see Yui in autumn next to Yui as it is now, and one tap puts it on. Nothing changes until you tap, and one more tap takes it back.
 
@@ -41,7 +41,7 @@ theme app reset
 - any flag (`+now`, `+apply`): there is no way to skip the preview;
 - `theme app reset` with anything after it.
 
-Vectors: `spec/conformance/js-31-theme-app.json` (JavaScript parser only in step 1; the file becomes `31-theme-app.json` when the Swift, Python, Kotlin and Rust parsers learn it in step 2).
+Vectors: `spec/conformance/31-theme-app.json`. Every parser runs them: JavaScript, Swift, Python, Kotlin and Rust.
 
 ## 3. Preview, then apply
 
@@ -84,7 +84,7 @@ The conformance runner checks this: every `look` vector parses its line, builds 
 
 On the account, so a second phone signed in to the same Apple ID gets the same look, and cached on the device, so the first frame at launch is already right.
 
-Proposed SQL (step 2, not migrated):
+SQL (migrated in YUI-96, `20260925100000_yui_user_look.sql`):
 
 ```sql
 alter table public.yui_users add column if not exists look jsonb;
@@ -107,9 +107,9 @@ A build that does not know `theme app` would read `theme app accent=...` as the 
 
 ## 8. What the agent is told
 
-Added to the channel guide in step 2, for owned agents on new enough phones:
+Added to the channel guide in step 2 (v21), for owned agents on new enough phones. It sits between `<!-- restyle: ... -->` markers: the Hermes plugin adds it to a turn only when the line would go out (`yui/hermes-plugin/yui/restyle.py`), and the published guide for other hosts leaves it out. With "one short sentence" the eval's replies ran to two; the example sentence fixed that (`channel-eval/reports/v21-restyle-case.md`).
 
-> When the person asks to change how Yui looks ("make Yui feel like autumn", "darker", "more calm"), answer with one `theme app` line and one short sentence. Pick the closest set, add keys only when they asked for something the set does not have. The app shows them a preview and they decide. Never say it changed before they tap.
+> When the person asks to change how Yui looks ("make Yui feel like autumn", "darker", "more calm"), answer with one line like `theme app autumn` and a single short sentence ("Here's Yui in autumn, have a look."). Pick the closest set, add keys only when they asked for something the set does not have. The app shows them a preview and they decide. Never say it changed before they tap.
 
 ## 9. Not yet
 

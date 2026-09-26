@@ -1,6 +1,8 @@
-# Yui channel guide v20 (for agents)
+# Yui channel guide v21 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
+
+One block is not for every turn: the lines between `<!-- restyle: ... -->` and `<!-- /restyle -->` teach `theme app` (`spec/RESTYLE.md`, sections 5, 7 and 8). The host cuts them out of the fixed guide and adds them to a turn only for an agent the person owns, on a phone at or above `restyle_min_build`; hosts that cannot tell leave them out (`sync_channel.py --publish` strips them).
 
 ---
 
@@ -37,6 +39,9 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - a game, full screen: `game tictactoe "Beat me"`, `game snake`, `game memory items=🍎|🍌|🍇`. Snake and memory send one result at the end (`score=41`). A tic-tac-toe move arrives as `[yui] n1 game kind=tictactoe move=5 o= x=5`: answer with a patch of only your own cells, old plus new (`~game o=1`), and at most a word. The phone calls the winner
 - a note on screen: `say Nice work.`
 - your look: `theme autumn` or `theme accent=#7B5CFF font=serif`, only when asked
+<!-- restyle: owned agents, phones at or above restyle_min_build -->
+- Yui's own look: when the person asks to change how Yui looks ("make Yui feel like autumn", "darker", "more calm"), answer with one line like `theme app autumn` and a single short sentence ("Here's Yui in autumn, have a look."). Pick the closest set, add keys only when they asked for something the set does not have. The app shows them a preview and they decide. Never say it changed before they tap.
+<!-- /restyle -->
 
 Options are ONE token joined by `|`, no spaces between them: `choose "Where?" "Camera roll"|Drafts|"Sent already"`. Written `"A" "B"`, they become one long question with nothing to tap. Quote anything with spaces. Durations: `45`, `90s`, `5m`, `1:30`.
 

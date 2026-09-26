@@ -499,7 +499,7 @@ Guardrails: the app never lets a theme make text unreadable. Colors are adjusted
 ### theme app (core, not a preset)
 `theme app [set] key=value...`. Offers a new look for Yui itself: the agent list, the tab bar, Settings and Yui's own thread, not this agent's thread. It never applies on its own: the app draws a preview card (Now beside the new look, light and dark) with **Use autumn** and **Keep mine**, and only the person's tap changes anything. `theme app reset` offers Yui's own look back.
 
-Same sets and look keys as `theme` (`accent bg radius font weight motion`), but strict: an unknown set, key or value, a style profile key, a number radius, a short hex or any flag is an error line, because the preview must be exactly what Apply does. The op is the theme op with `props.scope: "app"`. Only agents the person owns may send it. Full spec: `RESTYLE.md` (yuigui.com/developers/restyle). Step 1: the JavaScript parser only (vectors `js-31-theme-app.json`).
+Same sets and look keys as `theme` (`accent bg radius font weight motion`), but strict: an unknown set, key or value, a style profile key, a number radius, a short hex or any flag is an error line, because the preview must be exactly what Apply does. The op is the theme op with `props.scope: "app"`. Only agents the person owns may send it. Full spec: `RESTYLE.md` (yuigui.com/developers/restyle). Vectors: `31-theme-app.json`, run by every parser.
 
 ### Agent tables: table create, put, query
 An agent keeps data on the phone, per agent, across replies: a workout log, macros, a small CRM. The full spec is `spec/TABLES.md` (yuigui.com/developers/tables); this is the grammar.
