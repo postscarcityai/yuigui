@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 142,
-    "site": 349,
+    "app": 146,
+    "site": 354,
     "builds": 31,
-    "shipped": 182,
-    "screenshots": 392
+    "shipped": 185,
+    "screenshots": 401
   },
   "days": [
     {
@@ -13,17 +13,56 @@
       "moments": [
         {
           "kind": "ship",
+          "at": "2026-09-26T08:32:40.000Z",
+          "title": "Send and the menu drawer answer faster",
+          "card": "YUI-106",
+          "anchor": "send-and-the-menu-drawer-answer-faster",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 144,
+            "site": 353,
+            "builds": 31,
+            "shipped": 185
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T08:20:52.000Z",
+          "title": "The app moves timeline rows in place",
+          "card": "YUI-111",
+          "anchor": "the-app-moves-timeline-rows-in-place",
+          "images": [
+            {
+              "src": "/progress/yui111-app-before.webp",
+              "alt": "The release timeline saved on the phone: YUI-201 done, YUI-202 Agents drawer running under the Now line, YUI-203 queued"
+            },
+            {
+              "src": "/progress/yui111-app-after.webp",
+              "alt": "The same saved timeline after two patch lines: YUI-202 is done on Sep 26, the Now line moved below it and YUI-203 Slash commands is running"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 144,
+            "site": 351,
+            "builds": 31,
+            "shipped": 184
+          }
+        },
+        {
+          "kind": "ship",
           "at": "2026-09-26T08:13:30.000Z",
           "title": "Yui@home runs every week: a routine for each agent",
           "card": "OSS-6",
           "anchor": "yui-home-runs-every-week-a-routine-for-each-agent",
           "images": [],
-          "commits": 4,
+          "commits": 5,
           "totals": {
-            "app": 141,
+            "app": 142,
             "site": 349,
             "builds": 31,
-            "shipped": 182
+            "shipped": 183
           }
         },
         {
@@ -42,12 +81,12 @@
               "alt": "The same timeline after one patch line: YUI-73 is done on Sep 26, the Now line moved below it and YUI-68 is running"
             }
           ],
-          "commits": 1,
+          "commits": 3,
           "totals": {
             "app": 141,
             "site": 347,
             "builds": 31,
-            "shipped": 181
+            "shipped": 182
           }
         },
         {
@@ -83,7 +122,7 @@
             "app": 141,
             "site": 346,
             "builds": 31,
-            "shipped": 180
+            "shipped": 181
           }
         },
         {
@@ -102,12 +141,12 @@
               "alt": "The contribute page on a desktop, dark: two agent-ready cards with their goals, acceptance lines and test commands"
             }
           ],
-          "commits": 4,
+          "commits": 5,
           "totals": {
             "app": 139,
             "site": 344,
             "builds": 31,
-            "shipped": 179
+            "shipped": 180
           }
         },
         {
@@ -130,6 +169,50 @@
           "totals": {
             "app": 139,
             "site": 343,
+            "builds": 31,
+            "shipped": 179
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T07:08:44.000Z",
+          "title": "Talk about a setting, built: change your agent by talking",
+          "card": "YUI-69",
+          "anchor": "talk-about-a-setting-built-change-your-agent-by-talking",
+          "images": [
+            {
+              "src": "/progress/yui69-native-button-dark.webp",
+              "alt": "Dark mode: the Personality screen in Controls, SOUL.md rendered, with a Talk about this button under it"
+            },
+            {
+              "src": "/progress/yui69-native-chip-light.webp",
+              "alt": "Light mode: back in the chat with a SOUL.md Personality chip above the message field and the keyboard up"
+            },
+            {
+              "src": "/progress/yui69-native-proposal-light.webp",
+              "alt": "Light mode: the agent's proposal, the current SOUL.md lines and the proposed ones with the new line highlighted, and Apply or Keep it as is"
+            },
+            {
+              "src": "/progress/yui69-native-applied-light.webp",
+              "alt": "Light mode: after Apply, a card reading Applied, Personality updated, just now, from this chat"
+            },
+            {
+              "src": "/progress/yui69-native-conflict-light.webp",
+              "alt": "Light mode: SOUL.md changed on your Mac since this was proposed. Nothing was written, with an Ask again button"
+            },
+            {
+              "src": "/progress/yui69-native-secret-light.webp",
+              "alt": "Light mode: a memory shown as hidden on your Mac pinned as the chip, and the agent saying that one holds a key so it can only be changed on the Mac"
+            },
+            {
+              "src": "/progress/yui69-native-thread-dark.webp",
+              "alt": "Dark mode: a memory forgotten from the chat with its Applied card, then a message About morning brief asking to move it to 7:30"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 139,
+            "site": 341,
             "builds": 31,
             "shipped": 178
           }
@@ -154,7 +237,7 @@
               "alt": "Mock in light mode of the receipt card Personality updated with an Open in Controls button, and the card shown when the file changed meanwhile, with Ask again"
             }
           ],
-          "commits": 1,
+          "commits": 3,
           "totals": {
             "app": 139,
             "site": 341,
@@ -230,6 +313,62 @@
       "commits": [
         {
           "repo": "app",
+          "sha": "3a59ecb",
+          "at": "2026-09-26T08:37:22.000Z",
+          "text": "Talk about this: the button in Controls, the chip on the composer, proposals in the chat (YUI-69)",
+          "url": "https://github.com/postscarcityai/yui/commit/3a59ecb"
+        },
+        {
+          "repo": "app",
+          "sha": "2b4717f",
+          "at": "2026-09-26T08:34:24.000Z",
+          "text": "Channel guide v23 bundled (YUI-85; spec yuigui spec/CHANNEL.md): a sketch right after a page is that page's picture.",
+          "url": "https://github.com/postscarcityai/yui/commit/2b4717f"
+        },
+        {
+          "repo": "site",
+          "sha": "f1e517a",
+          "at": "2026-09-26T08:34:23.000Z",
+          "text": "Channel guide v23: a sketch as a page's picture (YUI-85). One example under 'Draw it, don't describe it': in a deck or plan, a sketch...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f1e517a"
+        },
+        {
+          "repo": "site",
+          "sha": "29ee8a5",
+          "at": "2026-09-26T08:32:40.000Z",
+          "text": "progress: send and the drawer answer faster (YUI-106)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/29ee8a5"
+        },
+        {
+          "repo": "site",
+          "sha": "34ccf85",
+          "at": "2026-09-26T08:23:18.000Z",
+          "text": "ROADMAP: YUI-112, a lone timeline on the stage stretches its rows (backlog, WAR-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/34ccf85"
+        },
+        {
+          "repo": "site",
+          "sha": "9340b79",
+          "at": "2026-09-26T08:20:52.000Z",
+          "text": "Timeline rows move in every parser (YUI-111 step 2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9340b79"
+        },
+        {
+          "repo": "app",
+          "sha": "6a64a35",
+          "at": "2026-09-26T08:18:09.000Z",
+          "text": "Timeline rows move in place in the app: kind= on a row patch (YUI-111 step 2)",
+          "url": "https://github.com/postscarcityai/yui/commit/6a64a35"
+        },
+        {
+          "repo": "site",
+          "sha": "a66a1f8",
+          "at": "2026-09-26T08:13:52.000Z",
+          "text": "sync: roadmap and timeline for OSS-6 step 2",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a66a1f8"
+        },
+        {
+          "repo": "app",
           "sha": "0ec93bf",
           "at": "2026-09-26T08:13:37.000Z",
           "text": "checks CI on every pull request, CODEOWNERS on CI, signing, release and the backend, credit opt-in (OSS-6 step 2)",
@@ -241,6 +380,13 @@
           "at": "2026-09-26T08:13:30.000Z",
           "text": "Yui@home weekly routines on /contribute, checks CI and CODEOWNERS, merged [KEY] closes its card (OSS-6 step 2)",
           "url": "https://github.com/postscarcityai/yuigui/commit/35c9b58"
+        },
+        {
+          "repo": "app",
+          "sha": "1c08c75",
+          "at": "2026-09-26T08:12:25.000Z",
+          "text": "Talk about this, host side: attach expansion, yui_propose, Apply and Keep with no turn (YUI-69)",
+          "url": "https://github.com/postscarcityai/yui/commit/1c08c75"
         },
         {
           "repo": "site",

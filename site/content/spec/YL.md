@@ -693,6 +693,15 @@ Make Thursday a swim instead.
 
 The words are about what is on that page, so the agent answers there: a patch (`~list ...`) or a line sent to it (`>2 say Done.`). Typed in the chat, the words go as they are. A slash command is still a command and carries no tag. The reference functions are `typedBody(screen, words)` and `readTyped(body)` in `yl.mjs` (`YuiLines.typedBody`/`readTyped` in the app, `typed_body`/`read_typed` in Python, `typedBody`/`readTyped` in Kotlin). Conformance vectors may carry `typed: {screen, words, body}`: `typedBody` must give `body`, and `readTyped(body)` must give back the screen and words, or nothing when the screen has no page.
 
+**About an item.** Words the person sends with a Controls item pinned above the composer (Talk about this, spec `TALK-ABOUT.md`) go as a normal message whose first line names the item, then the words:
+
+```
+[yui] attach section=soul id=SOUL.md rev=b41c09
+Less playful when I'm working. Keep the warmth.
+```
+
+The line is a reference, not the content: the host puts the item's text in the agent's turn under it. The reference functions are `attachBody(item, words)` and `readAttach(body)` in `yl.mjs` (`YuiLines.attachBody`/`readAttach` in the app, `attach_body`/`read_attach` in Python). An item with an id that is not a Controls id (a space, `..`) or no `rev` sends the words as they are. Conformance vectors may carry `attach: {item, words, body}`.
+
 **Locking.** `+lock` freezes a component on purpose: the answer shown stays, and taps, picks and the slider do nothing. It is off by default. Send it on the line (`choose "Table for" 2|4|6 +lock`) or, more often, patch it on once the answer is final, for example after the booking is confirmed. From a later reply, aim at the preset name: `~choose +lock` reaches the newest `choose` on any screen, including one from an earlier reply. When the component sits on a page with an `@id`, aim at the id instead and reach exactly that one: `~need-t_x +lock` (section 5, Ids that last). `~choose lock=off` opens it again.
 
 A line that joins a group comes out of the parser with the group's id: `deck` then `page "Intro"` gives `{op: "add", preset: "page", id: "n2", in: "n1", ...}`. `end` gives `{op: "end", screen, target}` with the id of the group it closed. Members of a `plan` send no events of their own.
