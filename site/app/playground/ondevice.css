@@ -1,0 +1,69 @@
+/* The model on the phone mock (spec/ON-DEVICE.md). Every class is od-, so no site chrome leaks in. */
+.od-app { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.od-head .od-faces { display: flex; }
+.od-face { border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px; flex: none; }
+.od-faces .od-face + .od-face { margin-left: -9px; box-shadow: 0 0 0 2px var(--screen-bg, #0f1019); }
+.od-msgs { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; }
+.od-status { font-size: 12px; color: var(--muted); align-self: flex-start; }
+.od-note { margin: 0 14px 6px; font-size: 12px; color: var(--muted); }
+
+.od-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: var(--accent, #4fd1c5); white-space: nowrap; }
+
+.od-chips { display: flex; flex-direction: column; gap: 6px; padding: 4px 14px 8px; }
+.od-chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.od-chip { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--accent, #4fd1c5) 70%, transparent); background: color-mix(in srgb, var(--accent, #4fd1c5) 12%, transparent); color: inherit; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.od-chip:active { transform: scale(.97); }
+
+.od-comp { display: flex; gap: 8px; padding: 8px 12px 12px; border-top: 1px solid #1f2233; }
+.screen.light .od-comp { border-top-color: #e3e4ee; }
+.od-comp input { flex: 1; min-width: 0; min-height: 40px; border-radius: 20px; border: 1px solid #2f3348; background: #171927; color: inherit; font: inherit; font-size: 14px; padding: 0 14px; }
+.screen.light .od-comp input { background: #f4f4fa; border-color: #d7d8e6; }
+.od-comp button { width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--accent, #4fd1c5); color: #0f1019; font-size: 18px; font-weight: 800; cursor: pointer; flex: none; }
+.od-comp button:disabled { opacity: .35; cursor: default; }
+
+.od-turn { display: flex; flex-direction: column; gap: 6px; }
+.od-who { display: flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: var(--od); }
+.od-turn .yl-say { align-self: flex-start; border-left: 2px solid var(--od); }
+.od-sent { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.od-to { font-size: 11px; color: var(--muted); }
+
+.od-route { display: flex; align-items: center; gap: 10px; margin: 0 12px 6px; padding: 6px 6px 6px 10px; border-radius: 16px; border: 1.5px solid var(--od); background: color-mix(in srgb, var(--od) 12%, transparent); font-size: 13px; }
+.od-route-to { display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0; font-size: 14px; }
+.od-why { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.od-why .od-tag { display: inline-flex; }
+.od-change { min-height: 36px; padding: 0 12px; border-radius: 12px; border: 0; background: var(--od); color: #fff; font: inherit; font-size: 12.5px; font-weight: 800; cursor: pointer; }
+
+.od-lock { flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 36px 12px 14px; background: radial-gradient(120% 80% at 20% 0%, #ff9a7a 0%, #c86bd8 45%, #3b3f9e 100%); color: #fff; font-family: ui-rounded, "SF Pro Rounded", system-ui, sans-serif; }
+.screen.light .od-lock { background: radial-gradient(120% 80% at 20% 0%, #ffd9c7 0%, #f3c4f0 45%, #b9c3ff 100%); color: #16172a; }
+.od-time { font-size: 64px; font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
+.od-date { font-size: 14px; font-weight: 600; opacity: .9; }
+.od-notes { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
+.od-n { display: flex; gap: 10px; align-items: flex-start; padding: 12px; border-radius: 20px; background: rgba(20, 20, 32, .55); backdrop-filter: blur(12px); color: #fff; }
+.screen.light .od-n { background: rgba(255, 255, 255, .7); color: #16172a; }
+.od-n-old { opacity: .75; }
+.od-n-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.od-n-top { display: flex; justify-content: space-between; font-size: 13.5px; }
+.od-n-top span { font-size: 12px; opacity: .7; }
+.od-n-body { font-size: 14px; line-height: 1.35; }
+.od-n-sub { font-size: 11px; opacity: .7; }
+.od-n .od-tag { color: inherit; opacity: .85; }
+.od-hint { font-size: 11.5px; opacity: .85; text-align: center; margin-top: 8px; }
+
+.od-offline { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 6px; font-size: 12px; font-weight: 700; background: #2a2d40; color: #fff; }
+.screen.light .od-offline { background: #e6e7f0; color: #16172a; }
+.od-empty { margin: auto 8px; text-align: center; font-size: 13px; color: var(--muted); }
+.od-draft { display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 18px; border: 1.5px dashed color-mix(in srgb, var(--accent, #4fd1c5) 70%, transparent); }
+.od-acts { display: flex; gap: 8px; }
+.od-btn { flex: 1; min-height: 44px; border-radius: 14px; border: 0; background: var(--accent, #4fd1c5); color: #0f1019; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+.od-ghost { background: transparent; color: inherit; border: 1px solid #3a3e55; }
+.screen.light .od-ghost { border-color: #d7d8e6; }
+
+.od-bar { display: flex; flex-direction: column; gap: 2px; padding: 6px 12px 10px; border-top: 1px solid #1f2233; }
+.screen.light .od-bar { border-top-color: #e3e4ee; }
+.od-switch { display: flex; align-items: center; gap: 10px; min-height: 40px; background: none; border: 0; color: inherit; font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; padding: 0; text-align: left; }
+.od-knob { width: 40px; height: 24px; border-radius: 12px; background: #3a3e55; position: relative; flex: none; transition: background .2s; }
+.od-knob::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: left .2s; }
+.od-knob.on { background: var(--accent, #4fd1c5); }
+.od-knob.on::after { left: 19px; }
+@media (prefers-reduced-motion: reduce) { .od-knob, .od-knob::after { transition: none; } }
+.od-fine { font-size: 11px; color: var(--muted); }

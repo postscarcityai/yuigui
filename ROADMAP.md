@@ -331,7 +331,7 @@ Goals: the "put in your credit card and go" version.
 
 Deliverables:
 - YUI-45: in-app purchase credits for image generation and hosted model usage (keys stay optional for power users).
-- YUI-41: on-device Foundation Models for routing and quick replies, cutting cloud cost and latency.
+- YUI-41: on-device Foundation Models for routing and quick replies, cutting cloud cost and latency. Step 1, the spec and a playground mock, shipped Sep 26 ([The model on the phone](/developers/on-device), `/playground?demo=on-device`): Apple's on-device model suggests replies to a screen that asks in words, picks the right agent in a group, sums up a push and drafts a screen offline. It never answers as an agent, never sends without a tap and nothing leaves the phone; without Apple Intelligence the app works as it does today. No new Yui Lines word. Step 2, native in the app, is in the backlog.
 - YUI-40: widgets for agent dashboards, App Intents for Siri, Shortcuts and the Action button. Step 1, the spec and a playground mock, shipped Sep 26 ([Widgets and Siri](/developers/widgets), `/playground?demo=widgets`): a widget is a pinned saved screen, kept current by the patches agents already send (a WidgetKit push, never polling), with buttons that send the thread's own events back; Siri asks an agent, shows a saved screen or starts a timer. No new Yui Lines word. Step 2, native in the app, is in the backlog.
 - Design system v1 from beta feedback.
 - Decision gate: Android port (YUI-46, Kotlin + Jetpack Compose against the same Yui Lines suite), Apple Watch app (YUI-47), public launch.
@@ -432,7 +432,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 **Smarter and faster**
 
-- YUI-41: an on-device model answers the easy things for free.
+- YUI-41: an on-device model answers the easy things for free. Step 1 (spec + playground mock) shipped Sep 26; step 2, the model on the phone native in the app, is in the backlog.
 - YUI-42: the preset flywheel. Log custom screens, turn the repeats into presets. Shipped Sep 24: the Hermes plugin logs custom shapes (never values) when its owner turns it on, a weekly report flags repeats, checklist in spec/FLYWHEEL.md.
 - YUI-43: restyle the app by asking ("make Yui feel like autumn"), with contrast guardrails. Step 1 shipped Sep 25: [Restyle Yui](/developers/restyle), `theme app` in the parser, `/playground?demo=restyle`.
 - YUI-96: step 2 of YUI-43, the native side, built Sep 25: the preview card (Now beside the new look, light and dark, Use or Keep mine, then Undo), the chrome that follows the look while agent threads keep theirs, Settings > Look with Back to Yui's look, the look saved on the account, and the host gate. Rides the next Yui release.

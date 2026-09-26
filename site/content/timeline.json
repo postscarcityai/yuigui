@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 155,
-    "site": 381,
+    "site": 383,
     "builds": 32,
-    "shipped": 195,
-    "screenshots": 422
+    "shipped": 196,
+    "screenshots": 425
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T13:42:10.765Z",
+          "at": "2026-09-26T14:12:10.620Z",
+          "title": "The model on the phone, planned",
+          "card": "YUI-41",
+          "anchor": "the-model-on-the-phone-planned",
+          "images": [
+            {
+              "src": "/progress/yui41-replies-dark.webp",
+              "alt": "Dark mode: Coach's reply with the weight down 2.3 lb, Saturday's 10k and the question rest day or a light 3k, and under it three chips marked on this phone: Rest day, Light 3k, Why?"
+            },
+            {
+              "src": "/progress/yui41-route-light.webp",
+              "alt": "Light mode: the Race week group with Coach, Sage and Quill. The typed message is about waking up at 3am, and a pill over the composer reads To Sage, sleep and calm, on this phone, with a Change button."
+            },
+            {
+              "src": "/progress/yui41-offline-dark.webp",
+              "alt": "Dark mode, no connection: a 12 minute stretch drawn as a dashed draft marked not from Coach, with a Stretch timer, and buttons Ask Coach when online and Discard."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 155,
+            "site": 383,
+            "builds": 32,
+            "shipped": 196
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T13:41:57.000Z",
           "title": "Widgets and Siri, planned",
           "card": "YUI-40",
           "anchor": "widgets-and-siri-planned",
@@ -31,10 +59,10 @@
               "alt": "Dark mode: Siri's sheet after 'Show weight in Yui', with the weight stat and an Open in Yui button, and two more phrases to try."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 155,
-            "site": 381,
+            "site": 382,
             "builds": 32,
             "shipped": 195
           }
@@ -565,6 +593,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "d836ca0",
+          "at": "2026-09-26T14:11:50.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d836ca0"
+        },
+        {
+          "repo": "site",
+          "sha": "693a54c",
+          "at": "2026-09-26T13:41:57.000Z",
+          "text": "Widgets and Siri: spec and playground mock (YUI-40)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/693a54c"
+        },
         {
           "repo": "site",
           "sha": "f209930",

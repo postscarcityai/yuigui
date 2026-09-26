@@ -187,6 +187,20 @@ say "No agents yet? Start with one of mine. It answers right here, nothing to in
 choose@starter "Who do you want first?" "Coach, trainer"|"Basil, nutritionist"|"Penny, assistant"|"Quill, study buddy"`,
   },
   {
+    // The model on the phone (spec/ON-DEVICE.md, YUI-41 step 1): the lines are
+    // Coach's last reply. The tabs above the phone show what Apple's on-device
+    // model adds around it (playground/ondevice.js): reply chips, a route pill in
+    // a group, a summed-up push line and an offline draft. Edit the question and
+    // the chips follow.
+    name: "On this phone: suggested replies, routing, offline drafts",
+    slug: "on-device",
+    agent: "Coach",
+    ondevice: true,
+    yl: `stat@weight 178.9lb Weight delta=-2.3 good=down sub="since Monday"
+card "Saturday: 10k" "Race pace 5:40. Easy miles until then."
+say "Tomorrow: rest day or a light 3k?"`,
+  },
+  {
     // Widgets and Siri (spec/WIDGETS.md, YUI-40 step 1): the lines are Coach's
     // reply, three pages each saved. A widget is a pinned saved screen, so the
     // home screen, lock screen and Siri tabs above the phone draw these saved
