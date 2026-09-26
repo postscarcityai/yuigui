@@ -8,7 +8,7 @@ put meals Day=today Food="Chicken bowl" Cal=640 Protein=52
 query meals where=Day=today sum=Cal|Protein as stat label="Today"
 ```
 
-Status: YUI-33. Step 1 (this page, the parser and the playground) is the spec and the web runtime. Step 2 is the app: the same store in SQLite on the phone, and the Swift, Python, Kotlin and Rust parsers. Until then the vectors live in `spec/conformance/js-30-tables.json`, which only the JavaScript runner reads. Try it at [/playground](/playground), under "Agent tables".
+Status: YUI-33. Step 1 (this page, the parser and the playground) is the spec and the web runtime. Step 2 is the app: the same store in SQLite on the phone and the Swift parser (YUI-89). The Python, Kotlin and Rust parsers already read `table create`, `put` and `query` and carry the same store, so the vectors in `spec/conformance/30-tables.json` run in every language here. Try it at [/playground](/playground), under "Agent tables".
 
 ## 1. The three words
 
@@ -135,4 +135,4 @@ query crm group=Stage sum=Value as chart bar x=Stage y=Value "Pipeline"
 
 - Ops: `table create` gives `{op: "table", screen, name, cols: [{name, type, unit?}]}`, `put` gives `{op: "put", screen, table, key?, values, delete?}`. Neither takes an `@id`, advances the counter, draws anything or ends an open group. `query` is an add like any preset, `{op: "add", preset: "query", id, props}`; `where`, `sort`, `cols`, `y`, `sum`, `avg`, `min` and `max` are always lists.
 - Values come typed by the tokenizer (YL.md section 2): `Cal=640` is a number, `Done=on` true, a quoted value text. The store then fits each value to its column.
-- Reference: the parser is `site/lib/yl/yl.mjs`, the store `site/lib/yl/tables.mjs` (`write`, `query`, `replay`). Vectors: `spec/conformance/js-30-tables.json`, and a vector may carry `tables: {today, now, failed, results}`, the write lines the store refused and each query's rows after the whole input (spec/conformance/README.md).
+- Reference: the parser is `site/lib/yl/yl.mjs`, the store `site/lib/yl/tables.mjs` (`write`, `query`, `replay`). Ports with the same store: `parsers/python/tables.py`, `parsers/kotlin/src/Tables.kt`, `parsers/rust/src/tables.rs`. Vectors: `spec/conformance/30-tables.json`, and a vector may carry `tables: {today, now, failed, results}`, the write lines the store refused and each query's rows after the whole input (spec/conformance/README.md).

@@ -22,10 +22,11 @@ val PRESETS = listOf(
     "sketch", "row", "after",
     "shapes", "shape",
     "game",
+    "query",
 )
 
 // Not presets, but valid line heads.
-val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu")
+val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put")
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -438,6 +439,34 @@ private fun page(pos: List<Token>): Obj {
     return o
 }
 
+// query <table> [as table|list|chart|stat|send] [chart type] [title...]
+// (spec/TABLES.md). The first bare word is the table, `as` picks the view.
+val QUERY_VIEWS = listOf("table", "list", "chart", "stat", "send")
+
+private fun query(pos: List<Token>): Obj {
+    val o = Obj()
+    val rest = ArrayList<Token>()
+    fun bare(t: Token?) = t != null && !t.quoted && t.parts == null
+    var i = 0
+    while (i < pos.size) {
+        val t = pos[i]
+        val nxt = pos.getOrNull(i + 1)
+        if ("table" !in o && bare(t)) o["table"] = t.text
+        else if (bare(t) && t.text == "as" && bare(nxt) && nxt!!.text in QUERY_VIEWS) {
+            i++
+            o["as"] = nxt.text
+            val after = pos.getOrNull(i + 1)
+            if (nxt.text == "chart" && bare(after) && after!!.text in CHART_TYPES) {
+                i++
+                o["type"] = after.text
+            }
+        } else rest.add(t)
+        i++
+    }
+    if (rest.isNotEmpty()) o["title"] = joinText(rest)
+    return o
+}
+
 private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "timer" -> timer(pos)
     "ask", "choose", "pick" -> ask(pos)
@@ -464,6 +493,7 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "done", "now", "next" -> row(pos)
     "game" -> game(pos)
     "page" -> page(pos)
+    "query" -> query(pos)
     else -> Obj()
 }
 
@@ -517,6 +547,7 @@ private val LISTS = mapOf(
     "pick" to listOf("answer"),
     "game" to listOf("items"),
     "shape" to listOf("pts"),
+    "query" to listOf("where", "sort", "cols", "y", "sum", "avg", "min", "max", "names", "color"),
 )
 
 private fun asList(v: Any?): List<String> = (if (v is List<*>) v else jsStr(v).split("|")).map { jsStr(it) }
@@ -745,6 +776,54 @@ private fun menuLine(screen: String, tokens: List<Token>, line: String): Op {
     return op("op" to "menu", "screen" to screen, "id" to (hm.g(2) ?: menuId(label)), "props" to props, "line" to line)
 }
 
+// ---------- agent tables (spec/TABLES.md) ----------
+val TABLE_TYPES = listOf("text", "number", "date", "bool")
+private val TABLE_NAME = rx("[A-Za-z][\\w-]*")
+private val TABLE_HEAD = rx("table(@$DOT*)?")
+private val COL_DEF = rx("([A-Za-z_][\\w-]*):([a-z]+)(?::(\\S+))?")
+
+// table create <name> col:type ... (number columns may carry a unit: Cal:number:kcal)
+private fun tableCreate(screen: String, tokens: List<Token>, line: String): Op {
+    fun bad(msg: String) = op("op" to "error", "screen" to screen, "message" to "table create: $msg", "line" to line)
+    if (tokens.isEmpty()) return bad("needs a name, then col:type ...")
+    val nameTok = tokens[0]
+    val rest = tokens.drop(1)
+    if (nameTok.quoted || nameTok.parts != null || nameTok.key != null || !TABLE_NAME.test(nameTok.raw)) return bad("needs a name, then col:type ...")
+    if (rest.isEmpty()) return bad("needs at least one col:type")
+    val cols = ArrayList<Map<String, Any?>>()
+    for (t in rest) {
+        val m = (if (t.quoted || t.key != null) null else COL_DEF.full(t.raw)) ?: return bad("\"${t.raw}\" is not col:type")
+        val type = m.groupValues[2]
+        val unit = m.g(3)?.ifEmpty { null }
+        if (type !in TABLE_TYPES) return bad("\"$type\" is not text, number, date or bool")
+        if (unit != null && type != "number") return bad("only number columns take a unit (\"${t.raw}\")")
+        cols.add(linkedMapOf<String, Any?>("name" to m.groupValues[1], "type" to type).also { if (unit != null) it["unit"] = unit })
+    }
+    return op("op" to "table", "screen" to screen, "name" to nameTok.raw, "cols" to cols, "line" to line)
+}
+
+// put <table> [key] col=value ... [+delete]. Other flags set a bool column: +Done is Done=on.
+private fun putLine(screen: String, tokens: List<Token>, line: String): Op {
+    val sp = split(tokens)
+    fun bad(msg: String) = op("op" to "error", "screen" to screen, "message" to "put: $msg", "line" to line)
+    val tableTok = sp.pos.getOrNull(0)
+    val keyTok = sp.pos.getOrNull(1)
+    if (tableTok == null || tableTok.quoted || tableTok.parts != null || !TABLE_NAME.test(tableTok.raw)) return bad("needs a table name")
+    if (sp.pos.size > 2) return bad("one key, then col=value ...")
+    if (keyTok != null && keyTok.parts != null) return bad("a key has no |")
+    val delete = sp.flags.remove("delete") == true
+    val values = LinkedHashMap<String, Any?>(sp.flags).also { it.putAll(sp.kv) }
+    val o = linkedMapOf<String, Any?>("op" to "put", "screen" to screen, "table" to tableTok.raw)
+    if (keyTok != null) o["key"] = keyTok.text
+    if (delete) {
+        if (keyTok == null) return bad("+delete needs a key")
+        if (values.isNotEmpty()) return bad("+delete takes no values")
+        return o.also { it["values"] = LinkedHashMap<String, Any?>(); it["delete"] = true; it["line"] = line }
+    }
+    if (values.isEmpty()) return bad("needs at least one col=value")
+    return o.also { it["values"] = values; it["line"] = line }
+}
+
 // Stateful: remembers the focused screen and which preset each id belongs to,
 // so "~hiit rounds=10" knows to parse its args as a timer. `known` is the ids
 // that last from earlier replies (YL.md section 5), id -> preset; this reply's
@@ -757,8 +836,9 @@ class Parser(known: Map<String, String> = emptyMap()) {
 
     // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
     private fun group(o: Op?): Op? {
-        // theme restyles the app and menu fills the drawer: they leave groups alone.
-        if (o == null || o["op"] == "error" || o["op"] == "theme" || o["op"] == "menu") return o
+        // theme restyles the app, menu fills the drawer and a data line (table
+        // create, put) writes to the phone, not the screen: they leave groups alone.
+        if (o == null || o["op"] in listOf("error", "theme", "menu", "table", "put")) return o
         if (o["op"] == "close") { open.clear(); return o }
         if (o["op"] == "end") {
             if (open.isEmpty()) return op("op" to "error", "screen" to o["screen"], "message" to "end: no open deck, plan, narrate, timeline or sketch", "line" to o["line"])
@@ -868,6 +948,14 @@ class Parser(known: Map<String, String> = emptyMap()) {
                 if (word != "on" && word != "off") return err("talk: takes nothing, on or off")
                 return op("op" to "talk", "screen" to screen, "props" to linkedMapOf<String, Any?>("on" to (word == "on")), "line" to line)
             }
+        }
+
+        // Agent tables (spec/TABLES.md): `table create` and `put` write to the phone.
+        if (head == "put") return putLine(screen, tokens, line)
+        val t0 = tokens.firstOrNull()
+        if (TABLE_HEAD.test(head) && t0 != null && !t0.quoted && t0.key == null && t0.raw == "create") {
+            if (head != "table") return err("table create: takes no @id")
+            return tableCreate(screen, tokens.drop(1), line)
         }
 
         val hm = HEAD.full(head)
@@ -1022,6 +1110,7 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "row" to mapOf("text" to ""), "after" to mapOf("label" to "After"),
     "shapes" to mapOf("title" to "", "caption" to "", "w" to 10.0, "h" to 6.0),
     "shape" to mapOf("kind" to "box", "label" to ""),
+    "query" to mapOf("table" to "", "as" to "table", "title" to "", "where" to emptyList<String>(), "sort" to emptyList<String>()),
     "game" to mapOf("title" to "", "you" to "x", "first" to "you", "speed" to 2.0, "size" to 15.0, "pairs" to 6.0, "items" to emptyList<String>()),
 )
 

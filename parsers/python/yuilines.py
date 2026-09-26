@@ -44,9 +44,10 @@ PRESETS = [
     "sketch", "row", "after",
     "shapes", "shape",
     "game",
+    "query",
 ]
 # Not presets, but valid line heads.
-CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu"]
+CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put"]
 
 # Groups: a group head collects the lines that follow it on the same screen,
 # as long as each one is a member preset. Anything else ends the group, and
@@ -557,6 +558,38 @@ def _step(pos):
     return o
 
 
+QUERY_VIEWS = ["table", "list", "chart", "stat", "send"]
+
+
+def _query(pos):
+    """query <table> [as table|list|chart|stat|send] [chart type] [title...]
+    (spec/TABLES.md). The first bare word is the table, `as` picks the view."""
+    o, rest = {}, []
+
+    def bare(t):
+        return t is not None and not t.quoted and not t.parts
+
+    i = 0
+    while i < len(pos):
+        t = pos[i]
+        nxt = pos[i + 1] if i + 1 < len(pos) else None
+        if "table" not in o and bare(t):
+            o["table"] = t.text
+        elif bare(t) and t.text == "as" and bare(nxt) and nxt.text in QUERY_VIEWS:
+            i += 1
+            o["as"] = nxt.text
+            after = pos[i + 1] if i + 1 < len(pos) else None
+            if o["as"] == "chart" and bare(after) and after.text in CHART_TYPES:
+                i += 1
+                o["type"] = after.text
+        else:
+            rest.append(t)
+        i += 1
+    if rest:
+        o["title"] = _join(rest)
+    return o
+
+
 def _titled(pos):
     return {"title": _join(pos)} if pos else {}
 
@@ -608,6 +641,7 @@ P = {
     "row": lambda pos: {"text": _join(pos)} if pos else {},
     "after": lambda pos: {"label": _join(pos)} if pos else {},
     "game": _game,
+    "query": _query,
 }
 
 # Quantity: a number with an optional unit stuck to it. 72.5kg, 12%, $40.
@@ -661,6 +695,7 @@ LISTS = {
     "pick": ["answer"],
     "game": ["items"],
     "shape": ["pts"],
+    "query": ["where", "sort", "cols", "y", "sum", "avg", "min", "max", "names", "color"],
 }
 
 
@@ -948,6 +983,70 @@ def _menu_line(screen, tokens, line):
     return {"op": "menu", "screen": screen, "id": hm[2] or menu_id(label), "props": props, "line": line}
 
 
+# ---------- agent tables (spec/TABLES.md) ----------
+
+TABLE_TYPES = ["text", "number", "date", "bool"]
+TABLE_NAME = _re(r"[A-Za-z][\w-]*")
+TABLE_HEAD = _re(r"table(@.*)?")
+COL_DEF = _re(r"([A-Za-z_][\w-]*):([a-z]+)(?::(\S+))?")
+
+
+def _table_create(screen, tokens, line):
+    """table create <name> col:type ... (number columns may carry a unit: Cal:number:kcal)"""
+    def bad(message):
+        return {"op": "error", "screen": screen, "message": f"table create: {message}", "line": line}
+
+    if not tokens:
+        return bad("needs a name, then col:type ...")
+    name_tok, rest = tokens[0], tokens[1:]
+    if name_tok.quoted or name_tok.parts or name_tok.key or not TABLE_NAME.fullmatch(name_tok.raw):
+        return bad("needs a name, then col:type ...")
+    if not rest:
+        return bad("needs at least one col:type")
+    cols = []
+    for t in rest:
+        m = None if t.quoted or t.key else COL_DEF.fullmatch(t.raw)
+        if not m:
+            return bad(f'"{t.raw}" is not col:type')
+        if m[2] not in TABLE_TYPES:
+            return bad(f'"{m[2]}" is not text, number, date or bool')
+        if m[3] and m[2] != "number":
+            return bad(f'only number columns take a unit ("{t.raw}")')
+        cols.append({"name": m[1], "type": m[2], **({"unit": m[3]} if m[3] else {})})
+    return {"op": "table", "screen": screen, "name": name_tok.raw, "cols": cols, "line": line}
+
+
+def _put_line(screen, tokens, line):
+    """put <table> [key] col=value ... [+delete]. Other flags set a bool column: +Done is Done=on."""
+    kv, flags, pos = _split(tokens)
+
+    def bad(message):
+        return {"op": "error", "screen": screen, "message": f"put: {message}", "line": line}
+
+    table_tok = pos[0] if pos else None
+    key_tok = pos[1] if len(pos) > 1 else None
+    if not table_tok or table_tok.quoted or table_tok.parts or not TABLE_NAME.fullmatch(table_tok.raw):
+        return bad("needs a table name")
+    if len(pos) > 2:
+        return bad("one key, then col=value ...")
+    if key_tok and key_tok.parts:
+        return bad("a key has no |")
+    delete = flags.pop("delete", False)
+    values = {**flags, **kv}
+    op = {"op": "put", "screen": screen, "table": table_tok.raw}
+    if key_tok:
+        op["key"] = key_tok.text
+    if delete:
+        if not key_tok:
+            return bad("+delete needs a key")
+        if values:
+            return bad("+delete takes no values")
+        return {**op, "values": {}, "delete": True, "line": line}
+    if not values:
+        return bad("needs at least one col=value")
+    return {**op, "values": values, "line": line}
+
+
 class Parser:
     """Stateful: remembers the focused screen and which preset each id belongs
     to, so "~hiit rounds=10" knows to parse its args as a timer. `known` is the
@@ -962,8 +1061,9 @@ class Parser:
 
     def group(self, op):
         """Group bookkeeping for one parsed op. Errors (and None) leave groups open."""
-        # theme restyles the app and menu fills the drawer: they leave groups alone.
-        if not op or op["op"] in ("error", "theme", "menu"):
+        # theme restyles the app, menu fills the drawer and a data line (table
+        # create, put) writes to the phone, not the screen: they leave groups alone.
+        if not op or op["op"] in ("error", "theme", "menu", "table", "put"):
             return op
         if op["op"] == "close":
             self.open = []
@@ -1082,6 +1182,14 @@ class Parser:
             if t0 and not t0.key and not t0.quoted and not t0.parts and t0.text == "app":
                 return _app_theme(screen, tokens[1:], line)
             return {"op": "theme", "screen": screen, "props": parse_args("theme", tokens), "line": line}
+
+        # Agent tables (spec/TABLES.md): `table create` and `put` write to the phone.
+        if head == "put":
+            return _put_line(screen, tokens, line)
+        if TABLE_HEAD.fullmatch(head) and tokens and not tokens[0].quoted and not tokens[0].key and tokens[0].raw == "create":
+            if head != "table":
+                return {"op": "error", "screen": screen, "message": "table create: takes no @id", "line": line}
+            return _table_create(screen, tokens[1:], line)
 
         hm = HEAD.fullmatch(head)
         if not hm or not (hm[1] in PRESETS or hm[1] == "say"):
@@ -1286,6 +1394,7 @@ _DEFAULTS = {
     "done": {"text": ""}, "now": {"text": ""}, "next": {"text": ""},
     "sketch": {"title": "", "frame": "window", "before": "Before"},
     "row": {"text": ""}, "after": {"label": "After"},
+    "query": {"table": "", "as": "table", "title": "", "where": [], "sort": []},
     "shapes": {"title": "", "caption": "", "w": 10, "h": 6},
     "shape": {"kind": "box", "label": ""},
     "game": {"title": "", "you": "x", "first": "you", "speed": 2, "size": 15, "pairs": 6, "items": []},

@@ -22,6 +22,7 @@
 //! An add that joins an open group (a page under a deck) also carries `in`.
 
 pub mod json;
+pub mod tables;
 
 pub use json::{Map, Value};
 use std::collections::HashMap;
@@ -36,6 +37,7 @@ pub const PRESETS: &[&str] = &[
     "sketch", "row", "after",
     "shapes", "shape",
     "game",
+    "query",
 ];
 /// A timeline's rows. A patch's `kind=` moves one to another of these.
 pub const ROWS: &[&str] = &["done", "now", "next"];
@@ -47,7 +49,7 @@ pub fn mark_at(kinds: &[&str]) -> usize {
 }
 
 /// Not presets, but valid line heads.
-pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu"];
+pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put"];
 
 /// Groups: a group head collects the lines that follow it on the same screen,
 /// as long as each one is a member preset. Anything else ends the group, and
@@ -883,6 +885,41 @@ fn game(pos: &[&Token], rest: &str) -> Map {
     o
 }
 
+pub const QUERY_VIEWS: &[&str] = &["table", "list", "chart", "stat", "send"];
+
+/// query <table> [as table|list|chart|stat|send] [chart type] [title...]
+/// (spec/TABLES.md). The first bare word is the table, `as` picks the view.
+fn query(pos: &[&Token]) -> Map {
+    let mut o = Map::new();
+    let mut rest = Vec::new();
+    let bare = |t: Option<&&Token>| t.is_some_and(|t| !t.quoted && t.parts.is_none());
+    let mut i = 0;
+    while i < pos.len() {
+        let t = pos[i];
+        let nxt = pos.get(i + 1);
+        if !o.has("table") && bare(Some(&t)) {
+            o.set("table", Value::str(&t.text));
+        } else if bare(Some(&t)) && t.text == "as" && bare(nxt) && QUERY_VIEWS.contains(&nxt.unwrap().text.as_str()) {
+            i += 1;
+            let view = pos[i].text.clone();
+            let after = pos.get(i + 1);
+            let chart = view == "chart";
+            o.set("as", Value::Str(view));
+            if chart && bare(after) && CHART_TYPES.contains(&after.unwrap().text.as_str()) {
+                i += 1;
+                o.set("type", Value::str(&pos[i].text));
+            }
+        } else {
+            rest.push(t);
+        }
+        i += 1;
+    }
+    if !rest.is_empty() {
+        o.set("title", Value::Str(join_text(&rest)));
+    }
+    o
+}
+
 fn preset_props(preset: &str, pos: &[&Token]) -> Map {
     match preset {
         "timer" => timer(pos),
@@ -915,6 +952,7 @@ fn preset_props(preset: &str, pos: &[&Token]) -> Map {
         "row" => all_text(pos, "text"),
         "after" => all_text(pos, "label"),
         "game" => game(pos, "title"),
+        "query" => query(pos),
         _ => Map::new(),
     }
 }
@@ -1063,6 +1101,7 @@ fn list_props(preset: &str) -> &'static [&'static str] {
         "pick" => &["answer"],
         "game" => &["items"],
         "shape" => &["pts"],
+        "query" => &["where", "sort", "cols", "y", "sum", "avg", "min", "max", "names", "color"],
         _ => &[],
     }
 }
@@ -1639,6 +1678,121 @@ fn head_parts(s: &str, need_id: bool) -> Option<(&str, Option<&str>)> {
     }
 }
 
+// ---------- agent tables (spec/TABLES.md) ----------
+
+pub const TABLE_TYPES: &[&str] = &["text", "number", "date", "bool"];
+
+/// `^[A-Za-z][\w-]*$`
+fn is_table_name(s: &str) -> bool {
+    let mut cs = s.chars();
+    matches!(cs.next(), Some(c) if c.is_ascii_alphabetic()) && cs.all(|c| is_word(c) || c == '-')
+}
+
+/// `^([A-Za-z_][\w-]*):([a-z]+)(?::(\S+))?$`: (name, type, unit).
+fn col_def(s: &str) -> Option<(&str, &str, Option<&str>)> {
+    let e = s.find(|c: char| !(is_word(c) || c == '-')).unwrap_or(s.len());
+    let name = &s[..e];
+    if !is_ident(name) {
+        return None;
+    }
+    let r = s[e..].strip_prefix(':')?;
+    let t = r.find(|c: char| !c.is_ascii_lowercase()).unwrap_or(r.len());
+    let ty = &r[..t];
+    if ty.is_empty() {
+        return None;
+    }
+    let r = &r[t..];
+    if r.is_empty() {
+        return Some((name, ty, None));
+    }
+    let unit = r.strip_prefix(':')?;
+    (!unit.is_empty() && !unit.chars().any(is_ws)).then_some((name, ty, Some(unit)))
+}
+
+/// table create <name> col:type ... (number columns may carry a unit: Cal:number:kcal)
+fn table_create(sc: &str, tokens: &[Token], line: &str) -> Value {
+    let bad = |m: String| error(sc, format!("table create: {m}"), line);
+    let Some(name_tok) = tokens.first() else {
+        return bad("needs a name, then col:type ...".into());
+    };
+    if name_tok.quoted || name_tok.parts.is_some() || name_tok.key.is_some() || !is_table_name(&name_tok.raw) {
+        return bad("needs a name, then col:type ...".into());
+    }
+    let rest = &tokens[1..];
+    if rest.is_empty() {
+        return bad("needs at least one col:type".into());
+    }
+    let mut cols = Vec::new();
+    for t in rest {
+        let m = if t.quoted || t.key.is_some() { None } else { col_def(&t.raw) };
+        let Some((name, ty, unit)) = m else {
+            return bad(format!("\"{}\" is not col:type", t.raw));
+        };
+        if !TABLE_TYPES.contains(&ty) {
+            return bad(format!("\"{}\" is not text, number, date or bool", ty));
+        }
+        if unit.is_some() && ty != "number" {
+            return bad(format!("only number columns take a unit (\"{}\")", t.raw));
+        }
+        let mut c = Map::new();
+        c.set("name", Value::str(name));
+        c.set("type", Value::str(ty));
+        if let Some(u) = unit {
+            c.set("unit", Value::str(u));
+        }
+        cols.push(Value::Obj(c));
+    }
+    op(vec![
+        ("op", Value::str("table")),
+        ("screen", Value::str(sc)),
+        ("name", Value::str(&name_tok.raw)),
+        ("cols", Value::Arr(cols)),
+        ("line", Value::str(line)),
+    ])
+}
+
+/// put <table> [key] col=value ... [+delete]. Other flags set a bool column: +Done is Done=on.
+fn put_line(sc: &str, tokens: &[Token], line: &str) -> Value {
+    let (kv, mut flags, pos) = split(tokens);
+    let bad = |m: &str| error(sc, format!("put: {m}"), line);
+    let table_tok = pos.first();
+    let key_tok = pos.get(1);
+    let Some(table_tok) = table_tok.filter(|t| !t.quoted && t.parts.is_none() && is_table_name(&t.raw)) else {
+        return bad("needs a table name");
+    };
+    if pos.len() > 2 {
+        return bad("one key, then col=value ...");
+    }
+    if key_tok.is_some_and(|k| k.parts.is_some()) {
+        return bad("a key has no |");
+    }
+    let delete = flags.remove("delete").is_some_and(|v| v == Value::Bool(true));
+    let mut values = flags;
+    values.merge(&kv);
+    let mut o = vec![("op", Value::str("put")), ("screen", Value::str(sc)), ("table", Value::str(&table_tok.raw))];
+    if let Some(k) = key_tok {
+        o.push(("key", Value::str(&k.text)));
+    }
+    if delete {
+        if key_tok.is_none() {
+            return bad("+delete needs a key");
+        }
+        if !values.is_empty() {
+            return bad("+delete takes no values");
+        }
+        o.push(("values", Value::Obj(Map::new())));
+        o.push(("delete", Value::Bool(true)));
+        o.push(("line", Value::str(line)));
+        return op(o);
+    }
+    if values.is_empty() {
+        return bad("needs at least one col=value");
+    }
+    o.push(("values", Value::Obj(values)));
+    o.push(("line", Value::str(line)));
+    op(o)
+}
+
 struct Open {
     id: String,
     preset: String,
@@ -1676,9 +1830,10 @@ impl Parser {
         let o = o?;
         let m = o.as_obj().unwrap();
         let kind = m.get("op").and_then(Value::as_str).unwrap();
-        // A theme line restyles the app and a menu line fills the drawer, not the
-        // screen: they leave groups alone.
-        if kind == "error" || kind == "theme" || kind == "menu" {
+        // A theme line restyles the app, a menu line fills the drawer and a data
+        // line (table create, put) writes to the phone, not the screen: they
+        // leave groups alone.
+        if matches!(kind, "error" | "theme" | "menu" | "table" | "put") {
             return Some(o);
         }
         // Closing the stage ends whatever group was open on it, like `>2` would.
@@ -1880,6 +2035,19 @@ impl Parser {
                 return Some(op(vec![("op", Value::str("talk")), ("screen", Value::str(sc)), ("props", Value::Obj(props)), ("line", Value::str(line))]));
             }
             _ => {}
+        }
+
+        // Agent tables (spec/TABLES.md): `table create` and `put` write to the phone.
+        if head == "put" {
+            return Some(put_line(sc, &tokens, line));
+        }
+        if (head == "table" || head.starts_with("table@"))
+            && tokens.first().is_some_and(|t| !t.quoted && t.key.is_none() && t.raw == "create")
+        {
+            if head != "table" {
+                return Some(error(sc, "table create: takes no @id".into(), line));
+            }
+            return Some(table_create(sc, &tokens[1..], line));
         }
 
         let Some((preset, id)) = head_parts(&head, false).filter(|(p, _)| PRESETS.contains(p) || *p == "say") else {
@@ -2120,6 +2288,7 @@ fn defaults(preset: &str) -> Map {
         "done" | "now" | "next" | "row" => vec![("text", s(""))],
         "sketch" => vec![("title", s("")), ("frame", s("window")), ("before", s("Before"))],
         "after" => vec![("label", s("After"))],
+        "query" => vec![("table", s("")), ("as", s("table")), ("title", s("")), ("where", e()), ("sort", e())],
         "shapes" => vec![("title", s("")), ("caption", s("")), ("w", n(10.0)), ("h", n(6.0))],
         "shape" => vec![("kind", s("box")), ("label", s(""))],
         "game" => vec![("title", s("")), ("you", s("x")), ("first", s("you")), ("speed", n(2.0)), ("size", n(15.0)), ("pairs", n(6.0)), ("items", e())],

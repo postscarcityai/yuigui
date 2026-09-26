@@ -1,16 +1,95 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 146,
-    "site": 354,
+    "app": 147,
+    "site": 359,
     "builds": 31,
-    "shipped": 185,
-    "screenshots": 401
+    "shipped": 187,
+    "screenshots": 402
   },
   "days": [
     {
       "date": "2026-09-26",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-26T09:08:57.826Z",
+          "title": "Agent tables in the Python, Kotlin and Rust parsers",
+          "card": "YUI-89",
+          "anchor": "agent-tables-in-the-python-kotlin-and-rust-parsers",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 147,
+            "site": 359,
+            "builds": 31,
+            "shipped": 187
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T08:41:19.000Z",
+          "title": "Every agent can put a picture on a page",
+          "card": "YUI-85",
+          "anchor": "every-agent-can-put-a-picture-on-a-page",
+          "images": [
+            {
+              "src": "/progress/yui85-page-picture.webp",
+              "alt": "A Yui deck titled Pages with pictures: page 1 shows a drawn chat bubble, 'Parked YUI-83 in the backlog' struck out and 'Parked the drawing card in the backlog' highlighted, above the page title The page shows it"
+            }
+          ],
+          "commits": 5,
+          "totals": {
+            "app": 147,
+            "site": 359,
+            "builds": 31,
+            "shipped": 186
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T08:37:59.000Z",
+          "title": "Talk about a setting, built: change your agent by talking",
+          "card": "YUI-69",
+          "anchor": "talk-about-a-setting-built-change-your-agent-by-talking",
+          "images": [
+            {
+              "src": "/progress/yui69-native-button-dark.webp",
+              "alt": "Dark mode: the Personality screen in Controls, SOUL.md rendered, with a Talk about this button under it"
+            },
+            {
+              "src": "/progress/yui69-native-chip-light.webp",
+              "alt": "Light mode: back in the chat with a SOUL.md Personality chip above the message field and the keyboard up"
+            },
+            {
+              "src": "/progress/yui69-native-proposal-light.webp",
+              "alt": "Light mode: the agent's proposal, the current SOUL.md lines and the proposed ones with the new line highlighted, and Apply or Keep it as is"
+            },
+            {
+              "src": "/progress/yui69-native-applied-light.webp",
+              "alt": "Light mode: after Apply, a card reading Applied, Personality updated, just now, from this chat"
+            },
+            {
+              "src": "/progress/yui69-native-conflict-light.webp",
+              "alt": "Light mode: SOUL.md changed on your Mac since this was proposed. Nothing was written, with an Ask again button"
+            },
+            {
+              "src": "/progress/yui69-native-secret-light.webp",
+              "alt": "Light mode: a memory shown as hidden on your Mac pinned as the chip, and the agent saying that one holds a key so it can only be changed on the Mac"
+            },
+            {
+              "src": "/progress/yui69-native-thread-dark.webp",
+              "alt": "Dark mode: a memory forgotten from the chat with its Applied card, then a message About morning brief asking to move it to 7:30"
+            }
+          ],
+          "commits": 5,
+          "totals": {
+            "app": 146,
+            "site": 356,
+            "builds": 31,
+            "shipped": 185
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-26T08:32:40.000Z",
@@ -21,9 +100,9 @@
           "commits": 2,
           "totals": {
             "app": 144,
-            "site": 353,
+            "site": 354,
             "builds": 31,
-            "shipped": 185
+            "shipped": 184
           }
         },
         {
@@ -45,9 +124,9 @@
           "commits": 3,
           "totals": {
             "app": 144,
-            "site": 351,
+            "site": 352,
             "builds": 31,
-            "shipped": 184
+            "shipped": 183
           }
         },
         {
@@ -60,9 +139,9 @@
           "commits": 5,
           "totals": {
             "app": 142,
-            "site": 349,
+            "site": 350,
             "builds": 31,
-            "shipped": 183
+            "shipped": 182
           }
         },
         {
@@ -86,7 +165,7 @@
             "app": 141,
             "site": 347,
             "builds": 31,
-            "shipped": 182
+            "shipped": 181
           }
         },
         {
@@ -122,7 +201,7 @@
             "app": 141,
             "site": 346,
             "builds": 31,
-            "shipped": 181
+            "shipped": 180
           }
         },
         {
@@ -146,7 +225,7 @@
             "app": 139,
             "site": 344,
             "builds": 31,
-            "shipped": 180
+            "shipped": 179
           }
         },
         {
@@ -169,50 +248,6 @@
           "totals": {
             "app": 139,
             "site": 343,
-            "builds": 31,
-            "shipped": 179
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T07:08:44.000Z",
-          "title": "Talk about a setting, built: change your agent by talking",
-          "card": "YUI-69",
-          "anchor": "talk-about-a-setting-built-change-your-agent-by-talking",
-          "images": [
-            {
-              "src": "/progress/yui69-native-button-dark.webp",
-              "alt": "Dark mode: the Personality screen in Controls, SOUL.md rendered, with a Talk about this button under it"
-            },
-            {
-              "src": "/progress/yui69-native-chip-light.webp",
-              "alt": "Light mode: back in the chat with a SOUL.md Personality chip above the message field and the keyboard up"
-            },
-            {
-              "src": "/progress/yui69-native-proposal-light.webp",
-              "alt": "Light mode: the agent's proposal, the current SOUL.md lines and the proposed ones with the new line highlighted, and Apply or Keep it as is"
-            },
-            {
-              "src": "/progress/yui69-native-applied-light.webp",
-              "alt": "Light mode: after Apply, a card reading Applied, Personality updated, just now, from this chat"
-            },
-            {
-              "src": "/progress/yui69-native-conflict-light.webp",
-              "alt": "Light mode: SOUL.md changed on your Mac since this was proposed. Nothing was written, with an Ask again button"
-            },
-            {
-              "src": "/progress/yui69-native-secret-light.webp",
-              "alt": "Light mode: a memory shown as hidden on your Mac pinned as the chip, and the agent saying that one holds a key so it can only be changed on the Mac"
-            },
-            {
-              "src": "/progress/yui69-native-thread-dark.webp",
-              "alt": "Dark mode: a memory forgotten from the chat with its Applied card, then a message About morning brief asking to move it to 7:30"
-            }
-          ],
-          "commits": 3,
-          "totals": {
-            "app": 139,
-            "site": 341,
             "builds": 31,
             "shipped": 178
           }
@@ -237,7 +272,7 @@
               "alt": "Mock in light mode of the receipt card Personality updated with an Open in Controls button, and the card shown when the file changed meanwhile, with Ask again"
             }
           ],
-          "commits": 3,
+          "commits": 5,
           "totals": {
             "app": 139,
             "site": 341,
@@ -312,6 +347,41 @@
       ],
       "commits": [
         {
+          "repo": "site",
+          "sha": "c84d9c1",
+          "at": "2026-09-26T08:41:19.000Z",
+          "text": "progress: every agent can put a picture on a page (YUI-85)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c84d9c1"
+        },
+        {
+          "repo": "site",
+          "sha": "20be0f3",
+          "at": "2026-09-26T08:40:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/20be0f3"
+        },
+        {
+          "repo": "app",
+          "sha": "15fb8f6",
+          "at": "2026-09-26T08:39:52.000Z",
+          "text": "Channel guide v23 bundled, final text (YUI-85): shapes go outside a deck.",
+          "url": "https://github.com/postscarcityai/yui/commit/15fb8f6"
+        },
+        {
+          "repo": "site",
+          "sha": "15deba3",
+          "at": "2026-09-26T08:39:51.000Z",
+          "text": "Channel guide v23, scored (YUI-85): shapes go outside a deck. The first v23 text put a shapes diagram inside a walkthrough deck in 1 of...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/15deba3"
+        },
+        {
+          "repo": "site",
+          "sha": "83350fd",
+          "at": "2026-09-26T08:37:59.000Z",
+          "text": "Talk about a setting, built: progress entry, showcase, roadmap and TALK-ABOUT.md as built (YUI-69 step 2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/83350fd"
+        },
+        {
           "repo": "app",
           "sha": "3a59ecb",
           "at": "2026-09-26T08:37:22.000Z",
@@ -380,6 +450,13 @@
           "at": "2026-09-26T08:13:30.000Z",
           "text": "Yui@home weekly routines on /contribute, checks CI and CODEOWNERS, merged [KEY] closes its card (OSS-6 step 2)",
           "url": "https://github.com/postscarcityai/yuigui/commit/35c9b58"
+        },
+        {
+          "repo": "site",
+          "sha": "ed465a2",
+          "at": "2026-09-26T08:12:25.000Z",
+          "text": "attachBody/readAttach in yl.mjs and the Python port, attach vectors (YUI-69)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ed465a2"
         },
         {
           "repo": "app",

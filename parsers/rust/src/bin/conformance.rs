@@ -6,7 +6,7 @@
 use std::path::{Path, PathBuf};
 use std::{env, fs, panic, process};
 use std::collections::HashMap;
-use yuilines::{json, mark_at, on_stage, page_of, parse_with, read_typed, talking, timeline_rows, typed_body, Map, StreamParser, Value};
+use yuilines::{json, mark_at, on_stage, page_of, parse_with, read_typed, resolve, tables, talking, timeline_rows, typed_body, Map, StreamParser, Value};
 
 /// Parser ops minus `line` and an error's `message`.
 fn normalize(ops: Vec<Value>) -> Value {
@@ -138,6 +138,44 @@ fn check(v: &Value) -> Vec<(&'static str, Value)> {
         let want = if page_of(screen) == 1 { Value::Null } else { pair(screen, words) };
         if read != want {
             fails.push(("typed (read back)", read));
+        }
+    }
+    if let Some(tv) = v.get("tables").filter(|t| **t != Value::Null) {
+        // Agent tables (TABLES.md): replay the input's `table create` and `put`
+        // lines onto an empty store (dates resolve against `today`), then run
+        // every query add against the store as the whole input left it.
+        let ops = parse(input);
+        let ctx = tables::Ctx {
+            today: tv.get("today").and_then(Value::as_str).map(String::from),
+            now: tv.get("now").and_then(Value::as_str).map(String::from),
+        };
+        let (store, errors) = tables::replay(&tables::empty_store(), &ops, &ctx);
+        let failed = Value::Arr(errors.into_iter().map(|(line, _)| line).collect());
+        let empty = Value::Arr(vec![]);
+        let want = |k: &str| tv.get(k).filter(|w| **w != Value::Null).unwrap_or(&empty);
+        if !same(&failed, want("failed")) {
+            fails.push(("tables (write lines the store refused)", failed));
+        }
+        // A query that cannot run gives {"error": true}: the wording is up to each store.
+        let empty_props = Map::new();
+        let results = Value::Arr(
+            ops.iter()
+                .filter(|o| o.get("op") == Some(&Value::str("add")) && o.get("preset") == Some(&Value::str("query")))
+                .map(|o| {
+                    let props = resolve("query", o.get("props").and_then(Value::as_obj).unwrap_or(&empty_props));
+                    let r = tables::query(&store, &props, &ctx);
+                    if r.get("error").is_some() {
+                        let mut e = Map::new();
+                        e.set("error", Value::Bool(true));
+                        Value::Obj(e)
+                    } else {
+                        r
+                    }
+                })
+                .collect(),
+        );
+        if !same(&results, want("results")) {
+            fails.push(("tables (query results)", results));
         }
     }
     let has_error = expected.as_arr().is_some_and(|a| a.iter().any(|o| o.get("op") == Some(&Value::str("error"))));

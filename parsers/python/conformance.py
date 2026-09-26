@@ -10,7 +10,8 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from yuilines import StreamParser, attach_body, mark_at, on_stage, page_of, parse, read_attach, read_typed, talking, timeline_rows, typed_body  # noqa: E402
+from tables import empty_store, query, replay  # noqa: E402
+from yuilines import StreamParser, attach_body, mark_at, on_stage, page_of, parse, read_attach, read_typed, resolve, talking, timeline_rows, typed_body  # noqa: E402
 
 DEFAULT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "spec", "conformance")
 
@@ -94,6 +95,22 @@ def check(v):
         want = None if made == a["words"] else {**a["item"], "words": a["words"]}
         if read != want:
             fails.append(("attach (read back)", read))
+    if v.get("tables") is not None:
+        # Agent tables (TABLES.md): replay the input's `table create` and `put`
+        # lines onto an empty store (dates resolve against `today`), then run
+        # every query add against the store as the whole input left it.
+        tv = v["tables"]
+        ops = parse(v["input"], known)
+        ctx = {"today": tv["today"], "now": tv["now"]}
+        store, errors = replay(empty_store(), ops, ctx)
+        failed = [e["line"] for e in errors]
+        if not same(failed, tv.get("failed") or []):
+            fails.append(("tables (write lines the store refused)", failed))
+        # A query that cannot run gives {"error": true}: the wording is up to each store.
+        results = [query(store, resolve("query", o["props"]), ctx) for o in ops if o["op"] == "add" and o["preset"] == "query"]
+        results = [{"error": True} if "error" in r else r for r in results]
+        if not same(results, tv.get("results") or []):
+            fails.append(("tables (query results)", results))
     has_error = any(o["op"] == "error" for o in v["expected"])
     if has_error != (v.get("error") is True):
         fails.append(("vector: `error` flag does not match expected", v.get("error")))

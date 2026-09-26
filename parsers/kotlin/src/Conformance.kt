@@ -78,6 +78,22 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
         val want = if (pageOf(screen) == 1) null else mapOf("screen" to screen, "words" to words)
         if (!same(read, want)) fails.add("typed (read back)" to read)
     }
+    val tv = v["tables"] as Map<String, Any?>?
+    if (tv != null) {
+        // Agent tables (TABLES.md): replay the input's `table create` and `put`
+        // lines onto an empty store (dates resolve against `today`), then run
+        // every query add against the store as the whole input left it.
+        val ops = parse(input, known)
+        val ctx = mapOf("today" to tv["today"], "now" to tv["now"])
+        val (store, errors) = Tables.replay(Tables.emptyStore(), ops, ctx)
+        val failed = errors.map { it["line"] }
+        if (!same(failed, tv["failed"] ?: emptyList<Any?>())) fails.add("tables (write lines the store refused)" to failed)
+        // A query that cannot run gives {"error": true}: the wording is up to each store.
+        val results = ops.filter { it["op"] == "add" && it["preset"] == "query" }
+            .map { Tables.query(store, resolve("query", it["props"] as Map<String, Any?>), ctx) }
+            .map { if ("error" in it) mapOf("error" to true) else it }
+        if (!same(results, tv["results"] ?: emptyList<Any?>())) fails.add("tables (query results)" to results)
+    }
     val hasError = expected.any { it["op"] == "error" }
     if (hasError != (v["error"] == true)) fails.add("vector: `error` flag does not match expected" to v["error"])
     return fails

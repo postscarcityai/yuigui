@@ -1,6 +1,6 @@
 {
  "version": "YL v0",
- "area": "agent tables: table create, put, query and the store (JS only until the native ports; see README)",
+ "area": "agent tables: table create, put, query and the store (see README)",
  "vectors": [
   {
    "name": "table create: columns and types",
