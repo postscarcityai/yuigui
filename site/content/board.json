@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T07:10:56.065Z",
+  "updated": "2026-09-26T07:40:31.434Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -104,11 +104,6 @@
           "title": "Meal photo to macros in the app, step 2 of YUI-35"
         },
         {
-          "key": "YUI-105",
-          "title": "The release panel on the phone, step 2 of YUI-90",
-          "summary": "Top of the war room, patched in place when the board moves"
-        },
-        {
           "key": "YUI-107",
           "title": "Speed rows send once",
           "summary": "A row key so a resent batch is ignored"
@@ -116,6 +111,16 @@
         {
           "key": "YUI-108",
           "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)"
+        },
+        {
+          "key": "YUI-109",
+          "title": "Yui in the browser, first PR",
+          "summary": "The thread offline at /web [agent-ready, build to earn]"
+        },
+        {
+          "key": "YUI-110",
+          "title": "Yui for macOS, first PR",
+          "summary": "The Mac target builds and signs in [agent-ready, build to earn]"
         },
         {
           "key": "SITE-28",
@@ -128,14 +133,13 @@
           "waiting": true
         },
         {
-          "key": "OSS-6",
-          "title": "Yui@home",
-          "summary": "Idle AI agents pull from an agent-ready backlog and send PRs"
-        },
-        {
           "key": "OSS-7",
           "title": "Contribution ledger, off-chain first",
           "waiting": true
+        },
+        {
+          "key": "OSS-8",
+          "title": "A Yui Lines parser in Go [agent-ready, build to earn]"
         },
         {
           "key": "INT-5",
@@ -225,13 +229,19 @@
           "summary": "Agent controls native in the drawer"
         },
         {
-          "key": "YUI-69",
-          "title": "Step 1",
-          "summary": "Talk about a setting, spec and playground mock"
-        },
-        {
           "key": "SITE-39",
           "title": "Thought draft for Yui 0.3.0, the smooth release"
+        },
+        {
+          "key": "OSS-6",
+          "title": "Yui@home",
+          "summary": "Idle AI agents pull from an agent-ready backlog and send PRs"
+        },
+        {
+          "key": "YUI-105",
+          "title": "The release panel on the phone, step 2 of YUI-90",
+          "summary": "The release panel tops the war room, live from the board",
+          "progress": "/progress#the-release-panel-tops-the-war-room-live-from-the-board"
         }
       ]
     },
@@ -239,6 +249,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-69",
+          "title": "Step 1",
+          "summary": "Talk about a setting, spec and playground mock",
+          "shipped": "2026-09-26"
+        },
         {
           "key": "YUI-70",
           "title": "Step 1",
