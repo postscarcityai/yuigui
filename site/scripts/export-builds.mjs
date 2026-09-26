@@ -37,7 +37,13 @@ const builds = asc(`/v1/builds?filter[app]=${APP_ID}&limit=200&sort=-uploadedDat
   .filter((b) => Number.isInteger(b.n) && b.state !== "INVALID")
   .sort((a, b) => a.n - b.n);
 
-const commits = execFileSync("git", ["-C", APP, "log", "--reverse", "--first-parent", "--format=%h%x09%s", "main"], { encoding: "utf8" })
+// Workers push from their own worktrees, so the shared checkout's main can sit behind: read origin/main.
+let REF = "main";
+try {
+  execFileSync("git", ["-C", APP, "fetch", "-q", "origin", "main"], { stdio: "ignore" });
+  REF = "origin/main";
+} catch {}
+const commits = execFileSync("git", ["-C", APP, "log", "--reverse", "--first-parent", "--format=%h%x09%s", REF], { encoding: "utf8" })
   .trim().split("\n").map((l, i) => {
     const [sha, raw] = l.split("\t");
     // Some commits end with a board task id, "(t_bfeecff2)", instead of a card key. It is private, so drop it.

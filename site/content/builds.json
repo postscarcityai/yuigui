@@ -18,6 +18,9 @@
         },
         {
           "text": "An answered war room ask leaves at once: the plugin redraws the war room after a tap (feedback ANP2Pn6z)"
+        },
+        {
+          "text": "Yui 0.3.1: ship main to TestFlight (Chris, 2026-09-26)"
         }
       ]
     },
@@ -831,5 +834,26 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Hold to reply, no more swipe: the sideways drag always pages (feedback AACnEo9w)"
+    },
+    {
+      "text": "DrawerTests pass again: the About card's id no longer covers its button"
+    },
+    {
+      "text": "A quiet dot on the menu button, no count; it goes the moment nothing waits (feedback AI3Pbaid)"
+    },
+    {
+      "text": "`doing` is a Yui Lines core word; Swift skips its vectors until the app half",
+      "card": "YUI-63"
+    },
+    {
+      "text": "Swift skips the flow vectors until the app runs flows",
+      "card": "FLOW-1"
+    },
+    {
+      "text": "The working row says what the agent is doing (YUI-63 step 2, app half)"
+    }
+  ]
 }
