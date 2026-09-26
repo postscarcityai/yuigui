@@ -854,6 +854,17 @@
     },
     {
       "text": "The working row says what the agent is doing (YUI-63 step 2, app half)"
+    },
+    {
+      "text": "Speed rows land once: a row key, and the server skips keys it has",
+      "card": "YUI-107"
+    },
+    {
+      "text": "yui_library: agents find ready-made screens and flows over MCP; guide v28 (FLOW-2 step 2)"
+    },
+    {
+      "text": "The MCP server draws with today's Yui Lines, and CI catches a stale copy",
+      "card": "INT-3"
     }
   ]
 }

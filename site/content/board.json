@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T18:41:36.261Z",
+  "updated": "2026-09-26T19:10:42.743Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.2",
@@ -71,10 +71,6 @@
         {
           "key": "YUI-103",
           "title": "Meal photo to macros in the app, step 2 of YUI-35"
-        },
-        {
-          "key": "YUI-108",
-          "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)"
         },
         {
           "key": "YUI-109",
@@ -218,18 +214,18 @@
           "waiting": true
         },
         {
-          "key": "YUI-107",
-          "title": "Speed rows send once",
-          "summary": "A row key so a resent batch is ignored"
+          "key": "YUI-108",
+          "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)"
         },
         {
-          "key": "FLOW-2",
-          "title": "Step 2 (web)",
-          "summary": "Agents look up screens and flows in the library, a search endpoint and an MCP tool"
+          "key": "INT-3",
+          "title": "Fix",
+          "summary": "Outside agents draw like the app",
+          "progress": "/progress#outside-agents-draw-like-the-app"
         },
         {
-          "key": "SITE-48",
-          "title": "Every share link shows its real screen, the 49 missing previews go live and a check stops the drift"
+          "key": "SITE-49",
+          "title": "A Thought on flows and the library, screens any agent can run and look up"
         }
       ]
     },
@@ -237,6 +233,27 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "FLOW-2",
+          "title": "Step 2 (web)",
+          "summary": "The library: every screen and flow, live and searchable",
+          "shipped": "2026-09-26",
+          "progress": "/progress#the-library-every-screen-and-flow-live-and-searchable"
+        },
+        {
+          "key": "YUI-107",
+          "title": "Speed rows send once",
+          "summary": "Speed numbers are stored once",
+          "shipped": "2026-09-26",
+          "progress": "/progress#speed-numbers-are-stored-once"
+        },
+        {
+          "key": "SITE-48",
+          "title": "Every share link shows its real screen, the 49 missing previews go live and a check stops the drift",
+          "summary": "Every share link shows its real screen",
+          "shipped": "2026-09-26",
+          "progress": "/progress#every-share-link-shows-its-real-screen"
+        },
         {
           "key": "FLOW-1",
           "title": "Step 2 (web)",
@@ -678,9 +695,9 @@
         {
           "key": "FLOW-2",
           "title": "Yui library/store on yuigui.com",
-          "summary": "The library: every screen and flow, live and searchable",
+          "summary": "Agents can look up the library",
           "shipped": "2026-09-25",
-          "progress": "/progress#the-library-every-screen-and-flow-live-and-searchable"
+          "progress": "/progress#agents-can-look-up-the-library"
         },
         {
           "key": "YUI-54",
