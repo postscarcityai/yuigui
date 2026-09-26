@@ -59,6 +59,16 @@ export const GROUPS = {
   shapes: ["shape"],
 };
 
+// A timeline's rows. A patch's `kind=` moves one to another of these.
+export const ROWS = GROUPS.timeline;
+
+// Where the now marker sits in a timeline's rows (in line order): before the
+// first row that is not done, or after the last row when all are done.
+export function markAt(rows) {
+  const at = rows.findIndex((r) => r.preset !== "done");
+  return at < 0 ? rows.length : at;
+}
+
 const IDENT = /^[a-z_][\w-]*$/i;
 
 // ---------- tokenizer ----------
@@ -1104,6 +1114,12 @@ export class Parser {
       if (!preset) return { op: "error", screen, message: `patch: nothing called "${target}"`, line };
       if (preset === "custom") return { op: "error", screen, message: "patch: custom blocks are replaced, not patched", line };
       const props = RAW.has(preset) ? rawArgs(preset, body.slice(head.length)) : parseArgs(preset, tokens);
+      // A timeline row moves with `kind=` (YUI-111): done, now or next. The
+      // row keeps its id and place; from here on the id is that preset.
+      if (ROWS.includes(preset) && props.kind !== undefined) {
+        if (!ROWS.includes(props.kind)) return { op: "error", screen, message: "patch: kind= is done, now or next", line };
+        if (!ROWS.includes(target)) this.ids.set(target, props.kind);
+      }
       return { op: "patch", screen, target, props, line };
     }
 
@@ -1543,7 +1559,11 @@ export function apply(state, op, style = {}) {
       }
       if (hit) {
         const next = [...s.screens[hit.k]];
-        next[hit.i] = { ...hit.c, props: { ...hit.c.props, ...op.props } };
+        // `kind=` on a row re-kinds it in place: same key and place, so the
+        // now marker moves and nothing else does (YUI-111).
+        const { kind, ...rest } = op.props;
+        if (ROWS.includes(hit.c.preset) && ROWS.includes(kind)) next[hit.i] = { ...hit.c, preset: kind, props: { ...hit.c.props, ...rest } };
+        else next[hit.i] = { ...hit.c, props: { ...hit.c.props, ...op.props } };
         s.screens[hit.k] = next;
       } else s.errors = [...s.errors, `patch: no live "${op.target}" on screen`];
       break;

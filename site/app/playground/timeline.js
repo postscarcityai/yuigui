@@ -6,7 +6,7 @@
 // +reorder (YUI-66): Edit order gives each next row a drag handle; Save
 // emits {order: [key, tag or text, ...]} (+ board when board= is set).
 import { useRef, useState } from "react";
-import { resolve } from "../../lib/yl/yl.mjs";
+import { markAt, resolve } from "../../lib/yl/yl.mjs";
 
 const LINK = /^https:/i;
 
@@ -55,8 +55,7 @@ function Track({ title, mark, fold, rows, lone, reorder, board, emit }) {
   const [draft, setDraft] = useState(null);   // the same while editing
   const [drag, setDrag] = useState(null);     // {key, dy}
   const refs = useRef({});
-  let at = rows.findIndex((r) => r.preset !== "done");
-  if (at < 0) at = rows.length;
+  const at = markAt(rows);
   const done = rows.slice(0, at);
   const hidden = !open && fold > 0 && done.length > fold ? done.length - fold : 0;
   const head = rows.slice(hidden, at);

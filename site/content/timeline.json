@@ -2,15 +2,75 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 141,
-    "site": 345,
+    "site": 346,
     "builds": 31,
-    "shipped": 180,
-    "screenshots": 390
+    "shipped": 181,
+    "screenshots": 392
   },
   "days": [
     {
       "date": "2026-09-26",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-26T08:08:05.710Z",
+          "title": "A timeline row can move without resending the page",
+          "card": "YUI-111",
+          "anchor": "a-timeline-row-can-move-without-resending-the-page",
+          "images": [
+            {
+              "src": "/progress/yui111-rekind-before.webp",
+              "alt": "Playground timeline before the patch: YUI-73 War room panels is running on the Now line, YUI-68 is queued"
+            },
+            {
+              "src": "/progress/yui111-rekind-after.webp",
+              "alt": "The same timeline after one patch line: YUI-73 is done on Sep 26, the Now line moved below it and YUI-68 is running"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 141,
+            "site": 346,
+            "builds": 31,
+            "shipped": 181
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T08:01:35.000Z",
+          "title": "Agent controls, built: your agent's settings in the drawer",
+          "card": "YUI-70",
+          "anchor": "agent-controls-built-your-agent-s-settings-in-the-drawer",
+          "images": [
+            {
+              "src": "/progress/yui70-native-tab.webp",
+              "alt": "The drawer's Controls tab in light mode: Personality, Memory, Skills, Schedules, Model and tools, Channels"
+            },
+            {
+              "src": "/progress/yui70-native-soul-dark.webp",
+              "alt": "The Personality screen in dark mode: SOUL.md rendered, with its headings as chips and an Edit button"
+            },
+            {
+              "src": "/progress/yui70-native-skills.webp",
+              "alt": "The Skills screen: three skills with switches, one marked as shipping with Hermes"
+            },
+            {
+              "src": "/progress/yui70-native-schedule-dark.webp",
+              "alt": "A paused schedule in dark mode with Resume, Run now, Time and Delete"
+            },
+            {
+              "src": "/progress/yui70-native-memory-hidden.webp",
+              "alt": "A memory with a key in it, shown as hidden on your Mac and read only"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 141,
+            "site": 346,
+            "builds": 31,
+            "shipped": 180
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-26T07:40:30.000Z",
@@ -32,7 +92,7 @@
             "app": 139,
             "site": 344,
             "builds": 31,
-            "shipped": 180
+            "shipped": 179
           }
         },
         {
@@ -56,7 +116,7 @@
             "app": 139,
             "site": 343,
             "builds": 31,
-            "shipped": 179
+            "shipped": 178
           }
         },
         {
@@ -84,42 +144,6 @@
             "app": 139,
             "site": 341,
             "builds": 31,
-            "shipped": 178
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T06:39:23.000Z",
-          "title": "Agent controls, built: your agent's settings in the drawer",
-          "card": "YUI-70",
-          "anchor": "agent-controls-built-your-agent-s-settings-in-the-drawer",
-          "images": [
-            {
-              "src": "/progress/yui70-native-tab.webp",
-              "alt": "The drawer's Controls tab in light mode: Personality, Memory, Skills, Schedules, Model and tools, Channels"
-            },
-            {
-              "src": "/progress/yui70-native-soul-dark.webp",
-              "alt": "The Personality screen in dark mode: SOUL.md rendered, with its headings as chips and an Edit button"
-            },
-            {
-              "src": "/progress/yui70-native-skills.webp",
-              "alt": "The Skills screen: three skills with switches, one marked as shipping with Hermes"
-            },
-            {
-              "src": "/progress/yui70-native-schedule-dark.webp",
-              "alt": "A paused schedule in dark mode with Resume, Run now, Time and Delete"
-            },
-            {
-              "src": "/progress/yui70-native-memory-hidden.webp",
-              "alt": "A memory with a key in it, shown as hidden on your Mac and read only"
-            }
-          ],
-          "commits": 2,
-          "totals": {
-            "app": 139,
-            "site": 337,
-            "builds": 31,
             "shipped": 177
           }
         },
@@ -143,7 +167,7 @@
               "alt": "Mock of the Schedules screen: a morning brief with Run now, a paused weekly review with Resume, and a form to edit the prompt and time"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 139,
             "site": 337,
@@ -189,6 +213,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "22ca48b",
+          "at": "2026-09-26T08:01:35.000Z",
+          "text": "Agent controls, built: progress entry, roadmap and CONTROLS.md as built (YUI-70 step 2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/22ca48b"
+        },
         {
           "repo": "app",
           "sha": "cdb5f02",

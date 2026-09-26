@@ -41,6 +41,8 @@ One file per area, `NN-area.json`:
 
 - `talk`: the pages whose composer is on after the whole input, in number order (YL.md section 5, Pages, chat with a screen). Checked against `talking` in JS, Python, Kotlin and Rust and `YuiLines.talking` in Swift.
 
+- `rows`: `{rows: [{id, kind}], mark}`, a timeline's rows after the whole input is applied to an empty screen (YL.md section 4, timeline, Moving a row): every `done`, `now` and `next` in line order with its kind, and `mark`, the index the now marker sits before. Checked against `apply` and `markAt` in JS. Rows moved with `kind=` (YUI-111) are JavaScript only in step 1: their vectors live in `js-33-row-kind.json` until the Swift, Python, Kotlin and Rust parsers learn it in step 2, when the file becomes `33-row-kind.json`.
+
 - `typed`: `{screen, words, body}`, words typed on a screen (YL.md section 7). `typedBody(screen, words)` must give `body`, and `readTyped(body)` must give back `{screen, words}`, or nothing when the screen has no page. These vectors have an empty `input`.
 
 - `known`: ids that last from earlier replies (YL.md section 5, Ids that last), as `{id: preset}`. Every parse of the vector, whole, by character and by chunks, starts from a parser given these ids: `parse(input, known)` and `new StreamParser(known)` in JS, `YuiLines.parse(_:known:)` and `YLStreamParser(known:)` in Swift, `parse(text, known)` and `StreamParser(known)` in Python and Kotlin, `parse_with(text, &known)` and `StreamParser::with_known` in Rust. Missing means none.

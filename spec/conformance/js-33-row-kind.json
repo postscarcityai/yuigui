@@ -1,0 +1,579 @@
+{
+  "version": "YL v0",
+  "area": "timeline rows that move (kind=)",
+  "vectors": [
+    {
+      "name": "a now row turns done in place: the marker moves past it",
+      "input": "timeline \"Yui 0.3.0\"\ndone@a \"Saved screens\" tag=YUI-32\nnow@b \"Reply to a message\" tag=YUI-68\nnext@c \"Each agent's home\" tag=YUI-54\n~b kind=done at=\"Sep 26\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Yui 0.3.0"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "a",
+          "in": "n1",
+          "props": {
+            "text": "Saved screens",
+            "tag": "YUI-32"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "b",
+          "in": "n1",
+          "props": {
+            "text": "Reply to a message",
+            "tag": "YUI-68"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "c",
+          "in": "n1",
+          "props": {
+            "text": "Each agent's home",
+            "tag": "YUI-54"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "b",
+          "props": {
+            "kind": "done",
+            "at": "Sep 26"
+          }
+        }
+      ],
+      "rows": {
+        "rows": [
+          {
+            "id": "a",
+            "kind": "done"
+          },
+          {
+            "id": "b",
+            "kind": "done"
+          },
+          {
+            "id": "c",
+            "kind": "next"
+          }
+        ],
+        "mark": 2
+      }
+    },
+    {
+      "name": "a next row starts running: it lights up on the marker",
+      "input": "timeline \"Yui 0.3.0\"\ndone@a \"Saved screens\" tag=YUI-32\nnow@b \"Reply to a message\" tag=YUI-68\nnext@c \"Each agent's home\" tag=YUI-54\n~c kind=now sub=\"building\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Yui 0.3.0"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "a",
+          "in": "n1",
+          "props": {
+            "text": "Saved screens",
+            "tag": "YUI-32"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "b",
+          "in": "n1",
+          "props": {
+            "text": "Reply to a message",
+            "tag": "YUI-68"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "c",
+          "in": "n1",
+          "props": {
+            "text": "Each agent's home",
+            "tag": "YUI-54"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "c",
+          "props": {
+            "kind": "now",
+            "sub": "building"
+          }
+        }
+      ],
+      "rows": {
+        "rows": [
+          {
+            "id": "a",
+            "kind": "done"
+          },
+          {
+            "id": "b",
+            "kind": "now"
+          },
+          {
+            "id": "c",
+            "kind": "now"
+          }
+        ],
+        "mark": 1
+      }
+    },
+    {
+      "name": "every row done: the marker ends the track",
+      "input": "timeline \"Yui 0.3.0\"\ndone@a \"Saved screens\" tag=YUI-32\nnow@b \"Reply to a message\" tag=YUI-68\nnext@c \"Each agent's home\" tag=YUI-54\n~b kind=done\n~c kind=done",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Yui 0.3.0"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "a",
+          "in": "n1",
+          "props": {
+            "text": "Saved screens",
+            "tag": "YUI-32"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "b",
+          "in": "n1",
+          "props": {
+            "text": "Reply to a message",
+            "tag": "YUI-68"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "c",
+          "in": "n1",
+          "props": {
+            "text": "Each agent's home",
+            "tag": "YUI-54"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "b",
+          "props": {
+            "kind": "done"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "c",
+          "props": {
+            "kind": "done"
+          }
+        }
+      ],
+      "rows": {
+        "rows": [
+          {
+            "id": "a",
+            "kind": "done"
+          },
+          {
+            "id": "b",
+            "kind": "done"
+          },
+          {
+            "id": "c",
+            "kind": "done"
+          }
+        ],
+        "mark": 3
+      }
+    },
+    {
+      "name": "a done row goes back to the queue: the marker moves up",
+      "input": "timeline \"Yui 0.3.0\"\ndone@a \"Saved screens\" tag=YUI-32\nnow@b \"Reply to a message\" tag=YUI-68\nnext@c \"Each agent's home\" tag=YUI-54\n~a kind=next",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Yui 0.3.0"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "a",
+          "in": "n1",
+          "props": {
+            "text": "Saved screens",
+            "tag": "YUI-32"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "b",
+          "in": "n1",
+          "props": {
+            "text": "Reply to a message",
+            "tag": "YUI-68"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "c",
+          "in": "n1",
+          "props": {
+            "text": "Each agent's home",
+            "tag": "YUI-54"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "a",
+          "props": {
+            "kind": "next"
+          }
+        }
+      ],
+      "rows": {
+        "rows": [
+          {
+            "id": "a",
+            "kind": "next"
+          },
+          {
+            "id": "b",
+            "kind": "now"
+          },
+          {
+            "id": "c",
+            "kind": "next"
+          }
+        ],
+        "mark": 0
+      }
+    },
+    {
+      "name": "rows keep their line order: a later row turning done stays where it is",
+      "input": "timeline \"Yui 0.3.0\"\ndone@a \"Saved screens\" tag=YUI-32\nnow@b \"Reply to a message\" tag=YUI-68\nnext@c \"Each agent's home\" tag=YUI-54\nnext@d \"Agent controls\" tag=YUI-70\n~d kind=done",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Yui 0.3.0"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "a",
+          "in": "n1",
+          "props": {
+            "text": "Saved screens",
+            "tag": "YUI-32"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "b",
+          "in": "n1",
+          "props": {
+            "text": "Reply to a message",
+            "tag": "YUI-68"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "c",
+          "in": "n1",
+          "props": {
+            "text": "Each agent's home",
+            "tag": "YUI-54"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "d",
+          "in": "n1",
+          "props": {
+            "text": "Agent controls",
+            "tag": "YUI-70"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "d",
+          "props": {
+            "kind": "done"
+          }
+        }
+      ],
+      "rows": {
+        "rows": [
+          {
+            "id": "a",
+            "kind": "done"
+          },
+          {
+            "id": "b",
+            "kind": "now"
+          },
+          {
+            "id": "c",
+            "kind": "next"
+          },
+          {
+            "id": "d",
+            "kind": "done"
+          }
+        ],
+        "mark": 1
+      }
+    },
+    {
+      "name": "a preset name re-kinds the newest row of that kind",
+      "input": "timeline \"Yui 0.3.0\"\ndone@a \"Saved screens\" tag=YUI-32\nnow@b \"Reply to a message\" tag=YUI-68\nnext@c \"Each agent's home\" tag=YUI-54\n~now kind=done",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timeline",
+          "id": "n1",
+          "props": {
+            "title": "Yui 0.3.0"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "done",
+          "id": "a",
+          "in": "n1",
+          "props": {
+            "text": "Saved screens",
+            "tag": "YUI-32"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "now",
+          "id": "b",
+          "in": "n1",
+          "props": {
+            "text": "Reply to a message",
+            "tag": "YUI-68"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "next",
+          "id": "c",
+          "in": "n1",
+          "props": {
+            "text": "Each agent's home",
+            "tag": "YUI-54"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "now",
+          "props": {
+            "kind": "done"
+          }
+        }
+      ],
+      "rows": {
+        "rows": [
+          {
+            "id": "a",
+            "kind": "done"
+          },
+          {
+            "id": "b",
+            "kind": "done"
+          },
+          {
+            "id": "c",
+            "kind": "next"
+          }
+        ],
+        "mark": 2
+      }
+    },
+    {
+      "name": "a lasting row id moves from a later reply",
+      "input": "~rel-YUI-54 kind=done at=\"Sep 26\"",
+      "known": {
+        "rel-YUI-54": "now"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "rel-YUI-54",
+          "props": {
+            "kind": "done",
+            "at": "Sep 26"
+          }
+        }
+      ]
+    },
+    {
+      "name": "after a move the id is its new kind",
+      "input": "~w1 kind=done\n~done@w1 sub=\"shipped\"",
+      "known": {
+        "w1": "now"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "w1",
+          "props": {
+            "kind": "done"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "w1",
+          "props": {
+            "sub": "shipped"
+          }
+        }
+      ]
+    },
+    {
+      "name": "after a move the old kind no longer names the id",
+      "input": "~w1 kind=done\n~now@w1 sub=late",
+      "known": {
+        "w1": "now"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "w1",
+          "props": {
+            "kind": "done"
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "kind= must be done, now or next",
+      "input": "~w1 kind=later",
+      "known": {
+        "w1": "now"
+      },
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "kind= as a flag is not a kind",
+      "input": "~w1 +kind",
+      "known": {
+        "w1": "next"
+      },
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "kind= on a shape is the shape's own kind, not a move",
+      "input": "~s1 kind=circle",
+      "known": {
+        "s1": "shape"
+      },
+      "expected": [
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "s1",
+          "props": {
+            "kind": "circle"
+          }
+        }
+      ]
+    }
+  ]
+}

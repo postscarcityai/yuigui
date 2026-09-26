@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import { flowEvent, flowPath, menuOf, onStage, pageOf, parse, readTyped, resolve, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
+import { apply, flowEvent, flowPath, initialState, markAt, menuOf, onStage, pageOf, parse, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 import { emptyStore, query, replay } from "../../site/lib/yl/tables.mjs";
 import { appLook, checks } from "../../site/lib/yl/look.mjs";
 
@@ -52,6 +52,15 @@ function check(v) {
   if (v.menu) {
     const m = menuOf(parse(v.input));
     if (!isDeepStrictEqual(m, v.menu)) fails.push(["menu (the drawer's items after the input)", m]);
+  }
+  if (v.rows) {
+    // Timeline rows after the whole input is applied (YL.md, timeline): each
+    // row's id and kind in line order, and where the now marker sits.
+    let s = initialState();
+    for (const o of parse(v.input, known)) s = apply(s, o);
+    const rows = Object.values(s.screens).flat().filter((c) => ROWS.includes(c.preset)).sort((a, b) => a.seq - b.seq);
+    const got = { rows: rows.map((c) => ({ id: c.id, kind: c.preset })), mark: markAt(rows) };
+    if (!isDeepStrictEqual(got, v.rows)) fails.push(["rows (timeline rows and the now marker)", got]);
   }
   if (v.typed) {
     const { screen, words, body } = v.typed;

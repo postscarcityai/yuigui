@@ -597,7 +597,8 @@ storyboard "Launch reel" /demo/s1.jpg|"Open on hands at the wheel. No music yet.
     slug: "timeline-warroom",
     name: "Timeline: what shipped, what runs, what is next",
     agent: "Yui",
-    next: `ask "Pull YUI-68 next?" "Yes, pull it"|"Not yet"`,
+    // Send it from the agent console: the row turns done in place and the marker moves (YUI-111).
+    next: `~w73 kind=done at="Sep 26"`,
     yl: `timeline "Yui, this week" fold=4 +reorder board=yui
 done "Saved screens, the shelf" at="Sep 24" tag=YUI-32
 done "Full-screen flows fold back into chat" at="Sep 24" tag=YUI-51
@@ -606,8 +607,8 @@ done "Test builds by link" at="Sep 24" tag=YUI-55
 done "Links open Safari" at="Sep 25" tag=YUI-67 https://www.yuigui.com/progress
 done "The war room timeline" at="Sep 25" tag=YUI-65
 done "Drag to reorder the queue" at="Sep 25" tag=YUI-66
-now "War room panels" tag=YUI-73 sub="needs you, running, builds, feedback"
-next "Reply to a message" tag=YUI-68
+now@w73 "War room panels" tag=YUI-73 sub="needs you, running, builds, feedback"
+next@w68 "Reply to a message" tag=YUI-68
 next "Each agent's home" tag=YUI-54
 next "Agent controls in the drawer" tag=YUI-70`,
   },
