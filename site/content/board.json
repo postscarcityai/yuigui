@@ -1,32 +1,21 @@
 {
-  "updated": "2026-09-26T00:44:40.179Z",
+  "updated": "2026-09-26T01:10:05.892Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.2.0",
-    "status": "shipped",
-    "startedAt": "2026-09-25T20:05:42.000Z",
-    "shippedAt": "2026-09-25T23:01:32.000Z",
+    "version": "0.3.0",
+    "status": "open",
+    "startedAt": "2026-09-26T00:58:07.000Z",
+    "shippedAt": null,
     "cards": [
       {
-        "key": "YUI-54",
-        "title": "Top-left menu becomes the agent's home",
-        "status": "done",
-        "shipped": "2026-09-25",
-        "progress": "/progress#each-agent-gets-a-drawer"
+        "key": "YUI-99",
+        "title": "Typing keeps up",
+        "status": "now"
       },
       {
-        "key": "YUI-86",
-        "title": "Agents fill the drawer",
-        "status": "done",
-        "shipped": "2026-09-25",
-        "progress": "/progress#agents-fill-the-drawer"
-      },
-      {
-        "key": "YUI-75",
-        "title": "Ids on a page patch across replies, so the war room refreshes in place",
-        "status": "done",
-        "shipped": "2026-09-25",
-        "progress": "/progress#screens-update-in-place-instead-of-piling-up"
+        "key": "YUI-101",
+        "title": "Telegram-smooth",
+        "status": "next"
       }
     ]
   },
@@ -101,19 +90,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-99",
-          "title": "Typing keeps up",
-          "summary": "Hold backspace and double-space period as fast as Notes"
-        },
-        {
           "key": "YUI-100",
           "title": "Memory audit",
           "summary": "Find and fix leaks, bounded caches, a memory ceiling test"
-        },
-        {
-          "key": "YUI-101",
-          "title": "Telegram-smooth",
-          "summary": "Taps answer on the same frame, 120 fps scroll, fast thread open"
         },
         {
           "key": "YUI-103",
@@ -194,6 +173,11 @@
           "mvp": true
         },
         {
+          "key": "YUI-101",
+          "title": "Telegram-smooth",
+          "summary": "Taps answer on the same frame, 120 fps scroll, fast thread open"
+        },
+        {
           "key": "YUI-70",
           "title": "Agent controls in the drawer",
           "summary": "Basic CRUD over soul, memory, skills, schedules"
@@ -217,18 +201,8 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "YUI-90",
-          "title": "The release timeline is live in the war room",
-          "summary": "The release timeline, live from the board",
-          "progress": "/progress#the-release-timeline-live-from-the-board"
-        },
-        {
           "key": "YUI-91",
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
-        },
-        {
-          "key": "YUI-97",
-          "title": "Shared agents, step 3 of YUI-57 (native invite plan, Shared by sheet, cleanup)"
         },
         {
           "key": "YUI-102",
@@ -239,7 +213,16 @@
         {
           "key": "YUI-104",
           "title": "Shapes that move",
-          "summary": "A vector drawing preset with basic geometric and organic shapes, animated, no image generation"
+          "progress": "/progress#shapes-that-move"
+        },
+        {
+          "key": "YUI-99",
+          "title": "Typing keeps up",
+          "summary": "Hold backspace and double-space period as fast as Notes"
+        },
+        {
+          "key": "INT-22",
+          "title": "Yui-mcp and Telegram read Yui Lines like the app again (their parser copies are stale since tables)"
         }
       ]
     },
@@ -247,6 +230,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-97",
+          "title": "Shared agents, step 3 of YUI-57 (native invite plan, Shared by sheet, cleanup)",
+          "summary": "Shared agents in the app: Hi Maya, Shared by Sam, and a clean goodbye",
+          "shipped": "2026-09-25",
+          "progress": "/progress#shared-agents-in-the-app-hi-maya-shared-by-sam-and-a-clean-goodbye"
+        },
+        {
+          "key": "YUI-90",
+          "title": "The release timeline is live in the war room",
+          "summary": "The release timeline, live from the board",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-release-timeline-live-from-the-board"
+        },
         {
           "key": "YUI-35",
           "title": "Meal photo to macros",

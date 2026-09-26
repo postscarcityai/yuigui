@@ -686,6 +686,20 @@
     },
     {
       "text": "Restyle Yui by asking, native (YUI-96, step 2 of YUI-43; spec yuigui spec/RESTYLE.md)."
+    },
+    {
+      "text": "yui_perf: numbers-only speed rows, owner-only, 500 a day, 90 days",
+      "card": "YUI-102"
+    },
+    {
+      "text": "Speed reporting on the phone: signposts, MetricKit, memory, batches",
+      "card": "YUI-102"
+    },
+    {
+      "text": "Shapes that move, native (YUI-104; spec yuigui spec/YL.md \"shapes\"; Chris on build 96: \"simple SVG style vector graphics... basic shapes both geometric and organic to show some complex ideas very quickly... not an immersive experience, still just in the chat with captions\")."
+    },
+    {
+      "text": "Shared agents, step 3 (YUI-97, step 3 of YUI-57; spec yuigui spec/AGENTS.md \"As built (YUI-97)\")."
     }
   ]
 }
