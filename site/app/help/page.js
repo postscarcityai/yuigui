@@ -100,6 +100,31 @@ export default function Help() {
         <strong>Start with</strong> to Talking.
       </p>
 
+      <h3>I asked for a beat and hear nothing.</h3>
+      <p>
+        On Yui 0.3.2 the ring/silent switch mutes the looper and the drum pads. Flip the switch off silent and turn the
+        volume up. The next build plays even on silent.
+      </p>
+      <ul>
+        <li>
+          <strong>Ask for one:</strong> tell any agent &quot;make me a beat&quot; or &quot;give me drum pads&quot;.
+        </li>
+        <li>
+          <strong>Edit it:</strong> tap a cell to add or clear a hit, then tap <strong>Play</strong>. Changes play at
+          once.
+        </li>
+        <li>
+          <strong>Drum pads:</strong> a pad plays as soon as you touch it.
+        </li>
+        <li>
+          <strong>Record:</strong> tap <strong>Record</strong>, wait out one bar of count-in, then play two bars. The
+          take goes back to your agent as a beat.
+        </li>
+      </ul>
+      <p>
+        Try it first in <a href="/playground?demo=music">the playground</a>.
+      </p>
+
       <h3>A reply says &quot;Update Yui to see this&quot;.</h3>
       <p>
         Your agent sent a screen that is newer than your copy of Yui. Tap it to open TestFlight, update, and the screen
