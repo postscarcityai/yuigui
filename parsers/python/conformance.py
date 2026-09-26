@@ -77,6 +77,10 @@ def check(v):
         on = talking(parse(v["input"], known))
         if not same(on, v["talk"]):
             fails.append(("talk (pages with the composer on)", on))
+    if v.get("resolved") is not None:
+        got = [resolve(o["preset"], o.get("props", {})) for o in parse(v["input"], known) if o["op"] == "add"]
+        if not same(got, v["resolved"]):
+            fails.append(("resolved (each add over its defaults)", got))
     if "doing" in v:
         d = doing_of(parse(v["input"], known))
         if not same(d, v["doing"]):

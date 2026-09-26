@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 167,
-    "site": 420,
+    "site": 421,
     "builds": 34,
-    "shipped": 216,
-    "screenshots": 471
+    "shipped": 217,
+    "screenshots": 473
   },
   "days": [
     {
@@ -13,17 +13,17 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T18:49:46.429Z",
+          "at": "2026-09-26T18:49:51.000Z",
           "title": "Speed numbers are stored once",
           "card": "YUI-107",
           "anchor": "speed-numbers-are-stored-once",
           "images": [],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 167,
-            "site": 420,
+            "site": 421,
             "builds": 34,
-            "shipped": 216
+            "shipped": 217
           }
         },
         {
@@ -51,7 +51,7 @@
             "app": 166,
             "site": 420,
             "builds": 34,
-            "shipped": 215
+            "shipped": 216
           }
         },
         {
@@ -79,7 +79,7 @@
             "app": 166,
             "site": 417,
             "builds": 34,
-            "shipped": 214
+            "shipped": 215
           }
         },
         {
@@ -107,7 +107,7 @@
             "app": 166,
             "site": 416,
             "builds": 34,
-            "shipped": 213
+            "shipped": 214
           }
         },
         {
@@ -131,7 +131,7 @@
             "app": 164,
             "site": 413,
             "builds": 34,
-            "shipped": 212
+            "shipped": 213
           }
         },
         {
@@ -163,7 +163,7 @@
             "app": 163,
             "site": 410,
             "builds": 34,
-            "shipped": 211
+            "shipped": 212
           }
         },
         {
@@ -191,7 +191,7 @@
             "app": 163,
             "site": 409,
             "builds": 34,
-            "shipped": 210
+            "shipped": 211
           }
         },
         {
@@ -223,7 +223,7 @@
             "app": 163,
             "site": 408,
             "builds": 34,
-            "shipped": 209
+            "shipped": 210
           }
         },
         {
@@ -243,7 +243,7 @@
             "app": 162,
             "site": 404,
             "builds": 34,
-            "shipped": 208
+            "shipped": 209
           }
         },
         {
@@ -255,7 +255,7 @@
             "app": 161,
             "site": 403,
             "builds": 34,
-            "shipped": 207
+            "shipped": 208
           }
         },
         {
@@ -279,7 +279,7 @@
             "app": 160,
             "site": 403,
             "builds": 33,
-            "shipped": 207
+            "shipped": 208
           }
         },
         {
@@ -307,7 +307,7 @@
             "app": 159,
             "site": 400,
             "builds": 33,
-            "shipped": 206
+            "shipped": 207
           }
         },
         {
@@ -335,7 +335,7 @@
             "app": 159,
             "site": 399,
             "builds": 33,
-            "shipped": 205
+            "shipped": 206
           }
         },
         {
@@ -363,7 +363,7 @@
             "app": 159,
             "site": 398,
             "builds": 33,
-            "shipped": 204
+            "shipped": 205
           }
         },
         {
@@ -378,7 +378,7 @@
             "app": 158,
             "site": 397,
             "builds": 33,
-            "shipped": 203
+            "shipped": 204
           }
         },
         {
@@ -393,7 +393,7 @@
             "app": 157,
             "site": 394,
             "builds": 33,
-            "shipped": 202
+            "shipped": 203
           }
         },
         {
@@ -421,7 +421,7 @@
             "app": 157,
             "site": 393,
             "builds": 33,
-            "shipped": 201
+            "shipped": 202
           }
         },
         {
@@ -441,7 +441,7 @@
             "app": 157,
             "site": 391,
             "builds": 33,
-            "shipped": 200
+            "shipped": 201
           }
         },
         {
@@ -461,7 +461,7 @@
             "app": 156,
             "site": 389,
             "builds": 33,
-            "shipped": 199
+            "shipped": 200
           }
         },
         {
@@ -497,7 +497,7 @@
             "app": 156,
             "site": 388,
             "builds": 33,
-            "shipped": 198
+            "shipped": 199
           }
         },
         {
@@ -521,7 +521,7 @@
             "app": 156,
             "site": 387,
             "builds": 33,
-            "shipped": 197
+            "shipped": 198
           }
         },
         {
@@ -549,7 +549,7 @@
             "app": 155,
             "site": 384,
             "builds": 33,
-            "shipped": 196
+            "shipped": 197
           }
         },
         {
@@ -561,7 +561,7 @@
             "app": 155,
             "site": 382,
             "builds": 33,
-            "shipped": 195
+            "shipped": 196
           }
         },
         {
@@ -589,7 +589,7 @@
             "app": 155,
             "site": 382,
             "builds": 32,
-            "shipped": 195
+            "shipped": 196
           }
         },
         {
@@ -617,7 +617,7 @@
             "app": 155,
             "site": 381,
             "builds": 32,
-            "shipped": 194
+            "shipped": 195
           }
         },
         {
@@ -645,7 +645,7 @@
             "app": 155,
             "site": 379,
             "builds": 32,
-            "shipped": 193
+            "shipped": 194
           }
         },
         {
@@ -673,7 +673,7 @@
             "app": 154,
             "site": 378,
             "builds": 32,
-            "shipped": 192
+            "shipped": 193
           }
         },
         {
@@ -705,7 +705,7 @@
             "app": 153,
             "site": 375,
             "builds": 32,
-            "shipped": 191
+            "shipped": 192
           }
         },
         {
@@ -729,7 +729,7 @@
             "app": 152,
             "site": 373,
             "builds": 32,
-            "shipped": 190
+            "shipped": 191
           }
         },
         {
@@ -744,7 +744,7 @@
             "app": 150,
             "site": 371,
             "builds": 32,
-            "shipped": 189
+            "shipped": 190
           }
         },
         {
@@ -756,7 +756,7 @@
             "app": 148,
             "site": 366,
             "builds": 32,
-            "shipped": 188
+            "shipped": 189
           }
         },
         {
@@ -780,7 +780,7 @@
             "app": 148,
             "site": 363,
             "builds": 31,
-            "shipped": 188
+            "shipped": 189
           }
         },
         {
@@ -795,7 +795,7 @@
             "app": 147,
             "site": 360,
             "builds": 31,
-            "shipped": 187
+            "shipped": 188
           }
         },
         {
@@ -815,7 +815,7 @@
             "app": 147,
             "site": 359,
             "builds": 31,
-            "shipped": 186
+            "shipped": 187
           }
         },
         {
@@ -859,7 +859,7 @@
             "app": 146,
             "site": 356,
             "builds": 31,
-            "shipped": 185
+            "shipped": 186
           }
         },
         {
@@ -874,7 +874,7 @@
             "app": 144,
             "site": 354,
             "builds": 31,
-            "shipped": 184
+            "shipped": 185
           }
         },
         {
@@ -898,7 +898,7 @@
             "app": 144,
             "site": 352,
             "builds": 31,
-            "shipped": 183
+            "shipped": 184
           }
         },
         {
@@ -913,7 +913,7 @@
             "app": 142,
             "site": 350,
             "builds": 31,
-            "shipped": 182
+            "shipped": 183
           }
         },
         {
@@ -937,7 +937,7 @@
             "app": 141,
             "site": 347,
             "builds": 31,
-            "shipped": 181
+            "shipped": 182
           }
         },
         {
@@ -973,7 +973,7 @@
             "app": 141,
             "site": 346,
             "builds": 31,
-            "shipped": 180
+            "shipped": 181
           }
         },
         {
@@ -997,7 +997,7 @@
             "app": 139,
             "site": 344,
             "builds": 31,
-            "shipped": 179
+            "shipped": 180
           }
         },
         {
@@ -1021,7 +1021,7 @@
             "app": 139,
             "site": 343,
             "builds": 31,
-            "shipped": 178
+            "shipped": 179
           }
         },
         {
@@ -1049,7 +1049,7 @@
             "app": 139,
             "site": 341,
             "builds": 31,
-            "shipped": 177
+            "shipped": 178
           }
         },
         {
@@ -1077,7 +1077,7 @@
             "app": 139,
             "site": 337,
             "builds": 31,
-            "shipped": 176
+            "shipped": 177
           }
         },
         {
@@ -1089,7 +1089,7 @@
             "app": 138,
             "site": 333,
             "builds": 31,
-            "shipped": 175
+            "shipped": 176
           }
         },
         {
@@ -1113,11 +1113,18 @@
             "app": 137,
             "site": 332,
             "builds": 30,
-            "shipped": 175
+            "shipped": 176
           }
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "98c78fe",
+          "at": "2026-09-26T18:49:51.000Z",
+          "text": "Speed rows are sent at least once and stored once (YUI-107)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/98c78fe"
+        },
         {
           "repo": "app",
           "sha": "f512441",
@@ -1988,7 +1995,7 @@
             "app": 136,
             "site": 329,
             "builds": 30,
-            "shipped": 174
+            "shipped": 175
           }
         },
         {
@@ -2000,7 +2007,7 @@
             "app": 135,
             "site": 328,
             "builds": 30,
-            "shipped": 173
+            "shipped": 174
           }
         },
         {
@@ -2024,7 +2031,7 @@
             "app": 135,
             "site": 328,
             "builds": 29,
-            "shipped": 173
+            "shipped": 174
           }
         },
         {
@@ -2048,7 +2055,7 @@
             "app": 134,
             "site": 326,
             "builds": 29,
-            "shipped": 172
+            "shipped": 173
           }
         },
         {
@@ -2063,7 +2070,7 @@
             "app": 133,
             "site": 324,
             "builds": 29,
-            "shipped": 171
+            "shipped": 172
           }
         },
         {
@@ -2095,7 +2102,7 @@
             "app": 132,
             "site": 321,
             "builds": 29,
-            "shipped": 170
+            "shipped": 171
           }
         },
         {
@@ -2127,7 +2134,7 @@
             "app": 131,
             "site": 319,
             "builds": 29,
-            "shipped": 169
+            "shipped": 170
           }
         },
         {
@@ -2151,7 +2158,7 @@
             "app": 130,
             "site": 318,
             "builds": 29,
-            "shipped": 168
+            "shipped": 169
           }
         },
         {
@@ -2183,7 +2190,7 @@
             "app": 130,
             "site": 317,
             "builds": 29,
-            "shipped": 167
+            "shipped": 168
           }
         },
         {
@@ -2215,7 +2222,7 @@
             "app": 128,
             "site": 313,
             "builds": 29,
-            "shipped": 166
+            "shipped": 167
           }
         },
         {
@@ -2239,7 +2246,7 @@
             "app": 128,
             "site": 312,
             "builds": 29,
-            "shipped": 165
+            "shipped": 166
           }
         },
         {
@@ -2279,7 +2286,7 @@
             "app": 128,
             "site": 310,
             "builds": 29,
-            "shipped": 164
+            "shipped": 165
           }
         },
         {
@@ -2315,7 +2322,7 @@
             "app": 126,
             "site": 308,
             "builds": 29,
-            "shipped": 163
+            "shipped": 164
           }
         },
         {
@@ -2347,7 +2354,7 @@
             "app": 126,
             "site": 306,
             "builds": 29,
-            "shipped": 162
+            "shipped": 163
           }
         },
         {
@@ -2375,7 +2382,7 @@
             "app": 125,
             "site": 305,
             "builds": 29,
-            "shipped": 161
+            "shipped": 162
           }
         },
         {
@@ -2407,7 +2414,7 @@
             "app": 123,
             "site": 304,
             "builds": 29,
-            "shipped": 160
+            "shipped": 161
           }
         },
         {
@@ -2443,7 +2450,7 @@
             "app": 122,
             "site": 302,
             "builds": 29,
-            "shipped": 159
+            "shipped": 160
           }
         },
         {
@@ -2458,7 +2465,7 @@
             "app": 122,
             "site": 301,
             "builds": 29,
-            "shipped": 158
+            "shipped": 159
           }
         },
         {
@@ -2470,7 +2477,7 @@
             "app": 122,
             "site": 300,
             "builds": 29,
-            "shipped": 157
+            "shipped": 158
           }
         },
         {
@@ -2502,7 +2509,7 @@
             "app": 122,
             "site": 300,
             "builds": 28,
-            "shipped": 157
+            "shipped": 158
           }
         },
         {
@@ -2534,7 +2541,7 @@
             "app": 120,
             "site": 296,
             "builds": 28,
-            "shipped": 156
+            "shipped": 157
           }
         },
         {
@@ -2566,7 +2573,7 @@
             "app": 119,
             "site": 293,
             "builds": 28,
-            "shipped": 155
+            "shipped": 156
           }
         },
         {
@@ -2590,7 +2597,7 @@
             "app": 119,
             "site": 292,
             "builds": 28,
-            "shipped": 154
+            "shipped": 155
           }
         },
         {
@@ -2618,7 +2625,7 @@
             "app": 116,
             "site": 288,
             "builds": 28,
-            "shipped": 153
+            "shipped": 154
           }
         },
         {
@@ -2646,7 +2653,7 @@
             "app": 116,
             "site": 287,
             "builds": 28,
-            "shipped": 152
+            "shipped": 153
           }
         },
         {
@@ -2661,7 +2668,7 @@
             "app": 116,
             "site": 285,
             "builds": 28,
-            "shipped": 151
+            "shipped": 152
           }
         },
         {
@@ -2685,7 +2692,7 @@
             "app": 116,
             "site": 284,
             "builds": 28,
-            "shipped": 150
+            "shipped": 151
           }
         },
         {
@@ -2700,7 +2707,7 @@
             "app": 115,
             "site": 283,
             "builds": 28,
-            "shipped": 149
+            "shipped": 150
           }
         },
         {
@@ -2724,7 +2731,7 @@
             "app": 115,
             "site": 282,
             "builds": 28,
-            "shipped": 148
+            "shipped": 149
           }
         },
         {
@@ -2739,7 +2746,7 @@
             "app": 112,
             "site": 279,
             "builds": 28,
-            "shipped": 147
+            "shipped": 148
           }
         },
         {
@@ -2766,6 +2773,30 @@
           "totals": {
             "app": 109,
             "site": 274,
+            "builds": 28,
+            "shipped": 147
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T20:15:21.000Z",
+          "title": "Agents can look up the library",
+          "card": "FLOW-2",
+          "anchor": "agents-can-look-up-the-library",
+          "images": [
+            {
+              "src": "/progress/flow2-search-intake-dark.webp",
+              "alt": "The library in dark mode, searched for client intake: one flow matches, the client website intake, with its Run it button and its chart."
+            },
+            {
+              "src": "/progress/flow2-search-shapes-light.webp",
+              "alt": "The library in light mode, searched for diagram: the new shapes and shape tiles, each a live phone drawing a small diagram."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 108,
+            "site": 273,
             "builds": 28,
             "shipped": 146
           }

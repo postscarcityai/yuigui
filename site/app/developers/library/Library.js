@@ -1,10 +1,11 @@
 "use client";
 // The library (FLOW-2): a tile per preset, drawn live, and a card per flow with its Mermaid chart.
-// Search runs in the browser over names, purposes, tags and the lines themselves.
+// Search runs in the browser with the same score() as /api/library and the yui_library MCP tool:
+// names, titles, intents, tags, purposes and the lines themselves. Best match first.
 import { useEffect, useMemo, useState } from "react";
 import LivePhone from "../../mockups/LivePhone";
 import MermaidGraph from "./MermaidGraph";
-import { matches, playUrl } from "../../../lib/yl/library.mjs";
+import { playUrl, score } from "../../../lib/yl/library.mjs";
 
 function Copy({ text, what }) {
   const [done, setDone] = useState(false);
@@ -75,8 +76,11 @@ export default function Library({ presets, flows, shelves }) {
     window.history.replaceState(null, "", u);
   }, [q]);
 
-  const shownP = useMemo(() => new Set(presets.filter((p) => matches(p, q)).map((p) => p.name)), [presets, q]);
-  const shownF = useMemo(() => new Set(flows.filter((f) => matches(f, q)).map((f) => f.name)), [flows, q]);
+  const scoreP = useMemo(() => new Map(presets.map((p) => [p.name, score(p, q)])), [presets, q]);
+  const scoreF = useMemo(() => new Map(flows.map((f) => [f.name, score(f, q)])), [flows, q]);
+  const shownP = useMemo(() => new Set(presets.filter((p) => scoreP.get(p.name) > 0).map((p) => p.name)), [presets, scoreP]);
+  const shownF = useMemo(() => new Set(flows.filter((f) => scoreF.get(f.name) > 0).map((f) => f.name)), [flows, scoreF]);
+  const best = (m) => (a, b) => m.get(b.name) - m.get(a.name);
 
   return (
     <div className="lib">
@@ -94,7 +98,7 @@ export default function Library({ presets, flows, shelves }) {
       <div role="tabpanel" hidden={tab !== "screens"}>
         {shownP.size === 0 ? <p className="lib-none">No screen matches &ldquo;{q}&rdquo;. {shownF.size ? <button type="button" className="lib-link" onClick={() => setTab("flows")}>{shownF.size} flow{shownF.size > 1 ? "s" : ""} do</button> : "Try fewer words."}</p> : null}
         {shelves.map(([key, title]) => {
-          const list = presets.filter((p) => p.shelf === key);
+          const list = presets.filter((p) => p.shelf === key).sort(best(scoreP));
           const n = list.filter((p) => shownP.has(p.name)).length;
           return (
             <section key={key} className="lib-shelf" hidden={n === 0}>
@@ -109,7 +113,7 @@ export default function Library({ presets, flows, shelves }) {
 
       <div role="tabpanel" hidden={tab !== "flows"} id="flows">
         {shownF.size === 0 ? <p className="lib-none">No flow matches &ldquo;{q}&rdquo;. {shownP.size ? <button type="button" className="lib-link" onClick={() => setTab("screens")}>{shownP.size} screen{shownP.size > 1 ? "s" : ""} do</button> : "Try fewer words."}</p> : null}
-        {flows.map((f) => <FlowCard key={f.name} f={f} hidden={!shownF.has(f.name)} />)}
+        {[...flows].sort(best(scoreF)).map((f) => <FlowCard key={f.name} f={f} hidden={!shownF.has(f.name)} />)}
       </div>
     </div>
   );

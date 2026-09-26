@@ -68,6 +68,11 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
         val on = talking(parse(input, known)).map { it.toDouble() }
         if (!same(on, v["talk"])) fails.add("talk (pages with the composer on)" to on)
     }
+    if (v["resolved"] != null) {
+        val got = parse(input, known).filter { it["op"] == "add" }
+            .map { resolve(it["preset"] as String, (it["props"] as? Map<String, Any?>) ?: emptyMap()) }
+        if (!same(got, v["resolved"])) fails.add("resolved (each add over its defaults)" to got)
+    }
     if (v.containsKey("doing")) {
         val d = doingOf(parse(input, known))
         if (!same(d, v["doing"])) fails.add("doing (the working row after the input)" to d)

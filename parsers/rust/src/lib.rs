@@ -3154,6 +3154,14 @@ pub fn resolve(preset: &str, props: &Map) -> Map {
             };
             r.set("cta", cta);
         }
+        "shape" => {
+            // The kind is a word, matched without case (JS lowercases it too).
+            let kind = match props.get("kind") {
+                Some(Value::Null) | None => "box".to_string(),
+                Some(k) => js_str(k).to_lowercase(),
+            };
+            r.set("kind", Value::Str(kind));
+        }
         "game" => {
             // Cells outside 1-9 are ignored, and a cell both marks claim is x's.
             let cells = |v: Option<&Value>| -> Vec<f64> {

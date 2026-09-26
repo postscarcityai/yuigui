@@ -53,6 +53,11 @@ function check(v) {
     const d = doingOf(parse(v.input, known));
     if (!isDeepStrictEqual(d, v.doing)) fails.push(["doing (the working row after the input)", d]);
   }
+  if (v.resolved) {
+    // Each add's props over its preset's defaults (resolve), in line order.
+    const got = parse(v.input, known).filter((o) => o.op === "add").map((o) => resolve(o.preset, o.props));
+    if (!isDeepStrictEqual(got, v.resolved)) fails.push(["resolved (each add over its defaults)", got]);
+  }
   if (v.menu) {
     const m = menuOf(parse(v.input));
     if (!isDeepStrictEqual(m, v.menu)) fails.push(["menu (the drawer's items after the input)", m]);

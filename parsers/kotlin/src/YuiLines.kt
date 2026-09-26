@@ -1592,6 +1592,12 @@ fun resolve(preset: String, props: Map<String, Any?>): Map<String, Any?> {
             r.putAll(props)
             r["cta"] = props["cta"] ?: if (props["open"] != null && props["open"] != false && props["open"] != "" && props["open"] != 0.0) "Open" else ""
         }
+        "shape" -> {
+            // The kind is a word, matched without case (as in JS).
+            r["label"] = ""
+            r.putAll(props)
+            r["kind"] = jsStr(props["kind"] ?: "box").lowercase()
+        }
         "game" -> {
             // Cells outside 1-9 are ignored, and a cell both marks claim is x's.
             fun cells(v: Any?): List<Double> = (v as? List<*> ?: emptyList<Any?>())

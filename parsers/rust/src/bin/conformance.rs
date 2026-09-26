@@ -120,6 +120,23 @@ fn check(v: &Value) -> Vec<(&'static str, Value)> {
             fails.push(("talk (pages with the composer on)", on));
         }
     }
+    if let Some(want) = v.get("resolved") {
+        // Each add's props over its preset's defaults (resolve), in line order.
+        let empty = Map::new();
+        let got = Value::Arr(
+            parse(input)
+                .iter()
+                .filter(|o| o.get("op").and_then(Value::as_str) == Some("add"))
+                .map(|o| {
+                    let preset = o.get("preset").and_then(Value::as_str).unwrap_or("");
+                    Value::Obj(resolve(preset, o.get("props").and_then(Value::as_obj).unwrap_or(&empty)))
+                })
+                .collect(),
+        );
+        if !same(&got, want) {
+            fails.push(("resolved (each add over its defaults)", got));
+        }
+    }
     if let Some(want) = v.get("doing") {
         let d = doing_of(&parse(input)).unwrap_or(Value::Null);
         if !same(&d, want) {

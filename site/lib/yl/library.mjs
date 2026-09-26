@@ -3,6 +3,7 @@
 // A preset in PRESETS (yl.mjs) with no entry here fails scripts/library-check.mjs.
 import { PRESETS } from "./yl.mjs";
 import { STARTER_FLOWS } from "./starter-flows.mjs";
+import { findDocLeak, findLeak } from "../public-guard.mjs";
 
 export const SITE = "https://www.yuigui.com";
 
@@ -262,6 +263,29 @@ row "Parked YUI-83 in the backlog" +x note="an id means nothing"
 after "Now"
 row "Parked the drawing card in the backlog" +hi note="plain words"`,
   },
+  shapes: {
+    shelf: "show", doc: "shapes",
+    purpose: "A small moving diagram: circles, boxes and arrows that come on one by one, with a caption.",
+    tags: ["diagram", "explain", "idea", "flowchart", "animation", "concept"],
+    yl: `shapes "How an ask reaches the app" caption="You ask, it lands on the board, a lane builds it, and it ships."
+shape circle You +grow
+shape arrow
+shape box Board +fill
+shape arrow
+shape pill Lane +pulse
+shape arrow label=ships
+shape circle Phone tone=mint`,
+  },
+  shape: {
+    shelf: "show", doc: "shape",
+    purpose: "One part of a diagram: a circle, box, pill, dot, blob, text, line, arrow or path.",
+    tags: ["diagram", "circle", "box", "arrow", "label", "part"],
+    yl: `shapes "Where the time goes" w=10 h=5 caption="Most of a reply is the model thinking."
+shape@think blob Thinking at=3,2.5 size=4,3 tone=lavender +fill +grow
+shape@draw dot at=8,2.5 tone=mint
+shape text "drawing" at=8,3.4
+shape arrow from=think to=draw +dash`,
+  },
   game: {
     shelf: "play", doc: "game",
     purpose: "A small game on the phone: tic-tac-toe, snake or memory. The result comes back.",
@@ -277,6 +301,54 @@ game tictactoe "Beat me"`,
   },
 };
 
+// What an agent means when it reaches for each entry, in its own words. Search reads
+// these first after the name, so "get a client's website brief" finds the intake flow.
+export const INTENTS = {
+  timer: ["time a workout", "run an interval timer", "count down rest"],
+  ask: ["ask a yes or no question", "confirm before acting", "get a quick decision"],
+  choose: ["ask them to pick one option", "run a poll", "offer a menu"],
+  pick: ["let them choose several", "collect preferences", "multi select from a list"],
+  slide: ["ask for a number", "rate something on a scale", "ask how much"],
+  form: ["collect details", "sign someone up", "ask several questions at once"],
+  list: ["show a checklist", "give a to-do list", "list steps or items"],
+  table: ["show rows and columns", "compare options side by side", "show a log"],
+  query: ["track something over time", "show totals from a table", "keep a log and chart it"],
+  card: ["show a result with one button", "preview a link", "summarize one thing"],
+  image: ["show a picture", "ask them to mark up a photo", "show a generated image"],
+  camera: ["ask for a photo", "scan a receipt or document", "take a picture"],
+  mic: ["let them talk instead of type", "take a voice note", "dictate an answer"],
+  gallery: ["show several photos", "let them pick favorite images", "show a portfolio"],
+  video: ["play a video", "review a clip", "share a reel"],
+  compare: ["show before and after", "compare two versions", "show an edit result"],
+  storyboard: ["plan a video shot by shot", "show frames in order", "let them reorder scenes"],
+  chart: ["graph a trend", "plot numbers", "show a pie or bar chart"],
+  stat: ["show one key number", "report a metric and its change", "show a dashboard number"],
+  math: ["typeset an equation", "show a formula", "explain math"],
+  step: ["walk through steps one at a time", "teach a procedure", "show a recipe"],
+  calc: ["let them play with a formula", "estimate with sliders", "what if calculator"],
+  deck: ["present slides", "teach a short lesson with a quiz", "explain in pages"],
+  page: ["add a page to a deck", "explain findings", "show a section"],
+  plan: ["run a multi step questionnaire", "onboard someone", "survey with one submit"],
+  project: ["show project status", "track progress", "reopen a plan"],
+  narrate: ["read pages aloud", "give a spoken tour", "walk through changes by voice"],
+  timeline: ["show what is done and what is next", "show a roadmap", "plan an itinerary"],
+  done: ["mark an item finished in a timeline"],
+  now: ["show what is happening now in a timeline"],
+  next: ["show what comes next in a timeline"],
+  sketch: ["mock up a screen", "wireframe a layout", "mark what to cut and keep"],
+  row: ["add a line to a sketch", "strike or highlight part of a mockup"],
+  after: ["show a sketch before and after"],
+  shapes: ["draw a diagram of an idea", "explain how parts connect", "animate a concept"],
+  shape: ["add a part to a diagram", "draw an arrow between two things"],
+  game: ["play a game", "take a break with tic tac toe", "entertain a kid"],
+  flow: ["run a saved flow by name", "branching questions", "reuse a conversation"],
+  "website-intake": ["client intake", "get a client's website brief", "plan a website with a client", "scope a site redesign or shop"],
+  "self-scope": ["scope a project", "turn an idea into a plan", "size up work"],
+  "workout-checkin": ["check in before a workout", "ask about sleep and soreness", "adjust a training plan"],
+  onboarding: ["onboard a new user", "first run welcome", "learn about someone and suggest agents"],
+  connect: ["connect tools", "ask permission to use apps", "set up integrations"],
+};
+
 const docUrl = (anchor) => `${SITE}/yl#${anchor}`;
 // A plain-lines playground link; readYL on the playground takes plain text.
 export const playUrl = (yl, as) => `/playground?yl=${encodeURIComponent(yl)}${as ? `&as=${encodeURIComponent(as)}` : ""}`;
@@ -284,7 +356,7 @@ export const playUrl = (yl, as) => `/playground?yl=${encodeURIComponent(yl)}${as
 export const presets = () => PRESETS.map((name) => {
   const e = PRESET_ENTRIES[name];
   if (!e) return { name, kind: "preset", missing: true };
-  return { name, kind: "preset", ...e, docs: docUrl(e.doc) };
+  return { name, kind: "preset", ...e, intents: INTENTS[name] || [], docs: docUrl(e.doc) };
 });
 
 export const flows = () => STARTER_FLOWS.map((f) => ({
@@ -292,6 +364,7 @@ export const flows = () => STARTER_FLOWS.map((f) => ({
   kind: "flow",
   title: f.title,
   purpose: f.blurb,
+  intents: INTENTS[f.name] || [],
   agent: f.agent,
   tags: ["flow", ...f.title.toLowerCase().split(/\W+/).filter(Boolean)],
   yl: `flow ${f.name}`,
@@ -303,23 +376,76 @@ export const flows = () => STARTER_FLOWS.map((f) => ({
 // What /library.json serves: the minimum an agent needs to find a screen and send it.
 export function libraryIndex() {
   const items = [
-    ...presets().map((p) => ({ name: p.name, kind: "preset", purpose: p.purpose, tags: p.tags, yl: p.yl, docs: p.docs, playground: `${SITE}${playUrl(p.yl)}` })),
-    ...flows().map((f) => ({ name: f.name, kind: "flow", title: f.title, purpose: f.purpose, tags: f.tags, yl: f.yl, docs: f.docs, playground: `${SITE}/playground?demo=${f.demo}` })),
+    ...presets().map((p) => ({ name: p.name, kind: "preset", purpose: p.purpose, intents: p.intents, tags: p.tags, yl: p.yl, docs: p.docs, playground: `${SITE}${playUrl(p.yl)}` })),
+    ...flows().map((f) => ({ name: f.name, kind: "flow", title: f.title, purpose: f.purpose, intents: f.intents, tags: f.tags, yl: f.yl, source: f.source, docs: f.docs, playground: `${SITE}/playground?demo=${f.demo}` })),
   ];
   return {
     name: "Yui library",
-    version: 1,
-    about: "Every screen preset and saved flow an agent can send to the Yui app. Send the yl lines as your reply; the app draws them. Search by name, purpose or tags.",
+    version: 2,
+    about: "Every screen preset and saved flow an agent can send to the Yui app. Send the yl lines as your reply; the app draws them. A flow's source is its Mermaid. Search by name, intent, purpose or tags, or ask the search endpoint.",
+    search: `${SITE}/api/library?q=`,
     spec: `${SITE}/yl`,
     page: `${SITE}/developers/library`,
     items,
   };
 }
 
-// Client-side search: every word must match the name, purpose, tags or lines.
-export function matches(item, query) {
-  const words = String(query || "").toLowerCase().split(/\s+/).filter(Boolean);
-  if (!words.length) return true;
-  const hay = [item.name, item.title, item.purpose, ...(item.tags || []), item.yl].join(" ").toLowerCase();
-  return words.every((w) => hay.includes(w));
+// Search, the same on the page, at /api/library?q= and in the yui_library MCP tool.
+// Every word must hit somewhere; each word scores its best field (name, then title,
+// intents, tags, purpose, lines), and the whole query found in an intent or the title
+// adds a bonus. Ties keep library order. Plain string matching: no model, no spend.
+// Parts that only live inside a group rank under their group head unless asked for by name.
+const MEMBERS = new Set(["page", "done", "now", "next", "row", "after", "shape"]);
+const STOP = new Set(["a", "an", "the", "and", "or", "of", "to", "for", "with", "in", "on", "my", "me", "i", "some", "that"]);
+const WEIGHTS = [["name", 10], ["title", 6], ["intents", 5], ["tags", 4], ["purpose", 2], ["yl", 1]];
+const words = (q) => {
+  const all = String(q || "").toLowerCase().split(/[^a-z0-9'/-]+/).filter(Boolean);
+  const kept = all.filter((w) => !STOP.has(w));
+  return kept.length ? kept : all;
+};
+const field = (item, k) => (Array.isArray(item[k]) ? item[k].join(" | ") : String(item[k] || "")).toLowerCase();
+
+export function score(item, query) {
+  const ws = words(query);
+  if (!ws.length) return 1;
+  let total = 0;
+  for (const w of ws) {
+    let best = 0;
+    for (const [k, n] of WEIGHTS) if (field(item, k).includes(w)) best = Math.max(best, n);
+    if (!best) return 0;
+    total += best;
+  }
+  const name = String(item.name).toLowerCase();
+  if (name === ws.join(" ")) return total + 10;
+  const phrase = String(query).toLowerCase().trim().replace(/\s+/g, " ");
+  if (ws.length > 1 && (field(item, "intents").includes(phrase) || field(item, "title").includes(phrase))) total += 8;
+  return MEMBERS.has(name) ? Math.ceil(total / 2) : total;
+}
+
+export const matches = (item, query) => score(item, query) > 0;
+
+// The public guard over what /library.json serves: the whole index by the site's rule, and
+// each flow's Mermaid by the spec rule (a flow's budget slider says "$2k", as a spec may).
+export function libraryLeaks(index) {
+  const out = [];
+  const bare = { ...index, items: index.items.map(({ source, ...i }) => i) };
+  for (const line of JSON.stringify(bare, null, 1).split("\n")) {
+    const leak = findLeak(line);
+    if (leak) out.push(`library.json: ${leak[0]} "${leak[1]}" in ${line.trim().slice(0, 80)}`);
+  }
+  for (const i of index.items) {
+    const leak = i.source && findDocLeak(i.source);
+    if (leak) out.push(`flow ${i.name}: ${leak[0]} "${leak[1]}" in its Mermaid`);
+  }
+  return out;
+}
+
+// Ranked hits, best first. `kind` narrows to "preset" or "flow".
+export function search(items, query, { limit = 10, kind } = {}) {
+  return items
+    .map((item, i) => ({ item, i, s: kind && item.kind !== kind ? 0 : score(item, query) }))
+    .filter((h) => h.s > 0)
+    .sort((a, b) => b.s - a.s || a.i - b.i)
+    .slice(0, limit)
+    .map((h) => ({ ...h.item, score: h.s }));
 }

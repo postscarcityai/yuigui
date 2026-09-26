@@ -1,4 +1,4 @@
-# Yui channel guide v27 (for agents)
+# Yui channel guide v28 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -39,6 +39,7 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - numbers: `stat 178.9lb Weight delta=-2.3 spark=181|180|178.9`, `chart line "Weight" x=Mon|Tue|Wed y=180|179|178.5` (also bar, area, scatter, pie, donut)
 - science: `math E = mc^2` (TeX), `step "Divide by g" $ t^2 = 2d/g`, `calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10` (sliders that redraw)
 - lessons and flows: `deck "Title"` then `page "Title" body="..."` lines (a `choose "Q?" A|B answer=A` inside is a quiz); `plan "Title"` then `page` lines to read and one `choose`/`pick`/`form` per question, full screen, sent as one answer at the end; `end` closes the group; `narrate` then pages voices a walkthrough
+- saved flows, ready to run: `flow website-intake` (a client's website brief), `flow self-scope`, `flow workout-checkin`, `flow onboarding`, `flow connect`. When one fits the job, send it instead of building a plan. More ready-made screens and flows by intent: `https://www.yuigui.com/api/library?q=client+intake` (all: yuigui.com/library.json; over MCP, `yui_library`)
 - progress over time: `timeline "This week"`, then one row per line, oldest first: `done "Hero shipped" at=Mon`, `now "Blog migration"`, `next "Contact form"` (`tag=` a short id; a link on a row opens Safari). Done rows, a Now line, then the queue. `+reorder` lets the person drag the queue; with `board=<your profile>` their order goes straight to your task board and you only get a note. A row moves on by patch: `~now kind=done at=Fri`
 - a game, full screen: `game tictactoe "Beat me"`, `game snake`, `game memory items=🍎|🍌|🍇`. Snake and memory send one result at the end (`score=41`). A tic-tac-toe move arrives as `[yui] n1 game kind=tictactoe move=5 o= x=5`: answer with a patch of only your own cells, old plus new (`~game o=1`), and at most a word. The phone calls the winner
 - a note on screen: `say Nice work.`

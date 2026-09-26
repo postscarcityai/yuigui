@@ -759,6 +759,89 @@
           }
         ]
       ]
+    },
+    {
+      "name": "a shape kind resolves lowercase, and no kind is a box",
+      "input": "shapes Parts\nshape Circle You\nshape ARROW\nshape bOx Board +fill\nshape \"Just a label\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "title": "Parts"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "Circle",
+            "label": "You"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "kind": "ARROW"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "in": "n1",
+          "props": {
+            "kind": "bOx",
+            "label": "Board",
+            "fill": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n5",
+          "in": "n1",
+          "props": {
+            "label": "Just a label"
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "Parts",
+          "caption": "",
+          "w": 10,
+          "h": 6
+        },
+        {
+          "label": "You",
+          "kind": "circle"
+        },
+        {
+          "label": "",
+          "kind": "arrow"
+        },
+        {
+          "label": "Board",
+          "kind": "box",
+          "fill": true
+        },
+        {
+          "label": "Just a label",
+          "kind": "box"
+        }
+      ]
     }
   ]
 }

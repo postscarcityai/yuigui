@@ -111,16 +111,18 @@
           "pick",
           "mic",
           "plan",
-          "page"
+          "page",
+          "flow"
         ],
         "need": [
           "slide",
           "form",
           "plan",
-          "choose"
+          "choose",
+          "flow"
         ]
       },
-      "good": "Sleep, soreness and energy as sliders or a short form (quoted title), or a plan that walks them one at a time. Not a wall of questions in text."
+      "good": "Sleep, soreness and energy as sliders or a short form (quoted title), or a plan that walks them one at a time, or the saved `flow workout-checkin` (it asks the same). Not a wall of questions in text."
     },
     {
       "id": "checkin-evening-voice",
@@ -1707,6 +1709,33 @@
         "one_deck": true
       },
       "good": "One short line, then `>full` and ONE deck: a page per idea, the diagram, math, chart and stat each right after its page as its picture, a quiz, the calc on the last page. Nothing loose in the chat or on the stage beside the deck, no `close` after it."
+    },
+    {
+      "id": "library-flow-intake",
+      "category": "library",
+      "agent": "Yui",
+      "message": "A new client just sat down with me, she wants a website for her bakery. Walk her through everything you need from her, on my phone.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "flow",
+          "say",
+          "page",
+          "plan",
+          "form",
+          "choose",
+          "pick",
+          "slide",
+          "ask",
+          "end"
+        ],
+        "need": [
+          "flow"
+        ],
+        "one_screen": true,
+        "max_words": 40
+      },
+      "good": "One short line and `flow website-intake`: the saved intake flow asks everything, branching on their answers. Not a hand-built plan of the same questions."
     }
   ]
 }

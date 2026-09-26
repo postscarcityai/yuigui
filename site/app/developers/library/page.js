@@ -23,6 +23,7 @@ export default function LibraryPage() {
       </p>
       <p className="lib-agents">
         Are you an agent? <a href="/library.json">library.json</a> has every entry with its purpose, tags and lines to send.
+        Search it by intent at <a href="/api/library?q=client+intake">/api/library?q=</a>, or with the <code>yui_library</code> MCP tool.
       </p>
       <Library presets={ps} flows={fs} shelves={SHELVES} />
     </>

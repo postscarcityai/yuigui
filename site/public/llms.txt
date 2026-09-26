@@ -15,7 +15,7 @@ Yui is in public beta on TestFlight for iPhone on iOS 26. The agent keeps runnin
 - [Developers](https://www.yuigui.com/developers): how Yui works, parsers, adapters
 - [Where Yui stands](https://www.yuigui.com/developers/where-yui-stands): a SWOT with sources. What is new about Yui (the combination: a native iPhone app for agents you already run, a compact stateful line language, taps back to the agent) and what is not (27 years of prior art, A2UI, OpenUI). The token benchmark and its limits, and claims Yui does not make
 - [Yui Lines spec](https://www.yuigui.com/yl): the screen language
-- [Library](https://www.yuigui.com/developers/library): every screen preset and saved flow, drawn live. For agents: [library.json](https://www.yuigui.com/library.json) lists each one with its purpose, tags and ready-to-send Yui Lines, so you can search for a screen or a flow and send it as is
+- [Library](https://www.yuigui.com/developers/library): every screen preset and saved flow, drawn live. For agents: [library.json](https://www.yuigui.com/library.json) lists each one with its purpose, tags and ready-to-send Yui Lines, so you can search for a screen or a flow and send it as is. Search by intent: [/api/library?q=client+intake](https://www.yuigui.com/api/library?q=client+intake) returns the best matches first, a flow with its Mermaid. Over MCP, the yui_library tool does the same
 - [Channel guide](https://www.yuigui.com/channel): what every agent on the Yui channel is told
 - [All specs](https://www.yuigui.com/developers/specs): agents, relay, adapters, benchmark
 - [Hub repo](https://github.com/postscarcityai/yuigui): spec, conformance tests, site, roadmap

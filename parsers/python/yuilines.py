@@ -1920,6 +1920,11 @@ def resolve(preset, props):
         cta = p.get("cta")
         return {"title": "", "body": "", "facts": [], "next": [], "status": "", **p,
                 "cta": cta if cta is not None else ("Open" if p.get("open") else "")}
+    if preset == "shape":
+        # The kind is a word, matched without case (as in JS).
+        r = {"label": "", **p}
+        r["kind"] = _js_str("box" if p.get("kind") is None else p["kind"]).lower()
+        return r
     if preset == "game":
         # Cells outside 1-9 are ignored, and a cell both marks claim is x's.
         def cells(v):
