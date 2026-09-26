@@ -181,6 +181,11 @@ export function score(c, reply) {
       if (f.type === "password" || SECRET.test(`${f.key} ${f.label || ""}`)) fails.push(`secret: form field "${f.label || f.key}"`);
     }
   }
+  // A page's picture (YUI-85): a sketch inside a deck or plan, right after a page of that group.
+  if (e.page_picture) {
+    const ok = adds.some((o, i) => o.preset === "sketch" && o.in && adds[i - 1]?.preset === "page" && adds[i - 1].in === o.in);
+    if (!ok) fails.push("page picture: no sketch right after a page in a deck or plan");
+  }
   // One flow (YUI-51): findings as pages inside the plan, with substance, then its questions.
   if (e.one_flow) {
     const plans = adds.filter((o) => o.preset === "plan");

@@ -101,7 +101,7 @@ row "Parked YUI-83 in the backlog" +x note="an id means nothing"
 after
 row "Parked the drawing card in the backlog" +hi note="plain words"
 ```
-In a `deck` or `plan`, a sketch right after a `page` is that page's picture:
+In a `deck` or `plan`, a sketch right after a `page` is that page's picture (`shapes` go outside the deck; inside, they end it):
 ```yui
 deck "What changed"
 page "Plain words" body="Cards say what they are."

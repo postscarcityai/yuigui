@@ -1260,7 +1260,10 @@
           "table",
           "sketch",
           "row",
-          "after"
+          "after",
+          "shapes",
+          "shape",
+          "end"
         ],
         "need": [
           "deck",
@@ -1381,6 +1384,35 @@
         "max_words": 50
       },
       "good": "A `sketch` of the screen (frame=phone) with the headline and notes as rows, Got it as a +button row struck out (+x) with a short note (it does nothing), Install as a +button row highlighted. At most a line of chat."
+    },
+    {
+      "id": "report-pages-picture",
+      "category": "report",
+      "agent": "Urza",
+      "message": "Walk me through the three changes to how you write updates to me this week, one at a time: you name cards in plain words instead of ids like YUI-83, a long update comes as pages instead of a wall of text, and cards no longer end in a 'Got it' button that does nothing. For each one, show me what it looked like before and after.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "card",
+          "deck",
+          "plan",
+          "page",
+          "sketch",
+          "row",
+          "after",
+          "say",
+          "stat",
+          "list",
+          "end"
+        ],
+        "need": [
+          "deck",
+          "plan"
+        ],
+        "page_picture": true,
+        "max_words": 50
+      },
+      "good": "One short line and a deck of three pages, one change each, and each page's picture a sketch right after it: the old wording or button struck out (+x), the new one highlighted (+hi), ideally split with `after`. No paragraph."
     },
     {
       "id": "menu-shortcut",
