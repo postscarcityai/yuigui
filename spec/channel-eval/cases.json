@@ -1793,6 +1793,31 @@
         "max_pages": 0
       },
       "good": "One line: 0.3.2 is building, on TestFlight in about 40 minutes with keys and chords; the Send tap fix waits. No deck, no 'what happens next' pages (YUI-118)."
+    },
+    {
+      "id": "doing-long-turn",
+      "category": "doing",
+      "agent": "Yui",
+      "message": "What needs me today? Check my calendar, my mail and the board. (This turn runs on the host with tools and takes about a minute: calendar first, then mail, then the board. Write everything you send during the turn, in order, as one reply. What the tools returned: gcal_list_events: 10:00 call with Dana (30 min), 4:00 design review. gmail_search: two need a reply today, the venue contract from Sam and a question about an invoice. kanban board: one card waits on you, t_627321c6 (YUI-SHIP 0.3.3), asking whether to ship without the tuner.)",
+      "expect": {
+        "screen": "yes",
+        "doing": 2,
+        "presets": [
+          "card",
+          "say",
+          "ask",
+          "choose",
+          "list",
+          "check",
+          "timeline",
+          "stat",
+          "deck",
+          "page"
+        ],
+        "max_words": 45,
+        "max_pages": 4
+      },
+      "good": "doing lines as it goes, plain words and a step (\"Reading your calendar\" 1/3, \"Checking your mail\" 2/3, \"Looking at the board\" 3/3), no card ids or tool names; then the answer: two calls, two replies to send, one choice on the tuner (YUI-63)."
     }
   ]
 }

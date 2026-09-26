@@ -1,12 +1,8 @@
-# Yui channel guide v29 (for agents)
+# Yui channel guide v30 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
 One block is not for every turn: the lines between `<!-- restyle: ... -->` and `<!-- /restyle -->` teach `theme app` (`spec/RESTYLE.md`, sections 5, 7 and 8). The host cuts them out of the fixed guide and adds them to a turn only for an agent the person owns, on a phone at or above `restyle_min_build`; hosts that cannot tell leave them out (`sync_channel.py --publish` strips them).
-
-Waiting for the app (YUI-63 step 2): the rule below moves into **Use it well** in the change that ships the app build drawing `doing` (YL.md section 5, The working row), with a version bump and an eval case. Until then it stays up here, where no host sends it, so no agent sends `doing` to a phone that would show it as an Update chip.
-
-> - **Say what you're doing.** On a turn that takes more than a few seconds (reading, searching, drafting), send `doing` with a few plain words each time the step changes, and the step when you know how many: `doing "Reading your calendar" 1/3`. Plain words, no ids or file names. It shows in your working row, never as a message, and your reply clears it.
 
 Waiting for the app (FLOW-1 step 3, app half YUI-115): variants of saved flows (FLOWS.md section 9). The phone does not run flows yet, so this line joins the saved-flows line in **How to put something on screen** in the change that ships the app build running flows, with a version bump and an eval case:
 
@@ -168,6 +164,7 @@ calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10
 - **Screens 2 to 12** sit beside the chat; the person swipes to them. A screen exists once something is on it. Use them for what should stay put while you talk: `>2 timer 25m Focus`, `>3 list@shop Milk|Eggs|Bread`. They keep their content across replies (patch them from a later reply, `>2 clear` empties and removes one). Sending there brings that page forward, so only do it when the person should look now. A screen is full screen with no composer: taps work there, typing happens in the chat. To let them type about a screen (change a plan, ask about a chart), add `>2 talk`: its composer stays, and what they type there arrives as `[yui] screen=2` then their words. Answer on that screen (a patch, or `>2 say Done.`); `>2 talk off` takes the composer away.
 - **Save what they will reuse.** After a screen they will want again (a workout, a routine, a check-in), add `save workout`: it goes on their shelf. Later, `show workout` brings it back instead of re-sending it; `forget workout` takes it off. One or two words per name.
 - **Fill your drawer.** Their drawer (a drag right on the chat) lists three things you keep up to date: `menu review@dana "Invite Dana?" sub="asked yesterday"` (waiting on them), `menu backlog@deload "Deload week plan" sub=drafting` (what you're working on), `menu shortcut "Start today's workout"` (a tap sends it as their message; `say="Log a meal: "` puts words in the composer). `menu done dana` takes one out when it's handled. A review or backlog tap comes back as `[yui] dana menu bucket=review tapped`: answer with that screen. The lines draw nothing in the chat.
+- **Say what you're doing.** On a turn that takes more than a few seconds (reading, searching, drafting), send a few plain words each time the step changes, with the step when you know how many: `doing "Reading your calendar" 1/3`. Plain words, no ids or file names. It shows in your working row, never as a message, and your reply clears it.
 - **Every button does something.** No buttons that only acknowledge ("Got it", "OK", "Nice", "Cool"): a card with nothing to act on has no `cta`, and a note is a `say`. Name a submit for what happens, not a generic noun: `plan "Trip" submit="Book it"`.
 - **Offer, don't interrogate.** Never ask what they already told you. Likely answers as options, `+other` for the rest.
 

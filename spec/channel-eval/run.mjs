@@ -94,6 +94,7 @@ function once(sys, user, model, limit) {
 
 const CORE_OPS = new Set(["theme", "save", "show", "forget", "clear", "focus", "end", "close", "talk", "menu"]);
 const SECRET = /pass(word|code|phrase)?|\bpin\b|card.?(number|no\b|num)|\bcvv|\bcvc|\bssn\b|social.?security|secret|token|api.?key|\bkey\b|routing|account.?(number|no\b|num)|\blogin\b|credential/i;
+const NOT_PLAIN = /\b[A-Z]{2,}-\d+\b|\bt_[0-9a-f]{4,}\b|[\w-]+\.(py|mjs|js|ts|json|md|swift|sh|yml)\b|\/\w|\b[a-z]+_[a-z_]+\b|`/;
 const NARRATE = /\b(here (are|is) (some|a|the|your) (buttons?|options?|form|screen|slider|picker|checklist)|tap (one of )?(the )?(buttons?|options?)( below| above)?|(buttons?|options?|form|slider|checklist) (below|above)|i('ve| have) (put|added|created|set up) (a|some|the) (buttons?|form|screen|slider|picker)|you (chose|picked|selected|tapped))\b/i;
 // A button that only acknowledges (YUI-53): tapping it does nothing for anyone.
 const ACK = /^(got it|ok(ay)?|k|nice|cool|great|sweet|awesome|perfect|thanks|thank you|understood|noted|sounds good|love it|will do)[.!]*$/i;
@@ -218,6 +219,13 @@ export function score(c, reply) {
     const inDeck = (o) => { for (let x = o; x?.in; x = adds.find((a) => a.id === x.in)) if (adds.find((a) => a.id === x.in)?.preset === "deck") return true; return false; };
     if (top.length !== 1 || top[0].preset !== "deck") fails.push(`one deck: ${top.length} top-level pieces (${top.map((o) => o.preset).join(", ")}), want one deck`);
     for (const p of e.need || []) if (!adds.some((o) => o.preset === p && inDeck(o))) fails.push(`one deck: no ${p} inside the deck`);
+  }
+  // The working row (YUI-63): a long turn says what it is doing, at least this many
+  // times, in plain words (no card ids, file names, tool names or code).
+  if (e.doing) {
+    const ds = good.filter((o) => o.op === "doing" && o.props?.text);
+    if (ds.length < e.doing) fails.push(`doing: ${ds.length} doing lines with words, want ${e.doing}`);
+    for (const o of ds) if (NOT_PLAIN.test(o.props.text)) fails.push(`doing: not plain words :: ${o.line.trim()}`);
   }
   // Pages (YUI-31): something meant to stay put goes on screen 2 or 3.
   if (e.page && !adds.some((o) => pageOf(o.screen) !== 1)) fails.push("page: nothing on screen 2 or 3");
