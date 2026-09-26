@@ -39,6 +39,7 @@ const ORDER = [
   ["starter", "Starter agent (draft)", null, "An agent that answers on first launch, no computer needed: where it runs, which model, what it may do, the safety caps and what it costs at 100 to 10,000 people."],
   ["connectors", "Connectors", null, "Log in to your tools once: Google Calendar, Gmail and HubSpot through their own MCP servers. What each allows, in plain words, and who holds the sign-in."],
   ["tables", "Agent tables", null, "Data an agent keeps on your phone: a workout log, macros, a small CRM. Three words, and the rows never leave the phone."],
+  ["sync", "Encrypted sync (draft)", null, "Whether v1 needs tables on two devices (no), and the design for when it does: end to end encrypted, off by default, paired by QR, no new account."],
   ["meal", "Meal photo to macros", null, "Snap a meal, get a macro estimate that says how sure it is, fix the portion, and save it to your meals table. Two replies, no new words."],
   ["games", "Games (draft)", null, "Draft: how an agent could describe a whole new game in lines, a board kit with rule words, not code."],
   ["flywheel", "Preset flywheel", null, "How custom screens agents keep sending become presets: the shape log, the weekly report and the checklist."],

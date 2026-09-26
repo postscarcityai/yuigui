@@ -1,0 +1,56 @@
+/* Encrypted sync mock (spec/SYNC.md). Every class is sy-, so no site chrome leaks in. */
+.sy-app { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.sy-page { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; }
+.sy-scroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 6px 14px 14px; }
+.sy-nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 10px 12px 6px; font-size: 15px; }
+.sy-back { justify-self: start; background: none; border: 0; color: var(--accent, #4fd1c5); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; padding: 6px 0; min-height: 36px; }
+.sy-lede { font-size: 17px; font-weight: 800; line-height: 1.3; margin: 4px 2px 6px; }
+.sy-label { font-size: 11.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin: 8px 2px 0; }
+.sy-sub { font-size: 12px; color: var(--muted); }
+.sy-fine { font-size: 11.5px; color: var(--muted); margin: 0 2px; line-height: 1.4; }
+.sy-center { text-align: center; }
+.sy-card { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 16px; background: #171927; border: 1px solid #23263a; }
+.screen.light .sy-card { background: #fff; border-color: #e3e4ee; }
+.sy-face { border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px; flex: none; }
+.sy-list { padding: 4px 12px; gap: 0; }
+.sy-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #23263a; min-height: 52px; }
+.screen.light .sy-item { border-bottom-color: #eceef5; }
+.sy-item:last-child { border-bottom: 0; }
+.sy-item-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; font-size: 14px; }
+.sy-dev { width: 30px; text-align: center; font-size: 22px; color: var(--muted); }
+.sy-remove { min-height: 36px; padding: 0 12px; border-radius: 10px; border: 0; background: color-mix(in srgb, #ff5c5c 14%, transparent); color: #ff6b6b; font: inherit; font-size: 12.5px; font-weight: 800; cursor: pointer; }
+.sy-note { font-size: 13px; font-weight: 700; }
+
+.sy-toggle { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; background: none; border: 0; color: inherit; font: inherit; font-size: 14.5px; font-weight: 800; cursor: pointer; padding: 0; text-align: left; }
+.sy-toggle small { display: block; font-size: 11.5px; font-weight: 600; color: var(--muted); margin-top: 2px; }
+.sy-knob { width: 48px; height: 28px; border-radius: 14px; background: #3a3e55; position: relative; flex: none; transition: background .2s; }
+.sy-knob::after { content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: left .2s; }
+.sy-knob.on { background: var(--accent, #4fd1c5); }
+.sy-knob.on::after { left: 23px; }
+@media (prefers-reduced-motion: reduce) { .sy-knob, .sy-knob::after { transition: none; } }
+
+.sy-relay { gap: 4px; }
+.sy-blob { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 3px 0; }
+.sy-blob code { font-size: 12px; letter-spacing: .02em; color: var(--muted); }
+
+.sy-btn { min-height: 46px; border-radius: 14px; border: 0; background: var(--accent, #4fd1c5); color: #fff; font: inherit; font-size: 14.5px; font-weight: 800; cursor: pointer; padding: 0 16px; }
+.sy-ghost { background: transparent; color: inherit; border: 1px solid #3a3e55; }
+.screen.light .sy-ghost { border-color: #d7d8e6; }
+.sy-red { background: #ff5c5c; color: #fff; }
+.sy-foot { margin: 8px 14px 14px; }
+
+.sy-qrbox { align-self: center; padding: 12px; border-radius: 18px; background: #fff; margin-top: 4px; }
+.sy-qr { display: block; width: 180px; height: 180px; fill: #0f1019; shape-rendering: crispEdges; }
+.sy-code { align-self: center; font-size: 20px; font-weight: 800; letter-spacing: .12em; font-variant-numeric: tabular-nums; margin-top: 4px; }
+.sy-big { align-self: center; width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; font-size: 30px; font-weight: 900; background: var(--accent, #4fd1c5); color: #fff; margin: 18px 0 4px; }
+
+.sy-ask { display: flex; flex-direction: column; gap: 8px; margin: 0 8px 8px; padding: 18px 14px 12px; border-radius: 24px; background: #1d2031; box-shadow: 0 -10px 40px rgba(0, 0, 0, .45); }
+.screen.light .sy-ask { background: #fff; box-shadow: 0 -10px 40px rgba(20, 20, 40, .18); }
+.sy-ask-h { font-size: 19px; font-weight: 800; text-align: center; line-height: 1.25; }
+.sy-ask-for { font-size: 15px; text-align: center; font-weight: 600; }
+.sy-ask-btns { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.sy-faceid { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; margin: 8px 14px 14px; border-radius: 14px; background: #2a2d40; color: #fff; font-size: 14px; font-weight: 800; }
+.screen.light .sy-faceid { background: #16172a; }
+.sy-faceid span { font-size: 18px; }
+.sy-ask .sy-faceid { margin: 6px 0 0; }
+.sy-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 13.5px; }

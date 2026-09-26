@@ -214,6 +214,21 @@ say "Tomorrow: rest day or a light 3k?"`,
 say "I'll ask Yui for your fal key. You decide, and I never see the key."`,
   },
   {
+    // Encrypted sync (spec/SYNC.md, YUI-36 step 1): the lines are Coach's reply,
+    // a workout table on the phone. The tabs above the phone are Settings > Sync
+    // (playground/sync.js): off by default, turn on, pair an iPad by QR, the
+    // device list, and turn off, which deletes the relay's copy. v1 ships
+    // without sync; this is the design for a second device.
+    name: "Encrypted sync: your tables on a second device",
+    slug: "sync",
+    agent: "Coach",
+    sync: true,
+    yl: `table create lifts Day:date Lift:text Weight:number:lb Reps:number
+put lifts Day=today-2 Lift=Squat Weight=225 Reps=5
+put lifts Day=today Lift=Squat Weight=235 Reps=5
+query lifts sort=Day as table "Lifts"`,
+  },
+  {
     // Widgets and Siri (spec/WIDGETS.md, YUI-40 step 1): the lines are Coach's
     // reply, three pages each saved. A widget is a pinned saved screen, so the
     // home screen, lock screen and Siri tabs above the phone draw these saved

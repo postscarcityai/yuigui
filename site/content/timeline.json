@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 158,
-    "site": 397,
+    "app": 159,
+    "site": 400,
     "builds": 33,
-    "shipped": 204,
-    "screenshots": 440
+    "shipped": 206,
+    "screenshots": 446
   },
   "days": [
     {
@@ -13,7 +13,63 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T16:06:20.231Z",
+          "at": "2026-09-26T16:11:07.969Z",
+          "title": "Sync, decided: not in v1",
+          "card": "YUI-36",
+          "anchor": "sync-decided-not-in-v1",
+          "images": [
+            {
+              "src": "/progress/yui36-sync-off-light.webp",
+              "alt": "Light mode: Settings > Sync with the switch off, listing Coach's lifts, Penny's meals and Quill's crm tables, and a card saying Yui's server holds nothing."
+            },
+            {
+              "src": "/progress/yui36-pair-dark.webp",
+              "alt": "Dark mode: Add a device shows a QR code and the code K7QM-2XRP-9DWA, with a sheet reading iPad wants to join, It will get every agent's tables, and the buttons Add iPad and Not this one."
+            },
+            {
+              "src": "/progress/yui36-relay-dark.webp",
+              "alt": "Dark mode: Sync switched on for one device, the three tables, and what Yui's server holds: rows of sealed bytes with their padded sizes."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 159,
+            "site": 400,
+            "builds": 33,
+            "shipped": 206
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:09:28.000Z",
+          "title": "The war room, stripped down",
+          "card": "Feedback",
+          "anchor": "the-war-room-stripped-down",
+          "images": [
+            {
+              "src": "/progress/fb-war-room-before.webp",
+              "alt": "The war room before: a release checklist and a list of commits on top, in the app."
+            },
+            {
+              "src": "/progress/fb-war-room-after.webp",
+              "alt": "The war room after: one status line, then the asks with their buttons, in the app."
+            },
+            {
+              "src": "/progress/fb-war-room-whole.webp",
+              "alt": "The whole stripped war room in the playground: status, three asks, Now and next, one link."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 159,
+            "site": 399,
+            "builds": 33,
+            "shipped": 205
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:07:47.000Z",
           "title": "Designed in the open: a Thought on how Yui designs in public",
           "card": "SITE-44",
           "anchor": "designed-in-the-open-a-thought-on-how-yui-designs-in-public",
@@ -31,10 +87,10 @@
               "alt": "Playground mock of Settings, Keys, with two saved keys and their spend caps."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
-            "app": 158,
-            "site": 397,
+            "app": 159,
+            "site": 398,
             "builds": 33,
             "shipped": 204
           }
@@ -791,6 +847,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "1121008",
+          "at": "2026-09-26T16:10:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1121008"
+        },
+        {
+          "repo": "site",
+          "sha": "ae25745",
+          "at": "2026-09-26T16:09:28.000Z",
+          "text": "Progress: the war room, stripped down (feedback ANP2Pn6z)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ae25745"
+        },
+        {
+          "repo": "site",
+          "sha": "141025b",
+          "at": "2026-09-26T16:07:47.000Z",
+          "text": "Thought: Designed in the open, five designs as spec and mock before app code (SITE-44)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/141025b"
+        },
+        {
+          "repo": "app",
+          "sha": "9a2d085",
+          "at": "2026-09-26T16:06:50.000Z",
+          "text": "An answered war room ask leaves at once: the plugin redraws the war room after a tap (feedback ANP2Pn6z)",
+          "url": "https://github.com/postscarcityai/yui/commit/9a2d085"
+        },
         {
           "repo": "site",
           "sha": "1e2615c",

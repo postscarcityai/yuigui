@@ -98,7 +98,7 @@ Writes are quiet: a `put` that lands sends nothing back. The agent hears about t
 - **The tables live on the phone.** In the app, one SQLite file per agent in the app's own storage. In the playground, the browser's `localStorage`. They are never written to Yui's server, never to a `yui_` table, never into a push.
 - **What does travel.** The `put` lines an agent writes are part of its reply, and a reply goes through the relay like any message (kept 90 days, then deleted). The agent sees table data only when the person sends it: a changed row (event 2) or rows they chose to send (event 3). There is no way for an agent to read a table silently.
 - **One agent, its own tables.** An agent cannot query another agent's tables. Removing an agent removes its tables. Deleting the account removes all of them.
-- **Backups.** Step 1 has none: a new phone starts with empty tables. Encrypted sync, where only the person's devices hold the key, is YUI-36.
+- **Backups and sync.** Step 1 has none: a new phone starts with empty tables. [Encrypted sync](/developers/sync) (YUI-36) decides v1 ships without sync, proposes keeping the tables file in the iPhone's own backup so a new phone keeps it, and designs end to end encrypted sync for when a second Yui device arrives.
 
 ## 5. Starters
 
