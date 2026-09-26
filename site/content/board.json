@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T01:10:05.892Z",
+  "updated": "2026-09-26T01:40:09.398Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -10,7 +10,9 @@
       {
         "key": "YUI-99",
         "title": "Typing keeps up",
-        "status": "now"
+        "status": "done",
+        "shipped": "2026-09-25",
+        "progress": "/progress#typing-keeps-up-even-on-a-long-thread"
       },
       {
         "key": "YUI-101",
@@ -214,15 +216,6 @@
           "key": "YUI-104",
           "title": "Shapes that move",
           "progress": "/progress#shapes-that-move"
-        },
-        {
-          "key": "YUI-99",
-          "title": "Typing keeps up",
-          "summary": "Hold backspace and double-space period as fast as Notes"
-        },
-        {
-          "key": "INT-22",
-          "title": "Yui-mcp and Telegram read Yui Lines like the app again (their parser copies are stale since tables)"
         }
       ]
     },
@@ -230,6 +223,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-99",
+          "title": "Typing keeps up",
+          "summary": "Typing keeps up, even on a long thread",
+          "shipped": "2026-09-25",
+          "progress": "/progress#typing-keeps-up-even-on-a-long-thread"
+        },
+        {
+          "key": "INT-22",
+          "title": "Yui-mcp and Telegram read Yui Lines like the app again (their parser copies are stale since tables)",
+          "summary": "The MCP server and Telegram read Yui Lines like the app again",
+          "shipped": "2026-09-25",
+          "progress": "/progress#the-mcp-server-and-telegram-read-yui-lines-like-the-app-again"
+        },
         {
           "key": "YUI-97",
           "title": "Shared agents, step 3 of YUI-57 (native invite plan, Shared by sheet, cleanup)",

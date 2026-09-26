@@ -700,6 +700,13 @@
     },
     {
       "text": "Shared agents, step 3 (YUI-97, step 3 of YUI-57; spec yuigui spec/AGENTS.md \"As built (YUI-97)\")."
+    },
+    {
+      "text": "yui-mcp and Telegram read Yui Lines like the app again",
+      "card": "INT-22"
+    },
+    {
+      "text": "Typing keeps up on a long thread (YUI-99). Chris on build 96: \"when I hold the backspace button it goes very slow, and if I hit space twice, it is slow to create the period.\""
     }
   ]
 }
