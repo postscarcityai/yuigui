@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-26T03:10:22.826Z",
+  "updated": "2026-09-26T05:40:43.481Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
-    "status": "open",
-    "startedAt": "2026-09-26T00:58:07.000Z",
+    "status": "shipping",
+    "startedAt": "2026-09-26T05:16:02.000Z",
     "shippedAt": null,
     "cards": [
       {
@@ -17,7 +17,9 @@
       {
         "key": "YUI-101",
         "title": "Telegram-smooth",
-        "status": "now"
+        "status": "done",
+        "shipped": "2026-09-26",
+        "progress": "/progress#taps-answer-at-once-and-a-long-thread-scrolls-smooth"
       }
     ]
   },
@@ -213,9 +215,8 @@
           "progress": "/progress#shapes-that-move"
         },
         {
-          "key": "YUI-101",
-          "title": "Telegram-smooth",
-          "summary": "Taps answer on the same frame, 120 fps scroll, fast thread open"
+          "key": "YUI-106",
+          "title": "Send and drawer taps under 100 ms (YUI-101 follow-up)"
         }
       ]
     },
@@ -223,6 +224,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-101",
+          "title": "Telegram-smooth",
+          "summary": "Taps answer at once, and a long thread scrolls smooth",
+          "shipped": "2026-09-26",
+          "progress": "/progress#taps-answer-at-once-and-a-long-thread-scrolls-smooth"
+        },
         {
           "key": "YUI-99",
           "title": "Typing keeps up",
