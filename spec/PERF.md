@@ -1,6 +1,6 @@
 # Speed budget (PERF-1, YUI-98)
 
-Status: draft. Step 1 (Sep 25) is this page: the budget, what the phone measures, where the numbers go, the daily report and the Speed panel, drawn in the playground (`/playground?demo=speed`). Step 2 builds it: MetricKit and signposts in the app, the `yui_perf` table, the report script and the war room panel. YUI-99, YUI-100 and YUI-101 are measured against the numbers on this page, before and after.
+Status: built (YUI-102, Sep 25). Step 1 was this page: the budget, what the phone measures, where the numbers go, the daily report and the Speed panel, drawn in the playground (`/playground?demo=speed`). Step 2 built it: MetricKit and signposts in the app, the `yui_perf` table, the report script and the war room panel. Section 10 says what the build taught. YUI-99, YUI-100 and YUI-101 are measured against the numbers on this page, before and after.
 
 Chris, Sep 25: "Optimize for pure user experience... we need to be very efficient like Telegram... put some reporting in place that you can monitor." The design stays as it is. This page says what fast means, in numbers, so every fix has a before and an after and Yui can see when a build gets slower.
 
@@ -191,8 +191,23 @@ The tiles are the five numbers people feel: typing, messages landing, scrolling,
 ## 9. Steps
 
 - **Step 1 (YUI-98, Sep 25):** this page, the report format, the briefing rule, the playground demo.
-- **Step 2 (YUI-98 step 2):** the app side (MetricKit subscriber, signposts on the seven intervals, memory samples, the batching actor, the Dev-build switch), the `yui_perf` migration and its tests, `yui_perf_report.py` with its tests, the war room panel and the briefing line. Proof: rows from a real phone build, the report output, a screenshot of the panel.
+- **Step 2 (YUI-102, built Sep 25):** the app side (MetricKit subscriber, signposts on the seven intervals, memory samples, the batching actor, the Dev-build switch), the `yui_perf` migration and its tests, `yui_perf_report.py` with its tests, the war room panel and the briefing line. Proof: rows from a real phone build, the report output, a screenshot of the panel.
 - **Then:** YUI-99 (typing), YUI-100 (memory) and YUI-101 (smoothness) each quote this page's numbers before and after.
+
+## 10. As built (YUI-102)
+
+Step 2 follows sections 2 to 8. What the build settled or taught:
+
+- **Where it lives.** App: `Yui/Sources/Perf/` (Perf.swift the signposts, the frame clock and the Dev overlay; PerfStore.swift the histograms, the batch and the unsent rows; PerfMonitor.swift MetricKit, memory samples and the app's lifecycle). Table: migration `20260925120000_yui_perf.sql`. Report: `~/.hermes/profiles/yui/scripts/yui_perf_report.py`. Tests: `YuiTests/PerfTests`, `YuiUITests/SpeedSwitchTests`, `supabase/tests/perf_test.py` (live RLS), `supabase/tests/perf_e2e.py` (the simulator app's rows land), `test_yui_perf_report.py`, `test_yui_war_room.py`.
+- **The end frame.** An interval ends at the first display-link callback whose `targetTimestamp` is after the moment the answering change was made. A callback that runs late (its target already past) can't carry the change, so it waits for the next one. Taking the first callback as it came read 0 ms keystrokes on a busy main thread.
+- **Where each interval starts.** `keystroke_render`: the text field's binding is set. `send_bubble`: the Send tap, text sends only (a photo's bubble waits on its upload, so photo sends are not timed). `arrive_drawn`: Yui has no realtime socket yet; a thread polls every 1.5 s, so the interval starts when a poll's new agent rows are in hand, not when the server stored them. `swipe`: the pager's scroll phase leaves `interacting`, and ends at `idle`. `fullscreen_open`: `openStage`, ending when the stage view is up. `thread_open`: a change of the selected agent, ending when the thread's first load is in. The first thread shown after launch is `thread_open_cold`, and it also ends `launch`, timed from the process start time (sysctl).
+- **Resume.** Under SwiftUI scenes a cold launch also posts `willEnterForeground`, which read as a slow resume. `resume` counts only after the app has been active once.
+- **Percentiles.** Interpolating inside a wide bucket can land past the slowest sample (a single 1.1 s resume read p50 1500). The phone caps p50 and p95 at the period's max; the report does the same when merging.
+- **Build numbers.** A test build is `130.1`; its rows count as build 130, so a test build and the TestFlight build from the same commit compare as one.
+- **Rows.** Memory rows are `mem_footprint` (value and p50 the median MB of the period's 30 s samples, max the peak, n the samples) and `mem_warning` (value the count). MetricKit rows are `fg_time`, `hang_rate` (s/h), `hitch_ratio` (ms/s), `mem_peak`, `mem_avg`, `cpu_time`, `launch_mk` and `resume_mk` (histograms in the section 4 buckets, each MetricKit bucket counted at its midpoint), and diagnostics `hang` (value the seconds), `crash`, `cpu_exception` and `disk_write`. `mem_growth` (section 3) is YUI-100's scripted session; the report prints `-` until it sends one.
+- **Stacks.** MetricKit often puts the image's load address in `offsetIntoBinaryTextSegment`; the offset is then the frame's `address` minus it. Frames keep only binary name (letters, digits, `_.+-`), UUID and offset, top 32. `devbuild.sh` and `testflight.sh` keep each build's dSYMs in `~/.yui-dsyms/<build>/`, where the report looks first.
+- **The table.** Beyond section 5: `app_version`, `os` and `device` are held to digits-and-dots and model patterns (`iPhone17,2`, or `arm64` on the simulator), `buckets` is exactly 18 counts, `stack` is 1 to 100 frames on diagnostic rows only (16 KB at most). The connector reads only while it is live (`yui_connector_live()`: not revoked, not suspended, owner not suspended). Past 500 rows a day a row is dropped and the request still answers 201, so the phone never retries it. Every row in a batch carries every column (`null` when absent); PostgREST refuses a batch with mixed keys. Retention runs in the daily media sweep.
+- **Enough data.** A build has enough data with any interval at n 20 or more, or 2 foreground hours. Foreground hours are the larger of MetricKit's foreground time and the memory samples times 30 s.
 
 ## Sources
 
