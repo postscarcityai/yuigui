@@ -1110,6 +1110,42 @@
       "good": "One `timeline` with the two shipped items as `done` rows (at=Mon, at=Tue), the blog migration as `now`, then the contact form and analytics as `next`, in that order. At most a short line of chat and maybe one question about what to pull next."
     },
     {
+      "id": "patch-timeline-move",
+      "category": "patch",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "Keep the site rebuild on a screen for me."
+        },
+        {
+          "role": "agent",
+          "text": "On screen 2.\n```yui\n>2 timeline@site \"Site rebuild\"\n>2 done@hero \"New hero\" at=Mon\n>2 done@pricing \"Pricing page\" at=Tue\n>2 now@blog \"Blog migration\"\n>2 next@contact \"Contact form\"\n>2 next@analytics \"Analytics\"\n```"
+        }
+      ],
+      "message": "Blog migration just finished.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "say",
+          "card"
+        ],
+        "patch": "^(now|blog|done)$",
+        "no_add": [
+          "timeline",
+          "done",
+          "now",
+          "next"
+        ],
+        "max_words": 30
+      },
+      "good": "A patch that turns the running row done in place (`>2 ~now kind=done at=Fri` or `~blog kind=done`), not the timeline sent again. Starting the contact form is optional; if it does, it patches that row by its id."
+    },
+    {
       "id": "game-offer",
       "category": "flow",
       "agent": "Urza",
