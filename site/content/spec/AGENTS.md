@@ -185,7 +185,7 @@ Every agent has its own look, so you always know who you are talking to. While a
 
 ## Shared agents (YUI-57, draft)
 
-Status: built (YUI-95, Sep 25): the database, the grant script, the host checks and a first sign-in on the simulator. What differs from the draft below is under "As built" at the end of this section. The owner's invite plan and the client's "Shared by" settings sheet are still to come in the app.
+Status: built. YUI-95 (Sep 25): the database, the grant script, the host checks and a first sign-in on the simulator. YUI-97 (Sep 25): the app on both sides, the owner's invite plan, the revoke push and the 30-day cleanup. What differs from the draft below is under "As built" at the end of this section.
 
 The goal: the owner invites a client, and the client opens Yui for the first time with the agents the owner picked already there, each in the look the owner picked, each with a first message waiting. No pairing, no host, nothing to set up on the client's side.
 
@@ -372,6 +372,19 @@ What changed from the draft above:
 - **One session per person.** The host's Hermes chat for a shared thread is `<agent id>~<user id>`; the owner's stays the agent id. Board and mention notes go only into the owner's turns.
 - **Mute and order.** `yui-agents` `update` on a shared agent changes the grant's `push_muted` and `sort`, and refuses rename, look, default and delete with `shared_agent` (403). `yui-push` notifies a granted client with their own mute.
 
+### As built (YUI-97)
+
+App repo migration `supabase/migrations/20260925110000_yui_shared_agents_step3.sql`. Tests: `supabase/tests/shared_agents_test.py` (live, now also plan and send, photos, the revoke push and the cleanup), `hermes-plugin/tests/test_shared.py`, `YuiUITests/SharedClientTests` (demo account, light and dark).
+
+- **The client's list.** The header is "Hi Maya. Sam set these up for you." (`yui-agents` `list` returns `first_name` from the claimed invite; the sharer is each grant's `shared_by`), the footer is the plain line, each shared row carries a "From Sam" chip. An account whose agents are all shared shows no Add agent, in the list or in the drawer's switcher.
+- **The Shared by sheet.** A shared agent's settings show "Shared by Sam", what the person can change, and the notifications switch; order is the list's Edit. Presence `paused` reads "Paused by its owner" everywhere.
+- **Safe to share.** `yui_agent_list.share_why` is the rules an owned agent breaks, from its host's last report (`[]` when safe, null on a granted row: a client never sees the host's details). The owner's settings say "Safe to share" or "Not safe to share: it has a shell on your computer"; the plain words are the same in the app and in `grant.py`.
+- **The invite plan.** `grant.py plan` prints the plan above for the owner's client-safe agents (the others named with the rule that hides them; nothing safe prints a card saying so, exit 3). Form keys have no spaces (`apple_id_email`, `<handle>_says`, `your_name`) because the tap reaches the agent flattened: `[yui] invite plan plan.who.first=Maya plan.agents=Penny|Basil ...`. `grant.py send --answers '<that line or JSON>'` checks each agent is still safe, saves the template (or a one-off `once-<hex>`), runs `invite.py add` and `approve --template`, and prints the link as JSON.
+- **The revoke push.** `grant.py revoke` calls `yui-push` `{action: "revoked", agent_id, user_id}` with the service role key (checked by using it, so either key format works); only a grant with no live row pushes. The push is silent (`content-available`, `kind: "revoked"`, APNs background, priority 5). The app refreshes its list; a shared agent gone from it is named once ("Basil is no longer shared with you.") in the list and the switcher until the next launch, and an open thread closes with the same line over the screen.
+- **Cleanup.** `yui_retention` (the daily `yui-media-sweep`) deletes a revoked grant's rows from before its revoke, then the grant, 30 days after the revoke. A later grant's thread starts after that and stays. Photos in it go as orphans in the same sweep.
+- **Photos in a shared thread.** A client uploads into their own folder for an agent they hold a live grant for; the host reads that folder, and writes its own pictures into it, while `yui_grant_serves` holds (`yui_media_grant_serves(name)`). The plugin hosts an agent's picture under the thread's person, not the owner.
+- **The client's phone.** `yui-connect` `session` adds `app_builds` (the oldest recent build per person holding a live grant); the plugin fits a reply to that person's own build (`compat.build_for`).
+
 ## Default agent while testing
 
 Chris's account holds one agent: **Yui**, `remote_ref` `yui` (the Hermes profile at `~/.hermes/profiles/yui`), default, Yui's own mark as avatar, bound to the Mac mini's connector. Everything else Chris adds himself through the flows above.
@@ -380,4 +393,3 @@ Chris's account holds one agent: **Yui**, `remote_ref` `yui` (the Hermes profile
 
 - `http`, `mcp`, `hosted` connectors: the kinds exist, no host code yet.
 - Realtime push of registry changes; the app polls while the Agents sheet is open.
-- Shared agents in the app: the owner's invite plan, the "Hi Maya" header and the "Shared by" settings sheet. The data, the script and the host side are built (YUI-95).

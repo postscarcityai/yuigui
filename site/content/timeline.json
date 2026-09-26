@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 130,
-    "site": 317,
+    "app": 132,
+    "site": 320,
     "builds": 29,
-    "shipped": 168,
-    "screenshots": 358
+    "shipped": 170,
+    "screenshots": 366
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T00:44:42.676Z",
+          "at": "2026-09-26T00:53:01.629Z",
+          "title": "Shared agents in the app: Hi Maya, Shared by Sam, and a clean goodbye",
+          "card": "YUI-97",
+          "anchor": "shared-agents-in-the-app-hi-maya-shared-by-sam-and-a-clean-goodbye",
+          "images": [
+            {
+              "src": "/progress/yui97-list-light.webp",
+              "alt": "Light mode, an invited client's agent list: Hi Maya. Sam set these up for you. Penny, Basil and Scout, each marked From Sam, Scout paused by its owner, and the plain line about Sam's computer underneath."
+            },
+            {
+              "src": "/progress/yui97-shared-by-dark.webp",
+              "alt": "Dark mode, Basil's settings for the client: Shared by Sam, a short note on what they can change, and the notifications switch. No rename, no remove."
+            },
+            {
+              "src": "/progress/yui97-revoked-light.webp",
+              "alt": "Light mode, the agent switcher after a revoke: Penny and Scout, then the line Basil is no longer shared with you. No Add an agent button."
+            },
+            {
+              "src": "/progress/yui97-not-safe-light.webp",
+              "alt": "Light mode, the owner's settings for Wizard: Not safe to share: it has a shell on your computer."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 132,
+            "site": 320,
+            "builds": 29,
+            "shipped": 170
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T00:46:58.000Z",
+          "title": "Shapes that move",
+          "card": "YUI-104",
+          "anchor": "shapes-that-move",
+          "images": [
+            {
+              "src": "/progress/yui104-app-heat-light.webp",
+              "alt": "The Yui app in light mode: asked how a heat pump works, the agent answers with one line and a diagram of a blob labelled Outside air, then Outdoor coil, Compressor and Indoor coil joined by arrows, with a caption underneath"
+            },
+            {
+              "src": "/progress/yui104-shapes-ask-dark.webp",
+              "alt": "A dark diagram in the playground: You, Board, Lane and Phone in a row joined by arrows, the last arrow labelled ships, with a caption about how an ask reaches your phone"
+            },
+            {
+              "src": "/progress/yui104-shapes-picture-light.webp",
+              "alt": "A light diagram comparing a dashed Picture box waiting on a GPU blob with a Lines box drawn straight to a Phone circle"
+            },
+            {
+              "src": "/progress/yui104-app-heat-dark.webp",
+              "alt": "The same heat pump diagram in the Yui app in dark mode"
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 131,
+            "site": 319,
+            "builds": 29,
+            "shipped": 169
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T00:44:30.000Z",
           "title": "The release timeline, live from the board",
           "card": "YUI-90",
           "anchor": "the-release-timeline-live-from-the-board",
@@ -27,10 +91,10 @@
               "alt": "The same release panel in dark mode"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 130,
-            "site": 317,
+            "site": 318,
             "builds": 29,
             "shipped": 168
           }
@@ -1515,7 +1579,7 @@
               "alt": "After Yes was tapped, Claude Code answered with a tabata timer on the phone"
             }
           ],
-          "commits": 4,
+          "commits": 5,
           "totals": {
             "app": 76,
             "site": 201,
@@ -1992,6 +2056,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "122123b",
+          "at": "2026-09-26T00:51:46.000Z",
+          "text": "Roadmap draft 13: a 'Where Yui is now' block up top; TestFlight and test builds on hold (Chris, Sep 25); INT-7/INT-8 and YUI-91 marked...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/122123b"
+        },
+        {
+          "repo": "app",
+          "sha": "29bd214",
+          "at": "2026-09-26T00:48:47.000Z",
+          "text": "Shared agents, step 3 (YUI-97, step 3 of YUI-57; spec yuigui spec/AGENTS.md \"As built (YUI-97)\").",
+          "url": "https://github.com/postscarcityai/yui/commit/29bd214"
+        },
+        {
+          "repo": "site",
+          "sha": "f9905c6",
+          "at": "2026-09-26T00:46:58.000Z",
+          "text": "Shapes that move (YUI-104): YL `shapes`, a small diagram that explains an idea in a few lines instead of a generated picture. Chris on...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f9905c6"
+        },
+        {
+          "repo": "app",
+          "sha": "56a938e",
+          "at": "2026-09-26T00:46:28.000Z",
+          "text": "Shapes that move, native (YUI-104; spec yuigui spec/YL.md \"shapes\"; Chris on build 96: \"simple SVG style vector graphics... basic shapes...",
+          "url": "https://github.com/postscarcityai/yui/commit/56a938e"
+        },
+        {
+          "repo": "site",
+          "sha": "f62f1fa",
+          "at": "2026-09-26T00:44:30.000Z",
+          "text": "Release timeline, live from the board (YUI-90 step 1): spec/RELEASE.md and /playground?demo=release. The board export now carries a...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f62f1fa"
+        },
         {
           "repo": "site",
           "sha": "12dcec4",
