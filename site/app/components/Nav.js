@@ -76,7 +76,7 @@ export default function Nav() {
     <header className={open ? "nav open" : "nav"} ref={headerRef}>
       <div className="wrap navin">
         <Link href="/" className="brand" aria-label="Yui home">
-          <img src="/brand/yui-wordmark-coral.png" alt="Yui" width="52" height="34" />
+          <img src="/brand/yui-wordmark-coral-156.webp" alt="Yui" width="52" height="34" />
         </Link>
         <nav aria-label="Main" className="nav-desk">
           {sections.map((s) => (

@@ -29,7 +29,7 @@ export default function Start() {
       <ol className="steps">
         <li>
           <div className="card">
-            <h3>Get the app and a pairing code</h3>
+            <h2>Get the app and a pairing code</h2>
             {links.testflight ? (
               <>
                 <p>Yui is in public beta on TestFlight. You need an iPhone on iOS 26. Open the invite, install, then sign in with Apple.</p>
@@ -48,7 +48,7 @@ export default function Start() {
         </li>
         <li>
           <div className="card">
-            <h3>Install the Yui plugin</h3>
+            <h2>Install the Yui plugin</h2>
             <p>On the machine that runs Hermes:</p>
             <Cmd>hermes plugins install postscarcityai/yui/hermes-plugin/yui --enable</Cmd>
             <p>
@@ -58,7 +58,7 @@ export default function Start() {
         </li>
         <li>
           <div className="card">
-            <h3>Pair and restart the gateway</h3>
+            <h2>Pair and restart the gateway</h2>
             <p>Use the code from step 1:</p>
             <Cmd>hermes yui pair 123456</Cmd>
             <Cmd>hermes gateway restart</Cmd>

@@ -12,6 +12,7 @@ import { RELEASE } from "../../lib/yl/release-sample.mjs";
 import Shots from "../components/Shots";
 import LivePhone from "./LivePhone";
 import VideoDownloads from "../components/VideoDownloads";
+import LazyVideo from "../components/LazyVideo";
 import { NEXT_BUILD, inNextBuild, changeInNextBuild } from "../../lib/nextbuild.mjs";
 
 export const metadata = {
@@ -63,13 +64,13 @@ function Entry({ e, planned, release }) {
         ) : null}
         {video ? (
           <figure>
-            <video className="sc-clip" src={video["9x16"].src} poster={video["9x16"].poster} controls muted playsInline preload="none" aria-label={`${e.title}, a ${Math.round(video["9x16"].seconds)} second video`} />
+            <LazyVideo className="sc-clip" src={video["9x16"].src} poster={video["9x16"].poster} controls muted playsInline preload="none" aria-label={`${e.title}, a ${Math.round(video["9x16"].seconds)} second video`} />
             <figcaption>{Math.round(video["9x16"].seconds)} seconds, sound off</figcaption>
           </figure>
         ) : null}
         {clip ? (
           <figure>
-            <video className="sc-clip" src={clip.src} poster={clip.poster} controls muted loop playsInline preload="none" aria-label={`${e.title}, recorded in the iPhone app`} />
+            <LazyVideo className="sc-clip" src={clip.src} poster={clip.poster} controls muted loop playsInline preload="none" aria-label={`${e.title}, recorded in the iPhone app`} />
             <figcaption>Recorded in the iPhone app</figcaption>
           </figure>
         ) : null}

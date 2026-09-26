@@ -32,12 +32,12 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body>
-        {/* Google tag (gtag.js) */}
+        {/* Google tag (gtag.js). It waits for the page to finish loading so its 170KB never slows the first paint (SITE-41). */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
         <NotOnEmbed>
           <GetYui />
           <footer className="wrap foot">
-            <img src="/brand/yui-wordmark-coral.png" alt="" width="31" height="20" />
+            <img src="/brand/yui-wordmark-coral-156.webp" alt="" width="31" height="20" />
             <span>Built in public at yuigui.com</span> | <a href="/business">Business</a> | <a href="/thoughts">Thoughts</a> | <a href="https://github.com/postscarcityai/yuigui">GitHub</a> | <a href="/help">Help</a> | <a href="/privacy">Privacy</a>
           </footer>
         </NotOnEmbed>

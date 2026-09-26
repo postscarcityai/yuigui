@@ -35,7 +35,7 @@ export default async function Embed({ searchParams }) {
     <div className={`embed-root${light ? " light" : ""}`}>
       <LivePhone yl={r.yl} agent={r.agent} light={light} label={`${r.title}, drawn live from Yui Lines`} eager />
       <a className="embed-by" href={`https://www.yuigui.com${r.home}`} target="_blank" rel="noopener">
-        <img src="/brand/yui-wordmark-coral.png" alt="" width="24" height="16" /> Made with Yui Lines
+        <img src="/brand/yui-wordmark-coral-156.webp" alt="" width="24" height="16" /> Made with Yui Lines
       </a>
     </div>
   );

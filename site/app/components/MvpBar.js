@@ -17,7 +17,7 @@ export default function MvpBar({ detail = false }) {
   return (
     <div className="card mvp" id="mvp">
       <div className="mvp-head">
-        <h3>MVP: {pct}% shipped</h3>
+        <h2>MVP: {pct}% shipped</h2>
         <span className="mvp-count">{shipped} of {total} cards</span>
       </div>
       <div className="mvp-track" role="progressbar" aria-label="MVP progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct}>
