@@ -1,6 +1,16 @@
-# Yui | roadmap (draft 12, Sep 25 2026)
+# Yui | roadmap (draft 13, Sep 25 2026)
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
+
+## Where Yui is now (Sep 25, evening)
+
+- **On phones:** Yui 0.2.0, build 122, on TestFlight. Every agent has a home: the drawer, screens that update where they sit, full-screen pages that tell a story, typing on a screen, and Settings says exactly which build you have.
+- **Built, on main, not on phones yet:** shapes that move (YUI-104), restyle Yui by asking (YUI-96), speed reporting (YUI-102), shared agents in the database and on the host (YUI-95), group threads in the database and the plugin (YUI-93). They ride 0.3.0.
+- **Building now:** YUI-97, the invite plan and "Shared by" in the app. YUI-104 is finishing its checks.
+- **Up next:** YUI-70, agent controls in the drawer. Then YUI-29, the MVP acceptance run, then PERF-1 (YUI-99 to YUI-101) and the rest of the backlog in the order below.
+- **TestFlight is on hold (Chris, Sep 25).** Work keeps landing on main. 0.3.0 goes up when Chris says, with the scope he picks. Test builds by link (Yui Dev, YUI-91) are paused too.
+- **Waiting on Chris:** one look in claude.ai (INT-7) and one in chatgpt.com (INT-8). YUI-91 and the first real speed numbers (YUI-102) wait on a Yui Dev install, parked with the test builds.
+- **MVP:** every card has shipped except YUI-29, a stranger running the whole path alone.
 
 ## What the pitch actually says
 
@@ -73,7 +83,7 @@ Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20
 Chris's picks for the short term (Sep 25), in this order. The site cards run alongside in their own lane:
 
 - YUI-54 (first, Chris Sep 24; shipped in 0.2.0, build 122, Sep 25, with YUI-86 agents fill the drawer and YUI-75 screens update in place): the top-left menu becomes each agent's home. Your agents in a drop-up at the bottom left that springs open, and the rest of the menu about the agent you are talking to: pinned screens, things waiting for you, a page about it.
-- YUI-70 (with YUI-54, Chris Sep 25): agent controls in that drawer. Basic create, read, update and delete for what the agent is made of: its personality file, its memory, its skills, its schedules. Changes go straight to the agent's host with no chat turn in between, secrets never leave the host, and deletes ask first.
+- YUI-70 (up next, with YUI-54, Chris Sep 25): agent controls in that drawer. Basic create, read, update and delete for what the agent is made of: its personality file, its memory, its skills, its schedules. Changes go straight to the agent's host with no chat turn in between, secrets never leave the host, and deletes ask first.
 - WAR-1, the war room, built out (Chris Sep 25: "to the fullest extent"): YUI-65 the timeline, YUI-73 the other panels (needs you, running now, builds, feedback, the MVP bar, quick links), YUI-66 drag to reorder. All three shipped in build 74 (Sep 25).
 - YUI-68 (Chris Sep 25, shipped in build 74): reply to a message, and the gestures around it. Hold a bubble or a card for reactions, Copy, Select text and Reply. Swipe a bubble left to reply. Drag the background beside a bubble to switch screens. The agent gets the quote with your answer, and tapping the quote on your reply scrolls back to the original. Copying any part of a message (Select text) shipped the same day from his TestFlight feedback.
 - SITE-29 (site, Chris Sep 25, shipped Sep 25): the Build to earn proposal on /earn. Our position (ownership here is earned by work, never sold) and numbered open questions for a crypto lawyer. Page only; no token work.
@@ -96,8 +106,8 @@ Then:
 - YUI-63 step 1 (shipped in build 82): one working row instead of three dots plus a timer, a working word and the seconds ("Pondering · 12s"). Step 2, later: the agent sends a few words on what it is doing, with a small progress bar when it knows the steps.
 - YUI-64 (shipped in build 82): an agent that is paired but not listening says so. Presence is per agent now, not per computer: each gateway names the profile it serves. Right after pairing, the agent's sheet shows the one step left with the exact `hermes -p <profile> gateway restart`; a message to it says it waits, with no timer, and is answered once the gateway starts. From Chris's feedback on build 61.
 - YUI-69 (backlog): talk about a setting. Bring a piece of the agent (its personality, a memory, a skill) into the chat, the agent proposes the change as a before and after, one tap applies it. After YUI-70.
-- YUI-92 (shipped in 0.2.0, build 122, Sep 25, with YUI-91, the Yui Dev copy that installs beside it; Chris Sep 25, from Settings on build 96: "so I can know what version I'm looking at at any given time"): the bottom of Settings says exactly which Yui is on the phone. Version and build, channel (TestFlight, Dev link build from YUI-91, App Store), commit and build date, channel guide version, tap to copy for feedback. Pairs with YUI-91, so a Dev copy and the TestFlight copy never get mixed up.
-- INT-19 onward: more agent frameworks. The Yui MCP server shipped Sep 25 (INT-3), with OAuth (INT-19), Claude (INT-7) and ChatGPT (INT-8), screens in the chat included (see Adapters below).
+- YUI-92 (shipped in 0.2.0, build 122, Sep 25; Chris Sep 25, from Settings on build 96: "so I can know what version I'm looking at at any given time"): the bottom of Settings says exactly which Yui is on the phone. Version and build, channel (TestFlight, Dev link build from YUI-91, App Store), commit and build date, channel guide version, tap to copy for feedback. Pairs with YUI-91, so a Dev copy and the TestFlight copy never get mixed up. YUI-91, the Yui Dev copy that installs beside TestFlight Yui, is built and waits on one install on Chris's phone, paused with the test builds.
+- INT-19 onward: more agent frameworks. The Yui MCP server shipped Sep 25 (INT-3), with OAuth (INT-19). Claude (INT-7) and ChatGPT (INT-8) are built, screens in the chat included, and each waits on one look in its own app (see Adapters below).
 - The phase backlog below, from YUI-33 on.
 
 ## Epics
@@ -128,7 +138,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 
 **Next: PERF-1, Telegram-smooth (Chris Sep 25).** "Optimize for pure user experience... very efficient like Telegram." The design stays as it is; the app gets fast. Measure first, so every fix has a before and after, and Yui watches the numbers from then on.
 
-- YUI-98: speed reporting. Step 1 shipped Sep 25: the speed budget ([Speed budget](/developers/perf)), seven named intervals with p50 and p95 targets, hang, hitch and memory budgets, what the phone sends (numbers only) and the proposed `yui_perf` table, the daily report and the rule for the briefing line, and the war room Speed panel in the playground (`/playground?demo=speed`). Step 2 (YUI-102) built Sep 25, app main 9385fc2: signposts and a frame clock on the nine intervals, MetricKit metrics and diagnostics, memory every 30 s, one batch an hour and on background, the `yui_perf` table on PROOF (numbers only, owner only, 500 a day, 90 days), `yui_perf_report.py` and the Speed panel under Builds in the war room, and the briefing line only when a number got worse. Dev builds get a Speed switch. As built: PERF.md section 10. Rides the next build.
+- YUI-98: speed reporting. Step 1 shipped Sep 25: the speed budget ([Speed budget](/developers/perf)), seven named intervals with p50 and p95 targets, hang, hitch and memory budgets, what the phone sends (numbers only) and the proposed `yui_perf` table, the daily report and the rule for the briefing line, and the war room Speed panel in the playground (`/playground?demo=speed`). Step 2 (YUI-102) built Sep 25, app main 9385fc2: signposts and a frame clock on the nine intervals, MetricKit metrics and diagnostics, memory every 30 s, one batch an hour and on background, the `yui_perf` table on PROOF (numbers only, owner only, 500 a day, 90 days), `yui_perf_report.py` and the Speed panel under Builds in the war room, and the briefing line only when a number got worse. Dev builds get a Speed switch. As built: PERF.md section 10. Rides the next build. The first real numbers wait on a Yui Dev install, paused with the test builds.
 - YUI-99 (backlog): typing keeps up. Holding backspace and double-space for a period run as fast as in Notes, even on a long thread.
 - YUI-100 (backlog, after YUI-98): memory audit. Leaks found and fixed, bounded image caches, and a memory ceiling test before every ship.
 - YUI-101 (backlog, after YUI-98): taps answer on the same frame, 120 fps scroll, fast thread open.
@@ -149,7 +159,7 @@ Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /ear
 
 **Latest release: Yui 0.2.0, build 122, Sep 25: every agent gets a home.** Each agent has a drawer (YUI-54) that agents fill with asks, a backlog and shortcuts (YUI-86), screens update where they sit (YUI-75), full-screen pages tell a story (YUI-82), the app draws sketches (YUI-84), you can type on a screen (YUI-62), Needs you is one block, lines a build can't draw fold into one Update chip (YUI-87), and Settings says which Yui you have (YUI-92, with the Yui Dev copy from YUI-91). Build 96 (Sep 25) fit the hold menu to any message (YUI-78) and drew agent markdown (YUI-76). Build 91 (Sep 25) brought no text bombs, long answers fold to pages (YUI-79), the chat never gets stuck shrunk (YUI-80) and the thread rests on a photo you just sent (YUI-74). Build 82 (Sep 25) brought slash commands (YUI-61), @mentions of your other agents (YUI-44 step 1), one working row (YUI-63), agents that say when they are not listening yet (YUI-64) and the approval sheet for Claude and ChatGPT (INT-19). Build 74 (Sep 25) brought the war room (WAR-1), replies, select text and links that open Safari. Build 57 (Sep 24) was the big one, chat feels right: the lock screen timer (YUI-30), screens per agent (YUI-31), named screens on a shelf (YUI-32), the preset flywheel (YUI-42), message reactions (YUI-49), a way back to the newest message (YUI-50), one full-screen flow for pages and questions (YUI-51), no dead buttons (YUI-53), and every Sep 24 feedback fix checked again (YUI-52). Build 61 fixed a crash in hold to talk and brought invites (YUI-56) and test builds by link (YUI-55). Build 64 made hold to talk work like WhatsApp and gave screens 2 to 12 the whole phone.
 
-**The next build** carries what lands on the app's main branch past 122. [Builds](/changelog#next) lists it. The next release is 0.3.0, and Chris picks its scope.
+**The next build** carries what lands on the app's main branch past 122. [Builds](/changelog#next) lists it. The next release is 0.3.0, and Chris picks its scope. TestFlight is on hold until he says go (Sep 25); work keeps landing on main.
 
 ## North star: not just another AI chatbot
 
@@ -306,8 +316,8 @@ Deliverables:
 - DONE Sep 25, INT-18 step 1: the A2A bridge. Add any A2A agent (ADK, LangGraph, CrewAI, Microsoft Agent Framework) by its Agent Card URL; A2A 1.0 and 0.3 (`spec/A2A.md`). The hosted version is step 2.
 - DONE Sep 25, INT-3: the Yui MCP server. Claude Code, Cursor or any MCP client puts a screen on your phone and reads the taps back (`spec/MCP.md`).
 - DONE Sep 25, INT-19: OAuth for the MCP server. The Claude and ChatGPT apps add Yui by pasting one URL; you approve in the app. The approval sheet shipped in build 82.
-- DONE Sep 25, INT-7: Claude. A guide for Claude's apps, Claude Code and Agent SDK agents (`spec/MCP.md` "Claude"), and Yui screens drawn inside the chat as an MCP App, tappable there too. Checked in the MCP Apps reference host and with Claude Code on a Mac; one look inside claude.ai itself is still to come.
-- DONE Sep 25, INT-8: ChatGPT. Add Yui in ChatGPT developer mode by its URL (`spec/MCP.md` "ChatGPT"); the screen draws in the chat as the same MCP App. Checked in a ChatGPT-shaped test host, both of ChatGPT's ways of talking to an app; one look inside chatgpt.com itself is still to come. Not listed in ChatGPT's directory.
+- BUILT Sep 25, INT-7: Claude. A guide for Claude's apps, Claude Code and Agent SDK agents (`spec/MCP.md` "Claude"), and Yui screens drawn inside the chat as an MCP App, tappable there too. Checked in the MCP Apps reference host and with Claude Code on a Mac; one look inside claude.ai itself is still to come.
+- BUILT Sep 25, INT-8: ChatGPT. Add Yui in ChatGPT developer mode by its URL (`spec/MCP.md` "ChatGPT"); the screen draws in the chat as the same MCP App. Checked in a ChatGPT-shaped test host, both of ChatGPT's ways of talking to an app; one look inside chatgpt.com itself is still to come. Not listed in ChatGPT's directory.
 - NOT STARTED, YUI-48: SMS channel (text a number, get a push that opens the screen).
 
 Dependencies: App Store submission sign-off from Chris.
@@ -438,8 +448,8 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - INT-4 (step 1 done Sep 25): the Telegram fallback: Yui Lines as buttons and a Telegram Mini App (spec/TELEGRAM.md). Next: a bot that runs it, then a live test.
 - INT-5: connect without installing anything, through a hosted connector.
 - INT-6 (done Sep 25): where the hosted connector runs. Cloudflare, beside the Supabase relay (spec/HOSTING.md).
-- INT-7 (done Sep 25): Claude, through the MCP server, and Yui screens drawn inside Claude as an MCP App.
-- INT-8 (done Sep 25): ChatGPT, the same way, as a developer-mode connection.
+- INT-7 (built Sep 25, one look in claude.ai left): Claude, through the MCP server, and Yui screens drawn inside Claude as an MCP App.
+- INT-8 (built Sep 25, one look in chatgpt.com left): ChatGPT, the same way, as a developer-mode connection.
 - INT-9 (step 1 done Sep 25): Gemini, as a model (`--server gemini` on the model bridge, spec/MODELS.md) or as an A2A agent (a Google ADK agent, spec/A2A.md). Next: one live call with an AI Studio key, then the hosted connector.
 - INT-10 (step 1 done Sep 25): Grok, as a model (`--server grok` on the model bridge, spec/MODELS.md) or calling the MCP server from a Responses API request (spec/MCP.md). Next: one live call with an xAI key, then the hosted connector.
 - INT-11 (step 1 done Sep 25): Meta's Muse Spark, as a model (`--server meta` on the model bridge, spec/MODELS.md). The Model API is in public preview for US developers. Next: one live call with a Model API key, then the hosted connector.
