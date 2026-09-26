@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 169,
-    "site": 424,
+    "site": 425,
     "builds": 34,
-    "shipped": 219,
-    "screenshots": 477
+    "shipped": 220,
+    "screenshots": 479
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T19:12:17.464Z",
+          "at": "2026-09-26T19:16:44.259Z",
+          "title": "Flows and the library: a Thought on screens any agent can run",
+          "card": "SITE-49",
+          "anchor": "flows-and-the-library-a-thought-on-screens-any-agent-can-run",
+          "images": [
+            {
+              "src": "/progress/site49-thought-phone.webp",
+              "alt": "The Flows and the library Thought on a phone: the title, the lede and the client website intake running live, at step 1 of 7."
+            },
+            {
+              "src": "/thoughts/flows-and-the-library-chart.webp",
+              "alt": "The website intake as a chart on the library page, branching on what you are building."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 169,
+            "site": 425,
+            "builds": 34,
+            "shipped": 220
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T19:13:08.000Z",
           "title": "The MVP is done: Yui is in alpha, and use to earn begins",
           "card": null,
           "anchor": "the-mvp-is-done-yui-is-in-alpha-and-use-to-earn-begins",
@@ -38,7 +62,7 @@
           "commits": 0,
           "totals": {
             "app": 169,
-            "site": 424,
+            "site": 425,
             "builds": 34,
             "shipped": 219
           }
@@ -1189,6 +1213,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "b3e9466",
+          "at": "2026-09-26T19:13:08.000Z",
+          "text": "The MVP is done: Yui is in alpha, and use to earn begins",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b3e9466"
+        },
         {
           "repo": "site",
           "sha": "a270906",
