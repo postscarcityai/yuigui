@@ -1,6 +1,66 @@
 {
   "builds": [
     {
+      "build": 176,
+      "date": "2026-09-26",
+      "uploaded": "2026-09-26T14:55:30-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Hold to reply, no more swipe: the sideways drag always pages (feedback AACnEo9w)"
+        },
+        {
+          "text": "DrawerTests pass again: the About card's id no longer covers its button"
+        },
+        {
+          "text": "A quiet dot on the menu button, no count; it goes the moment nothing waits (feedback AI3Pbaid)"
+        },
+        {
+          "text": "`doing` is a Yui Lines core word; Swift skips its vectors until the app half",
+          "card": "YUI-63"
+        },
+        {
+          "text": "Swift skips the flow vectors until the app runs flows",
+          "card": "FLOW-1"
+        },
+        {
+          "text": "The working row says what the agent is doing (YUI-63 step 2, app half)"
+        },
+        {
+          "text": "Speed rows land once: a row key, and the server skips keys it has",
+          "card": "YUI-107"
+        },
+        {
+          "text": "yui_library: agents find ready-made screens and flows over MCP; guide v28 (FLOW-2 step 2)"
+        },
+        {
+          "text": "The MCP server draws with today's Yui Lines, and CI catches a stale copy",
+          "card": "INT-3"
+        },
+        {
+          "text": "Flow variants reach the copies (FLOW-1 step 3, yuigui cbf1e7a)"
+        },
+        {
+          "text": "Music vectors wait for the app half (YUI-116 step 1)"
+        },
+        {
+          "text": "yui-mcp reads and draws the music presets (YUI-116 step 1, yuigui 5414ba3)"
+        },
+        {
+          "text": "Working row says how long this agent usually takes"
+        },
+        {
+          "text": "Swift parser reads the six music presets; 37-music.json passes (YUI-116 step 2)"
+        },
+        {
+          "text": "YuiSound, and loop and drums that play (YUI-116 step 2)"
+        },
+        {
+          "text": "Yui 0.3.2: ship main to TestFlight (Chris, Sep 26)"
+        }
+      ]
+    },
+    {
       "build": 160,
       "date": "2026-09-26",
       "uploaded": "2026-09-26T09:58:29-07:00",
@@ -836,59 +896,13 @@
   ],
   "next": [
     {
-      "text": "Hold to reply, no more swipe: the sideways drag always pages (feedback AACnEo9w)"
-    },
-    {
-      "text": "DrawerTests pass again: the About card's id no longer covers its button"
-    },
-    {
-      "text": "A quiet dot on the menu button, no count; it goes the moment nothing waits (feedback AI3Pbaid)"
-    },
-    {
-      "text": "`doing` is a Yui Lines core word; Swift skips its vectors until the app half",
-      "card": "YUI-63"
-    },
-    {
-      "text": "Swift skips the flow vectors until the app runs flows",
-      "card": "FLOW-1"
-    },
-    {
-      "text": "The working row says what the agent is doing (YUI-63 step 2, app half)"
-    },
-    {
-      "text": "Speed rows land once: a row key, and the server skips keys it has",
-      "card": "YUI-107"
-    },
-    {
-      "text": "yui_library: agents find ready-made screens and flows over MCP; guide v28 (FLOW-2 step 2)"
-    },
-    {
-      "text": "The MCP server draws with today's Yui Lines, and CI catches a stale copy",
-      "card": "INT-3"
-    },
-    {
-      "text": "Flow variants reach the copies (FLOW-1 step 3, yuigui cbf1e7a)"
-    },
-    {
-      "text": "Music vectors wait for the app half (YUI-116 step 1)"
-    },
-    {
-      "text": "yui-mcp reads and draws the music presets (YUI-116 step 1, yuigui 5414ba3)"
-    },
-    {
-      "text": "Working row says how long this agent usually takes"
-    },
-    {
-      "text": "Swift parser reads the six music presets; 37-music.json passes (YUI-116 step 2)"
-    },
-    {
-      "text": "YuiSound, and loop and drums that play (YUI-116 step 2)"
-    },
-    {
-      "text": "Yui 0.3.2: ship main to TestFlight (Chris, Sep 26)"
-    },
-    {
       "text": "Keys and chords that play (YUI-116 step 3)"
+    },
+    {
+      "text": "Channel guide v29: short answers first, decks cap at 4 pages (YUI-118, yuigui 9a5b481)"
+    },
+    {
+      "text": "Channel guide v30: say what you're doing (YUI-63 step 2, yuigui 3ccea6b)"
     }
   ]
 }

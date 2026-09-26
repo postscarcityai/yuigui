@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-26T21:40:56.795Z",
+  "updated": "2026-09-26T22:02:50.193Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.2",
-    "status": "shipping",
+    "status": "shipped",
     "startedAt": "2026-09-26T18:33:53.000Z",
-    "shippedAt": null,
+    "shippedAt": "2026-09-26T21:56:59.000Z",
     "cards": []
   },
   "columns": [
@@ -16,16 +16,18 @@
         {
           "key": "YUI-34",
           "title": "Key vault for bring-your-own keys",
-          "summary": "A key vault, planned",
-          "waiting": true,
-          "progress": "/progress#a-key-vault-planned"
+          "waiting": true
+        },
+        {
+          "key": "YUI-34",
+          "title": "Key vault native in the app",
+          "step": "Step 2",
+          "waiting": true
         },
         {
           "key": "YUI-36",
           "title": "Optional encrypted sync for agent tables",
-          "summary": "Sync, decided: not in v1",
-          "waiting": true,
-          "progress": "/progress#sync-decided-not-in-v1"
+          "waiting": true
         },
         {
           "key": "YUI-37",
@@ -39,8 +41,20 @@
           "waiting": true
         },
         {
+          "key": "YUI-40",
+          "title": "Widgets native in the app",
+          "step": "Step 2",
+          "waiting": true
+        },
+        {
           "key": "YUI-41",
           "title": "On-device model for routing and quick replies",
+          "waiting": true
+        },
+        {
+          "key": "YUI-41",
+          "title": "On-device model native in the app",
+          "step": "Step 2",
           "waiting": true
         },
         {
@@ -97,6 +111,42 @@
         {
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
+          "waiting": true
+        },
+        {
+          "key": "YUI-121",
+          "title": "The bottom bar",
+          "summary": "A bigger mic bottom right, T opens the text field, + attaches, images while typing",
+          "waiting": true
+        },
+        {
+          "key": "YUI-122",
+          "title": "The top bar",
+          "summary": "Agents top left with settings in a hamburger beside them, the chat record top right",
+          "waiting": true
+        },
+        {
+          "key": "YUI-123",
+          "title": "Describe how each agent moves, in words, and the agent turns it into a motion look",
+          "waiting": true
+        },
+        {
+          "key": "YUI-124",
+          "title": "The visualizer",
+          "step": "Step 1",
+          "summary": "Shader visuals on the stage, spec + playground mock",
+          "waiting": true
+        },
+        {
+          "key": "YUI-124",
+          "title": "The visualizer in the app, Metal shaders on the full screen stage",
+          "step": "Step 2",
+          "waiting": true
+        },
+        {
+          "key": "YUI-125",
+          "title": "The visualizer listens",
+          "summary": "It moves with your voice, the agent's voice and the music",
           "waiting": true
         },
         {
@@ -172,26 +222,18 @@
         },
         {
           "key": "YUI-63",
-          "title": "Step 3 (infra)",
-          "summary": "Claude-shim agents send what they are doing to Yui mid-turn"
+          "title": "Claude-shim agents send what they are doing to Yui mid-turn",
+          "step": "Step 3"
         },
         {
           "key": "YUI-116",
-          "title": "Step 4",
-          "summary": "Tuner + metronome in the app"
+          "title": "Tuner + metronome in the app",
+          "step": "Step 4"
         },
         {
           "key": "YUI-116",
-          "title": "Step 5",
-          "summary": "Recording, export, MIDI and Ableton Link"
-        },
-        {
-          "key": "YUI-116",
-          "title": "The channel guide teaches loop and drums (backlog)"
-        },
-        {
-          "key": "SITE-52",
-          "title": "Yui 0.3.2 on the site, a release Thought and a See it group"
+          "title": "Recording, export, MIDI and Ableton Link",
+          "step": "Step 5"
         }
       ]
     },
@@ -213,37 +255,20 @@
         },
         {
           "key": "YUI-111",
-          "title": "Step 3",
-          "summary": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID"
+          "title": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
+          "step": "Step 3"
         },
         {
           "key": "YUI-37",
-          "title": "Step 2 (backlog)",
-          "summary": "The hosted starter agent on Cloudflare"
-        },
-        {
-          "key": "YUI-40",
-          "title": "Step 2 (backlog)",
-          "summary": "Widgets native in the app",
-          "waiting": true
-        },
-        {
-          "key": "YUI-41",
-          "title": "Step 2 (backlog)",
-          "summary": "On-device model native in the app",
-          "waiting": true
-        },
-        {
-          "key": "YUI-34",
-          "title": "Step 2 (backlog)",
-          "summary": "Key vault native in the app",
-          "waiting": true
+          "title": "The hosted starter agent on Cloudflare",
+          "step": "Step 2"
         },
         {
           "key": "YUI-63",
-          "title": "Step 2 (app) (backlog)",
-          "summary": "The working row shows what the agent is doing, with a bar",
-          "waiting": true
+          "title": "The working row shows what the agent is doing, with a bar",
+          "step": "Step 2",
+          "summary": "It says what it is doing",
+          "progress": "/progress#it-says-what-it-is-doing"
         },
         {
           "key": "YUI-108",
@@ -251,21 +276,52 @@
         },
         {
           "key": "YUI-116",
-          "title": "Step 2",
-          "summary": "Yui for musicians: the plan, and a mock that plays",
+          "title": "Tap-to-sound on a real iPhone",
+          "step": "Step 2 proof"
+        },
+        {
+          "key": "YUI-116",
+          "title": "Keys + chords in the app",
+          "step": "Step 3",
+          "summary": "Keys and chords you can play in the app",
           "waiting": true,
-          "progress": "/progress#yui-for-musicians-the-plan-and-a-mock-that-plays"
+          "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
         },
         {
-          "key": "YUI-116",
-          "title": "Step 2 proof",
-          "summary": "Tap-to-sound on a real iPhone"
-        },
-        {
-          "key": "YUI-116",
-          "title": "Step 3",
-          "summary": "Keys + chords in the app",
+          "key": "YUI-119",
+          "title": "Full screen first, the chat is the record",
+          "step": "Step 1",
+          "summary": "Spec + playground mock",
           "waiting": true
+        },
+        {
+          "key": "YUI-120",
+          "title": "The stage moves with the agent, context animations",
+          "step": "Step 1",
+          "summary": "Spec + playground mock",
+          "waiting": true
+        },
+        {
+          "key": "YUI-119",
+          "title": "Full screen first in the app, mic bottom right, chat as the record",
+          "step": "Step 2",
+          "waiting": true
+        },
+        {
+          "key": "YUI-120",
+          "title": "Context animations on the full screen stage",
+          "step": "Step 2",
+          "waiting": true
+        },
+        {
+          "key": "SITE-52",
+          "title": "Yui 0.3.2 on the site, a release Thought and a See it group",
+          "summary": "Yui 0.3.2 on the site: the release post and See it",
+          "progress": "/progress#yui-0-3-2-on-the-site-the-release-post-and-see-it"
+        },
+        {
+          "key": "YUI-116",
+          "title": "The channel guide teaches loop and drums (backlog)"
         }
       ]
     },
@@ -273,6 +329,19 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-118",
+          "title": "Short answers first, a status question gets one line, decks capped at 4 pages",
+          "summary": "Short answers first",
+          "shipped": "2026-09-26",
+          "progress": "/progress#short-answers-first"
+        },
+        {
+          "key": "YUI-116",
+          "title": "Native sound engine + loop + drums in the app",
+          "step": "Step 2",
+          "shipped": "2026-09-26"
+        },
         {
           "key": "YUI-117",
           "title": "Music in the library, and the channel guide lines ready for step 2's build",
@@ -289,14 +358,16 @@
         },
         {
           "key": "YUI-116",
-          "title": "Step 1",
-          "summary": "Keys and chords you can play in the app",
+          "title": "Music tools for Yui",
+          "step": "Step 1",
+          "summary": "Yui for musicians: the plan, and a mock that plays",
           "shipped": "2026-09-26",
-          "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
+          "progress": "/progress#yui-for-musicians-the-plan-and-a-mock-that-plays"
         },
         {
           "key": "FLOW-1",
-          "title": "Step 3 (web)",
+          "title": "Agents make their own flow variants",
+          "step": "Step 3",
           "summary": "Agents make their own flows: variants",
           "shipped": "2026-09-26",
           "progress": "/progress#agents-make-their-own-flows-variants"
@@ -324,10 +395,11 @@
         },
         {
           "key": "FLOW-2",
-          "title": "Step 2 (web)",
-          "summary": "The library: every screen and flow, live and searchable",
+          "title": "Agents look up screens and flows in the library, a search endpoint and an MCP tool",
+          "step": "Step 2",
+          "summary": "Agents can look up the library",
           "shipped": "2026-09-26",
-          "progress": "/progress#the-library-every-screen-and-flow-live-and-searchable"
+          "progress": "/progress#agents-can-look-up-the-library"
         },
         {
           "key": "YUI-107",
@@ -345,10 +417,11 @@
         },
         {
           "key": "FLOW-1",
-          "title": "Step 2 (web)",
-          "summary": "Flows, written in Mermaid",
+          "title": "Flows get the shared test suite, every hub parser and a My flows mock",
+          "step": "Step 2",
+          "summary": "Flows run the same in every parser, and My flows has a first look",
           "shipped": "2026-09-26",
-          "progress": "/progress#flows-written-in-mermaid"
+          "progress": "/progress#flows-run-the-same-in-every-parser-and-my-flows-has-a-first-look"
         },
         {
           "key": "SITE-47",
@@ -366,10 +439,11 @@
         },
         {
           "key": "YUI-63",
-          "title": "Step 2 (web)",
-          "summary": "One working row instead of dots plus a timer",
+          "title": "The agent says what it is doing, a doing line with a small bar",
+          "step": "Step 2",
+          "summary": "Your agent says what it is doing",
           "shipped": "2026-09-26",
-          "progress": "/progress#one-working-row-instead-of-dots-plus-a-timer"
+          "progress": "/progress#your-agent-says-what-it-is-doing"
         },
         {
           "key": "YUI-114",
@@ -386,15 +460,17 @@
         },
         {
           "key": "YUI-113",
-          "title": "Step 2",
-          "summary": "Publish channel guide v26 to non-Hermes agents once build 158+ is VALID",
+          "title": "Publish channel guide v26 to non-Hermes agents once build 158+ is VALID",
+          "step": "Step 2",
           "shipped": "2026-09-26"
         },
         {
           "key": "YUI-36",
-          "title": "Step 1 (backlog)",
-          "summary": "Encrypted sync decision, spec + playground mock",
-          "shipped": "2026-09-26"
+          "title": "Encrypted sync decision, spec + playground mock",
+          "step": "Step 1",
+          "summary": "Sync, decided: not in v1",
+          "shipped": "2026-09-26",
+          "progress": "/progress#sync-decided-not-in-v1"
         },
         {
           "key": "SITE-44",
@@ -426,9 +502,11 @@
         },
         {
           "key": "YUI-34",
-          "title": "Step 1 (backlog)",
-          "summary": "Key vault spec + playground mock",
-          "shipped": "2026-09-26"
+          "title": "Key vault spec + playground mock",
+          "step": "Step 1",
+          "summary": "A key vault, planned",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-key-vault-planned"
         },
         {
           "key": "SITE-41",
@@ -439,14 +517,16 @@
         },
         {
           "key": "YUI-41",
-          "title": "Step 1",
+          "title": "On-device model spec + playground mock (suggested replies, routing, offline drafts)",
+          "step": "Step 1",
           "summary": "The model on the phone, planned",
           "shipped": "2026-09-26",
           "progress": "/progress#the-model-on-the-phone-planned"
         },
         {
           "key": "YUI-40",
-          "title": "Step 1",
+          "title": "Widgets and Siri spec + playground mock (home screen, lock screen, Siri sheet)",
+          "step": "Step 1",
           "summary": "Widgets and Siri, planned",
           "shipped": "2026-09-26",
           "progress": "/progress#widgets-and-siri-planned"
@@ -460,14 +540,16 @@
         },
         {
           "key": "OSS-6",
-          "title": "Step 2 (backlog)",
+          "title": "Yui@home routine prompts per platform, review policy, first end-to-end run",
+          "step": "Step 2",
           "summary": "Yui@home runs every week: a routine for each agent",
           "shipped": "2026-09-26",
           "progress": "/progress#yui-home-runs-every-week-a-routine-for-each-agent"
         },
         {
           "key": "YUI-37",
-          "title": "Step 1",
+          "title": "Starter agent spec, cost model and playground mock (no spend)",
+          "step": "Step 1",
           "summary": "A starter agent, planned and priced",
           "shipped": "2026-09-26",
           "progress": "/progress#a-starter-agent-planned-and-priced"
@@ -499,16 +581,14 @@
         {
           "key": "YUI-69",
           "title": "Talk about a setting",
-          "summary": "Talk about a setting, built: change your agent by talking",
-          "shipped": "2026-09-26",
-          "progress": "/progress#talk-about-a-setting-built-change-your-agent-by-talking"
+          "summary": "Bring it into the chat, the agent proposes the edit",
+          "shipped": "2026-09-26"
         },
         {
           "key": "YUI-70",
           "title": "Agent controls in the drawer",
-          "summary": "Agent controls, built: your agent's settings in the drawer",
-          "shipped": "2026-09-26",
-          "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer"
+          "summary": "Basic CRUD over soul, memory, skills, schedules",
+          "shipped": "2026-09-26"
         },
         {
           "key": "YUI-112",
@@ -519,7 +599,8 @@
         },
         {
           "key": "YUI-89",
-          "title": "Step 1",
+          "title": "Agent tables in the Python, Kotlin and Rust parsers (web half)",
+          "step": "Step 1",
           "summary": "Agent tables in the Python, Kotlin and Rust parsers",
           "shipped": "2026-09-26",
           "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers"
@@ -533,13 +614,16 @@
         },
         {
           "key": "YUI-69",
-          "title": "Step 2 (backlog)",
-          "summary": "Talk about a setting, native",
-          "shipped": "2026-09-26"
+          "title": "Talk about a setting, native",
+          "step": "Step 2",
+          "summary": "Talk about a setting, built: change your agent by talking",
+          "shipped": "2026-09-26",
+          "progress": "/progress#talk-about-a-setting-built-change-your-agent-by-talking"
         },
         {
           "key": "YUI-111",
-          "title": "Step 2",
+          "title": "Timeline rows move in place in the app (kind= patch), then the war room uses it",
+          "step": "Step 2",
           "summary": "The app moves timeline rows in place",
           "shipped": "2026-09-26",
           "progress": "/progress#the-app-moves-timeline-rows-in-place"
@@ -553,9 +637,11 @@
         },
         {
           "key": "YUI-70",
-          "title": "Step 2 (next)",
-          "summary": "Agent controls native in the drawer",
-          "shipped": "2026-09-26"
+          "title": "Agent controls native in the drawer",
+          "step": "Step 2",
+          "summary": "Agent controls, built: your agent's settings in the drawer",
+          "shipped": "2026-09-26",
+          "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer"
         },
         {
           "key": "OSS-6",
@@ -573,14 +659,16 @@
         },
         {
           "key": "YUI-69",
-          "title": "Step 1",
+          "title": "Talk about a setting, spec and playground mock",
+          "step": "Step 1",
           "summary": "Talk about a setting, designed: change your agent by talking",
           "shipped": "2026-09-26",
           "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking"
         },
         {
           "key": "YUI-70",
-          "title": "Step 1",
+          "title": "Agent controls spec, host protocol and playground mock",
+          "step": "Step 1",
           "summary": "Agent controls, designed: change what your agent is made of",
           "shipped": "2026-09-26",
           "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of"
@@ -784,9 +872,9 @@
         {
           "key": "FLOW-2",
           "title": "Yui library/store on yuigui.com",
-          "summary": "Agents can look up the library",
+          "summary": "The library: every screen and flow, live and searchable",
           "shipped": "2026-09-25",
-          "progress": "/progress#agents-can-look-up-the-library"
+          "progress": "/progress#the-library-every-screen-and-flow-live-and-searchable"
         },
         {
           "key": "YUI-54",
@@ -812,9 +900,9 @@
         {
           "key": "FLOW-1",
           "title": "Flows",
-          "summary": "Flows run the same in every parser, and My flows has a first look",
+          "summary": "Flows, written in Mermaid",
           "shipped": "2026-09-25",
-          "progress": "/progress#flows-run-the-same-in-every-parser-and-my-flows-has-a-first-look"
+          "progress": "/progress#flows-written-in-mermaid"
         },
         {
           "key": "YUI-56",
@@ -1018,9 +1106,8 @@
         {
           "key": "YUI-63",
           "title": "One working row instead of dots plus a timer",
-          "summary": "Your agent says what it is doing",
           "shipped": "2026-09-25",
-          "progress": "/progress#your-agent-says-what-it-is-doing"
+          "progress": "/progress#one-working-row-instead-of-dots-plus-a-timer"
         },
         {
           "key": "YUI-44",
