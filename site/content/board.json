@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T00:10:30.185Z",
+  "updated": "2026-09-26T00:41:06.461Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -67,11 +67,6 @@
           "summary": "SQLite store, native query views, the other parsers"
         },
         {
-          "key": "YUI-90",
-          "title": "The release timeline is live in the war room",
-          "summary": "A big, always-current view of where the next version stands"
-        },
-        {
           "key": "YUI-94",
           "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
           "waiting": true
@@ -92,9 +87,13 @@
           "summary": "Taps answer on the same frame, 120 fps scroll, fast thread open"
         },
         {
-          "key": "YUI-102",
-          "title": "Speed reporting, step 2 (native)",
-          "summary": "MetricKit, signposts, yui_perf, the report and the Speed panel"
+          "key": "YUI-103",
+          "title": "Meal photo to macros in the app, step 2 of YUI-35"
+        },
+        {
+          "key": "YUI-105",
+          "title": "The release panel on the phone, step 2 of YUI-90",
+          "summary": "Top of the war room, patched in place when the board moves"
         },
         {
           "key": "SITE-28",
@@ -189,21 +188,27 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
+          "key": "YUI-90",
+          "title": "The release timeline is live in the war room",
+          "summary": "A big, always-current view of where the next version stands"
+        },
+        {
           "key": "YUI-91",
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
         },
         {
-          "key": "YUI-35",
-          "title": "Meal photo to macros"
-        },
-        {
-          "key": "YUI-98",
-          "title": "Speed reporting",
-          "summary": "MetricKit and signposts on the phone, a yui_perf table, a daily report and a Speed panel yui watches"
-        },
-        {
           "key": "YUI-97",
           "title": "Shared agents, step 3 of YUI-57 (native invite plan, Shared by sheet, cleanup)"
+        },
+        {
+          "key": "YUI-102",
+          "title": "Speed reporting, step 2 (native)",
+          "summary": "MetricKit, signposts, yui_perf, the report and the Speed panel"
+        },
+        {
+          "key": "YUI-104",
+          "title": "Shapes that move",
+          "summary": "A vector drawing preset with basic geometric and organic shapes, animated, no image generation"
         }
       ]
     },
@@ -211,6 +216,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-35",
+          "title": "Meal photo to macros",
+          "summary": "Meal photo to macros, in the playground",
+          "shipped": "2026-09-25",
+          "progress": "/progress#meal-photo-to-macros-in-the-playground"
+        },
+        {
+          "key": "YUI-98",
+          "title": "Speed reporting",
+          "summary": "What fast means for Yui, in milliseconds",
+          "shipped": "2026-09-25",
+          "progress": "/progress#what-fast-means-for-yui-in-milliseconds"
+        },
         {
           "key": "YUI-96",
           "title": "Restyle the app by asking, step 2 (native)",
