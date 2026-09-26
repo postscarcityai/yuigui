@@ -15,7 +15,7 @@ function Tile({ c, col, first }) {
   return (
     <li className={`btile ${col}`} id={first ? c.key : undefined}>
       <div className="btile-top">
-        <span className="bkey">{c.key}</span>
+        <span className="bkey">{c.key}{c.step ? ` · ${c.step}` : ""}</span>
         {c.mvp && <span className="pill bmvp">MVP</span>}
         {c.waiting && <span className="pill" title="Parked until something it depends on lands">Waiting</span>}
         {c.agentReady && <Link className="pill" href={`/contribute#${c.key}`} title="Open to outside contributors, people or agents">Agent-ready</Link>}

@@ -47,17 +47,21 @@ function scrub(s) {
   return out.trim().replace(/[,;+:]\s*$/, "").trim();
 }
 
+// "YUI-7 (backlog): title", and for a card split into steps "YUI-7 step 2 (app) (backlog): title" or
+// "YUI-7 step 2 proof: title". A step keeps its card's key; `step` tells the tiles apart.
 function parseTitle(raw) {
-  const m = raw.match(/^([A-Z]+)-(\d+)\s*(?:\(([^)]*)\))?\s*:?\s*(.*)$/s);
+  const m = raw.match(/^([A-Z]+)-(\d+)\s*(?:step\s+(\d+)(?:\s+([a-z][\w-]*))?)?\s*((?:\([^)]*\)\s*)*):?\s*(.*)$/is);
   if (!m) return null;
-  const [, prefix, num, tag = "", full] = m;
+  const [, prefix, num, stepNum, stepWord, parens, full] = m;
+  const tag = [...parens.matchAll(/\(([^)]*)\)/g)].map((x) => x[1]).join(", ");
+  const step = stepNum ? `Step ${stepNum}${stepWord ? ` ${stepWord}` : ""}` : "";
   // A trailing [label, label] ("[agent-ready, build to earn]") is a marker, not part of the title.
   const lm = full.match(/\s*\[([^\]]*)\]\s*$/);
   const labels = lm ? lm[1].split(",").map((l) => l.trim().toLowerCase()).filter(Boolean) : [];
   const rest = lm ? full.slice(0, lm.index) : full;
   const i = rest.indexOf(": ");
   return {
-    prefix, num: Number(num), key: `${prefix}-${num}`, tag: tag.toLowerCase(), labels, rest,
+    prefix, num: Number(num), key: `${prefix}-${num}`, tag: tag.toLowerCase(), labels, rest, step, stepNum: stepNum ? Number(stepNum) : null,
     head: i > 0 ? rest.slice(0, i) : rest, detail: i > 0 ? rest.slice(i + 2) : "",
   };
 }
@@ -89,14 +93,36 @@ for (const r of rows) {
   tasks.push({ ...r, ...p });
 }
 
+// A card split into steps has one tile per step. Each entry goes to the tile it fits best: shared
+// words, scaled so a long title does not win on length alone, one more when the tile shipped the
+// day the entry was written, plus a lot for an entry that names only that step ("step 3") and a
+// little for one that names it among others. Best fits are placed first, so a later entry cannot
+// take a tile from the entry that fits it better.
 const linkFor = new Map();
-for (const e of progress) {
+const stepsNamed = (text) => new Set([...text.matchAll(/\bstep (\d+)\b/gi)].map((m) => Number(m[1])));
+const score = (e, t) => {
+  const text = `${e.title} ${e.body}`;
+  const named = stepsNamed(text);
+  // An entry is written the day its work ships, so a tile that shipped that day fits a little better.
+  const sameDay = landed(t) && day(t.completed_at || t.closed_at) === e.date ? 1 : 0;
+  const fit = overlap(text, t.rest) / Math.sqrt(words(t.rest).size + 1) + sameDay;
+  if (t.stepNum === null || !named.has(t.stepNum)) return fit;
+  return fit + (named.size === 1 ? 3 : 1);
+};
+const pairs = [];
+progress.forEach((e, i) => {
   for (const key of [].concat(e.card || [])) {
-    const cands = tasks.filter((t) => t.key === key && !linkFor.has(t.id));
-    if (!cands.length) continue;
-    const best = cands.reduce((a, b) => (overlap(`${e.title} ${e.body}`, b.title) > overlap(`${e.title} ${e.body}`, a.title) ? b : a));
-    linkFor.set(best.id, { href: `/progress#${slug(e.title)}`, title: e.title });
+    const cands = tasks.filter((t) => t.key === key);
+    // A card with one tile keeps the old rule: the first entry in the log links it.
+    for (const t of cands) pairs.push({ e, i, key, t, s: cands.length > 1 ? score(e, t) : 0 });
   }
+});
+pairs.sort((a, b) => b.s - a.s || a.i - b.i);
+const placed = new Set();
+for (const { e, i, key, t } of pairs) {
+  if (placed.has(`${i}:${key}`) || linkFor.has(t.id)) continue;
+  linkFor.set(t.id, { href: `/progress#${slug(e.title)}`, title: e.title });
+  placed.add(`${i}:${key}`);
 }
 
 // MVP set: the keys in mvp.json (from ROADMAP.md "In the MVP"). Duplicate keys pair by title words.
@@ -129,6 +155,7 @@ for (const t of tasks) {
   if (!head) { console.error(`skipped ${t.key}: title is private`); continue; }
   const link = linkFor.get(t.id);
   const card = { key: t.key, title: cap(mvpTitle.get(t.id) || head) };
+  if (t.step) card.step = t.step;
   if (!TITLE_ONLY.has(t.prefix)) {
     const summary = link ? link.title : scrub(t.detail) || (mvpTitle.has(t.id) ? head : "");
     if (summary && summary.toLowerCase() !== card.title.toLowerCase()) card.summary = cap(summary);
