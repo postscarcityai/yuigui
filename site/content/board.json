@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T22:41:03.283Z",
+  "updated": "2026-09-26T23:10:08.352Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.2",
@@ -150,6 +150,11 @@
           "waiting": true
         },
         {
+          "key": "YUI-128",
+          "title": "About and Controls become one drawer tab",
+          "waiting": true
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -229,6 +234,10 @@
           "key": "YUI-116",
           "title": "Recording, export, MIDI and Ableton Link",
           "step": "Step 5"
+        },
+        {
+          "key": "SITE-54",
+          "title": "The full screen stage on the site, See it + roadmap + a Thought (STAGE-1)"
         }
       ]
     },
@@ -270,13 +279,6 @@
           "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
         },
         {
-          "key": "YUI-119",
-          "title": "Full screen first, the chat is the record",
-          "step": "Step 1",
-          "summary": "Spec + playground mock",
-          "waiting": true
-        },
-        {
           "key": "YUI-120",
           "title": "The stage moves with the agent, context animations",
           "step": "Step 1",
@@ -300,6 +302,12 @@
           "title": "Claude-shim agents send what they are doing to Yui mid-turn",
           "step": "Step 3",
           "waiting": true
+        },
+        {
+          "key": "YUI-119",
+          "title": "Full screen first, the chat is the record",
+          "step": "Step 1",
+          "summary": "Spec + playground mock"
         }
       ]
     },
