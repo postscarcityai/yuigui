@@ -865,6 +865,12 @@
     {
       "text": "The MCP server draws with today's Yui Lines, and CI catches a stale copy",
       "card": "INT-3"
+    },
+    {
+      "text": "Flow variants reach the copies (FLOW-1 step 3, yuigui cbf1e7a)"
+    },
+    {
+      "text": "Music vectors wait for the app half (YUI-116 step 1)"
     }
   ]
 }
