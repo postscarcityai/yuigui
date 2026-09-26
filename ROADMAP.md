@@ -125,6 +125,13 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - YUI-73 (shipped Sep 25): the rest of the war room. Needs you (cards waiting on Chris; a card with choices gets one-tap answers that land on the card and send it back to the queue, with no agent turn), running now (one row per lane), builds with the Install button, the latest feedback and the card it became, the MVP bar, quick links. Built from presets the app already draws. In build 74.
 - YUI-90 (backlog, free to pull since 0.2.0 shipped Sep 25; Chris Sep 25: "a totally dynamic, live update of the harness... really good real estate in the war room"): the release timeline goes live. The next version gets its own big panel at the top of the war room, built from the board: the YUI-SHIP card, its parent cards as done, now and next, what is on main since the last TestFlight build, and the ship steps (tests, upload, VALID, link). It updates in place as cards move (YUI-75 ids), with no agent turn. Needs build 74+.
 
+**Next: PERF-1, Telegram-smooth (Chris Sep 25).** "Optimize for pure user experience... very efficient like Telegram." The design stays as it is; the app gets fast. Measure first, so every fix has a before and after, and Yui watches the numbers from then on.
+
+- YUI-98 (backlog, first): speed reporting. MetricKit and signposts on the phone (hangs, scroll hitches, memory, keystroke to render, send to bubble), numbers only into a yui_perf table, a daily report, and a Speed panel in the war room.
+- YUI-99 (backlog): typing keeps up. Holding backspace and double-space for a period run as fast as in Notes, even on a long thread.
+- YUI-100 (backlog, after YUI-98): memory audit. Leaks found and fixed, bounded image caches, and a memory ceiling test before every ship.
+- YUI-101 (backlog, after YUI-98): taps answer on the same frame, 120 fps scroll, fast thread open.
+
 **Distant: EARN-1, build to earn.** Yui is built by whoever shows up, human or agent, and the work is what earns. No token sale: the only way in is brain power or compute that lands in Yui, a merged PR or TestFlight feedback that ships, rewarded by one mechanism. 10% of voting equity is set aside for the public pool, with more to follow. Humans first, and an open call to autonomous agents. Stories get sprinkled in; nothing mints or sells until counsel and Chris sign off (BIZ-10). Builds on Yui@home (SITE-24).
 
 Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /earn; the token, chain, NFT and ledger cards stay frozen until then.
