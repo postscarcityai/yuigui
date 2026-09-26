@@ -906,6 +906,26 @@
     },
     {
       "text": "Channel guide v31: agents send loop and drums (YUI-116, yuigui 44d7edd)"
+    },
+    {
+      "text": "Working row words for agents on the claude shim (YUI-63 step 3)"
+    },
+    {
+      "text": "Tag shim turns only when the shim takes the tag out (YUI-63 step 3)"
+    },
+    {
+      "text": "Instruments play with the ringer on silent (feedback AGhvH8tM)"
+    },
+    {
+      "text": "Every drum name plays a real drum, not a tick (YUI-127, yuigui 1c96bd7)"
+    },
+    {
+      "text": "The war room moves into the drawer: a Review row opens its ask",
+      "card": "YUI-126"
+    },
+    {
+      "text": "UI test: the war room in the drawer, Home, Review and the opened ask",
+      "card": "YUI-126"
     }
   ]
 }
