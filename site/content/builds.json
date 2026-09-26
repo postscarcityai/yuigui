@@ -680,6 +680,12 @@
     },
     {
       "text": "Shared agents on the simulator (YUI-95): shared_agents_e2e.py + YuiUITests/SharedAgentTests. A throwaway owner's host reports a shell, grant.py refuses (exit 3); the host reports a sandbox, the template (Penny, candy, a first message, by Sam) goes out on an @example.com invite (--no-testflight); the invitee claims it and signs in: Penny is in the list in her look and her first message waits (light, then dark); grant.py revoke mid-test and on relaunch she is gone. 8/8. Regression after the migration: agents_test 80/80, invites_test 54/54, mention_test 38/38, relay_test 51/51."
+    },
+    {
+      "text": "Shared agents follow-up (YUI-95): rows with no agent pass the owner-or-grant trigger and stay readable and deletable by their user, as before (accounts_test caught it); the two trigger functions are not callable by the app or a host. Migration 20260925090000_yui_shared_agents_fixes.sql, applied to PROOF. accounts_test and strangers_test allow the three grant checks the message policies call (strangers also names YUI-93's yui_group_notes, which failed before this card). accounts_test 73/73, strangers_test 85/85, shared_agents_test 81/81."
+    },
+    {
+      "text": "Restyle Yui by asking, native (YUI-96, step 2 of YUI-43; spec yuigui spec/RESTYLE.md)."
     }
   ]
 }

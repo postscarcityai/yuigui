@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T23:40:25.822Z",
+  "updated": "2026-09-26T00:10:30.185Z",
   "shippedDays": 30,
   "columns": [
     {
@@ -13,10 +13,6 @@
         {
           "key": "YUI-34",
           "title": "Key vault for bring-your-own keys"
-        },
-        {
-          "key": "YUI-35",
-          "title": "Meal photo to macros"
         },
         {
           "key": "YUI-36",
@@ -79,6 +75,26 @@
           "key": "YUI-94",
           "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
           "waiting": true
+        },
+        {
+          "key": "YUI-99",
+          "title": "Typing keeps up",
+          "summary": "Hold backspace and double-space period as fast as Notes"
+        },
+        {
+          "key": "YUI-100",
+          "title": "Memory audit",
+          "summary": "Find and fix leaks, bounded caches, a memory ceiling test"
+        },
+        {
+          "key": "YUI-101",
+          "title": "Telegram-smooth",
+          "summary": "Taps answer on the same frame, 120 fps scroll, fast thread open"
+        },
+        {
+          "key": "YUI-102",
+          "title": "Speed reporting, step 2 (native)",
+          "summary": "MetricKit, signposts, yui_perf, the report and the Speed panel"
         },
         {
           "key": "SITE-28",
@@ -177,14 +193,17 @@
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
         },
         {
-          "key": "YUI-95",
-          "title": "Shared agents in the app, step 2 of YUI-57 (migration, grant script, client-safe check, sim proof)",
-          "summary": "Share an agent with a client, and take it back",
-          "progress": "/progress#share-an-agent-with-a-client-and-take-it-back"
+          "key": "YUI-35",
+          "title": "Meal photo to macros"
         },
         {
-          "key": "YUI-43",
-          "title": "Restyle the app by asking"
+          "key": "YUI-98",
+          "title": "Speed reporting",
+          "summary": "MetricKit and signposts on the phone, a yui_perf table, a daily report and a Speed panel yui watches"
+        },
+        {
+          "key": "YUI-97",
+          "title": "Shared agents, step 3 of YUI-57 (native invite plan, Shared by sheet, cleanup)"
         }
       ]
     },
@@ -192,6 +211,27 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-96",
+          "title": "Restyle the app by asking, step 2 (native)",
+          "summary": "Ask any agent to restyle Yui, in the app",
+          "shipped": "2026-09-25",
+          "progress": "/progress#ask-any-agent-to-restyle-yui-in-the-app"
+        },
+        {
+          "key": "YUI-95",
+          "title": "Shared agents in the app, step 2 of YUI-57 (migration, grant script, client-safe check, sim proof)",
+          "summary": "Share an agent with a client, and take it back",
+          "shipped": "2026-09-25",
+          "progress": "/progress#share-an-agent-with-a-client-and-take-it-back"
+        },
+        {
+          "key": "YUI-43",
+          "title": "Restyle the app by asking",
+          "summary": "Make Yui feel like autumn: restyle the app by asking, on paper and in the playground",
+          "shipped": "2026-09-25",
+          "progress": "/progress#make-yui-feel-like-autumn-restyle-the-app-by-asking-on-paper-and-in-the-playgrou"
+        },
         {
           "key": "SITE-37",
           "title": "0.2.0 catch-up",
