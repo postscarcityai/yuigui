@@ -74,14 +74,15 @@
 .sf-bottom { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 8px 14px 16px; z-index: 2; }
 .sf-left { display: flex; align-items: center; min-height: 44px; }
 .sf-nav { display: flex; gap: 8px; }
-.sf-inputs { display: flex; align-items: center; gap: 10px; }
-.sf-small { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--sf-line); background: var(--sf-card); color: inherit; font: inherit; font-size: 22px; font-weight: 700; display: grid; place-items: center; cursor: pointer; line-height: 1; flex: none; }
+.sf-inputs { display: flex; align-items: center; gap: 8px; }
+.sf-small { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--sf-line); background: var(--sf-card); color: inherit; font: inherit; font-size: 19px; font-weight: 700; display: grid; place-items: center; cursor: pointer; line-height: 1; flex: none; position: relative; }
+.sf-small::before, .sf-mic::before { content: ""; position: absolute; inset: -4px; }
 .sf-small:disabled { opacity: .35; cursor: default; }
 .sf-small.acc { background: var(--sf); border-color: var(--sf); color: #fff; }
-.sf-t { font-family: Georgia, "Times New Roman", serif; font-size: 20px; }
+.sf-t { font-family: Georgia, "Times New Roman", serif; font-size: 18px; }
 .sf-mic { width: 52px; height: 52px; border-radius: 50%; border: 0; background: var(--sf); display: grid; place-items: center; cursor: pointer; position: relative; flex: none; color: #fff; }
-.sf-mic.big { width: 66px; height: 66px; box-shadow: 0 8px 26px color-mix(in srgb, var(--sf) 45%, transparent); }
-.sf-mic svg { width: 44%; height: 44%; fill: currentColor; stroke: currentColor; }
+.sf-mic.big { width: 58px; height: 58px; box-shadow: 0 6px 18px color-mix(in srgb, var(--sf) 45%, transparent); }
+.sf-mic svg { width: 42%; height: 42%; fill: currentColor; stroke: currentColor; }
 .sf-mic.live::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid var(--sf); animation: sf-ring 1.2s ease-out infinite; }
 
 /* Typing: the field opens only when asked for. */
@@ -133,7 +134,7 @@
 .sf-draw-said { font-size: 19px; font-weight: 800; min-height: 26px; }
 .sf-draw-bar { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
 .sf-small.ghost { opacity: .55; }
-.sf-mic.huge { width: 84px; height: 84px; }
+.sf-mic.huge { width: 72px; height: 72px; }
 .sf-note { font-size: 12px; font-weight: 800; color: var(--sf); }
 .sf-note.r { text-align: right; }
 .sf-note.l { text-align: left; }
