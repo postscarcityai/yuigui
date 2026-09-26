@@ -187,6 +187,22 @@ say "No agents yet? Start with one of mine. It answers right here, nothing to in
 choose@starter "Who do you want first?" "Coach, trainer"|"Basil, nutritionist"|"Penny, assistant"|"Quill, study buddy"`,
   },
   {
+    // Widgets and Siri (spec/WIDGETS.md, YUI-40 step 1): the lines are Coach's
+    // reply, three pages each saved. A widget is a pinned saved screen, so the
+    // home screen, lock screen and Siri tabs above the phone draw these saved
+    // screens (playground/widgets.js). Edit a line and the widgets follow.
+    name: "Widgets and Siri: saved screens on the home screen",
+    slug: "widgets",
+    agent: "Coach",
+    widgets: true,
+    yl: `>2 stat@weight 178.9lb Weight delta=-2.3 spark=181.2|180.6|179.8|178.9 good=down sub="since Monday"
+>2 save weight
+>3 list@today Today "Stretch 10 min" "Protein at lunch" "Walk 30 min" "Bed by 11" +check
+>3 save today
+>4 timer@stretch 10m Stretch
+>4 save stretch`,
+  },
+  {
     // Restyle Yui by asking (spec/RESTYLE.md, YUI-43 step 1): the lines are the
     // agent's reply. The preview card, the restyled chrome and Settings are the
     // app's own screens (playground/restyle.js), switched with the tabs above

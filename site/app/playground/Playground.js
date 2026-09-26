@@ -14,6 +14,7 @@ import { encodeYL, readYL } from "../../lib/share-code.mjs";
 import { GroupBefore, GroupHead, Guard, LOOKS, Turn } from "./group";
 import { ClientOpen, INVITE_VIEWS } from "./invite";
 import { RESTYLE_VIEWS, RestyleDemo } from "./restyle";
+import { WIDGET_VIEWS, WidgetsDemo } from "./widgets";
 import { mealReply } from "./meal";
 import { starterReply } from "./starter";
 import "./flows.css";
@@ -93,12 +94,21 @@ export default function Playground({ release = "" }) {
   // A restyle demo (spec/RESTYLE.md): the app's own screens around a `theme app` reply.
   const restyle = shared ? null : ALL[idx].restyle;
   const [restyleView, setRestyleView] = useState("ask");
-  const client = (invite && inviteView !== "make") || !!restyle;
+  // A widgets demo (spec/WIDGETS.md): the home screen, lock screen and Siri around saved screens.
+  const widgets = shared ? null : ALL[idx].widgets;
+  const [widgetView, setWidgetView] = useState("home");
+  const client = (invite && inviteView !== "make") || !!restyle || !!widgets;
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
     window.history.replaceState(null, "", url);
     setRestyleView(k);
+  }, []);
+  const goWidgets = useCallback((k) => {
+    const url = new URL(window.location.href);
+    if (k === "home") url.searchParams.delete("view"); else url.searchParams.set("view", k);
+    window.history.replaceState(null, "", url);
+    setWidgetView(k);
   }, []);
 
   // Live mode: every edit re-renders the whole document. Keys are stable, so
@@ -125,6 +135,7 @@ export default function Playground({ release = "" }) {
     if (q.get("theme") === "light") setLight(true);
     if (INVITE_VIEWS.some(([k]) => k === q.get("view"))) setInviteView(q.get("view"));
     if (RESTYLE_VIEWS.some(([k]) => k === q.get("view"))) setRestyleView(q.get("view"));
+    if (WIDGET_VIEWS.some(([k]) => k === q.get("view"))) setWidgetView(q.get("view"));
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
     // ?yl= holds a Share code (SITE-19) or plain lines (the community gallery); readYL takes both.
@@ -421,6 +432,9 @@ export default function Playground({ release = "" }) {
           {restyle ? RESTYLE_VIEWS.map(([k, label]) => (
             <button key={k} className={`pg-tab ${k === restyleView ? "on" : ""}`} onClick={() => goRestyle(k)}>{label}</button>
           )) : null}
+          {widgets ? WIDGET_VIEWS.map(([k, label]) => (
+            <button key={k} className={`pg-tab ${k === widgetView ? "on" : ""}`} onClick={() => goWidgets(k)}>{label}</button>
+          )) : null}
           {client ? null : screens.map((k) => (
             <button key={k} className={`pg-tab ${k === shown ? "on" : ""}`} onClick={() => setView(k)}>
               Screen {k}{state.screens[k].length ? ` · ${state.screens[k].length}` : ""}
@@ -444,6 +458,7 @@ export default function Playground({ release = "" }) {
             <div className="sbar" />
             {client && invite ? <ClientOpen key={`ci:${inviteView}:${epoch}`} invite={invite} view={inviteView} onEvent={groupEvent} /> : null}
             {restyle ? <RestyleDemo key={`rs:${epoch}`} text={text} dark={!light} view={restyleView} setView={goRestyle} onEvent={groupEvent} /> : null}
+            {widgets ? <WidgetsDemo key={`wg:${epoch}`} text={text} agent={agent} view={widgetView} setView={goWidgets} onEvent={groupEvent} /> : null}
             {client ? null : group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
               <div className="ahead">
                 <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>

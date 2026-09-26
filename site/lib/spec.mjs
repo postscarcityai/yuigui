@@ -33,6 +33,7 @@ const ORDER = [
   ["mcp", "MCP server", null, "Any MCP client (Claude Code, Cursor, n8n) puts a screen on your phone and reads the taps back."],
   ["flows", "Flows", null, "Saved series of screens written in Mermaid: steps on the nodes, conditions on the edges, one event at the end."],
   ["onboarding", "Onboarding", null, "The first run: Yui asks three quick questions on full screens and suggests your first agents. A saved flow you can run in the playground."],
+  ["widgets", "Widgets and Siri (draft)", null, "Saved screens on the home screen and the lock screen, kept current by pushed patches, with buttons that tap back, and Siri, Shortcuts and the Action button."],
   ["starter", "Starter agent (draft)", null, "An agent that answers on first launch, no computer needed: where it runs, which model, what it may do, the safety caps and what it costs at 100 to 10,000 people."],
   ["connectors", "Connectors", null, "Log in to your tools once: Google Calendar, Gmail and HubSpot through their own MCP servers. What each allows, in plain words, and who holds the sign-in."],
   ["tables", "Agent tables", null, "Data an agent keeps on your phone: a workout log, macros, a small CRM. Three words, and the rows never leave the phone."],

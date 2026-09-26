@@ -1,0 +1,77 @@
+/* Widgets and Siri mock (spec/WIDGETS.md). Every class is wg-, so no site chrome leaks in. */
+.wg-home, .wg-lock { flex: 1; min-height: 0; display: flex; flex-direction: column; background: radial-gradient(120% 80% at 20% 0%, #ff9a7a 0%, #c86bd8 45%, #3b3f9e 100%); color: #fff; padding: 36px 14px 12px; gap: 10px; overflow-y: auto; font-family: ui-rounded, "SF Pro Rounded", system-ui, sans-serif; position: relative; }
+.screen.light .wg-home, .screen.light .wg-lock { background: radial-gradient(120% 80% at 20% 0%, #ffd9c7 0%, #f3c4f0 45%, #b9c3ff 100%); color: #16172a; }
+.wg-err { margin: auto; text-align: center; font-size: 13px; background: rgba(0,0,0,.35); padding: 12px; border-radius: 14px; }
+
+.wg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.wg-w { border-radius: 22px; background: var(--screen-bg); color: var(--yl-ink); box-shadow: 0 6px 20px rgba(0,0,0,.25); display: flex; flex-direction: column; overflow: hidden; transition: box-shadow .3s; }
+.wg-small { aspect-ratio: 1; }
+.wg-medium, .wg-large { grid-column: 1 / -1; }
+.wg-flash { box-shadow: 0 0 0 3px var(--accent, #4fd1c5), 0 6px 20px rgba(0,0,0,.25); }
+@media (prefers-reduced-motion: reduce) { .wg-w { transition: none; } }
+.wg-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px 0; }
+.wg-open { display: flex; align-items: center; gap: 6px; background: none; border: 0; color: var(--yl-ink2); font: inherit; font-size: 11px; font-weight: 700; min-height: 28px; cursor: pointer; padding: 0; text-align: left; }
+.wg-face { width: 18px; height: 18px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--arnold, #ff7a6b); color: #fff; font-size: 10px; font-weight: 800; flex: none; }
+.wg-fresh { font-size: 10.5px; font-weight: 800; color: var(--yl-good); }
+.wg-body { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.wg-body .yl-block, .screen.light .wg-body .yl-block { background: transparent; border: 0; box-shadow: none; padding: 6px 12px 12px; gap: 6px; }
+.wg-body .yl-stat { padding: 2px 14px 12px; cursor: default; }
+.wg-body .yl-list li { padding-top: 5px; padding-bottom: 5px; }
+
+.wg-timer { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 0 8px 10px; }
+.wg-timer-lbl { font-size: 12px; font-weight: 700; color: var(--yl-ink2); }
+.wg-go, .wg-tick { min-height: 32px; min-width: 64px; border: 0; border-radius: 999px; background: var(--accent, #4fd1c5); color: #0f1019; font: inherit; font-size: 12.5px; font-weight: 800; cursor: pointer; padding: 0 14px; }
+.wg-ring { position: relative; width: 64px; height: 64px; display: grid; place-items: center; flex: none; }
+.wg-ring svg { position: absolute; inset: 0; }
+.wg-ring span { position: relative; font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.wg-ring-bg { fill: none; stroke: currentColor; opacity: .18; stroke-width: 6; }
+.wg-ring-fg { fill: none; stroke: var(--accent, #4fd1c5); stroke-width: 6; stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+
+.wg-icons { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 12px; }
+.wg-icons span { aspect-ratio: 1; border-radius: 14px; opacity: .85; }
+
+.wg-agentbar { display: flex; gap: 8px; margin-top: auto; }
+.wg-btn { flex: 1; min-height: 44px; border-radius: 14px; border: 0; background: rgba(255,255,255,.92); color: #16172a; font: inherit; font-weight: 800; font-size: 13px; cursor: pointer; padding: 0 12px; }
+.wg-ghost { background: rgba(0,0,0,.28); color: #fff; }
+.screen.light .wg-ghost { background: rgba(255,255,255,.5); color: #16172a; }
+
+/* Lock screen */
+.wg-lock { align-items: center; padding-top: 40px; }
+.wg-inline { font-size: 13px; font-weight: 700; opacity: .9; }
+.wg-time { font-size: 84px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+.wg-date { font-size: 15px; font-weight: 700; opacity: .9; margin-bottom: 6px; }
+.wg-acc { display: grid; grid-template-columns: 64px 1fr 1fr; gap: 8px; width: 100%; align-items: stretch; }
+.wg-circ { background: rgba(255,255,255,.18); border: 0; border-radius: 50%; color: inherit; width: 64px; height: 64px; padding: 0; cursor: pointer; align-self: center; }
+.wg-rect { background: rgba(255,255,255,.18); border-radius: 16px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.wg-rect-lbl { font-size: 11px; font-weight: 700; opacity: .85; }
+.wg-rect-val { font-size: 20px; font-weight: 800; }
+.wg-rect-val small { font-size: 12px; margin-left: 2px; }
+.wg-rect-item { font-size: 14px; line-height: 1.2; }
+.wg-rect-sub { font-size: 11px; opacity: .85; }
+.wg-rect .wg-tick { align-self: flex-start; min-height: 28px; min-width: 0; margin-top: 2px; }
+.wg-live { margin-top: auto; width: 100%; display: flex; align-items: center; gap: 12px; background: rgba(15,16,25,.82); color: #fff; border-radius: 22px; padding: 10px 14px; }
+.wg-live > div:nth-child(2) { flex: 1; }
+.wg-live-t { font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.wg-hint { font-size: 11px; opacity: .8; margin-top: auto; }
+.wg-live + .wg-hint { margin-top: 0; }
+
+/* Siri */
+.wg-dim::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.35); }
+.wg-siri { position: relative; margin-top: auto; background: var(--screen-bg); color: var(--yl-ink); border-radius: 28px; padding: 16px 14px 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.35); }
+.wg-orb { width: 36px; height: 36px; border-radius: 50%; background: conic-gradient(#ff7a6b, #c86bd8, #4fd1c5, #ffc857, #ff7a6b); align-self: center; filter: blur(.5px); }
+.wg-said { text-align: center; font-size: 15px; font-weight: 800; }
+.wg-snip { border: 1px solid var(--yl-grid); border-radius: 18px; padding: 10px 12px; font-size: 13.5px; display: flex; flex-direction: column; gap: 4px; }
+.wg-snip .yl-block, .screen.light .wg-snip .yl-block { background: transparent; border: 0; box-shadow: none; padding: 0; }
+.wg-snip-row { flex-direction: row; align-items: center; gap: 12px; }
+.wg-sub { font-size: 12px; color: var(--yl-ink2); }
+.wg-siri .wg-btn { background: var(--accent, #4fd1c5); color: #0f1019; flex: none; }
+.wg-phrases { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.wg-phrases button { min-height: 32px; border-radius: 999px; border: 1px solid var(--yl-grid); background: none; color: var(--yl-ink2); font: inherit; font-size: 11.5px; font-weight: 700; padding: 0 10px; cursor: pointer; }
+.wg-phrases button.on { background: var(--yl-ink); color: var(--screen-bg); border-color: var(--yl-ink); }
+
+/* A widget tap: the saved screen opens on the stage, as from the shelf */
+.wg-home.wg-opened, .screen.light .wg-home.wg-opened { background: var(--screen-bg); padding: 16px 12px 12px; }
+.wg-sheet { display: flex; flex-direction: column; gap: 10px; flex: 1; color: var(--yl-ink); }
+.wg-sheet-top { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+.wg-stage { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.wg-sheet .wg-btn { flex: none; background: var(--yl-ink); color: var(--screen-bg); }

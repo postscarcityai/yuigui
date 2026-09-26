@@ -71,6 +71,7 @@
     "YUI-33": { "title": "Agent tables on the phone", "shipped": "2026-09-25" },
     "YUI-35": { "title": "Meal photo to macros", "shipped": "2026-09-25" },
     "YUI-37": { "title": "A starter agent: spec, cost model and mock", "shipped": "2026-09-26" },
+    "YUI-40": { "title": "Widgets and Siri: spec and mock", "shipped": "2026-09-26" },
     "YUI-98": { "title": "The speed budget, and the Speed panel on paper", "shipped": "2026-09-25" },
     "YUI-90": { "title": "The release timeline, live from the board", "shipped": "2026-09-25" },
     "YUI-102": { "title": "Speed reporting from real phones", "shipped": "2026-09-25" },
@@ -277,6 +278,7 @@
       "entries": [
         { "id": "planned-voice", "title": "Voice in, text out", "what": "Talk, read the answer, hands free and fast. Hold to talk already works in the app (builds 57 and 64); hands-free voice, a talk or type default per agent and a first word in under a second are not built.", "cards": ["YUI-14"], "yl": "mic \"What did you eat today?\"", "agent": "Coach" },
         {"id": "planned-release-timeline", "title": "Where the next release stands", "what": "The top of the war room: the cards in the next version, done, running or queued, then the ship steps (tests, one upload, VALID, what to try goes out), then everything on main since the last TestFlight build. Built from the board's own exports, never typed by an agent. On the site now; on the phone it will patch in place as cards move.", "cards": ["YUI-90"], "demo": "release", "agent": "Yui", "link": "/developers/release", "shots": ["/progress/yui90-release-dark.webp", "/progress/yui90-release-light.webp"]},
+        {"id": "planned-widgets", "title": "Widgets and Siri", "what": "A saved screen pinned to the home screen or the lock screen: a stat with its trend, a checklist you tick on the widget, a timer you start without opening Yui. The agent keeps it current with the same patches it sends today, and every tap goes back to it. Siri asks an agent, shows a screen or starts a timer. Drawn in the playground; not in the app yet.", "cards": ["YUI-40"], "demo": "widgets", "agent": "Coach", "link": "/playground?demo=widgets", "shots": ["/progress/yui40-home-light.webp", "/progress/yui40-lock-light.webp", "/progress/yui40-siri-dark.webp"]},
         {"id": "planned-speed", "title": "The Speed panel", "what": "How fast Yui is on real phones, in the war room: typing, messages landing, scrolling, hangs and memory, each with a trend per build, and a chart that steps down when a fix lands. The budget behind every number is written down. Sample numbers for now; the phone starts reporting with YUI-102.", "cards": ["YUI-98", "YUI-102"], "demo": "speed", "agent": "Yui", "link": "/developers/perf", "shots": ["/progress/yui98-speed-dark.webp", "/progress/yui98-speed-light.webp"]}
       ]
     }
