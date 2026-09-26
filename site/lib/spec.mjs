@@ -34,6 +34,7 @@ const ORDER = [
   ["flows", "Flows", null, "Saved series of screens written in Mermaid: steps on the nodes, conditions on the edges, one event at the end."],
   ["onboarding", "Onboarding", null, "The first run: Yui asks three quick questions on full screens and suggests your first agents. A saved flow you can run in the playground."],
   ["on-device", "The model on the phone (draft)", null, "Apple's on-device model in Yui: reply chips under a screen, the right agent in a group, a push line that says something, and a draft screen offline. Nothing leaves the phone."],
+  ["vault", "Key vault (draft)", null, "Your fal, Replicate, OpenRouter, Anthropic and OpenAI keys in the iPhone's Keychain. Agents ask to use one, get a handle, never the key, and spend inside a cap you set."],
   ["widgets", "Widgets and Siri (draft)", null, "Saved screens on the home screen and the lock screen, kept current by pushed patches, with buttons that tap back, and Siri, Shortcuts and the Action button."],
   ["starter", "Starter agent (draft)", null, "An agent that answers on first launch, no computer needed: where it runs, which model, what it may do, the safety caps and what it costs at 100 to 10,000 people."],
   ["connectors", "Connectors", null, "Log in to your tools once: Google Calendar, Gmail and HubSpot through their own MCP servers. What each allows, in plain words, and who holds the sign-in."],

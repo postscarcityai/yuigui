@@ -283,7 +283,7 @@ Goals: agents can make things that persist.
 
 Deliverables:
 - YUI-33: on-device tables: agents create tables and rows through the protocol (`table create`, `put`, `query`). Views render as table, list, chart or one number. Starter schemas: workout log, macros, simple CRM. Step 1, the spec and the web playground, shipped Sep 25 ([Agent tables](/developers/tables)); the app's store and views are YUI-89.
-- YUI-34: key vault in the iOS Keychain for BYO keys: fal, Replicate, OpenRouter, Anthropic.
+- YUI-34: key vault in the iOS Keychain for BYO keys: fal, Replicate, OpenRouter, Anthropic, OpenAI. Step 1, the spec and a playground mock, shipped Sep 26 ([Key vault](/developers/vault), `/playground?demo=vault`): keys go in only through Settings > Keys (paste or scan, never a chat or an agent's form) and stay in the Keychain on this iPhone; an agent asks through its host and Yui draws the ask itself; the hosted connector gets the key sealed and makes the call, the agent gets a handle and never the key; a monthly cap per key and per agent, an activity list, Revoke in the drawer. No new Yui Lines word. Step 2, native in the app, the relay and the connector, is in the backlog.
 - Image generation through the user's own fal key (agent avatars first, then in-chat images). YUI-21 (Sep 24) already lets agents send images they made elsewhere.
 - YUI-35: nutrition demo: photo of a meal to macro estimate to a row in the macros table. Step 1, the spec and a playground demo, shipped Sep 25 ([Meal photo to macros](/developers/meal), `/playground?demo=meal`); the app is YUI-103, after YUI-89.
 - YUI-36: optional encrypted sync of tables via the relay (off by default, on-device first per Chris).
@@ -416,7 +416,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 - YUI-113 (backlog; TestFlight feedback Sep 26, Chris: "I want all that to be in one experience"): one reply, one lesson. Channel guide v25 already puts a lesson's pieces on one full screen. Next, a deck page can carry a diagram, formula, chart, stat or calc as its picture, so the lesson becomes one swipeable deck.
 - YUI-89: agent tables in the app, step 2 of YUI-33 (the spec and the playground shipped Sep 25): the phone's store, native views, the other parsers.
-- YUI-34: a key vault for your own fal, OpenRouter and Anthropic keys.
+- YUI-34: a key vault for your own fal, Replicate, OpenRouter, Anthropic and OpenAI keys. Step 1 (spec + playground mock) shipped Sep 26: [Key vault](/developers/vault), `/playground?demo=vault`; step 2, the vault native in the app, is in the backlog.
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table. Step 1 shipped Sep 25: [Meal photo to macros](/developers/meal), `/playground?demo=meal`.
 - YUI-103 (backlog): step 2 of YUI-35, the app: camera in the chat, the host's vision call, the save into the phone's meals table. After YUI-89.
 - YUI-36: optional encrypted sync for agent tables, off by default.

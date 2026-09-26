@@ -16,6 +16,7 @@ import { ClientOpen, INVITE_VIEWS } from "./invite";
 import { RESTYLE_VIEWS, RestyleDemo } from "./restyle";
 import { WIDGET_VIEWS, WidgetsDemo } from "./widgets";
 import { ONDEVICE_VIEWS, OnDeviceDemo } from "./ondevice";
+import { VAULT_VIEWS, VaultDemo } from "./vault";
 import { mealReply } from "./meal";
 import { starterReply } from "./starter";
 import "./flows.css";
@@ -101,7 +102,10 @@ export default function Playground({ release = "" }) {
   // The model on the phone (spec/ON-DEVICE.md): suggested replies, routing, push lines, offline drafts.
   const ondevice = shared ? null : ALL[idx].ondevice;
   const [odView, setOdView] = useState("replies");
-  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice;
+  // Key vault (spec/VAULT.md): Settings > Keys, the add sheet, an agent's ask, the drawer's grants.
+  const vault = shared ? null : ALL[idx].vault;
+  const [vaultView, setVaultView] = useState("keys");
+  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault;
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
@@ -113,6 +117,12 @@ export default function Playground({ release = "" }) {
     if (k === "home") url.searchParams.delete("view"); else url.searchParams.set("view", k);
     window.history.replaceState(null, "", url);
     setWidgetView(k);
+  }, []);
+  const goVault = useCallback((k) => {
+    const url = new URL(window.location.href);
+    if (k === "keys") url.searchParams.delete("view"); else url.searchParams.set("view", k);
+    window.history.replaceState(null, "", url);
+    setVaultView(k);
   }, []);
   const goOnDevice = useCallback((k) => {
     const url = new URL(window.location.href);
@@ -147,6 +157,7 @@ export default function Playground({ release = "" }) {
     if (RESTYLE_VIEWS.some(([k]) => k === q.get("view"))) setRestyleView(q.get("view"));
     if (WIDGET_VIEWS.some(([k]) => k === q.get("view"))) setWidgetView(q.get("view"));
     if (ONDEVICE_VIEWS.some(([k]) => k === q.get("view"))) setOdView(q.get("view"));
+    if (VAULT_VIEWS.some(([k]) => k === q.get("view"))) setVaultView(q.get("view"));
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
     // ?yl= holds a Share code (SITE-19) or plain lines (the community gallery); readYL takes both.
@@ -449,6 +460,9 @@ export default function Playground({ release = "" }) {
           {ondevice ? ONDEVICE_VIEWS.map(([k, label]) => (
             <button key={k} className={`pg-tab ${k === odView ? "on" : ""}`} onClick={() => goOnDevice(k)}>{label}</button>
           )) : null}
+          {vault ? VAULT_VIEWS.map(([k, label]) => (
+            <button key={k} className={`pg-tab ${k === vaultView ? "on" : ""}`} onClick={() => goVault(k)}>{label}</button>
+          )) : null}
           {client ? null : screens.map((k) => (
             <button key={k} className={`pg-tab ${k === shown ? "on" : ""}`} onClick={() => setView(k)}>
               Screen {k}{state.screens[k].length ? ` · ${state.screens[k].length}` : ""}
@@ -474,6 +488,7 @@ export default function Playground({ release = "" }) {
             {restyle ? <RestyleDemo key={`rs:${epoch}`} text={text} dark={!light} view={restyleView} setView={goRestyle} onEvent={groupEvent} /> : null}
             {widgets ? <WidgetsDemo key={`wg:${epoch}`} text={text} agent={agent} view={widgetView} setView={goWidgets} onEvent={groupEvent} /> : null}
             {ondevice ? <OnDeviceDemo key={`od:${epoch}`} text={text} agent={agent} view={odView} onEvent={groupEvent} /> : null}
+            {vault ? <VaultDemo key={`vk:${epoch}`} text={text} agent={agent} view={vaultView} setView={goVault} onEvent={groupEvent} /> : null}
             {client ? null : group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
               <div className="ahead">
                 <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>

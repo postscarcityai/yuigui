@@ -1,8 +1,8 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 156,
-    "site": 388,
+    "app": 157,
+    "site": 390,
     "builds": 33,
     "shipped": 199,
     "screenshots": 433
@@ -11,6 +11,26 @@
     {
       "date": "2026-09-26",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-26T14:40:12.000Z",
+          "title": "A lesson is one screen",
+          "card": "Feedback",
+          "anchor": "a-lesson-is-one-screen",
+          "images": [
+            {
+              "src": "/progress/fb-apsw0dsa-1-chat.webp",
+              "alt": "The chat after asking about compound interest: one line and one Compound interest chip"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 156,
+            "site": 389,
+            "builds": 33,
+            "shipped": 199
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-26T14:34:35.000Z",
@@ -44,7 +64,7 @@
             "app": 156,
             "site": 388,
             "builds": 33,
-            "shipped": 199
+            "shipped": 198
           }
         },
         {
@@ -68,7 +88,7 @@
             "app": 156,
             "site": 387,
             "builds": 33,
-            "shipped": 198
+            "shipped": 197
           }
         },
         {
@@ -96,7 +116,7 @@
             "app": 155,
             "site": 384,
             "builds": 33,
-            "shipped": 197
+            "shipped": 196
           }
         },
         {
@@ -108,7 +128,7 @@
             "app": 155,
             "site": 382,
             "builds": 33,
-            "shipped": 196
+            "shipped": 195
           }
         },
         {
@@ -136,7 +156,7 @@
             "app": 155,
             "site": 382,
             "builds": 32,
-            "shipped": 196
+            "shipped": 195
           }
         },
         {
@@ -164,7 +184,7 @@
             "app": 155,
             "site": 381,
             "builds": 32,
-            "shipped": 195
+            "shipped": 194
           }
         },
         {
@@ -192,7 +212,7 @@
             "app": 155,
             "site": 379,
             "builds": 32,
-            "shipped": 194
+            "shipped": 193
           }
         },
         {
@@ -220,7 +240,7 @@
             "app": 154,
             "site": 378,
             "builds": 32,
-            "shipped": 193
+            "shipped": 192
           }
         },
         {
@@ -252,7 +272,7 @@
             "app": 153,
             "site": 375,
             "builds": 32,
-            "shipped": 192
+            "shipped": 191
           }
         },
         {
@@ -276,7 +296,7 @@
             "app": 152,
             "site": 373,
             "builds": 32,
-            "shipped": 191
+            "shipped": 190
           }
         },
         {
@@ -291,7 +311,7 @@
             "app": 150,
             "site": 371,
             "builds": 32,
-            "shipped": 190
+            "shipped": 189
           }
         },
         {
@@ -303,7 +323,7 @@
             "app": 148,
             "site": 366,
             "builds": 32,
-            "shipped": 189
+            "shipped": 188
           }
         },
         {
@@ -327,7 +347,7 @@
             "app": 148,
             "site": 363,
             "builds": 31,
-            "shipped": 189
+            "shipped": 188
           }
         },
         {
@@ -342,7 +362,7 @@
             "app": 147,
             "site": 360,
             "builds": 31,
-            "shipped": 188
+            "shipped": 187
           }
         },
         {
@@ -362,7 +382,7 @@
             "app": 147,
             "site": 359,
             "builds": 31,
-            "shipped": 187
+            "shipped": 186
           }
         },
         {
@@ -406,7 +426,7 @@
             "app": 146,
             "site": 356,
             "builds": 31,
-            "shipped": 186
+            "shipped": 185
           }
         },
         {
@@ -421,7 +441,7 @@
             "app": 144,
             "site": 354,
             "builds": 31,
-            "shipped": 185
+            "shipped": 184
           }
         },
         {
@@ -445,7 +465,7 @@
             "app": 144,
             "site": 352,
             "builds": 31,
-            "shipped": 184
+            "shipped": 183
           }
         },
         {
@@ -460,7 +480,7 @@
             "app": 142,
             "site": 350,
             "builds": 31,
-            "shipped": 183
+            "shipped": 182
           }
         },
         {
@@ -484,7 +504,7 @@
             "app": 141,
             "site": 347,
             "builds": 31,
-            "shipped": 182
+            "shipped": 181
           }
         },
         {
@@ -520,7 +540,7 @@
             "app": 141,
             "site": 346,
             "builds": 31,
-            "shipped": 181
+            "shipped": 180
           }
         },
         {
@@ -544,7 +564,7 @@
             "app": 139,
             "site": 344,
             "builds": 31,
-            "shipped": 180
+            "shipped": 179
           }
         },
         {
@@ -568,7 +588,7 @@
             "app": 139,
             "site": 343,
             "builds": 31,
-            "shipped": 179
+            "shipped": 178
           }
         },
         {
@@ -596,7 +616,7 @@
             "app": 139,
             "site": 341,
             "builds": 31,
-            "shipped": 178
+            "shipped": 177
           }
         },
         {
@@ -624,7 +644,7 @@
             "app": 139,
             "site": 337,
             "builds": 31,
-            "shipped": 177
+            "shipped": 176
           }
         },
         {
@@ -636,7 +656,7 @@
             "app": 138,
             "site": 333,
             "builds": 31,
-            "shipped": 176
+            "shipped": 175
           }
         },
         {
@@ -660,11 +680,32 @@
             "app": 137,
             "site": 332,
             "builds": 30,
-            "shipped": 176
+            "shipped": 175
           }
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "18aa905",
+          "at": "2026-09-26T14:40:37.000Z",
+          "text": "Channel guide v25 bundled (feedback APSw0dsa): a lesson is one screen. Synced from yuigui 6b035e2.",
+          "url": "https://github.com/postscarcityai/yui/commit/18aa905"
+        },
+        {
+          "repo": "site",
+          "sha": "fa4a2cb",
+          "at": "2026-09-26T14:40:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fa4a2cb"
+        },
+        {
+          "repo": "site",
+          "sha": "6b035e2",
+          "at": "2026-09-26T14:40:12.000Z",
+          "text": "A lesson is one screen: channel guide v25, eval case, playground sample (feedback APSw0dsa)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6b035e2"
+        },
         {
           "repo": "site",
           "sha": "1bb9e67",
@@ -1234,7 +1275,7 @@
             "app": 136,
             "site": 329,
             "builds": 30,
-            "shipped": 175
+            "shipped": 174
           }
         },
         {
@@ -1246,7 +1287,7 @@
             "app": 135,
             "site": 328,
             "builds": 30,
-            "shipped": 174
+            "shipped": 173
           }
         },
         {
@@ -1270,7 +1311,7 @@
             "app": 135,
             "site": 328,
             "builds": 29,
-            "shipped": 174
+            "shipped": 173
           }
         },
         {
@@ -1294,7 +1335,7 @@
             "app": 134,
             "site": 326,
             "builds": 29,
-            "shipped": 173
+            "shipped": 172
           }
         },
         {
@@ -1309,7 +1350,7 @@
             "app": 133,
             "site": 324,
             "builds": 29,
-            "shipped": 172
+            "shipped": 171
           }
         },
         {
@@ -1341,7 +1382,7 @@
             "app": 132,
             "site": 321,
             "builds": 29,
-            "shipped": 171
+            "shipped": 170
           }
         },
         {
@@ -1373,7 +1414,7 @@
             "app": 131,
             "site": 319,
             "builds": 29,
-            "shipped": 170
+            "shipped": 169
           }
         },
         {
@@ -1397,7 +1438,7 @@
             "app": 130,
             "site": 318,
             "builds": 29,
-            "shipped": 169
+            "shipped": 168
           }
         },
         {
@@ -1429,7 +1470,7 @@
             "app": 130,
             "site": 317,
             "builds": 29,
-            "shipped": 168
+            "shipped": 167
           }
         },
         {
@@ -1461,7 +1502,7 @@
             "app": 128,
             "site": 313,
             "builds": 29,
-            "shipped": 167
+            "shipped": 166
           }
         },
         {
@@ -1485,7 +1526,7 @@
             "app": 128,
             "site": 312,
             "builds": 29,
-            "shipped": 166
+            "shipped": 165
           }
         },
         {
@@ -1525,7 +1566,7 @@
             "app": 128,
             "site": 310,
             "builds": 29,
-            "shipped": 165
+            "shipped": 164
           }
         },
         {
@@ -1561,7 +1602,7 @@
             "app": 126,
             "site": 308,
             "builds": 29,
-            "shipped": 164
+            "shipped": 163
           }
         },
         {
@@ -1593,7 +1634,7 @@
             "app": 126,
             "site": 306,
             "builds": 29,
-            "shipped": 163
+            "shipped": 162
           }
         },
         {
@@ -1621,7 +1662,7 @@
             "app": 125,
             "site": 305,
             "builds": 29,
-            "shipped": 162
+            "shipped": 161
           }
         },
         {
@@ -1653,7 +1694,7 @@
             "app": 123,
             "site": 304,
             "builds": 29,
-            "shipped": 161
+            "shipped": 160
           }
         },
         {
@@ -1689,7 +1730,7 @@
             "app": 122,
             "site": 302,
             "builds": 29,
-            "shipped": 160
+            "shipped": 159
           }
         },
         {
@@ -1704,7 +1745,7 @@
             "app": 122,
             "site": 301,
             "builds": 29,
-            "shipped": 159
+            "shipped": 158
           }
         },
         {
@@ -1716,7 +1757,7 @@
             "app": 122,
             "site": 300,
             "builds": 29,
-            "shipped": 158
+            "shipped": 157
           }
         },
         {
@@ -1748,7 +1789,7 @@
             "app": 122,
             "site": 300,
             "builds": 28,
-            "shipped": 158
+            "shipped": 157
           }
         },
         {
@@ -1780,7 +1821,7 @@
             "app": 120,
             "site": 296,
             "builds": 28,
-            "shipped": 157
+            "shipped": 156
           }
         },
         {
@@ -1812,7 +1853,7 @@
             "app": 119,
             "site": 293,
             "builds": 28,
-            "shipped": 156
+            "shipped": 155
           }
         },
         {
@@ -1836,7 +1877,7 @@
             "app": 119,
             "site": 292,
             "builds": 28,
-            "shipped": 155
+            "shipped": 154
           }
         },
         {
@@ -1864,7 +1905,7 @@
             "app": 116,
             "site": 288,
             "builds": 28,
-            "shipped": 154
+            "shipped": 153
           }
         },
         {
@@ -1892,7 +1933,7 @@
             "app": 116,
             "site": 287,
             "builds": 28,
-            "shipped": 153
+            "shipped": 152
           }
         },
         {
@@ -1907,7 +1948,7 @@
             "app": 116,
             "site": 285,
             "builds": 28,
-            "shipped": 152
+            "shipped": 151
           }
         },
         {
@@ -1931,7 +1972,7 @@
             "app": 116,
             "site": 284,
             "builds": 28,
-            "shipped": 151
+            "shipped": 150
           }
         },
         {
@@ -1946,7 +1987,7 @@
             "app": 115,
             "site": 283,
             "builds": 28,
-            "shipped": 150
+            "shipped": 149
           }
         },
         {
@@ -1970,7 +2011,7 @@
             "app": 115,
             "site": 282,
             "builds": 28,
-            "shipped": 149
+            "shipped": 148
           }
         },
         {
@@ -1985,7 +2026,7 @@
             "app": 112,
             "site": 279,
             "builds": 28,
-            "shipped": 148
+            "shipped": 147
           }
         },
         {
@@ -2013,7 +2054,7 @@
             "app": 109,
             "site": 274,
             "builds": 28,
-            "shipped": 147
+            "shipped": 146
           }
         },
         {
@@ -2041,7 +2082,7 @@
             "app": 108,
             "site": 273,
             "builds": 28,
-            "shipped": 146
+            "shipped": 145
           }
         },
         {
@@ -2056,7 +2097,7 @@
             "app": 108,
             "site": 271,
             "builds": 28,
-            "shipped": 145
+            "shipped": 144
           }
         },
         {
@@ -2079,26 +2120,6 @@
           "totals": {
             "app": 108,
             "site": 269,
-            "builds": 28,
-            "shipped": 144
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-25T19:45:03.000Z",
-          "title": "A lesson is one screen",
-          "card": "Feedback",
-          "anchor": "a-lesson-is-one-screen",
-          "images": [
-            {
-              "src": "/progress/fb-apsw0dsa-1-chat.webp",
-              "alt": "The chat after asking about compound interest: one line and one Compound interest chip"
-            }
-          ],
-          "commits": 0,
-          "totals": {
-            "app": 108,
-            "site": 268,
             "builds": 28,
             "shipped": 143
           }

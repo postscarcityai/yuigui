@@ -201,6 +201,19 @@ card "Saturday: 10k" "Race pace 5:40. Easy miles until then."
 say "Tomorrow: rest day or a light 3k?"`,
   },
   {
+    // Key vault (spec/VAULT.md, YUI-34 step 1): the lines are Penny's reply just
+    // before she asks for fal. The tabs above the phone are the app's own screens
+    // (playground/vault.js): Settings > Keys, the add sheet, the ask sheet Yui
+    // draws (never Yui Lines, so no agent can fake it) and the drawer's grants.
+    // Placeholder keys only.
+    name: "Key vault: your keys on your phone, agents ask",
+    slug: "vault",
+    agent: "Penny",
+    vault: true,
+    yl: `card "Avatars for your agents" "One picture each, in their colors. Drawn with fal, on your own fal account."
+say "I'll ask Yui for your fal key. You decide, and I never see the key."`,
+  },
+  {
     // Widgets and Siri (spec/WIDGETS.md, YUI-40 step 1): the lines are Coach's
     // reply, three pages each saved. A widget is a pinned saved screen, so the
     // home screen, lock screen and Siri tabs above the phone draw these saved
