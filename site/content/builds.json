@@ -871,6 +871,9 @@
     },
     {
       "text": "Music vectors wait for the app half (YUI-116 step 1)"
+    },
+    {
+      "text": "yui-mcp reads and draws the music presets (YUI-116 step 1, yuigui 5414ba3)"
     }
   ]
 }
