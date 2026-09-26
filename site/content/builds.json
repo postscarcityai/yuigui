@@ -740,6 +740,13 @@
     {
       "text": "Send and the menu drawer answer faster",
       "card": "YUI-106"
+    },
+    {
+      "text": "CONTRIBUTING-AGENTS.md and AGENTS.md: how an agent picks, claims and hands in an agent-ready card",
+      "card": "OSS-6"
+    },
+    {
+      "text": "Agent controls in the drawer (YUI-70 step 2)"
     }
   ]
 }

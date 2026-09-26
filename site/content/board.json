@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T07:40:31.434Z",
+  "updated": "2026-09-26T08:10:38.284Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -66,7 +66,7 @@
         {
           "key": "YUI-47",
           "title": "Apple Watch",
-          "summary": "Timer and quick answers on the wrist [build to earn]"
+          "summary": "Timer and quick answers on the wrist"
         },
         {
           "key": "YUI-48",
@@ -115,12 +115,14 @@
         {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
-          "summary": "The thread offline at /web [agent-ready, build to earn]"
+          "summary": "The thread offline at /web",
+          "agentReady": true
         },
         {
           "key": "YUI-110",
           "title": "Yui for macOS, first PR",
-          "summary": "The Mac target builds and signs in [agent-ready, build to earn]"
+          "summary": "The Mac target builds and signs in",
+          "agentReady": true
         },
         {
           "key": "SITE-28",
@@ -139,7 +141,8 @@
         },
         {
           "key": "OSS-8",
-          "title": "A Yui Lines parser in Go [agent-ready, build to earn]"
+          "title": "A Yui Lines parser in Go",
+          "agentReady": true
         },
         {
           "key": "INT-5",
@@ -193,13 +196,13 @@
         {
           "key": "YUI-70",
           "title": "Agent controls in the drawer",
-          "summary": "Agent controls, designed: change what your agent is made of",
-          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of"
+          "summary": "Agent controls, built: your agent's settings in the drawer",
+          "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer"
         },
         {
-          "key": "YUI-69",
-          "title": "Step 2 (backlog)",
-          "summary": "Talk about a setting, native"
+          "key": "YUI-111",
+          "title": "Step 2",
+          "summary": "Timeline rows move in place in the app (kind= patch), then the war room uses it"
         }
       ]
     },
@@ -224,24 +227,24 @@
           "title": "Test builds get their own bundle ID so they install beside TestFlight Yui"
         },
         {
-          "key": "YUI-70",
-          "title": "Step 2 (next)",
-          "summary": "Agent controls native in the drawer"
-        },
-        {
           "key": "SITE-39",
           "title": "Thought draft for Yui 0.3.0, the smooth release"
         },
         {
-          "key": "OSS-6",
-          "title": "Yui@home",
-          "summary": "Idle AI agents pull from an agent-ready backlog and send PRs"
+          "key": "YUI-69",
+          "title": "Step 2 (backlog)",
+          "summary": "Talk about a setting, native"
         },
         {
-          "key": "YUI-105",
-          "title": "The release panel on the phone, step 2 of YUI-90",
-          "summary": "The release panel tops the war room, live from the board",
-          "progress": "/progress#the-release-panel-tops-the-war-room-live-from-the-board"
+          "key": "YUI-111",
+          "title": "A patch can move a timeline row (next to now to done), so the release panel updates in place",
+          "summary": "A timeline row can move without resending the page",
+          "progress": "/progress#a-timeline-row-can-move-without-resending-the-page"
+        },
+        {
+          "key": "OSS-6",
+          "title": "Step 2 (backlog)",
+          "summary": "Yui@home routine prompts per platform, review policy, first end-to-end run"
         }
       ]
     },
@@ -249,6 +252,26 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-70",
+          "title": "Step 2 (next)",
+          "summary": "Agent controls native in the drawer",
+          "shipped": "2026-09-26"
+        },
+        {
+          "key": "OSS-6",
+          "title": "Yui@home",
+          "summary": "Yui@home: the agent-ready backlog is live",
+          "shipped": "2026-09-26",
+          "progress": "/progress#yui-home-the-agent-ready-backlog-is-live"
+        },
+        {
+          "key": "YUI-105",
+          "title": "The release panel on the phone, step 2 of YUI-90",
+          "summary": "The release panel tops the war room, live from the board",
+          "shipped": "2026-09-26",
+          "progress": "/progress#the-release-panel-tops-the-war-room-live-from-the-board"
+        },
         {
           "key": "YUI-69",
           "title": "Step 1",
@@ -258,8 +281,9 @@
         {
           "key": "YUI-70",
           "title": "Step 1",
-          "summary": "Agent controls spec, host protocol and playground mock",
-          "shipped": "2026-09-26"
+          "summary": "Agent controls, designed: change what your agent is made of",
+          "shipped": "2026-09-26",
+          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of"
         },
         {
           "key": "SITE-38",
@@ -443,7 +467,7 @@
         },
         {
           "key": "YUI-58",
-          "title": "Yui for macOS, a matching desktop app [agent-ready]",
+          "title": "Yui for macOS, a matching desktop app",
           "summary": "Yui for macOS has a brief, open for contributors",
           "shipped": "2026-09-25",
           "progress": "/progress#yui-for-macos-has-a-brief-open-for-contributors"
@@ -471,7 +495,7 @@
         },
         {
           "key": "YUI-71",
-          "title": "Yui in the browser [agent-ready, build to earn]",
+          "title": "Yui in the browser",
           "summary": "Yui in the browser has a brief, open for contributors",
           "shipped": "2026-09-25",
           "progress": "/progress#yui-in-the-browser-has-a-brief-open-for-contributors"
