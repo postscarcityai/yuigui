@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T17:03:35.213Z",
+  "updated": "2026-09-26T17:40:31.753Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -222,10 +222,14 @@
           "summary": "The hosted starter agent on Cloudflare"
         },
         {
-          "key": "SITE-45",
-          "title": "Yui 0.3.1 lands on the site",
-          "summary": "Yui 0.3.1 on the site: the release post and See it",
-          "progress": "/progress#yui-0-3-1-on-the-site-the-release-post-and-see-it"
+          "key": "YUI-63",
+          "title": "Step 2 (web)",
+          "summary": "The agent says what it is doing, a doing line with a small bar: spec, parsers, playground mock"
+        },
+        {
+          "key": "SITE-46",
+          "title": "Get Yui catches up",
+          "summary": "Pairing shots from a current build and every way in beyond Hermes"
         }
       ]
     },
@@ -233,6 +237,19 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-114",
+          "title": "Rename the App Store listing from Yui Bot to Yui Gui (fallback",
+          "summary": "Yui)",
+          "shipped": "2026-09-26"
+        },
+        {
+          "key": "SITE-45",
+          "title": "Yui 0.3.1 lands on the site",
+          "summary": "Yui 0.3.1 on the site: the release post and See it",
+          "shipped": "2026-09-26",
+          "progress": "/progress#yui-0-3-1-on-the-site-the-release-post-and-see-it"
+        },
         {
           "key": "YUI-113",
           "title": "Step 2",
