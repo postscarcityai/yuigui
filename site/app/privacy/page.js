@@ -37,7 +37,7 @@ export default function Privacy() {
 
       <h2 id="invites">Invites</h2>
       <p>
-        Yui&apos;s beta is public on TestFlight. You can also ask us for an invite, or for a hand getting set up, with the
+        Yui is in alpha, open to anyone on TestFlight. You can also ask us for an invite, or for a hand getting set up, with the
         form at the bottom of each page. When you do, or we invite you, we store your first and last name, the
         email you give us (the one on your Apple ID, because that is where TestFlight sends the invite), your phone
         number, which page and link brought you, your browser type, and where your invite stands: requested, approved,
@@ -107,6 +107,16 @@ export default function Privacy() {
         the agent as files in its cache. The plugin can also log which custom screen shapes an agent draws (field names
         and types, never the values) to learn what to build next. That log is off unless the computer&apos;s owner turns it
         on, stays on that computer, and is never uploaded.
+      </p>
+
+      <h2 id="ledger">Planned: the private ledger</h2>
+      <p>
+        Not recording yet. For <a href="/earn#use">use to earn</a>, Yui plans a private ledger of facts: the day your
+        account was made, the days you sent a message or answered a screen, and pull requests or feedback of yours that
+        shipped. It never holds what you said: it reads when a message was sent and by whom, never the words. Only Yui&apos;s
+        server can read it today, a view of your own rows comes later, and deleting your account deletes them. When it
+        starts, it fills in back to your first day, and this page will say the date. Details in the{" "}
+        <a href="/developers/ledger">ledger spec</a>.
       </p>
 
       <h2>Deleting your account</h2>

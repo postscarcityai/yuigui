@@ -34,8 +34,8 @@ export default function InviteRequest({ source = "home" }) {
     return (
       <div id="invite" className="card invite" role="status">
         <h3>Request in. Thank you!</h3>
-        <p>We read every request. Apple emails a TestFlight invite to the address you gave. You don&apos;t have to wait for it: the public beta is open now.</p>
-        {links.testflight && <p style={{ marginTop: 12 }}><a className="btn" href={links.testflight} onClick={() => trackCta("testflight", `${source}:invite-done`)}>Get the TestFlight beta</a></p>}
+        <p>We read every request. Apple emails a TestFlight invite to the address you gave. You don&apos;t have to wait for it: the alpha is open to anyone on TestFlight now.</p>
+        {links.testflight && <p style={{ marginTop: 12 }}><a className="btn" href={links.testflight} onClick={() => trackCta("testflight", `${source}:invite-done`)}>Download on TestFlight</a></p>}
       </div>
     );
   }
@@ -46,7 +46,7 @@ export default function InviteRequest({ source = "home" }) {
       <h3>Want a hand getting in?</h3>
       <p>
         You don&apos;t need this to try Yui: the{" "}
-        {links.testflight ? <a href={links.testflight} onClick={() => trackCta("testflight", `${source}:invite`)}>public TestFlight beta</a> : "public TestFlight beta"}{" "}
+        {links.testflight ? <a href={links.testflight} onClick={() => trackCta("testflight", `${source}:invite`)}>alpha on TestFlight</a> : "alpha on TestFlight"}{" "}
         is open to anyone with an iPhone on iOS 26. Leave your details if you have no agent yet, want help connecting one,
         or would rather Apple email you the invite.
       </p>

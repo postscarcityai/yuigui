@@ -334,9 +334,9 @@ export default function WhereYuiStands() {
           <li key={name}><span className={s.year}>{y}</span><h4>{name}</h4><p>{d} <Refs n={refs} /></p></li>
         ))}
         <li className={s.yui}>
-          <span className={s.year}>2026</span><h4>Yui public beta</h4>
+          <span className={s.year}>2026</span><h4>Yui alpha</h4>
           <p>
-            A native iPhone app for agents you already run, open source under Apache-2.0.
+            A native iPhone app for agents you already run, open source under Apache-2.0. The MVP was done Sep 26, and the alpha is open to anyone on TestFlight.
             {latest && <> Latest release: <Link href={`/changelog#build-${latest.build}`}>Yui {latest.version}, build {latest.build}</Link>, {latest.date}.</>}{" "}
             <Refs n={[1]} />
           </p>

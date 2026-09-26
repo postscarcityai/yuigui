@@ -95,7 +95,7 @@ Chris runs a small fleet of Hermes agents. One of them, Arnold, is his trainer. 
 
 **The story for them (Sep 26 2026):** the super app they would build if they could. They ask for a workout timer, a food log and a way to book client calls, and the agent draws each piece on the fly from Yui's native presets. Today that is three apps or a developer. The benchmark's ten screens are exactly that day: 338 tokens to draw, 21 to reopen once saved. Keep the status honest next to it: the starter agent they need is designed, not built.
 
-**What we do now:** point them to the public beta, and to Ask for a hand if they have no agent yet, and let them watch the build. Do not market to them yet.
+**What we do now:** point them to the alpha on TestFlight, and to Ask for a hand if they have no agent yet, and let them watch the build. Do not market to them yet.
 
 ### Who we are not chasing
 

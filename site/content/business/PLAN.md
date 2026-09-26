@@ -43,7 +43,7 @@ Competitors and how Yui is different: [BIZ-1 competitors](https://www.yuigui.com
 
 ## Milestones
 
-The first draft planned twelve weeks to a TestFlight build. It took two days. Sep 23: this hub, Yui Lines, the native app on TestFlight. Sep 24: the Hermes plugin, pushes, a first run with no guessing, safety limits, and the public beta sent to Apple's review.
+The first draft planned twelve weeks to a TestFlight build. It took two days. Sep 23: this hub, Yui Lines, the native app on TestFlight. Sep 24: the Hermes plugin, pushes, a first run with no guessing, safety limits, and the public beta sent to Apple's review. Sep 26: the MVP is done, and Yui is in alpha, open to anyone on TestFlight.
 
 Next: an outside tester runs the whole path alone (the MVP test), then voice and adapters for other agent frameworks. After that: starter agents, the data layer and connectors, then the App Store. Those have no dates yet. The [roadmap](https://www.yuigui.com/roadmap) has the current order.
 

@@ -4,10 +4,11 @@ import { businessDocs } from "../../lib/business.mjs";
 export const metadata = { title: "Business docs | Yui" };
 
 // Reading order: the plan, then how Yui finds its first testers (GTM-1), then the detail.
-const first = ["plan", "gtm", "beta-list", "biz-1-marketing-positioning"];
+const first = ["plan", "gtm", "use-to-earn", "beta-list", "biz-1-marketing-positioning"];
 const blurb = {
   plan: "Start here. The whole plan on one page.",
   gtm: "How Yui finds its people. The current plan.",
+  "use-to-earn": "Why early users should earn a stake, and what we record from day one.",
   "beta-list": "The first 20 to 50 outside testers, and where to find them.",
   "biz-1-marketing-positioning": "Who Yui is for and what we say.",
   "biz-1-competitors": "The research behind the positioning.",

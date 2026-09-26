@@ -13,8 +13,8 @@ const themeInit = `try{var t=localStorage.getItem("yui-theme");document.document
 export const metadata = {
   metadataBase: new URL("https://www.yuigui.com"),
   title: "Yui | a generative user interface",
-  description: "Meet Yui, a generative user interface. Your agent draws the screen instead of replying in walls of text: a timer, a form, a choice. A native iPhone app, built for Hermes first.",
-  openGraph: { title: "Meet Yui, a generative user interface.", description: "Your agent draws the screen: a timer, a form, a choice. A native iPhone app, built for Hermes first.", url: "https://www.yuigui.com", siteName: "Yui", type: "website" },
+  description: "Meet Yui, a generative user interface. Your agent draws the screen instead of replying in walls of text: a timer, a form, a choice. A native iPhone app for the agents you already run, in alpha on TestFlight.",
+  openGraph: { title: "Meet Yui, a generative user interface.", description: "Your agent draws the screen: a timer, a form, a choice. A native iPhone app for the agents you already run, in alpha on TestFlight.", url: "https://www.yuigui.com", siteName: "Yui", type: "website" },
   twitter: { card: "summary_large_image" },
 };
 

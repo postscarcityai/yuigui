@@ -24,7 +24,7 @@ YUI-29 is the MVP exit gate: someone outside PostScarcity does the whole path un
 |---|---|
 | An iPhone on iOS 26 or later | The app's minimum. No iPad, no Android yet |
 | A fresh Apple ID for Yui, or one that has never signed in to Yui | The run starts at sign-in and ends at account deletion |
-| Their own Hermes install, already working on some platform (Telegram, Discord, CLI) | The public beta is bring-your-own-agent. A new account has zero agents, and we never claim Yui answers out of the box |
+| Their own Hermes install, already working on some platform (Telegram, Discord, CLI) | The alpha is bring-your-own-agent. A new account has zero agents, and we never claim Yui answers out of the box |
 | A host that can run `hermes plugins install` and a gateway restart (Mac, Linux box, VPS) | That is the install path on yuigui.com/start |
 | Willing to be timed and to say what confused them, in writing | The proof is a timed checklist and every snag filed as a card |
 | Not a friend, client or employee of PostScarcity | "Unaided" means we have not walked them through it before |

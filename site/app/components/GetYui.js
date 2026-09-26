@@ -7,7 +7,7 @@ import { keepUtm, trackCta } from "../../lib/track.mjs";
 import CtaLink from "./CtaLink";
 import InviteRequest from "./InviteRequest";
 
-// The ways in, at the bottom of every page: the public beta, the code, lending your agent (SITE-24), and asking for a hand (SITE-26).
+// The ways in, at the bottom of every page: the alpha on TestFlight, the code, lending your agent (SITE-24), and asking for a hand (SITE-26).
 export default function GetYui() {
   const where = usePathname() || "/";
   useEffect(keepUtm, []);
@@ -16,12 +16,12 @@ export default function GetYui() {
       <h2 id="getyui-h">Try Yui, or help build it</h2>
       <div className="getyui-grid">
         <div className="card">
-          <h3>Get the public beta</h3>
+          <h3>Get the alpha</h3>
           {links.testflight ? (
             <>
-              <p>Yui is in public beta on TestFlight for iPhone on iOS 26. Install it, then connect the agent you already run: Hermes, OpenClaw, Claude Code, a model you run, or anything behind a webhook.</p>
+              <p>The MVP is done and Yui is in alpha, open to anyone with an iPhone on iOS 26. Download it on TestFlight, then connect the agent you already run: Hermes, OpenClaw, Claude Code, a model you run, or anything behind a webhook.</p>
               <div className="cta">
-                <CtaLink cta="testflight" where={where} href={links.testflight}>Get the TestFlight beta</CtaLink>
+                <CtaLink cta="testflight" where={where} href={links.testflight}>Download on TestFlight</CtaLink>
                 <Link className="btn soft" href="/start" onClick={() => trackCta("start", where)}>Connect your agent</Link>
               </div>
             </>

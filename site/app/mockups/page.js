@@ -104,8 +104,8 @@ function PressKit() {
       <h2 id="press-kit">Press kit</h2>
       <p className="sc-lede">
         Free to use when you write or post about Yui. Videos are sound off with captions burned in, H.264 MP4. The agent&apos;s
-        words in them are scripted on the demo account; in the app, your own Hermes answers. Yui is open source and in public
-        beta on iPhone, bring your own Hermes.
+        words in them are scripted on the demo account; in the app, your own Hermes answers. Yui is open source and in alpha
+        on iPhone, bring your own agent.
       </p>
       <div className="pk-grid">
         {Object.entries(videos).map(([k, v]) => (

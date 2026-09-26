@@ -91,7 +91,7 @@ export default function Start() {
       </p>
       <div className="start-byo">
         <p>
-          <strong>Bring your own agent.</strong> In the beta, Yui has no agent of its own: a new account stays quiet until you
+          <strong>Bring your own agent.</strong> In the alpha, Yui has no agent of its own: a new account stays quiet until you
           connect one. Hermes is the main path, below. On something else? See <a href="#not-on-hermes">Not on Hermes?</a> No
           Hermes yet? Install it first, pick a model, then start at step 1:
         </p>
@@ -105,10 +105,10 @@ export default function Start() {
             {links.testflight ? (
               <>
                 <p>
-                  Yui is in public beta on TestFlight, listed as <strong>Yui Gui</strong>. Anyone with an iPhone on iOS 26 can join:
+                  The MVP is done and Yui is in alpha on TestFlight, listed as <strong>Yui Gui</strong>. Anyone with an iPhone on iOS 26 can join:
                   open the public link, install, then sign in with Apple.
                 </p>
-                <p><a className="btn start-tf" href={links.testflight}>Get the TestFlight beta</a></p>
+                <p><a className="btn start-tf" href={links.testflight}>Download on TestFlight</a></p>
                 <p>No agent yet, or want us to set you up? <a href="#invite">Ask for a hand</a> at the bottom of this page.</p>
               </>
             ) : (

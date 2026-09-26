@@ -16,7 +16,7 @@ Companion docs: [BIZ-1 marketing and positioning](https://www.yuigui.com/busines
 - **The engine:** every shipped card already writes a dated line on [/progress](https://www.yuigui.com/progress). That line and its screenshot are the raw material for every post. We never post about something that has not shipped.
 - **Channels, in order:** yuigui.com and GitHub (ours, live now), then X, YouTube Shorts and a few short-video apps, then Reddit and Hacker News once, when the gates are met. Where community talk lives (GitHub Discussions or a Discord) is an open question for Chris.
 - **Cadence:** one post a day at most on the brand account, one founder post a week from Chris, the Friday update every week, never skipped.
-- **The honest limit today:** the public beta is bring your own Hermes (or OpenClaw). A new account has no agent in it, so no copy says Yui answers out of the box.
+- **The honest limit today:** the alpha is bring your own agent (Hermes, OpenClaw, Claude Code, a model you run, or a webhook). A new account has no agent in it, so no copy says Yui answers out of the box.
 
 ## Part 1 | Who it is for, in order
 
@@ -44,7 +44,7 @@ Group 4 matters more than its size. People who write a parser or a renderer for 
 **Never say:**
 
 - "The first", "the most compact", "works with any agent". Today it is Hermes, OpenClaw and the webhook.
-- "Download it and it answers." The public beta needs your own agent.
+- "Download it and it answers." The alpha needs your own agent.
 - "Native, unlike everyone else" as a blanket claim. Other SwiftUI renderers exist. What is true: Yui is a finished iPhone app where your agent draws native screens today.
 - Hype words: revolutionary, seamless, AI-powered, next-generation, supercharge, "the future of".
 

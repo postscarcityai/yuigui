@@ -91,7 +91,7 @@ export default function Developers() {
         POST, through the <Link href="/developers/webhook">webhook bridge</Link>. MCP clients like Claude Code and Cursor
         use the <Link href="/developers/mcp">Yui MCP server</Link>, A2A and AG-UI agents join by their Agent Card or URL, and a
         model you run yourself joins through the model bridge (all three below). More come
-        after the MVP. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
+        during the alpha. The plan is in the <Link href="/roadmap#adapters">roadmap</Link>.
       </p>
 
       <h2 id="a2a">Add an A2A agent</h2>

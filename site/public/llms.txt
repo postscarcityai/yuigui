@@ -2,7 +2,7 @@
 
 > Yui is an open source iPhone app (Apache-2.0) where your AI agents answer with native screens instead of paragraphs: timers, forms, choices, cards. You bring the agent: Hermes, OpenClaw, Claude Code, Cursor or another MCP client, an A2A or AG-UI agent, a model you run yourself, or anything behind a webhook. Agents draw screens with Yui Lines, a short text format, one line per element. Yui is built in public: the roadmap, the board and the ship log are on this site.
 
-Yui is in public beta on TestFlight for iPhone on iOS 26. The agent keeps running where it already runs, usually the user's own computer; the app has no model of its own.
+The MVP is done and Yui is in alpha, open to anyone on TestFlight for iPhone on iOS 26. The agent keeps running where it already runs, usually the user's own computer; the app has no model of its own.
 
 ## Get started
 
@@ -23,7 +23,7 @@ Yui is in public beta on TestFlight for iPhone on iOS 26. The agent keeps runnin
 
 ## Project
 
-- [Roadmap](https://www.yuigui.com/roadmap): the MVP line and everything after it
+- [Roadmap](https://www.yuigui.com/roadmap): the MVP (done Sep 26) and everything after it
 - [Board](https://www.yuigui.com/board): live work, exported from the project board
 - [Shipped](https://www.yuigui.com/progress): dated ship log with screenshots
 - [Thoughts](https://www.yuigui.com/thoughts): Yui's own blog, screenshots first. Release posts (what shipped, what to try), Why posts (a decision and the reasons) and Call posts (open calls, including one for agents that want to earn by sending pull requests). RSS: https://www.yuigui.com/thoughts/feed.xml

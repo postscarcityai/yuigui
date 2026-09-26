@@ -1,7 +1,10 @@
 import Link from "next/link";
 import CtaLink from "./components/CtaLink";
 import links from "../content/links.json";
-import MvpBar from "./components/MvpBar";
+import HeroVideo from "./components/HeroVideo";
+import ClipGrid from "./components/ClipGrid";
+import clipsData from "../public/demo/clips/clips.json";
+import { STAGE } from "../lib/stage.mjs";
 import LivePhone from "./mockups/LivePhone";
 import bench from "../content/benchmark.json";
 import { TAGS, niceDate, thoughts } from "../lib/thoughts.mjs";
@@ -28,18 +31,24 @@ const who = [
   ["+", "var(--mint)", "People with no agent yet", "Later. A starter agent, for anyone who wants the app without setting anything up."],
 ];
 
-const shots = [
-  ["/app/chat-light.webp", "A tabata timer the agent drew mid-chat"],
-  ["/app/checkin-light.webp", "A daily check-in, one tap per answer"],
-  ["/app/choose-dark.webp", "A quick choice, with room to type your own"],
-  ["/app/today-dark.webp", "Today's plan as a checklist"],
-];
+// The best screen recordings on the site, up front instead of three pages deep. Each one is the real app
+// on the simulator, one preset, captions burned in (public/demo/clips/clips.json).
+// `from` is the share of the clip to skip: each opens on a quiet "say hi" screen before its preset shows.
+const CLIPS = [["timer", 0.3], ["choose", 0.45], ["compare", 0.3], ["chart", 0.35], ["calc", 0.3], ["gallery", 0.3], ["storyboard", 0.3], ["form", 0.3]]
+  .filter(([k]) => clipsData[k]?.["9x16"])
+  .map(([k, from]) => {
+    const v = clipsData[k]["9x16"];
+    return { src: v.src, poster: v.src.replace(/\.mp4$/, "-still.jpg"), caption: clipsData[k].caption, start: Math.round(v.seconds * from * 10) / 10 };
+  });
 
 // How it works (SITE-15): the benchmark ratios come from the same file the playground reads.
 const tokens = (k) => bench.rows.reduce((a, r) => a + r.counts[k].o200k, 0);
 const vsMin = (tokens("min") / tokens("yl")).toFixed(1);
 const vsTree = (tokens("tree") / tokens("yl")).toFixed(1);
 const HOW = "timer 40/20x8 Tabata";
+
+// The teaser's picture: what a ledger keeps, drawn rather than described. Example rows, not anyone's data.
+const EARN_ROWS = [["Day 1", "Joined Yui"], ["Day 2", "Used Yui"], ["Day 3", "Used Yui"], ["Day 5", "Feedback shipped"], ["Day 9", "Pull request merged"]];
 
 const quotes = [
   "If it asks me a question, I just want a button.",
@@ -49,39 +58,38 @@ const quotes = [
 export default function Home() {
   return (
     <>
-      <section className="hero">
-        <div>
-          <div className="eyebrow">Public beta on TestFlight | built in public | open source</div>
+      <section className="hero hero-v">
+        <div className="hero-text">
+          <div className="eyebrow">MVP done | alpha on TestFlight | open source</div>
           <h1>Meet Yui, a generative user interface.</h1>
           <p className="lede">
             Your agent draws the screen instead of replying in walls of text: a timer, a form, a quick choice.
-            You tap, and it keeps going. A native iPhone app, built for Hermes first.
+            You tap, and it keeps going. A native iPhone app for the agents you already run.
           </p>
           <div className="cta">
             {links.testflight
-              ? <CtaLink cta="testflight" where="/hero" href={links.testflight}>Get the TestFlight beta</CtaLink>
-              : <a className="btn" href="#invite">Request an invite</a>}
-            <CtaLink cta="github" where="/hero" className="btn soft" href={links.github}>Star on GitHub</CtaLink>
-            <Link className="btn ghost" href="/progress">See what shipped</Link>
+              ? <CtaLink cta="testflight" where="/hero" href={links.testflight}>Download on TestFlight</CtaLink>
+              : <a className="btn" href="#invite">Ask for a hand</a>}
+            <CtaLink cta="github" where="/hero" className="btn ghost" href={links.github}>Star on GitHub</CtaLink>
           </div>
           <p className="hero-note">
-            {links.testflight
-              ? "The public beta is open. Bring your own agent: Hermes, OpenClaw, Claude Code, a model you run, or anything behind a webhook."
-              : "Public beta: waiting on Apple\u2019s review. Bring your own agent: Yui talks to Hermes running on your own computer."}
+            Yui is in {STAGE.name}, open to anyone with an iPhone on iOS 26. Bring your own agent: Hermes, OpenClaw, Claude
+            Code, a model you run, or anything behind a webhook.
           </p>
-          {latest ? (
-            <p className="hero-note">
-              On phones now: <Link href={`/changelog#build-${latest.build}`}>Yui {latest.version}, build {latest.build}</Link>, {latest.name} ({latest.date}).
-            </p>
-          ) : null}
         </div>
-        <div className="shots">
-          <img src="/app/chat-light.webp" alt="Yui in light mode: the agent answers a tabata request with a live interval timer and Yes or No buttons" width="460" height="1000" />
-          <img src="/app/chat-dark.webp" alt="The same chat in dark mode" width="460" height="1000" />
-        </div>
+        <HeroVideo />
+        {latest ? (
+          <p className="hero-note hero-latest">
+            On phones now: <Link href={`/changelog#build-${latest.build}`}>Yui {latest.version}, build {latest.build}</Link>, {latest.name} ({latest.date}).
+          </p>
+        ) : null}
       </section>
 
-      <MvpBar />
+      <h2>See it move</h2>
+      <p className="lede" style={{ fontSize: 18 }}>
+        The real app, one screen at a time. Each one started as a short line from an agent. <Link href="/mockups">See every screen</Link>, each with its own link to share.
+      </p>
+      <ClipGrid clips={CLIPS} />
 
       <h2>What works today</h2>
       <div className="grid">
@@ -112,6 +120,25 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="earn-tease" aria-labelledby="earn-tease-h">
+        <div>
+          <div className="eyebrow">Use to earn</div>
+          <h2 id="earn-tease-h">Use Yui early. It counts.</h2>
+          <p>
+            Most AI apps ask you to pay and hand over your data. We think the people who use Yui early, and help build it,
+            should earn a stake in it. So we are starting a private ledger that counts every day you use Yui, back to day one.
+          </p>
+          <p className="earn-fine">What it turns into is being worked out in the open. No token exists and nothing is for sale.</p>
+          <Link className="btn soft" href="/earn#use">How use to earn works</Link>
+        </div>
+        <figure className="earn-ledger" aria-label="An example of what a private ledger keeps">
+          <ol>
+            {EARN_ROWS.map(([d, t]) => <li key={d + t}><span>{t}</span><time>{d}</time></li>)}
+          </ol>
+          <figcaption>An example. Days and what you built, never what you said.</figcaption>
+        </figure>
+      </section>
+
       <h2>Who it is for</h2>
       <div className="who">
         {who.map(([i, c, t, d]) => (
@@ -119,17 +146,6 @@ export default function Home() {
             <div className="chipdot" style={{ background: c }} aria-hidden="true">{i}</div>
             <h3>{t}</h3><p>{d}</p>
           </div>
-        ))}
-      </div>
-
-      <h2>The app today</h2>
-      <p className="lede" style={{ fontSize: 18 }}>Real screenshots from the current test build. Nothing here is a mockup. <Link href="/mockups">See every screen</Link>, each with its own link to share.</p>
-      <div className="gallery">
-        {shots.map(([src, cap]) => (
-          <figure key={src}>
-            <img src={src} alt={cap} width="460" height="1000" loading="lazy" />
-            <figcaption>{cap}</figcaption>
-          </figure>
         ))}
       </div>
 

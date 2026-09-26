@@ -8,9 +8,10 @@ yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch re
 - **Also on phones:** Yui 0.3.0, build 138, since Sep 26. The smooth release: taps answer at once, a long thread scrolls smooth and opens fast (YUI-101), typing keeps up like Notes (YUI-99), shapes that move (YUI-104), restyle Yui by asking (YUI-96), shared agents (YUI-95, YUI-97), group threads in the database and the plugin (YUI-93), speed numbers from real phones (YUI-102), and two fixes from deck feedback (an inline deck as tall as its page, full-screen pages that never come up blank).
 - **Also on phones, build 148 (Sep 26):** YUI-106 (send and the drawer taps answer faster), YUI-70 (agent controls in the drawer), YUI-69 (talk about a setting), YUI-111 (a patch moves a timeline row in place) and YUI-112 (a timeline alone on the stage keeps its row heights). [See it](/mockups#build-148).
 - **Also on phones, build 155 (Sep 26):** YUI-14 (talk hands-free, read the answer), YUI-100 (Yui holds less in memory, checked before every release), a full screen puts the keyboard away and a plan's question sits in the middle of the page (both TestFlight feedback). [See it](/mockups#build-155).
-- **Up next:** YUI-29, then the backlog in the order below. Feel and ease of use first; integration work waits in the backlog.
+- **Up next:** the backlog in the order below, with YUI-29 run during the alpha. Feel and ease of use first; integration work waits in the backlog.
 - **Waiting on Chris:** one look in claude.ai (INT-7) and one in chatgpt.com (INT-8). YUI-91 waits on a Yui Dev install.
-- **MVP:** every card has shipped except YUI-29, a stranger running the whole path alone.
+- **MVP:** done. Chris called it on Sep 26: the MVP is complete, and Yui is in alpha, open to anyone on TestFlight. The board still carries YUI-29 (a stranger running the whole path alone) as a check to run during the alpha.
+- **Use to earn (Sep 26):** use counts, not only work. A private ledger of use and contributions is designed, back to day one ([Ledger](/developers/ledger)); switching it on waits on Chris. The thinking is in [Use to earn](/business/use-to-earn).
 
 ## What the pitch actually says
 
@@ -27,6 +28,8 @@ yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch re
 Short version: chat first, screens on demand, many agents in one app, Chris's own Hermes fleet is customer zero.
 
 ## MVP: the smallest Yui a stranger can use
+
+**Done Sep 26 (Chris): the MVP is complete, and Yui is in alpha.** The list below stays as the record of what it took.
 
 Chris, Sep 24: do not lose focus on the MVP, and keep a deep backlog to pull from. This section is the focus. Everything else in this document is the backlog.
 
@@ -72,7 +75,7 @@ Shipped:
 - YUI-50: chat polish. The composer clears when you send, your text floats up into its bubble, and a down arrow takes you back to the newest message. Shipped in build 57.
 - YUI-74 (shipped Sep 25, in build 91): after sending a photo and dragging the keyboard away, check the thread settles on the newest message and nothing sits under the page pill.
 
-Up next, the last MVP card:
+Still on the board from the MVP, to run during the alpha:
 
 - YUI-29: the acceptance run. A stranger does the whole path.
 
@@ -155,13 +158,15 @@ Work ships in epics: a set of cards that together make one release worth trying.
 
 Chris, Sep 25: only the proposal moves for now. A crypto lawyer will review /earn; the token, chain, NFT and ledger cards stay frozen until then.
 
+Chris, Sep 26: use counts too. People pay AI companies and hand over their data; Yui should reward its early users with an owner's stake, as far as the law allows. Recording starts from day one, at a high level: days you use Yui, pull requests, feedback that ships. The ledger is private, not public. Distributions, airdrops and NFTs come later, only after counsel. The site says use to earn at a high level; the detail stays in the docs ([Use to earn](/business/use-to-earn), [Ledger](/developers/ledger)). The app shows nothing of it until a much later phase.
+
 - SITE-27 (shipped Sep 24): Build to earn, a V1 page on the site, marked draft.
 - SITE-29 (shipped Sep 25): the proposal. Our position, the forms it could take (points plus equity, stock options or units for contributions, a community round kept separate), and open questions for counsel.
 - BIZ-8 (backlog): tokenomics v1: supply, emissions, how value holds.
 - BIZ-9 (backlog): the chain. Chris picked Sui on Sep 24; Polygon is the fallback.
 - BIZ-10 (backlog): legal review, token and equity.
 - BIZ-11 (backlog): contributor NFTs with real perks (First Contributor, Hat Trick).
-- OSS-7 (backlog): a public contribution ledger, points first, tokens later.
+- OSS-7 (designed Sep 26, switching on waits on Chris): a private ledger of use and contributions, back to day one. Raw facts now, a points formula later, tokens only after counsel. Spec: [Ledger](/developers/ledger).
 - SITE-28 (backlog): "How can I help?" around the site, and an open call to agents.
 - BIZ-12 (backlog): build to earn in the go-to-market plan and the pitch.
 
@@ -319,7 +324,7 @@ Deliverables:
 - DONE Sep 24, OSS-1: Yui is open source (Apache-2.0), Yui Lines spec included.
 - DONE Sep 24, YUI-27: beta review prep: privacy answers, review notes, demo account, help link.
 - DONE Sep 24, YUI-22: public TestFlight link. Anyone can install Yui: https://testflight.apple.com/join/ykrYHwet
-- DONE Sep 26: the public TestFlight beta replaced the planned private beta of 20 to 50 technical users (Chris, Sep 26: we are in public beta on TestFlight). Every call to action on the site leads with the public link; the form at the bottom of each page is now Ask for a hand, for people with no agent yet, who want help connecting one, or who want the invite by email.
+- DONE Sep 26: the public TestFlight beta replaced the planned private beta of 20 to 50 technical users (Chris, Sep 26: we are in public beta on TestFlight; later that day he called the MVP done, and the stage is alpha). Every call to action on the site leads with the public link; the form at the bottom of each page is now Ask for a hand, for people with no agent yet, who want help connecting one, or who want the invite by email.
 - NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
 - DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
 - DONE Sep 24, INT-1: the OpenClaw channel plugin. An OpenClaw agent talks in Yui the way a Hermes agent does, screens and taps included.

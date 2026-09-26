@@ -42,6 +42,7 @@ const ORDER = [
   ["sync", "Encrypted sync (draft)", null, "Whether v1 needs tables on two devices (no), and the design for when it does: end to end encrypted, off by default, paired by QR, no new account."],
   ["meal", "Meal photo to macros", null, "Snap a meal, get a macro estimate that says how sure it is, fix the portion, and save it to your meals table. Two replies, no new words."],
   ["games", "Games (draft)", null, "Draft: how an agent could describe a whole new game in lines, a board kit with rule words, not code."],
+  ["ledger", "Ledger (draft)", null, "The private ledger behind use to earn: facts about use and contributions back to day one, never what anyone said, and how it switches on."],
   ["flywheel", "Preset flywheel", null, "How custom screens agents keep sending become presets: the shape log, the weekly report and the checklist."],
   ["admin", "Admin console (scope)", null, "Who runs Yui from the top: five roles, what each controls, why it lives in the app, and what admins can never see."],
 ];
