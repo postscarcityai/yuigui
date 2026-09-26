@@ -105,11 +105,11 @@ export default function Start() {
             {links.testflight ? (
               <>
                 <p>
-                  Yui is in public beta on TestFlight, listed as <strong>Yui Gui</strong>. You need an iPhone on iOS 26. Open the
-                  invite, install, then sign in with Apple.
+                  Yui is in public beta on TestFlight, listed as <strong>Yui Gui</strong>. Anyone with an iPhone on iOS 26 can join:
+                  open the public link, install, then sign in with Apple.
                 </p>
-                <p><a className="btn start-tf" href={links.testflight}>Open the TestFlight invite</a></p>
-                <p>No Hermes yet, or want us to set you up? <a href="#invite">Request an invite</a> at the bottom of this page.</p>
+                <p><a className="btn start-tf" href={links.testflight}>Get the TestFlight beta</a></p>
+                <p>No agent yet, or want us to set you up? <a href="#invite">Ask for a hand</a> at the bottom of this page.</p>
               </>
             ) : (
               <p>The iPhone beta is waiting on Apple&rsquo;s review. Request an invite at the bottom of this page and we will get you in.</p>

@@ -160,7 +160,7 @@ Posted as a reply in the thread they came from, or as a pinned GitHub issue that
 
 ## Part 4 | How testers get in, and how we keep track
 
-- **Door:** the public TestFlight link. Anyone who already runs Hermes can use it. Everyone else asks through Request an invite on yuigui.com (SITE-26, Sep 24), and Chris approves each one.
+- **Door:** the public TestFlight link, open to anyone with an iPhone on iOS 26. People who want a hand (no agent yet, help connecting one, or the invite by email) use Ask for a hand on yuigui.com (SITE-26), and Chris reads each one. This list is for outreach, not for letting people in.
 - **Where they come from:** each post uses the UTM scheme in `docs/UTM-LINKS.md` on the yuigui.com/start link, so we can count which venue sent people without tracking anyone. We also ask once, in the welcome note, where they heard about it.
 - **Count:** TestFlight's external group shows installs and sessions. The backend shows paired connectors. We publish only totals in the Friday update: installs, first rendered screens, issues opened, issues fixed. No names, handles or emails anywhere public.
 - **Cap:** stop inviting when the active cohort hits its size in Part 1, even if a post is still getting replies. Say so in the thread.

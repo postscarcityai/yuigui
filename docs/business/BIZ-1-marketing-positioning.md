@@ -14,7 +14,7 @@ Companion docs: [BIZ-3 revenue models and mission principles](https://www.yuigui
 - **What sets it apart:** your agent draws native iPhone screens, not web pages in a frame, and Hermes agents get a screen for the first time. Phone apps for self-hosted agents already exist (OpenClaw's own app, Hermex); agent-drawn native screens do not.
 - **What we are not:** another AI chatbot. Chat is the doorway, not the product.
 - **The promise we keep:** free and open source for anyone who brings their own agent. It genuinely helps, no matter who you are.
-- **Launch path:** private beta with Hermes users, open source launch, Show HN and Product Hunt, then the App Store. Each step has a gate we must pass before the next.
+- **Launch path:** a public TestFlight beta, Hermes users first (it replaced the planned private beta on Sep 26), open source launch, Show HN and Product Hunt, then the App Store. Each step has a gate we must pass before the next.
 
 ## Mission guardrail
 
@@ -95,7 +95,7 @@ Chris runs a small fleet of Hermes agents. One of them, Arnold, is his trainer. 
 
 **The story for them (Sep 26 2026):** the super app they would build if they could. They ask for a workout timer, a food log and a way to book client calls, and the agent draws each piece on the fly from Yui's native presets. Today that is three apps or a developer. The benchmark's ten screens are exactly that day: 338 tokens to draw, 21 to reopen once saved. Keep the status honest next to it: the starter agent they need is designed, not built.
 
-**What we do now:** let them request an invite and watch the build. Do not market to them yet.
+**What we do now:** point them to the public beta, and to Ask for a hand if they have no agent yet, and let them watch the build. Do not market to them yet.
 
 ### Who we are not chasing
 
@@ -222,7 +222,9 @@ Screenshot shot list for the site, App Store and launch posts (owner: SITE-3):
 
 Four stages. Each has a gate. We do not move on because a date arrived; we move on because the gate is met.
 
-### Stage 1 | Private beta (now to Phase 1 end, late Nov 2026)
+### Stage 1 | Beta (now to Phase 1 end, late Nov 2026)
+
+Update Sep 26 2026: the beta is public on TestFlight, open to anyone. The hand-picked users below are outreach, not the only way in.
 
 - **Who:** Chris's fleet, then 10 to 20 Hermes users invited by hand from public channels (BIZ-2 builds the list, Chris approves every message).
 - **What they get:** TestFlight plus the Hermes `yui` plugin (YUI-7).

@@ -33,17 +33,18 @@ export default function Privacy() {
     <>
       <div className="eyebrow">Privacy</div>
       <h1>What Yui keeps, and how to delete it.</h1>
-      <p style={{ color: "var(--muted)" }}>Last updated September 24, 2026.</p>
+      <p style={{ color: "var(--muted)" }}>Last updated September 26, 2026.</p>
 
       <h2 id="invites">Invites</h2>
       <p>
-        Yui&apos;s beta is by invite. When you ask for one, or we invite you, we store your first and last name, the
+        Yui&apos;s beta is public on TestFlight. You can also ask us for an invite, or for a hand getting set up, with the
+        form at the bottom of each page. When you do, or we invite you, we store your first and last name, the
         email you give us (the one on your Apple ID, because that is where TestFlight sends the invite), your phone
         number, which page and link brought you, your browser type, and where your invite stands: requested, approved,
         invited, claimed or declined. Nobody but Yui&apos;s server can read that table.
       </p>
       <ul>
-        <li>We use it only to review your request and get you into Yui. Your phone number is for reaching you about your invite, never for marketing.</li>
+        <li>We use it only to review your request and get you into Yui. Your phone number is for reaching you about your request, never for marketing.</li>
         <li>When we approve you, we send your name and email to Apple, which adds you to Yui&apos;s TestFlight beta and emails you the invite. We send no email of our own.</li>
         <li>Your invite also carries a one-time code for a link like yuigui.com/i/&hellip;. We keep only a scrambled (hashed) form of it. It works once.</li>
         <li>When you first sign in to the app, Yui matches your invite by that email, or by the code if you hid your email, and links it to your account.</li>
@@ -151,7 +152,7 @@ export default function Privacy() {
       <h2>This website</h2>
       <p>
         yuigui.com uses Google Analytics to count visits. It never sees an invite code: an invite link is counted as
-        yuigui.com/i/ without it. The request-an-invite form writes to the <code>yui_invites</code> table, described under Invites above. The old
+        yuigui.com/i/ without it. The form at the bottom of each page writes to the <code>yui_invites</code> table, described under Invites above. The old
         waitlist (<code>yui_waitlist</code>) is closed, and its entries became invite requests. To be removed, email us.
       </p>
     </>

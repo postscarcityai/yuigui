@@ -133,7 +133,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 
 - YUI-56 (built, in build 61): invites end to end, from request to first sign-in. It waits on one live test with Apple's TestFlight email before it counts as done.
 - YUI-57: default agents per invite, client-safe agents only. Step 1, the spec and a playground mock, shipped Sep 25 ([Shared agents](/developers/agents): templates an invite carries, grants a client holds, revoke, and the client-safe rule a shared agent must pass). Step 2, YUI-95, shipped Sep 25: grants and templates in the database, `grant.py` (refuses any agent that is not client-safe), the host's sandbox check before every turn for someone who is not the owner, and a first sign-in on the simulator (the invitee finds the agent in its look with its first message; a revoke removes it). Next in the app: the owner's invite plan and the client's "Shared by" settings.
-- SITE-26 (shipped Sep 24): Request an invite replaced the waitlist on the site.
+- SITE-26 (shipped Sep 24): Request an invite replaced the waitlist on the site. Since Sep 26 it is Ask for a hand, beside the public TestFlight beta.
 
 **Done: WAR-1, the war room (shipped in build 74, Sep 25).** Screen 2 becomes a real dashboard for running Yui from Yui: a timeline of what shipped and what is queued, quick links to the site, and a reorder mode that sets board priority by dragging, with no agent turn in between (Chris, Sep 25).
 
@@ -319,7 +319,7 @@ Deliverables:
 - DONE Sep 24, OSS-1: Yui is open source (Apache-2.0), Yui Lines spec included.
 - DONE Sep 24, YUI-27: beta review prep: privacy answers, review notes, demo account, help link.
 - DONE Sep 24, YUI-22: public TestFlight link. Anyone can install Yui: https://testflight.apple.com/join/ykrYHwet
-- OPEN: the private beta of 20 to 50 technical users from the Hermes and OpenClaw communities. The public link may replace it; Chris's call.
+- DONE Sep 26: the public TestFlight beta replaced the planned private beta of 20 to 50 technical users (Chris, Sep 26: we are in public beta on TestFlight). Every call to action on the site leads with the public link; the form at the bottom of each page is now Ask for a hand, for people with no agent yet, who want help connecting one, or who want the invite by email.
 - NOT STARTED, INT-5: zero-install connect through Hermes's relay connector contract (`hermes gateway enroll`): Yui hosts the connector, the user enrolls once, their agents appear in the app.
 - DONE Sep 24, INT-2: the webhook bridge, Python and Node. Any agent that answers an HTTP POST can talk in Yui, no Hermes needed.
 - DONE Sep 24, INT-1: the OpenClaw channel plugin. An OpenClaw agent talks in Yui the way a Hermes agent does, screens and taps included.

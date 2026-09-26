@@ -7,7 +7,7 @@ import { keepUtm, trackCta } from "../../lib/track.mjs";
 import CtaLink from "./CtaLink";
 import InviteRequest from "./InviteRequest";
 
-// The ways in, at the bottom of every page: the beta, the code, lending your agent (SITE-24), requesting an invite (SITE-26).
+// The ways in, at the bottom of every page: the public beta, the code, lending your agent (SITE-24), and asking for a hand (SITE-26).
 export default function GetYui() {
   const where = usePathname() || "/";
   useEffect(keepUtm, []);
@@ -16,11 +16,14 @@ export default function GetYui() {
       <h2 id="getyui-h">Try Yui, or help build it</h2>
       <div className="getyui-grid">
         <div className="card">
-          <h3>Already run Hermes?</h3>
+          <h3>Get the public beta</h3>
           {links.testflight ? (
             <>
-              <p>Install Yui from the public TestFlight link and pair it with Hermes on your own computer. New to agents? Request an invite below.</p>
-              <CtaLink cta="testflight" where={where} href={links.testflight}>Get the TestFlight beta</CtaLink>
+              <p>Yui is in public beta on TestFlight for iPhone on iOS 26. Install it, then connect the agent you already run: Hermes, OpenClaw, Claude Code, a model you run, or anything behind a webhook.</p>
+              <div className="cta">
+                <CtaLink cta="testflight" where={where} href={links.testflight}>Get the TestFlight beta</CtaLink>
+                <Link className="btn soft" href="/start" onClick={() => trackCta("start", where)}>Connect your agent</Link>
+              </div>
             </>
           ) : (
             <p>The public beta is waiting on Apple&rsquo;s review. It will need Hermes running on your own computer. Request an invite below and we will get you in.</p>

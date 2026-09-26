@@ -61,7 +61,7 @@ Each model: what it is, comparables with sources, rough numbers, pros, cons, wha
 **Pros:** the largest market (people with no agent). Predictable revenue. Matches Chris's end-state vision.
 **Cons:** the only model with real inference risk. Competes on price with $8 to $20 general chatbots that have far bigger budgets. Needs onboarding good enough that a non-technical person gets value in the first five minutes.
 **Needs built:** hosted agent runtime on the relay (Phase 4), onboarding interview and starter agents (Phase 4), accounts (done, YUI-6), usage metering per user, StoreKit 2 subscriptions and receipt validation, a plain usage meter screen, spend caps.
-**When:** Phase 4 to 6 (Feb to Jun 2027). Price only after the private beta measures real per-user cost.
+**When:** Phase 4 to 6 (Feb to Jun 2027). Price only after the beta measures real per-user cost.
 
 ### Model B | Usage credits for images, voice and model calls
 
@@ -137,7 +137,7 @@ The relay connection for a user's own self-hosted agent stays free (principle 1)
 **Pros:** the Nabu Casa model is the closest match to Yui's values: the paid service funds the free core, and users pay because it is convenient, not because they are locked in. Serves the Hermes and OpenClaw crowd, the stated early adopters.
 **Cons:** hosting other people's agents means running their code and tools: security isolation, abuse handling and support load are real costs. Small market until agents go mainstream.
 **Needs built:** multi-tenant relay (Phase 5), connector enrollment, isolated agent runtime (Cloudflare Workers + Durable Objects or containers), monitoring, a status page.
-**When:** Phase 5 (Mar 2027) for the free relay; managed hosting after the private beta shows demand.
+**When:** Phase 5 (Mar 2027) for the free relay; managed hosting after the beta shows demand.
 
 ### Model F | Sponsorships and grants for the open-source project
 
@@ -161,7 +161,7 @@ The relay connection for a user's own self-hosted agent stays free (principle 1)
 - **Phase 2 (Dec 2026):** per-agent theme tokens (YUI-20). Feeds C.
 - **Phase 3 (Jan 2027):** key vault (BYO keys stay first-class on every tier), media pipeline (YUI-21), StoreKit consumables, credit ledger, per-action price display. Unlocks B.
 - **Phase 4 (Feb 2027):** hosted default agent, onboarding interview, starter agents, usage metering, connector library v0. Unlocks A, starts D.
-- **Phase 5 (Mar 2027):** multi-tenant relay, connector enrollment for other people's Hermes, private beta that measures per-user cost. Unlocks E and prices A.
+- **Phase 5 (Mar 2027):** multi-tenant relay, connector enrollment for other people's Hermes, a beta that measures per-user cost. Unlocks E and prices A.
 - **Phase 6 (Apr to Jun 2027):** StoreKit subscriptions, on-device Foundation Models to cut cost, public launch. Ships A.
 - **After launch:** roles, admin, audit log, org billing. Ships D.
 - **Any time:** public repos, license, sponsors page, grant applications. F.

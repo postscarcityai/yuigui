@@ -2,15 +2,71 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 166,
-    "site": 415,
+    "site": 416,
     "builds": 34,
-    "shipped": 213,
-    "screenshots": 465
+    "shipped": 214,
+    "screenshots": 468
   },
   "days": [
     {
       "date": "2026-09-26",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-26T18:30:58.561Z",
+          "title": "The site says it plainly: Yui is in public beta",
+          "card": null,
+          "anchor": "the-site-says-it-plainly-yui-is-in-public-beta",
+          "images": [
+            {
+              "src": "/progress/beta-band-light.webp",
+              "alt": "The band at the bottom of every page: Get the public beta, with Get the TestFlight beta and Connect your agent buttons."
+            },
+            {
+              "src": "/progress/beta-hand-light.webp",
+              "alt": "The Ask for a hand form in light mode: the public TestFlight beta is open to anyone, and the form is for help, an agent or the invite by email."
+            },
+            {
+              "src": "/progress/beta-hand-dark.webp",
+              "alt": "The same Ask for a hand form in dark mode."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 166,
+            "site": 416,
+            "builds": 34,
+            "shipped": 214
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T18:23:14.000Z",
+          "title": "Flows run the same in every parser, and My flows has a first look",
+          "card": "FLOW-1",
+          "anchor": "flows-run-the-same-in-every-parser-and-my-flows-has-a-first-look",
+          "images": [
+            {
+              "src": "/progress/flow1-myflows-list-light.webp",
+              "alt": "My flows in light mode: your copy of the workout check-in at the top, then five starter flows, each with a Run button."
+            },
+            {
+              "src": "/progress/flow1-myflows-path-dark.webp",
+              "alt": "The path a check-in took, in dark mode: nine numbered steps with their answers, a skipped step greyed out, and the rule each branch followed."
+            },
+            {
+              "src": "/progress/flow1-myflows-run-light.webp",
+              "alt": "A flow running: step 3 of 9, a page saying take it easy today, with Back and Next."
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 166,
+            "site": 416,
+            "builds": 34,
+            "shipped": 213
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-26T18:06:07.000Z",
@@ -32,7 +88,7 @@
             "app": 164,
             "site": 413,
             "builds": 34,
-            "shipped": 213
+            "shipped": 212
           }
         },
         {
@@ -64,7 +120,7 @@
             "app": 163,
             "site": 410,
             "builds": 34,
-            "shipped": 212
+            "shipped": 211
           }
         },
         {
@@ -92,7 +148,7 @@
             "app": 163,
             "site": 409,
             "builds": 34,
-            "shipped": 211
+            "shipped": 210
           }
         },
         {
@@ -124,7 +180,7 @@
             "app": 163,
             "site": 408,
             "builds": 34,
-            "shipped": 210
+            "shipped": 209
           }
         },
         {
@@ -144,7 +200,7 @@
             "app": 162,
             "site": 404,
             "builds": 34,
-            "shipped": 209
+            "shipped": 208
           }
         },
         {
@@ -156,7 +212,7 @@
             "app": 161,
             "site": 403,
             "builds": 34,
-            "shipped": 208
+            "shipped": 207
           }
         },
         {
@@ -180,7 +236,7 @@
             "app": 160,
             "site": 403,
             "builds": 33,
-            "shipped": 208
+            "shipped": 207
           }
         },
         {
@@ -208,7 +264,7 @@
             "app": 159,
             "site": 400,
             "builds": 33,
-            "shipped": 207
+            "shipped": 206
           }
         },
         {
@@ -236,7 +292,7 @@
             "app": 159,
             "site": 399,
             "builds": 33,
-            "shipped": 206
+            "shipped": 205
           }
         },
         {
@@ -264,7 +320,7 @@
             "app": 159,
             "site": 398,
             "builds": 33,
-            "shipped": 205
+            "shipped": 204
           }
         },
         {
@@ -279,7 +335,7 @@
             "app": 158,
             "site": 397,
             "builds": 33,
-            "shipped": 204
+            "shipped": 203
           }
         },
         {
@@ -294,7 +350,7 @@
             "app": 157,
             "site": 394,
             "builds": 33,
-            "shipped": 203
+            "shipped": 202
           }
         },
         {
@@ -322,7 +378,7 @@
             "app": 157,
             "site": 393,
             "builds": 33,
-            "shipped": 202
+            "shipped": 201
           }
         },
         {
@@ -342,7 +398,7 @@
             "app": 157,
             "site": 391,
             "builds": 33,
-            "shipped": 201
+            "shipped": 200
           }
         },
         {
@@ -362,7 +418,7 @@
             "app": 156,
             "site": 389,
             "builds": 33,
-            "shipped": 200
+            "shipped": 199
           }
         },
         {
@@ -398,7 +454,7 @@
             "app": 156,
             "site": 388,
             "builds": 33,
-            "shipped": 199
+            "shipped": 198
           }
         },
         {
@@ -422,7 +478,7 @@
             "app": 156,
             "site": 387,
             "builds": 33,
-            "shipped": 198
+            "shipped": 197
           }
         },
         {
@@ -450,7 +506,7 @@
             "app": 155,
             "site": 384,
             "builds": 33,
-            "shipped": 197
+            "shipped": 196
           }
         },
         {
@@ -462,7 +518,7 @@
             "app": 155,
             "site": 382,
             "builds": 33,
-            "shipped": 196
+            "shipped": 195
           }
         },
         {
@@ -490,7 +546,7 @@
             "app": 155,
             "site": 382,
             "builds": 32,
-            "shipped": 196
+            "shipped": 195
           }
         },
         {
@@ -518,7 +574,7 @@
             "app": 155,
             "site": 381,
             "builds": 32,
-            "shipped": 195
+            "shipped": 194
           }
         },
         {
@@ -546,7 +602,7 @@
             "app": 155,
             "site": 379,
             "builds": 32,
-            "shipped": 194
+            "shipped": 193
           }
         },
         {
@@ -574,7 +630,7 @@
             "app": 154,
             "site": 378,
             "builds": 32,
-            "shipped": 193
+            "shipped": 192
           }
         },
         {
@@ -606,7 +662,7 @@
             "app": 153,
             "site": 375,
             "builds": 32,
-            "shipped": 192
+            "shipped": 191
           }
         },
         {
@@ -630,7 +686,7 @@
             "app": 152,
             "site": 373,
             "builds": 32,
-            "shipped": 191
+            "shipped": 190
           }
         },
         {
@@ -645,7 +701,7 @@
             "app": 150,
             "site": 371,
             "builds": 32,
-            "shipped": 190
+            "shipped": 189
           }
         },
         {
@@ -657,7 +713,7 @@
             "app": 148,
             "site": 366,
             "builds": 32,
-            "shipped": 189
+            "shipped": 188
           }
         },
         {
@@ -681,7 +737,7 @@
             "app": 148,
             "site": 363,
             "builds": 31,
-            "shipped": 189
+            "shipped": 188
           }
         },
         {
@@ -696,7 +752,7 @@
             "app": 147,
             "site": 360,
             "builds": 31,
-            "shipped": 188
+            "shipped": 187
           }
         },
         {
@@ -716,7 +772,7 @@
             "app": 147,
             "site": 359,
             "builds": 31,
-            "shipped": 187
+            "shipped": 186
           }
         },
         {
@@ -760,7 +816,7 @@
             "app": 146,
             "site": 356,
             "builds": 31,
-            "shipped": 186
+            "shipped": 185
           }
         },
         {
@@ -775,7 +831,7 @@
             "app": 144,
             "site": 354,
             "builds": 31,
-            "shipped": 185
+            "shipped": 184
           }
         },
         {
@@ -799,7 +855,7 @@
             "app": 144,
             "site": 352,
             "builds": 31,
-            "shipped": 184
+            "shipped": 183
           }
         },
         {
@@ -814,7 +870,7 @@
             "app": 142,
             "site": 350,
             "builds": 31,
-            "shipped": 183
+            "shipped": 182
           }
         },
         {
@@ -838,7 +894,7 @@
             "app": 141,
             "site": 347,
             "builds": 31,
-            "shipped": 182
+            "shipped": 181
           }
         },
         {
@@ -874,7 +930,7 @@
             "app": 141,
             "site": 346,
             "builds": 31,
-            "shipped": 181
+            "shipped": 180
           }
         },
         {
@@ -898,7 +954,7 @@
             "app": 139,
             "site": 344,
             "builds": 31,
-            "shipped": 180
+            "shipped": 179
           }
         },
         {
@@ -922,7 +978,7 @@
             "app": 139,
             "site": 343,
             "builds": 31,
-            "shipped": 179
+            "shipped": 178
           }
         },
         {
@@ -950,7 +1006,7 @@
             "app": 139,
             "site": 341,
             "builds": 31,
-            "shipped": 178
+            "shipped": 177
           }
         },
         {
@@ -978,7 +1034,7 @@
             "app": 139,
             "site": 337,
             "builds": 31,
-            "shipped": 177
+            "shipped": 176
           }
         },
         {
@@ -990,7 +1046,7 @@
             "app": 138,
             "site": 333,
             "builds": 31,
-            "shipped": 176
+            "shipped": 175
           }
         },
         {
@@ -1014,11 +1070,18 @@
             "app": 137,
             "site": 332,
             "builds": 30,
-            "shipped": 176
+            "shipped": 175
           }
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "910a144",
+          "at": "2026-09-26T18:23:14.000Z",
+          "text": "Flows run the same in every hub parser, and My flows has a first look (FLOW-1 step 2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/910a144"
+        },
         {
           "repo": "app",
           "sha": "8578cd9",
@@ -1847,7 +1910,7 @@
             "app": 136,
             "site": 329,
             "builds": 30,
-            "shipped": 175
+            "shipped": 174
           }
         },
         {
@@ -1859,7 +1922,7 @@
             "app": 135,
             "site": 328,
             "builds": 30,
-            "shipped": 174
+            "shipped": 173
           }
         },
         {
@@ -1883,7 +1946,7 @@
             "app": 135,
             "site": 328,
             "builds": 29,
-            "shipped": 174
+            "shipped": 173
           }
         },
         {
@@ -1907,7 +1970,7 @@
             "app": 134,
             "site": 326,
             "builds": 29,
-            "shipped": 173
+            "shipped": 172
           }
         },
         {
@@ -1922,7 +1985,7 @@
             "app": 133,
             "site": 324,
             "builds": 29,
-            "shipped": 172
+            "shipped": 171
           }
         },
         {
@@ -1954,7 +2017,7 @@
             "app": 132,
             "site": 321,
             "builds": 29,
-            "shipped": 171
+            "shipped": 170
           }
         },
         {
@@ -1986,7 +2049,7 @@
             "app": 131,
             "site": 319,
             "builds": 29,
-            "shipped": 170
+            "shipped": 169
           }
         },
         {
@@ -2010,7 +2073,7 @@
             "app": 130,
             "site": 318,
             "builds": 29,
-            "shipped": 169
+            "shipped": 168
           }
         },
         {
@@ -2042,7 +2105,7 @@
             "app": 130,
             "site": 317,
             "builds": 29,
-            "shipped": 168
+            "shipped": 167
           }
         },
         {
@@ -2074,7 +2137,7 @@
             "app": 128,
             "site": 313,
             "builds": 29,
-            "shipped": 167
+            "shipped": 166
           }
         },
         {
@@ -2098,7 +2161,7 @@
             "app": 128,
             "site": 312,
             "builds": 29,
-            "shipped": 166
+            "shipped": 165
           }
         },
         {
@@ -2138,7 +2201,7 @@
             "app": 128,
             "site": 310,
             "builds": 29,
-            "shipped": 165
+            "shipped": 164
           }
         },
         {
@@ -2174,7 +2237,7 @@
             "app": 126,
             "site": 308,
             "builds": 29,
-            "shipped": 164
+            "shipped": 163
           }
         },
         {
@@ -2206,7 +2269,7 @@
             "app": 126,
             "site": 306,
             "builds": 29,
-            "shipped": 163
+            "shipped": 162
           }
         },
         {
@@ -2234,7 +2297,7 @@
             "app": 125,
             "site": 305,
             "builds": 29,
-            "shipped": 162
+            "shipped": 161
           }
         },
         {
@@ -2266,7 +2329,7 @@
             "app": 123,
             "site": 304,
             "builds": 29,
-            "shipped": 161
+            "shipped": 160
           }
         },
         {
@@ -2302,7 +2365,7 @@
             "app": 122,
             "site": 302,
             "builds": 29,
-            "shipped": 160
+            "shipped": 159
           }
         },
         {
@@ -2317,7 +2380,7 @@
             "app": 122,
             "site": 301,
             "builds": 29,
-            "shipped": 159
+            "shipped": 158
           }
         },
         {
@@ -2329,7 +2392,7 @@
             "app": 122,
             "site": 300,
             "builds": 29,
-            "shipped": 158
+            "shipped": 157
           }
         },
         {
@@ -2361,7 +2424,7 @@
             "app": 122,
             "site": 300,
             "builds": 28,
-            "shipped": 158
+            "shipped": 157
           }
         },
         {
@@ -2393,7 +2456,7 @@
             "app": 120,
             "site": 296,
             "builds": 28,
-            "shipped": 157
+            "shipped": 156
           }
         },
         {
@@ -2425,7 +2488,7 @@
             "app": 119,
             "site": 293,
             "builds": 28,
-            "shipped": 156
+            "shipped": 155
           }
         },
         {
@@ -2449,7 +2512,7 @@
             "app": 119,
             "site": 292,
             "builds": 28,
-            "shipped": 155
+            "shipped": 154
           }
         },
         {
@@ -2477,7 +2540,7 @@
             "app": 116,
             "site": 288,
             "builds": 28,
-            "shipped": 154
+            "shipped": 153
           }
         },
         {
@@ -2505,7 +2568,7 @@
             "app": 116,
             "site": 287,
             "builds": 28,
-            "shipped": 153
+            "shipped": 152
           }
         },
         {
@@ -2520,7 +2583,7 @@
             "app": 116,
             "site": 285,
             "builds": 28,
-            "shipped": 152
+            "shipped": 151
           }
         },
         {
@@ -2544,7 +2607,7 @@
             "app": 116,
             "site": 284,
             "builds": 28,
-            "shipped": 151
+            "shipped": 150
           }
         },
         {
@@ -2559,7 +2622,7 @@
             "app": 115,
             "site": 283,
             "builds": 28,
-            "shipped": 150
+            "shipped": 149
           }
         },
         {
@@ -2583,7 +2646,7 @@
             "app": 115,
             "site": 282,
             "builds": 28,
-            "shipped": 149
+            "shipped": 148
           }
         },
         {
@@ -2598,7 +2661,7 @@
             "app": 112,
             "site": 279,
             "builds": 28,
-            "shipped": 148
+            "shipped": 147
           }
         },
         {
@@ -2626,7 +2689,7 @@
             "app": 109,
             "site": 274,
             "builds": 28,
-            "shipped": 147
+            "shipped": 146
           }
         },
         {
@@ -2654,7 +2717,7 @@
             "app": 108,
             "site": 273,
             "builds": 28,
-            "shipped": 146
+            "shipped": 145
           }
         },
         {
@@ -2669,7 +2732,7 @@
             "app": 108,
             "site": 271,
             "builds": 28,
-            "shipped": 145
+            "shipped": 144
           }
         },
         {
@@ -2693,7 +2756,7 @@
             "app": 108,
             "site": 269,
             "builds": 28,
-            "shipped": 144
+            "shipped": 143
           }
         },
         {
@@ -2716,34 +2779,6 @@
           "totals": {
             "app": 108,
             "site": 268,
-            "builds": 28,
-            "shipped": 143
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-25T19:26:25.000Z",
-          "title": "Flows run the same in every parser, and My flows has a first look",
-          "card": "FLOW-1",
-          "anchor": "flows-run-the-same-in-every-parser-and-my-flows-has-a-first-look",
-          "images": [
-            {
-              "src": "/progress/flow1-myflows-list-light.webp",
-              "alt": "My flows in light mode: your copy of the workout check-in at the top, then five starter flows, each with a Run button."
-            },
-            {
-              "src": "/progress/flow1-myflows-path-dark.webp",
-              "alt": "The path a check-in took, in dark mode: nine numbered steps with their answers, a skipped step greyed out, and the rule each branch followed."
-            },
-            {
-              "src": "/progress/flow1-myflows-run-light.webp",
-              "alt": "A flow running: step 3 of 9, a page saying take it easy today, with Back and Next."
-            }
-          ],
-          "commits": 3,
-          "totals": {
-            "app": 104,
-            "site": 265,
             "builds": 28,
             "shipped": 142
           }
@@ -2768,7 +2803,7 @@
               "alt": "After Landing page instead, light: step 4 of 6, What should a visitor do first? Call, Book, Buy, Sign up, Read"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 104,
             "site": 265,

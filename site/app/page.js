@@ -51,7 +51,7 @@ export default function Home() {
     <>
       <section className="hero">
         <div>
-          <div className="eyebrow">Built in public | open source</div>
+          <div className="eyebrow">Public beta on TestFlight | built in public | open source</div>
           <h1>Meet Yui, a generative user interface.</h1>
           <p className="lede">
             Your agent draws the screen instead of replying in walls of text: a timer, a form, a quick choice.

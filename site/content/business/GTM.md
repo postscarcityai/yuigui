@@ -66,7 +66,7 @@ Handles are `yuiguiai` everywhere (BIZ-5 checked them). Every link in a post car
 
 ### yuigui.com (ours, live)
 
-- **Role:** the public record and the landing spot for every post. Every page ends with the beta, the repos and Request an invite.
+- **Role:** the public record and the landing spot for every post. Every page ends with the public TestFlight beta, the repos and Ask for a hand.
 - **What goes there:** the ship log, the Friday update, long-form [notes](https://www.yuigui.com/notes), the business docs, See it, the playground.
 - **Cadence:** every ship, every Friday, a long-form note every week or two.
 - **Gate:** none. Publishing our own record is covered by the open source grant.
