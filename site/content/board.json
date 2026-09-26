@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T09:10:47.250Z",
+  "updated": "2026-09-26T09:40:51.788Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -88,11 +88,6 @@
           "key": "YUI-94",
           "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
           "waiting": true
-        },
-        {
-          "key": "YUI-100",
-          "title": "Memory audit",
-          "summary": "Find and fix leaks, bounded caches, a memory ceiling test"
         },
         {
           "key": "YUI-103",
@@ -233,14 +228,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-112",
-          "title": "A timeline opened alone on the stage stretches its rows to fill the screen"
-        },
-        {
-          "key": "YUI-89",
-          "title": "Step 1",
-          "summary": "Agent tables in the Python, Kotlin and Rust parsers",
-          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers"
+          "key": "YUI-100",
+          "title": "Memory audit",
+          "summary": "Find and fix leaks, bounded caches, a memory ceiling test"
         }
       ]
     },
@@ -248,6 +238,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-112",
+          "title": "A timeline opened alone on the stage stretches its rows to fill the screen",
+          "summary": "A timeline opened on its own sits at the top",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-timeline-opened-on-its-own-sits-at-the-top"
+        },
+        {
+          "key": "YUI-89",
+          "title": "Step 1",
+          "summary": "Agent tables in the Python, Kotlin and Rust parsers",
+          "shipped": "2026-09-26",
+          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers"
+        },
         {
           "key": "YUI-85",
           "title": "The channel guide teaches a sketch under a page",
