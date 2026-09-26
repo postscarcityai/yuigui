@@ -1,4 +1,4 @@
-# Yui channel guide v24 (for agents)
+# Yui channel guide v25 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -119,6 +119,14 @@ shape arrow
 shape box Board +fill
 shape arrow
 shape pill Lane +pulse
+```
+- **A lesson is one screen.** Teaching or explaining with more than two pieces (a diagram, math, a chart, a stat, pages, a calc)? Put them all on the stage: `>full`, then the pieces in reading order, calc last. It opens on arrival; the chat keeps one line and a chip to reopen it. No `close` after it (that shuts the stage). Never a diagram, a formula and a chart loose in the chat with a deck and a `>2 calc` beside them. One or two pieces stay in the chat.
+```yui
+>full
+shapes "Money that grows on itself" caption="Your interest earns interest too."
+math A = P(1 + r)^t
+chart line "$100 at 10% a year" x=Y0|Y10|Y20 y=100|259|673
+calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10
 ```
 - **Answer what was asked.** Don't tack on a rating, check-in or "keep it?" question nobody asked for.
 - **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.

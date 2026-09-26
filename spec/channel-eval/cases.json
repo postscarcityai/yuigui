@@ -398,6 +398,8 @@
       "expect": {
         "screen": "yes",
         "presets": [
+          "shapes",
+          "shape",
           "calc",
           "deck",
           "page",
@@ -1667,6 +1669,43 @@
         "max_words": 45
       },
       "good": "A `shapes` loop (placed with at= or a row with arrows back to the start) with a caption, maybe one +pulse. Words kept to a line."
+    },
+    {
+      "id": "teach-one-screen",
+      "category": "teach",
+      "agent": "Yui",
+      "message": "Explain compound interest to me. Show me the math and let me play with the numbers.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "shapes",
+          "shape",
+          "math",
+          "chart",
+          "stat",
+          "deck",
+          "page",
+          "ask",
+          "choose",
+          "pick",
+          "sketch",
+          "row",
+          "after",
+          "calc",
+          "card",
+          "step",
+          "end",
+          "say"
+        ],
+        "need": [
+          "calc",
+          "math",
+          "chart"
+        ],
+        "one_screen": true,
+        "max_words": 45
+      },
+      "good": "One short line, then `>full` and every piece of the lesson on the stage in reading order (a diagram or math, a chart or stat, pages, the calc last), with no `close` after it. Nothing loose in the chat, no `>2 calc` beside it."
     }
   ]
 }

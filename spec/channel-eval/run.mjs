@@ -21,7 +21,7 @@
 import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { Parser, PRESETS, resolve, tokenize, pageOf } from "../../site/lib/yl/yl.mjs";
+import { Parser, PRESETS, resolve, tokenize, pageOf, onStage } from "../../site/lib/yl/yl.mjs";
 
 const HERE = new URL(".", import.meta.url);
 const arg = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : d; };
@@ -202,6 +202,14 @@ export function score(c, reply) {
       const pr = o.props || {};
       if (!pr.body && !(pr.points || []).length) fails.push(`one flow: a page with only a title :: ${o.line.trim()}`);
     }
+  }
+  // One screen (feedback APSw0dsa): a lesson of more than two pieces is all on the stage,
+  // nothing loose in the chat and nothing sent to a page beside it.
+  if (e.one_screen) {
+    const top = adds.filter((o) => o.preset !== "say" && !o.in);
+    const off = top.filter((o) => !onStage(o, {}));
+    if (top.length > 2 && off.length) fails.push(`one screen: ${off.length} of ${top.length} pieces off the stage :: ${off[0].line.trim()}`);
+    if (top.length > 2 && good.at(-1)?.op === "close") fails.push("one screen: ends in close, so the stage never opens");
   }
   // Pages (YUI-31): something meant to stay put goes on screen 2 or 3.
   if (e.page && !adds.some((o) => pageOf(o.screen) !== 1)) fails.push("page: nothing on screen 2 or 3");
