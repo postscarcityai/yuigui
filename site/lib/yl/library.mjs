@@ -2,7 +2,8 @@
 // for yuigui.com/developers/library and /library.json. Pure data, no React.
 // A preset in PRESETS (yl.mjs) with no entry here fails scripts/library-check.mjs.
 import { PRESETS } from "./yl.mjs";
-import { STARTER_FLOWS } from "./starter-flows.mjs";
+import { FLOW_VARIANTS, STARTER_FLOWS, graphChart, savedGraph } from "./starter-flows.mjs";
+import { parse } from "./yl.mjs";
 import { findDocLeak, findLeak } from "../public-guard.mjs";
 
 export const SITE = "https://www.yuigui.com";
@@ -347,6 +348,7 @@ export const INTENTS = {
   "workout-checkin": ["check in before a workout", "ask about sleep and soreness", "adjust a training plan"],
   onboarding: ["onboard a new user", "first run welcome", "learn about someone and suggest agents"],
   connect: ["connect tools", "ask permission to use apps", "set up integrations"],
+  "restaurant-intake": ["restaurant website intake", "plan a site for a restaurant or cafe", "menu and online orders", "make a variant of a flow"],
 };
 
 const docUrl = (anchor) => `${SITE}/yl#${anchor}`;
@@ -359,7 +361,10 @@ export const presets = () => PRESETS.map((name) => {
   return { name, kind: "preset", ...e, intents: INTENTS[name] || [], docs: docUrl(e.doc) };
 });
 
-export const flows = () => STARTER_FLOWS.map((f) => ({
+// Each starter, then its variants (FLOWS.md, section 9) right under it. A variant
+// sends as its lines (a phone that never saw it builds it from the base), and on the
+// page draws as the chart its changes make, the changed steps dashed.
+export const flows = () => STARTER_FLOWS.flatMap((f) => [{
   name: f.name,
   kind: "flow",
   title: f.title,
@@ -371,18 +376,39 @@ export const flows = () => STARTER_FLOWS.map((f) => ({
   source: f.source,
   demo: `flow-${f.name}`,
   docs: `${SITE}/developers/flows`,
-}));
+}, ...FLOW_VARIANTS.filter((v) => v.base === f.name).map((v) => variantEntry(v, f))]);
+
+function variantEntry(v, base) {
+  const yl = `flow ${v.base} as=${v.name}\n${v.lines}\nend`;
+  const changes = parse(yl).find((o) => o.op === "patch")?.props.changes || [];
+  const saved = savedGraph(v.name);
+  return {
+    name: v.name,
+    kind: "flow",
+    title: saved?.title || v.name,
+    purpose: v.blurb,
+    intents: INTENTS[v.name] || [],
+    agent: v.agent,
+    tags: ["flow", "variant", ...(saved?.title || v.name).toLowerCase().split(/\W+/).filter(Boolean)],
+    yl,
+    base: v.base,
+    baseTitle: base.title,
+    chart: saved ? graphChart(saved.g, changes.filter((c) => c.op !== "drop").map((c) => c.id)) : "",
+    demo: v.demo || "flow-variant",
+    docs: `${SITE}/developers/flows#9-variants`,
+  };
+}
 
 // What /library.json serves: the minimum an agent needs to find a screen and send it.
 export function libraryIndex() {
   const items = [
     ...presets().map((p) => ({ name: p.name, kind: "preset", purpose: p.purpose, intents: p.intents, tags: p.tags, yl: p.yl, docs: p.docs, playground: `${SITE}${playUrl(p.yl)}` })),
-    ...flows().map((f) => ({ name: f.name, kind: "flow", title: f.title, purpose: f.purpose, intents: f.intents, tags: f.tags, yl: f.yl, source: f.source, docs: f.docs, playground: `${SITE}/playground?demo=${f.demo}` })),
+    ...flows().map((f) => ({ name: f.name, kind: "flow", title: f.title, purpose: f.purpose, intents: f.intents, tags: f.tags, yl: f.yl, base: f.base, source: f.source, docs: f.docs, playground: `${SITE}/playground?demo=${f.demo}` })),
   ];
   return {
     name: "Yui library",
     version: 2,
-    about: "Every screen preset and saved flow an agent can send to the Yui app. Send the yl lines as your reply; the app draws them. A flow's source is its Mermaid. Search by name, intent, purpose or tags, or ask the search endpoint.",
+    about: "Every screen preset and saved flow an agent can send to the Yui app. Send the yl lines as your reply; the app draws them. A flow's source is its Mermaid. A flow with a base is a variant: its yl names the base and says only what changes. Search by name, intent, purpose or tags, or ask the search endpoint.",
     search: `${SITE}/api/library?q=`,
     spec: `${SITE}/yl`,
     page: `${SITE}/developers/library`,

@@ -3,6 +3,8 @@
 // Pure Mermaid between the header and `end`, so each renders on GitHub as is.
 // Spec: spec/FLOWS.md.
 
+import { flowVariant, parse, resolve, variantName } from "./yl.mjs";
+
 export const STARTER_FLOWS = [
   {
     name: "website-intake",
@@ -198,14 +200,89 @@ export const STARTER_FLOWS = [
   },
 ];
 
+// Variants (spec/FLOWS.md, section 9): a saved flow with a few lines changed,
+// kept as its base's name plus the lines, never a copy of the chart. The
+// library lists each under its base; `flow restaurant-intake` runs one by name.
+export const FLOW_VARIANTS = [
+  {
+    name: "restaurant-intake",
+    base: "website-intake",
+    id: "restaurant",
+    agent: "Scout",
+    blurb: "The website intake, made over for a restaurant: the menu and online orders instead of pages and products.",
+    lines: `%% kind: choose "What kind of place?" "Dine in"|Takeout|Both
+%% goal: choose "What should a visitor do first?" "See the menu"|"Book a table"|"Order online"|Call
+drop today products pay pages
+add menu after goal: pick "What goes on the menu page?" Breakfast|Lunch|Dinner|Drinks +other
+add orders after menu: choose "Take orders online?" Yes|"Not yet"|No`,
+  },
+];
+
 const slug = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 // A saved flow by name: `flow website-intake` or `flow "Website intake"`.
+// Starters only; savedGraph also finds variants.
 export function savedFlow(name) {
   const s = slug(name);
   return STARTER_FLOWS.find((f) => f.name === s || slug(f.title) === s) || null;
 }
 
+// A variant as the lines an agent sends: the base, the new name, the changes.
+export const variantLines = (v, id = v.id) => `flow@${id} ${v.base} as=${v.name}\n${v.lines}\nend`;
+
+// The graph a saved flow runs, by name: a starter, or a variant built on its
+// base (followed back at most five deep; a loop or a missing base is null).
+// `extra` holds variants the phone keeps beyond these (My flows).
+export function savedGraph(name, extra = [], depth = 0) {
+  const f = savedFlow(name);
+  if (f) {
+    const patch = parse(flowLines(f)).find((o) => o.op === "patch");
+    return { name: f.name, title: f.title, submit: f.submit, g: resolve("flow", patch.props) };
+  }
+  const s = slug(name);
+  const v = [...extra, ...FLOW_VARIANTS].find((x) => x.name === s);
+  if (!v || depth >= 5) return null;
+  return variantGraph(v.base, parse(variantLines(v)).find((o) => o.op === "patch")?.props.changes, v.name, extra, depth);
+}
+
+// A variant's graph from its base's name and its changes (the patch a
+// variant's `end` gives), titled from its name.
+export function variantGraph(base, changes, as, extra = [], depth = 0) {
+  const b = savedGraph(base, extra, depth + 1);
+  if (!b) return null;
+  const { name, title } = variantName(as);
+  return { name, title, submit: b.submit, base: b.name, g: flowVariant(b.g, changes || []) };
+}
+
 // A starter as the lines an agent would send inline.
 export const flowLines = (f, id = f.id) =>
   `flow@${id} "${f.title}" submit="${f.submit}"\n${f.source}\nend`;
+
+// A graph drawn back as a Mermaid chart, for showing a variant (whose own
+// lines are changes, not a chart). Steps read as their question or title;
+// `changed` ids (added or reworded) get dashed boxes. Display only: the
+// steps are not in it, so it is not a flow to send.
+export function graphChart(g, changed = []) {
+  const q = (t) => `"${String(t).replace(/"/g, "#quot;")}"`;
+  const out = new Set((g.edges || []).map((e) => e.from));
+  const lines = [`flowchart ${g.dir || "TD"}`];
+  for (const n of g.nodes || []) {
+    const text = n.props?.q || n.props?.title || n.label || n.id;
+    const shape = n.preset ? `[${q(text)}]` : out.has(n.id) ? `{${q(text)}}` : `((${q(text)}))`;
+    lines.push(`  ${n.id}${shape}`);
+  }
+  // A labelled edge that lands where the default edge does, with every later edge
+  // out of that node landing there too, can never change the route: leave it out
+  // (a reworded question keeps the base's labels, which no longer match).
+  const edges = g.edges || [];
+  const redundant = (e) => {
+    if (!e.when) return false;
+    const out = edges.filter((x) => x.from === e.from);
+    const d = out.find((x) => !x.when);
+    return d && d.to === e.to && out.slice(out.indexOf(e) + 1).every((x) => x.to === e.to);
+  };
+  for (const e of edges) if (!redundant(e)) lines.push(`  ${e.from} -->${e.label ? `|${q(e.label)}|` : ""} ${e.to}`);
+  const mark = changed.filter((id) => (g.nodes || []).some((n) => n.id === id));
+  if (mark.length) lines.push("  classDef changed stroke-width:3px,stroke-dasharray:6 4", `  class ${mark.join(",")} changed`);
+  return lines.join("\n");
+}

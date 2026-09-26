@@ -1998,6 +1998,228 @@ fn flow_graph(f: &Flow) -> Map {
     clean(o)
 }
 
+// ---------- flow variants (spec/FLOWS.md, section 9) ----------
+// `flow <base> as=<name>` makes a variant of a saved flow: the lines up to
+// `end` say only what changes. `drop a b` takes steps out, `%% id: <step>`
+// rewords one, `add new after id: <step>` puts a step in after another. The
+// parser keeps them in order; flow_variant applies them to the base's graph.
+
+const VARIANT_BAD: &str = "flow: a variant line is drop, add or a %% step";
+
+struct Variant {
+    id: String,
+    screen: String,
+    src: Vec<String>,
+    changes: Vec<Value>,
+}
+
+enum VStep {
+    Step(String, Map),
+    Bad(String),
+    None,
+}
+
+/// A step for a variant line, an error message, or neither (not a step).
+fn variant_step(text: &str) -> VStep {
+    // `^([a-z]+)(?=\s|$)`
+    let e = text.find(|c: char| !c.is_ascii_lowercase()).unwrap_or(text.len());
+    let head = &text[..e];
+    if e > 0 && text[e..].chars().next().is_none_or(is_ws) && PRESETS.contains(&head) && !FLOW_STEPS.contains(&head) {
+        return VStep::Bad(format!("flow: a {} cannot be a step ({})", head, FLOW_STEPS.join(", ")));
+    }
+    match step_of(text) {
+        Some((p, props)) => VStep::Step(p, props),
+        None => VStep::None,
+    }
+}
+
+/// `\w+` at byte `i`: its end, or None when there is no word there.
+fn word_end(s: &str, i: usize) -> Option<usize> {
+    let e = s[i..].find(|c: char| !is_word(c)).map_or(s.len(), |e| e + i);
+    (e > i).then_some(e)
+}
+
+/// `^\s+` at byte `i`: the index after it, or None when there is none.
+fn need_ws(s: &str, i: usize) -> Option<usize> {
+    let j = skip_ws(s, i);
+    (j > i).then_some(j)
+}
+
+/// `^drop((?:\s+\w+)+)\s*$`: the ids.
+fn variant_drop(t: &str) -> Option<Vec<String>> {
+    let r = t.strip_prefix("drop")?;
+    if !r.chars().next().is_some_and(is_ws) {
+        return None;
+    }
+    let ids: Vec<String> = trim(r).split(is_ws).filter(|w| !w.is_empty()).map(str::to_string).collect();
+    (!ids.is_empty() && ids.iter().all(|w| w.chars().all(is_word))).then_some(ids)
+}
+
+/// `^add\s+(\w+)\s+after\s+(\w+)\s*:\s*(.*)$`: (id, after, step text).
+fn variant_add(t: &str) -> Option<(&str, &str, &str)> {
+    let r = t.strip_prefix("add")?;
+    let a = need_ws(r, 0)?;
+    let ae = word_end(r, a)?;
+    let b = need_ws(r, ae)?;
+    let r2 = r[b..].strip_prefix("after")?;
+    let off = r.len() - r2.len();
+    let c = need_ws(r, off)?;
+    let ce = word_end(r, c)?;
+    let d = skip_ws(r, ce);
+    if !r[d..].starts_with(':') {
+        return None;
+    }
+    let rest = &r[skip_ws(r, d + 1)..];
+    (!rest.chars().any(is_line_end)).then_some((&r[a..ae], &r[c..ce], rest))
+}
+
+fn change(pairs: Vec<(&str, Value)>) -> Value {
+    let mut m = Map::new();
+    for (k, v) in pairs {
+        m.set(k, v);
+    }
+    Value::Obj(m)
+}
+
+/// One line of an open variant. Returns an error message or None.
+fn variant_statement(v: &mut Variant, t: &str) -> Option<String> {
+    if t.is_empty() || is_comment(t) {
+        return None;
+    }
+    if t.starts_with("%%") {
+        let (node, text) = step_comment(t)?;
+        match variant_step(text) {
+            VStep::Bad(e) => return Some(e),
+            VStep::Step(p, props) => v.changes.push(change(vec![("op", Value::str("step")), ("id", Value::str(node)), ("preset", Value::Str(p)), ("props", Value::Obj(props))])),
+            VStep::None => {}
+        }
+        return None;
+    }
+    if let Some(ids) = variant_drop(t) {
+        for id in ids {
+            v.changes.push(change(vec![("op", Value::str("drop")), ("id", Value::Str(id))]));
+        }
+        return None;
+    }
+    if let Some((id, after, text)) = variant_add(t) {
+        return match variant_step(text) {
+            VStep::Bad(e) => Some(e),
+            VStep::None => Some(VARIANT_BAD.into()),
+            VStep::Step(p, props) => {
+                v.changes.push(change(vec![("op", Value::str("add")), ("id", Value::str(id)), ("after", Value::str(after)), ("preset", Value::Str(p)), ("props", Value::Obj(props))]));
+                None
+            }
+        };
+    }
+    Some(VARIANT_BAD.into())
+}
+
+/// A base flow's graph with a variant's changes applied, in order. A change
+/// that names a step the base does not have (or adds one it already has) is
+/// skipped, so a variant survives its base being edited.
+pub fn flow_variant(base: &Map, changes: &[Value]) -> Map {
+    let objs = |k: &str| -> Vec<Map> { base.get(k).and_then(Value::as_arr).map(|a| a.iter().filter_map(|x| x.as_obj().cloned()).collect()).unwrap_or_default() };
+    let mut nodes = objs("nodes");
+    let mut edges = objs("edges");
+    let mut start = base.get("start").and_then(Value::as_str).map(str::to_string);
+    let sv = |m: &Map, k: &str| m.get(k).and_then(Value::as_str).map(str::to_string);
+    for c in changes {
+        let c = match c.as_obj() {
+            Some(c) => c,
+            None => continue,
+        };
+        let op = sv(c, "op").unwrap_or_default();
+        let id = sv(c, "id").unwrap_or_default();
+        let has = |nodes: &Vec<Map>, id: &str| nodes.iter().any(|n| sv(n, "id").as_deref() == Some(id));
+        if op == "drop" && has(&nodes, &id) {
+            // Edges into the step go where it went: its default edge, else its first.
+            let out: Vec<&Map> = edges.iter().filter(|e| sv(e, "from").as_deref() == Some(&id)).collect();
+            let on = out.iter().find(|e| !truthy(e.get("when"))).or(out.first()).and_then(|e| sv(e, "to"));
+            let mut kept = Vec::new();
+            for e in edges.iter() {
+                if sv(e, "from").as_deref() == Some(&id) {
+                    continue;
+                }
+                if sv(e, "to").as_deref() != Some(&id) {
+                    kept.push(e.clone());
+                } else if let Some(on) = on.as_ref().filter(|on| sv(e, "from").as_deref() != Some(on.as_str())) {
+                    let mut e = e.clone();
+                    e.set("to", Value::str(on));
+                    kept.push(e);
+                }
+            }
+            edges = kept;
+            nodes.retain(|n| sv(n, "id").as_deref() != Some(&id));
+            if start.as_deref() == Some(&id) {
+                start = match on {
+                    Some(on) if has(&nodes, &on) => Some(on),
+                    _ => nodes.first().and_then(|n| sv(n, "id")),
+                };
+            }
+        } else if op == "step" && has(&nodes, &id) {
+            for n in nodes.iter_mut().filter(|n| sv(n, "id").as_deref() == Some(&id)) {
+                n.set("preset", c.get("preset").cloned().unwrap_or(Value::Null));
+                n.set("props", c.get("props").cloned().unwrap_or(Value::Null));
+            }
+        } else if op == "add" && !has(&nodes, &id) {
+            let after = sv(c, "after").unwrap_or_default();
+            let at = match nodes.iter().position(|n| sv(n, "id").as_deref() == Some(&after)) {
+                Some(at) if truthy(nodes[at].get("preset")) => at,
+                _ => continue,
+            };
+            // The new step takes over the edges out of `after`, and `after` goes to it.
+            for e in edges.iter_mut().filter(|e| sv(e, "from").as_deref() == Some(&after)) {
+                e.set("from", Value::str(&id));
+            }
+            let mut e = Map::new();
+            e.set("from", Value::str(&after));
+            e.set("to", Value::str(&id));
+            edges.push(e);
+            let mut n = Map::new();
+            n.set("id", Value::str(&id));
+            n.set("preset", c.get("preset").cloned().unwrap_or(Value::Null));
+            n.set("props", c.get("props").cloned().unwrap_or(Value::Null));
+            nodes.insert(at + 1, n);
+        }
+    }
+    let mut o = Map::new();
+    if let Some(d) = base.get("dir") {
+        o.set("dir", d.clone());
+    }
+    if let Some(s) = start {
+        o.set("start", Value::Str(s));
+    }
+    o.set("nodes", Value::Arr(nodes.into_iter().map(Value::Obj).collect()));
+    o.set("edges", Value::Arr(edges.into_iter().map(Value::Obj).collect()));
+    clean(o)
+}
+
+/// A variant's name and title from its `as=`: (name, title).
+pub fn variant_name(as_name: &str) -> (String, String) {
+    let mut name = String::new();
+    for c in as_name.to_lowercase().chars() {
+        if c.is_ascii_lowercase() || c.is_ascii_digit() {
+            name.push(c);
+        } else if !name.ends_with('-') {
+            name.push('-');
+        }
+    }
+    let name = name.trim_matches('-').to_string();
+    let mut t = String::new();
+    for c in trim(as_name).chars() {
+        if c == '-' || c == '_' {
+            if !t.ends_with(' ') || t.is_empty() {
+                t.push(' ');
+            }
+        } else {
+            t.push(c);
+        }
+    }
+    let mut cs = t.chars();
+    let title = cs.next().map(|f| f.to_uppercase().collect::<String>() + cs.as_str()).unwrap_or_default();
+    (name, title)
+}
+
 // ---------- flow runtime ----------
 // Pure helpers the renderers share: where Next goes, the path taken, and
 // what goes in the event. `g` is a flow's props (resolve("flow", props)),
@@ -2562,6 +2784,7 @@ pub struct Parser {
     open: Vec<Open>, // open groups, innermost last
     flow_head: Option<FlowHead>, // a flow head just added
     flow: Option<Flow>,          // an open flow's Mermaid, being read
+    variant: Option<Variant>,    // an open flow variant's lines, being read
 }
 
 impl Default for Parser {
@@ -2572,7 +2795,7 @@ impl Default for Parser {
 
 impl Parser {
     pub fn new() -> Self {
-        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new(), flow_head: None, flow: None }
+        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new(), flow_head: None, flow: None, variant: None }
     }
 
     pub fn with_known(known: &HashMap<String, String>) -> Self {
@@ -2637,6 +2860,9 @@ impl Parser {
         if self.flow.is_some() {
             return self.flow_line(src);
         }
+        if self.variant.is_some() {
+            return self.variant_line(src);
+        }
         let unr = src.strip_suffix('\r').unwrap_or(src);
         if let Some(h) = self.flow_head.as_mut() {
             // The line after a flow head decides: a Mermaid header starts the
@@ -2661,7 +2887,12 @@ impl Parser {
         if let Some(m) = o.as_ref().and_then(Value::as_obj) {
             if m.get("op") == Some(&Value::str("add")) && m.get("preset") == Some(&Value::str("flow")) {
                 let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
-                self.flow_head = Some(FlowHead { id: text("id"), screen: text("screen"), pre: Vec::new() });
+                // `as=` makes it a variant of the saved flow it names: its lines follow.
+                if m.get("props").is_some_and(|p| p.get("as").is_some()) {
+                    self.variant = Some(Variant { id: text("id"), screen: text("screen"), src: Vec::new(), changes: Vec::new() });
+                } else {
+                    self.flow_head = Some(FlowHead { id: text("id"), screen: text("screen"), pre: Vec::new() });
+                }
             }
         }
         o
@@ -2670,8 +2901,38 @@ impl Parser {
     /// Ends the input: an open flow gives its graph now.
     pub fn finish(&mut self) -> Option<Value> {
         self.flow_head = None;
+        if self.variant.is_some() {
+            return Some(self.variant_done(""));
+        }
         self.flow.as_ref()?;
         Some(self.flow_done(""))
+    }
+
+    /// One line of an open variant; `end` closes it.
+    fn variant_line(&mut self, src: &str) -> Option<Value> {
+        let line = src.strip_suffix('\r').unwrap_or(src);
+        let t = trim(line);
+        if t.strip_prefix("end").is_some_and(|r| matches!(r.trim_start_matches(is_ws), "" | ";")) {
+            return Some(self.variant_done(line));
+        }
+        let v = self.variant.as_mut().unwrap();
+        v.src.push(line.to_string());
+        let err = variant_statement(v, t)?;
+        Some(error(&v.screen, err, line))
+    }
+
+    fn variant_done(&mut self, line: &str) -> Value {
+        let v = self.variant.take().unwrap();
+        let mut props = Map::new();
+        props.set("changes", Value::Arr(v.changes));
+        props.set("source", Value::Str(v.src.join("\n")));
+        op(vec![
+            ("op", Value::str("patch")),
+            ("screen", Value::str(&v.screen)),
+            ("target", Value::str(&v.id)),
+            ("props", Value::Obj(clean(props))),
+            ("line", Value::str(line)),
+        ])
     }
 
     /// One line of an open flow: Mermaid, not YL. `end` closes a subgraph

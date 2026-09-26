@@ -923,6 +923,111 @@ private fun flowGraph(f: Flow): Obj {
     return clean(o)
 }
 
+// ---------- flow variants (spec/FLOWS.md, section 9) ----------
+// `flow <base> as=<name>` makes a variant of a saved flow: the lines up to
+// `end` say only what changes. `drop a b` takes steps out, `%% id: <step>`
+// rewords one, `add new after id: <step>` puts a step in after another. The
+// parser keeps them in order; flowVariant applies them to the base's graph.
+private val VARIANT_DROP = rx("^drop((?:$S+\\w+)+)$S*\\z")
+private val VARIANT_ADD = rx("^add$S+(\\w+)$S+after$S+(\\w+)$S*:$S*($DOT*)\\z")
+private val COMMENT_LINE = rx("^#($S|\\z)")
+private const val VARIANT_BAD = "flow: a variant line is drop, add or a %% step"
+
+private class Variant(val id: String, val screen: String) {
+    val src = ArrayList<String>()
+    val changes = ArrayList<Obj>()
+}
+
+// A step for a variant line (Pair), an error message (String) or null (not a step).
+private fun variantStep(text: String): Any? {
+    val head = WORD_HEAD.find(text)?.groupValues?.get(1)
+    if (head != null && head in PRESETS && head !in FLOW_STEPS) return "flow: a $head cannot be a step (${FLOW_STEPS.joinToString(", ")})"
+    return stepOf(text)
+}
+
+// One line of an open variant. Returns an error message or null.
+@Suppress("UNCHECKED_CAST")
+private fun variantStatement(v: Variant, t: String): String? {
+    if (t.isEmpty() || COMMENT_LINE.containsMatchIn(t)) return null
+    if (t.startsWith("%%")) {
+        val m = STEP_COMMENT.find(t) ?: return null
+        val s = variantStep(m.groupValues[2])
+        if (s is String) return s
+        if (s != null) {
+            val (preset, props) = s as Pair<String, Obj>
+            v.changes.add(linkedMapOf("op" to "step", "id" to m.groupValues[1], "preset" to preset, "props" to props))
+        }
+        return null
+    }
+    VARIANT_DROP.find(t)?.let { m ->
+        for (id in trim(m.groupValues[1]).split(Regex("$S+"))) v.changes.add(linkedMapOf("op" to "drop", "id" to id))
+        return null
+    }
+    VARIANT_ADD.find(t)?.let { m ->
+        val s = variantStep(m.groupValues[3])
+        if (s is String) return s
+        if (s == null) return VARIANT_BAD
+        val (preset, props) = s as Pair<String, Obj>
+        v.changes.add(linkedMapOf("op" to "add", "id" to m.groupValues[1], "after" to m.groupValues[2], "preset" to preset, "props" to props))
+        return null
+    }
+    return VARIANT_BAD
+}
+
+// A base flow's graph with a variant's changes applied, in order. A change
+// that names a step the base does not have (or adds one it already has) is
+// skipped, so a variant survives its base being edited.
+@Suppress("UNCHECKED_CAST")
+fun flowVariant(base: Map<String, Any?>, changes: List<Map<String, Any?>> = emptyList()): Map<String, Any?> {
+    var nodes: MutableList<Obj> = ((base["nodes"] as? List<Map<String, Any?>>) ?: emptyList()).map { Obj(it) }.toMutableList()
+    var edges: MutableList<Obj> = ((base["edges"] as? List<Map<String, Any?>>) ?: emptyList()).map { Obj(it) }.toMutableList()
+    var start = base["start"] as String?
+    fun has(id: Any?) = nodes.any { it["id"] == id }
+    for (c in changes) {
+        val id = c["id"] as String?
+        when {
+            c["op"] == "drop" && has(id) -> {
+                // Edges into the step go where it went: its default edge, else its first.
+                val out = edges.filter { it["from"] == id }
+                val on = (out.find { it["when"] == null } ?: out.firstOrNull())?.get("to") as String?
+                val kept = ArrayList<Obj>()
+                for (e in edges) {
+                    if (e["from"] == id) continue
+                    if (e["to"] != id) kept.add(e)
+                    else if (on != null && on != e["from"]) kept.add(Obj(e).also { it["to"] = on })
+                }
+                edges = kept
+                nodes = nodes.filter { it["id"] != id }.toMutableList()
+                if (start == id) start = if (on != null && has(on)) on else nodes.firstOrNull()?.get("id") as String?
+            }
+            c["op"] == "step" && has(id) -> {
+                nodes = nodes.map { n -> if (n["id"] == id) Obj(n).also { it["preset"] = c["preset"]; it["props"] = c["props"] } else n }.toMutableList()
+            }
+            c["op"] == "add" && !has(id) && hasStep(nodes.find { it["id"] == c["after"] }) -> {
+                // The new step takes over the edges out of `after`, and `after` goes to it.
+                edges = edges.map { e -> if (e["from"] == c["after"]) Obj(e).also { it["from"] = id } else e }.toMutableList()
+                edges.add(linkedMapOf("from" to c["after"], "to" to id))
+                val at = nodes.indexOfFirst { it["id"] == c["after"] }
+                nodes.add(at + 1, linkedMapOf("id" to id, "preset" to c["preset"], "props" to c["props"]))
+            }
+        }
+    }
+    val o = Obj()
+    o["dir"] = base["dir"]
+    o["start"] = start
+    o["nodes"] = nodes
+    o["edges"] = edges
+    return clean(o)
+}
+
+// A variant's name and title from its `as=`.
+fun variantName(asName: Any?): Map<String, String> {
+    val raw = asName?.toString() ?: ""
+    val name = raw.lowercase().replace(Regex("[^a-z0-9]+"), "-").removePrefix("-").removeSuffix("-")
+    val t = trim(raw).replace(Regex("[-_]+"), " ")
+    return mapOf("name" to name, "title" to (t.take(1).uppercase() + t.drop(1)))
+}
+
 // ---------- flow runtime ----------
 // Where Next goes, the path taken, and what goes in the event. `g` is a
 // flow's props (resolve("flow", props)).
@@ -1252,6 +1357,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
     private val open = ArrayList<Triple<String, String, String>>() // open groups: (id, preset, screen)
     private var flowHead: FlowHead? = null // a flow head just added
     private var flow: Flow? = null // an open flow's Mermaid, being read
+    private var variant: Variant? = null // an open flow variant's lines, being read
 
     // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
     private fun group(o: Op?): Op? {
@@ -1277,6 +1383,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
 
     fun line(src: String): Op? {
         if (flow != null) return flowLine(src)
+        if (variant != null) return variantLine(src)
         val h = flowHead
         if (h != null) {
             // The line after a flow head decides: a Mermaid header starts the
@@ -1289,13 +1396,39 @@ class Parser(known: Map<String, String> = emptyMap()) {
             if (FLOW_HEADER.containsMatchIn(t)) { flow = Flow(h, src.removeSuffix("\r")); return null }
         }
         val o = group(parseLine(src))
-        if (o != null && o["op"] == "add" && o["preset"] == "flow") flowHead = FlowHead(o["id"] as String, o["screen"] as String)
+        if (o != null && o["op"] == "add" && o["preset"] == "flow") {
+            // `as=` makes it a variant of the saved flow it names: its lines follow.
+            @Suppress("UNCHECKED_CAST")
+            if ("as" in (o["props"] as Map<String, Any?>)) variant = Variant(o["id"] as String, o["screen"] as String)
+            else flowHead = FlowHead(o["id"] as String, o["screen"] as String)
+        }
         return o
+    }
+
+    // One line of an open variant; `end` closes it.
+    private fun variantLine(src: String): Op? {
+        val v = variant!!
+        val line = src.removeSuffix("\r")
+        val t = trim(line)
+        if (FLOW_END.test(t)) return variantDone(line)
+        v.src.add(line)
+        val err = variantStatement(v, t) ?: return null
+        return op("op" to "error", "screen" to v.screen, "message" to err, "line" to line)
+    }
+
+    private fun variantDone(line: String): Op {
+        val v = variant!!
+        variant = null
+        val props = Obj()
+        props["changes"] = v.changes
+        props["source"] = v.src.joinToString("\n")
+        return op("op" to "patch", "screen" to v.screen, "target" to v.id, "props" to clean(props), "line" to line)
     }
 
     // Ends the input: an open flow gives its graph now.
     fun finish(): Op? {
         flowHead = null
+        if (variant != null) return variantDone("")
         return if (flow != null) flowDone("") else null
     }
 

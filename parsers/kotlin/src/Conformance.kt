@@ -99,6 +99,26 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
         val ev = flowEvent(g, answers)
         if (!same(ev, route["event"])) fails.add("route (event)" to ev)
     }
+    val va = v["variant"] as Map<String, Any?>?
+    if (va != null) {
+        // A flow variant (FLOWS.md, section 9): the base's graph (from its flow
+        // lines) with the input's changes applied, and the route through it.
+        val baseOp = parse(va["base"] as String).find { it["op"] == "patch" }
+        val base = resolve("flow", baseOp?.get("props") as Map<String, Any?>? ?: emptyMap())
+        val patch = parse(input, known).find { it["op"] == "patch" }
+        val changes = (patch?.get("props") as Map<String, Any?>?)?.get("changes") as List<Map<String, Any?>>? ?: emptyList()
+        val g = flowVariant(base, changes)
+        val got = mapOf("start" to g["start"], "nodes" to (g["nodes"] ?: emptyList<Any>()), "edges" to (g["edges"] ?: emptyList<Any>()))
+        if (va["graph"] != null && !same(got, va["graph"])) fails.add("variant (graph after the changes)" to got)
+        val r = va["route"] as Map<String, Any?>?
+        if (r != null) {
+            val answers = r["answers"] as Map<String, Any?>? ?: emptyMap()
+            val pg = flowPath(g, answers)
+            if (!same(pg, mapOf("path" to r["path"], "open" to r["open"]))) fails.add("variant route (path, open)" to pg)
+            val ev = flowEvent(g, answers)
+            if (!same(ev, r["event"])) fails.add("variant route (event)" to ev)
+        }
+    }
     val tv = v["tables"] as Map<String, Any?>?
     if (tv != null) {
         // Agent tables (TABLES.md): replay the input's `table create` and `put`

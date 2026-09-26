@@ -876,6 +876,86 @@ function flowGraph(f) {
   return clean({ dir: f.dir, start, nodes, edges, source: f.src.join("\n") });
 }
 
+// ---------- flow variants (spec/FLOWS.md, section 9) ----------
+// `flow <base> as=<name>` makes a variant of a saved flow: the lines up to
+// `end` say only what changes. `drop a b` takes steps out, `%% id: <step>`
+// rewords one, `add new after id: <step>` puts a step in after another. The
+// parser keeps them in order; flowVariant applies them to the base's graph.
+const VARIANT_ADD = /^add\s+(\w+)\s+after\s+(\w+)\s*:\s*(.*)$/;
+const VARIANT_BAD = "flow: a variant line is drop, add or a %% step";
+
+function newVariant(head) {
+  return { id: head.id, screen: head.screen, src: [], depth: 0, variant: true, changes: [] };
+}
+
+// One line of an open variant. Returns an error message or null.
+function variantStatement(v, t) {
+  if (!t || /^#(\s|$)/.test(t)) return null;
+  const step = (id, text) => {
+    const head = text.match(/^([a-z]+)(?=\s|$)/);
+    if (head && PRESETS.includes(head[1]) && !FLOW_STEPS.includes(head[1])) return `flow: a ${head[1]} cannot be a step (${FLOW_STEPS.join(", ")})`;
+    return stepOf(text) || id;
+  };
+  if (t.startsWith("%%")) {
+    const m = t.match(/^%%\s*(\w+)\s*:\s*(.*)$/);
+    if (!m) return null;
+    const s = step(m[1], m[2]);
+    if (typeof s === "string") return s === m[1] ? null : s;
+    v.changes.push({ op: "step", id: m[1], preset: s.preset, props: s.props });
+    return null;
+  }
+  const drop = t.match(/^drop((?:\s+\w+)+)\s*$/);
+  if (drop) {
+    for (const id of drop[1].trim().split(/\s+/)) v.changes.push({ op: "drop", id });
+    return null;
+  }
+  const add = t.match(VARIANT_ADD);
+  if (add) {
+    const s = step(add[1], add[3]);
+    if (typeof s === "string") return s === add[1] ? VARIANT_BAD : s;
+    v.changes.push({ op: "add", id: add[1], after: add[2], preset: s.preset, props: s.props });
+    return null;
+  }
+  return VARIANT_BAD;
+}
+
+// A base flow's graph with a variant's changes applied, in order. A change
+// that names a step the base does not have (or adds one it already has) is
+// skipped, so a variant survives its base being edited.
+export function flowVariant(base, changes = []) {
+  let nodes = (base.nodes || []).map((n) => ({ ...n }));
+  let edges = (base.edges || []).map((e) => ({ ...e }));
+  let start = base.start;
+  const has = (id) => nodes.some((n) => n.id === id);
+  for (const c of changes) {
+    if (c.op === "drop" && has(c.id)) {
+      // Edges into the step go where it went: its default edge, else its first.
+      const out = edges.filter((e) => e.from === c.id);
+      const on = (out.find((e) => !e.when) || out[0] || {}).to;
+      edges = edges.filter((e) => e.from !== c.id).flatMap((e) => (e.to !== c.id ? [e] : on && on !== e.from ? [{ ...e, to: on }] : []));
+      nodes = nodes.filter((n) => n.id !== c.id);
+      if (start === c.id) start = on && has(on) ? on : (nodes[0] || {}).id;
+    } else if (c.op === "step" && has(c.id)) {
+      nodes = nodes.map((n) => (n.id === c.id ? { ...n, preset: c.preset, props: c.props } : n));
+    } else if (c.op === "add" && !has(c.id) && (nodes.find((n) => n.id === c.after) || {}).preset) {
+      // The new step takes over the edges out of `after`, and `after` goes to it.
+      edges = edges.map((e) => (e.from === c.after ? { ...e, from: c.id } : e));
+      edges.push({ from: c.after, to: c.id });
+      const at = nodes.findIndex((n) => n.id === c.after);
+      nodes.splice(at + 1, 0, { id: c.id, preset: c.preset, props: c.props });
+    }
+  }
+  return clean({ dir: base.dir, start, nodes, edges });
+}
+
+// A variant's name and title from its `as=`: "Restaurant intake" and
+// "restaurant-intake" are both the name restaurant-intake, title "Restaurant intake".
+export function variantName(as) {
+  const name = String(as || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const t = String(as || "").trim().replace(/[-_]+/g, " ");
+  return { name, title: t.charAt(0).toUpperCase() + t.slice(1) };
+}
+
 // ---------- flow runtime ----------
 // Pure helpers the renderers share: where Next goes, the path taken, and
 // what goes in the event. `g` is a flow's props (resolve("flow", props)).
@@ -1037,7 +1117,11 @@ export class Parser {
       if (FLOW_HEADER.test(t)) { this.flow = newFlow(h, src.replace(/\r$/, "")); return null; }
     }
     const op = this.group(this.parseLine(src));
-    if (op && op.op === "add" && op.preset === "flow") this.flowHead = { id: op.id, screen: op.screen, pre: [] };
+    if (op && op.op === "add" && op.preset === "flow") {
+      // `as=` makes it a variant of the saved flow it names: its lines follow.
+      if (op.props.as !== undefined) this.flow = newVariant(op);
+      else this.flowHead = { id: op.id, screen: op.screen, pre: [] };
+    }
     return op;
   }
 
@@ -1058,14 +1142,15 @@ export class Parser {
       return this.flowDone(line);
     }
     f.src.push(line);
-    const err = flowStatement(f, t);
+    const err = f.variant ? variantStatement(f, t) : flowStatement(f, t);
     return err ? { op: "error", screen: f.screen, message: err, line } : null;
   }
 
   flowDone(line) {
     const f = this.flow;
     this.flow = null;
-    return { op: "patch", screen: f.screen, target: f.id, props: flowGraph(f), line };
+    const props = f.variant ? clean({ changes: f.changes, source: f.src.join("\n") }) : flowGraph(f);
+    return { op: "patch", screen: f.screen, target: f.id, props, line };
   }
 
   parseLine(src) {

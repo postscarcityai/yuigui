@@ -55,6 +55,9 @@
 .lib-graph svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
 .lib-graph-wait, .lib-graph-err { display: grid; place-items: center; color: var(--muted); font-size: var(--fs-small); }
 .lib-src { grid-column: 1 / -1; }
+.lib-variant { margin-top: 12px; border-style: dashed; }
+.lib-base { align-self: flex-start; font-size: var(--fs-small); font-weight: 800; padding: 2px 12px; border-radius: 999px; background: var(--mint); color: #2A2238; text-decoration: none; }
+.lib-note { margin: 0; color: var(--muted); font-size: var(--fs-small); }
 .lib-src summary { cursor: pointer; font-weight: 700; color: var(--muted); }
 .lib-src pre { margin: 10px 0 0; padding: 12px; background: var(--raised); border-radius: 14px; font-size: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
 @media (max-width: 820px) {

@@ -13,9 +13,10 @@ export const metadata = {
 export default function LibraryPage() {
   const ps = presets();
   const fs = flows();
+  const vs = fs.filter((f) => f.base).length;
   return (
     <>
-      <div className="eyebrow">Developers | Library | {ps.length} screens, {fs.length} flows</div>
+      <div className="eyebrow">Developers | Library | {ps.length} screens, {fs.length - vs} flows{vs ? `, ${vs} variant${vs > 1 ? "s" : ""}` : ""}</div>
       <h1>The library</h1>
       <p className="lede">
         Every screen an agent can send, live. Tap one, it answers. Under each is the line that draws it: copy it

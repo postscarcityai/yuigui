@@ -11,7 +11,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from tables import empty_store, query, replay  # noqa: E402
-from yuilines import StreamParser, attach_body, doing_of, flow_event, flow_path, mark_at, on_stage, page_of, parse, read_attach, read_typed, resolve, talking, timeline_rows, typed_body  # noqa: E402
+from yuilines import StreamParser, attach_body, doing_of, flow_event, flow_path, flow_variant, mark_at, on_stage, page_of, parse, read_attach, read_typed, resolve, talking, timeline_rows, typed_body  # noqa: E402
 
 DEFAULT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "spec", "conformance")
 
@@ -115,6 +115,25 @@ def check(v):
         ev = flow_event(g, r["answers"])
         if not same(ev, r["event"]):
             fails.append(("route (event)", ev))
+    if v.get("variant") is not None:
+        # A flow variant (FLOWS.md, section 9): the base's graph (from its flow
+        # lines) with the input's changes applied, and the route through it.
+        va = v["variant"]
+        base_op = next((o for o in parse(va["base"]) if o["op"] == "patch"), None)
+        base = resolve("flow", base_op["props"] if base_op else {})
+        patch = next((o for o in parse(v["input"], known) if o["op"] == "patch"), None)
+        g = flow_variant(base, (patch["props"].get("changes") if patch else None) or [])
+        got = {"start": g.get("start"), "nodes": g.get("nodes") or [], "edges": g.get("edges") or []}
+        if va.get("graph") is not None and not same(got, va["graph"]):
+            fails.append(("variant (graph after the changes)", got))
+        r = va.get("route")
+        if r is not None:
+            pg = flow_path(g, r["answers"])
+            if not same(pg, {"path": r["path"], "open": r["open"]}):
+                fails.append(("variant route (path, open)", pg))
+            ev = flow_event(g, r["answers"])
+            if not same(ev, r["event"]):
+                fails.append(("variant route (event)", ev))
     if v.get("tables") is not None:
         # Agent tables (TABLES.md): replay the input's `table create` and `put`
         # lines onto an empty store (dates resolve against `today`), then run

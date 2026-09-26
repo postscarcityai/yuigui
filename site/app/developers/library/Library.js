@@ -40,8 +40,9 @@ function PresetTile({ p, hidden }) {
 
 function FlowCard({ f, hidden }) {
   return (
-    <article id={`flow-${f.name}`} className="lib-flow" hidden={hidden}>
+    <article id={`flow-${f.name}`} className={`lib-flow${f.base ? " lib-variant" : ""}`} hidden={hidden}>
       <div className="lib-flow-head">
+        {f.base ? <a className="lib-base" href={`#flow-${f.base}`}>Variant of {f.baseTitle}</a> : null}
         <h3>{f.title}</h3>
         <p>{f.purpose}</p>
         <pre className="lib-yl"><code>{f.yl}</code></pre>
@@ -51,11 +52,13 @@ function FlowCard({ f, hidden }) {
           <a className="lib-doc" href="/developers/flows">Flows spec</a>
         </div>
       </div>
-      <MermaidGraph source={f.source} label={`${f.title}: the flow as a chart, one box per screen, arrows for where each answer leads`} />
-      <details className="lib-src">
-        <summary>The Mermaid</summary>
-        <pre><code>{f.source}</code></pre>
-      </details>
+      <MermaidGraph source={f.source || f.chart} label={`${f.title}: the flow as a chart, one box per screen, arrows for where each answer leads${f.base ? ", the steps this variant changed dashed" : ""}`} />
+      {f.source ? (
+        <details className="lib-src">
+          <summary>The Mermaid</summary>
+          <pre><code>{f.source}</code></pre>
+        </details>
+      ) : <p className="lib-src lib-note">Dashed boxes are the steps this variant adds or rewords. It keeps only its changes, so fixing the base fixes it too.</p>}
     </article>
   );
 }

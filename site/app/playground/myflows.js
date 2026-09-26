@@ -9,7 +9,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { flowEvent, flowTest, parse, resolve } from "../../lib/yl/yl.mjs";
-import { STARTER_FLOWS } from "../../lib/yl/starter-flows.mjs";
+import { FLOW_VARIANTS, STARTER_FLOWS, savedGraph, variantLines } from "../../lib/yl/starter-flows.mjs";
 import { encodeYL } from "../../lib/share-code.mjs";
 import { Render } from "./presets";
 import { question, show } from "./flows";
@@ -40,6 +40,20 @@ const MINE = {
   water[Water] --> note`,
   ),
 };
+// A variant Scout made (FLOWS.md, section 9): kept as the intake's name plus
+// the lines that change, listed under Yours with the flow it came from.
+const RESTAURANT = FLOW_VARIANTS.find((v) => v.name === "restaurant-intake");
+const VARIANT = {
+  key: RESTAURANT.name,
+  name: RESTAURANT.name,
+  id: RESTAURANT.id,
+  title: savedGraph(RESTAURANT.name).title,
+  submit: savedGraph(RESTAURANT.name).submit,
+  agent: RESTAURANT.agent,
+  mine: true,
+  variant: RESTAURANT,
+  from: STARTER_FLOWS.find((f) => f.name === RESTAURANT.base).title,
+};
 // When each starter last ran (made up, so the list looks lived in).
 const LAST = {
   intake: { when: "Mon", steps: 9 },
@@ -48,8 +62,9 @@ const LAST = {
 };
 const STARTERS = STARTER_FLOWS.map((f) => ({ key: f.name, id: f.id, title: f.title, submit: f.submit, agent: f.agent, source: f.source, last: LAST[f.id] || null }));
 
-const linesOf = (f) => `flow@${f.id} "${f.title}" submit="${f.submit}"\n${f.source}\nend`;
+const linesOf = (f) => (f.variant ? variantLines(f.variant) : `flow@${f.id} "${f.title}" submit="${f.submit}"\n${f.source}\nend`);
 function graphOf(f) {
+  if (f.variant) return { ...savedGraph(f.variant.name).g, title: f.title, submit: f.submit };
   const ops = parse(linesOf(f));
   const add = ops.find((o) => o.op === "add") || { props: {} };
   const patch = ops.find((o) => o.op === "patch") || { props: {} };
@@ -179,7 +194,7 @@ function Actions({ f, close, run, duplicate, share, ask, remove }) {
     <div className="mf-shade" onClick={close}>
       <div className="mf-sheet" role="dialog" aria-label={f.title} onClick={(e) => e.stopPropagation()}>
         <div className="mf-sheet-h">{f.title}</div>
-        <div className="mf-sub mf-center">{f.mine ? `Yours, from ${f.from}` : "Starter"} · to {f.agent}</div>
+        <div className="mf-sub mf-center">{f.variant ? `${f.agent} made it from ${f.from}, and keeps only what changed` : f.mine ? `Yours, from ${f.from}` : "Starter"} · to {f.agent}</div>
         <div className="mf-sheet-btns">
           <button className="mf-btn" onClick={() => { close(); run(f.key); }}>Run it</button>
           <button className="mf-btn mf-ghost" onClick={() => { close(); duplicate(f.key); }}>Duplicate</button>
@@ -310,7 +325,7 @@ function Path({ run, f, g, runs, pickRun, again, go, flows }) {
 }
 
 export function MyFlowsDemo({ view, setView, onEvent }) {
-  const [flows, setFlows] = useState(() => [{ ...MINE, last: { when: "Tue", steps: SEED.ev.path.length } }, ...STARTERS]);
+  const [flows, setFlows] = useState(() => [{ ...MINE, last: { when: "Tue", steps: SEED.ev.path.length } }, VARIANT, ...STARTERS]);
   const graphs = useMemo(() => Object.fromEntries(flows.map((f) => [f.key, graphOf(f)])), [flows]);
   const [runs, setRuns] = useState([SEED]);
   const [runKey, setRunKey] = useState(MINE.key);

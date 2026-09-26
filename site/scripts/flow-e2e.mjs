@@ -4,7 +4,7 @@
 //   npx next dev -p 3117 &   then   node scripts/flow-e2e.mjs
 // BASE overrides the playground URL; PLAYWRIGHT the Playwright module to load.
 import { parse, resolve, flowEvent, flowPath } from "../lib/yl/yl.mjs";
-import { STARTER_FLOWS, flowLines } from "../lib/yl/starter-flows.mjs";
+import { STARTER_FLOWS, flowLines, savedGraph } from "../lib/yl/starter-flows.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT || "playwright");
 const BASE = process.env.BASE || "http://localhost:3117/playground";
 const graph = (f) => resolve("flow", parse(flowLines(f)).find((o) => o.op === "patch").props);
@@ -166,6 +166,27 @@ for (const [name, label, plan] of SC) {
   ok((await current(pg)) === "hi", "starts at the first step");
   await pg.close();
 }
+// A variant (FLOW-1 step 3): the intake made over for a restaurant runs on the
+// base's graph with its changes: new title, reworded and added steps, dropped ones gone.
+{
+  console.log("variant: flow website-intake as=restaurant-intake");
+  const g = savedGraph("restaurant-intake").g;
+  const pg = await open("flow-variant");
+  ok((await flowEl(pg).locator(".yl-q").first().textContent()) === "Restaurant intake", "variant titled from as=");
+  const plan = { biz: 1, kind: "Takeout", goal: "Order online", menu: ["Lunch", "Drinks"], orders: "Yes", brand: 1, budget: 20, meet: "Yes, book it" };
+  const seen = [];
+  for (let i = 0; i < 30 && (await current(pg)) !== "review"; i++) { const id = await current(pg); seen.push(id); await answer(pg, g, id, plan[id] === 1 ? null : plan[id]); }
+  ok(JSON.stringify(seen) === JSON.stringify(["hi", "biz", "kind", "goal", "menu", "orders", "brand", "budget", "meet"]), `variant path ${JSON.stringify(seen)}`);
+  ok(await flowEl(pg).locator(".yl-planrow", { hasText: "What kind of place?" }).count() === 1, "reworded step in the review");
+  await flowEl(pg).locator(".bigbtns").last().locator(".bigbtn.p").click();
+  await pg.waitForTimeout(300);
+  const ev = await lastEvent(pg);
+  ok(ev.flow.orders === "Yes" && JSON.stringify(ev.flow.menu) === JSON.stringify(["Lunch", "Drinks"]) && !("pages" in ev.flow), `variant event ${JSON.stringify(ev.flow)}`);
+  ok(ev.preset === "flow" && ev.id === "restaurant", "variant event id");
+  ok(pg.errs.length === 0, `no page errors ${pg.errs}`);
+  await pg.close();
+}
+
 // every edge of every starter flow taken at least once
 for (const f of STARTER_FLOWS) {
   const g = graph(f);

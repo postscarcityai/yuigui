@@ -1,0 +1,2604 @@
+{
+  "version": "YL v0",
+  "area": "flow variants",
+  "vectors": [
+    {
+      "name": "parse: a variant names its base, as= names it, the changes come at end",
+      "input": "flow@r website-intake as=restaurant-intake\n%% kind: choose \"What kind of place?\" \"Dine in\"|Takeout|Both\ndrop today products pay pages\nadd menu after goal: pick \"What goes on the menu page?\" Breakfast|Lunch|Dinner|Drinks +other\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "r",
+          "props": {
+            "title": "website-intake",
+            "as": "restaurant-intake"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "r",
+          "props": {
+            "changes": [
+              {
+                "op": "step",
+                "id": "kind",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "Dine in",
+                    "Takeout",
+                    "Both"
+                  ],
+                  "q": "What kind of place?"
+                }
+              },
+              {
+                "op": "drop",
+                "id": "today"
+              },
+              {
+                "op": "drop",
+                "id": "products"
+              },
+              {
+                "op": "drop",
+                "id": "pay"
+              },
+              {
+                "op": "drop",
+                "id": "pages"
+              },
+              {
+                "op": "add",
+                "id": "menu",
+                "after": "goal",
+                "preset": "pick",
+                "props": {
+                  "options": [
+                    "Breakfast",
+                    "Lunch",
+                    "Dinner",
+                    "Drinks"
+                  ],
+                  "q": "What goes on the menu page?",
+                  "other": true
+                }
+              }
+            ],
+            "source": "%% kind: choose \"What kind of place?\" \"Dine in\"|Takeout|Both\ndrop today products pay pages\nadd menu after goal: pick \"What goes on the menu page?\" Breakfast|Lunch|Dinner|Drinks +other"
+          }
+        }
+      ]
+    },
+    {
+      "name": "parse: head options stay on the head; as= may be a quoted title",
+      "input": "flow@v website-intake as=\"Restaurant intake\" submit=\"Send it\" review=off +inline\ndrop pages\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "v",
+          "props": {
+            "title": "website-intake",
+            "inline": true,
+            "as": "Restaurant intake",
+            "submit": "Send it",
+            "review": false
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "v",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "pages"
+              }
+            ],
+            "source": "drop pages"
+          }
+        }
+      ]
+    },
+    {
+      "name": "parse: lines after end are ordinary YL",
+      "input": "say Here is your version\nflow self-scope as=weekend-scope\ndrop who\nend\nsay Tap through it",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Here is your version"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n2",
+          "props": {
+            "title": "self-scope",
+            "as": "weekend-scope"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n2",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "who"
+              }
+            ],
+            "source": "drop who"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "Tap through it"
+          }
+        }
+      ]
+    },
+    {
+      "name": "parse: with no end the variant closes at the end of the input",
+      "input": "flow workout-checkin as=run-checkin\n%% today: choose \"Today's run?\" Easy|Tempo|Long|Rest\nadd shoes after today: choose \"Which shoes?\" Road|Trail",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "workout-checkin",
+            "as": "run-checkin"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "step",
+                "id": "today",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "Easy",
+                    "Tempo",
+                    "Long",
+                    "Rest"
+                  ],
+                  "q": "Today's run?"
+                }
+              },
+              {
+                "op": "add",
+                "id": "shoes",
+                "after": "today",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "Road",
+                    "Trail"
+                  ],
+                  "q": "Which shoes?"
+                }
+              }
+            ],
+            "source": "%% today: choose \"Today's run?\" Easy|Tempo|Long|Rest\nadd shoes after today: choose \"Which shoes?\" Road|Trail"
+          }
+        }
+      ]
+    },
+    {
+      "name": "parse: blank lines, # comments and %% comments that are not steps are skipped",
+      "input": "flow website-intake as=quick-intake\n\n# the short version\n%% ask Chris first\n%% a: dance fast\ndrop brand budget\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "website-intake",
+            "as": "quick-intake"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "brand"
+              },
+              {
+                "op": "drop",
+                "id": "budget"
+              }
+            ],
+            "source": "\n# the short version\n%% ask Chris first\n%% a: dance fast\ndrop brand budget"
+          }
+        }
+      ]
+    },
+    {
+      "name": "parse: drop takes several ids, in order",
+      "input": "flow website-intake as=tiny-intake\ndrop today\ndrop products pay\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "website-intake",
+            "as": "tiny-intake"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "today"
+              },
+              {
+                "op": "drop",
+                "id": "products"
+              },
+              {
+                "op": "drop",
+                "id": "pay"
+              }
+            ],
+            "source": "drop today\ndrop products pay"
+          }
+        }
+      ]
+    },
+    {
+      "name": "error: a preset that cannot be a step, an add with no step, any other line; the rest still reads",
+      "input": "flow website-intake as=odd-intake\nadd wait after goal: timer 5m\n%% goal: deck \"Nope\"\nadd menu after goal: Breakfast or lunch?\nrename kind to type\ndrop pages\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "website-intake",
+            "as": "odd-intake"
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "pages"
+              }
+            ],
+            "source": "add wait after goal: timer 5m\n%% goal: deck \"Nope\"\nadd menu after goal: Breakfast or lunch?\nrename kind to type\ndrop pages"
+          }
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "empty: a head and end give a variant with no changes",
+      "input": "flow website-intake as=my-intake\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "website-intake",
+            "as": "my-intake"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "source": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "not a variant: without as= the next line is YL as before",
+      "input": "flow website-intake\ndrop pages",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "website-intake"
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "stream: the head renders at once, the changes land with end",
+      "input": "flow@r website-intake as=short-intake\ndrop pages brand\nend\nsay ok",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "r",
+          "props": {
+            "title": "website-intake",
+            "as": "short-intake"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "r",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "pages"
+              },
+              {
+                "op": "drop",
+                "id": "brand"
+              }
+            ],
+            "source": "drop pages brand"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "ok"
+          }
+        }
+      ],
+      "chunks": [
+        "flow@r website-intake as=short-intake\ndro",
+        "p pages brand\n",
+        "end\nsay ok"
+      ],
+      "emits": [
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "flow",
+            "id": "r",
+            "props": {
+              "title": "website-intake",
+              "as": "short-intake"
+            }
+          }
+        ],
+        [],
+        [
+          {
+            "op": "patch",
+            "screen": "1",
+            "target": "r",
+            "props": {
+              "changes": [
+                {
+                  "op": "drop",
+                  "id": "pages"
+                },
+                {
+                  "op": "drop",
+                  "id": "brand"
+                }
+              ],
+              "source": "drop pages brand"
+            }
+          }
+        ],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "say",
+            "id": "n1",
+            "props": {
+              "text": "ok"
+            }
+          }
+        ]
+      ]
+    },
+    {
+      "name": "stage: a variant opens on the stage unless +inline",
+      "input": "flow@a website-intake as=a-intake\nend\nflow@b website-intake as=b-intake +inline\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "a",
+          "props": {
+            "title": "website-intake",
+            "as": "a-intake"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "a",
+          "props": {
+            "source": ""
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "b",
+          "props": {
+            "title": "website-intake",
+            "inline": true,
+            "as": "b-intake"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "b",
+          "props": {
+            "source": ""
+          }
+        }
+      ],
+      "stage": [
+        "a"
+      ]
+    },
+    {
+      "name": "graph: dropping a step sends the edges into it where it went, conditions kept",
+      "input": "flow small as=no-strength\ndrop b\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "small",
+            "as": "no-strength"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "b"
+              }
+            ],
+            "source": "drop b"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@s \"Small\" submit=\"Go\"\nflowchart TD\n  %% a: ask \"Coffee or tea?\" Coffee|Tea\n  a --> b\n  a -->|Tea| t\n  %% b: slide \"How strong?\" 1-5\n  b[Strength] --> c\n  %% t: choose \"Which tea?\" Green|Black\n  t --> c\n  %% c: choose \"Milk?\" Yes|No\n  c --> d\n  %% d: mic \"Anything else?\"\n  d\nend",
+        "graph": {
+          "start": "a",
+          "nodes": [
+            {
+              "id": "a",
+              "preset": "ask",
+              "props": {
+                "options": [
+                  "Coffee",
+                  "Tea"
+                ],
+                "q": "Coffee or tea?"
+              }
+            },
+            {
+              "id": "t",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Green",
+                  "Black"
+                ],
+                "q": "Which tea?"
+              }
+            },
+            {
+              "id": "c",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Yes",
+                  "No"
+                ],
+                "q": "Milk?"
+              }
+            },
+            {
+              "id": "d",
+              "preset": "mic",
+              "props": {
+                "prompt": "Anything else?"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "from": "a",
+              "to": "c"
+            },
+            {
+              "from": "a",
+              "to": "t",
+              "label": "Tea",
+              "when": [
+                [
+                  {
+                    "path": "a",
+                    "op": "=",
+                    "value": "Tea"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "t",
+              "to": "c"
+            },
+            {
+              "from": "c",
+              "to": "d"
+            }
+          ]
+        },
+        "route": {
+          "answers": {
+            "a": "Coffee",
+            "c": "Yes",
+            "d": "Oat milk please"
+          },
+          "path": [
+            "a",
+            "c",
+            "d"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "a": "Coffee",
+              "c": "Yes",
+              "d": "Oat milk please"
+            },
+            "path": [
+              "a",
+              "c",
+              "d"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "graph: dropping the start makes its next step the start",
+      "input": "flow small as=no-start\ndrop a\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "small",
+            "as": "no-start"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "a"
+              }
+            ],
+            "source": "drop a"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@s \"Small\" submit=\"Go\"\nflowchart TD\n  %% a: ask \"Coffee or tea?\" Coffee|Tea\n  a --> b\n  a -->|Tea| t\n  %% b: slide \"How strong?\" 1-5\n  b[Strength] --> c\n  %% t: choose \"Which tea?\" Green|Black\n  t --> c\n  %% c: choose \"Milk?\" Yes|No\n  c --> d\n  %% d: mic \"Anything else?\"\n  d\nend",
+        "graph": {
+          "start": "b",
+          "nodes": [
+            {
+              "id": "b",
+              "label": "Strength",
+              "preset": "slide",
+              "props": {
+                "min": 1,
+                "max": 5,
+                "label": "How strong?"
+              }
+            },
+            {
+              "id": "t",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Green",
+                  "Black"
+                ],
+                "q": "Which tea?"
+              }
+            },
+            {
+              "id": "c",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Yes",
+                  "No"
+                ],
+                "q": "Milk?"
+              }
+            },
+            {
+              "id": "d",
+              "preset": "mic",
+              "props": {
+                "prompt": "Anything else?"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "from": "b",
+              "to": "c"
+            },
+            {
+              "from": "t",
+              "to": "c"
+            },
+            {
+              "from": "c",
+              "to": "d"
+            }
+          ]
+        },
+        "route": {
+          "answers": {},
+          "path": [],
+          "open": "b",
+          "event": {
+            "flow": {},
+            "path": []
+          }
+        }
+      }
+    },
+    {
+      "name": "graph: dropping a step with no default edge follows its first edge",
+      "input": "flow split as=no-split\ndrop q\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "split",
+            "as": "no-split"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "q"
+              }
+            ],
+            "source": "drop q"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@p \"Split\"\nflowchart TD\n  %% p: page \"Hi\"\n  p --> q\n  %% q: ask \"Yes or no?\" Yes|No\n  q -->|Yes| y\n  q -->|No| n\n  %% y: page \"Yes\"\n  %% n: page \"No\"\nend",
+        "graph": {
+          "start": "p",
+          "nodes": [
+            {
+              "id": "p",
+              "preset": "page",
+              "props": {
+                "title": "Hi"
+              }
+            },
+            {
+              "id": "y",
+              "preset": "page",
+              "props": {
+                "title": "Yes"
+              }
+            },
+            {
+              "id": "n",
+              "preset": "page",
+              "props": {
+                "title": "No"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "from": "p",
+              "to": "y"
+            }
+          ]
+        },
+        "route": {
+          "answers": {},
+          "path": [
+            "p",
+            "y"
+          ],
+          "open": null,
+          "event": {
+            "flow": {},
+            "path": [
+              "p",
+              "y"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "graph: dropping the last step ends the flow earlier; a labelled edge into a dropped step keeps its label",
+      "input": "flow small as=short\ndrop d t\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "small",
+            "as": "short"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "d"
+              },
+              {
+                "op": "drop",
+                "id": "t"
+              }
+            ],
+            "source": "drop d t"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@s \"Small\" submit=\"Go\"\nflowchart TD\n  %% a: ask \"Coffee or tea?\" Coffee|Tea\n  a --> b\n  a -->|Tea| t\n  %% b: slide \"How strong?\" 1-5\n  b[Strength] --> c\n  %% t: choose \"Which tea?\" Green|Black\n  t --> c\n  %% c: choose \"Milk?\" Yes|No\n  c --> d\n  %% d: mic \"Anything else?\"\n  d\nend",
+        "graph": {
+          "start": "a",
+          "nodes": [
+            {
+              "id": "a",
+              "preset": "ask",
+              "props": {
+                "options": [
+                  "Coffee",
+                  "Tea"
+                ],
+                "q": "Coffee or tea?"
+              }
+            },
+            {
+              "id": "b",
+              "label": "Strength",
+              "preset": "slide",
+              "props": {
+                "min": 1,
+                "max": 5,
+                "label": "How strong?"
+              }
+            },
+            {
+              "id": "c",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Yes",
+                  "No"
+                ],
+                "q": "Milk?"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "from": "a",
+              "to": "b"
+            },
+            {
+              "from": "a",
+              "to": "c",
+              "label": "Tea",
+              "when": [
+                [
+                  {
+                    "path": "a",
+                    "op": "=",
+                    "value": "Tea"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "b",
+              "to": "c"
+            }
+          ]
+        },
+        "route": {
+          "answers": {
+            "a": "Tea",
+            "c": "No"
+          },
+          "path": [
+            "a",
+            "c"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "a": "Tea",
+              "c": "No"
+            },
+            "path": [
+              "a",
+              "c"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "graph: a reworded step keeps its place and its edges",
+      "input": "flow small as=reworded\n%% a: choose \"Coffee, tea or water?\" Coffee|Tea|Water\n%% c: slide \"How much milk?\" 0-3\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "small",
+            "as": "reworded"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "step",
+                "id": "a",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "Coffee",
+                    "Tea",
+                    "Water"
+                  ],
+                  "q": "Coffee, tea or water?"
+                }
+              },
+              {
+                "op": "step",
+                "id": "c",
+                "preset": "slide",
+                "props": {
+                  "min": 0,
+                  "max": 3,
+                  "label": "How much milk?"
+                }
+              }
+            ],
+            "source": "%% a: choose \"Coffee, tea or water?\" Coffee|Tea|Water\n%% c: slide \"How much milk?\" 0-3"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@s \"Small\" submit=\"Go\"\nflowchart TD\n  %% a: ask \"Coffee or tea?\" Coffee|Tea\n  a --> b\n  a -->|Tea| t\n  %% b: slide \"How strong?\" 1-5\n  b[Strength] --> c\n  %% t: choose \"Which tea?\" Green|Black\n  t --> c\n  %% c: choose \"Milk?\" Yes|No\n  c --> d\n  %% d: mic \"Anything else?\"\n  d\nend",
+        "graph": {
+          "start": "a",
+          "nodes": [
+            {
+              "id": "a",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Coffee",
+                  "Tea",
+                  "Water"
+                ],
+                "q": "Coffee, tea or water?"
+              }
+            },
+            {
+              "id": "b",
+              "label": "Strength",
+              "preset": "slide",
+              "props": {
+                "min": 1,
+                "max": 5,
+                "label": "How strong?"
+              }
+            },
+            {
+              "id": "t",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Green",
+                  "Black"
+                ],
+                "q": "Which tea?"
+              }
+            },
+            {
+              "id": "c",
+              "preset": "slide",
+              "props": {
+                "min": 0,
+                "max": 3,
+                "label": "How much milk?"
+              }
+            },
+            {
+              "id": "d",
+              "preset": "mic",
+              "props": {
+                "prompt": "Anything else?"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "from": "a",
+              "to": "b"
+            },
+            {
+              "from": "a",
+              "to": "t",
+              "label": "Tea",
+              "when": [
+                [
+                  {
+                    "path": "a",
+                    "op": "=",
+                    "value": "Tea"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "b",
+              "to": "c"
+            },
+            {
+              "from": "t",
+              "to": "c"
+            },
+            {
+              "from": "c",
+              "to": "d"
+            }
+          ]
+        },
+        "route": {
+          "answers": {
+            "a": "Tea",
+            "t": "Green",
+            "c": 0,
+            "d": "no"
+          },
+          "path": [
+            "a",
+            "t",
+            "c",
+            "d"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "a": "Tea",
+              "t": "Green",
+              "c": 0,
+              "d": "no"
+            },
+            "path": [
+              "a",
+              "t",
+              "c",
+              "d"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "graph: an added step takes over the edges out of its step, conditions included",
+      "input": "flow small as=with-size\nadd size after a: choose \"Size?\" Small|Large\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "small",
+            "as": "with-size"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "add",
+                "id": "size",
+                "after": "a",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "Small",
+                    "Large"
+                  ],
+                  "q": "Size?"
+                }
+              }
+            ],
+            "source": "add size after a: choose \"Size?\" Small|Large"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@s \"Small\" submit=\"Go\"\nflowchart TD\n  %% a: ask \"Coffee or tea?\" Coffee|Tea\n  a --> b\n  a -->|Tea| t\n  %% b: slide \"How strong?\" 1-5\n  b[Strength] --> c\n  %% t: choose \"Which tea?\" Green|Black\n  t --> c\n  %% c: choose \"Milk?\" Yes|No\n  c --> d\n  %% d: mic \"Anything else?\"\n  d\nend",
+        "graph": {
+          "start": "a",
+          "nodes": [
+            {
+              "id": "a",
+              "preset": "ask",
+              "props": {
+                "options": [
+                  "Coffee",
+                  "Tea"
+                ],
+                "q": "Coffee or tea?"
+              }
+            },
+            {
+              "id": "size",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Small",
+                  "Large"
+                ],
+                "q": "Size?"
+              }
+            },
+            {
+              "id": "b",
+              "label": "Strength",
+              "preset": "slide",
+              "props": {
+                "min": 1,
+                "max": 5,
+                "label": "How strong?"
+              }
+            },
+            {
+              "id": "t",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Green",
+                  "Black"
+                ],
+                "q": "Which tea?"
+              }
+            },
+            {
+              "id": "c",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Yes",
+                  "No"
+                ],
+                "q": "Milk?"
+              }
+            },
+            {
+              "id": "d",
+              "preset": "mic",
+              "props": {
+                "prompt": "Anything else?"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "from": "size",
+              "to": "b"
+            },
+            {
+              "from": "size",
+              "to": "t",
+              "label": "Tea",
+              "when": [
+                [
+                  {
+                    "path": "a",
+                    "op": "=",
+                    "value": "Tea"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "b",
+              "to": "c"
+            },
+            {
+              "from": "t",
+              "to": "c"
+            },
+            {
+              "from": "c",
+              "to": "d"
+            },
+            {
+              "from": "a",
+              "to": "size"
+            }
+          ]
+        },
+        "route": {
+          "answers": {
+            "a": "Tea",
+            "size": "Large",
+            "t": "Black",
+            "c": "No",
+            "d": "thanks"
+          },
+          "path": [
+            "a",
+            "size",
+            "t",
+            "c",
+            "d"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "a": "Tea",
+              "size": "Large",
+              "t": "Black",
+              "c": "No",
+              "d": "thanks"
+            },
+            "path": [
+              "a",
+              "size",
+              "t",
+              "c",
+              "d"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "graph: adds chain, and a later change can touch an added step",
+      "input": "flow small as=chained\nadd x after c: ask \"Sugar?\" Yes|No\nadd y after x: slide \"Spoons?\" 1-3\n%% x: ask \"Any sugar?\" Yes|No\ndrop y\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "small",
+            "as": "chained"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "add",
+                "id": "x",
+                "after": "c",
+                "preset": "ask",
+                "props": {
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "q": "Sugar?"
+                }
+              },
+              {
+                "op": "add",
+                "id": "y",
+                "after": "x",
+                "preset": "slide",
+                "props": {
+                  "min": 1,
+                  "max": 3,
+                  "label": "Spoons?"
+                }
+              },
+              {
+                "op": "step",
+                "id": "x",
+                "preset": "ask",
+                "props": {
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "q": "Any sugar?"
+                }
+              },
+              {
+                "op": "drop",
+                "id": "y"
+              }
+            ],
+            "source": "add x after c: ask \"Sugar?\" Yes|No\nadd y after x: slide \"Spoons?\" 1-3\n%% x: ask \"Any sugar?\" Yes|No\ndrop y"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@s \"Small\" submit=\"Go\"\nflowchart TD\n  %% a: ask \"Coffee or tea?\" Coffee|Tea\n  a --> b\n  a -->|Tea| t\n  %% b: slide \"How strong?\" 1-5\n  b[Strength] --> c\n  %% t: choose \"Which tea?\" Green|Black\n  t --> c\n  %% c: choose \"Milk?\" Yes|No\n  c --> d\n  %% d: mic \"Anything else?\"\n  d\nend",
+        "graph": {
+          "start": "a",
+          "nodes": [
+            {
+              "id": "a",
+              "preset": "ask",
+              "props": {
+                "options": [
+                  "Coffee",
+                  "Tea"
+                ],
+                "q": "Coffee or tea?"
+              }
+            },
+            {
+              "id": "b",
+              "label": "Strength",
+              "preset": "slide",
+              "props": {
+                "min": 1,
+                "max": 5,
+                "label": "How strong?"
+              }
+            },
+            {
+              "id": "t",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Green",
+                  "Black"
+                ],
+                "q": "Which tea?"
+              }
+            },
+            {
+              "id": "c",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Yes",
+                  "No"
+                ],
+                "q": "Milk?"
+              }
+            },
+            {
+              "id": "x",
+              "preset": "ask",
+              "props": {
+                "options": [
+                  "Yes",
+                  "No"
+                ],
+                "q": "Any sugar?"
+              }
+            },
+            {
+              "id": "d",
+              "preset": "mic",
+              "props": {
+                "prompt": "Anything else?"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "from": "a",
+              "to": "b"
+            },
+            {
+              "from": "a",
+              "to": "t",
+              "label": "Tea",
+              "when": [
+                [
+                  {
+                    "path": "a",
+                    "op": "=",
+                    "value": "Tea"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "b",
+              "to": "c"
+            },
+            {
+              "from": "t",
+              "to": "c"
+            },
+            {
+              "from": "c",
+              "to": "x"
+            },
+            {
+              "from": "x",
+              "to": "d"
+            }
+          ]
+        },
+        "route": {
+          "answers": {
+            "a": "Coffee",
+            "b": 3,
+            "c": "Yes",
+            "x": "No",
+            "d": ""
+          },
+          "path": [
+            "a",
+            "b",
+            "c",
+            "x",
+            "d"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "a": "Coffee",
+              "b": 3,
+              "c": "Yes",
+              "x": "No",
+              "d": ""
+            },
+            "path": [
+              "a",
+              "b",
+              "c",
+              "x",
+              "d"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "graph: changes the base cannot take are skipped",
+      "input": "flow small as=skips\ndrop nope\n%% nope: ask \"Ghost?\" Yes|No\nadd a after c: ask \"Again?\" Yes|No\nadd z after nowhere: ask \"Lost?\" Yes|No\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "small",
+            "as": "skips"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "nope"
+              },
+              {
+                "op": "step",
+                "id": "nope",
+                "preset": "ask",
+                "props": {
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "q": "Ghost?"
+                }
+              },
+              {
+                "op": "add",
+                "id": "a",
+                "after": "c",
+                "preset": "ask",
+                "props": {
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "q": "Again?"
+                }
+              },
+              {
+                "op": "add",
+                "id": "z",
+                "after": "nowhere",
+                "preset": "ask",
+                "props": {
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "q": "Lost?"
+                }
+              }
+            ],
+            "source": "drop nope\n%% nope: ask \"Ghost?\" Yes|No\nadd a after c: ask \"Again?\" Yes|No\nadd z after nowhere: ask \"Lost?\" Yes|No"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@s \"Small\" submit=\"Go\"\nflowchart TD\n  %% a: ask \"Coffee or tea?\" Coffee|Tea\n  a --> b\n  a -->|Tea| t\n  %% b: slide \"How strong?\" 1-5\n  b[Strength] --> c\n  %% t: choose \"Which tea?\" Green|Black\n  t --> c\n  %% c: choose \"Milk?\" Yes|No\n  c --> d\n  %% d: mic \"Anything else?\"\n  d\nend",
+        "graph": {
+          "start": "a",
+          "nodes": [
+            {
+              "id": "a",
+              "preset": "ask",
+              "props": {
+                "options": [
+                  "Coffee",
+                  "Tea"
+                ],
+                "q": "Coffee or tea?"
+              }
+            },
+            {
+              "id": "b",
+              "label": "Strength",
+              "preset": "slide",
+              "props": {
+                "min": 1,
+                "max": 5,
+                "label": "How strong?"
+              }
+            },
+            {
+              "id": "t",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Green",
+                  "Black"
+                ],
+                "q": "Which tea?"
+              }
+            },
+            {
+              "id": "c",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Yes",
+                  "No"
+                ],
+                "q": "Milk?"
+              }
+            },
+            {
+              "id": "d",
+              "preset": "mic",
+              "props": {
+                "prompt": "Anything else?"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "from": "a",
+              "to": "b"
+            },
+            {
+              "from": "a",
+              "to": "t",
+              "label": "Tea",
+              "when": [
+                [
+                  {
+                    "path": "a",
+                    "op": "=",
+                    "value": "Tea"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "b",
+              "to": "c"
+            },
+            {
+              "from": "t",
+              "to": "c"
+            },
+            {
+              "from": "c",
+              "to": "d"
+            }
+          ]
+        },
+        "route": {
+          "answers": {
+            "a": "Coffee",
+            "b": 2,
+            "c": "No",
+            "d": ""
+          },
+          "path": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "a": "Coffee",
+              "b": 2,
+              "c": "No",
+              "d": ""
+            },
+            "path": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "graph: a step-less node cannot take an add after it",
+      "input": "flow ring as=routed\nadd extra after check: ask \"Extra?\" Yes|No\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "ring",
+            "as": "routed"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "add",
+                "id": "extra",
+                "after": "check",
+                "preset": "ask",
+                "props": {
+                  "options": [
+                    "Yes",
+                    "No"
+                  ],
+                  "q": "Extra?"
+                }
+              }
+            ],
+            "source": "add extra after check: ask \"Extra?\" Yes|No"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@r \"Ring\"\nflowchart TD\n  %% q: ask \"Big?\" Yes|No\n  q --> check{Check}\n  check -->|Yes| big\n  check --> small\n  %% big: page \"Big\"\n  %% small: page \"Small\"\nend",
+        "graph": {
+          "start": "q",
+          "nodes": [
+            {
+              "id": "q",
+              "preset": "ask",
+              "props": {
+                "options": [
+                  "Yes",
+                  "No"
+                ],
+                "q": "Big?"
+              }
+            },
+            {
+              "id": "check",
+              "label": "Check"
+            },
+            {
+              "id": "big",
+              "preset": "page",
+              "props": {
+                "title": "Big"
+              }
+            },
+            {
+              "id": "small",
+              "preset": "page",
+              "props": {
+                "title": "Small"
+              }
+            }
+          ],
+          "edges": [
+            {
+              "from": "q",
+              "to": "check"
+            },
+            {
+              "from": "check",
+              "to": "big",
+              "label": "Yes",
+              "when": [
+                [
+                  {
+                    "op": "=",
+                    "value": "Yes"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "check",
+              "to": "small"
+            }
+          ]
+        },
+        "route": {
+          "answers": {
+            "q": "Yes"
+          },
+          "path": [
+            "q",
+            "big"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "q": "Yes"
+            },
+            "path": [
+              "q",
+              "big"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "graph: a drop that would point an edge back at its own step removes it",
+      "input": "flow loop as=unlooped\ndrop b\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "loop",
+            "as": "unlooped"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "drop",
+                "id": "b"
+              }
+            ],
+            "source": "drop b"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@l \"Loop\"\nflowchart TD\n  %% a: ask \"Again?\" Yes|No\n  a -->|Yes| b\n  %% b: ask \"Sure?\" Yes|No\n  b --> a\nend",
+        "graph": {
+          "start": "a",
+          "nodes": [
+            {
+              "id": "a",
+              "preset": "ask",
+              "props": {
+                "options": [
+                  "Yes",
+                  "No"
+                ],
+                "q": "Again?"
+              }
+            }
+          ],
+          "edges": []
+        },
+        "route": {
+          "answers": {
+            "a": "Yes"
+          },
+          "path": [
+            "a"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "a": "Yes"
+            },
+            "path": [
+              "a"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "starter website-intake as restaurant-intake: takeout that orders online, with a budget that books a call",
+      "input": "flow website-intake as=restaurant-intake\n%% kind: choose \"What kind of place?\" \"Dine in\"|Takeout|Both\n%% goal: choose \"What should a visitor do first?\" \"See the menu\"|\"Book a table\"|\"Order online\"|Call\ndrop today products pay pages\nadd menu after goal: pick \"What goes on the menu page?\" Breakfast|Lunch|Dinner|Drinks +other\nadd orders after menu: choose \"Take orders online?\" Yes|\"Not yet\"|No\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "website-intake",
+            "as": "restaurant-intake"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "step",
+                "id": "kind",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "Dine in",
+                    "Takeout",
+                    "Both"
+                  ],
+                  "q": "What kind of place?"
+                }
+              },
+              {
+                "op": "step",
+                "id": "goal",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "See the menu",
+                    "Book a table",
+                    "Order online",
+                    "Call"
+                  ],
+                  "q": "What should a visitor do first?"
+                }
+              },
+              {
+                "op": "drop",
+                "id": "today"
+              },
+              {
+                "op": "drop",
+                "id": "products"
+              },
+              {
+                "op": "drop",
+                "id": "pay"
+              },
+              {
+                "op": "drop",
+                "id": "pages"
+              },
+              {
+                "op": "add",
+                "id": "menu",
+                "after": "goal",
+                "preset": "pick",
+                "props": {
+                  "options": [
+                    "Breakfast",
+                    "Lunch",
+                    "Dinner",
+                    "Drinks"
+                  ],
+                  "q": "What goes on the menu page?",
+                  "other": true
+                }
+              },
+              {
+                "op": "add",
+                "id": "orders",
+                "after": "menu",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "Yes",
+                    "Not yet",
+                    "No"
+                  ],
+                  "q": "Take orders online?"
+                }
+              }
+            ],
+            "source": "%% kind: choose \"What kind of place?\" \"Dine in\"|Takeout|Both\n%% goal: choose \"What should a visitor do first?\" \"See the menu\"|\"Book a table\"|\"Order online\"|Call\ndrop today products pay pages\nadd menu after goal: pick \"What goes on the menu page?\" Breakfast|Lunch|Dinner|Drinks +other\nadd orders after menu: choose \"Take orders online?\" Yes|\"Not yet\"|No"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@intake \"Client website intake\" submit=\"Send the brief\"\nflowchart TD\n  %% hi: page \"Let's plan your site\" body=\"About ten questions. Your answers become the brief, so guess when you are not sure.\"\n  hi([Start]) --> biz\n  %% biz: form \"Your business\" \"Business name\":text! \"What you do\":long \"Who it is for\":text\n  biz[Your business] --> kind\n  %% kind: choose \"What are we building?\" \"New site\"|Redesign|Shop|\"Landing page\"\n  kind{What are we building?}\n  kind -->|Redesign| today\n  kind -->|Shop| products\n  kind --> goal\n  %% today: form \"The site today\" \"Current site\":url! \"What works\":long \"What you hate\":long\n  today[The site today] --> goal\n  %% products: slide \"How many products?\" 1-500\n  products[How many products?] --> pay\n  %% pay: pick \"How do you take payment?\" Stripe|Shopify|Square|\"Not sure yet\"\n  pay[Payments] --> goal\n  %% goal: choose \"What should a visitor do first?\" Call|Book|Buy|\"Sign up\"|Read\n  goal[First action]\n  goal -->|kind=Landing page| brand\n  goal --> pages\n  %% pages: pick \"Which pages?\" Home|About|Services|Pricing|Blog|Contact +other\n  pages[Pages] --> brand\n  %% brand: form \"Your brand\" logo:yes colors:text \"A site you like\":url\n  brand[Brand] --> budget\n  %% budget: slide \"Budget, in thousands\" 2-50 \"$2k\"|\"$50k\"\n  budget[Budget]\n  budget -->|budget>=15| meet\n  budget --> done\n  %% meet: ask \"Want a call to walk through it?\" \"Yes, book it\"|\"Email is fine\"\n  meet[Call?] --> done((Brief))\nend",
+        "graph": {
+          "start": "hi",
+          "nodes": [
+            {
+              "id": "hi",
+              "label": "Start",
+              "preset": "page",
+              "props": {
+                "title": "Let's plan your site",
+                "body": "About ten questions. Your answers become the brief, so guess when you are not sure."
+              }
+            },
+            {
+              "id": "biz",
+              "label": "Your business",
+              "preset": "form",
+              "props": {
+                "fields": [
+                  {
+                    "key": "business_name",
+                    "label": "Business name",
+                    "type": "text",
+                    "required": true
+                  },
+                  {
+                    "key": "what_you_do",
+                    "label": "What you do",
+                    "type": "long"
+                  },
+                  {
+                    "key": "who_it_is_for",
+                    "label": "Who it is for",
+                    "type": "text"
+                  }
+                ],
+                "title": "Your business"
+              }
+            },
+            {
+              "id": "kind",
+              "label": "What are we building?",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Dine in",
+                  "Takeout",
+                  "Both"
+                ],
+                "q": "What kind of place?"
+              }
+            },
+            {
+              "id": "goal",
+              "label": "First action",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "See the menu",
+                  "Book a table",
+                  "Order online",
+                  "Call"
+                ],
+                "q": "What should a visitor do first?"
+              }
+            },
+            {
+              "id": "menu",
+              "preset": "pick",
+              "props": {
+                "options": [
+                  "Breakfast",
+                  "Lunch",
+                  "Dinner",
+                  "Drinks"
+                ],
+                "q": "What goes on the menu page?",
+                "other": true
+              }
+            },
+            {
+              "id": "orders",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Yes",
+                  "Not yet",
+                  "No"
+                ],
+                "q": "Take orders online?"
+              }
+            },
+            {
+              "id": "brand",
+              "label": "Brand",
+              "preset": "form",
+              "props": {
+                "fields": [
+                  {
+                    "key": "logo",
+                    "type": "yes"
+                  },
+                  {
+                    "key": "colors",
+                    "type": "text"
+                  },
+                  {
+                    "key": "a_site_you_like",
+                    "label": "A site you like",
+                    "type": "url"
+                  }
+                ],
+                "title": "Your brand"
+              }
+            },
+            {
+              "id": "budget",
+              "label": "Budget",
+              "preset": "slide",
+              "props": {
+                "min": 2,
+                "max": 50,
+                "lo": "$2k",
+                "hi": "$50k",
+                "label": "Budget, in thousands"
+              }
+            },
+            {
+              "id": "meet",
+              "label": "Call?",
+              "preset": "ask",
+              "props": {
+                "options": [
+                  "Yes, book it",
+                  "Email is fine"
+                ],
+                "q": "Want a call to walk through it?"
+              }
+            },
+            {
+              "id": "done",
+              "label": "Brief"
+            }
+          ],
+          "edges": [
+            {
+              "from": "hi",
+              "to": "biz"
+            },
+            {
+              "from": "biz",
+              "to": "kind"
+            },
+            {
+              "from": "kind",
+              "to": "goal",
+              "label": "Redesign",
+              "when": [
+                [
+                  {
+                    "path": "kind",
+                    "op": "=",
+                    "value": "Redesign"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "kind",
+              "to": "goal",
+              "label": "Shop",
+              "when": [
+                [
+                  {
+                    "path": "kind",
+                    "op": "=",
+                    "value": "Shop"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "kind",
+              "to": "goal"
+            },
+            {
+              "from": "orders",
+              "to": "brand",
+              "label": "kind=Landing page",
+              "when": [
+                [
+                  {
+                    "path": "kind",
+                    "op": "=",
+                    "value": "Landing page"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "orders",
+              "to": "brand"
+            },
+            {
+              "from": "brand",
+              "to": "budget"
+            },
+            {
+              "from": "budget",
+              "to": "meet",
+              "label": "budget>=15",
+              "when": [
+                [
+                  {
+                    "path": "budget",
+                    "op": ">=",
+                    "value": 15
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "budget",
+              "to": "done"
+            },
+            {
+              "from": "meet",
+              "to": "done"
+            },
+            {
+              "from": "goal",
+              "to": "menu"
+            },
+            {
+              "from": "menu",
+              "to": "orders"
+            }
+          ]
+        },
+        "route": {
+          "answers": {
+            "hi": true,
+            "biz": {
+              "Business name": "Rosa's",
+              "What you do": "Tacos",
+              "Who it is for": "Office lunch"
+            },
+            "kind": "Takeout",
+            "goal": "Order online",
+            "menu": [
+              "Lunch",
+              "Drinks"
+            ],
+            "orders": "Yes",
+            "brand": {
+              "logo": true,
+              "colors": "red"
+            },
+            "budget": 18,
+            "meet": "Yes, book it"
+          },
+          "path": [
+            "hi",
+            "biz",
+            "kind",
+            "goal",
+            "menu",
+            "orders",
+            "brand",
+            "budget",
+            "meet"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "biz": {
+                "Business name": "Rosa's",
+                "What you do": "Tacos",
+                "Who it is for": "Office lunch"
+              },
+              "kind": "Takeout",
+              "goal": "Order online",
+              "menu": [
+                "Lunch",
+                "Drinks"
+              ],
+              "orders": "Yes",
+              "brand": {
+                "logo": true,
+                "colors": "red"
+              },
+              "budget": 18,
+              "meet": "Yes, book it"
+            },
+            "path": [
+              "hi",
+              "biz",
+              "kind",
+              "goal",
+              "menu",
+              "orders",
+              "brand",
+              "budget",
+              "meet"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "starter workout-checkin as run-checkin: a rest day still skips the time, the shoes step rides after today",
+      "input": "flow workout-checkin as=run-checkin\n%% today: choose \"Today's run?\" Easy|Tempo|Long|\"Rest day\"\nadd shoes after today: choose \"Which shoes?\" Road|Trail\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "flow",
+          "id": "n1",
+          "props": {
+            "title": "workout-checkin",
+            "as": "run-checkin"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "changes": [
+              {
+                "op": "step",
+                "id": "today",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "Easy",
+                    "Tempo",
+                    "Long",
+                    "Rest day"
+                  ],
+                  "q": "Today's run?"
+                }
+              },
+              {
+                "op": "add",
+                "id": "shoes",
+                "after": "today",
+                "preset": "choose",
+                "props": {
+                  "options": [
+                    "Road",
+                    "Trail"
+                  ],
+                  "q": "Which shoes?"
+                }
+              }
+            ],
+            "source": "%% today: choose \"Today's run?\" Easy|Tempo|Long|\"Rest day\"\nadd shoes after today: choose \"Which shoes?\" Road|Trail"
+          }
+        }
+      ],
+      "variant": {
+        "base": "flow@checkin \"Workout check-in\" submit=\"Send to my coach\"\nflowchart TD\n  %% sleep: slide \"How did you sleep?\" 1-10 Awful|Great\n  sleep[Sleep] --> energy\n  %% energy: choose \"Energy right now?\" Low|OK|High\n  energy[Energy] --> check{Rough day?}\n  check -->|sleep<5 or energy=Low| easy\n  check --> sore\n  %% easy: page \"Take it easy today\" body=\"Short sleep or low energy means a lighter session still counts. Your coach will see why.\"\n  easy[Easy day] --> sore\n  %% sore: pick \"Anything sore?\" Legs|Back|Shoulders|Arms|Nothing\n  sore[Sore spots]\n  sore -->|sore=Nothing| today\n  sore --> hurt\n  %% hurt: choose \"Sore, or does it hurt?\" \"Just sore\"|\"It hurts\"\n  hurt{Sore or hurt?}\n  hurt -->|It hurts| rest\n  hurt --> today\n  %% rest: page \"Skip that area today\" body=\"Sharp or joint pain means rest it. Your coach will swap those lifts.\"\n  rest[Rest it] --> today\n  %% today: choose \"Today's session?\" \"Full session\"|\"Lighter version\"|\"Mobility only\"|\"Rest day\"\n  today{Session}\n  today -->|Rest day| note\n  today --> time\n  %% time: slide \"Minutes you have\" 15-90\n  time[Time] --> note\n  %% note: mic \"Anything your coach should know?\"\n  note[Note] --> done((Coach))\nend",
+        "graph": {
+          "start": "sleep",
+          "nodes": [
+            {
+              "id": "sleep",
+              "label": "Sleep",
+              "preset": "slide",
+              "props": {
+                "min": 1,
+                "max": 10,
+                "lo": "Awful",
+                "hi": "Great",
+                "label": "How did you sleep?"
+              }
+            },
+            {
+              "id": "energy",
+              "label": "Energy",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Low",
+                  "OK",
+                  "High"
+                ],
+                "q": "Energy right now?"
+              }
+            },
+            {
+              "id": "check",
+              "label": "Rough day?"
+            },
+            {
+              "id": "easy",
+              "label": "Easy day",
+              "preset": "page",
+              "props": {
+                "title": "Take it easy today",
+                "body": "Short sleep or low energy means a lighter session still counts. Your coach will see why."
+              }
+            },
+            {
+              "id": "sore",
+              "label": "Sore spots",
+              "preset": "pick",
+              "props": {
+                "options": [
+                  "Legs",
+                  "Back",
+                  "Shoulders",
+                  "Arms",
+                  "Nothing"
+                ],
+                "q": "Anything sore?"
+              }
+            },
+            {
+              "id": "today",
+              "label": "Session",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Easy",
+                  "Tempo",
+                  "Long",
+                  "Rest day"
+                ],
+                "q": "Today's run?"
+              }
+            },
+            {
+              "id": "shoes",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Road",
+                  "Trail"
+                ],
+                "q": "Which shoes?"
+              }
+            },
+            {
+              "id": "hurt",
+              "label": "Sore or hurt?",
+              "preset": "choose",
+              "props": {
+                "options": [
+                  "Just sore",
+                  "It hurts"
+                ],
+                "q": "Sore, or does it hurt?"
+              }
+            },
+            {
+              "id": "rest",
+              "label": "Rest it",
+              "preset": "page",
+              "props": {
+                "title": "Skip that area today",
+                "body": "Sharp or joint pain means rest it. Your coach will swap those lifts."
+              }
+            },
+            {
+              "id": "note",
+              "label": "Note",
+              "preset": "mic",
+              "props": {
+                "prompt": "Anything your coach should know?"
+              }
+            },
+            {
+              "id": "time",
+              "label": "Time",
+              "preset": "slide",
+              "props": {
+                "min": 15,
+                "max": 90,
+                "label": "Minutes you have"
+              }
+            },
+            {
+              "id": "done",
+              "label": "Coach"
+            }
+          ],
+          "edges": [
+            {
+              "from": "sleep",
+              "to": "energy"
+            },
+            {
+              "from": "energy",
+              "to": "check"
+            },
+            {
+              "from": "check",
+              "to": "easy",
+              "label": "sleep<5 or energy=Low",
+              "when": [
+                [
+                  {
+                    "path": "sleep",
+                    "op": "<",
+                    "value": 5
+                  }
+                ],
+                [
+                  {
+                    "path": "energy",
+                    "op": "=",
+                    "value": "Low"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "check",
+              "to": "sore"
+            },
+            {
+              "from": "easy",
+              "to": "sore"
+            },
+            {
+              "from": "sore",
+              "to": "today",
+              "label": "sore=Nothing",
+              "when": [
+                [
+                  {
+                    "path": "sore",
+                    "op": "=",
+                    "value": "Nothing"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "sore",
+              "to": "hurt"
+            },
+            {
+              "from": "hurt",
+              "to": "rest",
+              "label": "It hurts",
+              "when": [
+                [
+                  {
+                    "path": "hurt",
+                    "op": "=",
+                    "value": "It hurts"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "hurt",
+              "to": "today"
+            },
+            {
+              "from": "rest",
+              "to": "today"
+            },
+            {
+              "from": "shoes",
+              "to": "note",
+              "label": "Rest day",
+              "when": [
+                [
+                  {
+                    "path": "today",
+                    "op": "=",
+                    "value": "Rest day"
+                  }
+                ]
+              ]
+            },
+            {
+              "from": "shoes",
+              "to": "time"
+            },
+            {
+              "from": "time",
+              "to": "note"
+            },
+            {
+              "from": "note",
+              "to": "done"
+            },
+            {
+              "from": "today",
+              "to": "shoes"
+            }
+          ]
+        },
+        "route": {
+          "answers": {
+            "sleep": 8,
+            "energy": "High",
+            "sore": [
+              "Nothing"
+            ],
+            "today": "Rest day",
+            "shoes": "Road",
+            "note": ""
+          },
+          "path": [
+            "sleep",
+            "energy",
+            "sore",
+            "today",
+            "shoes",
+            "note"
+          ],
+          "open": null,
+          "event": {
+            "flow": {
+              "sleep": 8,
+              "energy": "High",
+              "sore": [
+                "Nothing"
+              ],
+              "today": "Rest day",
+              "shoes": "Road",
+              "note": ""
+            },
+            "path": [
+              "sleep",
+              "energy",
+              "sore",
+              "today",
+              "shoes",
+              "note"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

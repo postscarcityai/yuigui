@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import { apply, attachBody, doingOf, flowEvent, flowPath, initialState, markAt, menuOf, onStage, pageOf, parse, readAttach, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
+import { apply, attachBody, doingOf, flowEvent, flowPath, flowVariant, initialState, markAt, menuOf, onStage, pageOf, parse, readAttach, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 import { emptyStore, query, replay } from "../../site/lib/yl/tables.mjs";
 import { appLook, checks } from "../../site/lib/yl/look.mjs";
 
@@ -97,6 +97,24 @@ function check(v) {
     if (!isDeepStrictEqual(got, { path, open })) fails.push(["route (path, open)", got]);
     const ev = flowEvent(g, answers);
     if (!isDeepStrictEqual(ev, event)) fails.push(["route (event)", ev]);
+  }
+  if (v.variant) {
+    // A flow variant (FLOWS.md, section 9): the base's graph (from its flow
+    // lines) with the input's changes applied, and the route through it.
+    const baseOp = parse(v.variant.base).find((o) => o.op === "patch");
+    const base = resolve("flow", baseOp ? baseOp.props : {});
+    const patch = parse(v.input, known).find((o) => o.op === "patch");
+    const g = flowVariant(base, (patch && patch.props.changes) || []);
+    const got = { start: g.start, nodes: g.nodes || [], edges: g.edges || [] };
+    const { graph, route } = v.variant;
+    if (graph && !isDeepStrictEqual(got, graph)) fails.push(["variant (graph after the changes)", got]);
+    if (route) {
+      const { answers, path, open, event } = route;
+      const pg = flowPath(g, answers);
+      if (!isDeepStrictEqual(pg, { path, open })) fails.push(["variant route (path, open)", pg]);
+      const ev = flowEvent(g, answers);
+      if (!isDeepStrictEqual(ev, event)) fails.push(["variant route (event)", ev]);
+    }
   }
   if (v.tables) {
     // Agent tables (TABLES.md): replay the input's `table create` and `put`

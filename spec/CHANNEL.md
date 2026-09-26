@@ -8,6 +8,10 @@ Waiting for the app (YUI-63 step 2): the rule below moves into **Use it well** i
 
 > - **Say what you're doing.** On a turn that takes more than a few seconds (reading, searching, drafting), send `doing` with a few plain words each time the step changes, and the step when you know how many: `doing "Reading your calendar" 1/3`. Plain words, no ids or file names. It shows in your working row, never as a message, and your reply clears it.
 
+Waiting for the app (FLOW-1 step 3, app half YUI-115): variants of saved flows (FLOWS.md section 9). The phone does not run flows yet, so this line joins the saved-flows line in **How to put something on screen** in the change that ships the app build running flows, with a version bump and an eval case:
+
+> - your own version of a saved flow: `flow website-intake as=restaurant-intake`, then only what changes (`drop pages`, `%% kind: choose "What kind of place?" "Dine in"|Takeout`, `add menu after goal: pick "Menu?" Lunch|Dinner`) and `end`
+
 ---
 
 ## You are talking to someone in Yui

@@ -4,7 +4,7 @@ A flow is a saved series of Yui screens that any agent can run: a client website
 
 Plan mode (YL.md, section 4, plan) is the first flow, and it is linear. A flow is plan mode with a map: Next follows the edge your answers pick.
 
-Status: step 2 (FLOW-1). Step 1 shipped the spec, the JavaScript parser and the web runtime in the playground. Step 2 gives every parser in the hub (JavaScript, Python, Kotlin, Rust) the same flow vectors, pins what a native runner keeps on the phone (section 5), and mocks My flows in the playground. The app runs flows in its own step; until then an older app shows the flow line as unknown and skips it.
+Status: step 3 (FLOW-1). Step 1 shipped the spec, the JavaScript parser and the web runtime in the playground. Step 2 gave every parser in the hub (JavaScript, Python, Kotlin, Rust) the same flow vectors, pinned what a native runner keeps on the phone (section 5), and mocked My flows in the playground. Step 3 lets an agent make its own version of a saved flow, a variant (section 9). The app runs flows in its own step; until then an older app shows the flow line as unknown and skips it.
 
 ## 1. A flow in Yui Lines
 
@@ -134,10 +134,52 @@ Every Yui has five: three from real work, the first run, and connecting your too
 - **`onboarding`**, meet Yui (YUI-38). Your name, how much you know about AI (brand new gets a page on what an agent is, 4 and up asks if you run one), what you want help with, in taps and then your own words. Suggests two starter agents from those answers, lets you pick, and ends on how to connect them today. The whole interview: [Onboarding](ONBOARDING.md).
 - **`connect`**, connect your tools (YUI-39). Pick Google Calendar, Gmail or HubSpot; each one picked gets its own consent step with its scopes in plain words, Allow or Not now; then what the agent sees, and what comes next: a sign-in button per tool allowed, or nothing connected. The sign-in buttons come from the agent after the event, never from the flow: [Connectors](CONNECTORS.md).
 
-To tailor one to a person, the agent sends it inline with its own wording and keeps the ids and edges, so the answers still line up.
+To tailor one to a person, the agent sends a variant with only what changes (section 9), or, for new branches, the whole flow inline with its own wording, keeping the ids and edges so the answers still line up.
 
-## 9. Next
+## 9. Variants
+
+An agent often wants a saved flow with a few things changed: the website intake, but for a restaurant. It does not copy the whole chart. It names the flow it starts from, gives the new one a name with `as=`, and says only what changes, up to `end`:
+
+```
+flow website-intake as=restaurant-intake
+%% kind: choose "What kind of place?" "Dine in"|Takeout|Both
+drop today products pay pages
+add menu after goal: pick "What goes on the menu page?" Breakfast|Lunch|Dinner|Drinks +other
+end
+```
+
+Three kinds of line, applied in order to the base flow's graph:
+
+- **`drop a b`** takes steps out. Edges into a dropped step go where it went (its default edge, else its first), keeping their conditions; its own edges go with it. Drop the start and its next step starts.
+- **`%% id: <step>`** rewords a step: the same comment a flow uses, so the new line replaces the step on that node. The node keeps its place and its edges, so conditions that test other answers still hold. A `%%` line that is not a step is a comment.
+- **`add new after id: <step>`** puts a new step in after a step. The new step takes over every edge out of `id` (conditions included), and `id` goes straight to it. `new` must be an id the flow does not have yet.
+
+A change that names a step the base does not have (or adds one it already has) is skipped, so a variant keeps working when its base changes. A step line that cannot be a step, or any other line, is an error line and the rest of the variant still reads. `review=off`, `submit=` and `+inline` work on the head as on any flow. With no `end` the variant closes at the end of the reply.
+
+**Why this and not a copy.** A variant is a few lines, so an agent can write one in a reply, a person can read what changed, and fixing the base fixes every variant made from it. A copy would be the whole chart, and the two would drift. Edits by line are also how people already talk about it ("drop the pages question, ask about the menu after the first action"). Branching changes, a new edge or condition, are not variant lines: an agent that needs them sends the whole flow inline, as section 8 says.
+
+**Names.** `as` is the variant's name and title at once, matched like any saved flow's (letters and digits, case and spacing aside): `as=restaurant-intake` and `as="Restaurant intake"` are the same flow, titled "Restaurant intake". It cannot take a starter flow's name.
+
+**What the parser gives.** The head is an add as usual, the base's name in `title` and the new name in `as`. The variant's `end` (or the end of the reply) gives one patch on it with the changes in order and the lines as sent:
+
+```
+{op: "patch", target: "n1", props: {changes: [
+  {op: "step", id: "kind", preset: "choose", props: {...}},
+  {op: "drop", id: "today"}, {op: "drop", id: "products"}, ...,
+  {op: "add", id: "menu", after: "goal", preset: "pick", props: {...}}],
+  source: "%% kind: choose ...\ndrop today products pay pages\n..."}}
+```
+
+`flowVariant(base, changes)` in every hub parser gives the graph the phone runs; `flowPath`, `flowNext` and `flowEvent` then work on it unchanged, and the event is an ordinary `{flow}` event.
+
+**On the phone.** Sending a variant runs it and keeps it in My flows under its name, as the base's name plus its changes, not a copy of the graph, listed under its base with the agent that made it. `flow restaurant-intake` runs it again later. Sending a variant with the same name again replaces it: that is how an agent edits its own. A variant can start from another variant; the phone follows the names back, at most five deep, and a name that loops or goes missing is "no saved flow". A run keeps the graph it started with (section 5).
+
+**In the library.** A variant is listed under its base on /developers/library and in /library.json, with `base` naming the flow it starts from and `yl` the lines to send. Search finds it like any flow.
+
+Conformance: `spec/conformance/36-flow-variant.json`, run by the JavaScript, Python, Kotlin and Rust runners. Its `variant` vectors give the base as flow lines and pin the graph after the changes and the route through it.
+
+## 10. Next
 
 - The app runs flows: the Swift parser takes `26-flow.json` off its not-yet list, and a native runtime keeps runs as section 5 says.
-- My flows: the person's own saved flows, listed, duplicated, edited with the agent ("add a question about brand colors after the pages"), shared. The playground mocks it: `/playground?demo=myflows`.
+- My flows: the person's own saved flows and the variants agents made, listed under their base, duplicated, edited with the agent ("add a question about brand colors after the pages" is a variant line), shared. The playground mocks it: `/playground?demo=myflows`.
 - FLOW-2: a public library of flows on yuigui.com that people browse and agents can search.

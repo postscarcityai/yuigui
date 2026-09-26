@@ -56,6 +56,10 @@ One file per area, `NN-area.json`:
 
 - `route`: `{answers, path, open, event}`, a flow's runtime (FLOWS.md, section 4): for these answers, `flowPath` of the input's first flow gives `{path, open}` and `flowEvent` gives `event`. Checked against `flowPath`/`flowEvent` in JS and Kotlin and `flow_path`/`flow_event` in Python and Rust.
 
+- `variant`: `{base, graph, route?}`, a flow variant (FLOWS.md, section 9). `base` is a flow as YL lines; its patch, resolved, is the base graph. `flowVariant(base, changes)` with the changes from the input's first patch must give `graph`, `{start, nodes, edges}` (missing arrays as `[]`), and `route` (as above) is checked on that graph. Checked against `flowVariant` in JS and Kotlin and `flow_variant` in Python and Rust.
+
+**Flow variants: `36-flow-variant.json`.** The JavaScript, Python, Kotlin and Rust parsers read variants and run their `variant` vectors (FLOW-1 step 3). The Swift parser learns them with flows, so it is on the app's not-yet list too.
+
 **JavaScript only: `js-NN-*.json`.** A new area can land in the JavaScript parser first, as `js-NN-area.json`: `run.mjs` reads it and the Swift, Python, Kotlin and Rust runners skip it (they read `NN-*.json`). When the other parsers learn it, drop the `js-` and every runner picks it up. None is JavaScript only today.
 
 **Flows: `26-flow.json`.** The JavaScript, Python, Kotlin and Rust parsers read flows and run their `route` vectors (FLOW-1 step 2). The Swift parser learns them in the app half, so `26-flow.json` is on its not-yet list (`notYetInApp` in the app repo).

@@ -5,18 +5,18 @@
 // edge the answers pick, Back walks the path taken, the review lists only the
 // answered steps on that path, and one {flow, path} event goes at submit.
 import { useContext, useMemo, useState } from "react";
-import { flowAhead, flowEvent, flowFirst, flowNext, flowPath, parse, resolve } from "../../lib/yl/yl.mjs";
-import { flowLines, savedFlow } from "../../lib/yl/starter-flows.mjs";
+import { flowAhead, flowEvent, flowFirst, flowNext, flowPath, resolve } from "../../lib/yl/yl.mjs";
+import { savedGraph, variantGraph } from "../../lib/yl/starter-flows.mjs";
 import { ScreenCtx } from "./science";
 import { Facts, Page, VALUE, foldText, question, show } from "./flows";
 
-// The graph: sent inline (the patch at `end`), or a saved flow by name.
+// The graph: sent inline (the patch at `end`), a variant of a saved flow
+// (`as=`, its changes on the base), or a saved flow by name.
 function graphOf(p) {
   if (p.nodes) return { g: p };
-  const saved = savedFlow(p.title);
+  const saved = p.as !== undefined ? variantGraph(p.title, p.changes, p.as) : savedGraph(p.title);
   if (!saved) return { missing: p.title };
-  const patch = parse(flowLines(saved)).find((o) => o.op === "patch");
-  return { g: resolve("flow", patch.props), title: saved.title, submit: saved.submit };
+  return { g: saved.g, title: saved.title, submit: saved.submit, base: saved.base };
 }
 
 export function Flow({ node, emit, Render }) {

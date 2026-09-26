@@ -6,7 +6,7 @@
 use std::path::{Path, PathBuf};
 use std::{env, fs, panic, process};
 use std::collections::HashMap;
-use yuilines::{doing_of, flow_event, flow_path, json, mark_at, on_stage, page_of, parse_with, read_typed, resolve, tables, talking, timeline_rows, typed_body, Map, StreamParser, Value};
+use yuilines::{doing_of, flow_event, flow_path, flow_variant, json, mark_at, on_stage, page_of, parse_with, read_typed, resolve, tables, talking, timeline_rows, typed_body, Map, StreamParser, Value};
 
 /// Parser ops minus `line` and an error's `message`.
 fn normalize(ops: Vec<Value>) -> Value {
@@ -165,6 +165,46 @@ fn check(v: &Value) -> Vec<(&'static str, Value)> {
         let ev = flow_event(&g, answers);
         if !same(&ev, r.get("event").unwrap_or(&Value::Null)) {
             fails.push(("route (event)", ev));
+        }
+    }
+    if let Some(va) = v.get("variant") {
+        // A flow variant (spec/FLOWS.md, section 9): the base's graph (from its
+        // flow lines) with the input's changes applied, and the route through it.
+        let empty = Map::new();
+        let base_ops = parse(va.get("base").and_then(Value::as_str).unwrap_or(""));
+        let base_patch = base_ops.iter().find(|o| o.get("op") == Some(&Value::str("patch")));
+        let base = resolve("flow", base_patch.and_then(|o| o.get("props")).and_then(Value::as_obj).unwrap_or(&empty));
+        let ops = parse(input);
+        let patch = ops.iter().find(|o| o.get("op") == Some(&Value::str("patch")));
+        let changes = patch.and_then(|o| o.get("props")).and_then(|p| p.get("changes")).and_then(Value::as_arr).cloned().unwrap_or_default();
+        let g = flow_variant(&base, &changes);
+        let mut got = Map::new();
+        got.set("start", g.get("start").cloned().unwrap_or(Value::Null));
+        got.set("nodes", g.get("nodes").cloned().unwrap_or(Value::Arr(Vec::new())));
+        got.set("edges", g.get("edges").cloned().unwrap_or(Value::Arr(Vec::new())));
+        let got = Value::Obj(got);
+        if let Some(want) = va.get("graph") {
+            if !same(&got, want) {
+                fails.push(("variant (graph after the changes)", got));
+            }
+        }
+        if let Some(r) = va.get("route") {
+            let answers = r.get("answers").and_then(Value::as_obj).unwrap_or(&empty);
+            let (path, open) = flow_path(&g, answers);
+            let mut pg = Map::new();
+            pg.set("path", Value::strs(&path));
+            pg.set("open", open.map_or(Value::Null, Value::Str));
+            let pg = Value::Obj(pg);
+            let mut want = Map::new();
+            want.set("path", r.get("path").cloned().unwrap_or(Value::Null));
+            want.set("open", r.get("open").cloned().unwrap_or(Value::Null));
+            if !same(&pg, &Value::Obj(want)) {
+                fails.push(("variant route (path, open)", pg));
+            }
+            let ev = flow_event(&g, answers);
+            if !same(&ev, r.get("event").unwrap_or(&Value::Null)) {
+                fails.push(("variant route (event)", ev));
+            }
         }
     }
     if let Some(t) = v.get("typed") {

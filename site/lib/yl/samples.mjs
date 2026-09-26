@@ -1,4 +1,4 @@
-import { STARTER_FLOWS, flowLines } from "./starter-flows.mjs";
+import { FLOW_VARIANTS, STARTER_FLOWS, flowLines, variantLines } from "./starter-flows.mjs";
 
 // The 10 benchmark screens. The playground loads these too, so what is
 // measured is exactly what renders.
@@ -875,6 +875,15 @@ flow workout-checkin`,
     agent: "Scout",
     yl: `say "New client? Let's get the brief."
 flow website-intake`,
+  },
+  {
+    // FLOW-1 step 3 (spec/FLOWS.md, section 9): a variant. Scout starts from
+    // the website intake and sends only what changes for a restaurant.
+    slug: "flow-variant",
+    name: "Flow: a variant an agent makes (restaurant intake)",
+    agent: "Scout",
+    yl: `say "Your intake, made over for a restaurant: menu and online orders instead of pages and products. Saved as Restaurant intake."
+${variantLines(FLOW_VARIANTS[0])}`,
   },
   {
     // YUI-39: the agent's answer to the connect flow's {flow} event. The real

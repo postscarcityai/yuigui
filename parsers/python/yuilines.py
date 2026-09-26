@@ -38,6 +38,7 @@ __all__ = [
     "tokenize", "seconds", "quantity", "calc_var", "parse_args",
     "Parser", "StreamParser", "parse", "on_stage", "is_workout", "page_of", "resolve",
     "FLOW_STEPS", "flow_when", "flow_test", "flow_next", "flow_first", "flow_path", "flow_ahead", "flow_event",
+    "flow_variant", "variant_name",
 ]
 
 PRESETS = [
@@ -1123,6 +1124,108 @@ def _flow_graph(f):
     return _clean({"dir": f["dir"], "start": first.get("id"), "nodes": nodes, "edges": edges, "source": "\n".join(f["src"])})
 
 
+# ---------- flow variants (spec/FLOWS.md, section 9) ----------
+# `flow <base> as=<name>` makes a variant of a saved flow: the lines up to
+# `end` say only what changes. `drop a b` takes steps out, `%% id: <step>`
+# rewords one, `add new after id: <step>` puts a step in after another. The
+# parser keeps them in order; flow_variant applies them to the base's graph.
+VARIANT_DROP = _re(rf"drop((?:{S}+\w+)+){S}*")
+VARIANT_ADD = _re(rf"add{S}+(\w+){S}+after{S}+(\w+){S}*:{S}*({DOT}*)")
+VARIANT_BAD = "flow: a variant line is drop, add or a %% step"
+
+
+def _new_variant(head):
+    return {"id": head["id"], "screen": head["screen"], "src": [], "depth": 0, "variant": True, "changes": []}
+
+
+def _variant_step(text):
+    """A step for a variant line, or an error message, or None (not a step)."""
+    head = STEP_HEAD.match(text)
+    if head and head[1] in PRESETS and head[1] not in FLOW_STEPS:
+        return f"flow: a {head[1]} cannot be a step ({', '.join(FLOW_STEPS)})"
+    return _step_of(text)
+
+
+def _variant_statement(v, t):
+    """One line of an open variant. Returns an error message or None."""
+    if not t or COMMENT.match(t):
+        return None
+    if t.startswith("%%"):
+        m = STEP_COMMENT.fullmatch(t)
+        if not m:
+            return None
+        s = _variant_step(m[2])
+        if isinstance(s, str):
+            return s
+        if s:
+            v["changes"].append({"op": "step", "id": m[1], "preset": s["preset"], "props": s["props"]})
+        return None
+    m = VARIANT_DROP.fullmatch(t)
+    if m:
+        for i in re.split(f"{S}+", _trim(m[1])):
+            v["changes"].append({"op": "drop", "id": i})
+        return None
+    m = VARIANT_ADD.fullmatch(t)
+    if m:
+        s = _variant_step(m[3])
+        if isinstance(s, str):
+            return s
+        if not s:
+            return VARIANT_BAD
+        v["changes"].append({"op": "add", "id": m[1], "after": m[2], "preset": s["preset"], "props": s["props"]})
+        return None
+    return VARIANT_BAD
+
+
+def flow_variant(base, changes=None):
+    """A base flow's graph with a variant's changes applied, in order. A change
+    that names a step the base does not have (or adds one it already has) is
+    skipped, so a variant survives its base being edited."""
+    nodes = [dict(n) for n in base.get("nodes") or []]
+    edges = [dict(e) for e in base.get("edges") or []]
+    start = base.get("start")
+
+    def has(i):
+        return any(n["id"] == i for n in nodes)
+
+    for c in changes or []:
+        op = c.get("op")
+        if op == "drop" and has(c["id"]):
+            # Edges into the step go where it went: its default edge, else its first.
+            out = [e for e in edges if e["from"] == c["id"]]
+            pick = next((e for e in out if not e.get("when")), out[0] if out else None)
+            on = pick["to"] if pick else None
+            kept = []
+            for e in edges:
+                if e["from"] == c["id"]:
+                    continue
+                if e["to"] != c["id"]:
+                    kept.append(e)
+                elif on and on != e["from"]:
+                    kept.append({**e, "to": on})
+            edges = kept
+            nodes = [n for n in nodes if n["id"] != c["id"]]
+            if start == c["id"]:
+                start = on if on and has(on) else (nodes[0]["id"] if nodes else None)
+        elif op == "step" and has(c["id"]):
+            nodes = [{**n, "preset": c["preset"], "props": c["props"]} if n["id"] == c["id"] else n for n in nodes]
+        elif op == "add" and not has(c["id"]) and next((n for n in nodes if n["id"] == c["after"]), {}).get("preset"):
+            # The new step takes over the edges out of `after`, and `after` goes to it.
+            edges = [{**e, "from": c["id"]} if e["from"] == c["after"] else e for e in edges]
+            edges.append({"from": c["after"], "to": c["id"]})
+            at = next(i for i, n in enumerate(nodes) if n["id"] == c["after"])
+            nodes.insert(at + 1, {"id": c["id"], "preset": c["preset"], "props": c["props"]})
+    return _clean({"dir": base.get("dir"), "start": start, "nodes": nodes, "edges": edges})
+
+
+def variant_name(as_):
+    """A variant's name and title from its `as=`."""
+    raw = "" if as_ is None else str(as_)
+    name = re.sub(r"^-|-$", "", re.sub(r"[^a-z0-9]+", "-", raw.lower()))
+    t = re.sub(r"[-_]+", " ", _trim(raw))
+    return {"name": name, "title": t[:1].upper() + t[1:]}
+
+
 # ---------- flow runtime ----------
 # Pure helpers the renderers share: where Next goes, the path taken, and
 # what goes in the event. `g` is a flow's props (resolve("flow", props)).
@@ -1564,7 +1667,11 @@ class Parser:
                 return None
         op = self.group(self.parse_line(src))
         if op and op["op"] == "add" and op["preset"] == "flow":
-            self.flow_head = {"id": op["id"], "screen": op["screen"], "pre": []}
+            # `as=` makes it a variant of the saved flow it names: its lines follow.
+            if "as" in op["props"]:
+                self.flow = _new_variant(op)
+            else:
+                self.flow_head = {"id": op["id"], "screen": op["screen"], "pre": []}
         return op
 
     def finish(self):
@@ -1585,12 +1692,13 @@ class Parser:
                 return None
             return self.flow_done(line)
         f["src"].append(line)
-        err = _flow_statement(f, t)
+        err = _variant_statement(f, t) if f.get("variant") else _flow_statement(f, t)
         return {"op": "error", "screen": f["screen"], "message": err, "line": line} if err else None
 
     def flow_done(self, line):
         f, self.flow = self.flow, None
-        return {"op": "patch", "screen": f["screen"], "target": f["id"], "props": _flow_graph(f), "line": line}
+        props = _clean({"changes": f["changes"], "source": "\n".join(f["src"])}) if f.get("variant") else _flow_graph(f)
+        return {"op": "patch", "screen": f["screen"], "target": f["id"], "props": props, "line": line}
 
     def parse_line(self, src):
         line = src[:-1] if src.endswith("\r") else src
