@@ -885,7 +885,7 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .sc-entry { display: flex; flex-wrap: wrap; gap: 20px 28px; padding: 28px 0; border-top: 1.5px solid var(--outline); scroll-margin-top: 90px; }
 .sc-entry:target { background: linear-gradient(90deg, color-mix(in srgb, var(--brand) 10%, transparent), transparent 70%); border-radius: 16px; }
 .sc-media { display: flex; flex-wrap: wrap; gap: 20px; min-width: 0; max-width: 100%; }
-.sc-media figure { width: min(300px, 100%); min-width: 0; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.sc-media figure { width: 300px; max-width: 100%; min-width: 0; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .sc-media figcaption { font-size: 13px; color: var(--muted); }
 .phone.sc-phone { width: 100%; height: 600px; }
 .sc-phone .screen { min-width: 0; }

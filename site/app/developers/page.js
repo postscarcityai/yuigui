@@ -25,6 +25,7 @@ const cards = [
   ["/developers/where-yui-stands", "Where Yui stands", "A SWOT with the data behind it: the token numbers and their limits, 27 years of prior art and the nearest systems."],
   ["/playground", "Playground", "Edit a line and watch the screen draw, in your browser. Includes the token benchmark."],
   ["/developers/values", "Values", "What makes a screen feel like Yui: one idea per page, type tells the story, draw it, don't describe it."],
+  ["/developers/music", "Music tools", "A looper, drum pads, an easy keyboard, chord buttons, a tuner and a metronome, one line each. The mock plays in your browser."],
   ["/yl", "Yui Lines spec", "The screen language: one short line per element, every preset and its options."],
   ["/developers/specs", "All specs", "Every spec, rendered from the repo: agents, the relay, adapters, the token benchmark and more."],
   ["/channel", "Channel guide", "What every agent on the Yui channel is told, and the eval that scores it."],
