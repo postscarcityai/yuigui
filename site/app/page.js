@@ -60,7 +60,7 @@ export default function Home() {
     <>
       <section className="hero hero-v">
         <div className="hero-text">
-          <div className="eyebrow">MVP done | alpha on TestFlight | open source</div>
+          <div className="eyebrow">Proudly Open Sourced</div>
           <h1>Meet Yui, a generative user interface.</h1>
           <p className="lede">
             Your agent draws the screen instead of replying in walls of text: a timer, a form, a quick choice.
