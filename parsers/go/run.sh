@@ -10,6 +10,5 @@ if ! command -v go >/dev/null 2>&1; then
   echo "go not found" >&2
   exit 2
 fi
-cd "$here"
-go build -o conformance . >&2 || { echo "go build failed" >&2; exit 2; }
-exec ./conformance "$vectors"
+go build -C "$here" -o "$here/conformance" . >&2 || { echo "go build failed" >&2; exit 2; }
+exec "$here/conformance" "$vectors"
