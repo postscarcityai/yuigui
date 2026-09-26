@@ -816,6 +816,10 @@
     },
     {
       "text": "Channel guide v25 bundled (feedback APSw0dsa): a lesson is one screen. Synced from yuigui 6b035e2."
+    },
+    {
+      "text": "A lesson is one deck: a page's picture can be shapes, math, chart, stat or calc",
+      "card": "YUI-113"
     }
   ]
 }

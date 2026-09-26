@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T15:10:06.974Z",
+  "updated": "2026-09-26T15:40:14.790Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -30,7 +30,9 @@
       "cards": [
         {
           "key": "YUI-34",
-          "title": "Key vault for bring-your-own keys"
+          "title": "Key vault for bring-your-own keys",
+          "summary": "A key vault, planned",
+          "progress": "/progress#a-key-vault-planned"
         },
         {
           "key": "YUI-36",
@@ -174,6 +176,11 @@
           "mvp": true
         },
         {
+          "key": "YUI-34",
+          "title": "Step 2 (backlog)",
+          "summary": "Key vault native in the app"
+        },
+        {
           "key": "YUI-40",
           "title": "Step 2 (backlog)",
           "summary": "Widgets native in the app"
@@ -214,17 +221,13 @@
         },
         {
           "key": "YUI-113",
-          "title": "One reply, one experience in the app",
-          "summary": "A deck page can carry shapes, math, chart, stat and calc"
+          "title": "Step 2",
+          "summary": "Publish channel guide v26 to non-Hermes agents once build 158+ is VALID",
+          "waiting": true
         },
         {
-          "key": "YUI-34",
-          "title": "Step 1 (backlog)",
-          "summary": "Key vault spec + playground mock"
-        },
-        {
-          "key": "SITE-42",
-          "title": "Link and image integrity sweep, every page resolves"
+          "key": "SITE-43",
+          "title": "See it catches up to build 155 (hands-free voice, keyboard, centered questions, memory)"
         }
       ]
     },
@@ -232,6 +235,26 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-113",
+          "title": "One reply, one experience in the app",
+          "summary": "A lesson is one deck",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-lesson-is-one-deck"
+        },
+        {
+          "key": "SITE-42",
+          "title": "Link and image integrity sweep, every page resolves",
+          "summary": "Every link on the site resolves",
+          "shipped": "2026-09-26",
+          "progress": "/progress#every-link-on-the-site-resolves"
+        },
+        {
+          "key": "YUI-34",
+          "title": "Step 1 (backlog)",
+          "summary": "Key vault spec + playground mock",
+          "shipped": "2026-09-26"
+        },
         {
           "key": "SITE-41",
           "title": "Speed and accessibility pass, top pages to 90+ on Lighthouse",
