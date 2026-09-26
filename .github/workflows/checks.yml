@@ -1,0 +1,67 @@
+# Every pull request (OSS-6, Yui@home): the conformance vectors, the bench tests and the site build.
+# No secrets anywhere in this file: it runs fork code, so it gets a read-only token and nothing else.
+# Nothing merges on its own; a person reviews every pull request (CODEOWNERS asks for the review).
+name: checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - name: JavaScript parser
+        run: cd spec/conformance && node run.mjs
+      - name: Python parser
+        run: python3 parsers/python/conformance.py spec/conformance
+      - name: Rust parser
+        run: parsers/rust/run.sh spec/conformance
+  bench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm, cache-dependency-path: bench/package-lock.json }
+      - run: cd bench && npm ci && npm test
+  site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm, cache-dependency-path: site/package-lock.json }
+      # site/content is committed (the board export and npm run sync write it), so this builds what Vercel builds.
+      - run: cd site && npm ci && npm run build
+  hands-off:
+    # A pull request from a fork may not touch CI, deploy scripts or generated files (CONTRIBUTING-AGENTS.md, "Never touch").
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0, persist-credentials: false }
+      - name: Changed files stay out of the hands-off paths
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          bad=$(git diff --name-only "$BASE"...HEAD | grep -E '^(\.github/|CODEOWNERS$|site/content/|site/scripts/|site/lib/public-guard\.mjs$|site/vercel\.json$|vercel\.json$|\.vercel/|LICENSE$|NOTICE$)' || true)
+          if [ -n "$bad" ]; then
+            echo "This pull request changes files an outside pull request may not touch:"
+            echo "$bad"
+            echo "See CONTRIBUTING-AGENTS.md, section 4. Take them out and push again."
+            exit 1
+          fi
+          echo "ok: no hands-off paths"

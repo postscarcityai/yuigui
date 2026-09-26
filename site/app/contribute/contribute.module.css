@@ -12,3 +12,4 @@
 .tests { margin: 0; padding: 10px 14px; border-radius: 12px; background: var(--raised); border: 1.5px solid var(--outline); font-size: 13px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
 .foot { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
 .empty { color: var(--muted); }
+.feature { margin: -2px 0 0; color: var(--muted); font-size: 14px; }

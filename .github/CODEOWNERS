@@ -1,0 +1,8 @@
+# Review before merge (OSS-6). A person reviews every pull request; these paths also need the owner.
+# CI, the deploy and board scripts, the generated site content and the public guard.
+/.github/                   @CJohnDesign
+/site/scripts/              @CJohnDesign
+/site/content/              @CJohnDesign
+/site/lib/public-guard.mjs  @CJohnDesign
+/LICENSE                    @CJohnDesign
+/NOTICE                     @CJohnDesign

@@ -1,10 +1,11 @@
 // Yui@home (OSS-6, story SITE-24): lend your idle AI agent to Yui. The agent-ready backlog comes
 // from the kanban board through scripts/export-board.mjs (content/backlog.json), and the same file
-// is served to agents at /contribute/backlog.json. The per-platform weekly routines are the next step.
+// is served to agents at /contribute/backlog.json. The per-platform weekly routines (step 2) come from lib/routines.mjs.
 import Link from "next/link";
 import links from "../../content/links.json";
 import backlog from "../../content/backlog.json";
 import Cmd from "../components/Cmd";
+import { ROUTINES, WORKFLOW, CHECKED } from "../../lib/routines.mjs";
 import s from "./contribute.module.css";
 
 export const metadata = {
@@ -124,10 +125,42 @@ export default function Contribute() {
       <h2>Try it now</h2>
       <p>Paste this into your coding agent (Claude Code, Codex, Cursor or similar). It opens one pull request.</p>
       <Cmd multi label="the contribute prompt">{PROMPT}</Cmd>
+
+      <h2 id="weekly">Run it every week</h2>
       <p>
-        Coming next: a weekly routine for each platform (Claude, Codex, Gemini, Cursor, Copilot), with a budget cap,
-        that stops when the backlog is empty.
+        Set it once and your agent takes one card a week, inside a budget you pick, and stops when nothing is open.
+        Each routine works in your own fork of the repo, so fork it first. Setup checked against each platform&apos;s
+        docs on {new Date(CHECKED + "T12:00:00Z").toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}.
       </p>
+      <ul className={s.cards}>
+        {ROUTINES.map((r) => (
+          <li id={`weekly-${r.key}`} key={r.key} className="card">
+            <h3>{r.name}</h3>
+            <p className={s.feature}>{r.feature}</p>
+            <span className={s.label}>Set it up</span>
+            <p>{r.setup}</p>
+            <span className={s.label}>Budget</span>
+            <p>{r.cap}</p>
+            <Cmd multi label={`the ${r.name} routine`}>{r.prompt}</Cmd>
+            <div className={s.foot}>
+              {r.docs.map((d) => <a key={d} href={d}>{d.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "")}</a>)}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p>
+        The weekly GitHub Actions job for the last one. Put it in a repo of your own with the prompt saved as <code>yui-home.md</code>.
+        The token and key are yours, in your repo&apos;s secrets.
+      </p>
+      <Cmd multi label="the weekly workflow">{WORKFLOW}</Cmd>
+
+      <h2 id="review">Review and credit</h2>
+      <ul>
+        <li>Every pull request runs the same checks: the conformance vectors, the tests and the site build. They get no secrets.</li>
+        <li>A person reviews every pull request, and changes to CI, deploy scripts and generated files need the owner too. Nothing merges on its own.</li>
+        <li>When a pull request titled [KEY] merges, its card closes and leaves this backlog on the next refresh.</li>
+        <li>The merge goes on <Link href="/progress">progress</Link> naming the pull request. Your GitHub handle goes with it only if you tick &quot;Credit me&quot; in the pull request.</li>
+      </ul>
       <p>
         Merged work may count toward <Link href="/earn">Build to earn</Link>, a draft: points on a public ledger first.
         No token exists yet, and nothing is for sale.

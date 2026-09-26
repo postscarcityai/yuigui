@@ -163,8 +163,9 @@ test("agent table starters: every write lands and every query runs (TABLES.md)",
   const style = { today: "2026-09-25", now: "2026-09-25T12:30" };
   for (const s of DATA) {
     let st = initialState();
-    for (const op of parse(`${s.yl}\n${s.next}`)) st = apply(st, op, style);
+    for (const op of parse(`${s.yl}\n${s.next || ""}`)) st = apply(st, op, style);
     assert.deepEqual(st.errors, [], s.name);
+    if (s.meal) continue; // the meal demo waits for a photo; its queries come in the agent's reply
     const qs = parse(s.yl).filter((o) => o.preset === "query");
     assert.ok(qs.length >= 2, s.name);
     for (const q of qs) {
@@ -228,4 +229,21 @@ test("ids on a page last into the next reply (YUI-75)", () => {
   assert.deepEqual(lastingIds(st), {});
   st = run(st, "show board");
   assert.deepEqual(lastingIds(st), { "chat-only": "timer" });
+});
+
+test("Yui@home routines: every prompt is in CONTRIBUTING-AGENTS.md word for word, and each stops when nothing is open (OSS-6)", async () => {
+  const { readFileSync } = await import("node:fs");
+  const { ROUTINES, WORKFLOW } = await import("../site/lib/routines.mjs");
+  const doc = readFileSync(new URL("../CONTRIBUTING-AGENTS.md", import.meta.url), "utf8");
+  assert.ok(ROUTINES.length >= 6);
+  for (const r of ROUTINES) {
+    assert.ok(doc.includes("```text\n" + r.prompt + "\n```"), `${r.name}: prompt differs from CONTRIBUTING-AGENTS.md`);
+    assert.match(r.prompt, /If no card has "status": "open", stop here/, r.name);
+    assert.match(r.prompt, /Budget: one card per run\./, r.name);
+    assert.match(r.prompt, /\[KEY\] <card title>/, r.name);
+    assert.ok(r.docs.length && r.docs.every((d) => d.startsWith("https://")), r.name);
+    assert.ok(!/—/.test(r.prompt + r.setup + r.cap), `${r.name}: em dash`);
+  }
+  assert.ok(doc.includes(WORKFLOW), "workflow differs from CONTRIBUTING-AGENTS.md");
+  assert.ok(!/secrets\.(?!YUI_HOME_GH_TOKEN|ANTHROPIC_API_KEY)/.test(WORKFLOW));
 });
