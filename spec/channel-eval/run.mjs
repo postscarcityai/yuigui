@@ -211,6 +211,14 @@ export function score(c, reply) {
     if (top.length > 2 && off.length) fails.push(`one screen: ${off.length} of ${top.length} pieces off the stage :: ${off[0].line.trim()}`);
     if (top.length > 2 && good.at(-1)?.op === "close") fails.push("one screen: ends in close, so the stage never opens");
   }
+  // A lesson is one deck (YUI-113): the deck is the only piece outside it, and the
+  // needed pieces are inside it (a shape inside a shapes inside the deck counts).
+  if (e.one_deck) {
+    const top = adds.filter((o) => o.preset !== "say" && !o.in);
+    const inDeck = (o) => { for (let x = o; x?.in; x = adds.find((a) => a.id === x.in)) if (adds.find((a) => a.id === x.in)?.preset === "deck") return true; return false; };
+    if (top.length !== 1 || top[0].preset !== "deck") fails.push(`one deck: ${top.length} top-level pieces (${top.map((o) => o.preset).join(", ")}), want one deck`);
+    for (const p of e.need || []) if (!adds.some((o) => o.preset === p && inDeck(o))) fails.push(`one deck: no ${p} inside the deck`);
+  }
   // Pages (YUI-31): something meant to stay put goes on screen 2 or 3.
   if (e.page && !adds.some((o) => pageOf(o.screen) !== 1)) fails.push("page: nothing on screen 2 or 3");
   if (e.patch) {

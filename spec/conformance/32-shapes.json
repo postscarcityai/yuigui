@@ -597,7 +597,7 @@
       ]
     },
     {
-      "name": "shapes can't join a deck",
+      "name": "shapes joins a deck (a page's picture) and its shape lines join the shapes",
       "input": "deck Talk\npage One\nshapes A\nshape circle",
       "expected": [
         {
@@ -624,6 +624,7 @@
           "screen": "1",
           "preset": "shapes",
           "id": "n3",
+          "in": "n1",
           "props": {
             "title": "A"
           }

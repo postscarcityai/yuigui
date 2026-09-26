@@ -53,7 +53,7 @@ CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "clo
 # as long as each one is a member preset. Anything else ends the group, and
 # so does `end`. Comments, blank lines and error lines do not.
 GROUPS = {
-    "deck": ["page", "ask", "choose", "pick", "sketch"],
+    "deck": ["page", "ask", "choose", "pick", "sketch", "shapes", "math", "chart", "stat", "calc"],
     "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch"],
     "narrate": ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
     "timeline": ["done", "now", "next"],

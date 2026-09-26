@@ -1,0 +1,527 @@
+{
+ "version": "YL v0",
+ "area": "deck pictures",
+ "vectors": [
+  {
+   "name": "deck: shapes after a page joins the deck, its shape lines join the shapes, the next page goes back to the deck",
+   "input": "deck \"Compound interest\"\npage \"Money grows on money\"\nshapes Growth\nshape circle Start\nshape arrow\nshape circle Later\npage \"The formula\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "Compound interest"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "Money grows on money"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shapes",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "Growth"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "kind": "circle",
+      "label": "Start"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n5",
+     "in": "n3",
+     "props": {
+      "kind": "arrow"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n6",
+     "in": "n3",
+     "props": {
+      "kind": "circle",
+      "label": "Later"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n7",
+     "in": "n1",
+     "props": {
+      "title": "The formula"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deck: math, chart and stat after pages join the deck",
+   "input": "deck D\npage Formula\nmath \"A = P(1 + r/n)^{nt}\"\npage Curve\nchart line Balance x=Y0|Y10|Y20 y=100|259|673\npage Total\nstat $673 \"After 20 years\" delta=+573",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "Formula"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "math",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "tex": "A = P(1 + r/n)^{nt}"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "title": "Curve"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "chart",
+     "id": "n5",
+     "in": "n1",
+     "props": {
+      "type": "line",
+      "title": "Balance",
+      "x": [
+       "Y0",
+       "Y10",
+       "Y20"
+      ],
+      "y": [
+       100,
+       259,
+       673
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n6",
+     "in": "n1",
+     "props": {
+      "title": "Total"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "stat",
+     "id": "n7",
+     "in": "n1",
+     "props": {
+      "value": 673,
+      "unit": "$",
+      "label": "After 20 years",
+      "delta": "+573"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deck: calc joins the deck (a last page with a calculator)",
+   "input": "deck D\npage \"Try it\"\ncalc \"Compound interest\" f=\"A = P*(1+r)^t\" P=100-1000@100 r=0-0.2@0.05 t=0-20@10\nsay done",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "Try it"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "calc",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "Compound interest",
+      "f": "A = P*(1+r)^t",
+      "P": {
+       "min": 100,
+       "max": 1000,
+       "value": 100
+      },
+      "r": {
+       "min": 0,
+       "max": 0.2,
+       "value": 0.05
+      },
+      "t": {
+       "min": 0,
+       "max": 20,
+       "value": 10
+      }
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n4",
+     "props": {
+      "text": "done"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deck: a quiz then a calc, all one deck",
+   "input": "deck D\npage One\nchoose \"Which grows faster?\" Monthly|Yearly\ncalc Try",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "choose",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "options": [
+       "Monthly",
+       "Yearly"
+      ],
+      "q": "Which grows faster?"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "calc",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "title": "Try"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deck: end closes the shapes first, a second end closes the deck",
+   "input": "deck D\npage P\nshapes S\nshape circle A\nend\nstat Total 3\nend\nstat Out 4",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shapes",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "S"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "kind": "circle",
+      "label": "A"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n3"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "stat",
+     "id": "n5",
+     "in": "n1",
+     "props": {
+      "value": 3,
+      "label": "Total"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n1"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "stat",
+     "id": "n6",
+     "props": {
+      "value": 4,
+      "label": "Out"
+     }
+    }
+   ]
+  },
+  {
+   "name": "deck: a line that is neither a shape nor a deck member ends both",
+   "input": "deck D\npage P\nshapes S\nshape circle A\nsay hi\nshape square B",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shapes",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "S"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "kind": "circle",
+      "label": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n5",
+     "props": {
+      "text": "hi"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n6",
+     "props": {
+      "kind": "square",
+      "label": "B"
+     }
+    }
+   ]
+  },
+  {
+   "name": "plan: a chart does not join a plan",
+   "input": "plan P\npage One\nchart bar x=a|b y=1|2",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "chart",
+     "id": "n3",
+     "props": {
+      "type": "bar",
+      "x": [
+       "a",
+       "b"
+      ],
+      "y": [
+       1,
+       2
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "name": "narrate: a deck in a narrate takes a stat as its page's picture; end the deck to make it a step",
+   "input": "narrate N\ndeck D\npage One\nstat Total 3\nend\nstat Step 4",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "narrate",
+     "id": "n1",
+     "props": {
+      "title": "N"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n3",
+     "in": "n2",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "stat",
+     "id": "n4",
+     "in": "n2",
+     "props": {
+      "value": 3,
+      "label": "Total"
+     }
+    },
+    {
+     "op": "end",
+     "screen": "1",
+     "target": "n2"
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "stat",
+     "id": "n5",
+     "in": "n1",
+     "props": {
+      "value": 4,
+      "label": "Step"
+     }
+    }
+   ]
+  }
+ ]
+}

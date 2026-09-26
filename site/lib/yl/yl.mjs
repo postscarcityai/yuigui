@@ -51,7 +51,7 @@ export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", 
 // so does `end`. Comments, blank lines and error lines do not. A narrate
 // can hold another group (a deck), a deck or plan a sketch (a page's picture).
 export const GROUPS = {
-  deck: ["page", "ask", "choose", "pick", "sketch"],
+  deck: ["page", "ask", "choose", "pick", "sketch", "shapes", "math", "chart", "stat", "calc"],
   plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch"],
   narrate: ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
   timeline: ["done", "now", "next"],

@@ -49,11 +49,11 @@ function FullClose({ onClose }) {
 
 // ---------- page ----------
 
-export function Page({ p, sketch }) {
-  const layout = sketch ? "split sk" : p.layout || (p.img && !p.body && !p.points.length ? "cover" : p.img ? "split" : "text");
+export function Page({ p, pic, emitFor, Render }) {
+  const layout = pic ? "split sk" : p.layout || (p.img && !p.body && !p.points.length ? "cover" : p.img ? "split" : "text");
   return (
     <div className={`yl-page ${layout}`}>
-      {sketch ? <div className="yl-pagesk"><Sketch g={sketch} /></div> : p.img ? <Media src={p.img} className="yl-pageimg" /> : null}
+      {pic ? <div className="yl-pagesk">{picture(pic, emitFor, Render)}</div> : p.img ? <Media src={p.img} className="yl-pageimg" /> : null}
       <div className="yl-pagetext">
         {p.title ? <div className="yl-pagetitle">{p.title}</div> : null}
         {p.body ? <div className="yl-pagebody">{p.body}</div> : null}
@@ -61,6 +61,13 @@ export function Page({ p, sketch }) {
       </div>
     </div>
   );
+}
+
+// A page's picture (YUI-113): a sketch or shapes group, or one math, chart,
+// stat or calc line.
+function picture(m, emitFor, Render) {
+  if (m.group) return m.group.preset === "shapes" ? <Shapes g={m} /> : <Sketch g={m} />;
+  return Render ? <Render node={m} emit={emitFor ? emitFor(m) : () => {}} /> : null;
 }
 
 // A page outside a deck: one slide with its notes behind a toggle.
@@ -87,20 +94,22 @@ function Notes({ text, open, onToggle }) {
 
 const QUIZ = new Set(["ask", "choose", "pick"]);
 
-// A deck's or plan's steps: a sketch is the picture of the page right before
-// it; one with no page there (or after a page that has one) is a page itself.
+// A deck's or plan's steps: a picture (a sketch, shapes, math, chart, stat or
+// calc) belongs to the page right before it; one with no page there (or after
+// a page that has one) is a page itself.
+const PICS = new Set(["sketch", "shapes", "math", "chart", "stat", "calc"]);
 export function stepsOf(members) {
   const out = [];
   for (const m of members) {
-    if (!m.group) { out.push(m); continue; }
-    if (m.group.preset !== "sketch") continue;
+    const kind = m.group ? m.group.preset : m.preset;
+    if (!PICS.has(kind)) { if (!m.group) out.push(m); continue; }
     const last = out[out.length - 1];
-    if (last && last.preset === "page" && !last.sketch) out[out.length - 1] = { ...last, sketch: m };
-    else out.push({ key: m.key, id: m.group.id, preset: "page", props: {}, sketch: m });
+    if (last && last.preset === "page" && !last.pic) out[out.length - 1] = { ...last, pic: m };
+    else out.push({ key: m.key, id: m.group ? m.group.id : m.id, preset: "page", props: {}, pic: m });
   }
   return out;
 }
-const slidePage = (m) => <Page p={resolve("page", m.props)} sketch={m.sketch} />;
+const slidePage = (m, emitFor, Render) => <Page p={resolve("page", m.props)} pic={m.pic} emitFor={emitFor} Render={Render} />;
 
 // `index` and `onIndex` make the deck controlled (a narrate drives it).
 export function Deck({ g, emitFor, Render, index, onIndex, bare }) {
@@ -140,7 +149,8 @@ export function Deck({ g, emitFor, Render, index, onIndex, bare }) {
     return () => window.removeEventListener("keydown", k);
   });
 
-  const down = (e) => { drag.current = e.clientX; };
+  // A drag that starts on a control (a calc slider on a page) is not a swipe.
+  const down = (e) => { drag.current = e.target.closest("input, textarea, select") ? null : e.clientX; };
   const up = (e) => {
     if (drag.current == null) return;
     const dx = e.clientX - drag.current;
@@ -151,7 +161,7 @@ export function Deck({ g, emitFor, Render, index, onIndex, bare }) {
 
   const slide = (m) => (QUIZ.has(m.preset)
     ? <div className="yl-quizpage"><span className="yl-quiztag">Quiz</span><Render node={m} emit={quizEmit(m)} /></div>
-    : slidePage(m));
+    : slidePage(m, emitFor, Render));
   const curNotes = pages[cur] && pages[cur].preset === "page" ? resolve("page", pages[cur].props).notes : "";
 
   const body = (big) => (
@@ -283,7 +293,7 @@ export function Plan({ g, emitFor, Render }) {
       </div>
       {steps.map((m, i) => (
         <div key={m.key} className="yl-planstep" style={{ display: i === cur ? undefined : "none" }}>
-          {m.preset === "page" ? <div className="yl-planpage">{slidePage(m)}</div> : <Render node={m} emit={capture(m)} />}
+          {m.preset === "page" ? <div className="yl-planpage">{slidePage(m, emitFor, Render)}</div> : <Render node={m} emit={capture(m)} />}
         </div>
       ))}
       {review ? (

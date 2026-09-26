@@ -57,7 +57,7 @@ pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", 
 /// can hold another group (a deck), a deck or plan a sketch (a page's picture).
 pub fn group_members(preset: &str) -> Option<&'static [&'static str]> {
     Some(match preset {
-        "deck" => &["page", "ask", "choose", "pick", "sketch"],
+        "deck" => &["page", "ask", "choose", "pick", "sketch", "shapes", "math", "chart", "stat", "calc"],
         "plan" => &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch"],
         "narrate" => &["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
         "timeline" => &["done", "now", "next"],

@@ -415,7 +415,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 **The app**
 
-- YUI-113 (backlog; TestFlight feedback Sep 26, Chris: "I want all that to be in one experience"): one reply, one lesson. Channel guide v25 already puts a lesson's pieces on one full screen. Next, a deck page can carry a diagram, formula, chart, stat or calc as its picture, so the lesson becomes one swipeable deck.
+- YUI-113 (on main Sep 26, in the app from the next build; TestFlight feedback Sep 26, Chris: "I want all that to be in one experience"): a lesson is one swipeable deck. A deck page carries a diagram, formula, chart, stat or calc as its picture (all five parsers, playground, app), channel guide v26 asks for one deck, and phones on older builds get the v25 full-screen layout until they update.
 - YUI-89: agent tables in the app, step 2 of YUI-33 (the spec and the playground shipped Sep 25): the phone's store, native views, the other parsers.
 - YUI-34: a key vault for your own fal, Replicate, OpenRouter, Anthropic and OpenAI keys. Step 1 (spec + playground mock) shipped Sep 26: [Key vault](/developers/vault), `/playground?demo=vault`; step 2, the vault native in the app, is in the backlog.
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table. Step 1 shipped Sep 25: [Meal photo to macros](/developers/meal), `/playground?demo=meal`.

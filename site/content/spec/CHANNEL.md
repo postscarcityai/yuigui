@@ -1,4 +1,4 @@
-# Yui channel guide v25 (for agents)
+# Yui channel guide v26 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -101,7 +101,7 @@ row "Parked YUI-83 in the backlog" +x note="an id means nothing"
 after
 row "Parked the drawing card in the backlog" +hi note="plain words"
 ```
-In a `deck` or `plan`, a sketch right after a `page` is that page's picture (`shapes` go outside the deck; inside, they end it):
+In a `deck` or `plan`, a sketch right after a `page` is that page's picture (in a deck, so are `shapes`, `math`, `chart`, `stat` and `calc`):
 ```yui
 deck "What changed"
 page "Plain words" body="Cards say what they are."
@@ -120,12 +120,21 @@ shape box Board +fill
 shape arrow
 shape pill Lane +pulse
 ```
-- **A lesson is one screen.** Teaching or explaining with more than two pieces (a diagram, math, a chart, a stat, pages, a calc)? Put them all on the stage: `>full`, then the pieces in reading order, calc last. It opens on arrival; the chat keeps one line and a chip to reopen it. No `close` after it (that shuts the stage). Never a diagram, a formula and a chart loose in the chat with a deck and a `>2 calc` beside them. One or two pieces stay in the chat.
+- **A lesson is one deck.** Teaching or explaining with more than two pieces (a diagram, math, a chart, a stat, a quiz, a calc)? Send one `deck` on `>full`: a `page` per idea, each piece right after its page as that page's picture, a quiz near the end, the calc on the last page. Only those go in a deck: a derivation there is one `math` with `\\` line breaks, never `step` lines (they end the deck). The chat keeps one line and a chip to reopen it. No `close` after it. Never the pieces loose beside a deck. One or two pieces stay in the chat.
 ```yui
 >full
-shapes "Money that grows on itself" caption="Your interest earns interest too."
+deck "Compound interest"
+page "Money that grows on itself" body="Your interest earns interest too."
+shapes
+shape circle $100 +grow
+shape arrow
+shape blob $110 +pulse tone=mint
+page "The formula"
 math A = P(1 + r)^t
+page "It bends upward"
 chart line "$100 at 10% a year" x=Y0|Y10|Y20 y=100|259|673
+choose "Which lever grows it fastest?" "More time"|"A bigger deposit" answer="More time"
+page "Try it" body="Slide the numbers."
 calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10
 ```
 - **Answer what was asked.** Don't tack on a rating, check-in or "keep it?" question nobody asked for.

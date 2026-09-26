@@ -306,14 +306,14 @@ Six presets are **group heads**. A group head collects the lines that follow it 
 
 | Head | Members | What the group is |
 |---|---|---|
-| `deck` | `page`, `ask`, `choose`, `pick`, `sketch` | a swipeable presentation |
+| `deck` | `page`, `ask`, `choose`, `pick`, `sketch`, `shapes`, `math`, `chart`, `stat`, `calc` | a swipeable presentation |
 | `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, `sketch` | one full-screen flow: pages to read, then questions, one answer at the end |
 | `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
 | `timeline` | `done`, `now`, `next` | what has shipped, what is running, what is queued |
 | `sketch` | `row`, `after` | a small drawn picture: rows struck out, highlighted, called out |
 | `shapes` | `shape` | a small moving diagram: shapes, labels and arrows that come on one by one |
 
-**Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest in two places: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate. A `deck` or a `plan` can hold a `sketch` the same way: its `row` and `after` lines join the sketch, and the first line that is neither ends the sketch and is then checked against the deck or plan. The sketch is the picture of the page right before it (see sketch below).
+**Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest in two places: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate. A `deck` or a `plan` can hold a `sketch` the same way, and a `deck` a `shapes`: its `row` and `after` lines (or `shape` lines) join it, and the first line that is not one ends it and is then checked against the deck or plan. The sketch or diagram is the picture of the page right before it (see A page's picture under deck). Since a deck takes `stat`, `chart` and `math`, a deck inside a `narrate` takes them too, as its pages' pictures: write `end` first to make one a step of the narrate.
 
 To put a question *after* a deck rather than inside it, write `end` first:
 ```
@@ -327,8 +327,25 @@ ask "Ready for the real thing?"
 `deck [title...] [layout=slides|scroll] [+full] [+notes]`, then one `page` line per slide. Swipe, arrows or dots move between pages; a Full screen button (or `+full`, which opens that way) puts the deck over the whole screen, where arrow keys also work. Each page's `notes` are speaker notes behind a Notes toggle (`+notes` shows them open).
 - `layout`: `slides` [default] one page at a time, `scroll` every page in a vertical feed.
 - **Quiz pages.** An `ask`, `choose` or `pick` inside a deck is a page of its own. Give it `answer=` and it is graded (see Quiz below), which is how an agent ends a lesson with a check.
+- **A page's picture.** A `sketch`, `shapes`, `math`, `chart`, `stat` or `calc` right after a `page` is that page's picture: it draws where the page's `img` would go, above the words (a page with both draws the picture). One with no page right before it (first in the deck, after a question, or after a page that already has one) is a page of its own, just the picture. So a whole lesson is one deck: the diagram, the formula, the chart and the number each on their page, a quiz, and the calculator on the last page. A calc's sliders still send their events; a drag on a slider is never a swipe.
 - When the person has seen every page and answered every question, the deck emits `{done: true, pages}`, plus `score` and `of` when some questions were graded. Quiz pages also send their own events as they are answered.
 Props: `title`, `layout` [slides], `+full`, `+notes`.
+A lesson as one deck:
+```
+deck "Compound interest"
+page "Money that grows on itself" body="Your interest joins the pile."
+shapes
+shape circle $100 +grow
+shape arrow
+shape blob $110 +pulse tone=mint
+page "The formula"
+math A = P(1 + r)^t
+page "Twenty years later"
+stat $673 "After 20 years" delta=+573
+choose "Which lever grows the pile fastest?" "More time"|"A bigger deposit" answer="More time"
+page "Try it" body="Slide the numbers."
+calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10
+```
 
 #### page
 `page title [body...] [URL] [body=] [points=a|b] [notes=] [img=]`. One slide. The first URL is `img` (an image, or a video when it ends in a video extension), the first text token is the title, the rest is the body, as in `card`. `points` is a bullet list (always a list, split on `|`). `layout` picks the look: `cover` (the picture full bleed, title over it; the default when a page has a picture and no body or points), `split` (picture on top, text under it; the default when it has both) and `text` (the default with no picture). A `page` outside a deck is a single slide. No events of its own.
@@ -434,7 +451,7 @@ To refresh a live row later, give it an id and patch it: `now@w65 ...`, then `~w
 `sketch [title...] [frame=window] [before=Before]`, then one `row` per line, and at most one `after` line. A small drawn picture, so an agent can show instead of tell: how a screen should read, what changed, what to cut. A frame with rows inside it, some struck out, some highlighted, each with an optional short callout and an arrow pointing at it. No picture to generate, no screenshot to take, and nothing to tap: a sketch sends no events.
 - **Frames.** `frame=window` [window] is a small app window, three dots and the `title` in its bar. `frame=phone` is a phone outline with the title at the top. `frame=bubble` is a chat bubble whose rows are its lines, with the title above it. Any other frame draws as `window`, so frames can be added without a new YL version.
 - **Before and after.** An `after` line splits the sketch into two frames of the same kind: the rows above it in the first, labelled `before` [Before], the rows below it in the second, labelled with the `after` line's text [After]. Side by side when there is room, before on top on a phone. Only the first `after` splits; a later one is ignored. With no `after`, one frame and no labels.
-- **On a page.** Inside a `deck` or a `plan`, a sketch right after a `page` is that page's picture: it draws where the page's `img` would go (a page with both draws the sketch). A sketch with no page right before it (first in the group, after a question, or after a page that already has one) is a page of its own, just the drawing. On a phone's full screen the rows come on one after another with the page; a plan's sketch pages are steps to read, never keyed in `{plan}`.
+- **On a page.** Inside a `deck` or a `plan`, a sketch right after a `page` is that page's picture (a deck's page can also take `shapes`, `math`, `chart`, `stat` or `calc`, see deck): it draws where the page's `img` would go (a page with both draws the sketch). A sketch with no page right before it (first in the group, after a question, or after a page that already has one) is a page of its own, just the drawing. On a phone's full screen the rows come on one after another with the page; a plan's sketch pages are steps to read, never keyed in `{plan}`.
 Props: `title`, `frame` [window], `before` [Before].
 
 #### row, after

@@ -1703,9 +1703,10 @@
           "chart"
         ],
         "one_screen": true,
-        "max_words": 45
+        "max_words": 45,
+        "one_deck": true
       },
-      "good": "One short line, then `>full` and every piece of the lesson on the stage in reading order (a diagram or math, a chart or stat, pages, the calc last), with no `close` after it. Nothing loose in the chat, no `>2 calc` beside it."
+      "good": "One short line, then `>full` and ONE deck: a page per idea, the diagram, math, chart and stat each right after its page as its picture, a quiz, the calc on the last page. Nothing loose in the chat or on the stage beside the deck, no `close` after it."
     }
   ]
 }
