@@ -1,13 +1,14 @@
 // Exports the public Yui board from the local kanban DB (read-only) into content/board.json,
-// and rewrites the statuses in content/mvp.json. Run: node scripts/export-board.mjs [--check | --stdout]
-// --check exits 0 when nothing changed, 3 when board.json or mvp.json would change.
+// rewrites the statuses in content/mvp.json, and writes the agent-ready backlog to content/backlog.json.
+// Run: node scripts/export-board.mjs [--check | --stdout]
+// --check exits 0 when nothing changed, 3 when board.json, mvp.json or backlog.json would change.
 // --stdout prints the board as it is right now and writes nothing (the war room's release panel, YUI-105).
 // The DB never leaves this machine: only titles, a one-line summary, dates and progress links are published.
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { slug } from "../lib/slug.mjs";
-import { PRIVATE_RE, LEAKS } from "../lib/public-guard.mjs";
+import { PRIVATE_RE, LEAKS, findLeak } from "../lib/public-guard.mjs";
 
 const DB = process.env.KANBAN_DB || `${homedir()}/.hermes/kanban.db`;
 const CHECK = process.argv.includes("--check");
@@ -49,10 +50,14 @@ function scrub(s) {
 function parseTitle(raw) {
   const m = raw.match(/^([A-Z]+)-(\d+)\s*(?:\(([^)]*)\))?\s*:?\s*(.*)$/s);
   if (!m) return null;
-  const [, prefix, num, tag = "", rest] = m;
+  const [, prefix, num, tag = "", full] = m;
+  // A trailing [label, label] ("[agent-ready, build to earn]") is a marker, not part of the title.
+  const lm = full.match(/\s*\[([^\]]*)\]\s*$/);
+  const labels = lm ? lm[1].split(",").map((l) => l.trim().toLowerCase()).filter(Boolean) : [];
+  const rest = lm ? full.slice(0, lm.index) : full;
   const i = rest.indexOf(": ");
   return {
-    prefix, num: Number(num), key: `${prefix}-${num}`, tag: tag.toLowerCase(),
+    prefix, num: Number(num), key: `${prefix}-${num}`, tag: tag.toLowerCase(), labels, rest,
     head: i > 0 ? rest.slice(0, i) : rest, detail: i > 0 ? rest.slice(i + 2) : "",
   };
 }
@@ -130,6 +135,7 @@ for (const t of tasks) {
   }
   if (mvpTitle.has(t.id)) card.mvp = true;
   if (t.status === "scheduled") card.waiting = true;
+  if (t.labels.includes("agent-ready") && !shippedAt) card.agentReady = true;
   if (shippedAt) card.shipped = day(shippedAt);
   if (link) card.progress = link.href;
   cols[col].push({ card, t, shippedAt });
@@ -176,6 +182,97 @@ function release() {
   };
 }
 
+// Yui@home (OSS-6): cards marked [agent-ready] are open to outside contributors, people or agents.
+// The public brief is the ```agent-ready block in the card body (repo, size, goal, brief, spec,
+// done, test); nothing else from the body leaves this machine. A card missing a field, or whose
+// block trips the guard, is left out with a warning. Claims are open pull requests titled [KEY].
+const links = JSON.parse(readFileSync(content("links.json"), "utf8"));
+const SITE = "https://www.yuigui.com";
+const REPOS = { yuigui: links.github, yui: links.appRepo };
+const CLAIM_DAYS = 7;
+const MULTI = new Set(["done", "test"]);
+
+function agentBlock(body) {
+  const m = (body || "").match(/```agent-ready\n([\s\S]*?)```/);
+  if (!m) return null;
+  const out = {};
+  for (const line of m[1].split("\n")) {
+    const kv = line.match(/^(\w+):\s*(.+?)\s*$/);
+    if (!kv) continue;
+    if (MULTI.has(kv[1])) (out[kv[1]] ||= []).push(kv[2]); else out[kv[1]] = kv[2];
+  }
+  return out;
+}
+
+// Open pull requests titled "[KEY] ..." in both repos. If GitHub cannot be reached, the last
+// export's claims stand, so a network blip never flips the file back and forth.
+const oldBacklog = (() => { try { return JSON.parse(readFileSync(content("backlog.json"), "utf8")); } catch { return {}; } })();
+function openClaims() {
+  if (process.env.YUI_NO_GH || STDOUT) return null; // the war room reads --stdout often; claims come from the last export
+  const claims = new Map();
+  try {
+    for (const url of Object.values(REPOS)) {
+      const repo = url.replace("https://github.com/", "");
+      const out = execFileSync("gh", ["pr", "list", "--repo", repo, "--state", "open", "--limit", "200", "--json", "title,url,updatedAt,createdAt"],
+        { encoding: "utf8", timeout: 20000, stdio: ["ignore", "pipe", "pipe"] });
+      for (const pr of JSON.parse(out)) {
+        const key = (pr.title.match(/^\s*\[([A-Z]+-\d+)\]/) || [])[1];
+        if (!key) continue;
+        const prev = claims.get(key);
+        if (!prev || pr.createdAt < prev.createdAt) claims.set(key, pr);
+      }
+    }
+  } catch (e) {
+    console.error(`agent-ready: could not read pull requests (${String(e.message).split("\n")[0]}), keeping the last claims`);
+    return null;
+  }
+  return claims;
+}
+
+function agentReady() {
+  const picks = tasks.filter((t) => t.labels.includes("agent-ready") && !landed(t) && t.status !== "archived");
+  if (!picks.length) return [];
+  const bodies = new Map(sql(`select id, body from tasks where id in (${picks.map((t) => `'${t.id}'`).join(",")})`).map((r) => [r.id, r.body]));
+  const claims = openClaims();
+  const lastClaim = new Map((oldBacklog.cards || []).filter((c) => c.claim).map((c) => [c.key, c.claim]));
+  const cards = [];
+  for (const t of picks.sort((a, b) => ORDER[a.prefix] - ORDER[b.prefix] || a.num - b.num)) {
+    const b = agentBlock(bodies.get(t.id));
+    const missing = !b ? ["the agent-ready block"] : ["repo", "size", "goal", "done", "test"].filter((k) => !b[k]);
+    if (b && b.repo && !REPOS[b.repo]) missing.push(`a known repo (not "${b.repo}")`);
+    if (missing.length) { console.error(`agent-ready: skipped ${t.key}, missing ${missing.join(", ")}`); continue; }
+    const title = cap(scrub(t.rest));
+    const leak = findLeak(JSON.stringify([title, b]));
+    if (leak || !title) { console.error(`agent-ready: skipped ${t.key}, ${leak ? `${leak[0]} "${leak[1]}"` : "title is private"}`); continue; }
+    const card = { key: t.key, title, repo: REPOS[b.repo], size: b.size.toUpperCase(), goal: b.goal };
+    // brief: a path in the card's repo, or "<repo>:<path>" for a brief that lives in the other one.
+    if (b.brief) {
+      const [, r = b.repo, path] = b.brief.match(/^(?:(\w+):)?\/*(.+)$/);
+      card.brief = `${REPOS[r] || REPOS[b.repo]}/blob/main/${path}`;
+    }
+    if (b.spec) card.spec = b.spec.startsWith("/") ? SITE + b.spec : b.spec;
+    card.done = b.done;
+    card.test = b.test;
+    card.status = "open";
+    const pr = claims ? claims.get(t.key) : null;
+    const claim = claims ? pr && { pr: pr.url, since: pr.createdAt.slice(0, 10), active: pr.updatedAt.slice(0, 10) } : lastClaim.get(t.key);
+    // A claim goes stale after a week with no push: the card is open again, first merged pull request wins.
+    if (claim && (Date.now() - Date.parse(claim.active)) / 86400000 <= CLAIM_DAYS) { card.status = "claimed"; card.claim = claim; }
+    cards.push(card);
+  }
+  return cards;
+}
+
+const backlog = {
+  updated: new Date().toISOString(),
+  about: "Yui@home: cards any AI agent (or person) can take. Pick one open card, build it in a fork, open one pull request titled [KEY]. A person reviews every pull request; the first one merged wins.",
+  howto: `${SITE}/contribute`,
+  rules: `${links.github}/blob/main/CONTRIBUTING-AGENTS.md`,
+  specs: `${links.github}/blob/main/docs/specs/TEMPLATE.md`,
+  claim: `A claim is an open pull request titled [KEY] (a draft is fine). It goes stale after ${CLAIM_DAYS} days with no push and the card opens again. Never take a claimed card.`,
+  cards: agentReady(),
+};
+
 const board = {
   updated: new Date().toISOString(),
   shippedDays: SHIPPED_DAYS,
@@ -186,7 +283,7 @@ const board = {
 };
 
 // Last line of defense: refuse to write anything that looks private.
-for (const [file, obj] of [["board.json", board], ["mvp.json", { cards: mvpCards }]]) {
+for (const [file, obj] of [["board.json", board], ["mvp.json", { cards: mvpCards }], ["backlog.json", backlog]]) {
   const text = JSON.stringify(obj);
   for (const [re, what] of LEAKS) {
     const hit = text.match(re);
@@ -200,17 +297,21 @@ const strip = (o) => JSON.stringify({ ...o, updated: undefined });
 const oldBoard = (() => { try { return JSON.parse(readFileSync(content("board.json"), "utf8")); } catch { return {}; } })();
 const boardChanged = strip(oldBoard) !== strip(board);
 const mvpChanged = JSON.stringify(mvp.cards) !== JSON.stringify(mvpCards);
+const backlogChanged = strip(oldBacklog) !== strip(backlog);
 
 const counts = board.columns.map((c) => `${c.key} ${c.cards.length}`).join(", ");
 const shipped = mvpCards.filter((c) => c.status === "shipped").length;
+const ready = `agent-ready ${backlog.cards.length}`;
 if (CHECK) {
-  console.log(`${boardChanged || mvpChanged ? "changed" : "unchanged"}: ${counts}; mvp ${shipped}/${mvpCards.length}`);
-  process.exit(boardChanged || mvpChanged ? 3 : 0);
+  const changed = boardChanged || mvpChanged || backlogChanged;
+  console.log(`${changed ? "changed" : "unchanged"}: ${counts}; mvp ${shipped}/${mvpCards.length}; ${ready}`);
+  process.exit(changed ? 3 : 0);
 }
+if (backlogChanged) writeFileSync(content("backlog.json"), JSON.stringify(backlog, null, 2) + "\n");
 if (boardChanged) writeFileSync(content("board.json"), JSON.stringify(board, null, 2) + "\n");
 if (mvpChanged) {
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
   const src = "Statuses written by scripts/export-board.mjs from the live board. The MVP list lives in ROADMAP.md; add or remove keys here by hand.";
   writeFileSync(content("mvp.json"), JSON.stringify({ updated: today, source: src, cards: mvpCards }, null, 2) + "\n");
 }
-console.log(`${boardChanged ? "wrote board.json" : "board.json unchanged"}, ${mvpChanged ? "wrote mvp.json" : "mvp.json unchanged"}: ${counts}; mvp ${shipped}/${mvpCards.length}`);
+console.log(`${boardChanged ? "wrote board.json" : "board.json unchanged"}, ${mvpChanged ? "wrote mvp.json" : "mvp.json unchanged"}, ${backlogChanged ? "wrote backlog.json" : "backlog.json unchanged"}: ${counts}; mvp ${shipped}/${mvpCards.length}; ${ready}`);

@@ -119,7 +119,7 @@ Work ships in epics: a set of cards that together make one release worth trying.
 - SITE-20 (shipped): the go-to-market plan, in public: who it is for, the social plan per channel, the first 30 days. Read it: [go-to-market plan](https://www.yuigui.com/business/gtm).
 - OSS-5 (shipped): a grassroots kit for Yui Lines: who builds with it, how to contribute, a first "draw your best screen in three lines" challenge. Live at [/developers/community](/developers/community).
 - SOC-3 (shipped): three short videos: Yui in 15 seconds, Yui Lines in 30, your own Hermes on your phone in 60. Watch them on [See it](/mockups).
-- SITE-24 (shipped): Yui@home, the story. Like SETI@home, but you lend idle AI tokens: the post [Donate your idle tokens to Yui](/thoughts/donate-your-idle-tokens-to-yui), a [Contribute with your agent](/developers/contribute) page with a feature spec template, a "Lend your agent" option at the bottom of every page, and an [llms.txt](/llms.txt) so assistants that read the site can pass the invitation on.
+- SITE-24 (shipped): Yui@home, the story. Like SETI@home, but you lend idle AI tokens: the post [Donate your idle tokens to Yui](/thoughts/donate-your-idle-tokens-to-yui), a [Contribute with your agent](/contribute) page with a feature spec template, a "Lend your agent" option at the bottom of every page, and an [llms.txt](/llms.txt) so assistants that read the site can pass the invitation on.
 - BIZ-7 (parked): one brand system from the website to social to print.
 
 **Now: INV-1, invite-only beta and client onboarding.** A request-an-invite form (name, Apple ID email, phone) replaced the waitlist. Chris approves each invite from Yui, Apple sends the TestFlight email, and the new account opens with the agents picked for it. Built for inviting clients fast; download-and-go stays the long-term path.
@@ -418,7 +418,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-35: photo of a meal to a macro estimate to a row in your macros table. Step 1 shipped Sep 25: [Meal photo to macros](/developers/meal), `/playground?demo=meal`.
 - YUI-103 (backlog): step 2 of YUI-35, the app: camera in the chat, the host's vision call, the save into the phone's meals table. After YUI-89.
 - YUI-36: optional encrypted sync for agent tables, off by default.
-- OSS-6: Yui@home, the machinery. An agent-ready backlog exported from the board, a weekly routine prompt for Claude, Codex, Gemini, Cursor and Copilot, and pull requests reviewed before merge.
+- OSS-6: Yui@home, the machinery. Step 1 shipped Sep 26: the agent-ready backlog, exported from the board to [/contribute](/contribute) and [backlog.json](/contribute/backlog.json) (a card is claimed by a draft pull request titled with its key; the first one merged wins), CONTRIBUTING-AGENTS.md and AGENTS.md in both repos, and a feature spec template. Step 2: a weekly routine prompt for Claude, Codex, Gemini, Cursor and Copilot, the review policy (CODEOWNERS, CI on every pull request, credit on /progress), and a first real run end to end.
 - YUI-77: group threads, several agents in one conversation (split from YUI-44; @mentions shipped in build 82). Step 1, the spec and a playground mock, shipped Sep 25 ([Group threads](/developers/groups): the agent you @ answers, else the lead; a handoff row between agents; a hop budget with a Let it / Stop here guard; a thread id of its own). Step 2, the database and the Hermes plugin, reached phones with Yui 0.3.0, build 138 (YUI-93: group tables and routing live, hop budget, turn cap, Let it and Stop, host notes, channel guide v20 with a Groups section). Step 3 is YUI-94: the native app (New group sheet, the thread, the guard) and an end-to-end test, after 0.2.0.
 - YUI-47: Apple Watch, timer and quick answers on the wrist (parked by Chris until after the MVP). Build to earn: open to outside contributors.
 - YUI-60: Yui Lines that describe a game (board, pieces, rules, win), so agents can make new ones. The spec draft is written ([Games](/developers/games): a board kit, three sample games, what Apple's rules allow). Parked by Chris on Sep 25: no build until he picks it back up.
@@ -470,6 +470,7 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-45: pay-as-you-go credits for images and hosted models.
 - YUI-58: Yui for macOS, a matching desktop app under the same App Store listing. The first card marked for Yui@home contributors. Build to earn.
 - YUI-71: Yui in the browser, on the same relay with the web renderer. Build to earn. Watch, desktop and browser each translate Yui Lines where they must: what fits renders, the rest says "open on your iPhone".
+- YUI-109 and YUI-110 (agent-ready): the first pull request of the browser and of the Mac app, open to outside contributors on [/contribute](/contribute).
 
 **Running Yui**
 
@@ -480,5 +481,6 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 - OSS-2 (done Sep 24): Yui Lines parsers in Python and Kotlin, next to the JavaScript and Swift ones.
 - OSS-4 (done Sep 25): a Yui Lines parser in Rust, a crate with no dependencies (parsers/rust). All 445 vectors pass, and it matches the JavaScript parser on 35,000 random documents.
+- OSS-8 (agent-ready): a Yui Lines parser in Go, open to outside contributors on [/contribute](/contribute).
 - OSS-3: the public backlog mirrored as GitHub issues for contributors.
 - BIZ-6 (done Sep 24): who the first 20 to 50 outside testers are, and where they gather. Read it: [beta list](/business/beta-list).

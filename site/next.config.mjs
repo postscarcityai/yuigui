@@ -15,6 +15,8 @@ export default {
       // SITE-30: Notes became Thoughts, Yui's blog.
       { source: "/notes", destination: "/thoughts", permanent: true },
       { source: "/notes/:slug", destination: "/thoughts/:slug", permanent: true },
+      // OSS-6: Yui@home moved up to its own page, next to the backlog it serves.
+      { source: "/developers/contribute", destination: "/contribute", permanent: true },
     ];
   },
 };

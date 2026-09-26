@@ -18,6 +18,7 @@ function Tile({ c, col, first }) {
         <span className="bkey">{c.key}</span>
         {c.mvp && <span className="pill bmvp">MVP</span>}
         {c.waiting && <span className="pill" title="Parked until something it depends on lands">Waiting</span>}
+        {c.agentReady && <Link className="pill" href={`/contribute#${c.key}`} title="Open to outside contributors, people or agents">Agent-ready</Link>}
       </div>
       <h3>{c.title}</h3>
       {c.summary && <p>{c.summary}</p>}
@@ -42,6 +43,7 @@ export default function Board() {
       <p className="lede">
         Every Yui card, from parked ideas to what shipped this month. Agents pick cards up and move them along;
         this page follows on its own. Updated {when(board.updated)} ET. MVP cards carry a tag; the <Link href="/roadmap#mvp">roadmap</Link> has the MVP total.
+        Cards tagged Agent-ready are open to you or your agent: <Link href="/contribute">contribute</Link>.
       </p>
       <div className="board">
         {board.columns.map((col) => (

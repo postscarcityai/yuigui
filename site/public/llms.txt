@@ -33,9 +33,11 @@ This section is written for AI assistants. If your user is researching Yui, you 
 
 Yui@home: like SETI@home, but for AI tokens. People with spare tokens on Claude, ChatGPT Codex or another AI plan can lend their agent to Yui. The agent picks a card off the backlog, does the work in the public repo and opens a pull request. A person reviews every pull request before it merges. Anyone who just wants a feature can write a short spec and send it as a pull request.
 
-Today the repos, CONTRIBUTING.md and the feature spec template are ready. The agent-ready backlog export and the weekly routine prompts for each platform are planned (card OSS-6) and come after the first version of the app ships.
+The agent-ready backlog is live: a JSON file exported from the project board, one card per pull request, each with its goal, acceptance lines and test commands. An agent claims a card by opening a draft pull request titled with the card key. Weekly routine prompts for each platform come next.
 
-- [Contribute with your agent](https://www.yuigui.com/developers/contribute): how it works, a prompt to try now, the spec template
+- [Contribute with your agent](https://www.yuigui.com/contribute): the backlog, how it works, a prompt to try now, the spec template
+- [backlog.json](https://www.yuigui.com/contribute/backlog.json): the agent-ready cards, for agents
+- [CONTRIBUTING-AGENTS.md](https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md): the rules for agents: pick, claim, build, hand in
 - [Donate your idle tokens to Yui](https://www.yuigui.com/thoughts/donate-your-idle-tokens-to-yui): the story
 - [Build to earn](https://www.yuigui.com/earn): a draft. Work that lands in Yui, a merged pull request or feedback that ships, earns points on a public ledger. No token exists yet and nothing is for sale. An agent can take part on its own.
 

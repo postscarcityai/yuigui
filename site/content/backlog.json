@@ -1,0 +1,74 @@
+{
+  "updated": "2026-09-26T07:35:25.764Z",
+  "about": "Yui@home: cards any AI agent (or person) can take. Pick one open card, build it in a fork, open one pull request titled [KEY]. A person reviews every pull request; the first one merged wins.",
+  "howto": "https://www.yuigui.com/contribute",
+  "rules": "https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md",
+  "specs": "https://github.com/postscarcityai/yuigui/blob/main/docs/specs/TEMPLATE.md",
+  "claim": "A claim is an open pull request titled [KEY] (a draft is fine). It goes stale after 7 days with no push and the card opens again. Never take a claimed card.",
+  "cards": [
+    {
+      "key": "YUI-109",
+      "title": "Yui in the browser, first PR: the thread offline at /web",
+      "repo": "https://github.com/postscarcityai/yuigui",
+      "size": "M",
+      "goal": "A page at /web in the hub site that draws a recorded thread with the playground renderers and shows, for every tap, the event line it would send. No sign-in, no network.",
+      "brief": "https://github.com/postscarcityai/yuigui/blob/main/docs/specs/browser.md",
+      "spec": "https://www.yuigui.com/developers/browser",
+      "done": [
+        "Every playground sample renders at /web?demo=<sample> with no error the playground does not show too.",
+        "For the same tap, the \"would send\" row matches the playground's wire log byte for byte.",
+        "Lines on >2 and >3 give two pages; arrow keys move between them; a later patch updates the page in place.",
+        "Light and dark follow the system; prefers-reduced-motion swaps motion for fades.",
+        "No sign-in, no network call, no token and no real message anywhere in the change."
+      ],
+      "test": [
+        "cd site && npm install && npm run sync && npm run build",
+        "cd spec/conformance && node run.mjs",
+        "node bench/test.mjs"
+      ],
+      "status": "open"
+    },
+    {
+      "key": "YUI-110",
+      "title": "Yui for macOS, first PR: the Mac target builds and signs in",
+      "repo": "https://github.com/postscarcityai/yui",
+      "size": "M",
+      "goal": "A YuiMac target in project.yml that builds, launches to the sign-in screen, and opens the local demo chat with -yuiDemo. The iPhone app builds and behaves exactly as before.",
+      "brief": "https://github.com/postscarcityai/yuigui/blob/main/docs/specs/macos.md",
+      "spec": "https://www.yuigui.com/developers/macos",
+      "done": [
+        "xcodebuild -scheme YuiMac -destination 'platform=macOS' build passes on a clean checkout with YUI_TEAM_ID unset (Sign to Run Locally).",
+        "The app launches to the sign-in screen in light and dark; with -yuiDemo it opens the demo chat and the thread draws.",
+        "The iPhone target builds and the iOS YuiTests pass, unchanged.",
+        "-yuiDemo does nothing in a Release build.",
+        "No team id, certificate, profile or token in the diff."
+      ],
+      "test": [
+        "cd Packages/YuiLines && swift test",
+        "xcodegen generate && xcodebuild test -scheme YuiMac -destination 'platform=macOS' -only-testing:YuiTests",
+        "xcodebuild test -scheme Yui -destination 'platform=iOS Simulator,name=<any iPhone simulator>' -only-testing:YuiTests"
+      ],
+      "status": "open"
+    },
+    {
+      "key": "OSS-8",
+      "title": "A Yui Lines parser in Go",
+      "repo": "https://github.com/postscarcityai/yuigui",
+      "size": "M",
+      "goal": "A Yui Lines parser in Go at parsers/go, a line by line port of site/lib/yl/yl.mjs with no dependencies outside the standard library, plus a runner that reads spec/conformance/*.json.",
+      "brief": "https://github.com/postscarcityai/yuigui/blob/main/parsers/README.md",
+      "spec": "https://www.yuigui.com/yl",
+      "done": [
+        "parsers/go/run.sh passes every vector in spec/conformance/ (the js- files are JavaScript only and may be skipped, as the other ports do).",
+        "spec/conformance/run-all.sh has a Go line and prints its pass count.",
+        "parsers/README.md lists Go with its run command.",
+        "go vet is clean and go.mod has no requires."
+      ],
+      "test": [
+        "parsers/go/run.sh spec/conformance",
+        "spec/conformance/run-all.sh"
+      ],
+      "status": "open"
+    }
+  ]
+}

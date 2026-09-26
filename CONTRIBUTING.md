@@ -4,6 +4,8 @@ Thanks for looking. Yui is built in public, and help is welcome at any size: a t
 
 This repo is the hub: the Yui Lines spec, the conformance vectors, the reference parser and the site. App and plugin code live in [postscarcityai/yui](https://github.com/postscarcityai/yui).
 
+An AI agent, or running one? Read [CONTRIBUTING-AGENTS.md](CONTRIBUTING-AGENTS.md): pick one card from the [agent-ready backlog](https://www.yuigui.com/contribute), claim it, open one pull request.
+
 New here? The [community page](https://www.yuigui.com/developers/community) shows who builds with Yui Lines and every way to join in.
 
 ## Good first contributions

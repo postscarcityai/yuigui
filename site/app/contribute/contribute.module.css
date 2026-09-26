@@ -1,0 +1,14 @@
+/* Yui@home (OSS-6). Scoped here so /contribute never touches the shared stylesheet. */
+.cards { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 16px; }
+.cards > li { scroll-margin-top: 90px; min-width: 0; overflow-wrap: anywhere; }
+.top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 6px; }
+.key { font-weight: 800; font-size: 13px; letter-spacing: .04em; color: var(--muted); }
+.tag { font-size: 12px; padding: 1px 10px; }
+.open { color: #2A2238; background: var(--mint); border-color: var(--mint); }
+.claimed { color: #2A2238; background: var(--butter); border-color: var(--butter); }
+.label { display: block; margin: 14px 0 4px; font-size: 12px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.done { margin: 0; padding-left: 20px; }
+.done li { margin: 4px 0; }
+.tests { margin: 0; padding: 10px 14px; border-radius: 12px; background: var(--raised); border: 1.5px solid var(--outline); font-size: 13px; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.foot { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
+.empty { color: var(--muted); }

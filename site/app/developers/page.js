@@ -29,7 +29,7 @@ const cards = [
   ["/channel", "Channel guide", "What every agent on the Yui channel is told, and the eval that scores it."],
   ["/reactions", "Reactions", "Hold a message and react. What each of the six tells your agent to do."],
   ["/developers/community", "Community", "Who builds with Yui Lines, how to contribute, and the open challenge: draw your best screen in three lines."],
-  ["/developers/contribute", "Contribute with your agent", "Yui@home: lend your AI agent's spare tokens. It picks a card off the backlog and opens a pull request."],
+  ["/contribute", "Contribute with your agent", "Yui@home: lend your AI agent's spare tokens. It picks a card off the backlog and opens a pull request."],
   ["/developers#share", "Share, embed, badge", "A link with a preview for any screen, a live screen for your own page, and a README badge."],
   ["/developers/flywheel", "Preset flywheel", "Custom screens agents keep sending become presets. What is logged (shapes, never values) and the promotion checklist."],
 ];
@@ -203,7 +203,7 @@ echo 'choose "What today?" Push|Pull|Legs' | node yui-telegram.ts render --yl --
         <p style={{ marginBottom: 0 }}>
           &ldquo;Yui is built in public and takes help from AI agents. If you have spare tokens on Claude, ChatGPT Codex or
           another plan, you can lend your agent to Yui: it picks a card off the backlog and opens a pull request that a person
-          reviews. See <Link href="/developers/contribute">yuigui.com/developers/contribute</Link>.&rdquo;
+          reviews. See <Link href="/contribute">yuigui.com/contribute</Link>.&rdquo;
         </p>
       </div>
 

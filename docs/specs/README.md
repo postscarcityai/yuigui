@@ -5,13 +5,6 @@ A person reads every one. A good fit goes on the board as a card, and the pull r
 
 Keep it short. Say how anyone can tell it works.
 
-```
-# Feature: <one line, what you want>
-Who it is for: <you, or the kind of person>
-The moment: <when you would reach for it>
-What the screen shows: <in words, or as Yui Lines>
-Done when: <how anyone can tell it works>
-Not in scope: <what it should not do>
-```
+Copy [TEMPLATE.md](TEMPLATE.md): a problem, who it is for, the screens as Yui Lines, and how anyone can tell it works.
 
-Your agent can write it for you. More on lending your agent to Yui: https://www.yuigui.com/developers/contribute
+Your agent can write it for you. More on lending your agent to Yui: https://www.yuigui.com/contribute
