@@ -1,5 +1,7 @@
 # The starter agent | spec v0 (YUI-37 step 1, Sep 26 2026)
 
+**Superseded (Sep 26 2026):** [Native Yui](NATIVE.md) (NATIVE-1) replaces this plan. Every person now gets Yui and a crew at sign-in, on Supabase first, with GLM 5.2 on OpenRouter. This page stays as the record of the first design.
+
 Today a stranger who downloads Yui gets an empty agent list. Yui draws screens, and every agent so far runs on its owner's own computer. The starter agent fixes that: pick Coach, Basil, Penny or Quill on first launch and it answers right away, no computer, nothing to install.
 
 Status: design only. Nothing is built, no account was made, nothing was spent. The mock runs in the playground: [/playground?demo=starter](/playground?demo=starter). Building it is step 2, and it needs a Cloudflare account and money, so Chris signs off first (🔴, section 8).

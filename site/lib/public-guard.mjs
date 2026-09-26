@@ -29,10 +29,13 @@ export function findLeak(text) {
 // Specs are published whole (SITE-15). Their examples carry prices, emails-shaped ranges and
 // the documented `~/.hermes/...` install paths, so they get a narrower check: names, task ids,
 // and paths that only exist on the build machine.
+// Arnold is also the native trainer (spec/NATIVE.md), a public name in specs; the board keeps it private.
+const DOC_PUBLIC = new Set(["Arnold"]);
+const DOC_PRIVATE_RE = new RegExp(`\\b(${PRIVATE.filter((w) => !DOC_PUBLIC.has(w)).map((w) => w.replace(/ /g, "\\s+")).join("|")})\\b`, "i");
 const DOC_LEAKS = [
   [/\bt_[0-9a-f]{6,}\b/i, "task id"],
   [/(\/Users\/|~\/dev\/|\.hermes\/profiles\/(?!yui\b|<))/i, "path"],
-  [PRIVATE_RE, "private name"],
+  [DOC_PRIVATE_RE, "private name"],
 ];
 export function findDocLeak(text) {
   for (const [re, what] of DOC_LEAKS) {

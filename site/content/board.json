@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T23:10:08.352Z",
+  "updated": "2026-09-26T23:39:57.987Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.2",
@@ -27,11 +27,6 @@
         {
           "key": "YUI-36",
           "title": "Optional encrypted sync for agent tables",
-          "waiting": true
-        },
-        {
-          "key": "YUI-37",
-          "title": "A starter agent for people with no agent",
           "waiting": true
         },
         {
@@ -155,6 +150,39 @@
           "waiting": true
         },
         {
+          "key": "YUI-147",
+          "title": "Move the native runtime to Cloudflare",
+          "summary": "A Worker and a Durable Object per person"
+        },
+        {
+          "key": "YUI-148",
+          "title": "Buy turns in the app or on the web"
+        },
+        {
+          "key": "YUI-150",
+          "title": "A Hermes image with the Yui plugin that pairs itself, no code"
+        },
+        {
+          "key": "YUI-151",
+          "title": "The Hermes provisioner",
+          "summary": "Create, wake on a message, sleep when idle, Beam first"
+        },
+        {
+          "key": "YUI-152",
+          "title": "Move my agents",
+          "summary": "Native profiles become Hermes profiles"
+        },
+        {
+          "key": "YUI-153",
+          "title": "Who gets a hosted Hermes",
+          "summary": "The invite or plan gate, on your own key"
+        },
+        {
+          "key": "YUI-154",
+          "title": "Hosted Hermes ops",
+          "summary": "Rolling updates, daily backups, a kill switch per sandbox"
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -236,6 +264,88 @@
           "step": "Step 5"
         },
         {
+          "key": "YUI-130",
+          "title": "Native runtime core",
+          "summary": "One multi-tenant TypeScript runtime in runtime/, grown from the model bridge, runs locally with node"
+        },
+        {
+          "key": "YUI-131",
+          "title": "Native models",
+          "summary": "OpenRouter client, GLM 5.2 by default, GLM-5V-Turbo for photo and video turns, routing in a table"
+        },
+        {
+          "key": "YUI-132",
+          "title": "Channel eval on GLM 5.2 and GLM-5V-Turbo, results on /channel"
+        },
+        {
+          "key": "YUI-133",
+          "title": "Native profiles",
+          "summary": "The profile folder format and Yui's own soul"
+        },
+        {
+          "key": "YUI-134",
+          "title": "A Yui for everyone at sign-in",
+          "summary": "A hosted connector per person, agents as rows, no pairing, a webhook wakes the runtime"
+        },
+        {
+          "key": "YUI-135",
+          "title": "The starter crew",
+          "summary": "Trainer, nutritionist Basil, musician Gouda, Penny and Quill, each with favorite screens"
+        },
+        {
+          "key": "YUI-136",
+          "title": "Gouda's missing views",
+          "summary": "The app draws metronome and tuner"
+        },
+        {
+          "key": "YUI-137",
+          "title": "Yui makes agents",
+          "summary": "Create, edit, fork and remove a native agent from chat"
+        },
+        {
+          "key": "YUI-138",
+          "title": "Start blank",
+          "summary": "A new empty agent runs a setup flow to make itself"
+        },
+        {
+          "key": "YUI-139",
+          "title": "Free turns and your own key",
+          "summary": "100 a month on Yui, then OpenRouter sign-in or any provider key"
+        },
+        {
+          "key": "YUI-140",
+          "title": "Native memory",
+          "summary": "Each agent's own notes plus one shared about-you card, in Controls"
+        },
+        {
+          "key": "YUI-141",
+          "title": "Native agents read photos",
+          "summary": "Photo turns go to GLM-5V-Turbo, Basil reads a meal"
+        },
+        {
+          "key": "YUI-142",
+          "title": "Native web search with caps"
+        },
+        {
+          "key": "YUI-143",
+          "title": "Native schedules and push",
+          "summary": "The trainer checks in, Basil asks about lunch"
+        },
+        {
+          "key": "YUI-144",
+          "title": "Native hand-offs",
+          "summary": "Agents pass you along with context and join groups"
+        },
+        {
+          "key": "YUI-145",
+          "title": "The first launch is Yui talking, with the crew already there; model and version in Controls"
+        },
+        {
+          "key": "YUI-146",
+          "title": "The same Yui on the web",
+          "summary": "Plug and play proof in the browser client"
+        },
+        {
           "key": "SITE-54",
           "title": "The full screen stage on the site, See it + roadmap + a Thought (STAGE-1)"
         }
@@ -255,11 +365,6 @@
           "key": "YUI-111",
           "title": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
           "step": "Step 3"
-        },
-        {
-          "key": "YUI-37",
-          "title": "The hosted starter agent on Cloudflare",
-          "step": "Step 2"
         },
         {
           "key": "YUI-108",
@@ -315,6 +420,18 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-149",
+          "title": "Hermes for everyone spec",
+          "summary": "A real Hermes per person in a sandbox that sleeps, Beam first",
+          "shipped": "2026-09-26"
+        },
+        {
+          "key": "YUI-129",
+          "title": "Native Yui spec",
+          "summary": "Every person gets their own Yui and a starter crew at sign-in",
+          "shipped": "2026-09-26"
+        },
         {
           "key": "SITE-53",
           "title": "Help answers music",
