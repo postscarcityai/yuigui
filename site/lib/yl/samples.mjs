@@ -212,6 +212,35 @@ card "Changes go straight to your Mac" "No chat turn in between. Secrets stay on
 >6 list Channels "Telegram"|"Email"`,
   },
   {
+    // Talk about this (spec/TALK-ABOUT.md, YUI-69 step 1): a mock drawn with
+    // plain presets. In the app the chip is native, and the before and after
+    // plus the Apply choose come from the host plugin, built from the real file.
+    name: "Talk about this: change a setting by talking",
+    slug: "talk-about",
+    agent: "Scout",
+    yl: `say "Talk about a setting. Four steps, one per screen tab up top."
+list "Open an item in Controls"|"It rides the composer as a chip"|"Scout proposes a before and after"|"One tap applies it" +num
+>2 card "Personality" "Warm, quick, a little playful. Short sentences. Answers with screens, not paragraphs." tag=SOUL.md sub="Controls · edited Sep 24" cta="Talk about this"
+>2 say "A memory, a skill or a schedule has the same button."
+>3 sketch "Your message" frame=phone
+>3 row "SOUL.md · Personality" +button +hi note="the chip, x removes it"
+>3 row "Less playful when I'm working. Keep the warmth." note="your words"
+>3 row "Send" +button
+>3 card "What Scout gets" "A line naming the item, then your words. Your Mac adds the file itself, keys hidden." tag=Attach sub="owner only"
+>4 say "Quieter while you work, same warmth after."
+>4 sketch "SOUL.md" frame=window before=Now
+>4 row "Warm, quick, a little playful." +x note="removed"
+>4 row "Short sentences." +dim
+>4 after Proposed
+>4 row "Warm and quick. Calm and brief while you work." +hi note="new"
+>4 row "Short sentences." +dim
+>4 choose "Apply this change?" Apply|"Keep it as is"
+>5 card "Personality updated" "Warm and quick. Calm and brief while you work." tag=Applied sub="just now · from this chat" cta="Open in Controls"
+>5 sketch "If it changed meanwhile" frame=bubble
+>5 row "SOUL.md changed on your Mac since this was proposed" note="nothing written"
+>5 row "Ask again" +button +hi`,
+  },
+  {
     name: "Demo: custom {json} escape hatch",
     agent: "Scout",
     yl: `say "No preset fits a split-flap countdown, so the agent drops to custom."

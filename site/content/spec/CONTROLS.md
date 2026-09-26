@@ -4,7 +4,7 @@ The drawer (YUI-54) has four tabs: Home, Review, Controls and About. Controls is
 
 A change goes straight to the machine the agent runs on. There is no chat turn in between: nothing is typed to the agent, no model is called, the change lands in a second and the screen shows the new state. The agent hears about it afterwards in one short line.
 
-Step 1 (this page) is the design: what each area does, how a change travels, what the host refuses. The mock is in the playground: [/playground?demo=controls](/playground?demo=controls). Step 2 builds it in the app and the Hermes plugin; its acceptance is at the end.
+Step 1 (this page) is the design: what each area does, how a change travels, what the host refuses. The mock is in the playground: [/playground?demo=controls](/playground?demo=controls). To change an item by talking to the agent instead, see [Talk about this](/developers/talk-about) (YUI-69). Step 2 builds it in the app and the Hermes plugin; its acceptance is at the end.
 
 ## 1. What Controls shows
 
@@ -176,7 +176,7 @@ Plus `yui_retention` deletes `kind = 'control'` rows older than 7 days, and push
 
 - Editing the model or toolsets (after the host can test a model before switching).
 - Adding a memory or a new skill by hand in Controls.
-- Talking about a setting in the chat and letting the agent propose the change (YUI-69).
+- Talking about a setting in the chat and letting the agent propose the change (YUI-69): designed in [Talk about this](/developers/talk-about), built after step 2.
 - Controls for hosts other than Hermes: each bridge reports the sections it can serve, starting with OpenClaw.
 - Undo from the phone: the trash exists on the host in step 2; a Restore button comes later.
 
