@@ -1,7 +1,7 @@
 // /api/library?q= (FLOW-2 step 2): search the library by intent. The same ranking as the
 // search box on /developers/library and the yui_library MCP tool (search() in library.mjs).
 // Plain string matching over /library.json: no model, no database, no spend.
-// ?q= words, &kind=preset|flow, &limit=1-20 (default 5). A flow hit carries its Mermaid.
+// ?q= words, &kind=preset|flow|screen, &limit=1-20 (default 5). A flow hit carries its Mermaid.
 import { libraryIndex, search } from "../../../lib/yl/library.mjs";
 
 const HEADERS = {
@@ -13,7 +13,7 @@ const HEADERS = {
 export function GET(req) {
   const u = new URL(req.url);
   const q = (u.searchParams.get("q") || "").slice(0, 200);
-  const kind = ["preset", "flow"].includes(u.searchParams.get("kind")) ? u.searchParams.get("kind") : undefined;
+  const kind = ["preset", "flow", "screen"].includes(u.searchParams.get("kind")) ? u.searchParams.get("kind") : undefined;
   const limit = Math.min(20, Math.max(1, parseInt(u.searchParams.get("limit") || "5", 10) || 5));
   const index = libraryIndex();
   if (!q.trim()) {

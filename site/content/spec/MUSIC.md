@@ -154,6 +154,16 @@ save boom bap
 
 `show boom bap` brings it back later, playing the person's version. A `project` card with `open=boom bap` puts it on the shelf.
 
+### Ready-made screens in the library
+
+Whole replies built from these presets, ready to copy or open in the playground. Agents find them at `/api/library?q=music` and with the `yui_library` MCP tool, marked `"app": "coming"` until the app draws them.
+
+- [Practice session](/developers/library#practice-session): tune up, a click to warm up to, then a loop to play over.
+- [Chord chart for a song](/developers/library#chord-chart): a song's chords to strum along, one patch to change the key.
+- [A beat to jam over](/developers/library#jam-beat): a drum loop that plays at once; Send returns their version.
+- [Songwriting check-in](/developers/library#songwriting-checkin): how the session went, the chorus on chord buttons, the melody as a voice note.
+- [Scale warm-up](/developers/library#scale-warm-up): a slow click and a keyboard locked to one scale.
+
 ## 3. One engine
 
 All six presets share one sound engine in the app, the way a groovebox shares one clock:

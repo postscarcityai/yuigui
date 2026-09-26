@@ -3,7 +3,7 @@
 import "katex/dist/katex.min.css";
 import "./library.css";
 import Library from "./Library";
-import { SHELVES, flows, presets } from "../../../lib/yl/library.mjs";
+import { SHELVES, flows, presets, screens } from "../../../lib/yl/library.mjs";
 
 export const metadata = {
   title: "Library | Yui",
@@ -26,7 +26,7 @@ export default function LibraryPage() {
         Are you an agent? <a href="/library.json">library.json</a> has every entry with its purpose, tags and lines to send.
         Search it by intent at <a href="/api/library?q=client+intake">/api/library?q=</a>, or with the <code>yui_library</code> MCP tool.
       </p>
-      <Library presets={ps} flows={fs} shelves={SHELVES} />
+      <Library presets={[...ps, ...screens()]} flows={fs} shelves={SHELVES} />
     </>
   );
 }

@@ -342,6 +342,58 @@ game tictactoe "Beat me"`,
   },
 };
 
+// Ready-made music screens (YUI-117): whole replies built from the music presets, kind
+// "screen". Unlike the six draft presets they are in library.json and search, marked
+// `app: "coming"`, so an agent that asks for music finds them and knows the phone
+// skips the lines until the app build that draws them (YUI-116 steps 2 to 4).
+export const MUSIC_SCREENS = [
+  {
+    name: "practice-session",
+    title: "Practice session",
+    purpose: "Ten minutes of practice in one reply: tune up, a click to warm up to, then a loop to play over.",
+    tags: ["music", "practice", "guitar", "tuner", "metronome", "loop", "routine", "warm up"],
+    yl: `say "Ten minutes. Tune first, then two minutes on the click, then play over the loop."
+tuner guitar +inline
+metronome 80 beats=4
+loop 80 "Play over this" p=x...x...|....x...|..x...x.|x.x.x.x. +inline`,
+  },
+  {
+    name: "chord-chart",
+    title: "Chord chart for a song",
+    purpose: "The chords of a song as big buttons to strum along. Send tells the agent what they played, and one patch moves it to a new key.",
+    tags: ["music", "chords", "song", "guitar", "ukulele", "strum", "progression", "key change"],
+    yl: `say "Four chords, most of pop. Strum along. Too high to sing? Tell me and I'll move it."
+chords G I-V-vi-IV "Four chord song" +send`,
+  },
+  {
+    name: "jam-beat",
+    title: "A beat to jam over",
+    purpose: "A drum loop that starts playing. They fix the groove while it runs and Send returns their version.",
+    tags: ["music", "beat", "drums", "jam", "groove", "backing track", "loop"],
+    yl: `say "Here's a slow groove. Play over it, and fix the drums if they feel off."
+loop 92 "Jam beat" swing=20 p=x.....x.|....x...|........|x.x.x.x. +play`,
+  },
+  {
+    name: "songwriting-checkin",
+    title: "Songwriting check-in",
+    purpose: "How today's writing went, the chorus so far on chord buttons, and a voice note of the melody.",
+    tags: ["music", "songwriting", "check-in", "chorus", "melody", "chords", "writing"],
+    yl: `say "Songwriting check-in. Show me where the chorus is."
+slide "How did today's session feel?" 1-5 Stuck|Flowing
+chords C|G|Am|F "Your chorus so far" +send +inline
+mic "Hum the melody"`,
+  },
+  {
+    name: "scale-warm-up",
+    title: "Scale warm-up",
+    purpose: "A slow click and a keyboard locked to one scale, so every note fits. Send returns what they played.",
+    tags: ["music", "piano", "keys", "scale", "warm up", "practice", "metronome"],
+    yl: `say "Up and down C major with the click. Slow is fine."
+metronome 60 beats=4
+keys C major "Warm up" +send +inline`,
+  },
+];
+
 // What an agent means when it reaches for each entry, in its own words. Search reads
 // these first after the name, so "get a client's website brief" finds the intake flow.
 export const INTENTS = {
@@ -389,6 +441,11 @@ export const INTENTS = {
   onboarding: ["onboard a new user", "first run welcome", "learn about someone and suggest agents"],
   connect: ["connect tools", "ask permission to use apps", "set up integrations"],
   "restaurant-intake": ["restaurant website intake", "plan a site for a restaurant or cafe", "menu and online orders", "make a variant of a flow"],
+  "practice-session": ["run a music practice session", "tune a guitar and practice", "warm up on an instrument"],
+  "chord-chart": ["show the chords of a song", "strum along to a song", "change the key of a song"],
+  "jam-beat": ["give them a beat to jam over", "make a drum loop", "a backing track to play along"],
+  "songwriting-checkin": ["check in on a song they are writing", "capture a melody idea", "songwriting session"],
+  "scale-warm-up": ["practice scales", "warm up on piano", "teach a scale"],
 };
 
 const docUrl = (anchor) => (anchor === "music" ? `${SITE}/developers/music` : `${SITE}/yl#${anchor}`);
@@ -418,6 +475,10 @@ export const flows = () => STARTER_FLOWS.flatMap((f) => [{
   docs: `${SITE}/developers/flows`,
 }, ...FLOW_VARIANTS.filter((v) => v.base === f.name).map((v) => variantEntry(v, f))]);
 
+export const screens = () => MUSIC_SCREENS.map((s) => ({
+  ...s, kind: "screen", shelf: "music", doc: "music", app: "coming", intents: INTENTS[s.name] || [], docs: docUrl("music"),
+}));
+
 function variantEntry(v, base) {
   const yl = `flow ${v.base} as=${v.name}\n${v.lines}\nend`;
   const changes = parse(yl).find((o) => o.op === "patch")?.props.changes || [];
@@ -444,11 +505,12 @@ export function libraryIndex() {
   const items = [
     ...presets().filter((p) => !p.draft).map((p) => ({ name: p.name, kind: "preset", purpose: p.purpose, intents: p.intents, tags: p.tags, yl: p.yl, docs: p.docs, playground: `${SITE}${playUrl(p.yl)}` })),
     ...flows().map((f) => ({ name: f.name, kind: "flow", title: f.title, purpose: f.purpose, intents: f.intents, tags: f.tags, yl: f.yl, base: f.base, source: f.source, docs: f.docs, playground: `${SITE}/playground?demo=${f.demo}` })),
+    ...screens().map((s) => ({ name: s.name, kind: "screen", title: s.title, purpose: s.purpose, intents: s.intents, tags: s.tags, yl: s.yl, app: s.app, docs: s.docs, playground: `${SITE}${playUrl(s.yl)}` })),
   ];
   return {
     name: "Yui library",
     version: 2,
-    about: "Every screen preset and saved flow an agent can send to the Yui app. Send the yl lines as your reply; the app draws them. A flow's source is its Mermaid. A flow with a base is a variant: its yl names the base and says only what changes. Search by name, intent, purpose or tags, or ask the search endpoint.",
+    about: "Every screen preset, saved flow and ready-made screen an agent can send to the Yui app. Send the yl lines as your reply; the app draws them. A flow's source is its Mermaid. A flow with a base is a variant: its yl names the base and says only what changes. A screen is a whole reply built from presets. An item with app \"coming\" plays in the playground, but the app does not draw it yet, so do not send it to a phone. Search by name, intent, purpose or tags, or ask the search endpoint.",
     search: `${SITE}/api/library?q=`,
     spec: `${SITE}/yl`,
     page: `${SITE}/developers/library`,
@@ -506,7 +568,7 @@ export function libraryLeaks(index) {
   return out;
 }
 
-// Ranked hits, best first. `kind` narrows to "preset" or "flow".
+// Ranked hits, best first. `kind` narrows to "preset", "flow" or "screen".
 export function search(items, query, { limit = 10, kind } = {}) {
   return items
     .map((item, i) => ({ item, i, s: kind && item.kind !== kind ? 0 : score(item, query) }))

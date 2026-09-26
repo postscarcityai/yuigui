@@ -1,5 +1,6 @@
 "use client";
 // The library (FLOW-2): a tile per preset, drawn live, and a card per flow with its Mermaid chart.
+// Ready-made music screens (YUI-117) ride with the presets, on the music shelf.
 // Search runs in the browser with the same score() as /api/library and the yui_library MCP tool:
 // names, titles, intents, tags, purposes and the lines themselves. Best match first.
 import { useEffect, useMemo, useState } from "react";
@@ -24,14 +25,14 @@ function PresetTile({ p, hidden }) {
     <article id={p.name} className="lib-tile" hidden={hidden}>
       <LivePhone yl={p.yl} agent="Yui" label={`${p.name}, drawn live from its Yui Lines`} />
       <div className="lib-body">
-        <h3><code>{p.name}</code></h3>
+        <h3>{p.kind === "screen" ? p.title : <code>{p.name}</code>}</h3>
         <p>{p.purpose}</p>
         <pre className="lib-yl"><code>{p.yl}</code></pre>
         <div className="lib-tags">{p.tags.map((t) => <span key={t} className="lib-tag">{t}</span>)}</div>
         <div className="lib-acts">
           <Copy text={p.yl} what={p.name} />
           <a className="btn lib-btn" href={playUrl(p.yl)}>Open in playground</a>
-          <a className="lib-doc" href={`/yl#${p.doc}`}>Spec</a>
+          <a className="lib-doc" href={p.doc === "music" ? "/developers/music" : `/yl#${p.doc}`}>Spec</a>
         </div>
       </div>
     </article>

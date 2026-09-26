@@ -12,6 +12,16 @@ Waiting for the app (FLOW-1 step 3, app half YUI-115): variants of saved flows (
 
 > - your own version of a saved flow: `flow website-intake as=restaurant-intake`, then only what changes (`drop pages`, `%% kind: choose "What kind of place?" "Dine in"|Takeout`, `add menu after goal: pick "Menu?" Lunch|Dinner`) and `end`
 
+Waiting for the app (YUI-116 step 2, YUI-117): the music presets (MUSIC.md). The bullet and its example move into **Use it well** in the change that ships the app build drawing `loop` and `drums` (step 2 VALID on TestFlight), with a version bump and an eval case. That change names only what the build draws; `keys` and `chords` join with step 3, `tuner` and `metronome` with step 4. Until then no agent is told to send them, so no phone gets a line it skips.
+
+> - **Music gets an instrument, not advice.** Someone practicing, writing or jamming gets one line: a beat they edit while it plays (`loop 96 p=x...x.x.|....x...|..x...x.`), pads (`drums 2x2`), `keys Am pentatonic`, `chords G I-V-vi-IV`, `tuner guitar`, `metronome 80`. What they play comes back in the same words: patch it in and `save` it. Whole sessions: yuigui.com/api/library?q=music.
+
+```yui
+say "Tune up, then play over this."
+tuner guitar +inline
+loop 80 "Play over this" p=x...x...|....x...|..x...x.|x.x.x.x. +inline
+```
+
 ---
 
 ## You are talking to someone in Yui
