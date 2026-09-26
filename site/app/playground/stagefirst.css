@@ -1,0 +1,168 @@
+/* Stage first mock (spec/YL.md section 5, YUI-119). Every class is sf-, so no site chrome leaks in. */
+.sf-app { --sf: #8b7cff; --sf-card: #181a29; --sf-line: #262a40; flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative;
+  background: radial-gradient(120% 60% at 50% 0%, color-mix(in srgb, var(--sf) 16%, transparent), transparent 70%); }
+.screen.light .sf-app { --sf-card: #fff; --sf-line: #e3e4ee; background: radial-gradient(120% 60% at 50% 0%, color-mix(in srgb, var(--sf) 12%, transparent), transparent 70%); }
+.sf-grow { flex: 1; }
+.sf-sub { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+.sf-center { text-align: center; margin-top: 30px; }
+
+/* Top bar: settings and the agent top left, the record top right. */
+.sf-top { display: flex; align-items: center; gap: 8px; padding: 2px 12px 6px; flex: none; z-index: 2; }
+.sf-round { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--sf-line); background: var(--sf-card); color: inherit; display: grid; place-items: center; cursor: pointer; position: relative; flex: none; font: inherit; font-size: 20px; line-height: 1; }
+.sf-round svg { width: 20px; height: 20px; stroke: currentColor; fill: none; }
+.sf-rec i { position: absolute; top: -3px; right: -3px; min-width: 17px; height: 17px; border-radius: 9px; background: var(--sf); color: #fff; font-size: 10.5px; font-weight: 800; font-style: normal; display: grid; place-items: center; padding: 0 4px; }
+.sf-agent { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 10px 0 5px; border-radius: 20px; border: 1px solid var(--sf-line); background: var(--sf-card); color: inherit; font: inherit; font-size: 14.5px; cursor: pointer; }
+.sf-agent svg { width: 16px; height: 16px; stroke: var(--muted); }
+.sf-face { width: 28px; height: 28px; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 800; font-size: 13px; flex: none; }
+
+.sf-body-wrap { flex: 1; min-height: 0; display: flex; flex-direction: column; position: relative; }
+
+/* Idle, listening */
+.sf-idle { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 0 28px; text-align: center; }
+.sf-bigface { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 900; font-size: 28px; box-shadow: 0 10px 40px color-mix(in srgb, var(--sf) 45%, transparent); animation: sf-float 4s ease-in-out infinite; }
+.sf-hi { font-size: 22px; font-weight: 800; line-height: 1.25; }
+.sf-try { margin-top: 8px; min-height: 40px; padding: 0 16px; border-radius: 20px; border: 1px dashed color-mix(in srgb, var(--sf) 60%, transparent); background: color-mix(in srgb, var(--sf) 10%, transparent); color: inherit; font: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer; }
+.sf-heard { font-size: 22px; font-weight: 800; line-height: 1.3; min-height: 60px; }
+.sf-caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; vertical-align: -2px; background: var(--sf); animation: sf-blink 1s steps(1) infinite; }
+.sf-wave { display: flex; gap: 4px; align-items: center; height: 36px; }
+.sf-wave i { width: 5px; height: 12px; border-radius: 3px; background: var(--sf); animation: sf-wave .9s ease-in-out infinite alternate; }
+
+/* Working: the stage is up before the reply (hand-off: the motion is YUI-120). */
+.sf-work { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 8px 24px 0; }
+.sf-me { align-self: stretch; font-size: 13px; color: var(--muted); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 2px; }
+.sf-me::before { content: "You: "; font-weight: 800; }
+.sf-orb { position: relative; width: 150px; height: 150px; margin-top: 70px; }
+.sf-orb i { position: absolute; inset: 0; border-radius: 46% 54% 50% 50% / 52% 44% 56% 48%; background: color-mix(in srgb, var(--sf) 38%, transparent); animation: sf-morph 3.2s ease-in-out infinite; }
+.sf-orb i:nth-child(2) { inset: 18px; background: color-mix(in srgb, var(--sf) 55%, transparent); animation-delay: -1s; animation-duration: 2.7s; }
+.sf-orb i:nth-child(3) { inset: 42px; background: var(--sf); animation-delay: -2s; animation-duration: 2.2s; }
+.sf-doing { font-size: 17px; font-weight: 800; margin-top: 18px; text-align: center; animation: sf-in .35s ease-out; }
+.sf-doing span { color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+.sf-dbar { width: 160px; height: 4px; border-radius: 4px; background: color-mix(in srgb, var(--muted) 22%, transparent); overflow: hidden; }
+.sf-dbar span { display: block; height: 100%; background: var(--sf); border-radius: 4px; transition: width .5s cubic-bezier(.3,1.3,.5,1); }
+.sf-handoff { margin-top: auto; margin-bottom: 8px; font-size: 11px; color: var(--muted); opacity: .7; }
+
+/* Playing: one chunk at a time, a line and one picture. */
+.sf-play, .sf-ask { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 8px; padding: 2px 16px 0; }
+.sf-segs { display: flex; gap: 4px; flex: none; }
+.sf-segs button { flex: 1; height: 4px; border: 0; border-radius: 3px; padding: 0; background: color-mix(in srgb, var(--muted) 25%, transparent); cursor: pointer; }
+.sf-segs button.d, .sf-segs button.now { background: var(--sf); }
+.sf-segs button.now { animation: sf-glow 1.4s ease-in-out infinite alternate; }
+.sf-stagearea { flex: 1; min-height: 0; position: relative; display: flex; flex-direction: column; }
+.sf-chunk { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; gap: 14px; animation: sf-chunk .45s cubic-bezier(.2,.9,.3,1.15); }
+.sf-pic { position: relative; z-index: 1; max-height: 70%; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+.sf-pic > * { margin: 0 !important; }
+.sf-line { font-size: 22px; font-weight: 800; line-height: 1.25; letter-spacing: -.01em; }
+.sf-line.alone { font-size: 26px; }
+.sf-body { font-size: 15px; line-height: 1.45; color: var(--muted); margin-top: -6px; }
+.sf-points { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.5; }
+/* Tap the left third to go back, anywhere else to go on. The picture stays tappable. */
+.sf-tapback, .sf-tapnext { position: absolute; top: 0; bottom: 0; border: 0; background: none; padding: 0; cursor: pointer; z-index: 0; }
+.sf-tapback { left: 0; width: 33%; }
+.sf-tapnext { right: 0; width: 67%; }
+.sf-tapback:disabled { cursor: default; }
+
+/* The questions, all at once, one Send. */
+.sf-asktitle { font-size: 24px; font-weight: 800; margin-top: 10px; }
+.sf-qs { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 4px 0; }
+.sf-q { border-radius: 18px; transition: box-shadow .25s; }
+.sf-q.got { box-shadow: 0 0 0 2px color-mix(in srgb, var(--sf) 60%, transparent); }
+.sf-q .yl-block { margin: 0; }
+.sf-sendall { flex: none; min-height: 50px; border-radius: 25px; border: 0; background: var(--sf); color: #fff; font: inherit; font-size: 16px; font-weight: 800; cursor: pointer; margin: 4px 0 6px; }
+.sf-sendall:disabled { opacity: .45; cursor: default; }
+
+/* Bottom bar: the mic bottom right, T and + beside it. */
+.sf-bottom { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 8px 14px 16px; z-index: 2; }
+.sf-left { display: flex; align-items: center; min-height: 44px; }
+.sf-nav { display: flex; gap: 8px; }
+.sf-inputs { display: flex; align-items: center; gap: 10px; }
+.sf-small { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--sf-line); background: var(--sf-card); color: inherit; font: inherit; font-size: 22px; font-weight: 700; display: grid; place-items: center; cursor: pointer; line-height: 1; flex: none; }
+.sf-small:disabled { opacity: .35; cursor: default; }
+.sf-small.acc { background: var(--sf); border-color: var(--sf); color: #fff; }
+.sf-t { font-family: Georgia, "Times New Roman", serif; font-size: 20px; }
+.sf-mic { width: 52px; height: 52px; border-radius: 50%; border: 0; background: var(--sf); display: grid; place-items: center; cursor: pointer; position: relative; flex: none; color: #fff; }
+.sf-mic.big { width: 66px; height: 66px; box-shadow: 0 8px 26px color-mix(in srgb, var(--sf) 45%, transparent); }
+.sf-mic svg { width: 44%; height: 44%; fill: currentColor; stroke: currentColor; }
+.sf-mic.live::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 3px solid var(--sf); animation: sf-ring 1.2s ease-out infinite; }
+
+/* Typing: the field opens only when asked for. */
+.sf-typing { flex: none; padding: 8px 12px 14px; display: flex; flex-direction: column; gap: 6px; z-index: 2; }
+.sf-field { display: flex; flex-direction: column; gap: 8px; padding: 8px; border-radius: 24px; background: var(--sf-card); border: 1px solid color-mix(in srgb, var(--sf) 50%, var(--sf-line)); box-shadow: 0 6px 24px rgba(0,0,0,.25); }
+.sf-fieldrow { display: flex; align-items: center; gap: 8px; }
+.sf-fieldrow input { flex: 1; min-width: 0; min-height: 44px; border: 0; background: none; color: inherit; font: inherit; font-size: 16px; outline: none; }
+.sf-send { width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--sf); color: #fff; font: inherit; font-size: 20px; font-weight: 900; display: grid; place-items: center; cursor: pointer; flex: none; }
+.sf-send:disabled { opacity: .4; }
+.sf-back { align-self: flex-end; background: none; border: 0; color: var(--sf); font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; min-height: 32px; }
+.sf-thumbs { display: flex; gap: 6px; }
+.sf-thumbs i { width: 54px; height: 54px; border-radius: 12px; display: block; background: linear-gradient(135deg, #ffb37a, #ff6b8b); }
+.sf-thumbs i.b { background: linear-gradient(135deg, #7ad7ff, #8b7cff); }
+
+/* The record: the chat, top right. */
+.sf-record { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; background: var(--screen-bg, #0f1019); animation: sf-slide .3s cubic-bezier(.2,.9,.3,1); }
+.sf-rechead { display: flex; align-items: center; gap: 8px; padding: 4px 12px 8px; border-bottom: 1px solid var(--sf-line); }
+.sf-rechead b { font-size: 16px; }
+.sf-recscroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding: 12px; }
+.sf-recturn { display: flex; flex-direction: column; gap: 6px; }
+.sf-recme { align-self: flex-end; max-width: 82%; padding: 9px 13px; border-radius: 18px 18px 6px 18px; background: var(--sf); color: #fff; font-size: 13.5px; line-height: 1.35; }
+.sf-recrow { display: flex; align-items: center; gap: 10px; max-width: 92%; padding: 6px; border-radius: 16px; border: 1px solid var(--sf-line); background: var(--sf-card); color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.sf-recpic { width: 76px; height: 56px; flex: none; border-radius: 10px; overflow: hidden; position: relative; background: color-mix(in srgb, var(--sf) 8%, transparent); pointer-events: none; }
+.sf-recpic-in { position: absolute; left: 0; top: 50%; width: 300px; transform: translateY(-50%) scale(.2533); transform-origin: left center; }
+.sf-recpic-in > * { margin: 0 !important; }
+.sf-rectext { font-size: 13.5px; font-weight: 700; line-height: 1.3; }
+.sf-recplan { align-self: flex-start; font-size: 12px; font-weight: 700; color: var(--muted); padding: 6px 10px; border-radius: 12px; border: 1px dashed var(--sf-line); }
+
+.sf-toast { position: absolute; left: 12px; right: 12px; bottom: 96px; z-index: 4; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 14px; background: #2a2d40; color: #fff; font-size: 13px; font-weight: 700; box-shadow: 0 8px 30px rgba(0,0,0,.35); animation: sf-in .3s ease-out; }
+.sf-toast span { flex: 1; }
+.sf-toast button { background: none; border: 0; color: #c9c0ff; font: inherit; font-weight: 800; cursor: pointer; min-height: 32px; }
+
+/* Sheets */
+.sf-shade { position: absolute; inset: 0; z-index: 6; background: rgba(5,5,12,.45); display: flex; flex-direction: column; justify-content: flex-end; }
+.sf-sheet { margin: 0 8px 8px; padding: 18px 14px 14px; border-radius: 24px; background: #1d2031; display: flex; flex-direction: column; gap: 8px; animation: sf-up .25s ease-out; }
+.screen.light .sf-sheet { background: #fff; }
+.sf-sheet-h { font-size: 18px; font-weight: 800; }
+.sf-switch { display: flex; align-items: center; justify-content: space-between; min-height: 44px; font-size: 15px; font-weight: 700; border-bottom: 1px solid var(--sf-line); }
+.sf-switch:last-child { border-bottom: 0; }
+.sf-switch input { width: 20px; height: 20px; accent-color: var(--sf); }
+.sf-agentrow { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 8px; border-radius: 14px; border: 0; background: none; color: inherit; font: inherit; font-size: 15px; cursor: pointer; text-align: left; }
+.sf-agentrow.on { background: color-mix(in srgb, var(--sf) 14%, transparent); }
+.sf-agentrow .sf-sub { margin-left: auto; }
+.sf-attachrow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.sf-attachbtn { min-height: 64px; border-radius: 16px; border: 1px solid var(--sf-line); background: color-mix(in srgb, var(--sf) 8%, transparent); color: inherit; font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; }
+
+/* The new bars, drawn big (the walkthrough). */
+.sf-draw { position: relative; display: flex; flex-direction: column; gap: 12px; padding: 18px 12px; border-radius: 22px; background: color-mix(in srgb, var(--sf) 7%, transparent); border: 1px dashed color-mix(in srgb, var(--sf) 40%, transparent); min-height: 230px; justify-content: center; }
+.sf-draw-said { font-size: 19px; font-weight: 800; min-height: 26px; }
+.sf-draw-bar { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
+.sf-small.ghost { opacity: .55; }
+.sf-mic.huge { width: 84px; height: 84px; }
+.sf-note { font-size: 12px; font-weight: 800; color: var(--sf); }
+.sf-note.r { text-align: right; }
+.sf-note.l { text-align: left; }
+.sf-draw-field { display: flex; align-items: center; gap: 8px; min-height: 52px; padding: 6px 6px 6px 14px; border-radius: 26px; background: var(--sf-card); border: 2px solid var(--sf); font-size: 15px; }
+.sf-draw-field > span:first-child { flex: none; }
+.sf-draw-field .sf-send { margin-left: auto; }
+.sf-draw-field.tall { flex-wrap: wrap; padding: 10px; border-radius: 22px; }
+.sf-draw-field.tall .sf-thumbs { width: 100%; }
+.sf-kb { display: flex; flex-direction: column; gap: 4px; padding: 6px; border-radius: 12px; background: color-mix(in srgb, var(--muted) 14%, transparent); }
+.sf-kb div { display: flex; gap: 3px; justify-content: center; }
+.sf-kb i { flex: 0 0 21px; height: 26px; border-radius: 5px; background: var(--sf-card); font-style: normal; font-size: 10px; font-weight: 700; display: grid; place-items: center; color: var(--muted); }
+.sf-attach { display: flex; gap: 6px; }
+.sf-attach span { flex: 1; text-align: center; padding: 10px 0; border-radius: 12px; background: var(--sf-card); border: 1px solid var(--sf-line); font-size: 12.5px; font-weight: 800; }
+.sf-attach span:first-child { border-color: var(--sf); color: var(--sf); }
+.sf-draw-top { display: flex; align-items: center; gap: 8px; transform: scale(1.12); transform-origin: center; margin: 10px 14px 0; }
+.sf-callouts { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: var(--sf); padding: 0 2px; }
+.sf-callouts span::before { content: "↑ "; }
+.sf-callouts .c2 { margin-right: auto; margin-left: 18px; }
+
+@keyframes sf-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes sf-blink { 50% { opacity: 0; } }
+@keyframes sf-wave { from { height: 6px; } to { height: 32px; } }
+@keyframes sf-morph { 0%, 100% { border-radius: 46% 54% 50% 50% / 52% 44% 56% 48%; transform: rotate(0) scale(1); } 50% { border-radius: 56% 44% 42% 58% / 44% 58% 42% 56%; transform: rotate(40deg) scale(1.06); } }
+@keyframes sf-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes sf-chunk { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes sf-glow { from { opacity: .7; } to { opacity: 1; } }
+@keyframes sf-ring { from { transform: scale(.9); opacity: .9; } to { transform: scale(1.35); opacity: 0; } }
+@keyframes sf-slide { from { transform: translateX(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes sf-up { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .sf-bigface, .sf-caret, .sf-wave i, .sf-orb i, .sf-chunk, .sf-segs button.now, .sf-mic.live::after, .sf-record, .sf-sheet, .sf-doing, .sf-toast { animation: none; }
+}

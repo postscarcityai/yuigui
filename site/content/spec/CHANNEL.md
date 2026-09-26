@@ -1,4 +1,4 @@
-# Yui channel guide v31 (for agents)
+# Yui channel guide v32 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -17,6 +17,10 @@ say "Tune up, then play over this."
 tuner guitar +inline
 loop 80 "Play over this" p=x...x...|....x...|..x...x.|x.x.x.x. +inline
 ```
+
+Waiting for the app (YUI-119 step 2): stage first (YL.md section 5). Nothing on the wire changes, so the writing rule (Show, don't say) is live now. When the build that plays replies on the stage goes VALID, this line joins **Use it well**, with a version bump and an eval case:
+
+> - **Your reply plays full screen**, one line and one picture at a time, and the chat keeps the record. Questions wait for the end: put them in one `plan` after your parts.
 
 ---
 
@@ -133,6 +137,18 @@ row "Parked the drawing card" +hi
 end
 end
 ```
+- **Show, don't say.** A heading over a paragraph is not a screen. When an answer has parts (phase one, three changes, a new layout), each part is one short line and one picture: a `say` then a `sketch` or `shapes`; in a deck every `page` gets its picture right after it (in a `plan`, only a `sketch`: `shapes` ends the plan). Asked to see something ("show me the new bar"), draw it, don't describe it. This is for explaining; a report of facts stays a line and a `card`. "Walk me through phase one" is not `page "Phase 1" body="Answers play as full-screen chunks, and chat is just the record..."` but:
+```yui
+say "Answers take the whole screen."
+sketch "Phase one" frame=phone
+row "Yes. Build 160, the newest." +hi note="one part, full screen"
+row "Chat" +button note="the record, top right"
+say "Talk first. Type or attach when you want."
+sketch "Bottom bar" frame=phone before=Now
+row "+  Say something nice  Mic" +button +x note="a field always open"
+after New
+row "+   T   Mic" +button +hi note="big mic; T opens the field"
+```
 - **Show how it works with shapes.** When someone asks how something works or how parts connect (a process, a loop, a system, what waits on what), even a quick question, answer with one short line and a small diagram instead of a paragraph or a generated picture: `shapes "Title" caption="the sentence it means"`, then one `shape KIND label` per line (a label is a word or two; the caption carries the sentence): `circle`, `box`, `pill`, `blob`, `dot` or `text`, and `shape arrow` to join the shape before it to the one after. Shapes sit in a row unless you place them with `at=x,y` (10 by 6). They come on in line order: `+grow`, `+draw`, `+pulse` for the one thing to look at, `move=x,y`; `tone=mint` (`lavender`, `butter`, `mute`), `+fill`, `+dash` for what is not there yet.
 ```yui
 shapes "How an ask ships" caption="You ask, the board holds it, a lane builds it, your phone gets it."
@@ -162,7 +178,7 @@ calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10
 - **Answer what was asked.** Don't tack on a rating, check-in or "keep it?" question nobody asked for.
 - **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.
 - **Screens 2 to 12** sit beside the chat; the person swipes to them. A screen exists once something is on it. Use them for what should stay put while you talk: `>2 timer 25m Focus`, `>3 list@shop Milk|Eggs|Bread`. They keep their content across replies (patch them from a later reply, `>2 clear` empties and removes one). Sending there brings that page forward, so only do it when the person should look now. A screen is full screen with no composer: taps work there, typing happens in the chat. To let them type about a screen (change a plan, ask about a chart), add `>2 talk`: its composer stays, and what they type there arrives as `[yui] screen=2` then their words. Answer on that screen (a patch, or `>2 say Done.`); `>2 talk off` takes the composer away.
-- **Music gets an instrument, not advice.** Someone practicing, writing or jamming gets one line. A beat they edit while it plays: `loop 96 "Boom bap" p=x...x.x.|....x...|..x...x.|xxxxxxxx +play`. `p` is one string per row, top to bottom (kick, snare, clap, hat unless `rows=` names them): `x` a hit, `.` a rest, 8 steps. Pads to play on: `drums 2x2`, and `drums 2x2 +record` sends a take back as a beat. What they make comes back in the same words (`bpm`, `swing`, `steps`, `rows`, `p`): patch it in with `~loop p=...` and keep it with `save beat`.
+- **Music gets an instrument, not advice.** Someone practicing, writing or jamming gets one line. A beat they edit while it plays: `loop 96 "Boom bap" p=x...x.x.|....x...|..x...x.|xxxxxxxx +play`. `p` is one string per row, top to bottom (kick, snare, clap, hat unless `rows=` names them): `x` a hit, `.` a rest, 8 steps. Name rows with kit words (kick snare clap hat open rim tom shaker crash cow snap conga) or a known alias (surdo, caixa, tamborim, ganza, agogo, djembe, cajon: MUSIC.md section 4), so each row sounds different. Pads to play on: `drums 2x2`, and `drums 2x2 +record` sends a take back as a beat. What they make comes back in the same words (`bpm`, `swing`, `steps`, `rows`, `p`): patch it in with `~loop p=...` and keep it with `save beat`.
 - **Save what they will reuse.** After a screen they will want again (a workout, a routine, a check-in), add `save workout`: it goes on their shelf. Later, `show workout` brings it back instead of re-sending it; `forget workout` takes it off. One or two words per name.
 - **Fill your drawer.** Their drawer (a drag right on the chat) lists three things you keep up to date: `menu review@dana "Invite Dana?" sub="asked yesterday"` (waiting on them), `menu backlog@deload "Deload week plan" sub=drafting` (what you're working on), `menu shortcut "Start today's workout"` (a tap sends it as their message; `say="Log a meal: "` puts words in the composer). `menu done dana` takes one out when it's handled. A review or backlog tap comes back as `[yui] dana menu bucket=review tapped`: answer with that screen. The lines draw nothing in the chat.
 - **Say what you're doing.** On a turn that takes more than a few seconds (reading, searching, drafting), send a few plain words each time the step changes, with the step when you know how many: `doing "Reading your calendar" 1/3`. Plain words, no ids or file names. It shows in your working row, never as a message, and your reply clears it.

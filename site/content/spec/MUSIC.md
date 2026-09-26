@@ -225,6 +225,27 @@ Pitched voices, for `keys`, `chords`, note rows and `sound=`:
 
 An unknown word still parses (`sound=theremin`); the app plays the family default (`keys` for a pitched slot, `tick` for a pad) and the playground does the same.
 
+**Row names.** A loop row can be named the way a musician would. Before lookup a word loses case, accents, spaces, `_` and `-` (`Ganzá` reads `ganza`, `hi-hat` reads `hihat`). Then it is a kit word or an alias (`ALIAS` in theory.mjs, `Words.alias` in the app, kept in step):
+
+| Plays | Aliases |
+| --- | --- |
+| `kick` | bd, bassdrum, kickdrum, cajon |
+| `snare` | sd, snaredrum, caixa, tarol |
+| `clap` | clapping, handclap, palmas |
+| `hat` | hh, hihat, hihats, closedhat |
+| `open` | openhat, oh |
+| `rim` | clave, claves, rimshot, sidestick, tamborim, woodblock |
+| `tom` | surdo, repinique, repique, floortom, taiko, dhol |
+| `shaker` | shake, maraca, maracas, tambourine, ganza, chocalho, guiro, cabasa, afuche, egg, pandeiro |
+| `crash` | ride, cymbal, splash, china |
+| `cow` | cowbell, agogo, gankogui |
+| `snap` | finger |
+| `conga` | bongo, bongos, cuica, timbal, timbale, timbales, djembe, tumba, quinto, tabla, darbuka |
+| `bell` | chime, glock, marimba, triangle |
+| `tick` | click |
+
+Two rows the kit does not know never share a voice. In a loop each unknown drum row takes the next kit voice, in pad order, that no other row plays (`loopVoices` in theory.mjs, `Words.loop` in the app), so `rows=kick|zap|zing` plays kick, snare, clap. Only once all twelve drums are taken does a row fall back to `tick`. A pad or a single `play` of an unknown word still plays `tick`.
+
 **In the app (AVAudioEngine).** One `AVAudioSourceNode` renders every voice in its render block, sample by sample, from the same recipes: a small voice pool (32 voices), each voice an oscillator phase, an envelope and a one-pole or state-variable filter, no allocation and no locks on the audio thread. Scheduled notes carry a sample time from the engine's clock, so the looper and the metronome land on the exact sample. A limiter and a small reverb (`AVAudioUnitReverb`) sit after it. The same recipe text drives both platforms, so a sound is fixed once.
 
 **In the browser (Web Audio).** Each hit builds a few nodes (`OscillatorNode`, `AudioBufferSourceNode` over one shared noise buffer, `BiquadFilterNode`, `GainNode` envelopes, `WaveShaperNode` for the soft clip) and lets them go when the envelope ends. A `DynamicsCompressorNode` is the limiter. That is what the playground mock does today.
@@ -296,7 +317,7 @@ Bluetooth LE MIDI has been supported since iOS 8. A paired device "appears as an
 
 - **AVAudioEngine, no AudioKit.** The engine is Apple's, with one `AVAudioSourceNode` for every voice (section 4). AudioKit is good and MIT, but it is a wrapper on the same engine with one maintainer, and the voices here are small enough to write. Tonic (AudioKit's theory package) is worth a look in step 3 if chord naming grows.
 - **Buffer.** Ask for 5 ms (`setPreferredIOBufferDuration(0.005)`), read back what the phone gave, and log it. At 48 kHz that is 256 frames, 5.3 ms. The audio side of tap to sound stays under 10 ms; the touch is the bigger cost, so every pad, key and chord plays on touch down.
-- **Session.** Instruments use `.ambient` by default: they mix with the person's music, and the silent switch mutes them, like any game. A "Play when the phone is on silent" switch in the instrument's settings moves to `.playback`. The tuner uses `.playAndRecord` with the `.measurement` mode (no voice processing), `.defaultToSpeaker` and `.allowBluetoothA2DP`, only while it is open.
+- **Session.** Instruments use `.playback` with `.mixWithOthers` by default: they play with the ringer on silent and still mix with the person's music (Chris, 2026-09-26: pressed Play on a silenced phone and heard nothing under `.ambient`). `.ambient`, which the silent switch mutes, stays available behind `playsOnSilent = false`. The tuner uses `.playAndRecord` with the `.measurement` mode (no voice processing), `.defaultToSpeaker` and `.allowBluetoothA2DP`, only while it is open.
 - **Bluetooth.** When the route is Bluetooth, the instruments show one line: "Bluetooth adds a delay. Wired or the speaker feels tighter." The looper and metronome move their lights by the output latency so the light matches the sound.
 - **Background.** Nothing plays after the person leaves Yui in step 2 and 3. The metronome may keep going with the phone locked (step 4), as real audio playback under guideline 2.5.4, never to keep an agent awake.
 - **MIDI and Link (step 5).** Bluetooth MIDI through `CABTMIDICentralViewController`, no custom pairing screen. Link needs the multicast entitlement from Apple and has its own test plan, so step 5 asks for the entitlement first.

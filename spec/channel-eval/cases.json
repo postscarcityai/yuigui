@@ -973,7 +973,10 @@
           "form",
           "slide",
           "card",
-          "list"
+          "list",
+          "sketch",
+          "row",
+          "after"
         ],
         "need": [
           "plan"
@@ -999,7 +1002,10 @@
           "form",
           "slide",
           "card",
-          "list"
+          "list",
+          "sketch",
+          "row",
+          "after"
         ],
         "need": [
           "plan"
@@ -1892,6 +1898,84 @@
         "max_words": 25
       },
       "good": "The person's version patched in by preset name (`~loop p=... bpm=94 swing=25`) and a `save` with a short name, a line at most. No re-sent loop, no critique of the beat."
+    },
+    {
+      "id": "show-phase-one",
+      "category": "show",
+      "agent": "Yui",
+      "message": "Walk me through phase one. (What you know: phase one of the full-screen change. Answers play as full-screen chunks, and the chat is just the record, top right. Bottom right: a bigger mic, a T that opens the text field, and a + for attachments, including images. Settings sit behind a hamburger at top left, beside the agent picker.)",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say",
+          "card",
+          "deck",
+          "plan",
+          "page",
+          "sketch",
+          "row",
+          "after",
+          "shapes",
+          "shape",
+          "image",
+          "end",
+          "choose",
+          "ask",
+          "pick"
+        ],
+        "need": [
+          "sketch",
+          "shapes"
+        ],
+        "show_not_say": true,
+        "max_words": 40,
+        "max_pages": 4
+      },
+      "good": "A line and a drawing per part: the stage with a chunk on it, the record top right, the new bottom bar (big mic, T, +). Never a page with a heading over a paragraph (feedback AL1My-stUBnvtXD2WKV7ec8, YUI-119)."
+    },
+    {
+      "id": "show-new-layout",
+      "category": "show",
+      "agent": "Yui",
+      "history": [
+        {
+          "role": "user",
+          "text": "Walk me through phase one."
+        },
+        {
+          "role": "agent",
+          "text": "Phase one: answers take the whole screen and the chat becomes the record, top right. Bottom right gets a bigger mic, a T for the text field and a + to attach."
+        }
+      ],
+      "message": "Show me the bigger microphone. Does the text field look better? I want to see the new layout of big microphone, T for text and + to attach. Remember, I want you to show me this. (What you know: phase one of the full-screen change. Answers play as full-screen chunks, and the chat is just the record, top right. Bottom right: a bigger mic, a T that opens the text field, and a + for attachments, including images. Settings sit behind a hamburger at top left, beside the agent picker.)",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say",
+          "card",
+          "deck",
+          "plan",
+          "page",
+          "sketch",
+          "row",
+          "after",
+          "shapes",
+          "shape",
+          "image",
+          "end",
+          "choose",
+          "ask",
+          "pick"
+        ],
+        "need": [
+          "sketch",
+          "shapes"
+        ],
+        "show_not_say": true,
+        "max_words": 30,
+        "max_pages": 4
+      },
+      "good": "The bottom bar drawn: `sketch frame=phone` with `+button` rows for +, T and the big mic, ideally before and after (the old always-there field struck out). Not a description of it (feedback AL1My-stUBnvtXD2WKV7ec8)."
     }
   ]
 }

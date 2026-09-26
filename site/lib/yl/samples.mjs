@@ -120,6 +120,45 @@ slide "Energy" 1-5 "Wiped"|"Fired up"
     next: "~choose +lock",
   },
   {
+    // Stage first (spec/YL.md section 5, YUI-119 step 1): the lines are Yui's
+    // answer to "go ahead and release that". The tabs above the phone are the
+    // app living on the full screen (playground/stagefirst.js): the first send
+    // opens the stage, the reply plays as chunks (a line and a picture each),
+    // the questions come last with one Send, and the chat is the record.
+    name: "Stage first: the reply plays full screen, the chat is the record",
+    slug: "stage-first",
+    agent: "Yui",
+    stagefirst: true,
+    yl: `doing "Starting the 0.3.2 release" 1/2
+doing "Checking what is ready" 2/2
+say "0.3.2 is building. On TestFlight in about 40 minutes."
+shapes w=12 h=6 caption="Build, checks, TestFlight. You get a ping when it lands."
+shape@b box Build at=2,3 +fill +pulse
+shape arrow from=b to=c
+shape@c box Checks at=6,3 +dash
+shape arrow from=c to=t
+shape@t pill TestFlight at=10,3 size=3.2,1.4 tone=mint +dash
+say "Keys and chords ride along."
+shapes w=12 h=7 caption="A scale to play, a loop of chords to strum."
+shape box A at=1.5,2.6 size=1.3,3.6 +fill
+shape box B at=3,2.6 size=1.3,3.6 tone=mute
+shape box C at=4.5,2.6 size=1.3,3.6 +fill
+shape box D at=6,2.6 size=1.3,3.6 +fill
+shape box E at=7.5,2.6 size=1.3,3.6 +fill
+shape box F at=9,2.6 size=1.3,3.6 tone=mute
+shape box G at=10.5,2.6 size=1.3,3.6 +fill
+shape pill "I V vi IV" at=6,6 size=5,1.2 tone=mint +fill +grow
+say "The faster Send tap waits for 0.3.3."
+sketch "In 0.3.2" frame=window
+row "Keys and chords" +hi
+row "Real drum sounds" +hi
+row "Faster Send tap" +x note="not done yet"
+plan@before "Before I go" submit=Send
+choose@ping "Ping you when it lands?" "Yes, ping me"|"Only if it breaks"
+choose@try "What do you want to try first?" Keys|Chords|Drums
+end`,
+  },
+  {
     // The working row (spec/YL.md section 5, YUI-63 step 2): the doing lines
     // take the working word's place while the turn runs, then the reply lands.
     name: "The working row: the agent says what it is doing",

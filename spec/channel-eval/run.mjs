@@ -22,6 +22,7 @@ import { spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { Parser, PRESETS, resolve, tokenize, pageOf, onStage } from "../../site/lib/yl/yl.mjs";
+import { stageChunks } from "../../site/lib/yl/chunks.mjs";
 
 const HERE = new URL(".", import.meta.url);
 const arg = (k, d) => { const i = process.argv.indexOf(`--${k}`); return i > 0 ? process.argv[i + 1] : d; };
@@ -181,6 +182,17 @@ export function score(c, reply) {
     for (const f of o.props.fields || []) {
       if (f.type === "password" || SECRET.test(`${f.key} ${f.label || ""}`)) fails.push(`secret: form field "${f.label || f.key}"`);
     }
+  }
+  // Show, don't say (YUI-119): read as the stage plays it, every part is a line and a
+  // picture. A page or a line with no picture, or a page that is a paragraph, fails;
+  // one lone line before the first picture is fine (the answer itself).
+  if (e.show_not_say) {
+    const { chunks } = stageChunks(adds);
+    const bare = chunks.filter((c, i) => c.line && !c.pic && (c.page || i > 0));
+    const wall = chunks.filter((c) => c.page && String(c.page.body || "").split(/\s+/).filter(Boolean).length > 30);
+    if (!adds.some((o) => ["sketch", "shapes", "image", "chart", "stat"].includes(o.preset))) fails.push("show: nothing drawn");
+    for (const c of bare) fails.push(`show: a part with no picture :: ${c.line}`);
+    for (const c of wall) fails.push(`show: a heading over a paragraph :: ${c.line}`);
   }
   // A page's picture (YUI-85): a sketch inside a deck or plan, right after a page of that group.
   if (e.page_picture) {

@@ -1,16 +1,235 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 177,
-    "site": 441,
-    "builds": 34,
-    "shipped": 228,
-    "screenshots": 499
+    "app": 186,
+    "site": 461,
+    "builds": 35,
+    "shipped": 234,
+    "screenshots": 519
   },
   "days": [
     {
       "date": "2026-09-26",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-26T23:46:12.596Z",
+          "title": "The full screen stage, drawn",
+          "card": "YUI-119",
+          "anchor": "the-full-screen-stage-drawn",
+          "images": [
+            {
+              "src": "/progress/yui119-ask-dark.webp",
+              "alt": "Dark mode: the full screen stage waiting, Yui's face in the middle, settings and Yui top left, the chat button top right, plus, T and a big mic bottom right."
+            },
+            {
+              "src": "/progress/yui119-working-dark.webp",
+              "alt": "Dark mode: the stage while Yui works, the question small at the top, a purple shape breathing, Asking your devices, 3 seconds, and a thin step bar."
+            },
+            {
+              "src": "/progress/yui119-answer-light.webp",
+              "alt": "Light mode: the answer as one screen, a drawing of an iPhone on build 160 and an iPad on 135, and the line Yes. Build 160, the newest."
+            },
+            {
+              "src": "/progress/yui119-release-dark.webp",
+              "alt": "Dark mode: part one of three, a drawing of Build, Checks and TestFlight joined by arrows, and the line 0.3.2 is building. On TestFlight in about 40 minutes."
+            },
+            {
+              "src": "/progress/yui119-questions-answered-dark.webp",
+              "alt": "Dark mode: Before I go, two questions on one screen, Yes, ping me and Keys picked, and one Send button."
+            },
+            {
+              "src": "/progress/yui119-record-light.webp",
+              "alt": "Light mode: the chat record, each part written down with its drawing small beside it, then the answers as Chris's message."
+            },
+            {
+              "src": "/progress/yui119-bars-1-dark.webp",
+              "alt": "Dark mode: the new bottom bar drawn big, a large mic with a ring, T and plus beside it, the words Show me the new layout streaming in."
+            },
+            {
+              "src": "/progress/yui119-bars-2-light.webp",
+              "alt": "Light mode: T opens the text field, full width over a keyboard."
+            },
+            {
+              "src": "/progress/yui119-bars-3-dark.webp",
+              "alt": "Dark mode: plus attaches, two photos sitting in the text field above the words, with Photos, Camera and Files."
+            },
+            {
+              "src": "/progress/yui119-settings-light.webp",
+              "alt": "Light mode: settings with switches for the mic, T for the text field and plus for attach."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 186,
+            "site": 461,
+            "builds": 35,
+            "shipped": 234
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T22:34:25.000Z",
+          "title": "Help: why a beat is silent",
+          "card": "SITE-53",
+          "anchor": "help-why-a-beat-is-silent",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 186,
+            "site": 457,
+            "builds": 35,
+            "shipped": 233
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T22:03:54.000Z",
+          "title": "Agents send a beat",
+          "card": "YUI-116",
+          "anchor": "agents-send-a-beat",
+          "images": [
+            {
+              "src": "/progress/yui116s2-loop-light.webp",
+              "alt": "Light mode: the Boom bap looper on the stage, 98 BPM with swing 25 percent, kick, snare, clap and hat rows lit, the playhead on the last step, Stop and Send buttons."
+            },
+            {
+              "src": "/progress/yui116s2-loop-dark.webp",
+              "alt": "Dark mode: the same Boom bap looper playing, eight rows from kick to shaker, the hat row lit on every step."
+            }
+          ],
+          "commits": 10,
+          "totals": {
+            "app": 179,
+            "site": 450,
+            "builds": 35,
+            "shipped": 232
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T22:02:33.000Z",
+          "title": "Yui 0.3.2 on the site: the release post and See it",
+          "card": "SITE-52",
+          "anchor": "yui-0-3-2-on-the-site-the-release-post-and-see-it",
+          "images": [
+            {
+              "src": "/progress/yui116s2-loop-light.webp",
+              "alt": "A Boom bap loop playing full screen in the app, with Stop, Swing 25% and Send"
+            },
+            {
+              "src": "/progress/yui63s2-app-weather-light.webp",
+              "alt": "The working row in the app reads Checking the weather, 9s, with a bar two thirds full"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 179,
+            "site": 449,
+            "builds": 35,
+            "shipped": 231
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T22:01:04.000Z",
+          "title": "It says what it is doing",
+          "card": "YUI-63",
+          "anchor": "it-says-what-it-is-doing",
+          "images": [
+            {
+              "src": "/progress/yui63-app-step1-light.webp",
+              "alt": "Light mode: Wizard's working row reads Reading your calendar, 4 seconds, with a thin purple bar a third full."
+            },
+            {
+              "src": "/progress/yui63-app-step2-light.webp",
+              "alt": "Light mode: the row now reads Checking the weather, 9 seconds, the bar two thirds full."
+            },
+            {
+              "src": "/progress/yui63-app-step3-dark.webp",
+              "alt": "Dark mode: the row reads Drafting the plan, 12 seconds, the bar full."
+            },
+            {
+              "src": "/progress/yui63-app-answered-dark.webp",
+              "alt": "Dark mode: the reply, Free at 3. Want it?, has landed where the working row was."
+            }
+          ],
+          "commits": 10,
+          "totals": {
+            "app": 178,
+            "site": 447,
+            "builds": 35,
+            "shipped": 230
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-26T21:55:30.000Z",
+          "build": 176,
+          "changes": 16,
+          "totals": {
+            "app": 178,
+            "site": 446,
+            "builds": 35,
+            "shipped": 229
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T21:52:14.000Z",
+          "title": "Short answers first",
+          "card": "YUI-118",
+          "anchor": "short-answers-first",
+          "images": [
+            {
+              "src": "/progress/yui118-short-answer-light.webp",
+              "alt": "Light mode: a before and after sketch for Am I on the latest build. Before, a long reply struck out, noted 4 pages to say yes. After, one highlighted line: Yes, build 160, the newest. Your iPad is on 135."
+            },
+            {
+              "src": "/progress/yui118-short-answer-dark.webp",
+              "alt": "Dark mode: the same before and after sketch, the long reply struck out and the one-line answer highlighted."
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 177,
+            "site": 446,
+            "builds": 34,
+            "shipped": 229
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T21:30:05.000Z",
+          "title": "Keys and chords you can play in the app",
+          "card": "YUI-116",
+          "anchor": "keys-and-chords-you-can-play-in-the-app",
+          "images": [
+            {
+              "src": "/progress/yui116s3-keys-light.webp",
+              "alt": "Light mode: a Warm up keyboard in A minor pentatonic, the keys outside the scale grayed out, a sound picker and octave arrows, the notes played listed beside them."
+            },
+            {
+              "src": "/progress/yui116s3-keys-dark.webp",
+              "alt": "Dark mode: the same keyboard an octave up on C5 with the pad sound picked, light naturals and dark sharps, and a Send button."
+            },
+            {
+              "src": "/progress/yui116s3-chords-dark.webp",
+              "alt": "Dark mode: four chord buttons in G labeled G I, D V, Em vi and C IV, strum buttons Down, Up and Off, and the chords played so far."
+            },
+            {
+              "src": "/progress/yui116s3-chords-light.webp",
+              "alt": "Light mode: the four chord buttons in pastel colors with the strum set to Down."
+            }
+          ],
+          "commits": 10,
+          "totals": {
+            "app": 177,
+            "site": 442,
+            "builds": 34,
+            "shipped": 228
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-26T21:08:36.000Z",
@@ -32,7 +251,7 @@
             "app": 175,
             "site": 440,
             "builds": 34,
-            "shipped": 228
+            "shipped": 227
           }
         },
         {
@@ -60,7 +279,7 @@
             "app": 174,
             "site": 439,
             "builds": 34,
-            "shipped": 227
+            "shipped": 226
           }
         },
         {
@@ -83,38 +302,6 @@
           "totals": {
             "app": 173,
             "site": 438,
-            "builds": 34,
-            "shipped": 226
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T20:29:36.000Z",
-          "title": "Keys and chords you can play in the app",
-          "card": "YUI-116",
-          "anchor": "keys-and-chords-you-can-play-in-the-app",
-          "images": [
-            {
-              "src": "/progress/yui116s3-keys-light.webp",
-              "alt": "Light mode: a Warm up keyboard in A minor pentatonic, the keys outside the scale grayed out, a sound picker and octave arrows, the notes played listed beside them."
-            },
-            {
-              "src": "/progress/yui116s3-keys-dark.webp",
-              "alt": "Dark mode: the same keyboard an octave up on C5 with the pad sound picked, light naturals and dark sharps, and a Send button."
-            },
-            {
-              "src": "/progress/yui116s3-chords-dark.webp",
-              "alt": "Dark mode: four chord buttons in G labeled G I, D V, Em vi and C IV, strum buttons Down, Up and Off, and the chords played so far."
-            },
-            {
-              "src": "/progress/yui116s3-chords-light.webp",
-              "alt": "Light mode: the four chord buttons in pastel colors with the strum set to Down."
-            }
-          ],
-          "commits": 7,
-          "totals": {
-            "app": 171,
-            "site": 436,
             "builds": 34,
             "shipped": 225
           }
@@ -143,7 +330,7 @@
               "alt": "Dark mode: a guitar tuner with a needle gauge, the six strings E2 A2 D3 G3 B3 E4 and a Start button."
             }
           ],
-          "commits": 7,
+          "commits": 10,
           "totals": {
             "app": 171,
             "site": 436,
@@ -489,7 +676,7 @@
               "alt": "The reply has landed and the working row is gone: three runs as a checklist and a question about adding them to the calendar."
             }
           ],
-          "commits": 6,
+          "commits": 10,
           "totals": {
             "app": 163,
             "site": 409,
@@ -1421,6 +1608,209 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "dd75a08",
+          "at": "2026-09-26T23:40:03.000Z",
+          "text": "Native Yui: NATIVE-1 and NATIVE-2 on the board, specs and roadmap (YUI-129, YUI-149)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dd75a08"
+        },
+        {
+          "repo": "site",
+          "sha": "24f48f8",
+          "at": "2026-09-26T23:38:16.000Z",
+          "text": "Keep video production out of git: videos/ and brag-output*/ are ignored",
+          "url": "https://github.com/postscarcityai/yuigui/commit/24f48f8"
+        },
+        {
+          "repo": "site",
+          "sha": "5f12957",
+          "at": "2026-09-26T23:10:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5f12957"
+        },
+        {
+          "repo": "site",
+          "sha": "142b8e1",
+          "at": "2026-09-26T22:41:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/142b8e1"
+        },
+        {
+          "repo": "site",
+          "sha": "ea742ec",
+          "at": "2026-09-26T22:34:25.000Z",
+          "text": "Help answers music: no sound, the silent switch, how to play (SITE-53)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ea742ec"
+        },
+        {
+          "repo": "app",
+          "sha": "736a23f",
+          "at": "2026-09-26T22:33:26.000Z",
+          "text": "UI test: the war room in the drawer, Home, Review and the opened ask (YUI-126)",
+          "url": "https://github.com/postscarcityai/yui/commit/736a23f"
+        },
+        {
+          "repo": "site",
+          "sha": "af0d714",
+          "at": "2026-09-26T22:32:26.000Z",
+          "text": "Social drafts: 12 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/af0d714"
+        },
+        {
+          "repo": "app",
+          "sha": "d2803aa",
+          "at": "2026-09-26T22:28:57.000Z",
+          "text": "Every drum name plays a real drum, not a tick (YUI-127, yuigui 1c96bd7)",
+          "url": "https://github.com/postscarcityai/yui/commit/d2803aa"
+        },
+        {
+          "repo": "site",
+          "sha": "1c96bd7",
+          "at": "2026-09-26T22:28:39.000Z",
+          "text": "Every drum name plays a real drum, not a tick (YUI-127)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1c96bd7"
+        },
+        {
+          "repo": "app",
+          "sha": "f47aaea",
+          "at": "2026-09-26T22:27:43.000Z",
+          "text": "The war room moves into the drawer: a Review row opens its ask (YUI-126)",
+          "url": "https://github.com/postscarcityai/yui/commit/f47aaea"
+        },
+        {
+          "repo": "site",
+          "sha": "9266fff",
+          "at": "2026-09-26T22:27:29.000Z",
+          "text": "Roadmap: the war room moves into the drawer (YUI-126)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9266fff"
+        },
+        {
+          "repo": "site",
+          "sha": "2d0745d",
+          "at": "2026-09-26T22:18:29.000Z",
+          "text": "MUSIC.md: instruments play on silent by default (yui 43c4126)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2d0745d"
+        },
+        {
+          "repo": "app",
+          "sha": "43c4126",
+          "at": "2026-09-26T22:18:18.000Z",
+          "text": "Instruments play with the ringer on silent (feedback AGhvH8tM)",
+          "url": "https://github.com/postscarcityai/yui/commit/43c4126"
+        },
+        {
+          "repo": "app",
+          "sha": "6fb9174",
+          "at": "2026-09-26T22:15:47.000Z",
+          "text": "Tag shim turns only when the shim takes the tag out (YUI-63 step 3)",
+          "url": "https://github.com/postscarcityai/yui/commit/6fb9174"
+        },
+        {
+          "repo": "app",
+          "sha": "da180dc",
+          "at": "2026-09-26T22:15:20.000Z",
+          "text": "Working row words for agents on the claude shim (YUI-63 step 3)",
+          "url": "https://github.com/postscarcityai/yui/commit/da180dc"
+        },
+        {
+          "repo": "site",
+          "sha": "b9f706f",
+          "at": "2026-09-26T22:11:10.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b9f706f"
+        },
+        {
+          "repo": "site",
+          "sha": "6726e49",
+          "at": "2026-09-26T22:08:14.000Z",
+          "text": "Claude checked inside claude.ai: screen draws in chat and on phone (INT-7)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6726e49"
+        },
+        {
+          "repo": "app",
+          "sha": "ef0a563",
+          "at": "2026-09-26T22:04:33.000Z",
+          "text": "Channel guide v31: agents send loop and drums (YUI-116, yuigui 44d7edd)",
+          "url": "https://github.com/postscarcityai/yui/commit/ef0a563"
+        },
+        {
+          "repo": "site",
+          "sha": "44d7edd",
+          "at": "2026-09-26T22:03:54.000Z",
+          "text": "Agents send a beat: channel guide v31 teaches loop and drums (YUI-116)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/44d7edd"
+        },
+        {
+          "repo": "site",
+          "sha": "8f4d703",
+          "at": "2026-09-26T22:02:33.000Z",
+          "text": "Yui 0.3.2 on the site: release Thought, See it group, roadmap on phones (SITE-52)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8f4d703"
+        },
+        {
+          "repo": "app",
+          "sha": "68828fb",
+          "at": "2026-09-26T22:01:36.000Z",
+          "text": "Channel guide v30: say what you're doing (YUI-63 step 2, yuigui 3ccea6b)",
+          "url": "https://github.com/postscarcityai/yui/commit/68828fb"
+        },
+        {
+          "repo": "site",
+          "sha": "4830100",
+          "at": "2026-09-26T22:01:17.000Z",
+          "text": "Board reads step cards: their own titles, tags and log links (SITE-2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4830100"
+        },
+        {
+          "repo": "site",
+          "sha": "3ccea6b",
+          "at": "2026-09-26T22:01:04.000Z",
+          "text": "It says what it is doing: channel guide v30, showcase native (YUI-63 step 2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3ccea6b"
+        },
+        {
+          "repo": "app",
+          "sha": "716c1d7",
+          "at": "2026-09-26T21:52:24.000Z",
+          "text": "Channel guide v29: short answers first, decks cap at 4 pages (YUI-118, yuigui 9a5b481)",
+          "url": "https://github.com/postscarcityai/yui/commit/716c1d7"
+        },
+        {
+          "repo": "site",
+          "sha": "9a5b481",
+          "at": "2026-09-26T21:52:14.000Z",
+          "text": "Short answers first: channel guide v29, a status question gets one line (YUI-118)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9a5b481"
+        },
+        {
+          "repo": "site",
+          "sha": "57c58b2",
+          "at": "2026-09-26T21:50:40.000Z",
+          "text": "Roadmap: STAGE-1, the new face of Yui, in three phases (YUI-118 to 125)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/57c58b2"
+        },
+        {
+          "repo": "site",
+          "sha": "354328e",
+          "at": "2026-09-26T21:48:25.000Z",
+          "text": "Roadmap: full screen first, short answers, stage motion on top (YUI-118, 119, 120)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/354328e"
+        },
+        {
+          "repo": "site",
+          "sha": "78e71d8",
+          "at": "2026-09-26T21:41:04.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/78e71d8"
+        },
+        {
+          "repo": "site",
+          "sha": "45ad18e",
+          "at": "2026-09-26T21:30:05.000Z",
+          "text": "Progress: keys and chords you can play in the app (YUI-116 step 3)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/45ad18e"
+        },
         {
           "repo": "app",
           "sha": "2b26871",
@@ -4090,7 +4480,7 @@
               "alt": "A long turn in dark mode: the row says Tinkering · 2m 20s, with a line under it saying long jobs are fine and the answer lands here"
             }
           ],
-          "commits": 6,
+          "commits": 10,
           "totals": {
             "app": 79,
             "site": 207,
@@ -4154,7 +4544,7 @@
               "alt": "After Yes was tapped, Claude Code answered with a tabata timer on the phone"
             }
           ],
-          "commits": 5,
+          "commits": 6,
           "totals": {
             "app": 76,
             "site": 201,
@@ -8109,7 +8499,7 @@
               "alt": "The yuigui.com board: backlog, up next, building and shipped columns of Yui cards, with the MVP bar above"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 17,
             "site": 40,
