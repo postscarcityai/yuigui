@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T17:40:31.753Z",
+  "updated": "2026-09-26T18:11:19.348Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.0",
@@ -107,6 +107,10 @@
           "title": "Yui for macOS, first PR",
           "summary": "The Mac target builds and signs in",
           "agentReady": true
+        },
+        {
+          "key": "YUI-115",
+          "title": "The app runs flows, then My flows (FLOW-1 app half)"
         },
         {
           "key": "SITE-28",
@@ -223,13 +227,20 @@
         },
         {
           "key": "YUI-63",
-          "title": "Step 2 (web)",
-          "summary": "The agent says what it is doing, a doing line with a small bar: spec, parsers, playground mock"
+          "title": "Step 2 (app) (backlog)",
+          "summary": "The working row shows what the agent is doing, with a bar"
         },
         {
-          "key": "SITE-46",
-          "title": "Get Yui catches up",
-          "summary": "Pairing shots from a current build and every way in beyond Hermes"
+          "key": "FLOW-1",
+          "title": "Step 2 (web)",
+          "summary": "Flows, written in Mermaid",
+          "progress": "/progress#flows-written-in-mermaid"
+        },
+        {
+          "key": "SITE-47",
+          "title": "Help and Developers catch up to 0.3.1 and today's main",
+          "summary": "Help catches up with the app",
+          "progress": "/progress#help-catches-up-with-the-app"
         }
       ]
     },
@@ -238,9 +249,23 @@
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "SITE-46",
+          "title": "Get Yui catches up",
+          "summary": "Get Yui shows the app and every way in",
+          "shipped": "2026-09-26",
+          "progress": "/progress#get-yui-shows-the-app-and-every-way-in"
+        },
+        {
+          "key": "YUI-63",
+          "title": "Step 2 (web)",
+          "summary": "One working row instead of dots plus a timer",
+          "shipped": "2026-09-26",
+          "progress": "/progress#one-working-row-instead-of-dots-plus-a-timer"
+        },
+        {
           "key": "YUI-114",
-          "title": "Rename the App Store listing from Yui Bot to Yui Gui (fallback",
-          "summary": "Yui)",
+          "title": "Rename the App Store listing from Yui Bot to Yui (fallback",
+          "summary": "Yui Gui), no Yui Bot left anywhere",
           "shipped": "2026-09-26"
         },
         {
@@ -678,9 +703,8 @@
         {
           "key": "FLOW-1",
           "title": "Flows",
-          "summary": "Flows, written in Mermaid",
-          "shipped": "2026-09-25",
-          "progress": "/progress#flows-written-in-mermaid"
+          "summary": "Saved series of Yui screens, authored in Mermaid, run by any agent",
+          "shipped": "2026-09-25"
         },
         {
           "key": "YUI-56",
@@ -884,8 +908,9 @@
         {
           "key": "YUI-63",
           "title": "One working row instead of dots plus a timer",
+          "summary": "Your agent says what it is doing",
           "shipped": "2026-09-25",
-          "progress": "/progress#one-working-row-instead-of-dots-plus-a-timer"
+          "progress": "/progress#your-agent-says-what-it-is-doing"
         },
         {
           "key": "YUI-44",
