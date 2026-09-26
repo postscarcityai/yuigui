@@ -1,16 +1,76 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 169,
-    "site": 431,
+    "app": 171,
+    "site": 435,
     "builds": 34,
-    "shipped": 223,
-    "screenshots": 484
+    "shipped": 224,
+    "screenshots": 488
   },
   "days": [
     {
       "date": "2026-09-26",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-26T20:28:36.358Z",
+          "title": "Yui for musicians: the plan, and a mock that plays",
+          "card": "YUI-116",
+          "anchor": "yui-for-musicians-the-plan-and-a-mock-that-plays",
+          "images": [
+            {
+              "src": "/progress/yui116-loop-dark.webp",
+              "alt": "Dark mode: a Boom bap step looper at 90 BPM with swing, rows for kick, snare, clap, hat, open hat and rim, lit cells in six colors, and Play and tempo buttons."
+            },
+            {
+              "src": "/progress/yui116-chords-dark.webp",
+              "alt": "Dark mode: four big chord buttons in G, labeled G I, D V, Em vi and C IV, with a Send button."
+            },
+            {
+              "src": "/progress/yui116-keys-dark.webp",
+              "alt": "Dark mode: a one octave keyboard locked to A minor pentatonic, with the notes outside the scale dimmed, a sound picker (keys, pluck, bell, pad, bass, lead) and octave arrows."
+            },
+            {
+              "src": "/progress/yui116-tuner-dark.webp",
+              "alt": "Dark mode: a guitar tuner with a needle gauge, the six strings E2 A2 D3 G3 B3 E4 and a Start button."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 171,
+            "site": 435,
+            "builds": 34,
+            "shipped": 224
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T19:54:39.000Z",
+          "title": "Agents make their own flows: variants",
+          "card": "FLOW-1",
+          "anchor": "agents-make-their-own-flows-variants",
+          "images": [
+            {
+              "src": "/progress/flow1-variant-kind-light.webp",
+              "alt": "Restaurant intake running in the playground, light: step 3 of 8, What kind of place? Dine in, Takeout, Both."
+            },
+            {
+              "src": "/progress/flow1-variant-menu-dark.webp",
+              "alt": "Restaurant intake in dark mode: step 5 of 8, What goes on the menu page? Lunch and Drinks picked, Done (2)."
+            },
+            {
+              "src": "/progress/flow1-variant-library-light.webp",
+              "alt": "The library card for Restaurant intake, marked Variant of Client website intake, with its lines and its chart: the four steps it adds or rewords drawn in dashed boxes."
+            }
+          ],
+          "commits": 7,
+          "totals": {
+            "app": 169,
+            "site": 432,
+            "builds": 34,
+            "shipped": 223
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-26T19:38:59.000Z",
@@ -28,7 +88,7 @@
             "app": 169,
             "site": 430,
             "builds": 34,
-            "shipped": 223
+            "shipped": 222
           }
         },
         {
@@ -48,7 +108,7 @@
             "app": 169,
             "site": 427,
             "builds": 34,
-            "shipped": 222
+            "shipped": 221
           }
         },
         {
@@ -72,7 +132,7 @@
             "app": 169,
             "site": 426,
             "builds": 34,
-            "shipped": 221
+            "shipped": 220
           }
         },
         {
@@ -104,7 +164,7 @@
             "app": 169,
             "site": 425,
             "builds": 34,
-            "shipped": 220
+            "shipped": 219
           }
         },
         {
@@ -119,7 +179,7 @@
             "app": 169,
             "site": 423,
             "builds": 34,
-            "shipped": 219
+            "shipped": 218
           }
         },
         {
@@ -134,7 +194,7 @@
             "app": 167,
             "site": 422,
             "builds": 34,
-            "shipped": 218
+            "shipped": 217
           }
         },
         {
@@ -158,7 +218,7 @@
             "app": 167,
             "site": 421,
             "builds": 34,
-            "shipped": 217
+            "shipped": 216
           }
         },
         {
@@ -186,7 +246,7 @@
             "app": 166,
             "site": 420,
             "builds": 34,
-            "shipped": 216
+            "shipped": 215
           }
         },
         {
@@ -214,7 +274,7 @@
             "app": 166,
             "site": 417,
             "builds": 34,
-            "shipped": 215
+            "shipped": 214
           }
         },
         {
@@ -237,12 +297,12 @@
               "alt": "A flow running: step 3 of 9, a page saying take it easy today, with Back and Next."
             }
           ],
-          "commits": 4,
+          "commits": 7,
           "totals": {
             "app": 166,
             "site": 416,
             "builds": 34,
-            "shipped": 214
+            "shipped": 213
           }
         },
         {
@@ -266,7 +326,7 @@
             "app": 164,
             "site": 413,
             "builds": 34,
-            "shipped": 213
+            "shipped": 212
           }
         },
         {
@@ -298,7 +358,7 @@
             "app": 163,
             "site": 410,
             "builds": 34,
-            "shipped": 212
+            "shipped": 211
           }
         },
         {
@@ -326,7 +386,7 @@
             "app": 163,
             "site": 409,
             "builds": 34,
-            "shipped": 211
+            "shipped": 210
           }
         },
         {
@@ -358,7 +418,7 @@
             "app": 163,
             "site": 408,
             "builds": 34,
-            "shipped": 210
+            "shipped": 209
           }
         },
         {
@@ -378,7 +438,7 @@
             "app": 162,
             "site": 404,
             "builds": 34,
-            "shipped": 209
+            "shipped": 208
           }
         },
         {
@@ -390,7 +450,7 @@
             "app": 161,
             "site": 403,
             "builds": 34,
-            "shipped": 208
+            "shipped": 207
           }
         },
         {
@@ -414,7 +474,7 @@
             "app": 160,
             "site": 403,
             "builds": 33,
-            "shipped": 208
+            "shipped": 207
           }
         },
         {
@@ -442,7 +502,7 @@
             "app": 159,
             "site": 400,
             "builds": 33,
-            "shipped": 207
+            "shipped": 206
           }
         },
         {
@@ -470,7 +530,7 @@
             "app": 159,
             "site": 399,
             "builds": 33,
-            "shipped": 206
+            "shipped": 205
           }
         },
         {
@@ -498,7 +558,7 @@
             "app": 159,
             "site": 398,
             "builds": 33,
-            "shipped": 205
+            "shipped": 204
           }
         },
         {
@@ -513,7 +573,7 @@
             "app": 158,
             "site": 397,
             "builds": 33,
-            "shipped": 204
+            "shipped": 203
           }
         },
         {
@@ -528,7 +588,7 @@
             "app": 157,
             "site": 394,
             "builds": 33,
-            "shipped": 203
+            "shipped": 202
           }
         },
         {
@@ -556,7 +616,7 @@
             "app": 157,
             "site": 393,
             "builds": 33,
-            "shipped": 202
+            "shipped": 201
           }
         },
         {
@@ -576,7 +636,7 @@
             "app": 157,
             "site": 391,
             "builds": 33,
-            "shipped": 201
+            "shipped": 200
           }
         },
         {
@@ -596,7 +656,7 @@
             "app": 156,
             "site": 389,
             "builds": 33,
-            "shipped": 200
+            "shipped": 199
           }
         },
         {
@@ -632,7 +692,7 @@
             "app": 156,
             "site": 388,
             "builds": 33,
-            "shipped": 199
+            "shipped": 198
           }
         },
         {
@@ -656,7 +716,7 @@
             "app": 156,
             "site": 387,
             "builds": 33,
-            "shipped": 198
+            "shipped": 197
           }
         },
         {
@@ -684,7 +744,7 @@
             "app": 155,
             "site": 384,
             "builds": 33,
-            "shipped": 197
+            "shipped": 196
           }
         },
         {
@@ -696,7 +756,7 @@
             "app": 155,
             "site": 382,
             "builds": 33,
-            "shipped": 196
+            "shipped": 195
           }
         },
         {
@@ -724,7 +784,7 @@
             "app": 155,
             "site": 382,
             "builds": 32,
-            "shipped": 196
+            "shipped": 195
           }
         },
         {
@@ -752,7 +812,7 @@
             "app": 155,
             "site": 381,
             "builds": 32,
-            "shipped": 195
+            "shipped": 194
           }
         },
         {
@@ -780,7 +840,7 @@
             "app": 155,
             "site": 379,
             "builds": 32,
-            "shipped": 194
+            "shipped": 193
           }
         },
         {
@@ -808,7 +868,7 @@
             "app": 154,
             "site": 378,
             "builds": 32,
-            "shipped": 193
+            "shipped": 192
           }
         },
         {
@@ -840,7 +900,7 @@
             "app": 153,
             "site": 375,
             "builds": 32,
-            "shipped": 192
+            "shipped": 191
           }
         },
         {
@@ -864,7 +924,7 @@
             "app": 152,
             "site": 373,
             "builds": 32,
-            "shipped": 191
+            "shipped": 190
           }
         },
         {
@@ -879,7 +939,7 @@
             "app": 150,
             "site": 371,
             "builds": 32,
-            "shipped": 190
+            "shipped": 189
           }
         },
         {
@@ -891,7 +951,7 @@
             "app": 148,
             "site": 366,
             "builds": 32,
-            "shipped": 189
+            "shipped": 188
           }
         },
         {
@@ -915,7 +975,7 @@
             "app": 148,
             "site": 363,
             "builds": 31,
-            "shipped": 189
+            "shipped": 188
           }
         },
         {
@@ -930,7 +990,7 @@
             "app": 147,
             "site": 360,
             "builds": 31,
-            "shipped": 188
+            "shipped": 187
           }
         },
         {
@@ -950,7 +1010,7 @@
             "app": 147,
             "site": 359,
             "builds": 31,
-            "shipped": 187
+            "shipped": 186
           }
         },
         {
@@ -994,7 +1054,7 @@
             "app": 146,
             "site": 356,
             "builds": 31,
-            "shipped": 186
+            "shipped": 185
           }
         },
         {
@@ -1009,7 +1069,7 @@
             "app": 144,
             "site": 354,
             "builds": 31,
-            "shipped": 185
+            "shipped": 184
           }
         },
         {
@@ -1033,7 +1093,7 @@
             "app": 144,
             "site": 352,
             "builds": 31,
-            "shipped": 184
+            "shipped": 183
           }
         },
         {
@@ -1048,7 +1108,7 @@
             "app": 142,
             "site": 350,
             "builds": 31,
-            "shipped": 183
+            "shipped": 182
           }
         },
         {
@@ -1072,7 +1132,7 @@
             "app": 141,
             "site": 347,
             "builds": 31,
-            "shipped": 182
+            "shipped": 181
           }
         },
         {
@@ -1108,7 +1168,7 @@
             "app": 141,
             "site": 346,
             "builds": 31,
-            "shipped": 181
+            "shipped": 180
           }
         },
         {
@@ -1132,7 +1192,7 @@
             "app": 139,
             "site": 344,
             "builds": 31,
-            "shipped": 180
+            "shipped": 179
           }
         },
         {
@@ -1156,7 +1216,7 @@
             "app": 139,
             "site": 343,
             "builds": 31,
-            "shipped": 179
+            "shipped": 178
           }
         },
         {
@@ -1184,7 +1244,7 @@
             "app": 139,
             "site": 341,
             "builds": 31,
-            "shipped": 178
+            "shipped": 177
           }
         },
         {
@@ -1212,7 +1272,7 @@
             "app": 139,
             "site": 337,
             "builds": 31,
-            "shipped": 177
+            "shipped": 176
           }
         },
         {
@@ -1224,7 +1284,7 @@
             "app": 138,
             "site": 333,
             "builds": 31,
-            "shipped": 176
+            "shipped": 175
           }
         },
         {
@@ -1248,11 +1308,53 @@
             "app": 137,
             "site": 332,
             "builds": 30,
-            "shipped": 176
+            "shipped": 175
           }
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "33d870d",
+          "at": "2026-09-26T20:10:53.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/33d870d"
+        },
+        {
+          "repo": "app",
+          "sha": "4014e59",
+          "at": "2026-09-26T20:07:55.000Z",
+          "text": "Music vectors wait for the app half (YUI-116 step 1)",
+          "url": "https://github.com/postscarcityai/yui/commit/4014e59"
+        },
+        {
+          "repo": "site",
+          "sha": "5cadc45",
+          "at": "2026-09-26T19:58:44.000Z",
+          "text": "Roadmap: music first, YUI-116 Yui for musicians; app backlog parked",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5cadc45"
+        },
+        {
+          "repo": "app",
+          "sha": "38aa69d",
+          "at": "2026-09-26T19:58:35.000Z",
+          "text": "Flow variants reach the copies (FLOW-1 step 3, yuigui cbf1e7a)",
+          "url": "https://github.com/postscarcityai/yui/commit/38aa69d"
+        },
+        {
+          "repo": "site",
+          "sha": "cbf1e7a",
+          "at": "2026-09-26T19:55:15.000Z",
+          "text": "MCP App bundle runs flow variants (FLOW-1 step 3)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cbf1e7a"
+        },
+        {
+          "repo": "site",
+          "sha": "4f0aa51",
+          "at": "2026-09-26T19:54:39.000Z",
+          "text": "Agents make their own flows: variants (FLOW-1 step 3)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4f0aa51"
+        },
         {
           "repo": "site",
           "sha": "8c80d60",
@@ -2214,7 +2316,7 @@
             "app": 136,
             "site": 329,
             "builds": 30,
-            "shipped": 175
+            "shipped": 174
           }
         },
         {
@@ -2226,7 +2328,7 @@
             "app": 135,
             "site": 328,
             "builds": 30,
-            "shipped": 174
+            "shipped": 173
           }
         },
         {
@@ -2250,7 +2352,7 @@
             "app": 135,
             "site": 328,
             "builds": 29,
-            "shipped": 174
+            "shipped": 173
           }
         },
         {
@@ -2274,7 +2376,7 @@
             "app": 134,
             "site": 326,
             "builds": 29,
-            "shipped": 173
+            "shipped": 172
           }
         },
         {
@@ -2289,7 +2391,7 @@
             "app": 133,
             "site": 324,
             "builds": 29,
-            "shipped": 172
+            "shipped": 171
           }
         },
         {
@@ -2321,7 +2423,7 @@
             "app": 132,
             "site": 321,
             "builds": 29,
-            "shipped": 171
+            "shipped": 170
           }
         },
         {
@@ -2353,7 +2455,7 @@
             "app": 131,
             "site": 319,
             "builds": 29,
-            "shipped": 170
+            "shipped": 169
           }
         },
         {
@@ -2377,7 +2479,7 @@
             "app": 130,
             "site": 318,
             "builds": 29,
-            "shipped": 169
+            "shipped": 168
           }
         },
         {
@@ -2409,7 +2511,7 @@
             "app": 130,
             "site": 317,
             "builds": 29,
-            "shipped": 168
+            "shipped": 167
           }
         },
         {
@@ -2441,7 +2543,7 @@
             "app": 128,
             "site": 313,
             "builds": 29,
-            "shipped": 167
+            "shipped": 166
           }
         },
         {
@@ -2465,7 +2567,7 @@
             "app": 128,
             "site": 312,
             "builds": 29,
-            "shipped": 166
+            "shipped": 165
           }
         },
         {
@@ -2505,7 +2607,7 @@
             "app": 128,
             "site": 310,
             "builds": 29,
-            "shipped": 165
+            "shipped": 164
           }
         },
         {
@@ -2541,7 +2643,7 @@
             "app": 126,
             "site": 308,
             "builds": 29,
-            "shipped": 164
+            "shipped": 163
           }
         },
         {
@@ -2573,7 +2675,7 @@
             "app": 126,
             "site": 306,
             "builds": 29,
-            "shipped": 163
+            "shipped": 162
           }
         },
         {
@@ -2601,7 +2703,7 @@
             "app": 125,
             "site": 305,
             "builds": 29,
-            "shipped": 162
+            "shipped": 161
           }
         },
         {
@@ -2633,7 +2735,7 @@
             "app": 123,
             "site": 304,
             "builds": 29,
-            "shipped": 161
+            "shipped": 160
           }
         },
         {
@@ -2669,7 +2771,7 @@
             "app": 122,
             "site": 302,
             "builds": 29,
-            "shipped": 160
+            "shipped": 159
           }
         },
         {
@@ -2684,7 +2786,7 @@
             "app": 122,
             "site": 301,
             "builds": 29,
-            "shipped": 159
+            "shipped": 158
           }
         },
         {
@@ -2696,7 +2798,7 @@
             "app": 122,
             "site": 300,
             "builds": 29,
-            "shipped": 158
+            "shipped": 157
           }
         },
         {
@@ -2728,7 +2830,7 @@
             "app": 122,
             "site": 300,
             "builds": 28,
-            "shipped": 158
+            "shipped": 157
           }
         },
         {
@@ -2760,7 +2862,7 @@
             "app": 120,
             "site": 296,
             "builds": 28,
-            "shipped": 157
+            "shipped": 156
           }
         },
         {
@@ -2792,7 +2894,7 @@
             "app": 119,
             "site": 293,
             "builds": 28,
-            "shipped": 156
+            "shipped": 155
           }
         },
         {
@@ -2816,7 +2918,7 @@
             "app": 119,
             "site": 292,
             "builds": 28,
-            "shipped": 155
+            "shipped": 154
           }
         },
         {
@@ -2844,7 +2946,7 @@
             "app": 116,
             "site": 288,
             "builds": 28,
-            "shipped": 154
+            "shipped": 153
           }
         },
         {
@@ -2872,7 +2974,7 @@
             "app": 116,
             "site": 287,
             "builds": 28,
-            "shipped": 153
+            "shipped": 152
           }
         },
         {
@@ -2887,7 +2989,7 @@
             "app": 116,
             "site": 285,
             "builds": 28,
-            "shipped": 152
+            "shipped": 151
           }
         },
         {
@@ -2911,7 +3013,7 @@
             "app": 116,
             "site": 284,
             "builds": 28,
-            "shipped": 151
+            "shipped": 150
           }
         },
         {
@@ -2926,7 +3028,7 @@
             "app": 115,
             "site": 283,
             "builds": 28,
-            "shipped": 150
+            "shipped": 149
           }
         },
         {
@@ -2950,7 +3052,7 @@
             "app": 115,
             "site": 282,
             "builds": 28,
-            "shipped": 149
+            "shipped": 148
           }
         },
         {
@@ -2965,7 +3067,7 @@
             "app": 112,
             "site": 279,
             "builds": 28,
-            "shipped": 148
+            "shipped": 147
           }
         },
         {
@@ -2993,7 +3095,7 @@
             "app": 109,
             "site": 274,
             "builds": 28,
-            "shipped": 147
+            "shipped": 146
           }
         },
         {
@@ -3021,7 +3123,7 @@
             "app": 108,
             "site": 273,
             "builds": 28,
-            "shipped": 146
+            "shipped": 145
           }
         },
         {
@@ -3036,7 +3138,7 @@
             "app": 108,
             "site": 271,
             "builds": 28,
-            "shipped": 145
+            "shipped": 144
           }
         },
         {
@@ -3060,7 +3162,7 @@
             "app": 108,
             "site": 269,
             "builds": 28,
-            "shipped": 144
+            "shipped": 143
           }
         },
         {
@@ -3083,34 +3185,6 @@
           "totals": {
             "app": 108,
             "site": 268,
-            "builds": 28,
-            "shipped": 143
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-25T19:26:25.000Z",
-          "title": "Agents make their own flows: variants",
-          "card": "FLOW-1",
-          "anchor": "agents-make-their-own-flows-variants",
-          "images": [
-            {
-              "src": "/progress/flow1-variant-kind-light.webp",
-              "alt": "Restaurant intake running in the playground, light: step 3 of 8, What kind of place? Dine in, Takeout, Both."
-            },
-            {
-              "src": "/progress/flow1-variant-menu-dark.webp",
-              "alt": "Restaurant intake in dark mode: step 5 of 8, What goes on the menu page? Lunch and Drinks picked, Done (2)."
-            },
-            {
-              "src": "/progress/flow1-variant-library-light.webp",
-              "alt": "The library card for Restaurant intake, marked Variant of Client website intake, with its lines and its chart: the four steps it adds or rewords drawn in dashed boxes."
-            }
-          ],
-          "commits": 4,
-          "totals": {
-            "app": 104,
-            "site": 265,
             "builds": 28,
             "shipped": 142
           }
@@ -3135,7 +3209,7 @@
               "alt": "After Landing page instead, light: step 4 of 6, What should a visitor do first? Call, Book, Buy, Sign up, Read"
             }
           ],
-          "commits": 4,
+          "commits": 7,
           "totals": {
             "app": 104,
             "site": 265,

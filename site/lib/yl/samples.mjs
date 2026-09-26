@@ -855,6 +855,24 @@ game tictactoe "Beat me"`,
     agent: "Scout",
     yl: `game memory "Spanish animals" pairs=6 items=perro|gato|pájaro|pez|caballo|vaca`,
   },
+  {
+    // Music tools (spec/MUSIC.md, YUI-116): one per page, so the screen tabs
+    // up top walk through them. Real sound from Web Audio, no sample files
+    // (playground/music/engine.js). Send on the beat gets a stand-in reply.
+    slug: "music",
+    name: "Music tools: looper, drums, keys, chords, tuner",
+    agent: "Yui",
+    yl: `say "Six music tools, one per screen. Use the screen tabs up top, and turn your sound on."
+say "2 is a beat to edit, 3 drum pads that record, 4 keys in A minor, 5 chords in G, 6 a guitar tuner, 7 a metronome."
+>2 loop@beat 90 "Boom bap" steps=16 swing=25 rows=kick|snare|clap|hat|open|rim p=x......x..x.....|....x.......x...|............x...|x.x.x.x.x.x.x...|..............x.|...x.......x....
+>2 say "Tap cells while it plays. Send gives me the pattern."
+>3 drums 2x2 "Tap a beat" +record bpm=90
+>4 keys Am pentatonic sound=pad +send
+>5 chords G I-V-vi-IV +send
+>6 tuner guitar
+>7 metronome 90
+>1`,
+  },
   // Flows (FLOW-1): the starter flows, sent inline as Mermaid, then one run by name.
   ...STARTER_FLOWS.map((f) => ({ slug: `flow-${f.name}`, name: `Flow: ${f.title.toLowerCase()}`, agent: f.agent, yl: flowLines(f) })),
   {

@@ -545,6 +545,14 @@ game snake speed=3 best=41
 game memory "Fruit pairs" pairs=4 items=🍎|🍌|🍇|🍓
 ```
 
+### Music: loop, drums, keys, chords, tuner, metronome (draft)
+Six instruments on one sound engine, designed in [Music tools](/developers/music) (spec `MUSIC.md`, YUI-116). The parsers read them today and the playground plays them; the app draws them from its step 2. Until then an agent should not send them to a phone. Each takes one special positional, wherever it sits, and the rest is the title: `loop [BPM]`, `drums [RxC]`, `keys [KEY] [SCALE]`, `chords [KEY] [I-V-vi-IV | C|G|Am|F]`, `tuner [guitar|ukulele|bass|chromatic]`, `metronome [BPM]`. The instruments open on the stage unless `+inline`; the metronome sits in the chat. Props, events and the sound words are in the music spec.
+```
+loop 96 "Boom bap" p=x...x.x.|....x...|..x...x.|xxxxxxxx +play
+chords G I-V-vi-IV
+~chords key=D
+```
+
 ### say (core, not a preset)
 `say text...`. A plain text bubble inside a screen.
 

@@ -23,6 +23,7 @@ val PRESETS = listOf(
     "shapes", "shape",
     "game", "flow",
     "query",
+    "loop", "drums", "keys", "chords", "tuner", "metronome",
 )
 
 // Not presets, but valid line heads.
@@ -52,7 +53,7 @@ val FIELD_TYPES = setOf("text", "long", "voice", "number", "email", "phone", "da
 
 // The stage is a full-screen layer over the chat (YL.md section 5).
 // These presets open there unless they say +inline.
-val STAGE = listOf("timer", "camera", "mic", "deck", "plan", "game", "flow")
+val STAGE = listOf("timer", "camera", "mic", "deck", "plan", "game", "flow", "loop", "drums", "keys", "chords", "tuner")
 
 // ---------- JS compatibility ----------
 // The reference is JavaScript: \d and \w are ASCII, \s is the JS whitespace set.
@@ -364,6 +365,39 @@ private fun game(pos: List<Token>, rest: String = "title"): Obj {
     return o
 }
 
+// Music positionals: `specs` maps a prop to the test its bare token must
+// pass; the first bare token that passes a still-empty prop's test fills it.
+private val BPM = rx("(\\d+(?:\\.\\d+)?)(?:bpm)?", true)
+private val GRID = rx("[1-4]x[1-4]", true)
+private val KEY = rx("[A-G][#b]?m?")
+private val SCALE = rx("major|minor|pentatonic|blues|dorian|mixolydian|chromatic")
+private val ROMAN = rx("[b#]?[ivIV]+[a-z0-9+]*(?:-[b#]?[ivIV]+[a-z0-9+]*)+")
+private val INSTRUMENT = rx("guitar|ukulele|bass|chromatic")
+
+private fun music(pos: List<Token>, specs: List<Pair<String, Regex>>, extra: ((Token, Obj) -> Boolean)? = null): Obj {
+    val o = Obj()
+    val text = ArrayList<Token>()
+    for (t in pos) {
+        val bare = !t.quoted && t.parts == null
+        val k = if (bare) specs.firstOrNull { (k, re) -> k !in o && re.test(t.text) }?.first else null
+        if (k == "bpm") o["bpm"] = BPM.full(t.text)!!.g(1)!!.toDouble()
+        else if (k != null) o[k] = t.text
+        else if (extra == null || !extra(t, o)) text.add(t)
+    }
+    if (text.isNotEmpty()) o["title"] = joinText(text)
+    return o
+}
+
+// chords [KEY] [I-V-vi-IV | C|G|Am|F] [title...]
+private fun chords(pos: List<Token>): Obj {
+    val o = music(pos, listOf("key" to KEY, "prog" to ROMAN)) { t, o ->
+        val parts = t.parts
+        if (parts != null && "chords" !in o) { o["chords"] = parts; true } else false
+    }
+    (o["prog"] as? String)?.let { o["prog"] = it.split("-") }
+    return o
+}
+
 private fun image(pos: List<Token>): Obj {
     val o = Obj()
     val cap = ArrayList<Token>()
@@ -494,6 +528,11 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "game" -> game(pos)
     "page" -> page(pos)
     "query" -> query(pos)
+    "loop", "metronome" -> music(pos, listOf("bpm" to BPM))
+    "drums" -> music(pos, listOf("grid" to GRID))
+    "keys" -> music(pos, listOf("key" to KEY, "scale" to SCALE))
+    "chords" -> chords(pos)
+    "tuner" -> music(pos, listOf("instrument" to INSTRUMENT))
     else -> Obj()
 }
 
@@ -547,6 +586,10 @@ private val LISTS = mapOf(
     "pick" to listOf("answer"),
     "game" to listOf("items"),
     "shape" to listOf("pts"),
+    "loop" to listOf("rows", "p"),
+    "drums" to listOf("pads"),
+    "chords" to listOf("chords"),
+    "tuner" to listOf("strings"),
     "query" to listOf("where", "sort", "cols", "y", "sum", "avg", "min", "max", "names", "color"),
 )
 
@@ -576,6 +619,8 @@ private fun normalize(preset: String, o: Obj): Obj {
     for (k in LISTS[preset] ?: emptyList()) if (k in o && o[k] != true) o[k] = asList(o[k])
     if (preset == "compare" && "hl" in o) o["hl"] = boxes(o["hl"])
     if (preset == "game") for (k in listOf("x", "o")) if (k in o) o[k] = cellList(o[k])
+    // prog=I-V-vi-IV and prog=I|V|vi|IV are the same list.
+    if (preset == "chords" && "prog" in o && o["prog"] != true) o["prog"] = asList(o["prog"]).flatMap { it.split("-") }.filter { it.isNotEmpty() }
     if (preset == "chart") chartSeries(o)
     if (preset == "stat" && "spark" in o && o["spark"] !is List<*>) o["spark"] = listOf(o["spark"])
     if (preset == "step" && "time" in o) o["time"] = seconds(o["time"]) ?: o["time"]
@@ -1709,7 +1754,29 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "shape" to mapOf("kind" to "box", "label" to ""),
     "query" to mapOf("table" to "", "as" to "table", "title" to "", "where" to emptyList<String>(), "sort" to emptyList<String>()),
     "game" to mapOf("title" to "", "you" to "x", "first" to "you", "speed" to 2.0, "size" to 15.0, "pairs" to 6.0, "items" to emptyList<String>()),
+    "tuner" to mapOf("title" to "", "instrument" to "guitar", "tuning" to "standard", "a4" to 440.0, "strings" to emptyList<String>()),
+    "metronome" to mapOf("title" to "", "bpm" to 100.0, "beats" to 4.0, "sub" to 1.0, "play" to false),
 )
+
+// The drum kit in pad order: a 2x2 gets the first four, a 4x4 all sixteen,
+// a looper's rows the first eight (spec/MUSIC.md, section 4).
+val KIT = listOf("kick", "snare", "clap", "hat", "open", "rim", "tom", "shaker",
+    "crash", "cow", "snap", "conga", "pop", "sweep", "tick", "bell")
+
+// JS truthiness for the values props can hold.
+private fun truthy(v: Any?): Boolean = when (v) {
+    null, false -> false
+    is Double -> !v.isNaN() && v != 0.0
+    is String -> v.isNotEmpty()
+    else -> true
+}
+
+// KIT.slice(0, n) with JS slice rules.
+private fun kit(n: Double): List<String> {
+    var e = if (n.isNaN()) 0.0 else if (n.isInfinite()) n else n.toLong().toDouble()
+    if (e < 0) e = maxOf(KIT.size + e, 0.0)
+    return KIT.take(minOf(e, KIT.size.toDouble()).toInt())
+}
 
 // Explicit props over the preset's defaults.
 fun resolve(preset: String, props: Map<String, Any?>): Map<String, Any?> {
@@ -1741,6 +1808,29 @@ fun resolve(preset: String, props: Map<String, Any?>): Map<String, Any?> {
             val x = cells(props["x"])
             r["x"] = x
             r["o"] = cells(props["o"]).filter { it !in x }
+        }
+        // Music (spec/MUSIC.md). Sounds are words from the sound bank.
+        "loop" -> {
+            r.putAll(mapOf("title" to "", "bpm" to 96.0, "swing" to 0.0, "steps" to 8.0, "rows" to KIT.take(8), "p" to emptyList<String>(), "sound" to "pluck", "play" to false))
+            r.putAll(props)
+        }
+        "drums" -> {
+            r.putAll(mapOf("title" to "", "bpm" to 96.0, "record" to false))
+            r.putAll(props)
+            val grid = jsStr(props["grid"] ?: "2x2").lowercase()
+            r["grid"] = grid
+            val n = grid.split("x").map { toNumber(it) } + Double.NaN
+            if (!truthy(props["pads"])) r["pads"] = kit(n[0] * n[1])
+        }
+        "keys" -> {
+            r.putAll(mapOf("title" to "", "key" to "C", "sound" to "keys", "octave" to 4.0, "send" to false))
+            r.putAll(props)
+            if ("scale" !in props) r["scale"] = if (jsStr(r["key"]).endsWith("m")) "minor" else "major"
+        }
+        "chords" -> {
+            r.putAll(mapOf("title" to "", "key" to "C", "chords" to emptyList<String>(), "strum" to "down", "sound" to "pluck", "send" to false))
+            r.putAll(props)
+            if ("prog" !in props) r["prog"] = if (truthy(props["chords"])) emptyList() else listOf("I", "V", "vi", "IV")
         }
         else -> { r.putAll(DEFAULTS[preset] ?: emptyMap()); r.putAll(props) }
     }

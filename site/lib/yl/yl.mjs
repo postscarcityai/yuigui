@@ -44,6 +44,7 @@ export const PRESETS = [
   "shapes", "shape",
   "game", "flow",
   "query",
+  "loop", "drums", "keys", "chords", "tuner", "metronome",
 ];
 // Not presets, but valid line heads.
 export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing"];
@@ -494,7 +495,50 @@ const P = {
     if (text.length) o.title = joinText(text);
     return o;
   },
+
+  // Music (spec/MUSIC.md). Each takes its one special positional, wherever
+  // it sits, and the rest of the positional text is the title.
+  // loop [BPM] [title...]: the first bare number (96 or 96bpm) is the tempo.
+  loop(pos) { return music(pos, { bpm: BPM }); },
+  metronome(pos) { return music(pos, { bpm: BPM }); },
+  // drums [RxC] [title...]: 2x2, 4x4 (1 to 4 each way).
+  drums(pos) { return music(pos, { grid: GRID }); },
+  // keys [KEY] [SCALE] [title...]: C, F#, Bb, Am.
+  keys(pos) { return music(pos, { key: KEY, scale: SCALE }); },
+  // chords [KEY] [I-V-vi-IV | C|G|Am|F] [title...]
+  chords(pos) {
+    const o = music(pos, { key: KEY, prog: ROMAN }, (t, o) => {
+      if (t.parts && o.chords === undefined) { o.chords = t.parts; return true; }
+      return false;
+    });
+    if (typeof o.prog === "string") o.prog = o.prog.split("-");
+    return o;
+  },
+  // tuner [guitar|ukulele|bass|chromatic] [title...]
+  tuner(pos) { return music(pos, { instrument: INSTRUMENT }); },
 };
+
+// Music positionals: `specs` maps a prop to the test its bare token must
+// pass; the first bare token that passes a still-empty prop's test fills it.
+const BPM = /^(\d+(?:\.\d+)?)(?:bpm)?$/i;
+const GRID = /^[1-4]x[1-4]$/i;
+const KEY = /^[A-G][#b]?m?$/;
+const SCALE = /^(major|minor|pentatonic|blues|dorian|mixolydian|chromatic)$/;
+const ROMAN = /^[b#]?[ivIV]+[a-z0-9+]*(?:-[b#]?[ivIV]+[a-z0-9+]*)+$/;
+const INSTRUMENT = /^(guitar|ukulele|bass|chromatic)$/;
+function music(pos, specs, extra) {
+  const o = {};
+  const text = [];
+  for (const t of pos) {
+    const bare = !t.quoted && !t.parts;
+    const k = bare && Object.keys(specs).find((k) => o[k] === undefined && specs[k].test(t.text));
+    if (k === "bpm") o.bpm = Number(t.text.match(BPM)[1]);
+    else if (k) o[k] = t.text;
+    else if (!(extra && extra(t, o))) text.push(t);
+  }
+  if (text.length) o.title = joinText(text);
+  return o;
+}
 
 const GAME_WORD = /^[a-z][a-z0-9_-]*$/i;
 // Game kinds this renderer can play. Any other kind still parses; the
@@ -548,6 +592,10 @@ const LISTS = {
   pick: ["answer"],
   game: ["items"],
   shape: ["pts"],
+  loop: ["rows", "p"],
+  drums: ["pads"],
+  chords: ["chords"],
+  tuner: ["strings"],
 };
 const asList = (v) => (Array.isArray(v) ? v : String(v).split("|")).map((x) => (typeof x === "string" ? x : String(x)));
 // Highlight boxes: hl=x,y,w,h|x,y,w,h in percent of the image. A box that is
@@ -569,6 +617,8 @@ function normalize(preset, o) {
   for (const k of LISTS[preset] || []) if (o[k] !== undefined && o[k] !== true) o[k] = asList(o[k]);
   if (preset === "compare" && o.hl !== undefined) o.hl = boxes(o.hl);
   if (preset === "game") for (const k of ["x", "o"]) if (o[k] !== undefined) o[k] = cellList(o[k]);
+  // prog=I-V-vi-IV and prog=I|V|vi|IV are the same list.
+  if (preset === "chords" && o.prog !== undefined && o.prog !== true) o.prog = asList(o.prog).flatMap((c) => c.split("-")).filter(Boolean);
   if (preset === "chart") chartSeries(o);
   if (preset === "stat" && o.spark !== undefined && !Array.isArray(o.spark)) o.spark = [o.spark];
   if (preset === "step" && o.time !== undefined) o.time = seconds(o.time) ?? o.time;
@@ -1465,7 +1515,7 @@ export class StreamParser {
 // ---------- the stage ----------
 // The stage is a full-screen layer over the chat (spec section 5, The stage).
 // These presets open there unless they say +inline.
-export const STAGE = ["timer", "camera", "mic", "deck", "plan", "game", "flow"];
+export const STAGE = ["timer", "camera", "mic", "deck", "plan", "game", "flow", "loop", "drums", "keys", "chords", "tuner"];
 
 // A timer with rounds or rest. Workouts always open on the stage.
 export function isWorkout(preset, props = {}) {
@@ -1657,10 +1707,39 @@ export function resolve(preset, props) {
       r.o = cells(p.o).filter((n) => !r.x.includes(n));
       return r;
     }
+    // Music (spec/MUSIC.md). Sounds are words from the sound bank.
+    case "loop":
+      return { title: "", bpm: 96, swing: 0, steps: 8, rows: KIT.slice(0, 8), p: [], sound: "pluck", play: false, ...p };
+    case "drums": {
+      const r = { title: "", bpm: 96, record: false, ...p };
+      r.grid = String(p.grid ?? "2x2").toLowerCase();
+      const [rs, cs] = r.grid.split("x").map(Number);
+      if (!p.pads) r.pads = KIT.slice(0, rs * cs);
+      return r;
+    }
+    case "keys": {
+      const r = { title: "", key: "C", sound: "keys", octave: 4, send: false, ...p };
+      if (p.scale === undefined) r.scale = /m$/.test(r.key) ? "minor" : "major";
+      return r;
+    }
+    case "chords": {
+      const r = { title: "", key: "C", chords: [], strum: "down", sound: "pluck", send: false, ...p };
+      if (p.prog === undefined) r.prog = p.chords ? [] : ["I", "V", "vi", "IV"];
+      return r;
+    }
+    case "tuner":
+      return { title: "", instrument: "guitar", tuning: "standard", a4: 440, strings: [], ...p };
+    case "metronome":
+      return { title: "", bpm: 100, beats: 4, sub: 1, play: false, ...p };
     default:
       return p;
   }
 }
+
+// The drum kit in pad order: a 2x2 gets the first four, a 4x4 all sixteen,
+// a looper's rows the first eight (spec/MUSIC.md, section 4).
+export const KIT = ["kick", "snare", "clap", "hat", "open", "rim", "tom", "shaker",
+  "crash", "cow", "snap", "conga", "pop", "sweep", "tick", "bell"];
 
 // ---------- screen state ----------
 // Reduces ops into screens. Components keep their key across patches so a

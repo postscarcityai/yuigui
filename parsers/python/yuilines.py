@@ -34,7 +34,7 @@ import math
 import re
 
 __all__ = [
-    "PRESETS", "CORE", "GROUPS", "STAGE", "CHART_TYPES", "FIELD_TYPES",
+    "PRESETS", "CORE", "GROUPS", "STAGE", "CHART_TYPES", "FIELD_TYPES", "KIT",
     "tokenize", "seconds", "quantity", "calc_var", "parse_args",
     "Parser", "StreamParser", "parse", "on_stage", "is_workout", "page_of", "resolve",
     "FLOW_STEPS", "flow_when", "flow_test", "flow_next", "flow_first", "flow_path", "flow_ahead", "flow_event",
@@ -52,6 +52,7 @@ PRESETS = [
     "shapes", "shape",
     "game",
     "query", "flow",
+    "loop", "drums", "keys", "chords", "tuner", "metronome",
 ]
 # Not presets, but valid line heads.
 CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing"]
@@ -479,6 +480,50 @@ def _kinded(rest):
 _game = _kinded("title")
 
 
+# Music positionals: `specs` maps a prop to the test its bare token must
+# pass; the first bare token that passes a still-empty prop's test fills it.
+BPM = _re(r"(\d+(?:\.\d+)?)(?:bpm)?", re.I)
+GRID = _re(r"[1-4]x[1-4]", re.I)
+KEY = _re(r"[A-G][#b]?m?")
+SCALE = _re(r"major|minor|pentatonic|blues|dorian|mixolydian|chromatic")
+ROMAN = _re(r"[b#]?[ivIV]+[a-z0-9+]*(?:-[b#]?[ivIV]+[a-z0-9+]*)+")
+INSTRUMENT = _re(r"guitar|ukulele|bass|chromatic")
+
+
+def _music(specs, extra=None):
+    """Each music preset takes its special positionals, wherever they sit; the rest is the title."""
+    def f(pos):
+        o, text = {}, []
+        for t in pos:
+            bare = not t.quoted and not t.parts
+            k = next((k for k in specs if k not in o and specs[k].fullmatch(t.text)), None) if bare else None
+            if k == "bpm":
+                o["bpm"] = _num(BPM.fullmatch(t.text)[1])
+            elif k:
+                o[k] = t.text
+            elif not (extra and extra(t, o)):
+                text.append(t)
+        if text:
+            o["title"] = _join(text)
+        return o
+    return f
+
+
+def _chord_list(t, o):
+    """chords also takes the first options token C|G|Am|F as its chords."""
+    if t.parts and "chords" not in o:
+        o["chords"] = t.parts
+        return True
+    return False
+
+
+def _chords(pos):
+    o = _music({"key": KEY, "prog": ROMAN}, _chord_list)(pos)
+    if isinstance(o.get("prog"), str):
+        o["prog"] = o["prog"].split("-")
+    return o
+
+
 def _image(pos):
     o, cap = {}, []
     for t in pos:
@@ -649,6 +694,12 @@ P = {
     "after": lambda pos: {"label": _join(pos)} if pos else {},
     "game": _game,
     "query": _query,
+    "loop": _music({"bpm": BPM}),
+    "metronome": _music({"bpm": BPM}),
+    "drums": _music({"grid": GRID}),
+    "keys": _music({"key": KEY, "scale": SCALE}),
+    "chords": _chords,
+    "tuner": _music({"instrument": INSTRUMENT}),
 }
 
 # Quantity: a number with an optional unit stuck to it. 72.5kg, 12%, $40.
@@ -702,6 +753,10 @@ LISTS = {
     "pick": ["answer"],
     "game": ["items"],
     "shape": ["pts"],
+    "loop": ["rows", "p"],
+    "drums": ["pads"],
+    "chords": ["chords"],
+    "tuner": ["strings"],
     "query": ["where", "sort", "cols", "y", "sum", "avg", "min", "max", "names", "color"],
 }
 
@@ -741,6 +796,9 @@ def _normalize(preset, o):
         for k in ("x", "o"):
             if k in o:
                 o[k] = _cell_list(o[k])
+    # prog=I-V-vi-IV and prog=I|V|vi|IV are the same list.
+    if preset == "chords" and "prog" in o and o["prog"] is not True:
+        o["prog"] = [c for x in _as_list(o["prog"]) for c in x.split("-") if c]
     if preset == "chart":
         _chart_series(o)
     if preset == "stat" and "spark" in o and not isinstance(o["spark"], list):
@@ -1852,7 +1910,7 @@ class StreamParser:
 # ---------- the stage ----------
 # The stage is a full-screen layer over the chat (YL.md section 5).
 # These presets open there unless they say +inline.
-STAGE = ["timer", "camera", "mic", "deck", "plan", "game", "flow"]
+STAGE = ["timer", "camera", "mic", "deck", "plan", "game", "flow", "loop", "drums", "keys", "chords", "tuner"]
 
 
 def is_workout(preset, props=None):
@@ -2013,7 +2071,32 @@ _DEFAULTS = {
     "shapes": {"title": "", "caption": "", "w": 10, "h": 6},
     "shape": {"kind": "box", "label": ""},
     "game": {"title": "", "you": "x", "first": "you", "speed": 2, "size": 15, "pairs": 6, "items": []},
+    "tuner": {"title": "", "instrument": "guitar", "tuning": "standard", "a4": 440, "strings": []},
+    "metronome": {"title": "", "bpm": 100, "beats": 4, "sub": 1, "play": False},
 }
+
+# The drum kit in pad order: a 2x2 gets the first four, a 4x4 all sixteen,
+# a looper's rows the first eight (spec/MUSIC.md, section 4).
+KIT = ["kick", "snare", "clap", "hat", "open", "rim", "tom", "shaker",
+       "crash", "cow", "snap", "conga", "pop", "sweep", "tick", "bell"]
+
+
+def _truthy(v):
+    """JS truthiness for the values props can hold."""
+    if isinstance(v, list):
+        return True
+    if _is_number(v):
+        return v == v and v != 0
+    return bool(v)
+
+
+def _kit(n):
+    """KIT.slice(0, n) with JS slice rules."""
+    n = 0 if n != n else int(n) if abs(n) != math.inf else n
+    if n < 0:
+        n = max(len(KIT) + n, 0)
+    return KIT[:int(min(n, len(KIT)))]
+
 
 
 def resolve(preset, props):
@@ -2045,5 +2128,26 @@ def resolve(preset, props):
         r["kind"] = _js_str(p.get("kind", "")).lower()
         r["x"] = cells(p.get("x"))
         r["o"] = [n for n in cells(p.get("o")) if n not in r["x"]]
+        return r
+    # Music (spec/MUSIC.md). Sounds are words from the sound bank.
+    if preset == "loop":
+        return {"title": "", "bpm": 96, "swing": 0, "steps": 8, "rows": KIT[:8], "p": [],
+                "sound": "pluck", "play": False, **p}
+    if preset == "drums":
+        r = {"title": "", "bpm": 96, "record": False, **p}
+        r["grid"] = _js_str("2x2" if p.get("grid") is None else p["grid"]).lower()
+        n = [_to_number(x) for x in r["grid"].split("x")] + [math.nan]
+        if not _truthy(p.get("pads")):
+            r["pads"] = _kit(n[0] * n[1])
+        return r
+    if preset == "keys":
+        r = {"title": "", "key": "C", "sound": "keys", "octave": 4, "send": False, **p}
+        if "scale" not in p:
+            r["scale"] = "minor" if _js_str(r["key"]).endswith("m") else "major"
+        return r
+    if preset == "chords":
+        r = {"title": "", "key": "C", "chords": [], "strum": "down", "sound": "pluck", "send": False, **p}
+        if "prog" not in p:
+            r["prog"] = [] if _truthy(p.get("chords")) else ["I", "V", "vi", "IV"]
         return r
     return {**json.loads(json.dumps(_DEFAULTS.get(preset, {}))), **p}

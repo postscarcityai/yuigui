@@ -12,6 +12,7 @@ import { LoneRow, Timeline } from "./timeline";
 import { LoneSketchRow, Sketch } from "./sketch";
 import { LoneShape, Shapes } from "./shapes";
 import { Game } from "./games";
+import { MUSIC } from "./music/music";
 import { Flow } from "./flow";
 import { Query } from "./data";
 import { useLive } from "./stage";
@@ -831,7 +832,8 @@ const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, 
   shapes: ({ p }) => <Shapes g={{ group: { props: p }, members: [] }} />,
   shape: LoneShape,
   game: Game,
-  query: Query };
+  query: Query,
+  ...MUSIC };
 
 export function StepGroup({ nodes, emitFor }) {
   return <Steps nodes={nodes} emitFor={emitFor} resolveProps={(n) => resolve("step", n.props)} />;

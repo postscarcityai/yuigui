@@ -7,6 +7,7 @@ import { RELEASE_META as RELEASE } from "../../lib/yl/release-meta.mjs";
 import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, StepGroup, TABLES } from "./presets";
 import { demoReply } from "./games";
+import { musicReply } from "./music/music";
 import { Group, groupNodes } from "./flows";
 import { ScreenCtx } from "./science";
 import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
@@ -320,7 +321,7 @@ export default function Playground({ release = "" }) {
       emits.current.set(k, (value) => {
         const ev = { id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) };
         setEvents((evs) => [{ dir: "user", t: new Date(), ev }, ...evs].slice(0, 40));
-        const reply = demoReply(ev) || mealReply(ev, idsRef.current) || starterReply(ev);
+        const reply = demoReply(ev) || musicReply(ev) || mealReply(ev, idsRef.current) || starterReply(ev);
         if (reply) [].concat(reply).forEach((l, i) => setTimeout(() => agentRef.current(l), 700 + i * 250));
       });
     }

@@ -85,6 +85,10 @@ Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20
 
 - YUI-114 (done Sep 26: store and TestFlight now say Yui Gui; Chris Sep 26: "I don't like the name Yui Bot anymore"): the App Store and TestFlight listing dropped the placeholder Yui Bot and says Yui Gui. Chris kept Yui Gui for now; the product is called Yui everywhere else, and the home screen says Yui.
 
+**Music first (Chris, Sep 26).** The app backlog below is good but a long way away, so it is parked until Chris names a card. Marketing, site and release cards keep running.
+
+- YUI-116, Yui for musicians (Chris Sep 26: "It should be a musician's best friend"): a family of music presets any agent calls with one line, played by one sound engine in the app. An 8x8 looper, a 2x2 drum machine, an easy synth keyboard, chord buttons, a guitar and ukulele tuner, a metronome. Each step waits for the one before it. Step 1 (shipped Sep 26): the research, the [spec](/developers/music) with six presets (`loop`, `drums`, `keys`, `chords`, `tuner`, `metronome`), the sound bank (21 voices rebuilt from the brag film's synth.py), every hub parser reading them, and the [mock](/playground?demo=music) that plays in your browser. Step 2: the native sound engine in the app, with the looper and the drum pads. Step 3: keys with the scale lock, and chord buttons. Step 4: the tuner on the mic, and the metronome. Step 5: recording and export back to the agent, MIDI in and out, and Ableton Link.
+
 Chris's picks for the short term (Sep 25), in this order. The site cards run alongside in their own lane:
 
 - YUI-54 (first, Chris Sep 24; shipped in 0.2.0, build 122, Sep 25, with YUI-86 agents fill the drawer and YUI-75 screens update in place): the top-left menu becomes each agent's home. Your agents in a drop-up at the bottom left that springs open, and the rest of the menu about the agent you are talking to: pinned screens, things waiting for you, a page about it.

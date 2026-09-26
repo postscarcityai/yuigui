@@ -16,6 +16,7 @@ export const SHELVES = [
   ["data", "Numbers and science"],
   ["group", "Pages, plans and stories"],
   ["play", "Play"],
+  ["music", "Music (coming to the app)"],
 ];
 
 // One entry per preset. `yl` is a small, complete reply that draws it; members
@@ -294,6 +295,45 @@ shape arrow from=think to=draw +dash`,
     yl: `say Your move. You are X.
 game tictactoe "Beat me"`,
   },
+  // Music (spec/MUSIC.md, YUI-116). `draft` entries show on the library page
+  // and play in the playground, but stay out of library.json and search until
+  // the app draws them, so no agent sends one to a phone that cannot play it.
+  loop: {
+    shelf: "music", doc: "music", draft: true,
+    purpose: "An 8x8 step looper. The agent writes a beat, the person edits it while it plays, Send returns the pattern.",
+    tags: ["music", "beat", "looper", "sequencer", "drums", "groove"],
+    yl: `loop 96 "Boom bap" p=x...x.x.|....x...|..x...x.|xxxxxxxx`,
+  },
+  drums: {
+    shelf: "music", doc: "music", draft: true,
+    purpose: "Drum pads, 2x2 or 4x4, played on touch. With +record a take comes back as a loop pattern.",
+    tags: ["music", "drums", "pads", "finger drumming", "beat"],
+    yl: `drums 2x2 "Tap a beat"`,
+  },
+  keys: {
+    shelf: "music", doc: "music", draft: true,
+    purpose: "An easy keyboard with a scale lock, so nothing sounds wrong, and a sound picker.",
+    tags: ["music", "keyboard", "piano", "synth", "scale", "melody"],
+    yl: `keys Am pentatonic sound=pad`,
+  },
+  chords: {
+    shelf: "music", doc: "music", draft: true,
+    purpose: "Big buttons that each strum a chord, from a key and a progression. Change the key with one patch.",
+    tags: ["music", "chords", "progression", "songwriting", "strum", "guitar"],
+    yl: `chords G I-V-vi-IV`,
+  },
+  tuner: {
+    shelf: "music", doc: "music", draft: true,
+    purpose: "A tuner on the mic for guitar, ukulele, bass or any note, with reference tones.",
+    tags: ["music", "tuner", "guitar", "ukulele", "bass", "tuning"],
+    yl: `tuner ukulele`,
+  },
+  metronome: {
+    shelf: "music", doc: "music", draft: true,
+    purpose: "A metronome with tap tempo and subdivisions. Stop sends the tempo and how long they practiced.",
+    tags: ["music", "metronome", "tempo", "practice", "click"],
+    yl: `metronome 90 beats=4`,
+  },
   flow: {
     shelf: "group", doc: "flow",
     purpose: "A saved series of screens that branches on answers, written in Mermaid.",
@@ -351,7 +391,7 @@ export const INTENTS = {
   "restaurant-intake": ["restaurant website intake", "plan a site for a restaurant or cafe", "menu and online orders", "make a variant of a flow"],
 };
 
-const docUrl = (anchor) => `${SITE}/yl#${anchor}`;
+const docUrl = (anchor) => (anchor === "music" ? `${SITE}/developers/music` : `${SITE}/yl#${anchor}`);
 // A plain-lines playground link; readYL on the playground takes plain text.
 export const playUrl = (yl, as) => `/playground?yl=${encodeURIComponent(yl)}${as ? `&as=${encodeURIComponent(as)}` : ""}`;
 
@@ -402,7 +442,7 @@ function variantEntry(v, base) {
 // What /library.json serves: the minimum an agent needs to find a screen and send it.
 export function libraryIndex() {
   const items = [
-    ...presets().map((p) => ({ name: p.name, kind: "preset", purpose: p.purpose, intents: p.intents, tags: p.tags, yl: p.yl, docs: p.docs, playground: `${SITE}${playUrl(p.yl)}` })),
+    ...presets().filter((p) => !p.draft).map((p) => ({ name: p.name, kind: "preset", purpose: p.purpose, intents: p.intents, tags: p.tags, yl: p.yl, docs: p.docs, playground: `${SITE}${playUrl(p.yl)}` })),
     ...flows().map((f) => ({ name: f.name, kind: "flow", title: f.title, purpose: f.purpose, intents: f.intents, tags: f.tags, yl: f.yl, base: f.base, source: f.source, docs: f.docs, playground: `${SITE}/playground?demo=${f.demo}` })),
   ];
   return {

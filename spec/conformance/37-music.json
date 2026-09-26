@@ -1,0 +1,870 @@
+{
+  "version": "YL v0",
+  "area": "music",
+  "vectors": [
+    {
+      "name": "loop: the first bare number is the tempo, the rest the title",
+      "input": "loop 96 \"Boom bap\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "loop",
+          "id": "n1",
+          "props": {
+            "bpm": 96,
+            "title": "Boom bap"
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "Boom bap",
+          "bpm": 96,
+          "swing": 0,
+          "steps": 8,
+          "rows": [
+            "kick",
+            "snare",
+            "clap",
+            "hat",
+            "open",
+            "rim",
+            "tom",
+            "shaker"
+          ],
+          "p": [],
+          "sound": "pluck",
+          "play": false
+        }
+      ]
+    },
+    {
+      "name": "loop: 120bpm reads as 120, wherever it sits",
+      "input": "loop Night drive 120bpm swing=20",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "loop",
+          "id": "n1",
+          "props": {
+            "bpm": 120,
+            "title": "Night drive",
+            "swing": 20
+          }
+        }
+      ]
+    },
+    {
+      "name": "loop: a pattern is one string per row, x a hit, . a rest",
+      "input": "loop 90 rows=kick|snare|hat p=x...x...|..x...x.|x.x.x.x. +play",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "loop",
+          "id": "n1",
+          "props": {
+            "bpm": 90,
+            "play": true,
+            "rows": [
+              "kick",
+              "snare",
+              "hat"
+            ],
+            "p": [
+              "x...x...",
+              "..x...x.",
+              "x.x.x.x."
+            ]
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "bpm": 90,
+          "swing": 0,
+          "steps": 8,
+          "rows": [
+            "kick",
+            "snare",
+            "hat"
+          ],
+          "p": [
+            "x...x...",
+            "..x...x.",
+            "x.x.x.x."
+          ],
+          "sound": "pluck",
+          "play": true
+        }
+      ]
+    },
+    {
+      "name": "loop: note rows play the looper's sound",
+      "input": "loop 100 sound=bell rows=C5|A4|G4|E4|D4|C4 steps=16",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "loop",
+          "id": "n1",
+          "props": {
+            "bpm": 100,
+            "sound": "bell",
+            "rows": [
+              "C5",
+              "A4",
+              "G4",
+              "E4",
+              "D4",
+              "C4"
+            ],
+            "steps": 16
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "bpm": 100,
+          "swing": 0,
+          "steps": 16,
+          "rows": [
+            "C5",
+            "A4",
+            "G4",
+            "E4",
+            "D4",
+            "C4"
+          ],
+          "p": [],
+          "sound": "bell",
+          "play": false
+        }
+      ]
+    },
+    {
+      "name": "loop: a quoted number is text, so no tempo",
+      "input": "loop \"808\" Dreams",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "loop",
+          "id": "n1",
+          "props": {
+            "title": "808 Dreams"
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "808 Dreams",
+          "bpm": 96,
+          "swing": 0,
+          "steps": 8,
+          "rows": [
+            "kick",
+            "snare",
+            "clap",
+            "hat",
+            "open",
+            "rim",
+            "tom",
+            "shaker"
+          ],
+          "p": [],
+          "sound": "pluck",
+          "play": false
+        }
+      ]
+    },
+    {
+      "name": "loop: the agent writes a beat, then patches one row set",
+      "input": "loop@beat 96 p=x...x...|..x...x.\n~beat p=x..xx...|..x...x. bpm=100",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "loop",
+          "id": "beat",
+          "props": {
+            "bpm": 96,
+            "p": [
+              "x...x...",
+              "..x...x."
+            ]
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "beat",
+          "props": {
+            "p": [
+              "x..xx...",
+              "..x...x."
+            ],
+            "bpm": 100
+          }
+        }
+      ]
+    },
+    {
+      "name": "drums: 2x2 is the default grid and gets the first four sounds",
+      "input": "drums",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "drums",
+          "id": "n1",
+          "props": {}
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "bpm": 96,
+          "record": false,
+          "grid": "2x2",
+          "pads": [
+            "kick",
+            "snare",
+            "clap",
+            "hat"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "drums: 4x4 gets all sixteen, the grid is matched without case",
+      "input": "drums 4X4 Finger drums",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "drums",
+          "id": "n1",
+          "props": {
+            "grid": "4X4",
+            "title": "Finger drums"
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "Finger drums",
+          "bpm": 96,
+          "record": false,
+          "grid": "4x4",
+          "pads": [
+            "kick",
+            "snare",
+            "clap",
+            "hat",
+            "open",
+            "rim",
+            "tom",
+            "shaker",
+            "crash",
+            "cow",
+            "snap",
+            "conga",
+            "pop",
+            "sweep",
+            "tick",
+            "bell"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "drums: pads name their own sounds",
+      "input": "drums 2x2 pads=kick|clap|hat|pop +record bpm=88",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "drums",
+          "id": "n1",
+          "props": {
+            "grid": "2x2",
+            "record": true,
+            "pads": [
+              "kick",
+              "clap",
+              "hat",
+              "pop"
+            ],
+            "bpm": 88
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "bpm": 88,
+          "record": true,
+          "grid": "2x2",
+          "pads": [
+            "kick",
+            "clap",
+            "hat",
+            "pop"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "keys: a key and a scale, then the title",
+      "input": "keys C major Warm up",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "keys",
+          "id": "n1",
+          "props": {
+            "key": "C",
+            "scale": "major",
+            "title": "Warm up"
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "Warm up",
+          "key": "C",
+          "sound": "keys",
+          "octave": 4,
+          "send": false,
+          "scale": "major"
+        }
+      ]
+    },
+    {
+      "name": "keys: a minor key with no scale resolves to minor",
+      "input": "keys Am sound=pad",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "keys",
+          "id": "n1",
+          "props": {
+            "key": "Am",
+            "sound": "pad"
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "key": "Am",
+          "sound": "pad",
+          "octave": 4,
+          "send": false,
+          "scale": "minor"
+        }
+      ]
+    },
+    {
+      "name": "keys: sharps and flats, and a scale on its own",
+      "input": "keys F# pentatonic octave=3",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "keys",
+          "id": "n1",
+          "props": {
+            "key": "F#",
+            "scale": "pentatonic",
+            "octave": 3
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "key": "F#",
+          "sound": "keys",
+          "octave": 3,
+          "send": false,
+          "scale": "pentatonic"
+        }
+      ]
+    },
+    {
+      "name": "keys: chromatic turns the scale lock off",
+      "input": "keys chromatic",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "keys",
+          "id": "n1",
+          "props": {
+            "scale": "chromatic"
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "key": "C",
+          "sound": "keys",
+          "octave": 4,
+          "send": false,
+          "scale": "chromatic"
+        }
+      ]
+    },
+    {
+      "name": "chords: key and a roman progression",
+      "input": "chords G I-V-vi-IV",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chords",
+          "id": "n1",
+          "props": {
+            "key": "G",
+            "prog": [
+              "I",
+              "V",
+              "vi",
+              "IV"
+            ]
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "key": "G",
+          "chords": [],
+          "strum": "down",
+          "sound": "pluck",
+          "send": false,
+          "prog": [
+            "I",
+            "V",
+            "vi",
+            "IV"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chords: a minor key and flat degrees",
+      "input": "chords Am i-bVII-bVI-V7 strum=up",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chords",
+          "id": "n1",
+          "props": {
+            "key": "Am",
+            "prog": [
+              "i",
+              "bVII",
+              "bVI",
+              "V7"
+            ],
+            "strum": "up"
+          }
+        }
+      ]
+    },
+    {
+      "name": "chords: chord names as options, no progression",
+      "input": "chords C|G|Am|F Campfire",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chords",
+          "id": "n1",
+          "props": {
+            "chords": [
+              "C",
+              "G",
+              "Am",
+              "F"
+            ],
+            "title": "Campfire"
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "Campfire",
+          "key": "C",
+          "chords": [
+            "C",
+            "G",
+            "Am",
+            "F"
+          ],
+          "strum": "down",
+          "sound": "pluck",
+          "send": false,
+          "prog": []
+        }
+      ]
+    },
+    {
+      "name": "chords: prog= as a key, dashes or bars",
+      "input": "chords key=D prog=I-IV|V",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chords",
+          "id": "n1",
+          "props": {
+            "key": "D",
+            "prog": [
+              "I",
+              "IV",
+              "V"
+            ]
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "key": "D",
+          "chords": [],
+          "strum": "down",
+          "sound": "pluck",
+          "send": false,
+          "prog": [
+            "I",
+            "IV",
+            "V"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "chords: a patch changes the key and keeps the progression",
+      "input": "chords C I-V-vi-IV\n~chords key=G",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chords",
+          "id": "n1",
+          "props": {
+            "key": "C",
+            "prog": [
+              "I",
+              "V",
+              "vi",
+              "IV"
+            ]
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "chords",
+          "props": {
+            "key": "G"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tuner: guitar standard by default",
+      "input": "tuner",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "tuner",
+          "id": "n1",
+          "props": {}
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "instrument": "guitar",
+          "tuning": "standard",
+          "a4": 440,
+          "strings": []
+        }
+      ]
+    },
+    {
+      "name": "tuner: ukulele, bass and chromatic are instruments",
+      "input": "tuner ukulele Uke\ntuner bass\ntuner chromatic",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "tuner",
+          "id": "n1",
+          "props": {
+            "instrument": "ukulele",
+            "title": "Uke"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "tuner",
+          "id": "n2",
+          "props": {
+            "instrument": "bass"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "tuner",
+          "id": "n3",
+          "props": {
+            "instrument": "chromatic"
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "Uke",
+          "instrument": "ukulele",
+          "tuning": "standard",
+          "a4": 440,
+          "strings": []
+        },
+        {
+          "title": "",
+          "instrument": "bass",
+          "tuning": "standard",
+          "a4": 440,
+          "strings": []
+        },
+        {
+          "title": "",
+          "instrument": "chromatic",
+          "tuning": "standard",
+          "a4": 440,
+          "strings": []
+        }
+      ]
+    },
+    {
+      "name": "tuner: drop D and a custom a4",
+      "input": "tuner guitar tuning=dropd a4=442",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "tuner",
+          "id": "n1",
+          "props": {
+            "instrument": "guitar",
+            "tuning": "dropd",
+            "a4": 442
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "instrument": "guitar",
+          "tuning": "dropd",
+          "a4": 442,
+          "strings": []
+        }
+      ]
+    },
+    {
+      "name": "tuner: custom strings are a list",
+      "input": "tuner strings=D2|A2|D3|G3|A3|D4 DADGAD",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "tuner",
+          "id": "n1",
+          "props": {
+            "title": "DADGAD",
+            "strings": [
+              "D2",
+              "A2",
+              "D3",
+              "G3",
+              "A3",
+              "D4"
+            ]
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "DADGAD",
+          "instrument": "guitar",
+          "tuning": "standard",
+          "a4": 440,
+          "strings": [
+            "D2",
+            "A2",
+            "D3",
+            "G3",
+            "A3",
+            "D4"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "metronome: tempo and beats",
+      "input": "metronome 72 beats=3 sub=2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "metronome",
+          "id": "n1",
+          "props": {
+            "bpm": 72,
+            "beats": 3,
+            "sub": 2
+          }
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "bpm": 72,
+          "beats": 3,
+          "sub": 2,
+          "play": false
+        }
+      ]
+    },
+    {
+      "name": "metronome: defaults",
+      "input": "metronome",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "metronome",
+          "id": "n1",
+          "props": {}
+        }
+      ],
+      "resolved": [
+        {
+          "title": "",
+          "bpm": 100,
+          "beats": 4,
+          "sub": 1,
+          "play": false
+        }
+      ]
+    },
+    {
+      "name": "an unknown sound word still parses; the app plays the nearest voice",
+      "input": "keys sound=theremin",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "keys",
+          "id": "n1",
+          "props": {
+            "sound": "theremin"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stage: the instruments open on the stage; metronome, +inline and pages stay put",
+      "input": "loop 96\ndrums\nkeys\nchords\ntuner\nmetronome\nkeys +inline\n>2 loop 90",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "loop",
+          "id": "n1",
+          "props": {
+            "bpm": 96
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "drums",
+          "id": "n2",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "keys",
+          "id": "n3",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "chords",
+          "id": "n4",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "tuner",
+          "id": "n5",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "metronome",
+          "id": "n6",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "keys",
+          "id": "n7",
+          "props": {
+            "inline": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "2",
+          "preset": "loop",
+          "id": "n8",
+          "props": {
+            "bpm": 90
+          }
+        }
+      ],
+      "stage": [
+        "n1",
+        "n2",
+        "n3",
+        "n4",
+        "n5"
+      ]
+    }
+  ]
+}

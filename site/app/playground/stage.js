@@ -102,4 +102,5 @@ export function PlanRecord({ rec, onOpen }) {
   );
 }
 
-const NAMES = { timer: "Timer", camera: "Camera", mic: "Voice note", deck: "Deck", plan: "Plan", flow: "Flow", gallery: "Gallery" };
+const NAMES = { timer: "Timer", camera: "Camera", mic: "Voice note", deck: "Deck", plan: "Plan", flow: "Flow", gallery: "Gallery",
+  loop: "Loop", drums: "Drums", keys: "Keys", chords: "Chords", tuner: "Tuner" };

@@ -41,6 +41,7 @@ pub const PRESETS: &[&str] = &[
     "shapes", "shape",
     "game", "flow",
     "query",
+    "loop", "drums", "keys", "chords", "tuner", "metronome",
 ];
 /// A timeline's rows. A patch's `kind=` moves one to another of these.
 pub const ROWS: &[&str] = &["done", "now", "next"];
@@ -70,7 +71,7 @@ pub fn group_members(preset: &str) -> Option<&'static [&'static str]> {
     })
 }
 
-pub const STAGE: &[&str] = &["timer", "camera", "mic", "deck", "plan", "game", "flow"];
+pub const STAGE: &[&str] = &["timer", "camera", "mic", "deck", "plan", "game", "flow", "loop", "drums", "keys", "chords", "tuner"];
 pub const CHART_TYPES: &[&str] = &["line", "bar", "area", "scatter", "pie", "donut"];
 /// Game kinds this renderer can play. Any other kind still parses.
 pub const GAMES: &[&str] = &["tictactoe", "snake", "memory"];
@@ -888,6 +889,99 @@ fn game(pos: &[&Token], rest: &str) -> Map {
     o
 }
 
+// ---------- music ----------
+
+/// `^(\d+(?:\.\d+)?)(?:bpm)?$` with the i flag: the tempo's digits.
+fn bpm_of(s: &str) -> Option<&str> {
+    let b = s.as_bytes();
+    let mut j = digits(b, 0)?;
+    if b.get(j) == Some(&b'.') {
+        j = digits(b, j + 1)?;
+    }
+    let rest = &s[j..];
+    (rest.is_empty() || rest.eq_ignore_ascii_case("bpm")).then(|| &s[..j])
+}
+/// `^[1-4]x[1-4]$` with the i flag
+fn is_grid(s: &str) -> bool {
+    let b = s.as_bytes();
+    b.len() == 3 && (b'1'..=b'4').contains(&b[0]) && (b[1] == b'x' || b[1] == b'X') && (b'1'..=b'4').contains(&b[2])
+}
+/// `^[A-G][#b]?m?$`
+fn is_key(s: &str) -> bool {
+    let b = s.as_bytes();
+    if b.is_empty() || !(b'A'..=b'G').contains(&b[0]) {
+        return false;
+    }
+    let mut j = 1;
+    if matches!(b.get(j), Some(b'#' | b'b')) {
+        j += 1;
+    }
+    if b.get(j) == Some(&b'm') {
+        j += 1;
+    }
+    j == b.len()
+}
+fn is_scale(s: &str) -> bool {
+    ["major", "minor", "pentatonic", "blues", "dorian", "mixolydian", "chromatic"].contains(&s)
+}
+fn is_instrument(s: &str) -> bool {
+    ["guitar", "ukulele", "bass", "chromatic"].contains(&s)
+}
+/// `^[b#]?[ivIV]+[a-z0-9+]*(?:-[b#]?[ivIV]+[a-z0-9+]*)+$`: two or more
+/// roman numerals joined by "-".
+fn is_roman(s: &str) -> bool {
+    let one = |p: &str| {
+        let p = p.strip_prefix(['b', '#']).unwrap_or(p);
+        let run = p.len() - p.trim_start_matches(['i', 'v', 'I', 'V']).len();
+        run > 0 && p[run..].bytes().all(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || c == b'+')
+    };
+    s.contains('-') && s.split('-').all(one)
+}
+
+type Spec = (&'static str, fn(&str) -> bool);
+
+/// Music positionals: `specs` maps a prop to the test its bare token must
+/// pass; the first bare token that passes a still-empty prop's test fills
+/// it. `extra` may take a token the specs did not. The rest is the title.
+fn music(pos: &[&Token], specs: &[Spec], extra: Option<fn(&Token, &mut Map) -> bool>) -> Map {
+    let mut o = Map::new();
+    let mut text = Vec::new();
+    for t in pos {
+        let bare = !t.quoted && t.parts.is_none();
+        let k = if bare { specs.iter().find(|(k, test)| !o.has(k) && test(&t.text)).map(|(k, _)| *k) } else { None };
+        match k {
+            Some("bpm") => o.set("bpm", Value::Num(num(bpm_of(&t.text).unwrap()))),
+            Some(k) => o.set(k, Value::str(&t.text)),
+            None if extra.is_some_and(|f| f(t, &mut o)) => {}
+            None => text.push(*t),
+        }
+    }
+    if !text.is_empty() {
+        o.set("title", Value::Str(join_text(&text)));
+    }
+    o
+}
+
+/// chords [KEY] [I-V-vi-IV | C|G|Am|F] [title...]: the first options token
+/// is the chords, a roman progression is split on "-".
+fn chords(pos: &[&Token]) -> Map {
+    fn list(t: &Token, o: &mut Map) -> bool {
+        match &t.parts {
+            Some(p) if !o.has("chords") => {
+                o.set("chords", Value::strs(p));
+                true
+            }
+            _ => false,
+        }
+    }
+    let mut o = music(pos, &[("key", is_key), ("prog", is_roman)], Some(list));
+    if let Some(Value::Str(p)) = o.get("prog") {
+        let l = Value::strs(&p.split('-').collect::<Vec<_>>());
+        o.set("prog", l);
+    }
+    o
+}
+
 pub const QUERY_VIEWS: &[&str] = &["table", "list", "chart", "stat", "send"];
 
 /// query <table> [as table|list|chart|stat|send] [chart type] [title...]
@@ -956,6 +1050,11 @@ fn preset_props(preset: &str, pos: &[&Token]) -> Map {
         "after" => all_text(pos, "label"),
         "game" => game(pos, "title"),
         "query" => query(pos),
+        "loop" | "metronome" => music(pos, &[("bpm", |s| bpm_of(s).is_some())], None),
+        "drums" => music(pos, &[("grid", is_grid)], None),
+        "keys" => music(pos, &[("key", is_key), ("scale", is_scale)], None),
+        "chords" => chords(pos),
+        "tuner" => music(pos, &[("instrument", is_instrument)], None),
         _ => Map::new(),
     }
 }
@@ -1104,6 +1203,10 @@ fn list_props(preset: &str) -> &'static [&'static str] {
         "pick" => &["answer"],
         "game" => &["items"],
         "shape" => &["pts"],
+        "loop" => &["rows", "p"],
+        "drums" => &["pads"],
+        "chords" => &["chords"],
+        "tuner" => &["strings"],
         "query" => &["where", "sort", "cols", "y", "sum", "avg", "min", "max", "names", "color"],
         _ => &[],
     }
@@ -1171,6 +1274,16 @@ fn normalize(preset: &str, mut o: Map) -> Map {
                 let c = cell_list(v);
                 o.set(k, c);
             }
+        }
+    }
+    // prog=I-V-vi-IV and prog=I|V|vi|IV are the same list.
+    if preset == "chords" {
+        if let Some(v) = o.get("prog").filter(|v| **v != Value::Bool(true)) {
+            let parts: Vec<String> = match as_list(v) {
+                Value::Arr(a) => a.iter().flat_map(|x| js_str(x).split('-').filter(|c| !c.is_empty()).map(String::from).collect::<Vec<_>>()).collect(),
+                _ => Vec::new(),
+            };
+            o.set("prog", Value::strs(&parts));
         }
     }
     if preset == "chart" {
@@ -3375,9 +3488,29 @@ fn defaults(preset: &str) -> Map {
         "shapes" => vec![("title", s("")), ("caption", s("")), ("w", n(10.0)), ("h", n(6.0))],
         "shape" => vec![("kind", s("box")), ("label", s(""))],
         "game" => vec![("title", s("")), ("you", s("x")), ("first", s("you")), ("speed", n(2.0)), ("size", n(15.0)), ("pairs", n(6.0)), ("items", e())],
+        // Music (spec/MUSIC.md). Sounds are words from the sound bank.
+        "loop" => vec![("title", s("")), ("bpm", n(96.0)), ("swing", n(0.0)), ("steps", n(8.0)), ("rows", Value::strs(&KIT[..8])), ("p", e()), ("sound", s("pluck")), ("play", f)],
+        "drums" => vec![("title", s("")), ("bpm", n(96.0)), ("record", f)],
+        "keys" => vec![("title", s("")), ("key", s("C")), ("sound", s("keys")), ("octave", n(4.0)), ("send", f)],
+        "chords" => vec![("title", s("")), ("key", s("C")), ("chords", e()), ("strum", s("down")), ("sound", s("pluck")), ("send", f)],
+        "tuner" => vec![("title", s("")), ("instrument", s("guitar")), ("tuning", s("standard")), ("a4", n(440.0)), ("strings", e())],
+        "metronome" => vec![("title", s("")), ("bpm", n(100.0)), ("beats", n(4.0)), ("sub", n(1.0)), ("play", f)],
         _ => vec![],
     };
     Map(d.into_iter().map(|(k, v)| (k.to_string(), v)).collect())
+}
+
+/// The drum kit in pad order: a 2x2 gets the first four, a 4x4 all sixteen,
+/// a looper's rows the first eight (spec/MUSIC.md, section 4).
+pub const KIT: &[&str] = &["kick", "snare", "clap", "hat", "open", "rim", "tom", "shaker",
+    "crash", "cow", "snap", "conga", "pop", "sweep", "tick", "bell"];
+
+/// `KIT.slice(0, n)` with JS slice rules.
+fn kit(n: f64) -> Value {
+    let len = KIT.len() as f64;
+    let e = if n.is_nan() { 0.0 } else { n.trunc() };
+    let e = if e < 0.0 { (len + e).max(0.0) } else { e.min(len) };
+    Value::strs(&KIT[..e as usize])
 }
 
 /// JS `a + b` for the values props can hold.
@@ -3445,6 +3578,25 @@ pub fn resolve(preset: &str, props: &Map) -> Map {
             let o: Vec<f64> = cells(props.get("o")).into_iter().filter(|n| !x.contains(n)).collect();
             r.set("x", Value::Arr(x.into_iter().map(Value::Num).collect()));
             r.set("o", Value::Arr(o.into_iter().map(Value::Num).collect()));
+        }
+        "drums" => {
+            let grid = match props.get("grid") {
+                Some(Value::Null) | None => "2x2".to_string(),
+                Some(g) => js_str(g).to_lowercase(),
+            };
+            let n: Vec<f64> = grid.split('x').map(|x| js_number(&Value::str(x))).chain([f64::NAN]).collect();
+            r.set("grid", Value::Str(grid));
+            if !truthy(props.get("pads")) {
+                r.set("pads", kit(n[0] * n[1]));
+            }
+        }
+        "keys" if !props.has("scale") => {
+            let minor = js_str(r.get("key").unwrap()).ends_with('m');
+            r.set("scale", Value::str(if minor { "minor" } else { "major" }));
+        }
+        "chords" if !props.has("prog") => {
+            let prog = if truthy(props.get("chords")) { Vec::new() } else { vec!["I", "V", "vi", "IV"] };
+            r.set("prog", Value::strs(&prog));
         }
         _ => {}
     }

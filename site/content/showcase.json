@@ -76,6 +76,7 @@
     "YUI-41": { "title": "The model on the phone: spec and mock", "shipped": "2026-09-26" },
     "YUI-34": { "title": "Key vault: spec and mock", "shipped": "2026-09-26" },
     "YUI-36": { "title": "Encrypted sync: the decision, spec and mock", "shipped": "2026-09-26" },
+    "YUI-116": { "title": "Music tools: research, spec and a mock that plays", "shipped": "2026-09-26" },
     "YUI-98": { "title": "The speed budget, and the Speed panel on paper", "shipped": "2026-09-25" },
     "YUI-90": { "title": "The release timeline, live from the board", "shipped": "2026-09-25" },
     "YUI-102": { "title": "Speed reporting from real phones", "shipped": "2026-09-25" },

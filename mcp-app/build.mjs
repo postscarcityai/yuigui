@@ -24,7 +24,8 @@ const js = await build({
   format: "iife",
   target: "es2020",
   jsx: "automatic",
-  loader: { ".js": "jsx" },
+  // CSS a renderer imports is dropped here and inlined below instead.
+  loader: { ".js": "jsx", ".css": "empty" },
   nodePaths: [mods],
   alias: { react: join(mods, "react"), "react-dom": join(mods, "react-dom") },
   define: { "process.env.NODE_ENV": '"production"' },
@@ -38,6 +39,7 @@ const katex = readFileSync(join(mods, "katex/dist/katex.min.css"), "utf8").repla
 const css = [
   readFileSync(join(site, "app/globals.css"), "utf8"),
   readFileSync(join(site, "app/playground/flows.css"), "utf8"),
+  readFileSync(join(site, "app/playground/music/music.css"), "utf8"),
   katex,
   readFileSync(join(here, "src/embed.css"), "utf8"),
 ].join("\n");
