@@ -139,9 +139,45 @@ cols.next.sort((a, b) => (b.card.mvp ? 1 : 0) - (a.card.mvp ? 1 : 0) || b.t.prio
 cols.backlog.sort(byKey);
 cols.shipped.sort((a, b) => b.shippedAt - a.shippedAt || byKey(b, a));
 
+// The release (YUI-90, spec/RELEASE.md): the open YUI-SHIP card, else the newest one that landed,
+// with the cards it waits on (its parents). Only the version, dates and the parents' public board
+// titles are published; the ship card's own title and body stay on this machine.
+const iso = (sec) => (sec ? new Date(sec * 1000).toISOString() : null);
+const cardFor = new Map(Object.values(cols).flat().map((x) => [x.t.id, x.card]));
+function release() {
+  const ships = sql(`
+    select t.id, t.title, t.status, t.created_at, t.started_at, t.completed_at,
+           (select max(e.created_at) from task_events e where e.task_id = t.id and e.kind in ('completed','archived')) as closed_at,
+           (select count(*) from task_events e where e.task_id = t.id and e.kind = 'completed') as completions
+    from tasks t where t.title glob 'YUI-SHIP *' order by t.created_at desc
+  `).filter((s) => s.status !== "archived" || landed(s));
+  const ship = ships.find((s) => !landed(s)) || ships[0];
+  if (!ship) return null;
+  const parents = sql(`select parent_id as id from task_links where child_id = '${ship.id}'`).map((r) => r.id);
+  const shipped = landed(ship);
+  const cards = parents.map((id) => tasks.find((t) => t.id === id)).filter(Boolean).map((t) => {
+    const card = cardFor.get(t.id);
+    const status = landed(t) ? "done" : ["running", "blocked"].includes(t.status) ? "now" : "next";
+    const out = { key: t.key, title: card ? card.title : cap(scrub(t.head)), status };
+    if (landed(t)) out.shipped = day(t.completed_at || t.closed_at);
+    if (card?.progress) out.progress = card.progress;
+    return out;
+  }).filter((c) => c.title);
+  const rank = { done: 0, now: 1, next: 2 };
+  cards.sort((a, b) => rank[a.status] - rank[b.status] || (a.shipped || "").localeCompare(b.shipped || ""));
+  return {
+    version: (ship.title.match(/\b(\d+\.\d+(?:\.\d+)?)\b/) || [])[1] || null,
+    status: shipped ? "shipped" : ship.status === "running" ? "shipping" : "open",
+    startedAt: iso(ship.started_at || ship.created_at),
+    shippedAt: shipped ? iso(ship.completed_at || ship.closed_at) : null,
+    cards,
+  };
+}
+
 const board = {
   updated: new Date().toISOString(),
   shippedDays: SHIPPED_DAYS,
+  release: release(),
   columns: [
     ["backlog", "Backlog"], ["next", "Up next"], ["building", "Building"], ["shipped", `Shipped (last ${SHIPPED_DAYS} days)`],
   ].map(([key, title]) => ({ key, title, cards: cols[key].map((x) => x.card) })),

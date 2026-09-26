@@ -4,6 +4,7 @@ import "katex/dist/katex.min.css";
 
 import { cleanYL, findSample, sampleSlug } from "../../lib/share.mjs";
 import { encodeYL, readYL } from "../../lib/share-code.mjs";
+import { RELEASE_YL } from "../../lib/yl/release-sample.mjs";
 
 // A shared playground link (SITE-19) previews the screen it carries: /og draws the lines.
 export async function generateMetadata({ searchParams }) {
@@ -34,7 +35,7 @@ export default function Page() {
         Share gives you a link that opens exactly the screen on the phone.
         Grammar: <a href="/yl">Yui Lines spec</a>.
       </p>
-      <Playground />
+      <Playground release={RELEASE_YL} />
       <Benchmark />
     </>
   );

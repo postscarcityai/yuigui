@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 130,
-    "site": 316,
+    "site": 317,
     "builds": 29,
-    "shipped": 167,
-    "screenshots": 356
+    "shipped": 168,
+    "screenshots": 358
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T00:42:58.829Z",
+          "at": "2026-09-26T00:44:42.676Z",
+          "title": "The release timeline, live from the board",
+          "card": "YUI-90",
+          "anchor": "the-release-timeline-live-from-the-board",
+          "images": [
+            {
+              "src": "/progress/yui90-release-light.webp",
+              "alt": "The release panel: cards landed, Yui 0.2.0 shipped with its three cards and four ship steps, then what is on main since build 122, light mode"
+            },
+            {
+              "src": "/progress/yui90-release-dark.webp",
+              "alt": "The same release panel in dark mode"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 130,
+            "site": 317,
+            "builds": 29,
+            "shipped": 168
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T00:44:08.000Z",
           "title": "Yui now times itself: speed numbers from real phones, every day",
           "card": "YUI-102",
           "anchor": "yui-now-times-itself-speed-numbers-from-real-phones-every-day",
@@ -35,10 +59,10 @@
               "alt": "A thread with Speed on: a small key ms and fps readout under the top bar while typing hello, dark mode"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 130,
-            "site": 316,
+            "site": 317,
             "builds": 29,
             "shipped": 167
           }
@@ -1968,6 +1992,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "12dcec4",
+          "at": "2026-09-26T00:44:08.000Z",
+          "text": "Speed reporting built (YUI-102, step 2 of YUI-98; app yui 055ec5f..9385fc2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/12dcec4"
+        },
         {
           "repo": "site",
           "sha": "ef338c4",

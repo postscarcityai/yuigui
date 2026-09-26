@@ -1,6 +1,35 @@
 {
-  "updated": "2026-09-26T00:41:06.461Z",
+  "updated": "2026-09-26T00:44:40.179Z",
   "shippedDays": 30,
+  "release": {
+    "version": "0.2.0",
+    "status": "shipped",
+    "startedAt": "2026-09-25T20:05:42.000Z",
+    "shippedAt": "2026-09-25T23:01:32.000Z",
+    "cards": [
+      {
+        "key": "YUI-54",
+        "title": "Top-left menu becomes the agent's home",
+        "status": "done",
+        "shipped": "2026-09-25",
+        "progress": "/progress#each-agent-gets-a-drawer"
+      },
+      {
+        "key": "YUI-86",
+        "title": "Agents fill the drawer",
+        "status": "done",
+        "shipped": "2026-09-25",
+        "progress": "/progress#agents-fill-the-drawer"
+      },
+      {
+        "key": "YUI-75",
+        "title": "Ids on a page patch across replies, so the war room refreshes in place",
+        "status": "done",
+        "shipped": "2026-09-25",
+        "progress": "/progress#screens-update-in-place-instead-of-piling-up"
+      }
+    ]
+  },
   "columns": [
     {
       "key": "backlog",
@@ -190,7 +219,8 @@
         {
           "key": "YUI-90",
           "title": "The release timeline is live in the war room",
-          "summary": "A big, always-current view of where the next version stands"
+          "summary": "The release timeline, live from the board",
+          "progress": "/progress#the-release-timeline-live-from-the-board"
         },
         {
           "key": "YUI-91",
@@ -203,7 +233,8 @@
         {
           "key": "YUI-102",
           "title": "Speed reporting, step 2 (native)",
-          "summary": "MetricKit, signposts, yui_perf, the report and the Speed panel"
+          "summary": "Yui now times itself: speed numbers from real phones, every day",
+          "progress": "/progress#yui-now-times-itself-speed-numbers-from-real-phones-every-day"
         },
         {
           "key": "YUI-104",

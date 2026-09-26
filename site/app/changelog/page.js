@@ -3,11 +3,13 @@
 // Each build lists what changed and the screenshots from the matching progress entries (joined on "card", or "build").
 import Link from "next/link";
 import builds from "../../content/builds.json";
+import board from "../../content/board.json";
 import log from "../../content/progress.json";
 import { slug } from "../../lib/slug.mjs";
 import { day as date } from "../../lib/day.mjs";
 import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
+import { releaseBuild } from "../../lib/release.mjs";
 
 export const metadata = {
   title: "Builds | Yui",
@@ -48,6 +50,26 @@ function Changes({ changes, build }) {
   return items.length ? <ul className="changes">{items}</ul> : <p>Housekeeping only.</p>;
 }
 
+// The release tile (YUI-90): one line on where the next version stands, linking to the live timeline.
+function ReleaseTile() {
+  const rel = board.release;
+  if (!rel) return null;
+  const name = rel.version ? `Yui ${rel.version}` : "The next build";
+  const b = releaseBuild(rel, builds);
+  const landed = rel.cards.filter((c) => c.status === "done").length;
+  const waiting = builds.next.filter((c) => !CHORE.test(c.text)).length;
+  const said = rel.status === "shipped"
+    ? `${name} shipped${b ? ` as build ${b.build}` : ""}.${waiting ? ` ${waiting} ${waiting === 1 ? "change is" : "changes are"} on main for the next one.` : ""}`
+    : `${name}: ${landed} of ${rel.cards.length} cards landed${rel.status === "shipping" ? ", shipping now" : ""}.`;
+  return (
+    <a className="card note-card release-tile" href="/playground?demo=release">
+      <span className={`pill ${rel.status === "shipped" ? "done" : "now"}`}>Release</span>
+      <h3>Where the next release stands</h3>
+      <p>{said} The timeline, live from the board.</p>
+    </a>
+  );
+}
+
 export default function Changelog() {
   return (
     <>
@@ -58,6 +80,8 @@ export default function Changelog() {
         commits in the <a href="https://github.com/postscarcityai/yui">app repo</a>, so every build has a clear list of
         changes. The <a href="/progress">ship log</a> has the full story, including work on this site and the spec.
       </p>
+
+      <ReleaseTile />
 
       {builds.next.filter((c) => !CHORE.test(c.text)).length > 0 && (
         <section className="build" id="next">

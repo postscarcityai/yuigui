@@ -190,6 +190,8 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .note-card:hover { text-decoration: none; border-color: var(--brand); }
 .note-card time, .eyebrow time { color: var(--mint-ink); font-size: 14px; font-weight: 700; }
 .note-card h3 { margin: 4px 0 8px; }
+.release-tile { max-width: 560px; margin: 20px 0 8px; }
+.release-tile h3 { margin: 10px 0 6px; }
 .md.note { max-width: 680px; font-size: 18px; line-height: 1.65; }
 .md.note h2 { margin-top: 36px; }
 @media (max-width: 560px) { .md.note { font-size: 17px; } }

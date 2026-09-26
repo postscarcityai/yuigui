@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Parser, StreamParser, apply, initialState, parse } from "../../lib/yl/yl.mjs";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../../lib/yl/samples.mjs";
+import { RELEASE_META as RELEASE } from "../../lib/yl/release-meta.mjs";
 import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, StepGroup, TABLES } from "./presets";
 import { demoReply } from "./games";
@@ -16,7 +17,7 @@ import { RESTYLE_VIEWS, RestyleDemo } from "./restyle";
 import { mealReply } from "./meal";
 import "./flows.css";
 
-const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA];
+const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA, ...RELEASE];
 // Agent names a share link may carry (?as=), so a shared screen reopens with the same header.
 const AGENTS = new Set(ALL.map((s) => s.agent));
 const COLORS = { Coach: "var(--arnold)", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)", Sage: LOOKS.Sage.c, Quill: LOOKS.Quill.c };
@@ -55,7 +56,9 @@ function lastInline(list, n) {
   return key;
 }
 
-export default function Playground() {
+export default function Playground({ release = "" }) {
+  // The release demo's lines come from the server page (lib/yl/release-sample.mjs).
+  const ylOf = (i) => (ALL[i] && RELEASE.includes(ALL[i]) ? release : ALL[i].yl);
   const [idx, setIdx] = useState(0);
   const [text, setText] = useState(ALL[0].yl);
   const [state, setState] = useState(() => build(ALL[0].yl));
@@ -147,8 +150,8 @@ export default function Playground() {
     setCmd(ALL[i].next || "");
     setEpoch((x) => x + 1);
     setIdx(i);
-    setText(ALL[i].yl);
-    setState(build(ALL[i].yl, lines));
+    setText(ylOf(i));
+    setState(build(ylOf(i), lines));
     setView(null);
     setEvents([]);
     setFolds({});
@@ -337,6 +340,9 @@ export default function Playground() {
             </optgroup>
             <optgroup label="Agent tables">
               {DATA.map((s, i) => <option key={s.name} value={SCREENS.length + DEMOS.length + MEDIA.length + SCIENCE.length + FLOWS.length + i}>{s.name}</option>)}
+            </optgroup>
+            <optgroup label="Live from the board">
+              {RELEASE.map((s, i) => <option key={s.name} value={ALL.length - RELEASE.length + i}>{s.name}</option>)}
             </optgroup>
           </select>
           <button className="pg-btn" onClick={streaming ? stopStream : stream}>{streaming ? "Stop" : "▶ Stream it"}</button>
