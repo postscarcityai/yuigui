@@ -883,6 +883,12 @@
     },
     {
       "text": "YuiSound, and loop and drums that play (YUI-116 step 2)"
+    },
+    {
+      "text": "Yui 0.3.2: ship main to TestFlight (Chris, Sep 26)"
+    },
+    {
+      "text": "Keys and chords that play (YUI-116 step 3)"
     }
   ]
 }
