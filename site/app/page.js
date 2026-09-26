@@ -4,6 +4,15 @@ import links from "../content/links.json";
 import MvpBar from "./components/MvpBar";
 import LivePhone from "./mockups/LivePhone";
 import bench from "../content/benchmark.json";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+
+// On phones now: the roadmap's "Latest release" line, so the home page moves with each release.
+const latest = (() => {
+  const md = readFileSync(path.join(process.cwd(), "content", "ROADMAP.md"), "utf8");
+  const m = md.match(/\*\*Latest release: Yui ([\d.]+), build (\d+), ([^:]+): ([^*]+?)\.?\*\*/);
+  return m && { version: m[1], build: m[2], date: m[3], name: m[4] };
+})();
 
 const what = [
   ["Screens, not walls of text", "Ask for a workout and get a timer. Get asked a question and get buttons. Change your answer any time."],
@@ -59,6 +68,11 @@ export default function Home() {
               ? "The public beta is open. Bring your own agent: Yui talks to Hermes running on your own computer."
               : "Public beta: waiting on Apple\u2019s review. Bring your own agent: Yui talks to Hermes running on your own computer."}
           </p>
+          {latest ? (
+            <p className="hero-note">
+              On phones now: <Link href={`/changelog#build-${latest.build}`}>Yui {latest.version}, build {latest.build}</Link>, {latest.name} ({latest.date}).
+            </p>
+          ) : null}
         </div>
         <div className="shots">
           <img src="/app/chat-light.webp" alt="Yui in light mode: the agent answers a tabata request with a live interval timer and Yes or No buttons" width="460" height="1000" />

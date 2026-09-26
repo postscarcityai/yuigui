@@ -1,6 +1,24 @@
 {
   "builds": [
     {
+      "build": 138,
+      "date": "2026-09-26",
+      "uploaded": "2026-09-25T23:23:31-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "An inline deck is as tall as its page (feedback AK2rJFQ9)"
+        },
+        {
+          "text": "Taps answer at once and a long thread opens and scrolls smooth",
+          "card": "YUI-101"
+        },
+        {
+          "text": "Yui 0.3.0: the smooth release (YUI-101, YUI-99, feedback fixes)"
+        }
+      ]
+    },
+    {
       "build": 135,
       "date": "2026-09-25",
       "uploaded": "2026-09-25T19:10:43-07:00",
@@ -45,6 +63,9 @@
         },
         {
           "text": "Typing keeps up on a long thread (YUI-99). Chris on build 96: \"when I hold the backspace button it goes very slow, and if I hit space twice, it is slow to create the period.\""
+        },
+        {
+          "text": "A full-screen page never comes up blank (feedback AKsr0Ha8)"
         }
       ]
     },
@@ -715,5 +736,10 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Send and the menu drawer answer faster",
+      "card": "YUI-106"
+    }
+  ]
 }

@@ -1,19 +1,175 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 134,
-    "site": 325,
-    "builds": 29,
-    "shipped": 172,
-    "screenshots": 368
+    "app": 139,
+    "site": 335,
+    "builds": 31,
+    "shipped": 175,
+    "screenshots": 375
   },
   "days": [
+    {
+      "date": "2026-09-26",
+      "moments": [
+        {
+          "kind": "build",
+          "at": "2026-09-26T06:23:31.000Z",
+          "build": 138,
+          "changes": 3,
+          "totals": {
+            "app": 138,
+            "site": 333,
+            "builds": 31,
+            "shipped": 175
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T05:14:24.000Z",
+          "title": "Taps answer at once, and a long thread scrolls smooth",
+          "card": "YUI-101",
+          "anchor": "taps-answer-at-once-and-a-long-thread-scrolls-smooth",
+          "images": [
+            {
+              "src": "/progress/yui101-thread-light.webp",
+              "alt": "A 500-message thread in light mode, open at the newest message, with the frame counter reading 60 fps."
+            },
+            {
+              "src": "/progress/yui101-scrolled-dark.webp",
+              "alt": "The same long thread in dark mode, scrolled up past a timer and a Yes or No question, still at 60 fps."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 137,
+            "site": 332,
+            "builds": 30,
+            "shipped": 175
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "app",
+          "sha": "fdb7cd1",
+          "at": "2026-09-26T06:31:42.000Z",
+          "text": "Send and the menu drawer answer faster (YUI-106)",
+          "url": "https://github.com/postscarcityai/yui/commit/fdb7cd1"
+        },
+        {
+          "repo": "site",
+          "sha": "c33351a",
+          "at": "2026-09-26T06:29:37.000Z",
+          "text": "First real speed numbers (YUI-102): PERF.md section 10, ROADMAP YUI-98 and YUI-107",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c33351a"
+        },
+        {
+          "repo": "site",
+          "sha": "8dd8acd",
+          "at": "2026-09-26T06:24:58.000Z",
+          "text": "Draft Thought: Yui 0.3.0, the smooth release (build 138 on TestFlight)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8dd8acd"
+        },
+        {
+          "repo": "site",
+          "sha": "92330d3",
+          "at": "2026-09-26T05:40:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/92330d3"
+        },
+        {
+          "repo": "app",
+          "sha": "44aa0a4",
+          "at": "2026-09-26T05:16:53.000Z",
+          "text": "Yui 0.3.0: the smooth release (YUI-101, YUI-99, feedback fixes)",
+          "url": "https://github.com/postscarcityai/yui/commit/44aa0a4"
+        },
+        {
+          "repo": "site",
+          "sha": "ac398ba",
+          "at": "2026-09-26T05:14:24.000Z",
+          "text": "Progress: taps answer at once, and a long thread scrolls smooth (YUI-101)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ac398ba"
+        },
+        {
+          "repo": "app",
+          "sha": "cdd8afa",
+          "at": "2026-09-26T05:14:03.000Z",
+          "text": "Taps answer at once and a long thread opens and scrolls smooth (YUI-101)",
+          "url": "https://github.com/postscarcityai/yui/commit/cdd8afa"
+        }
+      ]
+    },
     {
       "date": "2026-09-25",
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-26T01:26:02.454Z",
+          "at": "2026-09-26T02:40:11.000Z",
+          "title": "A deck in the chat is as tall as its page",
+          "card": "Feedback",
+          "anchor": "a-deck-in-the-chat-is-as-tall-as-its-page",
+          "images": [
+            {
+              "src": "/progress/fb-ak2rjfq9-before-short-dark.webp",
+              "alt": "Before, dark mode: the inline deck Where it landed on its short last page, Taps and scroll, with half the card empty above the arrows"
+            },
+            {
+              "src": "/progress/fb-ak2rjfq9-after-short-dark.webp",
+              "alt": "After, dark mode: the same short page with a big headline and the arrows right under the body"
+            },
+            {
+              "src": "/progress/fb-ak2rjfq9-after-long-light.webp",
+              "alt": "After, light mode: the long page, What goes first, with the card grown to fit its paragraph"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 136,
+            "site": 329,
+            "builds": 30,
+            "shipped": 174
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-26T02:10:43.000Z",
+          "build": 135,
+          "changes": 13,
+          "totals": {
+            "app": 135,
+            "site": 328,
+            "builds": 30,
+            "shipped": 173
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T01:48:08.000Z",
+          "title": "Full-screen pages never come up blank",
+          "card": "Feedback",
+          "anchor": "full-screen-pages-never-come-up-blank",
+          "images": [
+            {
+              "src": "/progress/fb-aksr0ha8-reopen-last-light.webp",
+              "alt": "The Yui app showing a full-screen deck reopened on its last page, For builders, with the headline and body on screen in light mode"
+            },
+            {
+              "src": "/progress/fb-aksr0ha8-reopen-last-dark.webp",
+              "alt": "The same reopened last page in dark mode with Reduce Motion on, headline and body on screen"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 135,
+            "site": 328,
+            "builds": 29,
+            "shipped": 173
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T01:26:05.000Z",
           "title": "Typing keeps up, even on a long thread",
           "card": "YUI-99",
           "anchor": "typing-keeps-up-even-on-a-long-thread",
@@ -27,10 +183,10 @@
               "alt": "The same thread before the fix, the Speed readout at 4 fps after a run of backspaces"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 134,
-            "site": 325,
+            "site": 326,
             "builds": 29,
             "shipped": 172
           }
@@ -162,7 +318,7 @@
               "alt": "A thread with Speed on: a small key ms and fps readout under the top bar while typing hello, dark mode"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 130,
             "site": 317,
@@ -2095,6 +2251,62 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "ee199bc",
+          "at": "2026-09-26T03:10:22.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ee199bc"
+        },
+        {
+          "repo": "site",
+          "sha": "1d20fa6",
+          "at": "2026-09-26T02:40:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1d20fa6"
+        },
+        {
+          "repo": "site",
+          "sha": "4e3b5d2",
+          "at": "2026-09-26T02:40:11.000Z",
+          "text": "Progress: a deck in the chat is as tall as its page (feedback AK2rJFQ9)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4e3b5d2"
+        },
+        {
+          "repo": "app",
+          "sha": "e76e623",
+          "at": "2026-09-26T02:40:03.000Z",
+          "text": "An inline deck is as tall as its page (feedback AK2rJFQ9)",
+          "url": "https://github.com/postscarcityai/yui/commit/e76e623"
+        },
+        {
+          "repo": "site",
+          "sha": "f54d787",
+          "at": "2026-09-26T01:48:08.000Z",
+          "text": "Progress: full-screen pages never come up blank (feedback AKsr0Ha8)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f54d787"
+        },
+        {
+          "repo": "app",
+          "sha": "6aef8f1",
+          "at": "2026-09-26T01:47:51.000Z",
+          "text": "A full-screen page never comes up blank (feedback AKsr0Ha8)",
+          "url": "https://github.com/postscarcityai/yui/commit/6aef8f1"
+        },
+        {
+          "repo": "site",
+          "sha": "b52b0d9",
+          "at": "2026-09-26T01:40:09.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b52b0d9"
+        },
+        {
+          "repo": "site",
+          "sha": "088a700",
+          "at": "2026-09-26T01:26:05.000Z",
+          "text": "Progress: typing keeps up on a long thread (YUI-99)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/088a700"
+        },
         {
           "repo": "app",
           "sha": "e78a4d3",
