@@ -1423,6 +1423,31 @@ export function readTyped(body) {
   return { screen: m[1], words: body.slice(m[0].length) };
 }
 
+// Talk about this (spec/TALK-ABOUT.md): a message about one Controls item.
+// A `[yui] attach section= id= rev=` line names the item, then the words. The
+// line is a reference; the host puts the item's text in the agent's turn.
+// An item that is not one (a missing key, a space in an id) sends the words as they are.
+const ATTACH_SECTION = /^[a-z]{1,20}$/;
+const ATTACH_ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$/;
+const ATTACH_REV = /^[A-Za-z0-9]{1,64}$/;
+
+export function attachBody(item, words) {
+  const { section, id, rev } = item || {};
+  if (!ATTACH_SECTION.test(section || "") || !ATTACH_ID.test(id || "") || id.includes("..") || !ATTACH_REV.test(rev || "")) {
+    return words;
+  }
+  return `[yui] attach section=${section} id=${id} rev=${rev}\n${words}`;
+}
+
+// The other way: `{ section, id, rev, words }` for a message about an item, else null.
+export function readAttach(body) {
+  const m = /^\[yui\] attach section=(\S+) id=(\S+) rev=(\S+)\r?\n/.exec(body);
+  if (!m) return null;
+  const [, section, id, rev] = m;
+  if (attachBody({ section, id, rev }, "") === "") return null;
+  return { section, id, rev, words: body.slice(m[0].length) };
+}
+
 // ---------- defaults ----------
 
 export function resolve(preset, props) {

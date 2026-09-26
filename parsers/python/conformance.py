@@ -10,7 +10,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from yuilines import StreamParser, mark_at, on_stage, page_of, parse, read_typed, talking, timeline_rows, typed_body  # noqa: E402
+from yuilines import StreamParser, attach_body, mark_at, on_stage, page_of, parse, read_attach, read_typed, talking, timeline_rows, typed_body  # noqa: E402
 
 DEFAULT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "spec", "conformance")
 
@@ -85,6 +85,15 @@ def check(v):
         want = None if page_of(t["screen"]) == 1 else {"screen": t["screen"], "words": t["words"]}
         if read != want:
             fails.append(("typed (read back)", read))
+    if v.get("attach") is not None:
+        a = v["attach"]
+        made = attach_body(a["item"], a["words"])
+        if made != a["body"]:
+            fails.append(("attach (body for words about an item)", made))
+        read = read_attach(a["body"])
+        want = None if made == a["words"] else {**a["item"], "words": a["words"]}
+        if read != want:
+            fails.append(("attach (read back)", read))
     has_error = any(o["op"] == "error" for o in v["expected"])
     if has_error != (v.get("error") is True):
         fails.append(("vector: `error` flag does not match expected", v.get("error")))

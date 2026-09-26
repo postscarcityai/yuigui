@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import { apply, flowEvent, flowPath, initialState, markAt, menuOf, onStage, pageOf, parse, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
+import { apply, attachBody, flowEvent, flowPath, initialState, markAt, menuOf, onStage, pageOf, parse, readAttach, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 import { emptyStore, query, replay } from "../../site/lib/yl/tables.mjs";
 import { appLook, checks } from "../../site/lib/yl/look.mjs";
 
@@ -69,6 +69,14 @@ function check(v) {
     const read = readTyped(body);
     const want = pageOf(screen) === 1 ? null : { screen, words };
     if (!isDeepStrictEqual(read, want)) fails.push(["typed (read back)", read]);
+  }
+  if (v.attach) {
+    const { item, words, body } = v.attach;
+    const made = attachBody(item, words);
+    if (made !== body) fails.push(["attach (body for words about an item)", made]);
+    const read = readAttach(body);
+    const want = made === words ? null : { ...item, words };
+    if (!isDeepStrictEqual(read, want)) fails.push(["attach (read back)", read]);
   }
   if (v.route) {
     // A flow's route (spec/FLOWS.md): the path the answers take, the first

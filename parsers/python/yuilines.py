@@ -1202,6 +1202,34 @@ def read_typed(body):
     return {"screen": m.group(1), "words": body[m.end():]}
 
 
+_ATTACH_SECTION = re.compile(r"[a-z]{1,20}")
+_ATTACH_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._-]{0,99}")
+_ATTACH_REV = re.compile(r"[A-Za-z0-9]{1,64}")
+_ATTACH = re.compile(r"\[yui\] attach section=(\S+) id=(\S+) rev=(\S+)\r?\n")
+
+
+def attach_body(item, words):
+    """Talk about this (spec/TALK-ABOUT.md): a `[yui] attach section= id= rev=`
+    line naming one Controls item, then the words. Not an item: the words as they are."""
+    item = item or {}
+    section, iid, rev = (str(item.get(k) or "") for k in ("section", "id", "rev"))
+    if (not _ATTACH_SECTION.fullmatch(section) or not _ATTACH_ID.fullmatch(iid) or ".." in iid
+            or not _ATTACH_REV.fullmatch(rev)):
+        return words
+    return f"[yui] attach section={section} id={iid} rev={rev}\n{words}"
+
+
+def read_attach(body):
+    """The other way: {"section", "id", "rev", "words"} for a message about an item, else None."""
+    m = _ATTACH.match(body or "")
+    if not m:
+        return None
+    item = {"section": m.group(1), "id": m.group(2), "rev": m.group(3)}
+    if attach_body(item, "") == "":
+        return None
+    return {**item, "words": body[m.end():]}
+
+
 def on_stage(op, style=None):
     """Whether an add op opens on the stage. `style` is the agent's style
     profile (theme style: screen=chat|full, gallery=...)."""

@@ -45,6 +45,8 @@ One file per area, `NN-area.json`:
 
 - `typed`: `{screen, words, body}`, words typed on a screen (YL.md section 7). `typedBody(screen, words)` must give `body`, and `readTyped(body)` must give back `{screen, words}`, or nothing when the screen has no page. These vectors have an empty `input`.
 
+- `attach`: `{item, words, body}`, words about one Controls item (spec/TALK-ABOUT.md, section 3). `attachBody(item, words)` must give `body`, and `readAttach(body)` must give back `{section, id, rev, words}`, or nothing when `item` is not an item (`null`, an id with a space or `..`, no rev), in which case `body` is the words as they are. Checked against `attachBody`/`readAttach` in JS, `YuiLines.attachBody`/`readAttach` in Swift and `attach_body`/`read_attach` in Python; the Kotlin and Rust parsers skip them. These vectors have an empty `input`.
+
 - `known`: ids that last from earlier replies (YL.md section 5, Ids that last), as `{id: preset}`. Every parse of the vector, whole, by character and by chunks, starts from a parser given these ids: `parse(input, known)` and `new StreamParser(known)` in JS, `YuiLines.parse(_:known:)` and `YLStreamParser(known:)` in Swift, `parse(text, known)` and `StreamParser(known)` in Python and Kotlin, `parse_with(text, &known)` and `StreamParser::with_known` in Rust. Missing means none.
 
 - `menu`: `{review, backlog, shortcut}`, the drawer's items after the whole input, each newest first (YL.md section 5, The drawer): an item is `{id, label, sub?, say?, show?, url?}`, labels cut at 60 characters. Checked against `menuOf` in JS and `YuiLines.menu` in Swift; the Python, Kotlin and Rust parsers pass the parse side of these vectors.

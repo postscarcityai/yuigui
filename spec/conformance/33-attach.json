@@ -1,0 +1,142 @@
+{
+ "version": "YL v0",
+ "area": "attach",
+ "vectors": [
+  {
+   "name": "attach names SOUL.md",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": {
+     "section": "soul",
+     "id": "SOUL.md",
+     "rev": "b41c09"
+    },
+    "words": "Less playful when I'm working. Keep the warmth.",
+    "body": "[yui] attach section=soul id=SOUL.md rev=b41c09\nLess playful when I'm working. Keep the warmth."
+   }
+  },
+  {
+   "name": "attach a memory entry",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": {
+     "section": "memory",
+     "id": "mem-3f9a0c12de",
+     "rev": "77e1a0b2c4d5"
+    },
+    "words": "That's out of date, I moved to mornings.",
+    "body": "[yui] attach section=memory id=mem-3f9a0c12de rev=77e1a0b2c4d5\nThat's out of date, I moved to mornings."
+   }
+  },
+  {
+   "name": "attach a schedule, words on two lines",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": {
+     "section": "schedules",
+     "id": "a1b2c3d4e5f6",
+     "rev": "0c1d2e3f4a5b"
+    },
+    "words": "Move it to 7:30.\nSkip weekends.",
+    "body": "[yui] attach section=schedules id=a1b2c3d4e5f6 rev=0c1d2e3f4a5b\nMove it to 7:30.\nSkip weekends."
+   }
+  },
+  {
+   "name": "attach the model card",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": {
+     "section": "model",
+     "id": "model",
+     "rev": "9e8d7c6b5a41"
+    },
+    "words": "Why this one?",
+    "body": "[yui] attach section=model id=model rev=9e8d7c6b5a41\nWhy this one?"
+   }
+  },
+  {
+   "name": "attach with a words line that looks like another attach",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": {
+     "section": "skills",
+     "id": "morning-brief",
+     "rev": "aa11bb22cc33"
+    },
+    "words": "[yui] attach section=soul id=SOUL.md rev=x\nhi",
+    "body": "[yui] attach section=skills id=morning-brief rev=aa11bb22cc33\n[yui] attach section=soul id=SOUL.md rev=x\nhi"
+   }
+  },
+  {
+   "name": "no item: the words as they are",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": null,
+    "words": "Just chatting.",
+    "body": "Just chatting."
+   }
+  },
+  {
+   "name": "an id that is a path: the words as they are",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": {
+     "section": "skills",
+     "id": "../secrets",
+     "rev": "aa11bb22cc33"
+    },
+    "words": "Read this.",
+    "body": "Read this."
+   }
+  },
+  {
+   "name": "an id with a space: the words as they are",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": {
+     "section": "soul",
+     "id": "SOUL md",
+     "rev": "b41c09"
+    },
+    "words": "Hi.",
+    "body": "Hi."
+   }
+  },
+  {
+   "name": "no rev: the words as they are",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": {
+     "section": "soul",
+     "id": "SOUL.md",
+     "rev": ""
+    },
+    "words": "Hi.",
+    "body": "Hi."
+   }
+  },
+  {
+   "name": "an upper-case section: the words as they are",
+   "input": "",
+   "expected": [],
+   "attach": {
+    "item": {
+     "section": "Soul",
+     "id": "SOUL.md",
+     "rev": "b41c09"
+    },
+    "words": "Hi.",
+    "body": "Hi."
+   }
+  }
+ ]
+}
