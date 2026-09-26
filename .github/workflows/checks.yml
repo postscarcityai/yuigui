@@ -56,8 +56,9 @@ jobs:
       - name: Changed files stay out of the hands-off paths
         env:
           BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
         run: |
-          bad=$(git diff --name-only "$BASE"...HEAD | grep -E '^(\.github/|CODEOWNERS$|site/content/|site/scripts/|site/lib/public-guard\.mjs$|site/vercel\.json$|vercel\.json$|\.vercel/|LICENSE$|NOTICE$)' || true)
+          bad=$(git diff --name-only "$BASE"..."$PR_HEAD" | grep -E '^(\.github/|CODEOWNERS$|site/content/|site/scripts/|site/lib/public-guard\.mjs$|site/vercel\.json$|vercel\.json$|\.vercel/|LICENSE$|NOTICE$)' || true)
           if [ -n "$bad" ]; then
             echo "This pull request changes files an outside pull request may not touch:"
             echo "$bad"
