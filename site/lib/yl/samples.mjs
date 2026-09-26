@@ -185,6 +185,33 @@ choose@save "Save this as a template?" "Save as client-default"|"Just this once"
 theme app autumn`,
   },
   {
+    // Agent controls (spec/CONTROLS.md, YUI-70 step 1): a mock of the drawer's
+    // Controls tab drawn with plain presets, one screen per area. In the app
+    // these are native screens that talk to the host with no chat turn.
+    name: "Agent controls: personality, memory, skills, schedules",
+    slug: "controls",
+    agent: "Scout",
+    yl: `say "Scout's controls. One screen per area: use the screen tabs up top."
+list Controls Personality|Memory|Skills|Schedules|"Model and tools"|Channels +num
+card "Changes go straight to your Mac" "No chat turn in between. Secrets stay on your Mac, and every delete asks first." sub="owner only"
+>2 card "Personality" "Warm, quick, a little playful. Short sentences. Answers with screens, not paragraphs." tag=SOUL.md sub="edited Sep 24"
+>2 form "Edit personality" "SOUL.md":long! submit=Save
+>3 list Remembers "Prefers short replies"|"Trains mornings at 6:30"|"Vegetarian since spring"|"Likes the dark theme"
+>3 card "Prefers short replies" "Short sentences, no filler. Screens over paragraphs." tag=Memory sub="remembered Sep 22"
+>3 form "Edit memory" memory:long submit=Save
+>3 ask "Forget this? Scout will not remember it next time." Forget|"Keep it"
+>4 list Skills "morning-brief, the 8:00 summary"|"meal-log, photo to macros"|"tan-studio, find a free slot"|"web-search, look things up" +check
+>4 card "tan-studio" "Finds a free slot at the studio and books it." tag=Skill sub="added Sep 20 · on"
+>4 ask "Delete the skill tan-studio? Its folder goes to the trash for 30 days." Delete|"Keep it"
+>5 card "Morning brief" "What is on today, the weather, one thing to try." tag=Schedule sub="weekdays 8:00 · next Mon 8:00" cta="Run now"
+>5 card "Weekly review" "What shipped, what is next." tag=Paused sub="Fri 17:00 · paused" cta=Resume
+>5 form "Edit morning brief" prompt:long! when:"Every day"|Weekdays|Weekly time:time submit=Save
+>5 ask "Pause the morning brief?" Pause|"Keep it"
+>6 card "Model" "Claude, running on this Mac." tag="Read only" sub="editing comes later"
+>6 list Tools "Web: on"|"Files: on"|"Images: on"|"Shell: off"
+>6 list Channels "Telegram"|"Email"`,
+  },
+  {
     name: "Demo: custom {json} escape hatch",
     agent: "Scout",
     yl: `say "No preset fits a split-flap countdown, so the agent drops to custom."

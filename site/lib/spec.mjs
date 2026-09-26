@@ -13,6 +13,7 @@ const ORDER = [
   ["reactions", "Reactions", "/reactions", "Hold a message and react. What each of the six tells your agent to do."],
   ["benchmark", "Benchmark", null, "Yui Lines against JSON, token by token, on ten real screens."],
   ["agents", "Agents", null, "How an agent gets into Yui: pairing codes, the host API, names and colors, and sharing agents with the people you invite."],
+  ["controls", "Agent controls (draft)", null, "The drawer's Controls tab: your agent's personality, memory, skills and schedules, changed straight on its host with no chat turn. Secrets never leave the host."],
   ["restyle", "Restyle Yui (draft)", null, "Ask any agent to make Yui feel like autumn: a preview beside the look you have, one tap to apply, one to undo, and the contrast guard in between."],
   ["release", "Release timeline", null, "Where the next version stands, live from the board: the cards in the release, the ship steps and what is on main since the last build."],
   ["perf", "Speed budget (draft)", null, "What fast means for Yui in milliseconds: typing, sending, a message landing, swipes, launch, hangs, hitches and memory, and how the phone reports them."],
