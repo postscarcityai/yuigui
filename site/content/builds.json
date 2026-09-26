@@ -25,6 +25,9 @@
         },
         {
           "text": "CI: hands-off guard diffs the PR head, not the merge commit"
+        },
+        {
+          "text": "A plan's question sits in the middle of the screen, no card inside the page (feedback APXu3dFU)"
         }
       ]
     },
@@ -807,5 +810,12 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Half-typed words stay: each agent's thread keeps its own draft (feedback AK-9fNEZU)"
+    },
+    {
+      "text": "Channel guide v25 bundled (feedback APSw0dsa): a lesson is one screen. Synced from yuigui 6b035e2."
+    }
+  ]
 }
