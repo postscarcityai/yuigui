@@ -949,6 +949,13 @@
     },
     {
       "text": "yui-mcp reads the visual line (YUI-124, yuigui 3aa0cb3)"
+    },
+    {
+      "text": "Merge pull request #1 from postscarcityai/native-agent"
+    },
+    {
+      "text": "The top bar: menu and agents top left, the record top right",
+      "card": "YUI-122"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T02:40:42.385Z",
+  "updated": "2026-09-27T03:10:44.703Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.0",
@@ -13,6 +13,13 @@
         "status": "done",
         "shipped": "2026-09-26",
         "progress": "/progress#a-bigger-mic-bottom-right"
+      },
+      {
+        "key": "YUI-122",
+        "title": "The top bar",
+        "status": "done",
+        "shipped": "2026-09-26",
+        "progress": "/progress#the-top-bar-agents-left-the-record-right"
       },
       {
         "key": "YUI-123",
@@ -29,14 +36,9 @@
         "progress": "/progress#a-live-picture-behind-the-words"
       },
       {
-        "key": "YUI-122",
-        "title": "The top bar",
-        "status": "now"
-      },
-      {
         "key": "YUI-120",
         "title": "Context animations on the full screen stage",
-        "status": "next"
+        "status": "now"
       },
       {
         "key": "YUI-124",
@@ -270,11 +272,6 @@
           "mvp": true
         },
         {
-          "key": "YUI-120",
-          "title": "Context animations on the full screen stage",
-          "step": "Step 2"
-        },
-        {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4"
@@ -401,9 +398,9 @@
           "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
         },
         {
-          "key": "YUI-122",
-          "title": "The top bar",
-          "summary": "Agents top left with settings in a hamburger beside them, the chat record top right"
+          "key": "YUI-120",
+          "title": "Context animations on the full screen stage",
+          "step": "Step 2"
         }
       ]
     },
@@ -411,6 +408,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-122",
+          "title": "The top bar",
+          "summary": "The top bar: agents left, the record right",
+          "shipped": "2026-09-26",
+          "progress": "/progress#the-top-bar-agents-left-the-record-right"
+        },
         {
           "key": "YUI-124",
           "title": "The visualizer",
