@@ -1,0 +1,316 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Can I afford it?</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<link rel="stylesheet" href="../kit/stage.css">
+<style>
+/* ---------- the hook: the car you want ---------- */
+#hook { position: absolute; inset: 0; pointer-events: none; }
+#car { position: absolute; left: 960px; top: 590px; width: 580px; height: 290px; margin: -145px 0 0 -290px; }
+#car svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+body.reel #car { left: 540px; top: 1010px; width: 860px; height: 430px; margin: -215px 0 0 -430px; }
+
+/* ---------- Penny's parts ---------- */
+.pic.stat { gap: 6px; padding: 22px 18px 18px; }
+.st-lab { font-size: 16px; font-weight: 800; color: var(--muted); }
+.st-num { font-size: 76px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; }
+.st-num small { font-size: 26px; font-weight: 800; color: var(--muted); letter-spacing: 0; margin-left: 4px; }
+.st-sub { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; color: var(--muted); }
+.st-sub b { color: #1E7A5F; background: #DDF3EA; border-radius: 999px; padding: 3px 9px; font-size: 13px; }
+
+.pic.calc { align-items: stretch; justify-content: flex-start; gap: 7px; padding: 14px 16px 12px; }
+.c-head { display: flex; align-items: center; justify-content: space-between; }
+.c-head b { font-size: 17px; font-weight: 800; }
+.c-f { display: flex; align-items: center; justify-content: center; gap: 7px; font-family: "YuiSerif", Georgia, serif; font-size: 16px; color: var(--ink); }
+.c-f i { font-style: italic; }
+.c-f .fr { display: inline-flex; flex-direction: column; align-items: center; }
+.c-f .fr span { padding: 0 4px; line-height: 1.25; white-space: nowrap; }
+.c-f .fr span:first-child { border-bottom: 1.4px solid var(--ink); }
+.c-f sup { font-size: 11px; }
+.c-res { display: flex; align-items: baseline; gap: 6px; justify-content: center; margin: 0 0 -2px; }
+.c-res .c-m { font-family: "YuiSerif", Georgia, serif; font-style: italic; font-size: 22px; color: var(--muted); }
+.c-res b { font-size: 44px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.05; }
+.c-res small { font-size: 18px; font-weight: 800; color: var(--muted); }
+.c-fit { position: relative; top: -8px; margin-left: 6px; display: inline-flex; align-items: center; gap: 4px; font-size: 13.5px; font-weight: 800; border-radius: 999px; padding: 5px 10px; color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--line); background: var(--card); }
+.c-fit.ok { color: #fff; background: #23956F; box-shadow: none; }
+.c-sl { display: flex; flex-direction: column; gap: 5px; }
+.c-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; }
+.c-row span { color: var(--ink); }
+.c-tr { position: relative; height: 6px; border-radius: 3px; background: color-mix(in srgb, var(--muted) 22%, transparent); margin: 4px 11px 9px; }
+.c-fill { position: absolute; left: -11px; top: 0; bottom: 0; border-radius: 3px; background: var(--sf); display: block; }
+.c-kn { position: absolute; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(20,30,60,.22), inset 0 0 0 1px rgba(20,30,60,.08); display: block; }
+.c-const { font-size: 13.5px; color: var(--muted); text-align: center; font-weight: 600; }
+
+.pic.bars { gap: 10px; padding: 18px 16px 14px; }
+.b-title { font-size: 16px; font-weight: 800; color: var(--muted); align-self: flex-start; }
+.b-wrap { position: relative; width: 100%; height: 232px; display: flex; justify-content: center; gap: 44px; align-items: flex-end; border-bottom: 1.5px solid var(--line); }
+.b-col { position: relative; width: 104px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+.b-val { font-size: 22px; font-weight: 900; letter-spacing: -0.01em; margin-bottom: 7px; }
+.b-bar { width: 100%; border-radius: 12px 12px 0 0; background: var(--sf); }
+.b-x { display: flex; justify-content: center; gap: 44px; width: 100%; }
+.b-x span { width: 104px; text-align: center; font-size: 15px; font-weight: 800; line-height: 1.3; }
+.b-x span em { display: block; font-style: normal; font-size: 13px; font-weight: 700; color: var(--muted); }
+.b-save { position: absolute; left: calc(50% + 74px); top: 4px; transform: translateX(-50%); font-size: 13.5px; font-weight: 800; color: #1E7A5F; background: #DDF3EA; border-radius: 999px; padding: 5px 11px; white-space: nowrap; }
+
+.s-send .ck { vertical-align: -5px; margin-left: 4px; }
+</style>
+<script src="score.js"></script>
+</head>
+<body>
+<div id="stage"><div id="glow"></div>
+  <div id="hook"><div id="car"></div></div>
+
+  <div class="cap L" id="h1">The car you want.</div>
+  <div class="cap R accent" id="h2">Can you afford it?</div>
+  <div class="cap L" id="a1">Ask out loud.</div>
+  <div class="cap R accent" id="a2">Get one number back.</div>
+  <div class="cap L" id="w1">Drag the down payment.</div>
+  <div class="cap R accent" id="w2">Watch the payment move.</div>
+  <div class="cap L" id="c1">See the whole cost.</div>
+  <div class="cap R accent" id="c2">New or used, side by side.</div>
+  <div class="cap L" id="q1">It asks what matters.</div>
+  <div class="cap R accent" id="q2">Answer once. One Send.</div>
+  <div class="kpill" id="pc"><b>calc</b> "Car payment" … d=0-12000@3000$ …</div>
+
+  <div id="outro">
+    <img id="owm" src="../kit/yui-wordmark-coral.png" alt="">
+    <div id="otag">Numbers you can touch.</div>
+    <div id="ourl">yuigui.com/start</div>
+    <div id="onote">In Yui 0.4. Public beta on TestFlight.</div>
+  </div>
+  <div id="ripple"></div><div id="finger"></div>
+</div>
+
+<script src="../kit/kit.js"></script>
+<script src="../kit/stage.js"></script>
+<script>
+const S = window.SCORE, LN = S.loan;
+const { $, prog, clamp, eo, ei, eio, back, lerp } = K;
+
+// ---------- the loan: one formula, the same one music.py uses ----------
+const R = LN.apr / 12;
+const pay = (loan) => (loan * R) / (1 - Math.pow(1 + R, -LN.months));
+const money = (x) => "$" + Math.round(x).toLocaleString("en-US");
+const downAt = (t) => {
+  const d = S.drag, p = eio(prog(t, d.t0, d.t1));
+  return Math.round((d.from + (d.to - d.from) * p) / d.snap) * d.snap;
+};
+// The first frame the payment fits the budget (for the chip's pop and the bell).
+let T_FIT = 99;
+for (let t = S.drag.t0; t <= S.drag.t1; t += 1 / 120) if (pay(LN.price - downAt(t)) <= LN.budget) { T_FIT = t; break; }
+const NEW5 = S.drag.to + pay(LN.price - S.drag.to) * LN.months;
+const USED5 = S.drag.to + pay(LN.used - S.drag.to) * LN.months;
+const ASK = "Can I afford a $32,000 car?";
+
+// ---------- the hook's car (drawn, friendly, side view) ----------
+const WHEEL = (id, cx) => `<g transform="translate(${cx} 196)"><g id="${id}">
+  <circle r="38" fill="#3A3340"/><circle r="17" fill="#FFF3E4"/><circle r="6" fill="#3A3340"/>
+  <path d="M0-17V-8M0 17V8M-17 0H-8M17 0H8" stroke="#3A3340" stroke-width="4" stroke-linecap="round"/></g></g>`;
+$("car").innerHTML = `<svg viewBox="0 0 520 260">
+  <ellipse cx="262" cy="236" rx="236" ry="13" fill="rgba(58,51,64,.13)"/>
+  <g id="speed" stroke="#FF7E8A" stroke-width="7" stroke-linecap="round" opacity="0">
+    <path d="M-40 112H-130"/><path d="M-20 150H-150"/><path d="M-50 186H-110"/></g>
+  <g id="body">
+    <path d="M36 158Q36 124 76 120L150 116Q186 60 236 56L318 56Q362 58 400 112L452 120Q492 126 494 160L494 180Q494 196 478 196L52 196Q36 196 36 180Z" fill="#FF7E8A"/>
+    <path d="M36 170H494" stroke="#E86877" stroke-width="10"/>
+    <path d="M172 112Q198 72 236 70L266 70L266 112Z" fill="#E6F0FF"/>
+    <path d="M280 70L318 70Q348 72 376 112L280 112Z" fill="#E6F0FF"/>
+    <path d="M188 104Q204 80 224 77" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".8"/>
+    <path d="M273 118V184" stroke="#E86877" stroke-width="3"/>
+    <rect x="236" y="128" width="24" height="7" rx="3.5" fill="#E86877"/>
+    <rect x="336" y="128" width="24" height="7" rx="3.5" fill="#E86877"/>
+    <ellipse cx="480" cy="140" rx="10" ry="8" fill="#FFE8A3"/>
+    <rect x="36" y="134" width="10" height="16" rx="4" fill="#C23B4F"/>
+    <path d="M372 104l16 -4v14h-14z" fill="#E86877"/>
+  </g>
+  ${WHEEL("wh1", 142)}${WHEEL("wh2", 392)}
+  <g id="tagp" transform="translate(386 108)"><g id="tag">
+    <path d="M0 0V40" stroke="#3A3340" stroke-width="2.5"/>
+    <g transform="translate(0 40)">
+      <path d="M-70 16L-54 0H70Q80 0 80 10V58Q80 68 70 68H-54L-70 52Z" fill="#FFFFFF" stroke="#3A3340" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="-52" cy="34" r="5" fill="none" stroke="#3A3340" stroke-width="2.5"/>
+      <text x="12" y="45" text-anchor="middle" font-family="YuiRounded" font-weight="900" font-size="32" fill="#3A3340" letter-spacing="-0.5">$32,000</text>
+    </g></g></g>
+</svg>`;
+
+// ---------- Penny's stage ----------
+const I = ST.I;
+const spark = [498, 522, 515, 540, 536, 540];
+const sparkSvg = (() => {
+  const w = 230, h = 54, lo = 490, hi = 546;
+  const pts = spark.map((v, i) => [8 + (i * (w - 16)) / (spark.length - 1), h - 6 - ((v - lo) / (hi - lo)) * (h - 12)]);
+  const d = pts.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join("");
+  const [lx, ly] = pts[pts.length - 1];
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><path d="${d}L${lx} ${h}L8 ${h}Z" fill="color-mix(in srgb, var(--sf) 12%, transparent)"/>
+    <path d="${d}" stroke="var(--sf)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${lx}" cy="${ly}" r="5" fill="var(--sf)"/></svg>`;
+})();
+const STAT = `<div class="pic stat"><div class="st-lab">A month for a car</div><div class="st-num">$540<small>/mo</small></div>${sparkSvg}
+  <div class="st-sub"><b>▲ $25</b> left over after bills, last 6 months</div></div>`;
+
+// the calc's chart: the payment against the down payment, 0 to $12,000
+const CH = { w: 321, h: 112, x0: 42, x1: 312, y0: 8, y1: 88, lo: 380, hi: 660, dmax: 12000 };
+const cx = (d) => CH.x0 + (d / CH.dmax) * (CH.x1 - CH.x0);
+const cy = (m) => CH.y1 - ((m - CH.lo) / (CH.hi - CH.lo)) * (CH.y1 - CH.y0);
+const chartSvg = (() => {
+  let d = "";
+  for (let k = 0; k <= 60; k++) { const dd = (k / 60) * CH.dmax; d += `${k ? "L" : "M"}${cx(dd).toFixed(1)} ${cy(pay(LN.price - dd)).toFixed(1)}`; }
+  const grid = [400, 500, 600].map((m) => `<path d="M${CH.x0} ${cy(m)}H${CH.x1}" stroke="var(--line)" stroke-width="1"/><text x="${CH.x0 - 6}" y="${cy(m) + 4}" text-anchor="end" font-size="11" font-weight="700" fill="var(--muted)">$${m}</text>`).join("");
+  const xl = [0, 4000, 8000, 12000].map((v) => `<text x="${cx(v)}" y="${CH.h - 3}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--muted)">${v ? `$${v / 1000}k` : "$0"}</text>`).join("");
+  const by = cy(LN.budget);
+  return `<svg id="cchart" width="${CH.w}" height="${CH.h}" viewBox="0 0 ${CH.w} ${CH.h}" style="overflow:visible;font-family:YuiRounded">
+    ${grid}${xl}
+    <rect x="${CH.x0}" y="${by}" width="${CH.x1 - CH.x0}" height="${CH.y1 - by}" fill="rgba(35,149,111,.08)"/>
+    <path d="M${CH.x0} ${by}H${CH.x1}" stroke="#23956F" stroke-width="1.8" stroke-dasharray="5 4"/>
+    <text x="${CH.x1}" y="${by - 5}" text-anchor="end" font-size="11" font-weight="800" fill="#1E7A5F">Budget $540</text>
+    <path d="${d}" stroke="var(--sf)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path id="cguide" stroke="var(--muted)" stroke-width="1.3" stroke-dasharray="3 3"/>
+    <circle id="cdot" r="7" fill="var(--sf)" stroke="#fff" stroke-width="2.5"/></svg>`;
+})();
+const slider = (id, label) => `<div class="c-sl"><div class="c-row"><span>${label}</span><b id="v-${id}"></b></div>
+  <div class="c-tr"><i class="c-fill" id="f-${id}"></i><i class="c-kn" id="kn-${id}"></i></div></div>`;
+const CALC = `<div class="pic calc">
+  <div class="c-head"><b>Car payment</b></div>
+  <div class="c-f"><i>M</i> =<span class="fr"><span>(<i>P</i> − <i>d</i>) · <i>i</i>/12</span><span>1 − (1 + <i>i</i>/12)<sup>−<i>n</i></sup></span></span></div>
+  <div class="c-res"><span class="c-m">M =</span><b id="pay"></b><small>/mo</small><span class="c-fit" id="fit"></span></div>
+  ${chartSvg}
+  ${slider("P", "Price")}${slider("d", "Down payment")}${slider("n", "Term")}
+  <div class="c-const"><i style="font-family:YuiSerif">i</i> = 6.5% a year</div></div>`;
+
+const BARS = `<div class="pic bars"><div class="b-title">Five years, all in</div>
+  <div class="b-wrap"><div class="b-save" id="bsave">Used saves ${money(NEW5 - USED5)}</div>
+    <div class="b-col"><div class="b-val" id="bvN">${money(NEW5)}</div><div class="b-bar" id="bbN"></div></div>
+    <div class="b-col"><div class="b-val" id="bvU">${money(USED5)}</div><div class="b-bar" id="bbU"></div></div></div>
+  <div class="b-x"><span>New<em>$32,000</em></span><span>Used<em>$24,000</em></span></div>
+  <div class="cap2">$8,000 down, 60 months, 6.5% a year</div></div>`;
+
+const QS = `<div class="s-L" id="L-qs" style="justify-content:flex-start;gap:12px">
+  <div class="q-title">Before I look</div><div class="s-sub" style="margin-top:-8px">2 quick questions, one Send.</div>
+  <div class="q" id="qq1"><h5>New or used?</h5><div class="o"><span>New</span><span id="q1a">Used</span></div></div>
+  <div class="q" id="qq2"><h5>How long will you keep it?</h5><div class="o"><span>2 to 4 years</span><span id="q2a">5+ years</span></div></div>
+  <div style="flex:1"></div>
+  <div class="s-send" id="sendall">Send · 0 of 2</div></div>`;
+
+K.phone(`<div class="page" id="pg">${ST.html({
+  agent: { name: "Penny", letter: "P", color: "#1F6FEB" },
+  layers: ST.idle("Hi Sam. Tap the mic and talk.", "Ask me anything about money.", "P") + ST.listen() + ST.work() +
+    ST.part("stat", STAT, "That's what fits your budget.") +
+    ST.part("calc", CALC, "More down, less a month.") +
+    ST.part("bars", BARS, "Used saves about $9,400.") + QS,
+})}</div>`);
+
+// ---------- the camera: [time, scale, focus (local y), rotation] ----------
+const CAM = [
+  [0, 1.15, 0], [9.6, 1.15, 0], [10.4, 1.24, 0], [12.9, 1.24, 0],
+  [14.2, 1.37, 40], [20.3, 1.37, 40], [21.2, 1.17, 0], [24.4, 1.17, 0], [25.4, 1.22, 0], [29, 1.22, 0],
+];
+
+function hook(t) {
+  const on = t < S.carOut + 0.9;
+  $("hook").style.display = on ? "" : "none";
+  if (!on) return;
+  const pin = eo(prog(t, S.carIn, S.carIn + 1.0)), pout = ei(prog(t, S.carOut, S.carOut + 0.7));
+  const span = K.REEL ? 1200 : 1500;
+  const x = (1 - pin) * -span + pout * span;
+  const beat = (t % 0.6) / 0.6, bob = t > 1.0 && t < S.carOut ? -5 * Math.exp(-beat * 6) : 0;
+  const tilt = -2.5 * Math.sin(Math.PI * prog(t, 0.7, 1.2)) + 2 * Math.sin(Math.PI * prog(t, S.carOut, S.carOut + 0.3));
+  $("car").style.transform = `translateX(${x}px) rotate(${tilt}deg)`;
+  $("body").setAttribute("transform", `translate(0 ${bob})`);
+  const wr = (x / 38) * (180 / Math.PI) * (K.REEL ? 520 / 860 : 520 / 580);
+  $("wh1").setAttribute("transform", `rotate(${wr})`);
+  $("wh2").setAttribute("transform", `rotate(${wr})`);
+  $("speed").setAttribute("opacity", Math.max(1 - pin, pout > 0 && pout < 1 ? 1 : 0) * 0.8);
+  // the tag: trails while it drives, swings forward when it stops, then sways on the beat
+  let a = t < 1.0 ? lerp(16, -22, eo(prog(t, 0.55, 1.0)))
+    : -22 * Math.exp(-(t - 1.0) / 1.3) * Math.cos((2 * Math.PI * (t - 1.0)) / 1.2) + 4 * prog(t, 1.0, 2.5) * Math.sin((2 * Math.PI * (t - 1.0)) / 1.2);
+  if (t > S.carOut) a += 18 * Math.sin(Math.PI * clamp(prog(t, S.carOut, S.carOut + 0.6) * 0.5));
+  $("tag").setAttribute("transform", `rotate(${a})`);
+}
+
+function calc(t) {
+  const d = t < S.drag.t0 ? S.drag.from : downAt(t);
+  const m = pay(LN.price - d), ok = m <= LN.budget;
+  $("pay").textContent = money(m);
+  $("pay").style.color = ok ? "#1E8A66" : "var(--ink)";
+  $("fit").className = `c-fit${ok ? " ok" : ""}`;
+  $("fit").innerHTML = ok ? `${I.check(15)} Fits $540` : `Budget $540`;
+  $("fit").style.transform = `scale(${ok ? 0.8 + 0.2 * back(prog(t, T_FIT, T_FIT + 0.3)) : 1})`;
+  const set = (id, frac, label) => {
+    $(`kn-${id}`).style.left = `${frac * 100}%`;
+    $(`f-${id}`).style.width = `calc(${frac * 100}% + 11px)`;
+    $(`v-${id}`).textContent = label;
+  };
+  set("P", (LN.price - 20000) / 30000, "$32,000");
+  set("d", d / 12000, money(d));
+  set("n", (LN.months - 36) / 48, `${LN.months} months`);
+  const held = t >= S.drag.t0 - 0.05 && t <= S.drag.t1 + 0.05;
+  $("kn-d").style.transform = `scale(${held ? 1.12 : 1})`;
+  const X = cx(d), Y = cy(m);
+  $("cdot").setAttribute("cx", X); $("cdot").setAttribute("cy", Y);
+  $("cdot").setAttribute("fill", ok ? "#23956F" : "var(--sf)");
+  $("cguide").setAttribute("d", `M${X} ${Y + 8}V${CH.y1}`);
+}
+
+function bars(t) {
+  const g = (a) => eo(prog(t, a, a + 0.7));
+  const hN = 180, hU = (hN * USED5) / NEW5;
+  $("bbN").style.height = `${hN * g(S.parts[2] + 0.15)}px`;
+  $("bbU").style.height = `${hU * g(S.parts[2] + 0.35)}px`;
+  $("bvN").style.opacity = g(S.parts[2] + 0.5);
+  $("bvU").style.opacity = g(S.parts[2] + 0.7);
+  const sv = back(prog(t, S.parts[2] + 1.0, S.parts[2] + 1.35));
+  $("bsave").style.opacity = clamp(prog(t, S.parts[2] + 1.0, S.parts[2] + 1.15));
+  $("bsave").style.transform = `translateX(-50%) scale(${0.7 + 0.3 * sv})`;
+}
+
+function questions(t) {
+  const [, , , , qa1, qa2, snd] = S.taps.map(([x]) => x);
+  const a1 = t >= qa1, a2 = t >= qa2, sent = t >= snd;
+  $("q1a").className = a1 ? "on" : ""; $("q2a").className = a2 ? "on" : "";
+  $("qq1").className = `q${a1 ? " got" : ""}`; $("qq2").className = `q${a2 ? " got" : ""}`;
+  $("q1a").style.transform = `scale(${a1 ? 0.9 + 0.1 * back(prog(t, qa1, qa1 + 0.25)) : 1})`;
+  $("q2a").style.transform = `scale(${a2 ? 0.9 + 0.1 * back(prog(t, qa2, qa2 + 0.25)) : 1})`;
+  $("sendall").innerHTML = sent ? `Sent${I.check(22).replace("<svg", '<svg class="ck"')}` : `Send · ${(a1 ? 1 : 0) + (a2 ? 1 : 0)} of 2`;
+  $("sendall").style.opacity = a1 && a2 ? 1 : a1 ? 0.7 : 0.45;
+  ST.press("sendall", t, snd);
+}
+
+function stage(t) {
+  const [p1, p2, p3, p4] = S.parts;
+  ST.slideUp(t, -1, 0);
+  ST.vis("L-idle", t, [[4.4, S.listen[0]]]);
+  ST.listening(t, [[S.listen[0], S.listen[1], ASK]]);
+  ST.working(t, [[S.work[0], S.work[1], "Looking at your budget", 0, 1]]);
+  ST.vis("L-stat", t, [[p1, p2]]);
+  ST.vis("L-calc", t, [[p2, p3]]);
+  ST.vis("L-bars", t, [[p3, p4]]);
+  ST.vis("L-qs", t, [[p4, 99]]);
+  ST.me(t, [[S.work[0], 99, ASK]]);
+  const cur = t < p2 ? 0 : t < p3 ? 1 : t < p4 ? 2 : t < S.sent ? 3 : 4;
+  ST.segs(t, [[p1, 99]], 4, cur);
+  if (t >= p4) $("nav").style.visibility = "hidden";
+  ST.badge(t, [[p1, 1], [p2, 2], [p3, 3]]);
+  ST.press("b-mic", t, S.listen[0]);
+  ST.press("b-next", t, [p2, p3, p4]);
+  calc(t); bars(t); questions(t);
+}
+
+function render(t) {
+  const up = eo(prog(t, 4.3, 5.05)), exit = ei(prog(t, S.outro - 0.4, S.outro + 0.1));
+  K.placePhone(t, K.camera(t, CAM), { dy: (1 - up) * 1150 + exit * 1000, opacity: (t > 4.3 ? 1 : 0) * (1 - prog(t, S.outro - 0.15, S.outro + 0.1)) });
+  hook(t);
+  stage(t);
+  K.caps(t, [["h1", 0.3, 4.1], ["h2", 1.8, 4.1], ["a1", 5.2, 12.9], ["a2", 9.9, 12.9], ["w1", 13.5, 20.6], ["w2", 15.2, 20.6],
+    ["c1", 21.3, 24.3], ["c2", 22.0, 24.3], ["q1", 24.9, 28.3], ["q2", 25.9, 28.3]]);
+  K.pills(t, [["pc", 14.0, 20.6]]);
+  K.outro(t, S.outro);
+  const G = S.taps.map(([tt, el]) => ({ t: tt, el }));
+  G.push({ t: S.drag.t0, t1: S.drag.t1, el: "kn-d" });
+  G.sort((a, b) => a.t - b.t);
+  K.finger(t, G);
+}
+
+window.ready = K.ready(() => render(0));
+window.render = render; window.DURATION = S.bars * 2.4; window.POSTER = 19.8;
+</script></body></html>

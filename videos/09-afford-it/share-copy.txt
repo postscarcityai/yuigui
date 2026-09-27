@@ -1,0 +1,5 @@
+Can you afford the car? Ask out loud. Your agent answers with one number, then a calculator you can drag: pull the down payment and watch the monthly payment fall under your budget. Numbers you can touch. In Yui 0.4, public beta on TestFlight: yuigui.com/start
+
+Numbers you can touch. Ask your agent if you can afford the car, and it answers with a calculator you can drag, the whole cost side by side, and two quick questions with one Send. Yui 0.4 is in public beta on TestFlight. Link in bio (yuigui.com/start).
+
+#aiagents #ios #buildinpublic #generativeui #personalfinance
