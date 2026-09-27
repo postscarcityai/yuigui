@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Homework rescue</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<link rel="stylesheet" href="../kit/stage.css">
+<style>
+@font-face { font-family: "KidHand"; src: url("file:///System/Library/Fonts/Supplemental/Bradley Hand Bold.ttf"); }
+#phoneWrap { z-index: 2; }
+.cap, .kpill { z-index: 3; }
+#outro { z-index: 4; }
+#glow { transform-origin: 50% 50%; }
+
+/* ---------- the hook: a worksheet under the lamp ---------- */
+#ws { position: absolute; left: 690px; top: 150px; width: 540px; height: 760px; z-index: 1; transform-origin: 50% 50%; }
+body.reel #ws { left: 250px; top: 640px; width: 580px; height: 800px; }
+.paper { position: absolute; inset: 0; border-radius: 10px; overflow: hidden;
+  background:
+    radial-gradient(90% 70% at 30% 20%, rgba(255,214,150,.30), transparent 70%),
+    repeating-linear-gradient(to bottom, transparent 0 43px, rgba(90,140,220,.30) 43px 45px),
+    #F3ECDD;
+  box-shadow: 0 40px 90px rgba(0,0,0,.55), 0 0 0 1px rgba(0,0,0,.2); color: #2E2A33; font-family: "YuiRounded", system-ui; }
+.paper::before { content: ""; position: absolute; left: 64px; top: 0; bottom: 0; width: 2px; background: rgba(220,90,90,.45); }
+.paper::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 90% at 70% 110%, rgba(22,17,31,.55), transparent 60%); }
+.wsh { position: absolute; left: 84px; right: 28px; top: 30px; display: flex; justify-content: space-between; align-items: baseline; font-size: 20px; font-weight: 700; color: #5A5462; }
+.wsh .t { font-size: 26px; font-weight: 800; color: #2E2A33; }
+.hand { font-family: "KidHand", "Bradley Hand", cursive; color: #4A4650; font-weight: 700; }
+.wsh .hand { font-size: 28px; margin-left: 6px; color: #3B3F7A; }
+.wsp { position: absolute; left: 84px; right: 24px; font-size: 27px; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+.wsp b { width: 30px; color: #7A7382; }
+.fr { display: inline-flex; flex-direction: column; align-items: center; line-height: 1; font-size: 25px; font-weight: 800; vertical-align: middle; }
+.fr i { font-style: normal; padding: 0 3px; }
+.fr i:first-child { border-bottom: 2.5px solid currentColor; padding-bottom: 2px; }
+.fr i:last-child { padding-top: 2px; }
+.bx { display: inline-block; width: 34px; height: 30px; border: 2.5px solid #2E2A33; border-radius: 4px; vertical-align: middle; }
+.wbar { display: inline-flex; border: 2.5px solid #2E2A33; border-radius: 4px; }
+.wbar i { width: 52px; height: 34px; border-right: 2.5px solid #2E2A33; }
+.wbar i:last-child { border-right: 0; }
+#scrib, #cross, #blot, #pencil { position: absolute; overflow: visible; }
+
+/* ---------- the stage, in Quill's orange ---------- */
+#st { --sfl: #FF9F43; }
+.s-face { background: var(--sf); }
+.pic .ttl { align-self: flex-start; font-size: 15px; font-weight: 800; color: var(--muted); }
+.pic svg.sh { width: 100%; height: auto; overflow: visible; }
+.sh text { font-family: "YuiRounded", system-ui; font-weight: 800; }
+
+/* memory */
+#L-game { justify-content: flex-start; padding-top: 4px; gap: 10px; }
+.g-title { font-size: 26px; font-weight: 800; letter-spacing: -0.01em; }
+.g-sub { font-size: 16px; font-weight: 700; color: var(--muted); height: 22px; margin-top: -4px; }
+.g-sub.win { color: var(--sfl); }
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 11px; margin-top: 6px; }
+.mc { position: relative; height: 104px; border-radius: 16px; display: grid; place-items: center; font-size: 29px; font-weight: 800; letter-spacing: -0.01em; }
+.mc.down { background: linear-gradient(145deg, color-mix(in srgb, var(--sfl) 88%, #fff), var(--sf)); color: rgba(255,255,255,.55); font-size: 30px; font-weight: 900;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.18); }
+.mc.down::after { content: ""; position: absolute; inset: 9px; border-radius: 10px; border: 1.5px dashed rgba(255,255,255,.35); }
+.mc.up { background: var(--card); color: var(--ink); box-shadow: inset 0 0 0 2px var(--sfl); }
+.mc.got { background: var(--mint); color: #173A2E; box-shadow: none; }
+.g-again { height: 50px; border-radius: 25px; background: var(--sf); color: #fff; display: grid; place-items: center; font-size: 17px; font-weight: 800; margin-top: 6px; }
+
+/* the quiz page */
+#L-quiz { gap: 14px; }
+.qz-tag { align-self: flex-start; font-size: 13px; font-weight: 900; letter-spacing: .08em; color: var(--sfl); background: color-mix(in srgb, var(--sfl) 16%, transparent); border-radius: 999px; padding: 6px 12px; }
+.qz-opts { display: flex; gap: 14px; }
+.qo { position: relative; flex: 1; height: 150px; border-radius: 24px; background: var(--card); box-shadow: inset 0 0 0 2px var(--line); display: grid; place-items: center; font-size: 54px; font-weight: 800; }
+.qo.right { background: #2F9E7E; color: #fff; box-shadow: none; }
+.qo .ck { position: absolute; top: 10px; right: 12px; opacity: 0; }
+.qz-why { background: color-mix(in srgb, #2F9E7E 18%, var(--card)); border-radius: 18px; padding: 14px 16px; font-size: 17px; line-height: 1.4; color: var(--ink); visibility: hidden; }
+.qz-why b { color: #6FD3B2; }
+
+/* 3 of 3 */
+.stat3 { font-size: 64px; font-weight: 900; letter-spacing: -0.02em; color: var(--sfl); line-height: 1; }
+.dots3 { display: flex; gap: 12px; }
+.dots3 i { width: 40px; height: 40px; border-radius: 50%; background: #2F9E7E; display: grid; place-items: center; }
+.q .o span.on { background: var(--sf); }
+</style>
+<script src="score.js"></script>
+</head>
+<body class="dark">
+<div id="stage"><div id="glow"></div>
+  <div id="ws"><div class="paper">
+    <div class="wsh"><span>Name:<span class="hand">Maya</span></span><span class="t">Fractions</span></div>
+    <div class="wsp" style="top:120px"><b>1.</b><span class="fr"><i>2</i><i>4</i></span> = <span class="fr"><i><span class="bx"></span></i><i>2</i></span>
+      <span class="hand" style="font-size:40px;margin-left:10px;color:#4A4650">4</span></div>
+    <div class="wsp" style="top:240px"><b>2.</b>Which is bigger?</div>
+    <div class="wsp" style="top:300px;left:126px;gap:18px"><span class="fr"><i>1</i><i>3</i></span> or <span class="fr"><i>1</i><i>4</i></span>
+      <span class="hand" style="font-size:36px;margin-left:24px">1/4 ?</span></div>
+    <div class="wsp" style="top:420px"><b>3.</b><span class="fr"><i>3</i><i>4</i></span> + <span class="fr"><i>1</i><i>8</i></span> = ?</div>
+    <div class="wsp" style="top:530px"><b>4.</b>Shade <span class="fr"><i>1</i><i>2</i></span> of the bar.</div>
+    <div class="wsp" style="top:600px;left:126px"><span class="wbar"><i></i><i></i><i></i><i></i></span></div>
+    <svg id="scrib" style="left:236px;top:112px" width="110" height="80" viewBox="0 0 110 80"><path id="scribP" d="M10 44 C 30 18, 42 66, 58 36 S 84 16, 92 44 S 60 70, 40 42 S 70 20, 100 40" stroke="#57535E" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/></svg>
+    <svg id="cross" style="left:330px;top:300px" width="130" height="60" viewBox="0 0 130 60"><path id="crossP" d="M6 40 L 124 18" stroke="#57535E" stroke-width="5" fill="none" stroke-linecap="round" opacity=".85"/></svg>
+    <svg id="blot" style="left:280px;top:360px" width="120" height="100" viewBox="0 0 120 100"><path d="M60 18 C 84 16, 98 34, 94 52 C 91 72, 70 84, 52 80 C 30 77, 20 60, 26 42 C 31 27, 44 19, 60 18 Z" fill="rgba(120,125,165,.14)" stroke="rgba(95,100,150,.32)" stroke-width="2"/><circle cx="100" cy="86" r="7" fill="rgba(120,125,165,.14)" stroke="rgba(95,100,150,.3)" stroke-width="1.5"/></svg>
+    <svg id="pencil" style="left:330px;top:640px" width="300" height="80" viewBox="0 0 300 80"><g transform="rotate(-18 150 40)"><rect x="40" y="28" width="200" height="24" rx="3" fill="#F5B83D"/><rect x="40" y="28" width="200" height="8" fill="#FFD27A"/><rect x="236" y="26" width="26" height="28" rx="3" fill="#B9B4BE"/><rect x="258" y="26" width="26" height="28" rx="6" fill="#F08A9A"/><path d="M40 28 L 6 40 L 40 52 Z" fill="#E9CFA6"/><path d="M16 36.5 L 6 40 L 16 43.5 Z" fill="#3A3340"/></g></svg>
+  </div></div>
+
+  <div class="cap L" id="c0L">Homework at 8&nbsp;pm?</div>
+  <div class="cap R accent" id="c0R">Stuck on fractions.</div>
+  <div class="cap L" id="c1L">Ask out loud.</div>
+  <div class="cap R accent" id="c1R">Then hand her the phone.</div>
+  <div class="cap L" id="c2L">See it first.</div>
+  <div class="cap R accent" id="c2R">A picture makes it click.</div>
+  <div class="cap L" id="c3L">Then play it.</div>
+  <div class="cap R accent" id="c3R">The cards are her fractions.</div>
+  <div class="cap L" id="c4L">Then a quick check.</div>
+  <div class="cap R accent" id="c4R">She gets it right.</div>
+  <div class="cap L" id="c5L">Your agent sees the score.</div>
+  <div class="cap R accent" id="c5R">And plans tomorrow.</div>
+  <div class="kpill" id="p3"><b>game memory</b> items=1/2|1/3|…</div>
+  <div class="kpill" id="p5" style="font-size:22px"><b>→ agent</b> {"done":true,"score":3,"of":3}</div>
+
+  <div id="outro">
+    <img id="owm" src="../kit/yui-wordmark-coral.png" alt="">
+    <div id="otag">Help you can see and play.</div>
+    <div id="ourl">yuigui.com/start</div>
+    <div id="onote">In Yui 0.4. Public beta on TestFlight.</div>
+  </div>
+  <div id="ripple"></div><div id="finger"></div>
+</div>
+
+<script src="../kit/kit.js"></script>
+<script src="../kit/stage.js"></script>
+<script>
+const S = window.SCORE;
+const { $, prog, clamp, eo, ei, eio, back, lerp } = K;
+const ASK = "Maya's stuck on fractions. Can you help?";
+
+// ---------- part 1: the chocolate bar, a shapes diagram (w=10 h=6), drawn as the app draws it ----------
+const U = 1; // one canvas unit
+const SHAPES = [
+  // [kind, x, y, w, h, label, tone, fill, time offset]
+  ["box", 2, 1.8, 2, 1.4, "1/4", "acc", true],
+  ["box", 4, 1.8, 2, 1.4, "1/4", "acc", true],
+  ["box", 6, 1.8, 2, 1.4, "1/4", "acc", false],
+  ["box", 8, 1.8, 2, 1.4, "1/4", "acc", false],
+  ["box", 3, 4.2, 4, 1.4, "1/2", "mint", true],
+  ["box", 7, 4.2, 4, 1.4, "1/2", "mint", false],
+];
+const shapeSvg = () => {
+  const g = SHAPES.map(([k, x, y, w, h, lab, tone, fill], i) => {
+    const c = tone === "mint" ? "var(--mint)" : "var(--sfl)";
+    return `<g id="sh${i}" style="transform-box: fill-box; transform-origin: 50% 50%">
+      <rect x="${x - w / 2 + 0.06}" y="${y - h / 2}" width="${w - 0.12}" height="${h}" rx="0.28" fill="${fill ? `color-mix(in srgb, ${c} 34%, transparent)` : "none"}" stroke="${c}" stroke-width="0.08"/>
+      <text x="${x}" y="${y + 0.19}" text-anchor="middle" font-size="0.56" fill="var(--ink)">${lab}</text></g>`;
+  }).join("");
+  return `<svg class="sh" viewBox="-0.2 0.4 10.4 5.2">${g}<line id="shL" x1="5" y1="0.75" x2="5" y2="5.25" stroke="var(--muted)" stroke-width="0.07" stroke-dasharray="0.22 0.16"/></svg>`;
+};
+const PIC1 = `<div class="pic"><div class="ttl">Half a chocolate bar</div>${shapeSvg()}<div class="cap2">Two quarters cover the same as one half.</div></div>`;
+
+// ---------- part 2: memory, 12 cards, the faces are her fractions ----------
+const FACES = ["1/4", "1/2", "2/3", "3/4", "1/8", "3/4", "1/3", "1/2", "2/3", "1/8", "1/4", "1/3"];
+// per card: [[up, down|null], ...] and when it matched
+const CARD = {};
+FACES.forEach((_, i) => (CARD[i] = { ups: [], match: null }));
+const up = (i, a, z = null) => CARD[i].ups.push([a, z]);
+up(1, 15.0); up(7, 15.6); CARD[1].match = CARD[7].match = 15.6;
+up(0, 16.2, 17.5); up(5, 16.8, 17.5);
+up(3, 18.0); up(5, 18.6); CARD[3].match = CARD[5].match = 18.6;
+for (let k = 0; k < S.flips.length; k += 2) {
+  const [a, i] = S.flips[k], [b, j] = S.flips[k + 1];
+  up(i, a); up(j, b); CARD[i].match = CARD[j].match = b;
+}
+const GAME = `<div class="s-L" id="L-game"><div class="g-title">Fraction pairs</div><div class="g-sub" id="gsub">Find the pairs.</div>
+  <div class="grid">${FACES.map((f, i) => `<div class="mc down" id="m${i}">Q</div>`).join("")}</div>
+  <div class="g-again" id="again">Play again</div></div>`;
+
+// ---------- part 3: the quiz, the last page of the deck ----------
+const QUIZ = `<div class="s-L" id="L-quiz"><div class="qz-tag">QUIZ · 3 OF 3</div><div class="q-title">Which is bigger?</div>
+  <div class="qz-opts"><div class="qo" id="qa">1/3<span class="ck">${ST.I.check(30)}</span></div><div class="qo" id="qb">1/4</div></div>
+  <div class="qz-why" id="why"><b>Right.</b> Cut the same bar into 3, and each piece is bigger than cut into 4.</div></div>`;
+
+// ---------- the agent's side: the score, and tomorrow ----------
+const PIC4 = `<div class="pic" style="min-height:220px"><div class="stat3">3 of 3</div><div class="dots3">${[0, 1, 2].map((k) => `<i id="d${k}">${ST.I.check(24)}</i>`).join("")}</div><div class="cap2">Right on the first try, all three.</div></div>`;
+const QS = `<div class="s-L" id="L-qs" style="justify-content:flex-start;gap:12px;padding-top:30px">
+  <div class="q-title">Before I go</div><div class="s-sub" style="margin-top:-8px">1 quick question, one Send.</div>
+  <div class="q" id="q1"><h5>Same time tomorrow?</h5><div class="o"><span id="y1">Yes, 8 pm</span><span>Not tomorrow</span></div></div>
+  <div style="flex:1"></div>
+  <div class="s-send" id="sendq">Send · 0 of 1</div></div>`;
+
+K.phone(`<div class="page" id="pg">${ST.html({ dark: true, agent: { name: "Quill", letter: "Q", color: "#C2620D" },
+  layers: ST.idle("Hi. Tap the mic<br>and talk.", "I answer right here, on the whole screen.", "Q") + ST.listen() + ST.work()
+    + ST.part("p1", PIC1, "2/4 is the same as 1/2.") + GAME + QUIZ
+    + ST.part("p4", PIC4, "Maya got 3 of 3. Tomorrow: adding fractions.") + QS })}</div>`);
+document.querySelector(".sbar .time").textContent = "8:04";
+
+// ---------- the kicks, from the same sections the music plays (dub(): level 2 on 3, level 3 on 1, 3 and the and of 3 on odd bars) ----------
+const BAR = 2.4, STEP = 0.15;
+const KICKS = [];
+for (const [a, z, lv] of S.sections) for (let b = a; b < z; b++) {
+  if (lv >= 2) KICKS.push(b * BAR + 8 * STEP);
+  if (lv >= 3) { KICKS.push(b * BAR); if (b % 2) KICKS.push(b * BAR + 10 * STEP); }
+}
+
+// ---------- the camera: [time, scale, focus (local y, 0 is the phone's center), rotation] ----------
+const GRIDY = -30;
+const CAM = [
+  [0, 1.12, 0], [4.4, 1.14, 0], [9.6, 1.15, 0], [10.6, 1.3, -40], [13.8, 1.32, -40], [14.5, 1.18, 0],
+  [15.0, 1.2, GRIDY], [16.4, 1.4, GRIDY], [20.2, 1.42, GRIDY], [21.4, 1.2, 0],
+  [22.0, 1.2, 0], [22.8, 1.3, -10], [23.8, 1.3, -10], [24.4, 1.18, 0],
+  [26.4, 1.18, 0], [27.0, 1.26, 40], [28.0, 1.26, 40], [28.6, 1.2, 0],
+];
+
+function hook(t) {
+  const ws = $("ws");
+  const on = t < 4.7;
+  ws.style.visibility = on ? "visible" : "hidden";
+  if (!on) return;
+  const inn = eo(prog(t, 0, 0.6)), out = eio(prog(t, 3.4, 4.3));
+  const s = (0.96 + 0.04 * inn + 0.05 * prog(t, 0, 3.6)) * (K.REEL ? 1.2 : 1.14);
+  ws.style.opacity = inn * (1 - 0.8 * out);
+  ws.style.transform = `translateY(${out * 140}px) rotate(${-2.2 + 0.6 * prog(t, 0, 3.6)}deg) scale(${s * (1 - 0.06 * out)})`;
+  ws.style.filter = out > 0.01 ? `blur(${out * 5}px)` : "none";
+  // the pencil scribbles out an answer, then crosses out a guess; a tear lands
+  const sp = $("scribP"), L1 = 330;
+  sp.style.strokeDasharray = L1; sp.style.strokeDashoffset = L1 * (1 - eio(prog(t, 0.6, 1.5)));
+  const cp = $("crossP"), L2 = 125;
+  cp.style.strokeDasharray = L2; cp.style.strokeDashoffset = L2 * (1 - eo(prog(t, 1.8, 2.1)));
+  const bp = eo(prog(t, 2.4, 3.0));
+  $("blot").style.opacity = bp; $("blot").style.transform = `scale(${0.4 + 0.6 * bp})`;
+}
+
+function shapesPart(t) {
+  const t0 = S.picture + 0.35;
+  SHAPES.forEach((_, i) => {
+    const a = t0 + i * 0.33, p = prog(t, a, a + 0.4);
+    let s = back(p);
+    if (i === 4 && t > a + 0.5) s *= 1 + 0.04 * Math.sin((t - a - 0.5) * 5); // +pulse
+    const g = $(`sh${i}`);
+    g.style.opacity = clamp(p * 2);
+    g.style.transform = `scale(${Math.max(0, s)})`;
+  });
+  const lp = eio(prog(t, t0 + 6 * 0.33, t0 + 6 * 0.33 + 0.5));
+  $("shL").style.opacity = clamp(lp * 3);
+  $("shL").setAttribute("y2", lerp(0.75, 5.25, lp));
+}
+
+function memory(t) {
+  FACES.forEach((f, i) => {
+    const c = CARD[i], el = $(`m${i}`);
+    // the latest flip at or before t
+    let face = false, flipT = -9;
+    for (const [a, z] of c.ups) {
+      if (t >= a) { face = true; flipT = a; }
+      if (z != null && t >= z) { face = false; flipT = z; }
+    }
+    const p = prog(t, flipT, flipT + 0.22);
+    const showFace = p < 0.5 ? !face : face;
+    const got = c.match != null && t >= c.match + 0.11 && face;
+    el.className = `mc ${showFace ? (got ? "got" : "up") : "down"}`;
+    el.textContent = showFace ? f : "Q";
+    let sc = 1;
+    if (c.match != null && t >= c.match + 0.11) sc = 0.88 + 0.12 * back(prog(t, c.match + 0.11, c.match + 0.45));
+    if (t >= S.cleared) sc *= 1 + 0.08 * Math.sin(Math.PI * prog(t, S.cleared + (i % 4) * 0.05 + Math.floor(i / 4) * 0.08, S.cleared + 0.3 + (i % 4) * 0.05 + Math.floor(i / 4) * 0.08));
+    el.style.transform = `scaleX(${Math.max(0.02, Math.abs(Math.cos(Math.PI * p)))}) scale(${sc})`;
+  });
+  const done = t >= S.cleared + 0.2;
+  $("gsub").textContent = done ? "All 6 pairs in 8 moves, 46s." : "Find the pairs.";
+  $("gsub").className = `g-sub${done ? " win" : ""}`;
+  const ap = eo(prog(t, S.cleared + 0.3, S.cleared + 0.6));
+  $("again").style.opacity = ap;
+  $("again").style.transform = `translateY(${(1 - ap) * 12}px)`;
+}
+
+function quiz(t) {
+  const r = t >= S.right + 0.05;
+  $("qa").className = `qo${r ? " right" : ""}`;
+  const d = Math.sin(Math.PI * prog(t, S.right - 0.05, S.right + 0.16));
+  $("qa").style.transform = `scale(${(1 - 0.08 * d) * (r ? 0.94 + 0.06 * back(prog(t, S.right + 0.05, S.right + 0.4)) : 1)})`;
+  $("qa").querySelector(".ck").style.opacity = eo(prog(t, S.right + 0.1, S.right + 0.3));
+  $("qb").style.opacity = r ? 1 - 0.45 * prog(t, S.right, S.right + 0.3) : 1;
+  ST.vis("why", t, [[S.right + 0.25, 99]], 10);
+}
+
+function agentSide(t) {
+  [0, 1, 2].forEach((k) => { const p = back(prog(t, S.reply + 0.3 + k * 0.2, S.reply + 0.6 + k * 0.2)); $(`d${k}`).style.transform = `scale(${Math.max(0, p)})`; });
+  const a1 = t >= 27.05, sent = t >= S.sent + 0.05;
+  $("y1").className = a1 ? "on" : "";
+  $("q1").className = `q${a1 ? " got" : ""}`;
+  $("y1").style.transform = `scale(${a1 ? 0.9 + 0.1 * back(prog(t, 27.05, 27.3)) : 1 - 0.08 * Math.sin(Math.PI * prog(t, 26.95, 27.16))})`;
+  $("sendq").innerHTML = sent ? `<span>Sent ${ST.I.check(22).replace("<svg", '<svg style="vertical-align:-5px;margin-left:4px"')}</span>` : `Send · ${a1 ? 1 : 0} of 1`;
+  $("sendq").style.opacity = a1 ? 1 : 0.45;
+  ST.press("sendq", t, S.sent);
+}
+
+function stage(t) {
+  ST.vis("L-idle", t, [[3.9, 4.85]]);
+  ST.listening(t, [[4.85, 7.8, ASK]]);
+  ST.working(t, [[7.8, 9.6, "Picking a way to show it", 0, 1], [24.0, 24.6, "Reading Maya's score", 0, 1]]);
+  ST.vis("L-p1", t, [[9.6, 14.4]]);
+  ST.vis("L-game", t, [[14.4, 21.6]]);
+  ST.vis("L-quiz", t, [[21.6, 24.0]]);
+  ST.vis("L-p4", t, [[24.6, 26.4]]);
+  ST.vis("L-qs", t, [[26.4, 99]]);
+  ST.me(t, [[7.8, 24.0, ASK]]);
+  const cur = t < 14.4 ? 0 : t < 21.6 ? 1 : 2;
+  if (t < 24.3) ST.segs(t, [[9.6, 24.0]], 3, cur, false);
+  else ST.segs(t, [[24.6, 99]], 2, t < 26.4 ? 0 : 1, false);
+  ST.vis("nav", t, [[9.6, 24.0]], 0);
+  $("b-back").style.opacity = cur === 0 ? 0.35 : 1;
+  ST.badge(t, [[9.6, 1], [14.4, 2], [21.6, 3], [24.6, 4], [26.4, 5]]);
+  ST.press("b-mic", t, S.drop);
+  ST.press("b-next", t, [14.4, 21.6]);
+  shapesPart(t);
+  memory(t);
+  quiz(t);
+  agentSide(t);
+}
+
+function render(t) {
+  // the glow breathes with the kick
+  let pulse = 0;
+  for (const k of KICKS) { const d = t - k; if (d >= 0 && d < 1.2) pulse += Math.exp(-d / 0.22); }
+  $("glow").style.opacity = 0.55 + 0.45 * clamp(pulse);
+  $("glow").style.transform = `scale(${1 + 0.04 * clamp(pulse)})`;
+
+  hook(t);
+  const rise = eo(prog(t, 3.5, 4.4)), exit = ei(prog(t, 28.4, 28.9));
+  K.placePhone(t, K.camera(t, CAM), { dy: (1 - rise) * 1000 + exit * 1000, opacity: prog(t, 3.5, 3.7) * (1 - prog(t, 28.65, 28.9)) });
+  stage(t);
+
+  K.caps(t, [["c0L", 0.3, 4.4], ["c0R", 1.6, 4.4], ["c1L", 5.0, 9.3], ["c1R", 6.6, 9.3], ["c2L", 9.9, 14.1], ["c2R", 11.4, 14.1],
+    ["c3L", 14.7, 21.3], ["c3R", 16.2, 21.3], ["c4L", 21.8, 24.45], ["c4R", 22.9, 24.45], ["c5L", 24.7, 28.4], ["c5R", 26.2, 28.4]]);
+  K.pills(t, [["p3", 15.2, 21.3], ["p5", 25.0, 28.4]]);
+  K.outro(t, S.outro);
+  K.finger(t, S.taps.map(([tt, el]) => ({ t: tt, el })));
+}
+
+window.ready = K.ready(() => render(0));
+window.render = render; window.DURATION = 33.6; window.POSTER = 18.9;
+</script></body></html>
