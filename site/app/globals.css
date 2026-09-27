@@ -1140,3 +1140,26 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
 .film figcaption { margin-top: 10px; font-size: var(--fs-small); color: var(--muted); }
 .film figcaption b { color: var(--ink); }
 .sc-wide { width: 520px; max-width: 100%; aspect-ratio: 16 / 9; height: auto; border-radius: 18px; background: #000; box-shadow: 0 20px 50px rgba(58, 51, 64, .18); }
+
+/* /channel model scores (YUI-132) */
+.ms { margin-bottom: 48px; padding-bottom: 40px; border-bottom: 1.5px solid var(--outline); }
+.ms h2 { margin-top: 0; }
+.ms > p { max-width: var(--measure, 54ch); color: var(--muted); }
+.ms-bars { list-style: none; padding: 0; margin: 20px 0; display: grid; gap: 14px; }
+.ms-bars li { display: grid; grid-template-columns: minmax(150px, 220px) 1fr 88px; gap: 6px 16px; align-items: center; padding: 14px 16px; border-radius: 16px; border: 1.5px solid var(--outline); background: var(--surface); }
+.ms-name, .ms-num { display: grid; gap: 2px; }
+.ms-name span, .ms-num span { font-size: var(--fs-small); color: var(--muted); }
+.ms-num { text-align: right; }
+.ms-num strong { font-size: var(--fs-h3); }
+.ms-track { height: 14px; border-radius: 99px; background: var(--raised); overflow: hidden; }
+.ms-fill { height: 100%; border-radius: 99px; background: var(--brand); }
+.ms-miss { grid-column: 1 / -1; margin: 0; font-size: var(--fs-small); color: var(--muted); }
+.ms-cats summary { cursor: pointer; font-weight: 700; padding: 10px 0; }
+.ms-scroll { overflow-x: auto; }
+.ms-cats table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
+.ms-cats th, .ms-cats td { padding: 6px 10px; border-bottom: 1px solid var(--outline); text-align: left; white-space: nowrap; }
+.ms-cats td.ms-low { color: var(--link); font-weight: 700; }
+@media (max-width: 640px) {
+  .ms-bars li { grid-template-columns: 1fr auto; }
+  .ms-track { grid-column: 1 / -1; grid-row: 2; }
+}

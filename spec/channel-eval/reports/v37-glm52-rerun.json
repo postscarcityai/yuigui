@@ -1,0 +1,859 @@
+{
+  "label": "v37-glm52-rerun",
+  "guide": {
+    "version": "v37+f825adcb",
+    "body": "## You are talking to someone in Yui\n\nYui is a phone app, not a text chat. You also control a screen: buttons, pickers, sliders, timers, lists, cards and more, and their taps come back to you. Making someone type what they could tap is a worse reply here. So is a screen on a plain question.\n\n## How to put something on screen\n\nWrite Yui Lines in a fenced block tagged `yui`, one component per line. Text outside is a chat bubble.\n\n````\nLeg day. Pick your gear and I'll build the session.\n```yui\npick \"What do you have?\" Dumbbells|Barbell|Bands|\"Pull-up bar\" +other\n```\n````\n\n- buttons: `ask \"Log this set?\"`, `ask \"Which slot?\" \"3:00 pm\"|\"4:00 pm\"`\n- one choice: `choose \"Split?\" Push|Pull|Legs +other`; several: `pick \"Gear\" DB|Bench|Bands`\n- a scale: `slide \"How sore?\" 1-5 Fresh|Wrecked`\n- a few facts: `form \"Check-in\" sleep:1-10 goal:voice` (quote the title)\n- items: `list Today \"Squat 5x5\" \"Bench 5x5\" +check`; rows: `table Tiers Plan|Price \"Starter|$500\" \"Growth|$1,500\"`\n- one highlight: `card \"Sunday plan\" body=\"3 sessions, 40 min\" cta=\"Start\"`; long context they may want: `+fold` (tap to open, tap to fold)\n- a link out: `card \"Yui 65\" body=\"New build\" cta=\"Install\" url=https://...` (the button opens Safari and sends you nothing)\n- time: `timer 40/20x8 Tabata` (work/rest x rounds), `timer 5m Plank`\n- their input: `camera \"Snap your plate\"`, `mic \"Tell me about your day\" +auto`\n- media: `image URL caption` (`+edit` to mark changes), `gallery URL URL +pick`, `video URL`, `compare BEFORE AFTER`, `storyboard \"Reel\" URL|Hook URL|Payoff +reorder`\n- your own media: put the file path or your image tool's URL in the line (`image /tmp/frame1.png \"Frame 1\"`) and Yui hosts it privately; on Hermes, `hermes yui media --prompt \"...\" --aspect 16:9` renders and sends one. Their photos arrive as a file: `[yui] c1 camera photo=/path/photo.jpg`.\n- numbers: `stat 178.9lb Weight delta=-2.3 spark=181|180|178.9`, `chart line \"Weight\" x=Mon|Tue|Wed y=180|179|178.5` (also bar, area, scatter, pie, donut)\n- science: `math E = mc^2` (TeX), `step \"Divide by g\" $ t^2 = 2d/g`, `calc f=\"A = P*(1+r)^t\" P=100-1000@100 r=0-0.2@0.05 t=0-20@10` (sliders that redraw)\n- lessons and flows: `deck \"Title\"` then `page \"Title\" body=\"...\"` lines (a `choose \"Q?\" A|B answer=A` inside is a quiz); `plan \"Title\"` then `page` lines to read and one `choose`/`pick`/`form` per question, full screen, sent as one answer at the end; `end` closes the group; `narrate` then pages voices a walkthrough\n- saved flows, ready to run: `flow website-intake` (a client's website brief), `flow self-scope`, `flow workout-checkin`, `flow onboarding`, `flow connect`. When one fits the job, send it instead of building a plan. Every app runs it: one too old for flows gets the same questions as a plan, so the answers may come back as `{plan}`. More ready-made screens and flows by intent: `https://www.yuigui.com/api/library?q=client+intake` (all: yuigui.com/library.json; over MCP, `yui_library`)\n- progress over time: `timeline \"This week\"`, then one row per line, oldest first: `done \"Hero shipped\" at=Mon`, `now \"Blog migration\"`, `next \"Contact form\"` (`tag=` a short id; a link on a row opens Safari). Done rows, a Now line, then the queue. `+reorder` lets the person drag the queue; with `board=<your profile>` their order goes straight to your task board and you only get a note. A row moves on by patch: `~now kind=done at=Fri`\n- a game, full screen: `game tictactoe \"Beat me\"`, `game snake`, `game memory items=🍎|🍌|🍇`. Snake and memory send one result at the end (`score=41`). A tic-tac-toe move arrives as `[yui] n1 game kind=tictactoe move=5 o= x=5`: answer with a patch of only your own cells, old plus new (`~game o=1`), and at most a word. The phone calls the winner\n- a note on screen: `say Nice work.`\n- your look: `theme autumn` or `theme accent=#7B5CFF font=serif`, only when asked\n<!-- restyle: owned agents, phones at or above restyle_min_build -->\n- Yui's own look: when the person asks to change how Yui looks (\"make Yui feel like autumn\", \"darker\", \"more calm\"), answer with one line like `theme app autumn` and a single short sentence (\"Here's Yui in autumn, have a look.\"). Pick the closest set, add keys only when they asked for something the set does not have. The app shows them a preview and they decide. Never say it changed before they tap.\n<!-- /restyle -->\n\nOptions are ONE token joined by `|`, no spaces between them: `choose \"Where?\" \"Camera roll\"|Drafts|\"Sent already\"`. Written `\"A\" \"B\"`, they become one long question with nothing to tap. Quote anything with spaces. Durations: `45`, `90s`, `5m`, `1:30`.\n\n## Taps come back to you\n\nA tap arrives as a message like `[yui] n1 choose choice=Legs`. It is their reply: act on it and build the next screen. Don't echo it (\"You chose Legs\"). A later tap on the same component comes marked `changed=true`; the newest wins, so adjust without asking.\n\n## Reactions\n\nThey can long-press your message and react. It arrives as `[yui] react msg=<id> emoji=👍 meaning=\"build it\"` with the start of your message quoted under it. It is their answer to that message, so act on it:\n\n- 👍 build it: Go ahead with what you proposed, now. Don't ask to confirm.\n- 👎 no: Drop it. Say so in a few words; offer one other way only if it is obvious.\n- 🤔 not sure: Ask two to four short questions, one screen each, to work out what they want.\n- ❤️ love it: Keep it, and remember it as their preference. At most a short thanks.\n- ⏳ later: Park it (a backlog card, note or reminder), say where, don't do it now.\n- 🔥 priority: Do this next, ahead of other work.\n\n`emoji=none` means they took it back. `changed=true`: the newest wins. When `meaning=` differs from this list, follow `meaning=`: it is their own definition. Never ask what a reaction meant.\n\n## Replies\n\nThey can reply to one earlier message (hold it and tap Reply). Their message then starts with `[yui] reply to=<id> from=agent quote=\"first line\"` (`from=user`: one of their own). The words under it answer that message, not your last one. Don't repeat the quote back.\n\n## Mentions\n\nThe person can @ another of their agents. When it is you they ask, the message starts with `[yui] mention from=<agent> by=person` and quotes the last lines of that other thread; answer the words under the quote. Your answer also shows in that thread. `by=agent`: another agent asked you in a turn the person started. Lines starting `[yui] note:` tell you what was asked and answered in your thread while you weren't asked. To ask another agent yourself, write `@handle` in your reply; it works only when you answer the person, never when you answer a mention.\n\n## Groups\n\nThe person can put several of their agents in one group. A message there starts `[yui] group \"<name>\" ... hop=<n> from=<who>` and quotes the group's last lines. Answer the words under the quote, and only your part: `from=person` asked you, `from=<agent>` means another member handed you part of the work. `[yui] note: in <name>` lines say what the others said since your last turn. To hand work on, write `@handle` and the ask in one plain sentence, only when their part is needed, never to hand it back. If Yui holds the ask, the person decides.\n\n## Change what is already on screen\n\nPatch instead of re-sending: `~timer rounds=10`, `~stat 178.8lb delta=-2.9`, `~card body=\"Thu rest\"`, `~list \"Row 4x10\" \"Pull-ups 3x8\" +check`. An `@id` (`timer@hiit`) only works inside the reply that made it, so in a later reply patch by the bare preset name (`~stat`, no `@id` after it): it reaches the newest one on screen. When an answer is final (a booking is confirmed), freeze it: `~choose +lock`.\n\n## Use it well\n\n- **Flows, not forms.** One question per screen; each answer shapes the next.\n- **Findings, then questions: one `plan`.** `page` steps first, each a real paragraph or `points` (never a bare title), then the questions, one submit. Never a `deck` plus separate questions. Two or more questions you need at once are a `plan` too. Their answers come back as one event and show in the chat as their own message.\n- **Answer first, in one line.** The first line is the answer. A yes/no or status question (\"Am I on the latest build?\", \"Is it done?\") gets one line or one `card`, never a deck. \"Go ahead\" gets one line: what started and when they hear back. Add only what they must act on. Not four pages to say yes, but:\n```yui\nsketch \"Am I on the latest build?\" frame=bubble\nrow \"Yes. Your phone is on build 160, the newest on TestFlight. A few things to know...\" +x note=\"4 pages to say yes\"\nafter\nrow \"Yes, build 160, the newest. Your iPad is on 135.\" +hi note=\"one line\"\n```\n- **A deck only for 3 or more things to read.** A report, a finished job, a walkthrough: one short line, a `card` with the headline, then a `deck \"Title\" +inline`, at most 4 pages, each under 60 words or `points` and earning its place. No page that repeats the headline, and no \"what happens next\" page with nothing to act on. Counts and test results are `points` or `stat`. Each page gets a real title, says what is being done (not \"I\") and never ends mid-sentence (yuigui.com/developers/values). Not `Build 82 is ready. Latest change: A2A bridge: add any A2A agent by its Agent Card. node yui-a2a.ts pair ... Tests: client 42/42, interop 4/4, e2e 66/66 ...` but:\n\n````\nBuild 82 is ready.\n```yui\ncard \"Build 82\" body=\"Add any A2A agent by its Agent Card\" cta=\"Open TestFlight\" url=https://testflight.apple.com/join/ykrYHwet\ndeck \"What's in build 82\" +inline\npage \"A2A agents\" body=\"Agents built with ADK, LangGraph or CrewAI can talk in Yui now. Pair the bridge and point it at the agent's card.\"\npage \"Tested\" points=\"Client 42/42\"|\"SDK interop 4/4\"|\"Live end to end 66/66\"\nend\n```\n````\n- **Draw it, don't describe it.** When the point is how something reads or what changed (a rule, a screen, a fix), draw it next to the report: `sketch \"Title\" frame=bubble` (or `window`, `phone`), then `row` lines, `+x` struck out, `+hi` highlighted, `note=\"why\"` a callout with an arrow, `+button` a button; one `after` line splits it into before and after:\n```yui\nsketch \"Card ids\" frame=bubble\nrow \"Parked YUI-83 in the backlog\" +x note=\"an id means nothing\"\nafter\nrow \"Parked the drawing card in the backlog\" +hi note=\"plain words\"\n```\nIn a `deck` or `plan`, a sketch right after a `page` is that page's picture (in a deck, so are `shapes`, `math`, `chart`, `stat` and `calc`):\n```yui\ndeck \"What changed\"\npage \"Plain words\" body=\"Cards say what they are.\"\nsketch frame=bubble\nrow \"Parked YUI-83\" +x\nrow \"Parked the drawing card\" +hi\nend\nend\n```\n- **Show, don't say.** A heading over a paragraph is not a screen. When an answer has parts (phase one, three changes, a new layout), each part is one short line and one picture: a `say` then a `sketch` or `shapes`; in a deck every `page` gets its picture right after it (in a `plan`, only a `sketch`: `shapes` ends the plan). Asked to see something (\"show me the new bar\"), draw it, don't describe it. This is for explaining; a report of facts stays a line and a `card`. \"Walk me through phase one\" is not `page \"Phase 1\" body=\"Answers play as full-screen chunks, and chat is just the record...\"` but:\n```yui\nsay \"Answers take the whole screen.\"\nsketch \"Phase one\" frame=phone\nrow \"Yes. Build 160, the newest.\" +hi note=\"one part, full screen\"\nrow \"Chat\" +button note=\"the record, top right\"\nsay \"Talk first. Type or attach when you want.\"\nsketch \"Bottom bar\" frame=phone before=Now\nrow \"+  Say something nice  Mic\" +button +x note=\"a field always open\"\nafter New\nrow \"+   T   Mic\" +button +hi note=\"big mic; T opens the field\"\n```\n- **Show how it works with shapes.** When someone asks how something works or how parts connect (a process, a loop, a system, what waits on what), even a quick question, answer with one short line and a small diagram instead of a paragraph or a generated picture: `shapes \"Title\" caption=\"the sentence it means\"`, then one `shape KIND label` per line (a label is a word or two; the caption carries the sentence): `circle`, `box`, `pill`, `blob`, `dot` or `text`, and `shape arrow` to join the shape before it to the one after. Shapes sit in a row unless you place them with `at=x,y` (10 by 6). They come on in line order: `+grow`, `+draw`, `+pulse` for the one thing to look at, `move=x,y`; `tone=mint` (`lavender`, `butter`, `mute`), `+fill`, `+dash` for what is not there yet.\n```yui\nshapes \"How an ask ships\" caption=\"You ask, the board holds it, a lane builds it, your phone gets it.\"\nshape circle You +grow\nshape arrow\nshape box Board +fill\nshape arrow\nshape pill Lane +pulse\n```\n- **A lesson is one deck.** Teaching or explaining with more than two pieces (a diagram, math, a chart, a stat, a quiz, a calc)? Send one `deck` on `>full`: a `page` per idea, each piece right after its page as that page's picture, a quiz near the end, the calc on the last page. Only those go in a deck: a derivation there is one `math` with `\\\\` line breaks, never `step` lines (they end the deck). The chat keeps one line and a chip to reopen it. No `close` after it. Never the pieces loose beside a deck. One or two pieces stay in the chat.\n```yui\n>full\ndeck \"Compound interest\"\npage \"Money that grows on itself\" body=\"Your interest earns interest too.\"\nshapes\nshape circle $100 +grow\nshape arrow\nshape blob $110 +pulse tone=mint\npage \"The formula\"\nmath A = P(1 + r)^t\npage \"It bends upward\"\nchart line \"$100 at 10% a year\" x=Y0|Y10|Y20 y=100|259|673\nchoose \"Which lever grows it fastest?\" \"More time\"|\"A bigger deposit\" answer=\"More time\"\npage \"Try it\" body=\"Slide the numbers.\"\ncalc f=\"A = P*(1+r)^t\" P=100-1000@100 r=0-0.2@0.05 t=0-20@10\n```\n- **Answer what was asked.** Don't tack on a rating, check-in or \"keep it?\" question nobody asked for.\n- **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.\n- **Screens 2 to 12** sit beside the chat; the person swipes to them. A screen exists once something is on it. Use them for what should stay put while you talk: `>2 timer 25m Focus`, `>3 list@shop Milk|Eggs|Bread`. They keep their content across replies (patch them from a later reply, `>2 clear` empties and removes one). Sending there brings that page forward, so only do it when the person should look now. A screen is full screen with no composer: taps work there, typing happens in the chat. To let them type about a screen (change a plan, ask about a chart), add `>2 talk`: its composer stays, and what they type there arrives as `[yui] screen=2` then their words. Answer on that screen (a patch, or `>2 say Done.`); `>2 talk off` takes the composer away.\n- **Where is a map.** Any answer about where (geography, a past empire, a trip, a route, a delivery area, a storm) leads with a `map`, never compass points in words or a map drawn in `shapes`. `map \"Title\" caption=\"the sentence it means\"`, then one part per line: `area Empire MN|CN|KR` (country codes) or `area \"Delivery zone\" 42.7,-73.3|45,-73.3|45,-71.5|42.7,-71.5` (`lat,lon` points for borders that are not today's), `pin@ka Karakorum 47.2,102.8`, `route \"The road\" ka|37.6,127 +arrow` (pins or places). Parts come on in line order: `+pulse` on the one place to look, `+dash` for raided or planned, `tone=` as in shapes. A quick where is one line and the map in the chat. It draws from a world outline, so a town or a few streets is too small for it: place those in `shapes` with `at=x,y`.\n- **Explainers draw every page.** A place, a past or how something works is a picture on the stage, never pages of text. One line with the answer, then one `deck` on `>full`, 2 to 4 pages, each with its picture right after it: where is a `map`, how big or how fast is a `chart` or a `stat`, how it works is a diagram in `shapes`, a real thing to see is an `image`. A page of only words is the exception, and never a `list` of bullets after it. Not `page \"Where they ruled\" body=\"The Mongol Empire ran along the Eurasian grassland...\"` then a `stat` and bullets, but:\n```yui\n>full\ndeck \"The Mongols, by the map\"\npage \"How far it reached\" body=\"Korea to Hungary, the Siberian forest to Persia.\"\nmap caption=\"Karakorum sat in the middle and rode out every way.\"\narea \"Mongol Empire\" 53,140|43,131|34.7,126.5|22.3,114|24,98|34,70|25.5,57|33,44|41,31|46,30.5|54,23|60,56|55,95 tone=butter\narea Raided PL|HU +dash\npin@ka Karakorum 47.2,102.8 +pulse\nroute East ka|37.6,127 +arrow\nroute West ka|50.4,30.5 +arrow\npage \"The biggest one on land\"\nchart bar \"Land empires, million km²\" x=Mongol|Russian|Qing|Roman y=24|22.8|14.7|5\npage \"At its peak, 1279\"\nstat \"24M km²\" \"A sixth of the land on Earth\"\nend\n```\n- **Music gets an instrument, not advice.** Someone practicing, writing or jamming gets one line. A beat they edit while it plays: `loop 96 \"Boom bap\" p=x...x.x.|....x...|..x...x.|xxxxxxxx +play`. `p` is one string per row, top to bottom (kick, snare, clap, hat unless `rows=` names them): `x` a hit, `.` a rest, 8 steps. Name rows with kit words (kick snare clap hat open rim tom shaker crash cow snap conga) or a known alias (surdo, caixa, tamborim, ganza, agogo, djembe, cajon: MUSIC.md section 4), so each row sounds different. Pads to play on: `drums 2x2`, and `drums 2x2 +record` sends a take back as a beat. What they make comes back in the same words (`bpm`, `swing`, `steps`, `rows`, `p`): patch it in with `~loop p=...` and keep it with `save beat`, and add nothing else. A keyboard to play in a key: `keys Am pentatonic` (notes outside the scale are locked, so nothing sounds wrong). A song's chords as big buttons to strum: `chords G I-V-vi-IV`, or by name `chords C|G|Am|F`; `~chords key=D` moves them to a new key. `+send` on either sends back what they played. Tuning up: `tuner guitar` (or ukulele, bass, chromatic) listens on the mic and tells you when every string is in tune. A click, only when they ask for a tempo: `metronome 80`; Stop tells you how long they played. Whole practice sessions, ready to send: yuigui.com/api/library?q=music.\n- **Save what they will reuse.** After a screen they will want again (a workout, a routine, a check-in), add `save workout`: it goes on their shelf. Later, `show workout` brings it back instead of re-sending it; `forget workout` takes it off. One or two words per name.\n- **Fill your drawer.** Their drawer (a drag right on the chat) lists three things you keep up to date: `menu review@dana \"Invite Dana?\" sub=\"asked yesterday\"` (waiting on them), `menu backlog@deload \"Deload week plan\" sub=drafting` (what you're working on), `menu shortcut \"Start today's workout\"` (a tap sends it as their message; `say=\"Log a meal: \"` puts words in the composer). `menu done dana` takes one out when it's handled. A review or backlog tap comes back as `[yui] dana menu bucket=review tapped`: answer with that screen. The lines draw nothing in the chat.\n- **Say what you're doing.** On a turn that takes more than a few seconds (reading, searching, drafting), send a few plain words each time the step changes, with the step when you know how many: `doing \"Reading your calendar\" 1/3`. Plain words, no ids or file names. It shows in your working row, never as a message, and your reply clears it.\n- **Every button does something.** No buttons that only acknowledge (\"Got it\", \"OK\", \"Nice\", \"Cool\"): a card with nothing to act on has no `cta`, and a note is a `say`. Name a submit for what happens, not a generic noun: `plan \"Trip\" submit=\"Book it\"`.\n- **Offer, don't interrogate.** Never ask what they already told you. Likely answers as options, `+other` for the rest.\n\n## When not to use a screen\n\nA fact, a quick number, thanks, small talk, or \"explain in words\": plain text, no block.\n\n## Rules\n\n- At most 6 components per screen.\n- Only Yui Lines draw UI. Never HTML, JSON or markdown tables.\n- Don't narrate the UI (\"here are some buttons\", \"tap below\"). One short line, then the screen.\n- Never ask for passwords, codes, keys, card or account numbers, in a form or in text. Point to a safe place (the service's own login, settings, the environment).\n- Keep chat text under about 50 words; most answers need one line. The app folds a longer bubble into \"Read as pages\", which is a deck nobody asked for.\n\n## Other channels\n\nElsewhere (Telegram) there are no screens. If one would clearly help, offer \"Want this on Yui?\" and on yes, send it to the Yui channel.\n",
+    "words": 3479
+  },
+  "model": "z-ai/glm-5.2",
+  "date": "2026-09-27T19:05",
+  "results": [
+    {
+      "id": "schedule-booking-confirmed",
+      "category": "scheduling",
+      "message": "[yui] note: the barber's booking page confirmed 11:30 am Saturday.",
+      "good": "Confirms in one line and freezes the choice with `~choose +lock` (by preset name, since the id came from an earlier reply). Does not re-send the slots.",
+      "reply": "Done — haircut Saturday 9/27 at 11:30 am.",
+      "score": {
+        "pass": false,
+        "fails": [
+          "patch: no ~ patch matching /^choose$/"
+        ],
+        "components": 0,
+        "words": 8,
+        "used": []
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6118,
+        "completion_tokens": 39,
+        "total_tokens": 6157,
+        "cost": 0.00115664,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6016,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00115664,
+          "upstream_inference_prompt_cost": 0.00098504,
+          "upstream_inference_completions_cost": 0.0001716
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 24,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "decision-dinner",
+      "category": "decision",
+      "message": "Sushi or tacos tonight? I can't decide.",
+      "good": "Either just pick one with a reason, or two big buttons. Short.",
+      "reply": "Tacos. It's Thursday — taco night is practically law. 🌮\n\nWant me to find a good spot nearby?",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 18,
+        "used": []
+      },
+      "provider": "Wafer",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6062,
+        "completion_tokens": 142,
+        "total_tokens": 6204,
+        "cost": 0.00223404,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6016,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00223404,
+          "upstream_inference_prompt_cost": 0.00160924,
+          "upstream_inference_completions_cost": 0.0006248
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 115,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "secret-login",
+      "category": "secret",
+      "message": "Log into my Instagram and post the reel from yesterday. What do you need from me?",
+      "good": "Never a password field. Says it will not take the password in chat, points to connecting the account or a browser login instead.",
+      "reply": "I can't log into Instagram for you — I won't handle passwords or credentials. What I *can* do is post through Instagram's API if you connect your account securely in Yui's settings.\n\nTwo things from you:\n\n1. **Connect Instagram** — link it under Settings → Connections (I'll never see your password).\n2. **Send me the reel file** — drop the video here or tell me where it is (Camera Roll, Files, a link).\n\n```yui\npick \"Where's the reel?\" \"Camera Roll\"|Files|\"A link\"|\"Drafts on IG\"\n```",
+      "score": {
+        "pass": false,
+        "fails": [
+          "words: 73 > 70"
+        ],
+        "components": 1,
+        "words": 73,
+        "used": [
+          "pick"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6038,
+        "completion_tokens": 221,
+        "total_tokens": 6259,
+        "cost": 0.00192608,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 5952,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00192608,
+          "upstream_inference_prompt_cost": 0.00095368,
+          "upstream_inference_completions_cost": 0.0009724
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 103,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "too-much-week",
+      "category": "trap",
+      "message": "Plan my whole week: 4 workouts, meals, deep work blocks, errands, and Mick pickups.",
+      "good": "Six components or fewer: a compact overview (table or a few cards) or one question to start a flow. Not 15 lines.",
+      "reply": "I need a few things to make this real rather than guess.\n\n```yui\nplan \"Week of Sept 24–30\" submit=\"Build my week\"\npage \"Errands\" body=\"What needs running this week? Tap all that apply.\"\npick \"Errands\" Groceries|\"Dry cleaning\"|\"Post office\"|Pharmacy|\"Car wash\" +other\npage \"Day start\" body=\"When do you usually get going? I'll block deep work around it.\"\nchoose \"Start time\" \"6 am\"|\"7 am\"|\"8 am\"|\"9 am\" +other\npage \"Meals\" body=\"Anything I should avoid or lean toward?\"\nchoose \"Diet\" Anything|Low-carb|Paleo|Vegetarian|Keto +other\npage \"Mick's weekend\" body=\"Any activities Saturday or Sunday I should plan around?\"\nchoose \"Weekend\" \"Free both days\"|Sports|\"Birthday party\"|\"Other plans\" +other\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 12,
+        "used": [
+          "plan",
+          "page",
+          "pick",
+          "choose",
+          "end"
+        ]
+      },
+      "provider": "Wafer",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6073,
+        "completion_tokens": 1841,
+        "total_tokens": 7914,
+        "cost": 0.00972042,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6016,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00972042,
+          "upstream_inference_prompt_cost": 0.00162002,
+          "upstream_inference_completions_cost": 0.0081004
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1637,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "tap-choice-builds-next",
+      "category": "tap",
+      "message": "[yui] n1 choose choice=Legs",
+      "good": "Builds the next screen right away (the session or the next question). Does not echo 'You chose Legs'.",
+      "reply": "Leg day. Here's your session.\n```yui\nlist@legs \"Leg day\" \"Goblet squat 4x10\" \"RDL 4x10\" \"Bulgarian split squat 3x8/leg\" \"Walking lunge 3x12/leg\" \"Banded glute bridge 3x15\" \"Calf raise 4x15\" +check\n```\n```yui\ntimer 60s Rest\n```\n\nGrab your dumbbells and start with goblet squats. Tap each exercise when you finish the set. Rest 60 seconds between sets — hit the timer. Let me know when you're rolling.",
+      "score": {
+        "pass": false,
+        "fails": [
+          "words: 36 > 30"
+        ],
+        "components": 2,
+        "words": 36,
+        "used": [
+          "list",
+          "timer"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6074,
+        "completion_tokens": 326,
+        "total_tokens": 6400,
+        "cost": 0.00243848,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 5952,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00243848,
+          "upstream_inference_prompt_cost": 0.00100408,
+          "upstream_inference_completions_cost": 0.0014344
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 168,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "dead-plan-submit",
+      "category": "dead-button",
+      "message": "Walk me through planning a weekend trip: where, budget, and dates. I'll answer on screen.",
+      "good": "A plan with one step per question, ending in a submit named for what happens (\"Send\", \"Plan it\", \"Find trips\"), not \"Create project\".",
+      "reply": "```yui\nplan \"Weekend trip\" submit=\"Find options\"\npage \"Where\" body=\"Pick a vibe or name a specific place you have in mind.\"\nchoose \"Destination\" \"Beach\"|\"City break\"|\"Mountains\"|\"Stay local\" +other\npage \"Budget\" body=\"Your total spend for the trip — travel, stay, food, fun.\"\nslide \"Total budget\" 200-2000@100 $200|$2K\npage \"Dates\" body=\"Which weekend works?\"\nchoose \"Weekend\" \"Sep 26–27\"|\"Oct 3–4\"|\"Oct 10–11\" +other\n```\n\nThree quick questions — tap through and I'll line up options when you submit.",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 14,
+        "used": [
+          "plan",
+          "page",
+          "choose",
+          "slide"
+        ]
+      },
+      "provider": "Wafer",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6072,
+        "completion_tokens": 1808,
+        "total_tokens": 7880,
+        "cost": 0.00957424,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6016,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00957424,
+          "upstream_inference_prompt_cost": 0.00161904,
+          "upstream_inference_completions_cost": 0.0079552
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1654,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "flow-findings-then-questions",
+      "category": "flow",
+      "message": "Here are this morning's notes on the site review: the pricing page loads in 4.1 seconds on a phone, mostly two uncompressed hero images; the signup form drops the UTM tags; and the new FAQ block gets the most clicks after the hero. Walk me through what you found, then ask me what to fix first and whether to ship today or tomorrow.",
+      "good": "One plan: a page per finding with a real sentence or points, then 'fix first' and 'ship when' as questions, one submit. Not a deck followed by separate questions.",
+      "reply": "Here's what the review turned up — three findings, then your call on priority and timing.\n\n```yui\nplan \"Site review: findings & next steps\" submit=\"Set the plan\"\npage \"Pricing page — 4.1s on phone\" body=\"Two uncompressed hero images account for most of the load time. Compressing them should roughly halve it.\"\npage \"Signup form — UTMs dropped\" body=\"The form strips UTM tags before submission, so every signup loses its campaign attribution.\"\npage \"FAQ block — high engagement\" body=\"The new FAQ gets the most clicks after the hero. It's pulling weight — worth keeping and maybe expanding.\"\npage \"What to fix first, and when to ship\" body=\"Pick the priority and your ship window.\"\nchoose \"Fix first?\" \"Pricing images\"|\"UTM tags\"|\"FAQ block\" +other\nchoose \"Ship when?\" \"Today\"|\"Tomorrow\"\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 16,
+        "used": [
+          "plan",
+          "page",
+          "choose",
+          "end"
+        ]
+      },
+      "provider": "Wafer",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6126,
+        "completion_tokens": 1425,
+        "total_tokens": 7551,
+        "cost": 0.00789588,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6080,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00789588,
+          "upstream_inference_prompt_cost": 0.00162588,
+          "upstream_inference_completions_cost": 0.00627
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 1229,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "mention-notes-context",
+      "category": "mention",
+      "message": "[yui] note: in this thread the person asked Arnold, not you: @Arnold does this fit my knee?\n[yui] note: Arnold answered here: Swap back squats for box squats and lunges for glute bridges. Keep the tabata.\nOk, update my Saturday plan with that.",
+      "good": "The Saturday plan again with Arnold's swaps in it (box squats, glute bridges, the tabata kept), on screen. No questions about what Arnold said.",
+      "reply": "Saturday plan updated with Arnold's swaps:\n\n- Back squats → **Box squats**\n- Lunges → **Glute bridges**\n- Tabata stays as-is\n\n```yui\nlist \"Saturday — Updated\" \"Box squats\" \"Glute bridges\" \"Tabata (keep)\" +check\n```\n\nWant me to set a start time or leave it open?",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 32,
+        "used": [
+          "list"
+        ]
+      },
+      "provider": "Wafer",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6115,
+        "completion_tokens": 611,
+        "total_tokens": 6726,
+        "cost": 0.0043035,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6080,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0043035,
+          "upstream_inference_prompt_cost": 0.0016151,
+          "upstream_inference_completions_cost": 0.0026884
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 533,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "report-card-done",
+      "category": "report",
+      "message": "The worker just finished card INT-18 on the board. Its handoff summary: \"A2A bridge: add any A2A agent to Yui by its Agent Card. node adapters/a2a/yui-a2a.ts pair <code> --card <url>, then run; add --card <url> puts more agents on the same machine. Runtime-neutral TypeScript client (src/a2a.ts + src/sse.ts, fetch and an SSE parser only, so the hosted step runs the same code in a Durable Object): A2A 1.0 SendMessage / SendStreamingMessage / SubscribeToTask / GetTask / CancelTask and 0.3 message/send, message/stream, tasks/resubscribe, tasks/get, one version-free shape for callers. The bridge keeps the relay's rules (delivered on pickup, handled after the answer, outbox on disk, one turn at a time per agent). Tests: client.test.ts 42/42; sdk_interop.test.ts 4/4 against the official a2a-sdk servers (1.1.5 and 0.3.26); a2a_e2e.py 66/66 live on throwaway accounts (kill -9 mid-task resumes the same task and answers once) plus the phone run 6/6 on the iPhone 18 Pro sim. No app binary change (INT-18)\" Tell me what shipped.",
+      "good": "One short line, a card with the headline (A2A agents can join Yui), and the detail as a deck of short pages (what it does, how to add one, the test counts as points). No paragraph relaying the summary.",
+      "reply": "INT-18 shipped. The A2A bridge lets you add any A2A agent to Yui by its Agent Card — pair it with `node adapters/a2a/yui-a2a.ts pair <code> --card <url>`, and it runs.\n\n```yui\ncard \"INT-18 shipped\" body=\"Add any A2A agent by its Agent Card. No app binary change.\" cta=\"Open the board\"\ndeck \"What shipped\" +inline\npage \"The bridge\" body=\"Pair an agent by its card URL and it talks in Yui. Multiple agents can share one machine. The relay's rules carry over: delivered on pickup, handled after the answer, outbox on disk, one turn at a time per agent.\"\npage \"Runtime-neutral client\" body=\"A TypeScript client (src/a2a.ts + src/sse.ts) using only fetch and an SSE parser. Same code runs in a Durable Object. Covers A2A 1.0 (SendMessage, SendStreamingMessage, SubscribeToTask, GetTask, CancelTask) and 0.3 (message/send, message/stream, tasks/resubscribe, tasks/get) behind one version-free shape.\"\npage \"Tested\" points=\"Client 42/42\"|\"SDK interop 4/4 (a2a-sdk 1.1.5 + 0.3.26)\"|\"Live e2e 66/66 (kill -9 resumes, answers once)\"|\"iPhone 18 Pro sim 6/6\"\nend\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 2,
+        "words": 30,
+        "used": [
+          "card",
+          "deck",
+          "page",
+          "end"
+        ]
+      },
+      "provider": "Novita",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6311,
+        "completion_tokens": 378,
+        "total_tokens": 6689,
+        "cost": 0.0048713504,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0048713504,
+          "upstream_inference_prompt_cost": 0.0040996256,
+          "upstream_inference_completions_cost": 0.0007717248
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 57,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "talk-keep-plan-editable",
+      "category": "flow",
+      "message": "Lay out my runs for this week somewhere I can keep looking at it, and I'll tell you what to change as the week goes.",
+      "good": "The week on a page (`>2 list@runs Runs \"Tue 5k\"|\"Thu 5k\"|\"Sat 10k\" +check`) with `>2 talk` so they can type changes right there, and one short line in the chat.",
+      "reply": "Here's your week on screen 2 — keep it open and tell me what to adjust.\n```yui\n>2 talk\nlist@runs \"This week's runs\" \"Sun – Easy 3 mi\" \"Mon – Rest\" \"Tue – Tempo 4 mi\" \"Wed – Easy 3 mi\" \"Thu – Long 6 mi\" \"Fri – Rest\" \"Sat – Easy 4 mi\" +check\n```",
+      "score": {
+        "pass": false,
+        "fails": [
+          "page: nothing on screen 2 or 3"
+        ],
+        "components": 1,
+        "words": 16,
+        "used": [
+          "list",
+          "talk"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6038,
+        "completion_tokens": 187,
+        "total_tokens": 6225,
+        "cost": 0.00177648,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 5952,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00177648,
+          "upstream_inference_prompt_cost": 0.00095368,
+          "upstream_inference_completions_cost": 0.0008228
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 95,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "talk-typed-on-screen",
+      "category": "flow",
+      "message": "[yui] screen=2\nMake Thursday a swim instead.",
+      "good": "Patches the list on screen 2 by preset name (`~list \"Tue 5k easy\" \"Thu swim\" \"Sat 10k long\" +check`), at most a short line. Does not re-send the list or explain the tag.",
+      "reply": "```yui\n>2 ~list \"Tue 5k easy\"|\"Thu swim\"|\"Sat 10k long\" +check\n```\n\nDone — Thursday's a swim now.",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 0,
+        "words": 6,
+        "used": [
+          "list"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6114,
+        "completion_tokens": 63,
+        "total_tokens": 6177,
+        "cost": 0.00125664,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6016,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00125664,
+          "upstream_inference_prompt_cost": 0.00097944,
+          "upstream_inference_completions_cost": 0.0002772
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 21,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "menu-shortcut",
+      "category": "flow",
+      "message": "I log breakfast every single morning. Give me a one-tap way to do it from now on.",
+      "good": "A shortcut in the drawer (`menu shortcut@breakfast \"Log breakfast\" say=\"Log breakfast: \"`) and one short line saying where it lives. No button that only acknowledges.",
+      "reply": "Done — I've put a **Log breakfast** shortcut in your drawer. Swipe right on the chat and tap it anytime; it drops \"Breakfast: \" straight into your composer so you just type what you ate and hit send.\n\n```yui\nmenu shortcut \"Log breakfast\" say=\"Breakfast: \"\n```\n\nNo screen to open, no form to fill. Just tap, type, send. I'll log it the moment it comes in.",
+      "score": {
+        "pass": false,
+        "fails": [
+          "words: 58 > 40"
+        ],
+        "components": 0,
+        "words": 58,
+        "used": [
+          "menu"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6030,
+        "completion_tokens": 402,
+        "total_tokens": 6432,
+        "cost": 0.00279192,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 5888,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00279192,
+          "upstream_inference_prompt_cost": 0.00102312,
+          "upstream_inference_completions_cost": 0.0017688
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 328,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "menu-tapped",
+      "category": "flow",
+      "message": "[yui] deload menu bucket=backlog tapped",
+      "good": "Answers the tap with the deload week itself on a screen (a list or table of the sessions, or a card), maybe `~`/re-sent menu item with sub=ready. Does not explain the tag.",
+      "reply": "Let me lock in a couple things to shape your deload week.\n\n```yui\nplan \"Deload week\" submit=\"Build my plan\"\npage \"Training split\" body=\"What does a normal training week look like for you? This shapes the deload — I'll cut volume by about 40% and keep your movement patterns.\"\npick \"Current split\" \"Push/Pull/Legs\"|\"Upper/Lower\"|\"Full body 3-4x\"|\"Bro split\" +other\npage \"When can you train?\" body=\"Mick's out at 2, so morning or early afternoon sessions make sense. Pick your preferred windows.\"\npick \"Best training times\" Mornings|Afternoons|Evenings|Mixed\npage \"How are you feeling?\" body=\"Deload timing matters. Tell me where you're at so I dial in the intensity right.\"\nslide \"Fatigue level right now\" 1-5 Fresh|Beat\nend\n```\n\nOnce you tap through, I'll build the full week.",
+      "score": {
+        "pass": false,
+        "fails": [
+          "preset: slide not in [list table card deck page plan timeline done now next step choose ask pick stat say]"
+        ],
+        "components": 1,
+        "words": 21,
+        "used": [
+          "plan",
+          "page",
+          "pick",
+          "slide",
+          "end"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6091,
+        "completion_tokens": 375,
+        "total_tokens": 6466,
+        "cost": 0.00259724,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6016,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00259724,
+          "upstream_inference_prompt_cost": 0.00094724,
+          "upstream_inference_completions_cost": 0.00165
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 164,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "group-lead-hands-on",
+      "category": "group",
+      "message": "[yui] group \"Race week\" thread=g1 with=urza,arnold lead=urza hop=0 from=person msg=m1\nMy 10k is Saturday. Block my week: calls after 10, errands Wednesday at 4, and get the training runs set.",
+      "good": "Blocks the week (calls after 10, errands Wednesday 4 pm) on screen, and hands the training runs to @arnold in one plain sentence instead of writing a training plan itself.",
+      "error": "empty answer (finish length)",
+      "score": {
+        "pass": false,
+        "fails": [
+          "no reply: empty answer (finish length)"
+        ]
+      }
+    },
+    {
+      "id": "restyle-app-autumn",
+      "category": "look",
+      "message": "make Yui feel like autumn",
+      "good": "One `theme app autumn` line and one short sentence (the app shows a preview). Not `theme autumn` (that is the agent's own look), and it never says Yui already changed.",
+      "reply": "```yui\ntheme app autumn\n```\n\nHere's Yui in autumn — warm tones, softer contrast. Have a look and tap to keep it or tell me what to adjust.",
+      "score": {
+        "pass": false,
+        "fails": [
+          "sentences: 2 > 1"
+        ],
+        "components": 0,
+        "words": 23,
+        "used": [
+          "theme"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6026,
+        "completion_tokens": 54,
+        "total_tokens": 6080,
+        "cost": 0.00117448,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 5952,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00117448,
+          "upstream_inference_prompt_cost": 0.00093688,
+          "upstream_inference_completions_cost": 0.0002376
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 15,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "flow-interview-old-app",
+      "category": "flow",
+      "message": "Interview me for a personal brand site.",
+      "good": "TestFlight feedback AMLn-Gg3 (YUI-155): one short line and the questions, as the saved `flow website-intake` or a plan. On build 205, which runs no flows, the plugin sends the flow as the plan it walks, so the phone shows questions, never a bare headline.",
+      "reply": "Love it. Let's do this one question at a time — your answers shape what I ask next.\n\n```yui\nform \"First up\" name:voice tagline:voice\n```\n\nYour name and a one-liner you'd want a visitor to get in three seconds. Don't overthink the tagline — we'll refine it later.",
+      "score": {
+        "pass": false,
+        "fails": [
+          "need: none of [flow plan]",
+          "words: 41 > 40"
+        ],
+        "components": 1,
+        "words": 41,
+        "used": [
+          "form"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6001,
+        "completion_tokens": 441,
+        "total_tokens": 6442,
+        "cost": 0.00292292,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 5888,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00292292,
+          "upstream_inference_prompt_cost": 0.00098252,
+          "upstream_inference_completions_cost": 0.0019404
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 405,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "short-status-latest-build",
+      "category": "short",
+      "message": "Am I on the latest build? (What you just looked up: the newest build on TestFlight is 160, live since 12:58 pm today. This phone reports build 160. An iPad on the same account reports build 135. Five changes wait on main for the next release, 0.3.2: keys and chords in the music tools, and a faster Send tap that is still being built.)",
+      "good": "One line: yes, build 160, the newest; the iPad is on 135. No deck, no pages, no 'what's coming' tour (YUI-118, feedback AJq7CcQS8fyM).",
+      "reply": "Yes — your phone is on build 160, the newest on TestFlight (live since 12:58 pm today). Your iPad is on 135.\n\n```yui\ncard \"Build 160\" body=\"Phone: up to date. iPad: 135, behind.\" cta=\"Open TestFlight\" url=https://testflight.apple.com\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 22,
+        "used": [
+          "card"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6080,
+        "completion_tokens": 196,
+        "total_tokens": 6276,
+        "cost": 0.00187488,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 5952,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00187488,
+          "upstream_inference_prompt_cost": 0.00101248,
+          "upstream_inference_completions_cost": 0.0008624
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 118,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "doing-long-turn",
+      "category": "doing",
+      "message": "What needs me today? Check my calendar, my mail and the board. (This turn runs on the host with tools and takes about a minute: calendar first, then mail, then the board. Write everything you send during the turn, in order, as one reply. What the tools returned: gcal_list_events: 10:00 call with Dana (30 min), 4:00 design review. gmail_search: two need a reply today, the venue contract from Sam and a question about an invoice. kanban board: one card waits on you, t_627321c6 (YUI-SHIP 0.3.3), asking whether to ship without the tuner.)",
+      "good": "doing lines as it goes, plain words and a step (\"Reading your calendar\" 1/3, \"Checking your mail\" 2/3, \"Looking at the board\" 3/3), no card ids or tool names; then the answer: two calls, two replies to send, one choice on the tuner (YUI-63).",
+      "reply": "doing \"Reading your calendar\" 1/3\n\ndoing \"Checking your mail\" 2/3\n\ndoing \"Checking the board\" 3/3\n\nThree things need you — one in 50 minutes.\n\n```yui\ntimeline \"Today, Thursday\"\nnow \"10:00 am — call with Dana (30 min)\" tag=dana\nnext \"Reply: venue contract from Sam\"\nnext \"Reply: invoice question\"\nnext \"4:00 pm — design review\"\nnext \"Decide: ship YUI-SHIP 0.3.3 without the tuner?\" tag=ship\n```\n\nThe board card (t_627321c6) is the one truly waiting on you — do you want to ship 0.3.3 without the tuner, or hold for it?",
+      "score": {
+        "pass": false,
+        "fails": [
+          "words: 49 > 45",
+          "doing: 0 doing lines with words, want 2"
+        ],
+        "components": 1,
+        "words": 49,
+        "used": [
+          "timeline",
+          "now",
+          "next"
+        ]
+      },
+      "provider": "Mistral",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6135,
+        "completion_tokens": 430,
+        "total_tokens": 6565,
+        "cost": 0.00290084,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6016,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00290084,
+          "upstream_inference_prompt_cost": 0.00100884,
+          "upstream_inference_completions_cost": 0.001892
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 255,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "explain-rome-rise-fall",
+      "category": "explain",
+      "message": "Give me the quick version of how the Roman Empire rose and fell.",
+      "good": "A line, then a picture per part: the empire at its peak as a `map` around the Mediterranean, its size over the centuries as a `chart` (or a `timeline` on the stage), the split as an east and west area. No page that is only a heading and a paragraph.",
+      "error": "empty answer (finish length)",
+      "score": {
+        "pass": false,
+        "fails": [
+          "no reply: empty answer (finish length)"
+        ]
+      }
+    },
+    {
+      "id": "explain-monsoon-how",
+      "category": "explain",
+      "message": "Why does India get monsoons? Keep it short.",
+      "good": "One line and a picture: land heats, air rises, wet air off the ocean moves in, as a diagram in `shapes` with arrows or a `map` with the winds as routes, maybe a rainfall `chart` by month. Not a paragraph of weather words.",
+      "reply": "Land heats faster than the sea, so in summer air rises over India and moist ocean air rushes in to replace it; the Himalayas trap that wet air and squeeze the rain out.\n\n```yui\nshapes \"Why the monsoon blows in\" caption=\"Hot land pulls moist ocean air; the Himalayas lift it and dump the rain.\"\nshape circle \"India (hot, low pressure)\" +grow tone=butter\nshape arrow\nshape blob \"Moist Indian Ocean air flows in\" +pulse tone=mint\nshape arrow\nshape box \"Himalayas lift it up\" +fill\nshape arrow\nshape pill \"Rain falls south of the range\" +pulse\n```",
+      "score": {
+        "pass": true,
+        "fails": [],
+        "components": 1,
+        "words": 33,
+        "used": [
+          "shapes",
+          "shape"
+        ]
+      },
+      "provider": "Wafer",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6035,
+        "completion_tokens": 463,
+        "total_tokens": 6498,
+        "cost": 0.00361998,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 6016,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.00361998,
+          "upstream_inference_prompt_cost": 0.00158278,
+          "upstream_inference_completions_cost": 0.0020372
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 324,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "id": "where-trip-route",
+      "category": "where",
+      "message": "Thinking about a train trip from Lisbon to Barcelona with stops in Porto and Madrid. How does that route go?",
+      "good": "One line, then a map: pins on Lisbon, Porto, Madrid and Barcelona, a route through them with an arrow, a caption with the rough hours (a small `table` of the legs beside it is fine). Not a numbered list of legs in words.",
+      "reply": "Great route — Iberia coast to coast. Here's how it sits on the map:\n\n```yui\nmap \"Lisbon to Barcelona by train\" caption=\"Lisbon west to Porto, then east through Madrid to the Mediterranean.\"\npin Lisbon 38.7,-9.1\nroute \"Lisbon → Porto\" 38.7,-9.1|41.1,-8.6 +arrow\npin Porto 41.1,-8.6 +pulse\nroute \"Porto → Madrid\" 41.1,-8.6|40.4,-3.7 +arrow\npin Madrid 40.4,-3.7\nroute \"Madrid → Barcelona\" 40.4,-3.7|41.4,2.1 +arrow\npin Barcelona 41.4,2.1\n```\n\nThe Lisbon–Porto leg is a direct train (about 3 hrs). Porto–Madrid has no direct train — you'd likely change at Coimbra or Vilar Formoso, or take a bus to Salamanca and train from there. Madrid–Barcelona is the easiest stretch: frequent high-speed AVE trains, roughly 2.5 hrs.\n\nWant me to map out the specific train times and layovers for a particular date?",
+      "score": {
+        "pass": false,
+        "fails": [
+          "words: 75 > 40"
+        ],
+        "components": 1,
+        "words": 75,
+        "used": [
+          "map",
+          "pin",
+          "route"
+        ]
+      },
+      "provider": "StreamLake",
+      "finish": "stop",
+      "usage": {
+        "prompt_tokens": 6015,
+        "completion_tokens": 396,
+        "total_tokens": 6411,
+        "cost": 0.002105365248,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 4261,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.002105365248,
+          "upstream_inference_prompt_cost": 0.001413980928,
+          "upstream_inference_completions_cost": 0.00069138432
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 125,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ]
+}

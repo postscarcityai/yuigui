@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 222,
-    "site": 548,
+    "app": 223,
+    "site": 550,
     "builds": 38,
-    "shipped": 275,
-    "screenshots": 639
+    "shipped": 276,
+    "screenshots": 643
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T19:05:52.504Z",
+          "at": "2026-09-27T19:12:21.402Z",
+          "title": "How well GLM uses Yui",
+          "card": "YUI-132",
+          "anchor": "how-well-glm-uses-yui",
+          "images": [
+            {
+              "src": "/progress/yui132-desktop-light.webp",
+              "alt": "Which models use Yui well: bars for Claude Opus 5.5 93%, Claude Sonnet 5 80%, GLM 5.2 76%, GLM-5V-Turbo 63%, each with what it missed every time"
+            },
+            {
+              "src": "/progress/yui132-desktop-dark.webp",
+              "alt": "The same model scores in dark mode"
+            },
+            {
+              "src": "/progress/yui132-phone-light.webp",
+              "alt": "The model scores on a phone, light mode"
+            },
+            {
+              "src": "/progress/yui132-phone-dark.webp",
+              "alt": "The model scores on a phone, dark mode"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 223,
+            "site": 550,
+            "builds": 38,
+            "shipped": 276
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T19:06:41.000Z",
           "title": "The first launch is Yui talking, with the crew already there",
           "card": "YUI-145",
           "anchor": "the-first-launch-is-yui-talking-with-the-crew-already-there",
@@ -27,10 +59,10 @@
               "alt": "Controls, Model and tools, in dark mode: Model Yui's pick (GLM 5.2, GLM-5V-Turbo for photos), runs on OpenRouter on Yui, Profile Basil version 1, and the tools list"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 222,
-            "site": 548,
+            "site": 549,
             "builds": 38,
             "shipped": 275
           }
@@ -867,6 +899,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "6bee49b",
+          "at": "2026-09-27T19:10:59.000Z",
+          "text": "Merge the yuigui backend move into main",
+          "url": "https://github.com/postscarcityai/yui/commit/6bee49b"
+        },
+        {
+          "repo": "site",
+          "sha": "803cd56",
+          "at": "2026-09-27T19:10:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/803cd56"
+        },
+        {
+          "repo": "site",
+          "sha": "3041962",
+          "at": "2026-09-27T19:06:41.000Z",
+          "text": "Progress: the first launch is Yui talking, with the crew already there (YUI-145)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3041962"
+        },
         {
           "repo": "app",
           "sha": "2a214d3",

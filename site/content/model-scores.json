@@ -1,0 +1,733 @@
+{
+  "guide": "v37+f825adcb",
+  "date": "2026-09-27",
+  "models": [
+    {
+      "name": "Claude Opus 5.5",
+      "id": "claude-opus-5-5",
+      "via": "the fleet's agents",
+      "report": "v37-opus",
+      "pass": 82,
+      "n": 88,
+      "pct": 93,
+      "steady": 3,
+      "noise": 3,
+      "reran": true,
+      "misses": [
+        {
+          "what": "the wrong kind of screen",
+          "n": 2
+        },
+        {
+          "what": "a new screen instead of a change",
+          "n": 1
+        }
+      ],
+      "steadyIds": [
+        "patch-timer-rounds",
+        "mention-asked",
+        "mention-notes-context"
+      ],
+      "cats": {
+        "workout": [
+          4,
+          4
+        ],
+        "check-in": [
+          2,
+          2
+        ],
+        "photo": [
+          1,
+          2
+        ],
+        "today": [
+          1,
+          1
+        ],
+        "scheduling": [
+          2,
+          2
+        ],
+        "decision": [
+          2,
+          2
+        ],
+        "list": [
+          2,
+          2
+        ],
+        "data": [
+          2,
+          2
+        ],
+        "flow": [
+          11,
+          12
+        ],
+        "teach": [
+          2,
+          2
+        ],
+        "look": [
+          2,
+          2
+        ],
+        "no-screen": [
+          4,
+          4
+        ],
+        "secret": [
+          3,
+          3
+        ],
+        "trap": [
+          2,
+          2
+        ],
+        "patch": [
+          4,
+          5
+        ],
+        "tap": [
+          2,
+          2
+        ],
+        "reaction": [
+          2,
+          3
+        ],
+        "dead-button": [
+          3,
+          3
+        ],
+        "saved": [
+          2,
+          2
+        ],
+        "mention": [
+          0,
+          2
+        ],
+        "report": [
+          5,
+          5
+        ],
+        "group": [
+          3,
+          3
+        ],
+        "idea": [
+          2,
+          2
+        ],
+        "library": [
+          1,
+          1
+        ],
+        "short": [
+          2,
+          2
+        ],
+        "doing": [
+          1,
+          1
+        ],
+        "music": [
+          7,
+          7
+        ],
+        "show": [
+          2,
+          2
+        ],
+        "explain": [
+          3,
+          3
+        ],
+        "where": [
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "name": "Claude Sonnet 5",
+      "id": "claude-sonnet-5",
+      "via": "Claude Code",
+      "report": "v37-sonnet",
+      "pass": 70,
+      "n": 88,
+      "pct": 80,
+      "steady": 11,
+      "noise": 7,
+      "reran": true,
+      "misses": [
+        {
+          "what": "a new screen instead of a change",
+          "n": 3
+        },
+        {
+          "what": "the wrong kind of screen",
+          "n": 3
+        },
+        {
+          "what": "too many pieces",
+          "n": 2
+        },
+        {
+          "what": "too long",
+          "n": 2
+        },
+        {
+          "what": "a button that does nothing",
+          "n": 1
+        },
+        {
+          "what": "no screen when one was needed",
+          "n": 1
+        },
+        {
+          "what": "left on the chat what belongs on a page",
+          "n": 1
+        },
+        {
+          "what": "no word on what it is doing during a long turn",
+          "n": 1
+        }
+      ],
+      "steadyIds": [
+        "schedule-booking-confirmed",
+        "patch-timer-rounds",
+        "dead-plan-submit",
+        "flow-findings-then-questions",
+        "flow-two-questions-one-plan",
+        "patch-timeline-move",
+        "mention-notes-context",
+        "talk-keep-plan-editable",
+        "doing-long-turn",
+        "explain-monsoon-how",
+        "where-trip-route"
+      ],
+      "cats": {
+        "workout": [
+          4,
+          4
+        ],
+        "check-in": [
+          2,
+          2
+        ],
+        "photo": [
+          2,
+          2
+        ],
+        "today": [
+          0,
+          1
+        ],
+        "scheduling": [
+          1,
+          2
+        ],
+        "decision": [
+          2,
+          2
+        ],
+        "list": [
+          2,
+          2
+        ],
+        "data": [
+          2,
+          2
+        ],
+        "flow": [
+          6,
+          12
+        ],
+        "teach": [
+          2,
+          2
+        ],
+        "look": [
+          2,
+          2
+        ],
+        "no-screen": [
+          4,
+          4
+        ],
+        "secret": [
+          2,
+          3
+        ],
+        "trap": [
+          2,
+          2
+        ],
+        "patch": [
+          3,
+          5
+        ],
+        "tap": [
+          2,
+          2
+        ],
+        "reaction": [
+          2,
+          3
+        ],
+        "dead-button": [
+          2,
+          3
+        ],
+        "saved": [
+          2,
+          2
+        ],
+        "mention": [
+          1,
+          2
+        ],
+        "report": [
+          4,
+          5
+        ],
+        "group": [
+          3,
+          3
+        ],
+        "idea": [
+          2,
+          2
+        ],
+        "library": [
+          1,
+          1
+        ],
+        "short": [
+          2,
+          2
+        ],
+        "doing": [
+          0,
+          1
+        ],
+        "music": [
+          7,
+          7
+        ],
+        "show": [
+          2,
+          2
+        ],
+        "explain": [
+          2,
+          3
+        ],
+        "where": [
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "GLM 5.2",
+      "id": "z-ai/glm-5.2",
+      "via": "OpenRouter, Yui's pick for text",
+      "report": "v37-glm52",
+      "pass": 67,
+      "n": 88,
+      "pct": 76,
+      "steady": 12,
+      "noise": 9,
+      "reran": true,
+      "misses": [
+        {
+          "what": "too long",
+          "n": 6
+        },
+        {
+          "what": "the wrong kind of screen",
+          "n": 2
+        },
+        {
+          "what": "a new screen instead of a change",
+          "n": 1
+        },
+        {
+          "what": "left on the chat what belongs on a page",
+          "n": 1
+        },
+        {
+          "what": "lines the app can't read",
+          "n": 1
+        },
+        {
+          "what": "no answer",
+          "n": 1
+        },
+        {
+          "what": "no word on what it is doing during a long turn",
+          "n": 1
+        },
+        {
+          "what": "no screen when one was needed",
+          "n": 1
+        },
+        {
+          "what": "screens written the wrong way",
+          "n": 1
+        },
+        {
+          "what": "words where a picture belongs",
+          "n": 1
+        }
+      ],
+      "steadyIds": [
+        "schedule-booking-confirmed",
+        "secret-login",
+        "tap-choice-builds-next",
+        "talk-keep-plan-editable",
+        "menu-shortcut",
+        "menu-tapped",
+        "group-lead-hands-on",
+        "restyle-app-autumn",
+        "flow-interview-old-app",
+        "doing-long-turn",
+        "explain-rome-rise-fall",
+        "where-trip-route"
+      ],
+      "cats": {
+        "workout": [
+          4,
+          4
+        ],
+        "check-in": [
+          2,
+          2
+        ],
+        "photo": [
+          2,
+          2
+        ],
+        "today": [
+          1,
+          1
+        ],
+        "scheduling": [
+          1,
+          2
+        ],
+        "decision": [
+          1,
+          2
+        ],
+        "list": [
+          2,
+          2
+        ],
+        "data": [
+          2,
+          2
+        ],
+        "flow": [
+          6,
+          12
+        ],
+        "teach": [
+          2,
+          2
+        ],
+        "look": [
+          1,
+          2
+        ],
+        "no-screen": [
+          4,
+          4
+        ],
+        "secret": [
+          2,
+          3
+        ],
+        "trap": [
+          1,
+          2
+        ],
+        "patch": [
+          5,
+          5
+        ],
+        "tap": [
+          1,
+          2
+        ],
+        "reaction": [
+          3,
+          3
+        ],
+        "dead-button": [
+          2,
+          3
+        ],
+        "saved": [
+          2,
+          2
+        ],
+        "mention": [
+          1,
+          2
+        ],
+        "report": [
+          4,
+          5
+        ],
+        "group": [
+          2,
+          3
+        ],
+        "idea": [
+          2,
+          2
+        ],
+        "library": [
+          1,
+          1
+        ],
+        "short": [
+          1,
+          2
+        ],
+        "doing": [
+          0,
+          1
+        ],
+        "music": [
+          7,
+          7
+        ],
+        "show": [
+          2,
+          2
+        ],
+        "explain": [
+          1,
+          3
+        ],
+        "where": [
+          2,
+          3
+        ]
+      }
+    },
+    {
+      "name": "GLM-5V-Turbo",
+      "id": "z-ai/glm-5v-turbo",
+      "via": "OpenRouter, Yui's pick for photos",
+      "report": "v37-glm5v",
+      "pass": 55,
+      "n": 88,
+      "pct": 63,
+      "steady": 21,
+      "noise": 12,
+      "reran": true,
+      "misses": [
+        {
+          "what": "the wrong kind of screen",
+          "n": 10
+        },
+        {
+          "what": "too long",
+          "n": 9
+        },
+        {
+          "what": "lines the app can't read",
+          "n": 7
+        },
+        {
+          "what": "too many pieces",
+          "n": 3
+        },
+        {
+          "what": "no screen when one was needed",
+          "n": 2
+        },
+        {
+          "what": "words where a picture belongs",
+          "n": 2
+        },
+        {
+          "what": "asked for a secret in a form",
+          "n": 1
+        },
+        {
+          "what": "a new screen instead of a change",
+          "n": 1
+        },
+        {
+          "what": "left on the chat what belongs on a page",
+          "n": 1
+        },
+        {
+          "what": "didn't restyle the app",
+          "n": 1
+        },
+        {
+          "what": "no word on what it is doing during a long turn",
+          "n": 1
+        },
+        {
+          "what": "a markdown table",
+          "n": 1
+        }
+      ],
+      "steadyIds": [
+        "workout-tabata",
+        "secret-login",
+        "secret-api-key",
+        "patch-timer-rounds",
+        "flow-onboard-goal",
+        "flow-findings-then-questions",
+        "flow-two-questions-one-plan",
+        "report-card-done",
+        "report-long-walkthrough",
+        "talk-keep-plan-editable",
+        "report-pages-picture",
+        "menu-shortcut",
+        "restyle-app-autumn",
+        "idea-shapes-heatpump",
+        "idea-shapes-flywheel",
+        "doing-long-turn",
+        "music-beat-sent",
+        "show-new-layout",
+        "explain-mongols-geography",
+        "explain-monsoon-how",
+        "where-trip-route"
+      ],
+      "cats": {
+        "workout": [
+          3,
+          4
+        ],
+        "check-in": [
+          2,
+          2
+        ],
+        "photo": [
+          1,
+          2
+        ],
+        "today": [
+          1,
+          1
+        ],
+        "scheduling": [
+          1,
+          2
+        ],
+        "decision": [
+          2,
+          2
+        ],
+        "list": [
+          1,
+          2
+        ],
+        "data": [
+          2,
+          2
+        ],
+        "flow": [
+          7,
+          12
+        ],
+        "teach": [
+          1,
+          2
+        ],
+        "look": [
+          1,
+          2
+        ],
+        "no-screen": [
+          4,
+          4
+        ],
+        "secret": [
+          0,
+          3
+        ],
+        "trap": [
+          2,
+          2
+        ],
+        "patch": [
+          3,
+          5
+        ],
+        "tap": [
+          1,
+          2
+        ],
+        "reaction": [
+          3,
+          3
+        ],
+        "dead-button": [
+          2,
+          3
+        ],
+        "saved": [
+          2,
+          2
+        ],
+        "mention": [
+          2,
+          2
+        ],
+        "report": [
+          2,
+          5
+        ],
+        "group": [
+          0,
+          3
+        ],
+        "idea": [
+          0,
+          2
+        ],
+        "library": [
+          1,
+          1
+        ],
+        "short": [
+          1,
+          2
+        ],
+        "doing": [
+          0,
+          1
+        ],
+        "music": [
+          6,
+          7
+        ],
+        "show": [
+          1,
+          2
+        ],
+        "explain": [
+          1,
+          3
+        ],
+        "where": [
+          2,
+          3
+        ]
+      }
+    }
+  ]
+}

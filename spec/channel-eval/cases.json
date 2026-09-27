@@ -3,7 +3,8 @@
   "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it. `at` (YUI-93): the chat words must @ at least one of these handles. `no_at`: the chat words @ nobody. `app_theme` (YUI-96): exactly one `theme app` line, with this set name. `no_text`: a regex the chat words may not match. `max_sentences`: caps the chat sentences. `max_pages` (YUI-118): caps `page` lines in the reply. app_build: score the reply as a phone on that build gets it, through the yui plugin's compat.downgrade (a flow becomes the plan it walks). tap: the reply leaves something to tap (a question, a flow, something that plays, or a button).",
   "agents": {
     "Arnold": "You are Arnold, Chris's fitness and health coach. Direct, warm, brief.",
-    "Urza": "You are Urza, Chris's chief of staff: scheduling, email, home, errands, and everything else. Sharp and brief."
+    "Urza": "You are Urza, Chris's chief of staff: scheduling, email, home, errands, and everything else. Sharp and brief.",
+    "Basil": "You are Basil, a nutritionist in the Yui app. Calm, kind and practical, never preachy. You turn goals into food people like: simple meals, swaps, grocery lists, and macros in a `table` or `stat`."
   },
   "context": "Today is Thursday, September 24, 2026, 9:10 am in Palm Beach Gardens, FL. Chris has a home gym (dumbbells to 50 lb, bench, bands, pull-up bar). His son Mick is 9 and gets out of school at 2 pm.",
   "cases": [
@@ -1338,7 +1339,10 @@
           "stat",
           "ask",
           "choose",
-          "pick"
+          "pick",
+          "done",
+          "now",
+          "next"
         ],
         "need": [
           "talk"
@@ -1543,7 +1547,10 @@
           "timeline",
           "ask",
           "choose",
-          "step"
+          "step",
+          "done",
+          "now",
+          "next"
         ],
         "need": [
           "list",
@@ -1571,7 +1578,10 @@
           "timeline",
           "ask",
           "choose",
-          "step"
+          "step",
+          "done",
+          "now",
+          "next"
         ],
         "at": [
           "arnold"
@@ -1594,7 +1604,10 @@
           "ask",
           "choose",
           "step",
-          "timeline"
+          "timeline",
+          "done",
+          "now",
+          "next"
         ],
         "no_at": true,
         "max_words": 50
@@ -1847,7 +1860,10 @@
           "timeline",
           "stat",
           "deck",
-          "page"
+          "page",
+          "done",
+          "now",
+          "next"
         ],
         "max_words": 45,
         "max_pages": 4
@@ -2280,7 +2296,10 @@
           "shapes",
           "shape",
           "timeline",
-          "table"
+          "table",
+          "done",
+          "now",
+          "next"
         ],
         "need": [
           "map",
@@ -2318,7 +2337,10 @@
           "end",
           "shapes",
           "shape",
-          "timeline"
+          "timeline",
+          "done",
+          "now",
+          "next"
         ],
         "need": [
           "map",
@@ -2355,7 +2377,10 @@
           "end",
           "shapes",
           "shape",
-          "timeline"
+          "timeline",
+          "done",
+          "now",
+          "next"
         ],
         "need": [
           "map",
@@ -2367,6 +2392,32 @@
         "max_pages": 1
       },
       "good": "One line (Central Asia, between Kazakhstan and China) and a map in the chat: KG as an area with a pulse on Bishkek, neighbors faint. No deck for a quick where."
+    },
+    {
+      "id": "data-lunch-macros",
+      "category": "data",
+      "agent": "Basil",
+      "message": "Give me a quick lunch idea with 30g of protein.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "table",
+          "stat",
+          "card",
+          "list",
+          "say",
+          "choose",
+          "ask",
+          "pick",
+          "camera",
+          "image"
+        ],
+        "need": [
+          "table",
+          "stat"
+        ]
+      },
+      "good": "One line naming the lunch and a real Yui Lines table (`table Macros Food|Protein|Cal \"Chicken|35g|165\" ...`) or stat tiles for the macros. Not a quoted title plus `columns:` rows and `end` (GLM 5.2 on YUI-131, every row a parse error), and not a markdown table."
     }
   ]
 }

@@ -6,6 +6,8 @@
 //   node run.mjs --rescore reports/v1.json  re-score saved replies (no model calls)
 //   node run.mjs --only meal-photo --into reports/v1.json --label v1  re-run cases into a report
 //
+//   OPENROUTER_API_KEY=... node run.mjs --model z-ai/glm-5.2   a model on OpenRouter, as Yui's own runtime calls it
+//
 // Each case goes to the `claude` CLI the way the fleet's shim sends a Hermes
 // turn: the agent's persona plus the channel guide exactly as the yui plugin
 // injects it (yui/adapter.py platform_hint() + look_prompt() + restyle_prompt():
@@ -65,10 +67,46 @@ function prompt(c) {
   return `Earlier in this Yui thread (oldest first):\n\n${past}\n\nNew message from Chris:\n${c.message}`;
 }
 
-// One CLI call, killed after `limit` ms (a call can hang for good); retried once.
+// One call, killed after `limit` ms (a call can hang for good); retried once.
+// A model id with a slash (z-ai/glm-5.2) goes to OpenRouter, the way Yui's own
+// runtime sends it; anything else goes to the claude CLI.
 async function ask(sys, user, model, limit = 180000) {
-  const r = await once(sys, user, model, limit);
-  return r.error ? once(sys, user, model, limit) : r;
+  const call = model.includes("/") ? openRouter : once;
+  const r = await call(sys, user, model, limit);
+  if (!r.error) return r;
+  if (call === openRouter) await new Promise((ok) => setTimeout(ok, 5000)); // a 429 wants a moment
+  return call(sys, user, model, limit);
+}
+
+// OpenRouter as yui/runtime/src/turn.ts sends a native turn: the guide as the
+// system message, the turn as the user message, max_tokens 2000, and
+// data_collection deny so no provider that keeps prompts gets them.
+// OPENROUTER_API_KEY comes from the environment and is never written anywhere.
+async function openRouter(sys, user, model, limit) {
+  const key = process.env.OPENROUTER_API_KEY;
+  if (!key) return { error: "OPENROUTER_API_KEY is not set" };
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), limit);
+  const t0 = Date.now();
+  try {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST", signal: ctl.signal,
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}`, "HTTP-Referer": "https://www.yuigui.com", "X-Title": "Yui channel eval" },
+      body: JSON.stringify({ model, messages: [{ role: "system", content: sys }, { role: "user", content: user }],
+        max_tokens: 2000, provider: { data_collection: "deny" } }),
+    });
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok || j.error) return { error: `http ${res.status}: ${String(j.error?.message || "").slice(0, 300)}` };
+    const ch = j.choices?.[0];
+    // Same as the runtime: a leading <think> block is not part of the answer.
+    const text = String(ch?.message?.content ?? "").replace(/^\s*<(think|thought|thinking)>[\s\S]*?(<\/\1>|$)/, "").trim();
+    if (!text) return { error: `empty answer (finish ${ch?.finish_reason})` };
+    return { reply: text, ms: Date.now() - t0, finish: ch.finish_reason, provider: j.provider, usage: j.usage };
+  } catch (e) {
+    return { error: `fetch: ${e.name === "AbortError" ? `timed out after ${limit} ms` : e.message}` };
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function once(sys, user, model, limit) {
@@ -350,7 +388,8 @@ async function main() {
     const guide = guideFrom(readFileSync(guidePath, "utf8"));
     const model = arg("model", "claude-opus-5-5");
     const only = arg("only");
-    const todo = cases.filter((c) => !only || c.id.startsWith(only) || c.category === only);
+    // --only takes an id prefix or a category, or several joined by commas.
+    const todo = cases.filter((c) => !only || only.split(",").some((o) => c.id.startsWith(o) || c.category === o));
     const jobs = Number(arg("jobs", 4));
     run = { label: arg("label", guide.version), guide, model, date: new Date().toISOString().slice(0, 16), results: [] };
     const results = new Array(todo.length);
@@ -360,7 +399,8 @@ async function main() {
         const i = next++, c = todo[i];
         const r = await ask(system(guide, suite, c), prompt(c), model);
         const s = r.reply ? score(c, r.reply) : { pass: false, fails: [`no reply: ${r.error}`] };
-        results[i] = { id: c.id, category: c.category, message: c.message, good: c.good, reply: r.reply, error: r.error, score: s };
+        results[i] = { id: c.id, category: c.category, message: c.message, good: c.good, reply: r.reply, error: r.error, score: s,
+          ...(r.provider ? { provider: r.provider, finish: r.finish, usage: r.usage } : {}) };
         process.stderr.write(`${s.pass ? "." : "F"}`);
       }
     }));

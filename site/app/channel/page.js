@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import DocShell from "../components/DocShell";
 import Examples from "./Examples";
+import ModelScores from "./ModelScores";
 import { findSample, sampleSlug, cleanYL, shareItem, shareUrl } from "../../lib/share.mjs";
 
 export const metadata = {
@@ -44,6 +45,7 @@ export default function ChannelGuide() {
   return (
     <>
       <Examples items={examples()} />
+      <ModelScores />
       <DocShell
         slug="channel"
         after={results}
