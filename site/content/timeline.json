@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 251,
-    "site": 580,
+    "site": 582,
     "builds": 40,
-    "shipped": 288,
-    "screenshots": 671
+    "shipped": 289,
+    "screenshots": 673
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T23:36:16.608Z",
+          "at": "2026-09-27T23:45:42.471Z",
+          "title": "Every agent has its own home: the spec and a mock",
+          "card": "YUI-168",
+          "anchor": "every-agent-has-its-own-home-the-spec-and-a-mock",
+          "images": [
+            {
+              "src": "/progress/yui168-basil-today-dark.webp",
+              "alt": "Dark mock of Basil's screen 2: 1,420 of 2,100 calories today and a bar chart of protein, carbs and fat against the goal"
+            },
+            {
+              "src": "/progress/yui168-gouda-keys-dark.webp",
+              "alt": "Dark mock of Gouda's screen 4: a keyboard in C major ready to play, after the looper and the chords"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 251,
+            "site": 582,
+            "builds": 40,
+            "shipped": 289
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T23:36:04.000Z",
           "title": "The chat on this site feels like Yui",
           "card": "SITE-65",
           "anchor": "the-chat-on-this-site-feels-like-yui",
@@ -39,10 +63,10 @@
               "alt": "On a phone: the light page, then the chat full screen and dark, Meet the crew with five names to tap, and Quill's quiz deck after tapping Quill"
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
             "app": 251,
-            "site": 580,
+            "site": 581,
             "builds": 40,
             "shipped": 288
           }
@@ -1226,6 +1250,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "b7bed16",
+          "at": "2026-09-27T23:36:41.000Z",
+          "text": "timeline: sync (SITE-65)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b7bed16"
+        },
+        {
+          "repo": "site",
+          "sha": "a791c5d",
+          "at": "2026-09-27T23:36:04.000Z",
+          "text": "The site chat feels like Yui: it turns the site dark, answers with screens, crew shortcuts (SITE-65)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a791c5d"
+        },
         {
           "repo": "site",
           "sha": "0bbb664",

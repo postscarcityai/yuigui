@@ -21,6 +21,7 @@ const ORDER = [
   ["relay", "Relay", null, "How messages travel between your machine and the app, and how push works."],
   ["groups", "Group threads (draft)", null, "Several of your agents in one conversation: who answers, how a handoff shows, the loop guard, and how a group is stored."],
   ["chats", "Chats (draft)", null, "Several chats with one agent, listed in the drawer: New chat, titles, rename and delete, and what the agent remembers across them."],
+  ["home", "Agent home (draft)", null, "Every agent's home: its own shortcuts, what is waiting on you, and starter screens a swipe away, set with Yui Lines words that already exist."],
   ["adapters", "Adapters", null, "Every agent framework Yui plans to reach, Hermes first, and in what order."],
   ["hosting", "Hosting", null, "Where Yui's hosted connector runs (Cloudflare, beside the Supabase relay), what it costs, and why."],
   ["openclaw", "OpenClaw", null, "Your OpenClaw agent in Yui: install the channel plugin, pair, and what the agent is told."],
