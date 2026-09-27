@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T02:10:35.578Z",
+  "updated": "2026-09-27T02:40:42.385Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.0",
@@ -8,6 +8,13 @@
     "shippedAt": null,
     "cards": [
       {
+        "key": "YUI-121",
+        "title": "The bottom bar",
+        "status": "done",
+        "shipped": "2026-09-26",
+        "progress": "/progress#a-bigger-mic-bottom-right"
+      },
+      {
         "key": "YUI-123",
         "title": "Describe how each agent moves, in words, and the agent turns it into a motion look",
         "status": "done",
@@ -15,19 +22,16 @@
         "progress": "/progress#say-how-each-agent-moves"
       },
       {
-        "key": "YUI-121",
-        "title": "The bottom bar",
-        "status": "now"
-      },
-      {
         "key": "YUI-124",
         "title": "The visualizer",
-        "status": "now"
+        "status": "done",
+        "shipped": "2026-09-26",
+        "progress": "/progress#a-live-picture-behind-the-words"
       },
       {
         "key": "YUI-122",
         "title": "The top bar",
-        "status": "next"
+        "status": "now"
       },
       {
         "key": "YUI-120",
@@ -145,11 +149,6 @@
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
           "waiting": true
-        },
-        {
-          "key": "YUI-122",
-          "title": "The top bar",
-          "summary": "Agents top left with settings in a hamburger beside them, the chat record top right"
         },
         {
           "key": "YUI-124",
@@ -402,15 +401,9 @@
           "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
         },
         {
-          "key": "YUI-121",
-          "title": "The bottom bar",
-          "summary": "A bigger mic bottom right, T opens the text field, + attaches, images while typing"
-        },
-        {
-          "key": "YUI-124",
-          "title": "The visualizer",
-          "step": "Step 1",
-          "summary": "Shader visuals on the stage, spec + playground mock"
+          "key": "YUI-122",
+          "title": "The top bar",
+          "summary": "Agents top left with settings in a hamburger beside them, the chat record top right"
         }
       ]
     },
@@ -418,6 +411,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-124",
+          "title": "The visualizer",
+          "step": "Step 1",
+          "summary": "A live picture behind the words",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-live-picture-behind-the-words"
+        },
+        {
+          "key": "YUI-121",
+          "title": "The bottom bar",
+          "summary": "A bigger mic, bottom right",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-bigger-mic-bottom-right"
+        },
         {
           "key": "YUI-63",
           "title": "Claude-shim agents send what they are doing to Yui mid-turn",
