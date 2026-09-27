@@ -1,12 +1,12 @@
 "use client";
-// The home hero's video: "The new face of Yui", filmed in the app (SOC-6, videos/12-new-face), hosted here.
+// The home hero's video: "Meet Yui", Yui as a whole in one evening (videos/21-meet-yui-home), hosted here.
 // The page shows the poster and a play button; the mp4 loads only when someone presses play, so the
 // home page stays fast. A new hero video is a new id here (an entry in public/demo/videos/videos.json).
 import { useState } from "react";
 import { trackCta } from "../../lib/track.mjs";
 import videos from "../../public/demo/videos/videos.json";
 
-const ID = "film-new-face";
+const ID = "film-meet-yui-home";
 
 export default function HeroVideo() {
   const [on, setOn] = useState(false);
