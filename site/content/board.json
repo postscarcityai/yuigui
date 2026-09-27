@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T20:11:16.980Z",
+  "updated": "2026-09-27T20:48:31.399Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.2",
@@ -152,11 +152,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-162",
-          "title": "Native GLM 5.2 turns can think through all 2000 tokens and answer nothing",
-          "waiting": true
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -287,6 +282,15 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
+        },
+        {
+          "key": "YUI-162",
+          "title": "Native GLM 5.2 turns can think through all 2000 tokens and answer nothing"
+        },
+        {
+          "key": "YUI-164",
+          "title": "Ship the fix build",
+          "summary": "New-user first run with the crew, pick your crew, screens on the stage, on top of the 229 crash fix"
         }
       ]
     },

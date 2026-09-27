@@ -1105,6 +1105,14 @@
     {
       "text": "Live first-launch proof checks every crew answer for dashes",
       "card": "YUI-163"
+    },
+    {
+      "text": "Native turns always answer: a 1000-token reasoning cap on OpenRouter, one retry without thinking when the answer comes back empty",
+      "card": "YUI-162"
+    },
+    {
+      "text": "Retry without thinking also when a cut-off answer spent over half its budget thinking",
+      "card": "YUI-162"
     }
   ]
 }
