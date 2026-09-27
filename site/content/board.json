@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T07:10:36.753Z",
+  "updated": "2026-09-27T07:40:29.698Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.0",
@@ -346,6 +346,11 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
+        },
+        {
+          "key": "SITE-60",
+          "title": "See it",
+          "summary": "Record a take and play from a keyboard"
         }
       ]
     },
@@ -383,12 +388,9 @@
         },
         {
           "key": "YUI-116",
-          "title": "The channel guide teaches keys, chords, tuner and metronome"
-        },
-        {
-          "key": "SITE-59",
-          "title": "The site after 0.4.0",
-          "summary": "Every link, share card and library screen checks clean"
+          "title": "The channel guide teaches keys, chords, tuner and metronome",
+          "summary": "Agents send keys and chords",
+          "progress": "/progress#agents-send-keys-and-chords"
         }
       ]
     },
@@ -396,6 +398,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-59",
+          "title": "The site after 0.4.0",
+          "summary": "A clean sweep after Yui 0.4.0",
+          "shipped": "2026-09-27",
+          "progress": "/progress#a-clean-sweep-after-yui-0-4-0"
+        },
         {
           "key": "SITE-58",
           "title": "Yui 0.4.0 in motion on See it",

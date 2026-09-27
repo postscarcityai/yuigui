@@ -83,6 +83,9 @@
         },
         {
           "text": "A tuner and a metronome in the app (YUI-116 step 4)"
+        },
+        {
+          "text": "Channel guide v33: agents send keys and chords (YUI-116, yuigui 85bbee1)"
         }
       ]
     },
