@@ -17,6 +17,8 @@ export const maxDuration = 60;
 // Per visitor, on this server instance: 20 turns in 10 minutes, 80 in a day. The hard ceiling
 // on spend is the credit limit on the chat's own OpenRouter key.
 const SHORT = [10 * 60 * 1000, 20], DAY = [24 * 60 * 60 * 1000, 80];
+// With no Turnstile keys set there is no check for a person, so a chat ends sooner.
+const NO_CHECK_TURNS = 12;
 const hits = new Map();
 function tooMany(ip) {
   const now = Date.now();
@@ -81,7 +83,7 @@ export async function POST(req) {
   if (!text) return say({ error: "Say something first." }, null, 400);
   if (tooMany(ip)) return say({ error: "That is a lot of messages. Take a breather and try again in a few minutes." }, null, 429);
   if (s.turns >= FREE_TURNS && !s.verified && turnstileOn()) return say({ verify: process.env.TURNSTILE_SITE_KEY }, s);
-  if (s.turns >= MAX_TURNS) {
+  if (s.turns >= (turnstileOn() ? MAX_TURNS : NO_CHECK_TURNS)) {
     return say({ reply: "This chat is full. Thank you for all of it, the team reads every chat. You can pick Yui up on your iPhone from [Get Yui](/start).", actions: [], done: true }, s);
   }
 
