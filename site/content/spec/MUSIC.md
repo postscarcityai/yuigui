@@ -418,6 +418,15 @@ Pitch detection on the mic (section 6), the tunings table, the mic prompt with t
 
 Recording and export (section 3), Bluetooth and USB MIDI in (a MIDI keyboard plays `keys`), MIDI clock out, and Ableton Link so the looper plays in time with other apps on the same Wi-Fi. Proof: a take received by an agent as a link, a MIDI keyboard playing, two devices in time over Link.
 
+Where it stands (Sep 27, yui 54cb655 on main, rides the next release):
+
+- Shipped: recording and export. Record on the looper, pads, keys or chords, and Stop and send hands the agent an .m4a and a .mid as two links. Proven in the simulator end to end: a 4.4 s take reached a real agent, which answered with it.
+- Shipped: MIDI in and MIDI clock out. A USB or Bluetooth keyboard plays `keys`, and a playing beat sends 24 clock ticks a beat (measured in the simulator at 120 BPM).
+- Waits on a phone: a real MIDI keyboard on an iPhone, and a TestFlight build with all of this.
+- Waits on a sign-off: Ableton Link. Its SDK license can't sit in Yui's public code and needs Apple's multicast entitlement, so it waits for Chris's call. Until then MIDI clock keeps other gear in time.
+
+Watch it: [Record a take](/mockups#take) and [A MIDI keyboard plays the keys](/mockups#midi-keys) on See it.
+
 ## Sources
 
 Every source is linked where it is used, in sections 1, 5, 6 and 7. The sound recipes are `synth.py` from the soundtrack of Yui's first film, in the yuigui repo's brag folder.
