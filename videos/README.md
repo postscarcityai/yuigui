@@ -91,6 +91,15 @@ Kit rules learned the hard way:
 - A finger never glides in from an element that is hidden.
 - Check stills before rendering: overlaps, cut-off text, captions touching the phone, and for reels a sheet with the Instagram zones drawn on.
 
+## Brand films
+
+The brand lab (`13-brand`, yuigui.com/brand) has its own look and sound. The product videos keep everything above.
+
+- **The mark and its materials are shared code.** `site/lib/brand/` holds the mark (six pieces and the rough to clean dial), the palettes, the shaders (paper, meok, quiet, celadon, bojagi, holo), the scenes and the motion. The comps import them by relative path, so a film and the live page are the same material. `13-brand/lab.js` adds shader layers, a vector ink layer and captions.
+- **Sound: house with grime.** `house()` in `kit/sound.py`: four on the floor, minor-9 Rhodes stabs, a rolling sub pumped under the kick, square grime stabs, a half-time grime break, trap hat rolls into the turns, a K-pop sparkle now and then. 122 BPM. `sonic_logo()` plays six notes as the six pieces land, voiced for the material (gayageum, bell, celadon, sparkle, Rhodes, paper).
+- **Still no AI video.** fal stills live only on the brand page, labeled. Every frame of every film is drawn by code.
+- **Rendering shaders.** `YUI_GL=1 python3 kit/render.py ...` gives Chromium the Mac's GPU and grabs frames straight from the compositor: about 0.1 s a frame instead of 1.2 s. `13-brand/build.sh` makes music, both formats, posters, the mux and the small copies for the site in one go. Chapter shorts are the journey windowed: `build.sh short:ink` (windows in `journey/chapters.json`).
+
 ## Git
 
 Sources are tracked (comps, music scripts, plans, share copy, the kit). Renders, frames, audio and copied images are not (`.gitignore`): they are large and can be made again. To put a finished video on the site, copy the final `.mp4` and poster into `site/public/demo/videos/` on purpose. The films live there as `film-<topic>-16x9.mp4` and `-9x16.mp4` (1280x720 and 720x1280, x264 CRF 25, the audio copied as is, `+faststart`), posters as `.jpg` (frame 0 for landscape, the reel cover for 9:16), each with a row in `videos.json` (`sound: true`). Put one on a page with `<Films ids={[...]} />` from `site/app/components/Films.js`, and give it a See it entry in the Videos group so it gets a share link.
@@ -112,5 +121,6 @@ Sources are tracked (comps, music scripts, plans, share copy, the kit). Renders,
 | 10-homework | homework rescue: a picture, a memory game, a quiz, the score goes back | /, /mockups#game-memory |
 | 11-tune-up | Yui 0.4.1: tune up, keep time, send a take | /mockups#music-tools, /thoughts/yui-0-4-1-tune-up-keep-time-send-a-take |
 | 12-new-face | the new layout filmed in the real app (build 208 on the simulator, `record.py` + `BragLayoutTests.swift`) | / (the hero), /mockups |
+| 13-brand | the brand lab: five material stings and the Apple one, a 60 s journey, four chapter shorts, three app loops (house sound, WebGL shaders) | /brand |
 
 What each page could get next: `PLAN.md`.

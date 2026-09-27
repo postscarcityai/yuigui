@@ -223,6 +223,18 @@ class Song:
                 duck[i:] = np.minimum(duck[i:], 1 - 0.55 * np.exp(-(tk[i:] - k) / 0.13))
             s["sub"] = fft_filter(s["sub"] * duck, hi=160)
             s["wob"] = fft_filter(s["wob"] * (0.35 + 0.65 * duck), lo=55, hi=3200)
+        elif getattr(self, "house", False):  # house: the pump, bass and chords ducked under every kick
+            tk = np.arange(self.N) / SR
+            duck = np.ones(self.N)
+            for k in self.kicks:
+                i = int(k * SR)
+                j = min(self.N, i + int(0.4 * SR))
+                duck[i:j] = np.minimum(duck[i:j], 1 - 0.6 * np.exp(-(tk[i:j] - k) / 0.11))
+            for k in ("bass", "keys", "pad", "sub"):
+                if k in s:
+                    s[k] = s[k] * (duck if k != "keys" else 0.55 + 0.45 * duck)
+            s["sub"] = fft_filter(s["sub"], hi=160)
+            s["wob"] = fft_filter(s["wob"], lo=70, hi=3000)
         room_in = s["keys"] * 0.9 + s["pad"] * 0.7 + s["lead"] * 0.8 + s["fx"] * 0.6 + s.get("skank", 0) * 0.35 + s.get("echo", 0) * 0.25
         ir_t = tt(1.6)
         ir = np.stack([noise(len(ir_t)), noise(len(ir_t))]) * np.exp(-ir_t / 0.33)
@@ -448,3 +460,152 @@ def drop(song, t, bars_before=1.5):
     song.add("fx", swell(song.bar), t - song.bar, 0.3)
     song.add("fx", crash(), t, 0.22, pan=0.15)
     song.add("drums", snare(1.6), t, 0.5)
+
+
+# ---------------------------------------------------------------- the brand sound: house
+# The brand films (13-brand) are scored in deep house with some grime in it: a four-on-the-floor
+# kick, minor-9 Rhodes stabs, a rolling sub, square-wave grime stabs and a half-time break, trap
+# hat rolls into the turns, and now and then a bright K-pop sparkle on top. 120 to 124 BPM.
+# Dub stays the sound of the product videos.
+
+def rhodes(m, dur, v=0.8):
+    """An electric piano tine: a sine with a fast FM bark, a little tremolo."""
+    t = tt(dur + 0.6)
+    f = hz(m)
+    bark = 1.1 * np.exp(-t / 0.18)
+    s = np.sin(2 * np.pi * f * t + bark * np.sin(2 * np.pi * f * t)) + 0.18 * np.sin(2 * np.pi * f * 4.02 * t) * np.exp(-t / 0.06)
+    trem = 1 + 0.12 * np.sin(2 * np.pi * 5.5 * t)
+    env = hit(t, 0.4 * v, 0.9, 0.004) * np.where(t > dur, np.exp(-(t - dur) / 0.09), 1.0)
+    return s * env * trem
+
+
+def deep_bass(m, dur, v=0.9):
+    """A round house bass: sine plus a filtered saw edge, plucky."""
+    t = tt(dur + 0.05)
+    f = hz(m)
+    s = np.sin(2 * np.pi * f * t) + 0.25 * fft_filter(2 * ((f * t) % 1) - 1, hi=420)
+    env = 0.6 * v * np.minimum(1, t / 0.004) * np.exp(-t / max(0.12, dur * 0.8)) * np.where(t > dur, np.exp(-(t - dur) / 0.02), 1.0)
+    return drive(s * env, 1.5)
+
+
+def grime(m, dur=0.22, v=0.9):
+    """A grime stab: a square that drops an octave into the note, driven and boxy."""
+    t = tt(dur)
+    f = hz(m) * (1 + np.exp(-t / 0.018))
+    ph = np.cumsum(f) / SR
+    s = np.sign(np.sin(2 * np.pi * ph)) * 0.6 + 0.4 * np.sign(np.sin(2 * np.pi * ph * 0.5))
+    s = fft_filter(s, lo=60, hi=2400)
+    return drive(s * hit(t, 0.7 * v, dur * 0.5, 0.002), 2.2) * 0.8
+
+
+def sparkle(m, v=0.7):
+    """The K-pop sprinkle: a glassy two-partial pluck with a fast shimmer."""
+    t = tt(0.9)
+    f = hz(m)
+    s = np.sin(2 * np.pi * f * t) + 0.5 * np.sin(2 * np.pi * f * 2.01 * t) + 0.25 * np.sin(2 * np.pi * f * 3 * t) * np.exp(-t / 0.05)
+    return s * hit(t, 0.32 * v, 0.28, 0.002) * (1 + 0.2 * np.sin(2 * np.pi * 11 * t))
+
+
+def gayageum(m, dur=1.2, v=0.8):
+    """A plucked silk string that bends and shakes after the attack (nonghyeon)."""
+    t = tt(dur + 0.6)
+    f = hz(m) * (1 + 0.012 * np.minimum(1, np.maximum(0, t - 0.18) / 0.2) * np.sin(2 * np.pi * 5.8 * t))
+    ph = np.cumsum(f) / SR
+    s = np.sin(2 * np.pi * ph) + 0.45 * np.sin(4 * np.pi * ph) * np.exp(-t / 0.2) + 0.2 * np.sin(6 * np.pi * ph) * np.exp(-t / 0.08)
+    return s * hit(t, 0.42 * v, 0.55, 0.002)
+
+
+def thud(v=0.8):
+    """Paper landing on paper: a soft low tock with a breath of noise."""
+    t = tt(0.25)
+    f = 120 * (1 + 0.6 * np.exp(-t / 0.01))
+    return (np.sin(2 * np.pi * np.cumsum(f) / SR) * hit(t, 0.8 * v, 0.05) + fft_filter(noise(len(t)), lo=600, hi=3500) * hit(t, 0.25 * v, 0.02))
+
+
+def roll(song, t, n, span, v=0.5, pan=0.3):
+    """A trap hat roll: n hits across span seconds, getting louder."""
+    for k in range(n):
+        song.add("drums", hat(v * (0.45 + 0.55 * k / max(1, n - 1))), t + span * k / n, 0.3, pan=pan)
+
+
+# Em9 up the arpeggio: the six notes of the mark, ears to dot.
+LOGO = [67, 71, 74, 76, 78, 83]
+
+
+def sonic_logo(song, times, voice="bell", notes=LOGO, g=0.6):
+    """Six notes, one as each piece lands. The voice is the direction's material."""
+    for i, (t, m) in enumerate(zip(times, notes)):
+        pan = -0.35 + 0.14 * i
+        if voice == "bell":
+            song.add("lead", bell(m, 1.8, 0.8), t, g, pan=pan)
+        elif voice == "gayageum":
+            song.add("lead", gayageum(m - 12, 1.4, 0.9), t, g * 1.2, pan=pan)
+        elif voice == "sparkle":
+            song.add("lead", sparkle(m + 12, 0.9), t, g, pan=pan)
+        elif voice == "rhodes":
+            song.add("keys", rhodes(m, 1.2, 0.9), t, g * 1.3, pan=pan)
+        elif voice == "celadon":
+            song.add("lead", bell(m, 2.2, 0.7), t, g, pan=pan)
+            song.add("fx", tick(0.35, 5200 + 300 * i), t + 0.03, 0.25, pan=-pan)
+        elif voice == "paper":
+            song.add("fx", thud(0.9), t, 0.9, pan=pan * 0.5)
+            song.add("keys", rhodes(m, 0.9, 0.7), t, g, pan=pan)
+
+
+def house(song, sections, prog, hook=None):
+    """The brand arranger. sections: [(first bar, bar after last, level)], prog: one chord a bar.
+    1 Rhodes stabs and a shaker, no kick; 2 four on the floor, claps, offbeat hats, the rolling sub;
+    3 adds grime stabs and trap rolls into every other bar; 4 the grime break: half-time kick and
+    snare, square stabs, rolls. hook: {bar in 4: [(step, midi)]} sparkles, level 3 and up."""
+    for key in ("sub", "wob"):
+        song.stems.setdefault(key, np.zeros((2, song.N)))
+    song.kicks = getattr(song, "kicks", [])
+    song.house = True
+    for a, z, level in sections:
+        for b in range(a, z):
+            ch = prog[b % len(prog)]
+            notes = chord_notes(ch)
+            root = notes[0]
+            t0 = song.at(b, swing=0)
+            # Rhodes: the classic deep house stab pattern, a little behind the beat
+            for k in ((3, 6, 11, 14) if level >= 2 else (0, 6, 11)):
+                for j, m in enumerate(notes[1:]):
+                    song.add("keys", rhodes(m, song.step * 1.6, 0.75), song.at(b, k) + 0.008 * j, 0.5 if level >= 2 else 0.6, pan=-0.25 + 0.12 * j)
+            if level == 1:
+                song.add("pad", pad(root + 12, song.bar, 0.5), t0, 0.45)
+                for k in range(2, 16, 4):
+                    song.add("drums", shaker(0.6), song.at(b, k), 0.35, pan=0.25)
+            if level in (2, 3):
+                for beat in range(4):
+                    tk = song.at(b, beat * 4, 0)
+                    song.add("drums", kick(1.0), tk, 0.9); song.kicks.append(tk)
+                    song.add("drums", hat(0.8, open_=True), song.at(b, beat * 4 + 2), 0.16, pan=0.25)
+                for beat in (1, 3):
+                    song.add("drums", clap(0.9), song.at(b, beat * 4, 0), 0.5, pan=-0.05)
+                for k in range(0, 16, 1):
+                    if k % 4 != 0:
+                        song.add("drums", hat(0.5), song.at(b, k), 0.07 + 0.05 * (k % 2), pan=-0.3)
+                # the rolling sub: offbeat 8ths and a push into the next bar
+                for k, dk in ((2, 2), (6, 2), (10, 2), (13, 1), (14, 2)):
+                    m = root - 12 + (12 if k == 13 else 0)
+                    song.add("bass", deep_bass(m, song.step * dk * 0.9), song.at(b, k), 0.85)
+            if level == 3:
+                if b % 2 == 1:
+                    roll(song, song.at(b, 12), 12, song.step * 4, 0.6)
+                for k in (0, 7) if b % 2 == 0 else (0, 3, 10):
+                    song.add("wob", grime(root, 0.18), song.at(b, k), 0.3, pan=0.1)
+            if level == 4:
+                tk = t0
+                song.add("drums", kick(1.1), tk, 1.0); song.kicks.append(tk)
+                song.add("drums", kick(0.8), song.at(b, 10), 0.7); song.kicks.append(song.at(b, 10))
+                song.add("drums", snare(1.2), song.at(b, 8, 0), 0.8)
+                song.add("drums", clap(0.8), song.at(b, 8, 0), 0.4)
+                for k in range(0, 16, 2):
+                    song.add("drums", hat(0.55), song.at(b, k), 0.16, pan=0.3)
+                roll(song, song.at(b, 12 if b % 2 else 14), 16 if b % 2 else 8, song.step * (4 if b % 2 else 2), 0.7, pan=-0.2)
+                for k in (0, 3, 6, 11):
+                    song.add("wob", grime(root + (7 if k == 11 else 0), 0.2), song.at(b, k), 0.42, pan=-0.1)
+                song.add("sub", sub_note(root - 12, song.bar * 0.9, att=0.004), t0, 0.7)
+            if level >= 3 and hook:
+                for k, m in hook.get((b - a) % 4, []):
+                    song.add("lead", sparkle(m, 0.8), song.at(b, k), 0.42, pan=0.2)

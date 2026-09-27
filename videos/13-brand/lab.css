@@ -1,0 +1,15 @@
+/* The brand films: a full-frame material, the mark, and very few words. */
+#stage { background: #FFFFFF; }
+.layer { position: absolute; inset: 0; width: 100%; height: 100%; }
+canvas.layer { display: block; }
+svg.layer { overflow: visible; }
+.bcap { position: absolute; left: 0; right: 0; text-align: center; font-family: "YuiRounded", system-ui; font-weight: 800; font-size: 76px; letter-spacing: -.01em; line-height: 1.05; opacity: 0; will-change: transform, opacity; }
+.bcap.low { bottom: 96px; }
+.bcap.high { top: 88px; }
+.label { position: absolute; bottom: 52px; font-family: "YuiMono", ui-monospace, monospace; font-weight: 600; font-size: 24px; letter-spacing: .08em; text-transform: uppercase; opacity: 0; }
+.label.l { left: 64px; } .label.r { right: 64px; }
+body.reel .bcap { font-size: 84px; padding: 0 60px; }
+body.reel .bcap.low { bottom: 330px; }
+body.reel .bcap.high { top: 300px; }
+body.reel .label { bottom: 330px; font-size: 26px; }
+body.reel .label.l { left: 60px; } body.reel .label.r { right: 60px; bottom: 290px; }
