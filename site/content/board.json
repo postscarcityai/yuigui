@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-27T05:40:19.325Z",
+  "updated": "2026-09-27T06:40:13.753Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.0",
-    "status": "shipping",
+    "status": "shipped",
     "startedAt": "2026-09-27T05:37:00.000Z",
-    "shippedAt": null,
+    "shippedAt": "2026-09-27T06:10:27.000Z",
     "cards": [
       {
         "key": "YUI-121",
@@ -51,7 +51,8 @@
         "key": "YUI-125",
         "title": "The visualizer listens",
         "status": "done",
-        "shipped": "2026-09-27"
+        "shipped": "2026-09-27",
+        "progress": "/progress#the-picture-listens"
       }
     ]
   },
@@ -266,11 +267,6 @@
         },
         {
           "key": "YUI-116",
-          "title": "Tuner + metronome in the app",
-          "step": "Step 4"
-        },
-        {
-          "key": "YUI-116",
           "title": "Recording, export, MIDI and Ableton Link",
           "step": "Step 5"
         },
@@ -355,10 +351,6 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
-        },
-        {
-          "key": "SITE-57",
-          "title": "Yui 0.4.0 on the site, a release Thought and a See it group"
         }
       ]
     },
@@ -384,11 +376,8 @@
         },
         {
           "key": "YUI-116",
-          "title": "Keys + chords in the app",
-          "step": "Step 3",
-          "summary": "Keys and chords you can play in the app",
-          "waiting": true,
-          "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
+          "title": "Tuner + metronome in the app",
+          "step": "Step 4"
         }
       ]
     },
@@ -397,10 +386,32 @@
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "SITE-58",
+          "title": "Yui 0.4.0 in motion on See it",
+          "shipped": "2026-09-27",
+          "progress": "/progress#yui-0-4-0-in-motion-on-see-it"
+        },
+        {
+          "key": "YUI-116",
+          "title": "Keys + chords in the app",
+          "step": "Step 3",
+          "summary": "Keys and chords you can play in the app",
+          "shipped": "2026-09-27",
+          "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
+        },
+        {
+          "key": "SITE-57",
+          "title": "Yui 0.4.0 on the site, a release Thought and a See it group",
+          "summary": "Yui 0.4.0 on the site: the release post and See it",
+          "shipped": "2026-09-27",
+          "progress": "/progress#yui-0-4-0-on-the-site-the-release-post-and-see-it"
+        },
+        {
           "key": "YUI-125",
           "title": "The visualizer listens",
-          "summary": "It moves with your voice, the agent's voice and the music",
-          "shipped": "2026-09-27"
+          "summary": "The picture listens",
+          "shipped": "2026-09-27",
+          "progress": "/progress#the-picture-listens"
         },
         {
           "key": "YUI-124",
