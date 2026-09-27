@@ -2018,6 +2018,49 @@
         "max_words": 30
       },
       "good": "One `chords` line in G (`chords G I-V-vi-IV` or `chords G|D|Em|C`), a short line at most. No chord names in a paragraph, no chord diagrams in text."
+    },
+    {
+      "id": "music-tuner-guitar",
+      "category": "music",
+      "agent": "Urza",
+      "message": "Just restrung my acoustic and it sounds awful. Help me get it in tune.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "tuner",
+          "say",
+          "card",
+          "save"
+        ],
+        "need": [
+          "tuner"
+        ],
+        "max_words": 30
+      },
+      "good": "One `tuner guitar` line, a short line at most. No list of string notes and frequencies, no advice on tuning by ear."
+    },
+    {
+      "id": "music-metronome-practice",
+      "category": "music",
+      "agent": "Urza",
+      "message": "Working on my strumming timing. I want to practice slow, like 70 bpm in 4/4.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "metronome",
+          "loop",
+          "chords",
+          "say",
+          "card",
+          "save",
+          "timer"
+        ],
+        "need": [
+          "metronome"
+        ],
+        "max_words": 30
+      },
+      "good": "One `metronome 70` line (beats=4 is fine), a short line at most. No paragraph of practice tips, no counting in words."
     }
   ]
 }

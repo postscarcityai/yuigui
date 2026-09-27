@@ -346,8 +346,8 @@ game tictactoe "Beat me"`,
 // "screen". They are in library.json and search. A screen that uses a preset no VALID
 // build draws yet is marked `app: "coming"`, so an agent knows the phone skips it:
 // loop and drums draw since build 176, keys and chords since 204 (YUI-116 step 3),
-// tuner and metronome wait for step 4.
-export const APP_COMING = ["tuner", "metronome"];
+// tuner and metronome since 208 (step 4), so none is marked now.
+export const APP_COMING = [];
 const usesComing = (yl) => yl.split("\n").some((l) => APP_COMING.includes(l.trim().split(/\s+/)[0]));
 export const MUSIC_SCREENS = [
   {
