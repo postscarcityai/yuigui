@@ -1042,6 +1042,30 @@
     {
       "text": "Native profiles: the build loads every folder through the checked loader, with tests",
       "card": "YUI-133"
+    },
+    {
+      "text": "Maps in the app (YUI-158 step 2; Chris on the Mongol Empire answer, feedback AL2nKEYo: \"Again, not bad but this should be a Map.\")"
+    },
+    {
+      "text": "Native web search on an agent, with a free monthly cap and your own key",
+      "card": "YUI-142"
+    },
+    {
+      "text": "Channel guide v37: agents answer where with a map (YUI-158 step 3)"
+    },
+    {
+      "text": "Native agents read photos: one per turn, Basil reads a meal",
+      "card": "YUI-141"
+    },
+    {
+      "text": "Native memory: notes only on native agents, with end-to-end tests",
+      "card": "YUI-140"
+    },
+    {
+      "text": "Map labels stop overlapping (YUI-158 follow-up)"
+    },
+    {
+      "text": "yui-mcp: MCP App copy with the map label fix (YUI-158 follow-up)"
     }
   ]
 }

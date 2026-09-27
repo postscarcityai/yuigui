@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T17:41:49.634Z",
+  "updated": "2026-09-27T18:42:09.127Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.2",
@@ -147,9 +147,9 @@
           "summary": "Rolling updates, daily backups, a kill switch per sandbox"
         },
         {
-          "key": "YUI-158",
-          "title": "Agents answer 'where' with a map, channel guide + eval (Chris, feedback AL2nKEYo)",
-          "step": "Step 3"
+          "key": "YUI-161",
+          "title": "Native agents write \\n inside quoted YL strings, the app shows 'nn'",
+          "waiting": true
         },
         {
           "key": "SITE-28",
@@ -217,25 +217,6 @@
       "key": "next",
       "title": "Up next",
       "cards": [
-        {
-          "key": "YUI-145",
-          "title": "The first launch is Yui talking, with the crew already there; model and version in Controls"
-        },
-        {
-          "key": "YUI-140",
-          "title": "Native memory",
-          "summary": "Each agent's own notes plus one shared about-you card, in Controls"
-        },
-        {
-          "key": "YUI-141",
-          "title": "Native agents read photos",
-          "summary": "Photo turns go to GLM-5V-Turbo, Basil reads a meal"
-        },
-        {
-          "key": "YUI-143",
-          "title": "Native schedules and push",
-          "summary": "The trainer checks in, Basil asks about lunch"
-        },
         {
           "key": "YUI-160",
           "title": "Native sprint build to TestFlight, onboarding with the native agent"
@@ -311,30 +292,18 @@
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
         },
         {
-          "key": "YUI-158",
-          "title": "Maps in the app, MapKit areas, pins and routes on the stage (Chris, feedback AL2nKEYo)",
-          "step": "Step 2"
-        },
-        {
-          "key": "YUI-131",
-          "title": "Native models",
-          "summary": "Pick the model per turn",
-          "progress": "/progress#pick-the-model-per-turn"
-        },
-        {
-          "key": "YUI-133",
-          "title": "Native profiles",
-          "summary": "Yui's own soul and first screen",
-          "progress": "/progress#yui-s-own-soul-and-first-screen"
-        },
-        {
           "key": "YUI-134",
           "title": "A Yui for everyone at sign-in",
           "summary": "A hosted connector per person, agents as rows, no pairing, a webhook wakes the runtime"
         },
         {
-          "key": "YUI-142",
-          "title": "Native web search with caps"
+          "key": "YUI-143",
+          "title": "Native schedules and push",
+          "summary": "The trainer checks in, Basil asks about lunch"
+        },
+        {
+          "key": "YUI-145",
+          "title": "The first launch is Yui talking, with the crew already there; model and version in Controls"
         }
       ]
     },
@@ -342,6 +311,64 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-158",
+          "title": "Follow-up (backlog)",
+          "summary": "Map labels stop overlapping",
+          "shipped": "2026-09-27",
+          "progress": "/progress#map-labels-stop-overlapping"
+        },
+        {
+          "key": "YUI-140",
+          "title": "Native memory",
+          "summary": "Your agents remember you, and you can fix what they remember",
+          "shipped": "2026-09-27",
+          "progress": "/progress#your-agents-remember-you-and-you-can-fix-what-they-remember"
+        },
+        {
+          "key": "YUI-141",
+          "title": "Native agents read photos",
+          "summary": "Basil reads your meal",
+          "shipped": "2026-09-27",
+          "progress": "/progress#basil-reads-your-meal"
+        },
+        {
+          "key": "YUI-158",
+          "title": "Agents answer 'where' with a map, channel guide + eval (Chris, feedback AL2nKEYo)",
+          "step": "Step 3",
+          "summary": "Agents answer where with a map",
+          "shipped": "2026-09-27",
+          "progress": "/progress#agents-answer-where-with-a-map"
+        },
+        {
+          "key": "YUI-142",
+          "title": "Native web search with caps",
+          "summary": "Native agents look things up, with sources",
+          "shipped": "2026-09-27",
+          "progress": "/progress#native-agents-look-things-up-with-sources"
+        },
+        {
+          "key": "YUI-158",
+          "title": "Maps in the app, MapKit areas, pins and routes on the stage (Chris, feedback AL2nKEYo)",
+          "step": "Step 2",
+          "summary": "Maps in the app",
+          "shipped": "2026-09-27",
+          "progress": "/progress#maps-in-the-app"
+        },
+        {
+          "key": "YUI-133",
+          "title": "Native profiles",
+          "summary": "Yui's own soul and first screen",
+          "shipped": "2026-09-27",
+          "progress": "/progress#yui-s-own-soul-and-first-screen"
+        },
+        {
+          "key": "YUI-131",
+          "title": "Native models",
+          "summary": "Pick the model per turn",
+          "shipped": "2026-09-27",
+          "progress": "/progress#pick-the-model-per-turn"
+        },
         {
           "key": "YUI-130",
           "title": "Native runtime core",
