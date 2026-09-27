@@ -1034,5 +1034,14 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Native models: a photo the model can't fetch goes again as bytes",
+      "card": "YUI-131"
+    },
+    {
+      "text": "Native profiles: the build loads every folder through the checked loader, with tests",
+      "card": "YUI-133"
+    }
+  ]
 }

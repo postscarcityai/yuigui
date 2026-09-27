@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T16:10:44.185Z",
+  "updated": "2026-09-27T17:41:49.634Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.2",
@@ -148,12 +148,6 @@
         },
         {
           "key": "YUI-158",
-          "title": "Maps in the app, MapKit areas, pins and routes on the stage (Chris, feedback AL2nKEYo)",
-          "step": "Step 2",
-          "waiting": true
-        },
-        {
-          "key": "YUI-158",
           "title": "Agents answer 'where' with a map, channel guide + eval (Chris, feedback AL2nKEYo)",
           "step": "Step 3"
         },
@@ -224,33 +218,31 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-29",
-          "title": "A stranger does the whole path",
-          "mvp": true
+          "key": "YUI-145",
+          "title": "The first launch is Yui talking, with the crew already there; model and version in Controls"
         },
         {
-          "key": "YUI-130",
-          "title": "Native runtime core",
-          "summary": "One multi-tenant TypeScript runtime in runtime/, grown from the model bridge, runs locally with node"
+          "key": "YUI-140",
+          "title": "Native memory",
+          "summary": "Each agent's own notes plus one shared about-you card, in Controls"
         },
         {
-          "key": "YUI-131",
-          "title": "Native models",
-          "summary": "OpenRouter client, GLM 5.2 by default, GLM-5V-Turbo for photo and video turns, routing in a table"
+          "key": "YUI-141",
+          "title": "Native agents read photos",
+          "summary": "Photo turns go to GLM-5V-Turbo, Basil reads a meal"
+        },
+        {
+          "key": "YUI-143",
+          "title": "Native schedules and push",
+          "summary": "The trainer checks in, Basil asks about lunch"
+        },
+        {
+          "key": "YUI-160",
+          "title": "Native sprint build to TestFlight, onboarding with the native agent"
         },
         {
           "key": "YUI-132",
           "title": "Channel eval on GLM 5.2 and GLM-5V-Turbo, results on /channel"
-        },
-        {
-          "key": "YUI-133",
-          "title": "Native profiles",
-          "summary": "The profile folder format and Yui's own soul"
-        },
-        {
-          "key": "YUI-134",
-          "title": "A Yui for everyone at sign-in",
-          "summary": "A hosted connector per person, agents as rows, no pairing, a webhook wakes the runtime"
         },
         {
           "key": "YUI-135",
@@ -273,32 +265,9 @@
           "summary": "100 a month on Yui, then OpenRouter sign-in or any provider key"
         },
         {
-          "key": "YUI-140",
-          "title": "Native memory",
-          "summary": "Each agent's own notes plus one shared about-you card, in Controls"
-        },
-        {
-          "key": "YUI-141",
-          "title": "Native agents read photos",
-          "summary": "Photo turns go to GLM-5V-Turbo, Basil reads a meal"
-        },
-        {
-          "key": "YUI-142",
-          "title": "Native web search with caps"
-        },
-        {
-          "key": "YUI-143",
-          "title": "Native schedules and push",
-          "summary": "The trainer checks in, Basil asks about lunch"
-        },
-        {
           "key": "YUI-144",
           "title": "Native hand-offs",
           "summary": "Agents pass you along with context and join groups"
-        },
-        {
-          "key": "YUI-145",
-          "title": "The first launch is Yui talking, with the crew already there; model and version in Controls"
         },
         {
           "key": "YUI-146",
@@ -340,6 +309,32 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
+        },
+        {
+          "key": "YUI-158",
+          "title": "Maps in the app, MapKit areas, pins and routes on the stage (Chris, feedback AL2nKEYo)",
+          "step": "Step 2"
+        },
+        {
+          "key": "YUI-131",
+          "title": "Native models",
+          "summary": "Pick the model per turn",
+          "progress": "/progress#pick-the-model-per-turn"
+        },
+        {
+          "key": "YUI-133",
+          "title": "Native profiles",
+          "summary": "Yui's own soul and first screen",
+          "progress": "/progress#yui-s-own-soul-and-first-screen"
+        },
+        {
+          "key": "YUI-134",
+          "title": "A Yui for everyone at sign-in",
+          "summary": "A hosted connector per person, agents as rows, no pairing, a webhook wakes the runtime"
+        },
+        {
+          "key": "YUI-142",
+          "title": "Native web search with caps"
         }
       ]
     },
@@ -347,6 +342,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-130",
+          "title": "Native runtime core",
+          "summary": "Yui's own engine for native agents",
+          "shipped": "2026-09-27",
+          "progress": "/progress#yui-s-own-engine-for-native-agents"
+        },
         {
           "key": "SITE-63",
           "title": "Yui 0.4.2 on the site, a short release Thought (one Send per screen)",
