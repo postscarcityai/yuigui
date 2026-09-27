@@ -86,6 +86,15 @@ export default function Home() {
         ) : null}
       </section>
 
+      <Films
+        id="concepts"
+        layout="feature"
+        eyebrow="Concept films"
+        title="Where Yui is going."
+        lede={<>Three ideas we are building toward, a minute each, sound on: history as a map that moves, a year of markets under one finger, and an outage fixed at 3 am with one Send. Not built yet. <Link href="/roadmap">See the roadmap</Link>.</>}
+        ids={["film-mongols-by-map", "film-markets-2020", "film-3am-incident"]}
+      />
+
       <h2>See it move</h2>
       <p className="lede" style={{ fontSize: 18 }}>
         The real app, one screen at a time. Each one started as a short line from an agent. <Link href="/mockups">See every screen</Link>, each with its own link to share.

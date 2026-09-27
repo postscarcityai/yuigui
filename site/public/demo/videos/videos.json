@@ -277,5 +277,62 @@
       "seconds": 59.0,
       "mb": 3.6
     }
+  },
+  "film-mongols-by-map": {
+    "title": "History as a map that moves",
+    "what": "Ask for the rise and fall of the Mongol Empire and drag through 160 years: the empire grows across the steppe, splits into four khanates, carries silk and then the plague along the same roads, and becomes Friday's lesson with one Send.",
+    "made": "2026-09-27",
+    "sound": true,
+    "concept": true,
+    "9x16": {
+      "src": "/demo/videos/film-mongols-by-map-9x16.mp4",
+      "poster": "/demo/videos/film-mongols-by-map-9x16.jpg",
+      "seconds": 70.0,
+      "mb": 5.3
+    },
+    "16x9": {
+      "src": "/demo/videos/film-mongols-by-map-16x9.mp4",
+      "poster": "/demo/videos/film-mongols-by-map-16x9.jpg",
+      "seconds": 70.0,
+      "mb": 6.0
+    }
+  },
+  "film-markets-2020": {
+    "title": "2020, macro drawn",
+    "what": "A record high, then down a third in 33 days. One agent reads prices, the Fed and the jobs report, draws the whole machine, and six linked charts move under one finger. Historical data; education, not investment advice.",
+    "made": "2026-09-27",
+    "sound": true,
+    "concept": true,
+    "9x16": {
+      "src": "/demo/videos/film-markets-2020-9x16.mp4",
+      "poster": "/demo/videos/film-markets-2020-9x16.jpg",
+      "seconds": 69.4,
+      "mb": 5.1
+    },
+    "16x9": {
+      "src": "/demo/videos/film-markets-2020-16x9.mp4",
+      "poster": "/demo/videos/film-markets-2020-16x9.jpg",
+      "seconds": 69.4,
+      "mb": 5.6
+    }
+  },
+  "film-3am-incident": {
+    "title": "On call at 3 am",
+    "what": "Checkout is failing at 3:07 am. One agent reads the alerts, logs, metrics and last night's deploys, finds the change, and asks before it rolls anything back. One Send, and back to sleep.",
+    "made": "2026-09-27",
+    "sound": true,
+    "concept": true,
+    "9x16": {
+      "src": "/demo/videos/film-3am-incident-9x16.mp4",
+      "poster": "/demo/videos/film-3am-incident-9x16.jpg",
+      "seconds": 54.3,
+      "mb": 3.9
+    },
+    "16x9": {
+      "src": "/demo/videos/film-3am-incident-16x9.mp4",
+      "poster": "/demo/videos/film-3am-incident-16x9.jpg",
+      "seconds": 54.3,
+      "mb": 4.2
+    }
   }
 }
