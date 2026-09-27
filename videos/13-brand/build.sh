@@ -19,7 +19,7 @@ for it in $ITEMS; do
     python3 kit/render.py $d/comp.html video --reel --q chapter=$ch
     python3 kit/render.py $d/comp.html poster --reel --q chapter=$ch
     read A B < <(python3 -c "import json;w=json.load(open('$d/chapters.json'))['$ch'];print(w[0],w[1])")
-    ffmpeg -v error -y -ss $A -t $(python3 -c "print($B-$A)") -i $d/work/music.wav -af "afade=t=in:d=0.3,afade=t=out:st=$(python3 -c "print($B-$A-0.6)"):d=0.6" $d/work/music-$ch.wav
+    ffmpeg -v error -y -ss $A -t $(python3 -c "print($B-$A)") -i $d/work/music.wav -af "alimiter=limit=0.5:attack=1:release=60:level=false,afade=t=in:d=0.3,afade=t=out:st=$(python3 -c "print($B-$A-0.6)"):d=0.6" $d/work/music-$ch.wav
     kit/mux.sh $d/work/silent-reel-$ch.mp4 $d/work/music-$ch.wav $d/Yui_Brand_Short_$(name $ch)_Reel.mp4
     ffmpeg -v error -y -i $d/work/poster-reel-$ch.png -q:v 3 $SITE/short-$ch-9x16.jpg
     small $d/Yui_Brand_Short_$(name $ch)_Reel.mp4 $SITE/short-$ch-9x16.mp4
