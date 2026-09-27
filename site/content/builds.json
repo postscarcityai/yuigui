@@ -1,6 +1,89 @@
 {
   "builds": [
     {
+      "build": 204,
+      "date": "2026-09-27",
+      "uploaded": "2026-09-26T23:08:47-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Keys and chords that play (YUI-116 step 3)"
+        },
+        {
+          "text": "Channel guide v29: short answers first, decks cap at 4 pages (YUI-118, yuigui 9a5b481)"
+        },
+        {
+          "text": "Channel guide v30: say what you're doing (YUI-63 step 2, yuigui 3ccea6b)"
+        },
+        {
+          "text": "Channel guide v31: agents send loop and drums (YUI-116, yuigui 44d7edd)"
+        },
+        {
+          "text": "Working row words for agents on the claude shim (YUI-63 step 3)"
+        },
+        {
+          "text": "Tag shim turns only when the shim takes the tag out (YUI-63 step 3)"
+        },
+        {
+          "text": "Instruments play with the ringer on silent (feedback AGhvH8tM)"
+        },
+        {
+          "text": "Every drum name plays a real drum, not a tick (YUI-127, yuigui 1c96bd7)"
+        },
+        {
+          "text": "The war room moves into the drawer: a Review row opens its ask",
+          "card": "YUI-126"
+        },
+        {
+          "text": "UI test: the war room in the drawer, Home, Review and the opened ask",
+          "card": "YUI-126"
+        },
+        {
+          "text": "Send answers in about 70 ms, under the 100 ms target",
+          "card": "YUI-108"
+        },
+        {
+          "text": "Yui lives on the full screen, the chat is the record (YUI-119 step 2)"
+        },
+        {
+          "text": "Pictures show whole, never cropped (YUI feedback AM6xGDZ3)"
+        },
+        {
+          "text": "Yui 0.3.3: ship main to TestFlight (Chris, Sep 26)"
+        },
+        {
+          "text": "yui-mcp reads motion looks in words (YUI-123, yuigui 03a0a05)"
+        },
+        {
+          "text": "A bigger mic bottom right, T to type, + to attach",
+          "card": "YUI-121"
+        },
+        {
+          "text": "yui-mcp reads the visual line (YUI-124, yuigui 3aa0cb3)"
+        },
+        {
+          "text": "Merge pull request #1 from postscarcityai/native-agent"
+        },
+        {
+          "text": "The top bar: menu and agents top left, the record top right",
+          "card": "YUI-122"
+        },
+        {
+          "text": "The stage moves with the agent: context motion and the saved look (YUI-120, YUI-123)"
+        },
+        {
+          "text": "The visual: Metal shaders behind the stage (YUI-124 step 2)"
+        },
+        {
+          "text": "The visual listens: your voice, the agent's voice and the music",
+          "card": "YUI-125"
+        },
+        {
+          "text": "Yui 0.4.0: the new face of Yui, STAGE-1 to TestFlight (Chris, Sep 26)"
+        }
+      ]
+    },
+    {
       "build": 176,
       "date": "2026-09-26",
       "uploaded": "2026-09-26T14:55:30-07:00",
@@ -894,81 +977,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Keys and chords that play (YUI-116 step 3)"
-    },
-    {
-      "text": "Channel guide v29: short answers first, decks cap at 4 pages (YUI-118, yuigui 9a5b481)"
-    },
-    {
-      "text": "Channel guide v30: say what you're doing (YUI-63 step 2, yuigui 3ccea6b)"
-    },
-    {
-      "text": "Channel guide v31: agents send loop and drums (YUI-116, yuigui 44d7edd)"
-    },
-    {
-      "text": "Working row words for agents on the claude shim (YUI-63 step 3)"
-    },
-    {
-      "text": "Tag shim turns only when the shim takes the tag out (YUI-63 step 3)"
-    },
-    {
-      "text": "Instruments play with the ringer on silent (feedback AGhvH8tM)"
-    },
-    {
-      "text": "Every drum name plays a real drum, not a tick (YUI-127, yuigui 1c96bd7)"
-    },
-    {
-      "text": "The war room moves into the drawer: a Review row opens its ask",
-      "card": "YUI-126"
-    },
-    {
-      "text": "UI test: the war room in the drawer, Home, Review and the opened ask",
-      "card": "YUI-126"
-    },
-    {
-      "text": "Send answers in about 70 ms, under the 100 ms target",
-      "card": "YUI-108"
-    },
-    {
-      "text": "Yui lives on the full screen, the chat is the record (YUI-119 step 2)"
-    },
-    {
-      "text": "Pictures show whole, never cropped (YUI feedback AM6xGDZ3)"
-    },
-    {
-      "text": "Yui 0.3.3: ship main to TestFlight (Chris, Sep 26)"
-    },
-    {
-      "text": "yui-mcp reads motion looks in words (YUI-123, yuigui 03a0a05)"
-    },
-    {
-      "text": "A bigger mic bottom right, T to type, + to attach",
-      "card": "YUI-121"
-    },
-    {
-      "text": "yui-mcp reads the visual line (YUI-124, yuigui 3aa0cb3)"
-    },
-    {
-      "text": "Merge pull request #1 from postscarcityai/native-agent"
-    },
-    {
-      "text": "The top bar: menu and agents top left, the record top right",
-      "card": "YUI-122"
-    },
-    {
-      "text": "The stage moves with the agent: context motion and the saved look (YUI-120, YUI-123)"
-    },
-    {
-      "text": "The visual: Metal shaders behind the stage (YUI-124 step 2)"
-    },
-    {
-      "text": "The visual listens: your voice, the agent's voice and the music",
-      "card": "YUI-125"
-    },
-    {
-      "text": "Yui 0.4.0: the new face of Yui, STAGE-1 to TestFlight (Chris, Sep 26)"
-    }
-  ]
+  "next": []
 }
