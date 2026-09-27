@@ -98,6 +98,8 @@ const SECRET = /pass(word|code|phrase)?|\bpin\b|card.?(number|no\b|num)|\bcvv|\b
 const NOT_PLAIN = /\b[A-Z]{2,}-\d+\b|\bt_[0-9a-f]{4,}\b|[\w-]+\.(py|mjs|js|ts|json|md|swift|sh|yml)\b|\/\w|\b[a-z]+_[a-z_]+\b|`/;
 const NARRATE = /\b(here (are|is) (some|a|the|your) (buttons?|options?|form|screen|slider|picker|checklist)|tap (one of )?(the )?(buttons?|options?)( below| above)?|(buttons?|options?|form|slider|checklist) (below|above)|i('ve| have) (put|added|created|set up) (a|some|the) (buttons?|form|screen|slider|picker)|you (chose|picked|selected|tapped))\b/i;
 // A button that only acknowledges (YUI-53): tapping it does nothing for anyone.
+// What counts as a picture for an explainer (the `drawn` check): not a list, card or table of words.
+const DRAWN = new Set(["sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "timeline"]);
 const ACK = /^(got it|ok(ay)?|k|nice|cool|great|sweet|awesome|perfect|thanks|thank you|understood|noted|sounds good|love it|will do)[.!]*$/i;
 const HTML = /<\/?(div|button|input|table|tr|td|span|form|select|ul|li|html|style|svg)\b/i;
 const HEADS = /^\s*(>[\w-]+\s+)?(~[\w-]+|(timer|ask|choose|pick|slide|form|list|table|card|image|camera|mic|gallery|video|compare|storyboard|chart|stat|math|step|calc|deck|page|plan|project|narrate|say|theme)(@[\w-]+)?)\s+\S/;
@@ -193,6 +195,19 @@ export function score(c, reply) {
     if (!adds.some((o) => ["sketch", "shapes", "image", "chart", "stat"].includes(o.preset))) fails.push("show: nothing drawn");
     for (const c of bare) fails.push(`show: a part with no picture :: ${c.line}`);
     for (const c of wall) fails.push(`show: a heading over a paragraph :: ${c.line}`);
+  }
+  // Explainers draw (TestFlight feedback AJIE1_1Ru1V4EMgmpWZtniI): read as the stage plays
+  // it, every page and every line after the first has a picture that draws (a map in
+  // shapes, a chart, a stat, a timeline, an image), not a list or a card of more words.
+  if (e.drawn) {
+    const { chunks } = stageChunks(adds);
+    const wordy = (c) => !c.page?.img && (!c.pic || !DRAWN.has(c.pic.preset));
+    for (const [i, c] of chunks.entries()) {
+      if (c.page && wordy(c)) fails.push(`drawn: a page with only words :: ${c.page.title || "(untitled)"}`);
+      else if (!c.page && c.line && i > 0 && wordy(c)) fails.push(`drawn: a line with no picture :: ${c.line}`);
+      else if (!c.line && c.pic && !DRAWN.has(c.pic.preset)) fails.push(`drawn: a ${c.pic.preset} of words on the stage :: ${c.pic.line?.trim?.() || c.pic.preset}`);
+    }
+    if (!chunks.some((c) => c.pic && DRAWN.has(c.pic.preset) && c.pic.preset !== "stat")) fails.push("drawn: no map, chart, timeline or image, only words and numbers");
   }
   // A page's picture (YUI-85): a sketch inside a deck or plan, right after a page of that group.
   if (e.page_picture) {

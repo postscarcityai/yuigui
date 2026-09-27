@@ -703,6 +703,41 @@ page "Try it" body="Slide the start, the rate and the years."
 calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10`,
   },
   {
+    // Feedback AJIE1_1Ru1V4EMgmpWZtniI, YUI-157: "It's just a text bomb." An explainer
+    // (a place, a past, how it works) draws every page: a map in shapes, a chart, a stat.
+    slug: "explainer-map",
+    name: "Explainer: the Mongols, a picture per page",
+    agent: "Yui",
+    yl: `say "The Mongols held the grass belt from Korea to Hungary."
+>full
+deck "The Mongols, by the map"
+page "One belt of grass" body="The steppe runs from Korea to Hungary. Horses crossed it end to end."
+shapes caption="Karakorum sat in the middle and rode out both ways."
+shape@hu dot Hungary at=1,2 tone=mute
+shape@ka circle Karakorum at=6,2 +grow +fill tone=butter
+shape@ko dot Korea at=9,3 tone=mute
+shape arrow from=ka to=hu +draw
+shape arrow from=ka to=ko +draw
+shape text Gobi at=6,4 tone=mute
+page "The biggest one on land"
+chart bar "Land empires, million km²" x=Mongol|Russian|Qing|Roman y=24|22.8|14.7|5
+page "At its peak, 1279"
+stat "24M km²" "A sixth of the land on Earth"
+end`,
+  },
+  {
+    // YUI-157: the same answer before and after, as the guide draws it.
+    slug: "explainer-before-after",
+    name: "Explainer: a text page, then a map",
+    agent: "Yui",
+    yl: `sketch "A brief geography of the Mongols" frame=phone before=Before
+row "The Mongol Empire ran along the Eurasian grassland, from Korea to Hungary..." +x note="a text bomb"
+row "24M km², then bullets" +x note="more words"
+after After
+row "Hungary · Karakorum · Korea, on a map" +hi note="where: a map"
+row "Mongol 24 · Russian 22.8 · Qing 14.7 · Roman 5" +hi note="how big: a chart"`,
+  },
+  {
     slug: "step-derivation",
     name: "Step: a derivation, one step at a time",
     agent: "Yui",

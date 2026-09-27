@@ -2061,6 +2061,151 @@
         "max_words": 30
       },
       "good": "One `metronome 70` line (beats=4 is fine), a short line at most. No paragraph of practice tips, no counting in words."
+    },
+    {
+      "id": "explain-mongols-geography",
+      "category": "explain",
+      "agent": "Yui",
+      "message": "All right, can you give me a brief geographic explanation of the Mongols?",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say",
+          "card",
+          "deck",
+          "page",
+          "shapes",
+          "shape",
+          "chart",
+          "stat",
+          "math",
+          "calc",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "image",
+          "gallery",
+          "compare",
+          "sketch",
+          "row",
+          "after",
+          "end",
+          "choose",
+          "ask",
+          "pick",
+          "narrate",
+          "list",
+          "table"
+        ],
+        "need": [
+          "shapes",
+          "chart",
+          "image",
+          "timeline",
+          "compare"
+        ],
+        "drawn": true,
+        "max_pages": 4,
+        "max_words": 40
+      },
+      "good": "One line with the answer, then one deck on `>full` where every page has its picture: the steppe as a rough map in `shapes` with `at=x,y` (Karakorum, Korea, Hungary), the spread over time as a `chart`, the size as a `stat`. Not pages of text, then a stat and bullets (TestFlight feedback AJIE1_1Ru1V4EMgmpWZtniI: 'It's just a text bomb')."
+    },
+    {
+      "id": "explain-rome-rise-fall",
+      "category": "explain",
+      "agent": "Urza",
+      "message": "Give me the quick version of how the Roman Empire rose and fell.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say",
+          "card",
+          "deck",
+          "page",
+          "shapes",
+          "shape",
+          "chart",
+          "stat",
+          "math",
+          "calc",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "image",
+          "gallery",
+          "compare",
+          "sketch",
+          "row",
+          "after",
+          "end",
+          "choose",
+          "ask",
+          "pick",
+          "narrate",
+          "list",
+          "table"
+        ],
+        "need": [
+          "shapes",
+          "chart",
+          "image",
+          "timeline",
+          "compare"
+        ],
+        "drawn": true,
+        "max_pages": 4,
+        "max_words": 40
+      },
+      "good": "A line, then a picture per part: a rough map of the empire at its peak in `shapes`, its size over the centuries as a `chart` (or a `timeline` on the stage), the split as two shapes. No page that is only a heading and a paragraph."
+    },
+    {
+      "id": "explain-monsoon-how",
+      "category": "explain",
+      "agent": "Yui",
+      "message": "Why does India get monsoons? Keep it short.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say",
+          "card",
+          "deck",
+          "page",
+          "shapes",
+          "shape",
+          "chart",
+          "stat",
+          "math",
+          "calc",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "image",
+          "gallery",
+          "compare",
+          "sketch",
+          "row",
+          "after",
+          "end",
+          "choose",
+          "ask",
+          "pick",
+          "narrate",
+          "list",
+          "table"
+        ],
+        "need": [
+          "shapes",
+          "chart",
+          "image"
+        ],
+        "drawn": true,
+        "max_pages": 4,
+        "max_words": 50
+      },
+      "good": "One line and a diagram: land heats, air rises, wet air off the ocean moves in (`shapes` with arrows, placed with `at=`), maybe a rainfall `chart` by month. Not a paragraph of weather words."
     }
   ]
 }

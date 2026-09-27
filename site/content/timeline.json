@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 204,
-    "site": 513,
+    "site": 519,
     "builds": 37,
-    "shipped": 257,
-    "screenshots": 592
+    "shipped": 259,
+    "screenshots": 597
   },
   "days": [
     {
@@ -13,7 +13,59 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T11:14:28.208Z",
+          "at": "2026-09-27T13:16:50.787Z",
+          "title": "Explainers draw every page",
+          "card": "YUI-157",
+          "anchor": "explainers-draw-every-page",
+          "images": [
+            {
+              "src": "/progress/yui157-explainer-page1.webp",
+              "alt": "Page one of the Mongols deck: Karakorum in the middle with arrows west to Hungary and east to Korea, the Gobi below, under the title One belt of grass"
+            },
+            {
+              "src": "/progress/yui157-explainer-page2.webp",
+              "alt": "Page two: a bar chart of land empires in million square kilometers, Mongol 24, Russian 22.8, Qing 14.7, Roman 5"
+            },
+            {
+              "src": "/progress/yui157-before-after.webp",
+              "alt": "Before and after: a struck-out paragraph and bullets, then a map and a chart"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 204,
+            "site": 519,
+            "builds": 37,
+            "shipped": 259
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T13:07:20.000Z",
+          "title": "The new face, filmed in the app, on the home page",
+          "card": "SOC-6",
+          "anchor": "the-new-face-filmed-in-the-app-on-the-home-page",
+          "images": [
+            {
+              "src": "/progress/soc6-film-answer.webp",
+              "alt": "A frame from the film: a phone showing Yes. Build 208, the newest, with an iPhone and iPad picture, between the captions One question and One screen back."
+            },
+            {
+              "src": "/progress/soc6-film-two-agents.webp",
+              "alt": "A frame from the film: two phones, Coach in coral and Wizard in purple, both answering Tuesday at 10 is dry, with the captions Each agent moves its own way and Coach is quick, Wizard is heavy."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 204,
+            "site": 517,
+            "builds": 37,
+            "shipped": 258
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T11:14:07.000Z",
           "title": "A film for Yui 0.4.1: tune up, keep time, send a take",
           "card": "SOC-4",
           "anchor": "a-film-for-yui-0-4-1-tune-up-keep-time-send-a-take",
@@ -27,10 +79,10 @@
               "alt": "The film at 34 seconds: the take sent to the agent with .m4a and .mid chips, caption Stop and send, The sound and the notes"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 204,
-            "site": 513,
+            "site": 514,
             "builds": 37,
             "shipped": 257
           }
@@ -380,6 +432,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "c9f7e5d",
+          "at": "2026-09-27T13:13:35.000Z",
+          "text": "roadmap: maps in the preset library (YUI-158, from TestFlight feedback)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c9f7e5d"
+        },
+        {
+          "repo": "site",
+          "sha": "add2d54",
+          "at": "2026-09-27T13:10:56.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/add2d54"
+        },
+        {
+          "repo": "site",
+          "sha": "f23ae62",
+          "at": "2026-09-27T13:07:20.000Z",
+          "text": "The new face, filmed in the app, in the home hero (SOC-6)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f23ae62"
+        },
+        {
+          "repo": "site",
+          "sha": "0fa5722",
+          "at": "2026-09-27T12:40:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0fa5722"
+        },
+        {
+          "repo": "site",
+          "sha": "819b119",
+          "at": "2026-09-27T11:40:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/819b119"
+        },
+        {
+          "repo": "site",
+          "sha": "7e1d193",
+          "at": "2026-09-27T11:14:07.000Z",
+          "text": "The Yui 0.4.1 film: tune up, keep time, send a take (SOC-4)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7e1d193"
+        },
         {
           "repo": "site",
           "sha": "1162037",

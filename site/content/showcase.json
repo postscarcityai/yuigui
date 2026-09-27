@@ -3,6 +3,7 @@
   "cards": {
     "SOC-5": { "title": "Three everyday films: dinner, a car, homework", "shipped": "2026-09-27" },
     "SITE-62": { "title": "The brag films on the site", "shipped": "2026-09-27" },
+    "YUI-157": {"title": "Explainers draw every page", "shipped": "2026-09-27"},
     "YUI-119": {"title": "Yui lives on the full screen", "shipped": "2026-09-27"},
     "YUI-120": {"title": "The stage moves with the agent", "shipped": "2026-09-27"},
     "YUI-121": {"title": "A bigger mic, bottom right", "shipped": "2026-09-27"},
@@ -187,6 +188,8 @@
       "lede": "What reached phones with Yui 0.3.1 (build 160, Sep 26): what you were typing stays put, a lesson is one deck, and an ask you answered leaves the war room at once. All three came from the feedback button. Shots are real captures from the iPhone simulator on the demo account.",
       "entries": [
         {"id": "draft-stays", "title": "What you were typing stays put", "what": "Each agent's thread keeps its own unsent words, saved as you type and cleared when you send. A full screen, another agent, leaving the app or closing it all leave them in the box. From Chris's TestFlight feedback.", "cards": [], "change": "Half-typed words stay", "agent": "Wizard", "app": "native", "shots": ["/progress/fb-ak9fnezu-3-back.webp", "/progress/fb-ak9fnezu-4-relaunch.webp"]},
+        {"id": "explainer-map", "title": "Explainers draw every page", "what": "Ask how a place, a past or a thing works and every page of the answer is a picture: a rough map drawn in shapes, a chart, a big number. Chris asked for a brief geography of the Mongols and got a page of text; now agents draw it.", "cards": ["YUI-157"], "demo": "explainer-map", "agent": "Yui", "shots": ["/progress/yui157-explainer-page1.webp", "/progress/yui157-explainer-page2.webp", "/progress/yui157-explainer-page3.webp"]},
+        {"id": "explainer-before-after", "title": "A map, not a text bomb", "what": "The same question before and after the new rule in the channel guide: a paragraph and bullets, then a map and a chart.", "cards": ["YUI-157"], "demo": "explainer-before-after", "agent": "Yui", "shots": ["/progress/yui157-before-after.webp"]},
         {"id": "lesson-deck", "video": "film-lessons", "title": "A lesson is one deck", "what": "A deck page can hold a diagram, a formula, a chart, a big number or a calculator as its picture. So a lesson is one deck you swipe: an idea per page, a quiz, and the sliders on the last page. Older phones get the same pieces on one full screen.", "cards": ["YUI-113"], "demo": "lesson-one-screen", "agent": "Yui", "app": "native", "shots": ["/progress/yui-113-1-shapes.webp", "/progress/yui-113-2-chart.webp", "/progress/yui-113-3-calc.webp"]},
         {"id": "asks-leave", "title": "An answered ask leaves", "what": "Tap an answer on an ask in the war room and the war room redraws right away, without it. The war room itself is down to four parts: one status line, at most three asks, Now and next, and one link to the board. From Chris's TestFlight feedback.", "cards": [], "change": "An answered war room ask leaves at once", "agent": "Yui", "app": "native", "shots": ["/progress/fb-war-room-before.webp", "/progress/fb-war-room-after.webp", "/progress/fb-war-room-whole.webp"]}
       ]
