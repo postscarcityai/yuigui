@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 211,
-    "site": 528,
+    "app": 213,
+    "site": 532,
     "builds": 38,
-    "shipped": 264,
-    "screenshots": 611
+    "shipped": 266,
+    "screenshots": 614
   },
   "days": [
     {
@@ -13,7 +13,50 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T15:39:08.187Z",
+          "at": "2026-09-27T17:40:03.376Z",
+          "title": "Pick the model per turn",
+          "card": "YUI-131",
+          "anchor": "pick-the-model-per-turn",
+          "images": [
+            {
+              "src": "/progress/yui131-snap-plate-light.webp",
+              "alt": "Basil asks for a photo: Snap your plate, with an Open camera button"
+            },
+            {
+              "src": "/progress/yui131-photo-answer-light.webp",
+              "alt": "Basil's answer to a pizza photo: a Margherita table with protein, carbs, fat and calories per part, and How many slices? 1 to 4"
+            },
+            {
+              "src": "/progress/yui131-photo-answer-dark.webp",
+              "alt": "The same answer in dark mode"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 213,
+            "site": 532,
+            "builds": 38,
+            "shipped": 266
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T17:34:27.000Z",
+          "title": "Yui's own engine for native agents",
+          "card": "YUI-130",
+          "anchor": "yui-s-own-engine-for-native-agents",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 212,
+            "site": 532,
+            "builds": 38,
+            "shipped": 265
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T15:40:28.000Z",
           "title": "Yui 0.4.2 on the site",
           "card": "SITE-63",
           "anchor": "yui-0-4-2-on-the-site",
@@ -27,10 +70,10 @@
               "alt": "The plan review listing every answer above one Send"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 211,
-            "site": 528,
+            "site": 529,
             "builds": 38,
             "shipped": 264
           }
@@ -580,6 +623,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "0b305f7",
+          "at": "2026-09-27T17:36:29.000Z",
+          "text": "Native profiles: the build loads every folder through the checked loader, with tests (YUI-133)",
+          "url": "https://github.com/postscarcityai/yui/commit/0b305f7"
+        },
+        {
+          "repo": "site",
+          "sha": "9ef1837",
+          "at": "2026-09-27T17:34:27.000Z",
+          "text": "Progress + See it: Yui's own engine for native agents (YUI-130)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9ef1837"
+        },
+        {
+          "repo": "app",
+          "sha": "02dce48",
+          "at": "2026-09-27T17:29:22.000Z",
+          "text": "Native models: a photo the model can't fetch goes again as bytes (YUI-131)",
+          "url": "https://github.com/postscarcityai/yui/commit/02dce48"
+        },
+        {
+          "repo": "site",
+          "sha": "59f730a",
+          "at": "2026-09-27T16:10:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/59f730a"
+        },
+        {
+          "repo": "site",
+          "sha": "5de1cb2",
+          "at": "2026-09-27T15:40:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5de1cb2"
+        },
+        {
+          "repo": "site",
+          "sha": "3fa1660",
+          "at": "2026-09-27T15:40:28.000Z",
+          "text": "Yui 0.4.2 on the site: the release Thought, build 216 on the roadmap (SITE-63)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3fa1660"
+        },
         {
           "repo": "site",
           "sha": "418c347",
