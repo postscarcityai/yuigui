@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T23:39:57.987Z",
+  "updated": "2026-09-27T00:10:18.161Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.2",
@@ -344,10 +344,6 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
-        },
-        {
-          "key": "SITE-54",
-          "title": "The full screen stage on the site, See it + roadmap + a Thought (STAGE-1)"
         }
       ]
     },
@@ -365,10 +361,6 @@
           "key": "YUI-111",
           "title": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
           "step": "Step 3"
-        },
-        {
-          "key": "YUI-108",
-          "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)"
         },
         {
           "key": "YUI-116",
@@ -391,12 +383,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-119",
-          "title": "Full screen first in the app, mic bottom right, chat as the record",
-          "step": "Step 2",
-          "waiting": true
-        },
-        {
           "key": "YUI-120",
           "title": "Context animations on the full screen stage",
           "step": "Step 2",
@@ -410,9 +396,12 @@
         },
         {
           "key": "YUI-119",
-          "title": "Full screen first, the chat is the record",
-          "step": "Step 1",
-          "summary": "Spec + playground mock"
+          "title": "Full screen first in the app, mic bottom right, chat as the record",
+          "step": "Step 2"
+        },
+        {
+          "key": "SITE-54",
+          "title": "The full screen stage on the site, See it + roadmap + a Thought (STAGE-1)"
         }
       ]
     },
@@ -420,6 +409,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-119",
+          "title": "Full screen first, the chat is the record",
+          "step": "Step 1",
+          "summary": "The full screen stage, drawn",
+          "shipped": "2026-09-26",
+          "progress": "/progress#the-full-screen-stage-drawn"
+        },
+        {
+          "key": "YUI-108",
+          "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)",
+          "summary": "Send answers in about 70 ms",
+          "shipped": "2026-09-26",
+          "progress": "/progress#send-answers-in-about-70-ms"
+        },
         {
           "key": "YUI-149",
           "title": "Hermes for everyone spec",

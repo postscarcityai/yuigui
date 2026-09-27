@@ -926,6 +926,10 @@
     {
       "text": "UI test: the war room in the drawer, Home, Review and the opened ask",
       "card": "YUI-126"
+    },
+    {
+      "text": "Send answers in about 70 ms, under the 100 ms target",
+      "card": "YUI-108"
     }
   ]
 }
