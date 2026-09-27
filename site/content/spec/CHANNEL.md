@@ -1,4 +1,4 @@
-# Yui channel guide v36 (for agents)
+# Yui channel guide v37 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -177,18 +177,18 @@ calc f="A = P*(1+r)^t" P=100-1000@100 r=0-0.2@0.05 t=0-20@10
 - **Answer what was asked.** Don't tack on a rating, check-in or "keep it?" question nobody asked for.
 - **Full screen:** timers, camera, mic, decks and plans take it on their own. `>full` sends anything else, `close` returns to chat.
 - **Screens 2 to 12** sit beside the chat; the person swipes to them. A screen exists once something is on it. Use them for what should stay put while you talk: `>2 timer 25m Focus`, `>3 list@shop Milk|Eggs|Bread`. They keep their content across replies (patch them from a later reply, `>2 clear` empties and removes one). Sending there brings that page forward, so only do it when the person should look now. A screen is full screen with no composer: taps work there, typing happens in the chat. To let them type about a screen (change a plan, ask about a chart), add `>2 talk`: its composer stays, and what they type there arrives as `[yui] screen=2` then their words. Answer on that screen (a patch, or `>2 say Done.`); `>2 talk off` takes the composer away.
-- **Explainers draw every page.** A place, a past or how something works is a picture on the stage, never pages of text. One line with the answer, then one `deck` on `>full`, 2 to 4 pages, each with its picture right after it: where is a map in `shapes` placed with `at=x,y` (west left, north up), how big or how fast is a `chart` or a `stat`, how it works is a diagram, a real thing to see is an `image`. A page of only words is the exception, and never a `list` of bullets after it. Not `page "Where they ruled" body="The Mongol Empire ran along the Eurasian grassland..."` then a `stat` and bullets, but:
+- **Where is a map.** Any answer about where (geography, a past empire, a trip, a route, a delivery area, a storm) leads with a `map`, never compass points in words or a map drawn in `shapes`. `map "Title" caption="the sentence it means"`, then one part per line: `area Empire MN|CN|KR` (country codes) or `area "Delivery zone" 42.7,-73.3|45,-73.3|45,-71.5|42.7,-71.5` (`lat,lon` points for borders that are not today's), `pin@ka Karakorum 47.2,102.8`, `route "The road" ka|37.6,127 +arrow` (pins or places). Parts come on in line order: `+pulse` on the one place to look, `+dash` for raided or planned, `tone=` as in shapes. A quick where is one line and the map in the chat. It draws from a world outline, so a town or a few streets is too small for it: place those in `shapes` with `at=x,y`.
+- **Explainers draw every page.** A place, a past or how something works is a picture on the stage, never pages of text. One line with the answer, then one `deck` on `>full`, 2 to 4 pages, each with its picture right after it: where is a `map`, how big or how fast is a `chart` or a `stat`, how it works is a diagram in `shapes`, a real thing to see is an `image`. A page of only words is the exception, and never a `list` of bullets after it. Not `page "Where they ruled" body="The Mongol Empire ran along the Eurasian grassland..."` then a `stat` and bullets, but:
 ```yui
 >full
 deck "The Mongols, by the map"
-page "One belt of grass" body="The steppe runs from Korea to Hungary. Horses crossed it end to end."
-shapes caption="Karakorum sat in the middle and rode out both ways."
-shape@hu dot Hungary at=1,2 tone=mute
-shape@ka circle Karakorum at=6,2 +grow +fill tone=butter
-shape@ko dot Korea at=9,3 tone=mute
-shape arrow from=ka to=hu +draw
-shape arrow from=ka to=ko +draw
-shape text Gobi at=6,4 tone=mute
+page "How far it reached" body="Korea to Hungary, the Siberian forest to Persia."
+map caption="Karakorum sat in the middle and rode out every way."
+area "Mongol Empire" 53,140|43,131|34.7,126.5|22.3,114|24,98|34,70|25.5,57|33,44|41,31|46,30.5|54,23|60,56|55,95 tone=butter
+area Raided PL|HU +dash
+pin@ka Karakorum 47.2,102.8 +pulse
+route East ka|37.6,127 +arrow
+route West ka|50.4,30.5 +arrow
 page "The biggest one on land"
 chart bar "Land empires, million km²" x=Mongol|Russian|Qing|Roman y=24|22.8|14.7|5
 page "At its peak, 1279"

@@ -89,7 +89,7 @@ Gouda needs the `metronome` and `tuner` views, which the parser reads but the ap
 - Every Yui Lines screen the app draws: questions, forms, timers, tables, charts, decks, sketches, shapes, music, games, full screen and screens 2 to 12, `doing`, restyle, reactions and mentions.
 - **Make agents** (Yui only): create, rename, restyle, fork and remove profiles on your connector.
 - **Schedules and push.** "Check in Monday at 7" wakes the agent on time and sends a push (YUI-143).
-- **Web search.** Look things up, with a cap per turn and per day (YUI-142).
+- **Web search.** Look things up through a web search service: a `search` block runs one query, a `fetch` block reads one page (YUI-142). The runtime runs it, hands the results back to the model, and the answer shows its sources as cards with a Read button. Each person gets 50 free lookups a month on Yui's key (20 a day, 2 a turn, all in `yui_limits`). When the month runs out, the agent answers from what it knows and shows one card, "Free web searches used", whose button opens **Settings > Web search**. There they paste their own key for the search service: it is checked with the service, kept in the vault like a model key, shown only as its last four, and lifts the month and day caps. The key is never asked for in chat or in a form.
 - **Read photos.** Through GLM-5V-Turbo (YUI-141). Basil reads a meal ([Meal photo to macros](MEAL.md)).
 - **Agent tables.** Rows on your phone, as today ([Agent tables](TABLES.md)).
 
@@ -113,7 +113,7 @@ The runtime writes rows; every client already reads them. The iPhone app, the br
 
 - The soul goes first every turn. The agent never shows it, never claims to be someone else, and never asks for a password, a card or a key.
 - Input trimmed to the newest rows that fit the model's window; output capped per turn; one photo per turn.
-- `yui_limits` buckets: free turns a month, turns a minute, one open turn per agent, search calls a day.
+- `yui_limits` buckets: free turns a month, turns a minute, one open turn per agent, web lookups a month, a day and a turn.
 - Kill switches: one person (suspend the connector), every native agent (`native_enabled` off), one model (swap the row).
 - Hold a message, Report: the message and its thread go to a review table.
 

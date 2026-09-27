@@ -1021,6 +1021,37 @@ chart bar "Land empires, million km²" x=Mongol|Russian|Qing|Roman y=24|22.8|14.
 end`,
   },
   {
+    // YUI-158 step 3, channel guide v37: where is a map. The Mongols answer the
+    // eval agent sent on the v37 draft, as sent. Before: a stat and four
+    // compass bullets (feedback AL2nKEYo, "this should be a Map").
+    slug: "where-mongols",
+    name: "Where: the Mongols, a map per page",
+    agent: "Yui",
+    yl: `say "The Mongols came from the grassland north of the Gobi and rode that belt of steppe outward, building the largest land empire in history."
+>full
+deck "The Mongols, by the map"
+page "Where they started" body="Open grassland between the Siberian forest and the Gobi. Herders on horseback, moving with their animals, and at home in the saddle over huge distances."
+map caption="Genghis Khan united the tribes here in 1206 and built his capital at Karakorum."
+area Homeland MN tone=mint
+pin@onon "Onon River" 48.8,110.5
+pin@ka Karakorum 47.2,102.8 +pulse
+page "How far it reached" body="The steppe runs like a highway from Manchuria to Hungary, and the Mongols rode it both ways. By 1279 they held Korea to Ukraine, the Siberian forest to Persia."
+map caption="Karakorum sat in the middle and rode out every way."
+area "Mongol Empire" 53,140|43,131|34.7,126.5|22.3,114|24,98|34,70|25.5,57|33,44|41,31|46,30.5|54,23|60,56|55,95 tone=butter
+area Raided PL|HU +dash
+pin@ka2 Karakorum 47.2,102.8 +pulse
+route East ka2|37.6,127 +arrow
+route West ka2|50.4,30.5 +arrow
+page "Four khanates" body="Too big for one ruler, it split around 1260 into four realms run by Genghis's grandsons: the Yuan in China, the Chagatai in Central Asia, the Ilkhanate in Persia and the Golden Horde on the western steppe."
+map caption="One family, four realms, each drifting its own way."
+area Yuan CN|MN|KR tone=butter
+area Chagatai UZ|KG|TJ tone=mint
+area Ilkhanate IR|IQ|AZ|AM|GE tone=lavender
+area "Golden Horde" 58,30|56,56|54,70|47,80|43,70|45,50|44,40|46,30 tone=mute
+pin Khanbaliq 39.9,116.4 +pulse
+end`,
+  },
+  {
     slug: "timeline-trip",
     name: "Timeline: a trip, day by day",
     agent: "Scout",

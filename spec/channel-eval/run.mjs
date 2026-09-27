@@ -99,7 +99,7 @@ const NOT_PLAIN = /\b[A-Z]{2,}-\d+\b|\bt_[0-9a-f]{4,}\b|[\w-]+\.(py|mjs|js|ts|js
 const NARRATE = /\b(here (are|is) (some|a|the|your) (buttons?|options?|form|screen|slider|picker|checklist)|tap (one of )?(the )?(buttons?|options?)( below| above)?|(buttons?|options?|form|slider|checklist) (below|above)|i('ve| have) (put|added|created|set up) (a|some|the) (buttons?|form|screen|slider|picker)|you (chose|picked|selected|tapped))\b/i;
 // A button that only acknowledges (YUI-53): tapping it does nothing for anyone.
 // What counts as a picture for an explainer (the `drawn` check): not a list, card or table of words.
-const DRAWN = new Set(["sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "timeline"]);
+const DRAWN = new Set(["map", "sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "timeline"]);
 const ACK = /^(got it|ok(ay)?|k|nice|cool|great|sweet|awesome|perfect|thanks|thank you|understood|noted|sounds good|love it|will do)[.!]*$/i;
 const HTML = /<\/?(div|button|input|table|tr|td|span|form|select|ul|li|html|style|svg)\b/i;
 const HEADS = /^\s*(>[\w-]+\s+)?(~[\w-]+|(timer|ask|choose|pick|slide|form|list|table|card|image|camera|mic|gallery|video|compare|storyboard|chart|stat|math|step|calc|deck|page|plan|project|narrate|say|theme)(@[\w-]+)?)\s+\S/;
@@ -230,6 +230,9 @@ export function score(c, reply) {
     }
     if (!chunks.some((c) => c.pic && DRAWN.has(c.pic.preset) && c.pic.preset !== "stat")) fails.push("drawn: no map, chart, timeline or image, only words and numbers");
   }
+  // Where is a map (YUI-158, feedback AL2nKEYo, Chris: "this should be a Map"): an answer
+  // about where draws the place as a `map` (or a lone area, pin or route), not shapes or words.
+  if (e.map && !adds.some((o) => ["map", "area", "pin", "route"].includes(o.preset))) fails.push("map: a where answer with no map");
   // A page's picture (YUI-85): a sketch inside a deck or plan, right after a page of that group.
   if (e.page_picture) {
     const ok = adds.some((o, i) => o.preset === "sketch" && o.in && adds[i - 1]?.preset === "page" && adds[i - 1].in === o.in);

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 213,
-    "site": 533,
+    "app": 215,
+    "site": 539,
     "builds": 38,
-    "shipped": 267,
-    "screenshots": 615
+    "shipped": 270,
+    "screenshots": 626
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T17:40:48.572Z",
+          "at": "2026-09-27T18:04:09.000Z",
+          "title": "Native agents look things up, with sources",
+          "card": "YUI-142",
+          "anchor": "native-agents-look-things-up-with-sources",
+          "images": [
+            {
+              "src": "/progress/yui142-1-answer-and-invite-light.webp",
+              "alt": "Yui's answer with a source card for ESPN and a Free web searches used card with an Open Settings button"
+            },
+            {
+              "src": "/progress/yui142-2-settings-web-search-light.webp",
+              "alt": "Settings, Web search: 50 free searches used up this month, a field to paste a search key and a Save key button"
+            },
+            {
+              "src": "/progress/yui142-1-answer-and-invite-dark.webp",
+              "alt": "The same answer and invite in dark mode"
+            },
+            {
+              "src": "/progress/yui142-2-settings-web-search-dark.webp",
+              "alt": "Settings, Web search in dark mode"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 215,
+            "site": 537,
+            "builds": 38,
+            "shipped": 270
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T17:45:45.000Z",
+          "title": "Maps in the app",
+          "card": "YUI-158",
+          "anchor": "maps-in-the-app",
+          "images": [
+            {
+              "src": "/progress/yui158-app-mongols-dark.webp",
+              "alt": "Yui in dark mode: the Mongol Empire answer as a map, the empire in gold, Karakorum pinned, arrows East, West, South and North"
+            },
+            {
+              "src": "/progress/yui158-app-trip-light.webp",
+              "alt": "Light mode: a train trip from Lisbon to Rome on a map, Spain and Portugal in mint, a route through Madrid and Barcelona, and a map of the Bering Strait below"
+            },
+            {
+              "src": "/progress/yui158-app-stage-light.webp",
+              "alt": "A full-screen deck page, How far it reached, with the empire map as its picture and a dashed arrow west"
+            },
+            {
+              "src": "/progress/yui158-app-stage-zoomed-dark.webp",
+              "alt": "The same page in dark mode, pinched in on the map, lines and label still sharp"
+            }
+          ],
+          "commits": 6,
+          "totals": {
+            "app": 214,
+            "site": 536,
+            "builds": 38,
+            "shipped": 269
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T17:40:20.000Z",
           "title": "Yui's own soul and first screen",
           "card": "YUI-133",
           "anchor": "yui-s-own-soul-and-first-screen",
@@ -23,12 +87,12 @@
               "alt": "The See it page for Yui says hello first: a phone showing Yui's first screen, Where do you want to start?, with Get fit, Eat better, Make music, Plan my week, Learn something and Type your own, next to the one line Yui sends."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 213,
-            "site": 533,
+            "site": 534,
             "builds": 38,
-            "shipped": 267
+            "shipped": 268
           }
         },
         {
@@ -56,7 +120,7 @@
             "app": 213,
             "site": 533,
             "builds": 38,
-            "shipped": 266
+            "shipped": 267
           }
         },
         {
@@ -71,7 +135,7 @@
             "app": 212,
             "site": 532,
             "builds": 38,
-            "shipped": 265
+            "shipped": 266
           }
         },
         {
@@ -95,7 +159,7 @@
             "app": 211,
             "site": 529,
             "builds": 38,
-            "shipped": 264
+            "shipped": 265
           }
         },
         {
@@ -107,7 +171,7 @@
             "app": 211,
             "site": 528,
             "builds": 38,
-            "shipped": 263
+            "shipped": 264
           }
         },
         {
@@ -135,7 +199,7 @@
             "app": 210,
             "site": 527,
             "builds": 37,
-            "shipped": 263
+            "shipped": 264
           }
         },
         {
@@ -163,7 +227,7 @@
             "app": 209,
             "site": 525,
             "builds": 37,
-            "shipped": 262
+            "shipped": 263
           }
         },
         {
@@ -191,6 +255,34 @@
             "app": 207,
             "site": 523,
             "builds": 37,
+            "shipped": 262
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T13:31:44.000Z",
+          "title": "Agents answer where with a map",
+          "card": "YUI-158",
+          "anchor": "agents-answer-where-with-a-map",
+          "images": [
+            {
+              "src": "/progress/yui158-where-before-after.webp",
+              "alt": "Before and after on the same question: a big 24M km² number over four compass bullets, then a deck page with the Mongol Empire filled in gold on a map, Karakorum pinned and routes east and west"
+            },
+            {
+              "src": "/progress/yui158-where-page1.webp",
+              "alt": "Page one of the Mongols deck: Mongolia filled in mint, Karakorum and the Onon River pinned, under Where they started"
+            },
+            {
+              "src": "/progress/yui158-where-page3.webp",
+              "alt": "Page three: the four khanates on a map, the Yuan in gold, the Chagatai in mint, the Ilkhanate in lavender, the Golden Horde in grey"
+            }
+          ],
+          "commits": 6,
+          "totals": {
+            "app": 205,
+            "site": 521,
+            "builds": 37,
             "shipped": 261
           }
         },
@@ -214,7 +306,7 @@
               "alt": "A deck page whose picture is the map: How far it reached, with Karakorum and a dashed arrow west"
             }
           ],
-          "commits": 4,
+          "commits": 6,
           "totals": {
             "app": 205,
             "site": 521,
@@ -643,6 +735,62 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "84d1d86",
+          "at": "2026-09-27T18:10:39.000Z",
+          "text": "Brand lab: the 60 s journey and four chapter shorts on /brand",
+          "url": "https://github.com/postscarcityai/yuigui/commit/84d1d86"
+        },
+        {
+          "repo": "site",
+          "sha": "014d7a0",
+          "at": "2026-09-27T18:06:48.000Z",
+          "text": "Brand lab round 1 at /brand: the mark from Chris's paper sketch, six materials, films, fal stills",
+          "url": "https://github.com/postscarcityai/yuigui/commit/014d7a0"
+        },
+        {
+          "repo": "site",
+          "sha": "090eee1",
+          "at": "2026-09-27T18:04:09.000Z",
+          "text": "Native web search with sources and a free monthly cap (YUI-142, yui 89f812f)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/090eee1"
+        },
+        {
+          "repo": "app",
+          "sha": "89f812f",
+          "at": "2026-09-27T17:50:03.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yui/commit/89f812f"
+        },
+        {
+          "repo": "site",
+          "sha": "e0700d2",
+          "at": "2026-09-27T17:45:45.000Z",
+          "text": "Maps in the app (YUI-158 step 2): progress entry with the app shots, roadmap line, spec/map/scenes.json",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e0700d2"
+        },
+        {
+          "repo": "app",
+          "sha": "63fdc90",
+          "at": "2026-09-27T17:45:07.000Z",
+          "text": "Maps in the app (YUI-158 step 2; Chris on the Mongol Empire answer, feedback AL2nKEYo: \"Again, not bad but this should be a Map.\")",
+          "url": "https://github.com/postscarcityai/yui/commit/63fdc90"
+        },
+        {
+          "repo": "site",
+          "sha": "2934c87",
+          "at": "2026-09-27T17:44:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2934c87"
+        },
+        {
+          "repo": "site",
+          "sha": "04e2c8d",
+          "at": "2026-09-27T17:40:20.000Z",
+          "text": "Progress + See it: Yui's own soul and first screen (YUI-133)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/04e2c8d"
+        },
         {
           "repo": "site",
           "sha": "fe8d66c",

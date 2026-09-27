@@ -2125,9 +2125,14 @@
           "pick",
           "narrate",
           "list",
-          "table"
+          "table",
+          "map",
+          "area",
+          "pin",
+          "route"
         ],
         "need": [
+          "map",
           "shapes",
           "chart",
           "image",
@@ -2136,9 +2141,10 @@
         ],
         "drawn": true,
         "max_pages": 4,
-        "max_words": 40
+        "max_words": 40,
+        "map": true
       },
-      "good": "One line with the answer, then one deck on `>full` where every page has its picture: the steppe as a rough map in `shapes` with `at=x,y` (Karakorum, Korea, Hungary), the spread over time as a `chart`, the size as a `stat`. Not pages of text, then a stat and bullets (TestFlight feedback AJIE1_1Ru1V4EMgmpWZtniI: 'It's just a text bomb')."
+      "good": "One line with the answer, then one deck on `>full` where every page has its picture: the empire as a `map` (its outline in lat,lon points, Karakorum as a pin, routes east and west), the size as a `chart` or a `stat`. Not pages of text, and not the steppe drawn as dots in `shapes` (TestFlight feedback AJIE1_1Ru1V4EMgmpWZtniI: 'It's just a text bomb'; feedback AL2nKEYo on the shapes version: 'Again, not bad but this should be a Map')."
     },
     {
       "id": "explain-rome-rise-fall",
@@ -2174,9 +2180,14 @@
           "pick",
           "narrate",
           "list",
-          "table"
+          "table",
+          "map",
+          "area",
+          "pin",
+          "route"
         ],
         "need": [
+          "map",
           "shapes",
           "chart",
           "image",
@@ -2185,9 +2196,10 @@
         ],
         "drawn": true,
         "max_pages": 4,
-        "max_words": 40
+        "max_words": 40,
+        "map": true
       },
-      "good": "A line, then a picture per part: a rough map of the empire at its peak in `shapes`, its size over the centuries as a `chart` (or a `timeline` on the stage), the split as two shapes. No page that is only a heading and a paragraph."
+      "good": "A line, then a picture per part: the empire at its peak as a `map` around the Mediterranean, its size over the centuries as a `chart` (or a `timeline` on the stage), the split as an east and west area. No page that is only a heading and a paragraph."
     },
     {
       "id": "explain-monsoon-how",
@@ -2223,9 +2235,14 @@
           "pick",
           "narrate",
           "list",
-          "table"
+          "table",
+          "map",
+          "area",
+          "pin",
+          "route"
         ],
         "need": [
+          "map",
           "shapes",
           "chart",
           "image"
@@ -2234,7 +2251,122 @@
         "max_pages": 4,
         "max_words": 50
       },
-      "good": "One line and a diagram: land heats, air rises, wet air off the ocean moves in (`shapes` with arrows, placed with `at=`), maybe a rainfall `chart` by month. Not a paragraph of weather words."
+      "good": "One line and a picture: land heats, air rises, wet air off the ocean moves in, as a diagram in `shapes` with arrows or a `map` with the winds as routes, maybe a rainfall `chart` by month. Not a paragraph of weather words."
+    },
+    {
+      "id": "where-trip-route",
+      "category": "where",
+      "agent": "Yui",
+      "message": "Thinking about a train trip from Lisbon to Barcelona with stops in Porto and Madrid. How does that route go?",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say",
+          "card",
+          "map",
+          "area",
+          "pin",
+          "route",
+          "image",
+          "chart",
+          "stat",
+          "list",
+          "choose",
+          "pick",
+          "ask",
+          "deck",
+          "page",
+          "end",
+          "shapes",
+          "shape",
+          "timeline",
+          "table"
+        ],
+        "need": [
+          "map",
+          "route",
+          "pin"
+        ],
+        "map": true,
+        "max_words": 40
+      },
+      "good": "One line, then a map: pins on Lisbon, Porto, Madrid and Barcelona, a route through them with an arrow, a caption with the rough hours (a small `table` of the legs beside it is fine). Not a numbered list of legs in words."
+    },
+    {
+      "id": "where-delivery-area",
+      "category": "where",
+      "agent": "Yui",
+      "message": "Our farm delivers CSA boxes across Vermont, New Hampshire and western Massachusetts. Can you show a new customer what that covers?",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say",
+          "card",
+          "map",
+          "area",
+          "pin",
+          "route",
+          "image",
+          "chart",
+          "stat",
+          "list",
+          "choose",
+          "pick",
+          "ask",
+          "deck",
+          "page",
+          "end",
+          "shapes",
+          "shape",
+          "timeline"
+        ],
+        "need": [
+          "map",
+          "area"
+        ],
+        "map": true,
+        "max_words": 40
+      },
+      "good": "One line, then a map with the delivery area filled in (VT and NH by code, western Massachusetts as lat,lon points) and the farm or the big towns as pins. Not a list of states and counties."
+    },
+    {
+      "id": "where-quick-country",
+      "category": "where",
+      "agent": "Urza",
+      "message": "Where exactly is Kyrgyzstan?",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "say",
+          "card",
+          "map",
+          "area",
+          "pin",
+          "route",
+          "image",
+          "chart",
+          "stat",
+          "list",
+          "choose",
+          "pick",
+          "ask",
+          "deck",
+          "page",
+          "end",
+          "shapes",
+          "shape",
+          "timeline"
+        ],
+        "need": [
+          "map",
+          "area",
+          "pin"
+        ],
+        "map": true,
+        "max_words": 40,
+        "max_pages": 1
+      },
+      "good": "One line (Central Asia, between Kazakhstan and China) and a map in the chat: KG as an area with a pulse on Bishkek, neighbors faint. No deck for a quick where."
     }
   ]
 }
