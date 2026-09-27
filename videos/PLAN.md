@@ -11,6 +11,9 @@ Every page on yuigui.com can have zero, one or more videos. "Site" videos alread
 | 02 Plan to launch | done | A pottery studio's website: plan mode, pick photos, before and after, the reel, the timeline |
 | 05 Your agents, one app | done | Every agent wears its own look, add and pair one, @mention another, restyle Yui by asking |
 | 07 Yui lives on the full screen | done | One question got eight pages. Now the stage answers: talk, parts with a picture each, questions last with one Send, the chat is the record |
+| 08 Cook with your hands full | done | Flour on your hands: tap the mic once, just talk, say next, the oven timer counts on the lock screen, save it to the shelf |
+| 09 Can I afford it? | done | The car you want: one number, a calc you drag under your budget, new or used side by side, one Send |
+| 10 Homework rescue | done | Fractions at 8 pm: a chocolate bar picture, a memory game of her fractions, a quick check, the score goes back and the agent plans tomorrow |
 
 ## See it (/mockups)
 
@@ -19,9 +22,9 @@ Every page on yuigui.com can have zero, one or more videos. "Site" videos alread
 | 04 Lessons | done | Compound interest as one deck: a diagram, the formula, a chart, a graded quiz, a calculator |
 | Questions and answers | idea | ask, choose, pick, slide, form: change your answer any time |
 | Pictures and video | idea | gallery pick, compare with marked changes, storyboard comments |
-| Numbers and charts | idea | chart, stat, math, step, calc: numbers come back as a chart |
-| Games | idea | snake, tic-tac-toe, memory, played with your agent |
-| Voice | idea | hold to talk, hands-free, read the answer |
+| Numbers and charts | idea | chart, stat, math, step: numbers come back as a chart (calc is in 09 Can I afford it?, beside calc) |
+| Games | idea | snake and tic-tac-toe, played with your agent (memory is in 10 Homework rescue, beside memory) |
+| Voice | idea | hold to talk, read the answer (hands-free is in 08 Cook with your hands full, beside hands-free voice) |
 
 ## Roadmap, board, shipped, builds, timeline, thoughts
 

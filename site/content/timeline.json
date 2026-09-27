@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 204,
-    "site": 506,
+    "site": 508,
     "builds": 37,
-    "shipped": 255,
-    "screenshots": 588
+    "shipped": 256,
+    "screenshots": 590
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T11:07:28.409Z",
+          "at": "2026-09-27T11:11:25.153Z",
+          "title": "Three films: dinner, a car, homework",
+          "card": "SOC-5",
+          "anchor": "three-films-dinner-a-car-homework",
+          "images": [
+            {
+              "src": "/progress/soc5-films-home-light.webp",
+              "alt": "The home page on a phone: Dinner, a car, homework, with the cooking and car films"
+            },
+            {
+              "src": "/progress/soc5-film-calc-light.webp",
+              "alt": "See it on a phone: the Can I afford it? film under the live calc"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 204,
+            "site": 508,
+            "builds": 37,
+            "shipped": 256
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T11:07:53.000Z",
           "title": "The films are on the site, and 0.4.1 reads as the newest",
           "card": "SITE-62",
           "anchor": "the-films-are-on-the-site-and-0-4-1-reads-as-the-newest",
@@ -31,10 +55,10 @@
               "alt": "See it on a phone: the Yui 0.4.1 group with the tuner"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 204,
-            "site": 506,
+            "site": 507,
             "builds": 37,
             "shipped": 255
           }
@@ -332,6 +356,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "de1fe42",
+          "at": "2026-09-27T11:10:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/de1fe42"
+        },
+        {
+          "repo": "site",
+          "sha": "dc2d1d6",
+          "at": "2026-09-27T11:07:53.000Z",
+          "text": "The films on the site, and 0.4.1 as the newest release (SITE-62)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dc2d1d6"
+        },
         {
           "repo": "site",
           "sha": "bc7d357",

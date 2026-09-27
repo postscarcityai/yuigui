@@ -169,5 +169,59 @@
       "seconds": 55.2,
       "mb": 3.6
     }
+  },
+  "film-hands-full": {
+    "title": "Cook with your hands full",
+    "what": "Flour on your hands? Tap the mic once and just talk. Your agent walks you through dinner on the whole screen, and the oven timer keeps count on your lock screen.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-hands-full-9x16.mp4",
+      "poster": "/demo/videos/film-hands-full-9x16.jpg",
+      "seconds": 33.6,
+      "mb": 2.1
+    },
+    "16x9": {
+      "src": "/demo/videos/film-hands-full-16x9.mp4",
+      "poster": "/demo/videos/film-hands-full-16x9.jpg",
+      "seconds": 33.6,
+      "mb": 2.1
+    }
+  },
+  "film-afford-it": {
+    "title": "Can I afford it?",
+    "what": "Ask out loud about the car you want. Your agent answers with one number, then a calculator you drag, the whole cost side by side, and one Send.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-afford-it-9x16.mp4",
+      "poster": "/demo/videos/film-afford-it-9x16.jpg",
+      "seconds": 33.6,
+      "mb": 2.1
+    },
+    "16x9": {
+      "src": "/demo/videos/film-afford-it-16x9.mp4",
+      "poster": "/demo/videos/film-afford-it-16x9.jpg",
+      "seconds": 33.6,
+      "mb": 2.1
+    }
+  },
+  "film-homework": {
+    "title": "Homework rescue",
+    "what": "Stuck on fractions at 8 pm. Your agent shows it as a picture, turns it into a memory game and a quick check, then plans tomorrow from the score.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-homework-9x16.mp4",
+      "poster": "/demo/videos/film-homework-9x16.jpg",
+      "seconds": 33.6,
+      "mb": 2.8
+    },
+    "16x9": {
+      "src": "/demo/videos/film-homework-16x9.mp4",
+      "poster": "/demo/videos/film-homework-16x9.jpg",
+      "seconds": 33.6,
+      "mb": 2.8
+    }
   }
 }

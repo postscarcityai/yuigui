@@ -103,5 +103,8 @@ Sources are tracked (comps, music scripts, plans, share copy, the kit). Renders,
 | 05-agents | your agents, one app | /, /start |
 | 06-built-in-public | feedback to shipped, in public | /board, /changelog, /timeline |
 | 07-full-screen | the new layout: Yui lives on the full screen, the chat is the record | /mockups#stage-1, /thoughts |
+| 08-hands-full | cook with your hands full: hands-free voice, the lock screen timer | /, /mockups#hands-free-voice |
+| 09-afford-it | can I afford it: a calc you drag, the whole cost, one Send | /, /mockups#calc |
+| 10-homework | homework rescue: a picture, a memory game, a quiz, the score goes back | /, /mockups#game-memory |
 
 What each page could get next: `PLAN.md`.

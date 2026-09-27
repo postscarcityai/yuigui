@@ -98,6 +98,12 @@ export default function Home() {
         ids={["film-meet-yui", "film-plan-to-launch", "film-agents", "film-full-screen"]}
       />
 
+      <Films
+        title="Dinner, a car, homework"
+        lede="Three everyday moments, half a minute each, sound on. You talk, your agent answers on the whole screen."
+        ids={["film-hands-full", "film-afford-it", "film-homework"]}
+      />
+
       <h2>What works today</h2>
       <div className="grid">
         {what.map(([t, d]) => (
