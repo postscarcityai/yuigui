@@ -16,7 +16,7 @@ export const SHELVES = [
   ["data", "Numbers and science"],
   ["group", "Pages, plans and stories"],
   ["play", "Play"],
-  ["music", "Music (coming to the app)"],
+  ["music", "Music"],
 ];
 
 // One entry per preset. `yl` is a small, complete reply that draws it; members
@@ -343,9 +343,12 @@ game tictactoe "Beat me"`,
 };
 
 // Ready-made music screens (YUI-117): whole replies built from the music presets, kind
-// "screen". Unlike the six draft presets they are in library.json and search, marked
-// `app: "coming"`, so an agent that asks for music finds them and knows the phone
-// skips the lines until the app build that draws them (YUI-116 steps 2 to 4).
+// "screen". They are in library.json and search. A screen that uses a preset no VALID
+// build draws yet is marked `app: "coming"`, so an agent knows the phone skips it:
+// loop and drums draw since build 176, keys and chords since 204 (YUI-116 step 3),
+// tuner and metronome wait for step 4.
+export const APP_COMING = ["tuner", "metronome"];
+const usesComing = (yl) => yl.split("\n").some((l) => APP_COMING.includes(l.trim().split(/\s+/)[0]));
 export const MUSIC_SCREENS = [
   {
     name: "practice-session",
@@ -476,7 +479,7 @@ export const flows = () => STARTER_FLOWS.flatMap((f) => [{
 }, ...FLOW_VARIANTS.filter((v) => v.base === f.name).map((v) => variantEntry(v, f))]);
 
 export const screens = () => MUSIC_SCREENS.map((s) => ({
-  ...s, kind: "screen", shelf: "music", doc: "music", app: "coming", intents: INTENTS[s.name] || [], docs: docUrl("music"),
+  ...s, kind: "screen", shelf: "music", doc: "music", ...(usesComing(s.yl) ? { app: "coming" } : {}), intents: INTENTS[s.name] || [], docs: docUrl("music"),
 }));
 
 function variantEntry(v, base) {

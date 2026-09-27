@@ -1976,6 +1976,48 @@
         "max_pages": 4
       },
       "good": "The bottom bar drawn: `sketch frame=phone` with `+button` rows for +, T and the big mic, ideally before and after (the old always-there field struck out). Not a description of it (feedback AL1My-stUBnvtXD2WKV7ec8)."
+    },
+    {
+      "id": "music-keys-scale",
+      "category": "music",
+      "agent": "Urza",
+      "message": "Learning piano again. Give me something to noodle around A minor pentatonic on.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "keys",
+          "say",
+          "card",
+          "save",
+          "loop"
+        ],
+        "need": [
+          "keys"
+        ],
+        "max_words": 30
+      },
+      "good": "One `keys Am pentatonic` line (a title or +send is fine), a short line at most. No list of note names, no fingering advice paragraph."
+    },
+    {
+      "id": "music-chords-song",
+      "category": "music",
+      "agent": "Urza",
+      "message": "I want to strum along to one of those four chord pop songs on my uke. G is a good key for me.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "chords",
+          "say",
+          "card",
+          "save",
+          "loop"
+        ],
+        "need": [
+          "chords"
+        ],
+        "max_words": 30
+      },
+      "good": "One `chords` line in G (`chords G I-V-vi-IV` or `chords G|D|Em|C`), a short line at most. No chord names in a paragraph, no chord diagrams in text."
     }
   ]
 }

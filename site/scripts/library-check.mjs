@@ -5,7 +5,7 @@
 // Run: node scripts/library-check.mjs   Exit 0 when whole, 1 with one line per problem.
 import { PRESETS, parse } from "../lib/yl/yl.mjs";
 import { FLOW_VARIANTS, STARTER_FLOWS, savedGraph } from "../lib/yl/starter-flows.mjs";
-import { INTENTS, MUSIC_SCREENS, PRESET_ENTRIES, SHELVES, libraryIndex, libraryLeaks, presets, search } from "../lib/yl/library.mjs";
+import { APP_COMING, INTENTS, MUSIC_SCREENS, PRESET_ENTRIES, SHELVES, libraryIndex, libraryLeaks, presets, search } from "../lib/yl/library.mjs";
 
 const problems = [];
 const shelves = new Set(SHELVES.map(([k]) => k));
@@ -48,7 +48,10 @@ for (const s of MUSIC_SCREENS) {
   if (err) problems.push(`screen ${s.name}: an error line: ${err.message} (${err.line})`);
   if (!ops.some((o) => o.op === "add" && MUSIC.includes(o.preset))) problems.push(`screen ${s.name}: draws no music preset`);
   if (PRESETS.includes(s.name) || names.has(s.name)) problems.push(`screen ${s.name}: name taken by a preset or a flow`);
-  if (!index.items.some((i) => i.kind === "screen" && i.name === s.name && i.app === "coming")) problems.push(`screen ${s.name}: missing from library.json, or not marked app "coming"`);
+  const item = index.items.find((i) => i.kind === "screen" && i.name === s.name);
+  const coming = ops.some((o) => o.op === "add" && APP_COMING.includes(o.preset));
+  if (!item) problems.push(`screen ${s.name}: missing from library.json`);
+  else if ((item.app === "coming") !== coming) problems.push(`screen ${s.name}: app "coming" is ${item.app === "coming"}, but it ${coming ? "uses" : "does not use"} ${APP_COMING.join(" or ")}`);
 }
 for (const k of Object.keys(INTENTS)) if (!index.items.some((i) => i.name === k)) problems.push(`${k}: intents for an entry the library does not have`);
 for (const q of ["music", "guitar"]) if (search(index.items, q, { kind: "screen" }).length < 2) problems.push(`search "${q}": finds fewer than 2 music screens`);
