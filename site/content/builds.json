@@ -1015,6 +1015,14 @@
     {
       "text": "Plugin: a flow the phone can't run goes out as a plan",
       "card": "YUI-155"
+    },
+    {
+      "text": "A form inside a plan is just fields: one Send per screen",
+      "card": "YUI-156"
+    },
+    {
+      "text": "A pick inside a plan has no Done: one Send per screen",
+      "card": "YUI-159"
     }
   ]
 }
