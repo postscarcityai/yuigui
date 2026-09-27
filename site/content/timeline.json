@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 218,
-    "site": 542,
+    "app": 221,
+    "site": 547,
     "builds": 38,
-    "shipped": 272,
-    "screenshots": 631
+    "shipped": 274,
+    "screenshots": 637
   },
   "days": [
     {
@@ -13,7 +13,63 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T18:21:35.293Z",
+          "at": "2026-09-27T18:54:00.632Z",
+          "title": "Your agents check in on their own",
+          "card": "YUI-143",
+          "anchor": "your-agents-check-in-on-their-own",
+          "images": [
+            {
+              "src": "/progress/yui143-basil-light.webp",
+              "alt": "Push banner, light mode: Basil, Lunch time! What are you having today?"
+            },
+            {
+              "src": "/progress/yui143-basil-dark.webp",
+              "alt": "Basil's lunch check-in push in dark mode"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 221,
+            "site": 547,
+            "builds": 38,
+            "shipped": 274
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T18:30:05.000Z",
+          "title": "Map labels stop overlapping",
+          "card": "YUI-158",
+          "anchor": "map-labels-stop-overlapping",
+          "images": [
+            {
+              "src": "/progress/yui158-labels-before.webp",
+              "alt": "Before: the Lisbon to Barcelona map with leg labels printed over Madrid and Barcelona, unreadable"
+            },
+            {
+              "src": "/progress/yui158-labels-web-dark.webp",
+              "alt": "After, on the web in dark mode: Lisbon, Porto, Vigo, Madrid and Barcelona each labeled, and each leg's train and hours beside its line"
+            },
+            {
+              "src": "/progress/yui158-labels-app-light.webp",
+              "alt": "The same trip in the app in light mode, every label clear"
+            },
+            {
+              "src": "/progress/yui158-labels-app-dark.webp",
+              "alt": "The trip in the app in dark mode"
+            }
+          ],
+          "commits": 12,
+          "totals": {
+            "app": 219,
+            "site": 545,
+            "builds": 38,
+            "shipped": 273
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T18:22:06.000Z",
           "title": "Your agents remember you, and you can fix what they remember",
           "card": "YUI-140",
           "anchor": "your-agents-remember-you-and-you-can-fix-what-they-remember",
@@ -27,10 +83,10 @@
               "alt": "The same three steps in dark mode: Yui learns, the About you card is edited in Controls, Basil's very next answer skips peanuts and shellfish."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 218,
-            "site": 542,
+            "site": 543,
             "builds": 38,
             "shipped": 272
           }
@@ -83,7 +139,7 @@
               "alt": "Page three: the four khanates on a map, the Yuan in gold, the Chagatai in mint, the Ilkhanate in lavender, the Golden Horde in grey"
             }
           ],
-          "commits": 8,
+          "commits": 12,
           "totals": {
             "app": 215,
             "site": 540,
@@ -147,7 +203,7 @@
               "alt": "The same page in dark mode, pinched in on the map, lines and label still sharp"
             }
           ],
-          "commits": 8,
+          "commits": 12,
           "totals": {
             "app": 214,
             "site": 536,
@@ -358,7 +414,7 @@
               "alt": "A deck page whose picture is the map: How far it reached, with Karakorum and a dashed arrow west"
             }
           ],
-          "commits": 8,
+          "commits": 12,
           "totals": {
             "app": 205,
             "site": 521,
@@ -787,6 +843,62 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "139f0bd",
+          "at": "2026-09-27T18:53:32.000Z",
+          "text": "Check-ins that push: the trainer checks in Monday at 7, Basil asks about lunch (YUI-143)",
+          "url": "https://github.com/postscarcityai/yui/commit/139f0bd"
+        },
+        {
+          "repo": "site",
+          "sha": "e3d9aaa",
+          "at": "2026-09-27T18:51:38.000Z",
+          "text": "Top bar: Yui 0.4 voice mode, with the demo short in a player",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e3d9aaa"
+        },
+        {
+          "repo": "site",
+          "sha": "2983912",
+          "at": "2026-09-27T18:42:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2983912"
+        },
+        {
+          "repo": "app",
+          "sha": "6d98dae",
+          "at": "2026-09-27T18:30:24.000Z",
+          "text": "yui-mcp: MCP App copy with the map label fix (YUI-158 follow-up)",
+          "url": "https://github.com/postscarcityai/yui/commit/6d98dae"
+        },
+        {
+          "repo": "site",
+          "sha": "356292a",
+          "at": "2026-09-27T18:30:05.000Z",
+          "text": "Progress: map labels stop overlapping (YUI-158 follow-up), trip shots on See it",
+          "url": "https://github.com/postscarcityai/yuigui/commit/356292a"
+        },
+        {
+          "repo": "app",
+          "sha": "ca8d39f",
+          "at": "2026-09-27T18:29:45.000Z",
+          "text": "Map labels stop overlapping (YUI-158 follow-up)",
+          "url": "https://github.com/postscarcityai/yui/commit/ca8d39f"
+        },
+        {
+          "repo": "site",
+          "sha": "441ccbd",
+          "at": "2026-09-27T18:26:29.000Z",
+          "text": "Map labels stop overlapping (YUI-158 follow-up)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/441ccbd"
+        },
+        {
+          "repo": "site",
+          "sha": "7a94d97",
+          "at": "2026-09-27T18:22:06.000Z",
+          "text": "Progress: your agents remember you, and you can fix it in Controls (YUI-140)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7a94d97"
+        },
         {
           "repo": "app",
           "sha": "297c385",
