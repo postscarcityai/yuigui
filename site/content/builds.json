@@ -962,6 +962,13 @@
     },
     {
       "text": "The visual: Metal shaders behind the stage (YUI-124 step 2)"
+    },
+    {
+      "text": "The visual listens: your voice, the agent's voice and the music",
+      "card": "YUI-125"
+    },
+    {
+      "text": "Yui 0.4.0: the new face of Yui, STAGE-1 to TestFlight (Chris, Sep 26)"
     }
   ]
 }
