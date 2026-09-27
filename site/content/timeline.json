@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 225,
-    "site": 554,
+    "app": 228,
+    "site": 555,
     "builds": 39,
-    "shipped": 278,
+    "shipped": 279,
     "screenshots": 645
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T20:02:07.608Z",
+          "at": "2026-09-27T20:09:11.751Z",
+          "title": "No dashes in the crew's replies",
+          "card": "YUI-163",
+          "anchor": "no-dashes-in-the-crew-s-replies",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 228,
+            "site": 555,
+            "builds": 39,
+            "shipped": 279
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T20:02:33.000Z",
           "title": "Native Yui on your phone",
           "card": "YUI-160",
           "anchor": "native-yui-on-your-phone",
@@ -23,10 +38,10 @@
               "alt": "Basil reads a photo of grilled salmon: about 520 calories marked a guess, with protein and carbs tiles"
             }
           ],
-          "commits": 1,
+          "commits": 3,
           "totals": {
             "app": 225,
-            "site": 554,
+            "site": 555,
             "builds": 39,
             "shipped": 278
           }
@@ -951,6 +966,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "1dd13e9",
+          "at": "2026-09-27T20:08:51.000Z",
+          "text": "Live first-launch proof checks every crew answer for dashes (YUI-163)",
+          "url": "https://github.com/postscarcityai/yui/commit/1dd13e9"
+        },
+        {
+          "repo": "app",
+          "sha": "1318eb8",
+          "at": "2026-09-27T20:04:26.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yui/commit/1318eb8"
+        },
+        {
+          "repo": "app",
+          "sha": "9a3a02d",
+          "at": "2026-09-27T20:04:10.000Z",
+          "text": "Native crew replies without em dashes: a prompt rule and a sweep before the answer is written (YUI-163)",
+          "url": "https://github.com/postscarcityai/yui/commit/9a3a02d"
+        },
+        {
+          "repo": "site",
+          "sha": "904dd4d",
+          "at": "2026-09-27T20:02:33.000Z",
+          "text": "Progress: Native Yui on your phone, build 229 with a first-run recording (YUI-160)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/904dd4d"
+        },
         {
           "repo": "app",
           "sha": "d653f04",
