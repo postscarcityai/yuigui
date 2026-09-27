@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T09:10:12.764Z",
+  "updated": "2026-09-27T11:10:31.971Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.1",
@@ -329,6 +329,20 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
+        },
+        {
+          "key": "SOC-4",
+          "title": "The Yui 0.4.1 brag video (tune up, keep time, send a take)"
+        },
+        {
+          "key": "SOC-5",
+          "title": "Finish brag videos 08 hands full, 09 afford it, 10 homework"
+        },
+        {
+          "key": "SITE-62",
+          "title": "Put the finished brag videos and 0.4.1 on the site",
+          "summary": "The films are on the site, and 0.4.1 reads as the newest",
+          "progress": "/progress#the-films-are-on-the-site-and-0-4-1-reads-as-the-newest"
         }
       ]
     },
