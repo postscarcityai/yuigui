@@ -86,6 +86,13 @@
         },
         {
           "text": "Channel guide v33: agents send keys and chords (YUI-116, yuigui 85bbee1)"
+        },
+        {
+          "text": "Record a take, plug in a keyboard (YUI-116 step 5)"
+        },
+        {
+          "text": "Yui 0.4.1: tuner, metronome, record a take, MIDI keyboard",
+          "card": "YUI-116"
         }
       ]
     },

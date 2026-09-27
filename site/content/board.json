@@ -1,60 +1,12 @@
 {
-  "updated": "2026-09-27T07:40:29.698Z",
+  "updated": "2026-09-27T08:10:32.880Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.4.0",
-    "status": "shipped",
-    "startedAt": "2026-09-27T05:37:00.000Z",
-    "shippedAt": "2026-09-27T06:10:27.000Z",
-    "cards": [
-      {
-        "key": "YUI-121",
-        "title": "The bottom bar",
-        "status": "done",
-        "shipped": "2026-09-26",
-        "progress": "/progress#a-bigger-mic-bottom-right"
-      },
-      {
-        "key": "YUI-122",
-        "title": "The top bar",
-        "status": "done",
-        "shipped": "2026-09-26",
-        "progress": "/progress#the-top-bar-agents-left-the-record-right"
-      },
-      {
-        "key": "YUI-123",
-        "title": "Describe how each agent moves, in words, and the agent turns it into a motion look",
-        "status": "done",
-        "shipped": "2026-09-26",
-        "progress": "/progress#say-how-each-agent-moves"
-      },
-      {
-        "key": "YUI-120",
-        "title": "Context animations on the full screen stage",
-        "status": "done",
-        "shipped": "2026-09-26"
-      },
-      {
-        "key": "YUI-124",
-        "title": "The visualizer",
-        "status": "done",
-        "shipped": "2026-09-26",
-        "progress": "/progress#a-live-picture-behind-the-words"
-      },
-      {
-        "key": "YUI-124",
-        "title": "The visualizer in the app, Metal shaders on the full screen stage",
-        "status": "done",
-        "shipped": "2026-09-27"
-      },
-      {
-        "key": "YUI-125",
-        "title": "The visualizer listens",
-        "status": "done",
-        "shipped": "2026-09-27",
-        "progress": "/progress#the-picture-listens"
-      }
-    ]
+    "version": "0.4.1",
+    "status": "shipping",
+    "startedAt": "2026-09-27T08:02:02.000Z",
+    "shippedAt": null,
+    "cards": []
   },
   "columns": [
     {
@@ -346,11 +298,6 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
-        },
-        {
-          "key": "SITE-60",
-          "title": "See it",
-          "summary": "Record a take and play from a keyboard"
         }
       ]
     },
@@ -384,13 +331,20 @@
         {
           "key": "YUI-116",
           "title": "Recording, export, MIDI and Ableton Link",
-          "step": "Step 5"
+          "step": "Step 5",
+          "summary": "Record a take, plug in a keyboard",
+          "progress": "/progress#record-a-take-plug-in-a-keyboard"
         },
         {
           "key": "YUI-116",
           "title": "The channel guide teaches keys, chords, tuner and metronome",
           "summary": "Agents send keys and chords",
           "progress": "/progress#agents-send-keys-and-chords"
+        },
+        {
+          "key": "SITE-60",
+          "title": "See it",
+          "summary": "Record a take and play from a keyboard"
         }
       ]
     },
