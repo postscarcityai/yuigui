@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 223,
-    "site": 550,
-    "builds": 38,
-    "shipped": 276,
-    "screenshots": 643
+    "app": 224,
+    "site": 552,
+    "builds": 39,
+    "shipped": 277,
+    "screenshots": 644
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T19:12:21.402Z",
+          "at": "2026-09-27T19:42:51.059Z",
+          "title": "Everyone gets a Yui at sign-in",
+          "card": "YUI-134",
+          "anchor": "everyone-gets-a-yui-at-sign-in",
+          "images": [
+            {
+              "src": "/progress/yui134-signin-light.webp",
+              "alt": "A new account's first launch: Yui's first message naming the crew, and a choice of where to start"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 224,
+            "site": 552,
+            "builds": 39,
+            "shipped": 277
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-27T19:17:42.000Z",
+          "build": 229,
+          "changes": 12,
+          "totals": {
+            "app": 223,
+            "site": 551,
+            "builds": 39,
+            "shipped": 276
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T19:12:12.000Z",
           "title": "How well GLM uses Yui",
           "card": "YUI-132",
           "anchor": "how-well-glm-uses-yui",
@@ -35,10 +67,10 @@
               "alt": "The model scores on a phone, dark mode"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 223,
-            "site": 550,
+            "site": 551,
             "builds": 38,
             "shipped": 276
           }
@@ -899,6 +931,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "1393d03",
+          "at": "2026-09-27T19:42:25.000Z",
+          "text": "Live proof: a new account finds hosted Yui and she answers (YUI-134)",
+          "url": "https://github.com/postscarcityai/yui/commit/1393d03"
+        },
+        {
+          "repo": "site",
+          "sha": "4fb589b",
+          "at": "2026-09-27T19:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4fb589b"
+        },
+        {
+          "repo": "site",
+          "sha": "b7d7742",
+          "at": "2026-09-27T19:12:12.000Z",
+          "text": "YUI-132: channel eval on GLM 5.2 and GLM-5V-Turbo, scores on /channel",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b7d7742"
+        },
         {
           "repo": "app",
           "sha": "6bee49b",
