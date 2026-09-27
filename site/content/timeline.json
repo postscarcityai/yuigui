@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 204,
-    "site": 508,
+    "site": 513,
     "builds": 37,
-    "shipped": 256,
-    "screenshots": 590
+    "shipped": 257,
+    "screenshots": 592
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T11:11:25.153Z",
+          "at": "2026-09-27T11:14:28.208Z",
+          "title": "A film for Yui 0.4.1: tune up, keep time, send a take",
+          "card": "SOC-4",
+          "anchor": "a-film-for-yui-0-4-1-tune-up-keep-time-send-a-take",
+          "images": [
+            {
+              "src": "/progress/soc4-film-tuner-dark.webp",
+              "alt": "The film at 13 seconds: the tuner with all six strings green, caption All six in tune, Your agent hears it"
+            },
+            {
+              "src": "/progress/soc4-film-take-dark.webp",
+              "alt": "The film at 34 seconds: the take sent to the agent with .m4a and .mid chips, caption Stop and send, The sound and the notes"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 204,
+            "site": 513,
+            "builds": 37,
+            "shipped": 257
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T11:11:56.000Z",
           "title": "Three films: dinner, a car, homework",
           "card": "SOC-5",
           "anchor": "three-films-dinner-a-car-homework",
@@ -27,10 +51,10 @@
               "alt": "See it on a phone: the Can I afford it? film under the live calc"
             }
           ],
-          "commits": 0,
+          "commits": 5,
           "totals": {
             "app": 204,
-            "site": 508,
+            "site": 513,
             "builds": 37,
             "shipped": 256
           }
@@ -58,7 +82,7 @@
           "commits": 1,
           "totals": {
             "app": 204,
-            "site": 507,
+            "site": 511,
             "builds": 37,
             "shipped": 255
           }
@@ -358,6 +382,13 @@
       "commits": [
         {
           "repo": "site",
+          "sha": "1162037",
+          "at": "2026-09-27T11:11:56.000Z",
+          "text": "Three films on the site: dinner, a car, homework (SOC-5)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1162037"
+        },
+        {
+          "repo": "site",
           "sha": "de1fe42",
           "at": "2026-09-27T11:10:32.000Z",
           "text": "board: sync from kanban and TestFlight",
@@ -369,6 +400,34 @@
           "at": "2026-09-27T11:07:53.000Z",
           "text": "The films on the site, and 0.4.1 as the newest release (SITE-62)",
           "url": "https://github.com/postscarcityai/yuigui/commit/dc2d1d6"
+        },
+        {
+          "repo": "site",
+          "sha": "a675070",
+          "at": "2026-09-27T10:59:57.000Z",
+          "text": "Video 10: Homework rescue, help you can see and play (SOC-5)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a675070"
+        },
+        {
+          "repo": "site",
+          "sha": "70c6088",
+          "at": "2026-09-27T10:59:57.000Z",
+          "text": "Video 09: Can I afford it, numbers you can touch (SOC-5)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/70c6088"
+        },
+        {
+          "repo": "site",
+          "sha": "fc94014",
+          "at": "2026-09-27T10:59:57.000Z",
+          "text": "Video 08: Hands full, cook with your hands full (SOC-5)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fc94014"
+        },
+        {
+          "repo": "site",
+          "sha": "f997e86",
+          "at": "2026-09-27T10:59:56.000Z",
+          "text": "Videos kit: stage.js and stage.css, the full screen stage for comps (SOC-5)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f997e86"
         },
         {
           "repo": "site",

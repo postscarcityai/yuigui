@@ -20,6 +20,7 @@ Every page on yuigui.com can have zero, one or more videos. "Site" videos alread
 | Video | Status | Story |
 |---|---|---|
 | 04 Lessons | done | Compound interest as one deck: a diagram, the formula, a chart, a graded quiz, a calculator |
+| 11 Tune up (Yui 0.4.1) | done | A guitarist before practice: tune up on the mic, a click at 90, a beat under it, Record, Stop and send the take to the agent, a MIDI keyboard plays the keys. Also on the 0.4.1 Thought |
 | Questions and answers | idea | ask, choose, pick, slide, form: change your answer any time |
 | Pictures and video | idea | gallery pick, compare with marked changes, storyboard comments |
 | Numbers and charts | idea | chart, stat, math, step: numbers come back as a chart (calc is in 09 Can I afford it?, beside calc) |

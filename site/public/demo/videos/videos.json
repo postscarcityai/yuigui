@@ -223,5 +223,23 @@
       "seconds": 33.6,
       "mb": 2.8
     }
+  },
+  "film-tune-up": {
+    "title": "Tune up, keep time, send a take",
+    "what": "Yui 0.4.1 for musicians: a tuner on the mic, a metronome in the chat, Record sends the take to your agent as the sound and the notes, and a MIDI keyboard plays the keys.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-tune-up-9x16.mp4",
+      "poster": "/demo/videos/film-tune-up-9x16.jpg",
+      "seconds": 48.0,
+      "mb": 2.8
+    },
+    "16x9": {
+      "src": "/demo/videos/film-tune-up-16x9.mp4",
+      "poster": "/demo/videos/film-tune-up-16x9.jpg",
+      "seconds": 48.0,
+      "mb": 3.1
+    }
   }
 }

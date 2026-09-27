@@ -4,14 +4,19 @@ import Shots from "../components/Shots";
 import LivePhone from "../mockups/LivePhone";
 import { renderMd } from "../../lib/md.mjs";
 import Compare from "./Compare";
+import videos from "../../public/demo/videos/videos.json";
+
+// A clip that is one of the films plays with its music: not muted, no loop.
+const withSound = (src) => Object.values(videos).some((v) => v.sound && (v["16x9"]?.src === src || v["9x16"]?.src === src));
 
 function Part({ p }) {
   if (p.kind === "md") return <div className="md note" dangerouslySetInnerHTML={{ __html: renderMd(p.md) }} />;
   if (p.kind === "shot") return <figure className="th-shot"><Shots images={p.images} label="Screenshots" />{p.images.length === 1 ? <figcaption>{p.images[0].alt}</figcaption> : null}</figure>;
   if (p.kind === "clip") {
+    const sound = withSound(p.src);
     return (
       <figure className="th-clip">
-        <video src={p.src} poster={p.poster} controls muted loop playsInline preload="none" aria-label={p.caption} />
+        <video src={p.src} poster={p.poster} controls muted={!sound} loop={!sound} playsInline preload="none" aria-label={p.caption} />
         {p.caption ? <figcaption>{p.caption}</figcaption> : null}
       </figure>
     );

@@ -14,6 +14,10 @@ Build 208 is on TestFlight. It is Yui 0.4.1.
 
 Yui 0.4.0 changed how the app looks. This one is for musicians. Four things you can ask any agent for, and they play for real on your phone.
 
+```clip
+/demo/videos/film-tune-up-16x9.mp4 | Yui 0.4.1 in 48 seconds: tune up, keep time, send a take. Turn your sound on.
+```
+
 ## A tuner
 
 Ask for a tuner. The app listens on the mic, lights the string you play, and the needle turns green within 3 cents. Guitar, ukulele, bass or any note. Tap a string to hear it.

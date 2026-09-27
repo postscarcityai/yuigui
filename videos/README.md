@@ -106,5 +106,6 @@ Sources are tracked (comps, music scripts, plans, share copy, the kit). Renders,
 | 08-hands-full | cook with your hands full: hands-free voice, the lock screen timer | /, /mockups#hands-free-voice |
 | 09-afford-it | can I afford it: a calc you drag, the whole cost, one Send | /, /mockups#calc |
 | 10-homework | homework rescue: a picture, a memory game, a quiz, the score goes back | /, /mockups#game-memory |
+| 11-tune-up | Yui 0.4.1: tune up, keep time, send a take | /mockups#music-tools, /thoughts/yui-0-4-1-tune-up-keep-time-send-a-take |
 
 What each page could get next: `PLAN.md`.

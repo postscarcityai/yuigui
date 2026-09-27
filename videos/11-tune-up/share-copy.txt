@@ -1,0 +1,3 @@
+Yui 0.4.1 is for musicians. Ask your agent for a tuner and it listens on the mic, ask for a metronome and it clicks in the chat, press Record on a beat and the take goes back to your agent as the sound and the notes. Plug in a MIDI keyboard and it plays the keys. On TestFlight now: yuigui.com
+
+Tune up. Keep time. Send a take. Yui 0.4.1 puts a tuner, a metronome and a Record button in the chat with your agent, and whatever you record goes back to it as the sound and the notes. A MIDI keyboard plays the keys too. Public beta on TestFlight, link in bio (yuigui.com).
