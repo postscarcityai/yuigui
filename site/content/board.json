@@ -1,12 +1,50 @@
 {
-  "updated": "2026-09-27T01:10:27.585Z",
+  "updated": "2026-09-27T01:40:30.707Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.3.3",
-    "status": "shipping",
-    "startedAt": "2026-09-27T00:55:42.000Z",
+    "version": "0.4.0",
+    "status": "open",
+    "startedAt": "2026-09-27T01:17:32.000Z",
     "shippedAt": null,
-    "cards": []
+    "cards": [
+      {
+        "key": "YUI-123",
+        "title": "Describe how each agent moves, in words, and the agent turns it into a motion look",
+        "status": "done",
+        "shipped": "2026-09-26",
+        "progress": "/progress#say-how-each-agent-moves"
+      },
+      {
+        "key": "YUI-121",
+        "title": "The bottom bar",
+        "status": "now"
+      },
+      {
+        "key": "YUI-124",
+        "title": "The visualizer",
+        "status": "now"
+      },
+      {
+        "key": "YUI-122",
+        "title": "The top bar",
+        "status": "next"
+      },
+      {
+        "key": "YUI-120",
+        "title": "Context animations on the full screen stage",
+        "status": "next"
+      },
+      {
+        "key": "YUI-124",
+        "title": "The visualizer in the app, Metal shaders on the full screen stage",
+        "status": "next"
+      },
+      {
+        "key": "YUI-125",
+        "title": "The visualizer listens",
+        "status": "next"
+      }
+    ]
   },
   "columns": [
     {
@@ -109,35 +147,19 @@
           "waiting": true
         },
         {
-          "key": "YUI-121",
-          "title": "The bottom bar",
-          "summary": "A bigger mic bottom right, T opens the text field, + attaches, images while typing",
-          "waiting": true
-        },
-        {
           "key": "YUI-122",
           "title": "The top bar",
-          "summary": "Agents top left with settings in a hamburger beside them, the chat record top right",
-          "waiting": true
-        },
-        {
-          "key": "YUI-124",
-          "title": "The visualizer",
-          "step": "Step 1",
-          "summary": "Shader visuals on the stage, spec + playground mock",
-          "waiting": true
+          "summary": "Agents top left with settings in a hamburger beside them, the chat record top right"
         },
         {
           "key": "YUI-124",
           "title": "The visualizer in the app, Metal shaders on the full screen stage",
-          "step": "Step 2",
-          "waiting": true
+          "step": "Step 2"
         },
         {
           "key": "YUI-125",
           "title": "The visualizer listens",
-          "summary": "It moves with your voice, the agent's voice and the music",
-          "waiting": true
+          "summary": "It moves with your voice, the agent's voice and the music"
         },
         {
           "key": "YUI-128",
@@ -249,6 +271,11 @@
           "mvp": true
         },
         {
+          "key": "YUI-120",
+          "title": "Context animations on the full screen stage",
+          "step": "Step 2"
+        },
+        {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4"
@@ -339,10 +366,6 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
-        },
-        {
-          "key": "SITE-56",
-          "title": "Yui 0.3.3 on the site, a release Thought and a See it group"
         }
       ]
     },
@@ -375,20 +398,21 @@
           "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
         },
         {
-          "key": "YUI-120",
-          "title": "Context animations on the full screen stage",
-          "step": "Step 2",
-          "waiting": true
-        },
-        {
           "key": "YUI-63",
           "title": "Claude-shim agents send what they are doing to Yui mid-turn",
           "step": "Step 3",
           "waiting": true
         },
         {
-          "key": "YUI-123",
-          "title": "Describe how each agent moves, in words, and the agent turns it into a motion look"
+          "key": "YUI-121",
+          "title": "The bottom bar",
+          "summary": "A bigger mic bottom right, T opens the text field, + attaches, images while typing"
+        },
+        {
+          "key": "YUI-124",
+          "title": "The visualizer",
+          "step": "Step 1",
+          "summary": "Shader visuals on the stage, spec + playground mock"
         }
       ]
     },
@@ -396,6 +420,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-123",
+          "title": "Describe how each agent moves, in words, and the agent turns it into a motion look",
+          "summary": "Say how each agent moves",
+          "shipped": "2026-09-26",
+          "progress": "/progress#say-how-each-agent-moves"
+        },
         {
           "key": "YUI-120",
           "title": "The stage moves with the agent, context animations",

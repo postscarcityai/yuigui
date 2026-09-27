@@ -939,6 +939,9 @@
     },
     {
       "text": "Yui 0.3.3: ship main to TestFlight (Chris, Sep 26)"
+    },
+    {
+      "text": "yui-mcp reads motion looks in words (YUI-123, yuigui 03a0a05)"
     }
   ]
 }
