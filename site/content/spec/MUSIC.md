@@ -176,7 +176,15 @@ All six presets share one sound engine in the app, the way a groovebox shares on
 
 ### Recording and export (step 5)
 
-A Record button on the looper, drums, keys and chords records what comes out of the engine, not the mic, to an AAC file (`.m4a`, 48 kHz). The file goes back to the agent the way a camera photo does: uploaded to the relay's media bucket, with the event carrying a signed link, `{"id":"beat","preset":"loop","audio":"https://...","seconds":16}`. The agent can keep it, send it back as a `video` or `card` link, or hand it to a mixing tool. MIDI export (`.mid`) of the same take comes with it.
+A Record button on the looper, drums, keys and chords records what comes out of the engine, not the mic, to an AAC file (`.m4a`, 48 kHz, stereo), up to 2 minutes. Stop and send uploads it the way a camera photo goes, to the thread's media, and the event carries signed links good for 7 days:
+
+```
+{"id":"beat","preset":"loop","audio":"https://.../beat.m4a?token=...","midi":"https://.../beat.mid?token=...","seconds":16,"bpm":96}
+```
+
+The agent opens the links as they are (the host does not download a take the way it fetches a photo). It can keep the take, send it back as a `card` link, or hand it to a mixing tool.
+
+The MIDI file of the same take (`.mid`, type 1, 480 ticks a beat, the tempo from the looper's `bpm` or 120) has one named track per sound: drums on channel 10 as General MIDI drums, each pitched voice on its own channel with a General MIDI program close to it (keys an electric piano, pluck a nylon guitar, bass a synth bass). A key held down is as long as the finger held it. Metronome clicks are left out. `drums +record` keeps its Record: the pattern take now carries the same `audio`, `midi` and `seconds`, and its count-in click is in the MIDI file as the General MIDI metronome click.
 
 ### What stays out of v1
 
@@ -320,7 +328,9 @@ Bluetooth LE MIDI has been supported since iOS 8. A paired device "appears as an
 - **Session.** Instruments use `.playback` with `.mixWithOthers` by default: they play with the ringer on silent and still mix with the person's music (Chris, 2026-09-26: pressed Play on a silenced phone and heard nothing under `.ambient`). `.ambient`, which the silent switch mutes, stays available behind `playsOnSilent = false`. The tuner uses `.playAndRecord` with the `.measurement` mode (no voice processing), `.defaultToSpeaker` and `.allowBluetoothA2DP`, only while it is open.
 - **Bluetooth.** When the route is Bluetooth, the instruments show one line: "Bluetooth adds a delay. Wired or the speaker feels tighter." The looper and metronome move their lights by the output latency so the light matches the sound.
 - **Background.** Nothing plays after the person leaves Yui in step 2 and 3. The metronome may keep going with the phone locked (step 4), as real audio playback under guideline 2.5.4, never to keep an agent awake.
-- **MIDI and Link (step 5).** Bluetooth MIDI through `CABTMIDICentralViewController`, no custom pairing screen. Link needs the multicast entitlement from Apple and has its own test plan, so step 5 asks for the entitlement first.
+- **MIDI in (step 5).** Any MIDI keyboard the phone sees plays the `keys` on screen: USB with nothing to set up, Bluetooth through Apple's own pairing screen (`CABTMIDICentralViewController`) behind the MIDI button on the keys, which reads the keyboard's name once one is there. Each note plays in the keys' sound at its velocity, lights its key and counts as played, so Send includes it; the keys follow the keyboard to its octave. The scale lock is for fingers on glass: a keyboard's every note plays.
+- **MIDI clock out (step 5).** While the looper or the metronome plays, Yui sends Start, 24 clocks a beat and Stop to every MIDI destination and out of a virtual source named Yui. Each clock is stamped for the moment its beat is heard (output latency included), from the same sample clock, so a drum machine or a DAW follows the tempo and its changes.
+- **Link (step 5, waiting on a sign-off).** The LinkKit license (v2.0) allows shipping it in the app but forbids giving the SDK to anyone. Yui's repo is public, so the SDK cannot be committed and would be fetched at build time. The license also carries an indemnity and German law, and Link needs the stock settings pane, Ableton's test plan and Apple's multicast entitlement. Until that is signed off, Yui has MIDI clock and no Link.
 
 ## 6. The tuner
 

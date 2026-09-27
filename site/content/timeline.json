@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 199,
-    "site": 488,
+    "app": 201,
+    "site": 499,
     "builds": 36,
-    "shipped": 245,
-    "screenshots": 561
+    "shipped": 251,
+    "screenshots": 578
   },
   "days": [
     {
@@ -13,7 +13,138 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T06:14:23.911Z",
+          "at": "2026-09-27T07:13:58.000Z",
+          "title": "A clean sweep after Yui 0.4.0",
+          "card": "SITE-59",
+          "anchor": "a-clean-sweep-after-yui-0-4-0",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 200,
+            "site": 496,
+            "builds": 36,
+            "shipped": 251
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T07:13:13.000Z",
+          "title": "Agents send keys and chords",
+          "card": "YUI-116",
+          "anchor": "agents-send-keys-and-chords",
+          "images": [
+            {
+              "src": "/progress/yui116-guide-keys.webp",
+              "alt": "Dark mode: a Keys card in A minor pentatonic, sound buttons keys, pluck, bell, pad, bass and lead, a keyboard from C4 to C5 with the notes outside the scale dimmed."
+            },
+            {
+              "src": "/progress/yui116-guide-chords.webp",
+              "alt": "Dark mode: a Chords card in G with four big colored buttons, G I, D V, Em vi and C IV, and a Send button under them."
+            }
+          ],
+          "commits": 16,
+          "totals": {
+            "app": 200,
+            "site": 495,
+            "builds": 36,
+            "shipped": 250
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T06:54:58.000Z",
+          "title": "A tuner and a metronome in the app",
+          "card": "YUI-116",
+          "anchor": "a-tuner-and-a-metronome-in-the-app",
+          "images": [
+            {
+              "src": "/progress/yui116s4-tuner-dark.webp",
+              "alt": "Dark mode: a guitar tuner on the stage, the needle green and upright on E4 at plus 1 cent, 329.8 Hz, all six strings E2 to E4 checked, and the words All strings in tune."
+            },
+            {
+              "src": "/progress/yui116s4-ukulele-light.webp",
+              "alt": "Light mode: a ukulele tuner reading A4 at plus 2 cents, 440.6 Hz, the strings G4 C4 E4 A4 checked in green, and a Stop listening button."
+            },
+            {
+              "src": "/progress/yui116s4-metronome-light.webp",
+              "alt": "Light mode: a metronome in the chat at 60 BPM in 3/4 with eighths, three beat dots with the third lit, a Stop button, Tap and Eighths."
+            },
+            {
+              "src": "/progress/yui116s4-metronome-dark.webp",
+              "alt": "Dark mode: the metronome stopped at 69 BPM with the line Practice sent: 12 s at 69 BPM, and the reply Practiced 12 s at 69 BPM in the chat."
+            }
+          ],
+          "commits": 16,
+          "totals": {
+            "app": 200,
+            "site": 493,
+            "builds": 36,
+            "shipped": 249
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T06:36:38.000Z",
+          "title": "Yui 0.4.0 in motion on See it",
+          "card": "SITE-58",
+          "anchor": "yui-0-4-0-in-motion-on-see-it",
+          "images": [
+            {
+              "src": "/demo/clips/stage-motion-9x16.jpg",
+              "alt": "Coach checking the forecast: a red ring pulsing on the full screen"
+            },
+            {
+              "src": "/demo/clips/visual-looks-9x16.jpg",
+              "alt": "Dark mode: bands of pink light behind Hi. Tap the mic and talk."
+            },
+            {
+              "src": "/demo/clips/visual-listens-9x16.jpg",
+              "alt": "Petals of light opening while the agent reads its answer aloud"
+            },
+            {
+              "src": "/demo/clips/big-mic-9x16.jpg",
+              "alt": "Listening: the words show on screen as you say them, the big mic bottom right"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 199,
+            "site": 491,
+            "builds": 36,
+            "shipped": 248
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T06:30:55.000Z",
+          "title": "The picture listens",
+          "card": "YUI-125",
+          "anchor": "the-picture-listens",
+          "images": [
+            {
+              "src": "/progress/yui125-voice-orb-dark.webp",
+              "alt": "Dark mode: a soft orb of light swelling behind the stage while you talk"
+            },
+            {
+              "src": "/progress/yui125-agent-bloom-dark.webp",
+              "alt": "Dark mode: petals of light opening while the agent reads its answer"
+            },
+            {
+              "src": "/progress/yui125-music-waves-dark.webp",
+              "alt": "Dark mode: wave lines moving with a boom bap loop on the stage"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 199,
+            "site": 490,
+            "builds": 36,
+            "shipped": 247
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T06:15:32.000Z",
           "title": "Yui 0.4.0 on the site: the release post and See it",
           "card": "SITE-57",
           "anchor": "yui-0-4-0-on-the-site-the-release-post-and-see-it",
@@ -31,28 +162,119 @@
               "alt": "Wizard checking the forecast: a slow, heavy ring in purple"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 199,
-            "site": 488,
+            "site": 489,
             "builds": 36,
-            "shipped": 245
+            "shipped": 246
           }
         },
         {
           "kind": "build",
           "at": "2026-09-27T06:08:47.000Z",
           "build": 204,
-          "changes": 23,
+          "changes": 24,
           "totals": {
             "app": 199,
             "site": 487,
             "builds": 36,
-            "shipped": 244
+            "shipped": 245
           }
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "5a3f4bd",
+          "at": "2026-09-27T07:40:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5a3f4bd"
+        },
+        {
+          "repo": "app",
+          "sha": "439f94f",
+          "at": "2026-09-27T07:23:04.000Z",
+          "text": "Channel guide v33: agents send keys and chords (YUI-116, yuigui 85bbee1)",
+          "url": "https://github.com/postscarcityai/yui/commit/439f94f"
+        },
+        {
+          "repo": "site",
+          "sha": "dbd1d3d",
+          "at": "2026-09-27T07:22:53.000Z",
+          "text": "progress: escape the quotes in the YUI-116 guide entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dbd1d3d"
+        },
+        {
+          "repo": "site",
+          "sha": "85bbee1",
+          "at": "2026-09-27T07:22:44.000Z",
+          "text": "Channel guide v33: a sent beat gets nothing else; full suite in v31's range (YUI-116)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/85bbee1"
+        },
+        {
+          "repo": "site",
+          "sha": "9d8db74",
+          "at": "2026-09-27T07:13:58.000Z",
+          "text": "Share card capture for the tuner, and a clean sweep after 0.4.0 (SITE-59)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9d8db74"
+        },
+        {
+          "repo": "site",
+          "sha": "bedb5c6",
+          "at": "2026-09-27T07:13:13.000Z",
+          "text": "Channel guide v33: agents send keys and chords (YUI-116 step 3)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bedb5c6"
+        },
+        {
+          "repo": "site",
+          "sha": "7f76ae7",
+          "at": "2026-09-27T07:10:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7f76ae7"
+        },
+        {
+          "repo": "site",
+          "sha": "03b4a30",
+          "at": "2026-09-27T06:54:58.000Z",
+          "text": "progress: a tuner and a metronome in the app (YUI-116 step 4, yui 7b18b14)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/03b4a30"
+        },
+        {
+          "repo": "app",
+          "sha": "7b18b14",
+          "at": "2026-09-27T06:54:50.000Z",
+          "text": "A tuner and a metronome in the app (YUI-116 step 4)",
+          "url": "https://github.com/postscarcityai/yui/commit/7b18b14"
+        },
+        {
+          "repo": "site",
+          "sha": "83e1b3d",
+          "at": "2026-09-27T06:40:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/83e1b3d"
+        },
+        {
+          "repo": "site",
+          "sha": "86ca730",
+          "at": "2026-09-27T06:36:38.000Z",
+          "text": "See it: Yui 0.4.0 in motion, four clips from the app (SITE-58)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/86ca730"
+        },
+        {
+          "repo": "site",
+          "sha": "cd9b067",
+          "at": "2026-09-27T06:30:55.000Z",
+          "text": "progress: the picture listens (YUI-125)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cd9b067"
+        },
+        {
+          "repo": "site",
+          "sha": "198ff0f",
+          "at": "2026-09-27T06:15:32.000Z",
+          "text": "Yui 0.4.0 on the site: the release post, See it and the roadmap (SITE-57)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/198ff0f"
+        },
         {
           "repo": "site",
           "sha": "2df3895",
@@ -151,7 +373,7 @@
             "app": 195,
             "site": 482,
             "builds": 35,
-            "shipped": 244
+            "shipped": 245
           }
         },
         {
@@ -187,7 +409,7 @@
             "app": 192,
             "site": 480,
             "builds": 35,
-            "shipped": 243
+            "shipped": 244
           }
         },
         {
@@ -227,7 +449,7 @@
             "app": 191,
             "site": 477,
             "builds": 35,
-            "shipped": 242
+            "shipped": 243
           }
         },
         {
@@ -259,7 +481,7 @@
             "app": 190,
             "site": 474,
             "builds": 35,
-            "shipped": 241
+            "shipped": 242
           }
         },
         {
@@ -291,7 +513,7 @@
             "app": 190,
             "site": 472,
             "builds": 35,
-            "shipped": 240
+            "shipped": 241
           }
         },
         {
@@ -323,7 +545,7 @@
             "app": 189,
             "site": 471,
             "builds": 35,
-            "shipped": 239
+            "shipped": 240
           }
         },
         {
@@ -363,7 +585,7 @@
             "app": 189,
             "site": 470,
             "builds": 35,
-            "shipped": 238
+            "shipped": 239
           }
         },
         {
@@ -383,7 +605,7 @@
             "app": 187,
             "site": 468,
             "builds": 35,
-            "shipped": 237
+            "shipped": 238
           }
         },
         {
@@ -411,7 +633,7 @@
             "app": 187,
             "site": 466,
             "builds": 35,
-            "shipped": 236
+            "shipped": 237
           }
         },
         {
@@ -426,7 +648,7 @@
             "app": 187,
             "site": 463,
             "builds": 35,
-            "shipped": 235
+            "shipped": 236
           }
         },
         {
@@ -482,7 +704,7 @@
             "app": 186,
             "site": 462,
             "builds": 35,
-            "shipped": 234
+            "shipped": 235
           }
         },
         {
@@ -497,7 +719,7 @@
             "app": 186,
             "site": 457,
             "builds": 35,
-            "shipped": 233
+            "shipped": 234
           }
         },
         {
@@ -516,12 +738,12 @@
               "alt": "Dark mode: the same Boom bap looper playing, eight rows from kick to shaker, the hat row lit on every step."
             }
           ],
-          "commits": 10,
+          "commits": 16,
           "totals": {
             "app": 179,
             "site": 450,
             "builds": 35,
-            "shipped": 232
+            "shipped": 233
           }
         },
         {
@@ -545,7 +767,7 @@
             "app": 179,
             "site": 449,
             "builds": 35,
-            "shipped": 231
+            "shipped": 232
           }
         },
         {
@@ -577,7 +799,7 @@
             "app": 178,
             "site": 447,
             "builds": 35,
-            "shipped": 230
+            "shipped": 231
           }
         },
         {
@@ -589,7 +811,7 @@
             "app": 178,
             "site": 446,
             "builds": 35,
-            "shipped": 229
+            "shipped": 230
           }
         },
         {
@@ -613,7 +835,7 @@
             "app": 177,
             "site": 446,
             "builds": 34,
-            "shipped": 229
+            "shipped": 230
           }
         },
         {
@@ -640,12 +862,12 @@
               "alt": "Light mode: the four chord buttons in pastel colors with the strum set to Down."
             }
           ],
-          "commits": 10,
+          "commits": 16,
           "totals": {
             "app": 177,
             "site": 442,
             "builds": 34,
-            "shipped": 228
+            "shipped": 229
           }
         },
         {
@@ -669,7 +891,7 @@
             "app": 175,
             "site": 440,
             "builds": 34,
-            "shipped": 227
+            "shipped": 228
           }
         },
         {
@@ -697,7 +919,7 @@
             "app": 174,
             "site": 439,
             "builds": 34,
-            "shipped": 226
+            "shipped": 227
           }
         },
         {
@@ -720,6 +942,38 @@
           "totals": {
             "app": 173,
             "site": 438,
+            "builds": 34,
+            "shipped": 226
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T20:29:36.000Z",
+          "title": "Record a take, plug in a keyboard",
+          "card": "YUI-116",
+          "anchor": "record-a-take-plug-in-a-keyboard",
+          "images": [
+            {
+              "src": "/progress/yui116s5-take-recording-light.webp",
+              "alt": "Light mode: a Take one looper at 120 BPM playing, a Stop and send button beside a red dot and 0:04."
+            },
+            {
+              "src": "/progress/yui116s5-take-sent-light.webp",
+              "alt": "Light mode: the same looper after sending, a Record again button and the words Take sent, 0:04."
+            },
+            {
+              "src": "/progress/yui116s5-midi-keys-light.webp",
+              "alt": "Light mode: a keyboard in C major with C4 and E4 lit purple, held on a MIDI keyboard, and a button reading Test Keyboard."
+            },
+            {
+              "src": "/progress/yui116s5-take-sent-dark.webp",
+              "alt": "Dark mode: the Boom bap looper with Record again and Take sent, 0:04."
+            }
+          ],
+          "commits": 16,
+          "totals": {
+            "app": 171,
+            "site": 436,
             "builds": 34,
             "shipped": 225
           }
@@ -748,7 +1002,7 @@
               "alt": "Dark mode: a guitar tuner with a needle gauge, the six strings E2 A2 D3 G3 B3 E4 and a Start button."
             }
           ],
-          "commits": 10,
+          "commits": 16,
           "totals": {
             "app": 171,
             "site": 436,
