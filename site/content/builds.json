@@ -956,6 +956,9 @@
     {
       "text": "The top bar: menu and agents top left, the record top right",
       "card": "YUI-122"
+    },
+    {
+      "text": "The stage moves with the agent: context motion and the saved look (YUI-120, YUI-123)"
     }
   ]
 }

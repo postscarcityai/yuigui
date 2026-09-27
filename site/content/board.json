@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T03:10:44.703Z",
+  "updated": "2026-09-27T04:10:52.452Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.0",
@@ -29,6 +29,12 @@
         "progress": "/progress#say-how-each-agent-moves"
       },
       {
+        "key": "YUI-120",
+        "title": "Context animations on the full screen stage",
+        "status": "done",
+        "shipped": "2026-09-26"
+      },
+      {
         "key": "YUI-124",
         "title": "The visualizer",
         "status": "done",
@@ -36,14 +42,9 @@
         "progress": "/progress#a-live-picture-behind-the-words"
       },
       {
-        "key": "YUI-120",
-        "title": "Context animations on the full screen stage",
-        "status": "now"
-      },
-      {
         "key": "YUI-124",
         "title": "The visualizer in the app, Metal shaders on the full screen stage",
-        "status": "next"
+        "status": "now"
       },
       {
         "key": "YUI-125",
@@ -151,11 +152,6 @@
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
           "waiting": true
-        },
-        {
-          "key": "YUI-124",
-          "title": "The visualizer in the app, Metal shaders on the full screen stage",
-          "step": "Step 2"
         },
         {
           "key": "YUI-125",
@@ -398,8 +394,8 @@
           "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
         },
         {
-          "key": "YUI-120",
-          "title": "Context animations on the full screen stage",
+          "key": "YUI-124",
+          "title": "The visualizer in the app, Metal shaders on the full screen stage",
           "step": "Step 2"
         }
       ]
@@ -408,6 +404,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-120",
+          "title": "Context animations on the full screen stage",
+          "step": "Step 2",
+          "shipped": "2026-09-26"
+        },
         {
           "key": "YUI-122",
           "title": "The top bar",
