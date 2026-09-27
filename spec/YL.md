@@ -157,7 +157,7 @@ choose "Invite her?" Approve|Decline
 ```
 
 ### image
-`image URL [caption...]`, or `image prompt...` with no URL (a URL is a token starting `http://`, `https://`, `/` or `data:`; the first one found is `src` wherever it sits, and the other text is the caption), which shows a "to generate" placeholder until the image pipeline fills it (Phase 3). Props: `src`, `caption`, `prompt`, `alt`, `fit` [cover], `+edit`.
+`image URL [caption...]`, or `image prompt...` with no URL (a URL is a token starting `http://`, `https://`, `/` or `data:`; the first one found is `src` wherever it sits, and the other text is the caption), which shows a "to generate" placeholder until the image pipeline fills it (Phase 3). Props: `src`, `caption`, `prompt`, `alt`, `fit` (default: the whole picture in a box its own shape, never cropped; `fit=cover` fills the box and crops), `+edit`.
 ```
 image /yl/meal.svg Last night's dinner
 image "a calm blue avatar with a wizard hat"
