@@ -113,7 +113,8 @@
     "YUI-70": {"title": "Agent controls in the drawer", "shipped": "2026-09-26"},
     "YUI-106": {"title": "Send and the menu drawer answer faster", "shipped": "2026-09-26"},
     "YUI-111": {"title": "A patch moves a timeline row in place", "shipped": "2026-09-26"},
-    "YUI-112": {"title": "A timeline alone on the stage keeps its row heights", "shipped": "2026-09-26"}
+    "YUI-112": {"title": "A timeline alone on the stage keeps its row heights", "shipped": "2026-09-26"},
+    "YUI-135": {"title": "The starter crew stays in character", "shipped": "2026-09-27"}
   },
   "groups": [
     {
@@ -351,6 +352,7 @@
       "title": "The app around the screens",
       "lede": "Everything here is a real capture from the iPhone simulator.",
       "entries": [
+        {"id": "starter-crew", "title": "The starter crew says hello", "what": "Every new person starts with six agents, each with its own look and its own first screen: Yui asks where to start, Arnold and Basil ask about your health before any plan, Gouda puts a beat on, Penny opens a form for the week and Quill asks what to learn. A live check asks each of them two things and scores every answer.", "cards": ["YUI-135"], "yl": "choose \"Where do you want to start?\" \"Get fit\"|\"Eat better\"|\"Make music\"|\"Plan my week\"|\"Learn something\" +other", "agent": "Yui", "app": "native", "shots": ["/progress/yui135-yui-first-light.webp", "/progress/yui135-arnold-first-light.webp", "/progress/yui135-basil-first-light.webp", "/progress/yui135-gouda-first-light.webp", "/progress/yui135-penny-first-light.webp", "/progress/yui135-quill-first-light.webp"]},
         {"id": "pick-one-send", "title": "One Send per screen, picks too", "what": "A pick inside a plan is just its options. Every tap rides the screen's one Send, and the review lists what you picked.", "cards": ["YUI-159"], "agent": "Yui", "app": "native", "shots": ["/progress/yui159-stage.webp", "/progress/yui159-pager.webp", "/progress/yui159-review.webp"]},
         {"id": "form-one-send", "title": "One Send per screen, forms too", "what": "A form inside a plan is just fields. The questions screen keeps one Send, and your name, role and one-liner ride in the plan's answer. From Chris's TestFlight feedback.", "cards": ["YUI-156"], "agent": "Yui", "app": "native", "shots": ["/progress/yui156-before-after.webp", "/progress/yui156-stage-dark.webp", "/progress/yui156-answered-dark.webp"]},
         { "id": "first-run", "title": "First run", "what": "From sign-in to your agent's first screen, with nothing to guess.", "cards": ["YUI-25"], "app": "native", "clip": "first-run", "shots": ["/progress/yui25-first-run.webp", "/progress/yui25-first-reply.webp"] },

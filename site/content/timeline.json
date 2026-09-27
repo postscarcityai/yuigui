@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 234,
-    "site": 562,
-    "builds": 39,
-    "shipped": 282,
-    "screenshots": 651
+    "app": 242,
+    "site": 566,
+    "builds": 40,
+    "shipped": 284,
+    "screenshots": 656
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T21:12:01.482Z",
+          "at": "2026-09-27T22:19:00.813Z",
+          "title": "The starter crew stays in character",
+          "card": "YUI-135",
+          "anchor": "the-starter-crew-stays-in-character",
+          "images": [
+            {
+              "src": "/progress/yui135-basil-first-light.webp",
+              "alt": "Basil's first message: tell me your goal and anything you can't eat, and check with your doctor before big changes if you manage a condition"
+            },
+            {
+              "src": "/progress/yui135-gouda-first-light.webp",
+              "alt": "Gouda's first message with a Lazy Sunday beat and a choice: make a beat, learn theory, write a song or a practice plan"
+            },
+            {
+              "src": "/progress/yui135-quill-first-light.webp",
+              "alt": "Quill's first message: pick a topic and he teaches it in five minutes, then quizzes you, with Math, Science, History and Languages to tap"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 242,
+            "site": 566,
+            "builds": 40,
+            "shipped": 284
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T22:16:32.000Z",
+          "title": "A new install starts at Sign in",
+          "card": "Feedback",
+          "anchor": "a-new-install-starts-at-sign-in",
+          "images": [
+            {
+              "src": "/progress/feedback-reinstall-before-dark.webp",
+              "alt": "Before: a reinstalled app opens signed in, the menu and Yui agent pill at the top, Yui is here, and happy to see you."
+            },
+            {
+              "src": "/progress/feedback-reinstall-after-dark.webp",
+              "alt": "After: the same reinstall opens on Sign in: the Yui wordmark, Your agents, in your pocket, and Sign in with Apple, nothing at the top."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 242,
+            "site": 566,
+            "builds": 40,
+            "shipped": 283
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-27T21:40:14.000Z",
+          "build": 244,
+          "changes": 15,
+          "totals": {
+            "app": 238,
+            "site": 563,
+            "builds": 40,
+            "shipped": 282
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T21:11:33.000Z",
           "title": "Line breaks read as lines",
           "card": "YUI-161",
           "anchor": "line-breaks-read-as-lines",
@@ -27,9 +91,9 @@
               "alt": "After: the same answer as a line, a list of five dinners, and a question"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
-            "app": 234,
+            "app": 236,
             "site": 562,
             "builds": 39,
             "shipped": 282
@@ -53,7 +117,7 @@
           ],
           "commits": 0,
           "totals": {
-            "app": 233,
+            "app": 235,
             "site": 561,
             "builds": 39,
             "shipped": 281
@@ -77,7 +141,7 @@
           ],
           "commits": 4,
           "totals": {
-            "app": 232,
+            "app": 233,
             "site": 559,
             "builds": 39,
             "shipped": 280
@@ -1040,10 +1104,80 @@
       "commits": [
         {
           "repo": "site",
+          "sha": "2a2ed45",
+          "at": "2026-09-27T22:16:32.000Z",
+          "text": "Progress: a new install starts at Sign in (feedback AFFVLA66)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2a2ed45"
+        },
+        {
+          "repo": "app",
+          "sha": "f28e8c3",
+          "at": "2026-09-27T22:16:13.000Z",
+          "text": "A reinstall starts at Sign in, not signed in to the last account (feedback AFFVLA66)",
+          "url": "https://github.com/postscarcityai/yui/commit/f28e8c3"
+        },
+        {
+          "repo": "site",
+          "sha": "3ac5e37",
+          "at": "2026-09-27T22:10:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3ac5e37"
+        },
+        {
+          "repo": "app",
+          "sha": "1b175f8",
+          "at": "2026-09-27T22:06:15.000Z",
+          "text": "Persona eval: every starter agent, live, stays in character on Yui Lines (YUI-135)",
+          "url": "https://github.com/postscarcityai/yui/commit/1b175f8"
+        },
+        {
+          "repo": "app",
+          "sha": "8e1094f",
+          "at": "2026-09-27T22:06:15.000Z",
+          "text": "Starter crew: Basil's first answer asks about conditions with one doctor note; coaches refer in one line then a screen (YUI-135)",
+          "url": "https://github.com/postscarcityai/yui/commit/8e1094f"
+        },
+        {
+          "repo": "app",
+          "sha": "5756013",
+          "at": "2026-09-27T22:06:15.000Z",
+          "text": "Native turns never end silent: an answer with nothing to see is asked again, wrapped option lines and a stray end are mended (YUI-135)",
+          "url": "https://github.com/postscarcityai/yui/commit/5756013"
+        },
+        {
+          "repo": "site",
+          "sha": "f3f3fd0",
+          "at": "2026-09-27T21:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f3f3fd0"
+        },
+        {
+          "repo": "app",
+          "sha": "802b510",
+          "at": "2026-09-27T21:36:11.000Z",
+          "text": "Stack check reads the launched pid and new crash reports, not launchctl (YUI-164)",
+          "url": "https://github.com/postscarcityai/yui/commit/802b510"
+        },
+        {
+          "repo": "app",
+          "sha": "c1f8b4e",
+          "at": "2026-09-27T21:21:40.000Z",
+          "text": "Stage first: a screen pill in the chat opens the stage on that screen (YUI-164)",
+          "url": "https://github.com/postscarcityai/yui/commit/c1f8b4e"
+        },
+        {
+          "repo": "site",
           "sha": "9c4d014",
           "at": "2026-09-27T21:11:37.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/9c4d014"
+        },
+        {
+          "repo": "site",
+          "sha": "9bf5119",
+          "at": "2026-09-27T21:11:33.000Z",
+          "text": "Line breaks read as lines: eval case list-no-escaped-breaks, no_breaks check, progress entry and showcase (YUI-161)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9bf5119"
         },
         {
           "repo": "app",
@@ -1065,6 +1199,13 @@
           "at": "2026-09-27T21:08:02.000Z",
           "text": "Native answers keep their line breaks: \\n inside a quoted say becomes real say lines, bullets a list (YUI-161)",
           "url": "https://github.com/postscarcityai/yui/commit/d670947"
+        },
+        {
+          "repo": "app",
+          "sha": "3c9bcb9",
+          "at": "2026-09-27T21:02:10.000Z",
+          "text": "First run waits for Yui a few seconds before the pairing pitch (YUI-164)",
+          "url": "https://github.com/postscarcityai/yui/commit/3c9bcb9"
         },
         {
           "repo": "site",
@@ -1100,6 +1241,13 @@
           "at": "2026-09-27T20:43:14.000Z",
           "text": "Retry without thinking also when a cut-off answer spent over half its budget thinking (YUI-162)",
           "url": "https://github.com/postscarcityai/yui/commit/ab32991"
+        },
+        {
+          "repo": "app",
+          "sha": "2fe5a79",
+          "at": "2026-09-27T20:40:10.000Z",
+          "text": "WIP: crew choice, screens on the stage (YUI-164)",
+          "url": "https://github.com/postscarcityai/yui/commit/2fe5a79"
         },
         {
           "repo": "app",
