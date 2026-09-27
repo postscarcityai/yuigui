@@ -1,0 +1,355 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Yui: Hands full</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<link rel="stylesheet" href="../kit/stage.css">
+<style>
+/* ---------- flour on the glass and the bezel (drawn, not photographed) ---------- */
+#flour { position: absolute; inset: 0; z-index: 60; pointer-events: none; }
+#flour .fp { position: absolute; filter: drop-shadow(0 0.6px 0.9px rgba(90,78,64,.38)); }
+#flour .spk { position: absolute; border-radius: 50%; background: #FFFDF8; box-shadow: 0 0 1px rgba(90,78,64,.3); }
+.fpMic { position: absolute; left: 50%; top: 50%; width: 40px; height: 50px; margin: -30px 0 0 -14px; opacity: 0; transform: rotate(-18deg); filter: drop-shadow(0 0 1px rgba(0,0,0,.18)); pointer-events: none; }
+
+/* ---------- hands-free: the Listening chip ---------- */
+.hf { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; bottom: 100px; height: 36px; border-radius: 18px; background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line), 0 6px 16px rgba(31,29,43,.08); display: flex; align-items: center; gap: 9px; padding: 0 15px 0 12px;
+  font-size: 15px; font-weight: 800; color: var(--muted); white-space: nowrap; z-index: 4; visibility: hidden; }
+.hf .w { display: flex; gap: 3px; align-items: center; height: 18px; }
+.hf .w i { width: 3px; border-radius: 2px; background: var(--sf); display: block; }
+.hf b { color: var(--sf); font-size: 17px; }
+
+/* ---------- the pictures ---------- */
+.pic svg { display: block; }
+.row2 { display: flex; align-items: center; gap: 10px; }
+.ring { position: relative; width: 92px; height: 92px; flex: none; }
+.ring svg { position: absolute; inset: 0; }
+.ring b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 21px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.bigring { position: relative; width: 236px; height: 236px; }
+.bigring svg.r { position: absolute; inset: 0; }
+.bigring .in { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; }
+.bigring .tm { font-size: 52px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; line-height: 1; }
+.bigring .lf { font-size: 14px; color: var(--muted); font-weight: 700; }
+.tbtns { display: flex; gap: 12px; }
+.tbtns span { height: 40px; padding: 0 20px; border-radius: 20px; display: grid; place-items: center; font-size: 15px; font-weight: 800; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line); }
+.tbtns span.g { background: var(--soft); box-shadow: none; color: #1E6B3E; }
+.qthumb { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.qthumb svg { flex: none; }
+.qthumb p { margin: 0; font-size: 16px; font-weight: 800; line-height: 1.25; }
+.qthumb p span { display: block; font-size: 13.5px; color: var(--muted); font-weight: 700; }
+.shelfc { display: flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--sf) 55%, transparent); font-size: 15px; font-weight: 800; }
+
+/* ---------- the lock screen and the live timer ---------- */
+.lock { background: linear-gradient(170deg, #F7B78C 0%, #E98776 38%, #B25C7C 70%, #5B3A6E 100%); }
+.lock .lk-lock { position: absolute; left: 0; right: 0; top: 58px; display: grid; place-items: center; opacity: .9; }
+.lock .lk-time { top: 104px; font-size: 96px; }
+.lock .lk-date { top: 88px; }
+.lk-card { position: absolute; left: 12px; right: 12px; top: 500px; height: 162px; border-radius: 28px; background: rgba(26,20,26,.62); backdrop-filter: blur(18px); text-align: left; padding: 16px 18px 0; }
+.lk-card .r1 { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; }
+.lk-card .r1 .fc { width: 22px; height: 22px; border-radius: 50%; background: #2F9E5B; display: grid; place-items: center; font-size: 11px; font-weight: 900; }
+.lk-card .r1 .ag { color: rgba(255,255,255,.6); font-weight: 700; }
+.lk-card .tm { position: absolute; left: 18px; top: 44px; font-size: 54px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.lk-card .sb { position: absolute; left: 18px; top: 110px; font-size: 14px; font-weight: 800; color: #6FDB9A; letter-spacing: .02em; }
+.lk-card .sb span { color: rgba(255,255,255,.6); font-weight: 700; }
+.lk-card .bt { position: absolute; right: 16px; top: 54px; display: flex; gap: 10px; }
+.lk-card .bt i { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.14); }
+.lk-card .bt i.g { background: #BFEBD0; }
+.lk-card .bar { position: absolute; left: 18px; right: 18px; bottom: 16px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.18); overflow: hidden; }
+.lk-card .bar i { display: block; height: 100%; background: #4FC57E; border-radius: 3px; }
+.lk-bot { position: absolute; bottom: 44px; width: 50px; height: 50px; border-radius: 50%; background: rgba(20,14,24,.35); display: grid; place-items: center; }
+.island-x { justify-content: space-between; padding: 0 14px 0 9px; }
+.island-x b { color: #4FC57E; font-size: 16px; font-variant-numeric: tabular-nums; }
+#blk { position: absolute; inset: 0; background: #000; z-index: 44; opacity: 0; visibility: hidden; }
+</style>
+<script src="score.js"></script>
+</head>
+<body>
+<div id="stage"><div id="glow"></div>
+  <div class="cap L" id="c1L">Flour on your hands?</div>
+  <div class="cap R accent" id="c1R">Just talk.</div>
+  <div class="cap L" id="c2L">Say what's in the fridge.</div>
+  <div class="cap R accent" id="c2R">Get dinner, step by step.</div>
+  <div class="cap L" id="c3L">Say next.</div>
+  <div class="cap R accent" id="c3R">Your hands stay in the bowl.</div>
+  <div class="cap L" id="c4L">Walk away.</div>
+  <div class="cap R accent" id="c4R">Your lock screen keeps count.</div>
+  <div class="cap L" id="c5L">Dinner, done.</div>
+  <div class="cap R accent" id="c5R">Saved for next time.</div>
+
+  <div id="outro">
+    <img id="owm" src="../kit/yui-wordmark-coral.png" alt="">
+    <div id="otag">Cook with your hands full.</div>
+    <div id="ourl">yuigui.com/start</div>
+    <div id="onote">In Yui 0.4. Public beta on TestFlight.</div>
+  </div>
+  <div id="ripple"></div><div id="finger"></div>
+</div>
+
+<script src="../kit/kit.js"></script>
+<script src="../kit/stage.js"></script>
+<script>
+const S = window.SCORE;
+const { $, prog, clamp, eo, ei, eio, back, lerp } = K;
+const GREEN = "#2F9E5B";
+const ASK = "What can I make with eggs, spinach and feta?";
+
+// ---------- drawings ----------
+let uid = 0;
+const leaf = (x, y, r, s = 1, c = "#3F8F47") => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><path d="M-11 0C-6-8 5-8 11 0C5 8-6 8-11 0Z" fill="${c}"/><path d="M-9 0H9" stroke="#2C6B35" stroke-width="1.1" stroke-linecap="round"/></g>`;
+const feta = (x, y, r, s = 8) => `<rect x="${x - s / 2}" y="${y - s / 2}" width="${s}" height="${s}" rx="2" transform="rotate(${r} ${x} ${y})" fill="#FFFCF2" stroke="#E6DBC2" stroke-width="1"/>`;
+function frittataTop(cx, cy, R, withPan = true) {
+  const g = `fg${uid++}`;
+  const L = [[-30, -22, 20], [18, -34, -40], [34, 6, 70], [-8, 28, 10], [-38, 14, -60], [8, -6, 120], [24, 34, -20], [-20, -44, 45]];
+  const F = [[-18, -8, 20], [4, -22, 40], [26, -14, 10], [-2, 16, 30], [18, 20, 60], [-30, 30, 15], [38, 22, 45], [-14, 40, 5], [-40, -8, 30], [10, 42, 25]];
+  const k = R / 70;
+  return `<defs><radialGradient id="${g}" cx="45%" cy="40%"><stop offset="0" stop-color="#FBDA78"/><stop offset=".7" stop-color="#F1BC4E"/><stop offset="1" stop-color="#D99531"/></radialGradient></defs>
+    ${withPan ? `<rect x="${cx + R * 0.9}" y="${cy - 8 * k}" width="${62 * k}" height="${16 * k}" rx="${8 * k}" fill="#2E2B33"/><circle cx="${cx}" cy="${cy}" r="${R + 10 * k}" fill="#3A3740"/>` : ""}
+    <circle cx="${cx}" cy="${cy}" r="${R}" fill="url(#${g})"/>
+    <ellipse cx="${cx - 20 * k}" cy="${cy + 8 * k}" rx="${12 * k}" ry="${7 * k}" fill="#D38E2E" opacity=".35"/><ellipse cx="${cx + 22 * k}" cy="${cy - 20 * k}" rx="${10 * k}" ry="${6 * k}" fill="#D38E2E" opacity=".3"/>
+    ${L.map(([x, y, r]) => leaf(cx + x * k, cy + y * k, r, k)).join("")}
+    ${F.map(([x, y, r]) => feta(cx + x * k, cy + y * k, r, 8 * k)).join("")}`;
+}
+const PIC1 = `<div class="pic"><svg width="250" height="190" viewBox="0 0 250 190">
+  <ellipse cx="118" cy="176" rx="96" ry="9" fill="#1F1D2B" opacity=".08"/>${frittataTop(112, 92, 70)}</svg>
+  <div class="cap2">Eggs, spinach and feta. One pan.</div></div>`;
+
+const egg = (x, y, r = 0) => `<ellipse cx="${x}" cy="${y}" rx="13" ry="17" transform="rotate(${r} ${x} ${y})" fill="#FBEBD3" stroke="#E0C49A" stroke-width="1.5"/>`;
+const PIC2 = `<div class="pic"><svg width="260" height="180" viewBox="0 0 260 180">
+  <ellipse cx="140" cy="168" rx="92" ry="8" fill="#1F1D2B" opacity=".08"/>
+  ${egg(24, 146, -12)}${egg(48, 152, 8)}${egg(34, 118, 20)}
+  <path d="M62 86 Q142 205 222 86 Z" fill="#E4F2E8" stroke="#B5D6C1" stroke-width="2"/>
+  <ellipse cx="142" cy="86" rx="80" ry="18" fill="#F4FAF6" stroke="#B5D6C1" stroke-width="2"/>
+  <ellipse cx="142" cy="88" rx="70" ry="13" fill="#F6CD58"/>
+  <ellipse cx="128" cy="86" rx="22" ry="4" fill="#FBE08E" opacity=".8"/>
+  ${[[110, 88], [124, 92], [150, 84], [168, 90], [180, 86], [136, 82]].map(([x, y], i) => feta(x, y, i * 30, 6)).join("")}
+  <g id="whisk" transform="translate(150 86) rotate(24)">
+    <path d="M0-100V-44" stroke="#9C7B5C" stroke-width="10" stroke-linecap="round"/>
+    ${[5, 10, 15, 19].map((rx) => `<ellipse cx="0" cy="-18" rx="${rx}" ry="28" fill="none" stroke="#A3AAB5" stroke-width="2.2"/>`).join("")}
+  </g></svg>
+  <div class="cap2">A pinch of salt, lots of pepper.</div></div>`;
+
+const PIC3 = `<div class="pic"><div class="row2"><svg width="190" height="160" viewBox="0 0 190 160">
+  <ellipse cx="95" cy="148" rx="80" ry="7" fill="#1F1D2B" opacity=".08"/>
+  <g id="steam3" stroke="#C9CCD6" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M66 50c-8-10 8-16 0-28"/><path d="M96 44c-8-10 8-16 0-28"/><path d="M126 50c-8-10 8-16 0-28"/></g>
+  <g id="heap" transform="translate(95 104)">${[[-40, -6, 10], [-22, -14, -30], [0, -18, 20], [22, -12, -10], [40, -4, 40], [-30, 2, -50], [-8, -4, 60], [14, -2, -40], [32, 4, 15], [-12, -26, 5], [10, -28, -25]]
+    .map(([x, y, r]) => leaf(x, y, r, 1.25, "#4C9F4A")).join("")}</g>
+  <rect x="164" y="104" width="30" height="12" rx="6" fill="#2E2B33"/>
+  <path d="M14 104h152l-8 22a14 14 0 0 1-13 9H35a14 14 0 0 1-13-9z" fill="#3A3740"/>
+  <ellipse cx="90" cy="104" rx="76" ry="7" fill="#2A2730"/></svg>
+  <div class="ring"><svg width="92" height="92" viewBox="0 0 92 92"><circle cx="46" cy="46" r="38" fill="none" stroke="#E3E4EE" stroke-width="8"/>
+    <circle id="spR" cx="46" cy="46" r="38" fill="none" stroke="${GREEN}" stroke-width="8" stroke-linecap="round" stroke-dasharray="238.8" transform="rotate(-90 46 46)"/></svg><b id="spT">2:00</b></div></div>
+  <div class="cap2">A little oil, medium heat.</div></div>`;
+
+const OVEN = `<svg width="54" height="46" viewBox="0 0 54 46"><rect x="1" y="1" width="52" height="44" rx="8" fill="#3A3740"/><rect x="7" y="13" width="40" height="26" rx="5" fill="#F4A340"/>
+  <ellipse cx="27" cy="30" rx="14" ry="4" fill="#F9D46B"/><circle cx="12" cy="7" r="2.4" fill="#C9CCD6"/><circle cx="20" cy="7" r="2.4" fill="#C9CCD6"/><rect x="30" y="5" width="16" height="4" rx="2" fill="#C9CCD6"/></svg>`;
+const P4 = `<div class="s-L c" id="L-p4"><div class="bigring"><svg class="r" width="236" height="236" viewBox="0 0 236 236"><circle cx="118" cy="118" r="104" fill="#fff" stroke="#E3E4EE" stroke-width="14"/>
+    <circle id="ovR" cx="118" cy="118" r="104" fill="none" stroke="${GREEN}" stroke-width="14" stroke-linecap="round" stroke-dasharray="653.5" transform="rotate(-90 118 118)"/></svg>
+    <div class="in">${OVEN}<div class="tm" id="ovT">12:00</div><div class="lf">Oven</div></div></div>
+  <div class="s-line">Into the oven. 12 minutes.</div><div class="s-body">Pour the eggs over the spinach first.</div>
+  <div class="tbtns"><span class="g">Pause</span><span>End</span></div></div>`;
+
+const PIC5 = `<div class="pic"><svg width="250" height="190" viewBox="0 0 250 190">
+  <ellipse cx="125" cy="178" rx="104" ry="8" fill="#1F1D2B" opacity=".08"/>
+  <rect x="16" y="30" width="218" height="146" rx="26" fill="#DDAA70"/><rect x="16" y="30" width="218" height="146" rx="26" fill="none" stroke="#C48F55" stroke-width="2"/>
+  <path d="M34 60h60M150 150h66M40 158h40M170 48h44" stroke="#C99A62" stroke-width="2" stroke-linecap="round"/>
+  <g>${frittataTop(118, 104, 58, false)}</g>
+  <path d="M118 104V46M118 104l50 29M118 104l-50 29M118 104l50-29M118 104l-50-29M118 104V162" stroke="#C98A2C" stroke-width="2.4"/>
+  <g transform="translate(22 10)"><path d="M118 104L168 133A58 58 0 0 0 168 75Z" fill="#F4C75A" stroke="#C98A2C" stroke-width="2"/>${leaf(150, 104, 30, .8)}${feta(160, 92, 20, 7)}</g>
+  <g id="steam5" stroke="#FFFFFF" stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".95">
+    <path d="M92 70c-8-10 8-16 0-28"/><path d="M122 62c-8-10 8-16 0-28"/><path d="M152 70c-8-10 8-16 0-28"/></g></svg>
+  <div class="cap2">Cut it in six. Eat it warm.</div></div>`;
+
+const MINI = (s = 54) => `<svg width="${s}" height="${s}" viewBox="0 0 54 54"><rect width="54" height="54" rx="14" fill="#F3F7F2"/>${frittataTop(27, 27, 17, false)}</svg>`;
+const QS = `<div class="s-L" id="L-qs" style="justify-content:flex-start;gap:12px">
+  <div class="q-title">Before you eat</div><div class="s-sub" style="margin-top:-8px">One quick question, one Send.</div>
+  <div class="q" id="q1"><div class="qthumb">${MINI()}<p>Spinach and feta frittata<span>5 steps · 20 minutes</span></p></div>
+    <h5>Save it to your shelf?</h5><div class="o"><span id="qa">Yes, save it</span><span>Not now</span></div></div>
+  <div style="flex:1"></div><div class="s-send" id="sendall">Send · 0 of 1</div></div>`;
+const DONE = `<div class="s-L c" id="L-done"><div class="okc">${ST.I.check(50)}</div><div class="s-line">Saved to your shelf.</div>
+  <div class="s-sub">Tap it any night to cook it again.</div><div class="shelfc">${MINI(36)}Spinach and feta frittata</div></div>`;
+
+// ---------- the lock screen ----------
+const PAUSE = `<svg width="18" height="18" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="#1E5E3A"/><rect x="14" y="5" width="4" height="14" rx="1.5" fill="#1E5E3A"/></svg>`;
+const LOCK = `<div class="lock" id="lock">
+  <div class="lk-lock"><svg width="16" height="20" viewBox="0 0 16 20"><rect x="1" y="8" width="14" height="11" rx="3" fill="#fff"/><path d="M4 8V5.5a4 4 0 0 1 8 0V8" stroke="#fff" stroke-width="2.2" fill="none"/></svg></div>
+  <div class="lk-date">Friday, September 26</div><div class="lk-time" id="lkT">9:41</div>
+  <div class="lk-card" id="lkCard"><div class="r1"><span class="fc">B</span>Frittata <span class="ag">· Basil</span></div>
+    <div class="tm" id="lkTm">11:56</div><div class="sb" id="lkSb">OVEN <span>· 12 min</span></div>
+    <div class="bt"><i class="g">${PAUSE}</i><i>${ST.I.x("#fff").replace("<svg", '<svg width="18" height="18"')}</i></div>
+    <div class="bar"><i id="lkBar"></i></div></div>
+  <div class="lk-bot" style="left:46px"><svg width="20" height="22" viewBox="0 0 20 22"><path d="M6 1h8l-1 6H7z M7 8h6v12a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1z" fill="#fff"/></svg></div>
+  <div class="lk-bot" style="right:46px"><svg width="22" height="18" viewBox="0 0 22 18"><rect x="1" y="4" width="20" height="13" rx="3" fill="#fff"/><rect x="7" y="1" width="8" height="4" rx="1.5" fill="#fff"/><circle cx="11" cy="10.5" r="3.6" fill="#6B4870"/></svg></div>
+</div>
+<div class="island-x" id="isl"><svg width="22" height="22" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8.5" fill="none" stroke="#2A4A36" stroke-width="3"/>
+  <circle id="isR" cx="11" cy="11" r="8.5" fill="none" stroke="#4FC57E" stroke-width="3" stroke-linecap="round" stroke-dasharray="53.4" transform="rotate(-90 11 11)"/></svg><b id="isT">11:56</b></div>
+<div id="blk"></div>`;
+
+// ---------- build ----------
+const layers = ST.idle("Hi Sam. What's cooking?", "Tap the mic once, then just talk.", "B") + ST.listen() + ST.work()
+  + ST.part("p1", PIC1, "Spinach and feta frittata. 20 minutes.")
+  + ST.part("p2", PIC2, "Whisk 6 eggs with the feta.")
+  + ST.part("p3", PIC3, "Wilt the spinach. 2 minutes.")
+  + P4 + ST.part("p5", PIC5, "Let it rest 2 minutes. Dinner.") + QS + DONE;
+const HF = `<div class="hf" id="hf"><span class="w" id="hfW">${"<i></i>".repeat(5)}</span><span id="hfT">Listening</span></div>`;
+K.phone(`<div class="page" id="pg">${ST.html({ agent: { name: "Basil", letter: "B", color: GREEN }, layers, extra: HF })}${LOCK}</div>`);
+
+// Flour: prints on the glass and dust on the bezel, in phone coordinates (417 x 876, the screen starts at 12, 12).
+function print(id, w, h, rings = 7) {
+  const g = `fpg${uid++}`;
+  return `<svg id="${id}" viewBox="-30 -40 60 80" width="${w}" height="${h}"><defs><radialGradient id="${g}"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset=".75" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+    <ellipse rx="27" ry="37" fill="url(#${g})" opacity=".55"/>
+    ${Array.from({ length: rings }, (_, i) => { const r = 3.5 + i * 3.4; return `<ellipse rx="${r}" ry="${r * 1.36}" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-dasharray="${8 + i * 4} 3.5 ${4 + i} 2.5" stroke-dashoffset="${i * 5}"/>`; }).join("")}</svg>`;
+}
+const specks = [];
+for (let i = 0; i < 60; i++) {
+  const a = (i * 137.5) % 360, edge = i % 3;
+  let x, y;
+  if (edge === 0) { x = 2 + (i * 7) % 12; y = 560 + ((i * 53) % 260); }              // left bezel, low
+  else if (edge === 1) { x = 20 + ((i * 29) % 130); y = 862 + (i % 4) * 3; }          // bottom bezel
+  else { x = 403 + (i * 5) % 12; y = 120 + ((i * 41) % 140); }                        // right bezel, high
+  const s = 1.6 + ((i * 17) % 10) / 3.5;
+  specks.push(`<i class="spk" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px;opacity:${0.55 + ((i * 7) % 5) / 11}"></i>`);
+}
+$("phoneWrap").insertAdjacentHTML("beforeend", `<div id="flour">
+  <div class="fp" id="fp1" style="left:300px;top:196px;transform:rotate(28deg)">${print("fps1", 50, 66)}</div>
+  <div class="fp" id="fp2" style="left:44px;top:600px;transform:rotate(-22deg)">${print("fps2", 44, 58, 6)}</div>
+  <div id="spk">${specks.join("")}</div></div>`);
+$("b-mic").insertAdjacentHTML("beforeend", `<div class="fpMic" id="fpMic">${print("fps3", 40, 50, 6)}</div>`);
+
+// ---------- the camera: [time, scale, focus (local y, 0 is the phone's center; the lock card sits near +150), rotation] ----------
+const CAM = [
+  [0, 1.06, 30, 0], [3.6, 1.15, 0, 0],
+  [9.3, 1.15, 0, 0], [10.2, 1.3, -40, 0], [11.4, 1.3, -40, 0], [12.2, 1.18, 0, 0],
+  [16.6, 1.18, 0, 0], [17.4, 1.3, -30, 0], [18.3, 1.3, -30, 0], [19.1, 1.16, 0, 0],
+  [19.9, 1.16, 0, 0], [20.6, 1.4, 40, 0], [22.9, 1.4, 40, 0], [23.6, 1.18, 0, 0],
+  [24.2, 1.18, 0, 0], [24.8, 1.28, -40, 0], [25.6, 1.18, 0, 0], [28.8, 1.18, 0, 0],
+];
+
+// Seconds left on the oven timer: real time from the start, then the jump (a film cut).
+const OVEN_S = 720;
+function ovenLeft(t) {
+  const [j0, j1] = S.jump, at = OVEN_S - (j0 - S.parts[3]);
+  if (t < S.parts[3]) return OVEN_S;
+  if (t < j0) return OVEN_S - (t - S.parts[3]);
+  return lerp(at, 0, eio(prog(t, j0, j1)));
+}
+
+function stage(t) {
+  const P = S.parts, N = S.nexts;
+  ST.vis("L-idle", t, [[-1, S.listen]]);
+  ST.listening(t, [[S.listen, S.work, ASK]]);
+  ST.working(t, [[S.work, P[0], "Checking what goes together", 0, 1]]);
+  ST.vis("L-p1", t, [[P[0], P[1]]]);
+  ST.vis("L-p2", t, [[P[1], P[2]]]);
+  ST.vis("L-p3", t, [[P[2], P[3]]]);
+  ST.vis("L-p4", t, [[P[3], S.lock]]);
+  ST.vis("L-p5", t, [[S.unlock - 0.4, S.questions]]);
+  ST.vis("L-qs", t, [[S.questions, S.sent + 0.3]]);
+  ST.vis("L-done", t, [[S.sent + 0.3, 99]]);
+  ST.me(t, [[S.work, S.sent + 0.3, ASK]]);
+  const cur = t < P[1] ? 0 : t < P[2] ? 1 : t < P[3] ? 2 : t < S.unlock - 0.4 ? 3 : t < S.questions ? 4 : 5;
+  ST.segs(t, [[P[0], S.lock], [S.unlock - 0.4, S.sent + 0.3]], 5, cur);
+  ST.badge(t, [[P[0], 1], [P[1], 2], [P[2], 3], [P[3], 4], [S.unlock - 0.4, 5]]);
+  ST.press("b-mic", t, S.taps[0][0]);
+  ST.press("b-next", t, [P[1], P[2], P[3]]);
+  ST.press("qa", t, S.taps[1][0]);
+  ST.press("sendall", t, S.sent);
+
+  // hands-free: after one tap the mic stays open; the ring keeps pulsing between turns
+  const hfSpans = [[P[0] + 0.3, S.sleep], [S.unlock, S.questions]];
+  if (ST.on(t, hfSpans)) {
+    const rp = (t * 0.85) % 1;
+    $("micring").style.opacity = 0.55 * (1 - rp);
+    $("micring").style.transform = `scale(${0.95 + 0.4 * rp})`;
+  }
+  ST.vis("hf", t, hfSpans, 8);
+  const heard = N.find((n, i) => t >= n && t < P[i + 1] + 0.25);
+  $("hfT").innerHTML = heard != null ? `<b>“Next.”</b>` : "Listening";
+  $("hfT").style.display = "inline-block";
+  $("hfT").style.transform = `scale(${heard != null ? 0.85 + 0.15 * back(prog(t, heard, heard + 0.25)) : 1})`;
+  [...$("hfW").children].forEach((w, i) => {
+    const loud = heard != null && t < heard + 0.45 ? 1 : 0.35;
+    w.style.height = `${4 + 13 * loud * Math.abs(Math.sin(t * 8.1 + i * 1.3) * Math.sin(t * 3.7 + i * 0.7))}px`;
+  });
+
+  // part 2: the whisk whisks
+  $("whisk").setAttribute("transform", `translate(150 86) rotate(${24 + 9 * Math.sin(t * 13)})`);
+  // part 3: the spinach wilts and its two minutes jump by (a film cut)
+  const sp = eio(prog(t, P[2] + 0.3, S.spinachDone));
+  $("spT").textContent = t >= S.spinachDone ? "Done" : ST.clock(120 * (1 - sp) + 0.99 * (sp < 1));
+  $("spT").style.fontSize = t >= S.spinachDone ? "18px" : "21px";
+  $("spT").style.color = t >= S.spinachDone ? GREEN : "";
+  $("spR").setAttribute("stroke-dashoffset", `${238.8 * (1 - sp)}`);
+  $("heap").setAttribute("transform", `translate(95 104) scale(${1 - 0.25 * sp}, ${1 - 0.45 * sp})`);
+  $("steam3").style.transform = `translateY(${-6 * ((t * 1.2) % 1)}px)`;
+  $("steam3").style.opacity = 0.5 + 0.5 * Math.sin(t * 3);
+  $("steam5").style.transform = `translateY(${-8 * ((t * 0.9) % 1)}px)`;
+  $("steam5").style.opacity = 0.55 + 0.4 * Math.sin(t * 2.6);
+  // part 4: the oven timer
+  const left = ovenLeft(t);
+  $("ovT").textContent = ST.clock(Math.ceil(left));
+  $("ovR").setAttribute("stroke-dashoffset", `${653.5 * (1 - left / OVEN_S)}`);
+
+  // the questions, one Send
+  const a1 = t >= S.taps[1][0] + 0.05, sent = t >= S.sent + 0.05;
+  $("qa").className = a1 ? "on" : "";
+  $("q1").className = `q${a1 ? " got" : ""}`;
+  $("sendall").innerHTML = sent ? `Sent ${ST.I.check(22).replace("<svg", '<svg style="vertical-align:-5px;margin-left:4px"')}` : `Send · ${a1 ? 1 : 0} of 1`;
+  $("sendall").style.opacity = a1 ? 1 : 0.45;
+}
+
+function lock(t) {
+  // the screen sleeps, the lock screen wakes, time jumps, it dings, the phone unlocks
+  const dim = eo(prog(t, S.sleep, S.sleep + 0.45)) * (1 - eo(prog(t, S.lock - 0.2, S.lock + 0.35)));
+  $("blk").style.visibility = dim > 0.001 ? "visible" : "hidden";
+  $("blk").style.opacity = dim;
+  const lk = $("lock"), onL = t > S.lock - 0.3 && t < S.unlock + 0.5;
+  lk.style.visibility = onL ? "visible" : "hidden";
+  lk.style.transform = `translateY(${-eio(prog(t, S.unlock - 0.1, S.unlock + 0.4)) * 870}px)`;
+  const left = ovenLeft(t), done = t >= S.ding;
+  const mins = Math.floor((OVEN_S - left) / 60);
+  $("lkT").textContent = `9:${String(41 + Math.min(12, mins)).padStart(2, "0")}`;
+  $("lkTm").textContent = done ? "Done" : ST.clock(Math.ceil(left));
+  $("lkSb").innerHTML = done ? `DINNER'S READY <span>· 12 min</span>` : `OVEN <span>· 12 min</span>`;
+  $("lkBar").style.width = `${(1 - left / OVEN_S) * 100}%`;
+  const ding = done ? Math.sin(Math.PI * prog(t, S.ding, S.ding + 0.35)) : 0;
+  $("lkCard").style.transform = `scale(${1 + 0.035 * ding})`;
+  $("lkCard").style.boxShadow = done ? `0 0 0 ${2 + 3 * ding}px rgba(79,197,126,${0.55 + 0.4 * ding})` : "none";
+  // the island: a ring and the time, in Basil's green
+  ST.island("isl", t, S.lock - 0.1, S.unlock - 0.1, 236);
+  $("isT").textContent = done ? "Done" : ST.clock(Math.ceil(left));
+  $("isR").setAttribute("stroke-dashoffset", `${53.4 * (left / OVEN_S)}`);
+  // after the jump the status bar reads 9:53 too
+  document.querySelector(".sbar .time").textContent = t >= S.jump[1] ? "9:53" : "9:41";
+}
+
+function flour(t) {
+  // strong in the hook, faint after so the parts stay readable; the tap leaves a print on the mic
+  const k = 1 - 0.62 * eio(prog(t, 5.0, 6.4));
+  $("fp1").style.opacity = k; $("fp2").style.opacity = k;
+  $("spk").style.opacity = 1 - 0.3 * eio(prog(t, 5.0, 6.4));
+  $("fpMic").style.opacity = 0.9 * eo(prog(t, S.taps[0][0], S.taps[0][0] + 0.15));
+}
+
+function render(t) {
+  const cam = K.camera(t, CAM);
+  K.placePhone(t, cam, { opacity: 1 - prog(t, S.outro - 0.3, S.outro) , dy: ei(prog(t, S.outro - 0.4, S.outro)) * 60 });
+  // the phone lies on the counter, tilted back, and rises to face you before the tap
+  const tilt = 26 * (1 - eio(prog(t, 0.6, 3.5)));
+  const pw = $("phoneWrap");
+  pw.style.transform = `perspective(2000px) rotateX(${tilt}deg) ` + pw.style.transform;
+  stage(t);
+  lock(t);
+  flour(t);
+
+  K.caps(t, [["c1L", 0.3, 4.4], ["c1R", 1.8, 4.4], ["c2L", 4.9, 11.6], ["c2R", 9.6, 11.6], ["c3L", 11.9, 18.2], ["c3R", 13.0, 18.2],
+    ["c4L", 19.3, 23.9], ["c4R", 20.3, 23.9], ["c5L", 24.2, 28.5], ["c5R", 26.6, 28.5]]);
+  K.outro(t, S.outro);
+  K.finger(t, S.taps.map(([tt, el]) => ({ t: tt, el })));
+}
+
+window.ready = K.ready(() => render(0));
+window.render = render; window.DURATION = S.bars * 2.4; window.POSTER = 21.3;
+</script></body></html>

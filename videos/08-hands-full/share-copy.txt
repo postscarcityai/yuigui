@@ -1,0 +1,5 @@
+Flour on your hands? Tap the mic once and just talk. Your agent answers on the whole screen, one step at a time, and the oven timer keeps counting on your lock screen while you walk away. In Yui 0.4, public beta on TestFlight: yuigui.com/start
+
+Cook with your hands full. Tap the mic once, say what's in the fridge, and your agent walks you through dinner on the whole screen. The timer keeps count on your lock screen. Yui 0.4 is in public beta on TestFlight. Link in bio (yuigui.com/start).
+
+#aiagents #ios #buildinpublic #generativeui #cooking
