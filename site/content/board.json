@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T13:10:55.942Z",
+  "updated": "2026-09-27T13:40:54.615Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.1",
@@ -145,6 +145,17 @@
           "key": "YUI-154",
           "title": "Hosted Hermes ops",
           "summary": "Rolling updates, daily backups, a kill switch per sandbox"
+        },
+        {
+          "key": "YUI-158",
+          "title": "Maps in the app, MapKit areas, pins and routes on the stage (Chris, feedback AL2nKEYo)",
+          "step": "Step 2",
+          "waiting": true
+        },
+        {
+          "key": "YUI-158",
+          "title": "Agents answer 'where' with a map, channel guide + eval (Chris, feedback AL2nKEYo)",
+          "step": "Step 3"
         },
         {
           "key": "SITE-28",
@@ -331,18 +342,13 @@
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
         },
         {
-          "key": "YUI-157",
-          "title": "Explainers draw every page, never a text bomb (Chris, feedback AJIE1_1R)"
-        },
-        {
-          "key": "YUI-155",
-          "title": "A flow the phone can't run turns into a plan, never a dead end",
-          "waiting": true
-        },
-        {
           "key": "YUI-156",
           "title": "A form inside a plan has no Send of its own",
           "waiting": true
+        },
+        {
+          "key": "YUI-155",
+          "title": "A flow the phone can't run turns into a plan, never a dead end"
         }
       ]
     },
@@ -350,6 +356,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-158",
+          "title": "Maps on the web, a map preset in the spec, parsers and playground (Chris, feedback AL2nKEYo)",
+          "step": "Step 1",
+          "summary": "Maps: answer where with the place",
+          "shipped": "2026-09-27",
+          "progress": "/progress#maps-answer-where-with-the-place"
+        },
+        {
+          "key": "YUI-157",
+          "title": "Explainers draw every page, never a text bomb (Chris, feedback AJIE1_1R)",
+          "summary": "Explainers draw every page",
+          "shipped": "2026-09-27",
+          "progress": "/progress#explainers-draw-every-page"
+        },
         {
           "key": "SOC-6",
           "title": "Brag video of the new layout as shipped in 0.4.0/0.4.1, on the home page hero",

@@ -1001,6 +1001,16 @@
   "next": [
     {
       "text": "Channel guide v34: agents send a tuner and a metronome (YUI-116, yuigui 0bbd205)"
+    },
+    {
+      "text": "Channel guide v35: explainers draw every page",
+      "card": "YUI-157"
+    },
+    {
+      "text": "YuiLines: 39-map.json waits for the app half of maps (YUI-158 step 2)"
+    },
+    {
+      "text": "yui-mcp: sync the YL parser and MCP App for maps (YUI-158 step 1)"
     }
   ]
 }
