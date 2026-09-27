@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 221,
-    "site": 547,
+    "app": 222,
+    "site": 548,
     "builds": 38,
-    "shipped": 274,
-    "screenshots": 637
+    "shipped": 275,
+    "screenshots": 639
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T18:54:00.632Z",
+          "at": "2026-09-27T19:05:52.504Z",
+          "title": "The first launch is Yui talking, with the crew already there",
+          "card": "YUI-145",
+          "anchor": "the-first-launch-is-yui-talking-with-the-crew-already-there",
+          "images": [
+            {
+              "src": "/progress/yui145-yui-talking-light.webp",
+              "alt": "First launch in light mode: Yui's thread, her first message naming the crew, and a choice: Get fit, Eat better, Make music, Plan my week, Learn something"
+            },
+            {
+              "src": "/progress/yui145-model-dark.webp",
+              "alt": "Controls, Model and tools, in dark mode: Model Yui's pick (GLM 5.2, GLM-5V-Turbo for photos), runs on OpenRouter on Yui, Profile Basil version 1, and the tools list"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 222,
+            "site": 548,
+            "builds": 38,
+            "shipped": 275
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T18:54:03.000Z",
           "title": "Your agents check in on their own",
           "card": "YUI-143",
           "anchor": "your-agents-check-in-on-their-own",
@@ -27,10 +51,10 @@
               "alt": "Basil's lunch check-in push in dark mode"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 221,
-            "site": 547,
+            "site": 548,
             "builds": 38,
             "shipped": 274
           }
@@ -843,6 +867,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "2a214d3",
+          "at": "2026-09-27T19:05:32.000Z",
+          "text": "The first launch is Yui talking, with the crew already there (YUI-145)",
+          "url": "https://github.com/postscarcityai/yui/commit/2a214d3"
+        },
+        {
+          "repo": "site",
+          "sha": "78a54d9",
+          "at": "2026-09-27T18:54:03.000Z",
+          "text": "Progress: your agents check in on their own (YUI-143)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/78a54d9"
+        },
         {
           "repo": "app",
           "sha": "139f0bd",
