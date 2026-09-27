@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T00:10:18.161Z",
+  "updated": "2026-09-27T00:40:21.122Z",
   "shippedDays": 30,
   "release": {
     "version": "0.3.2",
@@ -377,13 +377,6 @@
         },
         {
           "key": "YUI-120",
-          "title": "The stage moves with the agent, context animations",
-          "step": "Step 1",
-          "summary": "Spec + playground mock",
-          "waiting": true
-        },
-        {
-          "key": "YUI-120",
           "title": "Context animations on the full screen stage",
           "step": "Step 2",
           "waiting": true
@@ -400,8 +393,16 @@
           "step": "Step 2"
         },
         {
-          "key": "SITE-54",
-          "title": "The full screen stage on the site, See it + roadmap + a Thought (STAGE-1)"
+          "key": "YUI-120",
+          "title": "The stage moves with the agent, context animations",
+          "step": "Step 1",
+          "summary": "Spec + playground mock"
+        },
+        {
+          "key": "SITE-55",
+          "title": "A Thought, A Yui of your own (NATIVE-1 explained for visitors)",
+          "summary": "A Yui of your own, explained",
+          "progress": "/progress#a-yui-of-your-own-explained"
         }
       ]
     },
@@ -409,6 +410,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-54",
+          "title": "The full screen stage on the site, See it + roadmap + a Thought (STAGE-1)",
+          "summary": "The full screen stage on the site",
+          "shipped": "2026-09-26",
+          "progress": "/progress#the-full-screen-stage-on-the-site"
+        },
         {
           "key": "YUI-119",
           "title": "Full screen first, the chat is the record",
