@@ -1,16 +1,96 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 215,
-    "site": 539,
+    "app": 218,
+    "site": 542,
     "builds": 38,
-    "shipped": 270,
-    "screenshots": 626
+    "shipped": 272,
+    "screenshots": 631
   },
   "days": [
     {
       "date": "2026-09-27",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-27T18:21:35.293Z",
+          "title": "Your agents remember you, and you can fix what they remember",
+          "card": "YUI-140",
+          "anchor": "your-agents-remember-you-and-you-can-fix-what-they-remember",
+          "images": [
+            {
+              "src": "/progress/yui140-memory-edit-light.webp",
+              "alt": "Three steps from a real run. Chris tells Yui he is allergic to peanuts and training for a 10k. The About you card in Controls lists name Chris, allergies edited from peanuts to peanuts and shellfish, goals 10k in November. Basil's next answer lists five protein dinners that skip peanut and shellfish."
+            },
+            {
+              "src": "/progress/yui140-memory-edit-dark.webp",
+              "alt": "The same three steps in dark mode: Yui learns, the About you card is edited in Controls, Basil's very next answer skips peanuts and shellfish."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 218,
+            "site": 542,
+            "builds": 38,
+            "shipped": 272
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T18:15:20.000Z",
+          "title": "Basil reads your meal",
+          "card": "YUI-141",
+          "anchor": "basil-reads-your-meal",
+          "images": [
+            {
+              "src": "/progress/yui141-meal-02-estimate-light.webp",
+              "alt": "Basil's answer to a salmon photo: tiles for 550 kcal marked a guess, 34 g protein, 8 g carbs, 38 g fat, and the Fix it before I save form below"
+            },
+            {
+              "src": "/progress/yui141-meal-03-fix-light.webp",
+              "alt": "The fix form with Half, As shown, Bigger and Double, an Anything I missed field and Save, then Basil saying he is confident on the salmon and less sure on the sauce and the oil"
+            },
+            {
+              "src": "/progress/yui141-meal-03-fix-dark.webp",
+              "alt": "The same answer in dark mode"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 217,
+            "site": 541,
+            "builds": 38,
+            "shipped": 271
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T18:13:40.000Z",
+          "title": "Agents answer where with a map",
+          "card": "YUI-158",
+          "anchor": "agents-answer-where-with-a-map",
+          "images": [
+            {
+              "src": "/progress/yui158-where-before-after.webp",
+              "alt": "Before and after on the same question: a big 24M km² number over four compass bullets, then a deck page with the Mongol Empire filled in gold on a map, Karakorum pinned and routes east and west"
+            },
+            {
+              "src": "/progress/yui158-where-page1.webp",
+              "alt": "Page one of the Mongols deck: Mongolia filled in mint, Karakorum and the Onon River pinned, under Where they started"
+            },
+            {
+              "src": "/progress/yui158-where-page3.webp",
+              "alt": "Page three: the four khanates on a map, the Yuan in gold, the Chagatai in mint, the Ilkhanate in lavender, the Golden Horde in grey"
+            }
+          ],
+          "commits": 8,
+          "totals": {
+            "app": 215,
+            "site": 540,
+            "builds": 38,
+            "shipped": 270
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-27T18:04:09.000Z",
@@ -40,7 +120,7 @@
             "app": 215,
             "site": 537,
             "builds": 38,
-            "shipped": 270
+            "shipped": 269
           }
         },
         {
@@ -67,12 +147,12 @@
               "alt": "The same page in dark mode, pinched in on the map, lines and label still sharp"
             }
           ],
-          "commits": 6,
+          "commits": 8,
           "totals": {
             "app": 214,
             "site": 536,
             "builds": 38,
-            "shipped": 269
+            "shipped": 268
           }
         },
         {
@@ -92,7 +172,7 @@
             "app": 213,
             "site": 534,
             "builds": 38,
-            "shipped": 268
+            "shipped": 267
           }
         },
         {
@@ -120,7 +200,7 @@
             "app": 213,
             "site": 533,
             "builds": 38,
-            "shipped": 267
+            "shipped": 266
           }
         },
         {
@@ -135,7 +215,7 @@
             "app": 212,
             "site": 532,
             "builds": 38,
-            "shipped": 266
+            "shipped": 265
           }
         },
         {
@@ -159,7 +239,7 @@
             "app": 211,
             "site": 529,
             "builds": 38,
-            "shipped": 265
+            "shipped": 264
           }
         },
         {
@@ -171,7 +251,7 @@
             "app": 211,
             "site": 528,
             "builds": 38,
-            "shipped": 264
+            "shipped": 263
           }
         },
         {
@@ -199,7 +279,7 @@
             "app": 210,
             "site": 527,
             "builds": 37,
-            "shipped": 264
+            "shipped": 263
           }
         },
         {
@@ -227,7 +307,7 @@
             "app": 209,
             "site": 525,
             "builds": 37,
-            "shipped": 263
+            "shipped": 262
           }
         },
         {
@@ -255,34 +335,6 @@
             "app": 207,
             "site": 523,
             "builds": 37,
-            "shipped": 262
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-27T13:31:44.000Z",
-          "title": "Agents answer where with a map",
-          "card": "YUI-158",
-          "anchor": "agents-answer-where-with-a-map",
-          "images": [
-            {
-              "src": "/progress/yui158-where-before-after.webp",
-              "alt": "Before and after on the same question: a big 24M km² number over four compass bullets, then a deck page with the Mongol Empire filled in gold on a map, Karakorum pinned and routes east and west"
-            },
-            {
-              "src": "/progress/yui158-where-page1.webp",
-              "alt": "Page one of the Mongols deck: Mongolia filled in mint, Karakorum and the Onon River pinned, under Where they started"
-            },
-            {
-              "src": "/progress/yui158-where-page3.webp",
-              "alt": "Page three: the four khanates on a map, the Yuan in gold, the Chagatai in mint, the Ilkhanate in lavender, the Golden Horde in grey"
-            }
-          ],
-          "commits": 6,
-          "totals": {
-            "app": 205,
-            "site": 521,
-            "builds": 37,
             "shipped": 261
           }
         },
@@ -306,7 +358,7 @@
               "alt": "A deck page whose picture is the map: How far it reached, with Karakorum and a dashed arrow west"
             }
           ],
-          "commits": 6,
+          "commits": 8,
           "totals": {
             "app": 205,
             "site": 521,
@@ -735,6 +787,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "297c385",
+          "at": "2026-09-27T18:16:07.000Z",
+          "text": "Native memory: notes only on native agents, with end-to-end tests (YUI-140)",
+          "url": "https://github.com/postscarcityai/yui/commit/297c385"
+        },
+        {
+          "repo": "site",
+          "sha": "4453b84",
+          "at": "2026-09-27T18:15:52.000Z",
+          "text": "Remove the brand lab (reverts 014d7a0 and 84d1d86)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4453b84"
+        },
+        {
+          "repo": "site",
+          "sha": "6208d83",
+          "at": "2026-09-27T18:15:20.000Z",
+          "text": "Basil reads your meal (YUI-141): progress entry with the simulator shots, MEAL.md on native agents",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6208d83"
+        },
+        {
+          "repo": "app",
+          "sha": "0255964",
+          "at": "2026-09-27T18:14:16.000Z",
+          "text": "Channel guide v37: agents answer where with a map (YUI-158 step 3)",
+          "url": "https://github.com/postscarcityai/yui/commit/0255964"
+        },
+        {
+          "repo": "app",
+          "sha": "ff0800a",
+          "at": "2026-09-27T18:14:05.000Z",
+          "text": "Native agents read photos: one per turn, Basil reads a meal (YUI-141)",
+          "url": "https://github.com/postscarcityai/yui/commit/ff0800a"
+        },
+        {
+          "repo": "site",
+          "sha": "5261d58",
+          "at": "2026-09-27T18:13:40.000Z",
+          "text": "Channel guide v37: agents answer where with a map (YUI-158 step 3)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5261d58"
+        },
         {
           "repo": "site",
           "sha": "84d1d86",
