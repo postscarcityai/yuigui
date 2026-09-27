@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T11:40:35.888Z",
+  "updated": "2026-09-27T12:40:43.498Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.1",
@@ -204,6 +204,11 @@
         {
           "key": "BIZ-12",
           "title": "Weave build to earn into GTM and the pitch",
+          "waiting": true
+        },
+        {
+          "key": "SOC-6",
+          "title": "Brag video of the new layout as shipped in 0.4.0/0.4.1, on the home page hero",
           "waiting": true
         }
       ]
