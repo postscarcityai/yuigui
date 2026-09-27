@@ -49,6 +49,32 @@
       }
     },
     {
+      "name": "motion look keys",
+      "input": "theme app zen pace=quick ease=heavy enter=drop pulse=beat",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "scope": "app",
+            "name": "zen",
+            "pace": "quick",
+            "ease": "heavy",
+            "enter": "drop",
+            "pulse": "beat"
+          }
+        }
+      ],
+      "look": {
+        "light": [
+          "accent"
+        ],
+        "dark": [
+          "accent"
+        ]
+      }
+    },
+    {
       "name": "keys alone",
       "input": "theme app accent=#7B5CFF bg=cream radius=round",
       "expected": [
@@ -320,6 +346,28 @@
     {
       "name": "unknown font",
       "input": "theme app font=comic",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "unknown pace",
+      "input": "theme app pace=glacial",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true
+    },
+    {
+      "name": "unknown enter",
+      "input": "theme app enter=spin",
       "expected": [
         {
           "op": "error",

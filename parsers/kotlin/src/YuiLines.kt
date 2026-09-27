@@ -1234,6 +1234,10 @@ private val APP_KEYS: Map<String, (String) -> Boolean> = mapOf(
     "font" to { v -> v in listOf("rounded", "default", "serif", "mono") },
     "weight" to { v -> v in listOf("regular", "bold", "heavy") },
     "motion" to { v -> v in listOf("bouncy", "calm", "snappy") },
+    "pace" to { v -> v in listOf("slow", "even", "quick") },
+    "ease" to { v -> v in listOf("float", "spring", "sharp", "heavy") },
+    "enter" to { v -> v in listOf("rise", "pop", "slide", "drop", "fade") },
+    "pulse" to { v -> v in listOf("soft", "beat", "tick", "still") },
 )
 private val APP_STYLE_KEYS = listOf("screen", "gallery", "chart", "buttons")
 

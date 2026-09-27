@@ -134,6 +134,17 @@
 .mo-switch { display: flex; align-items: center; justify-content: space-between; min-height: 44px; font-size: 14px; font-weight: 700; }
 .mo-switch input { width: 20px; height: 20px; }
 
+/* pulse=still (a look in words, YUI-123): the mark and the mic ring hold, chunks still come on */
+.p-still .mo-mic.live .mo-ring { animation: none; opacity: .5; transform: scale(1.2); }
+
+/* ---------- motion looks (YUI-123): what each agent said and saved ---------- */
+.ml-said { display: flex; flex-direction: column; gap: 4px; padding: 8px; border-radius: 14px; border: 1px solid var(--mo-line); background: var(--mo-card); min-width: 0; }
+.ml-quote { font-size: 13px; font-weight: 800; color: var(--mo-c); line-height: 1.25; }
+.ml-line { display: block; font-family: var(--mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.35; color: var(--muted); overflow-wrap: anywhere; }
+.ml-form .ml-line { font-size: 11.5px; }
+.ml-bad { color: inherit; font-weight: 700; }
+.ml-idea { min-height: 30px; font-size: 12px; }
+
 /* ---------- Reduce Motion: the still look ---------- */
 .mo-still *, .mo-still *::before, .mo-still *::after { animation: none !important; transition: none !important; }
 .mo-still .m-listen { transform: none; }

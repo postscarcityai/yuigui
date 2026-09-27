@@ -22,6 +22,7 @@ import { SYNC_VIEWS, SyncDemo } from "./sync";
 import { MYFLOWS_VIEWS, MyFlowsDemo } from "./myflows";
 import { STAGEFIRST_VIEWS, StageFirstDemo } from "./stagefirst";
 import { STAGEMOTION_VIEWS, StageMotionDemo } from "./stagemotion";
+import { MotionLooksDemo } from "./motionlooks";
 import { mealReply } from "./meal";
 import { WorkingRow, useWorkingTurn } from "./working";
 import { starterReply } from "./starter";
@@ -123,10 +124,12 @@ export default function Playground({ release = "" }) {
   // Stage motion (YL.md section 5, YUI-120): the stage moves with the agent, per mood and per character.
   const stagemotion = shared ? null : ALL[idx].stagemotion;
   const [moView, setMoView] = useState("side");
+  // Motion looks (YL.md section 4 theme, YUI-123): say how each agent moves, in words.
+  const motionlooks = shared ? null : ALL[idx].motionlooks;
   // The working row (YL.md section 5): the turn plays, `doing` lines in the row, then the reply.
   const working = shared ? null : ALL[idx].working;
   const [turn, playTurn] = useWorkingTurn(text, working ? idx : null);
-  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!stagemotion;
+  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!stagemotion || !!motionlooks;
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
@@ -557,6 +560,7 @@ export default function Playground({ release = "" }) {
             {myflows ? <MyFlowsDemo key={`mf:${epoch}`} view={mfView} setView={goMyflows} onEvent={groupEvent} /> : null}
             {stagefirst ? <StageFirstDemo key={`sf:${epoch}`} text={text} view={sfView} onEvent={groupEvent} /> : null}
             {stagemotion ? <StageMotionDemo key={`mo:${epoch}`} text={text} view={moView} /> : null}
+            {motionlooks ? <MotionLooksDemo key={`ml:${epoch}`} text={text} /> : null}
             {client ? null : group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
               <div className="ahead">
                 <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>

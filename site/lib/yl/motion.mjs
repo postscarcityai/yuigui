@@ -6,10 +6,11 @@
 //              from the agent (stageMood, doingMood).
 //   the look   who the agent is: its pace, its easing, how things come on
 //              and how it breathes. Read from the agent's theme
-//              (`theme motion=bouncy|calm|snappy`), and later from words the
-//              person says about it (YUI-123 fills `custom`).
+//              (`theme motion=bouncy|calm|snappy`), with four keys on top
+//              that come from the person's words (YUI-123:
+//              `theme pace=quick ease=heavy enter=drop pulse=beat`).
 //
-// Nothing here is new on the wire. Renderers turn a look into timings
+// The wire carries only the look's keys, on the `theme` line. Renderers turn a look into timings
 // (motionVars) and a mood into which animation plays. Reduce Motion gets the
 // still look: nothing moves, nothing breathes, every part in its last place.
 // The app mirrors it in Swift (YUI-120 step 2). Pure, dependency free.
@@ -75,22 +76,95 @@ export const CHARACTERS = {
 };
 export const STILL = { pace: "even", ease: "float", enter: "fade", pulse: "still", reduced: true };
 
-// theme: the agent's look (`{motion}` from yui_agents.theme, or a set's
-// defaults); custom: a partial look from the person's words (YUI-123), each
-// key checked against its list and dropped when unknown. reduced: Reduce
-// Motion, which always wins.
+export const LOOK_KEYS = ["pace", "ease", "enter", "pulse"];
+const known = { pace: (v) => PACES[v] !== undefined, ease: (v) => !!EASES[v], enter: (v) => ENTERS.includes(v), pulse: (v) => PULSES[v] !== undefined };
+
+// theme: the agent's saved look (yui_agents.theme: `motion` names the
+// character, `pace ease enter pulse` are the person's words on top of it);
+// custom: a look being tried before it is saved. Each key is checked against
+// its list and dropped when unknown; custom wins over theme, theme over the
+// character. reduced: Reduce Motion, which always wins.
 export function motionLook(theme = {}, custom = null, reduced = false) {
   if (reduced) return { ...STILL, character: "still" };
   const character = CHARACTERS[theme?.motion] ? theme.motion : "bouncy";
   const look = { ...CHARACTERS[character], character, reduced: false };
-  if (custom && typeof custom === "object") {
-    if (PACES[custom.pace] !== undefined) look.pace = custom.pace;
-    if (EASES[custom.ease]) look.ease = custom.ease;
-    if (ENTERS.includes(custom.enter)) look.enter = custom.enter;
-    if (PULSES[custom.pulse] !== undefined) look.pulse = custom.pulse;
-    if (Object.keys(custom).some((k) => ["pace", "ease", "enter", "pulse"].includes(k))) look.character = "custom";
+  let own = false;
+  for (const src of [theme, custom]) {
+    if (!src || typeof src !== "object") continue;
+    for (const k of LOOK_KEYS) if (known[k](src[k])) { look[k] = src[k]; own = true; }
   }
+  if (own) look.character = "custom";
   return look;
+}
+
+// ---------- words to a look (YUI-123) ----------
+
+// How a person says an agent moves, as a small rule table. The agent does
+// this with judgment ("make Arnold feel heavy and punchy" -> a theme line);
+// the table is the reference, used by the playground and by any host that
+// has no model at hand. Each key takes the first word in the description
+// that sets it, so "heavy and punchy" is heavy first, then punchy's pace.
+export const WORD_RULES = [
+  [/\b(heav|weight|solid|stomp|thud|tank|massive|big|strong|power)\w*/i, { ease: "heavy", enter: "drop" }],
+  [/\b(punch|hit|slam|bold|jab|kick)\w*/i, { pace: "quick", enter: "drop", pulse: "beat" }],
+  [/\b(drift|float|glid|hover|cloud|feather|breez)\w*/i, { pace: "slow", ease: "float", enter: "rise", pulse: "soft" }],
+  [/\b(water|flow|wave|liquid|ocean|stream|smooth|silk)\w*/i, { pace: "slow", ease: "float", enter: "fade", pulse: "soft" }],
+  [/\b(quick|fast|zip|sharp|crisp|snap|brisk|nimble|swift|rapid)\w*/i, { pace: "quick", ease: "sharp", enter: "slide", pulse: "tick" }],
+  [/\b(bounc|play|happy|spring|fun|cute|excit|energ|cheer|peppy|joy)\w*/i, { ease: "spring", enter: "pop", pulse: "beat" }],
+  [/\b(elastic|rubber|jell|wobbl)\w*/i, { ease: "spring", enter: "pop" }],
+  [/\b(calm|zen|quiet|peace|gentle|soft|relax|chill|sleep|lazy|dream)\w*/i, { pace: "slow", pulse: "soft" }],
+  [/\b(slow|unhurried|patient|lazy)\w*/i, { pace: "slow" }],
+  [/\b(steady|even|measured|normal|balanced)\w*/i, { pace: "even" }],
+  [/\b(precise|robot|mechanic|clock|tick|machine)\w*/i, { ease: "sharp", pulse: "tick" }],
+  [/\b(heartbeat|pulse|drum|beat|thump)\w*/i, { pulse: "beat" }],
+  [/\b(still|stoic|serious|subtle|minimal|plain|no bounce|calm down)\w*/i, { enter: "fade", pulse: "still" }],
+  [/\b(rise|rising|grow|bloom|lift)\w*/i, { enter: "rise" }],
+  [/\b(pop|burst)\w*/i, { enter: "pop" }],
+  [/\b(slide|swoosh|swipe|sweep)\w*/i, { enter: "slide" }],
+  [/\b(drop|fall|land)\w*/i, { enter: "drop" }],
+  [/\b(fade|ghost|mist|whisper|shy)\w*/i, { enter: "fade" }],
+];
+
+const NOT = /\b(no|not|never|without|less|don'?t|isn'?t|nothing)\s+(too\s+|so\s+|very\s+|much\s+)?$/i;
+
+// words -> { look: {pace?, ease?, enter?, pulse?}, heard: [the words that
+// counted] }, or null when nothing in them names a motion.
+export function wordsLook(words) {
+  const t = String(words || "");
+  const hits = [];
+  for (const [re, keys] of WORD_RULES) {
+    // "no bounce", "not too fast": a word said with a no in front is skipped.
+    const all = [...t.matchAll(new RegExp(re.source, "gi"))].filter((m) => !NOT.test(t.slice(Math.max(0, m.index - 16), m.index)));
+    if (all.length) hits.push({ at: all[0].index, word: all[0][0].toLowerCase(), keys });
+  }
+  if (!hits.length) return null;
+  hits.sort((a, b) => a.at - b.at);
+  const look = {};
+  const heard = [];
+  for (const h of hits) {
+    let used = false;
+    for (const k of LOOK_KEYS) if (h.keys[k] && !(k in look)) { look[k] = h.keys[k]; used = true; }
+    if (used && !heard.includes(h.word)) heard.push(h.word);
+  }
+  return { look: Object.fromEntries(LOOK_KEYS.filter((k) => k in look).map((k) => [k, look[k]])), heard };
+}
+
+// A look (or its words' part) -> the one line an agent writes to save it.
+export function lookLine(look) {
+  const keys = LOOK_KEYS.filter((k) => look && known[k](look[k])).map((k) => `${k}=${look[k]}`);
+  return keys.length ? `theme ${keys.join(" ")}` : null;
+}
+
+// A look in a few plain words, for a row or a note: "quick, heavy, drops in, beats".
+const SAY = {
+  pace: { slow: "slow", even: "even", quick: "quick" },
+  ease: { float: "floats", spring: "springs", sharp: "sharp", heavy: "heavy" },
+  enter: { rise: "rises in", pop: "pops in", slide: "slides in", drop: "drops in", fade: "fades in" },
+  pulse: { soft: "breathes long", beat: "beats", tick: "ticks", still: "holds still" },
+};
+export function lookWords(look) {
+  if (look?.reduced) return "Reduce Motion: no movement";
+  return LOOK_KEYS.map((k) => SAY[k][look?.[k]]).filter(Boolean).join(", ");
 }
 
 // Base timings in ms at an even pace. A renderer scales them by the look.
@@ -112,7 +186,8 @@ export function motionVars(look) {
     "--mo-stagger": `${t.stagger}ms`,
     "--mo-beat": `${t.beat}ms`,
     "--mo-open": `${t.open}ms`,
-    "--mo-breath": `${t.breath || 1}ms`,
+    // pulse=still does not breathe, but a sweep or a morph still needs a period.
+    "--mo-breath": `${t.breath || (look.reduced ? 1 : 2400)}ms`,
     "--mo-ease": t.ease,
   };
 }

@@ -47,6 +47,37 @@
       ]
     },
     {
+      "name": "a motion look in words: four keys on top of the character",
+      "input": "theme motion=calm pace=slow ease=heavy enter=drop pulse=beat",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "motion": "calm",
+            "pace": "slow",
+            "ease": "heavy",
+            "enter": "drop",
+            "pulse": "beat"
+          }
+        }
+      ]
+    },
+    {
+      "name": "motion keys alone change only what they say",
+      "input": "theme pace=quick pulse=still",
+      "expected": [
+        {
+          "op": "theme",
+          "screen": "1",
+          "props": {
+            "pace": "quick",
+            "pulse": "still"
+          }
+        }
+      ]
+    },
+    {
       "name": "reset to the agent's default",
       "input": "theme reset",
       "expected": [

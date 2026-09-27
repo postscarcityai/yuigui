@@ -2591,6 +2591,10 @@ fn app_value_ok(key: &str, v: &str) -> Option<bool> {
         "font" => ["rounded", "default", "serif", "mono"].contains(&v),
         "weight" => ["regular", "bold", "heavy"].contains(&v),
         "motion" => ["bouncy", "calm", "snappy"].contains(&v),
+        "pace" => ["slow", "even", "quick"].contains(&v),
+        "ease" => ["float", "spring", "sharp", "heavy"].contains(&v),
+        "enter" => ["rise", "pop", "slide", "drop", "fade"].contains(&v),
+        "pulse" => ["soft", "beat", "tick", "still"].contains(&v),
         _ => return None,
     })
 }

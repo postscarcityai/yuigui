@@ -31,7 +31,7 @@
 // the group's id.
 
 import { emptyStore, write as writeTable } from "./tables.mjs";
-import { FONTS, MOTIONS, PAPERS, RADII, SETS, WEIGHTS } from "./look.mjs";
+import { FONTS, MOTION_KEYS, MOTIONS, PAPERS, RADII, SETS, WEIGHTS, mergeTheme } from "./look.mjs";
 
 export const PRESETS = [
   "timer", "ask", "choose", "pick", "slide", "form",
@@ -1364,6 +1364,10 @@ const APP_KEYS = {
   font: (v) => FONTS.includes(v),
   weight: (v) => WEIGHTS.includes(v),
   motion: (v) => MOTIONS.includes(v),
+  pace: (v) => MOTION_KEYS.pace.includes(v),
+  ease: (v) => MOTION_KEYS.ease.includes(v),
+  enter: (v) => MOTION_KEYS.enter.includes(v),
+  pulse: (v) => MOTION_KEYS.pulse.includes(v),
 };
 const STYLE_KEYS = ["screen", "gallery", "chart", "buttons"];
 function appTheme(screen, tokens, line) {
@@ -1841,7 +1845,7 @@ export function apply(state, op, style = {}) {
       // An app restyle is only a proposal until the person taps Apply: it
       // waits in `restyle` and leaves the agent's own look alone.
       if (op.props.scope === "app") { const { scope, ...rest } = op.props; s.restyle = rest; break; }
-      s.theme = op.props.name ? { ...op.props } : { ...(s.theme || {}), ...op.props }; break;
+      s.theme = mergeTheme(s.theme, op.props); break;
     // Agent tables (spec/TABLES.md) live in the agent's store, not on a screen.
     // Every query on screen reads it, so a put redraws them. `style.today`
     // pins the date words for tests; otherwise it is this device's date.

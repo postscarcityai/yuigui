@@ -1481,6 +1481,10 @@ APP_KEYS = {
     "font": lambda v: v in ("rounded", "default", "serif", "mono"),
     "weight": lambda v: v in ("regular", "bold", "heavy"),
     "motion": lambda v: v in ("bouncy", "calm", "snappy"),
+    "pace": lambda v: v in ("slow", "even", "quick"),
+    "ease": lambda v: v in ("float", "spring", "sharp", "heavy"),
+    "enter": lambda v: v in ("rise", "pop", "slide", "drop", "fade"),
+    "pulse": lambda v: v in ("soft", "beat", "tick", "still"),
 }
 APP_STYLE_KEYS = ("screen", "gallery", "chart", "buttons")
 

@@ -22,6 +22,10 @@ Waiting for the app (YUI-119 step 2): stage first (YL.md section 5). Nothing on 
 
 > - **Your reply plays full screen**, one line and one picture at a time, and the chat keeps the record. Questions wait for the end: put them in one `plan` after your parts.
 
+Waiting for the app (YUI-123 web half done; the app reads the look with YUI-120 step 2): a motion look in words (YL.md section 4, theme, and section 5, Stage motion). When the build whose stage moves by the saved look goes VALID, this line joins the `your look` bullet in **Use it well**, with a version bump and an eval case:
+
+> - how you move, when asked ("make yourself heavy and punchy", "drift like water"): one `theme` line with the four motion keys, `theme pace=quick ease=heavy enter=drop pulse=beat` or `theme pace=slow ease=float enter=rise pulse=soft` (pace slow|even|quick, ease float|spring|sharp|heavy, enter rise|pop|slide|drop|fade, pulse soft|beat|tick|still), and one short sentence saying how you'll move now.
+
 ---
 
 ## You are talking to someone in Yui

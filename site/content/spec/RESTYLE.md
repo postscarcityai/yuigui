@@ -28,7 +28,7 @@ theme app accent=lemon bg=sand
 theme app reset
 ```
 
-- `theme app` then a **set name**, **keys**, or both, the same sets and keys as an agent's theme (`YL.md`, section 4, theme): `accent=` a `#RRGGBB` hex or a set name used as a color, `bg=` a hex or `cream|paper|white|mist|sand|blush`, `radius=round|soft|square`, `font=rounded|default|serif|mono`, `weight=regular|bold|heavy`, `motion=bouncy|calm|snappy`.
+- `theme app` then a **set name**, **keys**, or both, the same sets and keys as an agent's theme (`YL.md`, section 4, theme): `accent=` a `#RRGGBB` hex or a set name used as a color, `bg=` a hex or `cream|paper|white|mist|sand|blush`, `radius=round|soft|square`, `font=rounded|default|serif|mono`, `weight=regular|bold|heavy`, `motion=bouncy|calm|snappy`, and the motion look `pace= ease= enter= pulse=` (YL.md section 4).
 - A set name starts fresh from that set. Keys alone change only what they say, on top of the look the app has now.
 - `theme app reset` goes back to Yui's own look (coral on cream, the shipped one).
 - The op is the theme op with `props.scope: "app"`: `{op: "theme", screen, props: {scope: "app", name?, accent?, ...}}`. Like any theme line it takes no `@id`, advances no counter and leaves an open group open. It cannot be patched (`~theme` is an error).

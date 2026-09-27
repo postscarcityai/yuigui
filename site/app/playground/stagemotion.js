@@ -13,7 +13,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { apply, initialState, parse } from "../../lib/yl/yl.mjs";
 import { stageChunks } from "../../lib/yl/chunks.mjs";
-import { CHARACTERS, motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
+import { CHARACTERS, motionLook, motionVars, stageMood, wordsLook } from "../../lib/yl/motion.mjs";
 import { Render } from "./presets";
 import { Group, groupNodes } from "./flows";
 import { ScreenCtx } from "./science";
@@ -28,7 +28,7 @@ export const STAGEMOTION_VIEWS = [
 ];
 
 const ME = "Plan my runs this week";
-const AGENTS = {
+export const AGENTS = {
   Coach: { name: "Coach", c: "#ff5a36", motion: "snappy" },
   Sage: { name: "Sage", c: "#3f9a6b", motion: "calm" },
   Yui: { name: "Yui", c: "#ff7e8a", motion: "bouncy" },
@@ -42,7 +42,7 @@ const WHAT = {
 };
 const MOOD_WORDS = { idle: "Idle", listen: "Listening", think: "Thinking", work: "Working", found: "Found it", done: "Answer", ask: "Asking", error: "Error" };
 
-function readReply(text) {
+export function readReply(text) {
   let s = initialState();
   for (const op of parse(text)) s = apply(s, op);
   const nodes = Object.values(s.screens).flat().sort((a, b) => a.seq - b.seq);
@@ -50,7 +50,7 @@ function readReply(text) {
   return { nodes, heads, ...stageChunks(nodes), doing: doings(text).filter(Boolean) };
 }
 
-function useReduced() {
+export function useReduced() {
   const [r, setR] = useState(false);
   useEffect(() => {
     const m = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -83,7 +83,7 @@ function schedule(reply) {
   return out;
 }
 
-function useTurn(reply, run) {
+export function useTurn(reply, run) {
   const [turn, setTurn] = useState({});
   const [loop, setLoop] = useState(0);
   const timers = useRef([]);
@@ -131,7 +131,7 @@ function MiniMic({ live }) {
 }
 
 // One agent's stage for one moment of the turn.
-function Stage({ agent, look, reply, turn, compact, onRetry, dir = 1 }) {
+export function Stage({ agent, look, reply, turn, compact, onRetry, dir = 1, tag }) {
   const { mood, flavor } = stageMood(turn);
   const chunk = turn.chunk != null ? reply.chunks[Math.min(turn.chunk, reply.chunks.length - 1)] : null;
   const d = turn.doing && !turn.doing.off ? turn.doing : null;
@@ -143,7 +143,7 @@ function Stage({ agent, look, reply, turn, compact, onRetry, dir = 1 }) {
       <div className="mo-head">
         <span className="mo-face" style={{ background: agent.c }}>{agent.name[0]}</span>
         <b>{agent.name}</b>
-        <span className="mo-char">{look.character}</span>
+        <span className="mo-char">{tag || look.character}</span>
       </div>
       {mood === "done" && reply.chunks.length > 1 ? (
         <div className="mo-segs">{reply.chunks.map((c, i) => <i key={c.key} className={i <= turn.chunk ? "on" : ""} />)}</div>
@@ -190,20 +190,9 @@ function Stage({ agent, look, reply, turn, compact, onRetry, dir = 1 }) {
   );
 }
 
-// ---------- words to a look (a preview; YUI-123 makes it a line the agent writes) ----------
-
-const WORD_KEYS = [
-  [/heav|punch|strong|stomp|big|solid/i, { ease: "heavy", enter: "drop", pulse: "beat" }],
-  [/water|drift|float|flow|soft|gentle|dream|slow/i, { pace: "slow", ease: "float", enter: "rise", pulse: "soft" }],
-  [/quick|fast|sharp|crisp|zip|snap/i, { pace: "quick", ease: "sharp", enter: "slide", pulse: "tick" }],
-  [/bounc|play|happy|spring|fun|cute/i, { ease: "spring", enter: "pop", pulse: "beat" }],
-  [/calm|zen|quiet|still|peace/i, { pace: "slow", pulse: "soft" }],
-];
-function wordsLook(words) {
-  const out = {};
-  for (const [re, part] of WORD_KEYS) if (re.test(words)) Object.assign(out, { ...part, ...out });
-  return Object.keys(out).length ? out : null;
-}
+// Words to a look: motion.mjs wordsLook (YUI-123), the same table the
+// motion-looks demo uses.
+function wordsPart(words) { return wordsLook(words)?.look || null; }
 
 // ---------- the demo ----------
 
@@ -337,15 +326,15 @@ export function StageMotionDemo({ text, view }) {
         })}
         <form className="mo-words" onSubmit={(e) => {
           e.preventDefault();
-          const l = wordsLook(words);
+          const l = wordsPart(words);
           if (l) setCustom((x) => ({ ...x, Coach: l }));
         }}>
           <label className="mo-sub" htmlFor="mo-words">Describe Coach's motion</label>
           <div className="mo-wordsrow">
             <input id="mo-words" value={words} onChange={(e) => setWords(e.target.value)} placeholder="Heavy and punchy" />
-            <button className="mo-btn" disabled={!wordsLook(words)}>Try it</button>
+            <button className="mo-btn" disabled={!wordsPart(words)}>Try it</button>
           </div>
-          <div className="mo-note">{custom.Coach ? `Coach now: ${Object.entries(custom.Coach).map(([k, v]) => `${k} ${v}`).join(", ")}. See it on Side by side.` : "A preview. The agent turning your words into a saved look is YUI-123."}</div>
+          <div className="mo-note">{custom.Coach ? `Coach now: ${Object.entries(custom.Coach).map(([k, v]) => `${k} ${v}`).join(", ")}. See it on Side by side.` : "Say it in words. The agent saves it as a theme line; see Motion looks."}</div>
         </form>
         <label className="mo-switch">
           <span>Show the Reduce Motion version</span>

@@ -174,11 +174,13 @@ Every agent has its own look, so you always know who you are talking to. While a
 
 ```json
 {"preset": "autumn", "accent": "#C8642B", "bg": "#F7F0E6", "radius": "square", "font": "serif",
- "weight": "bold", "motion": "calm", "style": {"screen": "full", "buttons": "stack"},
+ "weight": "bold", "motion": "calm", "pace": "quick", "ease": "heavy", "enter": "drop", "pulse": "beat",
+ "style": {"screen": "full", "buttons": "stack"},
  "at": "2026-09-24T12:00:00.123+00:00", "by": "agent"}
 ```
 
 - Every key is optional. `preset` names a set (list in `YL.md`, "theme"); the other keys override it. An empty look is seeded from the handle, and an agent whose handle matches a set name (`coach`, `wizard`, ...) starts in that set.
+- `pace`, `ease`, `enter` and `pulse` are the motion look the person described in words (YUI-123, `YL.md` theme and Stage motion): each overrides that part of the `motion` character. A `motion` with none of them clears them.
 - `style` is the agent's style profile, the screens it prefers: `screen=chat|full`, `gallery=row|feed|row3d|grid`, `chart=line|bar|area|scatter|pie|donut`, `buttons=row|stack`. Renderers use it as their defaults, and the host plugin tells the agent its look and profile on every turn (Hermes `channel_prompt`).
 - `at` / `by` say when and who. An agent restyles itself with a YL `theme` line; the app applies it and saves it here through `yui-agents` `update`. A theme line older than `at` never overrides a newer pick, so replaying a thread is safe. The person picks a look in the agent's settings (`by: "user"`).
 - `yui-agents` cleans the object (known keys, known words, `#RRGGBB` hex) and drops the rest. `yui-connect` `session` and `heartbeat` return each agent's `theme`, so a restyle reaches the host within a heartbeat.

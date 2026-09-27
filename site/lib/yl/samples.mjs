@@ -182,6 +182,29 @@ choose "Morning or evening?" Morning|Evening
 choose "Ping you before each run?" Yes|No`,
   },
   {
+    // Motion looks (spec/YL.md section 4 theme, YUI-123): the same turn on
+    // two agents whose looks were said in words ("heavy and punchy", "drifts
+    // like water"), saved as `theme pace= ease= enter= pulse=`, plus a box to
+    // describe a new one (playground/motionlooks.js).
+    name: "Motion looks: say how each agent moves",
+    slug: "motion-looks",
+    agent: "Yui",
+    motionlooks: true,
+    yl: `doing "Reading your calendar" 1/3
+doing "Checking the weather" 2/3
+doing "Found a dry window" 3/3
+say "Three runs this week, all dry."
+shapes w=9 h=3 caption="Tue, Thu, Sat. Rain on Wed."
+shape circle Tue at=1.2,1.5 size=1.9 tone=mint +fill +grow
+shape circle Wed at=3.4,1.5 size=1.4 tone=mute +dash
+shape circle Thu at=5.6,1.5 size=1.9 tone=mint +fill +grow
+shape circle Sat at=7.8,1.5 size=1.9 tone=mint +fill +grow
+say "Saturday is the long one."
+stat 8km "Saturday" sub="easy pace"
+choose "Morning or evening?" Morning|Evening
+choose "Ping you before each run?" Yes|No`,
+  },
+  {
     // The working row (spec/YL.md section 5, YUI-63 step 2): the doing lines
     // take the working word's place while the turn runs, then the reply lands.
     name: "The working row: the agent says what it is doing",
