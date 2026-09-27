@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T08:40:41.490Z",
+  "updated": "2026-09-27T09:10:12.764Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.1",
@@ -329,12 +329,6 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
-        },
-        {
-          "key": "YUI-116",
-          "title": "The channel guide teaches keys, chords, tuner and metronome",
-          "summary": "Agents send keys and chords",
-          "progress": "/progress#agents-send-keys-and-chords"
         }
       ]
     },
@@ -342,6 +336,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-116",
+          "title": "The channel guide teaches keys, chords, tuner and metronome",
+          "summary": "Agents send keys and chords",
+          "shipped": "2026-09-27",
+          "progress": "/progress#agents-send-keys-and-chords"
+        },
         {
           "key": "SITE-61",
           "title": "Yui 0.4.1 on the site, a release Thought (tuner, metronome, record a take, MIDI keyboard)",
@@ -558,7 +559,9 @@
           "key": "YUI-116",
           "title": "Native sound engine + loop + drums in the app",
           "step": "Step 2",
-          "shipped": "2026-09-26"
+          "summary": "Agents send a tuner and a metronome",
+          "shipped": "2026-09-26",
+          "progress": "/progress#agents-send-a-tuner-and-a-metronome"
         },
         {
           "key": "YUI-117",
