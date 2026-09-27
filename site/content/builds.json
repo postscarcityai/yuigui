@@ -1164,6 +1164,16 @@
     {
       "text": "Persona eval: every starter agent, live, stays in character on Yui Lines",
       "card": "YUI-135"
+    },
+    {
+      "text": "A reinstall starts at Sign in, not signed in to the last account (feedback AFFVLA66)"
+    },
+    {
+      "text": "Crew shots: every starter agent's first answer, in the app, on a throwaway account",
+      "card": "YUI-135"
+    },
+    {
+      "text": "Native agents answer on a screen: no markdown, one line first, 4 pages at most"
     }
   ]
 }

@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-27T22:10:31.621Z",
+  "updated": "2026-09-27T22:42:10.099Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.4.2",
-    "status": "shipped",
-    "startedAt": "2026-09-27T15:02:24.000Z",
-    "shippedAt": "2026-09-27T15:37:26.000Z",
+    "version": "0.5.0",
+    "status": "open",
+    "startedAt": "2026-09-27T22:35:07.000Z",
+    "shippedAt": null,
     "cards": []
   },
   "columns": [
@@ -87,11 +87,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-103",
-          "title": "Meal photo to macros in the app, step 2 of YUI-35",
-          "waiting": true
-        },
-        {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
           "summary": "The thread offline at /web",
@@ -145,6 +140,10 @@
           "key": "YUI-154",
           "title": "Hosted Hermes ops",
           "summary": "Rolling updates, daily backups, a kill switch per sandbox"
+        },
+        {
+          "key": "YUI-169",
+          "title": "Several chats per agent, listed in the drawer"
         },
         {
           "key": "SITE-28",
@@ -213,6 +212,11 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-103",
+          "title": "Log a meal without weighing",
+          "summary": "Snap and say, macros worked out in the background, one breakdown screen, a food memory"
+        },
+        {
           "key": "YUI-137",
           "title": "Yui makes agents",
           "summary": "Create, edit, fork and remove a native agent from chat"
@@ -236,6 +240,24 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
+        },
+        {
+          "key": "YUI-165",
+          "title": "Every crew agent says what it does, and its hello is an answer, not a Review ask"
+        },
+        {
+          "key": "YUI-166",
+          "title": "Hold to snap and say, one press takes the photo and records what you say"
+        },
+        {
+          "key": "YUI-167",
+          "title": "Meet the agent",
+          "summary": "Its hello plays the first time you open it, a line under its name, About says what it does, no picker in the drawer"
+        },
+        {
+          "key": "YUI-168",
+          "title": "Every agent's home",
+          "summary": "Shortcuts to start, starter screens a swipe away, notifications up front"
         }
       ]
     },
@@ -272,11 +294,6 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
-        },
-        {
-          "key": "YUI-135",
-          "title": "The starter crew",
-          "summary": "Trainer, nutritionist Basil, musician Gouda, Penny and Quill, each with favorite screens"
         }
       ]
     },
@@ -284,6 +301,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-135",
+          "title": "The starter crew",
+          "summary": "The starter crew stays in character",
+          "shipped": "2026-09-27",
+          "progress": "/progress#the-starter-crew-stays-in-character"
+        },
         {
           "key": "YUI-164",
           "title": "Ship the fix build",
