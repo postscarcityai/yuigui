@@ -1,4 +1,6 @@
-/* Yui in the bubble (SITE-64). The app's chat, small: agent bubbles on surface, the person's in coral. */
+/* Yui in the bubble (SITE-64, SITE-65). Opening it turns the site dark, so the panel reads like the app:
+   a plum stage with Yui's coral glow, answers in big type, screens drawn live. On a phone it is the
+   whole screen, like the app's stage. */
 .yc { position: fixed; right: 20px; bottom: 20px; z-index: 40; font-family: var(--font); }
 .yc-fab {
   width: 60px; height: 60px; border-radius: 50%; border: 0; cursor: pointer;
@@ -10,46 +12,75 @@
 .yc-fab:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
 
 .yc-panel {
-  position: absolute; right: 0; bottom: 76px; width: 380px; height: min(600px, calc(100vh - 120px));
+  position: absolute; right: 0; bottom: 76px; width: 440px; height: min(880px, calc(100vh - 116px));
   display: flex; flex-direction: column; overflow: hidden;
-  background: var(--background); color: var(--ink); border: 1.5px solid var(--outline); border-radius: var(--r-card);
-  box-shadow: 0 18px 50px rgba(58, 51, 64, .18), var(--shadow);
-  animation: yc-in .2s ease-out;
+  background: radial-gradient(120% 45% at 50% -8%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 72%), var(--background);
+  color: var(--ink); border: 1.5px solid var(--outline); border-radius: var(--r-card);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, .45), var(--shadow);
+  animation: yc-in .24s ease-out;
 }
-@keyframes yc-in { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes yc-in { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
 
-.yc-head { display: flex; align-items: center; gap: 10px; padding: 12px 12px 12px 16px; border-bottom: 1.5px solid var(--outline); background: var(--surface); }
-.yc-head div { display: flex; flex-direction: column; flex: 1; min-width: 0; line-height: 1.25; }
-.yc-head strong { font-size: 16px; }
-.yc-head span { font-size: 13px; color: var(--muted); }
-.yc-avatar { width: 36px; height: 36px; border-radius: var(--r-avatar); background: var(--brand); color: var(--on-brand); display: grid; place-items: center; font-weight: 800; font-size: 18px; flex: none; }
+.yc-head { display: flex; align-items: center; gap: 12px; padding: 14px 12px 12px 18px; }
+.yc-head div { display: flex; flex-direction: column; flex: 1; min-width: 0; line-height: 1.2; }
+.yc-head strong { font-size: 18px; color: var(--brand); }
+.yc-head div span { font-size: 13px; color: var(--muted); }
+.yc-avatar { width: 40px; height: 40px; border-radius: var(--r-avatar); background: var(--brand); color: var(--on-brand); display: grid; place-items: center; font-weight: 800; font-size: 20px; flex: none; }
 .yc-x, .yc-new { border: 0; background: none; color: var(--muted); cursor: pointer; font: inherit; border-radius: 999px; }
-.yc-x { font-size: 26px; width: 36px; height: 36px; line-height: 1; }
-.yc-new { font-size: 13px; font-weight: 700; padding: 6px 10px; }
+.yc-x { font-size: 28px; width: 44px; height: 44px; line-height: 1; }
+.yc-new { font-size: 13px; font-weight: 700; padding: 8px 12px; }
 .yc-x:hover, .yc-new:hover { background: var(--raised); color: var(--ink); }
 
-.yc-list { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 8px; overscroll-behavior: contain; }
-.yc-msg { max-width: 86%; padding: 10px 14px; border-radius: var(--r-bubble); font-size: 15px; line-height: 1.45; overflow-wrap: anywhere; }
-.yc-msg p { margin: 0; }
-.yc-msg p + p, .yc-msg p + ul, .yc-msg ul + p { margin-top: 6px; }
-.yc-msg ul { margin: 4px 0 0; padding-left: 18px; }
-.yc-msg li + li { margin-top: 2px; }
-.yc-agent { align-self: flex-start; background: var(--agent-bubble); color: var(--agent-ink); border: 1.5px solid var(--outline); border-bottom-left-radius: var(--r-tail); }
-.yc-user { align-self: flex-end; background: var(--user-bubble); color: var(--user-ink); border-bottom-right-radius: var(--r-tail); white-space: pre-wrap; }
-.yc-agent a { color: var(--link); font-weight: 700; }
+.yc-list { flex: 1; overflow-y: auto; padding: 8px 18px 20px; display: flex; flex-direction: column; gap: 14px; overscroll-behavior: contain; }
 
-.yc-starters { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
-.yc-starters button {
-  border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-size: 14px; font-weight: 700;
-  padding: 7px 12px; border-radius: 999px; cursor: pointer;
+/* The person's side: coral bubbles on the right. A tap shows the words they tapped. */
+.yc-msg { max-width: 86%; padding: 10px 15px; border-radius: var(--r-bubble); font-size: 16px; line-height: 1.4; overflow-wrap: anywhere; }
+.yc-msg p { margin: 0; }
+.yc-user { align-self: flex-end; background: var(--user-bubble); color: var(--user-ink); border-bottom-right-radius: var(--r-tail); white-space: pre-wrap; font-weight: 600; }
+.yc-tapped { background: transparent; color: var(--brand); border: 1.5px solid var(--brand); }
+.yc-tapped p::before { content: "Tapped: "; font-weight: 500; opacity: .75; }
+
+/* Yui's side: no bubble. Big type, one idea at a time, then the screen. */
+.yc-answer { align-self: stretch; display: flex; flex-direction: column; gap: 12px; }
+.yc-part-text { font-size: 17px; line-height: 1.5; overflow-wrap: anywhere; }
+.yc-part-text p { margin: 0; }
+.yc-part-text p + p, .yc-part-text p + ul, .yc-part-text ul + p { margin-top: 8px; }
+.yc-part-text ul { margin: 4px 0 0; padding-left: 20px; }
+.yc-part-text li + li { margin-top: 3px; }
+.yc-answer > .yc-part-text:first-child > p:first-child { font-size: 23px; line-height: 1.28; font-weight: 800; letter-spacing: -.01em; }
+.yc-part-text a { color: var(--link); font-weight: 700; }
+.yc-answer.is-fresh .yc-part { opacity: 0; animation: yc-rise .5s cubic-bezier(.2, .8, .2, 1) forwards; }
+@keyframes yc-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* A screen inside the chat: the playground's renderers, with the app's dark surfaces (like .phone). */
+.yc-part-screen { align-self: stretch; }
+.yc-screen {
+  --text: #F6EEF7; --muted: #A99FB8; --panel: #2F2842; --panel2: #352D4A; --line: #3D3452; --accent2: #9FCDB9;
+  /* the dark .screen chart palette (globals.css, YUI-17) */
+  --yl-c1: #8b7cff; --yl-c2: #e8663a; --yl-c3: #199e8f; --yl-c4: #c98500; --yl-c5: #d55181; --yl-c6: #3987e5;
+  --screen-bg: #0f1019; --yl-ink: #eceef6; --yl-ink2: #9aa0b8; --yl-grid: #23263a; --yl-axis: #3a3f58; --yl-good: #3fbf8a; --yl-bad: #ff7a6b;
+  color: var(--text); flex: none; overflow: visible; padding: 0; gap: 12px; font-size: 15px;
 }
-.yc-starters button:hover { border-color: var(--brand); }
+.yc-screen.pg-screen { overflow: visible; }
+.yc-wait { font-size: 14px; color: var(--muted); padding: 12px 0; }
+
+.yc-starters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+.yc-starters button {
+  border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-size: 15px; font-weight: 700;
+  padding: 10px 15px; border-radius: 999px; cursor: pointer; min-height: 44px;
+}
+.yc-starters button:hover { border-color: var(--brand); color: var(--brand); }
+.yc-tf {
+  flex-basis: 100%; display: flex; align-items: center; justify-content: center; min-height: 48px; margin-top: 6px;
+  border-radius: 999px; background: var(--brand); color: var(--on-brand); font-weight: 800; font-size: 16px;
+}
+.yc-tf:hover { text-decoration: none; filter: brightness(1.06); }
 
 .yc-went { align-self: center; font-size: 13px; color: var(--muted); padding: 2px 8px; }
 .yc-went a { color: var(--link); font-weight: 700; }
 
-.yc-typing { display: flex; gap: 4px; padding: 14px 16px; }
-.yc-typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-soft); animation: yc-dot 1.1s infinite ease-in-out; }
+.yc-typing { align-self: flex-start; display: flex; gap: 5px; padding: 8px 0; }
+.yc-typing i { width: 9px; height: 9px; border-radius: 50%; background: var(--brand); animation: yc-dot 1.1s infinite ease-in-out; }
 .yc-typing i:nth-child(2) { animation-delay: .15s; }
 .yc-typing i:nth-child(3) { animation-delay: .3s; }
 @keyframes yc-dot { 0%, 70%, 100% { opacity: .3; transform: none; } 35% { opacity: 1; transform: translateY(-3px); } }
@@ -58,7 +89,7 @@
 .yc-card p { margin: 0; }
 .yc-turnstile { min-height: 65px; }
 .yc-contact input {
-  width: 100%; min-width: 0; font: inherit; font-size: 15px; color: var(--ink); background: var(--background);
+  width: 100%; min-width: 0; font: inherit; font-size: 16px; color: var(--ink); background: var(--background);
   border: 1.5px solid var(--outline); border-radius: 12px; padding: 9px 11px;
 }
 .yc-contact input:focus { outline: 2px solid var(--brand); outline-offset: 0; border-color: transparent; }
@@ -70,24 +101,33 @@
 .yc-fine a, .yc-note a { color: var(--muted); }
 .yc-err { color: var(--link); font-size: 13px; margin: 0; align-self: center; text-align: center; }
 
-.yc-input { display: flex; align-items: flex-end; gap: 8px; padding: 10px 12px 4px; border-top: 1.5px solid var(--outline); background: var(--surface); }
+.yc-input { display: flex; align-items: flex-end; gap: 8px; padding: 10px 14px 4px; }
 .yc-input textarea {
   flex: 1; resize: none; font: inherit; font-size: 16px; line-height: 1.35; max-height: 120px; field-sizing: content;
-  color: var(--ink); background: var(--background); border: 1.5px solid var(--outline); border-radius: var(--r-pill); padding: 9px 14px;
+  color: var(--ink); background: var(--surface); border: 1.5px solid var(--outline); border-radius: var(--r-pill); padding: 11px 16px;
 }
 .yc-input textarea:focus { outline: 2px solid var(--brand); outline-offset: 0; border-color: transparent; }
-.yc-send { width: 40px; height: 40px; flex: none; border-radius: 50%; border: 0; background: var(--brand); color: var(--on-brand); font-size: 20px; font-weight: 800; cursor: pointer; }
+.yc-send { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 0; background: var(--brand); color: var(--on-brand); font-size: 20px; font-weight: 800; cursor: pointer; }
 .yc-send:disabled { opacity: .4; cursor: default; }
-.yc-note { margin: 0; padding: 4px 12px 10px; font-size: 12px; color: var(--muted); background: var(--surface); text-align: center; }
+.yc-note { margin: 0; padding: 4px 14px 12px; font-size: 12px; color: var(--muted); text-align: center; }
 
 @media (max-width: 760px) {
   .yc { right: 16px; bottom: 16px; }
   .yc-fab { width: 54px; height: 54px; }
   .yc.is-open .yc-fab { display: none; }
-  .yc-panel { position: fixed; inset: auto 0 0 0; width: auto; height: min(88dvh, 720px); border-radius: var(--r-card) var(--r-card) 0 0; border-bottom: 0; }
+  html.yc-on, html.yc-on body { overflow: hidden; }
+  .yc-panel {
+    position: fixed; inset: 0; width: auto; height: 100dvh; border: 0; border-radius: 0; box-shadow: none;
+    padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom);
+    animation-name: yc-up;
+  }
+  .yc-list { padding: 8px 20px 24px; }
+  .yc-answer > .yc-part-text:first-child > p:first-child { font-size: 26px; }
 }
+@keyframes yc-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   .yc-panel { animation: none; }
+  .yc-answer.is-fresh .yc-part { animation: none; opacity: 1; }
   .yc-typing i { animation: none; opacity: .6; }
   .yc-fab { transition: none; }
 }

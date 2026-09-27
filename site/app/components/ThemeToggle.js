@@ -5,7 +5,15 @@ import { useEffect, useState } from "react";
 // by the inline script in layout.js, so there is no flash on load.
 export default function ThemeToggle() {
   const [theme, setTheme] = useState(null);
-  useEffect(() => { setTheme(document.documentElement.dataset.theme || "light"); }, []);
+  // The chat turns the site dark while it is open (SITE-65), so follow the attribute, not just clicks.
+  useEffect(() => {
+    const el = document.documentElement;
+    const read = () => setTheme(el.dataset.theme || "light");
+    read();
+    const mo = new MutationObserver(read);
+    mo.observe(el, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => mo.disconnect();
+  }, []);
 
   function flip() {
     const next = theme === "dark" ? "light" : "dark";

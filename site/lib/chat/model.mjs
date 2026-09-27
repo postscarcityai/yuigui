@@ -30,7 +30,7 @@ async function complete(messages, last) {
   const res = await fetch(API(), {
     method: "POST",
     headers: { Authorization: `Bearer ${process.env.YUI_CHAT_OPENROUTER_KEY}`, "Content-Type": "application/json", "HTTP-Referer": "https://www.yuigui.com", "X-Title": "Yui site chat" },
-    body: JSON.stringify({ model: MODEL(), messages, tools: TOOLS, tool_choice: last ? "none" : "auto", temperature: 0.6, max_tokens: 700, provider: { data_collection: "deny" } }),
+    body: JSON.stringify({ model: MODEL(), messages, tools: TOOLS, tool_choice: last ? "none" : "auto", temperature: 0.6, max_tokens: 1200, provider: { data_collection: "deny" } }),
     signal: AbortSignal.timeout(30000),
   });
   if (!res.ok) throw new Error(`openrouter ${res.status}: ${(await res.text()).slice(0, 300)}`);

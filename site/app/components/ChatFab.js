@@ -1,21 +1,35 @@
 "use client";
-// Yui in the bubble (SITE-64): a chat at the bottom right of every page, no account. Talks to
+// Yui in the bubble (SITE-64, SITE-65): a chat at the bottom right of every page, no account. Talks to
 // /api/chat, which answers, searches the site, can take the visitor to a page, and writes down what
 // they want. After a few turns Cloudflare Turnstile checks for a person once. The conversation
 // stays in this browser's localStorage so it survives page loads; the server keeps its own copy.
+// SITE-65: it feels like the app. Opening it turns the site dark (the moon button's switch, not
+// saved) and closing it puts the visitor's own choice back. On a phone it takes the whole screen.
+// Answers are Yui Lines drawn with the site's renderer, and taps go back to Yui.
+import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import links from "../../content/links.json";
+import { splitReply, tapLabel, tapLine } from "../../lib/chat/lines.mjs";
 import { savedUtm, trackCta } from "../../lib/track.mjs";
 import "./chat.css";
 
+const Screen = dynamic(() => import("./ChatScreen"), { ssr: false, loading: () => <div className="yc-wait">Drawing...</div> });
+
 const KEY = "yui-chat-v1";
-const HELLO = "Hi, I'm Yui. Ask me anything about the app, or tell me what you'd want your AI to do for you.";
-const STARTERS = ["What is Yui?", "How do I get it?", "What can it draw?", "I have an idea"];
+const OPEN = "yui-chat-open";   // sessionStorage: reopen on reload in this tab only
+const HELLO = "Hi, I'm Yui. I answer with screens, not paragraphs. Try me.";
+const STARTERS = ["What is Yui?", "Show me a screen", "Meet the crew", "Make me a beat"];
 
 // Outside links only to places Yui lives. Anything else shows as plain text.
 const SAFE = /^https:\/\/(www\.)?(yuigui\.com|postscarcity\.ai|testflight\.apple\.com|github\.com\/postscarcityai)(\/|$)/;
 const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch { return null; } };
 const save = (v) => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} };
+
+// The site goes dark while the chat is open. The visitor's own choice (the moon button's
+// `yui-theme`) is never written here, so closing reads it back.
+function theirTheme() { try { return localStorage.getItem("yui-theme") === "dark" ? "dark" : "light"; } catch { return "light"; } }
+function setTheme(t) { document.documentElement.dataset.theme = t; }
 
 // Replies are plain text with [links](/path), **bold** and "- " lists. Drawn as elements, never as HTML.
 function Inline({ text, go }) {
@@ -116,57 +130,84 @@ function Contact({ reason, onDone, onSkip }) {
   );
 }
 
+// One answer, played like the app: each part fades in after the last, text in big type, screens
+// drawn live. Only a fresh answer plays; old ones from localStorage show at once.
+function Answer({ content, fresh, go, onTap, live }) {
+  const parts = splitReply(content);
+  return (
+    <div className={`yc-answer${fresh ? " is-fresh" : ""}`}>
+      {parts.map((p, i) => (
+        <div key={i} className={p.yl ? "yc-part yc-part-screen" : "yc-part yc-part-text"} style={fresh ? { animationDelay: `${i * 380}ms` } : undefined}>
+          {p.yl ? <Screen yl={p.yl} onTap={live ? onTap : undefined} /> : <Text text={p.text} go={go} />}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function ChatFab() {
   const router = useRouter();
   const path = usePathname() || "/";
   const [open, setOpen] = useState(false);
-  const [msgs, setMsgs] = useState([]);           // { role: "user" | "assistant", content } plus { card } rows
+  const [msgs, setMsgs] = useState([]);           // { role: "user" | "assistant", content, label? } plus { card } rows
   const [busy, setBusy] = useState(false);
   const [draft, setDraft] = useState("");
-  const [verify, setVerify] = useState(null);     // { siteKey, text } while Turnstile is up
+  const [verify, setVerify] = useState(null);     // { siteKey, text, label } while Turnstile is up
   const [error, setError] = useState("");
+  const [fresh, setFresh] = useState(-1);         // index of the answer that should play
   const list = useRef(null), input = useRef(null), ready = useRef(false);
 
   useEffect(() => {
     const s = load();
     if (s?.msgs) setMsgs(s.msgs);
-    if (s?.open && window.innerWidth > 760) setOpen(true);
+    try { if (sessionStorage.getItem(OPEN) === "1" && window.innerWidth > 760) setOpen(true); } catch {}
     ready.current = true;
   }, []);
-  useEffect(() => { if (ready.current) save({ msgs: msgs.slice(-60), open }); }, [msgs, open]);
+  useEffect(() => { if (ready.current) save({ msgs: msgs.slice(-60) }); }, [msgs]);
+  useEffect(() => { if (ready.current) try { sessionStorage.setItem(OPEN, open ? "1" : "0"); } catch {} }, [open]);
   useEffect(() => { list.current?.scrollTo({ top: list.current.scrollHeight, behavior: "smooth" }); }, [msgs, busy, verify, open]);
-  useEffect(() => { if (open) setTimeout(() => input.current?.focus(), 50); }, [open]);
+  useEffect(() => { if (open && window.innerWidth > 760) setTimeout(() => input.current?.focus(), 50); }, [open]);
   useEffect(() => {
     if (!open) return;
     const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
+  // Dark while open; the visitor's own theme back on close. A phone also stops the page scrolling under it.
+  useEffect(() => {
+    if (!open) return;
+    setTheme("dark");
+    document.documentElement.classList.add("yc-on");
+    return () => { setTheme(theirTheme()); document.documentElement.classList.remove("yc-on"); };
+  }, [open]);
 
   const go = useCallback((p) => { router.push(p); if (window.innerWidth <= 760) setOpen(false); }, [router]);
 
-  const send = useCallback(async (text, prior) => {
+  // text: what goes to Yui; label: what the visitor's bubble says (a tap shows the words they tapped).
+  const send = useCallback(async (text, prior, label) => {
     const t = text.trim();
     if (!t || busy) return;
     setError("");
     const history = (prior || msgs).filter((m) => m.role && !m.card).map(({ role, content }) => ({ role, content }));
-    if (!prior) setMsgs((m) => [...m, { role: "user", content: t }]);
+    if (!prior) setMsgs((m) => [...m, { role: "user", content: t, ...(label ? { label } : {}) }]);
     setBusy(true);
     try {
       const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "say", text: t, path: window.location.pathname + window.location.hash, title: document.title, history: [{ role: "assistant", content: HELLO }, ...history], utm: savedUtm() }) });
       const data = await res.json().catch(() => ({}));
-      if (data.verify) { setVerify({ siteKey: data.verify, text: t }); return; }
+      if (data.verify) { setVerify({ siteKey: data.verify, text: t, label }); return; }
       if (!res.ok || !data.reply) { setError(data.error || "Yui can't answer right now. Try again in a minute."); return; }
       const cards = [];
       for (const a of data.actions || []) {
         if (a.type === "contact") cards.push({ card: "contact", reason: a.reason });
-        if (a.type === "go") { cards.push({ card: "went", label: a.label || a.path, path: a.path }); setTimeout(() => go(a.path), 600); }
+        if (a.type === "go") { cards.push({ card: "went", label: a.label || a.path, path: a.path }); setTimeout(() => go(a.path), 900); }
       }
-      setMsgs((m) => [...m, { role: "assistant", content: data.reply }, ...cards]);
+      setMsgs((m) => { setFresh(m.length); return [...m, { role: "assistant", content: data.reply }, ...cards]; });
     } catch {
       setError("Network error. Try again.");
     } finally { setBusy(false); }
   }, [busy, msgs, go]);
+
+  const tap = useCallback((ev) => { if (!busy) send(tapLine(ev), undefined, tapLabel(ev)); }, [busy, send]);
 
   const onToken = useCallback(async (token) => {
     const pending = verify;
@@ -175,11 +216,12 @@ export default function ChatFab() {
       const data = await res.json();
       if (!data.ok) { setError(data.error || "That check did not go through."); return; }
       setVerify(null);
-      if (pending?.text) send(pending.text, msgs.slice(0, -1));
+      if (pending?.text) send(pending.text, msgs.slice(0, -1), pending.label);
     } catch { setError("Network error. Try again."); }
   }, [verify, send, msgs]);
 
   const setCard = (i, patch) => setMsgs((m) => m.map((x, j) => (j === i ? { ...x, ...patch } : x)));
+  const lastAnswer = msgs.map((m) => m.role === "assistant").lastIndexOf(true);
 
   function toggle() {
     setOpen((o) => { if (!o) trackCta("chat-open", path); return !o; });
@@ -197,15 +239,16 @@ export default function ChatFab() {
         <section className="yc-panel" role="dialog" aria-label="Chat with Yui">
           <header className="yc-head">
             <span className="yc-avatar" aria-hidden="true">Y</span>
-            <div><strong>Yui</strong><span>Ask me anything about Yui</span></div>
-            {msgs.length > 0 && <button className="yc-new" onClick={() => { setMsgs([]); setError(""); }} title="Start over">New chat</button>}
+            <div><strong>Yui</strong><span>Answers with screens</span></div>
+            {msgs.length > 0 && <button className="yc-new" onClick={() => { setMsgs([]); setError(""); setFresh(-1); }} title="Start over">New chat</button>}
             <button className="yc-x" onClick={() => setOpen(false)} aria-label="Close chat">×</button>
           </header>
           <div className="yc-list" ref={list} aria-live="polite">
-            <div className="yc-msg yc-agent"><Text text={HELLO} go={go} /></div>
+            <div className="yc-answer yc-hello"><div className="yc-part yc-part-text"><p>{HELLO}</p></div></div>
             {msgs.length === 0 && (
               <div className="yc-starters">
                 {STARTERS.map((s) => <button key={s} onClick={() => send(s)}>{s}</button>)}
+                <a className="yc-tf" href={links.testflight} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("chat-testflight", "chat")}>Get Yui on TestFlight ↗</a>
               </div>
             )}
             {msgs.map((m, i) => {
@@ -215,9 +258,10 @@ export default function ChatFab() {
                 if (m.skipped) return null;
                 return <Contact key={i} reason={m.reason} onDone={(name) => setCard(i, { done: true, name })} onSkip={() => setCard(i, { skipped: true })} />;
               }
-              return <div key={i} className={`yc-msg ${m.role === "user" ? "yc-user" : "yc-agent"}`}>{m.role === "user" ? <p>{m.content}</p> : <Text text={m.content} go={go} />}</div>;
+              if (m.role === "user") return <div key={i} className={`yc-msg yc-user${m.label ? " yc-tapped" : ""}`}><p>{m.label || m.content}</p></div>;
+              return <Answer key={i} content={m.content} fresh={i === fresh} go={go} onTap={tap} live={i === lastAnswer} />;
             })}
-            {busy && <div className="yc-msg yc-agent yc-typing" aria-label="Yui is typing"><i /><i /><i /></div>}
+            {busy && <div className="yc-typing" aria-label="Yui is typing"><i /><i /><i /></div>}
             {verify && <Check siteKey={verify.siteKey} onToken={onToken} />}
             {error && <p className="yc-err">{error}</p>}
           </div>
