@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 213,
-    "site": 532,
+    "site": 533,
     "builds": 38,
-    "shipped": 266,
-    "screenshots": 614
+    "shipped": 267,
+    "screenshots": 615
   },
   "days": [
     {
@@ -13,7 +13,27 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T17:40:03.376Z",
+          "at": "2026-09-27T17:40:48.572Z",
+          "title": "Yui's own soul and first screen",
+          "card": "YUI-133",
+          "anchor": "yui-s-own-soul-and-first-screen",
+          "images": [
+            {
+              "src": "/progress/yui133-first-light.webp",
+              "alt": "The See it page for Yui says hello first: a phone showing Yui's first screen, Where do you want to start?, with Get fit, Eat better, Make music, Plan my week, Learn something and Type your own, next to the one line Yui sends."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 213,
+            "site": 533,
+            "builds": 38,
+            "shipped": 267
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T17:39:45.000Z",
           "title": "Pick the model per turn",
           "card": "YUI-131",
           "anchor": "pick-the-model-per-turn",
@@ -31,10 +51,10 @@
               "alt": "The same answer in dark mode"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 213,
-            "site": 532,
+            "site": 533,
             "builds": 38,
             "shipped": 266
           }
@@ -623,6 +643,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "fe8d66c",
+          "at": "2026-09-27T17:39:45.000Z",
+          "text": "Progress: pick the model per turn (YUI-131)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fe8d66c"
+        },
         {
           "repo": "app",
           "sha": "0b305f7",
