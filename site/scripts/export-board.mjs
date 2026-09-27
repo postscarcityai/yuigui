@@ -18,9 +18,9 @@ const SHIPPED_DAYS = 30;
 
 // Yui lanes. BIZ- and FLOW- cards are only included when the card itself is about Yui.
 // SOC- (social and video, GTM-1) publishes titles only: its bodies hold drafts not yet cleared to post.
-const PREFIXES = ["YUI", "SITE", "OSS", "INT", "MVP", "BIZ", "FLOW", "SOC"];
+const PREFIXES = ["YUI", "SITE", "OSS", "INT", "MVP", "BIZ", "FLOW", "SOC", "NOTE"];
 const NEEDS_YUI_TAG = new Set(["BIZ", "FLOW"]);
-const TITLE_ONLY = new Set(["BIZ", "SOC"]);
+const TITLE_ONLY = new Set(["BIZ", "SOC", "NOTE"]);
 const ORDER = Object.fromEntries(PREFIXES.map((p, i) => [p, i]));
 
 function sql(q) {
@@ -70,6 +70,7 @@ const rows = sql(`
   select t.id, t.title, t.status, t.priority, t.created_at, t.started_at, t.completed_at,
          (select max(e.created_at) from task_events e where e.task_id = t.id and e.kind in ('completed','archived')) as closed_at,
          (select count(*) from task_events e where e.task_id = t.id and e.kind = 'completed') as completions,
+         (select e.payload from task_events e where e.task_id = t.id and e.kind = 'blocked' order by e.id desc limit 1) as block_why,
          (lower(t.title || ' ' || coalesce(t.body, '')) like '%yui%') as about_yui
   from tasks t
   where ${PREFIXES.map((p) => `t.title glob '${p}-[0-9]*'`).join(" or ")}
@@ -91,6 +92,30 @@ for (const r of rows) {
   if (NEEDS_YUI_TAG.has(p.prefix) && !r.about_yui && !logged.has(p.key)) continue;
   if (r.status === "archived" && !landed(r)) continue;
   tasks.push({ ...r, ...p });
+}
+
+// TestFlight notes (Chris, Sep 27: "keep the site up to date on what is happening now on the board").
+// A "Yui beta feedback" card has no key, so without this the work being built from a note never showed.
+// It shows as NOTE-<n> under its PLAIN name only; Chris's raw comment and the body stay on this machine.
+// A note another card covers ("Covered by ...") stays off unless it is the one being built.
+const notes = sql(`
+  select t.id, t.status, t.priority, t.created_at, t.started_at, t.completed_at,
+         (select max(e.created_at) from task_events e where e.task_id = t.id and e.kind in ('completed','archived')) as closed_at,
+         (select count(*) from task_events e where e.task_id = t.id and e.kind = 'completed') as completions,
+         (select e.payload from task_events e where e.task_id = t.id and e.kind = 'blocked' order by e.id desc limit 1) as block_why,
+         (select c.body from task_comments c where c.task_id = t.id and c.body like 'PLAIN:%' order by c.id desc limit 1) as plain,
+         (select count(*) from task_comments c where c.task_id = t.id and c.body like 'Covered by%') as covered
+  from tasks t where t.title like 'Yui beta feedback%'
+`);
+for (const r of notes) {
+  const name = (r.plain || "").replace(/^PLAIN:\s*/, "").trim();
+  if (!name || (r.status === "archived" && !landed(r))) continue;
+  // A note a worker already started and is retrying (ready again after a run) is still being built.
+  if (r.status === "ready" && r.started_at) r.status = "running";
+  if (r.covered && !["running", "blocked"].includes(r.status)) continue;
+  const num = parseInt(r.id.slice(-4), 16);
+  tasks.push({ ...r, prefix: "NOTE", num, key: `NOTE-${num}`, tag: "", labels: [], rest: name, step: "", stepNum: null,
+    head: name, detail: "From a TestFlight note" });
 }
 
 // A card split into steps has one tile per step. Each entry goes to the tile it fits best: shared
@@ -162,6 +187,8 @@ for (const t of tasks) {
   }
   if (mvpTitle.has(t.id)) card.mvp = true;
   if (t.status === "scheduled") card.waiting = true;
+  // A blocked card is not being built: say who it waits on. Only the flag is published, never the reason.
+  if (t.status === "blocked") card.blocked = /chris|🔴|\byou(r)?\b|\bpick\b|needs_input|review-required/i.test(t.block_why || "") ? "chris" : "other";
   if (t.labels.includes("agent-ready") && !shippedAt) card.agentReady = true;
   if (shippedAt) card.shipped = day(shippedAt);
   if (link) card.progress = link.href;
@@ -169,7 +196,7 @@ for (const t of tasks) {
 }
 
 const byKey = (a, b) => ORDER[a.t.prefix] - ORDER[b.t.prefix] || a.t.num - b.t.num;
-cols.building.sort((a, b) => (a.t.started_at || a.t.created_at) - (b.t.started_at || b.t.created_at));
+cols.building.sort((a, b) => (a.card.blocked ? 1 : 0) - (b.card.blocked ? 1 : 0) || (a.t.started_at || a.t.created_at) - (b.t.started_at || b.t.created_at));
 cols.next.sort((a, b) => (b.card.mvp ? 1 : 0) - (a.card.mvp ? 1 : 0) || b.t.priority - a.t.priority || byKey(a, b));
 cols.backlog.sort(byKey);
 cols.shipped.sort((a, b) => b.shippedAt - a.shippedAt || byKey(b, a));

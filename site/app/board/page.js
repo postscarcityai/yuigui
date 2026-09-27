@@ -19,6 +19,8 @@ function Tile({ c, col, first }) {
         <span className="bkey">{c.key}{c.step ? ` · ${c.step}` : ""}</span>
         {c.mvp && <span className="pill bmvp">MVP</span>}
         {c.waiting && <span className="pill" title="Parked until something it depends on lands">Waiting</span>}
+        {c.blocked === "chris" && <span className="pill" title="Built as far as it can go; waiting on an answer from Chris">Waiting on Chris</span>}
+        {c.blocked === "other" && <span className="pill" title="Stopped until something it depends on is fixed">Blocked</span>}
         {c.agentReady && <Link className="pill" href={`/contribute#${c.key}`} title="Open to outside contributors, people or agents">Agent-ready</Link>}
       </div>
       <h3>{c.title}</h3>
