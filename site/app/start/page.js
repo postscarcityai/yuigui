@@ -4,6 +4,7 @@
 import links from "../../content/links.json";
 import Cmd from "../components/Cmd";
 import Shots from "../components/Shots";
+import Films from "../components/Films";
 
 const MCP_URL = "https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp";
 
@@ -97,6 +98,8 @@ export default function Start() {
         </p>
         <Cmd>curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash</Cmd>
       </div>
+
+      <Films ids={["film-agents"]} lede="Every agent in its own look, pairing a new one, and one agent asking another. A minute, sound on." />
 
       <ol className="steps">
         <li>

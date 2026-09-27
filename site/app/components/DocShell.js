@@ -2,6 +2,7 @@
 // Under 980px the index folds into one "All specs" box above the text.
 import Link from "next/link";
 import { specDocs, renderDoc } from "../../lib/spec.mjs";
+import Films from "./Films";
 
 function Index({ docs, current, toc }) {
   return (
@@ -22,7 +23,7 @@ function Index({ docs, current, toc }) {
   );
 }
 
-export default function DocShell({ slug, eyebrow, links, after }) {
+export default function DocShell({ slug, eyebrow, links, after, film }) {
   const docs = specDocs();
   const d = docs.find((x) => x.slug === slug);
   const { html, toc } = renderDoc(d.md);
@@ -44,6 +45,7 @@ export default function DocShell({ slug, eyebrow, links, after }) {
             {links.map(([href, label]) => <Link key={href} className="btn soft" href={href}>{label}</Link>)}
           </nav>
         )}
+        {film ? <Films ids={[film]} /> : null}
         <article className="md" dangerouslySetInnerHTML={{ __html: html }} />
         {after && <article className="md" dangerouslySetInnerHTML={{ __html: renderDoc(after).html }} />}
       </div>

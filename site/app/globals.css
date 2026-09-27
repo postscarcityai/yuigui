@@ -1107,3 +1107,14 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
 .tg-note.ok { color: var(--accent2); }
 .tg-root.is-light .tg-note.ok { color: #0f7a6c; }
 .tg-note.bad { color: #ff8a8a; }
+
+/* Brag films on the pages they are about (SITE-62). */
+.films-block { margin: 40px 0; }
+.films-lede { color: var(--muted); max-width: 62ch; }
+.films { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); gap: 24px; }
+.films.one { grid-template-columns: minmax(0, 760px); }
+.film { margin: 0; }
+.film video { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; border-radius: var(--r-card); background: #000; border: 1.5px solid var(--outline); box-shadow: 0 20px 50px rgba(58, 51, 64, .14); }
+.film figcaption { margin-top: 10px; font-size: var(--fs-small); color: var(--muted); }
+.film figcaption b { color: var(--ink); }
+.sc-wide { width: 520px; max-width: 100%; aspect-ratio: 16 / 9; height: auto; border-radius: 18px; background: #000; box-shadow: 0 20px 50px rgba(58, 51, 64, .18); }

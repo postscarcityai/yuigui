@@ -3,6 +3,7 @@
 import data from "../../content/timeline.json";
 import Grow from "../components/Grow";
 import Shots from "../components/Shots";
+import Films from "../components/Films";
 
 export const metadata = {
   title: "Timeline | Yui",
@@ -27,6 +28,8 @@ export default function Timeline() {
         <a href="https://github.com/postscarcityai/yui">app</a>, {t.site} to <a href="https://github.com/postscarcityai/yuigui">this site</a>,{" "}
         {t.builds} TestFlight builds and {t.shipped} shipped changes. Press play to watch it come together.
       </p>
+
+      <Films ids={["film-built-in-public"]} />
 
       <Grow frames={frames} />
 

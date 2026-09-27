@@ -10,6 +10,7 @@ import { day as date } from "../../lib/day.mjs";
 import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
 import { releaseBuild } from "../../lib/release.mjs";
+import Films from "../components/Films";
 
 export const metadata = {
   title: "Builds | Yui",
@@ -82,6 +83,8 @@ export default function Changelog() {
       </p>
 
       <ReleaseTile />
+
+      <Films ids={["film-built-in-public"]} />
 
       {builds.next.filter((c) => !CHORE.test(c.text)).length > 0 && (
         <section className="build" id="next">

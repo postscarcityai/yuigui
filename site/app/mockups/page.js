@@ -51,6 +51,7 @@ function Entry({ e, planned, release }) {
   const yl = e.yl || s?.yl;
   const clip = clipOf(e.clip);
   const video = e.video ? videos[e.video] : null;
+  const cut = video ? video["9x16"] || video["16x9"] : null;
   const shots = (e.shots || []).map((src) => ({ src, alt: ALTS[src] || e.title }));
   const preset = /^[a-z]+$/.test(e.title);
   return (
@@ -64,8 +65,8 @@ function Entry({ e, planned, release }) {
         ) : null}
         {video ? (
           <figure>
-            <LazyVideo className="sc-clip" src={video["9x16"].src} poster={video["9x16"].poster} controls muted playsInline preload="none" aria-label={`${e.title}, a ${Math.round(video["9x16"].seconds)} second video`} />
-            <figcaption>{Math.round(video["9x16"].seconds)} seconds, sound off</figcaption>
+            <LazyVideo className={video["9x16"] ? "sc-clip" : "sc-wide"} src={cut.src} poster={cut.poster} controls muted={!video.sound} playsInline preload="none" aria-label={`${e.title}, a ${Math.round(cut.seconds)} second video`} />
+            <figcaption>{Math.round(cut.seconds)} seconds, sound {video.sound ? "on" : "off"}</figcaption>
           </figure>
         ) : null}
         {clip ? (
@@ -103,7 +104,7 @@ function PressKit() {
     <section className="sc-group" aria-labelledby="press-kit">
       <h2 id="press-kit">Press kit</h2>
       <p className="sc-lede">
-        Free to use when you write or post about Yui. Videos are sound off with captions burned in, H.264 MP4. The agent&apos;s
+        Free to use when you write or post about Yui. Videos are H.264 MP4 with captions burned in; the short cuts are sound off, the films carry their own music. The agent&apos;s
         words in them are scripted on the demo account; in the app, your own Hermes answers. Yui is open source and in alpha
         on iPhone, bring your own agent.
       </p>

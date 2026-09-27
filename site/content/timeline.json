@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 203,
-    "site": 502,
+    "app": 204,
+    "site": 506,
     "builds": 37,
-    "shipped": 253,
-    "screenshots": 583
+    "shipped": 255,
+    "screenshots": 588
   },
   "days": [
     {
@@ -13,7 +13,59 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T08:33:39.591Z",
+          "at": "2026-09-27T11:07:28.409Z",
+          "title": "The films are on the site, and 0.4.1 reads as the newest",
+          "card": "SITE-62",
+          "anchor": "the-films-are-on-the-site-and-0-4-1-reads-as-the-newest",
+          "images": [
+            {
+              "src": "/progress/site62-films-home-light.webp",
+              "alt": "The home page on a phone: Watch the films, with Plan to launch and Your agents ready to play"
+            },
+            {
+              "src": "/progress/site62-film-music-dark.webp",
+              "alt": "The music spec in dark mode with the Jam film at the top"
+            },
+            {
+              "src": "/progress/site62-release-041-light.webp",
+              "alt": "See it on a phone: the Yui 0.4.1 group with the tuner"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 204,
+            "site": 506,
+            "builds": 37,
+            "shipped": 255
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T08:42:38.000Z",
+          "title": "Agents send a tuner and a metronome",
+          "card": "YUI-116",
+          "anchor": "agents-send-a-tuner-and-a-metronome",
+          "images": [
+            {
+              "src": "/progress/yui116-guide-tuner.webp",
+              "alt": "Dark mode: a guitar tuner card, a needle at center, Tap Start, then play a string, string buttons E2 A2 D3 G3 B3 E4 and a Start button."
+            },
+            {
+              "src": "/progress/yui116-guide-metronome.webp",
+              "alt": "Dark mode: a metronome card at 70 BPM in 4/4 with minus and plus, four beat dots, Start and Tap tempo."
+            }
+          ],
+          "commits": 21,
+          "totals": {
+            "app": 203,
+            "site": 505,
+            "builds": 37,
+            "shipped": 254
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T08:35:22.000Z",
           "title": "Yui 0.4.1 on the site: the release post",
           "card": "SITE-61",
           "anchor": "yui-0-4-1-on-the-site-the-release-post",
@@ -31,10 +83,10 @@
               "alt": "Chord pads recording a take in dark mode, Stop and send at 0:02"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 203,
-            "site": 502,
+            "site": 503,
             "builds": 37,
             "shipped": 253
           }
@@ -99,7 +151,7 @@
               "alt": "Dark mode: the Boom bap looper with Record again and Take sent, 0:04."
             }
           ],
-          "commits": 19,
+          "commits": 21,
           "totals": {
             "app": 202,
             "site": 500,
@@ -138,7 +190,7 @@
               "alt": "Dark mode: a Chords card in G with four big colored buttons, G I, D V, Em vi and C IV, and a Send button under them."
             }
           ],
-          "commits": 19,
+          "commits": 21,
           "totals": {
             "app": 200,
             "site": 495,
@@ -170,7 +222,7 @@
               "alt": "Dark mode: the metronome stopped at 69 BPM with the line Practice sent: 12 s at 69 BPM, and the reply Practiced 12 s at 69 BPM in the chat."
             }
           ],
-          "commits": 19,
+          "commits": 21,
           "totals": {
             "app": 200,
             "site": 493,
@@ -280,6 +332,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "bc7d357",
+          "at": "2026-09-27T09:10:20.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bc7d357"
+        },
+        {
+          "repo": "app",
+          "sha": "b853b07",
+          "at": "2026-09-27T08:42:48.000Z",
+          "text": "Channel guide v34: agents send a tuner and a metronome (YUI-116, yuigui 0bbd205)",
+          "url": "https://github.com/postscarcityai/yui/commit/b853b07"
+        },
+        {
+          "repo": "site",
+          "sha": "0bbd205",
+          "at": "2026-09-27T08:42:38.000Z",
+          "text": "Channel guide v34: agents send a tuner and a metronome (YUI-116 step 4)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0bbd205"
+        },
+        {
+          "repo": "site",
+          "sha": "8bc96c8",
+          "at": "2026-09-27T08:40:45.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8bc96c8"
+        },
+        {
+          "repo": "site",
+          "sha": "646000f",
+          "at": "2026-09-27T08:35:22.000Z",
+          "text": "Yui 0.4.1 on the site: the release Thought, build 208 on the changelog (SITE-61)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/646000f"
+        },
         {
           "repo": "site",
           "sha": "fa19b6c",
@@ -869,7 +956,7 @@
               "alt": "Dark mode: the same Boom bap looper playing, eight rows from kick to shaker, the hat row lit on every step."
             }
           ],
-          "commits": 19,
+          "commits": 21,
           "totals": {
             "app": 179,
             "site": 450,
@@ -993,7 +1080,7 @@
               "alt": "Light mode: the four chord buttons in pastel colors with the strum set to Down."
             }
           ],
-          "commits": 19,
+          "commits": 21,
           "totals": {
             "app": 177,
             "site": 442,
@@ -1101,7 +1188,7 @@
               "alt": "Dark mode: a guitar tuner with a needle gauge, the six strings E2 A2 D3 G3 B3 E4 and a Start button."
             }
           ],
-          "commits": 19,
+          "commits": 21,
           "totals": {
             "app": 171,
             "site": 436,

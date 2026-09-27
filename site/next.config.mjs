@@ -20,6 +20,8 @@ export default {
       { source: "/notes/:slug", destination: "/thoughts/:slug", permanent: true },
       // OSS-6: Yui@home moved up to its own page, next to the backlog it serves.
       { source: "/developers/contribute", destination: "/contribute", permanent: true },
+      // SITE-62: people say "the builds page"; it is the changelog.
+      { source: "/builds", destination: "/changelog", permanent: false },
     ];
   },
 };

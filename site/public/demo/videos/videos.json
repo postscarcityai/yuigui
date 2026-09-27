@@ -49,5 +49,125 @@
       "seconds": 60.0,
       "mb": 1.1
     }
+  },
+  "film-meet-yui": {
+    "title": "Meet Yui",
+    "what": "You asked for a timer and got an essay. In Yui, one line from your agent becomes the whole screen.",
+    "made": "2026-09-26",
+    "sound": true,
+    "16x9": {
+      "src": "/demo/videos/film-meet-yui-16x9.mp4",
+      "poster": "/demo/videos/film-meet-yui-16x9.jpg",
+      "seconds": 21.5,
+      "mb": 2.0
+    }
+  },
+  "film-plan-to-launch": {
+    "title": "Plan to launch",
+    "what": "One project start to finish: a pottery studio's website, from plan mode and picked photos to before and after, the reel and the timeline.",
+    "made": "2026-09-26",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-plan-to-launch-9x16.mp4",
+      "poster": "/demo/videos/film-plan-to-launch-9x16.jpg",
+      "seconds": 60.0,
+      "mb": 5.0
+    },
+    "16x9": {
+      "src": "/demo/videos/film-plan-to-launch-16x9.mp4",
+      "poster": "/demo/videos/film-plan-to-launch-16x9.jpg",
+      "seconds": 60.0,
+      "mb": 4.9
+    }
+  },
+  "film-jam": {
+    "title": "Jam with your agent",
+    "what": "Music tools: a beat, your edits, a patch, chords on the circle of fifths, a solo.",
+    "made": "2026-09-26",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-jam-9x16.mp4",
+      "poster": "/demo/videos/film-jam-9x16.jpg",
+      "seconds": 64.0,
+      "mb": 4.7
+    },
+    "16x9": {
+      "src": "/demo/videos/film-jam-16x9.mp4",
+      "poster": "/demo/videos/film-jam-16x9.jpg",
+      "seconds": 64.0,
+      "mb": 4.6
+    }
+  },
+  "film-lessons": {
+    "title": "A lesson is one deck",
+    "what": "Compound interest as one deck: a diagram, the formula, a chart, a graded quiz and a calculator.",
+    "made": "2026-09-26",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-lessons-9x16.mp4",
+      "poster": "/demo/videos/film-lessons-9x16.jpg",
+      "seconds": 60.0,
+      "mb": 4.3
+    },
+    "16x9": {
+      "src": "/demo/videos/film-lessons-16x9.mp4",
+      "poster": "/demo/videos/film-lessons-16x9.jpg",
+      "seconds": 60.0,
+      "mb": 4.3
+    }
+  },
+  "film-agents": {
+    "title": "Your agents, one app",
+    "what": "Every agent wears its own look. Add and pair one, @mention another, restyle Yui by asking.",
+    "made": "2026-09-26",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-agents-9x16.mp4",
+      "poster": "/demo/videos/film-agents-9x16.jpg",
+      "seconds": 60.0,
+      "mb": 3.7
+    },
+    "16x9": {
+      "src": "/demo/videos/film-agents-16x9.mp4",
+      "poster": "/demo/videos/film-agents-16x9.jpg",
+      "seconds": 60.0,
+      "mb": 3.9
+    }
+  },
+  "film-built-in-public": {
+    "title": "Built in public",
+    "what": "Feedback becomes a card, an agent builds it, it ships to TestFlight, and the site says so.",
+    "made": "2026-09-26",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-built-in-public-9x16.mp4",
+      "poster": "/demo/videos/film-built-in-public-9x16.jpg",
+      "seconds": 60.0,
+      "mb": 4.1
+    },
+    "16x9": {
+      "src": "/demo/videos/film-built-in-public-16x9.mp4",
+      "poster": "/demo/videos/film-built-in-public-16x9.jpg",
+      "seconds": 60.0,
+      "mb": 4.3
+    }
+  },
+  "film-full-screen": {
+    "title": "Yui lives on the full screen",
+    "what": "One question used to get eight pages. Now the stage answers: short parts with a picture each, questions last with one Send, and the chat is the record.",
+    "made": "2026-09-26",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-full-screen-9x16.mp4",
+      "poster": "/demo/videos/film-full-screen-9x16.jpg",
+      "seconds": 55.2,
+      "mb": 3.3
+    },
+    "16x9": {
+      "src": "/demo/videos/film-full-screen-16x9.mp4",
+      "poster": "/demo/videos/film-full-screen-16x9.jpg",
+      "seconds": 55.2,
+      "mb": 3.6
+    }
   }
 }

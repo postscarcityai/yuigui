@@ -89,7 +89,7 @@ Kit rules learned the hard way:
 
 ## Git
 
-Sources are tracked (comps, music scripts, plans, share copy, the kit). Renders, frames, audio and copied images are not (`.gitignore`): they are large and can be made again. To put a finished video on the site, copy the final `.mp4` and poster into `site/public/demo/videos/` on purpose.
+Sources are tracked (comps, music scripts, plans, share copy, the kit). Renders, frames, audio and copied images are not (`.gitignore`): they are large and can be made again. To put a finished video on the site, copy the final `.mp4` and poster into `site/public/demo/videos/` on purpose. The films live there as `film-<topic>-16x9.mp4` and `-9x16.mp4` (1280x720 and 720x1280, x264 CRF 25, the audio copied as is, `+faststart`), posters as `.jpg` (frame 0 for landscape, the reel cover for 9:16), each with a row in `videos.json` (`sound: true`). Put one on a page with `<Films ids={[...]} />` from `site/app/components/Films.js`, and give it a See it entry in the Videos group so it gets a share link.
 
 ## The videos
 
@@ -102,5 +102,6 @@ Sources are tracked (comps, music scripts, plans, share copy, the kit). Renders,
 | 04-lessons | a lesson is one deck | /mockups |
 | 05-agents | your agents, one app | /, /start |
 | 06-built-in-public | feedback to shipped, in public | /board, /changelog, /timeline |
+| 07-full-screen | the new layout: Yui lives on the full screen, the chat is the record | /mockups#stage-1, /thoughts |
 
 What each page could get next: `PLAN.md`.

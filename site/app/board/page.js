@@ -4,6 +4,7 @@ import Link from "next/link";
 import board from "../../content/board.json";
 import { seeIt } from "../../lib/showcase.mjs";
 import { NEXT_BUILD } from "../../lib/nextbuild.mjs";
+import Films from "../components/Films";
 
 export const metadata = { title: "Board | Yui", description: "Every Yui card we are working on, live from our kanban board." };
 
@@ -45,6 +46,8 @@ export default function Board() {
         this page follows on its own. Updated {when(board.updated)} ET. MVP cards carry a tag; the <Link href="/roadmap#mvp">roadmap</Link> has the MVP total.
         Cards tagged Agent-ready are open to you or your agent: <Link href="/contribute">contribute</Link>.
       </p>
+      <Films ids={["film-built-in-public"]} />
+
       <div className="board">
         {board.columns.map((col) => (
           <section className={`bcol ${col.key}`} key={col.key} aria-labelledby={`col-${col.key}`}>

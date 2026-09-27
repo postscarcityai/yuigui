@@ -4,7 +4,7 @@ const CUTS = [["9x16", "9:16", "Reels, TikTok, Shorts"], ["16x9", "16:9", "YouTu
 export default function VideoDownloads({ v }) {
   return (
     <ul className="pk-downloads">
-      {CUTS.map(([tag, ratio, use]) => (
+      {CUTS.filter(([tag]) => v[tag]).map(([tag, ratio, use]) => (
         <li key={tag}>
           <span>{ratio} for {use}. {Math.round(v[tag].seconds)} s, {v[tag].mb} MB</span>
           <a href={v[tag].src} download>MP4 {ratio}</a>

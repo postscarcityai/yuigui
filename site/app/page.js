@@ -3,6 +3,7 @@ import CtaLink from "./components/CtaLink";
 import links from "../content/links.json";
 import HeroVideo from "./components/HeroVideo";
 import ClipGrid from "./components/ClipGrid";
+import Films from "./components/Films";
 import clipsData from "../public/demo/clips/clips.json";
 import { STAGE } from "../lib/stage.mjs";
 import LivePhone from "./mockups/LivePhone";
@@ -90,6 +91,12 @@ export default function Home() {
         The real app, one screen at a time. Each one started as a short line from an agent. <Link href="/mockups">See every screen</Link>, each with its own link to share.
       </p>
       <ClipGrid clips={CLIPS} />
+
+      <Films
+        title="Watch the films"
+        lede="A minute each, sound on. One idea per film, all of it the real app on the demo account."
+        ids={["film-meet-yui", "film-plan-to-launch", "film-agents", "film-full-screen"]}
+      />
 
       <h2>What works today</h2>
       <div className="grid">

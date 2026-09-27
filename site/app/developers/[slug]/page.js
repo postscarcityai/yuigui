@@ -17,6 +17,9 @@ export async function generateMetadata({ params }) {
   return { title: d ? `${d.label} spec | Yui` : "Specs | Yui", description: d?.blurb };
 }
 
+// A brag film at the top of the spec it shows (SITE-62).
+const FILMS = { music: "film-jam" };
+
 export default async function SpecDoc({ params }) {
   const { slug } = await params;
   const d = here().find((x) => x.slug === slug);
@@ -24,6 +27,7 @@ export default async function SpecDoc({ params }) {
   return (
     <DocShell
       slug={slug}
+      film={FILMS[slug]}
       eyebrow={<><a href="/developers/specs">Specs</a> | {d.label} | rendered from spec/{slug.toUpperCase()}.md | <a href={`https://github.com/postscarcityai/yuigui/blob/main/spec/${slug.toUpperCase()}.md`}>on GitHub</a></>}
     />
   );

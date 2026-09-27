@@ -10,6 +10,7 @@ Every page on yuigui.com can have zero, one or more videos. "Site" videos alread
 | 01 Meet Yui | done | You asked for a timer, you got an essay. One line, one whole screen |
 | 02 Plan to launch | done | A pottery studio's website: plan mode, pick photos, before and after, the reel, the timeline |
 | 05 Your agents, one app | done | Every agent wears its own look, add and pair one, @mention another, restyle Yui by asking |
+| 07 Yui lives on the full screen | done | One question got eight pages. Now the stage answers: talk, parts with a picture each, questions last with one Send, the chat is the record |
 
 ## See it (/mockups)
 

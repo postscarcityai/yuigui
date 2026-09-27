@@ -51,7 +51,7 @@ export default async function Shared({ params }) {
       <div className="share-hero">
         <div className="share-screen">
           {it.video ? (
-            <video className="sc-clip" src={it.video["9x16"].src} poster={it.video["9x16"].poster} controls muted playsInline preload="metadata" aria-label={it.title} />
+            <video className={it.video["9x16"] ? "sc-clip" : "sc-wide"} src={(it.video["9x16"] || it.video["16x9"]).src} poster={(it.video["9x16"] || it.video["16x9"]).poster} controls muted={!it.video.sound} playsInline preload="metadata" aria-label={it.title} />
           ) : it.yl ? <LivePhone yl={it.yl} agent={it.agent} label={`${it.title}, drawn live from Yui Lines`} eager />
             : still ? <div className="phone sc-phone"><div className="screen"><img className="share-still" src={still.src} alt={still.alt} /></div></div>
             : null}
@@ -67,7 +67,7 @@ export default async function Shared({ params }) {
           {it.clip && it.yl ? (
             <video className="sc-clip" src={it.clip.src} poster={it.clip.poster} controls muted loop playsInline preload="none" aria-label={`${it.title}, recorded in the iPhone app`} />
           ) : null}
-          {it.video ? <><p className="share-say">Download it, both cuts, sound off and captions burned in:</p><VideoDownloads v={it.video} /></> : null}
+          {it.video ? <><p className="share-say">Download it{it.video["9x16"] && it.video["16x9"] ? ", both cuts" : ""}, captions burned in{it.video.sound ? ", sound on" : ", sound off"}:</p><VideoDownloads v={it.video} /></> : null}
           <ShareBar path={shareUrl(it.id)} title={it.title} embed={embed} />
           <ul className="share-links">
             {edit ? <li><Link href={edit}>Edit it in the playground</Link></li> : null}
