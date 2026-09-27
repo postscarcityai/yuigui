@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T21:40:26.982Z",
+  "updated": "2026-09-27T22:10:31.621Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.2",
@@ -274,11 +274,6 @@
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
         },
         {
-          "key": "YUI-164",
-          "title": "Ship the fix build",
-          "summary": "New-user first run with the crew, pick your crew, screens on the stage, on top of the 229 crash fix"
-        },
-        {
           "key": "YUI-135",
           "title": "The starter crew",
           "summary": "Trainer, nutritionist Basil, musician Gouda, Penny and Quill, each with favorite screens"
@@ -289,6 +284,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-164",
+          "title": "Ship the fix build",
+          "summary": "New-user first run with the crew, pick your crew, screens on the stage, on top of the 229 crash fix",
+          "shipped": "2026-09-27"
+        },
         {
           "key": "YUI-161",
           "title": "Native agents write \\n inside quoted YL strings, the app shows 'nn'",

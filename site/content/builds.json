@@ -1,6 +1,73 @@
 {
   "builds": [
     {
+      "build": 244,
+      "date": "2026-09-27",
+      "uploaded": "2026-09-27T14:40:14-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Live proof: a new account finds hosted Yui and she answers",
+          "card": "YUI-134"
+        },
+        {
+          "text": "Native agents see composer photos: read meta.photos",
+          "card": "YUI-160"
+        },
+        {
+          "text": "Native crew replies without em dashes: a prompt rule and a sweep before the answer is written",
+          "card": "YUI-163"
+        },
+        {
+          "text": "First-run recording: a new account on a fresh sim, Yui, an agent and a photo to Basil",
+          "card": "YUI-160"
+        },
+        {
+          "text": "Live first-launch proof checks every crew answer for dashes",
+          "card": "YUI-163"
+        },
+        {
+          "text": "Native turns always answer: a 1000-token reasoning cap on OpenRouter, one retry without thinking when the answer comes back empty",
+          "card": "YUI-162"
+        },
+        {
+          "text": "Retry without thinking also when a cut-off answer spent over half its budget thinking",
+          "card": "YUI-162"
+        },
+        {
+          "text": "Live check: a long ask to hosted Yui comes back with an answer",
+          "card": "YUI-162"
+        },
+        {
+          "text": "Native answers keep their line breaks: \\n inside a quoted say becomes real say lines, bullets a list",
+          "card": "YUI-161"
+        },
+        {
+          "text": "Add agent, Cancel no longer crashes the chat (feedback AGjOqLXN)"
+        },
+        {
+          "text": "Live check: a native list answer has no \\n in its quoted strings",
+          "card": "YUI-161"
+        },
+        {
+          "text": "WIP: crew choice, screens on the stage",
+          "card": "YUI-164"
+        },
+        {
+          "text": "First run waits for Yui a few seconds before the pairing pitch",
+          "card": "YUI-164"
+        },
+        {
+          "text": "Stage first: a screen pill in the chat opens the stage on that screen",
+          "card": "YUI-164"
+        },
+        {
+          "text": "Stack check reads the launched pid and new crash reports, not launchctl",
+          "card": "YUI-164"
+        }
+      ]
+    },
+    {
       "build": 229,
       "date": "2026-09-27",
       "uploaded": "2026-09-27T12:17:42-07:00",
@@ -1087,63 +1154,16 @@
   ],
   "next": [
     {
-      "text": "Live proof: a new account finds hosted Yui and she answers",
-      "card": "YUI-134"
+      "text": "Native turns never end silent: an answer with nothing to see is asked again, wrapped option lines and a stray end are mended",
+      "card": "YUI-135"
     },
     {
-      "text": "Native agents see composer photos: read meta.photos",
-      "card": "YUI-160"
+      "text": "Starter crew: Basil's first answer asks about conditions with one doctor note; coaches refer in one line then a screen",
+      "card": "YUI-135"
     },
     {
-      "text": "Native crew replies without em dashes: a prompt rule and a sweep before the answer is written",
-      "card": "YUI-163"
-    },
-    {
-      "text": "First-run recording: a new account on a fresh sim, Yui, an agent and a photo to Basil",
-      "card": "YUI-160"
-    },
-    {
-      "text": "Live first-launch proof checks every crew answer for dashes",
-      "card": "YUI-163"
-    },
-    {
-      "text": "Native turns always answer: a 1000-token reasoning cap on OpenRouter, one retry without thinking when the answer comes back empty",
-      "card": "YUI-162"
-    },
-    {
-      "text": "Retry without thinking also when a cut-off answer spent over half its budget thinking",
-      "card": "YUI-162"
-    },
-    {
-      "text": "Live check: a long ask to hosted Yui comes back with an answer",
-      "card": "YUI-162"
-    },
-    {
-      "text": "Native answers keep their line breaks: \\n inside a quoted say becomes real say lines, bullets a list",
-      "card": "YUI-161"
-    },
-    {
-      "text": "Add agent, Cancel no longer crashes the chat (feedback AGjOqLXN)"
-    },
-    {
-      "text": "Live check: a native list answer has no \\n in its quoted strings",
-      "card": "YUI-161"
-    },
-    {
-      "text": "WIP: crew choice, screens on the stage",
-      "card": "YUI-164"
-    },
-    {
-      "text": "First run waits for Yui a few seconds before the pairing pitch",
-      "card": "YUI-164"
-    },
-    {
-      "text": "Stage first: a screen pill in the chat opens the stage on that screen",
-      "card": "YUI-164"
-    },
-    {
-      "text": "Stack check reads the launched pid and new crash reports, not launchctl",
-      "card": "YUI-164"
+      "text": "Persona eval: every starter agent, live, stays in character on Yui Lines",
+      "card": "YUI-135"
     }
   ]
 }
