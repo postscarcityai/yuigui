@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 224,
-    "site": 552,
+    "app": 225,
+    "site": 554,
     "builds": 39,
-    "shipped": 277,
-    "screenshots": 644
+    "shipped": 278,
+    "screenshots": 645
   },
   "days": [
     {
@@ -13,7 +13,27 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T19:42:51.059Z",
+          "at": "2026-09-27T20:02:07.608Z",
+          "title": "Native Yui on your phone",
+          "card": "YUI-160",
+          "anchor": "native-yui-on-your-phone",
+          "images": [
+            {
+              "src": "/progress/yui160-basil-meal-light.webp",
+              "alt": "Basil reads a photo of grilled salmon: about 520 calories marked a guess, with protein and carbs tiles"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 225,
+            "site": 554,
+            "builds": 39,
+            "shipped": 278
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T19:42:54.000Z",
           "title": "Everyone gets a Yui at sign-in",
           "card": "YUI-134",
           "anchor": "everyone-gets-a-yui-at-sign-in",
@@ -23,10 +43,10 @@
               "alt": "A new account's first launch: Yui's first message naming the crew, and a choice of where to start"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 224,
-            "site": 552,
+            "site": 554,
             "builds": 39,
             "shipped": 277
           }
@@ -933,6 +953,20 @@
       "commits": [
         {
           "repo": "app",
+          "sha": "d653f04",
+          "at": "2026-09-27T19:55:22.000Z",
+          "text": "Native agents see composer photos: read meta.photos (YUI-160)",
+          "url": "https://github.com/postscarcityai/yui/commit/d653f04"
+        },
+        {
+          "repo": "site",
+          "sha": "de8cd05",
+          "at": "2026-09-27T19:42:54.000Z",
+          "text": "Progress: Everyone gets a Yui at sign-in (YUI-134)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/de8cd05"
+        },
+        {
+          "repo": "app",
           "sha": "1393d03",
           "at": "2026-09-27T19:42:25.000Z",
           "text": "Live proof: a new account finds hosted Yui and she answers (YUI-134)",
@@ -944,6 +978,13 @@
           "at": "2026-09-27T19:40:34.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/4fb589b"
+        },
+        {
+          "repo": "site",
+          "sha": "c213824",
+          "at": "2026-09-27T19:39:30.000Z",
+          "text": "Meet Yui, the homepage film, in the home hero",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c213824"
         },
         {
           "repo": "site",
