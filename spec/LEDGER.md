@@ -46,7 +46,7 @@ Tested Sep 26 on Postgres 16 with stand-in `yui_users` and `yui_messages` tables
 ## 6. Switching it on
 
 1. Read this spec and `ledger/yui_ledger.sql`.
-2. Apply the SQL by hand in the SQL editor of the shared Supabase project. Never `supabase db push`: the project is shared with other apps.
+2. Apply the SQL by hand in the SQL editor of the yuigui Supabase project. Never `supabase db push`.
 3. Fill in from day one: `node ledger/record.mjs --from 2026-09-23 --prs`.
 4. Run `node ledger/record.mjs --prs` once a day, beside the media sweep.
 5. Publish the privacy paragraph (section 3), and change the home page line from "we are starting a private ledger" to "a private ledger counts".

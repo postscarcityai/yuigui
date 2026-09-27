@@ -1,4 +1,4 @@
-// Invite requests (SITE-26). Writes a row to yui_invites in the PostScarcity AI Supabase project (PROOF)
+// Invite requests (SITE-26). Writes a row to yui_invites in Yui's own Supabase project (yuigui)
 // with the service role key; the table has RLS on and no grants, so anon can never read or write it.
 // The row starts as status=requested. Approving it (supabase/scripts/invite.py in the app repo) is Chris's call.
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

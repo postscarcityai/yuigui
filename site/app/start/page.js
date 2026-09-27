@@ -6,7 +6,7 @@ import Cmd from "../components/Cmd";
 import Shots from "../components/Shots";
 import Films from "../components/Films";
 
-const MCP_URL = "https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp";
+const MCP_URL = "https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp";
 
 // Shots from build 162 on the simulator, demo account, the pairing flow of YuiPromoTests.testPromoPair (SITE-46).
 const PAIR_SHOTS = [
