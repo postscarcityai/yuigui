@@ -1085,5 +1085,26 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Live proof: a new account finds hosted Yui and she answers",
+      "card": "YUI-134"
+    },
+    {
+      "text": "Native agents see composer photos: read meta.photos",
+      "card": "YUI-160"
+    },
+    {
+      "text": "Native crew replies without em dashes: a prompt rule and a sweep before the answer is written",
+      "card": "YUI-163"
+    },
+    {
+      "text": "First-run recording: a new account on a fresh sim, Yui, an agent and a photo to Basil",
+      "card": "YUI-160"
+    },
+    {
+      "text": "Live first-launch proof checks every crew answer for dashes",
+      "card": "YUI-163"
+    }
+  ]
 }

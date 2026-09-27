@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T19:40:28.106Z",
+  "updated": "2026-09-27T20:11:16.980Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.2",
@@ -223,10 +223,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-160",
-          "title": "Native sprint build to TestFlight, onboarding with the native agent"
-        },
-        {
           "key": "YUI-135",
           "title": "The starter crew",
           "summary": "Trainer, nutritionist Basil, musician Gouda, Penny and Quill, each with favorite screens"
@@ -291,11 +287,6 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
-        },
-        {
-          "key": "YUI-134",
-          "title": "A Yui for everyone at sign-in",
-          "summary": "A hosted connector per person, agents as rows, no pairing, a webhook wakes the runtime"
         }
       ]
     },
@@ -303,6 +294,27 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-163",
+          "title": "Native crew replies without em dashes (backlog)",
+          "summary": "No dashes in the crew's replies",
+          "shipped": "2026-09-27",
+          "progress": "/progress#no-dashes-in-the-crew-s-replies"
+        },
+        {
+          "key": "YUI-160",
+          "title": "Native sprint build to TestFlight, onboarding with the native agent",
+          "summary": "Native Yui on your phone",
+          "shipped": "2026-09-27",
+          "progress": "/progress#native-yui-on-your-phone"
+        },
+        {
+          "key": "YUI-134",
+          "title": "A Yui for everyone at sign-in",
+          "summary": "Everyone gets a Yui at sign-in",
+          "shipped": "2026-09-27",
+          "progress": "/progress#everyone-gets-a-yui-at-sign-in"
+        },
         {
           "key": "YUI-132",
           "title": "Channel eval on GLM 5.2 and GLM-5V-Turbo, results on /channel",
