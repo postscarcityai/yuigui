@@ -37,6 +37,23 @@ route "The long way" ny|ld|nowhere|tk +arrow`],
   ["center and zoom, a lone point", `map center=48.85,2.35 zoom=6
 pin Paris 48.85,2.35 +pulse +grow
 area "Ring" 49.2,1.8|49.2,2.9|48.5,2.9|48.5,1.8 +dash`],
+  ["a train trip, a label on every leg", `map "Lisbon to Barcelona by rail"
+pin@li Lisbon 38.72,-9.14
+pin@po Porto 41.15,-8.61 +pulse
+pin@vi Vigo 42.24,-8.72
+pin@ma Madrid 40.42,-3.70 +pulse
+pin@ba Barcelona 41.39,2.17
+route "Alfa Pendular, ~3h" li|po
+route "Celta, ~2.5h" po|vi tone=butter +arrow
+route "Alvia via Ourense, ~4.5h" vi|ma
+route "AVE, ~2.5–3h" ma|ba`],
+  ["pins closer than the view, labels spread or dropped", `map "Brooklyn"
+pin Williamsburg 40.708,-73.957
+pin "Park Slope" 40.671,-73.977
+pin Bushwick 40.694,-73.921
+pin "Red Hook" 40.676,-74.01
+pin "Coney Island, the boardwalk" 40.574,-73.985
+pin Greenpoint 40.73,-73.954`],
   ["a lone pin", `pin Karakorum 47.2,102.8`],
   ["an empty map", `map "Nothing yet"`],
 ];

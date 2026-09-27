@@ -30,8 +30,9 @@
        52.057,
        23.314
       ],
+      "text": "Mongol Empire",
       "lx": 52.057,
-      "ly": 23.314,
+      "ly": 28.754,
       "anchor": "middle",
       "path": {
        "hash": "908c1ed4b3518e7c",
@@ -56,6 +57,7 @@
        11.768,
        15.404
       ],
+      "text": "Raided",
       "lx": 11.768,
       "ly": 15.404,
       "anchor": "middle",
@@ -79,8 +81,9 @@
        19.762
       ],
       "grow": false,
+      "text": "Karakorum",
       "lx": 69.764,
-      "ly": 19.762,
+      "ly": 16.022,
       "anchor": "start"
      },
      {
@@ -116,9 +119,10 @@
        76.067,
        22.065
       ],
-      "lx": 85.36,
-      "ly": 30.233,
-      "anchor": "start"
+      "text": "East",
+      "lx": 72.768,
+      "ly": 25.819,
+      "anchor": "middle"
      },
      {
       "i": 4,
@@ -153,8 +157,9 @@
        42.778,
        12.611
       ],
-      "lx": 42.778,
-      "ly": 9.551,
+      "text": "West",
+      "lx": 44.539,
+      "ly": 8.958,
       "anchor": "middle"
      },
      {
@@ -190,9 +195,10 @@
        49.185,
        21.242
       ],
-      "lx": 25.671,
-      "ly": 33.405,
-      "anchor": "end"
+      "text": "South",
+      "lx": 44.479,
+      "ly": 18.123,
+      "anchor": "middle"
      },
      {
       "i": 6,
@@ -227,8 +233,9 @@
        64.765,
        13.905
       ],
-      "lx": 65.431,
-      "ly": 4.087,
+      "text": "North",
+      "lx": 70.633,
+      "ly": 12.081,
       "anchor": "middle"
      }
     ],
@@ -537,6 +544,7 @@
        76.5,
        18.689
       ],
+      "text": "EU",
       "lx": 76.5,
       "ly": 18.689,
       "anchor": "middle",
@@ -563,8 +571,9 @@
        69.337,
        27.221
       ],
+      "text": "Iberia",
       "lx": 69.337,
-      "ly": 27.221,
+      "ly": 38.101,
       "anchor": "middle",
       "path": {
        "hash": "08073dfbc6471a45",
@@ -586,9 +595,10 @@
        29.471
       ],
       "grow": true,
-      "lx": 60.05,
+      "text": "Lisbon",
+      "lx": 65.49,
       "ly": 29.471,
-      "anchor": "end"
+      "anchor": "start"
      }
     ],
     "total": 1.2,
@@ -757,6 +767,7 @@
        32.577,
        10.797
       ],
+      "text": "",
       "path": {
        "hash": "280b12f40ba3bfb7",
        "len": 14188
@@ -777,6 +788,7 @@
        11.024
       ],
       "grow": true,
+      "text": "Anchorage",
       "lx": 69.109,
       "ly": 11.024,
       "anchor": "start"
@@ -796,9 +808,10 @@
        11.765
       ],
       "grow": true,
-      "lx": 51.028,
+      "text": "Magadan",
+      "lx": 45.588,
       "ly": 11.765,
-      "anchor": "start"
+      "anchor": "end"
      },
      {
       "i": 3,
@@ -833,8 +846,9 @@
        57.26,
        9.225
       ],
-      "lx": 57.26,
-      "ly": 6.165,
+      "text": "Ferry",
+      "lx": 56.108,
+      "ly": 5.166,
       "anchor": "middle"
      }
     ],
@@ -1034,9 +1048,10 @@
        14.091
       ],
       "grow": true,
-      "lx": 32.164,
+      "text": "New York",
+      "lx": 26.724,
       "ly": 14.091,
-      "anchor": "start"
+      "anchor": "end"
      },
      {
       "i": 1,
@@ -1053,9 +1068,10 @@
        11.006
       ],
       "grow": true,
-      "lx": 52.692,
-      "ly": 11.006,
-      "anchor": "start"
+      "text": "London",
+      "lx": 49.972,
+      "ly": 7.266,
+      "anchor": "middle"
      },
      {
       "i": 2,
@@ -1072,9 +1088,10 @@
        15.52
       ],
       "grow": true,
-      "lx": 86.086,
-      "ly": 15.52,
-      "anchor": "end"
+      "text": "Tokyo",
+      "lx": 88.806,
+      "ly": 11.78,
+      "anchor": "middle"
      },
      {
       "i": 3,
@@ -1110,9 +1127,10 @@
        49.972,
        11.006
       ],
-      "lx": 77.152,
-      "ly": 15.873,
-      "anchor": "start"
+      "text": "The long way",
+      "lx": 58.583,
+      "ly": 16.33,
+      "anchor": "middle"
      }
     ],
     "total": 1.95,
@@ -1311,6 +1329,7 @@
        37.992
       ],
       "grow": true,
+      "text": "Paris",
       "lx": 52.72,
       "ly": 37.992,
       "anchor": "start"
@@ -1330,6 +1349,7 @@
        50,
        37.992
       ],
+      "text": "Ring",
       "lx": 50,
       "ly": 43.432,
       "anchor": "middle",
@@ -1437,6 +1457,987 @@
    "text": "Map: Paris; Ring."
   },
   {
+   "name": "a train trip, a label on every leg",
+   "input": "map \"Lisbon to Barcelona by rail\"\npin@li Lisbon 38.72,-9.14\npin@po Porto 41.15,-8.61 +pulse\npin@vi Vigo 42.24,-8.72\npin@ma Madrid 40.42,-3.70 +pulse\npin@ba Barcelona 41.39,2.17\nroute \"Alfa Pendular, ~3h\" li|po\nroute \"Celta, ~2.5h\" po|vi tone=butter +arrow\nroute \"Alvia via Ourense, ~4.5h\" vi|ma\nroute \"AVE, ~2.5–3h\" ma|ba",
+   "scene": {
+    "title": "Lisbon to Barcelona by rail",
+    "caption": "",
+    "w": 100,
+    "h": 92.993,
+    "fs": 3.4,
+    "land": {
+     "hash": "e0f011ebab3b36e8",
+     "len": 4102
+    },
+    "items": [
+     {
+      "i": 0,
+      "id": "li",
+      "kind": "pin",
+      "label": "Lisbon",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 0,
+      "dur": 0.5,
+      "c": [
+       8.333,
+       63.546
+      ],
+      "grow": true,
+      "text": "Lisbon",
+      "lx": 11.053,
+      "ly": 63.546,
+      "anchor": "start"
+     },
+     {
+      "i": 1,
+      "id": "po",
+      "kind": "pin",
+      "label": "Porto",
+      "tone": "accent",
+      "dash": false,
+      "pulse": true,
+      "start": 0.35,
+      "dur": 0.5,
+      "c": [
+       12.238,
+       40.007
+      ],
+      "grow": false,
+      "text": "Porto",
+      "lx": 14.958,
+      "ly": 40.007,
+      "anchor": "start"
+     },
+     {
+      "i": 2,
+      "id": "vi",
+      "kind": "pin",
+      "label": "Vigo",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 0.7,
+      "dur": 0.5,
+      "c": [
+       11.428,
+       29.448
+      ],
+      "grow": true,
+      "text": "Vigo",
+      "lx": 8.708,
+      "ly": 29.448,
+      "anchor": "end"
+     },
+     {
+      "i": 3,
+      "id": "ma",
+      "kind": "pin",
+      "label": "Madrid",
+      "tone": "accent",
+      "dash": false,
+      "pulse": true,
+      "start": 1.05,
+      "dur": 0.5,
+      "c": [
+       48.416,
+       47.078
+      ],
+      "grow": false,
+      "text": "Madrid",
+      "lx": 45.696,
+      "ly": 47.078,
+      "anchor": "end"
+     },
+     {
+      "i": 4,
+      "id": "ba",
+      "kind": "pin",
+      "label": "Barcelona",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 1.4,
+      "dur": 0.5,
+      "c": [
+       91.667,
+       37.682
+      ],
+      "grow": true,
+      "text": "Barcelona",
+      "lx": 91.126,
+      "ly": 33.942,
+      "anchor": "middle"
+     },
+     {
+      "i": 5,
+      "id": "n2",
+      "kind": "route",
+      "label": "Alfa Pendular, ~3h",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 1.75,
+      "dur": 0.9,
+      "pts": [
+       [
+        8.333,
+        63.546
+       ],
+       [
+        7.461,
+        51.308
+       ],
+       [
+        12.238,
+        40.007
+       ]
+      ],
+      "names": [
+       "Lisbon",
+       "Porto"
+      ],
+      "arrow": false,
+      "c": [
+       7.461,
+       51.308
+      ],
+      "text": "Alfa Pendular, ~3h",
+      "lx": 21.774,
+      "ly": 52.748,
+      "anchor": "middle"
+     },
+     {
+      "i": 6,
+      "id": "n3",
+      "kind": "route",
+      "label": "Celta, ~2.5h",
+      "tone": "butter",
+      "dash": false,
+      "pulse": false,
+      "start": 2.1,
+      "dur": 0.9,
+      "pts": [
+       [
+        12.238,
+        40.007
+       ],
+       [
+        10.566,
+        34.63
+       ],
+       [
+        11.428,
+        29.448
+       ]
+      ],
+      "names": [
+       "Porto",
+       "Vigo"
+      ],
+      "arrow": true,
+      "c": [
+       10.566,
+       34.63
+      ],
+      "text": "Celta, ~2.5h",
+      "lx": 22.831,
+      "ly": 35.758,
+      "anchor": "middle"
+     },
+     {
+      "i": 7,
+      "id": "n4",
+      "kind": "route",
+      "label": "Alvia via Ourense, ~4.5h",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 2.45,
+      "dur": 0.9,
+      "pts": [
+       [
+        11.428,
+        29.448
+       ],
+       [
+        32.038,
+        33.824
+       ],
+       [
+        48.416,
+        47.078
+       ]
+      ],
+      "names": [
+       "Vigo",
+       "Madrid"
+      ],
+      "arrow": false,
+      "c": [
+       32.038,
+       33.824
+      ],
+      "text": "Alvia via Ourense, ~4.5h",
+      "lx": 33.576,
+      "ly": 26.578,
+      "anchor": "middle"
+     },
+     {
+      "i": 8,
+      "id": "n5",
+      "kind": "route",
+      "label": "AVE, ~2.5–3h",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 2.8,
+      "dur": 0.9,
+      "pts": [
+       [
+        48.416,
+        47.078
+       ],
+       [
+        68.914,
+        37.19
+       ],
+       [
+        91.667,
+        37.682
+       ]
+      ],
+      "names": [
+       "Madrid",
+       "Barcelona"
+      ],
+      "arrow": false,
+      "c": [
+       68.914,
+       37.19
+      ],
+      "text": "AVE, ~2.5–3h",
+      "lx": 68.985,
+      "ly": 33.906,
+      "anchor": "middle"
+     }
+    ],
+    "total": 3.7,
+    "missing": [],
+    "view": {
+     "lon": [
+      -10.271,
+      3.301
+     ],
+     "lat": [
+      35.68,
+      45.28
+     ]
+    }
+   },
+   "frames": {
+    "2": [
+     {
+      "i": 0,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0.5975
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0.5975
+     },
+     {
+      "i": 4,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 1,
+      "d": 0.6233,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 6,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 7,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 8,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     }
+    ],
+    "0.2": [
+     {
+      "i": 0,
+      "o": 0.784,
+      "d": 0.784,
+      "s": 1.1112,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 2,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 4,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 6,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 7,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 8,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     }
+    ],
+    "0.9": [
+     {
+      "i": 0,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0.0096
+     },
+     {
+      "i": 2,
+      "o": 0.784,
+      "d": 0.784,
+      "s": 1.1112,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 4,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 6,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 7,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 8,
+      "o": 0,
+      "d": 0,
+      "s": 1,
+      "p": 0
+     }
+    ],
+    "4.3": [
+     {
+      "i": 0,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0.2222
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0.5975
+     },
+     {
+      "i": 4,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 6,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 7,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 8,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     }
+    ],
+    "still": [
+     {
+      "i": 0,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 4,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 6,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 7,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 8,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     }
+    ]
+   },
+   "text": "Lisbon to Barcelona by rail. Map: Lisbon; Porto; Vigo; Madrid; Barcelona; Alfa Pendular, ~3h, Lisbon to Porto; Celta, ~2.5h, Porto to Vigo; Alvia via Ourense, ~4.5h, Vigo to Madrid; AVE, ~2.5–3h, Madrid to Barcelona."
+  },
+  {
+   "name": "pins closer than the view, labels spread or dropped",
+   "input": "map \"Brooklyn\"\npin Williamsburg 40.708,-73.957\npin \"Park Slope\" 40.671,-73.977\npin Bushwick 40.694,-73.921\npin \"Red Hook\" 40.676,-74.01\npin \"Coney Island, the boardwalk\" 40.574,-73.985\npin Greenpoint 40.73,-73.954",
+   "scene": {
+    "title": "Brooklyn",
+    "caption": "",
+    "w": 100,
+    "h": 100,
+    "fs": 3.4,
+    "land": {
+     "hash": "9aa756c93d1f95be",
+     "len": 7863
+    },
+    "items": [
+     {
+      "i": 0,
+      "id": "n2",
+      "kind": "pin",
+      "label": "Williamsburg",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 0,
+      "dur": 0.5,
+      "c": [
+       50.067,
+       49.417
+      ],
+      "grow": true,
+      "text": "Williamsburg",
+      "lx": 52.787,
+      "ly": 49.417,
+      "anchor": "start"
+     },
+     {
+      "i": 1,
+      "id": "n3",
+      "kind": "pin",
+      "label": "Park Slope",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 0.35,
+      "dur": 0.5,
+      "c": [
+       49.909,
+       49.802
+      ],
+      "grow": true,
+      "text": "Park Slope",
+      "lx": 47.189,
+      "ly": 49.802,
+      "anchor": "end"
+     },
+     {
+      "i": 2,
+      "id": "n4",
+      "kind": "pin",
+      "label": "Bushwick",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 0.7,
+      "dur": 0.5,
+      "c": [
+       50.352,
+       49.562
+      ],
+      "grow": true,
+      "text": "Bushwick",
+      "lx": 47.632,
+      "ly": 45.822,
+      "anchor": "end"
+     },
+     {
+      "i": 3,
+      "id": "n5",
+      "kind": "pin",
+      "label": "Red Hook",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 1.05,
+      "dur": 0.5,
+      "c": [
+       49.648,
+       49.75
+      ],
+      "grow": true,
+      "text": "Red Hook",
+      "lx": 52.368,
+      "ly": 53.49,
+      "anchor": "start"
+     },
+     {
+      "i": 4,
+      "id": "n6",
+      "kind": "pin",
+      "label": "Coney Island, the boardwalk",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 1.4,
+      "dur": 0.5,
+      "c": [
+       49.846,
+       50.813
+      ],
+      "grow": true,
+      "text": "Coney Island",
+      "lx": 47.126,
+      "ly": 54.553,
+      "anchor": "end"
+     },
+     {
+      "i": 5,
+      "id": "n7",
+      "kind": "pin",
+      "label": "Greenpoint",
+      "tone": "accent",
+      "dash": false,
+      "pulse": false,
+      "start": 1.75,
+      "dur": 0.5,
+      "c": [
+       50.091,
+       49.188
+      ],
+      "grow": true,
+      "text": "Greenpoint",
+      "lx": 52.811,
+      "ly": 45.448,
+      "anchor": "start"
+     }
+    ],
+    "total": 2.25,
+    "missing": [],
+    "view": {
+     "lon": [
+      -80.292,
+      -67.639
+     ],
+     "lat": [
+      35.852,
+      45.452
+     ]
+    }
+   },
+   "frames": {
+    "2": [
+     {
+      "i": 0,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 4,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 0.875,
+      "d": 0.875,
+      "s": 1.1768,
+      "p": 0
+     }
+    ],
+    "0.2": [
+     {
+      "i": 0,
+      "o": 0.784,
+      "d": 0.784,
+      "s": 1.1112,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     },
+     {
+      "i": 2,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     },
+     {
+      "i": 4,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     }
+    ],
+    "0.9": [
+     {
+      "i": 0,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 2,
+      "o": 0.784,
+      "d": 0.784,
+      "s": 1.1112,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     },
+     {
+      "i": 4,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 0,
+      "d": 0,
+      "s": 0,
+      "p": 0
+     }
+    ],
+    "4.3": [
+     {
+      "i": 0,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 4,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     }
+    ],
+    "still": [
+     {
+      "i": 0,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 3,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 4,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     },
+     {
+      "i": 5,
+      "o": 1,
+      "d": 1,
+      "s": 1,
+      "p": 0
+     }
+    ]
+   },
+   "text": "Brooklyn. Map: Williamsburg; Park Slope; Bushwick; Red Hook; Coney Island, the boardwalk; Greenpoint."
+  },
+  {
    "name": "a lone pin",
    "input": "pin Karakorum 47.2,102.8",
    "scene": {
@@ -1465,6 +2466,7 @@
        50
       ],
       "grow": true,
+      "text": "Karakorum",
       "lx": 52.72,
       "ly": 50,
       "anchor": "start"

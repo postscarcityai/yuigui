@@ -73,7 +73,7 @@ function Part({ f, fs, sw }) {
       <g opacity={f.o}>
         <path d={f.path} fill={color} fillOpacity={f.dash ? 0.12 : 0.32} stroke={color} strokeWidth={sw * 1.2} strokeLinejoin="round"
           strokeDasharray={f.dash ? `${sw * 3} ${sw * 2.5}` : undefined} />
-        {f.label ? <Label text={f.label} x={f.lx} y={f.ly} fs={fs} anchor={f.anchor} /> : null}
+        {f.text ? <Label text={f.text} x={f.lx} y={f.ly} fs={fs} anchor={f.anchor} /> : null}
       </g>
     );
   }
@@ -86,7 +86,7 @@ function Part({ f, fs, sw }) {
         <g transform={`translate(${f2(x)} ${f2(y)}) scale(${f2(f.s)})`}>
           <circle r={f2(r)} fill={color} stroke="var(--screen-bg)" strokeWidth={sw} />
         </g>
-        {f.label ? <Label text={f.label} x={f.lx} y={f.ly} fs={fs} anchor={f.anchor} opacity={f.d} /> : null}
+        {f.text ? <Label text={f.text} x={f.lx} y={f.ly} fs={fs} anchor={f.anchor} opacity={f.d} /> : null}
       </g>
     );
   }
@@ -104,7 +104,7 @@ function Part({ f, fs, sw }) {
       <path d={d} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw * 1.6} strokeLinecap="round" fill="none"
         strokeDasharray={f.dash ? `${sw * 3} ${sw * 3}` : `${f2(f.d)} 1`} opacity={f.dash ? f.d : 1} />
       {head ? <path d={head} stroke={color} strokeWidth={sw * 1.6} strokeLinecap="round" strokeLinejoin="round" fill="none" /> : null}
-      {f.label ? <Label text={f.label} x={f.lx} y={f.ly} fs={fs * 0.92} anchor={f.anchor} opacity={f.d} /> : null}
+      {f.text ? <Label text={f.text} x={f.lx} y={f.ly} fs={fs * 0.92} anchor={f.anchor} opacity={f.d} /> : null}
     </g>
   );
 }

@@ -1021,6 +1021,25 @@ chart bar "Land empires, million km²" x=Mongol|Russian|Qing|Roman y=24|22.8|14.
 end`,
   },
   {
+    // YUI-158 follow-up: a train trip with a label on every leg. Before, the
+    // leg labels sat on the city names ("BaAVE, ~2.5-3h"); now pins claim
+    // first and each leg's label sits beside the middle of its line.
+    slug: "where-trip",
+    name: "Where: Lisbon to Barcelona by train",
+    agent: "Yui",
+    yl: `say "Lisbon goes north to Porto, then through Vigo in Galicia to Madrid, because there's no direct Porto–Madrid train. From Madrid it's a fast run east to Barcelona."
+map "Lisbon to Barcelona by rail" caption="North to Porto, over the border at Vigo, high-speed to Madrid, then east to Barcelona."
+pin@li Lisbon 38.72,-9.14
+pin@po Porto 41.15,-8.61 +pulse
+pin@vi Vigo 42.24,-8.72
+pin@ma Madrid 40.42,-3.70 +pulse
+pin@ba Barcelona 41.39,2.17
+route "Alfa Pendular, ~3h" li|po
+route "Celta, ~2.5h" po|vi tone=butter +arrow
+route "Alvia via Ourense, ~4.5h" vi|ma
+route "AVE, ~2.5–3h" ma|ba`,
+  },
+  {
     // YUI-158 step 3, channel guide v37: where is a map. The Mongols answer the
     // eval agent sent on the v37 draft, as sent. Before: a stat and four
     // compass bullets (feedback AL2nKEYo, "this should be a Map").

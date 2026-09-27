@@ -223,52 +223,135 @@ export function scene(head, members = []) {
   };
 }
 
-// Where each label goes: the first of a few spots that clears the labels
-// and pins already placed and stays on the drawing. A pin's label sits
-// beside it, a route's past its last stop (an arrow's tip) or over its
-// middle, an area's on its biggest piece. Sets lx, ly and anchor.
+// Where each label goes. Pins claim first, then areas, then routes, and no
+// label ever lands on a pin or on another label. A pin's label sits beside
+// it, an area's on its biggest piece, a route's beside the middle of its
+// line (never at its ends, where the pins are). Each label tries its spots
+// clear of the route lines first, then over them; a label that finds no room
+// at full length tries its short form (the words before a comma or a
+// bracket), and one that still finds none is dropped. Sets text (what is
+// drawn, "" when dropped), lx, ly and anchor.
+const RANK = { pin: 0, area: 1, route: 2 };
 function place(items, fs, w, h) {
   const taken = items.filter((it) => it.kind === "pin").map((it) => box(it.c[0], it.c[1], fs * 0.9, fs * 0.9, "middle"));
-  for (const it of items) {
+  const lines = items.filter((it) => it.kind === "route").map((it) => it.pts);
+  const order = items.map((it, n) => n).sort((p, q) => RANK[items[p].kind] - RANK[items[q].kind] || p - q);
+  for (const n of order) {
+    const it = items[n];
+    it.text = "";
     if (!it.label) continue;
-    const tw = Math.min(it.label.length, 18) * fs * 0.56;
-    const lines = it.label.length > 18 ? 2 : 1;
-    const th = fs * 1.2 * lines;
-    const spots = [];
-    const [cx, cy] = it.c;
-    if (it.kind === "pin") {
-      const g = fs * 0.8;
-      spots.push([cx + g, cy, "start"], [cx - g, cy, "end"], [cx, cy - fs * 1.1, "middle"], [cx, cy + fs * 1.2, "middle"]);
-    } else if (it.kind === "route") {
-      const [a, b] = it.pts.slice(-2);
-      const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
-      const ux = (b[0] - a[0]) / len, uy = (b[1] - a[1]) / len;
-      const tip = [b[0] + ux * fs * 0.9, b[1] + uy * fs * 0.9 + (Math.abs(ux) < 0.4 ? uy * fs * 0.4 : 0)];
-      spots.push([tip[0], tip[1], ux > 0.4 ? "start" : ux < -0.4 ? "end" : "middle"]);
-      spots.push([cx, cy - fs * 0.9, "middle"], [cx, cy + fs * 1.1, "middle"]);
-    } else {
-      spots.push([cx, cy, "middle"], [cx, cy + fs * 1.6, "middle"], [cx, cy - fs * 1.6, "middle"]);
-    }
+    const f = it.kind === "route" ? fs * 0.92 : fs;
     let pick = null;
-    for (const [x, y, a] of spots) {
-      const bx = box(x, y, tw, th, a);
-      const inside = bx[0] >= 0 && bx[2] <= w && bx[1] >= 0 && bx[3] <= h;
-      if (inside && !taken.some((t) => hits(t, bx))) { pick = [x, y, a, bx]; break; }
+    for (const text of short(it.label)) {
+      const ls = wrap(text, 30, f);
+      const tw = Math.max(...ls.map((l) => l.length)) * f * 0.58;
+      const th = f * 1.15 * ls.length;
+      const spots = spotsFor(it, f, fs, tw, th);
+      for (const clear of [true, false]) {
+        for (const [x0, y0, a] of spots) {
+          const [x, y] = onto(x0, y0, tw, th, a, w, h);
+          if (x === null) continue;
+          const bx = box(x, y, tw, th, a);
+          if (taken.some((t) => hits(t, bx))) continue;
+          if (clear && lines.some((pts) => crosses(pts, bx))) continue;
+          pick = [text, x, y, a, bx];
+          break;
+        }
+        if (pick) break;
+      }
+      if (pick) break;
     }
-    if (!pick) { const [x, y, a] = spots[0]; pick = [x, y, a, box(x, y, tw, th, a)]; }
-    // Nudge back onto the drawing when it runs off an edge.
-    let [x, y, a, bx] = pick;
-    if (bx[0] < 0) x -= bx[0]; if (bx[2] > w) x -= bx[2] - w;
-    if (bx[1] < 0) y -= bx[1]; if (bx[3] > h) y -= bx[3] - h;
-    it.lx = r3(x); it.ly = r3(y); it.anchor = a;
-    taken.push(box(x, y, tw, th, a));
+    if (!pick) continue;
+    const [text, x, y, a, bx] = pick;
+    it.text = text; it.lx = r3(x); it.ly = r3(y); it.anchor = a;
+    taken.push(bx);
   }
 }
+
+// A label, then its short form when it has one.
+function short(label) {
+  const m = /^(.+?)\s*[,(\u2013\u2014]/.exec(label);
+  const s = m ? m[1].trim() : "";
+  return s && s !== label ? [label, s] : [label];
+}
+
+// The spots a label may take, best first.
+function spotsFor(it, f, fs, tw, th) {
+  const [cx, cy] = it.c;
+  if (it.kind === "pin") {
+    const g = fs * 0.8, v = fs * 1.1;
+    return [[cx + g, cy, "start"], [cx - g, cy, "end"], [cx, cy - v, "middle"], [cx, cy + v, "middle"],
+      [cx + g, cy - v, "start"], [cx + g, cy + v, "start"], [cx - g, cy - v, "end"], [cx - g, cy + v, "end"]];
+  }
+  if (it.kind === "area") {
+    const v = fs * 1.6;
+    return [[cx, cy, "middle"], [cx, cy + v, "middle"], [cx, cy - v, "middle"], [cx, cy + v * 2, "middle"], [cx, cy - v * 2, "middle"],
+      [cx + tw * 0.6, cy, "middle"], [cx - tw * 0.6, cy, "middle"]];
+  }
+  // A route: points along its line from the middle out, a label's width off
+  // the line on either side.
+  const out = [];
+  for (const t of [0.5, 0.4, 0.6, 0.3, 0.7]) {
+    const [px, py, ux, uy] = along(it.pts, t);
+    let nx = -uy, ny = ux;
+    if (ny > 0 || (ny === 0 && nx < 0)) { nx = -nx; ny = -ny; }
+    const d = Math.abs(nx) * tw / 2 + Math.abs(ny) * th / 2 + f * 0.4;
+    out.push([px + nx * d, py + ny * d, "middle"], [px - nx * d, py - ny * d, "middle"]);
+  }
+  return out;
+}
+
+// The point a share t of the way along a line, and the line's direction there.
+function along(pts, t) {
+  const segs = [];
+  let total = 0;
+  for (let j = 1; j < pts.length; j++) {
+    const l = Math.hypot(pts[j][0] - pts[j - 1][0], pts[j][1] - pts[j - 1][1]);
+    segs.push(l); total += l;
+  }
+  let at = total * t;
+  for (let j = 0; j < segs.length; j++) {
+    if (at <= segs[j] || j === segs.length - 1) {
+      const [a, b] = [pts[j], pts[j + 1]];
+      const l = segs[j] || 1;
+      const k = clamp(at / l, 0, 1);
+      return [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, (b[0] - a[0]) / l, (b[1] - a[1]) / l];
+    }
+    at -= segs[j];
+  }
+  return [pts[0][0], pts[0][1], 1, 0];
+}
+
+// Moves a label back onto the drawing; null when it cannot fit at all.
+function onto(x, y, tw, th, a, w, h) {
+  if (tw > w || th > h) return [null, null];
+  const bx = box(x, y, tw, th, a);
+  if (bx[0] < 0) x -= bx[0]; else if (bx[2] > w) x -= bx[2] - w;
+  if (bx[1] < 0) y -= bx[1]; else if (bx[3] > h) y -= bx[3] - h;
+  return [x, y];
+}
+
 const box = (x, y, tw, th, a) => {
   const x0 = a === "start" ? x : a === "end" ? x - tw : x - tw / 2;
   return [x0, y - th / 2, x0 + tw, y + th / 2];
 };
 const hits = (p, q) => p[0] < q[2] && q[0] < p[2] && p[1] < q[3] && q[1] < p[3];
+// Whether a line (a list of points) passes through a box.
+function crosses(pts, b) {
+  for (let j = 1; j < pts.length; j++) if (cut(pts[j - 1], pts[j], b)) return true;
+  return false;
+}
+// Liang-Barsky: whether the segment p-q enters the box.
+function cut(p, q, b) {
+  const dx = q[0] - p[0], dy = q[1] - p[1];
+  let t0 = 0, t1 = 1;
+  for (const [pp, qq] of [[-dx, p[0] - b[0]], [dx, b[2] - p[0]], [-dy, p[1] - b[1]], [dy, b[3] - p[1]]]) {
+    if (pp === 0) { if (qq < 0) return false; continue; }
+    const r = qq / pp;
+    if (pp < 0) { if (r > t1) return false; if (r > t0) t0 = r; } else { if (r < t0) return false; if (r < t1) t1 = r; }
+  }
+  return true;
+}
 
 const ease = (x) => 1 - (1 - x) ** 3;
 // A spring for pins: up past full size, then settles.
