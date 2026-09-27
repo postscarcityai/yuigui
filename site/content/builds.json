@@ -1113,6 +1113,21 @@
     {
       "text": "Retry without thinking also when a cut-off answer spent over half its budget thinking",
       "card": "YUI-162"
+    },
+    {
+      "text": "Live check: a long ask to hosted Yui comes back with an answer",
+      "card": "YUI-162"
+    },
+    {
+      "text": "Native answers keep their line breaks: \\n inside a quoted say becomes real say lines, bullets a list",
+      "card": "YUI-161"
+    },
+    {
+      "text": "Add agent, Cancel no longer crashes the chat (feedback AGjOqLXN)"
+    },
+    {
+      "text": "Live check: a native list answer has no \\n in its quoted strings",
+      "card": "YUI-161"
     }
   ]
 }
