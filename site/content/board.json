@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T06:40:13.753Z",
+  "updated": "2026-09-27T07:10:36.753Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.0",
@@ -266,11 +266,6 @@
           "mvp": true
         },
         {
-          "key": "YUI-116",
-          "title": "Recording, export, MIDI and Ableton Link",
-          "step": "Step 5"
-        },
-        {
           "key": "YUI-130",
           "title": "Native runtime core",
           "summary": "One multi-tenant TypeScript runtime in runtime/, grown from the model bridge, runs locally with node"
@@ -377,7 +372,23 @@
         {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
-          "step": "Step 4"
+          "step": "Step 4",
+          "summary": "A tuner and a metronome in the app",
+          "progress": "/progress#a-tuner-and-a-metronome-in-the-app"
+        },
+        {
+          "key": "YUI-116",
+          "title": "Recording, export, MIDI and Ableton Link",
+          "step": "Step 5"
+        },
+        {
+          "key": "YUI-116",
+          "title": "The channel guide teaches keys, chords, tuner and metronome"
+        },
+        {
+          "key": "SITE-59",
+          "title": "The site after 0.4.0",
+          "summary": "Every link, share card and library screen checks clean"
         }
       ]
     },

@@ -80,6 +80,9 @@
         },
         {
           "text": "Yui 0.4.0: the new face of Yui, STAGE-1 to TestFlight (Chris, Sep 26)"
+        },
+        {
+          "text": "A tuner and a metronome in the app (YUI-116 step 4)"
         }
       ]
     },
