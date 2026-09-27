@@ -930,6 +930,15 @@
     {
       "text": "Send answers in about 70 ms, under the 100 ms target",
       "card": "YUI-108"
+    },
+    {
+      "text": "Yui lives on the full screen, the chat is the record (YUI-119 step 2)"
+    },
+    {
+      "text": "Pictures show whole, never cropped (YUI feedback AM6xGDZ3)"
+    },
+    {
+      "text": "Yui 0.3.3: ship main to TestFlight (Chris, Sep 26)"
     }
   ]
 }

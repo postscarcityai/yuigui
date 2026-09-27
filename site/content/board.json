@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-27T00:40:21.122Z",
+  "updated": "2026-09-27T01:10:27.585Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.3.2",
-    "status": "shipped",
-    "startedAt": "2026-09-26T18:33:53.000Z",
-    "shippedAt": "2026-09-26T21:56:59.000Z",
+    "version": "0.3.3",
+    "status": "shipping",
+    "startedAt": "2026-09-27T00:55:42.000Z",
+    "shippedAt": null,
     "cards": []
   },
   "columns": [
@@ -118,11 +118,6 @@
           "key": "YUI-122",
           "title": "The top bar",
           "summary": "Agents top left with settings in a hamburger beside them, the chat record top right",
-          "waiting": true
-        },
-        {
-          "key": "YUI-123",
-          "title": "Describe how each agent moves, in words, and the agent turns it into a motion look",
           "waiting": true
         },
         {
@@ -344,6 +339,10 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
+        },
+        {
+          "key": "SITE-56",
+          "title": "Yui 0.3.3 on the site, a release Thought and a See it group"
         }
       ]
     },
@@ -388,21 +387,8 @@
           "waiting": true
         },
         {
-          "key": "YUI-119",
-          "title": "Full screen first in the app, mic bottom right, chat as the record",
-          "step": "Step 2"
-        },
-        {
-          "key": "YUI-120",
-          "title": "The stage moves with the agent, context animations",
-          "step": "Step 1",
-          "summary": "Spec + playground mock"
-        },
-        {
-          "key": "SITE-55",
-          "title": "A Thought, A Yui of your own (NATIVE-1 explained for visitors)",
-          "summary": "A Yui of your own, explained",
-          "progress": "/progress#a-yui-of-your-own-explained"
+          "key": "YUI-123",
+          "title": "Describe how each agent moves, in words, and the agent turns it into a motion look"
         }
       ]
     },
@@ -410,6 +396,29 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-120",
+          "title": "The stage moves with the agent, context animations",
+          "step": "Step 1",
+          "summary": "The stage moves with the agent",
+          "shipped": "2026-09-26",
+          "progress": "/progress#the-stage-moves-with-the-agent"
+        },
+        {
+          "key": "YUI-119",
+          "title": "Full screen first in the app, mic bottom right, chat as the record",
+          "step": "Step 2",
+          "summary": "Yui lives on the full screen, in the app",
+          "shipped": "2026-09-26",
+          "progress": "/progress#yui-lives-on-the-full-screen-in-the-app"
+        },
+        {
+          "key": "SITE-55",
+          "title": "A Thought, A Yui of your own (NATIVE-1 explained for visitors)",
+          "summary": "A Yui of your own, explained",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-yui-of-your-own-explained"
+        },
         {
           "key": "SITE-54",
           "title": "The full screen stage on the site, See it + roadmap + a Thought (STAGE-1)",
