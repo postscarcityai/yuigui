@@ -1,6 +1,42 @@
 {
   "builds": [
     {
+      "build": 216,
+      "date": "2026-09-27",
+      "uploaded": "2026-09-27T08:35:21-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Channel guide v34: agents send a tuner and a metronome (YUI-116, yuigui 0bbd205)"
+        },
+        {
+          "text": "Channel guide v35: explainers draw every page",
+          "card": "YUI-157"
+        },
+        {
+          "text": "YuiLines: 39-map.json waits for the app half of maps (YUI-158 step 2)"
+        },
+        {
+          "text": "yui-mcp: sync the YL parser and MCP App for maps (YUI-158 step 1)"
+        },
+        {
+          "text": "Plugin: a flow the phone can't run goes out as a plan",
+          "card": "YUI-155"
+        },
+        {
+          "text": "A form inside a plan is just fields: one Send per screen",
+          "card": "YUI-156"
+        },
+        {
+          "text": "A pick inside a plan has no Done: one Send per screen",
+          "card": "YUI-159"
+        },
+        {
+          "text": "Bump to 0.4.2: one Send per screen in plans and questions"
+        }
+      ]
+    },
+    {
       "build": 208,
       "date": "2026-09-27",
       "uploaded": "2026-09-27T01:29:37-07:00",
@@ -998,34 +1034,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Channel guide v34: agents send a tuner and a metronome (YUI-116, yuigui 0bbd205)"
-    },
-    {
-      "text": "Channel guide v35: explainers draw every page",
-      "card": "YUI-157"
-    },
-    {
-      "text": "YuiLines: 39-map.json waits for the app half of maps (YUI-158 step 2)"
-    },
-    {
-      "text": "yui-mcp: sync the YL parser and MCP App for maps (YUI-158 step 1)"
-    },
-    {
-      "text": "Plugin: a flow the phone can't run goes out as a plan",
-      "card": "YUI-155"
-    },
-    {
-      "text": "A form inside a plan is just fields: one Send per screen",
-      "card": "YUI-156"
-    },
-    {
-      "text": "A pick inside a plan has no Done: one Send per screen",
-      "card": "YUI-159"
-    },
-    {
-      "text": "Bump to 0.4.2: one Send per screen in plans and questions"
-    }
-  ]
+  "next": []
 }

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 210,
-    "site": 525,
-    "builds": 37,
-    "shipped": 263,
-    "screenshots": 609
+    "app": 211,
+    "site": 528,
+    "builds": 38,
+    "shipped": 264,
+    "screenshots": 611
   },
   "days": [
     {
@@ -13,7 +13,43 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T14:45:10.620Z",
+          "at": "2026-09-27T15:39:08.187Z",
+          "title": "Yui 0.4.2 on the site",
+          "card": "SITE-63",
+          "anchor": "yui-0-4-2-on-the-site",
+          "images": [
+            {
+              "src": "/progress/yui156-before-after.webp",
+              "alt": "Before and after on the same questions screen: before, the About you form had its own Sent button; after, it is just fields"
+            },
+            {
+              "src": "/progress/yui159-review.webp",
+              "alt": "The plan review listing every answer above one Send"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 211,
+            "site": 528,
+            "builds": 38,
+            "shipped": 264
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-27T15:35:21.000Z",
+          "build": 216,
+          "changes": 8,
+          "totals": {
+            "app": 211,
+            "site": 528,
+            "builds": 38,
+            "shipped": 263
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T14:46:37.000Z",
           "title": "One Send per screen, picks too",
           "card": "YUI-159",
           "anchor": "one-send-per-screen-picks-too",
@@ -31,10 +67,10 @@
               "alt": "The plan review: Pages you want, About, Contact; Who is it for, Clients; one Send"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 210,
-            "site": 525,
+            "site": 527,
             "builds": 37,
             "shipped": 263
           }
@@ -544,6 +580,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "418c347",
+          "at": "2026-09-27T15:10:45.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/418c347"
+        },
+        {
+          "repo": "app",
+          "sha": "2ed29c9",
+          "at": "2026-09-27T15:02:47.000Z",
+          "text": "Bump to 0.4.2: one Send per screen in plans and questions",
+          "url": "https://github.com/postscarcityai/yui/commit/2ed29c9"
+        },
+        {
+          "repo": "site",
+          "sha": "8404bc5",
+          "at": "2026-09-27T14:46:37.000Z",
+          "text": "Progress: one Send per screen, picks too (YUI-159)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8404bc5"
+        },
+        {
+          "repo": "site",
+          "sha": "f6ab746",
+          "at": "2026-09-27T14:46:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f6ab746"
+        },
         {
           "repo": "app",
           "sha": "4083076",
