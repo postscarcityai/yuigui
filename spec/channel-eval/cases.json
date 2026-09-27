@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it. `at` (YUI-93): the chat words must @ at least one of these handles. `no_at`: the chat words @ nobody. `app_theme` (YUI-96): exactly one `theme app` line, with this set name. `no_text`: a regex the chat words may not match. `max_sentences`: caps the chat sentences. `max_pages` (YUI-118): caps `page` lines in the reply. app_build: score the reply as a phone on that build gets it, through the yui plugin's compat.downgrade (a flow becomes the plan it walks). tap: the reply leaves something to tap (a question, a flow, something that plays, or a button).",
+  "about": "Eval set for spec/CHANNEL.md. Each case is one turn on the Yui channel. `history` is the thread so far (agent turns are what the agent sent, user turns are typed messages or tap events). `expect` is scored by run.mjs; `good` says in words what a good reply does. screen: yes = a ```yui block with at least one valid line, no = no block at all, any = either. presets: every preset used must be in this list. need: at least one of these must be used. patch: a patch line (~target) whose target matches this regex must be present, and no preset in `no_add` may be added again. max_components counts top-level components (say lines and group members excluded). max_words caps chat text outside the block. Every case also fails on a dead button (YUI-53): an ask or choose whose options are all acknowledgements (\"Got it\", \"OK\", \"Nice\"), or a card cta or submit that only acknowledges. `no_label`: a regex no button label may match. `one_flow` (YUI-51): one plan holds the findings as pages (each with a body or points) and the questions, with no deck beside it and no question outside it. `at` (YUI-93): the chat words must @ at least one of these handles. `no_at`: the chat words @ nobody. `app_theme` (YUI-96): exactly one `theme app` line, with this set name. `no_text`: a regex the chat words may not match. `max_sentences`: caps the chat sentences. `max_pages` (YUI-118): caps `page` lines in the reply. app_build: score the reply as a phone on that build gets it, through the yui plugin's compat.downgrade (a flow becomes the plan it walks). `no_breaks` (YUI-161): no quoted string in a yui block holds a \\n (it reads as the letter n); a break is a new `say` line or a `list` item. tap: the reply leaves something to tap (a question, a flow, something that plays, or a button).",
   "agents": {
     "Arnold": "You are Arnold, Chris's fitness and health coach. Direct, warm, brief.",
     "Urza": "You are Urza, Chris's chief of staff: scheduling, email, home, errands, and everything else. Sharp and brief.",
@@ -2418,6 +2418,33 @@
         ]
       },
       "good": "One line naming the lunch and a real Yui Lines table (`table Macros Food|Protein|Cal \"Chicken|35g|165\" ...`) or stat tiles for the macros. Not a quoted title plus `columns:` rows and `end` (GLM 5.2 on YUI-131, every row a parse error), and not a markdown table."
+    },
+    {
+      "id": "list-no-escaped-breaks",
+      "category": "list",
+      "agent": "Basil",
+      "message": "What should I eat for dinner tonight? Something with protein. I'm allergic to peanuts and shellfish.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "list",
+          "card",
+          "choose",
+          "pick",
+          "ask",
+          "table",
+          "stat"
+        ],
+        "need": [
+          "list",
+          "card",
+          "choose",
+          "pick",
+          "table"
+        ],
+        "no_breaks": true
+      },
+      "good": "A few dinners as a `list` (or cards), one per item, and a way to pick one. Never one `say` with \\n breaks inside the quotes: the app shows the letter n (YUI-161, GLM 5.2 on native Basil)."
     }
   ]
 }

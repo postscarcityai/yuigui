@@ -350,6 +350,13 @@ export function score(c, reply) {
     const m = text.match(new RegExp(e.no_text, "i"));
     if (m) fails.push(`text: "${m[0]}"`);
   }
+  // One line is one line (YUI-161): a \n inside a quoted string reads as the letter n
+  // (YL.md section 2), so a break must be a new say line or list item.
+  if (e.no_breaks) {
+    for (const b of blocks) for (const l of b.body.split("\n")) {
+      if ([...l.matchAll(/"((?:[^"\\\n]|\\.)*)"/g)].some((m) => /(^|[^\\])(\\\\)*\\n/.test(m[1]))) fails.push(`breaks: \\n inside a quoted string :: ${l.trim().slice(0, 80)}`);
+    }
+  }
   if (e.max_pages) {
     const n = good.filter((o) => o.preset === "page").length;
     if (n > e.max_pages) fails.push(`pages: ${n} > ${e.max_pages}`);
