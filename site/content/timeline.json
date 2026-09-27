@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 242,
-    "site": 566,
+    "app": 250,
+    "site": 576,
     "builds": 40,
-    "shipped": 284,
-    "screenshots": 656
+    "shipped": 285,
+    "screenshots": 660
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T22:19:00.813Z",
+          "at": "2026-09-27T23:28:19.219Z",
+          "title": "Several chats with one agent: the spec and a mock",
+          "card": "YUI-169",
+          "anchor": "several-chats-with-one-agent-the-spec-and-a-mock",
+          "images": [
+            {
+              "src": "/progress/yui169-drawer-dark.webp",
+              "alt": "Dark mock of Basil's drawer: a New chat button, three chats newest first with their last line and time, then Next up and pinned screens"
+            },
+            {
+              "src": "/progress/yui169-after-new-light.webp",
+              "alt": "Light mock after a new chat: 'What should I eat before a run' sits on top of the chat list, highlighted as the open chat"
+            },
+            {
+              "src": "/progress/yui169-delete-dark.webp",
+              "alt": "Dark mock of the delete sheet: Delete 'Protein on rest days'? Its messages go. Basil still remembers what it learned. Delete and Keep it"
+            },
+            {
+              "src": "/progress/yui169-new-dark.webp",
+              "alt": "Dark mock of a new, empty chat: Basil's face, Hi. Tap the mic and talk., and two starter asks"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 250,
+            "site": 576,
+            "builds": 40,
+            "shipped": 285
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T22:18:51.000Z",
           "title": "The starter crew stays in character",
           "card": "YUI-135",
           "anchor": "the-starter-crew-stays-in-character",
@@ -31,10 +63,10 @@
               "alt": "Quill's first message: pick a topic and he teaches it in five minutes, then quizzes you, with Math, Science, History and Languages to tap"
             }
           ],
-          "commits": 3,
+          "commits": 5,
           "totals": {
             "app": 242,
-            "site": 566,
+            "site": 567,
             "builds": 40,
             "shipped": 284
           }
@@ -1102,6 +1134,132 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "b9f899e",
+          "at": "2026-09-27T23:24:47.000Z",
+          "text": "A line that can't sit in a deck moves after it, so the deck still draws",
+          "url": "https://github.com/postscarcityai/yui/commit/b9f899e"
+        },
+        {
+          "repo": "app",
+          "sha": "056e06b",
+          "at": "2026-09-27T23:19:50.000Z",
+          "text": "A table row with its quote closed early is one row again",
+          "url": "https://github.com/postscarcityai/yui/commit/056e06b"
+        },
+        {
+          "repo": "app",
+          "sha": "d9f1311",
+          "at": "2026-09-27T23:18:48.000Z",
+          "text": "A message sent during a hand-off is answered; a quoted table title stays a title",
+          "url": "https://github.com/postscarcityai/yui/commit/d9f1311"
+        },
+        {
+          "repo": "site",
+          "sha": "e959154",
+          "at": "2026-09-27T23:12:52.000Z",
+          "text": "Roadmap: agent tables (YUI-170, YUI-171) and a better web sample that goes dark (SITE-65)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e959154"
+        },
+        {
+          "repo": "site",
+          "sha": "568a8a6",
+          "at": "2026-09-27T23:10:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/568a8a6"
+        },
+        {
+          "repo": "site",
+          "sha": "5871431",
+          "at": "2026-09-27T23:06:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5871431"
+        },
+        {
+          "repo": "site",
+          "sha": "8748ac6",
+          "at": "2026-09-27T23:05:36.000Z",
+          "text": "Board shows what is happening now: TestFlight notes being built appear under their plain names, and blocked cards say they are waiting...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8748ac6"
+        },
+        {
+          "repo": "site",
+          "sha": "68aeeee",
+          "at": "2026-09-27T22:52:27.000Z",
+          "text": "Redeploy so the site chat picks up its key (SITE-64)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/68aeeee"
+        },
+        {
+          "repo": "app",
+          "sha": "8e91ab5",
+          "at": "2026-09-27T22:52:27.000Z",
+          "text": "Native answers: a list's title is title=, not a quoted first item",
+          "url": "https://github.com/postscarcityai/yui/commit/8e91ab5"
+        },
+        {
+          "repo": "app",
+          "sha": "e04b2ec",
+          "at": "2026-09-27T22:51:23.000Z",
+          "text": "Native answers: words before the screen, nothing after the fence",
+          "url": "https://github.com/postscarcityai/yui/commit/e04b2ec"
+        },
+        {
+          "repo": "app",
+          "sha": "37097bd",
+          "at": "2026-09-27T22:46:54.000Z",
+          "text": "Macros are one table, not a page per tile,",
+          "url": "https://github.com/postscarcityai/yui/commit/37097bd"
+        },
+        {
+          "repo": "site",
+          "sha": "924e7bc",
+          "at": "2026-09-27T22:43:30.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/924e7bc"
+        },
+        {
+          "repo": "app",
+          "sha": "3b56e3f",
+          "at": "2026-09-27T22:38:25.000Z",
+          "text": "Native agents answer on a screen: no markdown, one line first, 4 pages at most",
+          "url": "https://github.com/postscarcityai/yui/commit/3b56e3f"
+        },
+        {
+          "repo": "site",
+          "sha": "ab124c5",
+          "at": "2026-09-27T22:36:01.000Z",
+          "text": "Roadmap: Chris's build 244 notes placed as YUI-165 to YUI-169 and 0.5.0",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ab124c5"
+        },
+        {
+          "repo": "site",
+          "sha": "d2843a1",
+          "at": "2026-09-27T22:34:06.000Z",
+          "text": "Site chat goes live without Turnstile: the check turns on with its keys, a chat ends at 12 turns until then (SITE-64)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d2843a1"
+        },
+        {
+          "repo": "site",
+          "sha": "9549482",
+          "at": "2026-09-27T22:31:54.000Z",
+          "text": "Social drafts: 12 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9549482"
+        },
+        {
+          "repo": "app",
+          "sha": "248247b",
+          "at": "2026-09-27T22:20:57.000Z",
+          "text": "Crew shots: every starter agent's first answer, in the app, on a throwaway account (YUI-135)",
+          "url": "https://github.com/postscarcityai/yui/commit/248247b"
+        },
+        {
+          "repo": "site",
+          "sha": "6a79ce4",
+          "at": "2026-09-27T22:18:51.000Z",
+          "text": "Progress: the starter crew stays in character, with each agent's first answer (YUI-135)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6a79ce4"
+        },
         {
           "repo": "site",
           "sha": "2a2ed45",

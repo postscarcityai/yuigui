@@ -1,0 +1,103 @@
+/* YUI-169 chats mock. Every class starts cm- so nothing leaks into the site. */
+.cm-page { max-width: 1040px; margin: 0 auto; padding: 32px 20px 64px; }
+.cm-page h1 { font-size: clamp(30px, 6vw, 44px); line-height: 1.1; margin: 4px 0 12px; }
+.cm-kicker { color: var(--brand); font-weight: 800; letter-spacing: .08em; text-transform: uppercase; font-size: 13px; margin: 0; }
+.cm-lede { font-size: 19px; line-height: 1.5; max-width: 56ch; color: var(--muted); margin: 0 0 12px; }
+.cm-links { display: flex; gap: 18px; margin: 0 0 28px; font-weight: 700; }
+.cm-pair { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; }
+.cm-pair figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.cm-pair figcaption { color: var(--muted); font-weight: 700; }
+.cm-notes { max-width: 60ch; margin: 36px auto 0; line-height: 1.55; color: var(--muted); display: grid; gap: 10px; }
+.cm-notes b { color: var(--text); }
+
+/* The phone and its two looks */
+.cm-phone {
+  --a: #EE7A82; --a-ink: #2A1A1C; --mint: #7ED9B0;
+  position: relative; overflow: hidden; width: 360px; height: 760px; max-width: calc(100vw - 24px);
+  border-radius: 44px; border: 8px solid #111; box-shadow: 0 20px 50px rgba(0,0,0,.25);
+  font-family: var(--font); display: flex; flex-direction: column; text-align: left;
+  background: var(--bg0); color: var(--ink0); user-select: none; -webkit-user-select: none;
+}
+.cm-dark { --bg0: linear-gradient(180deg, #45252A 0%, #2A1A1C 45%, #231618 100%); --panel0: #261A1B; --ink0: #FBF1F1; --soft0: #BFA9AB; --chip0: #3A2528; --line0: rgba(238,122,130,.25); --bubble0: #3A2629; }
+.cm-light { --bg0: linear-gradient(180deg, #FFEDEB 0%, #FFF9F0 45%); --panel0: #FFF9F0; --ink0: #3A3340; --soft0: #8C8294; --chip0: #FFFFFF; --line0: #F0E4D6; --bubble0: #FFFFFF; --a-ink: #3A3340; }
+.cm-phone svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cm-phone button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+
+.cm-status { display: flex; justify-content: space-between; padding: 14px 28px 4px; font-size: 14px; font-weight: 700; }
+.cm-head { display: flex; align-items: center; gap: 8px; padding: 8px 14px; }
+.cm-round { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--chip0) !important; flex: none; position: relative; box-shadow: 0 1px 0 var(--line0); }
+.cm-dot::after { content: ""; position: absolute; top: 3px; right: 3px; width: 9px; height: 9px; border-radius: 50%; background: var(--a); }
+.cm-t { font-family: Georgia, serif; font-size: 20px; }
+.cm-pill { display: flex; align-items: center; gap: 8px; padding: 5px 14px 5px 5px; border-radius: 999px; background: var(--chip0) !important; min-width: 0; margin-right: auto; }
+.cm-pill-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.15; }
+.cm-pill-text small { color: var(--soft0); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }
+.cm-face { display: grid; place-items: center; background: var(--a); color: #2A1A1C; font-weight: 900; border-radius: 10px; flex: none; }
+.cm-face.sm { width: 30px; height: 30px; font-size: 15px; }
+.cm-face.lg { width: 76px; height: 76px; font-size: 38px; border-radius: 22px; box-shadow: 0 0 40px rgba(238,122,130,.5); }
+
+.cm-thread { flex: 1; overflow-y: auto; padding: 12px 16px; display: flex; flex-direction: column; gap: 10px; }
+.cm-empty { margin: auto 0; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.cm-empty b { font-size: 21px; margin-top: 8px; }
+.cm-empty > span:not(.cm-face) { color: var(--soft0); font-size: 15px; }
+.cm-starters { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+.cm-starters button { padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line0) !important; background: var(--chip0) !important; font-size: 14px; }
+.cm-msg { margin: 0; padding: 10px 14px; border-radius: 20px; max-width: 80%; font-size: 15px; line-height: 1.4; }
+.cm-msg.agent { background: var(--bubble0); align-self: flex-start; border-bottom-left-radius: 6px; }
+.cm-msg.user { background: var(--a); color: #2A1A1C; align-self: flex-end; border-bottom-right-radius: 6px; }
+.cm-card { background: var(--bubble0); border-radius: 20px; padding: 12px 14px; display: grid; gap: 6px; font-size: 15px; max-width: 85%; }
+.cm-card input { accent-color: var(--a); }
+
+.cm-bar { display: flex; justify-content: flex-end; align-items: center; gap: 10px; padding: 10px 16px 26px; }
+.cm-mic { width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; background: var(--a) !important; color: #2A1A1C !important; box-shadow: 0 0 28px rgba(238,122,130,.55); flex: none; }
+.cm-mic svg { width: 26px; height: 26px; }
+.cm-type { display: flex; gap: 8px; flex: 1; align-items: center; }
+.cm-type input { flex: 1; min-width: 0; height: 46px; border-radius: 999px; border: 1px solid var(--line0); background: var(--chip0); color: var(--ink0); padding: 0 16px; font: inherit; font-size: 15px; }
+
+/* The drawer */
+.cm-scrim { position: absolute; inset: 0; background: rgba(0,0,0,.35); opacity: 0; pointer-events: none; transition: opacity .2s; }
+.cm-scrim.on { opacity: 1; pointer-events: auto; }
+.cm-drawer { position: absolute; top: 0; bottom: 0; left: 0; width: 86%; background: var(--panel0); transform: translateX(-102%); transition: transform .25s ease; display: flex; flex-direction: column; padding: 44px 14px 16px; box-shadow: 10px 0 30px rgba(0,0,0,.2); }
+.cm-drawer.on { transform: none; }
+.cm-dhead { display: flex; align-items: center; gap: 8px; }
+.cm-dhead h2 { margin: 0 auto 0 4px; font-size: 30px; font-weight: 900; }
+.cm-tabs { display: flex; background: var(--chip0); border-radius: 999px; padding: 4px; margin: 14px 0 6px; }
+.cm-tabs button { flex: 1; padding: 8px 2px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--soft0) !important; display: flex; align-items: center; justify-content: center; gap: 4px; }
+.cm-tabs button.on { background: var(--a) !important; color: #2A1A1C !important; }
+.cm-tabs i, .cm-next i { font-style: normal; background: var(--a); color: #2A1A1C; border-radius: 999px; font-size: 11px; min-width: 18px; height: 18px; display: inline-grid; place-items: center; font-weight: 800; }
+.cm-tabs button.on i { background: #2A1A1C; color: var(--a); }
+.cm-dbody { flex: 1; overflow-y: auto; overflow-x: hidden; margin: 0 -4px; padding: 6px 4px; }
+.cm-other p { color: var(--soft0); }
+.cm-new { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: 16px; background: var(--a) !important; color: #2A1A1C !important; font-weight: 800; font-size: 16px; margin-top: 8px; }
+.cm-label { font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--soft0); margin: 18px 4px 8px; }
+.cm-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
+.cm-list li { display: flex; align-items: center; border-radius: 14px; min-width: 0; }
+.cm-list li.on { background: rgba(238,122,130,.18); }
+.cm-row { flex: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; gap: 3px; padding: 10px 4px 10px 12px; text-align: left; }
+.cm-rtitle { max-width: 100%; font-weight: 800; font-size: 15px; display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cm-rtitle > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.cm-unread { width: 8px; height: 8px; border-radius: 50%; background: var(--a); flex: none; }
+.cm-rsub { width: 100%; display: flex; gap: 8px; font-size: 13px; color: var(--soft0); }
+.cm-rsub span:first-child { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cm-more { width: 36px; height: 36px; display: grid; place-items: center; color: var(--soft0) !important; flex: none; }
+.cm-rename { flex: 1; padding: 6px 4px 6px 8px; }
+.cm-rename input { width: 100%; height: 38px; border-radius: 10px; border: 2px solid var(--a); background: var(--chip0); color: var(--ink0); padding: 0 10px; font: inherit; font-weight: 800; font-size: 15px; }
+.cm-next { width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 18px; background: var(--chip0) !important; border: 1px solid var(--line0) !important; text-align: left; }
+.cm-next > span:nth-child(2) { flex: 1; display: flex; flex-direction: column; }
+.cm-next small, .cm-pin small { color: var(--soft0); font-size: 13px; }
+.cm-nicon { width: 38px; height: 38px; border-radius: 50%; background: var(--a); color: #2A1A1C; display: grid; place-items: center; }
+.cm-pins { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.cm-pin { flex: none; width: 132px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px 12px; border-radius: 16px; background: var(--chip0) !important; border: 1px solid var(--line0) !important; display: flex; flex-direction: column; gap: 2px; text-align: left; font-size: 14px; }
+.cm-foot { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 22px; background: var(--chip0); margin-top: 8px; }
+.cm-foot span:last-child { display: flex; flex-direction: column; line-height: 1.2; }
+.cm-foot small { color: var(--soft0); font-size: 12px; display: flex; align-items: center; gap: 5px; }
+.cm-on { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); display: inline-block; }
+
+/* Sheets and the toast */
+.cm-sheet-wrap { position: absolute; inset: 0; background: rgba(0,0,0,.4); display: flex; align-items: flex-end; z-index: 5; }
+.cm-sheet { width: 100%; background: var(--panel0); border-radius: 26px 26px 0 0; padding: 18px 16px 28px; display: grid; gap: 8px; }
+.cm-sheet-title { margin: 0 4px 2px; font-weight: 900; font-size: 18px; }
+.cm-sheet-body { margin: 0 4px 8px; color: var(--soft0); font-size: 15px; line-height: 1.4; }
+.cm-sheet button { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 14px; border-radius: 16px; background: var(--chip0) !important; font-weight: 800; font-size: 16px; }
+.cm-sheet button.danger { color: #E5484D !important; }
+.cm-sheet button.danger.solid { background: #E5484D !important; color: #fff !important; }
+.cm-toast { position: absolute; left: 50%; bottom: 100px; transform: translateX(-50%); background: #111; color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 700; z-index: 6; white-space: nowrap; }
