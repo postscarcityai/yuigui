@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 187,
-    "site": 467,
+    "app": 189,
+    "site": 470,
     "builds": 35,
-    "shipped": 237,
-    "screenshots": 523
+    "shipped": 239,
+    "screenshots": 533
   },
   "days": [
     {
@@ -13,7 +13,79 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T00:35:33.290Z",
+          "at": "2026-09-27T00:53:15.766Z",
+          "title": "The stage moves with the agent",
+          "card": "YUI-120",
+          "anchor": "the-stage-moves-with-the-agent",
+          "images": [
+            {
+              "src": "/progress/yui120-side-work-dark.webp",
+              "alt": "Dark mode: Coach and Sage side by side, both on Checking the weather, Coach in orange marked snappy, Sage in green marked calm."
+            },
+            {
+              "src": "/progress/yui120-side-answer-light.webp",
+              "alt": "Light mode: both agents showing the same answer, Three runs this week, all dry, with a drawing of Tuesday, Thursday and Saturday filled and Wednesday dashed for rain."
+            },
+            {
+              "src": "/progress/yui120-mood-make-light.webp",
+              "alt": "Light mode: Yui's stage on Drafting three runs, the mark's layers stacking up, with mood buttons under it."
+            },
+            {
+              "src": "/progress/yui120-look-light.webp",
+              "alt": "Light mode: The look, each agent with calm, bouncy and snappy buttons, and a box to describe Coach's motion in words."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 189,
+            "site": 470,
+            "builds": 35,
+            "shipped": 239
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T00:40:57.000Z",
+          "title": "Yui lives on the full screen, in the app",
+          "card": "YUI-119",
+          "anchor": "yui-lives-on-the-full-screen-in-the-app",
+          "images": [
+            {
+              "src": "/progress/yui119-app-greeting-light.webp",
+              "alt": "Light mode, in the app: the full screen at rest, Yui's face, Hi. Tap the mic and talk, settings and Yui top left, the chat top right, plus, T and a big mic bottom right."
+            },
+            {
+              "src": "/progress/yui119-app-working-dark.webp",
+              "alt": "Dark mode, in the app: right after sending, the message small at the top and a coral shape breathing over the word Pondering."
+            },
+            {
+              "src": "/progress/yui119-app-chunk-dark.webp",
+              "alt": "Dark mode, in the app: part one of four, a drawing of Build, Checks and TestFlight, and the line 0.3.2 is building. On TestFlight in about 40 minutes."
+            },
+            {
+              "src": "/progress/yui119-app-answer-light.webp",
+              "alt": "Light mode, in the app: a status answer as one screen, an iPhone on 160 and an iPad on 135, Yes. Build 160, the newest."
+            },
+            {
+              "src": "/progress/yui119-app-questions-light.webp",
+              "alt": "Light mode, in the app: Before I go, two questions on one screen with Yes, ping me and Keys picked, and one Send."
+            },
+            {
+              "src": "/progress/yui119-app-record-light.webp",
+              "alt": "Light mode, in the app: the chat as the record, each part written down, the plan marked sent with its two answers as Chris's message."
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 189,
+            "site": 470,
+            "builds": 35,
+            "shipped": 238
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T00:38:45.000Z",
           "title": "A Yui of your own, explained",
           "card": "SITE-55",
           "anchor": "a-yui-of-your-own-explained",
@@ -23,10 +95,10 @@
               "alt": "A diagram of the plan: the Yui app sends your message to the Yui relay, which wakes your own Yui on our server for one turn. Below it, tier 2 later: a real Hermes of your own in a sandbox that sleeps."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 187,
-            "site": 467,
+            "site": 468,
             "builds": 35,
             "shipped": 237
           }
@@ -122,7 +194,7 @@
               "alt": "Light mode: settings with switches for the mic, T for the text field and plus for attach."
             }
           ],
-          "commits": 2,
+          "commits": 4,
           "totals": {
             "app": 186,
             "site": 462,
@@ -1671,6 +1743,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "1381b5b",
+          "at": "2026-09-27T00:40:57.000Z",
+          "text": "Progress: Yui lives on the full screen, in the app (YUI-119 step 2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1381b5b"
+        },
+        {
+          "repo": "app",
+          "sha": "9632c8c",
+          "at": "2026-09-27T00:40:22.000Z",
+          "text": "Yui lives on the full screen, the chat is the record (YUI-119 step 2)",
+          "url": "https://github.com/postscarcityai/yui/commit/9632c8c"
+        },
+        {
+          "repo": "site",
+          "sha": "db63abd",
+          "at": "2026-09-27T00:40:21.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/db63abd"
+        },
+        {
+          "repo": "app",
+          "sha": "51ece19",
+          "at": "2026-09-27T00:38:51.000Z",
+          "text": "Pictures show whole, never cropped (YUI feedback AM6xGDZ3)",
+          "url": "https://github.com/postscarcityai/yui/commit/51ece19"
+        },
+        {
+          "repo": "site",
+          "sha": "ca26e0e",
+          "at": "2026-09-27T00:38:45.000Z",
+          "text": "A Thought: A Yui of your own, the native plan for visitors (SITE-55)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ca26e0e"
+        },
         {
           "repo": "site",
           "sha": "62793f5",

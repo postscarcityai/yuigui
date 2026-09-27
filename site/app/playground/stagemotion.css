@@ -1,0 +1,163 @@
+/* Stage motion mock (spec/YL.md section 5, YUI-120). Every class is mo-, so no site chrome leaks in.
+   Timings come from the agent's look as custom properties (motionVars): --mo-enter, --mo-handoff,
+   --mo-stagger, --mo-beat, --mo-open, --mo-breath, --mo-ease. */
+.mo-app { --mo-card: #181a29; --mo-line: #262a40; flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; }
+.screen.light .mo-app { --mo-card: #fff; --mo-line: #e3e4ee; }
+.mo-wrap { flex: 1; display: flex; flex-direction: column; gap: 8px; padding: 4px 10px 12px; min-height: 0; }
+.mo-title { font-size: 18px; font-weight: 800; line-height: 1.2; }
+.mo-sub { font-size: 12px; color: var(--muted); line-height: 1.35; }
+.mo-note { font-size: 11.5px; color: var(--muted); line-height: 1.35; }
+.mo-btn { min-height: 40px; padding: 0 14px; border-radius: 20px; border: 0; background: var(--mo-c, #8b7cff); color: #fff; font: inherit; font-size: 13.5px; font-weight: 800; cursor: pointer; }
+.mo-btn:disabled { opacity: .45; cursor: default; }
+.mo-btn.wide { align-self: stretch; margin-top: 2px; }
+.mo-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.mo-chips.moods { justify-content: center; }
+.mo-chips.tight { gap: 5px; margin-top: 5px; }
+.mo-chip { min-height: 32px; padding: 0 11px; border-radius: 16px; border: 1px solid var(--mo-line); background: var(--mo-card); color: inherit; font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+.mo-chip.on { background: var(--mo-c, #8b7cff); border-color: var(--mo-c, #8b7cff); color: #fff; }
+
+/* ---------- a stage ---------- */
+.mo-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mo-single { flex: 1; min-height: 380px; display: flex; }
+.mo-single .mo-stage { flex: 1; }
+.mo-stage { position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 400px; border-radius: 22px; border: 1px solid var(--mo-line);
+  background: radial-gradient(120% 55% at 50% 0%, color-mix(in srgb, var(--mo-c) 14%, transparent), transparent 70%), var(--mo-card); }
+.mo-stage.compact { min-height: 360px; border-radius: 18px; }
+.mo-wash { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 86% 94%, color-mix(in srgb, var(--mo-c) 22%, transparent), transparent 65%);
+  animation: mo-open var(--mo-open) var(--mo-ease) both; }
+.mo-head { position: relative; display: flex; align-items: center; gap: 6px; padding: 8px 8px 0; font-size: 13px; }
+.mo-face { width: 24px; height: 24px; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 800; font-size: 11.5px; flex: none; }
+.mo-char { margin-left: auto; font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--mo-c); }
+.mo-me { position: relative; margin: 6px 10px 0; font-size: 11.5px; color: var(--muted); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; animation: mo-in-fade var(--mo-enter) var(--mo-ease) both; }
+.mo-me::before { content: "You: "; font-weight: 800; }
+.mo-center { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 6px 10px; text-align: center; }
+.mo-word { font-size: 15px; font-weight: 800; animation: mo-in-fade var(--mo-enter) var(--mo-ease) both; }
+.compact .mo-word { font-size: 13px; }
+.mo-heard { font-size: 16px; font-weight: 800; line-height: 1.3; min-height: 42px; }
+.compact .mo-heard { font-size: 13.5px; }
+.mo-caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; vertical-align: -2px; background: var(--mo-c); animation: mo-blink 1s steps(1) infinite; }
+.mo-doing { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 14px; font-weight: 800; }
+.compact .mo-doing { font-size: 12px; }
+.mo-bar { width: 110px; height: 4px; border-radius: 4px; background: color-mix(in srgb, var(--muted) 22%, transparent); overflow: hidden; }
+.mo-bar i { display: block; height: 100%; border-radius: 4px; background: var(--mo-c); transition: width var(--mo-handoff) var(--mo-ease); }
+.mo-err { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.mo-err .mo-btn { --mo-c: inherit; background: var(--mo-card); color: inherit; border: 1px solid var(--mo-line); }
+.mo-foot { position: relative; display: flex; align-items: center; justify-content: space-between; padding: 6px 8px 8px; }
+.mo-moodtag { font-size: 10.5px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.mo-segs { position: relative; margin: 8px 10px 0; display: flex; gap: 3px; }
+.mo-segs i { flex: 1; height: 3px; border-radius: 2px; background: color-mix(in srgb, var(--muted) 25%, transparent); transition: background var(--mo-handoff) var(--mo-ease); }
+.mo-segs i.on { background: var(--mo-c); }
+
+/* The mic: its ring beats in the look's pulse while listening. */
+.mo-mic { position: relative; width: 40px; height: 40px; border-radius: 50%; background: var(--mo-c); color: #fff; display: grid; place-items: center; flex: none; }
+.compact .mo-mic { width: 34px; height: 34px; }
+.mo-mic svg { width: 44%; height: 44%; fill: currentColor; stroke: currentColor; }
+.mo-ring { position: absolute; inset: -4px; border-radius: 50%; border: 2px solid var(--mo-c); opacity: 0; }
+.mo-mic.live .mo-ring { animation: mo-ring calc(var(--mo-breath) * .6) var(--mo-ease) infinite; }
+.mo-mic.live .mo-ring.r2 { animation-delay: calc(var(--mo-breath) * .3); }
+.p-tick .mo-mic.live .mo-ring { animation-timing-function: steps(3, end); }
+
+/* ---------- the presence: one mark, a move per mood ---------- */
+.mo-presence { position: relative; width: 120px; height: 120px; flex: none; }
+.compact .mo-presence { width: 92px; height: 92px; }
+.mo-presence > span { position: absolute; inset: 0; }
+.mo-orb i { position: absolute; inset: 0; border-radius: 46% 54% 50% 50% / 52% 44% 56% 48%; background: color-mix(in srgb, var(--mo-c) 34%, transparent); }
+.mo-orb i:nth-child(2) { inset: 16%; background: color-mix(in srgb, var(--mo-c) 55%, transparent); }
+.mo-orb i:nth-child(3) { inset: 32%; background: var(--mo-c); }
+.mo-halo { border-radius: 50%; box-shadow: 0 0 40px color-mix(in srgb, var(--mo-c) 45%, transparent); opacity: .7; }
+.mo-sweep, .mo-spark, .mo-dockface { opacity: 0; }
+
+/* idle and ask: it breathes, in the look's pulse */
+.p-soft .m-idle .mo-orb, .p-soft .m-listen .mo-orb { animation: mo-soft var(--mo-breath) ease-in-out infinite; }
+.p-beat .m-idle .mo-orb, .p-beat .m-listen .mo-orb { animation: mo-beat var(--mo-breath) ease-out infinite; }
+.p-tick .m-idle .mo-orb, .p-tick .m-listen .mo-orb { animation: mo-tick var(--mo-breath) steps(1) infinite; }
+/* listen: the mark shrinks and leans toward the voice */
+.m-listen { transform: scale(.7); transition: transform var(--mo-enter) var(--mo-ease); }
+/* think: the layers turn over each other, slower than work */
+.m-think .mo-orb i { animation: mo-morph calc(var(--mo-breath) * 1.1) var(--mo-ease) infinite; }
+.m-think .mo-orb i:nth-child(2) { animation-delay: calc(var(--mo-breath) * -.35); }
+.m-think .mo-orb i:nth-child(3) { animation-delay: calc(var(--mo-breath) * -.7); }
+/* work, looking: a light sweeps round the mark */
+.f-scan .mo-sweep { opacity: 1; border-radius: 50%; inset: -10px; background: conic-gradient(from 0deg, transparent 0 70%, color-mix(in srgb, var(--mo-c) 70%, transparent) 95%, transparent);
+  -webkit-mask: radial-gradient(circle, transparent 62%, #000 63%); mask: radial-gradient(circle, transparent 62%, #000 63%); animation: mo-spin calc(var(--mo-breath) * .7) linear infinite; }
+.p-tick .f-scan .mo-sweep { animation-timing-function: steps(8); }
+.f-scan .mo-orb i { animation: mo-morph calc(var(--mo-breath) * .8) var(--mo-ease) infinite; }
+/* work, making: the layers stack up one after another */
+.f-make .mo-orb i { animation: mo-build calc(var(--mo-beat) * 3) var(--mo-ease) infinite; }
+.f-make .mo-orb i:nth-child(2) { animation-delay: var(--mo-beat); }
+.f-make .mo-orb i:nth-child(3) { animation-delay: calc(var(--mo-beat) * 2); }
+.f-work .mo-orb i { animation: mo-morph var(--mo-breath) var(--mo-ease) infinite; }
+/* found: one burst, then it settles, ready to hand off */
+.m-found .mo-orb { animation: mo-found var(--mo-beat) var(--mo-ease) both; }
+.m-found .mo-spark { opacity: 1; }
+.m-found .mo-spark b { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px; border-radius: 50%; background: var(--mo-c);
+  transform: rotate(calc(var(--i) * 45deg)) translateY(0); animation: mo-spark calc(var(--mo-beat) * 1.4) var(--mo-ease) both; }
+/* error: a small shake, then it goes quiet and grey */
+.m-error .mo-orb { animation: mo-shake var(--mo-beat) var(--mo-ease) both; filter: grayscale(.85); opacity: .6; }
+.e-rise .m-error .mo-orb, .e-fade .m-error .mo-orb { animation-name: mo-sag; }
+
+/* ---------- things coming on: the look's enter ---------- */
+.mo-chunk { display: flex; flex-direction: column; gap: 10px; width: 100%; text-align: left; }
+.mo-pic { max-height: 230px; overflow: hidden; }
+.compact .mo-pic { max-height: 150px; }
+.mo-pic > * { margin: 0 !important; }
+.mo-line { font-size: 18px; font-weight: 800; line-height: 1.25; }
+.compact .mo-line { font-size: 13.5px; }
+.mo-chunk, .mo-q, .mo-qtitle, .mo-doing { animation-duration: var(--mo-enter); animation-timing-function: var(--mo-ease); animation-fill-mode: both; }
+.e-rise .mo-chunk, .e-rise .mo-q, .e-rise .mo-qtitle, .e-rise .mo-doing { animation-name: mo-in-rise; }
+.e-pop .mo-chunk, .e-pop .mo-q, .e-pop .mo-qtitle, .e-pop .mo-doing { animation-name: mo-in-pop; }
+.e-slide .mo-chunk, .e-slide .mo-q, .e-slide .mo-qtitle, .e-slide .mo-doing { animation-name: mo-in-slide; }
+.e-drop .mo-chunk, .e-drop .mo-q, .e-drop .mo-qtitle, .e-drop .mo-doing { animation-name: mo-in-drop; }
+.e-fade .mo-chunk, .e-fade .mo-q, .e-fade .mo-qtitle, .e-fade .mo-doing { animation-name: mo-in-fade; }
+/* going back a part comes in from the other side */
+.e-slide .mo-chunk[data-dir="-1"] { animation-name: mo-in-slideback; }
+.mo-chunk { animation-duration: var(--mo-handoff); }
+/* the questions arrive one by one, a stagger apart */
+.mo-qs { width: 100%; display: flex; flex-direction: column; gap: 8px; text-align: left; }
+.mo-qtitle { font-size: 17px; font-weight: 800; }
+.compact .mo-qtitle { font-size: 13.5px; }
+.mo-q { animation-delay: calc(var(--mo-stagger) * (var(--n) + 1)); }
+.mo-q .yl-block { margin: 0; }
+.compact .mo-q { font-size: 12px; }
+
+/* ---------- the side-by-side extras and the look view ---------- */
+.mo-strip { display: flex; justify-content: space-between; gap: 2px; font-size: 10.5px; font-weight: 800; color: var(--muted); }
+.mo-strip span { flex: 1; text-align: center; padding: 4px 0; border-radius: 8px; transition: background .2s, color .2s; }
+.mo-strip span.on { background: color-mix(in srgb, var(--muted) 18%, transparent); color: inherit; }
+.mo-lookview { gap: 10px; }
+.mo-lookrow { display: flex; gap: 10px; align-items: flex-start; padding: 10px; border-radius: 16px; border: 1px solid var(--mo-line); background: var(--mo-card); }
+.mo-lookrow .mo-face { width: 30px; height: 30px; font-size: 13px; }
+.mo-lookmain { flex: 1; min-width: 0; font-size: 14px; }
+.mo-words { display: flex; flex-direction: column; gap: 6px; padding: 10px; border-radius: 16px; border: 1px dashed var(--mo-line); --mo-c: #ff5a36; }
+.mo-wordsrow { display: flex; gap: 6px; }
+.mo-wordsrow input { flex: 1; min-width: 0; min-height: 40px; padding: 0 12px; border-radius: 20px; border: 1px solid var(--mo-line); background: var(--mo-card); color: inherit; font: inherit; font-size: 16px; }
+.mo-switch { display: flex; align-items: center; justify-content: space-between; min-height: 44px; font-size: 14px; font-weight: 700; }
+.mo-switch input { width: 20px; height: 20px; }
+
+/* ---------- Reduce Motion: the still look ---------- */
+.mo-still *, .mo-still *::before, .mo-still *::after { animation: none !important; transition: none !important; }
+.mo-still .m-listen { transform: none; }
+.mo-still .mo-spark, .mo-still .mo-sweep { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .mo-app *, .mo-app *::before, .mo-app *::after { animation: none !important; transition: none !important; }
+}
+
+@keyframes mo-open { from { clip-path: circle(0% at 86% 94%); opacity: 1; } to { clip-path: circle(150% at 86% 94%); opacity: 1; } }
+@keyframes mo-soft { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes mo-beat { 0%, 40%, 100% { transform: scale(1); } 12% { transform: scale(1.08); } 26% { transform: scale(1.03); } }
+@keyframes mo-tick { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes mo-morph { 0%, 100% { border-radius: 46% 54% 50% 50% / 52% 44% 56% 48%; transform: rotate(0) scale(1); } 50% { border-radius: 56% 44% 42% 58% / 44% 58% 42% 56%; transform: rotate(40deg) scale(1.06); } }
+@keyframes mo-spin { to { transform: rotate(360deg); } }
+@keyframes mo-build { 0% { transform: translateY(14px) scale(.8); opacity: .2; } 30%, 70% { transform: none; opacity: 1; } 100% { transform: translateY(-6px) scale(1.04); opacity: .35; } }
+@keyframes mo-found { 0% { transform: scale(1); } 35% { transform: scale(1.18); } 100% { transform: scale(.92); } }
+@keyframes mo-spark { from { transform: rotate(calc(var(--i) * 45deg)) translateY(0); opacity: 1; } to { transform: rotate(calc(var(--i) * 45deg)) translateY(-70px); opacity: 0; } }
+@keyframes mo-shake { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-8px); } 40% { transform: translateX(7px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(2px); } }
+@keyframes mo-sag { from { transform: none; } to { transform: translateY(8px) scale(.94); } }
+@keyframes mo-ring { from { transform: scale(.9); opacity: .9; } to { transform: scale(1.5); opacity: 0; } }
+@keyframes mo-blink { 50% { opacity: 0; } }
+@keyframes mo-in-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mo-in-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes mo-in-pop { from { opacity: 0; transform: scale(.82); } to { opacity: 1; transform: none; } }
+@keyframes mo-in-slide { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: none; } }
+@keyframes mo-in-slideback { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: none; } }
+@keyframes mo-in-drop { 0% { opacity: 0; transform: translateY(-26px); } 70% { opacity: 1; transform: translateY(3px); } 100% { opacity: 1; transform: none; } }

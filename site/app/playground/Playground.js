@@ -21,6 +21,7 @@ import { VAULT_VIEWS, VaultDemo } from "./vault";
 import { SYNC_VIEWS, SyncDemo } from "./sync";
 import { MYFLOWS_VIEWS, MyFlowsDemo } from "./myflows";
 import { STAGEFIRST_VIEWS, StageFirstDemo } from "./stagefirst";
+import { STAGEMOTION_VIEWS, StageMotionDemo } from "./stagemotion";
 import { mealReply } from "./meal";
 import { WorkingRow, useWorkingTurn } from "./working";
 import { starterReply } from "./starter";
@@ -119,10 +120,13 @@ export default function Playground({ release = "" }) {
   // Stage first (YL.md section 5, YUI-119): the app living on the full screen, the chat as the record.
   const stagefirst = shared ? null : ALL[idx].stagefirst;
   const [sfView, setSfView] = useState("ask");
+  // Stage motion (YL.md section 5, YUI-120): the stage moves with the agent, per mood and per character.
+  const stagemotion = shared ? null : ALL[idx].stagemotion;
+  const [moView, setMoView] = useState("side");
   // The working row (YL.md section 5): the turn plays, `doing` lines in the row, then the reply.
   const working = shared ? null : ALL[idx].working;
   const [turn, playTurn] = useWorkingTurn(text, working ? idx : null);
-  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst;
+  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!stagemotion;
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
@@ -158,6 +162,12 @@ export default function Playground({ release = "" }) {
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
     window.history.replaceState(null, "", url);
     setSfView(k);
+  }, []);
+  const goStagemotion = useCallback((k) => {
+    const url = new URL(window.location.href);
+    if (k === "side") url.searchParams.delete("view"); else url.searchParams.set("view", k);
+    window.history.replaceState(null, "", url);
+    setMoView(k);
   }, []);
   const goOnDevice = useCallback((k) => {
     const url = new URL(window.location.href);
@@ -196,6 +206,7 @@ export default function Playground({ release = "" }) {
     if (SYNC_VIEWS.some(([k]) => k === q.get("view"))) setSyncView(q.get("view"));
     if (MYFLOWS_VIEWS.some(([k]) => k === q.get("view"))) setMfView(q.get("view"));
     if (STAGEFIRST_VIEWS.some(([k]) => k === q.get("view"))) setSfView(q.get("view"));
+    if (STAGEMOTION_VIEWS.some(([k]) => k === q.get("view"))) setMoView(q.get("view"));
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
     // ?yl= holds a Share code (SITE-19) or plain lines (the community gallery); readYL takes both.
@@ -510,6 +521,9 @@ export default function Playground({ release = "" }) {
           {stagefirst ? STAGEFIRST_VIEWS.map(([k, label]) => (
             <button key={k} className={`pg-tab ${k === sfView ? "on" : ""}`} onClick={() => goStagefirst(k)}>{label}</button>
           )) : null}
+          {stagemotion ? STAGEMOTION_VIEWS.map(([k, label]) => (
+            <button key={k} className={`pg-tab ${k === moView ? "on" : ""}`} onClick={() => goStagemotion(k)}>{label}</button>
+          )) : null}
           {client ? null : screens.map((k) => (
             <button key={k} className={`pg-tab ${k === shown ? "on" : ""}`} onClick={() => setView(k)}>
               Screen {k}{state.screens[k].length ? ` · ${state.screens[k].length}` : ""}
@@ -542,6 +556,7 @@ export default function Playground({ release = "" }) {
             {sync ? <SyncDemo key={`sy:${epoch}`} text={text} agent={agent} view={syncView} setView={goSync} onEvent={groupEvent} /> : null}
             {myflows ? <MyFlowsDemo key={`mf:${epoch}`} view={mfView} setView={goMyflows} onEvent={groupEvent} /> : null}
             {stagefirst ? <StageFirstDemo key={`sf:${epoch}`} text={text} view={sfView} onEvent={groupEvent} /> : null}
+            {stagemotion ? <StageMotionDemo key={`mo:${epoch}`} text={text} view={moView} /> : null}
             {client ? null : group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
               <div className="ahead">
                 <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>
