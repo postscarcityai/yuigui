@@ -259,5 +259,23 @@
       "seconds": 67.2,
       "mb": 4.3
     }
+  },
+  "film-meet-yui-home": {
+    "title": "Meet Yui",
+    "what": "One evening with Yui: talk and the words show as you say them, dinner as three recipes to tap and a timer on the lock screen, Saturday planned with one Send, Coach in its own look, then lessons, charts, games, music and timers. Your agents, on the whole screen.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-meet-yui-home-9x16.mp4",
+      "poster": "/demo/videos/film-meet-yui-home-9x16.jpg",
+      "seconds": 59.0,
+      "mb": 3.5
+    },
+    "16x9": {
+      "src": "/demo/videos/film-meet-yui-home-16x9.mp4",
+      "poster": "/demo/videos/film-meet-yui-home-16x9.jpg",
+      "seconds": 59.0,
+      "mb": 3.6
+    }
   }
 }
