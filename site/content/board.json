@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T11:10:31.971Z",
+  "updated": "2026-09-27T11:40:35.888Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.1",
@@ -329,20 +329,6 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
-        },
-        {
-          "key": "SOC-4",
-          "title": "The Yui 0.4.1 brag video (tune up, keep time, send a take)"
-        },
-        {
-          "key": "SOC-5",
-          "title": "Finish brag videos 08 hands full, 09 afford it, 10 homework"
-        },
-        {
-          "key": "SITE-62",
-          "title": "Put the finished brag videos and 0.4.1 on the site",
-          "summary": "The films are on the site, and 0.4.1 reads as the newest",
-          "progress": "/progress#the-films-are-on-the-site-and-0-4-1-reads-as-the-newest"
         }
       ]
     },
@@ -350,6 +336,25 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SOC-4",
+          "title": "The Yui 0.4.1 brag video (tune up, keep time, send a take)",
+          "shipped": "2026-09-27",
+          "progress": "/progress#a-film-for-yui-0-4-1-tune-up-keep-time-send-a-take"
+        },
+        {
+          "key": "SOC-5",
+          "title": "Finish brag videos 08 hands full, 09 afford it, 10 homework",
+          "shipped": "2026-09-27",
+          "progress": "/progress#three-films-dinner-a-car-homework"
+        },
+        {
+          "key": "SITE-62",
+          "title": "Put the finished brag videos and 0.4.1 on the site",
+          "summary": "The films are on the site, and 0.4.1 reads as the newest",
+          "shipped": "2026-09-27",
+          "progress": "/progress#the-films-are-on-the-site-and-0-4-1-reads-as-the-newest"
+        },
         {
           "key": "YUI-116",
           "title": "The channel guide teaches keys, chords, tuner and metronome",
