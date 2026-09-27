@@ -1,6 +1,27 @@
 {
   "builds": [
     {
+      "build": 208,
+      "date": "2026-09-27",
+      "uploaded": "2026-09-27T01:29:37-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "A tuner and a metronome in the app (YUI-116 step 4)"
+        },
+        {
+          "text": "Channel guide v33: agents send keys and chords (YUI-116, yuigui 85bbee1)"
+        },
+        {
+          "text": "Record a take, plug in a keyboard (YUI-116 step 5)"
+        },
+        {
+          "text": "Yui 0.4.1: tuner, metronome, record a take, MIDI keyboard",
+          "card": "YUI-116"
+        }
+      ]
+    },
+    {
       "build": 204,
       "date": "2026-09-27",
       "uploaded": "2026-09-26T23:08:47-07:00",
@@ -80,19 +101,6 @@
         },
         {
           "text": "Yui 0.4.0: the new face of Yui, STAGE-1 to TestFlight (Chris, Sep 26)"
-        },
-        {
-          "text": "A tuner and a metronome in the app (YUI-116 step 4)"
-        },
-        {
-          "text": "Channel guide v33: agents send keys and chords (YUI-116, yuigui 85bbee1)"
-        },
-        {
-          "text": "Record a take, plug in a keyboard (YUI-116 step 5)"
-        },
-        {
-          "text": "Yui 0.4.1: tuner, metronome, record a take, MIDI keyboard",
-          "card": "YUI-116"
         }
       ]
     },

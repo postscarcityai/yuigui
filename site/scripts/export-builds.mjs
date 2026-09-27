@@ -44,8 +44,10 @@ try {
   REF = "origin/main";
 } catch {}
 const commits = execFileSync("git", ["-C", APP, "log", "--reverse", "--first-parent", "--format=%h%x09%s", REF], { encoding: "utf8" })
-  .trim().split("\n").map((l, i) => {
+  .trim().split("\n").map((l) => {
     const [sha, raw] = l.split("\t");
+    // A build number counts every commit, merged branches too, so number each first-parent commit by its own count.
+    const n = Number(execFileSync("git", ["-C", APP, "rev-list", "--count", sha], { encoding: "utf8" }));
     // Some commits end with a board task id, "(t_bfeecff2)", instead of a card key. It is private, so drop it.
     // It can also sit inside a card note, "(YUI-hotfix t_713f9b94)": keep the note, drop the id.
     const subject = raw
@@ -53,7 +55,7 @@ const commits = execFileSync("git", ["-C", APP, "log", "--reverse", "--first-par
       .replace(/\(([^()]*?)\s+t_[0-9a-f]{6,}\)/gi, "($1)")
       .replace(/\s*\bt_[0-9a-f]{6,}\b/gi, "");
     const m = subject.match(/\s*\(([A-Z]+-\d+)\)\s*$/);
-    return { n: i + 1, card: m ? m[1] : KEYS[sha] || null, text: m ? subject.slice(0, m.index) : subject };
+    return { n, card: m ? m[1] : KEYS[sha] || null, text: m ? subject.slice(0, m.index) : subject };
   });
 
 // Commit subjects are written for the repo, not the site: swap private agent and client names for

@@ -1,16 +1,112 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 201,
-    "site": 499,
-    "builds": 36,
-    "shipped": 251,
-    "screenshots": 578
+    "app": 203,
+    "site": 502,
+    "builds": 37,
+    "shipped": 253,
+    "screenshots": 583
   },
   "days": [
     {
       "date": "2026-09-27",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-27T08:33:39.591Z",
+          "title": "Yui 0.4.1 on the site: the release post",
+          "card": "SITE-61",
+          "anchor": "yui-0-4-1-on-the-site-the-release-post",
+          "images": [
+            {
+              "src": "/progress/yui116r-tuner-tuned-light.webp",
+              "alt": "A guitar tuner in the app: every string ticked green, the needle straight up on E4, All strings in tune"
+            },
+            {
+              "src": "/progress/yui116r-metronome-loop-light.webp",
+              "alt": "A metronome at 96 BPM above a playing loop, the two in time"
+            },
+            {
+              "src": "/progress/yui116r-take-chords-dark.webp",
+              "alt": "Chord pads recording a take in dark mode, Stop and send at 0:02"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 203,
+            "site": 502,
+            "builds": 37,
+            "shipped": 253
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-27T08:29:37.000Z",
+          "build": 208,
+          "changes": 4,
+          "totals": {
+            "app": 203,
+            "site": 502,
+            "builds": 37,
+            "shipped": 252
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T08:10:20.000Z",
+          "title": "See a take recorded and a keyboard played",
+          "card": "SITE-60",
+          "anchor": "see-a-take-recorded-and-a-keyboard-played",
+          "images": [
+            {
+              "src": "/demo/clips/take-9x16.jpg",
+              "alt": "A boom bap loop recording: Stop and send, with the take at 0:04"
+            },
+            {
+              "src": "/demo/clips/midi-keys-9x16.jpg",
+              "alt": "A MIDI keyboard holding C4 and E4: both keys lit on the screen"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 203,
+            "site": 501,
+            "builds": 36,
+            "shipped": 252
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T07:45:28.000Z",
+          "title": "Record a take, plug in a keyboard",
+          "card": "YUI-116",
+          "anchor": "record-a-take-plug-in-a-keyboard",
+          "images": [
+            {
+              "src": "/progress/yui116s5-take-recording-light.webp",
+              "alt": "Light mode: a Take one looper at 120 BPM playing, a Stop and send button beside a red dot and 0:04."
+            },
+            {
+              "src": "/progress/yui116s5-take-sent-light.webp",
+              "alt": "Light mode: the same looper after sending, a Record again button and the words Take sent, 0:04."
+            },
+            {
+              "src": "/progress/yui116s5-midi-keys-light.webp",
+              "alt": "Light mode: a keyboard in C major with C4 and E4 lit purple, held on a MIDI keyboard, and a button reading Test Keyboard."
+            },
+            {
+              "src": "/progress/yui116s5-take-sent-dark.webp",
+              "alt": "Dark mode: the Boom bap looper with Record again and Take sent, 0:04."
+            }
+          ],
+          "commits": 19,
+          "totals": {
+            "app": 202,
+            "site": 500,
+            "builds": 36,
+            "shipped": 251
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-27T07:13:58.000Z",
@@ -23,7 +119,7 @@
             "app": 200,
             "site": 496,
             "builds": 36,
-            "shipped": 251
+            "shipped": 250
           }
         },
         {
@@ -42,12 +138,12 @@
               "alt": "Dark mode: a Chords card in G with four big colored buttons, G I, D V, Em vi and C IV, and a Send button under them."
             }
           ],
-          "commits": 16,
+          "commits": 19,
           "totals": {
             "app": 200,
             "site": 495,
             "builds": 36,
-            "shipped": 250
+            "shipped": 249
           }
         },
         {
@@ -74,12 +170,12 @@
               "alt": "Dark mode: the metronome stopped at 69 BPM with the line Practice sent: 12 s at 69 BPM, and the reply Practiced 12 s at 69 BPM in the chat."
             }
           ],
-          "commits": 16,
+          "commits": 19,
           "totals": {
             "app": 200,
             "site": 493,
             "builds": 36,
-            "shipped": 249
+            "shipped": 248
           }
         },
         {
@@ -111,7 +207,7 @@
             "app": 199,
             "site": 491,
             "builds": 36,
-            "shipped": 248
+            "shipped": 247
           }
         },
         {
@@ -139,7 +235,7 @@
             "app": 199,
             "site": 490,
             "builds": 36,
-            "shipped": 247
+            "shipped": 246
           }
         },
         {
@@ -167,23 +263,58 @@
             "app": 199,
             "site": 489,
             "builds": 36,
-            "shipped": 246
+            "shipped": 245
           }
         },
         {
           "kind": "build",
           "at": "2026-09-27T06:08:47.000Z",
           "build": 204,
-          "changes": 24,
+          "changes": 23,
           "totals": {
             "app": 199,
             "site": 487,
             "builds": 36,
-            "shipped": 245
+            "shipped": 244
           }
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "fa19b6c",
+          "at": "2026-09-27T08:10:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fa19b6c"
+        },
+        {
+          "repo": "site",
+          "sha": "8e9a9df",
+          "at": "2026-09-27T08:10:20.000Z",
+          "text": "See it: record a take, play from a keyboard (SITE-60)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8e9a9df"
+        },
+        {
+          "repo": "app",
+          "sha": "0b6f0b6",
+          "at": "2026-09-27T08:02:23.000Z",
+          "text": "Yui 0.4.1: tuner, metronome, record a take, MIDI keyboard (YUI-116)",
+          "url": "https://github.com/postscarcityai/yui/commit/0b6f0b6"
+        },
+        {
+          "repo": "site",
+          "sha": "34c0234",
+          "at": "2026-09-27T07:45:28.000Z",
+          "text": "progress: record a take, plug in a keyboard (YUI-116 step 5, yui 54cb655)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/34c0234"
+        },
+        {
+          "repo": "app",
+          "sha": "54cb655",
+          "at": "2026-09-27T07:45:18.000Z",
+          "text": "Record a take, plug in a keyboard (YUI-116 step 5)",
+          "url": "https://github.com/postscarcityai/yui/commit/54cb655"
+        },
         {
           "repo": "site",
           "sha": "5a3f4bd",
@@ -373,7 +504,7 @@
             "app": 195,
             "site": 482,
             "builds": 35,
-            "shipped": 245
+            "shipped": 244
           }
         },
         {
@@ -409,7 +540,7 @@
             "app": 192,
             "site": 480,
             "builds": 35,
-            "shipped": 244
+            "shipped": 243
           }
         },
         {
@@ -449,7 +580,7 @@
             "app": 191,
             "site": 477,
             "builds": 35,
-            "shipped": 243
+            "shipped": 242
           }
         },
         {
@@ -481,7 +612,7 @@
             "app": 190,
             "site": 474,
             "builds": 35,
-            "shipped": 242
+            "shipped": 241
           }
         },
         {
@@ -513,7 +644,7 @@
             "app": 190,
             "site": 472,
             "builds": 35,
-            "shipped": 241
+            "shipped": 240
           }
         },
         {
@@ -545,7 +676,7 @@
             "app": 189,
             "site": 471,
             "builds": 35,
-            "shipped": 240
+            "shipped": 239
           }
         },
         {
@@ -585,7 +716,7 @@
             "app": 189,
             "site": 470,
             "builds": 35,
-            "shipped": 239
+            "shipped": 238
           }
         },
         {
@@ -605,7 +736,7 @@
             "app": 187,
             "site": 468,
             "builds": 35,
-            "shipped": 238
+            "shipped": 237
           }
         },
         {
@@ -633,7 +764,7 @@
             "app": 187,
             "site": 466,
             "builds": 35,
-            "shipped": 237
+            "shipped": 236
           }
         },
         {
@@ -648,7 +779,7 @@
             "app": 187,
             "site": 463,
             "builds": 35,
-            "shipped": 236
+            "shipped": 235
           }
         },
         {
@@ -704,7 +835,7 @@
             "app": 186,
             "site": 462,
             "builds": 35,
-            "shipped": 235
+            "shipped": 234
           }
         },
         {
@@ -719,7 +850,7 @@
             "app": 186,
             "site": 457,
             "builds": 35,
-            "shipped": 234
+            "shipped": 233
           }
         },
         {
@@ -738,12 +869,12 @@
               "alt": "Dark mode: the same Boom bap looper playing, eight rows from kick to shaker, the hat row lit on every step."
             }
           ],
-          "commits": 16,
+          "commits": 19,
           "totals": {
             "app": 179,
             "site": 450,
             "builds": 35,
-            "shipped": 233
+            "shipped": 232
           }
         },
         {
@@ -767,7 +898,7 @@
             "app": 179,
             "site": 449,
             "builds": 35,
-            "shipped": 232
+            "shipped": 231
           }
         },
         {
@@ -799,7 +930,7 @@
             "app": 178,
             "site": 447,
             "builds": 35,
-            "shipped": 231
+            "shipped": 230
           }
         },
         {
@@ -811,7 +942,7 @@
             "app": 178,
             "site": 446,
             "builds": 35,
-            "shipped": 230
+            "shipped": 229
           }
         },
         {
@@ -835,7 +966,7 @@
             "app": 177,
             "site": 446,
             "builds": 34,
-            "shipped": 230
+            "shipped": 229
           }
         },
         {
@@ -862,12 +993,12 @@
               "alt": "Light mode: the four chord buttons in pastel colors with the strum set to Down."
             }
           ],
-          "commits": 16,
+          "commits": 19,
           "totals": {
             "app": 177,
             "site": 442,
             "builds": 34,
-            "shipped": 229
+            "shipped": 228
           }
         },
         {
@@ -891,7 +1022,7 @@
             "app": 175,
             "site": 440,
             "builds": 34,
-            "shipped": 228
+            "shipped": 227
           }
         },
         {
@@ -919,7 +1050,7 @@
             "app": 174,
             "site": 439,
             "builds": 34,
-            "shipped": 227
+            "shipped": 226
           }
         },
         {
@@ -942,38 +1073,6 @@
           "totals": {
             "app": 173,
             "site": 438,
-            "builds": 34,
-            "shipped": 226
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T20:29:36.000Z",
-          "title": "Record a take, plug in a keyboard",
-          "card": "YUI-116",
-          "anchor": "record-a-take-plug-in-a-keyboard",
-          "images": [
-            {
-              "src": "/progress/yui116s5-take-recording-light.webp",
-              "alt": "Light mode: a Take one looper at 120 BPM playing, a Stop and send button beside a red dot and 0:04."
-            },
-            {
-              "src": "/progress/yui116s5-take-sent-light.webp",
-              "alt": "Light mode: the same looper after sending, a Record again button and the words Take sent, 0:04."
-            },
-            {
-              "src": "/progress/yui116s5-midi-keys-light.webp",
-              "alt": "Light mode: a keyboard in C major with C4 and E4 lit purple, held on a MIDI keyboard, and a button reading Test Keyboard."
-            },
-            {
-              "src": "/progress/yui116s5-take-sent-dark.webp",
-              "alt": "Dark mode: the Boom bap looper with Record again and Take sent, 0:04."
-            }
-          ],
-          "commits": 16,
-          "totals": {
-            "app": 171,
-            "site": 436,
             "builds": 34,
             "shipped": 225
           }
@@ -1002,7 +1101,7 @@
               "alt": "Dark mode: a guitar tuner with a needle gauge, the six strings E2 A2 D3 G3 B3 E4 and a Start button."
             }
           ],
-          "commits": 16,
+          "commits": 19,
           "totals": {
             "app": 171,
             "site": 436,
