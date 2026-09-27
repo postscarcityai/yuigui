@@ -2,7 +2,7 @@
 
 Take a photo of a meal, get a macro estimate, fix what the agent got wrong, and save it as a row in your meals table. No new words: it is `camera`, `image`, `stat`, `form` and the agent tables from [Agent tables](/developers/tables), in two short replies.
 
-Status: YUI-35. Step 1 (this page and the playground demo) shipped Sep 25. Try it at [/playground?demo=meal](/playground?demo=meal): pick one of the sample photos, change the portion, tap Save, and watch today's totals. Step 2 is the app, and it waits on the phone's table store (YUI-89) and the key vault (YUI-34).
+Status: YUI-35. Step 1 (this page and the playground demo) shipped Sep 25. Try it at [/playground?demo=meal](/playground?demo=meal): pick one of the sample photos, change the portion, tap Save, and watch today's totals. Step 2 is the app, and it waits on the phone's table store (YUI-89) and the key vault (YUI-34). Native Basil (YUI-141, [Native Yui](/developers/native)) reads meals now: the estimate, the sure line and the fix form, with no save until the table store lands.
 
 ## 1. The flow
 
@@ -62,6 +62,7 @@ Number each estimate's ids (`meal1`, `fix1`, then `meal2`, `fix2`) so a second p
 - **In the playground,** nothing leaves the browser. The sample photos are files on this site, a photo from your own camera stays in the page, and the stand-in agent is a script: it cannot see your photo, so it answers with stand-in numbers and says so.
 - **In the app,** the photo takes the same path as any photo a person sends an agent: through Yui's private media storage as a short-lived link, to the agent's own host (Relay, YUI-21), where the agent reads it as a local file. Yui never sends the photo to a model.
 - **The model is the person's.** The vision call runs on the agent's host with the agent's own model, or with the person's own key from the key vault (YUI-34). Yui has no model of its own in this flow and pays for none.
+- **Native agents are the exception.** Basil and the rest of the crew run on Yui's own runtime ([Native Yui](/developers/native)), so for them Yui does call a model: a turn with a photo goes to GLM-5V-Turbo on OpenRouter as a short-lived signed link to the person's own upload, with data collection turned off. One photo per turn, the newest; when more came, the agent is told so and asks for the rest one at a time. With the person's own key (YUI-139), the photo goes to their own model on that key.
 - **The row stays on the phone.** The meals table lives on the phone like every agent table (Agent tables, section 4): never in a `yui_` table, never in a push. The agent sees rows only when the person sends them.
 
 ## 4. What step 2 needs (the app)
