@@ -95,7 +95,7 @@ export default function Home() {
       <Films
         title="Watch the films"
         lede="A minute each, sound on. One idea per film, all of it the real app on the demo account."
-        ids={["film-meet-yui", "film-plan-to-launch", "film-agents", "film-full-screen"]}
+        ids={["film-meet-yui", "film-plan-to-launch", "film-agents", "film-tune-up"]}
       />
 
       <Films

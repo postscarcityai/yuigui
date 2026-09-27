@@ -71,6 +71,10 @@ ffmpeg -i NN-topic/work/poster-reel.png -q:v 2 NN-topic/Yui_Topic_Reel_cover.jpg
 
 Deliver per video: `Yui_Topic.mp4`, `Yui_Topic_Reel.mp4`, the poster and reel cover, `brag-plan.md` (angle, facts with sources, storyboard table, beyond the spec) and `share-copy.txt` (1 to 3 sentences, plus an Instagram version). Then pull frames from the finished files and look at them before calling it done.
 
+## Filming the real app
+
+When the thing has shipped, film the app instead of rebuilding it in HTML (12-new-face does this). Write each scene as an XCUITest on the demo account with scripted replies (`-yuiDemoReply`, lines joined with a literal `\n`) and a scripted voice (`-yuiPTTFake` for hold to talk, `-yuiPTTDemo` for a listening still), record it with `simctl io recordVideo`, anchor the marks on the file's end, and cut 30 fps frames (`fps=30` first, then `trim`). The comp shows the frames inside the kit's phone with an edit list (comp time to footage time; a held frame is in == out) and `render(t)` returns a promise that waits for the frame to decode. The recording carries its own status bar and island, so it covers the kit's. Hold to talk (`press(forDuration:)`), not a tap: a tap starts hands-free and the demo loops back to listening before the answer shows. Keep taps where the app moved (frame diffs), and say in brag-plan.md what was held or cut.
+
 ## The kit
 
 - `kit/kit.css`: the tokens (light, `body.dark`), the phone, chat, cards, captions (`.cap.L`, `.cap.R`), code lines (`.kpill`), the finger, the outro, and the reel layout (`body.reel`).
@@ -107,5 +111,6 @@ Sources are tracked (comps, music scripts, plans, share copy, the kit). Renders,
 | 09-afford-it | can I afford it: a calc you drag, the whole cost, one Send | /, /mockups#calc |
 | 10-homework | homework rescue: a picture, a memory game, a quiz, the score goes back | /, /mockups#game-memory |
 | 11-tune-up | Yui 0.4.1: tune up, keep time, send a take | /mockups#music-tools, /thoughts/yui-0-4-1-tune-up-keep-time-send-a-take |
+| 12-new-face | the new layout filmed in the real app (build 208 on the simulator, `record.py` + `BragLayoutTests.swift`) | / (the hero), /mockups |
 
 What each page could get next: `PLAN.md`.

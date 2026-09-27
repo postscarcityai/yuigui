@@ -312,7 +312,7 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .hero-v .hero-note { max-width: 62ch; margin-left: auto; margin-right: auto; }
 .hero-v .hero-latest { text-align: center; margin-top: -10px; }
 .hero-video { position: relative; margin: 0; aspect-ratio: 16 / 9; border-radius: var(--r-card); overflow: hidden; background: var(--raised); border: 1.5px solid var(--outline); box-shadow: 0 24px 60px rgba(58, 51, 64, .16); }
-.hero-video iframe { display: block; width: 100%; height: 100%; border: 0; }
+.hero-video iframe, .hero-video video { display: block; width: 100%; height: 100%; border: 0; background: #000; }
 .hero-video-play { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
 .hero-video-play img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .hero-video-badge { position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; background: var(--brand); color: var(--on-brand); display: grid; place-items: center; box-shadow: 0 12px 30px rgba(58, 51, 64, .3); transition: transform .2s cubic-bezier(.3,1.6,.5,1); }

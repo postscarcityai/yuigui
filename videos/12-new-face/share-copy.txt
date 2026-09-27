@@ -1,0 +1,6 @@
+Yui 0.4.1, filmed in the app. Hold the big mic and talk, and the answer plays on the whole screen. Longer answers come in parts, a line and a picture each, the questions wait for the end with one Send, and the chat is the record, top right. Each agent moves its own way, and a live picture listens to your voice and the beat. On TestFlight now: yuigui.com
+
+Instagram:
+One question, one screen back. This is the real Yui app, build 208: hold the mic and talk, longer answers play in parts, questions come last with one Send, the chat is the record. Each agent moves its own way, and the picture behind the words listens. Yui 0.4.1 is on TestFlight now. Link in bio.
+
+#aiagents #ios #buildinpublic #generativeui #design

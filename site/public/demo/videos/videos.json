@@ -241,5 +241,23 @@
       "seconds": 48.0,
       "mb": 3.1
     }
+  },
+  "film-new-face": {
+    "title": "The new face, filmed in the app",
+    "what": "Yui 0.4.1, build 208, filmed in the app: hold the big mic and talk, one question gets one screen, parts with a picture each, one Send, the record top right, agents that move their own way, a picture that listens.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-new-face-9x16.mp4",
+      "poster": "/demo/videos/film-new-face-9x16.jpg",
+      "seconds": 67.2,
+      "mb": 4.3
+    },
+    "16x9": {
+      "src": "/demo/videos/film-new-face-16x9.mp4",
+      "poster": "/demo/videos/film-new-face-16x9.jpg",
+      "seconds": 67.2,
+      "mb": 4.3
+    }
   }
 }

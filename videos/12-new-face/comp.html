@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Yui 0.4.1: the new face, filmed in the app</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+/* ---------- the old way (the hook): the chat, and eight pages stacking over it (as in 07) ---------- */
+.dk { position: absolute; left: 12px; right: 12px; top: 64px; bottom: 26px; z-index: 6; border-radius: 30px; background: #FFFFFF; box-shadow: 0 18px 40px rgba(58,51,64,.18), inset 0 0 0 1.5px var(--outline); padding: 22px 22px; visibility: hidden; }
+.dk .n { display: inline-block; font-size: 14px; font-weight: 800; color: var(--muted); background: var(--raised); border-radius: 999px; padding: 5px 12px; }
+.dk h3 { margin: 18px 0 16px; font-size: 27px; font-weight: 800; letter-spacing: -0.01em; }
+.dk .ln { height: 13px; border-radius: 7px; background: #EFE7DD; margin: 0 0 12px; }
+.dk .bx { height: 150px; border-radius: 18px; background: #F6EFE6; margin: 22px 0 18px; }
+.dk .dots { position: absolute; left: 0; right: 0; bottom: 24px; display: flex; justify-content: center; gap: 7px; }
+.dk .dots i { width: 8px; height: 8px; border-radius: 4px; background: #E7DDD1; display: block; }
+.dk .dots i.on { width: 22px; background: var(--brand); }
+
+/* ---------- the real app: frames from the simulator recording fill the screen ---------- */
+.ft { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 40; background: var(--background); }
+#ftA { visibility: hidden; }
+.hs { position: absolute; width: 1px; height: 1px; z-index: 45; }
+/* the two-phone scenes: the same phone, built by hand */
+.duo { position: absolute; left: 751.5px; top: 102px; width: 417px; height: 876px; transform-origin: 50% 50%; visibility: hidden; }
+body.reel .duo { left: 331.5px; top: 616px; }
+.duo .screen { background: #000; }
+/* landscape captions around two phones: a little narrower, a little further out */
+.cap.W.L { left: 90px; width: 470px; }
+.cap.W.R { left: 1370px; width: 470px; }
+body.reel .cap.W.L, body.reel .cap.W.R { left: 60px; width: 960px; }
+</style>
+<script src="score.js"></script>
+</head>
+<body>
+<div id="stage"><div id="glow"></div>
+  <div class="cap L" id="c0L">You asked one question.</div>
+  <div class="cap R accent" id="c0R">You got eight pages.</div>
+  <div class="cap L" id="c1L">Hold the mic and talk.</div>
+  <div class="cap R accent" id="c1R">It answers on the whole screen.</div>
+  <div class="cap L" id="c2L">One question.</div>
+  <div class="cap R accent" id="c2R">One screen back.</div>
+  <div class="cap L" id="c3L">Longer answers play in parts.</div>
+  <div class="cap R accent" id="c3R">A line and a picture each.</div>
+  <div class="cap L" id="c4L">Questions wait for the end.</div>
+  <div class="cap R accent" id="c4R">Answer them all. One Send.</div>
+  <div class="cap L" id="c5L">The chat is the record.</div>
+  <div class="cap R accent" id="c5R">Every part, one row.</div>
+  <div class="cap L W" id="c6L">Each agent moves its own way.</div>
+  <div class="cap R W accent" id="c6R">Coach is quick. Wizard is heavy.</div>
+  <div class="cap L W" id="c7L">A picture that listens.</div>
+  <div class="cap R W accent" id="c7R">To your voice. To the beat.</div>
+  <div class="kpill" id="p3"><b>say</b> "0.4.2 is building…"</div>
+  <div class="kpill" id="p4"><b>plan@before</b> "Before I go"</div>
+
+  <div class="duo" id="dL"><div class="phone"><div class="screen"><img class="ft" id="ftL" alt=""></div></div></div>
+  <div class="duo" id="dR"><div class="phone"><div class="screen"><img class="ft" id="ftR" alt=""><b class="hs" id="h-play" style="left:70px;top:557px"></b></div></div></div>
+
+  <div id="outro">
+    <img id="owm" src="../kit/yui-wordmark-coral.png" alt="">
+    <div id="otag">Yui lives on the full screen.</div>
+    <div id="ourl">yuigui.com</div>
+    <div id="onote">Yui 0.4.1 is on TestFlight now.</div>
+  </div>
+  <div id="ripple"></div><div id="finger"></div>
+</div>
+
+<script src="../kit/kit.js"></script>
+<script>
+const S = window.SCORE;
+const { $, prog, clamp, eo, ei, eio, back, lerp } = K;
+const REEL = K.REEL;
+
+// ---------- the hook: the old chat, eight pages ----------
+const ASK = "Am I on the latest build?";
+const PAGES = ["Builds", "Your devices", "TestFlight", "Checks", "What changed", "Versions", "Timeline", "Summary"];
+const deck = PAGES.map((h, i) => `<div class="dk" id="dk${i}"><span class="n">${i + 1} of 8</span><h3>${h}</h3>
+  <div class="ln" style="width:92%"></div><div class="ln" style="width:78%"></div><div class="ln" style="width:85%"></div>
+  <div class="bx"></div><div class="ln" style="width:88%"></div><div class="ln" style="width:64%"></div><div class="ln" style="width:80%"></div><div class="ln" style="width:52%"></div>
+  <div class="dots">${PAGES.map((_, j) => `<i${j === i ? ' class="on"' : ""}></i>`).join("")}</div></div>`).join("");
+
+// Tap targets on the real screen (points on the 393x852 screen, measured from the recording).
+const HS = { "h-mic": [349, 782], "h-next": [94, 782], "h-rec": [355, 86], "h-ping": [96, 310], "h-tuner": [68, 431], "h-send": [196, 514] };
+const hs = Object.entries(HS).map(([id, [x, y]]) => `<b class="hs" id="${id}" style="left:${x}px;top:${y}px"></b>`).join("");
+
+K.phone(`<div class="page" id="pg">${K.chatPage({ id: "pg-old", log: K.user("o1", ASK) + K.say("o2", "Here's everything, in eight pages.") })}${deck}</div>`);
+$("pg").querySelector("#pg-old").style.position = "absolute";
+$("screen").insertAdjacentHTML("beforeend", `<img class="ft" id="ftA" alt="">${hs}`);
+
+// ---------- the edit: [comp in, comp out, scene, footage in, footage out]; in == out is a held frame ----------
+const FR = { "brag-talk": 478, "brag-parts": 1465, "brag-motion-coach": 479, "brag-motion-wizard": 477, "brag-visual-voice": 210, "brag-visual-music": 519 };
+const EDL = {
+  A: [
+    [7.2, 16.8, "brag-talk", 1.6, 11.2],        // hold the mic, talk, working, the answer
+    [16.8, 20.0, "brag-parts", 3.0, 6.2],       // the ask, working, part 1
+    [20.0, 22.2, "brag-parts", 6.2, 6.2],       // part 1 held so it can be read (the demo pages on at once)
+    [22.2, 40.8, "brag-parts", 6.2, 24.8],      // parts 2 and 3, the questions, one Send
+    [40.8, 45.9, "brag-parts", 29.6, 34.7],     // the record, top right
+  ],
+  L: [
+    [45.3, 54.0, "brag-motion-coach", 2.1, 10.8],
+    [54.0, 55.2, "brag-motion-coach", 10.8, 10.8],
+    [55.2, 62.7, "brag-visual-voice", 0.0, 6.95],
+  ],
+  R: [
+    [45.3, 54.2, "brag-motion-wizard", 2.1, 11.0],  // cut over a blink of the idle line before the answer
+    [54.2, 55.2, "brag-motion-wizard", 11.8, 12.8],
+    [55.2, 62.7, "brag-visual-music", 6.6, 14.1],     // from the looper on (the tap to play is at 9.1)
+  ],
+};
+function frameAt(list, t) {
+  for (const [a, z, sc, f0, f1] of list) {
+    if (t >= a && t < z) {
+      const f = a === z ? f0 : lerp(f0, f1, (t - a) / (z - a));
+      const n = clamp(Math.round(f * 30) + 1, 1, FR[sc]);
+      return `work/frames/${sc}/f${String(n).padStart(5, "0")}.jpg`;
+    }
+  }
+  return null;
+}
+const pending = [];
+function setImg(id, src) {
+  const im = $(id);
+  if (!src) return;
+  if (im.getAttribute("src") !== src) { im.setAttribute("src", src); pending.push(Promise.race([im.decode().catch(() => {}), new Promise((r) => setTimeout(r, 1500))])); }
+}
+
+// ---------- the hook ----------
+function hook(t) {
+  K.show("pg", t < S.stage + 0.8);
+  K.setMsg("o1", prog(t, 0.1, 0.45), 0);
+  K.setMsg("o2", prog(t, 0.55, 0.9));
+  S.pages.forEach((t0, i) => {
+    const el = $(`dk${i}`), p = prog(t, t0, t0 + 0.35);
+    el.style.visibility = p > 0 && t < 7.8 ? "visible" : "hidden";
+    const e = back(p), sh = i - 3.5;
+    const pile = t > 5.9 ? Math.sin(Math.PI * prog(t, 5.9, 6.5)) : 0;
+    el.style.transform = `translate(${(1 - e) * 420 + sh * 2}px, ${-i * 3}px) rotate(${(1 - e) * 12 + sh * 0.8 + pile * sh * 1.5}deg)`;
+  });
+}
+
+// ---------- the camera: [time, scale, focus (local y), rotation] ----------
+const CAM = [
+  [0, 1.12, 0, 0], [6.4, 1.2, 0, 0], [7.2, 1.14, 0, 0], [8.0, 1.16, 0, 0],
+  [13.9, 1.16, 0, 0], [14.9, 1.34, -20, 0], [16.5, 1.36, -20, 0], [17.1, 1.16, 0, 0],
+  [19.3, 1.18, 0, 0], [20.1, 1.32, -30, 0], [21.9, 1.32, -30, 0], [22.6, 1.18, 0, 0],
+  [30.8, 1.18, 0, 0], [31.8, 1.26, -60, 0], [39.4, 1.26, -60, 0], [40.4, 1.18, 0, 0],
+  [41.4, 1.2, 0, 0], [42.4, 1.3, 40, 0], [45.3, 1.3, 40, 0],
+];
+
+function duo(t) {
+  // Two phones step out from the one: 45.3 to 45.9, and away into the outro at 62.4.
+  const inp = eio(prog(t, 45.3, 45.9)), out = ei(prog(t, 62.1, 62.6));
+  const on = t > 45.3 && t < 62.7;
+  const s = REEL ? 0.9 : 0.84, dx = REEL ? 200 : 207;
+  const cut = Math.sin(Math.PI * prog(t, 55.2, 55.5)) * 0.03; // a small bump on the cut to the visual
+  for (const [id, sg] of [["dL", -1], ["dR", 1]]) {
+    const el = $(id);
+    el.style.visibility = on ? "visible" : "hidden";
+    const bob = Math.sin(t * 0.9 + (sg > 0 ? 1.3 : 0)) * 3;
+    el.style.transform = `translate(${sg * dx * inp}px, ${bob + out * 900}px) rotate(${sg * 1.5 * inp}deg) scale(${lerp(1.16, s, inp) * (1 - cut)})`;
+    el.style.opacity = 1 - prog(t, 62.35, 62.6);
+  }
+  if (on) { setImg("ftL", frameAt(EDL.L, t)); setImg("ftR", frameAt(EDL.R, t)); }
+}
+
+function render(t) {
+  pending.length = 0;
+  // one phone until 45.9, then two
+  const one = t < 45.9;
+  K.placePhone(t, K.camera(t, CAM), { opacity: 1 - prog(t, 45.3, 45.7) });
+  hook(t);
+  // the real app slides up over the old chat on the drop
+  const up = eo(prog(t, S.stage, S.stage + 0.55));
+  const A = $("ftA");
+  A.style.visibility = t >= S.stage ? "visible" : "hidden";
+  A.style.transform = `translateY(${(1 - up) * 852}px)`;
+  if (t >= S.stage && one) setImg("ftA", frameAt(EDL.A, t));
+  duo(t);
+  K.caps(t, [["c0L", 0.3, 6.6], ["c0R", 2.4, 6.6], ["c1L", 7.6, 12.9], ["c1R", 9.4, 12.9], ["c2L", 13.3, 16.5], ["c2R", 14.3, 16.5],
+    ["c3L", 17.1, 30.8], ["c3R", 19.6, 30.8], ["c4L", 31.5, 40.4], ["c4R", 33.2, 40.4], ["c5L", 41.0, 45.0], ["c5R", 42.2, 45.0],
+    ["c6L", 46.0, 54.8], ["c6R", 48.0, 54.8], ["c7L", 55.5, 61.9], ["c7R", 57.2, 61.9]]);
+  K.pills(t, [["p3", 20.2, 30.8], ["p4", 33.6, 40.4]]);
+  K.outro(t, S.outro);
+  K.finger(t, [{ t: S.hold[0], t1: S.hold[1], el: "h-mic" }, ...S.taps.map(([tt, el]) => ({ t: tt, el }))]);
+  return Promise.all(pending);
+}
+window.ready = K.ready(async () => { K.measure(["o1", "o2"]); await render(15.6); });
+window.render = render; window.DURATION = 67.2; window.POSTER = 15.6;
+</script></body></html>
