@@ -1,7 +1,7 @@
 // The visual (spec/VISUAL.md, YUI-124): colors, the level follower, the scrim and the plan.
 //   node site/lib/yl/visual.test.mjs     exit 1 on any failure
 import { apply, initialState, parse, visualOf } from "./yl.mjs";
-import { BUDGET, DEFAULTS, ENVELOPES, LOOKS, VISUAL_LOOKS, envelope, follow, levelOf, scrimFor, themeAccent, visualColors, visualLabel, visualPlan, visualTone } from "./visual.mjs";
+import { BUDGET, DEFAULTS, ENVELOPES, LOOKS, VISUAL_LOOKS, envelope, follow, levelOf, shown, scrimFor, themeAccent, visualColors, visualLabel, visualPlan, visualTone } from "./visual.mjs";
 import { SETS, contrast, rgb } from "./look.mjs";
 
 let bad = 0, n = 0;
@@ -55,7 +55,15 @@ const beat = envelope({ pulse: "beat", pace: "even" });
 const soft = envelope({ pulse: "soft", pace: "even" });
 ok("beat rises faster than soft", follow(0, 1, 16, beat) > follow(0, 1, 16, soft));
 ok("beat falls faster than soft", follow(1, 0, 50, beat) < follow(1, 0, 50, soft));
-eq("tick moves in quarters", [0.1, 0.4, 0.7, 1].map((x) => follow(x, x, 1000, envelope({ pulse: "tick" })) * 4 % 1), [0, 0, 0, 0]);
+eq("tick moves in quarters", [0.1, 0.4, 0.7, 1].map((x) => shown(follow(x, x, 1000, envelope({ pulse: "tick" })), envelope({ pulse: "tick" })) * 4 % 1), [0, 0, 0, 0]);
+{
+  // Rounded state used to stick at 0.25 after the sound stopped (YUI-125): it falls all the way now.
+  const tick = envelope({ pulse: "tick" });
+  let y = 1;
+  for (let i = 0; i < 60; i++) y = follow(y, 0, 33, tick);
+  eq("tick falls back to 0 when the sound stops", shown(y, tick), 0);
+  eq("beat shows as is", shown(0.37, envelope({ pulse: "beat" })), 0.37);
+}
 eq("input is clamped", follow(0, 5, 1e6, beat), 1);
 eq("no time, no change", follow(0.3, 1, 0, beat), 0.3);
 eq("silence is 0", levelOf(new Float32Array(512)), 0);

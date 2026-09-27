@@ -98,15 +98,21 @@ export function envelope(look) {
 
 // One step of the level follower: `input` is the raw level (0..1, RMS from a
 // meter), `prev` the last output, `dt` ms since then. A one-pole filter with
-// its own time for going up (attack) and down (release); tick rounds the
-// result to quarters. Out of range input is clamped; still is always 0.
+// its own time for going up (attack) and down (release). Out of range input is
+// clamped; still is always 0. The follower stays smooth: tick's quarters are
+// `shown`, applied on the way to the shader, never fed back (rounded state
+// stuck at 0.25 once the sound stopped, YUI-125).
 export function follow(prev, input, dt, env) {
   if (!env.gain) return 0;
   const x = Math.min(1, Math.max(0, Number(input) || 0)) * env.gain;
   const t = x > prev ? env.attack : env.release;
   const k = t <= 0 ? 1 : 1 - Math.exp(-Math.max(0, dt) / t);
-  const y = prev + (x - prev) * k;
-  return env.steps ? Math.round(y * env.steps) / env.steps : y;
+  return prev + (x - prev) * k;
+}
+
+// What the shader gets from the follower: tick moves in quarters, the rest as is.
+export function shown(level, env) {
+  return env.steps ? Math.round(level * env.steps) / env.steps : level;
 }
 
 // RMS of a block of samples (-1..1), mapped to 0..1 on a gentle curve so a

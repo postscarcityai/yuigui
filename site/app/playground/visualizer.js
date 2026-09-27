@@ -11,7 +11,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { parse, visualOf } from "../../lib/yl/yl.mjs";
-import { LOOKS, VISUAL_LOOKS, follow, levelOf, visualPlan } from "../../lib/yl/visual.mjs";
+import { LOOKS, VISUAL_LOOKS, follow, levelOf, shown as stepped, visualPlan } from "../../lib/yl/visual.mjs";
 import { SETS } from "../../lib/yl/look.mjs";
 import { VERTEX, fragment, vec3 } from "../../lib/visual/shaders.mjs";
 import { useReduced } from "./stagemotion";
@@ -230,7 +230,7 @@ function VisualCanvas({ plan, read }) {
       if (p.still) { clock = 8; level = 0; } else { clock += (Math.min(dt, 100) / 1000) * p.speed; level = follow(level, rd(), dt, p.env); }
       g.uniform2f(U.res, w, h);
       g.uniform1f(U.time, clock);
-      g.uniform1f(U.level, level);
+      g.uniform1f(U.level, stepped(level, p.env));
       g.uniform1f(U.dim, p.dim);
       g.uniform1f(U.scrim, p.scrim);
       g.uniform2f(U.zone, p.zone[0], p.zone[1]);
