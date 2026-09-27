@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T18:42:09.127Z",
+  "updated": "2026-09-27T19:10:20.840Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.2",
@@ -222,10 +222,6 @@
           "title": "Native sprint build to TestFlight, onboarding with the native agent"
         },
         {
-          "key": "YUI-132",
-          "title": "Channel eval on GLM 5.2 and GLM-5V-Turbo, results on /channel"
-        },
-        {
           "key": "YUI-135",
           "title": "The starter crew",
           "summary": "Trainer, nutritionist Basil, musician Gouda, Penny and Quill, each with favorite screens"
@@ -297,13 +293,8 @@
           "summary": "A hosted connector per person, agents as rows, no pairing, a webhook wakes the runtime"
         },
         {
-          "key": "YUI-143",
-          "title": "Native schedules and push",
-          "summary": "The trainer checks in, Basil asks about lunch"
-        },
-        {
-          "key": "YUI-145",
-          "title": "The first launch is Yui talking, with the crew already there; model and version in Controls"
+          "key": "YUI-132",
+          "title": "Channel eval on GLM 5.2 and GLM-5V-Turbo, results on /channel"
         }
       ]
     },
@@ -311,6 +302,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-145",
+          "title": "The first launch is Yui talking, with the crew already there; model and version in Controls",
+          "summary": "The first launch is Yui talking, with the crew already there",
+          "shipped": "2026-09-27",
+          "progress": "/progress#the-first-launch-is-yui-talking-with-the-crew-already-there"
+        },
+        {
+          "key": "YUI-143",
+          "title": "Native schedules and push",
+          "summary": "Your agents check in on their own",
+          "shipped": "2026-09-27",
+          "progress": "/progress#your-agents-check-in-on-their-own"
+        },
         {
           "key": "YUI-158",
           "title": "Follow-up (backlog)",
