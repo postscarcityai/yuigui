@@ -959,6 +959,9 @@
     },
     {
       "text": "The stage moves with the agent: context motion and the saved look (YUI-120, YUI-123)"
+    },
+    {
+      "text": "The visual: Metal shaders behind the stage (YUI-124 step 2)"
     }
   ]
 }

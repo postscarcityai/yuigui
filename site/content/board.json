@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T04:10:52.452Z",
+  "updated": "2026-09-27T05:11:01.711Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.0",
@@ -44,12 +44,13 @@
       {
         "key": "YUI-124",
         "title": "The visualizer in the app, Metal shaders on the full screen stage",
-        "status": "now"
+        "status": "done",
+        "shipped": "2026-09-27"
       },
       {
         "key": "YUI-125",
         "title": "The visualizer listens",
-        "status": "next"
+        "status": "now"
       }
     ]
   },
@@ -152,11 +153,6 @@
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
           "waiting": true
-        },
-        {
-          "key": "YUI-125",
-          "title": "The visualizer listens",
-          "summary": "It moves with your voice, the agent's voice and the music"
         },
         {
           "key": "YUI-128",
@@ -394,9 +390,9 @@
           "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
         },
         {
-          "key": "YUI-124",
-          "title": "The visualizer in the app, Metal shaders on the full screen stage",
-          "step": "Step 2"
+          "key": "YUI-125",
+          "title": "The visualizer listens",
+          "summary": "It moves with your voice, the agent's voice and the music"
         }
       ]
     },
@@ -404,6 +400,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-124",
+          "title": "The visualizer in the app, Metal shaders on the full screen stage",
+          "step": "Step 2",
+          "shipped": "2026-09-27"
+        },
         {
           "key": "YUI-120",
           "title": "Context animations on the full screen stage",
