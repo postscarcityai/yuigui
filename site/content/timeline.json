@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 204,
-    "site": 519,
+    "app": 207,
+    "site": 522,
     "builds": 37,
-    "shipped": 259,
-    "screenshots": 597
+    "shipped": 261,
+    "screenshots": 603
   },
   "days": [
     {
@@ -13,7 +13,63 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T13:16:50.787Z",
+          "at": "2026-09-27T13:41:47.376Z",
+          "title": "Flows never dead-end",
+          "card": "YUI-155",
+          "anchor": "flows-never-dead-end",
+          "images": [
+            {
+              "src": "/progress/yui155-before-after.webp",
+              "alt": "Before and after: a headline over a struck-out flow line the phone could not run, then the intake questions one at a time with a Send the brief button"
+            },
+            {
+              "src": "/progress/yui155-plan-business.webp",
+              "alt": "Step 2 of 7 of the client website intake: a form for business name, what you do and who it is for"
+            },
+            {
+              "src": "/progress/yui155-plan-kind.webp",
+              "alt": "Step 3 of 7: What are we building? New site, Redesign, Shop or Landing page"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 207,
+            "site": 522,
+            "builds": 37,
+            "shipped": 261
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T13:31:44.000Z",
+          "title": "Maps: answer where with the place",
+          "card": "YUI-158",
+          "anchor": "maps-answer-where-with-the-place",
+          "images": [
+            {
+              "src": "/progress/yui158-map-phone-dark.webp",
+              "alt": "Dark mode: Yui answers At its peak, 1279, it ran from Korea to Hungary's edge, with a map of the Mongol Empire filled in gold, Karakorum pinned and arrows East, West, South and North"
+            },
+            {
+              "src": "/progress/yui158-map-phone-light.webp",
+              "alt": "The same map in light mode, Poland and Hungary dashed as Raided"
+            },
+            {
+              "src": "/progress/yui158-map-deck-dark.webp",
+              "alt": "A deck page whose picture is the map: How far it reached, with Karakorum and a dashed arrow west"
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 205,
+            "site": 521,
+            "builds": 37,
+            "shipped": 260
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T13:16:41.000Z",
           "title": "Explainers draw every page",
           "card": "YUI-157",
           "anchor": "explainers-draw-every-page",
@@ -31,10 +87,10 @@
               "alt": "Before and after: a struck-out paragraph and bullets, then a map and a chart"
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
             "app": 204,
-            "site": 519,
+            "site": 520,
             "builds": 37,
             "shipped": 259
           }
@@ -432,6 +488,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "f9d2628",
+          "at": "2026-09-27T13:41:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f9d2628"
+        },
+        {
+          "repo": "app",
+          "sha": "bf2d657",
+          "at": "2026-09-27T13:37:09.000Z",
+          "text": "yui-mcp: sync the YL parser and MCP App for maps (YUI-158 step 1)",
+          "url": "https://github.com/postscarcityai/yui/commit/bf2d657"
+        },
+        {
+          "repo": "app",
+          "sha": "08bcb3e",
+          "at": "2026-09-27T13:31:52.000Z",
+          "text": "YuiLines: 39-map.json waits for the app half of maps (YUI-158 step 2)",
+          "url": "https://github.com/postscarcityai/yui/commit/08bcb3e"
+        },
+        {
+          "repo": "site",
+          "sha": "c00e68a",
+          "at": "2026-09-27T13:31:44.000Z",
+          "text": "Maps, step 1 on the web (YUI-158): YL `map` with area, pin and route. Chris on the Mongol Empire answer: \"Again, not bad but this should...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c00e68a"
+        },
+        {
+          "repo": "app",
+          "sha": "cccc413",
+          "at": "2026-09-27T13:17:08.000Z",
+          "text": "Channel guide v35: explainers draw every page (YUI-157)",
+          "url": "https://github.com/postscarcityai/yui/commit/cccc413"
+        },
+        {
+          "repo": "site",
+          "sha": "8f0b5b3",
+          "at": "2026-09-27T13:16:41.000Z",
+          "text": "Channel guide v35: explainers draw every page (YUI-157)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8f0b5b3"
+        },
         {
           "repo": "site",
           "sha": "c9f7e5d",

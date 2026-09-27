@@ -18,7 +18,7 @@
 //
 // Writes reports/<label>.json (replies + scores) and reports/<label>.md.
 
-import { spawn } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { Parser, PRESETS, resolve, tokenize, pageOf, onStage } from "../../site/lib/yl/yl.mjs";
@@ -118,9 +118,25 @@ export function split(reply) {
   return { blocks, other, text: text.trim() };
 }
 
+// What a phone on `build` gets (YUI-155): the reply through the yui plugin's
+// compat.downgrade, from the yui repo beside this one ($YUI_PLUGIN overrides).
+// A build that cannot run a flow gets the plan it walks, never nothing.
+const PLUGIN = process.env.YUI_PLUGIN || new URL("../../../yui/hermes-plugin/yui", HERE).pathname;
+export function asSent(reply, build) {
+  const py = "import sys, compat; sys.stdout.write(compat.downgrade(sys.stdin.read(), int(sys.argv[1])))";
+  return execFileSync("python3", ["-c", py, String(build)], { cwd: PLUGIN, input: reply, encoding: "utf8" });
+}
+
+// What a person can act on: a question, a flow, something that plays, or a button.
+const TAPS = new Set(["ask", "choose", "pick", "slide", "form", "camera", "mic", "plan", "flow", "deck", "narrate",
+  "timer", "game", "calc", "query", "loop", "drums", "keys", "chords", "tuner", "metronome"]);
+
 export function score(c, reply) {
   const e = { screen: "any", presets: null, max_components: 6, max_words: 70, ...c.expect };
   const fails = [];
+  if (e.app_build) {
+    try { reply = asSent(reply, e.app_build); } catch (err) { fails.push(`app build: the yui plugin did not run (${PLUGIN}): ${err.message.split("\n")[0]}`); }
+  }
   const { blocks, other, text } = split(reply);
   const ops = [];
   for (const b of blocks) {
@@ -173,6 +189,11 @@ export function score(c, reply) {
       const bad = [...(r.options || []), r.cta, r.submit].filter((x) => typeof x === "string" && re.test(x.trim()));
       if (bad.length) fails.push(`label: "${bad[0]}" misdescribes the button :: ${o.line.trim()}`);
     }
+  }
+  // No app build runs a flow yet (YUI-115): on a phone, a flow still standing is nothing to tap.
+  const taps = (o) => TAPS.has(o.preset) && !(e.app_build && o.preset === "flow");
+  if (e.tap && !adds.some((o) => taps(o) || o.props?.cta || o.props?.url || o.props?.open)) {
+    fails.push(`tap: nothing to tap${e.app_build ? ` on build ${e.app_build}` : ""}`);
   }
   if (e.presets) for (const p of used) if (!CORE_OPS.has(p) && p !== "say" && p !== "custom" && !e.presets.includes(p)) fails.push(`preset: ${p} not in [${e.presets.join(" ")}]`);
   if (e.need && !e.need.some((p) => used.has(p))) fails.push(`need: none of [${e.need.join(" ")}]`);

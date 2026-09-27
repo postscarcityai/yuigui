@@ -1100,6 +1100,36 @@ flow website-intake`,
 ${variantLines(FLOW_VARIANTS[0])}`,
   },
   {
+    // YUI-155, feedback AMLn-Gg3: no app build runs flows yet, so the yui plugin
+    // sends `flow website-intake` to the phone as the plan it walks by default.
+    slug: "flow-as-plan",
+    name: "Flow: the intake on an app that can't run flows yet",
+    agent: "Yui",
+    yl: `say "Let's build your personal brand site. A few quick questions first."
+plan@intake "Client website intake" submit="Send the brief"
+page "Let's plan your site" body="About ten questions. Your answers become the brief, so guess when you are not sure."
+form@biz "Your business" "Business name":text! "What you do":long "Who it is for":text
+choose@kind "What are we building?" "New site"|Redesign|Shop|"Landing page"
+choose@goal "What should a visitor do first?" Call|Book|Buy|"Sign up"|Read
+pick@pages "Which pages?" Home|About|Services|Pricing|Blog|Contact +other
+form@brand "Your brand" logo:yes colors:text "A site you like":url
+slide@budget "Budget, in thousands" 2-50 "$2k"|"$50k"
+end`,
+  },
+  {
+    // YUI-155: the same answer before and after, as the phone draws it.
+    slug: "flow-before-after",
+    name: "Flow: a headline, then the questions",
+    agent: "Yui",
+    yl: `sketch "Interview me for a personal brand site" frame=phone before=Before
+row "Let's build your personal brand site. A few quick questions first." note="the headline"
+row "flow website-intake" +x note="the phone can't run it yet"
+after After
+row "Step 1 of 7: Let's plan your site" +hi note="the same questions"
+row "Your business · What are we building? · Pages · Brand · Budget" +hi note="one at a time"
+row "Send the brief" +button note="one submit"`,
+  },
+  {
     // YUI-39: the agent's answer to the connect flow's {flow} event. The real
     // button carries a sign-in link the agent's host makes for this person;
     // here it opens the docs, never a live sign-in.

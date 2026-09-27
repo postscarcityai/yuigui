@@ -4,7 +4,7 @@ A flow is a saved series of Yui screens that any agent can run: a client website
 
 Plan mode (YL.md, section 4, plan) is the first flow, and it is linear. A flow is plan mode with a map: Next follows the edge your answers pick.
 
-Status: step 3 (FLOW-1). Step 1 shipped the spec, the JavaScript parser and the web runtime in the playground. Step 2 gave every parser in the hub (JavaScript, Python, Kotlin, Rust) the same flow vectors, pinned what a native runner keeps on the phone (section 5), and mocked My flows in the playground. Step 3 lets an agent make its own version of a saved flow, a variant (section 9). The app runs flows in its own step; until then an older app shows the flow line as unknown and skips it.
+Status: step 3 (FLOW-1). Step 1 shipped the spec, the JavaScript parser and the web runtime in the playground. Step 2 gave every parser in the hub (JavaScript, Python, Kotlin, Rust) the same flow vectors, pinned what a native runner keeps on the phone (section 5), and mocked My flows in the playground. Step 3 lets an agent make its own version of a saved flow, a variant (section 9). The app runs flows in its own step. Until then the yui plugin sends a flow to the phone as the plan it walks by default (the same questions, keyed by step id, one submit, a `{plan}` event), so a flow never lands as nothing (YUI-155); a host without the plugin shows the flow line as unknown.
 
 ## 1. A flow in Yui Lines
 
