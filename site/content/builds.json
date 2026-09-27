@@ -1011,6 +1011,10 @@
     },
     {
       "text": "yui-mcp: sync the YL parser and MCP App for maps (YUI-158 step 1)"
+    },
+    {
+      "text": "Plugin: a flow the phone can't run goes out as a plan",
+      "card": "YUI-155"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T13:40:54.615Z",
+  "updated": "2026-09-27T14:10:28.329Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.1",
@@ -343,12 +343,7 @@
         },
         {
           "key": "YUI-156",
-          "title": "A form inside a plan has no Send of its own",
-          "waiting": true
-        },
-        {
-          "key": "YUI-155",
-          "title": "A flow the phone can't run turns into a plan, never a dead end"
+          "title": "A form inside a plan has no Send of its own"
         }
       ]
     },
@@ -356,6 +351,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-155",
+          "title": "A flow the phone can't run turns into a plan, never a dead end",
+          "summary": "Flows never dead-end",
+          "shipped": "2026-09-27",
+          "progress": "/progress#flows-never-dead-end"
+        },
         {
           "key": "YUI-158",
           "title": "Maps on the web, a map preset in the spec, parsers and playground (Chris, feedback AL2nKEYo)",
