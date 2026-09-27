@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T22:42:10.099Z",
+  "updated": "2026-09-27T23:05:58.250Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.0",
@@ -266,26 +266,38 @@
       "title": "Building",
       "cards": [
         {
+          "key": "NOTE-50101",
+          "title": "Agents answer in screens, not prose"
+        },
+        {
+          "key": "NOTE-11943",
+          "title": "Swipe for drawer and screens again"
+        },
+        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
+          "blocked": "chris",
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
           "key": "YUI-111",
           "title": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
-          "step": "Step 3"
+          "step": "Step 3",
+          "blocked": "chris"
         },
         {
           "key": "YUI-116",
           "title": "Tap-to-sound on a real iPhone",
-          "step": "Step 2 proof"
+          "step": "Step 2 proof",
+          "blocked": "chris"
         },
         {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4",
           "summary": "A tuner and a metronome in the app",
+          "blocked": "chris",
           "progress": "/progress#a-tuner-and-a-metronome-in-the-app"
         },
         {
@@ -293,6 +305,7 @@
           "title": "Recording, export, MIDI and Ableton Link",
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
+          "blocked": "chris",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
         }
       ]
@@ -307,6 +320,11 @@
           "summary": "The starter crew stays in character",
           "shipped": "2026-09-27",
           "progress": "/progress#the-starter-crew-stays-in-character"
+        },
+        {
+          "key": "NOTE-65452",
+          "title": "Signed-in header before sign-in",
+          "shipped": "2026-09-27"
         },
         {
           "key": "YUI-164",
@@ -457,6 +475,11 @@
           "progress": "/progress#one-send-per-screen-forms-too"
         },
         {
+          "key": "NOTE-22448",
+          "title": "Add the crew to my account",
+          "shipped": "2026-09-27"
+        },
+        {
           "key": "YUI-155",
           "title": "A flow the phone can't run turns into a plan, never a dead end",
           "summary": "Flows never dead-end",
@@ -479,10 +502,30 @@
           "progress": "/progress#explainers-draw-every-page"
         },
         {
+          "key": "NOTE-38321",
+          "title": "Places get a map",
+          "shipped": "2026-09-27"
+        },
+        {
+          "key": "NOTE-4592",
+          "title": "Feedback receipts look better, off the stage",
+          "shipped": "2026-09-27"
+        },
+        {
           "key": "SOC-6",
           "title": "Brag video of the new layout as shipped in 0.4.0/0.4.1, on the home page hero",
           "shipped": "2026-09-27",
           "progress": "/progress#the-new-face-filmed-in-the-app-on-the-home-page"
+        },
+        {
+          "key": "NOTE-13279",
+          "title": "No send button in About you",
+          "shipped": "2026-09-27"
+        },
+        {
+          "key": "NOTE-4137",
+          "title": "Every full screen has a next step",
+          "shipped": "2026-09-27"
         },
         {
           "key": "SOC-4",
@@ -613,6 +656,11 @@
           "progress": "/progress#say-how-each-agent-moves"
         },
         {
+          "key": "NOTE-17226",
+          "title": "Pictures show whole, never cropped",
+          "shipped": "2026-09-26"
+        },
+        {
           "key": "YUI-120",
           "title": "The stage moves with the agent, context animations",
           "step": "Step 1",
@@ -670,6 +718,11 @@
           "shipped": "2026-09-26"
         },
         {
+          "key": "NOTE-64712",
+          "title": "About and Controls, one tab",
+          "shipped": "2026-09-26"
+        },
+        {
           "key": "SITE-53",
           "title": "Help answers music",
           "summary": "Help: why a beat is silent",
@@ -684,6 +737,11 @@
         {
           "key": "YUI-127",
           "title": "Every drum name plays a real drum, not a tick",
+          "shipped": "2026-09-26"
+        },
+        {
+          "key": "NOTE-62835",
+          "title": "Beats that play on silent, and page 2 cleared",
           "shipped": "2026-09-26"
         },
         {
@@ -723,6 +781,11 @@
           "progress": "/progress#short-answers-first"
         },
         {
+          "key": "NOTE-46346",
+          "title": "Show it, don't say it",
+          "shipped": "2026-09-26"
+        },
+        {
           "key": "YUI-116",
           "title": "Native sound engine + loop + drums in the app",
           "step": "Step 2",
@@ -736,6 +799,11 @@
           "summary": "Music screens agents can find",
           "shipped": "2026-09-26",
           "progress": "/progress#music-screens-agents-can-find"
+        },
+        {
+          "key": "NOTE-54650",
+          "title": "Working row shows how long the agent usually takes",
+          "shipped": "2026-09-26"
         },
         {
           "key": "SITE-51",
@@ -834,6 +902,11 @@
           "progress": "/progress#your-agent-says-what-it-is-doing"
         },
         {
+          "key": "NOTE-56419",
+          "title": "A quiet dot on the menu button",
+          "shipped": "2026-09-26"
+        },
+        {
           "key": "YUI-114",
           "title": "Rename the App Store listing from Yui Bot to Yui (fallback",
           "summary": "Yui Gui), no Yui Bot left anywhere",
@@ -853,12 +926,22 @@
           "shipped": "2026-09-26"
         },
         {
+          "key": "NOTE-25814",
+          "title": "Hold to reply, no more swipe",
+          "shipped": "2026-09-26"
+        },
+        {
           "key": "YUI-36",
           "title": "Encrypted sync decision, spec + playground mock",
           "step": "Step 1",
           "summary": "Sync, decided: not in v1",
           "shipped": "2026-09-26",
           "progress": "/progress#sync-decided-not-in-v1"
+        },
+        {
+          "key": "NOTE-25876",
+          "title": "The war room, stripped down",
+          "shipped": "2026-09-26"
         },
         {
           "key": "SITE-44",

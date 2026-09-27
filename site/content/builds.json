@@ -1174,6 +1174,15 @@
     },
     {
       "text": "Native agents answer on a screen: no markdown, one line first, 4 pages at most"
+    },
+    {
+      "text": "Macros are one table, not a page per tile (,)"
+    },
+    {
+      "text": "Native answers: words before the screen, nothing after the fence"
+    },
+    {
+      "text": "Native answers: a list's title is title=, not a quoted first item"
     }
   ]
 }
