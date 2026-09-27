@@ -53,7 +53,7 @@ pub fn mark_at(kinds: &[&str]) -> usize {
 }
 
 /// Not presets, but valid line heads.
-pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing"];
+pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing", "visual"];
 
 /// Groups: a group head collects the lines that follow it on the same screen,
 /// as long as each one is a member preset. Anything else ends the group, and
@@ -2717,6 +2717,67 @@ pub fn doing_of(ops: &[Value]) -> Option<Value> {
     now
 }
 
+/// `visual aurora tone=mint react=voice` (YL.md section 5, The visual; spec
+/// VISUAL.md): a live shader behind the stage's chunks, or alone on it. One
+/// look at most; tone= is accent, a theme set name or #RRGGBB; react= is what
+/// it listens to. `visual off` takes it away. Anything else is an error.
+pub const VISUAL_LOOKS: &[&str] = &["orb", "aurora", "waves", "grain", "bloom"];
+pub const VISUAL_REACT: &[&str] = &["voice", "music", "mic", "off"];
+
+fn visual_line(sc: &str, tokens: &[Token], line: &str) -> Value {
+    let visual = |props: Map| op(vec![("op", Value::str("visual")), ("screen", Value::str(sc)), ("props", Value::Obj(props)), ("line", Value::str(line))]);
+    let bad = |m: String| error(sc, format!("visual: {m}"), line);
+    let mut props = Map::new();
+    if tokens.len() == 1 && !tokens[0].quoted && tokens[0].raw == "off" {
+        props.set("off", Value::Bool(true));
+        return visual(props);
+    }
+    for t in tokens {
+        if let Some(key) = &t.key {
+            if key != "tone" && key != "react" {
+                return bad("takes a look, tone= and react=, nothing else".into());
+            }
+            if t.value.len() != 1 {
+                return bad(format!("{key}= takes one value"));
+            }
+            let v = t.value[0].as_str();
+            if key == "tone" && !(v == "accent" || APP_SETS.contains(&v) || is_hex6(v)) {
+                return bad("tone= is accent, a theme set name or #RRGGBB".into());
+            }
+            if key == "react" && !VISUAL_REACT.contains(&v) {
+                return bad("react= is voice, music, mic or off".into());
+            }
+            props.set(key, Value::str(v));
+            continue;
+        }
+        if !t.quoted && t.parts.is_none() && is_flag(&t.raw) {
+            return bad("takes no flags".into());
+        }
+        if t.quoted || t.parts.is_some() || !VISUAL_LOOKS.contains(&t.raw.as_str()) {
+            return bad(format!("the look is one of {}", VISUAL_LOOKS.join(", ")));
+        }
+        if props.get("look").is_some() {
+            return bad("one look at a time".into());
+        }
+        props.set("look", Value::str(&t.raw));
+    }
+    visual(props)
+}
+
+/// The stage's visual after these ops: the newest visual's props, or None
+/// when there is none or the last one was `visual off`.
+pub fn visual_of(ops: &[Value]) -> Option<Value> {
+    let mut now = None;
+    for o in ops {
+        if o.get("op").and_then(Value::as_str) != Some("visual") {
+            continue;
+        }
+        let props = o.get("props").cloned().unwrap_or(Value::Obj(Map::new()));
+        now = if props.get("off") == Some(&Value::Bool(true)) { None } else { Some(props) };
+    }
+    now
+}
+
 fn menu_line(sc: &str, tokens: &[Token], line: &str) -> Value {
     let Some(first) = tokens.first() else {
         return error(sc, "menu: needs review, backlog, shortcut or done".into(), line);
@@ -2927,7 +2988,7 @@ impl Parser {
         // A theme line restyles the app, a menu line fills the drawer and a data
         // line (table create, put) writes to the phone, not the screen: they
         // leave groups alone.
-        if matches!(kind, "error" | "theme" | "menu" | "table" | "put" | "doing") {
+        if matches!(kind, "error" | "theme" | "menu" | "table" | "put" | "doing" | "visual") {
             return Some(o);
         }
         // Closing the stage ends whatever group was open on it, like `>2` would.
@@ -3234,6 +3295,7 @@ impl Parser {
                 return Some(op(vec![("op", Value::str("talk")), ("screen", Value::str(sc)), ("props", Value::Obj(props)), ("line", Value::str(line))]));
             }
             "doing" => return Some(doing_line(sc, &tokens, line)),
+            "visual" => return Some(visual_line(sc, &tokens, line)),
             _ => {}
         }
 

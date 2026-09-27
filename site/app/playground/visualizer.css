@@ -1,0 +1,38 @@
+/* The visual mock (spec/VISUAL.md, YUI-124). Every class is vz-, so no site chrome leaks in. */
+.vz-app { --vz-card: #181a29; --vz-line: #262a40; --vz-ink: #F6EEF7; flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; }
+.vz-app.vz-light { --vz-card: #fff; --vz-line: #e3e4ee; --vz-ink: #3A3340; }
+
+/* ---------- the stage ---------- */
+.vz-stage { position: relative; flex: none; height: 430px; display: flex; flex-direction: column; overflow: hidden; background: #231D33; color: var(--vz-ink); }
+.vz-light .vz-stage { background: #FFF9F0; }
+.vz-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.vz-fallback { filter: blur(8px); }
+.vz-meter { position: absolute; left: 8px; top: 50%; width: 3px; height: 60px; margin-top: -30px; border-radius: 2px; background: color-mix(in srgb, var(--vz-ink) 12%, transparent); overflow: hidden; }
+.vz-meter i { position: absolute; inset: 0; background: var(--vz-c); transform-origin: bottom; transition: transform .12s linear; }
+.vz-bar { position: relative; display: flex; align-items: center; gap: 7px; padding: 10px 12px 0; font-size: 13.5px; }
+.vz-gear { width: 26px; height: 26px; border-radius: 13px; display: inline-grid; place-items: center; font-size: 15px; background: color-mix(in srgb, var(--vz-ink) 10%, transparent); }
+.vz-face { width: 26px; height: 26px; border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px; }
+.vz-rec { margin-left: auto; font-size: 15px; opacity: .8; }
+.vz-chunk { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: 0 18px 18px; }
+.vz-segs { display: flex; gap: 4px; }
+.vz-segs i { flex: 1; height: 3px; border-radius: 2px; background: color-mix(in srgb, var(--vz-ink) 22%, transparent); }
+.vz-segs i.on { background: var(--vz-ink); }
+.vz-line { font-size: 23px; font-weight: 800; line-height: 1.22; letter-spacing: -.01em; }
+.vz-foot { position: relative; display: flex; align-items: center; gap: 10px; padding: 0 12px 12px; }
+.vz-tag { flex: 1; min-width: 0; font-size: 11.5px; font-weight: 700; opacity: .85; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.vz-t { width: 38px; height: 38px; border-radius: 19px; display: inline-grid; place-items: center; font-weight: 800; background: color-mix(in srgb, var(--vz-ink) 12%, transparent); }
+.vz-mic { width: 56px; height: 56px; border-radius: 28px; border: 0; display: inline-grid; place-items: center; background: var(--vz-c); cursor: pointer; box-shadow: 0 6px 18px color-mix(in srgb, var(--vz-c) 40%, transparent); }
+.vz-mic svg { width: 24px; height: 24px; fill: #fff; stroke: #fff; }
+.vz-mic.live { outline: 3px solid color-mix(in srgb, var(--vz-c) 45%, transparent); outline-offset: 3px; }
+
+/* ---------- the controls ---------- */
+.vz-panel { display: flex; flex-direction: column; gap: 7px; padding: 10px 10px 14px; }
+.vz-code { display: block; padding: 8px 10px; border-radius: 10px; background: var(--vz-card); border: 1px solid var(--vz-line); font-size: 12.5px; white-space: nowrap; overflow-x: auto; }
+.vz-row { display: flex; align-items: flex-start; gap: 8px; }
+.vz-label { flex: none; width: 46px; padding-top: 7px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.vz-chips { flex: 1; display: flex; flex-wrap: wrap; gap: 5px; }
+.vz-chip { min-height: 30px; padding: 0 10px; border-radius: 15px; border: 1px solid var(--vz-line); background: var(--vz-card); color: inherit; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; text-transform: none; }
+.vz-chip[style*="--vz-dot"]::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--vz-dot); }
+.vz-chip.on { background: var(--vz-c); border-color: var(--vz-c); color: #fff; }
+.vz-chip:disabled { opacity: .6; cursor: default; }
+.vz-note { font-size: 11.5px; line-height: 1.4; color: var(--muted); }

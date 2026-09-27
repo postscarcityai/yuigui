@@ -18,6 +18,8 @@ One line in, one op out. Ops are dicts:
   {"op": "talk",  "screen", "props": {"on"}, "line"}  `>2 talk`: page 2 keeps the composer
   {"op": "doing", "screen", "props": {"text"?, "step"?, "of"?}, "line"}  what the agent is doing,
                                                   in the working row (`doing off`: props {"off": True})
+  {"op": "visual", "screen", "props": {"look"?, "tone"?, "react"?}, "line"}  a live shader behind
+                                                  the stage (`visual off`: props {"off": True})
   {"op": "menu",  "screen", "id", "props": {"bucket", "label", ...}, "line"}  an item in the drawer
   {"op": "error", "screen", "message", "line"}
 `props` holds only what the line actually said. Defaults live in resolve().
@@ -38,7 +40,7 @@ __all__ = [
     "tokenize", "seconds", "quantity", "calc_var", "parse_args",
     "Parser", "StreamParser", "parse", "on_stage", "is_workout", "page_of", "resolve",
     "FLOW_STEPS", "flow_when", "flow_test", "flow_next", "flow_first", "flow_path", "flow_ahead", "flow_event",
-    "flow_variant", "variant_name",
+    "flow_variant", "variant_name", "doing_of", "visual_of", "VISUAL_LOOKS", "VISUAL_REACT",
 ]
 
 PRESETS = [
@@ -55,7 +57,7 @@ PRESETS = [
     "loop", "drums", "keys", "chords", "tuner", "metronome",
 ]
 # Not presets, but valid line heads.
-CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing"]
+CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing", "visual"]
 
 # Groups: a group head collects the lines that follow it on the same screen,
 # as long as each one is a member preset. Anything else ends the group, and
@@ -1573,6 +1575,53 @@ def doing_of(ops):
     return now
 
 
+# `visual aurora tone=mint react=voice` (YL.md section 5, The visual; spec
+# VISUAL.md): a live shader behind the stage's chunks, or alone on it. One
+# look at most; tone= is accent, a theme set name or #RRGGBB; react= is what
+# it listens to. `visual off` takes it away. Anything else is an error.
+VISUAL_LOOKS = ("orb", "aurora", "waves", "grain", "bloom")
+VISUAL_REACT = ("voice", "music", "mic", "off")
+
+
+def _visual_line(screen, tokens, line):
+    def bad(m):
+        return {"op": "error", "screen": screen, "message": f"visual: {m}", "line": line}
+    if len(tokens) == 1 and not tokens[0].quoted and tokens[0].raw == "off":
+        return {"op": "visual", "screen": screen, "props": {"off": True}, "line": line}
+    props = {}
+    for t in tokens:
+        if t.key is not None:
+            if t.key not in ("tone", "react"):
+                return bad("takes a look, tone= and react=, nothing else")
+            if t.vquoted and len(t.vquoted) > 1:
+                return bad(f"{t.key}= takes one value")
+            v = t.value
+            if t.key == "tone" and not (v == "accent" or v in APP_SETS or APP_HEX.fullmatch(v)):
+                return bad("tone= is accent, a theme set name or #RRGGBB")
+            if t.key == "react" and v not in VISUAL_REACT:
+                return bad("react= is voice, music, mic or off")
+            props[t.key] = v
+            continue
+        if not t.quoted and not t.parts and FLAG.fullmatch(t.raw):
+            return bad("takes no flags")
+        if t.quoted or t.parts or t.raw not in VISUAL_LOOKS:
+            return bad("the look is one of " + ", ".join(VISUAL_LOOKS))
+        if "look" in props:
+            return bad("one look at a time")
+        props["look"] = t.raw
+    return {"op": "visual", "screen": screen, "props": props, "line": line}
+
+
+def visual_of(ops):
+    """The stage's visual after these ops: the newest visual's props, or None
+    when there is none or the last one was `visual off`."""
+    now = None
+    for o in ops:
+        if o and o["op"] == "visual":
+            now = None if o["props"].get("off") else dict(o["props"])
+    return now
+
+
 def _menu_line(screen, tokens, line):
     def bad(message):
         return {"op": "error", "screen": screen, "message": message, "line": line}
@@ -1686,7 +1735,7 @@ class Parser:
         # theme restyles the app, menu fills the drawer, a data line (table
         # create, put) writes to the phone and doing sits in the working row,
         # not on the screen: they leave groups alone.
-        if not op or op["op"] in ("error", "theme", "menu", "table", "put", "doing"):
+        if not op or op["op"] in ("error", "theme", "menu", "table", "put", "doing", "visual"):
             return op
         if op["op"] == "close":
             self.open = []
@@ -1851,6 +1900,8 @@ class Parser:
             return {"op": "talk", "screen": screen, "props": {"on": word == "on"}, "line": line}
         if head == "doing":
             return _doing_line(screen, tokens, line)
+        if head == "visual":
+            return _visual_line(screen, tokens, line)
         if head == "theme":
             t0 = tokens[0] if tokens else None
             if t0 and not t0.key and not t0.quoted and not t0.parts and t0.text == "app":

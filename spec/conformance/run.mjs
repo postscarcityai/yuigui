@@ -4,7 +4,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { isDeepStrictEqual } from "node:util";
-import { apply, attachBody, doingOf, flowEvent, flowPath, flowVariant, initialState, markAt, menuOf, onStage, pageOf, parse, readAttach, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
+import { apply, attachBody, doingOf, visualOf, flowEvent, flowPath, flowVariant, initialState, markAt, menuOf, onStage, pageOf, parse, readAttach, readTyped, resolve, ROWS, StreamParser, talking, typedBody } from "../../site/lib/yl/yl.mjs";
 import { emptyStore, query, replay } from "../../site/lib/yl/tables.mjs";
 import { appLook, checks } from "../../site/lib/yl/look.mjs";
 import { loopVoices } from "../../site/lib/music/theory.mjs";
@@ -53,6 +53,10 @@ function check(v) {
   if (v.doing !== undefined) {
     const d = doingOf(parse(v.input, known));
     if (!isDeepStrictEqual(d, v.doing)) fails.push(["doing (the working row after the input)", d]);
+  }
+  if (v.visual !== undefined) {
+    const d = visualOf(parse(v.input, known));
+    if (!isDeepStrictEqual(d, v.visual)) fails.push(["visual (the stage's visual after the input)", d]);
   }
   if (v.resolved) {
     // Each add's props over its preset's defaults (resolve), in line order.

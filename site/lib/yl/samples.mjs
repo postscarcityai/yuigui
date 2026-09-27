@@ -182,6 +182,50 @@ choose "Morning or evening?" Morning|Evening
 choose "Ping you before each run?" Yes|No`,
   },
   {
+    // The visual (spec/VISUAL.md, YUI-124 step 1): a live shader behind the
+    // stage, in the agent's colors and motion look, that hears a voice, music
+    // or the room (playground/visualizer.js). Change the look in the line or
+    // with the chips; play the sample voice, the sample beat or your mic.
+    name: "The visual: shaders behind the stage",
+    slug: "visualizer",
+    agent: "Sage",
+    visualizer: true,
+    yl: `visual aurora react=voice
+say "Breathe in for four. Out for six."`,
+  },
+  {
+    name: "The visual: orb on a voice",
+    slug: "visual-orb",
+    agent: "Yui",
+    visualizer: true,
+    yl: `visual orb react=voice
+say "I'm listening. Tell me about your day."`,
+  },
+  {
+    name: "The visual: waves on music",
+    slug: "visual-waves",
+    agent: "Coach",
+    visualizer: true,
+    yl: `visual waves tone=sky react=music
+say "Warm-up mix is on. Ten minutes, easy."`,
+  },
+  {
+    name: "The visual: grain for focus",
+    slug: "visual-grain",
+    agent: "Sage",
+    visualizer: true,
+    yl: `visual grain tone=lavender react=off
+say "Focus block. 25 minutes. I'll stay quiet."`,
+  },
+  {
+    name: "The visual: bloom for a win",
+    slug: "visual-bloom",
+    agent: "Coach",
+    visualizer: true,
+    yl: `visual bloom tone=sunset react=music
+say "New personal best. 5k in 24:10."`,
+  },
+  {
     // Motion looks (spec/YL.md section 4 theme, YUI-123): the same turn on
     // two agents whose looks were said in words ("heavy and punchy", "drifts
     // like water"), saved as `theme pace= ease= enter= pulse=`, plus a box to

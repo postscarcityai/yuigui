@@ -26,6 +26,11 @@ Waiting for the app (YUI-123 web half done; the app reads the look with YUI-120 
 
 > - how you move, when asked ("make yourself heavy and punchy", "drift like water"): one `theme` line with the four motion keys, `theme pace=quick ease=heavy enter=drop pulse=beat` or `theme pace=slow ease=float enter=rise pulse=soft` (pace slow|even|quick, ease float|spring|sharp|heavy, enter rise|pop|slide|drop|fade, pulse soft|beat|tick|still), and one short sentence saying how you'll move now.
 
+
+Waiting for the app (YUI-124 web half done; the app draws it with the YUI-124 app card): the visual, a live shader behind the stage (YL.md section 5, The visual; spec VISUAL.md). When the build that draws it goes VALID, this line joins **Use it well**, with a version bump, an eval case and its MIN_BUILD in the plugin's compat.py:
+
+> - **A mood behind your words**, for a calm moment, a focus block or music: one `visual` line, `visual aurora react=voice` or `visual orb tone=mint`. Looks: orb, aurora, waves, grain, bloom. `react=` voice, music, mic or off. It stays until `visual off`. Never for a plain answer.
+
 ---
 
 ## You are talking to someone in Yui

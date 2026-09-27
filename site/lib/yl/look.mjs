@@ -81,7 +81,7 @@ export function rgb(hex) {
   return { r: ((v >> 16) & 255) / 255, g: ((v >> 8) & 255) / 255, b: (v & 255) / 255 };
 }
 
-function fromHSL(h, s, l) {
+export function fromHSL(h, s, l) {
   const c = (1 - Math.abs(2 * l - 1)) * s;
   const hp = (((h % 360) + 360) % 360) / 60;
   const x = c * (1 - Math.abs((hp % 2) - 1));
@@ -95,7 +95,7 @@ export function hex(c) {
   return "#" + p(c.r) + p(c.g) + p(c.b);
 }
 
-function hsl({ r, g, b }) {
+export function hsl({ r, g, b }) {
   const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2;
   if (mx === mn) return { h: 0, s: 0, l };
   const d = mx - mn;
@@ -104,7 +104,7 @@ function hsl({ r, g, b }) {
   return { h: h * 60, s, l };
 }
 
-function luminance({ r, g, b }) {
+export function luminance({ r, g, b }) {
   const lin = (v) => (v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4));
   return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
 }

@@ -27,7 +27,7 @@ val PRESETS = listOf(
 )
 
 // Not presets, but valid line heads.
-val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing")
+val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing", "visual")
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -1319,6 +1319,49 @@ fun doingOf(ops: List<Op>): Map<String, Any?>? {
     return now
 }
 
+// `visual aurora tone=mint react=voice` (YL.md section 5, The visual; spec
+// VISUAL.md): a live shader behind the stage's chunks, or alone on it. One look
+// at most; tone= is accent, a theme set name or #RRGGBB; react= is what it
+// listens to. `visual off` takes it away. Anything else is an error.
+val VISUAL_LOOKS = listOf("orb", "aurora", "waves", "grain", "bloom")
+val VISUAL_REACT = listOf("voice", "music", "mic", "off")
+
+private fun visualLine(screen: String, tokens: List<Token>, line: String): Op {
+    fun bad(msg: String) = op("op" to "error", "screen" to screen, "message" to "visual: $msg", "line" to line)
+    if (tokens.size == 1 && !tokens[0].quoted && tokens[0].raw == "off") {
+        return op("op" to "visual", "screen" to screen, "props" to linkedMapOf<String, Any?>("off" to true), "line" to line)
+    }
+    val props = linkedMapOf<String, Any?>()
+    for (t in tokens) {
+        val key = t.key
+        if (key != null) {
+            if (key != "tone" && key != "react") return bad("takes a look, tone= and react=, nothing else")
+            val v = t.value as? String ?: return bad("$key= takes one value")
+            if (key == "tone" && !(v == "accent" || v in APP_SETS || APP_HEX.test(v))) return bad("tone= is accent, a theme set name or #RRGGBB")
+            if (key == "react" && v !in VISUAL_REACT) return bad("react= is voice, music, mic or off")
+            props[key] = v
+            continue
+        }
+        if (!t.quoted && t.parts == null && FLAG.test(t.raw)) return bad("takes no flags")
+        if (t.quoted || t.parts != null || t.raw !in VISUAL_LOOKS) return bad("the look is one of ${VISUAL_LOOKS.joinToString(", ")}")
+        if (props.containsKey("look")) return bad("one look at a time")
+        props["look"] = t.raw
+    }
+    return op("op" to "visual", "screen" to screen, "props" to props, "line" to line)
+}
+
+// The stage's visual after these ops: the newest visual's props, or null when
+// there is none or the last one was `visual off`.
+fun visualOf(ops: List<Op>): Map<String, Any?>? {
+    var now: Map<String, Any?>? = null
+    for (o in ops) {
+        if (o["op"] != "visual") continue
+        val p = o["props"] as Map<String, Any?>
+        now = if (p["off"] == true) null else LinkedHashMap(p)
+    }
+    return now
+}
+
 private fun menuLine(screen: String, tokens: List<Token>, line: String): Op {
     fun bad(msg: String) = op("op" to "error", "screen" to screen, "message" to msg, "line" to line)
     if (tokens.isEmpty()) return bad("menu: needs review, backlog, shortcut or done")
@@ -1412,7 +1455,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
     private fun group(o: Op?): Op? {
         // theme restyles the app, menu fills the drawer and a data line (table
         // create, put) writes to the phone, not the screen: they leave groups alone.
-        if (o == null || o["op"] in listOf("error", "theme", "menu", "table", "put", "doing")) return o
+        if (o == null || o["op"] in listOf("error", "theme", "menu", "table", "put", "doing", "visual")) return o
         if (o["op"] == "close") { open.clear(); return o }
         if (o["op"] == "end") {
             if (open.isEmpty()) return op("op" to "error", "screen" to o["screen"], "message" to "end: no open deck, plan, narrate, timeline or sketch", "line" to o["line"])
@@ -1593,6 +1636,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
                 return op("op" to "talk", "screen" to screen, "props" to linkedMapOf<String, Any?>("on" to (word == "on")), "line" to line)
             }
             "doing" -> return doingLine(screen, tokens, line)
+            "visual" -> return visualLine(screen, tokens, line)
         }
 
         // Agent tables (spec/TABLES.md): `table create` and `put` write to the phone.

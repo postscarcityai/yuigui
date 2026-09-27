@@ -18,6 +18,8 @@
 //   { op: "talk",  screen, props: { on }, line }  `>2 talk`: page 2 keeps the composer (`talk off` takes it away)
 //   { op: "doing", screen, props: { text?, step?, of? }, line }  what the agent is doing, in the working
 //                                             row (`doing off`: props { off: true })
+//   { op: "visual", screen, props: { look?, tone?, react? }, line }  a live shader behind the stage
+//                                             (`visual off`: props { off: true })
 //   { op: "menu",  screen, id, props: { bucket, label, sub?, say?, show?, url? }, line }
 //                                             an item in the agent's drawer (`menu done id`: props { done: true })
 //   { op: "table", screen, name, cols: [{ name, type, unit? }], line }  `table create`: an agent table on the phone (spec/TABLES.md)
@@ -47,7 +49,7 @@ export const PRESETS = [
   "loop", "drums", "keys", "chords", "tuner", "metronome",
 ];
 // Not presets, but valid line heads.
-export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing"];
+export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "close", "talk", "menu", "put", "doing", "visual"];
 
 // Groups: a group head collects the lines that follow it on the same screen,
 // as long as each one is a member preset. Anything else ends the group, and
@@ -1136,8 +1138,9 @@ export class Parser {
   group(op) {
     // A theme line restyles the app, a menu line fills the drawer and a data
     // line (table create, put) writes to the phone and a doing line sits in
-    // the working row, not on the screen: they leave groups alone.
-    if (!op || op.op === "error" || op.op === "theme" || op.op === "menu" || op.op === "table" || op.op === "put" || op.op === "doing") return op;
+    // the working row and a visual behind the stage, not on the screen: they
+    // leave groups alone.
+    if (!op || op.op === "error" || op.op === "theme" || op.op === "menu" || op.op === "table" || op.op === "put" || op.op === "doing" || op.op === "visual") return op;
     // Closing the stage ends whatever group was open on it, like `>2` would.
     if (op.op === "close") { this.open = []; return op; }
     if (op.op === "end") {
@@ -1286,6 +1289,7 @@ export class Parser {
       return { op: "talk", screen, props: { on: word === "on" }, line };
     }
     if (head === "doing") return doingLine(screen, tokens, line);
+    if (head === "visual") return visualLine(screen, tokens, line);
 
     // Agent tables (spec/TABLES.md): `table create` and `put` write to the phone.
     if (head === "put") return putLine(screen, tokens, line);
@@ -1334,6 +1338,45 @@ function doingLine(screen, tokens, line) {
 export function doingOf(ops) {
   let now = null;
   for (const o of ops) if (o && o.op === "doing") now = o.props.off ? null : { ...o.props };
+  return now;
+}
+
+// ---------- visual (spec section 5, The visual; spec/VISUAL.md) ----------
+// `visual aurora tone=mint react=voice`: a live shader behind the stage's
+// chunks, or alone on it. One look at most, from VISUAL_LOOKS; `tone=` is
+// accent, a theme set name or #RRGGBB; `react=` is what it listens to.
+// `visual off` takes it away. Anything else (a flag, another key, a word that
+// is not a look) is an error, so the line never draws something half right.
+export const VISUAL_LOOKS = ["orb", "aurora", "waves", "grain", "bloom"];
+export const VISUAL_REACT = ["voice", "music", "mic", "off"];
+const HEX6 = /^#[0-9a-fA-F]{6}$/;
+function visualLine(screen, tokens, line) {
+  const bad = (m) => ({ op: "error", screen, message: `visual: ${m}`, line });
+  if (tokens.length === 1 && !tokens[0].quoted && tokens[0].raw === "off") return { op: "visual", screen, props: { off: true }, line };
+  const props = {};
+  for (const t of tokens) {
+    if (t.key !== undefined) {
+      if (t.key !== "tone" && t.key !== "react") return bad("takes a look, tone= and react=, nothing else");
+      if (t.vquoted && t.vquoted.length > 1) return bad(`${t.key}= takes one value`);
+      const v = t.value;
+      if (t.key === "tone" && !(v === "accent" || Object.hasOwn(SETS, v) || HEX6.test(v))) return bad("tone= is accent, a theme set name or #RRGGBB");
+      if (t.key === "react" && !VISUAL_REACT.includes(v)) return bad("react= is voice, music, mic or off");
+      props[t.key] = v;
+      continue;
+    }
+    if (!t.quoted && !t.parts && /^\+[a-z][\w-]*$/i.test(t.raw)) return bad("takes no flags");
+    if (t.quoted || t.parts || !VISUAL_LOOKS.includes(t.raw)) return bad(`the look is one of ${VISUAL_LOOKS.join(", ")}`);
+    if (props.look) return bad("one look at a time");
+    props.look = t.raw;
+  }
+  return { op: "visual", screen, props, line };
+}
+
+// The visual after these ops: the newest visual's props, or null when there
+// is none or the last one was `visual off`.
+export function visualOf(ops) {
+  let now = null;
+  for (const o of ops) if (o && o.op === "visual") now = o.props.off ? null : { ...o.props };
   return now;
 }
 
@@ -1841,6 +1884,9 @@ export function apply(state, op, style = {}) {
     // The working row, not a screen: the newest doing wins, `doing off` clears it.
     case "doing":
       s.doing = doingOf([op]); break;
+    // The stage's backdrop, not a screen: the newest visual wins, `visual off` clears it.
+    case "visual":
+      s.visual = visualOf([op]); break;
     case "theme":
       // An app restyle is only a proposal until the person taps Apply: it
       // waits in `restyle` and leaves the agent's own look alone.
@@ -1883,6 +1929,7 @@ export function toJSON(ops) {
       case "close": return { close: true };
       case "talk": return { talk: o.props.on, ...scr };
       case "doing": return { doing: o.props };
+      case "visual": return { visual: o.props };
       case "menu": return { menu: o.id, ...o.props };
       case "table": return { table: o.name, cols: o.cols };
       case "put": return { put: o.table, ...(o.key !== undefined ? { key: o.key } : {}), ...o.values, ...(o.delete ? { delete: true } : {}) };

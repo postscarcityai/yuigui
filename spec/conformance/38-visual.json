@@ -1,0 +1,642 @@
+{
+  "version": "YL v0",
+  "area": "visual",
+  "vectors": [
+    {
+      "name": "a look alone",
+      "input": "visual aurora",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "aurora"
+          }
+        }
+      ],
+      "visual": {
+        "look": "aurora"
+      }
+    },
+    {
+      "name": "every look",
+      "input": "visual orb\nvisual aurora\nvisual waves\nvisual grain\nvisual bloom",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "orb"
+          }
+        },
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "aurora"
+          }
+        },
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "waves"
+          }
+        },
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "grain"
+          }
+        },
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "bloom"
+          }
+        }
+      ],
+      "visual": {
+        "look": "bloom"
+      }
+    },
+    {
+      "name": "a look, a tone and what it hears",
+      "input": "visual orb tone=mint react=voice",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "orb",
+            "tone": "mint",
+            "react": "voice"
+          }
+        }
+      ],
+      "visual": {
+        "look": "orb",
+        "tone": "mint",
+        "react": "voice"
+      }
+    },
+    {
+      "name": "keys before the look",
+      "input": "visual tone=sky react=music waves",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "tone": "sky",
+            "react": "music",
+            "look": "waves"
+          }
+        }
+      ],
+      "visual": {
+        "tone": "sky",
+        "react": "music",
+        "look": "waves"
+      }
+    },
+    {
+      "name": "bare visual is the agent's default",
+      "input": "visual",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {}
+        }
+      ],
+      "visual": {}
+    },
+    {
+      "name": "tone accent",
+      "input": "visual bloom tone=accent",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "bloom",
+            "tone": "accent"
+          }
+        }
+      ],
+      "visual": {
+        "look": "bloom",
+        "tone": "accent"
+      }
+    },
+    {
+      "name": "tone as a hex keeps its case",
+      "input": "visual grain tone=#FF6B3D",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "grain",
+            "tone": "#FF6B3D"
+          }
+        }
+      ],
+      "visual": {
+        "look": "grain",
+        "tone": "#FF6B3D"
+      }
+    },
+    {
+      "name": "tone as a quoted set name",
+      "input": "visual aurora tone=\"lavender\"",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "aurora",
+            "tone": "lavender"
+          }
+        }
+      ],
+      "visual": {
+        "look": "aurora",
+        "tone": "lavender"
+      }
+    },
+    {
+      "name": "react mic",
+      "input": "visual orb react=mic",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "orb",
+            "react": "mic"
+          }
+        }
+      ],
+      "visual": {
+        "look": "orb",
+        "react": "mic"
+      }
+    },
+    {
+      "name": "react off stays a word",
+      "input": "visual waves react=off",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "waves",
+            "react": "off"
+          }
+        }
+      ],
+      "visual": {
+        "look": "waves",
+        "react": "off"
+      }
+    },
+    {
+      "name": "a repeated key: the last one wins",
+      "input": "visual orb tone=mint tone=coral",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "orb",
+            "tone": "coral"
+          }
+        }
+      ],
+      "visual": {
+        "look": "orb",
+        "tone": "coral"
+      }
+    },
+    {
+      "name": "the last one wins",
+      "input": "visual orb tone=mint\nvisual aurora react=music",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "orb",
+            "tone": "mint"
+          }
+        },
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "aurora",
+            "react": "music"
+          }
+        }
+      ],
+      "visual": {
+        "look": "aurora",
+        "react": "music"
+      }
+    },
+    {
+      "name": "visual off clears it",
+      "input": "visual aurora\nvisual off",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "aurora"
+          }
+        },
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "off": true
+          }
+        }
+      ],
+      "visual": null
+    },
+    {
+      "name": "off, then a new one",
+      "input": "visual off\nvisual bloom",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "off": true
+          }
+        },
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "bloom"
+          }
+        }
+      ],
+      "visual": {
+        "look": "bloom"
+      }
+    },
+    {
+      "name": "a comment after the line",
+      "input": "visual orb # breathe with me",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "orb"
+          }
+        }
+      ],
+      "visual": {
+        "look": "orb"
+      }
+    },
+    {
+      "name": "with a reply: it draws nothing on the screen",
+      "input": "visual aurora react=voice\nsay \"Breathe in for four.\"\ntimer 4 In +inline",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "aurora",
+            "react": "voice"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Breathe in for four."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n2",
+          "props": {
+            "work": 4,
+            "label": "In",
+            "inline": true
+          }
+        }
+      ],
+      "visual": {
+        "look": "aurora",
+        "react": "voice"
+      }
+    },
+    {
+      "name": "on another screen it is still the stage's",
+      "input": ">2 visual grain",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "2",
+          "props": {
+            "look": "grain"
+          }
+        }
+      ],
+      "visual": {
+        "look": "grain"
+      }
+    },
+    {
+      "name": "after >full",
+      "input": ">full\nvisual bloom\nsay Done.",
+      "expected": [
+        {
+          "op": "focus",
+          "screen": "full"
+        },
+        {
+          "op": "visual",
+          "screen": "full",
+          "props": {
+            "look": "bloom"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "full",
+          "preset": "say",
+          "id": "n1",
+          "props": {
+            "text": "Done."
+          }
+        }
+      ],
+      "visual": {
+        "look": "bloom"
+      }
+    },
+    {
+      "name": "it leaves a deck open",
+      "input": "deck \"Two ideas\"\npage One\nvisual orb\npage Two",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "deck",
+          "id": "n1",
+          "props": {
+            "title": "Two ideas"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "title": "One"
+          }
+        },
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "orb"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "title": "Two"
+          }
+        }
+      ],
+      "visual": {
+        "look": "orb"
+      }
+    },
+    {
+      "name": "no auto id: the next add is n1",
+      "input": "visual orb\nask Ready?",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "orb"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "ask",
+          "id": "n1",
+          "props": {
+            "q": "Ready?"
+          }
+        }
+      ],
+      "visual": {
+        "look": "orb"
+      }
+    },
+    {
+      "name": "unknown look",
+      "input": "visual stars",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "two looks",
+      "input": "visual orb bloom",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "a quoted look is words",
+      "input": "visual \"orb\"",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "a title is not a look",
+      "input": "visual Breathe with me",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "a flag",
+      "input": "visual orb +still",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "an unknown key",
+      "input": "visual orb pace=slow",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "tone with a capital",
+      "input": "visual orb tone=Mint",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "tone short hex",
+      "input": "visual orb tone=#F60",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "tone as options",
+      "input": "visual orb tone=mint|sky",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "react unknown",
+      "input": "visual orb react=loud",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "off with more",
+      "input": "visual off tone=mint",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "an @id",
+      "input": "visual@calm orb",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "Visual is not a word",
+      "input": "Visual orb",
+      "expected": [
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": null
+    },
+    {
+      "name": "a bad line keeps the last good one",
+      "input": "visual aurora\nvisual stars",
+      "expected": [
+        {
+          "op": "visual",
+          "screen": "1",
+          "props": {
+            "look": "aurora"
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "visual": {
+        "look": "aurora"
+      }
+    }
+  ]
+}

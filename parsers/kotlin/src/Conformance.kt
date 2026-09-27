@@ -77,6 +77,10 @@ private fun check(v: Map<String, Any?>): List<Pair<String, Any?>> {
         val d = doingOf(parse(input, known))
         if (!same(d, v["doing"])) fails.add("doing (the working row after the input)" to d)
     }
+    if (v.containsKey("visual")) {
+        val d = visualOf(parse(input, known))
+        if (!same(d, v["visual"])) fails.add("visual (the stage's visual after the input)" to d)
+    }
     val typed = v["typed"] as Map<String, Any?>?
     if (typed != null) {
         val screen = typed["screen"] as String

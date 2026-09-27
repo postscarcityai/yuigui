@@ -32,6 +32,7 @@ A document is a sequence of lines. Each line is parsed on its own and becomes on
 | `clear` | empty the current screen | `clear` |
 | `talk` or `talk off` | keep the composer on this page, or take it away (section 5, Pages) | `>2 talk` |
 | `doing words [n/m]` or `doing off` | say what the agent is doing, in the working row (section 5, The working row) | `doing "Reading your calendar" 2/5` |
+| `visual [look] tone= react=` or `visual off` | a live shader behind the stage (section 5, The visual) | `visual aurora react=voice` |
 | `end` | close the open group (section 4, Groups) | `end` |
 | `theme [set] key=value...` | restyle this agent's look (section 4, theme) | `theme autumn radius=square` |
 | `theme app [set] key=value...` | offer a new look for all of Yui; the person previews it and taps Apply (section 4, theme app) | `theme app autumn` |
@@ -694,6 +695,21 @@ doing "Drafting the plan" 3/3
 
 The reference function is `doingOf(ops)` in `yl.mjs` (`doing_of` in Python and Rust, `doingOf` in Kotlin): the newest `doing` props after a run of ops, or null when there is none or the last was `doing off`. Conformance vectors may carry `doing`, that value after the input.
 
+**The visual.** A live shader behind the stage, in the agent's colors and motion look, that listens to a voice, the music tools or the room. The full design, the frame budget and the rules are in `spec/VISUAL.md` ([try it](/playground?demo=visualizer)).
+
+```
+visual aurora react=voice
+visual orb tone=mint
+visual off
+```
+
+- One look: `orb`, `aurora`, `waves`, `grain` or `bloom` (missing means `orb`). `tone=` is `accent` (the agent's color, the default), a theme set name or `#RRGGBB`. `react=` is `voice` (the default), `music`, `mic` or `off`. Anything else (a flag, another key, a word that is not a look, two looks) is an error.
+- It sits behind the stage's chunks, or alone on it. Behind words it dims and lays a scrim so the ink keeps AA contrast. Reduce Motion and Low Power get one still frame.
+- The newest `visual` wins and stays until `visual off`. It never renders as a bubble, sends no push and no event, advances no counter and leaves an open group alone. Where there is no stage the line does nothing, and a host sends it only to a build that draws it.
+- The op is `{op: "visual", screen, props: {look?, tone?, react?}}`, and `visual off` gives `{op: "visual", screen, props: {off: true}}`.
+
+The reference function is `visualOf(ops)` in `yl.mjs` (`visual_of` in Python and Rust, `visualOf` in Kotlin): the newest `visual` props after a run of ops, or null when there is none or the last was `visual off`. Conformance vectors may carry `visual`, that value after the input.
+
 ## 6. custom {json}
 
 The long tail. Everything after `custom ` is one JSON value. v0 renders a fixed set of primitives:
@@ -802,4 +818,4 @@ This is v0. Adding presets and props is non-breaking: an app that does not know 
 
 ## 12. Conformance
 
-YL is platform neutral. Every parser (JS reference, Swift app, later Kotlin) must pass the shared vectors in `spec/conformance/`: one JSON file per area, each `{version, area, vectors: [{name, input, expected, error?, chunks?, emits?}]}`. `expected` is the op list for the whole `input`, minus each op's `line` and each error's `message`. A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`; when `chunks` is present, pushing those chunks then flushing must give `emits` (the ops returned by each push, then by the flush). When `stage` is present, the adds that open on the stage under `style` (default `{}`) must be exactly those ids. When `pages` is present, `pageOf` of each add's screen, in order, must equal it. When `known` is present, it is the ids that last from earlier replies (section 5), id to preset, and every parse of the vector (whole, by character, by chunks) starts with them. When `doing` is present, `doingOf` of the input's ops must give it (section 5, The working row). When `rows` is present, the input's ops are applied to an empty screen and `rows` is every timeline row after it, `{rows: [{id, kind}], mark}`, in line order, with `mark` the index the now marker sits before (`markAt`). When `tables` is present, the input's `table create` and `put` lines are replayed onto an empty agent store (`today` and `now` fix the dates), `failed` lists the write lines the store refused, and `results` is each `query` add's result against the store the whole input left (`spec/TABLES.md`, section 6). Run the JS side with `cd spec/conformance && node run.mjs`. A change to this spec lands with the vectors that pin it.
+YL is platform neutral. Every parser (JS reference, Swift app, later Kotlin) must pass the shared vectors in `spec/conformance/`: one JSON file per area, each `{version, area, vectors: [{name, input, expected, error?, chunks?, emits?}]}`. `expected` is the op list for the whole `input`, minus each op's `line` and each error's `message`. A parser passes a vector when parsing `input` whole, and streaming it one character at a time, both give `expected`; when `chunks` is present, pushing those chunks then flushing must give `emits` (the ops returned by each push, then by the flush). When `stage` is present, the adds that open on the stage under `style` (default `{}`) must be exactly those ids. When `pages` is present, `pageOf` of each add's screen, in order, must equal it. When `known` is present, it is the ids that last from earlier replies (section 5), id to preset, and every parse of the vector (whole, by character, by chunks) starts with them. When `doing` is present, `doingOf` of the input's ops must give it (section 5, The working row). When `visual` is present, `visualOf` of the input's ops must give it (section 5, The visual). When `rows` is present, the input's ops are applied to an empty screen and `rows` is every timeline row after it, `{rows: [{id, kind}], mark}`, in line order, with `mark` the index the now marker sits before (`markAt`). When `tables` is present, the input's `table create` and `put` lines are replayed onto an empty agent store (`today` and `now` fix the dates), `failed` lists the write lines the store refused, and `results` is each `query` add's result against the store the whole input left (`spec/TABLES.md`, section 6). Run the JS side with `cd spec/conformance && node run.mjs`. A change to this spec lands with the vectors that pin it.
