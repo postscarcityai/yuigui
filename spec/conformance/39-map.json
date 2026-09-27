@@ -1,0 +1,587 @@
+{
+  "version": "YL v0",
+  "area": "map",
+  "vectors": [
+    {
+      "name": "map: title and caption, parts join it",
+      "input": "map \"The Mongol Empire, 1279\" caption=\"Korea to Hungary.\"\narea Empire MN|CN|KR tone=butter\npin Karakorum 47.2,102.8\nroute West 47.2,102.8|47.5,19",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "map",
+          "id": "n1",
+          "props": {
+            "title": "The Mongol Empire, 1279",
+            "caption": "Korea to Hungary."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "area",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "codes": [
+              "MN",
+              "CN",
+              "KR"
+            ],
+            "label": "Empire",
+            "tone": "butter"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "at": "47.2,102.8",
+            "label": "Karakorum"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "route",
+          "id": "n4",
+          "in": "n1",
+          "props": {
+            "pts": [
+              "47.2,102.8",
+              "47.5,19"
+            ],
+            "label": "West"
+          }
+        }
+      ]
+    },
+    {
+      "name": "map: no title, view as written",
+      "input": "map fit=world\nmap center=48.8,2.3 zoom=5",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "map",
+          "id": "n1",
+          "props": {
+            "fit": "world"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "map",
+          "id": "n2",
+          "props": {
+            "center": "48.8,2.3",
+            "zoom": 5
+          }
+        }
+      ]
+    },
+    {
+      "name": "area: bare capitals are codes, wherever they sit",
+      "input": "area CN China MN",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "area",
+          "id": "n1",
+          "props": {
+            "codes": [
+              "CN",
+              "MN"
+            ],
+            "label": "China"
+          }
+        }
+      ]
+    },
+    {
+      "name": "area: two or three capitals only; mixed case and four letters are words",
+      "input": "area Cn NATO USA",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "area",
+          "id": "n1",
+          "props": {
+            "codes": [
+              "USA"
+            ],
+            "label": "Cn NATO"
+          }
+        }
+      ]
+    },
+    {
+      "name": "area: options of codes are codes, options of places are the outline",
+      "input": "area \"Golden Horde\" RU|KZ 50,30|55,50|45,60",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "area",
+          "id": "n1",
+          "props": {
+            "codes": [
+              "RU",
+              "KZ"
+            ],
+            "pts": [
+              "50,30",
+              "55,50",
+              "45,60"
+            ],
+            "label": "Golden Horde"
+          }
+        }
+      ]
+    },
+    {
+      "name": "area: a quoted code is a label",
+      "input": "area \"EU\"",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "area",
+          "id": "n1",
+          "props": {
+            "label": "EU"
+          }
+        }
+      ]
+    },
+    {
+      "name": "area: options that mix codes and words stay text",
+      "input": "area CN|China",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "area",
+          "id": "n1",
+          "props": {
+            "label": "CN|China"
+          }
+        }
+      ]
+    },
+    {
+      "name": "area: codes= and pts= as props are lists",
+      "input": "area Empire codes=MN pts=1,2|3,4|5,6 +dash",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "area",
+          "id": "n1",
+          "props": {
+            "label": "Empire",
+            "dash": true,
+            "codes": [
+              "MN"
+            ],
+            "pts": [
+              "1,2",
+              "3,4",
+              "5,6"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "pin: the first bare lat,lon is where it goes",
+      "input": "pin Karakorum 47.2,102.8 -33.9,151.2",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "n1",
+          "props": {
+            "at": "47.2,102.8",
+            "label": "Karakorum -33.9,151.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "pin: a quoted place is text, at= goes as written",
+      "input": "pin \"47.2,102.8\" at=-33.9,151.2 +pulse",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "n1",
+          "props": {
+            "label": "47.2,102.8",
+            "pulse": true,
+            "at": "-33.9,151.2"
+          }
+        }
+      ]
+    },
+    {
+      "name": "pin: no place",
+      "input": "pin Here",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "n1",
+          "props": {
+            "label": "Here"
+          }
+        }
+      ]
+    },
+    {
+      "name": "route: the first options are the stops, pin ids or places",
+      "input": "pin@ka Karakorum 47.2,102.8\nroute \"Silk Road\" ka|39.6,67|41,29 +arrow",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "ka",
+          "props": {
+            "at": "47.2,102.8",
+            "label": "Karakorum"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "route",
+          "id": "n1",
+          "props": {
+            "pts": [
+              "ka",
+              "39.6,67",
+              "41,29"
+            ],
+            "label": "Silk Road",
+            "arrow": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "route: pts= as a prop, one stop is still a list",
+      "input": "route Road pts=ka",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "route",
+          "id": "n1",
+          "props": {
+            "label": "Road",
+            "pts": [
+              "ka"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "map: a line that is not a part ends it",
+      "input": "map\npin A 1,2\nsay done\npin B 3,4",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "map",
+          "id": "n1",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "at": "1,2",
+            "label": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n3",
+          "props": {
+            "text": "done"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "n4",
+          "props": {
+            "at": "3,4",
+            "label": "B"
+          }
+        }
+      ]
+    },
+    {
+      "name": "map: a deck page's picture",
+      "input": "deck Mongols\npage \"How far\"\nmap caption=x\narea CN\npage Next\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "deck",
+          "id": "n1",
+          "props": {
+            "title": "Mongols"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "title": "How far"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "map",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "caption": "x"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "area",
+          "id": "n4",
+          "in": "n3",
+          "props": {
+            "codes": [
+              "CN"
+            ]
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n5",
+          "in": "n1",
+          "props": {
+            "title": "Next"
+          }
+        },
+        {
+          "op": "end",
+          "screen": "1",
+          "target": "n1"
+        }
+      ]
+    },
+    {
+      "name": "map: a plan page's picture",
+      "input": "plan Trip\npage Where\nmap\npin Lisbon 38.7,-9.1\nchoose Go? Yes|No",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "plan",
+          "id": "n1",
+          "props": {
+            "title": "Trip"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "title": "Where"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "map",
+          "id": "n3",
+          "in": "n1",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "n4",
+          "in": "n3",
+          "props": {
+            "at": "38.7,-9.1",
+            "label": "Lisbon"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "n5",
+          "in": "n1",
+          "props": {
+            "options": [
+              "Yes",
+              "No"
+            ],
+            "q": "Go?"
+          }
+        }
+      ]
+    },
+    {
+      "name": "map: patch a pin by preset and by id",
+      "input": "map\npin@ka Karakorum 47.2,102.8\n~ka +pulse\n~pin label=K",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "map",
+          "id": "n1",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "ka",
+          "in": "n1",
+          "props": {
+            "at": "47.2,102.8",
+            "label": "Karakorum"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "ka",
+          "props": {
+            "pulse": true
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "pin",
+          "props": {
+            "label": "K"
+          }
+        }
+      ]
+    },
+    {
+      "name": "map: streams one part a line",
+      "input": "map M\narea CN\npin P 1,2\n",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "map",
+          "id": "n1",
+          "props": {
+            "title": "M"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "area",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "codes": [
+              "CN"
+            ]
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "pin",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "at": "1,2",
+            "label": "P"
+          }
+        }
+      ],
+      "chunks": [
+        "map M\nar",
+        "ea CN\npin P",
+        " 1,2\n"
+      ],
+      "emits": [
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "map",
+            "id": "n1",
+            "props": {
+              "title": "M"
+            }
+          }
+        ],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "area",
+            "id": "n2",
+            "in": "n1",
+            "props": {
+              "codes": [
+                "CN"
+              ]
+            }
+          }
+        ],
+        [
+          {
+            "op": "add",
+            "screen": "1",
+            "preset": "pin",
+            "id": "n3",
+            "in": "n1",
+            "props": {
+              "at": "1,2",
+              "label": "P"
+            }
+          }
+        ],
+        []
+      ]
+    }
+  ]
+}

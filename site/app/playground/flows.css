@@ -274,3 +274,10 @@
 .yl-shlabel { fill: var(--yl-ink); font-weight: 700; font-family: inherit; }
 .yl-shlabel.sh-in { font-weight: 800; }
 .yl-shcap { margin: 0; font-size: 13px; line-height: 1.45; color: var(--yl-ink2); }
+
+/* map (YUI-158): land in the ink at a whisper, areas and routes in the agent's tones. */
+.yl-map { display: flex; flex-direction: column; gap: 8px; }
+.yl-mapsvg { display: block; width: 100%; height: auto; cursor: pointer; }
+.yl-mapsea { fill: var(--yl-ink); fill-opacity: 0.04; }
+.yl-mapland { fill: var(--yl-ink); fill-opacity: 0.1; stroke: var(--yl-ink2); stroke-opacity: 0.35; }
+.yl-maplabel { fill: var(--yl-ink); font-weight: 800; font-family: inherit; paint-order: stroke; stroke: var(--screen-bg); stroke-width: 0.7px; stroke-linejoin: round; }

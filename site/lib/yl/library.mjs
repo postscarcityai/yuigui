@@ -288,6 +288,45 @@ shape@draw dot at=8,2.5 tone=mint
 shape text "drawing" at=8,3.4
 shape arrow from=think to=draw +dash`,
   },
+  // Maps (YUI-158). `draft` until the app draws them (step 2), so they show
+  // on the library page and play in the playground but stay out of search.
+  map: {
+    shelf: "show", doc: "map", draft: true,
+    purpose: "A small map that answers where: countries or drawn areas, pins and routes, drawn offline in the agent's colors.",
+    tags: ["map", "where", "geography", "history", "travel", "place", "route"],
+    yl: `map "The Mongol Empire, 1279" caption="24M km². The biggest land empire there has been."
+area "Mongol Empire" MN|CN|KR tone=butter
+area Raided PL|HU +dash
+pin@ka Karakorum 47.2,102.8 +pulse
+route West ka|50.4,30.5 +arrow`,
+  },
+  area: {
+    shelf: "show", doc: "area-pin-route", draft: true,
+    purpose: "A filled region on a map: countries by code, or a drawn outline for borders that are not today's.",
+    tags: ["map", "country", "region", "border", "empire", "zone"],
+    yl: `map "Where we ship"
+area "Next day" DE|NL|BE tone=mint
+area "Two days" FR|AT|PL +dash`,
+  },
+  pin: {
+    shelf: "show", doc: "area-pin-route", draft: true,
+    purpose: "A place on a map at its lat,lon, with a label beside it.",
+    tags: ["map", "place", "city", "marker", "location"],
+    yl: `map caption="Three days, three cities."
+pin Lisbon 38.7,-9.1
+pin Porto 41.2,-8.6
+pin@f Faro 37,-7.9 +pulse`,
+  },
+  route: {
+    shelf: "show", doc: "area-pin-route", draft: true,
+    purpose: "A road or an arrow over a map, through places or pins.",
+    tags: ["map", "route", "trip", "path", "journey", "arrow"],
+    yl: `map "The Silk Road"
+pin@xa Xi'an 34.3,108.9
+pin@sa Samarkand 39.6,67
+pin@is Constantinople 41,28.9
+route "Silk Road" xa|sa|is tone=butter`,
+  },
   game: {
     shelf: "play", doc: "game",
     purpose: "A small game on the phone: tic-tac-toe, snake or memory. The result comes back.",

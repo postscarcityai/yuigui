@@ -21,6 +21,7 @@ val PRESETS = listOf(
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
+    "map", "area", "pin", "route",
     "game", "flow",
     "query",
     "loop", "drums", "keys", "chords", "tuner", "metronome",
@@ -33,12 +34,13 @@ val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "th
 // as long as each one is a member preset. Anything else ends the group, and
 // so does `end`. Comments, blank lines and error lines do not.
 val GROUPS = mapOf(
-    "deck" to listOf("page", "ask", "choose", "pick", "sketch", "shapes", "math", "chart", "stat", "calc"),
-    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch"),
+    "deck" to listOf("page", "ask", "choose", "pick", "sketch", "shapes", "map", "math", "chart", "stat", "calc"),
+    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "map"),
     "narrate" to listOf("page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"),
     "timeline" to listOf("done", "now", "next"),
     "sketch" to listOf("row", "after"),
     "shapes" to listOf("shape"),
+    "map" to listOf("area", "pin", "route"),
 )
 
 // A timeline's rows. A patch's `kind=` moves one to another of these.
@@ -418,6 +420,50 @@ private fun camera(pos: List<Token>): Obj {
     return o
 }
 
+// A country code (ISO 3166 alpha-2 or alpha-3) and a lat,lon place.
+private val ISO = rx("[A-Z]{2,3}")
+private val LATLON = rx("-?\\d+(\\.\\d+)?,-?\\d+(\\.\\d+)?")
+
+// area [label...] [CN|MN] [lat,lon|...]: codes and a drawn outline; the rest is the label.
+private fun area(pos: List<Token>): Obj {
+    val o = Obj()
+    val codes = ArrayList<String>()
+    val text = ArrayList<Token>()
+    for (t in pos) {
+        val parts = t.parts
+        if (!t.quoted && parts == null && ISO.test(t.text)) codes.add(t.text)
+        else if (!t.quoted && parts != null && parts.all { ISO.test(it) }) codes.addAll(parts)
+        else if (o["pts"] == null && !t.quoted && parts != null && parts.all { LATLON.test(it) }) o["pts"] = parts.toList()
+        else text.add(t)
+    }
+    if (codes.isNotEmpty()) o["codes"] = codes
+    if (text.isNotEmpty()) o["label"] = joinText(text)
+    return o
+}
+
+// pin [label...] [lat,lon]: the first bare lat,lon is where it goes.
+private fun pin(pos: List<Token>): Obj {
+    val o = Obj()
+    val text = ArrayList<Token>()
+    for (t in pos) {
+        if (o["at"] == null && !t.quoted && t.parts == null && LATLON.test(t.text)) o["at"] = t.text else text.add(t)
+    }
+    if (text.isNotEmpty()) o["label"] = joinText(text)
+    return o
+}
+
+// route [label...] [a|b|c]: the first options are its stops (lat,lon or a pin's id).
+private fun route(pos: List<Token>): Obj {
+    val o = Obj()
+    val text = ArrayList<Token>()
+    for (t in pos) {
+        val parts = t.parts
+        if (o["pts"] == null && !t.quoted && parts != null) o["pts"] = parts.toList() else text.add(t)
+    }
+    if (text.isNotEmpty()) o["label"] = joinText(text)
+    return o
+}
+
 private fun titled(key: String, pos: List<Token>): Obj = Obj().also { if (pos.isNotEmpty()) it[key] = joinText(pos) }
 
 private fun compare(pos: List<Token>): Obj {
@@ -520,7 +566,10 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "chart" -> chart(pos)
     "stat" -> stat(pos)
     "step" -> step(pos)
-    "calc", "deck", "plan", "flow", "narrate", "timeline", "sketch", "shapes" -> titled("title", pos)
+    "calc", "deck", "plan", "flow", "narrate", "timeline", "sketch", "shapes", "map" -> titled("title", pos)
+    "area" -> area(pos)
+    "pin" -> pin(pos)
+    "route" -> route(pos)
     "shape" -> game(pos, "label")
     "row" -> titled("text", pos)
     "after" -> titled("label", pos)
@@ -586,6 +635,8 @@ private val LISTS = mapOf(
     "pick" to listOf("answer"),
     "game" to listOf("items"),
     "shape" to listOf("pts"),
+    "area" to listOf("codes", "pts"),
+    "route" to listOf("pts"),
     "loop" to listOf("rows", "p"),
     "drums" to listOf("pads"),
     "chords" to listOf("chords"),
@@ -1800,6 +1851,10 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "row" to mapOf("text" to ""), "after" to mapOf("label" to "After"),
     "shapes" to mapOf("title" to "", "caption" to "", "w" to 10.0, "h" to 6.0),
     "shape" to mapOf("kind" to "box", "label" to ""),
+    "map" to mapOf("title" to "", "caption" to "", "fit" to "auto"),
+    "area" to mapOf("label" to "", "codes" to emptyList<String>(), "pts" to emptyList<String>()),
+    "pin" to mapOf("label" to ""),
+    "route" to mapOf("label" to "", "pts" to emptyList<String>()),
     "query" to mapOf("table" to "", "as" to "table", "title" to "", "where" to emptyList<String>(), "sort" to emptyList<String>()),
     "game" to mapOf("title" to "", "you" to "x", "first" to "you", "speed" to 2.0, "size" to 15.0, "pairs" to 6.0, "items" to emptyList<String>()),
     "tuner" to mapOf("title" to "", "instrument" to "guitar", "tuning" to "standard", "a4" to 440.0, "strings" to emptyList<String>()),

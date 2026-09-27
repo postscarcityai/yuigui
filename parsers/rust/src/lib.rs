@@ -39,6 +39,7 @@ pub const PRESETS: &[&str] = &[
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
+    "map", "area", "pin", "route",
     "game", "flow",
     "query",
     "loop", "drums", "keys", "chords", "tuner", "metronome",
@@ -61,12 +62,13 @@ pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", 
 /// can hold another group (a deck), a deck or plan a sketch (a page's picture).
 pub fn group_members(preset: &str) -> Option<&'static [&'static str]> {
     Some(match preset {
-        "deck" => &["page", "ask", "choose", "pick", "sketch", "shapes", "math", "chart", "stat", "calc"],
-        "plan" => &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch"],
+        "deck" => &["page", "ask", "choose", "pick", "sketch", "shapes", "map", "math", "chart", "stat", "calc"],
+        "plan" => &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "map"],
         "narrate" => &["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
         "timeline" => &["done", "now", "next"],
         "sketch" => &["row", "after"],
         "shapes" => &["shape"],
+        "map" => &["area", "pin", "route"],
         _ => return None,
     })
 }
@@ -889,6 +891,78 @@ fn game(pos: &[&Token], rest: &str) -> Map {
     o
 }
 
+/// A country code: two or three capital letters (ISO 3166 alpha-2 or alpha-3).
+fn is_iso(s: &str) -> bool {
+    (2..=3).contains(&s.len()) && s.chars().all(|c| c.is_ascii_uppercase())
+}
+
+/// `-?\d+(\.\d+)?` whole.
+fn is_decimal(s: &str) -> bool {
+    let s = s.strip_prefix('-').unwrap_or(s);
+    let (a, b) = match s.split_once('.') { Some((a, b)) => (a, Some(b)), None => (s, None) };
+    !a.is_empty() && a.chars().all(|c| c.is_ascii_digit()) && b.map_or(true, |b| !b.is_empty() && b.chars().all(|c| c.is_ascii_digit()))
+}
+
+/// A lat,lon place as written: two decimals and one comma.
+fn is_latlon(s: &str) -> bool {
+    matches!(s.split_once(','), Some((a, b)) if is_decimal(a) && is_decimal(b))
+}
+
+/// area [label...] [CN|MN] [lat,lon|...]: codes and a drawn outline; the rest is the label.
+fn area(pos: &[&Token]) -> Map {
+    let mut o = Map::new();
+    let mut codes: Vec<String> = Vec::new();
+    let mut text = Vec::new();
+    for t in pos {
+        match &t.parts {
+            None if !t.quoted && is_iso(&t.text) => codes.push(t.text.clone()),
+            Some(p) if !t.quoted && p.iter().all(|x| is_iso(x)) => codes.extend(p.iter().cloned()),
+            Some(p) if !t.quoted && !o.has("pts") && p.iter().all(|x| is_latlon(x)) => o.set("pts", Value::strs(p)),
+            _ => text.push(*t),
+        }
+    }
+    if !codes.is_empty() {
+        o.set("codes", Value::strs(&codes));
+    }
+    if !text.is_empty() {
+        o.set("label", Value::Str(join_text(&text)));
+    }
+    o
+}
+
+/// pin [label...] [lat,lon]: the first bare lat,lon is where it goes.
+fn pin(pos: &[&Token]) -> Map {
+    let mut o = Map::new();
+    let mut text = Vec::new();
+    for t in pos {
+        if !o.has("at") && !t.quoted && t.parts.is_none() && is_latlon(&t.text) {
+            o.set("at", Value::str(&t.text));
+        } else {
+            text.push(*t);
+        }
+    }
+    if !text.is_empty() {
+        o.set("label", Value::Str(join_text(&text)));
+    }
+    o
+}
+
+/// route [label...] [a|b|c]: the first options are its stops (lat,lon or a pin's id).
+fn map_route(pos: &[&Token]) -> Map {
+    let mut o = Map::new();
+    let mut text = Vec::new();
+    for t in pos {
+        match &t.parts {
+            Some(p) if !t.quoted && !o.has("pts") => o.set("pts", Value::strs(p)),
+            _ => text.push(*t),
+        }
+    }
+    if !text.is_empty() {
+        o.set("label", Value::Str(join_text(&text)));
+    }
+    o
+}
+
 // ---------- music ----------
 
 /// `^(\d+(?:\.\d+)?)(?:bpm)?$` with the i flag: the tempo's digits.
@@ -1042,7 +1116,10 @@ fn preset_props(preset: &str, pos: &[&Token]) -> Map {
         "chart" => chart(pos),
         "stat" => stat(pos),
         "step" => step(pos),
-        "calc" | "deck" | "plan" | "flow" | "narrate" | "timeline" | "sketch" | "shapes" => all_text(pos, "title"),
+        "calc" | "deck" | "plan" | "flow" | "narrate" | "timeline" | "sketch" | "shapes" | "map" => all_text(pos, "title"),
+        "area" => area(pos),
+        "pin" => pin(pos),
+        "route" => map_route(pos),
         "shape" => game(pos, "label"),
         "page" => page(pos),
         "done" | "now" | "next" => timeline_row(pos),
@@ -1203,6 +1280,8 @@ fn list_props(preset: &str) -> &'static [&'static str] {
         "pick" => &["answer"],
         "game" => &["items"],
         "shape" => &["pts"],
+        "area" => &["codes", "pts"],
+        "route" => &["pts"],
         "loop" => &["rows", "p"],
         "drums" => &["pads"],
         "chords" => &["chords"],
@@ -3553,6 +3632,10 @@ fn defaults(preset: &str) -> Map {
         "query" => vec![("table", s("")), ("as", s("table")), ("title", s("")), ("where", e()), ("sort", e())],
         "shapes" => vec![("title", s("")), ("caption", s("")), ("w", n(10.0)), ("h", n(6.0))],
         "shape" => vec![("kind", s("box")), ("label", s(""))],
+        "map" => vec![("title", s("")), ("caption", s("")), ("fit", s("auto"))],
+        "area" => vec![("label", s("")), ("codes", e()), ("pts", e())],
+        "pin" => vec![("label", s(""))],
+        "route" => vec![("label", s("")), ("pts", e())],
         "game" => vec![("title", s("")), ("you", s("x")), ("first", s("you")), ("speed", n(2.0)), ("size", n(15.0)), ("pairs", n(6.0)), ("items", e())],
         // Music (spec/MUSIC.md). Sounds are words from the sound bank.
         "loop" => vec![("title", s("")), ("bpm", n(96.0)), ("swing", n(0.0)), ("steps", n(8.0)), ("rows", Value::strs(&KIT[..8])), ("p", e()), ("sound", s("pluck")), ("play", f)],

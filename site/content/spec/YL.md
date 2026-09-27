@@ -302,20 +302,21 @@ calc Pendulum f="T = 2*pi*sqrt(L/g)" L=0.1-3@1m g=1.6-25@9.81m/s^2 unit=s
 calc "Carbon-14 left" f="N = N0*exp(-ln(2)*t/h)" t=0-30000@5730yr N0=100% h=5730yr unit=%
 ```
 
-### Groups: deck, plan, narrate, timeline, sketch, shapes
+### Groups: deck, plan, narrate, timeline, sketch, shapes, map
 
-Six presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
+Seven presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
 
 | Head | Members | What the group is |
 |---|---|---|
-| `deck` | `page`, `ask`, `choose`, `pick`, `sketch`, `shapes`, `math`, `chart`, `stat`, `calc` | a swipeable presentation |
-| `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, `sketch` | one full-screen flow: pages to read, then questions, one answer at the end |
+| `deck` | `page`, `ask`, `choose`, `pick`, `sketch`, `shapes`, `map`, `math`, `chart`, `stat`, `calc` | a swipeable presentation |
+| `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, `sketch`, `map` | one full-screen flow: pages to read, then questions, one answer at the end |
 | `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
 | `timeline` | `done`, `now`, `next` | what has shipped, what is running, what is queued |
 | `sketch` | `row`, `after` | a small drawn picture: rows struck out, highlighted, called out |
 | `shapes` | `shape` | a small moving diagram: shapes, labels and arrows that come on one by one |
+| `map` | `area`, `pin`, `route` | a small map: countries or drawn areas, pins and routes that come on one by one |
 
-**Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest in two places: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate. A `deck` or a `plan` can hold a `sketch` the same way, and a `deck` a `shapes`: its `row` and `after` lines (or `shape` lines) join it, and the first line that is not one ends it and is then checked against the deck or plan. The sketch or diagram is the picture of the page right before it (see A page's picture under deck). Since a deck takes `stat`, `chart` and `math`, a deck inside a `narrate` takes them too, as its pages' pictures: write `end` first to make one a step of the narrate.
+**Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest in two places: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate. A `deck` or a `plan` can hold a `sketch` or a `map` the same way, and a `deck` a `shapes`: its `row` and `after` lines (or `shape` lines, or `area`, `pin` and `route` lines) join it, and the first line that is not one ends it and is then checked against the deck or plan. The sketch or diagram is the picture of the page right before it (see A page's picture under deck). Since a deck takes `stat`, `chart` and `math`, a deck inside a `narrate` takes them too, as its pages' pictures: write `end` first to make one a step of the narrate.
 
 To put a question *after* a deck rather than inside it, write `end` first:
 ```
@@ -329,7 +330,7 @@ ask "Ready for the real thing?"
 `deck [title...] [layout=slides|scroll] [+full] [+notes]`, then one `page` line per slide. Swipe, arrows or dots move between pages; a Full screen button (or `+full`, which opens that way) puts the deck over the whole screen, where arrow keys also work. Each page's `notes` are speaker notes behind a Notes toggle (`+notes` shows them open).
 - `layout`: `slides` [default] one page at a time, `scroll` every page in a vertical feed.
 - **Quiz pages.** An `ask`, `choose` or `pick` inside a deck is a page of its own. Give it `answer=` and it is graded (see Quiz below), which is how an agent ends a lesson with a check.
-- **A page's picture.** A `sketch`, `shapes`, `math`, `chart`, `stat` or `calc` right after a `page` is that page's picture: it draws where the page's `img` would go, above the words (a page with both draws the picture). One with no page right before it (first in the deck, after a question, or after a page that already has one) is a page of its own, just the picture. So a whole lesson is one deck: the diagram, the formula, the chart and the number each on their page, a quiz, and the calculator on the last page. A calc's sliders still send their events; a drag on a slider is never a swipe.
+- **A page's picture.** A `sketch`, `shapes`, `map`, `math`, `chart`, `stat` or `calc` right after a `page` is that page's picture: it draws where the page's `img` would go, above the words (a page with both draws the picture). One with no page right before it (first in the deck, after a question, or after a page that already has one) is a page of its own, just the picture. So a whole lesson is one deck: the diagram, the formula, the chart and the number each on their page, a quiz, and the calculator on the last page. A calc's sliders still send their events; a drag on a slider is never a swipe.
 - When the person has seen every page and answered every question, the deck emits `{done: true, pages}`, plus `score` and `of` when some questions were graded. Quiz pages also send their own events as they are answered.
 Props: `title`, `layout` [slides], `+full`, `+notes`.
 A lesson as one deck:
@@ -527,6 +528,47 @@ shape arrow from=think to=draw +dash
 shape path pts=1,4.6|3,4|5,4.4|7,3.8|9,4.2 tone=mute
 ```
 Why this shape: agents need a picture of an idea (a flow, a loop, parts and how they join) more often than a picture of a thing, and a generated image costs a render, a wait and a network round trip for every small idea. A handful of shapes, one row by default and arrows that find their ends cover most of those pictures in a few short lines, and the order of the lines is the order the idea unfolds. `sketch` draws a screen, `chart` draws numbers, `flow` draws a branching form; `shapes` draws a thought. `custom` would make every agent invent its own, and SVG in a line would be long, fragile and unsafe.
+
+#### map
+`map [title...] [caption=] [fit=auto] [center=lat,lon zoom=]`, then one `area`, `pin` or `route` per line. A small map, so an agent answers "where" with the place, not a list of compass points: countries or a drawn outline filled in, pins on the cities, routes between them, a caption under it. It is drawn on the device from a bundled world outline (Natural Earth 110m, public domain): no map tiles, no key, no network. It sits in the chat at the width of a bubble and sends no events.
+- **The view.** `fit=auto` [default] frames everything the map holds, padded, never closer than about 8 degrees across, and crosses the date line when that is the shorter way (Russia with Alaska next to it, not the whole world between). `fit=world` shows the whole world. `center=lat,lon` with `zoom=` (1 the whole world, each step twice as close) sets the view by hand. The drawing keeps between square and twice as wide as tall; the short side grows to fit.
+- **Title and caption** as in `shapes`: a small heading above, the sentence that says what the map means under it.
+- **Colors** come from the agent's look: the land is its ink at a whisper, areas, pins and routes take `tone` (as in `shape`), so the map matches the agent in light and dark.
+- **Order is the story.** Parts come on in line order, a beat apart: areas fill in, pins spring up, routes trace themselves on. `+pulse` on a pin keeps it breathing, the one place to look. Reduce Motion (and the Telegram picture) shows the finished map at once.
+- **Labels** find room on their own: beside a pin, past a route's last stop (or over its middle), on an area's biggest piece, each moved to the next spot when an earlier label or a pin is there.
+- **On a page.** Inside a `deck` or a `plan`, a map right after a `page` is that page's picture (see A page's picture under deck).
+Props: `title`, `caption`, `fit` [auto], `center`, `zoom`.
+
+#### area, pin, route
+`area [label...] [CODES] [lat,lon|lat,lon|...] [codes=] [pts=] [tone=] [+dash]`. A filled region. Bare words of two or three capital letters, or options that all are (`CN|MN|KR`), are country codes (ISO 3166 alpha-2 or alpha-3, any mix): they go in `codes`, wherever they sit. Options that are all `lat,lon` places are a drawn outline, `pts`, for borders that are not today's (an empire, a flood zone, a delivery area). An area can have both. The rest is the `label`; quote a label that looks like a code (`area "EU"`). A code the map does not know is left out. `+dash` draws a dashed edge and a fainter fill: raided, planned, disputed, not quite there; its tone defaults to `mute`.
+Props: `label`, `codes`, `pts`, `tone`, `dash`. `codes` and `pts` are always lists.
+
+`pin [label...] [lat,lon] [at=] [tone=] [+pulse]`. A place. The first bare `lat,lon` is `at` (decimal degrees, north and east positive); the rest is the label. A pin with no place is not drawn. Give it an id (`pin@ka ...`) and routes can stop at it by name.
+Props: `label`, `at`, `tone`, `pulse`.
+
+`route [label...] [STOPS] [pts=] [tone=] [+dash] [+arrow]`. A path over the map. The first options are its stops, `pts`, each a `lat,lon` or a pin's id: `route "Silk Road" 34.3,108.9|ka|41,28.9`. It is a smooth curve through its stops (two stops bow a little, like a road over the curve of the earth); `+arrow` puts a head on the last one, `+dash` dashes it. A stop it cannot place is skipped; a route with fewer than two is not drawn.
+Props: `label`, `pts`, `tone`, `dash`, `arrow`. `pts` is always a list.
+
+An `area`, `pin` or `route` outside a `map` stands alone as a map of just that part. Places go out as written (`"47.2,102.8"`); renderers read the numbers. The reference scene (fit, projection, labels, clock, the words) is `site/lib/yl/map.mjs`.
+```
+map "The Mongol Empire, 1279" caption="24M km². The biggest land empire there has been."
+area "Mongol Empire" 53,140|43,131|34.7,126.5|22.3,114|24,98|34,70|25.5,57|33,44|41,31|46,30.5|54,23|60,56|55,95 tone=butter
+area Raided PL|HU +dash
+pin@ka Karakorum 47.2,102.8 +pulse
+route East ka|37.6,127 +arrow
+route West ka|50.4,30.5 +arrow
+```
+A lesson page with its map:
+```
+deck "The Mongols, by the map"
+page "How far it reached" body="Korea to Hungary, the Siberian forest to Persia."
+map caption="Karakorum sat in the middle and rode out every way."
+area Empire MN|CN|KR tone=butter
+pin@ka Karakorum 47.2,102.8 +pulse
+page "The biggest one on land"
+chart bar "Land empires, million km²" x=Mongol|Russian|Qing|Roman y=24|22.8|14.7|5
+```
+Why this shape: "where" questions (history, travel, a delivery area, a storm) kept coming back as compass-point bullets, and a map says them at a glance. Country codes are words every model already knows, `lat,lon` is how every model already writes a place, and a drawn outline covers the borders that are not today's. No tiles and no key, so it costs nothing, works offline and never leaks where someone is looking. `shapes` draws an idea, `map` draws a place.
 
 ### game
 `game KIND [title...]`. A small game the person plays on the phone, so an agent can put something playable on screen in one line. The first bare word (not quoted, not options, starting with a letter) is the `kind`, wherever it sits; the rest of the positional text is the `title`. Kinds are matched without case. A game opens on the stage (section 5) unless it says `+inline`, and like any component it can go to a page (`>2 game snake`), be saved and shown, and sit on the shelf. Every game event carries `kind`.
@@ -806,7 +848,7 @@ Errors come from two layers. The **parser** rejects a line on its own: an unknow
 
 What ships today is in `spec/TELEGRAM.md` (INT-4): `ask`, `choose` and `pick` as inline keyboards, text presets as text, and the rest in a Telegram Mini App that draws the whole screen. The mapping below is where it goes next.
 
-`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), a `shapes` diagram sends its finished drawing as a picture with its title, its labels in order (connectors as arrows between them) and its caption as text, and a `game` sends its title with a link to play it in Yui. A `menu` line sends nothing: Telegram has no drawer. Nor does `doing`: the chat keeps its typing dots. Nor do `table create` and `put`, since the tables live on the phone; a `query` sends a link to open it in Yui. Everything else degrades to its text plus a link to open it in Yui.
+`ask`, `choose` and `pick` map straight onto Telegram inline keyboards: the question becomes the message, the options become buttons, the callback carries the same event. `list` and `say` become text. `gallery` and `storyboard` become a media album with the captions or notes as text, `video` and `image` send the file, `compare` sends both images. `chart`, `math` and `calc` send a rendered image, `stat` becomes its text (`Weight 178.9 lb, down 2.3`), and a stepper becomes a numbered list. A `deck` becomes an album of its page pictures with the titles as text and its quiz questions as keyboards, a `plan` sends its pages as text, asks its questions one message at a time and sends `{plan}` after the last, a `project` becomes its text with the button, a `narrate` sends a voice note per step with its picture, a `sketch` sends its rows as text (struck rows struck through, highlighted rows in bold, buttons in brackets, notes after an arrow), a `shapes` diagram sends its finished drawing as a picture with its title, its labels in order (connectors as arrows between them) and its caption as text, a `map` sends its finished drawing as a picture with its title, its place names in line order (an area's label with its countries, a pin's label, a route's label with the pins it stops at) and its caption as text (`describe()` in `map.mjs` gives the words), and a `game` sends its title with a link to play it in Yui. A `menu` line sends nothing: Telegram has no drawer. Nor does `doing`: the chat keeps its typing dots. Nor do `table create` and `put`, since the tables live on the phone; a `query` sends a link to open it in Yui. Everything else degrades to its text plus a link to open it in Yui.
 
 **Browser.** Yui in a browser tab draws every preset with the playground's renderers and translates only what a tab cannot do like a phone (haptics, lock screen timers, push): `spec/BROWSER.md`.
 

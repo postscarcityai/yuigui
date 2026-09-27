@@ -11,6 +11,7 @@ import { LonePage, Project } from "./flows";
 import { LoneRow, Timeline } from "./timeline";
 import { LoneSketchRow, Sketch } from "./sketch";
 import { LoneShape, Shapes } from "./shapes";
+import { LoneMapPart, MapView } from "./map";
 import { Game } from "./games";
 import { MUSIC } from "./music/music";
 import { Flow } from "./flow";
@@ -831,6 +832,10 @@ const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, 
   after: () => null,
   shapes: ({ p }) => <Shapes g={{ group: { props: p }, members: [] }} />,
   shape: LoneShape,
+  map: ({ p }) => <MapView g={{ group: { props: p }, members: [] }} />,
+  area: ({ p }) => <LoneMapPart p={p} preset="area" />,
+  pin: ({ p }) => <LoneMapPart p={p} preset="pin" />,
+  route: ({ p }) => <LoneMapPart p={p} preset="route" />,
   game: Game,
   query: Query,
   ...MUSIC };

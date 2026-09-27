@@ -989,6 +989,38 @@ shape pill Shapes at=1.7,2.3 size=2.6 +fill move=5,2.3
 shape@dot dot at=5,3.4 tone=mint +pulse`,
   },
   {
+    // Maps (YUI-158 step 1, Chris on the Mongol Empire answer: "this
+    // should be a Map"). A drawn outline for a border that is not today's,
+    // countries by code, a pin and four ways out of it.
+    slug: "map",
+    name: "Map: the Mongol Empire, 1279",
+    agent: "Yui",
+    yl: `say "At its peak, 1279, it ran from Korea to Hungary's edge."
+map "The Mongol Empire, 1279" caption="24M km². The biggest land empire there has been."
+area "Mongol Empire" 53,140|43,131|38.5,128.5|34.7,126.5|37.5,122.5|31,121.8|25,119.5|22.3,114|20.5,110.2|21.8,108|22.5,103|24,98|28,97|28,86|30,80|34,74|34,70|30,66|26,62|25.5,57|28,51|30,48|33,44|36,38.5|37,36|36.5,32|41,31|41.5,41.5|45,37|46,30.5|48,27|50.5,24|54,23|57,28|60,31|62,40|60,56|58,65|56,80|55,95|53,108|55,120 tone=butter
+area Raided PL|HU +dash
+pin@ka Karakorum 47.2,102.8 +pulse
+route East ka|37.6,127 +arrow
+route West ka|50.4,30.5 +arrow
+route South ka|33.3,44.4 +arrow
+route North ka|60,100 +arrow`,
+  },
+  {
+    slug: "map-deck",
+    name: "Map: a deck page's picture",
+    agent: "Yui",
+    yl: `>full
+deck "The Mongols, by the map"
+page "How far it reached" body="Korea to Hungary, the Siberian forest to Persia."
+map caption="Karakorum sat in the middle and rode out every way."
+area Empire 53,140|43,131|38.5,128.5|34.7,126.5|37.5,122.5|31,121.8|25,119.5|22.3,114|20.5,110.2|21.8,108|22.5,103|24,98|28,97|28,86|30,80|34,74|34,70|30,66|26,62|25.5,57|28,51|30,48|33,44|36,38.5|37,36|36.5,32|41,31|41.5,41.5|45,37|46,30.5|48,27|50.5,24|54,23|57,28|60,31|62,40|60,56|58,65|56,80|55,95|53,108|55,120 tone=butter
+pin@ka Karakorum 47.2,102.8 +pulse
+route West ka|47.5,19 +arrow +dash
+page "The biggest one on land"
+chart bar "Land empires, million km²" x=Mongol|Russian|Qing|Roman y=24|22.8|14.7|5
+end`,
+  },
+  {
     slug: "timeline-trip",
     name: "Timeline: a trip, day by day",
     agent: "Scout",

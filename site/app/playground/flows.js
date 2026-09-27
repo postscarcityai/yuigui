@@ -11,6 +11,7 @@ import { ScreenCtx } from "./science";
 import { Timeline } from "./timeline";
 import { Sketch } from "./sketch";
 import { Shapes } from "./shapes";
+import { MapView } from "./map";
 
 const isVideo = (src) => /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src || "");
 const Media = ({ src, className }) => (isVideo(src)
@@ -63,10 +64,10 @@ export function Page({ p, pic, emitFor, Render }) {
   );
 }
 
-// A page's picture (YUI-113): a sketch or shapes group, or one math, chart,
-// stat or calc line.
+// A page's picture (YUI-113): a sketch, shapes or map group, or one math,
+// chart, stat or calc line.
 function picture(m, emitFor, Render) {
-  if (m.group) return m.group.preset === "shapes" ? <Shapes g={m} /> : <Sketch g={m} />;
+  if (m.group) return m.group.preset === "shapes" ? <Shapes g={m} /> : m.group.preset === "map" ? <MapView g={m} /> : <Sketch g={m} />;
   return Render ? <Render node={m} emit={emitFor ? emitFor(m) : () => {}} /> : null;
 }
 
@@ -97,7 +98,7 @@ const QUIZ = new Set(["ask", "choose", "pick"]);
 // A deck's or plan's steps: a picture (a sketch, shapes, math, chart, stat or
 // calc) belongs to the page right before it; one with no page there (or after
 // a page that has one) is a page itself.
-const PICS = new Set(["sketch", "shapes", "math", "chart", "stat", "calc"]);
+const PICS = new Set(["sketch", "shapes", "map", "math", "chart", "stat", "calc"]);
 export function stepsOf(members) {
   const out = [];
   for (const m of members) {
@@ -543,6 +544,6 @@ export function Narrate({ g, emitFor, Render }) {
 }
 
 export function Group({ g, emitFor, Render }) {
-  const C = { deck: Deck, plan: Plan, narrate: Narrate, timeline: Timeline, sketch: Sketch, shapes: Shapes }[g.group.preset];
+  const C = { deck: Deck, plan: Plan, narrate: Narrate, timeline: Timeline, sketch: Sketch, shapes: Shapes, map: MapView }[g.group.preset];
   return C ? <C g={g} emitFor={emitFor} Render={Render} /> : null;
 }

@@ -44,6 +44,7 @@ export const PRESETS = [
   "timeline", "done", "now", "next",
   "sketch", "row", "after",
   "shapes", "shape",
+  "map", "area", "pin", "route",
   "game", "flow",
   "query",
   "loop", "drums", "keys", "chords", "tuner", "metronome",
@@ -56,12 +57,13 @@ export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", 
 // so does `end`. Comments, blank lines and error lines do not. A narrate
 // can hold another group (a deck), a deck or plan a sketch (a page's picture).
 export const GROUPS = {
-  deck: ["page", "ask", "choose", "pick", "sketch", "shapes", "math", "chart", "stat", "calc"],
-  plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch"],
+  deck: ["page", "ask", "choose", "pick", "sketch", "shapes", "map", "math", "chart", "stat", "calc"],
+  plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "map"],
   narrate: ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
   timeline: ["done", "now", "next"],
   sketch: ["row", "after"],
   shapes: ["shape"],
+  map: ["area", "pin", "route"],
 };
 
 // A timeline's rows. A patch's `kind=` moves one to another of these.
@@ -485,6 +487,48 @@ const P = {
     return o;
   },
 
+  // map [title...] (caption= fit= center= zoom=), then area, pin and route
+  // lines. Places stay as written ("47.9,106.9"); the renderer reads them.
+  // area [label...] [CN|MN|RU] [pts=lat,lon|...]: bare two or three capital
+  // letters, or options that all are, are country codes; options that are
+  // all lat,lon points are a drawn outline. The rest is the label.
+  map(pos) { return P.calc(pos); },
+  area(pos) {
+    const o = {};
+    const text = [];
+    for (const t of pos) {
+      if (!t.quoted && !t.parts && ISO.test(t.text)) (o.codes ||= []).push(t.text);
+      else if (!t.quoted && t.parts && t.parts.every((x) => ISO.test(x))) (o.codes ||= []).push(...t.parts);
+      else if (o.pts === undefined && !t.quoted && t.parts && t.parts.every((x) => LATLON.test(x))) o.pts = t.parts;
+      else text.push(t);
+    }
+    if (text.length) o.label = joinText(text);
+    return o;
+  },
+  // pin [label...] [lat,lon]: the first bare lat,lon is where it goes.
+  pin(pos) {
+    const o = {};
+    const text = [];
+    for (const t of pos) {
+      if (o.at === undefined && !t.quoted && !t.parts && LATLON.test(t.text)) o.at = t.text;
+      else text.push(t);
+    }
+    if (text.length) o.label = joinText(text);
+    return o;
+  },
+  // route [label...] [a|b|c]: the first options are its stops, each a
+  // lat,lon or a pin's id.
+  route(pos) {
+    const o = {};
+    const text = [];
+    for (const t of pos) {
+      if (o.pts === undefined && !t.quoted && t.parts) o.pts = t.parts;
+      else text.push(t);
+    }
+    if (text.length) o.label = joinText(text);
+    return o;
+  },
+
   // game KIND [title...]: the first bare word (not quoted, not options) is
   // the kind, wherever it sits; the rest is the title.
   game(pos) {
@@ -543,6 +587,9 @@ function music(pos, specs, extra) {
 }
 
 const GAME_WORD = /^[a-z][a-z0-9_-]*$/i;
+// A country code (ISO 3166 alpha-2 or alpha-3) and a lat,lon place.
+const ISO = /^[A-Z]{2,3}$/;
+const LATLON = /^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/;
 // Game kinds this renderer can play. Any other kind still parses; the
 // renderer says the game is not in this version (spec section 4, game).
 export const GAMES = ["tictactoe", "snake", "memory"];
@@ -594,6 +641,8 @@ const LISTS = {
   pick: ["answer"],
   game: ["items"],
   shape: ["pts"],
+  area: ["codes", "pts"],
+  route: ["pts"],
   loop: ["rows", "p"],
   drums: ["pads"],
   chords: ["chords"],
@@ -1745,6 +1794,14 @@ export function resolve(preset, props) {
       r.kind = String(p.kind ?? "box").toLowerCase();
       return r;
     }
+    case "map":
+      return { title: "", caption: "", fit: "auto", ...p };
+    case "area":
+      return { label: "", codes: [], pts: [], ...p };
+    case "pin":
+      return { label: "", ...p };
+    case "route":
+      return { label: "", pts: [], ...p };
     case "game": {
       // Cells outside 1-9 are ignored, and a cell both marks claim is x's.
       const cells = (v) => [...new Set((v || []).filter((n) => Number.isInteger(n) && n >= 1 && n <= 9))];

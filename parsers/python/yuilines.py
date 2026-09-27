@@ -52,6 +52,7 @@ PRESETS = [
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
+    "map", "area", "pin", "route",
     "game",
     "query", "flow",
     "loop", "drums", "keys", "chords", "tuner", "metronome",
@@ -63,12 +64,13 @@ CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "clo
 # as long as each one is a member preset. Anything else ends the group, and
 # so does `end`. Comments, blank lines and error lines do not.
 GROUPS = {
-    "deck": ["page", "ask", "choose", "pick", "sketch", "shapes", "math", "chart", "stat", "calc"],
-    "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch"],
+    "deck": ["page", "ask", "choose", "pick", "sketch", "shapes", "map", "math", "chart", "stat", "calc"],
+    "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "map"],
     "narrate": ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
     "timeline": ["done", "now", "next"],
     "sketch": ["row", "after"],
     "shapes": ["shape"],
+    "map": ["area", "pin", "route"],
 }
 
 # A timeline's rows. A patch's `kind=` moves one to another of these.
@@ -644,6 +646,54 @@ def _query(pos):
     return o
 
 
+# A country code (ISO 3166 alpha-2 or alpha-3) and a lat,lon place.
+ISO = _re(r"[A-Z]{2,3}")
+LATLON = _re(r"-?\d+(\.\d+)?,-?\d+(\.\d+)?")
+
+
+def _area(pos):
+    """area [label...] [CN|MN] [lat,lon|...]: codes and a drawn outline; the rest is the label."""
+    o, text = {}, []
+    for t in pos:
+        if not t.quoted and not t.parts and ISO.fullmatch(t.text):
+            o.setdefault("codes", []).append(t.text)
+        elif not t.quoted and t.parts and all(ISO.fullmatch(x) for x in t.parts):
+            o.setdefault("codes", []).extend(t.parts)
+        elif "pts" not in o and not t.quoted and t.parts and all(LATLON.fullmatch(x) for x in t.parts):
+            o["pts"] = list(t.parts)
+        else:
+            text.append(t)
+    if text:
+        o["label"] = _join(text)
+    return o
+
+
+def _pin(pos):
+    """pin [label...] [lat,lon]: the first bare lat,lon is where it goes."""
+    o, text = {}, []
+    for t in pos:
+        if "at" not in o and not t.quoted and not t.parts and LATLON.fullmatch(t.text):
+            o["at"] = t.text
+        else:
+            text.append(t)
+    if text:
+        o["label"] = _join(text)
+    return o
+
+
+def _route(pos):
+    """route [label...] [a|b|c]: the first options are its stops (lat,lon or a pin's id)."""
+    o, text = {}, []
+    for t in pos:
+        if "pts" not in o and not t.quoted and t.parts:
+            o["pts"] = list(t.parts)
+        else:
+            text.append(t)
+    if text:
+        o["label"] = _join(text)
+    return o
+
+
 def _titled(pos):
     return {"title": _join(pos)} if pos else {}
 
@@ -692,6 +742,8 @@ P = {
     "sketch": _titled,
     "shapes": _titled,
     "shape": _kinded("label"),
+    "map": _titled,
+    "area": _area, "pin": _pin, "route": _route,
     "row": lambda pos: {"text": _join(pos)} if pos else {},
     "after": lambda pos: {"label": _join(pos)} if pos else {},
     "game": _game,
@@ -755,6 +807,8 @@ LISTS = {
     "pick": ["answer"],
     "game": ["items"],
     "shape": ["pts"],
+    "area": ["codes", "pts"],
+    "route": ["pts"],
     "loop": ["rows", "p"],
     "drums": ["pads"],
     "chords": ["chords"],
@@ -2125,6 +2179,10 @@ _DEFAULTS = {
     "query": {"table": "", "as": "table", "title": "", "where": [], "sort": []},
     "shapes": {"title": "", "caption": "", "w": 10, "h": 6},
     "shape": {"kind": "box", "label": ""},
+    "map": {"title": "", "caption": "", "fit": "auto"},
+    "area": {"label": "", "codes": [], "pts": []},
+    "pin": {"label": ""},
+    "route": {"label": "", "pts": []},
     "game": {"title": "", "you": "x", "first": "you", "speed": 2, "size": 15, "pairs": 6, "items": []},
     "tuner": {"title": "", "instrument": "guitar", "tuning": "standard", "a4": 440, "strings": []},
     "metronome": {"title": "", "bpm": 100, "beats": 4, "sub": 1, "play": False},
