@@ -405,10 +405,6 @@ Chris, Sep 24: in most agent tools every agent sits in the same interface and th
 
 Chris, Sep 23: friendlier, a South Korean aesthetic, happy-cat energy, a little fun by default, light and dark mode. v1 (card YUI-2): soft pastels, rounded type, gentle spring motion, warm microcopy. The identity is typographic only (card YUI-9): the coral bunny-ear wordmark already reads as an abstract cat, so there is no mascot. Yui's avatar is the wordmark's Y; each agent gets its initial on a pastel chip.
 
-**Brand lab, round 1 (Sep 27).** Chris: the coral wordmark was a first attempt; find the real mark from the paper sketch, with Apple's logo as the bar and the cat as one small wink, not a mascot. Round 1 is open at [/brand](/brand) (unlisted): the six pieces traced and cut clean, explored as ink on hanji, Seoul stone, celadon and bojagi, a pinch of pop, with code-made films and a new house-and-grime sound. Visitors pick favorites and send them in. Notes in `brand/lab/BRIEF.md` and `JOURNAL.md`.
-
-**Web Yui (next).** A floating "talk to Yui" button on every page of the site that listens: it learns what each visitor wants, stores it as a backlog of wants, shows a real example screen when that helps, and offers the invite. Humans and agents are both welcome, agents in their own lane. Spec: `docs/specs/web-yui.md`.
-
 **Generative app styling (future).** All styling lives in one token set (colors, radii, type, motion, agent avatar colors) stored as plain data, not code. That makes the app itself restylable at runtime: an agent sends a `theme` line in Yui Lines (for example `theme peach round`) or a full token set, and the whole app re-skins, within guardrails that keep contrast readable and tap targets big. Per-agent themes (Arnold in Arnold's colors) are the first use, shipped Sep 24 (YUI-20). A user asking "make Yui feel like autumn" is the second (YUI-43): step 1, the spec, the `theme app` line and a playground mock, shipped Sep 25 ([Restyle Yui](/developers/restyle)); step 2 is YUI-96, the native app.
 
 ### Parallel track | Telegram fallback (any time)

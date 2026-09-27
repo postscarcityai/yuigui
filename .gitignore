@@ -15,6 +15,3 @@ videos/**/*.log
 videos/**/stills*/
 !videos/kit/yui-wordmark-coral.png
 brag-output*/
-
-# Brand lab: fal outputs, traces and reference renders (sources and picks are tracked). See brand/lab/BRIEF.md.
-brand/lab/out/
