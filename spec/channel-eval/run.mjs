@@ -79,10 +79,20 @@ async function ask(sys, user, model, limit = 180000) {
 }
 
 // OpenRouter as yui/runtime/src/turn.ts sends a native turn: the guide as the
-// system message, the turn as the user message, max_tokens 2000, and
-// data_collection deny so no provider that keeps prompts gets them.
+// system message, the turn as the user message, 2000 tokens for the answer plus
+// a 1000-token reasoning cap (YUI-162), and data_collection deny so no provider
+// that keeps prompts gets them. Like the runtime (thoughtOut), an answer cut off
+// at the limit that is empty or spent over half the budget thinking is asked once
+// more with reasoning off; `retried` marks it in the report.
 // OPENROUTER_API_KEY comes from the environment and is never written anywhere.
 async function openRouter(sys, user, model, limit) {
+  const first = await openRouterOnce(sys, user, model, limit, { max_tokens: 3000, reasoning: { max_tokens: 1000 } });
+  if (!first.thoughtOut) return first;
+  const again = await openRouterOnce(sys, user, model, limit, { max_tokens: 3000, reasoning: { enabled: false } });
+  return { ...again, retried: true };
+}
+
+async function openRouterOnce(sys, user, model, limit, shape) {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) return { error: "OPENROUTER_API_KEY is not set" };
   const ctl = new AbortController();
@@ -93,15 +103,17 @@ async function openRouter(sys, user, model, limit) {
       method: "POST", signal: ctl.signal,
       headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}`, "HTTP-Referer": "https://www.yuigui.com", "X-Title": "Yui channel eval" },
       body: JSON.stringify({ model, messages: [{ role: "system", content: sys }, { role: "user", content: user }],
-        max_tokens: 2000, provider: { data_collection: "deny" } }),
+        ...shape, provider: { data_collection: "deny" } }),
     });
     const j = await res.json().catch(() => ({}));
     if (!res.ok || j.error) return { error: `http ${res.status}: ${String(j.error?.message || "").slice(0, 300)}` };
     const ch = j.choices?.[0];
     // Same as the runtime: a leading <think> block is not part of the answer.
     const text = String(ch?.message?.content ?? "").replace(/^\s*<(think|thought|thinking)>[\s\S]*?(<\/\1>|$)/, "").trim();
-    if (!text) return { error: `empty answer (finish ${ch?.finish_reason})` };
-    return { reply: text, ms: Date.now() - t0, finish: ch.finish_reason, provider: j.provider, usage: j.usage };
+    const thought = j.usage?.completion_tokens_details?.reasoning_tokens ?? Math.round(String(ch?.message?.reasoning ?? "").length / 4);
+    const thoughtOut = ch?.finish_reason === "length" && (!text || thought > shape.max_tokens / 2);
+    if (!text) return { error: `empty answer (finish ${ch?.finish_reason})`, thoughtOut };
+    return { thoughtOut, reply: text, ms: Date.now() - t0, finish: ch.finish_reason, provider: j.provider, usage: j.usage };
   } catch (e) {
     return { error: `fetch: ${e.name === "AbortError" ? `timed out after ${limit} ms` : e.message}` };
   } finally {
@@ -400,7 +412,7 @@ async function main() {
         const r = await ask(system(guide, suite, c), prompt(c), model);
         const s = r.reply ? score(c, r.reply) : { pass: false, fails: [`no reply: ${r.error}`] };
         results[i] = { id: c.id, category: c.category, message: c.message, good: c.good, reply: r.reply, error: r.error, score: s,
-          ...(r.provider ? { provider: r.provider, finish: r.finish, usage: r.usage } : {}) };
+          ...(r.provider ? { provider: r.provider, finish: r.finish, usage: r.usage } : {}), ...(r.retried ? { retried: true } : {}) };
         process.stderr.write(`${s.pass ? "." : "F"}`);
       }
     }));

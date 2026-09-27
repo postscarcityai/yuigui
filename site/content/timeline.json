@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 228,
-    "site": 555,
+    "app": 231,
+    "site": 558,
     "builds": 39,
-    "shipped": 279,
-    "screenshots": 645
+    "shipped": 280,
+    "screenshots": 647
   },
   "days": [
     {
@@ -13,15 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T20:09:11.751Z",
+          "at": "2026-09-27T20:51:23.645Z",
+          "title": "Long asks always get an answer",
+          "card": "YUI-162",
+          "anchor": "long-asks-always-get-an-answer",
+          "images": [
+            {
+              "src": "/progress/yui162-before-light.webp",
+              "alt": "Before: hosted Yui says 'Yui ran out of room before it could answer. Try a shorter message.'"
+            },
+            {
+              "src": "/progress/yui162-after-light.webp",
+              "alt": "After: the live answer, a 4-page deck 'Rise and fall of Rome' opening on a map of the empire in 117 AD"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 231,
+            "site": 558,
+            "builds": 39,
+            "shipped": 280
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T20:09:17.000Z",
           "title": "No dashes in the crew's replies",
           "card": "YUI-163",
           "anchor": "no-dashes-in-the-crew-s-replies",
           "images": [],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 228,
-            "site": 555,
+            "site": 556,
             "builds": 39,
             "shipped": 279
           }
@@ -966,6 +990,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "4ba281c",
+          "at": "2026-09-27T20:50:01.000Z",
+          "text": "Live check: a long ask to hosted Yui comes back with an answer (YUI-162)",
+          "url": "https://github.com/postscarcityai/yui/commit/4ba281c"
+        },
+        {
+          "repo": "site",
+          "sha": "7556394",
+          "at": "2026-09-27T20:49:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7556394"
+        },
+        {
+          "repo": "app",
+          "sha": "ab32991",
+          "at": "2026-09-27T20:43:14.000Z",
+          "text": "Retry without thinking also when a cut-off answer spent over half its budget thinking (YUI-162)",
+          "url": "https://github.com/postscarcityai/yui/commit/ab32991"
+        },
+        {
+          "repo": "app",
+          "sha": "b21b66d",
+          "at": "2026-09-27T20:40:10.000Z",
+          "text": "Native turns always answer: a 1000-token reasoning cap on OpenRouter, one retry without thinking when the answer comes back empty (YUI-162)",
+          "url": "https://github.com/postscarcityai/yui/commit/b21b66d"
+        },
+        {
+          "repo": "site",
+          "sha": "2bfdda6",
+          "at": "2026-09-27T20:11:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2bfdda6"
+        },
+        {
+          "repo": "site",
+          "sha": "ad02f78",
+          "at": "2026-09-27T20:09:17.000Z",
+          "text": "Progress: no dashes in the crew's replies (YUI-163)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ad02f78"
+        },
         {
           "repo": "app",
           "sha": "1dd13e9",
