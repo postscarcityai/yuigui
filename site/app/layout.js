@@ -1,10 +1,12 @@
 import "./globals.css";
 import Script from "next/script";
 import { Nunito } from "next/font/google";
+import ChatFab from "./components/ChatFab";
 import Nav from "./components/Nav";
 import GetYui from "./components/GetYui";
 import NotOnEmbed from "./components/NotOnEmbed";
 import TopBar from "./components/TopBar";
+import { chatOn } from "../lib/chat/config.mjs";
 
 const GA_ID = "G-VYENQDDF00";
 // Apple devices get SF Rounded through ui-rounded, like the app. Everyone else gets Nunito.
@@ -59,6 +61,8 @@ export default function RootLayout({ children }) {
             <img src="/brand/yui-wordmark-coral-156.webp" alt="" width="31" height="20" />
             <span>Made by <a href="https://postscarcity.ai">PostScarcity AI</a>, built in public at yuigui.com</span> | <a href="/business">Business</a> | <a href="/thoughts">Thoughts</a> | <a href="https://github.com/postscarcityai/yuigui">GitHub</a> | <a href="/help">Help</a> | <a href="/privacy">Privacy</a>
           </footer>
+          {/* SITE-64: Yui in the bubble, only once its keys are set. */}
+          {chatOn() && <ChatFab />}
         </NotOnEmbed>
       </body>
     </html>

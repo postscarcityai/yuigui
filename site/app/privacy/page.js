@@ -25,6 +25,9 @@ const TABLES = [
   ["yui_invites", "Invite requests and invites: name, email, phone, status. Server only."],
   ["yui_limits", "The limit numbers themselves. Nothing about you."],
   ["yui_channel_guides", "The guide text agents get. Nothing about you."],
+  ["yui_site_chats", "Chats with Yui on yuigui.com: pages, turn count, a hashed IP, and your name, email and phone if you left them. Server only."],
+  ["yui_site_chat_messages", "What you and Yui said in a yuigui.com chat. Server only."],
+  ["yui_site_chat_notes", "What Yui wrote down from a yuigui.com chat: needs, ideas, bugs. Server only."],
   ["yui-media (storage)", "Photos and pictures in your threads. Private, links expire."],
 ];
 
@@ -33,7 +36,7 @@ export default function Privacy() {
     <>
       <div className="eyebrow">Privacy</div>
       <h1>What Yui keeps, and how to delete it.</h1>
-      <p style={{ color: "var(--muted)" }}>Last updated September 26, 2026.</p>
+      <p style={{ color: "var(--muted)" }}>Last updated September 27, 2026.</p>
 
       <h2 id="invites">Invites</h2>
       <p>
@@ -49,6 +52,22 @@ export default function Privacy() {
         <li>Your invite also carries a one-time code for a link like yuigui.com/i/&hellip;. We keep only a scrambled (hashed) form of it. It works once.</li>
         <li>When you first sign in to the app, Yui matches your invite by that email, or by the code if you hid your email, and links it to your account.</li>
         <li>An invite we decline is deleted 30 days later. An invite you claimed stays with your account and is deleted with it. To remove a request or an invite you have not used, email us.</li>
+      </ul>
+
+      <h2 id="chat">Chatting with Yui on this site</h2>
+      <p>
+        The chat bubble at the bottom right of yuigui.com is Yui, the same helper as in the app. You need no account
+        to use it. We keep every chat, because reading them is how we learn what people want from Yui: we store what
+        you and Yui say, the pages you were on, your browser type, which link brought you, and a scrambled (hashed)
+        form of your IP address, never the address itself. Yui also writes short notes as you talk, like
+        &quot;wants an Android app&quot; or &quot;found a bug on the playground&quot;. Nobody but Yui&apos;s server can read these tables.
+      </p>
+      <ul>
+        <li>Your messages go to OpenRouter, which passes them to the model that writes Yui&apos;s replies. We ask it not to keep or train on them.</li>
+        <li>After a few messages, Cloudflare Turnstile checks that you are a person. Cloudflare sees that check, under its own privacy policy.</li>
+        <li>If Yui asks and you choose to leave your name, email and phone, they are stored with the chat and as an invite request (above), and used only to reach you about Yui.</li>
+        <li>This browser keeps a copy of the chat so it is still there on the next page. New chat clears it.</li>
+        <li>To have your chats deleted, email us.</li>
       </ul>
 
       <h2>Signing in</h2>

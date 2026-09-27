@@ -5,6 +5,8 @@ export default {
   outputFileTracingIncludes: {
     "/og": ["./lib/og/fonts/*", "./public/og/screens/*"],
     "/s/[id]/opengraph-image": ["./lib/og/fonts/*", "./public/og/screens/*"],
+    // SITE-64: the chat searches the whole site at request time, including the pages written as JSX.
+    "/api/chat": ["./content/**/*", "./app/page.js", "./app/help/page.js", "./app/start/page.js", "./app/privacy/page.js", "./app/earn/page.js", "./app/contribute/page.js"],
   },
   // SITE-13 merged these pages. Old links keep working.
   async redirects() {
