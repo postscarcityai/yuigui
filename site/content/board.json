@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T23:10:58.784Z",
+  "updated": "2026-09-27T23:44:23.979Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.0",
@@ -142,8 +142,9 @@
           "summary": "Rolling updates, daily backups, a kill switch per sandbox"
         },
         {
-          "key": "YUI-169",
-          "title": "Several chats per agent, listed in the drawer"
+          "key": "YUI-171",
+          "title": "The same tables for any agent",
+          "summary": "Hermes, MCP, A2A and webhook agents read and write them through Yui"
         },
         {
           "key": "SITE-28",
@@ -258,6 +259,11 @@
           "key": "YUI-168",
           "title": "Every agent's home",
           "summary": "Shortcuts to start, starter screens a swipe away, notifications up front"
+        },
+        {
+          "key": "YUI-170",
+          "title": "Every native agent keeps its own little database",
+          "summary": "Tables it makes, starter values it ships with"
         }
       ]
     },
@@ -266,8 +272,9 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-11943",
-          "title": "Swipe for drawer and screens again"
+          "key": "YUI-168",
+          "title": "Every agent's home, spec + tappable mock",
+          "step": "Step 1"
         },
         {
           "key": "INT-8",
@@ -308,6 +315,13 @@
           "key": "NOTE-50101",
           "title": "Agents answer in screens, not prose",
           "blocked": "other"
+        },
+        {
+          "key": "YUI-169",
+          "title": "Several chats per agent, listed in the drawer",
+          "summary": "Several chats with one agent: the spec and a mock",
+          "blocked": "chris",
+          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
         }
       ]
     },
@@ -315,6 +329,18 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-65",
+          "title": "The Yui chat on yuigui.com feels like the app",
+          "summary": "The chat on this site feels like Yui",
+          "shipped": "2026-09-27",
+          "progress": "/progress#the-chat-on-this-site-feels-like-yui"
+        },
+        {
+          "key": "NOTE-11943",
+          "title": "Swipe for drawer and screens again",
+          "shipped": "2026-09-27"
+        },
         {
           "key": "YUI-135",
           "title": "The starter crew",

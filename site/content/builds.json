@@ -1183,6 +1183,18 @@
     },
     {
       "text": "Native answers: a list's title is title=, not a quoted first item"
+    },
+    {
+      "text": "A message sent during a hand-off is answered; a quoted table title stays a title"
+    },
+    {
+      "text": "A table row with its quote closed early is one row again"
+    },
+    {
+      "text": "A line that can't sit in a deck moves after it, so the deck still draws"
+    },
+    {
+      "text": "Swipe on the full screen again: left for the next screen, right for the one before or the drawer (feedback AC0r0OFGJiJOcbFdbXMgHms)"
     }
   ]
 }
