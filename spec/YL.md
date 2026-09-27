@@ -146,7 +146,7 @@ table Planets Planet|Mass|Radius "Earth|5.97|6371" "Mars|0.642|3390" units=|10^2
 ```
 
 ### card
-`card title [body...]`. Props: `title`, `body`, `sub`, `tag`, `img` (URL), `cta` (button label, emits `{cta}`), `url` (an `https:` or `itms-services:` link the button opens in the browser, Safari in the app; a button with a link shows an arrow and sends nothing to the chat; the button reads Open unless `cta` says otherwise; other schemes are ignored), `fold` (flag).
+`card title [body...]`. Props: `title`, `body`, `sub`, `tag`, `img` (URL), `cta` (button label, emits `{cta}`), `url` (an `https:` or `itms-services:` link the button opens in the browser, Safari in the app; a button with a link shows an arrow and sends nothing to the chat; the button reads Open unless `cta` says otherwise; `yui://settings` or `yui://settings/search` opens the app's own Settings at that section (the web has no Settings, so there the button sends `{cta}` like a card without a link); other schemes are ignored), `fold` (flag).
 ```
 card "Leg day" "Squat, RDL, lunges." sub=Thursday img=/yl/legday.svg cta="Start workout"
 ```
