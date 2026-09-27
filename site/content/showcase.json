@@ -3,6 +3,7 @@
   "cards": {
     "SOC-5": { "title": "Three everyday films: dinner, a car, homework", "shipped": "2026-09-27" },
     "SITE-62": { "title": "The brag films on the site", "shipped": "2026-09-27" },
+    "YUI-156": {"title": "One Send per screen, forms too", "shipped": "2026-09-27"},
     "YUI-155": {"title": "Flows never dead-end", "shipped": "2026-09-27"},
     "YUI-157": {"title": "Explainers draw every page", "shipped": "2026-09-27"},
     "YUI-119": {"title": "Yui lives on the full screen", "shipped": "2026-09-27"},
@@ -342,6 +343,7 @@
       "title": "The app around the screens",
       "lede": "Everything here is a real capture from the iPhone simulator.",
       "entries": [
+        {"id": "form-one-send", "title": "One Send per screen, forms too", "what": "A form inside a plan is just fields. The questions screen keeps one Send, and your name, role and one-liner ride in the plan's answer. From Chris's TestFlight feedback.", "cards": ["YUI-156"], "agent": "Yui", "app": "native", "shots": ["/progress/yui156-before-after.webp", "/progress/yui156-stage-dark.webp", "/progress/yui156-answered-dark.webp"]},
         { "id": "first-run", "title": "First run", "what": "From sign-in to your agent's first screen, with nothing to guess.", "cards": ["YUI-25"], "app": "native", "clip": "first-run", "shots": ["/progress/yui25-first-run.webp", "/progress/yui25-first-reply.webp"] },
         { "id": "connect", "title": "Connect your agent", "what": "Three commands on your computer and a pairing code. Your agent dials out; your machine opens no ports.", "cards": ["YUI-23", "YUI-7", "YUI-6"], "app": "native", "shots": ["/progress/yui25-pairing.webp", "/progress/yui25-connected.webp", "/progress/yui23-start.webp"] },
         { "id": "agent-chat", "title": "Your agent answers with screens", "what": "Each agent gets a thread, and a short guide that teaches it every screen above.", "cards": ["YUI-7", "YUI-10"], "app": "native", "shots": ["/progress/yui23-reply.webp", "/progress/yui12-events-chat.webp"] },

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 207,
-    "site": 522,
+    "app": 209,
+    "site": 524,
     "builds": 37,
-    "shipped": 261,
-    "screenshots": 603
+    "shipped": 262,
+    "screenshots": 606
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T13:41:47.376Z",
+          "at": "2026-09-27T14:13:19.763Z",
+          "title": "One Send per screen, forms too",
+          "card": "YUI-156",
+          "anchor": "one-send-per-screen-forms-too",
+          "images": [
+            {
+              "src": "/progress/yui156-before-after.webp",
+              "alt": "Before and after: the About you form with its own Sent button under the fields, then the same screen with no button, one Send for the whole screen"
+            },
+            {
+              "src": "/progress/yui156-stage-dark.webp",
+              "alt": "Your personal brand site, 6 quick questions, one Send: the About you form with Name, Role and Oneliner, then Who should land on it?"
+            },
+            {
+              "src": "/progress/yui156-answered-dark.webp",
+              "alt": "The form filled in, Chris, Founder, I build agents, and Clients picked below"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 209,
+            "site": 524,
+            "builds": 37,
+            "shipped": 262
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T13:45:21.000Z",
           "title": "Flows never dead-end",
           "card": "YUI-155",
           "anchor": "flows-never-dead-end",
@@ -31,10 +59,10 @@
               "alt": "Step 3 of 7: What are we building? New site, Redesign, Shop or Landing page"
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
             "app": 207,
-            "site": 522,
+            "site": 523,
             "builds": 37,
             "shipped": 261
           }
@@ -488,6 +516,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "13c72d1",
+          "at": "2026-09-27T14:12:29.000Z",
+          "text": "A form inside a plan is just fields: one Send per screen (YUI-156)",
+          "url": "https://github.com/postscarcityai/yui/commit/13c72d1"
+        },
+        {
+          "repo": "site",
+          "sha": "78ba0f5",
+          "at": "2026-09-27T14:10:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/78ba0f5"
+        },
+        {
+          "repo": "app",
+          "sha": "2429d1f",
+          "at": "2026-09-27T13:45:39.000Z",
+          "text": "Plugin: a flow the phone can't run goes out as a plan (YUI-155)",
+          "url": "https://github.com/postscarcityai/yui/commit/2429d1f"
+        },
+        {
+          "repo": "site",
+          "sha": "8b96ad4",
+          "at": "2026-09-27T13:45:21.000Z",
+          "text": "Channel guide v36: a flow never dead-ends on an older app (YUI-155)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8b96ad4"
+        },
         {
           "repo": "site",
           "sha": "f9d2628",
