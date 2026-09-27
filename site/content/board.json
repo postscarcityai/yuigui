@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T15:40:40.710Z",
+  "updated": "2026-09-27T16:10:44.185Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.2",
@@ -340,12 +340,6 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
-        },
-        {
-          "key": "SITE-63",
-          "title": "Yui 0.4.2 on the site, a short release Thought (one Send per screen)",
-          "summary": "Yui 0.4.2 on the site",
-          "progress": "/progress#yui-0-4-2-on-the-site"
         }
       ]
     },
@@ -353,6 +347,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-63",
+          "title": "Yui 0.4.2 on the site, a short release Thought (one Send per screen)",
+          "summary": "Yui 0.4.2 on the site",
+          "shipped": "2026-09-27",
+          "progress": "/progress#yui-0-4-2-on-the-site"
+        },
         {
           "key": "YUI-159",
           "title": "A pick on the stage questions has its own Done",
