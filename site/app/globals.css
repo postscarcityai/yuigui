@@ -95,6 +95,28 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
+/* Announcement bar over the nav (components/TopBar.js). */
+.topbar { background: var(--brand); color: var(--on-brand); font-size: 15px; }
+[data-topbar="off"] .topbar { display: none; }
+.topbar-in { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 48px; padding-top: 6px; padding-bottom: 6px; }
+.topbar p { margin: 0; line-height: 1.3; }
+.topbar-watch { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px; border-radius: 999px; border: 0; background: var(--on-brand); color: var(--brand); font: inherit; font-weight: 800; white-space: nowrap; cursor: pointer; }
+.topbar-watch svg { width: 16px; height: 16px; }
+.topbar-watch:hover { filter: brightness(1.15); }
+.topbar-x { flex: none; width: 36px; height: 36px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: none; color: inherit; cursor: pointer; }
+.topbar-x:hover { background: rgba(0, 0, 0, .08); }
+.topbar-x svg, .topbar-sheet-x svg { width: 20px; height: 20px; }
+.topbar-watch:focus-visible, .topbar-x:focus-visible { outline: 3px solid var(--on-brand); outline-offset: 2px; }
+.topbar-sheet { position: fixed; inset: 0; z-index: 50; background: rgba(20, 16, 28, .82); display: grid; place-items: center; padding: 20px; }
+.topbar-player { height: min(86vh, 760px); aspect-ratio: 9 / 16; max-width: 100%; border-radius: var(--r-card); overflow: hidden; background: #000; box-shadow: 0 24px 60px rgba(0, 0, 0, .4); }
+.topbar-player iframe { display: block; width: 100%; height: 100%; border: 0; }
+.topbar-sheet-x { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: var(--surface); color: var(--ink); cursor: pointer; }
+@media (max-width: 640px) {
+  .topbar { font-size: 14px; }
+  .topbar-in { justify-content: flex-start; gap: 8px; }
+  .topbar p { flex: 1; }
+  .topbar p span { display: none; }
+}
 .nav { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); background: var(--nav-glass); border-bottom: 1.5px solid var(--outline); }
 .navin { display: flex; align-items: center; gap: 16px; min-height: 64px; padding-top: 6px; padding-bottom: 6px; }
 .nav nav a { color: var(--muted); min-height: 44px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 999px; font-weight: 600; white-space: nowrap; }

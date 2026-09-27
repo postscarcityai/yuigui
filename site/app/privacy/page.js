@@ -161,9 +161,9 @@ export default function Privacy() {
 
       <h2>This website</h2>
       <p>
-        The home page video is on YouTube. Until you press play, only its preview image loads, from YouTube&apos;s image
-        server; pressing play loads YouTube&apos;s player from youtube-nocookie.com, and from then on YouTube&apos;s own
-        privacy policy applies to the video. yuigui.com uses Google Analytics to count visits. It never sees an invite code: an invite link is counted as
+        The demo behind &quot;Watch the demo&quot; in the top bar is on YouTube. Nothing from YouTube loads until you press it;
+        then YouTube&apos;s player loads from youtube-nocookie.com, and from then on YouTube&apos;s own privacy policy
+        applies to the video. The home page video is hosted here. yuigui.com uses Google Analytics to count visits. It never sees an invite code: an invite link is counted as
         yuigui.com/i/ without it. The form at the bottom of each page writes to the <code>yui_invites</code> table, described under Invites above. The old
         waitlist (<code>yui_waitlist</code>) is closed, and its entries became invite requests. To be removed, email us.
       </p>

@@ -4,11 +4,14 @@ import { Nunito } from "next/font/google";
 import Nav from "./components/Nav";
 import GetYui from "./components/GetYui";
 import NotOnEmbed from "./components/NotOnEmbed";
+import TopBar from "./components/TopBar";
 
 const GA_ID = "G-VYENQDDF00";
 // Apple devices get SF Rounded through ui-rounded, like the app. Everyone else gets Nunito.
 const nunito = Nunito({ subsets: ["latin"], weight: ["400", "600", "700", "800"], variable: "--font-nunito", display: "swap" });
 const themeInit = `try{var t=localStorage.getItem("yui-theme");document.documentElement.dataset.theme=t==="dark"?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}`;
+// A closed announcement stays closed, with no flash on the next load (components/TopBar.js).
+const topbarInit = `try{if(localStorage.getItem("yui-topbar-0.4-voice"))document.documentElement.dataset.topbar="off"}catch(e){}`;
 
 export const metadata = {
   metadataBase: new URL("https://www.yuigui.com"),
@@ -29,7 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light" className={nunito.variable} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <script dangerouslySetInnerHTML={{ __html: themeInit + topbarInit }} />
       </head>
       <body>
         {/* Google tag (gtag.js). It waits for the page to finish loading so its 170KB never slows the first paint (SITE-41). */}
@@ -48,7 +51,7 @@ export default function RootLayout({ children }) {
               : location.pathname === '/tg' ? { page_location: location.origin + '/tg', page_referrer: '' } : {});
           `}
         </Script>
-        <NotOnEmbed><Nav /></NotOnEmbed>
+        <NotOnEmbed><TopBar /><Nav /></NotOnEmbed>
         <main className="wrap">{children}</main>
         <NotOnEmbed>
           <GetYui />
