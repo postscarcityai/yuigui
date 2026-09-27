@@ -50,10 +50,26 @@ Times scale with pace like every other move (`motion.mjs` PACES).
 ## 4. Sound
 
 - The level is the RMS of a block of samples, in dB, mapped to 0..1 from -60 to -10 dBFS, so a speaking voice sits near the middle (`levelOf`).
-- It is followed by a one-pole filter with its own time for going up and down (`follow`), from the envelope above. The shader gets one number, `u_level`.
+- It is followed by a one-pole filter with its own time for going up and down (`follow`), from the envelope above. The web's shaders get one number, `u_level`; the app's also get `bands` (lows, mids, highs, below).
 - The meter reads at 30 Hz (`BUDGET.meterHz`), not every frame.
 - The playground designs it with a sample voice (a sawtooth through two moving formants, in syllables and pauses), a sample beat (kick, snare, hats at 96 bpm) and this browser's mic. A look that hears something else than what plays moves on its own clock, and says so.
-- In the app (YUI-125): `voice` taps the mic while the person talks and the agent's audio while it speaks, `music` taps the music engine's output bus, `mic` the mic. Nothing is recorded or sent; the level never leaves the phone.
+- In the app (YUI-125) one feed carries the level and three bands, and `react=` picks the source:
+  - `voice`: the push-to-talk mic while the person talks, and the agent's voice while it speaks (a `narrate` line), whichever is louder. The system speaks where no tap can hear, so the app writes the same line offline with the same voice and rate, measures it in 10 ms steps and reads the step under the clock from when the speech began.
+  - `music`: the music engine's output (spec/MUSIC.md), measured on its render thread with no allocation.
+  - `mic`: the whole room. The mic opens only while such a visual moves on screen and only when the mic is already allowed; a picture never asks. Push-to-talk takes the mic back while the person talks.
+  - `off`: nothing.
+- **Bands.** Two one-pole filters split each block: lows under 250 Hz (a kick, a bass, a voice's body), highs over 2.5 kHz (hats, s and t), mids between. Each band is mapped like the level and follows the same envelope. A reading older than 0.25 s is silence: its source stopped.
+- **What each look does with them**, on top of what the level does. With the bands at 0 each look is the web's picture.
+
+| look | lows | mids | highs |
+|---|---|---|---|
+| orb | pulses | ripples | glows |
+| aurora | widens | shimmers | glows |
+| waves | swell | ripple | glow |
+| grain | spreads | - | sparkles |
+| bloom | opens | flutters | its heart glows |
+
+- Nothing is recorded, kept or sent. Each source holds four numbers, overwritten a block at a time; the level never leaves the phone.
 
 ## 5. Rules
 
@@ -92,5 +108,5 @@ The channel guide (spec/CHANNEL.md) gets one line when the app draws it: a mood 
 ## 8. Next
 
 - **Step 2 (app):** the Metal shaders behind the stage, reading `visualPlan`'s numbers, at the budget above and inside the memory ceiling. The Swift parser reads `visual`. Screenshots of each look in light and dark, a recording, and the still under Reduce Motion.
-- **YUI-125:** the sound, from the mic, the agent's voice and the music tools.
+- **YUI-125 (app, built):** the sound, from the mic, the agent's voice and the music tools, as a level and three bands. VoiceOver reads what the look does with them as a hint.
 - Later: people describe the look they want for each agent in words ("slow purple smoke"), and the agent picks the look and tone.

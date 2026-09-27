@@ -1,19 +1,238 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 190,
-    "site": 473,
-    "builds": 35,
-    "shipped": 241,
-    "screenshots": 541
+    "app": 199,
+    "site": 488,
+    "builds": 36,
+    "shipped": 245,
+    "screenshots": 561
   },
   "days": [
+    {
+      "date": "2026-09-27",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-27T06:14:23.911Z",
+          "title": "Yui 0.4.0 on the site: the release post and See it",
+          "card": "SITE-57",
+          "anchor": "yui-0-4-0-on-the-site-the-release-post-and-see-it",
+          "images": [
+            {
+              "src": "/progress/yui119-app-answer-light.webp",
+              "alt": "The answer on the full screen: one short line and a picture, the big mic bottom right"
+            },
+            {
+              "src": "/progress/yui125-music-waves-dark.webp",
+              "alt": "Waves move with a boom bap loop playing on the stage"
+            },
+            {
+              "src": "/progress/yui120s2-wizard-looking-light.webp",
+              "alt": "Wizard checking the forecast: a slow, heavy ring in purple"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 199,
+            "site": 488,
+            "builds": 36,
+            "shipped": 245
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-27T06:08:47.000Z",
+          "build": 204,
+          "changes": 23,
+          "totals": {
+            "app": 199,
+            "site": 487,
+            "builds": 36,
+            "shipped": 244
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "2df3895",
+          "at": "2026-09-27T06:10:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2df3895"
+        },
+        {
+          "repo": "site",
+          "sha": "620f439",
+          "at": "2026-09-27T05:40:29.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/620f439"
+        },
+        {
+          "repo": "app",
+          "sha": "5c81c0c",
+          "at": "2026-09-27T05:37:31.000Z",
+          "text": "Yui 0.4.0: the new face of Yui, STAGE-1 to TestFlight (Chris, Sep 26)",
+          "url": "https://github.com/postscarcityai/yui/commit/5c81c0c"
+        },
+        {
+          "repo": "app",
+          "sha": "83072f3",
+          "at": "2026-09-27T05:13:16.000Z",
+          "text": "The visual listens: your voice, the agent's voice and the music (YUI-125)",
+          "url": "https://github.com/postscarcityai/yui/commit/83072f3"
+        },
+        {
+          "repo": "site",
+          "sha": "7ac642e",
+          "at": "2026-09-27T05:11:28.000Z",
+          "text": "The visual listens: bands in the spec, tick falls back to 0 (YUI-125)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7ac642e"
+        },
+        {
+          "repo": "site",
+          "sha": "2da24d7",
+          "at": "2026-09-27T05:11:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2da24d7"
+        },
+        {
+          "repo": "app",
+          "sha": "49a943f",
+          "at": "2026-09-27T04:20:30.000Z",
+          "text": "The visual: Metal shaders behind the stage (YUI-124 step 2)",
+          "url": "https://github.com/postscarcityai/yui/commit/49a943f"
+        },
+        {
+          "repo": "site",
+          "sha": "f5e560e",
+          "at": "2026-09-27T04:10:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f5e560e"
+        }
+      ]
+    },
     {
       "date": "2026-09-26",
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T01:15:58.008Z",
+          "at": "2026-09-27T03:08:11.000Z",
+          "title": "The top bar: agents left, the record right",
+          "card": "YUI-122",
+          "anchor": "the-top-bar-agents-left-the-record-right",
+          "images": [
+            {
+              "src": "/progress/yui122-stage-light.webp",
+              "alt": "Light mode, in the app: the full screen at rest. Top left a menu button and Yui with a chevron, top right a chat bubble."
+            },
+            {
+              "src": "/progress/yui122-switch-light.webp",
+              "alt": "Light mode: the agent picker open under the name, Yui checked, then Coach, Wizard, Counsel, Nova and Manage agents."
+            },
+            {
+              "src": "/progress/yui122-menu-light.webp",
+              "alt": "Light mode: the menu open over the full screen, Coach's drawer with Home, Review, Controls and About, and a gear for Settings next to Close."
+            },
+            {
+              "src": "/progress/yui122-settings-light.webp",
+              "alt": "Light mode: Settings up from the drawer's gear, Appearance and the Full screen switches, with Coach in the top bar behind it."
+            },
+            {
+              "src": "/progress/yui122-record-dark.webp",
+              "alt": "Dark mode: the chat record with the same top bar, menu and Coach top left, the way back to the full screen top right."
+            },
+            {
+              "src": "/progress/yui122-menu-record-dark.webp",
+              "alt": "Dark mode: the menu open in the record, the same drawer with the Settings gear."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 195,
+            "site": 482,
+            "builds": 35,
+            "shipped": 244
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T02:27:01.000Z",
+          "title": "A live picture behind the words",
+          "card": "YUI-124",
+          "anchor": "a-live-picture-behind-the-words",
+          "images": [
+            {
+              "src": "/progress/yui124-aurora-dark.webp",
+              "alt": "Dark mode: Sage's stage with green and blue aurora ribbons behind the words Breathe in for four. Out for six. The pill reads Aurora, listening to your voice."
+            },
+            {
+              "src": "/progress/yui124-bloom-dark.webp",
+              "alt": "Dark mode: Coach's stage with orange and pink petals of light opening on the beat above the words New personal best. 5k in 24:10."
+            },
+            {
+              "src": "/progress/yui124-waves-dark.webp",
+              "alt": "Dark mode: Coach's stage with thin blue wave lines rippling low on the screen behind Warm-up mix is on. Ten minutes, easy."
+            },
+            {
+              "src": "/progress/yui124-orb-light.webp",
+              "alt": "Light mode: Yui's stage with a soft coral ball of light behind I'm listening. Tell me about your day."
+            },
+            {
+              "src": "/progress/yui124-still-dark.webp",
+              "alt": "Dark mode: the Reduce Motion version, the aurora held as one still frame, the pill reads Reduce Motion: still."
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 192,
+            "site": 480,
+            "builds": 35,
+            "shipped": 243
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T02:10:28.000Z",
+          "title": "A bigger mic, bottom right",
+          "card": "YUI-121",
+          "anchor": "a-bigger-mic-bottom-right",
+          "images": [
+            {
+              "src": "/progress/yui121-bar-light.webp",
+              "alt": "Light mode, in the app: the full screen at rest, and bottom right a plus, a T and a bigger coral mic."
+            },
+            {
+              "src": "/progress/yui121-talking-light.webp",
+              "alt": "Light mode: talking. Listening, and the words Book me a haircut Friday at four stream in large, with only the mic left in the corner."
+            },
+            {
+              "src": "/progress/yui121-typing-light.webp",
+              "alt": "Light mode: T is out. A full text field with plus and send sits above the keyboard, Back to the mic under it."
+            },
+            {
+              "src": "/progress/yui121-pictures-light.webp",
+              "alt": "Light mode: two pictures as chips over the field while typing Which one for the poster."
+            },
+            {
+              "src": "/progress/yui121-plus-dark.webp",
+              "alt": "Dark mode: the plus menu open with Files and Photo library, T and the mic beside it."
+            },
+            {
+              "src": "/progress/yui121-record-dark.webp",
+              "alt": "Dark mode: the chat record with the same bar, plus, T and the big mic bottom right."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 191,
+            "site": 477,
+            "builds": 35,
+            "shipped": 242
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T01:15:35.000Z",
           "title": "Say how each agent moves",
           "card": "YUI-123",
           "anchor": "say-how-each-agent-moves",
@@ -35,10 +254,10 @@
               "alt": "Light mode: the Reduce Motion version, both stages marked still."
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
             "app": 190,
-            "site": 473,
+            "site": 474,
             "builds": 35,
             "shipped": 241
           }
@@ -99,7 +318,7 @@
               "alt": "Light mode: The look, each agent with calm, bouncy and snappy buttons, and a box to describe Coach's motion in words."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 189,
             "site": 471,
@@ -1807,6 +2026,118 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "4d1c7bc",
+          "at": "2026-09-27T03:53:17.000Z",
+          "text": "The stage moves with the agent: context motion and the saved look (YUI-120, YUI-123)",
+          "url": "https://github.com/postscarcityai/yui/commit/4d1c7bc"
+        },
+        {
+          "repo": "site",
+          "sha": "614040e",
+          "at": "2026-09-27T03:10:50.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/614040e"
+        },
+        {
+          "repo": "site",
+          "sha": "f90901b",
+          "at": "2026-09-27T03:08:11.000Z",
+          "text": "Progress: the top bar, agents left, the record right (YUI-122)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f90901b"
+        },
+        {
+          "repo": "app",
+          "sha": "75da7b8",
+          "at": "2026-09-27T03:04:04.000Z",
+          "text": "The top bar: menu and agents top left, the record top right (YUI-122)",
+          "url": "https://github.com/postscarcityai/yui/commit/75da7b8"
+        },
+        {
+          "repo": "app",
+          "sha": "7eae786",
+          "at": "2026-09-27T03:03:30.000Z",
+          "text": "Merge pull request #1 from postscarcityai/native-agent",
+          "url": "https://github.com/postscarcityai/yui/commit/7eae786"
+        },
+        {
+          "repo": "site",
+          "sha": "dfa9932",
+          "at": "2026-09-27T02:40:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dfa9932"
+        },
+        {
+          "repo": "app",
+          "sha": "ec59b42",
+          "at": "2026-09-27T02:35:02.000Z",
+          "text": "yui-mcp reads the visual line (YUI-124, yuigui 3aa0cb3)",
+          "url": "https://github.com/postscarcityai/yui/commit/ec59b42"
+        },
+        {
+          "repo": "site",
+          "sha": "256c9a5",
+          "at": "2026-09-27T02:27:01.000Z",
+          "text": "Progress: a live picture behind the words (YUI-124)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/256c9a5"
+        },
+        {
+          "repo": "site",
+          "sha": "3aa0cb3",
+          "at": "2026-09-27T02:26:25.000Z",
+          "text": "The visual: a live shader behind the stage (YUI-124 step 1, web)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3aa0cb3"
+        },
+        {
+          "repo": "app",
+          "sha": "bf75a34",
+          "at": "2026-09-27T02:16:31.000Z",
+          "text": "A bigger mic bottom right, T to type, + to attach (YUI-121)",
+          "url": "https://github.com/postscarcityai/yui/commit/bf75a34"
+        },
+        {
+          "repo": "site",
+          "sha": "2c481d6",
+          "at": "2026-09-27T02:10:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2c481d6"
+        },
+        {
+          "repo": "site",
+          "sha": "1b86acd",
+          "at": "2026-09-27T02:10:28.000Z",
+          "text": "Progress: a bigger mic, bottom right (YUI-121)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1b86acd"
+        },
+        {
+          "repo": "site",
+          "sha": "32e4f95",
+          "at": "2026-09-27T01:40:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/32e4f95"
+        },
+        {
+          "repo": "app",
+          "sha": "110bda0",
+          "at": "2026-09-27T01:20:32.000Z",
+          "text": "yui-mcp reads motion looks in words (YUI-123, yuigui 03a0a05)",
+          "url": "https://github.com/postscarcityai/yui/commit/110bda0"
+        },
+        {
+          "repo": "site",
+          "sha": "79cc836",
+          "at": "2026-09-27T01:17:50.000Z",
+          "text": "Roadmap: all of STAGE-1 is top priority, 0.4.0 waits on it (Chris, Sep 26)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/79cc836"
+        },
+        {
+          "repo": "site",
+          "sha": "03a0a05",
+          "at": "2026-09-27T01:15:35.000Z",
+          "text": "Say how each agent moves: a motion look in words (YUI-123, web half)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/03a0a05"
+        },
         {
           "repo": "site",
           "sha": "399c116",
