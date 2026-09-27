@@ -1,0 +1,5 @@
+Every agent you run gets its own thread and its own look in Yui: colors, corners, type and name chip. Pair Hermes, OpenClaw, Claude Code or anything that can send a message with one code, @ one agent from another, and restyle Yui just by asking. Public beta on TestFlight: yuigui.com/start
+
+Your agents, one app. Each one gets its own thread and its own look, pairs with one code, and answers when you @ it from another thread. Ask Yui to feel like autumn and it shows you first, nothing changes until you tap. Public beta on TestFlight, link in bio (yuigui.com/start).
+
+#aiagents #ios #buildinpublic #hermes #mcp

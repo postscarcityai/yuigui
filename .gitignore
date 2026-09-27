@@ -3,6 +3,15 @@
 .env.*
 .vercel
 
-# Video production (renders, frames, audio, the brag skill's output). Kept out of git on purpose.
-videos/
+# Video production: the sources (comps, music scripts, plans, the kit) are tracked; renders, frames,
+# audio and copied images are not. See videos/README.md.
+videos/**/*.mp4
+videos/**/*.wav
+videos/**/*.png
+videos/**/*.jpg
+videos/**/*.jpeg
+videos/**/*.webp
+videos/**/*.log
+videos/**/stills*/
+!videos/kit/yui-wordmark-coral.png
 brag-output*/

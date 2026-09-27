@@ -1,0 +1,644 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Your agents, one app</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+/* The app's other two type faces: the system font ("default") and the system serif (New York). */
+@font-face { font-family: "YuiText"; src: url("file:///System/Library/Fonts/SFNS.ttf"); font-weight: 1 1000; }
+@font-face { font-family: "YuiSerif"; src: url("file:///System/Library/Fonts/NewYork.ttf"); font-weight: 400 1000; }
+
+/* ---------- one layer = one screen wearing one look (CSS vars from vars()) ---------- */
+.page#pg { overflow: hidden; }
+.layer { position: absolute; left: 0; top: 0; width: 393px; height: 852px; overflow: hidden; background: var(--bg); color: var(--ink); font-family: var(--font); display: none; }
+.layer .in { font-family: var(--font); color: var(--ink); }
+.y-head { position: absolute; left: 0; right: 0; top: 54px; height: 60px; z-index: 4; }
+.y-hb { position: absolute; top: 3px; width: 46px; height: 46px; border-radius: 50%; color: var(--soft); background: color-mix(in srgb, var(--surface) 45%, var(--bg)); box-shadow: inset 0 0 0 1.5px var(--line), 0 1px 3px rgba(40,30,50,.06); display: grid; place-items: center; }
+.y-hb svg { width: 22px; height: 22px; }
+.y-chip { position: absolute; left: 50%; top: 11px; transform: translateX(-50%); display: flex; align-items: center; gap: 9px; font-size: 19px; font-weight: var(--wh); white-space: nowrap; height: 30px; }
+.y-dot { width: 9px; height: 9px; border-radius: 50%; background: #A6E3C8; display: block; }
+.y-av { display: grid; place-items: center; flex: none; line-height: 1; }
+.y-av.yuiav { border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); }
+.y-av.yuiav svg { display: block; }
+
+.y-chat { position: absolute; left: 0; right: 0; top: 104px; bottom: 86px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent 0, #000 22px); }
+.y-log { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 16px 10px; }
+.y-urow { display: flex; justify-content: flex-end; }
+.y-ub { max-width: 285px; background: var(--ub); color: var(--uink); border-radius: var(--rb) var(--rb) var(--rt) var(--rb); padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: var(--wb); }
+.y-to { text-align: right; font-size: 13.5px; font-weight: 700; color: var(--soft); margin: 0 4px 6px 0; }
+.y-to svg { vertical-align: -3px; margin-right: 6px; }
+.y-arow { display: flex; align-items: flex-start; gap: 9px; }
+.y-arow.bot { align-items: flex-end; }
+.y-ab { max-width: 285px; background: var(--ab); color: var(--aink); box-shadow: inset 0 0 0 1.5px var(--line); border-radius: var(--rb) var(--rb) var(--rb) var(--rt); padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: var(--wb); }
+.y-mlab { display: flex; align-items: center; gap: 7px; margin: 0 0 6px 41px; font-size: 14px; font-weight: 700; color: var(--soft); }
+.y-mlab b { font-weight: 800; }
+.y-card { width: 306px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); border-radius: var(--rc); padding: 14px 16px 16px; }
+.y-card h4 { margin: 0; font-size: 20px; font-weight: var(--wh); letter-spacing: -0.01em; }
+.y-btn { height: 44px; border-radius: 999px; display: grid; place-items: center; font-size: 17px; font-weight: var(--wh); background: var(--acc); color: var(--onacc); }
+.y-btn.ghost { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+.y-opts { display: flex; gap: 8px; margin: 12px 0 14px; }
+.y-opt { border-radius: 999px; padding: 8px 14px; font-size: 15.5px; font-weight: 700; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); }
+.y-opt.on { background: var(--acc); color: var(--onacc); box-shadow: none; }
+.y-ch { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.y-tag { font-size: 14px; font-weight: 800; background: #FFE8A3; color: #4A3A10; border-radius: 999px; padding: 4px 11px; }
+.y-li { display: flex; align-items: center; gap: 11px; height: 40px; font-size: 17px; font-weight: var(--wb); border-top: 1px solid var(--line); }
+.y-li em { margin-left: auto; font-style: normal; font-weight: var(--wh); color: var(--soft); }
+.y-cb { width: 24px; height: 24px; flex: none; border-radius: calc(var(--rb) * 0.45); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--soft) 45%, var(--surface)); display: grid; place-items: center; }
+.y-cb.on { background: var(--acc); box-shadow: none; }
+.y-wk { display: flex; gap: 14px; align-items: baseline; padding: 9px 0 1px; font-size: 17px; border-top: 1px solid var(--line); margin-top: 8px; }
+.y-wk:first-of-type { margin-top: 10px; }
+.y-wk b { width: 38px; font-weight: var(--wh); color: var(--acc); }
+.y-work { display: flex; align-items: center; gap: 9px; font-size: 14.5px; font-weight: 700; color: var(--soft); }
+.y-dots { display: flex; gap: 4px; }
+.y-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--soft); display: block; }
+.y-lpill { display: inline-flex; align-items: center; gap: 9px; margin-left: 41px; padding: 9px 16px; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); font-size: 15px; font-weight: 700; color: var(--soft); }
+.y-lpill b { color: var(--acc); font-weight: 800; margin-left: 8px; }
+
+/* the look card */
+.y-lookcard { width: 320px; padding: 16px 16px 16px; }
+.y-lh { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.y-lh svg { flex: none; }
+.y-minis { display: flex; gap: 12px; }
+.y-mcol { flex: 1; text-align: center; }
+.y-mcol p { margin: 7px 0 0; font-size: 16px; font-weight: 700; color: var(--soft); }
+.y-mini { position: relative; height: 176px; border-radius: 16px; background: var(--bg); box-shadow: inset 0 0 0 1.5px var(--line); padding: 9px 8px; text-align: left; font-family: var(--font); color: var(--ink); overflow: hidden; }
+.y-mini .mt { display: flex; justify-content: space-between; align-items: center; margin-bottom: 7px; }
+.y-mini .mt b { font-size: 13px; font-weight: 900; color: var(--acc); }
+.y-mini .mt i { width: 7px; height: 7px; border-radius: 50%; background: var(--soft); display: block; }
+.y-mini .mrow { display: flex; align-items: center; gap: 6px; background: var(--surface); border-radius: 8px; padding: 4px 6px; margin-bottom: 5px; font-size: 10.5px; font-weight: var(--wh); }
+.y-mini .mav { width: 15px; height: 15px; border-radius: 50%; display: grid; place-items: center; font-size: 8px; font-weight: 800; background: var(--acc); color: var(--onacc); }
+.y-mini .mav.l { background: color-mix(in srgb, var(--acc) 22%, var(--surface)); color: var(--acc); }
+.y-mini .mab { display: inline-block; background: var(--ab); border-radius: 9px; box-shadow: inset 0 0 0 1px var(--line); padding: 4px 7px; font-size: 9px; margin: 2px 0 5px; }
+.y-mini .mub { display: table; margin-left: auto; background: var(--ub); color: var(--uink); border-radius: 9px; padding: 4px 8px; font-size: 9px; margin-bottom: 6px; }
+.y-mini .mbtn { height: 20px; border-radius: 999px; background: var(--acc); color: var(--onacc); display: grid; place-items: center; font-size: 9px; font-weight: 800; }
+.y-mini .mdots { display: flex; justify-content: center; gap: 4px; margin-top: 7px; }
+.y-mini .mdots i { width: 5px; height: 5px; border-radius: 3px; background: var(--line); display: block; }
+.y-mini .mdots i.on { width: 12px; background: var(--acc); }
+.y-seg { display: flex; margin: 14px 0 10px; padding: 4px; border-radius: 999px; background: color-mix(in srgb, var(--surface) 40%, var(--bg)); box-shadow: inset 0 0 0 1.5px var(--line); }
+.y-seg span { flex: 1; height: 38px; border-radius: 999px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 16px; font-weight: 700; color: var(--soft); }
+.y-seg span.on { background: var(--acc); color: var(--onacc); }
+.y-note { margin: 0 2px 12px; font-size: 13.5px; line-height: 1.3; color: var(--soft); font-weight: 500; }
+.y-2b { display: flex; gap: 10px; }
+.y-2b .y-btn { flex: 1; height: 50px; font-size: 18px; }
+
+/* composer */
+.y-comp { position: absolute; left: 14px; right: 14px; bottom: 34px; display: flex; align-items: flex-end; gap: 9px; z-index: 3; }
+.y-cbtn { flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); display: grid; place-items: center; color: var(--ink); }
+.y-cbtn.send { background: var(--acc); color: var(--onacc); box-shadow: none; }
+.y-field { flex: 1; min-height: 46px; border-radius: var(--rf); background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); padding: 11px 16px; font-size: 17px; line-height: 24px; color: var(--ink); font-weight: var(--wb); }
+.y-field .ph { color: color-mix(in srgb, var(--soft) 50%, var(--surface)); }
+.y-caret { display: inline-block; width: 2px; height: 21px; background: var(--acc); vertical-align: -4px; margin: 0 1px; }
+.y-goes { position: absolute; left: 76px; display: flex; align-items: center; gap: 7px; font-size: 14px; font-weight: 700; color: var(--soft); z-index: 3; }
+.y-goes b { font-weight: 800; }
+.y-pop { position: absolute; left: 14px; right: 14px; bottom: 90px; background: var(--surface); border-radius: 20px; box-shadow: 0 10px 30px rgba(40,30,60,.12), inset 0 0 0 1.5px var(--line); z-index: 5; overflow: hidden; transform-origin: 50% 100%; }
+.y-prow { display: flex; align-items: center; gap: 13px; height: 62px; padding: 0 16px; }
+.y-prow + .y-prow { border-top: 1px solid var(--line); }
+.y-prow b { color: var(--acc); font-size: 18px; font-weight: var(--wh); }
+.y-prow i { color: var(--soft); font-style: normal; font-size: 15px; margin-left: 6px; }
+.y-prow small { display: block; font-size: 14px; color: var(--soft); margin-top: 1px; }
+
+/* empty thread */
+.y-empty { position: absolute; left: 0; right: 0; top: 262px; text-align: center; }
+.y-empty .y-av { margin: 0 auto 20px; }
+.y-empty h3 { margin: 0 0 10px; font-size: 29px; font-weight: var(--wh); letter-spacing: -0.01em; }
+.y-empty p { margin: 0 50px 18px; font-size: 17px; line-height: 1.3; color: var(--soft); }
+.y-sugg { display: flex; justify-content: center; gap: 8px; }
+.y-sugg span { border-radius: 999px; padding: 8px 14px; font-size: 15px; font-weight: 700; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); }
+
+/* the switcher: your agents spring up from the bottom of the drawer */
+.layer.y-sw { background: transparent; z-index: 6; }
+.y-swdim { position: absolute; inset: 0; background: rgba(40,30,50,.10); }
+.y-swpanel { position: absolute; left: 0; top: 0; bottom: 0; width: 338px; background: color-mix(in srgb, var(--bg) 72%, transparent); -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px) saturate(1.1); box-shadow: 1px 0 0 var(--line); }
+.y-swlist { position: absolute; left: 12px; width: 314px; bottom: 38px; display: flex; flex-direction: column; gap: 8px; }
+.y-row { position: relative; height: 62px; flex: none; display: flex; align-items: center; gap: 13px; padding: 0 14px; background: var(--surface); border-radius: calc(var(--rc) + 2px); box-shadow: inset 0 0 0 1.5px var(--line), 0 3px 10px rgba(40,30,50,.05); }
+.y-row b { display: block; font-size: 18px; font-weight: var(--wh); }
+.y-row small { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--soft); margin-top: 1px; }
+.y-row small i { width: 8px; height: 8px; border-radius: 50%; background: #34C759; display: block; }
+.y-row small i.off { background: #B9B1C2; }
+.y-row.sel { box-shadow: inset 0 0 0 2.5px var(--acc), 0 3px 10px rgba(40,30,50,.05); }
+.y-row .ck { position: absolute; right: 14px; top: 50%; margin-top: -13px; width: 26px; height: 26px; border-radius: 50%; background: var(--acc); color: var(--onacc); display: none; place-items: center; }
+.y-row.sel .ck { display: grid; }
+.y-swbtns { display: flex; gap: 10px; margin-top: 4px; }
+.y-add, .y-edit { flex: 1; height: 46px; border-radius: 999px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 17px; font-weight: var(--wh); white-space: nowrap; }
+.y-add { background: var(--acc); color: var(--onacc); }
+.y-edit { background: var(--surface); color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
+
+/* the Add agent sheet */
+.layer.y-shw { background: transparent; z-index: 7; }
+.y-dim { position: absolute; inset: 0; background: rgba(40,30,50,.22); }
+.y-sheet { position: absolute; left: 0; right: 0; top: 58px; height: 794px; background: var(--bg); border-radius: 34px 34px 0 0; box-shadow: 0 -8px 30px rgba(40,30,50,.12); overflow: hidden; }
+.y-grab { position: absolute; left: 50%; top: 7px; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: var(--line); }
+.y-sh-title { position: absolute; left: 0; right: 0; top: 23px; text-align: center; font-family: "YuiText"; font-weight: 600; font-size: 17px; color: var(--ink); }
+.y-sh-btn { position: absolute; right: 14px; top: 13px; height: 42px; padding: 0 17px; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line), 0 1px 4px rgba(40,30,50,.06); display: grid; place-items: center; font-family: "YuiText"; font-size: 17px; font-weight: 600; color: #D6495B; }
+.y-sp { position: absolute; left: 0; top: 72px; width: 393px; bottom: 0; padding: 0 22px; }
+.y-bigav { width: 68px; height: 68px; margin: 0 auto; border-radius: 18px; display: grid; place-items: center; font-size: 36px; font-weight: 800; color: #fff; }
+.y-q { margin: 18px 0 12px; font-size: 22px; font-weight: var(--wh); letter-spacing: -0.01em; }
+.y-name { height: 50px; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); padding: 0 16px; display: flex; align-items: center; font-size: 19px; font-weight: 800; }
+.y-lbl { margin: 16px 0 10px; font-size: 15px; font-weight: 700; color: var(--soft); }
+.y-chips { display: grid; grid-template-columns: repeat(6, 1fr); row-gap: 7px; }
+.y-lc { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 700; color: var(--soft); }
+.y-lcc { position: relative; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; box-shadow: inset 0 0 0 1.5px var(--line); }
+.y-lcc i { width: 21px; height: 21px; border-radius: 50%; display: block; }
+.y-lcc .ring { position: absolute; inset: -3px; border-radius: 50%; box-shadow: inset 0 0 0 3px var(--ink); }
+.y-lc.sel span { color: var(--ink); font-weight: 800; }
+.y-btn.big { height: 52px; font-size: 18px; margin-top: 16px; }
+.y-small { margin: 12px 2px 0; font-size: 14px; line-height: 1.3; color: var(--soft); font-weight: 500; }
+.y-who { display: flex; align-items: center; gap: 14px; }
+.y-who .y-av { border-radius: 14px !important; }
+.y-who b { display: block; font-size: 24px; font-weight: var(--wh); }
+.y-who small { display: flex; align-items: center; gap: 7px; font-size: 16px; color: var(--soft); font-weight: 500; margin-top: 2px; }
+.y-who small i { width: 9px; height: 9px; border-radius: 50%; display: block; }
+.y-lead { margin: 16px 0 12px; font-size: 17px; line-height: 1.3; font-weight: 700; }
+.y-step { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: var(--wh); margin: 12px 0 8px; }
+.y-step i { width: 25px; height: 25px; border-radius: 50%; background: var(--acc); color: var(--onacc); font-style: normal; font-size: 14px; font-weight: 800; display: grid; place-items: center; }
+.y-code { position: relative; border-radius: 14px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); padding: 10px 44px 10px 14px; font-family: "YuiMono", ui-monospace, monospace; font-size: 13.5px; line-height: 1.4; font-weight: 500; }
+.y-code svg { position: absolute; right: 13px; top: 50%; margin-top: -10px; color: var(--soft); }
+.y-code b { color: var(--ink); font-weight: 700; }
+.y-hint { margin: 6px 2px 0; font-size: 13px; color: var(--soft); }
+.y-bigcode { margin-top: 10px; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--line); text-align: center; padding: 12px 0 12px; }
+.y-bigcode .num { font-size: 50px; font-weight: 800; letter-spacing: 0.01em; line-height: 1.1; font-family: "YuiText"; }
+.y-bigcode .num span { display: inline-block; }
+.y-bigcode small { display: block; font-size: 14.5px; color: var(--soft); font-weight: 500; margin-top: 3px; }
+.y-wait { display: flex; align-items: center; gap: 10px; margin-top: 16px; font-size: 15px; font-weight: 600; color: var(--soft); }
+.y-done { text-align: center; }
+.y-done .ok { width: 78px; height: 78px; margin: 44px auto 18px; border-radius: 50%; background: #34C759; display: grid; place-items: center; }
+.y-done h3 { margin: 0 0 8px; font-size: 29px; font-weight: 800; letter-spacing: -0.01em; }
+.y-done p { margin: 0 20px 22px; font-size: 17px; line-height: 1.3; color: var(--soft); }
+.y-hi { height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; gap: 9px; font-family: "YuiText"; font-size: 18px; font-weight: 700; }
+
+/* ---------- stage: captions tuned for this video ---------- */
+.pill.note { font-family: "YuiRounded"; font-size: 30px; font-weight: 800; color: var(--muted); background: none; border: none; padding: 0; }
+body.reel .cap { font-size: 54px; }
+body.reel .cap.L { top: 300px; }
+body.reel .cap.R { top: 368px; }
+body.reel .pill { top: 446px; }
+body.reel .pill.note { top: 452px; font-size: 32px; }
+body.reel #phoneWrap { top: 616px; }
+
+/* scene 6: bring your own agent */
+#byo { position: absolute; inset: 0; text-align: center; }
+#byoH { position: absolute; left: 0; right: 0; top: 290px; font-size: 96px; font-weight: 800; letter-spacing: -0.025em; }
+#byoChips { position: absolute; left: 230px; right: 230px; top: 470px; display: flex; flex-wrap: wrap; justify-content: center; gap: 24px 20px; }
+.bchip { display: inline-flex; align-items: center; gap: 14px; background: #fff; border-radius: 999px; padding: 18px 32px 18px 26px; font-size: 42px; font-weight: 800; box-shadow: inset 0 0 0 2.5px var(--outline), 0 12px 28px rgba(58,51,64,.08); }
+.bchip i { width: 16px; height: 16px; border-radius: 50%; background: var(--brand); display: block; }
+.bchip.hl { background: var(--brand); box-shadow: 0 12px 28px rgba(255,126,138,.28); }
+.bchip.hl i { background: #fff; }
+#byoLine { position: absolute; left: 0; right: 0; top: 700px; font-size: 56px; font-weight: 800; letter-spacing: -0.02em; color: var(--accent); }
+body.reel #byoH { top: 560px; font-size: 90px; }
+body.reel #byoChips { left: 60px; right: 60px; top: 740px; gap: 22px 18px; }
+body.reel #byoLine { top: 1130px; padding: 0 150px; font-size: 60px; line-height: 1.12; }
+</style>
+<script src="score.js"></script>
+</head>
+<body>
+<div id="stage"><div id="glow"></div>
+  <div class="cap L" id="c1L">One app.</div>
+  <div class="cap R accent" id="c1R">Every agent looks like itself.</div>
+  <div class="cap L" id="c2L">Add the agents you already run.</div>
+  <div class="cap R accent" id="c2R">Pair with one code.</div>
+  <div class="cap L" id="c3L">Each one gets its own thread.</div>
+  <div class="cap R accent" id="c3R">And its own look.</div>
+  <div class="cap L" id="c4L">Ask another agent with @.</div>
+  <div class="cap R accent" id="c4R">It answers in its own colors.</div>
+  <div class="cap L" id="c5L">Restyle Yui by asking.</div>
+  <div class="cap R accent" id="c5R">Nothing changes until you tap.</div>
+  <div class="kpill" id="p2">hermes <b>yui pair</b> 482913</div>
+  <div class="kpill" id="p5"><b>theme app</b> autumn</div>
+  <div class="pill note" id="n5">Wizard keeps its own look.</div>
+
+  <div id="byo">
+    <div id="byoH">Bring your own agent.</div>
+    <div id="byoChips"></div>
+    <div id="byoLine">If it can send a message, it can draw a screen.</div>
+  </div>
+
+  <div id="outro">
+    <img id="owm" src="../kit/yui-wordmark-coral.png" alt="">
+    <div id="otag">Your agents. One app.</div>
+    <div id="ourl">yuigui.com/start</div>
+    <div id="onote">Public beta on TestFlight</div>
+  </div>
+  <div id="ripple"></div><div id="finger"></div>
+</div>
+
+<script src="../kit/kit.js"></script>
+<script>
+const S = window.SCORE;
+const { $, prog, clamp, eo, ei, eio, back, lerp } = K;
+
+// ---------- looks: light palettes compiled by site/lib/yl/look.mjs (compile / YUI) ----------
+const L = {
+  yui:     { bg: "#FFF9F0", surface: "#FFFFFF", ink: "#3A3340", soft: "#6E6478", line: "#F0E4D6", acc: "#FF7E8A", onacc: "#3A3340", ub: "#FFA8B0", uink: "#3A3340", ab: "#FFFFFF", aink: "#3A3340", radius: "yui", font: "rounded", weight: "heavy", name: "Yui", letter: "Y" },
+  coach:   { bg: "#FFF6F2", surface: "#FEFDFD", ink: "#44302C", soft: "#7E6B67", line: "#F1DEDA", acc: "#FF4D27", onacc: "#321F1B", ub: "#FBC7BB", uink: "#321F1B", ab: "#FEFDFD", aink: "#44302C", radius: "square", font: "default", weight: "heavy", name: "Coach", letter: "C" },
+  wizard:  { bg: "#F6F4FF", surface: "#FDFDFE", ink: "#302C44", soft: "#6E6A81", line: "#DEDAF1", acc: "#7352FF", onacc: "#FFFFFF", ub: "#C7BBFB", uink: "#1F1B32", ab: "#FDFDFE", aink: "#302C44", radius: "soft", font: "serif", weight: "bold", name: "Wizard", letter: "W" },
+  zen:     { bg: "#F5F8F2", surface: "#FDFEFE", ink: "#2C4435", soft: "#5E7366", line: "#DDEEE4", acc: "#407F58", onacc: "#FFFFFF", ub: "#C9EDD7", uink: "#1B3224", ab: "#FDFEFE", aink: "#2C4435", radius: "round", font: "serif", weight: "regular", name: "Zen", letter: "Z" },
+  studio:  { bg: "#F3F7FF", surface: "#FDFEFE", ink: "#2C3544", soft: "#67707E", line: "#DAE2F1", acc: "#1068FF", onacc: "#FFFFFF", ub: "#BBD3FB", uink: "#1B2332", ab: "#FDFEFE", aink: "#2C3544", radius: "round", font: "rounded", weight: "heavy", name: "Studio", letter: "S" },
+  counsel: { bg: "#FAF8F3", surface: "#FDFEFE", ink: "#2C3544", soft: "#67707E", line: "#DAE3F1", acc: "#1F3A68", onacc: "#FFFFFF", ub: "#C8D6EF", uink: "#1B2332", ab: "#FDFEFE", aink: "#2C3544", radius: "square", font: "serif", weight: "bold", name: "Counsel", letter: "C" },
+  autumn:  { bg: "#F7F0E6", surface: "#FEFEFD", ink: "#44352C", soft: "#766860", line: "#F1E2DA", acc: "#B35A26", onacc: "#FFFFFF", ub: "#F2D5C4", uink: "#32231B", ab: "#FEFEFD", aink: "#44352C", radius: "soft", font: "serif", weight: "bold", name: "Yui", letter: "Y" },
+  nova:    { bg: "#F4F5FD", surface: "#FDFDFE", ink: "#2C2D44", soft: "#6A6B81", line: "#DADCF1", acc: "#4F5BFF", onacc: "#FFFFFF", ub: "#BBC0FB", uink: "#1B1C32", ab: "#FDFDFE", aink: "#2C2D44", radius: "soft", font: "rounded", weight: "heavy", name: "Nova", letter: "N" },
+};
+// The picker's chips (the app's order): [name, accent, paper] in light.
+const CHIPS = [["Own", "#3AA3C9", "#EFF8FC"], ["Yui", "#FF7E8A", "#FFF9F0"], ["Candy", "#FF3197", "#FFF1F7"], ["Berry", "#B8336A", "#FCF2F6"], ["Cherry", "#D7263D", "#FFF3F3"], ["Coral", "#FF4658", "#FFF6F4"],
+  ["Sunset", "#D23D0E", "#FFF4EC"], ["Peach", "#D13F00", "#FFF7F1"], ["Autumn", "#B35A26", "#F7F0E6"], ["Honey", "#9D6703", "#FFF8EC"], ["Lemon", "#896E00", "#FFFBEA"], ["Lime", "#587F26", "#F7FBEF"],
+  ["Matcha", "#5F7D3C", "#F6F8EF"], ["Forest", "#2F7D4F", "#F2F6F1"], ["Mint", "#218063", "#F0FAF6"], ["Teal", "#0C808B", "#EFF9FA"], ["Sky", "#1076C4", "#F2F8FF"], ["Ocean", "#1B7AB6", "#F1F7FC"],
+  ["Midnight", "#4C5EFF", "#F1F2FF"], ["Lavender", "#8F79F4", "#F7F4FF"], ["Grape", "#8E44C8", "#F8F2FD"], ["Slate", "#56657F", "#F3F5F8"], ["Mono", "#4A4A4A", "#FFFFFF"], ["Wizard", "#7352FF", "#F6F4FF"],
+  ["Coach", "#FF4D27", "#FFF6F2"], ["Zen", "#407F58", "#F5F8F2"], ["Studio", "#1068FF", "#F3F7FF"], ["Night", "#8A7CF0", "#F7F5FF"], ["Counsel", "#1F3A68", "#FAF8F3"]];
+const RAD = { yui: { b: 22, t: 8, c: 24, f: 23, a: "50%" }, round: { b: 21, t: 21, c: 24, f: 23, a: "36%" }, soft: { b: 15, t: 15, c: 18, f: 20, a: "27%" }, square: { b: 9, t: 9, c: 10, f: 12, a: "21%" } };
+const FONT = { rounded: "'YuiRounded', system-ui", default: "'YuiText', system-ui", serif: "'YuiSerif', Georgia, serif" };
+const WH = { heavy: 800, bold: 700, regular: 500 };
+const WB = { rounded: 500, default: 400, serif: 400 };
+function vars(k) {
+  const l = L[k], r = RAD[l.radius];
+  return `--bg:${l.bg};--surface:${l.surface};--ink:${l.ink};--soft:${l.soft};--line:${l.line};--acc:${l.acc};--onacc:${l.onacc};--ub:${l.ub};--uink:${l.uink};--ab:${l.ab};--aink:${l.aink};`
+    + `--rb:${r.b}px;--rt:${r.t}px;--rc:${r.c}px;--rf:${r.f}px;--font:${FONT[l.font]};--wh:${WH[l.weight]};--wb:${WB[l.font]};`;
+}
+
+// ---------- icons (currentColor) ----------
+const MENU = `<svg viewBox="0 0 24 24"><path d="M4.5 7h15M4.5 12h15M4.5 17h15" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>`;
+const GEAR = K.ICON.gear("currentColor");
+const PLUS = `<svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4.5v15M4.5 12h15" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/></svg>`;
+const MIC = `<svg width="22" height="22" viewBox="0 0 24 24"><rect x="8.5" y="2.5" width="7" height="12" rx="3.5" fill="currentColor"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.5M8.5 21.5h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>`;
+const SEND = `<svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 19.5V5M5.5 11 12 4.5l6.5 6.5" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+const AT = `<svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.8" stroke="currentColor" stroke-width="2.4" fill="none"/><path d="M15.8 8.5v5.2c0 1.6 1.1 2.6 2.4 2.6 1.6 0 2.8-1.4 2.8-4.3A9 9 0 1 0 16.5 19.8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none"/></svg>`;
+const ARROW = `<svg width="15" height="15" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+const CHECK = (s = 16, w = 3) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+const COPY = `<svg width="20" height="20" viewBox="0 0 24 24"><rect x="8" y="3.5" width="12" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8" fill="none"/><path d="M16 17.5v1.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>`;
+const LIST = `<svg width="20" height="20" viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="4.5" cy="6.5" r="1.4" fill="currentColor"/><circle cx="4.5" cy="12" r="1.4" fill="currentColor"/><circle cx="4.5" cy="17.5" r="1.4" fill="currentColor"/></svg>`;
+const PALETTE = `<svg width="28" height="28" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5C6.5 2.5 2.5 6.4 2.5 11.6c0 5 4 9.9 9.1 9.9 1.5 0 2.3-.9 2.3-2 0-.6-.3-1-.6-1.4-.3-.4-.5-.8-.5-1.3 0-1 .8-1.7 1.8-1.7h2.3c3 0 5.6-2.2 5.6-5.4 0-4.2-4.3-7.2-10.5-7.2zM7 12.8a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm2.7-4.2a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm4.6 0a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm3 3.4a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2z"/></svg>`;
+const BRUSH = `<svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M20.6 2.6c-.6-.6-1.6-.5-2.2.1l-8 8.7 2.2 2.2 8.7-8c.6-.6.7-1.6.1-2.2l-.8-.8zM8.9 13c-2 0-3.4 1.4-3.6 3.3-.2 1.6-1 2.5-2.3 2.9 1 1.3 2.8 2.1 4.6 2.1 3 0 5.1-2 5.1-4.5 0-.6-.1-1.1-.4-1.6L8.9 13z"/></svg>`;
+const SUN = `<svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M5.3 18.7 7 17M17 7l1.7-1.7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`;
+const MOON = `<svg width="17" height="17" viewBox="0 0 24 24"><path fill="currentColor" d="M20.5 14.6A8.8 8.8 0 0 1 9.4 3.5a8.9 8.9 0 1 0 11.1 11.1z"/></svg>`;
+const SPIN = `<svg width="22" height="22" viewBox="0 0 24 24" id="sh-spin">${Array.from({ length: 8 }, (_, i) => `<path d="M12 2.8v4.4" stroke="#7B6CF0" stroke-width="2.3" stroke-linecap="round" opacity="${0.25 + i * 0.1}" transform="rotate(${i * 45} 12 12)"/>`).join("")}</svg>`;
+
+// An agent's face: its own letter, colors, corner and type, wherever it shows.
+function av(k, size) {
+  const l = L[k];
+  if (k === "yui" || k === "autumn") return `<div class="y-av yuiav" style="width:${size}px;height:${size}px">${K.Y_SVG(Math.round(size * 0.62))}</div>`;
+  return `<div class="y-av" style="width:${size}px;height:${size}px;border-radius:${RAD[l.radius].a};background:${l.acc};color:${l.onacc};font-family:${FONT[l.font]};font-weight:${l.font === "serif" ? 700 : 800};font-size:${Math.round(size * 0.52)}px">${l.letter}</div>`;
+}
+const head = (k) => `<div class="y-head"><div class="y-hb" style="left:16px">${MENU}</div><div class="y-chip">${av(k, 30)}<span>${L[k].name}</span><i class="y-dot"></i></div><div class="y-hb" style="right:16px">${GEAR}</div></div>`;
+
+// ---------- messages (ids are page-id + key, so every layer has its own) ----------
+const U = (p, k, text, to = "") => `<div class="msg" id="${p}-${k}"><div class="in">${to ? `<div class="y-to">${AT}To ${to}</div>` : ""}<div class="y-urow"><div class="y-ub">${text}</div></div></div></div>`;
+const A = (p, k, who, inner, face = true) => `<div class="msg" id="${p}-${k}"><div class="in"><div class="y-arow">${face ? av(who, 32) : `<div style="width:32px;flex:none"></div>`}${inner}</div></div></div>`;
+const B = (text) => `<div class="y-ab">${text}</div>`;
+const MR = (p, k, who, text) => `<div class="msg" id="${p}-${k}"><div class="in" style="${vars(who)}"><div class="y-mlab"><b style="color:${L[who].acc}">${L[who].name}</b>${ARROW}<span>Open its thread</span></div><div class="y-arow bot">${av(who, 32)}<div class="y-ab">${text}</div></div></div></div>`;
+const WR = (p, k, who, text) => `<div class="msg" id="${p}-${k}"><div class="in" style="${vars(who)}"><div class="y-work">${av(who, 28)}<span class="y-dots" id="${p}-${k}-dots"><i></i><i></i><i></i></span><span>${text}</span></div></div></div>`;
+const LP = (p, k) => `<div class="msg" id="${p}-${k}"><div class="in"><div class="y-lpill">${BRUSH}<span>Yui is autumn now.</span><b>Undo</b></div></div></div>`;
+
+function thread(p, k, log, extra = "") {
+  return `<div class="layer" id="${p}" style="${vars(k)}">${head(k)}${extra}
+    <div class="y-chat" id="${p}-chat"><div class="y-log">${log}</div></div>
+    <div class="y-goes" id="${p}-goes" style="display:none"></div>
+    <div class="y-comp"><div class="y-cbtn">${PLUS}</div><div class="y-field" id="${p}-field"></div><div class="y-cbtn" id="${p}-send">${MIC}</div></div>
+  </div>`;
+}
+
+// 1. the hook: the same chat in five looks
+const HOOK = { hY: "yui", hC: "coach", hW: "wizard", hZ: "zen", hS: "studio" };
+const hookCard = `<div class="y-card"><h4>Where do we start?</h4><div class="y-opts"><span class="y-opt">Work</span><span class="y-opt on">Health</span><span class="y-opt">Home</span></div><div class="y-btn">Plan it</div></div>`;
+const hookLog = (p, k) => A(p, "m1", k, B("Morning! What are we doing today?")) + U(p, "m2", "Let's plan the week.") + A(p, "m3", k, hookCard);
+
+// 3. Coach's thread
+const todayCard = `<div class="y-card"><div class="y-ch"><h4>Today</h4><span class="y-tag">Legs</span></div>
+  <div class="y-li"><i class="y-cb" id="cT-cb1"></i><span>Back squat</span><em>5×5</em></div>
+  <div class="y-li"><i class="y-cb"></i><span>RDL</span><em>3×8</em></div>
+  <div class="y-li"><i class="y-cb"></i><span>Walking lunges</span><em>3×12</em></div>
+  <div class="y-btn" style="margin-top:10px">Start</div></div>`;
+const coachLog = U("cT", "m1", "Leg day?") + A("cT", "m2", "coach", B("Leg day it is. Here's today.")) + A("cT", "m3", "coach", todayCard, false);
+const coachEmpty = `<div class="y-empty" id="cT-empty">${av("coach", 96)}<h3>Say hi to Coach!</h3><p>Same agent as everywhere else, now with buttons.</p><div class="y-sugg"><span>Hi!</span><span>What can you show me?</span></div></div>`;
+
+// 3 and 4. Wizard's thread, then @Coach from it
+const weekCard = `<div class="y-card"><h4>This week</h4>
+  <div class="y-wk"><b>Mon</b><span>Deep work, 9 to 12</span></div>
+  <div class="y-wk"><b>Wed</b><span>Dinner with Sam</span></div>
+  <div class="y-wk"><b>Sat</b><span>Farmers market</span></div></div>`;
+const wizLog = U("wT", "m1", "Plan my week?") + A("wT", "m2", "wizard", B("Here's your week, with room to breathe.")) + A("wT", "m3", "wizard", weekCard, false)
+  + U("wT", "m4", "@Coach how many rest days this week?", "Coach") + WR("wT", "m5", "coach", "On its way") + MR("wT", "m6", "coach", "Two. Thursday and Sunday, after legs.");
+const pop = `<div class="y-pop" id="wT-pop">
+  <div class="y-prow" id="pop-coach">${av("coach", 36)}<div><b>Coach</b><i>@coach</i><small>Online</small></div></div>
+  <div class="y-prow">${av("counsel", 36)}<div><b>Counsel</b><i>@counsel</i><small>Offline</small></div></div>
+  <div class="y-prow">${av("nova", 36)}<div><b>Nova</b><i>@nova</i><small>Online</small></div></div></div>`;
+
+// 5. Yui's own thread, twice: as it is, and wearing autumn (same content)
+const mini = `<div class="mt"><b>Yui</b><i></i></div><div class="mrow"><span class="mav">C</span>Coach</div><div class="mrow"><span class="mav l">W</span>Wizard</div>
+  <div class="mab">Ready when you are.</div><div class="mub">Let's go</div><div class="mbtn">Start</div><div class="mdots"><i class="on"></i><i></i><i></i></div>`;
+const lookCard = (p) => `<div class="y-card y-lookcard"><div class="y-lh" style="color:var(--ink)">${PALETTE}<h4>A new look for Yui</h4></div>
+  <div class="y-minis"><div class="y-mcol"><div class="y-mini" style="${vars("yui")}">${mini}</div><p>Now</p></div><div class="y-mcol"><div class="y-mini" style="${vars("autumn")}">${mini}</div><p>Autumn</p></div></div>
+  <div class="y-seg"><span class="on">${SUN}Light</span><span>${MOON}Dark</span></div>
+  <p class="y-note">Autumn was adjusted in light and dark so text on it stays readable.</p>
+  <div class="y-2b"><div class="y-btn" id="${p}-use">Use autumn</div><div class="y-btn ghost">Keep mine</div></div></div>`;
+const yuiLog = (p) => A(p, "h1", "yui", B("Morning! What are we doing today?")) + U(p, "m1", "Make Yui feel like autumn.") + A(p, "m2", "yui", B("Here's autumn, next to Yui as it is now."))
+  + A(p, "m3", "yui", lookCard(p), false) + LP(p, "m4") + U(p, "m5", "Use autumn");
+
+// the switcher (over the drawer) and the Add agent sheet
+const ROWS = ["yui", "coach", "wizard", "counsel", "nova"];
+const swRow = (k) => `<div class="y-row" id="sw-${k}">${av(k, 40)}<div><b>${L[k].name}</b><small>${k === "counsel" ? `<i class="off"></i>Offline, seen 2 minutes ago` : `<i></i>Online`}</small></div><span class="ck">${CHECK(15, 3.4)}</span></div>`;
+const switcher = `<div class="layer y-sw" id="sw"><div class="y-swdim" id="sw-dim"></div><div class="y-swpanel" id="sw-panel"></div>
+  <div class="y-swlist">${ROWS.map(swRow).join("")}<div class="y-swbtns" id="sw-btns"><div class="y-add" id="sw-add">${PLUS}Add an agent</div><div class="y-edit">${LIST}Edit list</div></div></div></div>`;
+const chipsHtml = CHIPS.map(([n, a, bg]) => `<div class="y-lc" id="chip-${n.toLowerCase()}"><div class="y-lcc" style="background:${bg}"><i style="background:${a}"></i><b class="ring" style="display:none"></b></div><span>${n}</span></div>`).join("");
+const coachWho = (status) => `<div class="y-who">${av("coach", 58)}<div><b>Coach</b><small>${status}</small></div></div>`;
+const sheet = `<div class="layer y-shw" id="sheet" style="${vars("yui")}"><div class="y-dim" id="sh-dim"></div>
+  <div class="y-sheet" id="sh-body"><div class="y-grab"></div><div class="y-sh-title">Add agent</div><div class="y-sh-btn" id="sh-btn">Cancel</div>
+    <div class="y-sp" id="sp1"><div class="y-bigav" id="sh-av">?</div><h3 class="y-q">What should we call them?</h3><div class="y-name" id="sh-name"></div>
+      <div class="y-lbl">Look</div><div class="y-chips">${chipsHtml}</div><div class="y-btn big" id="sh-get">Get a pairing code</div>
+      <p class="y-small">Next you'll get a code and three short commands to run on the computer your agent lives on.</p></div>
+    <div class="y-sp" id="sp2">${coachWho(`<i style="background:#E8C55A"></i>Waiting to connect`)}
+      <div class="y-lead">On the computer Coach runs on, open a terminal and run these three commands.</div>
+      <div class="y-step"><i>1</i>Install the Yui plugin</div><div class="y-code">hermes plugins install postscarcityai/<br>yui/hermes-plugin/yui --enable${COPY}</div><div class="y-hint">Already installed? Skip to step 2.</div>
+      <div class="y-step"><i>2</i>Pair with this code</div><div class="y-code"><b>hermes yui pair 482913</b>${COPY}</div>
+      <div class="y-bigcode"><div class="num" id="sh-code">${"482 913".split("").map((c) => `<span>${c === " " ? "&nbsp;" : c}</span>`).join("")}</div><small id="sh-exp">Works once. Expires in 10:00</small></div>
+      <div class="y-step"><i>3</i>Restart the gateway</div><div class="y-code">hermes gateway restart${COPY}</div>
+      <div class="y-wait">${SPIN}Waiting for your computer...</div></div>
+    <div class="y-sp" id="sp3">${coachWho(`<i style="background:#34C759"></i>Online`)}
+      <div class="y-done"><div class="ok" style="color:#fff">${CHECK(44, 3.2)}</div><h3>Coach is connected!</h3><p>Running on MacBook. Say hi and it answers here.</p>
+      <div class="y-hi" id="sh-hi" style="background:${L.coach.acc};color:${L.coach.onacc}">👋 Say hi to Coach</div></div></div>
+  </div></div>`;
+
+K.phone(`<div class="page" id="pg">${Object.entries(HOOK).map(([p, k]) => thread(p, k, hookLog(p, k))).join("")}
+  ${thread("cT", "coach", coachLog, coachEmpty)}${thread("wT", "wizard", wizLog, pop)}${thread("yT", "yui", yuiLog("yT"))}${thread("yA", "autumn", yuiLog("yA"))}
+  ${switcher}${sheet}</div>`);
+$("wT-goes").innerHTML = `${AT}<span>Goes to <b style="color:${L.coach.acc}">Coach</b></span>`;
+
+// scene 6 chips
+const BYO = ["Hermes", "OpenClaw", "Claude Code", "Cursor", "MCP", "A2A", "AG-UI", "Your own model", "Webhooks"];
+$("byoChips").innerHTML = BYO.map((n, i) => `<span class="bchip${i === 0 ? " hl" : ""}" id="bc${i}"><i></i>${n}</span>`).join("");
+
+// ---------- which screen is on top: each entry reveals a layer with a circle from a point ----------
+const LAYERS = ["hY", "hC", "hW", "hZ", "hS", "cT", "wT", "yT", "yA"];
+const CHIP = [196, 84];
+const ORIG = { hi: [196, 520], wiz: [169, 585], yui: [169, 445], use: [110, 620] };
+const seq = () => [[-9, "hY", CHIP], ...S.looks.map(([t, id]) => [t, id, CHIP]), [13.88, "cT", ORIG.hi], [19.25, "wT", ORIG.wiz], [33.65, "yT", ORIG.yui], [38.45, "yA", ORIG.use], [40.85, "wT", ORIG.wiz]];
+function layers(t) {
+  const Q = seq();
+  let i = 0;
+  while (i < Q.length - 1 && Q[i + 1][0] <= t) i++;
+  const [t0, cur, [ox, oy]] = Q[i], prev = i > 0 ? Q[i - 1][1] : null;
+  const dur = t0 < 4 ? 0.34 : 0.42;
+  const p = eio(prog(t, t0, t0 + dur));
+  for (const id of LAYERS) { const el = $(id); el.style.display = "none"; el.style.clipPath = "none"; el.style.zIndex = 0; }
+  const c = $(cur);
+  c.style.display = "block"; c.style.zIndex = 2;
+  if (p < 1 && prev && prev !== cur) {
+    const far = Math.hypot(Math.max(ox, 393 - ox), Math.max(oy, 852 - oy));
+    c.style.clipPath = `circle(${(p * far + 1).toFixed(1)}px at ${ox}px ${oy}px)`;
+    $(prev).style.display = "block"; $(prev).style.zIndex = 1;
+  }
+}
+
+// ---------- the composer: typed text, caret, mic or send ----------
+const typed = (text, t, a, per) => (t < a ? "" : text.slice(0, Math.min(text.length, Math.floor((t - a) / per) + 1)));
+function composer(p, text, focus, t) {
+  const caret = focus && (text.length === 0 ? Math.floor(t * 2.2) % 2 === 0 : true) ? `<i class="y-caret"></i>` : "";
+  const html = text ? `${K.esc(text)}${caret}` : `${caret}<span class="ph">Say something nice</span>`;
+  const f = $(`${p}-field`), s = $(`${p}-send`);
+  if (f._h !== html) { f.innerHTML = html; f._h = html; }
+  const send = text.length > 0;
+  if (s._s !== send) { s.innerHTML = send ? SEND : MIC; s.className = `y-cbtn${send ? " send" : ""}`; s._s = send; }
+  return f.offsetHeight;
+}
+const press = (id, t, t0) => { $(id).style.transform = `scale(${1 - 0.05 * Math.sin(Math.PI * prog(t, t0 - 0.05, t0 + 0.15))})`; };
+
+// ---------- the switcher ----------
+const SW = [
+  { a: 4.86, tap: 6.0, z: 6.5, look: "yui", sel: "yui", coach: false },
+  { a: 18.4, tap: 19.2, z: 19.3, look: "coach", sel: "coach", to: "wizard", coach: true },
+  { a: 32.8, tap: 33.6, z: 33.7, look: "wizard", sel: "wizard", to: "yui", coach: true },
+  { a: 40.0, tap: 40.8, z: 40.9, look: "autumn", sel: "yui", to: "wizard", coach: true },
+];
+function switcherAt(t) {
+  const s = SW.find((x) => t >= x.a && t < x.z + 0.35);
+  const el = $("sw");
+  if (!s) { el.style.display = "none"; return; }
+  el.style.display = "block";
+  el.style.cssText = `${vars(s.look)}display:block`;
+  const open = eo(prog(t, s.a, s.a + 0.42)), close = ei(prog(t, s.z, s.z + 0.3));
+  const vis = open * (1 - close);
+  $("sw-dim").style.opacity = vis;
+  $("sw-panel").style.opacity = vis;
+  $("sw-panel").style.transform = `translateX(${-(1 - open) * 40 - close * 60}px)`;
+  const sel = s.to && t >= s.tap ? s.to : s.sel;
+  const rows = ROWS.filter((k) => k !== "coach" || s.coach);
+  $("sw-coach").style.display = s.coach ? "flex" : "none";
+  [...rows, "btns"].forEach((k, i) => {
+    const r = $(`sw-${k}`), n = rows.length - i;
+    const o = eo(prog(t, s.a + 0.03 * n, s.a + 0.03 * n + 0.4));
+    r.style.opacity = clamp(o * 1.4) * (1 - close);
+    r.style.transform = `translateY(${(1 - o) * (70 + 14 * n) + close * 24}px)`;
+    if (k !== "btns") r.className = `y-row${k === sel ? " sel" : ""}`;
+  });
+  if (s.to) press(`sw-${s.to}`, t, s.tap); else press("sw-add", t, s.tap);
+}
+
+// ---------- the Add agent sheet ----------
+const NAME_AT = 6.72, NAME_PER = 0.14, CHIP_AT = 8.4, GET_AT = 9.6, CONN_AT = S.connected, HI_AT = 13.8;
+function sheetAt(t) {
+  const el = $("sheet");
+  const on = t > 5.9 && t < 14.4;
+  el.style.display = on ? "block" : "none";
+  if (!on) return;
+  const up = eo(prog(t, 6.04, 6.5)), down = ei(prog(t, 13.88, 14.3));
+  $("sh-dim").style.opacity = up * (1 - down);
+  $("sh-body").style.transform = `translateY(${(1 - up) * 800 + down * 800}px)`;
+  // page 1: name and look
+  const name = typed("Coach", t, NAME_AT, NAME_PER);
+  const focus = t > 6.5 && t < GET_AT;
+  const caret = focus && (name.length < 5 || Math.floor(t * 2.2) % 2 === 0) ? `<i class="y-caret" style="background:var(--acc)"></i>` : "";
+  $("sh-name").innerHTML = `${name}${caret}`;
+  const picked = t >= CHIP_AT;
+  const bav = $("sh-av");
+  bav.textContent = name ? "C" : "?";
+  const pk = back(prog(t, CHIP_AT, CHIP_AT + 0.35));
+  Object.assign(bav.style, picked
+    ? { background: L.coach.acc, color: L.coach.onacc, fontFamily: FONT.default, borderRadius: "14px", transform: `scale(${0.85 + 0.15 * pk})` }
+    : { background: name ? CHIPS[0][1] : "#E6DCEB", color: "#fff", fontFamily: FONT.rounded, borderRadius: "18px", transform: "none" });
+  for (const n of ["own", "coach"]) {
+    const on2 = n === "coach" ? picked : !picked;
+    $(`chip-${n}`).className = `y-lc${on2 ? " sel" : ""}`;
+    $(`chip-${n}`).querySelector(".ring").style.display = on2 ? "block" : "none";
+  }
+  press("chip-coach", t, CHIP_AT); press("sh-get", t, GET_AT);
+  // page 2: the code; page 3: connected
+  const slide = eio(prog(t, GET_AT + 0.16, GET_AT + 0.56));
+  $("sp1").style.transform = `translateX(${-slide * 393}px)`;
+  $("sp2").style.transform = `translateX(${(1 - slide) * 393}px)`;
+  const done = eo(prog(t, CONN_AT + 0.08, CONN_AT + 0.4));
+  $("sp2").style.opacity = 1 - prog(t, CONN_AT - 0.05, CONN_AT + 0.12);
+  $("sp3").style.transform = `translateX(${(1 - slide) * 393}px) translateY(${(1 - done) * 16}px)`;
+  $("sp3").style.opacity = done;
+  $("sp3").style.display = done > 0 ? "block" : "none";
+  $("sh-btn").textContent = t >= CONN_AT ? "Done" : "Cancel";
+  [...$("sh-code").children].forEach((c, i) => {
+    const d = back(prog(t, GET_AT + 0.45 + i * 0.07, GET_AT + 0.75 + i * 0.07));
+    c.style.opacity = clamp(prog(t, GET_AT + 0.45 + i * 0.07, GET_AT + 0.6 + i * 0.07));
+    c.style.transform = `translateY(${(1 - d) * 14}px)`;
+  });
+  const left = 600 - Math.max(0, Math.floor(t - GET_AT - 0.4));
+  $("sh-exp").textContent = `Works once. Expires in ${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}`;
+  $("sh-spin").style.transform = `rotate(${Math.floor(t * 12) * 45}deg)`;
+  const ok = back(prog(t, CONN_AT + 0.15, CONN_AT + 0.55));
+  $("sp3").querySelector(".ok").style.transform = `scale(${0.3 + 0.7 * ok})`;
+  press("sh-hi", t, HI_AT);
+}
+
+// ---------- camera (the kit's, with a reel band that keeps the whole phone inside the feed crop) ----------
+const CAM = [
+  [0, 1.15, 0], [4.5, 1.2, 25],
+  [4.9, 1.15, 0], [9.75, 1.15, 0], [10.35, 1.34, 10], [11.85, 1.34, 10], [12.3, 1.3, -40], [13.5, 1.3, -40], [14.1, 1.15, 0],
+  [15.6, 1.15, 0], [16.5, 1.25, 60], [18.2, 1.25, 60], [18.55, 1.15, 0],
+  [19.9, 1.15, 0], [20.7, 1.25, 60], [23.7, 1.25, 60], [24.2, 1.22, 50],
+  [25.0, 1.25, 60], [30.4, 1.25, 60], [31.2, 1.17, 10], [32.6, 1.17, 10], [32.85, 1.15, 0],
+  [34.4, 1.15, 0], [35.9, 1.22, 50], [36.5, 1.25, 60], [38.3, 1.25, 60], [38.9, 1.18, 20], [39.9, 1.15, 0], [41.2, 1.2, 20], [43.2, 1.2, 20],
+];
+function camera(t) {
+  let i = 0;
+  while (i < CAM.length - 1 && CAM[i + 1][0] <= t) i++;
+  const a = CAM[i], c = CAM[Math.min(i + 1, CAM.length - 1)];
+  const p = c === a ? 0 : eio(prog(t, a[0], c[0]));
+  let s = lerp(a[1], c[1], p), y = -lerp(a[2], c[2], p) * s;
+  if (K.REEL) { s = 1.16 + clamp((s - 1.15) / 0.2) * 0.04; y = 0; }
+  return { s, y, r: 0 };
+}
+
+// ---------- the finger ----------
+const SOLO = new Set([15.0, 34.8]);
+const G = S.taps.map(([t, el]) => ({ t, el, solo: SOLO.has(t) }));
+// K.finger, copied with one change: a gesture marked solo does not glide in from the one before it
+// (that element has slid away by then), it comes in fresh.
+function finger(T, G, hide = false) {
+  const f = $("finger"), rp = $("ripple");
+  if (hide || window.noFinger) { f.style.opacity = 0; rp.style.opacity = 0; return; }
+  const end = (g) => g.t1 ?? g.t;
+  const near = (a, b) => b && !b.solo && b.t - end(a) < 1.3;
+  const center = (id) => { const r = $(id).getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+  let a = -1;
+  for (let i = 0; i < G.length; i++) if (T >= G[i].t - 0.5 && T <= end(G[i]) + 0.35) { a = i; break; }
+  if (a < 0) for (let i = 0; i < G.length - 1; i++) if (T > end(G[i]) && T < G[i + 1].t && near(G[i], G[i + 1])) { a = i + 1; break; }
+  if (a < 0) { f.style.opacity = 0; rp.style.opacity = 0; return; }
+  const g = G[a], prev = G[a - 1], next = G[a + 1];
+  const gap = prev ? g.t - end(prev) : 9, chained = gap < 1.3 && !g.solo;
+  const mvd = clamp(gap * 0.7, 0.08, 0.45);
+  let cur = g;
+  if (chained && T < g.t - mvd) cur = prev;
+  const [tx, ty] = center(cur.el);
+  let x = tx, y = ty;
+  if (cur === g && T < g.t) {
+    const [sx, sy] = chained ? center(prev.el) : [tx + 60, ty + 100];
+    const mv = eio(prog(T, g.t - (chained ? mvd : 0.45), g.t - 0.03));
+    x = lerp(sx, tx, mv); y = lerp(sy, ty, mv);
+  }
+  const fin = chained ? 1 : clamp(prog(T, g.t - 0.5, g.t - 0.38));
+  const fout = near(g, next) && cur === g ? 1 : 1 - clamp(prog(T, end(cur) + 0.2, end(cur) + 0.35));
+  const press = Math.sin(Math.PI * prog(T, cur.t - 0.05, cur.t + 0.1));
+  const sc = Number($("phoneWrap").style.transform.match(/scale\(([\d.]+)\)/)[1]) / 1.2;
+  f.style.opacity = fin * fout;
+  f.style.transform = `translate(${x}px, ${y}px) scale(${sc * (1 - 0.16 * press)})`;
+  const r = prog(T, cur.t, cur.t + 0.4);
+  rp.style.opacity = r > 0 && r < 1 ? 1 - r : 0;
+  rp.style.transform = `translate(${tx}px, ${ty}px) scale(${sc * (1 + eo(r) * 1.3)})`;
+}
+
+function render(t) {
+  // first the phone and which screens show: what they show decides what can be measured below
+  // the phone, then it steps aside for scene 6
+  const exit = ei(prog(t, 43.2, 43.75));
+  K.placePhone(t, camera(t), { dy: exit * 950, opacity: 1 - prog(t, 43.45, 43.75) });
+  layers(t);
+  // 1. the hook
+  for (const p of Object.keys(HOOK)) {
+    K.setMsg(`${p}-m1`, prog(t, 0.1, 0.45), 0); K.setMsg(`${p}-m2`, prog(t, 0.45, 0.8)); K.setMsg(`${p}-m3`, prog(t, 0.8, 1.2));
+    composer(p, "", false, t);
+  }
+  // 3. Coach's thread
+  const cText = t < 15.0 ? typed("Leg day?", t, 14.4, 0.05) : "";
+  composer("cT", cText, t > 14.3 && t < 15.0, t);
+  press("cT-send", t, 15.0);
+  const emp = prog(t, 15.0, 15.3);
+  $("cT-empty").style.opacity = 1 - emp;
+  $("cT-empty").style.transform = `translateY(${-emp * 30}px) scale(${1 - 0.05 * emp})`;
+  K.setMsg("cT-m1", prog(t, 15.05, 15.4), 0); K.setMsg("cT-m2", prog(t, 15.7, 16.05)); K.setMsg("cT-m3", prog(t, 16.1, 16.5), 8);
+  const ck = t >= 17.42;
+  $("cT-cb1").className = `y-cb${ck ? " on" : ""}`;
+  $("cT-cb1").innerHTML = ck ? `<span style="color:${L.coach.onacc}">${CHECK(16, 3.4)}</span>` : "";
+  $("cT-cb1").style.transform = `scale(${ck ? 0.8 + 0.2 * back(prog(t, 17.42, 17.7)) : 1})`;
+  $("cT-cb1").parentElement.style.color = ck ? L.coach.soft : "";
+
+  // 3 and 4. Wizard's thread and the @mention
+  K.setMsg("wT-m1", 1, 0, false); K.setMsg("wT-m2", prog(t, 19.9, 20.25)); K.setMsg("wT-m3", prog(t, 20.25, 20.65), 8);
+  const coachTyped = typed("how many rest days this week?", t, 26.75, 0.041);
+  const wText = t >= 28.2 ? "" : t >= 26.45 ? `@Coach ${coachTyped}` : t >= 24.9 ? "@" : "";
+  const fh = composer("wT", wText, t > 24.62 && t < 28.2, t);
+  press("wT-send", t, 28.2);
+  const po = eo(prog(t, 24.95, 25.25)) * (1 - ei(prog(t, 26.5, 26.7)));
+  $("wT-pop").style.visibility = po > 0.001 ? "visible" : "hidden";
+  $("wT-pop").style.opacity = clamp(po * 1.3);
+  $("wT-pop").style.transform = `translateY(${(1 - po) * 18}px) scale(${0.96 + 0.04 * po})`;
+  $("pop-coach").style.background = t > 26.3 && t < 26.7 ? `color-mix(in srgb, ${L.wizard.acc} 12%, transparent)` : "";
+  const g = eo(prog(t, 26.5, 26.75)) * (1 - prog(t, 28.2, 28.35));
+  $("wT-goes").style.display = g > 0.001 ? "flex" : "none";
+  $("wT-goes").style.opacity = g;
+  $("wT-goes").style.bottom = `${34 + fh + 9}px`;
+  $("wT-chat").style.bottom = `${86 + (fh - 46) + 26 * g}px`;
+  K.setMsg("wT-m4", prog(t, 28.25, 28.6));
+  K.setMsg("wT-m5", t < 29.45 ? prog(t, 28.8, 29.1) : 1 - prog(t, 29.45, 29.62), 10);
+  K.setMsg("wT-m6", prog(t, 29.45, 29.85), 14);
+  [...$("wT-m5-dots").children].forEach((d, i) => { d.style.opacity = 0.3 + 0.7 * Math.max(0, Math.sin(t * 7 - i * 0.9)); });
+
+  // 5. Yui's thread, as it is and in autumn
+  for (const p of ["yT", "yA"]) {
+    const yText = t < 34.8 ? typed("Make Yui feel like autumn.", t, 34.1, 0.024) : "";
+    composer(p, yText, t > 34.0 && t < 34.8, t);
+    press(`${p}-send`, t, 34.8);
+    K.setMsg(`${p}-h1`, 1, 0, false);
+    K.setMsg(`${p}-m1`, prog(t, 34.85, 35.2)); K.setMsg(`${p}-m2`, prog(t, 35.4, 35.75));
+    K.setMsg(`${p}-m3`, t < 38.55 ? prog(t, 35.8, 36.3) : 1 - prog(t, 38.55, 38.95), 8, t < 38.55);
+    K.setMsg(`${p}-m4`, prog(t, 38.6, 38.95), 8); K.setMsg(`${p}-m5`, prog(t, 39.0, 39.35));
+    press(`${p}-use`, t, S.applied);
+  }
+
+  switcherAt(t);
+  sheetAt(t);
+
+
+  // captions and lines
+  K.caps(t, [["c1L", 0.3, 4.45], ["c1R", 1.0, 4.5], ["c2L", 5.2, 13.55], ["c2R", 9.9, 13.6], ["c3L", 14.8, 23.55], ["c3R", 19.7, 23.6],
+    ["c4L", 24.3, 32.95], ["c4R", 29.6, 33.0], ["c5L", 34.0, 42.9], ["c5R", 36.4, 42.95]]);
+  K.pills(t, [["p2", 10.3, 13.5], ["p5", 35.9, 40.0], ["n5", 41.1, 42.9]]);
+
+  // 6. bring your own agent
+  K.show("byo", t > 43.5 && t < 52.9);
+  if (t > 43.5 && t < 52.9) {
+    K.textIO("byoH", t, 43.75, 52.3, 36);
+    BYO.forEach((_, i) => {
+      const a = S.chips + i * 0.3, e = $(`bc${i}`), o = back(prog(t, a, a + 0.42)), out = ei(prog(t, 52.3 + i * 0.015, 52.55 + i * 0.015));
+      e.style.opacity = clamp(prog(t, a, a + 0.14)) * (1 - out);
+      e.style.transform = `translateY(${(1 - o) * 26 - out * 20}px) scale(${0.6 + 0.4 * o})`;
+    });
+    K.textIO("byoLine", t, 47.4, 52.35, 30);
+  }
+  // 7. outro
+  K.outro(t, S.outro);
+  finger(t, G, t < 5.3 || t > 42);
+}
+
+window.ready = K.ready(async () => {
+  await document.fonts.load('400 20px "YuiSerif"'); await document.fonts.load('700 20px "YuiSerif"');
+  await document.fonts.load('400 20px "YuiText"'); await document.fonts.load('800 20px "YuiText"');
+  await document.fonts.ready;
+  // measure every message with its layer showing, in its own look
+  for (const id of LAYERS) $(id).style.display = "block";
+  K.measure([...document.querySelectorAll(".msg")].map((m) => m.id));
+  for (const id of LAYERS) $(id).style.display = "none";
+  // wipe origins: the points the finger taps, read once from the layout
+  const pt = (id, t) => { render(t); const r = $(id).getBoundingClientRect(), s = $("screen").getBoundingClientRect(), k = s.width / 393; return [Math.round((r.left + r.width / 2 - s.left) / k), Math.round((r.top + r.height / 2 - s.top) / k)]; };
+  ORIG.hi = pt("sh-hi", 13.8); ORIG.wiz = pt("sw-wizard", 19.2); ORIG.yui = pt("sw-yui", 33.6); ORIG.use = pt("yT-use", 38.4);
+  window.ORIG = ORIG;
+  render(0);
+});
+window.render = render;
+window.DURATION = 60;
+window.POSTER = 32.2;
+</script>
+</body>
+</html>

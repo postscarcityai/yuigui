@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Yui lessons</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+/* The lesson stage, after the app's 0.3.1 deck (site/public/progress/yui-113-*.webp). */
+.stage { position: absolute; inset: 0; background: var(--background); z-index: 12; }
+.grab { position: absolute; left: 50%; top: 58px; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: #4A4060; }
+.schip { position: absolute; left: 50%; top: 68px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 800; }
+.sx { position: absolute; right: 16px; top: 62px; width: 40px; height: 40px; border-radius: 50%; background: var(--raised); display: grid; place-items: center; }
+.segs { position: absolute; left: 20px; right: 20px; top: 110px; display: flex; gap: 6px; }
+.segs i { flex: 1; height: 4px; border-radius: 2px; background: #4A4060; display: block; }
+.segs i.on { background: var(--brand); }
+.dlabel { position: absolute; left: 20px; top: 124px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.dpages { position: absolute; left: 0; top: 150px; width: 2358px; height: 610px; display: flex; }
+.dpage { position: relative; width: 393px; height: 610px; flex: 0 0 393px; }
+.pic { position: absolute; left: 20px; right: 20px; top: 0; height: 270px; }
+.hl { position: absolute; left: 20px; right: 20px; top: 292px; font-size: 34px; font-weight: 800; line-height: 1.08; letter-spacing: -0.02em; }
+.body { position: absolute; left: 20px; right: 24px; top: 392px; font-size: 17px; line-height: 1.45; color: #D9D0E3; }
+.dnav { position: absolute; left: 20px; right: 20px; top: 770px; height: 46px; }
+.dnav .prev { position: absolute; left: 4px; top: 8px; font-size: 26px; color: var(--muted); }
+.dnav .next { position: absolute; right: 0; top: 0; width: 46px; height: 46px; border-radius: 50%; background: var(--brand); display: grid; place-items: center; }
+.math { font-family: "Times New Roman", Times, serif; font-style: italic; }
+.math .u { font-style: normal; }
+/* quiz */
+.qwrap { position: absolute; left: 20px; right: 20px; top: 70px; }
+.q { font-size: 30px; font-weight: 800; line-height: 1.12; letter-spacing: -0.015em; margin-bottom: 22px; }
+.qopt { position: relative; height: 58px; border-radius: 18px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); display: flex; align-items: center; padding: 0 18px; font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+.qopt .mk { position: absolute; right: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 15px; font-weight: 900; }
+.qnote { font-size: 16px; font-weight: 700; color: var(--muted); margin-top: 6px; min-height: 22px; }
+/* calc */
+.srow { position: absolute; left: 20px; right: 20px; }
+.srow .lab { display: flex; justify-content: space-between; font-size: 17px; font-weight: 800; }
+.srow .trk { position: relative; height: 5px; border-radius: 3px; background: #4A4060; margin-top: 12px; }
+.srow .trk i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; background: var(--brand); }
+.srow .th { position: absolute; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+/* chat chip */
+.chipcard { display: flex; align-items: center; gap: 11px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 18px; padding: 11px 14px; width: 272px; }
+.chipcard .pl { width: 30px; height: 30px; border-radius: 50%; background: var(--brand); display: grid; place-items: center; flex: 0 0 30px; }
+/* the wall of lessons */
+#wall { position: absolute; inset: 0; }
+#wallIn { position: absolute; left: 620px; top: -560px; width: 1800px; height: 2300px; display: flex; gap: 34px; transform-origin: 50% 50%; }
+body.reel #wallIn { left: -150px; top: -380px; width: 1400px; height: 2900px; }
+.col { display: flex; flex-direction: column; gap: 34px; width: 300px; }
+.col img { width: 300px; height: 640px; border-radius: 34px; display: block; object-fit: cover; object-position: top; box-shadow: 0 24px 50px rgba(0,0,0,.45), 0 0 0 1.5px rgba(255,255,255,.08); }
+#scrim { position: absolute; inset: 0; background: linear-gradient(90deg, var(--bg) 0, var(--bg) 30%, rgba(22,17,31,.85) 42%, rgba(22,17,31,0) 58%); }
+body.reel #scrim { background: linear-gradient(180deg, var(--bg) 0, var(--bg) 37%, rgba(22,17,31,.85) 44%, rgba(22,17,31,0) 57%); }
+#words { position: absolute; left: 130px; top: 540px; transform: translateY(-50%); }
+body.reel #words { left: 90px; top: 250px; transform: none; }
+.big { font-weight: 800; font-size: 120px; line-height: 1.0; letter-spacing: -0.025em; }
+.dot { color: var(--brand); }
+/* stacked words for the quick pages */
+.wstack { position: absolute; left: 110px; font-weight: 800; font-size: 62px; letter-spacing: -0.02em; }
+body.reel .wstack { left: 60px; width: 960px; text-align: center; font-size: 64px; }
+</style>
+</head>
+<body class="dark">
+<div id="stage">
+  <div id="glow"></div>
+  <div id="wall"><div id="wallIn"><div class="col" id="wc0"></div><div class="col" id="wc1"></div><div class="col" id="wc2"></div><div class="col" id="wc3"></div></div><div id="scrim"></div></div>
+
+  <div class="cap L" id="askL">Ask how something works.</div>
+  <div class="cap R accent" id="askR">Get a lesson you can swipe.</div>
+  <div class="cap L" id="ideaL">One idea per page.</div>
+  <div class="cap R accent" id="ideaR">Diagrams drawn on the phone.</div>
+  <div class="wstack" id="w1">Formulas<span class="dot">.</span></div>
+  <div class="wstack" id="w2">Charts<span class="dot">.</span></div>
+  <div class="wstack" id="w3">Big numbers<span class="dot">.</span></div>
+  <div class="cap L" id="quizL">Then a quick check.</div>
+  <div class="cap R accent" id="quizR">Wrong answers teach too.</div>
+  <div class="cap L" id="calcL">Play with the numbers.</div>
+  <div class="cap R accent" id="calcR">Watch it grow.</div>
+  <div class="cap L" id="doneL">Your agent sees how it went.</div>
+  <div class="cap R accent" id="doneR">And what to teach next.</div>
+  <div class="kpill" id="p1"><b>&gt;full deck</b> "Compound interest"</div>
+  <div class="kpill" id="p2"><b>choose</b> … answer="More time"</div>
+  <div class="kpill" id="p3"><b>calc</b> f="A = P*(1+r)^t" …</div>
+  <div class="kpill" id="p4"><b>→ agent</b> {"done":true,"score":1,"of":1}</div>
+
+  <div id="words">
+    <div class="big" id="b0">Biology<span class="dot">.</span></div>
+    <div class="big" id="b1">Physics<span class="dot">.</span></div>
+    <div class="big" id="b2">Math<span class="dot">.</span></div>
+    <div class="big" id="b3">Anything<span class="dot">.</span></div>
+  </div>
+
+  <div id="outro">
+    <img id="owm" src="../kit/yui-wordmark-coral.png" alt="">
+    <div id="otag">Learn anything with your agent.</div>
+    <div id="ourl">yuigui.com</div>
+    <div id="onote">Lessons are in the app since Yui 0.3.1.</div>
+  </div>
+  <div id="ripple"></div><div id="finger"></div>
+</div>
+<script src="../kit/kit.js"></script>
+<script>
+const { $, clamp, prog, eo, ei, eio, back, lerp, show, textIO } = K;
+const BAR = 2.5;
+
+// ---------- the deck ----------
+const PAGES = 6;
+const SH = {
+  circle: (x, label, stroke, fill = "none") => `<g class="shp"><circle cx="${x}" cy="0" r="32" fill="${fill}" stroke="${stroke}" stroke-width="3"/><text x="${x}" y="6" text-anchor="middle" font-family="YuiRounded" font-weight="800" font-size="17" fill="#F6EEF7">${label}</text></g>`,
+  arrow: (x0, x1) => `<g class="shp"><path d="M${x0} 0 L${x1 - 8} 0" stroke="#A99FB8" stroke-width="3" stroke-linecap="round"/><path d="M${x1 - 12} -7 L${x1} 0 L${x1 - 12} 7" fill="none" stroke="#A99FB8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>`,
+  box: (x, label) => `<g class="shp"><rect x="${x - 34}" y="-24" width="68" height="48" rx="10" fill="#E6D08F"/><text x="${x}" y="6" text-anchor="middle" font-family="YuiRounded" font-weight="800" font-size="17" fill="#2A2238">${label}</text></g>`,
+  blob: (x, label) => `<g class="shp" id="blob"><path d="M${x} -34 C ${x + 26} -36, ${x + 38} -12, ${x + 33} 8 C ${x + 28} 30, ${x + 6} 38, ${x - 14} 32 C ${x - 34} 26, ${x - 38} 2, ${x - 30} -16 C ${x - 22} -32, ${x - 10} -33, ${x} -34 Z" fill="rgba(159,205,185,.18)" stroke="#9FCDB9" stroke-width="3"/><text x="${x}" y="6" text-anchor="middle" font-family="YuiRounded" font-weight="800" font-size="17" fill="#F6EEF7">${label}</text></g>`,
+};
+const shapes = `<svg viewBox="0 0 353 270" style="position:absolute;inset:0;width:353px;height:270px"><g transform="translate(0,135)">${SH.circle(40, "$100", "#FF7E8A")}${SH.arrow(80, 118)}${SH.box(158, "+10%")}${SH.arrow(198, 236)}${SH.blob(290, "$110")}</g></svg>`;
+const YS = [100, 161, 259, 418, 673];
+const chartPts = YS.map((v, i) => [30 + i * 75, 230 - (v / 700) * 200]);
+const chart = `<div style="position:absolute;left:0;right:0;top:10px;display:flex;justify-content:space-between;align-items:center"><b style="font-size:18px">$100 at 10% a year</b><span style="display:flex;gap:4px;background:#352D4A;border-radius:10px;padding:4px"><i style="width:26px;height:22px;border-radius:7px;background:#4A4060;display:block"></i><i style="width:26px;height:22px;border-radius:7px;display:block"></i></span></div>
+  <svg viewBox="0 0 353 260" style="position:absolute;left:0;top:44px;width:353px;height:226px">
+  ${[200, 400, 600].map((v) => `<line x1="30" x2="345" y1="${230 - (v / 700) * 200}" y2="${230 - (v / 700) * 200}" stroke="#3D3452"/><text x="24" y="${234 - (v / 700) * 200}" text-anchor="end" font-family="YuiRounded" font-size="11" font-weight="700" fill="#A99FB8">${v}</text>`).join("")}
+  ${["Y0", "Y5", "Y10", "Y15", "Y20"].map((l, i) => `<text x="${30 + i * 75}" y="252" text-anchor="middle" font-family="YuiRounded" font-size="11" font-weight="700" fill="#A99FB8">${l}</text>`).join("")}
+  <path id="cline" d="M${chartPts.map((p) => p.join(" ")).join(" L")}" fill="none" stroke="#8b7cff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  ${chartPts.map((p, i) => `<circle class="cdot" data-i="${i}" cx="${p[0]}" cy="${p[1]}" r="5" fill="#8b7cff"/>`).join("")}</svg>`;
+const spark = YS.map((v, i) => `${40 + i * 30},${60 - (v / 673) * 50}`).join(" ");
+const stat = `<div style="position:absolute;left:0;top:40px;font-size:13px;font-weight:800;letter-spacing:.08em;color:#A99FB8">AFTER 20 YEARS</div>
+  <div id="statv" style="position:absolute;left:0;top:62px;font-size:84px;font-weight:900;letter-spacing:-0.03em">$673</div>
+  <div style="position:absolute;left:4px;top:170px;font-size:18px;font-weight:800;color:#9FCDB9">▲ 573</div>
+  <svg viewBox="0 0 200 70" style="position:absolute;right:0;top:90px;width:180px;height:70px"><polyline id="spark" points="${spark}" fill="none" stroke="#9FCDB9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const quiz = `<div class="qwrap"><div class="q">Which lever grows the pile fastest?</div>
+  <div class="qopt" id="q-time">More time<span class="mk" id="mk-time"></span></div>
+  <div class="qopt" id="q-daily">Checking daily<span class="mk" id="mk-daily"></span></div>
+  <div class="qopt" id="q-first">A bigger first deposit only</div>
+  <div class="qnote" id="qnote"></div></div>`;
+const calc = `<div class="math" style="position:absolute;left:20px;top:0;font-size:28px">A = P(1 + r)<sup>t</sup></div>
+  <div style="position:absolute;left:20px;top:44px;font-size:17px;font-weight:700;color:#A99FB8">A = <b id="calcA" style="font-size:30px;color:#F6EEF7;margin-left:6px">163</b></div>
+  <svg viewBox="0 0 353 110" style="position:absolute;left:20px;top:92px;width:353px;height:110px">
+    ${[0, 1, 2, 3].map((i) => `<line x1="0" x2="320" y1="${10 + i * 30}" y2="${10 + i * 30}" stroke="#3D3452"/>`).join("")}
+    <path id="calcLine" d="" fill="none" stroke="#8b7cff" stroke-width="3" stroke-linecap="round"/></svg>
+  <div class="srow" style="top:220px"><div class="lab"><span>P</span><span>100</span></div><div class="trk"><i style="width:0%"></i><span class="th" style="left:0%"></span></div></div>
+  <div class="srow" style="top:278px"><div class="lab"><span>r</span><span id="rv">0.05</span></div><div class="trk"><i id="rfill"></i><span class="th" id="th-r"></span></div></div>
+  <div class="srow" style="top:336px"><div class="lab"><span>t</span><span id="tv">10</span></div><div class="trk"><i id="tfill"></i><span class="th" id="th-t"></span></div></div>`;
+const page = (i, pic, hl, body, style = "") => `<div class="dpage" id="dp${i}"><div class="pic" style="${style}">${pic}</div>${hl ? `<div class="hl">${hl}</div>` : ""}${body ? `<div class="body">${body}</div>` : ""}</div>`;
+const deck = `<div class="stage" id="deck"><div class="grab"></div><div class="schip">${K.Y_SVG(18)}Yui</div><div class="sx" id="st-x">${K.ICON.close("#F6EEF7")}</div>
+  <div class="segs">${Array.from({ length: PAGES }, (_, i) => `<i id="seg${i}"></i>`).join("")}</div><div class="dlabel">Compound interest</div>
+  <div class="dpages" id="dpages">
+    ${page(0, shapes, "Money that grows on itself", "Your interest joins the pile. Next year the pile earns interest too.")}
+    ${page(1, `<div class="math" style="position:absolute;left:0;right:0;top:95px;text-align:center;font-size:52px">A = P(1 + r)<sup style="font-size:32px">t</sup></div>`, "The formula", "P is what you put in, r the rate, t the years. A is what you end with.")}
+    ${page(2, chart, "It bends upward", "The same 10% adds more every year, because the pile keeps growing.")}
+    ${page(3, stat, "Twenty years later", "You put in $100. Time did the rest.")}
+    ${page(4, quiz, "", "", "height:610px")}
+    <div class="dpage" id="dp5"><div style="position:absolute;inset:0">${calc}</div><div class="hl" style="top:410px">Try it</div><div class="body" style="top:460px">Slide the start, the rate and the years.</div></div>
+  </div>
+  <div class="dnav"><span class="prev" id="nav-prev">‹</span><span class="next" id="nav-next"><svg width="16" height="16" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7" stroke="#2A2238" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+</div>`;
+
+const log = K.say("h0", "Hi! What do you want to learn today?")
+  + K.user("c1", "How does compound interest work? Short version.")
+  + K.say("c2", "Compound interest in a minute. Swipe through.")
+  + K.agent("c3", `<div class="chipcard"><span class="pl"><svg width="12" height="12" viewBox="0 0 24 24"><path d="M7 4v16l13-8z" fill="#2A2238"/></svg></span><div><div style="font-size:16px;font-weight:800">Compound interest</div><div class="muted" style="font-size:13px;font-weight:700">6 pages · 1 of 1 right</div></div></div>`)
+  + K.say("c4", "Nice, 1 of 1. Want the next one, on how loans work?");
+K.phone(K.chatPage({ log }).replace('<div class="inputbar">', deck + '<div class="inputbar">'));
+
+// ---------- the wall of other lessons (real renders) ----------
+const WALL = [
+  ["og/try-deck-lesson.jpg", "p/yui-113-2-chart.webp", "og/try-calc-projectile.jpg", "og/try-math-lesson.jpg", "og/try-shapes-heat-pump.jpg"],
+  ["p/yui-113-1-shapes.webp", "og/try-narrate-lesson.jpg", "og/try-step-derivation.jpg", "og/try-stat-lab.jpg", "og/try-calc-pendulum.jpg"],
+  ["og/try-math.jpg", "p/yui-113-3-calc.webp", "og/try-calc-decay.jpg", "og/deck.jpg", "og/try-shapes-picture.jpg"],
+  ["og/try-step-protocol.jpg", "og/lesson-deck.jpg", "p/yui104-app-heat-dark.webp", "og/try-deck-scroll.jpg", "og/math.jpg"],
+];
+const src = (s) => (s.startsWith("og/") ? `../../site/public/og/screens/${s.slice(3)}` : `../../site/public/progress/${s.slice(2)}`);
+WALL.forEach((col, i) => { $("wc" + i).innerHTML = col.concat(col.slice(0, 2)).map((s) => `<img src="${src(s)}" alt="">`).join(""); });
+
+// ---------- the timeline ----------
+const T_PAGE = [2.2, 10.0, 12.5, 15.0, 17.5, 25.0];     // when each page arrives
+const NEXT = [9.85, 12.35, 14.85, 17.35, 24.85];         // the › taps
+const G = [
+  ...NEXT.slice(0, 4).map((t) => ({ t, el: "nav-next" })),
+  { t: 20.0, el: "q-daily" }, { t: 22.5, el: "q-time" },
+  { t: 24.85, el: "nav-next" },
+  { t: 26.3, t1: 27.4, el: "th-r" }, { t: 28.4, t1: 29.6, el: "th-t" },
+  { t: 34.6, el: "st-x" },
+];
+window.GESTURES = G;
+const CAM = [
+  [0, 1.62, "c1"], [1.6, 1.55, "c1"], [2.6, 1.2, 0], [4.8, 1.2, 0], [5.6, 1.34, -60], [24.9, 1.34, -60],
+  [25.6, 1.38, -40], [34.3, 1.38, -40], [35.1, 1.22, 0], [39.6, 1.22, 0],
+];
+const MSGS = ["h0", "c1", "c2", "c3", "c4"];
+
+function render(t) {
+  // chat
+  K.setMsg("h0", 1, 0, false); K.setMsg("c1", 1, 12, false);
+  K.setMsg("c2", prog(t, 1.2, 1.55));
+  K.setMsg("c3", prog(t, 35.2, 35.55)); K.setMsg("c4", prog(t, 36.0, 36.35));
+
+  // the stage: up after the agent's line, down after the close
+  const up = eo(prog(t, 1.9, 2.4)), down = ei(prog(t, 34.75, 35.2));
+  show("deck", up > 0 && down < 1);
+  $("deck").style.transform = `translateY(${(1 - up + down) * 100}%)`;
+  // pages slide on each ›
+  let idx = 0;
+  for (let i = 1; i < PAGES; i++) idx += eio(prog(t, T_PAGE[i] - 0.12, T_PAGE[i] + 0.3));
+  $("dpages").style.transform = `translateX(${-idx * 393}px)`;
+  for (let i = 0; i < PAGES; i++) $("seg" + i).className = i <= Math.round(idx) ? "on" : "";
+  $("nav-prev").style.opacity = idx < 0.5 ? 0.35 : 1;
+  // page 1: the shapes come on one after another
+  document.querySelectorAll(".shp").forEach((g, i) => {
+    const p = back(prog(t, 2.5 + i * 0.33, 2.5 + i * 0.33 + 0.4));
+    g.style.opacity = clamp(prog(t, 2.5 + i * 0.33, 2.62 + i * 0.33));
+    g.style.transformBox = "fill-box"; g.style.transformOrigin = "50% 50%";
+    const pulse = g.id === "blob" && t > 4.3 ? 1 + 0.06 * Math.sin((t - 4.3) * 5) : 1;
+    g.style.transform = `scale(${(0.4 + 0.6 * p) * pulse})`;
+  });
+  // page 3: the chart draws itself
+  const cl = $("cline"), len = 330;
+  cl.style.strokeDasharray = len; cl.style.strokeDashoffset = len * (1 - eio(prog(t, 12.6, 13.6)));
+  document.querySelectorAll(".cdot").forEach((d) => (d.style.opacity = clamp(prog(t, 12.6 + d.dataset.i * 0.22, 12.75 + d.dataset.i * 0.22))));
+  // page 4: the number counts up
+  const sv = Math.round(lerp(100, 673, eo(prog(t, 15.1, 15.9))));
+  $("statv").textContent = `$${sv}`;
+  $("spark").style.strokeDasharray = 200; $("spark").style.strokeDashoffset = 200 * (1 - eo(prog(t, 15.2, 16.0)));
+  // page 5: the quiz, wrong first, then right
+  const wrong = t >= 20.0, right = t >= 22.5;
+  $("q-daily").style.background = wrong ? "#5A2436" : "";
+  $("q-daily").style.boxShadow = wrong ? "inset 0 0 0 2px #FF7E8A" : "";
+  $("mk-daily").textContent = wrong ? "✕" : ""; $("mk-daily").style.background = wrong ? "#FF7E8A" : ""; $("mk-daily").style.color = "#2A2238";
+  $("q-time").style.boxShadow = wrong ? "inset 0 0 0 2px #9FCDB9" : "";
+  $("q-time").style.background = right ? "#9FCDB9" : "";
+  $("q-time").style.color = right ? "#2A2238" : "";
+  $("mk-time").textContent = wrong ? "✓" : ""; $("mk-time").style.background = wrong ? (right ? "#2A2238" : "#9FCDB9") : ""; $("mk-time").style.color = right ? "#9FCDB9" : "#2A2238";
+  $("qnote").textContent = right ? "Right. Time does the heavy lifting." : wrong ? "Not quite. The answer is More time." : "";
+  $("qnote").style.color = right ? "#9FCDB9" : "";
+  // page 6: the calculator
+  const r = lerp(0.05, 0.10, eio(prog(t, 26.3, 27.4))), yrs = lerp(10, 20, eio(prog(t, 28.4, 29.6)));
+  const A = 100 * Math.pow(1 + r, yrs);
+  $("calcA").textContent = Math.round(A);
+  $("rv").textContent = r.toFixed(2); $("tv").textContent = Math.round(yrs);
+  $("rfill").style.width = `${(r / 0.2) * 100}%`; $("th-r").style.left = `${(r / 0.2) * 100}%`;
+  $("tfill").style.width = `${(yrs / 20) * 100}%`; $("th-t").style.left = `${(yrs / 20) * 100}%`;
+  const pts = Array.from({ length: 11 }, (_, i) => { const P = 100 + i * 90; const a = P * Math.pow(1 + r, yrs); return `${i * 32},${100 - (a / 6800) * 90}`; });
+  $("calcLine").setAttribute("d", "M" + pts.join(" L"));
+
+  // phone: camera, then into the wall
+  const shrink = eio(prog(t, 39.6, 40.4));
+  K.placePhone(t, K.camera(t, CAM), { scale: lerp(1, 0.55, shrink), rot: -11 * shrink, dx: K.REEL ? 0 : 180 * shrink, dy: K.REEL ? 260 * shrink : 0, opacity: 1 - prog(t, 40.0, 40.4) });
+
+  // captions
+  K.caps(t, [["askL", 0.3, 4.8], ["askR", 1.9, 4.85], ["ideaL", 5.1, 9.75], ["ideaR", 6.4, 9.8], ["quizL", 17.7, 24.75], ["quizR", 20.4, 24.8],
+    ["calcL", 25.2, 34.75], ["calcR", 28.4, 34.8], ["doneL", 35.4, 39.6], ["doneR", 36.8, 39.65]]);
+  K.pills(t, [["p1", 2.2, 9.75], ["p2", 17.8, 24.75], ["p3", 25.3, 34.75], ["p4", 35.8, 39.6]]);
+  const ws = [["w1", 10.1], ["w2", 12.6], ["w3", 15.1]];
+  ws.forEach(([id, a], i) => {
+    const el = $(id);
+    el.style.top = K.REEL ? `${292 + i * 78}px` : `${430 + i * 78}px`;
+    show(el, t > a - 0.05 && t < 17.6); textIO(el, t, a, 17.3 + i * 0.04, 30);
+  });
+
+  // the wall
+  const wv = t > 39.7 && t < 50.2;
+  show("wall", wv); show("words", wv);
+  if (wv) {
+    const wi = eo(prog(t, 39.8, 40.6)), wo = ei(prog(t, 49.7, 50.1));
+    $("wall").style.opacity = clamp(prog(t, 39.7, 40.2)) * (1 - wo);
+    $("wallIn").style.transform = `translate(${(1 - wi) * 300 - wo * 200}px, ${-wo * 160}px) rotate(-11deg) scale(${lerp(1.25, 1, wi)})`;
+    for (let i = 0; i < 4; i++) { const dir = i % 2 ? 1 : -1, base = dir === -1 ? 0 : -1340; $("wc" + i).style.transform = `translateY(${base + dir * (60 + i * 10) * (t - 39.7)}px)`; }
+    $("scrim").style.opacity = clamp(prog(t, 40.0, 40.4));
+    ["b0", "b1", "b2", "b3"].forEach((id, i) => textIO(id, t, 40.2 + i * BAR, 49.6 + i * 0.04, 50));
+  }
+  K.outro(t, 50.1);
+  K.finger(t, G, t > 39.6);
+}
+
+window.ready = K.ready(() => { K.measure(MSGS); show("deck", false); render(0); });
+window.render = render;
+window.DURATION = 60;
+window.POSTER = 22.9;
+</script>
+</body>
+</html>

@@ -7,4 +7,5 @@ Notes for AI coding agents working in this repo.
 - Tests: `cd bench && npm test`, `cd spec/conformance && node run.mjs`, `cd site && npm run sync && npm run build`.
 - Edit source files, not `site/content/` (generated). Never touch `.github/`, keys or release scripts.
 - Style: plain words, short sentences, no em dashes.
+- Videos: `videos/README.md` is how Yui's launch and explainer videos are made (the look, the dub sound, the story shape, the kit). Renders stay out of git.
 - Note: `spec/AGENTS.md` is a different file, the spec for how agents connect to Yui.

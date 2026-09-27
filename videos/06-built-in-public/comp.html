@@ -1,0 +1,597 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Built in public</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+/* ---------- this comp: words on the left, the screen (browser or phone) on the right ---------- */
+.cap { z-index: 30; text-wrap: balance; }
+#phoneWrap { z-index: 20; }
+
+/* hook: counters */
+#hook { position: absolute; inset: 0; z-index: 5; }
+.ctr { position: absolute; left: 690px; width: 540px; text-align: center; white-space: nowrap; }
+.ctr b { display: block; font-size: 128px; line-height: 1; font-weight: 800; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
+.ctr span { display: block; margin-top: 4px; font-size: 34px; font-weight: 800; color: var(--muted); letter-spacing: -0.01em; }
+#r0 { top: 118px; } #r1 { top: 408px; } #r2 { top: 698px; }
+#days { position: absolute; left: 690px; width: 540px; top: 540px; text-align: center; white-space: nowrap; }
+#days b { font-size: 330px; line-height: .9; font-weight: 800; letter-spacing: -0.05em; color: var(--accent); }
+#days em { font-style: normal; font-size: 120px; font-weight: 800; letter-spacing: -0.03em; margin-left: 12px; }
+#daysSub { position: absolute; left: 690px; width: 540px; top: 770px; text-align: center; font-size: 36px; font-weight: 800; color: var(--muted); }
+body.reel .ctr, body.reel #days, body.reel #daysSub { left: 60px; width: 960px; }
+body.reel .ctr b { font-size: 150px; }
+body.reel .ctr span { font-size: 40px; }
+body.reel #r0 { top: 650px; } body.reel #r1 { top: 960px; } body.reel #r2 { top: 1270px; }
+body.reel #days { top: 1080px; }
+body.reel #days b { font-size: 400px; }
+body.reel #days em { font-size: 140px; }
+body.reel #daysSub { top: 1330px; font-size: 42px; }
+
+/* ---------- the browser window ---------- */
+#win { position: absolute; left: 720px; top: 96px; width: 1110px; height: 888px; border-radius: 26px; overflow: hidden; z-index: 10;
+  background: var(--bg); transform-origin: 50% 60%;
+  box-shadow: 0 44px 96px rgba(58,51,64,.18), 0 12px 30px rgba(58,51,64,.10), 0 0 0 1.5px #EADCCB; }
+body.reel #win { left: 40px; top: 490px; width: 900px; height: 1100px; }
+/* the reel draws each page at 1.3x, like a narrow window zoomed in, so words read on a phone */
+.navw { position: absolute; left: 0; top: 0; width: 100%; transform-origin: 0 0; z-index: 2; }
+body.reel .navw, body.reel .pgin { width: calc(100% / 1.3); }
+body.reel .navw { transform: scale(1.3); }
+.chrome { position: absolute; left: 0; right: 0; top: 0; height: 58px; background: #F6EDE2; border-bottom: 1.5px solid var(--outline); z-index: 3; }
+.dots { position: absolute; left: 22px; top: 22px; display: flex; gap: 9px; }
+.dots i { width: 14px; height: 14px; border-radius: 50%; background: #E2D3C2; }
+.url { position: absolute; left: 50%; top: 11px; width: 560px; margin-left: -280px; height: 36px; border-radius: 999px; background: var(--surface);
+  box-shadow: inset 0 0 0 1.5px var(--outline); display: flex; align-items: center; justify-content: center; gap: 9px; font-size: 19px; font-weight: 700; color: var(--muted); }
+body.reel .url { width: 520px; margin-left: -230px; }
+.url b { color: var(--ink); font-weight: 800; }
+.url svg { flex: none; }
+#load { position: absolute; left: 0; bottom: -1.5px; height: 3px; background: var(--brand); border-radius: 2px; }
+.vp { position: absolute; left: 0; right: 0; top: 58px; bottom: 0; overflow: hidden; background: var(--bg); }
+.pg { position: absolute; inset: 0; background: var(--bg); overflow: hidden; }
+.pgin { position: absolute; left: 0; top: 0; width: 100%; transform-origin: 0 0; }
+#winDim { position: absolute; inset: 0; background: #3A3340; opacity: 0; z-index: 4; pointer-events: none; }
+
+/* the site, drawn plainly: nav, eyebrow, title, lede, cards with a thin outline */
+.snav { position: absolute; left: 0; right: 0; top: 0; height: 60px; display: flex; align-items: center; gap: 6px; padding: 0 30px; border-bottom: 1.5px solid var(--outline); background: rgba(255,249,240,.94); z-index: 2; }
+.snav img { height: 24px; margin-right: auto; }
+.snav a { font-size: 16px; font-weight: 700; color: var(--muted); padding: 7px 12px; border-radius: 999px; }
+.snav a.on { color: var(--ink); background: #FFF3E4; }
+.snav a.cta { color: #3A3340; background: var(--brand); font-weight: 800; margin-left: 6px; }
+body.reel .snav { padding: 0 20px; }
+.wrap { padding: 88px 40px 40px; }
+body.reel .wrap { padding: 82px 22px 40px; }
+.eyebrow { display: inline-block; font-size: 15px; font-weight: 800; color: var(--ink); background: #FFE3E6; border-radius: 999px; padding: 5px 14px; margin-bottom: 12px; }
+.pg h1 { font-size: 44px; line-height: 1.08; margin: 0 0 10px; letter-spacing: -0.02em; font-weight: 800; }
+.lede { font-size: 21px; line-height: 1.42; color: var(--muted); margin: 0 0 20px; max-width: 900px; font-weight: 600; position: relative; }
+body.reel .pg h1 { font-size: 38px; }
+body.reel .lede { font-size: 19px; margin-bottom: 16px; }
+.sp { display: inline-block; font-size: 13px; font-weight: 800; padding: 2px 10px; border-radius: 999px; background: #FFF3E4; border: 1.5px solid var(--outline); color: var(--muted); white-space: nowrap; }
+.sp.coral { background: var(--brand); border-color: var(--brand); color: #3A3340; }
+.sp.tint { background: #FFE3E6; border-color: #FFE3E6; color: #3A3340; }
+.bkey { font-size: 13px; font-weight: 800; color: var(--muted); letter-spacing: .02em; white-space: nowrap; }
+.mark { position: absolute; left: -6px; top: -2px; bottom: -2px; border-radius: 8px; background: rgba(255,126,138,.24); z-index: -1; }
+
+/* board */
+.board { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; height: 566px; }
+body.reel .board { grid-template-columns: repeat(4, 300px); width: max-content; height: 560px; gap: 12px; }
+.bcol { position: relative; background: #FFF3E4; border: 1.5px solid var(--outline); border-radius: 24px; padding: 12px; display: flex; flex-direction: column; min-width: 0; }
+.bcol h2 { font-size: 19px; margin: 4px 6px 12px; font-weight: 800; }
+body.reel .bcol h2 { font-size: 21px; }
+.blist { position: relative; flex: 1; -webkit-mask-image: linear-gradient(#000 78%, transparent); }
+.btile { position: absolute; left: 0; right: 0; background: var(--surface); border: 1.5px solid var(--outline); border-radius: 18px; padding: 12px 14px; box-shadow: 0 10px 30px rgba(58,51,64,.07); }
+.btile.backlog { box-shadow: none; }
+.btile.building { border-color: var(--brand); }
+.btop { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.btop .sp { font-size: 11px; padding: 1px 8px; }
+.btile h3 { font-size: 18px; line-height: 1.28; margin: 6px 0 0; font-weight: 800; letter-spacing: -0.01em; }
+.btile p { font-size: 15px; line-height: 1.35; color: var(--muted); margin: 4px 0 0; font-weight: 600; }
+body.reel .btile h3 { font-size: 19px; }
+.bfoot { display: flex; justify-content: space-between; gap: 8px; font-size: 13px; white-space: nowrap; font-weight: 800; color: var(--accent); overflow: hidden; }
+.bfoot span:first-child { color: var(--ink); }
+#note { z-index: 6; transform-origin: 50% 50%; background: #FFF4F5; border-color: #FFB3BA; }
+#note.building { border-color: var(--brand); }
+#note .bfootw { overflow: hidden; }
+#note .bfoot { padding-top: 8px; }
+
+/* changelog */
+.build { position: relative; background: var(--surface); border: 1.5px solid var(--outline); border-radius: 24px; padding: 22px 26px; margin-bottom: 18px; box-shadow: 0 10px 30px rgba(58,51,64,.07); }
+.bhead { display: flex; align-items: baseline; gap: 12px; }
+.bhead h2 { margin: 0; font-size: 30px; font-weight: 800; letter-spacing: -0.015em; }
+.bhead .date { color: var(--muted); font-size: 17px; font-weight: 800; }
+.changes { margin: 12px 0 0; padding-left: 22px; font-size: 19px; line-height: 1.4; font-weight: 600; }
+.changes li { margin: 6px 0; position: relative; }
+.changes li .bkey { margin-left: 8px; }
+.changes a { color: var(--accent); font-weight: 800; }
+.shots { display: flex; gap: 22px; justify-content: center; align-items: flex-start; margin-top: 18px; }
+.shots img { width: 214px; border-radius: 26px; border: 5px solid var(--surface); box-shadow: 0 18px 44px rgba(58,51,64,.20), 0 0 0 1.5px var(--outline); display: block; }
+.shots img:nth-child(2) { margin-top: 44px; }
+body.reel .changes { font-size: 19px; }
+body.reel .shots img { width: 196px; }
+body.reel .shots img:nth-child(2) { margin-top: 30px; }
+
+/* timeline */
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+.stats div { background: #FFF3E4; border: 1.5px solid var(--outline); border-radius: 18px; padding: 12px 16px; }
+.stats dt { font-size: 13px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.stats dd { margin: 2px 0 0; font-size: 46px; line-height: 1.05; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+body.reel .stats { gap: 8px; }
+body.reel .stats div { padding: 10px 10px; text-align: center; }
+body.reel .stats dt { font-size: 12px; letter-spacing: 0; }
+body.reel .stats dd { font-size: 38px; }
+.grow { background: var(--surface); border: 1.5px solid var(--outline); border-radius: 26px; padding: 16px 18px 14px; box-shadow: 0 10px 30px rgba(58,51,64,.07); }
+.gtop { display: flex; align-items: baseline; justify-content: space-between; margin: 0 4px 10px; }
+#gDay { font-size: 22px; font-weight: 800; }
+.gtop span:last-child { font-size: 15px; font-weight: 800; color: var(--muted); }
+.strip { position: relative; height: 312px; overflow: hidden; border-radius: 18px; background: #FFF3E4; }
+body.reel .strip { height: 262px; }
+.stripin { position: absolute; left: 0; top: 0; height: 100%; }
+.stripin img { position: absolute; top: 12px; height: 288px; border-radius: 16px; box-shadow: 0 8px 20px rgba(58,51,64,.16), 0 0 0 1.5px rgba(58,51,64,.10); transform-origin: 50% 50%; }
+body.reel .stripin img { height: 238px; }
+.playhead { position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; margin-left: -1.5px; background: var(--brand); opacity: .0; }
+.gctl { display: flex; align-items: center; gap: 14px; margin-top: 12px; }
+.gctl .play { flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--brand); display: grid; place-items: center; font-size: 14px; font-weight: 900; color: #3A3340; letter-spacing: 1px; }
+.track { position: relative; flex: 1; height: 6px; border-radius: 3px; background: #EFE3D5; }
+.track i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--brand); border-radius: 3px; }
+.track b { position: absolute; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: #fff; box-shadow: 0 2px 6px rgba(58,51,64,.25), inset 0 0 0 1.5px var(--outline); }
+.gctl .n { flex: none; font-size: 15px; font-weight: 800; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 62px; text-align: right; }
+
+/* contribute */
+.ccard { position: relative; background: var(--surface); border: 1.5px solid var(--outline); border-radius: 26px; padding: 20px 24px; box-shadow: 0 10px 30px rgba(58,51,64,.07); }
+.ctop { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.ctop .bkey { font-size: 15px; }
+.ccard h3 { font-size: 28px; margin: 4px 0 6px; font-weight: 800; letter-spacing: -0.01em; }
+.ccard p { margin: 0; font-size: 18px; line-height: 1.42; color: var(--muted); font-weight: 600; }
+.clabel { display: block; margin: 14px 0 6px; font-size: 13px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.tests { margin: 0; padding: 10px 14px; border-radius: 12px; background: #FFF3E4; border: 1.5px solid var(--outline); font-family: "YuiMono", ui-monospace, monospace; font-size: 15px; line-height: 1.6; white-space: pre; }
+.cfoot { margin-top: 12px; display: flex; gap: 16px; font-size: 15px; font-weight: 800; color: var(--accent); }
+.pr { position: relative; margin-top: 14px; display: flex; align-items: center; gap: 14px; background: var(--surface); border: 2px solid var(--brand); border-radius: 20px; padding: 14px 18px; box-shadow: 0 10px 30px rgba(58,51,64,.08); }
+.pr .ic { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #FFE3E6; display: grid; place-items: center; }
+.pr small { display: block; font-size: 13px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.pr b { font-family: "YuiMono", ui-monospace, monospace; font-size: 19px; font-weight: 700; }
+.rule { position: relative; margin-top: 14px; font-size: 21px; font-weight: 800; padding: 12px 18px; border-radius: 16px; background: #FFF3E4; border: 1.5px solid var(--outline); }
+body.reel .ccard h3 { font-size: 27px; }
+body.reel .pr b { font-size: 17px; }
+
+/* ---------- inside the phone ---------- */
+.wav { width: 24px; height: 24px; border-radius: 7px; background: #8B7CFF; color: #fff; font-size: 14px; font-weight: 900; display: grid; place-items: center; }
+.tchip { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 999px; padding: 8px 14px; font-size: 16px; font-weight: 800; }
+.tchip span { color: var(--accent); font-variant-numeric: tabular-nums; }
+.asks { display: flex; gap: 10px; margin-top: 10px; }
+.asks .btn { flex: 1; }
+#field { position: relative; white-space: nowrap; overflow: hidden; }
+#caret { display: inline-block; width: 2px; height: 20px; background: var(--brand); margin-left: 1px; vertical-align: -4px; }
+#pulse { position: absolute; left: 12px; right: 66px; bottom: 30px; height: 54px; border-radius: 999px; box-shadow: 0 0 0 3px var(--brand); z-index: 6; opacity: 0; }
+#flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 27; }
+#dim { position: absolute; inset: 0; background: #1D1924; opacity: 0; z-index: 24; }
+#sheet { position: absolute; left: 0; right: 0; top: 62px; bottom: 0; background: var(--surface); border-radius: 16px 16px 0 0; z-index: 25; box-shadow: 0 -8px 30px rgba(0,0,0,.12); }
+.shead { position: relative; height: 56px; border-bottom: 1px solid #EFE6DA; }
+.shead .cx { position: absolute; left: 18px; top: 17px; font-size: 17px; font-weight: 600; color: var(--muted); }
+.shead .st { position: absolute; left: 0; right: 0; top: 9px; text-align: center; font-size: 17px; font-weight: 800; }
+.shead .st small { display: block; font-size: 12px; font-weight: 700; color: var(--muted); margin-top: 1px; }
+#fbSend { position: absolute; right: 12px; top: 11px; font-size: 17px; font-weight: 800; color: #3A3340; background: var(--brand); border-radius: 999px; padding: 6px 14px; }
+.sbody { display: flex; gap: 14px; padding: 18px 18px; }
+#thumb { flex: none; position: relative; width: 104px; height: 225px; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1.5px var(--outline), 0 6px 16px rgba(58,51,64,.14); background: var(--background); }
+#thumb .page { position: absolute; left: 0; top: 0; transform: scale(.2646); transform-origin: 0 0; }
+.stext { flex: 1; font-size: 18px; line-height: 1.38; font-weight: 500; color: var(--ink); }
+.stext .ph { color: #B6ACBE; }
+.kb { position: absolute; left: 0; right: 0; bottom: 0; height: 292px; background: #ECE3D7; padding: 9px 3px 0; }
+.kr { display: flex; justify-content: center; gap: 6px; margin-bottom: 11px; }
+.kr i { flex: 0 0 32.8px; height: 43px; border-radius: 6px; background: #fff; box-shadow: 0 1px 0 rgba(58,51,64,.26); font-style: normal; font-size: 21px; font-weight: 500; display: grid; place-items: center; color: #3A3340; }
+.kr i.w { flex-basis: 45px; background: #DCD1C4; font-size: 17px; }
+.kr i.sp { flex: 0 0 186px; font-size: 16px; }
+.kr i.rt { flex: 0 0 90px; font-size: 16px; background: #DCD1C4; }
+#fs { position: absolute; inset: 0; background: var(--background); z-index: 20; }
+#fsClose { position: absolute; right: 16px; top: 58px; }
+.fstitle { position: absolute; left: 0; right: 0; top: 66px; text-align: center; font-size: 17px; font-weight: 800; }
+.fsround { position: absolute; left: 0; right: 0; top: 150px; text-align: center; }
+.fsring { position: absolute; left: 50%; top: 200px; width: 270px; height: 270px; margin-left: -135px; }
+.fstime { position: absolute; left: 0; right: 0; top: 282px; text-align: center; font-size: 72px; font-weight: 800; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.fswork { position: absolute; left: 0; right: 0; top: 372px; text-align: center; font-size: 15px; font-weight: 900; letter-spacing: .14em; color: var(--accent); }
+.fsbtns { position: absolute; left: 60px; right: 60px; top: 540px; display: flex; gap: 12px; }
+.fsbtns .btn { flex: 1; }
+</style></head>
+<body><div id="stage"><div id="glow"></div>
+
+<div id="hook">
+  <div class="ctr" id="r0"><b id="n0">0</b><span>commits</span></div>
+  <div class="ctr" id="r1"><b id="n1">0</b><span>TestFlight builds</span></div>
+  <div class="ctr" id="r2"><b id="n2">0</b><span>changes shipped</span></div>
+  <div id="days"><b>4</b><em>days</em></div>
+  <div id="daysSub">Sep 23 to Sep 26</div>
+</div>
+
+<div id="win">
+  <div class="chrome"><div class="dots"><i></i><i></i><i></i></div>
+    <div class="url"><svg width="13" height="16" viewBox="0 0 13 16"><rect x="1" y="7" width="11" height="8" rx="2" fill="#8C8294"/><path d="M3.5 7V5a3 3 0 0 1 6 0v2" stroke="#8C8294" stroke-width="2" fill="none"/></svg><span>yuigui.com<b id="upath">/board</b></span></div>
+    <div id="load"></div></div>
+  <div class="vp" id="vp">
+    <div class="pg" id="pg0"><div class="pgin" id="in0"></div><div class="navw" id="nav0"></div></div>
+    <div class="pg" id="pg1"><div class="pgin" id="in1"></div><div class="navw" id="nav1"></div></div>
+    <div class="pg" id="pg2"><div class="pgin" id="in2"></div><div class="navw" id="nav2"></div></div>
+    <div class="pg" id="pg3"><div class="pgin" id="in3"></div><div class="navw" id="nav3"></div></div>
+  </div>
+  <div id="winDim"></div>
+</div>
+
+<div class="cap L" id="c1L">Yui went from first build to alpha in 4&nbsp;days.</div>
+<div class="cap R accent" id="c1R">All of it in public.</div>
+<div class="cap L" id="c2L">A note from the feedback button</div>
+<div class="cap R accent" id="c2R">becomes a card on the board.</div>
+<div class="cap L" id="c3L">An agent builds it.</div>
+<div class="cap R accent" id="c3R">You can watch it move.</div>
+<div class="cap L" id="c4L">It ships in the next build.</div>
+<div class="cap R accent" id="c4R">The log says what changed.</div>
+<div class="cap L" id="c5L">The whole history is public.</div>
+<div class="cap R accent" id="c5R">Every commit, every build.</div>
+<div class="cap L" id="c6L">Your agent can help build it.</div>
+<div class="cap R accent" id="c6R">A person reviews every change.</div>
+
+<div id="outro"><img id="owm" src="../kit/yui-wordmark-coral.png" alt="">
+  <div id="otag">Built in public.</div><div id="ourl">yuigui.com/board</div><div id="onote">Follow along: the board, the log, the builds.</div></div>
+
+<div id="ripple"></div><div id="finger"></div>
+</div>
+<script src="assets/data.js"></script>
+<script src="../kit/kit.js"></script>
+<script>
+const { REEL, clamp, prog, eo, ei, eio, back, lerp, $, show, esc } = K;
+const D = window.DATA;
+const BAR = 240 / 92, BEAT = BAR / 4, b = (n) => n * BAR;
+const WM = "../kit/yui-wordmark-coral.png";
+const Z = REEL ? 1.3 : 1; // page zoom in the reel
+
+// The facts, straight from the JSON (see data.py). The timeline page ends on today's totals, so it agrees
+// with the hook: builds from builds.json and shipped from the ship log (timeline.json was exported before
+// build 176 and the last five entries, and says 34 and 228).
+const F = D.facts;
+const FINAL = { app: F.timelineTotals.app, site: F.timelineTotals.site, builds: F.builds, shipped: F.shiplog };
+
+// ---------- the score: every time in one place ----------
+const S = {
+  // hook
+  ctr: [[0.15, 1.45], [0.5, 1.8], [0.85, 2.15]], rowsOut: 2.42, days: b(1), hookOut: 4.9,
+  // scene 2: the note
+  phone1: [5.05, 5.65], flash: 5.72, sheetUp: [5.85, 6.25], type1: [6.35, 8.8], send: b(3) + 2 * BEAT, sheetDown: [9.25, 9.6],
+  phone1Out: [9.65, 10.1], winIn: [9.95, 10.55], drop: [b(4) + BEAT, b(4) + BEAT + 0.5],
+  // scene 3: building, shipped
+  toBuild: [b(6) + BEAT, b(6) + BEAT + 0.8], toShip: [b(8), b(8) + 0.8],
+  // scene 4: the build, the log, the fix
+  nav1: [b(10) - 0.1, b(10) + 0.45], scroll: [27.0, 28.1], hl: [28.25, 28.8],
+  recede: [30.95, 31.45], phone2: [31.0, 31.6], tapField: 31.75, type2: [31.9, 32.85], fsUp: [b(12) + 3 * BEAT, b(12) + 3 * BEAT + 0.4],
+  close: b(13) + BEAT, fsDown: [b(13) + BEAT + 0.08, b(13) + BEAT + 0.48], pulse: [35.1, 35.95], phone2Out: [35.95, 36.4], restore: [36.0, 36.45],
+  // scene 5: timeline
+  nav2: [b(14) - 0.08, b(14) + 0.47], play: [37.35, 44.35], settle: [44.4, 45.0],
+  // scene 6: contribute
+  nav3: [b(18) - 0.1, b(18) + 0.45], claim: b(18) + 2.5 * BEAT, rule: b(19),
+  winOut: [51.9, 52.35], outro: b(20),
+};
+window.SCORE = S;
+const CAPS = [
+  ["c1L", 0.35, 4.85, "flank"], ["c1R", 2.95, 4.9, "flank"],
+  ["c2L", 5.75, 15.2, "stack"], ["c2R", S.drop[1] + 0.2, 15.25, "stack"],
+  ["c3L", 15.9, 25.65, "stack"], ["c3R", b(7), 25.7, "stack"],
+  ["c4L", 26.55, 36.0, "stack"], ["c4R", 28.7, 36.05, "stack"],
+  ["c5L", 37.0, 46.45, "stack"], ["c5R", 38.6, 46.5, "stack"],
+  ["c6L", 47.35, 51.8, "stack"], ["c6R", S.rule, 51.85, "stack"],
+];
+
+// ---------- the phone: Yui, the Wizard thread from the real screenshots, light ----------
+const TABATA = `<div class="tchip"><svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8" stroke="#FF7E8A" stroke-width="3" fill="none"/><path d="M12 13V9M9.5 2.5h5" stroke="#3A3340" stroke-width="2.4" stroke-linecap="round"/></svg>Tabata <span id="chipT">0:17 · 1/8</span></div>`;
+const LOG = K.user("m1", "Workout?") + K.say("m2", "Tabata time. Eight rounds, 20 on and 10 off.")
+  + K.agent("m3", TABATA)
+  + K.agent("m4", `<div class="card"><h4>Log it when you are done?</h4><div class="asks"><div class="btn lav">Yes</div><div class="btn mint">No</div></div></div>`);
+K.phone(K.chatPage({ log: LOG, head: `<span class="wav">W</span>Wizard` }));
+const chat = $("pg-chat");
+chat.querySelector(".field").id = "field";
+chat.insertAdjacentHTML("beforeend", `<div id="pulse"></div>
+  <div id="fs"><div class="hbtn" id="fsClose">${K.ICON.close("#3A3340")}</div>
+    <div class="fstitle">Tabata</div><div class="fsround"><span class="sp">Round 1 of 8</span></div>
+    <svg class="fsring" viewBox="0 0 270 270"><circle cx="135" cy="135" r="118" stroke="#F0E4D6" stroke-width="16" fill="none"/><circle id="arc" cx="135" cy="135" r="118" stroke="#FF7E8A" stroke-width="16" fill="none" stroke-linecap="round" transform="rotate(-90 135 135)" stroke-dasharray="741" stroke-dashoffset="0"/></svg>
+    <div class="fstime" id="fsT">0:17</div><div class="fswork">WORK</div>
+    <div class="fsbtns"><div class="btn lav">Pause</div><div class="btn ghost">Skip</div></div></div>
+  <div id="dim"></div>
+  <div id="sheet"><div class="shead"><span class="cx">Cancel</span><div class="st">Feedback<small>TestFlight</small></div><span id="fbSend">Send</span></div>
+    <div class="sbody"><div id="thumb"></div><div class="stext" id="fbText"></div></div><div class="kb"><div class="kr"><i>Q</i><i>W</i><i>E</i><i>R</i><i>T</i><i>Y</i><i>U</i><i>I</i><i>O</i><i>P</i></div><div class="kr"><i>A</i><i>S</i><i>D</i><i>F</i><i>G</i><i>H</i><i>J</i><i>K</i><i>L</i></div><div class="kr"><i class="w">⇧</i><i>Z</i><i>X</i><i>C</i><i>V</i><i>B</i><i>N</i><i>M</i><i class="w">⌫</i></div><div class="kr"><i class="w">123</i><i class="sp">space</i><i class="rt">return</i></div></div></div>
+  <div id="flash"></div>`);
+const QUOTE = D.note.quote;
+const DRAFT = "How long is the rest between";
+const G = [{ t: S.send, el: "fbSend" }, { t: S.tapField, el: "field" }, { t: S.close, el: "fsClose" }];
+
+// ---------- the site pages ----------
+const NAV = (on) => `<div class="snav"><img src="${WM}" alt=""><a>What it does</a><a>See it</a><a class="${on === "r" ? "on" : ""}">Roadmap</a><a class="${on === "d" ? "on" : ""}">Developers</a><a class="cta">Get Yui</a></div>`;
+const day = (iso) => new Date(iso + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+const COLS = ["backlog", "next", "building", "shipped"];
+function tile(c, col) {
+  const pills = (c.mvp ? `<span class="sp tint">MVP</span>` : "") + (c.waiting ? `<span class="sp">Waiting</span>` : "") + (c.agentReady ? `<span class="sp">Agent-ready</span>` : "");
+  const sum = c.summary && c.title.length < 24 ? `<p>${esc(c.summary)}</p>` : "";
+  const foot = c.shipped ? `<div class="bfoot" style="margin-top:8px"><span>Shipped ${day(c.shipped)}</span><span>Read the log</span></div>` : "";
+  return `<div class="btile ${col}"><div class="btop"><span class="bkey">${c.key}${c.step ? " · " + c.step : ""}</span>${pills}</div><h3>${esc(c.title)}</h3>${sum}${foot}</div>`;
+}
+$("nav0").innerHTML = NAV("r"); $("in0").innerHTML = `<div class="wrap"><div class="eyebrow">Board | live from our kanban</div><h1>What we are building, right now.</h1>
+  <p class="lede"><span id="ledeHL" style="position:relative;z-index:0"><span class="mark" id="ledeMark"></span>Agents pick cards up and move them along;</span> this page follows on its own.</p>
+  <div class="board" id="board">${COLS.map((k) => `<section class="bcol ${k}"><h2>${D.board[k].title}</h2><div class="blist" id="list-${k}">${D.board[k].cards.map((c) => tile(c, k)).join("")}</div></section>`).join("")}
+  <div class="btile" id="note"><div class="btop"><span class="bkey">Feedback</span></div><h3>${esc(D.note.title)}</h3><p>From the feedback button</p>
+    <div class="bfootw" id="noteFootW"><div class="bfoot" id="noteFoot"><span>Shipped ${day(D.note.date)}</span><span>Read the log</span></div></div></div>
+  </div></div>`;
+
+const VERSION = { 176: "0.3.2", 160: "0.3.1" };
+function buildCard(bd, id, max, extra = "") {
+  const items = bd.changes.filter((c) => !/^DrawerTests/.test(c.text)).slice(0, max).map((c, i) => {
+    if (id === "b160" && i === 0) return `<li id="hlLine" style="z-index:0"><span class="mark" id="logMark"></span><a>${esc(D.note.title)}</a><span class="bkey">Feedback</span></li>`;
+    const text = c.text.replace(/\s*\((?:[A-Z]+-\d+[^)]*|yuigui [^)]*)\)/g, "");
+    return c.key ? `<li><a>${esc(text)}</a><span class="bkey">${c.key}</span></li>` : `<li>${esc(text)}</li>`;
+  }).join("");
+  const v = VERSION[bd.build] ? `<span class="sp tint">Yui ${VERSION[bd.build]}</span>` : "";
+  return `<div class="build" id="${id}"><div class="bhead"><h2>Build ${bd.build}</h2><span class="date">${day(bd.date)}</span>${v}</div><ul class="changes">${items}</ul>${extra}</div>`;
+}
+const [B176, B160, B155] = D.builds;
+// build 160's change list: the draft fix first, as the ship log tells it (see the report)
+const b160 = { ...B160, changes: [B160.changes[0], ...B160.changes.slice(1).map((c) => ({ ...c, text: c.text.replace(/: the plugin redraws.*$/, "") }))] };
+$("nav1").innerHTML = NAV("r"); $("in1").innerHTML = `<div class="wrap"><div class="eyebrow">Builds</div><h1>Every build, and what it changed.</h1>
+  <p class="lede">Each TestFlight build of the Yui app, newest first, with the screens it brought.</p>
+  ${buildCard(B176, "b176", 6)}
+  ${buildCard(b160, "b160", 5, `<div class="shots">${D.note.shots.map((s) => `<img src="${s}" alt="">`).join("")}</div>`)}
+  ${buildCard(B155, "b155", 4)}</div>`;
+
+$("nav2").innerHTML = NAV("r"); $("in2").innerHTML = `<div class="wrap"><div class="eyebrow">Timeline</div><h1>Watch Yui grow.</h1>
+  <p class="lede">Yui is built in public, so its whole history is on GitHub.</p>
+  <dl class="stats"><div><dt>App commits</dt><dd id="sApp">0</dd></div><div><dt>Site commits</dt><dd id="sSite">0</dd></div><div><dt>Builds</dt><dd id="sBuilds">0</dd></div><div><dt>Shipped</dt><dd id="sShip">0</dd></div></dl>
+  <div class="grow"><div class="gtop"><span id="gDay"></span><span>Every shipped change, oldest first</span></div>
+    <div class="strip" id="strip"><div class="stripin" id="stripIn">${D.strip.map((f, i) => `<img id="f${i}" src="${f.src}" alt="">`).join("")}</div><div class="playhead"></div></div>
+    <div class="gctl"><div class="play">❚❚</div><div class="track"><i id="gFill"></i><b id="gThumb"></b></div></div></div></div>`;
+
+const O = D.oss8;
+$("nav3").innerHTML = NAV("d"); $("in3").innerHTML = `<div class="wrap"><div class="eyebrow">Developers | Contribute with your agent</div><h1>Lend your agent to Yui.</h1>
+  <p class="lede">If your Claude, ChatGPT Codex or other AI plan has tokens left over each week, your agent can spend them building Yui: pick a card off the backlog, build it, open a pull request.</p>
+  <div class="ccard"><div class="ctop"><span class="bkey">${O.key}</span><span class="sp" id="ostat">Open</span><span class="sp">Size ${O.size}</span><span class="sp">Agent-ready</span></div>
+    <h3>${esc(O.title)}</h3><p>A Yui Lines parser in Go at parsers/go, a line by line port of the reference parser, with no dependencies outside the standard library.</p>
+    <span class="clabel">Tests</span><div class="tests">${O.test.map(esc).join("\n")}</div>
+    <div class="cfoot"><span>Read the brief</span><span>The spec</span><span id="oclaim">Claimed ${day(O.claim.since)}, pull request</span></div></div>
+  <div class="pr" id="pr"><div class="ic"><svg width="22" height="22" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2.6" stroke="#C23B4F" stroke-width="2.2" fill="none"/><circle cx="6" cy="19" r="2.6" stroke="#C23B4F" stroke-width="2.2" fill="none"/><circle cx="18" cy="19" r="2.6" stroke="#C23B4F" stroke-width="2.2" fill="none"/><path d="M6 7.6v8.8M18 16.4V10a3 3 0 0 0-3-3h-3" stroke="#C23B4F" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg></div>
+    <div><small>Draft pull request, the claim</small><b>[${O.key}] ${esc(O.title)}</b></div></div>
+  <div class="rule" id="rule" style="z-index:0"><span class="mark" id="ruleMark" style="left:0;top:0;bottom:0;border-radius:16px"></span>A person reviews every pull request. Nothing merges on its own.</div></div>`;
+const PATHS = ["/board", "/changelog", "/timeline", "/contribute"];
+
+// ---------- measured once, after fonts load (layout never changes after this) ----------
+const M = {};
+function measureAll() {
+  K.measure(["m1", "m2", "m3", "m4"]);
+  for (const id of ["m1", "m2", "m3", "m4"]) K.setMsg(id, 1, id === "m1" ? 0 : 12, false);
+  // the screenshot thumbnail in the feedback sheet: a still copy of the thread
+  const cl = chat.cloneNode(true);
+  cl.removeAttribute("id");
+  cl.querySelectorAll("[id]").forEach((e) => e.removeAttribute("id"));
+  [...cl.children].slice(-5).forEach((e) => e.remove()); // pulse, fs, dim, sheet, flash
+  cl.prepend(document.querySelector(".sbar").cloneNode(true));
+  $("thumb").appendChild(cl);
+
+  // board: tile heights, and each column's list origin inside the board
+  M.gap = 10;
+  M.cols = {};
+  for (const k of COLS) {
+    const list = $("list-" + k), col = list.parentElement;
+    const tiles = [...list.children], hs = tiles.map((e) => e.offsetHeight);
+    let y = 0; tiles.forEach((e, i) => { e.dataset.y = y; y += hs[i] + M.gap; });
+    M.cols[k] = { x: col.offsetLeft + list.offsetLeft, y: col.offsetTop + list.offsetTop, w: list.offsetWidth, cx: col.offsetLeft, tiles };
+  }
+  const note = $("note");
+  note.style.width = `${M.cols.next.w}px`;
+  $("noteFootW").style.height = "auto";
+  M.noteFull = note.offsetHeight;
+  $("noteFootW").style.height = "0px";
+  M.noteH = note.offsetHeight;
+  M.footH = M.noteFull - M.noteH;
+  // changelog: scroll so build 160 sits under the nav
+  M.scroll160 = $("b160").offsetTop - 78;
+  // timeline strip
+  const SH = REEL ? 238 : 288;
+  let x = 0;
+  M.strip = D.strip.map((f, i) => { const w = (f.w / f.h) * SH; const o = { x, w }; $("f" + i).style.left = `${x}px`; x += w + 16; return o; });
+  M.stripW = $("strip").clientWidth;
+  // captions: L above R in the left column (landscape) or above the screen (reel)
+  for (let i = 0; i < CAPS.length; i += 2) {
+    const [l, , , kind] = CAPS[i], r = CAPS[i + 1][0];
+    const L = $(l), R = $(r);
+    for (const e of [L, R]) { e.style.display = "block"; e.style.visibility = "hidden"; }
+    if (REEL) {
+      L.style.top = "292px";
+      R.style.top = `${292 + L.offsetHeight + 4}px`;
+    } else if (kind === "stack") {
+      L.style.left = R.style.left = "110px";
+      const gap = 22, tot = L.offsetHeight + gap + R.offsetHeight, top = 540 - tot / 2;
+      L.style.top = `${top + L.offsetHeight / 2}px`;
+      R.style.top = `${top + L.offsetHeight + gap + R.offsetHeight / 2}px`;
+    }
+    M[l] = L.offsetHeight; M[r] = R.offsetHeight;
+  }
+}
+
+// ---------- the board: tiles make room, the note travels ----------
+function slot(col) { const c = M.cols[col]; return { x: c.x, y: c.y }; }
+function board(t) {
+  const occ = {
+    next: eo(prog(t, ...S.drop)) * (1 - eio(prog(t, ...S.toBuild))),
+    building: eio(prog(t, ...S.toBuild)) * (1 - eio(prog(t, ...S.toShip))),
+    shipped: eio(prog(t, ...S.toShip)),
+    backlog: 0,
+  };
+  const foot = eo(prog(t, S.toShip[1] - 0.25, S.toShip[1] + 0.2));
+  const h = M.noteH + M.footH * foot;
+  for (const k of COLS) {
+    const off = (k === "shipped" ? h : M.noteH) + M.gap;
+    for (const e of M.cols[k].tiles) e.style.top = `${+e.dataset.y + off * occ[k]}px`;
+  }
+  const note = $("note");
+  const dropP = prog(t, ...S.drop);
+  show(note, dropP > 0);
+  let from = "next", to = "next", p = 0;
+  if (t >= S.toShip[0]) { from = "building"; to = "shipped"; p = eio(prog(t, ...S.toShip)); }
+  else if (t >= S.toBuild[0]) { from = "next"; to = "building"; p = eio(prog(t, ...S.toBuild)); }
+  const a = slot(from), c = slot(to);
+  let x = lerp(a.x, c.x, p), y = lerp(a.y, c.y, p);
+  const lift = Math.sin(Math.PI * p);
+  y -= lift * 26 + (1 - back(dropP)) * 70;
+  note.style.left = `${x}px`; note.style.top = `${y}px`;
+  note.style.opacity = clamp(dropP * 2.2);
+  note.style.transform = `rotate(${lift * 2.2}deg) scale(${1 + 0.05 * lift})`;
+  note.classList.toggle("building", t >= S.toBuild[0] + 0.5 && t < S.toShip[0] + 0.4);
+  const glow = Math.max(Math.sin(Math.PI * prog(t, S.drop[1] - 0.1, S.drop[1] + 1.1)), 0);
+  note.style.boxShadow = `0 ${10 + 24 * lift}px ${30 + 30 * lift}px rgba(58,51,64,${0.08 + 0.14 * lift}), 0 0 0 ${5 * glow}px rgba(255,126,138,${0.45 * glow})`;
+  $("noteFootW").style.height = `${M.footH * foot}px`;
+  $("noteFoot").style.opacity = foot;
+  // "Agents pick cards up and move them along" gets a coral sweep as the card moves
+  const lm = eio(prog(t, 15.95, 16.7)); $("ledeMark").style.width = `calc(${lm} * (100% + 12px))`;
+  $("ledeMark").style.opacity = lm > 0 ? 1 - prog(t, 24.8, 25.6) : 0;
+}
+
+// ---------- timeline player ----------
+function timeline(t) {
+  const n = D.strip.length;
+  const p = prog(t, ...S.play);
+  const q = (n - 1) * (p < 1 ? (0.5 - 0.5 * Math.cos(Math.PI * p)) * 0.92 + p * 0.08 : 1);
+  const k = Math.min(n - 2, Math.floor(q)), fr = q - k;
+  const A = D.strip[k].totals, B = D.strip[k + 1].totals;
+  const val = (key) => lerp(A[key], B[key], fr);
+  const st = eio(prog(t, ...S.settle));
+  const last = D.strip[n - 1].totals;
+  const shown = (key) => Math.round(st > 0 ? lerp(last[key], FINAL[key], st) : val(key));
+  const on = t > S.play[0] - 0.4;
+  $("sApp").textContent = on ? shown("app") : 0;
+  $("sSite").textContent = on ? shown("site") : 0;
+  $("sBuilds").textContent = on ? shown("builds") : 0;
+  $("sShip").textContent = on ? shown("shipped") : 0;
+  const cur = D.strip[Math.round(q)];
+  $("gDay").textContent = cur.day;
+  const fk = M.strip[k], fk1 = M.strip[k + 1];
+  const cx = lerp(fk.x + fk.w / 2, fk1.x + fk1.w / 2, fr);
+  const tot = M.strip[n - 1].x + M.strip[n - 1].w + 16;
+  $("stripIn").style.transform = `translateX(${clamp(M.stripW / 2 - cx, M.stripW - tot, 16)}px)`;
+  for (let i = 0; i < n; i++) {
+    const d = Math.abs(i - q);
+    const e = $("f" + i);
+    e.style.transform = `scale(${1 - 0.1 * clamp(d)})`;
+    e.style.opacity = 1 - 0.18 * clamp(d);
+  }
+  const frac = st > 0 ? 1 : cur.n / D.frames;
+  $("gFill").style.width = `${frac * 100}%`;
+  $("gThumb").style.left = `${frac * 100}%`;
+}
+
+// ---------- render ----------
+function render(t) {
+  // ----- hook -----
+  const hookOn = t < 5.3;
+  show("hook", hookOn);
+  if (hookOn) {
+    const targets = [F.commits, F.builds, F.shiplog];
+    S.ctr.forEach(([a, z], i) => {
+      const row = $("r" + i), p = prog(t, a, z);
+      $("n" + i).textContent = Math.round(targets[i] * eo(p));
+      const inn = eo(prog(t, a, a + 0.35)), out = ei(prog(t, S.rowsOut + i * 0.06, S.rowsOut + 0.3 + i * 0.06));
+      row.style.opacity = inn * (1 - out);
+      row.style.transform = `translateY(${(1 - inn) * 40 - out * 60}px)`;
+    });
+    const dp = prog(t, S.days, S.days + 0.5), dout = ei(prog(t, S.hookOut, S.hookOut + 0.3));
+    $("days").style.opacity = clamp(dp * 3) * (1 - dout);
+    $("days").style.transform = `translateY(-50%) scale(${(0.55 + 0.45 * back(dp)) * (1 - 0.1 * dout)})`;
+    K.textIO("daysSub", t, S.days + 0.45, S.hookOut - 0.05, 20);
+  }
+
+  // ----- the browser -----
+  const wIn = eo(prog(t, ...S.winIn)), wOut = ei(prog(t, ...S.winOut));
+  const winOn = t > S.winIn[0] && t < S.winOut[1];
+  show("win", winOn);
+  if (winOn) {
+    const rec = eio(prog(t, ...S.recede)) * (1 - eio(prog(t, ...S.restore)));
+    $("win").style.transform = `translateY(${(1 - wIn) * 1100 + wOut * 1150}px) scale(${1 - 0.06 * rec})`;
+    $("win").style.opacity = clamp(wIn * 2) * (1 - clamp(prog(t, S.winOut[1] - 0.15, S.winOut[1])));
+    $("winDim").style.opacity = 0.32 * rec;
+    const v = K.pageAt(t, [[...S.nav1, 0, 1], [...S.nav2, 1, 2], [...S.nav3, 2, 3]]);
+    const W = $("vp").clientWidth, H = $("vp").clientHeight;
+    for (let i = 0; i < 4; i++) {
+      const on = Math.abs(v - i) < 1;
+      show("pg" + i, on);
+      if (on) $("pg" + i).style.transform = `translateX(${(i - v) * 104}%)`;
+    }
+    const navs = [S.nav1, S.nav2, S.nav3];
+    let page = 0; navs.forEach((n, i) => { if (t >= n[0]) page = i + 1; });
+    $("upath").textContent = PATHS[page];
+    const lp = navs.map((n) => prog(t, n[0], n[1] + 0.1)).find((p) => p > 0 && p < 1);
+    $("load").style.width = lp ? `${eo(lp) * 100}%` : "0";
+    $("load").style.opacity = lp ? 1 - prog(lp, 0.85, 1) : 0;
+
+    if (Math.abs(v) < 1) {
+      board(t);
+      if (REEL) {
+        // the board scrolls sideways, like the site on a phone: Up next and Building, then Building and Shipped
+        const pan = eio(prog(t, S.toShip[0] - 0.35, S.toShip[1] + 0.15));
+        $("board").style.transform = `translateX(${-lerp(M.cols.next.cx, M.cols.building.cx, pan)}px)`;
+        $("in0").style.transform = `scale(${Z})`;
+      } else {
+        // a slow push toward the middle of the board, about a fixed point, so nothing jumps
+        const s1 = 1 + 0.03 * eio(prog(t, S.drop[0], 25.8)), fx = W / 2, fy = $("board").offsetTop + 200;
+        $("in0").style.transform = `translate(${fx * (1 - s1)}px, ${fy * (1 - s1)}px) scale(${s1})`;
+      }
+    }
+    if (Math.abs(v - 1) < 1) {
+      const sc = eio(prog(t, ...S.scroll)) * M.scroll160;
+      $("in1").style.transform = `translateY(${-sc * Z}px) scale(${Z})`;
+      const hm = eio(prog(t, ...S.hl)); $("logMark").style.width = `calc(${hm} * (100% + 12px))`; $("logMark").style.opacity = hm > 0 ? 1 : 0;
+    }
+    if (Math.abs(v - 2) < 1) { timeline(t); $("in2").style.transform = `scale(${Z})`; }
+    if (Math.abs(v - 3) < 1) {
+      const c = t >= S.claim;
+      $("ostat").textContent = c ? "Claimed" : "Open";
+      $("ostat").className = c ? "sp coral" : "sp";
+      $("oclaim").style.opacity = clamp(prog(t, S.claim, S.claim + 0.3));
+      const pr = eo(prog(t, S.claim + 0.05, S.claim + 0.45));
+      $("pr").style.opacity = pr; $("pr").style.transform = `translateY(${(1 - pr) * 24}px) scale(${0.96 + 0.04 * back(clamp(pr))})`;
+      const rm = eio(prog(t, S.rule, S.rule + 0.5)); $("ruleMark").style.width = `${rm * 100}%`; $("ruleMark").style.opacity = rm > 0 ? 1 : 0;
+      const cam = eio(prog(t, S.claim - 0.2, S.claim + 0.5));
+      $("in3").style.transform = `translateY(${-cam * (REEL ? 150 : 0) * Z}px) scale(${Z})`;
+    }
+  }
+
+  // ----- the phone -----
+  const ph1 = t < 20, P = ph1 ? [S.phone1, S.phone1Out] : [S.phone2, S.phone2Out];
+  const pin = eo(prog(t, ...P[0])), pout = ei(prog(t, ...P[1]));
+  const phoneOn = t > P[0][0] && t < P[1][1];
+  const cam = { s: REEL ? 1.2 : 1.08, y: 0, r: 0 };
+  K.placePhone(t, cam, { dx: REEL ? -50 : 315, dy: (REEL ? -38 : 0) + (1 - pin) * 1150 + pout * 1150, opacity: phoneOn ? 1 : 0 });
+  if (phoneOn) {
+    // feedback sheet (scene 2)
+    const fl = prog(t, S.flash, S.flash + 0.28);
+    $("flash").style.opacity = ph1 && fl > 0 && fl < 1 ? 0.85 * (1 - fl) : 0;
+    const su = eo(prog(t, ...S.sheetUp)) * (1 - ei(prog(t, ...S.sheetDown)));
+    show("sheet", ph1 && su > 0.001);
+    $("sheet").style.transform = `translateY(${(1 - su) * 100}%)`;
+    $("dim").style.opacity = ph1 ? 0.38 * su : 0;
+    const n1 = Math.round(QUOTE.length * prog(t, ...S.type1));
+    const blink = Math.floor(t * 2.2) % 2 === 0 || (t > S.type1[0] && t < S.type1[1]);
+    $("fbText").innerHTML = n1 ? esc(QUOTE.slice(0, n1)) + (blink && t < S.send ? `<span id="caret"></span>` : "") : `<span class="ph">Comments</span>`;
+    $("fbSend").style.opacity = n1 ? 1 : 0.45;
+    $("fbSend").style.filter = t >= S.send && t < S.send + 0.2 ? "brightness(.88)" : "none";
+    // the draft (scene 4): typed, a full screen takes over, it closes, the words are still there
+    const n2 = ph1 ? 0 : Math.round(DRAFT.length * prog(t, ...S.type2));
+    const field = $("field");
+    field.style.color = n2 ? "var(--ink)" : "";
+    const typing = !ph1 && t > S.tapField && t < S.fsUp[0];
+    field.innerHTML = n2 ? esc(DRAFT.slice(0, n2)) + (typing && (Math.floor(t * 2.2) % 2 === 0 || t < S.type2[1]) ? `<span id="caret"></span>` : "") : "Say something nice";
+    const fs = ph1 ? 0 : eo(prog(t, ...S.fsUp)) * (1 - eio(prog(t, ...S.fsDown)));
+    show("fs", fs > 0.001);
+    $("fs").style.transform = `translateY(${(1 - fs) * 100}%)`;
+    const secs = Math.max(0, 17 - Math.floor(Math.max(0, t - S.fsUp[0]) / 1));
+    $("fsT").textContent = `0:${String(secs).padStart(2, "0")}`;
+    $("arc").setAttribute("stroke-dashoffset", String(741 * (1 - (secs - (t - S.fsUp[0]) % 1) / 20)));
+    const pu = prog(t, ...S.pulse);
+    $("pulse").style.opacity = !ph1 && pu > 0 && pu < 1 ? Math.sin(Math.PI * pu) : 0;
+    $("pulse").style.transform = `scale(${1 + 0.03 * Math.sin(Math.PI * pu)})`;
+  }
+
+  // ----- captions, outro, finger -----
+  K.caps(t, CAPS.map(([id, a, z]) => [id, a, z]));
+  K.outro(t, S.outro);
+  K.finger(t, G, !phoneOn);
+}
+
+window.ready = K.ready(() => { measureAll(); render(0); });
+window.render = render;
+window.DURATION = 60;
+window.POSTER = 14.8;
+</script></body></html>

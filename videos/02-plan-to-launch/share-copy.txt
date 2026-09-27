@@ -1,0 +1,1 @@
+You asked your agent to plan your website and got 14 questions in one paragraph. Yui turns that into a screen: one question at a time, a tap to answer, one Send, and your agent has the plan. Bring your own agent. The public beta is on TestFlight: yuigui.com

@@ -1,0 +1,744 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Yui brag v2</title>
+<style>
+@font-face { font-family: "YuiRounded"; src: url("file:///System/Library/Fonts/SFNSRounded.ttf"); font-weight: 100 1000; }
+@font-face { font-family: "YuiMono"; src: url("file:///System/Library/Fonts/SFNSMono.ttf"); font-weight: 100 1000; }
+
+/* Three colors on purpose: cream, ink, coral. App UI keeps its own real colors. */
+:root {
+  --background: #FFF9F0; --surface: #FFFFFF; --ink: #3A3340; --muted: #8C8294; --outline: #F0E4D6;
+  --brand: #FF7E8A; --link: #C23B4F; --lavender: #D9CCF7; --mint: #BDEBD6; --butter: #FFE8A3; --user-bubble: #FFA8B0;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: var(--background); }
+#stage { position: relative; width: 1080px; height: 1920px; overflow: hidden; font-family: "YuiRounded", system-ui; color: var(--ink); background: var(--background); -webkit-font-smoothing: antialiased; }
+#glow { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: radial-gradient(900px 1300px at 50% 55%, #FFE6E9 0%, rgba(255,230,233,0) 70%); }
+
+/* captions flank the phone */
+.cap { position: absolute; top: 240px; width: 940px; text-align: center; font-weight: 800; font-size: 68px; line-height: 1.08; letter-spacing: -0.02em; will-change: transform, opacity; }
+.cap.L { left: 70px; }
+.cap.R { left: 70px; }
+.accent { color: var(--link); }
+.dot { color: var(--brand); }
+
+/* phone */
+#phoneClip { position: absolute; inset: 0; -webkit-mask-image: linear-gradient(transparent 0, transparent 480px, #000 560px); }
+#phoneWrap { position: absolute; left: 331.5px; top: 642px; width: 417px; height: 876px; transform-origin: 50% 50%; }
+.phone { position: absolute; inset: 0; border-radius: 67px; background: #1D1924; padding: 12px; box-shadow: 0 50px 100px rgba(58,51,64,.20), 0 12px 32px rgba(58,51,64,.12), inset 0 0 0 2px #3A3340; }
+.screen { position: relative; width: 393px; height: 852px; border-radius: 55px; overflow: hidden; background: var(--background); }
+.island { position: absolute; left: 50%; top: 11px; width: 122px; height: 35px; margin-left: -61px; border-radius: 20px; background: #000; z-index: 20; }
+.sbar { position: absolute; left: 0; right: 0; top: 0; height: 54px; z-index: 19; }
+.sbar .time { position: absolute; left: 48px; top: 16px; font-weight: 700; font-size: 17px; }
+.sbar svg { position: absolute; top: 19px; }
+.apphead { position: absolute; left: 0; right: 0; top: 54px; height: 60px; z-index: 4; background: linear-gradient(var(--background) 70%, rgba(255,249,240,0)); }
+.hbtn { position: absolute; top: 4px; width: 44px; height: 44px; border-radius: 50%; background: #F6EDE2; box-shadow: 0 1px 2px rgba(58,51,64,.08), inset 0 0 0 1px #EFE3D5; display: grid; place-items: center; }
+.hbtn svg { width: 22px; height: 22px; }
+#hwm { position: absolute; left: 50%; top: 13px; height: 25px; transform: translateX(-50%); }
+.chat { position: absolute; left: 0; right: 0; top: 104px; bottom: 86px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent 0, #000 22px); }
+.log { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 14px 10px; }
+.msg > .in { transform-origin: 50% 100%; }
+.urow { display: flex; justify-content: flex-end; }
+.ububble { max-width: 300px; background: var(--user-bubble); border-radius: 22px 22px 8px 22px; padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: 500; white-space: pre-line; }
+.arow { display: flex; align-items: flex-start; gap: 9px; }
+.avatar { flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); display: grid; place-items: center; margin-top: 2px; }
+.abubble { max-width: 300px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 22px 22px 22px 8px; padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: 500; }
+.essay { font-size: 15px; line-height: 1.36; }
+.essay p { margin: 0 0 6px; }
+.card { width: 306px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 26px; padding: 16px; }
+.card h4 { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: -0.01em; }
+.muted { color: var(--muted); }
+.btn { height: 46px; border-radius: 999px; display: grid; place-items: center; font-size: 17px; font-weight: 800; }
+.btn.coral { background: var(--brand); }
+.btn.mint { background: var(--mint); }
+.btn.lav { background: var(--lavender); }
+.btn.ghost { background: #F4ECE2; color: var(--muted); }
+.inputbar { position: absolute; left: 16px; right: 16px; bottom: 34px; height: 46px; display: flex; gap: 10px; }
+.inputbar .field { flex: 1; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); padding: 0 18px; display: flex; align-items: center; font-size: 17px; color: #B6ACBE; }
+.inputbar .send { width: 46px; height: 46px; border-radius: 50%; background: #F3E9DD; display: grid; place-items: center; }
+.homeind { position: absolute; left: 50%; bottom: 9px; width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; background: var(--ink); z-index: 21; }
+
+/* plan chip, project card */
+.chipcard { display: flex; align-items: center; gap: 10px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 18px; padding: 10px 14px; width: 260px; }
+.check { width: 26px; height: 26px; border-radius: 50%; background: var(--brand); display: grid; place-items: center; flex: 0 0 26px; }
+.pill { display: inline-block; border-radius: 999px; padding: 3px 10px; font-size: 13px; font-weight: 800; }
+.prog { height: 6px; border-radius: 3px; background: #EFE5D8; margin: 12px 0 10px; overflow: hidden; }
+.prog i { display: block; height: 100%; width: 40%; background: var(--brand); border-radius: 3px; }
+.fact { display: flex; justify-content: space-between; font-size: 14.5px; padding: 3px 0; }
+.fact b { font-weight: 700; }
+
+/* gallery pick */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 10px 0 12px; }
+.tile { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background-size: cover; background-position: center; }
+.tile .ring { position: absolute; right: 6px; top: 6px; width: 24px; height: 24px; border-radius: 50%; box-shadow: inset 0 0 0 2px #fff; background: rgba(0,0,0,.12); display: grid; place-items: center; font-size: 13px; font-weight: 800; }
+.tile .ring.on { background: var(--brand); box-shadow: inset 0 0 0 2px #fff; }
+.tile .sel { position: absolute; inset: 0; border-radius: 12px; box-shadow: inset 0 0 0 3px var(--brand); }
+
+/* compare */
+.cmp { position: relative; width: 274px; height: 171px; border-radius: 12px; overflow: hidden; margin: 10px 0 10px; }
+.cmp .img { position: absolute; inset: 0; background-size: cover; background-position: center; }
+.cmp .lbl { position: absolute; top: 7px; font-size: 11px; font-weight: 800; background: rgba(58,51,64,.72); color: #fff; border-radius: 999px; padding: 2px 8px; }
+.hl { position: absolute; border: 2px solid var(--brand); border-radius: 5px; }
+.hl b { position: absolute; left: -9px; top: -9px; width: 18px; height: 18px; border-radius: 50%; background: var(--brand); font-size: 11px; display: grid; place-items: center; }
+.handle { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: #fff; }
+.handle i { position: absolute; left: 50%; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.25); display: grid; place-items: center; }
+.seg { display: flex; background: #F4ECE2; border-radius: 999px; padding: 3px; font-size: 13px; font-weight: 700; }
+.seg span { flex: 1; text-align: center; padding: 5px 0; border-radius: 999px; color: var(--muted); }
+.seg span.on { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(58,51,64,.12); }
+.note { display: flex; gap: 8px; align-items: center; font-size: 14.5px; font-weight: 600; margin-top: 8px; }
+.num { width: 20px; height: 20px; border-radius: 50%; background: var(--brand); font-size: 12px; font-weight: 800; display: grid; place-items: center; flex: 0 0 20px; }
+
+/* storyboard */
+.sbrow { display: flex; align-items: center; gap: 10px; height: 88px; }
+.sbn { width: 16px; font-size: 18px; font-weight: 800; color: var(--link); }
+.sbimg { width: 60px; height: 76px; border-radius: 10px; background-size: cover; background-position: center; flex: 0 0 60px; }
+.sbtxt { flex: 1; font-size: 15px; font-weight: 700; line-height: 1.2; }
+.sbtxt small { display: block; font-size: 13px; color: var(--link); font-weight: 700; margin-top: 4px; }
+.arrows { display: flex; flex-direction: column; gap: 6px; }
+.arrows i { width: 28px; height: 28px; border-radius: 50%; background: #F4ECE2; display: grid; place-items: center; }
+
+/* timeline */
+.tl { position: relative; margin-top: 8px; }
+.tlrow { position: relative; display: flex; align-items: center; height: 44px; gap: 8px; background: #fff; border-radius: 12px; }
+.tlrow .at { width: 42px; font-size: 12px; color: var(--muted); font-weight: 700; }
+.tlrow .ic { width: 18px; height: 18px; border-radius: 50%; flex: 0 0 18px; display: grid; place-items: center; }
+.ic.done { background: var(--brand); }
+.ic.now { background: #fff; box-shadow: inset 0 0 0 5px var(--brand); }
+.ic.next { background: #fff; box-shadow: inset 0 0 0 2px #CFC4D6; }
+.tlrow .tx { flex: 1; font-size: 15px; font-weight: 700; line-height: 1.15; }
+.tlrow .tx small { display: block; font-size: 12px; font-weight: 600; color: var(--muted); }
+.tlrow.nowrow { background: #FFF0F1; }
+.grip { width: 30px; height: 30px; display: grid; place-items: center; }
+.nowline { display: flex; align-items: center; gap: 8px; height: 22px; font-size: 11px; font-weight: 800; color: var(--link); letter-spacing: .08em; }
+.nowline i { flex: 1; height: 2px; background: var(--brand); border-radius: 1px; }
+.editbtn { font-size: 13px; font-weight: 800; border-radius: 999px; padding: 6px 12px; box-shadow: inset 0 0 0 1.5px var(--outline); }
+
+/* the plan, full screen */
+.plan { position: absolute; inset: 0; background: var(--background); z-index: 12; }
+.grab { position: absolute; left: 50%; top: 58px; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: #DDD2C6; }
+.pchip { position: absolute; left: 50%; top: 72px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; font-size: 16px; font-weight: 800; }
+.px { position: absolute; right: 16px; top: 66px; width: 38px; height: 38px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); display: grid; place-items: center; }
+.ptitle { position: absolute; left: 20px; top: 118px; font-size: 21px; font-weight: 800; }
+.pstep { position: absolute; left: 20px; top: 146px; font-size: 13px; font-weight: 700; color: var(--muted); }
+.pbar { position: absolute; left: 20px; right: 20px; top: 170px; height: 5px; border-radius: 3px; background: #EDE3D8; overflow: hidden; }
+.pbar i { display: block; height: 100%; background: var(--brand); border-radius: 3px; }
+.pbody { position: absolute; left: 0; right: 0; top: 186px; bottom: 110px; overflow: hidden; }
+.pane { position: absolute; left: 20px; right: 20px; top: 0; bottom: 0; display: flex; flex-direction: column; justify-content: center; }
+.q { font-size: 24px; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 18px; }
+.opts { display: flex; flex-wrap: wrap; gap: 10px; }
+.opt { position: relative; background: #fff; box-shadow: inset 0 0 0 1.5px #E6DACC; border-radius: 999px; padding: 12px 18px; font-size: 17px; font-weight: 700; }
+.opt.on { background: var(--brand); box-shadow: inset 0 0 0 1.5px var(--brand); }
+.slval { font-size: 44px; font-weight: 800; margin-bottom: 14px; }
+.sltrack { position: relative; height: 6px; border-radius: 3px; background: #E6DACC; margin: 14px 0; }
+.sltrack i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--brand); border-radius: 3px; }
+.slthumb { position: absolute; top: 50%; width: 32px; height: 32px; margin: -16px 0 0 -16px; border-radius: 50%; background: #fff; box-shadow: 0 2px 8px rgba(58,51,64,.25), inset 0 0 0 1px #EEE; }
+.slminmax { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; color: var(--muted); }
+.asks { display: flex; gap: 10px; }
+.asks .btn { flex: 1; height: 54px; font-size: 18px; }
+.rv { background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 20px; padding: 4px 16px; }
+.rvrow { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 1.5px solid #F4ECE2; }
+.rvrow:last-child { border-bottom: 0; }
+.rvrow small { display: block; font-size: 11px; font-weight: 800; letter-spacing: .05em; color: var(--muted); margin-bottom: 3px; }
+.rvrow b { font-size: 16px; font-weight: 700; }
+.rvrow em { font-style: normal; font-size: 14px; font-weight: 800; color: var(--link); }
+.pfoot { position: absolute; left: 20px; right: 20px; bottom: 42px; display: flex; gap: 12px; }
+.pfoot .btn { flex: 1; height: 54px; font-size: 18px; }
+
+/* finger */
+#finger { position: absolute; left: 0; top: 0; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: rgba(58,51,64,.28); box-shadow: 0 0 0 3px rgba(255,255,255,.95), 0 8px 22px rgba(58,51,64,.28); z-index: 50; pointer-events: none; }
+#ripple { position: absolute; left: 0; top: 0; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; border: 3px solid var(--brand); z-index: 49; }
+
+/* reveal */
+#bigwm { position: absolute; left: 0; top: 0; transform-origin: 0 0; z-index: 30; }
+#revealTag { position: absolute; left: 0; right: 0; top: 960px; padding: 0 80px; text-align: center; font-size: 66px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; }
+
+/* wall */
+#wall { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+#wallIn { position: absolute; left: -150px; top: -380px; width: 1400px; height: 2900px; display: flex; gap: 34px; transform-origin: 50% 50%; }
+.col { display: flex; flex-direction: column; gap: 34px; width: 300px; }
+.col img { width: 300px; height: 640px; border-radius: 34px; display: block; object-fit: cover; object-position: top; box-shadow: 0 24px 50px rgba(35,29,51,.22), 0 0 0 1.5px rgba(35,29,51,.18); background: #fff; }
+#scrim { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; background: linear-gradient(180deg, var(--background) 0, var(--background) 37%, rgba(255,249,240,.85) 44%, rgba(255,249,240,0) 57%); }
+.big { font-weight: 800; font-size: 124px; line-height: 1.0; letter-spacing: -0.025em; }
+#words { position: absolute; left: 90px; top: 250px; }
+
+/* bring your own agent */
+#byo { position: absolute; inset: 0; text-align: center; }
+#byoT { position: absolute; left: 0; right: 0; top: 300px; padding: 0 60px; line-height: 1.04; font-size: 104px; font-weight: 800; letter-spacing: -0.025em; }
+.agents { position: absolute; left: 50px; right: 50px; top: 580px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+.ag { display: inline-flex; align-items: center; gap: 14px; background: #fff; box-shadow: inset 0 0 0 2.5px var(--outline), 0 10px 26px rgba(58,51,64,.07); border-radius: 999px; padding: 18px 32px 18px 24px; font-size: 40px; font-weight: 800; }
+.ag i { width: 22px; height: 22px; border-radius: 50%; background: var(--brand); display: block; }
+#byoS { position: absolute; left: 0; right: 0; top: 1110px; padding: 0 100px; line-height: 1.15; font-size: 56px; font-weight: 700; color: var(--link); letter-spacing: -0.01em; }
+
+/* outro */
+#outro { position: absolute; inset: 0; text-align: center; }
+#owm { position: absolute; left: 50%; top: 470px; height: 260px; transform-origin: 50% 50%; }
+#otag { position: absolute; left: 0; right: 0; top: 820px; padding: 0 90px; line-height: 1.08; font-size: 88px; font-weight: 800; letter-spacing: -0.02em; }
+#ourl { position: absolute; left: 0; right: 0; top: 1070px; font-size: 68px; font-weight: 800; color: var(--link); }
+#obeta { position: absolute; left: 0; right: 0; top: 1180px; font-size: 38px; font-weight: 700; color: var(--muted); }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="glow"></div>
+
+  <div id="wall"><div id="wallIn"><div class="col" id="c0"></div><div class="col" id="c1"></div><div class="col" id="c2"></div><div class="col" id="c3"></div></div><div id="scrim"></div></div>
+
+  <div id="phoneClip"><div id="phoneWrap"><div class="phone"><div class="screen">
+    <div class="island"></div>
+    <div class="sbar">
+      <div class="time">9:41</div>
+      <svg style="left:278px" width="19" height="12" viewBox="0 0 19 12"><rect x="0" y="8" width="3.2" height="4" rx="1" fill="#3A3340"/><rect x="5" y="5.5" width="3.2" height="6.5" rx="1" fill="#3A3340"/><rect x="10" y="3" width="3.2" height="9" rx="1" fill="#3A3340"/><rect x="15" y="0" width="3.2" height="12" rx="1" fill="#3A3340"/></svg>
+      <svg style="left:302px" width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 2.2c2.6 0 5 1 6.8 2.7l1.2-1.3C14.4 1.6 11.6.4 8.5.4S2.6 1.6.5 3.6l1.2 1.3C3.5 3.2 5.9 2.2 8.5 2.2zm0 3.4c1.7 0 3.2.6 4.4 1.7l1.2-1.3c-1.5-1.4-3.5-2.2-5.6-2.2s-4.1.8-5.6 2.2l1.2 1.3c1.2-1.1 2.7-1.7 4.4-1.7zm0 3.4c.8 0 1.5.3 2 .8L8.5 12l-2-2.2c.5-.5 1.2-.8 2-.8z" fill="#3A3340"/></svg>
+      <svg style="left:324px" width="27" height="13" viewBox="0 0 27 13"><rect x=".75" y=".75" width="22.5" height="11.5" rx="3.5" fill="none" stroke="#3A3340" stroke-opacity=".4" stroke-width="1.5"/><rect x="2.5" y="2.5" width="19" height="8" rx="2" fill="#34C759"/><path d="M12.8 3.2 9.6 7h2.2l-.7 3 3.3-3.9h-2.2z" fill="#fff"/><rect x="24.5" y="4.3" width="1.8" height="4.4" rx=".9" fill="#3A3340" fill-opacity=".4"/></svg>
+    </div>
+    <div class="apphead">
+      <div class="hbtn" style="left:16px"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.6" fill="#6E6478"/><path d="M2.5 19.5c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6z" fill="#6E6478"/><circle cx="16.6" cy="8.6" r="3" fill="#6E6478" fill-opacity=".75"/><path d="M16.2 13.6c3.1 0 5.3 2.1 5.3 5.4h-4.6c0-2.2-.5-3.8-1.9-5.3z" fill="#6E6478" fill-opacity=".75"/></svg></div>
+      <img id="hwm" src="assets/yui-wordmark-coral.png" alt="">
+      <div class="hbtn" style="right:16px"><svg viewBox="0 0 24 24"><path fill="#6E6478" d="M10.3 2h3.4l.5 2.6c.7.2 1.3.6 1.9 1l2.5-.9 1.7 2.9-2 1.7c.1.7.1 1.4 0 2.2l2 1.7-1.7 2.9-2.5-.9c-.6.5-1.2.8-1.9 1.1l-.5 2.6h-3.4l-.5-2.6c-.7-.3-1.3-.6-1.9-1.1l-2.5.9-1.7-2.9 2-1.7c-.1-.8-.1-1.5 0-2.2l-2-1.7 1.7-2.9 2.5.9c.6-.4 1.2-.8 1.9-1zM12 8.6a3.4 3.4 0 1 0 0 6.8 3.4 3.4 0 0 0 0-6.8z"/></svg></div>
+    </div>
+    <div class="chat"><div class="log">
+      <div class="msg" id="ha"><div class="in"><div class="urow"><div class="ububble">Remind me to order more clay?</div></div></div></div>
+      <div class="msg" id="hb"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Done. I'll remind you Friday at 9.</div></div></div></div>
+      <div class="msg" id="h0"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Morning! What are we doing today?</div></div></div></div>
+      <div class="msg" id="m1"><div class="in"><div class="urow"><div class="ububble">Can you help me plan a website for my pottery studio?</div></div></div></div>
+      <div class="msg" id="m2"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble essay" id="essay"></div></div></div></div>
+      <div class="msg" id="m3"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Five quick ones, then I'll set it up.</div></div></div></div>
+      <div class="msg" id="m4"><div class="in"><div class="arow"><div class="avatar"></div>
+        <div class="chipcard"><div class="check"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M5 12.5 10 17l9-10" stroke="#3A3340" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="flex:1"><div style="font-size:16px;font-weight:800">Kiln &amp; Co. website</div><div class="muted" style="font-size:13px;font-weight:700">4 answers</div></div><svg width="14" height="14" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" stroke="#8C8294" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg></div>
+      </div></div></div>
+      <div class="msg" id="m5"><div class="in"><div class="urow"><div class="ububble" style="font-size:15.5px">What kind of site? Local business
+Which pages? Home, Classes, Visit
+Budget, in thousands of dollars: 8
+Launch before the holidays? Yes, Dec 1</div></div></div></div>
+      <div class="msg" id="m6"><div class="in"><div class="arow"><div class="avatar"></div>
+        <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h4>Kiln &amp; Co. website</h4><span class="pill" style="background:var(--mint)">Planning</span></div>
+          <div class="prog"><i></i></div>
+          <div class="fact"><span class="muted">Kind</span><b>Local business</b></div>
+          <div class="fact"><span class="muted">Pages</span><b>Home, Classes, Visit</b></div>
+          <div class="fact"><span class="muted">Launch</span><b>Dec 1</b></div>
+          <div class="muted" style="font-size:13px;font-weight:800;margin-top:8px">Next</div>
+          <div style="font-size:15px;font-weight:700;margin:3px 0 12px">○ Pick the photos</div>
+          <div class="btn coral">Reopen the plan</div>
+        </div></div></div></div>
+      <div class="msg" id="m7"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Six shots from the studio. Pick up to three for the homepage.</div></div></div></div>
+      <div class="msg" id="m8"><div class="in"><div class="arow"><div class="avatar"></div>
+        <div class="card" style="padding:12px"><div class="muted" style="font-size:13px;font-weight:800">Pick up to 3</div>
+          <div class="grid" id="grid"></div>
+          <div class="btn coral" id="use-these">Use these</div>
+        </div></div></div></div>
+      <div class="msg" id="m9"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Here's the new homepage. Drag the handle.</div></div></div></div>
+      <div class="msg" id="m10"><div class="in"><div class="arow"><div class="avatar"></div>
+        <div class="card"><h4>The hero</h4>
+          <div class="cmp" id="cmp">
+            <div class="img" style="background-image:url(assets/demo/site_before_hero.jpg)"></div>
+            <div class="img" id="cmpAfter" style="background-image:url(assets/demo/site_after_hero.jpg)">
+              <div class="hl" style="left:3%;top:28%;width:50%;height:46%"><b>1</b></div>
+              <div class="hl" style="left:84%;top:2%;width:15%;height:8%"><b>2</b></div>
+            </div>
+            <span class="lbl" style="left:7px">Before</span><span class="lbl" style="right:7px">After</span>
+            <div class="handle" id="cmpHandle"><i id="cmp-handle"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M9 6 3 12l6 6M15 6l6 6-6 6" stroke="#3A3340" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></i></div>
+          </div>
+          <div class="seg"><span class="on">Slider</span><span>Side by side</span><span>Toggle</span></div>
+          <div class="note"><span class="num">1</span>Headline says what you get</div>
+          <div class="note"><span class="num">2</span>One booking button, top right too</div>
+        </div></div></div></div>
+      <div class="msg" id="m11"><div class="in"><div class="arow"><div class="avatar"></div>
+        <div class="card"><h4 style="margin-bottom:12px">Keep it?</h4><div class="asks"><div class="btn coral" id="keep-btn">Keep</div><div class="btn mint">Try another</div></div></div>
+      </div></div></div>
+      <div class="msg" id="m12"><div class="in"><div class="urow"><div class="ububble">Keep</div></div></div></div>
+      <div class="msg" id="m13"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Launch reel next. Reorder the frames or comment on any one.</div></div></div></div>
+      <div class="msg" id="m14"><div class="in"><div class="arow"><div class="avatar"></div>
+        <div class="card" style="padding:14px 14px 12px"><div style="display:flex;justify-content:space-between;align-items:center"><h4>Launch reel</h4><span class="pill" style="background:#F4ECE2;color:var(--muted)">4 frames</span></div>
+          <div id="sb" style="position:relative;margin-top:6px"></div>
+          <div class="btn coral" id="sb-save" style="margin-top:8px">Save order</div>
+        </div></div></div></div>
+      <div class="msg" id="m15"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Here's where the launch stands.</div></div></div></div>
+      <div class="msg" id="m16"><div class="in"><div class="arow"><div class="avatar"></div>
+        <div class="card" style="padding:14px"><div style="display:flex;justify-content:space-between;align-items:center"><h4>Kiln &amp; Co. launch</h4><span class="editbtn" id="tl-edit">⇅ Edit order</span></div>
+          <div class="tl" id="tl">
+            <div class="tlrow"><span class="at">Oct 2</span><span class="ic done"></span><span class="tx">Site plan</span></div>
+            <div class="tlrow"><span class="at">Oct 3</span><span class="ic done"></span><span class="tx">Homepage photos</span></div>
+            <div class="tlrow"><span class="at">Oct 6</span><span class="ic done"></span><span class="tx">New hero</span></div>
+            <div class="nowline">NOW <i></i></div>
+            <div class="tlrow nowrow"><span class="at"></span><span class="ic now"></span><span class="tx">Launch reel<small>cutting it now</small></span></div>
+            <div id="tlq" style="position:relative">
+              <div class="tlrow q0"><span class="at"></span><span class="ic next"></span><span class="tx">Class booking page</span><span class="grip" id="tl-grip-0">≡</span></div>
+              <div class="tlrow q1"><span class="at"></span><span class="ic next"></span><span class="tx">Newsletter signup</span><span class="grip" id="tl-grip-1">≡</span></div>
+              <div class="tlrow q2"><span class="at"></span><span class="ic next"></span><span class="tx">Holiday sale banner</span><span class="grip" id="tl-grip-2">≡</span></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:10px" id="tlfoot"><div class="btn ghost" style="flex:1;height:42px">Cancel</div><div class="btn coral" id="tl-save" style="flex:1;height:42px">Save order</div></div>
+        </div></div></div></div>
+    </div></div>
+    <div class="inputbar"><div class="field">Say something nice</div><div class="send"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4 5 11l1.6 1.6 4.3-4.3V20h2.2V8.3l4.3 4.3L19 11z" fill="#3A3340"/></svg></div></div>
+
+    <!-- plan mode: full screen -->
+    <div class="plan" id="plan">
+      <div class="grab"></div>
+      <div class="pchip"><span id="pchipY"></span>Yui</div>
+      <div class="px"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19" stroke="#3A3340" stroke-width="3" stroke-linecap="round"/></svg></div>
+      <div class="ptitle">Kiln &amp; Co. website</div>
+      <div class="pstep" id="pstep">Step 1 of 4</div>
+      <div class="pbar"><i id="pfill"></i></div>
+      <div class="pbody">
+        <div class="pane" id="pane0"><div class="q">What kind of site?</div><div class="opts"><span class="opt">Portfolio</span><span class="opt">Shop</span><span class="opt" id="opt-local">Local business</span><span class="opt">Type your own</span></div></div>
+        <div class="pane" id="pane1"><div class="q">Which pages?</div><div class="opts"><span class="opt" id="pg-home">Home</span><span class="opt">About</span><span class="opt" id="pg-classes">Classes</span><span class="opt">Shop</span><span class="opt" id="pg-visit">Visit</span></div></div>
+        <div class="pane" id="pane2"><div class="q">Budget, in thousands of dollars</div><div class="slval" id="slval">5</div><div class="sltrack" id="sltrack"><i id="slfill"></i><span class="slthumb" id="sl-thumb"></span></div><div class="slminmax"><span>1</span><span>20</span></div></div>
+        <div class="pane" id="pane3"><div class="q">Launch before the holidays?</div><div class="asks"><div class="btn coral" id="ask-yes">Yes, Dec 1</div><div class="btn mint">No rush</div></div></div>
+        <div class="pane" id="pane4" style="justify-content:flex-start;padding-top:10px"><div class="rv">
+          <div class="rvrow"><div><small>WHAT KIND OF SITE?</small><b>Local business</b></div><em>Edit</em></div>
+          <div class="rvrow"><div><small>WHICH PAGES?</small><b>Home, Classes, Visit</b></div><em>Edit</em></div>
+          <div class="rvrow"><div><small>BUDGET, IN THOUSANDS OF DOLLARS</small><b>8</b></div><em>Edit</em></div>
+          <div class="rvrow"><div><small>LAUNCH BEFORE THE HOLIDAYS?</small><b>Yes, Dec 1</b></div><em>Edit</em></div>
+        </div></div>
+      </div>
+      <div class="pfoot"><div class="btn lav" id="pBack">Back</div><div class="btn coral" id="pNext">Next</div></div>
+    </div>
+    <div class="homeind"></div>
+  </div></div></div></div>
+
+  <!-- captions -->
+  <div class="cap L" id="hookL">You asked for a website plan.</div>
+  <div class="cap R accent" id="hookR">You got homework.</div>
+  <div class="cap L" id="planL1">It asks one thing at a time.</div>
+  <div class="cap R accent" id="planR1">You answer with a tap.</div>
+  <div class="cap L" id="planL2">Send it all at once.</div>
+  <div class="cap R accent" id="planR2">It becomes the plan.</div>
+  <div class="cap L" id="picL">Pick the photos.</div>
+  <div class="cap L" id="cmpL">See every change.</div>
+  <div class="cap R accent" id="cmpR">Keep it with a tap.</div>
+  <div class="cap L" id="sbL">Reorder the reel.</div>
+  <div class="cap L" id="tlL">See what's done.</div>
+  <div class="cap R accent" id="tlR">Drag what's next.</div>
+
+  <img id="bigwm" src="assets/yui-wordmark-coral.png" alt="">
+  <div id="revealTag">Meet Yui, a generative user interface.</div>
+
+  <div id="words">
+    <div class="big" id="w0">Lessons<span class="dot">.</span></div>
+    <div class="big" id="w1">Charts<span class="dot">.</span></div>
+    <div class="big" id="w2">Games<span class="dot">.</span></div>
+    <div class="big" id="w3">Timers<span class="dot">.</span></div>
+  </div>
+
+  <div id="byo">
+    <div id="byoT">Bring your own agent.</div>
+    <div class="agents" id="agents"></div>
+    <div id="byoS">If it can send a message, it can draw a screen.</div>
+  </div>
+
+  <div id="outro">
+    <img id="owm" src="assets/yui-wordmark-coral.png" alt="">
+    <div id="otag">Your agent draws the screen.</div>
+    <div id="ourl">yuigui.com</div>
+    <div id="obeta">Public beta on TestFlight <span class="dot">·</span> Open source</div>
+  </div>
+
+  <div id="ripple"></div>
+  <div id="finger"></div>
+</div>
+
+<script>
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const eo = (p) => 1 - Math.pow(1 - p, 3);
+const ei = (p) => p * p * p;
+const eio = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+const back = (p) => { const c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const lerp = (a, b, p) => a + (b - a) * p;
+const $ = (id) => document.getElementById(id);
+const show = (id, on) => { $(id).style.display = on ? "block" : "none"; };
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+
+// 140 BPM in half-time: a beat is 3/7 s, a bar 12/7 s, 35 bars are 60 s.
+const BEAT = 3 / 7, BAR = 12 / 7;
+const DURATION = 35 * BAR;
+
+function textIO(el, t, tin, tout, dist = 32) {
+  const pi = eo(prog(t, tin, tin + 0.34));
+  const po = ei(prog(t, tout, tout + 0.24));
+  const o = pi * (1 - po);
+  el.style.opacity = o;
+  el.style.transform = `translateY(${(1 - pi) * dist - po * 24}px)`;
+  el.style.visibility = o <= 0.001 ? "hidden" : "visible";
+}
+function fadeIO(el, t, tin, tout, dist = 30) {
+  const pi = eo(prog(t, tin, tin + 0.34));
+  const po = ei(prog(t, tout, tout + 0.24));
+  const o = pi * (1 - po);
+  el.style.opacity = o;
+  el.style.transform = `translateY(${(1 - pi) * dist - po * 24}px)`;
+  el.style.visibility = o <= 0.001 ? "hidden" : "visible";
+}
+
+// ---------- the homework the agent sends ----------
+const ESSAY = [
+  "Great idea! A website can really help a pottery studio grow. Before I draft anything, I have a few questions:",
+  "1. What is the main goal of the site: selling pieces, booking classes, or both?",
+  "2. Who is your target audience?",
+  "3. Which pages do you need? Common ones are Home, About, Classes, Shop, Gallery, Blog and Contact.",
+  "4. Do you have a logo, brand colors or fonts?",
+  "5. Do you have professional photos of your work?",
+  "6. What is your budget?",
+  "7. Do you need online payments?",
+  "8. Should customers book classes online?",
+  "9. Do you want a newsletter signup?",
+  "10. Do you already have a domain name?",
+  "11. Who will update the site after launch?",
+  "12. Are there sites you like the look of?",
+  "13. Do you need more than one language?",
+  "14. When would you like to launch?",
+  "Once you answer these, I can put together a detailed plan!",
+];
+const ESSAY_LEN = ESSAY.reduce((a, s) => a + s.length, 0);
+let lastN = -1;
+function setEssay(n) {
+  if (n === lastN) return;
+  lastN = n;
+  let out = "", left = n;
+  for (const s of ESSAY) { if (left <= 0) break; out += `<p>${esc(s.slice(0, left))}</p>`; left -= s.length; }
+  $("essay").innerHTML = out || "&nbsp;";
+}
+
+// ---------- chat messages ----------
+const MSG = ["ha", "hb", "h0", "m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8", "m9", "m10", "m11", "m12", "m13", "m14", "m15", "m16"];
+const natural = {};
+function measure() {
+  for (const id of MSG) { const m = $(id); m.style.display = "block"; m.style.height = "auto"; natural[id] = m.querySelector(".in").offsetHeight; }
+}
+function setMsg(id, p, { auto = false, gap = 12, pop = true } = {}) {
+  const m = $(id), inn = m.querySelector(".in");
+  if (p <= 0) { m.style.display = "none"; return; }
+  m.style.display = "block";
+  const e = eo(p);
+  m.style.marginTop = `${gap * e}px`;
+  m.style.height = auto && p >= 1 ? "auto" : `${natural[id] * e}px`;
+  m.style.overflow = p >= 1 ? "visible" : "hidden";
+  inn.style.opacity = clamp(p * 1.6);
+  inn.style.transform = pop ? `translateY(${(1 - e) * 14}px) scale(${0.94 + 0.06 * back(p)})` : "none";
+}
+
+// ---------- content built once ----------
+const Y_SVG = (s = 20) => `<svg width="${s}" height="${s}" viewBox="0 0 20 20"><path d="M3.2 3.4 7.6 8.2" stroke="#FF7E8A" stroke-width="3.6" stroke-linecap="round"/><path d="M16.8 3.4 12.4 8.2" stroke="#FF7E8A" stroke-width="3.6" stroke-linecap="round"/><path d="M10 11.2v5.6" stroke="#FF7E8A" stroke-width="3.6" stroke-linecap="round"/></svg>`;
+document.querySelectorAll(".avatar").forEach((a) => (a.innerHTML = Y_SVG()));
+$("pchipY").innerHTML = Y_SVG(18);
+$("grid").innerHTML = [1, 2, 3, 4, 5, 6].map((i) => `<div class="tile" id="g-${i - 1}" style="background-image:url(assets/demo/g${i}.jpg)"><span class="sel"></span><span class="ring"></span></div>`).join("");
+const FRAMES = [["s1", "Quiet morning"], ["s2", "The old chipped mug"], ["s3", "Unwrap the new one"], ["s4", "First sip, logo"]];
+$("sb").innerHTML = FRAMES.map(([f, n], i) => `<div class="sbrow" id="sbr-${i}" style="position:absolute;left:0;right:0;top:${i * 88}px"><span class="sbn">${i + 1}</span><span class="sbimg" style="background-image:url(assets/demo/${f}.jpg)"></span><span class="sbtxt">${n}<small>Comment</small></span><span class="arrows"><i id="sb-up-${i}"><svg width="12" height="12" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6" stroke="#3A3340" stroke-width="3" fill="none" stroke-linecap="round"/></svg></i><i><svg width="12" height="12" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" stroke="#3A3340" stroke-width="3" fill="none" stroke-linecap="round"/></svg></i></span></div>`).join("");
+$("sb").style.height = `${4 * 88}px`;
+const WALL = [
+  ["yui18-deck.webp", "try-chart-bar.jpg", "yui82-after-light.webp", "game-snake.jpg", "yui83-sketch-card-ids-light.webp"],
+  ["timer.jpg", "yui19-compare.webp", "try-stat.jpg", "yui73-needs-light.webp", "try-game-memory.jpg"],
+  ["yui14-listening-light.webp", "deck.jpg", "try-chart-pie.jpg", "yui32-shelf-light.webp", "calc.jpg"],
+  ["game-tictactoe.jpg", "yui84-phone-light.webp", "math.jpg", "yui44-answer-light.webp", "try-timeline-trip.jpg"],
+];
+WALL.forEach((col, i) => { $("c" + i).innerHTML = col.concat(col.slice(0, 2)).map((s) => `<img src="assets/wall/${s}" alt="">`).join(""); });
+const AGENTS = ["Hermes", "OpenClaw", "Claude Code", "Cursor", "MCP", "A2A", "AG-UI", "Your own model", "Webhooks"];
+$("agents").innerHTML = AGENTS.map((n) => `<span class="ag"><i></i>${n}</span>`).join("");
+const agEls = [...document.querySelectorAll(".ag")];
+
+// ---------- gestures: taps and drags, on the beat ----------
+const b = (n) => n * BEAT;
+const G = [
+  { t: 12.0, el: "opt-local" },
+  { t: b(30), el: "pg-home" }, { t: b(31), el: "pg-classes" }, { t: b(32), el: "pg-visit" }, { t: b(33), el: "pNext" },
+  { t: b(35), t1: b(36.5), el: "sl-thumb", drag: true },
+  { t: b(37.5), el: "pNext" },
+  { t: b(40), el: "ask-yes" },
+  { t: b(45), el: "pNext" },
+  { t: b(55), el: "g-0" }, { t: b(56), el: "g-4" }, { t: b(57), el: "g-5" }, { t: b(59), el: "use-these" },
+  { t: b(63), t1: b(65.6), el: "cmp-handle", drag: true },
+  { t: b(71), el: "keep-btn" },
+  { t: b(76), el: "sb-up-2" }, { t: b(78), el: "sb-save" },
+  { t: b(84), el: "tl-edit" },
+  { t: b(85.5), t1: b(87.8), el: "tl-grip-2", drag: true },
+  { t: b(90), el: "tl-save" },
+];
+G.forEach((g) => { if (!g.drag) g.t1 = g.t; });
+window.GESTURES = G;
+
+// ---------- camera: slow push-ins, close-ups that follow a card ----------
+const CAM = [
+  [0.0, 1.8, "m1", -2, -40], [0.85, 1.8, "m1", -2, -40], [4.8, 1.5, 0, -0.6, -40], [6.86, 1.5, 0, 0, -40],
+  [10.29, 1.4, 0, 0, -40], [11.3, 1.45, 40, 0, -40], [17.6, 1.5, 40, 0, -40], [19.3, 1.5, 40, 0, -40], [20.5, 1.52, "m6", 0, -40],
+  [22.3, 1.52, "m6", 0, -40], [23.1, 1.8, "m8", 0, -40], [25.6, 1.8, "m8", 0, -40],
+  [26.6, 1.8, "m10", 0, -40], [29.0, 1.8, "m10", 0, -40], [29.9, 1.8, "m11", 0, -40], [30.8, 1.8, "m11", 0, -40],
+  [31.7, 1.62, "m14", 0, -40], [34.0, 1.62, "m14", 0, -40],
+  [35.0, 1.58, "m16", 0, -40], [40.3, 1.62, "m16", 0, -40], [41.0, 1.35, 0, 0, -40],
+];
+const pw = $("phoneWrap");
+// The camera aims at fixed points in the phone, never at live layout, so it cannot jump.
+// A message id means "that card while it is the newest": the log is anchored at the bottom
+// (local y 330), so its center sits at 330 - height / 2. A number is a local y.
+function focusY(f, s) {
+  if (!f) return 0;
+  const local = typeof f === "string" ? 330 - natural[f] / 2 : f;
+  return -local * s;
+}
+let curScale = 1;
+function camera(t) {
+  let i = 0;
+  while (i < CAM.length - 1 && CAM[i + 1][0] <= t) i++;
+  const a = CAM[i], c = CAM[Math.min(i + 1, CAM.length - 1)];
+  const p = c === a ? 0 : eio(prog(t, a[0], c[0]));
+  const s = lerp(a[1], c[1], p);
+  const ya = focusY(a[2], s) + (a[4] || 0), yc = focusY(c[2], s) + (c[4] || 0);
+  return { s, y: lerp(ya, yc, p), r: lerp(a[3], c[3], p) };
+}
+
+// ---------- render ----------
+function render(t) {
+  // ----- chat state -----
+  setMsg("ha", 1, { gap: 0, pop: false });
+  setMsg("hb", 1, { pop: false });
+  setMsg("h0", 1, { pop: false });
+  setMsg("m1", 1, { pop: false });
+  let n;
+  if (t < 6.86) n = Math.round(ESSAY_LEN * Math.pow(prog(t, 0.95, 5.7), 1.2));
+  else n = Math.round(ESSAY_LEN * (1 - eio(prog(t, 6.86, 7.25))));
+  setEssay(Math.max(n, 1));
+  if (t < 7.3) setMsg("m2", prog(t, 0.85, 1.1), { auto: true }); else setMsg("m2", 0);
+  setMsg("m3", prog(t, 10.45, 10.8));
+  setMsg("m4", prog(t, 19.6, 19.95));
+  setMsg("m5", prog(t, 19.8, 20.15));
+  setMsg("m6", prog(t, b(48), b(48) + 0.45));
+  setMsg("m7", prog(t, 22.35, 22.7));
+  setMsg("m8", prog(t, 22.75, 23.15));
+  setMsg("m9", prog(t, 25.9, 26.25));
+  setMsg("m10", prog(t, 26.2, 26.65));
+  setMsg("m11", prog(t, 29.35, 29.75) * (1 - prog(t, b(71) + 0.2, b(71) + 0.55)), { pop: t < 30 });
+  setMsg("m12", prog(t, b(71) + 0.3, b(71) + 0.65));
+  setMsg("m13", prog(t, 31.0, 31.35));
+  setMsg("m14", prog(t, 31.3, 31.75));
+  setMsg("m15", prog(t, 34.35, 34.7));
+  setMsg("m16", prog(t, 34.65, 35.1));
+
+  // gallery picks
+  const picks = [["g-0", b(55)], ["g-4", b(56)], ["g-5", b(57)]];
+  for (let i = 0; i < 6; i++) {
+    const tile = $("g-" + i), ring = tile.querySelector(".ring"), sel = tile.querySelector(".sel");
+    const k = picks.findIndex(([id, tt]) => id === "g-" + i && t >= tt);
+    ring.classList.toggle("on", k >= 0); ring.textContent = k >= 0 ? String(k + 1) : "";
+    sel.style.opacity = k >= 0 ? 1 : 0;
+  }
+  const sent = t >= b(59);
+  $("use-these").textContent = sent ? "Sent" : "Use these";
+  $("use-these").className = sent ? "btn ghost" : "btn coral";
+
+  // compare handle
+  const h1 = eio(prog(t, b(63), b(65.6)));
+  const hp = lerp(0.5, 0.1, h1);
+  $("cmpHandle").style.left = `${hp * 100}%`;
+  $("cmpAfter").style.clipPath = `inset(0 0 0 ${hp * 100}%)`;
+  $("keep-btn").style.filter = t >= b(71) ? "brightness(.9)" : "none";
+
+  // storyboard: frame 3 moves up
+  const sw = eio(prog(t, b(76) + 0.05, b(76) + 0.4));
+  $("sbr-1").style.transform = `translateY(${88 * sw}px)`;
+  $("sbr-2").style.transform = `translateY(${-88 * sw}px)`;
+  $("sbr-1").querySelector(".sbn").textContent = sw > 0.5 ? "3" : "2";
+  $("sbr-2").querySelector(".sbn").textContent = sw > 0.5 ? "2" : "3";
+  const saved = t >= b(78);
+  $("sb-save").textContent = saved ? "Order saved" : "Save order";
+  $("sb-save").className = saved ? "btn ghost" : "btn coral";
+  $("sb-save").style.marginTop = "8px";
+  $("sb-save").style.opacity = saved ? 1 : 0.45 + 0.55 * clamp(sw);
+
+  // timeline: edit, drag the last queued row to the top, save
+  const edit = prog(t, b(84) + 0.05, b(84) + 0.3) * (1 - prog(t, b(90) + 0.05, b(90) + 0.35));
+  document.querySelectorAll(".grip").forEach((g) => (g.style.opacity = edit));
+  $("tlfoot").style.opacity = edit;
+  $("tl-edit").style.opacity = 1 - edit;
+  const d = eio(prog(t, b(85.5), b(87.8)));
+  const H = 44;
+  const q = [...document.querySelectorAll("#tlq .tlrow")];
+  q[2].style.transform = `translateY(${-2 * H * d}px) scale(${1 + 0.03 * Math.sin(Math.PI * clamp(prog(t, b(85.3), b(88.1))))})`;
+  q[2].style.boxShadow = t > b(85.3) && t < b(88.1) ? "0 8px 20px rgba(58,51,64,.18)" : "none";
+  q[2].style.zIndex = 2;
+  q[1].style.transform = `translateY(${H * eio(clamp(d * 2))}px)`;
+  q[0].style.transform = `translateY(${H * eio(clamp(d * 2 - 1))}px)`;
+
+  // ----- the plan, full screen -----
+  const up = eo(prog(t, 10.8, 11.25)), down = ei(prog(t, b(45) + 0.08, b(45) + 0.5));
+  const planOn = up > 0 && down < 1;
+  show("plan", planOn);
+  if (planOn) {
+    $("plan").style.transform = `translateY(${(1 - up + down) * 100}%)`;
+    const idx = eio(prog(t, 12.3, 12.62)) + eio(prog(t, b(33) + 0.1, b(33) + 0.42)) + eio(prog(t, b(37.5) + 0.08, b(37.5) + 0.4)) + eio(prog(t, b(40) + 0.3, b(40) + 0.62));
+    for (let i = 0; i < 5; i++) {
+      const pane = $("pane" + i), off = i - idx;
+      pane.style.transform = `translateX(${off * 110}%)`;
+      pane.style.opacity = clamp(1 - Math.abs(off) * 0.9);
+      pane.style.visibility = Math.abs(off) > 1.2 ? "hidden" : "visible";
+    }
+    const step = Math.round(idx);
+    $("pstep").textContent = step >= 4 ? "Review" : `Step ${step + 1} of 4`;
+    $("pfill").style.width = `${Math.min(100, (idx + 1) * 25)}%`;
+    $("pNext").textContent = step >= 4 ? "Send" : "Next";
+    $("pBack").style.opacity = idx < 0.5 ? 0.5 : 1;
+    $("opt-local").classList.toggle("on", t >= 12.0);
+    $("pg-home").classList.toggle("on", t >= b(30));
+    $("pg-classes").classList.toggle("on", t >= b(31));
+    $("pg-visit").classList.toggle("on", t >= b(32));
+    const v = lerp(5, 8, eio(prog(t, b(35), b(36.5))));
+    $("slval").textContent = String(Math.round(v));
+    const f = (v - 1) / 19;
+    $("slfill").style.width = `${f * 100}%`;
+    $("sl-thumb").style.left = `${f * 100}%`;
+    $("ask-yes").style.filter = t >= b(40) ? "brightness(.9)" : "none";
+  }
+
+  // ----- phone placement -----
+  pw.style.transform = "none";
+  const cam = camera(t);
+  curScale = cam.s;
+  let px = 0, py = cam.y, ps = cam.s, pr = cam.r, po = 1;
+  // the drop: the phone falls away, then rises back under the flying wordmark
+  const fall = ei(prog(t, 6.86, 7.4)), rise = eo(prog(t, 9.6, b(24)));
+  if (t >= 6.86 && t < 9.6) py = lerp(0, 1800, fall);
+  if (t >= 9.6 && t < b(24)) py = lerp(1800, 0, rise);
+  // into the wall
+  const shrink = eio(prog(t, 40.75, 41.55));
+  ps *= lerp(1, 0.55, shrink); pr += -11 * shrink; py += 260 * shrink; po = 1 - prog(t, 41.2, 41.6);
+  py += Math.sin(t * 0.9) * 3;
+  pw.style.transform = `translate(${px}px, ${py}px) rotate(${pr}deg) scale(${ps})`;
+  pw.style.opacity = po;
+  show("phoneWrap", t < 41.65);
+  curScale = ps;
+
+  // ----- reveal: the wordmark lands, then flies into the app's header -----
+  const bw = $("bigwm");
+  const wmOn = t >= 6.95 && t < b(24) + 0.02;
+  show("bigwm", wmOn);
+  $("hwm").style.opacity = t < 9.6 || t >= b(24) ? 1 : 0;
+  if (wmOn) {
+    const W0 = 290 * 480 / 311, H0 = 290;
+    const pop = back(prog(t, 6.95, 7.45));
+    let x = 540 - W0 / 2, y = 760 - H0 / 2, w = W0 * (0.6 + 0.4 * pop);
+    x = 540 - w / 2; y = 760 - (w * 311 / 480) / 2;
+    const fly = eio(prog(t, 9.6, b(24)));
+    if (fly > 0) {
+      const r = $("hwm").getBoundingClientRect();
+      x = lerp(x, r.left, fly); y = lerp(y, r.top, fly); w = lerp(w, r.width, fly);
+    }
+    bw.style.width = `${w}px`;
+    bw.style.transform = `translate(${x}px, ${y}px)`;
+    bw.style.opacity = clamp(prog(t, 6.95, 7.1));
+  }
+  fadeIO($("revealTag"), t, 7.35, 9.45);
+  show("revealTag", t > 7.2 && t < 9.8);
+
+  // ----- captions -----
+  const caps = [
+    ["hookL", 0.45, 6.3], ["hookR", 2.7, 6.36],
+    ["planL1", 11.0, 17.55], ["planR1", 12.0, 17.6], ["planL2", 17.9, 21.95], ["planR2", 20.45, 22.0],
+    ["picL", 22.7, 25.75], ["cmpL", 26.5, 31.0], ["cmpR", 29.3, 31.05], ["sbL", 31.45, 34.1],
+    ["tlL", 34.7, 40.55], ["tlR", 35.9, 40.6],
+  ];
+  for (const [id, a, z] of caps) { show(id, t > a - 0.05 && t < z + 0.3); textIO($(id), t, a, z); }
+
+  // ----- wall -----
+  const wallIn = eo(prog(t, 40.9, 41.7)), wallOut = ei(prog(t, 47.6, 48.05));
+  const wv = t > 40.8 && t < 48.1;
+  show("wall", wv); show("words", wv);
+  if (wv) {
+    $("wall").style.opacity = clamp(prog(t, 40.8, 41.3)) * (1 - wallOut);
+    $("wallIn").style.transform = `translate(${(1 - wallIn) * 300 - wallOut * 200}px, ${-wallOut * 160}px) rotate(-11deg) scale(${lerp(1.25, 1, wallIn)})`;
+    for (let i = 0; i < 4; i++) {
+      const dir = i % 2 === 0 ? -1 : 1, speed = 60 + i * 10, base = dir === -1 ? 0 : -1340;
+      $("c" + i).style.transform = `translateY(${base + dir * speed * (t - 40.8)}px)`;
+    }
+    $("scrim").style.opacity = clamp(prog(t, 41.0, 41.4));
+    ["w0", "w1", "w2", "w3"].forEach((w, i) => fadeIO($(w), t, b(96 + 2 * i) - 0.02, 47.5 + i * 0.04, 50));
+  }
+
+  // ----- bring your own agent -----
+  const bv = t > 47.9 && t < b(128) + 0.4;
+  show("byo", bv);
+  if (bv) {
+    fadeIO($("byoT"), t, 48.1, b(128) - 0.3);
+    const out = ei(prog(t, b(128) - 0.3, b(128) + 0.05));
+    agEls.forEach((el, i) => {
+      const a = b(114) + i * BEAT / 2, p = prog(t, a, a + 0.36);
+      el.style.opacity = clamp(p * 3) * (1 - out);
+      el.style.transform = `translateY(${(1 - eo(p)) * 20 - out * 20}px) scale(${0.6 + 0.4 * back(p)})`;
+    });
+    fadeIO($("byoS"), t, b(119), b(128) - 0.26);
+  }
+
+  // ----- outro -----
+  const ov = t > b(128) - 0.05;
+  show("outro", ov);
+  if (ov) {
+    const w = back(prog(t, b(128), b(128) + 0.5));
+    $("owm").style.opacity = clamp(prog(t, b(128), b(128) + 0.15));
+    $("owm").style.transform = `translateX(-50%) scale(${0.6 + 0.4 * w + prog(t, b(129), 60) * 0.035})`;
+    fadeIO($("otag"), t, b(129), 99);
+    fadeIO($("ourl"), t, b(130), 99);
+    fadeIO($("obeta"), t, b(131), 99, 20);
+  }
+
+  // ----- the finger, last, so it reads this frame's layout -----
+  finger(t);
+}
+
+function center(id) {
+  const r = $(id).getBoundingClientRect();
+  return [r.left + r.width / 2, r.top + r.height / 2];
+}
+function finger(t) {
+  const f = $("finger"), rp = $("ripple");
+  if (window.noFinger) { f.style.opacity = 0; rp.style.opacity = 0; return; }
+  // chains: gestures closer than 1.3 s share one finger that glides between them
+  let active = -1;
+  for (let i = 0; i < G.length; i++) if (t >= G[i].t - 0.55 && t <= G[i].t1 + 0.4) { active = i; break; }
+  if (active < 0) {
+    for (let i = 0; i < G.length - 1; i++) if (t > G[i].t1 && t < G[i + 1].t - 0.55 && G[i + 1].t - G[i].t1 < 1.3) { active = i + 1; break; }
+  }
+  if (active < 0) { f.style.opacity = 0; rp.style.opacity = 0; return; }
+  const g = G[active], prev = G[active - 1];
+  const chained = prev && g.t - prev.t1 < 1.3;
+  const [tx, ty] = center(g.el);
+  let x = tx, y = ty;
+  const mv = eio(prog(t, g.t - 0.45, g.t - 0.05));
+  if (t < g.t) {
+    let sx, sy;
+    if (chained && $(prev.el).offsetParent) [sx, sy] = center(prev.el); else { sx = tx + 70; sy = ty + 110; }
+    x = lerp(sx, tx, mv); y = lerp(sy, ty, mv);
+  }
+  const next = G[active + 1];
+  const chainedNext = next && next.t - g.t1 < 1.3;
+  const fin = chained ? 1 : clamp(prog(t, g.t - 0.55, g.t - 0.42));
+  const fout = chainedNext ? 1 : 1 - clamp(prog(t, g.t1 + 0.22, g.t1 + 0.4));
+  const press = g.drag ? (t >= g.t - 0.05 && t <= g.t1 + 0.05 ? 1 : Math.sin(Math.PI * prog(t, g.t - 0.08, g.t + 0.12))) : Math.sin(Math.PI * prog(t, g.t - 0.07, g.t + 0.13));
+  const s = curScale / 1.15;
+  f.style.opacity = fin * fout;
+  f.style.transform = `translate(${x}px, ${y}px) scale(${s * (1 - 0.16 * press)})`;
+  const r = prog(t, g.t, g.t + 0.42);
+  rp.style.opacity = r > 0 && r < 1 && !g.drag ? 1 - r : 0;
+  rp.style.transform = `translate(${tx}px, ${ty}px) scale(${s * (1 + eo(r) * 1.4)})`;
+}
+
+window.ready = (async () => {
+  await document.fonts.load('800 40px "YuiRounded"');
+  await document.fonts.load('600 40px "YuiMono"');
+  await document.fonts.ready;
+  await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+  await Promise.all(["g1", "g2", "g3", "g4", "g5", "g6", "s1", "s2", "s3", "s4", "site_before_hero", "site_after_hero"].map((n) => { const im = new Image(); im.src = `assets/demo/${n}.jpg`; return im.decode().catch(() => {}); }));
+  $("essay").innerHTML = "&nbsp;";
+  show("plan", false);
+  for (const [a, z] of [["hookL", "hookR"], ["planL1", "planR1"], ["planL2", "planR2"], ["cmpL", "cmpR"], ["tlL", "tlR"]]) {
+    $(a).style.display = "block";
+    $(z).style.top = `${240 + $(a).offsetHeight + 6}px`;
+  }
+  measure();
+  render(0);
+  return document.fonts.check('800 40px "YuiRounded"');
+})();
+window.render = render;
+window.DURATION = DURATION;
+</script>
+</body>
+</html>

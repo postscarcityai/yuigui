@@ -1,0 +1,103 @@
+/* Yui video kit: shared look for every explainer. Light is the default (cream, ink, coral);
+   <body class="dark"> switches to the app's dark theme. <body class="reel"> is the 1080x1920 layout.
+   Tokens mirror site/app/globals.css. */
+@font-face { font-family: "YuiRounded"; src: url("file:///System/Library/Fonts/SFNSRounded.ttf"); font-weight: 100 1000; }
+@font-face { font-family: "YuiMono"; src: url("file:///System/Library/Fonts/SFNSMono.ttf"); font-weight: 100 1000; }
+
+:root {
+  --bg: #FFF9F0; --background: #FFF9F0; --surface: #FFFFFF; --raised: #F6EDE2; --ink: #3A3340; --muted: #8C8294;
+  --outline: #F0E4D6; --brand: #FF7E8A; --accent: #C23B4F; --user-bubble: #FFA8B0; --user-ink: #3A3340;
+  --agent-bubble: #FFFFFF; --mint: #BDEBD6; --lavender: #D9CCF7; --butter: #FFE8A3; --bezel: #1D1924;
+  --glowA: rgba(255,214,220,.9); --glowB: rgba(236,228,251,.8); --pill-bg: #FFF3E4; --icon: #6E6478;
+  --c1: #6a5ae0; --c2: #d9541f; --c3: #0f8a7a; --c4: #b37600; --c5: #d6457c; --c6: #2a78d6;
+}
+body.dark {
+  --bg: #16111F; --background: #231D33; --surface: #2F2842; --raised: #352D4A; --ink: #F6EEF7; --muted: #A99FB8;
+  --outline: #3D3452; --accent: #FF7E8A; --user-bubble: #F28D97; --user-ink: #2A2238; --agent-bubble: #352D4A;
+  --mint: #9FCDB9; --lavender: #B8ABDD; --butter: #E6D08F; --bezel: #0C0910;
+  --glowA: rgba(255,126,138,.30); --glowB: rgba(139,124,255,.18); --pill-bg: #221A30; --icon: #A99FB8;
+  --c1: #8b7cff; --c2: #e8663a; --c3: #199e8f; --c4: #c98500; --c5: #d55181; --c6: #3987e5;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+body.reel, body.reel html { width: 1080px; height: 1920px; }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: "YuiRounded", system-ui; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+body.reel #stage { width: 1080px; height: 1920px; }
+#glow { position: absolute; inset: 0; background:
+  radial-gradient(1000px 680px at 50% 46%, var(--glowA) 0%, transparent 70%),
+  radial-gradient(1300px 820px at 50% 64%, var(--glowB) 0%, transparent 70%); }
+body.reel #glow { background:
+  radial-gradient(820px 1100px at 50% 55%, var(--glowA) 0%, transparent 70%),
+  radial-gradient(1000px 1400px at 50% 62%, var(--glowB) 0%, transparent 70%); }
+
+/* captions: flank the phone in landscape, stack above it in the reel */
+.cap { position: absolute; top: 540px; width: 540px; font-weight: 800; font-size: 62px; line-height: 1.08; letter-spacing: -0.02em; }
+.cap.L { left: 110px; }
+.cap.R { left: 1270px; }
+.cap.accent, .accent { color: var(--accent); }
+body.reel .cap { left: 60px; width: 960px; text-align: center; font-size: 64px; }
+body.reel .cap.L { top: 292px; }
+body.reel .cap.R { top: 370px; }
+.kpill { position: absolute; left: 110px; top: 660px; font-family: "YuiMono", ui-monospace, monospace; font-size: 25px; font-weight: 600; color: var(--ink); background: var(--pill-bg); border: 2px solid var(--outline); border-radius: 18px; padding: 14px 20px; white-space: nowrap; }
+.kpill b { color: var(--accent); font-weight: 700; }
+body.reel .kpill { left: 60px; right: 60px; width: fit-content; margin: 0 auto; top: 452px; font-size: 24px; }
+
+/* the phone */
+#phoneWrap { position: absolute; left: 751.5px; top: 102px; width: 417px; height: 876px; transform-origin: 50% 50%; }
+body.reel #phoneWrap { left: 331.5px; top: 616px; }
+.phone { position: absolute; inset: 0; border-radius: 67px; background: var(--bezel); padding: 12px; box-shadow: 0 50px 100px rgba(58,51,64,.20), 0 12px 32px rgba(58,51,64,.12), inset 0 0 0 2px #3A3340; }
+body.dark .phone { box-shadow: 0 50px 110px rgba(0,0,0,.55), 0 0 0 2px #4A3F5E, inset 0 0 0 2px #2A2236; }
+.screen { position: relative; width: 393px; height: 852px; border-radius: 55px; overflow: hidden; background: var(--background); }
+.island { position: absolute; left: 50%; top: 11px; width: 122px; height: 35px; margin-left: -61px; border-radius: 20px; background: #000; z-index: 30; }
+.sbar { position: absolute; left: 0; right: 0; top: 0; height: 54px; z-index: 29; color: var(--ink); }
+.sbar .time { position: absolute; left: 48px; top: 16px; font-weight: 700; font-size: 17px; }
+.sbar svg { position: absolute; top: 19px; }
+.homeind { position: absolute; left: 50%; bottom: 9px; width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; background: var(--ink); z-index: 31; }
+.pages { position: absolute; left: 0; top: 0; height: 852px; display: flex; }
+.page { position: relative; width: 393px; height: 852px; flex: 0 0 393px; background: var(--background); overflow: hidden; }
+
+/* chat */
+.apphead { position: absolute; left: 0; right: 0; top: 54px; height: 60px; z-index: 4; background: linear-gradient(var(--background) 70%, transparent); }
+.hbtn { position: absolute; top: 4px; width: 44px; height: 44px; border-radius: 50%; background: var(--raised); box-shadow: inset 0 0 0 1px var(--outline); display: grid; place-items: center; }
+.hbtn svg { width: 22px; height: 22px; }
+.hchip { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); display: flex; align-items: center; gap: 7px; font-size: 17px; font-weight: 800; white-space: nowrap; }
+.hwm { position: absolute; left: 50%; top: 13px; height: 25px; transform: translateX(-50%); }
+.chat { position: absolute; left: 0; right: 0; top: 104px; bottom: 86px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent 0, #000 22px); }
+.log { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 14px 10px; }
+.msg > .in { transform-origin: 50% 100%; }
+.urow { display: flex; justify-content: flex-end; }
+.ububble { max-width: 290px; background: var(--user-bubble); color: var(--user-ink); border-radius: 22px 22px 8px 22px; padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: 500; white-space: pre-line; }
+.arow { display: flex; align-items: flex-start; gap: 9px; }
+.avatar { flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); display: grid; place-items: center; margin-top: 2px; font-size: 15px; font-weight: 900; color: #fff; }
+.abubble { max-width: 290px; background: var(--agent-bubble); box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 22px 22px 22px 8px; padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: 500; }
+body.dark .abubble { box-shadow: none; }
+.card { width: 306px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 24px; padding: 14px 16px; }
+.card h4 { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: -0.01em; }
+.muted { color: var(--muted); }
+.btn { height: 46px; border-radius: 999px; display: grid; place-items: center; font-size: 17px; font-weight: 800; }
+.btn.coral { background: var(--brand); color: #3A3340; }
+.btn.mint { background: var(--mint); color: #2A2238; }
+.btn.lav { background: var(--lavender); color: #2A2238; }
+.btn.ghost { background: var(--raised); color: var(--muted); }
+.opt { position: relative; display: inline-block; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 999px; padding: 10px 16px; font-size: 16px; font-weight: 700; }
+.opt.on { background: var(--brand); box-shadow: inset 0 0 0 1.5px var(--brand); color: #3A3340; }
+.inputbar { position: absolute; left: 16px; right: 16px; bottom: 34px; height: 46px; display: flex; gap: 10px; }
+.inputbar .field { flex: 1; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); padding: 0 18px; display: flex; align-items: center; font-size: 17px; color: #B6ACBE; }
+body.dark .inputbar .field { color: #7E7490; }
+.inputbar .send { width: 46px; height: 46px; border-radius: 50%; background: var(--raised); display: grid; place-items: center; }
+
+/* the finger */
+#finger { position: absolute; left: 0; top: 0; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: rgba(58,51,64,.26); box-shadow: 0 0 0 3px rgba(255,255,255,.95), 0 8px 20px rgba(58,51,64,.25); z-index: 50; }
+body.dark #finger { background: rgba(246,238,247,.30); box-shadow: 0 0 0 3px rgba(255,255,255,.9), 0 8px 22px rgba(0,0,0,.4); }
+#ripple { position: absolute; left: 0; top: 0; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; border: 3px solid var(--brand); z-index: 49; }
+
+/* outro */
+#outro { position: absolute; inset: 0; text-align: center; }
+#owm { position: absolute; left: 50%; top: 190px; height: 230px; }
+#otag { position: absolute; left: 0; right: 0; top: 480px; font-size: 80px; font-weight: 800; letter-spacing: -0.02em; }
+#ourl { position: absolute; left: 0; right: 0; top: 606px; font-size: 58px; font-weight: 800; color: var(--accent); }
+#onote { position: absolute; left: 0; right: 0; top: 708px; font-size: 34px; font-weight: 700; color: var(--muted); }
+body.reel #owm { top: 560px; height: 250px; }
+body.reel #otag { top: 890px; padding: 0 70px; line-height: 1.08; }
+body.reel #ourl { top: 1080px; }
+body.reel #onote { top: 1180px; padding: 0 90px; line-height: 1.3; }

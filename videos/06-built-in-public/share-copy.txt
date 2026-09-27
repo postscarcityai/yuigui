@@ -1,0 +1,3 @@
+Yui went from its first TestFlight build to alpha in 4 days, all of it in public. A note from the feedback button became a card on our board, an agent built it, and it shipped in the next build the same day. Follow along: yuigui.com/board
+
+Yui went from first build to alpha in 4 days, all in public. A note from the feedback button became a card, an agent built it, and it shipped the same day. Watch the board, the log and the builds, link in bio.

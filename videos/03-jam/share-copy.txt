@@ -1,0 +1,1 @@
+I asked my agent for a beat. Then I changed it, it added swing, I played chords on a circle of fifths and soloed over the loop, and it saved the whole jam. Every sound is made from code, no samples. Try the music tools in the playground: yuigui.com/playground

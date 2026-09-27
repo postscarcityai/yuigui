@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../kit/kit.css"></head>
+<body class="dark"><div id="stage"><div id="glow"></div>
+<div class="cap L" id="c1">Smoke test left.</div><div class="cap R accent" id="c2">And right.</div>
+<div class="kpill" id="p1"><b>&gt;2 loop</b> 90 +play</div>
+<div id="ripple"></div><div id="finger"></div></div>
+<script src="../kit/kit.js"></script>
+<script>
+K.phone(K.chatPage({ log: K.user("u1", "Hello there, agent.") + K.say("a1", "Hi! Tap the button.") }));
+const G = [{ t: 2.0, el: "a1" }];
+function render(t) {
+  K.setMsg("u1", 1, 0, false); K.setMsg("a1", K.prog(t, 0.5, 0.9));
+  K.placePhone(t, K.camera(t, [[0, 1.15, 0, 0], [3, 1.35, "a1", 0]]));
+  K.caps(t, [["c1", 0.2, 9], ["c2", 1.0, 9]]); K.pills(t, [["p1", 1.5, 9]]);
+  K.finger(t, G);
+}
+window.ready = K.ready(() => { K.measure(["u1", "a1"]); render(0); });
+window.render = render; window.DURATION = 4; window.POSTER = 3;
+</script></body></html>

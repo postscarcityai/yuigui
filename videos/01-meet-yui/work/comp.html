@@ -1,0 +1,505 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Yui brag</title>
+<style>
+/* The app's own font (SF Pro Rounded) and SF Mono for Yui Lines. */
+@font-face { font-family: "YuiRounded"; src: url("file:///System/Library/Fonts/SFNSRounded.ttf"); font-weight: 100 1000; }
+@font-face { font-family: "YuiMono"; src: url("file:///System/Library/Fonts/SFNSMono.ttf"); font-weight: 100 1000; }
+
+/* Tokens copied from site/app/globals.css (light theme, which mirrors YuiTheme.yui). */
+:root {
+  --background: #FFF9F0; --surface: #FFFFFF; --ink: #3A3340; --ink-soft: #8C8294;
+  --outline: #F0E4D6; --brand: #FF7E8A; --mint: #BDEBD6; --lavender: #D9CCF7; --butter: #FFE8A3;
+  --user-bubble: #FFA8B0; --raised: #FFF3E4; --muted: #6E6478; --link: #C23B4F; --mint-ink: #2E7A60;
+  --plum: #231D33;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--background); }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: "YuiRounded", system-ui; color: var(--ink); background: var(--background); -webkit-font-smoothing: antialiased; }
+
+.glow { position: absolute; border-radius: 50%; pointer-events: none; }
+#g1 { width: 1500px; height: 900px; background: radial-gradient(closest-side, #FFE0E4 0%, rgba(255,224,228,0) 100%); }
+#g2 { width: 1300px; height: 900px; background: radial-gradient(closest-side, #ECE4FB 0%, rgba(236,228,251,0) 100%); }
+#g3 { width: 900px; height: 700px; background: radial-gradient(closest-side, rgba(255,232,163,.55) 0%, rgba(255,232,163,0) 100%); }
+
+/* Captions on the left */
+.cap { position: absolute; left: 140px; top: 540px; transform: translateY(-50%); width: 1000px; }
+.line { font-weight: 800; font-size: 80px; line-height: 1.06; letter-spacing: -0.02em; will-change: transform, opacity; }
+.accent { color: var(--link); }
+.dot { color: var(--brand); }
+.eyebrow { display: inline-block; font-size: 26px; font-weight: 800; background: var(--butter); border-radius: 999px; padding: 8px 22px; margin-bottom: 22px; }
+.codeline { display: inline-block; margin-top: 30px; background: var(--raised); border: 3px solid var(--outline); border-radius: 26px; padding: 22px 34px; font-family: "YuiMono", ui-monospace, monospace; font-size: 52px; font-weight: 600; color: var(--ink); white-space: pre; min-width: 640px; }
+.codeline .k { color: var(--link); }
+.caret { display: inline-block; width: 4px; height: 58px; background: var(--link); vertical-align: -10px; margin-left: 3px; border-radius: 2px; }
+.wire { display: inline-flex; align-items: center; gap: 18px; margin-top: 34px; background: var(--plum); color: #F6EEF7; border-radius: 22px; padding: 18px 28px; font-family: "YuiMono", ui-monospace, monospace; font-size: 34px; font-weight: 600; }
+.wire .arrow { color: var(--mint); font-family: "YuiRounded"; font-weight: 800; font-size: 30px; }
+.wire .val { color: var(--brand); }
+.sub { font-size: 44px; font-weight: 700; line-height: 1.2; color: var(--ink); margin-top: 26px; letter-spacing: -0.01em; }
+.wm { height: 170px; display: block; }
+
+/* Phone */
+#phoneWrap { position: absolute; left: 1211.5px; top: 102px; width: 417px; height: 876px; transform-origin: 50% 50%; }
+.phone { position: absolute; inset: 0; border-radius: 67px; background: #1D1924; padding: 12px; box-shadow: 0 40px 90px rgba(58,51,64,.22), 0 10px 30px rgba(58,51,64,.12), inset 0 0 0 2px #3A3340; }
+.screen { position: relative; width: 393px; height: 852px; border-radius: 55px; overflow: hidden; background: var(--background); }
+.island { position: absolute; left: 50%; top: 11px; width: 122px; height: 35px; margin-left: -61px; border-radius: 20px; background: #000; z-index: 5; }
+.sbar { position: absolute; left: 0; right: 0; top: 0; height: 54px; z-index: 4; }
+.sbar .time { position: absolute; left: 48px; top: 16px; font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+.sbar svg { position: absolute; top: 19px; }
+.apphead { position: absolute; left: 0; right: 0; top: 54px; height: 60px; z-index: 4; background: linear-gradient(var(--background) 70%, rgba(255,249,240,0)); }
+.hbtn { position: absolute; top: 4px; width: 44px; height: 44px; border-radius: 50%; background: #F6EDE2; box-shadow: 0 1px 2px rgba(58,51,64,.08), inset 0 0 0 1px #EFE3D5; display: grid; place-items: center; }
+.hbtn svg { width: 22px; height: 22px; }
+.apphead .hwm { position: absolute; left: 50%; top: 13px; height: 25px; transform: translateX(-50%); }
+.chat { position: absolute; left: 0; right: 0; top: 104px; bottom: 86px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent 0, #000 22px); }
+.log { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 16px 10px; }
+.msg { overflow: visible; }
+.msg > .in { transform-origin: 50% 100%; }
+.urow { display: flex; justify-content: flex-end; }
+.ububble { max-width: 290px; background: var(--user-bubble); color: var(--ink); border-radius: 22px 22px 8px 22px; padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: 500; }
+.arow { display: flex; align-items: flex-start; gap: 10px; }
+.avatar { flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); display: grid; place-items: center; margin-top: 2px; }
+.avatar.ghost { visibility: hidden; }
+.abubble { max-width: 300px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 22px 22px 22px 8px; padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: 500; }
+.essay { font-size: 15.5px; line-height: 1.38; }
+.essay b { font-weight: 800; display: block; margin-top: 8px; }
+.essay p { margin: 0; white-space: pre-line; }
+.typing { display: flex; gap: 6px; padding: 16px 18px; }
+.typing i { width: 9px; height: 9px; border-radius: 50%; background: #C9BFD1; display: block; }
+.card { width: 300px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 28px; padding: 18px; }
+.card h4 { margin: 0; font-size: 21px; font-weight: 800; letter-spacing: -0.01em; }
+.thead { display: flex; justify-content: space-between; align-items: center; }
+.round { background: var(--butter); border-radius: 999px; padding: 4px 11px; font-size: 14px; font-weight: 800; }
+.ring { position: relative; width: 224px; height: 224px; margin: 14px auto 16px; }
+.ring svg { position: absolute; inset: 0; }
+.ring .num { position: absolute; left: 0; right: 0; top: 70px; text-align: center; font-size: 56px; font-weight: 800; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.ring .ph { position: absolute; left: 0; right: 0; top: 140px; text-align: center; font-size: 14px; font-weight: 800; color: var(--brand); letter-spacing: .06em; }
+.trow { display: flex; gap: 10px; align-items: center; }
+.pause { flex: 1; height: 50px; border-radius: 999px; background: var(--lavender); display: grid; place-items: center; font-size: 19px; font-weight: 800; }
+.reset { width: 50px; height: 50px; border-radius: 50%; background: var(--background); box-shadow: inset 0 0 0 1.5px var(--outline); display: grid; place-items: center; }
+.chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 14px; }
+.chip { position: relative; background: #fff; box-shadow: inset 0 0 0 1.5px #EADFD2; border-radius: 999px; padding: 10px 17px; font-size: 17px; font-weight: 700; }
+.chip.sel { background: var(--brand); box-shadow: inset 0 0 0 1.5px var(--brand); }
+.finger { position: absolute; left: 50%; top: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; background: rgba(58,51,64,.26); box-shadow: 0 0 0 3px rgba(255,255,255,.95), 0 8px 20px rgba(58,51,64,.25); z-index: 3; }
+.ripple { position: absolute; left: 50%; top: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; border: 3px solid var(--brand); z-index: 2; }
+.inputbar { position: absolute; left: 16px; right: 16px; bottom: 34px; height: 46px; display: flex; gap: 10px; }
+.inputbar .field { flex: 1; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--outline); padding: 0 18px; display: flex; align-items: center; font-size: 17px; color: #B6ACBE; }
+.inputbar .send { width: 46px; height: 46px; border-radius: 50%; background: #F3E9DD; display: grid; place-items: center; }
+.homeind { position: absolute; left: 50%; bottom: 9px; width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; background: var(--ink); }
+
+/* Screen wall */
+#wall { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+#wallIn { position: absolute; left: 640px; top: -520px; width: 1700px; height: 2200px; transform-origin: 50% 50%; display: flex; gap: 34px; }
+.col { display: flex; flex-direction: column; gap: 34px; width: 300px; }
+.col img { width: 300px; height: 626px; border-radius: 34px; display: block; box-shadow: 0 24px 50px rgba(35,29,51,.25), 0 0 0 1.5px rgba(35,29,51,.35); object-fit: cover; }
+#scrim { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: linear-gradient(90deg, var(--background) 0, var(--background) 30%, rgba(255,249,240,.85) 42%, rgba(255,249,240,0) 58%); }
+.big { font-weight: 800; font-size: 118px; line-height: 1.0; letter-spacing: -0.025em; }
+
+/* Bring your own agent */
+#byo { position: absolute; left: 0; right: 0; top: 0; height: 1080px; text-align: center; }
+#byo .line { position: absolute; left: 0; right: 0; top: 300px; font-size: 96px; }
+.agents { position: absolute; left: 210px; right: 210px; top: 490px; display: flex; flex-wrap: wrap; justify-content: center; gap: 22px 22px; }
+.ag { display: inline-flex; align-items: center; gap: 16px; background: #fff; box-shadow: inset 0 0 0 2.5px var(--outline), 0 10px 26px rgba(58,51,64,.08); border-radius: 999px; padding: 20px 34px 20px 24px; font-size: 42px; font-weight: 800; }
+.ag i { width: 30px; height: 30px; border-radius: 50%; display: block; }
+
+/* Outro */
+#outro { position: absolute; left: 0; right: 0; top: 0; height: 1080px; text-align: center; }
+#outro .wm { height: 230px; margin: 0 auto; position: absolute; left: 50%; top: 190px; transform: translateX(-50%); }
+#outro .tag { position: absolute; left: 0; right: 0; top: 480px; font-size: 76px; font-weight: 800; letter-spacing: -0.02em; }
+#outro .url { position: absolute; left: 0; right: 0; top: 600px; font-size: 64px; font-weight: 800; color: var(--link); letter-spacing: -0.01em; }
+#outro .pills { position: absolute; left: 0; right: 0; top: 720px; display: flex; justify-content: center; gap: 20px; }
+#outro .pill { font-size: 34px; font-weight: 800; border-radius: 999px; padding: 12px 28px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="glow" id="g1"></div>
+  <div class="glow" id="g2"></div>
+  <div class="glow" id="g3"></div>
+
+  <!-- Scene 5: the wall of real screens -->
+  <div id="wall">
+    <div id="wallIn">
+      <div class="col" id="c0"></div><div class="col" id="c1"></div><div class="col" id="c2"></div><div class="col" id="c3"></div>
+    </div>
+    <div id="scrim"></div>
+  </div>
+
+  <!-- The phone: the app's chat, rebuilt from the build's screenshots -->
+  <div id="phoneWrap">
+    <div class="phone">
+      <div class="screen">
+        <div class="island"></div>
+        <div class="sbar">
+          <div class="time">9:41</div>
+          <svg style="left:278px" width="19" height="12" viewBox="0 0 19 12"><rect x="0" y="8" width="3.2" height="4" rx="1" fill="#3A3340"/><rect x="5" y="5.5" width="3.2" height="6.5" rx="1" fill="#3A3340"/><rect x="10" y="3" width="3.2" height="9" rx="1" fill="#3A3340"/><rect x="15" y="0" width="3.2" height="12" rx="1" fill="#3A3340"/></svg>
+          <svg style="left:302px" width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 2.2c2.6 0 5 1 6.8 2.7l1.2-1.3C14.4 1.6 11.6.4 8.5.4S2.6 1.6.5 3.6l1.2 1.3C3.5 3.2 5.9 2.2 8.5 2.2zm0 3.4c1.7 0 3.2.6 4.4 1.7l1.2-1.3c-1.5-1.4-3.5-2.2-5.6-2.2s-4.1.8-5.6 2.2l1.2 1.3c1.2-1.1 2.7-1.7 4.4-1.7zm0 3.4c.8 0 1.5.3 2 .8L8.5 12l-2-2.2c.5-.5 1.2-.8 2-.8z" fill="#3A3340"/></svg>
+          <svg style="left:324px" width="27" height="13" viewBox="0 0 27 13"><rect x=".75" y=".75" width="22.5" height="11.5" rx="3.5" fill="none" stroke="#3A3340" stroke-opacity=".4" stroke-width="1.5"/><rect x="2.5" y="2.5" width="19" height="8" rx="2" fill="#34C759"/><path d="M12.8 3.2 9.6 7h2.2l-.7 3 3.3-3.9h-2.2z" fill="#fff"/><rect x="24.5" y="4.3" width="1.8" height="4.4" rx=".9" fill="#3A3340" fill-opacity=".4"/></svg>
+        </div>
+        <div class="apphead">
+          <div class="hbtn" style="left:16px"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.6" fill="#6E6478"/><path d="M2.5 19.5c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6z" fill="#6E6478"/><circle cx="16.6" cy="8.6" r="3" fill="#6E6478" fill-opacity=".75"/><path d="M16.2 13.6c3.1 0 5.3 2.1 5.3 5.4h-4.6c0-2.2-.5-3.8-1.9-5.3z" fill="#6E6478" fill-opacity=".75"/></svg></div>
+          <img class="hwm" src="assets/yui-wordmark-coral.png" alt="">
+          <div class="hbtn" style="right:16px"><svg viewBox="0 0 24 24"><path fill="#6E6478" d="M10.3 2h3.4l.5 2.6c.7.2 1.3.6 1.9 1l2.5-.9 1.7 2.9-2 1.7c.1.7.1 1.4 0 2.2l2 1.7-1.7 2.9-2.5-.9c-.6.5-1.2.8-1.9 1.1l-.5 2.6h-3.4l-.5-2.6c-.7-.3-1.3-.6-1.9-1.1l-2.5.9-1.7-2.9 2-1.7c-.1-.8-.1-1.5 0-2.2l-2-1.7 1.7-2.9 2.5.9c.6-.4 1.2-.8 1.9-1zM12 8.6a3.4 3.4 0 1 0 0 6.8 3.4 3.4 0 0 0 0-6.8z"/></svg></div>
+        </div>
+        <div class="chat">
+          <div class="log" id="log">
+            <div class="msg" id="h0"><div class="in"><div class="arow"><div class="avatar">Y</div><div class="abubble">Sleep well. Talk tomorrow.</div></div></div></div>
+            <div class="msg" id="h1"><div class="in"><div class="urow"><div class="ububble">Morning, Yui</div></div></div></div>
+            <div class="msg" id="m0"><div class="in"><div class="arow"><div class="avatar">Y</div><div class="abubble">Morning! What are we doing today?</div></div></div></div>
+            <div class="msg" id="m1"><div class="in"><div class="urow"><div class="ububble">Can you set up a tabata timer for me?</div></div></div></div>
+            <div class="msg" id="m2"><div class="in"><div class="arow"><div class="avatar">Y</div><div class="abubble essay" id="essay"></div></div></div></div>
+            <div class="msg" id="m3"><div class="in"><div class="arow"><div class="avatar">Y</div><div class="abubble typing" id="typing"><i></i><i></i><i></i></div></div></div></div>
+            <div class="msg" id="m4"><div class="in"><div class="arow"><div class="avatar">Y</div>
+              <div class="card" id="timerCard">
+                <div class="thead"><h4>Tabata</h4><span class="round">Round 1/8</span></div>
+                <div class="ring">
+                  <svg viewBox="0 0 224 224"><circle cx="112" cy="112" r="100" fill="none" stroke="#EFE5D8" stroke-width="17"/><circle id="arc" cx="112" cy="112" r="100" fill="none" stroke="#FF7E8A" stroke-width="17" stroke-linecap="round" transform="rotate(-90 112 112)" stroke-dasharray="628.3 628.3" stroke-dashoffset="0"/></svg>
+                  <div class="num" id="num">0:40</div><div class="ph">WORK</div>
+                </div>
+                <div class="trow"><div class="pause">Pause</div><div class="reset"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 5V2L7.5 6 12 10V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z" fill="#3A3340"/></svg></div></div>
+              </div>
+            </div></div></div>
+            <div class="msg" id="m5"><div class="in"><div class="urow"><div class="ububble">Plan my workout</div></div></div></div>
+            <div class="msg" id="m6"><div class="in"><div class="arow"><div class="avatar">Y</div>
+              <div class="card"><h4>Which split today?</h4>
+                <div class="chips"><span class="chip">Push</span><span class="chip">Pull</span><span class="chip" id="legs">Legs<span class="ripple" id="ripple"></span><span class="finger" id="finger"></span></span><span class="chip">Type your own</span></div>
+              </div>
+            </div></div></div>
+            <div class="msg" id="m7"><div class="in"><div class="urow"><div class="ububble">Legs</div></div></div></div>
+          </div>
+        </div>
+        <div class="inputbar"><div class="field">Say something nice</div><div class="send"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4 5 11l1.6 1.6 4.3-4.3V20h2.2V8.3l4.3 4.3L19 11z" fill="#3A3340"/></svg></div></div>
+        <div class="homeind"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Captions -->
+  <div class="cap" id="cap1">
+    <div class="line" id="c1a">You asked for a timer.</div>
+    <div class="line accent" id="c1b">You got an essay.</div>
+  </div>
+  <div class="cap" id="cap2">
+    <div class="line" id="c2a">One line of text.</div>
+    <div id="c2code"><div class="codeline" id="code"></div></div>
+    <div class="line accent" id="c2b" style="margin-top:34px">One whole screen.</div>
+  </div>
+  <div class="cap" id="cap3">
+    <img class="wm" id="c3wm" src="assets/yui-wordmark-coral.png" alt="">
+    <div class="line" id="c3a" style="font-size:72px;margin-top:34px">Meet Yui, a generative<br>user interface.</div>
+  </div>
+  <div class="cap" id="cap4">
+    <div class="line" id="c4a">It asks.</div>
+    <div class="line accent" id="c4b">You tap.</div>
+    <div id="c4wire"><div class="wire"><span class="arrow">→ agent</span><span>{"choice":<span class="val">"Legs"</span>}</span></div></div>
+  </div>
+  <div class="cap" id="cap5">
+    <div class="big" id="w0">Timers<span class="dot">.</span></div>
+    <div class="big" id="w1">Forms<span class="dot">.</span></div>
+    <div class="big" id="w2">Charts<span class="dot">.</span></div>
+    <div class="big" id="w3">Games<span class="dot">.</span></div>
+  </div>
+
+  <div id="byo">
+    <div class="line" id="byoT">Bring your own agent.</div>
+    <div class="agents" id="agents"></div>
+  </div>
+
+  <div id="outro">
+    <img class="wm" id="owm" src="assets/yui-wordmark-coral.png" alt="">
+    <div class="tag" id="otag">Your agent draws the screen.</div>
+    <div class="url" id="ourl">yuigui.com</div>
+    <div class="pills" id="opills"><span class="pill" style="background:var(--mint)">Public beta on TestFlight</span><span class="pill" style="background:var(--lavender)">Open source</span></div>
+  </div>
+</div>
+
+<script>
+// ---------- helpers: every frame is a pure function of t ----------
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const eo = (p) => 1 - Math.pow(1 - p, 3);
+const ei = (p) => p * p * p;
+const eio = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+const back = (p) => { const c1 = 1.5, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const $ = (id) => document.getElementById(id);
+const lerp = (a, b, p) => a + (b - a) * p;
+const show = (id, on) => { $(id).style.display = on ? "block" : "none"; };
+
+// Text in, text out: rise and fade in, lift and fade out.
+function textIO(el, t, tin, tout, dist = 34) {
+  const pi = eo(prog(t, tin, tin + 0.34));
+  const po = ei(prog(t, tout, tout + 0.24));
+  const o = pi * (1 - po);
+  el.style.opacity = o;
+  el.style.transform = `translateY(${(1 - pi) * dist - po * 26}px)`;
+  el.style.visibility = o <= 0.001 ? "hidden" : "visible";
+  return o;
+}
+
+// ---------- the essay the agent sends instead of a timer ----------
+const ESSAY = [
+  ["p", "Great question! Tabata is a form of high-intensity interval training (HIIT) developed by Dr. Izumi Tabata. Here's how to set one up:"],
+  ["b", "1. Choose your intervals"],
+  ["p", "The classic format is 20 seconds of all-out effort and 10 seconds of rest, for 8 rounds. For a longer session, try 40 seconds of work and 20 seconds of rest."],
+  ["b", "2. Pick a timer"],
+  ["p", "You can use your phone's built-in Clock app, a stopwatch, or a dedicated interval timer app. Many fitness apps include Tabata presets."],
+  ["b", "3. Set it up"],
+  ["p", "• Open your timer app\n• Set the work interval to 40 seconds\n• Set the rest interval to 20 seconds\n• Set the number of rounds to 8\n• Turn the sound on so you hear each change"],
+  ["b", "4. Warm up first"],
+  ["p", "Spend 5 to 10 minutes on light cardio and dynamic stretches before you start. This raises your heart rate gradually and helps prevent injury."],
+  ["b", "5. Tips for success"],
+  ["p", "Stay hydrated, focus on form over speed, and listen to your body. Would you like me to suggest some exercises for each round?"],
+];
+const ESSAY_LEN = ESSAY.reduce((a, [, s]) => a + s.length, 0);
+const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+function essayHTML(n) {
+  let out = "", left = n;
+  for (const [k, s] of ESSAY) {
+    if (left <= 0) break;
+    const part = esc(s.slice(0, left));
+    left -= s.length;
+    out += k === "b" ? `<b>${part}</b>` : `<p>${part}</p>`;
+  }
+  return out;
+}
+let lastEssayN = -1;
+function setEssay(n) {
+  if (n === lastEssayN) return;
+  lastEssayN = n;
+  $("essay").innerHTML = essayHTML(n) || "&nbsp;";
+}
+
+// ---------- chat messages: insert and remove with height, so the log stays anchored at the bottom ----------
+const MSG = ["h0", "h1", "m0", "m1", "m2", "m3", "m4", "m5", "m6", "m7"];
+const natural = {};
+function measure() {
+  for (const id of MSG) {
+    const m = $(id);
+    m.style.height = "auto"; m.style.display = "block";
+    natural[id] = m.querySelector(".in").offsetHeight;
+  }
+}
+// p: 0..1 inserted amount. auto: let height follow the content (the streaming essay).
+function setMsg(id, p, { auto = false, gap = 12, pop = true } = {}) {
+  const m = $(id), inn = m.querySelector(".in");
+  if (p <= 0) { m.style.display = "none"; return; }
+  m.style.display = "block";
+  const e = eo(p);
+  m.style.marginTop = `${gap * e}px`;
+  m.style.height = auto && p >= 1 ? "auto" : `${natural[id] * e}px`;
+  m.style.overflow = p >= 1 ? "visible" : "hidden";
+  inn.style.opacity = clamp(p * 1.6);
+  inn.style.transform = pop ? `translateY(${(1 - e) * 14}px) scale(${0.94 + 0.06 * back(p)})` : "none";
+}
+
+// ---------- the Yui Lines line the agent really sends ----------
+const LINE = "timer 40/20x8 Tabata";
+function codeHTML(n, caret) {
+  const s = LINE.slice(0, n);
+  const head = s.slice(0, 5), rest = s.slice(5);
+  return `<span class="k">${esc(head)}</span>${esc(rest)}${caret ? '<span class="caret"></span>' : ""}`;
+}
+
+// ---------- the wall of real screens ----------
+const SCREENS = [
+  ["timer", "try-chart-bar", "gallery", "form", "game-snake"],
+  ["compare", "try-stat", "deck", "try-game-memory", "chart"],
+  ["try-chart-pie", "pick", "game-tictactoe", "try-timeline-trip", "calc"],
+  ["storyboard", "try-plan-training", "table", "meal", "try-sketch-home-page"],
+];
+SCREENS.forEach((col, i) => {
+  $("c" + i).innerHTML = col.concat(col.slice(0, 2)).map((s) => `<img src="assets/screens/${s}.jpg" alt="">`).join("");
+});
+
+// ---------- the agents ----------
+const AGENTS = [
+  ["Hermes", "var(--brand)"], ["OpenClaw", "var(--lavender)"], ["Claude Code", "#F4A988"], ["Cursor", "var(--ink)"],
+  ["MCP", "var(--mint)"], ["A2A", "var(--butter)"], ["AG-UI", "#FFA8B0"], ["Your own model", "#B8ABDD"], ["Webhooks", "#9FCDB9"],
+];
+$("agents").innerHTML = AGENTS.map(([n, c]) => `<span class="ag"><i style="background:${c}"></i>${n}</span>`).join("");
+const agEls = [...document.querySelectorAll(".ag")];
+
+// Avatars: the Yui "Y", drawn small like the app's agent chip.
+const Y_SVG = `<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3.2 3.4 7.6 8.2" stroke="#FF7E8A" stroke-width="3.6" stroke-linecap="round"/><path d="M16.8 3.4 12.4 8.2" stroke="#FF7E8A" stroke-width="3.6" stroke-linecap="round"/><path d="M10 11.2v5.6" stroke="#FF7E8A" stroke-width="3.6" stroke-linecap="round"/></svg>`;
+document.querySelectorAll(".avatar").forEach((a) => (a.innerHTML = Y_SVG));
+
+// ---------- timeline (seconds). 120 BPM: a beat is 0.5s ----------
+const T = {
+  essayOn: 0.55, streamA: 0.62, streamB: 2.95,     // scene 1
+  delA: 3.0, delB: 3.5,                            // scene 2: the essay is deleted
+  typeA: 3.72, typeB: 4.72, bloom: 5.0,            // the line types, the timer blooms on the beat
+  count: 5.6,
+  s3: 7.0, s4: 9.5, tap: 11.0, s5: 13.0, s6: 16.0, s7: 18.5, end: 21.5,
+};
+
+function render(t) {
+  // Background glow drifts slowly
+  $("g1").style.transform = `translate(${980 + Math.sin(t * 0.35) * 60}px, ${-420 + Math.cos(t * 0.3) * 40}px)`;
+  $("g2").style.transform = `translate(${-520 + Math.cos(t * 0.28) * 50}px, ${60 + Math.sin(t * 0.33) * 50}px)`;
+  $("g3").style.transform = `translate(${700 + Math.sin(t * 0.22) * 120}px, ${620 + Math.cos(t * 0.25) * 40}px)`;
+
+  // ----- captions -----
+  textIO($("c1a"), t, 0.12, 2.86);
+  textIO($("c1b"), t, 1.5, 2.9);
+  show("cap1", t < 3.3);
+
+  textIO($("c2a"), t, 3.18, 6.78);
+  textIO($("c2code"), t, 3.42, 6.84, 24);
+  textIO($("c2b"), t, 5.15, 6.9);
+  const typed = Math.round(LINE.length * prog(t, T.typeA, T.typeB));
+  const caretOn = t < T.bloom - 0.08 && Math.floor(t * 3) % 2 === 0 || (t >= T.typeA && t < T.typeB);
+  $("code").innerHTML = codeHTML(typed, caretOn);
+  // the line flashes as it is sent
+  const sent = prog(t, T.bloom - 0.05, T.bloom + 0.5);
+  $("code").style.borderColor = sent > 0 && sent < 1 ? `rgba(255,126,138,${1 - sent})` : "#F0E4D6";
+  $("code").style.boxShadow = sent > 0 && sent < 1 ? `0 0 0 ${10 * eo(sent)}px rgba(255,126,138,${0.35 * (1 - sent)})` : "none";
+  show("cap2", t > 3 && t < 7.3);
+
+  const wmIn = back(prog(t, 7.02, 7.5));
+  const wmOut = ei(prog(t, 9.3, 9.52));
+  $("c3wm").style.opacity = clamp(prog(t, 7.02, 7.2)) * (1 - wmOut);
+  $("c3wm").style.transform = `scale(${0.7 + 0.3 * wmIn}) translateY(${-wmOut * 24}px)`;
+  $("c3wm").style.transformOrigin = "0% 60%";
+  textIO($("c3a"), t, 7.2, 9.36);
+  show("cap3", t > 6.9 && t < 9.7);
+
+  textIO($("c4a"), t, 9.68, 12.56);
+  textIO($("c4b"), t, 10.22, 12.6);
+  textIO($("c4wire"), t, 11.42, 12.64, 22);
+  show("cap4", t > 9.5 && t < 13.0);
+
+  ["w0", "w1", "w2", "w3"].forEach((w, i) => textIO($(w), t, T.s5 + i * 0.5 - 0.02, 15.72 + i * 0.04, 50));
+  show("cap5", t > 12.9 && t < 16.2);
+
+  // ----- phone -----
+  const pw = $("phoneWrap");
+  let px = 0, py = 0, ps = 1.12, pr = 0, po = 1;
+  if (t < T.delA) { // close on the chat, pull back as the essay floods
+    const p = eio(prog(t, 0.8, 2.8));
+    ps = lerp(1.5, 1.15, p); pr = lerp(-3, -1, p); py = lerp(-330, 0, p);
+  } else {
+    // close in while the essay is deleted and the line types, back out as the timer blooms
+    const p = eio(prog(t, 3.0, 3.7)), q = eio(prog(t, T.bloom, T.bloom + 0.9));
+    ps = lerp(lerp(1.15, 1.34, p), 1.12, q); py = lerp(lerp(0, -210, p), 0, q); pr = lerp(-1, 0, eo(prog(t, 3.0, 3.8)));
+  }
+  // push in on the question card for the tap, then settle back before the exit
+  const pin = eio(prog(t, 9.9, 10.5)) * (1 - eio(prog(t, 12.2, 12.75)));
+  ps = lerp(ps, 1.48, pin); py = lerp(py, -300, pin); px = lerp(px, -40, pin);
+  py += Math.sin(t * 1.1) * 4;
+  if (t > 12.7) { // exit right for the wall
+    const p = ei(prog(t, 12.72, 13.2));
+    px += p * 820; pr += p * 8;
+  }
+  pw.style.transform = `translate(${px}px, ${py}px) rotate(${pr}deg) scale(${ps})`;
+  show("phoneWrap", t < 13.25);
+  pw.style.opacity = po;
+
+  // chat log
+  setMsg("h0", 1, { gap: 0, pop: false });
+  setMsg("h1", 1, { pop: false });
+  setMsg("m0", 1, { pop: false });
+  setMsg("m1", 1, { pop: false });
+  // essay: on, streaming, then deleted, then gone
+  const essayP = prog(t, T.essayOn, T.essayOn + 0.25);
+  let n = 0;
+  if (t < T.delA) n = Math.round(ESSAY_LEN * Math.pow(prog(t, T.streamA, T.streamB), 1.25));
+  else n = Math.round(ESSAY_LEN * (1 - eio(prog(t, T.delA, T.delB))));
+  setEssay(Math.max(n, 1));
+  if (t < T.delB) {
+    setMsg("m2", essayP, { auto: true });
+  } else {
+    setMsg("m2", 1 - prog(t, T.delB, T.delB + 0.12), { pop: false });
+  }
+  // typing dots between the delete and the bloom
+  const typIn = prog(t, T.delB + 0.02, T.delB + 0.25);
+  const typOut = prog(t, T.bloom - 0.02, T.bloom + 0.22);
+  setMsg("m3", typIn * (1 - typOut), { pop: typOut === 0 });
+  [...$("typing").children].forEach((d, i) => {
+    const b = Math.max(0, Math.sin((t * 7 - i * 0.9)));
+    d.style.transform = `translateY(${-b * 5}px)`;
+    d.style.opacity = 0.5 + b * 0.5;
+  });
+  // the timer blooms
+  const bl = prog(t, T.bloom, T.bloom + 0.5);
+  setMsg("m4", bl, {});
+  const sweep = eo(prog(t, T.bloom + 0.1, T.count));
+  const elapsed = Math.max(0, t - T.count);
+  const left = Math.max(0, 40 - elapsed);
+  const shown = Math.ceil(left - 1e-6);
+  $("num").textContent = `0:${String(Math.min(40, shown)).padStart(2, "0")}`;
+  const frac = sweep * (left / 40);
+  $("arc").setAttribute("stroke-dashoffset", String(628.3 * (1 - frac)));
+
+  // scene 4: ask and tap
+  setMsg("m5", prog(t, T.s4 + 0.02, T.s4 + 0.35), {});
+  setMsg("m6", prog(t, 10.0, 10.45), {});
+  setMsg("m7", prog(t, 11.36, 11.7), {});
+  const fIn = prog(t, 10.5, 10.62), fMove = eio(prog(t, 10.52, 10.96)), fOut = prog(t, 11.22, 11.42);
+  const press = Math.sin(Math.PI * prog(t, 10.94, 11.12));
+  const f = $("finger");
+  f.style.opacity = fIn * (1 - fOut);
+  f.style.transform = `translate(${(1 - fMove) * 90}px, ${(1 - fMove) * 120}px) scale(${1 - press * 0.18})`;
+  const rp = prog(t, 11.0, 11.45);
+  $("ripple").style.opacity = rp > 0 && rp < 1 ? 1 - rp : 0;
+  $("ripple").style.transform = `scale(${1 + eo(rp) * 1.5})`;
+  $("legs").classList.toggle("sel", t >= 11.02);
+
+  // ----- scene 5: the wall -----
+  const wallIn = eo(prog(t, 12.86, 13.5));
+  const wallOut = ei(prog(t, 15.7, 16.08));
+  const wv = t > 12.8 && t < 16.2;
+  show("wall", wv);
+  if (wv) {
+    $("wall").style.opacity = 1 - wallOut;
+    $("wallIn").style.transform = `translate(${(1 - wallIn) * 900 - wallOut * 200}px, ${-wallOut * 160}px) rotate(-11deg)`;
+    for (let i = 0; i < 4; i++) {
+      const dir = i % 2 === 0 ? -1 : 1;
+      const speed = 70 + i * 12;
+      const base = dir === -1 ? 0 : -1320;
+      $("c" + i).style.transform = `translateY(${base + dir * speed * (t - 12.8)}px)`;
+    }
+    $("scrim").style.opacity = clamp(prog(t, 12.9, 13.2));
+  }
+
+  // ----- scene 6: bring your own agent -----
+  const bv = t > 15.9 && t < 18.7;
+  show("byo", bv);
+  if (bv) {
+    textIO($("byoT"), t, 16.04, 18.26);
+    const bOut = ei(prog(t, 18.26, 18.5));
+    agEls.forEach((el, i) => {
+      const a = 16.5 + i * 0.125;
+      const p = prog(t, a, a + 0.38);
+      el.style.opacity = clamp(p * 3) * (1 - bOut);
+      el.style.transform = `translateY(${(1 - eo(p)) * 20 - bOut * 20}px) scale(${0.6 + 0.4 * back(p)})`;
+    });
+  }
+
+  // ----- scene 7: outro -----
+  const ov = t > 18.4;
+  show("outro", ov);
+  if (ov) {
+    const w = back(prog(t, 18.5, 19.0));
+    $("owm").style.opacity = clamp(prog(t, 18.5, 18.66));
+    $("owm").style.transform = `translateX(-50%) scale(${0.6 + 0.4 * w + prog(t, 19, 21.5) * 0.03})`;
+    textIO($("otag"), t, 18.86, 99);
+    textIO($("ourl"), t, 19.22, 99);
+    textIO($("opills"), t, 19.5, 99, 20);
+  }
+}
+
+window.ready = (async () => {
+  await document.fonts.load('800 40px "YuiRounded"');
+  await document.fonts.load('600 40px "YuiMono"');
+  await document.fonts.ready;
+  await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+  $("essay").innerHTML = "&nbsp;";
+  measure();
+  render(0);
+  return document.fonts.check('800 40px "YuiRounded"');
+})();
+window.render = render;
+window.DURATION = T.end;
+</script>
+</body>
+</html>

@@ -1,0 +1,526 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Yui jam</title>
+<style>
+@font-face { font-family: "YuiRounded"; src: url("file:///System/Library/Fonts/SFNSRounded.ttf"); font-weight: 100 1000; }
+@font-face { font-family: "YuiMono"; src: url("file:///System/Library/Fonts/SFNSMono.ttf"); font-weight: 100 1000; }
+/* Yui's dark theme (site/app/globals.css), the looper's row colors (the mock's dark palette). */
+:root {
+  --bg: #16111F; --background: #231D33; --surface: #2F2842; --raised: #352D4A; --ink: #F6EEF7; --muted: #A99FB8;
+  --outline: #3D3452; --brand: #FF7E8A; --user-bubble: #F28D97; --user-ink: #2A2238; --send: #C94B5E;
+  --c1: #8b7cff; --c2: #e8663a; --c3: #199e8f; --c4: #c98500; --c5: #d55181; --c6: #3987e5; --cell: #2A2338; --cellbeat: #332A45;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); }
+#stage { position: relative; width: 1920px; height: 1080px; overflow: hidden; font-family: "YuiRounded", system-ui; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+#glowA { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: radial-gradient(900px 620px at 50% 50%, rgba(255,126,138,.32) 0%, rgba(255,126,138,0) 70%); }
+#glowB { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: radial-gradient(1300px 800px at 50% 60%, rgba(139,124,255,.20) 0%, rgba(139,124,255,0) 70%); }
+
+.cap { position: absolute; top: 540px; width: 540px; font-weight: 800; font-size: 62px; line-height: 1.08; letter-spacing: -0.02em; }
+.cap.L { left: 110px; }
+.cap.R { left: 1270px; }
+.accent { color: var(--brand); }
+.pill { position: absolute; left: 110px; top: 660px; max-width: 600px; font-family: "YuiMono", ui-monospace, monospace; font-size: 25px; font-weight: 600; color: var(--ink); background: #221A30; border: 2px solid var(--outline); border-radius: 18px; padding: 14px 20px; white-space: nowrap; }
+.pill b { color: var(--brand); font-weight: 700; }
+
+/* phone */
+#phoneWrap { position: absolute; left: 751.5px; top: 102px; width: 417px; height: 876px; transform-origin: 50% 50%; }
+.phone { position: absolute; inset: 0; border-radius: 67px; background: #0C0910; padding: 12px; box-shadow: 0 50px 110px rgba(0,0,0,.55), 0 0 0 2px #4A3F5E, inset 0 0 0 2px #2A2236; }
+.screen { position: relative; width: 393px; height: 852px; border-radius: 55px; overflow: hidden; background: var(--background); }
+.island { position: absolute; left: 50%; top: 11px; width: 122px; height: 35px; margin-left: -61px; border-radius: 20px; background: #000; z-index: 30; }
+.sbar { position: absolute; left: 0; right: 0; top: 0; height: 54px; z-index: 29; }
+.sbar .time { position: absolute; left: 48px; top: 16px; font-weight: 700; font-size: 17px; }
+.sbar svg { position: absolute; top: 19px; }
+.homeind { position: absolute; left: 50%; bottom: 9px; width: 134px; height: 5px; margin-left: -67px; border-radius: 3px; background: var(--ink); z-index: 31; }
+#pages { position: absolute; left: 0; top: 0; width: 1572px; height: 852px; display: flex; }
+.page { position: relative; width: 393px; height: 852px; flex: 0 0 393px; background: var(--background); }
+
+/* chat */
+.apphead { position: absolute; left: 0; right: 0; top: 54px; height: 60px; z-index: 4; background: linear-gradient(var(--background) 70%, rgba(35,29,51,0)); }
+.hbtn { position: absolute; top: 4px; width: 44px; height: 44px; border-radius: 50%; background: var(--raised); box-shadow: inset 0 0 0 1px var(--outline); display: grid; place-items: center; }
+.hbtn svg { width: 22px; height: 22px; }
+.hwm { position: absolute; left: 50%; top: 13px; height: 25px; transform: translateX(-50%); }
+.chat { position: absolute; left: 0; right: 0; top: 104px; bottom: 86px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent 0, #000 22px); }
+.log { position: absolute; left: 0; right: 0; bottom: 0; padding: 0 14px 10px; }
+.msg > .in { transform-origin: 50% 100%; }
+.urow { display: flex; justify-content: flex-end; }
+.ububble { max-width: 290px; background: var(--user-bubble); color: var(--user-ink); border-radius: 22px 22px 8px 22px; padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: 600; }
+.arow { display: flex; align-items: flex-start; gap: 9px; }
+.avatar { flex: 0 0 32px; width: 32px; height: 32px; border-radius: 50%; background: var(--raised); box-shadow: inset 0 0 0 1.5px var(--outline); display: grid; place-items: center; margin-top: 2px; }
+.abubble { max-width: 290px; background: var(--raised); border-radius: 22px 22px 22px 8px; padding: 11px 16px; font-size: 17px; line-height: 1.32; font-weight: 500; }
+.card { width: 306px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 24px; padding: 14px 16px; }
+.card h4 { margin: 0; font-size: 19px; font-weight: 800; }
+.chipcard { display: flex; align-items: center; gap: 10px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); border-radius: 18px; padding: 10px 14px; width: 270px; font-size: 15px; font-weight: 700; }
+.dots4 { display: flex; gap: 4px; }
+.dots4 i { width: 10px; height: 10px; border-radius: 50%; display: block; }
+.fact { display: flex; justify-content: space-between; font-size: 14.5px; padding: 3px 0; }
+.fact span { color: var(--muted); }
+.btn { height: 46px; border-radius: 999px; display: grid; place-items: center; font-size: 17px; font-weight: 800; }
+.btn.coral { background: var(--brand); color: var(--user-ink); }
+.inputbar { position: absolute; left: 16px; right: 16px; bottom: 34px; height: 46px; display: flex; gap: 10px; }
+.inputbar .field { flex: 1; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); padding: 0 18px; display: flex; align-items: center; font-size: 17px; color: #7E7490; }
+.inputbar .send { width: 46px; height: 46px; border-radius: 50%; background: var(--raised); display: grid; place-items: center; }
+
+/* instrument pages */
+.pnav { position: absolute; left: 0; right: 0; bottom: 26px; display: flex; justify-content: center; align-items: center; gap: 10px; }
+.pnav .chatic { width: 30px; height: 30px; border-radius: 50%; background: var(--raised); display: grid; place-items: center; margin-right: 6px; }
+.pnav i { width: 8px; height: 8px; border-radius: 50%; background: #5A4F70; display: block; }
+.pnav i.on { background: var(--ink); }
+.ptitle { position: absolute; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: baseline; }
+.ptitle b { font-size: 24px; font-weight: 800; letter-spacing: -0.01em; }
+.ptitle span { font-size: 14px; font-weight: 700; color: var(--muted); }
+.grid { position: absolute; left: 20px; right: 20px; display: grid; grid-template-columns: 48px repeat(8, 1fr); gap: 7px 6px; align-items: center; }
+.rname { font-size: 13px; font-weight: 700; color: var(--muted); }
+.cell { aspect-ratio: 1; border-radius: 7px; background: var(--cell); }
+.cell.beat { background: var(--cellbeat); }
+.sep { position: absolute; left: 20px; right: 20px; border-top: 1.5px dashed var(--outline); }
+.ctrl { position: absolute; left: 20px; right: 20px; display: flex; gap: 10px; align-items: center; }
+.cbtn { height: 46px; border-radius: 14px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); display: grid; place-items: center; font-size: 16px; font-weight: 800; padding: 0 14px; }
+.cbtn.on { background: var(--ink); color: var(--background); }
+.sendbar { position: absolute; left: 20px; right: 20px; height: 50px; border-radius: 16px; background: var(--send); display: grid; place-items: center; font-size: 18px; font-weight: 800; }
+.strip { position: absolute; left: 20px; right: 20px; height: 38px; border-radius: 12px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); display: flex; align-items: center; gap: 8px; padding: 0 12px; font-size: 13px; font-weight: 800; }
+.strip .sdots { display: flex; gap: 3px; margin-left: auto; }
+.strip .sdots i { width: 7px; height: 7px; border-radius: 2px; background: #4A4060; display: block; }
+.strip .sdots i.b { background: #5C5078; }
+.strip .sdots i.h { background: var(--brand); }
+.lane { position: absolute; left: 20px; right: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.slot { height: 52px; border-radius: 14px; background: var(--cell); box-shadow: inset 0 0 0 1.5px var(--outline); display: grid; place-items: center; font-size: 20px; font-weight: 900; color: #5A4F70; }
+.recbtn { position: absolute; left: 20px; right: 20px; height: 52px; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1.5px var(--outline); display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 17px; font-weight: 800; }
+.recbtn i { width: 14px; height: 14px; border-radius: 50%; background: #FF5B5B; display: block; }
+.schips { position: absolute; left: 20px; right: 20px; display: flex; gap: 6px; }
+.schips span { border-radius: 999px; padding: 6px 11px; font-size: 13px; font-weight: 700; box-shadow: inset 0 0 0 1.5px var(--outline); color: var(--muted); }
+.schips span.on { background: var(--ink); color: var(--background); box-shadow: none; }
+.kbd { position: absolute; left: 20px; right: 20px; height: 300px; }
+.wk { position: absolute; top: 0; height: 100%; background: #F4F1F8; border-radius: 0 0 12px 12px; box-shadow: inset 0 0 0 1px #B9B2C8; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px; font-size: 12px; font-weight: 800; color: #6B6386; }
+.wk.off { background: #7E7690; color: #5A5270; }
+.wk.root { background: #FFE3E6; }
+.bk { position: absolute; top: 0; height: 58%; background: #1C1726; border-radius: 0 0 8px 8px; z-index: 2; box-shadow: 0 3px 0 rgba(0,0,0,.4); }
+.bk.off { background: #3E3650; }
+.played { position: absolute; left: 20px; right: 20px; font-family: "YuiMono"; font-size: 14px; font-weight: 600; color: var(--muted); text-align: right; }
+
+/* finger */
+#finger { position: absolute; left: 0; top: 0; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; background: rgba(246,238,247,.30); box-shadow: 0 0 0 3px rgba(255,255,255,.9), 0 8px 22px rgba(0,0,0,.4); z-index: 50; }
+#ripple { position: absolute; left: 0; top: 0; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; border: 3px solid var(--brand); z-index: 49; }
+
+/* outro */
+#outro { position: absolute; inset: 0; text-align: center; }
+#owm { position: absolute; left: 50%; top: 190px; height: 230px; transform-origin: 50% 50%; }
+#otag { position: absolute; left: 0; right: 0; top: 480px; font-size: 80px; font-weight: 800; letter-spacing: -0.02em; }
+#ourl { position: absolute; left: 0; right: 0; top: 606px; font-size: 56px; font-weight: 800; color: var(--brand); }
+#onote { position: absolute; left: 0; right: 0; top: 706px; font-size: 34px; font-weight: 700; color: var(--muted); }
+</style>
+<script src="score.js"></script>
+</head>
+<body>
+<div id="stage">
+  <div id="glowB"></div><div id="glowA"></div>
+
+  <div id="phoneWrap"><div class="phone"><div class="screen" id="screen">
+    <div class="island"></div>
+    <div class="sbar">
+      <div class="time">9:41</div>
+      <svg style="left:278px" width="19" height="12" viewBox="0 0 19 12"><rect x="0" y="8" width="3.2" height="4" rx="1" fill="#F6EEF7"/><rect x="5" y="5.5" width="3.2" height="6.5" rx="1" fill="#F6EEF7"/><rect x="10" y="3" width="3.2" height="9" rx="1" fill="#F6EEF7"/><rect x="15" y="0" width="3.2" height="12" rx="1" fill="#F6EEF7"/></svg>
+      <svg style="left:302px" width="17" height="12" viewBox="0 0 17 12"><path d="M8.5 2.2c2.6 0 5 1 6.8 2.7l1.2-1.3C14.4 1.6 11.6.4 8.5.4S2.6 1.6.5 3.6l1.2 1.3C3.5 3.2 5.9 2.2 8.5 2.2zm0 3.4c1.7 0 3.2.6 4.4 1.7l1.2-1.3c-1.5-1.4-3.5-2.2-5.6-2.2s-4.1.8-5.6 2.2l1.2 1.3c1.2-1.1 2.7-1.7 4.4-1.7zm0 3.4c.8 0 1.5.3 2 .8L8.5 12l-2-2.2c.5-.5 1.2-.8 2-.8z" fill="#F6EEF7"/></svg>
+      <svg style="left:324px" width="27" height="13" viewBox="0 0 27 13"><rect x=".75" y=".75" width="22.5" height="11.5" rx="3.5" fill="none" stroke="#F6EEF7" stroke-opacity=".4" stroke-width="1.5"/><rect x="2.5" y="2.5" width="19" height="8" rx="2" fill="#34C759"/><rect x="24.5" y="4.3" width="1.8" height="4.4" rx=".9" fill="#F6EEF7" fill-opacity=".4"/></svg>
+    </div>
+
+    <div id="pages">
+      <!-- 1: the chat -->
+      <div class="page" id="pg1">
+        <div class="apphead">
+          <div class="hbtn" style="left:16px"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.6" fill="#A99FB8"/><path d="M2.5 19.5c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6z" fill="#A99FB8"/><circle cx="16.6" cy="8.6" r="3" fill="#A99FB8" fill-opacity=".75"/><path d="M16.2 13.6c3.1 0 5.3 2.1 5.3 5.4h-4.6c0-2.2-.5-3.8-1.9-5.3z" fill="#A99FB8" fill-opacity=".75"/></svg></div>
+          <img class="hwm" src="assets/yui-wordmark-coral.png" alt="">
+          <div class="hbtn" style="right:16px"><svg viewBox="0 0 24 24"><path fill="#A99FB8" d="M10.3 2h3.4l.5 2.6c.7.2 1.3.6 1.9 1l2.5-.9 1.7 2.9-2 1.7c.1.7.1 1.4 0 2.2l2 1.7-1.7 2.9-2.5-.9c-.6.5-1.2.8-1.9 1.1l-.5 2.6h-3.4l-.5-2.6c-.7-.3-1.3-.6-1.9-1.1l-2.5.9-1.7-2.9 2-1.7c-.1-.8-.1-1.5 0-2.2l-2-1.7 1.7-2.9 2.5.9c.6-.4 1.2-.8 1.9-1zM12 8.6a3.4 3.4 0 1 0 0 6.8 3.4 3.4 0 0 0 0-6.8z"/></svg></div>
+        </div>
+        <div class="chat"><div class="log">
+          <div class="msg" id="ha"><div class="in"><div class="urow"><div class="ububble">Found my old headphones</div></div></div></div>
+          <div class="msg" id="h0"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Then let's make something. What are we playing?</div></div></div></div>
+          <div class="msg" id="c1"><div class="in"><div class="urow"><div class="ububble">Make me a beat to jam over. Laid back, around 90.</div></div></div></div>
+          <div class="msg" id="c2"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Here's a start. Tap any cell to change it.</div></div></div></div>
+          <div class="msg" id="c4"><div class="in"><div class="urow"><div class="ububble">Swing it, and put a clap on the snare.</div></div></div></div>
+          <div class="msg" id="c5"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Done. Swing at 50, a clap on the snare, rims in the gaps.</div></div></div></div>
+          <div class="msg" id="c6"><div class="in"><div class="urow"><div class="ububble">Now give me chords to play over it.</div></div></div></div>
+          <div class="msg" id="c7"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">Chords in G. Hit Record and play one a bar.</div></div></div></div>
+          <div class="msg" id="c8"><div class="in"><div class="arow"><div class="avatar"></div><div class="chipcard"><div class="dots4"><i style="background:var(--c1)"></i><i style="background:var(--c2)"></i><i style="background:var(--c3)"></i><i style="background:var(--c4)"></i></div>Take 1 · G D Em C · looping</div></div></div></div>
+          <div class="msg" id="c9"><div class="in"><div class="urow"><div class="ububble">Let me solo over this.</div></div></div></div>
+          <div class="msg" id="c10"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">G pentatonic on a lead sound. Every key fits.</div></div></div></div>
+          <div class="msg" id="c11"><div class="in"><div class="arow"><div class="avatar"></div><div class="abubble">That's a hook. Saved it as Late night.</div></div></div></div>
+          <div class="msg" id="c12"><div class="in"><div class="arow"><div class="avatar"></div>
+            <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h4>Late night</h4><span style="font-size:13px;font-weight:800;border-radius:999px;padding:3px 10px;background:var(--brand);color:var(--user-ink)">Saved</span></div>
+              <div style="height:8px"></div>
+              <div class="fact"><span>Beat</span><b>90 BPM, swing 50</b></div>
+              <div class="fact"><span>Chords</span><b>G D Em C</b></div>
+              <div class="fact"><span>Solo</span><b>23 notes, G pentatonic</b></div>
+              <div style="height:10px"></div>
+              <div class="btn coral">▶ Play it</div>
+            </div></div></div></div>
+        </div></div>
+        <div class="inputbar"><div class="field">Say something nice</div><div class="send"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 4 5 11l1.6 1.6 4.3-4.3V20h2.2V8.3l4.3 4.3L19 11z" fill="#F6EEF7"/></svg></div></div>
+      </div>
+
+      <!-- 2: the looper -->
+      <div class="page" id="pg2">
+        <div class="ptitle" style="top:74px"><b>Late night</b><span id="loopSub">90 BPM</span></div>
+        <div class="grid" id="bank0" style="top:118px"></div>
+        <div class="sep" style="top:372px"></div>
+        <div class="grid" id="bank1" style="top:386px"></div>
+        <div class="ctrl" style="top:648px"><div class="cbtn" id="playBtn" style="min-width:96px">▶ Play</div><div class="cbtn" style="width:46px;padding:0">−</div><div style="font-weight:900;font-size:18px;width:34px;text-align:center">90</div><div class="cbtn" style="width:46px;padding:0">+</div><div class="cbtn" id="swingBtn">Swing 0%</div></div>
+        <div class="sendbar" style="top:712px">Send</div>
+        <div class="pnav"><div class="chatic"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="#F6EEF7"/></svg></div><i class="on"></i><i></i><i></i></div>
+      </div>
+
+      <!-- 3: chords on the circle -->
+      <div class="page" id="pg3">
+        <div class="strip" id="strip3" style="top:66px"><span style="color:var(--brand)">▶</span>Late night · 90 BPM<div class="sdots"></div></div>
+        <div class="ptitle" style="top:124px"><b>Chords in G</b><span>I · V · vi · IV</span></div>
+        <svg id="wheel" viewBox="-160 -160 320 320" style="position:absolute;left:36px;top:170px;width:320px;height:320px;overflow:visible"></svg>
+        <div class="recbtn" id="rec-btn" style="top:512px"><i></i><span id="recTxt">Record</span></div>
+        <div class="lane" id="lane" style="top:580px"></div>
+        <div class="sendbar" style="top:712px;opacity:.5">Send</div>
+        <div class="pnav"><div class="chatic"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="#F6EEF7"/></svg></div><i></i><i class="on"></i><i></i></div>
+      </div>
+
+      <!-- 4: the solo -->
+      <div class="page" id="pg4">
+        <div class="strip" id="strip4" style="top:66px"><span style="color:var(--brand)">▶</span>Late night · 90 BPM<div class="sdots"></div></div>
+        <div class="lane" id="lane4" style="top:114px"></div>
+        <div class="ptitle" style="top:196px"><b>Solo</b><span>G pentatonic</span></div>
+        <div class="schips" style="top:236px"><span>keys</span><span>pluck</span><span>bell</span><span>pad</span><span>bass</span><span class="on">lead</span></div>
+        <div class="played" id="played" style="top:284px">&nbsp;</div>
+        <div class="kbd" id="kbd" style="top:312px"></div>
+        <div class="sendbar" id="send-btn" style="top:712px">Send</div>
+        <div class="pnav"><div class="chatic"><svg width="15" height="15" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="#F6EEF7"/></svg></div><i></i><i></i><i class="on"></i></div>
+      </div>
+    </div>
+    <div class="homeind"></div>
+  </div></div></div>
+
+  <div class="cap L" id="coldL">This jam started</div>
+  <div class="cap R accent" id="coldR">with one message.</div>
+  <div class="cap L" id="beatL">Ask for a beat.</div>
+  <div class="cap R accent" id="beatR">It starts on the next bar.</div>
+  <div class="cap L" id="editL">Tap to change it.</div>
+  <div class="cap R accent" id="editR">It never stops.</div>
+  <div class="cap L" id="patchL">Ask for changes.</div>
+  <div class="cap R accent" id="patchR">They land on the beat.</div>
+  <div class="cap L" id="chordL">Play chords on the circle.</div>
+  <div class="cap R accent" id="chordR">Record a take. It loops.</div>
+  <div class="cap L" id="soloL">Now solo.</div>
+  <div class="cap R accent" id="soloR">Every key fits.</div>
+  <div class="cap L" id="sendL">Send it back.</div>
+  <div class="cap R accent" id="sendR">Your agent keeps it.</div>
+  <div class="pill" id="pill1"><b>&gt;2 loop</b> 90 "Late night" +play …</div>
+  <div class="pill" id="pill2"><b>~loop</b> swing=50 p=…</div>
+  <div class="pill" id="pill3"><b>&gt;3 chords</b> G I-V-vi-IV +send</div>
+  <div class="pill" id="pill4"><b>&gt;4 keys</b> G pentatonic sound=lead …</div>
+  <div class="pill" id="pill5"><b>save</b> late night</div>
+
+  <div id="outro">
+    <img id="owm" src="assets/yui-wordmark-coral.png" alt="">
+    <div id="otag">Jam with your agent.</div>
+    <div id="ourl">yuigui.com/playground</div>
+    <div id="onote">Music tools: on the web now, in the iPhone app soon.</div>
+  </div>
+
+  <div id="ripple"></div>
+  <div id="finger"></div>
+</div>
+
+<script>
+const S = window.SCORE;
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const eo = (p) => 1 - Math.pow(1 - p, 3);
+const ei = (p) => p * p * p;
+const eio = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+const back = (p) => { const c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const lerp = (a, b, p) => a + (b - a) * p;
+const $ = (id) => document.getElementById(id);
+const show = (id, on) => { $(id).style.display = on ? "block" : "none"; };
+const STEP = S.step, BAR = S.bar;
+const [COLD_END, COLD_SHIFT] = S.cold;
+const stepTime = (k, swing) => k * STEP + (k % 2 ? (swing / 100) * STEP * 0.5 : 0);
+const at = (bar, k = 0, sw = 0) => bar * BAR + stepTime(k, sw);
+const COLORS = ["var(--c1)", "var(--c2)", "var(--c3)", "var(--c4)", "var(--c5)", "var(--c6)"];
+const CHORD_COLOR = { G: "var(--c1)", D: "var(--c2)", Em: "var(--c3)", C: "var(--c4)" };
+
+function textIO(el, t, tin, tout, dist = 32, center = true) {
+  const pi = eo(prog(t, tin, tin + 0.34)), po = ei(prog(t, tout, tout + 0.24));
+  const o = pi * (1 - po);
+  el.style.opacity = o;
+  el.style.transform = center ? `translateY(calc(-50% + ${(1 - pi) * dist - po * 24}px))` : `translateY(${(1 - pi) * dist - po * 24}px)`;
+  el.style.visibility = o <= 0.001 ? "hidden" : "visible";
+}
+
+// ---------- chat ----------
+const MSG = ["ha", "h0", "c1", "c2", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "c11", "c12"];
+const INS = { c1: 5.7, c2: 6.65, c4: 19.2, c5: 20.1, c6: 23.2, c7: 24.0, c8: 37.85, c9: 38.3, c10: 38.9, c11: 54.5, c12: 55.0 };
+const natural = {};
+function measure() { for (const id of MSG) { const m = $(id); m.style.display = "block"; m.style.height = "auto"; natural[id] = m.querySelector(".in").offsetHeight; } }
+function setMsg(id, p, gap = 12, pop = true) {
+  const m = $(id), inn = m.querySelector(".in");
+  if (p <= 0) { m.style.display = "none"; return; }
+  m.style.display = "block";
+  const e = eo(p);
+  m.style.marginTop = `${gap * e}px`;
+  m.style.height = `${natural[id] * e}px`;
+  m.style.overflow = p >= 1 ? "visible" : "hidden";
+  inn.style.opacity = clamp(p * 1.6);
+  inn.style.transform = pop ? `translateY(${(1 - e) * 14}px) scale(${0.94 + 0.06 * back(p)})` : "none";
+}
+
+// ---------- built once ----------
+const Y_SVG = `<svg width="20" height="20" viewBox="0 0 20 20"><path d="M3.2 3.4 7.6 8.2" stroke="#FF7E8A" stroke-width="3.6" stroke-linecap="round"/><path d="M16.8 3.4 12.4 8.2" stroke="#FF7E8A" stroke-width="3.6" stroke-linecap="round"/><path d="M10 11.2v5.6" stroke="#FF7E8A" stroke-width="3.6" stroke-linecap="round"/></svg>`;
+document.querySelectorAll(".avatar").forEach((a) => (a.innerHTML = Y_SVG));
+for (const bank of [0, 1]) {
+  let h = "";
+  S.rows.forEach((r, ri) => {
+    h += `<div class="rname">${r}</div>`;
+    for (let j = 0; j < 8; j++) { const k = bank * 8 + j; h += `<div class="cell${k % 4 === 0 ? " beat" : ""}" id="cell-${ri}-${k}"></div>`; }
+  });
+  $("bank" + bank).innerHTML = h;
+}
+document.querySelectorAll(".sdots").forEach((d) => { d.innerHTML = Array.from({ length: 16 }, (_, k) => `<i class="${k % 4 === 0 ? "b" : ""}"></i>`).join(""); });
+$("lane").innerHTML = S.prog.map((c, i) => `<div class="slot" id="slot-${i}">${c}</div>`).join("");
+$("lane4").innerHTML = S.prog.map((c, i) => `<div class="slot" id="slot4-${i}" style="height:40px;font-size:17px">${c}</div>`).join("");
+
+// The circle of fifths, G at the top: majors outside, their relative minors inside.
+const MAJ = ["G", "D", "A", "E", "B", "F#", "Db", "Ab", "Eb", "Bb", "F", "C"];
+const MIN = ["Em", "Bm", "F#m", "C#m", "G#m", "D#m", "Bbm", "Fm", "Cm", "Gm", "Dm", "Am"];
+const NUM = { G: "I", D: "V", C: "IV", Em: "vi", Bm: "iii", Am: "ii" };
+const pt = (r, a) => [r * Math.sin((a * Math.PI) / 180), -r * Math.cos((a * Math.PI) / 180)];
+function sector(r0, r1, a0, a1) {
+  const [x0, y0] = pt(r1, a0), [x1, y1] = pt(r1, a1), [x2, y2] = pt(r0, a1), [x3, y3] = pt(r0, a0);
+  return `M${x0},${y0} A${r1},${r1} 0 0 1 ${x1},${y1} L${x2},${y2} A${r0},${r0} 0 0 0 ${x3},${y3} Z`;
+}
+let wh = "";
+[[MAJ, 104, 156, 20], [MIN, 58, 102, 14.5]].forEach(([names, r0, r1, fs]) => {
+  names.forEach((n, i) => {
+    const a0 = i * 30 - 15 + 1, a1 = i * 30 + 15 - 1, dia = n in NUM;
+    const [lx, ly] = pt((r0 + r1) / 2, i * 30);
+    wh += `<g id="seg-${n}"><path d="${sector(r0, r1, a0, a1)}" fill="${dia ? "#40365A" : "#2B2340"}" stroke="${CHORD_COLOR[n] || "#3D3452"}" stroke-width="${CHORD_COLOR[n] ? 2.5 : 1.2}"/>`
+      + `<text x="${lx}" y="${ly + (dia ? 1 : 5)}" text-anchor="middle" font-family="YuiRounded" font-weight="800" font-size="${fs}" fill="${dia ? "#F6EEF7" : "#7D7294"}">${n}</text>`
+      + (dia ? `<text x="${lx}" y="${ly + 14}" text-anchor="middle" font-family="YuiRounded" font-weight="700" font-size="10" fill="#A99FB8">${NUM[n]}</text>` : "")
+      + `<circle id="tgt-${n}" cx="${lx}" cy="${ly}" r="2" fill="none"/></g>`;
+  });
+});
+wh += `<circle r="54" fill="#231D33" stroke="#3D3452" stroke-width="1.5"/><text y="6" text-anchor="middle" font-family="YuiRounded" font-weight="900" font-size="30" fill="#F6EEF7">G</text><text y="24" text-anchor="middle" font-family="YuiRounded" font-weight="700" font-size="11" fill="#A99FB8">major</text>`;
+$("wheel").innerHTML = wh;
+
+// The keyboard: G4 to A5, locked to G major pentatonic (G A B D E).
+const WHITE = [67, 69, 71, 72, 74, 76, 77, 79, 81];
+const NAMES = { 67: "G", 69: "A", 71: "B", 72: "C", 74: "D", 76: "E", 77: "F", 79: "G", 81: "A" };
+const PENTA = new Set([7, 9, 11, 2, 4]);
+const ww = 353 / WHITE.length;
+let kb = "";
+WHITE.forEach((m, i) => {
+  kb += `<div class="wk${PENTA.has(m % 12) ? "" : " off"}${m % 12 === 7 ? " root" : ""}" id="key-${m}" style="left:${i * ww}px;width:${ww - 2}px">${NAMES[m]}</div>`;
+  const nxt = WHITE[i + 1];
+  if (nxt && nxt - m === 2) kb += `<div class="bk off" style="left:${(i + 1) * ww - ww * 0.32}px;width:${ww * 0.62}px"></div>`;
+});
+$("kbd").innerHTML = kb;
+
+// ---------- the music, read from the score ----------
+const kicks = S.drums.filter((d) => d[1] === "kick").map((d) => d[0]).concat([S.final]);
+function stateAt(T) { let c = S.changes[0]; for (const x of S.changes) if (x[0] <= T + 1e-9) c = x; return c; }
+function playhead(T) {
+  if (T < S.loop[0] || T >= S.loop[1]) return -1;
+  const b = Math.floor(T / BAR), tb = T - b * BAR, sw = stateAt(b * BAR)[2];
+  let k = 0;
+  for (let i = 0; i < 16; i++) if (stepTime(i, sw) <= tb + 1e-9) k = i;
+  return k;
+}
+function lastStrum(T) { let s = null; for (const x of S.strums) if (x[0] <= T) s = x; return s; }
+
+// ---------- camera: fixed points in the phone ----------
+// [time, scale, local y to center, rotation]. Pages are full screen, so their points are numbers.
+const CAM = [
+  [0, 1.36, -40, 0], [4.9, 1.36, -40, 0], [5.6, 1.15, 0, 0], [7.1, 1.15, 0, 0], [7.8, 1.3, -60, 0], [13.2, 1.3, -60, 0],
+  [13.8, 1.5, 90, 0], [18.4, 1.5, 90, 0], [19.0, 1.15, 0, 0], [20.4, 1.15, 0, 0], [21.0, 1.32, -40, 0], [22.5, 1.32, -40, 0],
+  [23.0, 1.15, 0, 0], [24.3, 1.15, 0, 0], [25.0, 1.42, -60, 0], [37.4, 1.42, -60, 0], [38.0, 1.15, 0, 0], [39.1, 1.15, 0, 0],
+  [39.8, 1.38, 30, 0], [53.5, 1.38, 30, 0], [54.3, 1.15, 0, 0], [56.8, 1.15, 0, 0],
+];
+function camera(t) {
+  let i = 0;
+  while (i < CAM.length - 1 && CAM[i + 1][0] <= t) i++;
+  const a = CAM[i], c = CAM[Math.min(i + 1, CAM.length - 1)];
+  const p = c === a ? 0 : eio(prog(t, a[0], c[0]));
+  const s = lerp(a[1], c[1], p);
+  return { s, y: -lerp(a[2], c[2], p) * s, r: lerp(a[3], c[3], p) };
+}
+// Which screen the phone shows: [from time, to time, from page, to page].
+const VIEW = [[7.2, 7.6, 0, 1], [18.7, 19.1, 1, 0], [20.5, 20.9, 0, 1], [22.6, 23.0, 1, 0], [24.45, 24.85, 0, 2], [37.5, 37.9, 2, 0], [39.25, 39.65, 0, 3], [53.95, 54.35, 3, 0]];
+function view(T) {
+  if (T < 5.33) return 3;
+  let v = 0;
+  for (const [a, z, f, to] of VIEW) { if (T >= z) v = to; else if (T > a) return lerp(f, to, eio(prog(T, a, z))); }
+  return v;
+}
+
+let curScale = 1.15;
+function render(t) {
+  const T = t < COLD_END ? t + COLD_SHIFT : t;   // the cold open shows the jam from later on
+
+  // background pulses with the kick
+  let pulse = 0;
+  for (const k of kicks) { const d = T - k; if (d >= 0 && d < 1.2) pulse += Math.exp(-d / 0.22); }
+  if (t >= 5.0 && t < 8.0) pulse *= 0;
+  $("glowA").style.opacity = 0.45 + 0.55 * clamp(pulse);
+  $("glowA").style.transform = `scale(${1 + 0.05 * clamp(pulse)})`;
+
+  // ----- chat -----
+  setMsg("ha", 1, 0, false); setMsg("h0", 1, 12, false);
+  for (const [id, t0] of Object.entries(INS)) setMsg(id, t < COLD_END ? 0 : prog(T, t0, t0 + 0.35));
+
+  // ----- the looper -----
+  const [, pats, swing] = stateAt(T);
+  const head = playhead(T);
+  const playing = head >= 0;
+  S.rows.forEach((r, ri) => {
+    const pat = (pats[r] + "................").slice(0, 16);
+    for (let k = 0; k < 16; k++) {
+      const el = $(`cell-${ri}-${k}`), on = pat[k] === "x";
+      el.style.background = on ? COLORS[ri] : "";
+      const isHead = k === head;
+      el.style.outline = isHead ? "2px solid rgba(246,238,247,.9)" : "none";
+      el.style.outlineOffset = "-2px";
+      // cells the patch added pop in on the bar
+      const born = S.changes.find((c) => (c[1][r] + "................")[k] === "x");
+      const pop = born && born[0] > 0 ? back(prog(T, born[0], born[0] + 0.35)) : 1;
+      el.style.transform = `scale(${(on && isHead ? 1.12 : 1) * (on ? 0.7 + 0.3 * pop : 1)})`;
+      el.style.filter = on && isHead ? "brightness(1.35)" : "none";
+      el.style.boxShadow = on && isHead ? `0 0 14px ${COLORS[ri]}` : "none";
+    }
+  });
+  $("loopSub").textContent = `90 BPM${swing ? ` · swing ${swing}%` : ""}`;
+  $("swingBtn").textContent = `Swing ${swing}%`;
+  $("playBtn").textContent = playing ? "■ Stop" : "▶ Play";
+  $("playBtn").className = `cbtn${playing ? " on" : ""}`;
+  document.querySelectorAll(".sdots").forEach((d) => [...d.children].forEach((el, k) => el.className = k === head ? "h" : k % 4 === 0 ? "b" : ""));
+
+  // ----- chords on the circle -----
+  for (const n of [...MAJ, ...MIN]) {
+    const g = $("seg-" + n);
+    let lit = 0;
+    for (const [st, ch] of S.strums) if (ch === n && T >= st && T - st < 0.45) lit = Math.max(lit, 1 - (T - st) / 0.45);
+    const path = g.querySelector("path");
+    if (CHORD_COLOR[n]) path.setAttribute("fill", lit > 0 ? CHORD_COLOR[n] : "#40365A");
+    path.style.opacity = CHORD_COLOR[n] && lit > 0 ? 0.55 + 0.45 * lit : 1;
+    g.style.transform = `scale(${1 + 0.05 * lit})`;
+  }
+  const [recTap, recStart, recEnd] = S.rec;
+  const recBar = Math.floor((T - recStart) / BAR);
+  $("recTxt").textContent = T < recTap ? "Record" : T < recStart ? "Recording starts on the next bar" : T < recEnd ? `Recording · bar ${recBar + 1} of 4` : "Take 1 · looping";
+  $("rec-btn").style.background = T >= recStart && T < recEnd ? "#5A2436" : "";
+  const loopSlot = T >= recEnd ? Math.floor((T - recEnd) / BAR) % 4 : T >= recStart ? recBar : -1;
+  for (let i = 0; i < 4; i++) {
+    const first = S.strums.find((x) => x[3] && x[1] === S.prog[i]);
+    const filled = first && T >= first[0];
+    for (const id of [`slot-${i}`, `slot4-${i}`]) {
+      const el = $(id);
+      el.style.background = filled ? (i === loopSlot ? CHORD_COLOR[S.prog[i]] : "#3A3150") : "";
+      el.style.color = filled ? "#F6EEF7" : "";
+      el.style.boxShadow = filled && i === loopSlot ? `0 0 16px ${CHORD_COLOR[S.prog[i]]}` : "";
+    }
+  }
+
+  // ----- the solo -----
+  const down = new Set(S.lead.filter(([st, m, d]) => T >= st && T < st + d).map((x) => x[1]));
+  WHITE.forEach((m) => { const el = $("key-" + m); el.style.background = down.has(m) ? "var(--brand)" : ""; el.style.color = down.has(m) ? "#2A2238" : ""; });
+  const names = { 67: "G4", 69: "A4", 71: "B4", 74: "D5", 76: "E5" };
+  const played = S.lead.filter(([st]) => T >= st).slice(-6).map((x) => names[x[1]]);
+  $("played").textContent = played.length ? played.join(" ") : " ";
+  const sent = T >= S.send;
+  $("send-btn").textContent = sent ? "Sent ✓" : "Send";
+
+  // ----- phone placement -----
+  const pw = $("phoneWrap");
+  const cam = camera(t);
+  let ps = cam.s, py = cam.y + Math.sin(t * 0.9) * 3, pr = cam.r;
+  // the rewind: a quick blur and dip as the jam rolls back to an empty chat
+  const rw = Math.sin(Math.PI * prog(t, 5.0, 5.7));
+  ps *= 1 - 0.06 * rw;
+  $("screen").style.filter = rw > 0.01 ? `blur(${6 * rw}px) saturate(${1 - 0.6 * rw})` : "none";
+  const out = eio(prog(t, 56.9, 57.6));
+  ps *= lerp(1, 0.8, out);
+  pw.style.opacity = 1 - out;
+  pw.style.transform = `translate(0px, ${py}px) rotate(${pr}deg) scale(${ps})`;
+  show("phoneWrap", t < 57.65);
+  curScale = ps;
+  $("pages").style.transform = `translateX(${-view(T) * 393}px)`;
+
+  // ----- captions and lines -----
+  const caps = [["coldL", 0.3, 4.85], ["coldR", 1.6, 4.9], ["beatL", 5.9, 13.2], ["beatR", 8.05, 13.25], ["editL", 13.5, 18.5], ["editR", 14.9, 18.55],
+    ["patchL", 18.9, 24.2], ["patchR", 21.4, 24.25], ["chordL", 24.6, 37.4], ["chordR", 30.0, 37.45], ["soloL", 38.2, 53.4], ["soloR", 40.2, 53.45],
+    ["sendL", 53.8, 56.8], ["sendR", 55.0, 56.85]];
+  for (const [id, a, z] of caps) { show(id, t > a - 0.05 && t < z + 0.3); textIO($(id), t, a, z); }
+  const pills = [["pill1", 6.7, 13.2], ["pill2", 20.2, 24.2], ["pill3", 24.1, 37.4], ["pill4", 38.9, 53.4], ["pill5", 54.5, 56.8]];
+  for (const [id, a, z] of pills) { show(id, t > a - 0.05 && t < z + 0.3); textIO($(id), t, a, z, 20, false); }
+
+  // ----- outro -----
+  const ov = t > 57.3;
+  show("outro", ov);
+  if (ov) {
+    const w = back(prog(t, 57.4, 57.9));
+    $("owm").style.opacity = clamp(prog(t, 57.4, 57.55));
+    $("owm").style.transform = `translateX(-50%) scale(${0.6 + 0.4 * w + prog(t, 58, 64) * 0.03 + 0.03 * clamp(pulse)})`;
+    textIO($("otag"), t, 57.8, 99, 30, false);
+    textIO($("ourl"), t, 58.2, 99, 30, false);
+    textIO($("onote"), t, 58.6, 99, 20, false);
+  }
+
+  finger(T, t);
+}
+
+// ---------- the finger: gestures from the score, gliding between close ones ----------
+const G = S.taps.map(([tt, el]) => ({ t: tt, el }));
+function center(id) { const r = $(id).getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; }
+function finger(T, t) {
+  const f = $("finger"), rp = $("ripple");
+  if (window.noFinger || t >= 56.9 || (t >= 4.95 && t < 5.4)) { f.style.opacity = 0; rp.style.opacity = 0; return; }
+  let a = -1;
+  for (let i = 0; i < G.length; i++) if (T >= G[i].t - 0.5 && T <= G[i].t + 0.35) { a = i; break; }
+  if (a < 0) for (let i = 0; i < G.length - 1; i++) if (T > G[i].t && T < G[i + 1].t && G[i + 1].t - G[i].t < 1.3) { a = i + 1; break; }
+  if (a < 0) { f.style.opacity = 0; rp.style.opacity = 0; return; }
+  // while chained, a later gesture only takes over once the move toward it begins
+  const g = G[a], prev = G[a - 1], next = G[a + 1];
+  const gap = prev ? g.t - prev.t : 9, chained = gap < 1.3;
+  const mvd = clamp(gap * 0.7, 0.08, 0.45);
+  let cur = g, from = prev;
+  if (chained && T < g.t - mvd) { cur = prev; from = G[a - 2]; }
+  const [tx, ty] = center(cur.el);
+  let x = tx, y = ty;
+  if (cur === g && T < g.t) {
+    let sx, sy;
+    if (chained) [sx, sy] = center(prev.el); else { sx = tx + 60; sy = ty + 100; }
+    const mv = eio(prog(T, g.t - (chained ? mvd : 0.45), g.t - 0.03));
+    x = lerp(sx, tx, mv); y = lerp(sy, ty, mv);
+  }
+  const fin = chained ? 1 : clamp(prog(T, g.t - 0.5, g.t - 0.38));
+  const chainedNext = next && next.t - g.t < 1.3;
+  const fout = chainedNext && cur === g ? 1 : 1 - clamp(prog(T, cur.t + 0.2, cur.t + 0.35));
+  const press = Math.sin(Math.PI * prog(T, cur.t - 0.05, cur.t + 0.1));
+  const s = curScale / 1.2;
+  f.style.opacity = fin * fout;
+  f.style.transform = `translate(${x}px, ${y}px) scale(${s * (1 - 0.16 * press)})`;
+  const r = prog(T, cur.t, cur.t + 0.4);
+  rp.style.opacity = r > 0 && r < 1 ? 1 - r : 0;
+  rp.style.transform = `translate(${tx}px, ${ty}px) scale(${s * (1 + eo(r) * 1.3)})`;
+}
+
+window.ready = (async () => {
+  await document.fonts.load('800 40px "YuiRounded"');
+  await document.fonts.load('600 40px "YuiMono"');
+  await document.fonts.ready;
+  await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+  measure();
+  render(0);
+  return document.fonts.check('800 40px "YuiRounded"');
+})();
+window.render = render;
+window.DURATION = S.end;
+</script>
+</body>
+</html>

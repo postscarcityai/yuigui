@@ -1,0 +1,1 @@
+You asked your agent for a timer and got an essay. Yui is an iPhone app where your agent answers with the screen instead: one line of text becomes a live timer, a form, or a choice you tap. Bring your own agent (Hermes, OpenClaw, Claude Code and more). The public beta is on TestFlight: yuigui.com
