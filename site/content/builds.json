@@ -1128,6 +1128,22 @@
     {
       "text": "Live check: a native list answer has no \\n in its quoted strings",
       "card": "YUI-161"
+    },
+    {
+      "text": "WIP: crew choice, screens on the stage",
+      "card": "YUI-164"
+    },
+    {
+      "text": "First run waits for Yui a few seconds before the pairing pitch",
+      "card": "YUI-164"
+    },
+    {
+      "text": "Stage first: a screen pill in the chat opens the stage on that screen",
+      "card": "YUI-164"
+    },
+    {
+      "text": "Stack check reads the launched pid and new crash reports, not launchctl",
+      "card": "YUI-164"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T21:11:20.577Z",
+  "updated": "2026-09-27T21:40:26.982Z",
   "shippedDays": 30,
   "release": {
     "version": "0.4.2",
@@ -213,11 +213,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-135",
-          "title": "The starter crew",
-          "summary": "Trainer, nutritionist Basil, musician Gouda, Penny and Quill, each with favorite screens"
-        },
-        {
           "key": "YUI-137",
           "title": "Yui makes agents",
           "summary": "Create, edit, fork and remove a native agent from chat"
@@ -284,8 +279,9 @@
           "summary": "New-user first run with the crew, pick your crew, screens on the stage, on top of the 229 crash fix"
         },
         {
-          "key": "YUI-161",
-          "title": "Native agents write \\n inside quoted YL strings, the app shows 'nn'"
+          "key": "YUI-135",
+          "title": "The starter crew",
+          "summary": "Trainer, nutritionist Basil, musician Gouda, Penny and Quill, each with favorite screens"
         }
       ]
     },
@@ -293,6 +289,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-161",
+          "title": "Native agents write \\n inside quoted YL strings, the app shows 'nn'",
+          "summary": "Line breaks read as lines",
+          "shipped": "2026-09-27",
+          "progress": "/progress#line-breaks-read-as-lines"
+        },
         {
           "key": "YUI-162",
           "title": "Native GLM 5.2 turns can think through all 2000 tokens and answer nothing",
