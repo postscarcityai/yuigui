@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T23:05:58.250Z",
+  "updated": "2026-09-27T23:10:58.784Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.0",
@@ -266,10 +266,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-50101",
-          "title": "Agents answer in screens, not prose"
-        },
-        {
           "key": "NOTE-11943",
           "title": "Swipe for drawer and screens again"
         },
@@ -307,6 +303,11 @@
           "summary": "Record a take, plug in a keyboard",
           "blocked": "chris",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
+        },
+        {
+          "key": "NOTE-50101",
+          "title": "Agents answer in screens, not prose",
+          "blocked": "other"
         }
       ]
     },
