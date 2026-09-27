@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-27T14:44:47.351Z",
+  "updated": "2026-09-27T15:10:36.848Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.4.1",
-    "status": "shipped",
-    "startedAt": "2026-09-27T08:02:02.000Z",
-    "shippedAt": "2026-09-27T08:31:06.000Z",
+    "version": "0.4.2",
+    "status": "open",
+    "startedAt": "2026-09-27T15:02:24.000Z",
+    "shippedAt": null,
     "cards": []
   },
   "columns": [
@@ -340,10 +340,6 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
-        },
-        {
-          "key": "YUI-159",
-          "title": "A pick on the stage questions has its own Done"
         }
       ]
     },
@@ -351,6 +347,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-159",
+          "title": "A pick on the stage questions has its own Done",
+          "summary": "One Send per screen, picks too",
+          "shipped": "2026-09-27",
+          "progress": "/progress#one-send-per-screen-picks-too"
+        },
         {
           "key": "YUI-156",
           "title": "A form inside a plan has no Send of its own",

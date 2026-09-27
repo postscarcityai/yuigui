@@ -1023,6 +1023,9 @@
     {
       "text": "A pick inside a plan has no Done: one Send per screen",
       "card": "YUI-159"
+    },
+    {
+      "text": "Bump to 0.4.2: one Send per screen in plans and questions"
     }
   ]
 }
