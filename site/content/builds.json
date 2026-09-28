@@ -1357,6 +1357,13 @@
     {
       "text": "yui-mcp serves the trainer's flow: screen copy synced from yuigui",
       "card": "SITE-70"
+    },
+    {
+      "text": "Gouda's tools: learn a song and play along, the practice log, saved sessions, his pages kept current (YUI-184, runtime half)"
+    },
+    {
+      "text": "yui-mcp: sync the screen bundle, light timer dial",
+      "card": "SITE-78"
     }
   ]
 }

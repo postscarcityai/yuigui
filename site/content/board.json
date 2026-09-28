@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T07:11:07.103Z",
+  "updated": "2026-09-28T07:41:14.944Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -13,8 +13,8 @@
         "status": "now"
       },
       {
-        "key": "YUI-184",
-        "title": "Gouda's tools",
+        "key": "YUI-185",
+        "title": "Penny's tools",
         "status": "now"
       },
       {
@@ -24,9 +24,10 @@
         "progress": "/progress#your-nutritionist-plans-your-meals"
       },
       {
-        "key": "YUI-185",
-        "title": "Penny's tools",
-        "status": "next"
+        "key": "YUI-184",
+        "title": "Gouda's tools",
+        "status": "next",
+        "progress": "/progress#your-music-teacher-teaches-songs"
       },
       {
         "key": "YUI-186",
@@ -234,10 +235,6 @@
           "title": "The study buddy's flow for the site chat, from a topic to a quiz"
         },
         {
-          "key": "SITE-76",
-          "title": "See it's 'Yui on your phone' group still shows the old chat composer"
-        },
-        {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors",
           "waiting": true
@@ -299,11 +296,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-185",
-          "title": "Penny's tools",
-          "summary": "Plan my week by voice, today list, reminders, evening review, default screens"
-        },
-        {
           "key": "YUI-186",
           "title": "Quill's tools",
           "summary": "Learn a topic, cards with spaced review, step by step problems, default screens"
@@ -342,13 +334,20 @@
           "progress": "/progress#your-nutritionist-plans-your-meals"
         },
         {
-          "key": "SITE-78",
-          "title": "The interval timer's digits vanish in light mode (dark text on the dark dial)"
-        },
-        {
           "key": "YUI-184",
           "title": "Gouda's tools",
-          "summary": "Learn a song and play along, practice log, saved sessions, and default screens"
+          "summary": "Your music teacher teaches songs",
+          "waiting": true,
+          "progress": "/progress#your-music-teacher-teaches-songs"
+        },
+        {
+          "key": "SITE-76",
+          "title": "See it's 'Yui on your phone' group still shows the old chat composer"
+        },
+        {
+          "key": "YUI-185",
+          "title": "Penny's tools",
+          "summary": "Plan my week by voice, today list, reminders, evening review, default screens"
         },
         {
           "key": "INT-8",
@@ -408,6 +407,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-78",
+          "title": "The interval timer's digits vanish in light mode (dark text on the dark dial)",
+          "summary": "The timer reads in light mode",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-timer-reads-in-light-mode"
+        },
         {
           "key": "SITE-70",
           "title": "The trainer's flow for the site chat, from a check-in to the timer",
