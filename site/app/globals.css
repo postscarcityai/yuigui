@@ -1186,3 +1186,5 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
   .ms-bars li { grid-template-columns: 1fr auto; }
   .ms-track { grid-column: 1 / -1; grid-row: 2; }
 }
+.inv-check { display: flex; align-items: center; gap: 10px; font-weight: 400; font-size: 14px; }
+.inv-check input { width: auto; margin: 0; }

@@ -41,6 +41,6 @@ export async function POST(req) {
   const total = Number((count.headers.get("content-range") || "").split("/")[1]);
   if (total > SITE_WIDE) return slow();
 
-  const r = await insertInvite(contact, { source: body.source, utm: body.utm, req });
+  const r = await insertInvite(contact, { source: body.source, utm: body.utm, req, promo: body.promo === true });
   return Response.json(r.ok ? { ok: true } : { ok: false, error: r.error }, { status: r.ok ? 200 : r.status });
 }
