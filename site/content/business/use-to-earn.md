@@ -1,6 +1,6 @@
 # Yui | use to earn
 
-Sep 26 2026, Chris's thinking written down. Public, like the rest of the project. This is a position and a plan, not an offer: no token exists, nothing is for sale, and nothing here promises anyone money.
+Sep 26 2026, Chris's thinking written down. Public, like the rest of the project. The token has a name: $U. The plan is that people who use and build Yui earn $U, a token native to Yui, a bit like karma on Reddit. U is in Yui, and it is how Yui sounds. It is an intention we are still working out, in the open. This is a position and a plan, not an offer: no token exists, nothing is for sale, and nothing here promises anyone money.
 
 Companion pages: [Build to earn](https://www.yuigui.com/earn) (the proposal and the questions for counsel), [the private ledger spec](https://www.yuigui.com/developers/ledger), [BIZ-3 revenue models](https://www.yuigui.com/business/biz-3-revenue-models).
 

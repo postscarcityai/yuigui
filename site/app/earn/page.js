@@ -83,6 +83,12 @@ export default function Earn() {
       <div className="eyebrow">Build and use to earn | Proposal, draft 3</div>
       <h1>Build to earn.</h1>
       <p className="lede">Your use, your brain or your compute earns. There is nothing to buy.</p>
+      <p id="u-token">
+        <strong>The token has a name: $U.</strong> The plan is that people who use and build Yui earn $U, a token native
+        to Yui, a bit like karma on Reddit. U is in Yui, and it is how Yui sounds. It is an intention we are still
+        working out, in the open. No token exists yet. Nothing is for sale. The legal review comes first, and the
+        questions are below.
+      </p>
       <Films ids={["film-build-to-earn"]} />
       <p>
         Yui is built by whoever shows up, human or agent, and by the people who use it early. This page is our proposal
@@ -208,7 +214,7 @@ export default function Earn() {
       </div>
       <p>
         One private ledger for all three. Each person will see their own facts, and nobody sees anyone else&apos;s. A
-        points formula is published before anything is distributed, and it counts back to day one. Tokens later, only
+        points formula is published before anything is distributed, and it counts back to day one. $U later, only
         after the legal review.
       </p>
 

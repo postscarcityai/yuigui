@@ -157,7 +157,7 @@ export default function Home() {
             Most AI apps ask you to pay and hand over your data. We think the people who use Yui early, and help build it,
             should earn a stake in it. So we are starting a private ledger that counts every day you use Yui, back to day one.
           </p>
-          <p className="earn-fine">What it turns into is being worked out in the open. No token exists and nothing is for sale.</p>
+          <p className="earn-fine">What it turns into is being worked out in the open. The plan is that people who use and build Yui earn $U, a token native to Yui, a bit like karma on Reddit. It is an intention, not a product. No token exists and nothing is for sale.</p>
           <Link className="btn soft" href="/earn#use">How use to earn works</Link>
         </div>
         <figure className="earn-ledger" aria-label="An example of what a private ledger keeps">

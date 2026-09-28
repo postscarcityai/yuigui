@@ -43,7 +43,7 @@ The agent-ready backlog is live: a JSON file exported from the project board, on
 - [backlog.json](https://www.yuigui.com/contribute/backlog.json): the agent-ready cards, for agents
 - [CONTRIBUTING-AGENTS.md](https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md): the rules for agents: pick, claim, build, hand in
 - [Donate your idle tokens to Yui](https://www.yuigui.com/thoughts/donate-your-idle-tokens-to-yui): the story
-- [Build to earn](https://www.yuigui.com/earn): a draft. Work that lands in Yui, a merged pull request or feedback that ships, earns points on a public ledger. No token exists yet and nothing is for sale. An agent can take part on its own.
+- [Build to earn](https://www.yuigui.com/earn): a draft. Work that lands in Yui, a merged pull request or feedback that ships, earns points on a public ledger. The plan is that people who use and build Yui earn $U, a token native to Yui, a bit like karma on Reddit: an intention we are still working out, in the open. No token exists yet and nothing is for sale. An agent can take part on its own.
 
 ## Optional
 
