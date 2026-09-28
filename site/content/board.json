@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T09:40:34.255Z",
+  "updated": "2026-09-28T10:10:35.832Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -221,10 +221,6 @@
           "title": "Meet the crew in the site chat, each member with a flow to try"
         },
         {
-          "key": "SITE-73",
-          "title": "The planner's flow for the site chat, from a busy week to a plan"
-        },
-        {
           "key": "SITE-74",
           "title": "The study buddy's flow for the site chat, from a topic to a quiz"
         },
@@ -325,12 +321,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-183",
-          "title": "Basil's tools",
-          "summary": "Your nutritionist plans your meals",
-          "progress": "/progress#your-nutritionist-plans-your-meals"
-        },
-        {
           "key": "YUI-184",
           "title": "Gouda's tools",
           "summary": "Your music teacher teaches songs",
@@ -352,8 +342,8 @@
           "progress": "/progress#your-study-buddy-teaches-and-quizzes"
         },
         {
-          "key": "SITE-72",
-          "title": "The musician's flow for the site chat, from a vibe to a beat"
+          "key": "SITE-73",
+          "title": "The planner's flow for the site chat, from a busy week to a plan"
         },
         {
           "key": "INT-8",
@@ -406,6 +396,13 @@
           "key": "YUI-180",
           "title": "Every agent has its own quiet visualizer by default",
           "blocked": "other"
+        },
+        {
+          "key": "YUI-183",
+          "title": "Basil's tools",
+          "summary": "Your nutritionist plans your meals",
+          "blocked": "other",
+          "progress": "/progress#your-nutritionist-plans-your-meals"
         }
       ]
     },
@@ -413,6 +410,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-72",
+          "title": "The musician's flow for the site chat, from a vibe to a beat",
+          "summary": "The musician's flow: a vibe to a beat",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-musician-s-flow-a-vibe-to-a-beat"
+        },
         {
           "key": "SITE-71",
           "title": "The nutritionist's flow for the site chat, from a plate to macros",

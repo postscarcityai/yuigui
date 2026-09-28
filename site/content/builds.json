@@ -1400,6 +1400,10 @@
     },
     {
       "text": "Basil's tools in the app: grocery ticks kept on the phone, Share list, a swap in one tap, the week lands as a deck (YUI-183, app half)"
+    },
+    {
+      "text": "yui-mcp and the plugin know the musician's flow: starter flows and screen copy synced from yuigui",
+      "card": "SITE-72"
     }
   ]
 }
