@@ -836,6 +836,51 @@ pick@gear "What do you have?" Dumbbells|Barbell|Bands|Kettlebell|"Just me"
 mic@notes "Anything I should know? Injuries, schedule, what you hate."`,
   },
   {
+    // Arnold's runner (YUI-182, yui runtime/src/workouts.ts): "Start today's workout" turns today's split row
+    // into one full-screen plan. What the session holds first, then per move its sets to tick, reps and weight
+    // to nudge (from the last weight logged), how it felt last, one Send. The runtime writes the log itself.
+    slug: "arnold-runner",
+    name: "Plan: Arnold runs today's workout",
+    agent: "Coach",
+    yl: `say "Full body A. 4 moves, one set at a time. Let's go."
+plan@wk-20260928-mon "Full body A" submit="Finish workout"
+page "Full body A" body="4 moves, about 40 minutes. Rest about 90 seconds between sets." points="Goblet squat 3x10"|"Push-up 3x8"|"Dumbbell row 3x10"|"Plank 3x30s"
+pick@e1-sets "Goblet squat: sets done" "Set 1"|"Set 2"|"Set 3"|Skip tag="1 of 4" title="Goblet squat" body="Hold the bell at your chest, elbows in. Sit between your heels, keep your chest tall, stand up tall. Target 3 x 10 at 20 lb. Tick each set as you finish it, or Skip."
+slide@e1-reps "Goblet squat: reps per set" 1-30 value=10
+slide@e1-lb "Goblet squat: weight in lb" 0-300 value=20 step=5 unit=lb
+pick@e2-sets "Push-up: sets done" "Set 1"|"Set 2"|"Set 3"|Skip tag="2 of 4" title="Push-up" body="Hands under shoulders, body in one line. Lower until your chest is a fist from the floor, then press away. Target 3 x 8. Tick each set as you finish it, or Skip."
+slide@e2-reps "Push-up: reps per set" 1-30 value=8
+pick@e3-sets "Dumbbell row: sets done" "Set 1"|"Set 2"|"Set 3"|Skip tag="3 of 4" title="Dumbbell row" body="One hand and knee on the bench, flat back. Pull the bell to your hip, pause, lower slow. Target 3 x 10 at 25 lb. Tick each set as you finish it, or Skip."
+slide@e3-reps "Dumbbell row: reps per set" 1-30 value=10
+slide@e3-lb "Dumbbell row: weight in lb" 0-300 value=25 step=5 unit=lb
+pick@e4-sets "Plank: sets done" "Set 1"|"Set 2"|"Set 3"|Skip tag="4 of 4" title="Plank" body="Elbows under shoulders, squeeze glutes and brace like you are about to be poked. Straight line, breathe. Target 3 x 30s. Tick each set as you finish it, or Skip."
+slide@e4-secs "Plank: seconds per set" 5-180 value=30 step=5
+choose@feel "How did it feel?" Easy|"Just right"|Hard`,
+  },
+  {
+    // Arnold's pages after that Finish (YUI-182): This week with the day ticked and a day picker, Today done,
+    // Progress with the streak, the best set and a chart per main lift. Later answers only patch them.
+    slug: "arnold-pages",
+    name: "Pages: Arnold's week, today and progress after a workout",
+    agent: "Coach",
+    yl: `say "Logged Full body A: 4 moves, 11 sets. Nice work. Felt easy? Add 5 lb next time."
+>2
+stat@week-done "1 of 5" "Workouts this week" sub="Next: Tue Easy cardio"
+list@days title="This week" "✓ Mon Full body A" "Tue Easy cardio" "Wed Full body B" "Fri Full body A" "Sat Long walk" check=off
+choose@edit-day "Change a day" Mon|Tue|Wed|Thu|Fri|Sat|Sun body="Tap a day to change what it trains."
+card@split "Your split" "5 training days a week." cta="Rebuild my split"
+>3
+card@today "Done: Full body A" "Logged. Rest up, you earned it." sub=Mon cta="Go again"
+list@sets title="Full body A" "Goblet squat 3 x 10 at 25 lb" "Push-up 3 x 8" "Dumbbell row 3 x 10 at 30 lb" "Plank 3 x 30s" +check
+>4
+stat@streak "2 weeks" "Streak" sub="weeks in a row with a workout"
+stat@best 45lb "Best set" sub="Romanian deadlift x 10, Sep 23"
+chart@lift-dumbbell-row line "Dumbbell row, top set" x="Sep 21"|"Sep 28" y=25|30 unit=lb
+chart@lift-goblet-squat line "Goblet squat, top set" x="Sep 21"|"Sep 28" y=20|25 unit=lb
+chart@lift-overhead-press line "Overhead press, top set" x="Sep 23" y=45 unit=lb`,
+    next: `~week-done "2 of 5" "Workouts this week" sub="Next: Wed Full body B"`,
+  },
+  {
     slug: "project-card",
     name: "Project: a card that reopens the plan",
     agent: "Scout",

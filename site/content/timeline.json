@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 279,
-    "site": 629,
+    "site": 630,
     "builds": 43,
-    "shipped": 306,
-    "screenshots": 721
+    "shipped": 307,
+    "screenshots": 724
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T05:48:11.263Z",
+          "at": "2026-09-28T05:59:13.952Z",
+          "title": "Your trainer runs your workout",
+          "card": "YUI-182",
+          "anchor": "your-trainer-runs-your-workout",
+          "images": [
+            {
+              "src": "/progress/yui182-runner-review-dark.webp",
+              "alt": "The review before Finish: sets done, reps and weight for every move"
+            },
+            {
+              "src": "/progress/yui182-week-light.webp",
+              "alt": "This week: 1 of 5 workouts, Monday checked, and Change a day"
+            },
+            {
+              "src": "/progress/yui182-progress-dark.webp",
+              "alt": "Progress: a 2 week streak, a 45 lb best set and a chart of the dumbbell row"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 279,
+            "site": 630,
+            "builds": 43,
+            "shipped": 307
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T05:48:01.000Z",
           "title": "The site chat asks what you think",
           "card": "SITE-67",
           "anchor": "the-site-chat-asks-what-you-think",
@@ -39,10 +67,10 @@
               "alt": "The site chat on a computer, a phone-shaped layer over the dimmed page, opening on the four feedback-first buttons"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 279,
-            "site": 629,
+            "site": 630,
             "builds": 43,
             "shipped": 306
           }
@@ -169,6 +197,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "ce387c2",
+          "at": "2026-09-28T05:48:01.000Z",
+          "text": "The site chat asks for feedback first: what you like or not, the pitch, how to help, or just a demo (SITE-67)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ce387c2"
+        },
         {
           "repo": "app",
           "sha": "e5fa34c",

@@ -1,6 +1,7 @@
 {
   "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far, site = a page on yuigui.com (`link` opens it). `release` on a group or card (\"0.2.0\") labels it In 0.2.0 until that version is VALID on TestFlight; then drop it and give the cards `shipped` dates. `change` (a fix with no card) is the opening words of its app commit, so the entry reads Next build until that commit is on TestFlight.",
   "cards": {
+    "YUI-182": {"title": "Your trainer runs your workout", "shipped": "2026-09-28"},
     "YUI-166": {"title": "Hold to snap and say", "shipped": "2026-09-27"},
     "YUI-103": {"title": "Log a meal without weighing", "shipped": "2026-09-27"},
     "YUI-167": {"title": "Meet each agent", "shipped": "2026-09-27"},
@@ -154,6 +155,15 @@
         { "id": "yui-15s", "title": "Yui in 15 seconds", "what": "Ask your agent a question. It answers with a screen you can tap.", "cards": ["SOC-3"], "app": "site", "video": "yui-15s" },
         { "id": "yui-lines-30s", "title": "Yui Lines in 30 seconds", "what": "One line of Yui Lines becomes a screen. 1.6x fewer tokens than minified JSON.", "cards": ["SOC-3"], "app": "site", "video": "yui-lines-30s" },
         { "id": "your-hermes-60s", "title": "Your Hermes on your phone in 60 seconds", "what": "Install the plugin, pair, and your own Hermes agent answers on your iPhone with a screen.", "cards": ["SOC-3"], "app": "site", "video": "your-hermes-60s" }
+      ]
+    },
+    {
+      "id": "crew-tools",
+      "title": "The crew's tools",
+      "lede": "Yui 0.6.0 gives the crew real tools, and the agent side is live now: these answers reach the app you have today. Each tool is a flow with one Send, and its result lands on a screen that stays current.",
+      "entries": [
+        {"id": "arnold-runner", "title": "Arnold runs your workout", "what": "Say Start today's workout and your session opens full screen, one move at a time: tick each set, nudge the reps and the weight (it starts from what you lifted last), say how it felt, then one Finish. Every set is logged.", "cards": ["YUI-182"], "demo": "arnold-runner", "agent": "Arnold", "app": "native", "shots": ["/progress/yui182-runner-move-light.webp", "/progress/yui182-runner-review-dark.webp"]},
+        {"id": "arnold-pages", "title": "Arnold's week, today and progress", "what": "After Finish, Arnold's screens update by themselves: the day ticked on This week, today marked done, and Progress with your streak, your best set and a chart per main lift. Tap a day to change what it trains, or log a session you did away from the app.", "cards": ["YUI-182"], "demo": "arnold-pages", "yl": "stat@streak \"2 weeks\" \"Streak\" sub=\"weeks in a row with a workout\"\nstat@best 45lb \"Best set\" sub=\"Romanian deadlift x 10, Sep 23\"\nchart line \"Goblet squat, top set\" x=\"Sep 21\"|\"Sep 28\" y=20|25 unit=lb", "agent": "Arnold", "app": "native", "shots": ["/progress/yui182-week-light.webp", "/progress/yui182-progress-dark.webp"]}
       ]
     },
     {
