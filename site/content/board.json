@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T08:40:23.846Z",
+  "updated": "2026-09-28T09:10:29.230Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -221,10 +221,6 @@
           "title": "Meet the crew in the site chat, each member with a flow to try"
         },
         {
-          "key": "SITE-71",
-          "title": "The nutritionist's flow for the site chat, from a plate to macros"
-        },
-        {
           "key": "SITE-72",
           "title": "The musician's flow for the site chat, from a vibe to a beat"
         },
@@ -235,6 +231,15 @@
         {
           "key": "SITE-74",
           "title": "The study buddy's flow for the site chat, from a topic to a quiz"
+        },
+        {
+          "key": "SITE-80",
+          "title": "See it's live-only app entries, shot on the live test runs"
+        },
+        {
+          "key": "SITE-81",
+          "title": "The stage plays a deck's titled questions as pages, and a redraw beside an answer keeps you on the answer (app parity for YUI-183)",
+          "waiting": true
         },
         {
           "key": "OSS-3",
@@ -351,8 +356,8 @@
           "progress": "/progress#your-study-buddy-teaches-and-quizzes"
         },
         {
-          "key": "SITE-79",
-          "title": "See it's app group, the rest of the old-composer shots"
+          "key": "SITE-71",
+          "title": "The nutritionist's flow for the site chat, from a plate to macros"
         },
         {
           "key": "INT-8",
@@ -412,6 +417,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-79",
+          "title": "See it's app group, the rest of the old-composer shots",
+          "summary": "See it shows the rest of the app as it is now",
+          "shipped": "2026-09-28",
+          "progress": "/progress#see-it-shows-the-rest-of-the-app-as-it-is-now"
+        },
         {
           "key": "SITE-76",
           "title": "See it's 'Yui on your phone' group still shows the old chat composer",
