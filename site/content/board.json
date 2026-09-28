@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-27T23:44:23.979Z",
+  "updated": "2026-09-28T00:11:14.130Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.5.0",
-    "status": "open",
-    "startedAt": "2026-09-27T22:35:07.000Z",
+    "version": "0.4.3",
+    "status": "shipping",
+    "startedAt": "2026-09-28T00:02:54.000Z",
     "shippedAt": null,
     "cards": []
   },
@@ -243,10 +243,6 @@
           "summary": "Plug and play proof in the browser client"
         },
         {
-          "key": "YUI-165",
-          "title": "Every crew agent says what it does, and its hello is an answer, not a Review ask"
-        },
-        {
           "key": "YUI-166",
           "title": "Hold to snap and say, one press takes the photo and records what you say"
         },
@@ -258,7 +254,8 @@
         {
           "key": "YUI-168",
           "title": "Every agent's home",
-          "summary": "Shortcuts to start, starter screens a swipe away, notifications up front"
+          "summary": "Every agent has its own home: the spec and a mock",
+          "progress": "/progress#every-agent-has-its-own-home-the-spec-and-a-mock"
         },
         {
           "key": "YUI-170",
@@ -272,9 +269,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-168",
-          "title": "Every agent's home, spec + tappable mock",
-          "step": "Step 1"
+          "key": "YUI-165",
+          "title": "Every crew agent says what it does, and its hello is an answer, not a Review ask"
         },
         {
           "key": "INT-8",
@@ -312,16 +308,17 @@
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
         },
         {
-          "key": "NOTE-50101",
-          "title": "Agents answer in screens, not prose",
-          "blocked": "other"
-        },
-        {
           "key": "YUI-169",
           "title": "Several chats per agent, listed in the drawer",
           "summary": "Several chats with one agent: the spec and a mock",
           "blocked": "chris",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
+        },
+        {
+          "key": "YUI-168",
+          "title": "Every agent's home, spec + tappable mock",
+          "step": "Step 1",
+          "blocked": "chris"
         }
       ]
     },
@@ -329,6 +326,11 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-50101",
+          "title": "Agents answer in screens, not prose",
+          "shipped": "2026-09-27"
+        },
         {
           "key": "SITE-65",
           "title": "The Yui chat on yuigui.com feels like the app",
