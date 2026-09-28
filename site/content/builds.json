@@ -1262,6 +1262,22 @@
     {
       "text": "Meet the agent: its hello plays on first open, the top pill is the one picker, About says what it does",
       "card": "YUI-167"
+    },
+    {
+      "text": "One agent opens another: a hand-off card jumps the phone to that agent's thread with the note",
+      "card": "YUI-144"
+    },
+    {
+      "text": "Every starter has a home: its shortcuts and starter screens, written once; the agent's kickoff builds a split",
+      "card": "YUI-168"
+    },
+    {
+      "text": "Every agent's home on the stage: its chips, what's waiting on you, starter screens a swipe away, no dots",
+      "card": "YUI-168"
+    },
+    {
+      "text": "Crew links open, hand-offs jump: yui://agent/<id>/thread is never a hand-off; the home line in the channel guide",
+      "card": "YUI-168"
     }
   ]
 }
