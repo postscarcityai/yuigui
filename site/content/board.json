@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T23:10:36.407Z",
+  "updated": "2026-09-28T23:40:39.627Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -210,6 +210,12 @@
           "key": "YUI-179",
           "title": "Yui for Apple TV",
           "summary": "Timers and the stage on the big screen"
+        },
+        {
+          "key": "YUI-191",
+          "title": "Hold the app icon for your agents' shortcuts",
+          "summary": "Basil's Log food first, you pick which ones show",
+          "waiting": true
         },
         {
           "key": "SITE-28",
