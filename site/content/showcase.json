@@ -1,6 +1,12 @@
 {
   "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far, site = a page on yuigui.com (`link` opens it). `release` on a group or card (\"0.2.0\") labels it In 0.2.0 until that version is VALID on TestFlight; then drop it and give the cards `shipped` dates. `change` (a fix with no card) is the opening words of its app commit, so the entry reads Next build until that commit is on TestFlight.",
   "cards": {
+    "YUI-166": {"title": "Hold to snap and say", "shipped": "2026-09-27"},
+    "YUI-103": {"title": "Log a meal without weighing", "shipped": "2026-09-27"},
+    "YUI-167": {"title": "Meet each agent", "shipped": "2026-09-27"},
+    "YUI-168": {"title": "Every agent has a home", "shipped": "2026-09-27"},
+    "YUI-144": {"title": "One agent opens another", "shipped": "2026-09-27"},
+    "YUI-171": {"title": "Tables for any agent", "shipped": "2026-09-27"},
     "YUI-131": {"title": "Pick the model per turn", "shipped": "2026-09-27"},
     "SOC-5": { "title": "Three everyday films: dinner, a car, homework", "shipped": "2026-09-27" },
     "SITE-62": { "title": "The brag films on the site", "shipped": "2026-09-27" },
@@ -147,6 +153,19 @@
         { "id": "yui-15s", "title": "Yui in 15 seconds", "what": "Ask your agent a question. It answers with a screen you can tap.", "cards": ["SOC-3"], "app": "site", "video": "yui-15s" },
         { "id": "yui-lines-30s", "title": "Yui Lines in 30 seconds", "what": "One line of Yui Lines becomes a screen. 1.6x fewer tokens than minified JSON.", "cards": ["SOC-3"], "app": "site", "video": "yui-lines-30s" },
         { "id": "your-hermes-60s", "title": "Your Hermes on your phone in 60 seconds", "what": "Install the plugin, pair, and your own Hermes agent answers on your iPhone with a screen.", "cards": ["SOC-3"], "app": "site", "video": "your-hermes-60s" }
+      ]
+    },
+    {
+      "id": "release-050",
+      "title": "Yui 0.5.0",
+      "lede": "What reached phones with Yui 0.5.0 (build 278): the crew feels ready. Hold to snap and say what's in it, meet each agent the first time you open it, every agent has a home with its own shortcuts and screens, and a meal gets logged without a scale. Shots are real captures from the iPhone simulator on the demo account.",
+      "entries": [
+        {"id": "snap-and-say", "title": "Hold to snap and say", "what": "One press takes the photo. Keep holding and say what's in it: Two eggs in a lot of butter. Let go and the photo and your words go together.", "cards": ["YUI-166"], "agent": "Basil", "app": "native", "shots": ["/progress/yui166-camera-light.webp", "/progress/yui166-holding-dark.webp", "/progress/yui166-answer-light.webp", "/progress/yui166-record-light.webp"]},
+        {"id": "meal-no-weighing", "title": "Log a meal without weighing", "what": "Send Basil a photo and a few words. He answers at once, works out the macros behind the scenes, then posts one breakdown that fits a phone and remembers each food.", "cards": ["YUI-103"], "agent": "Basil", "app": "native", "shots": ["/progress/yui103-answer-light.webp", "/progress/yui103-breakdown-light.webp", "/progress/yui103-words-light.webp", "/progress/yui103-answer-dark.webp"]},
+        {"id": "meet-the-agent", "title": "Meet each agent", "what": "Open an agent for the first time and its hello plays on the full screen. The picker at the top says what each one does, and About lists three things to ask it.", "cards": ["YUI-167"], "agent": "Arnold", "app": "native", "shots": ["/progress/yui167-hello-light.webp", "/progress/yui167-picker-dark.webp", "/progress/yui167-about-light.webp", "/progress/yui167-sent-dark.webp"]},
+        {"id": "agent-home", "title": "Every agent has a home", "what": "Its own shortcuts sit over the bar, like Start a workout. What waits on you is right there. Swipe left for its starter screens: Arnold's week, Gouda's looper.", "cards": ["YUI-168"], "agent": "Arnold", "app": "native", "shots": ["/progress/yui168-app-arnold-home-light.webp", "/progress/yui168-app-arnold-week-dark.webp", "/progress/yui168-app-gouda-looper-dark.webp", "/progress/yui168-app-yui-crew-light.webp"]},
+        {"id": "hand-off", "title": "One agent opens another", "what": "Ask Yui something that is Basil's job. Yui passes you over with a note, and Basil is already answering in his own thread.", "cards": ["YUI-144"], "agent": "Yui", "app": "native", "shots": ["/progress/yui144-1-yui-hands-off-light.webp", "/progress/yui144-2-basil-answers-light.webp", "/progress/yui144-1-yui-hands-off-dark.webp"]},
+        {"id": "tables-any-agent", "title": "Switch agents, keep your tables", "what": "Your tables belong to you, not to one agent. Hand Basil's Foods table to a Claude agent and the same question draws the same screen.", "cards": ["YUI-171"], "agent": "Basil", "app": "native", "shots": ["/progress/yui171-basil-light.webp", "/progress/yui171-pick-dark.webp", "/progress/yui171-chef-dark.webp"]}
       ]
     },
     {

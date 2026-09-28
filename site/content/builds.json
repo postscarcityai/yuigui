@@ -1,6 +1,93 @@
 {
   "builds": [
     {
+      "build": 278,
+      "date": "2026-09-27",
+      "uploaded": "2026-09-27T20:48:36-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Every crew agent says what it does: a tagline, two sentences and three things to ask",
+          "card": "YUI-165"
+        },
+        {
+          "text": "An agent's hello is an answer on its stage, never a Review ask",
+          "card": "YUI-165"
+        },
+        {
+          "text": "Every native agent keeps its own little database: tables it makes, starter values it ships with",
+          "card": "YUI-170"
+        },
+        {
+          "text": "Persona eval: the four table asks hit each agent's own tables and answer on a screen",
+          "card": "YUI-170"
+        },
+        {
+          "text": "Native tables: table words in any fence still land, a write always shows its table",
+          "card": "YUI-170"
+        },
+        {
+          "text": "Native tables: a delete waiting on its tap never reads as done; tick what's got, delete what they ask to",
+          "card": "YUI-170"
+        },
+        {
+          "text": "Native tables: a list labels its numbers, a table header with spaces is mended",
+          "card": "YUI-170"
+        },
+        {
+          "text": "Hold to snap and say: one press takes the photo, holding says what's in it, let go sends both",
+          "card": "YUI-166"
+        },
+        {
+          "text": "Persona eval: back off on the management API's 429 instead of crashing mid-run",
+          "card": "YUI-170"
+        },
+        {
+          "text": "Log a meal without weighing: an answer at once, the macros behind the scenes, one breakdown, a food memory",
+          "card": "YUI-103"
+        },
+        {
+          "text": "Meal breakdown fits a phone: short food names, no question about what they said",
+          "card": "YUI-103"
+        },
+        {
+          "text": "Meal breakdown: a table that fits a phone, the meal they named, never ask what they said; the live sim proof",
+          "card": "YUI-103"
+        },
+        {
+          "text": "Meal tests load again: one import of short",
+          "card": "YUI-103"
+        },
+        {
+          "text": "Meet the agent: its hello plays on first open, the top pill is the one picker, About says what it does",
+          "card": "YUI-167"
+        },
+        {
+          "text": "One agent opens another: a hand-off card jumps the phone to that agent's thread with the note",
+          "card": "YUI-144"
+        },
+        {
+          "text": "Every starter has a home: its shortcuts and starter screens, written once; the agent's kickoff builds a split",
+          "card": "YUI-168"
+        },
+        {
+          "text": "Every agent's home on the stage: its chips, what's waiting on you, starter screens a swipe away, no dots",
+          "card": "YUI-168"
+        },
+        {
+          "text": "Crew links open, hand-offs jump: yui://agent/<id>/thread is never a hand-off; the home line in the channel guide",
+          "card": "YUI-168"
+        },
+        {
+          "text": "Tables for any agent: one server call, yui_tables for Hermes and MCP, hand a table over",
+          "card": "YUI-171"
+        },
+        {
+          "text": "Yui 0.5.0: the crew feels ready (snap and say, meet each agent, homes, meals without weighing)"
+        }
+      ]
+    },
+    {
       "build": 258,
       "date": "2026-09-27",
       "uploaded": "2026-09-27T17:34:41-07:00",
@@ -1208,83 +1295,8 @@
   ],
   "next": [
     {
-      "text": "Every crew agent says what it does: a tagline, two sentences and three things to ask",
-      "card": "YUI-165"
-    },
-    {
-      "text": "An agent's hello is an answer on its stage, never a Review ask",
-      "card": "YUI-165"
-    },
-    {
-      "text": "Every native agent keeps its own little database: tables it makes, starter values it ships with",
-      "card": "YUI-170"
-    },
-    {
-      "text": "Persona eval: the four table asks hit each agent's own tables and answer on a screen",
-      "card": "YUI-170"
-    },
-    {
-      "text": "Native tables: table words in any fence still land, a write always shows its table",
-      "card": "YUI-170"
-    },
-    {
-      "text": "Native tables: a delete waiting on its tap never reads as done; tick what's got, delete what they ask to",
-      "card": "YUI-170"
-    },
-    {
-      "text": "Native tables: a list labels its numbers, a table header with spaces is mended",
-      "card": "YUI-170"
-    },
-    {
-      "text": "Hold to snap and say: one press takes the photo, holding says what's in it, let go sends both",
-      "card": "YUI-166"
-    },
-    {
-      "text": "Persona eval: back off on the management API's 429 instead of crashing mid-run",
-      "card": "YUI-170"
-    },
-    {
-      "text": "Log a meal without weighing: an answer at once, the macros behind the scenes, one breakdown, a food memory",
-      "card": "YUI-103"
-    },
-    {
-      "text": "Meal breakdown fits a phone: short food names, no question about what they said",
-      "card": "YUI-103"
-    },
-    {
-      "text": "Meal breakdown: a table that fits a phone, the meal they named, never ask what they said; the live sim proof",
-      "card": "YUI-103"
-    },
-    {
-      "text": "Meal tests load again: one import of short",
-      "card": "YUI-103"
-    },
-    {
-      "text": "Meet the agent: its hello plays on first open, the top pill is the one picker, About says what it does",
-      "card": "YUI-167"
-    },
-    {
-      "text": "One agent opens another: a hand-off card jumps the phone to that agent's thread with the note",
-      "card": "YUI-144"
-    },
-    {
-      "text": "Every starter has a home: its shortcuts and starter screens, written once; the agent's kickoff builds a split",
-      "card": "YUI-168"
-    },
-    {
-      "text": "Every agent's home on the stage: its chips, what's waiting on you, starter screens a swipe away, no dots",
-      "card": "YUI-168"
-    },
-    {
-      "text": "Crew links open, hand-offs jump: yui://agent/<id>/thread is never a hand-off; the home line in the channel guide",
-      "card": "YUI-168"
-    },
-    {
-      "text": "Tables for any agent: one server call, yui_tables for Hermes and MCP, hand a table over",
+      "text": "Tables in any agent's reply: Hermes, A2A and webhook, and the line after a hand over",
       "card": "YUI-171"
-    },
-    {
-      "text": "Yui 0.5.0: the crew feels ready (snap and say, meet each agent, homes, meals without weighing)"
     }
   ]
 }
