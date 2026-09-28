@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T11:41:07.156Z",
+  "updated": "2026-09-28T12:10:58.149Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -335,10 +335,6 @@
           "title": "See it's live-only app entries, shot on the live test runs"
         },
         {
-          "key": "SITE-81",
-          "title": "The stage plays a deck's titled questions as pages, and a redraw beside an answer keeps you on the answer (app parity for YUI-183)"
-        },
-        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -396,6 +392,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-81",
+          "title": "The stage plays a deck's titled questions as pages, and a redraw beside an answer keeps you on the answer (app parity for YUI-183)",
+          "summary": "Basil's week on the web: a day a page, a swap on one tap",
+          "shipped": "2026-09-28",
+          "progress": "/progress#basil-s-week-on-the-web-a-day-a-page-a-swap-on-one-tap"
+        },
         {
           "key": "SITE-69",
           "title": "Meet the crew in the site chat, each member with a flow to try",

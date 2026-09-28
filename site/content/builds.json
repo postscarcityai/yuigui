@@ -1412,6 +1412,12 @@
     {
       "text": "yui-mcp and the plugin know the study buddy's flow: starter flows and screen copy synced from yuigui",
       "card": "SITE-74"
+    },
+    {
+      "text": "yui-mcp: sync the YL parser for page forward and standing pages (SITE-81, yuigui 2051202)"
+    },
+    {
+      "text": "Gouda's tools in the app: a beat on the Looper kept on the phone until Send, the chord grid redraws on a looped bar, a click stopped by an agent switch logs to Gouda (YUI-184, app half)"
     }
   ]
 }
