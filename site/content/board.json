@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T19:11:04.337Z",
+  "updated": "2026-09-28T22:10:31.400Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -302,6 +302,11 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
+        },
+        {
+          "key": "SITE-89",
+          "title": "Vote on proposals",
+          "summary": "Yes, build it or Not yet, with a one-line why, counts on /proposals"
         }
       ]
     },
@@ -369,6 +374,17 @@
           "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
         },
         {
+          "key": "SITE-88",
+          "title": "PROP-1 hero, the first-run flow in a phone",
+          "summary": "TestFlight, Sign in with Apple, pick your crew, dig deeper, bring your own agent"
+        },
+        {
+          "key": "SITE-90",
+          "title": "The token has a name, $U",
+          "summary": "The token has a name: $U",
+          "progress": "/progress#the-token-has-a-name-u"
+        },
+        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -426,6 +442,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-87",
+          "title": "/proposals, a page for big ideas",
+          "summary": "Proposals: big ideas, shown before they are built",
+          "shipped": "2026-09-28",
+          "progress": "/progress#proposals-big-ideas-shown-before-they-are-built"
+        },
         {
           "key": "SITE-86",
           "title": "Fresh og on every major update",
