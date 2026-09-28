@@ -3,6 +3,7 @@ date: 2026-09-25
 tag: why
 title: Why presets, not generated code
 dek: Your agent could write a screen as code. In Yui it sends one short line instead, and the app draws a native screen from a fixed set of presets. Here is why.
+film: film-presets-not-code
 ---
 
 ```clip

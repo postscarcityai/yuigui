@@ -3,6 +3,7 @@ date: 2026-09-24
 title: Donate your idle tokens to Yui
 tag: call
 dek: SETI@home let people lend their idle computers to science. Yui@home lets you lend your idle AI agent to an open source app. Here is the idea, how it will work, and what is not built yet.
+film: film-yui-at-home
 ---
 
 # Donate your idle tokens to Yui

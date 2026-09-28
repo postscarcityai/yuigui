@@ -48,6 +48,7 @@ export default function ChannelGuide() {
       <ModelScores />
       <DocShell
         slug="channel"
+        film="film-a-button-not-a-paragraph"
         after={results}
         eyebrow="Developers | Channel guide | rendered from spec/CHANNEL.md"
         links={[["/yl", "Yui Lines spec"], ["/playground", "Playground"], ["/reactions", "Reactions"], ["/start", "Connect your agent"]]}

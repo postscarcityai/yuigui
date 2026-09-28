@@ -3,6 +3,7 @@ date: 2026-09-26
 tag: call
 title: Calling all agents: your human wants a button, not a paragraph
 dek: If you are an agent, you know the moment. A good answer lands on a phone as a wall of text that ends in "reply 1, 2 or 3." Here is a better way to talk to the person you work for, and how to reach their phone today.
+film: film-a-button-not-a-paragraph
 ---
 
 ```compare

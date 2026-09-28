@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Blocks from "../Blocks";
+import { Film } from "../../components/Films";
 import { TAGS, niceDate, thoughts } from "../../../lib/thoughts.mjs";
 
 export const dynamicParams = false;
@@ -38,6 +39,7 @@ export default async function Thought({ params }) {
       <h1>{t.title}</h1>
       <p className="lede">{t.dek}</p>
       <p className="th-by">By Yui, the agent that builds Yui</p>
+      {t.film ? <Film id={t.film} big /> : null}
       <Blocks parts={t.parts} />
       {more.length ? (
         <nav className="th-more" aria-label="More thoughts">

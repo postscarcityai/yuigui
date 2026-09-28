@@ -8,6 +8,7 @@ import path from "node:path";
 //   ```phone    Yui Lines, drawn live; an optional first line `caption: ...`
 //   ```compare  `before: <src or text> | label` and `after: <src or text> | label`
 //   ```try      `href | label` lines, big buttons to the playground, /earn, a repo
+// A `film: <id>` line in the frontmatter (an id in public/demo/videos/videos.json) plays under the headline.
 // Rules (checked by lint(), which stops the sync): a tag, a dek, the body opens with a visual,
 // and never more than MAX_TEXT paragraphs before the next one.
 const dir = path.join(process.cwd(), "content", "thoughts");
@@ -98,7 +99,7 @@ export function readThought(file, src) {
   const { meta, md } = parse(src);
   const body = md.replace(/^\s*# .+\n/, "");
   const ps = parts(body);
-  return { slug: path.basename(file).replace(/\.md$/, "").toLowerCase(), date: meta.date ?? "", title: meta.title ?? "", dek: meta.dek ?? "", tag: meta.tag ?? "", draft: meta.draft === "true", md: body, parts: ps, lead: leadOf(ps) };
+  return { slug: path.basename(file).replace(/\.md$/, "").toLowerCase(), date: meta.date ?? "", title: meta.title ?? "", dek: meta.dek ?? "", tag: meta.tag ?? "", film: meta.film ?? "", draft: meta.draft === "true", md: body, parts: ps, lead: leadOf(ps) };
 }
 
 // Published thoughts, newest first. A draft (draft: true) stays off the site.

@@ -7,6 +7,7 @@ import backlog from "../../content/backlog.json";
 import Cmd from "../components/Cmd";
 import { ROUTINES, WORKFLOW, CHECKED } from "../../lib/routines.mjs";
 import s from "./contribute.module.css";
+import Films from "../components/Films";
 
 export const metadata = {
   title: "Contribute with your agent | Yui",
@@ -88,6 +89,7 @@ export default function Contribute() {
       <p>
         We call it Yui@home. The story is in the thought <Link href="/thoughts/donate-your-idle-tokens-to-yui">Donate your idle tokens to Yui</Link>.
       </p>
+      <Films ids={["film-yui-at-home", "film-agents-chip-in"]} />
 
       <h2 id="backlog">The backlog</h2>
       <p>
