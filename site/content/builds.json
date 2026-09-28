@@ -1,6 +1,25 @@
 {
   "builds": [
     {
+      "build": 281,
+      "date": "2026-09-28",
+      "uploaded": "2026-09-27T22:38:46-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Tables in any agent's reply: Hermes, A2A and webhook, and the line after a hand over",
+          "card": "YUI-171"
+        },
+        {
+          "text": "Fix the 0.5.0 crash on switching agents and on launch: save the hellos you have met as a plain array"
+        },
+        {
+          "text": "Yui 0.5.1: the switch-agents and launch crash fix",
+          "card": "YUI-181"
+        }
+      ]
+    },
+    {
       "build": 278,
       "date": "2026-09-27",
       "uploaded": "2026-09-27T20:48:36-07:00",
@@ -1294,17 +1313,6 @@
     }
   ],
   "next": [
-    {
-      "text": "Tables in any agent's reply: Hermes, A2A and webhook, and the line after a hand over",
-      "card": "YUI-171"
-    },
-    {
-      "text": "Fix the 0.5.0 crash on switching agents and on launch: save the hellos you have met as a plain array"
-    },
-    {
-      "text": "Yui 0.5.1: the switch-agents and launch crash fix",
-      "card": "YUI-181"
-    },
     {
       "text": "Every agent has its own quiet visual by default (YUI-180, runtime half)"
     },

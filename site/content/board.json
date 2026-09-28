@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T05:10:50.299Z",
+  "updated": "2026-09-28T05:40:51.603Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -213,11 +213,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-67",
-          "title": "The site chat asks for feedback first",
-          "summary": "What visitors like and dislike, the pitch, how to help"
-        },
-        {
           "key": "SITE-68",
           "title": "The site chat demos whole flows, several screens in a row, not one screen"
         },
@@ -362,16 +357,14 @@
       "cards": [
         {
           "key": "YUI-181",
-          "title": "Ship Yui 0.5.1, the switch-agents and launch crash fix"
+          "title": "Ship Yui 0.5.1, the switch-agents and launch crash fix",
+          "summary": "Yui 0.5.1 is on TestFlight: switching agents no longer crashes",
+          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
         },
         {
-          "key": "SITE-77",
-          "title": "Hand this to your agent",
-          "summary": "A copy link and copy page button, with one line of how, on every page you can act on"
-        },
-        {
-          "key": "YUI-180",
-          "title": "Every agent has its own quiet visualizer by default"
+          "key": "SITE-67",
+          "title": "The site chat asks for feedback first",
+          "summary": "What visitors like and dislike, the pitch, how to help"
         },
         {
           "key": "INT-8",
@@ -419,6 +412,11 @@
           "key": "YUI-172",
           "title": "Finish the Firebase iOS app setup on Chris's Mac and save GoogleService-Info.plist",
           "blocked": "chris"
+        },
+        {
+          "key": "YUI-180",
+          "title": "Every agent has its own quiet visualizer by default",
+          "blocked": "other"
         }
       ]
     },
@@ -426,6 +424,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-77",
+          "title": "Hand this to your agent",
+          "summary": "Hand this page to your agent",
+          "shipped": "2026-09-28",
+          "progress": "/progress#hand-this-page-to-your-agent"
+        },
         {
           "key": "SITE-66",
           "title": "The site chat opens full screen first, like the Yui app, with the mic",
