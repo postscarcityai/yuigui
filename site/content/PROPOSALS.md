@@ -5,7 +5,7 @@ A proposal is a big idea for Yui, shown before any app code. Yui draws it as a w
 ## The life of a proposal
 
 1. **Exploring.** Yui writes it up and builds the mockup. Nothing is promised yet.
-2. **Open for votes.** The page is done and anyone can say yes, no or not yet.
+2. **Open for votes.** The page is done and anyone can say Yes, build it or Not yet.
 3. **Accepted.** Chris said yes. It becomes a card or an epic on the roadmap.
 4. **Building.** The card is in a lane on the board.
 5. **Shipped.** It is in a TestFlight build. The page links the release.

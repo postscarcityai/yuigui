@@ -6,6 +6,8 @@ import { notFound } from "next/navigation";
 import LivePhone from "../../mockups/LivePhone";
 import AgentBox from "../../components/AgentBox";
 import FirstRunHero from "../FirstRunHero";
+import ProposalVote from "../ProposalVote";
+import VoteTally from "../VoteTally";
 import { renderMd } from "../../../lib/md.mjs";
 import { slug as toSlug } from "../../../lib/slug.mjs";
 import { CALLS, COSTS, niceDate, proposals } from "../../../lib/proposals.mjs";
@@ -64,7 +66,7 @@ export default async function Proposal({ params }) {
           <div><dt>Cost</dt><dd>{p.cost}, {COSTS[p.cost].toLowerCase()}</dd></div>
           <div><dt>Date</dt><dd><time dateTime={p.date}>{niceDate(p.date)}</time></dd></div>
           <div><dt>Would become</dt><dd>{p.becomes}</dd></div>
-          <div><dt>Votes</dt><dd className="prop-votes" data-prop={p.id}>Voting opens soon</dd></div>
+          <div><dt>Votes</dt><dd className="prop-votes" data-prop={p.id}><VoteTally id={p.id} /></dd></div>
         </dl>
 
         <section className={`prop-callout ${p.call === "recommend" ? "yes" : "no"}`}>
@@ -82,6 +84,8 @@ export default async function Proposal({ params }) {
           <section className="prop-sec"><h2>Risks</h2><Md md={s.risks} /></section>
           <section className="prop-sec wide questions"><h2>Open questions</h2><Md md={s.questions} /></section>
         </div>
+
+        <ProposalVote id={p.id} title={p.title} />
 
         <div className="prop-agent"><AgentBox path={`/proposals/${p.slug}`} title={p.title} how="Give this link to your agent. It gets the whole proposal as markdown, with the lines that draw its first screen." /></div>
         <p className="prop-back"><Link href="/proposals">All proposals</Link> | <Link href="/proposals#how">How proposals work</Link> | <Link href="/roadmap">Roadmap</Link></p>

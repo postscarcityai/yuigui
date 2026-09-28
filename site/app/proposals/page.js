@@ -1,12 +1,13 @@
 // Proposals (SITE-87): big ideas for Yui, each shown as a working mockup before any app code, then weighed
 // the same way every time. Data: docs/proposals/*.md through lib/proposals.mjs; the system is docs/PROPOSALS.md.
-// The vote slot on each card is for SITE-89.
+// Votes (SITE-89): each card shows its counts; the vote itself is on the proposal page.
 import Link from "next/link";
 import AgentBox from "../components/AgentBox";
 import { renderMd } from "../../lib/md.mjs";
 import { slug as toSlug } from "../../lib/slug.mjs";
 import { COSTS, howItWorks, niceDate, proposals } from "../../lib/proposals.mjs";
 import { pageMeta } from "../../lib/og/meta.mjs";
+import VoteTally from "./VoteTally";
 import "./proposals.css";
 
 export const metadata = pageMeta({
@@ -36,7 +37,7 @@ export default function Proposals() {
             <div className="prop-foot">
               <time dateTime={p.date}>{niceDate(p.date)}</time>
               <span title={COSTS[p.cost]}>Cost {p.cost}</span>
-              <span className="prop-votes" data-prop={p.id}>Votes open soon</span>
+              <span className="prop-votes" data-prop={p.id}><VoteTally id={p.id} /></span>
             </div>
           </Link>
         ))}

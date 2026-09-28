@@ -63,3 +63,44 @@
 .prop-agent .agent-box { float: none; margin: 0; max-width: 520px; }
 [data-theme="dark"] .prop-callout.yes { background: color-mix(in srgb, #2FB58C 14%, var(--surface)); }
 [data-theme="dark"] .prop-sec.questions { background: color-mix(in srgb, var(--butter) 10%, var(--surface)); }
+
+/* Voting (SITE-89): two big buttons with counts, a bar, an optional why, and the whys under it. */
+.prop-tally { white-space: nowrap; }
+.prop-vote { margin: 28px 0; padding: 26px 28px; border-radius: var(--r-card); background: var(--surface); border: 2px solid var(--brand); scroll-margin-top: 96px; }
+.prop-vote h2 { margin: 0 0 4px; font-size: 24px; }
+.prop-vote-sub { margin: 0 0 16px; color: var(--muted); font-weight: 700; }
+.prop-vote-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.prop-vote-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; padding: 12px 18px; border-radius: 18px; border: 2px solid var(--outline); background: var(--raised); color: inherit; font: inherit; font-weight: 800; font-size: 18px; cursor: pointer; text-align: left; transition: border-color .15s ease, background .15s ease; }
+.prop-vote-btn:hover:not(:disabled) { border-color: var(--brand); }
+.prop-vote-btn:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
+.prop-vote-btn:disabled { cursor: progress; opacity: .7; }
+.prop-vote-btn.on.yes { background: color-mix(in srgb, var(--mint) 55%, var(--surface)); border-color: #2FB58C; }
+.prop-vote-btn.on.not_yet { background: color-mix(in srgb, var(--butter) 55%, var(--surface)); border-color: #C9A227; }
+.prop-vote-count { font-size: 26px; font-variant-numeric: tabular-nums; }
+.prop-vote-bar { height: 10px; margin: 16px 0 6px; border-radius: 99px; background: color-mix(in srgb, var(--butter) 60%, var(--surface)); overflow: hidden; }
+.prop-vote-bar i { display: block; height: 100%; background: #2FB58C; transition: width .3s ease; }
+.prop-vote-total { margin: 0; font-size: var(--fs-small); font-weight: 700; color: var(--muted); }
+.prop-vote-why { display: grid; gap: 8px; margin-top: 20px; }
+.prop-vote-why label { font-weight: 800; }
+.prop-vote-why input { width: 100%; min-height: 48px; padding: 10px 14px; border-radius: 14px; border: 2px solid var(--outline); background: var(--raised); color: inherit; font: inherit; font-size: 16px; }
+.prop-vote-why input:focus-visible { outline: 3px solid var(--brand); outline-offset: 1px; border-color: var(--brand); }
+.prop-vote-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.prop-vote-chars { font-size: 13px; font-weight: 700; color: var(--muted); }
+.prop-vote-msg { margin: 12px 0 0; font-weight: 700; }
+.prop-whys { margin-top: 26px; padding-top: 18px; border-top: 1.5px dashed var(--outline); }
+.prop-whys h3 { margin: 0 0 10px; font-size: 18px; }
+.prop-whys ul { max-width: none; list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.prop-whys li { display: grid; grid-template-columns: auto 1fr auto; gap: 6px 12px; align-items: baseline; padding: 10px 14px; border-radius: 14px; background: var(--raised); }
+.prop-why-text { min-width: 0; overflow-wrap: anywhere; line-height: 1.4; }
+.prop-whys time { font-size: 12px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+.pill.prop-why-pill { color: #2A2238; font-size: 12px; }
+.pill.prop-why-pill.yes { background: var(--mint); border-color: var(--mint); }
+.pill.prop-why-pill.not_yet { background: var(--butter); border-color: var(--butter); }
+@media (max-width: 760px) {
+  .prop-vote { padding: 20px 16px; }
+  .prop-vote-btns { grid-template-columns: 1fr; }
+  .prop-whys li { grid-template-columns: 1fr auto; }
+  .prop-whys li .pill { grid-column: 1 / -1; justify-self: start; }
+  .prop-whys li .prop-why-text { grid-column: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .prop-vote-btn, .prop-vote-bar i { transition: none; } }
