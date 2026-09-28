@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T10:40:57.026Z",
+  "updated": "2026-09-28T11:10:46.389Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -217,10 +217,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-69",
-          "title": "Meet the crew in the site chat, each member with a flow to try"
-        },
-        {
           "key": "SITE-80",
           "title": "See it's live-only app entries, shot on the live test runs"
         },
@@ -344,8 +340,8 @@
           "progress": "/progress#your-study-buddy-teaches-and-quizzes"
         },
         {
-          "key": "SITE-74",
-          "title": "The study buddy's flow for the site chat, from a topic to a quiz"
+          "key": "SITE-69",
+          "title": "Meet the crew in the site chat, each member with a flow to try"
         },
         {
           "key": "INT-8",
@@ -405,6 +401,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-74",
+          "title": "The study buddy's flow for the site chat, from a topic to a quiz",
+          "summary": "The study buddy's flow: a topic to a quiz",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-study-buddy-s-flow-a-topic-to-a-quiz"
+        },
         {
           "key": "SITE-73",
           "title": "The planner's flow for the site chat, from a busy week to a plan",

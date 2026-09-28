@@ -1408,6 +1408,10 @@
     {
       "text": "yui-mcp and the plugin know the planner's flow: starter flows and screen copy synced from yuigui",
       "card": "SITE-73"
+    },
+    {
+      "text": "yui-mcp and the plugin know the study buddy's flow: starter flows and screen copy synced from yuigui",
+      "card": "SITE-74"
     }
   ]
 }
