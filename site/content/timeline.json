@@ -1,8 +1,8 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 273,
-    "site": 618,
+    "app": 274,
+    "site": 619,
     "builds": 42,
     "shipped": 303,
     "screenshots": 710
@@ -13,7 +13,7 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T04:48:11.892Z",
+          "at": "2026-09-28T04:48:03.000Z",
           "title": "The chat on this site opens full screen, like the app",
           "card": "SITE-66",
           "anchor": "the-chat-on-this-site-opens-full-screen-like-the-app",
@@ -35,10 +35,10 @@
               "alt": "On a laptop, after Is it free?: the words small at the top right and Yui's mark thinking, Thinking 0s"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 273,
-            "site": 618,
+            "site": 619,
             "builds": 42,
             "shipped": 303
           }
@@ -65,6 +65,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "3c1de24",
+          "at": "2026-09-28T04:49:43.000Z",
+          "text": "Fix the 0.5.0 crash on switching agents and on launch: save the hellos you have met as a plain array",
+          "url": "https://github.com/postscarcityai/yui/commit/3c1de24"
+        },
+        {
+          "repo": "site",
+          "sha": "f3b98d9",
+          "at": "2026-09-28T04:48:03.000Z",
+          "text": "Site chat opens full screen first, like the app: answers play on the stage, the big mic talks (SITE-66)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f3b98d9"
+        },
         {
           "repo": "site",
           "sha": "68d6950",
