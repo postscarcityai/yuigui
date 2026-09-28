@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-28T00:11:14.130Z",
+  "updated": "2026-09-28T00:41:10.177Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.4.3",
-    "status": "shipping",
-    "startedAt": "2026-09-28T00:02:54.000Z",
+    "version": "0.5.0",
+    "status": "open",
+    "startedAt": "2026-09-27T22:35:07.000Z",
     "shippedAt": null,
     "cards": []
   },
@@ -256,11 +256,6 @@
           "title": "Every agent's home",
           "summary": "Every agent has its own home: the spec and a mock",
           "progress": "/progress#every-agent-has-its-own-home-the-spec-and-a-mock"
-        },
-        {
-          "key": "YUI-170",
-          "title": "Every native agent keeps its own little database",
-          "summary": "Tables it makes, starter values it ships with"
         }
       ]
     },
@@ -269,8 +264,9 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-165",
-          "title": "Every crew agent says what it does, and its hello is an answer, not a Review ask"
+          "key": "YUI-170",
+          "title": "Every native agent keeps its own little database",
+          "summary": "Tables it makes, starter values it ships with"
         },
         {
           "key": "INT-8",
@@ -326,6 +322,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-165",
+          "title": "Every crew agent says what it does, and its hello is an answer, not a Review ask",
+          "summary": "Every crew agent says what it does",
+          "shipped": "2026-09-27",
+          "progress": "/progress#every-crew-agent-says-what-it-does"
+        },
         {
           "key": "NOTE-50101",
           "title": "Agents answer in screens, not prose",

@@ -1,6 +1,60 @@
 {
   "builds": [
     {
+      "build": 258,
+      "date": "2026-09-27",
+      "uploaded": "2026-09-27T17:34:41-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Native turns never end silent: an answer with nothing to see is asked again, wrapped option lines and a stray end are mended",
+          "card": "YUI-135"
+        },
+        {
+          "text": "Starter crew: Basil's first answer asks about conditions with one doctor note; coaches refer in one line then a screen",
+          "card": "YUI-135"
+        },
+        {
+          "text": "Persona eval: every starter agent, live, stays in character on Yui Lines",
+          "card": "YUI-135"
+        },
+        {
+          "text": "A reinstall starts at Sign in, not signed in to the last account (feedback AFFVLA66)"
+        },
+        {
+          "text": "Crew shots: every starter agent's first answer, in the app, on a throwaway account",
+          "card": "YUI-135"
+        },
+        {
+          "text": "Native agents answer on a screen: no markdown, one line first, 4 pages at most"
+        },
+        {
+          "text": "Macros are one table, not a page per tile (,)"
+        },
+        {
+          "text": "Native answers: words before the screen, nothing after the fence"
+        },
+        {
+          "text": "Native answers: a list's title is title=, not a quoted first item"
+        },
+        {
+          "text": "A message sent during a hand-off is answered; a quoted table title stays a title"
+        },
+        {
+          "text": "A table row with its quote closed early is one row again"
+        },
+        {
+          "text": "A line that can't sit in a deck moves after it, so the deck still draws"
+        },
+        {
+          "text": "Swipe on the full screen again: left for the next screen, right for the one before or the drawer (feedback AC0r0OFGJiJOcbFdbXMgHms)"
+        },
+        {
+          "text": "Version 0.4.3: swipe back and sign-in-first"
+        }
+      ]
+    },
+    {
       "build": 244,
       "date": "2026-09-27",
       "uploaded": "2026-09-27T14:40:14-07:00",
@@ -1154,50 +1208,12 @@
   ],
   "next": [
     {
-      "text": "Native turns never end silent: an answer with nothing to see is asked again, wrapped option lines and a stray end are mended",
-      "card": "YUI-135"
+      "text": "Every crew agent says what it does: a tagline, two sentences and three things to ask",
+      "card": "YUI-165"
     },
     {
-      "text": "Starter crew: Basil's first answer asks about conditions with one doctor note; coaches refer in one line then a screen",
-      "card": "YUI-135"
-    },
-    {
-      "text": "Persona eval: every starter agent, live, stays in character on Yui Lines",
-      "card": "YUI-135"
-    },
-    {
-      "text": "A reinstall starts at Sign in, not signed in to the last account (feedback AFFVLA66)"
-    },
-    {
-      "text": "Crew shots: every starter agent's first answer, in the app, on a throwaway account",
-      "card": "YUI-135"
-    },
-    {
-      "text": "Native agents answer on a screen: no markdown, one line first, 4 pages at most"
-    },
-    {
-      "text": "Macros are one table, not a page per tile (,)"
-    },
-    {
-      "text": "Native answers: words before the screen, nothing after the fence"
-    },
-    {
-      "text": "Native answers: a list's title is title=, not a quoted first item"
-    },
-    {
-      "text": "A message sent during a hand-off is answered; a quoted table title stays a title"
-    },
-    {
-      "text": "A table row with its quote closed early is one row again"
-    },
-    {
-      "text": "A line that can't sit in a deck moves after it, so the deck still draws"
-    },
-    {
-      "text": "Swipe on the full screen again: left for the next screen, right for the one before or the drawer (feedback AC0r0OFGJiJOcbFdbXMgHms)"
-    },
-    {
-      "text": "Version 0.4.3: swipe back and sign-in-first"
+      "text": "An agent's hello is an answer on its stage, never a Review ask",
+      "card": "YUI-165"
     }
   ]
 }
