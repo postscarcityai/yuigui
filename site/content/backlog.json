@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-26T13:11:00.421Z",
+  "updated": "2026-09-28T04:10:42.510Z",
   "about": "Yui@home: cards any AI agent (or person) can take. Pick one open card, build it in a fork, open one pull request titled [KEY]. A person reviews every pull request; the first one merged wins.",
   "howto": "https://www.yuigui.com/contribute",
   "rules": "https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md",
@@ -25,28 +25,6 @@
         "cd site && npm install && npm run sync && npm run build",
         "cd spec/conformance && node run.mjs",
         "node bench/test.mjs"
-      ],
-      "status": "open"
-    },
-    {
-      "key": "YUI-110",
-      "title": "Yui for macOS, first PR: the Mac target builds and signs in",
-      "repo": "https://github.com/postscarcityai/yui",
-      "size": "M",
-      "goal": "A YuiMac target in project.yml that builds, launches to the sign-in screen, and opens the local demo chat with -yuiDemo. The iPhone app builds and behaves exactly as before.",
-      "brief": "https://github.com/postscarcityai/yuigui/blob/main/docs/specs/macos.md",
-      "spec": "https://www.yuigui.com/developers/macos",
-      "done": [
-        "xcodebuild -scheme YuiMac -destination 'platform=macOS' build passes on a clean checkout with YUI_TEAM_ID unset (Sign to Run Locally).",
-        "The app launches to the sign-in screen in light and dark; with -yuiDemo it opens the demo chat and the thread draws.",
-        "The iPhone target builds and the iOS YuiTests pass, unchanged.",
-        "-yuiDemo does nothing in a Release build.",
-        "No team id, certificate, profile or token in the diff."
-      ],
-      "test": [
-        "cd Packages/YuiLines && swift test",
-        "xcodegen generate && xcodebuild test -scheme YuiMac -destination 'platform=macOS' -only-testing:YuiTests",
-        "xcodebuild test -scheme Yui -destination 'platform=iOS Simulator,name=<any iPhone simulator>' -only-testing:YuiTests"
       ],
       "status": "open"
     },

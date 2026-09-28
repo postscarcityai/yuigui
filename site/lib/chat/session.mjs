@@ -6,7 +6,7 @@ import { createHash, createHmac, randomUUID, timingSafeEqual } from "node:crypto
 
 export const COOKIE = "yui_chat";
 export const FREE_TURNS = 3;   // before the Turnstile check
-export const MAX_TURNS = 40;   // per chat, after it
+export const MAX_TURNS = 100;  // per chat
 
 function secret() {
   const s = process.env.YUI_CHAT_SECRET || process.env.YUI_SUPABASE_SERVICE_ROLE_KEY || process.env.YUI_CHAT_OPENROUTER_KEY;

@@ -37,7 +37,13 @@ export async function insertInvite(contact, { source, utm, req, promo = false })
     referrer: clip(req.headers.get("referer"), 500),
     user_agent: clip(req.headers.get("user-agent"), 500),
   };
-  const res = await fetch(`${env.url}/rest/v1/yui_invites`, { method: "POST", headers: { ...env.headers, Prefer: "return=minimal" }, body: JSON.stringify(row) });
+  let res;
+  try {
+    res = await fetch(`${env.url}/rest/v1/yui_invites`, { method: "POST", headers: { ...env.headers, Prefer: "return=minimal" }, body: JSON.stringify(row) });
+  } catch (e) {
+    console.error("invite insert failed", e.message);
+    return { ok: false, error: "Something broke on our side. Try again soon.", status: 502 };
+  }
   // 409 = that email already asked (or was invited). From the visitor's side that is a success,
   // and a fresh confirmation link goes out either way (yui-mail sends one a minute at most).
   // A failed email never fails the request: the row is what matters.

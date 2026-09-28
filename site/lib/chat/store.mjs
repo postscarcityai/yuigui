@@ -25,7 +25,8 @@ export async function saveTurn(s, { first, path, userText, reply, tools, meta })
   await rest("yui_site_chats?on_conflict=id", { body: chat, prefer: "resolution=merge-duplicates,return=minimal" });
   await rest("yui_site_chat_messages", {
     body: [
-      { chat_id: s.id, role: "user", content: clip(userText, 4000), path: clip(path, 300) },
+      // PostgREST refuses a bulk insert whose rows have different keys, so both carry tools.
+      { chat_id: s.id, role: "user", content: clip(userText, 4000), path: clip(path, 300), tools: null },
       { chat_id: s.id, role: "assistant", content: clip(reply, 8000), path: clip(path, 300), tools: tools?.length ? tools : null },
     ],
   });

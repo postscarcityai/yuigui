@@ -1,16 +1,126 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 270,
-    "site": 605,
-    "builds": 41,
-    "shipped": 299,
-    "screenshots": 702
+    "app": 273,
+    "site": 614,
+    "builds": 42,
+    "shipped": 302,
+    "screenshots": 706
   },
   "days": [
     {
+      "date": "2026-09-28",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-28T04:08:21.199Z",
+          "title": "See it shows hold to talk the way 0.5.0 does it",
+          "card": "SITE-75",
+          "anchor": "see-it-shows-hold-to-talk-the-way-0-5-0-does-it",
+          "images": [
+            {
+              "src": "/progress/talk-stage-cancel-light.webp",
+              "alt": "Slid left while holding: the mic turns into a trash can and the stage says Let go to cancel"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 273,
+            "site": 614,
+            "builds": 42,
+            "shipped": 302
+          }
+        }
+      ],
+      "commits": []
+    },
+    {
       "date": "2026-09-27",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-28T03:51:05.000Z",
+          "title": "Yui 0.5.0 is on TestFlight: the crew feels ready",
+          "card": "YUI-SHIP",
+          "anchor": "yui-0-5-0-is-on-testflight-the-crew-feels-ready",
+          "images": [
+            {
+              "src": "/progress/yui166-holding-dark.webp",
+              "alt": "Snap and say: the photo frozen under a coral waveform and the words Two eggs in a lot of butter"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 273,
+            "site": 613,
+            "builds": 42,
+            "shipped": 301
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T03:49:01.000Z",
+          "title": "Tables right in the reply, for any agent",
+          "card": "YUI-171",
+          "anchor": "tables-right-in-the-reply-for-any-agent",
+          "images": [
+            {
+              "src": "/progress/yui171-reply-light.webp",
+              "alt": "In the reply: Basil writes table create, put and query lines under Logged your breakfast, and the phone gets the words and a Foods table with Two eggs and Oats. Under it, a reply that only reads sends the rows back to Basil as his next turn."
+            },
+            {
+              "src": "/progress/yui171-reply-dark.webp",
+              "alt": "The same page in dark mode."
+            }
+          ],
+          "commits": 5,
+          "totals": {
+            "app": 273,
+            "site": 611,
+            "builds": 42,
+            "shipped": 300
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-28T03:48:36.000Z",
+          "build": 278,
+          "changes": 20,
+          "totals": {
+            "app": 272,
+            "site": 610,
+            "builds": 42,
+            "shipped": 299
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T02:45:47.000Z",
+          "title": "Your tables work with any agent",
+          "card": "YUI-171",
+          "anchor": "your-tables-work-with-any-agent",
+          "images": [
+            {
+              "src": "/progress/yui171-site-calls-light.webp",
+              "alt": "The real calls from the live test: Basil on Hermes makes a foods table with yui_tables, Claude over MCP hears No table called foods yet, a delete waits on Delete or Keep, the person gives foods to Claude, and Claude reads the same rows."
+            },
+            {
+              "src": "/progress/yui171-site-calls-dark.webp",
+              "alt": "The same five calls in dark mode."
+            },
+            {
+              "src": "/progress/yui171-site-top-dark.webp",
+              "alt": "The switch agents page, now marked Live for Hermes and MCP, with the Basil and Chef phones."
+            }
+          ],
+          "commits": 5,
+          "totals": {
+            "app": 271,
+            "site": 606,
+            "builds": 41,
+            "shipped": 299
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-28T02:20:06.000Z",
@@ -40,7 +150,7 @@
             "app": 269,
             "site": 602,
             "builds": 41,
-            "shipped": 299
+            "shipped": 298
           }
         },
         {
@@ -64,7 +174,7 @@
             "app": 268,
             "site": 601,
             "builds": 41,
-            "shipped": 298
+            "shipped": 297
           }
         },
         {
@@ -96,7 +206,7 @@
             "app": 267,
             "site": 599,
             "builds": 41,
-            "shipped": 297
+            "shipped": 296
           }
         },
         {
@@ -110,34 +220,6 @@
           "totals": {
             "app": 267,
             "site": 598,
-            "builds": 41,
-            "shipped": 296
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-28T01:48:15.000Z",
-          "title": "Your tables work with any agent",
-          "card": "YUI-171",
-          "anchor": "your-tables-work-with-any-agent",
-          "images": [
-            {
-              "src": "/progress/yui171-site-calls-light.webp",
-              "alt": "The real calls from the live test: Basil on Hermes makes a foods table with yui_tables, Claude over MCP hears No table called foods yet, a delete waits on Delete or Keep, the person gives foods to Claude, and Claude reads the same rows."
-            },
-            {
-              "src": "/progress/yui171-site-calls-dark.webp",
-              "alt": "The same five calls in dark mode."
-            },
-            {
-              "src": "/progress/yui171-site-top-dark.webp",
-              "alt": "The switch agents page, now marked Live for Hermes and MCP, with the Basil and Chef phones."
-            }
-          ],
-          "commits": 1,
-          "totals": {
-            "app": 264,
-            "site": 597,
             "builds": 41,
             "shipped": 295
           }
@@ -166,7 +248,7 @@
               "alt": "The same Chef screen in light: same table, same rows, a different agent on a different host."
             }
           ],
-          "commits": 1,
+          "commits": 5,
           "totals": {
             "app": 264,
             "site": 597,
@@ -350,7 +432,7 @@
               "alt": "On a phone: the light page, then the chat full screen and dark, Meet the crew with five names to tap, and Quill's quiz deck after tapping Quill"
             }
           ],
-          "commits": 3,
+          "commits": 6,
           "totals": {
             "app": 251,
             "site": 582,
@@ -1537,6 +1619,90 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "7f142c6",
+          "at": "2026-09-28T03:52:51.000Z",
+          "text": "Site chat: Yui links a page and asks before taking a visitor there (SITE-65)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7f142c6"
+        },
+        {
+          "repo": "site",
+          "sha": "79230fc",
+          "at": "2026-09-28T03:51:05.000Z",
+          "text": "Yui 0.5.0 on the site: the release post, See it, build 278 on the changelog (YUI-SHIP 0.5.0)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/79230fc"
+        },
+        {
+          "repo": "site",
+          "sha": "fbd3d56",
+          "at": "2026-09-28T03:50:18.000Z",
+          "text": "Site chat is a conversation: Yui gets to know visitors, shares the mission, points helpers to new platforms (SITE-65)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fbd3d56"
+        },
+        {
+          "repo": "site",
+          "sha": "1b7b24d",
+          "at": "2026-09-28T03:49:01.000Z",
+          "text": "Tables right in the reply for Hermes, A2A and webhooks: live runs on /mockups/tables, spec section 8, progress (YUI-171)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1b7b24d"
+        },
+        {
+          "repo": "app",
+          "sha": "134f5e5",
+          "at": "2026-09-28T03:48:53.000Z",
+          "text": "Tables in any agent's reply: Hermes, A2A and webhook, and the line after a hand over (YUI-171)",
+          "url": "https://github.com/postscarcityai/yui/commit/134f5e5"
+        },
+        {
+          "repo": "site",
+          "sha": "ee49c21",
+          "at": "2026-09-28T03:40:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ee49c21"
+        },
+        {
+          "repo": "site",
+          "sha": "aa6fa69",
+          "at": "2026-09-28T03:38:56.000Z",
+          "text": "Site chat: save both messages of a turn (PostgREST wants the same keys on every row) (SITE-64)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/aa6fa69"
+        },
+        {
+          "repo": "site",
+          "sha": "0db52e8",
+          "at": "2026-09-28T03:36:58.000Z",
+          "text": "The site chat plays like the app: the stage, library screens, a Yui contact form, the floating Yui bubble (SITE-65)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0db52e8"
+        },
+        {
+          "repo": "site",
+          "sha": "b9f3616",
+          "at": "2026-09-28T03:10:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b9f3616"
+        },
+        {
+          "repo": "app",
+          "sha": "d163510",
+          "at": "2026-09-28T02:49:23.000Z",
+          "text": "Yui 0.5.0: the crew feels ready (snap and say, meet each agent, homes, meals without weighing)",
+          "url": "https://github.com/postscarcityai/yui/commit/d163510"
+        },
+        {
+          "repo": "site",
+          "sha": "69e2fcd",
+          "at": "2026-09-28T02:45:47.000Z",
+          "text": "Tables for any agent is live for Hermes and MCP: the real calls on /mockups/tables, spec status, progress (YUI-171)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/69e2fcd"
+        },
+        {
+          "repo": "app",
+          "sha": "c109a4b",
+          "at": "2026-09-28T02:45:05.000Z",
+          "text": "Tables for any agent: one server call, yui_tables for Hermes and MCP, hand a table over (YUI-171)",
+          "url": "https://github.com/postscarcityai/yui/commit/c109a4b"
+        },
         {
           "repo": "site",
           "sha": "e4beb4e",

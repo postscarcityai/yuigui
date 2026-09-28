@@ -78,3 +78,14 @@
 .tm-call pre code { white-space: pre; }
 .tm-call-out { background: rgba(127,127,127,.08); }
 .tm-small { font-size: 14px; }
+
+/* In the reply (step 3) */
+.tm-reply { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; align-items: start; }
+.tm-reply .tm-call { align-content: start; min-width: 0; }
+.tm-drawn { display: grid; gap: 8px; padding: 12px; border-radius: 16px; border: 1px solid var(--line, rgba(127,127,127,.3)); }
+.tm-drawn p { margin: 0; }
+.tm-drawn-card { display: grid; gap: 6px; padding: 10px 12px; border-radius: 14px; background: rgba(127,127,127,.08); font-size: 14px; }
+.tm-drawn-card table { width: 100%; border-collapse: collapse; }
+.tm-drawn-card th { text-align: left; font-size: 12px; font-weight: 800; color: var(--muted); padding: 0 0 6px; border-bottom: 1px solid var(--line, rgba(127,127,127,.3)); }
+.tm-drawn-card th small { display: block; font-weight: 600; }
+.tm-drawn-card td { padding: 6px 0 0; }
