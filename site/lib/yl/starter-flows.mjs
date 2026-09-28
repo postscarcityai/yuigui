@@ -4,6 +4,7 @@
 // Spec: spec/FLOWS.md.
 
 import { flowVariant, parse, resolve, variantName } from "./yl.mjs";
+import { progression } from "../music/theory.mjs";
 
 export const STARTER_FLOWS = [
   {
@@ -278,6 +279,53 @@ export const STARTER_FLOWS = [
   %% meal: choose "Which meal was it?" Breakfast|Lunch|Dinner|Snack
   meal[Meal] --> logged((Saved))`,
   },
+  {
+    // Gouda, the musician, from his looper (spec/MUSIC.md): a vibe to a beat. The vibe picks the beat
+    // and its tempo range, backbone first (kick on 1 and 3, snare on 2 and 4). A moody pick asks for a
+    // minor key. jamReply plays the loop with the chords under it and keeps it in his sessions table.
+    name: "musician-jam",
+    id: "jam",
+    title: "A vibe to a beat",
+    submit: "Keep the jam",
+    agent: "Gouda",
+    blurb: "The musician's jam: pick a vibe and a tempo, change one row, pick the chords under it. Then the loop plays and it's kept in your sessions.",
+    source: `flowchart TD
+  %% hi: page "From a vibe to a beat" body="Pick a vibe and I build the beat, kick and snare first. You set the tempo, change a row and pick the chords. Then it plays." points="Pick a vibe|Set the tempo|Change one row|Chords under it"
+  hi([Start]) --> vibe
+  %% vibe: choose "What's the vibe?" Lo-fi|"Boom bap"|House|Rock
+  vibe{Vibe}
+  vibe -->|vibe=Lo-fi| lofi
+  vibe -->|vibe=Boom bap| bap
+  vibe -->|vibe=House| house
+  vibe --> rock
+  %% lofi: page "Lazy Sunday" body="Lo-fi, laid back, with a little swing. Soft hats and a rim to nod along to." points="Kick  ● · · · ● · · ·|Snare  · · ● · · · ● ·|Hat  ● · ● · ● · ● ·|Rim  · · · · · ● · ·"
+  lofi[Lo-fi] --> lofibpm
+  %% lofibpm: slide "How fast?" 70-94 step=2 value=84 unit=bpm
+  lofibpm[Tempo] --> row
+  %% bap: page "Boom bap" body="Head-nod hip hop. The kick skips ahead before the second snare." points="Kick  ● · · · ● · ● ·|Snare  · · ● · · · ● ·|Hat  ● · ● · ● · ● ·|Open hat  · · · · · · · ●"
+  bap[Boom bap] --> bapbpm
+  %% bapbpm: slide "How fast?" 84-98 step=2 value=90 unit=bpm
+  bapbpm[Tempo] --> row
+  %% house: page "Four on the floor" body="A kick on every beat, the clap on 2 and 4, hats between the kicks." points="Kick  ● · ● · ● · ● ·|Clap  · · ● · · · ● ·|Hat  · ● · ● · ● · ●|Open hat  · · · · · · · ●"
+  house[House] --> housebpm
+  %% housebpm: slide "How fast?" 118-130 step=2 value=124 unit=bpm
+  housebpm[Tempo] --> row
+  %% rock: page "Rock backbeat" body="Straight and loud. A crash on the one to start every bar." points="Kick  ● · · · ● · · ·|Snare  · · ● · · · ● ·|Hat  ● · ● · ● · ● ·|Crash  ● · · · · · · ·"
+  rock[Rock] --> rockbpm
+  %% rockbpm: slide "How fast?" 100-140 step=4 value=116 unit=bpm
+  rockbpm[Tempo] --> row
+  %% row: choose "Change one row?" "Busier hats"|"Extra kick"|"Add a shaker"|"Leave it"
+  row[Change a row] --> chords
+  %% chords: choose "What goes under it?" Warm|Moody|Jazzy|"Just drums" body="Warm is the pop four. Moody is minor. Jazzy has sevenths."
+  chords{Chords}
+  chords -->|Just drums| kept
+  chords -->|Moody| minor
+  chords --> major
+  %% major: choose "Which key?" C|G|D|F
+  major[Key] --> kept
+  %% minor: choose "Which key?" "A minor"|"E minor"|"D minor"
+  minor[Minor key] --> kept((Kept))`,
+  },
 ];
 
 // The trainer's answer to trainer-session's event: the session its page showed, as the lines that
@@ -342,8 +390,48 @@ export function plateReply(ev) {
   };
 }
 
+// The musician's answer to musician-jam's event: the loop its page showed, playing, with the row
+// they changed, the chords under it, and the row for his sessions table (the app's schema,
+// runtime/profiles/gouda/tables.yui). Only the flow's own options reach the lines.
+const BEATS = {
+  lofi: { name: "Lazy Sunday", bpm: "lofibpm", range: [70, 94, 84], swing: 30, sound: "keys", rows: ["kick", "snare", "hat", "rim"], p: ["x...x...", "..x...x.", "x.x.x.x.", ".....x.."], kick: "x...x..x" },
+  bap: { name: "Boom bap", bpm: "bapbpm", range: [84, 98, 90], swing: 20, sound: "keys", rows: ["kick", "snare", "hat", "open"], p: ["x...x.x.", "..x...x.", "x.x.x.x.", ".......x"], kick: "x..xx.x." },
+  house: { name: "Four on the floor", bpm: "housebpm", range: [118, 130, 124], swing: 0, sound: "pad", rows: ["kick", "clap", "hat", "open"], p: ["x.x.x.x.", "..x...x.", ".x.x.x.x", ".......x"], kick: "x.x.x.xx" },
+  rock: { name: "Rock backbeat", bpm: "rockbpm", range: [100, 140, 116], swing: 0, sound: "pluck", rows: ["kick", "snare", "hat", "crash"], p: ["x...x...", "..x...x.", "x.x.x.x.", "x......."], kick: "x...xx.." },
+};
+const MOODS = { Warm: "I-V-vi-IV", Moody: "i-bVII-bVI-V", Jazzy: "ii7-V7-Imaj7-vi7" };
+const MAJOR = ["C", "G", "D", "F"];
+const MINOR = { "A minor": "Am", "E minor": "Em", "D minor": "Dm" };
+export function jamReply(ev) {
+  if (ev?.preset !== "flow" || ev.id !== "jam" || !ev.flow) return null;
+  const a = ev.flow;
+  const b = BEATS[(ev.path || []).find((id) => BEATS[id])];
+  if (!b) return null;
+  const [lo, hi, dflt] = b.range;
+  const t = Number(a[b.bpm]);
+  const bpm = Number.isFinite(t) ? Math.min(hi, Math.max(lo, Math.round(t))) : dflt;
+  const rows = [...b.rows], p = [...b.p];
+  let change = "";
+  if (a.row === "Busier hats") { p[2] = "xxxxxxxx"; change = " with busier hats"; }
+  else if (a.row === "Extra kick") { p[0] = b.kick; change = " with an extra kick"; }
+  else if (a.row === "Add a shaker") { rows.push("shaker"); p.push(b.p[2].startsWith(".") ? "xxxxxxxx" : ".x.x.x.x"); change = " with a shaker on top"; }
+  const mood = Object.hasOwn(MOODS, a.chords) ? a.chords : null;
+  const key = mood === "Moody" ? (Object.hasOwn(MINOR, a.minor) ? MINOR[a.minor] : "Am") : MAJOR.includes(a.major) ? a.major : "C";
+  const names = mood ? progression({ key, prog: MOODS[mood].split("-") }).map((c) => c.name) : [];
+  const keyName = mood === "Moody" ? Object.keys(MINOR).find((k) => MINOR[k] === key) : key;
+  const slug = b.name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const text = `${b.name} at ${bpm} bpm${change}. Tap a cell to change it while it plays.`;
+  const lines = [`loop@groove ${bpm} "${b.name}" swing=${b.swing} rows=${rows.join("|")} p=${p.join("|")} +play`];
+  if (mood) lines.push(`say "${mood} chords in ${keyName} under it: ${names.join(", ")}. Tap along."`, `chords@under ${key} ${MOODS[mood]} "${mood}, in ${keyName}" sound=${b.sound}`);
+  lines.push(
+    `table create sessions Name:text Kind:text Bpm:number Swing:number Steps:number Rows:text Pattern:text Saved:date`,
+    `put sessions s-${slug} Name="${b.name}" Kind=beat Bpm=${bpm} Swing=${b.swing} Steps=8 Rows="${rows.join("|")}" Pattern="${p.join("|")}" Saved=today`,
+  );
+  return { text: `${text} Kept in your sessions.`, lines };
+}
+
 // A crew flow answered with no model turn: the playground's stand-in reply and the site chat's.
-export const crewReply = (ev) => sessionReply(ev) || plateReply(ev);
+export const crewReply = (ev) => sessionReply(ev) || plateReply(ev) || jamReply(ev);
 
 // Variants (spec/FLOWS.md, section 9): a saved flow with a few lines changed,
 // kept as its base's name plus the lines, never a copy of the chart. The

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 294,
-    "site": 650,
+    "app": 297,
+    "site": 653,
     "builds": 44,
-    "shipped": 319,
-    "screenshots": 771
+    "shipped": 320,
+    "screenshots": 775
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T09:12:58.692Z",
+          "at": "2026-09-28T09:42:35.157Z",
+          "title": "The musician's flow: a vibe to a beat",
+          "card": "SITE-72",
+          "anchor": "the-musician-s-flow-a-vibe-to-a-beat",
+          "images": [
+            {
+              "src": "/progress/site72-chat-beat.webp",
+              "alt": "The site chat on a phone: Lazy Sunday, a lo-fi beat shown row by row, kick, snare, hat and rim"
+            },
+            {
+              "src": "/progress/site72-chat-loop.webp",
+              "alt": "After Keep the jam: the Lazy Sunday loop playing at 84 bpm with busier hats"
+            },
+            {
+              "src": "/progress/site72-chat-chords.webp",
+              "alt": "Warm chords in C under it: C, G, Am and F on big buttons"
+            },
+            {
+              "src": "/progress/site72-chords-dark.webp",
+              "alt": "In the playground, dark: What goes under it? Warm, Moody, Jazzy or Just drums"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 297,
+            "site": 653,
+            "builds": 44,
+            "shipped": 320
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T09:13:50.000Z",
           "title": "The nutritionist's flow: a plate to macros",
           "card": "SITE-71",
           "anchor": "the-nutritionist-s-flow-a-plate-to-macros",
@@ -35,10 +67,10 @@
               "alt": "In the playground, dark: How much syrup? None, A drizzle, A lot"
             }
           ],
-          "commits": 0,
+          "commits": 4,
           "totals": {
             "app": 294,
-            "site": 650,
+            "site": 652,
             "builds": 44,
             "shipped": 319
           }
@@ -323,7 +355,7 @@
               "alt": "The grocery list: 51 to get, grouped by aisle with ticks"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 284,
             "site": 636,
@@ -589,6 +621,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "8f0dac0",
+          "at": "2026-09-28T09:40:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8f0dac0"
+        },
+        {
+          "repo": "app",
+          "sha": "52dc8d6",
+          "at": "2026-09-28T09:17:57.000Z",
+          "text": "Basil's tools in the app: grocery ticks kept on the phone, Share list, a swap in one tap, the week lands as a deck (YUI-183, app half)",
+          "url": "https://github.com/postscarcityai/yui/commit/52dc8d6"
+        },
+        {
+          "repo": "app",
+          "sha": "09a17d3",
+          "at": "2026-09-28T09:16:18.000Z",
+          "text": "yui-mcp serves the nutritionist's flow: screen copy synced from yuigui (SITE-71)",
+          "url": "https://github.com/postscarcityai/yui/commit/09a17d3"
+        },
+        {
+          "repo": "app",
+          "sha": "dcb0ef9",
+          "at": "2026-09-28T09:16:18.000Z",
+          "text": "The plugin knows the nutritionist's flow: nutritionist-plate in the saved flows copy (SITE-71)",
+          "url": "https://github.com/postscarcityai/yui/commit/dcb0ef9"
+        },
+        {
+          "repo": "site",
+          "sha": "4c401c5",
+          "at": "2026-09-28T09:13:50.000Z",
+          "text": "The MCP app knows the nutritionist's flow: rebuilt yui-screen with nutritionist-plate (SITE-71)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4c401c5"
+        },
+        {
+          "repo": "site",
+          "sha": "89f5ffe",
+          "at": "2026-09-28T09:13:50.000Z",
+          "text": "The nutritionist's flow: a plate to macros, in the playground and the site chat (SITE-71)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/89f5ffe"
+        },
         {
           "repo": "site",
           "sha": "adeb98c",

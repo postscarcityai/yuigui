@@ -4,7 +4,7 @@
 //   npx next dev -p 3117 &   then   node scripts/flow-e2e.mjs
 // BASE overrides the playground URL; PLAYWRIGHT the Playwright module to load.
 import { parse, resolve, flowEvent, flowPath } from "../lib/yl/yl.mjs";
-import { STARTER_FLOWS, flowLines, savedGraph, sessionReply, plateReply } from "../lib/yl/starter-flows.mjs";
+import { STARTER_FLOWS, flowLines, savedGraph, sessionReply, plateReply, jamReply } from "../lib/yl/starter-flows.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT || "playwright");
 const BASE = process.env.BASE || "http://localhost:3117/playground";
 const graph = (f) => resolve("flow", parse(flowLines(f)).find((o) => o.op === "patch").props);
@@ -98,6 +98,10 @@ const SC = [
   ["nutritionist-plate", "pancakes, a lot of syrup, all of it: breakfast", { photo: "Pancakes", syrup: "A lot", portion: "All of it", meal: "Breakfast" }],
   ["nutritionist-plate", "salmon, sure: no question, half for dinner", { photo: "Salmon", portion: "Half", meal: "Dinner" }],
   ["nutritionist-plate", "poke bowl, a rough guess: small rice, a bit more for lunch", { photo: "Poke bowl", rice: "A small scoop", portion: "A bit more", meal: "Lunch" }],
+  ["musician-jam", "lo-fi, slower, busier hats: warm chords in G", { vibe: "Lo-fi", lofibpm: 80, row: "Busier hats", chords: "Warm", major: "G" }],
+  ["musician-jam", "boom bap, an extra kick: moody in E minor", { vibe: "Boom bap", bapbpm: 92, row: "Extra kick", chords: "Moody", minor: "E minor" }],
+  ["musician-jam", "house, a shaker: jazzy in F", { vibe: "House", housebpm: 126, row: "Add a shaker", chords: "Jazzy", major: "F" }],
+  ["musician-jam", "rock as is, just drums: no key", { vibe: "Rock", rockbpm: 120, row: "Leave it", chords: "Just drums" }],
 ];
 for (const [name, label, plan] of SC) {
   const f = STARTER_FLOWS.find((x) => x.name === name);
@@ -156,6 +160,19 @@ for (const [name, label, plan] of SC) {
     ok((await pg.locator(".pg-ev", { hasText: `stat@kcal ${cal}kcal` }).count()) === 1, `the reply sends today's ${cal} kcal`);
     ok((await pg.locator(".pg-ev", { hasText: "chart@macros bar" }).count()) === 1, "the reply sends the macros chart");
   } else ok(!plate, "no plate reply for other flows");
+  // The musician plays the loop with the chords under it and keeps it in his sessions (SITE-72).
+  const jam = jamReply(ev);
+  if (f.name === "musician-jam") {
+    ok(!!jam, "musician-jam: the event builds the loop");
+    await pg.waitForTimeout(2200);
+    const loop = jam.lines[0].replace(/ \+play$/, "");
+    ok((await pg.locator(".pg-ev", { hasText: loop }).count()) === 1, `the reply plays ${loop}`);
+    ok((await pg.locator(".mu-loop").count()) >= 1, "the loop is on screen");
+    const chords = jam.lines.find((l) => l.startsWith("chords@under"));
+    if (want.flow.chords === "Just drums") ok(!chords && (await pg.locator(".pg-ev", { hasText: "chords@under" }).count()) === 0, "just drums: no chords");
+    else ok(!!chords && (await pg.locator(".pg-ev", { hasText: chords.split(" \"")[0] }).count()) === 1, `the reply sends ${chords}`);
+    ok((await pg.locator(".pg-ev", { hasText: "put sessions s-" }).count()) === 1, "the reply keeps it in his sessions");
+  } else ok(!jam, "no jam reply for other flows");
   ok(pg.errs.length === 0, `no page errors ${pg.errs}`);
   await pg.close();
 }

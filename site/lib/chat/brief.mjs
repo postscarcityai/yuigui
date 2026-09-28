@@ -13,6 +13,7 @@ import { STARTER_FLOWS } from "../yl/starter-flows.mjs";
 // The saved flows she may run, by the one line that runs each (the chat shows every variant's base only).
 const WHEN = {
   onboarding: "the first run of the app: their name, how much they know about AI, what they want help with, and two starter agents picked for them. The default for \"show me a flow\"",
+  "musician-jam": "Gouda the musician's flow: pick a vibe (lo-fi, boom bap, house or rock), the tempo, change one row of the beat, the chords under it and a key, then the loop plays with the chords under it and is kept in his sessions. The best one for anyone into music, beats, an instrument or songwriting, or asking about Gouda. Its answer plays and saves on its own, so you never answer that tap",
   "nutritionist-plate": "Basil the nutritionist's flow: pick a plate photo, his guess at the macros and how sure he is (a rough guess asks about the part he can't see), fix the portion, which meal, and it lands in his meals table with today's totals. The best one for anyone into food, eating better or macros, or asking about Basil. Its answer is saved and totalled on its own, so you never answer that tap",
   "trainer-session": "Arnold the trainer's flow: sleep, anything sore, minutes free and gear pick today's session, then the interval timer runs it. The best one for anyone into training, or asking about Arnold or the crew. Its answers get the session and the timer on their own, so you never answer that tap",
   "workout-checkin": "a coach's check-in before a workout: sleep, energy, anything sore, and a bad night changes the plan. For anyone into training",
@@ -194,6 +195,10 @@ flow@session trainer-session
 - For food, meals, macros, the nutritionist or Basil, the same way:
 \`\`\`yui
 flow@plate nutritionist-plate
+\`\`\`
+- For music, a beat, jamming, chords, the musician or Gouda, the same way:
+\`\`\`yui
+flow@jam musician-jam
 \`\`\`
 - Send it exactly like that, one line with its @id, always inside the fence (without it nothing plays): never write its steps out, never add a question after it, one flow per reply. find_screen with "flow" lists them too.
 - Their answers come back as one tap, like [yui] onboard flow flow="{'you':{'name':'Sam'},'know':2,'want':['Get fit']}" path="hi|you|know|want|..." (the keys are the step ids, path is the screens they saw). Answer it in one or two lines that use what they told you (their name, what they want), then one small next step: another flow that fits them, the app on TestFlight, or one like or dislike question about the flow.

@@ -33,7 +33,7 @@ import "./flows.css";
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA, ...RELEASE];
 // Agent names a share link may carry (?as=), so a shared screen reopens with the same header.
 const AGENTS = new Set(ALL.map((s) => s.agent));
-const COLORS = { Coach: "var(--arnold)", Basil: "#2FB58C", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)", Sage: LOOKS.Sage.c, Quill: LOOKS.Quill.c };
+const COLORS = { Coach: "var(--arnold)", Basil: "#2FB58C", Gouda: "#9B87F5", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)", Sage: LOOKS.Sage.c, Quill: LOOKS.Quill.c };
 
 // `log`: data lines sent after the reply (the agent line, a tapped checkbox),
 // replayed on top so agent tables keep them (spec/TABLES.md).

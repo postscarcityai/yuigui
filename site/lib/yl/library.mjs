@@ -482,6 +482,7 @@ export const INTENTS = {
   "workout-checkin": ["check in before a workout", "ask about sleep and soreness", "adjust a training plan"],
   "trainer-session": ["build a workout from a check-in", "a workout for the time and gear I have", "start an interval timer after a check-in"],
   "nutritionist-plate": ["log a meal from a photo", "estimate the macros on a plate", "fix a portion and save it to my meals", "today's calories and macros"],
+  "musician-jam": ["make a beat from a vibe", "a drum loop at the tempo I want", "chords under a beat", "jam and save the loop"],
   onboarding: ["onboard a new user", "first run welcome", "learn about someone and suggest agents"],
   connect: ["connect tools", "ask permission to use apps", "set up integrations"],
   "restaurant-intake": ["restaurant website intake", "plan a site for a restaurant or cafe", "menu and online orders", "make a variant of a flow"],
