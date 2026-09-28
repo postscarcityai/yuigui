@@ -8,7 +8,7 @@ put meals Day=today Food="Chicken bowl" Cal=640 Protein=52
 query meals where=Day=today sum=Cal|Protein as stat label="Today"
 ```
 
-Status: YUI-33. Step 1 (this page, the parser and the playground) is the spec and the web runtime. Step 2 is the app: the same store in SQLite on the phone and the Swift parser (YUI-89). The Python, Kotlin and Rust parsers already read `table create`, `put` and `query` and carry the same store, so the vectors in `spec/conformance/30-tables.json` run in every language here. Try it at [/playground](/playground), under "Agent tables".
+Status: YUI-33. Native agents keep their tables on Yui's server today (YUI-170, section 7). Step 1 (this page, the parser and the playground) is the spec and the web runtime. Step 2 is the app: the same store in SQLite on the phone and the Swift parser (YUI-89). The Python, Kotlin and Rust parsers already read `table create`, `put` and `query` and carry the same store, so the vectors in `spec/conformance/30-tables.json` run in every language here. Try it at [/playground](/playground), under "Agent tables".
 
 ## 1. The three words
 
@@ -95,7 +95,8 @@ Writes are quiet: a `put` that lands sends nothing back. The agent hears about t
 
 ## 4. Privacy
 
-- **The tables live on the phone.** In the app, one SQLite file per agent in the app's own storage. In the playground, the browser's `localStorage`. They are never written to Yui's server, never to a `yui_` table, never into a push.
+- **A connected agent's tables live on the phone.** In the app, one SQLite file per agent in the app's own storage (YUI-89). In the playground, the browser's `localStorage`. They are never written to Yui's server, never to a `yui_` table, never into a push.
+- **A native agent's tables live with the agent.** A native agent (Yui and the starter crew) already runs on Yui's server, so its tables are kept there too, one set per agent, readable only by the runtime. Section 7.
 - **What does travel.** The `put` lines an agent writes are part of its reply, and a reply goes through the relay like any message (kept 90 days, then deleted). The agent sees table data only when the person sends it: a changed row (event 2) or rows they chose to send (event 3). There is no way for an agent to read a table silently.
 - **One agent, its own tables.** An agent cannot query another agent's tables. Removing an agent removes its tables. Deleting the account removes all of them.
 - **Backups and sync.** Step 1 has none: a new phone starts with empty tables. [Encrypted sync](/developers/sync) (YUI-36) decides v1 ships without sync, proposes keeping the tables file in the iPhone's own backup so a new phone keeps it, and designs end to end encrypted sync for when a second Yui device arrives.
@@ -136,3 +137,24 @@ query crm group=Stage sum=Value as chart bar x=Stage y=Value "Pipeline"
 - Ops: `table create` gives `{op: "table", screen, name, cols: [{name, type, unit?}]}`, `put` gives `{op: "put", screen, table, key?, values, delete?}`. Neither takes an `@id`, advances the counter, draws anything or ends an open group. `query` is an add like any preset, `{op: "add", preset: "query", id, props}`; `where`, `sort`, `cols`, `y`, `sum`, `avg`, `min` and `max` are always lists.
 - Values come typed by the tokenizer (YL.md section 2): `Cal=640` is a number, `Done=on` true, a quoted value text. The store then fits each value to its column.
 - Reference: the parser is `site/lib/yl/yl.mjs`, the store `site/lib/yl/tables.mjs` (`write`, `query`, `replay`). Ports with the same store: `parsers/python/tables.py`, `parsers/kotlin/src/Tables.kt`, `parsers/rust/src/tables.rs`. Vectors: `spec/conformance/30-tables.json`, and a vector may carry `tables: {today, now, failed, results}`, the write lines the store refused and each query's rows after the whole input (spec/conformance/README.md).
+
+## 7. Native agents: tables on the server
+
+Native agents (Yui, Arnold, Basil, Gouda, Penny, Quill and any agent Yui makes) run on Yui's server, so their tables live there too (YUI-170). Same three words, same types, same limits; the phone needs nothing new.
+
+- **Writes.** The agent writes `table create` and `put` lines in its reply. The runtime takes them out before the reply is saved, writes the rows, and the person never sees the lines.
+- **Views.** Every `query` in the reply is drawn by the runtime into a plain `table`, `list`, `chart` or `stat` with the real rows, so today's app shows it. `table meals` and `chart data=meals` on one of the agent's tables are drawn the same way.
+- **Reading first.** A reply that is only a `tables` block of `query` lines is a read: the runtime hands the rows back and the agent answers with them ("what did I eat this week").
+- **By week and by month.** `group=Day:week` totals by the week each date falls in (weeks start Monday), `group=Day:month` by month, `group=Day:day` by day for a column holding times.
+- **Deletes ask first.** `put table key +delete` and `table drop name` never run on the agent's say. The reply gets a Delete or Keep button, and only the person's tap deletes. A yes or no column that was never set counts as off, so `where=Done=off` finds it.
+- **Starter tables.** Each starter agent is added with tables and starter rows: Yui (to-dos, groceries, notes), Basil (44 common foods with calories and macros per portion, and a meals log), Arnold (16 exercises with how-to cues, a first week, and a sessions log), Penny (tasks, errands, bills), Quill (a first deck and its review queue), Gouda (saved loops, songs). A blank agent starts with none and makes its own.
+- **Privacy.** Stored in `yui_native_tables` and `yui_native_table_rows`, reachable only by the runtime: no app token, connected agent or other person can read them. Another agent never sees them. The person lists them with their row counts, and deletes one, in the agent's Controls. Removing the agent removes its tables; deleting the account removes all of them.
+
+```
+put groceries milk Item=Milk Qty="1 gallon" Aisle=Dairy
+query groceries where=Got=off sort=Aisle as list "Still to get"
+```
+draws, in the reply the phone gets:
+```
+list title="Still to get" "Bread · 1 loaf · Bakery" "Eggs · 1 dozen · Dairy" "Milk · 1 gallon · Dairy"
+```

@@ -1,8 +1,8 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 258,
-    "site": 590,
+    "app": 259,
+    "site": 592,
     "builds": 41,
     "shipped": 292,
     "screenshots": 681
@@ -13,7 +13,7 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T01:04:10.483Z",
+          "at": "2026-09-28T01:05:01.000Z",
           "title": "Every agent keeps its own little database",
           "card": "YUI-170",
           "anchor": "every-agent-keeps-its-own-little-database",
@@ -31,10 +31,10 @@
               "alt": "Dark mode: Yui's Still to get grocery list with milk added, then the Delete or Keep ask for coffee."
             }
           ],
-          "commits": 5,
+          "commits": 7,
           "totals": {
-            "app": 258,
-            "site": 590,
+            "app": 259,
+            "site": 591,
             "builds": 41,
             "shipped": 292
           }
@@ -1342,6 +1342,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "cebb725",
+          "at": "2026-09-28T01:10:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cebb725"
+        },
+        {
+          "repo": "site",
+          "sha": "be4e27d",
+          "at": "2026-09-28T01:05:01.000Z",
+          "text": "Every agent keeps its own little database (YUI-170)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/be4e27d"
+        },
+        {
+          "repo": "app",
+          "sha": "f43f90b",
+          "at": "2026-09-28T01:04:40.000Z",
+          "text": "Native tables: a list labels its numbers, a table header with spaces is mended (YUI-170)",
+          "url": "https://github.com/postscarcityai/yui/commit/f43f90b"
+        },
         {
           "repo": "app",
           "sha": "aa1fded",
