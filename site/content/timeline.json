@@ -1,16 +1,120 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 275,
-    "site": 622,
-    "builds": 42,
-    "shipped": 303,
-    "screenshots": 710
+    "app": 279,
+    "site": 629,
+    "builds": 43,
+    "shipped": 306,
+    "screenshots": 721
   },
   "days": [
     {
       "date": "2026-09-28",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-28T05:48:11.263Z",
+          "title": "The site chat asks what you think",
+          "card": "SITE-67",
+          "anchor": "the-site-chat-asks-what-you-think",
+          "images": [
+            {
+              "src": "/progress/site67-hello-phone.webp",
+              "alt": "The site chat on a phone: Hi, I'm Yui. What you think shapes what we build. Where do we start? with four buttons and Get Yui on TestFlight"
+            },
+            {
+              "src": "/progress/site67-feedback-phone.webp",
+              "alt": "The feedback flow: What's not landing? with iPhone only picked, then One thing you'd change or add with a line typed in"
+            },
+            {
+              "src": "/progress/site67-pitch-phone.webp",
+              "alt": "The last page of the pitch, Get it, with a What now? choice under it"
+            },
+            {
+              "src": "/progress/site67-help-phone.webp",
+              "alt": "How can I help? on a phone: the Share the site card with a Share it button"
+            },
+            {
+              "src": "/progress/site67-hello-desktop.webp",
+              "alt": "The site chat on a computer, a phone-shaped layer over the dimmed page, opening on the four feedback-first buttons"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 279,
+            "site": 629,
+            "builds": 43,
+            "shipped": 306
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T05:40:27.000Z",
+          "title": "Yui 0.5.1 is on TestFlight: switching agents no longer crashes",
+          "card": "YUI-181",
+          "anchor": "yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes",
+          "images": [
+            {
+              "src": "/progress/yui181-051-basil-dark.webp",
+              "alt": "Switched to Basil in dark mode: his home, Log a meal and Grocery list, no crash"
+            },
+            {
+              "src": "/progress/yui181-051-gouda-dark.webp",
+              "alt": "Switched to Gouda: Beats, chords and practice, right on screen"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 277,
+            "site": 628,
+            "builds": 43,
+            "shipped": 305
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-28T05:38:46.000Z",
+          "build": 281,
+          "changes": 3,
+          "totals": {
+            "app": 277,
+            "site": 627,
+            "builds": 43,
+            "shipped": 304
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T05:11:35.000Z",
+          "title": "Hand this page to your agent",
+          "card": "SITE-77",
+          "anchor": "hand-this-page-to-your-agent",
+          "images": [
+            {
+              "src": "/progress/site77-start-desktop-light.webp",
+              "alt": "Get started on a computer: the Hand this to your agent box top right beside the title, with Copy link and Copy page and a line each for Hermes and for Claude or ChatGPT"
+            },
+            {
+              "src": "/progress/site77-start-phone-light.webp",
+              "alt": "The same box first on a phone, after a tap on Copy page: the button reads Copied and Page copied shows beside it"
+            },
+            {
+              "src": "/progress/site77-start-phone-dark.webp",
+              "alt": "The box on a phone in dark mode"
+            },
+            {
+              "src": "/progress/site77-spec-mcp-desktop-light.webp",
+              "alt": "On a spec page the box sits above the text, its line and buttons side by side: It reads the spec and knows how this part of Yui works"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 277,
+            "site": 626,
+            "builds": 42,
+            "shipped": 304
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-28T04:48:03.000Z",
@@ -65,6 +169,83 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "e5fa34c",
+          "at": "2026-09-28T05:44:40.000Z",
+          "text": "Workouts e2e: Progress redraws for a new lift's chart; the home row's native is a word (YUI-182)",
+          "url": "https://github.com/postscarcityai/yui/commit/e5fa34c"
+        },
+        {
+          "repo": "app",
+          "sha": "626b190",
+          "at": "2026-09-28T05:43:31.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yui/commit/626b190"
+        },
+        {
+          "repo": "site",
+          "sha": "db774fb",
+          "at": "2026-09-28T05:40:57.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/db774fb"
+        },
+        {
+          "repo": "site",
+          "sha": "4f77e33",
+          "at": "2026-09-28T05:40:27.000Z",
+          "text": "Yui 0.5.1, build 281, on TestFlight: switching agents no longer crashes (YUI-181)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4f77e33"
+        },
+        {
+          "repo": "site",
+          "sha": "5402f11",
+          "at": "2026-09-28T05:13:10.000Z",
+          "text": "Every agent has its own quiet visual by default (YUI-180, spec and playground)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5402f11"
+        },
+        {
+          "repo": "site",
+          "sha": "a19eee3",
+          "at": "2026-09-28T05:11:35.000Z",
+          "text": "Hand this to your agent: Copy link, Copy page and one line of how on every page you can act on (SITE-77)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a19eee3"
+        },
+        {
+          "repo": "site",
+          "sha": "00efc41",
+          "at": "2026-09-28T05:11:35.000Z",
+          "text": "The site's MCP and OAuth URLs point at the live yuigui backend, not PROOF (404 since the Sep 27 move)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/00efc41"
+        },
+        {
+          "repo": "site",
+          "sha": "f213c81",
+          "at": "2026-09-28T05:10:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f213c81"
+        },
+        {
+          "repo": "app",
+          "sha": "432461c",
+          "at": "2026-09-28T05:09:57.000Z",
+          "text": "Visual defaults: live check of the list's pick and the README line (YUI-180)",
+          "url": "https://github.com/postscarcityai/yui/commit/432461c"
+        },
+        {
+          "repo": "app",
+          "sha": "ce0126d",
+          "at": "2026-09-28T05:08:52.000Z",
+          "text": "Every agent has its own quiet visual by default (YUI-180, runtime half)",
+          "url": "https://github.com/postscarcityai/yui/commit/ce0126d"
+        },
+        {
+          "repo": "site",
+          "sha": "cb3f177",
+          "at": "2026-09-28T05:03:59.000Z",
+          "text": "Thought: the crash our tests could not see (0.5.0, one line, what we test now)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cb3f177"
+        },
         {
           "repo": "app",
           "sha": "8f1bd7a",

@@ -5,11 +5,14 @@
 //   POST { action: "verify", token }                     -> { ok }
 //   POST { action: "contact", first_name, last_name, email, phone } -> { ok }  (pages cached before the Yui form)
 //   A tap on the contact form (form@contact) rides on "say" as { event }: saved here, never sent to the model.
+//   A sent feedback flow (plan@feedback, SITE-67) rides the same way: its likes and dislikes are saved
+//   as notes here, and its open line falls back to a feature note when the model does not note it.
 import { brief } from "../../../lib/chat/brief.mjs";
 import { chatOn, turnstileOn } from "../../../lib/chat/config.mjs";
 import { MODEL, turn } from "../../../lib/chat/model.mjs";
 import { COOKIE, FREE_TURNS, MAX_TURNS, hashIp, newSession, readSession, sessionCookie } from "../../../lib/chat/session.mjs";
 import { markVerified, saveContact, saveNote, saveTurn } from "../../../lib/chat/store.mjs";
+import { LINE_KIND, feedbackNotes } from "../../../lib/chat/feedback.mjs";
 import { clip, insertInvite, readContact } from "../../../lib/invite.mjs";
 
 export const dynamic = "force-dynamic";
@@ -125,10 +128,14 @@ export async function POST(req) {
   s.turns += 1;
   if (out.actions.some((a) => a.type === "contact")) s.asked = true;
 
+  const fb = feedbackNotes(ev);
+  const notes = fb ? [...fb.notes, ...out.notes] : out.notes;
+  if (fb?.line && !out.notes.length) notes.push({ kind: LINE_KIND, text: fb.line, quote: fb.line });
+
   const meta = { ipHash: hashIp(ip), userAgent: req.headers.get("user-agent"), referrer: req.headers.get("referer"), utm: body.utm };
   try {
     await saveTurn(s, { first, path, userText: text, reply, tools: out.tools, meta });
-    await Promise.all(out.notes.map((n) => saveNote(s, n, path)));
+    await Promise.all(notes.map((n) => saveNote(s, n, path)));
   } catch (e) { console.error("chat store failed", e.message); }
 
   return say({ reply, actions: out.actions.filter((a) => a.type !== "contact") }, s);

@@ -9,10 +9,12 @@
 // the record, top right. The big mic talks through the Web Speech API where the browser has it, and
 // T types. The stage moves like the app's (stage motion, lib/yl/motion.mjs). Opening it turns the
 // site dark (the moon button's switch, not saved) and closing it puts the visitor's own choice back.
+// SITE-67: it opens on feedback first: what they like or not, the pitch, how to help, or just a demo.
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import links from "../../content/links.json";
+import { HELLO, SHARE_URL, STARTERS } from "../../lib/chat/feedback.mjs";
 import { splitReply, tapLabel, tapLine } from "../../lib/chat/lines.mjs";
 import { micLine } from "../../lib/chat/stage.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
@@ -26,8 +28,6 @@ const StageAnswer = dynamic(() => import("./ChatStage"), { ssr: false, loading: 
 
 const KEY = "yui-chat-v1";
 const OPEN = "yui-chat-open";   // sessionStorage: reopen on reload in this tab only
-const HELLO = "Hi, I'm Yui. I answer with screens, not paragraphs. What brings you here?";
-const STARTERS = ["Just curious", "I use AI agents", "Show me a screen", "I want to help"];
 const YUI = "#FF7E8A";
 
 // Outside links only to places Yui lives. Anything else shows as plain text.
@@ -185,6 +185,7 @@ export default function ChatFab() {
   const [listening, setListening] = useState(false);
   const [heard, setHeard] = useState("");
   const [blocked, setBlocked] = useState(false);
+  const [toast, setToast] = useState("");         // one quiet line after a share
   const input = useRef(null), list = useRef(null), ready = useRef(false), rec = useRef(null), heardRef = useRef("");
   const reduced = useReduced();
   const look = useMemo(() => motionLook({ motion: "bouncy" }, null, reduced), [reduced]);
@@ -269,12 +270,24 @@ export default function ChatFab() {
     } finally { setBusy(false); }
   }, [busy, msgs, go, reduced]);
 
+  // The share card (card@share, SITE-67): the page shares the site itself, no turn for Yui.
+  useEffect(() => { if (!toast) return undefined; const t = setTimeout(() => setToast(""), 2600); return () => clearTimeout(t); }, [toast]);
+  const share = useCallback(async () => {
+    trackCta("chat-share", "chat");
+    try {
+      if (navigator.share) { await navigator.share({ title: "Yui", text: "Meet Yui, a generative user interface.", url: SHARE_URL }); return; }
+    } catch (e) { if (e?.name === "AbortError") return; }
+    try { await navigator.clipboard.writeText(SHARE_URL); setToast("Link copied. Paste it anywhere."); }
+    catch { setToast(`Send them ${SHARE_URL.replace("https://", "")}`); }
+  }, []);
+
   const tap = useCallback((ev) => {
+    if (ev.id === "share" && ev.cta) { share(); return; }
     // The phone's rule: a quiet tap (a timer starting, a checklist tick, a loop playing) stays on the screen.
     if (busy || !relays(ev, echoFor(ev))) return;
     if (ev.id === "contact" && ev.preset === "form") { trackCta("chat-contact", "chat"); send("[yui] contact form sent", undefined, "Sent my details", ev); }
-    else send(tapLine(ev), undefined, tapLabel(ev));
-  }, [busy, send]);
+    else send(tapLine(ev), undefined, tapLabel(ev), ev.preset === "plan" ? ev : undefined);
+  }, [busy, send, share]);
 
   // Several questions answered with one Send: a plan goes as one event, loose ones in line order.
   const answerAll = useCallback((events, label) => {
@@ -388,6 +401,7 @@ export default function ChatFab() {
     center = (
       <>
         <StageAnswer key={`${playing}:${playKey}`} content={answer.content} live={playing === lastAnswer && !busy} onTap={tap} onAnswers={answerAll} Text={Text} go={go} active={!record && !typing} />
+        {toast ? <div className="ys-went" role="status">{toast}</div> : null}
         {went ? <div className="ys-went">Taking you to <a href={went.path} onClick={(e) => { e.preventDefault(); go(went.path); }}>{went.label}</a></div> : null}
       </>
     );
