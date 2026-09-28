@@ -1346,5 +1346,17 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Basil's tools: plan my meals, a swap, the grocery list by aisle, today's macros board, his pages kept current (YUI-183, runtime half)"
+    },
+    {
+      "text": "The plugin knows the trainer's flow: trainer-session in the saved flows copy",
+      "card": "SITE-70"
+    },
+    {
+      "text": "yui-mcp serves the trainer's flow: screen copy synced from yuigui",
+      "card": "SITE-70"
+    }
+  ]
 }

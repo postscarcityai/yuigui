@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T06:41:01.494Z",
+  "updated": "2026-09-28T07:11:07.103Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -13,14 +13,15 @@
         "status": "now"
       },
       {
-        "key": "YUI-183",
-        "title": "Basil's tools",
+        "key": "YUI-184",
+        "title": "Gouda's tools",
         "status": "now"
       },
       {
-        "key": "YUI-184",
-        "title": "Gouda's tools",
-        "status": "next"
+        "key": "YUI-183",
+        "title": "Basil's tools",
+        "status": "next",
+        "progress": "/progress#your-nutritionist-plans-your-meals"
       },
       {
         "key": "YUI-185",
@@ -298,11 +299,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-184",
-          "title": "Gouda's tools",
-          "summary": "Learn a song and play along, practice log, saved sessions, and default screens"
-        },
-        {
           "key": "YUI-185",
           "title": "Penny's tools",
           "summary": "Plan my week by voice, today list, reminders, evening review, default screens"
@@ -339,13 +335,20 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-70",
-          "title": "The trainer's flow for the site chat, from a check-in to the timer"
-        },
-        {
           "key": "YUI-183",
           "title": "Basil's tools",
-          "summary": "Today's macros board, plan my meals, the grocery list, and his default screens"
+          "summary": "Your nutritionist plans your meals",
+          "waiting": true,
+          "progress": "/progress#your-nutritionist-plans-your-meals"
+        },
+        {
+          "key": "SITE-78",
+          "title": "The interval timer's digits vanish in light mode (dark text on the dark dial)"
+        },
+        {
+          "key": "YUI-184",
+          "title": "Gouda's tools",
+          "summary": "Learn a song and play along, practice log, saved sessions, and default screens"
         },
         {
           "key": "INT-8",
@@ -405,6 +408,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-70",
+          "title": "The trainer's flow for the site chat, from a check-in to the timer",
+          "summary": "The trainer's flow: a check-in that ends on the timer",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-trainer-s-flow-a-check-in-that-ends-on-the-timer"
+        },
         {
           "key": "YUI-187",
           "title": "The screen dots come back and animate, and screens slide instead of fading",
