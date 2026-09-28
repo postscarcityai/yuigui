@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T01:41:46.148Z",
+  "updated": "2026-09-28T02:10:52.999Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.0",
@@ -17,16 +17,20 @@
       {
         "key": "YUI-167",
         "title": "Meet the agent",
-        "status": "now"
-      },
-      {
-        "key": "YUI-168",
-        "title": "Every agent's home",
-        "status": "now"
+        "status": "done",
+        "shipped": "2026-09-27",
+        "progress": "/progress#meet-each-agent-when-you-open-it"
       },
       {
         "key": "YUI-103",
         "title": "Log a meal without weighing",
+        "status": "done",
+        "shipped": "2026-09-27",
+        "progress": "/progress#log-a-meal-without-weighing"
+      },
+      {
+        "key": "YUI-168",
+        "title": "Every agent's home",
         "status": "now"
       }
     ]
@@ -246,11 +250,6 @@
           "summary": "100 a month on Yui, then OpenRouter sign-in or any provider key"
         },
         {
-          "key": "YUI-144",
-          "title": "Native hand-offs",
-          "summary": "Agents pass you along with context and join groups"
-        },
-        {
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
@@ -262,24 +261,14 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-167",
-          "title": "Meet the agent",
-          "summary": "Its hello plays the first time you open it, a line under its name, About says what it does, no picker in the drawer"
-        },
-        {
-          "key": "YUI-103",
-          "title": "Log a meal without weighing",
-          "summary": "Snap and say, macros worked out in the background, one breakdown screen, a food memory"
-        },
-        {
           "key": "YUI-168",
           "title": "Every agent's home",
           "summary": "Shortcuts to start, starter screens a swipe away, notifications up front"
         },
         {
-          "key": "YUI-171",
-          "title": "The same tables for any agent",
-          "summary": "Hermes, MCP, A2A and webhook agents read and write them through Yui"
+          "key": "YUI-144",
+          "title": "Native hand-offs",
+          "summary": "Agents pass you along with context and join groups"
         },
         {
           "key": "INT-8",
@@ -327,6 +316,14 @@
           "key": "YUI-172",
           "title": "Finish the Firebase iOS app setup on Chris's Mac and save GoogleService-Info.plist",
           "blocked": "chris"
+        },
+        {
+          "key": "YUI-171",
+          "title": "Tables for any agent, the plugin and MCP tools",
+          "step": "Step 2",
+          "summary": "Switch agents, keep your tables",
+          "blocked": "other",
+          "progress": "/progress#switch-agents-keep-your-tables"
         }
       ]
     },
@@ -334,6 +331,25 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-103",
+          "title": "Log a meal without weighing",
+          "shipped": "2026-09-27",
+          "progress": "/progress#log-a-meal-without-weighing"
+        },
+        {
+          "key": "YUI-167",
+          "title": "Meet the agent",
+          "summary": "Meet each agent when you open it",
+          "shipped": "2026-09-27",
+          "progress": "/progress#meet-each-agent-when-you-open-it"
+        },
+        {
+          "key": "YUI-171",
+          "title": "The same tables for any agent",
+          "summary": "Hermes, MCP, A2A and webhook agents read and write them through Yui",
+          "shipped": "2026-09-27"
+        },
         {
           "key": "YUI-166",
           "title": "Hold to snap and say, one press takes the photo and records what you say",

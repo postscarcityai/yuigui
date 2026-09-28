@@ -1246,6 +1246,22 @@
     {
       "text": "Log a meal without weighing: an answer at once, the macros behind the scenes, one breakdown, a food memory",
       "card": "YUI-103"
+    },
+    {
+      "text": "Meal breakdown fits a phone: short food names, no question about what they said",
+      "card": "YUI-103"
+    },
+    {
+      "text": "Meal breakdown: a table that fits a phone, the meal they named, never ask what they said; the live sim proof",
+      "card": "YUI-103"
+    },
+    {
+      "text": "Meal tests load again: one import of short",
+      "card": "YUI-103"
+    },
+    {
+      "text": "Meet the agent: its hello plays on first open, the top pill is the one picker, About says what it does",
+      "card": "YUI-167"
     }
   ]
 }
