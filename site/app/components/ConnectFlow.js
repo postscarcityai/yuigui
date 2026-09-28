@@ -9,7 +9,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import QRCode from "qrcode";
 
-const OAUTH = "https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-oauth";
+const OAUTH = "https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-oauth";
 const POLL_MS = 2000;
 
 async function call(body) {

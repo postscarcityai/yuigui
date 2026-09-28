@@ -9,7 +9,7 @@ Any AI app that speaks MCP can put a screen on your phone. You keep talking to C
                             <--taps--------           <--                        <--  a tap
 ```
 
-- **Endpoint:** `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp`
+- **Endpoint:** `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`
 - **Transport:** MCP streamable HTTP, stateless. Every request is one POST with a JSON-RPC message (or a batch) and gets `application/json` back. No session id, no SSE stream: GET answers 405.
 - **Auth:** either OAuth 2.1 (paste the URL, sign in, approve it in Yui: [below](#oauth)) or `Authorization: Bearer yui_ct_...`, a connection token you get by pairing (the three steps below). The Claude and ChatGPT apps' custom connectors only do OAuth; Claude Code, Cursor and n8n ([below](#n8n)) can use either.
 
@@ -22,7 +22,7 @@ Every Claude surface reaches Yui through this server. Pick the one you use.
 Needs a plan that allows custom connectors. Nothing here lists Yui in Claude's directory: it is your own connector, visible only to you.
 
 1. In Claude, open **Settings > Connectors > Add custom connector**.
-2. Name it **Yui**. URL: `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp`. Leave the OAuth fields empty.
+2. Name it **Yui**. URL: `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`. Leave the OAuth fields empty.
 3. Tap **Connect**. Claude opens www.yuigui.com/connect; approve it in the Yui app ([OAuth](#oauth) below).
 4. In a chat, turn Yui on under the tools menu and ask: "Put a 5 minute focus timer on my phone."
 
@@ -31,7 +31,7 @@ A connector added on the web also shows up in the desktop and phone apps. Where 
 ### Claude Code
 
 ```
-claude mcp add --transport http yui https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp
+claude mcp add --transport http yui https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp
 claude mcp get yui      # "Needs authentication"
 claude mcp login yui    # opens the browser; approve in Yui
 ```
@@ -56,7 +56,7 @@ for await (const m of query({
     mcpServers: {
       yui: {
         type: "http",
-        url: "https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp",
+        url: "https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp",
         headers: { Authorization: `Bearer ${process.env.YUI_TOKEN}` }, // yui_ct_... from pairing
       },
     },
@@ -84,7 +84,7 @@ Needs an account whose plan and workspace allow developer mode. Do it on chatgpt
 
 1. **Settings > Security and login**, turn on **Developer mode**.
 2. Open [chatgpt.com/plugins](https://chatgpt.com/plugins) and press **+**.
-3. Name **Yui**, description "Screens on my phone". Public endpoint, URL: `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp`. Authentication: OAuth. Create.
+3. Name **Yui**, description "Screens on my phone". Public endpoint, URL: `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`. Authentication: OAuth. Create.
 4. ChatGPT opens www.yuigui.com/connect. Scan its QR with your iPhone (or type an Add agent code from the app) and tap **Allow** in Yui ([OAuth](#oauth) below). A new agent named ChatGPT shows up in Yui.
 5. Start a new chat, add Yui from the tools menu, and ask: "Ask me on my phone what we are having for lunch: Salad, Soup or Tacos."
 
@@ -125,7 +125,7 @@ curl -s https://api.x.ai/v1/responses \
   ],
   "tools": [{
     "type": "mcp",
-    "server_url": "https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp",
+    "server_url": "https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp",
     "server_label": "yui",
     "server_description": "Screens on my phone",
     "allowed_tools": ["yui_show", "yui_answers", "yui_say", "yui_threads"],
@@ -169,7 +169,7 @@ It calls `yui_show`, then `yui_answers(wait=25)` in a loop up to its Timeout (30
 ### MCP Client Tool
 
 1. An **AI Agent** node with any chat model.
-2. Its tool: **MCP Client Tool**. Endpoint `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp`, Server Transport **HTTP Streamable**, Authentication **Bearer Auth** with the token (or **MCP OAuth2**, [OAuth](#oauth)).
+2. Its tool: **MCP Client Tool**. Endpoint `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`, Server Transport **HTTP Streamable**, Authentication **Bearer Auth** with the token (or **MCP OAuth2**, [OAuth](#oauth)).
 3. Tools to Include: `yui_show`, `yui_answers`, `yui_say`. Leave out `yui_tap`, it is app-only.
 4. Options, Timeout: 40000 ms or more. `yui_answers` holds a call up to 25 s and n8n's default is 60 s, which is fine for one call, but leave room.
 5. The system message: the tool descriptions carry a short guide, and n8n does not read MCP prompts, so spell out the steps. This one got a 7B local model (qwen2.5:7b on Ollama) through it:
@@ -208,7 +208,7 @@ What a client needs, for the curious:
 | | |
 | --- | --- |
 | Protected resource metadata (RFC 9728) | `GET .../yui-mcp/.well-known/oauth-protected-resource`, also named in the 401's `WWW-Authenticate: Bearer resource_metadata="..."` |
-| Authorization server | `https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-oauth` |
+| Authorization server | `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-oauth` |
 | Metadata (RFC 8414 / OIDC discovery) | `.../yui-oauth/.well-known/oauth-authorization-server` and `.../yui-oauth/.well-known/openid-configuration` (`yui-mcp` serves the same at its own `.well-known` paths) |
 | Registration (RFC 7591) | `POST .../yui-oauth/register`. Public clients (`none`, PKCE) or `client_secret_post` / `client_secret_basic`. Redirect URIs: https, http only on localhost, or an app scheme |
 | Authorize | `GET .../yui-oauth/authorize`: `response_type=code`, PKCE `S256` required, `resource` must be the endpoint above, scope `yui` |
@@ -224,19 +224,19 @@ Each approval is a connection like a paired computer: the same limits, the same 
 1. In the Yui app: **Agents > Add agent**. Name it for the app you will connect ("Claude"). It shows a 6-digit code.
 2. Trade the code for a token. The code works once and lasts ten minutes:
    ```
-   curl -s https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-connect \
+   curl -s https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-connect \
      -H 'content-type: application/json' \
      -d '{"action":"pair","code":"123456","remote_ref":"claude","kind":"mcp","host_name":"Claude Code"}'
    ```
    The answer holds `connector_token` (`yui_ct_...`). It is shown once and stored only as a hash. Treat it like a password.
 3. Add the server to your client. Claude Code:
    ```
-   claude mcp add --transport http yui https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp \
+   claude mcp add --transport http yui https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp \
      --header "Authorization: Bearer yui_ct_..."
    ```
    Cursor (`~/.cursor/mcp.json`) and any client that takes a URL and headers:
    ```
-   {"mcpServers": {"yui": {"url": "https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp",
+   {"mcpServers": {"yui": {"url": "https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp",
                            "headers": {"Authorization": "Bearer yui_ct_..."}}}}
    ```
 

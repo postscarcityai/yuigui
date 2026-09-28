@@ -107,7 +107,7 @@ Adding a profile that is already registered returns the existing agent. The app'
 3. The agent calls the API:
 
 ```
-POST https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-agents
+POST https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-agents
 apikey: <publishable key>
 Authorization: Bearer yui_mt_...
 
