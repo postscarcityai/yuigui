@@ -25,6 +25,39 @@ export const LOOKS = {
 // What `visual` alone means: the orb, in the agent's own color, on the voice.
 export const DEFAULTS = { look: "orb", tone: "accent", react: "voice" };
 
+// ---------- every agent's own (YUI-180, VISUAL.md section 6) ----------
+
+// How strong a default draws: never full. `dim` is the strength any visual has
+// behind words (BUDGET.behindDim), `faint` lower still; behind words a default
+// sinks again by the same 0.7.
+export const STRENGTHS = { dim: 0.7, faint: 0.45 };
+
+// The look each crew agent ships with (yui runtime/profiles/<name>/profile.json
+// `visual`, the source; this copy draws the playground). `hears` is react=.
+export const CREW_VISUALS = {
+  yui: { look: "orb", hears: "voice", strength: "dim", pace: "slow", why: "the app's own face, calm breathing" },
+  arnold: { look: "waves", hears: "music", strength: "dim", pace: "even", why: "training rhythm, swells on the beat" },
+  basil: { look: "bloom", hears: "voice", strength: "dim", pace: "slow", why: "the kitchen, soft and warm" },
+  gouda: { look: "grain", hears: "music", strength: "dim", pace: "even", why: "sparkles with the looper and the keys" },
+  penny: { look: "aurora", hears: "off", strength: "faint", pace: "slow", why: "money, slow and steady" },
+  quill: { look: "orb", hears: "voice", strength: "faint", pace: "slow", why: "study, low motion so it never distracts" },
+};
+
+// Every other agent (a connected Hermes agent, one Yui made): the soft orb.
+export const FALLBACK_VISUAL = { look: "orb", hears: "voice", strength: "faint", pace: "slow" };
+
+// The one rule every stage follows, over the thread's ops (oldest first):
+// the person's switch in Settings (off beats everything), then the agent's
+// newest `visual` line (`visual off` is nothing and sticks; any other draws as
+// asked), then its default, quiet. Props for visualPlan, or null for nothing.
+export function stageVisual(def, ops = [], personOff = false) {
+  if (personOff) return null;
+  const last = [...ops].reverse().find((o) => o?.op === "visual");
+  if (last) return last.props?.off ? null : last.props;
+  const d = def || FALLBACK_VISUAL;
+  return { look: d.look, tone: d.tone || "accent", react: d.hears, strength: STRENGTHS[d.strength] ?? STRENGTHS.faint, pace: d.pace || "slow", quiet: true };
+}
+
 // ---------- color ----------
 
 // The agent's accent from its saved look (yui_agents.theme): accent= as a hex
@@ -136,6 +169,8 @@ export const BUDGET = {
   // words' zone (fractions of the stage height from the bottom: full scrim
   // below the first, fading to none at the second).
   behindDim: 0.7, zone: [0.34, 0.58],
+  // A default (YUI-180) while nothing is heard.
+  quietIdleFps: 15,
 };
 
 // Everything a renderer needs for one visual:
@@ -147,7 +182,7 @@ export const BUDGET = {
 //           "fair" | "serious" | "critical"; hidden the stage is closed or the
 //           app is in the background
 // Returns null for no visual, else { look, react, tone, colors, motion, env,
-// speed, dim, scrim, zone, fps, scale, still, why, label }.
+// speed, dim, scrim, zone, fps, idleFps, quiet, pace, scale, still, why, label }.
 export function visualPlan(props, { theme = {}, dark = true, words = false, reduced = false, lowPower = false, thermal = "nominal", hidden = false } = {}) {
   if (!props) return null;
   const look = VISUAL_LOOKS.includes(props.look) ? props.look : DEFAULTS.look;
@@ -155,16 +190,21 @@ export function visualPlan(props, { theme = {}, dark = true, words = false, redu
   const tone = visualTone(props.tone, theme);
   const colors = visualColors(tone, dark);
   const motion = motionLook(theme, null, reduced);
-  const dim = words ? BUDGET.behindDim : 1;
+  // A default (stageVisual, props.quiet) draws at its strength, at the slower
+  // of its pace and the agent's, at 30 fps and 15 while nothing is heard.
+  const quiet = !!props.quiet;
+  const strength = quiet ? Math.min(props.strength ?? STRENGTHS.faint, STRENGTHS.dim) : 1;
+  const dim = +(strength * (words ? BUDGET.behindDim : 1)).toFixed(3);
+  const pace = quiet && (PACES[props.pace] ?? 1) > (PACES[motion.pace] ?? 1) ? props.pace : motion.pace;
   const why = reduced ? "reduce-motion" : lowPower ? "low-power" : thermal === "serious" || thermal === "critical" ? "hot" : hidden ? "hidden" : null;
   const still = !!why;
-  const fps = still ? 0 : words || thermal === "fair" ? BUDGET.behindFps : BUDGET.aloneFps;
+  const fps = still ? 0 : quiet || words || thermal === "fair" ? BUDGET.behindFps : BUDGET.aloneFps;
   return {
     look, react, tone, colors, motion,
     env: still || react === "off" ? { ...ENVELOPES.still } : envelope(motion),
-    speed: still ? 0 : 1 / (PACES[motion.pace] ?? 1),
+    speed: still ? 0 : 1 / (PACES[pace] ?? 1),
     dim, scrim: words ? scrimFor(colors, dim) : 0, zone: BUDGET.zone,
-    fps, scale: look === "grain" ? BUDGET.grainScale : BUDGET.scale,
+    fps, idleFps: still ? 0 : quiet ? BUDGET.quietIdleFps : fps, quiet, pace, scale: look === "grain" ? BUDGET.grainScale : BUDGET.scale,
     still, why,
     label: visualLabel(look, tone, react),
   };

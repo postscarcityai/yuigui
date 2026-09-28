@@ -194,6 +194,16 @@ choose "Ping you before each run?" Yes|No`,
 say "Breathe in for four. Out for six."`,
   },
   {
+    // Every agent's own (YUI-180, VISUAL.md section 6): no `visual` line, so the
+    // stage shows the agent's quiet default. Pick an agent to see its pick; a
+    // chip is the agent sending a line of its own, and that wins.
+    name: "The visual: every agent's own",
+    slug: "visual-defaults",
+    agent: "Yui",
+    visualizer: true,
+    yl: `say "This light is mine. It stays quiet unless you talk."`,
+  },
+  {
     name: "The visual: orb on a voice",
     slug: "visual-orb",
     agent: "Yui",

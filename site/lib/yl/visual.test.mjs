@@ -1,7 +1,7 @@
 // The visual (spec/VISUAL.md, YUI-124): colors, the level follower, the scrim and the plan.
 //   node site/lib/yl/visual.test.mjs     exit 1 on any failure
 import { apply, initialState, parse, visualOf } from "./yl.mjs";
-import { BUDGET, DEFAULTS, ENVELOPES, LOOKS, VISUAL_LOOKS, envelope, follow, levelOf, shown, scrimFor, themeAccent, visualColors, visualLabel, visualPlan, visualTone } from "./visual.mjs";
+import { BUDGET, CREW_VISUALS, DEFAULTS, FALLBACK_VISUAL, STRENGTHS, stageVisual, ENVELOPES, LOOKS, VISUAL_LOOKS, envelope, follow, levelOf, shown, scrimFor, themeAccent, visualColors, visualLabel, visualPlan, visualTone } from "./visual.mjs";
 import { SETS, contrast, rgb } from "./look.mjs";
 
 let bad = 0, n = 0;
@@ -101,6 +101,39 @@ eq("state off", run("visual orb\nvisual off"), null);
 eq("state untouched by others", run("say hi"), null);
 eq("visualOf and state agree", run("visual waves react=music"), visualOf(parse("visual waves react=music")));
 eq("nothing lands on a screen", (() => { let s = initialState(); for (const op of parse("visual bloom")) s = apply(s, op); return s.screens["1"].length; })(), 0);
+
+// Every agent's own (YUI-180, VISUAL.md section 6): quiet by default.
+eq("the crew's picks", Object.fromEntries(Object.entries(CREW_VISUALS).map(([k, v]) => [k, [v.look, v.hears]])),
+  { yui: ["orb", "voice"], arnold: ["waves", "music"], basil: ["bloom", "voice"], gouda: ["grain", "music"], penny: ["aurora", "off"], quill: ["orb", "voice"] });
+for (const [k, v] of Object.entries(CREW_VISUALS)) {
+  ok(`${k}: a known look and react`, VISUAL_LOOKS.includes(v.look) && ["voice", "music", "mic", "off"].includes(v.hears));
+  ok(`${k}: never full`, STRENGTHS[v.strength] <= BUDGET.behindDim);
+}
+eq("fallback is the soft orb", FALLBACK_VISUAL, { look: "orb", hears: "voice", strength: "faint", pace: "slow" });
+const ops = (t) => parse(t);
+eq("defaults resolve", stageVisual(CREW_VISUALS.arnold, ops("say hi")), { look: "waves", tone: "accent", react: "music", strength: 0.7, pace: "even", quiet: true });
+eq("no pick: the fallback", stageVisual(null, []).look, "orb");
+eq("no pick: faint", stageVisual(undefined, []).strength, STRENGTHS.faint);
+eq("the agent's line wins", stageVisual(CREW_VISUALS.yui, ops("visual aurora react=voice\nsay hi")), { look: "aurora", react: "voice" });
+eq("off sticks", stageVisual(CREW_VISUALS.yui, [...ops("visual off"), ...ops("say later"), ...ops("say much later")]), null);
+eq("a new line after off", stageVisual(CREW_VISUALS.yui, [...ops("visual off"), ...ops("visual grain")]), { look: "grain" });
+eq("the person's switch beats all", stageVisual(CREW_VISUALS.yui, ops("visual bloom"), true), null);
+{
+  const alone = visualPlan(stageVisual(CREW_VISUALS.yui, []), { theme: { name: "yui", motion: "bouncy" } });
+  const behind = visualPlan(stageVisual(CREW_VISUALS.yui, []), { theme: { name: "yui", motion: "bouncy" }, words: true });
+  const faint = visualPlan(stageVisual(CREW_VISUALS.quill, []), { theme: { name: "lavender" }, words: true });
+  const asked = visualPlan({ look: "orb" }, { theme: { name: "yui", motion: "bouncy" } });
+  eq("a default alone is dim", alone.dim, 0.7);
+  eq("a default alone runs 30 fps", alone.fps, BUDGET.behindFps);
+  eq("and 15 while nothing is heard", alone.idleFps, BUDGET.quietIdleFps);
+  eq("the slower pace wins", [alone.pace, visualPlan(stageVisual(CREW_VISUALS.arnold, []), { theme: { name: "coach", motion: "snappy" } }).pace], ["slow", "even"]);
+  ok("a default is slower than the agent's own pace", alone.speed < asked.speed);
+  eq("behind words it sinks again", behind.dim, 0.49);
+  eq("faint behind words", faint.dim, 0.315);
+  ok("never behind text at full strength", behind.dim < BUDGET.behindDim && behind.scrim > 0);
+  eq("an asked visual is unchanged", [asked.dim, asked.fps, asked.quiet], [1, BUDGET.aloneFps, false]);
+  eq("still under Reduce Motion", visualPlan(stageVisual(CREW_VISUALS.gouda, []), { reduced: true }).fps, 0);
+}
 
 console.log(`${n - bad}/${n} visual tests pass`);
 if (bad) process.exit(1);

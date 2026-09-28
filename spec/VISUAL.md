@@ -93,20 +93,53 @@ Times scale with pace like every other move (`motion.mjs` PACES).
 
 A look that goes over 2 ms on the slowest supported phone gets simpler, not slower.
 
-## 6. What the agent is told
+## 6. Every agent's own (defaults, YUI-180)
 
-The channel guide (spec/CHANNEL.md) gets one line when the app draws it: a mood behind your words, for a calm moment, a focus block or music, with the five looks and the three kinds of react; it stays until `visual off`; never for a plain answer. Until the build that draws it goes VALID, the line waits in CHANNEL.md's waiting list.
+Every agent has a visual from the first open, picked to fit it, quiet enough that you notice it without it pulling focus. Chris, Sep 28: "all agents should have their own visualizer by default. pick good ones for each agent and ship them with defaults. make sure they are subtle". Try it: [/playground?demo=visual-defaults](/playground?demo=visual-defaults).
 
-## 7. Where it lives
+**The picks.** A native agent's profile carries them (`runtime/profiles/<name>/profile.json` in the app repo, `"visual": { "look", "hears", "strength", "pace" }`); the list (`yui-agents list`) sends each native agent's pick as `visual` with the line it would be.
+
+| agent | look | hears | strength | why |
+|---|---|---|---|---|
+| Yui | orb | voice | dim | the app's own face, calm breathing |
+| Arnold | waves | music | dim | training rhythm, swells on the beat |
+| Basil | bloom | voice | dim | the kitchen, soft and warm |
+| Gouda | grain | music | dim | sparkles with the looper and the keys |
+| Penny | aurora | off | faint | money, slow and steady |
+| Quill | orb | voice | faint | study, low motion so it never distracts |
+| any other | orb | voice | faint | a connected Hermes agent, one Yui made, a crew agent made before defaults (its starter's pick) |
+
+**Quiet means.**
+
+- **Strength**: `dim` is 70%, the strength any visual has behind words; `faint` is 45%. A default is never full: the profile check refuses `full`. Behind words it sinks again by 0.7 (49% or 32%), under the same scrim, so it is never behind text at full strength.
+- **Pace**: `slow` or `even`, never `quick`. The stage runs the slower of the default's pace and the agent's motion look.
+- **Frames**: 30 fps, and 15 while nothing is heard (`BUDGET.quietIdleFps`). Reduce Motion, Low Power and heat still make it one still frame (section 5).
+- **Budget**: the same drawable and the same memory ceiling as any visual. Measure it on the app card: idle CPU and GPU on the stage with the default on and off, and `scripts/memory.sh` under the ceiling.
+
+**Who wins** (`stageVisual(def, ops, personOff)` in `visual.mjs`, `stageVisual` in the runtime's `visual.ts`, the same rule):
+
+1. The person's switch, Settings > the agent > Visualizer (on by default). Off draws nothing, whatever the agent sends.
+2. The agent's newest `visual` line in the thread. `visual off` is nothing and sticks across turns until it sends another `visual` line; any other line draws as asked, at full strength, like before.
+3. Else its default, quiet.
+
+The line is not new: a default is not a `visual` line and nothing is written into the thread. An older app ignores the list's `visual` field and draws only what the agent sends.
+
+## 7. What the agent is told
+
+The channel guide (spec/CHANNEL.md) gets one line when the app draws it: a mood behind your words, for a calm moment, a focus block or music, with the five looks and the three kinds of react; it stays until `visual off`; never for a plain answer. The same line says every agent already has a quiet one of its own: send a `visual` line only to change the mood, `visual off` to take it away. Until the build that draws it goes VALID, the line waits in CHANNEL.md's waiting list.
+
+## 8. Where it lives
 
 - `site/lib/yl/yl.mjs`: the `visual` line, `visualOf`, `VISUAL_LOOKS`, `VISUAL_REACT`.
-- `site/lib/yl/visual.mjs`: colors, envelopes, the level follower, the scrim, the budget and `visualPlan`, the one object a renderer draws from. Tests: `node site/lib/yl/visual.test.mjs`.
+- `site/lib/yl/visual.mjs`: colors, envelopes, the level follower, the scrim, the budget and `visualPlan`, the one object a renderer draws from; the defaults (`CREW_VISUALS`, `FALLBACK_VISUAL`, `STRENGTHS`, `stageVisual`).
+- The app repo's `runtime/src/visual.ts`: the profile's pick, its check and the same `stageVisual` rule; `yui-agents list` sends it. Tests: `node site/lib/yl/visual.test.mjs`.
 - `site/lib/visual/shaders.mjs`: the five WebGL 1 fragment shaders. Uniforms `u_res`, `u_time` (already scaled by pace), `u_level`, `u_a u_b u_c u_ground`, `u_dim`, `u_scrim`, `u_zone`. The Metal ports keep the same uniforms and math.
 - `site/app/playground/visualizer.js`: the demo. `?look=`, `?agent=`, `?words=off`, `?still=on` open a state directly.
 - Parsers: Python, Kotlin and Rust read the line and pass `38-visual.json`. The Swift parser learns it in step 2; until then the file is on the app's not-yet list.
 
-## 8. Next
+## 9. Next
 
 - **Step 2 (app):** the Metal shaders behind the stage, reading `visualPlan`'s numbers, at the budget above and inside the memory ceiling. The Swift parser reads `visual`. Screenshots of each look in light and dark, a recording, and the still under Reduce Motion.
 - **YUI-125 (app, built):** the sound, from the mic, the agent's voice and the music tools, as a level and three bands. VoiceOver reads what the look does with them as a hint.
+- **YUI-180 (app half):** the stage draws the agent's default when nothing else is set, and Settings > the agent gets a Visualizer switch. Shots of each crew agent's stage in light and dark.
 - Later: people describe the look they want for each agent in words ("slow purple smoke"), and the agent picks the look and tone.
