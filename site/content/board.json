@@ -1,48 +1,12 @@
 {
-  "updated": "2026-09-28T03:40:37.035Z",
+  "updated": "2026-09-28T04:10:43.561Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.5.0",
-    "status": "shipping",
-    "startedAt": "2026-09-28T02:48:57.000Z",
-    "shippedAt": null,
-    "cards": [
-      {
-        "key": "YUI-166",
-        "title": "Hold to snap and say, one press takes the photo and records what you say",
-        "status": "done",
-        "shipped": "2026-09-27",
-        "progress": "/progress#hold-to-snap-and-say-what-s-in-it"
-      },
-      {
-        "key": "YUI-167",
-        "title": "Meet the agent",
-        "status": "done",
-        "shipped": "2026-09-27",
-        "progress": "/progress#meet-each-agent-when-you-open-it"
-      },
-      {
-        "key": "YUI-168",
-        "title": "Every agent's home",
-        "status": "done",
-        "shipped": "2026-09-27",
-        "progress": "/progress#every-agent-has-a-home"
-      },
-      {
-        "key": "YUI-103",
-        "title": "Log a meal without weighing",
-        "status": "done",
-        "shipped": "2026-09-27",
-        "progress": "/progress#log-a-meal-without-weighing"
-      },
-      {
-        "key": "YUI-144",
-        "title": "Native hand-offs",
-        "status": "done",
-        "shipped": "2026-09-27",
-        "progress": "/progress#one-agent-opens-another"
-      }
-    ]
+    "version": "0.4.3",
+    "status": "shipped",
+    "startedAt": "2026-09-28T00:02:54.000Z",
+    "shippedAt": "2026-09-28T00:38:18.000Z",
+    "cards": []
   },
   "columns": [
     {
@@ -178,9 +142,86 @@
           "summary": "Rolling updates, daily backups, a kill switch per sandbox"
         },
         {
+          "key": "YUI-173",
+          "title": "Yui for Android, first PR",
+          "summary": "The app builds and draws a demo thread",
+          "agentReady": true
+        },
+        {
+          "key": "YUI-174",
+          "title": "Yui for Wear OS, first PR",
+          "summary": "A timer and a quick answer on the wrist",
+          "agentReady": true
+        },
+        {
+          "key": "YUI-175",
+          "title": "Yui for Apple Watch, first PR",
+          "summary": "A timer and a quick answer on the wrist",
+          "agentReady": true
+        },
+        {
+          "key": "YUI-176",
+          "title": "Yui for Windows and Linux, first PR",
+          "summary": "The window opens on a demo thread",
+          "agentReady": true
+        },
+        {
+          "key": "YUI-177",
+          "title": "Yui for Omarchy, first PR",
+          "summary": "A terminal thread in your Omarchy theme",
+          "agentReady": true
+        },
+        {
+          "key": "YUI-178",
+          "title": "Yui for Apple Vision Pro",
+          "summary": "The stage as a window you place in the room"
+        },
+        {
+          "key": "YUI-179",
+          "title": "Yui for Apple TV",
+          "summary": "Timers and the stage on the big screen"
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
+        },
+        {
+          "key": "SITE-66",
+          "title": "The site chat opens full screen first, like the Yui app, with the mic"
+        },
+        {
+          "key": "SITE-67",
+          "title": "The site chat asks for feedback first",
+          "summary": "What visitors like and dislike, the pitch, how to help"
+        },
+        {
+          "key": "SITE-68",
+          "title": "The site chat demos whole flows, several screens in a row, not one screen"
+        },
+        {
+          "key": "SITE-69",
+          "title": "Meet the crew in the site chat, each member with a flow to try"
+        },
+        {
+          "key": "SITE-70",
+          "title": "The trainer's flow for the site chat, from a check-in to the timer"
+        },
+        {
+          "key": "SITE-71",
+          "title": "The nutritionist's flow for the site chat, from a plate to macros"
+        },
+        {
+          "key": "SITE-72",
+          "title": "The musician's flow for the site chat, from a vibe to a beat"
+        },
+        {
+          "key": "SITE-73",
+          "title": "The planner's flow for the site chat, from a busy week to a plan"
+        },
+        {
+          "key": "SITE-74",
+          "title": "The study buddy's flow for the site chat, from a topic to a quiz"
         },
         {
           "key": "OSS-3",
@@ -270,9 +311,10 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-171",
-          "title": "Tables in any agent's reply, A2A and webhook, the app side (Controls > Tables, Give to...) (backlog)",
-          "step": "Step 3"
+          "key": "SITE-75",
+          "title": "Hold to talk on /mockups shows the 0.5.0 app, not the old chat composer",
+          "summary": "See it shows hold to talk the way 0.5.0 does it",
+          "progress": "/progress#see-it-shows-hold-to-talk-the-way-0-5-0-does-it"
         },
         {
           "key": "INT-8",
@@ -329,6 +371,14 @@
       "cards": [
         {
           "key": "YUI-171",
+          "title": "Tables in any agent's reply, A2A and webhook, the app side (Controls > Tables, Give to...) (backlog)",
+          "step": "Step 3",
+          "summary": "Your tables work with any agent",
+          "shipped": "2026-09-27",
+          "progress": "/progress#your-tables-work-with-any-agent"
+        },
+        {
+          "key": "YUI-171",
           "title": "Tables for any agent, the plugin and MCP tools",
           "step": "Step 2",
           "summary": "Switch agents, keep your tables",
@@ -365,9 +415,9 @@
         {
           "key": "YUI-171",
           "title": "The same tables for any agent",
-          "summary": "Your tables work with any agent",
+          "summary": "Tables right in the reply, for any agent",
           "shipped": "2026-09-27",
-          "progress": "/progress#your-tables-work-with-any-agent"
+          "progress": "/progress#tables-right-in-the-reply-for-any-agent"
         },
         {
           "key": "YUI-166",
