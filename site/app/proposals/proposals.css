@@ -1,0 +1,65 @@
+/* Proposals (SITE-87). Status chips, the list cards, the full-height hero (SITE-88 fills its phone)
+   and the assessment: the same fields in the same order on every proposal. */
+.prop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; margin: 28px 0 8px; }
+.prop-card { display: flex; flex-direction: column; gap: 10px; text-decoration: none; transition: transform .2s ease, border-color .2s ease; }
+.prop-card:hover { text-decoration: none; border-color: var(--brand); transform: translateY(-2px); }
+.prop-card h3 { margin: 4px 0 0; font-size: 22px; }
+.prop-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.prop-id { font-size: 13px; font-weight: 800; color: var(--muted); letter-spacing: .03em; }
+.prop-foot { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: auto; padding-top: 10px; border-top: 1.5px dashed var(--outline); font-size: 13px; font-weight: 700; color: var(--muted); }
+.prop-votes { margin-left: auto; }
+
+.pill.prop-status { color: #2A2238; }
+.pill.prop-status.exploring { background: var(--lavender); border-color: var(--lavender); }
+.pill.prop-status.open-for-votes { background: var(--butter); border-color: var(--butter); }
+.pill.prop-status.accepted, .pill.prop-status.building { background: var(--brand); border-color: var(--brand); }
+.pill.prop-status.shipped { background: var(--mint); border-color: var(--mint); }
+.pill.prop-status.not-now { color: var(--muted); }
+.pill.prop-call.yes { color: #2A2238; background: var(--mint); border-color: var(--mint); }
+
+.prop-how { margin: 56px 0 24px; padding: 28px; border-radius: var(--r-card); background: var(--surface); border: 1.5px solid var(--outline); }
+.prop-how h2 { margin-top: 0; }
+.prop-how .md h2 { font-size: 20px; margin: 26px 0 8px; }
+
+/* The hero: one screen tall, the idea on the left, the phone on the right. On a phone the phone leads. */
+.prop-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: 40px; align-items: center; min-height: calc(100svh - 140px); padding: 12px 0 28px; }
+.prop-hero h1 { margin: 0 0 12px; }
+.prop-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 26px; }
+.prop-down { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 800; }
+.prop-down::after { content: ""; width: 8px; height: 8px; border: solid currentColor; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translateY(-3px); }
+.prop-hero-phone { display: grid; justify-items: center; }
+.prop-hero-phone .phone.sc-phone { width: 100%; max-width: 360px; height: min(700px, calc(100svh - 230px)); min-height: 540px; }
+
+.prop { scroll-margin-top: 96px; }
+.prop-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 8px 0 24px; }
+.prop-facts div { padding: 14px 16px; border-radius: 16px; background: var(--raised); }
+.prop-facts dt { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.prop-facts dd { margin: 4px 0 0; font-weight: 700; line-height: 1.35; }
+
+.prop-callout { padding: 22px 26px; border-radius: var(--r-card); border: 2px solid var(--brand); background: color-mix(in srgb, var(--brand) 12%, var(--surface)); }
+.prop-callout.yes { border-color: #2FB58C; background: color-mix(in srgb, var(--mint) 35%, var(--surface)); }
+.prop-callout h2 { margin: 0 0 6px; font-size: 20px; }
+.prop-callout .md p { margin: 0; font-size: var(--fs-lede); font-weight: 700; line-height: 1.4; }
+
+.prop-body { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 24px 0; }
+.prop-sec { padding: 22px 24px; border-radius: var(--r-card); background: var(--surface); border: 1.5px solid var(--outline); }
+.prop-sec.wide { grid-column: 1 / -1; }
+.prop-sec h2 { margin: 0 0 8px; font-size: 20px; }
+.prop-sec .md > :first-child { margin-top: 0; }
+.prop-sec .md > :last-child { margin-bottom: 0; }
+.prop-sec.pros { border-top: 5px solid #2FB58C; }
+.prop-sec.cons { border-top: 5px solid var(--brand); }
+.prop-sec.questions { background: color-mix(in srgb, var(--butter) 30%, var(--surface)); }
+.prop-back { color: var(--muted); font-weight: 700; font-size: var(--fs-small); }
+
+@media (max-width: 760px) {
+  .prop-hero { grid-template-columns: 1fr; gap: 20px; min-height: 0; }
+  .prop-hero-phone .phone.sc-phone { height: min(640px, calc(100svh - 120px)); min-height: 520px; }
+  .prop-body { grid-template-columns: 1fr; }
+  .prop-votes { margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .prop-card { transition: none; } .prop-card:hover { transform: none; } }
+.prop-agent { display: flow-root; margin: 8px 0; }
+.prop-agent .agent-box { float: none; margin: 0; max-width: 520px; }
+[data-theme="dark"] .prop-callout.yes { background: color-mix(in srgb, #2FB58C 14%, var(--surface)); }
+[data-theme="dark"] .prop-sec.questions { background: color-mix(in srgb, var(--butter) 10%, var(--surface)); }

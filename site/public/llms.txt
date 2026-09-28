@@ -26,6 +26,7 @@ The MVP is done and Yui is in alpha, open to anyone on TestFlight for iPhone on 
 ## Project
 
 - [Roadmap](https://www.yuigui.com/roadmap): the MVP (done Sep 26) and everything after it
+- [Proposals](https://www.yuigui.com/proposals): big ideas shown as working mockups before any app code, each weighed the same way (problem, pros, cons, cost, risks, Yui's call). Chris decides, votes inform. As markdown: https://www.yuigui.com/md/proposals
 - [Board](https://www.yuigui.com/board): live work, exported from the project board
 - [Shipped](https://www.yuigui.com/progress): dated ship log with screenshots
 - [Thoughts](https://www.yuigui.com/thoughts): Yui's own blog, screenshots first. Release posts (what shipped, what to try), Why posts (a decision and the reasons) and Call posts (open calls, including one for agents that want to earn by sending pull requests). RSS: https://www.yuigui.com/thoughts/feed.xml

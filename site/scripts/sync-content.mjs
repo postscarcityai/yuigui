@@ -2,7 +2,8 @@
 import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { findDocLeak } from "../lib/public-guard.mjs";
 import { lint, readThought } from "../lib/thoughts.mjs";
-for (const [from, to] of [["../../ROADMAP.md", "ROADMAP.md"], ["../../spec/channel-eval/RESULTS.md", "CHANNEL-RESULTS.md"]]) {
+import { lint as lintProposal, readProposal } from "../lib/proposals.mjs";
+for (const [from, to] of [["../../ROADMAP.md", "ROADMAP.md"], ["../../docs/PROPOSALS.md", "PROPOSALS.md"], ["../../spec/channel-eval/RESULTS.md", "CHANNEL-RESULTS.md"]]) {
   const src = new URL(from, import.meta.url);
   const dst = new URL(`../content/${to}`, import.meta.url);
   if (existsSync(src)) { copyFileSync(src, dst); console.log(`synced ${to}`); }
@@ -10,18 +11,21 @@ for (const [from, to] of [["../../ROADMAP.md", "ROADMAP.md"], ["../../spec/chann
 }
 // Every spec (spec/*.md) renders under Developers (SITE-15), business docs (docs/business/*.md)
 // at /business, thoughts (docs/thoughts/*.md, SITE-30) at /thoughts. Drafts in docs/thoughts/drafts/ stay put.
-for (const [from, name] of [["../../spec/", "spec"], ["../../docs/business/", "business"], ["../../docs/thoughts/", "thoughts"]]) {
+// Proposals (docs/proposals/*.md, SITE-87) at /proposals, each with every assessment field (lib/proposals.mjs).
+for (const [from, name] of [["../../spec/", "spec"], ["../../docs/business/", "business"], ["../../docs/thoughts/", "thoughts"], ["../../docs/proposals/", "proposals"]]) {
   const src = new URL(from, import.meta.url);
   if (!existsSync(src)) { console.log(`${from} not found, using committed copies`); continue; }
   mkdirSync(new URL(`../content/${name}/`, import.meta.url), { recursive: true });
   for (const f of readdirSync(src).filter((f) => f.endsWith(".md"))) {
     // A spec is published word for word, so a private name or a machine path stops the sync.
     const text = readFileSync(new URL(f, src), "utf8");
-    const leak = (name === "spec" || name === "thoughts") && findDocLeak(text);
+    const leak = (name === "spec" || name === "thoughts" || name === "proposals") && findDocLeak(text);
     if (leak) { console.error(`${name}/${f}: ${leak[0]} "${leak[1]}" must not reach the site`); process.exit(1); }
     // A thought opens with a visual and never runs long between visuals (lib/thoughts.mjs).
     const broke = name === "thoughts" && lint(readThought(f, text));
     if (broke?.length) { console.error(`thoughts/${f}: ${broke.join("; ")}`); process.exit(1); }
+    const bad = name === "proposals" && lintProposal(readProposal(f, text));
+    if (bad?.length) { console.error(`proposals/${f}: ${bad.join("; ")}`); process.exit(1); }
     copyFileSync(new URL(f, src), new URL(`../content/${name}/${f}`, import.meta.url));
     console.log(`synced ${name}/${f}`);
   }

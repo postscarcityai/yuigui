@@ -39,6 +39,10 @@ now "Building in public daily"
 next "What you pick next"
 end`,
   },
+  "/proposals": {
+    eyebrow: "PROPOSALS | BIG IDEAS",
+    yl: `card "PROP-1 Pick your crew" tag=Exploring sub="Shown before it is built" body="The idea in a phone, weighed the same way every time." cta="See it"`,
+  },
   "/board": {
     eyebrow: "BOARD | LIVE",
     yl: `timeline "Live from our kanban"

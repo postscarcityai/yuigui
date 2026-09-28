@@ -8,6 +8,7 @@ import { MCP_URL, HERMES, PATHS } from "./start-paths.mjs";
 import { PROMPT } from "./routines.mjs";
 import { shareItems, shareUrl, cleanYL } from "./share.mjs";
 import { MEMBERS, inNext, NEXT_LABEL } from "./crew-page.mjs";
+import { COSTS, FIELDS, howItWorks, proposals } from "./proposals.mjs";
 
 const md = (href) => `${SITE}/md${href}`;
 const head = (title, href) => `# ${title}\n\nSource: ${SITE}${href}\nThe same page for agents, as markdown: ${md(href)}\n`;
@@ -135,13 +136,44 @@ Get Yui on the iPhone: ${md("/start")}
 `;
 }
 
+// Proposals (SITE-87): the list with the system, and each proposal whole.
+function proposalList() {
+  const one = (p) => `- [${p.id} ${p.title}](${md(`/proposals/${p.slug}`)}): ${p.summary} Status: ${p.status}. Cost ${p.cost}.`;
+  return `${head("Proposals", "/proposals")}
+Big ideas for Yui, shown as working mockups before any app code. Chris decides; votes inform.
+
+${proposals().map(one).join("\n")}
+
+${howItWorks()}`;
+}
+
+function proposal(p) {
+  const secs = FIELDS.filter(([k]) => k !== "call").map(([k, h]) => `## ${h}\n\n${p.sections[k]}`).join("\n\n");
+  return `${head(`${p.id}: ${p.title}`, `/proposals/${p.slug}`)}
+${p.summary}
+
+Status: ${p.status}. Date: ${p.date}. Cost: ${p.cost}, ${COSTS[p.cost].toLowerCase()}. Would become: ${p.becomes}.
+Yui's call: ${p.sections.call}
+
+The first screen, in Yui Lines. Send it in a reply on the Yui channel and it draws on your person's phone:
+\`\`\`
+${p.hero}
+\`\`\`
+
+${secs}
+
+How proposals are weighed: ${md("/proposals")}
+`;
+}
+
 function spec(d) {
   return `<!-- Source: ${SITE}${d.href}, spec/${d.slug.toUpperCase()}.md in https://github.com/postscarcityai/yuigui -->\n\n${d.md}`;
 }
 
 // { "/start": () => markdown, ... } for every page that has a Copy page button.
 function pages() {
-  const out = { "/start": start, "/developers": developers, "/playground": playground, "/contribute": contribute, "/crew": crew };
+  const out = { "/start": start, "/developers": developers, "/playground": playground, "/contribute": contribute, "/crew": crew, "/proposals": proposalList };
+  for (const p of proposals()) out[`/proposals/${p.slug}`] = () => proposal(p);
   for (const d of specDocs()) out[d.href] = () => spec(d);
   for (const it of shareItems()) out[shareUrl(it.id)] = () => shared(it);
   return out;
