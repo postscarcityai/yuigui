@@ -4,7 +4,7 @@
 //   npx next dev -p 3117 &   then   node scripts/flow-e2e.mjs
 // BASE overrides the playground URL; PLAYWRIGHT the Playwright module to load.
 import { parse, resolve, flowEvent, flowPath } from "../lib/yl/yl.mjs";
-import { STARTER_FLOWS, flowLines, savedGraph, sessionReply, plateReply, jamReply, weekReply } from "../lib/yl/starter-flows.mjs";
+import { STARTER_FLOWS, flowLines, savedGraph, sessionReply, plateReply, jamReply, weekReply, studyReply } from "../lib/yl/starter-flows.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT || "playwright");
 const BASE = process.env.BASE || "http://localhost:3117/playground";
 const graph = (f) => resolve("flow", parse(flowLines(f)).find((o) => o.op === "patch").props);
@@ -105,6 +105,12 @@ const SC = [
   ["planner-week", "a full week, the deadline first: due in a few days, mornings, reminders", { on: ["A work deadline", "Appointments", "Errands", "Workouts"], top: "A work deadline", due: "In a few days", when: "Mornings", pace: "2 or 3", remind: "10 minutes before" }],
   ["planner-week", "errands and bills, whenever: nothing timed, no reminders", { on: ["Errands", "Bills"], top: "Bills", when: "Whenever it fits", pace: "3 to 5" }],
   ["planner-week", "family time after work, at the time", { on: ["Family time", "Errands"], top: "Family time", when: "After work", pace: "2 or 3", remind: "At the time" }],
+  ["study-quiz", "vaccines, brand new, a miss: the why page", { topic: "How vaccines work", know: "Brand new", vq: "Nucleus", again: "Tomorrow" }],
+  ["study-quiz", "vaccines, the basics, right: skips the first page", { topic: "How vaccines work", know: "I know the basics", vq: "Cytoplasm", again: "Next week" }],
+  ["study-quiz", "a ball, a little, a miss", { topic: "How a ball flies", know: "A little", bq: "60 degrees", again: "In 3 days" }],
+  ["study-quiz", "a ball, the basics, right", { topic: "How a ball flies", know: "I know the basics", bq: "45 degrees", again: "Tomorrow" }],
+  ["study-quiz", "money, brand new, right", { topic: "How money grows", know: "Brand new", mq: "$121", again: "In 3 days" }],
+  ["study-quiz", "money, the basics, a miss", { topic: "How money grows", know: "I know the basics", mq: "$120", again: "Next week" }],
 ];
 for (const [name, label, plan] of SC) {
   const f = STARTER_FLOWS.find((x) => x.name === name);
@@ -191,6 +197,16 @@ for (const [name, label, plan] of SC) {
     ok((await pg.locator(".pg-ev", { hasText: "put reminders " }).count()) === rem, `${rem} reminders`);
     if (!want.flow.remind || want.flow.remind === "No reminders") ok(rem === 0, "no reminders asked, none set");
   } else ok(!week, "no week reply for other flows");
+  // The study buddy answers with a calc to play with and keeps the cards in his review (SITE-74).
+  const study = studyReply(ev);
+  if (f.name === "study-quiz") {
+    ok(!!study, "study-quiz: the event builds the lesson's reply");
+    await pg.waitForTimeout(1000 + study.lines.length * 260);
+    ok((await pg.locator(".pg-ev", { hasText: "calc@lab" }).count()) === 1, "the reply sends the calc");
+    ok((await pg.locator(".yl-calc input[type=range]").count()) >= 2, "the calc has its sliders");
+    ok((await pg.locator(".pg-ev", { hasText: "put review " }).count()) === 3, "three cards in his review");
+    ok((await pg.locator(".pg-ev", { hasText: "Kind=Quiz" }).count()) === 1, "the quiz kept in his sessions");
+  } else ok(!study, "no study reply for other flows");
   ok(pg.errs.length === 0, `no page errors ${pg.errs}`);
   await pg.close();
 }

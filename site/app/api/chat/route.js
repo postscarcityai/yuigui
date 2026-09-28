@@ -118,7 +118,7 @@ export async function POST(req) {
   const path = clip(body.path, 300) || "/";
   // The crew's flows are answered with no model turn: the trainer's session and timer (SITE-70),
   // the nutritionist's saved meal and today's totals (SITE-71), the musician's loop and chords (SITE-72),
-  // the planner's week and checklist (SITE-73).
+  // the planner's week and checklist (SITE-73), the study buddy's calc and review cards (SITE-74).
   const session = crewReply(ev);
   let out;
   if (session) out = { reply: `${session.text}\n\n\`\`\`yui\n${session.lines.join("\n")}\n\`\`\``, actions: [], notes: [], tools: [] };

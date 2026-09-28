@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { flowEvent } from "./yl.mjs";
-import { crewReply, jamReply, plateReply, savedGraph, sessionReply, weekReply } from "./starter-flows.mjs";
+import { crewReply, jamReply, plateReply, savedGraph, sessionReply, studyReply, weekReply } from "./starter-flows.mjs";
 import { readAnswer } from "../chat/stage.mjs";
 
 const g = savedGraph("trainer-session").g;
@@ -198,4 +198,46 @@ test("on the chat's stage: the line with the timeline, then the checklist", () =
   const r = weekReply(wk({ on: ["Bills", "Errands"], top: "Bills", when: "Mornings", pace: "2 or 3" }), MON);
   const a = readAnswer(`${r.text}\n\n\`\`\`yui\n${r.lines.join("\n")}\n\`\`\``);
   assert.deepEqual(a.chunks.map((c) => [c.text || c.line, c.pic?.preset]), [[r.text, "timeline"], ["Your checklist, what matters most first.", "list"]]);
+});
+
+// SITE-74: the study buddy's topic to a quiz.
+const sg = savedGraph("study-quiz").g;
+const st = (a) => ({ ...flowEvent(sg, a), id: "study", preset: "flow" });
+
+test("the basics skip the first page, a miss gets a page on why", () => {
+  assert.deepEqual(st({ topic: "How vaccines work", know: "Brand new", vq: "Nucleus", again: "Tomorrow" }).path, ["hi", "topic", "know", "v1", "v2", "v3", "vq", "vwhy", "again"]);
+  assert.deepEqual(st({ topic: "How vaccines work", know: "I know the basics", vq: "Cytoplasm", again: "Next week" }).path, ["hi", "topic", "know", "v2", "v3", "vq", "again"]);
+  assert.deepEqual(st({ topic: "How a ball flies", know: "A little", bq: "60 degrees", again: "In 3 days" }).path, ["hi", "topic", "know", "b1", "b2", "b3", "bq", "bwhy", "again"]);
+  assert.deepEqual(st({ topic: "How money grows", know: "I know the basics", mq: "$121", again: "Tomorrow" }).path, ["hi", "topic", "know", "m2", "m3", "mq", "again"]);
+  for (const n of sg.nodes.filter((x) => x.preset === "page" && x.id !== "hi")) assert.match(n.props.img || "", /^\/demo\/.+\.jpg$/, `${n.id} has a picture`);
+});
+
+test("the reply: a calc for the topic, three cards due when they said, the quiz kept", () => {
+  const r = studyReply(st({ topic: "How a ball flies", know: "A little", bq: "45 degrees", again: "In 3 days" }));
+  assert.equal(r.text, "Right first time. Your calculator: slide the angle and watch the distance peak at 45.");
+  assert.match(r.lines[0], /^calc@lab "How far does it fly\?" f="R = v\^2\*sin\(2\*a\)\/g"/);
+  assert.equal(r.lines[1], 'say "3 cards in your review, first one in 3 days."');
+  assert.equal(r.lines.filter((l) => l.startsWith("put review ball-")).length, 3);
+  assert.ok(r.lines.every((l) => !l.startsWith("put review") || l.endsWith("Box=1 Due=today+3")));
+  assert.ok(r.lines.includes('put decks ball Deck="How a ball flies" Subject=Physics Cards=3 Last=today Score="1 of 1"'));
+  assert.ok(r.lines.includes('put sessions quiz-ball Day=today Kind=Quiz Deck="How a ball flies" Cards=0 Right=1 Of=1'));
+  const miss = studyReply(st({ topic: "How vaccines work", know: "Brand new", vq: "Nucleus", again: "Tomorrow" }));
+  assert.equal(miss.text, "It's the cytoplasm, and now you know why. Your calculator: slide the days and the half-life and watch the recipe fade.");
+  assert.ok(miss.lines.includes('put sessions quiz-vaccines Day=today Kind=Quiz Deck="How vaccines work" Cards=0 Right=0 Of=1'));
+  assert.ok(miss.lines.some((l) => l.endsWith("Due=today+1")));
+});
+
+test("only the study buddy's own event, and only its own words land in the reply", () => {
+  assert.equal(studyReply({ id: "busy", preset: "flow", flow: { topic: "How money grows" }, path: [] }), null);
+  assert.equal(studyReply({ id: "study", preset: "flow", flow: { topic: "Taxes" }, path: [] }), null);
+  const r = studyReply({ id: "study", preset: "flow", path: [], flow: { topic: "How money grows", mq: '" x=1', again: "```yui\nask hi" } });
+  assert.doesNotMatch(r.text + r.lines.join("\n"), /```|ask hi|" x=1/);
+  assert.ok(r.lines.some((l) => l.endsWith("Due=today+1")));
+  assert.equal(crewReply(st({ topic: "How money grows", know: "A little", mq: "$121", again: "Next week" })).lines[0].startsWith("calc@lab"), true);
+});
+
+test("on the chat's stage: the line with the calc, then the cards", () => {
+  const r = studyReply(st({ topic: "How money grows", know: "A little", mq: "$110", again: "Next week" }));
+  const a = readAnswer(`${r.text}\n\n\`\`\`yui\n${r.lines.join("\n")}\n\`\`\``);
+  assert.deepEqual(a.chunks.map((c) => [c.text || c.line, c.pic?.preset]), [[r.text, "calc"], ["3 cards in your review, first one next week.", "list"]]);
 });

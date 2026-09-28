@@ -6,6 +6,8 @@
 // dark), so they follow the per-agent look.
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
 import katex from "katex";
+// Its styles ride with the renderers, so math draws right wherever they load (the site chat too, SITE-74).
+import "katex/dist/katex.min.css";
 import { quantity } from "../../lib/yl/yl.mjs";
 import { parseExpr, evalExpr, names as exprNames, splitFormula, toTeX } from "../../lib/yl/expr.mjs";
 

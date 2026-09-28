@@ -362,6 +362,69 @@ export const STARTER_FLOWS = [
   %% remind: choose "Remind you of timed things?" "10 minutes before"|"At the time"|"No reminders"
   remind[Reminders] --> planned((Planned))`,
   },
+  {
+    // Quill, the study buddy, from his Learn a topic (yui runtime/src/study.ts): a topic to a quiz.
+    // Pick a topic and how much you know (the basics skip the first page), a short lesson with a
+    // picture a page, one question (a miss gets a page on why), then when to quiz you again.
+    // studyReply answers with a calc to play with and keeps the cards in his review table.
+    name: "study-quiz",
+    id: "study",
+    title: "A topic to a quiz",
+    submit: "Save my cards",
+    agent: "Quill",
+    blurb: "The study buddy's lesson: pick a topic, a short deck with a picture a page, one quiz question. Then a calculator to play with, and the cards go in your review.",
+    source: `flowchart TD
+  %% hi: page "Five minutes, then a quiz" body="Pick a topic. I teach it one idea a page, with a picture each, then ask you one question. What you learn becomes cards you review later." points="Pick a topic|A short lesson|One question|A calculator to play with"
+  hi([Start]) --> topic
+  %% topic: choose "What do you want to learn?" "How vaccines work"|"How a ball flies"|"How money grows"
+  topic[Topic] --> know
+  %% know: choose "How much do you know already?" "Brand new"|"A little"|"I know the basics" body="Know the basics? I skip the first page."
+  know[What you know] --> lesson{Which lesson?}
+  lesson -->|topic=How vaccines work and know=I know the basics| v2
+  lesson -->|topic=How vaccines work| v1
+  lesson -->|topic=How a ball flies and know=I know the basics| b2
+  lesson -->|topic=How a ball flies| b1
+  lesson -->|know=I know the basics| m2
+  lesson --> m1
+  %% v1: page "Instructions in a bubble" /demo/mrna1.jpg body="An mRNA vaccine is a recipe for one protein, wrapped in a tiny bubble of fat. The shot goes into your arm and the bubble slips into nearby cells."
+  v1[Vaccines 1] --> v2
+  %% v2: page "Your cells read the recipe" /demo/mrna3.jpg body="Ribosomes out in the cytoplasm read the mRNA and build the spike protein, the same shape that sits on the virus. It never goes near your DNA."
+  v2[Vaccines 2] --> v3
+  %% v3: page "Your body learns, the recipe fades" /demo/mrna4.jpg body="Your immune system sees the spike and makes antibodies that fit it. The mRNA breaks down in days. The memory cells stay." points="Antibodies fit the spike|mRNA gone in days|Memory cells stay"
+  v3[Vaccines 3] --> vq
+  %% vq: choose "Where is the mRNA read?" Nucleus|Cytoplasm|"The blood"
+  vq{Quiz}
+  vq -->|vq!=Cytoplasm| vwhy
+  vq --> again
+  %% vwhy: page "In the cytoplasm" /demo/mrna3.jpg body="Ribosomes in the cytoplasm, the jelly around the nucleus, read it like a recipe. It never reaches the nucleus, where your DNA is kept."
+  vwhy[Why] --> again
+  %% b1: page "A throw is two motions" /demo/study-ball1.jpg body="Forward at a steady speed, and up then down. Put the two together and you get the arc." points="Forward: steady|Up and down: gravity|Together: an arc"
+  b1[Ball 1] --> b2
+  %% b2: page "Gravity only pulls down" /demo/study-ball2.jpg body="Leave the air out and nothing slows the forward part. Gravity takes 9.8 m/s off the climb every second, then pulls it back down."
+  b2[Ball 2] --> b3
+  %% b3: page "Speed and angle set the distance" /demo/study-ball3.jpg body="Throw twice as fast and it goes four times as far. Too steep and it spends its speed climbing; too flat and it lands early."
+  b3[Ball 3] --> bq
+  %% bq: choose "Which angle throws farthest?" "30 degrees"|"45 degrees"|"60 degrees"
+  bq{Quiz}
+  bq -->|bq!=45 degrees| bwhy
+  bq --> again
+  %% bwhy: page "45 degrees goes farthest" /demo/study-ball3.jpg body="Halfway between flat and straight up splits the speed evenly between climbing and going forward. 30 and 60 land on the same spot, short of it."
+  bwhy[Why] --> again
+  %% m1: page "Interest is rent on money" /demo/study-money1.jpg body="Put $100 in at 5% a year and the bank pays you $5 for using it. That $5 is the interest."
+  m1[Money 1] --> m2
+  %% m2: page "Interest earns interest" /demo/study-money2.jpg body="Leave the $5 in. Next year you earn 5% of $105, not $100. Each year the new coins are a little bigger. That is compounding."
+  m2[Money 2] --> m3
+  %% m3: page "Time does the heavy lifting" /demo/study-money3.jpg body="At 7% a year money doubles about every 10 years. The rule of 72: divide 72 by the rate to get the years to double." points="7%: double in 10 years|Twice more: x4 in 20|40 years: x16"
+  m3[Money 3] --> mq
+  %% mq: choose "$100 at 10% a year, compounded. After 2 years?" "$110"|"$120"|"$121"
+  mq{Quiz}
+  mq -->|mq!=$121| mwhy
+  mq --> again
+  %% mwhy: page "$121" /demo/study-money2.jpg body="Year one pays 10% of $100, $10. Year two pays 10% of $110, $11. The extra dollar is interest on interest."
+  mwhy[Why] --> again
+  %% again: choose "When should I quiz you again?" Tomorrow|"In 3 days"|"Next week" body="Three cards from this lesson go in your review for then."
+  again[Again] --> saved((Cards))`,
+  },
 ];
 
 // The trainer's answer to trainer-session's event: the session its page showed, as the lines that
@@ -540,8 +603,58 @@ export function weekReply(ev, now = new Date()) {
   return { text, lines };
 }
 
+// The study buddy's answer to study-quiz's event: a calc to play with for the topic, and the lesson
+// kept the way his Learn a topic keeps one (yui runtime/profiles/quill/tables.yui): the deck with
+// the quiz score, three cards in his review table due when they said, the quiz in his sessions.
+// Only the flow's own topics and options reach the lines.
+const LESSONS = {
+  "How vaccines work": {
+    key: "vaccines", subject: "Biology", quiz: "vq", right: "Cytoplasm", word: "the cytoplasm",
+    calc: 'calc@lab "How much mRNA is left?" f="N = 100*exp(-ln(2)*t/h)" t=0-14@2days h=0.5-3@1days plot=t unit=%',
+    play: "slide the days and the half-life and watch the recipe fade",
+    cards: [["Where is vaccine mRNA read?", "In the cytoplasm"], ["What does the mRNA tell cells to build?", "The spike protein"], ["What stays after the mRNA is gone?", "Memory cells"]],
+  },
+  "How a ball flies": {
+    key: "ball", subject: "Physics", quiz: "bq", right: "45 degrees", word: "45 degrees",
+    calc: 'calc@lab "How far does it fly?" f="R = v^2*sin(2*a)/g" v=5-40@20m/s a=0-90@30deg g=9.81m/s^2 plot=a unit=m',
+    play: "slide the angle and watch the distance peak at 45",
+    cards: [["Which angle throws farthest, with no air?", "45 degrees"], ["What does gravity take off the climb each second?", "9.8 m/s"], ["Twice the speed goes how much farther?", "Four times as far"]],
+  },
+  "How money grows": {
+    key: "money", subject: "Money", quiz: "mq", right: "$121", word: "$121",
+    calc: 'calc@lab "What $1,000 becomes" f="A = P*(1+r/100)^t" P=$1000 r=1-12@7% t=0-40@10yr plot=t unit=$',
+    play: "slide the rate and the years and watch it double",
+    cards: [["What is compounding?", "Interest earning interest"], ["The rule of 72?", "72 divided by the rate is the years to double"], ["$100 at 10% for 2 years, compounded?", "$121"]],
+  },
+};
+const AGAIN = { Tomorrow: [1, "tomorrow"], "In 3 days": [3, "in 3 days"], "Next week": [7, "next week"] };
+export function studyReply(ev) {
+  if (ev?.preset !== "flow" || ev.id !== "study" || !ev.flow) return null;
+  const a = ev.flow;
+  const t = Object.hasOwn(LESSONS, a.topic) ? LESSONS[a.topic] : null;
+  if (!t) return null;
+  const right = a[t.quiz] === t.right ? 1 : 0;
+  const [days, when] = Object.hasOwn(AGAIN, a.again) ? AGAIN[a.again] : AGAIN.Tomorrow;
+  const q = (s) => `"${s}"`;
+  const text = `${right ? "Right first time" : `It's ${t.word}, and now you know why`}. Your calculator: ${t.play}.`;
+  return {
+    text,
+    lines: [
+      t.calc,
+      `say "${t.cards.length} cards in your review, first one ${when}."`,
+      `list@cards title="In your review" ${t.cards.map(([f]) => q(f)).join("|")}`,
+      "table create decks Deck:text Subject:text Cards:number Last:date Score:text",
+      `put decks ${t.key} Deck=${q(a.topic)} Subject=${t.subject} Cards=${t.cards.length} Last=today Score="${right} of 1"`,
+      "table create review Front:text Back:text Deck:text Box:number Due:date Rated:text Reviewed:date Reps:number",
+      ...t.cards.map(([f, b], i) => `put review ${t.key}-${i + 1} Front=${q(f)} Back=${q(b)} Deck=${q(a.topic)} Box=1 Due=today+${days}`),
+      "table create sessions Day:date Kind:text Deck:text Cards:number Right:number Of:number",
+      `put sessions quiz-${t.key} Day=today Kind=Quiz Deck=${q(a.topic)} Cards=0 Right=${right} Of=1`,
+    ],
+  };
+}
+
 // A crew flow answered with no model turn: the playground's stand-in reply and the site chat's.
-export const crewReply = (ev) => sessionReply(ev) || plateReply(ev) || jamReply(ev) || weekReply(ev);
+export const crewReply = (ev) => sessionReply(ev) || plateReply(ev) || jamReply(ev) || weekReply(ev) || studyReply(ev);
 
 // Variants (spec/FLOWS.md, section 9): a saved flow with a few lines changed,
 // kept as its base's name plus the lines, never a copy of the chart. The

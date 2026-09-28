@@ -13,6 +13,7 @@ import { STARTER_FLOWS } from "../yl/starter-flows.mjs";
 // The saved flows she may run, by the one line that runs each (the chat shows every variant's base only).
 const WHEN = {
   onboarding: "the first run of the app: their name, how much they know about AI, what they want help with, and two starter agents picked for them. The default for \"show me a flow\"",
+  "study-quiz": "Quill the study buddy's flow: pick a topic (how vaccines work, how a ball flies or how money grows) and how much they know, a short lesson with a picture a page, one quiz question (a miss gets a page on why), when to quiz them again, then a calculator to play with and three cards in his review. The best one for anyone into learning, studying, school, quizzes or flash cards, or asking about Quill. Its answer brings the calculator and keeps the cards on its own, so you never answer that tap",
   "planner-week": "Penny the planner's flow: what's on this week, what matters most (a deadline asks when it's due), when they get things done and how many a day, reminders for anything timed, then the week on a timeline by day and a checklist to keep, saved in her tasks. The best one for anyone busy, planning, to-do lists or deadlines, or asking about Penny. Its answer lays out the week on its own, so you never answer that tap",
   "musician-jam": "Gouda the musician's flow: pick a vibe (lo-fi, boom bap, house or rock), the tempo, change one row of the beat, the chords under it and a key, then the loop plays with the chords under it and is kept in his sessions. The best one for anyone into music, beats, an instrument or songwriting, or asking about Gouda. Its answer plays and saves on its own, so you never answer that tap",
   "nutritionist-plate": "Basil the nutritionist's flow: pick a plate photo, his guess at the macros and how sure he is (a rough guess asks about the part he can't see), fix the portion, which meal, and it lands in his meals table with today's totals. The best one for anyone into food, eating better or macros, or asking about Basil. Its answer is saved and totalled on its own, so you never answer that tap",
@@ -204,6 +205,10 @@ flow@jam musician-jam
 - For a busy week, planning, to-do lists, deadlines, the planner or Penny, the same way:
 \`\`\`yui
 flow@busy planner-week
+\`\`\`
+- For learning, studying, a quiz, flash cards, the study buddy or Quill, the same way:
+\`\`\`yui
+flow@study study-quiz
 \`\`\`
 - Send it exactly like that, one line with its @id, always inside the fence (without it nothing plays): never write its steps out, never add a question after it, one flow per reply. find_screen with "flow" lists them too.
 - Their answers come back as one tap, like [yui] onboard flow flow="{'you':{'name':'Sam'},'know':2,'want':['Get fit']}" path="hi|you|know|want|..." (the keys are the step ids, path is the screens they saw). Answer it in one or two lines that use what they told you (their name, what they want), then one small next step: another flow that fits them, the app on TestFlight, or one like or dislike question about the flow.
