@@ -3,6 +3,8 @@
 // chunks, a line and one picture each, with every question gathered for the end. Text plays one
 // chunk per paragraph (textChunks); a line of text takes the first picture of the block after it,
 // the way a `say` does. A paragraph that is a list stays whole, so its points are not run together.
+// SITE-68: a plan or a flow is one chunk that plays its own steps (pages, then questions, one Send),
+// the playground's runtime, so the steps go by with no model turn between them.
 import { apply, initialState, parse } from "../yl/yl.mjs";
 import { stageChunks, textChunks } from "../yl/chunks.mjs";
 import { splitReply } from "./lines.mjs";
@@ -15,6 +17,14 @@ export function textParts(text) {
     else out.push(...textChunks(para));
   }
   return out;
+}
+
+// A plan's members leave the run and its head stands in as one picture (stageChunks would make its
+// pages chunks and hold its questions for the end). The stand-in carries the real head as `steps`.
+function playsOwnSteps(nodes) {
+  const plans = new Set(nodes.filter((n) => n.preset === "plan").map((n) => n.id));
+  if (!plans.size) return nodes;
+  return nodes.filter((n) => !plans.has(n.in)).map((n) => (plans.has(n.id) && n.preset === "plan" ? { ...n, preset: "steps", steps: n } : n));
 }
 
 // One reply for the stage:
@@ -39,8 +49,9 @@ export function readAnswer(content) {
     for (const op of parse(p.yl)) state = apply(state, op);
     const nodes = Object.values(state.screens).flat().sort((a, b) => a.seq - b.seq);
     const part = parts.push({ nodes, state }) - 1;
-    const r = stageChunks(nodes);
+    const r = stageChunks(playsOwnSteps(nodes));
     r.chunks.forEach((c, i) => {
+      if (c.pic?.steps) c = { ...c, pic: c.pic.steps };
       if (i === 0 && open && c.pic && !c.line && !c.page) { open.part = part; open.pic = c.pic; return; }
       chunks.push({ ...c, key: `${part}:${c.key}`, part, text: null });
     });

@@ -6,20 +6,37 @@ import { NOTE_KINDS } from "./store.mjs";
 import { cleanLines } from "./lines.mjs";
 import { libraryIndex, search } from "../yl/library.mjs";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../yl/samples.mjs";
+import { STARTER_FLOWS } from "../yl/starter-flows.mjs";
 
 // Ready-made screens to show a visitor: every playground demo and the library (presets, flows,
-// screens), with their lines cut to what this chat draws (lines.mjs).
+// screens), with their lines cut to what this chat draws (lines.mjs). A saved flow comes as the one
+// line that runs it (`flow@onboard onboarding`, SITE-68), not its whole chart: the page knows them all.
 let SHELF = null;
 const shelf = () => (SHELF ||= [
-  ...[...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA].map((d) => ({ name: d.name.replace(/^Demo:\s*/, ""), kind: "demo", title: d.name, purpose: d.what || d.desc || "", tags: [], intents: [], yl: d.yl })),
-  ...libraryIndex().items.filter((i) => i.kind !== "flow" || !i.base),
+  ...[...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA].filter((d) => !/^flow-/.test(d.slug || "")).map((d) => ({ name: d.name.replace(/^Demo:\s*/, ""), kind: "demo", title: d.name, purpose: d.what || d.desc || "", tags: [], intents: [], yl: d.yl })),
+  ...libraryIndex().items.filter((i) => i.kind !== "flow" || !i.base).map((i) => (i.kind === "flow" ? flowItem(i) : i)),
 ].map((i) => ({ ...i, yl: cleanLines(i.yl) })).filter((i) => i.yl));
+function flowItem(i) {
+  const f = STARTER_FLOWS.find((x) => x.name === i.name);
+  const steps = f ? (f.source.match(/^\s*%%\s*\w+:/gm) || []).length : 0;
+  return { ...i, yl: `flow@${f?.id || i.name} ${i.name}`, purpose: `${f?.title || i.title}: ${i.purpose}${steps ? ` A flow of ${steps} screens that play in a row on the stage, with one Send at the end.` : ""}` };
+}
+const shelfHit = (h) => ({ name: h.name, kind: h.kind, what: String(h.purpose || "").slice(0, 260), ...(h.kind === "flow" ? { how: "Send this one line as it is. The steps play on the stage and their answers come back as one tap at the end." } : {}), yl: h.yl.length > 1600 ? `${h.yl.slice(0, 1600)}\n(cut: trim it before sending)` : h.yl });
 export function findScreens(query, k = 3) {
-  const q = String(query || "");
+  let q = String(query || "");
+  // "a flow", "show me a flow for coaches": only saved flows, best match first, onboarding when nothing matches.
+  if (/\bflows?\b/i.test(q)) {
+    const all = shelf().filter((i) => i.kind === "flow" && /^flow@/.test(i.yl));
+    const rest = q.replace(/\b(show|me|a|an|the|run|saved|flows?)\b/gi, " ").trim();
+    let hits = rest ? search(all, rest, { limit: k }) : [];
+    if (!hits.length) for (const w of rest.split(/\s+/).filter((x) => x.length > 3)) { hits = search(all, w, { limit: k }); if (hits.length) break; }
+    const order = hits.length ? hits : [...all].sort((a, b) => (b.name === "onboarding") - (a.name === "onboarding"));
+    return order.slice(0, k).map(shelfHit);
+  }
   let hits = search(shelf(), q, { limit: k });
   // Every word has to hit; when nothing does, try the words one at a time.
   if (!hits.length) for (const w of q.split(/\s+/).filter((x) => x.length > 2)) { hits = search(shelf(), w, { limit: k }); if (hits.length) break; }
-  return hits.map((h) => ({ name: h.name, kind: h.kind, what: String(h.purpose || "").slice(0, 200), yl: h.yl.length > 1600 ? `${h.yl.slice(0, 1600)}\n(cut: trim it before sending)` : h.yl }));
+  return hits.map(shelfHit);
 }
 
 export const MODEL = () => process.env.YUI_CHAT_MODEL || "z-ai/glm-5.2";
@@ -31,7 +48,7 @@ const TOOLS = [
   { name: "search_site", description: "Search every page on yuigui.com: pages, specs, the roadmap, the ship log, the blog, screens and playground demos. Returns the best matches with a path and a snippet.", parameters: { type: "object", properties: { query: { type: "string", description: "A few words, like 'connect hermes' or 'android'." } }, required: ["query"] } },
   { name: "read_page", description: "Read one page of yuigui.com in full, by its path from the site map or a search result.", parameters: { type: "object", properties: { path: { type: "string" } }, required: ["path"] } },
   { name: "go_to", description: "Take the visitor to a page on yuigui.com. Only when they asked to see it or said yes. The chat stays open.", parameters: { type: "object", properties: { path: { type: "string", description: "A path on this site, like /mockups or /playground?demo=tabata-timer or /progress#some-entry." }, label: { type: "string", description: "The page's name, a few words." } }, required: ["path"] } },
-  { name: "find_screen", description: "Find ready-made Yui screens and playground demos by intent, like 'workout timer', 'quiz', 'map of a trip', 'drum loop', 'how it works'. Returns each one's Yui Lines, ready to send in a yui block as they are or trimmed.", parameters: { type: "object", properties: { query: { type: "string", description: "One to three words." } }, required: ["query"] } },
+  { name: "find_screen", description: "Find ready-made Yui screens, saved flows and playground demos by intent, like 'workout timer', 'quiz', 'map of a trip', 'drum loop', 'a flow', 'onboarding', 'check-in'. Returns each one's Yui Lines, ready to send in a yui block as they are or trimmed. A flow is one line that runs a whole series of screens.", parameters: { type: "object", properties: { query: { type: "string", description: "One to three words." } }, required: ["query"] } },
   { name: "take_note", description: "Write down one thing the team should know about this visitor: a need, a feature request, a bug, a confusion, a question the site does not answer, praise, or who they are.", parameters: { type: "object", properties: { kind: { type: "string", enum: NOTE_KINDS }, text: { type: "string", description: "One plain sentence, like 'Wants an Android app for their team of 12 coaches.'" }, quote: { type: "string", description: "Their own words, if they said something worth keeping." } }, required: ["kind", "text"] } },
   { name: "ask_contact", description: "Draw a Yui form under your reply for first name, last name, email and optional phone. Once per chat, only after real interest. Do not write the form yourself.", parameters: { type: "object", properties: { reason: { type: "string", description: "Why, in a few words, like 'to hear when Android ships'." } }, required: ["reason"] } },
 ].map((f) => ({ type: "function", function: f }));

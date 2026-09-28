@@ -3,10 +3,22 @@
 // same rules as spec/CHANNEL.md, cut down to what a web visitor can tap. The "right now" part is read from the
 // roadmap and the ship log at start-up, so it is as fresh as the last deploy. SITE-67: feedback is her
 // first job; the feedback flow, the pitch and the help cards come from feedback.mjs, word for word.
+// SITE-68: she can run a saved flow, a whole run of screens with one Send at the end.
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { FEEDBACK_PLAN, HELP, PITCH, STARTERS } from "./feedback.mjs";
 import { siteMap } from "./search.mjs";
+import { STARTER_FLOWS } from "../yl/starter-flows.mjs";
+
+// The saved flows she may run, by the one line that runs each (the chat shows every variant's base only).
+const WHEN = {
+  onboarding: "the first run of the app: their name, how much they know about AI, what they want help with, and two starter agents picked for them. The default for \"show me a flow\"",
+  "workout-checkin": "a coach's check-in before a workout: sleep, energy, anything sore, and a bad night changes the plan. For anyone into training",
+  "self-scope": "scope a project yourself: what it is, how big, who builds it, the budget. For founders and builders",
+  "website-intake": "a web designer's client intake, where shops and redesigns get their own questions. For agencies and freelancers",
+  connect: "connect Google Calendar, Gmail or HubSpot, reading what each one allows before saying yes. For anyone asking about privacy or tools",
+};
+const FLOW_LIST = STARTER_FLOWS.filter((f) => WHEN[f.name]).map((f) => `- \`flow@${f.id} ${f.name}\`: "${f.title}", ${WHEN[f.name]}.`).join("\n");
 
 const content = (f) => path.join(process.cwd(), "content", f);
 
@@ -153,6 +165,7 @@ What you can draw (one line each):
 - a game: \`game tictactoe "Beat me"\`, \`game snake\`, \`game memory items=🍎|🍌|🍇\`
 - music: \`loop 96 "Boom bap" p=x...x...|..x...x.|x.x.x.x. rows=kick|snare|hat +play\`, \`drums 2x2\`, \`keys C major\`, \`chords G I-V-vi-IV\`, \`metronome 90\`. Loop rows are kit words: kick snare clap hat open rim tom shaker crash cow snap bell. Build a beat from the backbone, 8 steps: kick x...x... (1 and 3), snare ..x...x. (2 and 4), hat x.x.x.x., then one flavor row. Syncopation goes on top, never in place of the backbone.
 - math: \`math E = mc^2\`
+- a whole flow, several screens in a row: \`flow@onboard onboarding\` (see Flows below)
 
 Rules:
 - Options are ONE token joined by |, no spaces around the bars. Quote anything with spaces: choose "Where?" "Camera roll"|Drafts.
@@ -160,8 +173,21 @@ Rules:
 - Every button does something. No "OK" or "Got it" buttons.
 - No images, video, camera or mic here, and no links outside yuigui.com, TestFlight and Yui's GitHub.
 - Each reply draws a fresh screen: to change one, send the whole line again, not a patch.
-- The stage: timers, decks, plans and games open full screen over the chat on their own, like the app, and a \`>full\` line before anything else sends it there too. Closing it leaves a pill in the chat that opens it again. Use it when the moment deserves the whole screen (a workout, a lesson, a tour), not for a plain answer.
+- The stage: timers, decks, plans, flows and games open full screen over the chat on their own, like the app, and a \`>full\` line before anything else sends it there too. Closing it leaves a pill in the chat that opens it again. Use it when the moment deserves the whole screen (a workout, a lesson, a tour), not for a plain answer.
 - Show real screens. find_screen fetches ready-made ones from the library and the playground: send its lines as they are, or trimmed to fit.
+
+# Flows
+
+A flow is a saved run of Yui screens: a page to read, a question, another question, a branch that depends on the answers, then one Send. It plays on the stage one screen at a time and nothing comes back to you until they send it. Showing one is the best way to show that Yui is more than one screen at a time. The saved flows:
+${FLOW_LIST}
+
+- When they ask to see a flow, several screens, a whole conversation, onboarding, a check-in, or how an agent walks someone through something, send one line of text and the flow's one line, nothing else:
+\`\`\`yui
+flow@onboard onboarding
+\`\`\`
+- Send it exactly like that, one line with its @id: never write its steps out, never add a question after it, one flow per reply. find_screen with "flow" lists them too.
+- Their answers come back as one tap, like [yui] onboard flow flow="{'you':{'name':'Sam'},'know':2,'want':['Get fit']}" path="hi|you|know|want|..." (the keys are the step ids, path is the screens they saw). Answer it in one or two lines that use what they told you (their name, what they want), then one small next step: another flow that fits them, the app on TestFlight, or one like or dislike question about the flow.
+- To ask them several things of your own, send a plan (plan, then its questions, then end). It plays as steps too, with one Send.
 
 A tap comes back as a message like [yui] n1 choose choice=Music. It is their reply: act on it and build the next screen. Do not echo it ("You chose Music").
 

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 279,
-    "site": 630,
+    "app": 282,
+    "site": 632,
     "builds": 43,
-    "shipped": 307,
-    "screenshots": 724
+    "shipped": 308,
+    "screenshots": 728
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T05:59:13.952Z",
+          "at": "2026-09-28T06:16:15.174Z",
+          "title": "The site chat plays a whole flow",
+          "card": "SITE-68",
+          "anchor": "the-site-chat-plays-a-whole-flow",
+          "images": [
+            {
+              "src": "/progress/site68-flow-start.webp",
+              "alt": "The site chat on a phone: 'Show me a flow' opens the Meet Yui flow on the stage, step 1 of 8, a page with Next"
+            },
+            {
+              "src": "/progress/site68-flow-step.webp",
+              "alt": "Step 4 of the flow in the chat: What do you want help with? as chips, with Back and Next"
+            },
+            {
+              "src": "/progress/site68-flow-review.webp",
+              "alt": "The flow's review in the chat: five answers with Edit, then one Meet my agents button"
+            },
+            {
+              "src": "/progress/site68-flow-answer.webp",
+              "alt": "Yui answers the flow's one event by name: Nice to meet you, Sam, with the pair of agents it picked"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 282,
+            "site": 632,
+            "builds": 43,
+            "shipped": 308
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T05:59:04.000Z",
           "title": "Your trainer runs your workout",
           "card": "YUI-182",
           "anchor": "your-trainer-runs-your-workout",
@@ -31,10 +63,10 @@
               "alt": "Progress: a 2 week streak, a 45 lb best set and a chart of the dumbbell row"
             }
           ],
-          "commits": 2,
+          "commits": 4,
           "totals": {
             "app": 279,
-            "site": 630,
+            "site": 631,
             "builds": 43,
             "shipped": 307
           }
@@ -197,6 +229,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "68961a3",
+          "at": "2026-09-28T06:13:58.000Z",
+          "text": "Yui 0.5.2: the screen dots are back and slide with you (YUI-187)",
+          "url": "https://github.com/postscarcityai/yui/commit/68961a3"
+        },
+        {
+          "repo": "site",
+          "sha": "6ca119b",
+          "at": "2026-09-28T06:11:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6ca119b"
+        },
+        {
+          "repo": "app",
+          "sha": "1fcc1b4",
+          "at": "2026-09-28T06:02:24.000Z",
+          "text": "The screen dots are back and slide with you; screens slide instead of fading (YUI-187)",
+          "url": "https://github.com/postscarcityai/yui/commit/1fcc1b4"
+        },
+        {
+          "repo": "app",
+          "sha": "4984aa5",
+          "at": "2026-09-28T06:01:06.000Z",
+          "text": "Workout runner polish: Skip on every move, each move's sets named in the review, This week a plain list with done days ticked (YUI-182)",
+          "url": "https://github.com/postscarcityai/yui/commit/4984aa5"
+        },
+        {
+          "repo": "site",
+          "sha": "1f60e3c",
+          "at": "2026-09-28T05:59:04.000Z",
+          "text": "Your trainer runs your workout: the runner and his pages in the playground, See it and the ship log (YUI-182)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1f60e3c"
+        },
         {
           "repo": "site",
           "sha": "ce387c2",

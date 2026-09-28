@@ -284,7 +284,8 @@ export default function ChatFab() {
   const tap = useCallback((ev) => {
     if (ev.id === "share" && ev.cta) { share(); return; }
     // The phone's rule: a quiet tap (a timer starting, a checklist tick, a loop playing) stays on the screen.
-    if (busy || !relays(ev, echoFor(ev))) return;
+    // A sent flow (SITE-68) is one answer for the whole run of screens: it always goes to Yui.
+    if (busy || (!relays(ev, echoFor(ev)) && !(ev.preset === "flow" && ev.flow))) return;
     if (ev.id === "contact" && ev.preset === "form") { trackCta("chat-contact", "chat"); send("[yui] contact form sent", undefined, "Sent my details", ev); }
     else send(tapLine(ev), undefined, tapLabel(ev), ev.preset === "plan" ? ev : undefined);
   }, [busy, send, share]);

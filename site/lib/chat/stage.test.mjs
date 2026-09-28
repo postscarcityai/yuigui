@@ -21,9 +21,18 @@ test("a deck plays one page per chunk", () => {
   assert.deepEqual(r.chunks, [["Here is the tour.", null], ["Screens", null], ["Voice", null]]);
 });
 
-test("questions wait for the end, and a plan answers as the plan", () => {
-  const r = view('Two things.\n```yui\nplan@p "Before I go"\nchoose@a "Ping you?" Yes|No\nchoose@b "Try first?" Keys|Beats\nend\n```');
-  assert.deepEqual(r, { chunks: [["Two things.", null]], questions: ["choose", "choose"], plan: "p" });
+test("a plan plays its own steps: one chunk, its questions stay in it (SITE-68)", () => {
+  const r = readAnswer('Two things.\n```yui\nplan@p "Before I go"\npage "Hi" body="Two quick ones."\nchoose@a "Ping you?" Yes|No\nchoose@b "Try first?" Keys|Beats\nend\n```');
+  assert.deepEqual(r.chunks.map((c) => [c.text, c.pic.preset, c.pic.id]), [["Two things.", "plan", "p"]]);
+  assert.deepEqual(r.questions, []);
+});
+
+test("a flow is one chunk that plays on the stage (SITE-68)", () => {
+  assert.deepEqual(view("Here is the first run.\n```yui\nflow@onboard onboarding\n```"), { chunks: [["Here is the first run.", "flow"]], questions: [], plan: null });
+  const inline = readAnswer('```yui\nflow@c "Check-in"\nflowchart TD\n  %% a: choose "Energy?" Low|High\n  a --> b\n  %% b: page "Thanks"\nend\n```');
+  assert.equal(inline.chunks.length, 1);
+  assert.equal(inline.chunks[0].pic.preset, "flow");
+  assert.deepEqual(inline.chunks[0].pic.props.nodes.map((n) => n.id), ["a", "b"]);
 });
 
 test("a loose question with text before it", () => {

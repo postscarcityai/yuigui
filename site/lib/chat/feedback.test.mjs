@@ -19,12 +19,15 @@ test("the chat keeps every line of the three screens", () => {
   }
 });
 
-test("the feedback flow is one plan with three questions", () => {
+test("the feedback flow is one plan with three questions, played as its own steps (SITE-68)", () => {
   const r = readAnswer(reply(FEEDBACK_PLAN));
-  assert.equal(r.plan?.node.id, "feedback");
-  assert.deepEqual(r.questions.map((q) => q.node.id), ["likes", "dislikes", "line"]);
-  assert.deepEqual(r.questions[0].node.props.options, LIKES);
-  assert.deepEqual(r.questions[1].node.props.options, DISLIKES);
+  const c = r.chunks.find((x) => x.pic?.preset === "plan");
+  assert.equal(c?.pic.id, "feedback");
+  const members = r.parts[c.part].nodes.filter((n) => n.in === "feedback");
+  assert.deepEqual(members.map((n) => n.id), ["likes", "dislikes", "line"]);
+  assert.deepEqual(members[0].props.options, LIKES);
+  assert.deepEqual(members[1].props.options, DISLIKES);
+  assert.deepEqual(r.questions, []);
 });
 
 test("the pitch is a deck of four pages ending in a choice", () => {

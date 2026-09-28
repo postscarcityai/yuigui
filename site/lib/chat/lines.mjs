@@ -3,11 +3,12 @@
 // visitor should get, and turns a tap into the message it sends back. Used by the page and the tests.
 
 // Presets the chat may draw. No media, camera, mic or custom blocks (nothing loads from a URL the
-// model picked), no drawer, tables, theme or pages of their own (the chat is one screen).
+// model picked), no drawer, tables, theme or pages of their own (the chat is one screen). A flow
+// (SITE-68, spec/FLOWS.md) is a whole run of screens: by name (`flow onboarding`) or inline Mermaid.
 export const ALLOWED = new Set([
   "say", "ask", "choose", "pick", "slide", "form", "list", "table", "card",
   "stat", "chart", "math", "step", "calc",
-  "deck", "page", "plan", "end",
+  "deck", "page", "plan", "flow", "end",
   "timer", "timeline", "done", "now", "next",
   "map", "area", "pin", "route", "shapes", "shape", "sketch", "row", "after",
   "game", "loop", "drums", "keys", "chords", "metronome",
@@ -44,11 +45,30 @@ function head(line) {
 
 // Keeps the lines this chat can draw. Keeps `>full` (the stage), drops other screen switches (`>2`), media and anything
 // with a link that is not Yui's own. A site path becomes a full yuigui.com link.
+// A flow's body is Mermaid (or a variant's changes, `as=`), not YL: it is kept as it is, up to the
+// flow's own `end` (a subgraph's `end` does not close it).
+const MERMAID = /^(flowchart|graph)\b/i;
 export function cleanLines(yl) {
   const keep = [];
-  for (const raw of String(yl || "").split("\n")) {
-    const line = raw.replace(/\s+$/, "");
+  const lines = String(yl || "").split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].replace(/\s+$/, "");
     const t = line.trim();
+    if (head(t) === "flow") {
+      let j = i + 1;
+      while (j < lines.length && (!lines[j].trim() || lines[j].trim().startsWith("%%"))) j++;
+      if (/\bas=/.test(t) || MERMAID.test((lines[j] || "").trim())) {
+        keep.push(t);
+        let depth = 0;
+        for (i = i + 1; i < lines.length; i++) {
+          const b = lines[i].replace(/\s+$/, ""), bt = b.trim();
+          if (/^subgraph\b/i.test(bt)) depth++;
+          if (bt === "end") { if (depth === 0) { keep.push("end"); break; } depth--; }
+          if (bt) keep.push(b);
+        }
+        continue;
+      }
+    }
     if (t === ">full") { keep.push(t); continue; } // the stage over the chat, like the app
     if (!t || t.startsWith("#") || t.startsWith(">")) continue;
     if (!ALLOWED.has(head(t))) continue;
@@ -80,6 +100,10 @@ export function tapLine(ev) {
   return [`[yui] ${id || "n1"} ${preset || "tap"}`, ...kv].join(" ").slice(0, 900);
 }
 
+// A flow's or plan's answers as words: "Sam, 3, Get fit, Eat better".
+const words = (v) => (Array.isArray(v) ? v.join(", ") : v && typeof v === "object" ? Object.values(v).filter((x) => x !== "" && x != null).map(words).join(", ") : String(v));
+const answers = (o) => Object.values(o).map(words).filter(Boolean).join(", ");
+
 // What the visitor sees in their own bubble for that tap: the words they tapped.
 export function tapLabel(ev) {
   const e = ev || {};
@@ -88,7 +112,8 @@ export function tapLabel(ev) {
   if (Array.isArray(e.picked)) return e.picked.join(", ") || "None";
   if (e.cta != null) return String(e.cta);
   if (e.value != null) return String(e.value);
-  if (e.plan && typeof e.plan === "object") return Object.values(e.plan).map(flat).join(", ");
+  if (e.flow && typeof e.flow === "object") return answers(e.flow) || "Sent";
+  if (e.plan && typeof e.plan === "object") return answers(e.plan);
   if (e.values && typeof e.values === "object") return Object.entries(e.values).map(([k, v]) => `${k} ${flat(v)}`).join(", ");
   if (e.preset === "game" && e.score != null) return `Score ${e.score}`;
   if (e.preset === "game" && e.move != null) return `Move ${e.move}`;

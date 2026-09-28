@@ -73,3 +73,17 @@ test("the stage and the contact form get through", () => {
   assert.equal(cleanLines(form), form);
   assert.equal(parse(form)[0].id, "contact");
 });
+
+test("a flow gets through: by name, and inline with its Mermaid kept to its own end (SITE-68)", () => {
+  assert.equal(cleanLines("flow@onboard onboarding"), "flow@onboard onboarding");
+  const inline = 'flow@c "Check-in" submit=Send\nflowchart TD\n  %% a: choose "Energy?" Low|High\n  a[Energy] --> s\n  subgraph s [Later]\n    b --> c\n  end\n  %% b: page "Thanks"\nend\nvideo https://x.test/a.mp4\nsay "After"';
+  assert.equal(cleanLines(inline), 'flow@c "Check-in" submit=Send\nflowchart TD\n  %% a: choose "Energy?" Low|High\n  a[Energy] --> s\n  subgraph s [Later]\n    b --> c\n  end\n  %% b: page "Thanks"\nend\nsay "After"');
+  const f = parse(cleanLines(inline)).find((o) => o.preset === "flow" || o.props?.nodes);
+  assert.ok(f, "the kept flow parses");
+});
+
+test("a sent flow goes back as one tap, labelled with the answers (SITE-68)", () => {
+  const ev = { id: "onboard", preset: "flow", flow: { you: { name: "Sam" }, know: 2, want: ["Get fit"] }, path: ["hi", "you", "know", "want"] };
+  assert.equal(tapLine(ev), '[yui] onboard flow flow="{\'you\':{\'name\':\'Sam\'},\'know\':2,\'want\':[\'Get fit\']}" path="hi|you|know|want"');
+  assert.equal(tapLabel(ev), "Sam, 2, Get fit");
+});
