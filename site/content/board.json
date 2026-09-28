@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T13:13:30.632Z",
+  "updated": "2026-09-28T13:41:59.900Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -13,12 +13,6 @@
         "status": "now"
       },
       {
-        "key": "YUI-185",
-        "title": "Penny's tools",
-        "status": "now",
-        "progress": "/progress#your-planner-plans-the-week"
-      },
-      {
         "key": "YUI-183",
         "title": "Basil's tools",
         "status": "next",
@@ -29,6 +23,12 @@
         "title": "Gouda's tools",
         "status": "next",
         "progress": "/progress#gouda-s-tools-in-the-app-learn-a-song-a-click-that-logs-itself-a-beat-that-stays"
+      },
+      {
+        "key": "YUI-185",
+        "title": "Penny's tools",
+        "status": "next",
+        "progress": "/progress#your-planner-plans-the-week"
       },
       {
         "key": "YUI-186",
@@ -284,10 +284,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-189",
-          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show"
-        },
-        {
           "key": "YUI-190",
           "title": "Stop a turn from the main screen",
           "summary": "The mic becomes Stop while an agent works"
@@ -311,22 +307,6 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
-        },
-        {
-          "key": "NOTE-29968",
-          "title": "Basil's error was a wall of text"
-        },
-        {
-          "key": "NOTE-36529",
-          "title": "Screen dots in the bottom bar"
-        },
-        {
-          "key": "NOTE-37307",
-          "title": "A stop button while it works"
-        },
-        {
-          "key": "NOTE-51249",
-          "title": "Agents keep their own tables"
         }
       ]
     },
@@ -352,6 +332,7 @@
           "key": "YUI-185",
           "title": "Penny's tools",
           "summary": "Your planner plans the week",
+          "waiting": true,
           "progress": "/progress#your-planner-plans-the-week"
         },
         {
@@ -362,14 +343,24 @@
           "progress": "/progress#your-study-buddy-teaches-and-quizzes"
         },
         {
-          "key": "YUI-188",
-          "title": "Basil's grocery list just works",
-          "summary": "Starter tables reach older agents, an agent makes its own tables, and a slip is one plain line, never a wall of text"
+          "key": "NOTE-36529",
+          "title": "Screen dots in the bottom bar",
+          "waiting": true
         },
         {
-          "key": "SITE-82",
-          "title": "Meet the crew on yuigui.com/crew",
-          "summary": "Each starter agent, their real tools, a demo to tap"
+          "key": "NOTE-37307",
+          "title": "A stop button while it works",
+          "waiting": true
+        },
+        {
+          "key": "YUI-189",
+          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show"
+        },
+        {
+          "key": "YUI-185",
+          "title": "B (backlog, WEB + NATIVE)",
+          "summary": "Penny's tools in the app: plan your week by voice, a reminder on your phone, a week you can drag",
+          "progress": "/progress#penny-s-tools-in-the-app-plan-your-week-by-voice-a-reminder-on-your-phone-a-week"
         },
         {
           "key": "INT-8",
@@ -429,6 +420,29 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-51249",
+          "title": "Agents keep their own tables",
+          "shipped": "2026-09-28"
+        },
+        {
+          "key": "NOTE-29968",
+          "title": "Basil's error was a wall of text",
+          "shipped": "2026-09-28"
+        },
+        {
+          "key": "YUI-188",
+          "title": "Basil's grocery list just works",
+          "shipped": "2026-09-28",
+          "progress": "/progress#basil-s-grocery-list-just-works"
+        },
+        {
+          "key": "SITE-82",
+          "title": "Meet the crew on yuigui.com/crew",
+          "summary": "Meet the crew: one page for Yui and the five starter agents",
+          "shipped": "2026-09-28",
+          "progress": "/progress#meet-the-crew-one-page-for-yui-and-the-five-starter-agents"
+        },
         {
           "key": "NOTE-24431",
           "title": "The switch-agents crash",
