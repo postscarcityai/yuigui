@@ -1364,6 +1364,24 @@
     {
       "text": "yui-mcp: sync the screen bundle, light timer dial",
       "card": "SITE-78"
+    },
+    {
+      "text": "Penny's tools: plan my week by voice, the today list, reminders, the evening review, her pages kept current (YUI-185, runtime half)"
+    },
+    {
+      "text": "Planner e2e: one more to-do today before the evening review, so it has two to decide on",
+      "card": "YUI-185"
+    },
+    {
+      "text": "The workout runner in the app: one move per page, sets to tick, rest starts on its own, say done (YUI-182, app half)"
+    },
+    {
+      "text": "The home's pickers are tools, not asks; the demo crew homes match the profiles again",
+      "card": "YUI-182"
+    },
+    {
+      "text": "Penny's demo home and can match her profile after YUI-185's runtime half",
+      "card": "YUI-182"
     }
   ]
 }

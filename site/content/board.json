@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T07:41:14.944Z",
+  "updated": "2026-09-28T08:10:18.871Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -13,8 +13,8 @@
         "status": "now"
       },
       {
-        "key": "YUI-185",
-        "title": "Penny's tools",
+        "key": "YUI-186",
+        "title": "Quill's tools",
         "status": "now"
       },
       {
@@ -30,9 +30,10 @@
         "progress": "/progress#your-music-teacher-teaches-songs"
       },
       {
-        "key": "YUI-186",
-        "title": "Quill's tools",
-        "status": "next"
+        "key": "YUI-185",
+        "title": "Penny's tools",
+        "status": "next",
+        "progress": "/progress#your-planner-plans-the-week"
       }
     ]
   },
@@ -296,11 +297,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-186",
-          "title": "Quill's tools",
-          "summary": "Learn a topic, cards with spaced review, step by step problems, default screens"
-        },
-        {
           "key": "YUI-137",
           "title": "Yui makes agents",
           "summary": "Create, edit, fork and remove a native agent from chat"
@@ -341,13 +337,20 @@
           "progress": "/progress#your-music-teacher-teaches-songs"
         },
         {
-          "key": "SITE-76",
-          "title": "See it's 'Yui on your phone' group still shows the old chat composer"
-        },
-        {
           "key": "YUI-185",
           "title": "Penny's tools",
-          "summary": "Plan my week by voice, today list, reminders, evening review, default screens"
+          "summary": "Your planner plans the week",
+          "waiting": true,
+          "progress": "/progress#your-planner-plans-the-week"
+        },
+        {
+          "key": "YUI-186",
+          "title": "Quill's tools",
+          "summary": "Learn a topic, cards with spaced review, step by step problems, default screens"
+        },
+        {
+          "key": "SITE-79",
+          "title": "See it's app group, the rest of the old-composer shots"
         },
         {
           "key": "INT-8",
@@ -407,6 +410,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-76",
+          "title": "See it's 'Yui on your phone' group still shows the old chat composer",
+          "summary": "See it shows the app as it is now",
+          "shipped": "2026-09-28",
+          "progress": "/progress#see-it-shows-the-app-as-it-is-now"
+        },
         {
           "key": "SITE-78",
           "title": "The interval timer's digits vanish in light mode (dark text on the dark dial)",
