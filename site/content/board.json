@@ -1,9 +1,9 @@
 {
-  "updated": "2026-09-28T03:10:34.406Z",
+  "updated": "2026-09-28T03:40:37.035Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.0",
-    "status": "open",
+    "status": "shipping",
     "startedAt": "2026-09-28T02:48:57.000Z",
     "shippedAt": null,
     "cards": [
@@ -272,8 +272,7 @@
         {
           "key": "YUI-171",
           "title": "Tables in any agent's reply, A2A and webhook, the app side (Controls > Tables, Give to...) (backlog)",
-          "step": "Step 3",
-          "waiting": true
+          "step": "Step 3"
         },
         {
           "key": "INT-8",
