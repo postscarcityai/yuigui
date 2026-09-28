@@ -161,7 +161,8 @@ export function Deck({ g, emitFor, Render, index, onIndex, bare }) {
   };
 
   const slide = (m) => (QUIZ.has(m.preset)
-    ? <div className="yl-quizpage"><span className="yl-quiztag">Quiz</span><Render node={m} emit={quizEmit(m)} /></div>
+    // A question page is a quiz only when it is graded (answer=, YL.md deck); a swap or a pick is just a question.
+    ? <div className="yl-quizpage">{m.props?.answer != null ? <span className="yl-quiztag">Quiz</span> : null}<Render node={m} emit={quizEmit(m)} /></div>
     : slidePage(m, emitFor, Render));
   const curNotes = pages[cur] && pages[cur].preset === "page" ? resolve("page", pages[cur].props).notes : "";
 

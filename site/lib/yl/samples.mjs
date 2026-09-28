@@ -881,6 +881,63 @@ chart@lift-overhead-press line "Overhead press, top set" x="Sep 23" y=45 unit=lb
     next: `~week-done "2 of 5" "Workouts this week" sub="Next: Wed Full body B"`,
   },
   {
+    // Basil's Plan my meals (YUI-183, yui runtime/src/mealplan.ts): one full-screen plan. What the week aims for
+    // first (his goal), then days, meals a day, likes, no-gos, budget and time to cook, one Send.
+    slug: "basil-plan",
+    name: "Plan: Basil plans your week of meals",
+    agent: "Basil",
+    yl: `say "Let's plan your week."
+plan@mealplan "Plan my meals" submit="Plan my week"
+page "Your week of meals" body="I'll plan each day around your goal of 2,100 kcal and 140 g protein, from meals you can cook. Tap any meal after to swap it, and your grocery list fills in by aisle."
+choose@days "How many days?" "3 days"|"5 days"|"7 days"
+choose@meals "Meals a day?" "2 meals"|"3 meals"|"3 and a snack"
+pick@likes "What do you like?" "Chicken"|"Fish"|"Beef"|"Veggie"|"Eggs"|"Pasta"|"Rice bowls"|"Mexican"|"Asian"|"Italian" +other
+pick@avoid "Anything to leave out?" "None"|"Dairy"|"Gluten"|"Nuts"|"Shellfish"|"Fish"|"Meat"|"Pork"|"Eggs"|"Soy" +other
+choose@budget "Budget?" "Keep it cheap"|"In between"|"Treat me"
+choose@cook "Time to cook a meal?" "15 minutes"|"30 minutes"|"45 or more"`,
+  },
+  {
+    // After that Send (YUI-183): the week as a deck, a page a day, each meal a button that swaps it; then his
+    // pages, Today against the goal, This week's meals and Groceries by aisle. Later answers only patch them.
+    slug: "basil-week",
+    name: "Pages: Basil's week of meals, today's macros and the grocery list",
+    agent: "Basil",
+    yl: `say "Your 5 days are planned. Tap any meal to swap it."
+deck@week-deck "This week's meals"
+page "5 days planned" body="About 1,919 kcal and 106 g protein a day, for a goal of 2,100. Leaving out: nuts. 51 things on your grocery list, by aisle." points="Monday: Breakfast burrito, Chicken burrito bowl, Chicken stir-fry, Cheese and crackers"|"Tuesday: Avocado toast with eggs, Teriyaki chicken rice bowl, Beef tacos, Edamame"|"Wednesday: Tofu scramble, Quinoa black bean bowl, Spaghetti with meat sauce, Hummus and carrots"|"Thursday: Overnight oats with chia, Greek chickpea salad with pita, Tofu coconut curry, Greek yogurt and honey"|"Friday: Greek yogurt bowl, Egg fried rice, Pasta primavera with white beans, Two boiled eggs"
+choose@swap-20260928 "Tap a meal to swap it" "Breakfast burrito"|"Chicken burrito bowl"|"Chicken stir-fry"|"Cheese and crackers" tag="Mon" title="Monday, 2,138 kcal" body="Breakfast: Breakfast burrito, 528 kcal. Lunch: Chicken burrito bowl, 700 kcal. Dinner: Chicken stir-fry, 680 kcal. Snack: Cheese and crackers, 230 kcal"
+choose@swap-20260929 "Tap a meal to swap it" "Avocado toast with eggs"|"Teriyaki chicken rice bowl"|"Beef tacos"|"Edamame" tag="Tue" title="Tuesday, 1,884 kcal" body="Breakfast: Avocado toast with eggs, 424 kcal. Lunch: Teriyaki chicken rice bowl, 650 kcal. Dinner: Beef tacos, 620 kcal. Snack: Edamame, 190 kcal"
+choose@swap-20260930 "Tap a meal to swap it" "Tofu scramble"|"Quinoa black bean bowl"|"Spaghetti with meat sauce"|"Hummus and carrots" tag="Wed" title="Wednesday, 1,830 kcal" body="Breakfast: Tofu scramble, 430 kcal. Lunch: Quinoa black bean bowl, 540 kcal. Dinner: Spaghetti with meat sauce, 660 kcal. Snack: Hummus and carrots, 200 kcal"
+choose@swap-20261001 "Tap a meal to swap it" "Overnight oats with chia"|"Greek chickpea salad with pita"|"Tofu coconut curry"|"Greek yogurt and honey" tag="Thu" title="Thursday, 1,922 kcal" body="Breakfast: Overnight oats with chia, 422 kcal. Lunch: Greek chickpea salad with pita, 640 kcal. Dinner: Tofu coconut curry, 700 kcal. Snack: Greek yogurt and honey, 160 kcal"
+choose@swap-20261002 "Tap a meal to swap it" "Greek yogurt bowl"|"Egg fried rice"|"Pasta primavera with white beans"|"Two boiled eggs" tag="Fri" title="Friday, 1,820 kcal" body="Breakfast: Greek yogurt bowl, 420 kcal. Lunch: Egg fried rice, 640 kcal. Dinner: Pasta primavera with white beans, 616 kcal. Snack: Two boiled eggs, 144 kcal"
+end
+>2
+stat@kcal 700kcal "Calories today" sub="of 2,100. 1,400 to go."
+chart@macros bar "Macros vs goal" x=Protein|Carbs|Fat y=55|75|18 y2=140|210|70 names=Today|Goal unit=g
+card@next-meal "Up next: Dinner" "Chicken stir-fry. 680 kcal, about 25 minutes." sub="From your plan" cta="I ate it"
+choose@eaten "Tap a meal to fix it" "Lunch, 700 kcal" body="Lunch: Chicken burrito bowl, 700 kcal"
+>3
+choose@wk-20260928 "Tap a meal to swap it" "Breakfast burrito"|"Chicken burrito bowl"|"Chicken stir-fry"|"Cheese and crackers" tag="Mon" title="Monday, 2,138 kcal" body="Breakfast: Breakfast burrito, 528 kcal. Lunch: Chicken burrito bowl, 700 kcal. Dinner: Chicken stir-fry, 680 kcal. Snack: Cheese and crackers, 230 kcal"
+choose@wk-20260929 "Tap a meal to swap it" "Avocado toast with eggs"|"Teriyaki chicken rice bowl"|"Beef tacos"|"Edamame" tag="Tue" title="Tuesday, 1,884 kcal" body="Breakfast: Avocado toast with eggs, 424 kcal. Lunch: Teriyaki chicken rice bowl, 650 kcal. Dinner: Beef tacos, 620 kcal. Snack: Edamame, 190 kcal"
+choose@wk-20260930 "Tap a meal to swap it" "Tofu scramble"|"Quinoa black bean bowl"|"Spaghetti with meat sauce"|"Hummus and carrots" tag="Wed" title="Wednesday, 1,830 kcal" body="Breakfast: Tofu scramble, 430 kcal. Lunch: Quinoa black bean bowl, 540 kcal. Dinner: Spaghetti with meat sauce, 660 kcal. Snack: Hummus and carrots, 200 kcal"
+choose@wk-20261001 "Tap a meal to swap it" "Overnight oats with chia"|"Greek chickpea salad with pita"|"Tofu coconut curry"|"Greek yogurt and honey" tag="Thu" title="Thursday, 1,922 kcal" body="Breakfast: Overnight oats with chia, 422 kcal. Lunch: Greek chickpea salad with pita, 640 kcal. Dinner: Tofu coconut curry, 700 kcal. Snack: Greek yogurt and honey, 160 kcal"
+choose@wk-20261002 "Tap a meal to swap it" "Greek yogurt bowl"|"Egg fried rice"|"Pasta primavera with white beans"|"Two boiled eggs" tag="Fri" title="Friday, 1,820 kcal" body="Breakfast: Greek yogurt bowl, 420 kcal. Lunch: Egg fried rice, 640 kcal. Dinner: Pasta primavera with white beans, 616 kcal. Snack: Two boiled eggs, 144 kcal"
+card@week-plan "Want a new week?" "New likes, a new budget, or just a change." cta="Plan again"
+>4
+stat@groc-left "51 to get" "Grocery list" sub="From your meal plan and what you added"
+list@aisle-produce title="Produce" "Spinach"|"Berries"|"Avocado, 1 1/2"|"Stir-fry vegetables, 3 cups"|"Broccoli, 1 cup"|"Lettuce, 1 cup"|"Bell peppers, 2"|"Limes, 1"|"Carrots, 2"|"Blueberries, 1 1/2 cups"|"Cucumber, 1"|"Cherry tomatoes, 1 cup"|"Zucchini, 1" +check
+list@aisle-meat-and-fish title="Meat and fish" "Chicken thighs"|"Chicken breasts, 2"|"Ground beef, 1/2 lb" +check
+list@aisle-dairy-and-eggs title="Dairy and eggs" "Greek yogurt"|"Eggs"|"Cheddar, 3/4 cup"|"Firm tofu, 1 1/2 blocks"|"Parmesan, 4 tbsp"|"Hummus, 4 tbsp"|"Oat milk, 1 cup"|"Feta, 1/4 cup" +check
+list@aisle-bakery title="Bakery" "Flour tortillas, 1"|"Whole wheat bread, 3 slices"|"Corn tortillas, 3"|"Pita, 1" +check
+list@aisle-pantry title="Pantry" "Rice"|"Black beans, 1 1/2 cans"|"Salsa, 6 tbsp"|"Soy sauce, 2 tbsp"|"Olive oil, 4 tbsp + 1 tsp"|"Crackers, 8"|"Teriyaki sauce, 2 tbsp"|"Quinoa, 1/2 cup"|"Pasta, 1/2 box"|"Marinara, 1/2 cup"|"Oats, 1/2 cup"|"Chia seeds, 1 tbsp"|"Maple syrup, 1 tbsp"|"Chickpeas, 1 can"|"Coconut milk, 1/2 can"|"Curry paste, 1 tbsp"|"Honey, 1 tsp + 1 tbsp"|"Granola, 1/2 cup"|"White beans, 1/2 can"|"Coffee" +check
+list@aisle-frozen title="Frozen" "Frozen edamame, 1 cup"|"Frozen corn, 1/2 cup"|"Frozen peas, 1/2 cup" +check
+card@groc-add "Need something else?" "Say it or type it, like: add oat milk to my groceries." cta="Add to the list"`,
+    next: `~kcal 700kcal "Calories today" sub="of 2,100. 1,400 to go."
+~macros bar "Macros vs goal" x=Protein|Carbs|Fat y=55|75|18 y2=140|210|70 names=Today|Goal unit=g
+~next-meal "Up next: Dinner" "Chicken stir-fry. 680 kcal, about 25 minutes." sub="From your plan" cta="I ate it"
+~eaten "Tap a meal to fix it" "Lunch, 700 kcal" body="Lunch: Chicken burrito bowl, 700 kcal"`,
+  },
+  {
     slug: "project-card",
     name: "Project: a card that reopens the plan",
     agent: "Scout",

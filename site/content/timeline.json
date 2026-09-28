@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 282,
-    "site": 633,
-    "builds": 43,
-    "shipped": 309,
-    "screenshots": 731
+    "app": 283,
+    "site": 635,
+    "builds": 44,
+    "shipped": 310,
+    "screenshots": 735
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T06:38:03.120Z",
+          "at": "2026-09-28T06:54:38.266Z",
+          "title": "Your nutritionist plans your meals",
+          "card": "YUI-183",
+          "anchor": "your-nutritionist-plans-your-meals",
+          "images": [
+            {
+              "src": "/progress/yui183-plan-likes-light.webp",
+              "alt": "Plan my meals, step 4 of 7: What do you like? with Chicken and Mexican picked"
+            },
+            {
+              "src": "/progress/yui183-deck-day-dark.webp",
+              "alt": "The planned week as a deck: Monday's meals, each one a button that swaps it"
+            },
+            {
+              "src": "/progress/yui183-today-light.webp",
+              "alt": "Today: 700 of 2,100 kcal, macros against the goal, and dinner up next"
+            },
+            {
+              "src": "/progress/yui183-groceries-dark.webp",
+              "alt": "The grocery list: 51 to get, grouped by aisle with ticks"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 283,
+            "site": 635,
+            "builds": 44,
+            "shipped": 310
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T06:38:30.000Z",
           "title": "Yui 0.5.2: the dots are back and slide with you",
           "card": "YUI-187",
           "anchor": "yui-0-5-2-the-dots-are-back-and-slide-with-you",
@@ -31,12 +63,24 @@
               "alt": "Screen 3 in dark mode, a Shopping list, with the last dot as the pill"
             }
           ],
-          "commits": 2,
+          "commits": 3,
+          "totals": {
+            "app": 282,
+            "site": 634,
+            "builds": 44,
+            "shipped": 309
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-28T06:35:16.000Z",
+          "build": 288,
+          "changes": 7,
           "totals": {
             "app": 282,
             "site": 633,
-            "builds": 43,
-            "shipped": 309
+            "builds": 44,
+            "shipped": 308
           }
         },
         {
@@ -257,6 +301,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "fffb5bd",
+          "at": "2026-09-28T06:48:00.000Z",
+          "text": "Basil's tools: plan my meals, a swap, the grocery list by aisle, today's macros board, his pages kept current (YUI-183, runtime half)",
+          "url": "https://github.com/postscarcityai/yui/commit/fffb5bd"
+        },
+        {
+          "repo": "site",
+          "sha": "dc935fc",
+          "at": "2026-09-28T06:41:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dc935fc"
+        },
+        {
+          "repo": "site",
+          "sha": "63841b3",
+          "at": "2026-09-28T06:38:30.000Z",
+          "text": "Yui 0.5.2, build 288, on TestFlight: the screen dots are back and slide with you (YUI-187)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/63841b3"
+        },
         {
           "repo": "site",
           "sha": "bc830e9",
