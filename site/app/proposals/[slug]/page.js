@@ -1,10 +1,11 @@
 // One proposal (SITE-87): a full-height hero with the idea working in a phone, then the assessment,
 // the same fields in the same order every time (lib/proposals.mjs FIELDS).
-// The hero slot is SITE-88's: for now it draws the proposal's first screen from its ```hero lines.
+// The hero slot: PROP-1 gets the first-run flow (SITE-88, FirstRunHero), the rest draw their ```hero lines.
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import LivePhone from "../../mockups/LivePhone";
 import AgentBox from "../../components/AgentBox";
+import FirstRunHero from "../FirstRunHero";
 import { renderMd } from "../../../lib/md.mjs";
 import { slug as toSlug } from "../../../lib/slug.mjs";
 import { CALLS, COSTS, niceDate, proposals } from "../../../lib/proposals.mjs";
@@ -30,23 +31,32 @@ export default async function Proposal({ params }) {
   const p = proposals().find((x) => x.slug === slug);
   if (!p) notFound();
   const s = p.sections;
+  const text = (
+    <>
+      <div className="eyebrow"><Link href="/proposals">Proposals</Link> | {p.id}</div>
+      <h1 id="prop-h">{p.title}</h1>
+      <p className="lede">{p.summary}</p>
+      <p className="prop-chips">
+        <span className={`pill prop-status ${toSlug(p.status)}`}>{p.status}</span>
+        <span className={`pill prop-call ${p.call === "recommend" ? "yes" : "no"}`}>{CALLS[p.call]}</span>
+      </p>
+      <a className="prop-down" href="#proposal">Read the proposal</a>
+    </>
+  );
+  // PROP-1's hero is the working first-run flow (SITE-88); any other proposal draws its ```hero lines.
+  const slot = p.slug === "pick-your-crew" ? (
+    <FirstRunHero title={p.title}>{text}</FirstRunHero>
+  ) : (
+    <section className="prop-hero" data-slot="hero" aria-labelledby="prop-h">
+      <div className="prop-hero-text">{text}</div>
+      <div className="prop-hero-phone">
+        <LivePhone yl={p.hero} agent="Yui" eager label={`${p.title}, the first screen, drawn live. Tap to try it.`} />
+      </div>
+    </section>
+  );
   return (
     <>
-      <section className="prop-hero" data-slot="hero" aria-labelledby="prop-h">
-        <div className="prop-hero-text">
-          <div className="eyebrow"><Link href="/proposals">Proposals</Link> | {p.id}</div>
-          <h1 id="prop-h">{p.title}</h1>
-          <p className="lede">{p.summary}</p>
-          <p className="prop-chips">
-            <span className={`pill prop-status ${toSlug(p.status)}`}>{p.status}</span>
-            <span className={`pill prop-call ${p.call === "recommend" ? "yes" : "no"}`}>{CALLS[p.call]}</span>
-          </p>
-          <a className="prop-down" href="#proposal">Read the proposal</a>
-        </div>
-        <div className="prop-hero-phone">
-          <LivePhone yl={p.hero} agent="Yui" eager label={`${p.title}, the first screen, drawn live. Tap to try it.`} />
-        </div>
-      </section>
+      {slot}
 
       <article className="prop" id="proposal" aria-label={`${p.id}, the proposal`}>
         <dl className="prop-facts">
