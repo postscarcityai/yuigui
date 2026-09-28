@@ -1050,6 +1050,83 @@ choose@r-landlord "Email the landlord about the sink" "Done"|"Tomorrow"|"Drop"
 choose@feel "How did today go?" "Great"|"Okay"|"Rough"`,
   },
   {
+    // Quill's Learn a topic (YUI-186, yui runtime/src/study.ts): one full-screen plan, what happens first, the
+    // questions last (the topic was said, so no topic question), one Send. Its answer is quill-lesson.
+    slug: "quill-learn",
+    name: "Plan: Quill teaches you a topic",
+    agent: "Quill",
+    yl: `say "Let's learn how vaccines work."
+plan@learn "Learn a topic" submit="Teach me"
+page "Five minutes, then a quiz" body="Tell me what you want to learn, how long you have and what you know already. I'll make a short lesson, one idea a page, with a quick quiz at the end. What you learn becomes cards you review later, next to World capitals."
+choose@time "How much time do you have?" "5 minutes"|"10 minutes"|"20 minutes"
+choose@know "What do you know about how vaccines work already?" "Nothing yet"|"The basics"|"Quite a bit"`,
+  },
+  {
+    // The learn plan's Send (YUI-186): a real GLM 5.2 lesson as the runtime draws it, one deck on the stage, one idea a
+    // page, ending in a graded quiz. Each quiz answer is quiet; the deck's done keeps the score.
+    slug: "quill-lesson",
+    name: "Deck: Quill's five minute lesson and quiz",
+    agent: "Quill",
+    yl: `say "Here's How Vaccines Work in a 5 minute lesson. A 3 question quiz at the end. 5 cards go in your review, first one tomorrow."
+deck@lesson-how-vaccines-work "How Vaccines Work" +full
+page "Your Immune System" body="Your immune system is your body's defense team. When a germ gets inside, special cells fight it off and remember it for next time." points="Detects germs"|"Fights infection"|"Remembers enemies"
+page "Teaching the Body" body="A vaccine shows your immune system a harmless version of a germ. This lets your body practice fighting it so it is ready for the real thing." points="Safe practice round"|"Builds memory cells"|"No actual sickness"
+page "Making Antibodies" body="After practice, your body makes antibodies that lock onto that specific germ. If the real germ shows up later, your body can attack fast." points="Antibodies lock on"|"Fast response"|"Stops germs before illness"
+page "Protecting Everyone" body="When most people are vaccinated, germs cannot spread easily. This protects people who cannot get vaccines, like newborn babies or those who are very sick." points="Hard for germs to spread"|"Shields the vulnerable"|"Called herd immunity"
+choose@quiz-how-vaccines-work-1 "What does a vaccine show your immune system?" "A harmless version of a germ"|"A real sickness"|"A new kind of medicine"|"A virus that makes you very ill" answer="A harmless version of a germ" why="It lets your body practice fighting without making you sick."
+choose@quiz-how-vaccines-work-2 "What does your body make after getting a vaccine?" "Antibodies"|"New skin"|"Extra blood"|"More germs" answer="Antibodies" why="Antibodies lock onto a specific germ so your body can fight it fast."
+choose@quiz-how-vaccines-work-3 "Why does vaccinating many people help protect everyone?" "It makes germs stronger"|"Germs cannot spread easily"|"It cures all sickness"|"It makes people taller" answer="Germs cannot spread easily" why="When most people are immune, germs have nowhere to go."`,
+  },
+  {
+    // Quill's card review (YUI-186): the cards due today as one plan, each card's front with its answer and Again,
+    // Hard, Good or Easy, one Send. A rating moves the card's box and next day: again today, hard tomorrow, good and
+    // easy further out each time.
+    slug: "quill-review",
+    name: "Plan: Quill's card review",
+    agent: "Quill",
+    yl: `plan@review "Review 5 cards" submit="Save my review"
+page "5 cards due" body="Think of the answer before you look. Then tap how it went: Again brings it back today, Easy sends it furthest."
+choose@c-c1 "Tokyo" "Again"|"Hard"|"Good"|"Easy" title="Capital of Japan?" tag="World capitals"
+choose@c-c2 "Ottawa" "Again"|"Hard"|"Good"|"Easy" title="Capital of Canada?" tag="World capitals"
+choose@c-c3 "Canberra" "Again"|"Hard"|"Good"|"Easy" title="Capital of Australia?" tag="World capitals"
+choose@c-c4 "Brasilia" "Again"|"Hard"|"Good"|"Easy" title="Capital of Brazil?" tag="World capitals"
+choose@c-c5 "Nairobi" "Again"|"Hard"|"Good"|"Easy" title="Capital of Kenya?" tag="World capitals"`,
+  },
+  {
+    // After a review (YUI-186): Quill's three pages. What you're studying, Next review (the due count and Start) and
+    // Progress (streak, cards reviewed this week, cards learned, last quiz). The next patch is a quiz finished.
+    slug: "quill-pages",
+    name: "Pages: Quill's studying, next review and progress",
+    agent: "Quill",
+    yl: `say "Saved: 8 cards reviewed, 1 to see again today. 1 still due."
+>2
+card@studying "World capitals" "8 cards. 1 due today." sub="Geography" cta="Review now"
+list@decks title="Your decks" "World capitals, 8 cards"
+card@learn-new "Learn something new" "A topic, how long you have, what you know. A short lesson, then a quiz." cta="Learn a topic"
+card@walk "Stuck on a problem?" "I'll break it into steps. You answer each one before the next." cta="Walk me through it"
+>3
+stat@due 1 "Cards due today" sub="World capitals"
+card@review-start "Review 1 card" "Think of the answer, then tap again, hard, good or easy." cta="Start review"
+>4
+stat@streak 1 "Day streak" sub="Keep it going today"
+chart@studied bar "Cards reviewed" x=Tue|Wed|Thu|Fri|Sat|Sun|Today y=0|0|0|0|0|0|8
+stat@learned 0 "Cards learned" sub="of 8 cards, box 4 or higher"
+stat@last-quiz "None" "Last quiz" sub="Finish a lesson's quiz"`,
+    next: `~last-quiz "2/3" "Last quiz" sub="How Vaccines Work"`,
+  },
+  {
+    // Walk me through a problem (YUI-186): the model breaks it into steps once; each step is its own page with a graded
+    // question, and the next shows only once it is answered (next: the step locks once it is answered).
+    slug: "quill-problem",
+    name: "Steps: Quill walks you through a problem",
+    agent: "Quill",
+    yl: `say "Average speed of a train, in 3 steps. Answer each one and the next shows."
+page "Step 1 of 3: Recall the speed formula" body="Average speed equals total distance divided by total time. Identify those two values in the problem."
+math v = \\frac{d}{t}
+choose@step-train-1 "What is the speed formula?" "distance times time"|"distance divided by time"|"time divided by distance"|"distance plus time" answer="distance divided by time" why="Speed is how much distance is covered per unit of time."`,
+    next: `~step-train-1 +lock`,
+  },
+  {
     slug: "project-card",
     name: "Project: a card that reopens the plan",
     agent: "Scout",
