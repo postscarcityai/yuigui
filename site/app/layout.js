@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
           <GetYui />
           <footer className="wrap foot">
             <img src="/brand/yui-wordmark-coral-156.webp" alt="" width="31" height="20" />
-            <span>Made by <a href="https://postscarcity.ai">PostScarcity AI</a>, built in public at yuigui.com</span> | <a href="/business">Business</a> | <a href="/thoughts">Thoughts</a> | <a href="https://github.com/postscarcityai/yuigui">GitHub</a> | <a href="/help">Help</a> | <a href="/privacy">Privacy</a>
+            <span>Made by <a href="https://postscarcity.ai">PostScarcity AI</a>, built in public at yuigui.com</span> | <a href="/crew">The crew</a> | <a href="/business">Business</a> | <a href="/thoughts">Thoughts</a> | <a href="https://github.com/postscarcityai/yuigui">GitHub</a> | <a href="/help">Help</a> | <a href="/privacy">Privacy</a>
           </footer>
           {/* SITE-64: Yui in the bubble, only once its keys are set. */}
           {chatOn() && <ChatFab />}

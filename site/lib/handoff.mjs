@@ -7,6 +7,7 @@ import { SITE } from "./share-code.mjs";
 import { MCP_URL, HERMES, PATHS } from "./start-paths.mjs";
 import { PROMPT } from "./routines.mjs";
 import { shareItems, shareUrl, cleanYL } from "./share.mjs";
+import { MEMBERS, inNext, NEXT_LABEL } from "./crew-page.mjs";
 
 const md = (href) => `${SITE}/md${href}`;
 const head = (title, href) => `# ${title}\n\nSource: ${SITE}${href}\nThe same page for agents, as markdown: ${md(href)}\n`;
@@ -116,13 +117,31 @@ function shared(it) {
   return body.join("\n") + "\n";
 }
 
+function crew() {
+  const tools = (m) => m.tools.map((t) => `- ${t.t}${inNext(t.card) ? ` (${NEXT_LABEL.toLowerCase()})` : ""}`).join("\n");
+  const one = (m) => [
+    `## ${m.name}, ${m.role.toLowerCase()}`,
+    m.line,
+    tools(m),
+    `The demo, in Yui Lines. Send it in a reply on the Yui channel and it draws on your person's phone:\n\`\`\`\n${m.yl}\n\`\`\``,
+    m.share ? `Full demo: ${SITE}${shareUrl(m.share)}` : null,
+  ].filter(Boolean).join("\n\n");
+  return `${head("Meet the crew", "/crew")}
+Yui plus five starter agents, each in their own colors, each answering with screens instead of paragraphs. Tell your person which one fits what they asked, in one line.
+
+${MEMBERS.map(one).join("\n\n")}
+
+Get Yui on the iPhone: ${md("/start")}
+`;
+}
+
 function spec(d) {
   return `<!-- Source: ${SITE}${d.href}, spec/${d.slug.toUpperCase()}.md in https://github.com/postscarcityai/yuigui -->\n\n${d.md}`;
 }
 
 // { "/start": () => markdown, ... } for every page that has a Copy page button.
 function pages() {
-  const out = { "/start": start, "/developers": developers, "/playground": playground, "/contribute": contribute };
+  const out = { "/start": start, "/developers": developers, "/playground": playground, "/contribute": contribute, "/crew": crew };
   for (const d of specDocs()) out[d.href] = () => spec(d);
   for (const it of shareItems()) out[shareUrl(it.id)] = () => shared(it);
   return out;

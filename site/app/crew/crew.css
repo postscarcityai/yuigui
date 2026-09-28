@@ -1,0 +1,59 @@
+/* Meet the crew (SITE-82). --cm: the member's strong color, --cp: their profile pastel (butter, mint,
+   lavender, brand). A look-* class draws their visual (profile.json visual.look) as a pattern. */
+.crew-row { display: flex; gap: 14px; overflow-x: auto; padding: 8px 2px 18px; margin: 8px 0 8px; scrollbar-width: none; }
+.crew-row::-webkit-scrollbar { display: none; }
+.crew-row a { flex: none; display: grid; justify-items: center; gap: 6px; text-decoration: none; color: var(--ink); font-weight: 800; font-size: var(--fs-small); }
+.crew-row a:hover .crew-face { transform: translateY(-3px) rotate(-4deg); }
+
+.crew-face { position: relative; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 22px; background-color: var(--cp); overflow: hidden; transition: transform .2s ease; box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--cm) 35%, transparent); }
+.crew-face b { position: relative; z-index: 1; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--cm); color: #fff; font-size: 18px; font-weight: 800; box-shadow: 0 4px 12px color-mix(in srgb, var(--cm) 45%, transparent); }
+.crew-face.big { width: 76px; height: 76px; border-radius: 26px; }
+.crew-face.big b { width: 42px; height: 42px; font-size: 22px; }
+.crew-face::before { content: ""; position: absolute; inset: 0; opacity: .9; }
+
+/* The looks. Soft patterns in the member's color, never loud. */
+.look-orb::before, .crew-band.look-orb { background: radial-gradient(circle at 30% 28%, rgba(255,255,255,.75) 0 12%, transparent 30%), radial-gradient(circle at 50% 55%, color-mix(in srgb, var(--cm) 55%, transparent) 0, transparent 62%); }
+.look-waves::before, .crew-band.look-waves { background: repeating-radial-gradient(circle at 0 100%, color-mix(in srgb, var(--cm) 38%, transparent) 0 5px, transparent 5px 13px); }
+.look-bloom::before, .crew-band.look-bloom { background: radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--cm) 45%, transparent) 0 16%, transparent 30%), radial-gradient(circle at 78% 24%, color-mix(in srgb, var(--cm) 35%, transparent) 0 12%, transparent 26%), radial-gradient(circle at 60% 80%, color-mix(in srgb, var(--cm) 40%, transparent) 0 18%, transparent 34%); }
+.look-grain::before, .crew-band.look-grain { background: radial-gradient(color-mix(in srgb, var(--cm) 55%, transparent) 1.2px, transparent 1.6px) 0 0 / 7px 7px, radial-gradient(color-mix(in srgb, var(--cm) 30%, transparent) 1px, transparent 1.4px) 3px 4px / 9px 9px; }
+.look-aurora::before, .crew-band.look-aurora { background: linear-gradient(160deg, transparent 20%, color-mix(in srgb, var(--cm) 40%, transparent) 38%, transparent 55%), linear-gradient(200deg, transparent 45%, color-mix(in srgb, var(--cm) 28%, transparent) 62%, transparent 80%); }
+
+.crew-m { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 40px; align-items: start; margin: 56px 0; scroll-margin-top: 96px; }
+.crew-m .crew-card { margin-top: 48px; }
+.crew-m.flip .crew-card { order: 2; }
+.crew-card { position: relative; overflow: hidden; padding: 28px; border-radius: var(--r-card); background: var(--surface); border: 1.5px solid var(--outline); box-shadow: var(--shadow); }
+.crew-band { position: absolute; inset: 0 0 auto 0; height: 132px; background-color: var(--cp); opacity: .75; -webkit-mask: linear-gradient(#000 40%, transparent); mask: linear-gradient(#000 40%, transparent); }
+[data-theme="dark"] .crew-band { opacity: .35; }
+.crew-head { position: relative; display: flex; align-items: center; gap: 16px; margin-top: 18px; }
+.crew-head h2 { margin: 0; font-size: var(--fs-h1); line-height: 1; }
+.crew-role { display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 800; letter-spacing: .02em; padding: 3px 12px; border-radius: 999px; color: #2A2238; background: var(--cp); }
+.crew-line { position: relative; font-size: var(--fs-lede); line-height: 1.4; font-weight: 700; margin: 20px 0 16px; max-width: 30ch; }
+.crew-tools { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.crew-tools li { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 12px 14px 12px 40px; position: relative; border-radius: 16px; background: var(--raised); font-size: var(--fs-small); font-weight: 600; line-height: 1.35; }
+.crew-tools li::before { content: ""; position: absolute; left: 14px; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 5px; background: var(--cm); transform: rotate(12deg); }
+.crew-next { font-style: normal; font-size: 12px; font-weight: 800; padding: 2px 9px; border-radius: 999px; color: #2A2238; background: var(--butter); white-space: nowrap; }
+
+.crew-demo { display: grid; justify-items: center; }
+.crew-demo .phone.sc-phone { width: 100%; max-width: 330px; height: 620px; }
+.crew-try { display: flex; align-items: center; gap: 8px; margin: 16px 0 4px; padding: 0 8px; font-weight: 700; font-size: var(--fs-small); text-align: center; }
+.crew-try::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--cm); box-shadow: 0 0 0 0 color-mix(in srgb, var(--cm) 60%, transparent); animation: crew-ping 1.8s ease-out infinite; }
+@keyframes crew-ping { to { box-shadow: 0 0 0 10px transparent; } }
+@media (prefers-reduced-motion: reduce) { .crew-try::before { animation: none; } .crew-face { transition: none; } }
+.crew-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 4px 0 0; font-size: var(--fs-small); font-weight: 700; }
+
+.crew-end { margin: 72px 0 24px; padding: 32px; border-radius: var(--r-card); background: var(--surface); border: 1.5px solid var(--outline); text-align: center; }
+.crew-end h2 { margin-top: 0; }
+.crew-end p { color: var(--muted); margin: 0 auto 18px; max-width: 44ch; }
+.crew-end .cta { justify-content: center; }
+
+@media (max-width: 760px) {
+  .crew-m, .crew-m.flip { grid-template-columns: 1fr; gap: 20px; margin: 40px 0; }
+  .crew-m.flip .crew-card { order: 0; }
+  .crew-m .crew-card { margin-top: 0; }
+  .crew-card { padding: 22px 18px; }
+  .crew-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; overflow: visible; }
+  .crew-row a { font-size: 13px; }
+  .crew-row .crew-face { width: 48px; height: 48px; border-radius: 16px; }
+  .crew-row .crew-face b { width: 28px; height: 28px; font-size: 15px; }
+  .crew-demo .phone.sc-phone { height: 600px; }
+}

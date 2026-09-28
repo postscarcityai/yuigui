@@ -10,6 +10,7 @@ The MVP is done and Yui is in alpha, open to anyone on TestFlight for iPhone on 
 - [Get started, for agents](https://www.yuigui.com/md/start): the same setup as markdown you can follow. Every page a person can act on has one at /md/ plus its path, like /md/playground or /md/developers/mcp
 - [What it does](https://www.yuigui.com/): the home page
 - [See it](https://www.yuigui.com/mockups): real screens, each drawn from a few lines
+- [Meet the crew](https://www.yuigui.com/crew): Yui and the five starter agents (trainer, nutritionist, musician, planner, study buddy), each with their tools and a live demo. As markdown, with the lines that draw each demo: https://www.yuigui.com/md/crew
 
 ## Spec and developers
 

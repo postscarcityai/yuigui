@@ -38,6 +38,9 @@ export default function Start() {
         Yui talks to Hermes running on your own Mac or Linux box. If Hermes already answers you somewhere, this takes
         about five minutes.
       </p>
+      <p className="start-crew">
+        Want to see what an agent can do first? <a href="/crew">Meet the crew</a>: Yui and five starter agents, each with a demo to tap.
+      </p>
       <div className="start-byo">
         <p>
           <strong>Bring your own agent.</strong> In the alpha, Yui has no agent of its own: a new account stays quiet until you

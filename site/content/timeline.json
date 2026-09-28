@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 300,
-    "site": 665,
+    "app": 305,
+    "site": 671,
     "builds": 44,
-    "shipped": 325,
-    "screenshots": 797
+    "shipped": 328,
+    "screenshots": 805
   },
   "days": [
     {
@@ -13,7 +13,86 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T11:41:50.798Z",
+          "at": "2026-09-28T13:16:41.851Z",
+          "title": "Meet the crew: one page for Yui and the five starter agents",
+          "card": "SITE-82",
+          "anchor": "meet-the-crew-one-page-for-yui-and-the-five-starter-agents",
+          "images": [
+            {
+              "src": "/progress/site82-crew-light.webp",
+              "alt": "The crew page on a phone: Meet the crew, with six faces in a row, Yui, the trainer, Basil, Gouda, Penny and Quill"
+            },
+            {
+              "src": "/progress/site82-musician-dark.webp",
+              "alt": "Dark mode: Gouda the musician, three tools marked In the next build, and his beat flow live on a phone"
+            },
+            {
+              "src": "/progress/site82-nutritionist-desktop.webp",
+              "alt": "Desktop: Basil the nutritionist beside his plate to macros flow"
+            },
+            {
+              "src": "/progress/site82-crew-desktop-dark.webp",
+              "alt": "Desktop in dark mode: the crew row and Yui's first screen, Where do you want to start"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 305,
+            "site": 671,
+            "builds": 44,
+            "shipped": 328
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T12:51:49.000Z",
+          "title": "See it's live-only entries, shot on real test runs",
+          "card": "SITE-80",
+          "anchor": "see-it-s-live-only-entries-shot-on-real-test-runs",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 302,
+            "site": 670,
+            "builds": 44,
+            "shipped": 327
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T12:16:06.000Z",
+          "title": "Gouda's tools in the app: learn a song, a click that logs itself, a beat that stays",
+          "card": "YUI-184",
+          "anchor": "gouda-s-tools-in-the-app-learn-a-song-a-click-that-logs-itself-a-beat-that-stays",
+          "images": [
+            {
+              "src": "/progress/yui184-app-light-4-send.webp",
+              "alt": "Learn a song on one screen: what key, as written, and how fast to start, 75% picked, then Let's play"
+            },
+            {
+              "src": "/progress/yui184-app-light-5-chords.webp",
+              "alt": "Stand By Me in A: the click at 89, 75% of 118, and A, F#m, D and E on big buttons"
+            },
+            {
+              "src": "/progress/yui184-app-dark-6-bar-looped.webp",
+              "alt": "Dark mode: looping bar 3 at half speed, the buttons are now F#m and D"
+            },
+            {
+              "src": "/progress/yui184-app-dark-8-practice.webp",
+              "alt": "Dark mode: Gouda's Practice page, a 1 day streak, 1 min this week and a chart of minutes by day"
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 302,
+            "site": 668,
+            "builds": 44,
+            "shipped": 326
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T11:42:17.000Z",
           "title": "Basil's week on the web: a day a page, a swap on one tap",
           "card": "SITE-81",
           "anchor": "basil-s-week-on-the-web-a-day-a-page-a-swap-on-one-tap",
@@ -35,10 +114,10 @@
               "alt": "Monday's page of the week deck in light mode, three meals to swap"
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
-            "app": 300,
-            "site": 665,
+            "app": 301,
+            "site": 666,
             "builds": 44,
             "shipped": 325
           }
@@ -363,7 +442,7 @@
               "alt": "The evening review: 2 done today, pay the water bill and groceries, 3 still open"
             }
           ],
-          "commits": 4,
+          "commits": 5,
           "totals": {
             "app": 290,
             "site": 644,
@@ -427,7 +506,7 @@
               "alt": "The Looper with a saved beat, Night drive, and Open a beat with every session"
             }
           ],
-          "commits": 2,
+          "commits": 4,
           "totals": {
             "app": 287,
             "site": 641,
@@ -789,6 +868,83 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "9e4fb65",
+          "at": "2026-09-28T13:15:28.000Z",
+          "text": "A put the store refuses is mended where the meaning is plain, and the live grocery e2e (YUI-188)",
+          "url": "https://github.com/postscarcityai/yui/commit/9e4fb65"
+        },
+        {
+          "repo": "site",
+          "sha": "1b043b2",
+          "at": "2026-09-28T13:14:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1b043b2"
+        },
+        {
+          "repo": "app",
+          "sha": "bf1e18a",
+          "at": "2026-09-28T13:09:58.000Z",
+          "text": "Basil's grocery list just works: missing starter tables arrive once, a put makes its own table, a slip is one small card (YUI-188)",
+          "url": "https://github.com/postscarcityai/yui/commit/bf1e18a"
+        },
+        {
+          "repo": "app",
+          "sha": "8251d9f",
+          "at": "2026-09-28T13:06:43.000Z",
+          "text": "Penny's tools in the app: reminders on the phone's clock, the brain dump by voice or typed, a Today tick reaches her, This week keeps...",
+          "url": "https://github.com/postscarcityai/yui/commit/8251d9f"
+        },
+        {
+          "repo": "site",
+          "sha": "eb03689",
+          "at": "2026-09-28T12:51:49.000Z",
+          "text": "See it: the live-only app entries, shot on real test runs (SITE-80)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/eb03689"
+        },
+        {
+          "repo": "site",
+          "sha": "650ba91",
+          "at": "2026-09-28T12:41:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/650ba91"
+        },
+        {
+          "repo": "site",
+          "sha": "5f5b147",
+          "at": "2026-09-28T12:16:06.000Z",
+          "text": "Progress: Gouda's tools in the app, learn a song, a click that logs itself, a beat that stays (YUI-184)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5f5b147"
+        },
+        {
+          "repo": "site",
+          "sha": "8a42eff",
+          "at": "2026-09-28T12:11:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8a42eff"
+        },
+        {
+          "repo": "app",
+          "sha": "7b64006",
+          "at": "2026-09-28T11:42:55.000Z",
+          "text": "yui-mcp: sync the YL parser for page forward and standing pages (SITE-81, yuigui 2051202)",
+          "url": "https://github.com/postscarcityai/yui/commit/7b64006"
+        },
+        {
+          "repo": "site",
+          "sha": "2051202",
+          "at": "2026-09-28T11:42:17.000Z",
+          "text": "Basil's week on the web stage: a titled question in a deck is a page, a redraw beside an answer keeps you on it (SITE-81)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2051202"
+        },
+        {
+          "repo": "app",
+          "sha": "c4384b9",
+          "at": "2026-09-28T11:41:45.000Z",
+          "text": "Gouda's tools in the app: a beat on the Looper kept on the phone until Send, the chord grid redraws on a looped bar, a click stopped by...",
+          "url": "https://github.com/postscarcityai/yui/commit/c4384b9"
+        },
         {
           "repo": "site",
           "sha": "df8dc23",
