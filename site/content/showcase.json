@@ -202,7 +202,7 @@
       "title": "Yui 0.5.2",
       "lede": "What reached phones with Yui 0.5.2 (build 288, Sep 28): the screen dots are back, and the screens slide with your finger instead of fading.",
       "entries": [
-        {"id": "screen-dots", "title": "The dots are back and slide with you", "what": "A small row of dots in the agent's colors sits over the bar when it has more than one screen. Drag and the screen moves with your finger while the dot stretches and slides to the next one. Tap a dot to jump.", "cards": ["YUI-187"], "agent": "Arnold", "app": "native", "clip": "stage-dots-9x16", "shots": ["/progress/yui187-arnold-dots-light.webp", "/progress/yui187-mid-slide-light.webp", "/progress/yui187-dots-screen2-light.webp", "/progress/yui187-dots-screen3-dark.webp"]}
+        {"id": "screen-dots", "title": "The screen dots, in the bottom bar", "what": "A small row of dots in the agent's colors sits in the bottom bar, centered between the page arrows and +, T and the mic, and slides over when the arrows show. Drag and the dot stretches and slides to the next one. Tap a dot to jump.", "cards": ["YUI-187", "YUI-189"], "agent": "Arnold", "app": "native", "clip": "stage-dots-bar-9x16", "shots": ["/progress/yui189-bar-arrows-dark.webp", "/progress/yui189-bar-plain-light.webp", "/progress/yui187-mid-slide-light.webp", "/progress/yui189-bar-arrows-375-light.webp"]}
       ]
     },
     {
