@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 283,
-    "site": 635,
+    "app": 284,
+    "site": 636,
     "builds": 44,
-    "shipped": 310,
-    "screenshots": 735
+    "shipped": 311,
+    "screenshots": 739
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T06:54:38.266Z",
+          "at": "2026-09-28T06:55:57.676Z",
+          "title": "The trainer's flow: a check-in that ends on the timer",
+          "card": "SITE-70",
+          "anchor": "the-trainer-s-flow-a-check-in-that-ends-on-the-timer",
+          "images": [
+            {
+              "src": "/progress/site70-chat-hurt.webp",
+              "alt": "The site chat on a phone, step 5 of 9: We work around it. Sharp or joint pain means rest that spot."
+            },
+            {
+              "src": "/progress/site70-chat-timer.webp",
+              "alt": "After Send: Bodyweight circuit, 20 rounds, 40 on and 20 off, squat and reverse lunge, nothing for your shoulders today, and the timer with Start"
+            },
+            {
+              "src": "/progress/site70-sore-light.webp",
+              "alt": "In the playground, light: Anything sore? with Back picked"
+            },
+            {
+              "src": "/progress/site70-session-dark.webp",
+              "alt": "The session page a bad night picks: Easy session, 30s on and 30s off, four moves"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 284,
+            "site": 636,
+            "builds": 44,
+            "shipped": 311
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T06:55:09.000Z",
           "title": "Your nutritionist plans your meals",
           "card": "YUI-183",
           "anchor": "your-nutritionist-plans-your-meals",
@@ -35,10 +67,10 @@
               "alt": "The grocery list: 51 to get, grouped by aisle with ticks"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
-            "app": 283,
-            "site": 635,
+            "app": 284,
+            "site": 636,
             "builds": 44,
             "shipped": 310
           }
@@ -301,6 +333,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "58a5992",
+          "at": "2026-09-28T06:55:09.000Z",
+          "text": "Your nutritionist plans your meals: Basil's plan, his week and his pages in the playground, See it and the ship log (YUI-183)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/58a5992"
+        },
+        {
+          "repo": "app",
+          "sha": "aea05cd",
+          "at": "2026-09-28T06:54:57.000Z",
+          "text": "The plugin knows the trainer's flow: trainer-session in the saved flows copy (SITE-70)",
+          "url": "https://github.com/postscarcityai/yui/commit/aea05cd"
+        },
         {
           "repo": "app",
           "sha": "fffb5bd",

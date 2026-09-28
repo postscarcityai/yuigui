@@ -13,6 +13,7 @@ import { MODEL, turn } from "../../../lib/chat/model.mjs";
 import { COOKIE, FREE_TURNS, MAX_TURNS, hashIp, newSession, readSession, sessionCookie } from "../../../lib/chat/session.mjs";
 import { markVerified, saveContact, saveNote, saveTurn } from "../../../lib/chat/store.mjs";
 import { LINE_KIND, feedbackNotes } from "../../../lib/chat/feedback.mjs";
+import { sessionReply } from "../../../lib/yl/starter-flows.mjs";
 import { clip, insertInvite, readContact } from "../../../lib/invite.mjs";
 
 export const dynamic = "force-dynamic";
@@ -115,8 +116,11 @@ export async function POST(req) {
   }
 
   const path = clip(body.path, 300) || "/";
+  // The trainer's flow (SITE-70) is answered with no model turn: the session its answers picked, and the timer.
+  const session = sessionReply(ev);
   let out;
-  try {
+  if (session) out = { reply: `${session.text}\n\n\`\`\`yui\n${session.lines.join("\n")}\n\`\`\``, actions: [], notes: [], tools: [] };
+  else try {
     out = await turn({ system: brief({ path, title: clip(body.title, 120) }), history: historyOf(body.history), text, canAsk: s.turns >= 2 && !s.asked && !s.contact });
   } catch (e) {
     console.error("chat turn failed", MODEL(), e.message);

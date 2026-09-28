@@ -480,6 +480,7 @@ export const INTENTS = {
   "website-intake": ["client intake", "get a client's website brief", "plan a website with a client", "scope a site redesign or shop"],
   "self-scope": ["scope a project", "turn an idea into a plan", "size up work"],
   "workout-checkin": ["check in before a workout", "ask about sleep and soreness", "adjust a training plan"],
+  "trainer-session": ["build a workout from a check-in", "a workout for the time and gear I have", "start an interval timer after a check-in"],
   onboarding: ["onboard a new user", "first run welcome", "learn about someone and suggest agents"],
   connect: ["connect tools", "ask permission to use apps", "set up integrations"],
   "restaurant-intake": ["restaurant website intake", "plan a site for a restaurant or cafe", "menu and online orders", "make a variant of a flow"],

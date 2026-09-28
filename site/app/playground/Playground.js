@@ -27,6 +27,7 @@ import { VisualizerDemo } from "./visualizer";
 import { mealReply } from "./meal";
 import { WorkingRow, useWorkingTurn } from "./working";
 import { starterReply } from "./starter";
+import { sessionReply } from "../../lib/yl/starter-flows.mjs";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA, ...RELEASE];
@@ -349,7 +350,8 @@ export default function Playground({ release = "" }) {
       emits.current.set(k, (value) => {
         const ev = { id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) };
         setEvents((evs) => [{ dir: "user", t: new Date(), ev }, ...evs].slice(0, 40));
-        const reply = demoReply(ev) || musicReply(ev) || mealReply(ev, idsRef.current) || starterReply(ev);
+        const session = sessionReply(ev);
+        const reply = demoReply(ev) || musicReply(ev) || mealReply(ev, idsRef.current) || starterReply(ev) || (session && [`say "${session.text}"`, ...session.lines]);
         if (reply) [].concat(reply).forEach((l, i) => setTimeout(() => agentRef.current(l), 700 + i * 250));
       });
     }

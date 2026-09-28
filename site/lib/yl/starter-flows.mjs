@@ -198,7 +198,80 @@ export const STARTER_FLOWS = [
   %% skip: page "Nothing connected, and that's fine" body="Your agent works without them. Connect a tool any time from the drawer."
   skip[Nothing yet] --> fin`,
   },
+  {
+    // The crew's own flows (SITE-70 to SITE-74): each member walks you from a check-in to its tool.
+    // Arnold, the trainer, from workout-checkin: the answers pick the session, sessionReply runs it.
+    name: "trainer-session",
+    id: "session",
+    title: "Today's session",
+    submit: "Start the timer",
+    agent: "Coach",
+    blurb: "The trainer's check-in: sleep, anything sore, minutes free, your gear. The answers pick the session, then the interval timer runs it.",
+    source: `flowchart TD
+  %% hi: page "Let's build today's session" body="Four quick questions. Your answers pick the moves and the intervals, then the timer runs it." points="How you slept|Anything sore|Minutes free|Your gear"
+  hi([Start]) --> sleep
+  %% sleep: slide "How did you sleep?" 1-10 Awful|Great
+  sleep[Sleep] --> sore
+  %% sore: pick "Anything sore?" Legs|Back|Shoulders|Arms|Nothing
+  sore[Sore spots]
+  sore -->|sore=Nothing| minutes
+  sore --> hurt
+  %% hurt: choose "Sore, or does it hurt?" "Just sore"|"It hurts"
+  hurt{Sore or hurt?}
+  hurt -->|It hurts| rest
+  hurt --> minutes
+  %% rest: page "We work around it" body="Sharp or joint pain means rest that spot. Today's moves skip it. If it keeps hurting, see a doctor."
+  rest[Work around it] --> minutes
+  %% minutes: slide "Minutes free?" 10-45 step=5 value=20 unit=min
+  minutes[Minutes] --> gear
+  %% gear: choose "What do you have?" "Just me"|Dumbbells|Kettlebell|Bands
+  gear[Gear] --> build{Build it}
+  build -->|sleep<5| easy
+  build -->|minutes<=15| quick
+  build -->|gear=Just me| body
+  build --> loaded
+  %% easy: page "Easy session" body="Short sleep, so we keep it light. Long rests, no grinding. It still counts." points="30s on, 30s off|Squat to a chair|Wall push-up|Glute bridge|Dead bug"
+  easy[Easy] --> warm
+  %% quick: page "Quick hit" body="Short on time, so short and hard. All out for 20, rest 10." points="20s on, 10s off|Squat|Push-up|Mountain climber|Jumping jack"
+  quick[Quick] --> warm
+  %% body: page "Bodyweight circuit" body="No gear, no problem. You are the weight." points="40s on, 20s off|Squat|Push-up|Reverse lunge|Plank"
+  body[Bodyweight] --> warm
+  %% loaded: page "Strength circuit" body="You have gear, so we load the big moves. Dumbbell, kettlebell or band, same four." points="45s on, 15s off|Goblet squat|Row|Overhead press|Romanian deadlift"
+  loaded[Strength] --> warm
+  %% warm: choose "Warm up first?" "Yes, 3 minutes"|"I'm warm"
+  warm{Warm up?}
+  warm -->|Yes, 3 minutes| warmup
+  warm --> go
+  %% warmup: page "Warm-up, 3 minutes" body="Do these now, easy pace. Then start the timer." points="Arm circles, 30s|Hip circles, 30s|Squats, 1 min|March in place, 1 min"
+  warmup[Warm-up] --> go((Timer))`,
+  },
 ];
+
+// The trainer's answer to trainer-session's event: the session its page showed, as the lines that
+// run it. A move that hits a spot that hurts is left out. The playground plays it as the stand-in
+// reply and the site chat sends it with no model turn, so the timer always matches the page.
+const SESSIONS = {
+  easy: { label: "Easy session", work: 30, rest: 30, moves: [["Squat to a chair", "Legs"], ["Wall push-up", "Shoulders Arms"], ["Glute bridge", "Back"], ["Dead bug", ""]] },
+  quick: { label: "Quick hit", work: 20, rest: 10, moves: [["Squat", "Legs"], ["Push-up", "Shoulders Arms"], ["Mountain climber", "Shoulders"], ["Jumping jack", "Legs"]] },
+  body: { label: "Bodyweight circuit", work: 40, rest: 20, moves: [["Squat", "Legs"], ["Push-up", "Shoulders Arms"], ["Reverse lunge", "Legs"], ["Plank", "Shoulders"]] },
+  loaded: { label: "Strength circuit", work: 45, rest: 15, moves: [["Goblet squat", "Legs"], ["Row", "Back Arms"], ["Overhead press", "Shoulders Arms"], ["Romanian deadlift", "Back Legs"]] },
+};
+export function sessionReply(ev) {
+  if (ev?.preset !== "flow" || ev.id !== "session" || !ev.flow) return null;
+  const a = ev.flow;
+  const s = SESSIONS[(ev.path || []).find((id) => SESSIONS[id])];
+  if (!s) return null;
+  // Only the flow's own areas: the event comes from the visitor, and these words land in the reply.
+  const hurts = a.hurt === "It hurts" ? ["Legs", "Back", "Shoulders", "Arms"].filter((x) => [].concat(a.sore || []).includes(x)) : [];
+  const moves = s.moves.filter(([, hits]) => !hurts.some((h) => hits.split(" ").includes(h))).map(([m]) => m);
+  for (const m of ["Dead bug", "March in place"]) if (moves.length < 2 && !moves.includes(m)) moves.push(m);
+  const warm = a.warm === "Yes, 3 minutes";
+  const mins = Math.max(5, (Number(a.minutes) || 20) - (warm ? 3 : 0));
+  const rounds = Math.max(4, Math.round((mins * 60) / (s.work + s.rest)));
+  const text = `${s.label}: ${rounds} rounds, ${s.work} on, ${s.rest} off. One move a round: ${moves.join(", ").toLowerCase()}.${hurts.length ? ` Nothing for your ${hurts.join(" or ").toLowerCase()} today.` : ""} Hit start.`;
+  // One line and the timer: on the chat's stage the line takes the timer as its picture, one chunk.
+  return { text, lines: [`timer@session ${s.work}/${s.rest}x${rounds} "${s.label}"`] };
+}
 
 // Variants (spec/FLOWS.md, section 9): a saved flow with a few lines changed,
 // kept as its base's name plus the lines, never a copy of the chart. The

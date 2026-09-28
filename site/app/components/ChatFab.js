@@ -287,7 +287,7 @@ export default function ChatFab() {
     // A sent flow (SITE-68) is one answer for the whole run of screens: it always goes to Yui.
     if (busy || (!relays(ev, echoFor(ev)) && !(ev.preset === "flow" && ev.flow))) return;
     if (ev.id === "contact" && ev.preset === "form") { trackCta("chat-contact", "chat"); send("[yui] contact form sent", undefined, "Sent my details", ev); }
-    else send(tapLine(ev), undefined, tapLabel(ev), ev.preset === "plan" ? ev : undefined);
+    else send(tapLine(ev), undefined, tapLabel(ev), ev.preset === "plan" || ev.preset === "flow" ? ev : undefined);
   }, [busy, send, share]);
 
   // Several questions answered with one Send: a plan goes as one event, loose ones in line order.

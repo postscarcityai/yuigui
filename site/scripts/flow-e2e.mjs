@@ -4,7 +4,7 @@
 //   npx next dev -p 3117 &   then   node scripts/flow-e2e.mjs
 // BASE overrides the playground URL; PLAYWRIGHT the Playwright module to load.
 import { parse, resolve, flowEvent, flowPath } from "../lib/yl/yl.mjs";
-import { STARTER_FLOWS, flowLines, savedGraph } from "../lib/yl/starter-flows.mjs";
+import { STARTER_FLOWS, flowLines, savedGraph, sessionReply } from "../lib/yl/starter-flows.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT || "playwright");
 const BASE = process.env.BASE || "http://localhost:3117/playground";
 const graph = (f) => resolve("flow", parse(flowLines(f)).find((o) => o.op === "patch").props);
@@ -91,6 +91,10 @@ const SC = [
   ["connect", "calendar only, allow", { tools: ["Google Calendar"], cal: "Allow" }],
   ["connect", "gmail and hubspot, mail not now", { tools: ["Gmail", "HubSpot"], mail: "Not now", crm: "Allow" }],
   ["connect", "hubspot only, not now: nothing connected", { tools: ["HubSpot"], crm: "Not now" }],
+  ["trainer-session", "bad night, back hurts: easy, warm up", { sleep: 3, sore: ["Back"], hurt: "It hurts", minutes: 30, gear: "Dumbbells", warm: "Yes, 3 minutes" }],
+  ["trainer-session", "10 minutes, legs just sore: quick hit", { sleep: 7, sore: ["Legs"], hurt: "Just sore", minutes: 10, gear: "Kettlebell", warm: "I'm warm" }],
+  ["trainer-session", "no gear: bodyweight, warm up", { sleep: 8, sore: ["Nothing"], minutes: 30, gear: "Just me", warm: "Yes, 3 minutes" }],
+  ["trainer-session", "dumbbells, 45 minutes: strength", { sleep: 9, sore: ["Nothing"], minutes: 45, gear: "Dumbbells", warm: "I'm warm" }],
 ];
 for (const [name, label, plan] of SC) {
   const f = STARTER_FLOWS.find((x) => x.name === name);
@@ -130,6 +134,15 @@ for (const [name, label, plan] of SC) {
   for (const [k, v] of Object.entries(want.flow)) if (v !== "form") ok(JSON.stringify(ev.flow[k]) === JSON.stringify(v), `answer ${k}=${JSON.stringify(ev.flow[k])} want ${JSON.stringify(v)}`);
   ok(ev.preset === "flow" && ev.id === f.id, "event id and preset");
   ok((await pg.locator(".pg-ev.user").count()) === 1, "exactly one event for the whole flow");
+  // The trainer answers its flow with the session it picked and the interval timer (SITE-70).
+  const session = sessionReply(ev);
+  if (f.name === "trainer-session") {
+    ok(!!session, "trainer-session: the event builds a session");
+    await pg.waitForTimeout(1600);
+    const [, want] = session.lines[0].match(/ (\d+\/\d+x\d+) /);
+    ok((await pg.locator(".pg-ev", { hasText: `timer@session ${want}` }).count()) === 1, `the reply sends timer@session ${want}`);
+    ok((await pg.locator(".yl-timer").count()) >= 1, "the interval timer is on screen");
+  } else ok(!session, "no session reply for other flows");
   ok(pg.errs.length === 0, `no page errors ${pg.errs}`);
   await pg.close();
 }

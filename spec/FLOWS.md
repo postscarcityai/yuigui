@@ -134,6 +134,10 @@ Every Yui has five: three from real work, the first run, and connecting your too
 - **`onboarding`**, meet Yui (YUI-38). Your name, how much you know about AI (brand new gets a page on what an agent is, 4 and up asks if you run one), what you want help with, in taps and then your own words. Suggests two starter agents from those answers, lets you pick, and ends on how to connect them today. The whole interview: [Onboarding](ONBOARDING.md).
 - **`connect`**, connect your tools (YUI-39). Pick Google Calendar, Gmail or HubSpot; each one picked gets its own consent step with its scopes in plain words, Allow or Not now; then what the agent sees, and what comes next: a sign-in button per tool allowed, or nothing connected. The sign-in buttons come from the agent after the event, never from the flow: [Connectors](CONNECTORS.md).
 
+The crew brings its own (SITE-70 to SITE-74), each from a check-in to that member's tool:
+
+- **`trainer-session`**, the trainer's session. Sleep, anything sore (a real hurt gets a work-around-it page), minutes free, gear. The answers pick the session page (a bad night gets an easy one, 15 minutes or less a quick hit, no gear a bodyweight circuit, else a strength circuit), then a warm-up if you want one. Its `{flow}` event is answered with the moves, minus any that hit a spot that hurts, and the interval timer on the stage (`sessionReply` in site/lib/yl/starter-flows.mjs; the site chat sends it with no model turn).
+
 To tailor one to a person, the agent sends a variant with only what changes (section 9), or, for new branches, the whole flow inline with its own wording, keeping the ids and edges so the answers still line up.
 
 ## 9. Variants
