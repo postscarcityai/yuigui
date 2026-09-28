@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 262,
-    "site": 596,
+    "app": 266,
+    "site": 597,
     "builds": 41,
-    "shipped": 294,
-    "screenshots": 689
+    "shipped": 295,
+    "screenshots": 693
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T01:48:05.299Z",
+          "at": "2026-09-28T01:52:40.301Z",
+          "title": "Log a meal without weighing",
+          "card": "YUI-103",
+          "anchor": "log-a-meal-without-weighing",
+          "images": [
+            {
+              "src": "/progress/yui103-answer-light.webp",
+              "alt": "Basil's thread: a photo of grilled salmon with salad, the words lunch, cooked in a little butter, and Basil's answer at once: Got it, working out the macros."
+            },
+            {
+              "src": "/progress/yui103-breakdown-light.webp",
+              "alt": "The breakdown: a table of salmon, butter, avocado, lettuce, tomato and sauce with calories, protein, carbs and fat and a total of 504 kcal, today so far, and a donut of today's macros."
+            },
+            {
+              "src": "/progress/yui103-words-light.webp",
+              "alt": "A meal said in words: Breakfast, two eggs and toast with butter, as a table with a total of 327 kcal and today's macros as a donut."
+            },
+            {
+              "src": "/progress/yui103-answer-dark.webp",
+              "alt": "The same answer at once in dark mode: the salmon photo, the note about butter and Got it, working out the macros."
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 266,
+            "site": 597,
+            "builds": 41,
+            "shipped": 295
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T01:48:15.000Z",
           "title": "Switch agents, keep your tables",
           "card": "YUI-171",
           "anchor": "switch-agents-keep-your-tables",
@@ -35,10 +67,10 @@
               "alt": "The same Chef screen in light: same table, same rows, a different agent on a different host."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
-            "app": 262,
-            "site": 596,
+            "app": 263,
+            "site": 597,
             "builds": 41,
             "shipped": 294
           }
@@ -1406,6 +1438,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "065d087",
+          "at": "2026-09-28T01:51:06.000Z",
+          "text": "Meal tests load again: one import of short (YUI-103)",
+          "url": "https://github.com/postscarcityai/yui/commit/065d087"
+        },
+        {
+          "repo": "app",
+          "sha": "16f718c",
+          "at": "2026-09-28T01:50:31.000Z",
+          "text": "Meal breakdown: a table that fits a phone, the meal they named, never ask what they said; the live sim proof (YUI-103)",
+          "url": "https://github.com/postscarcityai/yui/commit/16f718c"
+        },
+        {
+          "repo": "app",
+          "sha": "aaa4e1c",
+          "at": "2026-09-28T01:50:18.000Z",
+          "text": "Meal breakdown fits a phone: short food names, no question about what they said (YUI-103)",
+          "url": "https://github.com/postscarcityai/yui/commit/aaa4e1c"
+        },
+        {
+          "repo": "site",
+          "sha": "905af7f",
+          "at": "2026-09-28T01:48:15.000Z",
+          "text": "Switch agents, keep your tables (YUI-171 step 1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/905af7f"
+        },
+        {
+          "repo": "app",
+          "sha": "3fe3dcf",
+          "at": "2026-09-28T01:46:51.000Z",
+          "text": "Meet the agent: its hello plays on first open, the top pill is the one picker, About says what it does (YUI-167)",
+          "url": "https://github.com/postscarcityai/yui/commit/3fe3dcf"
+        },
         {
           "repo": "site",
           "sha": "5886019",

@@ -2,7 +2,7 @@
 
 Take a photo of a meal, get a macro estimate, fix what the agent got wrong, and save it as a row in your meals table. No new words: it is `camera`, `image`, `stat`, `form` and the agent tables from [Agent tables](/developers/tables), in two short replies.
 
-Status: YUI-35. Step 1 (this page and the playground demo) shipped Sep 25. Try it at [/playground?demo=meal](/playground?demo=meal): pick one of the sample photos, change the portion, tap Save, and watch today's totals. Step 2 is the app, and it waits on the phone's table store (YUI-89) and the key vault (YUI-34). Native Basil (YUI-141, [Native Yui](/developers/native)) reads meals now: the estimate, the sure line and the fix form, with no save until the table store lands.
+Status: YUI-35. Step 1 (this page and the playground demo) shipped Sep 25; try it at [/playground?demo=meal](/playground?demo=meal). Step 2 shipped Sep 27 in native Basil (YUI-103, [Native Yui](/developers/native)): send a photo, with any words, and nothing gets weighed. Basil answers at once, works the macros out behind the scenes, then posts one breakdown and keeps each food in your food memory. Section 6 has how it works.
 
 ## 1. The flow
 
@@ -76,3 +76,16 @@ Number each estimate's ids (`meal1`, `fix1`, then `meal2`, `fix2`) so a second p
 ## 5. Sample photos
 
 The three playground photos are CC0 (public domain) from Wikimedia Commons, resized: "Pancakes with Berries (Unsplash)", "Grilled plated salmon fillet" and "Salmon Poke Bowl (S) with Spicy mayo sauce - Kitokito". No people in any of them. The macro numbers are a stand-in written for the demo, not a model's output.
+
+## 6. Step 2: native Basil (YUI-103)
+
+Chris, on build 244: "I don't wanna make the user weigh that much... It should go as a separate task in a queue, analyze behind the scenes, and then update your screens when ready." And: "a full breakdown of all the calories and all the macros, and I don't need eight screens for that."
+
+- **An answer at once.** A photo to Basil, with or without words (hold to snap and say, YUI-166), gets "Got it, working out the macros." in about two seconds, with no model call. It used to sit on Thinking for 14 seconds.
+- **The work runs as a job.** The meal goes into a queue on Yui's server. The model that sees reads the photo and the words and names each item with a portion in plain words ("1 fillet", "a little"), never grams. The runtime does the sums, not the model. A job is claimed once, the minute tick picks up any that stalled, and it gives up after three tries.
+- **One breakdown.** One reply, not a page per number: a line with the total and how sure it is, a table of every item with calories, protein, carbs and fat and a total row, today so far, and one donut of today's macros.
+- **At most one question.** Only when the answer moves the total by about 100 kcal (the oil, the butter, a portion), and never about something they already said ("cooked in a little butter" is not asked again). The tap is applied with no model turn. What they said no to ("no mayo on mine") comes off the plate.
+- **A food memory.** Each food lands in the person's `myfoods` table with its numbers per portion, how often and when last. Next time it is reused with its own numbers, so "my usual oatmeal" means their oatmeal. Every meal is rows in `meals` ([Agent tables](/developers/tables)).
+- **A meal in words** ("two eggs and toast with butter for breakfast") is logged the same way.
+
+The Hermes, MCP and A2A version of this pattern comes with the same tables for any agent (YUI-171); until then the channel guide does not teach it.
