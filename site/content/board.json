@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T22:40:34.024Z",
+  "updated": "2026-09-28T23:10:36.407Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -302,11 +302,6 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
-        },
-        {
-          "key": "SITE-94",
-          "title": "PROP-2 hero, the Jev layer routing turns in a phone",
-          "summary": "One line, yes/no, full screen, map, camera"
         }
       ]
     },
@@ -374,14 +369,6 @@
           "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
         },
         {
-          "key": "SITE-93",
-          "title": "PROP-2 The Jev layer on /proposals, a fast typed decision on every call to an agent"
-        },
-        {
-          "key": "SITE-95",
-          "title": "Checks go green on yuigui main and run before every push, no more failure emails every hour"
-        },
-        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -439,6 +426,25 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-94",
+          "title": "PROP-2 hero, the Jev layer routing turns in a phone",
+          "summary": "The Jev layer, routing turns in a phone",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-jev-layer-routing-turns-in-a-phone"
+        },
+        {
+          "key": "SITE-93",
+          "title": "PROP-2 The Jev layer on /proposals, a fast typed decision on every call to an agent",
+          "summary": "PROP-2: the Jev layer",
+          "shipped": "2026-09-28",
+          "progress": "/progress#prop-2-the-jev-layer"
+        },
+        {
+          "key": "SITE-95",
+          "title": "Checks go green on yuigui main and run before every push, no more failure emails every hour",
+          "shipped": "2026-09-28"
+        },
         {
           "key": "SITE-92",
           "title": "Where Jev fits in Yui, every decision point in a turn and which ones a Jev call should make",
