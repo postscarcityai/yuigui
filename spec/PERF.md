@@ -117,7 +117,7 @@ create policy yui_perf_connector_read on public.yui_perf for select to yui_conne
 ```
 
 - **Only numbers fit.** `name` is a snake_case identifier, `stack` holds frames only, and there is no free-text column. A before-insert trigger drops rows over 500 per account per day (the same pattern as the limits in `yui_limits`), so a stuck loop cannot flood the table.
-- **Owner only.** A person's rows are theirs. The phone writes as `yui_user`; the owner's agents read through `yui_connector`, so Yui (the agent) sees its owner's phones and a shared agent never sees a client's. No role can update or delete a row, and PROOF Auth and the `authenticated` role get nothing.
+- **Owner only.** A person's rows are theirs. The phone writes as `yui_user`; the owner's agents read through `yui_connector`, so Yui (the agent) sees its owner's phones and a shared agent never sees a client's. No role can update or delete a row, and Supabase Auth and the `authenticated` role get nothing.
 - **Retention: 90 days.** A daily job deletes rows older than 90 days; the report keeps its own summary per build (below), so older builds stay comparable after their rows are gone. Deleting the account deletes the rows (`on delete cascade`).
 
 ## 6. The daily report

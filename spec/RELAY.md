@@ -7,7 +7,7 @@ This builds on `spec/AGENTS.md` (who the agents are, how a host is paired) and `
 ## Shape
 
 ```
- Yui app  --REST insert/poll-->  PROOF: yui_messages  <--Realtime + REST--  agent host (Hermes gateway, yui plugin)
+ Yui app  --REST insert/poll-->  yuigui: yui_messages  <--Realtime + REST--  agent host (Hermes gateway, yui plugin)
  (yui_user token)                 RLS on every row                          (yui_connector token)
 ```
 
@@ -217,7 +217,7 @@ On the reference host the `yui` profile serves the Yui agent; `ops` has the plug
 
 ## Media (YUI-21)
 
-Pictures and videos travel as URLs, never inside a message row. They live in one private Storage bucket in PROOF, `yui-media`, at `<user>/<agent>/<from>/<uuid>.<ext>` (`from` is `agent` or `user`). Migration: `supabase/migrations/20260924040000_yui_media.sql` in the app repo.
+Pictures and videos travel as URLs, never inside a message row. They live in one private Storage bucket in the yuigui project, `yui-media`, at `<user>/<agent>/<from>/<uuid>.<ext>` (`from` is `agent` or `user`). Migration: `supabase/migrations/20260924040000_yui_media.sql` in the app repo.
 
 - **Who can do what.** The same two roles as the tables, never `authenticated` or anon. `yui_user` reads and deletes its own media and uploads under `from=user` into its own agents' threads. `yui_connector` reads media in threads it serves and uploads under `from=agent`. Nobody updates or overwrites: a new picture is a new path. Tests: `supabase/tests/media_test.py` (49 live checks, most of them refusals).
 - **Agent to app.** The plugin walks the ```yui fences of every reply. A local media file (absolute path, `~/...`, `file://`) anywhere in a line, and a remote media URL on a media line (`image`, `gallery`, `video`, `compare`, `storyboard`, `page`, `card`), is uploaded and swapped for a signed URL. A `list` or `card` link to a web page stays a link. The bytes decide the type (jpg, png, webp, gif, heic, mp4, mov), not the extension; anything else stays as written. `send_image`, `send_image_file`, `send_video`, `hermes send --to yui` with media and cron deliveries go the same way.

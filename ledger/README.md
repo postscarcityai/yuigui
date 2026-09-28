@@ -2,7 +2,7 @@
 
 The private ledger behind use to earn (OSS-7). The spec is [spec/LEDGER.md](../spec/LEDGER.md), on the site at [yuigui.com/developers/ledger](https://www.yuigui.com/developers/ledger). The thinking is [Use to earn](https://www.yuigui.com/business/use-to-earn).
 
-- `yui_ledger.sql`: the table and two functions. Apply by hand in the SQL editor of the shared Supabase project. Never `supabase db push`.
+- `yui_ledger.sql`: the table and two functions. Apply by hand in the SQL editor of the yuigui Supabase project. Never `supabase db push`.
 - `record.mjs`: the daily recorder. Node 22, no dependencies.
 
 ```

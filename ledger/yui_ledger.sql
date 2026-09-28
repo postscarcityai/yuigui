@@ -1,5 +1,5 @@
 -- The private ledger (OSS-7). Spec: spec/LEDGER.md, rendered at yuigui.com/developers/ledger.
--- Apply by hand in the SQL editor of the shared Supabase project. Never `supabase db push`:
+-- Apply by hand in the SQL editor of the yuigui Supabase project. Never `supabase db push`:
 -- the project is shared with other apps.
 --
 -- Facts about use and contribution, never what anyone said. Rows are only ever added.

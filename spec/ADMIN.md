@@ -93,7 +93,7 @@ The web comes later, only if a support team with laptops needs bulk work (long t
 
 - **No new login.** The person signs in with Apple as usual. `yui-auth` keeps minting the `yui_user` token it mints today. The role is never inside the token.
 - **One admin API.** A new edge function, `yui-admin`, takes every admin call. It checks the caller's token, then reads their role row live on each request and refuses anything the role does not allow. It is the only code that holds admin power. Every call writes one audit row before it answers.
-- **Yui roles only.** Admin power is a row in a Yui table, checked by Yui code. It never uses PROOF Auth, never the shared `authenticated` role, never a Postgres superuser from the phone.
+- **Yui roles only.** Admin power is a row in a Yui table, checked by Yui code. It never uses Supabase Auth, never the shared `authenticated` role, never a Postgres superuser from the phone.
 - **The app only shows.** The Admin section is hidden without a role, but hiding is a courtesy. The API is the lock.
 - **Asking again for destructive actions.** Stop, delete, whole-app stop, limit changes, role grants and flags for everyone need a step-up: Face ID on the phone and a fresh Sign in with Apple, both bound to the action (the Apple nonce carries a hash of the exact request). A step-up lasts for that one action, never a session.
 - **Two people for the biggest ones.** Once there are two super users, the whole-app stop, account delete and granting super user wait for a second person's tap. Until then the owner alone, and the log says so.

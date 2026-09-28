@@ -16,7 +16,7 @@ Name and color are optional. They default from the profile name (`coach` becomes
 
 ## Data model
 
-All tables live in PROOF, `public` schema, and cascade from `yui_users` (`ON DELETE CASCADE`). Deleting the account leaves zero rows (tested).
+All tables live in the yuigui Supabase project, `public` schema, and cascade from `yui_users` (`ON DELETE CASCADE`). Deleting the account leaves zero rows (tested).
 
 ### yui_connectors: one per agent host
 
@@ -107,7 +107,7 @@ Adding a profile that is already registered returns the existing agent. The app'
 3. The agent calls the API:
 
 ```
-POST https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-agents
+POST https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-agents
 apikey: <publishable key>
 Authorization: Bearer yui_mt_...
 

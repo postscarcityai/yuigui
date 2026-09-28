@@ -168,7 +168,7 @@ Clips need to be cheap or they will not happen. Proposal: a `YuiDemo` UI test in
 
 ### 5.4 The scheduler (reuse Vibe Jam's)
 
-Vibe Jam already has a working queue: a posts table, an admin page that shows a week ahead, and a Vercel cron that posts to Instagram and X, with the double-post and token-refresh bugs fixed on Sep 23. Port that code into the yuigui.com site with a `yui_social_posts` table in the PostScarcity AI Supabase project (PROOF, every table prefixed `yui_`). Approved drafts move from `social/queue/` into the table with their slot. Until the handles exist and Chris approves the first batch, this stays unbuilt and nothing posts.
+Vibe Jam already has a working queue: a posts table, an admin page that shows a week ahead, and a Vercel cron that posts to Instagram and X, with the double-post and token-refresh bugs fixed on Sep 23. Port that code into the yuigui.com site with a `yui_social_posts` table in Yui's own Supabase project (yuigui, every table prefixed `yui_`). Approved drafts move from `social/queue/` into the table with their slot. Until the handles exist and Chris approves the first batch, this stays unbuilt and nothing posts.
 
 ### 5.5 Long-form route
 
