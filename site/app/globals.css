@@ -684,6 +684,11 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .screen.light .yl-text { color: #3b3f58; }
 .screen.light .b.in { background: #e9eaf3; color: var(--text); }
 .screen.light .bigbtn.s { background: #eef0f6; color: var(--text); border-color: #dcdfea; }
+/* The timer dial goes light with ink digits (SITE-78: dark disc + dark digits vanished). */
+.screen.light { --yl-track: #e3e4ee; }
+.screen.light .ring .innr { background: #fff; color: var(--yl-ink); }
+.screen.light .rounds span { background: #e3e4ee; }
+.screen.light .rounds span.d { background: var(--arnold); }
 .screen.light .chip { background: #fff; border-color: #d6d9e6; color: var(--text); }
 .screen.light .chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
 .screen.light .yl-seg { background: #eef0f6; }

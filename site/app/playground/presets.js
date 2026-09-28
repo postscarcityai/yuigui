@@ -103,7 +103,7 @@ function Timer({ p, emit }) {
     <div className="yl-timer">
       {p.label ? <div className="lbl" style={{ color: col }}>{p.label}</div> : null}
       {p.rounds > 1 ? <div className="yl-sub">Round {round} of {p.rounds}</div> : null}
-      <div className="ring" style={{ background: `conic-gradient(${col} 0 ${pct}%, #24273a ${pct}% 100%)` }}>
+      <div className="ring" style={{ background: `conic-gradient(${col} 0 ${pct}%, var(--yl-track, #24273a) ${pct}% 100%)` }}>
         <div className="innr">
           <div className="t">{fmt(left)}</div>
           <div className="ph" style={{ color: col }}>{done ? "DONE" : p.up ? "ELAPSED" : phase === "work" ? (p.rest ? "WORK" : "GO") : "REST"}</div>
