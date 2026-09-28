@@ -22,13 +22,19 @@ const TABLES = [
   ["yui_messages", "Your messages, when each was delivered and handled, and your reactions."],
   ["yui_rate_buckets", "Usage counters for limits. Idle ones are deleted after a day."],
   ["yui_pair_attempts", "Wrong pairing codes and the IP they came from, for one day."],
-  ["yui_invites", "Invite requests and invites: name, email, phone, status. Server only."],
+  ["yui_invites", "Invite requests and invites: name, email, phone, status, when the email was confirmed. Server only."],
+  ["yui_mail_threads", "Email conversations with Yui: the other address, subject, where it stands. Server only."],
+  ["yui_mail_messages", "Each email in and out: addresses, subject, words, attachments, delivered or not. Deleted after a year. Server only."],
+  ["yui_mail_contacts", "Each address Yui has emailed or heard from: name, confirmed, news yes or no, unsubscribed, bounced. Server only."],
+  ["yui_mail_events", "Delivery reports from SendGrid: delivered, bounced, marked as spam. Deleted after 90 days. Server only."],
+  ["yui_mail_rules", "The rules Yui answers email by. Nothing about you."],
   ["yui_limits", "The limit numbers themselves. Nothing about you."],
   ["yui_channel_guides", "The guide text agents get. Nothing about you."],
   ["yui_site_chats", "Chats with Yui on yuigui.com: pages, turn count, a hashed IP, and your name, email and phone if you left them. Server only."],
   ["yui_site_chat_messages", "What you and Yui said in a yuigui.com chat. Server only."],
   ["yui_site_chat_notes", "What Yui wrote down from a yuigui.com chat: needs, ideas, bugs. Server only."],
   ["yui-media (storage)", "Photos and pictures in your threads. Private, links expire."],
+  ["yui-mail (storage)", "Attachments in email to Yui. Private, links expire, deleted with the email."],
 ];
 
 export default function Privacy() {
@@ -36,7 +42,7 @@ export default function Privacy() {
     <>
       <div className="eyebrow">Privacy</div>
       <h1>What Yui keeps, and how to delete it.</h1>
-      <p style={{ color: "var(--muted)" }}>Last updated September 27, 2026.</p>
+      <p style={{ color: "var(--muted)" }}>Last updated September 28, 2026.</p>
 
       <h2 id="invites">Invites</h2>
       <p>
@@ -48,10 +54,24 @@ export default function Privacy() {
       </p>
       <ul>
         <li>We use it only to review your request and get you into Yui. Your phone number is for reaching you about your request, never for marketing.</li>
-        <li>When we approve you, we send your name and email to Apple, which adds you to Yui&apos;s TestFlight beta and emails you the invite. We send no email of our own.</li>
+        <li>When we approve you, we send your name and email to Apple, which adds you to Yui&apos;s TestFlight beta and emails you the invite.</li>
+        <li>Yui also emails you, from yuigui.com: a link to confirm your address, and word about your invite. See <a href="#email">Email</a>.</li>
         <li>Your invite also carries a one-time code for a link like yuigui.com/i/&hellip;. We keep only a scrambled (hashed) form of it. It works once.</li>
         <li>When you first sign in to the app, Yui matches your invite by that email, or by the code if you hid your email, and links it to your account.</li>
         <li>An invite we decline is deleted 30 days later. An invite you claimed stays with your account and is deleted with it. To remove a request or an invite you have not used, email us.</li>
+      </ul>
+
+      <h2 id="email">Email</h2>
+      <p>
+        Yui has her own mailbox at yuigui.com, and she runs it herself: she reads what comes in and answers on her own,
+        by rules we write together. Chris, who builds Yui, can read the mailbox too. We send email through SendGrid.
+      </p>
+      <ul>
+        <li>What we keep: every email you send us or we send you (who, when, the subject, the words and any attachments), whether it was delivered, and, for each address, whether you confirmed it, asked for news, or asked us to stop.</li>
+        <li>What we send: a link to confirm your address when you ask for an invite, word about your invite or account, answers to what you write, and news about Yui only if you ticked the box and confirmed.</li>
+        <li>Every news email has a link to stop it, and mail apps&apos; own unsubscribe button works too. You can stop all email from Yui the same way. A bounce or a spam report stops mail to that address.</li>
+        <li>We never sell or share your address. Links in our email are the real links; we don&apos;t track opens or clicks.</li>
+        <li>Mail is deleted a year after the last message in its thread.</li>
       </ul>
 
       <h2 id="chat">Chatting with Yui on this site</h2>
