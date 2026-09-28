@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 267,
-    "site": 600,
+    "app": 270,
+    "site": 605,
     "builds": 41,
-    "shipped": 297,
-    "screenshots": 697
+    "shipped": 299,
+    "screenshots": 702
   },
   "days": [
     {
@@ -13,7 +13,7 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T02:20:01.399Z",
+          "at": "2026-09-28T02:20:06.000Z",
           "title": "One agent opens another",
           "card": "YUI-144",
           "anchor": "one-agent-opens-another",
@@ -35,12 +35,36 @@
               "alt": "Basil's answer in dark mode: salmon, burrito bowl or steak, and a recipe pick."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
-            "app": 267,
-            "site": 600,
+            "app": 269,
+            "site": 602,
             "builds": 41,
-            "shipped": 297
+            "shipped": 299
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T02:14:13.000Z",
+          "title": "Every agent has a home",
+          "card": "YUI-168",
+          "anchor": "every-agent-has-a-home",
+          "images": [
+            {
+              "src": "/progress/yui168-app-gouda-looper-dark.webp",
+              "alt": "Gouda's second screen: the looper, ready to play"
+            },
+            {
+              "src": "/progress/yui168-app-yui-crew-light.webp",
+              "alt": "Yui's crew page: a card per agent with what it does and an Open button"
+            }
+          ],
+          "commits": 6,
+          "totals": {
+            "app": 268,
+            "site": 601,
+            "builds": 41,
+            "shipped": 298
           }
         },
         {
@@ -69,10 +93,10 @@
           ],
           "commits": 5,
           "totals": {
-            "app": 266,
+            "app": 267,
             "site": 599,
             "builds": 41,
-            "shipped": 296
+            "shipped": 297
           }
         },
         {
@@ -84,8 +108,36 @@
           "images": [],
           "commits": 2,
           "totals": {
-            "app": 266,
+            "app": 267,
             "site": 598,
+            "builds": 41,
+            "shipped": 296
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T01:48:15.000Z",
+          "title": "Your tables work with any agent",
+          "card": "YUI-171",
+          "anchor": "your-tables-work-with-any-agent",
+          "images": [
+            {
+              "src": "/progress/yui171-site-calls-light.webp",
+              "alt": "The real calls from the live test: Basil on Hermes makes a foods table with yui_tables, Claude over MCP hears No table called foods yet, a delete waits on Delete or Keep, the person gives foods to Claude, and Claude reads the same rows."
+            },
+            {
+              "src": "/progress/yui171-site-calls-dark.webp",
+              "alt": "The same five calls in dark mode."
+            },
+            {
+              "src": "/progress/yui171-site-top-dark.webp",
+              "alt": "The switch agents page, now marked Live for Hermes and MCP, with the Basil and Chef phones."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 264,
+            "site": 597,
             "builds": 41,
             "shipped": 295
           }
@@ -116,7 +168,7 @@
           ],
           "commits": 1,
           "totals": {
-            "app": 263,
+            "app": 264,
             "site": 597,
             "builds": 41,
             "shipped": 294
@@ -262,7 +314,7 @@
               "alt": "Dark mock of Gouda's screen 4: a keyboard in C major ready to play, after the looper and the chords"
             }
           ],
-          "commits": 1,
+          "commits": 6,
           "totals": {
             "app": 251,
             "site": 584,
@@ -298,7 +350,7 @@
               "alt": "On a phone: the light page, then the chat full screen and dark, Meet the crew with five names to tap, and Quill's quiz deck after tapping Quill"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 251,
             "site": 582,
@@ -1486,11 +1538,60 @@
       ],
       "commits": [
         {
+          "repo": "site",
+          "sha": "e4beb4e",
+          "at": "2026-09-28T02:41:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e4beb4e"
+        },
+        {
+          "repo": "site",
+          "sha": "a0d1083",
+          "at": "2026-09-28T02:39:48.000Z",
+          "text": "Site chat reads like a chat, phones stay under the nav, New chat starts over (SITE-65)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a0d1083"
+        },
+        {
+          "repo": "site",
+          "sha": "9d00cd4",
+          "at": "2026-09-28T02:25:28.000Z",
+          "text": "Progress: YUI-168 test count after the rebase onto YUI-144",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9d00cd4"
+        },
+        {
+          "repo": "app",
+          "sha": "94829f5",
+          "at": "2026-09-28T02:25:16.000Z",
+          "text": "Crew links open, hand-offs jump: yui://agent/<id>/thread is never a hand-off; the home line in the channel guide (YUI-168)",
+          "url": "https://github.com/postscarcityai/yui/commit/94829f5"
+        },
+        {
+          "repo": "site",
+          "sha": "2a2d5ad",
+          "at": "2026-09-28T02:20:06.000Z",
+          "text": "Progress + spec: one agent opens another, the hand-off card (YUI-144)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2a2d5ad"
+        },
+        {
           "repo": "app",
           "sha": "417e215",
           "at": "2026-09-28T02:19:16.000Z",
           "text": "One agent opens another: a hand-off card jumps the phone to that agent's thread with the note (YUI-144)",
           "url": "https://github.com/postscarcityai/yui/commit/417e215"
+        },
+        {
+          "repo": "site",
+          "sha": "7105361",
+          "at": "2026-09-28T02:14:13.000Z",
+          "text": "Every agent has a home: spec built, no dots, one channel guide line, progress with app shots (YUI-168)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7105361"
+        },
+        {
+          "repo": "app",
+          "sha": "420ecdf",
+          "at": "2026-09-28T02:12:37.000Z",
+          "text": "Every agent's home on the stage: its chips, what's waiting on you, starter screens a swipe away, no dots (YUI-168)",
+          "url": "https://github.com/postscarcityai/yui/commit/420ecdf"
         },
         {
           "repo": "site",
@@ -1547,6 +1648,13 @@
           "at": "2026-09-28T01:46:51.000Z",
           "text": "Meet the agent: its hello plays on first open, the top pill is the one picker, About says what it does (YUI-167)",
           "url": "https://github.com/postscarcityai/yui/commit/3fe3dcf"
+        },
+        {
+          "repo": "app",
+          "sha": "29633de",
+          "at": "2026-09-28T01:44:46.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yui/commit/29633de"
         },
         {
           "repo": "site",

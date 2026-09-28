@@ -162,7 +162,7 @@ list title="Still to get" "Bread · 1 loaf · Bakery" "Eggs · 1 dozen · Dairy"
 
 ## 8. Any agent: the same tables through the relay
 
-Status: YUI-171, planned. Step 1 is this section and the [switch agents mock](/mockups/tables). Step 2 builds it in the app repo: the Hermes plugin tools, the yui-mcp tools and the bridge endpoints. Until step 2 ships, section 4 holds: a connected agent's tables stay on the phone.
+Status: YUI-171. Built (step 2, Sep 27): the server call (`yui-connect/tables`), the Hermes tool and the yui-mcp tool `yui_tables`, deletes held for a tap, the 100-table and 60-a-minute limits, and hand over as a server call (`yui_tables_give`, the person's own token). The [switch agents page](/mockups/tables) shows the real calls from the live test. Not built yet: table lines inside a connected agent's reply, the A2A and webhook fields, and the app side (Controls > Tables with Give to... and last read, the ask when you add or remove an agent). Until the reply path ships, a connected agent keeps server tables through the call only.
 
 Tables live in Yui, not in one agent framework. A Hermes agent, a Claude agent over MCP, an A2A agent or a webhook script gets the same three words and the same screens a native agent gets (section 7). Pick a different agent next month and your tables are still there.
 
@@ -207,7 +207,7 @@ Tables follow the person, not the agent.
 - **When you add an agent,** Yui asks once if other agents hold tables: "Basil keeps foods and meals. Give them to Chef?" Yes hands them over. No leaves them where they are.
 - **When you remove an agent,** its tables are no longer deleted with it: Yui asks "Keep Basil's 2 tables?" Kept tables wait, held by nobody, for 30 days. Give them to any agent in that time, or they are deleted. Deleting the account deletes them all at once.
 - **Same name twice.** If the new agent already has a `foods`, the handed table is offered as `foods-basil`; the person can rename it before it moves.
-- **The agent learns what it has.** After a hand over, the new agent's next turn opens with one line: `[yui] tables foods(44 rows: Food, Cal, Protein, Carbs, Fat, Portion) meals(12 rows: Day, Food, Cal, Protein)`. It needs no memory of the old agent to carry on.
+- **The agent learns what it has.** A call with no lines settles any taps and lists what the agent holds. After a hand over, the new agent's next turn opens with one line: `[yui] tables foods(44 rows: Food, Cal, Protein, Carbs, Fat, Portion) meals(12 rows: Day, Food, Cal, Protein)`. It needs no memory of the old agent to carry on.
 - **Screens do not change.** A pinned `query` screen keeps drawing after the hand over; it names the table, not the agent.
 
 ### Limits for any agent

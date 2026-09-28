@@ -66,3 +66,15 @@
 
 .tm-wire { width: 360px; max-width: calc(100vw - 24px); display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
 .tm-wire code { display: block; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--line, rgba(127,127,127,.3)); color: var(--text); font-size: 12px; white-space: pre-wrap; word-break: break-all; }
+
+/* The real calls (step 2) */
+.tm-live { max-width: 760px; margin: 48px auto 0; display: grid; gap: 14px; }
+.tm-live h2 { font-size: 28px; margin: 0; }
+.tm-live > p { color: var(--muted); line-height: 1.55; margin: 0; }
+.tm-call { display: grid; gap: 6px; }
+.tm-call h3 { font-size: 18px; margin: 8px 0 0; }
+.tm-call-who { margin: 0; color: var(--brand); font-weight: 800; font-size: 13px; }
+.tm-call pre { margin: 0; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line, rgba(127,127,127,.3)); overflow-x: auto; font-size: 13px; line-height: 1.45; }
+.tm-call pre code { white-space: pre; }
+.tm-call-out { background: rgba(127,127,127,.08); }
+.tm-small { font-size: 14px; }
