@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { flowEvent } from "./yl.mjs";
-import { crewReply, jamReply, plateReply, savedGraph, sessionReply } from "./starter-flows.mjs";
+import { crewReply, jamReply, plateReply, savedGraph, sessionReply, weekReply } from "./starter-flows.mjs";
 import { readAnswer } from "../chat/stage.mjs";
 
 const g = savedGraph("trainer-session").g;
@@ -141,4 +141,61 @@ test("on the chat's stage: the line with the loop, then the chords", () => {
   const r = jamReply(jam({ vibe: "Lo-fi", lofibpm: 84, row: "Busier hats", chords: "Warm", major: "C" }));
   const a = readAnswer(`${r.text}\n\n\`\`\`yui\n${r.lines.join("\n")}\n\`\`\``);
   assert.deepEqual(a.chunks.map((c) => [c.text || c.line, c.pic?.preset]), [[r.text, "loop"], ["Warm chords in C under it: C, G, Am, F. Tap along.", "chords"]]);
+});
+
+// SITE-73: the planner's busy week to a plan. Monday Sep 28 2026, so the days read Today, Tomorrow, Wed...
+const wg = savedGraph("planner-week").g;
+const wk = (a) => ({ ...flowEvent(wg, a), id: "busy", preset: "flow" });
+const MON = new Date(2026, 8, 28, 9);
+
+test("a full week gets its page, a deadline asks when, only timed things ask about reminders", () => {
+  assert.deepEqual(wk({ on: ["A work deadline", "Appointments", "Errands", "Workouts"], top: "A work deadline", due: "In a few days", when: "Mornings", pace: "2 or 3", remind: "10 minutes before" }).path,
+    ["hi", "on", "full", "top", "due", "when", "pace", "remind"]);
+  assert.deepEqual(wk({ on: ["Errands", "Bills"], top: "Bills", when: "Whenever it fits", pace: "3 to 5" }).path, ["hi", "on", "top", "when", "pace"]);
+  assert.deepEqual(wk({ on: ["Errands", "Workouts"], top: "Workouts", when: "Whenever it fits", pace: "2 or 3" }).path, ["hi", "on", "top", "when", "pace"], "workouts with no set time ask nothing");
+  assert.deepEqual(wk({ on: ["Bills"], top: "A work deadline", due: "Tomorrow", when: "After work", pace: "2 or 3" }).path, ["hi", "on", "top", "due", "when", "pace"]);
+  assert.deepEqual(wk({ on: ["Family time"], top: "Family time", when: "Whenever it fits", pace: "2 or 3", remind: "At the time" }).path, ["hi", "on", "top", "when", "pace", "remind"]);
+});
+
+test("the week: what matters most first, never more a day than the pace, fixed times kept", () => {
+  const r = weekReply(wk({ on: ["A work deadline", "Appointments", "Errands", "Workouts"], top: "A work deadline", due: "In a few days", when: "Mornings", pace: "2 or 3", remind: "10 minutes before" }), MON);
+  assert.equal(r.text, "Your week: 9 things over 5 days. The report tops your checklist. 4 with a reminder. Drag to reorder.");
+  assert.equal(r.lines[0], 'timeline@week "This week" mark=Today fold=12 +reorder');
+  assert.equal(r.lines[1], 'next@wk-work-on-the-report "Work on the report" at="Today" key=work-on-the-report');
+  const rows = r.lines.filter((l) => l.startsWith("next@"));
+  const per = {};
+  for (const l of rows) { const d = l.match(/ at="([^"]+)"/)[1]; per[d] = (per[d] || 0) + 1; }
+  assert.ok(Object.values(per).every((n) => n <= 3), JSON.stringify(per));
+  assert.ok(rows.some((l) => l === 'next@wk-send-the-report "Send the report" at="Thu" key=send-the-report'), "due in a few days: Thursday");
+  assert.ok(rows.some((l) => l === 'next@wk-dentist-appointment "Dentist appointment" at="Wed" sub="10:00 am" key=dentist-appointment'));
+  assert.equal(rows.filter((l) => / "Workout" .*sub="7:00 am"/.test(l)).length, 3, "three morning workouts");
+  assert.equal(new Set(rows.map((l) => l.match(/key=(\S+)/)[1])).size, rows.length, "every row its own key");
+  const keep = r.lines.find((l) => l.startsWith("list@keep"));
+  assert.match(keep, /^list@keep title="To keep" "Work on the report, today"\|"Send the report, Thu"\|/);
+  assert.match(keep, / \+check$/);
+  assert.equal(r.lines.find((l) => l.startsWith("put tasks work-on")), 'put tasks work-on-the-report Task="Work on the report" Due=today Priority=High Status=Open Order=1');
+  assert.ok(r.lines.includes('put reminders r-dentist-appointment Task="Dentist appointment" Day=today+2 Time=10:00 At=09:50 Lead=10'));
+});
+
+test("more a day on 3 to 5, no reminders when they say none, family dinner on Saturday", () => {
+  const r = weekReply(wk({ on: ["Errands", "Bills", "Family time"], top: "Errands", when: "After work", pace: "3 to 5", remind: "No reminders" }), MON);
+  assert.deepEqual(r.lines.filter((l) => l.startsWith("next@")).map((l) => l.match(/ at="([^"]+)"/)[1]), ["Today", "Today", "Today", "Sat"]);
+  assert.ok(r.lines.some((l) => l.includes('"Dinner with family" at="Sat" sub="6:30 pm"')));
+  assert.equal(r.lines.some((l) => l.startsWith("put reminders") || l.startsWith("table create reminders")), false);
+  assert.equal(r.text, "Your week: 4 things over 2 days. Your errands top your checklist. Drag to reorder.");
+});
+
+test("only the planner's own event, and only its own words land in the reply", () => {
+  assert.equal(weekReply({ id: "jam", preset: "flow", flow: { on: ["Bills"] }, path: [] }), null);
+  assert.equal(weekReply({ id: "busy", preset: "flow", flow: { on: ["Taxes"] }, path: [] }, MON), null);
+  const r = weekReply({ id: "busy", preset: "flow", path: [], flow: { on: ["Bills", "```yui\nask hi"], top: '" x=1', pace: "99", when: "Noon", remind: "Always" } }, MON);
+  assert.doesNotMatch(r.text + r.lines.join("\n"), /```|ask hi|x=1|Noon|Always/);
+  assert.equal(r.lines.filter((l) => l.startsWith("next@")).length, 1);
+  assert.equal(crewReply(wk({ on: ["Bills"], top: "Bills", when: "Mornings", pace: "2 or 3" })).lines[0].startsWith("timeline@week"), true);
+});
+
+test("on the chat's stage: the line with the timeline, then the checklist", () => {
+  const r = weekReply(wk({ on: ["Bills", "Errands"], top: "Bills", when: "Mornings", pace: "2 or 3" }), MON);
+  const a = readAnswer(`${r.text}\n\n\`\`\`yui\n${r.lines.join("\n")}\n\`\`\``);
+  assert.deepEqual(a.chunks.map((c) => [c.text || c.line, c.pic?.preset]), [[r.text, "timeline"], ["Your checklist, what matters most first.", "list"]]);
 });

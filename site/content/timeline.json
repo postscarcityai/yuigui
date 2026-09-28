@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 297,
-    "site": 653,
+    "app": 298,
+    "site": 657,
     "builds": 44,
-    "shipped": 320,
-    "screenshots": 775
+    "shipped": 321,
+    "screenshots": 779
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T09:42:35.157Z",
+          "at": "2026-09-28T10:23:55.232Z",
+          "title": "The planner's flow: a busy week to a plan",
+          "card": "SITE-73",
+          "anchor": "the-planner-s-flow-a-busy-week-to-a-plan",
+          "images": [
+            {
+              "src": "/progress/site73-chat-on.webp",
+              "alt": "The site chat on a phone: What's on this week? A work deadline, appointments, errands and workouts picked"
+            },
+            {
+              "src": "/progress/site73-chat-week.webp",
+              "alt": "After Plan my week: This week as a timeline by day, work on the report first, workouts at 7:00 am, the dentist Wednesday at 10:00 am"
+            },
+            {
+              "src": "/progress/site73-chat-checklist.webp",
+              "alt": "To keep: the week's checklist with ticks, the report at the top"
+            },
+            {
+              "src": "/progress/site73-due-light.webp",
+              "alt": "In the playground, light: When is the deadline? Tomorrow, In a few days, End of the week"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 298,
+            "site": 657,
+            "builds": 44,
+            "shipped": 321
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T09:43:17.000Z",
           "title": "The musician's flow: a vibe to a beat",
           "card": "SITE-72",
           "anchor": "the-musician-s-flow-a-vibe-to-a-beat",
@@ -35,10 +67,10 @@
               "alt": "In the playground, dark: What goes under it? Warm, Moody, Jazzy or Just drums"
             }
           ],
-          "commits": 0,
+          "commits": 3,
           "totals": {
             "app": 297,
-            "site": 653,
+            "site": 655,
             "builds": 44,
             "shipped": 320
           }
@@ -355,7 +387,7 @@
               "alt": "The grocery list: 51 to get, grouped by aisle with ticks"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 284,
             "site": 636,
@@ -621,6 +653,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "d64a020",
+          "at": "2026-09-28T10:16:37.000Z",
+          "text": "Progress: Basil's tools in the app, grocery ticks that stay, Share list, a swap in one tap (YUI-183)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d64a020"
+        },
+        {
+          "repo": "site",
+          "sha": "77f6435",
+          "at": "2026-09-28T10:10:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/77f6435"
+        },
+        {
+          "repo": "app",
+          "sha": "74c7acb",
+          "at": "2026-09-28T09:46:01.000Z",
+          "text": "yui-mcp and the plugin know the musician's flow: starter flows and screen copy synced from yuigui (SITE-72)",
+          "url": "https://github.com/postscarcityai/yui/commit/74c7acb"
+        },
+        {
+          "repo": "site",
+          "sha": "d1820c8",
+          "at": "2026-09-28T09:43:17.000Z",
+          "text": "The MCP app knows the musician's flow: rebuilt yui-screen with musician-jam (SITE-72)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d1820c8"
+        },
+        {
+          "repo": "site",
+          "sha": "639c238",
+          "at": "2026-09-28T09:43:17.000Z",
+          "text": "The musician's flow: a vibe to a beat, in the playground and the site chat (SITE-72)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/639c238"
+        },
         {
           "repo": "site",
           "sha": "8f0dac0",

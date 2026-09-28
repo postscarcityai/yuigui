@@ -326,6 +326,42 @@ export const STARTER_FLOWS = [
   %% minor: choose "Which key?" "A minor"|"E minor"|"D minor"
   minor[Minor key] --> kept((Kept))`,
   },
+  {
+    // Penny, the planner, from her Plan my week (yui runtime/src/planner.ts): a busy week to a plan.
+    // What's on (a full week gets a page on putting one thing first), what matters most (a deadline
+    // asks when it's due), when you get things done and how many a day; anything with a time asks
+    // about reminders. weekReply lays it out on a timeline by day, hands back a checklist and keeps
+    // the rows in her tasks table.
+    name: "planner-week",
+    id: "busy",
+    title: "A busy week to a plan",
+    submit: "Plan my week",
+    agent: "Penny",
+    blurb: "The planner's week: what's on it, what matters most, when you get things done. Then your week on a timeline by day and a checklist to keep.",
+    source: `flowchart TD
+  %% hi: page "From a busy week to a plan" body="Tell me what's on it and what matters most. I lay it out by day and hand you a checklist to keep." points="What's on this week|What matters most|Your week, day by day|A checklist to keep"
+  hi([Start]) --> on
+  %% on: pick "What's on this week?" "A work deadline"|Appointments|Errands|Bills|"Family time"|Workouts
+  on[What's on]
+  on -->|on>3| full
+  on --> top
+  %% full: page "That's a full week" body="So one thing goes first and the rest spreads out, never more a day than you pick. No day gets buried."
+  full[Full week] --> top
+  %% top: choose "What matters most?" "A work deadline"|Appointments|Errands|Bills|"Family time"|Workouts body="It goes first, on the timeline and on your checklist."
+  top{Matters most}
+  top -->|on=A work deadline or top=A work deadline| due
+  top --> when
+  %% due: choose "When is the deadline?" Tomorrow|"In a few days"|"End of the week"
+  due[Deadline] --> when
+  %% when: choose "When do you get things done?" Mornings|"After work"|"Whenever it fits"
+  when[When] --> pace
+  %% pace: choose "How many things a day?" "2 or 3"|"3 to 5"
+  pace[Pace] --> timed{Anything timed?}
+  timed -->|on=Appointments or top=Appointments or on=Family time or top=Family time or on=Workouts and when!=Whenever it fits or top=Workouts and when!=Whenever it fits| remind
+  timed --> planned
+  %% remind: choose "Remind you of timed things?" "10 minutes before"|"At the time"|"No reminders"
+  remind[Reminders] --> planned((Planned))`,
+  },
 ];
 
 // The trainer's answer to trainer-session's event: the session its page showed, as the lines that
@@ -430,8 +466,82 @@ export function jamReply(ev) {
   return { text: `${text} Kept in your sessions.`, lines };
 }
 
+// The planner's answer to planner-week's event: the week laid out by day on a timeline (what matters
+// most first, never more a day than the pace, fixed times kept), a checklist to keep, and the rows
+// for her tasks and reminders tables (the app's schema, yui runtime/profiles/penny/tables.yui).
+// Every task comes from the flow's own options; `now` names the days (Today, Tomorrow, Thu).
+const KINDS = ["A work deadline", "Appointments", "Errands", "Bills", "Family time", "Workouts"];
+const FIRST = { "A work deadline": "The report tops", Appointments: "The dentist tops", Errands: "Your errands top", Bills: "The bill tops", "Family time": "Family dinner tops", Workouts: "Your workouts top" };
+const DUE = { Tomorrow: 1, "In a few days": 3, "End of the week": 5 };
+const WORK_AT = { Mornings: "07:00", "After work": "18:00" };
+const LEAD = { "10 minutes before": 10, "At the time": 0 };
+const DAY = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const clock = (t) => { const [h, m] = t.split(":").map(Number); return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "am" : "pm"}`; };
+export function weekReply(ev, now = new Date()) {
+  if (ev?.preset !== "flow" || ev.id !== "busy" || !ev.flow) return null;
+  const a = ev.flow;
+  const top = KINDS.includes(a.top) ? a.top : null;
+  const kinds = KINDS.filter((k) => k === top || [].concat(a.on || []).includes(k));
+  if (!kinds.length) return null;
+  const cap = a.pace === "3 to 5" ? 5 : 3;
+  const at = WORK_AT[a.when] || "";
+  const sat = (6 - now.getDay() + 7) % 7;
+  const due = DUE[a.due] ?? 3;
+  // Fixed days first (a deadline, an appointment, family, workouts), then the rest fills the first day with room.
+  // A deadline that matters most starts today.
+  const fixed = {
+    "A work deadline": [["Work on the report", top === "A work deadline" ? 0 : due - 1], ["Send the report", due]],
+    Appointments: [["Dentist appointment", 2, "10:00"]],
+    "Family time": [["Dinner with family", sat, "18:30"]],
+    Workouts: [["Workout", 0, at], ["Workout", 2, at], ["Workout", 4, at]],
+  };
+  const loose = { Appointments: ["Book a haircut"], Errands: ["Pick up a prescription", "Drop off returns"], Bills: ["Pay the phone bill"] };
+  const ranked = top ? [top, ...kinds.filter((k) => k !== top)] : kinds;
+  const tasks = [];
+  const add = (kind, task, day, time = "") => {
+    const base = task.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    const n = tasks.filter((t) => t.base === base).length;
+    tasks.push({ kind, task, day, time, base, key: n ? `${base}-${n + 1}` : base, high: kind === top });
+  };
+  for (const k of ranked) for (const [task, day, time] of fixed[k] || []) add(k, task, day, time);
+  for (const k of ranked) for (const task of loose[k] || []) {
+    let d = 0;
+    while (d < 6 && tasks.filter((t) => t.day === d).length >= cap) d++;
+    add(k, task, d);
+  }
+  // By day; in a day what matters most first, then by time, then as added.
+  const rank = (t) => (t.high ? 0 : 1);
+  const week = [...tasks].sort((x, y) => x.day - y.day || rank(x) - rank(y) || (x.time || "99").localeCompare(y.time || "99"));
+  const label = (d) => (d === 0 ? "Today" : d === 1 ? "Tomorrow" : DAY[(now.getDay() + d) % 7]);
+  const q = (t) => `"${t}"`;
+  const rows = week.map((t) => `next@wk-${t.key} ${q(t.task)} at=${q(label(t.day))}${t.time ? ` sub=${q(clock(t.time))}` : ""} key=${t.key}`);
+  const keep = [...week].sort((x, y) => rank(x) - rank(y)).map((t) => q(t.day > 1 ? `${t.task}, ${label(t.day)}` : t.day ? `${t.task}, tomorrow` : `${t.task}, today`));
+  const lead = Object.hasOwn(LEAD, a.remind) ? LEAD[a.remind] : null;
+  const timed = lead === null ? [] : week.filter((t) => t.time);
+  const days = new Set(week.map((t) => t.day)).size;
+  const text = `Your week: ${week.length} ${week.length === 1 ? "thing" : "things"} over ${days} ${days === 1 ? "day" : "days"}.${top ? ` ${FIRST[top]} your checklist.` : ""}${timed.length ? ` ${timed.length} with a reminder.` : ""} Drag to reorder.`;
+  const lines = [
+    `timeline@week "This week" mark=Today fold=12${week.length > 1 ? " +reorder" : ""}`,
+    ...rows,
+    `say "Your checklist, what matters most first."`,
+    `list@keep title="To keep" ${keep.join("|")} +check`,
+    "table create tasks Task:text Due:date Time:text Priority:text Done:bool Status:text Order:number",
+    ...week.map((t, i) => `put tasks ${t.key} Task=${q(t.task)} Due=${t.day ? `today+${t.day}` : "today"}${t.time ? ` Time=${t.time}` : ""} Priority=${t.high ? "High" : "Normal"} Status=Open Order=${i + 1}`),
+  ];
+  if (timed.length) {
+    lines.push("table create reminders Task:text Day:date Time:text At:text Lead:number");
+    for (const t of timed) {
+      const [h, m] = t.time.split(":").map(Number);
+      const mins = h * 60 + m - lead;
+      const at2 = `${String(Math.floor(mins / 60)).padStart(2, "0")}:${String(mins % 60).padStart(2, "0")}`;
+      lines.push(`put reminders r-${t.key} Task=${q(t.task)} Day=${t.day ? `today+${t.day}` : "today"} Time=${t.time} At=${at2} Lead=${lead}`);
+    }
+  }
+  return { text, lines };
+}
+
 // A crew flow answered with no model turn: the playground's stand-in reply and the site chat's.
-export const crewReply = (ev) => sessionReply(ev) || plateReply(ev) || jamReply(ev);
+export const crewReply = (ev) => sessionReply(ev) || plateReply(ev) || jamReply(ev) || weekReply(ev);
 
 // Variants (spec/FLOWS.md, section 9): a saved flow with a few lines changed,
 // kept as its base's name plus the lines, never a copy of the chart. The

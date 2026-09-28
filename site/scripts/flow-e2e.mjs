@@ -4,7 +4,7 @@
 //   npx next dev -p 3117 &   then   node scripts/flow-e2e.mjs
 // BASE overrides the playground URL; PLAYWRIGHT the Playwright module to load.
 import { parse, resolve, flowEvent, flowPath } from "../lib/yl/yl.mjs";
-import { STARTER_FLOWS, flowLines, savedGraph, sessionReply, plateReply, jamReply } from "../lib/yl/starter-flows.mjs";
+import { STARTER_FLOWS, flowLines, savedGraph, sessionReply, plateReply, jamReply, weekReply } from "../lib/yl/starter-flows.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT || "playwright");
 const BASE = process.env.BASE || "http://localhost:3117/playground";
 const graph = (f) => resolve("flow", parse(flowLines(f)).find((o) => o.op === "patch").props);
@@ -102,6 +102,9 @@ const SC = [
   ["musician-jam", "boom bap, an extra kick: moody in E minor", { vibe: "Boom bap", bapbpm: 92, row: "Extra kick", chords: "Moody", minor: "E minor" }],
   ["musician-jam", "house, a shaker: jazzy in F", { vibe: "House", housebpm: 126, row: "Add a shaker", chords: "Jazzy", major: "F" }],
   ["musician-jam", "rock as is, just drums: no key", { vibe: "Rock", rockbpm: 120, row: "Leave it", chords: "Just drums" }],
+  ["planner-week", "a full week, the deadline first: due in a few days, mornings, reminders", { on: ["A work deadline", "Appointments", "Errands", "Workouts"], top: "A work deadline", due: "In a few days", when: "Mornings", pace: "2 or 3", remind: "10 minutes before" }],
+  ["planner-week", "errands and bills, whenever: nothing timed, no reminders", { on: ["Errands", "Bills"], top: "Bills", when: "Whenever it fits", pace: "3 to 5" }],
+  ["planner-week", "family time after work, at the time", { on: ["Family time", "Errands"], top: "Family time", when: "After work", pace: "2 or 3", remind: "At the time" }],
 ];
 for (const [name, label, plan] of SC) {
   const f = STARTER_FLOWS.find((x) => x.name === name);
@@ -173,6 +176,21 @@ for (const [name, label, plan] of SC) {
     else ok(!!chords && (await pg.locator(".pg-ev", { hasText: chords.split(" \"")[0] }).count()) === 1, `the reply sends ${chords}`);
     ok((await pg.locator(".pg-ev", { hasText: "put sessions s-" }).count()) === 1, "the reply keeps it in his sessions");
   } else ok(!jam, "no jam reply for other flows");
+  // The planner lays the week out by day, hands back a checklist and keeps it in her tasks (SITE-73).
+  const week = weekReply(ev);
+  if (f.name === "planner-week") {
+    ok(!!week, "planner-week: the event builds the week");
+    const rows = week.lines.filter((l) => l.startsWith("next@"));
+    await pg.waitForTimeout(1000 + week.lines.length * 260);
+    ok((await pg.locator(".pg-ev", { hasText: "timeline@week" }).count()) === 1, "the reply sends the week's timeline");
+    ok((await pg.locator(".yl-tltext", { hasText: rows[0].match(/ "([^"]+)"/)[1] }).count()) >= 1, `the timeline shows ${rows[0]}`);
+    ok((await pg.locator(".yl-tl", { has: pg.locator(".yl-tlhead", { hasText: "This week" }) }).locator(".yl-tlrow").count()) === rows.length, `all ${rows.length} rows inside This week`);
+    ok((await pg.locator(".pg-ev", { hasText: "list@keep" }).count()) === 1, "the reply sends the checklist");
+    ok((await pg.locator(".pg-ev", { hasText: "put tasks " }).count()) === rows.length, `the reply keeps ${rows.length} tasks`);
+    const rem = week.lines.filter((l) => l.startsWith("put reminders")).length;
+    ok((await pg.locator(".pg-ev", { hasText: "put reminders " }).count()) === rem, `${rem} reminders`);
+    if (!want.flow.remind || want.flow.remind === "No reminders") ok(rem === 0, "no reminders asked, none set");
+  } else ok(!week, "no week reply for other flows");
   ok(pg.errs.length === 0, `no page errors ${pg.errs}`);
   await pg.close();
 }
