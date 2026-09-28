@@ -4,6 +4,7 @@
 import { readPage, searchSite, sitePath } from "./search.mjs";
 import { NOTE_KINDS } from "./store.mjs";
 import { cleanLines } from "./lines.mjs";
+import { stopError, stopped, turnSignal } from "./stop.mjs";
 import { libraryIndex, search } from "../yl/library.mjs";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../yl/samples.mjs";
 import { STARTER_FLOWS } from "../yl/starter-flows.mjs";
@@ -62,12 +63,12 @@ export function sweep(text) {
     .trim();
 }
 
-async function complete(messages, last) {
+async function complete(messages, last, signal) {
   const res = await fetch(API(), {
     method: "POST",
     headers: { Authorization: `Bearer ${process.env.YUI_CHAT_OPENROUTER_KEY}`, "Content-Type": "application/json", "HTTP-Referer": "https://www.yuigui.com", "X-Title": "Yui site chat" },
     body: JSON.stringify({ model: MODEL(), messages, tools: TOOLS, tool_choice: last ? "none" : "auto", temperature: 0.6, max_tokens: 1200, provider: { data_collection: "deny" } }),
-    signal: AbortSignal.timeout(30000),
+    signal: turnSignal(signal, 30000),
   });
   if (!res.ok) throw new Error(`openrouter ${res.status}: ${(await res.text()).slice(0, 300)}`);
   const data = await res.json();
@@ -77,11 +78,13 @@ async function complete(messages, last) {
 }
 
 // { reply, actions: [{ type: "go", path, label } | { type: "contact", reason }], notes, tools }
-export async function turn({ system, history, text, canAsk }) {
+// signal: the visitor's Stop (SITE-84). It aborts the call in flight and ends the turn between rounds.
+export async function turn({ system, history, text, canAsk, signal }) {
   const messages = [{ role: "system", content: system }, ...history, { role: "user", content: text }];
   const actions = [], notes = [], tools = [];
   for (let round = 0; round <= ROUNDS; round++) {
-    const msg = await complete(messages, round === ROUNDS);
+    if (stopped(signal)) throw stopError();
+    const msg = await complete(messages, round === ROUNDS, signal);
     const calls = round < ROUNDS ? msg.tool_calls || [] : [];
     if (!calls.length) return { reply: sweep(msg.content), actions, notes, tools };
     messages.push({ role: "assistant", content: msg.content || "", tool_calls: calls });

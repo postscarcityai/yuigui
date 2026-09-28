@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 308,
-    "site": 678,
+    "site": 679,
     "builds": 44,
-    "shipped": 333,
-    "screenshots": 821
+    "shipped": 334,
+    "screenshots": 825
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T14:18:29.937Z",
+          "at": "2026-09-28T14:38:26.990Z",
+          "title": "Stop a reply in the site chat",
+          "card": "SITE-84",
+          "anchor": "stop-a-reply-in-the-site-chat",
+          "images": [
+            {
+              "src": "/progress/site84-working.webp",
+              "alt": "The site chat on a phone while Yui thinks: the big mic at the bottom right is now a stop square."
+            },
+            {
+              "src": "/progress/site84-stopped.webp",
+              "alt": "After Stop: the stage says Stopped. and the mic is back, ready for the next question."
+            },
+            {
+              "src": "/progress/site84-record.webp",
+              "alt": "The chat record: the question, then one quiet line in italics that says Stopped."
+            },
+            {
+              "src": "/progress/site84-field.webp",
+              "alt": "The chat on a computer with the text field open while Yui thinks: the send button is a stop square."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 308,
+            "site": 679,
+            "builds": 44,
+            "shipped": 334
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T14:18:39.000Z",
           "title": "The site chat gets pages, a swipe away",
           "card": "SITE-83",
           "anchor": "the-site-chat-gets-pages-a-swipe-away",
@@ -35,10 +67,10 @@
               "alt": "The playground phone in light, on screen 2, with the dots at the foot"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 308,
-            "site": 678,
+            "site": 679,
             "builds": 44,
             "shipped": 333
           }
@@ -1012,6 +1044,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "c10eb5f",
+          "at": "2026-09-28T14:18:39.000Z",
+          "text": "The site chat gets the app's pages: screens 2 to 12 a swipe away, dots in the bottom bar (SITE-83)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c10eb5f"
+        },
         {
           "repo": "site",
           "sha": "37e4459",

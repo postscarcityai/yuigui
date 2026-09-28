@@ -136,6 +136,10 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-mic svg { width: 28px; height: 28px; fill: currentColor; stroke: currentColor; }
 .ys-mic:hover { transform: scale(1.05); }
 .ys-mic:disabled { opacity: .5; cursor: default; transform: none; }
+/* SITE-84: while Yui works the mic (or the send arrow) is a stop square. */
+.ys-mic.ys-stop svg { width: 24px; height: 24px; stroke: none; }
+.yc-send.yc-stop { display: grid; place-items: center; }
+.yc-send.yc-stop svg { width: 18px; height: 18px; fill: currentColor; }
 .ys-mic .mo-ring { inset: -6px; }
 .ys-mic.live { transform: scale(1.08); }
 .ys-mic.live .mo-ring { animation: mo-ring calc(var(--mo-breath) * .6) var(--mo-ease) infinite; }
@@ -202,6 +206,7 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 
 .yc-went { align-self: center; font-size: 13px; color: var(--muted); padding: 2px 8px; }
 .yc-went a { color: var(--link); font-weight: 700; }
+.yc-stopped { font-style: italic; }
 
 .yc-typing { align-self: flex-start; display: flex; gap: 5px; padding: 8px 0; }
 .yc-typing i { width: 9px; height: 9px; border-radius: 50%; background: var(--brand); animation: yc-dot 1.1s infinite ease-in-out; }

@@ -13,6 +13,8 @@
 // SITE-69: or Meet the crew. A crew member's answer (their flow, what it made) wears their color and name.
 // SITE-83: like the app, lines for screens 2 to 12 are pages beside the chat, a swipe away (touch, a
 // trackpad, the arrow keys), with the dots centered in the bottom bar (ChatDots, lib/chat/pages.mjs).
+// SITE-84: while Yui works, the send button (or the mic) is a stop square, like the app's (YUI-190).
+// Stop aborts the request, a reply that lands late is dropped, and the record keeps a quiet "Stopped."
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -22,6 +24,7 @@ import { crewOf } from "../../lib/chat/crew.mjs";
 import { splitReply, tapLabel, tapLine } from "../../lib/chat/lines.mjs";
 import { micLine, readAnswer } from "../../lib/chat/stage.mjs";
 import { threadPages } from "../../lib/chat/pages.mjs";
+import { STOPPED, stoppedRow, turns } from "../../lib/chat/stop.mjs";
 import { readTyped, typedBody } from "../../lib/yl/yl.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
 import { echoFor, relays } from "../../../mcp-app/src/events.mjs";
@@ -153,6 +156,7 @@ function Presence({ mood, flavor }) {
 }
 
 const MicIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="3" width="7" height="12" rx="3.5" /><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" fill="none" strokeWidth="2" strokeLinecap="round" /></svg>;
+const StopIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" /></svg>;
 const RecordIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H10l-4 3v-3H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z" strokeWidth="2" fill="none" strokeLinejoin="round" /></svg>;
 
 // Voice to text: the Web Speech API (Chrome, Edge, Safari). Firefox has none, so the chat types.
@@ -197,6 +201,9 @@ export default function ChatFab() {
   const [toast, setToast] = useState("");         // one quiet line after a share
   const [pageAt, setPageAt] = useState("1");      // the screen on show: "1" the chat, "2".."12" a page
   const [jump, setJump] = useState(0);            // bumps when a reply lands, to bring its page forward
+  const [halted, setHalted] = useState(false);    // the last turn was stopped: the stage says so
+  const flight = useRef(null);                    // the turn in flight (lib/chat/stop.mjs)
+  if (!flight.current) flight.current = turns();
   const input = useRef(null), list = useRef(null), ready = useRef(false), rec = useRef(null), heardRef = useRef("");
   const reduced = useReduced();
   const look = useMemo(() => motionLook({ motion: "bouncy" }, null, reduced), [reduced]);
@@ -286,10 +293,13 @@ export default function ChatFab() {
     const history = (prior || msgs).filter((m) => m.role && !m.card).map(({ role, content }) => ({ role, content }));
     if (!prior) setMsgs((m) => { setSeen(m.length + 1); return [...m, { role: "user", content: t, ...(label ? { label } : {}) }]; });
     setBusy(true);
+    setHalted(false);
     setPlaying(-1);
+    const run = flight.current.start();
     try {
-      const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "say", text: t, event, path: window.location.pathname + window.location.hash, title: document.title, history: [{ role: "assistant", content: HELLO }, ...history], utm: savedUtm() }) });
+      const res = await fetch("/api/chat", { method: "POST", signal: run.signal, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "say", text: t, event, path: window.location.pathname + window.location.hash, title: document.title, history: [{ role: "assistant", content: HELLO }, ...history], utm: savedUtm() }) });
       const data = await res.json().catch(() => ({}));
+      if (!flight.current.live(run.id)) return; // stopped: a late reply is dropped
       if (data.verify) { setVerify({ siteKey: data.verify, text: t, label, event }); return; }
       if (!res.ok || !data.reply) { setError(data.error || "Yui can't answer right now. Try again in a minute."); return; }
       const cards = [];
@@ -302,9 +312,18 @@ export default function ChatFab() {
       setFound(true);
       setTimeout(() => setFound(false), reduced ? 0 : 650);
     } catch {
-      setError("Network error. Try again.");
-    } finally { setBusy(false); }
+      if (flight.current.live(run.id)) setError("Network error. Try again.");
+    } finally {
+      if (flight.current.live(run.id)) { flight.current.done(run.id); setBusy(false); }
+    }
   }, [busy, msgs, go, reduced]);
+
+  // The stop square: the turn ends here, the record says "Stopped." and the person can go again at once.
+  const stop = useCallback(() => {
+    if (!flight.current.stop()) return;
+    setBusy(false); setError(""); setFound(false); setHalted(true);
+    setMsgs((m) => { setSeen(m.length + 1); return [...m, stoppedRow()]; });
+  }, []);
 
   // What the person says goes to Yui; on a page that keeps talking, tagged with the page.
   const say = useCallback((t) => {
@@ -396,6 +415,7 @@ export default function ChatFab() {
   }
   function submit(e) {
     e.preventDefault();
+    if (busy) return;
     const t = draft;
     setDraft("");
     say(t);
@@ -403,7 +423,8 @@ export default function ChatFab() {
   }
   function startOver() {
     fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "new" }) }).catch(() => {});
-    setMsgs([]); setError(""); setPlaying(-1); setSaid(""); setRecord(false); setSeen(0); setPageAt("1");
+    flight.current.stop();
+    setMsgs([]); setError(""); setPlaying(-1); setBusy(false); setHalted(false); setSaid(""); setRecord(false); setSeen(0); setPageAt("1");
   }
 
   const lastAnswer = msgs.map((m) => m.role === "assistant").lastIndexOf(true);
@@ -461,7 +482,7 @@ export default function ChatFab() {
     center = (
       <div className="ys-mid ys-hello">
         <Presence mood="idle" />
-        <div className="ys-line">{msgs.length ? "Anything else?" : HELLO}</div>
+        <div className="ys-line">{halted ? STOPPED : msgs.length ? "Anything else?" : HELLO}</div>
         {msgs.length ? <div className="ys-sub">Everything so far is in the chat, top right.</div> : (
           <div className="yc-starters">
             {STARTERS.map((s) => <button key={s} onClick={() => send(s)}>{s}</button>)}
@@ -508,7 +529,8 @@ export default function ChatFab() {
                   onChange={(e) => setDraft(e.target.value)}
                   onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) submit(e); }}
                 />
-                <button className="yc-send" disabled={!draft.trim() || busy || !!verify} aria-label="Send">↑</button>
+                {busy ? <button type="button" className="yc-send yc-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
+                  : <button className="yc-send" disabled={!draft.trim() || !!verify} aria-label="Send">↑</button>}
                 {voice ? <button type="button" className="ys-small" onClick={() => setTyping(false)} aria-label="Back to the mic"><MicIcon /></button> : null}
               </form>
             ) : (
@@ -516,10 +538,12 @@ export default function ChatFab() {
                 <div className="ys-dotroom" data-arrows={onChat && stageUp && parts > 1 ? "1" : undefined}>{dots}</div>
                 {canTalk ? <>
                   <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type">T</button>
-                  <button className={`ys-mic${listening ? " live" : ""}`} onClick={listen} disabled={busy && !listening} aria-label={listening ? "Stop listening" : "Talk to Yui"}>
-                    <span className="mo-ring" /><span className="mo-ring r2" />
-                    <MicIcon />
-                  </button>
+                  {busy && !listening ? <button className="ys-mic ys-stop" onClick={stop} aria-label="Stop"><StopIcon /></button> : (
+                    <button className={`ys-mic${listening ? " live" : ""}`} onClick={listen} aria-label={listening ? "Stop listening" : "Talk to Yui"}>
+                      <span className="mo-ring" /><span className="mo-ring r2" />
+                      <MicIcon />
+                    </button>
+                  )}
                 </> : null}
               </div>
             )}
@@ -540,6 +564,7 @@ export default function ChatFab() {
                   {!msgs.length ? <p className="ys-sub">Nothing yet. What you say and what Yui shows land here.</p> : null}
                   {msgs.map((m, i) => {
                     if (m.card === "went") return <div key={i} className="yc-went">Opened <a href={m.path} onClick={(e) => { e.preventDefault(); go(m.path); }}>{m.label}</a></div>;
+                    if (m.card === "stopped") return <div key={i} className="yc-went yc-stopped">{STOPPED}</div>;
                     if (m.card === "contact") return null; // cards from before the Yui form
                     if (m.role === "user") {
                       const typed = readTyped(m.content);

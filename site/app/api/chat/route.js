@@ -7,6 +7,8 @@
 //   A tap on the contact form (form@contact) rides on "say" as { event }: saved here, never sent to the model.
 //   A sent feedback flow (plan@feedback, SITE-67) rides the same way: its likes and dislikes are saved
 //   as notes here, and its open line falls back to a feature note when the model does not note it.
+//   SITE-84: Stop on the page aborts the request. request.signal ends the model call, and a stopped
+//   turn stores nothing: no messages, no notes, and it does not count as a turn.
 import { brief } from "../../../lib/chat/brief.mjs";
 import { chatOn, turnstileOn } from "../../../lib/chat/config.mjs";
 import { MODEL, turn } from "../../../lib/chat/model.mjs";
@@ -14,6 +16,7 @@ import { COOKIE, FREE_TURNS, MAX_TURNS, hashIp, newSession, readSession, session
 import { markVerified, saveContact, saveNote, saveTurn } from "../../../lib/chat/store.mjs";
 import { LINE_KIND, feedbackNotes } from "../../../lib/chat/feedback.mjs";
 import { crewTurn } from "../../../lib/chat/crew.mjs";
+import { stopped } from "../../../lib/chat/stop.mjs";
 import { clip, insertInvite, readContact } from "../../../lib/invite.mjs";
 
 export const dynamic = "force-dynamic";
@@ -42,6 +45,9 @@ const say = (body, s, status = 200) => {
 // The contact form Yui draws when she asks (ask_contact): a Yui form in the thread, not a web form.
 // Its submit comes back as a form@contact tap, saved here, so the model never sees the details.
 const CONTACT_FORM = `form@contact "Stay in touch" first_name:text! last_name:text! email:email! phone:phone submit="Send"`;
+
+// The visitor pressed Stop: nobody is listening, so nothing is said and nothing is kept.
+const gone = () => new Response(null, { status: 499 });
 
 const cookieOf = (req) => (req.headers.get("cookie") || "").split(/;\s*/).find((c) => c.startsWith(`${COOKIE}=`))?.slice(COOKIE.length + 1);
 const ipOf = (req) => (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "unknown";
@@ -125,11 +131,13 @@ export async function POST(req) {
   let out;
   if (crew) out = { reply: crew.reply, actions: [], notes: crew.notes, tools: [] };
   else try {
-    out = await turn({ system: brief({ path, title: clip(body.title, 120) }), history: historyOf(body.history), text, canAsk: s.turns >= 2 && !s.asked && !s.contact });
+    out = await turn({ system: brief({ path, title: clip(body.title, 120) }), history: historyOf(body.history), text, canAsk: s.turns >= 2 && !s.asked && !s.contact, signal: req.signal });
   } catch (e) {
+    if (stopped(req.signal)) return gone();
     console.error("chat turn failed", MODEL(), e.message);
     return say({ error: "Yui can't answer right now. Try again in a minute." }, null, 502);
   }
+  if (stopped(req.signal)) return gone();
   let reply = out.reply || "Sorry, I lost my words there. Could you say that again?";
   if (out.actions.some((a) => a.type === "contact")) reply += `\n\n\`\`\`yui\n${CONTACT_FORM}\n\`\`\``;
   const first = s.turns === 0;
