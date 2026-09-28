@@ -24,7 +24,7 @@ import { crewOf } from "../../lib/chat/crew.mjs";
 import { splitReply, tapLabel, tapLine } from "../../lib/chat/lines.mjs";
 import { micLine, readAnswer } from "../../lib/chat/stage.mjs";
 import { threadPages } from "../../lib/chat/pages.mjs";
-import { STOPPED, stoppedRow, turns } from "../../lib/chat/stop.mjs";
+import { STOPPED, kept, stoppedRow, turns } from "../../lib/chat/stop.mjs";
 import { readTyped, typedBody } from "../../lib/yl/yl.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
 import { echoFor, relays } from "../../../mcp-app/src/events.mjs";
@@ -290,7 +290,7 @@ export default function ChatFab() {
     setError("");
     setRecord(false);
     setSaid(label || t);
-    const history = (prior || msgs).filter((m) => m.role && !m.card).map(({ role, content }) => ({ role, content }));
+    const history = kept(prior || msgs).map(({ role, content }) => ({ role, content }));
     if (!prior) setMsgs((m) => { setSeen(m.length + 1); return [...m, { role: "user", content: t, ...(label ? { label } : {}) }]; });
     setBusy(true);
     setHalted(false);

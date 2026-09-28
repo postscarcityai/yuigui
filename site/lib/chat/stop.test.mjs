@@ -3,7 +3,7 @@
 // is aborted and stores nothing for that turn.
 import assert from "node:assert/strict";
 import test from "node:test";
-import { STOPPED, stoppedRow, stopped, turnSignal, turns } from "./stop.mjs";
+import { STOPPED, kept, stoppedRow, stopped, turnSignal, turns } from "./stop.mjs";
 
 test("a stopped turn is not live, so its late reply is dropped", () => {
   const t = turns();
@@ -36,6 +36,15 @@ test("the Stopped. row is quiet: no role, so it never goes to Yui", () => {
   // ChatFab's history filter: rows with a role and no card.
   const history = [{ role: "user", content: "hi" }, row].filter((m) => m.role && !m.card);
   assert.deepEqual(history, [{ role: "user", content: "hi" }]);
+});
+
+test("a stopped ask is taken back: it never goes to Yui as history", () => {
+  const thread = [
+    { role: "user", content: "hi" }, { role: "assistant", content: "Hello." },
+    { role: "user", content: "Tell me the whole story, slowly" }, stoppedRow(),
+    { card: "went", path: "/start" },
+  ];
+  assert.deepEqual(kept(thread).map((m) => m.content), ["hi", "Hello."]);
 });
 
 test("turnSignal follows the person's abort", () => {

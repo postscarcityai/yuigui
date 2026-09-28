@@ -29,6 +29,12 @@ export function turns() {
 // The thread row a stop leaves behind: drawn as one quiet line in the record, never sent to Yui.
 export const stoppedRow = () => ({ card: "stopped" });
 
+// What goes to Yui as history: the thread's words, less every ask that was stopped. A stopped
+// question is taken back, so it must not steer the next answer.
+export function kept(msgs) {
+  return msgs.filter((m, i) => m.role && !m.card && !(m.role === "user" && msgs[i + 1]?.card === "stopped"));
+}
+
 // The server's side: the person's abort and the model timeout, whichever comes first.
 export function turnSignal(signal, ms) {
   const t = AbortSignal.timeout(ms);
