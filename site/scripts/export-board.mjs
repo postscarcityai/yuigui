@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { slug } from "../lib/slug.mjs";
 import { PRIVATE_RE, LEAKS, findLeak } from "../lib/public-guard.mjs";
+import { REPOS as ALL_REPOS } from "../lib/platforms.mjs";
 
 const DB = process.env.KANBAN_DB || `${homedir()}/.hermes/kanban.db`;
 const CHECK = process.argv.includes("--check");
@@ -242,7 +243,8 @@ function release() {
 // block trips the guard, is left out with a warning. Claims are open pull requests titled [KEY].
 const links = JSON.parse(readFileSync(content("links.json"), "utf8"));
 const SITE = "https://www.yuigui.com";
-const REPOS = { yuigui: links.github, yui: links.appRepo };
+// yuigui, yui and one repo per platform (lib/platforms.mjs).
+const REPOS = { ...ALL_REPOS, yuigui: links.github, yui: links.appRepo };
 const CLAIM_DAYS = 7;
 const MULTI = new Set(["done", "test"]);
 
@@ -258,7 +260,7 @@ function agentBlock(body) {
   return out;
 }
 
-// Open pull requests titled "[KEY] ..." in both repos. If GitHub cannot be reached, the last
+// Open pull requests titled "[KEY] ..." in every repo. If GitHub cannot be reached, the last
 // export's claims stand, so a network blip never flips the file back and forth.
 const oldBacklog = (() => { try { return JSON.parse(readFileSync(content("backlog.json"), "utf8")); } catch { return {}; } })();
 function openClaims() {

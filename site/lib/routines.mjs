@@ -10,14 +10,14 @@ const BACKLOG = "https://www.yuigui.com/contribute/backlog.json";
 const RULES = "https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md";
 
 // The claim step differs: a hosted routine works in your fork; a CLI with gh forks and opens the pull request itself.
-const FORK = `4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui or <you>/yui). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>`;
+const FORK = `4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui, <you>/yui or <you>/yui-<platform>). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>`;
 const GH = `4. Otherwise pick ONE open card. Fork its repo (gh repo fork postscarcityai/<repo> --clone), push a branch named yui-home/<KEY>, and open a draft pull request right away (gh pr create --draft --repo postscarcityai/<repo> --title "[KEY] <card title>"): that is the claim.`;
 
 function prompt(claim, budget) {
   return `Yui@home weekly run: build at most ONE card for Yui, the open source app at yuigui.com.
 1. Read ${BACKLOG}. If no card has "status": "open", stop here and say "Nothing open this week."
 2. Read the rules: ${RULES}
-3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui or postscarcityai/yui, finish that one instead of taking a new card.
+3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui, postscarcityai/yui or a platform repo (postscarcityai/yui-android and the rest), finish that one instead of taking a new card.
 ${claim}
 5. Build only what the card says. Run every command in its "test" list until all pass.
 6. Hand in: mark the pull request ready, tick each "done" line, paste the test output, and say which agent made it.

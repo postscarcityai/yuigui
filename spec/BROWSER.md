@@ -2,7 +2,7 @@
 
 Yui on any computer, in a browser tab. The same threads, the same agents, the same screens. Nothing new on the agent's side: a browser is one more place the person reads a thread, like a second phone.
 
-Status: draft, open for contributors (build to earn). The brief with the first pull request is `docs/specs/browser.md` in the hub repo. Siblings: YUI-47 (Apple Watch), YUI-58 (macOS).
+Status: draft, open for contributors (build to earn). The brief with the first pull request is `docs/specs/browser.md` in the hub repo. The first pull request is built in the hub at `/web`; the live browser app after it is built in [postscarcityai/yui-web](https://github.com/postscarcityai/yui-web). Siblings: YUI-47 (Apple Watch), YUI-58 (macOS).
 
 ## What it is
 

@@ -265,7 +265,7 @@ Chris decided: all Swift. Draft 1 recommended Expo/React Native with Swift modul
 
 Rules that follow from the decision:
 
-- **iPhone only for now. No Apple Watch app yet** (Chris, Sep 23). Parked until after the MVP (YUI-47).
+- **iPhone only for now. No Apple Watch app yet** (Chris, Sep 23). Parked until after the MVP (YUI-47). Since Sep 27 every other platform has a repo of its own, open to outside contributors; the maintainers' own work stays on the iPhone.
 - **Yui Lines stays platform-neutral.** `spec/YL.md` plus a shared conformance suite (input lines, expected parse) is the contract. The JS parser (web playground) and the Swift parser must both pass it. An Android build later (Kotlin + Jetpack Compose) passes the same suite.
 - **The web stays React.** The hub site and playground keep the JS renderer as the public, clickable reference.
 - **Fast feedback loop.** The Mac mini builds and ships TestFlight builds with no cable, running since Sep 23. Since Sep 24 TestFlight gets one build per epic (Apple caps uploads per day), and test builds by link (YUI-55) put the newest main on Chris's phone in between.
@@ -524,11 +524,12 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 - YUI-58: Yui for macOS, a matching desktop app under the same App Store listing. The first card marked for Yui@home contributors. Build to earn.
 - YUI-71: Yui in the browser, on the same relay with the web renderer. Build to earn. Watch, desktop and browser each translate Yui Lines where they must: what fits renders, the rest says "open on your iPhone".
 - YUI-109 and YUI-110 (agent-ready): the first pull request of the browser and of the Mac app, open to outside contributors on [/contribute](/contribute).
+- Every platform gets its own repo (Chris, Sep 27: anyone who wants to build the desktop, the watch, Android or any other copy has a place to push it). On postscarcityai: yui-macos (YUI-110 moved there), yui-watch (YUI-175), yui-visionos (YUI-178), yui-tvos (YUI-179), yui-android (YUI-173), yui-wearos (YUI-174), yui-desktop for Windows and Linux (YUI-176), yui-omarchy for Omarchy (YUI-177) and yui-web (the live browser app, after YUI-109). Each first pull request is an agent-ready card. The table is in README.md, "Every Yui".
 
 **Running Yui**
 
 - YUI-72 (scope done Sep 25, spec/ADMIN.md): the admin console. Five roles (owner, super user, admin, support, a client's own admin), what each can control (invites, accounts, default agents, the kill switch and limits, feature flags, announcements, feedback, usage numbers, an audit log). Recommendation: an Admin section inside the app, Sign in with Apple plus a role row, a second check for anything destructive. Admins never read messages. Three phases and six card candidates wait on a pick. Read it: [admin console](/developers/admin).
-- YUI-46: Android, starting with a prototype that passes the shared test suite.
+- YUI-46: Android, starting with a prototype that passes the shared test suite. Built in postscarcityai/yui-android; the first pull request is YUI-173.
 
 **Open source and the site**
 
