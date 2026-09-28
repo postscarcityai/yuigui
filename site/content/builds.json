@@ -1,6 +1,40 @@
 {
   "builds": [
     {
+      "build": 288,
+      "date": "2026-09-28",
+      "uploaded": "2026-09-27T23:35:16-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Every agent has its own quiet visual by default (YUI-180, runtime half)"
+        },
+        {
+          "text": "Visual defaults: live check of the list's pick and the README line",
+          "card": "YUI-180"
+        },
+        {
+          "text": "the agent's tools: today's workout runner, the log, a day changed, his pages kept current (YUI-182, runtime half)"
+        },
+        {
+          "text": "Workouts e2e: Progress redraws for a new lift's chart; the home row's native is a word",
+          "card": "YUI-182"
+        },
+        {
+          "text": "Workout runner polish: Skip on every move, each move's sets named in the review, This week a plain list with done days ticked",
+          "card": "YUI-182"
+        },
+        {
+          "text": "The screen dots are back and slide with you; screens slide instead of fading",
+          "card": "YUI-187"
+        },
+        {
+          "text": "Yui 0.5.2: the screen dots are back and slide with you",
+          "card": "YUI-187"
+        }
+      ]
+    },
+    {
       "build": 281,
       "date": "2026-09-28",
       "uploaded": "2026-09-27T22:38:46-07:00",
@@ -1312,24 +1346,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Every agent has its own quiet visual by default (YUI-180, runtime half)"
-    },
-    {
-      "text": "Visual defaults: live check of the list's pick and the README line",
-      "card": "YUI-180"
-    },
-    {
-      "text": "the agent's tools: today's workout runner, the log, a day changed, his pages kept current (YUI-182, runtime half)"
-    },
-    {
-      "text": "Workouts e2e: Progress redraws for a new lift's chart; the home row's native is a word",
-      "card": "YUI-182"
-    },
-    {
-      "text": "Workout runner polish: Skip on every move, each move's sets named in the review, This week a plain list with done days ticked",
-      "card": "YUI-182"
-    }
-  ]
+  "next": []
 }

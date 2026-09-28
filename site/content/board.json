@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T06:10:59.456Z",
+  "updated": "2026-09-28T06:41:01.494Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -15,7 +15,7 @@
       {
         "key": "YUI-183",
         "title": "Basil's tools",
-        "status": "next"
+        "status": "now"
       },
       {
         "key": "YUI-184",
@@ -217,10 +217,6 @@
           "title": "Meet the crew in the site chat, each member with a flow to try"
         },
         {
-          "key": "SITE-70",
-          "title": "The trainer's flow for the site chat, from a check-in to the timer"
-        },
-        {
           "key": "SITE-71",
           "title": "The nutritionist's flow for the site chat, from a plate to macros"
         },
@@ -302,11 +298,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-183",
-          "title": "Basil's tools",
-          "summary": "Today's macros board, plan my meals, the grocery list, and his default screens"
-        },
-        {
           "key": "YUI-184",
           "title": "Gouda's tools",
           "summary": "Learn a song and play along, practice log, saved sessions, and default screens"
@@ -348,12 +339,13 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-187",
-          "title": "The screen dots come back and animate, and screens slide instead of fading"
+          "key": "SITE-70",
+          "title": "The trainer's flow for the site chat, from a check-in to the timer"
         },
         {
-          "key": "SITE-68",
-          "title": "The site chat demos whole flows, several screens in a row, not one screen"
+          "key": "YUI-183",
+          "title": "Basil's tools",
+          "summary": "Today's macros board, plan my meals, the grocery list, and his default screens"
         },
         {
           "key": "INT-8",
@@ -413,6 +405,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-187",
+          "title": "The screen dots come back and animate, and screens slide instead of fading",
+          "summary": "Yui 0.5.2: the dots are back and slide with you",
+          "shipped": "2026-09-28",
+          "progress": "/progress#yui-0-5-2-the-dots-are-back-and-slide-with-you"
+        },
+        {
+          "key": "SITE-68",
+          "title": "The site chat demos whole flows, several screens in a row, not one screen",
+          "summary": "The site chat plays a whole flow",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-site-chat-plays-a-whole-flow"
+        },
         {
           "key": "SITE-67",
           "title": "The site chat asks for feedback first",
