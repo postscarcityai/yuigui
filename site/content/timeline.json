@@ -2,7 +2,7 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 273,
-    "site": 614,
+    "site": 616,
     "builds": 42,
     "shipped": 302,
     "screenshots": 706
@@ -13,7 +13,7 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T04:08:21.199Z",
+          "at": "2026-09-28T04:09:20.000Z",
           "title": "See it shows hold to talk the way 0.5.0 does it",
           "card": "SITE-75",
           "anchor": "see-it-shows-hold-to-talk-the-way-0-5-0-does-it",
@@ -23,16 +23,31 @@
               "alt": "Slid left while holding: the mic turns into a trash can and the stage says Let go to cancel"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 273,
-            "site": 614,
+            "site": 615,
             "builds": 42,
             "shipped": 302
           }
         }
       ],
-      "commits": []
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "06c887d",
+          "at": "2026-09-28T04:10:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/06c887d"
+        },
+        {
+          "repo": "site",
+          "sha": "148273a",
+          "at": "2026-09-28T04:09:20.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yuigui/commit/148273a"
+        }
+      ]
     },
     {
       "date": "2026-09-27",

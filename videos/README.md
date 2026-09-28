@@ -36,7 +36,7 @@ Everything is made from code on this Mac: HTML pages drawn frame by frame in hea
 4. **Breadth, 8 to 10 s.** A tilted wall of real screens with one word per beat ("Lessons. Charts. Games. Timers.").
 5. **Outro.** The wordmark, one tagline, the URL, one honest line (public beta on TestFlight; "on the web now, in the app soon").
 
-Length: 60 s for explainers, 20 to 30 s for a single feature. Tempo 90 to 100 BPM; land cuts on bars and taps on beats.
+Length: 60 s for explainers, 20 to 30 s for a single feature, up to 2 minutes for a release announcement. Tempo 90 to 100 BPM; land cuts on bars and taps on beats.
 
 ## Honesty
 
@@ -112,5 +112,6 @@ Sources are tracked (comps, music scripts, plans, share copy, the kit). Renders,
 | 10-homework | homework rescue: a picture, a memory game, a quiz, the score goes back | /, /mockups#game-memory |
 | 11-tune-up | Yui 0.4.1: tune up, keep time, send a take | /mockups#music-tools, /thoughts/yui-0-4-1-tune-up-keep-time-send-a-take |
 | 12-new-face | the new layout filmed in the real app (build 208 on the simulator, `record.py` + `BragLayoutTests.swift`) | / (the hero), /mockups |
+| 13-the-crew | Yui 0.5.0 in two minutes: snap and say, a meal, meet each agent, homes, the hand-off, tables, the six agents (real captures with clean plates from `prep.py`) | the top bar, /, /mockups, the 0.5.0 Thought |
 
 What each page could get next: `PLAN.md`.

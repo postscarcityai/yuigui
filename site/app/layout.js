@@ -13,7 +13,7 @@ const GA_ID = "G-VYENQDDF00";
 const nunito = Nunito({ subsets: ["latin"], weight: ["400", "600", "700", "800"], variable: "--font-nunito", display: "swap" });
 const themeInit = `try{var t=localStorage.getItem("yui-theme");document.documentElement.dataset.theme=t==="dark"?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}`;
 // A closed announcement stays closed, with no flash on the next load (components/TopBar.js).
-const topbarInit = `try{if(localStorage.getItem("yui-topbar-0.4-voice"))document.documentElement.dataset.topbar="off"}catch(e){}`;
+const topbarInit = `try{if(localStorage.getItem("yui-topbar-0.5.0-crew"))document.documentElement.dataset.topbar="off"}catch(e){}`;
 
 export const metadata = {
   metadataBase: new URL("https://www.yuigui.com"),

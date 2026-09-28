@@ -1,0 +1,703 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Yui 0.5.0: the crew feels ready</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+/* Real app screens: every .shot is a simulator capture from site/public/progress (or a clean plate of
+   one from prep.py with patches of the original on top). The captures carry their own status bar. */
+.sbar { display: none; }
+.shot { position: absolute; left: 0; top: 0; width: 393px; height: 852px; overflow: hidden; visibility: hidden; transform-origin: 50% 50%; }
+.shot > img { position: absolute; left: 0; top: 0; width: 393px; height: 852px; }
+.patch { position: absolute; background-size: 393px 852px; background-repeat: no-repeat; }
+.hot { position: absolute; }
+#flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 40; pointer-events: none; }
+#redIris { position: absolute; left: 216px; top: 694px; width: 20px; height: 20px; margin: -10px 0 0 -10px; border-radius: 50%; background: #FD4254; z-index: 20; visibility: hidden; }
+
+/* snap and say: our own live pill over the frozen photo */
+#pill { position: absolute; left: 56px; top: 586px; width: 281px; height: 94px; border-radius: 24px; background: rgba(26,20,18,.94); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); }
+#wave { position: absolute; left: 30px; right: 30px; top: 14px; height: 30px; display: flex; align-items: center; justify-content: space-between; }
+#wave i { width: 3.4px; border-radius: 2px; background: #FF6B7A; display: block; }
+#said { position: absolute; left: 0; right: 0; top: 52px; text-align: center; color: #fff; font: 800 19.5px -apple-system, "SF Pro Display", system-ui; letter-spacing: -0.01em; white-space: nowrap; }
+#said span { display: inline-block; }
+#holdRing { position: absolute; left: 146px; top: 696px; }
+
+/* the looper, drawn over Gouda's capture on the same grid */
+#grid { position: absolute; left: 82px; top: 191px; width: 280px; height: 280px; }
+.gc { position: absolute; width: 31px; height: 31px; border-radius: 7px; background: #2C1D17; box-shadow: inset 0 0 0 1px rgba(255,236,220,.05); }
+.gc.lt { background: #3A2A23; }
+.gc.k { background: #FE9466; } .gc.s { background: #9ECDB9; } .gc.h { background: #E6D08F; }
+.gc.hit { filter: brightness(1.28) saturate(1.1); transform: scale(1.08); }
+#phead { position: absolute; top: -2px; width: 35px; height: 283px; border-radius: 9px; box-shadow: inset 0 0 0 2.6px #FFF4EC, 0 0 18px rgba(255,180,140,.35); }
+
+/* picker highlight */
+#pickHi { position: absolute; left: 72px; width: 236px; border-radius: 18px; background: rgba(120,220,230,.16); box-shadow: inset 0 0 0 2px rgba(140,230,240,.55), 0 0 26px rgba(90,210,230,.35); }
+
+/* the tables mock (rebuilt from /mockups/tables, YUI-171) */
+.tb { position: absolute; inset: 0; background: linear-gradient(180deg, #FDE7E8 0%, #FFF3EE 45%, #FFF9F2 100%); color: #3A3340; font-family: "YuiRounded"; }
+.tb-head { position: absolute; left: 16px; top: 58px; height: 56px; padding: 0 18px 0 8px; border-radius: 30px; background: rgba(255,255,255,.72); box-shadow: 0 2px 10px rgba(58,51,64,.05); display: flex; align-items: center; gap: 10px; }
+.tb-av { width: 36px; height: 36px; border-radius: 10px; background: #EC6A72; color: #3A3340; display: grid; place-items: center; font-size: 18px; font-weight: 800; flex: none; }
+.tb-head b { display: block; font-size: 18px; font-weight: 800; line-height: 1.1; }
+.tb-head small { display: block; font-size: 13px; font-weight: 600; color: #8C8294; }
+.tb-sw { position: absolute; right: 16px; top: 62px; width: 46px; height: 46px; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: 0 2px 10px rgba(58,51,64,.06); }
+.tb-m { position: absolute; }
+.tb-u { right: 16px; background: #EF7B81; border-radius: 22px 22px 8px 22px; padding: 11px 16px; font-size: 16px; font-weight: 600; }
+.tb-a { left: 16px; max-width: 280px; background: #fff; border-radius: 22px 22px 22px 8px; padding: 11px 16px; font-size: 16px; font-weight: 600; line-height: 1.35; }
+.foods { width: 345px; background: #fff; border-radius: 22px; padding: 14px 16px 12px; box-shadow: 0 2px 14px rgba(58,51,64,.05); font-family: "YuiRounded"; color: #3A3340; }
+.foods h5 { margin: 0 0 8px; font-size: 19px; font-weight: 800; }
+.frow { display: flex; align-items: center; height: 36px; border-bottom: 1.2px solid #F2E4E0; font-size: 15.5px; font-weight: 600; }
+.frow span:nth-child(1) { flex: 1; }
+.frow span:nth-child(2) { width: 60px; text-align: right; }
+.frow span:nth-child(3) { width: 70px; text-align: right; }
+.frow.hd { height: 40px; font-size: 13px; color: #8C8294; font-weight: 800; }
+.frow.hd small { display: block; font-size: 11px; font-weight: 600; }
+.frow.new { background: linear-gradient(90deg, rgba(255,126,138,.18), rgba(255,126,138,0)); }
+.ffoot { margin-top: 9px; font-size: 12.5px; font-weight: 600; color: #A99FB0; }
+.tb-bar { position: absolute; left: 16px; right: 16px; bottom: 36px; height: 50px; display: flex; align-items: center; gap: 10px; }
+.tb-pill { height: 44px; padding: 0 16px; border-radius: 999px; display: flex; align-items: center; gap: 7px; font-size: 15px; font-weight: 700; background: #fff; box-shadow: inset 0 0 0 1.5px #F2E4E0; }
+.tb-pill.co { background: #EF7B81; box-shadow: none; }
+.tb-mic { margin-left: auto; width: 52px; height: 52px; border-radius: 50%; background: #EF7B81; display: grid; place-items: center; box-shadow: 0 8px 22px rgba(239,123,129,.4); }
+.tb-sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 410px; border-radius: 30px 30px 0 0; background: #fff; box-shadow: 0 -14px 40px rgba(58,51,64,.16); padding: 22px 18px; z-index: 5; }
+.tb-sheet h6 { margin: 0; font-size: 21px; font-weight: 800; }
+.tb-sheet p { margin: 4px 0 14px; font-size: 14.5px; color: #8C8294; font-weight: 600; }
+.tb-row { height: 58px; border-radius: 16px; background: #FFF4F1; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; padding: 0 12px; }
+.tb-row b { display: block; font-size: 16px; font-weight: 800; }
+.tb-row small { display: block; font-size: 12.5px; color: #8C8294; font-weight: 600; }
+.tb-row em { margin-left: auto; font-style: normal; font-size: 12.5px; color: #8C8294; font-weight: 700; }
+.tb-row .tb-av { width: 34px; height: 34px; font-size: 16px; }
+#fly { position: absolute; left: 0; top: 0; transform-origin: 0 0; z-index: 45; visibility: hidden; }
+.spark { position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #FF7E8A; z-index: 44; visibility: hidden; box-shadow: 0 0 12px rgba(255,126,138,.8); }
+
+/* the cold open */
+#open { position: absolute; inset: 0; }
+.dot { position: absolute; width: 6px; height: 6px; border-radius: 50%; background: #FF7E8A; }
+.badge { position: absolute; left: 0; top: 0; width: 132px; margin-left: -66px; text-align: center; }
+.tile { width: 120px; height: 120px; margin: 0 auto; border-radius: 34px; display: grid; place-items: center; color: #fff; font-size: 64px; font-weight: 800; box-shadow: 0 16px 40px rgba(0,0,0,.35); }
+.tile.yui { background: #fff; }
+.badge b { display: block; margin-top: 14px; font-size: 30px; font-weight: 800; color: #F6EEF7; }
+.shock { position: absolute; left: 0; top: 0; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; border: 3px solid #FF7E8A; }
+#oTitle { position: absolute; left: 0; right: 0; top: 440px; text-align: center; font-size: 132px; font-weight: 800; letter-spacing: -0.03em; color: #F6EEF7; line-height: 1; }
+#oTitle span { display: inline-block; }
+#oTitle .v { color: #FF7E8A; }
+#oSub { position: absolute; left: 0; right: 0; top: 590px; text-align: center; font-size: 50px; font-weight: 800; color: #FF7E8A; }
+body.reel #oTitle { top: 850px; font-size: 118px; }
+body.reel #oSub { top: 990px; font-size: 48px; }
+#iris { position: absolute; left: 960px; top: 540px; width: 100px; height: 100px; margin: -50px 0 0 -50px; border-radius: 50%; background: #FFF9F0; visibility: hidden; }
+body.reel #iris { left: 540px; top: 1054px; }
+
+/* the crew */
+#crew { position: absolute; inset: 0; }
+#crewT { position: absolute; left: 0; right: 0; top: 96px; text-align: center; font-size: 74px; font-weight: 800; letter-spacing: -0.02em; }
+#crewS { position: absolute; left: 0; right: 0; top: 186px; text-align: center; font-size: 46px; font-weight: 800; color: var(--accent); }
+.ccard { position: absolute; left: 0; top: 0; width: 262px; height: 356px; margin: -178px 0 0 -131px; border-radius: 36px; background: var(--surface); box-shadow: 0 26px 60px rgba(58,51,64,.16), inset 0 0 0 2px var(--outline); padding: 28px 24px; text-align: left; }
+.ccard .tile { width: 96px; height: 96px; margin: 0 0 20px; border-radius: 28px; font-size: 52px; box-shadow: 0 10px 26px rgba(58,51,64,.18); }
+.ccard .tile.yui { box-shadow: 0 10px 26px rgba(58,51,64,.14), inset 0 0 0 2px #F0E4D6; }
+.ccard b { display: block; font-size: 44px; font-weight: 800; letter-spacing: -0.02em; }
+.ccard p { margin: 8px 0 0; font-size: 24px; line-height: 1.22; font-weight: 700; color: #6E6478; }
+#chips { position: absolute; left: 0; right: 0; top: 900px; display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; padding: 0 120px; }
+#chips .lab { font-size: 34px; font-weight: 800; margin-right: 6px; }
+.chip { display: inline-block; padding: 12px 22px; border-radius: 999px; background: var(--surface); box-shadow: inset 0 0 0 2px var(--outline); font-size: 30px; font-weight: 800; }
+body.reel #crewT { top: 300px; font-size: 70px; }
+body.reel #crewS { top: 390px; }
+body.reel .ccard { width: 264px; height: 370px; margin: -185px 0 0 -132px; }
+body.reel #chips { top: 1400px; padding: 0 60px; gap: 12px; }
+body.reel #chips .lab { width: 100%; text-align: center; margin: 0 0 6px; }
+
+/* the wall */
+#wall { position: absolute; inset: 0; overflow: hidden; }
+#wallIn { position: absolute; left: 180px; top: -700px; width: 1900px; height: 2600px; display: flex; gap: 34px; transform-origin: 50% 50%; }
+body.reel #wallIn { left: -260px; top: -520px; width: 1600px; height: 3000px; }
+.col { display: flex; flex-direction: column; gap: 34px; width: 330px; }
+.col img { width: 330px; height: 717px; border-radius: 40px; box-shadow: 0 24px 60px rgba(58,51,64,.22); object-fit: cover; object-position: top; }
+#scrim { position: absolute; inset: 0; background: radial-gradient(1100px 460px at 50% 50%, rgba(255,249,240,.97) 30%, rgba(255,249,240,.7) 65%, rgba(255,249,240,.3)); }
+body.reel #scrim { background: radial-gradient(700px 600px at 50% 50%, rgba(255,249,240,.97) 30%, rgba(255,249,240,.7) 65%, rgba(255,249,240,.3)); }
+.wword { position: absolute; left: 0; right: 0; top: 470px; text-align: center; font-size: 118px; font-weight: 800; letter-spacing: -0.03em; }
+body.reel .wword { top: 870px; font-size: 104px; }
+
+/* outro badges */
+.ob { position: absolute; left: 0; top: 0; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 24px; display: grid; place-items: center; color: #fff; font-size: 44px; font-weight: 800; box-shadow: 0 12px 30px rgba(58,51,64,.18); }
+.ob.yui { background: #fff; box-shadow: 0 12px 30px rgba(58,51,64,.14), inset 0 0 0 2px #F0E4D6; }
+
+/* captions, tuned for this film */
+.cap.narrow { width: 400px; }
+.cap.L.narrow { left: 90px; }
+.cap.R.narrow { left: 1430px; }
+body.reel .cap.narrow { left: 60px; width: 960px; }
+.kpill.low { left: 0; right: 0; margin: 0 auto; width: fit-content; top: 1002px; }
+body.reel .kpill.low { top: 452px; }
+#iris { z-index: 1; }
+#phoneWrap { z-index: 2; }
+#phone2Wrap { z-index: 2; position: absolute; left: 751.5px; top: 102px; width: 417px; height: 876px; transform-origin: 50% 50%; visibility: hidden; }
+body.reel #phone2Wrap { left: 331.5px; top: 616px; }
+</style>
+</head>
+<body class="dark">
+<div id="stage"><div id="glow"></div>
+  <div id="open"><div id="dots"></div><div id="ring"></div>
+    <div id="oTitle"></div><div id="oSub">The crew feels ready.</div>
+  </div>
+  <div id="iris"></div>
+  <div id="crew"><div id="crewT">Your crew lives in Yui.</div><div id="crewS">Nothing to set up.</div><div id="cards"></div><div id="chips"></div></div>
+  <div id="wall"><div id="wallIn"></div><div id="scrim"></div>
+    <div class="wword" id="w0">Snap and say.</div><div class="wword" id="w1">Meals, no scale.</div><div class="wword" id="w2">A home each.</div>
+    <div class="wword" id="w3">Hand-offs.</div><div class="wword accent" id="w4">Your tables.</div>
+  </div>
+
+  <div class="cap L" id="c1L">Hold to snap.</div>
+  <div class="cap R accent" id="c1R">Say what's in it.</div>
+  <div class="cap L" id="c2L">Let go.</div>
+  <div class="cap R accent" id="c2R">Photo and words, together.</div>
+  <div class="cap L" id="c3L">A meal, no scale.</div>
+  <div class="cap R accent" id="c3R">Basil answers at once.</div>
+  <div class="cap L" id="c4L">Then one breakdown.</div>
+  <div class="cap R accent" id="c4R">It fits a phone.</div>
+  <div class="cap L" id="c5L">Meet each agent.</div>
+  <div class="cap R accent" id="c5R">It says hello first.</div>
+  <div class="cap L" id="c6L">Tap the name.</div>
+  <div class="cap R accent" id="c6R">See what each one does.</div>
+  <div class="cap L" id="c7L">About has three asks.</div>
+  <div class="cap R accent" id="c7R">A tap sends one.</div>
+  <div class="cap L" id="c8L">Every agent has a home.</div>
+  <div class="cap R accent" id="c8R">Its own shortcuts.</div>
+  <div class="cap L" id="c9L">Swipe left.</div>
+  <div class="cap R accent" id="c9R">Its starter screens.</div>
+  <div class="cap L" id="c10L">Gouda's looper.</div>
+  <div class="cap R accent" id="c10R">Ready to play.</div>
+  <div class="cap L" id="c11L">Ask Yui about dinner.</div>
+  <div class="cap R accent" id="c11R">Yui passes you to Basil.</div>
+  <div class="cap L" id="c12L">With a note.</div>
+  <div class="cap R accent" id="c12R">Basil is already answering.</div>
+  <div class="cap L narrow" id="c13L">Your tables belong to you.</div>
+  <div class="cap R accent narrow" id="c13R">Not to one agent.</div>
+  <div class="cap L narrow" id="c14L">Hand them to Claude.</div>
+  <div class="cap R accent narrow" id="c14R">Same rows. Same screen.</div>
+  <div class="kpill" id="p1"><b>→ Basil</b> photo + "Two eggs in a…"</div>
+  <div class="kpill" id="p2"><b>&gt;</b> table Lunch Food|Cal|Protein …</div>
+  <div class="kpill" id="p3"><b>&gt;</b> card url=yui://agent/basil …</div>
+  <div class="kpill low" id="p4"><b>&gt;</b> put foods Food="Cottage cheese" Cal=98 Protein=11</div>
+  <div id="outro">
+    <img id="owm" src="../kit/yui-wordmark-coral.png" alt="">
+    <div id="otag">The crew feels ready.</div>
+    <div id="ourl">yuigui.com</div>
+    <div id="onote">Yui 0.5.0 is on TestFlight now</div>
+    <div id="orbit"></div>
+  </div>
+  <div id="fly"></div>
+  <div id="sparks"></div>
+  <div id="ripple"></div><div id="finger"></div>
+</div>
+<script src="../kit/kit.js"></script>
+<script>
+// ---------- the score: one clock for picture and music (music.py reads window.SCORE) ----------
+// 100 BPM: a beat is 0.6 s, a bar 2.4 s, 50 bars is 120 s.
+const BPM = 100, BAR = 2.4, BEAT = 0.6, E8 = 0.3;
+const b = (n) => n * BAR;
+const T = {
+  drop: b(4),            // the phone lands, the room turns cream
+  hold: [11.4, 16.2],    // hold the shutter, let go
+  words: 12.0,           // the first spoken word
+  meal: b(10), scroll: 27.6,
+  meet: b(14), chip: 38.4, about: 43.2, ask: 45.6,
+  home: b(21), swipe: [55.2, 55.8], loop: b(25),
+  handoff: b(29), openBasil: 74.4,
+  tables: b(33), switchTap: 83.6, chefTap: 84.8, lift: 85.2, land: 86.8, add: 88.4,
+  crew: b(39), wall: 102.0, outro: b(45),
+};
+const FLIPS = [T.meet, T.loop, T.handoff];
+const PAT = { kick: "x...x...", snare: "..x...x.", hat: "x.x.x.x." };
+const AG = [
+  { n: "Yui", c: "#FF7E8A", l: "Y", line: "Ask anything, or make a new agent" },
+  { n: "Arnold", c: "#167F90", l: "A", line: "Workouts built around your week and body" },
+  { n: "Basil", c: "#FD4254", l: "B", line: "Eat better without counting everything" },
+  { n: "Gouda", c: "#CE4104", l: "G", line: "Beats, chords and practice, right on screen" },
+  { n: "Penny", c: "#A348DA", l: "P", line: "Get your week out of your head" },
+  { n: "Quill", c: "#1B79B3", l: "Q", line: "Learn anything fast, then get quizzed" },
+];
+const BADGE_T = AG.map((_, i) => 0.6 + i * BEAT);
+const CARD_T = AG.map((_, i) => T.crew + 0.5 + i * BEAT);
+const CHIPS = ["Hermes", "OpenClaw", "Claude Code", "Cursor", "MCP", "A2A", "AG-UI", "Webhooks"];
+const CHIP_T = CHIPS.map((_, i) => T.crew + 4.8 + i * E8);
+const WORD_T = [0, 1, 2, 3, 4].map((i) => T.wall + 0.3 + i * 1.2);
+
+// ---------- the phone ----------
+const PR = "../../site/public/progress/", PL = "work/img/";
+const shot = (id, src, inner = "") => `<div class="shot" id="${id}"><img src="${src}" alt="">${inner}</div>`;
+const patch = (id, src, x, y, w, h) =>
+  `<div class="patch" id="${id}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;background-image:url(${src});background-position:${-x}px ${-y}px"></div>`;
+const hot = (id, x, y, w = 40, h = 40) => `<div class="hot" id="${id}" style="left:${x - w / 2}px;top:${y - h / 2}px;width:${w}px;height:${h}px"></div>`;
+
+const EGGS = PR + "yui166-answer-light.webp";
+const EGG_LINES = [[440, 474], [474, 508], [508, 541], [541, 578]];
+const LUNCH = PR + "yui103-answer-light.webp";
+const BRK = PR + "yui103-breakdown-light.webp";
+const HELLO = PR + "yui167-hello-light.webp";
+const HELLO_Y = [329, 366, 404, 441, 479, 516, 554];
+const HOME = PR + "yui168-app-arnold-home-light.webp";
+const HAND = PR + "yui144-1-yui-hands-off-light.webp";
+const BAS = PR + "yui144-2-basil-answers-light.webp";
+const PICK_Y = [[85, 140], [158, 218], [236, 294], [313, 370], [388, 430], [448, 507]];
+
+const WAVE_N = 34;
+const said = "Two eggs in a lot of butter".split(" ");
+const holdInner = `<div id="pill"><div id="wave">${[...Array(WAVE_N)].map((_, i) => `<i id="wv${i}"></i>`).join("")}</div>
+  <div id="said">${said.map((w, i) => `<span id="sw${i}">${w}</span>`).join(" ")}</div></div>
+  <svg id="holdRing" width="100" height="100" viewBox="0 0 100 100"><circle id="holdArc" cx="50" cy="50" r="45" fill="none" stroke="#FF6B7A" stroke-width="5" stroke-linecap="round" transform="rotate(-90 50 50)" stroke-dasharray="283" stroke-dashoffset="283"/></svg>`;
+
+// the looper grid: 8 steps, 8 rows, the capture's pattern (kick, snare and hat; the rest empty)
+const ROWS = ["kick", "snare", "clap", "hat", "open", "rim", "tom", "shaker"], CLS = { kick: "k", snare: "s", hat: "h" };
+const grid = `<div id="grid">${ROWS.map((r, j) => [...Array(8)].map((_, c) => `<div class="gc" id="g${j}-${c}" style="left:${c * 35.2}px;top:${j * 35}px"></div>`).join("")).join("")}<div id="phead"></div></div>`;
+
+// the tables mock: Basil on Hermes, then Chef on Claude via MCP, with the same Foods table
+const FOODS = [["Chicken breast", 165, 31], ["Tuna", 132, 28], ["Lentils", 230, 18], ["Greek yogurt", 100, 17], ["Tofu", 144, 17]];
+const SWAP = `<svg width="20" height="20" viewBox="0 0 24 24"><path d="M5 8h13l-3.5-3.5M19 16H6l3.5 3.5" stroke="#3A3340" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const MICI = `<svg width="22" height="22" viewBox="0 0 24 24"><rect x="8.5" y="3" width="7" height="12" rx="3.5" fill="#3A3340"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" stroke="#3A3340" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+const foods = (pre, foot) => `<div class="foods" id="${pre}foods"><h5>Foods</h5>
+  <div class="frow hd"><span>Food</span><span>Cal<small>kcal</small></span><span>Protein<small>g</small></span></div>
+  ${FOODS.map((f, i) => `<div class="frow" id="${pre}r${i}"><span>${f[0]}</span><span>${f[1]}</span><span>${f[2]}</span></div>`).join("")}
+  <div class="ffoot" id="${pre}foot">${foot}</div></div>`;
+const tbHead = (n, sub, l) => `<div class="tb-head"><div class="tb-av">${l}</div><div><b>${n}</b><small>${sub}</small></div></div><div class="tb-sw">${SWAP}</div>`;
+const tbBar = (id) => `<div class="tb-bar"><div class="tb-pill">+ Add a food</div><div class="tb-pill co" id="${id}">${SWAP}Switch agent</div><div class="tb-mic">${MICI}</div></div>`;
+const t1 = `<div class="tb" id="t1">${tbHead("Basil", "on Hermes", "B")}
+  <div class="tb-m tb-u" id="t1u" style="top:132px">What's highest in protein?</div>
+  <div class="tb-m tb-a" id="t1a" style="top:188px">Top five from your Foods table.</div>
+  <div class="tb-m" id="t1card" style="left:24px;top:246px">${foods("t1", "foods · 7 rows · held by Basil")}</div>
+  ${tbBar("t1sw")}
+  <div class="tb-sheet" id="t1sheet"><h6>Who keeps your tables?</h6><p>foods and meals, held by Basil.</p>
+    ${[["B", "Basil", "Hermes", "Has them"], ["C", "Chef", "Claude via MCP", ""], ["J", "Juno", "A2A", ""], ["P", "Pantry", "Webhook", ""]]
+      .map(([l, n, s, e]) => `<div class="tb-row" id="row${n}"><div class="tb-av">${l}</div><div><b>${n}</b><small>${s}</small></div><em>${e}</em></div>`).join("")}
+  </div></div>`;
+const t2 = `<div class="tb" id="t2">${tbHead("Chef", "on Claude via MCP", "C")}
+  <div class="tb-m tb-u" id="t2u" style="top:132px">What's highest in protein?</div>
+  <div class="tb-m tb-a" id="t2a" style="top:188px">Same table, now with me.<br>Top five:</div>
+  <div class="tb-m" id="t2card" style="left:24px;top:268px">${foods("t2", "foods · 7 rows · held by Chef")}</div>
+  <div class="tb-m tb-u" id="t2u2" style="top:612px">Add cottage cheese</div>
+  <div class="tb-m tb-a" id="t2a2" style="top:668px">Added. 98 kcal, 11 g protein.</div>
+  ${tbBar("t2sw")}</div>`;
+
+K.phone(`<div class="page" id="pg">
+  ${shot("s-cam", PR + "yui166-camera-light.webp", hot("hShutter", 196, 746, 60, 60))}
+  ${shot("s-hold", PR + "yui166-holding-dark.webp", holdInner)}
+  ${shot("s-eggs", PL + "answer-eggs.png", patch("eYou", EGGS, 180, 108, 212, 30) + patch("eCard", EGGS, 12, 314, 372, 118) + EGG_LINES.map(([a, z], i) => patch(`eL${i}`, EGGS, 12, a, 370, z - a)).join(""))}
+  ${shot("s-lunch", PL + "answer-lunch.png", patch("lPhoto", LUNCH, 158, 462, 224, 172) + patch("lMsg", LUNCH, 122, 629, 260, 50) + patch("lGot", LUNCH, 12, 682, 310, 56))}
+  ${shot("s-break", PL + "breakdown.png", [...Array(7)].map((_, i) => patch(`bR${i}`, BRK, 66, 123 + i * 27.6, 306, 27.6)).join("") + patch("bRing", BRK, 102, 485, 224, 218))}
+  ${shot("s-hello", PL + "hello.png", HELLO_Y.map((y, i) => patch(`hL${i}`, HELLO, 10, y - 19, 376, 38)).join("") + hot("hChip", 138, 86, 120, 36))}
+  ${shot("s-picker", PR + "yui167-picker-dark.webp", `<div id="pickHi"></div>`)}
+  ${shot("s-about", PR + "yui167-about-light.webp", hot("hAsk", 168, 437, 200, 44))}
+  ${shot("s-sent", PR + "yui167-sent-dark.webp")}
+  ${shot("s-home", PL + "home.png", patch("mW1", HOME, 4, 398, 386, 90) + patch("mW2", HOME, 4, 488, 386, 64) + patch("mS1", HOME, 12, 684, 186, 66) + patch("mS2", HOME, 196, 684, 186, 66) + hot("hSwipe", 320, 600, 30, 30))}
+  ${shot("s-week", PR + "yui168-app-arnold-week-dark.webp")}
+  ${shot("s-loop", PR + "yui168-app-gouda-looper-dark.webp", grid)}
+  ${shot("s-handoff", PL + "handoff.png", patch("fU", HAND, 106, 440, 280, 46) + patch("fY", HAND, 12, 492, 280, 68) + patch("fB", HAND, 12, 566, 374, 168) + hot("hOpen", 216, 694, 200, 44))}
+  <div id="redIris"></div>
+  ${shot("s-basil", PL + "basil.png", patch("bLeg", BAS, 12, 378, 372, 72) + patch("bTon", BAS, 52, 452, 332, 162) + patch("bRec", BAS, 52, 615, 332, 120))}
+  ${shot("s-t1", "", t1)}
+  <div id="flash"></div>
+</div>`);
+
+// the second phone, for the tables: the same kit phone, built by hand
+const p2 = document.createElement("div");
+p2.id = "phone2Wrap";
+p2.innerHTML = `<div class="phone"><div class="screen"><div class="island"></div><div class="pages"><div class="page">${t2}</div></div><div class="homeind"></div></div></div>`;
+K.$("stage").insertBefore(p2, K.$("phoneWrap").nextSibling);
+K.$("s-t1").querySelector("img").remove();
+
+// the cold open: dots, the six badges, the title
+const $ = K.$, P = K.prog, R = K.REEL;
+const CX = R ? 540 : 960, CY = R ? 900 : 540, RX = R ? 370 : 480, RY = R ? 470 : 300;
+const tileHTML = (a, cls = "tile") => `<div class="${cls}${a.n === "Yui" ? " yui" : ""}" style="${a.n === "Yui" ? "" : `background:${a.c}`}">${a.n === "Yui" ? K.Y_SVG(cls === "ob" ? 50 : 70) : a.l}</div>`;
+$("ring").innerHTML = AG.map((a, i) => `<div class="shock" id="sh${i}"></div><div class="badge" id="bd${i}">${tileHTML(a)}<b>${a.n}</b></div>`).join("");
+$("oTitle").innerHTML = "Yui 0.5.0".split("").map((ch, i) => `<span id="ot${i}"${i >= 4 ? ' class="v"' : ""}>${ch === " " ? "&nbsp;" : ch}</span>`).join("");
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return x - Math.floor(x); };
+const NDOT = 46;
+$("dots").innerHTML = [...Array(NDOT)].map((_, i) => `<div class="dot" id="d${i}"></div>`).join("");
+$("cards").innerHTML = AG.map((a, i) => `<div class="ccard" id="cc${i}">${tileHTML(a)}<b>${a.n}</b><p>${a.line}</p></div>`).join("");
+$("chips").innerHTML = `<span class="lab">Or bring your own:</span>` + CHIPS.map((c, i) => `<span class="chip" id="ch${i}">${c}</span>`).join("");
+$("orbit").innerHTML = AG.map((a, i) => `<div id="ob${i}" style="position:absolute;left:0;top:0">${tileHTML(a, "ob")}</div>`).join("");
+
+// the wall: real 0.5.0 captures
+const WALL = [
+  ["yui166-camera-light", "yui167-picker-dark", "yui168-app-yui-crew-light", "yui144-2-basil-answers-light", "yui103-words-light"],
+  ["yui103-breakdown-light", "yui168-app-arnold-home-light", "yui166-holding-dark", "yui167-about-light", "yui165-gouda-hello-light"],
+  ["yui168-app-gouda-looper-dark", "yui144-1-yui-hands-off-light", "yui167-hello-light", "yui103-answer-dark", "yui170-basil-meals-light"],
+  ["yui166-answer-light", "yui168-app-arnold-week-dark", "yui167-sent-dark", "yui166-record-light", "yui160-arnold-light"],
+  ["yui170-yui-groceries-light", "yui145-add-crew-light", "yui103-answer-light", "yui165-gouda-review-dark", "yui168-app-arnold-home-light"],
+];
+$("wallIn").innerHTML = WALL.map((c, i) => `<div class="col" id="wc${i}">${c.map((s) => `<img src="${PR}${s}.webp" alt="">`).join("")}</div>`).join("");
+
+// ---------- the finger ----------
+const G = [
+  { t: T.hold[0], t1: T.hold[1], el: "hShutter" },
+  { t: T.chip, el: "hChip" },
+  { t: T.ask, el: "hAsk" },
+  { t: T.swipe[0], t1: T.swipe[1], el: "hSwipe" },
+  { t: T.openBasil, el: "hOpen" },
+  { t: T.switchTap, el: "t1sw" },
+  { t: T.chefTap, el: "rowChef" },
+];
+window.SCORE = {
+  bpm: BPM, bars: 50, drop: T.drop, hold: T.hold, words: said.map((_, i) => T.words + i * 0.42),
+  badges: BADGE_T, flips: FLIPS, loop: T.loop, pat: PAT, cards: CARD_T, chips: CHIP_T, wall: WORD_T,
+  lift: T.lift, land: T.land, add: T.add, openBasil: T.openBasil, chip: T.chip, ask: T.ask,
+  pops: [17.4, 24.8, 30.0, 51.0, 52.2, 72.1, 81.6, 89.2],
+  cuts: [T.meal, T.home, T.tables, T.crew, T.wall], outro: T.outro,
+  taps: G.map((g) => g.t),
+};
+
+// ---------- helpers ----------
+const SHOTS = ["s-cam", "s-hold", "s-eggs", "s-lunch", "s-break", "s-hello", "s-picker", "s-about", "s-sent", "s-home", "s-week", "s-loop", "s-handoff", "s-basil", "s-t1"];
+function sh(id, { o = 1, tf = "", clip = "", z = null } = {}) {
+  const el = $(id);
+  el.style.visibility = o > 0.001 ? "visible" : "hidden";
+  el.style.opacity = o;
+  el.style.transform = tf;
+  el.style.clipPath = clip;
+  if (z != null) el.style.zIndex = z;
+}
+const iris = (x, y, p) => `circle(${p * 1000}px at ${x}px ${y}px)`;
+// a patch pops in: rise and fade, a little overshoot
+function pop(id, t, t0, { dy = 16, dx = 0, s = 0.94, d = 0.4 } = {}) {
+  const p = P(t, t0, t0 + d), e = K.eo(p), bk = K.back(p);
+  const el = $(id);
+  el.style.opacity = K.clamp(p * 1.8);
+  el.style.transform = `translate(${(1 - e) * dx}px, ${(1 - e) * dy}px) scale(${s + (1 - s) * bk})`;
+}
+// a line of text wipes in from the left
+function wipe(id, t, t0, d = 0.45) {
+  const p = K.eio(P(t, t0, t0 + d));
+  const el = $(id);
+  el.style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`;
+  el.style.opacity = K.clamp(P(t, t0, t0 + 0.12));
+  el.style.transform = `translateY(${(1 - K.eo(P(t, t0, t0 + d))) * 6}px)`;
+}
+function flipAngle(t) {
+  for (const f of FLIPS) {
+    if (t >= f - 0.28 && t < f) return 90 * K.ei(P(t, f - 0.28, f));
+    if (t >= f && t < f + 0.36) return -90 * (1 - K.eo(P(t, f, f + 0.36)));
+  }
+  return 0;
+}
+
+// ---------- the scenes ----------
+function coldOpen(t) {
+  const on = t < T.drop + 0.4;
+  K.show("open", on);
+  if (!on) return;
+  // drifting coral dots, pulled in at the end
+  const pull = K.ei(P(t, 7.4, 9.1));
+  for (let i = 0; i < NDOT; i++) {
+    const a = rnd(i, 1) * 6.283 + t * (0.05 + rnd(i, 2) * 0.08), r0 = 260 + rnd(i, 3) * (R ? 700 : 900);
+    const r = r0 * (1 - pull);
+    const el = $(`d${i}`);
+    el.style.transform = `translate(${CX + Math.cos(a) * r}px, ${CY + Math.sin(a) * r * (R ? 1 : 0.62)}px) scale(${0.6 + rnd(i, 4) * 1.4})`;
+    el.style.opacity = (0.25 + 0.5 * rnd(i, 5)) * K.clamp(P(t, 0.1 + rnd(i, 6), 0.9 + rnd(i, 6))) * (1 - P(t, 8.8, 9.2));
+  }
+  // badges: one a beat, then they spin in to the middle
+  const spin = K.ei(P(t, 7.2, 9.0));
+  for (let i = 0; i < 6; i++) {
+    const p = P(t, BADGE_T[i], BADGE_T[i] + 0.5);
+    const a = -Math.PI / 2 + i * Math.PI / 3 + spin * 2.4;
+    const x = CX + Math.cos(a) * RX * (1 - spin), y = CY + Math.sin(a) * RY * (1 - spin);
+    const el = $(`bd${i}`);
+    el.style.opacity = K.clamp(p * 2) * (1 - P(t, 8.7, 9.0));
+    el.style.transform = `translate(${x}px, ${y - 90}px) scale(${K.back(p) * (1 - 0.6 * spin)})`;
+    const s = P(t, BADGE_T[i], BADGE_T[i] + 0.7);
+    $(`sh${i}`).style.opacity = s > 0 && s < 1 ? (1 - s) * 0.9 : 0;
+    $(`sh${i}`).style.transform = `translate(${x}px, ${y - 30}px) scale(${0.6 + K.eo(s) * 1.4})`;
+  }
+  // the title
+  const out = P(t, 6.9, 7.4);
+  "Yui 0.5.0".split("").forEach((_, i) => {
+    const p = K.eo(P(t, 4.2 + i * 0.06, 4.6 + i * 0.06));
+    const el = $(`ot${i}`);
+    el.style.opacity = p * (1 - out);
+    el.style.transform = `translateY(${(1 - p) * 40 - out * 20}px) scale(${0.9 + 0.1 * K.back(P(t, 4.2 + i * 0.06, 4.7 + i * 0.06))})`;
+  });
+  K.textIO("oSub", t, 5.4, 6.95, 30);
+}
+
+function snap(t) {
+  // live viewfinder, then the flash
+  const f = P(t, T.hold[0] + 0.05, T.hold[0] + 0.4);
+  $("flash").style.opacity = f > 0 && f < 1 ? 0.9 * (1 - f) : 0;
+  // the pill: the waveform moves while you talk, the words land as you say them
+  const talk = t > T.hold[0] + 0.2 && t < T.hold[1];
+  for (let i = 0; i < WAVE_N; i++) {
+    const env = talk ? (t > T.words - 0.2 && t < T.words + 7 * 0.42 + 0.3 ? 1 : 0.25) : 0.08;
+    const h = 4 + 24 * env * Math.abs(Math.sin(t * 9.3 + i * 0.71) * Math.sin(t * 3.7 + i * 1.33 + 0.5));
+    $(`wv${i}`).style.height = `${h}px`;
+  }
+  said.forEach((_, i) => {
+    const p = K.eo(P(t, T.words + i * 0.42, T.words + i * 0.42 + 0.25));
+    const el = $(`sw${i}`); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 10}px) scale(${0.9 + 0.1 * p})`;
+  });
+  $("holdArc").setAttribute("stroke-dashoffset", 283 * (1 - K.clamp(P(t, T.hold[0], T.hold[1]))));
+  $("holdRing").style.opacity = t < T.hold[1] ? 1 : 0;
+  // the answer
+  pop("eYou", t, 16.8, { dy: 8 });
+  pop("eCard", t, 17.4);
+  EGG_LINES.forEach((_, i) => wipe(`eL${i}`, t, 17.9 + i * 0.4));
+}
+
+function meal(t) {
+  pop("lPhoto", t, 24.8, { s: 0.8, dy: 30 });
+  pop("lMsg", t, 25.4);
+  pop("lGot", t, 26.4);
+  for (let i = 0; i < 7; i++) pop(`bR${i}`, t, 28.4 + i * 0.2, { dx: -24, dy: 0, s: 1 });
+  const d = K.eio(P(t, 30.0, 31.4));
+  $("bRing").style.webkitMaskImage = $("bRing").style.maskImage = `conic-gradient(from 0deg at 112px 112px, #000 ${d * 360}deg, transparent ${d * 360 + 0.5}deg)`;
+  $("bRing").style.opacity = d > 0.002 ? 1 : 0;
+  $("bRing").style.transform = `rotate(${(1 - K.eo(P(t, 30.0, 31.6))) * -30}deg) scale(${0.9 + 0.1 * K.back(P(t, 30.0, 30.9))})`;
+}
+
+function meet(t) {
+  HELLO_Y.forEach((_, i) => wipe(`hL${i}`, t, 34.3 + i * 0.38, 0.5));
+  // the picker: a highlight walks the six agents, one a beat
+  const k = K.clamp((t - 39.6) / BEAT, 0, 5);
+  const i0 = Math.floor(k), fr = K.eio(k - i0), i1 = Math.min(5, i0 + 1);
+  const y0 = K.lerp(PICK_Y[i0][0], PICK_Y[i1][0], fr), y1 = K.lerp(PICK_Y[i0][1], PICK_Y[i1][1], fr);
+  $("pickHi").style.top = `${y0 - 4}px`;
+  $("pickHi").style.height = `${y1 - y0 + 8}px`;
+  $("pickHi").style.opacity = K.clamp(P(t, 39.3, 39.7)) * (1 - P(t, 43.0, 43.3));
+}
+
+function home(t) {
+  pop("mW1", t, 51.0, { dx: 40, dy: 0 });
+  pop("mW2", t, 51.35, { dx: 40, dy: 0 });
+  pop("mS1", t, 52.2, { dy: 40, s: 0.8 });
+  pop("mS2", t, 52.5, { dy: 40, s: 0.8 });
+  const d = K.eio(P(t, T.swipe[0], T.swipe[1]));
+  $("hSwipe").style.left = `${K.lerp(320, 60, d) + 393 * d - 15}px`;
+}
+
+function looper(t) {
+  const on = t >= T.loop;
+  const col = on ? Math.floor((t - T.loop) / E8) % 8 : 4;
+  const since = on ? (t - T.loop) % E8 : 9;
+  ROWS.forEach((r, j) => {
+    for (let c = 0; c < 8; c++) {
+      const x = PAT[r] && PAT[r][c] === "x";
+      $(`g${j}-${c}`).className = "gc" + (x ? " " + CLS[r] : c === col ? " lt" : "") + (x && c === col && since < E8 * 0.6 ? " hit" : "");
+    }
+  });
+  $("phead").style.left = `${col * 35.2 - 2}px`;
+}
+
+function handoff(t) {
+  pop("fU", t, 70.3);
+  pop("fY", t, 71.3);
+  pop("fB", t, 72.1, { s: 0.9, dy: 24 });
+  pop("bLeg", t, 75.6);
+  pop("bTon", t, 76.3, { dy: 24 });
+  pop("bRec", t, 77.0, { dy: 24 });
+  const r = P(t, 74.45, 75.1);
+  $("redIris").style.visibility = t > 74.45 && t < 75.8 ? "visible" : "hidden";
+  $("redIris").style.transform = `scale(${K.eio(r) * 110})`;
+  $("redIris").style.opacity = 1 - P(t, 75.3, 75.8);
+}
+
+// the Foods table's hop from Basil's phone to Chef's
+function tables(t) {
+  pop("t1u", t, 80.4); pop("t1a", t, 81.0); pop("t1card", t, 81.6, { dy: 30 });
+  for (let i = 0; i < 5; i++) pop(`t1r${i}`, t, 81.8 + i * 0.15, { dx: -16, dy: 0, s: 1 });
+  const sheetP = K.eo(P(t, 83.8, 84.25)) * (1 - K.eio(P(t, 85.0, 85.4)));
+  $("t1sheet").style.transform = `translateY(${(1 - sheetP) * 440}px)`;
+  $("rowChef").style.background = t > T.chefTap ? "#FFE0DE" : "";
+  $("t1card").style.opacity = t < T.lift ? $("t1card").style.opacity : 0.28 + 0.72 * (1 - P(t, T.lift, T.lift + 0.3));
+  $("t1foot").textContent = t < T.land ? "foods · 7 rows · held by Basil" : "foods · moved to Chef";
+  pop("t2u", t, 85.6); pop("t2a", t, 86.1);
+  $("t2card").style.opacity = t >= T.land ? 1 : 0;
+  $("t2card").style.transform = t >= T.land ? `scale(${1 + 0.04 * Math.sin(Math.PI * P(t, T.land, T.land + 0.35))})` : "";
+  pop("t2u2", t, T.add); pop("t2a2", t, T.add + 0.8);
+  const added = t >= T.add + 0.8;
+  $("t2foot").textContent = added ? "foods · 8 rows · held by Chef" : "foods · 7 rows · held by Chef";
+  $("t2foot").style.color = added && t < T.add + 2.2 ? "#C23B4F" : "";
+
+  // the flight
+  const fly = $("fly"), p = P(t, T.lift, T.land);
+  const flying = t >= T.lift && t < T.land;
+  fly.style.visibility = flying ? "visible" : "hidden";
+  const sparks = $("sparks").children;
+  for (const s of sparks) s.style.visibility = "hidden";
+  if (!flying) return;
+  const a = $("t1foods").getBoundingClientRect(), z = $("t2foods").getBoundingClientRect();
+  const e = K.eio(p);
+  const sa = a.width / 345, sz = z.width / 345;
+  const x = K.lerp(a.left, z.left, e), y = K.lerp(a.top, z.top, e) - Math.sin(Math.PI * e) * (R ? 260 : 300);
+  const s = K.lerp(sa, sz, e) * (1 + 0.18 * Math.sin(Math.PI * e));
+  fly.style.transform = `translate(${x}px, ${y}px) rotate(${Math.sin(Math.PI * e) * 7}deg) scale(${s})`;
+  fly.style.filter = `drop-shadow(0 ${24 * Math.sin(Math.PI * e)}px ${40 * Math.sin(Math.PI * e)}px rgba(58,51,64,.28))`;
+  for (let k = 0; k < sparks.length; k++) {
+    const q = K.eio(K.clamp(p - (k + 1) * 0.035));
+    if (q <= 0 || p >= 0.98) continue;
+    const sx = K.lerp(a.left, z.left, q) + a.width / 2, sy = K.lerp(a.top, z.top, q) - Math.sin(Math.PI * q) * (R ? 260 : 300) + a.height / 2;
+    const el = sparks[k];
+    el.style.visibility = "visible";
+    el.style.transform = `translate(${sx + Math.sin(k * 2.1 + t * 6) * 18}px, ${sy + Math.cos(k * 1.7 + t * 5) * 18}px) scale(${1 - k / sparks.length})`;
+    el.style.opacity = 1 - k / sparks.length;
+  }
+}
+$("fly").innerHTML = foods("f", "foods · 7 rows · moving to Chef");
+$("sparks").innerHTML = [...Array(12)].map(() => `<div class="spark"></div>`).join("");
+
+function crew(t) {
+  const on = t > T.crew - 0.2 && t < T.wall + 0.8;
+  K.show("crew", on);
+  if (!on) return;
+  K.textIO("crewT", t, T.crew + 0.2, T.wall - 0.3, 30);
+  K.textIO("crewS", t, T.crew + 1.0, T.wall - 0.3, 24);
+  const scatter = K.ei(P(t, T.wall - 0.4, T.wall + 0.4));
+  AG.forEach((_, i) => {
+    const p = P(t, CARD_T[i], CARD_T[i] + 0.6), e = K.eo(p);
+    let x, y, r;
+    if (R) { x = 540 + ((i % 3) - 1) * 284; y = 790 + Math.floor(i / 3) * 390; r = ((i % 3) - 1) * 3; }
+    else { const k = i - 2.5; x = 960 + k * 286; y = 560 + k * k * 9; r = k * 3.2; }
+    const sx = R ? 540 : 960, sy = (R ? 1920 : 1080) + 300;
+    const cx = K.lerp(sx, x, e) + scatter * (x - (R ? 540 : 960)) * 2.4, cy = K.lerp(sy, y, e) - scatter * 120;
+    const el = $(`cc${i}`);
+    el.style.opacity = K.clamp(p * 3) * (1 - scatter);
+    el.style.transform = `translate(${cx}px, ${cy + Math.sin(t * 1.4 + i) * 5}px) rotate(${K.lerp(-24 + i * 9, r, e) + scatter * (i - 2.5) * 16}deg) scale(${0.85 + 0.15 * K.back(p)})`;
+  });
+  CHIPS.forEach((_, i) => {
+    const p = P(t, CHIP_T[i], CHIP_T[i] + 0.35);
+    $(`ch${i}`).style.opacity = K.clamp(p * 2) * (1 - scatter);
+    $(`ch${i}`).style.transform = `translateY(${(1 - K.eo(p)) * 24}px) scale(${0.8 + 0.2 * K.back(p)})`;
+  });
+  $("chips").querySelector(".lab").style.opacity = K.clamp(P(t, CHIP_T[0] - 0.4, CHIP_T[0])) * (1 - scatter);
+}
+
+function wall(t) {
+  const on = t > T.wall - 0.4 && t < T.outro + 0.6;
+  K.show("wall", on);
+  if (!on) return;
+  const wi = K.eo(P(t, T.wall - 0.4, T.wall + 0.6)), wo = K.ei(P(t, T.outro - 0.4, T.outro + 0.3));
+  $("wall").style.opacity = K.clamp(P(t, T.wall - 0.4, T.wall)) * (1 - wo);
+  $("wallIn").style.transform = `translate(${(1 - wi) * 300}px, ${-(t - T.wall) * 60}px) rotate(-11deg) scale(${K.lerp(1.3, 1, wi) * (1 - 0.1 * wo)})`;
+  for (let i = 0; i < WALL.length; i++) $(`wc${i}`).style.transform = `translateY(${(i % 2 ? 1 : -1) * (t - T.wall) * 26 + (i % 2 ? -200 : 0)}px)`;
+  WORD_T.forEach((w, i) => {
+    const el = $(`w${i}`);
+    const last = i === WORD_T.length - 1;
+    const pi = K.back(P(t, w, w + 0.35)), po = P(t, w + 1.05, w + 1.2);
+    const o = K.clamp(P(t, w, w + 0.15)) * (last ? 1 - P(t, T.outro - 0.3, T.outro) : 1 - po);
+    el.style.opacity = o;
+    el.style.visibility = o > 0.001 ? "visible" : "hidden";
+    el.style.transform = `scale(${0.7 + 0.3 * pi + (last ? 0 : po * 0.15)})`;
+  });
+}
+
+function outroOrbit(t) {
+  const t0 = T.outro + 0.1;
+  for (let i = 0; i < 6; i++) {
+    const p = P(t, t0 + 0.7 + i * 0.12, t0 + 1.2 + i * 0.12);
+    let x, y;
+    if (R) { x = 540 + (i - 2.5) * 150; y = 1470 + Math.sin(t * 2 + i * 0.9) * 10; }
+    else {
+      const a = i * Math.PI / 3 + (t - t0) * 0.22 + 0.3;
+      x = 960 + Math.cos(a) * 780; y = 500 + Math.sin(a) * 390;
+    }
+    const el = $(`ob${i}`);
+    el.style.opacity = K.clamp(p * 2);
+    el.style.transform = `translate(${x}px, ${y}px) scale(${K.back(p)})`;
+  }
+}
+
+// ---------- render ----------
+function render(t) {
+  document.body.classList.toggle("dark", t < T.drop + 0.15);
+  coldOpen(t);
+  // the iris: the room turns cream from the phone out
+  const ir = P(t, T.drop - 0.3, T.drop + 0.2);
+  $("iris").style.visibility = ir > 0 && ir < 1 && t < T.drop + 0.15 ? "visible" : "hidden";
+  $("iris").style.transform = `scale(${K.ei(ir) * 44})`;
+
+  // which screen the phone shows
+  for (const id of SHOTS) sh(id, { o: 0 });
+  if (t < T.hold[0] + 0.05) sh("s-cam", { tf: `scale(${1.02 + 0.01 * Math.sin(t * 1.3)})` });
+  if (t >= T.hold[0] + 0.05 && t < T.hold[1] + 0.7) {
+    const p = K.eio(P(t, T.hold[1], T.hold[1] + 0.65));
+    sh("s-hold", { z: 3, o: 1 - P(t, T.hold[1] + 0.4, T.hold[1] + 0.7), tf: `translate(${p * 60}px, ${-p * 290}px) scale(${1 - 0.86 * p}) rotate(${p * 6}deg)` });
+    $("s-hold").style.borderRadius = `${p * 120}px`;
+  }
+  if (t >= T.hold[1] && t < T.meal + 0.5) sh("s-eggs", { z: 2, tf: `translateX(${-393 * K.eio(P(t, T.meal, T.meal + 0.5))}px)` });
+  if (t >= T.meal && t < T.scroll + 0.6) {
+    const pin = K.eio(P(t, T.meal, T.meal + 0.5)), pout = K.eio(P(t, T.scroll, T.scroll + 0.6));
+    sh("s-lunch", { z: 2, o: 1 - pout, tf: `translate(${393 * (1 - pin)}px, ${-300 * pout}px)` });
+  }
+  if (t >= T.scroll && t < T.meet) { const p = K.eio(P(t, T.scroll, T.scroll + 0.6)); sh("s-break", { z: 3, o: p, tf: `translateY(${300 * (1 - p)}px)` }); }
+  if (t >= T.meet && t < T.chip + 0.8) sh("s-hello", { z: 2 });
+  if (t >= T.chip + 0.1 && t < T.about + 0.6) sh("s-picker", { z: 3, clip: iris(138, 86, K.ei(P(t, T.chip + 0.1, T.chip + 0.7))) });
+  if (t >= T.about && t < T.ask + 0.9) sh("s-about", { z: 4, tf: `translateX(${-393 * (1 - K.eo(P(t, T.about, T.about + 0.55)))}px)` });
+  if (t >= T.ask + 0.2 && t < T.home + 0.5) {
+    const out = K.eio(P(t, T.home, T.home + 0.5));
+    sh("s-sent", { z: 5, o: 1 - out, clip: iris(168, 437, K.ei(P(t, T.ask + 0.2, T.ask + 0.8))), tf: `scale(${1 + 0.12 * out})` });
+  }
+  if (t >= T.home && t < T.swipe[1] + 0.1) {
+    const pin = K.eo(P(t, T.home, T.home + 0.5)), d = K.eio(P(t, T.swipe[0], T.swipe[1]));
+    sh("s-home", { z: 4, o: pin, tf: `translateX(${-393 * d}px) scale(${0.92 + 0.08 * pin})` });
+  }
+  if (t >= T.swipe[0] && t < T.loop) sh("s-week", { z: 5, tf: `translateX(${393 * (1 - K.eio(P(t, T.swipe[0], T.swipe[1])))}px)` });
+  if (t >= T.loop && t < T.handoff) sh("s-loop", { z: 2 });
+  if (t >= T.handoff && t < 75.3) sh("s-handoff", { z: 2 });
+  if (t >= 74.6 && t < 80.0) sh("s-basil", { z: 21, clip: iris(216, 694, K.ei(P(t, 74.6, 75.3))) });
+  if (t >= 79.4) sh("s-t1", { z: 22, o: K.clamp(P(t, 79.4, 79.9)) });
+
+  snap(t); meal(t); meet(t); home(t); looper(t); handoff(t); tables(t);
+
+  // the phone: lands on the drop, flips between agents, steps left for the tables, drops away for the crew
+  const cam = K.camera(t, [
+    [0, 1.2, 0, 0], [T.drop, 1.2, 0, 0], [10.8, 1.2, 0, 0], [12.6, 1.3, 190, 0], [16.0, 1.3, 190, 0], [17.0, 1.16, 0, 0],
+    [18.0, 1.28, 70, 0], [23.6, 1.28, 70, 0], [24.2, 1.16, 0, 0], [25.2, 1.24, 150, 0], [27.4, 1.24, 150, 0], [28.2, 1.2, 0, 0],
+    [28.8, 1.3, -170, 0], [29.8, 1.3, -170, 0], [30.6, 1.3, 170, 0], [33.2, 1.3, 170, 0], [33.9, 1.16, 0, 0], [34.6, 1.3, 20, 0],
+    [38.0, 1.3, 20, 0], [38.7, 1.18, 0, 0], [43.0, 1.2, -60, 0], [43.8, 1.26, 20, 0], [46.0, 1.26, 20, 0], [46.8, 1.18, 0, 0],
+    [T.home, 1.16, 0, 0], [51.2, 1.24, 60, 0], [54.8, 1.24, 60, 0], [55.8, 1.18, 0, 0], [T.loop, 1.16, 0, 0], [61.0, 1.32, -100, 0],
+    [69.0, 1.32, -100, 0], [T.handoff, 1.16, 0, 0], [70.8, 1.26, 150, 0], [74.2, 1.26, 150, 0], [75.2, 1.18, 0, 0], [76.2, 1.26, 90, 0],
+    [78.8, 1.26, 90, 0], [T.tables + 0.4, 1.16, 0, 0],
+  ]);
+  const land = K.back(P(t, T.drop - 0.7, T.drop + 0.1));
+  const split = K.eio(P(t, T.tables, T.tables + 1.0));
+  const gone = K.ei(P(t, T.crew - 0.2, T.crew + 0.6));
+  const target = R ? 0.8 : 1.0;
+  const scale = (t < T.drop + 0.1 ? Math.max(0.001, land) : 1) * K.lerp(1, target / cam.s, split) * (1 - 0.3 * gone);
+  const dx = -split * (R ? 230 : 250);
+  K.placePhone(t, cam, { dx, dy: gone * 500, scale, opacity: t < T.drop - 0.7 ? 0 : 1 - gone });
+  const ry = flipAngle(t);
+  const pw = $("phoneWrap");
+  pw.style.transform = `perspective(2400px) ${pw.style.transform} rotateY(${ry}deg)`;
+  if (t >= T.crew + 0.7) pw.style.visibility = "hidden";
+
+  // the second phone slides in from the right
+  const p2in = K.eo(P(t, T.tables + 0.3, T.tables + 1.2));
+  const s2 = target * (1 - 0.3 * gone);
+  $("phone2Wrap").style.visibility = t > T.tables + 0.3 && t < T.crew + 0.7 ? "visible" : "hidden";
+  $("phone2Wrap").style.opacity = 1 - gone;
+  $("phone2Wrap").style.transform = `translate(${K.lerp(R ? 900 : 1100, R ? 230 : 250, p2in)}px, ${gone * 500 + Math.sin(t * 0.9 + 1) * 3}px) scale(${s2})`;
+
+  crew(t); wall(t);
+
+  K.caps(t, [
+    ["c1L", 10.0, 15.9], ["c1R", 11.0, 15.9],
+    ["c2L", 16.5, 23.5], ["c2R", 17.4, 23.5],
+    ["c3L", 24.3, 28.0], ["c3R", 25.2, 28.0],
+    ["c4L", 28.4, 33.2], ["c4R", 29.4, 33.2],
+    ["c5L", 34.0, 38.2], ["c5R", 35.0, 38.2],
+    ["c6L", 38.6, 43.0], ["c6R", 39.4, 43.0],
+    ["c7L", 43.4, 50.0], ["c7R", 44.6, 50.0],
+    ["c8L", 50.8, 55.0], ["c8R", 51.8, 55.0],
+    ["c9L", 55.4, 59.6], ["c9R", 56.4, 59.6],
+    ["c10L", 60.6, 69.2], ["c10R", 61.6, 69.2],
+    ["c11L", 70.0, 74.2], ["c11R", 71.2, 74.2],
+    ["c12L", 74.6, 79.0], ["c12R", 75.4, 79.0],
+    ["c13L", 79.8, 84.9], ["c13R", 80.8, 84.9],
+    ["c14L", 85.3, 93.2], ["c14R", 87.2, 93.2],
+  ]);
+  K.pills(t, [["p1", 16.8, 23.5], ["p2", 28.9, 33.2], ["p3", 72.4, 79.0], ["p4", 88.8, 93.2]]);
+  K.finger(t, G);
+  K.outro(t, T.outro + 0.1);
+  outroOrbit(t);
+}
+
+window.ready = K.ready(() => render(0));
+window.render = render; window.DURATION = 120; window.POSTER = 101.4;
+</script>
+</body>
+</html>

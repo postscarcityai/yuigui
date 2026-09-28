@@ -36,7 +36,7 @@ export default function Privacy() {
     <>
       <div className="eyebrow">Privacy</div>
       <h1>What Yui keeps, and how to delete it.</h1>
-      <p style={{ color: "var(--muted)" }}>Last updated September 27, 2026.</p>
+      <p style={{ color: "var(--muted)" }}>Last updated September 28, 2026.</p>
 
       <h2 id="invites">Invites</h2>
       <p>
@@ -180,9 +180,8 @@ export default function Privacy() {
 
       <h2>This website</h2>
       <p>
-        The demo behind &quot;Watch the demo&quot; in the top bar is on YouTube. Nothing from YouTube loads until you press it;
-        then YouTube&apos;s player loads from youtube-nocookie.com, and from then on YouTube&apos;s own privacy policy
-        applies to the video. The home page video is hosted here. yuigui.com uses Google Analytics to count visits. It never sees an invite code: an invite link is counted as
+        The film behind &quot;Watch the film&quot; in the top bar and the videos on these pages are hosted here, and
+        nothing loads until you press play. yuigui.com uses Google Analytics to count visits. It never sees an invite code: an invite link is counted as
         yuigui.com/i/ without it. The form at the bottom of each page writes to the <code>yui_invites</code> table, described under Invites above. The old
         waitlist (<code>yui_waitlist</code>) is closed, and its entries became invite requests. To be removed, email us.
       </p>

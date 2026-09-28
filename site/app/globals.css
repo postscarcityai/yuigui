@@ -109,7 +109,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .topbar-watch:focus-visible, .topbar-x:focus-visible { outline: 3px solid var(--on-brand); outline-offset: 2px; }
 .topbar-sheet { position: fixed; inset: 0; z-index: 50; background: rgba(20, 16, 28, .82); display: grid; place-items: center; padding: 20px; }
 .topbar-player { height: min(86vh, 760px); aspect-ratio: 9 / 16; max-width: 100%; border-radius: var(--r-card); overflow: hidden; background: #000; box-shadow: 0 24px 60px rgba(0, 0, 0, .4); }
-.topbar-player iframe { display: block; width: 100%; height: 100%; border: 0; }
+.topbar-player video { display: block; width: 100%; height: 100%; background: #000; }
+.topbar-player.wide { height: auto; width: min(100%, 1280px, calc(86vh * 16 / 9)); aspect-ratio: 16 / 9; }
 .topbar-sheet-x { position: absolute; top: 16px; right: 16px; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: var(--surface); color: var(--ink); cursor: pointer; }
 @media (max-width: 640px) {
   .topbar { font-size: 14px; }

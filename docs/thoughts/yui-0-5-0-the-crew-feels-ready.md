@@ -12,6 +12,10 @@ dek: Hold to snap and say what's in it, meet each agent the first time you open 
 
 Build 278 is on TestFlight. It is Yui 0.5.0.
 
+```clip
+/demo/videos/film-crew-16x9.mp4 | Yui 0.5.0 in two minutes: snap and say, a meal without a scale, meet each agent, every agent's home, the hand-off and your tables. Turn your sound on.
+```
+
 It comes from Chris's notes on build 244. The agents worked, but opening one felt like opening an empty chat. You had to know what to ask. This release makes each agent feel like someone who is ready for you.
 
 ## Snap and say

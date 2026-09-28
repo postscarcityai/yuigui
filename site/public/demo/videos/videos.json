@@ -1,4 +1,22 @@
 {
+  "film-crew": {
+    "title": "Yui 0.5.0: the crew feels ready",
+    "what": "The 0.5.0 release in two minutes: hold to snap and say what's in it, a meal without a scale, meet each agent, every agent's home, Yui handing you to Basil, and your tables moving to a Claude agent. Then the six agents that ship with Yui.",
+    "made": "2026-09-28",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-crew-9x16.mp4",
+      "poster": "/demo/videos/film-crew-9x16.jpg",
+      "seconds": 120.0,
+      "mb": 8.6
+    },
+    "16x9": {
+      "src": "/demo/videos/film-crew-16x9.mp4",
+      "poster": "/demo/videos/film-crew-16x9.jpg",
+      "seconds": 120.0,
+      "mb": 9.0
+    }
+  },
   "yui-15s": {
     "title": "Yui in 15 seconds",
     "what": "Ask your agent a question. It answers with a screen you can tap.",

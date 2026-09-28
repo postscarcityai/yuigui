@@ -11,6 +11,7 @@ Every page on yuigui.com can have zero, one or more videos. "Site" videos alread
 | 02 Plan to launch | done | A pottery studio's website: plan mode, pick photos, before and after, the reel, the timeline |
 | 05 Your agents, one app | done | Every agent wears its own look, add and pair one, @mention another, restyle Yui by asking |
 | 12 The new face, filmed in the app | done | The home hero. Build 208 on the simulator, not the mock: hold the big mic and talk, one question one screen, parts with a picture each, questions last with one Send, the record top right, Coach and Wizard move their own way, the picture listens to a voice and a beat. Ends on 0.4.1 on TestFlight now |
+| 13 Yui 0.5.0, the crew feels ready | done | The release announcement, 2 minutes, in the top bar on every page. The six agents spin into the phone; snap and say, a meal without a scale, meet each agent, every agent's home and Gouda's looper, Yui hands you to Basil, the Foods table hops to a Claude agent; the crew as cards, a wall of 0.5.0 captures |
 | 07 Yui lives on the full screen | done, replaced by 12 on the home page | One question got eight pages. Now the stage answers: talk, parts with a picture each, questions last with one Send, the chat is the record |
 | 08 Cook with your hands full | done | Flour on your hands: tap the mic once, just talk, say next, the oven timer counts on the lock screen, save it to the shelf |
 | 09 Can I afford it? | done | The car you want: one number, a calc you drag under your budget, new or used side by side, one Send |
