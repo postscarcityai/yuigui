@@ -44,5 +44,7 @@ The agent-ready backlog is live: a JSON file exported from the project board, on
 
 ## Optional
 
+- [brand.json](https://www.yuigui.com/brand.json): the brand kit in one file: voice, colors, logos (square ones too), every post, release notes, what shipped, what is being built, features and pages. Built from this site on every deploy
+
 - [Business docs](https://www.yuigui.com/business): who Yui is for and how it might earn money
 - [Privacy](https://www.yuigui.com/privacy): what is stored and where
