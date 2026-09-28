@@ -854,7 +854,7 @@ mic@notes "Anything I should know? Injuries, schedule, what you hate."`,
     // into one full-screen plan. What the session holds first, then per move its sets to tick, reps and weight
     // to nudge (from the last weight logged), how it felt last, one Send. The runtime writes the log itself.
     slug: "arnold-runner",
-    name: "Plan: Arnold runs today's workout",
+    name: "Plan: Coach runs today's workout",
     agent: "Coach",
     yl: `say "Full body A. 4 moves, one set at a time. Let's go."
 plan@wk-20260928-mon "Full body A" submit="Finish workout"
@@ -875,7 +875,7 @@ choose@feel "How did it feel?" Easy|"Just right"|Hard`,
     // Arnold's pages after that Finish (YUI-182): This week with the day ticked and a day picker, Today done,
     // Progress with the streak, the best set and a chart per main lift. Later answers only patch them.
     slug: "arnold-pages",
-    name: "Pages: Arnold's week, today and progress after a workout",
+    name: "Pages: Coach's week, today and progress after a workout",
     agent: "Coach",
     yl: `say "Logged Full body A: 4 moves, 11 sets. Nice work. Felt easy? Add 5 lb next time."
 >2

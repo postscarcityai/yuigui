@@ -1,0 +1,12 @@
+#!/bin/bash
+# Runs scripts/check.sh before any push, so a red check stops on this machine and not on main (SITE-95).
+# Install once per clone: scripts/install-hooks.sh (sets core.hooksPath; worktrees share it).
+# Skip on purpose with `git push --no-verify`. CI stays the backstop.
+root="$(git rev-parse --show-toplevel)"
+zero=0000000000000000000000000000000000000000
+push=0
+while read -r _ local_sha _ _; do
+  [ "$local_sha" = "$zero" ] || push=1   # a branch delete needs no check
+done
+[ "$push" = 1 ] || exit 0
+exec "$root/scripts/check.sh"
