@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T08:10:18.871Z",
+  "updated": "2026-09-28T08:40:23.846Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -13,14 +13,9 @@
         "status": "now"
       },
       {
-        "key": "YUI-186",
-        "title": "Quill's tools",
-        "status": "now"
-      },
-      {
         "key": "YUI-183",
         "title": "Basil's tools",
-        "status": "next",
+        "status": "now",
         "progress": "/progress#your-nutritionist-plans-your-meals"
       },
       {
@@ -34,6 +29,12 @@
         "title": "Penny's tools",
         "status": "next",
         "progress": "/progress#your-planner-plans-the-week"
+      },
+      {
+        "key": "YUI-186",
+        "title": "Quill's tools",
+        "status": "next",
+        "progress": "/progress#your-study-buddy-teaches-and-quizzes"
       }
     ]
   },
@@ -326,7 +327,6 @@
           "key": "YUI-183",
           "title": "Basil's tools",
           "summary": "Your nutritionist plans your meals",
-          "waiting": true,
           "progress": "/progress#your-nutritionist-plans-your-meals"
         },
         {
@@ -346,7 +346,9 @@
         {
           "key": "YUI-186",
           "title": "Quill's tools",
-          "summary": "Learn a topic, cards with spaced review, step by step problems, default screens"
+          "summary": "Your study buddy teaches and quizzes",
+          "waiting": true,
+          "progress": "/progress#your-study-buddy-teaches-and-quizzes"
         },
         {
           "key": "SITE-79",

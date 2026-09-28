@@ -1382,6 +1382,13 @@
     {
       "text": "Penny's demo home and can match her profile after YUI-185's runtime half",
       "card": "YUI-182"
+    },
+    {
+      "text": "Quill's tools: learn a topic, cards with spaced review, walk me through a problem, his pages kept current (YUI-186, runtime half)"
+    },
+    {
+      "text": "Quill's learn plan names the deck it joins, not 'your 1 deck'",
+      "card": "YUI-186"
     }
   ]
 }
