@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 287,
-    "site": 640,
+    "app": 289,
+    "site": 642,
     "builds": 44,
-    "shipped": 312,
-    "screenshots": 743
+    "shipped": 314,
+    "screenshots": 751
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T07:16:54.076Z",
+          "at": "2026-09-28T07:50:28.441Z",
+          "title": "Your planner plans the week",
+          "card": "YUI-185",
+          "anchor": "your-planner-plans-the-week",
+          "images": [
+            {
+              "src": "/progress/yui185-plan-talk-light.webp",
+              "alt": "Plan my week, step 2 of 6: Everything on your plate this week, with a big Tap to talk button"
+            },
+            {
+              "src": "/progress/yui185-week-dark.webp",
+              "alt": "This week as a timeline by day: three things today, the dentist tomorrow at 9:00 am, the gym Thursday at 6:00 pm, with Edit order"
+            },
+            {
+              "src": "/progress/yui185-today-light.webp",
+              "alt": "Today: Up next, Renew the car registration, with Done, the list with ticks and Wrap up the day"
+            },
+            {
+              "src": "/progress/yui185-review-dark.webp",
+              "alt": "The evening review: 2 done today, pay the water bill and groceries, 3 still open"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 289,
+            "site": 642,
+            "builds": 44,
+            "shipped": 314
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T07:17:28.000Z",
           "title": "Your music teacher teaches songs",
           "card": "YUI-184",
           "anchor": "your-music-teacher-teaches-songs",
@@ -35,9 +67,41 @@
               "alt": "The Looper with a saved beat, Night drive, and Open a beat with every session"
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 287,
+            "site": 641,
+            "builds": 44,
+            "shipped": 313
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T07:14:38.000Z",
+          "title": "The timer reads in light mode",
+          "card": "SITE-78",
+          "anchor": "the-timer-reads-in-light-mode",
+          "images": [
+            {
+              "src": "/progress/site78-before-light.webp",
+              "alt": "Before, light mode: Tabata round 1 of 8 with 0:20 dark on a near-black dial, hard to read"
+            },
+            {
+              "src": "/progress/site78-tabata-light.webp",
+              "alt": "After, light mode: the same Tabata timer with a white dial and 0:16 in dark ink"
+            },
+            {
+              "src": "/progress/site78-session-light.webp",
+              "alt": "After, light mode: the trainer session after Send, the strength circuit timer at 0:41 on a white dial"
+            },
+            {
+              "src": "/progress/site78-tabata-dark.webp",
+              "alt": "Dark mode, unchanged: Tabata at 0:15 in light digits on the dark dial"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 286,
             "site": 640,
             "builds": 44,
             "shipped": 312
@@ -365,6 +429,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "a07af5c",
+          "at": "2026-09-28T07:48:18.000Z",
+          "text": "Planner e2e: one more to-do today before the evening review, so it has two to decide on (YUI-185)",
+          "url": "https://github.com/postscarcityai/yui/commit/a07af5c"
+        },
+        {
+          "repo": "app",
+          "sha": "72cc546",
+          "at": "2026-09-28T07:46:09.000Z",
+          "text": "Penny's tools: plan my week by voice, the today list, reminders, the evening review, her pages kept current (YUI-185, runtime half)",
+          "url": "https://github.com/postscarcityai/yui/commit/72cc546"
+        },
+        {
+          "repo": "site",
+          "sha": "65c07f6",
+          "at": "2026-09-28T07:41:22.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/65c07f6"
+        },
+        {
+          "repo": "site",
+          "sha": "337e6c2",
+          "at": "2026-09-28T07:17:28.000Z",
+          "text": "Your music teacher teaches songs: Gouda's learn-a-song, practice log and his pages in the playground, See it and the ship log (YUI-184)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/337e6c2"
+        },
         {
           "repo": "app",
           "sha": "cd93528",

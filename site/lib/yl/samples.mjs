@@ -993,6 +993,63 @@ list@recent title="Lately" "10/01 10 min, Stand By Me"|"09/30 25 min, Stand By M
 ~speed "Speed" "Half"|"75%"|"90%"|"Full" body="Now 59 bpm."`,
   },
   {
+    // Penny's Plan my week (YUI-185, yui runtime/src/planner.ts): one full-screen plan. How it works first, then the
+    // brain dump by mic (talk it out, or type), then the questions last, one Send.
+    slug: "penny-plan",
+    name: "Plan: Penny plans your week by voice",
+    agent: "Penny",
+    yl: `say "Let's get your week out of your head."
+plan@weekplan "Plan my week" submit="Plan my week"
+page "Your week, out of your head" body="Talk it out: everything on your plate, in any order. Say a day or a time when there is one. I'll sort the rest into days, never more a day than you pick, and put it on a timeline you can drag around. Already on it: renew the car registration."
+mic@dump "Everything on your plate this week"
+pick@busy "Any days already full?" "Today"|"Tuesday"|"Wednesday"|"Thursday"|"Friday"|"Saturday"|"Sunday" submit=Next
+choose@pace "How many things a day?" "2 or 3"|"3 to 5"|"As many as fit"
+choose@carry "Keep what's already on the week?" "Bring them in"|"Leave them"
+choose@remind "Remind you of timed things?" "10 minutes before"|"At the time"|"No reminders"`,
+  },
+  {
+    // After the Send (YUI-185): her two pages. Today with the next task big, the list with ticks and the evening review;
+    // This week as a timeline by day with Edit order. The next patch is a tick: quiet, the row turns done in place.
+    slug: "penny-pages",
+    name: "Pages: Penny's today and this week",
+    agent: "Penny",
+    yl: `say "Your week is planned: 8 things over 4 days. Drag to reorder on This week. The 2 timed ones get a reminder. First up: renew the car registration."
+>2
+card@next-task "Renew the car registration" "2 more today after this." sub="Up next" cta="Done"
+list@today title=Today "Renew the car registration"|"Pay the water bill"|"Groceries" +check
+card@wrap "Evening review" "Two minutes at the end of the day: done, tomorrow or drop." cta="Wrap up the day"
+>3
+timeline@week "This week" mark=Today fold=12 +reorder
+next@wk-renew-the-car-registration "Renew the car registration" at="Today" key=renew-the-car-registration
+next@wk-pay-the-water-bill "Pay the water bill" at="Today" key=pay-the-water-bill
+next@wk-groceries "Groceries" at="Today" key=groceries
+next@wk-call-the-dentist "Call the dentist" at="Tomorrow" sub="9:00 am" key=call-the-dentist
+next@wk-pick-up-the-dry-cleaning "Pick up the dry cleaning" at="Tomorrow" key=pick-up-the-dry-cleaning
+next@wk-book-a-haircut "Book a haircut" at="Tomorrow" key=book-a-haircut
+next@wk-gym "Gym" at="Thu" sub="6:00 pm" key=gym
+next@wk-email-the-landlord "Email the landlord about the sink" at="Thu" key=email-the-landlord
+next@wk-finish-the-report "Finish the report" at="Fri" key=finish-the-report
+card@week-move "Move a task" "Drag with Edit order, or pick a task and a day." cta="Move a task"
+card@week-plan "Plan again" "More on your plate? Talk it out and I'll fit it in." cta="Plan my week"`,
+    next: `~next-task "Renew the car registration" "1 more today after this." sub="Up next" cta="Done"
+~today title=Today "Renew the car registration"|"Groceries" +check
+~wrap "Evening review" "1 done so far. Two minutes: done, tomorrow or drop." cta="Wrap up the day"
+~wk-pay-the-water-bill "Pay the water bill" at="Today" key=pay-the-water-bill kind=done`,
+  },
+  {
+    // Penny's Evening review (YUI-185): what got done first, then each task still open today (done, tomorrow or drop),
+    // how the day went, one Send. The day is kept in her reviews table.
+    slug: "penny-review",
+    name: "Plan: Penny's evening review",
+    agent: "Penny",
+    yl: `plan@review "Evening review" submit="Wrap up the day"
+page "2 done today" body="Nice. 3 still open: done, tomorrow or drop each one." points="Pay the water bill"|"Groceries"
+choose@r-renew "Renew the car registration" "Done"|"Tomorrow"|"Drop"
+choose@r-cleaning "Pick up the dry cleaning" "Done"|"Tomorrow"|"Drop"
+choose@r-landlord "Email the landlord about the sink" "Done"|"Tomorrow"|"Drop"
+choose@feel "How did today go?" "Great"|"Okay"|"Rough"`,
+  },
+  {
     slug: "project-card",
     name: "Project: a card that reopens the plan",
     agent: "Scout",
