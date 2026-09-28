@@ -1,11 +1,12 @@
 // One proposal (SITE-87): a full-height hero with the idea working in a phone, then the assessment,
 // the same fields in the same order every time (lib/proposals.mjs FIELDS).
-// The hero slot: PROP-1 gets the first-run flow (SITE-88, FirstRunHero), the rest draw their ```hero lines.
+// The hero slot: PROP-1 gets the first-run flow (SITE-88, FirstRunHero), PROP-2 the Jev layer (SITE-94, JevHero), the rest draw their ```hero lines.
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import LivePhone from "../../mockups/LivePhone";
 import AgentBox from "../../components/AgentBox";
 import FirstRunHero from "../FirstRunHero";
+import JevHero from "../JevHero";
 import ProposalVote from "../ProposalVote";
 import VoteTally from "../VoteTally";
 import { renderMd } from "../../../lib/md.mjs";
@@ -45,9 +46,11 @@ export default async function Proposal({ params }) {
       <a className="prop-down" href="#proposal">Read the proposal</a>
     </>
   );
-  // PROP-1's hero is the working first-run flow (SITE-88); any other proposal draws its ```hero lines.
+  // PROP-1's hero is the working first-run flow (SITE-88), PROP-2's the Jev layer routing turns (SITE-94); any other proposal draws its ```hero lines.
   const slot = p.slug === "pick-your-crew" ? (
     <FirstRunHero title={p.title}>{text}</FirstRunHero>
+  ) : p.slug === "the-jev-layer" ? (
+    <JevHero title={p.title}>{text}</JevHero>
   ) : (
     <section className="prop-hero" data-slot="hero" aria-labelledby="prop-h">
       <div className="prop-hero-text">{text}</div>

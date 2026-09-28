@@ -5,6 +5,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { APPLE, CREW_ROWS, DIG, DONE, HI, OWN, PICK, STEPS, TESTFLIGHT } from "../../lib/first-run.mjs";
+import usePrefs from "./usePrefs";
 import "./firstrun.css";
 
 const Live = dynamic(() => import("../mockups/LiveScreen"), { ssr: false, loading: () => <div className="fr-live-wait">Drawing the screen...</div> });
@@ -12,23 +13,6 @@ const Live = dynamic(() => import("../mockups/LiveScreen"), { ssr: false, loadin
 const ORDER = STEPS.map((s) => s.id);
 const railOf = (step) => (step === "thread" ? "done" : step);
 const own = (choice) => ({ handle: `own-${choice.id}`, name: choice.name, role: "Your agent", line: choice.line, color: "lavender", c: "#7d6bd6", look: "grain", label: "your own agent", hello: `${choice.name} is paired. Say hi to your agent here.`, mine: true });
-
-function usePrefs() {
-  const [reduced, setReduced] = useState(false);
-  const [dark, setDark] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const r = () => setReduced(mq.matches);
-    r(); mq.addEventListener("change", r);
-    const el = document.documentElement;
-    const read = () => setDark(el.dataset.theme === "dark");
-    read();
-    const mo = new MutationObserver(read);
-    mo.observe(el, { attributes: true, attributeFilter: ["data-theme"] });
-    return () => { mq.removeEventListener("change", r); mo.disconnect(); };
-  }, []);
-  return { reduced, dark };
-}
 
 const Face = ({ m, size = "" }) => (
   <span className={`fr-face look-${m.look} ${size}`} style={{ "--cm": m.c, "--cp": `var(--${m.color})` }} aria-hidden="true"><b>{m.name[0]}</b></span>
