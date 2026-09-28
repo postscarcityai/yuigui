@@ -1,12 +1,13 @@
 // Stage first (YL.md section 5): how replies split into chunks.
 //   node site/lib/yl/chunks.test.mjs     exit 1 on any failure
-import { apply, initialState, parse } from "./yl.mjs";
+import { apply, initialState, pageOf, parse } from "./yl.mjs";
 import { stageChunks, textChunks } from "./chunks.mjs";
+import { BASIL_KNOWN, BASIL_WEEK } from "./basil-week.mjs";
 
-const nodesOf = (text) => {
+const nodesOf = (text, known = {}, chat = false) => {
   let s = initialState();
-  for (const op of parse(text)) s = apply(s, op);
-  return Object.values(s.screens).flat().sort((a, b) => a.seq - b.seq);
+  for (const op of parse(text, known)) s = apply(s, op);
+  return Object.entries(s.screens).filter(([k]) => !chat || pageOf(k) === 1).flatMap(([, list]) => list).sort((a, b) => a.seq - b.seq);
 };
 const view = (text) => {
   const r = stageChunks(nodesOf(text));
@@ -53,6 +54,20 @@ stat 3 Sets`), { chunks: [["Done.", "stat"]], questions: ["n1"], plan: null });
 eq("a timer is its own chunk", view(`say "Tabata."
 card "Eight rounds"
 timer 20/10x8 Tabata`), { chunks: [["Tabata.", "card"], [null, "timer"]], questions: [], plan: null });
+
+// YUI-183 (the app's BasilToolsTests.testTheWeekPlaysADayAPageAndASwapGoesAtOnce):
+// inside a deck, a question with its own title is a page, played in turn, and
+// its tap goes at once. Pages 2 to 12 are the agent's screens, not the turn's story.
+const week = stageChunks(nodesOf(BASIL_WEEK, BASIL_KNOWN, true));
+eq("a titled question in a deck is its own page", week.chunks.map((c) => c.line ?? c.pic?.id ?? ""), ["3 days planned", "swap-20260928", "swap-20260929", "swap-20260930"]);
+eq("the days do not wait for one Send", week.questions.map((q) => q.id), []);
+eq("a lesson's quiz (no title) still waits for the end", view(`deck@lesson-x "Capitals" +full
+page "France" body="Paris."
+choose@quiz-x-1 "Capital of France?" Paris|Lyon answer=Paris
+end`).questions, ["quiz-x-1"]);
+eq("a titled question in a plan still waits for Send", view(`plan@p "Before I go"
+choose@a "Ping you?" Yes|No title="Pings"
+end`), { chunks: [], questions: ["a"], plan: "p" });
 
 eq("text: one chunk per paragraph", textChunks("One.\n\nTwo."), ["One.", "Two."]);
 const long = Array.from({ length: 6 }, (_, i) => `Sentence ${i + 1} has quite a few words in it to make it long.`).join(" ");

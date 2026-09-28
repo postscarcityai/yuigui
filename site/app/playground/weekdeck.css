@@ -1,0 +1,17 @@
+/* Basil's week (weekdeck.js): the stage bits come from stagefirst.css; these are the demo's own. */
+.wd-chunk .sf-pic { max-height: none; }
+.wd-foot { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12.5px; color: var(--muted); padding: 2px 2px 0; }
+.wd-foot b { color: var(--sf); font-weight: 800; white-space: nowrap; }
+.wd-nav { flex: none; justify-content: flex-end; padding: 8px 0 16px; }
+.wd-pages { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding: 2px 14px 16px; }
+.wd-dots { display: flex; gap: 6px; flex-wrap: wrap; }
+.wd-dots button { border: 1.5px solid var(--sf-line); background: none; color: var(--muted); border-radius: 999px; padding: 6px 11px; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; min-height: 32px; }
+.wd-dots button.on { background: var(--sf); border-color: var(--sf); color: #fff; }
+.wd-why { font-size: 13.5px; font-weight: 700; line-height: 1.35; }
+.wd-page { flex: 1; min-height: 0; overflow: auto; display: flex; flex-direction: column; gap: 8px; }
+.wd-say { background: var(--sf-card); border: 1px solid var(--sf-line); border-radius: 16px 16px 16px 4px; padding: 10px 12px; font-size: 14px; align-self: flex-start; max-width: 88%; }
+.wd-deckpill { align-self: flex-start; font-size: 12px; font-weight: 800; color: var(--sf); border: 1.5px solid var(--sf); border-radius: 999px; padding: 5px 10px; }
+.wd-empty { color: var(--muted); font-size: 13px; padding: 18px 4px; }
+.wd-node > * { margin: 0; }
+.wd-note { font-size: 12px; color: var(--muted); }
+.wd-toggle { flex: none; border: 0; border-radius: 12px; background: var(--sf); color: #fff; font: inherit; font-weight: 800; font-size: 13.5px; padding: 11px 14px; cursor: pointer; min-height: 44px; }

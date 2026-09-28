@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 300,
-    "site": 663,
+    "site": 665,
     "builds": 44,
-    "shipped": 324,
-    "screenshots": 793
+    "shipped": 325,
+    "screenshots": 797
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T11:24:08.164Z",
+          "at": "2026-09-28T11:41:50.798Z",
+          "title": "Basil's week on the web: a day a page, a swap on one tap",
+          "card": "SITE-81",
+          "anchor": "basil-s-week-on-the-web-a-day-a-page-a-swap-on-one-tap",
+          "images": [
+            {
+              "src": "/progress/site81-week-swap.webp",
+              "alt": "Basil's week on the stage: Monday's card, Chicken stir-fry tapped, Swap sent, 1 sent"
+            },
+            {
+              "src": "/progress/site81-pages-stay.webp",
+              "alt": "His pages: the chat stays on the answer while This week and Groceries are drawn again"
+            },
+            {
+              "src": "/progress/site81-redraw-alone.webp",
+              "alt": "The redraw alone brings Groceries forward: 29 to get, the produce aisle, a note that its buttons are tools"
+            },
+            {
+              "src": "/progress/site81-week-monday-light.webp",
+              "alt": "Monday's page of the week deck in light mode, three meals to swap"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 300,
+            "site": 665,
+            "builds": 44,
+            "shipped": 325
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T11:24:18.000Z",
           "title": "Meet the crew in the site chat, each with a flow to try",
           "card": "SITE-69",
           "anchor": "meet-the-crew-in-the-site-chat-each-with-a-flow-to-try",
@@ -39,10 +71,10 @@
               "alt": "Back in Yui's pink: the answer noted, and the crew again as Meet another"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 300,
-            "site": 663,
+            "site": 664,
             "builds": 44,
             "shipped": 324
           }
@@ -757,6 +789,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "df8dc23",
+          "at": "2026-09-28T11:41:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/df8dc23"
+        },
+        {
+          "repo": "site",
+          "sha": "fea1d0d",
+          "at": "2026-09-28T11:24:18.000Z",
+          "text": "Meet the crew in the site chat, each with a flow to try (SITE-69)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fea1d0d"
+        },
         {
           "repo": "site",
           "sha": "09cf0cf",

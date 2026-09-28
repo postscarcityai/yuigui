@@ -1,6 +1,7 @@
 // Stage first (spec/YL.md section 5, YUI-119): how a reply plays on the
 // stage as a run of chunks, a line and one picture each, with every question
-// gathered after the last chunk onto one screen and one Send.
+// gathered after the last chunk onto one screen and one Send. Inside a deck,
+// a question with its own title is a page of the deck instead (YUI-183).
 //
 // Nothing here is new on the wire. It reads the nodes a reply already makes
 // (the parser's adds, with `in` for group members), so any renderer can play
@@ -35,6 +36,15 @@ export function stageChunks(nodes) {
     // A member of a drawing belongs to the drawing, not to the flow.
     if (h && !FLOWS.has(h.preset)) continue;
     if (FLOWS.has(n.preset)) { open = null; continue; }
+    // A deck page you act on (Basil's week, a day a card, each meal a swap,
+    // YUI-183): a question with its own title is that page, played in turn,
+    // and a tap on it goes at once. A quiz question has no title and still
+    // waits for the end.
+    if (QUESTIONS.has(n.preset) && h && h.preset === "deck" && n.props.title) {
+      start({ key: n.key, line: null, page: null, pic: n });
+      open = null;
+      continue;
+    }
     if (QUESTIONS.has(n.preset)) {
       questions.push(n);
       if (h && h.preset === "plan") plan = h;

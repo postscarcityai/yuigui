@@ -18,7 +18,7 @@ The home is screen 1 when the chat has nothing new on it: a fresh thread, or a t
 ```
 
 - **Shortcuts.** Two to four big chips just above the bar. Each one says a thing or opens a screen. They are the things you do with this agent most: Arnold's "Start a workout", Basil's "Log a meal".
-- **Waiting on you.** The agent's asks and notes that have no answer yet, up to three, newest first, with "See all" opening the drawer's Review tab. Chris: "Notifications should really just be right on this home screen." They are the same items as Review (the thread's open asks, then `menu review` items), so answering one here clears it there.
+- **Waiting on you.** The agent's asks and notes that have no answer yet, up to three, newest first, with "See all" opening the drawer's Review tab. Chris: "Notifications should really just be right on this home screen." They are the same items as Review (the thread's open asks, then `menu review` items), so answering one here clears it there. A picker on a standing page (one the agent named with `save`, YL.md section 5, Pages) is a tool, not an ask, and never shows here.
 - **Starter screens.** Pages 2 and up (the swipe-left pages from YL.md section 5, Pages), seeded the first time the agent is opened and kept current by the agent after that. Arnold's are This week, then Today's workout.
 
 When the agent answers, the answer takes screen 1 as it does today and the chips step down to one row of small chips over the bar, so they are always a thumb away. The chips never show on pages 2 and up: a page is full screen, for reading and tapping.

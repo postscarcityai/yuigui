@@ -1675,6 +1675,37 @@ export function talking(ops) {
   return [...on].sort((a, b) => a - b);
 }
 
+// Which page a reply brings forward (spec section 5, Pages): the page of its
+// last add that lands on a page, or null to leave the person where they are.
+// Patches, `clear` and adds that open on the stage never move them. A reply
+// with something for the chat that also redraws a named page (`>4 clear`, its
+// lines, `save groceries`) keeps them on what it said: the redraw keeps the
+// page current, like a patch (YUI-183). A redraw alone still brings it forward.
+// The app's twin is ChatStore.pageUpdate.
+export function pageForward(ops, style = {}) {
+  const redrawn = new Set(ops.filter((o) => o.op === "clear").map((o) => o.screen));
+  const saved = new Set(standingPages(ops));
+  const says = ops.some((o) => o.op === "add" && pageOf(o.screen) === 1);
+  for (let i = ops.length - 1; i >= 0; i--) {
+    const o = ops[i];
+    if (o.op !== "add" || pageOf(o.screen) === 1 || onStage(o, style)) continue;
+    if (says && redrawn.has(o.screen) && saved.has(o.screen)) continue;
+    return pageOf(o.screen);
+  }
+  return null;
+}
+
+// Pages a reply named with `save` (`>3 ... save this week`): standing pages,
+// like the home's (spec section 5, Pages; YUI-183). Their pickers are tools
+// you use when you like, not asks waiting on you. Only pages 2 to 12 stand;
+// a save from the chat or the stage makes a shelf item, not a page. Screen
+// names in line order. The app's twin is YLScreen.namedScreens.
+export function standingPages(ops) {
+  const out = [];
+  for (const o of ops) if (o.op === "save" && pageOf(o.screen) !== 1 && !out.includes(o.screen)) out.push(o.screen);
+  return out;
+}
+
 // What the person typed on a page, as the agent reads it (spec section 7):
 // a `[yui] screen=2` line, then the words. Anywhere else the words go as they are.
 export function typedBody(screen, words) {

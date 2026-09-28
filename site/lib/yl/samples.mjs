@@ -1,4 +1,5 @@
 import { FLOW_VARIANTS, STARTER_FLOWS, flowLines, variantLines } from "./starter-flows.mjs";
+import { BASIL_WEEK } from "./basil-week.mjs";
 
 // The 10 benchmark screens. The playground loads these too, so what is
 // measured is exactly what renders.
@@ -157,6 +158,19 @@ plan@before "Before I go" submit=Send
 choose@ping "Ping you when it lands?" "Yes, ping me"|"Only if it breaks"
 choose@try "What do you want to try first?" Keys|Chords|Drums
 end`,
+  },
+  {
+    // Basil's week (spec/YL.md section 5, YUI-183, SITE-81): the runtime's
+    // answer to a sent meal plan (lib/yl/basil-week.mjs). On the stage each
+    // day is a page of the deck and a tap on a meal sends its swap at once;
+    // His pages shows the person staying on the answer while This week and
+    // Groceries are drawn again (playground/weekdeck.js).
+    name: "Basil's week: a day a page, a swap on one tap",
+    slug: "week-deck",
+    agent: "Basil",
+    weekdeck: true,
+    // Today's patches (~kcal ...) need the home it patches; the demo plays without them.
+    yl: BASIL_WEEK.split("\n").filter((l) => !l.startsWith("~")).join("\n"),
   },
   {
     // Stage motion (spec/YL.md section 5, YUI-120 step 1): the same turn on

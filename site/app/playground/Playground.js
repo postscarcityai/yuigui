@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Parser, StreamParser, apply, initialState, parse } from "../../lib/yl/yl.mjs";
+import { Parser, StreamParser, apply, initialState, pageForward, pageOf, parse } from "../../lib/yl/yl.mjs";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../../lib/yl/samples.mjs";
 import { RELEASE_META as RELEASE } from "../../lib/yl/release-meta.mjs";
 import { boundTables } from "../../lib/yl/tables.mjs";
@@ -22,6 +22,7 @@ import { SYNC_VIEWS, SyncDemo } from "./sync";
 import { MYFLOWS_VIEWS, MyFlowsDemo } from "./myflows";
 import { STAGEFIRST_VIEWS, StageFirstDemo } from "./stagefirst";
 import { STAGEMOTION_VIEWS, StageMotionDemo } from "./stagemotion";
+import { WEEKDECK_VIEWS, WeekDeckDemo } from "./weekdeck";
 import { MotionLooksDemo } from "./motionlooks";
 import { VisualizerDemo } from "./visualizer";
 import { mealReply } from "./meal";
@@ -123,6 +124,9 @@ export default function Playground({ release = "" }) {
   // Stage first (YL.md section 5, YUI-119): the app living on the full screen, the chat as the record.
   const stagefirst = shared ? null : ALL[idx].stagefirst;
   const [sfView, setSfView] = useState("ask");
+  // Basil's week (YL.md section 5, YUI-183): a titled question in a deck plays as its own page, a tap goes at once.
+  const weekdeck = shared ? null : ALL[idx].weekdeck;
+  const [wdView, setWdView] = useState("deck");
   // Stage motion (YL.md section 5, YUI-120): the stage moves with the agent, per mood and per character.
   const stagemotion = shared ? null : ALL[idx].stagemotion;
   const [moView, setMoView] = useState("side");
@@ -133,7 +137,7 @@ export default function Playground({ release = "" }) {
   // The working row (YL.md section 5): the turn plays, `doing` lines in the row, then the reply.
   const working = shared ? null : ALL[idx].working;
   const [turn, playTurn] = useWorkingTurn(text, working ? idx : null);
-  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!stagemotion || !!motionlooks || !!visualizer;
+  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!weekdeck || !!stagemotion || !!motionlooks || !!visualizer;
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
@@ -169,6 +173,12 @@ export default function Playground({ release = "" }) {
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
     window.history.replaceState(null, "", url);
     setSfView(k);
+  }, []);
+  const goWeekdeck = useCallback((k) => {
+    const url = new URL(window.location.href);
+    if (k === "deck") url.searchParams.delete("view"); else url.searchParams.set("view", k);
+    window.history.replaceState(null, "", url);
+    setWdView(k);
   }, []);
   const goStagemotion = useCallback((k) => {
     const url = new URL(window.location.href);
@@ -213,6 +223,7 @@ export default function Playground({ release = "" }) {
     if (SYNC_VIEWS.some(([k]) => k === q.get("view"))) setSyncView(q.get("view"));
     if (MYFLOWS_VIEWS.some(([k]) => k === q.get("view"))) setMfView(q.get("view"));
     if (STAGEFIRST_VIEWS.some(([k]) => k === q.get("view"))) setSfView(q.get("view"));
+    if (WEEKDECK_VIEWS.some(([k]) => k === q.get("view"))) setWdView(q.get("view"));
     if (STAGEMOTION_VIEWS.some(([k]) => k === q.get("view"))) setMoView(q.get("view"));
     const i = slug ? ALL.findIndex((s) => s.slug === slug) : -1;
     if (i > 0) load(i);
@@ -333,6 +344,8 @@ export default function Playground({ release = "" }) {
     const op = agentParser.current.line(line);
     if (op && isData(op)) addData(op);
     else if (op) setState((s) => apply(s, op));
+    // A line the agent sends to a page brings that page forward (YL.md section 5, Pages).
+    if (op && pageForward([op]) != null) setView(op.screen);
     setEvents((ev) => [{ dir: "agent", t: new Date(), line }, ...ev].slice(0, 40));
   };
 
@@ -376,7 +389,10 @@ export default function Playground({ release = "" }) {
   const fold = useCallback((key, rec) => setFolds((f) => ({ ...f, [key]: rec })), []);
 
   const screens = Object.keys(state.screens).filter((k) => k !== "full");
-  const focus = state.focus === "full" ? "1" : state.focus;
+  // The page a reply lands on (YL.md section 5, Pages): the one it brings forward,
+  // or the chat when it only patched or redrew a page beside an answer (YUI-183).
+  const forward = useMemo(() => pageForward(parse(text)), [text]);
+  const focus = state.focus === "full" ? "1" : pageOf(state.focus) === 1 ? state.focus : forward != null && state.screens[String(forward)] ? String(forward) : "1";
   const shown = view && state.screens[view] && view !== "full" ? view : focus;
   const nodes = (state.screens[shown] || []).filter((n) => !n.stage);
   const staged = Object.values(state.screens).flat().filter((n) => n.stage).sort((a, b) => a.seq - b.seq);
@@ -529,6 +545,9 @@ export default function Playground({ release = "" }) {
           {stagefirst ? STAGEFIRST_VIEWS.map(([k, label]) => (
             <button key={k} className={`pg-tab ${k === sfView ? "on" : ""}`} onClick={() => goStagefirst(k)}>{label}</button>
           )) : null}
+          {weekdeck ? WEEKDECK_VIEWS.map(([k, label]) => (
+            <button key={k} className={`pg-tab ${k === wdView ? "on" : ""}`} onClick={() => goWeekdeck(k)}>{label}</button>
+          )) : null}
           {stagemotion ? STAGEMOTION_VIEWS.map(([k, label]) => (
             <button key={k} className={`pg-tab ${k === moView ? "on" : ""}`} onClick={() => goStagemotion(k)}>{label}</button>
           )) : null}
@@ -564,6 +583,7 @@ export default function Playground({ release = "" }) {
             {sync ? <SyncDemo key={`sy:${epoch}`} text={text} agent={agent} view={syncView} setView={goSync} onEvent={groupEvent} /> : null}
             {myflows ? <MyFlowsDemo key={`mf:${epoch}`} view={mfView} setView={goMyflows} onEvent={groupEvent} /> : null}
             {stagefirst ? <StageFirstDemo key={`sf:${epoch}`} text={text} view={sfView} onEvent={groupEvent} /> : null}
+            {weekdeck ? <WeekDeckDemo key={`wd:${epoch}`} text={text} view={wdView} onEvent={groupEvent} /> : null}
             {stagemotion ? <StageMotionDemo key={`mo:${epoch}`} text={text} view={moView} /> : null}
             {motionlooks ? <MotionLooksDemo key={`ml:${epoch}`} text={text} /> : null}
             {visualizer ? <VisualizerDemo key={`vz:${epoch}`} text={text} dark={!light} agent={agent} /> : null}
