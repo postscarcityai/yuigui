@@ -1297,6 +1297,20 @@
     {
       "text": "Tables in any agent's reply: Hermes, A2A and webhook, and the line after a hand over",
       "card": "YUI-171"
+    },
+    {
+      "text": "Fix the 0.5.0 crash on switching agents and on launch: save the hellos you have met as a plain array"
+    },
+    {
+      "text": "Yui 0.5.1: the switch-agents and launch crash fix",
+      "card": "YUI-181"
+    },
+    {
+      "text": "Every agent has its own quiet visual by default (YUI-180, runtime half)"
+    },
+    {
+      "text": "Visual defaults: live check of the list's pick and the README line",
+      "card": "YUI-180"
     }
   ]
 }

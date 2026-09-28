@@ -1,12 +1,38 @@
 {
-  "updated": "2026-09-28T04:40:42.866Z",
+  "updated": "2026-09-28T05:10:50.299Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.4.3",
-    "status": "shipped",
-    "startedAt": "2026-09-28T00:02:54.000Z",
-    "shippedAt": "2026-09-28T00:38:18.000Z",
-    "cards": []
+    "version": "0.6.0",
+    "status": "open",
+    "startedAt": "2026-09-28T04:48:58.000Z",
+    "shippedAt": null,
+    "cards": [
+      {
+        "key": "YUI-180",
+        "title": "Every agent has its own quiet visualizer by default",
+        "status": "now"
+      },
+      {
+        "key": "YUI-183",
+        "title": "Basil's tools",
+        "status": "next"
+      },
+      {
+        "key": "YUI-184",
+        "title": "Gouda's tools",
+        "status": "next"
+      },
+      {
+        "key": "YUI-185",
+        "title": "Penny's tools",
+        "status": "next"
+      },
+      {
+        "key": "YUI-186",
+        "title": "Quill's tools",
+        "status": "next"
+      }
+    ]
   },
   "columns": [
     {
@@ -224,11 +250,6 @@
           "title": "See it's 'Yui on your phone' group still shows the old chat composer"
         },
         {
-          "key": "SITE-76",
-          "title": "Hand this to your agent",
-          "summary": "A copy link and copy page button, with one line of how, on every page you can act on"
-        },
-        {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors",
           "waiting": true
@@ -290,6 +311,30 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-187",
+          "title": "The screen dots come back and animate, and screens slide instead of fading"
+        },
+        {
+          "key": "YUI-183",
+          "title": "Basil's tools",
+          "summary": "Today's macros board, plan my meals, the grocery list, and his default screens"
+        },
+        {
+          "key": "YUI-184",
+          "title": "Gouda's tools",
+          "summary": "Learn a song and play along, practice log, saved sessions, and default screens"
+        },
+        {
+          "key": "YUI-185",
+          "title": "Penny's tools",
+          "summary": "Plan my week by voice, today list, reminders, evening review, default screens"
+        },
+        {
+          "key": "YUI-186",
+          "title": "Quill's tools",
+          "summary": "Learn a topic, cards with spaced review, step by step problems, default screens"
+        },
+        {
           "key": "YUI-137",
           "title": "Yui makes agents",
           "summary": "Create, edit, fork and remove a native agent from chat"
@@ -316,8 +361,17 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-66",
-          "title": "The site chat opens full screen first, like the Yui app, with the mic"
+          "key": "YUI-181",
+          "title": "Ship Yui 0.5.1, the switch-agents and launch crash fix"
+        },
+        {
+          "key": "SITE-77",
+          "title": "Hand this to your agent",
+          "summary": "A copy link and copy page button, with one line of how, on every page you can act on"
+        },
+        {
+          "key": "YUI-180",
+          "title": "Every agent has its own quiet visualizer by default"
         },
         {
           "key": "INT-8",
@@ -372,6 +426,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-66",
+          "title": "The site chat opens full screen first, like the Yui app, with the mic",
+          "summary": "The chat on this site opens full screen, like the app",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-chat-on-this-site-opens-full-screen-like-the-app"
+        },
         {
           "key": "SITE-75",
           "title": "Hold to talk on /mockups shows the 0.5.0 app, not the old chat composer",
