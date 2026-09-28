@@ -1214,6 +1214,26 @@
     {
       "text": "An agent's hello is an answer on its stage, never a Review ask",
       "card": "YUI-165"
+    },
+    {
+      "text": "Every native agent keeps its own little database: tables it makes, starter values it ships with",
+      "card": "YUI-170"
+    },
+    {
+      "text": "Persona eval: the four table asks hit each agent's own tables and answer on a screen",
+      "card": "YUI-170"
+    },
+    {
+      "text": "Native tables: table words in any fence still land, a write always shows its table",
+      "card": "YUI-170"
+    },
+    {
+      "text": "Native tables: a delete waiting on its tap never reads as done; tick what's got, delete what they ask to",
+      "card": "YUI-170"
+    },
+    {
+      "text": "Native tables: a list labels its numbers, a table header with spaces is mended",
+      "card": "YUI-170"
     }
   ]
 }

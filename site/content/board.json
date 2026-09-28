@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T00:41:10.177Z",
+  "updated": "2026-09-28T01:10:41.060Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.0",
@@ -243,10 +243,6 @@
           "summary": "Plug and play proof in the browser client"
         },
         {
-          "key": "YUI-166",
-          "title": "Hold to snap and say, one press takes the photo and records what you say"
-        },
-        {
           "key": "YUI-167",
           "title": "Meet the agent",
           "summary": "Its hello plays the first time you open it, a line under its name, About says what it does, no picker in the drawer"
@@ -264,9 +260,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-170",
-          "title": "Every native agent keeps its own little database",
-          "summary": "Tables it makes, starter values it ships with"
+          "key": "YUI-166",
+          "title": "Hold to snap and say, one press takes the photo and records what you say"
         },
         {
           "key": "INT-8",
@@ -322,6 +317,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-170",
+          "title": "Every native agent keeps its own little database",
+          "summary": "Every agent keeps its own little database",
+          "shipped": "2026-09-27",
+          "progress": "/progress#every-agent-keeps-its-own-little-database"
+        },
         {
           "key": "YUI-165",
           "title": "Every crew agent says what it does, and its hello is an answer, not a Review ask",
