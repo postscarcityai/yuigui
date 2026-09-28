@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 289,
-    "site": 643,
+    "app": 292,
+    "site": 644,
     "builds": 44,
-    "shipped": 315,
-    "screenshots": 755
+    "shipped": 316,
+    "screenshots": 759
   },
   "days": [
     {
@@ -13,7 +13,7 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T07:54:07.272Z",
+          "at": "2026-09-28T07:53:56.000Z",
           "title": "See it shows the app as it is now",
           "card": "SITE-76",
           "anchor": "see-it-shows-the-app-as-it-is-now",
@@ -35,12 +35,12 @@
               "alt": "Typing a slash in the chat lists the agent's commands: new, retry, undo, title"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
-            "app": 289,
-            "site": 643,
+            "app": 290,
+            "site": 644,
             "builds": 44,
-            "shipped": 315
+            "shipped": 316
           }
         },
         {
@@ -67,12 +67,12 @@
               "alt": "The evening review: 2 done today, pay the water bill and groceries, 3 still open"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
-            "app": 289,
+            "app": 290,
             "site": 643,
             "builds": 44,
-            "shipped": 314
+            "shipped": 315
           }
         },
         {
@@ -104,7 +104,7 @@
             "app": 287,
             "site": 641,
             "builds": 44,
-            "shipped": 313
+            "shipped": 314
           }
         },
         {
@@ -136,7 +136,7 @@
             "app": 286,
             "site": 640,
             "builds": 44,
-            "shipped": 312
+            "shipped": 313
           }
         },
         {
@@ -168,7 +168,7 @@
             "app": 284,
             "site": 637,
             "builds": 44,
-            "shipped": 311
+            "shipped": 312
           }
         },
         {
@@ -200,7 +200,7 @@
             "app": 284,
             "site": 636,
             "builds": 44,
-            "shipped": 310
+            "shipped": 311
           }
         },
         {
@@ -228,7 +228,7 @@
             "app": 282,
             "site": 634,
             "builds": 44,
-            "shipped": 309
+            "shipped": 310
           }
         },
         {
@@ -240,7 +240,7 @@
             "app": 282,
             "site": 633,
             "builds": 44,
-            "shipped": 308
+            "shipped": 309
           }
         },
         {
@@ -272,6 +272,38 @@
             "app": 282,
             "site": 633,
             "builds": 43,
+            "shipped": 309
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T05:59:04.000Z",
+          "title": "The workout runner in the app: rest starts on its own, say done",
+          "card": "YUI-182",
+          "anchor": "the-workout-runner-in-the-app-rest-starts-on-its-own-say-done",
+          "images": [
+            {
+              "src": "/progress/yui182-app-light-2-resting.webp",
+              "alt": "Bench press, set 1 ticked, the rest timer counting down from 1:15, reps and weight with minus and plus"
+            },
+            {
+              "src": "/progress/yui182-app-dark-3-voice-done.webp",
+              "alt": "Dark mode: saying done ticked set 2 and the rest started again"
+            },
+            {
+              "src": "/progress/yui182-app-light-4-relaunched.webp",
+              "alt": "After the app was killed and opened again: the same move, the same sets ticked"
+            },
+            {
+              "src": "/progress/yui182-app-dark-7-review.webp",
+              "alt": "The review before Finish workout: each move's sets, reps and weight, and how it felt"
+            }
+          ],
+          "commits": 6,
+          "totals": {
+            "app": 279,
+            "site": 631,
+            "builds": 43,
             "shipped": 308
           }
         },
@@ -295,7 +327,7 @@
               "alt": "Progress: a 2 week streak, a 45 lb best set and a chart of the dumbbell row"
             }
           ],
-          "commits": 4,
+          "commits": 6,
           "totals": {
             "app": 279,
             "site": 631,
@@ -462,6 +494,27 @@
       ],
       "commits": [
         {
+          "repo": "app",
+          "sha": "6adb5c6",
+          "at": "2026-09-28T08:04:44.000Z",
+          "text": "Penny's demo home and can match her profile after YUI-185's runtime half (YUI-182)",
+          "url": "https://github.com/postscarcityai/yui/commit/6adb5c6"
+        },
+        {
+          "repo": "app",
+          "sha": "d22c0e0",
+          "at": "2026-09-28T08:03:41.000Z",
+          "text": "The home's pickers are tools, not asks; the demo crew homes match the profiles again (YUI-182)",
+          "url": "https://github.com/postscarcityai/yui/commit/d22c0e0"
+        },
+        {
+          "repo": "site",
+          "sha": "486e8fa",
+          "at": "2026-09-28T07:53:56.000Z",
+          "text": "See it: ten app entries show Yui 0.5.2, the stage first and the chat as the record (SITE-76)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/486e8fa"
+        },
+        {
           "repo": "site",
           "sha": "068de4b",
           "at": "2026-09-28T07:50:57.000Z",
@@ -488,6 +541,13 @@
           "at": "2026-09-28T07:41:22.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/65c07f6"
+        },
+        {
+          "repo": "app",
+          "sha": "6065266",
+          "at": "2026-09-28T07:28:20.000Z",
+          "text": "The workout runner in the app: one move per page, sets to tick, rest starts on its own, say done (YUI-182, app half)",
+          "url": "https://github.com/postscarcityai/yui/commit/6065266"
         },
         {
           "repo": "site",
