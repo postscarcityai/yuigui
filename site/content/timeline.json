@@ -1,8 +1,8 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 274,
-    "site": 619,
+    "app": 275,
+    "site": 622,
     "builds": 42,
     "shipped": 303,
     "screenshots": 710
@@ -38,7 +38,7 @@
           "commits": 1,
           "totals": {
             "app": 273,
-            "site": 619,
+            "site": 621,
             "builds": 42,
             "shipped": 303
           }
@@ -58,13 +58,27 @@
           "commits": 1,
           "totals": {
             "app": 273,
-            "site": 615,
+            "site": 616,
             "builds": 42,
             "shipped": 302
           }
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "8f1bd7a",
+          "at": "2026-09-28T04:51:31.000Z",
+          "text": "Yui 0.5.1: the switch-agents and launch crash fix (YUI-181)",
+          "url": "https://github.com/postscarcityai/yui/commit/8f1bd7a"
+        },
+        {
+          "repo": "site",
+          "sha": "724cf3b",
+          "at": "2026-09-28T04:50:17.000Z",
+          "text": "Roadmap: 0.5.1 fixes the switch-agents crash, 0.6.0 gives the crew real tools (YUI-180 to 186)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/724cf3b"
+        },
         {
           "repo": "app",
           "sha": "3c1de24",
@@ -92,6 +106,13 @@
           "at": "2026-09-28T04:33:01.000Z",
           "text": "The Yui 0.5.0 film in the top bar: two minutes, the crew feels ready",
           "url": "https://github.com/postscarcityai/yuigui/commit/0739305"
+        },
+        {
+          "repo": "site",
+          "sha": "6bbdb60",
+          "at": "2026-09-28T04:27:48.000Z",
+          "text": "The brand kit: /brand.json and square logos, for Yui to speak for Yui",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6bbdb60"
         },
         {
           "repo": "site",
@@ -127,7 +148,7 @@
           "commits": 0,
           "totals": {
             "app": 273,
-            "site": 613,
+            "site": 614,
             "builds": 42,
             "shipped": 301
           }
@@ -151,7 +172,7 @@
           "commits": 5,
           "totals": {
             "app": 273,
-            "site": 611,
+            "site": 612,
             "builds": 42,
             "shipped": 300
           }
@@ -163,7 +184,7 @@
           "changes": 20,
           "totals": {
             "app": 272,
-            "site": 610,
+            "site": 611,
             "builds": 42,
             "shipped": 299
           }
@@ -1728,6 +1749,13 @@
           "at": "2026-09-28T03:48:53.000Z",
           "text": "Tables in any agent's reply: Hermes, A2A and webhook, and the line after a hand over (YUI-171)",
           "url": "https://github.com/postscarcityai/yui/commit/134f5e5"
+        },
+        {
+          "repo": "site",
+          "sha": "aab6ffd",
+          "at": "2026-09-28T03:42:29.000Z",
+          "text": "Email from Yui: confirmation links, a news opt-in, unsubscribe, privacy",
+          "url": "https://github.com/postscarcityai/yuigui/commit/aab6ffd"
         },
         {
           "repo": "site",
