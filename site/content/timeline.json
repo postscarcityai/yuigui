@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 251,
-    "site": 582,
+    "app": 254,
+    "site": 588,
     "builds": 40,
-    "shipped": 289,
-    "screenshots": 673
+    "shipped": 291,
+    "screenshots": 678
   },
   "days": [
     {
@@ -13,7 +13,59 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-27T23:45:42.471Z",
+          "at": "2026-09-28T00:36:27.664Z",
+          "title": "Yui 0.4.3: swipe back, and a new install starts at Sign in",
+          "card": null,
+          "anchor": "yui-0-4-3-swipe-back-and-a-new-install-starts-at-sign-in",
+          "images": [
+            {
+              "src": "/progress/fb-ac0r0ofg-swipe-greeting-drawer-dark.webp",
+              "alt": "Dark mode: a drag right on the empty greeting pulls the drawer out from the left, with Home, Review, Controls and About."
+            },
+            {
+              "src": "/progress/fb-ac0r0ofg-swipe-light-screen2.webp",
+              "alt": "Light mode: after a drag left, screen 2 shows a Focus timer, with the plus, T and mic buttons still at the bottom."
+            },
+            {
+              "src": "/progress/fb-ac0r0ofg-swipe-dark-screen3.webp",
+              "alt": "Dark mode: another drag left reaches screen 3."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 254,
+            "site": 588,
+            "builds": 40,
+            "shipped": 291
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T00:15:42.000Z",
+          "title": "Every crew agent says what it does",
+          "card": "YUI-165",
+          "anchor": "every-crew-agent-says-what-it-does",
+          "images": [
+            {
+              "src": "/progress/yui165-gouda-hello-light.webp",
+              "alt": "Gouda's thread: its hello, a Lazy Sunday beat and a What are we doing? pick with Make a beat, Learn theory, Write a song, Practice plan."
+            },
+            {
+              "src": "/progress/yui165-gouda-review-dark.webp",
+              "alt": "Dark mode: Gouda's drawer on the Review tab, no badge, reading All caught up."
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 254,
+            "site": 588,
+            "builds": 40,
+            "shipped": 290
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T23:45:13.000Z",
           "title": "Every agent has its own home: the spec and a mock",
           "card": "YUI-168",
           "anchor": "every-agent-has-its-own-home-the-spec-and-a-mock",
@@ -27,10 +79,10 @@
               "alt": "Dark mock of Gouda's screen 4: a keyboard in C major ready to play, after the looper and the chords"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 251,
-            "site": 582,
+            "site": 584,
             "builds": 40,
             "shipped": 289
           }
@@ -66,7 +118,7 @@
           "commits": 2,
           "totals": {
             "app": 251,
-            "site": 581,
+            "site": 582,
             "builds": 40,
             "shipped": 288
           }
@@ -94,7 +146,7 @@
           "commits": 0,
           "totals": {
             "app": 251,
-            "site": 580,
+            "site": 581,
             "builds": 40,
             "shipped": 287
           }
@@ -122,7 +174,7 @@
           "commits": 0,
           "totals": {
             "app": 251,
-            "site": 578,
+            "site": 579,
             "builds": 40,
             "shipped": 286
           }
@@ -154,7 +206,7 @@
           "commits": 1,
           "totals": {
             "app": 251,
-            "site": 577,
+            "site": 578,
             "builds": 40,
             "shipped": 285
           }
@@ -1252,6 +1304,62 @@
       "commits": [
         {
           "repo": "site",
+          "sha": "daf578d",
+          "at": "2026-09-28T00:15:42.000Z",
+          "text": "Every crew agent says what it does, and its hello is not a Review ask (YUI-165)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/daf578d"
+        },
+        {
+          "repo": "app",
+          "sha": "d05b8fe",
+          "at": "2026-09-28T00:14:33.000Z",
+          "text": "An agent's hello is an answer on its stage, never a Review ask (YUI-165)",
+          "url": "https://github.com/postscarcityai/yui/commit/d05b8fe"
+        },
+        {
+          "repo": "site",
+          "sha": "9cf24d3",
+          "at": "2026-09-28T00:11:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9cf24d3"
+        },
+        {
+          "repo": "app",
+          "sha": "dda5eea",
+          "at": "2026-09-28T00:10:06.000Z",
+          "text": "Every crew agent says what it does: a tagline, two sentences and three things to ask (YUI-165)",
+          "url": "https://github.com/postscarcityai/yui/commit/dda5eea"
+        },
+        {
+          "repo": "site",
+          "sha": "c907fbf",
+          "at": "2026-09-28T00:04:02.000Z",
+          "text": "Five explainer films on the pages they explain",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c907fbf"
+        },
+        {
+          "repo": "app",
+          "sha": "01f4bcb",
+          "at": "2026-09-28T00:03:16.000Z",
+          "text": "Version 0.4.3: swipe back and sign-in-first",
+          "url": "https://github.com/postscarcityai/yui/commit/01f4bcb"
+        },
+        {
+          "repo": "site",
+          "sha": "235f9e3",
+          "at": "2026-09-27T23:47:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/235f9e3"
+        },
+        {
+          "repo": "site",
+          "sha": "08fdbcd",
+          "at": "2026-09-27T23:45:13.000Z",
+          "text": "Agent home: spec and tappable mock, shortcuts, asks and starter screens per agent (YUI-168)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/08fdbcd"
+        },
+        {
+          "repo": "site",
           "sha": "b7bed16",
           "at": "2026-09-27T23:36:41.000Z",
           "text": "timeline: sync (SITE-65)",
@@ -1326,6 +1434,13 @@
           "at": "2026-09-27T23:10:59.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/568a8a6"
+        },
+        {
+          "repo": "site",
+          "sha": "c926b71",
+          "at": "2026-09-27T23:09:43.000Z",
+          "text": "Films fit the screen, and the three concept films get the front page",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c926b71"
         },
         {
           "repo": "site",
