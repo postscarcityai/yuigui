@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T14:47:37.960Z",
+  "updated": "2026-09-28T16:10:45.930Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -357,7 +357,9 @@
         {
           "key": "YUI-190",
           "title": "Stop a turn from the main screen",
-          "summary": "The mic becomes Stop while an agent works"
+          "summary": "Stop a reply from the main screen",
+          "waiting": true,
+          "progress": "/progress#stop-a-reply-from-the-main-screen"
         },
         {
           "key": "INT-8",

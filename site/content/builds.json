@@ -1439,6 +1439,14 @@
     {
       "text": "The screen dots live in the bottom bar, centered, and move over when the page arrows show",
       "card": "YUI-189"
+    },
+    {
+      "text": "Stop a turn from the main screen: the mic becomes a stop square while an agent works",
+      "card": "YUI-190"
+    },
+    {
+      "text": "Stop on a real account: a hosted turn stopped mid-answer, kills, relaunches and five agent switches",
+      "card": "YUI-190"
     }
   ]
 }
