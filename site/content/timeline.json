@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 305,
-    "site": 674,
+    "app": 308,
+    "site": 678,
     "builds": 44,
-    "shipped": 331,
-    "screenshots": 813
+    "shipped": 333,
+    "screenshots": 821
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T13:41:58.800Z",
+          "at": "2026-09-28T14:18:29.937Z",
+          "title": "The site chat gets pages, a swipe away",
+          "card": "SITE-83",
+          "anchor": "the-site-chat-gets-pages-a-swipe-away",
+          "images": [
+            {
+              "src": "/progress/site83-page.webp",
+              "alt": "The site chat on a phone, on page 2: a stat and a list, with the dots in the bottom bar"
+            },
+            {
+              "src": "/progress/site83-dots.webp",
+              "alt": "Back on the chat: Yui's answer with the dots beside T and the mic"
+            },
+            {
+              "src": "/progress/site83-desktop.webp",
+              "alt": "The chat on a computer, on a third page that keeps the mic, three dots in the bar"
+            },
+            {
+              "src": "/progress/site83-playground.webp",
+              "alt": "The playground phone in light, on screen 2, with the dots at the foot"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 308,
+            "site": 678,
+            "builds": 44,
+            "shipped": 333
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T13:54:58.000Z",
+          "title": "The screen dots move into the bottom bar",
+          "card": "YUI-189",
+          "anchor": "the-screen-dots-move-into-the-bottom-bar",
+          "images": [
+            {
+              "src": "/progress/yui189-bar-arrows-dark.webp",
+              "alt": "Dark mode: the back and next arrows at the left of the bottom bar, three small dots centered next to them, then plus, T and the mic"
+            },
+            {
+              "src": "/progress/yui189-bar-plain-light.webp",
+              "alt": "An answer with no page arrows: three dots centered in the left part of the bottom bar, before plus, T and the mic"
+            },
+            {
+              "src": "/progress/yui189-bar-arrows-375-light.webp",
+              "alt": "A small 375 point phone: arrows, three dots and plus, T and the mic all fit in the bottom bar without touching"
+            },
+            {
+              "src": "/progress/yui189-bar-arrows-screen3-light.webp",
+              "alt": "Screen 3, a shopping list, with the last dot as the pill in the bottom bar"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 308,
+            "site": 677,
+            "builds": 44,
+            "shipped": 332
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T13:42:06.000Z",
           "title": "Ticks and your week, on every device",
           "card": "YUI-185b",
           "anchor": "ticks-and-your-week-on-every-device",
@@ -30,7 +94,7 @@
           "commits": 0,
           "totals": {
             "app": 305,
-            "site": 674,
+            "site": 675,
             "builds": 44,
             "shipped": 331
           }
@@ -948,6 +1012,55 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "37e4459",
+          "at": "2026-09-28T14:10:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/37e4459"
+        },
+        {
+          "repo": "site",
+          "sha": "ee6962a",
+          "at": "2026-09-28T13:54:58.000Z",
+          "text": "Progress: the screen dots move into the bottom bar, centered, and slide over when the page arrows show (YUI-189)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ee6962a"
+        },
+        {
+          "repo": "app",
+          "sha": "226b33c",
+          "at": "2026-09-28T13:52:43.000Z",
+          "text": "The screen dots live in the bottom bar, centered, and move over when the page arrows show (YUI-189)",
+          "url": "https://github.com/postscarcityai/yui/commit/226b33c"
+        },
+        {
+          "repo": "app",
+          "sha": "1ddcde9",
+          "at": "2026-09-28T13:42:49.000Z",
+          "text": "yui-mcp: parser copy synced from yuigui 5cce24c (quietToAgent, YUI-185b)",
+          "url": "https://github.com/postscarcityai/yui/commit/1ddcde9"
+        },
+        {
+          "repo": "site",
+          "sha": "6962005",
+          "at": "2026-09-28T13:42:33.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6962005"
+        },
+        {
+          "repo": "app",
+          "sha": "a875ea0",
+          "at": "2026-09-28T13:42:14.000Z",
+          "text": "Penny's saved order redraws This week, so every device reads the same week (YUI-185b)",
+          "url": "https://github.com/postscarcityai/yui/commit/a875ea0"
+        },
+        {
+          "repo": "site",
+          "sha": "5cce24c",
+          "at": "2026-09-28T13:42:06.000Z",
+          "text": "A tick on a native agent's named list on a page reaches its runtime quietly: spec, reference function, playground (YUI-185b)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5cce24c"
+        },
         {
           "repo": "site",
           "sha": "2c0f38b",

@@ -42,7 +42,7 @@ function Chunk({ a, c, dir, emitFor, Text, go, small }) {
   );
 }
 
-export default function ChatStage({ content, live, onTap, onAnswers, Text, go, active = true }) {
+export default function ChatStage({ content, live, onTap, onAnswers, Text, go, active = true, onEdge }) {
   const a = useMemo(() => readAnswer(content), [content]);
   const n = a.chunks.length;
   const [at, setAt] = useState(0);
@@ -58,17 +58,18 @@ export default function ChatStage({ content, live, onTap, onAnswers, Text, go, a
     setAt((i) => Math.min(last, Math.max(0, i + d)));
   }, [last]);
 
-  // The arrow keys page the stage when nobody is typing.
+  // The arrow keys page the stage when nobody is typing. Past the last part, right goes on to the
+  // chat's pages (SITE-83, onEdge).
   useEffect(() => {
     if (!active) return undefined;
     const onKey = (e) => {
       if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName || "") || e.target?.isContentEditable) return;
-      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowRight") { if (at >= last) onEdge?.(1); else step(1); }
       else if (e.key === "ArrowLeft") step(-1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active, step]);
+  }, [active, step, at, last, onEdge]);
 
   const emitFor = useCallback((node) => (value) => { if (live) onTap?.({ id: node.id, preset: node.preset, ...value }); }, [live, onTap]);
 

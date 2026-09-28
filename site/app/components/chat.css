@@ -235,6 +235,42 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .yc-send:disabled { opacity: .4; cursor: default; }
 .yc-note { margin: 0; padding: 4px 14px 12px; font-size: 12px; color: var(--muted); text-align: center; }
 
+/* ---------- pages beside the chat (SITE-83; the app's YUI-168/187/189) ---------- */
+/* The chat is the first slide, pages 2 to 12 the next ones. Sideways it clips; the answer's back and
+   next arrows still hang down into the bar. */
+.ys-pager { position: relative; flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-x: clip; overflow-y: visible; touch-action: pan-y; }
+.ys-track { flex: 1; min-height: 0; display: flex; transform: translateX(calc(var(--at, 0) * -100% + var(--drag, 0px))); transition: transform .44s cubic-bezier(.2, .9, .3, 1.06); will-change: transform; }
+.ys-pager[data-drag] .ys-track { transition: none; }
+.ys-slide { flex: 0 0 100%; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.ys-page { overflow-y: auto; overscroll-behavior: contain; }
+.ys-pagebody { flex: 1; padding: 6px 16px 16px; }
+.ys-pagebody .pg-screen { display: flex; flex-direction: column; gap: 12px; }
+.ys-pagebody .pg-node { margin: 0; }
+
+/* The dots: centered in the bar's free room, between the arrows (or the edge) and T and the mic. */
+.ys-dotroom { flex: 1; min-width: 0; align-self: stretch; display: flex; align-items: center; justify-content: center; padding-left: 0; pointer-events: none !important; transition: padding-left .44s cubic-bezier(.2, .9, .3, 1.15); }
+.ys-dotroom[data-arrows] { padding-left: 104px; }
+.ys-bottom[data-talk="off"] { min-height: 78px; }
+.ys-dotbar { padding-top: 2px; padding-bottom: 0; }
+.ys-dots { position: relative; flex: none; height: 30px; border-radius: 999px; cursor: pointer; pointer-events: auto;
+  background: color-mix(in srgb, var(--surface) 72%, transparent); }
+.ys-dots:focus-visible { outline: 2px solid var(--mo-c, var(--brand)); outline-offset: 2px; }
+.ys-dots i { position: absolute; top: 12px; width: 6px; height: 6px; border-radius: 50%; background: color-mix(in srgb, var(--muted) 40%, transparent); }
+.ys-dots i.cut { transform: scale(.7); }
+.ys-dots b { position: absolute; top: 12px; height: 6px; border-radius: 3px; background: var(--mo-c, var(--brand)); }
+/* The playground's phone shows the same dots at the foot of the screen. */
+.pg-dotbar { flex: none; display: flex; justify-content: center; padding: 6px 0 12px; }
+.pg-dotbar .ys-dots { background: rgba(255, 255, 255, .08); }
+.pg-dotbar .ys-dots i { background: rgba(255, 255, 255, .4); }
+.screen.light .pg-dotbar .ys-dots { background: rgba(20, 16, 40, .06); }
+.screen.light .pg-dotbar .ys-dots i { background: rgba(20, 16, 40, .3); }
+.yc-onpage, .yc-from { align-self: flex-start; min-height: 32px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; }
+.yc-onpage:hover, .yc-from:hover { border-color: var(--mo-c); }
+.yc-from { display: block; margin: 6px 0 0 auto; min-height: 26px; font-size: 12px; background: transparent; color: inherit; }
+@media (prefers-reduced-motion: reduce) {
+  .ys-track, .ys-dotroom { transition: none; }
+}
+
 @media (max-width: 760px) {
   .yc { right: 16px; bottom: 16px; }
   .yc-fab { width: 58px; height: 58px; }

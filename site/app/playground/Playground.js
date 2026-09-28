@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Parser, StreamParser, apply, initialState, pageForward, pageOf, parse, quietToAgent } from "../../lib/yl/yl.mjs";
+import { PageDots } from "../components/ChatDots";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../../lib/yl/samples.mjs";
 import { RELEASE_META as RELEASE } from "../../lib/yl/release-meta.mjs";
 import { boundTables } from "../../lib/yl/tables.mjs";
@@ -419,6 +420,9 @@ export default function Playground({ release = "" }) {
   const focus = state.focus === "full" ? "1" : pageOf(state.focus) === 1 ? state.focus : forward != null && state.screens[String(forward)] ? String(forward) : "1";
   const shown = view && state.screens[view] && view !== "full" ? view : focus;
   const nodes = (state.screens[shown] || []).filter((n) => !n.stage);
+  // The page dots (SITE-83, the app's YUI-189): the chat and its pages 2 to 12, the one on show lit.
+  const dotNames = ["1", ...screens.filter((k) => pageOf(k) > 1 && state.screens[k].length).sort((a, b) => a - b)];
+  const dotAt = dotNames.indexOf(pageOf(shown) > 1 ? shown : "1");
   const staged = Object.values(state.screens).flat().filter((n) => n.stage).sort((a, b) => a.seq - b.seq);
   // Where staged nodes sat on this screen: one pill per run of them.
   const pills = [];
@@ -658,6 +662,9 @@ export default function Playground({ release = "" }) {
               </ScreenCtx.Provider>
               {!nodes.length && !pills.length ? <div className="pg-hint" style={{ textAlign: "center", marginTop: 40 }}>Empty screen</div> : null}
             </div>
+            {!client && dotNames.length > 1 && dotAt >= 0 ? (
+              <div className="pg-dotbar"><PageDots names={dotNames} index={dotAt} progress={dotAt} onGo={(i) => setView(dotNames[i])} /></div>
+            ) : null}
             <Stage open={state.stage && staged.length > 0 && !client} onClose={closeStage} agent={agent}>
               <ScreenCtx.Provider value={{ nodes: staged, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, write: addData, agent, screen: "full", dispatch, fold, closeStage }}>
                 {groupNodes(staged).map((n) => <LiveSlot key={`${epoch}:${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}

@@ -1,9 +1,10 @@
 // The site chat answers with screens (SITE-65). A reply is text plus ```yui blocks, like the app's
 // channel (spec/CHANNEL.md). This file splits a reply into parts, keeps only the Yui Lines a web
 // visitor should get, and turns a tap into the message it sends back. Used by the page and the tests.
+import { PRESETS } from "../yl/yl.mjs";
 
 // Presets the chat may draw. No media, camera, mic or custom blocks (nothing loads from a URL the
-// model picked), no drawer, tables, theme or pages of their own (the chat is one screen). A flow
+// model picked), no drawer, tables or theme. Pages 2 to 12 sit beside the chat (SITE-83, pages.mjs). A flow
 // (SITE-68, spec/FLOWS.md) is a whole run of screens: by name (`flow onboarding`) or inline Mermaid.
 export const ALLOWED = new Set([
   "say", "ask", "choose", "pick", "slide", "form", "list", "table", "card",
@@ -70,19 +71,43 @@ export function cleanLines(yl) {
       }
     }
     if (t === ">full") { keep.push(t); continue; } // the stage over the chat, like the app
-    if (!t || t.startsWith("#") || t.startsWith(">")) continue;
-    if (!ALLOWED.has(head(t))) continue;
-    let bad = false;
-    const fixed = line.replace(/\burl=("([^"]*)"|(\S+))/g, (all, _q, quoted, bare) => {
-      const u = quoted ?? bare;
-      if (/^\/(?!\/)/.test(u)) return `url=https://www.yuigui.com${u}`;
-      if (SAFE_URL.test(u)) return all;
-      bad = true;
-      return "";
-    });
-    keep.push(bad ? fixed.replace(/\s+/g, " ").trim() : fixed);
+    // SITE-83: pages 2 to 12 beside the chat, like the app (`>2`, `>2 stat ...`, `>2 clear`, `>2 talk`),
+    // and back to the chat (`>1`, `>chat`). Any other screen name is dropped.
+    const route = /^>(\S+)(?:\s+(.*))?$/.exec(t);
+    if (route) {
+      if (!ROUTE.test(route[1])) continue;
+      const rest = route[2] ? oneLine(route[2]) : "";
+      if (rest !== null) keep.push(rest ? `>${route[1]} ${rest}` : `>${route[1]}`);
+      continue;
+    }
+    if (!t || t.startsWith("#")) continue;
+    const ok = oneLine(line);
+    if (ok !== null) keep.push(ok);
   }
   return keep.join("\n").trim();
+}
+
+// Screens the chat can route to: the chat itself and pages 2 to 12 (spec/YL.md section 5, Pages).
+const ROUTE = /^(?:1|chat|[2-9]|1[0-2])$/;
+// `clear` and `talk` only mean something on a page; on the chat they do nothing.
+const PAGE_OPS = /^(clear|talk(\s+(on|off))?)$/;
+
+// One line the chat can draw, with outside links cut and site paths made whole, or null.
+function oneLine(line) {
+  if (PAGE_OPS.test(line.trim())) return line.trim();
+  // A patch by @id (`~runs 2`) reaches a component an earlier reply drew on a page; a patch named
+  // for a preset the chat does not draw (`~image`) is still dropped.
+  const h = head(line);
+  if (!ALLOWED.has(h) && !(line.trim().startsWith("~") && !PRESETS.includes(h))) return null;
+  let bad = false;
+  const fixed = line.replace(/\burl=("([^"]*)"|(\S+))/g, (all, _q, quoted, bare) => {
+    const u = quoted ?? bare;
+    if (/^\/(?!\/)/.test(u)) return `url=https://www.yuigui.com${u}`;
+    if (SAFE_URL.test(u)) return all;
+    bad = true;
+    return "";
+  });
+  return bad ? fixed.replace(/\s+/g, " ").trim() : fixed;
 }
 
 const q = (v) => {

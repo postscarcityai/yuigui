@@ -11,6 +11,8 @@
 // site dark (the moon button's switch, not saved) and closing it puts the visitor's own choice back.
 // SITE-67: it opens on feedback first: what they like or not, the pitch, how to help, or just a demo.
 // SITE-69: or Meet the crew. A crew member's answer (their flow, what it made) wears their color and name.
+// SITE-83: like the app, lines for screens 2 to 12 are pages beside the chat, a swipe away (touch, a
+// trackpad, the arrow keys), with the dots centered in the bottom bar (ChatDots, lib/chat/pages.mjs).
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -18,15 +20,19 @@ import links from "../../content/links.json";
 import { HELLO, SHARE_URL, STARTERS } from "../../lib/chat/feedback.mjs";
 import { crewOf } from "../../lib/chat/crew.mjs";
 import { splitReply, tapLabel, tapLine } from "../../lib/chat/lines.mjs";
-import { micLine } from "../../lib/chat/stage.mjs";
+import { micLine, readAnswer } from "../../lib/chat/stage.mjs";
+import { threadPages } from "../../lib/chat/pages.mjs";
+import { readTyped, typedBody } from "../../lib/yl/yl.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
 import { echoFor, relays } from "../../../mcp-app/src/events.mjs";
 import { savedUtm, trackCta } from "../../lib/track.mjs";
+import { PageDots, usePager } from "./ChatDots";
 import "../playground/stagemotion.css";
 import "./chat.css";
 
 const Screen = dynamic(() => import("./ChatScreen"), { ssr: false, loading: () => <div className="yc-wait">Drawing...</div> });
 const StageAnswer = dynamic(() => import("./ChatStage"), { ssr: false, loading: () => null });
+const PagesView = dynamic(() => import("./ChatPages"), { ssr: false, loading: () => null });
 
 const KEY = "yui-chat-v1";
 const OPEN = "yui-chat-open";   // sessionStorage: reopen on reload in this tab only
@@ -107,14 +113,14 @@ function Check({ siteKey, onToken }) {
 }
 
 // One answer in the record: its text and its screens, drawn in place. A tap on Play puts it back on the stage.
-function Answer({ content, go, onTap, live, onPlay }) {
+function Answer({ content, go, onTap, live, onPlay, onPage }) {
   const parts = splitReply(content);
   const who = crewOf(content);
   return (
     <div className="yc-answer" style={who ? { "--accent": who.c } : undefined}>
       {parts.map((p, i) => (
         <div key={i} className={p.yl ? "yc-part yc-part-screen" : "yc-part yc-part-text"}>
-          {p.yl ? <Screen yl={p.yl} onTap={live ? onTap : undefined} /> : <Text text={p.text} go={go} />}
+          {p.yl ? <Screen yl={p.yl} onTap={live ? onTap : undefined} onPage={onPage} /> : <Text text={p.text} go={go} />}
         </div>
       ))}
       <button className="yc-play" onClick={onPlay}>Play on the stage</button>
@@ -189,9 +195,28 @@ export default function ChatFab() {
   const [heard, setHeard] = useState("");
   const [blocked, setBlocked] = useState(false);
   const [toast, setToast] = useState("");         // one quiet line after a share
+  const [pageAt, setPageAt] = useState("1");      // the screen on show: "1" the chat, "2".."12" a page
+  const [jump, setJump] = useState(0);            // bumps when a reply lands, to bring its page forward
   const input = useRef(null), list = useRef(null), ready = useRef(false), rec = useRef(null), heardRef = useRef("");
   const reduced = useReduced();
   const look = useMemo(() => motionLook({ motion: "bouncy" }, null, reduced), [reduced]);
+
+  // The pages (SITE-83): every reply so far, folded into screens 2 to 12.
+  const replies = useMemo(() => msgs.filter((m) => m.role === "assistant").map((m) => m.content), [msgs]);
+  const pg = useMemo(() => threadPages(replies), [replies]);
+  const names = useMemo(() => ["1", ...pg.pages], [pg.pages]);
+  const at = Math.max(0, names.indexOf(pageAt));
+  const onChat = at === 0;
+  const canTalk = onChat || pg.talk.includes(pageAt);
+  const goIndex = useCallback((i) => setPageAt(names[Math.min(Math.max(i, 0), names.length - 1)] || "1"), [names]);
+  const pager = usePager(names.length, at, goIndex);
+  // A cleared page takes the person back to the chat; a reply that sends a line to a page brings it forward.
+  useEffect(() => { if (!names.includes(pageAt)) setPageAt("1"); }, [names, pageAt]);
+  useEffect(() => { if (jump && pg.forward) setPageAt(pg.forward); }, [jump]); // eslint-disable-line react-hooks/exhaustive-deps
+  const nav = useRef({});
+  // Words said on a page that keeps talking go tagged with it (spec/YL.md section 7).
+  const here = useRef("1");
+  here.current = !onChat && canTalk ? pageAt : "1";
 
   useEffect(() => {
     const s = load();
@@ -226,6 +251,13 @@ export default function ChatFab() {
         return;
       }
       const tag = e.target?.tagName || "";
+      // The arrow keys move between the chat and its pages. On the chat, an answer playing on the
+      // stage takes them first (ChatStage) and hands on past its last part.
+      if ((e.key === "ArrowRight" || e.key === "ArrowLeft") && !record && !/^(INPUT|TEXTAREA|SELECT)$/.test(tag) && !e.target?.isContentEditable) {
+        const v = nav.current;
+        if (v.n > 1 && !document.querySelector(".yc .yl-stage.open") && !(v.at === 0 && v.stageUp)) v.go(v.at + (e.key === "ArrowRight" ? 1 : -1));
+        return;
+      }
       if (!typing && !record && e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey && !/^(INPUT|TEXTAREA|SELECT)$/.test(tag) && e.key !== " ") {
         setTyping(true);
       }
@@ -266,12 +298,22 @@ export default function ChatFab() {
       }
       setMsgs((m) => { setPlaying(m.length); setSeen(m.length + 1); return [...m, { role: "assistant", content: data.reply }, ...cards]; });
       setPlayKey((k) => k + 1);
+      setJump((j) => j + 1);
       setFound(true);
       setTimeout(() => setFound(false), reduced ? 0 : 650);
     } catch {
       setError("Network error. Try again.");
     } finally { setBusy(false); }
   }, [busy, msgs, go, reduced]);
+
+  // What the person says goes to Yui; on a page that keeps talking, tagged with the page.
+  const say = useCallback((t) => {
+    const k = here.current;
+    if (k !== "1" && t.trim()) send(typedBody(k, t.trim()), undefined, t.trim());
+    else send(t);
+  }, [send]);
+  const sayRef = useRef(say);
+  sayRef.current = say;
 
   // The share card (card@share, SITE-67): the page shares the site itself, no turn for Yui.
   useEffect(() => { if (!toast) return undefined; const t = setTimeout(() => setToast(""), 2600); return () => clearTimeout(t); }, [toast]);
@@ -343,7 +385,7 @@ export default function ChatFab() {
       rec.current = null;
       const t = heardRef.current.trim();
       setHeard("");
-      if (t) send(t);
+      if (t) sayRef.current(t);
     };
     rec.current = r;
     try { r.start(); setListening(true); } catch { setVoice(false); setTyping(true); }
@@ -356,12 +398,12 @@ export default function ChatFab() {
     e.preventDefault();
     const t = draft;
     setDraft("");
-    send(t);
+    say(t);
     if (voice) setTyping(false);
   }
   function startOver() {
     fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "new" }) }).catch(() => {});
-    setMsgs([]); setError(""); setPlaying(-1); setSaid(""); setRecord(false); setSeen(0);
+    setMsgs([]); setError(""); setPlaying(-1); setSaid(""); setRecord(false); setSeen(0); setPageAt("1");
   }
 
   const lastAnswer = msgs.map((m) => m.role === "assistant").lastIndexOf(true);
@@ -377,6 +419,10 @@ export default function ChatFab() {
   const went = playing >= 0 ? msgs.slice(playing + 1).find((m) => m.card === "went") : null;
   const who = answer && !busy ? crewOf(answer.content) : null;
 
+  // The page arrows (a multi-part answer's back and next) sit bottom left on the chat; the dots
+  // move over to stay centered in the room left beside them.
+  const parts = useMemo(() => (answer ? readAnswer(answer.content).chunks.length : 0), [answer?.content]); // eslint-disable-line react-hooks/exhaustive-deps
+  let stageUp = false;
   let center;
   if (verify) {
     center = <div className="ys-mid"><Check siteKey={verify.siteKey} onToken={onToken} /></div>;
@@ -403,9 +449,10 @@ export default function ChatFab() {
       </div>
     );
   } else if (answer) {
+    stageUp = true;
     center = (
       <>
-        <StageAnswer key={`${playing}:${playKey}`} content={answer.content} live={playing === lastAnswer && !busy} onTap={tap} onAnswers={answerAll} Text={Text} go={go} active={!record && !typing} />
+        <StageAnswer key={`${playing}:${playKey}`} content={answer.content} live={playing === lastAnswer && !busy} onTap={tap} onAnswers={answerAll} Text={Text} go={go} active={!record && !typing && onChat} onEdge={(d) => goIndex(at + d)} />
         {toast ? <div className="ys-went" role="status">{toast}</div> : null}
         {went ? <div className="ys-went">Taking you to <a href={went.path} onClick={(e) => { e.preventDefault(); go(went.path); }}>{went.label}</a></div> : null}
       </>
@@ -425,6 +472,10 @@ export default function ChatFab() {
     );
   }
 
+  nav.current = { at, n: names.length, stageUp, go: goIndex };
+  const dots = names.length > 1
+    ? <PageDots names={names} index={at} progress={pager.progress} dragging={pager.dragging} still={reduced} onGo={goIndex} /> : null;
+
   return (
     <div className={`yc${open ? " is-open" : ""}`}>
       {open && (
@@ -440,9 +491,17 @@ export default function ChatFab() {
               </button>
               <button className="ys-round yc-x" onClick={() => setOpen(false)} aria-label="Close chat">×</button>
             </header>
-            {said && mood !== "idle" && mood !== "listen" ? <div className="ys-me">{said}</div> : null}
-            <div className="ys-center" aria-live="polite">{center}</div>
-            {typing ? (
+            {said && onChat && mood !== "idle" && mood !== "listen" ? <div className="ys-me">{said}</div> : null}
+            <div className="ys-center" aria-live="polite">
+              <div className="ys-pager" ref={pager.box} {...pager.handlers} data-drag={pager.dragging ? "1" : undefined} style={{ "--at": at, "--drag": `${pager.drag}px` }}>
+                <div className="ys-track">
+                  <div className="ys-slide" aria-hidden={!onChat || undefined} inert={!onChat}>{center}</div>
+                  {pg.pages.length ? <PagesView state={pg.state} pages={pg.pages} at={at} onTap={tap} /> : null}
+                </div>
+              </div>
+            </div>
+            {typing && canTalk && dots ? <div className="ys-bottom ys-dotbar"><div className="ys-dotroom">{dots}</div></div> : null}
+            {typing && canTalk ? (
               <form className="yc-input ys-field" onSubmit={submit}>
                 <textarea
                   ref={input} rows={1} value={draft} maxLength={1000} placeholder="Message Yui" aria-label="Message Yui"
@@ -453,15 +512,18 @@ export default function ChatFab() {
                 {voice ? <button type="button" className="ys-small" onClick={() => setTyping(false)} aria-label="Back to the mic"><MicIcon /></button> : null}
               </form>
             ) : (
-              <div className="ys-bottom">
-                <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type">T</button>
-                <button className={`ys-mic${listening ? " live" : ""}`} onClick={listen} disabled={busy && !listening} aria-label={listening ? "Stop listening" : "Talk to Yui"}>
-                  <span className="mo-ring" /><span className="mo-ring r2" />
-                  <MicIcon />
-                </button>
+              <div className="ys-bottom" data-talk={canTalk ? undefined : "off"}>
+                <div className="ys-dotroom" data-arrows={onChat && stageUp && parts > 1 ? "1" : undefined}>{dots}</div>
+                {canTalk ? <>
+                  <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type">T</button>
+                  <button className={`ys-mic${listening ? " live" : ""}`} onClick={listen} disabled={busy && !listening} aria-label={listening ? "Stop listening" : "Talk to Yui"}>
+                    <span className="mo-ring" /><span className="mo-ring r2" />
+                    <MicIcon />
+                  </button>
+                </> : null}
               </div>
             )}
-            <p className="yc-note ys-hint">{micLine({ voice, listening, heard, blocked })} <span>Chats are saved so we learn what people want. <a href="/privacy#chat">Privacy</a></span></p>
+            <p className="yc-note ys-hint">{canTalk ? micLine({ voice, listening, heard, blocked }) : "Swipe back to the chat to talk."} <span>Chats are saved so we learn what people want. <a href="/privacy#chat">Privacy</a></span></p>
 
             {record ? (
               <div className="ys-record" role="dialog" aria-label="Chat record">
@@ -479,8 +541,16 @@ export default function ChatFab() {
                   {msgs.map((m, i) => {
                     if (m.card === "went") return <div key={i} className="yc-went">Opened <a href={m.path} onClick={(e) => { e.preventDefault(); go(m.path); }}>{m.label}</a></div>;
                     if (m.card === "contact") return null; // cards from before the Yui form
-                    if (m.role === "user") return <div key={i} className={`yc-msg yc-user${m.label ? " yc-tapped" : ""}`}><p>{m.label || m.content}</p></div>;
-                    return <Answer key={i} content={m.content} go={go} onTap={tap} live={i === lastAnswer && !busy}
+                    if (m.role === "user") {
+                      const typed = readTyped(m.content);
+                      return (
+                        <div key={i} className={`yc-msg yc-user${m.label ? " yc-tapped" : ""}`}>
+                          <p>{m.label || typed?.words || m.content}</p>
+                          {typed ? <button className="yc-from" onClick={() => { setRecord(false); setPageAt(typed.screen); }}>From screen {typed.screen}</button> : null}
+                        </div>
+                      );
+                    }
+                    return <Answer key={i} content={m.content} go={go} onTap={tap} live={i === lastAnswer && !busy} onPage={(k) => { setRecord(false); setPageAt(k); }}
                       onPlay={() => { setRecord(false); setPlaying(i); setPlayKey((k) => k + 1); setError(""); }} />;
                   })}
                 </div>

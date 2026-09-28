@@ -5,9 +5,12 @@
 // when the answer is new, like the phone; closed, it leaves the pill in the chat. Answering on the stage
 // folds it back. The stage is drawn straight into the chat panel (a portal), so nothing in the thread
 // can sit on top of it. Its own file so the renderers load only when a reply has a screen.
+// SITE-83: lines for a page (screens 2 to 12) live on that page beside the chat; the reply keeps a
+// small "On screen 2" pill where they were sent, and a tap goes there.
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { apply, initialState, parse } from "../../lib/yl/yl.mjs";
+import { inThread } from "../../lib/chat/pages.mjs";
 import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, StepGroup, TABLES } from "../playground/presets";
 import { Group, groupNodes } from "../playground/flows";
@@ -22,7 +25,7 @@ function build(text, fresh) {
   return fresh ? s : { ...s, stage: false };
 }
 
-export default function ChatScreen({ yl, onTap, fresh = false, agent = "Yui" }) {
+export default function ChatScreen({ yl, onTap, onPage, fresh = false, agent = "Yui" }) {
   const [state, setState] = useState(() => build(yl, fresh));
   const [live, setLive] = useState({});
   const onLive = useCallback((k, t) => setLive((l) => (l[k] === t ? l : { ...l, [k]: t })), []);
@@ -38,7 +41,8 @@ export default function ChatScreen({ yl, onTap, fresh = false, agent = "Yui" }) 
     if (node.stage && (value?.done || value?.plan || value?.choice != null || value?.answer != null || value?.form)) setState((s) => ({ ...s, stage: false }));
   }, []);
 
-  const all = Object.values(state.screens).flat().sort((a, b) => a.seq - b.seq);
+  const all = Object.entries(state.screens).flatMap(([k, l]) => l.filter((n) => inThread(k, n))).sort((a, b) => a.seq - b.seq);
+  const pages = Object.keys(state.screens).filter((k) => state.screens[k].some((n) => !inThread(k, n))).sort((a, b) => a - b);
   const nodes = all.filter((n) => !n.stage);
   const staged = all.filter((n) => n.stage);
   const ctx = (list, screen) => ({ nodes: list, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, agent, screen, dispatch });
@@ -49,13 +53,14 @@ export default function ChatScreen({ yl, onTap, fresh = false, agent = "Yui" }) 
   ) : (
     <div key={`${n.key}:${n.preset}`} className="pg-node"><CrewOr node={n} emit={emit(n)} Render={Render} /></div>
   );
-  if (!all.length) return null;
+  if (!all.length && !pages.length) return null;
   return (
     <div className="yc-screen pg-screen" ref={box}>
       <ScreenCtx.Provider value={ctx(nodes, "1")}>
         {groupNodes(nodes).map(renderNode)}
         {staged.length ? <StagePill nodes={staged} live={live} onOpen={() => setState((s) => ({ ...s, stage: true }))} /> : null}
       </ScreenCtx.Provider>
+      {pages.map((k) => <button key={`page:${k}`} className="yc-onpage" onClick={() => onPage?.(k)}>On screen {k} ›</button>)}
       {staged.length && panel ? createPortal(
         <div className="yc-screen yc-stagehost">
           <Stage open={state.stage} onClose={() => setState((s) => ({ ...s, stage: false }))} agent={agent}>

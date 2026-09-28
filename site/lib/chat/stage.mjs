@@ -8,6 +8,7 @@
 import { apply, initialState, parse } from "../yl/yl.mjs";
 import { stageChunks, textChunks } from "../yl/chunks.mjs";
 import { splitReply } from "./lines.mjs";
+import { inThread } from "./pages.mjs";
 
 // "Hi.\n\n- a\n- b" -> ["Hi.", "- a\n- b"]
 export function textParts(text) {
@@ -47,7 +48,8 @@ export function readAnswer(content) {
     }
     let state = initialState();
     for (const op of parse(p.yl)) state = apply(state, op);
-    const nodes = Object.values(state.screens).flat().sort((a, b) => a.seq - b.seq);
+    // Lines for a page (screens 2 to 12) sit on that page, not on the stage (SITE-83, pages.mjs).
+    const nodes = Object.entries(state.screens).flatMap(([k, l]) => l.filter((n) => inThread(k, n))).sort((a, b) => a.seq - b.seq);
     const part = parts.push({ nodes, state }) - 1;
     const r = stageChunks(playsOwnSteps(nodes));
     r.chunks.forEach((c, i) => {

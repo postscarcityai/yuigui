@@ -18,10 +18,10 @@ test("plain text stays text", () => {
   assert.deepEqual(splitReply("Yes, it is free."), [{ text: "Yes, it is free." }]);
 });
 
-test("media, custom, theme, menu and screen switches are dropped", () => {
+test("media, custom, theme, menu and screens that are not pages are dropped", () => {
   const yl = [
     'say Hi', "image https://evil.example/x.png", "camera \"Snap\"", "custom {\"a\":1}", "theme app autumn",
-    "menu backlog x \"y\"", ">2 say page two", "visual orb", "put todo k=1", "choose \"Q?\" A|B",
+    "menu backlog x \"y\"", ">13 say thirteen", ">2 image https://evil.example/x.png", "visual orb", "put todo k=1", "choose \"Q?\" A|B",
   ].join("\n");
   assert.equal(cleanLines(yl), 'say Hi\nchoose "Q?" A|B');
 });
@@ -68,7 +68,7 @@ test("the brief has no dashes and no task ids", () => {
 
 test("the stage and the contact form get through", () => {
   assert.equal(cleanLines(">full\ndeck \"Tour\"\npage \"One\" body=\"Hi\"\nend"), ">full\ndeck \"Tour\"\npage \"One\" body=\"Hi\"\nend");
-  assert.equal(cleanLines(">2 timer 5m"), "");
+  assert.equal(cleanLines(">13 timer 5m\n>stats stat 1"), "");
   const form = `form@contact "Stay in touch" first_name:text! last_name:text! email:email! phone:phone submit="Send"`;
   assert.equal(cleanLines(form), form);
   assert.equal(parse(form)[0].id, "contact");
@@ -86,4 +86,13 @@ test("a sent flow goes back as one tap, labelled with the answers (SITE-68)", ()
   const ev = { id: "onboard", preset: "flow", flow: { you: { name: "Sam" }, know: 2, want: ["Get fit"] }, path: ["hi", "you", "know", "want"] };
   assert.equal(tapLine(ev), '[yui] onboard flow flow="{\'you\':{\'name\':\'Sam\'},\'know\':2,\'want\':[\'Get fit\']}" path="hi|you|know|want"');
   assert.equal(tapLabel(ev), "Sam, 2, Get fit");
+});
+
+test("pages 2 to 12 get through, with clear and talk; outside links still cut (SITE-83)", () => {
+  assert.equal(cleanLines(">2 timer 5m"), ">2 timer 5m");
+  assert.equal(cleanLines('>3\nstat 41 "Drawn"\n>chat\nsay Hi'), '>3\nstat 41 "Drawn"\n>chat\nsay Hi');
+  assert.equal(cleanLines(">2 clear\n>4 talk\n>4 talk off\n>5\ntalk"), ">2 clear\n>4 talk\n>4 talk off\n>5\ntalk");
+  assert.equal(cleanLines(">2 video https://x.test/a.mp4"), "");
+  assert.equal(cleanLines('>2 card "Bad" cta=Go url=https://evil.example/'), '>2 card "Bad" cta=Go');
+  assert.equal(cleanLines(">02 stat 1\n>0 stat 2"), "");
 });
