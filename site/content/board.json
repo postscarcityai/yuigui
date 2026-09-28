@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T09:10:29.230Z",
+  "updated": "2026-09-28T09:40:34.255Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -221,10 +221,6 @@
           "title": "Meet the crew in the site chat, each member with a flow to try"
         },
         {
-          "key": "SITE-72",
-          "title": "The musician's flow for the site chat, from a vibe to a beat"
-        },
-        {
           "key": "SITE-73",
           "title": "The planner's flow for the site chat, from a busy week to a plan"
         },
@@ -356,8 +352,8 @@
           "progress": "/progress#your-study-buddy-teaches-and-quizzes"
         },
         {
-          "key": "SITE-71",
-          "title": "The nutritionist's flow for the site chat, from a plate to macros"
+          "key": "SITE-72",
+          "title": "The musician's flow for the site chat, from a vibe to a beat"
         },
         {
           "key": "INT-8",
@@ -417,6 +413,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-71",
+          "title": "The nutritionist's flow for the site chat, from a plate to macros",
+          "summary": "The nutritionist's flow: a plate to macros",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-nutritionist-s-flow-a-plate-to-macros"
+        },
         {
           "key": "SITE-79",
           "title": "See it's app group, the rest of the old-composer shots",

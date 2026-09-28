@@ -1389,6 +1389,17 @@
     {
       "text": "Quill's learn plan names the deck it joins, not 'your 1 deck'",
       "card": "YUI-186"
+    },
+    {
+      "text": "The plugin knows the nutritionist's flow: nutritionist-plate in the saved flows copy",
+      "card": "SITE-71"
+    },
+    {
+      "text": "yui-mcp serves the nutritionist's flow: screen copy synced from yuigui",
+      "card": "SITE-71"
+    },
+    {
+      "text": "Basil's tools in the app: grocery ticks kept on the phone, Share list, a swap in one tap, the week lands as a deck (YUI-183, app half)"
     }
   ]
 }
