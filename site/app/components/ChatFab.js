@@ -20,8 +20,8 @@ const Screen = dynamic(() => import("./ChatScreen"), { ssr: false, loading: () =
 
 const KEY = "yui-chat-v1";
 const OPEN = "yui-chat-open";   // sessionStorage: reopen on reload in this tab only
-const HELLO = "Hi, I'm Yui. I answer with screens, not paragraphs. Try me.";
-const STARTERS = ["What is Yui?", "Show me a screen", "Meet the crew", "Make me a beat"];
+const HELLO = "Hi, I'm Yui. I answer with screens, not paragraphs. What brings you here?";
+const STARTERS = ["Just curious", "I use AI agents", "Show me a screen", "I want to help"];
 
 // Outside links only to places Yui lives. Anything else shows as plain text.
 const SAFE = /^https:\/\/(www\.)?(yuigui\.com|postscarcity\.ai|testflight\.apple\.com|github\.com\/postscarcityai)(\/|$)/;
