@@ -10,11 +10,13 @@
 // T types. The stage moves like the app's (stage motion, lib/yl/motion.mjs). Opening it turns the
 // site dark (the moon button's switch, not saved) and closing it puts the visitor's own choice back.
 // SITE-67: it opens on feedback first: what they like or not, the pitch, how to help, or just a demo.
+// SITE-69: or Meet the crew. A crew member's answer (their flow, what it made) wears their color and name.
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import links from "../../content/links.json";
 import { HELLO, SHARE_URL, STARTERS } from "../../lib/chat/feedback.mjs";
+import { crewOf } from "../../lib/chat/crew.mjs";
 import { splitReply, tapLabel, tapLine } from "../../lib/chat/lines.mjs";
 import { micLine } from "../../lib/chat/stage.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
@@ -107,8 +109,9 @@ function Check({ siteKey, onToken }) {
 // One answer in the record: its text and its screens, drawn in place. A tap on Play puts it back on the stage.
 function Answer({ content, go, onTap, live, onPlay }) {
   const parts = splitReply(content);
+  const who = crewOf(content);
   return (
-    <div className="yc-answer">
+    <div className="yc-answer" style={who ? { "--accent": who.c } : undefined}>
       {parts.map((p, i) => (
         <div key={i} className={p.yl ? "yc-part yc-part-screen" : "yc-part yc-part-text"}>
           {p.yl ? <Screen yl={p.yl} onTap={live ? onTap : undefined} /> : <Text text={p.text} go={go} />}
@@ -287,7 +290,7 @@ export default function ChatFab() {
     // A sent flow (SITE-68) is one answer for the whole run of screens: it always goes to Yui.
     if (busy || (!relays(ev, echoFor(ev)) && !(ev.preset === "flow" && ev.flow))) return;
     if (ev.id === "contact" && ev.preset === "form") { trackCta("chat-contact", "chat"); send("[yui] contact form sent", undefined, "Sent my details", ev); }
-    else send(tapLine(ev), undefined, tapLabel(ev), ev.preset === "plan" || ev.preset === "flow" ? ev : undefined);
+    else send(tapLine(ev), undefined, tapLabel(ev), ev.preset === "plan" || ev.preset === "flow" || /^crew/.test(ev.id || "") ? ev : undefined);
   }, [busy, send, share]);
 
   // Several questions answered with one Send: a plan goes as one event, loose ones in line order.
@@ -372,6 +375,7 @@ export default function ChatFab() {
   const { mood, flavor } = stageMood(turn);
   const fresh = msgs.length - seen;
   const went = playing >= 0 ? msgs.slice(playing + 1).find((m) => m.card === "went") : null;
+  const who = answer && !busy ? crewOf(answer.content) : null;
 
   let center;
   if (verify) {
@@ -426,11 +430,11 @@ export default function ChatFab() {
       {open && (
         <div className="yc-layer" onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}>
           <section className={`yc-panel ys p-${look.pulse} e-${look.enter}${look.reduced ? " mo-still" : ""}`} role="dialog" aria-label="Chat with Yui"
-            style={{ "--mo-c": YUI, ...motionVars(look) }} data-mood={mood}>
+            style={{ "--mo-c": who?.c || YUI, ...(who ? { "--accent": who.c } : {}), ...motionVars(look) }} data-mood={mood} data-crew={who?.handle}>
             {mood !== "idle" ? <span className="mo-wash" key={`wash:${msgs.length}`} /> : null}
             <header className="ys-top">
-              <span className="yc-avatar" aria-hidden="true"><span /></span>
-              <div className="ys-who"><strong>Yui</strong><span>Answers with screens</span></div>
+              {who ? <span className="yc-avatar yc-crew-face" style={{ "--cm": who.c }} aria-hidden="true">{who.name[0]}</span> : <span className="yc-avatar" aria-hidden="true"><span /></span>}
+              <div className="ys-who">{who ? <><strong>{who.name}</strong><span>{who.role} · Yui&apos;s crew</span></> : <><strong>Yui</strong><span>Answers with screens</span></>}</div>
               <button className="ys-round ys-rec" onClick={() => setRecord(true)} aria-label={`Chat record${fresh > 0 ? `, ${fresh} new` : ""}`}>
                 <RecordIcon />{fresh > 0 ? <i>{fresh}</i> : null}
               </button>

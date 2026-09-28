@@ -13,6 +13,7 @@ import { Render, StepGroup, TABLES } from "../playground/presets";
 import { Group, groupNodes } from "../playground/flows";
 import { ScreenCtx } from "../playground/science";
 import { LiveSlot, Stage, StagePill } from "../playground/stage";
+import { CrewOr } from "./ChatCrew";
 import "../playground/flows.css";
 
 function build(text, fresh) {
@@ -46,7 +47,7 @@ export default function ChatScreen({ yl, onTap, fresh = false, agent = "Yui" }) 
   ) : n.group ? (
     <div key={`${n.key}:${n.group.preset}`} className="pg-node"><Group g={n} emitFor={emit} Render={Render} /></div>
   ) : (
-    <div key={`${n.key}:${n.preset}`} className="pg-node"><Render node={n} emit={emit(n)} /></div>
+    <div key={`${n.key}:${n.preset}`} className="pg-node"><CrewOr node={n} emit={emit(n)} Render={Render} /></div>
   );
   if (!all.length) return null;
   return (

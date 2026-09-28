@@ -10,6 +10,7 @@ import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, TABLES } from "../playground/presets";
 import { Group, groupNodes, question, show, VALUE } from "../playground/flows";
 import { ScreenCtx } from "../playground/science";
+import { CrewOr } from "./ChatCrew";
 import "../playground/flows.css";
 
 function Picture({ part, node, emitFor }) {
@@ -108,7 +109,7 @@ export default function ChatStage({ content, live, onTap, onAnswers, Text, go, a
             {a.questions.map((q, i) => (
               <div key={q.node.key} className="mo-q" style={{ "--n": i }}>
                 <Ctx part={a.parts[q.part]} agent="Yui">
-                  <div className="yc-screen pg-screen"><Render node={q.node} emit={one ? emitFor(q.node) : capture(q)} /></div>
+                  <div className="yc-screen pg-screen"><CrewOr node={q.node} emit={one ? emitFor(q.node) : capture(q)} Render={Render} /></div>
                 </Ctx>
               </div>
             ))}

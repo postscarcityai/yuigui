@@ -1,11 +1,12 @@
-// The site chat asks for feedback first (SITE-67). The chat opens on four choices: what they like or
+// The site chat asks for feedback first (SITE-67). The chat opens on four choices (and Meet the crew, SITE-69): what they like or
 // not, the pitch, how to help, or just a demo. This file holds the screens for the first three, so the
 // brief can hand them to the model word for word, and turns a sent feedback flow into notes the route
 // saves on its own (the likes and dislikes never depend on the model remembering take_note).
 // No server imports: the page reads HELLO and STARTERS from here too.
 
 export const HELLO = "Hi, I'm Yui. What you think shapes what we build. Where do we start?";
-export const STARTERS = ["What do you like, or not?", "Give me the pitch", "How can I help?", "Just show me"];
+// SITE-69: Meet the crew, the five starter agents, each with a flow to try (lib/chat/crew.mjs).
+export const STARTERS = ["What do you like, or not?", "Give me the pitch", "How can I help?", "Just show me", "Meet the crew"];
 
 export const LIKES = ["Screens, not text", "Timers and tools", "My own agent", "Open source", "Built in public", "Voice"];
 export const DISLIKES = ["Hard to get", "iPhone only", "Needs an agent", "Too much to read", "Not sure it's for me"];

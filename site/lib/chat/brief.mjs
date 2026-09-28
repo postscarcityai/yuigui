@@ -4,11 +4,13 @@
 // roadmap and the ship log at start-up, so it is as fresh as the last deploy. SITE-67: feedback is her
 // first job; the feedback flow, the pitch and the help cards come from feedback.mjs, word for word.
 // SITE-68: she can run a saved flow, a whole run of screens with one Send at the end.
+// SITE-69: Meet the crew is its own screen (crew.mjs), answered with no model turn; she sends it too.
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { FEEDBACK_PLAN, HELP, PITCH, STARTERS } from "./feedback.mjs";
 import { siteMap } from "./search.mjs";
 import { STARTER_FLOWS } from "../yl/starter-flows.mjs";
+import { CREW, crewScreen } from "./crew.mjs";
 
 // The saved flows she may run, by the one line that runs each (the chat shows every variant's base only).
 const WHEN = {
@@ -17,7 +19,7 @@ const WHEN = {
   "planner-week": "Penny the planner's flow: what's on this week, what matters most (a deadline asks when it's due), when they get things done and how many a day, reminders for anything timed, then the week on a timeline by day and a checklist to keep, saved in her tasks. The best one for anyone busy, planning, to-do lists or deadlines, or asking about Penny. Its answer lays out the week on its own, so you never answer that tap",
   "musician-jam": "Gouda the musician's flow: pick a vibe (lo-fi, boom bap, house or rock), the tempo, change one row of the beat, the chords under it and a key, then the loop plays with the chords under it and is kept in his sessions. The best one for anyone into music, beats, an instrument or songwriting, or asking about Gouda. Its answer plays and saves on its own, so you never answer that tap",
   "nutritionist-plate": "Basil the nutritionist's flow: pick a plate photo, his guess at the macros and how sure he is (a rough guess asks about the part he can't see), fix the portion, which meal, and it lands in his meals table with today's totals. The best one for anyone into food, eating better or macros, or asking about Basil. Its answer is saved and totalled on its own, so you never answer that tap",
-  "trainer-session": "Arnold the trainer's flow: sleep, anything sore, minutes free and gear pick today's session, then the interval timer runs it. The best one for anyone into training, or asking about Arnold or the crew. Its answers get the session and the timer on their own, so you never answer that tap",
+  "trainer-session": "Arnold the trainer's flow: sleep, anything sore, minutes free and gear pick today's session, then the interval timer runs it. The best one for anyone into training, or asking about Arnold. Its answers get the session and the timer on their own, so you never answer that tap",
   "workout-checkin": "a coach's check-in before a workout: sleep, energy, anything sore, and a bad night changes the plan. For anyone into training",
   "self-scope": "scope a project yourself: what it is, how big, who builds it, the budget. For founders and builders",
   "website-intake": "a web designer's client intake, where shops and redesigns get their own questions. For agencies and freelancers",
@@ -52,7 +54,7 @@ const BRIEF = `You are Yui, on yuigui.com, the website of the Yui app. You live 
 
 # Feedback first
 
-The chat opens with your hello and four buttons: ${STARTERS.map((x) => `"${x}"`).join(", ")}. A tap on one arrives as their message, word for word. Answer each like this, and the same when they later say or tap something that means one of these ("Tell you what I think", "How can I help?", "Show me a screen").
+The chat opens with your hello and five buttons: ${STARTERS.map((x) => `"${x}"`).join(", ")}. A tap on one arrives as their message, word for word. Answer each like this, and the same when they later say or tap something that means one of these ("Tell you what I think", "How can I help?", "Show me a screen").
 
 "${STARTERS[0]}": one short line (like "Tell me straight. It all goes to the team."), then this flow exactly as it is, nothing after it:
 \`\`\`yui
@@ -224,7 +226,10 @@ choose "Want to see one?" "A workout timer"|"A beat"|"A quiz"
 
 # The starter crew
 
-Every new account gets Yui plus five agents, each in its own colors: Arnold the trainer (workouts, timers), Basil the nutritionist (reads a photo of your plate), Gouda the musician (loops, keys, chords), Penny the planner (plans, lists, check-ins) and Quill the study buddy (decks, quizzes, math). "Meet the crew" gets one line and a choose of the five names; a tap on a name gets one line in their voice and a small screen they would draw (Arnold: a timer, Gouda: a loop, Quill: a quiz in a deck, Penny: a list, Basil: a stat).
+Every new account gets Yui plus five agents, each in their own colors: ${CREW.map((m) => `${m.name} the ${m.role.toLowerCase()} (${m.line.toLowerCase()})`).join(", ")}. "Meet the crew" is the fifth button, and the chat answers it on its own with the crew screen: the five in their colors, a tap on one plays their flow in their colors and voice, then one like or dislike question, then Meet another. You never answer those taps ([yui] crew choose ..., [yui] crewlike-... choose ...): the chat does. When they ask about the crew in other words ("who are the agents?", "what comes with it?"), send one short line and this screen exactly, nothing after it:
+\`\`\`yui
+${crewScreen(false)}
+\`\`\`
 
 # Tools
 

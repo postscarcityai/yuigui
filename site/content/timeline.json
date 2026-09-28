@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 298,
-    "site": 657,
+    "app": 300,
+    "site": 663,
     "builds": 44,
-    "shipped": 321,
-    "screenshots": 779
+    "shipped": 324,
+    "screenshots": 793
   },
   "days": [
     {
@@ -13,7 +13,79 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T10:23:55.232Z",
+          "at": "2026-09-28T11:24:08.164Z",
+          "title": "Meet the crew in the site chat, each with a flow to try",
+          "card": "SITE-69",
+          "anchor": "meet-the-crew-in-the-site-chat-each-with-a-flow-to-try",
+          "images": [
+            {
+              "src": "/progress/site69-chat-crew.webp",
+              "alt": "The site chat on a phone: Meet the crew, five rows in their own colors, each with a face, a name, a role and one line"
+            },
+            {
+              "src": "/progress/site69-chat-trainer.webp",
+              "alt": "The trainer tapped: the chat turns orange, his hello and the first page of his flow"
+            },
+            {
+              "src": "/progress/site69-chat-gouda-loop.webp",
+              "alt": "The musician's answer in lavender: a lo-fi loop at 80 bpm playing, kept in his sessions"
+            },
+            {
+              "src": "/progress/site69-chat-like.webp",
+              "alt": "After the study buddy's flow: three review cards, then one question, How did Quill do?"
+            },
+            {
+              "src": "/progress/site69-chat-another.webp",
+              "alt": "Back in Yui's pink: the answer noted, and the crew again as Meet another"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 300,
+            "site": 663,
+            "builds": 44,
+            "shipped": 324
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T10:50:17.000Z",
+          "title": "The study buddy's flow: a topic to a quiz",
+          "card": "SITE-74",
+          "anchor": "the-study-buddy-s-flow-a-topic-to-a-quiz",
+          "images": [
+            {
+              "src": "/progress/site74-chat-lesson.webp",
+              "alt": "The site chat on a phone: A throw is two motions, a ball's arc with arrows forward and up, step 4 of 9"
+            },
+            {
+              "src": "/progress/site74-chat-calc.webp",
+              "alt": "After Save my cards: How far does it fly? The formula, 35.3 m, the distance curve peaking at 45 degrees, sliders for speed and angle"
+            },
+            {
+              "src": "/progress/site74-chat-cards.webp",
+              "alt": "In your review: three cards from the lesson, first one in 3 days"
+            },
+            {
+              "src": "/progress/site74-lesson-dark.webp",
+              "alt": "In the playground, dark: Your body learns, the recipe fades, antibodies around the spike"
+            },
+            {
+              "src": "/progress/site74-quiz-light.webp",
+              "alt": "In the playground, light: Which angle throws farthest? 30, 45 or 60 degrees"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 299,
+            "site": 662,
+            "builds": 44,
+            "shipped": 323
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T10:24:33.000Z",
           "title": "The planner's flow: a busy week to a plan",
           "card": "SITE-73",
           "anchor": "the-planner-s-flow-a-busy-week-to-a-plan",
@@ -35,7 +107,39 @@
               "alt": "In the playground, light: When is the deadline? Tomorrow, In a few days, End of the week"
             }
           ],
-          "commits": 0,
+          "commits": 3,
+          "totals": {
+            "app": 298,
+            "site": 659,
+            "builds": 44,
+            "shipped": 322
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T10:16:37.000Z",
+          "title": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
+          "card": "YUI-183",
+          "anchor": "basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap",
+          "images": [
+            {
+              "src": "/progress/yui183-app-light-5-week-deck.webp",
+              "alt": "3 days planned: about 1,781 kcal and 110 g protein a day for a goal of 2,100, then Monday to Wednesday's meals"
+            },
+            {
+              "src": "/progress/yui183-app-dark-6b-swapped.webp",
+              "alt": "Dark mode: one tap on Chicken stir-fry and Basil answers, Dinner is Beef tacos now, 620 kcal"
+            },
+            {
+              "src": "/progress/yui183-app-dark-11-relaunched.webp",
+              "alt": "After the app was killed and opened again: the grocery list, 30 to get, Spinach and Avocado still ticked under Produce"
+            },
+            {
+              "src": "/progress/yui183-app-light-10-share-sheet.webp",
+              "alt": "Share list on the grocery list opens the share sheet: Reminders, Copy, Save to Files"
+            }
+          ],
+          "commits": 4,
           "totals": {
             "app": 298,
             "site": 657,
@@ -653,6 +757,62 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "09cf0cf",
+          "at": "2026-09-28T11:10:55.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/09cf0cf"
+        },
+        {
+          "repo": "app",
+          "sha": "aac7e1e",
+          "at": "2026-09-28T10:52:15.000Z",
+          "text": "yui-mcp and the plugin know the study buddy's flow: starter flows and screen copy synced from yuigui (SITE-74)",
+          "url": "https://github.com/postscarcityai/yui/commit/aac7e1e"
+        },
+        {
+          "repo": "site",
+          "sha": "1eb67dc",
+          "at": "2026-09-28T10:50:17.000Z",
+          "text": "The MCP app knows the study buddy's flow: rebuilt yui-screen with study-quiz (SITE-74)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1eb67dc"
+        },
+        {
+          "repo": "site",
+          "sha": "f577caa",
+          "at": "2026-09-28T10:50:17.000Z",
+          "text": "The study buddy's flow: a topic to a quiz, in the playground and the site chat (SITE-74)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f577caa"
+        },
+        {
+          "repo": "site",
+          "sha": "333786e",
+          "at": "2026-09-28T10:41:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/333786e"
+        },
+        {
+          "repo": "app",
+          "sha": "f70c11e",
+          "at": "2026-09-28T10:25:04.000Z",
+          "text": "yui-mcp and the plugin know the planner's flow: starter flows and screen copy synced from yuigui (SITE-73)",
+          "url": "https://github.com/postscarcityai/yui/commit/f70c11e"
+        },
+        {
+          "repo": "site",
+          "sha": "8014448",
+          "at": "2026-09-28T10:24:33.000Z",
+          "text": "The MCP app knows the planner's flow: rebuilt yui-screen with planner-week (SITE-73)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8014448"
+        },
+        {
+          "repo": "site",
+          "sha": "b32b2d1",
+          "at": "2026-09-28T10:24:33.000Z",
+          "text": "The planner's flow: a busy week to a plan, in the playground and the site chat (SITE-73)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b32b2d1"
+        },
         {
           "repo": "site",
           "sha": "d64a020",

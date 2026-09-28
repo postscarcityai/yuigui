@@ -13,7 +13,7 @@ import { MODEL, turn } from "../../../lib/chat/model.mjs";
 import { COOKIE, FREE_TURNS, MAX_TURNS, hashIp, newSession, readSession, sessionCookie } from "../../../lib/chat/session.mjs";
 import { markVerified, saveContact, saveNote, saveTurn } from "../../../lib/chat/store.mjs";
 import { LINE_KIND, feedbackNotes } from "../../../lib/chat/feedback.mjs";
-import { crewReply } from "../../../lib/yl/starter-flows.mjs";
+import { crewTurn } from "../../../lib/chat/crew.mjs";
 import { clip, insertInvite, readContact } from "../../../lib/invite.mjs";
 
 export const dynamic = "force-dynamic";
@@ -119,9 +119,11 @@ export async function POST(req) {
   // The crew's flows are answered with no model turn: the trainer's session and timer (SITE-70),
   // the nutritionist's saved meal and today's totals (SITE-71), the musician's loop and chords (SITE-72),
   // the planner's week and checklist (SITE-73), the study buddy's calc and review cards (SITE-74).
-  const session = crewReply(ev);
+  // SITE-69: so is the rest of Meet the crew: the crew screen, a tap on a member (their flow), the one
+  // like or dislike question after it (noted here) and "Meet another".
+  const crew = crewTurn(text, ev);
   let out;
-  if (session) out = { reply: `${session.text}\n\n\`\`\`yui\n${session.lines.join("\n")}\n\`\`\``, actions: [], notes: [], tools: [] };
+  if (crew) out = { reply: crew.reply, actions: [], notes: crew.notes, tools: [] };
   else try {
     out = await turn({ system: brief({ path, title: clip(body.title, 120) }), history: historyOf(body.history), text, canAsk: s.turns >= 2 && !s.asked && !s.contact });
   } catch (e) {

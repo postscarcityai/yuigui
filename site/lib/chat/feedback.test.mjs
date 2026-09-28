@@ -8,8 +8,9 @@ import { readAnswer } from "./stage.mjs";
 
 const reply = (yl) => `Tell me straight.\n\`\`\`yui\n${yl}\n\`\`\``;
 
-test("four starters, feedback first", () => {
-  assert.equal(STARTERS.length, 4);
+test("five starters, feedback first, the crew last", () => {
+  assert.equal(STARTERS.length, 5);
+  assert.equal(STARTERS[4], "Meet the crew");
   assert.match(STARTERS[0], /like/);
 });
 
