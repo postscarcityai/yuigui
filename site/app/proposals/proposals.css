@@ -104,3 +104,8 @@
   .prop-whys li .prop-why-text { grid-column: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .prop-vote-btn, .prop-vote-bar i { transition: none; } }
+
+/* PROP-2 (SITE-93): the one-turn diagram, drawn as inline SVG in the proposal. */
+.prop-turn { margin: 22px auto; max-width: 420px; padding: 18px; border-radius: var(--r-card); background: var(--surface); border: 1.5px solid var(--outline); }
+.prop-turn svg { display: block; width: 100%; height: auto; }
+.prop-turn figcaption { margin-top: 10px; color: var(--muted); font-size: var(--fs-small); font-weight: 700; text-align: center; }
