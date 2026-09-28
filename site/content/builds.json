@@ -1319,6 +1319,17 @@
     {
       "text": "Visual defaults: live check of the list's pick and the README line",
       "card": "YUI-180"
+    },
+    {
+      "text": "the agent's tools: today's workout runner, the log, a day changed, his pages kept current (YUI-182, runtime half)"
+    },
+    {
+      "text": "Workouts e2e: Progress redraws for a new lift's chart; the home row's native is a word",
+      "card": "YUI-182"
+    },
+    {
+      "text": "Workout runner polish: Skip on every move, each move's sets named in the review, This week a plain list with done days ticked",
+      "card": "YUI-182"
     }
   ]
 }

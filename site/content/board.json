@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T05:40:51.603Z",
+  "updated": "2026-09-28T06:10:59.456Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -213,10 +213,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-68",
-          "title": "The site chat demos whole flows, several screens in a row, not one screen"
-        },
-        {
           "key": "SITE-69",
           "title": "Meet the crew in the site chat, each member with a flow to try"
         },
@@ -306,10 +302,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-187",
-          "title": "The screen dots come back and animate, and screens slide instead of fading"
-        },
-        {
           "key": "YUI-183",
           "title": "Basil's tools",
           "summary": "Today's macros board, plan my meals, the grocery list, and his default screens"
@@ -356,15 +348,12 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-181",
-          "title": "Ship Yui 0.5.1, the switch-agents and launch crash fix",
-          "summary": "Yui 0.5.1 is on TestFlight: switching agents no longer crashes",
-          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
+          "key": "YUI-187",
+          "title": "The screen dots come back and animate, and screens slide instead of fading"
         },
         {
-          "key": "SITE-67",
-          "title": "The site chat asks for feedback first",
-          "summary": "What visitors like and dislike, the pitch, how to help"
+          "key": "SITE-68",
+          "title": "The site chat demos whole flows, several screens in a row, not one screen"
         },
         {
           "key": "INT-8",
@@ -424,6 +413,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-67",
+          "title": "The site chat asks for feedback first",
+          "summary": "The site chat asks what you think",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-site-chat-asks-what-you-think"
+        },
+        {
+          "key": "YUI-181",
+          "title": "Ship Yui 0.5.1, the switch-agents and launch crash fix",
+          "summary": "Yui 0.5.1 is on TestFlight: switching agents no longer crashes",
+          "shipped": "2026-09-28",
+          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
+        },
         {
           "key": "SITE-77",
           "title": "Hand this to your agent",
