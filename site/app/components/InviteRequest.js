@@ -6,6 +6,7 @@ import { savedUtm, trackCta } from "../../lib/track.mjs";
 // Ask for a hand (SITE-26). The beta is public on TestFlight, so this form is the other way in: for people
 // with no agent yet, who want help connecting one, or who want the invite by email. The row lands in
 // yui_invites as requested, Chris reviews it, and Apple sends the TestFlight email to the address given here.
+// Yui emails a confirmation link first; the news box is unticked by default and counts only once confirmed.
 export default function InviteRequest({ source = "home" }) {
   const [state, setState] = useState("idle");
   const [error, setError] = useState("");
@@ -21,7 +22,7 @@ export default function InviteRequest({ source = "home" }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           first_name: field("first_name"), last_name: field("last_name"), email: field("email"), phone: field("phone"),
-          website: field("website"), source, utm: savedUtm(),
+          website: field("website"), source, utm: savedUtm(), promo: f.get("promo") === "on",
         }),
       });
       const data = await res.json();
@@ -34,7 +35,7 @@ export default function InviteRequest({ source = "home" }) {
     return (
       <div id="invite" className="card invite" role="status">
         <h3>Request in. Thank you!</h3>
-        <p>We read every request. Apple emails a TestFlight invite to the address you gave. You don&apos;t have to wait for it: the alpha is open to anyone on TestFlight now.</p>
+        <p>Yui just emailed you a link to confirm your address. We read every request, and Apple emails a TestFlight invite to the address you gave. You don&apos;t have to wait for it: the alpha is open to anyone on TestFlight now.</p>
         {links.testflight && <p style={{ marginTop: 12 }}><a className="btn" href={links.testflight} onClick={() => trackCta("testflight", `${source}:invite-done`)}>Download on TestFlight</a></p>}
       </div>
     );
@@ -60,8 +61,10 @@ export default function InviteRequest({ source = "home" }) {
         </label>
         <label className="inv-wide">Phone<input name="phone" type="tel" required autoComplete="tel" maxLength={25} placeholder="+1 555 123 4567" /></label>
         <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="wl-hp" />
+        <label className="inv-wide inv-check"><input name="promo" type="checkbox" /> Email me news about Yui now and then</label>
       </div>
       <ol className="inv-next">
+        <li>Yui emails you a link to confirm your address.</li>
         <li>We read your request, and reach out if you asked for help.</li>
         <li>Apple emails you a TestFlight invite.</li>
         <li>Open it on your iPhone, install Yui, and sign in with Apple.</li>
