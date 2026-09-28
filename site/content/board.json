@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T13:41:59.900Z",
+  "updated": "2026-09-28T14:10:23.848Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -353,14 +353,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-189",
-          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show"
-        },
-        {
-          "key": "YUI-185",
-          "title": "B (backlog, WEB + NATIVE)",
-          "summary": "Penny's tools in the app: plan your week by voice, a reminder on your phone, a week you can drag",
-          "progress": "/progress#penny-s-tools-in-the-app-plan-your-week-by-voice-a-reminder-on-your-phone-a-week"
+          "key": "SITE-83",
+          "title": "The site chat gets the app's screens",
+          "summary": "Pages a swipe away, dots in the bottom bar"
         },
         {
           "key": "INT-8",
@@ -413,6 +408,13 @@
           "key": "YUI-180",
           "title": "Every agent has its own quiet visualizer by default",
           "blocked": "other"
+        },
+        {
+          "key": "YUI-189",
+          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show",
+          "summary": "The screen dots move into the bottom bar",
+          "blocked": "other",
+          "progress": "/progress#the-screen-dots-move-into-the-bottom-bar"
         }
       ]
     },
@@ -420,6 +422,18 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-23261",
+          "title": "The switch-agents crash, already fixed",
+          "shipped": "2026-09-28"
+        },
+        {
+          "key": "YUI-185",
+          "title": "B (backlog, WEB + NATIVE)",
+          "summary": "Penny's tools in the app: plan your week by voice, a reminder on your phone, a week you can drag",
+          "shipped": "2026-09-28",
+          "progress": "/progress#penny-s-tools-in-the-app-plan-your-week-by-voice-a-reminder-on-your-phone-a-week"
+        },
         {
           "key": "NOTE-51249",
           "title": "Agents keep their own tables",

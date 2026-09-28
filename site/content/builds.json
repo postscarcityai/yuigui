@@ -1429,6 +1429,16 @@
     },
     {
       "text": "Penny's tools in the app: reminders on the phone's clock, the brain dump by voice or typed, a Today tick reaches her, This week keeps its saved order (YUI-185, app half)"
+    },
+    {
+      "text": "Penny's saved order redraws This week, so every device reads the same week (YUI-185b)"
+    },
+    {
+      "text": "yui-mcp: parser copy synced from yuigui 5cce24c (quietToAgent, YUI-185b)"
+    },
+    {
+      "text": "The screen dots live in the bottom bar, centered, and move over when the page arrows show",
+      "card": "YUI-189"
     }
   ]
 }
