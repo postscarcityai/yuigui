@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T14:10:23.848Z",
+  "updated": "2026-09-28T14:40:42.747Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -284,11 +284,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-190",
-          "title": "Stop a turn from the main screen",
-          "summary": "The mic becomes Stop while an agent works"
-        },
-        {
           "key": "YUI-137",
           "title": "Yui makes agents",
           "summary": "Create, edit, fork and remove a native agent from chat"
@@ -353,9 +348,23 @@
           "waiting": true
         },
         {
-          "key": "SITE-83",
-          "title": "The site chat gets the app's screens",
-          "summary": "Pages a swipe away, dots in the bottom bar"
+          "key": "YUI-189",
+          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show",
+          "summary": "The screen dots move into the bottom bar",
+          "waiting": true,
+          "progress": "/progress#the-screen-dots-move-into-the-bottom-bar"
+        },
+        {
+          "key": "YUI-190",
+          "title": "Stop a turn from the main screen",
+          "summary": "The mic becomes Stop while an agent works"
+        },
+        {
+          "key": "SITE-84",
+          "title": "Stop a turn in the site chat, the send button turns into a stop square",
+          "summary": "Stop a reply in the site chat",
+          "waiting": true,
+          "progress": "/progress#stop-a-reply-in-the-site-chat"
         },
         {
           "key": "INT-8",
@@ -408,13 +417,6 @@
           "key": "YUI-180",
           "title": "Every agent has its own quiet visualizer by default",
           "blocked": "other"
-        },
-        {
-          "key": "YUI-189",
-          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show",
-          "summary": "The screen dots move into the bottom bar",
-          "blocked": "other",
-          "progress": "/progress#the-screen-dots-move-into-the-bottom-bar"
         }
       ]
     },
@@ -422,6 +424,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-83",
+          "title": "The site chat gets the app's screens",
+          "summary": "The site chat gets pages, a swipe away",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-site-chat-gets-pages-a-swipe-away"
+        },
         {
           "key": "NOTE-23261",
           "title": "The switch-agents crash, already fixed",
