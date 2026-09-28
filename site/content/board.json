@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T22:10:31.400Z",
+  "updated": "2026-09-28T22:40:34.024Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -304,9 +304,9 @@
           "summary": "Plug and play proof in the browser client"
         },
         {
-          "key": "SITE-89",
-          "title": "Vote on proposals",
-          "summary": "Yes, build it or Not yet, with a one-line why, counts on /proposals"
+          "key": "SITE-94",
+          "title": "PROP-2 hero, the Jev layer routing turns in a phone",
+          "summary": "One line, yes/no, full screen, map, camera"
         }
       ]
     },
@@ -374,15 +374,12 @@
           "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
         },
         {
-          "key": "SITE-88",
-          "title": "PROP-1 hero, the first-run flow in a phone",
-          "summary": "TestFlight, Sign in with Apple, pick your crew, dig deeper, bring your own agent"
+          "key": "SITE-93",
+          "title": "PROP-2 The Jev layer on /proposals, a fast typed decision on every call to an agent"
         },
         {
-          "key": "SITE-90",
-          "title": "The token has a name, $U",
-          "summary": "The token has a name: $U",
-          "progress": "/progress#the-token-has-a-name-u"
+          "key": "SITE-95",
+          "title": "Checks go green on yuigui main and run before every push, no more failure emails every hour"
         },
         {
           "key": "INT-8",
@@ -442,6 +439,37 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-92",
+          "title": "Where Jev fits in Yui, every decision point in a turn and which ones a Jev call should make",
+          "shipped": "2026-09-28"
+        },
+        {
+          "key": "SITE-91",
+          "title": "Jev research, what TypeSafe's new decision model is, what it returns, how fast, what it costs",
+          "shipped": "2026-09-28"
+        },
+        {
+          "key": "SITE-89",
+          "title": "Vote on proposals",
+          "summary": "Vote on a proposal",
+          "shipped": "2026-09-28",
+          "progress": "/progress#vote-on-a-proposal"
+        },
+        {
+          "key": "SITE-88",
+          "title": "PROP-1 hero, the first-run flow in a phone",
+          "summary": "Pick your crew, in a phone you can use",
+          "shipped": "2026-09-28",
+          "progress": "/progress#pick-your-crew-in-a-phone-you-can-use"
+        },
+        {
+          "key": "SITE-90",
+          "title": "The token has a name, $U",
+          "summary": "The token has a name: $U",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-token-has-a-name-u"
+        },
         {
           "key": "SITE-87",
           "title": "/proposals, a page for big ideas",
