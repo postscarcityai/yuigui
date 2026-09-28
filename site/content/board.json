@@ -1,10 +1,10 @@
 {
-  "updated": "2026-09-28T02:41:04.878Z",
+  "updated": "2026-09-28T03:10:34.406Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.0",
     "status": "open",
-    "startedAt": "2026-09-27T22:35:07.000Z",
+    "startedAt": "2026-09-28T02:48:57.000Z",
     "shippedAt": null,
     "cards": [
       {
@@ -22,6 +22,13 @@
         "progress": "/progress#meet-each-agent-when-you-open-it"
       },
       {
+        "key": "YUI-168",
+        "title": "Every agent's home",
+        "status": "done",
+        "shipped": "2026-09-27",
+        "progress": "/progress#every-agent-has-a-home"
+      },
+      {
         "key": "YUI-103",
         "title": "Log a meal without weighing",
         "status": "done",
@@ -34,12 +41,6 @@
         "status": "done",
         "shipped": "2026-09-27",
         "progress": "/progress#one-agent-opens-another"
-      },
-      {
-        "key": "YUI-168",
-        "title": "Every agent's home",
-        "status": "now",
-        "progress": "/progress#every-agent-has-a-home"
       }
     ]
   },
@@ -269,17 +270,10 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-168",
-          "title": "Every agent's home",
-          "summary": "Every agent has a home",
-          "progress": "/progress#every-agent-has-a-home"
-        },
-        {
           "key": "YUI-171",
-          "title": "Tables for any agent, the plugin and MCP tools",
-          "step": "Step 2",
-          "summary": "Switch agents, keep your tables",
-          "progress": "/progress#switch-agents-keep-your-tables"
+          "title": "Tables in any agent's reply, A2A and webhook, the app side (Controls > Tables, Give to...) (backlog)",
+          "step": "Step 3",
+          "waiting": true
         },
         {
           "key": "INT-8",
@@ -335,6 +329,21 @@
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "YUI-171",
+          "title": "Tables for any agent, the plugin and MCP tools",
+          "step": "Step 2",
+          "summary": "Switch agents, keep your tables",
+          "shipped": "2026-09-27",
+          "progress": "/progress#switch-agents-keep-your-tables"
+        },
+        {
+          "key": "YUI-168",
+          "title": "Every agent's home",
+          "summary": "Every agent has a home",
+          "shipped": "2026-09-27",
+          "progress": "/progress#every-agent-has-a-home"
+        },
+        {
           "key": "YUI-144",
           "title": "Native hand-offs",
           "summary": "One agent opens another",
@@ -357,8 +366,9 @@
         {
           "key": "YUI-171",
           "title": "The same tables for any agent",
-          "summary": "Hermes, MCP, A2A and webhook agents read and write them through Yui",
-          "shipped": "2026-09-27"
+          "summary": "Your tables work with any agent",
+          "shipped": "2026-09-27",
+          "progress": "/progress#your-tables-work-with-any-agent"
         },
         {
           "key": "YUI-166",

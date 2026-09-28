@@ -1278,6 +1278,13 @@
     {
       "text": "Crew links open, hand-offs jump: yui://agent/<id>/thread is never a hand-off; the home line in the channel guide",
       "card": "YUI-168"
+    },
+    {
+      "text": "Tables for any agent: one server call, yui_tables for Hermes and MCP, hand a table over",
+      "card": "YUI-171"
+    },
+    {
+      "text": "Yui 0.5.0: the crew feels ready (snap and say, meet each agent, homes, meals without weighing)"
     }
   ]
 }
