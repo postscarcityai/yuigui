@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T12:10:58.149Z",
+  "updated": "2026-09-28T12:41:22.947Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -13,10 +13,10 @@
         "status": "now"
       },
       {
-        "key": "YUI-184",
-        "title": "Gouda's tools",
+        "key": "YUI-185",
+        "title": "Penny's tools",
         "status": "now",
-        "progress": "/progress#your-music-teacher-teaches-songs"
+        "progress": "/progress#your-planner-plans-the-week"
       },
       {
         "key": "YUI-183",
@@ -25,10 +25,10 @@
         "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
       },
       {
-        "key": "YUI-185",
-        "title": "Penny's tools",
+        "key": "YUI-184",
+        "title": "Gouda's tools",
         "status": "next",
-        "progress": "/progress#your-planner-plans-the-week"
+        "progress": "/progress#gouda-s-tools-in-the-app-learn-a-song-a-click-that-logs-itself-a-beat-that-stays"
       },
       {
         "key": "YUI-186",
@@ -313,14 +313,14 @@
         {
           "key": "YUI-184",
           "title": "Gouda's tools",
-          "summary": "Your music teacher teaches songs",
-          "progress": "/progress#your-music-teacher-teaches-songs"
+          "summary": "Gouda's tools in the app: learn a song, a click that logs itself, a beat that stays",
+          "waiting": true,
+          "progress": "/progress#gouda-s-tools-in-the-app-learn-a-song-a-click-that-logs-itself-a-beat-that-stays"
         },
         {
           "key": "YUI-185",
           "title": "Penny's tools",
           "summary": "Your planner plans the week",
-          "waiting": true,
           "progress": "/progress#your-planner-plans-the-week"
         },
         {
