@@ -938,6 +938,61 @@ card@groc-add "Need something else?" "Say it or type it, like: add oat milk to m
 ~eaten "Tap a meal to fix it" "Lunch, 700 kcal" body="Lunch: Chicken burrito bowl, 700 kcal"`,
   },
   {
+    // Gouda's Learn a song (YUI-184, yui runtime/src/music.ts): one full-screen plan. What happens first, then the
+    // song (his songs, or their own chords pasted), the key and how fast to start, one Send.
+    slug: "gouda-learn",
+    name: "Plan: Gouda teaches you a song",
+    agent: "Gouda",
+    yl: `say "Let's learn one."
+plan@learn "Learn a song" submit="Let's play"
+page "Play along" body="Pick a song or paste its chords. The chords land on buttons, the click counts you in, and your keys stay in its key. Slow it down or loop the hard bar any time."
+choose@song "Which song?" "Stand By Me"|"Three Little Birds"|"Let It Be"|"Knockin' on Heaven's Door"|"My own chords" +other
+form@own "Or paste the chords" name:text chords:long bpm:number
+choose@key "What key?" "As written"|"Easiest on guitar"|"Up a step"|"Down a step"
+choose@speed "How fast to start?" "Half speed"|"75%"|"Full speed"`,
+  },
+  {
+    // Gouda's practice log (YUI-184): this week first, then how long, what and how it went, one Send. A click
+    // stopped after 10 seconds or more logs itself too.
+    slug: "gouda-practice",
+    name: "Plan: log practice with Gouda",
+    agent: "Gouda",
+    yl: `plan@practiced "Log practice" submit="Log it"
+page "This week" body="70 minutes so far. A 4 day streak."
+choose@minutes "How long?" "5 min"|"10 min"|"15 min"|"20 min"|"30 min"|"45 min"|"1 hour"
+pick@what "What did you play?" "Stand By Me"|"Chords"|"Scales"|"Beats"|"Ear training"|"Theory" +other
+choose@feel "How did it go?" "Rough"|"Getting there"|"Nailed it"`,
+  },
+  {
+    // After the Send (YUI-184): his four pages. Looper with a saved beat, Chords with the song on buttons, the click
+    // and a bar looped, Keys in the song's key, Practice with the streak and what's next. Later answers only patch them.
+    slug: "gouda-pages",
+    name: "Pages: Gouda's looper, the song on chords, keys and practice",
+    agent: "Gouda",
+    yl: `say "Stand By Me is on your Chords page: 8 bars in A, the click at 89. Tap Start, count four, play."
+>2
+loop@looper 88 "Night drive" p=x..xx...|..x...x.||xxxxxxxx swing=20 rows=kick|snare|clap|hat +inline
+choose@sessions "Open a beat" "Night drive"|"Lazy Sunday"|"Boom bap"|"Four on the floor"|"Rock backbeat"|"One drop" body="1 saved. Send on the looper saves another."
+>3
+card@lesson "Stand By Me" "Key of A, 8 bars. Click at 89, 75% of 118." sub="Looping bar 5" cta="Learn another"
+chords@chords "D"|"E" "Stand By Me, bar 5" +inline
+metronome@click 89 "Stand By Me"
+choose@speed "Speed" "Half"|"75%"|"90%"|"Full" body="Now 89 bpm."
+choose@bar "Loop a bar" "Whole song"|"Bar 1: A"|"Bar 2: A"|"Bar 3: F#m"|"Bar 4: F#m"|"Bar 5: D"|"Bar 6: E"|"Bar 7: A"|"Bar 8: A" body="Bar 5 and the next, over and over."
+>4
+keys@keys A major "Keys, in A" +inline
+choose@scale "Scale" "Major"|"Minor"|"Pentatonic"|"Blues" body="A major. Keys outside it stay quiet."
+>5
+stat@streak "4 days" "Streak" sub="Days in a row. Keep it going."
+stat@week-min "70 min" "This week" sub="Over 4 days"
+chart@practice-chart bar "Minutes a day" x=Mon|Tue|Wed|Thu|Fri|Sat|Sun y=15|20|25|10|0|0|0 unit=min
+card@next-up "Next: bar 5 of Stand By Me" "Loop it at 89 until it feels easy, then play the whole song." cta="Log practice"
+list@recent title="Lately" "10/01 10 min, Stand By Me"|"09/30 25 min, Stand By Me, Scales"|"09/29 20 min, Stand By Me"|"09/28 15 min, Chords"`,
+    next: `~lesson "Stand By Me" "Key of A, 8 bars. Click at 59, 50% of 118." sub="Looping bar 5" cta="Learn another"
+~click 59 "Stand By Me"
+~speed "Speed" "Half"|"75%"|"90%"|"Full" body="Now 59 bpm."`,
+  },
+  {
     slug: "project-card",
     name: "Project: a card that reopens the plan",
     agent: "Scout",

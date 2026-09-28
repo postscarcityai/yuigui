@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 284,
-    "site": 636,
+    "app": 287,
+    "site": 640,
     "builds": 44,
-    "shipped": 311,
-    "screenshots": 739
+    "shipped": 312,
+    "screenshots": 743
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T06:55:57.676Z",
+          "at": "2026-09-28T07:16:54.076Z",
+          "title": "Your music teacher teaches songs",
+          "card": "YUI-184",
+          "anchor": "your-music-teacher-teaches-songs",
+          "images": [
+            {
+              "src": "/progress/yui184-learn-song-light.webp",
+              "alt": "Learn a song, step 2 of 5: Which song? Stand By Me, Three Little Birds, Let It Be, Knockin' on Heaven's Door, or your own chords"
+            },
+            {
+              "src": "/progress/yui184-chords-dark.webp",
+              "alt": "Gouda's Chords page: Stand By Me looping bar 5 on D and E buttons, the click at 89"
+            },
+            {
+              "src": "/progress/yui184-practice-light.webp",
+              "alt": "Practice: a 4 day streak, 70 minutes this week and a chart of minutes a day"
+            },
+            {
+              "src": "/progress/yui184-looper-dark.webp",
+              "alt": "The Looper with a saved beat, Night drive, and Open a beat with every session"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 287,
+            "site": 640,
+            "builds": 44,
+            "shipped": 312
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T06:55:30.000Z",
           "title": "The trainer's flow: a check-in that ends on the timer",
           "card": "SITE-70",
           "anchor": "the-trainer-s-flow-a-check-in-that-ends-on-the-timer",
@@ -35,10 +67,10 @@
               "alt": "The session page a bad night picks: Easy session, 30s on and 30s off, four moves"
             }
           ],
-          "commits": 1,
+          "commits": 4,
           "totals": {
             "app": 284,
-            "site": 636,
+            "site": 637,
             "builds": 44,
             "shipped": 311
           }
@@ -333,6 +365,55 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "cd93528",
+          "at": "2026-09-28T07:14:55.000Z",
+          "text": "yui-mcp: sync the screen bundle, light timer dial (SITE-78)",
+          "url": "https://github.com/postscarcityai/yui/commit/cd93528"
+        },
+        {
+          "repo": "site",
+          "sha": "5fc2cee",
+          "at": "2026-09-28T07:14:38.000Z",
+          "text": "The timer reads in light mode: white dial, ink digits (SITE-78)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5fc2cee"
+        },
+        {
+          "repo": "app",
+          "sha": "95c04ad",
+          "at": "2026-09-28T07:13:34.000Z",
+          "text": "Gouda's tools: learn a song and play along, the practice log, saved sessions, his pages kept current (YUI-184, runtime half)",
+          "url": "https://github.com/postscarcityai/yui/commit/95c04ad"
+        },
+        {
+          "repo": "site",
+          "sha": "7ae6eb2",
+          "at": "2026-09-28T07:11:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7ae6eb2"
+        },
+        {
+          "repo": "app",
+          "sha": "bd68661",
+          "at": "2026-09-28T06:58:48.000Z",
+          "text": "yui-mcp serves the trainer's flow: screen copy synced from yuigui (SITE-70)",
+          "url": "https://github.com/postscarcityai/yui/commit/bd68661"
+        },
+        {
+          "repo": "site",
+          "sha": "64936f7",
+          "at": "2026-09-28T06:58:31.000Z",
+          "text": "The MCP app knows the trainer's flow: rebuilt yui-screen with trainer-session (SITE-70)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/64936f7"
+        },
+        {
+          "repo": "site",
+          "sha": "12bee60",
+          "at": "2026-09-28T06:55:30.000Z",
+          "text": "The trainer's flow: a check-in that ends on the timer, in the playground and the site chat (SITE-70)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/12bee60"
+        },
         {
           "repo": "site",
           "sha": "58a5992",
