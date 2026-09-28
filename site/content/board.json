@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T17:40:51.613Z",
+  "updated": "2026-09-28T18:40:59.368Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -302,6 +302,11 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
+        },
+        {
+          "key": "SITE-86",
+          "title": "Fresh og on every major update",
+          "summary": "The home share card shows the latest release, versioned images, one refresh step and a contact sheet"
         }
       ]
     },
@@ -367,6 +372,11 @@
           "summary": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
           "waiting": true,
           "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
+        },
+        {
+          "key": "SITE-85",
+          "title": "Every page shares as itself",
+          "summary": "Its own og title, line and image, /contribute first"
         },
         {
           "key": "INT-8",
