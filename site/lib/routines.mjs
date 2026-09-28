@@ -9,6 +9,15 @@ export const CHECKED = "2026-09-26";
 const BACKLOG = "https://www.yuigui.com/contribute/backlog.json";
 const RULES = "https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md";
 
+// The one-off prompt at the top of /contribute ("Try it now"), also in its agent copy at /md/contribute (SITE-77).
+export const PROMPT = `Contribute one pull request to Yui, the open source app at yuigui.com.
+1. Read ${BACKLOG} and ${RULES}.
+2. Pick ONE card whose status is "open". If none is open, stop and tell me.
+3. Fork the repo the card names. Open a draft pull request titled "[KEY] <card title>" right away: that claims it.
+4. Build what the card asks. Run every command in its "test" list until all pass.
+5. Mark the pull request ready. Paste the test output, tick each "done" line, and say an agent made it.
+Never touch secrets, CI or release scripts. No new dependency without a note in the pull request saying why.`;
+
 // The claim step differs: a hosted routine works in your fork; a CLI with gh forks and opens the pull request itself.
 const FORK = `4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui or <you>/yui). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>`;
 const GH = `4. Otherwise pick ONE open card. Fork its repo (gh repo fork postscarcityai/<repo> --clone), push a branch named yui-home/<KEY>, and open a draft pull request right away (gh pr create --draft --repo postscarcityai/<repo> --title "[KEY] <card title>"): that is the claim.`;

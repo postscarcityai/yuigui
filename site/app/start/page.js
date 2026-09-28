@@ -1,12 +1,12 @@
 // Getting started: connect a Hermes agent to the Yui app (YUI-23), then every other way in (SITE-46).
-// The commands here are the real install paths; keep them in step with the app repo's
-// hermes-plugin/yui (after-install.md, connector.py), adapters/ and the spec pages they link.
+// The Hermes commands stay written out here so the site chat can search them (lib/chat/search.mjs);
+// lib/start-paths.mjs holds the same ones, and every other path, for the agent copy at /md/start (SITE-77).
 import links from "../../content/links.json";
 import Cmd from "../components/Cmd";
 import Shots from "../components/Shots";
 import Films from "../components/Films";
-
-const MCP_URL = "https://ewzzaoperdpxqxkshynx.supabase.co/functions/v1/yui-mcp";
+import AgentBox from "../components/AgentBox";
+import { PATHS } from "../../lib/start-paths.mjs";
 
 // Shots from build 162 on the simulator, demo account, the pairing flow of YuiPromoTests.testPromoPair (SITE-46).
 const PAIR_SHOTS = [
@@ -23,59 +23,6 @@ const FIRST_SHOTS = [
 // `backticks` in a path's body become inline code.
 const inline = (t) => t.split("`").map((part, i) => (i % 2 ? <code key={i}>{part}</code> : part));
 
-// Not on Hermes? One block per path, each with its one command or URL and its spec page.
-const PATHS = [
-  {
-    id: "openclaw",
-    title: "OpenClaw",
-    body: "Install the Yui channel plugin, pair it with the code from the app (`openclaw yui pair`), turn the channel on and restart the gateway. Needs OpenClaw 2026.6.11 or later.",
-    cmd: "git clone https://github.com/postscarcityai/yui && openclaw plugins install ./yui/adapters/openclaw",
-    href: "/developers/openclaw",
-    link: "OpenClaw setup",
-  },
-  {
-    id: "webhook",
-    title: "Any agent that answers an HTTP POST",
-    body: "The webhook bridge (Python or Node, no dependencies) runs on your machine. Pair it with the code, then point it at your agent's URL. From `adapters/webhook` in the app repo:",
-    cmd: "python3 python/yui_webhook.py pair 123456 --ref my-agent",
-    href: "/developers/webhook",
-    link: "Webhook bridge",
-  },
-  {
-    id: "claude-chatgpt",
-    title: "Claude and ChatGPT",
-    body: "Add Yui as a custom connector with this URL (Claude: Settings > Connectors; ChatGPT: developer mode at chatgpt.com/plugins). It signs in through yuigui.com/connect and you tap Allow in the app. Your chat stays where it is; the screens land on your phone.",
-    cmd: MCP_URL,
-    label: "the Yui MCP URL",
-    href: "/developers/mcp#claude",
-    link: "Claude and ChatGPT steps",
-  },
-  {
-    id: "claude-code",
-    title: "Claude Code or Cursor",
-    body: "Claude Code adds the server, then `claude mcp get yui` and `claude mcp login yui`, and you approve it in Yui. Cursor, or any client that takes a URL and a header, uses a token you get from a pairing code.",
-    cmd: `claude mcp add --transport http yui ${MCP_URL}`,
-    href: "/developers/mcp#claude-code",
-    link: "MCP server",
-  },
-  {
-    id: "a2a",
-    title: "An A2A agent",
-    body: "Any agent with an Agent Card (ADK, LangGraph, CrewAI, Microsoft Agent Framework) pairs by its URL. The agent needs no Yui code. Node 22.18 or newer, from `adapters/a2a` in the app repo, then `node yui-a2a.ts run`:",
-    cmd: "node yui-a2a.ts pair 123456 --card https://your-agent.example.com",
-    href: "/developers/a2a",
-    link: "A2A bridge",
-  },
-  {
-    id: "own-model",
-    title: "A model on your own machine",
-    body: "Ollama by default; LM Studio, vLLM and llama.cpp by name, or any OpenAI-style URL. Node 22.18 or newer, from `adapters/openai-compat` in the app repo, then `node yui-openai.ts run`:",
-    cmd: "node yui-openai.ts pair 123456 --model qwen2.5:7b",
-    href: "/developers/models",
-    link: "Model bridge",
-  },
-];
-
 export const metadata = {
   title: "Get started | Yui",
   description: "Connect your agent to the Yui app: Hermes in three steps, or OpenClaw, a webhook, Claude, ChatGPT, Claude Code, Cursor, an A2A agent or a model on your own machine.",
@@ -84,6 +31,7 @@ export const metadata = {
 export default function Start() {
   return (
     <>
+      <AgentBox path="/start" title="Connect your agent to Yui" paths={["hermes", "connector"]} />
       <div className="eyebrow">Get started</div>
       <h1>Connect your agent in three steps.</h1>
       <p className="lede">

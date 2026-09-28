@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import progress from "../../../content/progress.json";
 import LivePhone from "../../mockups/LivePhone";
 import Shots from "../../components/Shots";
-import ShareBar from "../../components/ShareBar";
+import AgentBox from "../../components/AgentBox";
 import VideoDownloads from "../../components/VideoDownloads";
 import { shareItem, shareItems, shareUrl } from "../../../lib/share.mjs";
 import { encodeYL } from "../../../lib/share-code.mjs";
@@ -68,7 +68,7 @@ export default async function Shared({ params }) {
             <video className="sc-clip" src={it.clip.src} poster={it.clip.poster} controls muted loop playsInline preload="none" aria-label={`${it.title}, recorded in the iPhone app`} />
           ) : null}
           {it.video ? <><p className="share-say">Download it{it.video["9x16"] && it.video["16x9"] ? ", both cuts" : ""}, captions burned in{it.video.sound ? ", sound on" : ", sound off"}:</p><VideoDownloads v={it.video} /></> : null}
-          <ShareBar path={shareUrl(it.id)} title={it.title} embed={embed} />
+          <AgentBox path={shareUrl(it.id)} title={it.title} embed={embed} how={it.yl ? "Give this link to your agent. It reads the lines and can send you this screen in Yui." : "Give this link to your agent. It reads the page and can set itself up for Yui."} />
           <ul className="share-links">
             {edit ? <li><Link href={edit}>Edit it in the playground</Link></li> : null}
             {it.home && !it.home.startsWith("/playground") ? <li><Link href={it.home}>See it with the rest</Link></li> : null}

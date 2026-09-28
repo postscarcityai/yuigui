@@ -1079,6 +1079,22 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .share-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 18px 0; }
 .share-bar .btn { min-height: 44px; }
 .share-said { font-size: 14px; color: var(--mint-ink); font-weight: 700; }
+/* Hand this to your agent (SITE-77): top right beside the title on a wide screen, full width on a phone. */
+.agent-box { background: var(--surface); border: 1.5px solid var(--outline); border-radius: 22px; box-shadow: var(--shadow); padding: 16px 18px 4px; margin: 0 0 24px; color: var(--ink); }
+.agent-box p, .agent-box li { font-size: var(--fs-small); line-height: 1.45; color: var(--muted); margin: 0 0 6px; }
+.agent-box .agent-box-h { color: var(--ink); font-weight: 800; font-size: 16px; }
+.agent-box ul { margin: 8px 0 0; padding-left: 18px; }
+.agent-box li strong { color: var(--ink); }
+.agent-box .share-bar { margin: 12px 0; gap: 8px; }
+.agent-box .share-bar .btn { font-size: 15px; padding: 10px 18px; }
+@media (min-width: 900px) {
+  .agent-box { float: right; width: 330px; margin: 0 0 20px 28px; position: relative; z-index: 1; }
+  .share-side .agent-box { float: none; width: auto; margin: 18px 0; }
+  /* A spec column is already narrow: the box sits above the text, its line and buttons side by side. */
+  .docs-main .agent-box { float: none; width: auto; margin: 0 0 22px; display: flex; flex-wrap: wrap; align-items: center; column-gap: 18px; padding-bottom: 0; }
+  .docs-main .agent-box .agent-box-h { flex-basis: 100%; }
+  .docs-main .agent-box > p:not(.agent-box-h) { flex: 1 1 280px; }
+}
 .share-links { padding-left: 18px; }
 .share-links li { margin: 6px 0; }
 .share-side .sc-clip { width: min(280px, 100%); border-radius: 22px; display: block; margin: 8px 0 4px; }

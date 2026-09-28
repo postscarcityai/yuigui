@@ -4,6 +4,7 @@ import Link from "next/link";
 import links from "../../content/links.json";
 import { specDocs } from "../../lib/spec.mjs";
 import Cmd from "../components/Cmd";
+import AgentBox from "../components/AgentBox";
 import { BADGE_HTML, BADGE_MD, embedSnippet } from "../../lib/share-code.mjs";
 
 export const metadata = {
@@ -47,6 +48,7 @@ const parsers = [
 export default function Developers() {
   return (
     <>
+      <AgentBox path="/developers" title="Yui for developers" how="Give this link to your agent. It reads how Yui works and every spec, and can set itself up from there." paths={["hermes", "connector"]} />
       <div className="eyebrow">Developers</div>
       <h1>How Yui works.</h1>
       <p className="lede">

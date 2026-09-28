@@ -1,5 +1,6 @@
 import Playground from "./Playground";
 import Benchmark from "./Benchmark";
+import AgentBox from "../components/AgentBox";
 import "katex/dist/katex.min.css";
 
 import { cleanYL, findSample, sampleSlug } from "../../lib/share.mjs";
@@ -27,6 +28,7 @@ export async function generateMetadata({ searchParams }) {
 export default function Page() {
   return (
     <>
+      <AgentBox path="/playground" title="Yui playground" how="Give this link to your agent. It learns Yui Lines and can write you screens to try here." />
       <div className="eyebrow">Developers | Playground | Yui Lines v0</div>
       <h1>Playground</h1>
       <p className="lede">

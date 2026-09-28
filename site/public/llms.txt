@@ -7,6 +7,7 @@ The MVP is done and Yui is in alpha, open to anyone on TestFlight for iPhone on 
 ## Get started
 
 - [Get started](https://www.yuigui.com/start): connect a Hermes agent in three steps, or another agent through its own way in
+- [Get started, for agents](https://www.yuigui.com/md/start): the same setup as markdown you can follow. Every page a person can act on has one at /md/ plus its path, like /md/playground or /md/developers/mcp
 - [What it does](https://www.yuigui.com/): the home page
 - [See it](https://www.yuigui.com/mockups): real screens, each drawn from a few lines
 

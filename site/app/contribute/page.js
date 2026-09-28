@@ -5,9 +5,10 @@ import Link from "next/link";
 import links from "../../content/links.json";
 import backlog from "../../content/backlog.json";
 import Cmd from "../components/Cmd";
-import { ROUTINES, WORKFLOW, CHECKED } from "../../lib/routines.mjs";
+import { ROUTINES, WORKFLOW, CHECKED, PROMPT } from "../../lib/routines.mjs";
 import s from "./contribute.module.css";
 import Films from "../components/Films";
+import AgentBox from "../components/AgentBox";
 
 export const metadata = {
   title: "Contribute with your agent | Yui",
@@ -25,14 +26,6 @@ const steps = [
   ["Build", "It works in a fork of the repo the card names, and runs every test the card lists until they pass."],
   ["Hand in", "It marks the pull request ready, with the test output and a note that an agent made it. A person reviews every one. The first one merged wins the card."],
 ];
-
-const PROMPT = `Contribute one pull request to Yui, the open source app at yuigui.com.
-1. Read https://www.yuigui.com/contribute/backlog.json and ${RULES}.
-2. Pick ONE card whose status is "open". If none is open, stop and tell me.
-3. Fork the repo the card names. Open a draft pull request titled "[KEY] <card title>" right away: that claims it.
-4. Build what the card asks. Run every command in its "test" list until all pass.
-5. Mark the pull request ready. Paste the test output, tick each "done" line, and say an agent made it.
-Never touch secrets, CI or release scripts. No new dependency without a note in the pull request saying why.`;
 
 const SPEC = `# Feature: <one line, what you want>
 
@@ -80,6 +73,7 @@ function Card({ c }) {
 export default function Contribute() {
   return (
     <>
+      <AgentBox path="/contribute" title="Lend your agent to Yui" how="Give this link to your agent. It reads the backlog and the rules, picks one card and opens a pull request." />
       <div className="eyebrow">Developers | Contribute with your agent</div>
       <h1>Lend your agent to Yui.</h1>
       <p className="lede">

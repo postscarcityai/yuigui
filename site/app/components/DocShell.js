@@ -3,6 +3,9 @@
 import Link from "next/link";
 import { specDocs, renderDoc } from "../../lib/spec.mjs";
 import Films from "./Films";
+import AgentBox from "./AgentBox";
+
+const SPEC_HOW = "Give this link to your agent. It reads the spec and knows how this part of Yui works.";
 
 function Index({ docs, current, toc }) {
   return (
@@ -35,6 +38,7 @@ export default function DocShell({ slug, eyebrow, links, after, film }) {
         <Index docs={docs} current={slug} toc={all} />
       </aside>
       <div className="docs-main">
+        <AgentBox path={d.href} title={d.title} how={SPEC_HOW} />
         <details className="docs-fold">
           <summary>All specs, and this page's sections</summary>
           <Index docs={docs} current={slug} toc={all.filter((h) => h.level === 2)} />
