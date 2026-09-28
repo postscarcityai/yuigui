@@ -13,3 +13,9 @@
 .foot { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 14px; }
 .empty { color: var(--muted); }
 .feature { margin: -2px 0 0; color: var(--muted); font-size: 14px; }
+/* Every Yui (lib/platforms.mjs): one small tile per platform repo. */
+.platforms { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.platforms > li { min-width: 0; overflow-wrap: anywhere; }
+.platforms h3 { margin: 0 0 2px; font-size: 17px; }
+.platforms p { margin: 0; font-size: 14px; }
+.platforms .foot { margin-top: 10px; }

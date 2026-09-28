@@ -4,7 +4,7 @@ Meet Yui, a generative user interface. Your agent draws the screen instead of re
 
 It is not another chatbot. Yui brings no brain of its own. You bring the agent (Hermes first, others later), and Yui gives it a face, a voice and a screen it can draw on.
 
-This repo is the hub: the public roadmap, the progress log, the Yui Lines spec and the site at [yuigui.com](https://www.yuigui.com). The iOS app and the Hermes plugin live in [postscarcityai/yui](https://github.com/postscarcityai/yui).
+This repo is the hub: the public roadmap, the progress log, the Yui Lines spec and the site at [yuigui.com](https://www.yuigui.com). The iOS app and the Hermes plugin live in [postscarcityai/yui](https://github.com/postscarcityai/yui), and every other platform has a repo of its own ([Every Yui](#every-yui)).
 
 <p>
   <img src="docs/img/app-chat.png" width="260" alt="Yui chat screen on iPhone">
@@ -43,6 +43,25 @@ Against the leanest possible JSON, Yui Lines saves about a third of the tokens. 
 | `docs/thoughts/` | Thoughts, Yui's blog at /thoughts: releases, whys and open calls |
 | `pitch/` | The original pitch recording, transcript and summary |
 | `brand/` | Logo files |
+
+## Every Yui
+
+Every platform has its own repo on [postscarcityai](https://github.com/postscarcityai), so whoever builds it, a person or an agent, has a place to push. Each one keeps the same contract: it speaks Yui Lines and passes the vectors in `spec/conformance/`, a tap sends the same line the iPhone sends, and a screen the device cannot draw says "Open on your iPhone" (or phone) instead of breaking. The first pull request for each is a card on [/contribute](https://www.yuigui.com/contribute).
+
+| Platform | Repo | Built with | Start here |
+| --- | --- | --- | --- |
+| iPhone and iPad | [yui](https://github.com/postscarcityai/yui) | SwiftUI | The app on TestFlight today, the Hermes plugin, the backend |
+| Mac | [yui-macos](https://github.com/postscarcityai/yui-macos) | SwiftUI for macOS | YUI-110 |
+| Apple Watch | [yui-watch](https://github.com/postscarcityai/yui-watch) | SwiftUI for watchOS | YUI-175 |
+| Apple Vision Pro | [yui-visionos](https://github.com/postscarcityai/yui-visionos) | SwiftUI for visionOS | Card YUI-178, no first pull request yet |
+| Apple TV | [yui-tvos](https://github.com/postscarcityai/yui-tvos) | SwiftUI for tvOS | Card YUI-179, no first pull request yet |
+| Android phones and tablets | [yui-android](https://github.com/postscarcityai/yui-android) | Kotlin and Jetpack Compose | YUI-173 |
+| Wear OS | [yui-wearos](https://github.com/postscarcityai/yui-wearos) | Kotlin and Compose for Wear OS | YUI-174 |
+| Windows and Linux | [yui-desktop](https://github.com/postscarcityai/yui-desktop) | Tauri 2 and the web renderer | YUI-176 |
+| Omarchy | [yui-omarchy](https://github.com/postscarcityai/yui-omarchy) | Rust in the terminal, in your Omarchy theme | YUI-177 |
+| Browser | [yui-web](https://github.com/postscarcityai/yui-web) | The web renderer, live on the relay | YUI-109, built here at `/web` first |
+
+The list the site and the board export read is `site/lib/platforms.mjs`.
 
 ## Run it
 

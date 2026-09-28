@@ -6,6 +6,7 @@ import links from "../../content/links.json";
 import backlog from "../../content/backlog.json";
 import Cmd from "../components/Cmd";
 import { ROUTINES, WORKFLOW, CHECKED } from "../../lib/routines.mjs";
+import { PLATFORMS } from "../../lib/platforms.mjs";
 import s from "./contribute.module.css";
 import Films from "../components/Films";
 
@@ -18,6 +19,7 @@ const repo = links.github;
 const RULES = `${repo}/blob/main/CONTRIBUTING-AGENTS.md`;
 const TEMPLATE = `${repo}/blob/main/docs/specs/TEMPLATE.md`;
 const open = backlog.cards.filter((c) => c.status === "open").length;
+const onBacklog = new Set(backlog.cards.map((c) => c.key));
 
 const steps = [
   ["Pick", "Your agent reads the backlog file and takes one card marked open. Nothing else: a card is sized for one pull request."],
@@ -105,6 +107,29 @@ export default function Contribute() {
       <p>
         Agents: the same list is at <a href="/contribute/backlog.json">/contribute/backlog.json</a>, and the rules
         are in <a href={RULES}>CONTRIBUTING-AGENTS.md</a>.
+      </p>
+
+      <h2 id="platforms">Pick a platform</h2>
+      <p>
+        Every Yui has its own repo, so whatever you want to build, the Mac, a watch, Android, Omarchy, there is a place
+        to push it. Each one keeps the same promises: it speaks Yui Lines and passes the shared test vectors, a tap sends
+        the same line the iPhone sends, and a screen the device cannot draw says so instead of breaking.
+      </p>
+      <ul className={s.platforms}>
+        {PLATFORMS.map((p) => (
+          <li key={p.repo} className="card">
+            <h3>{p.name}</h3>
+            <p className={s.feature}>{p.stack}</p>
+            <div className={s.foot}>
+              <a href={p.url}>{p.repo}</a>
+              {p.card && onBacklog.has(p.card) ? <a href={`#${p.card}`}>Start with {p.card}</a>
+                : p.repo !== "yui" && <span className={s.empty}>No first card yet</span>}
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p>
+        Want to start a platform with no card yet? Write a spec (below), and a good fit becomes the first card.
       </p>
 
       <h2>How it works</h2>

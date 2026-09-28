@@ -7,41 +7,40 @@ Not in scope: adding or pairing agents, invites, account settings, push (v2), si
 
 Status: open for contributors, humans or agents. Build to earn (https://www.yuigui.com/earn). Card YUI-58. Size of the whole feature: L, in four pull requests, in order. Each opens when the one before it merges.
 
-Work in the app repo, github.com/postscarcityai/yui. Native SwiftUI for macOS, not Catalyst and not the iPhone app on a Mac.
+Work in the Mac repo, github.com/postscarcityai/yui-macos (moved there Sep 27: every platform has its own repo). Native SwiftUI for macOS, not Catalyst and not the iPhone app on a Mac. The shared Swift comes from postscarcityai/yui as a git submodule at `yui/`: clone with `git clone --recursive`.
 
 ## The rules for every pull request
 
-- One shared source tree. iOS-only code goes behind `#if os(iOS)` or into a small platform shim (`Yui/Sources/Platform/`), never into a copied file. The iPhone app must build and behave exactly as before.
+- One shared source tree. Mac code lives in yui-macos. Shared code (`yui/Packages/YuiLines`, `yui/Yui/Sources`, `yui/Shared`) is used from the submodule, never copied. When a shared file needs an `#if os(iOS)` guard or a small platform shim to compile on the Mac, send that change to postscarcityai/yui as its own pull request (the iPhone app must build and behave exactly as before), then bump the submodule here. Never edit files under `yui/` in a yui-macos pull request.
 - No keys. `DEVELOPMENT_TEAM` stays `${YUI_TEAM_ID}` in `project.yml`. Set your own team id in your shell, or use Sign to Run Locally. No certificates, profiles, team ids or tokens in the diff. Signing, notarization and TestFlight for macOS stay with the maintainers.
 - Tests on macOS. Every pull request runs, and pastes the output of:
 
 ```
-cd Packages/YuiLines && swift test                                    # parser + conformance vectors
+cd yui/Packages/YuiLines && swift test                                # parser + conformance vectors
 xcodegen generate
-xcodebuild test -scheme YuiMac -destination 'platform=macOS' -only-testing:YuiTests
-xcodebuild test -scheme Yui -destination 'platform=iOS Simulator,name=<any iPhone simulator>' -only-testing:YuiTests
+xcodebuild test -scheme YuiMac -destination 'platform=macOS'
 ```
 
-  The hub repo's conformance suite (`cd spec/conformance && node run.mjs`) must still pass if the change touches a vector.
+  A pull request to postscarcityai/yui for a shared change runs that repo's own tests too (its CONTRIBUTING-AGENTS.md). The hub repo's conformance suite (`cd spec/conformance && node run.mjs`) must still pass if the change touches a vector.
 - Screenshots of the Mac window in light and dark in the pull request. Say in it if an agent made it.
 - Plain words in the UI, no em dashes, no developer tooling in what a person sees.
 
-## 1. The target builds and signs in (open now)
+## 1. The app builds and signs in (open now, card YUI-110)
 
-Goal: a `YuiMac` target that builds, launches, shows the sign-in screen, and opens the local demo chat.
+Goal: a `YuiMac` app in yui-macos that builds, launches, shows the sign-in screen, and opens the local demo chat.
 
 Build:
 
-- `project.yml`: a `YuiMac` application target, `platform: macOS`, deployment target macOS 26.0, `PRODUCT_BUNDLE_IDENTIFIER: com.yuigui.app`, sources `Yui/Sources`, `Yui/Resources` and `Shared`, packages `YuiLines` and `SwiftMath`. No widget extension. Entitlements: App Sandbox, outgoing network, camera, microphone, user-selected files read only, and Sign in with Apple. A `YuiMac` scheme that runs `YuiTests` on macOS (make `YuiTests` a multiplatform bundle, or add a `YuiMacTests` target with the same sources).
-- Make it compile: wrap UIKit use (`UIImage`, `UIPasteboard`, `UIApplication`, the pan gesture recognizers, `UIImagePickerController`, `UITextView`), ActivityKit and the widget code in `#if os(iOS)`, and give the few shared needs a shim: an image type, the pasteboard, opening a URL. Views that only make sense on the phone may show a placeholder on the Mac in this PR.
-- Sign in: the existing Sign in with Apple flow through AuthenticationServices, the refresh token in the Keychain.
-- `-yuiDemo`: a Debug-only launch argument that skips sign-in and opens the local demo chat (`ChatStore.demo`), so anyone can run it without an account.
+- `project.yml`: a `YuiMac` application target, `platform: macOS`, deployment target macOS 26.0, `PRODUCT_BUNDLE_IDENTIFIER: com.yuigui.app`, sources in `Mac/` plus any shared file from `yui/Yui/Sources` and `yui/Shared` that compiles on the Mac as it is, local package `yui/Packages/YuiLines`, and `SwiftMath` if a view needs it. Entitlements: App Sandbox, outgoing network, camera, microphone, user-selected files read only, and Sign in with Apple. A `YuiMacTests` target and a `YuiMac` scheme that runs it.
+- Views that only make sense on the phone may show a placeholder on the Mac in this PR. A shared file that will not compile stays out of the target for now; its guard goes to postscarcityai/yui in a pull request of its own.
+- Sign in: Sign in with Apple through AuthenticationServices, against the same backend as the phone, the refresh token in the Keychain.
+- `-yuiDemo`: a Debug-only launch argument that skips sign-in and opens a local demo chat drawn from a fixture, so anyone can run it without an account.
 
 Acceptance:
 
-- `xcodebuild -scheme YuiMac -destination 'platform=macOS' build` passes on a clean checkout with `YUI_TEAM_ID` unset (Sign to Run Locally).
+- `xcodebuild -scheme YuiMac -destination 'platform=macOS' build` passes on a clean checkout (`git clone --recursive`) with `YUI_TEAM_ID` unset (Sign to Run Locally).
 - The app launches to the sign-in screen, in light and dark. With `-yuiDemo` it opens the demo chat and the thread draws.
-- The iPhone target builds, and the iOS `YuiTests` pass, unchanged.
+- Nothing under `yui/` changes.
 - `-yuiDemo` does nothing in a Release build.
 - A maintainer signs in for real on the signed build before merge.
 
@@ -58,7 +57,7 @@ Build:
 
 Acceptance:
 
-- Sending, receiving, reactions and replies write the same rows as the phone: compare `ReactionFormatTests`, `ReplyFormatTests` and `MentionFormatTests`, which now also run on macOS.
+- Sending, receiving, reactions and replies write the same rows as the phone: compare with `ReactionFormatTests`, `ReplyFormatTests` and `MentionFormatTests` in yui, which `YuiMacTests` runs too (from the submodule).
 - The keyboard map in the spec works, and each command is findable in the menu bar.
 - The window resizes from 700 px wide to full screen with nothing clipped; narrow shows the thread only.
 
@@ -75,7 +74,7 @@ Build:
 Acceptance:
 
 - Every playground sample (`site/lib/yl/samples.mjs` in the hub repo) pasted into the demo chat renders with no error line that the playground does not show too.
-- For the same tap, the event line is byte for byte the line the playground's wire log shows. `LastingIdsTests`, `ReopenAnswersTests`, `StageShowingTests`, `ShelfTests`, `SketchStepsTests` and `LiveTimerTests` pass on macOS.
+- For the same tap, the event line is byte for byte the line the playground's wire log shows. `LastingIdsTests`, `ReopenAnswersTests`, `StageShowingTests`, `ShelfTests`, `SketchStepsTests` and `LiveTimerTests` (in yui) pass on macOS through `YuiMacTests`.
 - A thread with lines on `>2` and `>3` gets two pages, and a later patch (`~timer`) updates the page without moving the person.
 - `timer 40/20x8` opens on the stage window and keeps the right time after the app sat in the background for a minute.
 - No preset shows a blank or broken block: what the Mac cannot do says "Open on your iPhone".
@@ -101,7 +100,7 @@ Acceptance:
 How to test against the playground:
 
 1. In the hub repo: `cd site && npm install && npm run sync && npm run dev`, open `/playground`, pick a sample, tap through it, and keep the wire log open.
-2. In the app repo: run the `YuiMac` scheme with `-yuiDemo`, paste the same sample into the demo chat, make the same taps, and compare the event lines.
+2. In yui-macos: run the `YuiMac` scheme with `-yuiDemo`, paste the same sample into the demo chat, make the same taps, and compare the event lines.
 3. Try light and dark, a narrow and a full screen window, and the keyboard only.
 
-Rules: CONTRIBUTING.md in the app repo. Say in the pull request if an agent made it, and show the test output.
+Rules: CONTRIBUTING.md in yui-macos. Say in the pull request if an agent made it, and show the test output.

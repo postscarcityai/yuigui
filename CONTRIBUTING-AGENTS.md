@@ -75,8 +75,8 @@ Docs: https://code.claude.com/docs/en/routines
 Yui@home weekly run: build at most ONE card for Yui, the open source app at yuigui.com.
 1. Read https://www.yuigui.com/contribute/backlog.json. If no card has "status": "open", stop here and say "Nothing open this week."
 2. Read the rules: https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md
-3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui or postscarcityai/yui, finish that one instead of taking a new card.
-4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui or <you>/yui). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
+3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui, postscarcityai/yui or a platform repo (postscarcityai/yui-android and the rest), finish that one instead of taking a new card.
+4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui, <you>/yui or <you>/yui-<platform>). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
 5. Build only what the card says. Run every command in its "test" list until all pass.
 6. Hand in: mark the pull request ready, tick each "done" line, paste the test output, and say which agent made it.
 Budget: one card per run. Stop after about 40 minutes of work. If the tests still fail then, push what you have, leave the pull request as a draft with a note saying what is left, and stop.
@@ -95,8 +95,8 @@ Docs: https://learn.chatgpt.com/docs/automations?surface=web, https://learn.chat
 Yui@home weekly run: build at most ONE card for Yui, the open source app at yuigui.com.
 1. Read https://www.yuigui.com/contribute/backlog.json. If no card has "status": "open", stop here and say "Nothing open this week."
 2. Read the rules: https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md
-3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui or postscarcityai/yui, finish that one instead of taking a new card.
-4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui or <you>/yui). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
+3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui, postscarcityai/yui or a platform repo (postscarcityai/yui-android and the rest), finish that one instead of taking a new card.
+4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui, <you>/yui or <you>/yui-<platform>). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
 5. Build only what the card says. Run every command in its "test" list until all pass.
 6. Hand in: mark the pull request ready, tick each "done" line, paste the test output, and say which agent made it.
 Budget: one card per run. Stop after about 40 minutes of work. If the tests still fail then, push what you have, leave the pull request as a draft with a note saying what is left, and stop.
@@ -115,8 +115,8 @@ Docs: https://jules.google/docs/scheduled-tasks/, https://jules.google/docs/usag
 Yui@home weekly run: build at most ONE card for Yui, the open source app at yuigui.com.
 1. Read https://www.yuigui.com/contribute/backlog.json. If no card has "status": "open", stop here and say "Nothing open this week."
 2. Read the rules: https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md
-3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui or postscarcityai/yui, finish that one instead of taking a new card.
-4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui or <you>/yui). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
+3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui, postscarcityai/yui or a platform repo (postscarcityai/yui-android and the rest), finish that one instead of taking a new card.
+4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui, <you>/yui or <you>/yui-<platform>). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
 5. Build only what the card says. Run every command in its "test" list until all pass.
 6. Hand in: mark the pull request ready, tick each "done" line, paste the test output, and say which agent made it.
 Budget: one card per run. Stop after about 40 minutes of work. If the tests still fail then, push what you have, leave the pull request as a draft with a note saying what is left, and stop.
@@ -135,8 +135,8 @@ Docs: https://cursor.com/docs/cloud-agent/automations, https://cursor.com/docs/i
 Yui@home weekly run: build at most ONE card for Yui, the open source app at yuigui.com.
 1. Read https://www.yuigui.com/contribute/backlog.json. If no card has "status": "open", stop here and say "Nothing open this week."
 2. Read the rules: https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md
-3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui or postscarcityai/yui, finish that one instead of taking a new card.
-4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui or <you>/yui). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
+3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui, postscarcityai/yui or a platform repo (postscarcityai/yui-android and the rest), finish that one instead of taking a new card.
+4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui, <you>/yui or <you>/yui-<platform>). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
 5. Build only what the card says. Run every command in its "test" list until all pass.
 6. Hand in: mark the pull request ready, tick each "done" line, paste the test output, and say which agent made it.
 Budget: one card per run. Stop after about 40 minutes of work. If the tests still fail then, push what you have, leave the pull request as a draft with a note saying what is left, and stop.
@@ -155,8 +155,8 @@ Docs: https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-autom
 Yui@home weekly run: build at most ONE card for Yui, the open source app at yuigui.com.
 1. Read https://www.yuigui.com/contribute/backlog.json. If no card has "status": "open", stop here and say "Nothing open this week."
 2. Read the rules: https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md
-3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui or postscarcityai/yui, finish that one instead of taking a new card.
-4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui or <you>/yui). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
+3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui, postscarcityai/yui or a platform repo (postscarcityai/yui-android and the rest), finish that one instead of taking a new card.
+4. Otherwise pick ONE open card whose repo is one you have my fork of (<you>/yuigui, <you>/yui or <you>/yui-<platform>). Push a branch named yui-home/<KEY> to my fork. If you can open a pull request to the card's repo, open it right away as a draft titled "[KEY] <card title>": that is the claim. If you can't, end the run with this link so I can open it: https://github.com/postscarcityai/<repo>/compare/main...<you>:yui-home/<KEY>
 5. Build only what the card says. Run every command in its "test" list until all pass.
 6. Hand in: mark the pull request ready, tick each "done" line, paste the test output, and say which agent made it.
 Budget: one card per run. Stop after about 40 minutes of work. If the tests still fail then, push what you have, leave the pull request as a draft with a note saying what is left, and stop.
@@ -175,7 +175,7 @@ Docs: https://docs.github.com/en/actions/reference/workflows-and-actions/events-
 Yui@home weekly run: build at most ONE card for Yui, the open source app at yuigui.com.
 1. Read https://www.yuigui.com/contribute/backlog.json. If no card has "status": "open", stop here and say "Nothing open this week."
 2. Read the rules: https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md
-3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui or postscarcityai/yui, finish that one instead of taking a new card.
+3. If I already have an open pull request titled [KEY] on postscarcityai/yuigui, postscarcityai/yui or a platform repo (postscarcityai/yui-android and the rest), finish that one instead of taking a new card.
 4. Otherwise pick ONE open card. Fork its repo (gh repo fork postscarcityai/<repo> --clone), push a branch named yui-home/<KEY>, and open a draft pull request right away (gh pr create --draft --repo postscarcityai/<repo> --title "[KEY] <card title>"): that is the claim.
 5. Build only what the card says. Run every command in its "test" list until all pass.
 6. Hand in: mark the pull request ready, tick each "done" line, paste the test output, and say which agent made it.
@@ -220,7 +220,7 @@ spec/conformance/run-all.sh                      # every parser in this repo
 cd site && npm install && npm run sync && npm run build
 ```
 
-The app repo, [postscarcityai/yui](https://github.com/postscarcityai/yui), has its own [CONTRIBUTING-AGENTS.md](https://github.com/postscarcityai/yui/blob/main/CONTRIBUTING-AGENTS.md) with the Xcode setup.
+The app repo, [postscarcityai/yui](https://github.com/postscarcityai/yui), has its own [CONTRIBUTING-AGENTS.md](https://github.com/postscarcityai/yui/blob/main/CONTRIBUTING-AGENTS.md) with the Xcode setup. So does each platform repo (`yui-android`, `yui-macos`, `yui-omarchy` and the rest, listed in README.md, "Every Yui"): a card's `repo` says which one to fork.
 
 ## Want a feature instead?
 

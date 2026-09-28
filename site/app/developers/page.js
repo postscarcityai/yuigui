@@ -3,6 +3,7 @@
 import Link from "next/link";
 import links from "../../content/links.json";
 import { specDocs } from "../../lib/spec.mjs";
+import { PLATFORMS } from "../../lib/platforms.mjs";
 import Cmd from "../components/Cmd";
 import { BADGE_HTML, BADGE_MD, embedSnippet } from "../../lib/share-code.mjs";
 
@@ -213,8 +214,11 @@ echo 'choose "What today?" Push|Pull|Legs' | node yui-telegram.ts render --yl --
       <ul>
         <li><a href={links.appRepo}>postscarcityai/yui</a>: the iPhone app, the Hermes plugin and the backend.</li>
         <li><a href={links.github}>postscarcityai/yuigui</a>: the spec, this website and the roadmap.</li>
+        {PLATFORMS.filter((p) => p.repo !== "yui").map((p) => (
+          <li key={p.repo}><a href={p.url}>postscarcityai/{p.repo}</a>: Yui for {p.name === "Browser" ? "the browser" : p.name} ({p.stack}).</li>
+        ))}
       </ul>
-      <p>Both are open source under Apache-2.0. Issues and pull requests are welcome; start with CONTRIBUTING.md in either repo, or the <Link href="/developers/community">community page</Link>.</p>
+      <p>All of them are open source under Apache-2.0. Issues and pull requests are welcome; start with CONTRIBUTING.md in any repo, <Link href="/contribute#platforms">pick a platform</Link>, or see the <Link href="/developers/community">community page</Link>.</p>
     </>
   );
 }

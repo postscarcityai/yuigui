@@ -9,8 +9,10 @@ Status: open for contributors, humans or agents. Build to earn (https://www.yuig
 
 ## The plan, in pull requests
 
+The first pull request is built here in the hub, where the playground renderers live. From the second on, the browser app is built in its own repo, github.com/postscarcityai/yui-web.
+
 1. **The thread, offline** (open now, below). A thread page drawn from a recorded thread, no sign-in, no network.
-2. **Live** (after 1 merges). Sign in with Apple JS and the relay. Needs two server changes the maintainers make first: a second Apple audience in `yui-auth` and CORS on the edge functions (spec, Security).
+2. **Live** (after 1 merges, in yui-web). Sign in with Apple JS and the relay. Needs two server changes the maintainers make first: a second Apple audience in `yui-auth` and CORS on the edge functions (spec, Security).
 3. **The outbox** (after 2). Messages and taps survive a closed tab or a dropped network (spec/RELAY.md, Delivery).
 4. **Push** (v2). Web Push through `yui-push`.
 

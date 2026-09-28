@@ -27,7 +27,8 @@ const building = [
 const paths = [
   ["A parser", "Rust is next (OSS-4 on the board). Port the JavaScript reference, pass every file in spec/conformance, open a pull request. Any other language is welcome too.", `${repo}/tree/main/parsers`, "parsers/ on GitHub"],
   ["A preset idea", "Write the screen you wish an agent could put up, as Yui Lines, and open an issue. Shapes agents keep sending as custom screens get promoted too.", `${repo}/issues/new/choose`, "Open an issue"],
-  ["A renderer", "The web renderers live in site/app/playground. Fix one, make one prettier, or start a new platform: Android (Kotlin and Compose) is on the roadmap.", `${repo}/tree/main/site/app/playground`, "Web renderers"],
+  ["A renderer", "The web renderers live in site/app/playground. Fix one or make one prettier.", `${repo}/tree/main/site/app/playground`, "Web renderers"],
+  ["A new platform", "Mac, Apple Watch, Vision Pro, Apple TV, Android, Wear OS, Windows and Linux, Omarchy and the browser each have a repo of their own, and most have a first card open.", "/contribute#platforms", "Pick a platform"],
   ["An adapter", "Hermes, OpenClaw and webhooks work today. MCP, A2A and more are planned. The adapter plan says which path fits your framework.", "/developers/adapters", "Adapter plan"],
   ["Conformance vectors", "Found a line the spec is vague about? Add a vector and say what you think it should parse to.", `${repo}/tree/main/spec/conformance`, "spec/conformance"],
   ["The app", "Presets, accessibility, Dynamic Type. The app repo has its own guide.", `${app}/blob/main/CONTRIBUTING.md`, "App CONTRIBUTING"],

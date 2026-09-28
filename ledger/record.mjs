@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // The private ledger's recorder (OSS-7, spec/LEDGER.md). Records facts, never what anyone said:
 // who joined and who used Yui on a day (the database works that out, yui_ledger_record_day),
-// and pull requests merged into the two public repos (read from GitHub, added with yui_ledger_add).
+// and pull requests merged into the public repos (read from GitHub, added with yui_ledger_add).
 // Safe to run again: a fact already on the ledger is skipped.
 //
 //   node ledger/record.mjs                      yesterday (UTC)
@@ -11,7 +11,9 @@
 //
 // Needs YUI_SUPABASE_URL and YUI_SUPABASE_SERVICE_ROLE_KEY, the same two the site uses, except with --dry.
 // GITHUB_TOKEN is optional: the repos are public, a token only lifts GitHub's rate limit.
-const REPOS = ["postscarcityai/yuigui", "postscarcityai/yui"];
+// The hub, the app and one repo per platform (site/lib/platforms.mjs).
+import { PLATFORMS } from "../site/lib/platforms.mjs";
+const REPOS = ["postscarcityai/yuigui", ...PLATFORMS.map((p) => `postscarcityai/${p.repo}`)];
 const BOTS = /\[bot\]$|^dependabot|^github-actions/i;
 
 const args = process.argv.slice(2);

@@ -6,10 +6,10 @@ Status: draft, open for contributors (build to earn). The brief with the four pu
 
 ## What it is
 
-A macOS target in the app repo's `project.yml` (xcodegen), next to the iPhone target, that:
+A native Mac app in its own repo, [postscarcityai/yui-macos](https://github.com/postscarcityai/yui-macos) (moved there Sep 27), with an XcodeGen `project.yml` and a `YuiMac` target, that:
 
 1. **Ships under the same app record.** The bundle id `com.yuigui.app` is registered as universal, so the Mac app is the same purchase, the same Sign in with Apple and the same account as the phone.
-2. **Shares the SwiftUI sources** (`Yui/Sources`, `Shared`) and the `YuiLines` package, which already builds for macOS 15. iOS-only code sits behind `#if os(iOS)` or a small platform shim, never in a copy of the file.
+2. **Shares the Swift with the iPhone.** yui-macos pulls postscarcityai/yui in as a git submodule at `yui/`: the `YuiLines` package (which already builds for macOS 15) and any shared file from `Yui/Sources` or `Shared` that compiles on the Mac. Mac-only code lives in yui-macos. When a shared file needs a guard (`#if os(iOS)`) or a small platform shim, that change goes to postscarcityai/yui as its own pull request, never into a copy of the file.
 3. **Talks to the same relay** (`spec/RELAY.md`): rows in `yui_messages`, written as `sender='user'` rows. No server of its own.
 
 Native, not Catalyst, and not the "iPhone app on a Mac" mode. It should feel like a Mac app: a sidebar, a keyboard, windows, menus, drag and drop.
@@ -91,7 +91,7 @@ Out of v1, each says "Open on your iPhone" with the reason in one line: adding o
 
 Signing, notarization, the App Store Connect record and TestFlight for macOS stay with the maintainers (the yui agent). No keys, certificates, team ids or provisioning profiles go into a pull request.
 
-- `project.yml` keeps `DEVELOPMENT_TEAM: ${YUI_TEAM_ID}`. Contributors build with their own team id in their environment, or with Sign to Run Locally, and never commit it.
+- yui-macos's `project.yml` keeps `DEVELOPMENT_TEAM: ${YUI_TEAM_ID}`. Contributors build with their own team id in their environment, or with Sign to Run Locally, and never commit it.
 - Sign in with Apple needs the real team and bundle id, so a contributor's build cannot sign in against the live service. It opens the local demo chat instead (`-yuiDemo`, Debug only, brief PR 1), which is enough to build and test PRs 2 to 4. A maintainer checks the real sign-in on the signed build before each merge.
 - The Mac target is sandboxed (App Sandbox) with only what it uses: outgoing network, camera, microphone, and files the person picks.
 
