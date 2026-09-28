@@ -169,10 +169,11 @@ image /demo/room.jpg +edit "Circle what to change"
 ```
 
 ### camera
-`camera [prompt...] [front|back] [+scan]`. Opens the camera, captures one photo, emits `{photo}`. Falls back to a file picker. Props: `prompt` ["Take a photo"], `facing` [back], `+scan` (document mode).
+`camera [prompt...] [front|back] [+scan] [+say]`. Opens the camera, captures one photo, emits `{photo}`. Falls back to a file picker. Props: `prompt` ["Take a photo"], `facing` [back], `+scan` (document mode), `+say` (hold to snap and say: the press takes the photo, the mic listens while the finger holds, letting go sends `{photo, words}`, sliding left to the trash throws both away; for when a picture alone can't tell, like how much butter went in). Where there is no mic, `+say` is a plain camera.
 ```
 camera "Snap your plate"
 camera "Scan the receipt" +scan
+camera "Snap it and say what's in it" +say
 ```
 
 ### mic
@@ -709,10 +710,10 @@ menu done dana
 ```
 
 - The word after `menu` is the section: `review` (things waiting on the person, under the thread's own asks in Review), `backlog` (what the agent is working on or has queued, on Home) and `shortcut` (things the person asks for often, on Home beside the host's commands). `@id` names the item; without one it is known by its label, lowercased, with every run of other characters as one `-` (`Start today's workout` is `start-today-s-workout`).
-- The label is the rest of the line, words joined by single spaces. The keys are `sub` (a quieter line under it), `say` (what a shortcut sends), `show` (a saved screen's name) and `url` (an `https:` link). Values stay text. Other keys and flags are dropped.
+- The label is the rest of the line, words joined by single spaces. The keys are `sub` (a quieter line under it), `say` (what a shortcut sends), `show` (a saved screen's name) and `url` (an `https:` link, or on a shortcut `yui://snap`). Values stay text. Other keys and flags are dropped.
 - An item with an id already in the drawer replaces it, in whichever section it now names. `menu done dana` takes it out; `menu done` takes an id or a label. Taking out an item that is not there does nothing.
 - Each section shows its newest item first and keeps 20; the oldest falls off. Labels longer than 60 characters are cut to 59 and an ellipsis.
-- A tap on a shortcut sends its `say=`, or its label, as the person's message, as if typed (a `say=` that ends in a space goes in the composer to finish instead). A tap on a review or backlog item opens its `show=` screen on the stage, or its `url=` in the browser, with no turn; with neither, it goes back to the agent as an event (section 7) and the agent answers with the screen.
+- A tap on a shortcut sends its `say=`, or its label, as the person's message, as if typed (a `say=` that ends in a space goes in the composer to finish instead). A shortcut with `url=yui://snap` opens hold to snap and say in that thread and sends nothing until the person lets go: `menu shortcut@meal "Log a meal" url=yui://snap`. A tap on a review or backlog item opens its `show=` screen on the stage, or its `url=` in the browser, with no turn; with neither, it goes back to the agent as an event (section 7) and the agent answers with the screen.
 - The drawer lives on the phone, per agent, and is rebuilt from the thread like the shelf, so it follows the person to a new install.
 - `menu` is a core word like `save`: no `@id` counter, no screen, and it leaves an open group alone. The op is `{op: "menu", screen, id, props: {bucket, label, sub?, say?, show?, url?}}`, and `menu done id` gives `{op: "menu", screen, id, props: {done: true}}`. Where there is no drawer (Telegram, the playground, a watch) the line does nothing.
 
