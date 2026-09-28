@@ -2,6 +2,7 @@
   "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far, site = a page on yuigui.com (`link` opens it). `release` on a group or card (\"0.2.0\") labels it In 0.2.0 until that version is VALID on TestFlight; then drop it and give the cards `shipped` dates. `change` (a fix with no card) is the opening words of its app commit, so the entry reads Next build until that commit is on TestFlight.",
   "cards": {
     "SITE-68": {"title": "The site chat plays a whole flow", "shipped": "2026-09-28"},
+    "YUI-187": {"title": "The screen dots are back and slide with you", "shipped": "2026-09-28", "release": "0.5.2"},
     "YUI-182": {"title": "Your trainer runs your workout", "shipped": "2026-09-28"},
     "YUI-166": {"title": "Hold to snap and say", "shipped": "2026-09-27"},
     "YUI-103": {"title": "Log a meal without weighing", "shipped": "2026-09-27"},
@@ -165,6 +166,14 @@
       "entries": [
         {"id": "arnold-runner", "title": "Arnold runs your workout", "what": "Say Start today's workout and your session opens full screen, one move at a time: tick each set, nudge the reps and the weight (it starts from what you lifted last), say how it felt, then one Finish. Every set is logged.", "cards": ["YUI-182"], "demo": "arnold-runner", "agent": "Arnold", "app": "native", "shots": ["/progress/yui182-runner-move-light.webp", "/progress/yui182-runner-review-dark.webp"]},
         {"id": "arnold-pages", "title": "Arnold's week, today and progress", "what": "After Finish, Arnold's screens update by themselves: the day ticked on This week, today marked done, and Progress with your streak, your best set and a chart per main lift. Tap a day to change what it trains, or log a session you did away from the app.", "cards": ["YUI-182"], "demo": "arnold-pages", "yl": "stat@streak \"2 weeks\" \"Streak\" sub=\"weeks in a row with a workout\"\nstat@best 45lb \"Best set\" sub=\"Romanian deadlift x 10, Sep 23\"\nchart line \"Goblet squat, top set\" x=\"Sep 21\"|\"Sep 28\" y=20|25 unit=lb", "agent": "Arnold", "app": "native", "shots": ["/progress/yui182-week-light.webp", "/progress/yui182-progress-dark.webp"]}
+      ]
+    },
+    {
+      "id": "release-052",
+      "title": "Yui 0.5.2",
+      "lede": "What reached phones with Yui 0.5.2 (build 288, Sep 28): the screen dots are back, and the screens slide with your finger instead of fading.",
+      "entries": [
+        {"id": "screen-dots", "title": "The dots are back and slide with you", "what": "A small row of dots in the agent's colors sits over the bar when it has more than one screen. Drag and the screen moves with your finger while the dot stretches and slides to the next one. Tap a dot to jump.", "cards": ["YUI-187"], "agent": "Arnold", "app": "native", "clip": "stage-dots-9x16", "shots": ["/progress/yui187-arnold-dots-light.webp", "/progress/yui187-mid-slide-light.webp", "/progress/yui187-dots-screen2-light.webp", "/progress/yui187-dots-screen3-dark.webp"]}
       ]
     },
     {

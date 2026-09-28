@@ -23,7 +23,7 @@ The home is screen 1 when the chat has nothing new on it: a fresh thread, or a t
 
 When the agent answers, the answer takes screen 1 as it does today and the chips step down to one row of small chips over the bar, so they are always a thumb away. The chips never show on pages 2 and up: a page is full screen, for reading and tapping.
 
-- **No dots.** Nothing shows how many screens there are (Chris, Sep 27: "let's just let the user slide without showing them the dots ... let the user rely on instinct that they can swipe"). VoiceOver still hears "Screen 2, 2 of 4" and pages with a swipe up or down.
+- **Dots that slide (YUI-187).** A small row of dots in the agent's colors sits just above the bar when there is more than one screen, one dot per screen. The one on show is a pill; as you drag, it stretches toward the next dot and slides there with your finger, and it springs with the page when you let go. Tap a dot to jump. Chris, Sep 28, reversing Sep 27's "no dots": "the dots we removed, i also want those to slide, not fade between them and the dots should animate." The screens slide with the finger too, a real page scroll, never a fade; with Reduce Motion on they cross-fade and the dots stay. VoiceOver hears the dots as one control, "Screen 2, 2 of 4", and pages with a swipe up or down.
 - **One sideways gesture.** A drag left anywhere on the phone, the bars included, shows the next screen; a drag right the one before, and on screen 1 it pulls the drawer out. A control that needs a sideways drag (keys, pads, a map, a slider) owns it only inside its own frame; pages keep a margin at both edges where only the swipe lives.
 
 ## 2. How an agent sets its home

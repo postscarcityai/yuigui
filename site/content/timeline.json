@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 282,
-    "site": 632,
+    "site": 633,
     "builds": 43,
-    "shipped": 308,
-    "screenshots": 728
+    "shipped": 309,
+    "screenshots": 731
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T06:16:15.174Z",
+          "at": "2026-09-28T06:38:03.120Z",
+          "title": "Yui 0.5.2: the dots are back and slide with you",
+          "card": "YUI-187",
+          "anchor": "yui-0-5-2-the-dots-are-back-and-slide-with-you",
+          "images": [
+            {
+              "src": "/progress/yui187-mid-slide-light.webp",
+              "alt": "Mid-drag: the answer slides in from the left while the Shopping screen slides out, and the dot is stretched between two dots"
+            },
+            {
+              "src": "/progress/yui187-dots-screen2-light.webp",
+              "alt": "Screen 2, a Focus timer, with the middle of three dots as the pill"
+            },
+            {
+              "src": "/progress/yui187-dots-screen3-dark.webp",
+              "alt": "Screen 3 in dark mode, a Shopping list, with the last dot as the pill"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 282,
+            "site": 633,
+            "builds": 43,
+            "shipped": 309
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T06:16:47.000Z",
           "title": "The site chat plays a whole flow",
           "card": "SITE-68",
           "anchor": "the-site-chat-plays-a-whole-flow",
@@ -35,10 +63,10 @@
               "alt": "Yui answers the flow's one event by name: Nice to meet you, Sam, with the pair of agents it picked"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 282,
-            "site": 632,
+            "site": 633,
             "builds": 43,
             "shipped": 308
           }
@@ -229,6 +257,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "bc830e9",
+          "at": "2026-09-28T06:16:47.000Z",
+          "text": "The site chat plays a whole flow: saved flows run on the stage, plans play as steps (SITE-68)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bc830e9"
+        },
         {
           "repo": "app",
           "sha": "68961a3",
