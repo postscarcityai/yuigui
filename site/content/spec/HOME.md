@@ -2,7 +2,7 @@
 
 What you see when you open an agent: its own shortcuts, what is waiting on you, and its starter screens one swipe away. Every agent's home is different, because every agent does something different.
 
-Status: draft, step 1 of YUI-168 (this spec and a [tappable mock](/mockups/home)). Nothing here is in the app yet. Step 2 builds the home stage in the app; step 3 seeds the starter crew. It came from TestFlight notes on build 244: "when I go to one of these agent screens, I should see a unique set of shortcuts. Basil should have shortcuts for logging a meal or seeing my grocery list. Arnold should have start a workout or look at my split." And: "Gouda should have a couple of these already set up. When I scroll the other way I should get the looper, the chord machine, and maybe some type of piano to jam along."
+Status: built (YUI-168, ships in Yui 0.5.0). The app draws the home, the runtime writes the six starters' homes, and the Hermes plugin sends a profile's `home.yui` on first pair. Try the [tappable mock](/mockups/home). It came from TestFlight notes on build 244: "when I go to one of these agent screens, I should see a unique set of shortcuts. Basil should have shortcuts for logging a meal or seeing my grocery list. Arnold should have start a workout or look at my split." And: "Gouda should have a couple of these already set up. When I scroll the other way I should get the looper, the chord machine, and maybe some type of piano to jam along."
 
 ## 1. What a home is
 
@@ -22,6 +22,9 @@ The home is screen 1 when the chat has nothing new on it: a fresh thread, or a t
 - **Starter screens.** Pages 2 and up (the swipe-left pages from YL.md section 5, Pages), seeded the first time the agent is opened and kept current by the agent after that. Arnold's are This week, then Today's workout.
 
 When the agent answers, the answer takes screen 1 as it does today and the chips step down to one row of small chips over the bar, so they are always a thumb away. The chips never show on pages 2 and up: a page is full screen, for reading and tapping.
+
+- **No dots.** Nothing shows how many screens there are (Chris, Sep 27: "let's just let the user slide without showing them the dots ... let the user rely on instinct that they can swipe"). VoiceOver still hears "Screen 2, 2 of 4" and pages with a swipe up or down.
+- **One sideways gesture.** A drag left anywhere on the phone, the bars included, shows the next screen; a drag right the one before, and on screen 1 it pulls the drawer out. A control that needs a sideways drag (keys, pads, a map, a slider) owns it only inside its own frame; pages keep a margin at both edges where only the swipe lives.
 
 ## 2. How an agent sets its home
 
@@ -56,9 +59,9 @@ The chips, the asks and the pages live on the phone and are rebuilt from the thr
 
 ## 3. Where the home comes from
 
-**Native agents** (NATIVE.md, section 4) get a sixth profile part: `home.yui`, the lines above. The runtime plays it once, before `first.yui`, when the agent's row is made. It is Yui Lines, so a forked profile edits its home like any other screen, and Ask Yui or Start blank can write one from the answers.
+**Native agents** (NATIVE.md, section 4) get a sixth profile part: `home.yui`, the lines above. It is written once into the agent's thread as an agent row with `meta.native = "home"` (no push; the app keeps it out of the record and never brings a page forward for it), the first time `yui-agents list` sees the agent, and a crew agent made before homes existed gets its starter's. `{arnold}` in a line is the person's Arnold's agent id, and a line naming an agent they don't have is left out (Yui's crew page uses it: `card ... url=yui://agent/{arnold}/thread`). The profile check wants two to four `menu shortcut` lines, screens 2 to 12 only, and no `clear`. The agent sees its home in its prompt and keeps it current with patches. It is Yui Lines, so a forked profile edits its home like any other screen, and Ask Yui or Start blank can write one from the answers.
 
-**Hermes and other agents** send the same lines themselves, once. The Hermes plugin sends a profile's `home.yui` (beside its SOUL.md) on first pair, so an owner can hand-write a home. Any agent can change its shortcuts later with `menu shortcut` and `menu done`, the same as the drawer. The channel guide gets one line about this when step 2 lands in the app, not before: telling agents about chips the app does not draw yet would only cost tokens.
+**Hermes and other agents** send the same lines themselves, once. The Hermes plugin sends a profile's `home.yui` (beside its SOUL.md, `~/.hermes/profiles/<name>/home.yui`) on first pair, so an owner can hand-write a home; `hermes -p <name> yui home` shows it and `--send` writes it again. Any agent can change its shortcuts later with `menu shortcut` and `menu done`, the same as the drawer. The channel guide carries one line about the home (Use it well: Your home).
 
 ## 4. The starter sets
 
@@ -78,11 +81,12 @@ Two to four shortcuts each, and two or three starter screens. The chips are in t
 - **Gouda.** The instruments are `loop`, `chords` and `keys` with `+inline`, so they sit on their pages ready to play instead of opening the stage. "Jam" says `Make me a beat to jam on`; "Tune up" says `Tune my guitar` (the tuner, YUI-136).
 - **Penny, Quill, Yui.** Their pages start nearly empty and fill as the person uses them. An empty page shows one line saying what will go there, never a blank screen.
 
-## 5. What is not in this step
+## 5. What it does not change
 
-- No app code, no runtime code, no plugin change. This page and the mock only.
-- No new Yui Lines word, key or op, so no parser, conformance or channel guide change.
+- No new Yui Lines word, key or op, so no parser or conformance change. Card links gain `yui://agent/<id>/thread` (YL.md, card).
 - Chats (CHATS.md, YUI-169) do not change the home: shortcuts, asks and pages belong to the agent, so every chat opens on the same home.
+
+Arnold's kickoff builds a split (Chris, Sep 27: "make sure i can build a custom split on onboarding"): days a week, which days, how to split them (push, pull, legs; upper, lower; full body; or build my own, a focus per day), gear and injuries, one Send. He saves the split to his notes and redraws This week from it; My split and "look at my split" open it to edit a day.
 
 ## 6. Build order
 
