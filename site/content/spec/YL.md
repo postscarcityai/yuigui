@@ -146,7 +146,9 @@ table Planets Planet|Mass|Radius "Earth|5.97|6371" "Mars|0.642|3390" units=|10^2
 ```
 
 ### card
-`card title [body...]`. Props: `title`, `body`, `sub`, `tag`, `img` (URL), `cta` (button label, emits `{cta}`), `url` (an `https:` or `itms-services:` link the button opens in the browser, Safari in the app; a button with a link shows an arrow and sends nothing to the chat; the button reads Open unless `cta` says otherwise; `yui://settings` or `yui://settings/search` opens the app's own Settings at that section (the web has no Settings, so there the button sends `{cta}` like a card without a link); other schemes are ignored), `fold` (flag).
+`card title [body...]`. Props: `title`, `body`, `sub`, `tag`, `img` (URL), `cta` (button label, emits `{cta}`), `url` (an `https:` or `itms-services:` link the button opens in the browser, Safari in the app; a button with a link shows an arrow and sends nothing to the chat; the button reads Open unless `cta` says otherwise; `yui://settings` or `yui://settings/search` opens the app's own Settings at that section (the web has no Settings, so there the button sends `{cta}` like a card without a link); `yui://agent/<handle>` is a hand-off, below; other schemes are ignored), `fold` (flag).
+
+A hand-off (YUI-144) is a card whose `url=` is `yui://agent/<handle>`: `card "Basil" body="She just finished leg day, wants dinner ideas" url=yui://agent/basil cta="Open Basil"`. The title names the agent, the body is the note. When the card arrives live in the thread on screen, the app takes the person to that agent's thread about a second and a half later, so they read who and why first; the button does the same from history, and a card loaded with old rows never jumps. The agent handed to gets the note and answers there first: a native agent from its runtime, a connected one as a mention (RELAY.md, Mentions), through its host. One hand-off a reply, never out of a turn another agent started, never inside a group. Apps before 0.5.0 show the card and send `{cta}`; the web sends `{cta}`.
 ```
 card "Leg day" "Squat, RDL, lunges." sub=Thursday img=/yl/legday.svg cta="Start workout"
 ```

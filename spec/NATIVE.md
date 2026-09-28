@@ -105,6 +105,14 @@ What it never has: a shell, files, email, calendars, purchases, or messages to a
 
 Native agents pass you along with context ("Basil, she just finished leg day") and join group threads. Connected agents (Hermes and others) can be @mentioned as today, but they never read native memory.
 
+As built (YUI-144, Sep 27 2026):
+
+- **One line opens another agent.** A hand-off is a card, `card "Basil" body="<the note>" url=yui://agent/basil cta="Open Basil"` ([YL.md](YL.md), card). The phone jumps to that agent's thread a beat after the card lands live; the button does it again from history.
+- **Native agents** write a `handoff` block (`basil "She just finished leg day, wants dinner ideas"`) or the card itself. The runtime adds the card under the answer, then runs the agent handed to with `[yui] handoff from=yui note="..."`, so its answer is waiting when the person arrives. One a turn, one level: a turn another agent started (a hand-off or a mention) never hands on.
+- **Connected agents** send the same card through their host. The Hermes plugin puts the agent it names in `meta.mentions`, and the database tells that agent as a mention with the thread's last lines (RELAY.md, Mentions). The channel guide teaches the card when the app build that jumps is on TestFlight ([CHANNEL.md](CHANNEL.md), Waiting for the app).
+- **Groups.** A native agent answers a group row in the group: one turn per thread, the group's own history only, never its solo thread's. Its @handles become asks on the group's hop budget; it never hands off out of a group.
+- **Memory stays home.** A native agent sees its connected agents by name and handle only, reaches them with @handle, and cannot hand to them. They read what it writes (the mention's words and the thread's last lines), never its notes or tables; the prompt tells it not to repeat what its notes say about the person in a group or a mention.
+
 ## 11. Every client
 
 The runtime writes rows; every client already reads them. The iPhone app, the browser (YUI-146, with [Browser](BROWSER.md)), the Mac and a later Android port show the same Yui with no agent code of their own.

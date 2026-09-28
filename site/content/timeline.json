@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 266,
-    "site": 597,
+    "app": 267,
+    "site": 600,
     "builds": 41,
-    "shipped": 295,
-    "screenshots": 693
+    "shipped": 297,
+    "screenshots": 697
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T01:52:40.301Z",
+          "at": "2026-09-28T02:20:01.399Z",
+          "title": "One agent opens another",
+          "card": "YUI-144",
+          "anchor": "one-agent-opens-another",
+          "images": [
+            {
+              "src": "/progress/yui144-1-yui-hands-off-light.webp",
+              "alt": "Yui's thread: the person asks what to eat after leg day, Yui says Basil is your food person, and a card for Basil with the note She just finished leg day and wants dinner ideas and an Open Basil button."
+            },
+            {
+              "src": "/progress/yui144-2-basil-answers-light.webp",
+              "alt": "A moment later, Basil's thread: Leg day dinner, coming up, a checklist of three dinners and a pick for which recipe to see."
+            },
+            {
+              "src": "/progress/yui144-1-yui-hands-off-dark.webp",
+              "alt": "The same hand-off card in Yui's thread in dark mode."
+            },
+            {
+              "src": "/progress/yui144-2-basil-answers-dark.webp",
+              "alt": "Basil's answer in dark mode: salmon, burrito bowl or steak, and a recipe pick."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 267,
+            "site": 600,
+            "builds": 41,
+            "shipped": 297
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T01:54:53.000Z",
           "title": "Log a meal without weighing",
           "card": "YUI-103",
           "anchor": "log-a-meal-without-weighing",
@@ -35,10 +67,25 @@
               "alt": "The same answer at once in dark mode: the salmon photo, the note about butter and Got it, working out the macros."
             }
           ],
-          "commits": 4,
+          "commits": 5,
           "totals": {
             "app": 266,
-            "site": 597,
+            "site": 599,
+            "builds": 41,
+            "shipped": 296
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T01:52:42.000Z",
+          "title": "Meet each agent when you open it",
+          "card": "YUI-167",
+          "anchor": "meet-each-agent-when-you-open-it",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 266,
+            "site": 598,
             "builds": 41,
             "shipped": 295
           }
@@ -1438,6 +1485,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "417e215",
+          "at": "2026-09-28T02:19:16.000Z",
+          "text": "One agent opens another: a hand-off card jumps the phone to that agent's thread with the note (YUI-144)",
+          "url": "https://github.com/postscarcityai/yui/commit/417e215"
+        },
+        {
+          "repo": "site",
+          "sha": "80b8b95",
+          "at": "2026-09-28T02:11:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/80b8b95"
+        },
+        {
+          "repo": "site",
+          "sha": "f927da8",
+          "at": "2026-09-28T01:54:53.000Z",
+          "text": "Progress + spec: log a meal without weighing, in native Basil (YUI-103)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f927da8"
+        },
+        {
+          "repo": "site",
+          "sha": "13c3976",
+          "at": "2026-09-28T01:52:42.000Z",
+          "text": "Progress: meet each agent when you open it (YUI-167)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/13c3976"
+        },
         {
           "repo": "app",
           "sha": "065d087",

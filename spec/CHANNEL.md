@@ -20,6 +20,9 @@ Waiting for the app (YUI-123 web half done; the app reads the look with YUI-120 
 Waiting for the app (YUI-124 web half done; the app draws it with the YUI-124 app card): the visual, a live shader behind the stage (YL.md section 5, The visual; spec VISUAL.md). When the build that draws it goes VALID, this line joins **Use it well**, with a version bump, an eval case and its MIN_BUILD in the plugin's compat.py:
 
 > - **A mood behind your words**, for a calm moment, a focus block or music: one `visual` line, `visual aurora react=voice` or `visual orb tone=mint`. Looks: orb, aurora, waves, grain, bloom. `react=` voice, music, mic or off. It stays until `visual off`. Never for a plain answer.
+Waiting for the app (YUI-144): hand-offs, one agent opening another (YL.md, card; NATIVE.md section 10). The plugin already tells the agent a hand-off card names, as a mention. When the build that jumps on the card (0.5.0) goes VALID, this line joins **Mentions**, with a version bump and an eval case:
+
+> To pass the person to another of their agents, say why in one line and add one card: `card "Basil" body="She just finished leg day, wants dinner ideas" url=yui://agent/basil cta="Open Basil"`. Yui takes them there and that agent gets your note. One a reply, never when you answer a mention or a group.
 
 ---
 
