@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 254,
-    "site": 588,
-    "builds": 40,
-    "shipped": 291,
-    "screenshots": 678
+    "app": 258,
+    "site": 590,
+    "builds": 41,
+    "shipped": 292,
+    "screenshots": 681
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T00:36:27.664Z",
+          "at": "2026-09-28T01:04:10.483Z",
+          "title": "Every agent keeps its own little database",
+          "card": "YUI-170",
+          "anchor": "every-agent-keeps-its-own-little-database",
+          "images": [
+            {
+              "src": "/progress/yui170-yui-groceries-light.webp",
+              "alt": "Yui's thread: asked to delete the coffee row, Yui shows Delete Coffee from groceries? with Delete and Keep buttons, then makes a new Reading list table with Dune and Project Hail Mary."
+            },
+            {
+              "src": "/progress/yui170-basil-meals-light.webp",
+              "alt": "Basil answers What did I eat this week? with a list of three logged meals and their calories and macros."
+            },
+            {
+              "src": "/progress/yui170-yui-groceries-dark.webp",
+              "alt": "Dark mode: Yui's Still to get grocery list with milk added, then the Delete or Keep ask for coffee."
+            }
+          ],
+          "commits": 5,
+          "totals": {
+            "app": 258,
+            "site": 590,
+            "builds": 41,
+            "shipped": 292
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T00:36:50.000Z",
           "title": "Yui 0.4.3: swipe back, and a new install starts at Sign in",
           "card": null,
           "anchor": "yui-0-4-3-swipe-back-and-a-new-install-starts-at-sign-in",
@@ -34,9 +62,21 @@
           "commits": 0,
           "totals": {
             "app": 254,
-            "site": 588,
-            "builds": 40,
+            "site": 589,
+            "builds": 41,
             "shipped": 291
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-28T00:34:41.000Z",
+          "build": 258,
+          "changes": 14,
+          "totals": {
+            "app": 254,
+            "site": 588,
+            "builds": 41,
+            "shipped": 290
           }
         },
         {
@@ -1302,6 +1342,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "aa1fded",
+          "at": "2026-09-28T00:57:57.000Z",
+          "text": "Native tables: a delete waiting on its tap never reads as done; tick what's got, delete what they ask to (YUI-170)",
+          "url": "https://github.com/postscarcityai/yui/commit/aa1fded"
+        },
+        {
+          "repo": "app",
+          "sha": "f6473e4",
+          "at": "2026-09-28T00:51:10.000Z",
+          "text": "Native tables: table words in any fence still land, a write always shows its table (YUI-170)",
+          "url": "https://github.com/postscarcityai/yui/commit/f6473e4"
+        },
+        {
+          "repo": "app",
+          "sha": "1000f1e",
+          "at": "2026-09-28T00:48:47.000Z",
+          "text": "Persona eval: the four table asks hit each agent's own tables and answer on a screen (YUI-170)",
+          "url": "https://github.com/postscarcityai/yui/commit/1000f1e"
+        },
+        {
+          "repo": "app",
+          "sha": "7f4be08",
+          "at": "2026-09-28T00:46:32.000Z",
+          "text": "Every native agent keeps its own little database: tables it makes, starter values it ships with (YUI-170)",
+          "url": "https://github.com/postscarcityai/yui/commit/7f4be08"
+        },
+        {
+          "repo": "site",
+          "sha": "4e69e1b",
+          "at": "2026-09-28T00:41:16.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4e69e1b"
+        },
+        {
+          "repo": "site",
+          "sha": "415a49a",
+          "at": "2026-09-28T00:36:50.000Z",
+          "text": "Progress: Yui 0.4.3, build 258 on TestFlight (swipe back, sign-in-first)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/415a49a"
+        },
         {
           "repo": "site",
           "sha": "daf578d",
