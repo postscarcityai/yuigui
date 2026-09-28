@@ -1,12 +1,35 @@
 {
-  "updated": "2026-09-28T01:10:41.060Z",
+  "updated": "2026-09-28T01:41:46.148Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.0",
     "status": "open",
     "startedAt": "2026-09-27T22:35:07.000Z",
     "shippedAt": null,
-    "cards": []
+    "cards": [
+      {
+        "key": "YUI-166",
+        "title": "Hold to snap and say, one press takes the photo and records what you say",
+        "status": "done",
+        "shipped": "2026-09-27",
+        "progress": "/progress#hold-to-snap-and-say-what-s-in-it"
+      },
+      {
+        "key": "YUI-167",
+        "title": "Meet the agent",
+        "status": "now"
+      },
+      {
+        "key": "YUI-168",
+        "title": "Every agent's home",
+        "status": "now"
+      },
+      {
+        "key": "YUI-103",
+        "title": "Log a meal without weighing",
+        "status": "now"
+      }
+    ]
   },
   "columns": [
     {
@@ -142,11 +165,6 @@
           "summary": "Rolling updates, daily backups, a kill switch per sandbox"
         },
         {
-          "key": "YUI-171",
-          "title": "The same tables for any agent",
-          "summary": "Hermes, MCP, A2A and webhook agents read and write them through Yui"
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -213,11 +231,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-103",
-          "title": "Log a meal without weighing",
-          "summary": "Snap and say, macros worked out in the background, one breakdown screen, a food memory"
-        },
-        {
           "key": "YUI-137",
           "title": "Yui makes agents",
           "summary": "Create, edit, fork and remove a native agent from chat"
@@ -241,17 +254,6 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
-        },
-        {
-          "key": "YUI-167",
-          "title": "Meet the agent",
-          "summary": "Its hello plays the first time you open it, a line under its name, About says what it does, no picker in the drawer"
-        },
-        {
-          "key": "YUI-168",
-          "title": "Every agent's home",
-          "summary": "Every agent has its own home: the spec and a mock",
-          "progress": "/progress#every-agent-has-its-own-home-the-spec-and-a-mock"
         }
       ]
     },
@@ -260,8 +262,24 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-166",
-          "title": "Hold to snap and say, one press takes the photo and records what you say"
+          "key": "YUI-167",
+          "title": "Meet the agent",
+          "summary": "Its hello plays the first time you open it, a line under its name, About says what it does, no picker in the drawer"
+        },
+        {
+          "key": "YUI-103",
+          "title": "Log a meal without weighing",
+          "summary": "Snap and say, macros worked out in the background, one breakdown screen, a food memory"
+        },
+        {
+          "key": "YUI-168",
+          "title": "Every agent's home",
+          "summary": "Shortcuts to start, starter screens a swipe away, notifications up front"
+        },
+        {
+          "key": "YUI-171",
+          "title": "The same tables for any agent",
+          "summary": "Hermes, MCP, A2A and webhook agents read and write them through Yui"
         },
         {
           "key": "INT-8",
@@ -306,9 +324,8 @@
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
         },
         {
-          "key": "YUI-168",
-          "title": "Every agent's home, spec + tappable mock",
-          "step": "Step 1",
+          "key": "YUI-172",
+          "title": "Finish the Firebase iOS app setup on Chris's Mac and save GoogleService-Info.plist",
           "blocked": "chris"
         }
       ]
@@ -317,6 +334,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-166",
+          "title": "Hold to snap and say, one press takes the photo and records what you say",
+          "summary": "Hold to snap and say what's in it",
+          "shipped": "2026-09-27",
+          "progress": "/progress#hold-to-snap-and-say-what-s-in-it"
+        },
+        {
+          "key": "YUI-168",
+          "title": "Every agent's home, spec + tappable mock",
+          "step": "Step 1",
+          "summary": "Every agent has its own home: the spec and a mock",
+          "shipped": "2026-09-27",
+          "progress": "/progress#every-agent-has-its-own-home-the-spec-and-a-mock"
+        },
         {
           "key": "YUI-170",
           "title": "Every native agent keeps its own little database",

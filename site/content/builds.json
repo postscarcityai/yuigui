@@ -1234,6 +1234,18 @@
     {
       "text": "Native tables: a list labels its numbers, a table header with spaces is mended",
       "card": "YUI-170"
+    },
+    {
+      "text": "Hold to snap and say: one press takes the photo, holding says what's in it, let go sends both",
+      "card": "YUI-166"
+    },
+    {
+      "text": "Persona eval: back off on the management API's 429 instead of crashing mid-run",
+      "card": "YUI-170"
+    },
+    {
+      "text": "Log a meal without weighing: an answer at once, the macros behind the scenes, one breakdown, a food memory",
+      "card": "YUI-103"
     }
   ]
 }
