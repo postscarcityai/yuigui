@@ -5,12 +5,14 @@
 // stays in this browser's localStorage so it survives page loads; the server keeps its own copy.
 // SITE-65: it feels like the app. Opening it turns the site dark (the moon button's switch, not
 // saved) and closing it puts the visitor's own choice back. On a phone it takes the whole screen.
-// Answers are Yui Lines drawn with the site's renderer, and taps go back to Yui.
+// Answers are Yui Lines drawn with the site's renderer, and taps go back to Yui. A timer, deck or
+// `>full` reply takes the whole chat window on the stage, like the phone. The contact form is a Yui form.
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import links from "../../content/links.json";
 import { splitReply, tapLabel, tapLine } from "../../lib/chat/lines.mjs";
+import { echoFor, relays } from "../../../mcp-app/src/events.mjs";
 import { savedUtm, trackCta } from "../../lib/track.mjs";
 import "./chat.css";
 
@@ -95,40 +97,6 @@ function Check({ siteKey, onToken }) {
   );
 }
 
-function Contact({ reason, onDone, onSkip }) {
-  const [state, setState] = useState("idle");
-  const [error, setError] = useState("");
-  async function submit(e) {
-    e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    const v = (k) => String(f.get(k) || "");
-    setState("sending"); setError("");
-    try {
-      const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "contact", first_name: v("first_name"), last_name: v("last_name"), email: v("email"), phone: v("phone"), website: v("website"), utm: savedUtm() }) });
-      const data = await res.json();
-      if (data.ok) { trackCta("chat-contact", "chat"); return onDone(v("first_name")); }
-      setError(data.error || "Try again."); setState("idle");
-    } catch { setError("Network error. Try again."); setState("idle"); }
-  }
-  return (
-    <form className="yc-card yc-contact" onSubmit={submit}>
-      <p><strong>Stay in touch</strong>{reason ? `, ${reason.replace(/\.$/, "")}.` : "."}</p>
-      <div className="yc-row">
-        <input name="first_name" required maxLength={80} autoComplete="given-name" placeholder="First name" aria-label="First name" />
-        <input name="last_name" required maxLength={80} autoComplete="family-name" placeholder="Last name" aria-label="Last name" />
-      </div>
-      <input name="email" type="email" required maxLength={254} autoComplete="email" placeholder="Email" aria-label="Email" />
-      <input name="phone" type="tel" maxLength={25} autoComplete="tel" placeholder="Phone (optional)" aria-label="Phone, optional" />
-      <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="wl-hp" />
-      <div className="yc-actions">
-        <button className="btn" disabled={state === "sending"}>{state === "sending" ? "Sending..." : "Send"}</button>
-        <button type="button" className="yc-skip" onClick={onSkip}>No thanks</button>
-      </div>
-      {error && <p className="yc-err">{error}</p>}
-      <p className="yc-fine">Only used to reach you about Yui. <a href="/privacy#chat">Privacy</a></p>
-    </form>
-  );
-}
 
 // One answer, played like the app: each part fades in after the last, text in big type, screens
 // drawn live. Only a fresh answer plays; old ones from localStorage show at once.
@@ -138,10 +106,22 @@ function Answer({ content, fresh, go, onTap, live }) {
     <div className={`yc-answer${fresh ? " is-fresh" : ""}`}>
       {parts.map((p, i) => (
         <div key={i} className={p.yl ? "yc-part yc-part-screen" : "yc-part yc-part-text"} style={fresh ? { animationDelay: `${i * 380}ms` } : undefined}>
-          {p.yl ? <Screen yl={p.yl} onTap={live ? onTap : undefined} /> : <Text text={p.text} go={go} />}
+          {p.yl ? <Screen yl={p.yl} fresh={fresh} onTap={live ? onTap : undefined} /> : <Text text={p.text} go={go} />}
         </div>
       ))}
     </div>
+  );
+}
+
+// The bubble: Yui's mark on a soft shape that floats and slowly changes (the mark is brand/yui-mark-y-ink.png).
+function Fab({ open, onClick }) {
+  return (
+    <button className={`yc-fab${open ? " is-open" : ""}`} onClick={onClick} aria-label={open ? "Close chat" : "Chat with Yui"} aria-expanded={open}>
+      <span className="yc-blob yc-blob-b" aria-hidden="true" />
+      <span className="yc-blob yc-blob-a" aria-hidden="true" />
+      <span className="yc-mark" aria-hidden="true" />
+      <span className="yc-close" aria-hidden="true" />
+    </button>
   );
 }
 
@@ -169,7 +149,7 @@ export default function ChatFab() {
   useEffect(() => { if (open && window.innerWidth > 760) setTimeout(() => input.current?.focus(), 50); }, [open]);
   useEffect(() => {
     if (!open) return;
-    const onKey = (e) => { if (e.key === "Escape") setOpen(false); };
+    const onKey = (e) => { if (e.key === "Escape" && !document.querySelector(".yc .yl-stage.open")) setOpen(false); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
@@ -184,7 +164,7 @@ export default function ChatFab() {
   const go = useCallback((p) => { router.push(p); if (window.innerWidth <= 760) setOpen(false); }, [router]);
 
   // text: what goes to Yui; label: what the visitor's bubble says (a tap shows the words they tapped).
-  const send = useCallback(async (text, prior, label) => {
+  const send = useCallback(async (text, prior, label, event) => {
     const t = text.trim();
     if (!t || busy) return;
     setError("");
@@ -192,13 +172,12 @@ export default function ChatFab() {
     if (!prior) setMsgs((m) => [...m, { role: "user", content: t, ...(label ? { label } : {}) }]);
     setBusy(true);
     try {
-      const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "say", text: t, path: window.location.pathname + window.location.hash, title: document.title, history: [{ role: "assistant", content: HELLO }, ...history], utm: savedUtm() }) });
+      const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "say", text: t, event, path: window.location.pathname + window.location.hash, title: document.title, history: [{ role: "assistant", content: HELLO }, ...history], utm: savedUtm() }) });
       const data = await res.json().catch(() => ({}));
-      if (data.verify) { setVerify({ siteKey: data.verify, text: t, label }); return; }
+      if (data.verify) { setVerify({ siteKey: data.verify, text: t, label, event }); return; }
       if (!res.ok || !data.reply) { setError(data.error || "Yui can't answer right now. Try again in a minute."); return; }
       const cards = [];
       for (const a of data.actions || []) {
-        if (a.type === "contact") cards.push({ card: "contact", reason: a.reason });
         if (a.type === "go") { cards.push({ card: "went", label: a.label || a.path, path: a.path }); setTimeout(() => go(a.path), 900); }
       }
       setMsgs((m) => { setFresh(m.length); return [...m, { role: "assistant", content: data.reply }, ...cards]; });
@@ -207,7 +186,12 @@ export default function ChatFab() {
     } finally { setBusy(false); }
   }, [busy, msgs, go]);
 
-  const tap = useCallback((ev) => { if (!busy) send(tapLine(ev), undefined, tapLabel(ev)); }, [busy, send]);
+  const tap = useCallback((ev) => {
+    // The phone's rule: a quiet tap (a timer starting, a checklist tick, a loop playing) stays on the screen.
+    if (busy || !relays(ev, echoFor(ev))) return;
+    if (ev.id === "contact" && ev.preset === "form") { trackCta("chat-contact", "chat"); send("[yui] contact form sent", undefined, "Sent my details", ev); }
+    else send(tapLine(ev), undefined, tapLabel(ev));
+  }, [busy, send]);
 
   const onToken = useCallback(async (token) => {
     const pending = verify;
@@ -216,11 +200,10 @@ export default function ChatFab() {
       const data = await res.json();
       if (!data.ok) { setError(data.error || "That check did not go through."); return; }
       setVerify(null);
-      if (pending?.text) send(pending.text, msgs.slice(0, -1), pending.label);
+      if (pending?.text) send(pending.text, msgs.slice(0, -1), pending.label, pending.event);
     } catch { setError("Network error. Try again."); }
   }, [verify, send, msgs]);
 
-  const setCard = (i, patch) => setMsgs((m) => m.map((x, j) => (j === i ? { ...x, ...patch } : x)));
   const lastAnswer = msgs.map((m) => m.role === "assistant").lastIndexOf(true);
 
   function toggle() {
@@ -238,7 +221,7 @@ export default function ChatFab() {
       {open && (
         <section className="yc-panel" role="dialog" aria-label="Chat with Yui">
           <header className="yc-head">
-            <span className="yc-avatar" aria-hidden="true">Y</span>
+            <span className="yc-avatar" aria-hidden="true"><span /></span>
             <div><strong>Yui</strong><span>Answers with screens</span></div>
             {msgs.length > 0 && <button className="yc-new" onClick={() => { fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "new" }) }).catch(() => {}); setMsgs([]); setError(""); setFresh(-1); }} title="Start over">New chat</button>}
             <button className="yc-x" onClick={() => setOpen(false)} aria-label="Close chat">×</button>
@@ -253,11 +236,7 @@ export default function ChatFab() {
             )}
             {msgs.map((m, i) => {
               if (m.card === "went") return <div key={i} className="yc-went">Opened <a href={m.path} onClick={(e) => { e.preventDefault(); go(m.path); }}>{m.label}</a></div>;
-              if (m.card === "contact") {
-                if (m.done) return <div key={i} className="yc-went">Thanks{m.name ? `, ${m.name}` : ""}. The team will be in touch.</div>;
-                if (m.skipped) return null;
-                return <Contact key={i} reason={m.reason} onDone={(name) => setCard(i, { done: true, name })} onSkip={() => setCard(i, { skipped: true })} />;
-              }
+              if (m.card === "contact") return null; // cards from before the Yui form
               if (m.role === "user") return <div key={i} className={`yc-msg yc-user${m.label ? " yc-tapped" : ""}`}><p>{m.label || m.content}</p></div>;
               return <Answer key={i} content={m.content} fresh={i === fresh} go={go} onTap={tap} live={i === lastAnswer} />;
             })}
@@ -276,9 +255,7 @@ export default function ChatFab() {
           <p className="yc-note">Chats are saved so we learn what people want. <a href="/privacy#chat">Privacy</a></p>
         </section>
       )}
-      <button className="yc-fab" onClick={toggle} aria-label={open ? "Close chat" : "Chat with Yui"} aria-expanded={open}>
-        {open ? <span aria-hidden="true">×</span> : <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M12 3C6.5 3 2 6.8 2 11.5c0 2.4 1.2 4.6 3.1 6.1L4.4 21l3.9-1.9c1.2.4 2.4.6 3.7.6 5.5 0 10-3.8 10-8.5S17.5 3 12 3Z" fill="currentColor" /></svg>}
-      </button>
+      <Fab open={open} onClick={toggle} />
     </div>
   );
 }

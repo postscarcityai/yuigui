@@ -42,13 +42,14 @@ function head(line) {
   return w.replace(/^~/, "").replace(/@.*$/, "").toLowerCase();
 }
 
-// Keeps the lines this chat can draw. Drops screen switches (`>2`), media and anything
+// Keeps the lines this chat can draw. Keeps `>full` (the stage), drops other screen switches (`>2`), media and anything
 // with a link that is not Yui's own. A site path becomes a full yuigui.com link.
 export function cleanLines(yl) {
   const keep = [];
   for (const raw of String(yl || "").split("\n")) {
     const line = raw.replace(/\s+$/, "");
     const t = line.trim();
+    if (t === ">full") { keep.push(t); continue; } // the stage over the chat, like the app
     if (!t || t.startsWith("#") || t.startsWith(">")) continue;
     if (!ALLOWED.has(head(t))) continue;
     let bad = false;

@@ -65,3 +65,11 @@ test("the brief has no dashes and no task ids", () => {
   assert.doesNotMatch(own, /[–—]/);
   assert.doesNotMatch(own, /\bt_[0-9a-f]{6,}\b/);
 });
+
+test("the stage and the contact form get through", () => {
+  assert.equal(cleanLines(">full\ndeck \"Tour\"\npage \"One\" body=\"Hi\"\nend"), ">full\ndeck \"Tour\"\npage \"One\" body=\"Hi\"\nend");
+  assert.equal(cleanLines(">2 timer 5m"), "");
+  const form = `form@contact "Stay in touch" first_name:text! last_name:text! email:email! phone:phone submit="Send"`;
+  assert.equal(cleanLines(form), form);
+  assert.equal(parse(form)[0].id, "contact");
+});

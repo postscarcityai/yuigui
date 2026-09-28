@@ -2,14 +2,46 @@
    a plum stage with Yui's coral glow, answers in plain chat type, screens drawn live. On a phone it is the
    whole screen, like the app's stage. */
 .yc { position: fixed; right: 20px; bottom: 20px; z-index: 40; font-family: var(--font); }
+/* The bubble: Yui's mark on a soft coral shape that floats and slowly changes, with a lavender,
+   mint and butter glow drifting behind it. Still under Reduce Motion. */
 .yc-fab {
-  width: 60px; height: 60px; border-radius: 50%; border: 0; cursor: pointer;
-  background: var(--brand); color: var(--on-brand); box-shadow: 0 10px 28px rgba(255, 126, 138, .38), var(--shadow);
-  display: grid; place-items: center; font-size: 30px; line-height: 1; margin-left: auto;
-  transition: transform .18s ease;
+  position: relative; display: block; margin-left: auto; width: 66px; height: 66px; padding: 0; border: 0;
+  background: none; cursor: pointer; animation: yc-float 6s ease-in-out infinite; -webkit-tap-highlight-color: transparent;
 }
-.yc-fab:hover { transform: scale(1.06); }
-.yc-fab:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; }
+.yc-blob { position: absolute; inset: 0; border-radius: 42% 58% 60% 40% / 45% 45% 55% 55%; }
+.yc-blob-a {
+  background: radial-gradient(120% 120% at 28% 22%, #FFD6DA 0%, #FF9EA7 30%, #FF7E8A 58%, #EE6178 100%);
+  box-shadow: 0 14px 30px rgba(255, 126, 138, .42), inset 0 -7px 14px rgba(150, 30, 70, .22), inset 0 6px 12px rgba(255, 255, 255, .38);
+  animation: yc-morph 9s ease-in-out infinite;
+  transition: scale .25s cubic-bezier(.3, 1.6, .5, 1);
+}
+.yc-blob-b {
+  inset: -7px;
+  background: radial-gradient(circle at 74% 72%, #D9CCF7 0%, transparent 62%), radial-gradient(circle at 22% 78%, #BDEBD6 0%, transparent 58%), radial-gradient(circle at 60% 12%, #FFE8A3 0%, transparent 50%);
+  filter: blur(9px); opacity: .9;
+  animation: yc-morph 13s ease-in-out infinite reverse, yc-turn 26s linear infinite;
+}
+.yc-mark {
+  position: absolute; inset: 0; margin: auto; width: 28px; height: 28px; background: #FFF9F0;
+  -webkit-mask: url(/brand/yui-mark-y.png) center / contain no-repeat; mask: url(/brand/yui-mark-y.png) center / contain no-repeat;
+  animation: yc-breathe 4.5s ease-in-out infinite; transition: opacity .2s ease, transform .3s ease;
+}
+.yc-close { position: absolute; inset: 0; margin: auto; width: 22px; height: 22px; opacity: 0; transform: rotate(-45deg) scale(.6); transition: opacity .2s ease, transform .3s ease; }
+.yc-close::before, .yc-close::after { content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 3px; border-radius: 3px; background: #FFF9F0; transform: translate(-50%, -50%) rotate(45deg); }
+.yc-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.yc-fab.is-open .yc-mark { opacity: 0; transform: scale(.5) rotate(30deg); }
+.yc-fab.is-open .yc-close { opacity: 1; transform: none; }
+.yc-fab:hover .yc-blob-a { scale: 1.07; }
+.yc-fab:focus-visible { outline: none; }
+.yc-fab:focus-visible .yc-blob-a { box-shadow: 0 0 0 3px var(--background), 0 0 0 6px var(--link); }
+@keyframes yc-morph {
+  0%, 100% { border-radius: 42% 58% 60% 40% / 45% 45% 55% 55%; transform: rotate(0deg); }
+  33% { border-radius: 58% 42% 38% 62% / 52% 60% 40% 48%; transform: rotate(7deg) scale(1.03); }
+  66% { border-radius: 50% 50% 62% 38% / 38% 55% 45% 62%; transform: rotate(-6deg) scale(.98); }
+}
+@keyframes yc-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes yc-turn { to { rotate: 360deg; } }
+@keyframes yc-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
 
 .yc-panel {
   position: absolute; right: 0; bottom: 76px; width: 440px; height: min(880px, calc(100vh - 116px));
@@ -25,7 +57,8 @@
 .yc-head div { display: flex; flex-direction: column; flex: 1; min-width: 0; line-height: 1.2; }
 .yc-head strong { font-size: 18px; color: var(--brand); }
 .yc-head div span { font-size: 13px; color: var(--muted); }
-.yc-avatar { width: 40px; height: 40px; border-radius: var(--r-avatar); background: var(--brand); color: var(--on-brand); display: grid; place-items: center; font-weight: 800; font-size: 20px; flex: none; }
+.yc-avatar { position: relative; width: 40px; height: 40px; flex: none; border-radius: 42% 58% 60% 40% / 45% 45% 55% 55%; background: radial-gradient(120% 120% at 28% 22%, #FFD6DA 0%, #FF9EA7 30%, #FF7E8A 58%, #EE6178 100%); animation: yc-morph 9s ease-in-out infinite; }
+.yc-avatar span { position: absolute; inset: 0; margin: auto; width: 19px; height: 19px; background: #FFF9F0; -webkit-mask: url(/brand/yui-mark-y.png) center / contain no-repeat; mask: url(/brand/yui-mark-y.png) center / contain no-repeat; }
 .yc-x, .yc-new { border: 0; background: none; color: var(--muted); cursor: pointer; font: inherit; border-radius: 999px; }
 .yc-x { font-size: 28px; width: 44px; height: 44px; line-height: 1; }
 .yc-new { font-size: 13px; font-weight: 700; padding: 8px 12px; }
@@ -50,6 +83,9 @@
 .yc-answer > .yc-part-text:first-child > p:first-child { font-size: 16.5px; line-height: 1.4; font-weight: 600; }
 .yc-part-text a { color: var(--link); font-weight: 700; }
 .yc-answer.is-fresh .yc-part { opacity: 0; animation: yc-rise .5s cubic-bezier(.2, .8, .2, 1) forwards; }
+/* A screen only fades: a moving parent would hold its stage inside it instead of the whole chat. */
+.yc-answer.is-fresh .yc-part-screen { animation-name: yc-fade; }
+@keyframes yc-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes yc-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
 /* A screen inside the chat: the playground's renderers, with the app's dark surfaces (like .phone). */
@@ -62,6 +98,11 @@
   color: var(--text); flex: none; overflow: visible; padding: 0; gap: 12px; font-size: 15px;
 }
 .yc-screen.pg-screen { overflow: visible; }
+/* The stage (a timer, a deck, >full) fills the chat window, like the phone. ChatScreen draws it into
+   the panel itself, so it covers the header and the composer too. The host adds nothing to the layout. */
+.yc-stagehost { position: absolute; inset: 0; pointer-events: none; padding: 0; z-index: 70; }
+.yc-stagehost .yl-stage { border-radius: inherit; }
+.yc-stagehost .yl-stage.open { pointer-events: auto; }
 .yc-wait { font-size: 14px; color: var(--muted); padding: 12px 0; }
 
 .yc-starters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
@@ -113,7 +154,7 @@
 
 @media (max-width: 760px) {
   .yc { right: 16px; bottom: 16px; }
-  .yc-fab { width: 54px; height: 54px; }
+  .yc-fab { width: 58px; height: 58px; }
   .yc.is-open .yc-fab { display: none; }
   html.yc-on, html.yc-on body { overflow: hidden; }
   .yc-panel {
@@ -128,6 +169,6 @@
   .yc-panel { animation: none; }
   .yc-answer.is-fresh .yc-part { animation: none; opacity: 1; }
   .yc-typing i { animation: none; opacity: .6; }
-  .yc-fab { transition: none; }
+  .yc-fab, .yc-blob, .yc-mark, .yc-avatar { animation: none; }
 }
 @media print { .yc { display: none; } }

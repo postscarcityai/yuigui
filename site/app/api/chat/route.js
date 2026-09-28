@@ -3,7 +3,8 @@
 // Every turn and every note is kept (lib/chat/store.mjs) so the team can read what visitors want.
 //   POST { action: "say", text, path, title, history }  -> { reply, actions } | { verify: siteKey }
 //   POST { action: "verify", token }                     -> { ok }
-//   POST { action: "contact", first_name, last_name, email, phone } -> { ok }
+//   POST { action: "contact", first_name, last_name, email, phone } -> { ok }  (pages cached before the Yui form)
+//   A tap on the contact form (form@contact) rides on "say" as { event }: saved here, never sent to the model.
 import { brief } from "../../../lib/chat/brief.mjs";
 import { chatOn, turnstileOn } from "../../../lib/chat/config.mjs";
 import { MODEL, turn } from "../../../lib/chat/model.mjs";
@@ -18,7 +19,7 @@ export const maxDuration = 60;
 // on spend is the credit limit on the chat's own OpenRouter key.
 const SHORT = [10 * 60 * 1000, 20], DAY = [24 * 60 * 60 * 1000, 80];
 // With no Turnstile keys set there is no check for a person, so a chat ends sooner.
-const NO_CHECK_TURNS = 12;
+const NO_CHECK_TURNS = 100;
 const hits = new Map();
 function tooMany(ip) {
   const now = Date.now();
@@ -34,6 +35,10 @@ const say = (body, s, status = 200) => {
   if (s) res.headers.append("Set-Cookie", sessionCookie(s));
   return res;
 };
+// The contact form Yui draws when she asks (ask_contact): a Yui form in the thread, not a web form.
+// Its submit comes back as a form@contact tap, saved here, so the model never sees the details.
+const CONTACT_FORM = `form@contact "Stay in touch" first_name:text! last_name:text! email:email! phone:phone submit="Send"`;
+
 const cookieOf = (req) => (req.headers.get("cookie") || "").split(/;\s*/).find((c) => c.startsWith(`${COOKIE}=`))?.slice(COOKIE.length + 1);
 const ipOf = (req) => (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "unknown";
 
@@ -86,7 +91,19 @@ export async function POST(req) {
   }
 
   // A turn.
-  const text = clip(body.text, 1000);
+  let text = clip(body.text, 1000);
+  const ev = body.event && typeof body.event === "object" ? body.event : null;
+  if (ev?.id === "contact" && ev.preset === "form" && ev.form && typeof ev.form === "object") {
+    const c = readContact(ev.form);
+    if (c.error) return say({ error: c.error }, null, 400);
+    if (!s.contact) {
+      await saveContact(s, c).catch(() => {});
+      const r = await insertInvite(c, { source: "chat", utm: body.utm, req });
+      if (!r.ok && r.status !== 503) return say({ error: r.error }, null, r.status);
+      s.contact = true;
+    }
+    text = "[yui] contact form sent";
+  }
   if (!text) return say({ error: "Say something first." }, null, 400);
   if (tooMany(ip)) return say({ error: "That is a lot of messages. Take a breather and try again in a few minutes." }, null, 429);
   if (s.turns >= FREE_TURNS && !s.verified && turnstileOn()) return say({ verify: process.env.TURNSTILE_SITE_KEY }, s);
@@ -102,7 +119,8 @@ export async function POST(req) {
     console.error("chat turn failed", MODEL(), e.message);
     return say({ error: "Yui can't answer right now. Try again in a minute." }, null, 502);
   }
-  const reply = out.reply || "Sorry, I lost my words there. Could you say that again?";
+  let reply = out.reply || "Sorry, I lost my words there. Could you say that again?";
+  if (out.actions.some((a) => a.type === "contact")) reply += `\n\n\`\`\`yui\n${CONTACT_FORM}\n\`\`\``;
   const first = s.turns === 0;
   s.turns += 1;
   if (out.actions.some((a) => a.type === "contact")) s.asked = true;
@@ -113,5 +131,5 @@ export async function POST(req) {
     await Promise.all(out.notes.map((n) => saveNote(s, n, path)));
   } catch (e) { console.error("chat store failed", e.message); }
 
-  return say({ reply, actions: out.actions }, s);
+  return say({ reply, actions: out.actions.filter((a) => a.type !== "contact") }, s);
 }
