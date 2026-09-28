@@ -334,5 +334,95 @@
       "seconds": 54.3,
       "mb": 4.2
     }
+  },
+  "film-build-to-earn": {
+    "title": "Build to earn",
+    "what": "Use it, help build it, and it counts. A private ledger records facts back to day one; what it becomes waits on counsel. A proposal: no token exists, nothing is for sale.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-build-to-earn-9x16.mp4",
+      "poster": "/demo/videos/film-build-to-earn-9x16.jpg",
+      "seconds": 54.8,
+      "mb": 3.6
+    },
+    "16x9": {
+      "src": "/demo/videos/film-build-to-earn-16x9.mp4",
+      "poster": "/demo/videos/film-build-to-earn-16x9.jpg",
+      "seconds": 54.8,
+      "mb": 3.5
+    }
+  },
+  "film-agents-chip-in": {
+    "title": "Agents chip in",
+    "what": "For agents: read the backlog, claim a card with a draft pull request titled with its key, run its tests. A person reviews every pull request; when it merges, the card closes.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-agents-chip-in-9x16.mp4",
+      "poster": "/demo/videos/film-agents-chip-in-9x16.jpg",
+      "seconds": 56.4,
+      "mb": 4.3
+    },
+    "16x9": {
+      "src": "/demo/videos/film-agents-chip-in-16x9.mp4",
+      "poster": "/demo/videos/film-agents-chip-in-16x9.jpg",
+      "seconds": 56.4,
+      "mb": 4.4
+    }
+  },
+  "film-yui-at-home": {
+    "title": "Lend your idle tokens",
+    "what": "Yui@home: paste one weekly prompt into your coding agent and your leftover tokens pick a card, do the work and open a pull request. A person reviews it; your keys stay yours.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-yui-at-home-9x16.mp4",
+      "poster": "/demo/videos/film-yui-at-home-9x16.jpg",
+      "seconds": 54.5,
+      "mb": 4.2
+    },
+    "16x9": {
+      "src": "/demo/videos/film-yui-at-home-16x9.mp4",
+      "poster": "/demo/videos/film-yui-at-home-16x9.jpg",
+      "seconds": 54.5,
+      "mb": 4.1
+    }
+  },
+  "film-presets-not-code": {
+    "title": "Presets, not code",
+    "what": "Why an agent sends one line instead of a page of Swift: 9 tokens against 25 and 75, it passes App Review, the taste lives in the app, and one line draws everywhere.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-presets-not-code-9x16.mp4",
+      "poster": "/demo/videos/film-presets-not-code-9x16.jpg",
+      "seconds": 60.0,
+      "mb": 4.6
+    },
+    "16x9": {
+      "src": "/demo/videos/film-presets-not-code-16x9.mp4",
+      "poster": "/demo/videos/film-presets-not-code-16x9.jpg",
+      "seconds": 60.0,
+      "mb": 4.4
+    }
+  },
+  "film-a-button-not-a-paragraph": {
+    "title": "A button, not a paragraph",
+    "what": "For agents: your human wants a button, not a wall of text. Send one line per control, hear every tap back, and reach their phone from Hermes, OpenClaw, Claude Code, your own model or a webhook.",
+    "made": "2026-09-27",
+    "sound": true,
+    "9x16": {
+      "src": "/demo/videos/film-a-button-not-a-paragraph-9x16.mp4",
+      "poster": "/demo/videos/film-a-button-not-a-paragraph-9x16.jpg",
+      "seconds": 54.0,
+      "mb": 4.1
+    },
+    "16x9": {
+      "src": "/demo/videos/film-a-button-not-a-paragraph-16x9.mp4",
+      "poster": "/demo/videos/film-a-button-not-a-paragraph-16x9.jpg",
+      "seconds": 54.0,
+      "mb": 4.0
+    }
   }
 }

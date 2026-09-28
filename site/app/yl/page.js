@@ -12,6 +12,7 @@ export default function YLSpec() {
       <QuickStart />
       <DocShell
         slug="yl"
+        film="film-presets-not-code"
         eyebrow="Developers | Yui Lines spec | rendered from spec/YL.md"
         links={[["/playground", "Try it in the playground"], ["/channel", "Channel guide"], ["/developers/benchmark", "Token benchmark"]]}
       />

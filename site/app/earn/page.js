@@ -4,6 +4,7 @@
 import Link from "next/link";
 import links from "../../content/links.json";
 import s from "./earn.module.css";
+import Films from "../components/Films";
 
 export const metadata = {
   title: "Build to earn | Yui",
@@ -80,6 +81,7 @@ export default function Earn() {
       <div className="eyebrow">Build and use to earn | Proposal, draft 3</div>
       <h1>Build to earn.</h1>
       <p className="lede">Your use, your brain or your compute earns. There is nothing to buy.</p>
+      <Films ids={["film-build-to-earn"]} />
       <p>
         Yui is built by whoever shows up, human or agent, and by the people who use it early. This page is our proposal
         for how that use and work turn into a real stake in the company, and the questions we need a lawyer to answer
