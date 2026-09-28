@@ -2,15 +2,47 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 273,
-    "site": 616,
+    "site": 618,
     "builds": 42,
-    "shipped": 302,
-    "screenshots": 706
+    "shipped": 303,
+    "screenshots": 710
   },
   "days": [
     {
       "date": "2026-09-28",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-28T04:48:11.892Z",
+          "title": "The chat on this site opens full screen, like the app",
+          "card": "SITE-66",
+          "anchor": "the-chat-on-this-site-opens-full-screen-like-the-app",
+          "images": [
+            {
+              "src": "/progress/site66-phone-timer.webp",
+              "alt": "The site chat on a phone, full screen: a five minute Plank break timer on the stage with Five minutes. Go. under it, T and the big mic bottom right"
+            },
+            {
+              "src": "/progress/site66-phone-deck.webp",
+              "alt": "A deck playing on the stage on a phone: four segments on top, part two Screens, not paragraphs, back and next bottom left"
+            },
+            {
+              "src": "/progress/site66-laptop-mic.webp",
+              "alt": "On a laptop the chat is a full-height phone-shaped layer over the dimmed site; the mic is listening and Give me a timer for shows as it is heard"
+            },
+            {
+              "src": "/progress/site66-laptop-thinking.webp",
+              "alt": "On a laptop, after Is it free?: the words small at the top right and Yui's mark thinking, Thinking 0s"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 273,
+            "site": 618,
+            "builds": 42,
+            "shipped": 303
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-28T04:09:20.000Z",
@@ -33,6 +65,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "68d6950",
+          "at": "2026-09-28T04:40:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/68d6950"
+        },
+        {
+          "repo": "site",
+          "sha": "0739305",
+          "at": "2026-09-28T04:33:01.000Z",
+          "text": "The Yui 0.5.0 film in the top bar: two minutes, the crew feels ready",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0739305"
+        },
         {
           "repo": "site",
           "sha": "06c887d",
