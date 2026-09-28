@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 289,
-    "site": 642,
+    "site": 643,
     "builds": 44,
-    "shipped": 314,
-    "screenshots": 751
+    "shipped": 315,
+    "screenshots": 755
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T07:50:28.441Z",
+          "at": "2026-09-28T07:54:07.272Z",
+          "title": "See it shows the app as it is now",
+          "card": "SITE-76",
+          "anchor": "see-it-shows-the-app-as-it-is-now",
+          "images": [
+            {
+              "src": "/progress/reply-050-before-after.webp",
+              "alt": "Before and after: the old chat with Say something nice under the quote, and the same reply in 0.5.2 with the new top bar"
+            },
+            {
+              "src": "/progress/agent-chat-050-stage-light.webp",
+              "alt": "An answer on the stage: a checklist for Full body A and the words Twenty minutes, full body set big"
+            },
+            {
+              "src": "/progress/working-050-word-dark.webp",
+              "alt": "The stage while the trainer works: a breathing mark and Figuring it out, 7s"
+            },
+            {
+              "src": "/progress/slash-050-list-dark.webp",
+              "alt": "Typing a slash in the chat lists the agent's commands: new, retry, undo, title"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 289,
+            "site": 643,
+            "builds": 44,
+            "shipped": 315
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T07:50:57.000Z",
           "title": "Your planner plans the week",
           "card": "YUI-185",
           "anchor": "your-planner-plans-the-week",
@@ -35,10 +67,10 @@
               "alt": "The evening review: 2 done today, pay the water bill and groceries, 3 still open"
             }
           ],
-          "commits": 2,
+          "commits": 3,
           "totals": {
             "app": 289,
-            "site": 642,
+            "site": 643,
             "builds": 44,
             "shipped": 314
           }
@@ -429,6 +461,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "068de4b",
+          "at": "2026-09-28T07:50:57.000Z",
+          "text": "Your planner plans the week: Penny's plan-my-week, evening review and her pages in the playground, See it and the ship log (YUI-185)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/068de4b"
+        },
         {
           "repo": "app",
           "sha": "a07af5c",
