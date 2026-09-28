@@ -1,16 +1,80 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 259,
-    "site": 592,
+    "app": 262,
+    "site": 596,
     "builds": 41,
-    "shipped": 292,
-    "screenshots": 681
+    "shipped": 294,
+    "screenshots": 689
   },
   "days": [
     {
       "date": "2026-09-27",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-28T01:48:05.299Z",
+          "title": "Switch agents, keep your tables",
+          "card": "YUI-171",
+          "anchor": "switch-agents-keep-your-tables",
+          "images": [
+            {
+              "src": "/progress/yui171-basil-light.webp",
+              "alt": "Basil on Hermes answers What's highest in protein? with a Foods table, top five by protein, and the line foods, 7 rows, held by Basil. Under the phone: the yui_tables call Hermes made."
+            },
+            {
+              "src": "/progress/yui171-pick-dark.webp",
+              "alt": "The Who keeps your tables? sheet: Basil on Hermes has them, and Chef on Claude via MCP, Juno on A2A and Pantry on a webhook are one tap away."
+            },
+            {
+              "src": "/progress/yui171-chef-dark.webp",
+              "alt": "After the hand over Chef on Claude via MCP answers the same question with the same Foods table, held by Chef, then adds cottage cheese. Under the phone: the MCP tools/call with the put line."
+            },
+            {
+              "src": "/progress/yui171-chef-light.webp",
+              "alt": "The same Chef screen in light: same table, same rows, a different agent on a different host."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 262,
+            "site": 596,
+            "builds": 41,
+            "shipped": 294
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T01:22:35.000Z",
+          "title": "Hold to snap and say what's in it",
+          "card": "YUI-166",
+          "anchor": "hold-to-snap-and-say-what-s-in-it",
+          "images": [
+            {
+              "src": "/progress/yui166-camera-light.webp",
+              "alt": "Snap and say: the camera fills the screen over a pan of two fried eggs, one big coral button at the bottom and the line Hold to snap, then say what's in it."
+            },
+            {
+              "src": "/progress/yui166-holding-dark.webp",
+              "alt": "Holding the button: the photo is frozen, a coral waveform and the words Two eggs in a lot of butter show over it, and a trash button waits on the left."
+            },
+            {
+              "src": "/progress/yui166-answer-light.webp",
+              "alt": "Basil answers on the full screen: Two eggs, and the butter counts, with a Breakfast card of about 250 kcal, most of the fat from the butter."
+            },
+            {
+              "src": "/progress/yui166-record-light.webp",
+              "alt": "Basil's thread: the eggs photo and the caption Two eggs in a lot of butter as one message, with Basil's reply under it."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 260,
+            "site": 594,
+            "builds": 41,
+            "shipped": 293
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-28T01:05:01.000Z",
@@ -31,7 +95,7 @@
               "alt": "Dark mode: Yui's Still to get grocery list with milk added, then the Delete or Keep ask for coffee."
             }
           ],
-          "commits": 7,
+          "commits": 9,
           "totals": {
             "app": 259,
             "site": 591,
@@ -1342,6 +1406,55 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "5886019",
+          "at": "2026-09-28T01:42:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5886019"
+        },
+        {
+          "repo": "app",
+          "sha": "eee8c23",
+          "at": "2026-09-28T01:34:48.000Z",
+          "text": "Log a meal without weighing: an answer at once, the macros behind the scenes, one breakdown, a food memory (YUI-103)",
+          "url": "https://github.com/postscarcityai/yui/commit/eee8c23"
+        },
+        {
+          "repo": "app",
+          "sha": "e023f5b",
+          "at": "2026-09-28T01:23:51.000Z",
+          "text": "Persona eval: back off on the management API's 429 instead of crashing mid-run (YUI-170)",
+          "url": "https://github.com/postscarcityai/yui/commit/e023f5b"
+        },
+        {
+          "repo": "site",
+          "sha": "ca87f70",
+          "at": "2026-09-28T01:22:47.000Z",
+          "text": "Sync spec: camera +say (YUI-166)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ca87f70"
+        },
+        {
+          "repo": "site",
+          "sha": "a987933",
+          "at": "2026-09-28T01:22:35.000Z",
+          "text": "Progress + spec: hold to snap and say, camera +say and yui://snap shortcuts (YUI-166)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a987933"
+        },
+        {
+          "repo": "app",
+          "sha": "5e17f42",
+          "at": "2026-09-28T01:22:22.000Z",
+          "text": "Hold to snap and say: one press takes the photo, holding says what's in it, let go sends both (YUI-166)",
+          "url": "https://github.com/postscarcityai/yui/commit/5e17f42"
+        },
+        {
+          "repo": "site",
+          "sha": "4ac968e",
+          "at": "2026-09-28T01:20:10.000Z",
+          "text": "Agent tables spec: native agents keep their tables on the server (YUI-170)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4ac968e"
+        },
         {
           "repo": "site",
           "sha": "cebb725",

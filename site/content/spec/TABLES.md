@@ -8,7 +8,7 @@ put meals Day=today Food="Chicken bowl" Cal=640 Protein=52
 query meals where=Day=today sum=Cal|Protein as stat label="Today"
 ```
 
-Status: YUI-33. Native agents keep their tables on Yui's server today (YUI-170, section 7). Step 1 (this page, the parser and the playground) is the spec and the web runtime. Step 2 is the app: the same store in SQLite on the phone and the Swift parser (YUI-89). The Python, Kotlin and Rust parsers already read `table create`, `put` and `query` and carry the same store, so the vectors in `spec/conformance/30-tables.json` run in every language here. Try it at [/playground](/playground), under "Agent tables".
+Status: YUI-33. Native agents keep their tables on Yui's server today (YUI-170, section 7), and any connected agent gets the same tables through the relay next (YUI-171, section 8). Step 1 (this page, the parser and the playground) is the spec and the web runtime. Step 2 is the app: the same store in SQLite on the phone and the Swift parser (YUI-89). The Python, Kotlin and Rust parsers already read `table create`, `put` and `query` and carry the same store, so the vectors in `spec/conformance/30-tables.json` run in every language here. Try it at [/playground](/playground), under "Agent tables".
 
 ## 1. The three words
 
@@ -99,6 +99,7 @@ Writes are quiet: a `put` that lands sends nothing back. The agent hears about t
 - **A native agent's tables live with the agent.** A native agent (Yui and the starter crew) already runs on Yui's server, so its tables are kept there too, one set per agent, readable only by the runtime. Section 7.
 - **What does travel.** The `put` lines an agent writes are part of its reply, and a reply goes through the relay like any message (kept 90 days, then deleted). The agent sees table data only when the person sends it: a changed row (event 2) or rows they chose to send (event 3). There is no way for an agent to read a table silently.
 - **One agent, its own tables.** An agent cannot query another agent's tables. Removing an agent removes its tables. Deleting the account removes all of them.
+- **Any agent, next.** Section 8 moves a connected agent's tables onto the server too, owned by the person and handed between agents.
 - **Backups and sync.** Step 1 has none: a new phone starts with empty tables. [Encrypted sync](/developers/sync) (YUI-36) decides v1 ships without sync, proposes keeping the tables file in the iPhone's own backup so a new phone keeps it, and designs end to end encrypted sync for when a second Yui device arrives.
 
 ## 5. Starters
@@ -158,3 +159,71 @@ draws, in the reply the phone gets:
 ```
 list title="Still to get" "Bread · 1 loaf · Bakery" "Eggs · 1 dozen · Dairy" "Milk · 1 gallon · Dairy"
 ```
+
+## 8. Any agent: the same tables through the relay
+
+Status: YUI-171, planned. Step 1 is this section and the [switch agents mock](/mockups/tables). Step 2 builds it in the app repo: the Hermes plugin tools, the yui-mcp tools and the bridge endpoints. Until step 2 ships, section 4 holds: a connected agent's tables stay on the phone.
+
+Tables live in Yui, not in one agent framework. A Hermes agent, a Claude agent over MCP, an A2A agent or a webhook script gets the same three words and the same screens a native agent gets (section 7). Pick a different agent next month and your tables are still there.
+
+### One path on the server
+
+Every adapter ends up in one place: the relay's `tables` call on `yui-connect`, with the connection's own token. It takes Yui Lines and runs them on the same store as section 7.
+
+```
+POST /functions/v1/yui-connect/tables
+Authorization: Bearer <connection token>
+{"agent": "basil", "lines": "query foods where=Food~oat as table"}
+```
+
+It answers with what the lines did: `{"ok": [...], "failed": [...], "results": [{"cols": [...], "rows": [...], "count": N}]}`. `failed` holds each refused line and why, the same text as event 1 in section 3.
+
+There are two ways in, and every adapter has both:
+
+- **In the reply.** `table create`, `put` and `query` lines inside a ```` ```yui ```` block. The relay takes them out before the reply is saved, writes the rows and draws each `query` into a plain `table`, `list`, `chart` or `stat`, exactly as section 7 does. A reply that is only `query` lines is a read: the rows come back to the agent as its next turn. This needs nothing from the adapter, so it works on every host today's phone talks to.
+- **As a call.** For an agent that wants the rows in the middle of a turn. Each adapter names the one server call its own way:
+
+| Adapter | Call | Example |
+|---|---|---|
+| Hermes plugin | tool `yui_tables` | `yui_tables(lines="query foods sort=-Protein limit=5")` |
+| yui-mcp (Claude, ChatGPT, n8n) | tool `yui_tables` | `{"name": "yui_tables", "arguments": {"lines": "put meals Food=Oats Cal=300"}}` |
+| A2A bridge | a data part in the answer | `{"kind": "data", "data": {"yui": "tables", "lines": "query meals where=Day=today"}}`; the rows come back as a data part on the next message |
+| Webhook bridge | `tables` in the response | `{"reply": "Logged.", "tables": "put meals Food=Oats Cal=300"}`; a response with `tables` and no `reply` is a read, and the rows arrive in the next POST as `tables` |
+
+Same verbs, same types, same errors, same limits (section 2) in all four. An adapter never talks to the database; there is no second copy of the rules to drift.
+
+### Who owns a table
+
+- **The person owns it. An agent holds it.** Every table belongs to the person's account and is held by one agent at a time. Only the agent that holds a table can write it, read it or draw it. Another agent asking for it hears "No table called foods yet", the same as a table that does not exist.
+- **A token reaches only its own agents.** A connection token that serves Basil can pass `agent: "basil"` and nobody else. Two agents on one token still keep their own tables.
+- **Every read is on the record.** Unlike the phone store, the holding agent can read its tables without the person tapping Send. Controls lists each table with its row count, who holds it and when it was last read ("Basil, 2 min ago"). The person can take a table away from the agent there at any time.
+- **Deletes ask first,** as in section 7: `+delete` and `table drop` put a Delete or Keep button in front of the person, from every adapter.
+
+### Switching agents
+
+Tables follow the person, not the agent.
+
+- **Hand them over.** In Controls > Tables, "Give to..." picks any of the person's agents. The table keeps its name, columns and rows; it now answers to the new agent, and the old one loses it. Nothing is copied.
+- **When you add an agent,** Yui asks once if other agents hold tables: "Basil keeps foods and meals. Give them to Chef?" Yes hands them over. No leaves them where they are.
+- **When you remove an agent,** its tables are no longer deleted with it: Yui asks "Keep Basil's 2 tables?" Kept tables wait, held by nobody, for 30 days. Give them to any agent in that time, or they are deleted. Deleting the account deletes them all at once.
+- **Same name twice.** If the new agent already has a `foods`, the handed table is offered as `foods-basil`; the person can rename it before it moves.
+- **The agent learns what it has.** After a hand over, the new agent's next turn opens with one line: `[yui] tables foods(44 rows: Food, Cal, Protein, Carbs, Fat, Portion) meals(12 rows: Day, Food, Cal, Protein)`. It needs no memory of the old agent to carry on.
+- **Screens do not change.** A pinned `query` screen keeps drawing after the hand over; it names the table, not the agent.
+
+### Limits for any agent
+
+Section 2's limits, plus the ones a shared server needs:
+
+| What | Limit |
+|---|---|
+| tables per person, across all agents | 100 |
+| `tables` calls per agent | 60 a minute |
+| lines in one call | 50 |
+| rows one call hands back | 500 |
+| an unheld table waits | 30 days |
+
+A call past a limit is refused with the reason and writes nothing.
+
+### Tests (step 2)
+
+One test file per adapter, all against the same server call: the Hermes tool, the MCP tool, the A2A data part and the webhook field each create a table, write rows, read them, get a refused line back, and ask before a delete. A hand over test writes with a Hermes agent, gives the table to an MCP agent and checks the second agent reads the same rows and the first one reads nothing.
