@@ -377,7 +377,9 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .phonebox { display: flex; flex-direction: column; align-items: center; gap: 12px; }
 .phonebox .cap { color: var(--muted); font-size: 14px; text-align: center; max-width: 300px; }
 .phone { width: 300px; height: 620px; border-radius: 44px; background: #050509; padding: 12px; box-shadow: 0 30px 80px rgba(58,51,64,.35), 0 0 0 2px #2d3044; }
-.screen { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: #0f1019; display: flex; flex-direction: column; position: relative; }
+.screen { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: #0f1019; display: flex; flex-direction: column; position: relative; isolation: isolate; }
+/* A phone's stage and lightbox (z-index 50 to 70) stay inside the phone, so a phone scrolled under the sticky nav never draws over it. */
+.phone { isolation: isolate; }
 .notch { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 96px; height: 26px; background: #050509; border-radius: 20px; z-index: 2; }
 .sbar { height: 44px; flex: none; }
 .ahead { display: flex; align-items: center; gap: 10px; padding: 6px 16px 12px; border-bottom: 1px solid #1f2233; }

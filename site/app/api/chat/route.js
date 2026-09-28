@@ -66,6 +66,13 @@ export async function POST(req) {
     return say({ ok: true }, s);
   }
 
+  // New chat: a fresh id and turn count. The per-visitor limits above still count every turn.
+  if (body.action === "new") {
+    const n = newSession();
+    Object.assign(n, { verified: s.verified, contact: s.contact, asked: s.asked });
+    return say({ ok: true }, n);
+  }
+
   if (body.action === "contact") {
     if (body.website) return say({ ok: true }, s); // honeypot
     if (s.contact) return say({ ok: true }, s);
@@ -84,7 +91,7 @@ export async function POST(req) {
   if (tooMany(ip)) return say({ error: "That is a lot of messages. Take a breather and try again in a few minutes." }, null, 429);
   if (s.turns >= FREE_TURNS && !s.verified && turnstileOn()) return say({ verify: process.env.TURNSTILE_SITE_KEY }, s);
   if (s.turns >= (turnstileOn() ? MAX_TURNS : NO_CHECK_TURNS)) {
-    return say({ reply: "This chat is full. Thank you for all of it, the team reads every chat. You can pick Yui up on your iPhone from [Get Yui](/start).", actions: [], done: true }, s);
+    return say({ reply: "This chat has run long. Tap New chat to start a fresh one, or pick Yui up on your iPhone from [Get Yui](/start).", actions: [], done: true }, s);
   }
 
   const path = clip(body.path, 300) || "/";

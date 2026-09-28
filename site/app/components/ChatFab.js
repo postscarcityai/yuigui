@@ -240,7 +240,7 @@ export default function ChatFab() {
           <header className="yc-head">
             <span className="yc-avatar" aria-hidden="true">Y</span>
             <div><strong>Yui</strong><span>Answers with screens</span></div>
-            {msgs.length > 0 && <button className="yc-new" onClick={() => { setMsgs([]); setError(""); setFresh(-1); }} title="Start over">New chat</button>}
+            {msgs.length > 0 && <button className="yc-new" onClick={() => { fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "new" }) }).catch(() => {}); setMsgs([]); setError(""); setFresh(-1); }} title="Start over">New chat</button>}
             <button className="yc-x" onClick={() => setOpen(false)} aria-label="Close chat">×</button>
           </header>
           <div className="yc-list" ref={list} aria-live="polite">

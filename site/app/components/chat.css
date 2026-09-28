@@ -1,5 +1,5 @@
 /* Yui in the bubble (SITE-64, SITE-65). Opening it turns the site dark, so the panel reads like the app:
-   a plum stage with Yui's coral glow, answers in big type, screens drawn live. On a phone it is the
+   a plum stage with Yui's coral glow, answers in plain chat type, screens drawn live. On a phone it is the
    whole screen, like the app's stage. */
 .yc { position: fixed; right: 20px; bottom: 20px; z-index: 40; font-family: var(--font); }
 .yc-fab {
@@ -34,20 +34,20 @@
 .yc-list { flex: 1; overflow-y: auto; padding: 8px 18px 20px; display: flex; flex-direction: column; gap: 14px; overscroll-behavior: contain; }
 
 /* The person's side: coral bubbles on the right. A tap shows the words they tapped. */
-.yc-msg { max-width: 86%; padding: 10px 15px; border-radius: var(--r-bubble); font-size: 16px; line-height: 1.4; overflow-wrap: anywhere; }
+.yc-msg { max-width: 86%; padding: 9px 14px; border-radius: var(--r-bubble); font-size: 15px; line-height: 1.4; overflow-wrap: anywhere; }
 .yc-msg p { margin: 0; }
 .yc-user { align-self: flex-end; background: var(--user-bubble); color: var(--user-ink); border-bottom-right-radius: var(--r-tail); white-space: pre-wrap; font-weight: 600; }
 .yc-tapped { background: transparent; color: var(--brand); border: 1.5px solid var(--brand); }
 .yc-tapped p::before { content: "Tapped: "; font-weight: 500; opacity: .75; }
 
-/* Yui's side: no bubble. Big type, one idea at a time, then the screen. */
+/* Yui's side: no bubble, plain chat type, then the screen. The first line carries a little more weight. */
 .yc-answer { align-self: stretch; display: flex; flex-direction: column; gap: 12px; }
-.yc-part-text { font-size: 17px; line-height: 1.5; overflow-wrap: anywhere; }
+.yc-part-text { font-size: 15.5px; line-height: 1.5; font-weight: 400; overflow-wrap: anywhere; }
 .yc-part-text p { margin: 0; }
 .yc-part-text p + p, .yc-part-text p + ul, .yc-part-text ul + p { margin-top: 8px; }
 .yc-part-text ul { margin: 4px 0 0; padding-left: 20px; }
 .yc-part-text li + li { margin-top: 3px; }
-.yc-answer > .yc-part-text:first-child > p:first-child { font-size: 23px; line-height: 1.28; font-weight: 800; letter-spacing: -.01em; }
+.yc-answer > .yc-part-text:first-child > p:first-child { font-size: 16.5px; line-height: 1.4; font-weight: 600; }
 .yc-part-text a { color: var(--link); font-weight: 700; }
 .yc-answer.is-fresh .yc-part { opacity: 0; animation: yc-rise .5s cubic-bezier(.2, .8, .2, 1) forwards; }
 @keyframes yc-rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
@@ -122,7 +122,6 @@
     animation-name: yc-up;
   }
   .yc-list { padding: 8px 20px 24px; }
-  .yc-answer > .yc-part-text:first-child > p:first-child { font-size: 26px; }
 }
 @keyframes yc-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
