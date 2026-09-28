@@ -2,7 +2,16 @@
 // the Yui Lines its phone draws. The page keeps its own title and line (lib/og/meta.mjs takes them
 // from the page); this table only holds the picture. /og?page=<key> draws a row with the OgCard kit.
 // Dynamic routes share their section's row (business/[slug] uses "/business").
+// `release: true` rows follow the latest release (SITE-86, lib/og/release.mjs): the eyebrow gains the
+// version and date, the text says what the release is, and the phone shows a screen from it. Their yl
+// is what draws when there is no release line.
 export const PAGES = {
+  "/": {
+    eyebrow: "NEW",
+    release: true,
+    yl: `say Your agent draws the screen.
+choose "What should we try?" "A timer"|"A form"|"A choice"`,
+  },
   "/contribute": {
     eyebrow: "CONTRIBUTE | YUI@HOME",
     yl: `say Found an open card on the backlog.
@@ -40,6 +49,7 @@ end`,
   },
   "/progress": {
     eyebrow: "SHIPPED",
+    release: true,
     yl: `timeline "What shipped"
 done "A change, with screenshots" at=Today
 done "Another one" at=Yesterday
@@ -47,6 +57,7 @@ end`,
   },
   "/changelog": {
     eyebrow: "BUILDS",
+    release: true,
     yl: `card "A new TestFlight build" sub="what changed" body="Every build, with screenshots." cta="What to try"`,
   },
   "/timeline": {
@@ -102,6 +113,7 @@ ask "Log this set?"`,
   },
   "/mockups": {
     eyebrow: "SEE IT",
+    release: true,
     yl: `pick "Every screen Yui draws today" Timers|Forms|Charts|Music|Maps submit="See it live"`,
   },
   "/mockups/chats": {

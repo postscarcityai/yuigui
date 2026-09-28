@@ -3,7 +3,8 @@ export default {
   reactStrictMode: true,
   // SITE-19: /og and each share link's preview image draw at request time with these fonts and captured screens.
   outputFileTracingIncludes: {
-    "/og": ["./lib/og/fonts/*", "./public/og/screens/*"],
+    // SITE-86: release cards read the roadmap's Latest release line and the release's picture.
+    "/og": ["./lib/og/fonts/*", "./public/og/screens/*", "./public/og/release/*", "./public/og/thoughts/*", "./content/ROADMAP.md"],
     "/s/[id]/opengraph-image": ["./lib/og/fonts/*", "./public/og/screens/*"],
     // SITE-64: the chat searches the whole site at request time, including the pages written as JSX.
     "/api/chat": ["./content/**/*", "./app/page.js", "./app/help/page.js", "./app/start/page.js", "./app/privacy/page.js", "./app/earn/page.js", "./app/contribute/page.js"],

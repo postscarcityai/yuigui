@@ -9,15 +9,22 @@ import { STAGE } from "../lib/stage.mjs";
 import LivePhone from "./mockups/LivePhone";
 import bench from "../content/benchmark.json";
 import { TAGS, niceDate, thoughts } from "../lib/thoughts.mjs";
-import { readFileSync } from "node:fs";
-import path from "node:path";
+import { latestRelease, releaseHead } from "../lib/og/release.mjs";
+import { pageMeta } from "../lib/og/meta.mjs";
 
 // On phones now: the roadmap's "Latest release" line, so the home page moves with each release.
-const latest = (() => {
-  const md = readFileSync(path.join(process.cwd(), "content", "ROADMAP.md"), "utf8");
-  const m = md.match(/\*\*Latest release: Yui ([\d.]+), build (\d+), ([^:]+): ([^*]+?)\.?\*\*/);
-  return m && { version: m[1], build: m[2], date: m[3], name: m[4] };
-})();
+// Its share card follows the same line (SITE-86): the release's name, version, date and a screen from it.
+const latest = latestRelease();
+
+export const metadata = pageMeta({
+  path: "/",
+  title: "Yui | a generative user interface",
+  description: "Meet Yui, a generative user interface. Your agent draws the screen instead of replying in walls of text: a timer, a form, a choice. A native iPhone app for the agents you already run, in alpha on TestFlight.",
+  share: latest ? {
+    title: releaseHead(latest),
+    description: `Meet Yui, a generative user interface: your agent draws the screen. Yui ${latest.version} is on TestFlight since ${latest.date}, build ${latest.build}.`,
+  } : { title: "Meet Yui, a generative user interface." },
+});
 
 const what = [
   ["Screens, not walls of text", "Ask for a workout and get a timer. Get asked a question and get buttons. Change your answer any time."],

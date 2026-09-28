@@ -11,7 +11,9 @@
     "freshness": "node scripts/freshness.mjs",
     "links": "node scripts/links.mjs",
     "og": "node scripts/og-check.mjs",
-    "og:pages": "node scripts/og-pages-check.mjs"
+    "og:pages": "node scripts/og-pages-check.mjs",
+    "og:refresh": "node scripts/og-refresh.mjs",
+    "og:sheet": "node scripts/og-sheet.mjs"
   },
   "dependencies": {
     "katex": "^0.16.47",

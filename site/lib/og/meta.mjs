@@ -4,6 +4,7 @@
 // The image URL carries a hash of what it draws, so a changed picture is a new URL chat apps fetch fresh.
 import { createHash } from "node:crypto";
 import { PAGES } from "./pages.mjs";
+import { latestRelease, releaseVersion } from "./release.mjs";
 
 export const SITE_URL = "https://www.yuigui.com";
 
@@ -13,20 +14,26 @@ export const headOf = (title) => title.replace(/\s*\|\s*Yui$/, "");
 export function pageImage(key, head) {
   const row = PAGES[key];
   if (!row) throw new Error(`og: no row for "${key}" in lib/og/pages.mjs`);
-  const v = createHash("sha1").update(`${key}\n${head}\n${row.eyebrow}\n${row.yl}`).digest("hex").slice(0, 10);
+  let v = createHash("sha1").update(`${key}\n${head}\n${row.eyebrow}\n${row.yl}`).digest("hex").slice(0, 10);
+  // A row that follows the release (SITE-86) versions its image by the release: build number first.
+  if (row.release) {
+    const rv = releaseVersion(latestRelease());
+    v = `${rv.split("-")[0]}-${createHash("sha1").update(`${v}\n${rv}`).digest("hex").slice(0, 10)}`;
+  }
   return `/og?page=${encodeURIComponent(key)}&title=${encodeURIComponent(head)}&v=${v}`;
 }
 
 // title and description are the page's own words; path is its URL (null for a private link like /i/<code>,
-// which then carries no og:url); key picks the picture (default: path).
-export function pageMeta({ title, description, path, key = path, ...rest }) {
-  const head = headOf(title);
+// which then carries no og:url); key picks the picture (default: path). share: { title, description } when the
+// share card says something other than the tab (the home page shares the latest release, SITE-86).
+export function pageMeta({ title, description, path, key = path, share = {}, ...rest }) {
+  const head = headOf(share.title || title);
   const image = { url: pageImage(key, head), width: 1200, height: 630, alt: `${head}, on Yui` };
   return {
     title,
     description,
     ...rest,
-    openGraph: { title, description, ...(path ? { url: `${SITE_URL}${path}` } : {}), siteName: "Yui", type: "website", images: [image] },
-    twitter: { card: "summary_large_image", title, description, images: [image.url] },
+    openGraph: { title: share.title || title, description: share.description || description, ...(path ? { url: `${SITE_URL}${path}` } : {}), siteName: "Yui", type: "website", images: [image] },
+    twitter: { card: "summary_large_image", title: share.title || title, description: share.description || description, images: [image.url] },
   };
 }

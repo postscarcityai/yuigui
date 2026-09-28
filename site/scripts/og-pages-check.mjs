@@ -1,17 +1,18 @@
 // Every page shares as itself (SITE-85). Fails the build when an app/**/page.js sets no openGraph of its
 // own, because Next then shares it as the home page: the layout's title, line and picture.
 // A page passes when its metadata goes through pageMeta (lib/og/meta.mjs) or sets openGraph itself, or
-// when it re-exports the metadata of a page that does. The home page is the one exception: layout.js
-// holds its openGraph. It also fails when a pageMeta key has no row in lib/og/pages.mjs.
+// when it re-exports the metadata of a page that does. The home page too (SITE-86: it shares the latest release).
+// It also fails when a pageMeta key has no row in lib/og/pages.mjs, and when ROADMAP.md has no Latest release
+// line for the release cards to follow.
 // Run: node scripts/og-pages-check.mjs (npm run build runs it first). Exit 0 when every page passes.
 import { readFileSync, readdirSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { PAGES } from "../lib/og/pages.mjs";
+import { latestRelease, releaseScreenFile } from "../lib/og/release.mjs";
 
 const SITE = fileURLToPath(new URL("..", import.meta.url));
 const APP = join(SITE, "app");
-const HOME = join(APP, "page.js");
 
 const pages = [];
 (function walk(dir) {
@@ -36,7 +37,6 @@ function passes(file, seen = new Set()) {
 const problems = [];
 for (const f of pages.sort()) {
   const rel = relative(SITE, f);
-  if (f === HOME) continue;
   if (!passes(f)) problems.push(`${rel}: no openGraph of its own, so it shares as the home page. Use pageMeta from lib/og/meta.mjs.`);
   const src = readFileSync(f, "utf8");
   for (const m of src.matchAll(/pageMeta\(\{([^}]*)/g)) {
@@ -45,9 +45,13 @@ for (const f of pages.sort()) {
   }
 }
 
+const rel = latestRelease(SITE);
+if (!rel) problems.push("content/ROADMAP.md: no **Latest release: Yui <version>, build <n>, <date>: <name>.** line, so the home page cannot share the release");
+else if (!releaseScreenFile(rel, SITE)) console.warn(`og-pages: no picture for Yui ${rel.version} yet, its cards draw lines. Run npm run og:refresh and commit the jpg.`);
+
 if (problems.length) {
   for (const p of problems) console.error(`og-pages: ${p}`);
   console.error(`og-pages: ${problems.length} problem(s) across ${pages.length} pages`);
   process.exit(1);
 }
-console.log(`og-pages ok: ${pages.length - 1} pages share as themselves (home uses layout.js)`);
+console.log(`og-pages ok: ${pages.length} pages share as themselves; ${Object.keys(PAGES).filter((k) => PAGES[k].release).join(", ")} follow Yui ${rel.version}`);
