@@ -1,16 +1,44 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 270,
-    "site": 605,
+    "app": 272,
+    "site": 610,
     "builds": 41,
-    "shipped": 299,
-    "screenshots": 702
+    "shipped": 300,
+    "screenshots": 704
   },
   "days": [
     {
       "date": "2026-09-27",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-28T02:45:47.000Z",
+          "title": "Your tables work with any agent",
+          "card": "YUI-171",
+          "anchor": "your-tables-work-with-any-agent",
+          "images": [
+            {
+              "src": "/progress/yui171-site-calls-light.webp",
+              "alt": "The real calls from the live test: Basil on Hermes makes a foods table with yui_tables, Claude over MCP hears No table called foods yet, a delete waits on Delete or Keep, the person gives foods to Claude, and Claude reads the same rows."
+            },
+            {
+              "src": "/progress/yui171-site-calls-dark.webp",
+              "alt": "The same five calls in dark mode."
+            },
+            {
+              "src": "/progress/yui171-site-top-dark.webp",
+              "alt": "The switch agents page, now marked Live for Hermes and MCP, with the Basil and Chef phones."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 271,
+            "site": 606,
+            "builds": 41,
+            "shipped": 300
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-28T02:20:06.000Z",
@@ -117,24 +145,20 @@
         {
           "kind": "ship",
           "at": "2026-09-28T01:48:15.000Z",
-          "title": "Your tables work with any agent",
+          "title": "Tables right in the reply, for any agent",
           "card": "YUI-171",
-          "anchor": "your-tables-work-with-any-agent",
+          "anchor": "tables-right-in-the-reply-for-any-agent",
           "images": [
             {
-              "src": "/progress/yui171-site-calls-light.webp",
-              "alt": "The real calls from the live test: Basil on Hermes makes a foods table with yui_tables, Claude over MCP hears No table called foods yet, a delete waits on Delete or Keep, the person gives foods to Claude, and Claude reads the same rows."
+              "src": "/progress/yui171-reply-light.webp",
+              "alt": "In the reply: Basil writes table create, put and query lines under Logged your breakfast, and the phone gets the words and a Foods table with Two eggs and Oats. Under it, a reply that only reads sends the rows back to Basil as his next turn."
             },
             {
-              "src": "/progress/yui171-site-calls-dark.webp",
-              "alt": "The same five calls in dark mode."
-            },
-            {
-              "src": "/progress/yui171-site-top-dark.webp",
-              "alt": "The switch agents page, now marked Live for Hermes and MCP, with the Basil and Chef phones."
+              "src": "/progress/yui171-reply-dark.webp",
+              "alt": "The same page in dark mode."
             }
           ],
-          "commits": 1,
+          "commits": 3,
           "totals": {
             "app": 264,
             "site": 597,
@@ -166,7 +190,7 @@
               "alt": "The same Chef screen in light: same table, same rows, a different agent on a different host."
             }
           ],
-          "commits": 1,
+          "commits": 3,
           "totals": {
             "app": 264,
             "site": 597,
@@ -350,7 +374,7 @@
               "alt": "On a phone: the light page, then the chat full screen and dark, Meet the crew with five names to tap, and Quill's quiz deck after tapping Quill"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 251,
             "site": 582,
@@ -1537,6 +1561,55 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "ee49c21",
+          "at": "2026-09-28T03:40:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ee49c21"
+        },
+        {
+          "repo": "site",
+          "sha": "aa6fa69",
+          "at": "2026-09-28T03:38:56.000Z",
+          "text": "Site chat: save both messages of a turn (PostgREST wants the same keys on every row) (SITE-64)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/aa6fa69"
+        },
+        {
+          "repo": "site",
+          "sha": "0db52e8",
+          "at": "2026-09-28T03:36:58.000Z",
+          "text": "The site chat plays like the app: the stage, library screens, a Yui contact form, the floating Yui bubble (SITE-65)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0db52e8"
+        },
+        {
+          "repo": "site",
+          "sha": "b9f3616",
+          "at": "2026-09-28T03:10:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b9f3616"
+        },
+        {
+          "repo": "app",
+          "sha": "d163510",
+          "at": "2026-09-28T02:49:23.000Z",
+          "text": "Yui 0.5.0: the crew feels ready (snap and say, meet each agent, homes, meals without weighing)",
+          "url": "https://github.com/postscarcityai/yui/commit/d163510"
+        },
+        {
+          "repo": "site",
+          "sha": "69e2fcd",
+          "at": "2026-09-28T02:45:47.000Z",
+          "text": "Tables for any agent is live for Hermes and MCP: the real calls on /mockups/tables, spec status, progress (YUI-171)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/69e2fcd"
+        },
+        {
+          "repo": "app",
+          "sha": "c109a4b",
+          "at": "2026-09-28T02:45:05.000Z",
+          "text": "Tables for any agent: one server call, yui_tables for Hermes and MCP, hand a table over (YUI-171)",
+          "url": "https://github.com/postscarcityai/yui/commit/c109a4b"
+        },
         {
           "repo": "site",
           "sha": "e4beb4e",

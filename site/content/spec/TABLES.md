@@ -162,7 +162,7 @@ list title="Still to get" "Bread · 1 loaf · Bakery" "Eggs · 1 dozen · Dairy"
 
 ## 8. Any agent: the same tables through the relay
 
-Status: YUI-171. Built (step 2, Sep 27): the server call (`yui-connect/tables`), the Hermes tool and the yui-mcp tool `yui_tables`, deletes held for a tap, the 100-table and 60-a-minute limits, and hand over as a server call (`yui_tables_give`, the person's own token). The [switch agents page](/mockups/tables) shows the real calls from the live test. Not built yet: table lines inside a connected agent's reply, the A2A and webhook fields, and the app side (Controls > Tables with Give to... and last read, the ask when you add or remove an agent). Until the reply path ships, a connected agent keeps server tables through the call only.
+Status: YUI-171. Built: the server call (`yui-connect/tables`), the Hermes tool and the yui-mcp tool `yui_tables`, deletes held for a tap, the 100-table and 60-a-minute limits, and hand over as a server call (`yui_tables_give`, the person's own token) (step 2, Sep 27). Then table lines in the reply for the Hermes plugin, the A2A bridge and the webhook bridge, the A2A data part and the webhook `tables` field, and the `[yui] tables` line after a hand over (step 3, Sep 28). The [switch agents page](/mockups/tables) shows the real calls from the live tests. Not built yet: the app side (Controls > Tables with Give to... and last read, the ask when you add or remove an agent; today removing an agent still deletes its tables).
 
 Tables live in Yui, not in one agent framework. A Hermes agent, a Claude agent over MCP, an A2A agent or a webhook script gets the same three words and the same screens a native agent gets (section 7). Pick a different agent next month and your tables are still there.
 
@@ -180,15 +180,15 @@ It answers with what the lines did: `{"ok": [...], "failed": [...], "results": [
 
 There are two ways in, and every adapter has both:
 
-- **In the reply.** `table create`, `put` and `query` lines inside a ```` ```yui ```` block. The relay takes them out before the reply is saved, writes the rows and draws each `query` into a plain `table`, `list`, `chart` or `stat`, exactly as section 7 does. A reply that is only `query` lines is a read: the rows come back to the agent as its next turn. This needs nothing from the adapter, so it works on every host today's phone talks to.
+- **In the reply.** `table create`, `put` and `query` lines inside a ```` ```yui ```` block. Before the reply is saved, the adapter hands the whole reply to the same call as `reply`; the server writes the rows and answers with `text`, the reply with the table lines taken out and each `query` drawn into a plain `table`, `list`, `chart` or `stat`, exactly as section 7 does. The adapter saves `text`. A reply of writes alone becomes "Saved." over the table that changed. A reply that is only `query` lines (or a ```` ```tables ```` block) is a read: the server answers `{"read": true, "note": "[yui] Your tables: ..."}`, nothing is saved, and the adapter gives `note` to the agent as its next turn, twice in a row at most (a third is drawn for the person). A refused write is told to the agent on its next turn. Only in the owner's own thread: a thread shared with a client never touches the owner's tables. The Hermes plugin, the A2A bridge and the webhook bridge do this; a Delete or Keep tap in a Hermes thread is settled as it arrives and the agent's turn says what happened. A host that writes rows straight to the relay without the call sends its table lines as they are.
 - **As a call.** For an agent that wants the rows in the middle of a turn. Each adapter names the one server call its own way:
 
 | Adapter | Call | Example |
 |---|---|---|
 | Hermes plugin | tool `yui_tables` | `yui_tables(lines="query foods sort=-Protein limit=5")` |
 | yui-mcp (Claude, ChatGPT, n8n) | tool `yui_tables` | `{"name": "yui_tables", "arguments": {"lines": "put meals Food=Oats Cal=300"}}` |
-| A2A bridge | a data part in the answer | `{"kind": "data", "data": {"yui": "tables", "lines": "query meals where=Day=today"}}`; the rows come back as a data part on the next message |
-| Webhook bridge | `tables` in the response | `{"reply": "Logged.", "tables": "put meals Food=Oats Cal=300"}`; a response with `tables` and no `reply` is a read, and the rows arrive in the next POST as `tables` |
+| A2A bridge | a data part in the answer | `{"kind": "data", "data": {"yui": "tables", "lines": "query meals where=Day=today"}}`; the rows come back as a data part `{"yui": "tables", "results": [...]}` on the next message. An answer with only the data part is a read: that next message goes at once |
+| Webhook bridge | `tables` in the response | `{"reply": "Logged.", "tables": "put meals Food=Oats Cal=300"}`; a response with `tables` and no `reply` is a read, and the rows arrive at once in the next POST as `tables: {results, failed, held, tables, note}` |
 
 Same verbs, same types, same errors, same limits (section 2) in all four. An adapter never talks to the database; there is no second copy of the rules to drift.
 
@@ -207,7 +207,7 @@ Tables follow the person, not the agent.
 - **When you add an agent,** Yui asks once if other agents hold tables: "Basil keeps foods and meals. Give them to Chef?" Yes hands them over. No leaves them where they are.
 - **When you remove an agent,** its tables are no longer deleted with it: Yui asks "Keep Basil's 2 tables?" Kept tables wait, held by nobody, for 30 days. Give them to any agent in that time, or they are deleted. Deleting the account deletes them all at once.
 - **Same name twice.** If the new agent already has a `foods`, the handed table is offered as `foods-basil`; the person can rename it before it moves.
-- **The agent learns what it has.** A call with no lines settles any taps and lists what the agent holds. After a hand over, the new agent's next turn opens with one line: `[yui] tables foods(44 rows: Food, Cal, Protein, Carbs, Fat, Portion) meals(12 rows: Day, Food, Cal, Protein)`. It needs no memory of the old agent to carry on.
+- **The agent learns what it has.** A call with no lines settles any taps and lists what the agent holds. After a hand over, the new agent's next turn opens with one line: `[yui] tables foods(44 rows: Food, Cal, Protein, Carbs, Fat, Portion) meals(12 rows: Day, Food, Cal, Protein)`. It needs no memory of the old agent to carry on. The server puts the line in `meta.tables` of the person's next message to that agent, once; the Hermes plugin, the A2A bridge and the webhook bridge put it at the top of the turn.
 - **Screens do not change.** A pinned `query` screen keeps drawing after the hand over; it names the table, not the agent.
 
 ### Limits for any agent
@@ -224,6 +224,6 @@ Section 2's limits, plus the ones a shared server needs:
 
 A call past a limit is refused with the reason and writes nothing.
 
-### Tests (step 2)
+### Tests
 
-One test file per adapter, all against the same server call: the Hermes tool, the MCP tool, the A2A data part and the webhook field each create a table, write rows, read them, get a refused line back, and ask before a delete. A hand over test writes with a Hermes agent, gives the table to an MCP agent and checks the second agent reads the same rows and the first one reads nothing.
+One test file per adapter, all against the same server call: the Hermes tool, the MCP tool, the A2A data part and the webhook field each create a table, write rows, read them, get a refused line back, and ask before a delete. A hand over test writes with a Hermes agent, gives the table to an MCP agent and checks the second agent reads the same rows and the first one reads nothing (`supabase/tests/tables_any_agent_e2e.py`). The reply path, the read and the hand over line run live in `supabase/tests/tables_reply_e2e.py`, and each bridge has offline tests (`hermes-plugin/tests/test_tables_reply.py`, `adapters/a2a/tests`, `adapters/webhook/tests`) and a tables section in its live test.
