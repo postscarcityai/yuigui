@@ -5,7 +5,7 @@ import ChatFab from "./components/ChatFab";
 import Nav from "./components/Nav";
 import GetYui from "./components/GetYui";
 import NotOnEmbed from "./components/NotOnEmbed";
-import TopBar from "./components/TopBar";
+// No announcement bar for now (Chris, Sep 28: the 0.5.0 bar is off). components/TopBar.js is kept for the next one.
 import { chatOn } from "../lib/chat/config.mjs";
 
 const GA_ID = "G-VYENQDDF00";
@@ -53,7 +53,7 @@ export default function RootLayout({ children }) {
               : location.pathname === '/tg' ? { page_location: location.origin + '/tg', page_referrer: '' } : {});
           `}
         </Script>
-        <NotOnEmbed><TopBar /><Nav /></NotOnEmbed>
+        <NotOnEmbed><Nav /></NotOnEmbed>
         <main className="wrap">{children}</main>
         <NotOnEmbed>
           <GetYui />
