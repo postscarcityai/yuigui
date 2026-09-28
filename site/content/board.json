@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T18:40:59.368Z",
+  "updated": "2026-09-28T19:11:04.337Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -302,11 +302,6 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
-        },
-        {
-          "key": "SITE-86",
-          "title": "Fresh og on every major update",
-          "summary": "The home share card shows the latest release, versioned images, one refresh step and a contact sheet"
         }
       ]
     },
@@ -374,11 +369,6 @@
           "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
         },
         {
-          "key": "SITE-85",
-          "title": "Every page shares as itself",
-          "summary": "Its own og title, line and image, /contribute first"
-        },
-        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -436,6 +426,19 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-86",
+          "title": "Fresh og on every major update",
+          "summary": "The home page shares the latest release",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-home-page-shares-the-latest-release"
+        },
+        {
+          "key": "SITE-85",
+          "title": "Every page shares as itself",
+          "shipped": "2026-09-28",
+          "progress": "/progress#every-page-shares-as-itself"
+        },
         {
           "key": "SITE-84",
           "title": "Stop a turn in the site chat, the send button turns into a stop square",
