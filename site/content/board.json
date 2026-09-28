@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T11:10:46.389Z",
+  "updated": "2026-09-28T11:41:07.156Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -217,15 +217,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-80",
-          "title": "See it's live-only app entries, shot on the live test runs"
-        },
-        {
-          "key": "SITE-81",
-          "title": "The stage plays a deck's titled questions as pages, and a redraw beside an answer keeps you on the answer (app parity for YUI-183)",
-          "waiting": true
-        },
-        {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors",
           "waiting": true
@@ -340,8 +331,12 @@
           "progress": "/progress#your-study-buddy-teaches-and-quizzes"
         },
         {
-          "key": "SITE-69",
-          "title": "Meet the crew in the site chat, each member with a flow to try"
+          "key": "SITE-80",
+          "title": "See it's live-only app entries, shot on the live test runs"
+        },
+        {
+          "key": "SITE-81",
+          "title": "The stage plays a deck's titled questions as pages, and a redraw beside an answer keeps you on the answer (app parity for YUI-183)"
         },
         {
           "key": "INT-8",
@@ -401,6 +396,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-69",
+          "title": "Meet the crew in the site chat, each member with a flow to try",
+          "summary": "Meet the crew in the site chat, each with a flow to try",
+          "shipped": "2026-09-28",
+          "progress": "/progress#meet-the-crew-in-the-site-chat-each-with-a-flow-to-try"
+        },
         {
           "key": "SITE-74",
           "title": "The study buddy's flow for the site chat, from a topic to a quiz",
