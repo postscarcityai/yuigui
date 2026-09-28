@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 305,
-    "site": 671,
+    "site": 674,
     "builds": 44,
-    "shipped": 328,
-    "screenshots": 805
+    "shipped": 331,
+    "screenshots": 813
   },
   "days": [
     {
@@ -13,7 +13,87 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T13:16:41.851Z",
+          "at": "2026-09-28T13:41:58.800Z",
+          "title": "Ticks and your week, on every device",
+          "card": "YUI-185b",
+          "anchor": "ticks-and-your-week-on-every-device",
+          "images": [
+            {
+              "src": "/progress/yui185b-quiet-tick-today.webp",
+              "alt": "The playground: Pay the water bill ticked on Penny's Today, the wire log showing the tick sent to her runtime quietly and her one-line patch back"
+            },
+            {
+              "src": "/progress/yui185b-quiet-tick-week.webp",
+              "alt": "This week after the tick: Pay the water bill marked done above the Today line, the rest of the week unchanged"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 305,
+            "site": 674,
+            "builds": 44,
+            "shipped": 331
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T13:22:56.000Z",
+          "title": "Penny's tools in the app: plan your week by voice, a reminder on your phone, a week you can drag",
+          "card": "YUI-185",
+          "anchor": "penny-s-tools-in-the-app-plan-your-week-by-voice-a-reminder-on-your-phone-a-week",
+          "images": [
+            {
+              "src": "/progress/yui185-app-light-3-talking.webp",
+              "alt": "Plan my week on one screen: the mic listening, the words typed so far in the box under it, then Any days already full?"
+            },
+            {
+              "src": "/progress/yui185-app-dark-7-ticked.webp",
+              "alt": "Dark mode: Today after a tick, Groceries up next with Done, the list and the evening review"
+            },
+            {
+              "src": "/progress/yui185-app-light-10-week-saved.webp",
+              "alt": "This week as a timeline: Pay the water bill done above the Today line, Book a haircut dragged up to today"
+            },
+            {
+              "src": "/progress/yui185-app-dark-12-review-answered.webp",
+              "alt": "Dark mode: the evening review, done, tomorrow or drop for each task, how today went, one Wrap up the day button"
+            }
+          ],
+          "commits": 6,
+          "totals": {
+            "app": 305,
+            "site": 674,
+            "builds": 44,
+            "shipped": 330
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T13:21:20.000Z",
+          "title": "Basil's grocery list just works",
+          "card": "YUI-188",
+          "anchor": "basil-s-grocery-list-just-works",
+          "images": [
+            {
+              "src": "/progress/yui188-basil-before.webp",
+              "alt": "Before: Basil answers the grocery ask with a card saying no table called groceries yet and a paragraph of error text repeated three times"
+            },
+            {
+              "src": "/progress/yui188-basil-after.webp",
+              "alt": "After: the grocery list with fish, potatoes and light vegetables added, then one line, 9 items to get, and a next step picker"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 305,
+            "site": 673,
+            "builds": 44,
+            "shipped": 329
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T13:16:52.000Z",
           "title": "Meet the crew: one page for Yui and the five starter agents",
           "card": "SITE-82",
           "anchor": "meet-the-crew-one-page-for-yui-and-the-five-starter-agents",
@@ -35,10 +115,10 @@
               "alt": "Desktop in dark mode: the crew row and Yui's first screen, Where do you want to start"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 305,
-            "site": 671,
+            "site": 672,
             "builds": 44,
             "shipped": 328
           }
@@ -442,7 +522,7 @@
               "alt": "The evening review: 2 done today, pay the water bill and groceries, 3 still open"
             }
           ],
-          "commits": 5,
+          "commits": 6,
           "totals": {
             "app": 290,
             "site": 644,
@@ -868,6 +948,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "2c0f38b",
+          "at": "2026-09-28T13:22:56.000Z",
+          "text": "Progress: Penny's tools in the app, plan your week by voice, a reminder on your phone, a week you can drag (YUI-185)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2c0f38b"
+        },
+        {
+          "repo": "site",
+          "sha": "4861755",
+          "at": "2026-09-28T13:21:20.000Z",
+          "text": "Progress: Basil's grocery list just works, before and after (YUI-188)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4861755"
+        },
+        {
+          "repo": "site",
+          "sha": "8dbadcd",
+          "at": "2026-09-28T13:16:52.000Z",
+          "text": "Meet the crew: yuigui.com/crew, Yui and the five starter agents with their tools and a live demo each (SITE-82)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8dbadcd"
+        },
         {
           "repo": "app",
           "sha": "9e4fb65",

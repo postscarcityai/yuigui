@@ -2,7 +2,7 @@
 // stand (their pickers are tools, not asks). The app's twins are
 // ChatStore.pageUpdate and YLScreen.namedScreens (YUI-183).
 //   node site/lib/yl/pages.test.mjs     exit 1 on any failure
-import { pageForward, parse, standingPages } from "./yl.mjs";
+import { pageForward, parse, quietToAgent, standingPages } from "./yl.mjs";
 import { BASIL_KNOWN, BASIL_WEEK } from "./basil-week.mjs";
 
 let bad = 0, n = 0;
@@ -42,6 +42,16 @@ save hello
 >full
 timer 5m
 save five`)), []);
+
+// A tick that reaches a native agent's runtime, quietly (YUI-185b, RELAY.md Events).
+const tick = (id, checked = true) => ({ id, preset: "list", item: "Pay the water bill", checked });
+eq("a tick on a named list on a native agent's page goes, quiet", quietToAgent(tick("today", true), { screen: "2", native: true }), true);
+eq("untick goes too", quietToAgent(tick("today", false), { screen: "4", native: true }), true);
+eq("a tick in the chat stays on the phone", quietToAgent(tick("today"), { screen: "1", native: true }), false);
+eq("a tick on the stage stays", quietToAgent(tick("today"), { screen: "full", native: true }), false);
+eq("an unnamed list stays", quietToAgent(tick("n2"), { screen: "2", native: true }), false);
+eq("a connected (Hermes) agent's page stays", quietToAgent(tick("today"), { screen: "2", native: false }), false);
+eq("anything but a tick is not this rule", quietToAgent({ id: "today", preset: "pick", picked: ["a"] }, { screen: "2", native: true }), false);
 
 console.log(`${n - bad} passed, ${bad} failed`);
 process.exit(bad ? 1 : 0);

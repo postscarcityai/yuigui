@@ -452,9 +452,10 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .pg-agent { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
 .pg-log { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; max-height: 320px; overflow: auto; }
 .pg-ev { display: flex; gap: 10px; font-size: 12.5px; padding: 4px 0; border-bottom: 1px dashed #23263a; }
-.pg-ev span { color: var(--muted); flex: none; width: 60px; }
+.pg-ev span { color: var(--muted); flex: none; width: 76px; }
 .pg-ev.user span { color: var(--accent2); }
 .pg-ev.agent span { color: var(--accent); }
+.pg-ev.phone code { color: var(--muted); }
 .pg-ev code { font-family: ui-monospace, Menlo, monospace; word-break: break-all; }
 .pg-ev.err code { color: #ff8a8a; }
 .pg-tabs { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }

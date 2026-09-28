@@ -131,6 +131,7 @@ form "Check-in" sleep:1-10 "Home gym":yes split:Push|Pull|Legs
 ### list
 `list [Title] items...`. The first token, if it is a bare word, is the title. Every token after it is an item: quoted tokens, each part of an options token, and each bare word on its own (`list Groceries milk eggs` has two items). Emits `{item, checked}` when `+check` is on.
 Props: `title`, `items`, `+check` (checklist), `+num` (numbered).
+A tick is a quiet event (section 7): the phone keeps it and the agent is not asked. A checklist with an `@id` keeps its ticks per agent across replies. On a page (`>2` to `>12`) of a native agent (spec `RELAY.md`, Events), a tick on a named checklist also goes to its runtime, still quiet: no echo, no working row. The runtime marks the row in its tables and patches the page (`~today`, `~wk-3 kind=done`), so Penny's Today and This week follow a tick and another device reads the same list. The reference function is `quietToAgent(event, {screen, native})` in `yl.mjs`.
 ```
 list Today "Squat 5x5 @ 225" "Bench 5x5 @ 185" +check
 list Warmup "Jumping jacks"|"Hip openers" +num

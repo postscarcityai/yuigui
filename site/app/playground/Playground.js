@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Parser, StreamParser, apply, initialState, pageForward, pageOf, parse } from "../../lib/yl/yl.mjs";
+import { Parser, StreamParser, apply, initialState, pageForward, pageOf, parse, quietToAgent } from "../../lib/yl/yl.mjs";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../../lib/yl/samples.mjs";
 import { RELEASE_META as RELEASE } from "../../lib/yl/release-meta.mjs";
 import { boundTables } from "../../lib/yl/tables.mjs";
@@ -34,6 +34,16 @@ import "./flows.css";
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA, ...RELEASE];
 // Agent names a share link may carry (?as=), so a shared screen reopens with the same header.
 const AGENTS = new Set(ALL.map((s) => s.agent));
+// The crew runs on Yui's own runtime (native); the rest stand for connected agents (Hermes and the like).
+const NATIVE = new Set(["Yui", "Basil", "Gouda", "Penny", "Quill"]);
+
+// A native agent's runtime answers a quiet tick with patches only (YUI-185b): Penny marks the task done and
+// the same row on This week turns done in place. Nothing is said in the chat.
+function tickReply(ev, screens) {
+  if (!ev.checked) return null;
+  const row = Object.values(screens).flat().find((n) => (n.preset === "next" || n.preset === "now") && n.props?.text === ev.item);
+  return row ? [`~${row.id} kind=done`] : null;
+}
 const COLORS = { Coach: "var(--arnold)", Basil: "#2FB58C", Gouda: "#9B87F5", Penny: "#e8a33d", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)", Sage: LOOKS.Sage.c, Quill: LOOKS.Quill.c };
 
 // `log`: data lines sent after the reply (the agent line, a tapped checkbox),
@@ -357,12 +367,26 @@ export default function Playground({ release = "" }) {
   agentRef.current = agentLine;
   const idsRef = useRef(new Set());
   idsRef.current = new Set(Object.values(state.screens).flat().map((n) => n.id).filter(Boolean));
+  const screensRef = useRef(state.screens);
+  screensRef.current = state.screens;
+  const nativeRef = useRef(false);
+  nativeRef.current = NATIVE.has(agent);
   const emitFor = useCallback((node) => {
     const k = `${node.key}:${node.preset}:${node.seq}`;
     if (!emits.current.has(k)) {
       emits.current.set(k, (value) => {
         const ev = { id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) };
-        setEvents((evs) => [{ dir: "user", t: new Date(), ev }, ...evs].slice(0, 40));
+        // A checklist tick is quiet: it stays on the phone, unless it is a native agent's named list on a page
+        // (RELAY.md Events, YUI-185b), which goes to its runtime with no echo and no working row.
+        const screen = Object.entries(screensRef.current).find(([, l]) => l.some((n) => n.key === node.key))?.[0];
+        const tick = node.preset === "list" && typeof ev.checked === "boolean";
+        const quiet = tick && quietToAgent(ev, { screen, native: nativeRef.current });
+        setEvents((evs) => [{ dir: tick && !quiet ? "phone" : "user", quiet, t: new Date(), ev }, ...evs].slice(0, 40));
+        if (tick) {
+          const patch = quiet && tickReply(ev, screensRef.current);
+          if (patch) patch.forEach((l, i) => setTimeout(() => agentRef.current(l), 500 + i * 250));
+          return;
+        }
         const session = crewReply(ev);
         const reply = demoReply(ev) || musicReply(ev) || mealReply(ev, idsRef.current) || starterReply(ev) || (session && [`say "${session.text}"`, ...session.lines]);
         if (reply) [].concat(reply).forEach((l, i) => setTimeout(() => agentRef.current(l), 700 + i * 250));
@@ -495,8 +519,8 @@ export default function Playground({ release = "" }) {
           {!events.length ? <div className="pg-hint">Tap something on the phone.</div> : null}
           {events.map((e, i) => (
             <div key={i} className={`pg-ev ${e.dir}`}>
-              <span>{e.dir === "user" ? "→ agent" : "agent →"}</span>
-              <code>{e.dir === "user" ? JSON.stringify(e.ev) : e.line}</code>
+              <span>{e.dir === "phone" ? "stays on the phone" : e.quiet ? "→ runtime, quiet" : e.dir === "user" ? "→ agent" : "agent →"}</span>
+              <code>{e.dir === "agent" ? e.line : JSON.stringify(e.ev)}</code>
             </div>
           ))}
           {state.errors.length ? (

@@ -45,6 +45,8 @@ A tap or submit becomes one `event` row. The body is written by the app:
 
 Quiet events stay on the phone: a timer starting, a checklist tick. An event goes to the agent when the person answered something (it has an echo) or something finished (`done`). That keeps every checkbox from costing an agent turn.
 
+One quiet event does go, on a native agent only (YUI-185b): a tick on a named checklist (`list@today ... +check`, an `@id` the agent wrote, not `n1`) on one of its pages (`2` to `12`). The runtime keeps that list in its tables (Penny's Today, Basil's groceries), so the tick goes to it as a quiet event: no echo in the chat, no working row, nothing owed. The runtime marks the row and answers with patches only, which never move the person. A tick in the chat, on an unnamed list, or on a Hermes or other connected agent's page still stays on the phone.
+
 A reaction (hold an agent's message, pick one of six) is also an `event` row: `[yui] react msg=<agent row id> emoji=👍 meaning="build it"`, then the start of the reacted message quoted with `> `, and `meta` `{react: {msg, emoji}}`. A trigger copies the emoji onto the reacted row's `reaction` column. Spec: `REACTIONS.md`.
 
 A reply (hold a message and tap Reply) is an ordinary `text` row whose body starts with one line the app writes, then the person's words: `[yui] reply to=<row id> from=agent quote="first line"`, `from=user` when they answer one of their own. `meta.reply_to` carries the same `{msg, from, quote}` (next to `photos` when there are any). The quote is the message's first line, or a card's title, at most 120 characters. The app draws the words with a chip for the quote and drops the line; hosts pass the body through, so every agent reads it.

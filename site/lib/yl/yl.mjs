@@ -1644,6 +1644,18 @@ export function pageOf(screen) {
   return Number.isInteger(n) && String(n) === screen && n >= 2 && n <= MAX_PAGE ? n : 1;
 }
 
+// A quiet event that still goes (YUI-185b, RELAY.md Events): a tick on a
+// named checklist (an @id the agent wrote, not n1) on a page (2 to 12) of a
+// native agent. Its runtime keeps that list in its tables (Penny's Today,
+// Basil's groceries), so the tick goes to it with no echo and no working row,
+// and it answers with patches only. Everywhere else a tick stays on the phone.
+// The app's twin is YLEvent.keepsPage and ChatStore's quietTick.
+export function quietToAgent(ev, { screen, native } = {}) {
+  if (!native || !ev || ev.preset !== "list" || typeof ev.checked !== "boolean") return false;
+  if (!ev.id || AUTO_ID.test(ev.id)) return false;
+  return pageOf(String(screen ?? "1")) > 1;
+}
+
 // Ids that last (spec section 5): explicit ids on a page (2 to 12) or on a
 // component that came back from a saved screen, id -> preset, newest last.
 // Hand them to the next reply's parser so `~need-t_x +lock` can reach one
