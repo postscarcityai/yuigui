@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 308,
-    "site": 681,
+    "app": 310,
+    "site": 689,
     "builds": 44,
-    "shipped": 335,
-    "screenshots": 825
+    "shipped": 337,
+    "screenshots": 831
   },
   "days": [
     {
@@ -13,7 +13,63 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T14:41:43.851Z",
+          "at": "2026-09-28T18:43:03.869Z",
+          "title": "Every page shares as itself",
+          "card": "SITE-85",
+          "anchor": "every-page-shares-as-itself",
+          "images": [
+            {
+              "src": "/progress/site85-before-after.webp",
+              "alt": "Two link previews side by side. Before, a link to /contribute showed the home page's title and picture. After, it shows Contribute with your agent and a phone with an open card and a Claim it button."
+            },
+            {
+              "src": "/progress/site85-every-page.webp",
+              "alt": "A grid of 32 share previews, one per page of yuigui.com, each with its own title, eyebrow and phone screen."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 310,
+            "site": 689,
+            "builds": 44,
+            "shipped": 337
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T15:43:10.000Z",
+          "title": "Stop a reply from the main screen",
+          "card": "YUI-190",
+          "anchor": "stop-a-reply-from-the-main-screen",
+          "images": [
+            {
+              "src": "/progress/yui190-light-1-working.webp",
+              "alt": "Yui working out the macros, with the mic at the bottom right turned into a coral stop square"
+            },
+            {
+              "src": "/progress/yui190-dark-2-stopped.webp",
+              "alt": "Dark mode: the stage says Stopped. and Say the next thing when you're ready, with the mic back"
+            },
+            {
+              "src": "/progress/yui190-dark-1-working.webp",
+              "alt": "Dark mode: the stop square in the bottom bar while an agent works"
+            },
+            {
+              "src": "/progress/yui190-light-3-record.webp",
+              "alt": "The chat record with a quiet Stopped line under the ask"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 310,
+            "site": 685,
+            "builds": 44,
+            "shipped": 336
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T14:42:23.000Z",
           "title": "A pause to listen",
           "card": null,
           "anchor": "a-pause-to-listen",
@@ -21,7 +77,7 @@
           "commits": 0,
           "totals": {
             "app": 308,
-            "site": 681,
+            "site": 682,
             "builds": 44,
             "shipped": 335
           }
@@ -50,7 +106,7 @@
               "alt": "The chat on a computer with the text field open while Yui thinks: the send button is a stop square."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 308,
             "site": 680,
@@ -1059,6 +1115,76 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "85faa81",
+          "at": "2026-09-28T18:40:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/85faa81"
+        },
+        {
+          "repo": "site",
+          "sha": "0bf10e3",
+          "at": "2026-09-28T17:40:54.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0bf10e3"
+        },
+        {
+          "repo": "site",
+          "sha": "415ca18",
+          "at": "2026-09-28T17:23:10.000Z",
+          "text": "The 0.5.0 announcement bar comes off the site",
+          "url": "https://github.com/postscarcityai/yuigui/commit/415ca18"
+        },
+        {
+          "repo": "site",
+          "sha": "b6ab8e6",
+          "at": "2026-09-28T16:10:52.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b6ab8e6"
+        },
+        {
+          "repo": "site",
+          "sha": "90bcde0",
+          "at": "2026-09-28T15:43:10.000Z",
+          "text": "progress: stop a reply from the main screen (YUI-190)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/90bcde0"
+        },
+        {
+          "repo": "app",
+          "sha": "58c325e",
+          "at": "2026-09-28T15:43:02.000Z",
+          "text": "Stop on a real account: a hosted turn stopped mid-answer, kills, relaunches and five agent switches (YUI-190)",
+          "url": "https://github.com/postscarcityai/yui/commit/58c325e"
+        },
+        {
+          "repo": "app",
+          "sha": "f9397f3",
+          "at": "2026-09-28T14:51:18.000Z",
+          "text": "Stop a turn from the main screen: the mic becomes a stop square while an agent works (YUI-190)",
+          "url": "https://github.com/postscarcityai/yui/commit/f9397f3"
+        },
+        {
+          "repo": "site",
+          "sha": "3790ee7",
+          "at": "2026-09-28T14:47:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3790ee7"
+        },
+        {
+          "repo": "site",
+          "sha": "270fa52",
+          "at": "2026-09-28T14:43:10.000Z",
+          "text": "A stopped ask never goes to Yui as history, so it cannot steer the next answer (SITE-84)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/270fa52"
+        },
+        {
+          "repo": "site",
+          "sha": "bf00193",
+          "at": "2026-09-28T14:42:23.000Z",
+          "text": "A pause to listen: the roadmap and progress say dev is on hold for user research, 0.6.0 is built and waits; the 0.5.0 film leaves the...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bf00193"
+        },
         {
           "repo": "site",
           "sha": "621e44c",

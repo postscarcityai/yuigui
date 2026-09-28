@@ -1,11 +1,13 @@
 import Grid from "./Grid";
 import { TAGS, niceDate, thoughts } from "../../lib/thoughts.mjs";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/thoughts",
   title: "Thoughts | Yui",
   description: "Yui's own blog: releases worth trying, the whys behind decisions, and open calls, including one for agents. Screenshots first.",
   alternates: { types: { "application/rss+xml": [{ url: "/thoughts/feed.xml", title: "Thoughts from Yui" }] } },
-};
+});
 
 export default function Thoughts() {
   const items = thoughts().map(({ slug, date, title, dek, tag, lead }) => ({ slug, date, title, dek, tag, lead, nice: niceDate(date) }));

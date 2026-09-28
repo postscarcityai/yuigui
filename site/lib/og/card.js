@@ -99,10 +99,59 @@ function Node({ n }) {
       </div>
     );
   }
+  // Page previews (SITE-85) draw timelines, lists and cards with their words, not just a heading.
+  if (n.preset === "timeline") return <div style={{ display: "flex", color: C.soft, fontFamily: "Nunito", fontWeight: 800, fontSize: 15, margin: "4px 4px 8px" }}>{clip(String(head || ""), 34)}</div>;
+  if (n.preset === "done" || n.preset === "now" || n.preset === "next") {
+    const dot = { done: C.mint, now: C.brand, next: "transparent" }[n.preset];
+    return (
+      <div style={{ ...box, flexDirection: "row", alignItems: "center", marginBottom: 6, padding: "10px 12px", border: n.preset === "now" ? `2px solid ${C.brand}` : "2px solid transparent" }}>
+        <div style={{ display: "flex", width: 14, height: 14, borderRadius: 7, background: dot, border: `2px solid ${n.preset === "next" ? C.soft : dot}`, marginRight: 10, flexShrink: 0 }} />
+        <div style={{ display: "flex", flexGrow: 1 }}>{clip(String(p.text || ""), 26)}</div>
+        {p.at || p.tag ? <div style={{ display: "flex", color: C.soft, fontSize: 13, marginLeft: 6 }}>{clip(String(p.at || p.tag), 10)}</div> : null}
+      </div>
+    );
+  }
+  if (n.preset === "list") {
+    const items = (p.items || []).filter((x) => typeof x === "string").slice(0, 5);
+    return (
+      <div style={box}>
+        {p.title ? <div style={{ display: "flex", marginBottom: 6 }}>{clip(String(p.title), 30)}</div> : null}
+        {items.map((t, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", marginTop: 5, fontSize: 15 }}>
+            <div style={{ display: "flex", width: 20, height: 20, borderRadius: p.check ? 6 : 10, border: p.check ? `2px solid ${C.soft}` : "none", background: p.check ? "transparent" : C.lav, color: C.plum, fontSize: 12, fontWeight: 800, alignItems: "center", justifyContent: "center", marginRight: 9 }}>{p.check ? "" : String(i + 1)}</div>
+            <div style={{ display: "flex" }}>{clip(t, 28)}</div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  if (n.preset === "table" && p.cols?.length) {
+    const cell = (t, j, bold) => <div key={j} style={{ display: "flex", flex: 1, fontSize: 14, fontWeight: bold ? 800 : 700, color: bold ? C.soft : C.code }}>{clip(String(t), 10)}</div>;
+    return (
+      <div style={box}>
+        {p.title || p.name ? <div style={{ display: "flex", marginBottom: 6 }}>{clip(String(p.title || p.name), 30)}</div> : null}
+        <div style={{ display: "flex" }}>{p.cols.slice(0, 3).map((t, j) => cell(t, j, true))}</div>
+        {(p.rows || []).slice(0, 4).map((r, i) => <div key={i} style={{ display: "flex", marginTop: 5 }}>{[].concat(r).slice(0, 3).map((t, j) => cell(t, j))}</div>)}
+      </div>
+    );
+  }
+  if (n.preset === "card") {
+    return (
+      <div style={box}>
+        {p.tag ? <div style={{ display: "flex", alignSelf: "flex-start", padding: "2px 8px", borderRadius: 8, background: C.butter, color: C.plum, fontSize: 12, fontWeight: 800, marginBottom: 6 }}>{clip(String(p.tag), 16)}</div> : null}
+        <div style={{ display: "flex", fontSize: 18, fontWeight: 800 }}>{clip(String(p.title || ""), 40)}</div>
+        {p.sub ? <div style={{ display: "flex", color: C.soft, fontSize: 14, marginTop: 2 }}>{clip(String(p.sub), 40)}</div> : null}
+        {p.body ? <div style={{ display: "flex", marginTop: 6, fontSize: 15, lineHeight: 1.3 }}>{clip(String(p.body), 80)}</div> : null}
+        {p.cta ? <div style={{ display: "flex", marginTop: 10, padding: "8px 12px", borderRadius: 14, background: C.brand, color: C.plum, justifyContent: "center" }}>{p.cta}</div> : null}
+      </div>
+    );
+  }
   const opts = p.options || p.items?.filter((x) => typeof x === "string" && !x.startsWith("/")) || (p.fields || []).map((f) => f.key);
   return (
     <div style={box}>
       {head ? <div style={{ display: "flex", marginBottom: opts?.length ? 8 : 0 }}>{clip(String(head), 60)}</div> : <div style={{ display: "flex", color: C.soft }}>{n.preset}</div>}
+      {p.title && p.body ? <div style={{ display: "flex", fontSize: 14, marginTop: -4, marginBottom: 6, lineHeight: 1.3 }}>{clip(String(p.body), 70)}</div> : null}
+      {p.title && p.q ? <div style={{ display: "flex", color: C.soft, fontSize: 14, marginBottom: 8 }}>{clip(String(p.q), 44)}</div> : null}
       {opts?.length ? <div style={{ display: "flex", flexWrap: "wrap" }}>{opts.slice(0, 5).map((t, i) => chip(t, i, i === 0 && n.preset === "choose"))}</div> : null}
       {p.submit || p.cta ? <div style={{ display: "flex", marginTop: 6, padding: "8px 12px", borderRadius: 14, background: C.brand, color: C.plum, justifyContent: "center" }}>{p.submit || p.cta}</div> : null}
     </div>

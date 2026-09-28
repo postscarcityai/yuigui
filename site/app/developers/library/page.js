@@ -4,11 +4,13 @@ import "katex/dist/katex.min.css";
 import "./library.css";
 import Library from "./Library";
 import { SHELVES, flows, presets, screens } from "../../../lib/yl/library.mjs";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/developers/library",
   title: "Library | Yui",
   description: "Every screen a Yui agent can send, drawn live, and every saved flow as its chart. Search it, copy the lines, or open one in the playground. Agents read the same list at /library.json.",
-};
+});
 
 export default function LibraryPage() {
   const ps = presets();

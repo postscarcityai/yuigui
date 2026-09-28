@@ -7,6 +7,7 @@ import Shots from "../components/Shots";
 import Films from "../components/Films";
 import AgentBox from "../components/AgentBox";
 import { PATHS } from "../../lib/start-paths.mjs";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
 // Shots from build 162 on the simulator, demo account, the pairing flow of YuiPromoTests.testPromoPair (SITE-46).
 const PAIR_SHOTS = [
@@ -23,10 +24,11 @@ const FIRST_SHOTS = [
 // `backticks` in a path's body become inline code.
 const inline = (t) => t.split("`").map((part, i) => (i % 2 ? <code key={i}>{part}</code> : part));
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/start",
   title: "Get started | Yui",
   description: "Connect your agent to the Yui app: Hermes in three steps, or OpenClaw, a webhook, Claude, ChatGPT, Claude Code, Cursor, an A2A agent or a model on your own machine.",
-};
+});
 
 export default function Start() {
   return (

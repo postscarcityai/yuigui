@@ -6,8 +6,9 @@ import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
 import LazyVideo from "../components/LazyVideo";
 import { inNextBuild, NEXT_BUILD_NOTE } from "../../lib/nextbuild.mjs";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = { title: "Shipped | Yui" };
+export const metadata = pageMeta({ path: "/progress", title: "Shipped | Yui", description: "Every Yui change, newest first, with screenshots." });
 
 export default function Progress() {
   return (

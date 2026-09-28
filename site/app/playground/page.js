@@ -6,6 +6,7 @@ import "katex/dist/katex.min.css";
 import { cleanYL, findSample, sampleSlug } from "../../lib/share.mjs";
 import { encodeYL, readYL } from "../../lib/share-code.mjs";
 import { RELEASE_YL } from "../../lib/yl/release-sample.mjs";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
 // A shared playground link (SITE-19) previews the screen it carries: /og draws the lines.
 export async function generateMetadata({ searchParams }) {
@@ -16,7 +17,7 @@ export async function generateMetadata({ searchParams }) {
   const og = code ? `/og?yl=${code}` : s ? `/og?demo=${encodeURIComponent(sampleSlug(s))}` : null;
   const title = code ? "A screen made in the Yui playground" : s ? `${s.name} | Yui playground` : "Playground | Yui";
   const description = "Yui Lines in, a live phone screen out. Edit the lines and the screen redraws as you type.";
-  if (!og) return { title, description };
+  if (!og) return pageMeta({ path: "/playground", title, description });
   return {
     title,
     description,

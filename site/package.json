@@ -5,12 +5,13 @@
   "scripts": {
     "sync": "node scripts/sync-content.mjs && node scripts/export-timeline.mjs",
     "dev": "next dev",
-    "build": "node scripts/library-check.mjs && next build",
+    "build": "node scripts/library-check.mjs && node scripts/og-pages-check.mjs && next build",
     "library": "node scripts/library-check.mjs",
     "start": "next start",
     "freshness": "node scripts/freshness.mjs",
     "links": "node scripts/links.mjs",
-    "og": "node scripts/og-check.mjs"
+    "og": "node scripts/og-check.mjs",
+    "og:pages": "node scripts/og-pages-check.mjs"
   },
   "dependencies": {
     "katex": "^0.16.47",

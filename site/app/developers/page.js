@@ -6,11 +6,13 @@ import { specDocs } from "../../lib/spec.mjs";
 import Cmd from "../components/Cmd";
 import AgentBox from "../components/AgentBox";
 import { BADGE_HTML, BADGE_MD, embedSnippet } from "../../lib/share-code.mjs";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/developers",
   title: "Developers | Yui",
   description: "How Yui works under the hood: connect your agent, the Yui Lines screen language, the channel guide, the playground and the source.",
-};
+});
 
 const cards = [
   ["/start", "Connect your agent", "Install the Hermes plugin and pair it with the app. About five minutes."],

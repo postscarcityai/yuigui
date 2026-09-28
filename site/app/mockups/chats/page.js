@@ -2,11 +2,13 @@
 // Drawn by hand in the browser, not the app: the app has no chats yet. Spec: spec/CHATS.md.
 import Link from "next/link";
 import ChatsMock from "./ChatsMock";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/mockups/chats",
   title: "Chats mock | Yui",
   description: "A clickable mock of several chats per agent in Yui: New chat, the chat list in the drawer, rename, and delete that asks first. Not built yet.",
-};
+});
 
 export default async function ChatsMockPage({ searchParams }) {
   const q = await searchParams;

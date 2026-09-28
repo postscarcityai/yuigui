@@ -6,13 +6,15 @@
 // never see the code (layout.js). Keep the steps in step with the app's
 // sign-in screen (Yui/Sources/Account/SignInView.swift in the app repo).
 import { notFound } from "next/navigation";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: null, key: "/i",
   title: "You're invited | Yui",
   description: "Your invite to the Yui beta: get the app from TestFlight, open this link, sign in with Apple.",
   robots: { index: false, follow: false },
   referrer: "no-referrer",
-};
+});
 
 // Same rule as the app: letters and numbers, 10 of them shown as ABCDE-FGHJK.
 function clean(raw) {

@@ -5,11 +5,13 @@ import Link from "next/link";
 import links from "../../../content/links.json";
 import gallery from "../../../content/gallery.json";
 import LivePhone from "../../mockups/LivePhone";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/developers/community",
   title: "Community | Yui",
   description: "Build with Yui Lines: who uses it today, how to contribute a parser, preset, renderer or adapter, and the open challenge to draw your best screen in three lines.",
-};
+});
 
 const repo = links.github;
 const app = links.appRepo;

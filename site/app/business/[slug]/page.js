@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { renderMd } from "../../../lib/md.mjs";
-import { businessDocs } from "../../../lib/business.mjs";
+import { businessDocs, BLURBS } from "../../../lib/business.mjs";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
 export const dynamicParams = false;
 
@@ -11,7 +12,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const d = businessDocs().find((x) => x.slug === slug);
-  return { title: d ? `${d.title} | Yui` : "Business | Yui" };
+  return pageMeta({ path: `/business/${slug}`, key: "/business", title: d ? `${d.title} | Yui` : "Business | Yui", description: BLURBS[slug] || "How Yui plans to find its people, earn its keep and stay honest." });
 }
 
 export default async function BusinessDoc({ params }) {

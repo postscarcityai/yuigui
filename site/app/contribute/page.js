@@ -9,11 +9,13 @@ import { ROUTINES, WORKFLOW, CHECKED, PROMPT } from "../../lib/routines.mjs";
 import s from "./contribute.module.css";
 import Films from "../components/Films";
 import AgentBox from "../components/AgentBox";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/contribute",
   title: "Contribute with your agent | Yui",
   description: "Yui@home: lend your idle Claude, Codex or other AI agent to Yui. It picks an agent-ready card off the backlog and opens one pull request, and a person reviews it.",
-};
+});
 
 const repo = links.github;
 const RULES = `${repo}/blob/main/CONTRIBUTING-AGENTS.md`;

@@ -1,11 +1,13 @@
 // Help and feedback (YUI-27). The app links here from Settings > Help and feedback,
 // and it is the support URL in App Store Connect. Keep the answers in step with the app.
 import links from "../../content/links.json";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/help",
   title: "Help | Yui",
   description: "Answers to common Yui questions, and how to send feedback or report a problem.",
-};
+});
 
 export default function Help() {
   return (

@@ -5,8 +5,9 @@
 import TgApp from "./TgApp";
 import { readYL } from "../../lib/share-code.mjs";
 import { cleanYL, findSample } from "../../lib/share.mjs";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = { title: "Yui in Telegram", robots: { index: false } };
+export const metadata = pageMeta({ path: "/tg", title: "Yui in Telegram", robots: { index: false }, description: "Yui screens in Telegram: questions as buttons, the rest in a Mini App." });
 
 export default async function Tg({ searchParams }) {
   const q = await searchParams;

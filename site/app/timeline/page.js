@@ -4,11 +4,13 @@ import data from "../../content/timeline.json";
 import Grow from "../components/Grow";
 import Shots from "../components/Shots";
 import Films from "../components/Films";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/timeline",
   title: "Timeline | Yui",
   description: "Watch Yui grow: every change, build and commit to the app and this site, day by day, with screenshots.",
-};
+});
 
 const dayName = (d) => new Date(`${d}T12:00:00`).toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
 const time = (iso) => new Date(iso).toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" });

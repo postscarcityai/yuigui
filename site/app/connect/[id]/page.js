@@ -2,13 +2,15 @@
 // connect. The flow is ConnectFlow; the request id is all this page holds.
 import { notFound } from "next/navigation";
 import ConnectFlow from "../../components/ConnectFlow";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: null, key: "/connect",
   title: "Connect to Yui",
   description: "Let an AI app put screens on your phone in Yui.",
   robots: { index: false, follow: false },
   referrer: "no-referrer",
-};
+});
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 

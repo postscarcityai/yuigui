@@ -11,11 +11,13 @@ import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
 import { releaseBuild } from "../../lib/release.mjs";
 import Films from "../components/Films";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/changelog",
   title: "Builds | Yui",
   description: "Every Yui TestFlight build: when it shipped, what changed, and what it looks like.",
-};
+});
 
 // Housekeeping commits that say nothing to someone using the app.
 const CHORE = /^(ignore|bump|merge|chore|fix typo)\b/i;

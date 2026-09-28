@@ -3,11 +3,13 @@
 import Link from "next/link";
 import HomeMock from "./HomeMock";
 import { HOMES, ORDER } from "./homes.mjs";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/mockups/home",
   title: "Agent home mock | Yui",
   description: "A tappable mock of every agent's home in Yui: its own shortcuts, what's waiting on you, and starter screens one swipe away. Arnold, Basil and Gouda. Not built yet.",
-};
+});
 
 export default async function HomeMockPage({ searchParams }) {
   const q = await searchParams;

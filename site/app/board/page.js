@@ -5,8 +5,9 @@ import board from "../../content/board.json";
 import { seeIt } from "../../lib/showcase.mjs";
 import { NEXT_BUILD } from "../../lib/nextbuild.mjs";
 import Films from "../components/Films";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = { title: "Board | Yui", description: "Every Yui card we are working on, live from our kanban board." };
+export const metadata = pageMeta({ path: "/board", title: "Board | Yui", description: "Every Yui card we are working on, live from our kanban board." });
 
 const when = (iso) =>
   new Date(iso).toLocaleString("en-US", { timeZone: "America/New_York", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });

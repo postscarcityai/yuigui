@@ -7,11 +7,13 @@ import path from "node:path";
 import bench from "../../../content/benchmark.json";
 import SuperApp from "./SuperApp";
 import s from "./stands.module.css";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/developers/where-yui-stands",
   title: "Where Yui stands | Yui",
   description: "The data behind Yui's position: a SWOT, the token benchmark and its limits, 27 years of prior art, the nearest agent UI systems, and what is left to prove.",
-};
+});
 
 const CHECKED = "Sep 26 2026";
 

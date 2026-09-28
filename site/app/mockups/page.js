@@ -14,11 +14,13 @@ import LivePhone from "./LivePhone";
 import VideoDownloads from "../components/VideoDownloads";
 import LazyVideo from "../components/LazyVideo";
 import { NEXT_BUILD, inNextBuild, changeInNextBuild } from "../../lib/nextbuild.mjs";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/mockups",
   title: "See it | Yui",
   description: "Every screen Yui can draw today, live in your browser or recorded in the app, each tied to the card that built it and the day it shipped.",
-};
+});
 
 const SAMPLES = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA, ...RELEASE];
 const sample = (k) => SAMPLES.find((s) => s.slug === k || s.name === k);

@@ -1,11 +1,14 @@
 // The link in Yui's confirmation email: yuigui.com/confirm?t=<token>.
 import Confirm from "./Confirm";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/confirm",
   title: "Confirm your email | Yui",
   robots: { index: false, follow: false },
   referrer: "no-referrer",
-};
+  description: "Confirm your email and you're on the Yui list.",
+});
 
 export default function Page() {
   return (

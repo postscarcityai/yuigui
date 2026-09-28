@@ -4,11 +4,13 @@ import DocShell from "../components/DocShell";
 import Examples from "./Examples";
 import ModelScores from "./ModelScores";
 import { findSample, sampleSlug, cleanYL, shareItem, shareUrl } from "../../lib/share.mjs";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/channel",
   title: "Channel guide | Yui",
   description: "The guide every agent gets on the Yui channel: how to answer with screens, taps, reactions, plans, screens 2 to 12, and saved screens.",
-};
+});
 
 // Lines taken from spec/CHANNEL.md, plus the playground samples that show the rest.
 const LINES = [

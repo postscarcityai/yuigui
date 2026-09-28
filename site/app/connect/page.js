@@ -1,9 +1,13 @@
 // yui-oauth/authorize lands here when it can't trust where to send an error
 // back: an unknown client or a redirect_uri it never registered (INT-19).
-export const metadata = {
+import { pageMeta } from "../../lib/og/meta.mjs";
+
+export const metadata = pageMeta({
+  path: "/connect",
   title: "Connect to Yui",
   robots: { index: false, follow: false },
-};
+  description: "Let an AI app put screens on your phone in Yui.",
+});
 
 const WHY = {
   unknown_client: "The app that sent you here isn't registered with Yui any more.",

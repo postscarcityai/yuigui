@@ -1,10 +1,13 @@
 // Linked from the app (sign-in screen and Settings). Keep in step with
 // the app repo's supabase/migrations: every yui_ table (and the yui-media bucket) must be in TABLES,
 // and "What we declare to Apple" must match the App Privacy answers in the app repo's docs/APP-PRIVACY.md.
-export const metadata = {
+import { pageMeta } from "../../lib/og/meta.mjs";
+
+export const metadata = pageMeta({
+  path: "/privacy",
   title: "Privacy | Yui",
   description: "What the Yui app keeps, where it lives, how long, and how to delete it.",
-};
+});
 
 // Every yui_ table in the app repo's supabase/migrations, plus the storage bucket (SITE-23).
 const TABLES = [

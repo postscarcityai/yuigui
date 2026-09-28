@@ -6,8 +6,9 @@ import MvpBar from "../components/MvpBar";
 import Films from "../components/Films";
 import board from "../../content/board.json";
 import { linkCards } from "../../lib/showcase.mjs";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = { title: "Roadmap | Yui" };
+export const metadata = pageMeta({ path: "/roadmap", title: "Roadmap | Yui", description: "Where Yui is going: the MVP first, then the epics and the deep backlog, each card linked to its screens or its tile on the board." });
 
 export default function Roadmap() {
   const raw = readFileSync(path.join(process.cwd(), "content", "ROADMAP.md"), "utf8");

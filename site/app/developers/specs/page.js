@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { specDocs } from "../../../lib/spec.mjs";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/developers/specs",
   title: "Specs | Yui",
   description: "Every Yui spec, rendered from the repo: the Yui Lines screen language, the channel guide, reactions, the token benchmark, agents, the relay and adapters.",
-};
+});
 
 export default function Specs() {
   return (

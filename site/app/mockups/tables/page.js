@@ -3,11 +3,13 @@
 // Spec: spec/TABLES.md section 8.
 import Link from "next/link";
 import TablesMock from "./TablesMock";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/mockups/tables",
   title: "Switch agents, keep your tables | Yui",
   description: "Yui tables that follow you: Basil on Hermes keeps your Foods table, you hand it to a Claude agent over MCP, and it reads the same rows. Live for Hermes, MCP, A2A and webhooks, in a tool call or right in the reply, with the real calls.",
-};
+});
 
 // From the live run (YUI-171 step 2), trimmed to the lines that matter.
 const CALLS = [

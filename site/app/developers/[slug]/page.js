@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import DocShell from "../../components/DocShell";
 import { specDocs } from "../../../lib/spec.mjs";
+import { pageMeta } from "../../../lib/og/meta.mjs";
 
 export const dynamicParams = false;
 
@@ -14,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const d = here().find((x) => x.slug === slug);
-  return { title: d ? `${d.label} spec | Yui` : "Specs | Yui", description: d?.blurb };
+  return pageMeta({ path: `/developers/${slug}`, key: "/developers/specs", title: d ? `${d.label} spec | Yui` : "Specs | Yui", description: d?.blurb });
 }
 
 // A brag film at the top of the spec it shows (SITE-62).

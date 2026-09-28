@@ -1,10 +1,12 @@
 import DocShell from "../components/DocShell";
 import QuickStart from "./QuickStart";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/yl",
   title: "Yui Lines spec | Yui",
   description: "Yui Lines, the screen language: one short line per element. A five-line quick start, then every preset and its options.",
-};
+});
 
 export default function YLSpec() {
   return (

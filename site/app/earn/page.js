@@ -5,11 +5,13 @@ import Link from "next/link";
 import links from "../../content/links.json";
 import s from "./earn.module.css";
 import Films from "../components/Films";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/earn",
   title: "Build to earn | Yui",
   description: "Draft proposal. Ownership in Yui is earned by use and work, not bought. Our position, the forms it could take, and the open questions for counsel.",
-};
+});
 
 const repo = links.github;
 

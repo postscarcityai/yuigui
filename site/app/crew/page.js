@@ -7,12 +7,14 @@ import AgentBox from "../components/AgentBox";
 import { MEMBERS, inNext, NEXT_LABEL } from "../../lib/crew-page.mjs";
 import { encodeYL } from "../../lib/share-code.mjs";
 import "./crew.css";
+import { pageMeta } from "../../lib/og/meta.mjs";
 
-export const metadata = {
+export const metadata = pageMeta({
+  path: "/crew",
   title: "Meet the crew | Yui",
   description: "Yui and five starter agents: a trainer, a nutritionist, a musician, a planner and a study buddy. Each has real tools and a live demo you can tap.",
   openGraph: { title: "Meet the crew | Yui", description: "Yui and five starter agents, each with real tools and a live demo you can tap.", url: "https://www.yuigui.com/crew", siteName: "Yui", type: "website" },
-};
+});
 
 const Face = ({ m, big }) => (
   <span className={`crew-face look-${m.look}${big ? " big" : ""}`} aria-hidden="true"><b>{m.name[0]}</b></span>
