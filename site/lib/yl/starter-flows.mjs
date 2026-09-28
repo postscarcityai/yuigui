@@ -245,6 +245,39 @@ export const STARTER_FLOWS = [
   %% warmup: page "Warm-up, 3 minutes" body="Do these now, easy pace. Then start the timer." points="Arm circles, 30s|Hip circles, 30s|Squats, 1 min|March in place, 1 min"
   warmup[Warm-up] --> go((Timer))`,
   },
+  {
+    // Basil, the nutritionist, from the meal demo (spec/MEAL.md): a plate to macros. How sure he is
+    // shapes the next step (sure: straight on; a guess: one question on the part he can't see).
+    // plateReply saves the row to his meals table and answers with Today, as in his app pages.
+    name: "nutritionist-plate",
+    id: "plate",
+    title: "A plate to macros",
+    submit: "Save to my meals",
+    agent: "Basil",
+    blurb: "The nutritionist's photo read: pick a plate, see his guess and how sure he is, fix the portion. It goes in your meals and today's totals update.",
+    source: `flowchart TD
+  %% hi: page "Snap a plate, get the macros" body="Pick a plate. I guess what's on it and say how sure I am. You fix what I got wrong, and it goes in your log." points="Pick a photo|My guess, and how sure|Fix the portion|Today's totals"
+  hi([Start]) --> photo
+  %% photo: choose "Which plate is yours?" Pancakes|Salmon|"Poke bowl"
+  photo{Plate}
+  photo -->|photo=Pancakes| stack
+  photo -->|photo=Salmon| fish
+  photo --> bowl
+  %% stack: page "Pancakes with berries" /demo/meal-pancakes.jpg body="About 520 kcal. Fairly sure on the stack. The syrup is a guess: I can see the pool, not how much soaked in." points="How sure: fairly|Protein 12 g|Carbs 88 g|Fat 14 g"
+  stack[Pancakes] --> syrup
+  %% syrup: choose "How much syrup?" None|"A drizzle"|"A lot"
+  syrup[Syrup] --> portion
+  %% fish: page "Grilled salmon" /demo/meal-salmon.jpg body="About 560 kcal. Sure on the salmon, and it's most of the plate, so no questions." points="How sure: very|Protein 42 g|Carbs 12 g|Fat 38 g"
+  fish[Salmon] --> portion
+  %% bowl: page "Salmon poke bowl" /demo/meal-poke.jpg body="About 650 kcal. A rough guess: the rice is under the toppings, so its size is the big unknown." points="How sure: a rough guess|Protein 32 g|Carbs 78 g|Fat 22 g"
+  bowl[Poke bowl] --> rice
+  %% rice: choose "How much rice was under it?" "A small scoop"|"A regular bowl"|"A big bowl"
+  rice[Rice] --> portion
+  %% portion: choose "How much did you eat?" Half|"All of it"|"A bit more"|Double
+  portion[Portion] --> meal
+  %% meal: choose "Which meal was it?" Breakfast|Lunch|Dinner|Snack
+  meal[Meal] --> logged((Saved))`,
+  },
 ];
 
 // The trainer's answer to trainer-session's event: the session its page showed, as the lines that
@@ -272,6 +305,45 @@ export function sessionReply(ev) {
   // One line and the timer: on the chat's stage the line takes the timer as its picture, one chunk.
   return { text, lines: [`timer@session ${s.work}/${s.rest}x${rounds} "${s.label}"`] };
 }
+
+// The nutritionist's answer to nutritionist-plate's event: the row for his meals table (the app's
+// schema, runtime/profiles/basil/tables.yui) and Today, his stat and macros chart against the goal.
+// Numbers come from the flow's own options only: the event is the visitor's, the reply is shown.
+const PLATES = {
+  stack: { food: "Pancakes with berries", cal: 520, p: 12, c: 88, f: 14, ask: "syrup", fix: { None: [-100, 0, -26, 0], "A drizzle": [0, 0, 0, 0], "A lot": [100, 0, 26, 0] } },
+  fish: { food: "Grilled salmon", cal: 560, p: 42, c: 12, f: 38 },
+  bowl: { food: "Salmon poke bowl", cal: 650, p: 32, c: 78, f: 22, ask: "rice", fix: { "A small scoop": [-100, -2, -22, 0], "A regular bowl": [0, 0, 0, 0], "A big bowl": [150, 3, 33, 0] } },
+};
+const PORTIONS = { Half: 0.5, "All of it": 1, "A bit more": 1.5, Double: 2 };
+const MEALS = ["Breakfast", "Lunch", "Dinner", "Snack"];
+export const GOAL = { cal: 2100, p: 140, c: 210, f: 70 };
+export function plateReply(ev) {
+  if (ev?.preset !== "flow" || ev.id !== "plate" || !ev.flow) return null;
+  const a = ev.flow;
+  const m = PLATES[(ev.path || []).find((id) => PLATES[id])];
+  if (!m) return null;
+  const d = (m.fix && m.fix[a[m.ask]]) || [0, 0, 0, 0];
+  const portion = Object.hasOwn(PORTIONS, a.portion) ? a.portion : "All of it";
+  const k = PORTIONS[portion];
+  const [cal, p, c, f] = [m.cal, m.p, m.c, m.f].map((x, i) => Math.round((x + d[i]) * k));
+  const meal = MEALS.includes(a.meal) ? a.meal : "Snack";
+  const n = (x) => x.toLocaleString("en-US");
+  const left = GOAL.cal - cal;
+  const text = `Saved: ${m.food.toLowerCase()} for ${meal.toLowerCase()}, ${n(cal)} kcal. ${left >= 0 ? `Today so far: ${n(cal)} of ${n(GOAL.cal)}, ${n(left)} to go.` : `That's ${n(-left)} over ${n(GOAL.cal)} for today.`}`;
+  return {
+    text,
+    lines: [
+      `table create meals Day:date Meal:text Food:text Portion:text Cal:number:kcal Protein:number:g Carbs:number:g Fat:number:g`,
+      `put meals Day=today Meal=${meal} Food="${m.food}" Portion="${portion}" Cal=${cal} Protein=${p} Carbs=${c} Fat=${f}`,
+      `stat@kcal ${cal}kcal "Calories today" sub="of ${n(GOAL.cal)}. ${left >= 0 ? `${n(left)} to go.` : `${n(-left)} over.`}"`,
+      `say "Macros against your goal."`,
+      `chart@macros bar "Macros vs goal" x=Protein|Carbs|Fat y=${p}|${c}|${f} y2=${GOAL.p}|${GOAL.c}|${GOAL.f} names=Today|Goal unit=g`,
+    ],
+  };
+}
+
+// A crew flow answered with no model turn: the playground's stand-in reply and the site chat's.
+export const crewReply = (ev) => sessionReply(ev) || plateReply(ev);
 
 // Variants (spec/FLOWS.md, section 9): a saved flow with a few lines changed,
 // kept as its base's name plus the lines, never a copy of the chart. The

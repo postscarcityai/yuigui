@@ -27,13 +27,13 @@ import { VisualizerDemo } from "./visualizer";
 import { mealReply } from "./meal";
 import { WorkingRow, useWorkingTurn } from "./working";
 import { starterReply } from "./starter";
-import { sessionReply } from "../../lib/yl/starter-flows.mjs";
+import { crewReply } from "../../lib/yl/starter-flows.mjs";
 import "./flows.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA, ...RELEASE];
 // Agent names a share link may carry (?as=), so a shared screen reopens with the same header.
 const AGENTS = new Set(ALL.map((s) => s.agent));
-const COLORS = { Coach: "var(--arnold)", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)", Sage: LOOKS.Sage.c, Quill: LOOKS.Quill.c };
+const COLORS = { Coach: "var(--arnold)", Basil: "#2FB58C", Scout: "linear-gradient(135deg,#8b7cff,#4fd1c5)", Yui: "linear-gradient(135deg,#4fd1c5,#8b7cff)", Sage: LOOKS.Sage.c, Quill: LOOKS.Quill.c };
 
 // `log`: data lines sent after the reply (the agent line, a tapped checkbox),
 // replayed on top so agent tables keep them (spec/TABLES.md).
@@ -350,7 +350,7 @@ export default function Playground({ release = "" }) {
       emits.current.set(k, (value) => {
         const ev = { id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) };
         setEvents((evs) => [{ dir: "user", t: new Date(), ev }, ...evs].slice(0, 40));
-        const session = sessionReply(ev);
+        const session = crewReply(ev);
         const reply = demoReply(ev) || musicReply(ev) || mealReply(ev, idsRef.current) || starterReply(ev) || (session && [`say "${session.text}"`, ...session.lines]);
         if (reply) [].concat(reply).forEach((l, i) => setTimeout(() => agentRef.current(l), 700 + i * 250));
       });

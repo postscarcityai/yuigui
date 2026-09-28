@@ -137,6 +137,7 @@ Every Yui has five: three from real work, the first run, and connecting your too
 The crew brings its own (SITE-70 to SITE-74), each from a check-in to that member's tool:
 
 - **`trainer-session`**, the trainer's session. Sleep, anything sore (a real hurt gets a work-around-it page), minutes free, gear. The answers pick the session page (a bad night gets an easy one, 15 minutes or less a quick hit, no gear a bodyweight circuit, else a strength circuit), then a warm-up if you want one. Its `{flow}` event is answered with the moves, minus any that hit a spot that hurts, and the interval timer on the stage (`sessionReply` in site/lib/yl/starter-flows.mjs; the site chat sends it with no model turn).
+- **`nutritionist-plate`**, the nutritionist's plate to macros. Pick one of three sample plates; his guess comes on a page with the photo, the macros and how sure he is. How sure shapes the next step: sure (the salmon) goes straight on, fairly sure (pancakes) asks about the syrup, a rough guess (the poke bowl) asks how much rice was under it. Then how much you ate and which meal. Its `{flow}` event is answered with the row in his meals table (the app's schema) and Today, calories and macros against the goal (`plateReply` in site/lib/yl/starter-flows.mjs; the site chat sends it with no model turn).
 
 To tailor one to a person, the agent sends a variant with only what changes (section 9), or, for new branches, the whole flow inline with its own wording, keeping the ids and edges so the answers still line up.
 

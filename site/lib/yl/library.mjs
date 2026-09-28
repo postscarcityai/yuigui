@@ -481,6 +481,7 @@ export const INTENTS = {
   "self-scope": ["scope a project", "turn an idea into a plan", "size up work"],
   "workout-checkin": ["check in before a workout", "ask about sleep and soreness", "adjust a training plan"],
   "trainer-session": ["build a workout from a check-in", "a workout for the time and gear I have", "start an interval timer after a check-in"],
+  "nutritionist-plate": ["log a meal from a photo", "estimate the macros on a plate", "fix a portion and save it to my meals", "today's calories and macros"],
   onboarding: ["onboard a new user", "first run welcome", "learn about someone and suggest agents"],
   connect: ["connect tools", "ask permission to use apps", "set up integrations"],
   "restaurant-intake": ["restaurant website intake", "plan a site for a restaurant or cafe", "menu and online orders", "make a variant of a flow"],

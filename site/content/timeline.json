@@ -1,16 +1,112 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 292,
-    "site": 644,
+    "app": 294,
+    "site": 650,
     "builds": 44,
-    "shipped": 316,
-    "screenshots": 759
+    "shipped": 319,
+    "screenshots": 771
   },
   "days": [
     {
       "date": "2026-09-28",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-28T09:12:58.692Z",
+          "title": "The nutritionist's flow: a plate to macros",
+          "card": "SITE-71",
+          "anchor": "the-nutritionist-s-flow-a-plate-to-macros",
+          "images": [
+            {
+              "src": "/progress/site71-chat-guess.webp",
+              "alt": "The site chat on a phone: the poke bowl photo, About 650 kcal, a rough guess because the rice is under the toppings"
+            },
+            {
+              "src": "/progress/site71-chat-saved.webp",
+              "alt": "After Save: Saved, salmon poke bowl for lunch, 800 kcal, and Calories today, 800 of 2,100"
+            },
+            {
+              "src": "/progress/site71-chat-macros.webp",
+              "alt": "Macros vs goal: protein, carbs and fat today beside the goal"
+            },
+            {
+              "src": "/progress/site71-syrup-dark.webp",
+              "alt": "In the playground, dark: How much syrup? None, A drizzle, A lot"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 294,
+            "site": 650,
+            "builds": 44,
+            "shipped": 319
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T08:41:03.000Z",
+          "title": "See it shows the rest of the app as it is now",
+          "card": "SITE-79",
+          "anchor": "see-it-shows-the-rest-of-the-app-as-it-is-now",
+          "images": [
+            {
+              "src": "/progress/full-screen-050-before-after.webp",
+              "alt": "Before and after: the Tabata timer in the old full screen with its Yes and No, and the same timer on the 0.5.2 stage with the words set big"
+            },
+            {
+              "src": "/progress/first-run-050-hello-light.webp",
+              "alt": "First launch: Yui on the whole screen introducing the crew, with Add an agent and What's new under it"
+            },
+            {
+              "src": "/progress/change-050-changed-dark.webp",
+              "alt": "The questions screen: Which split today with Pull picked, gear with Bench and Bands, one Send"
+            },
+            {
+              "src": "/progress/live-timer-050-lock-dark.webp",
+              "alt": "The lock screen with the Tabata timer still counting, Round 1 of 8"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 294,
+            "site": 649,
+            "builds": 44,
+            "shipped": 318
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T08:21:07.000Z",
+          "title": "Your study buddy teaches and quizzes",
+          "card": "YUI-186",
+          "anchor": "your-study-buddy-teaches-and-quizzes",
+          "images": [
+            {
+              "src": "/progress/yui186-learn-light.webp",
+              "alt": "Learn a topic, step 2 of 3: How much time do you have? 5, 10 or 20 minutes"
+            },
+            {
+              "src": "/progress/yui186-lesson-dark.webp",
+              "alt": "How Vaccines Work, page 1 of 7: Your Immune System, with three key points and a quiz at the end"
+            },
+            {
+              "src": "/progress/yui186-review-light.webp",
+              "alt": "Review 5 cards, step 2 of 6: Capital of Japan? Tokyo, with Again, Hard, Good and Easy"
+            },
+            {
+              "src": "/progress/yui186-problem-dark.webp",
+              "alt": "Step 1 of 3: Recall the speed formula, v equals d over t, then What is the speed formula?"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 293,
+            "site": 647,
+            "builds": 44,
+            "shipped": 317
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-28T07:53:56.000Z",
@@ -38,7 +134,7 @@
           "commits": 1,
           "totals": {
             "app": 290,
-            "site": 644,
+            "site": 645,
             "builds": 44,
             "shipped": 316
           }
@@ -70,9 +166,41 @@
           "commits": 4,
           "totals": {
             "app": 290,
-            "site": 643,
+            "site": 644,
             "builds": 44,
             "shipped": 315
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T07:29:04.000Z",
+          "title": "The workout runner in the app: rest starts on its own, say done",
+          "card": "YUI-182",
+          "anchor": "the-workout-runner-in-the-app-rest-starts-on-its-own-say-done",
+          "images": [
+            {
+              "src": "/progress/yui182-app-light-2-resting.webp",
+              "alt": "Bench press, set 1 ticked, the rest timer counting down from 1:15, reps and weight with minus and plus"
+            },
+            {
+              "src": "/progress/yui182-app-dark-3-voice-done.webp",
+              "alt": "Dark mode: saying done ticked set 2 and the rest started again"
+            },
+            {
+              "src": "/progress/yui182-app-light-4-relaunched.webp",
+              "alt": "After the app was killed and opened again: the same move, the same sets ticked"
+            },
+            {
+              "src": "/progress/yui182-app-dark-7-review.webp",
+              "alt": "The review before Finish workout: each move's sets, reps and weight, and how it felt"
+            }
+          ],
+          "commits": 7,
+          "totals": {
+            "app": 288,
+            "site": 642,
+            "builds": 44,
+            "shipped": 314
           }
         },
         {
@@ -104,7 +232,7 @@
             "app": 287,
             "site": 641,
             "builds": 44,
-            "shipped": 314
+            "shipped": 313
           }
         },
         {
@@ -136,7 +264,7 @@
             "app": 286,
             "site": 640,
             "builds": 44,
-            "shipped": 313
+            "shipped": 312
           }
         },
         {
@@ -168,7 +296,7 @@
             "app": 284,
             "site": 637,
             "builds": 44,
-            "shipped": 312
+            "shipped": 311
           }
         },
         {
@@ -200,7 +328,7 @@
             "app": 284,
             "site": 636,
             "builds": 44,
-            "shipped": 311
+            "shipped": 310
           }
         },
         {
@@ -228,7 +356,7 @@
             "app": 282,
             "site": 634,
             "builds": 44,
-            "shipped": 310
+            "shipped": 309
           }
         },
         {
@@ -240,7 +368,7 @@
             "app": 282,
             "site": 633,
             "builds": 44,
-            "shipped": 309
+            "shipped": 308
           }
         },
         {
@@ -272,38 +400,6 @@
             "app": 282,
             "site": 633,
             "builds": 43,
-            "shipped": 309
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-28T05:59:04.000Z",
-          "title": "The workout runner in the app: rest starts on its own, say done",
-          "card": "YUI-182",
-          "anchor": "the-workout-runner-in-the-app-rest-starts-on-its-own-say-done",
-          "images": [
-            {
-              "src": "/progress/yui182-app-light-2-resting.webp",
-              "alt": "Bench press, set 1 ticked, the rest timer counting down from 1:15, reps and weight with minus and plus"
-            },
-            {
-              "src": "/progress/yui182-app-dark-3-voice-done.webp",
-              "alt": "Dark mode: saying done ticked set 2 and the rest started again"
-            },
-            {
-              "src": "/progress/yui182-app-light-4-relaunched.webp",
-              "alt": "After the app was killed and opened again: the same move, the same sets ticked"
-            },
-            {
-              "src": "/progress/yui182-app-dark-7-review.webp",
-              "alt": "The review before Finish workout: each move's sets, reps and weight, and how it felt"
-            }
-          ],
-          "commits": 6,
-          "totals": {
-            "app": 279,
-            "site": 631,
-            "builds": 43,
             "shipped": 308
           }
         },
@@ -327,7 +423,7 @@
               "alt": "Progress: a 2 week streak, a 45 lb best set and a chart of the dumbbell row"
             }
           ],
-          "commits": 6,
+          "commits": 7,
           "totals": {
             "app": 279,
             "site": 631,
@@ -494,6 +590,55 @@
       ],
       "commits": [
         {
+          "repo": "site",
+          "sha": "adeb98c",
+          "at": "2026-09-28T09:10:29.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/adeb98c"
+        },
+        {
+          "repo": "site",
+          "sha": "d5df7c9",
+          "at": "2026-09-28T08:41:03.000Z",
+          "text": "See it: fourteen more app entries show Yui 0.5.2, the stage first (SITE-79)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d5df7c9"
+        },
+        {
+          "repo": "site",
+          "sha": "efcf8ee",
+          "at": "2026-09-28T08:40:30.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/efcf8ee"
+        },
+        {
+          "repo": "app",
+          "sha": "f9996c2",
+          "at": "2026-09-28T08:24:33.000Z",
+          "text": "Quill's learn plan names the deck it joins, not 'your 1 deck' (YUI-186)",
+          "url": "https://github.com/postscarcityai/yui/commit/f9996c2"
+        },
+        {
+          "repo": "site",
+          "sha": "27e4bee",
+          "at": "2026-09-28T08:21:07.000Z",
+          "text": "Your study buddy teaches and quizzes: Quill's learn a topic, lesson, card review, problem steps and pages in the playground, See it and...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/27e4bee"
+        },
+        {
+          "repo": "app",
+          "sha": "e626612",
+          "at": "2026-09-28T08:12:49.000Z",
+          "text": "Quill's tools: learn a topic, cards with spaced review, walk me through a problem, his pages kept current (YUI-186, runtime half)",
+          "url": "https://github.com/postscarcityai/yui/commit/e626612"
+        },
+        {
+          "repo": "site",
+          "sha": "f67b699",
+          "at": "2026-09-28T08:10:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f67b699"
+        },
+        {
           "repo": "app",
           "sha": "6adb5c6",
           "at": "2026-09-28T08:04:44.000Z",
@@ -541,6 +686,13 @@
           "at": "2026-09-28T07:41:22.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/65c07f6"
+        },
+        {
+          "repo": "site",
+          "sha": "148a853",
+          "at": "2026-09-28T07:29:04.000Z",
+          "text": "Progress: the workout runner in the app, rest starts on its own, say done (YUI-182)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/148a853"
         },
         {
           "repo": "app",

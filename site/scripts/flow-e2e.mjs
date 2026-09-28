@@ -4,7 +4,7 @@
 //   npx next dev -p 3117 &   then   node scripts/flow-e2e.mjs
 // BASE overrides the playground URL; PLAYWRIGHT the Playwright module to load.
 import { parse, resolve, flowEvent, flowPath } from "../lib/yl/yl.mjs";
-import { STARTER_FLOWS, flowLines, savedGraph, sessionReply } from "../lib/yl/starter-flows.mjs";
+import { STARTER_FLOWS, flowLines, savedGraph, sessionReply, plateReply } from "../lib/yl/starter-flows.mjs";
 const { chromium } = await import(process.env.PLAYWRIGHT || "playwright");
 const BASE = process.env.BASE || "http://localhost:3117/playground";
 const graph = (f) => resolve("flow", parse(flowLines(f)).find((o) => o.op === "patch").props);
@@ -95,6 +95,9 @@ const SC = [
   ["trainer-session", "10 minutes, legs just sore: quick hit", { sleep: 7, sore: ["Legs"], hurt: "Just sore", minutes: 10, gear: "Kettlebell", warm: "I'm warm" }],
   ["trainer-session", "no gear: bodyweight, warm up", { sleep: 8, sore: ["Nothing"], minutes: 30, gear: "Just me", warm: "Yes, 3 minutes" }],
   ["trainer-session", "dumbbells, 45 minutes: strength", { sleep: 9, sore: ["Nothing"], minutes: 45, gear: "Dumbbells", warm: "I'm warm" }],
+  ["nutritionist-plate", "pancakes, a lot of syrup, all of it: breakfast", { photo: "Pancakes", syrup: "A lot", portion: "All of it", meal: "Breakfast" }],
+  ["nutritionist-plate", "salmon, sure: no question, half for dinner", { photo: "Salmon", portion: "Half", meal: "Dinner" }],
+  ["nutritionist-plate", "poke bowl, a rough guess: small rice, a bit more for lunch", { photo: "Poke bowl", rice: "A small scoop", portion: "A bit more", meal: "Lunch" }],
 ];
 for (const [name, label, plan] of SC) {
   const f = STARTER_FLOWS.find((x) => x.name === name);
@@ -143,6 +146,16 @@ for (const [name, label, plan] of SC) {
     ok((await pg.locator(".pg-ev", { hasText: `timer@session ${want}` }).count()) === 1, `the reply sends timer@session ${want}`);
     ok((await pg.locator(".yl-timer").count()) >= 1, "the interval timer is on screen");
   } else ok(!session, "no session reply for other flows");
+  // The nutritionist saves the meal and answers with today's calories and macros (SITE-71).
+  const plate = plateReply(ev);
+  if (f.name === "nutritionist-plate") {
+    ok(!!plate, "nutritionist-plate: the event builds a saved meal");
+    await pg.waitForTimeout(2200);
+    const [, cal] = plate.lines[1].match(/ Cal=(\d+) /);
+    ok((await pg.locator(".pg-ev", { hasText: `put meals Day=today Meal=${want.flow.meal}` }).count()) === 1, `the reply saves the ${want.flow.meal.toLowerCase()} row`);
+    ok((await pg.locator(".pg-ev", { hasText: `stat@kcal ${cal}kcal` }).count()) === 1, `the reply sends today's ${cal} kcal`);
+    ok((await pg.locator(".pg-ev", { hasText: "chart@macros bar" }).count()) === 1, "the reply sends the macros chart");
+  } else ok(!plate, "no plate reply for other flows");
   ok(pg.errs.length === 0, `no page errors ${pg.errs}`);
   await pg.close();
 }

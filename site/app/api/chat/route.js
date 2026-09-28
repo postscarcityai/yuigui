@@ -13,7 +13,7 @@ import { MODEL, turn } from "../../../lib/chat/model.mjs";
 import { COOKIE, FREE_TURNS, MAX_TURNS, hashIp, newSession, readSession, sessionCookie } from "../../../lib/chat/session.mjs";
 import { markVerified, saveContact, saveNote, saveTurn } from "../../../lib/chat/store.mjs";
 import { LINE_KIND, feedbackNotes } from "../../../lib/chat/feedback.mjs";
-import { sessionReply } from "../../../lib/yl/starter-flows.mjs";
+import { crewReply } from "../../../lib/yl/starter-flows.mjs";
 import { clip, insertInvite, readContact } from "../../../lib/invite.mjs";
 
 export const dynamic = "force-dynamic";
@@ -116,8 +116,9 @@ export async function POST(req) {
   }
 
   const path = clip(body.path, 300) || "/";
-  // The trainer's flow (SITE-70) is answered with no model turn: the session its answers picked, and the timer.
-  const session = sessionReply(ev);
+  // The crew's flows are answered with no model turn: the trainer's session and timer (SITE-70),
+  // the nutritionist's saved meal and today's totals (SITE-71).
+  const session = crewReply(ev);
   let out;
   if (session) out = { reply: `${session.text}\n\n\`\`\`yui\n${session.lines.join("\n")}\n\`\`\``, actions: [], notes: [], tools: [] };
   else try {
