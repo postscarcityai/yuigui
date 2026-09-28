@@ -1418,6 +1418,10 @@
     },
     {
       "text": "Gouda's tools in the app: a beat on the Looper kept on the phone until Send, the chord grid redraws on a looped bar, a click stopped by an agent switch logs to Gouda (YUI-184, app half)"
+    },
+    {
+      "text": "Basil's grocery list just works: missing starter tables arrive once, a put makes its own table, a slip is one small card",
+      "card": "YUI-188"
     }
   ]
 }

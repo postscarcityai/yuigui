@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T12:41:22.947Z",
+  "updated": "2026-09-28T13:13:30.632Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -243,6 +243,12 @@
           "waiting": true
         },
         {
+          "key": "INT-23",
+          "title": "Own model",
+          "summary": "qwen2.5:7b stopped drawing screens on the phone run",
+          "waiting": true
+        },
+        {
           "key": "BIZ-7",
           "title": "Brand direction"
         },
@@ -278,6 +284,15 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-189",
+          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show"
+        },
+        {
+          "key": "YUI-190",
+          "title": "Stop a turn from the main screen",
+          "summary": "The mic becomes Stop while an agent works"
+        },
+        {
           "key": "YUI-137",
           "title": "Yui makes agents",
           "summary": "Create, edit, fork and remove a native agent from chat"
@@ -296,6 +311,22 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
+        },
+        {
+          "key": "NOTE-29968",
+          "title": "Basil's error was a wall of text"
+        },
+        {
+          "key": "NOTE-36529",
+          "title": "Screen dots in the bottom bar"
+        },
+        {
+          "key": "NOTE-37307",
+          "title": "A stop button while it works"
+        },
+        {
+          "key": "NOTE-51249",
+          "title": "Agents keep their own tables"
         }
       ]
     },
@@ -331,8 +362,14 @@
           "progress": "/progress#your-study-buddy-teaches-and-quizzes"
         },
         {
-          "key": "SITE-80",
-          "title": "See it's live-only app entries, shot on the live test runs"
+          "key": "YUI-188",
+          "title": "Basil's grocery list just works",
+          "summary": "Starter tables reach older agents, an agent makes its own tables, and a slip is one plain line, never a wall of text"
+        },
+        {
+          "key": "SITE-82",
+          "title": "Meet the crew on yuigui.com/crew",
+          "summary": "Each starter agent, their real tools, a demo to tap"
         },
         {
           "key": "INT-8",
@@ -392,6 +429,23 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-24431",
+          "title": "The switch-agents crash",
+          "shipped": "2026-09-28"
+        },
+        {
+          "key": "NOTE-8480",
+          "title": "The switch-agents crash",
+          "shipped": "2026-09-28"
+        },
+        {
+          "key": "SITE-80",
+          "title": "See it's live-only app entries, shot on the live test runs",
+          "summary": "See it's live-only entries, shot on real test runs",
+          "shipped": "2026-09-28",
+          "progress": "/progress#see-it-s-live-only-entries-shot-on-real-test-runs"
+        },
         {
           "key": "SITE-81",
           "title": "The stage plays a deck's titled questions as pages, and a redraw beside an answer keeps you on the answer (app parity for YUI-183)",
