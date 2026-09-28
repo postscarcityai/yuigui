@@ -2,9 +2,9 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 308,
-    "site": 679,
+    "site": 681,
     "builds": 44,
-    "shipped": 334,
+    "shipped": 335,
     "screenshots": 825
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T14:38:26.990Z",
+          "at": "2026-09-28T14:41:43.851Z",
+          "title": "A pause to listen",
+          "card": null,
+          "anchor": "a-pause-to-listen",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 308,
+            "site": 681,
+            "builds": 44,
+            "shipped": 335
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T14:38:56.000Z",
           "title": "Stop a reply in the site chat",
           "card": "SITE-84",
           "anchor": "stop-a-reply-in-the-site-chat",
@@ -35,10 +50,10 @@
               "alt": "The chat on a computer with the text field open while Yui thinks: the send button is a stop square."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 308,
-            "site": 679,
+            "site": 680,
             "builds": 44,
             "shipped": 334
           }
@@ -1044,6 +1059,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "621e44c",
+          "at": "2026-09-28T14:40:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/621e44c"
+        },
+        {
+          "repo": "site",
+          "sha": "4ef92ef",
+          "at": "2026-09-28T14:38:56.000Z",
+          "text": "Stop a reply in the site chat: the mic or send turns into a stop square while Yui works (SITE-84)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4ef92ef"
+        },
         {
           "repo": "site",
           "sha": "c10eb5f",

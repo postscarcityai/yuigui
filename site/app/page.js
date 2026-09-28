@@ -87,13 +87,6 @@ export default function Home() {
       </section>
 
       <Films
-        id="yui-050"
-        title="New in Yui 0.5.0"
-        lede={<>The crew feels ready. Two minutes, sound on: snap and say, meet each agent, every agent's home, hand-offs and tables that move with you. <Link href="/thoughts/yui-0-5-0-the-crew-feels-ready">Read the release</Link>.</>}
-        ids={["film-crew"]}
-      />
-
-      <Films
         id="concepts"
         layout="feature"
         eyebrow="Concept films"
