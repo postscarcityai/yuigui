@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T16:10:45.930Z",
+  "updated": "2026-09-28T17:40:51.613Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -16,7 +16,7 @@
         "key": "YUI-183",
         "title": "Basil's tools",
         "status": "next",
-        "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
+        "progress": "/progress#your-nutritionist-plans-your-meals"
       },
       {
         "key": "YUI-184",
@@ -312,9 +312,9 @@
         {
           "key": "YUI-183",
           "title": "Basil's tools",
-          "summary": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
+          "summary": "Your nutritionist plans your meals",
           "waiting": true,
-          "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
+          "progress": "/progress#your-nutritionist-plans-your-meals"
         },
         {
           "key": "YUI-184",
@@ -360,6 +360,13 @@
           "summary": "Stop a reply from the main screen",
           "waiting": true,
           "progress": "/progress#stop-a-reply-from-the-main-screen"
+        },
+        {
+          "key": "YUI-183",
+          "title": "B (backlog, NATIVE + APP)",
+          "summary": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
+          "waiting": true,
+          "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
         },
         {
           "key": "INT-8",
