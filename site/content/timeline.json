@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 335,
-    "site": 758,
+    "app": 336,
+    "site": 770,
     "builds": 46,
-    "shipped": 368,
-    "screenshots": 918
+    "shipped": 371,
+    "screenshots": 924
   },
   "days": [
     {
@@ -13,7 +13,79 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T15:03:35.189Z",
+          "at": "2026-09-29T18:54:25.621Z",
+          "title": "Yui 0.6.0 is on TestFlight: the crew gets real tools",
+          "card": null,
+          "anchor": "yui-0-6-0-is-on-testflight-the-crew-gets-real-tools",
+          "images": [
+            {
+              "src": "/progress/yui182-runner-move-light.webp",
+              "alt": "Light mode: the workout runner, one move on the page with its sets to tick and the rest timer under it"
+            },
+            {
+              "src": "/progress/yui186-lesson-light.webp",
+              "alt": "Light mode: Quill's five minute lesson, one idea on the page with the next step waiting"
+            },
+            {
+              "src": "/progress/yui180-basil-light.webp",
+              "alt": "Light mode: Basil's home with his own quiet bloom behind his shortcuts, barely there"
+            },
+            {
+              "src": "/progress/yui202-day-dividers-dark.webp",
+              "alt": "Dark mode: a thread broken into days, a Yesterday divider above the older messages, each with its sent time"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 336,
+            "site": 770,
+            "builds": 46,
+            "shipped": 371
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T18:01:56.000Z",
+          "title": "The thread lets go of what you scrolled past",
+          "card": "YUI-207",
+          "anchor": "the-thread-lets-go-of-what-you-scrolled-past",
+          "images": [
+            {
+              "src": "/progress/yui207-memory-growth.webp",
+              "alt": "Bar chart: memory growth over a three-round session, +33.7 MB before the fix, +2.8 and -8.4 MB after, against a 15 MB budget"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 336,
+            "site": 766,
+            "builds": 46,
+            "shipped": 370
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T17:33:36.000Z",
+          "title": "The Yui icon in browser tabs and Google",
+          "card": "SITE-102",
+          "anchor": "the-yui-icon-in-browser-tabs-and-google",
+          "images": [
+            {
+              "src": "/progress/site102-favicon-before-after.webp",
+              "alt": "Before: a browser tab with the gray globe. After: the same tab with the Yui icon."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 336,
+            "site": 764,
+            "builds": 46,
+            "shipped": 369
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T15:04:18.000Z",
           "title": "A notification opens on page one of what came",
           "card": "YUI-199b",
           "anchor": "a-notification-opens-on-page-one-of-what-came",
@@ -30,7 +102,7 @@
           "commits": 0,
           "totals": {
             "app": 335,
-            "site": 758,
+            "site": 759,
             "builds": 46,
             "shipped": 368
           }
@@ -659,6 +731,97 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "97922f1",
+          "at": "2026-09-29T18:47:14.000Z",
+          "text": "Sync PROP-5 and the roadmap into site content",
+          "url": "https://github.com/postscarcityai/yuigui/commit/97922f1"
+        },
+        {
+          "repo": "site",
+          "sha": "8d0dc77",
+          "at": "2026-09-29T18:41:41.000Z",
+          "text": "PROP-5 Earn $U by using Yui; roadmap: your own key at every stop moves up (YUI-139 step 2, YUI-34 step 2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8d0dc77"
+        },
+        {
+          "repo": "site",
+          "sha": "49f2f1f",
+          "at": "2026-09-29T18:40:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/49f2f1f"
+        },
+        {
+          "repo": "site",
+          "sha": "1596b03",
+          "at": "2026-09-29T18:10:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1596b03"
+        },
+        {
+          "repo": "site",
+          "sha": "0351ced",
+          "at": "2026-09-29T18:01:56.000Z",
+          "text": "Progress: the thread lets go of what you scrolled past, memory chart (YUI-207)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0351ced"
+        },
+        {
+          "repo": "site",
+          "sha": "dddffce",
+          "at": "2026-09-29T17:40:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dddffce"
+        },
+        {
+          "repo": "site",
+          "sha": "5a6464f",
+          "at": "2026-09-29T17:33:36.000Z",
+          "text": "SITE-102: serve /favicon.ico (16, 32, 48) from the Yui icon",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5a6464f"
+        },
+        {
+          "repo": "site",
+          "sha": "9b61e4b",
+          "at": "2026-09-29T17:10:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9b61e4b"
+        },
+        {
+          "repo": "app",
+          "sha": "0575150",
+          "at": "2026-09-29T16:46:25.000Z",
+          "text": "The thread lets go of the older rows the moment it is back at the newest, arrow or not: the window stayed at every row drawn on the way...",
+          "url": "https://github.com/postscarcityai/yui/commit/0575150"
+        },
+        {
+          "repo": "site",
+          "sha": "1645b35",
+          "at": "2026-09-29T16:11:13.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1645b35"
+        },
+        {
+          "repo": "site",
+          "sha": "c0467da",
+          "at": "2026-09-29T15:41:05.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c0467da"
+        },
+        {
+          "repo": "site",
+          "sha": "80b9025",
+          "at": "2026-09-29T15:11:21.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/80b9025"
+        },
+        {
+          "repo": "site",
+          "sha": "611ba12",
+          "at": "2026-09-29T15:04:18.000Z",
+          "text": "progress: a notification opens on page one (YUI-199b)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/611ba12"
+        },
         {
           "repo": "app",
           "sha": "dbd18cb",
