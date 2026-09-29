@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 327,
-    "site": 741,
+    "site": 742,
     "builds": 44,
-    "shipped": 360,
-    "screenshots": 894
+    "shipped": 362,
+    "screenshots": 900
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T08:22:32.728Z",
+          "at": "2026-09-29T08:26:14.454Z",
+          "title": "Yui 0.5.3: a way home, readable text, and Add agent no longer hangs",
+          "card": null,
+          "anchor": "yui-0-5-3-a-way-home-readable-text-and-add-agent-no-longer-hangs",
+          "images": [
+            {
+              "src": "/progress/yui193-pills-1-light.webp",
+              "alt": "Light mode: the screens sit in the top bar as pills, one per screen."
+            },
+            {
+              "src": "/progress/yui195-back-home-dark.webp",
+              "alt": "Dark mode: the last page of a full-screen answer ends on a Back home pill."
+            },
+            {
+              "src": "/progress/yui196-markdown-light.webp",
+              "alt": "Light mode: a long answer in body text with bold and a list drawn, no stars or hashes."
+            },
+            {
+              "src": "/progress/yui205-chart-light.webp",
+              "alt": "Light mode: a chart on the last page stays inside the phone."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 327,
+            "site": 742,
+            "builds": 44,
+            "shipped": 362
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T08:23:04.000Z",
           "title": "Yui 0.5.3 is on TestFlight: the fixes from your feedback",
           "card": null,
           "anchor": "yui-0-5-3-is-on-testflight-the-fixes-from-your-feedback",
@@ -36,6 +68,30 @@
             }
           ],
           "commits": 0,
+          "totals": {
+            "app": 327,
+            "site": 742,
+            "builds": 44,
+            "shipped": 361
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T08:21:47.000Z",
+          "title": "Every message shows when it was sent",
+          "card": "YUI-202",
+          "anchor": "every-message-shows-when-it-was-sent",
+          "images": [
+            {
+              "src": "/progress/yui202-day-dividers-dark.webp",
+              "alt": "Dark mode: a thread with dividers for Sat, Sep 26, Yesterday and Today, and a time under each message."
+            },
+            {
+              "src": "/progress/yui202-day-dividers-light.webp",
+              "alt": "Light mode: the same thread with day dividers and a quiet time under each message."
+            }
+          ],
+          "commits": 2,
           "totals": {
             "app": 327,
             "site": 741,
@@ -411,6 +467,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "d0bb84a",
+          "at": "2026-09-29T08:23:04.000Z",
+          "text": "Progress: Yui 0.5.3 (build 329) is on TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d0bb84a"
+        },
         {
           "repo": "site",
           "sha": "82b2916",
