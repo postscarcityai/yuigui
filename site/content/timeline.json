@@ -1,16 +1,72 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 334,
-    "site": 755,
+    "app": 335,
+    "site": 758,
     "builds": 46,
-    "shipped": 367,
-    "screenshots": 916
+    "shipped": 368,
+    "screenshots": 918
   },
   "days": [
     {
       "date": "2026-09-29",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-29T15:03:35.189Z",
+          "title": "A notification opens on page one of what came",
+          "card": "YUI-199b",
+          "anchor": "a-notification-opens-on-page-one-of-what-came",
+          "images": [
+            {
+              "src": "/progress/yui199b-before-last-page.webp",
+              "alt": "Before: the stage sits on page three of three, showing Finish here."
+            },
+            {
+              "src": "/progress/yui199b-after-page-one.webp",
+              "alt": "After: a tap on the notification brings the answer up on page one of three, showing First page."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 335,
+            "site": 758,
+            "builds": 46,
+            "shipped": 368
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T14:06:13.000Z",
+          "title": "Quill's tools in the app: learn a topic, rate your cards, a problem one step at a time",
+          "card": "YUI-186",
+          "anchor": "quill-s-tools-in-the-app-learn-a-topic-rate-your-cards-a-problem-one-step-at-a-t",
+          "images": [
+            {
+              "src": "/progress/yui186-app-light-lesson.webp",
+              "alt": "A lesson page in Quill: Plants make food from light, with a line under it about leaves turning sunlight into sugar"
+            },
+            {
+              "src": "/progress/yui186-app-dark-review.webp",
+              "alt": "Dark mode: cards due today, each with again, hard, good and easy, and one Save my review button"
+            },
+            {
+              "src": "/progress/yui186-app-light-problem.webp",
+              "alt": "A problem walk-through on step two: So x is? with three answers and a Send button"
+            },
+            {
+              "src": "/progress/yui186-app-dark-progress.webp",
+              "alt": "Dark mode: Quill's Progress page after a relaunch, with a day streak, cards reviewed today and cards learned"
+            }
+          ],
+          "commits": 5,
+          "totals": {
+            "app": 334,
+            "site": 756,
+            "builds": 46,
+            "shipped": 367
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-29T12:12:14.000Z",
@@ -32,7 +88,7 @@
             "app": 332,
             "site": 752,
             "builds": 46,
-            "shipped": 367
+            "shipped": 366
           }
         },
         {
@@ -52,7 +108,7 @@
             "app": 331,
             "site": 751,
             "builds": 46,
-            "shipped": 366
+            "shipped": 365
           }
         },
         {
@@ -84,7 +140,7 @@
             "app": 329,
             "site": 747,
             "builds": 46,
-            "shipped": 365
+            "shipped": 364
           }
         },
         {
@@ -120,7 +176,7 @@
             "app": 328,
             "site": 746,
             "builds": 46,
-            "shipped": 364
+            "shipped": 363
           }
         },
         {
@@ -152,7 +208,7 @@
             "app": 327,
             "site": 743,
             "builds": 46,
-            "shipped": 363
+            "shipped": 362
           }
         },
         {
@@ -164,7 +220,7 @@
             "app": 327,
             "site": 742,
             "builds": 46,
-            "shipped": 362
+            "shipped": 361
           }
         },
         {
@@ -196,7 +252,7 @@
             "app": 327,
             "site": 742,
             "builds": 45,
-            "shipped": 362
+            "shipped": 361
           }
         },
         {
@@ -220,7 +276,7 @@
             "app": 327,
             "site": 741,
             "builds": 45,
-            "shipped": 361
+            "shipped": 360
           }
         },
         {
@@ -232,7 +288,7 @@
             "app": 326,
             "site": 740,
             "builds": 45,
-            "shipped": 360
+            "shipped": 359
           }
         },
         {
@@ -256,7 +312,7 @@
             "app": 326,
             "site": 740,
             "builds": 44,
-            "shipped": 360
+            "shipped": 359
           }
         },
         {
@@ -280,7 +336,7 @@
             "app": 325,
             "site": 738,
             "builds": 44,
-            "shipped": 359
+            "shipped": 358
           }
         },
         {
@@ -295,7 +351,7 @@
             "app": 324,
             "site": 736,
             "builds": 44,
-            "shipped": 358
+            "shipped": 357
           }
         },
         {
@@ -319,7 +375,7 @@
             "app": 322,
             "site": 735,
             "builds": 44,
-            "shipped": 357
+            "shipped": 356
           }
         },
         {
@@ -351,7 +407,7 @@
             "app": 321,
             "site": 733,
             "builds": 44,
-            "shipped": 356
+            "shipped": 355
           }
         },
         {
@@ -379,7 +435,7 @@
             "app": 320,
             "site": 731,
             "builds": 44,
-            "shipped": 355
+            "shipped": 354
           }
         },
         {
@@ -411,7 +467,7 @@
             "app": 319,
             "site": 729,
             "builds": 44,
-            "shipped": 354
+            "shipped": 353
           }
         },
         {
@@ -439,7 +495,7 @@
             "app": 319,
             "site": 727,
             "builds": 44,
-            "shipped": 353
+            "shipped": 352
           }
         },
         {
@@ -479,7 +535,7 @@
             "app": 318,
             "site": 726,
             "builds": 44,
-            "shipped": 352
+            "shipped": 351
           }
         },
         {
@@ -507,7 +563,7 @@
             "app": 318,
             "site": 723,
             "builds": 44,
-            "shipped": 351
+            "shipped": 350
           }
         },
         {
@@ -555,7 +611,7 @@
             "app": 316,
             "site": 722,
             "builds": 44,
-            "shipped": 350
+            "shipped": 349
           }
         },
         {
@@ -583,7 +639,7 @@
             "app": 316,
             "site": 719,
             "builds": 44,
-            "shipped": 349
+            "shipped": 348
           }
         },
         {
@@ -598,11 +654,39 @@
             "app": 315,
             "site": 717,
             "builds": 44,
-            "shipped": 348
+            "shipped": 347
           }
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "dbd18cb",
+          "at": "2026-09-29T15:03:13.000Z",
+          "text": "A notification tap opens on page one of what came, not the last (YUI-199b)",
+          "url": "https://github.com/postscarcityai/yui/commit/dbd18cb"
+        },
+        {
+          "repo": "site",
+          "sha": "f43fdec",
+          "at": "2026-09-29T14:41:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f43fdec"
+        },
+        {
+          "repo": "site",
+          "sha": "4443c17",
+          "at": "2026-09-29T14:10:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4443c17"
+        },
+        {
+          "repo": "site",
+          "sha": "5077ee3",
+          "at": "2026-09-29T14:06:13.000Z",
+          "text": "Quill's tools in the app: progress entry and four shots (YUI-186)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5077ee3"
+        },
         {
           "repo": "app",
           "sha": "71f5f03",
@@ -1035,7 +1119,7 @@
             "app": 314,
             "site": 713,
             "builds": 44,
-            "shipped": 347
+            "shipped": 346
           }
         },
         {
@@ -1059,7 +1143,7 @@
             "app": 313,
             "site": 712,
             "builds": 44,
-            "shipped": 346
+            "shipped": 345
           }
         },
         {
@@ -1091,7 +1175,7 @@
             "app": 310,
             "site": 706,
             "builds": 44,
-            "shipped": 345
+            "shipped": 344
           }
         },
         {
@@ -1106,7 +1190,7 @@
             "app": 310,
             "site": 705,
             "builds": 44,
-            "shipped": 344
+            "shipped": 343
           }
         },
         {
@@ -1138,7 +1222,7 @@
             "app": 310,
             "site": 698,
             "builds": 44,
-            "shipped": 343
+            "shipped": 342
           }
         },
         {
@@ -1166,7 +1250,7 @@
             "app": 310,
             "site": 697,
             "builds": 44,
-            "shipped": 342
+            "shipped": 341
           }
         },
         {
@@ -1181,7 +1265,7 @@
             "app": 310,
             "site": 694,
             "builds": 44,
-            "shipped": 341
+            "shipped": 340
           }
         },
         {
@@ -1205,7 +1289,7 @@
             "app": 310,
             "site": 693,
             "builds": 44,
-            "shipped": 340
+            "shipped": 339
           }
         },
         {
@@ -1229,7 +1313,7 @@
             "app": 310,
             "site": 691,
             "builds": 44,
-            "shipped": 339
+            "shipped": 338
           }
         },
         {
@@ -1253,7 +1337,7 @@
             "app": 310,
             "site": 690,
             "builds": 44,
-            "shipped": 338
+            "shipped": 337
           }
         },
         {
@@ -1285,7 +1369,7 @@
             "app": 310,
             "site": 685,
             "builds": 44,
-            "shipped": 337
+            "shipped": 336
           }
         },
         {
@@ -1300,7 +1384,7 @@
             "app": 308,
             "site": 682,
             "builds": 44,
-            "shipped": 336
+            "shipped": 335
           }
         },
         {
@@ -1332,7 +1416,7 @@
             "app": 308,
             "site": 680,
             "builds": 44,
-            "shipped": 335
+            "shipped": 334
           }
         },
         {
@@ -1364,7 +1448,7 @@
             "app": 308,
             "site": 679,
             "builds": 44,
-            "shipped": 334
+            "shipped": 333
           }
         },
         {
@@ -1396,7 +1480,7 @@
             "app": 308,
             "site": 677,
             "builds": 44,
-            "shipped": 333
+            "shipped": 332
           }
         },
         {
@@ -1420,7 +1504,7 @@
             "app": 305,
             "site": 675,
             "builds": 44,
-            "shipped": 332
+            "shipped": 331
           }
         },
         {
@@ -1452,7 +1536,7 @@
             "app": 305,
             "site": 674,
             "builds": 44,
-            "shipped": 331
+            "shipped": 330
           }
         },
         {
@@ -1476,7 +1560,7 @@
             "app": 305,
             "site": 673,
             "builds": 44,
-            "shipped": 330
+            "shipped": 329
           }
         },
         {
@@ -1508,7 +1592,7 @@
             "app": 305,
             "site": 672,
             "builds": 44,
-            "shipped": 329
+            "shipped": 328
           }
         },
         {
@@ -1523,7 +1607,7 @@
             "app": 302,
             "site": 670,
             "builds": 44,
-            "shipped": 328
+            "shipped": 327
           }
         },
         {
@@ -1555,7 +1639,7 @@
             "app": 302,
             "site": 668,
             "builds": 44,
-            "shipped": 327
+            "shipped": 326
           }
         },
         {
@@ -1587,7 +1671,7 @@
             "app": 301,
             "site": 666,
             "builds": 44,
-            "shipped": 326
+            "shipped": 325
           }
         },
         {
@@ -1623,7 +1707,7 @@
             "app": 300,
             "site": 664,
             "builds": 44,
-            "shipped": 325
+            "shipped": 324
           }
         },
         {
@@ -1659,7 +1743,7 @@
             "app": 299,
             "site": 662,
             "builds": 44,
-            "shipped": 324
+            "shipped": 323
           }
         },
         {
@@ -1691,7 +1775,7 @@
             "app": 298,
             "site": 659,
             "builds": 44,
-            "shipped": 323
+            "shipped": 322
           }
         },
         {
@@ -1723,7 +1807,7 @@
             "app": 298,
             "site": 657,
             "builds": 44,
-            "shipped": 322
+            "shipped": 321
           }
         },
         {
@@ -1755,7 +1839,7 @@
             "app": 297,
             "site": 655,
             "builds": 44,
-            "shipped": 321
+            "shipped": 320
           }
         },
         {
@@ -1787,7 +1871,7 @@
             "app": 294,
             "site": 652,
             "builds": 44,
-            "shipped": 320
+            "shipped": 319
           }
         },
         {
@@ -1819,38 +1903,6 @@
             "app": 294,
             "site": 649,
             "builds": 44,
-            "shipped": 319
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-28T08:21:07.000Z",
-          "title": "Quill's tools in the app: learn a topic, rate your cards, a problem one step at a time",
-          "card": "YUI-186",
-          "anchor": "quill-s-tools-in-the-app-learn-a-topic-rate-your-cards-a-problem-one-step-at-a-t",
-          "images": [
-            {
-              "src": "/progress/yui186-app-light-lesson.webp",
-              "alt": "A lesson page in Quill: Plants make food from light, with a line under it about leaves turning sunlight into sugar"
-            },
-            {
-              "src": "/progress/yui186-app-dark-review.webp",
-              "alt": "Dark mode: cards due today, each with again, hard, good and easy, and one Save my review button"
-            },
-            {
-              "src": "/progress/yui186-app-light-problem.webp",
-              "alt": "A problem walk-through on step two: So x is? with three answers and a Send button"
-            },
-            {
-              "src": "/progress/yui186-app-dark-progress.webp",
-              "alt": "Dark mode: Quill's Progress page after a relaunch, with a day streak, cards reviewed today and cards learned"
-            }
-          ],
-          "commits": 4,
-          "totals": {
-            "app": 293,
-            "site": 647,
-            "builds": 44,
             "shipped": 318
           }
         },
@@ -1878,7 +1930,7 @@
               "alt": "Step 1 of 3: Recall the speed formula, v equals d over t, then What is the speed formula?"
             }
           ],
-          "commits": 4,
+          "commits": 5,
           "totals": {
             "app": 293,
             "site": 647,
