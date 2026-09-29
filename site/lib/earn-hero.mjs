@@ -36,11 +36,12 @@ export const START = { balance: 1240, day: 6, today: 38 };
 
 export const HERO = {
   pickLabel: "Use Yui, then open the drawer",
+  since: (n) => `+${n} since you last looked`,
   nextDay: "Come back tomorrow",
   nextDayHint: (day) => `Day ${day + 1} of your streak`,
   openDrawer: "Open the drawer",
   closeDrawer: "Close the drawer",
-  drawerHint: "Your $U lives here, top right",
+  drawerHint: "A new number counts up when you open it",
   replay: "Start over",
   agent: "Basil",
   you: "Sam",

@@ -83,14 +83,14 @@ Chris, 2026-09-29: "The $U should not show at all times. I want it to be in the 
 - **Nothing on the chat.** Using Yui shows no counter, no coins and no pill. It counts quietly.
 - **The drawer, redone at the top.** Today the drawer opens on the agent's name in big type, with a gear and an X top right. The agent's name is already at the bottom (the switcher), so the top becomes yours:
   - **Top left: your profile.** Your picture and your name, in a smaller headline. A tap opens what the gear opened: Settings.
-  - **Top right: your $U total**, where the gear and the X were. The X goes too: a tap on the chat beside the drawer, or a swipe, closes it, as it does today.
+  - **Top right: your $U bank**, the total, where the gear and the X were. The X goes too: a tap on the chat beside the drawer, or a swipe, closes it, as it does today.
   - The tabs (Home, Review, Controls, About) and the agent at the bottom stay as they are.
-- **Open it and watch it climb.** The total counts up from what you saw last time to now, with a small "+41 since you last looked" under it. Keep using Yui with the drawer open and each move drops a coin in (+1, +2, +5, bigger for a streak bonus or a merged pull request).
+- **Open it and watch it fly into the bank.** Chris, 2026-09-29: "Show it coming from the chat logs into the bank whenever I open the drawer." As the drawer slides open, the chat still shows beside it, and every answer you earned from since you last looked sends a coin (+1, +2, +5) out of that message and up into your $U total, one after another. The total counts up as each coin lands. More than 8 waiting ride in as one bigger coin first. Keep using Yui with the drawer open and each new answer sends its coin straight in.
 - **A tap on the total** opens Your $U: the total, today against the 150 soft cap, your streak and its multiplier, the history ("Sep 29, 34 messages, 9 screens, 4 jobs, +82") and the formula tables. "No cash value. Not a token yet." sits under the number.
 - **Quiet.** No sound, no push and no reminders about $U, ever.
 - Every history row names what kind of thing happened. No row ever shows what you said.
 
-The mockup at the top of this page plays it: use Basil with nothing counting, then open the drawer.
+The mockup at the top of this page plays it: use Basil with nothing counting, then open the drawer and watch the coins fly into the bank.
 
 ### Sign in with GitHub
 
