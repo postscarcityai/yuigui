@@ -1594,6 +1594,10 @@
     },
     {
       "text": "Controls > Model: pick which key each agent runs on, Yui's, Claude or ChatGPT (YUI-139 step 2g)"
+    },
+    {
+      "text": "A sleek sans base: SF Pro, semibold headings, a nine-step type scale that follows Dynamic Type",
+      "card": "YUI-211"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T21:10:57.340Z",
+  "updated": "2026-09-29T21:41:04.503Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.3",
@@ -366,13 +366,9 @@
         },
         {
           "key": "YUI-211",
-          "title": "Better typography, a sleek sans serif as the base Yui look"
-        },
-        {
-          "key": "SITE-103",
-          "title": "The home page shares as \"Yui",
-          "summary": "The GUI for You\", one evergreen image, and the catch line under the H1",
-          "waiting": true
+          "title": "Better typography, a sleek sans serif as the base Yui look",
+          "summary": "A sleek sans for the whole app",
+          "progress": "/progress#a-sleek-sans-for-the-whole-app"
         },
         {
           "key": "SITE-104",
@@ -409,6 +405,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-103",
+          "title": "The home page shares as \"Yui",
+          "summary": "The home page shares as Yui: The GUI for You",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-home-page-shares-as-yui-the-gui-for-you"
+        },
         {
           "key": "SITE-105",
           "title": "A Thought on your own key at every stop, why Yui never sells you a model",
