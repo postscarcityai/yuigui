@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T22:11:04.696Z",
+  "updated": "2026-09-29T22:41:09.801Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.3",
@@ -338,12 +338,6 @@
           "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
         },
         {
-          "key": "YUI-191",
-          "title": "Hold the app icon for your agents' shortcuts",
-          "summary": "Basil's Log food first, you pick which ones show",
-          "waiting": true
-        },
-        {
           "key": "NOTE-54934",
           "title": "Past chats in the drawer",
           "waiting": true
@@ -359,9 +353,15 @@
           "waiting": true
         },
         {
-          "key": "SITE-104",
-          "title": "A procedural 404",
-          "summary": "A new ASCII scene, colors and line from Yui on every visit"
+          "key": "YUI-191",
+          "title": "Hold the app icon for your agents' shortcuts",
+          "summary": "Basil's Log food first, you pick which ones show"
+        },
+        {
+          "key": "SITE-106",
+          "title": "Proposals carry credits and a trail",
+          "summary": "Who proposed it, what sparked it, who took it, card, branch, PR, release",
+          "waiting": true
         },
         {
           "key": "YUI-116",
@@ -398,6 +398,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-104",
+          "title": "A procedural 404",
+          "summary": "A 404 that is never the same twice",
+          "shipped": "2026-09-29",
+          "progress": "/progress#a-404-that-is-never-the-same-twice"
+        },
         {
           "key": "YUI-211",
           "title": "Better typography, a sleek sans serif as the base Yui look",
