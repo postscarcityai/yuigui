@@ -1540,6 +1540,14 @@
     },
     {
       "text": "Tests follow Gouda's sixth screen; PushTap state cleared after each test"
+    },
+    {
+      "text": "The guitar tuner no longer crashes: the mic tap and pitch relay are built outside the main actor",
+      "card": "YUI-206"
+    },
+    {
+      "text": "Hold the mic: slide left to cancel, slide up onto a lock to keep recording; drop the stray listening orb",
+      "card": "YUI-201"
     }
   ]
 }

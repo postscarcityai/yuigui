@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T11:40:18.987Z",
+  "updated": "2026-09-29T12:14:33.428Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -93,11 +93,6 @@
           "agentReady": true
         },
         {
-          "key": "YUI-115",
-          "title": "The app runs flows, then My flows (FLOW-1 app half)",
-          "waiting": true
-        },
-        {
           "key": "YUI-147",
           "title": "Move the native runtime to Cloudflare",
           "summary": "A Worker and a Durable Object per person"
@@ -173,6 +168,13 @@
           "key": "YUI-179",
           "title": "Yui for Apple TV",
           "summary": "Timers and the stage on the big screen"
+        },
+        {
+          "key": "YUI-206",
+          "title": "The app crashes when you tune the guitar",
+          "summary": "The guitar tuner no longer crashes",
+          "waiting": true,
+          "progress": "/progress#the-guitar-tuner-no-longer-crashes"
         },
         {
           "key": "SITE-28",
@@ -252,21 +254,6 @@
           "summary": "Create, edit, fork and remove a native agent from chat"
         },
         {
-          "key": "YUI-138",
-          "title": "Start blank",
-          "summary": "A new empty agent runs a setup flow to make itself"
-        },
-        {
-          "key": "YUI-139",
-          "title": "Free turns and your own key",
-          "summary": "100 a month on Yui, then OpenRouter sign-in or any provider key"
-        },
-        {
-          "key": "YUI-146",
-          "title": "The same Yui on the web",
-          "summary": "Plug and play proof in the browser client"
-        },
-        {
           "key": "YUI-169",
           "title": "A",
           "step": "Step 2",
@@ -296,8 +283,31 @@
           "waiting": true
         },
         {
+          "key": "YUI-115",
+          "title": "The app runs flows, then My flows (FLOW-1 app half)",
+          "waiting": true
+        },
+        {
           "key": "YUI-128",
           "title": "About and Controls become one drawer tab",
+          "waiting": true
+        },
+        {
+          "key": "YUI-138",
+          "title": "Start blank",
+          "summary": "A new empty agent runs a setup flow to make itself",
+          "waiting": true
+        },
+        {
+          "key": "YUI-139",
+          "title": "Free turns and your own key",
+          "summary": "100 a month on Yui, then OpenRouter sign-in or any provider key",
+          "waiting": true
+        },
+        {
+          "key": "YUI-146",
+          "title": "The same Yui on the web",
+          "summary": "Plug and play proof in the browser client",
           "waiting": true
         },
         {
@@ -454,12 +464,6 @@
           "summary": "Several chats with one agent: the spec and a mock",
           "blocked": "chris",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
-        },
-        {
-          "key": "YUI-201",
-          "title": "Hold to talk",
-          "summary": "Slide left to cancel, slide to a lock to keep recording",
-          "blocked": "chris"
         }
       ]
     },
@@ -467,6 +471,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-201",
+          "title": "Hold to talk",
+          "summary": "Hold the mic, slide to cancel or lock",
+          "shipped": "2026-09-29",
+          "progress": "/progress#hold-the-mic-slide-to-cancel-or-lock"
+        },
         {
           "key": "YUI-116",
           "title": "Recording, export, MIDI and Ableton Link",
