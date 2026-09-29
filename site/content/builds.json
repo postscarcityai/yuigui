@@ -1551,6 +1551,9 @@
     },
     {
       "text": "The visualizer shares one Metal device, queue and pipeline cache across threads (0.6.0 memory growth)"
+    },
+    {
+      "text": "Quill's tools in the app: a lesson's quiz reports its score, tests run learn, review and a problem through kill-relaunch and 5x agent switch (YUI-186, app half)"
     }
   ]
 }

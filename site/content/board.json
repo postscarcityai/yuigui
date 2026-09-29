@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T13:11:49.338Z",
+  "updated": "2026-09-29T14:10:51.180Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -337,12 +337,6 @@
           "progress": "/progress#your-planner-plans-the-week"
         },
         {
-          "key": "YUI-186",
-          "title": "Quill's tools",
-          "summary": "Your study buddy teaches and quizzes",
-          "progress": "/progress#your-study-buddy-teaches-and-quizzes"
-        },
-        {
           "key": "NOTE-36529",
           "title": "Screen dots in the bottom bar",
           "waiting": true
@@ -490,6 +484,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-186",
+          "title": "Quill's tools",
+          "summary": "Quill's tools in the app: learn a topic, rate your cards, a problem one step at a time",
+          "shipped": "2026-09-29",
+          "progress": "/progress#quill-s-tools-in-the-app-learn-a-topic-rate-your-cards-a-problem-one-step-at-a-t"
+        },
         {
           "key": "YUI-201",
           "title": "Hold to talk",
