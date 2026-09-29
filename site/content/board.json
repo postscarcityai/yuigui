@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T23:12:01.116Z",
+  "updated": "2026-09-29T23:40:19.906Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.3",
@@ -297,12 +297,20 @@
           "summary": "TestFlight build, progress.json entry, demo live on yuigui.com"
         },
         {
-          "key": "NOTE-18568",
-          "title": "Say 'Invite: Declined', nothing more"
+          "key": "NOTE-14928",
+          "title": "A nicer Type your own"
         },
         {
-          "key": "NOTE-48845",
-          "title": "Draw the X, show the worker"
+          "key": "NOTE-27331",
+          "title": "One look: shader, no line blob"
+        },
+        {
+          "key": "NOTE-45760",
+          "title": "Show more of my question"
+        },
+        {
+          "key": "NOTE-55641",
+          "title": "Keep the mic, move Back home"
         }
       ]
     },
@@ -369,16 +377,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-34",
-          "title": "Key vault native in the app, tool keys at every stop",
-          "step": "Step 2"
-        },
-        {
-          "key": "YUI-191",
-          "title": "Hold the app icon for your agents' shortcuts",
-          "summary": "Basil's Log food first, you pick which ones show"
-        },
-        {
           "key": "YUI-209",
           "title": "Tapping Decline on an invite request does nothing; the row stays 'requested' and the ask comes back",
           "waiting": true
@@ -387,15 +385,6 @@
           "key": "YUI-210",
           "title": "Jev at our first two decision points, measured against today",
           "waiting": true
-        },
-        {
-          "key": "SITE-106",
-          "title": "Proposals carry credits and a trail",
-          "summary": "Who proposed it, what sparked it, who took it, card, branch, PR, release"
-        },
-        {
-          "key": "NOTE-43932",
-          "title": "Shorter answers, drawn not typed"
         },
         {
           "key": "YUI-169",
@@ -418,6 +407,57 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-107",
+          "title": "Every story shipped Sep 27-29 shows a demo a visitor can see on yuigui.com",
+          "summary": "Shorter answers, drawn not typed",
+          "shipped": "2026-09-29",
+          "progress": "/progress#shorter-answers-drawn-not-typed"
+        },
+        {
+          "key": "YUI-34",
+          "title": "Key vault native in the app, tool keys at every stop",
+          "step": "Step 2",
+          "summary": "Your keys, on your phone: fal, Replicate, ElevenLabs, Anthropic, OpenAI",
+          "shipped": "2026-09-29",
+          "progress": "/progress#your-keys-on-your-phone-fal-replicate-elevenlabs-anthropic-openai"
+        },
+        {
+          "key": "NOTE-48845",
+          "title": "Draw the X, show the worker",
+          "shipped": "2026-09-29"
+        },
+        {
+          "key": "NOTE-43932",
+          "title": "Shorter answers, drawn not typed",
+          "shipped": "2026-09-29"
+        },
+        {
+          "key": "NOTE-18568",
+          "title": "Say 'Invite: Declined', nothing more",
+          "shipped": "2026-09-29"
+        },
+        {
+          "key": "YUI-191",
+          "title": "Hold the app icon for your agents' shortcuts",
+          "summary": "Hold the Yui icon, get your agents' shortcuts",
+          "shipped": "2026-09-29",
+          "progress": "/progress#hold-the-yui-icon-get-your-agents-shortcuts"
+        },
+        {
+          "key": "SITE-106",
+          "title": "Proposals carry credits and a trail",
+          "summary": "Every proposal now shows who proposed it and where it went",
+          "shipped": "2026-09-29",
+          "progress": "/progress#every-proposal-now-shows-who-proposed-it-and-where-it-went"
+        },
+        {
+          "key": "YUI-211",
+          "title": "A function deploy can never run ahead of its migrations",
+          "summary": "A deploy can no longer run ahead of its database changes",
+          "shipped": "2026-09-29",
+          "progress": "/progress#a-deploy-can-no-longer-run-ahead-of-its-database-changes"
+        },
         {
           "key": "SITE-104",
           "title": "A procedural 404",
@@ -1021,8 +1061,9 @@
         {
           "key": "YUI-164",
           "title": "Ship the fix build",
-          "summary": "New-user first run with the crew, pick your crew, screens on the stage, on top of the 229 crash fix",
-          "shipped": "2026-09-27"
+          "summary": "A new install opens with Yui and the crew already there",
+          "shipped": "2026-09-27",
+          "progress": "/progress#a-new-install-opens-with-yui-and-the-crew-already-there"
         },
         {
           "key": "YUI-161",

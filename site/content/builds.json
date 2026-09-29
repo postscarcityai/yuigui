@@ -1606,5 +1606,42 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Deploys refuse to run ahead of unapplied migrations; a crew health probe; logs via the ClickHouse endpoint",
+      "card": "YUI-211"
+    },
+    {
+      "text": "Hold the icon: your agents' drawer shortcuts on the home screen, you pick which four",
+      "card": "YUI-191"
+    },
+    {
+      "text": "Icon menu test: send, don't type, so the shot has no keyboard",
+      "card": "YUI-191"
+    },
+    {
+      "text": "Key vault plugin: yui_key_ask, vault_call, key_answer line (YUI-34 step 2, plugin lane)"
+    },
+    {
+      "text": "Wire the key vault into the Yui adapter and test it (YUI-34 step 2, plugin lane)"
+    },
+    {
+      "text": "Key vault relay: sealed keys, per-agent grants, audited uses, cap holds, key_ask no-nag (YUI-34 backend)"
+    },
+    {
+      "text": "Vault relay checks: RLS, sealed column, grants, holds, once, lapse, key_ask and key_answer (YUI-34 backend)"
+    },
+    {
+      "text": "yui-vault Edge Function: HPKE-opened keys, token/grant/path/cap checks, fixed hosts, scrubbed logs; connector public key (YUI-34 backend)"
+    },
+    {
+      "text": "Vault proxy tests: wrong agent, revoked, path, cap and holds, once, provider refusal, CryptoKit interop, no key in any log line (YUI-34 backend)"
+    },
+    {
+      "text": "Key vault in the app: Keychain store, Settings > Keys (add by paste or scan, Face ID, no reveal, iCloud off), key-shaped sends held, key_ask sheet, HPKE sealing, Controls > Keys with Revoke (YUI-34 step 2)"
+    },
+    {
+      "text": "Pin the real vault connector key yvk-1 in the app and the function (YUI-34 step 2)"
+    }
+  ]
 }
