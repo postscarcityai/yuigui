@@ -666,7 +666,7 @@ export default function Playground({ release = "" }) {
               <div className="pg-dotbar"><PageDots names={dotNames} index={dotAt} progress={dotAt} onGo={(i) => setView(dotNames[i])} /></div>
             ) : null}
             <Stage open={state.stage && staged.length > 0 && !client} onClose={closeStage} agent={agent}>
-              <ScreenCtx.Provider value={{ nodes: staged, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, write: addData, agent, screen: "full", dispatch, fold, closeStage }}>
+              <ScreenCtx.Provider value={{ nodes: staged, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, write: addData, agent, screen: "full", dispatch, fold, closeStage, stageHome: true }}>
                 {groupNodes(staged).map((n) => <LiveSlot key={`${epoch}:${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
               </ScreenCtx.Provider>
             </Stage>

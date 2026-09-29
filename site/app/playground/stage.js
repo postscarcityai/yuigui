@@ -5,6 +5,7 @@
 // timer keeps running; the chat shows a pill that brings it back.
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { RichText } from "./richtext";
+import { useDragDown } from "./dragdown";
 
 // Live one-liners from staged components ("3:12 · Round 2/8"), keyed by
 // component key, so the pill in the chat can show what is running.
@@ -26,6 +27,7 @@ export function LiveSlot({ id, onLive, children }) {
 export function Stage({ open, onClose, agent, children }) {
   const [drag, setDrag] = useState(0);
   const start = useRef(null);
+  const pull = useDragDown(onClose);   // touch: pull the card anywhere down (SITE-98); the bar keeps the mouse drag
 
   useEffect(() => {
     if (!open) return;
@@ -35,8 +37,8 @@ export function Stage({ open, onClose, agent, children }) {
   }, [open, onClose]);
 
   // Swipe down from anywhere near the top closes it; a short drag springs back.
-  const down = (e) => { start.current = e.clientY; e.currentTarget.setPointerCapture(e.pointerId); };
-  const move = (e) => { if (start.current != null) setDrag(Math.max(0, e.clientY - start.current)); };
+  const down = (e) => { if (e.pointerType !== "mouse") return; start.current = e.clientY; e.currentTarget.setPointerCapture(e.pointerId); };
+  const move = (e) => { if (e.pointerType === "mouse" && start.current != null) setDrag(Math.max(0, e.clientY - start.current)); };
   const up = () => {
     if (start.current == null) return;
     start.current = null;
@@ -46,7 +48,8 @@ export function Stage({ open, onClose, agent, children }) {
 
   return (
     <div className={`yl-stage ${open ? "open" : ""}`} aria-hidden={!open}
-      style={drag ? { transform: `translateY(${drag}px)`, transition: "none" } : undefined}>
+      data-pull={pull.dragging ? "1" : undefined} {...pull.handlers}
+      style={drag ? { transform: `translateY(${drag}px)`, transition: "none" } : pull.style}>
       <div className="yl-stagebar" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>
         <span className="yl-stagegrab" />
         <span className="yl-stagewho">{agent}</span>

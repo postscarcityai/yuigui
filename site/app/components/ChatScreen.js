@@ -45,7 +45,8 @@ export default function ChatScreen({ yl, onTap, onPage, fresh = false, agent = "
   const pages = Object.keys(state.screens).filter((k) => state.screens[k].some((n) => !inThread(k, n))).sort((a, b) => a - b);
   const nodes = all.filter((n) => !n.stage);
   const staged = all.filter((n) => n.stage);
-  const ctx = (list, screen) => ({ nodes: list, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, agent, screen, dispatch });
+  const closeStage = useCallback(() => setState((s) => ({ ...s, stage: false })), []);
+  const ctx = (list, screen) => ({ nodes: list, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, agent, screen, dispatch, ...(screen === "full" ? { closeStage, stageHome: true } : {}) });
   const renderNode = (n) => n.steps ? (
     <div key={`${n.key}:steps`} className="pg-node"><StepGroup nodes={n.steps} emitFor={emit} /></div>
   ) : n.group ? (

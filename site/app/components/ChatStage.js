@@ -13,6 +13,7 @@ import { ScreenCtx } from "../playground/science";
 import { RichText } from "../playground/richtext";
 import { textRole } from "../../lib/yl/readtext.mjs";
 import { CrewOr } from "./ChatCrew";
+import { useDragDown } from "../playground/dragdown";
 import "../playground/flows.css";
 
 function Picture({ part, node, emitFor }) {
@@ -21,21 +22,21 @@ function Picture({ part, node, emitFor }) {
   return g ? <Group g={g} emitFor={emitFor} Render={Render} /> : <Render node={node} emit={emitFor(node)} />;
 }
 
-function Ctx({ part, agent, children }) {
+function Ctx({ part, agent, home, children }) {
   const value = useMemo(() => ({
     nodes: part ? part.nodes : [], tables: { ...TABLES, ...boundTables(part?.state.data || {}) }, data: part?.state.data || {},
-    write: () => {}, agent, screen: "full", dispatch: () => {}, fold: () => {}, closeStage: () => {},
-  }), [part, agent]);
+    write: () => {}, agent, screen: "full", dispatch: () => {}, fold: () => {}, closeStage: () => home?.(),
+  }), [part, agent, home]);
   return <ScreenCtx.Provider value={value}>{children}</ScreenCtx.Provider>;
 }
 
-function Chunk({ a, c, dir, emitFor, Text, go, small }) {
+function Chunk({ a, c, dir, emitFor, Text, go, small, home }) {
   const part = c.part != null ? a.parts[c.part] : null;
   const words = c.text || c.line;
   const long = textRole(words || "") === "body";
   return (
     <div className={`mo-chunk ys-chunk${small ? " small" : ""}`} data-dir={dir}>
-      {c.pic && part ? <div className="ys-pic yc-screen pg-screen"><Ctx part={part} agent="Yui"><Picture part={part} node={c.pic} emitFor={emitFor} /></Ctx></div> : null}
+      {c.pic && part ? <div className="ys-pic yc-screen pg-screen"><Ctx part={part} agent="Yui" home={home}><Picture part={part} node={c.pic} emitFor={emitFor} /></Ctx></div> : null}
       {c.text ? <div className={`ys-line ys-text${long ? " long" : ""}`}><Text text={c.text} go={go} /></div> : null}
       {c.line ? <div className={`ys-line${long ? " long" : ""}`}><RichText text={c.line} go={go} /></div> : null}
       {c.page?.body ? <div className="ys-body"><RichText text={c.page.body} go={go} /></div> : null}
@@ -44,7 +45,7 @@ function Chunk({ a, c, dir, emitFor, Text, go, small }) {
   );
 }
 
-export default function ChatStage({ content, live, onTap, onAnswers, Text, go, active = true, onEdge }) {
+export default function ChatStage({ content, live, onTap, onAnswers, Text, go, active = true, onEdge, onHome, onEnd }) {
   const a = useMemo(() => readAnswer(content), [content]);
   const n = a.chunks.length;
   const [at, setAt] = useState(0);
@@ -54,6 +55,13 @@ export default function ChatStage({ content, live, onTap, onAnswers, Text, go, a
   const box = useRef(null);
   const last = Math.max(0, n - 1);
   const asking = a.questions.length > 0 && at >= last && !sent;
+
+  const pull = useDragDown(() => onHome?.());
+  // Past the last part (and its questions sent), the chat swaps the mic for Back home (SITE-98).
+  // A plan or flow plays its own steps and sends at its own end, so it is never "the end" here.
+  const runs = /^(plan|flow|steps)$/.test(a.chunks[Math.min(at, last)]?.pic?.preset || "");
+  const atEnd = at >= last && !runs && (a.questions.length === 0 || sent);
+  useEffect(() => { onEnd?.(atEnd); }, [atEnd, onEnd]);
 
   const step = useCallback((d) => {
     setDir(d);
@@ -99,19 +107,20 @@ export default function ChatStage({ content, live, onTap, onAnswers, Text, go, a
 
   const c = a.chunks[Math.min(at, last)];
   return (
-    <div className="ys-play" ref={box} onClick={onStageTap} data-asking={asking ? "1" : undefined}>
+    <div className="ys-play" ref={box} onClick={onStageTap} data-asking={asking ? "1" : undefined} data-pull={pull.dragging ? "1" : undefined} style={pull.style} {...pull.handlers}>
+      {onHome ? <button className="ys-homex" onClick={onHome} aria-label="Close, back home">Close</button> : null}
       {n > 1 ? (
         <div className="mo-segs ys-segs" aria-label={`Part ${at + 1} of ${n}`}>
           {a.chunks.map((x, i) => <i key={x.key} className={i <= at ? "on" : ""} />)}
         </div>
       ) : null}
       <div className="ys-scroll">
-        {c ? <Chunk key={`${c.key}:${at}`} a={a} c={c} dir={dir} emitFor={emitFor} Text={Text} go={go} small={asking} /> : null}
+        {c ? <Chunk key={`${c.key}:${at}`} a={a} c={c} dir={dir} emitFor={emitFor} Text={Text} go={go} small={asking} home={onHome} /> : null}
         {asking ? (
           <div className="ys-qs">
             {a.questions.map((q, i) => (
               <div key={q.node.key} className="mo-q" style={{ "--n": i }}>
-                <Ctx part={a.parts[q.part]} agent="Yui">
+                <Ctx part={a.parts[q.part]} agent="Yui" home={onHome}>
                   <div className="yc-screen pg-screen"><CrewOr node={q.node} emit={one ? emitFor(q.node) : capture(q)} Render={Render} /></div>
                 </Ctx>
               </div>

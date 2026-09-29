@@ -113,6 +113,13 @@ export function stepsOf(members) {
 }
 const slidePage = (m, emitFor, Render) => <Page p={resolve("page", m.props)} pic={m.pic} emitFor={emitFor} Render={Render} />;
 
+// SITE-98: on the stage, the last page of a deck, and a sent plan or flow, end on Back home (the primary spot,
+// bigbtn p acc). Only where the stage set `stageHome`; a deck inside the site chat's stage leaves it to the chat.
+export function BackHome({ show = true }) {
+  const screen = useContext(ScreenCtx);
+  return show && screen?.stageHome ? <button className="bigbtn p acc full yl-backhome" onClick={() => screen.closeStage?.()}>Back home</button> : null;
+}
+
 // `index` and `onIndex` make the deck controlled (a narrate drives it).
 export function Deck({ g, emitFor, Render, index, onIndex, bare }) {
   const p = resolve("deck", g.group.props);
@@ -195,6 +202,7 @@ export function Deck({ g, emitFor, Render, index, onIndex, bare }) {
     <div className={`yl-block yl-deck ${full ? "yl-full" : ""}`}>
       {full ? <FullClose onClose={() => setFull(false)} /> : null}
       {body(full)}
+      <BackHome show={n > 0 && cur >= n - 1 && !full} />
       <div className="yl-deckfoot">
         <span className="yl-sub">{n ? `${cur + 1} / ${n}` : ""}{quizzes.length ? ` · quiz ${answered}/${quizzes.length}` : ""}</span>
         {!full ? <button className="yl-flink" onClick={() => setFull(true)}>⤢ Full screen</button> : null}
@@ -279,6 +287,7 @@ export function Plan({ g, emitFor, Render }) {
         <div className="yl-q">{p.title || "Project"}</div>
         <Facts rows={questions.map((m) => [question(m) || m.id, show(ans[m.id])])} />
         <button className="bigbtn s full" onClick={() => { setDone(false); setAt(n > 0 && p.review ? n : 0); }}>Edit answers</button>
+        <BackHome />
       </div>
     );
   }

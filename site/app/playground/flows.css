@@ -281,3 +281,5 @@
 .yl-mapsea { fill: var(--yl-ink); fill-opacity: 0.04; }
 .yl-mapland { fill: var(--yl-ink); fill-opacity: 0.1; stroke: var(--yl-ink2); stroke-opacity: 0.35; }
 .yl-maplabel { fill: var(--yl-ink); font-weight: 800; font-family: inherit; paint-order: stroke; stroke: var(--screen-bg); stroke-width: 0.7px; stroke-linejoin: round; }
+/* SITE-98: Back home, the last thing on a stage deck / a sent plan or flow (BackHome in flows.js). */
+.yl-backhome { border: 0; font: inherit; font-weight: 700; font-size: 15px; cursor: pointer; width: 100%; flex: none; margin-top: 4px; }

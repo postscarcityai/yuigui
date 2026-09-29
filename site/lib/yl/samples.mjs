@@ -110,6 +110,19 @@ timer 5m Cooldown walk +inline`,
     next: "close",
   },
   {
+    // SITE-98 / YUI-195: every full-screen answer has a way home (spec/YL.md section 5, A way home).
+    name: "Demo: a way home (close, Back home, pull down)",
+    slug: "way-home",
+    agent: "Yui",
+    yl: `say "Every full screen has a way home."
+>full
+deck "A way home"
+page "Close" body="The X at the top closes any full screen. Nothing is sent."
+page "Pull" body="On a phone, pull the card down. A short pull springs back."
+page "Back home" body="On the last page, Back home takes you out. Tap it."`,
+    next: "close",
+  },
+  {
     name: "Demo: change your answer (+lock)",
     slug: "change-answers",
     agent: "Coach",

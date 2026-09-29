@@ -178,6 +178,7 @@ export default function ChatFab() {
   const [toast, setToast] = useState("");         // one quiet line after a share
   const [pageAt, setPageAt] = useState("1");      // the screen on show: "1" the chat, "2".."12" a page
   const [jump, setJump] = useState(0);            // bumps when a reply lands, to bring its page forward
+  const [ended, setEnded] = useState(false);       // the stage is on its last part (SITE-98): Back home takes the mic's place
   const [halted, setHalted] = useState(false);    // the last turn was stopped: the stage says so
   const flight = useRef(null);                    // the turn in flight (lib/chat/stop.mjs)
   if (!flight.current) flight.current = turns();
@@ -301,6 +302,11 @@ export default function ChatFab() {
     setBusy(false); setError(""); setFound(false); setHalted(true);
     setMsgs((m) => { setSeen(m.length + 1); return [...m, stoppedRow()]; });
   }, []);
+
+  // A way home from any full-screen answer (SITE-98): the answer leaves the stage, the chat home shows.
+  // Local: no turn, no request. The answer stays in the record and reopens from its chip.
+  const home = useCallback(() => { setPlaying(-1); setError(""); setFound(false); setEnded(false); }, []);
+  const replay = useCallback((i) => { setRecord(false); setPlaying(i); setPlayKey((k) => k + 1); setError(""); }, []);
 
   // What the person says goes to Yui; on a page that keeps talking, tagged with the page.
   const say = useCallback((t) => {
@@ -450,7 +456,7 @@ export default function ChatFab() {
     stageUp = true;
     center = (
       <>
-        <StageAnswer key={`${playing}:${playKey}`} content={answer.content} live={playing === lastAnswer && !busy} onTap={tap} onAnswers={answerAll} Text={Text} go={go} active={!record && !typing && onChat} onEdge={(d) => goIndex(at + d)} />
+        <StageAnswer key={`${playing}:${playKey}`} content={answer.content} live={playing === lastAnswer && !busy} onTap={tap} onAnswers={answerAll} Text={Text} go={go} active={!record && !typing && onChat} onEdge={(d) => goIndex(at + d)} onHome={home} onEnd={setEnded} />
         {toast ? <div className="ys-went" role="status">{toast}</div> : null}
         {went ? <div className="ys-went">Taking you to <a href={went.path} onClick={(e) => { e.preventDefault(); go(went.path); }}>{went.label}</a></div> : null}
       </>
@@ -460,7 +466,8 @@ export default function ChatFab() {
       <div className="ys-mid ys-hello">
         <Presence mood="idle" />
         <div className="ys-line">{halted ? STOPPED : msgs.length ? "Anything else?" : HELLO}</div>
-        {msgs.length ? <div className="ys-sub">Everything so far is in the chat, top right.</div> : (
+        {msgs.length ? <><div className="ys-sub">Everything so far is in the chat, top right.</div>
+          {lastAnswer >= 0 ? <button className="ys-pill ys-reopen" onClick={() => replay(lastAnswer)}>Reopen last answer</button> : null}</> : (
           <div className="yc-starters">
             {STARTERS.map((s) => <button key={s} onClick={() => send(s)}>{s}</button>)}
             <a className="yc-tf" href={links.testflight} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("chat-testflight", "chat")}>Get Yui on TestFlight ↗</a>
@@ -515,7 +522,8 @@ export default function ChatFab() {
                 <div className="ys-dotroom" data-arrows={onChat && stageUp && parts > 1 ? "1" : undefined}>{dots}</div>
                 {canTalk ? <>
                   <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type">T</button>
-                  {busy && !listening ? <button className="ys-mic ys-stop" onClick={stop} aria-label="Stop"><StopIcon /></button> : (
+                  {busy && !listening ? <button className="ys-mic ys-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
+                    : onChat && stageUp && ended && !listening ? <button className="ys-mic ys-homebtn" onClick={home}>Back home</button> : (
                     <button className={`ys-mic${listening ? " live" : ""}`} onClick={listen} aria-label={listening ? "Stop listening" : "Talk to Yui"}>
                       <span className="mo-ring" /><span className="mo-ring r2" />
                       <MicIcon />
@@ -553,7 +561,7 @@ export default function ChatFab() {
                       );
                     }
                     return <Answer key={i} content={m.content} go={go} onTap={tap} live={i === lastAnswer && !busy} onPage={(k) => { setRecord(false); setPageAt(k); }}
-                      onPlay={() => { setRecord(false); setPlaying(i); setPlayKey((k) => k + 1); setError(""); }} />;
+                      onPlay={() => replay(i)} />;
                   })}
                 </div>
               </div>

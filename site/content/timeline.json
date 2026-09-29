@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 314,
-    "site": 716,
+    "app": 318,
+    "site": 725,
     "builds": 44,
-    "shipped": 347,
-    "screenshots": 850
+    "shipped": 351,
+    "screenshots": 870
   },
   "days": [
     {
@@ -13,21 +13,250 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T04:04:38.755Z",
+          "at": "2026-09-29T05:13:42.151Z",
+          "title": "A way home from every full screen",
+          "card": "SITE-98",
+          "anchor": "a-way-home-from-every-full-screen",
+          "images": [
+            {
+              "src": "/progress/site98-before-chat.webp",
+              "alt": "Before, chat stage on the last part: only the mic, no way to put the answer away."
+            },
+            {
+              "src": "/progress/site98-after-chat-close.webp",
+              "alt": "After, chat stage on a plan: a Close button at the top left."
+            },
+            {
+              "src": "/progress/site98-after-chat.webp",
+              "alt": "After, last part: Back home takes the mic's place."
+            },
+            {
+              "src": "/progress/site98-before-playground-light.webp",
+              "alt": "Before, playground deck stage, light: the last page ends with the pager and nothing to tap."
+            },
+            {
+              "src": "/progress/site98-after-playground-light.webp",
+              "alt": "After, playground deck stage, light: the last page ends on a Back home button."
+            },
+            {
+              "src": "/progress/site98-after-playground-dark.webp",
+              "alt": "After, playground deck stage, dark: the same Back home button."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 318,
+            "site": 725,
+            "builds": 44,
+            "shipped": 351
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T04:37:49.000Z",
+          "title": "Text you can read: body type and a small markdown reader",
+          "card": "SITE-97",
+          "anchor": "text-you-can-read-body-type-and-a-small-markdown-reader",
+          "images": [
+            {
+              "src": "/progress/site97-before-light.webp",
+              "alt": "Before, light mode: raw ## and ** marks show in the bubbles."
+            },
+            {
+              "src": "/progress/site97-after-light.webp",
+              "alt": "After, light mode: a heading, italic, code, a link, accent labels with a check and a cross, and a card in body text."
+            },
+            {
+              "src": "/progress/site97-after-dark.webp",
+              "alt": "After, dark mode: the same screen in dark."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 318,
+            "site": 723,
+            "builds": 44,
+            "shipped": 350
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T04:32:05.000Z",
+          "title": "Agents show it in context: a phone, a timeline, a next step",
+          "card": "YUI-203",
+          "anchor": "agents-show-it-in-context-a-phone-a-timeline-a-next-step",
+          "images": [
+            {
+              "src": "/progress/yui203-ui-in-context-light.webp",
+              "alt": "Before and after in a phone, light: a struck-out sentence describing a ZIP field, then the drawn field, Your ZIP 33410, highlighted, with the See My Coverage Options button under it."
+            },
+            {
+              "src": "/progress/yui203-ui-in-context-dark.webp",
+              "alt": "The same phone sketch, dark."
+            },
+            {
+              "src": "/progress/yui203-when-timeline-light.webp",
+              "alt": "A timeline titled Two days earlier with two rows, Sep 22 real logos on the family cards and Sep 23 bigger calculator labels."
+            },
+            {
+              "src": "/progress/yui203-when-timeline-dark.webp",
+              "alt": "The same timeline, dark."
+            },
+            {
+              "src": "/progress/yui203-lone-hyphen-light.webp",
+              "alt": "Before and after in a bubble, light: a struck-out line that starts with a hyphen, then the same fact as one plain sentence."
+            },
+            {
+              "src": "/progress/yui203-lone-hyphen-dark.webp",
+              "alt": "The same before and after, dark."
+            },
+            {
+              "src": "/progress/yui203-last-page-next-step-light.webp",
+              "alt": "The last page of a deck, light: What next? with three buttons, Try the form, See the copy and Why do you ask?"
+            },
+            {
+              "src": "/progress/yui203-last-page-next-step-dark.webp",
+              "alt": "The same last page, dark."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 316,
+            "site": 722,
+            "builds": 44,
+            "shipped": 349
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T04:18:15.000Z",
+          "title": "Screens get pills, like browser tabs",
+          "card": "YUI-193",
+          "anchor": "screens-get-pills-like-browser-tabs",
+          "images": [
+            {
+              "src": "/progress/yui193-pills-1-light.webp",
+              "alt": "Light mode: the top bar with a menu button, Home and Screen 2 pills, the chat and new chat buttons."
+            },
+            {
+              "src": "/progress/yui193-pills-8-light-swiped.webp",
+              "alt": "Light mode with eight screens: Screen 6 is the filled pill, the row fades out at the right."
+            },
+            {
+              "src": "/progress/yui193-pills-8-dark-last.webp",
+              "alt": "Dark mode: Screen 8 is the filled pill, scrolled into view."
+            }
+          ],
+          "commits": 5,
+          "totals": {
+            "app": 316,
+            "site": 719,
+            "builds": 44,
+            "shipped": 348
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T04:05:23.000Z",
           "title": "PROP-4: a first plan in every agent",
           "card": "YUI-204",
           "anchor": "prop-4-a-first-plan-in-every-agent",
           "images": [],
-          "commits": 0,
+          "commits": 1,
           "totals": {
-            "app": 314,
-            "site": 716,
+            "app": 315,
+            "site": 717,
             "builds": 44,
             "shipped": 347
           }
         }
       ],
-      "commits": []
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "7e0106d",
+          "at": "2026-09-29T05:10:15.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7e0106d"
+        },
+        {
+          "repo": "site",
+          "sha": "7e923ef",
+          "at": "2026-09-29T04:41:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7e923ef"
+        },
+        {
+          "repo": "site",
+          "sha": "915ec69",
+          "at": "2026-09-29T04:37:49.000Z",
+          "text": "Body text token and a small markdown reader for say, card, page and stage text (SITE-97)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/915ec69"
+        },
+        {
+          "repo": "app",
+          "sha": "e59af6c",
+          "at": "2026-09-29T04:36:18.000Z",
+          "text": "Add agent: ask again on return to the app, time out stuck requests, and say so after a minute with Try again (YUI-192)",
+          "url": "https://github.com/postscarcityai/yui/commit/e59af6c"
+        },
+        {
+          "repo": "app",
+          "sha": "c165c31",
+          "at": "2026-09-29T04:34:45.000Z",
+          "text": "Bundle channel guide v39 (YUI-203)",
+          "url": "https://github.com/postscarcityai/yui/commit/c165c31"
+        },
+        {
+          "repo": "site",
+          "sha": "968c66c",
+          "at": "2026-09-29T04:32:05.000Z",
+          "text": "guide v39: show it, don't tell it: UI in a phone, when is a timeline, no lone hyphens, the last page has a next step (YUI-203)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/968c66c"
+        },
+        {
+          "repo": "site",
+          "sha": "cd6139f",
+          "at": "2026-09-29T04:22:37.000Z",
+          "text": "Share card capture for screen pills (YUI-193)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cd6139f"
+        },
+        {
+          "repo": "site",
+          "sha": "0b5c647",
+          "at": "2026-09-29T04:19:56.000Z",
+          "text": "Showcase: screen pills (YUI-193)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0b5c647"
+        },
+        {
+          "repo": "site",
+          "sha": "8d754d3",
+          "at": "2026-09-29T04:18:15.000Z",
+          "text": "Progress: screen pills replace the dots (YUI-193)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8d754d3"
+        },
+        {
+          "repo": "app",
+          "sha": "0fe075c",
+          "at": "2026-09-29T04:17:46.000Z",
+          "text": "Top bar test: the record and the way back are top right beside the new chat pen (YUI-193)",
+          "url": "https://github.com/postscarcityai/yui/commit/0fe075c"
+        },
+        {
+          "repo": "site",
+          "sha": "73ab08d",
+          "at": "2026-09-29T04:11:52.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/73ab08d"
+        },
+        {
+          "repo": "site",
+          "sha": "7f66505",
+          "at": "2026-09-29T04:05:23.000Z",
+          "text": "PROP-4: a first plan in every agent, with a tappable hero (YUI-204)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7f66505"
+        }
+      ]
     },
     {
       "date": "2026-09-28",
@@ -1367,6 +1596,13 @@
           "at": "2026-09-29T03:43:23.000Z",
           "text": "Channel spec sample: drop a private name so sync-content passes",
           "url": "https://github.com/postscarcityai/yuigui/commit/7f4fe02"
+        },
+        {
+          "repo": "app",
+          "sha": "20b1754",
+          "at": "2026-09-29T03:43:18.000Z",
+          "text": "Screen pills replace the dots in the top bar; the agent picker moves into the drawer (YUI-193)",
+          "url": "https://github.com/postscarcityai/yui/commit/20b1754"
         },
         {
           "repo": "site",

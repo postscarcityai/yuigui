@@ -8,7 +8,7 @@ import { useContext, useMemo, useState } from "react";
 import { flowAhead, flowEvent, flowFirst, flowNext, flowPath, resolve } from "../../lib/yl/yl.mjs";
 import { savedGraph, variantGraph } from "../../lib/yl/starter-flows.mjs";
 import { ScreenCtx } from "./science";
-import { Facts, Page, VALUE, foldText, question, show } from "./flows";
+import { BackHome, Facts, Page, VALUE, foldText, question, show } from "./flows";
 
 // The graph: sent inline (the patch at `end`), a variant of a saved flow
 // (`as=`, its changes on the base), or a saved flow by name.
@@ -109,6 +109,7 @@ export function Flow({ node, emit, Render }) {
         <div className="yl-q">{title}</div>
         <Facts rows={sent.map((x) => [question(x) || x.id, show(ans[x.id])])} />
         <button className="bigbtn s full" onClick={() => { setDone(false); setFromReview(true); setAt(p.review ? "review" : first); }}>Edit answers</button>
+        <BackHome />
       </div>
     );
   }
