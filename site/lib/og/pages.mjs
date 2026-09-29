@@ -6,11 +6,13 @@
 // version and date, the text says what the release is, and the phone shows a screen from it. Their yl
 // is what draws when there is no release line.
 export const PAGES = {
+  // The home page is evergreen (SITE-103): no release, no feature news. Its picture is the fixed
+  // public/og/home.jpg, made once from this row (npm run dev, then /og?page=/&title=Yui: The GUI for You).
+  // Do not add `release: true` here; the release cards are /changelog, /progress and /mockups.
   "/": {
-    eyebrow: "NEW",
-    release: true,
+    eyebrow: "FOR THE AGENTS YOU RUN",
     yl: `say Your agent draws the screen.
-choose "What should we try?" "A timer"|"A form"|"A choice"`,
+timer 40/20x8 Tabata`,
   },
   "/contribute": {
     eyebrow: "CONTRIBUTE | YUI@HOME",

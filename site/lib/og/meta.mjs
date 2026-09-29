@@ -25,10 +25,10 @@ export function pageImage(key, head) {
 
 // title and description are the page's own words; path is its URL (null for a private link like /i/<code>,
 // which then carries no og:url); key picks the picture (default: path). share: { title, description } when the
-// share card says something other than the tab (the home page shares the latest release, SITE-86).
-export function pageMeta({ title, description, path, key = path, share = {}, ...rest }) {
+// share card says something other than the tab. image: a fixed picture's URL (the home page, SITE-103).
+export function pageMeta({ title, description, path, key = path, share = {}, image: still, ...rest }) {
   const head = headOf(share.title || title);
-  const image = { url: pageImage(key, head), width: 1200, height: 630, alt: `${head}, on Yui` };
+  const image = { url: still || pageImage(key, head), width: 1200, height: 630, alt: `${head}, on Yui` };
   return {
     title,
     description,

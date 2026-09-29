@@ -9,7 +9,7 @@
 import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { latestRelease, releaseHead, releaseScreenFile, releaseVersion } from "../lib/og/release.mjs";
+import { latestRelease, releaseScreenFile, releaseVersion } from "../lib/og/release.mjs";
 import { pageImage } from "../lib/og/meta.mjs";
 import { PAGES } from "../lib/og/pages.mjs";
 
@@ -63,12 +63,12 @@ const pic = releaseScreenFile(rel);
 if (!pic) problems.push(`no picture for ${rel.id}: add shots to its /mockups group or a Thought linked from the release line`);
 else console.log(`picture: ${pic.file.replace(SITE, "")}`);
 
-// 3. What each release page will share.
+// 3. What each release page will share (not the home page: it is evergreen, SITE-103).
 const pages = Object.keys(PAGES).filter((k) => PAGES[k].release);
 const want = {};
 for (const k of pages) {
-  const src = readFileSync(join(SITE, "app", k === "/" ? "" : k, "page.js"), "utf8");
-  const title = k === "/" ? releaseHead(rel) : src.match(/title:\s*"([^"]+)"/)?.[1] || "";
+  const src = readFileSync(join(SITE, "app", k, "page.js"), "utf8");
+  const title = src.match(/title:\s*"([^"]+)"/)?.[1] || "";
   want[k] = pageImage(k, title.replace(/\s*\|\s*Yui$/, ""));
   console.log(`${k.padEnd(11)} ${want[k]}`);
 }

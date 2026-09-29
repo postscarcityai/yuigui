@@ -9,21 +9,18 @@ import { STAGE } from "../lib/stage.mjs";
 import LivePhone from "./mockups/LivePhone";
 import bench from "../content/benchmark.json";
 import { TAGS, niceDate, thoughts } from "../lib/thoughts.mjs";
-import { latestRelease, releaseHead } from "../lib/og/release.mjs";
+import { latestRelease } from "../lib/og/release.mjs";
 import { pageMeta } from "../lib/og/meta.mjs";
 
 // On phones now: the roadmap's "Latest release" line, so the home page moves with each release.
-// Its share card follows the same line (SITE-86): the release's name, version, date and a screen from it.
+// The share card does not (SITE-103): it is always "Yui: The GUI for You" and public/og/home.jpg.
 const latest = latestRelease();
 
 export const metadata = pageMeta({
   path: "/",
-  title: "Yui | a generative user interface",
+  title: "Yui: The GUI for You",
   description: "Meet Yui, a generative user interface. Your agent draws the screen instead of replying in walls of text: a timer, a form, a choice. A native iPhone app for the agents you already run, in alpha on TestFlight.",
-  share: latest ? {
-    title: releaseHead(latest),
-    description: `Meet Yui, a generative user interface: your agent draws the screen. Yui ${latest.version} is on TestFlight since ${latest.date}, build ${latest.build}.`,
-  } : { title: "Meet Yui, a generative user interface." },
+  image: "/og/home.jpg?v=1",
 });
 
 const what = [
@@ -70,6 +67,7 @@ export default function Home() {
         <div className="hero-text">
           <div className="eyebrow">Proudly Open Sourced</div>
           <h1>Meet Yui, a generative user interface.</h1>
+          <p className="tagline">The GUI for you.</p>
           <p className="lede">
             Your agent draws the screen instead of replying in walls of text: a timer, a form, a quick choice.
             You tap, and it keeps going. A native iPhone app for the agents you already run.

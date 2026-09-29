@@ -1,7 +1,7 @@
 // Preview image for any Yui Lines (SITE-19): /og?yl=<share code>[&title=...]. Playground share
 // links and embeds point their og:image here. The screen is drawn from the parsed lines.
 // /og?page=<key>&title=... is a site page's own preview (SITE-85): its row in lib/og/pages.mjs.
-// A row marked release (the home page, /changelog, /progress, /mockups) draws the latest release (SITE-86).
+// A row marked release (/changelog, /progress, /mockups; not the home page, SITE-103) draws the latest release (SITE-86).
 import { ImageResponse } from "next/og";
 import { OG_SIZE, OgCard, eyebrowOf, ogFonts, screenDataUrl } from "../../lib/og/card";
 import { readYL } from "../../lib/share-code.mjs";
@@ -33,7 +33,7 @@ const CACHE = { "cache-control": "public, max-age=86400, s-maxage=31536000, immu
 async function releaseCard(key, pg, title) {
   const rel = latestRelease();
   const screen = rel ? releaseScreen(rel) : null;
-  const what = rel && (key === "/" ? `On TestFlight now, build ${rel.build}. Your agent draws the screen: a timer, a form, a choice.` : `Latest: Yui ${rel.version}, ${rel.name}.`);
+  const what = rel && (`Latest: Yui ${rel.version}, ${rel.name}.`);
   return new ImageResponse(<OgCard title={(title || "Yui").slice(0, 80)} yl={screen ? null : pg.yl} what={what} screen={screen} agent="Yui" eyebrow={rel ? `${pg.eyebrow} | ${releaseTag(rel).toUpperCase()}` : pg.eyebrow} />, {
     ...OG_SIZE,
     fonts: await ogFonts(),
