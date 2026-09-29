@@ -365,6 +365,29 @@ export function score(c, reply) {
     const n = text.split(/(?<=[.!?])\s+/).filter((x) => /\w/.test(x)).length;
     if (n > e.max_sentences) fails.push(`sentences: ${n} > ${e.max_sentences}`);
   }
+  // UI in context (YUI-203, feedback: "show me the zip in context"): an answer about a thing
+  // in the app draws it in a phone, not in words.
+  if (e.phone && !adds.some((o) => o.preset === "sketch" && o.props?.frame === "phone")) fails.push("phone: no sketch frame=phone drawing the screen");
+  // Facts, not lone hyphens (YUI-203): the app shows "- " as text, so a hyphen line is a
+  // mistake, and a list of one says nothing.
+  if (e.no_lone_bullet) {
+    const strs = [...text.split("\n"), ...adds.flatMap((o) => [o.props?.text, o.props?.body, o.props?.title, ...(o.props?.points || []), ...(o.props?.items || [])]).filter((x) => typeof x === "string")];
+    const dash = strs.find((x) => /^\s*[-*\u2022]\s+\S/.test(x));
+    if (dash) fails.push(`bullet: a line starts with a hyphen :: ${dash.trim().slice(0, 60)}`);
+    const one = adds.find((o) => (o.preset === "list" && (o.props?.items || []).length === 1) || (o.preset === "page" && (o.props?.points || []).length === 1));
+    if (one) fails.push(`bullet: a list of one :: ${one.line.trim().slice(0, 60)}`);
+  }
+  // The last page ends in something to tap (YUI-203, feedback: "I don't want a user to land
+  // here and not know what to do next"): the last piece of the reply is a question or a button.
+  if (e.last_tap) {
+    const CHILD = new Set(["row", "after", "shape", "done", "now", "next", "area", "pin", "route", "say", "page"]);
+    const LAST_OK = new Set(["ask", "choose", "pick", "slide", "form", "camera", "mic", "timer", "game", "calc", "loop", "drums"]);
+    const last = adds.filter((o) => !CHILD.has(o.preset)).at(-1);
+    const lastPage = adds.filter((o) => o.preset === "page").at(-1);
+    const ok = last && LAST_OK.has(last.preset) || last?.props?.cta || last?.props?.url;
+    const after = last && lastPage && adds.indexOf(lastPage) > adds.indexOf(last);
+    if (!last || !ok || after) fails.push(`last page: ends in ${after ? "a page" : last?.preset || "nothing"}, not something to tap`);
+  }
   return { pass: fails.length === 0, fails, components, words, used: [...used] };
 }
 

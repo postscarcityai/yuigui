@@ -498,6 +498,49 @@ after
 row "Recovered articles: 4 recovered, 2 rewrites" +hi note="waiting on you"
 row "Weekly roundup: post and landing page link" +hi note="waiting on you"`,
   },
+  {
+    // YUI-203: UI is drawn in context (spec/CHANNEL.md "UI is drawn in context").
+    name: "UI is drawn in context",
+    slug: "ui-in-context",
+    agent: "Yui",
+    yl: `say "The closing box has a working ZIP field."
+sketch "The ZIP field" frame=phone
+row "It has a working ZIP field and a two-question form" +x note="described"
+after
+row "Your ZIP  33410" +hi note="the new field"
+row "See My Coverage Options" +button`,
+  },
+  {
+    // YUI-203: when is a timeline (spec/CHANNEL.md "When is a timeline").
+    name: "When is a timeline",
+    slug: "when-timeline",
+    agent: "Yui",
+    yl: `say "Two days earlier, two changes."
+timeline "Two days earlier"
+done "Real logos on the family cards" at="Sep 22"
+done "Bigger calculator labels" at="Sep 23"`,
+  },
+  {
+    // YUI-203: facts are Label: value lines, never a lone hyphen (spec/CHANNEL.md).
+    name: "One fact is a sentence, not a hyphen",
+    slug: "lone-hyphen",
+    agent: "Yui",
+    yl: `sketch "The last four fixes" frame=bubble
+row "- The last four eyebrow labels on the forms were fixed." +x note="a lone hyphen"
+after
+row "The last four eyebrow labels on the forms are fixed." +hi note="one fact, a sentence"`,
+  },
+  {
+    // YUI-203: the last page has a next step (spec/CHANNEL.md "The last page has a next step").
+    name: "The last page has a next step",
+    slug: "last-page-next-step",
+    agent: "Yui",
+    yl: `say "One change, then what you can do."
+deck "What changed" +inline
+page "ZIP field" body="The form takes a ZIP and two answers, and sends them to the lead."
+choose "What next?" "Try the form"|"See the copy"|"Why do you ask?"
+end`,
+  },
 ];
 
 // Media presets. Each has a slug so /playground?demo=<slug> opens it.

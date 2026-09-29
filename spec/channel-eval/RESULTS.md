@@ -49,6 +49,19 @@ Before and after, on the fleet's model (Opus 5.5): **74% to 97%**, with the guid
 
 Every score up to v6 uses the final cases and the scorer as it stood before the tolerant parser, re-scored with `run.mjs --rescore` without re-running the saved replies. The tolerant-parser rows use the current parser and scorer.
 
+## Show it, don't tell it (YUI-203, guide v39)
+
+Chris's four TestFlight notes on one thread (a ZIP field described in words, "two days earlier" as bold text, a lone hyphen line, a deck whose last page had nothing to tap) became four rules in the guide: UI is drawn in a phone sketch, when is a timeline, facts are `Label: value` and never a lone hyphen or a list of one, and the last page of a deck, plan or flow ends in something to tap (`Why do you ask?` as the fallback). Six new cases (`ui-zip-in-context`, `when-two-days-timeline`, `facts-stacked-list`, `fact-one-sentence`, `last-page-next-step`, `last-page-walkthrough`) and three new scorer checks (`phone`, `no_lone_bullet`, `last_tap`). Opus 5.5, the old guide (v38) twice and v39 twice, 96 cases each.
+
+| run | guide | passed | of the six new cases |
+|---|---|---|---|
+| t203-old-r1 | v38 | 83/96 | 3 |
+| t203-old-r2 | v38 | 78/96 | 3 |
+| t203-new-r1 | v39 | 81/96 | 6 |
+| t203-new-r2 | v39 | 83/96 | 6 |
+
+The old guide fails the same three new cases both times: `when-two-days-timeline` (dates in a sentence) and both last-page cases (a deck or sketch that ends with nothing to tap). The 90 older cases swing 75 to 80 on either guide, the usual noise. `flow-interview-old-app` fails every run here because the yui repo is not beside this worktree (`spawnSync python3 ENOENT`). One case changed after seeing results: `report-pages-picture` now allows a `choose` or `ask`, because a report deck ending in next steps is what the new rule asks for.
+
 ## Models on the same guide (YUI-132)
 
 Native Yui runs on GLM through OpenRouter (spec/NATIVE.md section 6), so both GLM models got the full suite on the v37 guide, beside Opus and Sonnet on the same 88 cases. Each model ran once; every miss ran a second time. A case that failed both times is a steady miss; one that passed the second time is noise. Scores are the first pass. Drawn on [/channel](https://www.yuigui.com/channel).

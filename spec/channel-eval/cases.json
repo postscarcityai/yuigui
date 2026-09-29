@@ -1460,7 +1460,9 @@
           "say",
           "stat",
           "list",
-          "end"
+          "end",
+          "choose",
+          "ask"
         ],
         "need": [
           "deck",
@@ -2479,6 +2481,235 @@
         "max_words": 30
       },
       "good": "One short line, then the two items drawn: a sketch with one row per card (title plus one fact) or a list or two cards, so he sees them. Not a paragraph counting the cards and listing what is in them."
+    },
+    {
+      "id": "ui-zip-in-context",
+      "category": "ui",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "[yui] note: recent the quote site changes, from the board. Sep 24: the closing purple box now has the client's final copy, word for word, a working ZIP field and a two-question form that sends its answers into the lead record; the red placeholder frame is gone; the buttons read \"See My Coverage Options\" and \"Talk to a Licensed Advisor\". Sep 22 and 23: real brand logos went onto the /brands family cards; field labels on the calculator got bigger; the last four eyebrow labels on the forms were fixed."
+        }
+      ],
+      "message": "Tell me about the newest change on the closing purple box.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "sketch",
+          "row",
+          "after",
+          "say",
+          "card",
+          "list",
+          "choose",
+          "ask",
+          "pick",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "deck",
+          "page",
+          "plan"
+        ],
+        "need": [
+          "sketch"
+        ],
+        "phone": true,
+        "no_lone_bullet": true,
+        "max_words": 40
+      },
+      "good": "One short line, then the box drawn in a phone sketch: the ZIP field and the two buttons in place, the new part highlighted. Not a paragraph describing the field, and no hyphen lines (Chris, TestFlight: \"Show me the zip in context. You should be able to illustrate UI elements fairly easily\")."
+    },
+    {
+      "id": "when-two-days-timeline",
+      "category": "timeline",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "[yui] note: recent the quote site changes, from the board. Sep 24: the closing purple box now has the client's final copy, word for word, a working ZIP field and a two-question form that sends its answers into the lead record; the red placeholder frame is gone; the buttons read \"See My Coverage Options\" and \"Talk to a Licensed Advisor\". Sep 22 and 23: real brand logos went onto the /brands family cards; field labels on the calculator got bigger; the last four eyebrow labels on the forms were fixed."
+        }
+      ],
+      "message": "What did we change on the quote site two days earlier, on Sep 22 and 23?",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "say",
+          "card",
+          "list",
+          "sketch",
+          "row",
+          "after",
+          "choose",
+          "ask"
+        ],
+        "need": [
+          "timeline"
+        ],
+        "no_lone_bullet": true,
+        "max_words": 40
+      },
+      "good": "One short line, then a timeline: the Sep 22 and Sep 23 changes as rows with their dates, oldest first. Not a sentence with the dates inside it (Chris: \"If we're talking about some two days earlier, we need some type of timeline. Show me visually\")."
+    },
+    {
+      "id": "facts-stacked-list",
+      "category": "facts",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "[yui] note: small the quote site fixes from the board, no dates worth naming. Real brand logos went onto the /brands family cards. Field labels on the calculator got bigger. The last four eyebrow labels on the forms were fixed. The red placeholder frame on the closing box is gone."
+        }
+      ],
+      "message": "List the small fixes we made on the quote site.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "list",
+          "table",
+          "card",
+          "say",
+          "choose",
+          "ask",
+          "pick",
+          "sketch",
+          "row",
+          "after"
+        ],
+        "need": [
+          "list",
+          "table",
+          "sketch"
+        ],
+        "no_lone_bullet": true,
+        "max_words": 40
+      },
+      "good": "Three or more facts as one stacked list (or a table), each row Label: value. Not one line per fix with hyphens, and never a list of one (Chris: \"These were all supposed to be in a stacked list\")."
+    },
+    {
+      "id": "fact-one-sentence",
+      "category": "facts",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "[yui] note: the only other fix on the board for the the quote site forms: the last four eyebrow labels were fixed."
+        }
+      ],
+      "message": "Anything else fixed on the forms?",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "say",
+          "card",
+          "ask",
+          "choose",
+          "sketch",
+          "row",
+          "after"
+        ],
+        "no_lone_bullet": true,
+        "max_words": 40
+      },
+      "good": "One fact, so one plain sentence: the last four eyebrow labels on the forms were fixed. No hyphen, no list of one (Chris: \"If there's only one thing hyphenated, it doesn't mean anything\")."
+    },
+    {
+      "id": "last-page-next-step",
+      "category": "flow",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "[yui] note: recent the quote site changes, from the board. Sep 24: the closing purple box now has the client's final copy, word for word, a working ZIP field and a two-question form that sends its answers into the lead record; the red placeholder frame is gone; the buttons read \"See My Coverage Options\" and \"Talk to a Licensed Advisor\". Sep 22 and 23: real brand logos went onto the /brands family cards; field labels on the calculator got bigger; the last four eyebrow labels on the forms were fixed."
+        }
+      ],
+      "message": "Walk me through the most recent changes we've done for the quote site.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "deck",
+          "page",
+          "plan",
+          "choose",
+          "ask",
+          "pick",
+          "form",
+          "card",
+          "list",
+          "sketch",
+          "row",
+          "after",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "shapes",
+          "shape",
+          "stat",
+          "say"
+        ],
+        "need": [
+          "deck",
+          "plan"
+        ],
+        "last_tap": true,
+        "no_lone_bullet": true,
+        "max_pages": 4,
+        "max_words": 40
+      },
+      "good": "Short answer first, then a deck or plan of the changes (each with its picture, at most 4 pages) whose last step is a `choose` of what to do next or 'Why do you ask?', never a page they can only read (Chris: \"we are on the last card and I want some type of action here. I don't want a user to land here and not know what to do next\")."
+    },
+    {
+      "id": "last-page-walkthrough",
+      "category": "flow",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "[yui] note: recent the quote site changes, from the board. Sep 24: the closing purple box now has the client's final copy, word for word, a working ZIP field and a two-question form that sends its answers into the lead record; the red placeholder frame is gone; the buttons read \"See My Coverage Options\" and \"Talk to a Licensed Advisor\". Sep 22 and 23: real brand logos went onto the /brands family cards; field labels on the calculator got bigger; the last four eyebrow labels on the forms were fixed."
+        }
+      ],
+      "message": "Walk me through what changed on the closing purple box, step by step.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "deck",
+          "page",
+          "plan",
+          "choose",
+          "ask",
+          "pick",
+          "form",
+          "card",
+          "list",
+          "sketch",
+          "row",
+          "after",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "shapes",
+          "shape",
+          "stat",
+          "say"
+        ],
+        "need": [
+          "deck",
+          "plan"
+        ],
+        "last_tap": true,
+        "no_lone_bullet": true,
+        "max_pages": 4,
+        "max_words": 40
+      },
+      "good": "A deck (or plan) of the changes, each with its picture, and the last step is something to tap: a `choose` of what to do next or 'Why do you ask?'. No dead end."
     }
   ]
 }

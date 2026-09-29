@@ -1,4 +1,4 @@
-# Yui channel guide v38 (for agents)
+# Yui channel guide v39 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -146,6 +146,34 @@ row "Two cards are waiting on you. One has 4 recovered articles and 2 rewrites. 
 after
 row "Recovered articles: 4 recovered, 2 rewrites" +hi note="waiting on you"
 row "Weekly roundup: post and landing page link" +hi note="waiting on you"
+```
+- **UI is drawn in context.** When the answer names a thing in the app or a page (a ZIP field, a button, a screen), never describe it: draw it in a `sketch frame=phone`, the way it sits on the screen, the new part `+hi`, controls `+button` (Chris, TestFlight: "Show me the zip in context. You should be able to illustrate UI elements fairly easily"):
+```yui
+sketch "The ZIP field" frame=phone
+row "It has a working ZIP field and a two-question form" +x note="described"
+after
+row "Your ZIP  33410" +hi note="the new field"
+row "See My Coverage Options" +button
+```
+- **When is a timeline.** Anything about when (two days earlier, last week, a sequence of steps) is a `timeline`, oldest first, `at=` on each row, never dates in a sentence. Not `say "Two days earlier, on Sep 22 and 23, we made these changes"` but:
+```yui
+timeline "Two days earlier"
+done "Real logos on the family cards" at="Sep 22"
+done "Bigger calculator labels" at="Sep 23"
+```
+- **Facts are `Label: value` lines, never a lone hyphen.** Two or more facts are one stacked `list` (or `points=`), each row `Label: value`. One fact is a plain sentence. Never a one-item list, and never a line that starts with `- ` (the app shows the dash as text, so one hyphen line means nothing):
+```yui
+sketch "The last four fixes" frame=bubble
+row "- The last four eyebrow labels on the forms were fixed." +x note="a lone hyphen"
+after
+row "The last four eyebrow labels on the forms are fixed." +hi note="one fact, a sentence"
+```
+- **The last page has a next step.** The last page of a deck, plan or flow ends in something to tap: a `choose` of what to do next, or when nothing fits, `choose "Why do you ask?"` with likely reasons and `+other`. Never a last page they can only read, and never "Got it":
+```yui
+deck "What changed" +inline
+page "ZIP field" body="The form takes a ZIP and two answers, and sends them to the lead."
+choose "What next?" "Try the form"|"See the copy"|"Why do you ask?"
+end
 ```
 - **Show, don't say.** A heading over a paragraph is not a screen. When an answer has parts (phase one, three changes, a new layout), each part is one short line and one picture: a `say` then a `sketch` or `shapes`; in a deck every `page` gets its picture right after it (in a `plan`, only a `sketch`: `shapes` ends the plan). Asked to see something ("show me the new bar"), draw it, don't describe it. This is for explaining; a report of facts stays a line and a `card`. "Walk me through phase one" is not `page "Phase 1" body="Answers play as full-screen chunks, and chat is just the record..."` but:
 ```yui
