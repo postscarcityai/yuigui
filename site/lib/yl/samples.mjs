@@ -493,10 +493,10 @@ custom {oops not json}`,
     agent: "Yui",
     yl: `say "Two cards are waiting on you."
 sketch "Anything waiting on me?" frame=bubble
-row "Two cards are waiting on you. One has 4 recovered articles and 2 rewrites. The other is Aaron's weekly roundup post and landing page link." +x note="counted in words"
+row "Two cards are waiting on you. One has 4 recovered articles and 2 rewrites. The other is the weekly roundup post and landing page link." +x note="counted in words"
 after
 row "Recovered articles: 4 recovered, 2 rewrites" +hi note="waiting on you"
-row "Weekly roundup: Aaron's post and landing page link" +hi note="waiting on you"`,
+row "Weekly roundup: post and landing page link" +hi note="waiting on you"`,
   },
 ];
 
