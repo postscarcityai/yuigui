@@ -175,6 +175,16 @@
       ]
     },
     {
+      "id": "own-key",
+      "title": "Your own key",
+      "lede": "What is on main for the next build: when the free turns run out, bring your own key, from one sheet, at every stop. Shots are real captures from the iPhone simulator.",
+      "entries": [
+        {"id": "own-key-limit", "title": "The free turns run out, one card", "what": "Use up your 100 free turns and Yui says so once, with one button: Add my key. It opens the key sheet. Nothing is cut off mid-thought and nothing asks for a card number.", "cards": ["YUI-139"], "agent": "Yui", "app": "native", "shots": ["/progress/yui139-1-limit-card-light.webp", "/progress/yui139-1-limit-card-dark.webp"]},
+        {"id": "own-key-providers", "title": "Claude, ChatGPT, Gemini or Grok", "what": "Pick a provider, paste a key, Save. Each has a default model that can read photos. The sheet says the plain thing: a Claude Pro or Max plan cannot pay for another app, only an API key can, and it links to where you make one. Or add Yui inside Claude or ChatGPT and your plan pays.", "cards": ["YUI-139"], "agent": "Yui", "app": "native", "shots": ["/progress/yui139-3-claude-light.webp", "/progress/yui139-3-claude-dark.webp"]},
+        {"id": "own-key-everywhere", "title": "The key sheet opens from every stop", "what": "Settings, the limit card, Add agent and Controls, Model all open the same sheet, and so does the card a photo or lookup shows when it cannot run on free turns. OpenRouter is one tap to sign in, My computer needs no key, and a key can be set for one agent. It is kept locked away on Yui's server and the app never shows it again.", "cards": ["YUI-139"], "agent": "Yui", "app": "native", "shots": ["/progress/yui139-2-settings-key-dark.webp", "/progress/yui139-4-add-agent-light.webp", "/progress/yui139-5-sheet-dark.webp"]}
+      ]
+    },
+    {
       "id": "release-060",
       "title": "Yui 0.6.0",
       "lede": "What reached phones with Yui 0.6.0 (build 342, Sep 29): every one of the five has its own tools, flows and default screens now, not just chat, and a quiet visual behind all of them. Shots are real captures from the iPhone simulator.",

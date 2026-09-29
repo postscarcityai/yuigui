@@ -81,7 +81,12 @@ Gouda needs the `metronome` and `tuner` views, which the parser reads but the ap
 
 - **Provider.** OpenRouter, on Yui's key, for now. Every call sets `data_collection: "deny"`.
 - **Free turns.** 100 turns a month per person, reset monthly. A global monthly spend ceiling is set on OpenRouter itself, so a bug cannot run past it.
-- **Then your own key.** One card when the free turns run out: sign in to OpenRouter (OAuth with PKCE, no pasting), or add a key from any provider that speaks `/v1/chat/completions` (TrustedRouter, Groq, others). Keys go through the [Key vault](VAULT.md) and are only ever sent to their own provider.
+- **Then your own key.** One card when the free turns run out, "Add my key", opens one sheet, **Bring your own key**. Pick a provider and paste a key, or sign in with OpenRouter (OAuth with PKCE, no pasting). Keys go through the [Key vault](VAULT.md): sent to Yui's server once, kept locked away, shown only as the last four, and only ever sent to their own provider.
+- **Providers.** Claude, ChatGPT, Gemini and Grok, plus OpenRouter and any provider that speaks `/v1/chat/completions` (TrustedRouter, Groq, others). Each has a default that can see photos. How the four score on the [channel eval](/channel): not scored yet.
+- **The plain plan line.** A Claude Pro or Max plan, or a ChatGPT plan, cannot pay for another app: only an API key can. The sheet says so in one line, links to where the key is made, and offers the other route: add Yui inside Claude or ChatGPT, where your plan pays and Yui draws the screens.
+- **Own key at every stop.** The key sheet opens from Settings, from the limit card, from Add agent, and from Controls, Model. When a photo or a lookup cannot run on the free turns, the fallback card says so and opens the same sheet. Nothing is asked for in chat or in a form.
+- **My computer.** Run the agent on your own machine and pair it: no key needed on the phone.
+- **Per agent.** Controls, Model can hold a key for one agent, so a crew member can run on a different provider than the rest. The server keeps it per agent, in the same vault.
 - **No purchases yet.** Buying turns in the app or on the web is a later card (YUI-148).
 
 ## 8. What a native agent can do

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 338,
-    "site": 780,
+    "app": 343,
+    "site": 785,
     "builds": 47,
-    "shipped": 373,
-    "screenshots": 927
+    "shipped": 374,
+    "screenshots": 932
   },
   "days": [
     {
@@ -13,9 +13,45 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T19:48:13.922Z",
+          "at": "2026-09-29T20:33:11.415Z",
+          "title": "Your own key, at every stop",
+          "card": "YUI-139",
+          "anchor": "your-own-key-at-every-stop",
+          "images": [
+            {
+              "src": "/progress/yui139-1-limit-card-light.webp",
+              "alt": "Light mode: a Free turns used card, 100 a month on Yui, with an Add my key button"
+            },
+            {
+              "src": "/progress/yui139-3-claude-light.webp",
+              "alt": "Light mode: the key sheet on Claude, saying a Pro or Max plan cannot pay for another app, with a link to make a key and a Paste your key field"
+            },
+            {
+              "src": "/progress/yui139-2-settings-key-dark.webp",
+              "alt": "Dark mode: the key section in Settings"
+            },
+            {
+              "src": "/progress/yui139-4-add-agent-dark.webp",
+              "alt": "Dark mode: the key sheet reached from Add agent"
+            },
+            {
+              "src": "/progress/yui139-5-sheet-light.webp",
+              "alt": "Light mode: the Bring your own key sheet on OpenRouter with a Save key button"
+            }
+          ],
+          "commits": 7,
+          "totals": {
+            "app": 343,
+            "site": 785,
+            "builds": 47,
+            "shipped": 374
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T19:48:22.000Z",
           "title": "The chat top bar is quiet: the drawer is the one agent picker",
-          "card": "YUI-chip",
+          "card": null,
           "anchor": "the-chat-top-bar-is-quiet-the-drawer-is-the-one-agent-picker",
           "images": [
             {
@@ -34,7 +70,7 @@
           "commits": 0,
           "totals": {
             "app": 338,
-            "site": 780,
+            "site": 781,
             "builds": 47,
             "shipped": 373
           }
@@ -786,6 +822,76 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "9adb9d9",
+          "at": "2026-09-29T20:21:23.000Z",
+          "text": "Per-agent model key: one agent on Claude, the rest on Yui (YUI-139 step 2f, server half)",
+          "url": "https://github.com/postscarcityai/yui/commit/9adb9d9"
+        },
+        {
+          "repo": "app",
+          "sha": "be451a8",
+          "at": "2026-09-29T20:18:29.000Z",
+          "text": "Your own key at every stop in the app: one plain key form (plan line, where to make a key, add Yui in Claude or ChatGPT) in Settings,...",
+          "url": "https://github.com/postscarcityai/yui/commit/be451a8"
+        },
+        {
+          "repo": "site",
+          "sha": "73042d8",
+          "at": "2026-09-29T20:11:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/73042d8"
+        },
+        {
+          "repo": "app",
+          "sha": "c2c0ddc",
+          "at": "2026-09-29T20:06:57.000Z",
+          "text": "Own key: OpenRouter one-tap sign-in (PKCE) and My computer (keyless, reach check) (YUI-139 step 2b, server half)",
+          "url": "https://github.com/postscarcityai/yui/commit/c2c0ddc"
+        },
+        {
+          "repo": "app",
+          "sha": "b2a9aef",
+          "at": "2026-09-29T20:06:55.000Z",
+          "text": "Your own key at every stop: a photo the pick can't see says so, a lookup on a key with no web search says it ran on Yui's; a test per...",
+          "url": "https://github.com/postscarcityai/yui/commit/b2a9aef"
+        },
+        {
+          "repo": "site",
+          "sha": "5f6c125",
+          "at": "2026-09-29T20:06:18.000Z",
+          "text": "Models spec: My computer and OpenRouter sign-in from the app (YUI-139 step 2b)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5f6c125"
+        },
+        {
+          "repo": "app",
+          "sha": "b288f18",
+          "at": "2026-09-29T20:03:28.000Z",
+          "text": "Your own key: Claude, ChatGPT, Gemini and Grok join the providers, each with a seeing default so no model id is needed (YUI-139 step 2,...",
+          "url": "https://github.com/postscarcityai/yui/commit/b288f18"
+        },
+        {
+          "repo": "site",
+          "sha": "32bcda2",
+          "at": "2026-09-29T20:03:10.000Z",
+          "text": "PROP-6 Yui says I, PROP-7 Yui: The GUI for You",
+          "url": "https://github.com/postscarcityai/yuigui/commit/32bcda2"
+        },
+        {
+          "repo": "site",
+          "sha": "61f2545",
+          "at": "2026-09-29T19:52:58.000Z",
+          "text": "$U: spend it in Yui, own part of Yui, probably both; the pill turns green as it climbs",
+          "url": "https://github.com/postscarcityai/yuigui/commit/61f2545"
+        },
+        {
+          "repo": "site",
+          "sha": "ceacef3",
+          "at": "2026-09-29T19:48:22.000Z",
+          "text": "Progress: the chat top bar is quiet, the drawer is the one agent picker (YUI chip)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ceacef3"
+        },
         {
           "repo": "app",
           "sha": "8935804",
