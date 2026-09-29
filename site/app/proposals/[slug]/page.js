@@ -1,6 +1,6 @@
 // One proposal (SITE-87): a full-height hero with the idea working in a phone, then the assessment,
 // the same fields in the same order every time (lib/proposals.mjs FIELDS).
-// The hero slot: PROP-1 gets the first-run flow (SITE-88, FirstRunHero), PROP-2 the Jev layer (SITE-94, JevHero), the rest draw their ```hero lines.
+// The hero slot: PROP-1 gets the first-run flow (SITE-88, FirstRunHero), PROP-2 the Jev layer (SITE-94, JevHero), PROP-5 $U trickling in (EarnHero), the rest draw their ```hero lines.
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import LivePhone from "../../mockups/LivePhone";
@@ -8,6 +8,7 @@ import AgentBox from "../../components/AgentBox";
 import FirstRunHero from "../FirstRunHero";
 import JevHero from "../JevHero";
 import FirstPlanHero from "../FirstPlanHero";
+import EarnHero from "../EarnHero";
 import ProposalVote from "../ProposalVote";
 import VoteTally from "../VoteTally";
 import { renderMd } from "../../../lib/md.mjs";
@@ -54,6 +55,8 @@ export default async function Proposal({ params }) {
     <JevHero title={p.title}>{text}</JevHero>
   ) : p.slug === "first-plan-in-every-agent" ? (
     <FirstPlanHero>{text}</FirstPlanHero>
+  ) : p.slug === "earn-u-by-using-yui" ? (
+    <EarnHero>{text}</EarnHero>
   ) : (
     <section className="prop-hero" data-slot="hero" aria-labelledby="prop-h">
       <div className="prop-hero-text">{text}</div>
