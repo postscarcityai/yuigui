@@ -16,7 +16,7 @@
 .vk-who { display: inline-flex; align-items: center; gap: 8px; }
 .vk-face { border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 800; font-size: 12px; flex: none; }
 .vk-mark { border-radius: 10px; display: inline-grid; place-items: center; color: #fff; font-weight: 900; font-size: 15px; flex: none; }
-.vk-fal { background: #6c5ce7; } .vk-replicate { background: #2d3436; } .vk-openrouter { background: #3b6fd8; } .vk-anthropic { background: #c96f4a; } .vk-openai { background: #10a37f; }
+.vk-fal { background: #6c5ce7; } .vk-replicate { background: #2d3436; } .vk-elevenlabs { background: #3b6fd8; } .vk-anthropic { background: #c96f4a; } .vk-openai { background: #10a37f; }
 
 .vk-list { padding: 4px 12px; gap: 0; }
 .vk-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; background: none; border: 0; border-bottom: 1px solid #23263a; color: inherit; font: inherit; text-align: left; cursor: pointer; min-height: 56px; }

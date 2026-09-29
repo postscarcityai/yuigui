@@ -21,7 +21,7 @@ export const VAULT_VIEWS = [
 const PROVIDERS = {
   fal: { name: "fal", what: "images, video, audio", shape: /^[\w-]{8,}:\w{8,}$/, hint: "key id:secret", demo: "0000aaaa-bbbb:xxxxxxxxxxxxxxxx" },
   replicate: { name: "Replicate", what: "open models, images", shape: /^r8_\w{8,}$/, hint: "starts r8_", demo: "r8_xxxxxxxxxxxxxxxx" },
-  openrouter: { name: "OpenRouter", what: "many models, one key", shape: /^sk-or-[\w-]{8,}$/, hint: "starts sk-or-", demo: "sk-or-v1-xxxxxxxxxxxxxxxx" },
+  elevenlabs: { name: "ElevenLabs", what: "voices, audio", shape: /^sk_[0-9a-f]{16,}$/, hint: "starts sk_", demo: "sk_xxxxxxxxxxxxxxxx" },
   anthropic: { name: "Anthropic", what: "Claude", shape: /^sk-ant-[\w-]{8,}$/, hint: "starts sk-ant-", demo: "sk-ant-xxxxxxxxxxxxxxxx" },
   openai: { name: "OpenAI", what: "GPT, images", shape: /^sk-(?!ant-|or-)[\w-]{8,}$/, hint: "starts sk-", demo: "sk-proj-xxxxxxxxxxxxxxxx" },
 };
@@ -29,12 +29,12 @@ const LOOK = { Penny: "#e8a33d", Quill: "#8b7cff", Coach: "#ff6b3d" };
 
 // Two keys already in the vault. Last four are placeholders.
 const START = [
-  { id: "k1", provider: "openrouter", name: "Personal OpenRouter", last4: "xxxx", cap: 10, spent: 3.1, used: "2h ago", grants: [{ agent: "Quill", for: "Study cards with a bigger model", cap: 4, spent: 3.1 }] },
+  { id: "k1", provider: "fal", name: "Personal fal", last4: "xxxx", cap: 10, spent: 3.1, used: "2h ago", grants: [{ agent: "Quill", for: "Draw study card art", cap: 4, spent: 3.1 }] },
   { id: "k2", provider: "anthropic", name: "Work Claude", last4: "xxxx", cap: 20, spent: 0, used: "never", grants: [] },
 ];
 const USES = [
-  { day: "Today", rows: [["10:42", "Quill", "chat/completions", "0.04"], ["10:40", "Quill", "chat/completions", "0.03"], ["08:15", "Quill", "chat/completions", "0.05"]] },
-  { day: "Yesterday", rows: [["21:03", "Quill", "grant: study cards, cap $4", null], ["20:58", "you", "added Personal OpenRouter", null]] },
+  { day: "Today", rows: [["10:42", "Quill", "fal-ai/flux/dev", "0.04"], ["10:40", "Quill", "fal-ai/flux/dev", "0.03"], ["08:15", "Quill", "fal-ai/flux/dev", "0.05"]] },
+  { day: "Yesterday", rows: [["21:03", "Quill", "grant: card art, cap $4", null], ["20:58", "you", "added Personal fal", null]] },
 ];
 
 function nodesOf(text) {

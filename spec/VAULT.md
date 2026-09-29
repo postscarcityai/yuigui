@@ -1,6 +1,6 @@
 # Key vault | spec v1 (YUI-34, draft)
 
-Some things an agent does cost money at someone else's company: an image from fal, a model call through OpenRouter, Anthropic or OpenAI, a run on Replicate. Today the only way to pay for that with your own account is a key in a file on the machine the agent runs on. The vault is the other way: your keys live on your iPhone, you decide which agent may use which key and for what, and no agent ever sees one.
+Some things an agent does cost money at someone else's company: an image from fal, a voice from ElevenLabs, a call to Anthropic or OpenAI, a run on Replicate. Today the only way to pay for that with your own account is a key in a file on the machine the agent runs on. The vault is the other way: your keys live on your iPhone, you decide which agent may use which key and for what, and no agent ever sees one.
 
 Step 1 (this page) is the design: where a key lives, how it gets in, how an agent asks, how the hosted connector uses it, what it may spend and what gets logged. The mock is in the playground: [/playground?demo=vault](/playground?demo=vault). Step 2 builds it in the app, the relay and the hosted connector; its acceptance is at the end.
 
@@ -28,7 +28,7 @@ Only one door: **Settings > Keys > Add a key.** Never an agent's form, never the
 | --- | --- | --- | --- |
 | fal | images, video, audio | `key id:secret` | on first use |
 | Replicate | open models, images | starts `r8_` | account read |
-| OpenRouter | many models, one key | starts `sk-or-` | key read (also shows the key's own limit) |
+| ElevenLabs | voices, audio | starts `sk_` | on first use |
 | Anthropic | Claude | starts `sk-ant-` | models list |
 | OpenAI | GPT, images | starts `sk-` | models list |
 
@@ -84,7 +84,7 @@ Authorization: Bearer yui_ct_...     <- the agent's own connection token
 
 - The connector checks the token belongs to the agent the grant names, the grant is live, the path is on that provider's list, and the cap has room. Then it forwards to the provider's real host with the real key and streams the answer back.
 - A handle on its own is worthless: it only works with the connection token of the agent it was granted to. Another agent, or the same handle on another account, gets `403 not_granted`.
-- **Fixed hosts only.** Each provider maps to its one API host (fal's, Replicate's, OpenRouter's, Anthropic's, OpenAI's). There is no way to send a vault key to any other address, so a key cannot be pointed at an attacker's server.
+- **Fixed hosts only.** Each provider maps to its one API host (fal's, Replicate's, ElevenLabs', Anthropic's, OpenAI's). There is no way to send a vault key to any other address, so a key cannot be pointed at an attacker's server.
 - A Hermes agent on your Mac uses the same proxy through a small tool in the Yui plugin (`vault_call(handle, path, body)`), and the model bridge (spec/MODELS.md) takes `--vault vk_openrouter_...` instead of `--key-env`. Neither ever holds the key.
 
 ## 5. What an agent is told when it can't
@@ -102,9 +102,9 @@ Every refusal is plain JSON the agent can read and a person would understand:
 ## 6. Spend caps
 
 - **Every key has a monthly cap**, in dollars, default $10, set when you add it. Each grant can have a lower cap of its own ("Penny: $5 of this key").
-- **The connector keeps count.** After each call it adds what the call cost: the provider's own figure where the response carries one (OpenRouter reports cost per call), otherwise tokens or images times a price table the connector keeps per model. Before each call it holds a small estimate so ten calls at once cannot all slip under the cap.
+- **The connector keeps count.** After each call it adds what the call cost: the provider's own figure where the response carries one (where a provider reports cost per call, that is used), otherwise tokens or images times a price table the connector keeps per model. Before each call it holds a small estimate so ten calls at once cannot all slip under the cap.
 - **At 80%** the owner gets one push ("fal is at $8 of $10 this month") with **Raise the cap** and **Leave it**. **At 100%** calls stop with `cap_reached` until the 1st of the month or until the owner raises it (Face ID).
-- **The provider's own limits are the backstop.** The connector's count is an estimate. Where a provider lets you put a limit on the key itself (OpenRouter keys can carry a credit limit; Anthropic and OpenAI have spend limits on the account or project), Add a key says so and links there.
+- **The provider's own limits are the backstop.** The connector's count is an estimate. Where a provider lets you put a limit on the key itself (Anthropic and OpenAI have spend limits on the account or project), Add a key says so and links there.
 
 ## 7. Audit trail
 
@@ -185,12 +185,14 @@ Done when all of this is true, with proof on the card:
 7. **One live call per provider** from a throwaway account with a low provider-side limit, then the key revoked at the provider.
 8. Shipped in a VALID TestFlight build, with a progress entry and screenshots.
 
-## Open questions for Chris
+## Decided (Sep 29 2026)
 
-1. iCloud Keychain sync: off by default with a switch per key, or no sync at all in step 2?
-2. Should agents on your own Mac use vault keys through the connector, or is the vault only for hosted and starter agents? Through the connector means Yui sits in the path of every paid call they make.
-3. The default monthly cap for a new key: $10, or something else?
-4. Shared agents (a client's Penny): may they ever use the client's own keys, or only the owner's, or neither?
-5. Should the price table estimate the cost when a provider does not report it, or should a provider without a reported cost need its own provider-side limit before Yui lets you grant it?
-6. Which providers first in step 2: all five, or fal and OpenRouter (avatars and cloud models) and the rest after?
-7. A grant lasts until you revoke it. Should grants lapse after 90 days without a call instead?
+Chris left all seven to the recommendation, and step 2 built them that way:
+
+1. iCloud Keychain sync is off by default, with a switch per key.
+2. Agents on your own computer use vault keys through the connector, with a grant per agent (`vault_call` in the Yui plugin).
+3. The default monthly cap is $10.
+4. Shared agents use the owner's keys only, never a client's.
+5. The connector estimates from its price table when a provider reports no cost. A provider with no price needs a provider-side limit confirmed before a grant.
+6. Providers in step 2: fal, Replicate, ElevenLabs, Anthropic and OpenAI, one proxy path. Model keys for hosted agents stay the server-side key from YUI-139, listed in the same Keys screen.
+7. Grants lapse after 90 days with no call, with a heads-up at day 80.
