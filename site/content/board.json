@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T16:11:13.765Z",
+  "updated": "2026-09-29T17:10:19.016Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -93,6 +93,12 @@
           "agentReady": true
         },
         {
+          "key": "YUI-116",
+          "title": "Tap-to-sound on a real iPhone",
+          "step": "Step 2 proof",
+          "waiting": true
+        },
+        {
           "key": "YUI-147",
           "title": "Move the native runtime to Cloudflare",
           "summary": "A Worker and a Durable Object per person"
@@ -128,6 +134,11 @@
         {
           "key": "YUI-169",
           "title": "Several chats per agent, listed in the drawer"
+        },
+        {
+          "key": "YUI-172",
+          "title": "Register Yui iOS app in Firebase, save GoogleService-Info.plist",
+          "waiting": true
         },
         {
           "key": "YUI-173",
@@ -177,6 +188,11 @@
           "progress": "/progress#the-guitar-tuner-no-longer-crashes"
         },
         {
+          "key": "YUI-208",
+          "title": "Last page keeps the mic; Back home and New chat move onto the page, and a spoken note goes in with the picks as one answer",
+          "waiting": true
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -201,6 +217,13 @@
           "title": "Zero-install connect",
           "summary": "Hosted connector via hermes gateway enroll",
           "waiting": true
+        },
+        {
+          "key": "INT-8",
+          "title": "ChatGPT adapter through the Yui MCP server",
+          "summary": "Yui screens in ChatGPT too",
+          "waiting": true,
+          "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
           "key": "INT-20",
@@ -311,11 +334,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-172",
-          "title": "Register Yui iOS app in Firebase, save GoogleService-Info.plist",
-          "waiting": true
-        },
-        {
           "key": "YUI-183",
           "title": "Basil's tools",
           "summary": "Your nutritionist plans your meals",
@@ -348,7 +366,7 @@
         },
         {
           "key": "YUI-183",
-          "title": "B (next after 0.6.0, NATIVE + APP)",
+          "title": "B (first after 0.6.0, NATIVE + APP)",
           "summary": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
           "waiting": true,
           "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
@@ -455,21 +473,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-207",
-          "title": "Memory growth after the session, find the cache and cap it"
-        },
-        {
-          "key": "INT-8",
-          "title": "ChatGPT adapter through the Yui MCP server",
-          "summary": "Yui screens in ChatGPT too",
-          "blocked": "chris",
-          "progress": "/progress#yui-screens-in-chatgpt-too"
-        },
-        {
-          "key": "YUI-116",
-          "title": "Tap-to-sound on a real iPhone",
-          "step": "Step 2 proof",
-          "blocked": "chris"
+          "key": "SITE-102",
+          "title": "Serve /favicon.ico on yuigui.com so Google swaps the gray globe for the Yui icon",
+          "waiting": true
         },
         {
           "key": "YUI-116",
@@ -486,6 +492,11 @@
           "summary": "Several chats with one agent: the spec and a mock",
           "blocked": "chris",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
+        },
+        {
+          "key": "YUI-207",
+          "title": "Memory growth after the session, find the cache and cap it",
+          "blocked": "other"
         }
       ]
     },
