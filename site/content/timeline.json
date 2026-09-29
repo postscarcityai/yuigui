@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 337,
-    "site": 771,
-    "builds": 46,
-    "shipped": 372,
-    "screenshots": 924
+    "app": 338,
+    "site": 780,
+    "builds": 47,
+    "shipped": 373,
+    "screenshots": 927
   },
   "days": [
     {
@@ -13,16 +13,44 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T18:56:08.497Z",
+          "at": "2026-09-29T19:48:13.922Z",
+          "title": "The chat top bar is quiet: the drawer is the one agent picker",
+          "card": "YUI-chip",
+          "anchor": "the-chat-top-bar-is-quiet-the-drawer-is-the-one-agent-picker",
+          "images": [
+            {
+              "src": "/progress/yui-chip-before-dark.webp",
+              "alt": "The old chat top bar in dark: menu, the agent badge, a status dot and a dropdown arrow"
+            },
+            {
+              "src": "/progress/yui-chip-after-dark.webp",
+              "alt": "The new chat top bar in dark: menu, the agent badge and a status dot, no dropdown arrow"
+            },
+            {
+              "src": "/progress/yui-chip-after-light.webp",
+              "alt": "The new chat top bar in light: menu, the agent badge and a status dot, no dropdown arrow"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 338,
+            "site": 780,
+            "builds": 47,
+            "shipped": 373
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T18:56:11.000Z",
           "title": "Hold to talk keeps every word",
           "card": "YUI-209",
           "anchor": "hold-to-talk-keeps-every-word",
           "images": [],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 337,
-            "site": 771,
-            "builds": 46,
+            "site": 773,
+            "builds": 47,
             "shipped": 372
           }
         },
@@ -54,8 +82,20 @@
           "totals": {
             "app": 336,
             "site": 771,
-            "builds": 46,
+            "builds": 47,
             "shipped": 371
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-29T18:41:46.000Z",
+          "build": 342,
+          "changes": 10,
+          "totals": {
+            "app": 336,
+            "site": 769,
+            "builds": 47,
+            "shipped": 370
           }
         },
         {
@@ -746,6 +786,76 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "8935804",
+          "at": "2026-09-29T19:47:49.000Z",
+          "text": "Chat top bar: the agent chip and its dropdown are gone, the drawer is the only agent picker (YUI chip, feedback AJw_G3S2)",
+          "url": "https://github.com/postscarcityai/yui/commit/8935804"
+        },
+        {
+          "repo": "site",
+          "sha": "7c676c9",
+          "at": "2026-09-29T19:45:32.000Z",
+          "text": "PROP-5: a drawn coin stands for $U, and the number just goes up",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7c676c9"
+        },
+        {
+          "repo": "site",
+          "sha": "ffde90c",
+          "at": "2026-09-29T19:40:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ffde90c"
+        },
+        {
+          "repo": "site",
+          "sha": "95082de",
+          "at": "2026-09-29T19:24:56.000Z",
+          "text": "PROP-5: no coins, the total counts up when you open the drawer",
+          "url": "https://github.com/postscarcityai/yuigui/commit/95082de"
+        },
+        {
+          "repo": "site",
+          "sha": "7ed3208",
+          "at": "2026-09-29T19:21:30.000Z",
+          "text": "PROP-5: opening the drawer sends what you earned from the chat into the bank",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7ed3208"
+        },
+        {
+          "repo": "site",
+          "sha": "6a792ad",
+          "at": "2026-09-29T19:13:35.000Z",
+          "text": "Roadmap: better typography, a sleek sans as the base look, joins the 0.6.0 launch (YUI-211)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6a792ad"
+        },
+        {
+          "repo": "site",
+          "sha": "486d243",
+          "at": "2026-09-29T19:10:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/486d243"
+        },
+        {
+          "repo": "site",
+          "sha": "780be4d",
+          "at": "2026-09-29T19:10:35.000Z",
+          "text": "PROP-5: $U lives in the left drawer, not on the chat",
+          "url": "https://github.com/postscarcityai/yuigui/commit/780be4d"
+        },
+        {
+          "repo": "site",
+          "sha": "3424627",
+          "at": "2026-09-29T18:56:11.000Z",
+          "text": "Progress: hold to talk keeps every word (YUI-209)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3424627"
+        },
+        {
+          "repo": "site",
+          "sha": "d8da538",
+          "at": "2026-09-29T18:55:51.000Z",
+          "text": "PROP-5: $U trickles in as you use Yui, with a live mockup",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d8da538"
+        },
         {
           "repo": "app",
           "sha": "3af2c7f",
