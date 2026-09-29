@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 344,
-    "site": 789,
-    "builds": 47,
-    "shipped": 376,
-    "screenshots": 937
+    "app": 347,
+    "site": 802,
+    "builds": 48,
+    "shipped": 380,
+    "screenshots": 948
   },
   "days": [
     {
@@ -13,7 +13,127 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T21:03:15.478Z",
+          "at": "2026-09-29T23:25:40.869Z",
+          "title": "Hold the Yui icon, get your agents' shortcuts",
+          "card": "YUI-191",
+          "anchor": "hold-the-yui-icon-get-your-agents-shortcuts",
+          "images": [
+            {
+              "src": "/progress/yui191-icon-hold-menu.webp",
+              "alt": "The Yui icon on the iPhone home screen held down, its menu listing Log food (Basil), Add an agent (Yui) and Plan my meals (Basil)"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 347,
+            "site": 802,
+            "builds": 48,
+            "shipped": 380
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T22:37:25.000Z",
+          "title": "A 404 that is never the same twice",
+          "card": "SITE-104",
+          "anchor": "a-404-that-is-never-the-same-twice",
+          "images": [
+            {
+              "src": "/progress/site104-contact-sheet.webp",
+              "alt": "A grid of 24 different 404 pages, each a different ASCII scene in different colors, light and dark, desktop and phone"
+            },
+            {
+              "src": "/progress/site104-drift-desktop-light.webp",
+              "alt": "Desktop, light: currents of characters gathered into 404 in butter and lavender, with a line from Yui below"
+            },
+            {
+              "src": "/progress/site104-tide-desktop-dark.webp",
+              "alt": "Desktop, dark: 404 riding a dub waveform in lavender and butter"
+            },
+            {
+              "src": "/progress/site104-garden-phone-light.webp",
+              "alt": "Phone, light: 404 grown from ASCII stems, blooming in coral"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 345,
+            "site": 800,
+            "builds": 48,
+            "shipped": 379
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-29T21:41:16.000Z",
+          "build": 351,
+          "changes": 9,
+          "totals": {
+            "app": 345,
+            "site": 793,
+            "builds": 48,
+            "shipped": 378
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T21:34:40.000Z",
+          "title": "The home page shares as Yui: The GUI for You",
+          "card": "SITE-103",
+          "anchor": "the-home-page-shares-as-yui-the-gui-for-you",
+          "images": [
+            {
+              "src": "/progress/site103-share-card.webp",
+              "alt": "The share card: Yui: The GUI for You, with a phone showing a timer"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 345,
+            "site": 793,
+            "builds": 47,
+            "shipped": 378
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T21:32:41.000Z",
+          "title": "A sleek sans for the whole app",
+          "card": "YUI-211",
+          "anchor": "a-sleek-sans-for-the-whole-app",
+          "images": [
+            {
+              "src": "/progress/yui211-1-before-drawer-light.webp",
+              "alt": "Light mode, before: the drawer in SF Rounded, heavy headings"
+            },
+            {
+              "src": "/progress/yui211-2-after-drawer-light.webp",
+              "alt": "Light mode, after: the drawer in SF Pro with semibold headings"
+            },
+            {
+              "src": "/progress/yui211-3-before-thread-dark.webp",
+              "alt": "Dark mode, before: a thread in SF Rounded"
+            },
+            {
+              "src": "/progress/yui211-4-after-thread-dark.webp",
+              "alt": "Dark mode, after: the same thread in SF Pro"
+            },
+            {
+              "src": "/progress/yui211-5-after-drawer-largest-text.webp",
+              "alt": "Light mode: the drawer at the largest accessibility text size, tabs and rows still fit"
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 345,
+            "site": 792,
+            "builds": 47,
+            "shipped": 377
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T21:03:44.000Z",
           "title": "Thought: Your own key at every stop",
           "card": "SITE-105",
           "anchor": "thought-your-own-key-at-every-stop",
@@ -23,10 +143,10 @@
               "alt": "A Free turns used card with an Add my key button"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 344,
-            "site": 789,
+            "site": 790,
             "builds": 47,
             "shipped": 376
           }
@@ -874,6 +994,118 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "760690f",
+          "at": "2026-09-29T23:23:40.000Z",
+          "text": "Hold the icon: your agents' drawer shortcuts on the home screen, you pick which four (YUI-191)",
+          "url": "https://github.com/postscarcityai/yui/commit/760690f"
+        },
+        {
+          "repo": "app",
+          "sha": "7087f23",
+          "at": "2026-09-29T23:22:23.000Z",
+          "text": "Deploys refuse to run ahead of unapplied migrations; a crew health probe; logs via the ClickHouse endpoint (YUI-211)",
+          "url": "https://github.com/postscarcityai/yui/commit/7087f23"
+        },
+        {
+          "repo": "site",
+          "sha": "7d7838b",
+          "at": "2026-09-29T23:12:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7d7838b"
+        },
+        {
+          "repo": "site",
+          "sha": "858d99c",
+          "at": "2026-09-29T22:41:09.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/858d99c"
+        },
+        {
+          "repo": "site",
+          "sha": "7774bfb",
+          "at": "2026-09-29T22:37:25.000Z",
+          "text": "Progress: a 404 that is never the same twice, with the contact sheet (SITE-104)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7774bfb"
+        },
+        {
+          "repo": "site",
+          "sha": "3dcb35e",
+          "at": "2026-09-29T22:36:37.000Z",
+          "text": "A procedural 404: a new ASCII scene, colors and line from Yui on every visit (SITE-104)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3dcb35e"
+        },
+        {
+          "repo": "site",
+          "sha": "edafe87",
+          "at": "2026-09-29T22:34:51.000Z",
+          "text": "PROP-8 to PROP-11: fresh asks, checked when it's saved, not sure is an answer, receipts",
+          "url": "https://github.com/postscarcityai/yuigui/commit/edafe87"
+        },
+        {
+          "repo": "site",
+          "sha": "81b1f85",
+          "at": "2026-09-29T22:32:04.000Z",
+          "text": "Social drafts: 11 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/81b1f85"
+        },
+        {
+          "repo": "site",
+          "sha": "4057940",
+          "at": "2026-09-29T22:28:53.000Z",
+          "text": "A yes belongs to a moment: PROP-3 Stop holds where work is saved; YUI-212 on the roadmap",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4057940"
+        },
+        {
+          "repo": "site",
+          "sha": "a6da18d",
+          "at": "2026-09-29T22:11:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a6da18d"
+        },
+        {
+          "repo": "site",
+          "sha": "7abac0a",
+          "at": "2026-09-29T21:41:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7abac0a"
+        },
+        {
+          "repo": "site",
+          "sha": "d49d632",
+          "at": "2026-09-29T21:34:40.000Z",
+          "text": "SITE-103: home shares as Yui: The GUI for You, one evergreen card, catch line under the H1",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d49d632"
+        },
+        {
+          "repo": "site",
+          "sha": "a2d0291",
+          "at": "2026-09-29T21:32:41.000Z",
+          "text": "Type specimen and phone mocks in the base sans, progress entry (YUI-211)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a2d0291"
+        },
+        {
+          "repo": "app",
+          "sha": "1012106",
+          "at": "2026-09-29T21:31:34.000Z",
+          "text": "A sleek sans base: SF Pro, semibold headings, a nine-step type scale that follows Dynamic Type (YUI-211)",
+          "url": "https://github.com/postscarcityai/yui/commit/1012106"
+        },
+        {
+          "repo": "site",
+          "sha": "1a42843",
+          "at": "2026-09-29T21:10:57.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1a42843"
+        },
+        {
+          "repo": "site",
+          "sha": "17b970b",
+          "at": "2026-09-29T21:03:44.000Z",
+          "text": "Thought: your own key at every stop (SITE-105)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/17b970b"
+        },
         {
           "repo": "site",
           "sha": "b8db455",
