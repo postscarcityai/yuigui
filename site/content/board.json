@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T03:41:07.607Z",
+  "updated": "2026-09-29T03:44:19.777Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -466,12 +466,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-96",
-          "title": "The site stage never splits a sentence inside a version number, decimal or URL",
-          "summary": "The site stage no longer splits a sentence inside a version number",
-          "progress": "/progress#the-site-stage-no-longer-splits-a-sentence-inside-a-version-number"
-        },
-        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -541,6 +535,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-96",
+          "title": "The site stage never splits a sentence inside a version number, decimal or URL",
+          "summary": "The site stage no longer splits a sentence inside a version number",
+          "shipped": "2026-09-28",
+          "progress": "/progress#the-site-stage-no-longer-splits-a-sentence-inside-a-version-number"
+        },
         {
           "key": "YUI-197",
           "title": "The guide teaches agents to draw board cards, not describe them",
