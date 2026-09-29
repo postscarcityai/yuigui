@@ -1491,6 +1491,17 @@
     {
       "text": "A real body text style: big type for one short line, body for everything longer, markdown drawn",
       "card": "YUI-196"
+    },
+    {
+      "text": "The last page's Back home pill no longer widens the stage past the phone: it shrinks to fit, margins stay on pages with a chart",
+      "card": "YUI-205"
+    },
+    {
+      "text": "Version 0.5.3"
+    },
+    {
+      "text": "The stage splits sentences like the deck: a version number, URL or abbreviation never ends one",
+      "card": "YUI-198"
     }
   ]
 }

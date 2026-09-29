@@ -1,42 +1,12 @@
 {
-  "updated": "2026-09-29T07:10:35.167Z",
+  "updated": "2026-09-29T07:40:40.534Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.6.0",
-    "status": "open",
-    "startedAt": "2026-09-28T04:48:58.000Z",
+    "version": "0.5.3",
+    "status": "shipping",
+    "startedAt": "2026-09-29T07:33:54.000Z",
     "shippedAt": null,
-    "cards": [
-      {
-        "key": "YUI-180",
-        "title": "Every agent has its own quiet visualizer by default",
-        "status": "now"
-      },
-      {
-        "key": "YUI-183",
-        "title": "Basil's tools",
-        "status": "next",
-        "progress": "/progress#your-nutritionist-plans-your-meals"
-      },
-      {
-        "key": "YUI-184",
-        "title": "Gouda's tools",
-        "status": "next",
-        "progress": "/progress#gouda-s-tools-in-the-app-learn-a-song-a-click-that-logs-itself-a-beat-that-stays"
-      },
-      {
-        "key": "YUI-185",
-        "title": "Penny's tools",
-        "status": "next",
-        "progress": "/progress#your-planner-plans-the-week"
-      },
-      {
-        "key": "YUI-186",
-        "title": "Quill's tools",
-        "status": "next",
-        "progress": "/progress#your-study-buddy-teaches-and-quizzes"
-      }
-    ]
+    "cards": []
   },
   "columns": [
     {
@@ -294,14 +264,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-198",
-          "title": "The stage splits a sentence at a version number, '0.6.0' becomes '0' on its own screen"
-        },
-        {
-          "key": "YUI-199",
-          "title": "A notification opens the agent that sent it, not the home screen"
-        },
-        {
           "key": "YUI-200",
           "title": "Gouda's music keeps playing across screens, and the tuner button opens the tuner with no model call"
         },
@@ -489,8 +451,8 @@
           "waiting": true
         },
         {
-          "key": "YUI-205",
-          "title": "A chart on the full-screen stage draws edge to edge, the whole page is wider than the phone"
+          "key": "YUI-199",
+          "title": "A notification opens the agent that sent it, not the home screen"
         },
         {
           "key": "INT-8",
@@ -581,6 +543,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-198",
+          "title": "The stage splits a sentence at a version number, '0.6.0' becomes '0' on its own screen",
+          "summary": "A version number no longer splits a sentence",
+          "shipped": "2026-09-29",
+          "progress": "/progress#a-version-number-no-longer-splits-a-sentence"
+        },
+        {
+          "key": "YUI-205",
+          "title": "A chart on the full-screen stage draws edge to edge, the whole page is wider than the phone",
+          "summary": "A chart page stays inside the phone",
+          "shipped": "2026-09-29",
+          "progress": "/progress#a-chart-page-stays-inside-the-phone"
+        },
         {
           "key": "SITE-100",
           "title": "Loops keep playing across screens and layer; a saved-screen shortcut opens with no model call",
