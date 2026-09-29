@@ -1,14 +1,25 @@
 "use client";
 // The PROP-5 hero: $U trickling in as you use Yui, in a phone. Nothing counts on the chat itself. The total lives
 // in the left drawer, top right, where the gear and the X were, with your profile top left (a tap opens Settings)
-// and the agent at the bottom. Open the drawer and, if you earned since you last looked, the total counts up once
-// from the old number to the new one. Only new $U animates, so nothing is counted twice. It plays on its own until
+// and the agent at the bottom, shown as a drawn coin and a number. Open the drawer and, if you earned since you last
+// looked, the number just counts up once from the old total to the new one. No chip, no coins flying. Only new $U animates, so nothing is counted twice. It plays on its own until
 // touched. Copy and rates live in lib/earn-hero.mjs. Nothing here records anything.
 import { useCallback, useEffect, useRef, useState } from "react";
 import { HERO, LOOP, MOVES, RATES, START, streakBonus, streakX } from "../../lib/earn-hero.mjs";
 import usePrefs from "./usePrefs";
 import "./jev.css";
 import "./earn-hero.css";
+
+// The $U coin: a small drawn gold coin with a U on its face, in place of the letters.
+const Coin = ({ size = 18 }) => (
+  <svg className="eh-coin" width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12.8" r="10.2" fill="#D9951C" />
+    <circle cx="12" cy="11.6" r="10.2" fill="#FFC83D" />
+    <circle cx="12" cy="11.6" r="7.6" fill="none" stroke="#E8A626" strokeWidth="1.3" />
+    <path d="M8.9 7.6v4.6a3.1 3.1 0 0 0 6.2 0V7.6" fill="none" stroke="#8A5A00" strokeWidth="2.1" strokeLinecap="round" />
+    <path d="M6.2 8.2a6.6 6.6 0 0 1 3.4-3.4" fill="none" stroke="#FFF1C2" strokeWidth="1.3" strokeLinecap="round" />
+  </svg>
+);
 
 const fmt = (n) => Math.floor(n).toLocaleString("en-US");
 const TICK = 1500; // ms between moves while it plays on its own
@@ -157,10 +168,9 @@ export default function EarnHero({ children }) {
                   <i aria-hidden="true">{HERO.you[0]}</i><span>{HERO.you}</span>
                 </button>
                 <button type="button" className="eh-u" aria-live="polite" aria-label={`${fmt(s.balance)} $U`} onClick={touch(() => setS((p) => ({ ...p, panel: p.panel === "u" ? null : "u" })))}>
-                  <b>{fmt(shown)}</b> $U
+                  <Coin /><b>{fmt(shown)}</b>
                 </button>
               </div>
-              {s.open && s.gain > 0 ? <p className="eh-since" key={`${s.gain}`}>{HERO.since(fmt(s.gain))}</p> : null}
 
               <div className="eh-tabs" role="tablist">{HERO.tabs.map((t, k) => <span key={t} className={k === 0 ? "on" : ""}>{t}</span>)}</div>
               <ul className="eh-rows">
@@ -173,7 +183,7 @@ export default function EarnHero({ children }) {
               {s.panel === "u" ? (
                 <div className="eh-panel" role="dialog" aria-label={HERO.sheetTitle}>
                   <h3>{HERO.sheetTitle}</h3>
-                  <p className="eh-big"><b>{fmt(shown)}</b> $U</p>
+                  <p className="eh-big"><Coin size={30} /><b>{fmt(shown)}</b></p>
                   <div className="eh-row"><span>{HERO.todayLabel} +{fmt(s.today)}</span><span>{past ? HERO.slower : `${fmt(RATES.softCap - s.today)} to full-speed cap`}</span></div>
                   <div className="eh-meter"><span style={{ width: `${capPct}%` }} className={past ? "full" : ""} /></div>
                   <div className="eh-row">

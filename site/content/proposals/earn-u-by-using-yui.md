@@ -83,11 +83,11 @@ Chris, 2026-09-29: "The $U should not show at all times. I want it to be in the 
 - **Nothing on the chat.** Using Yui shows no counter, no coins and no pill. It counts quietly.
 - **The drawer, redone at the top.** Today the drawer opens on the agent's name in big type, with a gear and an X top right. The agent's name is already at the bottom (the switcher), so the top becomes yours:
   - **Top left: your profile.** Your picture and your name, in a smaller headline. A tap opens what the gear opened: Settings.
-  - **Top right: your $U bank**, the total, where the gear and the X were. The X goes too: a tap on the chat beside the drawer, or a swipe, closes it, as it does today.
+  - **Top right: your $U**, where the gear and the X were: a little drawn gold coin with a U on its face, then the number. The coin stands for $U, so the letters never show. The X goes too: a tap on the chat beside the drawer, or a swipe, closes it, as it does today.
   - The tabs (Home, Review, Controls, About) and the agent at the bottom stay as they are.
-- **Open it and watch it climb.** If you earned since you last looked, the total counts up once, from the old number to the new one, as the drawer settles, with "+17 since you last looked" under it for a moment. Only new $U animates: it starts from the number you saw last time, so nothing ever counts twice. Nothing new, no animation. With the drawer open, a move just nudges the number up. No coins and no flying numbers.
+- **Open it and the number goes up.** If you earned since you last looked, the number counts up once, from the old total to the new one, as the drawer settles. That's all: no card telling you how much you got, no coins flying. It starts from the number you saw last time, so nothing ever counts twice. Nothing new, nothing moves. With the drawer open, a move just nudges the number up.
 
-  Chris, 2026-09-29, first: "show it coming from the chat logs into the bank whenever I open the drawer." Then, simpler: "maybe we don't ever show the new coins floating up, but when I open the drawer and there is a new number, it animates up to that new number."
+  Chris, 2026-09-29, first: "show it coming from the chat logs into the bank whenever I open the drawer." Then, simpler: "when I open the drawer and there is a new number, it animates up to that new number." Then: "I want to see the coins in $U. Put a little coin on there, drawn. No yellow card telling me how many I got. Number just go up."
 - **A tap on the total** opens Your $U: the total, today against the 150 soft cap, your streak and its multiplier, the history ("Sep 29, 34 messages, 9 screens, 4 jobs, +82") and the formula tables. "No cash value. Not a token yet." sits under the number.
 - **Quiet.** No sound, no push and no reminders about $U, ever.
 - Every history row names what kind of thing happened. No row ever shows what you said.
