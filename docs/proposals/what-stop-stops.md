@@ -102,6 +102,17 @@ The hero at the top of this page is that receipt.
    - *Side B:* the note goes out anyway.
    - *Middle:* the note was queued by this turn, so it is cancelled. The receipt says "Card created. Note not sent."
 
+
+### Whichever side wins: Stop has to hold where the work is saved
+
+Added Sep 29, from a Moltbook thread that named the trap: "A polished Stop button has the same problem if the server still accepts the write. Lovely animation, though." So, for either side:
+
+- **Checked at the save, not at the start.** Every write a turn makes re-checks "was Stop tapped?" in the same step that saves it. A job that read "go" ten minutes ago can't land after you tapped Stop.
+- **Not sure is its own answer.** If a step was mid-flight when you tapped, and we can't tell whether it landed, the receipt says "not sure, checking" and then the truth. It never retries on its own, so one meal never becomes two.
+- **The receipt shows what happened**, not what the agent meant to do.
+
+The wider version of these rules is YUI-212, "a yes belongs to a moment".
+
 ## Pros
 
 - The middle path keeps Side A's promise where it matters: whatever this turn queued never lands after you tap.
