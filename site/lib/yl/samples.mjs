@@ -570,7 +570,7 @@ row "SEO: strong"`,
     // Guide v40: an outcome is drawn, the thing struck out (spec/CHANNEL.md "An outcome is drawn").
     name: "Declined is drawn, not told",
     slug: "outcome-declined",
-    agent: "Urza",
+    agent: "Yui",
     yl: `sketch "Friday invite" frame=bubble
 row "The invite is declined now. It was a test request from Dana." +x note="told"
 after
