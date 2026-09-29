@@ -1,0 +1,14 @@
+/* The 404 (SITE-104). Follows the site theme: the canvas is transparent over the page, so it can never go black. */
+.lost { display: grid; gap: 24px; }
+.lost-art { position: relative; height: clamp(300px, 52vh, 520px); border-radius: var(--r-card); background: var(--surface); border: 1.5px solid var(--outline); overflow: hidden; touch-action: pan-y; cursor: crosshair; contain: strict; }
+.lost-stage { position: absolute; left: 0; top: 0; right: 0; bottom: 34px; overflow: hidden; }
+.lost-layer { position: absolute; margin: 0; padding: 0; background: none; border: 0; border-radius: 0; white-space: pre; font: 700 var(--lost-fs, 15px)/var(--lost-lh, 18px) ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-variant-ligatures: none; pointer-events: none; user-select: none; }
+.lost-tag { position: absolute; left: 14px; right: 14px; bottom: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; font: 600 12px ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--muted); pointer-events: none; }
+.lost-tag span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lost-tag button { white-space: nowrap; flex: none; pointer-events: auto; font: inherit; color: var(--ink); background: var(--raised); border: 1.5px solid var(--outline); border-radius: 999px; padding: 2px 10px; cursor: pointer; }
+.lost-copy h1 { margin: 0 0 8px; }
+.lost-line { font-size: var(--fs-lede); line-height: 1.4; max-width: var(--measure); min-height: 2.9em; margin: 0 0 16px; }
+.lost-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn.lost-ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--outline); }
+.btn.lost-ghost:hover { background: var(--raised); }
+@media (max-width: 560px) { .lost-art { height: clamp(260px, 44vh, 400px); } .lost-line { font-size: 17px; min-height: 4.5em; } .lost-actions .btn { white-space: normal; text-align: center; } }
