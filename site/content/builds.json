@@ -1530,6 +1530,10 @@
     {
       "text": "Every message shows when it was sent: day dividers, a quiet time under each run, and the time on the full screen",
       "card": "YUI-202"
+    },
+    {
+      "text": "Every agent has its own quiet visualizer from the first open, with a switch in its settings",
+      "card": "YUI-180"
     }
   ]
 }
