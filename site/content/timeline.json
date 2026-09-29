@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 343,
-    "site": 785,
+    "app": 344,
+    "site": 789,
     "builds": 47,
-    "shipped": 374,
-    "screenshots": 932
+    "shipped": 376,
+    "screenshots": 937
   },
   "days": [
     {
@@ -13,7 +13,59 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T20:33:11.415Z",
+          "at": "2026-09-29T21:03:15.478Z",
+          "title": "Thought: Your own key at every stop",
+          "card": "SITE-105",
+          "anchor": "thought-your-own-key-at-every-stop",
+          "images": [
+            {
+              "src": "/progress/yui139-1-limit-card-light.webp",
+              "alt": "A Free turns used card with an Add my key button"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 344,
+            "site": 789,
+            "builds": 47,
+            "shipped": 376
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T20:39:40.000Z",
+          "title": "Pick which key each agent runs on",
+          "card": "YUI-139",
+          "anchor": "pick-which-key-each-agent-runs-on",
+          "images": [
+            {
+              "src": "/progress/yui139g-1-model-light.webp",
+              "alt": "Light mode: Controls, Model, with a Runs on card offering Yui's key, Claude and ChatGPT, Yui's key selected"
+            },
+            {
+              "src": "/progress/yui139g-2-add-key-light.webp",
+              "alt": "Light mode: the key sheet opened for one agent from the Claude row, saying only that agent runs on it"
+            },
+            {
+              "src": "/progress/yui139g-3-on-claude-light.webp",
+              "alt": "Light mode: Runs on with Claude selected and its key ending in 9999"
+            },
+            {
+              "src": "/progress/yui139g-3-on-claude-dark.webp",
+              "alt": "Dark mode: Runs on with Claude selected and its key ending in 9999"
+            }
+          ],
+          "commits": 11,
+          "totals": {
+            "app": 344,
+            "site": 788,
+            "builds": 47,
+            "shipped": 375
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T20:33:38.000Z",
           "title": "Your own key, at every stop",
           "card": "YUI-139",
           "anchor": "your-own-key-at-every-stop",
@@ -39,10 +91,10 @@
               "alt": "Light mode: the Bring your own key sheet on OpenRouter with a Save key button"
             }
           ],
-          "commits": 7,
+          "commits": 11,
           "totals": {
             "app": 343,
-            "site": 785,
+            "site": 786,
             "builds": 47,
             "shipped": 374
           }
@@ -822,6 +874,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "b8db455",
+          "at": "2026-09-29T20:41:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b8db455"
+        },
+        {
+          "repo": "site",
+          "sha": "d2966a5",
+          "at": "2026-09-29T20:39:40.000Z",
+          "text": "Progress: pick which key each agent runs on (YUI-139 2g)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d2966a5"
+        },
+        {
+          "repo": "app",
+          "sha": "b212548",
+          "at": "2026-09-29T20:38:34.000Z",
+          "text": "Controls > Model: pick which key each agent runs on, Yui's, Claude or ChatGPT (YUI-139 step 2g)",
+          "url": "https://github.com/postscarcityai/yui/commit/b212548"
+        },
+        {
+          "repo": "site",
+          "sha": "872be07",
+          "at": "2026-09-29T20:34:14.000Z",
+          "text": "Share captures for the own-key entries (YUI-139 2f)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/872be07"
+        },
+        {
+          "repo": "site",
+          "sha": "3654767",
+          "at": "2026-09-29T20:33:38.000Z",
+          "text": "Your own key on the site: NATIVE.md key section, progress entry, showcase group (YUI-139 2f)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3654767"
+        },
         {
           "repo": "app",
           "sha": "9adb9d9",

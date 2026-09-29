@@ -34,6 +34,16 @@ Ollama is the default. `--server lmstudio`, `vllm`, `llamacpp`, `openrouter`, `g
 
 Local servers need no key. For one that does, `--key-env NAME` reads it from that environment variable each time the bridge runs, and nothing is stored; `--key-stdin` keeps it in the bridge's state file on your machine (mode 600). A key never goes in chat, in a form or on the command line.
 
+## My computer, from the app (YUI-139 step 2b)
+
+In the app, **Settings > Your model key > My computer** points Yui's own agents at a model you run, with the same check a pasted key gets: Yui asks the server for its models before keeping anything, and says so plainly if it can't reach it.
+
+- **Ollama, LM Studio, vLLM, llama.cpp** answer on your machine, and Yui's servers can't see your machine. Give the app an `https` address that reaches it (a tunnel such as `cloudflared tunnel --url http://localhost:11434`, or a reverse proxy) and the model's name. `localhost` and bare IP addresses are refused.
+- **No key needed.** Leave the key empty for a server that has none. If yours has one, paste it; it is kept in Vault like any other and never shown again.
+- **Or skip the address.** The model bridge above pairs the same model as an agent with no public address at all: your computer calls out, Yui never calls in.
+
+OpenRouter takes one tap instead of a pasted key: the app sends you to openrouter.ai to allow Yui, and gets a key back (OAuth with PKCE, `S256`). The key is checked and kept like a pasted one.
+
 ## Gemini
 
 Google's Gemini API has an OpenAI-compatible endpoint, so a Gemini model is one preset (INT-9). A free key from [Google AI Studio](https://aistudio.google.com/apikey) works.
