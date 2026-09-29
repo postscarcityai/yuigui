@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T14:41:02.083Z",
+  "updated": "2026-09-29T15:11:11.025Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -455,11 +455,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-199",
-          "title": "B (next, APP, Chris's feedback)",
-          "summary": "A notification opens its message on the first page, not the last"
-        },
-        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -494,6 +489,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-199",
+          "title": "B (next, APP, Chris's feedback)",
+          "summary": "A notification opens its message on the first page, not the last",
+          "shipped": "2026-09-29"
+        },
         {
           "key": "YUI-186",
           "title": "Quill's tools",
