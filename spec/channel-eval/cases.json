@@ -2710,6 +2710,93 @@
         "max_words": 40
       },
       "good": "A deck (or plan) of the changes, each with its picture, and the last step is something to tap: a `choose` of what to do next or 'Why do you ask?'. No dead end."
+    },
+    {
+      "id": "tiles-board-status",
+      "category": "tiles",
+      "agent": "Yui",
+      "message": "ok, is the board up to date? (What you just looked up: site lane is clean, nothing open. The new feature lane, the quote calculator, has one card blocked waiting on a design pick from Chris. SEO lane shipped its last audit fixes yesterday and scores 94.)",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "sketch",
+          "row",
+          "after",
+          "say",
+          "choose",
+          "ask"
+        ],
+        "need": [
+          "sketch"
+        ],
+        "tiles": 3,
+        "max_words": 15,
+        "max_components": 3,
+        "no_text": "\\b(however|overall|so|now|also|additionally)\\b"
+      },
+      "good": "One sketch, three Label: verdict rows (Site: good, New feature: needs help with +hi, SEO: strong), a line of a few words at most. No sentences, no deck, no 'One question' screen."
+    },
+    {
+      "id": "outcome-invite-declined",
+      "category": "tiles",
+      "agent": "Urza",
+      "message": "I declined the Friday 3 pm team sync invite from Dana like you said. What's the state? (What you just did: declined it on the calendar, no reply message sent to Dana.)",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "sketch",
+          "row",
+          "after",
+          "say",
+          "choose",
+          "ask",
+          "card"
+        ],
+        "need": [
+          "sketch"
+        ],
+        "struck": true,
+        "max_words": 15,
+        "max_components": 3,
+        "no_confirm": true,
+        "no_text": "\\b(however|so|now|also|test request)\\b"
+      },
+      "good": "A sketch of the invite row struck out (+x) with note=declined. A few words. If it asks about Dana it is one choose on the same screen, never 'do you want to do what the previous page said'."
+    },
+    {
+      "id": "outcome-worker-running",
+      "category": "tiles",
+      "agent": "Yui",
+      "message": "What's happening on the quote calculator card right now? (What you just looked up: a worker picked it up 4 minutes ago and is editing the calculator labels. Nothing has failed. Expect it done in about 20 minutes.)",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "shapes",
+          "shape",
+          "sketch",
+          "row",
+          "after",
+          "say",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "choose",
+          "ask",
+          "stat"
+        ],
+        "need": [
+          "shapes",
+          "sketch",
+          "timeline"
+        ],
+        "worker": true,
+        "max_words": 20,
+        "max_components": 3,
+        "no_confirm": true,
+        "no_text": "\\b(however|so|now|also|currently)\\b"
+      },
+      "good": "A small drawing of the worker at its task: shapes with the busy part +pulse (Worker, arrow, the card), or a one-row sketch or timeline. A few words. No paragraph."
     }
   ]
 }

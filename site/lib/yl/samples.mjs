@@ -554,6 +554,39 @@ page "ZIP field" body="The form takes a ZIP and two answers, and sends them to t
 choose "What next?" "Try the form"|"See the copy"|"Why do you ask?"
 end`,
   },
+  {
+    // Guide v40: status is Label: verdict, drawn (spec/CHANNEL.md "Status is Label: verdict, drawn").
+    name: "Status is tiles, not sentences",
+    slug: "status-tiles",
+    agent: "Yui",
+    yl: `sketch "Is the board up to date?" frame=bubble
+row "Mostly. The site lane is clean, the new feature has one card waiting on you, and SEO scores 94 after yesterday's fixes." +x note="a paragraph"
+after
+row "Site: good"
+row "New feature: needs help" +hi note="waiting on you"
+row "SEO: strong"`,
+  },
+  {
+    // Guide v40: an outcome is drawn, the thing struck out (spec/CHANNEL.md "An outcome is drawn").
+    name: "Declined is drawn, not told",
+    slug: "outcome-declined",
+    agent: "Urza",
+    yl: `sketch "Friday invite" frame=bubble
+row "The invite is declined now. It was a test request from Dana." +x note="told"
+after
+row "Team sync, Friday 3 pm" +x note="declined"`,
+  },
+  {
+    // Guide v40: a worker at work is a small drawing (spec/CHANNEL.md "An outcome is drawn").
+    name: "A worker at work",
+    slug: "worker-at-work",
+    agent: "Yui",
+    yl: `say "Editing labels."
+shapes "Quote calculator" caption="Picked up 4 minutes ago. About 20 to go."
+shape circle Worker +pulse
+shape arrow
+shape box "Calculator labels" +fill`,
+  },
 ];
 
 // Media presets. Each has a slug so /playground?demo=<slug> opens it.

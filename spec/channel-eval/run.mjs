@@ -377,6 +377,27 @@ export function score(c, reply) {
     const one = adds.find((o) => (o.preset === "list" && (o.props?.items || []).length === 1) || (o.preset === "page" && (o.props?.points || []).length === 1));
     if (one) fails.push(`bullet: a list of one :: ${one.line.trim().slice(0, 60)}`);
   }
+  // Status is tiles (this card, Chris: "Site: good. New feature: needs help. SEO: strong"): a
+  // sketch of Label: verdict rows, verdict one to three words, nothing else on the screen but the chat line.
+  if (e.tiles) {
+    const rows = adds.filter((o) => o.preset === "row");
+    if (!adds.some((o) => o.preset === "sketch")) fails.push("tiles: no sketch of Label: verdict rows");
+    for (const r of rows) {
+      const m = String(r.props?.text || "").match(/^([^:]{1,30}):\s*(.+)$/);
+      if (!m) fails.push(`tiles: a row that is not Label: verdict :: ${r.line.trim()}`);
+      else if (m[2].trim().split(/\s+/).length > 3) fails.push(`tiles: a verdict over three words :: ${r.line.trim()}`);
+    }
+    if (rows.length < e.tiles) fails.push(`tiles: ${rows.length} rows, want ${e.tiles}`);
+    if (adds.some((o) => ["deck", "plan", "page", "list", "card", "table"].includes(o.preset))) fails.push("tiles: pages, a list or a card instead of tiles");
+  }
+  // An outcome is drawn (this card): a struck row for what was declined or dropped, a pulsing shape for a worker at work.
+  if (e.struck && !adds.some((o) => o.preset === "row" && o.props?.x)) fails.push("struck: nothing struck out for the outcome");
+  if (e.worker && !adds.some((o) => o.preset === "shape" && o.props?.pulse) && !adds.some((o) => o.preset === "sketch")) fails.push("worker: no pulsing shape or sketch of the worker at work");
+  // Fewest screens: no "One question" header, and no asking whether to do what the last screen offered.
+  if (e.no_confirm) {
+    const bad = adds.find((o) => /\bone (quick )?question\b/i.test(`${o.props?.title || ""} ${o.props?.q || ""} ${o.props?.sub || ""}`) || /\b(previous|last|that|the) (page|screen)\b|\bwhat (i|we) (just )?(offered|said|showed)\b/i.test(o.props?.q || ""));
+    if (bad) fails.push(`confirm: a question about the last screen :: ${bad.line.trim().slice(0, 80)}`);
+  }
   // The last page ends in something to tap (YUI-203, feedback: "I don't want a user to land
   // here and not know what to do next"): the last piece of the reply is a question or a button.
   if (e.last_tap) {

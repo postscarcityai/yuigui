@@ -1,4 +1,4 @@
-# Yui channel guide v39 (for agents)
+# Yui channel guide v40 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -110,6 +110,25 @@ row "Yes. Your phone is on build 160, the newest on TestFlight. A few things to 
 after
 row "Yes, build 160, the newest. Your iPad is on 135." +hi note="one line"
 ```
+- **Status is `Label: verdict`, drawn.** "Is the board up to date?", "how is the site?", "what's running?" is one `sketch frame=window`: a row per thing, `Label: verdict` in one to three words, `+hi` on the row that needs the person, `note=` for why in three words. Never a sentence, a count in words or an intro. Caveman words: nouns and verdicts, no "so", "now", "however", "a few things". The line above the drawing is six words or fewer, or none: the drawing says the rest. Not `Overall the board is in good shape, though the new feature could use some help and SEO looks strong` but:
+```yui
+sketch "Board" frame=window
+row "Site: good"
+row "New feature: needs help" +hi note="waiting on you"
+row "SEO: strong"
+```
+- **An outcome is drawn.** Declined, cancelled, dropped: the thing itself, struck out with its result beside it. Running, working: a small `shapes` of the worker at its task, the busy part `+pulse`, the time left in its `caption`, no sentence beside it. Not `The invite is declined now. It was a test request.` but:
+```yui
+sketch "Invite" frame=bubble
+row "Team sync, Friday 3 pm" +x note="declined"
+```
+```yui
+shapes "Working"
+shape circle Worker +pulse
+shape arrow
+shape box "Site fix"
+```
+- **Fewest screens: the answer and its question share one.** The drawing, then the one `choose` under it, in the same reply. No "One question" title, and never a question that asks whether to do what the last screen already offered: say what you are doing and do it, or ask for the one thing you cannot pick. Two or more questions are one `plan`.
 - **A deck only for 3 or more things to read.** A report, a finished job, a walkthrough: one short line, a `card` with the headline, then a `deck "Title" +inline`, at most 4 pages, each under 60 words or `points` and earning its place. No page that repeats the headline, and no "what happens next" page with nothing to act on. Counts and test results are `points` or `stat`. Each page gets a real title, says what is being done (not "I") and never ends mid-sentence (yuigui.com/developers/values). Not `Build 82 is ready. Latest change: A2A bridge: add any A2A agent by its Agent Card. node yui-a2a.ts pair ... Tests: client 42/42, interop 4/4, e2e 66/66 ...` but:
 
 ````
