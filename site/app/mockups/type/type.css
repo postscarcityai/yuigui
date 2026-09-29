@@ -1,0 +1,33 @@
+.ty-page { padding-bottom: 60px; }
+.ty-face { margin: 28px 0 40px; }
+.ty-note { color: var(--muted); font-size: 14px; margin: 0 0 12px; }
+.ty-pair { display: flex; gap: 20px; flex-wrap: wrap; }
+.ty-sf { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", "Helvetica Neue", system-ui, sans-serif; }
+.ty-inter { font-family: var(--font-inter), Inter, system-ui, sans-serif; }
+.ty-geist { font-family: var(--font-geist), Geist, system-ui, sans-serif; }
+.ty-phone { --bg: #FFF9F0; --card: #fff; --ink: #3A3340; --soft: #6E6478; --line: #F0E4D6; --me: #FFA8B0; --acc: #FF7E8A;
+  width: 300px; height: 620px; border-radius: 40px; border: 8px solid #111; overflow: hidden; display: flex; flex-direction: column;
+  background: var(--bg); color: var(--ink); text-align: left; box-shadow: 0 18px 44px rgba(0,0,0,.2); }
+.ty-dark { --bg: #231D33; --card: #2F2842; --ink: #F6EEF7; --soft: #A99FB8; --line: #3D3452; --me: #F28D97; }
+.ty-bar { display: flex; align-items: center; gap: 10px; padding: 34px 14px 8px; font-size: 22px; font-weight: 600; letter-spacing: -.2px; }
+.ty-menu { width: 26px; height: 26px; border-radius: 13px; background: var(--card); border: 1.5px solid var(--line); }
+.ty-dot { margin-left: auto; width: 10px; height: 10px; border-radius: 5px; background: var(--acc); }
+.ty-thread { padding: 6px 14px; display: flex; flex-direction: column; gap: 8px; }
+.ty-bub { padding: 9px 13px; border-radius: 20px; font-size: 15px; line-height: 1.35; max-width: 86%; }
+.ty-them { background: var(--card); border: 1px solid var(--line); border-bottom-left-radius: 8px; }
+.ty-me { background: var(--me); color: #3A3340; align-self: flex-end; border-bottom-right-radius: 8px; }
+.ty-card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 12px 14px; }
+.ty-card-t { font-size: 17px; font-weight: 600; }
+.ty-card-s { font-size: 13px; color: var(--soft); letter-spacing: .2px; margin: 2px 0 8px; }
+.ty-card-b { display: inline-flex; gap: 8px; background: var(--acc); color: #3A3340; border-radius: 999px; padding: 6px 14px; font-size: 15px; font-weight: 600; }
+.ty-num { font-variant-numeric: tabular-nums; }
+.ty-cap { font-size: 12px; color: var(--soft); letter-spacing: .3px; align-self: center; }
+.ty-stage { padding: 6px 18px 4px; }
+.ty-stage-l { font-size: 28px; font-weight: 700; line-height: 1.15; letter-spacing: -.4px; }
+.ty-drawer { margin-top: auto; border-top: 1px solid var(--line); padding: 8px 14px 14px; display: flex; flex-direction: column; gap: 6px; }
+.ty-row { display: flex; flex-direction: column; }
+.ty-row b { font-size: 17px; font-weight: 600; }
+.ty-row span { font-size: 15px; color: var(--soft); }
+.ty-scale { width: 100%; border-collapse: collapse; margin: 14px 0; }
+.ty-scale th { text-align: left; color: var(--muted); font-size: 13px; padding: 6px 8px; }
+.ty-scale td { padding: 8px; border-top: 1px solid var(--outline); font-size: 14px; }

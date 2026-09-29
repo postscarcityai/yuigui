@@ -1,7 +1,7 @@
 /* Yui in the bubble (SITE-64, SITE-65, SITE-66). Opening it turns the site dark and puts Yui full screen,
    like the app: the whole screen on a phone, a full-height phone-shaped layer over the dimmed page on a
    computer. Answers play on the stage (ys-, stage first); the chat is the record, top right. */
-.yc { position: fixed; right: 20px; bottom: 20px; z-index: 40; font-family: var(--font); }
+.yc { position: fixed; right: 20px; bottom: 20px; z-index: 40; font-family: var(--font-phone); }
 /* The bubble: Yui's mark on a soft coral shape that floats and slowly changes, with a lavender,
    mint and butter glow drifting behind it. Still under Reduce Motion. */
 .yc-fab {
@@ -131,7 +131,7 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-bottom > * { pointer-events: auto; }
 .ys-small { width: 46px; height: 46px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-size: 18px; font-weight: 800; cursor: pointer; }
 .ys-small svg { width: 20px; height: 20px; fill: currentColor; stroke: currentColor; }
-.ys-t { font-family: Georgia, "Times New Roman", serif; font-size: 21px; }
+.ys-t { font-family: var(--font-phone); font-weight: 700; font-size: 21px; }
 .ys-mic { position: relative; width: 66px; height: 66px; flex: none; display: grid; place-items: center; border-radius: 50%; border: 0; background: var(--mo-c); color: #2a1020; cursor: pointer;
   box-shadow: 0 10px 26px color-mix(in srgb, var(--mo-c) 45%, transparent); transition: transform var(--mo-enter) var(--mo-ease); }
 .ys-mic svg { width: 28px; height: 28px; fill: currentColor; stroke: currentColor; }

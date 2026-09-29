@@ -24,8 +24,8 @@ const AGENTS = [
   { name: "Quill", c: "#8E44C8", last: "Flash cards ready: 12 new." },
 ];
 const RADIUS = { yui: 22, round: 24, soft: 18, square: 10 };
-const FONT = { rounded: "ui-rounded, 'SF Pro Rounded', system-ui, sans-serif", default: "system-ui, sans-serif", serif: "ui-serif, Georgia, 'New York', serif", mono: "ui-monospace, Menlo, monospace" };
-const WEIGHT = { regular: 500, bold: 700, heavy: 800 };
+const FONT = { rounded: "ui-rounded, 'SF Pro Rounded', system-ui, sans-serif", default: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', Inter, system-ui, sans-serif", serif: "ui-serif, Georgia, 'New York', serif", mono: "ui-monospace, Menlo, monospace" };
+const WEIGHT = { regular: 500, semibold: 600, bold: 700, heavy: 800 };
 const title = (s) => s[0].toUpperCase() + s.slice(1);
 
 // CSS variables for one look in one mode.
@@ -35,7 +35,7 @@ function vars(look, dark) {
     "--rs-bg": p.background, "--rs-surface": p.surface, "--rs-ink": p.ink, "--rs-soft": p.inkSoft,
     "--rs-line": p.outline, "--rs-acc": p.accent, "--rs-on": p.onAccent, "--rs-user": p.userBubble,
     "--rs-user-ink": p.userInk, "--rs-agent": p.agentBubble, "--rs-agent-ink": p.agentInk,
-    "--rs-r": `${RADIUS[look.radius] || 18}px`, "--rs-font": FONT[look.font] || FONT.rounded, "--rs-w": WEIGHT[look.weight] || 800,
+    "--rs-r": `${RADIUS[look.radius] || 18}px`, "--rs-font": FONT[look.font] || FONT.default, "--rs-w": WEIGHT[look.weight] || 600,
   };
 }
 

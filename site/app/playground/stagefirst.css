@@ -79,7 +79,7 @@
 .sf-small::before, .sf-mic::before { content: ""; position: absolute; inset: -4px; }
 .sf-small:disabled { opacity: .35; cursor: default; }
 .sf-small.acc { background: var(--sf); border-color: var(--sf); color: #fff; }
-.sf-t { font-family: Georgia, "Times New Roman", serif; font-size: 18px; }
+.sf-t { font-family: var(--font-phone); font-weight: 700; font-size: 18px; }
 .sf-mic { width: 52px; height: 52px; border-radius: 50%; border: 0; background: var(--sf); display: grid; place-items: center; cursor: pointer; position: relative; flex: none; color: #fff; }
 .sf-mic.big { width: 58px; height: 58px; box-shadow: 0 6px 18px color-mix(in srgb, var(--sf) 45%, transparent); }
 .sf-mic svg { width: 42%; height: 42%; fill: currentColor; stroke: currentColor; }

@@ -15,7 +15,7 @@
   --a: #EE7A82; --a-ink: #2A1A1C; --mint: #7ED9B0;
   position: relative; overflow: hidden; width: 360px; height: 760px; max-width: calc(100vw - 24px);
   border-radius: 44px; border: 8px solid #111; box-shadow: 0 20px 50px rgba(0,0,0,.25);
-  font-family: var(--font); display: flex; flex-direction: column; text-align: left;
+  font-family: var(--font-phone); display: flex; flex-direction: column; text-align: left;
   background: var(--bg0); color: var(--ink0); user-select: none; -webkit-user-select: none;
 }
 .cm-dark { --bg0: linear-gradient(180deg, #45252A 0%, #2A1A1C 45%, #231618 100%); --panel0: #261A1B; --ink0: #FBF1F1; --soft0: #BFA9AB; --chip0: #3A2528; --line0: rgba(238,122,130,.25); --bubble0: #3A2629; }
@@ -27,7 +27,7 @@
 .cm-head { display: flex; align-items: center; gap: 8px; padding: 8px 14px; }
 .cm-round { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--chip0) !important; flex: none; position: relative; box-shadow: 0 1px 0 var(--line0); }
 .cm-dot::after { content: ""; position: absolute; top: 3px; right: 3px; width: 9px; height: 9px; border-radius: 50%; background: var(--a); }
-.cm-t { font-family: Georgia, serif; font-size: 20px; }
+.cm-t { font-family: var(--font-phone); font-weight: 700; font-size: 20px; }
 .cm-pill { display: flex; align-items: center; gap: 8px; padding: 5px 14px 5px 5px; border-radius: 999px; background: var(--chip0) !important; min-width: 0; margin-right: auto; }
 .cm-pill-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.15; }
 .cm-pill-text small { color: var(--soft0); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 150px; }

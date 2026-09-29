@@ -38,7 +38,7 @@ export const SETS = {
 export const PAPERS = { cream: "#FFF9F0", paper: "#FBFAF7", white: "#FFFFFF", mist: "#F3F6FA", sand: "#F7F0E6", blush: "#FFF1F3" };
 export const RADII = ["round", "soft", "square"];
 export const FONTS = ["rounded", "default", "serif", "mono"];
-export const WEIGHTS = ["regular", "bold", "heavy"];
+export const WEIGHTS = ["regular", "semibold", "bold", "heavy"];
 export const MOTIONS = ["bouncy", "calm", "snappy"];
 // A motion look in the person's words (YUI-123): four keys on top of the
 // character `motion=` names. Timings for each value are in motion.mjs.
@@ -69,7 +69,7 @@ export const YUI = {
   name: "yui",
   light: { background: "#FFF9F0", surface: "#FFFFFF", ink: "#3A3340", inkSoft: "#6E6478", outline: "#F0E4D6", accent: "#FF7E8A", onAccent: "#3A3340", userBubble: "#FFA8B0", userInk: "#3A3340", agentBubble: "#FFFFFF", agentInk: "#3A3340" },
   dark: { background: "#231D33", surface: "#2F2842", ink: "#F6EEF7", inkSoft: "#A99FB8", outline: "#3D3452", accent: "#FF7E8A", onAccent: "#2A2238", userBubble: "#F28D97", userInk: "#2A2238", agentBubble: "#352D4A", agentInk: "#F6EEF7" },
-  radius: "yui", font: "rounded", weight: "heavy", motion: "bouncy", adjusted: { light: [], dark: [] },
+  radius: "yui", font: "default", weight: "semibold", motion: "bouncy", adjusted: { light: [], dark: [] },
 };
 
 // ---------- color math (sRGB, WCAG 2 relative luminance) ----------
@@ -174,8 +174,8 @@ export function compile(r, name = "custom") {
     light: palette(false),
     dark: palette(true),
     radius: RADII.includes(r.radius) || r.radius === "yui" ? r.radius : "soft",
-    font: FONTS.includes(r.font) ? r.font : "rounded",
-    weight: WEIGHTS.includes(r.weight) ? r.weight : "heavy",
+    font: FONTS.includes(r.font) ? r.font : "default",
+    weight: WEIGHTS.includes(r.weight) ? r.weight : "semibold",
     motion: MOTIONS.includes(r.motion) ? r.motion : "bouncy",
     ...Object.fromEntries(Object.entries(MOTION_KEYS).filter(([k, vs]) => vs.includes(r[k])).map(([k]) => [k, r[k]])),
     adjusted,

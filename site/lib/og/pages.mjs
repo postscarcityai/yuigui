@@ -130,6 +130,11 @@ ask "Delete this chat?" Delete|Keep`,
     yl: `card "Today" sub="waiting on you" body="Leg day, then log your lunch." cta="Start workout"
 choose "Start something" Train|"Log food"|"Plan the week"`,
   },
+  "/mockups/type": {
+    eyebrow: "THE BASE TYPE",
+    yl: `say A sleek sans, all the way down.
+card "Leg day" sub="Five moves, 40 minutes" cta="Start"`,
+  },
   "/mockups/tables": {
     eyebrow: "AGENT TABLES",
     yl: `table Foods Food|Cal|Protein "Oats|300|10" "Eggs|140|12"

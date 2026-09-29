@@ -18,7 +18,7 @@
   --a: #EE7A82; --mint: #7ED9B0;
   position: relative; overflow: hidden; width: 360px; height: 760px; max-width: calc(100vw - 24px);
   border-radius: 44px; border: 8px solid #111; box-shadow: 0 20px 50px rgba(0,0,0,.25);
-  font-family: var(--font); display: flex; flex-direction: column; text-align: left;
+  font-family: var(--font-phone); display: flex; flex-direction: column; text-align: left;
   background: var(--bg0); color: var(--ink0); user-select: none; -webkit-user-select: none;
 }
 .hm-dark { --bg0: linear-gradient(180deg, #45252A 0%, #2A1A1C 45%, #231618 100%); --panel0: #261A1B; --ink0: #FBF1F1; --soft0: #BFA9AB; --chip0: #3A2528; --line0: rgba(238,122,130,.25); --bubble0: #3A2629; }
@@ -30,7 +30,7 @@
 .hm-head { display: flex; align-items: center; gap: 8px; padding: 8px 14px; }
 .hm-round { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--chip0) !important; flex: none; position: relative; box-shadow: 0 1px 0 var(--line0); }
 .hm-badge { position: absolute; top: -2px; right: -2px; min-width: 18px; height: 18px; border-radius: 999px; background: var(--a); color: #2A1A1C; font-style: normal; font-size: 11px; font-weight: 800; display: grid; place-items: center; }
-.hm-t { font-family: Georgia, serif; font-size: 20px; }
+.hm-t { font-family: var(--font-phone); font-weight: 700; font-size: 20px; }
 .hm-pill { display: flex; align-items: center; gap: 8px; padding: 5px 16px 5px 5px; border-radius: 999px; background: var(--chip0); margin-right: auto; }
 .hm-face { display: grid; place-items: center; background: #EE7A82; color: #2A1A1C; font-weight: 900; border-radius: 10px; flex: none; }
 .hm-face.sm { width: 30px; height: 30px; font-size: 15px; }
