@@ -1534,6 +1534,9 @@
     {
       "text": "Every agent has its own quiet visualizer from the first open, with a switch in its settings",
       "card": "YUI-180"
+    },
+    {
+      "text": "Bump to 0.6.0: the crew gets real tools"
     }
   ]
 }
