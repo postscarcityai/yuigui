@@ -4,6 +4,7 @@
 // that deserve the whole phone. It stays mounted while closed, so a running
 // timer keeps running; the chat shows a pill that brings it back.
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { RichText } from "./richtext";
 
 // Live one-liners from staged components ("3:12 · Round 2/8"), keyed by
 // component key, so the pill in the chat can show what is running.
@@ -91,7 +92,7 @@ export function PlanRecord({ rec, onOpen }) {
           {rec.pages.map((p, i) => (
             <details key={i} className="yl-recordpage">
               <summary>{p.title || `Page ${i + 1}`}</summary>
-              {p.body ? <p>{p.body}</p> : null}
+              {p.body ? <RichText text={p.body} /> : null}
               {p.points.length ? <ul>{p.points.map((t, j) => <li key={j}>{t}</li>)}</ul> : null}
             </details>
           ))}

@@ -10,11 +10,14 @@ import { stageChunks, textChunks } from "../yl/chunks.mjs";
 import { splitReply } from "./lines.mjs";
 import { inThread } from "./pages.mjs";
 
+// A list, a heading or a "Label: value" line stays whole, so the reader can style it (SITE-97).
+const STRUCTURED = /^\s*(?:[-*•]\s+|\d+[.)]\s+|#{1,6}\s+|(?:✅|❌)|\*\*[^*\n]{1,40}:\*\*\s)/m;
+
 // "Hi.\n\n- a\n- b" -> ["Hi.", "- a\n- b"]
 export function textParts(text) {
   const out = [];
   for (const para of String(text || "").split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)) {
-    if (/^\s*[-*]\s+/m.test(para)) out.push(para);
+    if (STRUCTURED.test(para)) out.push(para);
     else out.push(...textChunks(para));
   }
   return out;

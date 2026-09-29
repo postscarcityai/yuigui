@@ -603,6 +603,18 @@ chords G I-V-vi-IV
 ### say (core, not a preset)
 `say text...`. A plain text bubble inside a screen.
 
+### Body text (renderers)
+How every renderer draws words: `say`, a `page` or `card` body, a question's `body=`, chat text on the stage. The site does it in `site/lib/yl/readtext.mjs` (with `readtext.test.mjs`); the app copies the rules in Swift (YUI-196).
+
+1. **Body is the default.** Regular weight, about 15 to 17 points on a phone, line height 1.5, a measure of about 70 characters (`54ch` in Nunito). Display type (large, bold) is only for words that fit on one or two lines: a page title, a card title, or a `say` or stage line of 60 characters or fewer with no list or second paragraph.
+2. **Longer text is body, never all bold.** A `say`, page body, card body or text under a chart over 60 characters reads as body. A stage line over 60 characters drops from display to body size.
+3. **A small markdown reader.** `#`, `##`, `###` headings (drawn at most 1.3 times body, bold), `**bold**`, `*italic*` or `_italic_`, `` `inline code` ``, `[links](url)`, `-` and `1.` lists. A raw `**`, `#` or backtick never shows: a marker that does not close is plain text.
+4. **`Label: value` lead-ins.** A line that starts with a short label (up to 4 words, capitalised) and a colon reads as a lead-in: the label takes the accent colour and bold, the value stays body. `**Label:** value` reads the same. A leading ✅, ❌, ⚠️, ➡️ or • sits before the label. A time like "Meet at 9:30" or a sentence with a colon is prose, not a lead-in.
+5. **Whole thoughts stay together.** On the stage, a paragraph of up to 3 sentences and 70 words is one page. Longer splits after every second sentence. A list, a heading or a lead-in paragraph is never split or flattened, so the reader sees its line breaks.
+6. **One line per say.** A YL line has no newline, so a list in a `say` is one `say` per point. Multi-line text (the chat reply, a page `body` from a form) goes through the reader whole.
+
+Playground: `/playground?demo=body-text`.
+
 ### theme (core, not a preset)
 `theme [set] key=value...`. Restyles the agent's own look in the app: background, bubbles, accent, avatar chip, corner radius, type and motion, in light and dark, for every screen of its thread and its row in the agent list. Nothing renders on screen except a one-line note; the look is saved on the agent (`yui_agents.theme`, spec `AGENTS.md`) until the next theme line or the person changes it.
 

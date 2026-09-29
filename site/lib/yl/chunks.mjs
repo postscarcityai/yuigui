@@ -85,13 +85,14 @@ export function splitSentences(para) {
   return out.length ? out : [para];
 }
 
-// Plain chat text (no YL) on the stage: one chunk per paragraph, and a long
-// paragraph split after every second sentence, so no chunk is a wall.
-export function textChunks(text, most = 40) {
+// Plain chat text (no YL) on the stage: one chunk per paragraph. A whole thought stays on one page
+// (SITE-97): up to 3 sentences and 70 words. Longer than that splits after every second sentence,
+// so no chunk is a wall.
+export function textChunks(text, most = 70) {
   const out = [];
   for (const para of String(text || "").split(/\n\s*\n/).map((p) => p.replace(/\s+/g, " ").trim()).filter(Boolean)) {
-    if (para.split(" ").length <= most) { out.push(para); continue; }
     const sentences = splitSentences(para);
+    if (para.split(" ").length <= most && sentences.length <= 3) { out.push(para); continue; }
     for (let i = 0; i < sentences.length; i += 2) out.push(sentences.slice(i, i + 2).join("").trim());
   }
   return out;

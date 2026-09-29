@@ -50,3 +50,9 @@ test("the mic line says what works here", () => {
   assert.equal(micLine({ voice: true, blocked: true }), "The mic is blocked. Allow it in the address bar, or type.");
   assert.match(micLine({ voice: true, listening: true }), /^Listening/);
 });
+
+test("headings and Label: value lines stay whole for the reader (SITE-97)", () => {
+  const md = "## Status\n✅ Tests: 27 passed\n❌ Lint: 2 warnings";
+  assert.deepEqual(textParts(md), [md]);
+  assert.deepEqual(textParts("**Fixed:** the timer\n**Next:** ship it"), ["**Fixed:** the timer\n**Next:** ship it"]);
+});

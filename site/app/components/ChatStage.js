@@ -10,6 +10,8 @@ import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, TABLES } from "../playground/presets";
 import { Group, groupNodes, question, show, VALUE } from "../playground/flows";
 import { ScreenCtx } from "../playground/science";
+import { RichText } from "../playground/richtext";
+import { textRole } from "../../lib/yl/readtext.mjs";
 import { CrewOr } from "./ChatCrew";
 import "../playground/flows.css";
 
@@ -30,13 +32,13 @@ function Ctx({ part, agent, children }) {
 function Chunk({ a, c, dir, emitFor, Text, go, small }) {
   const part = c.part != null ? a.parts[c.part] : null;
   const words = c.text || c.line;
-  const long = (words || "").length > 140;
+  const long = textRole(words || "") === "body";
   return (
     <div className={`mo-chunk ys-chunk${small ? " small" : ""}`} data-dir={dir}>
       {c.pic && part ? <div className="ys-pic yc-screen pg-screen"><Ctx part={part} agent="Yui"><Picture part={part} node={c.pic} emitFor={emitFor} /></Ctx></div> : null}
       {c.text ? <div className={`ys-line ys-text${long ? " long" : ""}`}><Text text={c.text} go={go} /></div> : null}
-      {c.line ? <div className={`ys-line${long ? " long" : ""}`}>{c.line}</div> : null}
-      {c.page?.body ? <div className="ys-body">{c.page.body}</div> : null}
+      {c.line ? <div className={`ys-line${long ? " long" : ""}`}><RichText text={c.line} go={go} /></div> : null}
+      {c.page?.body ? <div className="ys-body"><RichText text={c.page.body} go={go} /></div> : null}
       {c.page?.points?.length ? <ul className="ys-points">{[].concat(c.page.points).map((t, i) => <li key={i}>{t}</li>)}</ul> : null}
     </div>
   );

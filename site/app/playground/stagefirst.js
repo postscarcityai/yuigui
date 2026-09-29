@@ -19,6 +19,8 @@ import { Group, groupNodes, question, show, VALUE } from "./flows";
 import { ScreenCtx } from "./science";
 import { doings } from "./working";
 import "./stagefirst.css";
+import { RichText } from "./richtext";
+import { textRole } from "../../lib/yl/readtext.mjs";
 
 export const STAGEFIRST_VIEWS = [
   ["ask", "Ask"],
@@ -114,8 +116,8 @@ function Chunk({ reply, c, emitFor }) {
   return (
     <div className="sf-chunk" key={c.key}>
       {c.pic ? <div className="sf-pic"><Picture reply={reply} node={c.pic} emitFor={emitFor} /></div> : null}
-      {c.line ? <div className={`sf-line ${c.pic ? "" : "alone"}`}>{c.line}</div> : null}
-      {c.page?.body ? <div className="sf-body">{c.page.body}</div> : null}
+      {c.line ? <div className={`sf-line ${textRole(c.line) === "body" ? "is-body" : c.pic ? "" : "alone"}`}><RichText text={c.line} /></div> : null}
+      {c.page?.body ? <div className="sf-body"><RichText text={c.page.body} /></div> : null}
       {c.page?.points?.length ? <ul className="sf-points">{[].concat(c.page.points).map((t, i) => <li key={i}>{t}</li>)}</ul> : null}
     </div>
   );

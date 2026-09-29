@@ -1,0 +1,30 @@
+/* Say, page, card and stage text (SITE-97). Body is the default: regular weight, 1.5 line height, a measure
+   of about 70 characters. Display type belongs to words that fit a line or two, and the stage sets it. */
+.rt { display: flex; flex-direction: column; gap: 8px; max-width: var(--text-measure); min-width: 0; overflow-wrap: anywhere; }
+.rt p, .rt ul, .rt ol { margin: 0; }
+.rt-body { font-weight: var(--text-weight); line-height: var(--text-lh); }
+.rt strong, .rt b { font-weight: 800; }
+.rt em { font-style: italic; }
+.rt code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em; padding: 1px 5px; border-radius: 6px; background: color-mix(in srgb, currentColor 12%, transparent); }
+.rt a { color: var(--link, var(--accent2)); text-decoration: underline; text-underline-offset: 2px; }
+.rt-h { font-weight: 800; line-height: 1.25; margin-top: 4px; letter-spacing: -.01em; }
+.rt-h1 { font-size: 1.3em; }
+.rt-h2 { font-size: 1.15em; }
+.rt-h3 { font-size: 1.05em; }
+.rt-list { padding-left: 1.3em; display: flex; flex-direction: column; gap: 4px; font-weight: var(--text-weight); }
+.rt-list li::marker { color: var(--accent, var(--accent2)); }
+.rt-kv { display: block; }
+.rt-mark { margin-right: 6px; }
+.rt-label { color: var(--accent, var(--accent2)); font-weight: 800; }
+.rt-value { font-weight: var(--text-weight); }
+/* Bubbles, cards and pages: body at phone size. */
+.yl-say .rt, .yl-text .rt, .yl-pagebody .rt, .yl-recordpage .rt { max-width: none; }
+.yl-say .rt, .yl-text .rt { font-size: 14.5px; }
+.yl-say .rt-display { font-weight: 500; }
+.yl-pagebody { font-size: 15px; }
+/* The stage: display type only when it is one or two lines; longer is body, regular weight. */
+.sf-line.is-body, .ys-line.long { font-size: var(--text-stage-size); font-weight: var(--text-weight); line-height: var(--text-lh); letter-spacing: 0; }
+.sf-line.is-body .rt, .ys-line.long .rt { gap: 10px; }
+.ys-line.long ul, .ys-line ul.rt-list { font-size: inherit; font-weight: var(--text-weight); }
+.sf-line .rt-display, .ys-line:not(.long) .rt-display { font-weight: inherit; }
+.screen.light .rt code { background: #e9eaf3; }

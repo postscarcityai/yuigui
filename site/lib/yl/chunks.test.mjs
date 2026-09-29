@@ -75,6 +75,8 @@ eq("text: a long paragraph splits every two sentences", textChunks(long).length,
 
 // A period inside a number, URL or file name is not a sentence end (SITE-96).
 const filler = Array.from({ length: 40 }, () => "word").join(" ");
+eq("text: a 3 sentence paragraph stays on one page", textChunks("First thing. Second thing. Third thing.").length, 1);
+eq("text: 4 sentences split in two", textChunks("One. Two. Three. Four.").length, 2);
 eq("text: a version number stays whole", textChunks("0.6.0 ships and is built for agents."), ["0.6.0 ships and is built for agents."]);
 eq("split: version in a sentence", splitSentences("Yui 0.6.0 ships today. Try it."), ["Yui 0.6.0 ships today. ", "Try it."]);
 eq("split: decimals and v1.2", splitSentences("Pi is 3.5 or v1.2 maybe. Fine."), ["Pi is 3.5 or v1.2 maybe. ", "Fine."]);

@@ -30,6 +30,7 @@ import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
 import { echoFor, relays } from "../../../mcp-app/src/events.mjs";
 import { savedUtm, trackCta } from "../../lib/track.mjs";
 import { PageDots, usePager } from "./ChatDots";
+import { RichText } from "../playground/richtext";
 import "../playground/stagemotion.css";
 import "./chat.css";
 
@@ -52,32 +53,8 @@ function theirTheme() { try { return localStorage.getItem("yui-theme") === "dark
 function setTheme(t) { document.documentElement.dataset.theme = t; }
 
 // Replies are plain text with [links](/path), **bold** and "- " lists. Drawn as elements, never as HTML.
-function Inline({ text, go }) {
-  const out = [];
-  const re = /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*/g;
-  let at = 0, m;
-  while ((m = re.exec(text))) {
-    if (m.index > at) out.push(text.slice(at, m.index));
-    if (m[3]) out.push(<strong key={m.index}>{m[3]}</strong>);
-    else if (m[2].startsWith("/") && !m[2].startsWith("//")) out.push(<a key={m.index} href={m[2]} onClick={(e) => { e.preventDefault(); go(m[2]); }}>{m[1]}</a>);
-    else if (SAFE.test(m[2])) out.push(<a key={m.index} href={m[2]} target="_blank" rel="noopener noreferrer">{m[1]}</a>);
-    else out.push(m[1]);
-    at = re.lastIndex;
-  }
-  if (at < text.length) out.push(text.slice(at));
-  return out;
-}
 function Text({ text, go }) {
-  const blocks = [];
-  for (const line of text.split("\n")) {
-    const item = line.match(/^\s*[-*]\s+(.*)$/);
-    const last = blocks[blocks.length - 1];
-    if (item) (last?.list ? last.items : (blocks.push({ list: true, items: [] }), blocks[blocks.length - 1].items)).push(item[1]);
-    else if (line.trim()) blocks.push({ p: line });
-  }
-  return blocks.map((b, i) => (b.list
-    ? <ul key={i}>{b.items.map((t, j) => <li key={j}><Inline text={t} go={go} /></li>)}</ul>
-    : <p key={i}><Inline text={b.p} go={go} /></p>));
+  return <RichText text={text} go={go} safe={SAFE} />;
 }
 
 let turnstileLoading = null;

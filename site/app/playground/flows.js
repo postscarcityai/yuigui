@@ -12,6 +12,7 @@ import { Timeline } from "./timeline";
 import { Sketch } from "./sketch";
 import { Shapes } from "./shapes";
 import { MapView } from "./map";
+import { RichText } from "./richtext";
 
 const isVideo = (src) => /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src || "");
 const Media = ({ src, className }) => (isVideo(src)
@@ -57,7 +58,7 @@ export function Page({ p, pic, emitFor, Render }) {
       {pic ? <div className="yl-pagesk">{picture(pic, emitFor, Render)}</div> : p.img ? <Media src={p.img} className="yl-pageimg" /> : null}
       <div className="yl-pagetext">
         {p.title ? <div className="yl-pagetitle">{p.title}</div> : null}
-        {p.body ? <div className="yl-pagebody">{p.body}</div> : null}
+        {p.body ? <div className="yl-pagebody"><RichText text={p.body} /></div> : null}
         {p.points.length ? <ul className="yl-pagepts">{p.points.map((t, i) => <li key={i}>{t}</li>)}</ul> : null}
       </div>
     </div>
@@ -350,7 +351,7 @@ export function Project({ p, emit }) {
         </div>
         <div className="yl-q">{p.title || "Project"}</div>
         {pct != null ? <div className="yl-stepbar"><span style={{ width: `${pct}%` }} /></div> : null}
-        {p.body ? <div className="yl-text">{p.body}</div> : null}
+        {p.body ? <div className="yl-text"><RichText text={p.body} /></div> : null}
         {rows.length ? <Facts rows={rows} /> : null}
         {p.next.length ? (
           <div className="yl-projnext"><div className="lbl">Next</div><ul>{p.next.map((t, i) => <li key={i}>{t}</li>)}</ul></div>

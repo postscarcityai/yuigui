@@ -17,6 +17,7 @@ import { MUSIC } from "./music/music";
 import { Flow } from "./flow";
 import { Query } from "./data";
 import { useLive } from "./stage";
+import { RichText } from "./richtext";
 
 // Sample agent data tables, so `table meals` has something to bind to.
 export const TABLES = {
@@ -182,7 +183,7 @@ function AskHead({ p }) {
     <>
       {p.tag ? <span className="pill now" style={{ alignSelf: "flex-start" }}>{p.tag}</span> : null}
       {p.title ? <div className="yl-q">{p.title}</div> : null}
-      {p.body ? <div className="yl-text">{p.body}</div> : null}
+      {p.body ? <div className="yl-text"><RichText text={p.body} /></div> : null}
     </>
   );
 }
@@ -381,7 +382,7 @@ function Card({ p, emit }) {
       {p.tag ? <span className="pill now">{p.tag}</span> : null}
       {p.sub ? <div className="yl-sub">{p.sub}</div> : null}
       <div className="yl-q">{p.title}</div>
-      {p.body ? <div className="yl-text">{p.body}</div> : null}
+      {p.body ? <div className="yl-text"><RichText text={p.body} /></div> : null}
     </>
   );
   return (
@@ -794,7 +795,7 @@ function Mic({ p, emit }) {
 }
 
 function Say({ p }) {
-  return <div className="b in yl-say">{p.text}</div>;
+  return <div className="b in yl-say"><RichText text={p.text} /></div>;
 }
 
 // custom {json}: a tiny fixed vocabulary of primitives. Anything else shows

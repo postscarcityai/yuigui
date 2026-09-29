@@ -1561,6 +1561,20 @@ card "Google Calendar" "See your events and find a time that works." sub="You si
 card "HubSpot" "Look up contacts and deals, add notes and tasks." sub="You sign in on HubSpot" cta="Sign in with HubSpot" url=https://www.yuigui.com/developers/connectors#6-sign-in
 choose "Once you're in, what first?" "Find an hour this week"|"Who is my next call?" +other`,
   },
+  {
+    // Body text (SITE-97, spec/YL.md "Body text"): say, card and page words read as a little markdown,
+    // in regular weight at a reading measure. One line per say, so a list is one say per point.
+    name: "Body text",
+    slug: "body-text",
+    agent: "Yui",
+    yl: `say "## What changed"
+say "The build is out. Bold, *italic*, \`code\` and [a link](https://www.yuigui.com/spec) all read as they should, and no raw stars show. A whole thought of two or three sentences stays in one bubble, in regular weight, at a width you can read."
+say "**Fixed:** the timer no longer drifts on long sets."
+say "✅ Tests: 27 passed"
+say "❌ Lint: 2 warnings left"
+say "Next step: run it on a phone"
+card "Card title" "A card body over sixty characters reads as body text: regular weight, a comfortable line height and a short measure, never all bold." cta="Open"`,
+  },
 ];
 
 // Agent tables (spec/TABLES.md): data an agent keeps on the phone. Each

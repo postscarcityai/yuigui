@@ -85,10 +85,10 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-hello .mo-presence { width: 110px; height: 110px; }
 .ys-hello .yc-starters { justify-content: center; max-width: 380px; }
 .ys-line { font-size: 24px; font-weight: 800; line-height: 1.25; letter-spacing: -.01em; overflow-wrap: anywhere; }
-.ys-line.long { font-size: 19px; font-weight: 700; line-height: 1.35; }
+.ys-line.long { font-size: var(--text-stage-size); font-weight: var(--text-weight); line-height: var(--text-lh); }
 .ys-line p { margin: 0; }
 .ys-line p + p, .ys-line p + ul, .ys-line ul + p { margin-top: 10px; }
-.ys-line ul { margin: 4px 0 0; padding-left: 22px; font-size: 19px; font-weight: 700; }
+.ys-line ul { margin: 4px 0 0; padding-left: 22px; font-size: 19px; font-weight: var(--text-weight); }
 .ys-line li + li { margin-top: 6px; }
 .ys-line a { color: var(--link); }
 .ys-word { font-size: 18px; font-weight: 800; animation: mo-in-fade var(--mo-enter) var(--mo-ease) both; }
@@ -106,6 +106,7 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-chunk { gap: 16px; }
 .ys-chunk.small .ys-line { font-size: 19px; }
 .ys-chunk.small .ys-line.long { font-size: 16.5px; }
+.ys-line.long .rt, .ys-line .rt-body { max-width: var(--text-measure); }
 .ys-pic { flex: none; cursor: auto; }
 .ys-pic > * { margin: 0 !important; }
 .ys-body { font-size: 17px; line-height: 1.45; color: var(--ink); opacity: .86; }
