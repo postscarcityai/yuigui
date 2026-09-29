@@ -1,12 +1,42 @@
 {
-  "updated": "2026-09-29T08:10:49.975Z",
+  "updated": "2026-09-29T08:40:51.121Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.5.3",
-    "status": "shipping",
-    "startedAt": "2026-09-29T07:33:54.000Z",
+    "version": "0.6.0",
+    "status": "open",
+    "startedAt": "2026-09-28T04:48:58.000Z",
     "shippedAt": null,
-    "cards": []
+    "cards": [
+      {
+        "key": "YUI-180",
+        "title": "Every agent has its own quiet visualizer by default",
+        "status": "now"
+      },
+      {
+        "key": "YUI-183",
+        "title": "Basil's tools",
+        "status": "next",
+        "progress": "/progress#your-nutritionist-plans-your-meals"
+      },
+      {
+        "key": "YUI-184",
+        "title": "Gouda's tools",
+        "status": "next",
+        "progress": "/progress#gouda-s-tools-in-the-app-learn-a-song-a-click-that-logs-itself-a-beat-that-stays"
+      },
+      {
+        "key": "YUI-185",
+        "title": "Penny's tools",
+        "status": "next",
+        "progress": "/progress#your-planner-plans-the-week"
+      },
+      {
+        "key": "YUI-186",
+        "title": "Quill's tools",
+        "status": "next",
+        "progress": "/progress#your-study-buddy-teaches-and-quizzes"
+      }
+    ]
   },
   "columns": [
     {
@@ -299,10 +329,6 @@
           "key": "YUI-169",
           "title": "Ship",
           "summary": "TestFlight build, progress.json entry, demo live on yuigui.com"
-        },
-        {
-          "key": "YUI-202",
-          "title": "Every message shows when it was sent, grouped by day"
         }
       ]
     },
@@ -310,6 +336,10 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-180",
+          "title": "Every agent has its own quiet visualizer by default"
+        },
         {
           "key": "YUI-183",
           "title": "Basil's tools",
@@ -447,10 +477,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-200",
-          "title": "Gouda's music keeps playing across screens, and the tuner button opens the tuner with no model call"
-        },
-        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -491,16 +517,6 @@
           "blocked": "chris"
         },
         {
-          "key": "YUI-180",
-          "title": "Every agent has its own quiet visualizer by default",
-          "blocked": "other"
-        },
-        {
-          "key": "YUI-192",
-          "title": "Add agent hangs on 'Waiting for its gateway' after the restart already happened",
-          "blocked": "other"
-        },
-        {
           "key": "YUI-169",
           "title": "Spec + playground mock for multiple chats per agent (yuigui)",
           "step": "Step 1",
@@ -513,25 +529,6 @@
           "title": "Hold to talk",
           "summary": "Slide left to cancel, slide to a lock to keep recording",
           "blocked": "chris"
-        },
-        {
-          "key": "YUI-194",
-          "title": "The agent picker goes back to the bottom of the left drawer, the way it was",
-          "blocked": "other"
-        },
-        {
-          "key": "YUI-195",
-          "title": "Every full-screen step has a way out",
-          "summary": "A way home from every full-screen answer",
-          "blocked": "other",
-          "progress": "/progress#a-way-home-from-every-full-screen-answer"
-        },
-        {
-          "key": "YUI-196",
-          "title": "A real body text style",
-          "summary": "Long answers read as body text, and markdown is drawn",
-          "blocked": "other",
-          "progress": "/progress#long-answers-read-as-body-text-and-markdown-is-drawn"
         }
       ]
     },
@@ -539,6 +536,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-202",
+          "title": "Every message shows when it was sent, grouped by day",
+          "summary": "Every message shows when it was sent",
+          "shipped": "2026-09-29",
+          "progress": "/progress#every-message-shows-when-it-was-sent"
+        },
+        {
+          "key": "YUI-200",
+          "title": "Gouda's music keeps playing across screens, and the tuner button opens the tuner with no model call",
+          "summary": "Gouda's music keeps playing, and Tune up just opens the tuner",
+          "shipped": "2026-09-29",
+          "progress": "/progress#gouda-s-music-keeps-playing-and-tune-up-just-opens-the-tuner"
+        },
         {
           "key": "YUI-199",
           "title": "A notification opens the agent that sent it, not the home screen",

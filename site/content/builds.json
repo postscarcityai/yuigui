@@ -1,6 +1,186 @@
 {
   "builds": [
     {
+      "build": 332,
+      "date": "2026-09-29",
+      "uploaded": "2026-09-29T01:24:56-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "The stage splits sentences like the deck: a version number, URL or abbreviation never ends one",
+          "card": "YUI-198"
+        },
+        {
+          "text": "A notification tap opens the agent's thread on the message that came, not its home",
+          "card": "YUI-199"
+        },
+        {
+          "text": "Gouda's loop and click keep playing across his screens, and Tune up opens the tuner with no turn",
+          "card": "YUI-200"
+        }
+      ]
+    },
+    {
+      "build": 329,
+      "date": "2026-09-29",
+      "uploaded": "2026-09-29T01:21:04-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Basil's tools: plan my meals, a swap, the grocery list by aisle, today's macros board, his pages kept current (YUI-183, runtime half)"
+        },
+        {
+          "text": "The plugin knows the trainer's flow: trainer-session in the saved flows copy",
+          "card": "SITE-70"
+        },
+        {
+          "text": "yui-mcp serves the trainer's flow: screen copy synced from yuigui",
+          "card": "SITE-70"
+        },
+        {
+          "text": "Gouda's tools: learn a song and play along, the practice log, saved sessions, his pages kept current (YUI-184, runtime half)"
+        },
+        {
+          "text": "yui-mcp: sync the screen bundle, light timer dial",
+          "card": "SITE-78"
+        },
+        {
+          "text": "Penny's tools: plan my week by voice, the today list, reminders, the evening review, her pages kept current (YUI-185, runtime half)"
+        },
+        {
+          "text": "Planner e2e: one more to-do today before the evening review, so it has two to decide on",
+          "card": "YUI-185"
+        },
+        {
+          "text": "The workout runner in the app: one move per page, sets to tick, rest starts on its own, say done (YUI-182, app half)"
+        },
+        {
+          "text": "The home's pickers are tools, not asks; the demo crew homes match the profiles again",
+          "card": "YUI-182"
+        },
+        {
+          "text": "Penny's demo home and can match her profile after YUI-185's runtime half",
+          "card": "YUI-182"
+        },
+        {
+          "text": "Quill's tools: learn a topic, cards with spaced review, walk me through a problem, his pages kept current (YUI-186, runtime half)"
+        },
+        {
+          "text": "Quill's learn plan names the deck it joins, not 'your 1 deck'",
+          "card": "YUI-186"
+        },
+        {
+          "text": "The plugin knows the nutritionist's flow: nutritionist-plate in the saved flows copy",
+          "card": "SITE-71"
+        },
+        {
+          "text": "yui-mcp serves the nutritionist's flow: screen copy synced from yuigui",
+          "card": "SITE-71"
+        },
+        {
+          "text": "Basil's tools in the app: grocery ticks kept on the phone, Share list, a swap in one tap, the week lands as a deck (YUI-183, app half)"
+        },
+        {
+          "text": "yui-mcp and the plugin know the musician's flow: starter flows and screen copy synced from yuigui",
+          "card": "SITE-72"
+        },
+        {
+          "text": "yui-mcp and the plugin know the planner's flow: starter flows and screen copy synced from yuigui",
+          "card": "SITE-73"
+        },
+        {
+          "text": "yui-mcp and the plugin know the study buddy's flow: starter flows and screen copy synced from yuigui",
+          "card": "SITE-74"
+        },
+        {
+          "text": "yui-mcp: sync the YL parser for page forward and standing pages (SITE-81, yuigui 2051202)"
+        },
+        {
+          "text": "Gouda's tools in the app: a beat on the Looper kept on the phone until Send, the chord grid redraws on a looped bar, a click stopped by an agent switch logs to Gouda (YUI-184, app half)"
+        },
+        {
+          "text": "Basil's grocery list just works: missing starter tables arrive once, a put makes its own table, a slip is one small card",
+          "card": "YUI-188"
+        },
+        {
+          "text": "A put the store refuses is mended where the meaning is plain, and the live grocery e2e",
+          "card": "YUI-188"
+        },
+        {
+          "text": "Penny's tools in the app: reminders on the phone's clock, the brain dump by voice or typed, a Today tick reaches her, This week keeps its saved order (YUI-185, app half)"
+        },
+        {
+          "text": "Penny's saved order redraws This week, so every device reads the same week (YUI-185b)"
+        },
+        {
+          "text": "yui-mcp: parser copy synced from yuigui 5cce24c (quietToAgent, YUI-185b)"
+        },
+        {
+          "text": "The screen dots live in the bottom bar, centered, and move over when the page arrows show",
+          "card": "YUI-189"
+        },
+        {
+          "text": "Stop a turn from the main screen: the mic becomes a stop square while an agent works",
+          "card": "YUI-190"
+        },
+        {
+          "text": "Stop on a real account: a hosted turn stopped mid-answer, kills, relaunches and five agent switches",
+          "card": "YUI-190"
+        },
+        {
+          "text": "Chats: yui_chats, chat_id on every row, the trigger that picks a chat, and the drawer list view",
+          "card": "YUI-169"
+        },
+        {
+          "text": "Hermes plugin: each chat is its own session, [yui] chat new, replies name their chat",
+          "card": "YUI-169"
+        },
+        {
+          "text": "Native runtime, push and MCP know chats: history per chat, Stop per chat, push carries chat",
+          "card": "YUI-169"
+        },
+        {
+          "text": "App: several chats per agent, listed in the drawer, New chat, rename, delete",
+          "card": "YUI-169"
+        },
+        {
+          "text": "Screen pills replace the dots in the top bar; the agent picker moves into the drawer",
+          "card": "YUI-193"
+        },
+        {
+          "text": "Top bar test: the record and the way back are top right beside the new chat pen",
+          "card": "YUI-193"
+        },
+        {
+          "text": "Bundle channel guide v39",
+          "card": "YUI-203"
+        },
+        {
+          "text": "Add agent: ask again on return to the app, time out stuck requests, and say so after a minute with Try again",
+          "card": "YUI-192"
+        },
+        {
+          "text": "The agent bar is back at the bottom of the left drawer: tap it and the switcher springs up",
+          "card": "YUI-194"
+        },
+        {
+          "text": "Every full-screen answer has a way home: close mid-plan, Back home at the end, pull the card down. Local only, nothing sent",
+          "card": "YUI-195"
+        },
+        {
+          "text": "A real body text style: big type for one short line, body for everything longer, markdown drawn",
+          "card": "YUI-196"
+        },
+        {
+          "text": "The last page's Back home pill no longer widens the stage past the phone: it shrinks to fit, margins stay on pages with a chart",
+          "card": "YUI-205"
+        },
+        {
+          "text": "Version 0.5.3"
+        }
+      ]
+    },
+    {
       "build": 288,
       "date": "2026-09-28",
       "uploaded": "2026-09-27T23:35:16-07:00",
@@ -1348,164 +1528,8 @@
   ],
   "next": [
     {
-      "text": "Basil's tools: plan my meals, a swap, the grocery list by aisle, today's macros board, his pages kept current (YUI-183, runtime half)"
-    },
-    {
-      "text": "The plugin knows the trainer's flow: trainer-session in the saved flows copy",
-      "card": "SITE-70"
-    },
-    {
-      "text": "yui-mcp serves the trainer's flow: screen copy synced from yuigui",
-      "card": "SITE-70"
-    },
-    {
-      "text": "Gouda's tools: learn a song and play along, the practice log, saved sessions, his pages kept current (YUI-184, runtime half)"
-    },
-    {
-      "text": "yui-mcp: sync the screen bundle, light timer dial",
-      "card": "SITE-78"
-    },
-    {
-      "text": "Penny's tools: plan my week by voice, the today list, reminders, the evening review, her pages kept current (YUI-185, runtime half)"
-    },
-    {
-      "text": "Planner e2e: one more to-do today before the evening review, so it has two to decide on",
-      "card": "YUI-185"
-    },
-    {
-      "text": "The workout runner in the app: one move per page, sets to tick, rest starts on its own, say done (YUI-182, app half)"
-    },
-    {
-      "text": "The home's pickers are tools, not asks; the demo crew homes match the profiles again",
-      "card": "YUI-182"
-    },
-    {
-      "text": "Penny's demo home and can match her profile after YUI-185's runtime half",
-      "card": "YUI-182"
-    },
-    {
-      "text": "Quill's tools: learn a topic, cards with spaced review, walk me through a problem, his pages kept current (YUI-186, runtime half)"
-    },
-    {
-      "text": "Quill's learn plan names the deck it joins, not 'your 1 deck'",
-      "card": "YUI-186"
-    },
-    {
-      "text": "The plugin knows the nutritionist's flow: nutritionist-plate in the saved flows copy",
-      "card": "SITE-71"
-    },
-    {
-      "text": "yui-mcp serves the nutritionist's flow: screen copy synced from yuigui",
-      "card": "SITE-71"
-    },
-    {
-      "text": "Basil's tools in the app: grocery ticks kept on the phone, Share list, a swap in one tap, the week lands as a deck (YUI-183, app half)"
-    },
-    {
-      "text": "yui-mcp and the plugin know the musician's flow: starter flows and screen copy synced from yuigui",
-      "card": "SITE-72"
-    },
-    {
-      "text": "yui-mcp and the plugin know the planner's flow: starter flows and screen copy synced from yuigui",
-      "card": "SITE-73"
-    },
-    {
-      "text": "yui-mcp and the plugin know the study buddy's flow: starter flows and screen copy synced from yuigui",
-      "card": "SITE-74"
-    },
-    {
-      "text": "yui-mcp: sync the YL parser for page forward and standing pages (SITE-81, yuigui 2051202)"
-    },
-    {
-      "text": "Gouda's tools in the app: a beat on the Looper kept on the phone until Send, the chord grid redraws on a looped bar, a click stopped by an agent switch logs to Gouda (YUI-184, app half)"
-    },
-    {
-      "text": "Basil's grocery list just works: missing starter tables arrive once, a put makes its own table, a slip is one small card",
-      "card": "YUI-188"
-    },
-    {
-      "text": "A put the store refuses is mended where the meaning is plain, and the live grocery e2e",
-      "card": "YUI-188"
-    },
-    {
-      "text": "Penny's tools in the app: reminders on the phone's clock, the brain dump by voice or typed, a Today tick reaches her, This week keeps its saved order (YUI-185, app half)"
-    },
-    {
-      "text": "Penny's saved order redraws This week, so every device reads the same week (YUI-185b)"
-    },
-    {
-      "text": "yui-mcp: parser copy synced from yuigui 5cce24c (quietToAgent, YUI-185b)"
-    },
-    {
-      "text": "The screen dots live in the bottom bar, centered, and move over when the page arrows show",
-      "card": "YUI-189"
-    },
-    {
-      "text": "Stop a turn from the main screen: the mic becomes a stop square while an agent works",
-      "card": "YUI-190"
-    },
-    {
-      "text": "Stop on a real account: a hosted turn stopped mid-answer, kills, relaunches and five agent switches",
-      "card": "YUI-190"
-    },
-    {
-      "text": "Chats: yui_chats, chat_id on every row, the trigger that picks a chat, and the drawer list view",
-      "card": "YUI-169"
-    },
-    {
-      "text": "Hermes plugin: each chat is its own session, [yui] chat new, replies name their chat",
-      "card": "YUI-169"
-    },
-    {
-      "text": "Native runtime, push and MCP know chats: history per chat, Stop per chat, push carries chat",
-      "card": "YUI-169"
-    },
-    {
-      "text": "App: several chats per agent, listed in the drawer, New chat, rename, delete",
-      "card": "YUI-169"
-    },
-    {
-      "text": "Screen pills replace the dots in the top bar; the agent picker moves into the drawer",
-      "card": "YUI-193"
-    },
-    {
-      "text": "Top bar test: the record and the way back are top right beside the new chat pen",
-      "card": "YUI-193"
-    },
-    {
-      "text": "Bundle channel guide v39",
-      "card": "YUI-203"
-    },
-    {
-      "text": "Add agent: ask again on return to the app, time out stuck requests, and say so after a minute with Try again",
-      "card": "YUI-192"
-    },
-    {
-      "text": "The agent bar is back at the bottom of the left drawer: tap it and the switcher springs up",
-      "card": "YUI-194"
-    },
-    {
-      "text": "Every full-screen answer has a way home: close mid-plan, Back home at the end, pull the card down. Local only, nothing sent",
-      "card": "YUI-195"
-    },
-    {
-      "text": "A real body text style: big type for one short line, body for everything longer, markdown drawn",
-      "card": "YUI-196"
-    },
-    {
-      "text": "The last page's Back home pill no longer widens the stage past the phone: it shrinks to fit, margins stay on pages with a chart",
-      "card": "YUI-205"
-    },
-    {
-      "text": "Version 0.5.3"
-    },
-    {
-      "text": "The stage splits sentences like the deck: a version number, URL or abbreviation never ends one",
-      "card": "YUI-198"
-    },
-    {
-      "text": "A notification tap opens the agent's thread on the message that came, not its home",
-      "card": "YUI-199"
+      "text": "Every message shows when it was sent: day dividers, a quiet time under each run, and the time on the full screen",
+      "card": "YUI-202"
     }
   ]
 }
