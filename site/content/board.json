@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T15:41:05.869Z",
+  "updated": "2026-09-29T16:11:13.765Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -455,6 +455,10 @@
           "waiting": true
         },
         {
+          "key": "YUI-207",
+          "title": "Memory growth after the session, find the cache and cap it"
+        },
+        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -482,11 +486,6 @@
           "summary": "Several chats with one agent: the spec and a mock",
           "blocked": "chris",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
-        },
-        {
-          "key": "YUI-207",
-          "title": "Memory growth after the session, find the cache and cap it",
-          "blocked": "other"
         }
       ]
     },
