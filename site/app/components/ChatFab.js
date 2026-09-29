@@ -32,6 +32,7 @@ import { echoFor, relays } from "../../../mcp-app/src/events.mjs";
 import { savedUtm, trackCta } from "../../lib/track.mjs";
 import { PageDots, usePager } from "./ChatDots";
 import { RichText } from "../playground/richtext";
+import { KeepCtx, stopVoices } from "../playground/music/keep";
 import "../playground/stagemotion.css";
 import "./chat.css";
 
@@ -262,6 +263,12 @@ export default function ChatFab() {
   useEffect(() => () => { try { rec.current?.abort(); } catch {} }, []);
 
   const go = useCallback((p) => { router.push(p); setOpen(false); }, [router]);
+
+  // Sound started on any screen of the chat keeps playing across them (SITE-100, KeepCtx). Closing the
+  // chat, leaving the page or the tab going away stops all of it.
+  useEffect(() => { if (!open) stopVoices(); }, [open]);
+  useEffect(() => { stopVoices(); }, [path]);
+  useEffect(() => { window.addEventListener("pagehide", stopVoices); return () => { window.removeEventListener("pagehide", stopVoices); stopVoices(); }; }, []);
 
   // text: what goes to Yui; label: what the visitor's words say on the stage and in the record.
   const send = useCallback(async (text, prior, label, event) => {
@@ -502,6 +509,7 @@ export default function ChatFab() {
     ? <PageDots names={names} index={at} progress={pager.progress} dragging={pager.dragging} still={reduced} onGo={goIndex} /> : null;
 
   return (
+    <KeepCtx.Provider value={true}>
     <div className={`yc${open ? " is-open" : ""}`}>
       {open && (
         <div className="yc-layer" onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}>
@@ -587,5 +595,6 @@ export default function ChatFab() {
       )}
       <Fab open={open} onClick={toggle} />
     </div>
+    </KeepCtx.Provider>
   );
 }

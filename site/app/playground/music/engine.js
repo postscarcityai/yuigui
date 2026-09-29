@@ -378,45 +378,78 @@ export async function renderOffline(word, { midi = 60, seconds = 0.5, pitched = 
   return { rms: Math.sqrt(s / d.length), peak };
 }
 
-// ---------- the clock ----------
-// A lookahead scheduler ("A Tale of Two Clocks", Chris Wilson): a timer
-// wakes every 25 ms and books every tick due in the next 100 ms on the audio
-// clock, so timing holds even when the page is busy. `gap(i)` is seconds
-// from tick i to tick i+1, read live so tempo changes land on the next tick.
-// `onTick(i, time)` books sounds. `onShow(i, time)` runs on an animation
-// frame when tick i reaches the speaker (base and output latency added), for
-// the playhead.
-export function clock({ gap, onTick, onShow, lead = 0.06 }) {
+// ---------- voices that outlive their screen (SITE-100) ----------
+// A loop, a metronome or a latched chord belongs to the chat or the playground,
+// not to the screen it was started on: swipe away and it keeps playing, so
+// several layer. Each registers here under the id of its node. A screen that
+// unmounts inside a keep scope (KeepCtx, keep.js) `park`s its voice; one that
+// mounts again `claim`s it back. Closing the chat or leaving the page calls
+// stopAll. Outside a scope a voice stops with its screen, as before.
+const reg = new Map(); // id -> { id, kind, stop, data, parked }
+export function keep(id, kind, stop, data) {
+  reg.get(id)?.stop();
+  const e = { id, kind, stop, data, parked: false };
+  reg.set(id, e);
+  return e;
+}
+export function claim(id) {
+  const e = reg.get(id);
+  if (!e) return null;
+  e.parked = false;
+  return e;
+}
+export function drop(e) { if (e && reg.get(e.id) === e) reg.delete(e.id); }
+export function active() { return [...reg.values()].map(({ id, kind, parked }) => ({ id, kind, parked })); }
+export function stopAll() { for (const e of [...reg.values()]) e.stop(); reg.clear(); }
+
+// A steady clock. `gap(i)` is the time from tick i to tick i+1, read live so
+// tempo changes land on the next tick. `onTick(i, time)` books sounds.
+// `onShow(i, time)` runs on an animation frame when tick i reaches the speaker
+// (base and output latency added), for the playhead. Handlers can be swapped
+// with `bind` (a screen taking a running clock back), and `park` drops the
+// playhead callback while the sound goes on. `id` + `kind` list it in the
+// registry above.
+export function clock({ gap, onTick, onShow, lead = 0.06, id, kind }) {
   const c = audio();
-  if (!c) return { stop: NOOP, start: 0 };
+  if (!c) return { stop: NOOP, park: NOOP, bind: NOOP, start: 0 };
+  const h = { gap, onTick, onShow };
   let i = 0;
   let next = c.currentTime + lead;
   const start = next;
   const due = [];
-  let timer = null, frame = null;
+  let timer = null, frame = null, entry = null;
   const pump = () => {
     while (next < c.currentTime + 0.1) {
-      onTick(i, next);
-      if (onShow) due.push([i, next]);
-      next += gap(i);
+      h.onTick(i, next);
+      if (h.onShow) due.push([i, next]);
+      next += h.gap(i);
       i++;
     }
     timer = setTimeout(pump, 25);
   };
   const draw = () => {
+    frame = null;
+    if (!h.onShow) return;
     const heard = c.currentTime - (c.baseLatency || 0) - (c.outputLatency || 0);
     let last = null;
     while (due.length && due[0][1] <= heard) last = due.shift();
-    if (last) onShow(last[0], last[1]);
+    if (last) h.onShow(last[0], last[1]);
     frame = requestAnimationFrame(draw);
   };
   pump();
   if (onShow) frame = requestAnimationFrame(draw);
-  return {
+  const handle = {
     start,
-    stop() { clearTimeout(timer); cancelAnimationFrame(frame); due.length = 0; },
+    stop() { clearTimeout(timer); cancelAnimationFrame(frame); frame = null; due.length = 0; drop(entry); },
+    park() { h.onShow = null; due.length = 0; if (entry) entry.parked = true; },
+    bind(next) {
+      Object.assign(h, next);
+      if (h.onShow && frame == null) frame = requestAnimationFrame(draw);
+    },
   };
+  if (id) entry = keep(id, kind || "clock", handle.stop, handle);
+  return handle;
 }
 
 // For tests and the curious: window.yuiMusic.play("kick"), .level(), .renderOffline("bell").
-if (typeof window !== "undefined") window.yuiMusic = { play, note, level, renderOffline, audio, running };
+if (typeof window !== "undefined") window.yuiMusic = { play, note, level, renderOffline, audio, running, active, stopAll };

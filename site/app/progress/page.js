@@ -28,6 +28,7 @@ export default function Progress() {
             <h3 style={{ margin: "2px 0 4px" }}>{e.title}</h3>
             {inNextBuild(e.card) && <p className="next-build"><a href="/changelog#next" className="pill">Next build</a> {NEXT_BUILD_NOTE}</p>}
             <div style={{ color: "var(--muted)" }}>{e.body}</div>
+            {e.try && <p style={{ margin: "8px 0 0" }}><a href={e.try.href}>{e.try.label} →</a></p>}
             {e.video && (
               <LazyVideo className="progress-clip" src={e.video.src} poster={e.video.poster} controls muted playsInline preload="none"
                 aria-label={`${e.title}, a ${Math.round(e.video.seconds)} second screen recording`} />

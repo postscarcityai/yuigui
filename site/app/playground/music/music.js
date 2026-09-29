@@ -4,14 +4,15 @@
 // metronome, playing real sound through the engine (engine.js). Each gets
 // resolved props and emit(value); emit is the event that goes back to the
 // agent, in the same words the agent writes.
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { KIT } from "../../../lib/yl/yl.mjs";
 import {
   IN_TUNE, PITCHED, chordNotes, detectPitch, fromPattern, inScale, knownTuning, midiName, nearestNote,
   loopVoices, nearestString, noteToMidi, parseKey, pitchRange, pitchWindow, progression, quantize, soundFor,
   stepBeats, stepTime, toPattern, tunerStrings,
 } from "../../../lib/music/theory.mjs";
-import { audio, clock, note, play, hold, running, session } from "./engine";
+import { audio, claim, clock, drop, keep, note, play, hold, running, session } from "./engine";
+import { KeepCtx } from "./keep";
 import { useLive } from "../stage";
 import "./music.css";
 
@@ -34,8 +35,20 @@ function useWakeOnTap(want) {
   return asleep;
 }
 
+// A voice that survives its screen (SITE-100). Inside a keep scope the cleanup parks the clock so the
+// sound goes on; the screen that mounts next with the same id takes it back and rebinds its playhead.
+// Outside one the clock stops with the screen.
+function useKept(vid, clk, rebuild, show, live) {
+  const scoped = useContext(KeepCtx);
+  useEffect(() => {
+    const e = vid && scoped ? claim(vid) : null;
+    if (e?.data?.bind) { e.data.bind(rebuild()); clk.current = e.data; show(e.data.saved?.current); }
+    return () => { if (scoped && vid) clk.current?.park(); else clk.current?.stop(); };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+}
+
 // ---------- loop ----------
-export function Loop({ p, emit }) {
+export function Loop({ p, emit, vid }) {
   const steps = clampInt(p.steps, 4, 16, 8);
   const rows = (Array.isArray(p.rows) && p.rows.length ? p.rows : KIT.slice(0, 8)).slice(0, 16);
   const sig = JSON.stringify([p.p, rows, steps]);
@@ -63,19 +76,21 @@ export function Loop({ p, emit }) {
     if (m !== null) note(s.sound, m, { when, dur: (60 / s.bpm) * stepBeats(s.steps) * 0.9 });
     else play(s.voices[ri], { when, vel: 0.9 });
   };
+  const loopHandlers = () => ({
+    gap: (i) => { const s = live.current; const k = i % s.steps; return stepTime(k + 1, s.bpm, s.steps, s.swing) - stepTime(k, s.bpm, s.steps, s.swing); },
+    onTick: (i, t) => { const s = live.current; const k = i % s.steps; s.rows.forEach((r, ri) => { if (s.grid[ri]?.[k]) sound(ri, t, s); }); },
+    onShow: (i) => setHead(i % live.current.steps),
+  });
   const start = () => {
     audio();
     clk.current?.stop();
-    clk.current = clock({
-      gap: (i) => { const s = live.current; const k = i % s.steps; return stepTime(k + 1, s.bpm, s.steps, s.swing) - stepTime(k, s.bpm, s.steps, s.swing); },
-      onTick: (i, t) => { const s = live.current; const k = i % s.steps; s.rows.forEach((r, ri) => { if (s.grid[ri]?.[k]) sound(ri, t, s); }); },
-      onShow: (i) => setHead(i % live.current.steps),
-    });
+    clk.current = clock({ ...loopHandlers(), id: vid, kind: "loop" });
+    clk.current.saved = live;
     setPlaying(true);
   };
   const stop = () => { clk.current?.stop(); clk.current = null; setPlaying(false); setHead(-1); };
-  useEffect(() => () => clk.current?.stop(), []);
-  useEffect(() => { if (p.play) start(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useKept(vid, clk, loopHandlers, (v) => { setPlaying(true); if (v) { setGrid(v.grid); setBpm(v.bpm); setSwing(v.swing); } });
+  useEffect(() => { if (p.play && !clk.current) start(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const asleep = useWakeOnTap(!!p.play);
   useLive(playing ? `${bpm} BPM` : null);
 
@@ -218,7 +233,7 @@ export function Drums({ p, emit }) {
 // ---------- keys ----------
 const WHITE = [0, 2, 4, 5, 7, 9, 11, 12, 14, 16];
 const BLACK = [[1, 1], [3, 2], [6, 4], [8, 5], [10, 6], [13, 8], [15, 9]]; // semitone, sits left of white n
-export function Keys({ p, emit }) {
+export function Keys({ p, emit, vid }) {
   const key = parseKey(p.key);
   const scale = p.scale || (key.minor ? "minor" : "major");
   const [octave, setOctave] = useState(clampInt(p.octave, 1, 7, 4));
@@ -227,6 +242,11 @@ export function Keys({ p, emit }) {
   const [played, setPlayed] = useState([]);
   const [sent, setSent] = useState(false);
   const voices = useRef(new Map());
+  const [latch, setLatch] = useState(false); // Hold: a key rings until it is pressed again or Hold goes off
+  const held = useRef(new Map());           // midi -> release, the latched notes
+  const entry = useRef(null);
+  const scoped = useContext(KeepCtx);
+  const hid = vid ? `${vid}:keys` : null;
   const base = 12 * (octave + 1);
   const playable = (m) => scale === "chromatic" || inScale(m, key, scale);
   useEffect(() => { setSound(soundFor(p.sound, true)); }, [p.sound]);
@@ -238,6 +258,7 @@ export function Keys({ p, emit }) {
     if (v) off(id);
     if (m == null || !playable(m)) return;
     audio();
+    if (held.current.has(m)) { unhold(m); return; }
     voices.current.set(id, { m, release: hold(sound, m) });
     setDown((d) => ({ ...d, [m]: (d[m] || 0) + 1 }));
     setPlayed((l) => last32(l, midiName(m, key.flats)));
@@ -246,11 +267,43 @@ export function Keys({ p, emit }) {
   const off = (id) => {
     const v = voices.current.get(id);
     if (!v) return;
-    v.release();
     voices.current.delete(id);
+    if (latch) { held.current.set(v.m, v.release); listHeld(); return; }
+    v.release();
     setDown((d) => ({ ...d, [v.m]: Math.max(0, (d[v.m] || 1) - 1) }));
   };
-  useEffect(() => () => { for (const v of voices.current.values()) v.release(); }, []);
+  // The latched notes are one voice in the engine's list, so they outlive the screen.
+  const listHeld = () => {
+    if (!hid) return;
+    if (held.current.size && !entry.current) {
+      const stopAll = () => { for (const r of held.current.values()) r(); held.current.clear(); entry.current = null; };
+      entry.current = keep(hid, "keys", stopAll, { held: held.current });
+    } else if (!held.current.size && entry.current) { drop(entry.current); entry.current = null; }
+  };
+  const unhold = (m) => {
+    held.current.get(m)?.();
+    held.current.delete(m);
+    setDown((d) => ({ ...d, [m]: 0 }));
+    listHeld();
+  };
+  const setHold = (on) => {
+    setLatch(on);
+    if (!on) for (const m of [...held.current.keys()]) unhold(m);
+  };
+  useEffect(() => {
+    const e = hid && scoped ? claim(hid) : null;
+    if (e?.data?.held?.size) {
+      held.current = e.data.held;
+      entry.current = e;
+      setLatch(true);
+      setDown(Object.fromEntries([...held.current.keys()].map((m) => [m, 1])));
+    }
+    return () => {
+      for (const v of voices.current.values()) v.release();
+      if (scoped && hid && entry.current) entry.current.parked = true;
+      else entry.current?.stop();
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const at = (e) => {
     const el = document.elementFromPoint(e.clientX, e.clientY)?.closest?.("[data-midi]");
     return el ? Number(el.dataset.midi) : null;
@@ -289,6 +342,7 @@ export function Keys({ p, emit }) {
         <button className="mu-btn" aria-label="Octave down" disabled={octave <= 1} onClick={() => setOctave((o) => o - 1)}>‹</button>
         <span className="mu-oct">C{octave}</span>
         <button className="mu-btn" aria-label="Octave up" disabled={octave >= 7} onClick={() => setOctave((o) => o + 1)}>›</button>
+        <button className={`mu-btn mu-hold${latch ? " on" : ""}`} aria-pressed={latch} onClick={() => setHold(!latch)}>Hold</button>
         <span className="mu-played">{played.slice(-6).join(" ")}</span>
       </div>
       {p.send ? <button className="mu-btn mu-send" disabled={!played.length} onClick={() => { emit({ played, key: key.name, scale }); setSent(true); }}>{sent ? "Sent ✓" : "Send"}</button> : null}
@@ -468,7 +522,7 @@ export function Tuner({ p, emit }) {
 }
 
 // ---------- metronome ----------
-export function Metronome({ p, emit }) {
+export function Metronome({ p, emit, vid }) {
   const [bpm, setBpm] = useState(clampInt(p.bpm, 30, 300, 100));
   const beats = clampInt(p.beats, 1, 12, 4);
   const sub = clampInt(p.sub, 1, 4, 1);
@@ -482,20 +536,22 @@ export function Metronome({ p, emit }) {
   live.current = { bpm, beats, sub };
   useEffect(() => { setBpm(clampInt(p.bpm, 30, 300, 100)); }, [p.bpm]);
 
+  const metroHandlers = () => ({
+    gap: () => 60 / live.current.bpm / live.current.sub,
+    onTick: (i, t) => {
+      const s = live.current;
+      const k = i % (s.beats * s.sub);
+      if (k === 0) play("tick", { when: t, vel: 1, hz: 3000 });
+      else if (k % s.sub === 0) play("tick", { when: t, vel: 0.65, hz: 2000 });
+      else play("tick", { when: t, vel: 0.3, hz: 2000 });
+    },
+    onShow: (i) => { const s = live.current; setBeat(Math.floor((i % (s.beats * s.sub)) / s.sub)); },
+  });
   const start = () => {
     audio();
     clk.current?.stop();
-    clk.current = clock({
-      gap: () => 60 / live.current.bpm / live.current.sub,
-      onTick: (i, t) => {
-        const s = live.current;
-        const k = i % (s.beats * s.sub);
-        if (k === 0) play("tick", { when: t, vel: 1, hz: 3000 });
-        else if (k % s.sub === 0) play("tick", { when: t, vel: 0.65, hz: 2000 });
-        else play("tick", { when: t, vel: 0.3, hz: 2000 });
-      },
-      onShow: (i) => { const s = live.current; setBeat(Math.floor((i % (s.beats * s.sub)) / s.sub)); },
-    });
+    clk.current = clock({ ...metroHandlers(), id: vid, kind: "metronome" });
+    clk.current.saved = live;
     since.current = Date.now();
     setOn(true);
     setMsg(null);
@@ -508,8 +564,8 @@ export function Metronome({ p, emit }) {
     const seconds = Math.round((Date.now() - since.current) / 1000);
     if (seconds >= 10) { emit({ bpm, beats, sub, seconds }); setMsg(`Practice sent: ${seconds} s at ${bpm}.`); }
   };
-  useEffect(() => () => clk.current?.stop(), []);
-  useEffect(() => { if (p.play) start(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useKept(vid, clk, metroHandlers, (v) => { since.current = Date.now(); setOn(true); if (v) setBpm(v.bpm); });
+  useEffect(() => { if (p.play && !clk.current) start(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const asleep = useWakeOnTap(!!p.play);
   useLive(on ? `${bpm} BPM` : null);
 

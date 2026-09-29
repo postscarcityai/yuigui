@@ -9,6 +9,7 @@ import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, StepGroup, TABLES } from "./presets";
 import { demoReply } from "./games";
 import { musicReply } from "./music/music";
+import { KeepCtx, stopVoices } from "./music/keep";
 import { Group, groupNodes } from "./flows";
 import { ScreenCtx } from "./science";
 import { LiveSlot, PlanRecord, Stage, StagePill } from "./stage";
@@ -452,7 +453,12 @@ export default function Playground({ release = "" }) {
   };
   const lines = useMemo(() => text.split("\n").filter((l) => l.trim() && !l.trim().startsWith("# ")).length, [text]);
 
+  // Sound keeps playing across screens (SITE-100); another demo or leaving the page stops it.
+  useEffect(() => { stopVoices(); }, [idx]);
+  useEffect(() => stopVoices, []);
+
   return (
+    <KeepCtx.Provider value={true}>
     <div className={editing ? "pg editing" : "pg"} onFocus={(e) => setEditing(e.target.matches(".pg-code, .pg-agent input"))} onBlur={() => setEditing(false)}>
       <div className="pg-left">
         <div className="pg-row">
@@ -674,5 +680,6 @@ export default function Playground({ release = "" }) {
         </div>
       </div>
     </div>
+    </KeepCtx.Provider>
   );
 }

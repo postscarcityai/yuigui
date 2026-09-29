@@ -1502,6 +1502,19 @@ say "2 is a beat to edit, 3 drum pads that record, 4 keys in A minor, 5 chords i
 >7 metronome 90
 >1`,
   },
+  {
+    // Sound keeps playing across screens (SITE-100, YL.md section 5): a loop on 2 and held keys on 3 layer, and
+    // swiping between the screens (the tabs up top) stops neither. Leaving the demo stops both.
+    slug: "layered-loops",
+    name: "Layered loops: sound plays across screens",
+    agent: "Yui",
+    yl: `say "A loop on screen 2 and keys on screen 3. Turn your sound on, swipe between them, and both keep going."
+>2 loop@beat 92 "Boom bap" steps=8 rows=kick|snare|hat p=x...x...|....x...|x.x.x.x. +play
+>2 say "Tap the screen tabs. The loop does not stop."
+>3 keys Am pentatonic sound=pad
+>3 say "Tap Hold, press a key or two, then go back to screen 2. They ring on top of the loop."
+>1`,
+  },
   // Flows (FLOW-1): the starter flows, sent inline as Mermaid, then one run by name.
   ...STARTER_FLOWS.map((f) => ({ slug: `flow-${f.name}`, name: `Flow: ${f.title.toLowerCase()}`, agent: f.agent, yl: flowLines(f) })),
   {

@@ -48,7 +48,7 @@ save groceries`,
     job: "Your music buddy. Beats, chords, keys, practice.",
     asks: [],
     replies: {},
-    yl: `menu shortcut@tune "Tune up" say="Tune my guitar"
+    yl: `menu shortcut@tune "Tune up" say="Tune my guitar" show=tuner
 menu shortcut@jam "Jam" say="Make me a beat to jam on"
 >2
 loop 92 "Looper" p=x...x...|....x...|..x...x.|x.x.x.x. +inline
@@ -58,7 +58,10 @@ chords C I-V-vi-IV "Chords" +inline
 save chords
 >4
 keys C major "Keys" +inline
-save keys`,
+save keys
+>5
+tuner guitar
+save tuner`,
   },
 };
 

@@ -13,6 +13,7 @@
 .mu-send.rec { background: var(--yl-bad); border-color: var(--yl-bad); }
 .mu-bar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .mu-play { min-width: 92px; }
+.mu-hold.on { background: var(--yl-ink); color: var(--screen-bg) !important; border-color: var(--yl-ink); }
 .mu-play.on { background: var(--yl-ink); color: var(--screen-bg) !important; border-color: var(--yl-ink); }
 .mu-step { display: flex; align-items: center; gap: 6px; }
 .mu-step span { min-width: 30px; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
@@ -55,6 +56,7 @@
 .mu-black.down { background: var(--accent); }
 .mu-oct { min-width: 28px; text-align: center; font-weight: 800; }
 .mu-keys .mu-bar .mu-btn { width: 40px; padding: 0; font-size: 20px; }
+.mu-keys .mu-bar .mu-hold { width: auto; padding: 0 14px; font-size: 14px; }
 
 /* chords */
 .mu-chordgrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }

@@ -850,5 +850,5 @@ export function Render({ node, emit }) {
   if (node.preset === "flow") return <Flow node={node} emit={emit} Render={Render} />;
   const C = MAP[node.preset];
   if (!C) return null;
-  return <C p={resolve(node.preset, node.props)} emit={emit} />;
+  return <C p={resolve(node.preset, node.props)} emit={emit} vid={node.key} />;
 }
