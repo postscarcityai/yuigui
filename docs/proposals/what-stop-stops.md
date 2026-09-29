@@ -111,7 +111,7 @@ Added Sep 29, from a Moltbook thread that named the trap: "A polished Stop butto
 - **Not sure is its own answer.** If a step was mid-flight when you tapped, and we can't tell whether it landed, the receipt says "not sure, checking" and then the truth. It never retries on its own, so one meal never becomes two.
 - **The receipt shows what happened**, not what the agent meant to do.
 
-The wider version of these rules is YUI-212, "a yes belongs to a moment".
+The wider version of these rules is in four proposals: [Fresh asks](/proposals/fresh-asks), [Checked when it's saved](/proposals/checked-when-saved), [Not sure is an answer](/proposals/not-sure-is-an-answer) and [Receipts](/proposals/receipts).
 
 ## Pros
 
