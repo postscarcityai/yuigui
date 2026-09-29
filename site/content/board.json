@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T03:10:49.303Z",
+  "updated": "2026-09-29T03:41:07.607Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -172,6 +172,10 @@
           "summary": "Rolling updates, daily backups, a kill switch per sandbox"
         },
         {
+          "key": "YUI-169",
+          "title": "Several chats per agent, listed in the drawer"
+        },
+        {
           "key": "YUI-173",
           "title": "Yui for Android, first PR",
           "summary": "The app builds and draws a demo thread",
@@ -290,6 +294,32 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-194",
+          "title": "The agent picker goes back to the bottom of the left drawer, the way it was"
+        },
+        {
+          "key": "YUI-195",
+          "title": "Every full-screen step has a way out",
+          "summary": "Back home at the end, pull down to dismiss, no tokens spent"
+        },
+        {
+          "key": "YUI-196",
+          "title": "A real body text style",
+          "summary": "Big type only for one-line headlines, longer text reads as body"
+        },
+        {
+          "key": "YUI-198",
+          "title": "The stage splits a sentence at a version number, '0.6.0' becomes '0' on its own screen"
+        },
+        {
+          "key": "YUI-199",
+          "title": "A notification opens the agent that sent it, not the home screen"
+        },
+        {
+          "key": "YUI-200",
+          "title": "Gouda's music keeps playing across screens, and the tuner button opens the tuner with no model call"
+        },
+        {
           "key": "YUI-137",
           "title": "Yui makes agents",
           "summary": "Create, edit, fork and remove a native agent from chat"
@@ -308,6 +338,23 @@
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client"
+        },
+        {
+          "key": "YUI-169",
+          "title": "A",
+          "step": "Step 2",
+          "summary": "Relay + DB threads per chat, Hermes plugin thread ids"
+        },
+        {
+          "key": "YUI-169",
+          "title": "B",
+          "step": "Step 2",
+          "summary": "Native app drawer chat list, New chat, runtime thread ids"
+        },
+        {
+          "key": "YUI-169",
+          "title": "Ship",
+          "summary": "TestFlight build, progress.json entry, demo live on yuigui.com"
         }
       ]
     },
@@ -315,12 +362,6 @@
       "key": "building",
       "title": "Building",
       "cards": [
-        {
-          "key": "YUI-169",
-          "title": "Several chats per agent, listed in the drawer",
-          "summary": "Several chats with one agent: the spec and a mock",
-          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
-        },
         {
           "key": "YUI-183",
           "title": "Basil's tools",
@@ -381,6 +422,56 @@
           "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
         },
         {
+          "key": "NOTE-56810",
+          "title": "Status lines with colour and ticks",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-1372",
+          "title": "Read the markdown agents send",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-42002",
+          "title": "Keep whole thoughts together",
+          "waiting": true
+        },
+        {
+          "key": "YUI-193",
+          "title": "Screen pills replace the dots, like browser tabs, and the active one follows your swipe"
+        },
+        {
+          "key": "NOTE-41262",
+          "title": "A version number split a sentence",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-62897",
+          "title": "Slide to cancel or lock the mic",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-49042",
+          "title": "Loops keep playing between screens",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-51802",
+          "title": "Tuner button, no model call",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-40874",
+          "title": "Notifications open the right agent",
+          "waiting": true
+        },
+        {
+          "key": "SITE-96",
+          "title": "The site stage never splits a sentence inside a version number, decimal or URL",
+          "summary": "The site stage no longer splits a sentence inside a version number",
+          "progress": "/progress#the-site-stage-no-longer-splits-a-sentence-inside-a-version-number"
+        },
+        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -424,6 +515,25 @@
           "key": "YUI-180",
           "title": "Every agent has its own quiet visualizer by default",
           "blocked": "other"
+        },
+        {
+          "key": "YUI-192",
+          "title": "Add agent hangs on 'Waiting for its gateway' after the restart already happened",
+          "blocked": "other"
+        },
+        {
+          "key": "YUI-169",
+          "title": "Spec + playground mock for multiple chats per agent (yuigui)",
+          "step": "Step 1",
+          "summary": "Several chats with one agent: the spec and a mock",
+          "blocked": "chris",
+          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
+        },
+        {
+          "key": "YUI-201",
+          "title": "Hold to talk",
+          "summary": "Slide left to cancel, slide to a lock to keep recording",
+          "blocked": "chris"
         }
       ]
     },
@@ -431,6 +541,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-197",
+          "title": "The guide teaches agents to draw board cards, not describe them",
+          "summary": "Agents draw what is waiting, they don't count it",
+          "shipped": "2026-09-28",
+          "progress": "/progress#agents-draw-what-is-waiting-they-don-t-count-it"
+        },
         {
           "key": "SITE-94",
           "title": "PROP-2 hero, the Jev layer routing turns in a phone",

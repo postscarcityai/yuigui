@@ -1447,6 +1447,22 @@
     {
       "text": "Stop on a real account: a hosted turn stopped mid-answer, kills, relaunches and five agent switches",
       "card": "YUI-190"
+    },
+    {
+      "text": "Chats: yui_chats, chat_id on every row, the trigger that picks a chat, and the drawer list view",
+      "card": "YUI-169"
+    },
+    {
+      "text": "Hermes plugin: each chat is its own session, [yui] chat new, replies name their chat",
+      "card": "YUI-169"
+    },
+    {
+      "text": "Native runtime, push and MCP know chats: history per chat, Stop per chat, push carries chat",
+      "card": "YUI-169"
+    },
+    {
+      "text": "App: several chats per agent, listed in the drawer, New chat, rename, delete",
+      "card": "YUI-169"
     }
   ]
 }
