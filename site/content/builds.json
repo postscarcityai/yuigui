@@ -1537,6 +1537,9 @@
     },
     {
       "text": "Bump to 0.6.0: the crew gets real tools"
+    },
+    {
+      "text": "Tests follow Gouda's sixth screen; PushTap state cleared after each test"
     }
   ]
 }
