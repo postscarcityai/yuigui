@@ -1,6 +1,43 @@
 {
   "builds": [
     {
+      "build": 351,
+      "date": "2026-09-29",
+      "uploaded": "2026-09-29T14:41:16-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Hold to talk keeps every word: the older recognizer's restart after a pause no longer drops the start",
+          "card": "YUI-209"
+        },
+        {
+          "text": "Chat top bar: the agent chip and its dropdown are gone, the drawer is the only agent picker (YUI chip, feedback AJw_G3S2)"
+        },
+        {
+          "text": "Your own key: Claude, ChatGPT, Gemini and Grok join the providers, each with a seeing default so no model id is needed (YUI-139 step 2, server half)"
+        },
+        {
+          "text": "Your own key at every stop: a photo the pick can't see says so, a lookup on a key with no web search says it ran on Yui's; a test per stop on a stub key (YUI-139 step 2c)"
+        },
+        {
+          "text": "Own key: OpenRouter one-tap sign-in (PKCE) and My computer (keyless, reach check) (YUI-139 step 2b, server half)"
+        },
+        {
+          "text": "Your own key at every stop in the app: one plain key form (plan line, where to make a key, add Yui in Claude or ChatGPT) in Settings, the limit card, Add agent and Controls > Model (YUI-139 step 2e)"
+        },
+        {
+          "text": "Per-agent model key: one agent on Claude, the rest on Yui (YUI-139 step 2f, server half)"
+        },
+        {
+          "text": "Controls > Model: pick which key each agent runs on, Yui's, Claude or ChatGPT (YUI-139 step 2g)"
+        },
+        {
+          "text": "A sleek sans base: SF Pro, semibold headings, a nine-step type scale that follows Dynamic Type",
+          "card": "YUI-211"
+        }
+      ]
+    },
+    {
       "build": 342,
       "date": "2026-09-29",
       "uploaded": "2026-09-29T11:41:46-07:00",
@@ -1569,35 +1606,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Hold to talk keeps every word: the older recognizer's restart after a pause no longer drops the start",
-      "card": "YUI-209"
-    },
-    {
-      "text": "Chat top bar: the agent chip and its dropdown are gone, the drawer is the only agent picker (YUI chip, feedback AJw_G3S2)"
-    },
-    {
-      "text": "Your own key: Claude, ChatGPT, Gemini and Grok join the providers, each with a seeing default so no model id is needed (YUI-139 step 2, server half)"
-    },
-    {
-      "text": "Your own key at every stop: a photo the pick can't see says so, a lookup on a key with no web search says it ran on Yui's; a test per stop on a stub key (YUI-139 step 2c)"
-    },
-    {
-      "text": "Own key: OpenRouter one-tap sign-in (PKCE) and My computer (keyless, reach check) (YUI-139 step 2b, server half)"
-    },
-    {
-      "text": "Your own key at every stop in the app: one plain key form (plan line, where to make a key, add Yui in Claude or ChatGPT) in Settings, the limit card, Add agent and Controls > Model (YUI-139 step 2e)"
-    },
-    {
-      "text": "Per-agent model key: one agent on Claude, the rest on Yui (YUI-139 step 2f, server half)"
-    },
-    {
-      "text": "Controls > Model: pick which key each agent runs on, Yui's, Claude or ChatGPT (YUI-139 step 2g)"
-    },
-    {
-      "text": "A sleek sans base: SF Pro, semibold headings, a nine-step type scale that follows Dynamic Type",
-      "card": "YUI-211"
-    }
-  ]
+  "next": []
 }
