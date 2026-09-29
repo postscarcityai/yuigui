@@ -7,6 +7,7 @@ date: 2026-09-29
 becomes: One site card (the first-person pass on yuigui.com, the App Store text and the app's own lines) and a voice rule in AGENTS.md and BUILD-IN-PUBLIC.md
 cost: S
 call: recommend
+by: Chris
 ---
 
 ```hero

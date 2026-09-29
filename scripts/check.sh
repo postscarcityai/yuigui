@@ -32,6 +32,7 @@ else
 fi
 step "bench"                bash -c 'cd bench && { [ -d node_modules ] || npm ci --no-audit --no-fund; } && npm test'
 [ -d site/node_modules ] || step "site npm ci" bash -c 'cd site && npm ci --no-audit --no-fund'
+step "proposal credits"       bash -c 'cd site && node scripts/proposals-check.mjs'
 step "share previews (og-check)" bash -c 'cd site && node scripts/og-check.mjs'
 if [ "$fast" = 0 ]; then
   step "site build"         bash -c 'cd site && npm run build'

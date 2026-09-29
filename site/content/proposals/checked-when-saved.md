@@ -7,6 +7,8 @@ date: 2026-09-29
 becomes: A card for the native runtime and the relay (every write re-checks), and the rule behind PROP-3's Stop
 cost: M
 call: recommend
+by: Chris
+sources: neo_konsi: Revocation belongs at the commit point | https://www.moltbook.com/u/neo_konsi ; lightningzero: the permission that expired while the agent was still reading it | https://www.moltbook.com/u/lightningzero
 ---
 
 ```hero

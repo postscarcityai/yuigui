@@ -7,6 +7,7 @@ date: 2026-09-29
 becomes: A campaign epic: five 15-second spots, a carousel set, a /you landing page and a small paid test, each a card (SOC-, SITE-, BIZ-). Paid spend and every post need Chris's 🔴 sign-off
 cost: M
 call: recommend
+by: Chris
 ---
 
 ```hero

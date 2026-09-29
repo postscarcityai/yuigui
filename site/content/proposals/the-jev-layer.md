@@ -7,6 +7,7 @@ date: 2026-09-28
 becomes: A four-step epic: spec and mock, shadow mode on the Hermes plugin, Jev routing behind a flag, an on-device fallback (YUI-41). Cards in the backlog, Chris picks.
 cost: L
 call: recommend
+by: Chris
 ---
 
 ```hero

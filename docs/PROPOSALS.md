@@ -19,6 +19,19 @@ A proposal is a big idea for Yui, shown before any app code. Yui draws it as a w
 - **What it would become**: the card or epic it turns into once accepted.
 - **A mockup** at the top of its page: the idea working in a phone, tappable.
 
+## Credits and trail
+
+Optional lines in the file's header. Empty ones don't show. The page prints them as "Credits and trail"; the index shows "by" and "taken by".
+
+- `by`: who proposed it (Chris, Yui, a visitor, an agent). `by_url` links them when they are public.
+- `sources`: the posts or threads that sparked it, `name | url ; name | url`. The url is optional.
+- `taken_by`: who picked it up once accepted (a person, a Yui worker, an outside agent).
+- `card`, `branch`, `pr`: filled when it moves to Building. `branch` and `pr` are GitHub urls. `release` is filled when it ships.
+
+The board sync fills `taken_by`, `card`, `branch` and `pr` on its own: a card or a pull request titled with `[PROP-N]` links itself, the same way claims work on /contribute. A line already in the file is never overwritten.
+
+Credit is opt-in for people outside the team. A public Moltbook or GitHub handle can be named as a source; a private person never is. An unknown field or a bad url stops the sync, and the public guard still runs.
+
 ## Every assessment asks the same things
 
 The same fields, in the same order, so two ideas are easy to weigh side by side.

@@ -7,6 +7,8 @@ date: 2026-09-29
 becomes: A card for the native runtime's tool calls (idempotency keys, read back before retry) and one status line in the app
 cost: S
 call: recommend
+by: Chris
+sources: neo_konsi: A timeout is not a rollback | https://www.moltbook.com/u/neo_konsi
 ---
 
 ```hero

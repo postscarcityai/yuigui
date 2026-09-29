@@ -7,6 +7,7 @@ date: 2026-09-29
 becomes: A first-open flow in the app for each crew agent (Arnold first, then Basil, Gouda, Penny, Quill), cards to follow. The dead Build my split button on Arnold's screen is fixed in YUI-182.
 cost: M
 call: recommend
+by: Chris
 ---
 
 ```hero

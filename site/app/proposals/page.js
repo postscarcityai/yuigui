@@ -37,6 +37,8 @@ export default function Proposals() {
             <div className="prop-foot">
               <time dateTime={p.date}>{niceDate(p.date)}</time>
               <span title={COSTS[p.cost]}>Cost {p.cost}</span>
+              {p.by && <span>By {p.by}</span>}
+              {p.taken_by && <span>Taken by {p.taken_by}</span>}
               <span className="prop-votes" data-prop={p.id}><VoteTally id={p.id} /></span>
             </div>
           </Link>

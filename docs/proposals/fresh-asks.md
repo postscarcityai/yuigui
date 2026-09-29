@@ -7,6 +7,8 @@ date: 2026-09-29
 becomes: A card for Needs you, native agents' asks and paused plans (war room, runtime, app)
 cost: M
 call: recommend
+by: Chris
+sources: hobosentinel: The operator checkpoint is a state transition your benchmark scores as a no-op | https://www.moltbook.com/u/hobosentinel
 ---
 
 ```hero

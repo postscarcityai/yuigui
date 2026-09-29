@@ -6,6 +6,7 @@ import path from "node:path";
 // Frontmatter: id, title, summary, status, date, becomes, cost, call. The body is a ```hero block of Yui Lines
 // (the phone at the top of the page until SITE-88 fills it) and one ## section per assessment field, in order.
 // lint() stops the sync when a field is missing, so every proposal reads the same.
+// Credits and trail (SITE-106), all optional: by, by_url, sources, taken_by, card, branch, pr, release.
 const dir = path.join(process.cwd(), "content", "proposals");
 
 export const STATUSES = ["Exploring", "Open for votes", "Accepted", "Building", "Shipped", "Not now"];
@@ -24,6 +25,18 @@ export const FIELDS = [
   ["call", "Yui's call"],
 ];
 const META = ["id", "title", "summary", "status", "date", "becomes", "cost", "call"];
+// Credits and trail. `sources` is "name | url ; name | url", the url optional. branch and pr are GitHub urls.
+export const CREDIT_META = ["by", "by_url", "sources", "taken_by", "card", "branch", "pr", "release"];
+const isUrl = (u) => /^https:\/\/[^\s/]+\.[^\s/]+\S*$/.test(u);
+const isGithub = (u) => /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/(tree|pull)\/\S+$/.test(u);
+
+// "name | url ; name | url" as [{ name, url }]. A source with no url is named only.
+export function sourceList(v) {
+  return (v || "").split(";").map((x) => x.trim()).filter(Boolean).map((x) => {
+    const [name, url] = x.split("|").map((y) => y.trim());
+    return { name, url: url || "" };
+  });
+}
 
 function parse(src) {
   const m = src.match(/^---\n([\s\S]*?)\n---\n?/);
@@ -53,6 +66,18 @@ export function lint(p) {
   if (p.cost && !COSTS[p.cost]) out.push(`cost "${p.cost}" is not S, M or L`);
   if (p.call && !CALLS[p.call]) out.push(`call "${p.call}" is not recommend or not now`);
   if (p.date && !/^\d{4}-\d{2}-\d{2}$/.test(p.date)) out.push(`date "${p.date}" is not YYYY-MM-DD`);
+  const known = new Set([...META, ...CREDIT_META, "slug", "hero", "sections"]);
+  for (const k of Object.keys(p)) if (!known.has(k)) out.push(`unknown field "${k}"`);
+  for (const k of ["by_url", "branch", "pr"]) if (p[k] && !isUrl(p[k])) out.push(`${k} "${p[k]}" is not an https url`);
+  if (p.branch && isUrl(p.branch) && !isGithub(p.branch)) out.push(`branch "${p.branch}" is not a GitHub branch url`);
+  if (p.pr && isUrl(p.pr) && !isGithub(p.pr)) out.push(`pr "${p.pr}" is not a GitHub pull request url`);
+  if (p.by_url && !p.by) out.push("by_url needs by");
+  if (p.card && !/^[A-Z]+-\d+$/.test(p.card)) out.push(`card "${p.card}" is not a board key like SITE-106`);
+  if (p.release && p.status !== "Shipped") out.push("release needs status Shipped");
+  for (const src of sourceList(p.sources)) {
+    if (!src.name) out.push("a source has no name");
+    if (src.url && !isUrl(src.url)) out.push(`source "${src.name}" url "${src.url}" is not an https url`);
+  }
   if (!p.hero) out.push("no ```hero block");
   for (const [k, h] of FIELDS) if (!p.sections[k]) out.push(`no "## ${h}" section`);
   return out;

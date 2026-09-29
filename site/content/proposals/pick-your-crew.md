@@ -7,6 +7,7 @@ date: 2026-09-28
 becomes: An onboarding epic in the app (first-run flow), cards to follow
 cost: M
 call: recommend
+by: Chris
 ---
 
 ```hero

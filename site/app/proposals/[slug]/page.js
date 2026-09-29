@@ -13,7 +13,7 @@ import ProposalVote from "../ProposalVote";
 import VoteTally from "../VoteTally";
 import { renderMd } from "../../../lib/md.mjs";
 import { slug as toSlug } from "../../../lib/slug.mjs";
-import { CALLS, COSTS, niceDate, proposals } from "../../../lib/proposals.mjs";
+import { CALLS, COSTS, niceDate, proposals, sourceList } from "../../../lib/proposals.mjs";
 import { pageMeta } from "../../../lib/og/meta.mjs";
 import "../proposals.css";
 
@@ -30,6 +30,31 @@ export async function generateMetadata({ params }) {
 }
 
 const Md = ({ md }) => <div className="md" dangerouslySetInnerHTML={{ __html: renderMd(md) }} />;
+
+// Credits and trail (SITE-106): only the fields that are filled show.
+const Ext = ({ href, children }) => (href ? <a href={href} target="_blank" rel="noopener noreferrer">{children}</a> : <>{children}</>);
+
+function Credits({ p }) {
+  const sources = sourceList(p.sources);
+  const trail = [
+    p.card && <Link key="card" href={`/board#${p.card}`}>Card {p.card}</Link>,
+    p.branch && <Ext key="branch" href={p.branch}>Branch</Ext>,
+    p.pr && <Ext key="pr" href={p.pr}>Pull request</Ext>,
+    p.release && <Link key="release" href="/changelog">Release {p.release}</Link>,
+  ].filter(Boolean);
+  if (!p.by && !sources.length && !p.taken_by && !trail.length) return null;
+  return (
+    <section className="prop-credits" aria-labelledby="credits-h">
+      <h2 id="credits-h">Credits and trail</h2>
+      <dl>
+        {p.by && <div><dt>Proposed by</dt><dd><Ext href={p.by_url}>{p.by}</Ext></dd></div>}
+        {sources.length > 0 && <div><dt>Sparked by</dt><dd><ul>{sources.map((x) => <li key={x.name}><Ext href={x.url}>{x.name}</Ext></li>)}</ul></dd></div>}
+        {p.taken_by && <div><dt>Taken by</dt><dd>{p.taken_by}</dd></div>}
+        {trail.length > 0 && <div><dt>Trail</dt><dd><ul>{trail.map((x) => <li key={x.key}>{x}</li>)}</ul></dd></div>}
+      </dl>
+    </section>
+  );
+}
 
 export default async function Proposal({ params }) {
   const { slug } = await params;
@@ -93,6 +118,8 @@ export default async function Proposal({ params }) {
           <section className="prop-sec"><h2>Risks</h2><Md md={s.risks} /></section>
           <section className="prop-sec wide questions"><h2>Open questions</h2><Md md={s.questions} /></section>
         </div>
+
+        <Credits p={p} />
 
         <ProposalVote id={p.id} title={p.title} />
 

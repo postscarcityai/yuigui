@@ -109,3 +109,12 @@
 .prop-turn { margin: 22px auto; max-width: 420px; padding: 18px; border-radius: var(--r-card); background: var(--surface); border: 1.5px solid var(--outline); }
 .prop-turn svg { display: block; width: 100%; height: auto; }
 .prop-turn figcaption { margin-top: 10px; color: var(--muted); font-size: var(--fs-small); font-weight: 700; text-align: center; }
+
+/* Credits and trail (SITE-106) */
+.prop-credits { margin: 28px 0; padding: 18px 20px; border-radius: 16px; background: var(--raised); }
+.prop-credits h2 { margin: 0 0 10px; font-size: 18px; }
+.prop-credits dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 0; }
+.prop-credits dt { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.prop-credits dd { margin: 4px 0 0; font-weight: 700; line-height: 1.4; }
+.prop-credits ul { margin: 0; padding: 0; list-style: none; }
+.prop-credits li + li { margin-top: 4px; }

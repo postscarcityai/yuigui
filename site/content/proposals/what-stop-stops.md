@@ -7,6 +7,7 @@ date: 2026-09-28
 becomes: The rule for YUI-190 (Stop on the main screen), plus a Stop on each long job if we pick the middle path
 cost: M
 call: recommend
+by: Chris
 ---
 
 ```hero

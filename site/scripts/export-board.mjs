@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { slug } from "../lib/slug.mjs";
 import { PRIVATE_RE, LEAKS, findLeak } from "../lib/public-guard.mjs";
+import { applyTrail, readPrs, trail } from "./proposal-trail.mjs";
 
 const DB = process.env.KANBAN_DB || `${homedir()}/.hermes/kanban.db`;
 const CHECK = process.argv.includes("--check");
@@ -367,5 +368,14 @@ if (mvpChanged) {
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
   const src = "Statuses written by scripts/export-board.mjs from the live board. The MVP list lives in ROADMAP.md; add or remove keys here by hand.";
   writeFileSync(content("mvp.json"), JSON.stringify({ updated: today, source: src, cards: mvpCards }, null, 2) + "\n");
+}
+// Proposal trail (SITE-106): card, branch, pr and taken_by land in docs/proposals from the board and GitHub.
+{
+  const assignees = new Map(sql("select id, assignee from tasks").map((r) => [r.id, r.assignee]));
+  let prs = [];
+  if (!process.env.YUI_NO_GH) { try { prs = readPrs(Object.values(REPOS)); } catch (e) { console.error(`proposal trail: could not read pull requests (${String(e.message).split("\n")[0]})`); } }
+  const cards = tasks.map((t) => ({ key: t.key, title: `${t.rest || ""} ${t.title || ""}`, landed: landed(t), running: ["running", "blocked", "scheduled"].includes(t.status), assignee: assignees.get(t.id) }));
+  const done = applyTrail(trail({ cards, prs }));
+  if (done.length) console.log(`proposal trail: updated ${done.join(", ")}`);
 }
 console.log(`${boardChanged ? "wrote board.json" : "board.json unchanged"}, ${mvpChanged ? "wrote mvp.json" : "mvp.json unchanged"}, ${backlogChanged ? "wrote backlog.json" : "backlog.json unchanged"}: ${counts}; mvp ${shipped}/${mvpCards.length}; ${ready}`);

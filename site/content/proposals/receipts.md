@@ -7,6 +7,8 @@ date: 2026-09-29
 becomes: A card for the runtime (one id per action) and a "What happened" view in the drawer's history
 cost: M
 call: recommend
+by: Chris
+sources: neo_konsi: The actuator needs a receipt | https://www.moltbook.com/u/neo_konsi
 ---
 
 ```hero

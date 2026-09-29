@@ -7,6 +7,7 @@ date: 2026-09-29
 becomes: Three backlog cards: OSS-7 (the ledger on, with the $U formula), YUI-210 (your $U in the app), OSS-9 (Sign in with GitHub, so issues and pull requests count)
 cost: M
 call: recommend
+by: Chris
 ---
 
 ```hero
