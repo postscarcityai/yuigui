@@ -1,19 +1,258 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 310,
-    "site": 689,
+    "app": 314,
+    "site": 716,
     "builds": 44,
-    "shipped": 337,
-    "screenshots": 831
+    "shipped": 347,
+    "screenshots": 850
   },
   "days": [
+    {
+      "date": "2026-09-29",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-29T04:04:38.755Z",
+          "title": "PROP-4: a first plan in every agent",
+          "card": "YUI-204",
+          "anchor": "prop-4-a-first-plan-in-every-agent",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 314,
+            "site": 716,
+            "builds": 44,
+            "shipped": 347
+          }
+        }
+      ],
+      "commits": []
+    },
     {
       "date": "2026-09-28",
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-28T18:43:03.869Z",
+          "at": "2026-09-29T03:39:41.000Z",
+          "title": "The site stage no longer splits a sentence inside a version number",
+          "card": "SITE-96",
+          "anchor": "the-site-stage-no-longer-splits-a-sentence-inside-a-version-number",
+          "images": [
+            {
+              "src": "/progress/site96-stage-before.webp",
+              "alt": "Before: the site chat stage shows a line that starts with a bare 0 ships today, cut from the version number 0.6.0 on the screen before."
+            },
+            {
+              "src": "/progress/site96-stage-after.webp",
+              "alt": "After: the stage shows Version 0.6.0 is built to work for other agents too, with the number whole."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 314,
+            "site": 713,
+            "builds": 44,
+            "shipped": 346
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T03:24:25.000Z",
+          "title": "Agents draw what is waiting, they don't count it",
+          "card": "YUI-197",
+          "anchor": "agents-draw-what-is-waiting-they-don-t-count-it",
+          "images": [
+            {
+              "src": "/progress/yui197-items-drawn-light.webp",
+              "alt": "Before and after in a phone, light: a struck-out paragraph counting two cards, then two highlighted rows, Recovered articles and Weekly roundup, each marked waiting on you."
+            },
+            {
+              "src": "/progress/yui197-items-drawn-dark.webp",
+              "alt": "The same before and after, dark."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 313,
+            "site": 712,
+            "builds": 44,
+            "shipped": 345
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T22:53:38.000Z",
+          "title": "The Jev layer, routing turns in a phone",
+          "card": "SITE-94",
+          "anchor": "the-jev-layer-routing-turns-in-a-phone",
+          "images": [
+            {
+              "src": "/progress/site94-jev-desktop-yesno-light.webp",
+              "alt": "The Jev layer proposal on desktop, light: a lavender strip shows the decision shape yesno 0.94, things 1, map no, camera no, in 118 ms, next to a phone showing one line and Yes and No buttons."
+            },
+            {
+              "src": "/progress/site94-jev-desktop-map-dark.webp",
+              "alt": "The same page in dark mode on the map example: the strip says map yes, and the phone draws a coffee map with three pins."
+            },
+            {
+              "src": "/progress/site94-jev-mobile-line-light.webp",
+              "alt": "On a phone, light: the With Jev and Without Jev switch, the decision strip above the phone, and the one-line answer to Am I up to date."
+            },
+            {
+              "src": "/progress/site94-jev-mobile-without-dark.webp",
+              "alt": "On a phone, dark, Without Jev: the strip says the model guessed text for Tune my guitar, and the phone shows a wall of words instead of the tuner."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 310,
+            "site": 706,
+            "builds": 44,
+            "shipped": 344
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T22:42:30.000Z",
+          "title": "PROP-2: the Jev layer",
+          "card": "SITE-93",
+          "anchor": "prop-2-the-jev-layer",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 310,
+            "site": 705,
+            "builds": 44,
+            "shipped": 343
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T22:22:15.000Z",
+          "title": "Vote on a proposal",
+          "card": "SITE-89",
+          "anchor": "vote-on-a-proposal",
+          "images": [
+            {
+              "src": "/progress/site89-vote-phone-light.webp",
+              "alt": "The vote box on a phone, light: Yes, build it (4) and Not yet (1) buttons, a bar at 80 percent, a why field and the list of whys."
+            },
+            {
+              "src": "/progress/site89-vote-phone-dark.webp",
+              "alt": "The same vote box on a phone in dark mode."
+            },
+            {
+              "src": "/progress/site89-vote-desktop-light.webp",
+              "alt": "The vote box on desktop, light: two buttons side by side with counts, then the whys."
+            },
+            {
+              "src": "/progress/site89-vote-desktop-dark.webp",
+              "alt": "The vote box on desktop in dark mode."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 310,
+            "site": 698,
+            "builds": 44,
+            "shipped": 342
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T22:15:14.000Z",
+          "title": "Pick your crew, in a phone you can use",
+          "card": "SITE-88",
+          "anchor": "pick-your-crew-in-a-phone-you-can-use",
+          "images": [
+            {
+              "src": "/progress/site88-firstrun-desktop.webp",
+              "alt": "The Pick your crew proposal page on a desktop, light: the seven steps on the left and a phone on the right showing the crew list with three agents picked."
+            },
+            {
+              "src": "/progress/site88-firstrun-steps.webp",
+              "alt": "Eight phone screens of the first run in light mode: TestFlight install, Sign in with Apple, Yui says hi, the crew list, an agent's page, its starter screens, the pairing code for your own agent, and the finished crew."
+            },
+            {
+              "src": "/progress/site88-firstrun-dig-dark.webp",
+              "alt": "The same page on a phone in dark mode, on an agent's starter screens: a live meal photo screen drawn inside the phone, with a pager under it and an add button."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 310,
+            "site": 697,
+            "builds": 44,
+            "shipped": 341
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T22:09:08.000Z",
+          "title": "The token has a name: $U",
+          "card": "SITE-90",
+          "anchor": "the-token-has-a-name-u",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 310,
+            "site": 694,
+            "builds": 44,
+            "shipped": 340
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T21:56:50.000Z",
+          "title": "Proposals: big ideas, shown before they are built",
+          "card": "SITE-87",
+          "anchor": "proposals-big-ideas-shown-before-they-are-built",
+          "images": [
+            {
+              "src": "/progress/site87-prop1-hero.webp",
+              "alt": "The Pick your crew proposal page on a desktop: the title, an Exploring chip and a Yui recommends it chip on the left, and a phone on the right where Yui says hi and lists the starter agents to pick."
+            },
+            {
+              "src": "/progress/site87-prop1-phone.webp",
+              "alt": "The same proposal page on a phone in dark mode: the title and chips, then the live phone with the crew picker below."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 310,
+            "site": 693,
+            "builds": 44,
+            "shipped": 339
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T18:52:12.000Z",
+          "title": "The home page shares the latest release",
+          "card": "SITE-86",
+          "anchor": "the-home-page-shares-the-latest-release",
+          "images": [
+            {
+              "src": "/progress/site86-release-bump.webp",
+              "alt": "Two home page share previews. Left: Yui 0.5.0, the crew feels ready, Sep 27, with eggs in a pan on the phone. Right: after a test bump, Yui 0.5.2, the screen dots are back, Sep 28, with the new screen dots on the phone."
+            },
+            {
+              "src": "/progress/site86-every-page.webp",
+              "alt": "A grid of 33 share previews, one per page of yuigui.com. The home page, Builds, See it and Shipped all show the 0.5.0 release."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 310,
+            "site": 691,
+            "builds": 44,
+            "shipped": 338
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T18:43:22.000Z",
           "title": "Every page shares as itself",
           "card": "SITE-85",
           "anchor": "every-page-shares-as-itself",
@@ -27,10 +266,10 @@
               "alt": "A grid of 32 share previews, one per page of yuigui.com, each with its own title, eyebrow and phone screen."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 310,
-            "site": 689,
+            "site": 690,
             "builds": 44,
             "shipped": 337
           }
@@ -1115,6 +1354,223 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "271569b",
+          "at": "2026-09-29T03:44:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/271569b"
+        },
+        {
+          "repo": "site",
+          "sha": "7f4fe02",
+          "at": "2026-09-29T03:43:23.000Z",
+          "text": "Channel spec sample: drop a private name so sync-content passes",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7f4fe02"
+        },
+        {
+          "repo": "site",
+          "sha": "ea038c5",
+          "at": "2026-09-29T03:41:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ea038c5"
+        },
+        {
+          "repo": "site",
+          "sha": "16bc5b9",
+          "at": "2026-09-29T03:39:41.000Z",
+          "text": "The site stage never splits a sentence inside a version number, decimal or URL (SITE-96)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/16bc5b9"
+        },
+        {
+          "repo": "app",
+          "sha": "763ebd4",
+          "at": "2026-09-29T03:25:58.000Z",
+          "text": "App: several chats per agent, listed in the drawer, New chat, rename, delete (YUI-169)",
+          "url": "https://github.com/postscarcityai/yui/commit/763ebd4"
+        },
+        {
+          "repo": "site",
+          "sha": "73e7f9d",
+          "at": "2026-09-29T03:24:25.000Z",
+          "text": "guide v38: items get drawn, not counted (YUI-197)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/73e7f9d"
+        },
+        {
+          "repo": "site",
+          "sha": "3ee9ea9",
+          "at": "2026-09-29T03:10:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3ee9ea9"
+        },
+        {
+          "repo": "app",
+          "sha": "21c30d1",
+          "at": "2026-09-29T03:06:18.000Z",
+          "text": "Native runtime, push and MCP know chats: history per chat, Stop per chat, push carries chat (YUI-169)",
+          "url": "https://github.com/postscarcityai/yui/commit/21c30d1"
+        },
+        {
+          "repo": "app",
+          "sha": "054dad4",
+          "at": "2026-09-29T03:06:18.000Z",
+          "text": "Hermes plugin: each chat is its own session, [yui] chat new, replies name their chat (YUI-169)",
+          "url": "https://github.com/postscarcityai/yui/commit/054dad4"
+        },
+        {
+          "repo": "app",
+          "sha": "07361ac",
+          "at": "2026-09-29T02:53:42.000Z",
+          "text": "Chats: yui_chats, chat_id on every row, the trigger that picks a chat, and the drawer list view (YUI-169)",
+          "url": "https://github.com/postscarcityai/yui/commit/07361ac"
+        },
+        {
+          "repo": "site",
+          "sha": "6931339",
+          "at": "2026-09-29T02:09:02.000Z",
+          "text": "PROP-3: What Stop stops (stop the queue vs let other things go, plus the middle path)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6931339"
+        },
+        {
+          "repo": "site",
+          "sha": "ba6a655",
+          "at": "2026-09-28T23:40:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ba6a655"
+        },
+        {
+          "repo": "site",
+          "sha": "54d1325",
+          "at": "2026-09-28T23:38:22.000Z",
+          "text": "ROADMAP: YUI-191 in the backlog, agent shortcuts on the app icon hold menu",
+          "url": "https://github.com/postscarcityai/yuigui/commit/54d1325"
+        },
+        {
+          "repo": "site",
+          "sha": "e9b1968",
+          "at": "2026-09-28T23:10:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e9b1968"
+        },
+        {
+          "repo": "site",
+          "sha": "1f0a6bb",
+          "at": "2026-09-28T22:53:38.000Z",
+          "text": "SITE-94: PROP-2 hero, the Jev layer routing turns in a phone",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1f0a6bb"
+        },
+        {
+          "repo": "site",
+          "sha": "4d8ef5a",
+          "at": "2026-09-28T22:42:30.000Z",
+          "text": "SITE-93: PROP-2 The Jev layer on /proposals",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4d8ef5a"
+        },
+        {
+          "repo": "site",
+          "sha": "d3748fd",
+          "at": "2026-09-28T22:41:30.000Z",
+          "text": "SITE-95: pre-push hook clears GIT_DIR so og-check reads the right tree",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d3748fd"
+        },
+        {
+          "repo": "site",
+          "sha": "8f4b6ce",
+          "at": "2026-09-28T22:41:09.000Z",
+          "text": "SITE-95: main goes green, and checks run before every push",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8f4b6ce"
+        },
+        {
+          "repo": "site",
+          "sha": "89a7516",
+          "at": "2026-09-28T22:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/89a7516"
+        },
+        {
+          "repo": "site",
+          "sha": "3b27a4e",
+          "at": "2026-09-28T22:36:35.000Z",
+          "text": "SITE-92: where Jev fits in Yui, decision points and schemas",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3b27a4e"
+        },
+        {
+          "repo": "site",
+          "sha": "93fc9e6",
+          "at": "2026-09-28T22:33:43.000Z",
+          "text": "SITE-91: Jev research brief",
+          "url": "https://github.com/postscarcityai/yuigui/commit/93fc9e6"
+        },
+        {
+          "repo": "site",
+          "sha": "0de7407",
+          "at": "2026-09-28T22:32:10.000Z",
+          "text": "Social drafts: 18 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0de7407"
+        },
+        {
+          "repo": "site",
+          "sha": "f6e6ae0",
+          "at": "2026-09-28T22:22:15.000Z",
+          "text": "SITE-89: vote on proposals, Yes build it or Not yet, counts and a one-line why",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f6e6ae0"
+        },
+        {
+          "repo": "site",
+          "sha": "b1bf9bd",
+          "at": "2026-09-28T22:15:14.000Z",
+          "text": "Progress entry for the PROP-1 first-run hero (SITE-88)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b1bf9bd"
+        },
+        {
+          "repo": "site",
+          "sha": "a6ecf3f",
+          "at": "2026-09-28T22:10:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a6ecf3f"
+        },
+        {
+          "repo": "site",
+          "sha": "fd4d225",
+          "at": "2026-09-28T22:10:17.000Z",
+          "text": "PROP-1 hero: Yui's first-run flow as a working phone (SITE-88)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fd4d225"
+        },
+        {
+          "repo": "site",
+          "sha": "1603bee",
+          "at": "2026-09-28T22:09:08.000Z",
+          "text": "SITE-90: the token has a name, $U (an intention, said openly)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1603bee"
+        },
+        {
+          "repo": "site",
+          "sha": "a6d3fdb",
+          "at": "2026-09-28T21:56:50.000Z",
+          "text": "Proposals: big ideas shown before they are built, first up PROP-1 Pick your crew (SITE-87)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a6d3fdb"
+        },
+        {
+          "repo": "site",
+          "sha": "e32f723",
+          "at": "2026-09-28T19:11:04.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e32f723"
+        },
+        {
+          "repo": "site",
+          "sha": "554b55d",
+          "at": "2026-09-28T18:52:12.000Z",
+          "text": "The home page shares the latest release; og refresh and contact sheet (SITE-86)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/554b55d"
+        },
+        {
+          "repo": "site",
+          "sha": "b083284",
+          "at": "2026-09-28T18:43:22.000Z",
+          "text": "Every page shares as itself: its own og title, line and image (SITE-85)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b083284"
+        },
         {
           "repo": "site",
           "sha": "85faa81",
@@ -2380,7 +2836,7 @@
               "alt": "Dark mock of a new, empty chat: Basil's face, Hi. Tap the mic and talk., and two starter asks"
             }
           ],
-          "commits": 1,
+          "commits": 5,
           "totals": {
             "app": 251,
             "site": 578,

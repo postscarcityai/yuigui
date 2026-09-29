@@ -1,4 +1,4 @@
-# Yui channel guide v37 (for agents)
+# Yui channel guide v38 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -138,6 +138,14 @@ row "Parked YUI-83" +x
 row "Parked the drawing card" +hi
 end
 end
+```
+- **Items get drawn, not counted.** When the answer is about things (cards on a board, tasks, orders, messages waiting), draw each one: a `sketch` with one `row` per item, its title and one fact, or a `list`. Never a paragraph that counts them ("two cards are waiting, one has..."). The line above says the answer, the picture shows the things (Chris, TestFlight: "The whole point of this app is to show the user, not just tell them"):
+```yui
+sketch "Anything waiting on me?" frame=bubble
+row "Two cards are waiting on you. One has 4 recovered articles and 2 rewrites. The other is the weekly roundup post and landing page link." +x note="counted in words"
+after
+row "Recovered articles: 4 recovered, 2 rewrites" +hi note="waiting on you"
+row "Weekly roundup: post and landing page link" +hi note="waiting on you"
 ```
 - **Show, don't say.** A heading over a paragraph is not a screen. When an answer has parts (phase one, three changes, a new layout), each part is one short line and one picture: a `say` then a `sketch` or `shapes`; in a deck every `page` gets its picture right after it (in a `plan`, only a `sketch`: `shapes` ends the plan). Asked to see something ("show me the new bar"), draw it, don't describe it. This is for explaining; a report of facts stays a line and a `card`. "Walk me through phase one" is not `page "Phase 1" body="Answers play as full-screen chunks, and chat is just the record..."` but:
 ```yui

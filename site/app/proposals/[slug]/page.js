@@ -7,6 +7,7 @@ import LivePhone from "../../mockups/LivePhone";
 import AgentBox from "../../components/AgentBox";
 import FirstRunHero from "../FirstRunHero";
 import JevHero from "../JevHero";
+import FirstPlanHero from "../FirstPlanHero";
 import ProposalVote from "../ProposalVote";
 import VoteTally from "../VoteTally";
 import { renderMd } from "../../../lib/md.mjs";
@@ -51,6 +52,8 @@ export default async function Proposal({ params }) {
     <FirstRunHero title={p.title}>{text}</FirstRunHero>
   ) : p.slug === "the-jev-layer" ? (
     <JevHero title={p.title}>{text}</JevHero>
+  ) : p.slug === "first-plan-in-every-agent" ? (
+    <FirstPlanHero>{text}</FirstPlanHero>
   ) : (
     <section className="prop-hero" data-slot="hero" aria-labelledby="prop-h">
       <div className="prop-hero-text">{text}</div>
