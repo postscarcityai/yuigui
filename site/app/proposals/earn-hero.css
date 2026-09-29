@@ -32,7 +32,9 @@
 .eh-profile { display: inline-flex; align-items: center; gap: 8px; min-width: 0; padding: 4px 8px 4px 4px; border: 0; border-radius: 999px; background: none; color: var(--ink); font: inherit; font-size: 17px; font-weight: 800; cursor: pointer; }
 .eh-profile:hover { background: var(--raised); }
 .eh-profile i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--lavender); color: #2A2238; font-style: normal; font-size: 15px; }
-.eh-u { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 7px; border: 1.5px solid var(--outline); border-radius: 999px; background: var(--raised); color: var(--ink); font: inherit; cursor: pointer; }
+.eh-u { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 7px; border: 1.5px solid var(--outline); border-radius: 999px; background: var(--raised); color: var(--ink); font: inherit; cursor: pointer; transition: background-color .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease); }
+.eh-u.rising { background: #7ED9A6; border-color: #5BC48A; color: #123B26; transition-duration: .25s; }
+[data-theme=\"dark\"] .eh-u.rising { background: #3E9E6C; border-color: #5BC48A; color: #F2FFF7; }
 .eh-u b { font-size: 16px; font-weight: 800; font-variant-numeric: tabular-nums; }
 .eh-coin { flex: none; display: block; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .12)); }
 
@@ -72,6 +74,7 @@
 .eh.still .eh-msg, .eh.still .eh-panel { animation: none !important; }
 .eh.still .eh-chat, .eh.still .eh-drawer { transition: none; }
 @media (prefers-reduced-motion: reduce) {
+  .eh-u { transition: none; }
   .eh-msg, .eh-panel { animation: none !important; }
   .eh-chat, .eh-drawer { transition: none; }
 }

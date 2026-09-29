@@ -84,10 +84,11 @@ export default function Earn() {
       <h1>Build to earn.</h1>
       <p className="lede">Your use, your brain or your compute earns. There is nothing to buy.</p>
       <p id="u-token">
-        <strong>The token has a name: $U.</strong> The plan is that people who use and build Yui earn $U, a token native
-        to Yui, a bit like karma on Reddit. U is in Yui, and it is how Yui sounds. It is an intention we are still
-        working out, in the open. No token exists yet. Nothing is for sale. The legal review comes first, and the
-        questions are below.
+        <strong>The token has a name: $U.</strong> The plan is that people who use and build Yui earn $U, native to Yui, a bit
+        like karma on Reddit. U is in Yui, and it is how Yui sounds. What $U becomes is still open. Maybe something
+        you spend inside Yui, like an in-game currency. Maybe a share of Yui itself, because equity is part of the
+        idea. Probably both. It is an idea and a principle Yui wants to explore, in the open. No token exists yet.
+        Nothing is for sale. The legal review comes first, and the questions are below.
       </p>
       <Films ids={["film-build-to-earn"]} />
       <p>

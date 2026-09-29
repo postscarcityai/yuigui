@@ -50,6 +50,9 @@ Open parts of the formula: how a day of use weighs against a merged pull request
 
 ## What it could become, later and only after counsel
 
+What $U becomes is still open. Maybe something you spend inside Yui, like an in-game currency. Maybe a share of Yui itself, because equity is part of the idea. Probably both. It is an idea and a principle Yui wants to explore, in the open, with a lawyer reading every step first. No token exists yet, and nothing is for sale.
+
+- **Something you spend in Yui.** Like an in-game currency: more turns, looks, bigger jobs, early features.
 - **An owner's stake.** Options, restricted units, profits interests, or a share of the community pool (the forms on [/earn](https://www.yuigui.com/earn#forms)). 10% of voting equity is intended for the community pool, with more later.
 - **Distributions.** If Yui earns, a share could flow to the people on the ledger.
 - **Airdrops.** If a token exists one day, it could be sent to the people on the ledger by the published formula. Planned on Sui, where a wallet can come from Sign in with Apple.

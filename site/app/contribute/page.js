@@ -161,7 +161,7 @@ export default function Contribute() {
       </ul>
       <p>
         Merged work may count toward <Link href="/earn">Build to earn</Link>, a draft: points on a public ledger first.
-        The plan is to earn $U, a token native to Yui, a bit like karma on Reddit. It is an intention we are still working out, in the open. No token exists yet, and nothing is for sale.
+        The plan is to earn $U. One day you might spend it in Yui, like an in-game currency, or own part of Yui with it, because equity is part of the idea. Probably both. It is an idea Yui wants to explore, in the open. No token exists yet, and nothing is for sale.
       </p>
 
       <h2 id="spec">Want a feature? Write a spec.</h2>

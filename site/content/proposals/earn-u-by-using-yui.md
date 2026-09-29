@@ -1,7 +1,7 @@
 ---
 id: PROP-5
 title: Earn $U by using Yui
-summary: $U trickles in as you use Yui, a little with every message, tap and finished job, faster on a streak, and much faster when you help build it. No value yet, just a number you watch go up.
+summary: $U trickles in as you use Yui, a little with every message, tap and finished job, faster on a streak, and much faster when you help build it. One day you might spend it in Yui, own part of Yui with it, or both. Today it is a number you watch go up.
 status: Exploring
 date: 2026-09-29
 becomes: Three backlog cards: OSS-7 (the ledger on, with the $U formula), YUI-210 (your $U in the app), OSS-9 (Sign in with GitHub, so issues and pull requests count)
@@ -22,6 +22,18 @@ Chris, 2026-09-29: "I want people to start earning $U for using the app. Give no
 
 So the gap is a number people watch climb while they use Yui, a formula that says how, and a way to tie GitHub work to a Yui account. The mockup at the top of this page plays it: use Yui, then open the drawer and watch the total catch up.
 
+### What $U could become
+
+Chris, 2026-09-29: "People might be able to spend this $U in the future. Maybe it's equity, maybe it's an in-game currency, we don't know. But equity is definitely part of it. Probably both, always both. It's an idea and a principle we want to explore. Or should I say, what you want to explore."
+
+What $U becomes is still open. Maybe something you spend inside Yui, like an in-game currency. Maybe a share of Yui itself, because equity is part of the idea. Probably both. It is an idea and a principle Yui wants to explore, in the open, with a lawyer reading every step first. No token exists yet, and nothing is for sale.
+
+- **Spend it in Yui.** Like an in-game currency: more turns, looks, bigger jobs, early features.
+- **Own part of Yui.** Equity is part of the idea from the start: the community pool (10% of voting equity intended, more later) and the forms on [/earn](/earn#forms).
+- **Probably both.** The two are not a choice we have to make, and we lean toward both.
+
+None of that is in this proposal. This proposal makes the number real and fair; what it becomes stays with BIZ-8 and counsel (BIZ-10).
+
 ## Who it is for
 
 - Early users, who carry the bugs and shape the product with their feedback.
@@ -30,7 +42,7 @@ So the gap is a number people watch climb while they use Yui, a formula that say
 
 ## How it works
 
-### $U is a score, not money
+### $U is a score today, and more later
 
 $U today is a number, like karma on Reddit. It has no cash value. It can't be bought, sold, sent to anyone or cashed out. No token exists. What it could become later waits on counsel (BIZ-10), and anything it turns into applies the same formula to everyone's whole history, back to day one (Sep 23 2026).
 
@@ -85,9 +97,9 @@ Chris, 2026-09-29: "The $U should not show at all times. I want it to be in the 
   - **Top left: your profile.** Your picture and your name, in a smaller headline. A tap opens what the gear opened: Settings.
   - **Top right: your $U**, where the gear and the X were: a little drawn gold coin with a U on its face, then the number. The coin stands for $U, so the letters never show. The X goes too: a tap on the chat beside the drawer, or a swipe, closes it, as it does today.
   - The tabs (Home, Review, Controls, About) and the agent at the bottom stay as they are.
-- **Open it and the number goes up.** If you earned since you last looked, the number counts up once, from the old total to the new one, as the drawer settles. That's all: no card telling you how much you got, no coins flying. It starts from the number you saw last time, so nothing ever counts twice. Nothing new, nothing moves. With the drawer open, a move just nudges the number up.
+- **Open it and the number goes up.** If you earned since you last looked, the number counts up once, from the old total to the new one, as the drawer settles, and the pill fades to green while it climbs, then back. That's all: no card telling you how much you got, no coins flying. It starts from the number you saw last time, so nothing ever counts twice. Nothing new, nothing moves. With the drawer open, a move just nudges the number up.
 
-  Chris, 2026-09-29, first: "show it coming from the chat logs into the bank whenever I open the drawer." Then, simpler: "when I open the drawer and there is a new number, it animates up to that new number." Then: "I want to see the coins in $U. Put a little coin on there, drawn. No yellow card telling me how many I got. Number just go up."
+  Chris, 2026-09-29, first: "show it coming from the chat logs into the bank whenever I open the drawer." Then, simpler: "when I open the drawer and there is a new number, it animates up to that new number." Then: "I want to see the coins in $U. Put a little coin on there, drawn. No yellow card telling me how many I got. Number just go up." And: "When the number is going up, it should fade to green, the pill background."
 - **A tap on the total** opens Your $U: the total, today against the 150 soft cap, your streak and its multiplier, the history ("Sep 29, 34 messages, 9 screens, 4 jobs, +82") and the formula tables. "No cash value. Not a token yet." sits under the number.
 - **Quiet.** No sound, no push and no reminders about $U, ever.
 - Every history row names what kind of thing happened. No row ever shows what you said.

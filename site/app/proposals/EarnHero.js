@@ -2,7 +2,8 @@
 // The PROP-5 hero: $U trickling in as you use Yui, in a phone. Nothing counts on the chat itself. The total lives
 // in the left drawer, top right, where the gear and the X were, with your profile top left (a tap opens Settings)
 // and the agent at the bottom, shown as a drawn coin and a number. Open the drawer and, if you earned since you last
-// looked, the number just counts up once from the old total to the new one. No chip, no coins flying. Only new $U animates, so nothing is counted twice. It plays on its own until
+// looked, the number just counts up once from the old total to the new one while the pill fades to green and back.
+// No chip, no coins flying. Only new $U animates, so nothing is counted twice. It plays on its own until
 // touched. Copy and rates live in lib/earn-hero.mjs. Nothing here records anything.
 import { useCallback, useEffect, useRef, useState } from "react";
 import { HERO, LOOP, MOVES, RATES, START, streakBonus, streakX } from "../../lib/earn-hero.mjs";
@@ -36,8 +37,10 @@ function earn(move, s) {
 }
 
 // The total eases from the old number to the new one, after `wait` ms.
+// `moving` is true while it climbs, so the pill can fade to green and back.
 function useCountUp(target, reduced, wait) {
   const [shown, setShown] = useState(target);
+  const [moving, setMoving] = useState(false);
   const from = useRef(target);
   useEffect(() => {
     if (reduced) { setShown(target); from.current = target; return; }
@@ -50,11 +53,12 @@ function useCountUp(target, reduced, wait) {
       const k = Math.min(1, (t - t0) / ms), v = start + (target - start) * (1 - Math.pow(1 - k, 3));
       setShown(v); from.current = v;
       if (k < 1) raf = requestAnimationFrame(step);
+      else setMoving(false);
     };
-    const hold = setTimeout(() => { raf = requestAnimationFrame(step); }, wait);
+    const hold = setTimeout(() => { setMoving(true); raf = requestAnimationFrame(step); }, wait);
     return () => { clearTimeout(hold); cancelAnimationFrame(raf); };
   }, [target, reduced, wait]);
-  return shown;
+  return [shown, moving];
 }
 
 export default function EarnHero({ children }) {
@@ -65,7 +69,7 @@ export default function EarnHero({ children }) {
   const loopAt = useRef(0);
   const threadRef = useRef(null);
   // Closed, the drawer holds what you saw last; open, it shows now.
-  const shown = useCountUp(s.open ? s.balance : s.seen, reduced, wait);
+  const [shown, rising] = useCountUp(s.open ? s.balance : s.seen, reduced, wait);
 
   const play = useCallback((id) => {
     if (id === "open" || id === "sheet") {
@@ -167,7 +171,7 @@ export default function EarnHero({ children }) {
                 <button type="button" className="eh-profile" onClick={touch(() => setS((p) => ({ ...p, panel: p.panel === "settings" ? null : "settings" })))}>
                   <i aria-hidden="true">{HERO.you[0]}</i><span>{HERO.you}</span>
                 </button>
-                <button type="button" className="eh-u" aria-live="polite" aria-label={`${fmt(s.balance)} $U`} onClick={touch(() => setS((p) => ({ ...p, panel: p.panel === "u" ? null : "u" })))}>
+                <button type="button" className={`eh-u ${rising ? "rising" : ""}`} aria-live="polite" aria-label={`${fmt(s.balance)} $U`} onClick={touch(() => setS((p) => ({ ...p, panel: p.panel === "u" ? null : "u" })))}>
                   <Coin /><b>{fmt(shown)}</b>
                 </button>
               </div>
