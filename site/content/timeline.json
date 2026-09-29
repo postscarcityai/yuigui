@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 318,
-    "site": 725,
+    "app": 320,
+    "site": 730,
     "builds": 44,
-    "shipped": 351,
-    "screenshots": 870
+    "shipped": 354,
+    "screenshots": 880
   },
   "days": [
     {
@@ -13,7 +13,95 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T05:13:42.151Z",
+          "at": "2026-09-29T06:20:49.588Z",
+          "title": "A way home from every full-screen answer",
+          "card": "YUI-195",
+          "anchor": "a-way-home-from-every-full-screen-answer",
+          "images": [
+            {
+              "src": "/progress/yui195-close-mid-plan-light.webp",
+              "alt": "Light mode: the first page of a four-part answer with a close button, an x, at the bottom left beside the arrows."
+            },
+            {
+              "src": "/progress/yui195-back-home-dark.webp",
+              "alt": "Dark mode: the last page, two questions and a Send button, with a large Back home button where the mic usually sits."
+            },
+            {
+              "src": "/progress/yui195-home-dark.webp",
+              "alt": "Dark mode: the agent's home with the greeting and shortcuts, after tapping Back home."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 320,
+            "site": 730,
+            "builds": 44,
+            "shipped": 354
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T05:51:42.000Z",
+          "title": "Loops keep playing when you swipe to another screen",
+          "card": "SITE-100",
+          "anchor": "loops-keep-playing-when-you-swipe-to-another-screen",
+          "images": [
+            {
+              "src": "/progress/site100-loop-dark.webp",
+              "alt": "A loop playing on screen 2, its playhead moving, with the screen tabs above it."
+            },
+            {
+              "src": "/progress/site100-keys-light.webp",
+              "alt": "Keys on screen 3 with two keys held and the Hold button lit, while the loop keeps playing on screen 2."
+            },
+            {
+              "src": "/progress/site100-chat-dark.webp",
+              "alt": "The site chat on its third screen: a metronome running while a loop still plays on the screen before it."
+            },
+            {
+              "src": "/progress/site100-tune-up-light.webp",
+              "alt": "The Tune up shortcut on the phone home took the person straight to the tuner screen, no reply needed."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 319,
+            "site": 729,
+            "builds": 44,
+            "shipped": 353
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T05:25:09.000Z",
+          "title": "The chat says when things were sent",
+          "card": "SITE-99",
+          "anchor": "the-chat-says-when-things-were-sent",
+          "images": [
+            {
+              "src": "/progress/site99-record-dark.webp",
+              "alt": "The chat record across three days: a divider for each day and a small time under each group of messages."
+            },
+            {
+              "src": "/progress/site99-stage-today-dark.webp",
+              "alt": "The stage with today's answer: its clock time in small type above it."
+            },
+            {
+              "src": "/progress/site99-stage-yesterday-dark.webp",
+              "alt": "The stage with yesterday's answer: 'Yesterday 9:41 PM' above a timer."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 319,
+            "site": 727,
+            "builds": 44,
+            "shipped": 352
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T05:14:32.000Z",
           "title": "A way home from every full screen",
           "card": "SITE-98",
           "anchor": "a-way-home-from-every-full-screen",
@@ -43,10 +131,10 @@
               "alt": "After, playground deck stage, dark: the same Back home button."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 318,
-            "site": 725,
+            "site": 726,
             "builds": 44,
             "shipped": 351
           }
@@ -172,6 +260,55 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "605f3e6",
+          "at": "2026-09-29T06:19:48.000Z",
+          "text": "Every full-screen answer has a way home: close mid-plan, Back home at the end, pull the card down. Local only, nothing sent (YUI-195)",
+          "url": "https://github.com/postscarcityai/yui/commit/605f3e6"
+        },
+        {
+          "repo": "site",
+          "sha": "52c4438",
+          "at": "2026-09-29T06:10:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/52c4438"
+        },
+        {
+          "repo": "site",
+          "sha": "240efd4",
+          "at": "2026-09-29T05:51:42.000Z",
+          "text": "Sound keeps playing across screens; a saved screen opens with no turn (SITE-100)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/240efd4"
+        },
+        {
+          "repo": "site",
+          "sha": "f81d9fc",
+          "at": "2026-09-29T05:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f81d9fc"
+        },
+        {
+          "repo": "site",
+          "sha": "48b4663",
+          "at": "2026-09-29T05:25:09.000Z",
+          "text": "The chat says when things were sent: day dividers, quiet times, stage time (SITE-99)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/48b4663"
+        },
+        {
+          "repo": "app",
+          "sha": "0df7a16",
+          "at": "2026-09-29T05:18:31.000Z",
+          "text": "The agent bar is back at the bottom of the left drawer: tap it and the switcher springs up (YUI-194)",
+          "url": "https://github.com/postscarcityai/yui/commit/0df7a16"
+        },
+        {
+          "repo": "site",
+          "sha": "6be690d",
+          "at": "2026-09-29T05:14:32.000Z",
+          "text": "A way home from every full screen: close, Back home, pull down (SITE-98)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6be690d"
+        },
         {
           "repo": "site",
           "sha": "7e0106d",
