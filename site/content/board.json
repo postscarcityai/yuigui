@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T17:40:23.581Z",
+  "updated": "2026-09-29T18:10:26.720Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -492,11 +492,6 @@
           "summary": "Several chats with one agent: the spec and a mock",
           "blocked": "chris",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
-        },
-        {
-          "key": "YUI-207",
-          "title": "Memory growth after the session, find the cache and cap it",
-          "blocked": "other"
         }
       ]
     },
@@ -504,6 +499,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-207",
+          "title": "Memory growth after the session, find the cache and cap it",
+          "summary": "The thread lets go of what you scrolled past",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-thread-lets-go-of-what-you-scrolled-past"
+        },
         {
           "key": "SITE-102",
           "title": "Serve /favicon.ico on yuigui.com so Google swaps the gray globe for the Yui icon",
