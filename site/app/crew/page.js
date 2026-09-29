@@ -3,8 +3,10 @@
 // which /md/crew reads too. Every name is in the body; headings in shots and alts say "the trainer" (public guard).
 import Link from "next/link";
 import LivePhone from "../mockups/LivePhone";
+import CrewVisual from "./CrewVisual";
+import { CREW_VISUALS } from "../../lib/yl/visual.mjs";
 import AgentBox from "../components/AgentBox";
-import { MEMBERS, inNext, NEXT_LABEL } from "../../lib/crew-page.mjs";
+import { MEMBERS, inNext, NEXT_LABEL, hearsLabel } from "../../lib/crew-page.mjs";
 import { encodeYL } from "../../lib/share-code.mjs";
 import "./crew.css";
 import { pageMeta } from "../../lib/og/meta.mjs";
@@ -44,7 +46,7 @@ export default async function Crew() {
       {MEMBERS.map((m, i) => (
         <section key={m.handle} id={m.handle} className={`crew-m${i % 2 ? " flip" : ""}`} style={{ "--cm": m.c, "--cp": `var(--${m.color})` }} aria-labelledby={`${m.handle}-h`}>
           <div className="crew-card">
-            <div className={`crew-band look-${m.look}`} aria-hidden="true" />
+            <div className={`crew-band look-${m.look}`} aria-hidden="true"><CrewVisual handle={m.handle} /></div>
             <div className="crew-head">
               <Face m={m} big />
               <div>
@@ -53,6 +55,10 @@ export default async function Crew() {
               </div>
             </div>
             <p className="crew-line">{m.line}</p>
+            <p className="crew-hears">
+              <span>{CREW_VISUALS[m.handle].look}</span> hears {hearsLabel(CREW_VISUALS[m.handle].hears)}, {CREW_VISUALS[m.handle].strength === "faint" ? "very quiet" : "quiet"}.{" "}
+              <Link href={`/playground?demo=visual-defaults&agent=${m.name}`} prefetch={false}>Try its visualizer</Link>
+            </p>
             <ul className="crew-tools">
               {m.tools.map((tool) => (
                 <li key={tool.t}>

@@ -22,7 +22,7 @@
 .crew-m .crew-card { margin-top: 48px; }
 .crew-m.flip .crew-card { order: 2; }
 .crew-card { position: relative; overflow: hidden; padding: 28px; border-radius: var(--r-card); background: var(--surface); border: 1.5px solid var(--outline); box-shadow: var(--shadow); }
-.crew-band { position: absolute; inset: 0 0 auto 0; height: 132px; background-color: var(--cp); opacity: .75; -webkit-mask: linear-gradient(#000 40%, transparent); mask: linear-gradient(#000 40%, transparent); }
+.crew-band { position: absolute; inset: 0 0 auto 0; height: 168px; background-color: var(--cp); opacity: .75; -webkit-mask: linear-gradient(#000 40%, transparent); mask: linear-gradient(#000 40%, transparent); }
 [data-theme="dark"] .crew-band { opacity: .35; }
 .crew-head { position: relative; display: flex; align-items: center; gap: 16px; margin-top: 18px; }
 .crew-head h2 { margin: 0; font-size: var(--fs-h1); line-height: 1; }
@@ -57,3 +57,12 @@
   .crew-row .crew-face b { width: 28px; height: 28px; font-size: 15px; }
   .crew-demo .phone.sc-phone { height: 600px; }
 }
+
+/* SITE-101: the member's own quiet visualizer fills the band; the pattern under it is the no-WebGL fallback. */
+.crew-viz { position: absolute; inset: 0; }
+.crew-viz canvas { display: block; width: 100%; height: 100%; }
+.crew-band:has(canvas) { opacity: .9; }
+[data-theme="dark"] .crew-band:has(canvas) { opacity: .8; }
+.crew-hears { position: relative; margin: 0 0 16px; font-size: var(--fs-small); font-weight: 600; color: var(--muted); }
+.crew-hears span { text-transform: capitalize; font-weight: 800; color: var(--ink); }
+.crew-hears a { font-weight: 800; }

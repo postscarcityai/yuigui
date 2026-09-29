@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 327,
-    "site": 742,
-    "builds": 44,
-    "shipped": 362,
-    "screenshots": 900
+    "app": 329,
+    "site": 746,
+    "builds": 46,
+    "shipped": 364,
+    "screenshots": 909
   },
   "days": [
     {
@@ -13,7 +13,75 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T08:26:14.454Z",
+          "at": "2026-09-29T10:08:21.791Z",
+          "title": "The crew's visualizers move on /crew",
+          "card": "SITE-101",
+          "anchor": "the-crew-s-visualizers-move-on-crew",
+          "images": [
+            {
+              "src": "/progress/site101-crew-trainer-light.webp",
+              "alt": "Light mode: the trainer's card on the crew page with quiet waves in its top band."
+            },
+            {
+              "src": "/progress/site101-crew-basil-dark.webp",
+              "alt": "Dark mode: the nutritionist's card with a small soft bloom beside the name."
+            },
+            {
+              "src": "/progress/site101-crew-penny-light.webp",
+              "alt": "Light mode: the planner's card with a slow aurora across the top."
+            },
+            {
+              "src": "/progress/site101-crew-gouda-dark.webp",
+              "alt": "Dark mode: the musician's card with a soft grain gradient in its top band."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 329,
+            "site": 746,
+            "builds": 46,
+            "shipped": 364
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T09:51:25.000Z",
+          "title": "Every agent has its own quiet visualizer",
+          "card": "YUI-180",
+          "anchor": "every-agent-has-its-own-quiet-visualizer",
+          "images": [
+            {
+              "src": "/progress/yui180-yui-dark.webp",
+              "alt": "Dark mode: Yui's stage with a soft orb breathing behind its hello."
+            },
+            {
+              "src": "/progress/yui180-basil-light.webp",
+              "alt": "Light mode: Basil's stage with a soft bloom behind his words."
+            },
+            {
+              "src": "/progress/yui180-gouda-dark.webp",
+              "alt": "Dark mode: Gouda's stage with quiet grain."
+            },
+            {
+              "src": "/progress/yui180-penny-light.webp",
+              "alt": "Light mode: Penny's stage with a slow aurora."
+            },
+            {
+              "src": "/progress/yui180-switch-light.webp",
+              "alt": "Light mode: an agent's settings with the Visualizer switch on."
+            }
+          ],
+          "commits": 6,
+          "totals": {
+            "app": 328,
+            "site": 746,
+            "builds": 46,
+            "shipped": 363
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T08:26:36.000Z",
           "title": "Yui 0.5.3: a way home, readable text, and Add agent no longer hangs",
           "card": null,
           "anchor": "yui-0-5-3-a-way-home-readable-text-and-add-agent-no-longer-hangs",
@@ -38,9 +106,21 @@
           "commits": 0,
           "totals": {
             "app": 327,
-            "site": 742,
-            "builds": 44,
+            "site": 743,
+            "builds": 46,
             "shipped": 362
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-29T08:24:56.000Z",
+          "build": 332,
+          "changes": 3,
+          "totals": {
+            "app": 327,
+            "site": 742,
+            "builds": 46,
+            "shipped": 361
           }
         },
         {
@@ -71,7 +151,7 @@
           "totals": {
             "app": 327,
             "site": 742,
-            "builds": 44,
+            "builds": 45,
             "shipped": 361
           }
         },
@@ -95,8 +175,20 @@
           "totals": {
             "app": 327,
             "site": 741,
-            "builds": 44,
+            "builds": 45,
             "shipped": 360
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-29T08:21:04.000Z",
+          "build": 329,
+          "changes": 41,
+          "totals": {
+            "app": 326,
+            "site": 740,
+            "builds": 45,
+            "shipped": 359
           }
         },
         {
@@ -467,6 +559,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "63b45c1",
+          "at": "2026-09-29T10:03:00.000Z",
+          "text": "Bump to 0.6.0: the crew gets real tools",
+          "url": "https://github.com/postscarcityai/yui/commit/63b45c1"
+        },
+        {
+          "repo": "site",
+          "sha": "c0c192e",
+          "at": "2026-09-29T09:51:25.000Z",
+          "text": "Progress: every agent has its own quiet visualizer (YUI-180)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c0c192e"
+        },
+        {
+          "repo": "site",
+          "sha": "fc9d361",
+          "at": "2026-09-29T09:41:05.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fc9d361"
+        },
+        {
+          "repo": "app",
+          "sha": "dd9bf29",
+          "at": "2026-09-29T08:42:33.000Z",
+          "text": "Every agent has its own quiet visualizer from the first open, with a switch in its settings (YUI-180)",
+          "url": "https://github.com/postscarcityai/yui/commit/dd9bf29"
+        },
+        {
+          "repo": "site",
+          "sha": "0b6ba9a",
+          "at": "2026-09-29T08:41:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0b6ba9a"
+        },
+        {
+          "repo": "site",
+          "sha": "00bc872",
+          "at": "2026-09-29T08:26:36.000Z",
+          "text": "Yui 0.5.3, build 332: a way home from every full screen, screens as pills, Add agent no longer hangs",
+          "url": "https://github.com/postscarcityai/yuigui/commit/00bc872"
+        },
         {
           "repo": "site",
           "sha": "d0bb84a",

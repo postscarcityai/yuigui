@@ -6,6 +6,10 @@
 import builds from "../content/builds.json";
 import { CREW } from "./chat/crew.mjs";
 
+// What a look hears, in words (the /crew card says it; nothing is ever listened to there).
+const HEARS = { voice: "your voice", music: "music", mic: "the room", off: "nothing" };
+export const hearsLabel = (h) => HEARS[h] || HEARS.voice;
+
 const chat = Object.fromEntries(CREW.map((m) => [m.handle, m]));
 
 export const MEMBERS = [
