@@ -1,6 +1,49 @@
 {
   "builds": [
     {
+      "build": 342,
+      "date": "2026-09-29",
+      "uploaded": "2026-09-29T11:41:46-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Every message shows when it was sent: day dividers, a quiet time under each run, and the time on the full screen",
+          "card": "YUI-202"
+        },
+        {
+          "text": "Every agent has its own quiet visualizer from the first open, with a switch in its settings",
+          "card": "YUI-180"
+        },
+        {
+          "text": "Bump to 0.6.0: the crew gets real tools"
+        },
+        {
+          "text": "Tests follow Gouda's sixth screen; PushTap state cleared after each test"
+        },
+        {
+          "text": "The guitar tuner no longer crashes: the mic tap and pitch relay are built outside the main actor",
+          "card": "YUI-206"
+        },
+        {
+          "text": "Hold the mic: slide left to cancel, slide up onto a lock to keep recording; drop the stray listening orb",
+          "card": "YUI-201"
+        },
+        {
+          "text": "The visualizer shares one Metal device, queue and pipeline cache across threads (0.6.0 memory growth)"
+        },
+        {
+          "text": "Quill's tools in the app: a lesson's quiz reports its score, tests run learn, review and a problem through kill-relaunch and 5x agent switch (YUI-186, app half)"
+        },
+        {
+          "text": "A notification tap opens on page one of what came, not the last (YUI-199b)"
+        },
+        {
+          "text": "The thread lets go of the older rows the moment it is back at the newest, arrow or not: the window stayed at every row drawn on the way up until the agent changed, ~35 MB",
+          "card": "YUI-207"
+        }
+      ]
+    },
+    {
       "build": 332,
       "date": "2026-09-29",
       "uploaded": "2026-09-29T01:24:56-07:00",
@@ -1528,39 +1571,8 @@
   ],
   "next": [
     {
-      "text": "Every message shows when it was sent: day dividers, a quiet time under each run, and the time on the full screen",
-      "card": "YUI-202"
-    },
-    {
-      "text": "Every agent has its own quiet visualizer from the first open, with a switch in its settings",
-      "card": "YUI-180"
-    },
-    {
-      "text": "Bump to 0.6.0: the crew gets real tools"
-    },
-    {
-      "text": "Tests follow Gouda's sixth screen; PushTap state cleared after each test"
-    },
-    {
-      "text": "The guitar tuner no longer crashes: the mic tap and pitch relay are built outside the main actor",
-      "card": "YUI-206"
-    },
-    {
-      "text": "Hold the mic: slide left to cancel, slide up onto a lock to keep recording; drop the stray listening orb",
-      "card": "YUI-201"
-    },
-    {
-      "text": "The visualizer shares one Metal device, queue and pipeline cache across threads (0.6.0 memory growth)"
-    },
-    {
-      "text": "Quill's tools in the app: a lesson's quiz reports its score, tests run learn, review and a problem through kill-relaunch and 5x agent switch (YUI-186, app half)"
-    },
-    {
-      "text": "A notification tap opens on page one of what came, not the last (YUI-199b)"
-    },
-    {
-      "text": "The thread lets go of the older rows the moment it is back at the newest, arrow or not: the window stayed at every row drawn on the way up until the agent changed, ~35 MB",
-      "card": "YUI-207"
+      "text": "Hold to talk keeps every word: the older recognizer's restart after a pause no longer drops the start",
+      "card": "YUI-209"
     }
   ]
 }

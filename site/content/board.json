@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-29T18:40:31.856Z",
+  "updated": "2026-09-29T19:10:34.724Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.6.0",
-    "status": "open",
-    "startedAt": "2026-09-29T10:02:36.000Z",
-    "shippedAt": null,
+    "version": "0.5.3",
+    "status": "shipped",
+    "startedAt": "2026-09-29T07:33:54.000Z",
+    "shippedAt": "2026-09-29T08:25:12.000Z",
     "cards": []
   },
   "columns": [
@@ -175,16 +175,14 @@
           "summary": "Timers and the stage on the big screen"
         },
         {
-          "key": "YUI-206",
-          "title": "The app crashes when you tune the guitar",
-          "summary": "The guitar tuner no longer crashes",
-          "waiting": true,
-          "progress": "/progress#the-guitar-tuner-no-longer-crashes"
-        },
-        {
           "key": "YUI-208",
           "title": "Last page keeps the mic; Back home and New chat move onto the page, and a spoken note goes in with the picks as one answer",
           "waiting": true
+        },
+        {
+          "key": "YUI-210",
+          "title": "Your $U in the app, trickling in as you use Yui",
+          "summary": "The counter, coins, streak and today meter"
         },
         {
           "key": "SITE-28",
@@ -198,13 +196,18 @@
         },
         {
           "key": "OSS-7",
-          "title": "Contribution ledger, off-chain first",
+          "title": "The ledger on, and $U balances from formula v0",
+          "step": "Step 2",
           "waiting": true
         },
         {
           "key": "OSS-8",
           "title": "A Yui Lines parser in Go",
           "agentReady": true
+        },
+        {
+          "key": "OSS-9",
+          "title": "Sign in with GitHub, so pull requests and issues earn $U"
         },
         {
           "key": "INT-5",
@@ -342,37 +345,6 @@
         },
         {
           "key": "YUI-183",
-          "title": "Basil's tools",
-          "summary": "Your nutritionist plans your meals",
-          "waiting": true,
-          "progress": "/progress#your-nutritionist-plans-your-meals"
-        },
-        {
-          "key": "YUI-184",
-          "title": "Gouda's tools",
-          "summary": "Gouda's tools in the app: learn a song, a click that logs itself, a beat that stays",
-          "waiting": true,
-          "progress": "/progress#gouda-s-tools-in-the-app-learn-a-song-a-click-that-logs-itself-a-beat-that-stays"
-        },
-        {
-          "key": "YUI-185",
-          "title": "Penny's tools",
-          "summary": "Your planner plans the week",
-          "waiting": true,
-          "progress": "/progress#your-planner-plans-the-week"
-        },
-        {
-          "key": "NOTE-36529",
-          "title": "Screen dots in the bottom bar",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-37307",
-          "title": "A stop button while it works",
-          "waiting": true
-        },
-        {
-          "key": "YUI-183",
           "title": "B (first after 0.6.0, NATIVE + APP)",
           "summary": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
           "waiting": true,
@@ -382,81 +354,6 @@
           "key": "YUI-191",
           "title": "Hold the app icon for your agents' shortcuts",
           "summary": "Basil's Log food first, you pick which ones show",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-56810",
-          "title": "Status lines with colour and ticks",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-1372",
-          "title": "Read the markdown agents send",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-42002",
-          "title": "Keep whole thoughts together",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-41262",
-          "title": "A version number split a sentence",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-62897",
-          "title": "Slide to cancel or lock the mic",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-49042",
-          "title": "Loops keep playing between screens",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-51802",
-          "title": "Tuner button, no model call",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-40874",
-          "title": "Notifications open the right agent",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-48153",
-          "title": "When was this sent?",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-45073",
-          "title": "Draw the zip field, don't describe it",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-61856",
-          "title": "Bold blocks, show a timeline",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-4203",
-          "title": "No lonely one-line lists",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-37063",
-          "title": "The last page needs a next step",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-17097",
-          "title": "Start a workout, log every set",
-          "waiting": true
-        },
-        {
-          "key": "NOTE-31134",
-          "title": "Agent picker only in the drawer",
           "waiting": true
         },
         {
@@ -475,15 +372,6 @@
           "waiting": true
         },
         {
-          "key": "NOTE-28467",
-          "title": "Notifications open on page one",
-          "waiting": true
-        },
-        {
-          "key": "YUI-209",
-          "title": "Hold to talk keeps every word; a long prompt with pauses no longer comes through as only the last few words"
-        },
-        {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4",
@@ -498,6 +386,11 @@
           "summary": "Several chats with one agent: the spec and a mock",
           "blocked": "chris",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
+        },
+        {
+          "key": "NOTE-31134",
+          "title": "Agent picker only in the drawer",
+          "blocked": "other"
         }
       ]
     },
@@ -505,6 +398,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-209",
+          "title": "Hold to talk keeps every word; a long prompt with pauses no longer comes through as only the last few words",
+          "summary": "Hold to talk keeps every word",
+          "shipped": "2026-09-29",
+          "progress": "/progress#hold-to-talk-keeps-every-word"
+        },
         {
           "key": "YUI-207",
           "title": "Memory growth after the session, find the cache and cap it",
