@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T04:11:51.529Z",
+  "updated": "2026-09-29T04:41:07.464Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -308,10 +308,6 @@
           "summary": "Big type only for one-line headlines, longer text reads as body"
         },
         {
-          "key": "YUI-192",
-          "title": "Add agent hangs on 'Waiting for its gateway' after the restart already happened"
-        },
-        {
           "key": "YUI-198",
           "title": "The stage splits a sentence at a version number, '0.6.0' becomes '0' on its own screen"
         },
@@ -446,7 +442,10 @@
         },
         {
           "key": "YUI-193",
-          "title": "Screen pills replace the dots, like browser tabs, and the active one follows your swipe"
+          "title": "Screen pills replace the dots, like browser tabs, and the active one follows your swipe",
+          "summary": "Screens get pills, like browser tabs",
+          "waiting": true,
+          "progress": "/progress#screens-get-pills-like-browser-tabs"
         },
         {
           "key": "NOTE-41262",
@@ -504,9 +503,10 @@
           "waiting": true
         },
         {
-          "key": "YUI-203",
-          "title": "The guide teaches show, don't tell",
-          "summary": "Draw UI in context, a timeline for when, no one-item lists, the last page always has a next step"
+          "key": "SITE-97",
+          "title": "Body text and a markdown reader on the site stage, the web half of YUI-196",
+          "summary": "Text you can read: body type and a small markdown reader",
+          "progress": "/progress#text-you-can-read-body-type-and-a-small-markdown-reader"
         },
         {
           "key": "INT-8",
@@ -554,6 +554,11 @@
           "blocked": "other"
         },
         {
+          "key": "YUI-192",
+          "title": "Add agent hangs on 'Waiting for its gateway' after the restart already happened",
+          "blocked": "other"
+        },
+        {
           "key": "YUI-169",
           "title": "Spec + playground mock for multiple chats per agent (yuigui)",
           "step": "Step 1",
@@ -573,6 +578,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-203",
+          "title": "The guide teaches show, don't tell",
+          "summary": "Agents show it in context: a phone, a timeline, a next step",
+          "shipped": "2026-09-29",
+          "progress": "/progress#agents-show-it-in-context-a-phone-a-timeline-a-next-step"
+        },
         {
           "key": "YUI-204",
           "title": "Proposal",

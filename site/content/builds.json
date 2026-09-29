@@ -1463,6 +1463,22 @@
     {
       "text": "App: several chats per agent, listed in the drawer, New chat, rename, delete",
       "card": "YUI-169"
+    },
+    {
+      "text": "Screen pills replace the dots in the top bar; the agent picker moves into the drawer",
+      "card": "YUI-193"
+    },
+    {
+      "text": "Top bar test: the record and the way back are top right beside the new chat pen",
+      "card": "YUI-193"
+    },
+    {
+      "text": "Bundle channel guide v39",
+      "card": "YUI-203"
+    },
+    {
+      "text": "Add agent: ask again on return to the app, time out stuck requests, and say so after a minute with Try again",
+      "card": "YUI-192"
     }
   ]
 }
