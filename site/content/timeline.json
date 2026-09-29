@@ -1,10 +1,10 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 336,
-    "site": 770,
+    "app": 337,
+    "site": 771,
     "builds": 46,
-    "shipped": 371,
+    "shipped": 372,
     "screenshots": 924
   },
   "days": [
@@ -13,7 +13,22 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T18:54:25.621Z",
+          "at": "2026-09-29T18:56:08.497Z",
+          "title": "Hold to talk keeps every word",
+          "card": "YUI-209",
+          "anchor": "hold-to-talk-keeps-every-word",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 337,
+            "site": 771,
+            "builds": 46,
+            "shipped": 372
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T18:53:27.000Z",
           "title": "Yui 0.6.0 is on TestFlight: the crew gets real tools",
           "card": null,
           "anchor": "yui-0-6-0-is-on-testflight-the-crew-gets-real-tools",
@@ -38,7 +53,7 @@
           "commits": 0,
           "totals": {
             "app": 336,
-            "site": 770,
+            "site": 771,
             "builds": 46,
             "shipped": 371
           }
@@ -731,6 +746,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "3af2c7f",
+          "at": "2026-09-29T18:55:51.000Z",
+          "text": "Hold to talk keeps every word: the older recognizer's restart after a pause no longer drops the start (YUI-209)",
+          "url": "https://github.com/postscarcityai/yui/commit/3af2c7f"
+        },
+        {
+          "repo": "site",
+          "sha": "b20f89c",
+          "at": "2026-09-29T18:53:27.000Z",
+          "text": "Yui 0.6.0 on the site: the crew's tools on /mockups, the progress entry, the release Thought (SITE-86)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b20f89c"
+        },
         {
           "repo": "site",
           "sha": "97922f1",
@@ -1471,7 +1500,7 @@
               "alt": "A grid of 33 share previews, one per page of yuigui.com. The home page, Builds, See it and Shipped all show the 0.5.0 release."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 310,
             "site": 691,
