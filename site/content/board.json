@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T03:44:19.777Z",
+  "updated": "2026-09-29T04:11:51.529Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -308,6 +308,10 @@
           "summary": "Big type only for one-line headlines, longer text reads as body"
         },
         {
+          "key": "YUI-192",
+          "title": "Add agent hangs on 'Waiting for its gateway' after the restart already happened"
+        },
+        {
           "key": "YUI-198",
           "title": "The stage splits a sentence at a version number, '0.6.0' becomes '0' on its own screen"
         },
@@ -355,6 +359,10 @@
           "key": "YUI-169",
           "title": "Ship",
           "summary": "TestFlight build, progress.json entry, demo live on yuigui.com"
+        },
+        {
+          "key": "YUI-202",
+          "title": "Every message shows when it was sent, grouped by day"
         }
       ]
     },
@@ -466,6 +474,41 @@
           "waiting": true
         },
         {
+          "key": "NOTE-48153",
+          "title": "When was this sent?",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-45073",
+          "title": "Draw the zip field, don't describe it",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-61856",
+          "title": "Bold blocks, show a timeline",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-4203",
+          "title": "No lonely one-line lists",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-37063",
+          "title": "The last page needs a next step",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-17097",
+          "title": "Start a workout, log every set",
+          "waiting": true
+        },
+        {
+          "key": "YUI-203",
+          "title": "The guide teaches show, don't tell",
+          "summary": "Draw UI in context, a timeline for when, no one-item lists, the last page always has a next step"
+        },
+        {
           "key": "INT-8",
           "title": "ChatGPT adapter through the Yui MCP server",
           "summary": "Yui screens in ChatGPT too",
@@ -511,11 +554,6 @@
           "blocked": "other"
         },
         {
-          "key": "YUI-192",
-          "title": "Add agent hangs on 'Waiting for its gateway' after the restart already happened",
-          "blocked": "other"
-        },
-        {
           "key": "YUI-169",
           "title": "Spec + playground mock for multiple chats per agent (yuigui)",
           "step": "Step 1",
@@ -535,6 +573,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-204",
+          "title": "Proposal",
+          "summary": "PROP-4: a first plan in every agent",
+          "shipped": "2026-09-29",
+          "progress": "/progress#prop-4-a-first-plan-in-every-agent"
+        },
         {
           "key": "SITE-96",
           "title": "The site stage never splits a sentence inside a version number, decimal or URL",
