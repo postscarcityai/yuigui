@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 325,
-    "site": 737,
+    "app": 327,
+    "site": 741,
     "builds": 44,
-    "shipped": 358,
-    "screenshots": 888
+    "shipped": 360,
+    "screenshots": 894
   },
   "days": [
     {
@@ -13,7 +13,63 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T07:55:45.329Z",
+          "at": "2026-09-29T08:22:32.728Z",
+          "title": "Yui 0.5.3 is on TestFlight: the fixes from your feedback",
+          "card": null,
+          "anchor": "yui-0-5-3-is-on-testflight-the-fixes-from-your-feedback",
+          "images": [
+            {
+              "src": "/progress/yui193-pills-1-light.webp",
+              "alt": "Light mode: the top bar shows a row of screen pills, Home first, with the active one filled."
+            },
+            {
+              "src": "/progress/yui195-back-home-dark.webp",
+              "alt": "Dark mode: the last page of a full-screen answer with a Back home pill where the mic was."
+            },
+            {
+              "src": "/progress/yui196-markdown-dark.webp",
+              "alt": "Dark mode: a long answer in regular body text with a heading and a bulleted list drawn, no stars or hashes."
+            },
+            {
+              "src": "/progress/yui205-chart-light.webp",
+              "alt": "Light mode: the last page with a chart that fits inside the phone and a Back home pill below it."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 327,
+            "site": 741,
+            "builds": 44,
+            "shipped": 360
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T08:14:22.000Z",
+          "title": "Gouda's music keeps playing, and Tune up just opens the tuner",
+          "card": "YUI-200",
+          "anchor": "gouda-s-music-keeps-playing-and-tune-up-just-opens-the-tuner",
+          "images": [
+            {
+              "src": "/progress/yui200-loop-still-playing.webp",
+              "alt": "Dark mode: Gouda's looper after swiping to the keys and back, the Stop button still showing because the loop kept playing."
+            },
+            {
+              "src": "/progress/yui200-tuner-no-turn.webp",
+              "alt": "Dark mode: the guitar tuner on Gouda's last screen, opened by the Tune up chip with no reply from Gouda."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 326,
+            "site": 740,
+            "builds": 44,
+            "shipped": 359
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T07:55:49.000Z",
           "title": "A notification opens what it is about",
           "card": "YUI-199",
           "anchor": "a-notification-opens-what-it-is-about",
@@ -27,10 +83,10 @@
               "alt": "After: the same tap opens the agent's newest message, a three-question plan, on the stage."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 325,
-            "site": 737,
+            "site": 738,
             "builds": 44,
             "shipped": 358
           }
@@ -355,6 +411,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "82b2916",
+          "at": "2026-09-29T08:21:47.000Z",
+          "text": "Progress: every message shows when it was sent (YUI-202)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/82b2916"
+        },
+        {
+          "repo": "app",
+          "sha": "49d9be7",
+          "at": "2026-09-29T08:21:33.000Z",
+          "text": "Every message shows when it was sent: day dividers, a quiet time under each run, and the time on the full screen (YUI-202)",
+          "url": "https://github.com/postscarcityai/yui/commit/49d9be7"
+        },
+        {
+          "repo": "site",
+          "sha": "5156a62",
+          "at": "2026-09-29T08:14:22.000Z",
+          "text": "Progress: Gouda's music keeps playing, Tune up opens the tuner (YUI-200)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5156a62"
+        },
+        {
+          "repo": "app",
+          "sha": "2665a97",
+          "at": "2026-09-29T08:14:06.000Z",
+          "text": "Gouda's loop and click keep playing across his screens, and Tune up opens the tuner with no turn (YUI-200)",
+          "url": "https://github.com/postscarcityai/yui/commit/2665a97"
+        },
+        {
+          "repo": "site",
+          "sha": "4175093",
+          "at": "2026-09-29T08:10:58.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4175093"
+        },
+        {
+          "repo": "site",
+          "sha": "a7b633d",
+          "at": "2026-09-29T07:55:49.000Z",
+          "text": "Progress: a notification opens what it is about (YUI-199)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a7b633d"
+        },
         {
           "repo": "app",
           "sha": "bc6bf34",
