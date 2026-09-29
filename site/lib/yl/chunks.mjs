@@ -87,10 +87,16 @@ export function splitSentences(para) {
 
 // Plain chat text (no YL) on the stage: one chunk per paragraph. A whole thought stays on one page
 // (SITE-97): up to 3 sentences and 70 words. Longer than that splits after every second sentence,
-// so no chunk is a wall.
+// so no chunk is a wall. A paragraph that is markdown (a list, a heading, `Label: value` lines)
+// keeps its lines, one block to read (YUI-196).
+const STRUCT = /^(\s*[-*+]\s+|\s*\d{1,3}[.)]\s+|\s{0,3}#{1,6}\s+|\*\*[^*]{1,40}:?\*\*:?\s|[\p{L}\p{N}][^:\n.!?*_`\[\]]{0,30}:\s+\S)/u;
 export function textChunks(text, most = 70) {
   const out = [];
-  for (const para of String(text || "").split(/\n\s*\n/).map((p) => p.replace(/\s+/g, " ").trim()).filter(Boolean)) {
+  for (const raw of String(text || "").split(/\n\s*\n/)) {
+    const lines = raw.split("\n").map((l) => l.trim()).filter(Boolean);
+    if (lines.length > 1 && lines.some((l) => STRUCT.test(l))) { out.push(lines.join("\n")); continue; }
+    const para = raw.replace(/\s+/g, " ").trim();
+    if (!para) continue;
     const sentences = splitSentences(para);
     if (para.split(" ").length <= most && sentences.length <= 3) { out.push(para); continue; }
     for (let i = 0; i < sentences.length; i += 2) out.push(sentences.slice(i, i + 2).join("").trim());
