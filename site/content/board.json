@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T19:40:40.935Z",
+  "updated": "2026-09-29T20:10:56.470Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.3",
@@ -280,6 +280,12 @@
           "summary": "Create, edit, fork and remove a native agent from chat"
         },
         {
+          "key": "YUI-139",
+          "title": "F",
+          "step": "Step 2",
+          "summary": "Key spec and demo on www.yuigui.com"
+        },
+        {
           "key": "YUI-169",
           "title": "A",
           "step": "Step 2",
@@ -331,13 +337,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-139",
-          "title": "Your own key at every stop",
-          "step": "Step 2",
-          "summary": "Claude and ChatGPT keys, OpenRouter sign-in, your own computer",
-          "waiting": true
-        },
-        {
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
@@ -372,13 +371,15 @@
           "waiting": true
         },
         {
-          "key": "NOTE-31134",
-          "title": "Agent picker only in the drawer"
-        },
-        {
           "key": "YUI-211",
           "title": "Better typography, a sleek sans serif as the base Yui look",
           "waiting": true
+        },
+        {
+          "key": "YUI-139",
+          "title": "E",
+          "step": "Step 2",
+          "summary": "Key sheet in the app, every place to add one"
         },
         {
           "key": "YUI-116",
@@ -395,6 +396,13 @@
           "summary": "Several chats with one agent: the spec and a mock",
           "blocked": "chris",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
+        },
+        {
+          "key": "YUI-139",
+          "title": "D",
+          "step": "Step 2",
+          "summary": "Score Claude, ChatGPT, Gemini, Grok, then turn them on",
+          "blocked": "chris"
         }
       ]
     },
@@ -402,6 +410,32 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-139",
+          "title": "B",
+          "step": "Step 2",
+          "summary": "OpenRouter sign-in with no paste, and My computer",
+          "shipped": "2026-09-29"
+        },
+        {
+          "key": "YUI-139",
+          "title": "C",
+          "step": "Step 2",
+          "summary": "Own key at every stop, tests per stop",
+          "shipped": "2026-09-29"
+        },
+        {
+          "key": "YUI-139",
+          "title": "Your own key at every stop",
+          "step": "Step 2",
+          "summary": "Claude and ChatGPT keys, OpenRouter sign-in, your own computer",
+          "shipped": "2026-09-29"
+        },
+        {
+          "key": "NOTE-31134",
+          "title": "Agent picker only in the drawer",
+          "shipped": "2026-09-29"
+        },
         {
           "key": "YUI-209",
           "title": "Hold to talk keeps every word; a long prompt with pauses no longer comes through as only the last few words",

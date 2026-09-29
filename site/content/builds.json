@@ -1573,6 +1573,18 @@
     {
       "text": "Hold to talk keeps every word: the older recognizer's restart after a pause no longer drops the start",
       "card": "YUI-209"
+    },
+    {
+      "text": "Chat top bar: the agent chip and its dropdown are gone, the drawer is the only agent picker (YUI chip, feedback AJw_G3S2)"
+    },
+    {
+      "text": "Your own key: Claude, ChatGPT, Gemini and Grok join the providers, each with a seeing default so no model id is needed (YUI-139 step 2, server half)"
+    },
+    {
+      "text": "Your own key at every stop: a photo the pick can't see says so, a lookup on a key with no web search says it ran on Yui's; a test per stop on a stub key (YUI-139 step 2c)"
+    },
+    {
+      "text": "Own key: OpenRouter one-tap sign-in (PKCE) and My computer (keyless, reach check) (YUI-139 step 2b, server half)"
     }
   ]
 }
