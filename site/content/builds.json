@@ -1502,6 +1502,10 @@
     {
       "text": "The stage splits sentences like the deck: a version number, URL or abbreviation never ends one",
       "card": "YUI-198"
+    },
+    {
+      "text": "A notification tap opens the agent's thread on the message that came, not its home",
+      "card": "YUI-199"
     }
   ]
 }
