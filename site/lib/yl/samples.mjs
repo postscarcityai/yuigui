@@ -486,6 +486,18 @@ list "Open an item in Controls"|"It rides the composer as a chip"|"Scout propose
 custom {"type":"stack","children":[{"type":"badge","text":"Launch"},{"type":"text","text":"V2 goes live","size":"lg"},{"type":"row","children":[{"type":"stat","label":"days","value":"99"},{"type":"stat","label":"hours","value":"14"}]},{"type":"button","text":"Open checklist","action":"checklist"}]}
 custom {oops not json}`,
   },
+  {
+    // YUI-197: items get drawn, not counted (spec/CHANNEL.md "Items get drawn, not counted").
+    name: "Items get drawn, not counted",
+    slug: "items-drawn",
+    agent: "Yui",
+    yl: `say "Two cards are waiting on you."
+sketch "Anything waiting on me?" frame=bubble
+row "Two cards are waiting on you. One has 4 recovered articles and 2 rewrites. The other is Aaron's weekly roundup post and landing page link." +x note="counted in words"
+after
+row "Recovered articles: 4 recovered, 2 rewrites" +hi note="waiting on you"
+row "Weekly roundup: Aaron's post and landing page link" +hi note="waiting on you"`,
+  },
 ];
 
 // Media presets. Each has a slug so /playground?demo=<slug> opens it.

@@ -1215,7 +1215,10 @@
           "card",
           "ask",
           "choose",
-          "table"
+          "table",
+          "sketch",
+          "row",
+          "after"
         ],
         "max_words": 70
       },
@@ -2445,6 +2448,37 @@
         "no_breaks": true
       },
       "good": "A few dinners as a `list` (or cards), one per item, and a way to pick one. Never one `say` with \\n breaks inside the quotes: the app shows the letter n (YUI-161, GLM 5.2 on native Basil)."
+    },
+    {
+      "id": "items-board-cards-drawn",
+      "category": "items",
+      "agent": "Urza",
+      "history": [
+        {
+          "role": "user",
+          "text": "[yui] note: the board has two cards blocked on Chris. (1) \"Justice Watch: 4 recovered articles and 2 rewrites\" needs his approval to publish. (2) \"Aaron's weekly roundup post\" needs his OK on the post and the landing page link."
+        }
+      ],
+      "message": "Anything waiting on me?",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "sketch",
+          "row",
+          "list",
+          "card",
+          "say",
+          "ask",
+          "choose"
+        ],
+        "need": [
+          "sketch",
+          "list",
+          "card"
+        ],
+        "max_words": 30
+      },
+      "good": "One short line, then the two items drawn: a sketch with one row per card (title plus one fact) or a list or two cards, so he sees them. Not a paragraph counting the cards and listing what is in them."
     }
   ]
 }
