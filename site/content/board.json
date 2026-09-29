@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T05:10:15.091Z",
+  "updated": "2026-09-29T05:40:22.649Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -294,11 +294,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-195",
-          "title": "Every full-screen step has a way out",
-          "summary": "Back home at the end, pull down to dismiss, no tokens spent"
-        },
-        {
           "key": "YUI-196",
           "title": "A real body text style",
           "summary": "Big type only for one-line headlines, longer text reads as body"
@@ -355,10 +350,6 @@
         {
           "key": "YUI-202",
           "title": "Every message shows when it was sent, grouped by day"
-        },
-        {
-          "key": "SITE-99",
-          "title": "The site chat shows when each message was sent, grouped by day"
         }
       ]
     },
@@ -503,13 +494,13 @@
           "waiting": true
         },
         {
-          "key": "YUI-194",
-          "title": "The agent picker goes back to the bottom of the left drawer, the way it was"
+          "key": "YUI-195",
+          "title": "Every full-screen step has a way out",
+          "summary": "Back home at the end, pull down to dismiss, no tokens spent"
         },
         {
-          "key": "SITE-98",
-          "title": "Every full-screen answer in the site chat and playground has a way home",
-          "summary": "Close, Back home at the end, drag down"
+          "key": "SITE-100",
+          "title": "Loops keep playing across screens and layer; a saved-screen shortcut opens with no model call"
         },
         {
           "key": "INT-8",
@@ -574,6 +565,11 @@
           "title": "Hold to talk",
           "summary": "Slide left to cancel, slide to a lock to keep recording",
           "blocked": "chris"
+        },
+        {
+          "key": "YUI-194",
+          "title": "The agent picker goes back to the bottom of the left drawer, the way it was",
+          "blocked": "other"
         }
       ]
     },
@@ -581,6 +577,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-99",
+          "title": "The site chat shows when each message was sent, grouped by day",
+          "summary": "The chat says when things were sent",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-chat-says-when-things-were-sent"
+        },
+        {
+          "key": "SITE-98",
+          "title": "Every full-screen answer in the site chat and playground has a way home",
+          "summary": "A way home from every full screen",
+          "shipped": "2026-09-29",
+          "progress": "/progress#a-way-home-from-every-full-screen"
+        },
         {
           "key": "SITE-97",
           "title": "Body text and a markdown reader on the site stage, the web half of YUI-196",
