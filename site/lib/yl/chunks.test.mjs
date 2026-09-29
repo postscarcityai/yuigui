@@ -1,7 +1,7 @@
 // Stage first (YL.md section 5): how replies split into chunks.
 //   node site/lib/yl/chunks.test.mjs     exit 1 on any failure
 import { apply, initialState, pageOf, parse } from "./yl.mjs";
-import { stageChunks, textChunks } from "./chunks.mjs";
+import { splitSentences, stageChunks, textChunks } from "./chunks.mjs";
 import { BASIL_KNOWN, BASIL_WEEK } from "./basil-week.mjs";
 
 const nodesOf = (text, known = {}, chat = false) => {
@@ -72,6 +72,20 @@ end`), { chunks: [], questions: ["a"], plan: "p" });
 eq("text: one chunk per paragraph", textChunks("One.\n\nTwo."), ["One.", "Two."]);
 const long = Array.from({ length: 6 }, (_, i) => `Sentence ${i + 1} has quite a few words in it to make it long.`).join(" ");
 eq("text: a long paragraph splits every two sentences", textChunks(long).length, 3);
+
+// A period inside a number, URL or file name is not a sentence end (SITE-96).
+const filler = Array.from({ length: 40 }, () => "word").join(" ");
+eq("text: a version number stays whole", textChunks("0.6.0 ships and is built for agents."), ["0.6.0 ships and is built for agents."]);
+eq("split: version in a sentence", splitSentences("Yui 0.6.0 ships today. Try it."), ["Yui 0.6.0 ships today. ", "Try it."]);
+eq("split: decimals and v1.2", splitSentences("Pi is 3.5 or v1.2 maybe. Fine."), ["Pi is 3.5 or v1.2 maybe. ", "Fine."]);
+eq("split: urls and file names", splitSentences("See https://yuigui.com/a.b and chunks.mjs now. Done."), ["See https://yuigui.com/a.b and chunks.mjs now. ", "Done."]);
+eq("split: e.g. and vs. before lowercase", splitSentences("Use tools, e.g. a hammer vs. a saw. Go."), ["Use tools, e.g. a hammer vs. a saw. ", "Go."]);
+eq("split: abbreviation before a capital", splitSentences("Ask Dr. Smith about it. Go."), ["Ask Dr. Smith about it. ", "Go."]);
+eq("split: Build 0.6. Next up. splits once", splitSentences("Build 0.6. Next up."), ["Build 0.6. ", "Next up."]);
+eq("split: ! and ? and quotes", splitSentences('Really? "Yes." Wow! ok'), ['Really? ', '"Yes." ', 'Wow! ok']);
+eq("split: ends at text end", splitSentences("Done."), ["Done."]);
+const ver = Array.from({ length: 3 }, () => `Yui 0.6.0 ships and is built to work for other agents too ${filler}.`).join(" ");
+eq("text: no chunk starts mid-number", textChunks(ver).every((c) => !/^\d+ /.test(c)), true);
 
 console.log(`${n - bad} passed, ${bad} failed`);
 process.exit(bad ? 1 : 0);

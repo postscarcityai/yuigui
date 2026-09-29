@@ -61,13 +61,37 @@ export function stageChunks(nodes) {
   return { chunks, questions, plan };
 }
 
+// A period ends a sentence only when whitespace follows and then a capital, a
+// quote, a bracket or a digit, or the text ends. So 0.6.0, 3.5, v1.2, URLs and
+// file names (chunks.mjs) stay whole, and so do e.g., i.e. and vs. before a
+// lowercase word. Each piece keeps its trailing space, so pieces rejoin as-is.
+const ABBREVIATIONS = /(?:^|[\s("'])(?:e\.g|i\.e|vs|etc|approx|mr|mrs|ms|dr|st|no)$/i;
+export function splitSentences(para) {
+  const out = [];
+  let start = 0;
+  const re = /[.!?]+["')\]]*(\s+|$)/g;
+  let m;
+  while ((m = re.exec(para))) {
+    const end = m.index + m[0].length;
+    const next = para[end];
+    if (next !== undefined) {
+      if (!/[A-Z0-9"'(\[\u201C\u2018]/.test(next)) continue;
+      if (m[0][0] === "." && ABBREVIATIONS.test(para.slice(start, m.index))) continue;
+    }
+    out.push(para.slice(start, end));
+    start = end;
+  }
+  if (start < para.length) out.push(para.slice(start));
+  return out.length ? out : [para];
+}
+
 // Plain chat text (no YL) on the stage: one chunk per paragraph, and a long
 // paragraph split after every second sentence, so no chunk is a wall.
 export function textChunks(text, most = 40) {
   const out = [];
   for (const para of String(text || "").split(/\n\s*\n/).map((p) => p.replace(/\s+/g, " ").trim()).filter(Boolean)) {
     if (para.split(" ").length <= most) { out.push(para); continue; }
-    const sentences = para.match(/[^.!?]+[.!?]+["')\]]*\s*|[^.!?]+$/g) || [para];
+    const sentences = splitSentences(para);
     for (let i = 0; i < sentences.length; i += 2) out.push(sentences.slice(i, i + 2).join("").trim());
   }
   return out;
