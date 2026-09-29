@@ -85,12 +85,14 @@ Chris, 2026-09-29: "The $U should not show at all times. I want it to be in the 
   - **Top left: your profile.** Your picture and your name, in a smaller headline. A tap opens what the gear opened: Settings.
   - **Top right: your $U bank**, the total, where the gear and the X were. The X goes too: a tap on the chat beside the drawer, or a swipe, closes it, as it does today.
   - The tabs (Home, Review, Controls, About) and the agent at the bottom stay as they are.
-- **Open it and watch it fly into the bank.** Chris, 2026-09-29: "Show it coming from the chat logs into the bank whenever I open the drawer." As the drawer slides open, the chat still shows beside it, and every answer you earned from since you last looked sends a coin (+1, +2, +5) out of that message and up into your $U total, one after another. The total counts up as each coin lands. More than 8 waiting ride in as one bigger coin first. Keep using Yui with the drawer open and each new answer sends its coin straight in.
+- **Open it and watch it climb.** If you earned since you last looked, the total counts up once, from the old number to the new one, as the drawer settles, with "+17 since you last looked" under it for a moment. Only new $U animates: it starts from the number you saw last time, so nothing ever counts twice. Nothing new, no animation. With the drawer open, a move just nudges the number up. No coins and no flying numbers.
+
+  Chris, 2026-09-29, first: "show it coming from the chat logs into the bank whenever I open the drawer." Then, simpler: "maybe we don't ever show the new coins floating up, but when I open the drawer and there is a new number, it animates up to that new number."
 - **A tap on the total** opens Your $U: the total, today against the 150 soft cap, your streak and its multiplier, the history ("Sep 29, 34 messages, 9 screens, 4 jobs, +82") and the formula tables. "No cash value. Not a token yet." sits under the number.
 - **Quiet.** No sound, no push and no reminders about $U, ever.
 - Every history row names what kind of thing happened. No row ever shows what you said.
 
-The mockup at the top of this page plays it: use Basil with nothing counting, then open the drawer and watch the coins fly into the bank.
+The mockup at the top of this page plays it: use Basil with nothing counting, then open the drawer and watch the number catch up.
 
 ### Sign in with GitHub
 
@@ -132,7 +134,7 @@ A fixed supply, a halving by season so early builders earn more, and what $U con
 
 ## Cost
 
-M. The ledger and formula are a few days on the server. The drawer's new top (you on the left, $U on the right), the count-up, coins and the Your $U page are a small app card. Sign in with GitHub is a GitHub OAuth app, one edge function and a page on the site.
+M. The ledger and formula are a few days on the server. The drawer's new top (you on the left, $U on the right), the count-up and the Your $U page are a small app card. Sign in with GitHub is a GitHub OAuth app, one edge function and a page on the site.
 
 ## Risks
 

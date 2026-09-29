@@ -1,9 +1,9 @@
 "use client";
-// The PROP-5 hero: $U trickling in as you use Yui, in a phone. Nothing counts on the chat itself. Open the left
-// drawer and what you earned since you last looked flies out of the chat, one coin from each answer, into your
-// bank (top right, where the gear and the X were), which counts up as each lands. Your profile is top left (a tap
-// opens Settings) and the agent sits at the bottom. It plays on its own until touched. Copy and rates live in
-// lib/earn-hero.mjs. Nothing here records anything.
+// The PROP-5 hero: $U trickling in as you use Yui, in a phone. Nothing counts on the chat itself. The total lives
+// in the left drawer, top right, where the gear and the X were, with your profile top left (a tap opens Settings)
+// and the agent at the bottom. Open the drawer and, if you earned since you last looked, the total counts up once
+// from the old number to the new one. Only new $U animates, so nothing is counted twice. It plays on its own until
+// touched. Copy and rates live in lib/earn-hero.mjs. Nothing here records anything.
 import { useCallback, useEffect, useRef, useState } from "react";
 import { HERO, LOOP, MOVES, RATES, START, streakBonus, streakX } from "../../lib/earn-hero.mjs";
 import usePrefs from "./usePrefs";
@@ -11,13 +11,9 @@ import "./jev.css";
 import "./earn-hero.css";
 
 const fmt = (n) => Math.floor(n).toLocaleString("en-US");
-const amt = (n) => fmt(Math.max(1, Math.round(n)));
 const TICK = 1500; // ms between moves while it plays on its own
-const SLIDE = 480; // ms the drawer takes to open, before the first coin leaves
-const FLY = 900; // ms one coin takes from the chat to the bank
-const GAP = 150; // ms between coins
-const MAX_COINS = 8; // more unpaid answers than this ride in one last coin
-const fresh = () => ({ ...START, bank: START.balance, thread: [], coins: [], n: 0, open: false, panel: null, gone: 0, lands: 0 });
+const SLIDE = 450; // ms the drawer takes to open; the count starts once it is in
+const fresh = () => ({ ...START, seen: START.balance, thread: [], n: 0, open: false, panel: null, gain: 0 });
 
 // What one move earns, given the day so far.
 function earn(move, s) {
@@ -28,22 +24,25 @@ function earn(move, s) {
   return { amount: Math.round(amount * 10) / 10, trickle: true };
 }
 
-// The bank eases toward what has landed, so the number visibly climbs with each coin.
-function useCountUp(target, reduced) {
+// The total eases from the old number to the new one, after `wait` ms.
+function useCountUp(target, reduced, wait) {
   const [shown, setShown] = useState(target);
   const from = useRef(target);
   useEffect(() => {
     if (reduced) { setShown(target); from.current = target; return; }
-    const start = from.current, t0 = performance.now(), ms = Math.min(900, 250 + Math.log10(Math.abs(target - start) + 1) * 220);
-    let raf;
+    const start = from.current;
+    if (start === target) return;
+    const ms = Math.min(1600, 500 + Math.log10(Math.abs(target - start) + 1) * 350);
+    let raf, t0;
     const step = (t) => {
+      t0 ??= t;
       const k = Math.min(1, (t - t0) / ms), v = start + (target - start) * (1 - Math.pow(1 - k, 3));
       setShown(v); from.current = v;
       if (k < 1) raf = requestAnimationFrame(step);
     };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [target, reduced]);
+    const hold = setTimeout(() => { raf = requestAnimationFrame(step); }, wait);
+    return () => { clearTimeout(hold); cancelAnimationFrame(raf); };
+  }, [target, reduced, wait]);
   return shown;
 }
 
@@ -51,96 +50,49 @@ export default function EarnHero({ children }) {
   const { reduced } = usePrefs();
   const [s, setS] = useState(fresh);
   const [auto, setAuto] = useState(false);
+  const [wait, setWait] = useState(0);
   const loopAt = useRef(0);
   const threadRef = useRef(null);
-  const screenRef = useRef(null);
-  const bankRef = useRef(null);
-  const timers = useRef([]);
-  const wasOpen = useRef(false);
-  const shown = useCountUp(s.bank, reduced);
-
-  const later = (fn, ms) => timers.current.push(setTimeout(fn, ms));
-  const clear = () => { timers.current.forEach(clearTimeout); timers.current = []; };
+  // Closed, the drawer holds what you saw last; open, it shows now.
+  const shown = useCountUp(s.open ? s.balance : s.seen, reduced, wait);
 
   const play = useCallback((id) => {
-    if (id === "open") return setS((p) => ({ ...p, open: true, panel: null }));
-    if (id === "close") return setS((p) => ({ ...p, open: false, panel: null }));
-    if (id === "sheet") return setS((p) => ({ ...p, open: true, panel: "u" }));
+    if (id === "open" || id === "sheet") {
+      setWait(SLIDE);
+      return setS((p) => (p.open ? { ...p, panel: id === "sheet" ? "u" : null } : { ...p, open: true, panel: id === "sheet" ? "u" : null, gain: p.balance - p.seen }));
+    }
+    if (id === "close") return setS((p) => ({ ...p, open: false, panel: null, seen: p.balance, gain: 0 }));
     const move = MOVES.find((m) => m.id === id);
+    setWait(0);
     setS((p) => {
       const { amount, trickle } = earn(move, p);
       const n = p.n + 1;
-      // The answer carries what the move earned: use counts once the agent answers.
-      let thread = [...p.thread, { k: `u${n}`, who: "me", text: move.say, tap: move.tap }, { k: `a${n}`, who: "agent", text: move.reply, earn: amount, big: move.big }];
-      let gone = p.gone;
-      while (thread.length > 8) { const [old] = thread.splice(0, 1); if (old.earn && !old.paid) gone += old.earn; }
-      return { ...p, n, thread, gone, balance: p.balance + amount, today: trickle ? p.today + amount : p.today };
+      const thread = [...p.thread, { k: `u${n}`, who: "me", text: move.say, tap: move.tap }, { k: `a${n}`, who: "agent", text: move.reply }].slice(-8);
+      // With the drawer open you are looking at it: the number moves now, and that counts as seen.
+      return { ...p, n, thread, balance: p.balance + amount, seen: p.open ? p.balance + amount : p.seen, gain: p.open ? p.gain + amount : p.gain, today: trickle ? p.today + amount : p.today };
     });
   }, []);
 
   const nextDay = useCallback(() => {
+    setWait(0);
     setS((p) => {
       const day = p.day + 1, bonus = streakBonus(day), amount = RATES.firstOfDay + bonus;
       const n = p.n + 1;
       const text = bonus ? `Day ${day}. First visit +${RATES.firstOfDay}, streak bonus +${bonus}.` : `Day ${day}. First visit today, +${RATES.firstOfDay}.`;
-      const gone = p.gone + p.thread.reduce((t, m) => t + (m.earn && !m.paid ? m.earn : 0), 0);
-      return { ...p, n, day, today: 0, gone, balance: p.balance + amount, thread: [{ k: `d${n}`, who: "day", text, earn: amount, big: !!bonus }] };
+      return { ...p, n, day, today: 0, balance: p.balance + amount, seen: p.open ? p.balance + amount : p.seen, gain: p.open ? p.gain + amount : p.gain, thread: [{ k: `d${n}`, who: "day", text }] };
     });
   }, []);
 
-  // While the drawer is open, every unpaid answer sends its coin from the chat to the bank.
-  useEffect(() => {
-    const opening = s.open && !wasOpen.current;
-    wasOpen.current = s.open;
-    if (!s.open) return;
-    const unpaid = s.thread.filter((m) => m.earn && !m.paid);
-    if (!unpaid.length && !s.gone) return;
-    if (reduced) {
-      setS((p) => ({ ...p, bank: p.balance, gone: 0, thread: p.thread.map((m) => (m.earn ? { ...m, paid: true } : m)) }));
-      return;
-    }
-    const keys = new Set(unpaid.map((m) => m.k));
-    const gone = s.gone;
-    // Mark them paid now so a second pass never sends them twice; the bank only grows as each coin lands.
-    setS((p) => ({ ...p, gone: 0, thread: p.thread.map((m) => (keys.has(m.k) ? { ...m, paid: true } : m)) }));
-    later(() => {
-      const scr = screenRef.current, bank = bankRef.current;
-      if (!scr || !bank) return;
-      const sr = scr.getBoundingClientRect(), br = bank.getBoundingClientRect();
-      const x1 = br.left - sr.left + br.width / 2 - 22, y1 = br.top - sr.top + br.height / 2 - 13;
-      const sliver = sr.width * 0.78 + 10;
-      const from = (k) => {
-        const el = scr.querySelector(`[data-k="${k}"]`);
-        if (!el) return { x0: sliver, y0: sr.height * 0.7 };
-        const r = el.getBoundingClientRect();
-        const y = Math.min(Math.max(r.top - sr.top + r.height / 2 - 13, 90), sr.height - 110);
-        return { x0: Math.max(r.left - sr.left + 8, sliver), y0: y };
-      };
-      let flights = unpaid.map((m) => ({ ...from(m.k), amount: m.earn, big: m.big }));
-      let extra = gone;
-      if (flights.length > MAX_COINS) {
-        extra += flights.slice(0, flights.length - MAX_COINS).reduce((t, f) => t + f.amount, 0);
-        flights = flights.slice(-MAX_COINS);
-      }
-      if (extra) flights.unshift({ x0: sliver, y0: sr.height - 120, amount: extra, big: extra >= 100 });
-      flights.forEach((f, i) => {
-        const k = `c${Date.now()}${i}`;
-        later(() => setS((p) => ({ ...p, coins: [...p.coins, { k, text: `+${amt(f.amount)}`, big: f.big, x0: f.x0, y0: f.y0, x1, y1 }] })), i * GAP);
-        later(() => setS((p) => ({ ...p, bank: p.bank + f.amount, lands: p.lands + 1, coins: p.coins.filter((c) => c.k !== k) })), i * GAP + FLY);
-      });
-    }, opening ? SLIDE : 220);
-  }, [s.open, s.thread, s.gone, reduced]);
-
   const touch = (fn) => () => { setAuto(false); fn(); };
-  const reset = () => { setAuto(false); clear(); loopAt.current = 0; wasOpen.current = false; setS(fresh()); };
+  const reset = () => { setAuto(false); loopAt.current = 0; setWait(0); setS(fresh()); };
 
-  useEffect(() => { setAuto(!window.matchMedia("(prefers-reduced-motion: reduce)").matches); return clear; }, []);
+  useEffect(() => { setAuto(!window.matchMedia("(prefers-reduced-motion: reduce)").matches); }, []);
   useEffect(() => {
     if (!auto || reduced) return;
     const t = setTimeout(() => { play(LOOP[loopAt.current % LOOP.length]); loopAt.current += 1; }, loopAt.current === 0 ? 700 : TICK);
     return () => clearTimeout(t);
-  }, [auto, reduced, s.n, s.open, s.panel, play]);
-  useEffect(() => { const el = threadRef.current; if (el) el.scrollTop = el.scrollHeight; }, [s.thread.length, s.n]);
+  }, [auto, reduced, s, play]);
+  useEffect(() => { const el = threadRef.current; if (el) el.scrollTop = el.scrollHeight; }, [s.thread]);
 
   const x = streakX(s.day);
   const capPct = Math.min(100, (s.today / RATES.softCap) * 100);
@@ -180,7 +132,7 @@ export default function EarnHero({ children }) {
 
       <div className="prop-hero-phone jv-col">
         <div className="phone sc-phone jv-phone eh-phone" onPointerDownCapture={() => setAuto(false)}>
-          <div className={`eh-screen ${s.open ? "open" : ""}`} ref={screenRef}>
+          <div className={`eh-screen ${s.open ? "open" : ""}`}>
             {/* the chat: no counter anywhere */}
             <div className="eh-chat">
               <header className="eh-top">
@@ -191,7 +143,7 @@ export default function EarnHero({ children }) {
               <div className="eh-thread" ref={threadRef}>
                 {s.thread.length === 0 ? <p className="eh-empty">Say anything to Basil.<br />Every move counts, quietly.</p> : null}
                 {s.thread.map((m) => (
-                  <p key={m.k} data-k={m.k} className={`eh-msg ${m.who} ${m.tap ? "tap" : ""}`}>{m.tap ? `Tapped: ${m.text}` : m.text}</p>
+                  <p key={m.k} className={`eh-msg ${m.who} ${m.tap ? "tap" : ""}`}>{m.tap ? `Tapped: ${m.text}` : m.text}</p>
                 ))}
               </div>
               <footer className="eh-composer"><span>Message Basil</span><i aria-hidden="true" /></footer>
@@ -204,10 +156,11 @@ export default function EarnHero({ children }) {
                 <button type="button" className="eh-profile" onClick={touch(() => setS((p) => ({ ...p, panel: p.panel === "settings" ? null : "settings" })))}>
                   <i aria-hidden="true">{HERO.you[0]}</i><span>{HERO.you}</span>
                 </button>
-                <button type="button" ref={bankRef} className="eh-u" aria-live="polite" aria-label={`${HERO.bank}: ${fmt(s.balance)} $U`} onClick={touch(() => setS((p) => ({ ...p, panel: p.panel === "u" ? null : "u" })))}>
-                  <b key={s.lands} className={s.lands ? "land" : ""}>{fmt(shown)}</b> $U
+                <button type="button" className="eh-u" aria-live="polite" aria-label={`${fmt(s.balance)} $U`} onClick={touch(() => setS((p) => ({ ...p, panel: p.panel === "u" ? null : "u" })))}>
+                  <b>{fmt(shown)}</b> $U
                 </button>
               </div>
+              {s.open && s.gain > 0 ? <p className="eh-since" key={`${s.gain}`}>{HERO.since(fmt(s.gain))}</p> : null}
 
               <div className="eh-tabs" role="tablist">{HERO.tabs.map((t, k) => <span key={t} className={k === 0 ? "on" : ""}>{t}</span>)}</div>
               <ul className="eh-rows">
@@ -238,13 +191,6 @@ export default function EarnHero({ children }) {
                 </div>
               ) : null}
             </aside>
-
-            {/* coins in flight, from the chat to the bank, over both */}
-            <div className="eh-coins" aria-hidden="true">
-              {s.coins.map((c) => (
-                <span key={c.k} className={`eh-coin ${c.big ? "big" : ""}`} style={{ "--x0": `${c.x0}px`, "--y0": `${c.y0}px`, "--x1": `${c.x1}px`, "--y1": `${c.y1}px`, "--fly": `${FLY}ms` }}>{c.text}</span>
-              ))}
-            </div>
           </div>
         </div>
 
