@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 329,
-    "site": 746,
+    "app": 334,
+    "site": 755,
     "builds": 46,
-    "shipped": 364,
-    "screenshots": 909
+    "shipped": 367,
+    "screenshots": 916
   },
   "days": [
     {
@@ -13,7 +13,51 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T10:08:21.791Z",
+          "at": "2026-09-29T12:12:14.000Z",
+          "title": "Hold the mic, slide to cancel or lock",
+          "card": "YUI-201",
+          "anchor": "hold-the-mic-slide-to-cancel-or-lock",
+          "images": [
+            {
+              "src": "/progress/yui201-lock-waiting.webp",
+              "alt": "Dark mode: the listening screen with the words heard so far, and a small open lock with an up arrow just above the round mic button, bottom right."
+            },
+            {
+              "src": "/progress/yui201-lock-armed.webp",
+              "alt": "The same screen with the finger slid up: the lock is filled and larger, ready to keep recording when let go."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 332,
+            "site": 752,
+            "builds": 46,
+            "shipped": 367
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T12:09:20.000Z",
+          "title": "The guitar tuner no longer crashes",
+          "card": "YUI-206",
+          "anchor": "the-guitar-tuner-no-longer-crashes",
+          "images": [
+            {
+              "src": "/progress/yui206-tuner-guitar.webp",
+              "alt": "The tuner open on guitar, standard tuning: the needle reads E2, minus 2 cents, with the six strings under it and Stop listening"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 331,
+            "site": 751,
+            "builds": 46,
+            "shipped": 366
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T10:08:40.000Z",
           "title": "The crew's visualizers move on /crew",
           "card": "SITE-101",
           "anchor": "the-crew-s-visualizers-move-on-crew",
@@ -35,12 +79,12 @@
               "alt": "Dark mode: the musician's card with a soft grain gradient in its top band."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 329,
-            "site": 746,
+            "site": 747,
             "builds": 46,
-            "shipped": 364
+            "shipped": 365
           }
         },
         {
@@ -76,7 +120,7 @@
             "app": 328,
             "site": 746,
             "builds": 46,
-            "shipped": 363
+            "shipped": 364
           }
         },
         {
@@ -108,7 +152,7 @@
             "app": 327,
             "site": 743,
             "builds": 46,
-            "shipped": 362
+            "shipped": 363
           }
         },
         {
@@ -120,7 +164,7 @@
             "app": 327,
             "site": 742,
             "builds": 46,
-            "shipped": 361
+            "shipped": 362
           }
         },
         {
@@ -152,7 +196,7 @@
             "app": 327,
             "site": 742,
             "builds": 45,
-            "shipped": 361
+            "shipped": 362
           }
         },
         {
@@ -176,7 +220,7 @@
             "app": 327,
             "site": 741,
             "builds": 45,
-            "shipped": 360
+            "shipped": 361
           }
         },
         {
@@ -188,7 +232,7 @@
             "app": 326,
             "site": 740,
             "builds": 45,
-            "shipped": 359
+            "shipped": 360
           }
         },
         {
@@ -212,7 +256,7 @@
             "app": 326,
             "site": 740,
             "builds": 44,
-            "shipped": 359
+            "shipped": 360
           }
         },
         {
@@ -236,7 +280,7 @@
             "app": 325,
             "site": 738,
             "builds": 44,
-            "shipped": 358
+            "shipped": 359
           }
         },
         {
@@ -251,7 +295,7 @@
             "app": 324,
             "site": 736,
             "builds": 44,
-            "shipped": 357
+            "shipped": 358
           }
         },
         {
@@ -275,7 +319,7 @@
             "app": 322,
             "site": 735,
             "builds": 44,
-            "shipped": 356
+            "shipped": 357
           }
         },
         {
@@ -307,7 +351,7 @@
             "app": 321,
             "site": 733,
             "builds": 44,
-            "shipped": 355
+            "shipped": 356
           }
         },
         {
@@ -335,7 +379,7 @@
             "app": 320,
             "site": 731,
             "builds": 44,
-            "shipped": 354
+            "shipped": 355
           }
         },
         {
@@ -367,7 +411,7 @@
             "app": 319,
             "site": 729,
             "builds": 44,
-            "shipped": 353
+            "shipped": 354
           }
         },
         {
@@ -395,7 +439,7 @@
             "app": 319,
             "site": 727,
             "builds": 44,
-            "shipped": 352
+            "shipped": 353
           }
         },
         {
@@ -435,7 +479,7 @@
             "app": 318,
             "site": 726,
             "builds": 44,
-            "shipped": 351
+            "shipped": 352
           }
         },
         {
@@ -463,7 +507,7 @@
             "app": 318,
             "site": 723,
             "builds": 44,
-            "shipped": 350
+            "shipped": 351
           }
         },
         {
@@ -511,7 +555,7 @@
             "app": 316,
             "site": 722,
             "builds": 44,
-            "shipped": 349
+            "shipped": 350
           }
         },
         {
@@ -539,7 +583,7 @@
             "app": 316,
             "site": 719,
             "builds": 44,
-            "shipped": 348
+            "shipped": 349
           }
         },
         {
@@ -554,11 +598,109 @@
             "app": 315,
             "site": 717,
             "builds": 44,
-            "shipped": 347
+            "shipped": 348
           }
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "71f5f03",
+          "at": "2026-09-29T14:05:04.000Z",
+          "text": "Quill's tools in the app: a lesson's quiz reports its score, tests run learn, review and a problem through kill-relaunch and 5x agent...",
+          "url": "https://github.com/postscarcityai/yui/commit/71f5f03"
+        },
+        {
+          "repo": "site",
+          "sha": "3b28db2",
+          "at": "2026-09-29T13:11:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3b28db2"
+        },
+        {
+          "repo": "site",
+          "sha": "90b15a9",
+          "at": "2026-09-29T12:40:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/90b15a9"
+        },
+        {
+          "repo": "app",
+          "sha": "d6d043c",
+          "at": "2026-09-29T12:32:52.000Z",
+          "text": "The visualizer shares one Metal device, queue and pipeline cache across threads (0.6.0 memory growth)",
+          "url": "https://github.com/postscarcityai/yui/commit/d6d043c"
+        },
+        {
+          "repo": "site",
+          "sha": "31fc771",
+          "at": "2026-09-29T12:14:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/31fc771"
+        },
+        {
+          "repo": "site",
+          "sha": "2450c2d",
+          "at": "2026-09-29T12:12:14.000Z",
+          "text": "Progress: hold the mic, slide to cancel or lock (YUI-201)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2450c2d"
+        },
+        {
+          "repo": "app",
+          "sha": "74e7f06",
+          "at": "2026-09-29T12:11:58.000Z",
+          "text": "Hold the mic: slide left to cancel, slide up onto a lock to keep recording; drop the stray listening orb (YUI-201)",
+          "url": "https://github.com/postscarcityai/yui/commit/74e7f06"
+        },
+        {
+          "repo": "site",
+          "sha": "25ddde4",
+          "at": "2026-09-29T12:09:20.000Z",
+          "text": "Progress: the guitar tuner no longer crashes (YUI-206)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/25ddde4"
+        },
+        {
+          "repo": "app",
+          "sha": "22a6397",
+          "at": "2026-09-29T12:03:23.000Z",
+          "text": "The guitar tuner no longer crashes: the mic tap and pitch relay are built outside the main actor (YUI-206)",
+          "url": "https://github.com/postscarcityai/yui/commit/22a6397"
+        },
+        {
+          "repo": "site",
+          "sha": "5b89734",
+          "at": "2026-09-29T11:40:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5b89734"
+        },
+        {
+          "repo": "site",
+          "sha": "94fb9a5",
+          "at": "2026-09-29T11:11:21.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/94fb9a5"
+        },
+        {
+          "repo": "app",
+          "sha": "a2e1478",
+          "at": "2026-09-29T11:02:25.000Z",
+          "text": "Tests follow Gouda's sixth screen; PushTap state cleared after each test",
+          "url": "https://github.com/postscarcityai/yui/commit/a2e1478"
+        },
+        {
+          "repo": "site",
+          "sha": "06bbd46",
+          "at": "2026-09-29T10:11:15.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/06bbd46"
+        },
+        {
+          "repo": "site",
+          "sha": "f6315b4",
+          "at": "2026-09-29T10:08:40.000Z",
+          "text": "SITE-101: the crew's own quiet visualizers move on /crew",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f6315b4"
+        },
         {
           "repo": "app",
           "sha": "63b45c1",
@@ -893,7 +1035,7 @@
             "app": 314,
             "site": 713,
             "builds": 44,
-            "shipped": 346
+            "shipped": 347
           }
         },
         {
@@ -917,7 +1059,7 @@
             "app": 313,
             "site": 712,
             "builds": 44,
-            "shipped": 345
+            "shipped": 346
           }
         },
         {
@@ -949,7 +1091,7 @@
             "app": 310,
             "site": 706,
             "builds": 44,
-            "shipped": 344
+            "shipped": 345
           }
         },
         {
@@ -964,7 +1106,7 @@
             "app": 310,
             "site": 705,
             "builds": 44,
-            "shipped": 343
+            "shipped": 344
           }
         },
         {
@@ -996,7 +1138,7 @@
             "app": 310,
             "site": 698,
             "builds": 44,
-            "shipped": 342
+            "shipped": 343
           }
         },
         {
@@ -1024,7 +1166,7 @@
             "app": 310,
             "site": 697,
             "builds": 44,
-            "shipped": 341
+            "shipped": 342
           }
         },
         {
@@ -1039,7 +1181,7 @@
             "app": 310,
             "site": 694,
             "builds": 44,
-            "shipped": 340
+            "shipped": 341
           }
         },
         {
@@ -1063,7 +1205,7 @@
             "app": 310,
             "site": 693,
             "builds": 44,
-            "shipped": 339
+            "shipped": 340
           }
         },
         {
@@ -1087,7 +1229,7 @@
             "app": 310,
             "site": 691,
             "builds": 44,
-            "shipped": 338
+            "shipped": 339
           }
         },
         {
@@ -1111,7 +1253,7 @@
             "app": 310,
             "site": 690,
             "builds": 44,
-            "shipped": 337
+            "shipped": 338
           }
         },
         {
@@ -1143,7 +1285,7 @@
             "app": 310,
             "site": 685,
             "builds": 44,
-            "shipped": 336
+            "shipped": 337
           }
         },
         {
@@ -1158,7 +1300,7 @@
             "app": 308,
             "site": 682,
             "builds": 44,
-            "shipped": 335
+            "shipped": 336
           }
         },
         {
@@ -1190,7 +1332,7 @@
             "app": 308,
             "site": 680,
             "builds": 44,
-            "shipped": 334
+            "shipped": 335
           }
         },
         {
@@ -1222,7 +1364,7 @@
             "app": 308,
             "site": 679,
             "builds": 44,
-            "shipped": 333
+            "shipped": 334
           }
         },
         {
@@ -1254,7 +1396,7 @@
             "app": 308,
             "site": 677,
             "builds": 44,
-            "shipped": 332
+            "shipped": 333
           }
         },
         {
@@ -1278,7 +1420,7 @@
             "app": 305,
             "site": 675,
             "builds": 44,
-            "shipped": 331
+            "shipped": 332
           }
         },
         {
@@ -1310,7 +1452,7 @@
             "app": 305,
             "site": 674,
             "builds": 44,
-            "shipped": 330
+            "shipped": 331
           }
         },
         {
@@ -1334,7 +1476,7 @@
             "app": 305,
             "site": 673,
             "builds": 44,
-            "shipped": 329
+            "shipped": 330
           }
         },
         {
@@ -1366,7 +1508,7 @@
             "app": 305,
             "site": 672,
             "builds": 44,
-            "shipped": 328
+            "shipped": 329
           }
         },
         {
@@ -1381,7 +1523,7 @@
             "app": 302,
             "site": 670,
             "builds": 44,
-            "shipped": 327
+            "shipped": 328
           }
         },
         {
@@ -1413,7 +1555,7 @@
             "app": 302,
             "site": 668,
             "builds": 44,
-            "shipped": 326
+            "shipped": 327
           }
         },
         {
@@ -1445,7 +1587,7 @@
             "app": 301,
             "site": 666,
             "builds": 44,
-            "shipped": 325
+            "shipped": 326
           }
         },
         {
@@ -1481,7 +1623,7 @@
             "app": 300,
             "site": 664,
             "builds": 44,
-            "shipped": 324
+            "shipped": 325
           }
         },
         {
@@ -1517,7 +1659,7 @@
             "app": 299,
             "site": 662,
             "builds": 44,
-            "shipped": 323
+            "shipped": 324
           }
         },
         {
@@ -1549,7 +1691,7 @@
             "app": 298,
             "site": 659,
             "builds": 44,
-            "shipped": 322
+            "shipped": 323
           }
         },
         {
@@ -1581,7 +1723,7 @@
             "app": 298,
             "site": 657,
             "builds": 44,
-            "shipped": 321
+            "shipped": 322
           }
         },
         {
@@ -1613,7 +1755,7 @@
             "app": 297,
             "site": 655,
             "builds": 44,
-            "shipped": 320
+            "shipped": 321
           }
         },
         {
@@ -1645,7 +1787,7 @@
             "app": 294,
             "site": 652,
             "builds": 44,
-            "shipped": 319
+            "shipped": 320
           }
         },
         {
@@ -1677,6 +1819,38 @@
             "app": 294,
             "site": 649,
             "builds": 44,
+            "shipped": 319
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T08:21:07.000Z",
+          "title": "Quill's tools in the app: learn a topic, rate your cards, a problem one step at a time",
+          "card": "YUI-186",
+          "anchor": "quill-s-tools-in-the-app-learn-a-topic-rate-your-cards-a-problem-one-step-at-a-t",
+          "images": [
+            {
+              "src": "/progress/yui186-app-light-lesson.webp",
+              "alt": "A lesson page in Quill: Plants make food from light, with a line under it about leaves turning sunlight into sugar"
+            },
+            {
+              "src": "/progress/yui186-app-dark-review.webp",
+              "alt": "Dark mode: cards due today, each with again, hard, good and easy, and one Save my review button"
+            },
+            {
+              "src": "/progress/yui186-app-light-problem.webp",
+              "alt": "A problem walk-through on step two: So x is? with three answers and a Send button"
+            },
+            {
+              "src": "/progress/yui186-app-dark-progress.webp",
+              "alt": "Dark mode: Quill's Progress page after a relaunch, with a day streak, cards reviewed today and cards learned"
+            }
+          ],
+          "commits": 4,
+          "totals": {
+            "app": 293,
+            "site": 647,
+            "builds": 44,
             "shipped": 318
           }
         },
@@ -1704,7 +1878,7 @@
               "alt": "Step 1 of 3: Recall the speed formula, v equals d over t, then What is the speed formula?"
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 293,
             "site": 647,
