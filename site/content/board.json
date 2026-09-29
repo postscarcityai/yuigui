@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T14:10:51.180Z",
+  "updated": "2026-09-29T14:41:02.083Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -448,6 +448,16 @@
           "key": "NOTE-18306",
           "title": "Tuner as Gouda's last screen",
           "waiting": true
+        },
+        {
+          "key": "NOTE-28467",
+          "title": "Notifications open on page one",
+          "waiting": true
+        },
+        {
+          "key": "YUI-199",
+          "title": "B (next, APP, Chris's feedback)",
+          "summary": "A notification opens its message on the first page, not the last"
         },
         {
           "key": "INT-8",
