@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 320,
-    "site": 730,
+    "app": 324,
+    "site": 735,
     "builds": 44,
-    "shipped": 354,
-    "screenshots": 880
+    "shipped": 357,
+    "screenshots": 886
   },
   "days": [
     {
@@ -13,7 +13,78 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-29T06:20:49.588Z",
+          "at": "2026-09-29T07:35:41.192Z",
+          "title": "A version number no longer splits a sentence",
+          "card": "YUI-198",
+          "anchor": "a-version-number-no-longer-splits-a-sentence",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 324,
+            "site": 735,
+            "builds": 44,
+            "shipped": 357
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T07:31:35.000Z",
+          "title": "A chart page stays inside the phone",
+          "card": "YUI-205",
+          "anchor": "a-chart-page-stays-inside-the-phone",
+          "images": [
+            {
+              "src": "/progress/yui205-chart-light.webp",
+              "alt": "Light mode: a bar chart and a short paragraph on the last page, both inside the margins, with Back home at the bottom right."
+            },
+            {
+              "src": "/progress/yui205-chart-dark.webp",
+              "alt": "Dark mode: the same last page with a chart, nothing running off the edge."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 322,
+            "site": 735,
+            "builds": 44,
+            "shipped": 356
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T07:03:13.000Z",
+          "title": "Long answers read as body text, and markdown is drawn",
+          "card": "YUI-196",
+          "anchor": "long-answers-read-as-body-text-and-markdown-is-drawn",
+          "images": [
+            {
+              "src": "/progress/yui196-long-say-dark.webp",
+              "alt": "Dark mode: one long answer about chicken and rice set in regular body text, three lines, instead of huge bold type."
+            },
+            {
+              "src": "/progress/yui196-markdown-dark.webp",
+              "alt": "Dark mode: a heading, three Label: value lines with the labels in coral and a check and a cross, and two bullets, drawn from plain markdown."
+            },
+            {
+              "src": "/progress/yui196-markdown-light.webp",
+              "alt": "Light mode: one line where the label From now on is coral and the rest is body text, with no hyphen or asterisks."
+            },
+            {
+              "src": "/progress/yui196-deck-light.webp",
+              "alt": "Light mode: a deck page with a short headline over a paragraph in regular body text."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 321,
+            "site": 733,
+            "builds": 44,
+            "shipped": 355
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-29T06:21:15.000Z",
           "title": "A way home from every full-screen answer",
           "card": "YUI-195",
           "anchor": "a-way-home-from-every-full-screen-answer",
@@ -31,10 +102,10 @@
               "alt": "Dark mode: the agent's home with the greeting and shortcuts, after tapping Back home."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 320,
-            "site": 730,
+            "site": 731,
             "builds": 44,
             "shipped": 354
           }
@@ -260,6 +331,69 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "1468aed",
+          "at": "2026-09-29T07:35:14.000Z",
+          "text": "The stage splits sentences like the deck: a version number, URL or abbreviation never ends one (YUI-198)",
+          "url": "https://github.com/postscarcityai/yui/commit/1468aed"
+        },
+        {
+          "repo": "app",
+          "sha": "bfd3746",
+          "at": "2026-09-29T07:34:17.000Z",
+          "text": "Version 0.5.3",
+          "url": "https://github.com/postscarcityai/yui/commit/bfd3746"
+        },
+        {
+          "repo": "site",
+          "sha": "f8c02e3",
+          "at": "2026-09-29T07:31:35.000Z",
+          "text": "Progress: a chart page stays inside the phone (YUI-205)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f8c02e3"
+        },
+        {
+          "repo": "app",
+          "sha": "1ea8539",
+          "at": "2026-09-29T07:18:44.000Z",
+          "text": "The last page's Back home pill no longer widens the stage past the phone: it shrinks to fit, margins stay on pages with a chart (YUI-205)",
+          "url": "https://github.com/postscarcityai/yui/commit/1ea8539"
+        },
+        {
+          "repo": "site",
+          "sha": "48bcf69",
+          "at": "2026-09-29T07:10:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/48bcf69"
+        },
+        {
+          "repo": "site",
+          "sha": "30a3fdc",
+          "at": "2026-09-29T07:03:13.000Z",
+          "text": "Progress: long answers read as body text, markdown is drawn (YUI-196); site chunk rule keeps markdown paragraphs whole",
+          "url": "https://github.com/postscarcityai/yuigui/commit/30a3fdc"
+        },
+        {
+          "repo": "app",
+          "sha": "efd340f",
+          "at": "2026-09-29T07:02:47.000Z",
+          "text": "A real body text style: big type for one short line, body for everything longer, markdown drawn (YUI-196)",
+          "url": "https://github.com/postscarcityai/yui/commit/efd340f"
+        },
+        {
+          "repo": "site",
+          "sha": "308a231",
+          "at": "2026-09-29T06:40:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/308a231"
+        },
+        {
+          "repo": "site",
+          "sha": "430c020",
+          "at": "2026-09-29T06:21:15.000Z",
+          "text": "Progress: a way home from every full-screen answer (YUI-195)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/430c020"
+        },
         {
           "repo": "app",
           "sha": "605f3e6",
