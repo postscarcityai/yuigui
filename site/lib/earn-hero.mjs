@@ -28,17 +28,33 @@ export const MOVES = [
   { id: "pr", flat: 3000, big: true, label: "Merge a pull request", hint: "+1,000 to +10,000 by size", say: "My Go parser merged (OSS-8, size M)", reply: "Your pull request merged. +3,000 $U." },
 ];
 
-// The show it plays while nobody has touched it: mostly use, a feedback now and then.
-export const LOOP = ["msg", "tap", "done", "msg", "tap", "msg", "done", "feedback", "msg", "tap"];
+// The show it plays while nobody has touched it: use Yui with no counter on screen, then open the drawer and
+// watch the total catch up, keep going with it open, close it.
+export const LOOP = ["msg", "tap", "done", "msg", "open", "tap", "msg", "done", "close", "msg", "feedback", "tap", "open", "sheet", "close"];
 
 export const START = { balance: 1240, day: 6, today: 38 };
 
 export const HERO = {
-  pickLabel: "Use Yui and watch it count",
+  pickLabel: "Use Yui, then open the drawer",
   nextDay: "Come back tomorrow",
   nextDayHint: (day) => `Day ${day + 1} of your streak`,
+  openDrawer: "Open the drawer",
+  closeDrawer: "Close the drawer",
+  drawerHint: "Your $U lives here, top right",
   replay: "Start over",
   agent: "Basil",
+  you: "Sam",
+  tabs: ["Home", "Review", "Controls", "About"],
+  home: [
+    { icon: "!", title: "Next up for you", sub: "Pick tomorrow's breakfast" },
+    { icon: "P", title: "This week", sub: "Pinned screen" },
+    { icon: "P", title: "Today's macros", sub: "Pinned screen" },
+    { icon: "+", title: "Log a meal", sub: "Shortcut" },
+  ],
+  settings: ["Account", "Notifications", "Look and feel", "Your model key"],
+  settingsTitle: "Settings",
+  settingsNote: "A tap on your name opens what the gear used to.",
+  sheetTitle: "Your $U",
   todayLabel: "Today",
   slower: "Past 150 today: a tenth as fast",
   streakLabel: (day) => `${day}-day streak`,

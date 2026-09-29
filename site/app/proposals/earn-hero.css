@@ -1,26 +1,17 @@
-/* The PROP-5 hero: $U trickling in, in a phone. Built on the jev hero's layout (jev.css); eh- is this one's own. */
+/* The PROP-5 hero: the chat with no counter, and the left drawer with your profile top left and your $U top right.
+   Built on the jev hero's layout (jev.css); eh- is this one's own. */
 .eh-phone.phone.sc-phone { position: relative; }
-.eh-screen { position: relative; display: grid; grid-template-rows: auto 1fr auto; width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: var(--background); color: var(--ink); }
+.eh-screen { position: relative; width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: var(--background); color: var(--ink); }
 
-.eh-top { display: flex; align-items: center; justify-content: space-between; padding: 22px 18px 12px; }
+/* the chat */
+.eh-chat { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr auto; transition: transform .45s var(--ease), filter .45s; }
+.eh-screen.open .eh-chat { transform: translateX(78%); filter: brightness(.9); }
+.eh-top { display: flex; align-items: center; justify-content: space-between; padding: 22px 16px 10px; }
+.eh-burger { display: grid; gap: 4px; width: 38px; height: 38px; place-content: center; border: 0; border-radius: 50%; background: var(--raised); cursor: pointer; }
+.eh-burger i { display: block; width: 16px; height: 2px; border-radius: 2px; background: var(--ink); }
+.eh-top-pad { width: 38px; }
 .eh-agent { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 800; }
-.eh-agent i { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--mint); color: #2A2238; font-style: normal; font-size: 14px; }
-.eh-pill { display: inline-flex; align-items: baseline; gap: 5px; padding: 7px 14px; border-radius: 999px; background: var(--brand); color: #2A2238; font-size: 13px; font-weight: 800; box-shadow: var(--shadow); }
-.eh-pill b { font-family: ui-monospace, Menlo, monospace; font-size: 17px; font-variant-numeric: tabular-nums; }
-.eh-pill.bump { animation: eh-bump .5s var(--spring); }
-@keyframes eh-bump { 40% { transform: scale(1.12); } }
-
-/* coins rise from the thread into the pill */
-.eh-coins { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
-.eh-coin { position: absolute; right: 34px; bottom: 150px; padding: 4px 10px; border-radius: 999px; background: #FFD66B; color: #2A2238; font-size: 14px; font-weight: 800; font-family: ui-monospace, Menlo, monospace; box-shadow: 0 6px 16px rgba(0, 0, 0, .12); opacity: 0; animation: eh-rise 1.1s var(--ease) forwards; }
-.eh-coin.big { font-size: 20px; padding: 6px 14px; animation-duration: 1.6s; }
-@keyframes eh-rise {
-  0% { opacity: 0; transform: translate(-60px, 20px) scale(.6); }
-  15% { opacity: 1; transform: translate(-60px, 0) scale(1.1); }
-  70% { opacity: 1; }
-  100% { opacity: 0; transform: translate(0, calc(-100% - 380px)) scale(.7); }
-}
-
+.eh-agent i, .eh-switch i { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--mint); color: #2A2238; font-style: normal; font-size: 14px; font-weight: 800; }
 .eh-thread { overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding: 6px 16px 12px; scroll-behavior: smooth; scrollbar-width: none; }
 .eh-empty { margin: auto; text-align: center; color: var(--muted); font-size: 15px; font-weight: 700; line-height: 1.5; }
 .eh-msg { margin: 0; max-width: 82%; padding: 10px 14px; border-radius: 20px; font-size: 15px; line-height: 1.35; animation: jv-spring .45s var(--spring) both; }
@@ -28,24 +19,73 @@
 .eh-msg.me.tap { background: var(--mint); font-weight: 800; }
 .eh-msg.agent { align-self: flex-start; background: var(--surface); border: 1.5px solid var(--outline); border-bottom-left-radius: 6px; animation-delay: .25s; }
 .eh-msg.day { align-self: center; max-width: 92%; background: #FFD66B; color: #2A2238; font-weight: 800; text-align: center; }
+.eh-composer { display: flex; align-items: center; justify-content: space-between; margin: 0 14px 20px; padding: 10px 10px 10px 16px; border-radius: 999px; background: var(--surface); border: 1.5px solid var(--outline); color: var(--muted); font-size: 14px; font-weight: 700; }
+.eh-composer i { width: 32px; height: 32px; border-radius: 50%; background: var(--brand); }
+.eh-sliver { position: absolute; inset: 0; border: 0; background: transparent; cursor: pointer; display: none; }
+.eh-screen.open .eh-sliver { display: block; }
 
-.eh-bottom { display: grid; gap: 8px; padding: 12px 18px 22px; border-top: 1.5px solid var(--outline); background: var(--surface); }
-.eh-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 14px; font-weight: 800; }
-.eh-row.small { font-size: 12.5px; font-weight: 700; color: var(--muted); }
-.eh-streak { display: inline-flex; align-items: center; gap: 8px; }
-.eh-dots { display: inline-flex; gap: 4px; }
-.eh-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--outline); }
+/* the drawer */
+.eh-drawer { position: absolute; inset: 0 22% 0 0; display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px; padding: 22px 14px 18px; background: var(--surface); border-right: 1.5px solid var(--outline); box-shadow: var(--shadow); transform: translateX(-102%); transition: transform .45s var(--ease); }
+.eh-screen.open .eh-drawer { transform: none; }
+
+.eh-me { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.eh-profile { display: inline-flex; align-items: center; gap: 8px; min-width: 0; padding: 4px 8px 4px 4px; border: 0; border-radius: 999px; background: none; color: var(--ink); font: inherit; font-size: 17px; font-weight: 800; cursor: pointer; }
+.eh-profile:hover { background: var(--raised); }
+.eh-profile i { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--lavender); color: #2A2238; font-style: normal; font-size: 15px; }
+.eh-u { position: relative; display: inline-flex; align-items: baseline; gap: 4px; padding: 6px 12px; border: 0; border-radius: 999px; background: var(--brand); color: #2A2238; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.eh-u b { font-family: ui-monospace, Menlo, monospace; font-size: 15px; font-variant-numeric: tabular-nums; }
+.eh-u em { position: absolute; right: 4px; top: calc(100% + 4px); padding: 2px 8px; border-radius: 999px; background: #FFD66B; color: #2A2238; font-style: normal; font-size: 11.5px; font-family: ui-monospace, Menlo, monospace; white-space: nowrap; animation: eh-gain 2.2s var(--ease) forwards; }
+@keyframes eh-gain { 0% { opacity: 0; transform: translateY(-4px); } 15%, 75% { opacity: 1; transform: none; } 100% { opacity: 0; } }
+
+/* coins rise from the thread side into the $U */
+.eh-coins { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.eh-coin { position: absolute; right: 18px; top: 60%; padding: 4px 10px; border-radius: 999px; background: #FFD66B; color: #2A2238; font-size: 14px; font-weight: 800; font-family: ui-monospace, Menlo, monospace; box-shadow: 0 6px 16px rgba(0, 0, 0, .12); opacity: 0; animation: eh-rise 1.1s var(--ease) forwards; }
+.eh-coin.big { font-size: 19px; padding: 6px 14px; animation-duration: 1.6s; }
+@keyframes eh-rise {
+  0% { opacity: 0; transform: translate(-40px, 20px) scale(.6); }
+  15% { opacity: 1; transform: translate(-40px, 0) scale(1.1); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translate(0, -330px) scale(.7); }
+}
+
+.eh-tabs { display: flex; gap: 2px; padding: 3px; border-radius: 999px; background: var(--raised); }
+.eh-tabs span { flex: 1; padding: 6px 0; border-radius: 999px; text-align: center; font-size: 11.5px; font-weight: 800; color: var(--muted); }
+.eh-tabs span.on { background: var(--brand); color: #2A2238; }
+.eh-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; align-content: start; overflow: hidden; }
+.eh-rows li { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 14px; background: var(--background); }
+.eh-rows i { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--raised); font-style: normal; font-size: 12px; font-weight: 800; color: var(--muted); }
+.eh-rows b { display: block; font-size: 13.5px; }
+.eh-rows small { display: block; font-size: 11.5px; font-weight: 700; color: var(--muted); }
+.eh-switch { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 16px; background: var(--raised); font-size: 15px; }
+.eh-switch span { margin-left: auto; color: var(--muted); }
+
+/* panels inside the drawer: your $U, and Settings */
+.eh-panel { position: absolute; left: 10px; right: 10px; top: 66px; z-index: 2; display: grid; gap: 10px; padding: 16px; border-radius: 22px; background: var(--background); border: 1.5px solid var(--outline); box-shadow: var(--shadow); animation: jv-spring .4s var(--spring) both; }
+.eh-panel h3 { margin: 0; font-size: 15px; }
+.eh-big { margin: 0; font-size: 13px; font-weight: 800; }
+.eh-big b { font-family: ui-monospace, Menlo, monospace; font-size: 30px; font-variant-numeric: tabular-nums; }
+.eh-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; font-weight: 800; color: var(--muted); }
+.eh-streak { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); }
+.eh-dots { display: inline-flex; gap: 3px; }
+.eh-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--outline); }
 .eh-dots i.on { background: var(--brand); }
-.eh-x { padding: 3px 10px; border-radius: 999px; background: var(--lavender); color: #2A2238; font-size: 13px; }
-.eh-meter { height: 10px; border-radius: 999px; background: var(--raised); overflow: hidden; }
+.eh-x { padding: 2px 8px; border-radius: 999px; background: var(--lavender); color: #2A2238; }
+.eh-meter { height: 8px; border-radius: 999px; background: var(--raised); overflow: hidden; }
 .eh-meter span { display: block; height: 100%; border-radius: inherit; background: var(--brand); transition: width .6s var(--ease); }
 .eh-meter span.full { background: var(--mint-ink); }
+.eh-fine { margin: 0; font-size: 11.5px; font-weight: 700; color: var(--muted); }
+.eh-set { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.eh-set li { display: flex; justify-content: space-between; padding: 8px 10px; border-radius: 12px; background: var(--surface); font-size: 13.5px; font-weight: 800; }
+.eh-set span { color: var(--muted); }
 
+.eh-open { border-color: var(--brand) !important; }
 .eh-day { border-style: dashed !important; border-color: var(--outline) !important; }
 
-.eh.still .eh-coin, .eh.still .eh-msg, .eh.still .eh-pill { animation: none !important; }
+.eh.still .eh-coin, .eh.still .eh-msg, .eh.still .eh-panel, .eh.still .eh-u em { animation: none !important; }
 .eh.still .eh-coin { display: none; }
+.eh.still .eh-chat, .eh.still .eh-drawer { transition: none; }
 @media (prefers-reduced-motion: reduce) {
   .eh-coin { display: none; }
-  .eh-msg, .eh-pill.bump { animation: none !important; }
+  .eh-msg, .eh-panel, .eh-u em { animation: none !important; }
+  .eh-chat, .eh-drawer { transition: none; }
 }

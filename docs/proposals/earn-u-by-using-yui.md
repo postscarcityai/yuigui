@@ -10,7 +10,7 @@ call: recommend
 ---
 
 ```hero
-card "Your $U" body="1,240 $U. +38 today, 6-day streak." sub="No cash value. Not a token yet."
+card "Your $U" body="1,240 $U. +38 today, 6-day streak." sub="In the left drawer, top right. No cash value. Not a token yet."
 list "A message: +1"|"A screen you answer: +2"|"A job done for you: +5"|"A merged pull request: +1,000 to +10,000" title="How you earn"
 ```
 
@@ -20,7 +20,7 @@ Use to earn is written down ([Use to earn](/business/use-to-earn)) and the ledge
 
 Chris, 2026-09-29: "I want people to start earning $U for using the app. Give no real token value, but let the user's numbers go up as they use it." Then: "I want to watch my numbers go up as I use it. I don't want it to just be per day. We can have that too. Reward for streaks. But really it should trickle in as I use it." And: people who send pull requests or open issues should earn more, which needs Sign in with GitHub.
 
-So the gap is a number people watch climb while they use Yui, a formula that says how, and a way to tie GitHub work to a Yui account. The mockup at the top of this page plays it: every move drops a coin into the counter.
+So the gap is a number people watch climb while they use Yui, a formula that says how, and a way to tie GitHub work to a Yui account. The mockup at the top of this page plays it: use Yui, then open the drawer and watch the total catch up.
 
 ## Who it is for
 
@@ -78,11 +78,19 @@ A small merged pull request is about 12 good days of use; a large one is about f
 
 ### Watching it go up
 
-- **The counter.** A small $U pill sits at the top of every thread. Each message, tap and finished job drops a coin into it (+1, +2, +5) and the number ticks up where you can see it. Big moments (a streak bonus, a merged pull request) drop a bigger coin.
-- **Today.** Under the pill: today's total, your streak and a thin meter to 150, so you can see when you're at full speed.
-- **Settings > $U.** Your total, this week, the history ("Sep 29, 34 messages, 9 screens, 4 jobs, +82") and the tables above.
-- **Quiet.** No sound, no push and no "come back" reminders about $U, ever. The pill can be hidden in Settings.
-- Every row names what kind of thing happened. No row ever shows what you said.
+Chris, 2026-09-29: "The $U should not show at all times. I want it to be in the menu in the left drawer."
+
+- **Nothing on the chat.** Using Yui shows no counter, no coins and no pill. It counts quietly.
+- **The drawer, redone at the top.** Today the drawer opens on the agent's name in big type, with a gear and an X top right. The agent's name is already at the bottom (the switcher), so the top becomes yours:
+  - **Top left: your profile.** Your picture and your name, in a smaller headline. A tap opens what the gear opened: Settings.
+  - **Top right: your $U total**, where the gear and the X were. The X goes too: a tap on the chat beside the drawer, or a swipe, closes it, as it does today.
+  - The tabs (Home, Review, Controls, About) and the agent at the bottom stay as they are.
+- **Open it and watch it climb.** The total counts up from what you saw last time to now, with a small "+41 since you last looked" under it. Keep using Yui with the drawer open and each move drops a coin in (+1, +2, +5, bigger for a streak bonus or a merged pull request).
+- **A tap on the total** opens Your $U: the total, today against the 150 soft cap, your streak and its multiplier, the history ("Sep 29, 34 messages, 9 screens, 4 jobs, +82") and the formula tables. "No cash value. Not a token yet." sits under the number.
+- **Quiet.** No sound, no push and no reminders about $U, ever.
+- Every history row names what kind of thing happened. No row ever shows what you said.
+
+The mockup at the top of this page plays it: use Basil with nothing counting, then open the drawer.
 
 ### Sign in with GitHub
 
@@ -124,13 +132,13 @@ A fixed supply, a halving by season so early builders earn more, and what $U con
 
 ## Cost
 
-M. The ledger and formula are a few days on the server. The counter, coins, meter and Settings screen are a small app card. Sign in with GitHub is a GitHub OAuth app, one edge function and a page on the site.
+M. The ledger and formula are a few days on the server. The drawer's new top (you on the left, $U on the right), the count-up, coins and the Your $U page are a small app card. Sign in with GitHub is a GitHub OAuth app, one edge function and a page on the site.
 
 ## Risks
 
 - **Legal.** A number called $U could read as a token or an offer. Watch: every screen says "No cash value. Not a token yet." We never say invest, price or returns. Counsel reads this page before the app shows a number.
 - **Gaming.** Spam issues and tiny pull requests. Watch: only accepted and merged work counts, and maintainers can take $U back.
-- **Streak pressure.** A counter and a streak can pull people in past what helps them. Watch: the soft cap, the forgiven day, no reminders about $U ever, and the pill can be hidden. If daily use jumps while answers per session drop, we slow it down.
+- **Streak pressure.** A counter and a streak can pull people in past what helps them. Watch: the total lives in the drawer, never on the chat, plus the soft cap, the forgiven day and no reminders about $U ever. If daily use jumps while answers per session drop, we slow it down.
 - **Privacy.** Watch: the ledger still never reads messages, and deleting your account deletes your rows.
 
 ## Open questions
@@ -138,7 +146,7 @@ M. The ledger and formula are a few days on the server. The counter, coins, mete
 - Founding user: does it end when Yui leaves TestFlight, or on a fixed date?
 - Should an issue that ships earn the full pull request amount when the fix is small?
 - Is 150 a day the right soft cap, and should it rise with a streak?
-- Does the pill show by default, or only after the first +$U?
+- Does the drawer show $U from the first day, or only after the first +$U?
 - Show a public scoreboard with GitHub handles (opt-in), or totals only?
 - Do agents' own accounts earn, or only the person who runs them?
 - Name in the app: "$U" alone, or "$U points" until counsel says otherwise?
