@@ -17,7 +17,7 @@
 // Stop aborts the request, a reply that lands late is dropped, and the record keeps a quiet "Stopped."
 import dynamic from "next/dynamic";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import links from "../../content/links.json";
 import { HELLO, SHARE_URL, STARTERS } from "../../lib/chat/feedback.mjs";
 import { crewOf } from "../../lib/chat/crew.mjs";
@@ -25,6 +25,7 @@ import { splitReply, tapLabel, tapLine } from "../../lib/chat/lines.mjs";
 import { micLine, readAnswer } from "../../lib/chat/stage.mjs";
 import { threadPages } from "../../lib/chat/pages.mjs";
 import { STOPPED, kept, stoppedRow, turns } from "../../lib/chat/stop.mjs";
+import { stageTime, stamps } from "../../lib/chat/when.mjs";
 import { readTyped, typedBody } from "../../lib/yl/yl.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
 import { echoFor, relays } from "../../../mcp-app/src/events.mjs";
@@ -189,6 +190,7 @@ export default function ChatFab() {
   // The pages (SITE-83): every reply so far, folded into screens 2 to 12.
   const replies = useMemo(() => msgs.filter((m) => m.role === "assistant").map((m) => m.content), [msgs]);
   const pg = useMemo(() => threadPages(replies), [replies]);
+  const stamp = useMemo(() => stamps(msgs), [msgs, record]); // eslint-disable-line react-hooks/exhaustive-deps
   const names = useMemo(() => ["1", ...pg.pages], [pg.pages]);
   const at = Math.max(0, names.indexOf(pageAt));
   const onChat = at === 0;
@@ -269,7 +271,7 @@ export default function ChatFab() {
     setRecord(false);
     setSaid(label || t);
     const history = kept(prior || msgs).map(({ role, content }) => ({ role, content }));
-    if (!prior) setMsgs((m) => { setSeen(m.length + 1); return [...m, { role: "user", content: t, ...(label ? { label } : {}) }]; });
+    if (!prior) setMsgs((m) => { setSeen(m.length + 1); return [...m, { role: "user", content: t, at: Date.now(), ...(label ? { label } : {}) }]; });
     setBusy(true);
     setHalted(false);
     setPlaying(-1);
@@ -282,9 +284,9 @@ export default function ChatFab() {
       if (!res.ok || !data.reply) { setError(data.error || "Yui can't answer right now. Try again in a minute."); return; }
       const cards = [];
       for (const a of data.actions || []) {
-        if (a.type === "go") { cards.push({ card: "went", label: a.label || a.path, path: a.path }); setTimeout(() => go(a.path), 1800); }
+        if (a.type === "go") { cards.push({ card: "went", label: a.label || a.path, path: a.path, at: Date.now() }); setTimeout(() => go(a.path), 1800); }
       }
-      setMsgs((m) => { setPlaying(m.length); setSeen(m.length + 1); return [...m, { role: "assistant", content: data.reply }, ...cards]; });
+      setMsgs((m) => { setPlaying(m.length); setSeen(m.length + 1); return [...m, { role: "assistant", content: data.reply, at: Date.now() }, ...cards]; });
       setPlayKey((k) => k + 1);
       setJump((j) => j + 1);
       setFound(true);
@@ -300,7 +302,7 @@ export default function ChatFab() {
   const stop = useCallback(() => {
     if (!flight.current.stop()) return;
     setBusy(false); setError(""); setFound(false); setHalted(true);
-    setMsgs((m) => { setSeen(m.length + 1); return [...m, stoppedRow()]; });
+    setMsgs((m) => { setSeen(m.length + 1); return [...m, { ...stoppedRow(), at: Date.now() }]; });
   }, []);
 
   // A way home from any full-screen answer (SITE-98): the answer leaves the stage, the chat home shows.
@@ -410,6 +412,24 @@ export default function ChatFab() {
     setMsgs([]); setError(""); setPlaying(-1); setBusy(false); setHalted(false); setSaid(""); setRecord(false); setSeen(0); setPageAt("1");
   }
 
+  // One row of the record; null draws nothing (cards from before the Yui form).
+  const rowOf = (m, i) => {
+    if (m.card === "went") return <div className="yc-went">Opened <a href={m.path} onClick={(e) => { e.preventDefault(); go(m.path); }}>{m.label}</a></div>;
+    if (m.card === "stopped") return <div className="yc-went yc-stopped">{STOPPED}</div>;
+    if (m.card === "contact") return null; // cards from before the Yui form
+    if (m.role === "user") {
+      const typed = readTyped(m.content);
+      return (
+        <div className={`yc-msg yc-user${m.label ? " yc-tapped" : ""}`}>
+          <p>{m.label || typed?.words || m.content}</p>
+          {typed ? <button className="yc-from" onClick={() => { setRecord(false); setPageAt(typed.screen); }}>From screen {typed.screen}</button> : null}
+        </div>
+      );
+    }
+    return <Answer content={m.content} go={go} onTap={tap} live={i === lastAnswer && !busy} onPage={(k) => { setRecord(false); setPageAt(k); }}
+      onPlay={() => replay(i)} />;
+  };
+
   const lastAnswer = msgs.map((m) => m.role === "assistant").lastIndexOf(true);
   const answer = playing >= 0 ? msgs[playing] : null;
   const turn = error ? { sent: true, failed: true }
@@ -456,7 +476,7 @@ export default function ChatFab() {
     stageUp = true;
     center = (
       <>
-        <StageAnswer key={`${playing}:${playKey}`} content={answer.content} live={playing === lastAnswer && !busy} onTap={tap} onAnswers={answerAll} Text={Text} go={go} active={!record && !typing && onChat} onEdge={(d) => goIndex(at + d)} onHome={home} onEnd={setEnded} />
+        <StageAnswer key={`${playing}:${playKey}`} content={answer.content} live={playing === lastAnswer && !busy} onTap={tap} onAnswers={answerAll} Text={Text} go={go} active={!record && !typing && onChat} onEdge={(d) => goIndex(at + d)} onHome={home} onEnd={setEnded} at={answer.at} />
         {toast ? <div className="ys-went" role="status">{toast}</div> : null}
         {went ? <div className="ys-went">Taking you to <a href={went.path} onClick={(e) => { e.preventDefault(); go(went.path); }}>{went.label}</a></div> : null}
       </>
@@ -548,20 +568,16 @@ export default function ChatFab() {
                   <div className="yc-answer yc-hello"><div className="yc-part yc-part-text"><p>{HELLO}</p></div></div>
                   {!msgs.length ? <p className="ys-sub">Nothing yet. What you say and what Yui shows land here.</p> : null}
                   {msgs.map((m, i) => {
-                    if (m.card === "went") return <div key={i} className="yc-went">Opened <a href={m.path} onClick={(e) => { e.preventDefault(); go(m.path); }}>{m.label}</a></div>;
-                    if (m.card === "stopped") return <div key={i} className="yc-went yc-stopped">{STOPPED}</div>;
-                    if (m.card === "contact") return null; // cards from before the Yui form
-                    if (m.role === "user") {
-                      const typed = readTyped(m.content);
-                      return (
-                        <div key={i} className={`yc-msg yc-user${m.label ? " yc-tapped" : ""}`}>
-                          <p>{m.label || typed?.words || m.content}</p>
-                          {typed ? <button className="yc-from" onClick={() => { setRecord(false); setPageAt(typed.screen); }}>From screen {typed.screen}</button> : null}
-                        </div>
-                      );
-                    }
-                    return <Answer key={i} content={m.content} go={go} onTap={tap} live={i === lastAnswer && !busy} onPage={(k) => { setRecord(false); setPageAt(k); }}
-                      onPlay={() => replay(i)} />;
+                    const row = rowOf(m, i);
+                    if (!row) return null;
+                    const { day, time } = stamp[i];
+                    return (
+                      <Fragment key={i}>
+                        {day ? <div className="yc-day" role="separator">{day}</div> : null}
+                        {row}
+                        {time ? <div className={`yc-when${m.role === "user" ? " yc-when-user" : ""}`}>{time}</div> : null}
+                      </Fragment>
+                    );
                   })}
                 </div>
               </div>

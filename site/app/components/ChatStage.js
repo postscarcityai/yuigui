@@ -3,9 +3,11 @@
 // at a time, a line and one picture each, drawn with the playground's renderers. A tap goes on, a tap
 // on the left third goes back, the arrow keys too. Questions come after the last chunk, under it, with
 // one Send (a single question sends on its own tap). The chat under it is the record (ChatFab).
+// SITE-99: the answer's own time sits above it in small type, so an old answer never reads as new.
 // Its own file so the renderers load only when there is an answer to play.
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { readAnswer } from "../../lib/chat/stage.mjs";
+import { stageTime } from "../../lib/chat/when.mjs";
 import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, TABLES } from "../playground/presets";
 import { Group, groupNodes, question, show, VALUE } from "../playground/flows";
@@ -45,7 +47,7 @@ function Chunk({ a, c, dir, emitFor, Text, go, small, home }) {
   );
 }
 
-export default function ChatStage({ content, live, onTap, onAnswers, Text, go, active = true, onEdge, onHome, onEnd }) {
+export default function ChatStage({ content, live, onTap, onAnswers, Text, go, active = true, onEdge, onHome, onEnd, at: sentAt }) {
   const a = useMemo(() => readAnswer(content), [content]);
   const n = a.chunks.length;
   const [at, setAt] = useState(0);
@@ -115,6 +117,7 @@ export default function ChatStage({ content, live, onTap, onAnswers, Text, go, a
         </div>
       ) : null}
       <div className="ys-scroll">
+        {sentAt ? <time className="ys-when" dateTime={new Date(sentAt).toISOString()}>{stageTime(sentAt)}</time> : null}
         {c ? <Chunk key={`${c.key}:${at}`} a={a} c={c} dir={dir} emitFor={emitFor} Text={Text} go={go} small={asking} home={onHome} /> : null}
         {asking ? (
           <div className="ys-qs">
