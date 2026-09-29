@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-28T23:40:39.627Z",
+  "updated": "2026-09-29T03:10:49.303Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -316,6 +316,12 @@
       "title": "Building",
       "cards": [
         {
+          "key": "YUI-169",
+          "title": "Several chats per agent, listed in the drawer",
+          "summary": "Several chats with one agent: the spec and a mock",
+          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
+        },
+        {
           "key": "YUI-183",
           "title": "Basil's tools",
           "summary": "Your nutritionist plans your meals",
@@ -408,13 +414,6 @@
           "summary": "Record a take, plug in a keyboard",
           "blocked": "chris",
           "progress": "/progress#record-a-take-plug-in-a-keyboard"
-        },
-        {
-          "key": "YUI-169",
-          "title": "Several chats per agent, listed in the drawer",
-          "summary": "Several chats with one agent: the spec and a mock",
-          "blocked": "chris",
-          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
         },
         {
           "key": "YUI-172",
