@@ -1487,6 +1487,10 @@
     {
       "text": "Every full-screen answer has a way home: close mid-plan, Back home at the end, pull the card down. Local only, nothing sent",
       "card": "YUI-195"
+    },
+    {
+      "text": "A real body text style: big type for one short line, body for everything longer, markdown drawn",
+      "card": "YUI-196"
     }
   ]
 }

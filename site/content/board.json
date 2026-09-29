@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T06:40:32.366Z",
+  "updated": "2026-09-29T07:10:35.167Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -489,9 +489,8 @@
           "waiting": true
         },
         {
-          "key": "YUI-196",
-          "title": "A real body text style",
-          "summary": "Big type only for one-line headlines, longer text reads as body"
+          "key": "YUI-205",
+          "title": "A chart on the full-screen stage draws edge to edge, the whole page is wider than the phone"
         },
         {
           "key": "INT-8",
@@ -568,6 +567,13 @@
           "summary": "A way home from every full-screen answer",
           "blocked": "other",
           "progress": "/progress#a-way-home-from-every-full-screen-answer"
+        },
+        {
+          "key": "YUI-196",
+          "title": "A real body text style",
+          "summary": "Long answers read as body text, and markdown is drawn",
+          "blocked": "other",
+          "progress": "/progress#long-answers-read-as-body-text-and-markdown-is-drawn"
         }
       ]
     },
