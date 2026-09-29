@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T18:10:26.720Z",
+  "updated": "2026-09-29T18:40:31.856Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -16,12 +16,6 @@
         {
           "key": "YUI-34",
           "title": "Key vault for bring-your-own keys",
-          "waiting": true
-        },
-        {
-          "key": "YUI-34",
-          "title": "Key vault native in the app",
-          "step": "Step 2",
           "waiting": true
         },
         {
@@ -237,6 +231,12 @@
           "waiting": true
         },
         {
+          "key": "INT-24",
+          "title": "Yui plugs into every model provider's ecosystem on launch day",
+          "summary": "Sign in with ChatGPT, ChatGPT plugin extensions, the app marketplaces; a standing watch across providers",
+          "waiting": true
+        },
+        {
           "key": "BIZ-7",
           "title": "Brand direction"
         },
@@ -306,6 +306,12 @@
           "waiting": true
         },
         {
+          "key": "YUI-34",
+          "title": "Key vault native in the app, tool keys at every stop",
+          "step": "Step 2",
+          "waiting": true
+        },
+        {
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
           "waiting": true
@@ -323,8 +329,9 @@
         },
         {
           "key": "YUI-139",
-          "title": "Free turns and your own key",
-          "summary": "100 a month on Yui, then OpenRouter sign-in or any provider key",
+          "title": "Your own key at every stop",
+          "step": "Step 2",
+          "summary": "Claude and ChatGPT keys, OpenRouter sign-in, your own computer",
           "waiting": true
         },
         {
@@ -474,8 +481,7 @@
         },
         {
           "key": "YUI-209",
-          "title": "Hold to talk keeps every word; a long prompt with pauses no longer comes through as only the last few words",
-          "waiting": true
+          "title": "Hold to talk keeps every word; a long prompt with pauses no longer comes through as only the last few words"
         },
         {
           "key": "YUI-116",
