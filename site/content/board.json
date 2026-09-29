@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T19:10:34.724Z",
+  "updated": "2026-09-29T19:40:40.935Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.3",
@@ -181,8 +181,8 @@
         },
         {
           "key": "YUI-210",
-          "title": "Your $U in the app, trickling in as you use Yui",
-          "summary": "The counter, coins, streak and today meter"
+          "title": "Your $U in the left drawer",
+          "summary": "Your profile top left, your $U top right, counting up when you open it"
         },
         {
           "key": "SITE-28",
@@ -372,6 +372,15 @@
           "waiting": true
         },
         {
+          "key": "NOTE-31134",
+          "title": "Agent picker only in the drawer"
+        },
+        {
+          "key": "YUI-211",
+          "title": "Better typography, a sleek sans serif as the base Yui look",
+          "waiting": true
+        },
+        {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4",
@@ -386,11 +395,6 @@
           "summary": "Several chats with one agent: the spec and a mock",
           "blocked": "chris",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
-        },
-        {
-          "key": "NOTE-31134",
-          "title": "Agent picker only in the drawer",
-          "blocked": "other"
         }
       ]
     },
