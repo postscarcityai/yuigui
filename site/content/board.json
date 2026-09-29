@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T20:10:56.470Z",
+  "updated": "2026-09-29T20:40:52.984Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.3",
@@ -280,12 +280,6 @@
           "summary": "Create, edit, fork and remove a native agent from chat"
         },
         {
-          "key": "YUI-139",
-          "title": "F",
-          "step": "Step 2",
-          "summary": "Key spec and demo on www.yuigui.com"
-        },
-        {
           "key": "YUI-169",
           "title": "A",
           "step": "Step 2",
@@ -377,9 +371,10 @@
         },
         {
           "key": "YUI-139",
-          "title": "E",
+          "title": "G",
           "step": "Step 2",
-          "summary": "Key sheet in the app, every place to add one"
+          "summary": "Pick which key each agent runs on",
+          "progress": "/progress#pick-which-key-each-agent-runs-on"
         },
         {
           "key": "YUI-116",
@@ -412,6 +407,20 @@
       "cards": [
         {
           "key": "YUI-139",
+          "title": "F",
+          "step": "Step 2",
+          "summary": "Key spec and demo on www.yuigui.com",
+          "shipped": "2026-09-29"
+        },
+        {
+          "key": "YUI-139",
+          "title": "E",
+          "step": "Step 2",
+          "summary": "Key sheet in the app, every place to add one",
+          "shipped": "2026-09-29"
+        },
+        {
+          "key": "YUI-139",
           "title": "B",
           "step": "Step 2",
           "summary": "OpenRouter sign-in with no paste, and My computer",
@@ -428,8 +437,9 @@
           "key": "YUI-139",
           "title": "Your own key at every stop",
           "step": "Step 2",
-          "summary": "Claude and ChatGPT keys, OpenRouter sign-in, your own computer",
-          "shipped": "2026-09-29"
+          "summary": "Your own key, at every stop",
+          "shipped": "2026-09-29",
+          "progress": "/progress#your-own-key-at-every-stop"
         },
         {
           "key": "NOTE-31134",

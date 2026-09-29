@@ -1585,6 +1585,15 @@
     },
     {
       "text": "Own key: OpenRouter one-tap sign-in (PKCE) and My computer (keyless, reach check) (YUI-139 step 2b, server half)"
+    },
+    {
+      "text": "Your own key at every stop in the app: one plain key form (plan line, where to make a key, add Yui in Claude or ChatGPT) in Settings, the limit card, Add agent and Controls > Model (YUI-139 step 2e)"
+    },
+    {
+      "text": "Per-agent model key: one agent on Claude, the rest on Yui (YUI-139 step 2f, server half)"
+    },
+    {
+      "text": "Controls > Model: pick which key each agent runs on, Yui's, Claude or ChatGPT (YUI-139 step 2g)"
     }
   ]
 }
