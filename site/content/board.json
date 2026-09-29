@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T22:41:09.801Z",
+  "updated": "2026-09-29T23:12:01.116Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.3",
@@ -295,6 +295,14 @@
           "key": "YUI-169",
           "title": "Ship",
           "summary": "TestFlight build, progress.json entry, demo live on yuigui.com"
+        },
+        {
+          "key": "NOTE-18568",
+          "title": "Say 'Invite: Declined', nothing more"
+        },
+        {
+          "key": "NOTE-48845",
+          "title": "Draw the X, show the worker"
         }
       ]
     },
@@ -331,6 +339,14 @@
           "waiting": true
         },
         {
+          "key": "YUI-116",
+          "title": "Tuner + metronome in the app",
+          "step": "Step 4",
+          "summary": "A tuner and a metronome in the app",
+          "waiting": true,
+          "progress": "/progress#a-tuner-and-a-metronome-in-the-app"
+        },
+        {
           "key": "YUI-183",
           "title": "B (first after 0.6.0, NATIVE + APP)",
           "summary": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
@@ -353,23 +369,33 @@
           "waiting": true
         },
         {
+          "key": "YUI-34",
+          "title": "Key vault native in the app, tool keys at every stop",
+          "step": "Step 2"
+        },
+        {
           "key": "YUI-191",
           "title": "Hold the app icon for your agents' shortcuts",
           "summary": "Basil's Log food first, you pick which ones show"
         },
         {
-          "key": "SITE-106",
-          "title": "Proposals carry credits and a trail",
-          "summary": "Who proposed it, what sparked it, who took it, card, branch, PR, release",
+          "key": "YUI-209",
+          "title": "Tapping Decline on an invite request does nothing; the row stays 'requested' and the ask comes back",
           "waiting": true
         },
         {
-          "key": "YUI-116",
-          "title": "Tuner + metronome in the app",
-          "step": "Step 4",
-          "summary": "A tuner and a metronome in the app",
-          "blocked": "chris",
-          "progress": "/progress#a-tuner-and-a-metronome-in-the-app"
+          "key": "YUI-210",
+          "title": "Jev at our first two decision points, measured against today",
+          "waiting": true
+        },
+        {
+          "key": "SITE-106",
+          "title": "Proposals carry credits and a trail",
+          "summary": "Who proposed it, what sparked it, who took it, card, branch, PR, release"
+        },
+        {
+          "key": "NOTE-43932",
+          "title": "Shorter answers, drawn not typed"
         },
         {
           "key": "YUI-169",
@@ -384,12 +410,6 @@
           "title": "D",
           "step": "Step 2",
           "summary": "Score Claude, ChatGPT, Gemini, Grok, then turn them on",
-          "blocked": "chris"
-        },
-        {
-          "key": "YUI-34",
-          "title": "Key vault native in the app, tool keys at every stop",
-          "step": "Step 2",
           "blocked": "chris"
         }
       ]
