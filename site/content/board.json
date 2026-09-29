@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T17:10:19.016Z",
+  "updated": "2026-09-29T17:40:23.581Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -473,8 +473,8 @@
           "waiting": true
         },
         {
-          "key": "SITE-102",
-          "title": "Serve /favicon.ico on yuigui.com so Google swaps the gray globe for the Yui icon",
+          "key": "YUI-209",
+          "title": "Hold to talk keeps every word; a long prompt with pauses no longer comes through as only the last few words",
           "waiting": true
         },
         {
@@ -504,6 +504,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-102",
+          "title": "Serve /favicon.ico on yuigui.com so Google swaps the gray globe for the Yui icon",
+          "summary": "The Yui icon in browser tabs and Google",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-yui-icon-in-browser-tabs-and-google"
+        },
         {
           "key": "YUI-199",
           "title": "B (next, APP, Chris's feedback)",

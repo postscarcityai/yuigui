@@ -1557,6 +1557,10 @@
     },
     {
       "text": "A notification tap opens on page one of what came, not the last (YUI-199b)"
+    },
+    {
+      "text": "The thread lets go of the older rows the moment it is back at the newest, arrow or not: the window stayed at every row drawn on the way up until the agent changed, ~35 MB",
+      "card": "YUI-207"
     }
   ]
 }
