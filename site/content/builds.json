@@ -1548,6 +1548,9 @@
     {
       "text": "Hold the mic: slide left to cancel, slide up onto a lock to keep recording; drop the stray listening orb",
       "card": "YUI-201"
+    },
+    {
+      "text": "The visualizer shares one Metal device, queue and pipeline cache across threads (0.6.0 memory growth)"
     }
   ]
 }

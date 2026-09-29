@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T12:14:33.428Z",
+  "updated": "2026-09-29T12:40:29.469Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -434,6 +434,26 @@
         {
           "key": "NOTE-17097",
           "title": "Start a workout, log every set",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-31134",
+          "title": "Agent picker only in the drawer",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-54934",
+          "title": "Past chats in the drawer",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-61013",
+          "title": "Recording keeps you playing",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-18306",
+          "title": "Tuner as Gouda's last screen",
           "waiting": true
         },
         {
