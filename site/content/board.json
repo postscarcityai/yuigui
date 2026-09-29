@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T11:11:13.425Z",
+  "updated": "2026-09-29T11:40:18.987Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -33,12 +33,6 @@
           "key": "YUI-40",
           "title": "Widgets and Siri",
           "summary": "Agents outside the app",
-          "waiting": true
-        },
-        {
-          "key": "YUI-40",
-          "title": "Widgets native in the app",
-          "step": "Step 2",
           "waiting": true
         },
         {
@@ -101,11 +95,6 @@
         {
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
-          "waiting": true
-        },
-        {
-          "key": "YUI-128",
-          "title": "About and Controls become one drawer tab",
           "waiting": true
         },
         {
@@ -184,12 +173,6 @@
           "key": "YUI-179",
           "title": "Yui for Apple TV",
           "summary": "Timers and the stage on the big screen"
-        },
-        {
-          "key": "YUI-191",
-          "title": "Hold the app icon for your agents' shortcuts",
-          "summary": "Basil's Log food first, you pick which ones show",
-          "waiting": true
         },
         {
           "key": "SITE-28",
@@ -307,6 +290,22 @@
       "title": "Building",
       "cards": [
         {
+          "key": "YUI-40",
+          "title": "Widgets native in the app",
+          "step": "Step 2",
+          "waiting": true
+        },
+        {
+          "key": "YUI-128",
+          "title": "About and Controls become one drawer tab",
+          "waiting": true
+        },
+        {
+          "key": "YUI-172",
+          "title": "Register Yui iOS app in Firebase, save GoogleService-Info.plist",
+          "waiting": true
+        },
+        {
           "key": "YUI-183",
           "title": "Basil's tools",
           "summary": "Your nutritionist plans your meals",
@@ -345,25 +344,17 @@
           "waiting": true
         },
         {
-          "key": "YUI-189",
-          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show",
-          "summary": "The screen dots move into the bottom bar",
-          "waiting": true,
-          "progress": "/progress#the-screen-dots-move-into-the-bottom-bar"
-        },
-        {
-          "key": "YUI-190",
-          "title": "Stop a turn from the main screen",
-          "summary": "Stop a reply from the main screen",
-          "waiting": true,
-          "progress": "/progress#stop-a-reply-from-the-main-screen"
-        },
-        {
           "key": "YUI-183",
-          "title": "B (backlog, NATIVE + APP)",
+          "title": "B (next after 0.6.0, NATIVE + APP)",
           "summary": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
           "waiting": true,
           "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
+        },
+        {
+          "key": "YUI-191",
+          "title": "Hold the app icon for your agents' shortcuts",
+          "summary": "Basil's Log food first, you pick which ones show",
+          "waiting": true
         },
         {
           "key": "NOTE-56810",
@@ -379,13 +370,6 @@
           "key": "NOTE-42002",
           "title": "Keep whole thoughts together",
           "waiting": true
-        },
-        {
-          "key": "YUI-193",
-          "title": "Screen pills replace the dots, like browser tabs, and the active one follows your swipe",
-          "summary": "Screens get pills, like browser tabs",
-          "waiting": true,
-          "progress": "/progress#screens-get-pills-like-browser-tabs"
         },
         {
           "key": "NOTE-41262",
@@ -450,12 +434,6 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "YUI-111",
-          "title": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
-          "step": "Step 3",
-          "blocked": "chris"
-        },
-        {
           "key": "YUI-116",
           "title": "Tap-to-sound on a real iPhone",
           "step": "Step 2 proof",
@@ -468,19 +446,6 @@
           "summary": "A tuner and a metronome in the app",
           "blocked": "chris",
           "progress": "/progress#a-tuner-and-a-metronome-in-the-app"
-        },
-        {
-          "key": "YUI-116",
-          "title": "Recording, export, MIDI and Ableton Link",
-          "step": "Step 5",
-          "summary": "Record a take, plug in a keyboard",
-          "blocked": "chris",
-          "progress": "/progress#record-a-take-plug-in-a-keyboard"
-        },
-        {
-          "key": "YUI-172",
-          "title": "Finish the Firebase iOS app setup on Chris's Mac and save GoogleService-Info.plist",
-          "blocked": "chris"
         },
         {
           "key": "YUI-169",
@@ -502,6 +467,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-116",
+          "title": "Recording, export, MIDI and Ableton Link",
+          "step": "Step 5",
+          "summary": "Record a take, plug in a keyboard",
+          "shipped": "2026-09-29",
+          "progress": "/progress#record-a-take-plug-in-a-keyboard"
+        },
+        {
+          "key": "YUI-111",
+          "title": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
+          "step": "Step 3",
+          "shipped": "2026-09-29"
+        },
         {
           "key": "SITE-101",
           "title": "Meet the crew with their own quiet visualizers moving on /crew",
