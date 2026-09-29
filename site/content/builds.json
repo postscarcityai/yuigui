@@ -1483,6 +1483,10 @@
     {
       "text": "The agent bar is back at the bottom of the left drawer: tap it and the switcher springs up",
       "card": "YUI-194"
+    },
+    {
+      "text": "Every full-screen answer has a way home: close mid-plan, Back home at the end, pull the card down. Local only, nothing sent",
+      "card": "YUI-195"
     }
   ]
 }

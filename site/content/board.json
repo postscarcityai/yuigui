@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T06:10:24.618Z",
+  "updated": "2026-09-29T06:40:32.366Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -294,11 +294,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-196",
-          "title": "A real body text style",
-          "summary": "Big type only for one-line headlines, longer text reads as body"
-        },
-        {
           "key": "YUI-198",
           "title": "The stage splits a sentence at a version number, '0.6.0' becomes '0' on its own screen"
         },
@@ -494,9 +489,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-195",
-          "title": "Every full-screen step has a way out",
-          "summary": "Back home at the end, pull down to dismiss, no tokens spent"
+          "key": "YUI-196",
+          "title": "A real body text style",
+          "summary": "Big type only for one-line headlines, longer text reads as body"
         },
         {
           "key": "INT-8",
@@ -566,6 +561,13 @@
           "key": "YUI-194",
           "title": "The agent picker goes back to the bottom of the left drawer, the way it was",
           "blocked": "other"
+        },
+        {
+          "key": "YUI-195",
+          "title": "Every full-screen step has a way out",
+          "summary": "A way home from every full-screen answer",
+          "blocked": "other",
+          "progress": "/progress#a-way-home-from-every-full-screen-answer"
         }
       ]
     },
