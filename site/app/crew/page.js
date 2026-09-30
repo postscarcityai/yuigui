@@ -4,6 +4,7 @@
 import Link from "next/link";
 import LivePhone from "../mockups/LivePhone";
 import CrewVisual from "./CrewVisual";
+import FirstPlanPlay from "./FirstPlanPlay";
 import { CREW_VISUALS } from "../../lib/yl/visual.mjs";
 import FirstRunHero from "../proposals/FirstRunHero";
 import AgentBox from "../components/AgentBox";
@@ -51,6 +52,8 @@ export default async function Crew() {
         <p className="lede">A new account does not get six threads. Yui asks who joins. Tap a row to add it, tap the i for a short page on what it does, or bring an agent you already run.</p>
         <p className="crew-links"><Link href="/proposals/pick-your-crew" prefetch={false}>Read the proposal</Link></p>
       </FirstRunHero>
+
+      <FirstPlanPlay />
 
       {MEMBERS.map((m, i) => (
         <section key={m.handle} id={m.handle} className={`crew-m${i % 2 ? " flip" : ""}`} style={{ "--cm": m.c, "--cp": `var(--${m.color})` }} aria-labelledby={`${m.handle}-h`}>

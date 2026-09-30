@@ -16,13 +16,13 @@ function build(text) {
   return s;
 }
 
-export default function Screen({ yl, agent, light }) {
+export default function Screen({ yl, agent, light, onTap }) {
   const [state, setState] = useState(() => build(yl));
   const [live, setLive] = useState({});
   const [tapped, setTapped] = useState(null);
   const onLive = useCallback((k, t) => setLive((l) => (l[k] === t ? l : { ...l, [k]: t })), []);
   const dispatch = useCallback((op) => setState((s) => apply(s, op)), []);
-  const emit = useCallback((node) => (value) => setTapped({ id: node.id, preset: node.preset, ...value }), []);
+  const emit = useCallback((node) => (value) => { setTapped({ id: node.id, preset: node.preset, ...value }); if (onTap) onTap({ preset: node.preset, ...value }); }, [onTap]);
 
   const shown = state.focus === "full" ? "1" : state.focus;
   const all = state.screens[shown] || [];
