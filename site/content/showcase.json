@@ -140,7 +140,8 @@
     "YUI-112": {"title": "A timeline alone on the stage keeps its row heights", "shipped": "2026-09-26"},
     "YUI-135": {"title": "The starter crew stays in character", "shipped": "2026-09-27"},
     "YUI-165": {"title": "Every crew agent says what it does", "shipped": "2026-09-27"},
-    "YUI-170": {"title": "Every agent keeps its own little database", "shipped": "2026-09-27"}
+    "YUI-170": {"title": "Every agent keeps its own little database", "shipped": "2026-09-27"},
+    "YUI-220": {"title": "Arnold coaches a timed workout, start to finish", "shipped": "2026-09-30"}
   },
   "groups": [
     {
@@ -517,7 +518,8 @@
         { "id": "own-model", "title": "Your own model", "what": "A model you run yourself with Ollama, LM Studio or vLLM joins through the model bridge. Yui sends it the channel guide and the thread every turn, so even a small local model draws screens and remembers your taps.", "cards": ["INT-12"], "app": "native", "shots": ["/progress/int12-screen-light.webp", "/progress/int12-tap-light.webp", "/progress/int12-remembers-dark.webp"] },
         { "id": "telegram", "title": "Yui screens in Telegram", "what": "When the app is not around, the same screen reaches you in Telegram. Questions are buttons under the message and a tap answers your agent. A timer, a chart or a form opens in a Telegram Mini App, in the chat's own colors.", "cards": ["INT-4"], "app": "site", "shots": ["/progress/int4-questions-light.webp", "/progress/int4-open-in-yui-dark.webp", "/progress/int4-chart-dark.webp"] },
         { "id": "read-as-pages", "title": "Long messages read as pages", "what": "A long agent message never fills the chat. It folds to its first lines and a Read as pages button, which opens it as pages you swipe through, one idea per page.", "cards": ["YUI-79"], "agent": "Yui", "app": "native", "shots": ["/progress/pages-050-folded-dark.webp", "/progress/pages-050-page-light.webp", "/progress/pages-050-next-dark.webp"] },
-        { "id": "story-pages", "title": "Full-screen pages tell a story", "what": "Full screen is the whole stage, with no card on it. One idea per page, the headline set big and sized to its words, the body in a quieter voice, and words that spring on and off with the page. In the chat, the same deck waits folded until you open it.", "cards": ["YUI-82"], "app": "native", "shots": ["/progress/story-050-page-dark.webp", "/progress/story-050-deck-light.webp", "/progress/story-050-record-dark.webp"] }
+        { "id": "story-pages", "title": "Full-screen pages tell a story", "what": "Full screen is the whole stage, with no card on it. One idea per page, the headline set big and sized to its words, the body in a quieter voice, and words that spring on and off with the page. In the chat, the same deck waits folded until you open it.", "cards": ["YUI-82"], "app": "native", "shots": ["/progress/story-050-page-dark.webp", "/progress/story-050-deck-light.webp", "/progress/story-050-record-dark.webp"] },
+        { "id": "timed-workout", "title": "Your workout runs on its own clock", "what": "Tap Start and the session runs itself: a work set, the rest countdown with what is next, the next set, the next move. Arnold gives one line per move. Heavy lifters get a to-failure last set with a big Stop that logs the reps.", "cards": ["YUI-220"], "agent": "Yui", "app": "native", "shots": ["/progress/yui220-dark-work.webp", "/progress/yui220-dark-rest.webp", "/progress/yui220-dark-failure.webp", "/progress/yui220-dark-finish.webp", "/progress/yui220-light-rest.webp", "/progress/yui220-light-failure.webp"] }
       ]
     },
     {
