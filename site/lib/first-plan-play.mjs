@@ -55,12 +55,15 @@ const focuses = (goal, n) => {
   return Array.from({ length: n }, (_, i) => (i === 1 ? "Full body" : "Cardio"));
 };
 
-function workout(focus, kit, eff, heavy) {
+// The moves of one session, as data. The week table writes them as text, the timed session (SITE-141) runs them.
+export function movesFor(focus, kit, eff, heavy) {
   const swaps = SWAPS[kit];
   const moves = MOVES[focus].map((m) => swaps[m] ?? m).filter((m, i, a) => a.indexOf(m) === i);
   const [sets, reps] = heavy && eff === "failure" ? [4, 6] : eff === "ease" ? [2, 10] : heavy ? [3, 8] : [3, 10];
-  return moves.map((m) => (m === "Plank" ? "Plank 3x30s" : CORE.has(m) ? `${m} 3x10` : `${m} ${sets}x${reps}`)).join(", ");
+  return moves.map((name) => (name === "Plank" ? { name, sets: 3, secs: 30 } : CORE.has(name) ? { name, sets: 3, reps: 10 } : { name, sets, reps }));
 }
+
+const workout = (focus, kit, eff, heavy) => movesFor(focus, kit, eff, heavy).map((m) => `${m.name} ${m.sets}x${m.secs ? `${m.secs}s` : m.reps}`).join(", ");
 
 // Rows of { day, focus, workout, minutes }: seven days, rest days included, like This week in the app.
 export function weekFor(answers) {
@@ -98,13 +101,64 @@ export function planLines(answers) {
   const a = norm(answers);
   const t = today(a);
   const rows = weekFor(a).map((r) => q(`${r.day}|${r.focus}|${r.focus === "Rest" ? "-" : `${r.minutes} min`}`)).join(" ");
-  return `say Your week is built. It is a starting point. Change any day, any time.\ntable Week Day|Focus|Time ${rows}\ncard ${q(t.title)} body=${q(t.body)} cta="Start"`;
+  return `say Your week is built. It is a starting point. Change any day, any time.\ntable Week Day|Focus|Time ${rows}\ncard ${q(t.title)} body=${q(t.body)} cta="Start today"`;
 }
 
 export const startLines = (answers) => {
   const t = today(answers);
   return `say ${t.title}. Warm up two minutes, then go.\ntimer 2m Warm-up +inline\nlist "Warm up"|"Work sets"|"Last set, safe stop"|"Cool down" +check`;
 };
+
+// The timed session (SITE-141, the web twin of YUI-220): a work set, the rest countdown with its Next line, the next
+// move, no taps between, a finish card. The words are the app's (runtime/src/workouts.ts coachCue, WorkoutSession.swift).
+export const FAIL_LINE = "To failure. Stop when form breaks.";
+const NO_FAILURE = /\b(?:plank|dead bug|bird dog|glute bridge|bridge|walk|stretch)\b/i;
+
+// Arnold's one line for a move, caveman voice.
+export function coachCue(name) {
+  const n = name.toLowerCase();
+  if (/plank|hollow|hold/.test(n)) return "Straight line. Squeeze everything.";
+  if (/dead bug|bird dog/.test(n)) return "Slow. Low back stays down.";
+  if (/deadlift|rdl|romanian|bridge/.test(n)) return "Flat back. Hips back.";
+  if (/squat|lunge|step/.test(n)) return "Brace. Knees out. Drive up.";
+  if (/press|push|bench|dip/.test(n)) return "Brace. Slow down.";
+  if (/row|pull|lat|curl/.test(n)) return "Chest up. Pull, pause, lower.";
+  return "Slow down. Own every rep.";
+}
+
+// Demo timing so a visitor sees the whole session in about a minute: three moves, three sets, short clocks.
+export const DEMO = { moves: 3, sets: 3, work: 4, rest: 3, failAuto: 6 };
+
+// Steps: { kind: "work" | "fail" | "rest", move, of, set, sets, seconds, name, cue, next }. seconds 0 = open ended
+// (the to-failure set waits for Stop). Only a heavy lifter (Lifted for years) ever gets a fail step, and never on a
+// plank or a hold: the app's rule.
+export function sessionFor(answers, demo = DEMO) {
+  const a = norm(answers);
+  const t = today(a), eff = effort(a.level);
+  const day = weekFor(a).find((r) => r.focus !== "Rest");
+  if (day.focus === "Cardio") {
+    const step = { kind: "work", move: 0, of: 1, set: 1, sets: 1, seconds: demo.work * 4, name: day.workout, cue: "Go at a pace you can talk at." };
+    return { title: t.title, heavy: false, moves: [day.workout], steps: [step] };
+  }
+  const heavy = /^Lift/.test(GOALS.includes(a.goal) ? a.goal : GOALS[0]);
+  const moves = movesFor(day.focus, tier(a.gear), eff, heavy).slice(0, demo.moves).map((m) => ({ ...m, sets: Math.min(m.sets, demo.sets) }));
+  const steps = [];
+  moves.forEach((m, mi) => {
+    for (let n = 1; n <= m.sets; n++) {
+      const last = n === m.sets, fail = last && eff === "failure" && !m.secs && !NO_FAILURE.test(m.name) && m.sets > 1;
+      steps.push({ kind: fail ? "fail" : "work", move: mi, of: moves.length, set: n, sets: m.sets, seconds: fail ? 0 : demo.work, name: m.name, cue: coachCue(m.name) });
+      if (!(mi === moves.length - 1 && last)) steps.push({ kind: "rest", move: mi, of: moves.length, set: n, sets: m.sets, seconds: demo.rest, name: m.name, cue: "" });
+    }
+  });
+  // A rest says what is next: the next set of this move, or the next move, else finish. Its cue is for that move.
+  steps.forEach((s, i) => {
+    if (s.kind !== "rest") return;
+    const n = steps.slice(i + 1).find((x) => x.kind !== "rest");
+    s.next = !n ? "Next: finish" : n.set === 1 ? `Next: ${n.name}` : `Next: ${n.name}, set ${n.set} of ${n.sets}`;
+    s.cue = n ? n.cue : "";
+  });
+  return { title: t.title, heavy: steps.some((s) => s.kind === "fail"), moves: moves.map((m) => m.name), steps };
+}
 
 // The playground link opens all five questions and the built week on one screen.
 export const wholeLines = (answers) => `${ASK.map((s) => `choose ${q(s.q)} ${s.options.map(opt).join("|")}`).join("\n")}\n${planLines(answers)}`;

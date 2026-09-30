@@ -107,3 +107,32 @@
   .crew-links:has(.fp-again) { flex-direction: column; gap: 0; }
   .fp-links:has(.fp-again) { align-items: flex-start; }
 }
+
+/* Arnold's timed session (SITE-141): the phone runs it on its own clock. Colours follow the app: work accent, rest mint, to failure butter. */
+.ss { --ss: var(--brand); --ss-ink: #2A2238; display: flex; flex-direction: column; align-items: center; gap: 10px; height: 100%; padding: 22px 18px 18px; background: var(--surface); color: var(--ink); text-align: center; overflow: auto; }
+.ss-rest { --ss: var(--mint); }
+.ss-fail { --ss: var(--butter); }
+.ss-top { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.ss-badge { display: inline-flex; align-items: center; min-height: 32px; padding: 0 16px; border-radius: 999px; background: var(--ss); color: var(--ss-ink); font-weight: 900; font-size: 15px; }
+.ss-where { font-size: var(--fs-small); font-weight: 700; color: var(--muted); }
+.ss-clockwrap { position: relative; display: grid; place-items: center; width: 190px; height: 190px; margin: 6px 0; }
+.ss-ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+.ss-track { fill: none; stroke: var(--raised); stroke-width: 9; }
+.ss-arc { fill: none; stroke: var(--ss); stroke-width: 9; stroke-linecap: round; transition: stroke-dashoffset .25s linear; }
+.ss-clock { position: relative; font-size: 52px; font-weight: 900; font-variant-numeric: tabular-nums; }
+.ss-move { margin: 0; font-size: 26px; line-height: 1.15; }
+.ss-next { margin: 0; font-weight: 800; }
+.ss-cue { margin: 0; color: var(--muted); font-weight: 700; }
+.ss-cue.ss-fail { color: var(--ink); font-weight: 900; padding: 8px 14px; border-radius: 14px; background: var(--butter); color: #2A2238; }
+.ss-acts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: auto; padding-top: 10px; width: 100%; }
+.ss-btn { min-height: 44px; min-width: 44px; padding: 0 22px; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--raised); color: var(--ink); font: inherit; font-weight: 800; cursor: pointer; }
+.ss-btn.ss-main { background: var(--ss); border-color: transparent; color: var(--ss-ink); min-width: 140px; }
+.ss-note { margin: 0; font-size: 12px; color: var(--muted); }
+.ss-done { justify-content: center; gap: 16px; }
+.ss-big { margin: 0; font-size: 30px; }
+.ss-stats { display: flex; gap: 12px; }
+.ss-stats div { display: flex; flex-direction: column; min-width: 120px; padding: 14px; border-radius: 18px; background: var(--raised); }
+.ss-stats b { font-size: 26px; font-variant-numeric: tabular-nums; }
+.ss-stats span { font-size: var(--fs-small); color: var(--muted); font-weight: 700; }
+.ss-done .ss-btn { background: var(--brand); border-color: transparent; color: #2A2238; }
+@media (prefers-reduced-motion: reduce) { .ss-arc { transition: none; } }

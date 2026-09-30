@@ -33,3 +33,65 @@ test("each answer changes the example", () => {
 test("the example is labelled as one", () => {
   for (const h of HANDLES) assert.match(resultLines(h, {}), /Example/);
 });
+
+// SITE-141: Arnold's timed session, the web twin of YUI-220.
+import { DEMO, FAIL_LINE, coachCue, sessionFor } from "./first-plan-play.mjs";
+const heavy = { goal: "Lift heavy", days: "3", time: "45 min", gear: "A gym", level: "Lifted for years" };
+const fresh = { ...heavy, level: "New to lifting" };
+
+test("a session runs work, rest, work with no step missing, and ends on a set", () => {
+  const { steps } = sessionFor(heavy);
+  assert.equal(steps.at(-1).kind !== "rest", true);
+  assert.equal(steps[0].kind, "work");
+  steps.forEach((s, i) => { if (s.kind === "rest") assert.notEqual(steps[i + 1].kind, "rest"); });
+  assert.equal(steps.filter((s) => s.kind === "rest").length, steps.filter((s) => s.kind !== "rest").length - 1);
+});
+
+test("the demo runs in about a minute", () => {
+  for (const a of [heavy, fresh, {}]) {
+    const secs = sessionFor(a).steps.reduce((t, s) => t + (s.kind === "fail" ? DEMO.failAuto : s.seconds), 0);
+    assert.ok(secs >= 30 && secs <= 75, `${secs}s`);
+  }
+});
+
+test("only heavy lifters get a to-failure last set, once per lift, never on a hold", () => {
+  const h = sessionFor(heavy);
+  assert.equal(h.heavy, true);
+  const fails = h.steps.filter((s) => s.kind === "fail");
+  assert.equal(fails.length, h.moves.length);
+  for (const f of fails) { assert.equal(f.set, f.sets); assert.equal(f.seconds, 0); }
+  assert.match(FAIL_LINE, /^To failure\. Stop when form breaks\.$/);
+  for (const a of [fresh, { ...heavy, level: "Some experience" }, {}, { ...heavy, level: "Not sure" }]) {
+    const s = sessionFor(a);
+    assert.equal(s.heavy, false);
+    assert.equal(s.steps.some((x) => x.kind === "fail"), false);
+  }
+  // A plank is never taken to failure, even for a heavy lifter.
+  const core = sessionFor({ ...heavy, days: "5" }, { ...DEMO, moves: 6 });
+  assert.equal(core.steps.some((s) => s.kind === "fail" && /plank/i.test(s.name)), false);
+});
+
+test("a rest names what is next and carries that move's cue", () => {
+  const { steps } = sessionFor(fresh);
+  const rests = steps.filter((s) => s.kind === "rest");
+  assert.match(rests[0].next, /^Next: .+, set 2 of \d$/);
+  const between = rests.find((r) => /^Next: [^,]+$/.test(r.next) && r.next !== "Next: finish");
+  assert.ok(between, "a rest before the next move");
+  const after = steps[steps.indexOf(between) + 1];
+  assert.equal(between.next, `Next: ${after.name}`);
+  assert.equal(between.cue, after.cue);
+});
+
+test("the coach lines are the app's words", () => {
+  assert.equal(coachCue("Squat"), "Brace. Knees out. Drive up.");
+  assert.equal(coachCue("Bench press"), "Brace. Slow down.");
+  assert.equal(coachCue("Lat pulldown"), "Chest up. Pull, pause, lower.");
+  assert.equal(coachCue("Plank"), "Straight line. Squeeze everything.");
+  assert.equal(coachCue("Burpee"), "Slow down. Own every rep.");
+});
+
+test("a cardio day is one easy block", () => {
+  const s = sessionFor({ goal: "Mostly cardio" });
+  assert.equal(s.steps.length, 1);
+  assert.equal(s.steps[0].cue, "Go at a pace you can talk at.");
+});

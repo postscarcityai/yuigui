@@ -5,9 +5,10 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ASK, SKIPPED, askLines, norm, planLines, startLines, wholeLines } from "../../lib/first-plan-play.mjs";
+import { ASK, SKIPPED, askLines, norm, planLines, wholeLines } from "../../lib/first-plan-play.mjs";
 import { encodeYL } from "../../lib/share-code.mjs";
 import usePrefs from "../proposals/usePrefs";
+import SessionPlay from "./SessionPlay";
 
 const Live = dynamic(() => import("../mockups/LiveScreen"), { ssr: false, loading: () => <div className="fp-wait">Drawing the screen...</div> });
 
@@ -35,7 +36,7 @@ export default function FirstPlanPlay() {
     } else if (step === LAST && value.cta) setStep(LAST + 1);
   };
   const again = () => { clearTimeout(wait.current); setAns({}); setStep(0); };
-  const lines = step < LAST ? askLines(step) : step === LAST ? planLines(ans) : startLines(ans);
+  const lines = step < LAST ? askLines(step) : planLines(ans);
   const a = norm(ans);
 
   return (
@@ -60,10 +61,10 @@ export default function FirstPlanPlay() {
       <div className="crew-demo fp-demo">
         <div className="phone sc-phone" role="group" aria-label="A live demo of the first plan. Answer five questions and your week is built as a table.">
           <div className="fp-in" key={`${step}${dark}`}>
-            <Live yl={lines} agent="Arnold" light={!dark} onTap={tap} />
+            {step > LAST ? <SessionPlay answers={ans} reduced={reduced} onAgain={() => setStep(LAST)} /> : <Live yl={lines} agent="Arnold" light={!dark} onTap={tap} />}
           </div>
         </div>
-        <p className="crew-try">{step < LAST ? "Tap an answer, Not sure or Skip" : step === LAST ? "Tap Start, or start over and change an answer" : "Tick the steps as you go"}</p>
+        <p className="crew-try">{step < LAST ? "Tap an answer, Not sure or Skip" : step === LAST ? "Tap Start today, or start over and change an answer" : "It runs on its own. No taps between sets"}</p>
       </div>
     </section>
   );
