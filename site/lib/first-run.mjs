@@ -118,7 +118,7 @@ export const OWN = {
   code: "482913",
   codeNote: "Your code, good for 10 minutes",
   choices: [
-    { id: "hermes", name: "Hermes", line: "Three commands, then it is on your phone", cmd: HERMES.pair.replace("123456", "482913"), where: "Run on the machine with Hermes." },
+    { id: "hermes", name: "Hermes", line: "One command, then it is on your phone", cmd: HERMES.one.replace("123456", "482913"), where: "Run on the machine with Hermes." },
     { id: "openclaw", name: "OpenClaw", line: "A channel plugin, one pair command", cmd: "openclaw yui pair 482913", where: "Run on the machine with OpenClaw." },
     { id: "claude-code", name: "Claude Code", line: "Add Yui as an MCP server", cmd: `claude mcp add --transport http yui ${MCP_URL}`, where: "Run in your terminal, then approve it in Yui." },
     { id: "other", name: "Something else", line: "Any agent that answers a web request", cmd: "python3 python/yui_webhook.py pair 482913 --ref my-agent", where: "The webhook bridge, from the app repo." },

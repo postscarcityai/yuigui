@@ -6,13 +6,12 @@ import Cmd from "../components/Cmd";
 import Shots from "../components/Shots";
 import Films from "../components/Films";
 import AgentBox from "../components/AgentBox";
-import { PATHS } from "../../lib/start-paths.mjs";
+import { HERMES, PATHS } from "../../lib/start-paths.mjs";
 import { pageMeta } from "../../lib/og/meta.mjs";
 
-// Shots from build 162 on the simulator, demo account, the pairing flow of YuiPromoTests.testPromoPair (SITE-46).
+// The pairing sheet with its one command (YUI-229), demo account on the simulator.
 const PAIR_SHOTS = [
-  { src: "/progress/site46-code-light.webp", alt: "Add agent in Yui: the new agent Nova with a 6-digit pairing code and the commands to run, light mode" },
-  { src: "/progress/site46-code-dark.webp", alt: "The same pairing code screen in dark mode" },
+  { src: "/progress/yui229-after-pairing-dark.webp", alt: "Add agent in Yui: the new agent Nova with one command to copy, and the 6-digit pairing code below it, dark mode" },
 ];
 const FIRST_SHOTS = [
   { src: "/progress/site46-connected-light.webp", alt: "Nova is connected: a green check, Running on your Mac, and a Say hi to Nova button, light mode" },
@@ -27,7 +26,7 @@ const inline = (t) => t.split("`").map((part, i) => (i % 2 ? <code key={i}>{part
 export const metadata = pageMeta({
   path: "/start",
   title: "Get started | Yui",
-  description: "Connect your agent to the Yui app: Hermes in three steps, or OpenClaw, a webhook, Claude, ChatGPT, Claude Code, Cursor, an A2A agent or a model on your own machine.",
+  description: "Connect your agent to the Yui app: Hermes in two steps, or OpenClaw, a webhook, Claude, ChatGPT, Claude Code, Cursor, an A2A agent or a model on your own machine.",
 });
 
 export default function Start() {
@@ -35,7 +34,7 @@ export default function Start() {
     <>
       <AgentBox path="/start" title="Connect your agent to Yui" paths={["hermes", "connector"]} />
       <div className="eyebrow">Get started</div>
-      <h1>Connect your agent in three steps.</h1>
+      <h1>Connect your agent in two steps.</h1>
       <p className="lede">
         Yui talks to Hermes running on your own Mac or Linux box. If Hermes already answers you somewhere, this takes
         about five minutes.
@@ -72,7 +71,7 @@ export default function Start() {
             )}
             <p>
               A new account has no agents yet. Tap <strong>Add your first agent</strong>, name it, then tap{" "}
-              <strong>Get a pairing code</strong>. The code works once, for 10 minutes. The app shows the commands below
+              <strong>Get a pairing code</strong>. The code works once, for 10 minutes. The app shows one command to run,
               with your code filled in.
             </p>
             <Shots images={PAIR_SHOTS} label="The pairing code in Yui" />
@@ -80,23 +79,15 @@ export default function Start() {
         </li>
         <li>
           <div className="card">
-            <h2>Install the Yui plugin</h2>
-            <p>On the machine that runs Hermes:</p>
-            <Cmd>hermes plugins install postscarcityai/yui/hermes-plugin/yui --enable</Cmd>
-            <p>
-              Running a named profile? Put <code>-p &lt;profile&gt;</code> right after <code>hermes</code>, here and in step 3.
+            <h2>Run one command</h2>
+            <p>On the computer your agent runs on, open a terminal and run this. It installs the plugin, pairs with your code and restarts the gateway.</p>
+            <Cmd multi label="the pairing command">{HERMES.one}</Cmd>
+            <p className="start-code">
+              Your code: <strong>123456</strong>. Swap in the one from the app. It works once, for 10 minutes.
             </p>
-          </div>
-        </li>
-        <li>
-          <div className="card">
-            <h2>Pair and restart the gateway</h2>
-            <p>Use the code from step 1:</p>
-            <Cmd>hermes yui pair 123456</Cmd>
-            <Cmd>hermes gateway restart</Cmd>
             <p>
-              No gateway service yet? <code>hermes gateway install</code> sets one up, or <code>hermes gateway run</code> keeps
-              it in the foreground.
+              No gateway service yet? Run <code>hermes gateway install</code> first, or <code>hermes gateway run</code> to keep
+              it in the foreground. Using a named profile? Put <code>-p &lt;profile&gt;</code> right after <code>hermes</code> in each command.
             </p>
           </div>
         </li>
@@ -151,8 +142,8 @@ export default function Start() {
             &ldquo;invalid_or_expired_code&rdquo; means the code ran out or was used. Tap the agent in the app for a fresh one.
           </li>
           <li>
-            Agent stuck on &ldquo;Waiting to connect&rdquo;? Run <code>hermes yui status</code>. Not paired: run the pair
-            step again. Paired: the gateway is not running, or it was not restarted after pairing.
+            Agent stuck on &ldquo;Waiting to connect&rdquo;? Run <code>hermes yui status</code>. Not paired: run the command
+            again. Paired: run <code>hermes gateway restart</code>, the gateway only connects after a restart.
           </li>
           <li>
             The app says your agent is offline? Its gateway stopped. Run <code>hermes gateway restart</code> on that

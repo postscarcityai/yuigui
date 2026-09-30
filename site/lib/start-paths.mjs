@@ -4,13 +4,14 @@
 
 export const MCP_URL = "https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp";
 
-// The Hermes path, three steps (YUI-23). The same commands are written out in app/start/page.js.
+// The Hermes path (YUI-23): one command that installs, pairs and restarts, like the app's pairing sheet (YUI-229).
 export const HERMES = {
   install: "curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash",
   plugin: "hermes plugins install postscarcityai/yui/hermes-plugin/yui --enable",
   pair: "hermes yui pair 123456",
   restart: "hermes gateway restart",
 };
+HERMES.one = `${HERMES.plugin} && ${HERMES.pair} && ${HERMES.restart}`;
 
 // Not on Hermes? One block per path, each with its one command or URL and its spec page.
 export const PATHS = [

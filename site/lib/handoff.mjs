@@ -33,9 +33,9 @@ Ask them for the code when you reach the pair step. Every 123456 below is that c
 ## Hermes (the main path)
 On the machine that runs Hermes. On a named profile, put \`-p <profile>\` right after \`hermes\` in every command.
 No Hermes yet: \`${HERMES.install}\`
-1. \`${HERMES.plugin}\`
-2. \`${HERMES.pair}\`
-3. \`${HERMES.restart}\` (no gateway service yet: \`hermes gateway install\`, or \`hermes gateway run\` in the foreground)
+Run this one command. It installs the plugin, pairs with the code, and restarts the gateway:
+\`${HERMES.one}\`
+No gateway service yet: \`hermes gateway install\` first, or \`hermes gateway run\` in the foreground.
 
 Check with \`hermes yui status\`. The app flips to connected on its own; your person taps Say hi.
 "invalid_or_expired_code" means the code ran out or was used: ask for a fresh one.

@@ -84,8 +84,8 @@ All three end in the same `yui_agents` row.
 
 1. Agents sheet (the nav's agents button) > Add agent > name it, pick a color > Get a pairing code.
 2. The app creates a pending agent and shows a 6-digit code (10 minutes, single use) plus the command.
-3. On the host: `hermes -p <profile> yui pair <code>`. That binds that profile to the agent. If the machine already has a connector for this user, it is reused; otherwise a new connector is created and its token saved on the machine.
-4. Paired, the sheet waits for the profile's gateway (YUI-64): "One step left", the exact `hermes -p <profile> gateway restart` with a copy button, and "Waiting for its gateway…". The first heartbeat that names the profile flips it to "Coach is connected!". A gateway already running with the plugin picks the new agent up on its next heartbeat, so nothing to do. Until then the agent reads "Not listening yet" in the list and in its edit sheet, which shows the same step.
+3. On the host, one command: `hermes plugins install postscarcityai/yui/hermes-plugin/yui --enable && hermes -p <profile> yui pair <code> && hermes -p <profile> gateway restart` (YUI-229; the sheet shows it with the code filled in and one Copy button). The pair step binds that profile to the agent. If the machine already has a connector for this user, it is reused; otherwise a new connector is created and its token saved on the machine.
+4. Paired, the sheet waits for the profile's gateway (YUI-64). The one command already ends in `gateway restart`, so there is no separate restart step; the sheet just shows "Waiting for its gateway…". The "One step left" restart with its own copy button is only for an agent paired earlier whose gateway never restarted (its edit sheet). The first heartbeat that names the profile flips it to "Coach is connected!". A gateway already running with the plugin picks the new agent up on its next heartbeat, so nothing to do. Until then the agent reads "Not listening yet" in the list and in its edit sheet, which shows the same step.
 
 An agent left pending (sheet closed early) shows "Waiting to connect"; its edit sheet offers a fresh code.
 
