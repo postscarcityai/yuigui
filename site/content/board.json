@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T02:41:34.912Z",
+  "updated": "2026-09-30T03:11:32.685Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -316,11 +316,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-216",
-          "title": "Pick your crew, the first-run picker",
-          "waiting": true
-        },
-        {
           "key": "YUI-217",
           "title": "A first plan in every agent",
           "waiting": true
@@ -340,6 +335,11 @@
         {
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
+          "waiting": true
+        },
+        {
+          "key": "YUI-183b",
+          "title": "After a meal is logged, land on that meal's calories, then Today's macros, not the grocery list",
           "waiting": true
         },
         {
@@ -378,9 +378,50 @@
           "waiting": true
         },
         {
+          "key": "NOTE-2295",
+          "title": "Slide left to a trash can",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-4811",
+          "title": "Typed answers grow past the pill",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-5633",
+          "title": "Drop the looper's Send button",
+          "waiting": true
+        },
+        {
           "key": "NOTE-18306",
           "title": "Tuner as Gouda's last screen",
           "waiting": true
+        },
+        {
+          "key": "NOTE-21045",
+          "title": "The shader is the agent, no blob",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-27331",
+          "title": "Four looks for the stage",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-35460",
+          "title": "A real coach for workouts",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-45919",
+          "title": "Typing, trash and looper fixes",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-49492",
+          "title": "About and Controls in one tab",
+          "waiting": true,
+          "progress": "/progress#the-agent-tab-keys-model-and-your-chats"
         },
         {
           "key": "NOTE-54934",
@@ -393,9 +434,15 @@
           "waiting": true
         },
         {
-          "key": "SITE-111",
-          "title": "Link the 36 shipped cards that still say Needs its demo",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/504aebb",
+          "key": "YUI-219",
+          "title": "A lone ask heading reads the question, not 'One question'",
+          "commit": "https://github.com/postscarcityai/yui/commit/a7e3f9b",
+          "needsDemo": true
+        },
+        {
+          "key": "SITE-113",
+          "title": "Link SITE-111 on the board, and the See it page shows tonight's app changes",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/63afd06",
           "needsDemo": true
         }
       ]
@@ -412,31 +459,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-183b",
-          "title": "After a meal is logged, land on that meal's calories, then Today's macros, not the grocery list",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-27331",
-          "title": "One look: shader, no line blob",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-113",
-          "title": "Link SITE-111 on the board, and the See it page shows tonight's app changes",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-219",
-          "title": "A lone ask heading reads the question, not 'One question'",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-139",
-          "title": "Score Claude, ChatGPT, Gemini, Grok, then turn them on",
-          "step": "Step 2d",
-          "blocked": "chris",
-          "progress": "/progress#your-own-key-at-every-stop",
+          "key": "YUI-216",
+          "title": "Pick your crew, the first-run picker",
           "owner": "CJohnDesign"
         }
       ]
@@ -446,6 +470,22 @@
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "SITE-114",
+          "title": "The site catches up to one Agent tab (YUI-128 web parity)",
+          "summary": "The site shows one Agent tab",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-site-shows-one-agent-tab",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/cc29267"
+        },
+        {
+          "key": "YUI-139",
+          "title": "Score Claude, ChatGPT, Gemini, Grok, then turn them on",
+          "step": "Step 2d",
+          "shipped": "2026-09-29",
+          "progress": "/progress#your-own-key-at-every-stop",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d2966a5"
+        },
+        {
           "key": "NOTE-41795",
           "title": "Asks that show what they mean",
           "shipped": "2026-09-29",
@@ -454,9 +494,9 @@
         {
           "key": "YUI-128",
           "title": "About and Controls become one drawer tab",
-          "summary": "About and Controls are one Agent tab",
+          "summary": "The Agent tab: Keys, Model and your chats",
           "shipped": "2026-09-29",
-          "progress": "/progress#about-and-controls-are-one-agent-tab",
+          "progress": "/progress#the-agent-tab-keys-model-and-your-chats",
           "commit": "https://github.com/postscarcityai/yuigui/commit/939fd40"
         },
         {
@@ -490,6 +530,14 @@
           "shipped": "2026-09-29",
           "progress": "/progress#several-chats-on-your-phone",
           "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b"
+        },
+        {
+          "key": "SITE-111",
+          "title": "Link the 36 shipped cards that still say Needs its demo",
+          "summary": "Shipped tiles now link their demos",
+          "shipped": "2026-09-29",
+          "progress": "/progress#shipped-tiles-now-link-their-demos",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/504aebb"
         },
         {
           "key": "NOTE-62105",

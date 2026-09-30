@@ -1683,6 +1683,15 @@
     {
       "text": "About and Controls become one Agent drawer tab",
       "card": "YUI-128"
+    },
+    {
+      "text": "A lone ask heads itself: drop 'One question' and the filler subtitle (YUI-219,)"
+    },
+    {
+      "text": "A logged meal lands on Today: the asked-about page is sent last (YUI-183b)"
+    },
+    {
+      "text": "YUI-139 2d: turn on Claude, ChatGPT, Gemini, Grok (Chris: no spend, he tests with his own keys)"
     }
   ]
 }
