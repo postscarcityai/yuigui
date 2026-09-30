@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T04:11:23.312Z",
+  "updated": "2026-09-30T04:41:21.671Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -231,6 +231,35 @@
           "summary": "Your profile top left, your $U top right, counting up when you open it"
         },
         {
+          "key": "YUI-220",
+          "title": "Start to finish",
+          "waiting": true
+        },
+        {
+          "key": "YUI-221",
+          "title": "Basil's first plan",
+          "summary": "How you eat, then a week of meals",
+          "waiting": true
+        },
+        {
+          "key": "YUI-222",
+          "title": "Gouda's first plan",
+          "summary": "Your instrument and level, then a practice plan",
+          "waiting": true
+        },
+        {
+          "key": "YUI-223",
+          "title": "Penny's first plan",
+          "summary": "When your week is busy, then a planning routine",
+          "waiting": true
+        },
+        {
+          "key": "YUI-224",
+          "title": "Quill's first plan",
+          "summary": "What you are learning and how long you have, then a study plan",
+          "waiting": true
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -321,11 +350,6 @@
           "summary": "Pick your crew",
           "waiting": true,
           "progress": "/progress#pick-your-crew"
-        },
-        {
-          "key": "YUI-217",
-          "title": "A first plan in every agent",
-          "waiting": true
         },
         {
           "key": "YUI-218",
@@ -420,6 +444,11 @@
           "waiting": true
         },
         {
+          "key": "NOTE-45919",
+          "title": "Typing, trash and looper fixes",
+          "waiting": true
+        },
+        {
           "key": "NOTE-49492",
           "title": "About and Controls in one tab",
           "waiting": true,
@@ -455,8 +484,13 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "NOTE-45919",
-          "title": "Typing, trash and looper fixes",
+          "key": "YUI-217",
+          "title": "A first plan in every agent",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-117",
+          "title": "Link SITE-115, and the site composer catches up to the typing and trash fixes",
           "owner": "CJohnDesign"
         }
       ]
