@@ -139,7 +139,7 @@ function Sequence({ g, id }) {
                 <text className="dg-mtext" x={f1(it.self ? it.x1 + 34 : mx)} y={f1(it.self ? it.y - 6 : it.y - 7 - (it.lines.length - 1) * 16)} textAnchor={it.self ? "start" : "middle"}>
                   {it.lines.map((l, i) => <tspan key={i} x={f1(it.self ? it.x1 + 34 : mx)} dy={i ? 16 : 0}>{l}</tspan>)}
                 </text>
-                {it.n ? <><circle className="dg-num" cx={f1((it.self ? it.x1 + 34 : mx) - (it.self ? 12 : it.tw / 2 + 12))} cy={f1(it.y - 13 - (it.lines.length - 1) * 8)} r={8} /><text className="dg-numt" x={f1((it.self ? it.x1 + 34 : mx) - (it.self ? 12 : it.tw / 2 + 12))} y={f1(it.y - 13 - (it.lines.length - 1) * 8)} textAnchor="middle" dominantBaseline="central">{it.n}</text></> : null}
+                {it.n ? <><circle className="dg-num" cx={f1((it.self ? it.x1 + 34 : mx) - (it.self ? 12 : it.tw / 2 + 12))} cy={f1(it.y - 13 - (it.lines.length - 1) * 8)} r={10} /><text className="dg-numt" x={f1((it.self ? it.x1 + 34 : mx) - (it.self ? 12 : it.tw / 2 + 12))} y={f1(it.y - 13 - (it.lines.length - 1) * 8)} textAnchor="middle" dominantBaseline="central">{it.n}</text></> : null}
               </g>
             );
           }

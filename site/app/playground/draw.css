@@ -21,7 +21,7 @@
 .dg-mtext { fill: var(--yl-ink); font-size: 14px; font-weight: 600; }
 .dg-x { fill: var(--yl-bad); font-size: 18px; font-weight: 800; }
 .dg-num { fill: var(--accent); }
-.dg-numt { fill: var(--screen-bg); font-size: 10px; font-weight: 800; }
+.dg-numt { fill: var(--screen-bg); font-size: 14px; font-weight: 800; }
 .dg-note { fill: color-mix(in srgb, var(--yl-c4) 30%, var(--screen-bg)); stroke: var(--yl-c4); stroke-width: 1.2; }
 .dg-ntext { fill: var(--yl-ink); font-size: 14px; font-weight: 600; }
 .dg-block { fill: color-mix(in srgb, var(--yl-ink) 3%, transparent); stroke: var(--yl-axis); stroke-width: 1.3; }

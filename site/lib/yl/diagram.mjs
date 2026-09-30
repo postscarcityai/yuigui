@@ -24,8 +24,8 @@ const widest = (lines) => Math.max(...lines.map((l) => l.length)) * CHAR;
 // ---------- flowchart and state ----------
 
 // A node's box, in px.
-function sizeOf(n, state) {
-  const lines = wrap(n.label ?? (state && /^_(start|end)/.test(n.id) ? "" : n.id), 18);
+function sizeOf(n, state, at = 18) {
+  const lines = wrap(n.label ?? (state && /^_(start|end)/.test(n.id) ? "" : n.id), at);
   const tw = widest(lines);
   const th = lines.length * 17;
   let w = Math.max(56, tw + 28), h = Math.max(36, th + 18);
@@ -99,21 +99,29 @@ const cubic = (p0, p1, p2, p3, t) => {
 
 // A left-to-right (or right-to-left) chart wider than a phone draws top down
 // instead, so its labels stay readable.
-export const FIT = 360;
+export const FIT = 310;
 
 // A flowchart or state diagram: { type, dir, nodes, edges, groups } to boxes.
 export function layoutGraph(g, fit = FIT) {
-  const first = place(g);
-  if (first.w > fit && (g.dir === "LR" || g.dir === "RL")) {
+  let best = place(g);
+  if (best.w <= fit) return best;
+  const horiz = g.dir === "LR" || g.dir === "RL";
+  if (horiz) {
     const down = place({ ...g, dir: "TD" });
-    if (down.w < first.w) return { ...down, turned: true };
+    if (down.w < best.w) best = { ...down, turned: true };
   }
-  return first;
+  // Still wider than the card: labels wrap shorter until it fits.
+  for (const at of [13, 10]) {
+    if (best.w <= fit) break;
+    const tight = place({ ...g, dir: best.turned ? "TD" : g.dir }, at);
+    if (tight.w < best.w) best = best.turned ? { ...tight, turned: true } : tight;
+  }
+  return best;
 }
 
-function place(g) {
+function place(g, wrapAt = 18) {
   const state = g.type === "state";
-  const nodes = (g.nodes || []).map((n, i) => ({ ...n, order: i, ...sizeOf(n, state) }));
+  const nodes = (g.nodes || []).map((n, i) => ({ ...n, order: i, ...sizeOf(n, state, wrapAt) }));
   const byId = new Map(nodes.map((n) => [n.id, n]));
   const edges = (g.edges || []).filter((e) => byId.has(e.from) && byId.has(e.to));
   const dir = ["TD", "TB", "BT", "LR", "RL"].includes(g.dir) ? g.dir : "TD";
@@ -179,13 +187,29 @@ function place(g) {
         const y = Math.max(a.cy + a.h / 2, b.cy + b.h / 2) + 34;
         p0 = [a.cx, a.cy + a.h / 2]; p3 = [b.cx, b.cy + b.h / 2]; p1 = [a.cx, y]; p2 = [b.cx, y];
       } else {
-        const x = Math.max(a.cx + a.w / 2, b.cx + b.w / 2) + 38;
+        const x = Math.max(a.cx + a.w / 2, b.cx + b.w / 2) + (e.label ? Math.max(38, e.label.length * 5.2 + 20) : 38);
         p0 = [a.cx + a.w / 2, a.cy]; p3 = [b.cx + b.w / 2, b.cy]; p1 = [x, a.cy]; p2 = [x, b.cy];
       }
     }
     const mid = cubic(p0, p1, p2, p3, 0.5);
-    return { ...e, i, pts: [p0, p1, p2, p3], mid, back: back.has(`${e.from}>${e.to}`) || self, order: Math.max(a.order, b.order) };
+    return { ...e, i, pts: [p0, p1, p2, p3], mid, a, b, back: back.has(`${e.from}>${e.to}`) || self, order: Math.max(a.order, b.order) };
   });
+
+  // A label sits on its edge, but never on a node or on another label: it slides
+  // along the curve to the nearest clear spot.
+  const taken = [];
+  for (const e of out) {
+    if (!e.label) continue;
+    const hw = e.label.length * 3.9 + 6, hh = 10;
+    const hits = (m) => nodes.some((n) => m[0] + hw > n.cx - n.w / 2 - 3 && m[0] - hw < n.cx + n.w / 2 + 3 && m[1] + hh > n.cy - n.h / 2 - 3 && m[1] - hh < n.cy + n.h / 2 + 3)
+      || taken.some((t) => Math.abs(t[0] - m[0]) < hw + t[2] && Math.abs(t[1] - m[1]) < hh + 20);
+    for (const t of [0.5, 0.42, 0.58, 0.34, 0.66, 0.26, 0.74, 0.18, 0.82]) {
+      const m = cubic(...e.pts, t);
+      if (!hits(m)) { e.mid = m; break; }
+    }
+    taken.push([e.mid[0], e.mid[1], hw]);
+    delete e.a; delete e.b;
+  }
 
   // Groups: a box round the members, the outer ones round the inner.
   const groups = (g.groups || []).map((gr) => ({ ...gr }));
@@ -229,20 +253,33 @@ function place(g) {
 
 const ROW = 38;
 
-export function layoutSequence(g) {
-  const actors = (g.actors || []).map((a) => ({ ...a, lines: wrap(a.label ?? a.id, 14) }));
+// A sequence diagram wider than a phone card wraps its messages tighter until it fits,
+// so its text stays at full size instead of scrolling sideways.
+export const SEQ_FIT = 260;
+
+export function layoutSequence(g, fit = SEQ_FIT) {
+  let L;
+  for (const wrapAt of [22, 16, 12, 10, 8, 6]) {
+    L = sequence(g, wrapAt);
+    if (L.w <= fit) break;
+  }
+  return L;
+}
+
+function sequence(g, wrapAt) {
+  const actors = (g.actors || []).map((a) => ({ ...a, lines: wrap(a.label ?? a.id, Math.min(14, wrapAt + 2)) }));
   const steps = g.steps || [];
   const n = actors.length;
   if (!n) return { w: 0, h: 0, actors: [], items: [], life: [0, 0] };
   const idx = new Map(actors.map((a, i) => [a.id, i]));
-  const wA = actors.map((a) => Math.max(72, widest(a.lines) + 20));
+  const wA = actors.map((a) => Math.max(wrapAt < 22 ? 52 : 72, widest(a.lines) + 20));
   // Gaps between neighbouring lifelines grow until every message text fits.
-  const gap = wA.map((w, i) => (i < n - 1 ? Math.max(40, (w + wA[i + 1]) / 2 + 10) : 0));
+  const gap = wA.map((w, i) => (i < n - 1 ? Math.max(40, (w + wA[i + 1]) / 2 + (wrapAt < 22 ? 4 : 10)) : 0));
   for (const s of steps) {
     if (s.type !== "msg" && s.type !== "note") continue;
     const ids = s.type === "msg" ? [s.from, s.to] : s.on;
     const lo = Math.min(...ids.map((x) => idx.get(x))), hi = Math.max(...ids.map((x) => idx.get(x)));
-    const need = widest(wrap(s.text, 22)) + 28;
+    const need = widest(wrap(s.text, wrapAt)) + (wrapAt < 22 ? 16 : 28);
     if (hi === lo) continue;
     const have = gap.slice(lo, hi).reduce((a, b) => a + b, 0);
     if (have < need) for (let i = lo; i < hi; i++) gap[i] += (need - have) / (hi - lo);
@@ -262,15 +299,15 @@ export function layoutSequence(g) {
   steps.forEach((s, order) => {
     if (s.type === "msg") {
       const a = xs[idx.get(s.from)], b = xs[idx.get(s.to)];
-      const lines = wrap(s.text, 22);
+      const lines = wrap(s.text, wrapAt);
       const h = Math.max(ROW, lines.length * 16 + 22);
       const self = a === b;
       items.push({ ...s, kind: "msg", order, x1: a, x2: b, self, y: y + h - 12, textY: y + 4, lines, tw: widest(lines), n: g.numbered ? ++num : 0, depth: stack.length });
       y += self ? h + 14 : h;
     } else if (s.type === "note") {
-      const lines = wrap(s.text, 22);
+      const lines = wrap(s.text, wrapAt);
       const xsOn = s.on.map((id) => xs[idx.get(id)]);
-      const w = Math.max(90, widest(lines) + 20);
+      const w = Math.max(wrapAt < 22 ? 56 : 90, widest(lines) + 20);
       let nx, nw = w;
       if (s.side === "over") {
         const lo = Math.min(...xsOn), hi = Math.max(...xsOn);
@@ -300,7 +337,7 @@ export function layoutSequence(g) {
     items.push({ kind: "block", order: top.order, y: top.y0, h: y - top.y0 + 4, block: top.block, text: top.text, divs: top.divs, depth: stack.length });
   }
   const bottom = y + 10;
-  const pad = 26;
+  const pad = wrapAt < 22 ? 10 : 26;
   const notes = items.filter((i) => i.kind === "note");
   const x0 = Math.min(left - pad, ...notes.map((i) => i.x - 8));
   const x1 = Math.max(right + pad, ...notes.map((i) => i.x + i.w + 8));
