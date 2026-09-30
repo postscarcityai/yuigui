@@ -21,6 +21,7 @@ val PRESETS = listOf(
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
+    "diagram", "mock", "part",
     "map", "area", "pin", "route",
     "game", "flow",
     "query",
@@ -34,12 +35,13 @@ val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "th
 // as long as each one is a member preset. Anything else ends the group, and
 // so does `end`. Comments, blank lines and error lines do not.
 val GROUPS = mapOf(
-    "deck" to listOf("page", "ask", "choose", "pick", "sketch", "shapes", "map", "math", "chart", "stat", "calc"),
-    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "map"),
+    "deck" to listOf("page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "map", "math", "chart", "stat", "calc"),
+    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "map"),
     "narrate" to listOf("page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"),
     "timeline" to listOf("done", "now", "next"),
     "sketch" to listOf("row", "after"),
     "shapes" to listOf("shape"),
+    "mock" to listOf("part"),
     "map" to listOf("area", "pin", "route"),
 )
 
@@ -566,11 +568,12 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "chart" -> chart(pos)
     "stat" -> stat(pos)
     "step" -> step(pos)
-    "calc", "deck", "plan", "flow", "narrate", "timeline", "sketch", "shapes", "map" -> titled("title", pos)
+    "calc", "deck", "plan", "flow", "narrate", "timeline", "sketch", "shapes", "diagram", "mock", "map" -> titled("title", pos)
     "area" -> area(pos)
     "pin" -> pin(pos)
     "route" -> route(pos)
     "shape" -> game(pos, "label")
+    "part" -> game(pos, "text")
     "row" -> titled("text", pos)
     "after" -> titled("label", pos)
     "done", "now", "next" -> row(pos)
@@ -635,6 +638,7 @@ private val LISTS = mapOf(
     "pick" to listOf("answer"),
     "game" to listOf("items"),
     "shape" to listOf("pts"),
+    "part" to listOf("items"),
     "area" to listOf("codes", "pts"),
     "route" to listOf("pts"),
     "loop" to listOf("rows", "p"),
@@ -793,6 +797,8 @@ private val SHAPES = listOf(
     "(((" to listOf(")))"), "([" to listOf("])"), "[[" to listOf("]]"), "[(" to listOf(")]"), "((" to listOf("))"), "{{" to listOf("}}"),
     "[/" to listOf("/]", "\\]"), "[\\" to listOf("\\]", "/]"), "[" to listOf("]"), "(" to listOf(")"), "{" to listOf("}"), ">" to listOf("]"),
 )
+// A node's shape by its opener, for a diagram (a plain [box] is the default).
+private val NODE_SHAPE = mapOf("(((" to "double", "([" to "stadium", "[[" to "subroutine", "[(" to "cylinder", "((" to "circle", "{{" to "hexagon", "[/" to "slant", "[\\" to "slant", "(" to "round", "{" to "diamond", ">" to "flag")
 // Links: `-- text -->` first, then plain arrows with an optional |label|.
 private val TEXT_LINK = rx("^$S*<?(?:--|==|-\\.)(?![->=.])$S*($DOT*?)$S*(?:-{2,}>|={2,}>|\\.-+>|-{3,}|={3,}|\\.-+)(?=[$WS\\w])")
 private val LINK = rx("^$S*(<?)(-{2,}>|-{3,}|={2,}>|={3,}|-\\.+->|-\\.+-|--[ox]|==[ox]|~{3,})")
@@ -806,6 +812,10 @@ private val STEP_COMMENT = rx("^%%$S*(\\w+)$S*:$S*($DOT*)\\z")
 private val WORD_HEAD = rx("^([a-z]+)(?=$S|\\z)")
 private val SUBGRAPH = rx("^subgraph($S|\\z)")
 private val FLOW_END = rx("end$S*;?")
+private val SUBGRAPH_NAMED = rx("^subgraph$S+(\\w+)$S*(?:\\[($DOT*)\\])?$S*\\z")
+private val SUBGRAPH_ANY = rx("^subgraph$S+($DOT+?)$S*\\z")
+private val WORD_ONLY = rx("\\w+")
+private val LAST_WORD = rx("$NS+\\z")
 
 private class FlowHead(val id: String, val screen: String, val pre: MutableList<String> = ArrayList())
 
@@ -818,6 +828,9 @@ private class Flow(head: FlowHead, header: String) {
     val nodes = LinkedHashMap<String, Obj>()
     val edges = ArrayList<Obj>()
     val steps = HashMap<String, Pair<String, Obj>>()
+    var drawn = false // a diagram's flowchart: shapes, link styles and subgraphs are kept
+    val groups = ArrayList<Obj>()
+    val stack = ArrayList<Obj>()
 }
 
 // Mermaid label text: quotes, markdown backticks, entity codes and <br> undone.
@@ -856,15 +869,17 @@ private fun statements(line: String): List<String> {
     return out.map { trim(it) }.filter { it.isNotEmpty() }
 }
 
-private class FNode(val id: String, val label: String?, val rest: String)
+private class FNode(val id: String, val label: String?, val rest: String, val shape: String? = null)
 
 // Reads one node at the start of `s`: id, then an optional shape with a label.
 private fun readNode(s: String): FNode? {
     val m = NODE_ID.find(s) ?: return null
     var rest = s.substring(m.value.length)
     var label: String? = null
+    var kind: String? = null
     val shape = SHAPES.find { rest.startsWith(it.first) }
     if (shape != null) {
+        kind = NODE_SHAPE[shape.first]
         val body = rest.substring(shape.first.length)
         var end = -1
         var len = 0
@@ -877,7 +892,7 @@ private fun readNode(s: String): FNode? {
         label = unlabel(body.substring(0, end))
         rest = body.substring(end + len)
     }
-    return FNode(m.value, label, CLASS_SUFFIX.replaceFirst(rest, ""))
+    return FNode(m.value, label, CLASS_SUFFIX.replaceFirst(rest, ""), kind)
 }
 
 // A node, or several joined with "&".
@@ -895,8 +910,17 @@ private fun readNodes(s: String): Pair<List<FNode>, String>? {
 
 private fun addNode(f: Flow, n: FNode) {
     val had = f.nodes[n.id]
-    if (had == null) f.nodes[n.id] = Obj().also { it["id"] = n.id; if (n.label != null) it["label"] = n.label }
-    else if (n.label != null) had["label"] = n.label
+    val shape = if (f.drawn && n.shape != null) n.shape else null
+    if (had == null) f.nodes[n.id] = Obj().also { it["id"] = n.id; if (n.label != null) it["label"] = n.label; if (shape != null) it["shape"] = shape }
+    else {
+        if (n.label != null) had["label"] = n.label
+        if (shape != null) had["shape"] = shape
+    }
+    // A diagram's subgraph holds the nodes first written inside it.
+    if (f.stack.isNotEmpty() && f.groups.none { (it["nodes"] as List<*>).contains(n.id) }) {
+        @Suppress("UNCHECKED_CAST")
+        (f.stack.last()["nodes"] as MutableList<String>).add(n.id)
+    }
 }
 
 // One Mermaid line of an open flow. Returns an error message or null.
@@ -910,7 +934,21 @@ private fun flowStatement(f: Flow, t: String): String? {
         stepOf(m.groupValues[2])?.let { f.steps[m.groupValues[1]] = it }
         return null
     }
-    if (SUBGRAPH.containsMatchIn(t)) { f.depth++; return null }
+    if (SUBGRAPH.containsMatchIn(t)) {
+        f.depth++
+        if (f.drawn) {
+            val m = SUBGRAPH_NAMED.find(t) ?: SUBGRAPH_ANY.find(t)
+            val label = if (m != null) unlabel(m.g(2) ?: m.groupValues[1]) else ""
+            val g = Obj()
+            g["id"] = if (m != null && WORD_ONLY.test(m.groupValues[1])) m.groupValues[1] else "g${f.groups.size + 1}"
+            if (label.isNotEmpty()) g["label"] = label
+            g["nodes"] = ArrayList<String>()
+            if (f.stack.isNotEmpty()) g["in"] = f.stack.last()["id"]
+            f.groups.add(g)
+            f.stack.add(g)
+        }
+        return null
+    }
     if (FLOW_SKIP.containsMatchIn(t) || FLOW_HEADER.containsMatchIn(t)) return null
     for (st in statements(t)) {
         var g = readNodes(st) ?: continue
@@ -919,10 +957,20 @@ private fun flowStatement(f: Flow, t: String): String? {
             var rest = g.second
             var label: String? = null
             var hidden = false
+            var how = ""
+            var both = false
             val tl = TEXT_LINK.find(rest)
-            if (tl != null) { label = tl.groupValues[1]; rest = rest.substring(tl.value.length) }
+            if (tl != null) {
+                label = tl.groupValues[1]
+                val t0 = trim(tl.value).removePrefix("<")
+                how = t0.take(2) + (LAST_WORD.find(t0)?.value ?: "")
+                both = trim(tl.value).startsWith("<")
+                rest = rest.substring(tl.value.length)
+            }
             else {
                 val l = LINK.find(rest) ?: break
+                how = l.groupValues[2]
+                both = l.groupValues[1] == "<"
                 hidden = l.groupValues[2].startsWith("~")
                 rest = rest.substring(l.value.length)
                 val p = PIPE.find(rest)
@@ -937,6 +985,12 @@ private fun flowStatement(f: Flow, t: String): String? {
                     e["to"] = b.id
                     val text = if (label == null) "" else unlabel(label)
                     if (text.isNotEmpty()) e["label"] = text
+                    if (f.drawn) {
+                        if (how.contains("=")) e["line"] = "thick"
+                        else if (how.contains(".")) e["line"] = "dash"
+                        if (!how.endsWith(">")) e["plain"] = true
+                        if (both) e["both"] = true
+                    }
                     f.edges.add(e)
                 }
             }
@@ -1016,6 +1070,212 @@ private fun flowGraph(f: Flow): Obj {
     o["nodes"] = nodes
     o["edges"] = edges
     o["source"] = f.src.joinToString("\n")
+    return clean(o)
+}
+
+// ---------- diagram (spec/YL.md, diagram) ----------
+// A Mermaid block between `diagram` and `end`, drawn static. The first
+// Mermaid line says which: a flowchart (read by the flow reader above, plus
+// node shapes, link styles and subgraphs), a sequenceDiagram or a
+// stateDiagram. Any other Mermaid type keeps only its `source`. The end gives
+// one patch: { type, ...the drawing, source }.
+private val DGM_HEADER = rx("^(flowchart|graph|sequenceDiagram|stateDiagram(?:-v2)?)(?=$S|;|\\z)")
+private val DGM_OTHER = rx("^(classDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|gitGraph|quadrantChart|requirementDiagram|C4\\w+|sankey-beta|xychart-beta|block-beta)(?=$S|\\z)")
+private val SEQ_MSG = rx("^([\\w.]+)$S*(<<-->>|<<->>|-->>|->>|--\\)|-\\)|--x|-x|-->|->)$S*([+-]?)$S*([\\w.]+)$S*(?::$S*($DOT*))?\\z")
+private val SEQ_HEAD = mapOf(">>" to "arrow", ">" to "none", ")" to "async", "x" to "cross")
+private val SEQ_PART = rx("^(participant|actor)$S+([\\w.]+)(?:$S+as$S+($DOT+))?\\z")
+private val SEQ_AUTO = rx("^autonumber($S|\\z)")
+private val SEQ_SKIP = rx("^(activate|deactivate|title|box|create|destroy|link|links|properties|details)($S|\\z)")
+private val SEQ_NOTE = rx("^Note$S+(right of|left of|over)$S+([\\w.]+)(?:$S*,$S*([\\w.]+))?$S*:$S*($DOT*)\\z", true)
+private val SEQ_OPEN = rx("^(loop|alt|opt|par|critical|break|rect)(?:$S+($DOT*))?\\z")
+private val SEQ_ELSE = rx("^(else|and|option)(?:$S+($DOT*))?\\z")
+private val SEQ_ARROW_LEAD = rx("^<*-+")
+private val DGM_END = rx("end$S*;?")
+private val STATE_END_NOTE = rx("end$S+note", true)
+private val STATE_NOTE = rx("^note$S", true)
+private val STATE_SKIP = rx("^(direction|classDef|class|style|click|accTitle|accDescr|hide)($S|\\z)")
+private val STATE_DIR = rx("^direction$S+(\\w+)")
+private val STATE_DECL = rx("^state$S+(?:\"([^\"]*)\"$S+as$S+(\\w+)|(\\w+))$S*(<<(?:choice|fork|join)>>)?$S*(\\{)?\\z")
+private val STATE_EDGE = rx("^(\\[\\*\\]|\\w+)$S*(<?-->)$S*(\\[\\*\\]|\\w+)$S*(?::$S*($DOT*))?\\z")
+private val STATE_DESC = rx("^(\\w+)$S*:$S*($DOT+)\\z")
+
+private class Diagram(val id: String, val screen: String) {
+    val src = ArrayList<String>()
+    var kind: String? = null
+    var dir: String = "TD"
+    var f: Flow? = null // flowchart
+    val actors = LinkedHashMap<String, Obj>() // sequence
+    val steps = ArrayList<Obj>()
+    var open = 0
+    var numbered = false
+    val nodes = LinkedHashMap<String, Obj>() // state
+    val edges = ArrayList<Obj>()
+    val groups = ArrayList<Obj>()
+    val stack = ArrayList<Obj>()
+    var note = false
+}
+
+private fun newDiagram(head: Op) = Diagram(head["id"] as String, head["screen"] as String)
+
+// Starts the reader once the header is known.
+private fun diagramStart(d: Diagram, header: String) {
+    val h = DGM_HEADER.find(header)
+    if (h == null) { d.kind = "other"; return }
+    d.dir = (trim(header).split(Regex("$S+")).getOrNull(1)?.takeIf { it.isNotEmpty() } ?: "TD").removeSuffix(";").uppercase()
+    if (h.groupValues[1] == "flowchart" || h.groupValues[1] == "graph") {
+        d.kind = "flow"
+        d.f = Flow(FlowHead(d.id, d.screen), header).also { it.drawn = true }
+    } else if (h.groupValues[1] == "sequenceDiagram") {
+        d.kind = "sequence"
+    } else {
+        d.kind = "state"
+    }
+}
+
+private fun seqActor(d: Diagram, id: String, label: String = "", actor: Boolean = false) {
+    val a = d.actors[id]
+    if (a == null) d.actors[id] = Obj().also { it["id"] = id; if (label.isNotEmpty()) it["label"] = label; if (actor) it["actor"] = true }
+    else { if (label.isNotEmpty()) a["label"] = label; if (actor) a["actor"] = true }
+}
+
+private fun seqLine(d: Diagram, t: String) {
+    var m = SEQ_PART.find(t)
+    if (m != null) { seqActor(d, m.groupValues[2], m.g(3)?.let { unlabel(it) } ?: "", m.groupValues[1] == "actor"); return }
+    if (SEQ_AUTO.containsMatchIn(t)) { d.numbered = true; return }
+    if (SEQ_SKIP.containsMatchIn(t)) return
+    m = SEQ_NOTE.find(t)
+    if (m != null) {
+        val on = listOf(m.groupValues[2]) + (m.g(3)?.let { listOf(it) } ?: emptyList())
+        on.forEach { seqActor(d, it) }
+        d.steps.add(Obj().also {
+            it["type"] = "note"
+            it["side"] = m.groupValues[1].lowercase().removeSuffix(" of")
+            it["on"] = on
+            it["text"] = unlabel(m.groupValues[4])
+        })
+        return
+    }
+    m = SEQ_OPEN.find(t)
+    if (m != null) {
+        d.open++
+        d.steps.add(Obj().also { it["type"] = "open"; it["block"] = m.groupValues[1]; m.g(2)?.takeIf { x -> x.isNotEmpty() }?.let { x -> it["text"] = unlabel(x) } })
+        return
+    }
+    m = SEQ_ELSE.find(t)
+    if (m != null) {
+        d.steps.add(Obj().also { it["type"] = "else"; m.g(2)?.takeIf { x -> x.isNotEmpty() }?.let { x -> it["text"] = unlabel(x) } })
+        return
+    }
+    m = SEQ_MSG.find(t)
+    if (m != null) {
+        seqActor(d, m.groupValues[1])
+        seqActor(d, m.groupValues[4])
+        val arrow = m.groupValues[2]
+        val head = SEQ_HEAD[SEQ_ARROW_LEAD.replaceFirst(arrow, "")] ?: "arrow"
+        val e = Obj()
+        e["type"] = "msg"
+        e["from"] = m.groupValues[1]
+        e["to"] = m.groupValues[4]
+        e["text"] = unlabel(m.g(5) ?: "")
+        if (arrow.startsWith("--") || arrow.startsWith("<<--")) e["line"] = "dash"
+        if (head != "arrow") e["head"] = head
+        if (arrow.startsWith("<<")) e["both"] = true
+        d.steps.add(e)
+    }
+}
+
+// [*] is the start when a transition leaves it and the end when one reaches
+// it: _start and _end, with the composite state appended inside one.
+private fun stateAdd(d: Diagram, id: String, patch: Obj = Obj()) {
+    val had = d.nodes[id]
+    if (had == null) d.nodes[id] = Obj().also { it["id"] = id; it.putAll(patch) }
+    else had.putAll(patch)
+    if (d.stack.isNotEmpty() && d.groups.none { (it["nodes"] as List<*>).contains(id) }) {
+        @Suppress("UNCHECKED_CAST")
+        (d.stack.last()["nodes"] as MutableList<String>).add(id)
+    }
+}
+
+private fun stateLine(d: Diagram, t: String) {
+    if (d.note) { if (STATE_END_NOTE.test(t)) d.note = false; return }
+    if (STATE_NOTE.containsMatchIn(t)) { if (!t.contains(":")) d.note = true; return }
+    if (STATE_SKIP.containsMatchIn(t)) {
+        STATE_DIR.find(t)?.let { d.dir = it.groupValues[1].uppercase() }
+        return
+    }
+    if (t == "}") { if (d.stack.isNotEmpty()) d.stack.removeAt(d.stack.size - 1); return }
+    var m = STATE_DECL.find(t)
+    if (m != null) {
+        val id = m.g(2) ?: m.groupValues[3]
+        val patch = Obj()
+        m.g(1)?.let { patch["label"] = it }
+        m.g(4)?.let { patch["shape"] = it.substring(2, it.length - 2) }
+        stateAdd(d, id, patch)
+        if (m.g(5) != null) {
+            val g = Obj()
+            g["id"] = id
+            val label = d.nodes[id]!!["label"]
+            if (truthy(label)) g["label"] = label
+            g["nodes"] = ArrayList<String>()
+            if (d.stack.isNotEmpty()) g["in"] = d.stack.last()["id"]
+            d.groups.add(g)
+            d.stack.add(g)
+        }
+        return
+    }
+    m = STATE_EDGE.find(t)
+    if (m != null) {
+        val scope = if (d.stack.isNotEmpty()) "_${d.stack.last()["id"]}" else ""
+        fun end(x: String, what: String) = if (x == "[*]") "$what$scope" else x
+        val from = end(m.groupValues[1], "_start")
+        val to = end(m.groupValues[3], "_end")
+        if (m.groupValues[1] == "[*]") stateAdd(d, from, Obj().also { it["shape"] = "start" }) else stateAdd(d, from)
+        if (m.groupValues[3] == "[*]") stateAdd(d, to, Obj().also { it["shape"] = "end" }) else stateAdd(d, to)
+        val e = Obj()
+        e["from"] = from
+        e["to"] = to
+        m.g(4)?.takeIf { it.isNotEmpty() }?.let { e["label"] = unlabel(it) }
+        d.edges.add(e)
+        return
+    }
+    m = STATE_DESC.find(t)
+    if (m != null) {
+        stateAdd(d, m.groupValues[1])
+        val n = d.nodes[m.groupValues[1]]!!
+        if (!truthy(n["label"])) n["label"] = unlabel(m.groupValues[2])
+    }
+}
+
+// The patch props a diagram's end gives.
+private fun diagramGraph(d: Diagram): Obj {
+    val src = d.src.joinToString("\n")
+    val o = Obj()
+    when (d.kind) {
+        "flow" -> {
+            o["type"] = "flow"
+            o["dir"] = d.dir
+            o["nodes"] = d.f!!.nodes.values.toList()
+            o["edges"] = d.f!!.edges
+            o["groups"] = d.f!!.groups
+            o["source"] = src
+        }
+        "sequence" -> {
+            o["type"] = "sequence"
+            o["actors"] = d.actors.values.toList()
+            o["steps"] = d.steps
+            if (d.numbered) o["numbered"] = true
+            o["source"] = src
+        }
+        "state" -> {
+            o["type"] = "state"
+            o["dir"] = d.dir
+            o["nodes"] = d.nodes.values.toList()
+            o["edges"] = d.edges
+            o["groups"] = d.groups
+            o["source"] = src
+        }
+        else -> { o["type"] = "other"; o["source"] = src; return o }
+    }
     return clean(o)
 }
 
@@ -1266,6 +1526,7 @@ private val PATCH_AT = rx("([a-z]+)@([\\w-]+)")
 private val HEAD = rx("([a-z]+)(?:@([\\w-]+))?")
 
 private fun op(vararg kv: Pair<String, Any?>): Op = linkedMapOf(*kv)
+private val PASS: Op = emptyMap() // dgmLine: the line is not the diagram's
 
 // ---------- theme app (spec/YL.md, theme app; RESTYLE.md) ----------
 // `theme app [set] key=value...`: a restyle of Yui's own chrome, not the
@@ -1501,6 +1762,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
     private var flowHead: FlowHead? = null // a flow head just added
     private var flow: Flow? = null // an open flow's Mermaid, being read
     private var variant: Variant? = null // an open flow variant's lines, being read
+    private var dgm: Diagram? = null // an open diagram's Mermaid, being read
 
     // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
     private fun group(o: Op?): Op? {
@@ -1527,6 +1789,10 @@ class Parser(known: Map<String, String> = emptyMap()) {
     fun line(src: String): Op? {
         if (flow != null) return flowLine(src)
         if (variant != null) return variantLine(src)
+        if (dgm != null) {
+            val o = dgmLine(src)
+            if (o !== PASS) return o
+        }
         val h = flowHead
         if (h != null) {
             // The line after a flow head decides: a Mermaid header starts the
@@ -1539,6 +1805,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
             if (FLOW_HEADER.containsMatchIn(t)) { flow = Flow(h, src.removeSuffix("\r")); return null }
         }
         val o = group(parseLine(src))
+        if (o != null && o["op"] == "add" && o["preset"] == "diagram") dgm = newDiagram(o)
         if (o != null && o["op"] == "add" && o["preset"] == "flow") {
             // `as=` makes it a variant of the saved flow it names: its lines follow.
             @Suppress("UNCHECKED_CAST")
@@ -1571,8 +1838,55 @@ class Parser(known: Map<String, String> = emptyMap()) {
     // Ends the input: an open flow gives its graph now.
     fun finish(): Op? {
         flowHead = null
+        if (dgm != null) return dgmDone("")
         if (variant != null) return variantDone("")
         return if (flow != null) flowDone("") else null
+    }
+
+    // One line of an open diagram: Mermaid, not YL. PASS means the line is
+    // not the diagram's (no Mermaid header came), so the caller reads it as YL.
+    // A nested block's `end` (subgraph, loop, alt...) closes that block first,
+    // then the diagram.
+    private fun dgmLine(src: String): Op? {
+        val d = dgm!!
+        val line = src.removeSuffix("\r")
+        val t = trim(line)
+        if (d.kind == null) {
+            if (t.isEmpty() || COMMENT.containsMatchIn(t)) return null
+            if (t.startsWith("%%")) { d.src.add(line); return null }
+            if (!DGM_HEADER.containsMatchIn(t) && !DGM_OTHER.containsMatchIn(t)) { dgm = null; return PASS }
+            d.src.add(line)
+            diagramStart(d, t)
+            return null
+        }
+        if (DGM_END.test(t) && d.kind != "state") {
+            val open = if (d.kind == "flow") d.f!!.depth else if (d.kind == "sequence") d.open else 0
+            if (open > 0) {
+                d.src.add(line)
+                if (d.kind == "flow") {
+                    d.f!!.depth--
+                    if (d.f!!.stack.isNotEmpty()) d.f!!.stack.removeAt(d.f!!.stack.size - 1)
+                } else { d.open--; d.steps.add(Obj().also { it["type"] = "close" }) }
+                return null
+            }
+            return dgmDone(line)
+        }
+        if (DGM_END.test(t)) {
+            if (!d.note) return dgmDone(line)
+        }
+        d.src.add(line)
+        if (t.isEmpty() || d.kind == "other") return null
+        if (d.kind == "flow") flowStatement(d.f!!, t)
+        else if (d.kind == "sequence") seqLine(d, t)
+        else stateLine(d, t)
+        return null
+    }
+
+    private fun dgmDone(line: String): Op? {
+        val d = dgm!!
+        dgm = null
+        if (d.kind == null) return null
+        return op("op" to "patch", "screen" to d.screen, "target" to d.id, "props" to diagramGraph(d), "line" to line)
     }
 
     // One line of an open flow: Mermaid, not YL. `end` closes a subgraph
@@ -1851,6 +2165,8 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "row" to mapOf("text" to ""), "after" to mapOf("label" to "After"),
     "shapes" to mapOf("title" to "", "caption" to "", "w" to 10.0, "h" to 6.0),
     "shape" to mapOf("kind" to "box", "label" to ""),
+    "diagram" to mapOf("title" to "", "caption" to ""),
+    "mock" to mapOf("title" to "", "frame" to "phone"),
     "map" to mapOf("title" to "", "caption" to "", "fit" to "auto"),
     "area" to mapOf("label" to "", "codes" to emptyList<String>(), "pts" to emptyList<String>()),
     "pin" to mapOf("label" to ""),
@@ -1900,6 +2216,12 @@ fun resolve(preset: String, props: Map<String, Any?>): Map<String, Any?> {
             r["label"] = ""
             r.putAll(props)
             r["kind"] = jsStr(props["kind"] ?: "box").lowercase()
+        }
+        "part" -> {
+            r["text"] = ""
+            r["items"] = emptyList<String>()
+            r.putAll(props)
+            r["kind"] = jsStr(props["kind"] ?: "text").lowercase()
         }
         "game" -> {
             // Cells outside 1-9 are ignored, and a cell both marks claim is x's.

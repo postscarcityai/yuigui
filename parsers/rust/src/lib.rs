@@ -39,6 +39,7 @@ pub const PRESETS: &[&str] = &[
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
+    "diagram", "mock", "part",
     "map", "area", "pin", "route",
     "game", "flow",
     "query",
@@ -62,12 +63,13 @@ pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", 
 /// can hold another group (a deck), a deck or plan a sketch (a page's picture).
 pub fn group_members(preset: &str) -> Option<&'static [&'static str]> {
     Some(match preset {
-        "deck" => &["page", "ask", "choose", "pick", "sketch", "shapes", "map", "math", "chart", "stat", "calc"],
-        "plan" => &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "map"],
+        "deck" => &["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "map", "math", "chart", "stat", "calc"],
+        "plan" => &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "map"],
         "narrate" => &["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
         "timeline" => &["done", "now", "next"],
         "sketch" => &["row", "after"],
         "shapes" => &["shape"],
+        "mock" => &["part"],
         "map" => &["area", "pin", "route"],
         _ => return None,
     })
@@ -1116,11 +1118,12 @@ fn preset_props(preset: &str, pos: &[&Token]) -> Map {
         "chart" => chart(pos),
         "stat" => stat(pos),
         "step" => step(pos),
-        "calc" | "deck" | "plan" | "flow" | "narrate" | "timeline" | "sketch" | "shapes" | "map" => all_text(pos, "title"),
+        "calc" | "deck" | "plan" | "flow" | "narrate" | "timeline" | "sketch" | "shapes" | "map" | "diagram" | "mock" => all_text(pos, "title"),
         "area" => area(pos),
         "pin" => pin(pos),
         "route" => map_route(pos),
         "shape" => game(pos, "label"),
+        "part" => game(pos, "text"),
         "page" => page(pos),
         "done" | "now" | "next" => timeline_row(pos),
         "row" => all_text(pos, "text"),
@@ -1280,6 +1283,7 @@ fn list_props(preset: &str) -> &'static [&'static str] {
         "pick" => &["answer"],
         "game" => &["items"],
         "shape" => &["pts"],
+        "part" => &["items"],
         "area" => &["codes", "pts"],
         "route" => &["pts"],
         "loop" => &["rows", "p"],
@@ -1709,6 +1713,45 @@ const SHAPES: &[(&str, &[&str])] = &[
 struct FlowNode {
     id: String,
     label: Option<String>,
+    shape: Option<String>,
+}
+
+/// A node's shape by its opener, for a diagram (a plain [box] is the default).
+fn node_shape(open: &str) -> Option<&'static str> {
+    Some(match open {
+        "(((" => "double",
+        "([" => "stadium",
+        "[[" => "subroutine",
+        "[(" => "cylinder",
+        "((" => "circle",
+        "{{" => "hexagon",
+        "[/" | "[\\" => "slant",
+        "(" => "round",
+        "{" => "diamond",
+        ">" => "flag",
+        _ => return None,
+    })
+}
+
+/// A diagram's subgraph or composite state: the nodes first written inside it.
+struct Group {
+    id: String,
+    label: Option<String>,
+    nodes: Vec<String>,
+    parent: Option<String>,
+}
+
+fn group_value(g: &Group) -> Value {
+    let mut o = Map::new();
+    o.set("id", Value::str(&g.id));
+    if let Some(l) = &g.label {
+        o.set("label", Value::str(l));
+    }
+    o.set("nodes", Value::strs(&g.nodes));
+    if let Some(p) = &g.parent {
+        o.set("in", Value::str(p));
+    }
+    Value::Obj(o)
 }
 
 struct FlowHead {
@@ -1724,15 +1767,18 @@ struct Flow {
     depth: usize,
     dir: String,
     nodes: Vec<FlowNode>,
-    edges: Vec<(String, String, String)>, // from, to, label ("" for none)
+    edges: Vec<(String, String, String, Map)>, // from, to, label ("" for none), line style
     steps: HashMap<String, (String, Map)>,
+    drawn: bool, // a diagram's flowchart: shapes, link styles, subgraphs
+    groups: Vec<Group>,
+    stack: Vec<usize>, // open subgraphs, innermost last (indexes into groups)
 }
 
 fn new_flow(head: FlowHead, header: &str) -> Flow {
     let dir = trim(header).split(is_ws).filter(|w| !w.is_empty()).nth(1).unwrap_or("TD").to_uppercase();
     let mut src = head.pre;
     src.push(header.to_string());
-    Flow { id: head.id, screen: head.screen, src, depth: 0, dir, nodes: Vec::new(), edges: Vec::new(), steps: HashMap::new() }
+    Flow { id: head.id, screen: head.screen, src, depth: 0, dir, nodes: Vec::new(), edges: Vec::new(), steps: HashMap::new(), drawn: false, groups: Vec::new(), stack: Vec::new() }
 }
 
 /// Global replace of each match `at` finds: at(s, i) gives (length, replacement).
@@ -1838,8 +1884,9 @@ fn read_node(s: &str) -> Option<(FlowNode, &str)> {
         return None;
     }
     let mut rest = &s[e..];
-    let mut node = FlowNode { id: s[..e].to_string(), label: None };
+    let mut node = FlowNode { id: s[..e].to_string(), label: None, shape: None };
     if let Some((open, closers)) = SHAPES.iter().find(|(open, _)| rest.starts_with(open)) {
+        node.shape = node_shape(open).map(str::to_string);
         let body = &rest[open.len()..];
         let from = if body.trim_start_matches(is_ws).starts_with('"') {
             let q = body.find('"').unwrap();
@@ -1889,14 +1936,46 @@ fn read_nodes(s: &str) -> Option<(Vec<FlowNode>, &str)> {
 }
 
 fn add_node(f: &mut Flow, n: &FlowNode) {
+    let shape = if f.drawn { n.shape.clone() } else { None };
     match f.nodes.iter_mut().find(|x| x.id == n.id) {
-        None => f.nodes.push(FlowNode { id: n.id.clone(), label: n.label.clone() }),
+        None => f.nodes.push(FlowNode { id: n.id.clone(), label: n.label.clone(), shape }),
         Some(had) => {
             if n.label.is_some() {
                 had.label = n.label.clone();
             }
+            if shape.is_some() {
+                had.shape = shape;
+            }
         }
     }
+    // A diagram's subgraph holds the nodes first written inside it.
+    if let Some(&top) = f.stack.last() {
+        if !f.groups.iter().any(|g| g.nodes.contains(&n.id)) {
+            f.groups[top].nodes.push(n.id.clone());
+        }
+    }
+}
+
+/// `^subgraph\s+(\w+)\s*(?:\[(.*)\])?\s*$` or else `^subgraph\s+(.+?)\s*$` on a
+/// trimmed line that starts with the word: (id or title, bracketed label).
+fn subgraph_head(t: &str) -> Option<(&str, Option<&str>)> {
+    let r = &t["subgraph".len()..];
+    let i = skip_ws(r, 0);
+    if i == 0 {
+        return None;
+    }
+    let r = &r[i..];
+    let e = r.find(|c: char| !is_word(c)).unwrap_or(r.len());
+    if e > 0 {
+        let rest = &r[skip_ws(r, e)..];
+        if rest.is_empty() {
+            return Some((&r[..e], None));
+        }
+        if rest.len() >= 2 && rest.starts_with('[') && rest.ends_with(']') {
+            return Some((&r[..e], Some(&rest[1..rest.len() - 1])));
+        }
+    }
+    Some((r, None))
 }
 
 /// Length of a run of `c` at byte `i`.
@@ -2029,6 +2108,17 @@ fn flow_statement(f: &mut Flow, t: &str) -> Option<String> {
     }
     if starts_word(t, "subgraph", &[]) {
         f.depth += 1;
+        if f.drawn {
+            let m = subgraph_head(t);
+            let label = m.map_or(String::new(), |(a, b)| unlabel(b.unwrap_or(a)));
+            let id = match m {
+                Some((a, _)) if !a.is_empty() && a.chars().all(is_word) => a.to_string(),
+                _ => format!("g{}", f.groups.len() + 1),
+            };
+            let parent = f.stack.last().map(|&i| f.groups[i].id.clone());
+            f.groups.push(Group { id, label: (!label.is_empty()).then_some(label), nodes: Vec::new(), parent });
+            f.stack.push(f.groups.len() - 1);
+        }
         return None;
     }
     if is_flow_skip(t) || is_flow_header(t) {
@@ -2041,11 +2131,19 @@ fn flow_statement(f: &mut Flow, t: &str) -> Option<String> {
             let mut rest = g_rest;
             let mut label = "";
             let mut hidden = false;
+            let (how, both): (String, bool);
             if let Some((l, len)) = text_link(rest) {
                 label = l;
+                let t0 = trim(&rest[..len]);
+                both = t0.starts_with('<');
+                let t0 = t0.strip_prefix('<').unwrap_or(t0);
+                let last = t0.rsplit(is_ws).next().unwrap_or("");
+                how = t0.chars().take(2).collect::<String>() + last;
                 rest = &rest[len..];
             } else {
                 let Some((arrow, len)) = link(rest) else { break };
+                how = arrow.to_string();
+                both = rest.trim_start_matches(is_ws).starts_with('<');
                 hidden = arrow.starts_with('~');
                 rest = &rest[len..];
                 if let Some((l, len)) = pipe(rest) {
@@ -2057,9 +2155,23 @@ fn flow_statement(f: &mut Flow, t: &str) -> Option<String> {
             to.iter().for_each(|n| add_node(f, n));
             if !hidden {
                 let text = unlabel(label);
+                let mut style = Map::new();
+                if f.drawn {
+                    if how.contains('=') {
+                        style.set("line", Value::str("thick"));
+                    } else if how.contains('.') {
+                        style.set("line", Value::str("dash"));
+                    }
+                    if !how.ends_with('>') {
+                        style.set("plain", Value::Bool(true));
+                    }
+                    if both {
+                        style.set("both", Value::Bool(true));
+                    }
+                }
                 for a in &g {
                     for b in &to {
-                        f.edges.push((a.id.clone(), b.id.clone(), text.clone()));
+                        f.edges.push((a.id.clone(), b.id.clone(), text.clone(), style.clone()));
                     }
                 }
             }
@@ -2167,7 +2279,7 @@ fn flow_graph(f: &Flow) -> Map {
     }).collect();
     let is_step = |id: &str| nodes.iter().any(|n| n.get("id") == Some(&Value::str(id)) && n.has("preset"));
     let start = f.nodes.iter().find(|n| !f.edges.iter().any(|e| e.1 == n.id)).or(f.nodes.first());
-    let edges: Vec<Value> = f.edges.iter().map(|(from, to, label)| {
+    let edges: Vec<Value> = f.edges.iter().map(|(from, to, label, _)| {
         let mut e = Map::new();
         e.set("from", Value::str(from));
         e.set("to", Value::str(to));
@@ -2188,6 +2300,539 @@ fn flow_graph(f: &Flow) -> Map {
     o.set("edges", Value::Arr(edges));
     o.set("source", Value::Str(f.src.join("\n")));
     clean(o)
+}
+
+// ---------- diagram (spec/YL.md, diagram) ----------
+// A Mermaid block between `diagram` and `end`, drawn static. The first
+// Mermaid line says which: a flowchart (read by the flow reader above, plus
+// node shapes, link styles and subgraphs), a sequenceDiagram or a
+// stateDiagram. Any other Mermaid type keeps only its `source`. The end gives
+// one patch: { type, ...the drawing, source }.
+
+#[derive(PartialEq)]
+enum DKind {
+    Other,
+    Flow,
+    Sequence,
+    State,
+}
+
+struct Diagram {
+    id: String,
+    screen: String,
+    src: Vec<String>,
+    kind: Option<DKind>,
+    dir: String,
+    f: Flow,                 // a flowchart's reader
+    actors: Vec<Map>,        // a sequence's
+    steps: Vec<Value>,
+    open: usize,
+    numbered: bool,
+    nodes: Vec<Map>,         // a state diagram's
+    edges: Vec<Value>,
+    groups: Vec<Group>,
+    stack: Vec<usize>,
+    note: bool,
+}
+
+fn new_diagram(id: String, screen: String) -> Diagram {
+    Diagram {
+        id, screen, src: Vec::new(), kind: None, dir: String::new(),
+        f: Flow { id: String::new(), screen: String::new(), src: Vec::new(), depth: 0, dir: String::new(), nodes: Vec::new(), edges: Vec::new(), steps: HashMap::new(), drawn: true, groups: Vec::new(), stack: Vec::new() },
+        actors: Vec::new(), steps: Vec::new(), open: 0, numbered: false,
+        nodes: Vec::new(), edges: Vec::new(), groups: Vec::new(), stack: Vec::new(), note: false,
+    }
+}
+
+/// DGM_HEADER, `^(flowchart|graph|sequenceDiagram|stateDiagram(?:-v2)?)(?=\s|;|$)`
+fn dgm_header(t: &str) -> Option<&'static str> {
+    ["flowchart", "graph", "sequenceDiagram", "stateDiagram-v2", "stateDiagram"].into_iter().find(|w| starts_word(t, w, &[';']))
+}
+
+/// DGM_OTHER, `^(classDiagram(?:-v2)?|erDiagram|journey|...|C4\w+|...)(?=\s|$)`
+fn dgm_other(t: &str) -> bool {
+    let named = ["classDiagram-v2", "classDiagram", "erDiagram", "journey", "gantt", "pie", "mindmap", "timeline", "gitGraph", "quadrantChart", "requirementDiagram", "sankey-beta", "xychart-beta", "block-beta"];
+    if named.iter().any(|w| starts_word(t, w, &[])) {
+        return true;
+    }
+    t.strip_prefix("C4").is_some_and(|r| {
+        let e = r.find(|c: char| !is_word(c)).unwrap_or(r.len());
+        e > 0 && r[e..].chars().next().is_none_or(is_ws)
+    })
+}
+
+/// Starts the reader once the header is known.
+fn diagram_start(d: &mut Diagram, header: &str) {
+    let Some(h) = dgm_header(header) else {
+        d.kind = Some(DKind::Other);
+        return;
+    };
+    let dir = header.split(is_ws).filter(|w| !w.is_empty()).nth(1).unwrap_or("TD");
+    d.dir = dir.strip_suffix(';').unwrap_or(dir).to_uppercase();
+    d.kind = Some(match h {
+        "flowchart" | "graph" => DKind::Flow,
+        "sequenceDiagram" => DKind::Sequence,
+        _ => DKind::State,
+    });
+}
+
+fn seq_actor(d: &mut Diagram, id: &str, label: &str, actor: bool) {
+    match d.actors.iter_mut().find(|a| a.get("id") == Some(&Value::str(id))) {
+        None => {
+            let mut a = Map::new();
+            a.set("id", Value::str(id));
+            if !label.is_empty() {
+                a.set("label", Value::str(label));
+            }
+            if actor {
+                a.set("actor", Value::Bool(true));
+            }
+            d.actors.push(a);
+        }
+        Some(a) => {
+            if !label.is_empty() {
+                a.set("label", Value::str(label));
+            }
+            if actor {
+                a.set("actor", Value::Bool(true));
+            }
+        }
+    }
+}
+
+/// `[\w.]+` at `i`: its end.
+fn seq_id_end(s: &str, i: usize) -> usize {
+    s[i..].find(|c: char| !(is_word(c) || c == '.')).map_or(s.len(), |e| e + i)
+}
+
+/// `^(participant|actor)\s+([\w.]+)(?:\s+as\s+(.+))?$`: (actor, id, label).
+fn seq_participant(t: &str) -> Option<(bool, &str, Option<&str>)> {
+    let (kw, actor) = if t.starts_with("participant") { ("participant", false) } else if t.starts_with("actor") { ("actor", true) } else { return None };
+    let r = &t[kw.len()..];
+    let i = skip_ws(r, 0);
+    if i == 0 {
+        return None;
+    }
+    let e = seq_id_end(r, i);
+    if e == i {
+        return None;
+    }
+    let rest = &r[e..];
+    if rest.is_empty() {
+        return Some((actor, &r[i..e], None));
+    }
+    let j = skip_ws(rest, 0);
+    let after = rest[j..].strip_prefix("as")?;
+    let k = skip_ws(after, 0);
+    (j > 0 && k > 0 && k < after.len()).then(|| (actor, &r[i..e], Some(&after[k..])))
+}
+
+/// `^Note\s+(right of|left of|over)\s+([\w.]+)(?:\s*,\s*([\w.]+))?\s*:\s*(.*)$` with the i flag:
+/// (side, the actors it sits on, text).
+fn seq_note(t: &str) -> Option<(&'static str, Vec<&str>, &str)> {
+    if !t.get(..4).is_some_and(|h| h.eq_ignore_ascii_case("note")) {
+        return None;
+    }
+    let r = &t[4..];
+    let i = skip_ws(r, 0);
+    if i == 0 {
+        return None;
+    }
+    let r = &r[i..];
+    let (w, side) = [("right of", "right"), ("left of", "left"), ("over", "over")]
+        .into_iter()
+        .find(|(w, _)| r.get(..w.len()).is_some_and(|h| h.eq_ignore_ascii_case(w)))?;
+    let r = &r[w.len()..];
+    let i = skip_ws(r, 0);
+    if i == 0 {
+        return None;
+    }
+    let e = seq_id_end(r, i);
+    if e == i {
+        return None;
+    }
+    let mut on = vec![&r[i..e]];
+    let mut pos = e;
+    let j = skip_ws(r, e);
+    if r[j..].starts_with(',') {
+        let k = skip_ws(r, j + 1);
+        let e2 = seq_id_end(r, k);
+        if e2 == k {
+            return None;
+        }
+        on.push(&r[k..e2]);
+        pos = e2;
+    }
+    let j = skip_ws(r, pos);
+    let r2 = r[j..].strip_prefix(':')?;
+    Some((side, on, &r2[skip_ws(r2, 0)..]))
+}
+
+/// `^(w1|w2|...)(?:\s+(.*))?$`: (word, text).
+fn seq_block<'a>(t: &'a str, words: &[&'static str]) -> Option<(&'static str, Option<&'a str>)> {
+    words.iter().find_map(|w| {
+        let r = t.strip_prefix(w)?;
+        if r.is_empty() {
+            return Some((*w, None));
+        }
+        let i = skip_ws(r, 0);
+        (i > 0).then(|| (*w, Some(&r[i..]).filter(|x| !x.is_empty())))
+    })
+}
+
+/// SEQ_MSG, `^([\w.]+)\s*(<<-->>|...|->)\s*([+-]?)\s*([\w.]+)\s*(?::\s*(.*))?$`: (from, arrow, to, text).
+fn seq_msg(t: &str) -> Option<(&str, &'static str, &str, Option<&str>)> {
+    const ARROWS: [&str; 10] = ["<<-->>", "<<->>", "-->>", "->>", "--)", "-)", "--x", "-x", "-->", "->"];
+    let e1 = seq_id_end(t, 0);
+    if e1 == 0 {
+        return None;
+    }
+    let a = skip_ws(t, e1);
+    for arrow in ARROWS {
+        if !t[a..].starts_with(arrow) {
+            continue;
+        }
+        let mut i = skip_ws(t, a + arrow.len());
+        if t[i..].starts_with(['+', '-']) {
+            i += 1;
+        }
+        i = skip_ws(t, i);
+        let e2 = seq_id_end(t, i);
+        if e2 == i {
+            continue;
+        }
+        let j = skip_ws(t, e2);
+        if j == t.len() {
+            return Some((&t[..e1], arrow, &t[i..e2], None));
+        }
+        if let Some(r) = t[j..].strip_prefix(':') {
+            return Some((&t[..e1], arrow, &t[i..e2], Some(&r[skip_ws(r, 0)..])));
+        }
+    }
+    None
+}
+
+fn seq_line(d: &mut Diagram, t: &str) {
+    if let Some((actor, id, label)) = seq_participant(t) {
+        seq_actor(d, id, &label.map_or(String::new(), unlabel), actor);
+        return;
+    }
+    if starts_word(t, "autonumber", &[]) {
+        d.numbered = true;
+        return;
+    }
+    if ["activate", "deactivate", "title", "box", "create", "destroy", "link", "links", "properties", "details"].iter().any(|w| starts_word(t, w, &[])) {
+        return;
+    }
+    if let Some((side, on, text)) = seq_note(t) {
+        for x in &on {
+            seq_actor(d, x, "", false);
+        }
+        let mut o = Map::new();
+        o.set("type", Value::str("note"));
+        o.set("side", Value::str(side));
+        o.set("on", Value::strs(&on));
+        o.set("text", Value::Str(unlabel(text)));
+        d.steps.push(Value::Obj(o));
+        return;
+    }
+    if let Some((block, text)) = seq_block(t, &["loop", "alt", "opt", "par", "critical", "break", "rect"]) {
+        d.open += 1;
+        let mut o = Map::new();
+        o.set("type", Value::str("open"));
+        o.set("block", Value::str(block));
+        if let Some(x) = text {
+            o.set("text", Value::Str(unlabel(x)));
+        }
+        d.steps.push(Value::Obj(o));
+        return;
+    }
+    if let Some((_, text)) = seq_block(t, &["else", "and", "option"]) {
+        let mut o = Map::new();
+        o.set("type", Value::str("else"));
+        if let Some(x) = text {
+            o.set("text", Value::Str(unlabel(x)));
+        }
+        d.steps.push(Value::Obj(o));
+        return;
+    }
+    if let Some((from, arrow, to, text)) = seq_msg(t) {
+        seq_actor(d, from, "", false);
+        seq_actor(d, to, "", false);
+        let head = match arrow.trim_start_matches('<').trim_start_matches('-') {
+            ">" => "none",
+            ")" => "async",
+            "x" => "cross",
+            _ => "arrow",
+        };
+        let mut e = Map::new();
+        e.set("type", Value::str("msg"));
+        e.set("from", Value::str(from));
+        e.set("to", Value::str(to));
+        e.set("text", Value::Str(unlabel(text.unwrap_or(""))));
+        if arrow.starts_with("--") || arrow.starts_with("<<--") {
+            e.set("line", Value::str("dash"));
+        }
+        if head != "arrow" {
+            e.set("head", Value::str(head));
+        }
+        if arrow.starts_with("<<") {
+            e.set("both", Value::Bool(true));
+        }
+        d.steps.push(Value::Obj(e));
+    }
+}
+
+/// [*] is the start when a transition leaves it and the end when one reaches
+/// it: _start and _end, with the composite state appended inside one.
+fn state_add(d: &mut Diagram, id: &str, patch: &[(&str, &str)]) {
+    let at = match d.nodes.iter().position(|n| n.get("id") == Some(&Value::str(id))) {
+        Some(at) => at,
+        None => {
+            let mut n = Map::new();
+            n.set("id", Value::str(id));
+            d.nodes.push(n);
+            d.nodes.len() - 1
+        }
+    };
+    for (k, v) in patch {
+        d.nodes[at].set(k, Value::str(v));
+    }
+    if let Some(&top) = d.stack.last() {
+        if !d.groups.iter().any(|g| g.nodes.iter().any(|x| x == id)) {
+            d.groups[top].nodes.push(id.to_string());
+        }
+    }
+}
+
+/// The tail of a `state` line, `\s*(<<(?:choice|fork|join)>>)?\s*(\{)?$`: (shape, opens a composite).
+fn state_tail(s: &str) -> Option<(Option<&'static str>, bool)> {
+    let mut r = &s[skip_ws(s, 0)..];
+    let mut shape = None;
+    for w in ["choice", "fork", "join"] {
+        if let Some(x) = r.strip_prefix("<<").and_then(|x| x.strip_prefix(w)).and_then(|x| x.strip_prefix(">>")) {
+            shape = Some(w);
+            r = x;
+            break;
+        }
+    }
+    r = &r[skip_ws(r, 0)..];
+    let brace = r.starts_with('{');
+    if brace {
+        r = &r[1..];
+    }
+    r.is_empty().then_some((shape, brace))
+}
+
+/// `^state\s+(?:"([^"]*)"\s+as\s+(\w+)|(\w+))TAIL`: (label, id, shape, composite).
+fn state_decl(t: &str) -> Option<(Option<&str>, &str, Option<&'static str>, bool)> {
+    let r = t.strip_prefix("state")?;
+    let i = skip_ws(r, 0);
+    if i == 0 {
+        return None;
+    }
+    let r = &r[i..];
+    if let Some(q) = r.strip_prefix('"') {
+        let close = q.find('"')?;
+        let after = &q[close + 1..];
+        let a = skip_ws(after, 0);
+        let as_ = after[a..].strip_prefix("as");
+        if let Some(as_) = as_.filter(|_| a > 0) {
+            let b = skip_ws(as_, 0);
+            let e = as_[b..].find(|c: char| !is_word(c)).unwrap_or(as_.len() - b);
+            if b > 0 && e > 0 {
+                if let Some((shape, brace)) = state_tail(&as_[b + e..]) {
+                    return Some((Some(&q[..close]), &as_[b..b + e], shape, brace));
+                }
+            }
+        }
+        return None;
+    }
+    let e = r.find(|c: char| !is_word(c)).unwrap_or(r.len());
+    if e == 0 {
+        return None;
+    }
+    let (shape, brace) = state_tail(&r[e..])?;
+    Some((None, &r[..e], shape, brace))
+}
+
+/// `^(\[\*\]|\w+)\s*(<?-->)\s*(\[\*\]|\w+)\s*(?::\s*(.*))?$`: (from, to, label).
+fn state_edge(t: &str) -> Option<(&str, &str, Option<&str>)> {
+    let node = |s: &str, i: usize| -> usize {
+        if s[i..].starts_with("[*]") { i + 3 } else { s[i..].find(|c: char| !is_word(c)).map_or(s.len(), |e| e + i) }
+    };
+    let e1 = node(t, 0);
+    if e1 == 0 {
+        return None;
+    }
+    let a = skip_ws(t, e1);
+    let r = t[a..].strip_prefix("<-->").or_else(|| t[a..].strip_prefix("-->"))?;
+    let b = t.len() - r.len();
+    let i = skip_ws(t, b);
+    let e2 = node(t, i);
+    if e2 == i {
+        return None;
+    }
+    let j = skip_ws(t, e2);
+    if j == t.len() {
+        return Some((&t[..e1], &t[i..e2], None));
+    }
+    let r = t[j..].strip_prefix(':')?;
+    Some((&t[..e1], &t[i..e2], Some(&r[skip_ws(r, 0)..])))
+}
+
+fn state_line(d: &mut Diagram, t: &str) {
+    if d.note {
+        // `^end\s+note$` with the i flag
+        if t.get(..3).is_some_and(|h| h.eq_ignore_ascii_case("end")) {
+            let r = &t[3..];
+            let i = skip_ws(r, 0);
+            if i > 0 && r[i..].eq_ignore_ascii_case("note") {
+                d.note = false;
+            }
+        }
+        return;
+    }
+    // `^note\s` with the i flag
+    if t.get(..4).is_some_and(|h| h.eq_ignore_ascii_case("note")) && t[4..].chars().next().is_some_and(is_ws) {
+        if !t.contains(':') {
+            d.note = true;
+        }
+        return;
+    }
+    if ["direction", "classDef", "class", "style", "click", "accTitle", "accDescr", "hide"].iter().any(|w| starts_word(t, w, &[])) {
+        if let Some(r) = t.strip_prefix("direction") {
+            let i = skip_ws(r, 0);
+            let e = r[i..].find(|c: char| !is_word(c)).unwrap_or(r.len() - i);
+            if i > 0 && e > 0 {
+                d.dir = r[i..i + e].to_uppercase();
+            }
+        }
+        return;
+    }
+    if t == "}" {
+        d.stack.pop();
+        return;
+    }
+    if let Some((label, id, shape, brace)) = state_decl(t) {
+        let mut patch = Vec::new();
+        if let Some(l) = label {
+            patch.push(("label", l));
+        }
+        if let Some(s) = shape {
+            patch.push(("shape", s));
+        }
+        state_add(d, id, &patch);
+        if brace {
+            let label = d.nodes.iter().find(|n| n.get("id") == Some(&Value::str(id))).and_then(|n| n.get("label")).and_then(Value::as_str).filter(|l| !l.is_empty()).map(str::to_string);
+            let parent = d.stack.last().map(|&i| d.groups[i].id.clone());
+            d.groups.push(Group { id: id.to_string(), label, nodes: Vec::new(), parent });
+            d.stack.push(d.groups.len() - 1);
+        }
+        return;
+    }
+    if let Some((a, b, label)) = state_edge(t) {
+        let scope = d.stack.last().map_or(String::new(), |&i| format!("_{}", d.groups[i].id));
+        let end = |x: &str, as_: &str| if x == "[*]" { format!("{}{}", as_, scope) } else { x.to_string() };
+        let (from, to) = (end(a, "_start"), end(b, "_end"));
+        if a == "[*]" {
+            state_add(d, &from, &[("shape", "start")]);
+        } else {
+            state_add(d, &from, &[]);
+        }
+        if b == "[*]" {
+            state_add(d, &to, &[("shape", "end")]);
+        } else {
+            state_add(d, &to, &[]);
+        }
+        let mut e = Map::new();
+        e.set("from", Value::Str(from));
+        e.set("to", Value::Str(to));
+        if let Some(l) = label.filter(|l| !l.is_empty()) {
+            e.set("label", Value::Str(unlabel(l)));
+        }
+        d.edges.push(Value::Obj(e));
+        return;
+    }
+    // `^(\w+)\s*:\s*(.+)$`
+    let e = t.find(|c: char| !is_word(c)).unwrap_or(t.len());
+    if e > 0 {
+        let j = skip_ws(t, e);
+        if let Some(r) = t[j..].strip_prefix(':') {
+            let text = &r[skip_ws(r, 0)..];
+            if !text.is_empty() {
+                let id = &t[..e];
+                state_add(d, id, &[]);
+                let n = d.nodes.iter_mut().find(|n| n.get("id") == Some(&Value::str(id))).unwrap();
+                if !n.get("label").and_then(Value::as_str).is_some_and(|l| !l.is_empty()) {
+                    n.set("label", Value::Str(unlabel(text)));
+                }
+            }
+        }
+    }
+}
+
+/// The patch props a diagram's end gives.
+fn diagram_graph(d: &Diagram) -> Map {
+    let src = Value::Str(d.src.join("\n"));
+    let mut o = Map::new();
+    let groups = |gs: &[Group]| if gs.is_empty() { Value::Arr(Vec::new()) } else { Value::Arr(gs.iter().map(group_value).collect()) };
+    match d.kind {
+        Some(DKind::Flow) => {
+            let nodes = d.f.nodes.iter().map(|n| {
+                let mut m = Map::new();
+                m.set("id", Value::str(&n.id));
+                if let Some(l) = &n.label {
+                    m.set("label", Value::str(l));
+                }
+                if let Some(s) = &n.shape {
+                    m.set("shape", Value::str(s));
+                }
+                Value::Obj(m)
+            });
+            let edges = d.f.edges.iter().map(|(from, to, label, style)| {
+                let mut e = Map::new();
+                e.set("from", Value::str(from));
+                e.set("to", Value::str(to));
+                if !label.is_empty() {
+                    e.set("label", Value::str(label));
+                }
+                e.merge(style);
+                Value::Obj(e)
+            });
+            o.set("type", Value::str("flow"));
+            o.set("dir", Value::str(&d.dir));
+            o.set("nodes", Value::Arr(nodes.collect()));
+            o.set("edges", Value::Arr(edges.collect()));
+            o.set("groups", groups(&d.f.groups));
+            o.set("source", src);
+            clean(o)
+        }
+        Some(DKind::Sequence) => {
+            o.set("type", Value::str("sequence"));
+            o.set("actors", Value::Arr(d.actors.iter().cloned().map(Value::Obj).collect()));
+            o.set("steps", Value::Arr(d.steps.clone()));
+            if d.numbered {
+                o.set("numbered", Value::Bool(true));
+            }
+            o.set("source", src);
+            clean(o)
+        }
+        Some(DKind::State) => {
+            o.set("type", Value::str("state"));
+            o.set("dir", Value::str(&d.dir));
+            o.set("nodes", Value::Arr(d.nodes.iter().cloned().map(Value::Obj).collect()));
+            o.set("edges", Value::Arr(d.edges.clone()));
+            o.set("groups", groups(&d.groups));
+            o.set("source", src);
+            clean(o)
+        }
+        _ => {
+            o.set("type", Value::str("other"));
+            o.set("source", src);
+            o
+        }
+    }
 }
 
 // ---------- flow variants (spec/FLOWS.md, section 9) ----------
@@ -3042,6 +3687,7 @@ pub struct Parser {
     flow_head: Option<FlowHead>, // a flow head just added
     flow: Option<Flow>,          // an open flow's Mermaid, being read
     variant: Option<Variant>,    // an open flow variant's lines, being read
+    dgm: Option<Diagram>,        // an open diagram's Mermaid, being read
 }
 
 impl Default for Parser {
@@ -3052,7 +3698,7 @@ impl Default for Parser {
 
 impl Parser {
     pub fn new() -> Self {
-        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new(), flow_head: None, flow: None, variant: None }
+        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new(), flow_head: None, flow: None, variant: None, dgm: None }
     }
 
     pub fn with_known(known: &HashMap<String, String>) -> Self {
@@ -3120,6 +3766,11 @@ impl Parser {
         if self.variant.is_some() {
             return self.variant_line(src);
         }
+        if self.dgm.is_some() {
+            if let Some(o) = self.dgm_line(src) {
+                return o;
+            }
+        }
         let unr = src.strip_suffix('\r').unwrap_or(src);
         if let Some(h) = self.flow_head.as_mut() {
             // The line after a flow head decides: a Mermaid header starts the
@@ -3142,6 +3793,10 @@ impl Parser {
         let o = self.parse_line(src);
         let o = self.group(o);
         if let Some(m) = o.as_ref().and_then(Value::as_obj) {
+            if m.get("op") == Some(&Value::str("add")) && m.get("preset") == Some(&Value::str("diagram")) {
+                let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
+                self.dgm = Some(new_diagram(text("id"), text("screen")));
+            }
             if m.get("op") == Some(&Value::str("add")) && m.get("preset") == Some(&Value::str("flow")) {
                 let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
                 // `as=` makes it a variant of the saved flow it names: its lines follow.
@@ -3158,11 +3813,92 @@ impl Parser {
     /// Ends the input: an open flow gives its graph now.
     pub fn finish(&mut self) -> Option<Value> {
         self.flow_head = None;
+        if self.dgm.is_some() {
+            return self.dgm_done("");
+        }
         if self.variant.is_some() {
             return Some(self.variant_done(""));
         }
         self.flow.as_ref()?;
         Some(self.flow_done(""))
+    }
+
+    /// One line of an open diagram: Mermaid, not YL. None means the line is
+    /// not the diagram's (no Mermaid header came), so the caller reads it as YL.
+    /// A nested block's `end` (subgraph, loop, alt...) closes that block first,
+    /// then the diagram.
+    fn dgm_line(&mut self, src: &str) -> Option<Option<Value>> {
+        let line = src.strip_suffix('\r').unwrap_or(src);
+        let t = trim(line);
+        let d = self.dgm.as_mut().unwrap();
+        let Some(kind) = d.kind.as_ref() else {
+            if t.is_empty() || is_comment(t) {
+                return Some(None);
+            }
+            if t.starts_with("%%") {
+                d.src.push(line.to_string());
+                return Some(None);
+            }
+            if dgm_header(t).is_none() && !dgm_other(t) {
+                self.dgm = None;
+                return None;
+            }
+            d.src.push(line.to_string());
+            diagram_start(d, t);
+            return Some(None);
+        };
+        // `^end\s*;?$`
+        if t.strip_prefix("end").is_some_and(|r| matches!(r.trim_start_matches(is_ws), "" | ";")) {
+            if *kind != DKind::State {
+                let open = match kind {
+                    DKind::Flow => d.f.depth,
+                    DKind::Sequence => d.open,
+                    _ => 0,
+                };
+                if open > 0 {
+                    d.src.push(line.to_string());
+                    if *kind == DKind::Flow {
+                        d.f.depth -= 1;
+                        d.f.stack.pop();
+                    } else {
+                        d.open -= 1;
+                        let mut c = Map::new();
+                        c.set("type", Value::str("close"));
+                        d.steps.push(Value::Obj(c));
+                    }
+                    return Some(None);
+                }
+                return Some(self.dgm_done(line));
+            }
+            if !d.note {
+                return Some(self.dgm_done(line));
+            }
+        }
+        d.src.push(line.to_string());
+        if t.is_empty() {
+            return Some(None);
+        }
+        match kind {
+            DKind::Other => {}
+            DKind::Flow => {
+                flow_statement(&mut d.f, t);
+            }
+            DKind::Sequence => seq_line(d, t),
+            DKind::State => state_line(d, t),
+        }
+        Some(None)
+    }
+
+    fn dgm_done(&mut self, line: &str) -> Option<Value> {
+        let d = self.dgm.take().unwrap();
+        d.kind.as_ref()?;
+        Some(op(vec![
+            ("op", Value::str("patch")),
+            ("screen", Value::str(&d.screen)),
+            ("target", Value::str(&d.id)),
+            ("props", Value::Obj(diagram_graph(&d))),
+            ("line", Value::str(line)),
+        ]))
     }
 
     /// One line of an open variant; `end` closes it.
@@ -3632,6 +4368,9 @@ fn defaults(preset: &str) -> Map {
         "query" => vec![("table", s("")), ("as", s("table")), ("title", s("")), ("where", e()), ("sort", e())],
         "shapes" => vec![("title", s("")), ("caption", s("")), ("w", n(10.0)), ("h", n(6.0))],
         "shape" => vec![("kind", s("box")), ("label", s(""))],
+        "diagram" => vec![("title", s("")), ("caption", s(""))],
+        "mock" => vec![("title", s("")), ("frame", s("phone"))],
+        "part" => vec![("text", s("")), ("items", e())],
         "map" => vec![("title", s("")), ("caption", s("")), ("fit", s("auto"))],
         "area" => vec![("label", s("")), ("codes", e()), ("pts", e())],
         "pin" => vec![("label", s(""))],
@@ -3697,10 +4436,10 @@ pub fn resolve(preset: &str, props: &Map) -> Map {
             };
             r.set("cta", cta);
         }
-        "shape" => {
+        "shape" | "part" => {
             // The kind is a word, matched without case (JS lowercases it too).
             let kind = match props.get("kind") {
-                Some(Value::Null) | None => "box".to_string(),
+                Some(Value::Null) | None => (if preset == "part" { "text" } else { "box" }).to_string(),
                 Some(k) => js_str(k).to_lowercase(),
             };
             r.set("kind", Value::Str(kind));

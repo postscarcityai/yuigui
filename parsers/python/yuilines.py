@@ -52,6 +52,7 @@ PRESETS = [
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
+    "diagram", "mock", "part",
     "map", "area", "pin", "route",
     "game",
     "query", "flow",
@@ -64,12 +65,13 @@ CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "clo
 # as long as each one is a member preset. Anything else ends the group, and
 # so does `end`. Comments, blank lines and error lines do not.
 GROUPS = {
-    "deck": ["page", "ask", "choose", "pick", "sketch", "shapes", "map", "math", "chart", "stat", "calc"],
-    "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "map"],
+    "deck": ["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "map", "math", "chart", "stat", "calc"],
+    "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "map"],
     "narrate": ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
     "timeline": ["done", "now", "next"],
     "sketch": ["row", "after"],
     "shapes": ["shape"],
+    "mock": ["part"],
     "map": ["area", "pin", "route"],
 }
 
@@ -742,6 +744,8 @@ P = {
     "sketch": _titled,
     "shapes": _titled,
     "shape": _kinded("label"),
+    "diagram": _titled, "mock": _titled,
+    "part": _kinded("text"),
     "map": _titled,
     "area": _area, "pin": _pin, "route": _route,
     "row": lambda pos: {"text": _join(pos)} if pos else {},
@@ -807,6 +811,7 @@ LISTS = {
     "pick": ["answer"],
     "game": ["items"],
     "shape": ["pts"],
+    "part": ["items"],
     "area": ["codes", "pts"],
     "route": ["pts"],
     "loop": ["rows", "p"],
@@ -1007,6 +1012,9 @@ SHAPES = [
     ("(((", [")))"]), ("([", ["])"]), ("[[", ["]]"]), ("[(", [")]"]), ("((", ["))"]), ("{{", ["}}"]),
     ("[/", ["/]", "\\]"]), ("[\\", ["\\]", "/]"]), ("[", ["]"]), ("(", [")"]), ("{", ["}"]), (">", ["]"]),
 ]
+# A node's shape by its opener, for a diagram (a plain [box] is the default).
+NODE_SHAPE = {"(((": "double", "([": "stadium", "[[": "subroutine", "[(": "cylinder", "((": "circle", "{{": "hexagon",
+              "[/": "slant", "[\\": "slant", "(": "round", "{": "diamond", ">": "flag"}
 # Links: `-- text -->` first, then plain arrows with an optional |label|.
 TEXT_LINK = _re(rf"{S}*<?(?:--|==|-\.)(?![->=.]){S}*({DOT}*?){S}*(?:-{{2,}}>|={{2,}}>|\.-+>|-{{3,}}|={{3,}}|\.-+)(?=[{WS}\w])")
 LINK = _re(rf"{S}*(<?)(-{{2,}}>|-{{3,}}|={{2,}}>|={{3,}}|-\.+->|-\.+-|--[ox]|==[ox]|~{{3,}})")
@@ -1074,6 +1082,8 @@ def _read_node(s):
     shape = next((sh for sh in SHAPES if rest.startswith(sh[0])), None)
     if shape:
         opener, closers = shape
+        if opener in NODE_SHAPE:
+            node["shape"] = NODE_SHAPE[opener]
         body = rest[len(opener):]
         end, n = -1, 0
         start = body.find('"', body.find('"') + 1) + 1 if body.lstrip(_WS_CHARS).startswith('"') else 0
@@ -1107,10 +1117,16 @@ def _read_nodes(s):
 
 def _add_node(f, n):
     had = f["nodes"].get(n["id"])
+    shape = {"shape": n["shape"]} if f.get("drawn") and n.get("shape") else {}
     if not had:
-        f["nodes"][n["id"]] = {"id": n["id"], **({"label": n["label"]} if "label" in n else {}), "order": len(f["nodes"])}
-    elif "label" in n:
-        had["label"] = n["label"]
+        f["nodes"][n["id"]] = {"id": n["id"], **({"label": n["label"]} if "label" in n else {}), **shape, "order": len(f["nodes"])}
+    else:
+        if "label" in n:
+            had["label"] = n["label"]
+        had.update(shape)
+    # A diagram's subgraph holds the nodes first written inside it.
+    if f.get("stack") and not any(n["id"] in g["nodes"] for g in f["groups"]):
+        f["stack"][-1]["nodes"].append(n["id"])
 
 
 def _flow_statement(f, t):
@@ -1132,6 +1148,15 @@ def _flow_statement(f, t):
         return None
     if SUBGRAPH.match(t):
         f["depth"] += 1
+        if f.get("drawn"):
+            m = re.fullmatch(rf"subgraph{S}+(\w+){S}*(?:\[({DOT}*)\])?{S}*", t, re.ASCII) or re.fullmatch(rf"subgraph{S}+({DOT}+?){S}*", t, re.ASCII)
+            named = m.groups()[1] if m and m.re.groups > 1 else None
+            label = _unlabel(named if named is not None else m[1]) if m else ""
+            g = {"id": m[1] if m and re.fullmatch(r"\w+", m[1], re.ASCII) else f"g{len(f['groups']) + 1}", **({"label": label} if label else {}), "nodes": []}
+            if f["stack"]:
+                g["in"] = f["stack"][-1]["id"]
+            f["groups"].append(g)
+            f["stack"].append(g)
         return None
     if FLOW_SKIP.match(t) or FLOW_HEADER.match(t):
         return None
@@ -1142,15 +1167,21 @@ def _flow_statement(f, t):
         for n in g["nodes"]:
             _add_node(f, n)
         while True:
-            rest, label, hidden = g["rest"], None, False
+            rest, label, hidden, how, both = g["rest"], None, False, "", False
             tl = TEXT_LINK.match(rest)
             if tl:
                 label = tl[1]
+                t0 = re.sub(r"^<", "", _trim(tl[0]))
+                tail = re.search(r"\S+\Z", t0, re.ASCII)
+                how = t0[:2] + (tail[0] if tail else "")
+                both = _trim(tl[0]).startswith("<")
                 rest = rest[tl.end():]
             else:
                 lm = LINK.match(rest)
                 if not lm:
                     break
+                how = lm[2]
+                both = lm[1] == "<"
                 hidden = lm[2].startswith("~")
                 rest = rest[lm.end():]
                 p = PIPE.match(rest)
@@ -1169,6 +1200,15 @@ def _flow_statement(f, t):
                         e = {"from": a["id"], "to": b["id"]}
                         if text:
                             e["label"] = text
+                        if f.get("drawn"):
+                            if "=" in how:
+                                e["line"] = "thick"
+                            elif "." in how:
+                                e["line"] = "dash"
+                            if not how.endswith(">"):
+                                e["plain"] = True
+                            if both:
+                                e["both"] = True
                         f["edges"].append(e)
             g = to
     return None
@@ -1236,6 +1276,191 @@ def _flow_graph(f):
         when = flow_when(e.get("label"), e["from"] if e["from"] in is_step else None)
         edges.append({**e, "when": when} if when else e)
     return _clean({"dir": f["dir"], "start": first.get("id"), "nodes": nodes, "edges": edges, "source": "\n".join(f["src"])})
+
+
+# ---------- diagram (spec/YL.md, diagram) ----------
+# A Mermaid block between `diagram` and `end`, drawn static. The first
+# Mermaid line says which: a flowchart (read by the flow reader above, plus
+# node shapes, link styles and subgraphs), a sequenceDiagram or a
+# stateDiagram. Any other Mermaid type keeps only its `source`. The end gives
+# one patch: {type, ...the drawing, source}.
+DGM_HEADER = _re(rf"(flowchart|graph|sequenceDiagram|stateDiagram(?:-v2)?)(?={S}|;|\Z)")
+DGM_OTHER = _re(rf"(classDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|gitGraph|quadrantChart|requirementDiagram|C4\w+|sankey-beta|xychart-beta|block-beta)(?={S}|\Z)")
+SEQ_MSG = _re(rf"([\w.]+){S}*(<<-->>|<<->>|-->>|->>|--\)|-\)|--x|-x|-->|->){S}*([+-]?){S}*([\w.]+){S}*(?::{S}*({DOT}*))?")
+SEQ_HEAD = {">>": "arrow", ">": "none", ")": "async", "x": "cross"}
+SEQ_PART = _re(rf"(participant|actor){S}+([\w.]+)(?:{S}+as{S}+({DOT}+))?")
+SEQ_SKIP = _re(rf"(activate|deactivate|title|box|create|destroy|link|links|properties|details)({S}|\Z)")
+SEQ_NOTE = _re(rf"Note{S}+(right of|left of|over){S}+([\w.]+)(?:{S}*,{S}*([\w.]+))?{S}*:{S}*({DOT}*)", re.I)
+SEQ_OPEN = _re(rf"(loop|alt|opt|par|critical|break|rect)(?:{S}+({DOT}*))?")
+SEQ_ELSE = _re(rf"(else|and|option)(?:{S}+({DOT}*))?")
+STATE_SKIP = _re(rf"(direction|classDef|class|style|click|accTitle|accDescr|hide)({S}|\Z)")
+STATE_DECL = _re(rf'state{S}+(?:"([^"]*)"{S}+as{S}+(\w+)|(\w+)){S}*(<<(?:choice|fork|join)>>)?{S}*(\{{)?')
+STATE_EDGE = _re(rf"(\[\*\]|\w+){S}*(<?-->){S}*(\[\*\]|\w+){S}*(?::{S}*({DOT}*))?")
+STATE_TEXT = _re(rf"(\w+){S}*:{S}*({DOT}+)")
+
+
+def _new_diagram(head):
+    return {"id": head["id"], "screen": head["screen"], "src": [], "kind": None, "depth": 0}
+
+
+def _diagram_start(d, header):
+    """Starts the reader once the header is known."""
+    h = DGM_HEADER.match(header)
+    if not h:
+        d["kind"] = "other"
+        return
+    words = re.split(f"{S}+", header)
+    d["dir"] = re.sub(";$", "", (words[1] if len(words) > 1 and words[1] else "TD")).upper()
+    if h[1] in ("flowchart", "graph"):
+        d["kind"] = "flow"
+        d["f"] = {"nodes": {}, "edges": [], "steps": {}, "depth": 0, "drawn": True, "groups": [], "stack": []}
+    elif h[1] == "sequenceDiagram":
+        d["kind"] = "sequence"
+        d["actors"] = {}
+        d["steps"] = []
+        d["open"] = 0
+    else:
+        d["kind"] = "state"
+        d["nodes"] = {}
+        d["edges"] = []
+        d["groups"] = []
+        d["stack"] = []
+        d["note"] = False
+
+
+def _seq_actor(d, id_, label="", actor=False):
+    a = d["actors"].get(id_)
+    if not a:
+        d["actors"][id_] = {"id": id_, **({"label": label} if label else {}), **({"actor": True} if actor else {})}
+    else:
+        if label:
+            a["label"] = label
+        if actor:
+            a["actor"] = True
+
+
+def _seq_line(d, t):
+    m = SEQ_PART.fullmatch(t)
+    if m:
+        _seq_actor(d, m[2], _unlabel(m[3]) if m[3] else "", m[1] == "actor")
+        return
+    if re.match(rf"autonumber({S}|\Z)", t, re.ASCII):
+        d["numbered"] = True
+        return
+    if SEQ_SKIP.match(t):
+        return
+    m = SEQ_NOTE.fullmatch(t)
+    if m:
+        on = [m[2], *([m[3]] if m[3] else [])]
+        for x in on:
+            _seq_actor(d, x)
+        d["steps"].append({"type": "note", "side": re.sub(" of$", "", m[1].lower()), "on": on, "text": _unlabel(m[4])})
+        return
+    m = SEQ_OPEN.fullmatch(t)
+    if m:
+        d["open"] += 1
+        d["steps"].append({"type": "open", "block": m[1], **({"text": _unlabel(m[2])} if m[2] else {})})
+        return
+    m = SEQ_ELSE.fullmatch(t)
+    if m:
+        d["steps"].append({"type": "else", **({"text": _unlabel(m[2])} if m[2] else {})})
+        return
+    m = SEQ_MSG.fullmatch(t)
+    if m:
+        _seq_actor(d, m[1])
+        _seq_actor(d, m[4])
+        head = SEQ_HEAD.get(re.sub(r"^<*-+", "", m[2])) or "arrow"
+        e = {"type": "msg", "from": m[1], "to": m[4], "text": _unlabel(m[5] or "")}
+        if m[2].startswith("--") or m[2].startswith("<<--"):
+            e["line"] = "dash"
+        if head != "arrow":
+            e["head"] = head
+        if m[2].startswith("<<"):
+            e["both"] = True
+        d["steps"].append(e)
+
+
+def _state_add(d, id_, patch=None):
+    """[*] is the start when a transition leaves it and the end when one
+    reaches it: _start and _end, with the composite state appended inside one."""
+    had = d["nodes"].get(id_)
+    if not had:
+        d["nodes"][id_] = {"id": id_, **(patch or {})}
+    else:
+        had.update(patch or {})
+    if d["stack"] and not any(id_ in g["nodes"] for g in d["groups"]):
+        d["stack"][-1]["nodes"].append(id_)
+
+
+def _state_line(d, t):
+    if d["note"]:
+        if re.fullmatch(rf"end{S}+note", t, re.I | re.ASCII):
+            d["note"] = False
+        return
+    if re.match(rf"note{S}", t, re.I | re.ASCII):
+        if ":" not in t:
+            d["note"] = True
+        return
+    if STATE_SKIP.match(t):
+        m = re.match(rf"direction{S}+(\w+)", t, re.ASCII)
+        if m:
+            d["dir"] = m[1].upper()
+        return
+    if t == "}":
+        if d["stack"]:
+            d["stack"].pop()
+        return
+    m = STATE_DECL.fullmatch(t)
+    if m:
+        id_ = m[2] or m[3]
+        patch = {}
+        if m[1]:
+            patch["label"] = m[1]
+        if m[4]:
+            patch["shape"] = m[4][2:-2]
+        _state_add(d, id_, patch)
+        if m[5]:
+            label = d["nodes"][id_].get("label")
+            g = {"id": id_, **({"label": label} if label else {}), "nodes": []}
+            if d["stack"]:
+                g["in"] = d["stack"][-1]["id"]
+            d["groups"].append(g)
+            d["stack"].append(g)
+        return
+    m = STATE_EDGE.fullmatch(t)
+    if m:
+        scope = f"_{d['stack'][-1]['id']}" if d["stack"] else ""
+        from_ = f"_start{scope}" if m[1] == "[*]" else m[1]
+        to = f"_end{scope}" if m[3] == "[*]" else m[3]
+        _state_add(d, from_, {"shape": "start"} if m[1] == "[*]" else None)
+        _state_add(d, to, {"shape": "end"} if m[3] == "[*]" else None)
+        e = {"from": from_, "to": to}
+        if m[4]:
+            e["label"] = _unlabel(m[4])
+        d["edges"].append(e)
+        return
+    m = STATE_TEXT.fullmatch(t)
+    if m:
+        _state_add(d, m[1])
+        n = d["nodes"][m[1]]
+        if not n.get("label"):
+            n["label"] = _unlabel(m[2])
+
+
+def _diagram_graph(d):
+    """The patch props a diagram's end gives."""
+    src = "\n".join(d["src"])
+    if d["kind"] == "flow":
+        nodes = [{k: v for k, v in n.items() if k != "order"} for n in d["f"]["nodes"].values()]
+        return _clean({"type": "flow", "dir": d["dir"], "nodes": nodes, "edges": d["f"]["edges"],
+                       "groups": d["f"]["groups"] or None, "source": src})
+    if d["kind"] == "sequence":
+        return _clean({"type": "sequence", "actors": list(d["actors"].values()), "steps": d["steps"],
+                       "numbered": d.get("numbered"), "source": src})
+    if d["kind"] == "state":
+        return _clean({"type": "state", "dir": d["dir"], "nodes": list(d["nodes"].values()), "edges": d["edges"],
+                       "groups": d["groups"] or None, "source": src})
+    return {"type": "other", "source": src}
 
 
 # ---------- flow variants (spec/FLOWS.md, section 9) ----------
@@ -1770,6 +1995,9 @@ def _put_line(screen, tokens, line):
     return {**op, "values": values, "line": line}
 
 
+_NOT_DGM = object()
+
+
 class Parser:
     """Stateful: remembers the focused screen and which preset each id belongs
     to, so "~hiit rounds=10" knows to parse its args as a timer. `known` is the
@@ -1783,6 +2011,7 @@ class Parser:
         self.open = []  # open groups, innermost last: {id, preset, screen}
         self.flow_head = None  # a flow head just added: {id, screen, pre}
         self.flow = None  # an open flow's Mermaid, being read
+        self.dgm = None  # an open diagram's Mermaid, being read
 
     def group(self, op):
         """Group bookkeeping for one parsed op. Errors (and None) leave groups open."""
@@ -1816,6 +2045,10 @@ class Parser:
     def line(self, src):
         if self.flow:
             return self.flow_line(src)
+        if self.dgm:
+            op = self.dgm_line(src)
+            if op is not _NOT_DGM:
+                return op
         if self.flow_head:
             # The line after a flow head decides: a Mermaid header starts the
             # chart (inline flow), anything else leaves it a saved flow by name.
@@ -1831,6 +2064,8 @@ class Parser:
                 self.flow = _new_flow(h, src[:-1] if src.endswith("\r") else src)
                 return None
         op = self.group(self.parse_line(src))
+        if op and op["op"] == "add" and op["preset"] == "diagram":
+            self.dgm = _new_diagram(op)
         if op and op["op"] == "add" and op["preset"] == "flow":
             # `as=` makes it a variant of the saved flow it names: its lines follow.
             if "as" in op["props"]:
@@ -1842,7 +2077,62 @@ class Parser:
     def finish(self):
         """Ends the input: an open flow gives its graph now."""
         self.flow_head = None
+        if self.dgm:
+            return self.dgm_done("")
         return self.flow_done("") if self.flow else None
+
+    def dgm_line(self, src):
+        """One line of an open diagram: Mermaid, not YL. _NOT_DGM means the line
+        is not the diagram's (no Mermaid header came), so the caller reads it
+        as YL. A nested block's `end` (subgraph, loop, alt...) closes that
+        block first, then the diagram."""
+        d = self.dgm
+        line = src[:-1] if src.endswith("\r") else src
+        t = _trim(line)
+        if not d["kind"]:
+            if not t or COMMENT.match(t):
+                return None
+            if t.startswith("%%"):
+                d["src"].append(line)
+                return None
+            if not DGM_HEADER.match(t) and not DGM_OTHER.match(t):
+                self.dgm = None
+                return _NOT_DGM
+            d["src"].append(line)
+            _diagram_start(d, t)
+            return None
+        if FLOW_END.fullmatch(t) and d["kind"] != "state":
+            nested = d["f"]["depth"] if d["kind"] == "flow" else d["open"] if d["kind"] == "sequence" else 0
+            if nested > 0:
+                d["src"].append(line)
+                if d["kind"] == "flow":
+                    d["f"]["depth"] -= 1
+                    if d["f"]["stack"]:
+                        d["f"]["stack"].pop()
+                else:
+                    d["open"] -= 1
+                    d["steps"].append({"type": "close"})
+                return None
+            return self.dgm_done(line)
+        if FLOW_END.fullmatch(t):
+            if not d["note"]:
+                return self.dgm_done(line)
+        d["src"].append(line)
+        if not t or d["kind"] == "other":
+            return None
+        if d["kind"] == "flow":
+            _flow_statement(d["f"], t)
+        elif d["kind"] == "sequence":
+            _seq_line(d, t)
+        else:
+            _state_line(d, t)
+        return None
+
+    def dgm_done(self, line):
+        d, self.dgm = self.dgm, None
+        if not d["kind"]:
+            return None
+        return {"op": "patch", "screen": d["screen"], "target": d["id"], "props": _diagram_graph(d), "line": line}
 
     def flow_line(self, src):
         """One line of an open flow: Mermaid, not YL. `end` closes a subgraph
@@ -2179,6 +2469,8 @@ _DEFAULTS = {
     "query": {"table": "", "as": "table", "title": "", "where": [], "sort": []},
     "shapes": {"title": "", "caption": "", "w": 10, "h": 6},
     "shape": {"kind": "box", "label": ""},
+    "diagram": {"title": "", "caption": ""},
+    "mock": {"title": "", "frame": "phone"},
     "map": {"title": "", "caption": "", "fit": "auto"},
     "area": {"label": "", "codes": [], "pts": []},
     "pin": {"label": ""},
@@ -2228,6 +2520,10 @@ def resolve(preset, props):
         # The kind is a word, matched without case (as in JS).
         r = {"label": "", **p}
         r["kind"] = _js_str("box" if p.get("kind") is None else p["kind"]).lower()
+        return r
+    if preset == "part":
+        r = {"text": "", "items": [], **p}
+        r["kind"] = _js_str("text" if p.get("kind") is None else p["kind"]).lower()
         return r
     if preset == "game":
         # Cells outside 1-9 are ignored, and a cell both marks claim is x's.
