@@ -1752,6 +1752,9 @@
     },
     {
       "text": "The vector blob is gone: the shader draws the agent, and its blob changes shape with what the agent does (circle, cloud, football, rounded square, drop, pill); every default is the blob [YUI-232]"
+    },
+    {
+      "text": "Every crew default is the shader blob: an agent, Basil, Gouda and Penny ship look orb in their profiles, the runtime crew table and the bundled _native copy, each keeping its own hears, strength and pace [YUI-235]"
     }
   ]
 }

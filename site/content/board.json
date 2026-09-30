@@ -1,9 +1,9 @@
 {
-  "updated": "2026-09-30T15:11:27.595Z",
+  "updated": "2026-09-30T15:40:58.965Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
-    "status": "shipping",
+    "status": "open",
     "startedAt": "2026-09-30T12:03:07.000Z",
     "shippedAt": null,
     "cards": [
@@ -232,11 +232,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-235",
-          "title": "The crew's default visual is the shader blob everywhere",
-          "summary": "Runtime profiles, _native, site crew table and stage"
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -444,22 +439,20 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-133",
-          "title": "The speed check again after /crew, /thoughts and the chat bubble",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-232",
-          "title": "The blob, drawn by the shader, changes shape with what the agent does; the vector blob is removed",
-          "summary": "The blob changes shape with what your agent does",
-          "blocked": "chris",
-          "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does",
+          "key": "YUI-236",
+          "title": "Restore stage header, X and drawer after plan build on a real account",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-133",
+          "title": "The speed check again after /crew, /thoughts and the chat bubble",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
@@ -468,6 +461,22 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-235",
+          "title": "The crew's default visual is the shader blob everywhere",
+          "summary": "Every crew agent is the shader blob, on the site too",
+          "shipped": "2026-09-30",
+          "progress": "/progress#every-crew-agent-is-the-shader-blob-on-the-site-too",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/dde9c05"
+        },
+        {
+          "key": "YUI-232",
+          "title": "The blob, drawn by the shader, changes shape with what the agent does; the vector blob is removed",
+          "summary": "The blob changes shape with what your agent does",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5561ffe"
+        },
         {
           "key": "YUI-234",
           "title": "The first question stays on screen",
