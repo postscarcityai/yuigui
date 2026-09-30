@@ -44,6 +44,7 @@ export const PRESETS = [
   "timeline", "done", "now", "next",
   "sketch", "row", "after",
   "shapes", "shape",
+  "diagram", "mock", "part",
   "map", "area", "pin", "route",
   "game", "flow",
   "query",
@@ -57,12 +58,13 @@ export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", 
 // so does `end`. Comments, blank lines and error lines do not. A narrate
 // can hold another group (a deck), a deck or plan a sketch (a page's picture).
 export const GROUPS = {
-  deck: ["page", "ask", "choose", "pick", "sketch", "shapes", "map", "math", "chart", "stat", "calc"],
-  plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "map"],
+  deck: ["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "map", "math", "chart", "stat", "calc"],
+  plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "map"],
   narrate: ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
   timeline: ["done", "now", "next"],
   sketch: ["row", "after"],
   shapes: ["shape"],
+  mock: ["part"],
   map: ["area", "pin", "route"],
 };
 
@@ -487,6 +489,23 @@ const P = {
     return o;
   },
 
+  // diagram [title...] (caption=): a Mermaid block up to `end`, read by the
+  // parser (see the diagram section below), so the head takes a title only.
+  diagram(pos) { return P.calc(pos); },
+  // mock [title...] (frame= url= dark), then `part KIND [text...]` lines: the
+  // first bare word is the kind, wherever it sits (as in shape and game).
+  mock(pos) { return P.calc(pos); },
+  part(pos) {
+    const o = {};
+    const text = [];
+    for (const t of pos) {
+      if (o.kind === undefined && !t.parts && !t.quoted && GAME_WORD.test(t.text)) o.kind = t.text;
+      else text.push(t);
+    }
+    if (text.length) o.text = joinText(text);
+    return o;
+  },
+
   // map [title...] (caption= fit= center= zoom=), then area, pin and route
   // lines. Places stay as written ("47.9,106.9"); the renderer reads them.
   // area [label...] [CN|MN|RU] [pts=lat,lon|...]: bare two or three capital
@@ -641,6 +660,7 @@ const LISTS = {
   pick: ["answer"],
   game: ["items"],
   shape: ["pts"],
+  part: ["items"],
   area: ["codes", "pts"],
   route: ["pts"],
   loop: ["rows", "p"],
@@ -791,6 +811,8 @@ const SHAPES = [
   ["(((", [")))"]], ["([", ["])"]], ["[[", ["]]"]], ["[(", [")]"]], ["((", ["))"]], ["{{", ["}}"]],
   ["[/", ["/]", "\\]"]], ["[\\", ["\\]", "/]"]], ["[", ["]"]], ["(", [")"]], ["{", ["}"]], [">", ["]"]],
 ];
+// A node's shape by its opener, for a diagram (a plain [box] is the default).
+const NODE_SHAPE = { "(((": "double", "([": "stadium", "[[": "subroutine", "[(": "cylinder", "((": "circle", "{{": "hexagon", "[/": "slant", "[\\": "slant", "(": "round", "{": "diamond", ">": "flag" };
 // Links: `-- text -->` first, then plain arrows with an optional |label|.
 const TEXT_LINK = /^\s*<?(?:--|==|-\.)(?![->=.])\s*(.*?)\s*(?:-{2,}>|={2,}>|\.-+>|-{3,}|={3,}|\.-+)(?=[\s\w])/;
 const LINK = /^\s*(<?)(-{2,}>|-{3,}|={2,}>|={3,}|-\.+->|-\.+-|--[ox]|==[ox]|~{3,})/;
@@ -842,6 +864,7 @@ function readNode(s) {
   const shape = SHAPES.find(([open]) => rest.startsWith(open));
   if (shape) {
     const [open, closers] = shape;
+    if (NODE_SHAPE[open]) node.shape = NODE_SHAPE[open];
     let body = rest.slice(open.length);
     let end = -1, len = 0;
     const from = body.trimStart().startsWith('"') ? body.indexOf('"', body.indexOf('"') + 1) + 1 : 0;
@@ -874,8 +897,14 @@ function readNodes(s) {
 
 function addNode(f, n) {
   const had = f.nodes.get(n.id);
-  if (!had) f.nodes.set(n.id, { id: n.id, ...(n.label !== undefined ? { label: n.label } : {}), order: f.nodes.size });
-  else if (n.label !== undefined) had.label = n.label;
+  const shape = f.drawn && n.shape ? { shape: n.shape } : {};
+  if (!had) f.nodes.set(n.id, { id: n.id, ...(n.label !== undefined ? { label: n.label } : {}), ...shape, order: f.nodes.size });
+  else {
+    if (n.label !== undefined) had.label = n.label;
+    Object.assign(had, shape);
+  }
+  // A diagram's subgraph holds the nodes first written inside it.
+  if (f.stack?.length && !f.groups.some((g) => g.nodes.includes(n.id))) f.stack[f.stack.length - 1].nodes.push(n.id);
 }
 
 // One Mermaid line of an open flow. Returns an error message or null.
@@ -891,19 +920,32 @@ function flowStatement(f, t) {
     if (step) f.steps.set(m[1], step);
     return null;
   }
-  if (/^subgraph(\s|$)/.test(t)) { f.depth++; return null; }
+  if (/^subgraph(\s|$)/.test(t)) {
+    f.depth++;
+    if (f.drawn) {
+      const m = t.match(/^subgraph\s+(\w+)\s*(?:\[(.*)\])?\s*$/) || t.match(/^subgraph\s+(.+?)\s*$/);
+      const label = m ? unlabel(m[2] ?? m[1]) : "";
+      const g = { id: m && /^\w+$/.test(m[1]) ? m[1] : `g${f.groups.length + 1}`, ...(label ? { label } : {}), nodes: [] };
+      if (f.stack.length) g.in = f.stack[f.stack.length - 1].id;
+      f.groups.push(g);
+      f.stack.push(g);
+    }
+    return null;
+  }
   if (FLOW_SKIP.test(t) || FLOW_HEADER.test(t)) return null;
   for (const st of statements(t)) {
     let g = readNodes(st);
     if (!g) continue;
     g.nodes.forEach((n) => addNode(f, n));
     for (;;) {
-      let rest = g.rest, label, hidden = false;
+      let rest = g.rest, label, hidden = false, how = "", both = false;
       const tl = rest.match(TEXT_LINK);
-      if (tl) { label = tl[1]; rest = rest.slice(tl[0].length); }
+      if (tl) { label = tl[1]; const t0 = tl[0].trim().replace(/^</, ""); how = t0.slice(0, 2) + (t0.match(/\S+$/)?.[0] ?? ""); both = tl[0].trim().startsWith("<"); rest = rest.slice(tl[0].length); }
       else {
         const l = rest.match(LINK);
         if (!l) break;
+        how = l[2];
+        both = l[1] === "<";
         hidden = l[2].startsWith("~");
         rest = rest.slice(l[0].length);
         const p = rest.match(PIPE);
@@ -917,6 +959,12 @@ function flowStatement(f, t) {
           const e = { from: a.id, to: b.id };
           const text = label === undefined ? "" : unlabel(label);
           if (text) e.label = text;
+          if (f.drawn) {
+            if (how.includes("=")) e.line = "thick";
+            else if (how.includes(".")) e.line = "dash";
+            if (!how.endsWith(">")) e.plain = true;
+            if (both) e.both = true;
+          }
           f.edges.push(e);
         }
       }
@@ -975,6 +1023,147 @@ function flowGraph(f) {
     return when ? { ...e, when } : e;
   });
   return clean({ dir: f.dir, start, nodes, edges, source: f.src.join("\n") });
+}
+
+// ---------- diagram (spec/YL.md, diagram) ----------
+// A Mermaid block between `diagram` and `end`, drawn static. The first
+// Mermaid line says which: a flowchart (read by the flow reader above, plus
+// node shapes, link styles and subgraphs), a sequenceDiagram or a
+// stateDiagram. Any other Mermaid type keeps only its `source`. The end gives
+// one patch: { type, ...the drawing, source }.
+const DGM_HEADER = /^(flowchart|graph|sequenceDiagram|stateDiagram(?:-v2)?)(?=\s|;|$)/;
+const DGM_OTHER = /^(classDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|gitGraph|quadrantChart|requirementDiagram|C4\w+|sankey-beta|xychart-beta|block-beta)(?=\s|$)/;
+const SEQ_BLOCK = /^(loop|alt|opt|par|critical|break|rect)(?=\s|$)/;
+const SEQ_MSG = /^([\w.]+)\s*(<<-->>|<<->>|-->>|->>|--\)|-\)|--x|-x|-->|->)\s*([+-]?)\s*([\w.]+)\s*(?::\s*(.*))?$/;
+const SEQ_HEAD = { ">>": "arrow", ">": "none", ")": "async", "x": "cross" };
+
+function newDiagram(head) {
+  return { id: head.id, screen: head.screen, src: [], kind: null, depth: 0 };
+}
+
+// Starts the reader once the header is known.
+function diagramStart(d, header) {
+  const h = header.match(DGM_HEADER);
+  if (!h) { d.kind = "other"; return; }
+  d.dir = (header.split(/\s+/)[1] || "TD").replace(/;$/, "").toUpperCase();
+  if (h[1] === "flowchart" || h[1] === "graph") {
+    d.kind = "flow";
+    d.f = { nodes: new Map(), edges: [], steps: new Map(), depth: 0, drawn: true, groups: [], stack: [] };
+  } else if (h[1] === "sequenceDiagram") {
+    d.kind = "sequence";
+    d.actors = new Map();
+    d.steps = [];
+    d.open = 0;
+  } else {
+    d.kind = "state";
+    d.nodes = new Map();
+    d.edges = [];
+    d.groups = [];
+    d.stack = [];
+    d.note = false;
+  }
+}
+
+function seqActor(d, id, label, actor) {
+  const a = d.actors.get(id);
+  if (!a) d.actors.set(id, { id, ...(label ? { label } : {}), ...(actor ? { actor: true } : {}) });
+  else { if (label) a.label = label; if (actor) a.actor = true; }
+}
+
+function seqLine(d, t) {
+  let m = t.match(/^(participant|actor)\s+([\w.]+)(?:\s+as\s+(.+))?$/);
+  if (m) { seqActor(d, m[2], m[3] ? unlabel(m[3]) : "", m[1] === "actor"); return; }
+  if (/^autonumber(\s|$)/.test(t)) { d.numbered = true; return; }
+  if (/^(activate|deactivate|title|box|create|destroy|link|links|properties|details)(\s|$)/.test(t)) return;
+  m = t.match(/^Note\s+(right of|left of|over)\s+([\w.]+)(?:\s*,\s*([\w.]+))?\s*:\s*(.*)$/i);
+  if (m) {
+    const on = [m[2], ...(m[3] ? [m[3]] : [])];
+    on.forEach((x) => seqActor(d, x));
+    d.steps.push({ type: "note", side: m[1].toLowerCase().replace(/ of$/, ""), on, text: unlabel(m[4]) });
+    return;
+  }
+  m = t.match(/^(loop|alt|opt|par|critical|break|rect)(?:\s+(.*))?$/);
+  if (m) { d.open++; d.steps.push({ type: "open", block: m[1], ...(m[2] ? { text: unlabel(m[2]) } : {}) }); return; }
+  m = t.match(/^(else|and|option)(?:\s+(.*))?$/);
+  if (m) { d.steps.push({ type: "else", ...(m[2] ? { text: unlabel(m[2]) } : {}) }); return; }
+  m = t.match(SEQ_MSG);
+  if (m) {
+    seqActor(d, m[1]);
+    seqActor(d, m[4]);
+    const head = SEQ_HEAD[m[2].replace(/^<*-+/, "")] || "arrow";
+    const e = { type: "msg", from: m[1], to: m[4], text: unlabel(m[5] || "") };
+    if (m[2].startsWith("--") || m[2].startsWith("<<--")) e.line = "dash";
+    if (head !== "arrow") e.head = head;
+    if (m[2].startsWith("<<")) e.both = true;
+    d.steps.push(e);
+  }
+}
+
+// [*] is the start when a transition leaves it and the end when one reaches
+// it: _start and _end, with the composite state appended inside one.
+function stateAdd(d, id, patch = {}) {
+  const had = d.nodes.get(id);
+  if (!had) d.nodes.set(id, { id, ...patch });
+  else Object.assign(had, patch);
+  if (d.stack.length && !d.groups.some((g) => g.nodes.includes(id))) d.stack[d.stack.length - 1].nodes.push(id);
+}
+
+function stateLine(d, t) {
+  if (d.note) { if (/^end\s+note$/i.test(t)) d.note = false; return; }
+  if (/^note\s/i.test(t)) { if (!/:/.test(t)) d.note = true; return; }
+  if (/^(direction|classDef|class|style|click|accTitle|accDescr|hide)(\s|$)/.test(t)) {
+    const m = t.match(/^direction\s+(\w+)/);
+    if (m) d.dir = m[1].toUpperCase();
+    return;
+  }
+  if (t === "}") { d.stack.pop(); return; }
+  let m = t.match(/^state\s+(?:"([^"]*)"\s+as\s+(\w+)|(\w+))\s*(<<(?:choice|fork|join)>>)?\s*(\{)?$/);
+  if (m) {
+    const id = m[2] || m[3];
+    const patch = {};
+    if (m[1]) patch.label = m[1];
+    if (m[4]) patch.shape = m[4].slice(2, -2);
+    stateAdd(d, id, patch);
+    if (m[5]) {
+      const g = { id, ...(d.nodes.get(id).label ? { label: d.nodes.get(id).label } : {}), nodes: [] };
+      if (d.stack.length) g.in = d.stack[d.stack.length - 1].id;
+      d.groups.push(g);
+      d.stack.push(g);
+    }
+    return;
+  }
+  m = t.match(/^(\[\*\]|\w+)\s*(<?-->)\s*(\[\*\]|\w+)\s*(?::\s*(.*))?$/);
+  if (m) {
+    const scope = d.stack.length ? `_${d.stack[d.stack.length - 1].id}` : "";
+    const end = (x, as) => (x === "[*]" ? `${as}${scope}` : x);
+    const from = end(m[1], "_start"), to = end(m[3], "_end");
+    if (m[1] === "[*]") stateAdd(d, from, { shape: "start" });
+    else stateAdd(d, from);
+    if (m[3] === "[*]") stateAdd(d, to, { shape: "end" });
+    else stateAdd(d, to);
+    const e = { from, to };
+    if (m[4]) e.label = unlabel(m[4]);
+    d.edges.push(e);
+    return;
+  }
+  m = t.match(/^(\w+)\s*:\s*(.+)$/);
+  if (m) { stateAdd(d, m[1]); const n = d.nodes.get(m[1]); if (!n.label) n.label = unlabel(m[2]); }
+}
+
+// The patch props a diagram's end gives.
+function diagramGraph(d) {
+  const src = d.src.join("\n");
+  if (d.kind === "flow") {
+    const nodes = [...d.f.nodes.values()].map(({ order, ...n }) => n);
+    return clean({ type: "flow", dir: d.dir, nodes, edges: d.f.edges, groups: d.f.groups.length ? d.f.groups : undefined, source: src });
+  }
+  if (d.kind === "sequence") {
+    return clean({ type: "sequence", actors: [...d.actors.values()], steps: d.steps, numbered: d.numbered, source: src });
+  }
+  if (d.kind === "state") {
+    return clean({ type: "state", dir: d.dir, nodes: [...d.nodes.values()], edges: d.edges, groups: d.groups.length ? d.groups : undefined, source: src });
+  }
+  return { type: "other", source: src };
 }
 
 // ---------- flow variants (spec/FLOWS.md, section 9) ----------
@@ -1181,6 +1370,7 @@ export class Parser {
     this.open = []; // open groups, innermost last: { id, preset, screen }
     this.flowHead = null; // a flow head just added: { id, screen }
     this.flow = null; // an open flow's Mermaid, being read
+    this.dgm = null; // an open diagram's Mermaid, being read
   }
 
   // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
@@ -1207,6 +1397,10 @@ export class Parser {
 
   line(src) {
     if (this.flow) return this.flowLine(src);
+    if (this.dgm) {
+      const op = this.dgmLine(src);
+      if (op !== undefined) return op;
+    }
     if (this.flowHead) {
       // The line after a flow head decides: a Mermaid header starts the
       // chart (inline flow), anything else leaves it a saved flow by name.
@@ -1219,6 +1413,7 @@ export class Parser {
       if (FLOW_HEADER.test(t)) { this.flow = newFlow(h, src.replace(/\r$/, "")); return null; }
     }
     const op = this.group(this.parseLine(src));
+    if (op && op.op === "add" && op.preset === "diagram") this.dgm = newDiagram(op);
     if (op && op.op === "add" && op.preset === "flow") {
       // `as=` makes it a variant of the saved flow it names: its lines follow.
       if (op.props.as !== undefined) this.flow = newVariant(op);
@@ -1230,7 +1425,51 @@ export class Parser {
   // Ends the input: an open flow gives its graph now.
   finish() {
     this.flowHead = null;
+    if (this.dgm) return this.dgmDone("");
     return this.flow ? this.flowDone("") : null;
+  }
+
+  // One line of an open diagram: Mermaid, not YL. undefined means the line is
+  // not the diagram's (no Mermaid header came), so the caller reads it as YL.
+  // A nested block's `end` (subgraph, loop, alt...) closes that block first,
+  // then the diagram.
+  dgmLine(src) {
+    const d = this.dgm;
+    const line = src.replace(/\r$/, "");
+    const t = line.trim();
+    if (!d.kind) {
+      if (!t || /^#(\s|$)/.test(t)) return null;
+      if (t.startsWith("%%")) { d.src.push(line); return null; }
+      if (!DGM_HEADER.test(t) && !DGM_OTHER.test(t)) { this.dgm = null; return undefined; }
+      d.src.push(line);
+      diagramStart(d, t);
+      return null;
+    }
+    if (/^end\s*;?$/.test(t) && d.kind !== "state") {
+      const open = d.kind === "flow" ? d.f.depth : d.kind === "sequence" ? d.open : 0;
+      if (open > 0) {
+        d.src.push(line);
+        if (d.kind === "flow") { d.f.depth--; d.f.stack.pop(); } else { d.open--; d.steps.push({ type: "close" }); }
+        return null;
+      }
+      return this.dgmDone(line);
+    }
+    if (/^end\s*;?$/.test(t)) {
+      if (!d.note) return this.dgmDone(line);
+    }
+    d.src.push(line);
+    if (!t || d.kind === "other") return null;
+    if (d.kind === "flow") flowStatement(d.f, t);
+    else if (d.kind === "sequence") seqLine(d, t);
+    else stateLine(d, t);
+    return null;
+  }
+
+  dgmDone(line) {
+    const d = this.dgm;
+    this.dgm = null;
+    if (!d.kind) return null;
+    return { op: "patch", screen: d.screen, target: d.id, props: diagramGraph(d), line };
   }
 
   // One line of an open flow: Mermaid, not YL. `end` closes a subgraph
@@ -1835,6 +2074,15 @@ export function resolve(preset, props) {
     case "shape": {
       const r = { label: "", ...p };
       r.kind = String(p.kind ?? "box").toLowerCase();
+      return r;
+    }
+    case "diagram":
+      return { title: "", caption: "", ...p };
+    case "mock":
+      return { title: "", frame: "phone", ...p };
+    case "part": {
+      const r = { text: "", items: [], ...p };
+      r.kind = String(p.kind ?? "text").toLowerCase();
       return r;
     }
     case "map":

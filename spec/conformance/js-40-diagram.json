@@ -1,0 +1,851 @@
+{
+ "version": "YL v0",
+ "area": "diagram",
+ "vectors": [
+  {
+   "name": "diagram: a flowchart, title and caption on the head, one patch at end",
+   "input": "diagram \"How an ask ships\" caption=\"You ask, it lands on the board.\"\nflowchart LR\n  you([You]) --> board[Board]\n  board -->|card| lane[Lane]\n  lane --> phone((Phone))\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {
+      "title": "How an ask ships",
+      "caption": "You ask, it lands on the board."
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "flow",
+      "dir": "LR",
+      "nodes": [
+       {
+        "id": "you",
+        "label": "You",
+        "shape": "stadium"
+       },
+       {
+        "id": "board",
+        "label": "Board"
+       },
+       {
+        "id": "lane",
+        "label": "Lane"
+       },
+       {
+        "id": "phone",
+        "label": "Phone",
+        "shape": "circle"
+       }
+      ],
+      "edges": [
+       {
+        "from": "you",
+        "to": "board"
+       },
+       {
+        "from": "board",
+        "to": "lane",
+        "label": "card"
+       },
+       {
+        "from": "lane",
+        "to": "phone"
+       }
+      ],
+      "source": "flowchart LR\n  you([You]) --> board[Board]\n  board -->|card| lane[Lane]\n  lane --> phone((Phone))"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: node shapes by opener",
+   "input": "diagram\nflowchart TD\n  a[Box] --> b(Round)\n  b --> c{Choice}\n  c --> d([Stadium])\n  d --> e[[Sub]]\n  e --> f[(Data)]\n  f --> g{{Hex}}\n  g --> h>Flag]\n  h --> i[/Slant/]\n  i --> j(((Double)))\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "flow",
+      "dir": "TD",
+      "nodes": [
+       {
+        "id": "a",
+        "label": "Box"
+       },
+       {
+        "id": "b",
+        "label": "Round",
+        "shape": "round"
+       },
+       {
+        "id": "c",
+        "label": "Choice",
+        "shape": "diamond"
+       },
+       {
+        "id": "d",
+        "label": "Stadium",
+        "shape": "stadium"
+       },
+       {
+        "id": "e",
+        "label": "Sub",
+        "shape": "subroutine"
+       },
+       {
+        "id": "f",
+        "label": "Data",
+        "shape": "cylinder"
+       },
+       {
+        "id": "g",
+        "label": "Hex",
+        "shape": "hexagon"
+       },
+       {
+        "id": "h",
+        "label": "Flag",
+        "shape": "flag"
+       },
+       {
+        "id": "i",
+        "label": "Slant",
+        "shape": "slant"
+       },
+       {
+        "id": "j",
+        "label": "Double",
+        "shape": "double"
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       },
+       {
+        "from": "b",
+        "to": "c"
+       },
+       {
+        "from": "c",
+        "to": "d"
+       },
+       {
+        "from": "d",
+        "to": "e"
+       },
+       {
+        "from": "e",
+        "to": "f"
+       },
+       {
+        "from": "f",
+        "to": "g"
+       },
+       {
+        "from": "g",
+        "to": "h"
+       },
+       {
+        "from": "h",
+        "to": "i"
+       },
+       {
+        "from": "i",
+        "to": "j"
+       }
+      ],
+      "source": "flowchart TD\n  a[Box] --> b(Round)\n  b --> c{Choice}\n  c --> d([Stadium])\n  d --> e[[Sub]]\n  e --> f[(Data)]\n  f --> g{{Hex}}\n  g --> h>Flag]\n  h --> i[/Slant/]\n  i --> j(((Double)))"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: link styles, labels in text form, both ends",
+   "input": "diagram\nflowchart LR\n  a --> b\n  b --- c\n  c -.-> d\n  d ==> e\n  e <--> f\n  f -- maybe --> g\n  g -. later .-> h\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "flow",
+      "dir": "LR",
+      "nodes": [
+       {
+        "id": "a"
+       },
+       {
+        "id": "b"
+       },
+       {
+        "id": "c"
+       },
+       {
+        "id": "d"
+       },
+       {
+        "id": "e"
+       },
+       {
+        "id": "f"
+       },
+       {
+        "id": "g"
+       },
+       {
+        "id": "h"
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       },
+       {
+        "from": "b",
+        "to": "c",
+        "plain": true
+       },
+       {
+        "from": "c",
+        "to": "d",
+        "line": "dash"
+       },
+       {
+        "from": "d",
+        "to": "e",
+        "line": "thick"
+       },
+       {
+        "from": "e",
+        "to": "f",
+        "both": true
+       },
+       {
+        "from": "f",
+        "to": "g",
+        "label": "maybe"
+       },
+       {
+        "from": "g",
+        "to": "h",
+        "label": "later",
+        "line": "dash"
+       }
+      ],
+      "source": "flowchart LR\n  a --> b\n  b --- c\n  c -.-> d\n  d ==> e\n  e <--> f\n  f -- maybe --> g\n  g -. later .-> h"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: a subgraph groups its nodes, its end does not close the diagram",
+   "input": "diagram\nflowchart TD\n  subgraph fleet [The fleet]\n    a[Urza] --> b[Yui]\n    subgraph inner\n      c[Hank]\n    end\n  end\n  b --> d[Phone]\nend\nsay done",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "flow",
+      "dir": "TD",
+      "nodes": [
+       {
+        "id": "a",
+        "label": "Urza"
+       },
+       {
+        "id": "b",
+        "label": "Yui"
+       },
+       {
+        "id": "c",
+        "label": "Hank"
+       },
+       {
+        "id": "d",
+        "label": "Phone"
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       },
+       {
+        "from": "b",
+        "to": "d"
+       }
+      ],
+      "groups": [
+       {
+        "id": "fleet",
+        "label": "The fleet",
+        "nodes": [
+         "a",
+         "b"
+        ]
+       },
+       {
+        "id": "inner",
+        "label": "inner",
+        "nodes": [
+         "c"
+        ],
+        "in": "fleet"
+       }
+      ],
+      "source": "flowchart TD\n  subgraph fleet [The fleet]\n    a[Urza] --> b[Yui]\n    subgraph inner\n      c[Hank]\n    end\n  end\n  b --> d[Phone]"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n2",
+     "props": {
+      "text": "done"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: Mermaid words that are YL presets stay Mermaid",
+   "input": "diagram\nflowchart LR\n  timer --> ask --> deck\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "flow",
+      "dir": "LR",
+      "nodes": [
+       {
+        "id": "timer"
+       },
+       {
+        "id": "ask"
+       },
+       {
+        "id": "deck"
+       }
+      ],
+      "edges": [
+       {
+        "from": "timer",
+        "to": "ask"
+       },
+       {
+        "from": "ask",
+        "to": "deck"
+       }
+      ],
+      "source": "flowchart LR\n  timer --> ask --> deck"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: a comment may come before the header, a semicolon splits statements",
+   "input": "diagram\n%% an idea\ngraph TB\n  a-->b; b-->c\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "flow",
+      "dir": "TB",
+      "nodes": [
+       {
+        "id": "a"
+       },
+       {
+        "id": "b"
+       },
+       {
+        "id": "c"
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       },
+       {
+        "from": "b",
+        "to": "c"
+       }
+      ],
+      "source": "%% an idea\ngraph TB\n  a-->b; b-->c"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: a sequence, participants, aliases, heads, notes, autonumber",
+   "input": "diagram \"Sign in\"\nsequenceDiagram\n  autonumber\n  participant P as Phone\n  actor U as You\n  U->>P: tap Sign in\n  P->>+S: token\n  S-->>-P: ok\n  P-)U: welcome\n  P-xS: lost\n  Note right of S: the server\n  Note over U,P: both\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {
+      "title": "Sign in"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "sequence",
+      "actors": [
+       {
+        "id": "P",
+        "label": "Phone"
+       },
+       {
+        "id": "U",
+        "label": "You",
+        "actor": true
+       },
+       {
+        "id": "S"
+       }
+      ],
+      "steps": [
+       {
+        "type": "msg",
+        "from": "U",
+        "to": "P",
+        "text": "tap Sign in"
+       },
+       {
+        "type": "msg",
+        "from": "P",
+        "to": "S",
+        "text": "token"
+       },
+       {
+        "type": "msg",
+        "from": "S",
+        "to": "P",
+        "text": "ok",
+        "line": "dash"
+       },
+       {
+        "type": "msg",
+        "from": "P",
+        "to": "U",
+        "text": "welcome",
+        "head": "async"
+       },
+       {
+        "type": "msg",
+        "from": "P",
+        "to": "S",
+        "text": "lost",
+        "head": "cross"
+       },
+       {
+        "type": "note",
+        "side": "right",
+        "on": [
+         "S"
+        ],
+        "text": "the server"
+       },
+       {
+        "type": "note",
+        "side": "over",
+        "on": [
+         "U",
+         "P"
+        ],
+        "text": "both"
+       }
+      ],
+      "numbered": true,
+      "source": "sequenceDiagram\n  autonumber\n  participant P as Phone\n  actor U as You\n  U->>P: tap Sign in\n  P->>+S: token\n  S-->>-P: ok\n  P-)U: welcome\n  P-xS: lost\n  Note right of S: the server\n  Note over U,P: both"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: a sequence block closes with its own end, else and and divide it",
+   "input": "diagram\nsequenceDiagram\n  A->>B: hi\n  alt up\n    B->>A: yes\n  else down\n    B->>A: no\n  end\n  loop daily\n    A->>B: ping\n  end\nend\nsay after",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "sequence",
+      "actors": [
+       {
+        "id": "A"
+       },
+       {
+        "id": "B"
+       }
+      ],
+      "steps": [
+       {
+        "type": "msg",
+        "from": "A",
+        "to": "B",
+        "text": "hi"
+       },
+       {
+        "type": "open",
+        "block": "alt",
+        "text": "up"
+       },
+       {
+        "type": "msg",
+        "from": "B",
+        "to": "A",
+        "text": "yes"
+       },
+       {
+        "type": "else",
+        "text": "down"
+       },
+       {
+        "type": "msg",
+        "from": "B",
+        "to": "A",
+        "text": "no"
+       },
+       {
+        "type": "close"
+       },
+       {
+        "type": "open",
+        "block": "loop",
+        "text": "daily"
+       },
+       {
+        "type": "msg",
+        "from": "A",
+        "to": "B",
+        "text": "ping"
+       },
+       {
+        "type": "close"
+       }
+      ],
+      "source": "sequenceDiagram\n  A->>B: hi\n  alt up\n    B->>A: yes\n  else down\n    B->>A: no\n  end\n  loop daily\n    A->>B: ping\n  end"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n2",
+     "props": {
+      "text": "after"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: a state diagram, start and end, labels, a composite and a choice",
+   "input": "diagram\nstateDiagram-v2\n  [*] --> Idle\n  state \"Working hard\" as Busy\n  Idle --> Busy: go\n  state Busy {\n    [*] --> Read\n    Read --> Write\n  }\n  state pick <<choice>>\n  Busy --> pick\n  pick --> [*]\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "state",
+      "dir": "TD",
+      "nodes": [
+       {
+        "id": "_start",
+        "shape": "start"
+       },
+       {
+        "id": "Idle"
+       },
+       {
+        "id": "Busy",
+        "label": "Working hard"
+       },
+       {
+        "id": "_start_Busy",
+        "shape": "start"
+       },
+       {
+        "id": "Read"
+       },
+       {
+        "id": "Write"
+       },
+       {
+        "id": "pick",
+        "shape": "choice"
+       },
+       {
+        "id": "_end",
+        "shape": "end"
+       }
+      ],
+      "edges": [
+       {
+        "from": "_start",
+        "to": "Idle"
+       },
+       {
+        "from": "Idle",
+        "to": "Busy",
+        "label": "go"
+       },
+       {
+        "from": "_start_Busy",
+        "to": "Read"
+       },
+       {
+        "from": "Read",
+        "to": "Write"
+       },
+       {
+        "from": "Busy",
+        "to": "pick"
+       },
+       {
+        "from": "pick",
+        "to": "_end"
+       }
+      ],
+      "groups": [
+       {
+        "id": "Busy",
+        "label": "Working hard",
+        "nodes": [
+         "_start_Busy",
+         "Read",
+         "Write"
+        ]
+       }
+      ],
+      "source": "stateDiagram-v2\n  [*] --> Idle\n  state \"Working hard\" as Busy\n  Idle --> Busy: go\n  state Busy {\n    [*] --> Read\n    Read --> Write\n  }\n  state pick <<choice>>\n  Busy --> pick\n  pick --> [*]"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: any other Mermaid type keeps only its source",
+   "input": "diagram \"Split\"\npie title Pets\n  \"Dogs\" : 386\n  \"Cats\" : 85\nend",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {
+      "title": "Split"
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "other",
+      "source": "pie title Pets\n  \"Dogs\" : 386\n  \"Cats\" : 85"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: no Mermaid header after the head leaves the head alone and reads the line as YL",
+   "input": "diagram \"Empty\"\nsay hello",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {
+      "title": "Empty"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n2",
+     "props": {
+      "text": "hello"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: an unterminated diagram gives its patch at the end of the input",
+   "input": "diagram\nflowchart LR\n  a --> b",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "type": "flow",
+      "dir": "LR",
+      "nodes": [
+       {
+        "id": "a"
+       },
+       {
+        "id": "b"
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       }
+      ],
+      "source": "flowchart LR\n  a --> b"
+     }
+    }
+   ]
+  },
+  {
+   "name": "diagram: inside a deck after a page it is that page's picture, the next page goes back to the deck",
+   "input": "deck \"Board\"\npage \"How it flows\"\ndiagram\nflowchart LR\n  a --> b\nend\npage \"Next\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "Board"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "How it flows"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n3",
+     "in": "n1",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n3",
+     "props": {
+      "type": "flow",
+      "dir": "LR",
+      "nodes": [
+       {
+        "id": "a"
+       },
+       {
+        "id": "b"
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       }
+      ],
+      "source": "flowchart LR\n  a --> b"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "title": "Next"
+     }
+    }
+   ]
+  }
+ ]
+}

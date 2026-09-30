@@ -63,7 +63,7 @@ One file per area, `NN-area.json`:
 
 **Flow variants: `36-flow-variant.json`.** The JavaScript, Python, Kotlin and Rust parsers read variants and run their `variant` vectors (FLOW-1 step 3). The Swift parser learns them with flows, so it is on the app's not-yet list too.
 
-**JavaScript only: `js-NN-*.json`.** A new area can land in the JavaScript parser first, as `js-NN-area.json`: `run.mjs` reads it and the Swift, Python, Kotlin and Rust runners skip it (they read `NN-*.json`). When the other parsers learn it, drop the `js-` and every runner picks it up. None is JavaScript only today.
+**JavaScript only: `js-NN-*.json`.** A new area can land in the JavaScript parser first, as `js-NN-area.json`: `run.mjs` reads it and the Swift, Python, Kotlin and Rust runners skip it (they read `NN-*.json`). When the other parsers learn it, drop the `js-` and every runner picks it up. `js-40-diagram.json` and `js-41-mock.json` are JavaScript only today (DRAW-1: `diagram`, `mock`, `part`); drop the `js-` when the Swift, Python, Kotlin and Rust parsers learn them (DRAW-2).
 
 **Flows: `26-flow.json`.** The JavaScript, Python, Kotlin and Rust parsers read flows and run their `route` vectors (FLOW-1 step 2). The Swift parser learns them in the app half, so `26-flow.json` is on its not-yet list (`notYetInApp` in the app repo).
 

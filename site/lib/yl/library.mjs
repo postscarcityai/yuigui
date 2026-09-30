@@ -288,6 +288,37 @@ shape@draw dot at=8,2.5 tone=mint
 shape text "drawing" at=8,3.4
 shape arrow from=think to=draw +dash`,
   },
+  // Drawing (DRAW-1). `draft` until the app draws them (DRAW-2), so they show on the library
+  // page and play in the playground but stay out of search and library.json.
+  diagram: {
+    shelf: "show", doc: "diagram", draft: true,
+    purpose: "A Mermaid flowchart, sequence or state diagram, drawn in the agent's colors, nodes coming on in order.",
+    tags: ["diagram", "flowchart", "mermaid", "sequence", "state", "process", "architecture", "draw"],
+    yl: `diagram "How an ask ships" caption="You ask, a lane builds it, it ships."
+flowchart LR
+  you([You]) --> board[Board] --> lane[Lane]
+  lane -->|green| phone((Phone))
+end`,
+  },
+  mock: {
+    shelf: "show", doc: "mock", draft: true,
+    purpose: "Recreate a screen from parts: a phone, window, watch or browser with nav, rows, fields, buttons, tabs and sheets.",
+    tags: ["mock", "mockup", "ui", "screen", "wireframe", "layout", "redraw", "draw"],
+    yl: `mock "Agents" frame=phone
+part nav Agents action=Edit
+part row Basil sub="Groceries" +chev +hi note="new badge"
+part button "New agent"
+part tabs items=Home|Agents|Me tab=Agents`,
+  },
+  part: {
+    shelf: "show", doc: "part", draft: true,
+    purpose: "One part of a mock: a nav bar, tabs, row, field, button, toggle, card, grid, sheet or keyboard.",
+    tags: ["mock", "part", "nav", "tabs", "field", "button", "toggle", "grid", "sheet", "keyboard"],
+    yl: `mock "Sign in" frame=phone
+part nav "Sign in"
+part field Email ph="you@example.com" +hi note="autofill"
+part button Continue`,
+  },
   // Maps (YUI-158). `draft` until the app draws them (step 2), so they show
   // on the library page and play in the playground but stay out of search.
   map: {

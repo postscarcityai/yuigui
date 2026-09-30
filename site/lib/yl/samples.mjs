@@ -641,6 +641,111 @@ after Now
 row "Done card gone" +hi note="fixed"
 row "Closed cards leave in seconds" +hi note="new card, not built"`,
   },
+  {
+    // DRAW-1: Mermaid drawn static in the chat.
+    name: "Draw: a flowchart (diagram)",
+    slug: "diagram-flowchart",
+    agent: "Yui",
+    yl: `diagram "How an ask ships" caption="You ask. It lands on the board. A lane builds it. It rides the next build."
+flowchart LR
+  you([You]) --> board[Board]
+  subgraph fleet [The fleet]
+    board --> lane[Lane]
+    lane --> check{Checks green?}
+  end
+  check -->|yes| ship((TestFlight))
+  check -.->|no| lane
+end`,
+  },
+  {
+    name: "Draw: who talks to whom (sequence)",
+    slug: "diagram-sequence",
+    agent: "Yui",
+    yl: `diagram "What happens when you send a message" caption="Your words go out, the agent answers with lines, the app draws them."
+sequenceDiagram
+  autonumber
+  actor U as You
+  participant A as Yui app
+  participant G as Agent
+  U->>A: type and send
+  A->>G: your words
+  loop while it thinks
+    A-->>U: working row
+  end
+  G-->>A: yl lines
+  Note right of A: parsed and drawn
+  A-->>U: the screen
+end`,
+  },
+  {
+    name: "Draw: states a build goes through (state)",
+    slug: "diagram-state",
+    agent: "Yui",
+    yl: `diagram "A TestFlight build" caption="One upload a day, then Apple checks it."
+stateDiagram-v2
+  [*] --> Uploaded
+  Uploaded --> Processing: Apple receives it
+  Processing --> Valid: passes
+  Processing --> Invalid: fails
+  Invalid --> [*]
+  Valid --> [*]: on your phone
+end`,
+  },
+  {
+    // DRAW-1: a UI recreated from parts.
+    name: "Draw: a screen, redrawn (mock)",
+    slug: "mock-agents",
+    agent: "Yui",
+    yl: `mock "Agents" frame=phone
+part nav Agents action=Edit
+part text "Who do you want to talk to?" size=h2
+part row Basil sub="Groceries and meals" icon=B +chev +hi note="new badge goes here"
+part row Penny sub="Budget" icon=P +chev
+part row Hank sub="Posts" icon=H +chev +dim
+part button "New agent" +hi note="the one thing to tap"
+part tabs items=Home|Agents|Me tab=Agents`,
+  },
+  {
+    name: "Draw: sign in, with the keyboard up (mock)",
+    slug: "mock-signin",
+    agent: "Yui",
+    yl: `mock "Sign in" frame=phone
+part nav "Sign in" back=Back
+part field Email value="chris@example.com"
+part field Password ph="at least 8 characters" +hi note="show a meter here"
+part toggle "Keep me signed in" +on
+part button Continue
+part keyboard`,
+  },
+  {
+    name: "Draw: a pricing page (mock, browser)",
+    slug: "mock-browser",
+    agent: "Yui",
+    yl: `mock frame=browser url=yuigui.com/pricing
+part text "Pricing" size=h1
+part segmented items=Monthly|Yearly tab=Yearly
+part card Free sub="$0" body="One agent, your phone"
+part card Crew sub="$12 a month" body="Every agent, every device" +hi note="the one we sell"
+part grid items=Voice|Drawings|Timers|Games|Maps|Music cols=3
+part button "Start free"`,
+  },
+  {
+    name: "Draw: a diagram and a mock as deck pages",
+    slug: "draw-deck",
+    agent: "Yui",
+    yl: `deck "Two ways to draw"
+page "Diagrams say how it flows" body="Mermaid in, a drawing out."
+diagram
+flowchart LR
+  ask --> board --> lane --> phone
+end
+page "Mocks say how it looks" body="Parts in, a screen out."
+mock "Settings" frame=phone
+part nav Settings
+part toggle "Sounds" +on
+part toggle "Haptics" +hi note="off by default"
+part row Account +chev`,
+  },
 ];
 
 // Media presets. Each has a slug so /playground?demo=<slug> opens it.

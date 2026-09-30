@@ -10,7 +10,7 @@
 // Things to answer. On the stage they wait for the end, all on one screen.
 export const QUESTIONS = new Set(["ask", "choose", "pick", "slide", "form", "mic", "camera"]);
 // Things to look at: each is the picture of the line before it.
-export const PICTURES = new Set(["sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "step", "card", "list", "table", "timeline", "shape", "row"]);
+export const PICTURES = new Set(["sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "step", "card", "list", "table", "timeline", "shape", "row", "diagram", "mock", "part"]);
 // Groups whose pages become chunks and whose questions join the end.
 const FLOWS = new Set(["deck", "plan"]);
 

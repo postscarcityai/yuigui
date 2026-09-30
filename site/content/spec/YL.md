@@ -306,21 +306,22 @@ calc Pendulum f="T = 2*pi*sqrt(L/g)" L=0.1-3@1m g=1.6-25@9.81m/s^2 unit=s
 calc "Carbon-14 left" f="N = N0*exp(-ln(2)*t/h)" t=0-30000@5730yr N0=100% h=5730yr unit=%
 ```
 
-### Groups: deck, plan, narrate, timeline, sketch, shapes, map
+### Groups: deck, plan, narrate, timeline, sketch, shapes, mock, map
 
-Seven presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
+Eight presets are **group heads**. A group head collects the lines that follow it on the same screen, one member per line, so a whole presentation or questionnaire still streams in one short line at a time. A member line is an ordinary preset line; the parser marks it with the group's id (`in`, section 7 and 12).
 
 | Head | Members | What the group is |
 |---|---|---|
-| `deck` | `page`, `ask`, `choose`, `pick`, `sketch`, `shapes`, `map`, `math`, `chart`, `stat`, `calc` | a swipeable presentation |
-| `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, `sketch`, `map` | one full-screen flow: pages to read, then questions, one answer at the end |
+| `deck` | `page`, `ask`, `choose`, `pick`, `sketch`, `shapes`, `diagram`, `mock`, `map`, `math`, `chart`, `stat`, `calc` | a swipeable presentation |
+| `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, `sketch`, `diagram`, `mock`, `map` | one full-screen flow: pages to read, then questions, one answer at the end |
 | `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
 | `timeline` | `done`, `now`, `next` | what has shipped, what is running, what is queued |
 | `sketch` | `row`, `after` | a small drawn picture: rows struck out, highlighted, called out |
 | `shapes` | `shape` | a small moving diagram: shapes, labels and arrows that come on one by one |
+| `mock` | `part` | a UI recreated from parts: a frame with nav, rows, fields, buttons, tabs and sheets |
 | `map` | `area`, `pin`, `route` | a small map: countries or drawn areas, pins and routes that come on one by one |
 
-**Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest in two places: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate. A `deck` or a `plan` can hold a `sketch` or a `map` the same way, and a `deck` a `shapes`: its `row` and `after` lines (or `shape` lines, or `area`, `pin` and `route` lines) join it, and the first line that is not one ends it and is then checked against the deck or plan. The sketch or diagram is the picture of the page right before it (see A page's picture under deck). Since a deck takes `stat`, `chart` and `math`, a deck inside a `narrate` takes them too, as its pages' pictures: write `end` first to make one a step of the narrate.
+**Where a group ends.** At the first line that is not one of its members (a patch, `save` or `say` included), at a line for another screen, or at `end`. Blank lines, comments and error lines do not end a group, so one bad line inside a deck is skipped and the pages after it stay in the deck. A new head of the same kind ends the old group and starts a new one. `end` closes the innermost open group; `end` with nothing open is an error. Groups nest in two places: a `narrate` can hold one `deck` at a time (its pages join the deck, and the deck is a step of the narrate); the first line that is not a page ends the deck and is then checked against the narrate. A `deck` or a `plan` can hold a `sketch`, a `mock` or a `map` the same way, and a `deck` a `shapes`: its `row` and `after` lines (or `part` lines, `shape` lines, or `area`, `pin` and `route` lines) join it, and the first line that is not one ends it and is then checked against the deck or plan. The sketch or diagram is the picture of the page right before it (see A page's picture under deck). Since a deck takes `stat`, `chart` and `math`, a deck inside a `narrate` takes them too, as its pages' pictures: write `end` first to make one a step of the narrate.
 
 To put a question *after* a deck rather than inside it, write `end` first:
 ```
@@ -334,7 +335,7 @@ ask "Ready for the real thing?"
 `deck [title...] [layout=slides|scroll] [+full] [+notes]`, then one `page` line per slide. Swipe, arrows or dots move between pages; a Full screen button (or `+full`, which opens that way) puts the deck over the whole screen, where arrow keys also work. Each page's `notes` are speaker notes behind a Notes toggle (`+notes` shows them open).
 - `layout`: `slides` [default] one page at a time, `scroll` every page in a vertical feed.
 - **Quiz pages.** An `ask`, `choose` or `pick` inside a deck is a page of its own. Give it `answer=` and it is graded (see Quiz below), which is how an agent ends a lesson with a check.
-- **A page's picture.** A `sketch`, `shapes`, `map`, `math`, `chart`, `stat` or `calc` right after a `page` is that page's picture: it draws where the page's `img` would go, above the words (a page with both draws the picture). One with no page right before it (first in the deck, after a question, or after a page that already has one) is a page of its own, just the picture. So a whole lesson is one deck: the diagram, the formula, the chart and the number each on their page, a quiz, and the calculator on the last page. A calc's sliders still send their events; a drag on a slider is never a swipe.
+- **A page's picture.** A `sketch`, `shapes`, `diagram`, `mock`, `map`, `math`, `chart`, `stat` or `calc` right after a `page` is that page's picture: it draws where the page's `img` would go, above the words (a page with both draws the picture). One with no page right before it (first in the deck, after a question, or after a page that already has one) is a page of its own, just the picture. So a whole lesson is one deck: the diagram, the formula, the chart and the number each on their page, a quiz, and the calculator on the last page. A calc's sliders still send their events; a drag on a slider is never a swipe.
 - When the person has seen every page and answered every question, the deck emits `{done: true, pages}`, plus `score` and `of` when some questions were graded. Quiz pages also send their own events as they are answered.
 Props: `title`, `layout` [slides], `+full`, `+notes`.
 A lesson as one deck:
@@ -532,6 +533,122 @@ shape arrow from=think to=draw +dash
 shape path pts=1,4.6|3,4|5,4.4|7,3.8|9,4.2 tone=mute
 ```
 Why this shape: agents need a picture of an idea (a flow, a loop, parts and how they join) more often than a picture of a thing, and a generated image costs a render, a wait and a network round trip for every small idea. A handful of shapes, one row by default and arrows that find their ends cover most of those pictures in a few short lines, and the order of the lines is the order the idea unfolds. `sketch` draws a screen, `chart` draws numbers, `flow` draws a branching form; `shapes` draws a thought. `custom` would make every agent invent its own, and SVG in a line would be long, fragile and unsafe.
+
+#### diagram
+`diagram [title...] [caption=]`, then Mermaid up to `end`. A flowchart, a sequence or a state diagram, drawn static and in the agent's look, so "how does it flow" is a picture and not a paragraph. The same Mermaid that renders on GitHub: the agent writes what it already knows, and the phone draws it with no image, no network and no Mermaid library. A `diagram` sends no events (for a chart you answer questions in, see `flow`).
+- **The block.** The head is an add; every line after it, up to `end`, is Mermaid and not YL, so a node called `timer` or `ask` is a node. A nested block's own `end` (a `subgraph`, a `loop`) closes that block first, then the diagram. The `end` (or the end of the reply) gives one patch on the diagram with what was read. The first Mermaid line says which kind; `%%` comments may come before it. If the line after the head is not a Mermaid header, the diagram stays empty and that line is read as YL.
+- **Flowchart** (`flowchart` or `graph`, `TD` [default], `TB`, `BT`, `LR`, `RL`). Nodes with a shape by their brackets: `[box]` [default], `(round)`, `([stadium])`, `[[subroutine]]`, `[(cylinder)]`, `((circle))`, `(((double)))`, `{diamond}`, `{{hexagon}}`, `[/slant/]`, `>flag]`. Links `-->`, `---`, `-.->` (dashed), `==>` (thick), `<-->` (both ends), each with a label (`-->|yes|` or `-- yes -->`), chained (`a --> b --> c`) and joined (`a & b --> c`). `subgraph id [Label]` … `end` draws a box round its nodes; they nest. `style`, `classDef`, `click` and the rest are kept in `source` and not drawn.
+- **Sequence** (`sequenceDiagram`). `participant A as Alice` and `actor U as You` set the order and the names; one not declared comes in where it first speaks. Messages `A->>B: text` (arrow), `A-->>B` (dashed reply), `A->B` (plain line), `A-)B` (async), `A-xB` (lost); `+` and `-` after the arrow (activation) are read and not drawn. `Note right of A: text`, `Note left of A`, `Note over A,B: text`. `loop`, `alt`, `opt`, `par`, `critical`, `break` and `rect` open a labelled box that `end` closes, `else` / `and` / `option` divide it. `autonumber` numbers the messages.
+- **State** (`stateDiagram-v2`). `A --> B: event`, `[*]` as the start when a transition leaves it and as the end when one reaches it, `state "Long name" as id`, `id : description`, `state id <<choice>>` (also `<<fork>>`, `<<join>>`), and a composite `state id { … }` drawn as a box. `note` blocks are skipped.
+- **Anything else** (`pie`, `gantt`, `classDiagram`, `erDiagram`, `mindmap`, `journey`, `gitGraph`, ...) is kept: the patch has `type: other` and the `source`, and a renderer shows the source as text. A `pie` is better as a `chart`, a `gantt` as a `timeline`.
+- **Layout.** Ranks run along the direction (longest path, a cycle's closing edge drawn round the back), nodes in a rank are ordered to cross less, a label gets room on its line, and a `subgraph` wraps its nodes. A left-to-right chart wider than a phone (360 px at the label size) draws top down instead, so the words stay readable; write `TD` for a phone. A self link loops. `lib/yl/diagram.mjs` is the reference; other renderers port it.
+- **Order is the story.** Nodes come on in the order they were written, about a fifth of a second apart, each edge right after the later of its two ends; a sequence comes on message by message. **Reduce Motion** (and a printout, the Telegram picture) shows it finished.
+- **Colors** come from the agent's look (section 4, theme): nodes in its accent, lines in its ink, notes in its butter, so a diagram matches the agent that sent it in light and dark.
+- **On a page.** Inside a `deck` or a `plan`, a diagram right after a `page` is that page's picture (see A page's picture under deck).
+Props on the add: `title`, `caption`. Props the patch adds (the drawing):
+- `type`: `flow`, `sequence`, `state` or `other`; `source`: the Mermaid as written (comments and unread lines included).
+- `flow` and `state`: `dir`, `nodes` (`{id, label?, shape?}`; state shapes are `start`, `end`, `choice`, `fork`, `join`), `edges` (`{from, to, label?, line?: dash|thick, plain?, both?}`; `plain` is no arrowhead), `groups` (`{id, label?, nodes, in?}`).
+- `sequence`: `actors` (`{id, label?, actor?}`), `steps`, in order: `{type: msg, from, to, text, line?: dash, head?: none|async|cross, both?}`, `{type: note, side: left|right|over, on: [ids], text}`, `{type: open, block, text?}`, `{type: else, text?}`, `{type: close}`; `numbered`.
+Empty lists and unset options are left out. A node without a label is drawn with its id.
+```
+diagram "How an ask ships" caption="You ask. A lane builds it. It rides the next build."
+flowchart LR
+  you([You]) --> board[Board]
+  subgraph fleet [The fleet]
+    board --> lane[Lane]
+    lane --> check{Checks green?}
+  end
+  check -->|yes| ship((TestFlight))
+  check -.->|no| lane
+end
+```
+```
+diagram "What happens when you send a message"
+sequenceDiagram
+  autonumber
+  actor U as You
+  participant A as Yui app
+  participant G as Agent
+  U->>A: type and send
+  A->>G: your words
+  loop while it thinks
+    A-->>U: working row
+  end
+  G-->>A: yl lines
+  A-->>U: the screen
+end
+```
+```
+diagram "A TestFlight build"
+stateDiagram-v2
+  [*] --> Uploaded
+  Uploaded --> Processing: Apple receives it
+  Processing --> Valid: passes
+  Processing --> Invalid: fails
+  Valid --> [*]
+end
+```
+Why this shape: the agent already writes Mermaid (a model has seen a million of them), `flow` already reads the flowchart subset, and Mermaid is the one diagram language that stays a readable fence on GitHub, in Telegram and in a log. The drawing is the phone's job, so it takes the agent's look and the phone's width; the agent never places a box. `shapes` stays for a picture that moves or is not a graph.
+
+#### mock
+`mock [title...] [frame=phone] [url=]`, then one `part` per line. A UI recreated from parts, so an agent can redraw a Yui screen, a screen it is proposing or a client's page instead of describing it: a frame (`phone`, `window`, `watch` or `browser`) with a nav bar, content, tabs and sheets in it, marked up like a `sketch`. It is drawn on the phone from the lines, in the agent's look, and sends no events; nothing in it can be tapped.
+- **Frames.** `phone` [default] is a phone outline with the title at the top (left off when there is a `nav`). `window` is an app window, three dots and the `title` in its bar. `watch` is a small rounded screen, the `title` above it. `browser` is a window whose bar holds `url=` (or the `title`). Any other frame draws as `phone`, so frames can be added without a new YL version.
+- **Order.** Parts stack top to bottom in line order, with three exceptions: a `nav` is always at the top, a `tabs` always at the bottom of the screen, and a `sheet`, `alert` or `keyboard` after them, whatever the order of the lines. Only the first `nav` and the first `tabs` count.
+- **Marks and notes** as in `sketch`: `+hi` puts a highlighter swipe behind the part, `+x` strikes it out (the thing to drop), `+dim` greys it, and `note=` is a callout beside the frame with an arrow to it.
+- **On a page.** Inside a `deck` or a `plan`, a mock right after a `page` is that page's picture (see A page's picture under deck).
+Props: `title`, `frame` [phone], `url`.
+
+#### part
+`part KIND [text...] [options] [+hi] [+x] [+dim] [note=]`. One part of the screen. The first bare word is the `kind`, wherever it sits (as in `shape`); the rest of the positional text is its `text`. An unknown kind draws as `text`, so kinds can be added later.
+
+| Kind | `text` is | Options |
+|---|---|---|
+| `nav` | the title | `back=` (the back label, `‹ Back`), `action=` (the right-hand button) |
+| `tabs` | | `items=` (the tab names), `tab=` the selected one, by name or number from 1 |
+| `text` | the words | `size=h1`, `h2`, `large` or `small` [body] |
+| `row` | the title | `sub=`, `value=` (right side), `icon=` (a glyph in a tile), `+chev` |
+| `field` | the label | `value=`, `ph=` (placeholder, greyed) |
+| `button` | the label | `+ghost` (outline, not filled) |
+| `toggle` | the label | `+on` |
+| `slider` | the label | `value=` 0 to 1 [0.5] |
+| `segmented` | | `items=` (the options), `tab=` |
+| `card` | the title | `sub=`, `body=` |
+| `image` | the caption | `ratio=16:9` |
+| `avatar` | the initials | |
+| `grid` | | `items=` (one cell each), `cols=` [3] (1 to 6); with no items, six empty cells |
+| `divider`, `space` | | |
+| `sheet` | the title | `items=` (its rows), a panel rising from the bottom |
+| `alert` | the title | `body=`, `items=` (its buttons, the last one is the main one), a box over the screen |
+| `keyboard` | | |
+
+Props: `kind` [text], `text`, `sub`, `value`, `ph`, `icon`, `back`, `action`, `size`, `tab`, `ratio`, `cols`, `body`, `items`, `chev`, `ghost`, `on`, `hi`, `x`, `dim`, `note`. `items` is always a list. A `part` outside a `mock` stands alone as a one-part mock.
+```
+mock "Agents" frame=phone
+part nav Agents action=Edit
+part text "Who do you want to talk to?" size=h2
+part row Basil sub="Groceries and meals" icon=B +chev +hi note="new badge goes here"
+part row Penny sub="Budget" icon=P +chev
+part button "New agent" +hi note="the one thing to tap"
+part tabs items=Home|Agents|Me tab=Agents
+```
+```
+mock "Sign in" frame=phone
+part nav "Sign in" back=Back
+part field Email value="chris@example.com"
+part field Password ph="at least 8 characters" +hi note="show a meter here"
+part toggle "Keep me signed in" +on
+part button Continue
+part keyboard
+```
+```
+mock frame=browser url=yuigui.com/pricing
+part text "Pricing" size=h1
+part segmented items=Monthly|Yearly tab=Yearly
+part card Crew sub="$12 a month" body="Every agent, every device" +hi note="the one we sell"
+part grid items=Voice|Drawings|Timers|Games cols=2
+part button "Start free"
+```
+Why this shape: twelve of the twenty drawings Chris asked for in the threads were a screen (docs/research/yl-visual-gaps.md), and a screen is a short list of the same few parts. The kinds are the parts every UI toolkit has, so an agent can redraw a foreign UI it has only seen in a screenshot. Marks are the ones `sketch` taught (flags that read as what they are), so a mock doubles as a review: strike what goes, light what stays. What it leaves out on purpose is listed, ranked, in the gap audit: parts side by side, gesture marks, board columns.
 
 #### map
 `map [title...] [caption=] [fit=auto] [center=lat,lon zoom=]`, then one `area`, `pin` or `route` per line. A small map, so an agent answers "where" with the place, not a list of compass points: countries or a drawn outline filled in, pins on the cities, routes between them, a caption under it. It is drawn on the device from a bundled world outline (Natural Earth 110m, public domain): no map tiles, no key, no network. It sits in the chat at the width of a bubble and sends no events.

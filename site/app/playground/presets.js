@@ -11,6 +11,8 @@ import { LonePage, Project } from "./flows";
 import { LoneRow, Timeline } from "./timeline";
 import { LoneSketchRow, Sketch } from "./sketch";
 import { LoneShape, Shapes } from "./shapes";
+import { Diagram } from "./diagram";
+import { LonePart, Mock } from "./mock";
 import { LoneMapPart, MapView } from "./map";
 import { Game } from "./games";
 import { MUSIC } from "./music/music";
@@ -835,6 +837,9 @@ const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, 
   after: () => null,
   shapes: ({ p }) => <Shapes g={{ group: { props: p }, members: [] }} />,
   shape: LoneShape,
+  diagram: ({ p, vid }) => <Diagram p={p} vid={vid} />,
+  mock: ({ p }) => <Mock g={{ group: { props: p }, members: [] }} />,
+  part: LonePart,
   map: ({ p }) => <MapView g={{ group: { props: p }, members: [] }} />,
   area: ({ p }) => <LoneMapPart p={p} preset="area" />,
   pin: ({ p }) => <LoneMapPart p={p} preset="pin" />,

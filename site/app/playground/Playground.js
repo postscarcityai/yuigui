@@ -33,6 +33,7 @@ import { WorkingRow, useWorkingTurn } from "./working";
 import { starterReply } from "./starter";
 import { crewReply } from "../../lib/yl/starter-flows.mjs";
 import "./flows.css";
+import "./draw.css";
 
 const ALL = [...SCREENS, ...DEMOS, ...MEDIA, ...SCIENCE, ...FLOWS, ...DATA, ...RELEASE];
 // Agent names a share link may carry (?as=), so a shared screen reopens with the same header.

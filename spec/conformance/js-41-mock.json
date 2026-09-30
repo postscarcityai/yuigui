@@ -1,0 +1,566 @@
+{
+ "version": "YL v0",
+ "area": "mock, part",
+ "vectors": [
+  {
+   "name": "mock: title and frame on the head, parts join it in order with their kind and text",
+   "input": "mock \"Agents\" frame=phone\npart nav \"Agents\" action=Edit\npart row Basil sub=\"Groceries\" +chev\npart button \"New agent\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n1",
+     "props": {
+      "title": "Agents",
+      "frame": "phone"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "nav",
+      "text": "Agents",
+      "action": "Edit"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "row",
+      "text": "Basil",
+      "chev": true,
+      "sub": "Groceries"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "kind": "button",
+      "text": "New agent"
+     }
+    }
+   ]
+  },
+  {
+   "name": "mock: marks and notes work as in sketch",
+   "input": "mock \"Sign in\"\npart field Email ph=\"you@example.com\" +hi note=\"autofill from Apple\"\npart button \"Continue\" +x note=\"no dead button\"\npart text \"Terms apply\" size=small +dim",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n1",
+     "props": {
+      "title": "Sign in"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "field",
+      "text": "Email",
+      "hi": true,
+      "ph": "you@example.com",
+      "note": "autofill from Apple"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "button",
+      "text": "Continue",
+      "x": true,
+      "note": "no dead button"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "kind": "text",
+      "text": "Terms apply",
+      "dim": true,
+      "size": "small"
+     }
+    }
+   ]
+  },
+  {
+   "name": "mock: lists are items, tabs pick one by name or number",
+   "input": "mock frame=phone\npart segmented items=Day|Week|Month tab=Week\npart grid items=Mon|Tue|Wed|Thu|Fri|Sat cols=3\npart tabs items=Home|Chat|Me tab=2",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n1",
+     "props": {
+      "frame": "phone"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "segmented",
+      "items": [
+       "Day",
+       "Week",
+       "Month"
+      ],
+      "tab": "Week"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "grid",
+      "items": [
+       "Mon",
+       "Tue",
+       "Wed",
+       "Thu",
+       "Fri",
+       "Sat"
+      ],
+      "cols": 3
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "kind": "tabs",
+      "items": [
+       "Home",
+       "Chat",
+       "Me"
+      ],
+      "tab": 2
+     }
+    }
+   ]
+  },
+  {
+   "name": "mock: the kind is the first bare word wherever it sits",
+   "input": "mock\npart Wi-Fi row\npart row Wi-Fi\npart toggle \"Sounds\" +on\npart slider Volume value=0.6",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "Wi-Fi",
+      "text": "row"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "row",
+      "text": "Wi-Fi"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "kind": "toggle",
+      "text": "Sounds",
+      "on": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n5",
+     "in": "n1",
+     "props": {
+      "kind": "slider",
+      "text": "Volume",
+      "value": 0.6
+     }
+    }
+   ]
+  },
+  {
+   "name": "mock: every kind reads, an unknown one is kept as written",
+   "input": "mock frame=browser url=yuigui.com/pricing\npart nav Pricing back=Home\npart image \"Hero\" ratio=16:9\npart avatar A\npart card Pro sub=\"$12 a month\" body=\"Everything in Free\"\npart divider\npart space\npart sheet \"Share\" items=Copy|Message|Save\npart alert \"Delete?\" body=\"This cannot be undone\" items=Cancel|Delete\npart keyboard\npart hologram Future",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n1",
+     "props": {
+      "frame": "browser",
+      "url": "yuigui.com/pricing"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "nav",
+      "text": "Pricing",
+      "back": "Home"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "image",
+      "text": "Hero",
+      "ratio": "16:9"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "kind": "avatar",
+      "text": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n5",
+     "in": "n1",
+     "props": {
+      "kind": "card",
+      "text": "Pro",
+      "sub": "$12 a month",
+      "body": "Everything in Free"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n6",
+     "in": "n1",
+     "props": {
+      "kind": "divider"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n7",
+     "in": "n1",
+     "props": {
+      "kind": "space"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n8",
+     "in": "n1",
+     "props": {
+      "kind": "sheet",
+      "text": "Share",
+      "items": [
+       "Copy",
+       "Message",
+       "Save"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n9",
+     "in": "n1",
+     "props": {
+      "kind": "alert",
+      "text": "Delete?",
+      "body": "This cannot be undone",
+      "items": [
+       "Cancel",
+       "Delete"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n10",
+     "in": "n1",
+     "props": {
+      "kind": "keyboard"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n11",
+     "in": "n1",
+     "props": {
+      "kind": "hologram",
+      "text": "Future"
+     }
+    }
+   ]
+  },
+  {
+   "name": "mock: a part outside a mock stands alone",
+   "input": "part button \"Send\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n1",
+     "props": {
+      "kind": "button",
+      "text": "Send"
+     }
+    }
+   ]
+  },
+  {
+   "name": "mock: frames",
+   "input": "mock Watch frame=watch\npart text \"72 bpm\" size=h1",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n1",
+     "props": {
+      "title": "Watch",
+      "frame": "watch"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "text",
+      "text": "72 bpm",
+      "size": "h1"
+     }
+    }
+   ]
+  },
+  {
+   "name": "mock: inside a deck after a page it is that page's picture, the next page goes back to the deck",
+   "input": "deck \"Home screen\"\npage \"What changes\"\nmock \"After\" frame=phone\npart nav Home\npart row Basil +hi\npage \"Next\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "Home screen"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "What changes"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "After",
+      "frame": "phone"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "kind": "nav",
+      "text": "Home"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n5",
+     "in": "n3",
+     "props": {
+      "kind": "row",
+      "text": "Basil",
+      "hi": true
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n6",
+     "in": "n1",
+     "props": {
+      "title": "Next"
+     }
+    }
+   ]
+  },
+  {
+   "name": "mock: a diagram ends the mock, and a new mock starts a new block",
+   "input": "mock \"Phone\" frame=phone\npart nav Home\ndiagram\nflowchart LR\n  a --> b\nend\nmock \"Next\"\npart button Go",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n1",
+     "props": {
+      "title": "Phone",
+      "frame": "phone"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "nav",
+      "text": "Home"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "diagram",
+     "id": "n3",
+     "props": {}
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n3",
+     "props": {
+      "type": "flow",
+      "dir": "LR",
+      "nodes": [
+       {
+        "id": "a"
+       },
+       {
+        "id": "b"
+       }
+      ],
+      "edges": [
+       {
+        "from": "a",
+        "to": "b"
+       }
+      ],
+      "source": "flowchart LR\n  a --> b"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n4",
+     "props": {
+      "title": "Next"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n5",
+     "in": "n4",
+     "props": {
+      "kind": "button",
+      "text": "Go"
+     }
+    }
+   ]
+  }
+ ]
+}
