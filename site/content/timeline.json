@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 374,
-    "site": 868,
-    "builds": 49,
-    "shipped": 433,
-    "screenshots": 1073
+    "site": 875,
+    "builds": 50,
+    "shipped": 438,
+    "screenshots": 1089
   },
   "days": [
     {
@@ -13,7 +13,151 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T08:55:54.300Z",
+          "at": "2026-09-30T10:04:47.419Z",
+          "title": "A logged meal lands on today's calories",
+          "card": "YUI-183b",
+          "anchor": "a-logged-meal-lands-on-today-s-calories",
+          "images": [
+            {
+              "src": "/progress/yui183b-before-dark.webp",
+              "alt": "Dark mode, before: after logging a meal the phone shows Basil's grocery list, 6 to get, with produce, meat, dairy and pantry items."
+            },
+            {
+              "src": "/progress/yui183b-after-dark.webp",
+              "alt": "Dark mode, after: the phone shows Today, Calories today with a kcal total and a Macros vs goal chart for protein, carbs and fat."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 374,
+            "site": 875,
+            "builds": 50,
+            "shipped": 438
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T09:52:12.000Z",
+          "title": "Try every crew member's first plan",
+          "card": "SITE-124",
+          "anchor": "try-every-crew-member-s-first-plan",
+          "images": [
+            {
+              "src": "/progress/site124-gouda-dark.webp",
+              "alt": "Dark mode: the musician's example practice routine built from four answers, a table of warm up, technique, play and free play with minutes."
+            },
+            {
+              "src": "/progress/site124-gouda-light.webp",
+              "alt": "Light mode: the same example practice routine on a white screen."
+            },
+            {
+              "src": "/progress/site124-quill-dark.webp",
+              "alt": "Dark mode: step 1 of 3 of the study buddy's first plan, What are you learning, with four answers, Not sure and Skip."
+            },
+            {
+              "src": "/progress/site124-quill-light.webp",
+              "alt": "Light mode: the same first question on a white screen."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 374,
+            "site": 875,
+            "builds": 50,
+            "shipped": 437
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T09:41:33.000Z",
+          "title": "A first plan for Basil, Gouda, Penny and Quill",
+          "card": "YUI-227",
+          "anchor": "a-first-plan-for-basil-gouda-penny-and-quill",
+          "images": [
+            {
+              "src": "/progress/yui227-first-meals-dark.webp",
+              "alt": "Dark mode: step 1 of 5 of Your first meal plan, What's the goal, with Eat better, Lose weight, Build muscle, Save time, Not sure and Skip."
+            },
+            {
+              "src": "/progress/yui227-first-meals-light.webp",
+              "alt": "Light mode: the same first question on a white screen."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 374,
+            "site": 873,
+            "builds": 50,
+            "shipped": 436
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T09:06:18.000Z",
+          "title": "The site's first plan asks the same five questions",
+          "card": "SITE-123",
+          "anchor": "the-site-s-first-plan-asks-the-same-five-questions",
+          "images": [
+            {
+              "src": "/progress/site123-q1-dark.webp",
+              "alt": "Dark mode: the first plan on the crew page, asking what you are training for, with Not sure and a Skip for now card."
+            },
+            {
+              "src": "/progress/site123-q4-dark.webp",
+              "alt": "Dark mode: the fourth question, what you have, with five answers and Skip for now."
+            },
+            {
+              "src": "/progress/site123-week-dark.webp",
+              "alt": "Dark mode: the built week as a table of seven days, with today's session."
+            },
+            {
+              "src": "/progress/site123-q1-light.webp",
+              "alt": "Light mode: the first question, what you are training for."
+            },
+            {
+              "src": "/progress/site123-q4-light.webp",
+              "alt": "Light mode: the fourth question, what you have."
+            },
+            {
+              "src": "/progress/site123-week-light.webp",
+              "alt": "Light mode: the built week as a table, with today's session."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 374,
+            "site": 871,
+            "builds": 50,
+            "shipped": 435
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T09:06:08.000Z",
+          "title": "A first plan any agent can send",
+          "card": "YUI-226",
+          "anchor": "a-first-plan-any-agent-can-send",
+          "images": [
+            {
+              "src": "/progress/yui226-first-plan-dark.webp",
+              "alt": "Dark mode: step 1 of 5 of Your first plan, What's the goal, with Get stronger, Lose weight, Build a habit, Feel better, Not sure and Skip."
+            },
+            {
+              "src": "/progress/yui226-first-plan-light.webp",
+              "alt": "Light mode: the same first question on a white screen."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 374,
+            "site": 870,
+            "builds": 50,
+            "shipped": 434
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T08:56:21.000Z",
           "title": "Thought: Your first minute with Yui",
           "card": "SITE-122",
           "anchor": "thought-your-first-minute-with-yui",
@@ -31,11 +175,11 @@
               "alt": "Dark mode: the Add agent sheet with three commands to run on the computer and a six digit code."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 374,
-            "site": 868,
-            "builds": 49,
+            "site": 869,
+            "builds": 50,
             "shipped": 433
           }
         },
@@ -71,8 +215,20 @@
           "totals": {
             "app": 374,
             "site": 868,
-            "builds": 49,
+            "builds": 50,
             "shipped": 432
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-30T08:49:40.000Z",
+          "build": 380,
+          "changes": 10,
+          "totals": {
+            "app": 374,
+            "site": 867,
+            "builds": 50,
+            "shipped": 431
           }
         },
         {
@@ -376,6 +532,55 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "235d8ac",
+          "at": "2026-09-30T09:52:12.000Z",
+          "text": "SITE-124: try every crew member's first plan on /crew",
+          "url": "https://github.com/postscarcityai/yuigui/commit/235d8ac"
+        },
+        {
+          "repo": "site",
+          "sha": "62cfaac",
+          "at": "2026-09-30T09:43:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/62cfaac"
+        },
+        {
+          "repo": "site",
+          "sha": "0d4dc2e",
+          "at": "2026-09-30T09:41:33.000Z",
+          "text": "YUI-227: first-meals, first-practice, first-week, first-study saved flows",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0d4dc2e"
+        },
+        {
+          "repo": "site",
+          "sha": "e722a98",
+          "at": "2026-09-30T09:12:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e722a98"
+        },
+        {
+          "repo": "site",
+          "sha": "4de14ae",
+          "at": "2026-09-30T09:06:18.000Z",
+          "text": "SITE-123: the site's first-plan demo asks the app's five questions (YUI-217 parity)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4de14ae"
+        },
+        {
+          "repo": "site",
+          "sha": "6c75659",
+          "at": "2026-09-30T09:06:08.000Z",
+          "text": "YUI-226: first-plan saved flow any agent can send",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6c75659"
+        },
+        {
+          "repo": "site",
+          "sha": "70c0285",
+          "at": "2026-09-30T08:56:21.000Z",
+          "text": "Thought: Your first minute with Yui (SITE-122)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/70c0285"
+        },
         {
           "repo": "site",
           "sha": "a19fd87",
