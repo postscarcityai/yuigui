@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { APPLE, CREW_ROWS, DIG, DONE, HI, OWN, PICK, STEPS, TESTFLIGHT } from "../../lib/first-run.mjs";
 import usePrefs from "./usePrefs";
+import FrFirstPlan, { hasFirstPlan } from "./FrFirstPlan";
 import "./firstrun.css";
 
 const Live = dynamic(() => import("../mockups/LiveScreen"), { ssr: false, loading: () => <div className="fr-live-wait">Drawing the screen...</div> });
@@ -327,7 +328,9 @@ export default function FirstRunHero({ children, title, start = "tf", id }) {
                   <div className="fr-thread" style={{ "--cm": t.c, "--cp": `var(--${t.color})` }}>
                     <header><button type="button" className="fr-back" onClick={() => go("done")}><i aria-hidden="true" />{DONE.backToCrew}</button>
                       <div className="fr-dig-head"><Face m={t} /><div><h2>{t.name}</h2><span className="fr-role">{t.role}</span></div></div></header>
-                    <div className="fr-chat"><div className="fr-bubble agent"><TypeLine text={t.hello} reduced={reduced} speed={22} /></div></div>
+                    {hasFirstPlan(t.handle)
+                      ? <div className="fr-livebox"><FrFirstPlan handle={t.handle} name={t.name} light={!dark} reduced={reduced} /></div>
+                      : <div className="fr-chat"><div className="fr-bubble agent"><TypeLine text={t.hello} reduced={reduced} speed={22} /></div></div>}
                     <footer><div className="fr-composer" aria-hidden="true"><span>Message {t.name}</span><i /></div>
                       <button type="button" className="fr-btn ghost" onClick={() => go("done")}>{DONE.backToCrew}</button></footer>
                   </div>

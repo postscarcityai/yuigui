@@ -194,6 +194,8 @@ footer { flex: none; }
 
 /* a thread */
 .fr-chat { flex: 1; display: flex; align-items: flex-start; padding: 14px 16px; }
+.fr-firstplan { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 6px; }
+.fr-step { margin: 0; text-align: center; font-size: 12.5px; font-weight: 800; color: var(--fr-muted); }
 .fr-thread footer { padding: 8px 16px 16px; display: grid; gap: 8px; }
 .fr-composer { display: flex; align-items: center; justify-content: space-between; min-height: 46px; padding: 0 8px 0 16px; border-radius: 26px; background: var(--surface); border: 1.5px solid var(--outline); color: var(--fr-muted); font-size: 14px; font-weight: 600; }
 .fr-composer i { width: 32px; height: 32px; border-radius: 50%; background: var(--cm); }
