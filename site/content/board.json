@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T05:11:06.531Z",
+  "updated": "2026-09-30T05:41:14.850Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -359,11 +359,6 @@
           "progress": "/progress#a-first-plan-from-coach"
         },
         {
-          "key": "YUI-218",
-          "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
-          "waiting": true
-        },
-        {
           "key": "YUI-40",
           "title": "Widgets native in the app",
           "step": "Step 2",
@@ -486,8 +481,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-118",
-          "title": "Try the trainer's first plan on the site (PROP-4 web parity)",
+          "key": "YUI-218",
+          "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
           "owner": "CJohnDesign"
         }
       ]
@@ -496,6 +491,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-119",
+          "title": "A Thought on no empty chats, why a new agent opens on a plan",
+          "summary": "A Thought on no empty chats",
+          "shipped": "2026-09-30",
+          "progress": "/progress#a-thought-on-no-empty-chats"
+        },
+        {
+          "key": "SITE-118",
+          "title": "Try the trainer's first plan on the site (PROP-4 web parity)",
+          "summary": "Try the trainer's first plan on the site",
+          "shipped": "2026-09-30",
+          "progress": "/progress#try-the-trainer-s-first-plan-on-the-site"
+        },
         {
           "key": "SITE-117",
           "title": "Link SITE-115, and the site composer catches up to the typing and trash fixes",
