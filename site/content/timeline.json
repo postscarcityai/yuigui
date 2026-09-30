@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 373,
-    "site": 850,
+    "site": 853,
     "builds": 49,
-    "shipped": 426,
-    "screenshots": 1050
+    "shipped": 428,
+    "screenshots": 1058
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T05:02:21.938Z",
+          "at": "2026-09-30T05:34:23.109Z",
+          "title": "A Thought on no empty chats",
+          "card": "SITE-119",
+          "anchor": "a-thought-on-no-empty-chats",
+          "images": [
+            {
+              "src": "/progress/yui217-questions-light.webp",
+              "alt": "The first-open questions: session length and gear as tap answers, each with a Not sure."
+            },
+            {
+              "src": "/progress/yui217-this-week-light.webp",
+              "alt": "The saved week: 0 of 3 workouts, three full body days and a Change a day row."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 373,
+            "site": 853,
+            "builds": 49,
+            "shipped": 428
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T05:14:10.000Z",
+          "title": "Try the trainer's first plan on the site",
+          "card": "SITE-118",
+          "anchor": "try-the-trainer-s-first-plan-on-the-site",
+          "images": [
+            {
+              "src": "/progress/site118-ask-dark.webp",
+              "alt": "Dark mode: the first plan on the crew page, asking how many days a week you can train."
+            },
+            {
+              "src": "/progress/site118-split-dark.webp",
+              "alt": "Dark mode: the saved split as a table of five days, with today's session and a Start button."
+            },
+            {
+              "src": "/progress/site118-session-dark.webp",
+              "alt": "Dark mode: today's session with a warm-up timer and a checklist."
+            },
+            {
+              "src": "/progress/site118-ask-light.webp",
+              "alt": "Light mode: the first plan asking how many days a week you can train."
+            },
+            {
+              "src": "/progress/site118-split-light.webp",
+              "alt": "Light mode: the saved split as a table, with today's session and a Start button."
+            },
+            {
+              "src": "/progress/site118-session-light.webp",
+              "alt": "Light mode: today's session with a warm-up timer and a checklist."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 373,
+            "site": 853,
+            "builds": 49,
+            "shipped": 427
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T05:02:26.000Z",
           "title": "A first plan from Coach",
           "card": "YUI-217",
           "anchor": "a-first-plan-from-coach",
@@ -35,10 +99,10 @@
               "alt": "Light mode: This week built from the answers."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 373,
-            "site": 850,
+            "site": 851,
             "builds": 49,
             "shipped": 426
           }
@@ -173,6 +237,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "4e8d397",
+          "at": "2026-09-30T05:14:10.000Z",
+          "text": "SITE-118: try the trainer's first plan on /crew (PROP-4 web parity)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4e8d397"
+        },
+        {
+          "repo": "site",
+          "sha": "82bbbfc",
+          "at": "2026-09-30T05:11:16.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/82bbbfc"
+        },
+        {
+          "repo": "site",
+          "sha": "99c64f0",
+          "at": "2026-09-30T05:02:26.000Z",
+          "text": "PROP-4 is Building (YUI-217); progress entry with the first-plan shots",
+          "url": "https://github.com/postscarcityai/yuigui/commit/99c64f0"
+        },
         {
           "repo": "app",
           "sha": "79229f2",
