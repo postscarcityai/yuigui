@@ -152,9 +152,9 @@ const NOT_PLAIN = /\b[A-Z]{2,}-\d+\b|\bt_[0-9a-f]{4,}\b|[\w-]+\.(py|mjs|js|ts|js
 const NARRATE = /\b(here (are|is) (some|a|the|your) (buttons?|options?|form|screen|slider|picker|checklist)|tap (one of )?(the )?(buttons?|options?)( below| above)?|(buttons?|options?|form|slider|checklist) (below|above)|i('ve| have) (put|added|created|set up) (a|some|the) (buttons?|form|screen|slider|picker)|you (chose|picked|selected|tapped))\b/i;
 // A button that only acknowledges (YUI-53): tapping it does nothing for anyone.
 // What counts as a picture for an explainer (the `drawn` check): not a list, card or table of words.
-const DRAWN = new Set(["map", "sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "timeline"]);
+const DRAWN = new Set(["map", "sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "timeline", "diagram", "mock"]);
 // A drawing made of Yui Lines (VIS-1): not an image model render.
-const DRAW = new Set(["sketch", "shapes", "timeline", "map", "chart", "stat"]);
+const DRAW = new Set(["sketch", "shapes", "timeline", "map", "chart", "stat", "diagram", "mock"]);
 // Filler (VIS-1, caveman words): an opening "so", "now", "well", an intro, an apology, a hedge.
 const FILLER_LEAD = /^(so|now|well|okay|ok|sure|alright|anyway|however|basically|overall|actually|great|absolutely|of course|got it|understood)\b[,.!]?\s|^(i'?ll|i will|let me|i wanted to|here'?s|here is)\b/i;
 const FILLER_ANY = /\b(a few things|a couple of things|just to let you know|i hope this helps|sorry about that|i apologi[sz]e|as you can see|it'?s worth noting)\b/i;
@@ -268,7 +268,7 @@ export function score(c, reply) {
     if (words > 30) fails.push(`one line: ${words} words of prose, want 30 or fewer`);
     // A drawing made of Yui Lines. An image model render (an `image` line, `hermes yui media`) is a miss: Chris, 2026-09-30,
     // "I want you to draw on the screen using the YL framework."
-    if (!adds.some((o) => DRAW.has(o.preset))) fails.push("one line: no drawing (sketch, shapes, timeline, map, chart or stat) carries the answer");
+    if (!adds.some((o) => DRAW.has(o.preset))) fails.push("one line: no drawing (sketch, shapes, diagram, mock, timeline, map, chart or stat) carries the answer");
     if (adds.some((o) => o.preset === "image") || /hermes yui media/.test(reply)) fails.push("one line: a generated image, draw it with Yui Lines");
   }
   // Caveman words (VIS-1, Chris 2026-09-30): nouns and verdicts, no filler, no intro, no apology.
