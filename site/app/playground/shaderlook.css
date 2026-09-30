@@ -1,0 +1,28 @@
+/* The shader look mock (spec/SHADER.md). Every class is sl-, so no site chrome leaks in. */
+.sl-app { --sl-card: #181a29; --sl-line: #262a40; --sl-ink: #F6EEF7; flex: 1; min-height: 0; display: flex; flex-direction: column; overflow-y: auto; }
+.sl-app.sl-light { --sl-card: #fff; --sl-line: #e3e4ee; --sl-ink: #3A3340; }
+.sl-stage { position: relative; flex: none; height: 360px; overflow: hidden; background: #231D33; color: var(--sl-ink); }
+.sl-light .sl-stage { background: #FFF9F0; }
+.sl-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sl-bar { position: relative; display: flex; align-items: center; gap: 8px; padding: 12px 14px; font-size: 14px; }
+.sl-tag { margin-left: auto; font-size: 12px; font-weight: 700; opacity: .85; }
+.sl-old { position: absolute; right: 12px; bottom: 12px; width: 84px; display: flex; flex-direction: column; align-items: center; gap: 1px; padding: 8px 6px 6px; border-radius: 12px; background: color-mix(in srgb, var(--sl-card) 80%, transparent); border: 1px solid var(--sl-line); font-size: 11px; }
+.sl-old svg { width: 52px; height: 52px; }
+.sl-old span { opacity: .7; text-decoration: line-through; }
+.sl-panel { display: flex; flex-direction: column; gap: 8px; padding: 10px 10px 16px; }
+.sl-row { display: flex; align-items: flex-start; gap: 8px; }
+.sl-label { flex: none; width: 46px; padding-top: 7px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.sl-chips { flex: 1; display: flex; flex-wrap: wrap; gap: 5px; }
+.sl-chip { min-height: 30px; padding: 0 10px; border-radius: 15px; border: 1px solid var(--sl-line); background: var(--sl-card); color: inherit; font: inherit; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; text-transform: none; }
+.sl-chip[style*="--sl-dot"]::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--sl-dot); }
+.sl-chip.on { background: var(--sl-c); border-color: var(--sl-c); color: #fff; }
+.sl-chip:disabled { opacity: .6; cursor: default; }
+.sl-note { margin: 0; font-size: 12px; line-height: 1.4; color: var(--muted); }
+.sl-note b { color: inherit; }
+.sl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.sl-mini { position: relative; height: 110px; padding: 0; border-radius: 12px; overflow: hidden; border: 2px solid var(--sl-line); background: #231D33; cursor: pointer; color: #F6EEF7; }
+.sl-light .sl-mini { background: #FFF9F0; color: #3A3340; }
+.sl-mini.on { border-color: var(--sl-c); }
+.sl-mini span { position: absolute; left: 0; right: 0; bottom: 5px; font-size: 11.5px; font-weight: 800; }
+.sl-knobs { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.sl-knobs i { font-style: normal; font-weight: 800; }
