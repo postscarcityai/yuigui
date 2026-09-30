@@ -1679,6 +1679,10 @@
   "next": [
     {
       "text": "Plugin guide v42: show it here, don't link out"
+    },
+    {
+      "text": "About and Controls become one Agent drawer tab",
+      "card": "YUI-128"
     }
   ]
 }

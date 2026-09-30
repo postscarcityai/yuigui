@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T02:10:48.273Z",
+  "updated": "2026-09-30T02:41:34.912Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -316,6 +316,21 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-216",
+          "title": "Pick your crew, the first-run picker",
+          "waiting": true
+        },
+        {
+          "key": "YUI-217",
+          "title": "A first plan in every agent",
+          "waiting": true
+        },
+        {
+          "key": "YUI-218",
+          "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
+          "waiting": true
+        },
+        {
           "key": "YUI-40",
           "title": "Widgets native in the app",
           "step": "Step 2",
@@ -325,11 +340,6 @@
         {
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
-          "waiting": true
-        },
-        {
-          "key": "YUI-183b",
-          "title": "After a meal is logged, land on that meal's calories, then Today's macros, not the grocery list",
           "waiting": true
         },
         {
@@ -402,8 +412,23 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-128",
-          "title": "About and Controls become one drawer tab",
+          "key": "YUI-183b",
+          "title": "After a meal is logged, land on that meal's calories, then Today's macros, not the grocery list",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-27331",
+          "title": "One look: shader, no line blob",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-113",
+          "title": "Link SITE-111 on the board, and the See it page shows tonight's app changes",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-219",
+          "title": "A lone ask heading reads the question, not 'One question'",
           "owner": "CJohnDesign"
         },
         {
@@ -413,12 +438,6 @@
           "blocked": "chris",
           "progress": "/progress#your-own-key-at-every-stop",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-27331",
-          "title": "One look: shader, no line blob",
-          "blocked": "chris",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -426,6 +445,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-41795",
+          "title": "Asks that show what they mean",
+          "shipped": "2026-09-29",
+          "progress": "/progress#a-question-from-your-agent-now-reads-as-a-question"
+        },
+        {
+          "key": "YUI-128",
+          "title": "About and Controls become one drawer tab",
+          "summary": "About and Controls are one Agent tab",
+          "shipped": "2026-09-29",
+          "progress": "/progress#about-and-controls-are-one-agent-tab",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/939fd40"
+        },
         {
           "key": "SITE-112",
           "title": "The release post for TestFlight build 370, several chats, your own keys, icon shortcuts",
