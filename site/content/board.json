@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T14:42:53.803Z",
+  "updated": "2026-09-30T15:11:27.595Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -444,15 +444,16 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-232",
-          "title": "The blob, drawn by the shader, changes shape with what the agent does; the vector blob is removed",
-          "summary": "The blob changes shape with what your agent does",
-          "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does",
+          "key": "SITE-133",
+          "title": "The speed check again after /crew, /thoughts and the chat bubble",
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-133",
-          "title": "The speed check again after /crew, /thoughts and the chat bubble",
+          "key": "YUI-232",
+          "title": "The blob, drawn by the shader, changes shape with what the agent does; the vector blob is removed",
+          "summary": "The blob changes shape with what your agent does",
+          "blocked": "chris",
+          "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does",
           "owner": "CJohnDesign"
         },
         {
