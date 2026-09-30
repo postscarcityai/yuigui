@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T07:10:35.100Z",
+  "updated": "2026-09-30T07:41:08.046Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -481,14 +481,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-121",
-          "title": "The new pages look right on a phone (390px polish pass, Sep 28-30 pages)",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218",
           "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
-          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
@@ -497,6 +491,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-121",
+          "title": "The new pages look right on a phone (390px polish pass, Sep 28-30 pages)",
+          "summary": "The new pages, on a phone",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-new-pages-on-a-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3507a94"
+        },
         {
           "key": "SITE-120",
           "title": "Every link, image and share card resolves after the Sep 29-30 pages",
