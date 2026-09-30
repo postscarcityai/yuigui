@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T12:40:35.810Z",
+  "updated": "2026-09-30T13:10:37.832Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -15,7 +15,7 @@
         "progress": "/progress#yui-asks-about-notifications-after-your-first-plan"
       },
       {
-        "key": "YUI-231",
+        "key": "YUI-233",
         "title": "On a real account",
         "status": "now"
       }
@@ -230,19 +230,8 @@
           "waiting": true
         },
         {
-          "key": "YUI-231",
-          "title": "Show me means in the app",
-          "summary": "Pictures and the pick on the phone, a site link only as a small extra",
-          "waiting": true
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
-          "waiting": true
-        },
-        {
-          "key": "SITE-131",
-          "title": "The chat bubble covers the crew demo phone's Start button on a phone",
           "waiting": true
         },
         {
@@ -457,21 +446,26 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-231",
+          "key": "YUI-233",
           "title": "On a real account",
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-130",
-          "title": "A stranger's first minute on the site, timed on a phone",
-          "summary": "A stranger's first minute on the site, timed",
-          "progress": "/progress#a-stranger-s-first-minute-on-the-site-timed",
+          "key": "SITE-131",
+          "title": "The chat bubble covers the crew demo phone's Start button on a phone",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-231",
+          "title": "Show me means in the app",
+          "summary": "Pictures and the pick on the phone, a site link only as a small extra",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
@@ -480,6 +474,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-130",
+          "title": "A stranger's first minute on the site, timed on a phone",
+          "summary": "A stranger's first minute on the site, timed",
+          "shipped": "2026-09-30",
+          "progress": "/progress#a-stranger-s-first-minute-on-the-site-timed"
+        },
         {
           "key": "YUI-230",
           "title": "Allow notifications shows once, after the first plan",
