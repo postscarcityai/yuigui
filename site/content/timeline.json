@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 373,
-    "site": 864,
+    "app": 374,
+    "site": 867,
     "builds": 49,
-    "shipped": 431,
-    "screenshots": 1065
+    "shipped": 432,
+    "screenshots": 1070
   },
   "days": [
     {
@@ -13,7 +13,43 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T07:47:38.579Z",
+          "at": "2026-09-30T08:51:32.600Z",
+          "title": "Yui 0.6.1: pick your crew, get a first week built",
+          "card": null,
+          "anchor": "yui-0-6-1-pick-your-crew-get-a-first-week-built",
+          "images": [
+            {
+              "src": "/progress/ship061-crew-dark.webp",
+              "alt": "Dark mode: the crew picker with three agents added and a Start button."
+            },
+            {
+              "src": "/progress/ship061-hello-dark.webp",
+              "alt": "Dark mode: the first message says five taps and you have a week you will actually do, with a Your first plan card."
+            },
+            {
+              "src": "/progress/ship061-intake-dark.webp",
+              "alt": "Dark mode: step 3 of 5 of Your first plan, How long per session, with 45 min chosen."
+            },
+            {
+              "src": "/progress/ship061-this-week-dark.webp",
+              "alt": "Dark mode: This week with 0 of 3 workouts, Mon Wed Fri Full body, and a Rebuild my split button."
+            },
+            {
+              "src": "/progress/ship061-long-answer-dark.webp",
+              "alt": "Dark mode: a long typed answer wrapped whole in the message box, above the keyboard."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 374,
+            "site": 867,
+            "builds": 49,
+            "shipped": 432
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T07:48:05.000Z",
           "title": "A stranger runs Yui cold: about 6 minutes, five snags",
           "card": "YUI-218",
           "anchor": "a-stranger-runs-yui-cold-about-6-minutes-five-snags",
@@ -31,10 +67,10 @@
               "alt": "Light mode: the Add agent sheet with the three pairing commands and the code."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 373,
-            "site": 864,
+            "site": 865,
             "builds": 49,
             "shipped": 431
           }
@@ -312,6 +348,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "af35723",
+          "at": "2026-09-30T08:40:51.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/af35723"
+        },
+        {
+          "repo": "site",
+          "sha": "03f1c6d",
+          "at": "2026-09-30T08:11:03.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/03f1c6d"
+        },
+        {
+          "repo": "app",
+          "sha": "72425cb",
+          "at": "2026-09-30T08:03:05.000Z",
+          "text": "Bump version to 0.6.1",
+          "url": "https://github.com/postscarcityai/yui/commit/72425cb"
+        },
+        {
+          "repo": "site",
+          "sha": "b65456a",
+          "at": "2026-09-30T07:48:05.000Z",
+          "text": "Progress: a stranger runs Yui cold (YUI-218)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b65456a"
+        },
         {
           "repo": "site",
           "sha": "76d4fcc",
