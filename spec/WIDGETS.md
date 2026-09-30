@@ -1,14 +1,46 @@
-# Widgets and Siri | spec v0 (YUI-40 step 1, Sep 26 2026)
+# Widgets and Siri | spec v1 (YUI-40 steps 1 to 4, Sep 26 and Sep 30 2026)
 
 Today an agent's screen lives in its thread. To see your weight trend or tick off today's list you open Yui, pick the agent and find the screen. Widgets and Siri take Yui out of the app: a saved screen pinned to the home screen or the lock screen, kept current by the agent, with buttons that work without opening anything, and three things you can say to Siri or put on the Action button.
 
-Status: design only. Nothing in the app changed, no account was made, nothing was spent. The mock runs in the playground: [/playground?demo=widgets](/playground?demo=widgets). Building it natively is step 2.
+Status: built, riding the next daily build. Steps 2 to 4 landed in the app on Sep 30: widget buttons, three Siri intents, the Talk to Yui control and the widget push relay. The playground mock still runs at [/playground?demo=widgets](/playground?demo=widgets).
+
+| | State |
+|---|---|
+| Widget on the home screen and lock screen: small, medium, rectangular, circular, inline | **Live** |
+| `+check` ticks and `cta` buttons on the widget | **Live** |
+| Timer Start and Pause on the widget, as a Live Activity | **Live** |
+| Offline queue: a tap with no signal goes out later, in order | **Live** |
+| Siri and Shortcuts: Ask an agent, Show a saved screen, Start a timer | **Live** |
+| Talk to Yui control: Control Center, lock screen, Action button | **Live** |
+| Spotlight finds agents and saved screens by name | **Live** |
+| Widget push relay (`yui_widgets`, `yui-widgets`, 15 minute coalescing) | **Live** |
+| Large widget size, the StandBy layout | Later |
+| Pin as widget on the shelf (step 1) | **Live** |
+| A channel guide sentence about widgets | Later |
+
+What it looks like in the app, from the simulator. Tick Walk 30 min and Start the timer, straight from the widget: Start becomes Pause and the event reaches the agent with `via=widget`.
+
+<p class="shot"><img class="shot-light" src="/demo/widgets-buttons-light.webp" alt="Two saved screens as widgets: Today with Walk 30 min ticked, and a Tabata timer counting 0:19 with a Pause button" loading="lazy"><img class="shot-dark" src="/demo/widgets-buttons-dark.webp" alt="The same widgets in dark mode: the Today list and a Tabata timer at 0:19 with a Pause button" loading="lazy"></p>
 
 ```
  agent  --lines-->  relay (yui_messages)  --widget push-->  iPhone  -->  WidgetKit asks Yui's widget for a new timeline
                                                                      widget reads the new rows, applies the patches, draws
  widget button  --App Intent-->  event row on the relay  -->  agent (same event as a tap in the thread, plus "via":"widget")
  Siri / Shortcuts / Action button  --App Intent-->  ask an agent, show a saved screen, start a timer
+```
+
+The relay, as built:
+
+```
+ agent patches a pinned id
+        |
+        v
+ yui-push (15 min coalescing, timer at once)
+        |  widget push
+        v
+ iPhone widget  --reads new rows-->  yui-widgets (read)  -->  redraws from its app group copy
+        |
+ tick / Start / cta  --App Intent-->  yui-widgets (event)  -->  agent gets the tap, "via":"widget"
 ```
 
 ## 1. A widget is a pinned saved screen
@@ -75,20 +107,20 @@ Yui's widget buttons send the same event a tap in the thread sends, with two ext
 - **Right away on the widget.** The intent flips the row in the app group copy and reloads the widget (free: reloads after an intent do not count). Then it writes the event row to the relay.
 - **Offline:** the event waits in the app group and goes out at the next widget intent or app launch, in order.
 - **The agent answers as usual.** Its reply lands in the thread with a push, like any other. If it patches the pinned screen, section 3 brings the widget along.
-- **Timers:** the Start intent is a `LiveActivityIntent`, so it runs in the app's process and can start the Live Activity the timer already has; the lock screen and the Dynamic Island then carry the running clock, and the widget shows Pause.
+- **Timers (live):** the Start intent is a `LiveActivityIntent`, so it runs in the app's process and can start the Live Activity the timer already has; the lock screen and the Dynamic Island then carry the running clock, and the widget shows Pause.
 
-## 6. Siri, Shortcuts and the Action button
+## 6. Siri, Shortcuts and the Action button (live)
 
 Three App Intents, each with an entity parameter so one intent covers every agent and every saved screen ([App Intents](https://developer.apple.com/documentation/appintents)):
 
 | Intent | Say it | What happens |
 |---|---|---|
-| Ask an agent | "Ask Coach in Yui" | Siri asks "What do you want to ask?", sends the words to that agent's thread as a normal message, and answers "Sent to Coach". The reply comes as a push, screens and all. |
-| Show a saved screen | "Show workout in Yui" | Opens Yui with that saved screen on the stage. In Siri's sheet first: the widget-sized view of the screen, so a glance may be enough. |
+| Ask an agent | "Ask Coach in Yui" or "Message Coach in Yui" | Siri asks "What do you want to ask?", sends the words to that agent's thread as a normal message, and answers "Sent to Coach". The reply comes as a push, screens and all. |
+| Show a saved screen | "Show workout in Yui" or "Open workout in Yui" | Opens Yui on that agent's thread with the saved screen on the stage. (A widget-sized view in Siri's sheet first is later.) |
 | Start a timer | "Start Tabata in Yui" | Starts the saved timer's Live Activity without opening the app (a `LiveActivityIntent`), and sends `started` like the widget button. |
 
-- **App Shortcuts.** An app can have at most 10 ([AppShortcutsProvider](https://developer.apple.com/documentation/appintents/appshortcutsprovider)). Yui ships exactly these three, each phrase with the app's name in it, and lets the entity (the agent, the screen, the timer) fill the rest. They show in the Shortcuts app and in Spotlight with no setup.
-- **Entities.** `AgentEntity` (the person's agents, by name) and `ScreenEntity` (saved screens, by agent and name) come from the app group's copy, so Siri can list them without the network.
+- **App Shortcuts.** An app can have at most 10 ([AppShortcutsProvider](https://developer.apple.com/documentation/appintents/appshortcutsprovider)). Yui ships exactly these three (the build's metadata lists three App Shortcuts), each phrase with the app's name in it, and lets the entity (the agent, the screen, the timer) fill the rest. They show in the Shortcuts app and in Spotlight with no setup.
+- **Entities.** `AgentEntity` (the person's agents, by name), `ScreenEntity` (saved screens, by agent and name) and `TimerEntity` (saved timers) come from the app group's copy, so Siri can list them without the network.
 - **Action button.** The person can put any App Shortcut on it. Yui also ships one control, "Talk to Yui" (a `ControlWidget`, iOS 18: Control Center, the lock screen and the Action button, [ControlWidget](https://developer.apple.com/documentation/widgetkit/controlwidget)), which opens the thread of the agent the person picked with hands-free voice on (YUI-14).
 - **The app icon (YUI-191, shipped).** Drawer shortcuts go on the icon too. Hold the Yui icon and the shortcuts your agents put in their drawers show as home screen quick actions, up to four, newest used first and one per agent before any agent gets a second. An agent sends nothing new: `menu shortcut@log-food "Log food" say="Log food: "` is the same line as before, and Basil's now shows as "Log food, Basil". A tap opens that agent's thread and does what the drawer tap does (a `say=` ending in a space fills the composer, anything else is sent). The person picks in Settings > Home screen actions: toggle up to four, drag to order, and their picks win over the default. A shared agent's shortcuts show only for the person it is shared with, and a revoke removes them. No app group and no extension: the app sets them at runtime.
 - **Hands off the red lines.** Siri only asks, shows and starts. None of the intents confirms a purchase, sends to anyone but the person's own agent, or deletes.
@@ -108,16 +140,15 @@ Three App Intents, each with an entity parameter so one intent covers every agen
 
 One sentence, added when step 2 ships (not before, so no agent tells people about a widget their build does not have): "A saved screen can be pinned as a widget. Keep it current with patches to its ids, not by sending it again."
 
-## 10. Step 2, the build
+## 10. Steps 2 to 4, the build
 
-None of it is started:
+Shipped Sep 30 (YUI-40 steps 2 to 4), riding the next daily build:
 
-- An app group and a shared keychain group for the app and `YuiWidgets` (a provisioning change, no new account).
-- The widget kind in `YuiWidgets`, beside `TimerLiveActivity`: the sizes in section 2, the parser compiled into the extension, the app group copy.
-- The WidgetKit push token (`WidgetPushHandler`), the `yui_widgets` table and the widget push in `yui-push`, with the 15-minute coalescing.
-- The three App Intents, the App Shortcuts, the "Talk to Yui" control and the two indexed entities.
-- **Pin as widget** on the shelf's hold menu.
-- Tests: a UI test that pins a saved screen in the simulator, a push test that proves Apple accepts a widget push, and a budget log in the Speed panel (reloads a day per widget).
+- The app group copy of each pinned screen, the widget kind `YuiSavedScreen` beside `TimerLiveActivity`, and the parser compiled into the extension. Sizes: small, medium and the three lock screen forms. Large is not built.
+- Buttons: `WidgetTickIntent` (`+check`), `WidgetCtaIntent` (`cta`) and `WidgetTimerStartIntent` (a Live Activity intent), with an offline queue.
+- The relay: the `yui_widgets` table, the `yui-widgets` function (register, event, push_token, read) and the widget push in `yui-push`, 15 minutes per pinned screen, a timer at once.
+- Siri: `AskAgentIntent`, `ShowScreenIntent`, `StartTimerIntent` as App Shortcuts, the Talk to Yui control, and `AgentEntity`, `ScreenEntity` and `TimerEntity` indexed for Spotlight.
+- Tests: `WidgetRelayTests` in the app, a widget gallery in the app that draws every pinned size, and a live relay test.
 
 ## Open questions for Chris
 

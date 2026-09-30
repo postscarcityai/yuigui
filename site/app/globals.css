@@ -1243,3 +1243,10 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
 .thought .eyebrow a { display: inline-block; padding: 13px 6px; margin: -13px -6px; }
 .thought .pill { font-size: 14px; }
 .sc-wait { font-size: 14px; }
+
+/* spec screenshots: one per theme (SITE-140) */
+.md p.shot { margin: 16px 0; }
+.md p.shot img { max-width: 100%; height: auto; border-radius: 16px; border: 1.5px solid var(--outline); }
+.md .shot-dark { display: none; }
+[data-theme="dark"] .md .shot-dark { display: inline; }
+[data-theme="dark"] .md .shot-light { display: none; }
