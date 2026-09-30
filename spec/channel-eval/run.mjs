@@ -364,6 +364,14 @@ export function score(c, reply) {
     if (links.length > 1) fails.push("show here: more than one link-out card");
     if (!drawn) fails.push("show here: nothing drawn in the thread");
   }
+  // Show me means the pick is on the phone too (YUI-231): the shots and the choice in one reply,
+  // a gallery marked +pick, or shots beside a choose/ask. Never a link-only answer.
+  if (e.pick_here) {
+    const media = adds.some((o) => ["gallery", "compare", "image"].includes(o.preset));
+    const pick = adds.some((o) => (o.preset === "gallery" && o.props?.pick) || ["choose", "ask"].includes(o.preset));
+    if (!media) fails.push("pick here: no shots drawn in the thread");
+    else if (!pick) fails.push("pick here: shots with no pick beside them");
+  }
   if (e.need_text && !new RegExp(e.need_text, "i").test(reply)) fails.push(`text: none of /${e.need_text}/`);
   if (e.no_text) {
     const m = text.match(new RegExp(e.no_text, "i"));

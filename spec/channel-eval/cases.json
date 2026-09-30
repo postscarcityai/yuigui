@@ -3358,6 +3358,165 @@
         "max_components": 4
       },
       "good": "The hero drawn in a sketch phone, before and after. At most a small link under it."
+    },
+    {
+      "id": "showpick-four-looks",
+      "category": "show",
+      "agent": "Yui",
+      "history": [
+        {
+          "role": "user",
+          "text": "Which shader look should the hero use?"
+        },
+        {
+          "role": "agent",
+          "text": "Four candidates: Currents, Terrain, Dots, Type. I sent you the shots."
+        }
+      ],
+      "message": "Show me the four looks again. (What you just looked up: the demo page is https://www.yuigui.com/playground?demo=shader-look. The four dark shots are already on disk: /Users/urzas/.hermes/kanban/artifacts/t_b8ab6ac3/1-currents-dark.png, 2-terrain-dark.png, 3-dots-dark.png, 4-type-dark.png, same folder.)",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "compare",
+          "image",
+          "gallery",
+          "sketch",
+          "row",
+          "after",
+          "say",
+          "card",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "list",
+          "stat",
+          "chart",
+          "table",
+          "shapes",
+          "shape",
+          "deck",
+          "page",
+          "video",
+          "choose",
+          "ask",
+          "points",
+          "camera"
+        ],
+        "need": [
+          "gallery",
+          "compare",
+          "image"
+        ],
+        "show_here": true,
+        "pick_here": true,
+        "max_words": 25,
+        "max_components": 3
+      },
+      "good": "A gallery of the four shots with +pick, so the choice is on the phone. A site link only as a small button under it, never alone."
+    },
+    {
+      "id": "showpick-two-looks",
+      "category": "show",
+      "agent": "Yui",
+      "history": [],
+      "message": "Show me the two card styles again so I can pick. (What you just looked up: playground demo https://www.yuigui.com/playground?demo=card-style. Shots: /demo/s1.jpg Soft, /demo/s2.jpg Sharp.)",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "compare",
+          "image",
+          "gallery",
+          "sketch",
+          "row",
+          "after",
+          "say",
+          "card",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "list",
+          "stat",
+          "chart",
+          "table",
+          "shapes",
+          "shape",
+          "deck",
+          "page",
+          "video",
+          "choose",
+          "ask",
+          "points",
+          "camera"
+        ],
+        "need": [
+          "gallery",
+          "compare",
+          "image"
+        ],
+        "show_here": true,
+        "pick_here": true,
+        "max_words": 25,
+        "max_components": 3
+      },
+      "good": "A gallery or compare of the two shots with the pick right there. Not a card that only opens the playground."
+    },
+    {
+      "id": "showpick-only-url",
+      "category": "show",
+      "agent": "Yui",
+      "history": [
+        {
+          "role": "user",
+          "text": "Which shader look should the hero use?"
+        },
+        {
+          "role": "agent",
+          "text": "Four candidates: Currents, Terrain, Dots, Type. I sent you the shots."
+        }
+      ],
+      "message": "Show me again. (What you just looked up: it is the shader look demo, https://www.yuigui.com/playground?demo=shader-look. Its shots are at /Users/urzas/.hermes/kanban/artifacts/t_b8ab6ac3/ as 1-currents-dark.png, 2-terrain-dark.png, 3-dots-dark.png, 4-type-dark.png.)",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "compare",
+          "image",
+          "gallery",
+          "sketch",
+          "row",
+          "after",
+          "say",
+          "card",
+          "timeline",
+          "done",
+          "now",
+          "next",
+          "list",
+          "stat",
+          "chart",
+          "table",
+          "shapes",
+          "shape",
+          "deck",
+          "page",
+          "video",
+          "choose",
+          "ask",
+          "points",
+          "camera"
+        ],
+        "need": [
+          "gallery",
+          "compare",
+          "image"
+        ],
+        "show_here": true,
+        "pick_here": true,
+        "max_words": 25,
+        "max_components": 3
+      },
+      "good": "The four shots as a gallery with +pick (or a choose beside them). The playground link only as a small extra, never the whole answer."
     }
   ]
 }
