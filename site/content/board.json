@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T18:11:06.958Z",
+  "updated": "2026-09-30T18:40:39.769Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -420,9 +420,10 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-135",
-          "title": "A Thought, show don't tell",
-          "summary": "Replies are one line and a drawing",
+          "key": "SITE-136",
+          "title": "The roadmap's 'Where Yui is now' catches up to today",
+          "summary": "The roadmap top is up to date",
+          "progress": "/progress#the-roadmap-top-is-up-to-date",
           "owner": "CJohnDesign"
         },
         {
@@ -445,6 +446,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-135",
+          "title": "A Thought, show don't tell",
+          "summary": "A Thought on drawn replies",
+          "shipped": "2026-09-30",
+          "progress": "/progress#a-thought-on-drawn-replies",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d29849e"
+        },
         {
           "key": "SITE-134",
           "title": "The site says a new build lands every morning",
