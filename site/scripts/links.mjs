@@ -75,6 +75,9 @@ function note(raw, page) {
   // next/image hides the real asset in ?url=; check that instead of the optimizer.
   if (u.pathname === "/_next/image" && u.searchParams.get("url")) return note(u.searchParams.get("url"), page);
   if (u.pathname.startsWith("/_next/")) return; // build output, versioned per deploy
+  // Cloudflare rewrites text like "L=0.1-3@1m" in a code sample into an email-protection link and decodes it in the browser.
+  // /lost-on-purpose is the 404 page's own "Get lost on purpose" demo: it is meant to 404 (SITE-104).
+  if (u.pathname.startsWith("/cdn-cgi/") || u.pathname === "/lost-on-purpose") return;
   const key = u.pathname + u.search;
   const f = found.get(key) || found.set(key, { anchors: new Map(), pages: new Set() }).get(key);
   f.pages.add(page);

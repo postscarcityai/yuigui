@@ -8,6 +8,6 @@ The build is out. Two thoughts, one paragraph.
 Next step: run it on a phone
 
 - **Bold** *italic* and `code` in a list
-- A [link](https://www.yuigui.com/spec)
+- A [link](https://www.yuigui.com/developers/specs)
 1. First
 2. Second

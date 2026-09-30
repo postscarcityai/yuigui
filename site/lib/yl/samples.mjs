@@ -1663,7 +1663,7 @@ choose "Once you're in, what first?" "Find an hour this week"|"Who is my next ca
     slug: "body-text",
     agent: "Yui",
     yl: `say "## What changed"
-say "The build is out. Bold, *italic*, \`code\` and [a link](https://www.yuigui.com/spec) all read as they should, and no raw stars show. A whole thought of two or three sentences stays in one bubble, in regular weight, at a width you can read."
+say "The build is out. Bold, *italic*, \`code\` and [a link](https://www.yuigui.com/developers/specs) all read as they should, and no raw stars show. A whole thought of two or three sentences stays in one bubble, in regular weight, at a width you can read."
 say "**Fixed:** the timer no longer drifts on long sets."
 say "✅ Tests: 27 passed"
 say "❌ Lint: 2 warnings left"

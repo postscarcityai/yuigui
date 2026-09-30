@@ -2,10 +2,14 @@
 // and a cron re-exports and redeploys it when a card moves (at most every 30 minutes).
 import Link from "next/link";
 import board from "../../content/board.json";
+import backlog from "../../content/backlog.json";
 import { seeIt } from "../../lib/showcase.mjs";
 import { NEXT_BUILD } from "../../lib/nextbuild.mjs";
 import Films from "../components/Films";
 import { pageMeta } from "../../lib/og/meta.mjs";
+
+// /contribute only has a card for each agent-ready pick that passed the export (goal, done, test). Link those, not every label.
+const listed = new Set(backlog.cards.map((c) => c.key));
 
 export const metadata = pageMeta({ path: "/board", title: "Board | Yui", description: "Every Yui card we are working on, live from our kanban board." });
 
@@ -22,7 +26,7 @@ function Tile({ c, col, first }) {
         {c.waiting && <span className="pill" title="Parked until something it depends on lands">Waiting</span>}
         {c.blocked === "chris" && <span className="pill" title="Built as far as it can go; waiting on an answer from Chris">Waiting on Chris</span>}
         {c.blocked === "other" && <span className="pill" title="Stopped until something it depends on is fixed">Blocked</span>}
-        {c.agentReady && <Link className="pill" href={`/contribute#${c.key}`} title="Open to outside contributors, people or agents">Agent-ready</Link>}
+        {c.agentReady && listed.has(c.key) && <Link className="pill" href={`/contribute#${c.key}`} title="Open to outside contributors, people or agents">Agent-ready</Link>}
         {c.needsDemo && <span className="pill" title="The code landed, but nothing on this site shows it yet. It is not done until it does.">Needs its demo</span>}
       </div>
       <h3>{c.title}</h3>
