@@ -1755,6 +1755,9 @@
     },
     {
       "text": "Every crew default is the shader blob: an agent, Basil, Gouda and Penny ship look orb in their profiles, the runtime crew table and the bundled _native copy, each keeping its own hears, strength and pace [YUI-235]"
+    },
+    {
+      "text": "A screen is no dead end: menu and chat buttons over every screen page, so the plan landing on its last screen still reaches the drawer and Add an agent [YUI-235]"
     }
   ]
 }

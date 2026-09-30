@@ -1,9 +1,9 @@
 {
-  "updated": "2026-09-30T15:40:58.965Z",
+  "updated": "2026-09-30T16:11:05.489Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
-    "status": "open",
+    "status": "shipping",
     "startedAt": "2026-09-30T12:03:07.000Z",
     "shippedAt": null,
     "cards": [
@@ -354,11 +354,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-215",
-          "title": "Jev at our first two decision points, measured against today",
-          "waiting": true
-        },
-        {
           "key": "YUI-218",
           "title": "Snag",
           "summary": "Delete account takes 17 seconds to reach",
@@ -439,20 +434,14 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-236",
-          "title": "Restore stage header, X and drawer after plan build on a real account",
+          "key": "YUI-215",
+          "title": "Jev at our first two decision points, measured against today",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-133",
-          "title": "The speed check again after /crew, /thoughts and the chat bubble",
-          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
@@ -461,6 +450,22 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-236",
+          "title": "Restore stage header, X and drawer after plan build on a real account",
+          "summary": "A screen is never a dead end",
+          "shipped": "2026-09-30",
+          "progress": "/progress#a-screen-is-never-a-dead-end",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/18e306d"
+        },
+        {
+          "key": "SITE-133",
+          "title": "The speed check again after /crew, /thoughts and the chat bubble",
+          "summary": "The site is faster again, and the newest post no longer jumps",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-site-is-faster-again-and-the-newest-post-no-longer-jumps",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/982aadf"
+        },
         {
           "key": "YUI-235",
           "title": "The crew's default visual is the shader blob everywhere",
