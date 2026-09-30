@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 360,
-    "site": 814,
+    "app": 361,
+    "site": 817,
     "builds": 48,
-    "shipped": 389,
-    "screenshots": 979
+    "shipped": 390,
+    "screenshots": 985
   },
   "days": [
     {
@@ -13,7 +13,47 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T00:38:56.249Z",
+          "at": "2026-09-30T00:40:04.473Z",
+          "title": "Your question shows in full, the mic stays, Type your own has room",
+          "card": null,
+          "anchor": "your-question-shows-in-full-the-mic-stays-type-your-own-has-room",
+          "images": [
+            {
+              "src": "/progress/yui-stage-question-before.webp",
+              "alt": "Before: the question at the top is cut to one line."
+            },
+            {
+              "src": "/progress/yui-stage-question-after.webp",
+              "alt": "After: the same long question shows five lines, then the answer starts."
+            },
+            {
+              "src": "/progress/yui-stage-end-before.webp",
+              "alt": "Before: on the last page Back home replaces the mic in the bar."
+            },
+            {
+              "src": "/progress/yui-stage-end-after.webp",
+              "alt": "After: the mic stays in the bar and a quiet Back home sits above it."
+            },
+            {
+              "src": "/progress/yui-stage-own-before.webp",
+              "alt": "Before: Type your own opens as a thin pill."
+            },
+            {
+              "src": "/progress/yui-stage-own-after.webp",
+              "alt": "After: Type your own opens as a roomy field with an Add button."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 361,
+            "site": 817,
+            "builds": 48,
+            "shipped": 390
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T00:38:13.000Z",
           "title": "One blob that shows what your agent is doing",
           "card": null,
           "anchor": "one-blob-that-shows-what-your-agent-is-doing",
@@ -34,7 +74,7 @@
           "commits": 0,
           "totals": {
             "app": 360,
-            "site": 814,
+            "site": 815,
             "builds": 48,
             "shipped": 389
           }
@@ -1239,6 +1279,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "837526c",
+          "at": "2026-09-30T00:39:33.000Z",
+          "text": "Stage polish: six-line question, mic stays with a quiet Back home, roomy Type your own",
+          "url": "https://github.com/postscarcityai/yui/commit/837526c"
+        },
+        {
+          "repo": "site",
+          "sha": "101e3be",
+          "at": "2026-09-30T00:39:00.000Z",
+          "text": "timeline sync",
+          "url": "https://github.com/postscarcityai/yuigui/commit/101e3be"
+        },
+        {
+          "repo": "site",
+          "sha": "c49e357",
+          "at": "2026-09-30T00:38:44.000Z",
+          "text": "Share capture for the shader look",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c49e357"
+        },
+        {
+          "repo": "site",
+          "sha": "a3241f5",
+          "at": "2026-09-30T00:38:13.000Z",
+          "text": "Shader look mock: one blob that shows what the agent is doing, line blob retired",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a3241f5"
+        },
         {
           "repo": "app",
           "sha": "bd57efa",

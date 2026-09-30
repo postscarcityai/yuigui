@@ -62,6 +62,18 @@ Chris's four TestFlight notes on one thread (a ZIP field described in words, "tw
 
 The old guide fails the same three new cases both times: `when-two-days-timeline` (dates in a sentence) and both last-page cases (a deck or sketch that ends with nothing to tap). The 90 older cases swing 75 to 80 on either guide, the usual noise. `flow-interview-old-app` fails every run here because the yui repo is not beside this worktree (`spawnSync python3 ENOENT`). One case changed after seeing results: `report-pages-picture` now allows a `choose` or `ask`, because a report deck ending in next steps is what the new rule asks for.
 
+## Answers that know what they answer (t_53b06721, guide v41)
+
+Chris's TestFlight note: a sample status board said "New feature: needs help, waiting on you", he asked "what are you waiting on me for with this?", and the agent answered with an old, unrelated ask (spike: `spec/research/context-on-reply.md`). Guide v41 adds **Examples are not asks**, changes the guide's own status example so it no longer teaches `note="waiting on you"` on made-up rows, and the plugin now hands the agent a note naming its newest message when he types a line. Three new `context` cases: a sample marked as one, a question about the screen just shown, and an old ask named with when he last saw it. The last two carry the plugin's note in the message, so they test the guide and the note together.
+
+| run | guide | passed | of the three new cases |
+|---|---|---|---|
+| t53-full-old-r1 | v40 | 90/102 | 3 |
+| t53-full-old-r2 | v40 | 84/102 | 2 |
+| t53-full-new-r1 | v41 | 83/102 | 3 |
+
+Ten cases failed on the new run while an old run passed them. Rerun on v41 (t53-full-new-r2, r3): nine of the ten pass, the word-cap cases included. The one that still misses is `react-no` (a struck-out sketch for a dropped follow-up, the v40 "outcome is drawn" rule; the old guide's second run misses it the same way). `list-no-escaped-breaks` had failed once with `exit null` (the CLI call died, no reply) and passed on the rerun. The old guide's one miss on the new cases is `context-sample-not-ask`: a sample board that says nothing about being a sample. The 99 older cases swing 84 to 90 on the same guide, the usual noise; nothing the new rule touches got worse.
+
 ## Models on the same guide (YUI-132)
 
 Native Yui runs on GLM through OpenRouter (spec/NATIVE.md section 6), so both GLM models got the full suite on the v37 guide, beside Opus and Sonnet on the same 88 cases. Each model ran once; every miss ran a second time. A case that failed both times is a steady miss; one that passed the second time is noise. Scores are the first pass. Drawn on [/channel](https://www.yuigui.com/channel).
