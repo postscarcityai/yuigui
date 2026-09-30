@@ -104,14 +104,14 @@ eq("nothing lands on a screen", (() => { let s = initialState(); for (const op o
 
 // Every agent's own (YUI-180, VISUAL.md section 6): quiet by default.
 eq("the crew's picks", Object.fromEntries(Object.entries(CREW_VISUALS).map(([k, v]) => [k, [v.look, v.hears]])),
-  { yui: ["orb", "voice"], arnold: ["waves", "music"], basil: ["bloom", "voice"], gouda: ["grain", "music"], penny: ["aurora", "off"], quill: ["orb", "voice"] });
+  { yui: ["orb", "voice"], arnold: ["orb", "music"], basil: ["orb", "voice"], gouda: ["orb", "music"], penny: ["orb", "off"], quill: ["orb", "voice"] });
 for (const [k, v] of Object.entries(CREW_VISUALS)) {
   ok(`${k}: a known look and react`, VISUAL_LOOKS.includes(v.look) && ["voice", "music", "mic", "off"].includes(v.hears));
   ok(`${k}: never full`, STRENGTHS[v.strength] <= BUDGET.behindDim);
 }
 eq("fallback is the soft orb", FALLBACK_VISUAL, { look: "orb", hears: "voice", strength: "faint", pace: "slow" });
 const ops = (t) => parse(t);
-eq("defaults resolve", stageVisual(CREW_VISUALS.arnold, ops("say hi")), { look: "waves", tone: "accent", react: "music", strength: 0.7, pace: "even", quiet: true });
+eq("defaults resolve", stageVisual(CREW_VISUALS.arnold, ops("say hi")), { look: "orb", tone: "accent", react: "music", strength: 0.7, pace: "even", quiet: true });
 eq("no pick: the fallback", stageVisual(null, []).look, "orb");
 eq("no pick: faint", stageVisual(undefined, []).strength, STRENGTHS.faint);
 eq("the agent's line wins", stageVisual(CREW_VISUALS.yui, ops("visual aurora react=voice\nsay hi")), { look: "aurora", react: "voice" });

@@ -18,8 +18,11 @@ import { Render } from "./presets";
 import { Group, groupNodes, question, show, VALUE } from "./flows";
 import { ScreenCtx } from "./science";
 import { doings } from "./working";
+import { ActionBlob } from "./shaderlook";
+import "./shaderlook.css";
 import "./stagefirst.css";
 import { RichText } from "./richtext";
+import { actionOf } from "../../lib/visual/action.mjs";
 import { textRole } from "../../lib/yl/readtext.mjs";
 
 export const STAGEFIRST_VIEWS = [
@@ -338,7 +341,7 @@ export function StageFirstDemo({ text, view, onEvent }) {
     body = (
       <div className="sf-work">
         <div className="sf-me">{shownMe}</div>
-        <div className="sf-orb" style={{ "--sf": agent.c }}><i /><i /><i /></div>
+        <div className="sf-orb" data-action={actionOf(d ? d.text : null)}><ActionBlob handle={agent.name.toLowerCase()} doing={d ? d.text : null} /></div>
         <div className="sf-doing">{d ? d.text : "Pondering"} <span>· {secs}s</span></div>
         {d && d.of ? <div className="sf-dbar"><span style={{ width: `${(100 * (d.step || 0)) / d.of}%` }} /></div> : null}
         <div className="sf-handoff">The motion here is YUI-120.</div>

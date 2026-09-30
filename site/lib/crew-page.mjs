@@ -26,7 +26,7 @@ export const MEMBERS = [
     try: "Tap where you want to start",
   },
   {
-    handle: "arnold", color: "butter", look: "waves",
+    handle: "arnold", color: "butter", look: "orb",
     tools: [
       { t: "Builds your training week around your days and gear" },
       { t: "Runs today's workout: one move a page, sets to tick, rest starts itself", card: "YUI-182" },
@@ -35,7 +35,7 @@ export const MEMBERS = [
     share: "trainer-session", try: "Answer five questions, then the timer runs",
   },
   {
-    handle: "basil", color: "mint", look: "bloom",
+    handle: "basil", color: "mint", look: "orb",
     tools: [
       { t: "Snap a plate and today's macros fill in" },
       { t: "Plans your week of meals around your goal", card: "YUI-183" },
@@ -44,7 +44,7 @@ export const MEMBERS = [
     share: "nutritionist-plate", try: "Pick a plate and see what he reads",
   },
   {
-    handle: "gouda", color: "lavender", look: "grain",
+    handle: "gouda", color: "lavender", look: "orb",
     tools: [
       { t: "Teaches a song on chord buttons, the click counts you in", card: "YUI-184" },
       { t: "Builds beats on the looper and keeps them by name", card: "YUI-184" },
@@ -53,7 +53,7 @@ export const MEMBERS = [
     share: "musician-jam", try: "Pick a vibe and a beat comes up",
   },
   {
-    handle: "penny", color: "butter", look: "aurora",
+    handle: "penny", color: "butter", look: "orb",
     tools: [
       { t: "Plans your week from a brain dump, said out loud", card: "YUI-185" },
       { t: "A today list with reminders", card: "YUI-185" },

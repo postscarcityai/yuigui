@@ -33,13 +33,14 @@ export const DEFAULTS = { look: "orb", tone: "accent", react: "voice" };
 export const STRENGTHS = { dim: 0.7, faint: 0.45 };
 
 // The look each crew agent ships with (yui runtime/profiles/<name>/profile.json
-// `visual`, the source; this copy draws the playground). `hears` is react=.
+// `visual`, the source; this copy draws the playground). `hears` is react=. Every default is the
+// shader blob (YUI-235): look orb, each agent keeps its own hears, strength and pace.
 export const CREW_VISUALS = {
   yui: { look: "orb", hears: "voice", strength: "dim", pace: "slow", why: "the app's own face, calm breathing" },
-  arnold: { look: "waves", hears: "music", strength: "dim", pace: "even", why: "training rhythm, swells on the beat" },
-  basil: { look: "bloom", hears: "voice", strength: "dim", pace: "slow", why: "the kitchen, soft and warm" },
-  gouda: { look: "grain", hears: "music", strength: "dim", pace: "even", why: "sparkles with the looper and the keys" },
-  penny: { look: "aurora", hears: "off", strength: "faint", pace: "slow", why: "money, slow and steady" },
+  arnold: { look: "orb", hears: "music", strength: "dim", pace: "even", why: "training rhythm, swells on the beat" },
+  basil: { look: "orb", hears: "voice", strength: "dim", pace: "slow", why: "the kitchen, soft and warm" },
+  gouda: { look: "orb", hears: "music", strength: "dim", pace: "even", why: "sparkles with the looper and the keys" },
+  penny: { look: "orb", hears: "off", strength: "faint", pace: "slow", why: "money, slow and steady" },
   quill: { look: "orb", hears: "voice", strength: "faint", pace: "slow", why: "study, low motion so it never distracts" },
 };
 

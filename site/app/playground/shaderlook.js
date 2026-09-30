@@ -27,7 +27,7 @@ const SAMPLES = ["Pondering", "Reading your calendar", "Running the tests", "Sea
 const fakeVoice = (s) => (Math.sin(s * 0.9) > -0.35 ? 0.35 + 0.55 * Math.abs(Math.sin(s * 7.3) * Math.sin(s * 2.9 + 1)) : 0.02);
 
 // One blob. `action` is a state name; it eases in, and `done` restarts its ring each time it is picked.
-function Blob({ dir, agent, action, dark, mini = false, still = false }) {
+export function Blob({ dir, agent, action, dark, mini = false, still = false }) {
   const canvas = useRef(null);
   const live = useRef({});
   live.current = { agent, action, dark, still };
@@ -114,6 +114,28 @@ function Blob({ dir, agent, action, dark, mini = false, still = false }) {
   return gl ? <canvas ref={canvas} className="sl-canvas" aria-hidden="true" data-agent={agent} data-action={action} data-dir={dir} /> : (
     <div className="sl-canvas" aria-hidden="true" style={{ background: `radial-gradient(40% 30% at 50% 45%, ${c.a}, ${c.b} 55%, transparent 75%), ${c.ground}` }} />
   );
+}
+
+// The site's own theme, for a stage that is not told (html[data-theme]).
+function useSiteDark() {
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    const el = document.documentElement;
+    const f = () => setOn(el.getAttribute("data-theme") === "dark");
+    f();
+    const mo = new MutationObserver(f);
+    mo.observe(el, { attributes: true, attributeFilter: ["data-theme"] });
+    return () => mo.disconnect();
+  }, []);
+  return on;
+}
+
+// The blob for a stage (YUI-235): the same action blob the app draws, for a crew member's handle (an
+// unknown handle is Yui) and the doing word that drives its shape. No line mark, no controls.
+export function ActionBlob({ handle, doing, dark, still = false, mini = false }) {
+  const site = useSiteDark();
+  const id = LOOKS_BY_AGENT[handle] ? handle : "yui";
+  return <Blob dir="blob" agent={id} action={actionOf(doing)} dark={dark ?? site} still={still} mini={mini} />;
 }
 
 // Today's mark in the app: three layers of one color, struck out.
