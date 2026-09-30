@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 406,
-    "site": 954,
+    "site": 955,
     "builds": 51,
-    "shipped": 477,
-    "screenshots": 1209
+    "shipped": 478,
+    "screenshots": 1211
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T22:52:24.650Z",
+          "at": "2026-09-30T23:07:09.683Z",
+          "title": "Try Basil's real week on /crew",
+          "card": "SITE-142",
+          "anchor": "try-basil-s-real-week-on-crew",
+          "images": [
+            {
+              "src": "/progress/site142-basil-week-dark.webp",
+              "alt": "Dark mode: Basil on /crew, an example week for Monday, Wednesday and Friday with no meat, a day per row with its calories and three meals."
+            },
+            {
+              "src": "/progress/site142-basil-week-light.webp",
+              "alt": "Light mode: the same example week, three days, each with calories and three meals."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 406,
+            "site": 955,
+            "builds": 51,
+            "shipped": 478
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T22:52:14.000Z",
           "title": "Basil builds your first week of meals",
           "card": "YUI-221",
           "anchor": "basil-builds-your-first-week-of-meals",
@@ -43,10 +67,10 @@
               "alt": "Light mode: the built week of meals, a card a day with a swap button per meal."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 406,
-            "site": 954,
+            "site": 955,
             "builds": 51,
             "shipped": 477
           }
@@ -1653,6 +1677,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "ffa2c6c",
+          "at": "2026-09-30T22:52:14.000Z",
+          "text": "Progress: Basil builds your first week of meals (YUI-221)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ffa2c6c"
+        },
         {
           "repo": "app",
           "sha": "75f0170",

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { HANDLES, NAMES, NOT_SURE, ask, askLines, resultLines, skipped, wholeLines } from "./crew-first-plans.mjs";
+import { HANDLES, NAMES, NOT_SURE, ask, askLines, norm, resultLines, skipped, wholeLines } from "./crew-first-plans.mjs";
 import { parse } from "./yl/yl.mjs";
 
 const ok = (text) => assert.ok(parse(text).every((o) => o.op !== "error"), text);
@@ -94,4 +94,59 @@ test("a cardio day is one easy block", () => {
   const s = sessionFor({ goal: "Mostly cardio" });
   assert.equal(s.steps.length, 1);
   assert.equal(s.steps[0].cue, "Go at a pace you can talk at.");
+});
+
+// SITE-142: Basil's real week, the web twin of YUI-221.
+import { RECIPES, basilWeek } from "./crew-first-plans.mjs";
+const flat = (w) => w.rows.flatMap((r) => r.meals);
+
+test("leave-out Meat never shows meat, for every answer", () => {
+  for (const cook of ["15 minutes", "30 minutes", "An hour", null]) for (const meals of ["2", "3", "3 and a snack"]) {
+    const meat = new Set(RECIPES.filter((r) => r.tags.includes("meat")).map((r) => r.name));
+    for (const m of flat(basilWeek({ days: "Every day", meals, avoid: "Meat", cook }))) assert.equal(meat.has(m.name), false, m.name);
+  }
+});
+
+test("each leave-out drops its own tag", () => {
+  for (const [avoid, tag] of [["Fish", "fish"], ["Dairy", "dairy"], ["Gluten", "gluten"], ["Nuts", "nuts"], ["Eggs", "eggs"]])
+    for (const m of flat(basilWeek({ avoid }))) assert.equal(m.tags.includes(tag), false, `${avoid}: ${m.name}`);
+});
+
+test("15 minutes never shows a longer recipe; 30 keeps to 30", () => {
+  for (const m of flat(basilWeek({ cook: "15 minutes", meals: "3 and a snack" }))) assert.ok(m.minutes <= 15, `${m.name} ${m.minutes}`);
+  for (const m of flat(basilWeek({ cook: "30 minutes", meals: "3 and a snack" }))) assert.ok(m.minutes <= 30, `${m.name} ${m.minutes}`);
+  assert.ok(flat(basilWeek({ cook: "An hour" })).every((m) => m.minutes <= 60));
+});
+
+test("days: 3 days gives 3 rows, weekdays 5, weekends 2, every day 7", () => {
+  assert.equal(basilWeek({ days: "Mon Wed Fri" }).rows.length, 3);
+  assert.deepEqual(basilWeek({ days: "Mon Wed Fri" }).rows.map((r) => r.day), ["Mon", "Wed", "Fri"]);
+  assert.equal(basilWeek({ days: "Weekdays" }).rows.length, 5);
+  assert.equal(basilWeek({ days: "Weekends" }).rows.length, 2);
+  assert.equal(basilWeek({ days: "Every day" }).rows.length, 7);
+  assert.equal(resultLines("basil", { days: "Mon Wed Fri" }).match(/^table .*$/m)[0].match(/"[^"]*"/g).length, 3);
+});
+
+test("meals a day: 2, 3, and a snack", () => {
+  assert.ok(basilWeek({ meals: "2" }).rows.every((r) => r.meals.length === 2));
+  assert.ok(basilWeek({ meals: "3" }).rows.every((r) => r.meals.length === 3));
+  assert.ok(basilWeek({ meals: "3 and a snack" }).rows.every((r) => r.meals.length === 4));
+});
+
+test("Not sure and Skip: every day, 3 meals, 30 minutes", () => {
+  for (const a of [{}, skipped("basil")]) {
+    const w = basilWeek(norm("basil", a));
+    assert.equal(w.rows.length, 7);
+    assert.ok(w.rows.every((r) => r.meals.length === 3));
+    assert.ok(flat(w).every((m) => m.minutes <= 30));
+  }
+});
+
+test("the reply is one line, then the week last", () => {
+  const lines = resultLines("basil", { days: "Weekdays" }).split("\n");
+  assert.equal(lines.length, 2);
+  assert.match(lines[0], /^say /);
+  assert.match(lines[1], /^table /);
+  assert.ok(lines[0].split(/\s+/).length <= 30);
+  ok(lines.join("\n"));
 });
