@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 364,
-    "site": 826,
+    "app": 365,
+    "site": 829,
     "builds": 48,
-    "shipped": 409,
-    "screenshots": 996
+    "shipped": 411,
+    "screenshots": 1002
   },
   "days": [
     {
@@ -13,17 +13,324 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T01:36:01.176Z",
+          "at": "2026-09-30T02:03:39.829Z",
+          "title": "Thought: Yui 0.6.0, build 370",
+          "card": "SITE-112",
+          "anchor": "thought-yui-0-6-0-build-370",
+          "images": [
+            {
+              "src": "/progress/yui169-app-drawer-dark.webp",
+              "alt": "Basil's drawer with a New chat button and three chats newest first"
+            },
+            {
+              "src": "/progress/yui34-keys-list.webp",
+              "alt": "Settings with a Keys card: a key on this iPhone only and this month's spend against its cap"
+            },
+            {
+              "src": "/progress/yui191-icon-hold-menu.webp",
+              "alt": "The Yui icon held down on the home screen, showing the agents' shortcuts"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 365,
+            "site": 829,
+            "builds": 48,
+            "shipped": 411
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:42:48.000Z",
+          "title": "Several chats, on your phone",
+          "card": "YUI-169",
+          "anchor": "several-chats-on-your-phone",
+          "images": [
+            {
+              "src": "/progress/yui169-app-drawer-dark.webp",
+              "alt": "Dark mode, in the app: Basil's drawer with a New chat button, then three chats newest first with their last line and time, then Next up and pinned screens"
+            },
+            {
+              "src": "/progress/yui169-app-rename-light.webp",
+              "alt": "Light mode, in the app: renaming a chat in place, the text field reads Rest day protein"
+            },
+            {
+              "src": "/progress/yui169-app-delete-sheet-dark.webp",
+              "alt": "Dark mode, in the app: the delete sheet, Delete Rest day protein? Its messages go. Basil still remembers what it learned. Delete and Keep it"
+            }
+          ],
+          "commits": 7,
+          "totals": {
+            "app": 365,
+            "site": 829,
+            "builds": 48,
+            "shipped": 410
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
           "title": "The Yui MCP look file is back in step, so main checks go green",
           "card": "YUI-213",
           "anchor": "the-yui-mcp-look-file-is-back-in-step-so-main-checks-go-green",
           "images": [],
           "commits": 0,
           "totals": {
-            "app": 364,
-            "site": 826,
+            "app": 365,
+            "site": 827,
             "builds": 48,
             "shipped": 409
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Checks go green on main and run before every push",
+          "card": "SITE-95",
+          "anchor": "checks-go-green-on-main-and-run-before-every-push",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 408
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Where Jev fits in Yui: every decision in a turn",
+          "card": "SITE-92",
+          "anchor": "where-jev-fits-in-yui-every-decision-in-a-turn",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 407
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Jev research: what the decision model is, what it costs",
+          "card": "SITE-91",
+          "anchor": "jev-research-what-the-decision-model-is-what-it-costs",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 406
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Feedback receipts sit in the drawer, off the stage",
+          "card": "NOTE-4592",
+          "anchor": "feedback-receipts-sit-in-the-drawer-off-the-stage",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 405
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "About and Controls in one drawer tab: planned",
+          "card": "NOTE-64712",
+          "anchor": "about-and-controls-in-one-drawer-tab-planned",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 404
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Hermes for everyone: the spec",
+          "card": "YUI-149",
+          "anchor": "hermes-for-everyone-the-spec",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 403
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Native Yui: the spec",
+          "card": "YUI-129",
+          "anchor": "native-yui-the-spec",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 402
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Every drum name plays a real drum",
+          "card": "YUI-127",
+          "anchor": "every-drum-name-plays-a-real-drum",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 401
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "The war room moves into Yui's left drawer",
+          "card": "YUI-126",
+          "anchor": "the-war-room-moves-into-yui-s-left-drawer",
+          "images": [
+            {
+              "src": "/progress/yui126-drawer-home-light.webp",
+              "alt": "The left drawer on Home: pinned screens, the next thing waiting for you, and the backlog as rows."
+            },
+            {
+              "src": "/progress/yui126-drawer-review-light.webp",
+              "alt": "The drawer on Review: two things waiting on you, each a card with its question."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 400
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "The store listing is named Yui Gui",
+          "card": "YUI-114",
+          "anchor": "the-store-listing-is-named-yui-gui",
+          "images": [],
+          "commits": 4,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 399
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Test builds install beside the TestFlight Yui",
+          "card": "YUI-91",
+          "anchor": "test-builds-install-beside-the-testflight-yui",
+          "images": [
+            {
+              "src": "/progress/yui91-dev-icon.webp",
+              "alt": "The Yui Dev icon: the pink Yui mark on cream with a dark DEV banner along the bottom."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 398
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Yui 0.3.0 on the site: the release and a Thought",
+          "card": [
+            "SITE-38",
+            "SITE-39"
+          ],
+          "anchor": "yui-0-3-0-on-the-site-the-release-and-a-thought",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 397
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "The build-ready message reads like a changelog for people",
+          "card": "YUI-81",
+          "anchor": "the-build-ready-message-reads-like-a-changelog-for-people",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 396
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "Demo clips of every preset, recorded from the app",
+          "card": "SOC-2",
+          "anchor": "demo-clips-of-every-preset-recorded-from-the-app",
+          "images": [
+            {
+              "src": "/demo/clips/timer-9x16.jpg",
+              "alt": "A Tabata timer on the phone, one line from an agent, counting a work interval."
+            },
+            {
+              "src": "/demo/clips/choose-9x16.jpg",
+              "alt": "A choice screen: the agent asks and three answers wait to be tapped."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 395
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:36:28.000Z",
+          "title": "A drafter writes Yui's social posts, and a person signs off",
+          "card": "SOC-1",
+          "anchor": "a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
+          "images": [],
+          "commits": 7,
+          "totals": {
+            "app": 365,
+            "site": 827,
+            "builds": 48,
+            "shipped": 394
           }
         },
         {
@@ -45,7 +352,7 @@
             "app": 364,
             "site": 826,
             "builds": 48,
-            "shipped": 408
+            "shipped": 393
           }
         },
         {
@@ -69,7 +376,7 @@
             "app": 362,
             "site": 822,
             "builds": 48,
-            "shipped": 407
+            "shipped": 392
           }
         },
         {
@@ -97,7 +404,7 @@
             "app": 361,
             "site": 820,
             "builds": 48,
-            "shipped": 406
+            "shipped": 391
           }
         },
         {
@@ -141,7 +448,7 @@
             "app": 361,
             "site": 818,
             "builds": 48,
-            "shipped": 405
+            "shipped": 390
           }
         },
         {
@@ -169,7 +476,7 @@
             "app": 360,
             "site": 815,
             "builds": 48,
-            "shipped": 404
+            "shipped": 389
           }
         },
         {
@@ -184,7 +491,7 @@
             "app": 359,
             "site": 814,
             "builds": 48,
-            "shipped": 403
+            "shipped": 388
           }
         },
         {
@@ -206,7 +513,7 @@
             "app": 357,
             "site": 812,
             "builds": 48,
-            "shipped": 402
+            "shipped": 387
           }
         },
         {
@@ -246,7 +553,7 @@
             "app": 357,
             "site": 811,
             "builds": 48,
-            "shipped": 401
+            "shipped": 386
           }
         },
         {
@@ -274,7 +581,7 @@
             "app": 356,
             "site": 808,
             "builds": 48,
-            "shipped": 400
+            "shipped": 385
           }
         },
         {
@@ -294,7 +601,7 @@
             "app": 356,
             "site": 806,
             "builds": 48,
-            "shipped": 399
+            "shipped": 384
           }
         },
         {
@@ -318,7 +625,7 @@
             "app": 356,
             "site": 806,
             "builds": 48,
-            "shipped": 398
+            "shipped": 383
           }
         },
         {
@@ -349,7 +656,7 @@
             "app": 353,
             "site": 805,
             "builds": 48,
-            "shipped": 397
+            "shipped": 382
           }
         },
         {
@@ -369,7 +676,7 @@
             "app": 353,
             "site": 804,
             "builds": 48,
-            "shipped": 396
+            "shipped": 381
           }
         },
         {
@@ -401,7 +708,7 @@
             "app": 353,
             "site": 803,
             "builds": 48,
-            "shipped": 395
+            "shipped": 380
           }
         },
         {
@@ -433,7 +740,7 @@
             "app": 345,
             "site": 800,
             "builds": 48,
-            "shipped": 394
+            "shipped": 379
           }
         },
         {
@@ -445,7 +752,7 @@
             "app": 345,
             "site": 793,
             "builds": 48,
-            "shipped": 393
+            "shipped": 378
           }
         },
         {
@@ -465,7 +772,7 @@
             "app": 345,
             "site": 793,
             "builds": 47,
-            "shipped": 393
+            "shipped": 378
           }
         },
         {
@@ -501,7 +808,7 @@
             "app": 345,
             "site": 792,
             "builds": 47,
-            "shipped": 392
+            "shipped": 377
           }
         },
         {
@@ -521,7 +828,7 @@
             "app": 344,
             "site": 790,
             "builds": 47,
-            "shipped": 391
+            "shipped": 376
           }
         },
         {
@@ -553,7 +860,7 @@
             "app": 344,
             "site": 788,
             "builds": 47,
-            "shipped": 390
+            "shipped": 375
           }
         },
         {
@@ -589,7 +896,7 @@
             "app": 343,
             "site": 786,
             "builds": 47,
-            "shipped": 389
+            "shipped": 374
           }
         },
         {
@@ -619,7 +926,7 @@
             "app": 338,
             "site": 781,
             "builds": 47,
-            "shipped": 388
+            "shipped": 373
           }
         },
         {
@@ -639,7 +946,7 @@
             "app": 337,
             "site": 773,
             "builds": 47,
-            "shipped": 387
+            "shipped": 372
           }
         },
         {
@@ -671,7 +978,7 @@
             "app": 336,
             "site": 771,
             "builds": 47,
-            "shipped": 386
+            "shipped": 371
           }
         },
         {
@@ -683,7 +990,7 @@
             "app": 336,
             "site": 769,
             "builds": 47,
-            "shipped": 385
+            "shipped": 370
           }
         },
         {
@@ -703,7 +1010,7 @@
             "app": 336,
             "site": 766,
             "builds": 46,
-            "shipped": 385
+            "shipped": 370
           }
         },
         {
@@ -723,7 +1030,7 @@
             "app": 336,
             "site": 764,
             "builds": 46,
-            "shipped": 384
+            "shipped": 369
           }
         },
         {
@@ -747,7 +1054,7 @@
             "app": 335,
             "site": 759,
             "builds": 46,
-            "shipped": 383
+            "shipped": 368
           }
         },
         {
@@ -779,7 +1086,7 @@
             "app": 334,
             "site": 756,
             "builds": 46,
-            "shipped": 382
+            "shipped": 367
           }
         },
         {
@@ -803,7 +1110,7 @@
             "app": 332,
             "site": 752,
             "builds": 46,
-            "shipped": 381
+            "shipped": 366
           }
         },
         {
@@ -823,7 +1130,7 @@
             "app": 331,
             "site": 751,
             "builds": 46,
-            "shipped": 380
+            "shipped": 365
           }
         },
         {
@@ -855,7 +1162,7 @@
             "app": 329,
             "site": 747,
             "builds": 46,
-            "shipped": 379
+            "shipped": 364
           }
         },
         {
@@ -891,7 +1198,7 @@
             "app": 328,
             "site": 746,
             "builds": 46,
-            "shipped": 378
+            "shipped": 363
           }
         },
         {
@@ -923,7 +1230,7 @@
             "app": 327,
             "site": 743,
             "builds": 46,
-            "shipped": 377
+            "shipped": 362
           }
         },
         {
@@ -935,7 +1242,7 @@
             "app": 327,
             "site": 742,
             "builds": 46,
-            "shipped": 376
+            "shipped": 361
           }
         },
         {
@@ -967,7 +1274,7 @@
             "app": 327,
             "site": 742,
             "builds": 45,
-            "shipped": 376
+            "shipped": 361
           }
         },
         {
@@ -991,7 +1298,7 @@
             "app": 327,
             "site": 741,
             "builds": 45,
-            "shipped": 375
+            "shipped": 360
           }
         },
         {
@@ -1003,7 +1310,7 @@
             "app": 326,
             "site": 740,
             "builds": 45,
-            "shipped": 374
+            "shipped": 359
           }
         },
         {
@@ -1027,7 +1334,7 @@
             "app": 326,
             "site": 740,
             "builds": 44,
-            "shipped": 374
+            "shipped": 359
           }
         },
         {
@@ -1051,7 +1358,7 @@
             "app": 325,
             "site": 738,
             "builds": 44,
-            "shipped": 373
+            "shipped": 358
           }
         },
         {
@@ -1071,7 +1378,7 @@
             "app": 324,
             "site": 736,
             "builds": 44,
-            "shipped": 372
+            "shipped": 357
           }
         },
         {
@@ -1095,7 +1402,7 @@
             "app": 322,
             "site": 735,
             "builds": 44,
-            "shipped": 371
+            "shipped": 356
           }
         },
         {
@@ -1127,7 +1434,7 @@
             "app": 321,
             "site": 733,
             "builds": 44,
-            "shipped": 370
+            "shipped": 355
           }
         },
         {
@@ -1155,7 +1462,7 @@
             "app": 320,
             "site": 731,
             "builds": 44,
-            "shipped": 369
+            "shipped": 354
           }
         },
         {
@@ -1187,7 +1494,7 @@
             "app": 319,
             "site": 729,
             "builds": 44,
-            "shipped": 368
+            "shipped": 353
           }
         },
         {
@@ -1215,7 +1522,7 @@
             "app": 319,
             "site": 727,
             "builds": 44,
-            "shipped": 367
+            "shipped": 352
           }
         },
         {
@@ -1255,7 +1562,7 @@
             "app": 318,
             "site": 726,
             "builds": 44,
-            "shipped": 366
+            "shipped": 351
           }
         },
         {
@@ -1283,7 +1590,7 @@
             "app": 318,
             "site": 723,
             "builds": 44,
-            "shipped": 365
+            "shipped": 350
           }
         },
         {
@@ -1331,7 +1638,7 @@
             "app": 316,
             "site": 722,
             "builds": 44,
-            "shipped": 364
+            "shipped": 349
           }
         },
         {
@@ -1359,7 +1666,7 @@
             "app": 316,
             "site": 719,
             "builds": 44,
-            "shipped": 363
+            "shipped": 348
           }
         },
         {
@@ -1374,11 +1681,39 @@
             "app": 315,
             "site": 717,
             "builds": 44,
-            "shipped": 362
+            "shipped": 347
           }
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "6caa93b",
+          "at": "2026-09-30T01:42:48.000Z",
+          "text": "Progress: several chats on your phone, build 370 (YUI-169)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6caa93b"
+        },
+        {
+          "repo": "site",
+          "sha": "b806275",
+          "at": "2026-09-30T01:40:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b806275"
+        },
+        {
+          "repo": "site",
+          "sha": "504aebb",
+          "at": "2026-09-30T01:36:28.000Z",
+          "text": "Link 36 shipped cards to their demo entries (SITE-111)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/504aebb"
+        },
+        {
+          "repo": "app",
+          "sha": "ab4ccd6",
+          "at": "2026-09-30T01:36:06.000Z",
+          "text": "Plugin guide v42: show it here, don't link out",
+          "url": "https://github.com/postscarcityai/yui/commit/ab4ccd6"
+        },
         {
           "repo": "site",
           "sha": "97f6453",
@@ -2518,7 +2853,7 @@
             "app": 314,
             "site": 713,
             "builds": 44,
-            "shipped": 361
+            "shipped": 346
           }
         },
         {
@@ -2542,7 +2877,7 @@
             "app": 313,
             "site": 712,
             "builds": 44,
-            "shipped": 360
+            "shipped": 345
           }
         },
         {
@@ -2574,7 +2909,7 @@
             "app": 310,
             "site": 706,
             "builds": 44,
-            "shipped": 359
+            "shipped": 344
           }
         },
         {
@@ -2598,7 +2933,7 @@
             "app": 310,
             "site": 705,
             "builds": 44,
-            "shipped": 358
+            "shipped": 343
           }
         },
         {
@@ -2630,7 +2965,7 @@
             "app": 310,
             "site": 698,
             "builds": 44,
-            "shipped": 357
+            "shipped": 342
           }
         },
         {
@@ -2658,7 +2993,7 @@
             "app": 310,
             "site": 697,
             "builds": 44,
-            "shipped": 356
+            "shipped": 341
           }
         },
         {
@@ -2673,7 +3008,7 @@
             "app": 310,
             "site": 694,
             "builds": 44,
-            "shipped": 355
+            "shipped": 340
           }
         },
         {
@@ -2697,7 +3032,7 @@
             "app": 310,
             "site": 693,
             "builds": 44,
-            "shipped": 354
+            "shipped": 339
           }
         },
         {
@@ -2721,7 +3056,7 @@
             "app": 310,
             "site": 691,
             "builds": 44,
-            "shipped": 353
+            "shipped": 338
           }
         },
         {
@@ -2745,52 +3080,7 @@
             "app": 310,
             "site": 690,
             "builds": 44,
-            "shipped": 352
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-28T16:00:00.000Z",
-          "title": "Checks go green on main and run before every push",
-          "card": "SITE-95",
-          "anchor": "checks-go-green-on-main-and-run-before-every-push",
-          "images": [],
-          "commits": 2,
-          "totals": {
-            "app": 310,
-            "site": 685,
-            "builds": 44,
-            "shipped": 351
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-28T16:00:00.000Z",
-          "title": "Where Jev fits in Yui: every decision in a turn",
-          "card": "SITE-92",
-          "anchor": "where-jev-fits-in-yui-every-decision-in-a-turn",
-          "images": [],
-          "commits": 1,
-          "totals": {
-            "app": 310,
-            "site": 685,
-            "builds": 44,
-            "shipped": 350
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-28T16:00:00.000Z",
-          "title": "Jev research: what the decision model is, what it costs",
-          "card": "SITE-91",
-          "anchor": "jev-research-what-the-decision-model-is-what-it-costs",
-          "images": [],
-          "commits": 1,
-          "totals": {
-            "app": 310,
-            "site": 685,
-            "builds": 44,
-            "shipped": 349
+            "shipped": 337
           }
         },
         {
@@ -2822,7 +3112,7 @@
             "app": 310,
             "site": 685,
             "builds": 44,
-            "shipped": 348
+            "shipped": 336
           }
         },
         {
@@ -2837,7 +3127,7 @@
             "app": 308,
             "site": 682,
             "builds": 44,
-            "shipped": 347
+            "shipped": 335
           }
         },
         {
@@ -2869,7 +3159,7 @@
             "app": 308,
             "site": 680,
             "builds": 44,
-            "shipped": 346
+            "shipped": 334
           }
         },
         {
@@ -2901,7 +3191,7 @@
             "app": 308,
             "site": 679,
             "builds": 44,
-            "shipped": 345
+            "shipped": 333
           }
         },
         {
@@ -2933,7 +3223,7 @@
             "app": 308,
             "site": 677,
             "builds": 44,
-            "shipped": 344
+            "shipped": 332
           }
         },
         {
@@ -2957,7 +3247,7 @@
             "app": 305,
             "site": 675,
             "builds": 44,
-            "shipped": 343
+            "shipped": 331
           }
         },
         {
@@ -2989,7 +3279,7 @@
             "app": 305,
             "site": 674,
             "builds": 44,
-            "shipped": 342
+            "shipped": 330
           }
         },
         {
@@ -3013,7 +3303,7 @@
             "app": 305,
             "site": 673,
             "builds": 44,
-            "shipped": 341
+            "shipped": 329
           }
         },
         {
@@ -3045,7 +3335,7 @@
             "app": 305,
             "site": 672,
             "builds": 44,
-            "shipped": 340
+            "shipped": 328
           }
         },
         {
@@ -3073,7 +3363,7 @@
             "app": 302,
             "site": 670,
             "builds": 44,
-            "shipped": 339
+            "shipped": 327
           }
         },
         {
@@ -3105,7 +3395,7 @@
             "app": 302,
             "site": 668,
             "builds": 44,
-            "shipped": 338
+            "shipped": 326
           }
         },
         {
@@ -3137,7 +3427,7 @@
             "app": 301,
             "site": 666,
             "builds": 44,
-            "shipped": 337
+            "shipped": 325
           }
         },
         {
@@ -3173,7 +3463,7 @@
             "app": 300,
             "site": 664,
             "builds": 44,
-            "shipped": 336
+            "shipped": 324
           }
         },
         {
@@ -3209,7 +3499,7 @@
             "app": 299,
             "site": 662,
             "builds": 44,
-            "shipped": 335
+            "shipped": 323
           }
         },
         {
@@ -3241,7 +3531,7 @@
             "app": 298,
             "site": 659,
             "builds": 44,
-            "shipped": 334
+            "shipped": 322
           }
         },
         {
@@ -3273,7 +3563,7 @@
             "app": 298,
             "site": 657,
             "builds": 44,
-            "shipped": 333
+            "shipped": 321
           }
         },
         {
@@ -3305,7 +3595,7 @@
             "app": 297,
             "site": 655,
             "builds": 44,
-            "shipped": 332
+            "shipped": 320
           }
         },
         {
@@ -3337,7 +3627,7 @@
             "app": 294,
             "site": 652,
             "builds": 44,
-            "shipped": 331
+            "shipped": 319
           }
         },
         {
@@ -3369,7 +3659,7 @@
             "app": 294,
             "site": 649,
             "builds": 44,
-            "shipped": 330
+            "shipped": 318
           }
         },
         {
@@ -3401,7 +3691,7 @@
             "app": 293,
             "site": 647,
             "builds": 44,
-            "shipped": 329
+            "shipped": 317
           }
         },
         {
@@ -3433,7 +3723,7 @@
             "app": 290,
             "site": 645,
             "builds": 44,
-            "shipped": 328
+            "shipped": 316
           }
         },
         {
@@ -3465,7 +3755,7 @@
             "app": 290,
             "site": 644,
             "builds": 44,
-            "shipped": 327
+            "shipped": 315
           }
         },
         {
@@ -3497,7 +3787,7 @@
             "app": 288,
             "site": 642,
             "builds": 44,
-            "shipped": 326
+            "shipped": 314
           }
         },
         {
@@ -3529,7 +3819,7 @@
             "app": 287,
             "site": 641,
             "builds": 44,
-            "shipped": 325
+            "shipped": 313
           }
         },
         {
@@ -3561,7 +3851,7 @@
             "app": 286,
             "site": 640,
             "builds": 44,
-            "shipped": 324
+            "shipped": 312
           }
         },
         {
@@ -3593,7 +3883,7 @@
             "app": 284,
             "site": 637,
             "builds": 44,
-            "shipped": 323
+            "shipped": 311
           }
         },
         {
@@ -3625,7 +3915,7 @@
             "app": 284,
             "site": 636,
             "builds": 44,
-            "shipped": 322
+            "shipped": 310
           }
         },
         {
@@ -3653,7 +3943,7 @@
             "app": 282,
             "site": 634,
             "builds": 44,
-            "shipped": 321
+            "shipped": 309
           }
         },
         {
@@ -3665,7 +3955,7 @@
             "app": 282,
             "site": 633,
             "builds": 44,
-            "shipped": 320
+            "shipped": 308
           }
         },
         {
@@ -3697,7 +3987,7 @@
             "app": 282,
             "site": 633,
             "builds": 43,
-            "shipped": 320
+            "shipped": 308
           }
         },
         {
@@ -3725,7 +4015,7 @@
             "app": 279,
             "site": 631,
             "builds": 43,
-            "shipped": 319
+            "shipped": 307
           }
         },
         {
@@ -3761,7 +4051,7 @@
             "app": 279,
             "site": 630,
             "builds": 43,
-            "shipped": 318
+            "shipped": 306
           }
         },
         {
@@ -3788,7 +4078,7 @@
             "app": 277,
             "site": 628,
             "builds": 43,
-            "shipped": 317
+            "shipped": 305
           }
         },
         {
@@ -3800,7 +4090,7 @@
             "app": 277,
             "site": 627,
             "builds": 43,
-            "shipped": 316
+            "shipped": 304
           }
         },
         {
@@ -3832,7 +4122,7 @@
             "app": 277,
             "site": 626,
             "builds": 42,
-            "shipped": 316
+            "shipped": 304
           }
         },
         {
@@ -3864,7 +4154,7 @@
             "app": 273,
             "site": 621,
             "builds": 42,
-            "shipped": 315
+            "shipped": 303
           }
         },
         {
@@ -3884,7 +4174,7 @@
             "app": 273,
             "site": 616,
             "builds": 42,
-            "shipped": 314
+            "shipped": 302
           }
         }
       ],
@@ -4912,7 +5202,7 @@
             "app": 273,
             "site": 614,
             "builds": 42,
-            "shipped": 313
+            "shipped": 301
           }
         },
         {
@@ -4936,7 +5226,7 @@
             "app": 273,
             "site": 612,
             "builds": 42,
-            "shipped": 312
+            "shipped": 300
           }
         },
         {
@@ -4948,7 +5238,7 @@
             "app": 272,
             "site": 611,
             "builds": 42,
-            "shipped": 311
+            "shipped": 299
           }
         },
         {
@@ -4976,7 +5266,7 @@
             "app": 271,
             "site": 606,
             "builds": 41,
-            "shipped": 311
+            "shipped": 299
           }
         },
         {
@@ -5008,7 +5298,7 @@
             "app": 269,
             "site": 602,
             "builds": 41,
-            "shipped": 310
+            "shipped": 298
           }
         },
         {
@@ -5032,7 +5322,7 @@
             "app": 268,
             "site": 601,
             "builds": 41,
-            "shipped": 309
+            "shipped": 297
           }
         },
         {
@@ -5064,7 +5354,7 @@
             "app": 267,
             "site": 599,
             "builds": 41,
-            "shipped": 308
+            "shipped": 296
           }
         },
         {
@@ -5079,7 +5369,7 @@
             "app": 267,
             "site": 598,
             "builds": 41,
-            "shipped": 307
+            "shipped": 295
           }
         },
         {
@@ -5111,7 +5401,7 @@
             "app": 264,
             "site": 597,
             "builds": 41,
-            "shipped": 306
+            "shipped": 294
           }
         },
         {
@@ -5143,7 +5433,7 @@
             "app": 260,
             "site": 594,
             "builds": 41,
-            "shipped": 305
+            "shipped": 293
           }
         },
         {
@@ -5171,7 +5461,7 @@
             "app": 259,
             "site": 591,
             "builds": 41,
-            "shipped": 304
+            "shipped": 292
           }
         },
         {
@@ -5199,7 +5489,7 @@
             "app": 254,
             "site": 589,
             "builds": 41,
-            "shipped": 303
+            "shipped": 291
           }
         },
         {
@@ -5211,7 +5501,7 @@
             "app": 254,
             "site": 588,
             "builds": 41,
-            "shipped": 302
+            "shipped": 290
           }
         },
         {
@@ -5235,7 +5525,7 @@
             "app": 254,
             "site": 588,
             "builds": 40,
-            "shipped": 302
+            "shipped": 290
           }
         },
         {
@@ -5259,7 +5549,7 @@
             "app": 251,
             "site": 584,
             "builds": 40,
-            "shipped": 301
+            "shipped": 289
           }
         },
         {
@@ -5295,7 +5585,7 @@
             "app": 251,
             "site": 582,
             "builds": 40,
-            "shipped": 300
+            "shipped": 288
           }
         },
         {
@@ -5325,7 +5615,7 @@
             "app": 251,
             "site": 581,
             "builds": 40,
-            "shipped": 299
+            "shipped": 287
           }
         },
         {
@@ -5355,7 +5645,7 @@
             "app": 251,
             "site": 579,
             "builds": 40,
-            "shipped": 298
+            "shipped": 286
           }
         },
         {
@@ -5382,12 +5672,12 @@
               "alt": "Dark mock of a new, empty chat: Basil's face, Hi. Tap the mic and talk., and two starter asks"
             }
           ],
-          "commits": 6,
+          "commits": 7,
           "totals": {
             "app": 251,
             "site": 578,
             "builds": 40,
-            "shipped": 297
+            "shipped": 285
           }
         },
         {
@@ -5415,7 +5705,7 @@
             "app": 242,
             "site": 567,
             "builds": 40,
-            "shipped": 296
+            "shipped": 284
           }
         },
         {
@@ -5441,7 +5731,7 @@
             "app": 242,
             "site": 566,
             "builds": 40,
-            "shipped": 295
+            "shipped": 283
           }
         },
         {
@@ -5453,7 +5743,7 @@
             "app": 238,
             "site": 563,
             "builds": 40,
-            "shipped": 294
+            "shipped": 282
           }
         },
         {
@@ -5477,7 +5767,7 @@
             "app": 236,
             "site": 562,
             "builds": 39,
-            "shipped": 294
+            "shipped": 282
           }
         },
         {
@@ -5501,7 +5791,7 @@
             "app": 235,
             "site": 561,
             "builds": 39,
-            "shipped": 293
+            "shipped": 281
           }
         },
         {
@@ -5525,7 +5815,7 @@
             "app": 233,
             "site": 559,
             "builds": 39,
-            "shipped": 292
+            "shipped": 280
           }
         },
         {
@@ -5540,7 +5830,7 @@
             "app": 228,
             "site": 556,
             "builds": 39,
-            "shipped": 291
+            "shipped": 279
           }
         },
         {
@@ -5560,7 +5850,7 @@
             "app": 225,
             "site": 555,
             "builds": 39,
-            "shipped": 290
+            "shipped": 278
           }
         },
         {
@@ -5580,7 +5870,7 @@
             "app": 224,
             "site": 554,
             "builds": 39,
-            "shipped": 289
+            "shipped": 277
           }
         },
         {
@@ -5592,7 +5882,7 @@
             "app": 223,
             "site": 551,
             "builds": 39,
-            "shipped": 288
+            "shipped": 276
           }
         },
         {
@@ -5624,7 +5914,7 @@
             "app": 223,
             "site": 551,
             "builds": 38,
-            "shipped": 288
+            "shipped": 276
           }
         },
         {
@@ -5648,7 +5938,7 @@
             "app": 222,
             "site": 549,
             "builds": 38,
-            "shipped": 287
+            "shipped": 275
           }
         },
         {
@@ -5672,7 +5962,7 @@
             "app": 221,
             "site": 548,
             "builds": 38,
-            "shipped": 286
+            "shipped": 274
           }
         },
         {
@@ -5704,7 +5994,7 @@
             "app": 219,
             "site": 545,
             "builds": 38,
-            "shipped": 285
+            "shipped": 273
           }
         },
         {
@@ -5728,7 +6018,7 @@
             "app": 218,
             "site": 543,
             "builds": 38,
-            "shipped": 284
+            "shipped": 272
           }
         },
         {
@@ -5756,7 +6046,7 @@
             "app": 217,
             "site": 541,
             "builds": 38,
-            "shipped": 283
+            "shipped": 271
           }
         },
         {
@@ -5784,7 +6074,7 @@
             "app": 215,
             "site": 540,
             "builds": 38,
-            "shipped": 282
+            "shipped": 270
           }
         },
         {
@@ -5816,7 +6106,7 @@
             "app": 215,
             "site": 537,
             "builds": 38,
-            "shipped": 281
+            "shipped": 269
           }
         },
         {
@@ -5851,7 +6141,7 @@
             "app": 214,
             "site": 536,
             "builds": 38,
-            "shipped": 280
+            "shipped": 268
           }
         },
         {
@@ -5871,7 +6161,7 @@
             "app": 213,
             "site": 534,
             "builds": 38,
-            "shipped": 279
+            "shipped": 267
           }
         },
         {
@@ -5899,7 +6189,7 @@
             "app": 213,
             "site": 533,
             "builds": 38,
-            "shipped": 278
+            "shipped": 266
           }
         },
         {
@@ -5919,22 +6209,7 @@
             "app": 212,
             "site": 532,
             "builds": 38,
-            "shipped": 277
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-27T16:00:00.000Z",
-          "title": "Feedback receipts sit in the drawer, off the stage",
-          "card": "NOTE-4592",
-          "anchor": "feedback-receipts-sit-in-the-drawer-off-the-stage",
-          "images": [],
-          "commits": 0,
-          "totals": {
-            "app": 211,
-            "site": 530,
-            "builds": 38,
-            "shipped": 276
+            "shipped": 265
           }
         },
         {
@@ -5958,7 +6233,7 @@
             "app": 211,
             "site": 529,
             "builds": 38,
-            "shipped": 275
+            "shipped": 264
           }
         },
         {
@@ -5970,7 +6245,7 @@
             "app": 211,
             "site": 528,
             "builds": 38,
-            "shipped": 274
+            "shipped": 263
           }
         },
         {
@@ -5998,7 +6273,7 @@
             "app": 210,
             "site": 527,
             "builds": 37,
-            "shipped": 274
+            "shipped": 263
           }
         },
         {
@@ -6029,7 +6304,7 @@
             "app": 209,
             "site": 525,
             "builds": 37,
-            "shipped": 273
+            "shipped": 262
           }
         },
         {
@@ -6060,7 +6335,7 @@
             "app": 207,
             "site": 523,
             "builds": 37,
-            "shipped": 272
+            "shipped": 261
           }
         },
         {
@@ -6088,7 +6363,7 @@
             "app": 205,
             "site": 521,
             "builds": 37,
-            "shipped": 271
+            "shipped": 260
           }
         },
         {
@@ -6116,7 +6391,7 @@
             "app": 204,
             "site": 520,
             "builds": 37,
-            "shipped": 270
+            "shipped": 259
           }
         },
         {
@@ -6140,7 +6415,7 @@
             "app": 204,
             "site": 517,
             "builds": 37,
-            "shipped": 269
+            "shipped": 258
           }
         },
         {
@@ -6164,7 +6439,7 @@
             "app": 204,
             "site": 514,
             "builds": 37,
-            "shipped": 268
+            "shipped": 257
           }
         },
         {
@@ -6188,7 +6463,7 @@
             "app": 204,
             "site": 513,
             "builds": 37,
-            "shipped": 267
+            "shipped": 256
           }
         },
         {
@@ -6216,7 +6491,7 @@
             "app": 204,
             "site": 511,
             "builds": 37,
-            "shipped": 266
+            "shipped": 255
           }
         },
         {
@@ -6240,7 +6515,7 @@
             "app": 203,
             "site": 505,
             "builds": 37,
-            "shipped": 265
+            "shipped": 254
           }
         },
         {
@@ -6268,7 +6543,7 @@
             "app": 203,
             "site": 503,
             "builds": 37,
-            "shipped": 264
+            "shipped": 253
           }
         },
         {
@@ -6280,7 +6555,7 @@
             "app": 203,
             "site": 502,
             "builds": 37,
-            "shipped": 263
+            "shipped": 252
           }
         },
         {
@@ -6304,7 +6579,7 @@
             "app": 203,
             "site": 501,
             "builds": 36,
-            "shipped": 263
+            "shipped": 252
           }
         },
         {
@@ -6336,7 +6611,7 @@
             "app": 202,
             "site": 500,
             "builds": 36,
-            "shipped": 262
+            "shipped": 251
           }
         },
         {
@@ -6351,7 +6626,7 @@
             "app": 200,
             "site": 496,
             "builds": 36,
-            "shipped": 261
+            "shipped": 250
           }
         },
         {
@@ -6375,7 +6650,7 @@
             "app": 200,
             "site": 495,
             "builds": 36,
-            "shipped": 260
+            "shipped": 249
           }
         },
         {
@@ -6410,7 +6685,7 @@
             "app": 200,
             "site": 493,
             "builds": 36,
-            "shipped": 259
+            "shipped": 248
           }
         },
         {
@@ -6442,7 +6717,7 @@
             "app": 199,
             "site": 491,
             "builds": 36,
-            "shipped": 258
+            "shipped": 247
           }
         },
         {
@@ -6470,7 +6745,7 @@
             "app": 199,
             "site": 490,
             "builds": 36,
-            "shipped": 257
+            "shipped": 246
           }
         },
         {
@@ -6498,7 +6773,7 @@
             "app": 199,
             "site": 489,
             "builds": 36,
-            "shipped": 256
+            "shipped": 245
           }
         },
         {
@@ -6510,7 +6785,7 @@
             "app": 199,
             "site": 487,
             "builds": 36,
-            "shipped": 255
+            "shipped": 244
           }
         }
       ],
@@ -8020,7 +8295,7 @@
             "app": 195,
             "site": 482,
             "builds": 35,
-            "shipped": 255
+            "shipped": 244
           }
         },
         {
@@ -8056,7 +8331,7 @@
             "app": 192,
             "site": 480,
             "builds": 35,
-            "shipped": 254
+            "shipped": 243
           }
         },
         {
@@ -8096,7 +8371,7 @@
             "app": 191,
             "site": 477,
             "builds": 35,
-            "shipped": 253
+            "shipped": 242
           }
         },
         {
@@ -8128,7 +8403,7 @@
             "app": 190,
             "site": 474,
             "builds": 35,
-            "shipped": 252
+            "shipped": 241
           }
         },
         {
@@ -8162,7 +8437,7 @@
             "app": 190,
             "site": 472,
             "builds": 35,
-            "shipped": 251
+            "shipped": 240
           }
         },
         {
@@ -8194,7 +8469,7 @@
             "app": 189,
             "site": 471,
             "builds": 35,
-            "shipped": 250
+            "shipped": 239
           }
         },
         {
@@ -8234,7 +8509,7 @@
             "app": 189,
             "site": 470,
             "builds": 35,
-            "shipped": 249
+            "shipped": 238
           }
         },
         {
@@ -8254,7 +8529,7 @@
             "app": 187,
             "site": 468,
             "builds": 35,
-            "shipped": 248
+            "shipped": 237
           }
         },
         {
@@ -8282,7 +8557,7 @@
             "app": 187,
             "site": 466,
             "builds": 35,
-            "shipped": 247
+            "shipped": 236
           }
         },
         {
@@ -8297,7 +8572,7 @@
             "app": 187,
             "site": 463,
             "builds": 35,
-            "shipped": 246
+            "shipped": 235
           }
         },
         {
@@ -8356,7 +8631,7 @@
             "app": 186,
             "site": 462,
             "builds": 35,
-            "shipped": 245
+            "shipped": 234
           }
         },
         {
@@ -8374,7 +8649,7 @@
             "app": 186,
             "site": 457,
             "builds": 35,
-            "shipped": 244
+            "shipped": 233
           }
         },
         {
@@ -8398,7 +8673,7 @@
             "app": 179,
             "site": 450,
             "builds": 35,
-            "shipped": 243
+            "shipped": 232
           }
         },
         {
@@ -8422,7 +8697,7 @@
             "app": 179,
             "site": 449,
             "builds": 35,
-            "shipped": 242
+            "shipped": 231
           }
         },
         {
@@ -8454,7 +8729,7 @@
             "app": 178,
             "site": 447,
             "builds": 35,
-            "shipped": 241
+            "shipped": 230
           }
         },
         {
@@ -8466,7 +8741,7 @@
             "app": 178,
             "site": 446,
             "builds": 35,
-            "shipped": 240
+            "shipped": 229
           }
         },
         {
@@ -8490,7 +8765,7 @@
             "app": 177,
             "site": 446,
             "builds": 34,
-            "shipped": 240
+            "shipped": 229
           }
         },
         {
@@ -8522,7 +8797,7 @@
             "app": 177,
             "site": 442,
             "builds": 34,
-            "shipped": 239
+            "shipped": 228
           }
         },
         {
@@ -8546,7 +8821,7 @@
             "app": 175,
             "site": 440,
             "builds": 34,
-            "shipped": 238
+            "shipped": 227
           }
         },
         {
@@ -8576,7 +8851,7 @@
             "app": 174,
             "site": 439,
             "builds": 34,
-            "shipped": 237
+            "shipped": 226
           }
         },
         {
@@ -8600,7 +8875,7 @@
             "app": 173,
             "site": 438,
             "builds": 34,
-            "shipped": 236
+            "shipped": 225
           }
         },
         {
@@ -8632,7 +8907,7 @@
             "app": 171,
             "site": 436,
             "builds": 34,
-            "shipped": 235
+            "shipped": 224
           }
         },
         {
@@ -8660,7 +8935,7 @@
             "app": 169,
             "site": 432,
             "builds": 34,
-            "shipped": 234
+            "shipped": 223
           }
         },
         {
@@ -8680,7 +8955,7 @@
             "app": 169,
             "site": 430,
             "builds": 34,
-            "shipped": 233
+            "shipped": 222
           }
         },
         {
@@ -8700,7 +8975,7 @@
             "app": 169,
             "site": 427,
             "builds": 34,
-            "shipped": 232
+            "shipped": 221
           }
         },
         {
@@ -8724,7 +8999,7 @@
             "app": 169,
             "site": 426,
             "builds": 34,
-            "shipped": 231
+            "shipped": 220
           }
         },
         {
@@ -8756,7 +9031,7 @@
             "app": 169,
             "site": 425,
             "builds": 34,
-            "shipped": 230
+            "shipped": 219
           }
         },
         {
@@ -8771,7 +9046,7 @@
             "app": 169,
             "site": 423,
             "builds": 34,
-            "shipped": 229
+            "shipped": 218
           }
         },
         {
@@ -8786,7 +9061,7 @@
             "app": 167,
             "site": 422,
             "builds": 34,
-            "shipped": 228
+            "shipped": 217
           }
         },
         {
@@ -8810,7 +9085,7 @@
             "app": 167,
             "site": 421,
             "builds": 34,
-            "shipped": 227
+            "shipped": 216
           }
         },
         {
@@ -8838,7 +9113,7 @@
             "app": 166,
             "site": 420,
             "builds": 34,
-            "shipped": 226
+            "shipped": 215
           }
         },
         {
@@ -8866,7 +9141,7 @@
             "app": 166,
             "site": 417,
             "builds": 34,
-            "shipped": 225
+            "shipped": 214
           }
         },
         {
@@ -8894,7 +9169,7 @@
             "app": 166,
             "site": 416,
             "builds": 34,
-            "shipped": 224
+            "shipped": 213
           }
         },
         {
@@ -8918,7 +9193,7 @@
             "app": 164,
             "site": 413,
             "builds": 34,
-            "shipped": 223
+            "shipped": 212
           }
         },
         {
@@ -8950,7 +9225,7 @@
             "app": 163,
             "site": 410,
             "builds": 34,
-            "shipped": 222
+            "shipped": 211
           }
         },
         {
@@ -8978,7 +9253,7 @@
             "app": 163,
             "site": 409,
             "builds": 34,
-            "shipped": 221
+            "shipped": 210
           }
         },
         {
@@ -9012,7 +9287,7 @@
             "app": 163,
             "site": 408,
             "builds": 34,
-            "shipped": 220
+            "shipped": 209
           }
         },
         {
@@ -9032,7 +9307,7 @@
             "app": 162,
             "site": 404,
             "builds": 34,
-            "shipped": 219
+            "shipped": 208
           }
         },
         {
@@ -9044,7 +9319,7 @@
             "app": 161,
             "site": 403,
             "builds": 34,
-            "shipped": 218
+            "shipped": 207
           }
         },
         {
@@ -9070,7 +9345,7 @@
             "app": 160,
             "site": 403,
             "builds": 33,
-            "shipped": 218
+            "shipped": 207
           }
         },
         {
@@ -9098,7 +9373,7 @@
             "app": 159,
             "site": 400,
             "builds": 33,
-            "shipped": 217
+            "shipped": 206
           }
         },
         {
@@ -9128,7 +9403,7 @@
             "app": 159,
             "site": 399,
             "builds": 33,
-            "shipped": 216
+            "shipped": 205
           }
         },
         {
@@ -9156,144 +9431,7 @@
             "app": 159,
             "site": 398,
             "builds": 33,
-            "shipped": 215
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T16:00:00.000Z",
-          "title": "About and Controls in one drawer tab: planned",
-          "card": "NOTE-64712",
-          "anchor": "about-and-controls-in-one-drawer-tab-planned",
-          "images": [],
-          "commits": 0,
-          "totals": {
-            "app": 158,
-            "site": 397,
-            "builds": 33,
-            "shipped": 214
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T16:00:00.000Z",
-          "title": "Hermes for everyone: the spec",
-          "card": "YUI-149",
-          "anchor": "hermes-for-everyone-the-spec",
-          "images": [],
-          "commits": 0,
-          "totals": {
-            "app": 158,
-            "site": 397,
-            "builds": 33,
-            "shipped": 213
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T16:00:00.000Z",
-          "title": "Native Yui: the spec",
-          "card": "YUI-129",
-          "anchor": "native-yui-the-spec",
-          "images": [],
-          "commits": 1,
-          "totals": {
-            "app": 158,
-            "site": 397,
-            "builds": 33,
-            "shipped": 212
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T16:00:00.000Z",
-          "title": "Every drum name plays a real drum",
-          "card": "YUI-127",
-          "anchor": "every-drum-name-plays-a-real-drum",
-          "images": [],
-          "commits": 2,
-          "totals": {
-            "app": 158,
-            "site": 397,
-            "builds": 33,
-            "shipped": 211
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T16:00:00.000Z",
-          "title": "The war room moves into Yui's left drawer",
-          "card": "YUI-126",
-          "anchor": "the-war-room-moves-into-yui-s-left-drawer",
-          "images": [
-            {
-              "src": "/progress/yui126-drawer-home-light.webp",
-              "alt": "The left drawer on Home: pinned screens, the next thing waiting for you, and the backlog as rows."
-            },
-            {
-              "src": "/progress/yui126-drawer-review-light.webp",
-              "alt": "The drawer on Review: two things waiting on you, each a card with its question."
-            }
-          ],
-          "commits": 3,
-          "totals": {
-            "app": 158,
-            "site": 397,
-            "builds": 33,
-            "shipped": 210
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T16:00:00.000Z",
-          "title": "The store listing is named Yui Gui",
-          "card": "YUI-114",
-          "anchor": "the-store-listing-is-named-yui-gui",
-          "images": [],
-          "commits": 4,
-          "totals": {
-            "app": 158,
-            "site": 397,
-            "builds": 33,
-            "shipped": 209
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T16:00:00.000Z",
-          "title": "Test builds install beside the TestFlight Yui",
-          "card": "YUI-91",
-          "anchor": "test-builds-install-beside-the-testflight-yui",
-          "images": [
-            {
-              "src": "/progress/yui91-dev-icon.webp",
-              "alt": "The Yui Dev icon: the pink Yui mark on cream with a dark DEV banner along the bottom."
-            }
-          ],
-          "commits": 2,
-          "totals": {
-            "app": 158,
-            "site": 397,
-            "builds": 33,
-            "shipped": 208
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-26T16:00:00.000Z",
-          "title": "Yui 0.3.0 on the site: the release and a Thought",
-          "card": [
-            "SITE-38",
-            "SITE-39"
-          ],
-          "anchor": "yui-0-3-0-on-the-site-the-release-and-a-thought",
-          "images": [],
-          "commits": 0,
-          "totals": {
-            "app": 158,
-            "site": 397,
-            "builds": 33,
-            "shipped": 207
+            "shipped": 204
           }
         },
         {
@@ -9308,7 +9446,7 @@
             "app": 158,
             "site": 397,
             "builds": 33,
-            "shipped": 206
+            "shipped": 203
           }
         },
         {
@@ -9323,7 +9461,7 @@
             "app": 157,
             "site": 394,
             "builds": 33,
-            "shipped": 205
+            "shipped": 202
           }
         },
         {
@@ -9351,7 +9489,7 @@
             "app": 157,
             "site": 393,
             "builds": 33,
-            "shipped": 204
+            "shipped": 201
           }
         },
         {
@@ -9371,7 +9509,7 @@
             "app": 157,
             "site": 391,
             "builds": 33,
-            "shipped": 203
+            "shipped": 200
           }
         },
         {
@@ -9391,7 +9529,7 @@
             "app": 156,
             "site": 389,
             "builds": 33,
-            "shipped": 202
+            "shipped": 199
           }
         },
         {
@@ -9427,7 +9565,7 @@
             "app": 156,
             "site": 388,
             "builds": 33,
-            "shipped": 201
+            "shipped": 198
           }
         },
         {
@@ -9451,7 +9589,7 @@
             "app": 156,
             "site": 387,
             "builds": 33,
-            "shipped": 200
+            "shipped": 197
           }
         },
         {
@@ -9479,7 +9617,7 @@
             "app": 155,
             "site": 384,
             "builds": 33,
-            "shipped": 199
+            "shipped": 196
           }
         },
         {
@@ -9491,7 +9629,7 @@
             "app": 155,
             "site": 382,
             "builds": 33,
-            "shipped": 198
+            "shipped": 195
           }
         },
         {
@@ -9519,7 +9657,7 @@
             "app": 155,
             "site": 382,
             "builds": 32,
-            "shipped": 198
+            "shipped": 195
           }
         },
         {
@@ -9547,7 +9685,7 @@
             "app": 155,
             "site": 381,
             "builds": 32,
-            "shipped": 197
+            "shipped": 194
           }
         },
         {
@@ -9575,7 +9713,7 @@
             "app": 155,
             "site": 379,
             "builds": 32,
-            "shipped": 196
+            "shipped": 193
           }
         },
         {
@@ -9603,7 +9741,7 @@
             "app": 154,
             "site": 378,
             "builds": 32,
-            "shipped": 195
+            "shipped": 192
           }
         },
         {
@@ -9635,7 +9773,7 @@
             "app": 153,
             "site": 375,
             "builds": 32,
-            "shipped": 194
+            "shipped": 191
           }
         },
         {
@@ -9659,7 +9797,7 @@
             "app": 152,
             "site": 373,
             "builds": 32,
-            "shipped": 193
+            "shipped": 190
           }
         },
         {
@@ -9674,7 +9812,7 @@
             "app": 150,
             "site": 371,
             "builds": 32,
-            "shipped": 192
+            "shipped": 189
           }
         },
         {
@@ -9686,7 +9824,7 @@
             "app": 148,
             "site": 366,
             "builds": 32,
-            "shipped": 191
+            "shipped": 188
           }
         },
         {
@@ -9710,7 +9848,7 @@
             "app": 148,
             "site": 363,
             "builds": 31,
-            "shipped": 191
+            "shipped": 188
           }
         },
         {
@@ -9725,7 +9863,7 @@
             "app": 147,
             "site": 360,
             "builds": 31,
-            "shipped": 190
+            "shipped": 187
           }
         },
         {
@@ -9745,7 +9883,7 @@
             "app": 147,
             "site": 359,
             "builds": 31,
-            "shipped": 189
+            "shipped": 186
           }
         },
         {
@@ -9789,7 +9927,7 @@
             "app": 146,
             "site": 356,
             "builds": 31,
-            "shipped": 188
+            "shipped": 185
           }
         },
         {
@@ -9804,7 +9942,7 @@
             "app": 144,
             "site": 354,
             "builds": 31,
-            "shipped": 187
+            "shipped": 184
           }
         },
         {
@@ -9828,7 +9966,7 @@
             "app": 144,
             "site": 352,
             "builds": 31,
-            "shipped": 186
+            "shipped": 183
           }
         },
         {
@@ -9843,7 +9981,7 @@
             "app": 142,
             "site": 350,
             "builds": 31,
-            "shipped": 185
+            "shipped": 182
           }
         },
         {
@@ -9867,7 +10005,7 @@
             "app": 141,
             "site": 347,
             "builds": 31,
-            "shipped": 184
+            "shipped": 181
           }
         },
         {
@@ -9903,7 +10041,7 @@
             "app": 141,
             "site": 346,
             "builds": 31,
-            "shipped": 183
+            "shipped": 180
           }
         },
         {
@@ -9927,7 +10065,7 @@
             "app": 139,
             "site": 344,
             "builds": 31,
-            "shipped": 182
+            "shipped": 179
           }
         },
         {
@@ -9951,7 +10089,7 @@
             "app": 139,
             "site": 343,
             "builds": 31,
-            "shipped": 181
+            "shipped": 178
           }
         },
         {
@@ -9979,7 +10117,7 @@
             "app": 139,
             "site": 341,
             "builds": 31,
-            "shipped": 180
+            "shipped": 177
           }
         },
         {
@@ -10007,7 +10145,7 @@
             "app": 139,
             "site": 337,
             "builds": 31,
-            "shipped": 179
+            "shipped": 176
           }
         },
         {
@@ -10019,7 +10157,7 @@
             "app": 138,
             "site": 333,
             "builds": 31,
-            "shipped": 178
+            "shipped": 175
           }
         },
         {
@@ -10043,7 +10181,7 @@
             "app": 137,
             "site": 332,
             "builds": 30,
-            "shipped": 178
+            "shipped": 175
           }
         }
       ],
@@ -11562,7 +11700,7 @@
             "app": 136,
             "site": 329,
             "builds": 30,
-            "shipped": 177
+            "shipped": 174
           }
         },
         {
@@ -11574,7 +11712,7 @@
             "app": 135,
             "site": 328,
             "builds": 30,
-            "shipped": 176
+            "shipped": 173
           }
         },
         {
@@ -11598,7 +11736,7 @@
             "app": 135,
             "site": 328,
             "builds": 29,
-            "shipped": 176
+            "shipped": 173
           }
         },
         {
@@ -11622,7 +11760,7 @@
             "app": 134,
             "site": 326,
             "builds": 29,
-            "shipped": 175
+            "shipped": 172
           }
         },
         {
@@ -11637,7 +11775,7 @@
             "app": 133,
             "site": 324,
             "builds": 29,
-            "shipped": 174
+            "shipped": 171
           }
         },
         {
@@ -11669,7 +11807,7 @@
             "app": 132,
             "site": 321,
             "builds": 29,
-            "shipped": 173
+            "shipped": 170
           }
         },
         {
@@ -11701,7 +11839,7 @@
             "app": 131,
             "site": 319,
             "builds": 29,
-            "shipped": 172
+            "shipped": 169
           }
         },
         {
@@ -11725,7 +11863,7 @@
             "app": 130,
             "site": 318,
             "builds": 29,
-            "shipped": 171
+            "shipped": 168
           }
         },
         {
@@ -11757,7 +11895,7 @@
             "app": 130,
             "site": 317,
             "builds": 29,
-            "shipped": 170
+            "shipped": 167
           }
         },
         {
@@ -11789,7 +11927,7 @@
             "app": 128,
             "site": 313,
             "builds": 29,
-            "shipped": 169
+            "shipped": 166
           }
         },
         {
@@ -11813,7 +11951,7 @@
             "app": 128,
             "site": 312,
             "builds": 29,
-            "shipped": 168
+            "shipped": 165
           }
         },
         {
@@ -11853,7 +11991,7 @@
             "app": 128,
             "site": 310,
             "builds": 29,
-            "shipped": 167
+            "shipped": 164
           }
         },
         {
@@ -11889,7 +12027,7 @@
             "app": 126,
             "site": 308,
             "builds": 29,
-            "shipped": 166
+            "shipped": 163
           }
         },
         {
@@ -11921,7 +12059,7 @@
             "app": 126,
             "site": 306,
             "builds": 29,
-            "shipped": 165
+            "shipped": 162
           }
         },
         {
@@ -11949,7 +12087,7 @@
             "app": 125,
             "site": 305,
             "builds": 29,
-            "shipped": 164
+            "shipped": 161
           }
         },
         {
@@ -11981,7 +12119,7 @@
             "app": 123,
             "site": 304,
             "builds": 29,
-            "shipped": 163
+            "shipped": 160
           }
         },
         {
@@ -12017,7 +12155,7 @@
             "app": 122,
             "site": 302,
             "builds": 29,
-            "shipped": 162
+            "shipped": 159
           }
         },
         {
@@ -12032,7 +12170,7 @@
             "app": 122,
             "site": 301,
             "builds": 29,
-            "shipped": 161
+            "shipped": 158
           }
         },
         {
@@ -12044,7 +12182,7 @@
             "app": 122,
             "site": 300,
             "builds": 29,
-            "shipped": 160
+            "shipped": 157
           }
         },
         {
@@ -12076,7 +12214,7 @@
             "app": 122,
             "site": 300,
             "builds": 28,
-            "shipped": 160
+            "shipped": 157
           }
         },
         {
@@ -12108,7 +12246,7 @@
             "app": 120,
             "site": 296,
             "builds": 28,
-            "shipped": 159
+            "shipped": 156
           }
         },
         {
@@ -12140,7 +12278,7 @@
             "app": 119,
             "site": 293,
             "builds": 28,
-            "shipped": 158
+            "shipped": 155
           }
         },
         {
@@ -12168,7 +12306,7 @@
             "app": 119,
             "site": 292,
             "builds": 28,
-            "shipped": 157
+            "shipped": 154
           }
         },
         {
@@ -12196,7 +12334,7 @@
             "app": 116,
             "site": 288,
             "builds": 28,
-            "shipped": 156
+            "shipped": 153
           }
         },
         {
@@ -12224,7 +12362,7 @@
             "app": 116,
             "site": 287,
             "builds": 28,
-            "shipped": 155
+            "shipped": 152
           }
         },
         {
@@ -12239,7 +12377,7 @@
             "app": 116,
             "site": 285,
             "builds": 28,
-            "shipped": 154
+            "shipped": 151
           }
         },
         {
@@ -12263,7 +12401,7 @@
             "app": 116,
             "site": 284,
             "builds": 28,
-            "shipped": 153
+            "shipped": 150
           }
         },
         {
@@ -12278,7 +12416,7 @@
             "app": 115,
             "site": 283,
             "builds": 28,
-            "shipped": 152
+            "shipped": 149
           }
         },
         {
@@ -12302,7 +12440,7 @@
             "app": 115,
             "site": 282,
             "builds": 28,
-            "shipped": 151
+            "shipped": 148
           }
         },
         {
@@ -12317,7 +12455,7 @@
             "app": 112,
             "site": 279,
             "builds": 28,
-            "shipped": 150
+            "shipped": 147
           }
         },
         {
@@ -12345,7 +12483,7 @@
             "app": 109,
             "site": 274,
             "builds": 28,
-            "shipped": 149
+            "shipped": 146
           }
         },
         {
@@ -12373,7 +12511,7 @@
             "app": 108,
             "site": 273,
             "builds": 28,
-            "shipped": 148
+            "shipped": 145
           }
         },
         {
@@ -12388,7 +12526,7 @@
             "app": 108,
             "site": 271,
             "builds": 28,
-            "shipped": 147
+            "shipped": 144
           }
         },
         {
@@ -12412,7 +12550,7 @@
             "app": 108,
             "site": 269,
             "builds": 28,
-            "shipped": 146
+            "shipped": 143
           }
         },
         {
@@ -12436,7 +12574,7 @@
             "app": 108,
             "site": 268,
             "builds": 28,
-            "shipped": 145
+            "shipped": 142
           }
         },
         {
@@ -12464,7 +12602,7 @@
             "app": 104,
             "site": 265,
             "builds": 28,
-            "shipped": 144
+            "shipped": 141
           }
         },
         {
@@ -12479,7 +12617,7 @@
             "app": 104,
             "site": 263,
             "builds": 28,
-            "shipped": 143
+            "shipped": 140
           }
         },
         {
@@ -12515,7 +12653,7 @@
             "app": 104,
             "site": 262,
             "builds": 28,
-            "shipped": 142
+            "shipped": 139
           }
         },
         {
@@ -12539,7 +12677,7 @@
             "app": 103,
             "site": 260,
             "builds": 28,
-            "shipped": 141
+            "shipped": 138
           }
         },
         {
@@ -12554,7 +12692,7 @@
             "app": 103,
             "site": 259,
             "builds": 28,
-            "shipped": 140
+            "shipped": 137
           }
         },
         {
@@ -12594,7 +12732,7 @@
             "app": 102,
             "site": 256,
             "builds": 28,
-            "shipped": 139
+            "shipped": 136
           }
         },
         {
@@ -12622,7 +12760,7 @@
             "app": 100,
             "site": 254,
             "builds": 28,
-            "shipped": 138
+            "shipped": 135
           }
         },
         {
@@ -12646,7 +12784,7 @@
             "app": 100,
             "site": 252,
             "builds": 28,
-            "shipped": 137
+            "shipped": 134
           }
         },
         {
@@ -12661,7 +12799,7 @@
             "app": 100,
             "site": 251,
             "builds": 28,
-            "shipped": 136
+            "shipped": 133
           }
         },
         {
@@ -12689,7 +12827,7 @@
             "app": 100,
             "site": 250,
             "builds": 28,
-            "shipped": 135
+            "shipped": 132
           }
         },
         {
@@ -12704,7 +12842,7 @@
             "app": 98,
             "site": 248,
             "builds": 28,
-            "shipped": 134
+            "shipped": 131
           }
         },
         {
@@ -12719,7 +12857,7 @@
             "app": 97,
             "site": 244,
             "builds": 28,
-            "shipped": 133
+            "shipped": 130
           }
         },
         {
@@ -12731,7 +12869,7 @@
             "app": 96,
             "site": 242,
             "builds": 28,
-            "shipped": 132
+            "shipped": 129
           }
         },
         {
@@ -12746,22 +12884,7 @@
             "app": 96,
             "site": 240,
             "builds": 27,
-            "shipped": 132
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-25T16:00:00.000Z",
-          "title": "The build-ready message reads like a changelog for people",
-          "card": "YUI-81",
-          "anchor": "the-build-ready-message-reads-like-a-changelog-for-people",
-          "images": [],
-          "commits": 1,
-          "totals": {
-            "app": 95,
-            "site": 239,
-            "builds": 27,
-            "shipped": 131
+            "shipped": 129
           }
         },
         {
@@ -12793,7 +12916,7 @@
             "app": 95,
             "site": 239,
             "builds": 27,
-            "shipped": 130
+            "shipped": 128
           }
         },
         {
@@ -12817,7 +12940,7 @@
             "app": 94,
             "site": 237,
             "builds": 27,
-            "shipped": 129
+            "shipped": 127
           }
         },
         {
@@ -12832,7 +12955,7 @@
             "app": 93,
             "site": 236,
             "builds": 27,
-            "shipped": 128
+            "shipped": 126
           }
         },
         {
@@ -12847,7 +12970,7 @@
             "app": 92,
             "site": 232,
             "builds": 27,
-            "shipped": 127
+            "shipped": 125
           }
         },
         {
@@ -12859,7 +12982,7 @@
             "app": 91,
             "site": 231,
             "builds": 27,
-            "shipped": 126
+            "shipped": 124
           }
         },
         {
@@ -12883,7 +13006,7 @@
             "app": 91,
             "site": 230,
             "builds": 26,
-            "shipped": 126
+            "shipped": 124
           }
         },
         {
@@ -12898,7 +13021,7 @@
             "app": 91,
             "site": 228,
             "builds": 26,
-            "shipped": 125
+            "shipped": 123
           }
         },
         {
@@ -12913,7 +13036,7 @@
             "app": 89,
             "site": 227,
             "builds": 26,
-            "shipped": 124
+            "shipped": 122
           }
         },
         {
@@ -12941,7 +13064,7 @@
             "app": 88,
             "site": 225,
             "builds": 26,
-            "shipped": 123
+            "shipped": 121
           }
         },
         {
@@ -12973,7 +13096,7 @@
             "app": 86,
             "site": 223,
             "builds": 26,
-            "shipped": 122
+            "shipped": 120
           }
         },
         {
@@ -13001,7 +13124,7 @@
             "app": 84,
             "site": 221,
             "builds": 26,
-            "shipped": 121
+            "shipped": 119
           }
         },
         {
@@ -13025,7 +13148,7 @@
             "app": 83,
             "site": 220,
             "builds": 26,
-            "shipped": 120
+            "shipped": 118
           }
         },
         {
@@ -13037,7 +13160,7 @@
             "app": 82,
             "site": 214,
             "builds": 26,
-            "shipped": 119
+            "shipped": 117
           }
         },
         {
@@ -13069,7 +13192,7 @@
             "app": 82,
             "site": 214,
             "builds": 25,
-            "shipped": 119
+            "shipped": 117
           }
         },
         {
@@ -13101,7 +13224,7 @@
             "app": 81,
             "site": 212,
             "builds": 25,
-            "shipped": 118
+            "shipped": 116
           }
         },
         {
@@ -13116,7 +13239,7 @@
             "app": 80,
             "site": 210,
             "builds": 25,
-            "shipped": 117
+            "shipped": 115
           }
         },
         {
@@ -13140,7 +13263,7 @@
             "app": 80,
             "site": 208,
             "builds": 25,
-            "shipped": 116
+            "shipped": 114
           }
         },
         {
@@ -13168,7 +13291,7 @@
             "app": 79,
             "site": 207,
             "builds": 25,
-            "shipped": 115
+            "shipped": 113
           }
         },
         {
@@ -13200,7 +13323,7 @@
             "app": 78,
             "site": 204,
             "builds": 25,
-            "shipped": 114
+            "shipped": 112
           }
         },
         {
@@ -13232,7 +13355,7 @@
             "app": 76,
             "site": 201,
             "builds": 25,
-            "shipped": 113
+            "shipped": 111
           }
         },
         {
@@ -13260,7 +13383,7 @@
             "app": 76,
             "site": 197,
             "builds": 25,
-            "shipped": 112
+            "shipped": 110
           }
         },
         {
@@ -13288,7 +13411,7 @@
             "app": 75,
             "site": 195,
             "builds": 25,
-            "shipped": 111
+            "shipped": 109
           }
         },
         {
@@ -13300,7 +13423,7 @@
             "app": 74,
             "site": 193,
             "builds": 25,
-            "shipped": 110
+            "shipped": 108
           }
         },
         {
@@ -13332,7 +13455,7 @@
             "app": 74,
             "site": 192,
             "builds": 24,
-            "shipped": 110
+            "shipped": 108
           }
         },
         {
@@ -13364,7 +13487,7 @@
             "app": 73,
             "site": 190,
             "builds": 24,
-            "shipped": 109
+            "shipped": 107
           }
         },
         {
@@ -13379,7 +13502,7 @@
             "app": 72,
             "site": 188,
             "builds": 24,
-            "shipped": 108
+            "shipped": 106
           }
         },
         {
@@ -13403,7 +13526,7 @@
             "app": 72,
             "site": 187,
             "builds": 24,
-            "shipped": 107
+            "shipped": 105
           }
         },
         {
@@ -13431,7 +13554,7 @@
             "app": 71,
             "site": 185,
             "builds": 24,
-            "shipped": 106
+            "shipped": 104
           }
         },
         {
@@ -13463,7 +13586,7 @@
             "app": 71,
             "site": 183,
             "builds": 24,
-            "shipped": 105
+            "shipped": 103
           }
         },
         {
@@ -13495,7 +13618,7 @@
             "app": 70,
             "site": 182,
             "builds": 24,
-            "shipped": 104
+            "shipped": 102
           }
         },
         {
@@ -13527,7 +13650,7 @@
             "app": 70,
             "site": 180,
             "builds": 24,
-            "shipped": 103
+            "shipped": 101
           }
         },
         {
@@ -13559,7 +13682,7 @@
             "app": 68,
             "site": 178,
             "builds": 24,
-            "shipped": 102
+            "shipped": 100
           }
         },
         {
@@ -13587,7 +13710,7 @@
             "app": 68,
             "site": 177,
             "builds": 24,
-            "shipped": 101
+            "shipped": 99
           }
         },
         {
@@ -13611,7 +13734,7 @@
             "app": 68,
             "site": 175,
             "builds": 24,
-            "shipped": 100
+            "shipped": 98
           }
         },
         {
@@ -13635,7 +13758,7 @@
             "app": 68,
             "site": 174,
             "builds": 24,
-            "shipped": 99
+            "shipped": 97
           }
         },
         {
@@ -13655,7 +13778,7 @@
             "app": 67,
             "site": 169,
             "builds": 24,
-            "shipped": 98
+            "shipped": 96
           }
         },
         {
@@ -13667,7 +13790,7 @@
             "app": 64,
             "site": 164,
             "builds": 24,
-            "shipped": 97
+            "shipped": 95
           }
         },
         {
@@ -13699,7 +13822,7 @@
             "app": 64,
             "site": 164,
             "builds": 23,
-            "shipped": 97
+            "shipped": 95
           }
         }
       ],
@@ -15419,7 +15542,7 @@
             "app": 63,
             "site": 163,
             "builds": 23,
-            "shipped": 96
+            "shipped": 94
           }
         },
         {
@@ -15443,7 +15566,7 @@
             "app": 63,
             "site": 160,
             "builds": 23,
-            "shipped": 95
+            "shipped": 93
           }
         },
         {
@@ -15475,7 +15598,7 @@
             "app": 62,
             "site": 159,
             "builds": 23,
-            "shipped": 94
+            "shipped": 92
           }
         },
         {
@@ -15490,7 +15613,7 @@
             "app": 61,
             "site": 158,
             "builds": 23,
-            "shipped": 93
+            "shipped": 91
           }
         },
         {
@@ -15502,7 +15625,7 @@
             "app": 61,
             "site": 157,
             "builds": 23,
-            "shipped": 92
+            "shipped": 90
           }
         },
         {
@@ -15534,7 +15657,7 @@
             "app": 60,
             "site": 154,
             "builds": 22,
-            "shipped": 92
+            "shipped": 90
           }
         },
         {
@@ -15558,7 +15681,7 @@
             "app": 59,
             "site": 152,
             "builds": 22,
-            "shipped": 91
+            "shipped": 89
           }
         },
         {
@@ -15582,7 +15705,7 @@
             "app": 59,
             "site": 151,
             "builds": 22,
-            "shipped": 90
+            "shipped": 88
           }
         },
         {
@@ -15594,7 +15717,7 @@
             "app": 58,
             "site": 150,
             "builds": 22,
-            "shipped": 89
+            "shipped": 87
           }
         },
         {
@@ -15609,7 +15732,7 @@
             "app": 58,
             "site": 148,
             "builds": 21,
-            "shipped": 89
+            "shipped": 87
           }
         },
         {
@@ -15633,7 +15756,7 @@
             "app": 57,
             "site": 144,
             "builds": 21,
-            "shipped": 88
+            "shipped": 86
           }
         },
         {
@@ -15665,7 +15788,7 @@
             "app": 57,
             "site": 141,
             "builds": 21,
-            "shipped": 87
+            "shipped": 85
           }
         },
         {
@@ -15697,7 +15820,7 @@
             "app": 57,
             "site": 139,
             "builds": 21,
-            "shipped": 86
+            "shipped": 84
           }
         },
         {
@@ -15725,7 +15848,7 @@
             "app": 57,
             "site": 136,
             "builds": 21,
-            "shipped": 85
+            "shipped": 83
           }
         },
         {
@@ -15740,7 +15863,7 @@
             "app": 57,
             "site": 135,
             "builds": 21,
-            "shipped": 84
+            "shipped": 82
           }
         },
         {
@@ -15772,7 +15895,7 @@
             "app": 57,
             "site": 132,
             "builds": 21,
-            "shipped": 83
+            "shipped": 81
           }
         },
         {
@@ -15800,7 +15923,7 @@
             "app": 56,
             "site": 130,
             "builds": 21,
-            "shipped": 82
+            "shipped": 80
           }
         },
         {
@@ -15832,7 +15955,7 @@
             "app": 56,
             "site": 128,
             "builds": 21,
-            "shipped": 81
+            "shipped": 79
           }
         },
         {
@@ -15860,7 +15983,7 @@
             "app": 55,
             "site": 126,
             "builds": 21,
-            "shipped": 80
+            "shipped": 78
           }
         },
         {
@@ -15884,7 +16007,7 @@
             "app": 55,
             "site": 125,
             "builds": 21,
-            "shipped": 79
+            "shipped": 77
           }
         },
         {
@@ -15908,7 +16031,7 @@
             "app": 55,
             "site": 124,
             "builds": 21,
-            "shipped": 78
+            "shipped": 76
           }
         },
         {
@@ -15936,7 +16059,7 @@
             "app": 53,
             "site": 121,
             "builds": 21,
-            "shipped": 77
+            "shipped": 75
           }
         },
         {
@@ -15964,7 +16087,7 @@
             "app": 53,
             "site": 120,
             "builds": 21,
-            "shipped": 76
+            "shipped": 74
           }
         },
         {
@@ -15988,7 +16111,7 @@
             "app": 53,
             "site": 119,
             "builds": 21,
-            "shipped": 75
+            "shipped": 73
           }
         },
         {
@@ -16003,7 +16126,7 @@
             "app": 51,
             "site": 116,
             "builds": 21,
-            "shipped": 74
+            "shipped": 72
           }
         },
         {
@@ -16031,7 +16154,7 @@
             "app": 49,
             "site": 115,
             "builds": 21,
-            "shipped": 73
+            "shipped": 71
           }
         },
         {
@@ -16059,7 +16182,7 @@
             "app": 49,
             "site": 114,
             "builds": 21,
-            "shipped": 72
+            "shipped": 70
           }
         },
         {
@@ -16091,7 +16214,7 @@
             "app": 48,
             "site": 113,
             "builds": 21,
-            "shipped": 71
+            "shipped": 69
           }
         },
         {
@@ -16123,7 +16246,7 @@
             "app": 48,
             "site": 112,
             "builds": 21,
-            "shipped": 70
+            "shipped": 68
           }
         },
         {
@@ -16147,7 +16270,7 @@
             "app": 47,
             "site": 111,
             "builds": 21,
-            "shipped": 69
+            "shipped": 67
           }
         },
         {
@@ -16167,7 +16290,7 @@
             "app": 47,
             "site": 110,
             "builds": 21,
-            "shipped": 68
+            "shipped": 66
           }
         },
         {
@@ -16199,7 +16322,7 @@
             "app": 46,
             "site": 108,
             "builds": 21,
-            "shipped": 67
+            "shipped": 65
           }
         },
         {
@@ -16231,7 +16354,7 @@
             "app": 45,
             "site": 105,
             "builds": 21,
-            "shipped": 66
+            "shipped": 64
           }
         },
         {
@@ -16251,7 +16374,7 @@
             "app": 45,
             "site": 103,
             "builds": 21,
-            "shipped": 65
+            "shipped": 63
           }
         },
         {
@@ -16283,7 +16406,7 @@
             "app": 45,
             "site": 102,
             "builds": 21,
-            "shipped": 64
+            "shipped": 62
           }
         },
         {
@@ -16307,7 +16430,7 @@
             "app": 44,
             "site": 99,
             "builds": 21,
-            "shipped": 63
+            "shipped": 61
           }
         },
         {
@@ -16338,7 +16461,7 @@
             "app": 43,
             "site": 97,
             "builds": 21,
-            "shipped": 62
+            "shipped": 60
           }
         },
         {
@@ -16353,7 +16476,7 @@
             "app": 43,
             "site": 95,
             "builds": 21,
-            "shipped": 61
+            "shipped": 59
           }
         },
         {
@@ -16368,7 +16491,7 @@
             "app": 43,
             "site": 94,
             "builds": 21,
-            "shipped": 60
+            "shipped": 58
           }
         },
         {
@@ -16392,7 +16515,7 @@
             "app": 43,
             "site": 93,
             "builds": 21,
-            "shipped": 59
+            "shipped": 57
           }
         },
         {
@@ -16416,7 +16539,7 @@
             "app": 41,
             "site": 90,
             "builds": 21,
-            "shipped": 58
+            "shipped": 56
           }
         },
         {
@@ -16439,45 +16562,6 @@
           "totals": {
             "app": 41,
             "site": 89,
-            "builds": 21,
-            "shipped": 57
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-24T16:00:00.000Z",
-          "title": "Demo clips of every preset, recorded from the app",
-          "card": "SOC-2",
-          "anchor": "demo-clips-of-every-preset-recorded-from-the-app",
-          "images": [
-            {
-              "src": "/demo/clips/timer-9x16.jpg",
-              "alt": "A Tabata timer on the phone, one line from an agent, counting a work interval."
-            },
-            {
-              "src": "/demo/clips/choose-9x16.jpg",
-              "alt": "A choice screen: the agent asks and three answers wait to be tapped."
-            }
-          ],
-          "commits": 1,
-          "totals": {
-            "app": 40,
-            "site": 88,
-            "builds": 21,
-            "shipped": 56
-          }
-        },
-        {
-          "kind": "ship",
-          "at": "2026-09-24T16:00:00.000Z",
-          "title": "A drafter writes Yui's social posts, and a person signs off",
-          "card": "SOC-1",
-          "anchor": "a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
-          "images": [],
-          "commits": 7,
-          "totals": {
-            "app": 40,
-            "site": 88,
             "builds": 21,
             "shipped": 55
           }
