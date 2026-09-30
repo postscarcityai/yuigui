@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T10:41:08.102Z",
+  "updated": "2026-09-30T11:11:17.066Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -394,13 +394,6 @@
         {
           "key": "YUI-218",
           "title": "Snag",
-          "summary": "A stranger runs Yui cold: about 6 minutes, five snags",
-          "waiting": true,
-          "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags"
-        },
-        {
-          "key": "YUI-218",
-          "title": "Snag",
           "summary": "No notification permission prompt and the test push never shows",
           "waiting": true,
           "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags"
@@ -466,11 +459,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "SITE-125",
-          "title": "A logged meal lands on today's calories, on the site (YUI-183b demo)",
-          "needsDemo": true
         }
       ]
     },
@@ -486,13 +474,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-228",
-          "title": "The plan is built right after the intake, no second wizard",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-126",
-          "title": "On the site, Open on a crew card lands on the first question",
+          "key": "YUI-229",
+          "title": "Add an agent hides behind the agent bar, and the pairing sheet is three commands, not one",
           "owner": "CJohnDesign"
         },
         {
@@ -508,11 +491,41 @@
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "SITE-127",
+          "title": "The first minute, before and after the fixes, and the meal demo tile linked",
+          "summary": "Your first minute, now faster",
+          "shipped": "2026-09-30",
+          "progress": "/progress#your-first-minute-now-faster"
+        },
+        {
+          "key": "YUI-228",
+          "title": "The plan is built right after the intake, no second wizard",
+          "summary": "Your plan is built the moment you tap Send",
+          "shipped": "2026-09-30",
+          "progress": "/progress#your-plan-is-built-the-moment-you-tap-send",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/018390a"
+        },
+        {
+          "key": "SITE-126",
+          "title": "On the site, Open on a crew card lands on the first question",
+          "shipped": "2026-09-30",
+          "progress": "/progress#on-the-site-open-on-a-crew-card-lands-on-the-first-question",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0743da8"
+        },
+        {
           "key": "YUI-225",
           "title": "Open on a crew card lands on the first question",
           "shipped": "2026-09-30",
           "progress": "/progress#open-on-a-crew-card-lands-on-the-first-question",
           "commit": "https://github.com/postscarcityai/yuigui/commit/47c8ee9"
+        },
+        {
+          "key": "SITE-125",
+          "title": "A logged meal lands on today's calories, on the site (YUI-183b demo)",
+          "summary": "A logged meal lands on today's calories, on the site",
+          "shipped": "2026-09-30",
+          "progress": "/progress#a-logged-meal-lands-on-today-s-calories-on-the-site",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8932856"
         },
         {
           "key": "YUI-183b",
@@ -583,6 +596,7 @@
         {
           "key": "YUI-218",
           "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
+          "summary": "A stranger runs Yui cold: about 6 minutes, five snags",
           "shipped": "2026-09-30",
           "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b65456a"

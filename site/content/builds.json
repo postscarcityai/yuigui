@@ -1725,6 +1725,10 @@
     {
       "text": "The plan is built right after the intake: plan words get the runtime's intake, the agent's soul stops running his own wizard",
       "card": "YUI-228"
+    },
+    {
+      "text": "Live sim test: a stranger's first plan builds the week after Send, no second wizard",
+      "card": "YUI-228"
     }
   ]
 }
