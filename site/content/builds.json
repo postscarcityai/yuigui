@@ -1657,6 +1657,14 @@
     },
     {
       "text": "Stage polish: six-line question, mic stays with a quiet Back home, roomy Type your own"
+    },
+    {
+      "text": "Drawer chat list loads even when a chat was opened before the list arrived",
+      "card": "YUI-169"
+    },
+    {
+      "text": "CONTRIBUTING-AGENTS: a claim shows your GitHub username on the board; done means the tile links the demo and the PR",
+      "card": "SITE-110"
     }
   ]
 }
