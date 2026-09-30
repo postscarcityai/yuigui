@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T20:12:05.374Z",
+  "updated": "2026-09-30T20:41:12.316Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -317,6 +317,12 @@
           "waiting": true
         },
         {
+          "key": "YUI-40",
+          "title": "Steps 2-4",
+          "summary": "Siri intents, widget buttons, widget push relay",
+          "progress": "/progress#widgets-and-siri-planned"
+        },
+        {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4",
@@ -406,15 +412,9 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-40",
-          "title": "Steps 2-4",
-          "summary": "Siri intents, widget buttons, widget push relay",
-          "progress": "/progress#widgets-and-siri-planned",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-138",
-          "title": "Today's drawings at phone width and in dark mode",
+          "key": "SITE-139",
+          "title": "Diagrams fit a phone",
+          "summary": "Three-actor sequence and loop labels",
           "owner": "CJohnDesign"
         },
         {
@@ -437,6 +437,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-138",
+          "title": "Today's drawings at phone width and in dark mode",
+          "summary": "Today's drawings, checked on a phone in both themes",
+          "shipped": "2026-09-30",
+          "progress": "/progress#today-s-drawings-checked-on-a-phone-in-both-themes"
+        },
         {
           "key": "YUI-40",
           "title": "Widgets native in the app",
