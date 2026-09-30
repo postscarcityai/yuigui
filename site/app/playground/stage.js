@@ -47,7 +47,7 @@ export function Stage({ open, onClose, agent, children }) {
   };
 
   return (
-    <div className={`yl-stage ${open ? "open" : ""}`} aria-hidden={!open}
+    <div className={`yl-stage ${open ? "open" : ""}`} aria-hidden={!open} inert={!open}
       data-pull={pull.dragging ? "1" : undefined} {...pull.handlers}
       style={drag ? { transform: `translateY(${drag}px)`, transition: "none" } : pull.style}>
       <div className="yl-stagebar" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>

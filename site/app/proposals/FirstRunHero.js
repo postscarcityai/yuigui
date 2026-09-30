@@ -205,7 +205,7 @@ export default function FirstRunHero({ children, title, start = "tf", id }) {
                       const on = crew.includes(r.handle);
                       return (
                         <li key={r.handle} className={`fr-row ${on ? "on" : ""}`} style={{ "--cm": r.c, "--cp": `var(--${r.color})`, "--i": i }}>
-                          <button type="button" className="fr-pickbtn" role="checkbox" aria-checked={on} aria-label={`${on ? "Remove" : "Add"} the ${r.label}`} onClick={() => toggle(r.handle)}>
+                          <button type="button" className="fr-pickbtn" role="checkbox" aria-checked={on} onClick={() => toggle(r.handle)}>
                             <Face m={r} />
                             <span className="fr-who"><b>{r.name}</b><small>{r.line}</small></span>
                             <span className="fr-check" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7" /></svg></span>

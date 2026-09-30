@@ -157,10 +157,10 @@ function useReduced() {
   return r;
 }
 
-export default function ChatFab() {
+export default function ChatFab({ autoOpen = false }) {
   const router = useRouter();
   const path = usePathname() || "/";
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(autoOpen);
   const [msgs, setMsgs] = useState([]);           // { role: "user" | "assistant", content, label? } plus { card } rows
   const [busy, setBusy] = useState(false);
   const [draft, setDraft] = useState("");

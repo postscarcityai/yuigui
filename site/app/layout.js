@@ -1,7 +1,7 @@
 import "./globals.css";
 import Script from "next/script";
 import { Nunito } from "next/font/google";
-import ChatFab from "./components/ChatFab";
+import ChatFab from "./components/ChatFabLoader";
 import Nav from "./components/Nav";
 import GetYui from "./components/GetYui";
 import NotOnEmbed from "./components/NotOnEmbed";

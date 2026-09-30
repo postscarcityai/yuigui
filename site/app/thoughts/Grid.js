@@ -23,7 +23,7 @@ export default function Grid({ items, tags }) {
               {t.lead?.clip ? <span className="th-play" aria-label="Has a clip">▶</span> : null}
             </div>
             <div className="th-meta"><span className={`pill th-tag ${t.tag}`}>{tags[t.tag]?.label}</span><time dateTime={t.date}>{t.nice}</time></div>
-            <h3>{t.title}</h3>
+            <h2>{t.title}</h2>
             <p>{t.dek}</p>
           </Link>
         ))}

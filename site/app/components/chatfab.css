@@ -1,0 +1,50 @@
+/* The chat bubble alone (SITE-133): loaded on every page so the button paints with the page. The chat itself (chat.css) loads with ChatFab on first touch or when the browser is idle. */
+.yc { position: fixed; right: 20px; bottom: 20px; z-index: 40; font-family: var(--font-phone); }
+/* The bubble: Yui's mark on a soft coral shape that floats and slowly changes, with a lavender,
+   mint and butter glow drifting behind it. Still under Reduce Motion. */
+.yc-fab {
+  position: relative; display: block; margin-left: auto; width: 66px; height: 66px; padding: 0; border: 0;
+  background: none; cursor: pointer; animation: yc-float 6s ease-in-out infinite; -webkit-tap-highlight-color: transparent;
+}
+.yc-blob { position: absolute; inset: 0; border-radius: 42% 58% 60% 40% / 45% 45% 55% 55%; }
+.yc-blob-a {
+  background: radial-gradient(120% 120% at 28% 22%, #FFD6DA 0%, #FF9EA7 30%, #FF7E8A 58%, #EE6178 100%);
+  box-shadow: 0 14px 30px rgba(255, 126, 138, .42), inset 0 -7px 14px rgba(150, 30, 70, .22), inset 0 6px 12px rgba(255, 255, 255, .38);
+  animation: yc-morph 9s ease-in-out infinite;
+  transition: scale .25s cubic-bezier(.3, 1.6, .5, 1);
+}
+.yc-blob-b {
+  inset: -7px;
+  background: radial-gradient(circle at 74% 72%, #D9CCF7 0%, transparent 62%), radial-gradient(circle at 22% 78%, #BDEBD6 0%, transparent 58%), radial-gradient(circle at 60% 12%, #FFE8A3 0%, transparent 50%);
+  filter: blur(9px); opacity: .9;
+  animation: yc-morph 13s ease-in-out infinite reverse, yc-turn 26s linear infinite;
+}
+.yc-mark {
+  position: absolute; inset: 0; margin: auto; width: 28px; height: 28px; background: #FFF9F0;
+  -webkit-mask: url(/brand/yui-mark-y.png) center / contain no-repeat; mask: url(/brand/yui-mark-y.png) center / contain no-repeat;
+  animation: yc-breathe 4.5s ease-in-out infinite; transition: opacity .2s ease, transform .3s ease;
+}
+.yc-close { position: absolute; inset: 0; margin: auto; width: 22px; height: 22px; opacity: 0; transform: rotate(-45deg) scale(.6); transition: opacity .2s ease, transform .3s ease; }
+.yc-close::before, .yc-close::after { content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 3px; border-radius: 3px; background: #FFF9F0; transform: translate(-50%, -50%) rotate(45deg); }
+.yc-close::after { transform: translate(-50%, -50%) rotate(-45deg); }
+.yc-fab.is-open .yc-mark { opacity: 0; transform: scale(.5) rotate(30deg); }
+.yc-fab.is-open .yc-close { opacity: 1; transform: none; }
+.yc-fab:hover .yc-blob-a { scale: 1.07; }
+.yc-fab:focus-visible { outline: none; }
+.yc-fab:focus-visible .yc-blob-a { box-shadow: 0 0 0 3px var(--background), 0 0 0 6px var(--link); }
+@keyframes yc-morph {
+  0%, 100% { border-radius: 42% 58% 60% 40% / 45% 45% 55% 55%; transform: rotate(0deg); }
+  33% { border-radius: 58% 42% 38% 62% / 52% 60% 40% 48%; transform: rotate(7deg) scale(1.03); }
+  66% { border-radius: 50% 50% 62% 38% / 38% 55% 45% 62%; transform: rotate(-6deg) scale(.98); }
+}
+@keyframes yc-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes yc-turn { to { rotate: 360deg; } }
+@keyframes yc-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+
+/* SITE-131: over a /crew demo phone the bubble steps aside so the phone's own button is tappable. */
+.yc.is-away, .yc.is-away .yc-fab { pointer-events: none; }
+.yc.is-away .yc-fab { opacity: 0; }
+.yc-fab { transition: opacity .2s ease; }
+@media (max-width: 760px) { .yc { right: 16px; bottom: 16px; } .yc-fab { width: 58px; height: 58px; } }
+@media (prefers-reduced-motion: reduce) { .yc-fab, .yc-blob, .yc-mark { animation: none; } }
+@media print { .yc { display: none; } }
