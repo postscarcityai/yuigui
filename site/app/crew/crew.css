@@ -66,3 +66,8 @@
 .crew-hears { position: relative; margin: 0 0 16px; font-size: var(--fs-small); font-weight: 600; color: var(--muted); }
 .crew-hears span { text-transform: capitalize; font-weight: 800; color: var(--ink); }
 .crew-hears a { font-weight: 800; }
+
+/* The first-minute picker (SITE-116): the proposal hero, sized for a section between the crew row and the members. */
+.prop-hero.embed { min-height: 0; padding: 28px 0 36px; }
+.prop-hero.embed .fr-phone.phone { height: min(700px, 86svh); }
+@media (max-width: 900px) { .prop-hero.embed .prop-hero-text { order: -1; } }

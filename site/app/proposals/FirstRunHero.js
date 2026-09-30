@@ -37,9 +37,10 @@ const Bar = () => (
   <div className="fr-status" aria-hidden="true"><span>9:41</span><i className="fr-notch" /><span className="fr-icons"><em /><em /><em /></span></div>
 );
 
-export default function FirstRunHero({ children, title }) {
+// `start` opens the phone on a later step and keeps it still (the /crew embed, SITE-116); `id` names the section.
+export default function FirstRunHero({ children, title, start = "tf", id }) {
   const { reduced, dark } = usePrefs();
-  const [step, setStep] = useState("tf");
+  const [step, setStep] = useState(start);
   const [dir, setDir] = useState("fwd");
   const [tf, setTf] = useState("idle");
   const [signing, setSigning] = useState(false);
@@ -71,9 +72,9 @@ export default function FirstRunHero({ children, title }) {
   const stop = useCallback(() => { clear(); setAuto(false); }, []);
 
   const reset = useCallback(() => {
-    setStep("tf"); setDir("fwd"); setTf("idle"); setSigning(false); setCrew([]); setOwnAgent(null);
+    setStep(start); setDir("fwd"); setTf("idle"); setSigning(false); setCrew([]); setOwnAgent(null);
     setTab("about"); setShot(0); setOwnPick(null); setThread(null);
-  }, []);
+  }, [start]);
 
   // Install runs by itself, then waits for Open; signing in runs by itself, then Yui says hi.
   useEffect(() => {
@@ -105,11 +106,11 @@ export default function FirstRunHero({ children, title }) {
     return clear;
   }, [auto, run, reduced, reset, go]);
 
-  useEffect(() => { setAuto(!window.matchMedia("(prefers-reduced-motion: reduce)").matches); return clear; }, []);
+  useEffect(() => { setAuto(start === "tf" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches); return clear; }, [start]);
 
   const toggle = (h) => setCrew((c) => (c.includes(h) ? c.filter((x) => x !== h) : [...c, h]));
   const openDig = (h) => { setDug(h); setTab("about"); setShot(0); go("dig"); };
-  const replay = () => { reset(); setAuto(!reduced); setRun((r) => r + 1); };
+  const replay = () => { reset(); setAuto(start === "tf" && !reduced); setRun((r) => r + 1); };
   const jump = (id) => {
     stop();
     if (id === "dig" && !byHandle(dug)) setDug("basil");
@@ -141,7 +142,7 @@ export default function FirstRunHero({ children, title }) {
   );
 
   return (
-    <section className={`prop-hero fr ${reduced ? "still" : ""}`} data-slot="hero" aria-labelledby="prop-h">
+    <section id={id} className={`prop-hero fr ${reduced ? "still" : ""}${start !== "tf" ? " embed" : ""}`} data-slot="hero" aria-labelledby="prop-h">
       <div className="prop-hero-text">
         {children}
         {rail(false)}

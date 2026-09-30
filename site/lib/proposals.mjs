@@ -26,7 +26,7 @@ export const FIELDS = [
 ];
 const META = ["id", "title", "summary", "status", "date", "becomes", "cost", "call"];
 // Credits and trail. `sources` is "name | url ; name | url", the url optional. branch and pr are GitHub urls.
-export const CREDIT_META = ["by", "by_url", "sources", "taken_by", "card", "branch", "pr", "release"];
+export const CREDIT_META = ["by", "by_url", "sources", "taken_by", "card", "branch", "pr", "release", "demo"];
 const isUrl = (u) => /^https:\/\/[^\s/]+\.[^\s/]+\S*$/.test(u);
 const isGithub = (u) => /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/(tree|pull)\/\S+$/.test(u);
 
@@ -71,6 +71,7 @@ export function lint(p) {
   for (const k of ["by_url", "branch", "pr"]) if (p[k] && !isUrl(p[k])) out.push(`${k} "${p[k]}" is not an https url`);
   if (p.branch && isUrl(p.branch) && !isGithub(p.branch)) out.push(`branch "${p.branch}" is not a GitHub branch url`);
   if (p.pr && isUrl(p.pr) && !isGithub(p.pr)) out.push(`pr "${p.pr}" is not a GitHub pull request url`);
+  if (p.demo && !/^\/[\w\-/#?=.]*$/.test(p.demo)) out.push(`demo "${p.demo}" is not a site path like /crew#pick`);
   if (p.by_url && !p.by) out.push("by_url needs by");
   if (p.card && !/^[A-Z]+-\d+$/.test(p.card)) out.push(`card "${p.card}" is not a board key like SITE-106`);
   if (p.release && p.status !== "Shipped") out.push("release needs status Shipped");

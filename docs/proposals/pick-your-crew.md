@@ -4,6 +4,7 @@ title: Pick your crew
 summary: A new user picks which agents join, instead of getting all six at once.
 status: Building
 card: YUI-216
+demo: /crew#pick-your-crew
 date: 2026-09-28
 becomes: An onboarding epic in the app (first-run flow), cards to follow
 cost: M

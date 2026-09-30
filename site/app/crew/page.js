@@ -5,9 +5,11 @@ import Link from "next/link";
 import LivePhone from "../mockups/LivePhone";
 import CrewVisual from "./CrewVisual";
 import { CREW_VISUALS } from "../../lib/yl/visual.mjs";
+import FirstRunHero from "../proposals/FirstRunHero";
 import AgentBox from "../components/AgentBox";
 import { MEMBERS, inNext, NEXT_LABEL, hearsLabel } from "../../lib/crew-page.mjs";
 import { encodeYL } from "../../lib/share-code.mjs";
+import "../proposals/proposals.css";
 import "./crew.css";
 import { pageMeta } from "../../lib/og/meta.mjs";
 
@@ -42,6 +44,13 @@ export default async function Crew() {
           </a>
         ))}
       </nav>
+
+      <FirstRunHero id="pick-your-crew" title="Pick your crew" start="pick">
+        <div className="eyebrow">Try the first minute</div>
+        <h2 id="prop-h">Pick your crew.</h2>
+        <p className="lede">A new account does not get six threads. Yui asks who joins. Tap a row to add it, tap the i for a short page on what it does, or bring an agent you already run.</p>
+        <p className="crew-links"><Link href="/proposals/pick-your-crew" prefetch={false}>Read the proposal</Link></p>
+      </FirstRunHero>
 
       {MEMBERS.map((m, i) => (
         <section key={m.handle} id={m.handle} className={`crew-m${i % 2 ? " flip" : ""}`} style={{ "--cm": m.c, "--cp": `var(--${m.color})` }} aria-labelledby={`${m.handle}-h`}>

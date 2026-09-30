@@ -68,6 +68,7 @@ export default async function Proposal({ params }) {
       <p className="lede">{p.summary}</p>
       <p className="prop-chips">
         <span className={`pill prop-status ${toSlug(p.status)}`}>{p.status}</span>
+        {p.demo && <Link className="pill prop-status shipped" href={p.demo} prefetch={false}>Built in the app: try it</Link>}
         <span className={`pill prop-call ${p.call === "recommend" ? "yes" : "no"}`}>{CALLS[p.call]}</span>
       </p>
       <a className="prop-down" href="#proposal">Read the proposal</a>
