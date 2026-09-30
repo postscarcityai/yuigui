@@ -1827,6 +1827,10 @@
     },
     {
       "text": "A tick made on a widget survives the next shelf publish (YUI-40 step 3)"
+    },
+    {
+      "text": "an agent coaches a timed workout: Start opens a session that runs on its own clock, coach cue per move, Next line on each rest, failure last set for heavy lifters only, finish writes the log",
+      "card": "YUI-220"
     }
   ]
 }

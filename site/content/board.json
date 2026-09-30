@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T22:05:17.827Z",
+  "updated": "2026-09-30T22:40:27.804Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -198,12 +198,6 @@
           "summary": "Your profile top left, your $U top right, counting up when you open it"
         },
         {
-          "key": "YUI-221",
-          "title": "Basil's first plan",
-          "summary": "How you eat, then a week of meals",
-          "waiting": true
-        },
-        {
           "key": "YUI-222",
           "title": "Gouda's first plan",
           "summary": "Your instrument and level, then a practice plan",
@@ -337,10 +331,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-141",
-          "title": "The web twin of YUI-220"
-        },
-        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -405,8 +395,14 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-220",
-          "title": "Start to finish",
+          "key": "SITE-141",
+          "title": "The web twin of YUI-220",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-221",
+          "title": "Basil's first plan",
+          "summary": "How you eat, then a week of meals",
           "owner": "CJohnDesign"
         },
         {
@@ -429,6 +425,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-220",
+          "title": "Start to finish",
+          "summary": "Start a workout and it runs on its own clock",
+          "shipped": "2026-09-30",
+          "progress": "/progress#start-a-workout-and-it-runs-on-its-own-clock",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c7ae519"
+        },
         {
           "key": "SITE-140",
           "title": "Widgets and Siri page shows what YUI-40 really built",
@@ -3670,7 +3674,7 @@
           "title": "Yui social drafter cron + copy validator (drafts only, Chris approves)",
           "shipped": "2026-09-24",
           "progress": "/progress#a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/81b1f85"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1fd2430"
         },
         {
           "key": "YUI-27",
