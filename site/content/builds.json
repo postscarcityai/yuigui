@@ -1702,6 +1702,10 @@
     },
     {
       "text": "Chat mic keeps its own trash in the listening bar, no second one; stage trash shot test"
+    },
+    {
+      "text": "the agent's first plan: one intake (goal, days, time, gear, experience, Not sure, Skip) builds the week and saves the answers",
+      "card": "YUI-217"
     }
   ]
 }

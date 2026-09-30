@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T04:41:21.671Z",
+  "updated": "2026-09-30T05:11:06.531Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -352,6 +352,13 @@
           "progress": "/progress#pick-your-crew"
         },
         {
+          "key": "YUI-217",
+          "title": "A first plan in every agent",
+          "summary": "A first plan from Coach",
+          "waiting": true,
+          "progress": "/progress#a-first-plan-from-coach"
+        },
+        {
           "key": "YUI-218",
           "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
           "waiting": true
@@ -441,7 +448,8 @@
         {
           "key": "NOTE-35460",
           "title": "A real coach for workouts",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#a-first-plan-from-coach"
         },
         {
           "key": "NOTE-45919",
@@ -463,12 +471,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "SITE-115",
-          "title": "Link YUI-219 and SITE-113 on the site, with a before/after of the lone ask",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/5ade13f",
-          "needsDemo": true
         }
       ]
     },
@@ -484,13 +486,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-217",
-          "title": "A first plan in every agent",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-117",
-          "title": "Link SITE-115, and the site composer catches up to the typing and trash fixes",
+          "key": "SITE-118",
+          "title": "Try the trainer's first plan on the site (PROP-4 web parity)",
           "owner": "CJohnDesign"
         }
       ]
@@ -500,12 +497,28 @@
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "SITE-117",
+          "title": "Link SITE-115, and the site composer catches up to the typing and trash fixes",
+          "summary": "The site catches up on typing",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-site-catches-up-on-typing",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3a324c4"
+        },
+        {
           "key": "SITE-116",
           "title": "Try Pick your crew on the site, web parity for YUI-216",
           "summary": "Try picking your crew on the site",
           "shipped": "2026-09-30",
           "progress": "/progress#try-picking-your-crew-on-the-site",
           "commit": "https://github.com/postscarcityai/yuigui/commit/359f684"
+        },
+        {
+          "key": "SITE-115",
+          "title": "Link YUI-219 and SITE-113 on the site, with a before/after of the lone ask",
+          "summary": "The lone ask, on the site",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-lone-ask-on-the-site",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3a324c4"
         },
         {
           "key": "SITE-114",
