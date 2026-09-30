@@ -1,27 +1,12 @@
 {
-  "updated": "2026-09-30T16:41:09.032Z",
+  "updated": "2026-09-30T17:11:17.841Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.6.2",
-    "status": "shipped",
-    "startedAt": "2026-09-30T12:03:07.000Z",
-    "shippedAt": "2026-09-30T16:31:07.000Z",
-    "cards": [
-      {
-        "key": "YUI-230",
-        "title": "Allow notifications shows once, after the first plan",
-        "status": "done",
-        "shipped": "2026-09-30",
-        "progress": "/progress#yui-asks-about-notifications-after-your-first-plan"
-      },
-      {
-        "key": "YUI-233",
-        "title": "On a real account",
-        "status": "done",
-        "shipped": "2026-09-30",
-        "progress": "/progress#open-on-yui-s-card-lands-on-the-first-question"
-      }
-    ]
+    "version": null,
+    "status": "shipping",
+    "startedAt": "2026-09-30T17:09:53.000Z",
+    "shippedAt": null,
+    "cards": []
   },
   "columns": [
     {
@@ -191,11 +176,6 @@
           "key": "YUI-179",
           "title": "Yui for Apple TV",
           "summary": "Timers and the stage on the big screen"
-        },
-        {
-          "key": "YUI-208",
-          "title": "Last page keeps the mic; Back home and New chat move onto the page, and a spoken note goes in with the picks as one answer",
-          "waiting": true
         },
         {
           "key": "YUI-210",
@@ -379,11 +359,6 @@
           "progress": "/progress#typing-trash-and-looper-fixes"
         },
         {
-          "key": "NOTE-14923",
-          "title": "Send up to 12 photos",
-          "waiting": true
-        },
-        {
           "key": "NOTE-18306",
           "title": "Tuner as Gouda's last screen",
           "waiting": true
@@ -430,6 +405,11 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
+          "key": "YUI-208",
+          "title": "Last page keeps the mic; Back home and New chat move onto the page, and a spoken note goes in with the picks as one answer",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -441,6 +421,12 @@
           "summary": "Jev at two decision points, measured against today",
           "blocked": "chris",
           "progress": "/progress#jev-at-two-decision-points-measured-against-today",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-14923",
+          "title": "Send up to 12 photos",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]

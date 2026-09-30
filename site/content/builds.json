@@ -1770,6 +1770,12 @@
     {
       "text": "Jev at two decision points, in shadow: the reply shape in the Hermes plugin and a tool router for the native crew, measured against today",
       "card": "YUI-215"
+    },
+    {
+      "text": "testflight.sh refuses a second upload inside 24 h, --hotfix \"<reason>\" overrides [YUI-SHIP]"
+    },
+    {
+      "text": "Send up to 12 photos in one message; the native agent sees all 12"
     }
   ]
 }
