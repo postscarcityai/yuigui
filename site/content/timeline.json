@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 406,
-    "site": 955,
+    "app": 409,
+    "site": 958,
     "builds": 51,
-    "shipped": 478,
-    "screenshots": 1211
+    "shipped": 479,
+    "screenshots": 1219
   },
   "days": [
     {
@@ -13,7 +13,55 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T23:07:09.683Z",
+          "at": "2026-09-30T23:51:15.286Z",
+          "title": "The app runs flows",
+          "card": "YUI-115",
+          "anchor": "the-app-runs-flows",
+          "images": [
+            {
+              "src": "/progress/yui115-dark-step.webp",
+              "alt": "A flow's first question on a full screen, dark: Step 1 of 5, tap a choice"
+            },
+            {
+              "src": "/progress/yui115-dark-back.webp",
+              "alt": "Back returns to the days step with Mon and Wed still picked, dark"
+            },
+            {
+              "src": "/progress/yui115-dark-resumed.webp",
+              "alt": "After the app was killed mid-flow, it reopens on step 3 of 5, dark"
+            },
+            {
+              "src": "/progress/yui115-dark-review.webp",
+              "alt": "The review lists every answer with an Edit button and one send button, dark"
+            },
+            {
+              "src": "/progress/yui115-light-step.webp",
+              "alt": "A flow's first question on a full screen, light: Step 1 of 5"
+            },
+            {
+              "src": "/progress/yui115-light-back.webp",
+              "alt": "Back returns to the days step with Mon and Wed still picked, light"
+            },
+            {
+              "src": "/progress/yui115-light-resumed.webp",
+              "alt": "After the app was killed mid-flow, it reopens on step 3 of 5, light"
+            },
+            {
+              "src": "/progress/yui115-light-review.webp",
+              "alt": "The review lists every answer with an Edit button and one send button, light"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 409,
+            "site": 958,
+            "builds": 51,
+            "shipped": 479
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T23:07:13.000Z",
           "title": "Try Basil's real week on /crew",
           "card": "SITE-142",
           "anchor": "try-basil-s-real-week-on-crew",
@@ -27,10 +75,10 @@
               "alt": "Light mode: the same example week, three days, each with calories and three meals."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
-            "app": 406,
-            "site": 955,
+            "app": 407,
+            "site": 956,
             "builds": 51,
             "shipped": 478
           }
@@ -1677,6 +1725,48 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "388a4bd",
+          "at": "2026-09-30T23:50:27.000Z",
+          "text": "Plugin: builds from 414 run flows, older ones still get the plan (YUI-115 step 4)",
+          "url": "https://github.com/postscarcityai/yui/commit/388a4bd"
+        },
+        {
+          "repo": "app",
+          "sha": "a0f8727",
+          "at": "2026-09-30T23:50:01.000Z",
+          "text": "The app runs flows: one step at a time on the stage, Back walks the path, review lists the path's answers, one {flow, path} event, a run...",
+          "url": "https://github.com/postscarcityai/yui/commit/a0f8727"
+        },
+        {
+          "repo": "site",
+          "sha": "e0e1edd",
+          "at": "2026-09-30T23:40:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e0e1edd"
+        },
+        {
+          "repo": "site",
+          "sha": "766f26d",
+          "at": "2026-09-30T23:10:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/766f26d"
+        },
+        {
+          "repo": "site",
+          "sha": "2d522bd",
+          "at": "2026-09-30T23:07:13.000Z",
+          "text": "Basil's first plan on /crew ends in a real week: your days, meals a day, leave-outs and cook time (SITE-142)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2d522bd"
+        },
+        {
+          "repo": "app",
+          "sha": "6862552",
+          "at": "2026-09-30T23:05:28.000Z",
+          "text": "YuiLines reads flows and flow variants: Mermaid graph, route, event, variants; 26-flow and 36-flow-variant pass (YUI-115 step 1)",
+          "url": "https://github.com/postscarcityai/yui/commit/6862552"
+        },
         {
           "repo": "site",
           "sha": "ffa2c6c",
