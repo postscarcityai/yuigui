@@ -34,6 +34,7 @@ import { PageDots, usePager } from "./ChatDots";
 import { RichText } from "../playground/richtext";
 import { KeepCtx, stopVoices } from "../playground/music/keep";
 import "../playground/stagemotion.css";
+import "../playground/draw.css";
 import "./chat.css";
 
 const Screen = dynamic(() => import("./ChatScreen"), { ssr: false, loading: () => <div className="yc-wait">Drawing...</div> });
