@@ -169,9 +169,11 @@ function Other({ onSubmit }) {
   const [v, setV] = useState("");
   if (!open) return <button className="chip" onClick={() => setOpen(true)}>Type your own</button>;
   return (
-    <form className="yl-otherin" onSubmit={(e) => { e.preventDefault(); if (v.trim()) onSubmit(v.trim()); }}>
-      <input autoFocus value={v} onChange={(e) => setV(e.target.value)} placeholder="Type it" />
-      <button className="chip on">Send</button>
+    <form className="yl-otherin roomy" onSubmit={(e) => { e.preventDefault(); if (v.trim()) onSubmit(v.trim()); }}>
+      <textarea autoFocus rows={3} value={v} maxLength={500} aria-label="Type your own" placeholder="Type your own answer"
+        onChange={(e) => setV(e.target.value)}
+        onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); if (v.trim()) onSubmit(v.trim()); } }} />
+      <button className="chip on" disabled={!v.trim()}>Send</button>
     </form>
   );
 }

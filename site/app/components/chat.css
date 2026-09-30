@@ -77,7 +77,7 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-round:hover { background: var(--raised); }
 .ys-round svg { width: 21px; height: 21px; stroke: currentColor; }
 .ys-rec i { position: absolute; top: -2px; right: -2px; min-width: 19px; height: 19px; padding: 0 5px; border-radius: 10px; background: var(--brand); color: var(--on-brand); font-size: 11px; font-weight: 800; font-style: normal; display: grid; place-items: center; }
-.ys-me { position: relative; z-index: 1; margin: 2px 18px 0 60px; align-self: flex-end; max-width: 80%; font-size: 13.5px; color: var(--muted); text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; animation: mo-in-fade var(--mo-enter) var(--mo-ease) both; }
+.ys-me { position: relative; z-index: 1; margin: 2px 18px 0 60px; align-self: flex-end; max-width: 80%; font-size: 13.5px; color: var(--muted); text-align: right; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5; line-clamp: 5; line-height: 1.35; overflow-wrap: anywhere; animation: mo-in-fade var(--mo-enter) var(--mo-ease) both; }
 .ys-center { position: relative; z-index: 1; flex: 1; min-height: 0; display: flex; flex-direction: column; }
 .ys-mid { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: 12px 24px; text-align: center; }
 .ys .mo-presence { width: 150px; height: 150px; }
@@ -139,12 +139,14 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-mic:disabled { opacity: .5; cursor: default; transform: none; }
 /* SITE-84: while Yui works the mic (or the send arrow) is a stop square. */
 .ys-mic.ys-stop svg { width: 24px; height: 24px; stroke: none; }
-/* SITE-98: a way home. Close top left of the stage; on the last part Back home takes the mic's place, same size and shadow as the stop square. */
+/* SITE-98: a way home. Close top left of the stage; on the last part a quiet Back to home sits under the content. */
 .ys-homex { position: absolute; left: 18px; top: 22px; z-index: 4; min-height: 36px; padding: 0 16px; display: grid; place-items: center; border-radius: 999px; border: 0; background: var(--surface); color: var(--ink); font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; }
 .ys-homex:hover { background: var(--raised); }
 .ys-play[data-pull] { will-change: transform; }
 .ys-play:not([data-pull]) { transition: transform .32s cubic-bezier(.2,.9,.25,1.05); }
-.ys-mic.ys-homebtn { width: auto; min-width: 66px; padding: 0 28px; border-radius: 33px; font: inherit; font-weight: 800; font-size: 17px; }
+/* SITE-108: the mic stays on the last part; Back home is a quiet button under the content. */
+.ys-homeq { align-self: center; flex: none; min-height: 40px; margin-top: 6px; padding: 0 22px; border-radius: 999px; border: 0; background: transparent; color: var(--muted); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.ys-homeq:hover { background: var(--surface); color: var(--ink); }
 .ys-reopen { margin-top: 6px; }
 .yc-send.yc-stop { display: grid; place-items: center; }
 .yc-send.yc-stop svg { width: 18px; height: 18px; fill: currentColor; }
@@ -334,3 +336,5 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-top .yc-avatar.yc-crew-face { width: 38px; height: 38px; font-size: 17px; }
 @keyframes yc-crew-in { from { opacity: 0; transform: translateY(10px) scale(.97); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .yc-crew-row { animation: none; } }
+/* SITE-108: with no segments the Close pill sits alone on top, so the content starts under it. */
+.ys-play:not(:has(.ys-segs)) .ys-scroll { padding-top: 58px; }

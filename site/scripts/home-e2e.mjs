@@ -49,7 +49,7 @@ async function pull(pg, from, by, steps = 8, x = 195) {
   await shot(pg, "site98-chat-home");
   await reopen(pg);
   ok(await pg.locator(".ys-homex").isVisible(), "a close sits on the stage");
-  ok(await pg.locator(".ys-homebtn").count() === 0, "a plan mid-run has no Back home in the mic's place");
+  ok(await pg.locator(".ys-homeq").count() === 0, "a plan mid-run has no Back to home under the content");
   await shot(pg, "site98-chat-plan-close");
   await pg.locator(".ys-homex").click();
   ok(await home(pg), "close mid-plan lands on the chat home");
@@ -59,24 +59,21 @@ async function pull(pg, from, by, steps = 8, x = 195) {
   await ctx.close();
 }
 
-// 2. Back home on the last part, same place as the mic and the stop square.
+// 2. Back to home on the last part: a quiet button under the content, the mic stays (SITE-108).
 {
   const { pg, calls, ctx } = await open(TEXT, "dark");
   await reopen(pg);
-  ok(await pg.locator(".ys-homebtn").count() === 0, "no Back home on the first part");
-  const mic = await pg.locator(".ys-mic").boundingBox();
+  ok(await pg.locator(".ys-homeq").count() === 0, "no Back to home on the first part");
   await pg.getByRole("button", { name: "Next part" }).click();
   await pg.getByRole("button", { name: "Next part" }).click();
   await pg.waitForTimeout(500);
-  const btn = pg.locator(".ys-homebtn");
-  ok(await btn.count() === 1, "Back home shows on the last part");
-  const at = await btn.boundingBox();
-  ok(Math.abs(at.y - mic.y) < 2 && Math.abs(at.height - mic.height) < 2 && Math.abs(at.x + at.width - (mic.x + mic.width)) < 2, "Back home has the mic's place and height");
-  ok(await pg.locator(".ys-mic:not(.ys-homebtn)").count() === 0, "it takes the mic's place");
+  const btn = pg.locator(".ys-homeq");
+  ok(await btn.count() === 1, "Back to home shows on the last part");
+  ok(await pg.locator(".ys-mic:not(.ys-stop)").count() === 1, "the mic stays in the bar");
   await shot(pg, "site98-chat-backhome");
   await btn.click();
-  ok(await home(pg), "Back home lands on the chat home");
-  ok(calls.length === 0, `Back home sent no request (saw ${calls.join(",")})`);
+  ok(await home(pg), "Back to home lands on the chat home");
+  ok(calls.length === 0, `Back to home sent no request (saw ${calls.join(",")})`);
   await ctx.close();
 }
 

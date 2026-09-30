@@ -59,7 +59,7 @@ export default function ChatStage({ content, live, onTap, onAnswers, Text, go, a
   const asking = a.questions.length > 0 && at >= last && !sent;
 
   const pull = useDragDown(() => onHome?.());
-  // Past the last part (and its questions sent), the chat swaps the mic for Back home (SITE-98).
+  // Past the last part (and its questions sent), the chat shows a quiet Back to home under the content (SITE-98, SITE-108).
   // A plan or flow plays its own steps and sends at its own end, so it is never "the end" here.
   const runs = /^(plan|flow|steps)$/.test(a.chunks[Math.min(at, last)]?.pic?.preset || "");
   const atEnd = at >= last && !runs && (a.questions.length === 0 || sent);

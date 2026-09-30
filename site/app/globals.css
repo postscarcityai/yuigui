@@ -498,6 +498,10 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .chips.big .chip { font-size: 14px; padding: 10px 16px; }
 .pg-screen .chip { cursor: pointer; }
 .yl-otherin { display: flex; gap: 6px; flex: 1; min-width: 180px; }
+.yl-otherin.roomy { flex-basis: 100%; flex-direction: column; align-items: stretch; gap: 8px; }
+.yl-otherin.roomy textarea { width: 100%; min-height: 84px; resize: vertical; background: #1a1d2c; border: 1px solid #2f3348; color: var(--text); border-radius: 14px; padding: 12px 14px; font: inherit; font-size: 16px; line-height: 1.4; }
+.yl-otherin.roomy .chip { align-self: flex-end; padding: 10px 22px; }
+.screen.light .yl-otherin.roomy textarea { background: #f4f5fa; border-color: #d6d9e6; }
 .yl-otherin input, .yl-field input:not([type=range]):not([type=file]), .yl-field textarea, .yl-voicefield input { flex: 1; min-width: 0; background: #1a1d2c; border: 1px solid #2f3348; color: var(--text); border-radius: 12px; padding: 10px 12px; font: inherit; font-size: 14px; }
 .yl-timer { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 10px 0; }
 .yl-timer .ring { transition: background .1s linear; }

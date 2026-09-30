@@ -180,7 +180,7 @@ export default function ChatFab() {
   const [toast, setToast] = useState("");         // one quiet line after a share
   const [pageAt, setPageAt] = useState("1");      // the screen on show: "1" the chat, "2".."12" a page
   const [jump, setJump] = useState(0);            // bumps when a reply lands, to bring its page forward
-  const [ended, setEnded] = useState(false);       // the stage is on its last part (SITE-98): Back home takes the mic's place
+  const [ended, setEnded] = useState(false);       // the stage is on its last part (SITE-98): a quiet Back to home shows under the content, the mic stays
   const [halted, setHalted] = useState(false);    // the last turn was stopped: the stage says so
   const flight = useRef(null);                    // the turn in flight (lib/chat/stop.mjs)
   if (!flight.current) flight.current = turns();
@@ -484,6 +484,7 @@ export default function ChatFab() {
     center = (
       <>
         <StageAnswer key={`${playing}:${playKey}`} content={answer.content} live={playing === lastAnswer && !busy} onTap={tap} onAnswers={answerAll} Text={Text} go={go} active={!record && !typing && onChat} onEdge={(d) => goIndex(at + d)} onHome={home} onEnd={setEnded} at={answer.at} />
+        {onChat && ended && !listening ? <button className="ys-homeq" onClick={home}>Back to home</button> : null}
         {toast ? <div className="ys-went" role="status">{toast}</div> : null}
         {went ? <div className="ys-went">Taking you to <a href={went.path} onClick={(e) => { e.preventDefault(); go(went.path); }}>{went.label}</a></div> : null}
       </>
@@ -551,7 +552,7 @@ export default function ChatFab() {
                 {canTalk ? <>
                   <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type">T</button>
                   {busy && !listening ? <button className="ys-mic ys-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
-                    : onChat && stageUp && ended && !listening ? <button className="ys-mic ys-homebtn" onClick={home}>Back home</button> : (
+                    : (
                     <button className={`ys-mic${listening ? " live" : ""}`} onClick={listen} aria-label={listening ? "Stop listening" : "Talk to Yui"}>
                       <span className="mo-ring" /><span className="mo-ring r2" />
                       <MicIcon />
