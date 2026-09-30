@@ -1,4 +1,4 @@
-// The shader look, round 2 (spec/SHADER.md): four directions, one uniform set.
+// The shader look, the alternate looks (spec/SHADER.md): three directions, one uniform set.
 //   node site/lib/visual/directions.test.mjs     exit 1 on any failure
 import { DIRECTIONS, DIRECTION_IDS } from "./directions.mjs";
 import { ACTIONS } from "./action.mjs";
@@ -7,7 +7,7 @@ let bad = 0, n = 0;
 const ok = (name, cond) => { n++; if (!cond) { bad++; console.log(`FAIL ${name}`); } };
 const UNIFORMS = ["u_res", "u_time", "u_since", "u_think", "u_read", "u_run", "u_search", "u_done", "u_size", "u_wobble", "u_grain", "u_glow", "u_voice", "u_dim", "u_a", "u_b", "u_c", "u_ground"];
 
-ok("four directions", DIRECTION_IDS.join() === "currents,terrain,dots,type");
+ok("three alternates, Terrain gone", DIRECTION_IDS.join() === "currents,type,dots");
 for (const id of DIRECTION_IDS) {
   const d = DIRECTIONS[id];
   ok(`${id}: says every state`, ACTIONS.every((a) => typeof d.states[a] === "string" && d.states[a].length > 8));

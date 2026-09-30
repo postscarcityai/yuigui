@@ -1,17 +1,18 @@
-// The shader look (spec/SHADER.md, t_b8ab6ac3 step 1): one blob in the middle
-// for every agent, and what the agent is doing shows in how the blob moves.
-// This is the reference the app's Metal port will follow: the states, the
-// word-to-state rule, the eased weights and the per-agent numbers.
+// The shader blob (spec/SHADER.md, YUI-232): one blob in the middle for every
+// agent, drawn by the shader, and what the agent is doing shows in its SHAPE.
+// This is the reference the app's Metal port follows: the states, the word to
+// state rule, the eased weights and the per-agent numbers.
 
-export const ACTIONS = ["idle", "thinking", "reading", "running", "searching", "done"];
+export const ACTIONS = ["idle", "thinking", "reading", "running", "searching", "talking", "done"];
 
 export const ACTION_INFO = {
-  idle: { name: "Idle", motion: "Breathes slowly.", when: "Nothing is happening." },
-  thinking: { name: "Thinking", motion: "The inside turns over itself.", when: "The working word, or a doing with no clue." },
-  reading: { name: "Reading", motion: "A band of light sweeps down the blob, line after line.", when: "read, open, review, check, scan, look at" },
-  running: { name: "Running", motion: "A steady beat sends rings outward.", when: "run, build, deploy, test, send, install, write, save" },
-  searching: { name: "Searching", motion: "A small light circles the blob and the blob leans after it.", when: "search, find, look up, browse, fetch" },
-  done: { name: "Done", motion: "One bright ring, then it settles.", when: "The reply arrives." },
+  idle: { name: "Idle", shape: "A perfect circle", motion: "It breathes slowly.", when: "Nothing is happening." },
+  thinking: { name: "Thinking", shape: "A cloud", motion: "Five soft puffs turn slowly, and the inside turns over.", when: "The working word, or a doing with no clue." },
+  reading: { name: "Reading", shape: "A football", motion: "It lies on its side and a band of light reads across it.", when: "read, open, review, check, scan, look at" },
+  running: { name: "Running", shape: "A rounded square", motion: "It turns a quarter on every beat.", when: "run, build, deploy, test, send, install, write, save" },
+  searching: { name: "Searching", shape: "A drop", motion: "Its point sweeps round and the blob leans after it.", when: "search, find, look up, browse, fetch" },
+  talking: { name: "Talking", shape: "A tall pill", motion: "It stretches and ripples with the voice, smoothed.", when: "The agent's voice is playing." },
+  done: { name: "Done", shape: "The circle again", motion: "One pop and one ring, then it settles.", when: "The reply arrives." },
 };
 
 // The verbs a `doing` line's words can start with, or hold. First hit wins,
@@ -83,7 +84,16 @@ export function withinKnobs(look) {
   return Object.entries(KNOBS).every(([k, [lo, hi]]) => look[k] >= lo && look[k] <= hi);
 }
 
-// The hook for later: agents do not speak yet. When they do, `voice` (0..1,
-// the same follower as spec/VISUAL.md section 4) drives the blob's size and
-// the edge, and the inside brightens. It is one number in, nothing else.
-export const AUDIO_HOOK = { uniform: "u_voice", drives: ["size", "edge", "inner light"], from: "the agent's voice, through the look's envelope" };
+// The voice: one number in, `u_voice` 0..1. It swells the blob, stretches the
+// talking pill and brightens the inside. Agents barely speak yet; the app
+// already feeds it the level its visual hears.
+export const AUDIO_HOOK = { uniform: "u_voice", drives: ["size", "the talking pill's stretch", "edge", "inner light"], from: "the agent's voice, through a smooth follower" };
+
+// The voice, smoothed: a slow attack and a slower release, so the blob swells
+// with a phrase and never jitters with each syllable. ms at pace 1.
+export const VOICE_FOLLOW = { attack: 180, release: 900 };
+export function followVoice(prev, input, dtMs) {
+  const x = Math.min(1, Math.max(0, Number.isFinite(input) ? input : 0));
+  const k = 1 - Math.exp(-Math.max(0, dtMs) / (x > prev ? VOICE_FOLLOW.attack : VOICE_FOLLOW.release));
+  return prev + (x - prev) * k;
+}

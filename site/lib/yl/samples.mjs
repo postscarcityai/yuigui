@@ -231,15 +231,15 @@ say "Breathe in for four. Out for six."`,
     yl: `say "This light is mine. It stays quiet unless you talk."`,
   },
   {
-    // The shader look (spec/SHADER.md, t_b8ab6ac3 step 1): the line blob
-    // retires; one WebGL blob for every agent shows what it is doing
-    // (playground/shaderlook.js). Pick a doing, an agent, or type nothing.
-    name: "The shader look: four ways to show what it is doing",
+    // The shader blob (spec/SHADER.md, YUI-232): the line blob retires; one
+    // shader blob for every agent changes shape with what it is doing
+    // (playground/shaderlook.js). Currents, Type and Dots are alternates.
+    name: "The shader blob: a shape for what it is doing",
     slug: "shader-look",
     agent: "Yui",
     shaderlook: true,
     yl: `doing "Reading your calendar"
-say "Four looks, no blob. Each one moves with what I am doing."`,
+say "One blob. Its shape says what I am doing."`,
   },
   {
     name: "The visual: orb on a voice",

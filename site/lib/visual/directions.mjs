@@ -1,9 +1,10 @@
-// The shader look, round 2 (spec/SHADER.md, t_b8ab6ac3): four directions
-// that are not a blob. Chris, Sep 29: "They're still kind of blobby, and I
+// The alternate looks (spec/SHADER.md, YUI-232). Round 2 offered four
+// directions that are not a blob; Chris picked Currents, Type and Dots to try
+// and dropped Terrain. The default is the shader blob (actionshader.mjs). Chris, Sep 29: "They're still kind of blobby, and I
 // think we can get more interesting." Each direction is one WebGL 1 fragment
 // shader for every agent and every state, same uniforms as the round 1 blob
 // (actionshader.mjs), so the picker, the eased weights and the agent rows
-// carry over. The one he picks becomes the Metal port.
+// carry over.
 //
 // Uniforms (every direction):
 //   u_res u_time            canvas pixels, seconds (already scaled by pace)
@@ -102,52 +103,7 @@ void main() {
   m = max(m, ring * 0.9);
 ${TAIL}`;
 
-// 2. Terrain: a topographic map, filled terraces and contour lines, every
-// fourth one heavier. Cost: 3 terrain samples (9 fbm) a pixel; the dearest.
-const TERRAIN = `${HEAD}
-float terr(vec2 p) {
-  vec2 q = p * 1.3 * u_size;
-  float t = u_time * (0.03 + 0.16 * u_think);
-  vec2 w = vec2(fbm(q * 1.2 + vec2(t, 0.0)), fbm(q * 1.2 + vec2(5.2, -t))) - 0.5;
-  float h = fbm(q + (0.3 + 0.8 * u_think) * u_wobble * w + vec2(0.0, t * 0.4));
-  h += u_voice * 0.12 * sin(length(p) * 10.0);
-  h = mix(h, p.y * 0.95 - u_time * 0.07 + 0.1 * h, 0.88 * u_read);
-  float r = length(p);
-  h = mix(h, r * 1.2 - u_time * 0.3 + 0.08 * h, 0.85 * u_run);
-  vec2 d = p - seek();
-  h += u_search * 0.32 * exp(-dot(d, d) / 0.018);
-  return mix(h, 0.5 + (h - 0.5) * 0.35, u_done * (1.0 - exp(-u_since * 2.0)));
-}
-void main() {
-  vec2 p = (gl_FragCoord.xy - 0.5 * u_res) / u_res.y;
-  float e = 2.0 / u_res.y;
-  float h = terr(p);
-  vec2 g = (vec2(terr(p + vec2(e, 0.0)), terr(p + vec2(0.0, e))) - h) / e;
-  float N = 11.0;
-  float lv = floor(h * N);
-  float dist = abs(fract(h * N + 0.5) - 0.5) / max(N * length(g), 0.001);
-  float idx = floor(h * N + 0.5);
-  float major = 1.0 - step(0.5, mod(idx, 4.0));
-  float px = 1.2 / u_res.y;
-  float w = (0.0014 + 0.0016 * major) * u_glow;
-  float L = 1.0 - smoothstep(w, w + px, dist);
-  float fill = 0.06 + 0.09 * fract(lv * 0.25 + 0.1);
-  float bright = 0.55 + 0.35 * major;
-  // reading: strata scroll up like a page; the line at eye level lights
-  bright += u_read * (1.2 * (1.0 - smoothstep(0.0, 0.05, abs(p.y + 0.02))) - 0.1);
-  // running: rings leave the middle, each flashes as it goes
-  bright += u_run * 0.5 * pow(0.5 + 0.5 * sin(idx * 2.1 + u_time * 6.0), 3.0);
-  // searching: the peak it climbs is lit
-  float lr = length(p - seek());
-  bright += u_search * (1.0 * exp(-lr * lr / 0.02) - 0.15);
-  fill += u_search * 0.15 * exp(-lr * lr / 0.02);
-  bright += 1.5 * wave(length(p)) + 0.3 * u_voice;
-  vec3 col = mix(u_c, u_a, clamp(h * 1.2 - 0.1, 0.0, 1.0));
-  col = mix(col, u_b, 0.5 * major);
-  float m = max(L * clamp(bright, 0.0, 1.5), fill);
-${TAIL}`;
-
-// 3. Dots: a halftone screen. Each dot's size is the field under it.
+// 2. Dots: a halftone screen. Each dot's size is the field under it.
 // Cost: 1 fbm a pixel; cheap.
 const DOTS = `${HEAD}
 float dotMask(vec2 g, float v, float px) {
@@ -202,7 +158,7 @@ void main() {
   m *= 0.6 + 0.4 * u_glow;
 ${TAIL}`;
 
-// 4. Type: a field of small made-up glyphs, like text seen from far away.
+// 3. Type: a field of small made-up glyphs, like text seen from far away.
 // Cost: hashes only, no noise but one fbm; the cheapest.
 const TYPE = `${HEAD}
 float glyph(vec2 f, float gid) {
@@ -261,7 +217,7 @@ void main() {
   float m = gl * clamp(bright + 0.15, 0.0, 1.3) * (0.7 + 0.3 * u_glow);
 ${TAIL}`;
 
-// The four directions, in the order the picker shows them. `cost` is what a
+// The alternates, in the order Chris picked them. `cost` is what a
 // phone pays per pixel at the stage's 0.6 scale; `voice` is what u_voice would
 // move once agents speak.
 export const DIRECTIONS = {
@@ -274,41 +230,12 @@ export const DIRECTIONS = {
       reading: "The lines lie flat like a page and light up line by line, left to right.",
       running: "Bright packets race along every line on a beat.",
       searching: "A lens drifts over the lines and magnifies where it looks.",
+      talking: "The current swells and quickens with the voice.",
       done: "One bright wave, then the lines go calm.",
     },
     cost: "3 fbm a pixel (12 noise). Mid.",
     voice: "line width, the current's strength, brightness",
     fragment: CURRENTS,
-  },
-  terrain: {
-    name: "Terrain",
-    idea: "A topographic map, filled terraces with contour lines.",
-    states: {
-      idle: "The land shifts very slowly.",
-      thinking: "The land folds and heaves.",
-      reading: "The contours turn into strata and scroll up like a page; the line at eye level lights.",
-      running: "Rings leave the middle one after another, each flashing as it goes.",
-      searching: "A peak rises and roams; the contours crowd around it.",
-      done: "One wave, and the land flattens out.",
-    },
-    cost: "9 fbm a pixel. The dearest; fine at 0.6 scale, the first to drop to 30 fps.",
-    voice: "the land's height, rings from the middle",
-    fragment: TERRAIN,
-  },
-  dots: {
-    name: "Dots",
-    idea: "A halftone screen, every dot sized by what is under it.",
-    states: {
-      idle: "Soft patches of dots drift.",
-      thinking: "The patches swirl and waves roll out through the dots.",
-      reading: "The dots form a page of text; the read part lights up, row by row.",
-      running: "Rows of output print and scroll up fast.",
-      searching: "A spotlight sweeps and the dots under it swell.",
-      done: "The dots bloom out from the middle, then settle.",
-    },
-    cost: "1 fbm a pixel. Cheap.",
-    voice: "every dot's size",
-    fragment: DOTS,
   },
   type: {
     name: "Type",
@@ -319,11 +246,28 @@ export const DIRECTIONS = {
       reading: "Letters sit in lines; a caret reads through them and lights what it has read.",
       running: "Output prints and scrolls up fast.",
       searching: "Everything scrambles except a lens, where one letter holds still and glows.",
+      talking: "The letters change faster and brighten with the voice.",
       done: "Every letter shows at once in one wave, then they stop changing.",
     },
     cost: "1 fbm and a few hashes a pixel, drawn at a sharper scale so the letters stay crisp. Cheap.",
     voice: "how fast the letters change, their brightness",
     fragment: TYPE,
+  },
+  dots: {
+    name: "Dots",
+    idea: "A halftone screen, every dot sized by what is under it.",
+    states: {
+      idle: "Soft patches of dots drift.",
+      thinking: "The patches swirl and waves roll out through the dots.",
+      reading: "The dots form a page of text; the read part lights up, row by row.",
+      running: "Rows of output print and scroll up fast.",
+      searching: "A spotlight sweeps and the dots under it swell.",
+      talking: "Every dot swells with the voice.",
+      done: "The dots bloom out from the middle, then settle.",
+    },
+    cost: "1 fbm a pixel. Cheap.",
+    voice: "every dot's size",
+    fragment: DOTS,
   },
 };
 
