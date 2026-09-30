@@ -1,9 +1,9 @@
 {
-  "updated": "2026-09-30T08:10:41.588Z",
+  "updated": "2026-09-30T08:40:48.600Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.1",
-    "status": "shipping",
+    "status": "open",
     "startedAt": "2026-09-30T08:02:45.000Z",
     "shippedAt": null,
     "cards": [
