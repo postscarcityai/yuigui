@@ -4,7 +4,7 @@
     "app": 360,
     "site": 814,
     "builds": 48,
-    "shipped": 388,
+    "shipped": 389,
     "screenshots": 979
   },
   "days": [
@@ -13,7 +13,7 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T00:37:56.610Z",
+          "at": "2026-09-30T00:38:56.249Z",
           "title": "One blob that shows what your agent is doing",
           "card": null,
           "anchor": "one-blob-that-shows-what-your-agent-is-doing",
@@ -34,6 +34,21 @@
           "commits": 0,
           "totals": {
             "app": 360,
+            "site": 814,
+            "builds": 48,
+            "shipped": 389
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T00:34:19.000Z",
+          "title": "Show me, don't tell me: why Yui draws its answers",
+          "card": "SITE-109",
+          "anchor": "show-me-don-t-tell-me-why-yui-draws-its-answers",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 359,
             "site": 814,
             "builds": 48,
             "shipped": 388
