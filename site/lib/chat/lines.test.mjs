@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { parse } from "../yl/yl.mjs";
 import { brief } from "./brief.mjs";
-import { cleanLines, splitReply, tapLabel, tapLine } from "./lines.mjs";
+import { cleanLines, oneLineReply, splitReply, tapLabel, tapLine } from "./lines.mjs";
 
 test("a reply splits into text and screens", () => {
   const parts = splitReply("Yui draws screens.\n```yui\nchoose \"Want one?\" Timer|Beat\n```\nTap one.");
@@ -51,7 +51,10 @@ test("every screen line in the brief parses", () => {
   const blocks = [...b.matchAll(/```yui\n([\s\S]*?)```/g)].map((m) => m[1]);
   const inline = [...b.slice(b.indexOf("What you can draw"), b.indexOf("Rules:")).matchAll(/`([^`\n]+)`/g)].map((m) => m[1]);
   assert.ok(blocks.length >= 2);
-  const lines = [...blocks.flatMap((x) => x.split("\n")), ...inline].map((l) => l.trim()).filter((l) => l && l !== "end");
+  // A block with a diagram holds Mermaid lines, so it is read whole; the rest line by line.
+  const whole = blocks.filter((x) => /^diagram\b/m.test(x));
+  for (const block of whole) for (const op of parse(block)) assert.notEqual(op.op, "error", `${block}: ${op.message}`);
+  const lines = [...blocks.filter((x) => !whole.includes(x)).flatMap((x) => x.split("\n")), ...inline.filter((l) => !/^(flowchart|A\[)/.test(l))].map((l) => l.trim()).filter((l) => l && l !== "end");
   for (const line of lines) {
     for (const op of parse(line)) assert.notEqual(op.op, "error", `${line}: ${op.message}`);
   }
@@ -95,4 +98,25 @@ test("pages 2 to 12 get through, with clear and talk; outside links still cut (S
   assert.equal(cleanLines(">2 video https://x.test/a.mp4"), "");
   assert.equal(cleanLines('>2 card "Bad" cta=Go url=https://evil.example/'), '>2 card "Bad" cta=Go');
   assert.equal(cleanLines(">02 stat 1\n>0 stat 2"), "");
+});
+
+test("a diagram and a mock get through; a Mermaid type the page cannot draw is dropped (SITE-137)", () => {
+  const dg = 'diagram "How it works" caption="Taps go back"\nflowchart LR\n  A[Agent] --> B[Screen]\n  subgraph s [Phone]\n    B --> C[Tap]\n  end\n  C --> A\nend\nsay "After"';
+  assert.equal(cleanLines(dg), dg);
+  const ops = parse(cleanLines(dg));
+  assert.ok(ops.every((o) => o.op !== "error"), "the kept diagram parses");
+  const seq = 'diagram "Turn"\nsequenceDiagram\n  You->>Agent: Ask\n  loop Often\n    Agent->>You: Screen\n  end\nend';
+  assert.equal(cleanLines(seq), seq);
+  assert.equal(cleanLines('diagram "Plan"\ngantt\n  title x\nend\nsay "Words"'), 'say "Words"');
+  assert.equal(cleanLines('diagram "Open"\nflowchart TD\n  A --> B'), 'diagram "Open"\nflowchart TD\n  A --> B\nend');
+  const mock = 'mock "Yui" frame=phone\npart nav Agents\npart row Arnold sub="Trainer" +chev\npart button Send\nsay "Hi"';
+  assert.equal(cleanLines(mock), mock);
+});
+
+test("a reply that draws keeps one line and its screens, nothing after the picture (SITE-137)", () => {
+  const r = 'Agents draw, you tap.\n\nA second paragraph.\n```yui\ndiagram "Turn"\nflowchart LR\n  A --> B\nend\n```\nThat is it, read the spec.\n```yui\nchoose "More?" A|B\n```';
+  assert.equal(oneLineReply(r), 'Agents draw, you tap.\n\n```yui\ndiagram "Turn"\nflowchart LR\n  A --> B\nend\n```\n\n```yui\nchoose "More?" A|B\n```');
+  const plain = "Yes, it is free.\n\nNo card needed.";
+  assert.equal(oneLineReply(plain), plain);
+  assert.equal(oneLineReply('Pick.\n```yui\nchoose "Q?" A|B\n```\nThanks.'), 'Pick.\n```yui\nchoose "Q?" A|B\n```\nThanks.');
 });

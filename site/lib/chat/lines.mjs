@@ -12,6 +12,7 @@ export const ALLOWED = new Set([
   "deck", "page", "plan", "flow", "end",
   "timer", "timeline", "done", "now", "next",
   "map", "area", "pin", "route", "shapes", "shape", "sketch", "row", "after",
+  "diagram", "mock", "part",
   "game", "loop", "drums", "keys", "chords", "metronome",
 ]);
 
@@ -38,6 +39,25 @@ export function splitReply(reply) {
   return out;
 }
 
+// What counts as a picture: a component that shows something, not a question or a button row.
+export const DRAWING = /^(sketch|shapes|diagram|mock|timeline|stat|chart|map|card|list|math|deck|flow|timer|loop|game)\b/;
+const drawn = (yl) => yl.split("\n").some((l) => DRAWING.test(l.replace(/^[>~]\S*\s*/, "").trim()));
+
+// SITE-137: one line and a picture, like the app (spec/CHANNEL.md). A reply that draws keeps ONE
+// paragraph of text, the first, and every screen; a second paragraph or text after the drawing is
+// cut, because a visitor is here to see it. A reply with no drawing is left as it is.
+export function oneLineReply(reply) {
+  const parts = splitReply(reply);
+  if (!parts.some((p) => p.yl && drawn(p.yl))) return String(reply || "");
+  let said = false;
+  const out = [];
+  for (const p of parts) {
+    if (p.yl) out.push("```yui\n" + p.yl + "\n```");
+    else if (!said) { said = true; out.push(p.text.split(/\n\s*\n/)[0].trim()); }
+  }
+  return out.join("\n\n");
+}
+
 // One line's head: `choose@x "Q?" A|B` -> choose, `~loop bpm=110` -> loop.
 function head(line) {
   const w = line.trim().split(/\s+/)[0] || "";
@@ -49,6 +69,11 @@ function head(line) {
 // A flow's body is Mermaid (or a variant's changes, `as=`), not YL: it is kept as it is, up to the
 // flow's own `end` (a subgraph's `end` does not close it).
 const MERMAID = /^(flowchart|graph)\b/i;
+// SITE-137: a diagram's body is Mermaid too, kept to its own `end`. Only the kinds the page draws
+// (flowchart, sequence, state) are kept: any other Mermaid type would show as raw source, so its
+// block is dropped and the reply's line carries the words.
+const DGM_DRAWN = /^(flowchart|graph|sequenceDiagram|stateDiagram(?:-v2)?)(?=\s|;|$)/;
+const DGM_OPENS = /^(subgraph|loop|alt|opt|par|critical|break|rect)(?=\s|$)/;
 export function cleanLines(yl) {
   const keep = [];
   const lines = String(yl || "").split("\n");
@@ -69,6 +94,19 @@ export function cleanLines(yl) {
         }
         continue;
       }
+    }
+    if (head(t) === "diagram") {
+      const body = [];
+      let depth = 0;
+      for (i = i + 1; i < lines.length; i++) {
+        const b = lines[i].replace(/\s+$/, ""), bt = b.trim();
+        if (DGM_OPENS.test(bt)) depth++;
+        if (/^end\s*;?$/.test(bt)) { if (depth === 0) break; depth--; }
+        if (bt) body.push(b);
+      }
+      const first = body.find((b) => !b.trim().startsWith("%%"));
+      if (first && DGM_DRAWN.test(first.trim())) keep.push(t, ...body, "end");
+      continue;
     }
     if (t === ">full") { keep.push(t); continue; } // the stage over the chat, like the app
     // SITE-83: pages 2 to 12 beside the chat, like the app (`>2`, `>2 stat ...`, `>2 clear`, `>2 talk`),

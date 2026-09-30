@@ -3,7 +3,7 @@
 // ask_contact become actions the page carries out; take_note is kept for the store.
 import { readPage, searchSite, sitePath } from "./search.mjs";
 import { NOTE_KINDS } from "./store.mjs";
-import { cleanLines } from "./lines.mjs";
+import { cleanLines, oneLineReply } from "./lines.mjs";
 import { stopError, stopped, turnSignal } from "./stop.mjs";
 import { libraryIndex, search } from "../yl/library.mjs";
 import { SCREENS, DEMOS, MEDIA, SCIENCE, FLOWS, DATA } from "../yl/samples.mjs";
@@ -86,7 +86,7 @@ export async function turn({ system, history, text, canAsk, signal }) {
     if (stopped(signal)) throw stopError();
     const msg = await complete(messages, round === ROUNDS, signal);
     const calls = round < ROUNDS ? msg.tool_calls || [] : [];
-    if (!calls.length) return { reply: sweep(msg.content), actions, notes, tools };
+    if (!calls.length) return { reply: oneLineReply(sweep(msg.content)), actions, notes, tools };
     messages.push({ role: "assistant", content: msg.content || "", tool_calls: calls });
     for (const c of calls) {
       let args = {};
