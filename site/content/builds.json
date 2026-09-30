@@ -1824,6 +1824,9 @@
     },
     {
       "text": "Widget button tests: gallery shows queue and last event, resets for UI tests, pin test waits for all four screens (YUI-40 steps 2 to 4)"
+    },
+    {
+      "text": "A tick made on a widget survives the next shelf publish (YUI-40 step 3)"
     }
   ]
 }

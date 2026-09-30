@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T21:11:16.078Z",
+  "updated": "2026-09-30T22:05:17.827Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -45,7 +45,7 @@
           "title": "Widgets and Siri",
           "summary": "Agents outside the app",
           "waiting": true,
-          "progress": "/progress#widgets-and-siri-planned"
+          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay"
         },
         {
           "key": "YUI-41",
@@ -198,11 +198,6 @@
           "summary": "Your profile top left, your $U top right, counting up when you open it"
         },
         {
-          "key": "YUI-220",
-          "title": "Start to finish",
-          "waiting": true
-        },
-        {
           "key": "YUI-221",
           "title": "Basil's first plan",
           "summary": "How you eat, then a week of meals",
@@ -342,8 +337,8 @@
           "waiting": true
         },
         {
-          "key": "SITE-140",
-          "title": "Widgets and Siri page shows what YUI-40 really built"
+          "key": "SITE-141",
+          "title": "The web twin of YUI-220"
         },
         {
           "key": "NOTE-2295",
@@ -410,10 +405,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-40",
-          "title": "Steps 2-4",
-          "summary": "Siri intents, widget buttons, widget push relay",
-          "progress": "/progress#widgets-and-siri-planned",
+          "key": "YUI-220",
+          "title": "Start to finish",
           "owner": "CJohnDesign"
         },
         {
@@ -437,6 +430,22 @@
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "SITE-140",
+          "title": "Widgets and Siri page shows what YUI-40 really built",
+          "summary": "The Widgets and Siri page shows what is built",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-widgets-and-siri-page-shows-what-is-built",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2110797"
+        },
+        {
+          "key": "YUI-40",
+          "title": "Steps 2-4",
+          "summary": "Siri intents, widget buttons, widget push relay",
+          "shipped": "2026-09-30",
+          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/693a54c"
+        },
+        {
           "key": "SITE-139",
           "title": "Diagrams fit a phone",
           "summary": "Diagrams now fit a phone card",
@@ -454,8 +463,9 @@
           "key": "YUI-40",
           "title": "Widgets native in the app",
           "step": "Step 2",
+          "summary": "Buttons on widgets, Siri and the widget push relay",
           "shipped": "2026-09-30",
-          "progress": "/progress#widgets-and-siri-planned",
+          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
           "commit": "https://github.com/postscarcityai/yuigui/commit/693a54c"
         },
         {
