@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T19:11:19.183Z",
+  "updated": "2026-09-30T19:41:32.498Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -312,13 +312,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-40",
-          "title": "Widgets native in the app",
-          "step": "Step 2",
-          "waiting": true,
-          "progress": "/progress#widgets-and-siri-planned"
-        },
-        {
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
           "waiting": true
@@ -413,13 +406,10 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-237",
-          "title": "Delete account in reach, a stranger gets there in a few seconds",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-137",
-          "title": "The site chat answers like the app, one line and a drawing",
+          "key": "YUI-40",
+          "title": "Widgets native in the app",
+          "step": "Step 2",
+          "progress": "/progress#widgets-and-siri-planned",
           "owner": "CJohnDesign"
         },
         {
@@ -442,6 +432,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-137",
+          "title": "The site chat answers like the app, one line and a drawing",
+          "summary": "The site chat answers with one line and a drawing",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-site-chat-answers-with-one-line-and-a-drawing"
+        },
+        {
+          "key": "YUI-237",
+          "title": "Delete account in reach, a stranger gets there in a few seconds",
+          "summary": "Delete account is two taps from the drawer",
+          "shipped": "2026-09-30",
+          "progress": "/progress#delete-account-is-two-taps-from-the-drawer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f9b568f"
+        },
         {
           "key": "SITE-136",
           "title": "The roadmap's 'Where Yui is now' catches up to today",

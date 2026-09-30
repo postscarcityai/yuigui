@@ -1808,6 +1808,10 @@
     },
     {
       "text": "UI tests: an 11th photo is refused with the flash; 10 photos in one send on a real account, the native agent names all 10; picker shot"
+    },
+    {
+      "text": "Settings: Account right under Appearance, Delete account in reach",
+      "card": "YUI-237"
     }
   ]
 }
