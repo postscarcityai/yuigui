@@ -117,6 +117,7 @@ Chris's picks for the short term (Sep 25), in this order. The site cards run alo
 - SITE-43 (shipped Sep 26): [See it](/mockups#build-155) catches up to build 155. A Build 155 group with hands-free voice (YUI-14), the keyboard going down for a full screen, plan questions in the middle of the page, and the memory numbers from YUI-100 drawn live as stats and a chart. Each entry has its own share link.
 - SITE-44 (shipped Sep 26): [Designed in the open](/thoughts/designed-in-the-open), a Thought on how a Yui feature starts as a spec and a tappable playground mock before any app code: the starter agent, widgets and Siri, the model on the phone, the key vault and a lesson as one deck, each with its mock and links.
 - PERF-1 (Chris Sep 25 night: "very efficient like Telegram"; shipped in 0.3.0, build 138, Sep 26): YUI-101 taps answer at once, smooth scroll and a fast thread open, YUI-99 typing keeps up, YUI-102 speed numbers from real phones. [See it](/mockups#release-030).
+- YUI-216 (PROP-1, Chris picked it Sep 29; building): [Pick your crew](/proposals/pick-your-crew), the first-run picker. After sign-in a new person picks which starter agents join (Arnold, Basil, Gouda, Penny, Quill; Yui is always there), reads a short page on each, and "Bring my own agent" sits in the same list as a real branch into pairing. The pick is saved on the account. Builds on YUI-145 and YUI-164.
 
 Then:
 

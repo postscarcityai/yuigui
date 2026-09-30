@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 368,
-    "site": 835,
+    "app": 370,
+    "site": 843,
     "builds": 49,
-    "shipped": 416,
-    "screenshots": 1018
+    "shipped": 419,
+    "screenshots": 1025
   },
   "days": [
     {
@@ -13,7 +13,83 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T02:58:29.651Z",
+          "at": "2026-09-30T03:38:22.000Z",
+          "title": "Pick your crew",
+          "card": "YUI-216",
+          "anchor": "pick-your-crew",
+          "images": [
+            {
+              "src": "/progress/yui216-picker-dark.webp",
+              "alt": "Dark mode: the same picker."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 370,
+            "site": 842,
+            "builds": 49,
+            "shipped": 419
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T03:38:22.000Z",
+          "title": "Pick your crew: a first minute that is yours",
+          "card": "YUI-216",
+          "anchor": "pick-your-crew-a-first-minute-that-is-yours",
+          "images": [
+            {
+              "src": "/progress/yui216-picker-light.webp",
+              "alt": "Light mode: the crew picker, Yui checked, five starters with a plus, and a Bring my own agent row."
+            },
+            {
+              "src": "/progress/yui216-picker-dark.webp",
+              "alt": "Dark mode: the same picker."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 370,
+            "site": 842,
+            "builds": 49,
+            "shipped": 418
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T03:07:26.000Z",
+          "title": "The site shows one Agent tab",
+          "card": "SITE-114",
+          "anchor": "the-site-shows-one-agent-tab",
+          "images": [
+            {
+              "src": "/progress/site114-before-light.webp",
+              "alt": "Light mode: the chats mock drawer with four tabs, Home, Review, Controls and About."
+            },
+            {
+              "src": "/progress/site114-after-light.webp",
+              "alt": "Light mode: the same drawer with three tabs, Home, Review and Agent."
+            },
+            {
+              "src": "/progress/site114-before-dark.webp",
+              "alt": "Dark mode: the chats mock drawer with four tabs, Home, Review, Controls and About."
+            },
+            {
+              "src": "/progress/site114-after-dark.webp",
+              "alt": "Dark mode: the same drawer with three tabs, Home, Review and Agent."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 369,
+            "site": 838,
+            "builds": 49,
+            "shipped": 417
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T02:58:22.000Z",
           "title": "Four looks for the stage, none of them a blob",
           "card": null,
           "anchor": "four-looks-for-the-stage-none-of-them-a-blob",
@@ -37,8 +113,8 @@
           ],
           "commits": 0,
           "totals": {
-            "app": 368,
-            "site": 835,
+            "app": 369,
+            "site": 836,
             "builds": 49,
             "shipped": 416
           }
@@ -1011,7 +1087,7 @@
               "alt": "Dark mode: Runs on with Claude selected and its key ending in 9999"
             }
           ],
-          "commits": 11,
+          "commits": 12,
           "totals": {
             "app": 344,
             "site": 788,
@@ -1047,7 +1123,7 @@
               "alt": "Light mode: the Bring your own key sheet on OpenRouter with a Save key button"
             }
           ],
-          "commits": 11,
+          "commits": 12,
           "totals": {
             "app": 343,
             "site": 786,
@@ -1843,11 +1919,81 @@
       ],
       "commits": [
         {
+          "repo": "site",
+          "sha": "4880439",
+          "at": "2026-09-30T03:41:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4880439"
+        },
+        {
+          "repo": "site",
+          "sha": "1949f44",
+          "at": "2026-09-30T03:38:22.000Z",
+          "text": "Progress: Pick your crew, the first-run picker (YUI-216)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1949f44"
+        },
+        {
+          "repo": "app",
+          "sha": "1064c26",
+          "at": "2026-09-30T03:37:11.000Z",
+          "text": "Pick your crew: the first-run picker, a page per agent, Bring my own agent into pairing, the pick saved on the account (YUI-216)",
+          "url": "https://github.com/postscarcityai/yui/commit/1064c26"
+        },
+        {
+          "repo": "site",
+          "sha": "42dedc7",
+          "at": "2026-09-30T03:12:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/42dedc7"
+        },
+        {
+          "repo": "site",
+          "sha": "22adb4c",
+          "at": "2026-09-30T03:08:46.000Z",
+          "text": "PROP-1 Pick your crew: Building with card YUI-216; YUI-216 on the roadmap",
+          "url": "https://github.com/postscarcityai/yuigui/commit/22adb4c"
+        },
+        {
+          "repo": "site",
+          "sha": "f9e3948",
+          "at": "2026-09-30T03:08:41.000Z",
+          "text": "PROP-1 Pick your crew: Accepted (Chris picked it Sep 29)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f9e3948"
+        },
+        {
+          "repo": "site",
+          "sha": "cc29267",
+          "at": "2026-09-30T03:07:26.000Z",
+          "text": "The site shows one Agent tab (SITE-114)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cc29267"
+        },
+        {
+          "repo": "site",
+          "sha": "69793dc",
+          "at": "2026-09-30T02:58:32.000Z",
+          "text": "timeline sync",
+          "url": "https://github.com/postscarcityai/yuigui/commit/69793dc"
+        },
+        {
+          "repo": "site",
+          "sha": "17ede43",
+          "at": "2026-09-30T02:58:22.000Z",
+          "text": "Shader look round 2: four directions that are not a blob",
+          "url": "https://github.com/postscarcityai/yuigui/commit/17ede43"
+        },
+        {
           "repo": "app",
           "sha": "9f34443",
           "at": "2026-09-30T02:44:22.000Z",
           "text": "A logged meal lands on Today: the asked-about page is sent last (YUI-183b)",
           "url": "https://github.com/postscarcityai/yui/commit/9f34443"
+        },
+        {
+          "repo": "app",
+          "sha": "ca7416c",
+          "at": "2026-09-30T02:43:41.000Z",
+          "text": "YUI-139 2d: turn on Claude, ChatGPT, Gemini, Grok (Chris: no spend, he tests with his own keys)",
+          "url": "https://github.com/postscarcityai/yui/commit/ca7416c"
         },
         {
           "repo": "site",

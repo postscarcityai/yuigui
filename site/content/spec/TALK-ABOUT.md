@@ -93,7 +93,7 @@ choose@prop-p-3 "Apply this change?" Apply|"Keep it as is"
 
 ## 6. Who can do this
 
-- **Owner only.** Talk about this lives in Controls, and only the agent's owner sees Controls. On an agent shared with someone (spec/AGENTS.md, Shared agents), the grantee has no Controls tab, no chip and no Apply.
+- **Owner only.** Talk about this lives in Controls, and only the agent's owner sees Controls. On an agent shared with someone (spec/AGENTS.md, Shared agents), the grantee has no Controls areas on the Agent tab, no chip and no Apply.
 - The host does not trust the phone here either. The plugin strips an attach line from anyone but the owner (the agent sees the words, never the item), `yui_propose` refuses in a turn the owner did not start, and an Apply tap from anyone but the owner does nothing.
 - In a group thread (spec/GROUPS.md) Talk about this is not offered: one agent's settings belong in that agent's own thread.
 
@@ -108,7 +108,7 @@ choose@prop-p-3 "Apply this change?" Apply|"Keep it as is"
 
 Done when all of this is true, with proof on the card:
 
-1. **Talk about this** on every item screen in the Controls tab (personality, a memory, a skill, a schedule, the model card read only), owner only, light and dark.
+1. **Talk about this** on every item screen under the Agent tab (personality, a memory, a skill, a schedule, the model card read only), owner only, light and dark.
 2. **The chip.** Tapping it lands on screen 1 with the item as a chip above the composer; x removes it; a tap opens the item read only; a second item replaces the first; the sent bubble shows "About SOUL.md". The app sends `[yui] attach section= id= rev=` as the first line, with reference functions `attachBody`/`readAttach` in `yl.mjs`, the app and the Python port, and conformance vectors for them.
 3. **Plugin expand.** `hermes-plugin/yui` expands the attach line with the redacted item (once per `rev`), marks redacted items `readonly=yes`, and strips the line from anyone but the owner. Tests cover each.
 4. **`yui_propose`.** The plugin tool validates with the Controls rules, draws the `sketch` before and after from the host's file plus `choose@prop-<id>`, and takes Apply and Keep with no agent turn. Tests cover a put, an act, a delete, a stale `rev` (conflict card with Ask again), a read-only item refused, a key-shaped value refused, a grantee refused, the trash copy and the log line with `via: "talk"`.

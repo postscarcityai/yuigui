@@ -2,7 +2,8 @@
 id: PROP-1
 title: Pick your crew
 summary: A new user picks which agents join, instead of getting all six at once.
-status: Exploring
+status: Building
+card: YUI-216
 date: 2026-09-28
 becomes: An onboarding epic in the app (first-run flow), cards to follow
 cost: M
@@ -61,6 +62,14 @@ M. The picker, the agent pages and the pairing branch are new screens. The start
 - Should the picker suggest a crew from one question ("What brings you here?")?
 - Can you remove a starter agent later and get it back?
 - Does bring your own agent finish pairing inside the flow, or hand off to Add agent?
+
+## Decisions while building
+
+- Yui is always on the crew. The picker asks who joins her.
+- Picking no one is fine: Start reads "Start with Yui" and Yui says it is just the two of you.
+- Bring my own agent saves the pick, then opens pairing in the same first run. Closing pairing ends the picker.
+- The pick is saved on the account, so the picker never returns. Anyone who signed up before it keeps the crew they have.
+- Removing a starter later and getting it back already works from Add agent.
 
 ## Yui's call
 
