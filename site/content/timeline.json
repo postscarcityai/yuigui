@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 373,
-    "site": 853,
+    "site": 864,
     "builds": 49,
-    "shipped": 428,
-    "screenshots": 1058
+    "shipped": 431,
+    "screenshots": 1065
   },
   "days": [
     {
@@ -13,7 +13,82 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T05:34:23.109Z",
+          "at": "2026-09-30T07:47:38.579Z",
+          "title": "A stranger runs Yui cold: about 6 minutes, five snags",
+          "card": "YUI-218",
+          "anchor": "a-stranger-runs-yui-cold-about-6-minutes-five-snags",
+          "images": [
+            {
+              "src": "/progress/yui218-pairing-dark.webp",
+              "alt": "Dark mode: the Add agent sheet for Nova, three commands to run on the computer and a six digit code."
+            },
+            {
+              "src": "/progress/yui218-screen-back-dark.webp",
+              "alt": "Dark mode: Nova, the new agent, answers Hi with a card, Hello from your Mac."
+            },
+            {
+              "src": "/progress/yui218-pairing-light.webp",
+              "alt": "Light mode: the Add agent sheet with the three pairing commands and the code."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 373,
+            "site": 864,
+            "builds": 49,
+            "shipped": 431
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T07:22:40.000Z",
+          "title": "The new pages, on a phone",
+          "card": "SITE-121",
+          "anchor": "the-new-pages-on-a-phone",
+          "images": [
+            {
+              "src": "/progress/site121-before-progress-dark.webp",
+              "alt": "Before: a long link in a Progress entry runs off the right edge of the phone."
+            },
+            {
+              "src": "/progress/site121-after-progress-dark.webp",
+              "alt": "After: the same Progress entry, with the link wrapping inside the screen."
+            },
+            {
+              "src": "/progress/site121-before-board-dark.webp",
+              "alt": "Before: a Board card with links about 21px tall."
+            },
+            {
+              "src": "/progress/site121-after-board-dark.webp",
+              "alt": "After: the same Board card with full-size tap targets."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 373,
+            "site": 863,
+            "builds": 49,
+            "shipped": 430
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T06:26:12.000Z",
+          "title": "Every link and share card, checked again",
+          "card": "SITE-120",
+          "anchor": "every-link-and-share-card-checked-again",
+          "images": [],
+          "commits": 3,
+          "totals": {
+            "app": 373,
+            "site": 858,
+            "builds": 49,
+            "shipped": 429
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T05:34:52.000Z",
           "title": "A Thought on no empty chats",
           "card": "SITE-119",
           "anchor": "a-thought-on-no-empty-chats",
@@ -27,10 +102,10 @@
               "alt": "The saved week: 0 of 3 workouts, three full body days and a Change a day row."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 373,
-            "site": 853,
+            "site": 854,
             "builds": 49,
             "shipped": 428
           }
@@ -237,6 +312,83 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "76d4fcc",
+          "at": "2026-09-30T07:41:09.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/76d4fcc"
+        },
+        {
+          "repo": "site",
+          "sha": "b0074f6",
+          "at": "2026-09-30T07:22:40.000Z",
+          "text": "progress: SITE-121 commit sha",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b0074f6"
+        },
+        {
+          "repo": "site",
+          "sha": "3507a94",
+          "at": "2026-09-30T07:22:40.000Z",
+          "text": "site: phone pass, long links wrap on Progress, 44px links on Board cards (SITE-121)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3507a94"
+        },
+        {
+          "repo": "site",
+          "sha": "0281979",
+          "at": "2026-09-30T07:10:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0281979"
+        },
+        {
+          "repo": "site",
+          "sha": "f6f7cd2",
+          "at": "2026-09-30T06:40:29.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f6f7cd2"
+        },
+        {
+          "repo": "site",
+          "sha": "6f3e1a6",
+          "at": "2026-09-30T06:27:28.000Z",
+          "text": "SITE-120: correct commit in progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6f3e1a6"
+        },
+        {
+          "repo": "site",
+          "sha": "b60b375",
+          "at": "2026-09-30T06:26:12.000Z",
+          "text": "SITE-120: progress entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b60b375"
+        },
+        {
+          "repo": "site",
+          "sha": "72e498b",
+          "at": "2026-09-30T06:26:06.000Z",
+          "text": "SITE-120: fix dead links the sweep found (board agent-ready pill, sample link), skip Cloudflare and 404-demo targets in links.mjs",
+          "url": "https://github.com/postscarcityai/yuigui/commit/72e498b"
+        },
+        {
+          "repo": "site",
+          "sha": "e7c4255",
+          "at": "2026-09-30T06:11:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e7c4255"
+        },
+        {
+          "repo": "site",
+          "sha": "528ec18",
+          "at": "2026-09-30T05:41:16.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/528ec18"
+        },
+        {
+          "repo": "site",
+          "sha": "2f98c78",
+          "at": "2026-09-30T05:34:52.000Z",
+          "text": "SITE-119: a Thought on no empty chats",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2f98c78"
+        },
         {
           "repo": "site",
           "sha": "4e8d397",
