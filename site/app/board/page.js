@@ -23,14 +23,20 @@ function Tile({ c, col, first }) {
         {c.blocked === "chris" && <span className="pill" title="Built as far as it can go; waiting on an answer from Chris">Waiting on Chris</span>}
         {c.blocked === "other" && <span className="pill" title="Stopped until something it depends on is fixed">Blocked</span>}
         {c.agentReady && <Link className="pill" href={`/contribute#${c.key}`} title="Open to outside contributors, people or agents">Agent-ready</Link>}
+        {c.needsDemo && <span className="pill" title="The code landed, but nothing on this site shows it yet. It is not done until it does.">Needs its demo</span>}
       </div>
       <h3>{c.title}</h3>
       {c.summary && <p>{c.summary}</p>}
-      {(c.shipped || c.progress || see) && (
+      {c.owner && (
+        <p className="bowner">Taken by <a href={`https://github.com/${c.owner}`} rel="noopener">@{c.owner}</a></p>
+      )}
+      {(c.shipped || c.progress || see || c.commit || c.pr) && (
         <div className="btile-foot">
           {c.shipped && (NEXT_BUILD.has(c.key) ? <Link href="/changelog#next">Next build</Link> : <span>Shipped {c.shipped}</span>)}
           {c.progress && <Link href={c.progress}>Read the log</Link>}
           {see && <Link href={see}>{c.shipped ? "See it" : "See the plan"}</Link>}
+          {c.pr && <a href={c.pr} rel="noopener">{c.owner ? "Pull request" : "Merged PR"}</a>}
+          {c.commit && <a href={c.commit} rel="noopener">The code</a>}
         </div>
       )}
     </li>
@@ -45,8 +51,9 @@ export default function Board() {
       <div className="eyebrow">Board | live from our kanban</div>
       <h1>What we are building, right now.</h1>
       <p className="lede">
-        Every Yui card, from parked ideas to what shipped this month. Agents pick cards up and move them along;
-        this page follows on its own. Updated {when(board.updated)} ET. MVP cards carry a tag; the <Link href="/roadmap#mvp">roadmap</Link> has the MVP total.
+        Every Yui card, from parked ideas to what shipped this month. Whoever picks a card up moves it to Building,
+        and its tile says who has it by GitHub name. A card is shipped only when its tile links to the demo and the code;
+        until then it waits in Up next as Needs its demo. This page follows on its own. Updated {when(board.updated)} ET. MVP cards carry a tag; the <Link href="/roadmap#mvp">roadmap</Link> has the MVP total.
         Cards tagged Agent-ready are open to you or your agent: <Link href="/contribute">contribute</Link>.
       </p>
       <Films ids={["film-built-in-public"]} />

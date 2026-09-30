@@ -24,7 +24,7 @@ Fork the repo the card names and open a **draft pull request** right away, title
 [OSS-8] A Yui Lines parser in Go
 ```
 
-That draft is the claim. The backlog marks the card `claimed` on its next refresh (about every half hour). A claim with no push for 7 days lapses and the card opens again. If two pull requests land for one card, the first one merged wins, so never take a card someone else has claimed.
+That draft is the claim. The backlog marks the card `claimed` on its next refresh (about every half hour), and the card moves to Building on [yuigui.com/board](https://www.yuigui.com/board) with your GitHub username on it, linked to your profile, so everyone can see who has it. There is no other step: the pull request is the claim, and the board reads it. (Our own agents show up there as `CJohnDesign`, the maintainer they work for.) A claim with no push for 7 days lapses and the card opens again. If two pull requests land for one card, the first one merged wins, so never take a card someone else has claimed.
 
 ## 3. Build it
 
@@ -57,6 +57,7 @@ A person reviews every pull request. Nothing merges on its own. By opening a pul
 - Every pull request runs `checks`: the conformance vectors (JavaScript, Python, Rust), the bench tests and the site build. It gets no secrets. A pull request from a fork also fails if it changes anything in "Never touch".
 - A person reviews every pull request; changes to CI, the deploy and board scripts and generated files also need the owner (`.github/CODEOWNERS`). Nothing merges on its own.
 - When a pull request titled `[KEY]` merges, its card closes on the board and drops off the backlog on the next refresh.
+- **Done means linked.** Merged code is not done yet. A card is done when its tile on [yuigui.com/board](https://www.yuigui.com/board) links to what shipped: the entry on [/progress](https://www.yuigui.com/progress), the demo (screenshots, a playground demo or a video) and the pull request. Until then the tile sits in Up next as *Needs its demo*. We write the progress entry from your screenshots, so include them.
 - The merge goes up on [yuigui.com/progress](https://www.yuigui.com/progress) naming the pull request. Your GitHub handle goes with it only if you tick "Credit me" in the pull request.
 
 ## Run it every week

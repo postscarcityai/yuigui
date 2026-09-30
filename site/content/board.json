@@ -1,12 +1,55 @@
 {
-  "updated": "2026-09-30T00:40:28.555Z",
+  "updated": "2026-09-30T00:54:54.328Z",
   "shippedDays": 30,
   "release": {
-    "version": "0.5.3",
+    "version": "0.6.0",
     "status": "shipped",
-    "startedAt": "2026-09-29T07:33:54.000Z",
-    "shippedAt": "2026-09-29T08:25:12.000Z",
-    "cards": []
+    "startedAt": "2026-09-29T10:02:36.000Z",
+    "shippedAt": "2026-09-29T18:59:14.000Z",
+    "cards": [
+      {
+        "key": "YUI-180",
+        "title": "Every agent has its own quiet visualizer by default",
+        "status": "done",
+        "shipped": "2026-09-29",
+        "progress": "/progress#every-agent-has-its-own-quiet-visualizer"
+      },
+      {
+        "key": "YUI-182",
+        "title": "The workout runner in the app: rest starts on its own, say done",
+        "status": "done",
+        "shipped": "2026-09-29",
+        "progress": "/progress#the-workout-runner-in-the-app-rest-starts-on-its-own-say-done"
+      },
+      {
+        "key": "YUI-183",
+        "title": "Basil's tools",
+        "status": "done",
+        "shipped": "2026-09-29",
+        "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
+      },
+      {
+        "key": "YUI-184",
+        "title": "Gouda's tools",
+        "status": "done",
+        "shipped": "2026-09-29",
+        "progress": "/progress#gouda-s-tools-in-the-app-learn-a-song-a-click-that-logs-itself-a-beat-that-stays"
+      },
+      {
+        "key": "YUI-185",
+        "title": "Penny's tools",
+        "status": "done",
+        "shipped": "2026-09-29",
+        "progress": "/progress#penny-s-tools-in-the-app-plan-your-week-by-voice-a-reminder-on-your-phone-a-week"
+      },
+      {
+        "key": "YUI-186",
+        "title": "Quill's tools",
+        "status": "done",
+        "shipped": "2026-09-29",
+        "progress": "/progress#quill-s-tools-in-the-app-learn-a-topic-rate-your-cards-a-problem-one-step-at-a-t"
+      }
+    ]
   },
   "columns": [
     {
@@ -16,29 +59,34 @@
         {
           "key": "YUI-34",
           "title": "Key vault for bring-your-own keys",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#a-key-vault-planned"
         },
         {
           "key": "YUI-36",
           "title": "Optional encrypted sync for agent tables",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#sync-decided-not-in-v1"
         },
         {
           "key": "YUI-40",
           "title": "Widgets and Siri",
           "summary": "Agents outside the app",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#widgets-and-siri-planned"
         },
         {
           "key": "YUI-41",
           "title": "On-device model for routing and quick replies",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#the-model-on-the-phone-planned"
         },
         {
           "key": "YUI-41",
           "title": "On-device model native in the app",
           "step": "Step 2",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#the-model-on-the-phone-planned"
         },
         {
           "key": "YUI-45",
@@ -67,7 +115,8 @@
           "key": "YUI-89",
           "title": "Agent tables in the app",
           "summary": "SQLite store, native query views, the other parsers",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers"
         },
         {
           "key": "YUI-94",
@@ -90,7 +139,8 @@
           "key": "YUI-116",
           "title": "Tap-to-sound on a real iPhone",
           "step": "Step 2 proof",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#record-a-take-plug-in-a-keyboard"
         },
         {
           "key": "YUI-147",
@@ -127,7 +177,8 @@
         },
         {
           "key": "YUI-169",
-          "title": "Several chats per agent, listed in the drawer"
+          "title": "Several chats per agent, listed in the drawer",
+          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
         },
         {
           "key": "YUI-172",
@@ -201,11 +252,6 @@
           "waiting": true
         },
         {
-          "key": "OSS-8",
-          "title": "A Yui Lines parser in Go",
-          "agentReady": true
-        },
-        {
           "key": "OSS-9",
           "title": "Sign in with GitHub, so pull requests and issues earn $U"
         },
@@ -275,46 +321,11 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-137",
-          "title": "Yui makes agents",
-          "summary": "Create, edit, fork and remove a native agent from chat"
-        },
-        {
-          "key": "YUI-169",
-          "title": "A",
-          "step": "Step 2",
-          "summary": "Relay + DB threads per chat, Hermes plugin thread ids"
-        },
-        {
-          "key": "YUI-169",
-          "title": "B",
-          "step": "Step 2",
-          "summary": "Native app drawer chat list, New chat, runtime thread ids"
-        },
-        {
-          "key": "YUI-169",
-          "title": "Ship",
-          "summary": "TestFlight build, progress.json entry, demo live on yuigui.com"
-        },
-        {
-          "key": "NOTE-14928",
-          "title": "A nicer Type your own"
-        },
-        {
-          "key": "NOTE-55641",
-          "title": "Keep the mic, move Back home"
-        }
-      ]
-    },
-    {
-      "key": "building",
-      "title": "Building",
-      "cards": [
-        {
           "key": "YUI-40",
           "title": "Widgets native in the app",
           "step": "Step 2",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#widgets-and-siri-planned"
         },
         {
           "key": "YUI-115",
@@ -325,6 +336,24 @@
           "key": "YUI-128",
           "title": "About and Controls become one drawer tab",
           "waiting": true
+        },
+        {
+          "key": "YUI-183b",
+          "title": "After a meal is logged, land on that meal's calories, then Today's macros, not the grocery list",
+          "waiting": true
+        },
+        {
+          "key": "YUI-116",
+          "title": "Tuner + metronome in the app",
+          "step": "Step 4",
+          "summary": "A tuner and a metronome in the app",
+          "waiting": true,
+          "progress": "/progress#a-tuner-and-a-metronome-in-the-app"
+        },
+        {
+          "key": "YUI-137",
+          "title": "Yui makes agents",
+          "summary": "Create, edit, fork and remove a native agent from chat"
         },
         {
           "key": "YUI-138",
@@ -339,19 +368,25 @@
           "waiting": true
         },
         {
-          "key": "YUI-116",
-          "title": "Tuner + metronome in the app",
-          "step": "Step 4",
-          "summary": "A tuner and a metronome in the app",
-          "waiting": true,
-          "progress": "/progress#a-tuner-and-a-metronome-in-the-app"
+          "key": "YUI-169",
+          "title": "TestFlight build, progress.json entry, demo live on yuigui.com",
+          "step": "Ship",
+          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
         },
         {
-          "key": "YUI-183",
-          "title": "B (first after 0.6.0, NATIVE + APP)",
-          "summary": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
-          "waiting": true,
-          "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap"
+          "key": "YUI-214",
+          "title": "Tapping Decline on an invite request does nothing; the row stays 'requested' and the ask comes back",
+          "waiting": true
+        },
+        {
+          "key": "YUI-215",
+          "title": "Jev at our first two decision points, measured against today",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-18306",
+          "title": "Tuner as Gouda's last screen",
+          "waiting": true
         },
         {
           "key": "NOTE-54934",
@@ -364,42 +399,250 @@
           "waiting": true
         },
         {
-          "key": "NOTE-18306",
-          "title": "Tuner as Gouda's last screen",
-          "waiting": true
+          "key": "SITE-95",
+          "title": "Checks go green on yuigui main and run before every push, no more failure emails every hour",
+          "needsDemo": true
         },
         {
-          "key": "YUI-209",
-          "title": "Tapping Decline on an invite request does nothing; the row stays 'requested' and the ask comes back",
-          "waiting": true
+          "key": "YUI-91",
+          "title": "Test builds get their own bundle ID so they install beside TestFlight Yui",
+          "needsDemo": true
         },
         {
-          "key": "YUI-210",
-          "title": "Jev at our first two decision points, measured against today",
-          "waiting": true
+          "key": "YUI-213",
+          "title": "Re-sync yui-mcp look.mjs so main checks go green",
+          "needsDemo": true
         },
         {
-          "key": "NOTE-45760",
-          "title": "Show more of my question"
+          "key": "YUI-81",
+          "title": "The build-ready deck reads like a changelog for people",
+          "summary": "A real title per page, plain words, nothing cut off",
+          "needsDemo": true
         },
         {
-          "key": "NOTE-27331",
-          "title": "One look: shader, no line blob"
+          "key": "YUI-114",
+          "title": "Rename the App Store listing from Yui Bot to Yui (fallback",
+          "summary": "Yui Gui), no Yui Bot left anywhere",
+          "needsDemo": true
         },
         {
-          "key": "YUI-169",
-          "title": "Spec + playground mock for multiple chats per agent (yuigui)",
-          "step": "Step 1",
-          "summary": "Several chats with one agent: the spec and a mock",
-          "blocked": "chris",
-          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
+          "key": "YUI-126",
+          "title": "The war room moves into Yui's left drawer (Chris, feedback AGhvH8tM)",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9266fff",
+          "needsDemo": true
+        },
+        {
+          "key": "YUI-127",
+          "title": "Every drum name plays a real drum, not a tick",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1c96bd7",
+          "needsDemo": true
+        },
+        {
+          "key": "YUI-129",
+          "title": "Native Yui spec",
+          "summary": "Every person gets their own Yui and a starter crew at sign-in",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/dd75a08",
+          "needsDemo": true
+        },
+        {
+          "key": "YUI-136",
+          "title": "Gouda's missing views",
+          "summary": "The app draws metronome and tuner",
+          "needsDemo": true
+        },
+        {
+          "key": "YUI-149",
+          "title": "Hermes for everyone spec",
+          "summary": "A real Hermes per person in a sandbox that sleeps, Beam first",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/dd75a08",
+          "needsDemo": true
+        },
+        {
+          "key": "SITE-7",
+          "title": "Preset gallery",
+          "summary": "Every screen, live, with its line",
+          "needsDemo": true
+        },
+        {
+          "key": "SITE-27",
+          "title": "Build to earn, V1 page on yuigui.com",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/69afe5b",
+          "needsDemo": true
+        },
+        {
+          "key": "SITE-36",
+          "title": "The site catches up to Yui 0.2.0 the moment build 118 is VALID",
+          "needsDemo": true
+        },
+        {
+          "key": "SITE-37",
+          "title": "0.2.0 catch-up",
+          "summary": "YUI-92 version block on /progress and See it, group threads labelled next",
+          "needsDemo": true
+        },
+        {
+          "key": "SITE-38",
+          "title": "The site catches up to Yui 0.3.0 (build 138 VALID)",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d182c80",
+          "needsDemo": true
+        },
+        {
+          "key": "SITE-39",
+          "title": "Thought draft for Yui 0.3.0, the smooth release",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/efe9a52",
+          "needsDemo": true
+        },
+        {
+          "key": "SITE-91",
+          "title": "Jev research, what TypeSafe's new decision model is, what it returns, how fast, what it costs",
+          "needsDemo": true
+        },
+        {
+          "key": "SITE-92",
+          "title": "Where Jev fits in Yui, every decision point in a turn and which ones a Jev call should make",
+          "needsDemo": true
+        },
+        {
+          "key": "BIZ-5",
+          "title": "yuiguiai social handles",
+          "needsDemo": true
+        },
+        {
+          "key": "SOC-1",
+          "title": "Yui social drafter cron + copy validator (drafts only, Chris approves)",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/81b1f85",
+          "needsDemo": true
+        },
+        {
+          "key": "SOC-2",
+          "title": "Yui demo clip pipeline (simulator recording per preset)",
+          "commit": "https://github.com/postscarcityai/yui/commit/6fc0cbb",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-4137",
+          "title": "Every full screen has a next step",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-4592",
+          "title": "Feedback receipts look better, off the stage",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-11943",
+          "title": "Swipe for drawer and screens again",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-13279",
+          "title": "No send button in About you",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-17226",
+          "title": "Pictures show whole, never cropped",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a7f6650",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-25814",
+          "title": "Hold to reply, no more swipe",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f4f7aa5",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-25876",
+          "title": "The war room, stripped down",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ae25745",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-38321",
+          "title": "Places get a map",
+          "commit": "https://github.com/postscarcityai/yui/commit/63fdc90",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-46346",
+          "title": "Show it, don't say it",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-50101",
+          "title": "Agents answer in screens, not prose",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-54650",
+          "title": "Working row shows how long the agent usually takes",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2d12471",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-56419",
+          "title": "A quiet dot on the menu button",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a716f92",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-62835",
+          "title": "Beats that play on silent, and page 2 cleared",
+          "commit": "https://github.com/postscarcityai/yui/commit/43c4126",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-64712",
+          "title": "About and Controls, one tab",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-65452",
+          "title": "Signed-in header before sign-in",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2a2ed45",
+          "needsDemo": true
+        }
+      ]
+    },
+    {
+      "key": "building",
+      "title": "Building",
+      "cards": [
+        {
+          "key": "OSS-8",
+          "title": "A Yui Lines parser in Go",
+          "agentReady": true,
+          "owner": "CJohnDesign",
+          "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "SITE-110",
+          "title": "Clean the board, show who has each story, done means linked",
+          "summary": "The board says who has each card, and done means linked",
+          "progress": "/progress#the-board-says-who-has-each-card-and-done-means-linked",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-139",
-          "title": "D",
-          "step": "Step 2",
-          "summary": "Score Claude, ChatGPT, Gemini, Grok, then turn them on",
-          "blocked": "chris"
+          "title": "Score Claude, ChatGPT, Gemini, Grok, then turn them on",
+          "step": "Step 2d",
+          "blocked": "chris",
+          "progress": "/progress#your-own-key-at-every-stop",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-27331",
+          "title": "One look: shader, no line blob",
+          "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-169",
+          "title": "Native app drawer chat list, New chat, runtime thread ids",
+          "step": "Step 2b",
+          "blocked": "chris",
+          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock",
+          "owner": "CJohnDesign"
         }
       ]
     },
@@ -407,6 +650,41 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-169",
+          "title": "Relay + DB threads per chat, Hermes plugin thread ids",
+          "step": "Step 2a",
+          "shipped": "2026-09-29",
+          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4ebf773"
+        },
+        {
+          "key": "YUI-169",
+          "title": "Spec + playground mock for multiple chats per agent (yuigui)",
+          "step": "Step 1",
+          "summary": "Several chats with one agent: the spec and a mock",
+          "shipped": "2026-09-29",
+          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4ebf773"
+        },
+        {
+          "key": "NOTE-45760",
+          "title": "Show more of my question",
+          "shipped": "2026-09-29",
+          "progress": "/progress#your-question-shows-in-full-the-mic-stays-type-your-own-has-room"
+        },
+        {
+          "key": "NOTE-14928",
+          "title": "A nicer Type your own",
+          "shipped": "2026-09-29",
+          "progress": "/progress#your-question-shows-in-full-the-mic-stays-type-your-own-has-room"
+        },
+        {
+          "key": "NOTE-55641",
+          "title": "Keep the mic, move Back home",
+          "shipped": "2026-09-29",
+          "progress": "/progress#your-question-shows-in-full-the-mic-stays-type-your-own-has-room"
+        },
         {
           "key": "SITE-109",
           "title": "A Thought, show me don't tell me",
@@ -417,7 +695,8 @@
         {
           "key": "NOTE-26401",
           "title": "Answers that know what I asked",
-          "shipped": "2026-09-29"
+          "shipped": "2026-09-29",
+          "progress": "/progress#answers-that-know-what-i-asked"
         },
         {
           "key": "SITE-108",
@@ -431,7 +710,8 @@
           "title": "Every story shipped Sep 27-29 shows a demo a visitor can see on yuigui.com",
           "summary": "Shorter answers, drawn not typed",
           "shipped": "2026-09-29",
-          "progress": "/progress#shorter-answers-drawn-not-typed"
+          "progress": "/progress#shorter-answers-drawn-not-typed",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ac050cc"
         },
         {
           "key": "YUI-34",
@@ -439,29 +719,34 @@
           "step": "Step 2",
           "summary": "Your keys, on your phone: fal, Replicate, ElevenLabs, Anthropic, OpenAI",
           "shipped": "2026-09-29",
-          "progress": "/progress#your-keys-on-your-phone-fal-replicate-elevenlabs-anthropic-openai"
+          "progress": "/progress#your-keys-on-your-phone-fal-replicate-elevenlabs-anthropic-openai",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8d0dc77"
         },
         {
           "key": "NOTE-48845",
           "title": "Draw the X, show the worker",
-          "shipped": "2026-09-29"
+          "shipped": "2026-09-29",
+          "progress": "/progress#shorter-answers-drawn-not-typed"
         },
         {
           "key": "NOTE-43932",
           "title": "Shorter answers, drawn not typed",
-          "shipped": "2026-09-29"
+          "shipped": "2026-09-29",
+          "progress": "/progress#shorter-answers-drawn-not-typed"
         },
         {
           "key": "NOTE-18568",
           "title": "Say 'Invite: Declined', nothing more",
-          "shipped": "2026-09-29"
+          "shipped": "2026-09-29",
+          "progress": "/progress#shorter-answers-drawn-not-typed"
         },
         {
           "key": "YUI-191",
           "title": "Hold the app icon for your agents' shortcuts",
           "summary": "Hold the Yui icon, get your agents' shortcuts",
           "shipped": "2026-09-29",
-          "progress": "/progress#hold-the-yui-icon-get-your-agents-shortcuts"
+          "progress": "/progress#hold-the-yui-icon-get-your-agents-shortcuts",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b50b220"
         },
         {
           "key": "SITE-106",
@@ -475,21 +760,24 @@
           "title": "A function deploy can never run ahead of its migrations",
           "summary": "A deploy can no longer run ahead of its database changes",
           "shipped": "2026-09-29",
-          "progress": "/progress#a-deploy-can-no-longer-run-ahead-of-its-database-changes"
+          "progress": "/progress#a-deploy-can-no-longer-run-ahead-of-its-database-changes",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a2d0291"
         },
         {
           "key": "SITE-104",
           "title": "A procedural 404",
           "summary": "A 404 that is never the same twice",
           "shipped": "2026-09-29",
-          "progress": "/progress#a-404-that-is-never-the-same-twice"
+          "progress": "/progress#a-404-that-is-never-the-same-twice",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7774bfb"
         },
         {
           "key": "YUI-211",
           "title": "Better typography, a sleek sans serif as the base Yui look",
           "summary": "A sleek sans for the whole app",
           "shipped": "2026-09-29",
-          "progress": "/progress#a-sleek-sans-for-the-whole-app"
+          "progress": "/progress#a-sleek-sans-for-the-whole-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a2d0291"
         },
         {
           "key": "SITE-103",
@@ -503,43 +791,49 @@
           "title": "A Thought on your own key at every stop, why Yui never sells you a model",
           "summary": "Thought: Your own key at every stop",
           "shipped": "2026-09-29",
-          "progress": "/progress#thought-your-own-key-at-every-stop"
+          "progress": "/progress#thought-your-own-key-at-every-stop",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/17b970b"
         },
         {
           "key": "YUI-139",
-          "title": "G",
-          "step": "Step 2",
+          "title": "Controls > Model per-agent key pick in the app (Yui's key / Claude / ChatGPT)",
+          "step": "Step 2g",
           "summary": "Pick which key each agent runs on",
           "shipped": "2026-09-29",
-          "progress": "/progress#pick-which-key-each-agent-runs-on"
+          "progress": "/progress#pick-which-key-each-agent-runs-on",
+          "commit": "https://github.com/postscarcityai/yui/commit/b212548"
         },
         {
           "key": "YUI-139",
-          "title": "F",
-          "step": "Step 2",
-          "summary": "Key spec and demo on www.yuigui.com",
-          "shipped": "2026-09-29"
+          "title": "Key spec and demo on www.yuigui.com",
+          "step": "Step 2f",
+          "shipped": "2026-09-29",
+          "progress": "/progress#pick-which-key-each-agent-runs-on",
+          "commit": "https://github.com/postscarcityai/yui/commit/9adb9d9"
         },
         {
           "key": "YUI-139",
-          "title": "E",
-          "step": "Step 2",
-          "summary": "Key sheet in the app, every place to add one",
-          "shipped": "2026-09-29"
+          "title": "Key sheet in the app, every place to add one",
+          "step": "Step 2e",
+          "shipped": "2026-09-29",
+          "progress": "/progress#your-own-key-at-every-stop",
+          "commit": "https://github.com/postscarcityai/yui/commit/be451a8"
         },
         {
           "key": "YUI-139",
-          "title": "B",
-          "step": "Step 2",
-          "summary": "OpenRouter sign-in with no paste, and My computer",
-          "shipped": "2026-09-29"
+          "title": "OpenRouter sign-in with no paste, and My computer",
+          "step": "Step 2b",
+          "shipped": "2026-09-29",
+          "progress": "/progress#your-own-key-at-every-stop",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5f6c125"
         },
         {
           "key": "YUI-139",
-          "title": "C",
-          "step": "Step 2",
-          "summary": "Own key at every stop, tests per stop",
-          "shipped": "2026-09-29"
+          "title": "Own key at every stop, tests per stop",
+          "step": "Step 2c",
+          "shipped": "2026-09-29",
+          "progress": "/progress#pick-which-key-each-agent-runs-on",
+          "commit": "https://github.com/postscarcityai/yui/commit/b2a9aef"
         },
         {
           "key": "YUI-139",
@@ -547,26 +841,70 @@
           "step": "Step 2",
           "summary": "Your own key, at every stop",
           "shipped": "2026-09-29",
-          "progress": "/progress#your-own-key-at-every-stop"
+          "progress": "/progress#your-own-key-at-every-stop",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8d0dc77"
         },
         {
           "key": "NOTE-31134",
           "title": "Agent picker only in the drawer",
-          "shipped": "2026-09-29"
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-chat-top-bar-is-quiet-the-drawer-is-the-one-agent-picker",
+          "commit": "https://github.com/postscarcityai/yui/commit/8935804"
+        },
+        {
+          "key": "YUI-206",
+          "title": "The app crashes when you tune the guitar",
+          "summary": "The guitar tuner no longer crashes",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-guitar-tuner-no-longer-crashes",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/25ddde4"
+        },
+        {
+          "key": "YUI-185",
+          "title": "Penny's tools",
+          "summary": "Penny's tools in the app: plan your week by voice, a reminder on your phone, a week you can drag",
+          "shipped": "2026-09-29",
+          "progress": "/progress#penny-s-tools-in-the-app-plan-your-week-by-voice-a-reminder-on-your-phone-a-week",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2c0f38b"
+        },
+        {
+          "key": "YUI-184",
+          "title": "Gouda's tools",
+          "summary": "Gouda's tools in the app: learn a song, a click that logs itself, a beat that stays",
+          "shipped": "2026-09-29",
+          "progress": "/progress#gouda-s-tools-in-the-app-learn-a-song-a-click-that-logs-itself-a-beat-that-stays",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5f5b147"
+        },
+        {
+          "key": "YUI-183",
+          "title": "Basil's tools",
+          "summary": "Basil's tools in the app: ticks that stay, Share list, a swap in one tap",
+          "shipped": "2026-09-29",
+          "progress": "/progress#basil-s-tools-in-the-app-ticks-that-stay-share-list-a-swap-in-one-tap",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d64a020"
+        },
+        {
+          "key": "YUI-182",
+          "title": "The workout runner in the app: rest starts on its own, say done",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-workout-runner-in-the-app-rest-starts-on-its-own-say-done",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/148a853"
         },
         {
           "key": "YUI-209",
           "title": "Hold to talk keeps every word; a long prompt with pauses no longer comes through as only the last few words",
           "summary": "Hold to talk keeps every word",
           "shipped": "2026-09-29",
-          "progress": "/progress#hold-to-talk-keeps-every-word"
+          "progress": "/progress#hold-to-talk-keeps-every-word",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3424627"
         },
         {
           "key": "YUI-207",
           "title": "Memory growth after the session, find the cache and cap it",
           "summary": "The thread lets go of what you scrolled past",
           "shipped": "2026-09-29",
-          "progress": "/progress#the-thread-lets-go-of-what-you-scrolled-past"
+          "progress": "/progress#the-thread-lets-go-of-what-you-scrolled-past",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0351ced"
         },
         {
           "key": "SITE-102",
@@ -576,24 +914,52 @@
           "progress": "/progress#the-yui-icon-in-browser-tabs-and-google"
         },
         {
-          "key": "YUI-199",
-          "title": "B (next, APP, Chris's feedback)",
-          "summary": "A notification opens its message on the first page, not the last",
-          "shipped": "2026-09-29"
+          "key": "YUI-199b",
+          "title": "A notification opens its message on the first page, not the last",
+          "summary": "A notification opens on page one of what came",
+          "shipped": "2026-09-29",
+          "progress": "/progress#a-notification-opens-on-page-one-of-what-came",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/611ba12"
         },
         {
           "key": "YUI-186",
           "title": "Quill's tools",
           "summary": "Quill's tools in the app: learn a topic, rate your cards, a problem one step at a time",
           "shipped": "2026-09-29",
-          "progress": "/progress#quill-s-tools-in-the-app-learn-a-topic-rate-your-cards-a-problem-one-step-at-a-t"
+          "progress": "/progress#quill-s-tools-in-the-app-learn-a-topic-rate-your-cards-a-problem-one-step-at-a-t",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5077ee3"
         },
         {
           "key": "YUI-201",
           "title": "Hold to talk",
           "summary": "Hold the mic, slide to cancel or lock",
           "shipped": "2026-09-29",
-          "progress": "/progress#hold-the-mic-slide-to-cancel-or-lock"
+          "progress": "/progress#hold-the-mic-slide-to-cancel-or-lock",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2450c2d"
+        },
+        {
+          "key": "YUI-193",
+          "title": "Screen pills replace the dots, like browser tabs, and the active one follows your swipe",
+          "summary": "Screens get pills, like browser tabs",
+          "shipped": "2026-09-29",
+          "progress": "/progress#screens-get-pills-like-browser-tabs",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/cd6139f"
+        },
+        {
+          "key": "YUI-190",
+          "title": "Stop a turn from the main screen",
+          "summary": "Stop a reply from the main screen",
+          "shipped": "2026-09-29",
+          "progress": "/progress#stop-a-reply-from-the-main-screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/90bcde0"
+        },
+        {
+          "key": "YUI-189",
+          "title": "The screen dots move into the bottom bar, centered, and make room when the page arrows show",
+          "summary": "The screen dots move into the bottom bar",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-screen-dots-move-into-the-bottom-bar",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ee6962a"
         },
         {
           "key": "YUI-116",
@@ -601,13 +967,16 @@
           "step": "Step 5",
           "summary": "Record a take, plug in a keyboard",
           "shipped": "2026-09-29",
-          "progress": "/progress#record-a-take-plug-in-a-keyboard"
+          "progress": "/progress#record-a-take-plug-in-a-keyboard",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/34c0234"
         },
         {
           "key": "YUI-111",
           "title": "CHANNEL.md kind= line and a real patch-only card move, once build 143+ is VALID",
           "step": "Step 3",
-          "shipped": "2026-09-29"
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-app-moves-timeline-rows-in-place",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9340b79"
         },
         {
           "key": "SITE-101",
@@ -621,98 +990,128 @@
           "title": "Every agent has its own quiet visualizer by default",
           "summary": "Every agent has its own quiet visualizer",
           "shipped": "2026-09-29",
-          "progress": "/progress#every-agent-has-its-own-quiet-visualizer"
+          "progress": "/progress#every-agent-has-its-own-quiet-visualizer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c0c192e"
+        },
+        {
+          "key": "YUI-196",
+          "title": "A real body text style",
+          "summary": "Long answers read as body text, and markdown is drawn",
+          "shipped": "2026-09-29",
+          "progress": "/progress#long-answers-read-as-body-text-and-markdown-is-drawn",
+          "commit": "https://github.com/postscarcityai/yui/commit/efd340f"
+        },
+        {
+          "key": "YUI-195",
+          "title": "Every full-screen step has a way out",
+          "summary": "A way home from every full-screen answer",
+          "shipped": "2026-09-29",
+          "progress": "/progress#a-way-home-from-every-full-screen-answer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/430c020"
         },
         {
           "key": "YUI-202",
           "title": "Every message shows when it was sent, grouped by day",
           "summary": "Every message shows when it was sent",
           "shipped": "2026-09-29",
-          "progress": "/progress#every-message-shows-when-it-was-sent"
+          "progress": "/progress#every-message-shows-when-it-was-sent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/82b2916"
         },
         {
           "key": "YUI-200",
           "title": "Gouda's music keeps playing across screens, and the tuner button opens the tuner with no model call",
           "summary": "Gouda's music keeps playing, and Tune up just opens the tuner",
           "shipped": "2026-09-29",
-          "progress": "/progress#gouda-s-music-keeps-playing-and-tune-up-just-opens-the-tuner"
+          "progress": "/progress#gouda-s-music-keeps-playing-and-tune-up-just-opens-the-tuner",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5156a62"
         },
         {
           "key": "YUI-199",
           "title": "A notification opens the agent that sent it, not the home screen",
           "summary": "A notification opens what it is about",
           "shipped": "2026-09-29",
-          "progress": "/progress#a-notification-opens-what-it-is-about"
+          "progress": "/progress#a-notification-opens-what-it-is-about",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a7b633d"
         },
         {
           "key": "YUI-198",
           "title": "The stage splits a sentence at a version number, '0.6.0' becomes '0' on its own screen",
           "summary": "A version number no longer splits a sentence",
           "shipped": "2026-09-29",
-          "progress": "/progress#a-version-number-no-longer-splits-a-sentence"
+          "progress": "/progress#a-version-number-no-longer-splits-a-sentence",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b3462a9"
         },
         {
           "key": "YUI-205",
           "title": "A chart on the full-screen stage draws edge to edge, the whole page is wider than the phone",
           "summary": "A chart page stays inside the phone",
           "shipped": "2026-09-29",
-          "progress": "/progress#a-chart-page-stays-inside-the-phone"
+          "progress": "/progress#a-chart-page-stays-inside-the-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f8c02e3"
         },
         {
           "key": "SITE-100",
           "title": "Loops keep playing across screens and layer; a saved-screen shortcut opens with no model call",
           "summary": "Loops keep playing when you swipe to another screen",
           "shipped": "2026-09-29",
-          "progress": "/progress#loops-keep-playing-when-you-swipe-to-another-screen"
+          "progress": "/progress#loops-keep-playing-when-you-swipe-to-another-screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/240efd4"
         },
         {
           "key": "SITE-99",
           "title": "The site chat shows when each message was sent, grouped by day",
           "summary": "The chat says when things were sent",
           "shipped": "2026-09-29",
-          "progress": "/progress#the-chat-says-when-things-were-sent"
+          "progress": "/progress#the-chat-says-when-things-were-sent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/48b4663"
         },
         {
           "key": "SITE-98",
           "title": "Every full-screen answer in the site chat and playground has a way home",
           "summary": "A way home from every full screen",
           "shipped": "2026-09-29",
-          "progress": "/progress#a-way-home-from-every-full-screen"
+          "progress": "/progress#a-way-home-from-every-full-screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6be690d"
         },
         {
           "key": "SITE-97",
           "title": "Body text and a markdown reader on the site stage, the web half of YUI-196",
           "summary": "Text you can read: body type and a small markdown reader",
           "shipped": "2026-09-29",
-          "progress": "/progress#text-you-can-read-body-type-and-a-small-markdown-reader"
+          "progress": "/progress#text-you-can-read-body-type-and-a-small-markdown-reader",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/915ec69"
         },
         {
           "key": "YUI-203",
           "title": "The guide teaches show, don't tell",
           "summary": "Agents show it in context: a phone, a timeline, a next step",
           "shipped": "2026-09-29",
-          "progress": "/progress#agents-show-it-in-context-a-phone-a-timeline-a-next-step"
+          "progress": "/progress#agents-show-it-in-context-a-phone-a-timeline-a-next-step",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/968c66c"
         },
         {
           "key": "YUI-204",
           "title": "Proposal",
           "summary": "PROP-4: a first plan in every agent",
           "shipped": "2026-09-29",
-          "progress": "/progress#prop-4-a-first-plan-in-every-agent"
+          "progress": "/progress#prop-4-a-first-plan-in-every-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7f66505"
         },
         {
           "key": "SITE-96",
           "title": "The site stage never splits a sentence inside a version number, decimal or URL",
           "summary": "The site stage no longer splits a sentence inside a version number",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-site-stage-no-longer-splits-a-sentence-inside-a-version-number"
+          "progress": "/progress#the-site-stage-no-longer-splits-a-sentence-inside-a-version-number",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/16bc5b9"
         },
         {
           "key": "YUI-197",
           "title": "The guide teaches agents to draw board cards, not describe them",
           "summary": "Agents draw what is waiting, they don't count it",
           "shipped": "2026-09-28",
-          "progress": "/progress#agents-draw-what-is-waiting-they-don-t-count-it"
+          "progress": "/progress#agents-draw-what-is-waiting-they-don-t-count-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/73e7f9d"
         },
         {
           "key": "SITE-94",
@@ -729,21 +1128,6 @@
           "progress": "/progress#prop-2-the-jev-layer"
         },
         {
-          "key": "SITE-95",
-          "title": "Checks go green on yuigui main and run before every push, no more failure emails every hour",
-          "shipped": "2026-09-28"
-        },
-        {
-          "key": "SITE-92",
-          "title": "Where Jev fits in Yui, every decision point in a turn and which ones a Jev call should make",
-          "shipped": "2026-09-28"
-        },
-        {
-          "key": "SITE-91",
-          "title": "Jev research, what TypeSafe's new decision model is, what it returns, how fast, what it costs",
-          "shipped": "2026-09-28"
-        },
-        {
           "key": "SITE-89",
           "title": "Vote on proposals",
           "summary": "Vote on a proposal",
@@ -755,7 +1139,8 @@
           "title": "PROP-1 hero, the first-run flow in a phone",
           "summary": "Pick your crew, in a phone you can use",
           "shipped": "2026-09-28",
-          "progress": "/progress#pick-your-crew-in-a-phone-you-can-use"
+          "progress": "/progress#pick-your-crew-in-a-phone-you-can-use",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b1bf9bd"
         },
         {
           "key": "SITE-90",
@@ -769,205 +1154,236 @@
           "title": "/proposals, a page for big ideas",
           "summary": "Proposals: big ideas, shown before they are built",
           "shipped": "2026-09-28",
-          "progress": "/progress#proposals-big-ideas-shown-before-they-are-built"
+          "progress": "/progress#proposals-big-ideas-shown-before-they-are-built",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a6d3fdb"
         },
         {
           "key": "SITE-86",
           "title": "Fresh og on every major update",
           "summary": "The home page shares the latest release",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-home-page-shares-the-latest-release"
+          "progress": "/progress#the-home-page-shares-the-latest-release",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b20f89c"
         },
         {
           "key": "SITE-85",
           "title": "Every page shares as itself",
           "shipped": "2026-09-28",
-          "progress": "/progress#every-page-shares-as-itself"
+          "progress": "/progress#every-page-shares-as-itself",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b083284"
         },
         {
           "key": "SITE-84",
           "title": "Stop a turn in the site chat, the send button turns into a stop square",
           "summary": "Stop a reply in the site chat",
           "shipped": "2026-09-28",
-          "progress": "/progress#stop-a-reply-in-the-site-chat"
+          "progress": "/progress#stop-a-reply-in-the-site-chat",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/270fa52"
         },
         {
           "key": "SITE-83",
           "title": "The site chat gets the app's screens",
           "summary": "The site chat gets pages, a swipe away",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-site-chat-gets-pages-a-swipe-away"
+          "progress": "/progress#the-site-chat-gets-pages-a-swipe-away",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c10eb5f"
         },
         {
           "key": "NOTE-23261",
           "title": "The switch-agents crash, already fixed",
-          "shipped": "2026-09-28"
+          "shipped": "2026-09-28",
+          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
         },
         {
-          "key": "YUI-185",
-          "title": "B (backlog, WEB + NATIVE)",
-          "summary": "Penny's tools in the app: plan your week by voice, a reminder on your phone, a week you can drag",
+          "key": "YUI-185b",
+          "title": "Quiet ticks reach native runtimes in the spec; Save order redraws This week",
+          "summary": "Ticks and your week, on every device",
           "shipped": "2026-09-28",
-          "progress": "/progress#penny-s-tools-in-the-app-plan-your-week-by-voice-a-reminder-on-your-phone-a-week"
+          "progress": "/progress#ticks-and-your-week-on-every-device",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5cce24c"
         },
         {
           "key": "NOTE-51249",
           "title": "Agents keep their own tables",
-          "shipped": "2026-09-28"
+          "shipped": "2026-09-28",
+          "progress": "/progress#basil-s-grocery-list-just-works"
         },
         {
           "key": "NOTE-29968",
           "title": "Basil's error was a wall of text",
-          "shipped": "2026-09-28"
+          "shipped": "2026-09-28",
+          "progress": "/progress#basil-s-grocery-list-just-works"
         },
         {
           "key": "YUI-188",
           "title": "Basil's grocery list just works",
           "shipped": "2026-09-28",
-          "progress": "/progress#basil-s-grocery-list-just-works"
+          "progress": "/progress#basil-s-grocery-list-just-works",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4861755"
         },
         {
           "key": "SITE-82",
           "title": "Meet the crew on yuigui.com/crew",
           "summary": "Meet the crew: one page for Yui and the five starter agents",
           "shipped": "2026-09-28",
-          "progress": "/progress#meet-the-crew-one-page-for-yui-and-the-five-starter-agents"
+          "progress": "/progress#meet-the-crew-one-page-for-yui-and-the-five-starter-agents",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8dbadcd"
         },
         {
           "key": "NOTE-24431",
           "title": "The switch-agents crash",
-          "shipped": "2026-09-28"
+          "shipped": "2026-09-28",
+          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
         },
         {
           "key": "NOTE-8480",
           "title": "The switch-agents crash",
-          "shipped": "2026-09-28"
+          "shipped": "2026-09-28",
+          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
         },
         {
           "key": "SITE-80",
           "title": "See it's live-only app entries, shot on the live test runs",
           "summary": "See it's live-only entries, shot on real test runs",
           "shipped": "2026-09-28",
-          "progress": "/progress#see-it-s-live-only-entries-shot-on-real-test-runs"
+          "progress": "/progress#see-it-s-live-only-entries-shot-on-real-test-runs",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/eb03689"
         },
         {
           "key": "SITE-81",
           "title": "The stage plays a deck's titled questions as pages, and a redraw beside an answer keeps you on the answer (app parity for YUI-183)",
           "summary": "Basil's week on the web: a day a page, a swap on one tap",
           "shipped": "2026-09-28",
-          "progress": "/progress#basil-s-week-on-the-web-a-day-a-page-a-swap-on-one-tap"
+          "progress": "/progress#basil-s-week-on-the-web-a-day-a-page-a-swap-on-one-tap",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2051202"
         },
         {
           "key": "SITE-69",
           "title": "Meet the crew in the site chat, each member with a flow to try",
           "summary": "Meet the crew in the site chat, each with a flow to try",
           "shipped": "2026-09-28",
-          "progress": "/progress#meet-the-crew-in-the-site-chat-each-with-a-flow-to-try"
+          "progress": "/progress#meet-the-crew-in-the-site-chat-each-with-a-flow-to-try",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/fea1d0d"
         },
         {
           "key": "SITE-74",
           "title": "The study buddy's flow for the site chat, from a topic to a quiz",
           "summary": "The study buddy's flow: a topic to a quiz",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-study-buddy-s-flow-a-topic-to-a-quiz"
+          "progress": "/progress#the-study-buddy-s-flow-a-topic-to-a-quiz",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1eb67dc"
         },
         {
           "key": "SITE-73",
           "title": "The planner's flow for the site chat, from a busy week to a plan",
           "summary": "The planner's flow: a busy week to a plan",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-planner-s-flow-a-busy-week-to-a-plan"
+          "progress": "/progress#the-planner-s-flow-a-busy-week-to-a-plan",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8014448"
         },
         {
           "key": "SITE-72",
           "title": "The musician's flow for the site chat, from a vibe to a beat",
           "summary": "The musician's flow: a vibe to a beat",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-musician-s-flow-a-vibe-to-a-beat"
+          "progress": "/progress#the-musician-s-flow-a-vibe-to-a-beat",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d1820c8"
         },
         {
           "key": "SITE-71",
           "title": "The nutritionist's flow for the site chat, from a plate to macros",
           "summary": "The nutritionist's flow: a plate to macros",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-nutritionist-s-flow-a-plate-to-macros"
+          "progress": "/progress#the-nutritionist-s-flow-a-plate-to-macros",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4c401c5"
         },
         {
           "key": "SITE-79",
           "title": "See it's app group, the rest of the old-composer shots",
           "summary": "See it shows the rest of the app as it is now",
           "shipped": "2026-09-28",
-          "progress": "/progress#see-it-shows-the-rest-of-the-app-as-it-is-now"
+          "progress": "/progress#see-it-shows-the-rest-of-the-app-as-it-is-now",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d5df7c9"
         },
         {
           "key": "SITE-76",
           "title": "See it's 'Yui on your phone' group still shows the old chat composer",
           "summary": "See it shows the app as it is now",
           "shipped": "2026-09-28",
-          "progress": "/progress#see-it-shows-the-app-as-it-is-now"
+          "progress": "/progress#see-it-shows-the-app-as-it-is-now",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/486e8fa"
         },
         {
           "key": "SITE-78",
           "title": "The interval timer's digits vanish in light mode (dark text on the dark dial)",
           "summary": "The timer reads in light mode",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-timer-reads-in-light-mode"
+          "progress": "/progress#the-timer-reads-in-light-mode",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5fc2cee"
         },
         {
           "key": "SITE-70",
           "title": "The trainer's flow for the site chat, from a check-in to the timer",
           "summary": "The trainer's flow: a check-in that ends on the timer",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-trainer-s-flow-a-check-in-that-ends-on-the-timer"
+          "progress": "/progress#the-trainer-s-flow-a-check-in-that-ends-on-the-timer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/64936f7"
         },
         {
           "key": "YUI-187",
           "title": "The screen dots come back and animate, and screens slide instead of fading",
           "summary": "Yui 0.5.2: the dots are back and slide with you",
           "shipped": "2026-09-28",
-          "progress": "/progress#yui-0-5-2-the-dots-are-back-and-slide-with-you"
+          "progress": "/progress#yui-0-5-2-the-dots-are-back-and-slide-with-you",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/63841b3"
         },
         {
           "key": "SITE-68",
           "title": "The site chat demos whole flows, several screens in a row, not one screen",
           "summary": "The site chat plays a whole flow",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-site-chat-plays-a-whole-flow"
+          "progress": "/progress#the-site-chat-plays-a-whole-flow",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/bc830e9"
         },
         {
           "key": "SITE-67",
           "title": "The site chat asks for feedback first",
           "summary": "The site chat asks what you think",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-site-chat-asks-what-you-think"
+          "progress": "/progress#the-site-chat-asks-what-you-think",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ce387c2"
         },
         {
           "key": "YUI-181",
           "title": "Ship Yui 0.5.1, the switch-agents and launch crash fix",
           "summary": "Yui 0.5.1 is on TestFlight: switching agents no longer crashes",
           "shipped": "2026-09-28",
-          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes"
+          "progress": "/progress#yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4f77e33"
         },
         {
           "key": "SITE-77",
           "title": "Hand this to your agent",
           "summary": "Hand this page to your agent",
           "shipped": "2026-09-28",
-          "progress": "/progress#hand-this-page-to-your-agent"
+          "progress": "/progress#hand-this-page-to-your-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a19eee3"
         },
         {
           "key": "SITE-66",
           "title": "The site chat opens full screen first, like the Yui app, with the mic",
           "summary": "The chat on this site opens full screen, like the app",
           "shipped": "2026-09-28",
-          "progress": "/progress#the-chat-on-this-site-opens-full-screen-like-the-app"
+          "progress": "/progress#the-chat-on-this-site-opens-full-screen-like-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f3b98d9"
         },
         {
           "key": "SITE-75",
           "title": "Hold to talk on /mockups shows the 0.5.0 app, not the old chat composer",
           "summary": "See it shows hold to talk the way 0.5.0 does it",
           "shipped": "2026-09-28",
-          "progress": "/progress#see-it-shows-hold-to-talk-the-way-0-5-0-does-it"
+          "progress": "/progress#see-it-shows-hold-to-talk-the-way-0-5-0-does-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/148273a"
         },
         {
           "key": "YUI-171",
@@ -975,7 +1391,8 @@
           "step": "Step 3",
           "summary": "Your tables work with any agent",
           "shipped": "2026-09-27",
-          "progress": "/progress#your-tables-work-with-any-agent"
+          "progress": "/progress#your-tables-work-with-any-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1b7b24d"
         },
         {
           "key": "YUI-171",
@@ -983,48 +1400,55 @@
           "step": "Step 2",
           "summary": "Switch agents, keep your tables",
           "shipped": "2026-09-27",
-          "progress": "/progress#switch-agents-keep-your-tables"
+          "progress": "/progress#switch-agents-keep-your-tables",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1b7b24d"
         },
         {
           "key": "YUI-168",
           "title": "Every agent's home",
           "summary": "Every agent has a home",
           "shipped": "2026-09-27",
-          "progress": "/progress#every-agent-has-a-home"
+          "progress": "/progress#every-agent-has-a-home",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7105361"
         },
         {
           "key": "YUI-144",
           "title": "Native hand-offs",
           "summary": "One agent opens another",
           "shipped": "2026-09-27",
-          "progress": "/progress#one-agent-opens-another"
+          "progress": "/progress#one-agent-opens-another",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2a2d5ad"
         },
         {
           "key": "YUI-103",
           "title": "Log a meal without weighing",
           "shipped": "2026-09-27",
-          "progress": "/progress#log-a-meal-without-weighing"
+          "progress": "/progress#log-a-meal-without-weighing",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f927da8"
         },
         {
           "key": "YUI-167",
           "title": "Meet the agent",
           "summary": "Meet each agent when you open it",
           "shipped": "2026-09-27",
-          "progress": "/progress#meet-each-agent-when-you-open-it"
+          "progress": "/progress#meet-each-agent-when-you-open-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/13c3976"
         },
         {
           "key": "YUI-171",
           "title": "The same tables for any agent",
           "summary": "Tables right in the reply, for any agent",
           "shipped": "2026-09-27",
-          "progress": "/progress#tables-right-in-the-reply-for-any-agent"
+          "progress": "/progress#tables-right-in-the-reply-for-any-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1b7b24d"
         },
         {
           "key": "YUI-166",
           "title": "Hold to snap and say, one press takes the photo and records what you say",
           "summary": "Hold to snap and say what's in it",
           "shipped": "2026-09-27",
-          "progress": "/progress#hold-to-snap-and-say-what-s-in-it"
+          "progress": "/progress#hold-to-snap-and-say-what-s-in-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ca87f70"
         },
         {
           "key": "YUI-168",
@@ -1032,92 +1456,88 @@
           "step": "Step 1",
           "summary": "Every agent has its own home: the spec and a mock",
           "shipped": "2026-09-27",
-          "progress": "/progress#every-agent-has-its-own-home-the-spec-and-a-mock"
+          "progress": "/progress#every-agent-has-its-own-home-the-spec-and-a-mock",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7105361"
         },
         {
           "key": "YUI-170",
           "title": "Every native agent keeps its own little database",
           "summary": "Every agent keeps its own little database",
           "shipped": "2026-09-27",
-          "progress": "/progress#every-agent-keeps-its-own-little-database"
+          "progress": "/progress#every-agent-keeps-its-own-little-database",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4ac968e"
         },
         {
           "key": "YUI-165",
           "title": "Every crew agent says what it does, and its hello is an answer, not a Review ask",
           "summary": "Every crew agent says what it does",
           "shipped": "2026-09-27",
-          "progress": "/progress#every-crew-agent-says-what-it-does"
-        },
-        {
-          "key": "NOTE-50101",
-          "title": "Agents answer in screens, not prose",
-          "shipped": "2026-09-27"
+          "progress": "/progress#every-crew-agent-says-what-it-does",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/daf578d"
         },
         {
           "key": "SITE-65",
           "title": "The Yui chat on yuigui.com feels like the app",
           "summary": "The chat on this site feels like Yui",
           "shipped": "2026-09-27",
-          "progress": "/progress#the-chat-on-this-site-feels-like-yui"
-        },
-        {
-          "key": "NOTE-11943",
-          "title": "Swipe for drawer and screens again",
-          "shipped": "2026-09-27"
+          "progress": "/progress#the-chat-on-this-site-feels-like-yui",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7f142c6"
         },
         {
           "key": "YUI-135",
           "title": "The starter crew",
           "summary": "The starter crew stays in character",
           "shipped": "2026-09-27",
-          "progress": "/progress#the-starter-crew-stays-in-character"
-        },
-        {
-          "key": "NOTE-65452",
-          "title": "Signed-in header before sign-in",
-          "shipped": "2026-09-27"
+          "progress": "/progress#the-starter-crew-stays-in-character",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6a79ce4"
         },
         {
           "key": "YUI-164",
           "title": "Ship the fix build",
           "summary": "A new install opens with Yui and the crew already there",
           "shipped": "2026-09-27",
-          "progress": "/progress#a-new-install-opens-with-yui-and-the-crew-already-there"
+          "progress": "/progress#a-new-install-opens-with-yui-and-the-crew-already-there",
+          "commit": "https://github.com/postscarcityai/yui/commit/802b510"
         },
         {
           "key": "YUI-161",
           "title": "Native agents write \\n inside quoted YL strings, the app shows 'nn'",
           "summary": "Line breaks read as lines",
           "shipped": "2026-09-27",
-          "progress": "/progress#line-breaks-read-as-lines"
+          "progress": "/progress#line-breaks-read-as-lines",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9bf5119"
         },
         {
           "key": "YUI-162",
           "title": "Native GLM 5.2 turns can think through all 2000 tokens and answer nothing",
           "summary": "Long asks always get an answer",
           "shipped": "2026-09-27",
-          "progress": "/progress#long-asks-always-get-an-answer"
+          "progress": "/progress#long-asks-always-get-an-answer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d318292"
         },
         {
           "key": "YUI-163",
           "title": "Native crew replies without em dashes (backlog)",
           "summary": "No dashes in the crew's replies",
           "shipped": "2026-09-27",
-          "progress": "/progress#no-dashes-in-the-crew-s-replies"
+          "progress": "/progress#no-dashes-in-the-crew-s-replies",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ad02f78"
         },
         {
           "key": "YUI-160",
           "title": "Native sprint build to TestFlight, onboarding with the native agent",
           "summary": "Native Yui on your phone",
           "shipped": "2026-09-27",
-          "progress": "/progress#native-yui-on-your-phone"
+          "progress": "/progress#native-yui-on-your-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/904dd4d"
         },
         {
           "key": "YUI-134",
           "title": "A Yui for everyone at sign-in",
           "summary": "Everyone gets a Yui at sign-in",
           "shipped": "2026-09-27",
-          "progress": "/progress#everyone-gets-a-yui-at-sign-in"
+          "progress": "/progress#everyone-gets-a-yui-at-sign-in",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/de8cd05"
         },
         {
           "key": "YUI-132",
@@ -1131,35 +1551,40 @@
           "title": "The first launch is Yui talking, with the crew already there; model and version in Controls",
           "summary": "The first launch is Yui talking, with the crew already there",
           "shipped": "2026-09-27",
-          "progress": "/progress#the-first-launch-is-yui-talking-with-the-crew-already-there"
+          "progress": "/progress#the-first-launch-is-yui-talking-with-the-crew-already-there",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3041962"
         },
         {
           "key": "YUI-143",
           "title": "Native schedules and push",
           "summary": "Your agents check in on their own",
           "shipped": "2026-09-27",
-          "progress": "/progress#your-agents-check-in-on-their-own"
+          "progress": "/progress#your-agents-check-in-on-their-own",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/78a54d9"
         },
         {
           "key": "YUI-158",
           "title": "Follow-up (backlog)",
           "summary": "Map labels stop overlapping",
           "shipped": "2026-09-27",
-          "progress": "/progress#map-labels-stop-overlapping"
+          "progress": "/progress#map-labels-stop-overlapping",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/441ccbd"
         },
         {
           "key": "YUI-140",
           "title": "Native memory",
           "summary": "Your agents remember you, and you can fix what they remember",
           "shipped": "2026-09-27",
-          "progress": "/progress#your-agents-remember-you-and-you-can-fix-what-they-remember"
+          "progress": "/progress#your-agents-remember-you-and-you-can-fix-what-they-remember",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7a94d97"
         },
         {
           "key": "YUI-141",
           "title": "Native agents read photos",
           "summary": "Basil reads your meal",
           "shipped": "2026-09-27",
-          "progress": "/progress#basil-reads-your-meal"
+          "progress": "/progress#basil-reads-your-meal",
+          "commit": "https://github.com/postscarcityai/yui/commit/ff0800a"
         },
         {
           "key": "YUI-158",
@@ -1167,14 +1592,16 @@
           "step": "Step 3",
           "summary": "Agents answer where with a map",
           "shipped": "2026-09-27",
-          "progress": "/progress#agents-answer-where-with-a-map"
+          "progress": "/progress#agents-answer-where-with-a-map",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5261d58"
         },
         {
           "key": "YUI-142",
           "title": "Native web search with caps",
           "summary": "Native agents look things up, with sources",
           "shipped": "2026-09-27",
-          "progress": "/progress#native-agents-look-things-up-with-sources"
+          "progress": "/progress#native-agents-look-things-up-with-sources",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/090eee1"
         },
         {
           "key": "YUI-158",
@@ -1182,61 +1609,70 @@
           "step": "Step 2",
           "summary": "Maps in the app",
           "shipped": "2026-09-27",
-          "progress": "/progress#maps-in-the-app"
+          "progress": "/progress#maps-in-the-app",
+          "commit": "https://github.com/postscarcityai/yui/commit/63fdc90"
         },
         {
           "key": "YUI-133",
           "title": "Native profiles",
           "summary": "Yui's own soul and first screen",
           "shipped": "2026-09-27",
-          "progress": "/progress#yui-s-own-soul-and-first-screen"
+          "progress": "/progress#yui-s-own-soul-and-first-screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/04e2c8d"
         },
         {
           "key": "YUI-131",
           "title": "Native models",
           "summary": "Pick the model per turn",
           "shipped": "2026-09-27",
-          "progress": "/progress#pick-the-model-per-turn"
+          "progress": "/progress#pick-the-model-per-turn",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/fe8d66c"
         },
         {
           "key": "YUI-130",
           "title": "Native runtime core",
           "summary": "Yui's own engine for native agents",
           "shipped": "2026-09-27",
-          "progress": "/progress#yui-s-own-engine-for-native-agents"
+          "progress": "/progress#yui-s-own-engine-for-native-agents",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9ef1837"
         },
         {
           "key": "SITE-63",
           "title": "Yui 0.4.2 on the site, a short release Thought (one Send per screen)",
           "summary": "Yui 0.4.2 on the site",
           "shipped": "2026-09-27",
-          "progress": "/progress#yui-0-4-2-on-the-site"
+          "progress": "/progress#yui-0-4-2-on-the-site",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3fa1660"
         },
         {
           "key": "YUI-159",
           "title": "A pick on the stage questions has its own Done",
           "summary": "One Send per screen, picks too",
           "shipped": "2026-09-27",
-          "progress": "/progress#one-send-per-screen-picks-too"
+          "progress": "/progress#one-send-per-screen-picks-too",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8404bc5"
         },
         {
           "key": "YUI-156",
           "title": "A form inside a plan has no Send of its own",
           "summary": "One Send per screen, forms too",
           "shipped": "2026-09-27",
-          "progress": "/progress#one-send-per-screen-forms-too"
+          "progress": "/progress#one-send-per-screen-forms-too",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/94d704b"
         },
         {
           "key": "NOTE-22448",
           "title": "Add the crew to my account",
-          "shipped": "2026-09-27"
+          "shipped": "2026-09-27",
+          "progress": "/progress#everyone-gets-a-yui-at-sign-in"
         },
         {
           "key": "YUI-155",
           "title": "A flow the phone can't run turns into a plan, never a dead end",
           "summary": "Flows never dead-end",
           "shipped": "2026-09-27",
-          "progress": "/progress#flows-never-dead-end"
+          "progress": "/progress#flows-never-dead-end",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8b96ad4"
         },
         {
           "key": "YUI-158",
@@ -1244,99 +1680,84 @@
           "step": "Step 1",
           "summary": "Maps: answer where with the place",
           "shipped": "2026-09-27",
-          "progress": "/progress#maps-answer-where-with-the-place"
+          "progress": "/progress#maps-answer-where-with-the-place",
+          "commit": "https://github.com/postscarcityai/yui/commit/bf2d657"
         },
         {
           "key": "YUI-157",
           "title": "Explainers draw every page, never a text bomb (Chris, feedback AJIE1_1R)",
           "summary": "Explainers draw every page",
           "shipped": "2026-09-27",
-          "progress": "/progress#explainers-draw-every-page"
-        },
-        {
-          "key": "NOTE-38321",
-          "title": "Places get a map",
-          "shipped": "2026-09-27"
-        },
-        {
-          "key": "NOTE-4592",
-          "title": "Feedback receipts look better, off the stage",
-          "shipped": "2026-09-27"
+          "progress": "/progress#explainers-draw-every-page",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8f0b5b3"
         },
         {
           "key": "SOC-6",
           "title": "Brag video of the new layout as shipped in 0.4.0/0.4.1, on the home page hero",
           "shipped": "2026-09-27",
-          "progress": "/progress#the-new-face-filmed-in-the-app-on-the-home-page"
-        },
-        {
-          "key": "NOTE-13279",
-          "title": "No send button in About you",
-          "shipped": "2026-09-27"
-        },
-        {
-          "key": "NOTE-4137",
-          "title": "Every full screen has a next step",
-          "shipped": "2026-09-27"
+          "progress": "/progress#the-new-face-filmed-in-the-app-on-the-home-page",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f23ae62"
         },
         {
           "key": "SOC-4",
           "title": "The Yui 0.4.1 brag video (tune up, keep time, send a take)",
           "shipped": "2026-09-27",
-          "progress": "/progress#a-film-for-yui-0-4-1-tune-up-keep-time-send-a-take"
+          "progress": "/progress#a-film-for-yui-0-4-1-tune-up-keep-time-send-a-take",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7e1d193"
         },
         {
           "key": "SOC-5",
           "title": "Finish brag videos 08 hands full, 09 afford it, 10 homework",
           "shipped": "2026-09-27",
-          "progress": "/progress#three-films-dinner-a-car-homework"
+          "progress": "/progress#three-films-dinner-a-car-homework",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1162037"
         },
         {
           "key": "SITE-62",
           "title": "Put the finished brag videos and 0.4.1 on the site",
           "summary": "The films are on the site, and 0.4.1 reads as the newest",
           "shipped": "2026-09-27",
-          "progress": "/progress#the-films-are-on-the-site-and-0-4-1-reads-as-the-newest"
+          "progress": "/progress#the-films-are-on-the-site-and-0-4-1-reads-as-the-newest",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/dc2d1d6"
         },
         {
           "key": "YUI-116",
           "title": "The channel guide teaches keys, chords, tuner and metronome",
           "summary": "Agents send keys and chords",
           "shipped": "2026-09-27",
-          "progress": "/progress#agents-send-keys-and-chords"
+          "progress": "/progress#agents-send-keys-and-chords",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/85bbee1"
         },
         {
           "key": "SITE-61",
           "title": "Yui 0.4.1 on the site, a release Thought (tuner, metronome, record a take, MIDI keyboard)",
           "summary": "Yui 0.4.1 on the site: the release post",
           "shipped": "2026-09-27",
-          "progress": "/progress#yui-0-4-1-on-the-site-the-release-post"
-        },
-        {
-          "key": "YUI-136",
-          "title": "Gouda's missing views",
-          "summary": "The app draws metronome and tuner",
-          "shipped": "2026-09-27"
+          "progress": "/progress#yui-0-4-1-on-the-site-the-release-post",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/646000f"
         },
         {
           "key": "SITE-60",
           "title": "See it",
           "summary": "See a take recorded and a keyboard played",
           "shipped": "2026-09-27",
-          "progress": "/progress#see-a-take-recorded-and-a-keyboard-played"
+          "progress": "/progress#see-a-take-recorded-and-a-keyboard-played",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8e9a9df"
         },
         {
           "key": "SITE-59",
           "title": "The site after 0.4.0",
           "summary": "A clean sweep after Yui 0.4.0",
           "shipped": "2026-09-27",
-          "progress": "/progress#a-clean-sweep-after-yui-0-4-0"
+          "progress": "/progress#a-clean-sweep-after-yui-0-4-0",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9d8db74"
         },
         {
           "key": "SITE-58",
           "title": "Yui 0.4.0 in motion on See it",
           "shipped": "2026-09-27",
-          "progress": "/progress#yui-0-4-0-in-motion-on-see-it"
+          "progress": "/progress#yui-0-4-0-in-motion-on-see-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/86ca730"
         },
         {
           "key": "YUI-116",
@@ -1344,40 +1765,48 @@
           "step": "Step 3",
           "summary": "Keys and chords you can play in the app",
           "shipped": "2026-09-27",
-          "progress": "/progress#keys-and-chords-you-can-play-in-the-app"
+          "progress": "/progress#keys-and-chords-you-can-play-in-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/bedb5c6"
         },
         {
           "key": "SITE-57",
           "title": "Yui 0.4.0 on the site, a release Thought and a See it group",
           "summary": "Yui 0.4.0 on the site: the release post and See it",
           "shipped": "2026-09-27",
-          "progress": "/progress#yui-0-4-0-on-the-site-the-release-post-and-see-it"
+          "progress": "/progress#yui-0-4-0-on-the-site-the-release-post-and-see-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/198ff0f"
         },
         {
           "key": "YUI-125",
           "title": "The visualizer listens",
           "summary": "The picture listens",
           "shipped": "2026-09-27",
-          "progress": "/progress#the-picture-listens"
+          "progress": "/progress#the-picture-listens",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/cd9b067"
         },
         {
           "key": "YUI-124",
           "title": "The visualizer in the app, Metal shaders on the full screen stage",
           "step": "Step 2",
-          "shipped": "2026-09-27"
+          "shipped": "2026-09-27",
+          "progress": "/progress#a-live-picture-behind-the-words",
+          "commit": "https://github.com/postscarcityai/yui/commit/49a943f"
         },
         {
           "key": "YUI-120",
           "title": "Context animations on the full screen stage",
           "step": "Step 2",
-          "shipped": "2026-09-26"
+          "shipped": "2026-09-26",
+          "progress": "/progress#the-stage-moves-with-the-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5420a80"
         },
         {
           "key": "YUI-122",
           "title": "The top bar",
           "summary": "The top bar: agents left, the record right",
           "shipped": "2026-09-26",
-          "progress": "/progress#the-top-bar-agents-left-the-record-right"
+          "progress": "/progress#the-top-bar-agents-left-the-record-right",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f90901b"
         },
         {
           "key": "YUI-124",
@@ -1385,32 +1814,32 @@
           "step": "Step 1",
           "summary": "A live picture behind the words",
           "shipped": "2026-09-26",
-          "progress": "/progress#a-live-picture-behind-the-words"
+          "progress": "/progress#a-live-picture-behind-the-words",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3aa0cb3"
         },
         {
           "key": "YUI-121",
           "title": "The bottom bar",
           "summary": "A bigger mic, bottom right",
           "shipped": "2026-09-26",
-          "progress": "/progress#a-bigger-mic-bottom-right"
+          "progress": "/progress#a-bigger-mic-bottom-right",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1b86acd"
         },
         {
           "key": "YUI-63",
           "title": "Claude-shim agents send what they are doing to Yui mid-turn",
           "step": "Step 3",
-          "shipped": "2026-09-26"
+          "shipped": "2026-09-26",
+          "progress": "/progress#your-agent-says-what-it-is-doing",
+          "commit": "https://github.com/postscarcityai/yui/commit/6fb9174"
         },
         {
           "key": "YUI-123",
           "title": "Describe how each agent moves, in words, and the agent turns it into a motion look",
           "summary": "Say how each agent moves",
           "shipped": "2026-09-26",
-          "progress": "/progress#say-how-each-agent-moves"
-        },
-        {
-          "key": "NOTE-17226",
-          "title": "Pictures show whole, never cropped",
-          "shipped": "2026-09-26"
+          "progress": "/progress#say-how-each-agent-moves",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/03a0a05"
         },
         {
           "key": "YUI-120",
@@ -1418,7 +1847,8 @@
           "step": "Step 1",
           "summary": "The stage moves with the agent",
           "shipped": "2026-09-26",
-          "progress": "/progress#the-stage-moves-with-the-agent"
+          "progress": "/progress#the-stage-moves-with-the-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5420a80"
         },
         {
           "key": "YUI-119",
@@ -1426,21 +1856,24 @@
           "step": "Step 2",
           "summary": "Yui lives on the full screen, in the app",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-lives-on-the-full-screen-in-the-app"
+          "progress": "/progress#yui-lives-on-the-full-screen-in-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1381b5b"
         },
         {
           "key": "SITE-55",
           "title": "A Thought, A Yui of your own (NATIVE-1 explained for visitors)",
           "summary": "A Yui of your own, explained",
           "shipped": "2026-09-26",
-          "progress": "/progress#a-yui-of-your-own-explained"
+          "progress": "/progress#a-yui-of-your-own-explained",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ca26e0e"
         },
         {
           "key": "SITE-54",
           "title": "The full screen stage on the site, See it + roadmap + a Thought (STAGE-1)",
           "summary": "The full screen stage on the site",
           "shipped": "2026-09-26",
-          "progress": "/progress#the-full-screen-stage-on-the-site"
+          "progress": "/progress#the-full-screen-stage-on-the-site",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/808e1fd"
         },
         {
           "key": "YUI-119",
@@ -1448,53 +1881,39 @@
           "step": "Step 1",
           "summary": "The full screen stage, drawn",
           "shipped": "2026-09-26",
-          "progress": "/progress#the-full-screen-stage-drawn"
+          "progress": "/progress#the-full-screen-stage-drawn",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/198233b"
         },
         {
           "key": "YUI-108",
           "title": "Send tap under 100 ms, the last 30 (YUI-106 follow-up)",
           "summary": "Send answers in about 70 ms",
           "shipped": "2026-09-26",
-          "progress": "/progress#send-answers-in-about-70-ms"
+          "progress": "/progress#send-answers-in-about-70-ms",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/dd48e43"
         },
         {
-          "key": "YUI-149",
-          "title": "Hermes for everyone spec",
-          "summary": "A real Hermes per person in a sandbox that sleeps, Beam first",
-          "shipped": "2026-09-26"
+          "key": "YUI-37",
+          "title": "A starter agent for people with no agent",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-starter-agent-planned-and-priced",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/66498ed"
         },
         {
-          "key": "YUI-129",
-          "title": "Native Yui spec",
-          "summary": "Every person gets their own Yui and a starter crew at sign-in",
-          "shipped": "2026-09-26"
-        },
-        {
-          "key": "NOTE-64712",
-          "title": "About and Controls, one tab",
-          "shipped": "2026-09-26"
+          "key": "YUI-37",
+          "title": "The hosted starter agent on Cloudflare",
+          "step": "Step 2",
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-starter-agent-planned-and-priced",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/66498ed"
         },
         {
           "key": "SITE-53",
           "title": "Help answers music",
           "summary": "Help: why a beat is silent",
           "shipped": "2026-09-26",
-          "progress": "/progress#help-why-a-beat-is-silent"
-        },
-        {
-          "key": "YUI-126",
-          "title": "The war room moves into Yui's left drawer (Chris, feedback AGhvH8tM)",
-          "shipped": "2026-09-26"
-        },
-        {
-          "key": "YUI-127",
-          "title": "Every drum name plays a real drum, not a tick",
-          "shipped": "2026-09-26"
-        },
-        {
-          "key": "NOTE-62835",
-          "title": "Beats that play on silent, and page 2 cleared",
-          "shipped": "2026-09-26"
+          "progress": "/progress#help-why-a-beat-is-silent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ea742ec"
         },
         {
           "key": "YUI-63",
@@ -1502,40 +1921,40 @@
           "step": "Step 2",
           "summary": "It says what it is doing",
           "shipped": "2026-09-26",
-          "progress": "/progress#it-says-what-it-is-doing"
+          "progress": "/progress#it-says-what-it-is-doing",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3ccea6b"
         },
         {
           "key": "INT-7",
           "title": "Claude adapter, MCP connector plus Yui screens as an MCP App",
           "summary": "Yui in Claude, and Yui screens inside the chat",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-in-claude-and-yui-screens-inside-the-chat"
+          "progress": "/progress#yui-in-claude-and-yui-screens-inside-the-chat",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6726e49"
         },
         {
           "key": "YUI-116",
           "title": "The channel guide teaches loop and drums (backlog)",
           "summary": "Agents send a beat",
           "shipped": "2026-09-26",
-          "progress": "/progress#agents-send-a-beat"
+          "progress": "/progress#agents-send-a-beat",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/85bbee1"
         },
         {
           "key": "SITE-52",
           "title": "Yui 0.3.2 on the site, a release Thought and a See it group",
           "summary": "Yui 0.3.2 on the site: the release post and See it",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-0-3-2-on-the-site-the-release-post-and-see-it"
+          "progress": "/progress#yui-0-3-2-on-the-site-the-release-post-and-see-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8f4d703"
         },
         {
           "key": "YUI-118",
           "title": "Short answers first, a status question gets one line, decks capped at 4 pages",
           "summary": "Short answers first",
           "shipped": "2026-09-26",
-          "progress": "/progress#short-answers-first"
-        },
-        {
-          "key": "NOTE-46346",
-          "title": "Show it, don't say it",
-          "shipped": "2026-09-26"
+          "progress": "/progress#short-answers-first",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9a5b481"
         },
         {
           "key": "YUI-116",
@@ -1543,26 +1962,24 @@
           "step": "Step 2",
           "summary": "Agents send a tuner and a metronome",
           "shipped": "2026-09-26",
-          "progress": "/progress#agents-send-a-tuner-and-a-metronome"
+          "progress": "/progress#agents-send-a-tuner-and-a-metronome",
+          "commit": "https://github.com/postscarcityai/yui/commit/56b38a3"
         },
         {
           "key": "YUI-117",
           "title": "Music in the library, and the channel guide lines ready for step 2's build",
           "summary": "Music screens agents can find",
           "shipped": "2026-09-26",
-          "progress": "/progress#music-screens-agents-can-find"
-        },
-        {
-          "key": "NOTE-54650",
-          "title": "Working row shows how long the agent usually takes",
-          "shipped": "2026-09-26"
+          "progress": "/progress#music-screens-agents-can-find",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e1bb09f"
         },
         {
           "key": "SITE-51",
           "title": "Music on the site, See it + a Thought once the playground plays",
           "summary": "Music on the site: See it, and a Thought",
           "shipped": "2026-09-26",
-          "progress": "/progress#music-on-the-site-see-it-and-a-thought"
+          "progress": "/progress#music-on-the-site-see-it-and-a-thought",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/143fe08"
         },
         {
           "key": "YUI-116",
@@ -1570,7 +1987,8 @@
           "step": "Step 1",
           "summary": "Yui for musicians: the plan, and a mock that plays",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-for-musicians-the-plan-and-a-mock-that-plays"
+          "progress": "/progress#yui-for-musicians-the-plan-and-a-mock-that-plays",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5414ba3"
         },
         {
           "key": "FLOW-1",
@@ -1578,28 +1996,32 @@
           "step": "Step 3",
           "summary": "Agents make their own flows: variants",
           "shipped": "2026-09-26",
-          "progress": "/progress#agents-make-their-own-flows-variants"
+          "progress": "/progress#agents-make-their-own-flows-variants",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/cbf1e7a"
         },
         {
           "key": "SITE-50",
           "title": "A Thought, the MVP is done and Yui is in alpha",
           "summary": "Yui is in alpha: a Thought on how the MVP got done",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-is-in-alpha-a-thought-on-how-the-mvp-got-done"
+          "progress": "/progress#yui-is-in-alpha-a-thought-on-how-the-mvp-got-done",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/91cd227"
         },
         {
           "key": "SITE-49",
           "title": "A Thought on flows and the library, screens any agent can run and look up",
           "summary": "Flows and the library: a Thought on screens any agent can run",
           "shipped": "2026-09-26",
-          "progress": "/progress#flows-and-the-library-a-thought-on-screens-any-agent-can-run"
+          "progress": "/progress#flows-and-the-library-a-thought-on-screens-any-agent-can-run",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/297601a"
         },
         {
           "key": "INT-3",
           "title": "Fix",
           "summary": "Outside agents draw like the app",
           "shipped": "2026-09-26",
-          "progress": "/progress#outside-agents-draw-like-the-app"
+          "progress": "/progress#outside-agents-draw-like-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3e04944"
         },
         {
           "key": "FLOW-2",
@@ -1607,21 +2029,24 @@
           "step": "Step 2",
           "summary": "Agents can look up the library",
           "shipped": "2026-09-26",
-          "progress": "/progress#agents-can-look-up-the-library"
+          "progress": "/progress#agents-can-look-up-the-library",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/37923ca"
         },
         {
           "key": "YUI-107",
           "title": "Speed rows send once",
           "summary": "Speed numbers are stored once",
           "shipped": "2026-09-26",
-          "progress": "/progress#speed-numbers-are-stored-once"
+          "progress": "/progress#speed-numbers-are-stored-once",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/98c78fe"
         },
         {
           "key": "SITE-48",
           "title": "Every share link shows its real screen, the 49 missing previews go live and a check stops the drift",
           "summary": "Every share link shows its real screen",
           "shipped": "2026-09-26",
-          "progress": "/progress#every-share-link-shows-its-real-screen"
+          "progress": "/progress#every-share-link-shows-its-real-screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3dd15ec"
         },
         {
           "key": "FLOW-1",
@@ -1629,21 +2054,24 @@
           "step": "Step 2",
           "summary": "Flows run the same in every parser, and My flows has a first look",
           "shipped": "2026-09-26",
-          "progress": "/progress#flows-run-the-same-in-every-parser-and-my-flows-has-a-first-look"
+          "progress": "/progress#flows-run-the-same-in-every-parser-and-my-flows-has-a-first-look",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/910a144"
         },
         {
           "key": "SITE-47",
           "title": "Help and Developers catch up to 0.3.1 and today's main",
           "summary": "Help catches up with the app",
           "shipped": "2026-09-26",
-          "progress": "/progress#help-catches-up-with-the-app"
+          "progress": "/progress#help-catches-up-with-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1276e84"
         },
         {
           "key": "SITE-46",
           "title": "Get Yui catches up",
           "summary": "Get Yui shows the app and every way in",
           "shipped": "2026-09-26",
-          "progress": "/progress#get-yui-shows-the-app-and-every-way-in"
+          "progress": "/progress#get-yui-shows-the-app-and-every-way-in",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ac3d6cd"
         },
         {
           "key": "YUI-63",
@@ -1651,36 +2079,24 @@
           "step": "Step 2",
           "summary": "Your agent says what it is doing",
           "shipped": "2026-09-26",
-          "progress": "/progress#your-agent-says-what-it-is-doing"
-        },
-        {
-          "key": "NOTE-56419",
-          "title": "A quiet dot on the menu button",
-          "shipped": "2026-09-26"
-        },
-        {
-          "key": "YUI-114",
-          "title": "Rename the App Store listing from Yui Bot to Yui (fallback",
-          "summary": "Yui Gui), no Yui Bot left anywhere",
-          "shipped": "2026-09-26"
+          "progress": "/progress#your-agent-says-what-it-is-doing",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3ccea6b"
         },
         {
           "key": "SITE-45",
           "title": "Yui 0.3.1 lands on the site",
           "summary": "Yui 0.3.1 on the site: the release post and See it",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-0-3-1-on-the-site-the-release-post-and-see-it"
+          "progress": "/progress#yui-0-3-1-on-the-site-the-release-post-and-see-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9062d7a"
         },
         {
           "key": "YUI-113",
           "title": "Publish channel guide v26 to non-Hermes agents once build 158+ is VALID",
           "step": "Step 2",
-          "shipped": "2026-09-26"
-        },
-        {
-          "key": "NOTE-25814",
-          "title": "Hold to reply, no more swipe",
-          "shipped": "2026-09-26"
+          "shipped": "2026-09-26",
+          "progress": "/progress#a-lesson-is-one-deck",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/babe06b"
         },
         {
           "key": "YUI-36",
@@ -1688,40 +2104,40 @@
           "step": "Step 1",
           "summary": "Sync, decided: not in v1",
           "shipped": "2026-09-26",
-          "progress": "/progress#sync-decided-not-in-v1"
-        },
-        {
-          "key": "NOTE-25876",
-          "title": "The war room, stripped down",
-          "shipped": "2026-09-26"
+          "progress": "/progress#sync-decided-not-in-v1",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0b2d64c"
         },
         {
           "key": "SITE-44",
           "title": "Thoughts post, designed in the open (vault, widgets, on-device, starter agent)",
           "summary": "Designed in the open: a Thought on how Yui designs in public",
           "shipped": "2026-09-26",
-          "progress": "/progress#designed-in-the-open-a-thought-on-how-yui-designs-in-public"
+          "progress": "/progress#designed-in-the-open-a-thought-on-how-yui-designs-in-public",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/141025b"
         },
         {
           "key": "SITE-43",
           "title": "See it catches up to build 155 (hands-free voice, keyboard, centered questions, memory)",
           "summary": "See it catches up to build 155",
           "shipped": "2026-09-26",
-          "progress": "/progress#see-it-catches-up-to-build-155"
+          "progress": "/progress#see-it-catches-up-to-build-155",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1e2615c"
         },
         {
           "key": "YUI-113",
           "title": "One reply, one experience in the app",
           "summary": "A lesson is one deck",
           "shipped": "2026-09-26",
-          "progress": "/progress#a-lesson-is-one-deck"
+          "progress": "/progress#a-lesson-is-one-deck",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/babe06b"
         },
         {
           "key": "SITE-42",
           "title": "Link and image integrity sweep, every page resolves",
           "summary": "Every link on the site resolves",
           "shipped": "2026-09-26",
-          "progress": "/progress#every-link-on-the-site-resolves"
+          "progress": "/progress#every-link-on-the-site-resolves",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6e175f5"
         },
         {
           "key": "YUI-34",
@@ -1729,14 +2145,16 @@
           "step": "Step 1",
           "summary": "A key vault, planned",
           "shipped": "2026-09-26",
-          "progress": "/progress#a-key-vault-planned"
+          "progress": "/progress#a-key-vault-planned",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9f650e5"
         },
         {
           "key": "SITE-41",
           "title": "Speed and accessibility pass, top pages to 90+ on Lighthouse",
           "summary": "Faster pages, and every one clears 90",
           "shipped": "2026-09-26",
-          "progress": "/progress#faster-pages-and-every-one-clears-90"
+          "progress": "/progress#faster-pages-and-every-one-clears-90",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1bb9e67"
         },
         {
           "key": "YUI-41",
@@ -1744,7 +2162,8 @@
           "step": "Step 1",
           "summary": "The model on the phone, planned",
           "shipped": "2026-09-26",
-          "progress": "/progress#the-model-on-the-phone-planned"
+          "progress": "/progress#the-model-on-the-phone-planned",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/daf16c7"
         },
         {
           "key": "YUI-40",
@@ -1752,14 +2171,16 @@
           "step": "Step 1",
           "summary": "Widgets and Siri, planned",
           "shipped": "2026-09-26",
-          "progress": "/progress#widgets-and-siri-planned"
+          "progress": "/progress#widgets-and-siri-planned",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/693a54c"
         },
         {
           "key": "SITE-40",
           "title": "See it catches up to build 148 (agent controls, talk about a setting, timeline rows that move)",
           "summary": "See it catches up to build 148",
           "shipped": "2026-09-26",
-          "progress": "/progress#see-it-catches-up-to-build-148"
+          "progress": "/progress#see-it-catches-up-to-build-148",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f209930"
         },
         {
           "key": "OSS-6",
@@ -1767,7 +2188,8 @@
           "step": "Step 2",
           "summary": "Yui@home runs every week: a routine for each agent",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-home-runs-every-week-a-routine-for-each-agent"
+          "progress": "/progress#yui-home-runs-every-week-a-routine-for-each-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/35c9b58"
         },
         {
           "key": "YUI-37",
@@ -1775,50 +2197,48 @@
           "step": "Step 1",
           "summary": "A starter agent, planned and priced",
           "shipped": "2026-09-26",
-          "progress": "/progress#a-starter-agent-planned-and-priced"
+          "progress": "/progress#a-starter-agent-planned-and-priced",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/66498ed"
         },
         {
           "key": "YUI-14",
           "title": "Voice in, text out, smooth and fast",
           "summary": "Talk to your agents hands-free, read the answers",
           "shipped": "2026-09-26",
-          "progress": "/progress#talk-to-your-agents-hands-free-read-the-answers"
-        },
-        {
-          "key": "SITE-39",
-          "title": "Thought draft for Yui 0.3.0, the smooth release",
-          "shipped": "2026-09-26"
-        },
-        {
-          "key": "YUI-91",
-          "title": "Test builds get their own bundle ID so they install beside TestFlight Yui",
-          "shipped": "2026-09-26"
+          "progress": "/progress#talk-to-your-agents-hands-free-read-the-answers",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/bb0f096"
         },
         {
           "key": "YUI-100",
           "title": "Memory audit",
           "summary": "Yui holds less in memory, and a test checks it before every release",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-holds-less-in-memory-and-a-test-checks-it-before-every-release"
+          "progress": "/progress#yui-holds-less-in-memory-and-a-test-checks-it-before-every-release",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/35b4eb2"
         },
         {
           "key": "YUI-69",
           "title": "Talk about a setting",
           "summary": "Bring it into the chat, the agent proposes the edit",
-          "shipped": "2026-09-26"
+          "shipped": "2026-09-26",
+          "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ed465a2"
         },
         {
           "key": "YUI-70",
           "title": "Agent controls in the drawer",
           "summary": "Basic CRUD over soul, memory, skills, schedules",
-          "shipped": "2026-09-26"
+          "shipped": "2026-09-26",
+          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/22ca48b"
         },
         {
           "key": "YUI-112",
           "title": "A timeline opened alone on the stage stretches its rows to fill the screen",
           "summary": "A timeline opened on its own sits at the top",
           "shipped": "2026-09-26",
-          "progress": "/progress#a-timeline-opened-on-its-own-sits-at-the-top"
+          "progress": "/progress#a-timeline-opened-on-its-own-sits-at-the-top",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c943df6"
         },
         {
           "key": "YUI-89",
@@ -1826,14 +2246,16 @@
           "step": "Step 1",
           "summary": "Agent tables in the Python, Kotlin and Rust parsers",
           "shipped": "2026-09-26",
-          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers"
+          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/094e6f7"
         },
         {
           "key": "YUI-85",
           "title": "The channel guide teaches a sketch under a page",
           "summary": "Every agent can put a picture on a page",
           "shipped": "2026-09-26",
-          "progress": "/progress#every-agent-can-put-a-picture-on-a-page"
+          "progress": "/progress#every-agent-can-put-a-picture-on-a-page",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c84d9c1"
         },
         {
           "key": "YUI-69",
@@ -1841,7 +2263,8 @@
           "step": "Step 2",
           "summary": "Talk about a setting, built: change your agent by talking",
           "shipped": "2026-09-26",
-          "progress": "/progress#talk-about-a-setting-built-change-your-agent-by-talking"
+          "progress": "/progress#talk-about-a-setting-built-change-your-agent-by-talking",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/83350fd"
         },
         {
           "key": "YUI-111",
@@ -1849,14 +2272,16 @@
           "step": "Step 2",
           "summary": "The app moves timeline rows in place",
           "shipped": "2026-09-26",
-          "progress": "/progress#the-app-moves-timeline-rows-in-place"
+          "progress": "/progress#the-app-moves-timeline-rows-in-place",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9340b79"
         },
         {
           "key": "YUI-111",
           "title": "A patch can move a timeline row (next to now to done), so the release panel updates in place",
           "summary": "A timeline row can move without resending the page",
           "shipped": "2026-09-26",
-          "progress": "/progress#a-timeline-row-can-move-without-resending-the-page"
+          "progress": "/progress#a-timeline-row-can-move-without-resending-the-page",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9340b79"
         },
         {
           "key": "YUI-70",
@@ -1864,21 +2289,24 @@
           "step": "Step 2",
           "summary": "Agent controls, built: your agent's settings in the drawer",
           "shipped": "2026-09-26",
-          "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer"
+          "progress": "/progress#agent-controls-built-your-agent-s-settings-in-the-drawer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/22ca48b"
         },
         {
           "key": "OSS-6",
           "title": "Yui@home",
           "summary": "Yui@home: the agent-ready backlog is live",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-home-the-agent-ready-backlog-is-live"
+          "progress": "/progress#yui-home-the-agent-ready-backlog-is-live",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3444235"
         },
         {
           "key": "YUI-105",
           "title": "The release panel on the phone, step 2 of YUI-90",
           "summary": "The release panel tops the war room, live from the board",
           "shipped": "2026-09-26",
-          "progress": "/progress#the-release-panel-tops-the-war-room-live-from-the-board"
+          "progress": "/progress#the-release-panel-tops-the-war-room-live-from-the-board",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d296b6e"
         },
         {
           "key": "YUI-69",
@@ -1886,7 +2314,8 @@
           "step": "Step 1",
           "summary": "Talk about a setting, designed: change your agent by talking",
           "shipped": "2026-09-26",
-          "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking"
+          "progress": "/progress#talk-about-a-setting-designed-change-your-agent-by-talking",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b1a21e3"
         },
         {
           "key": "YUI-70",
@@ -1894,26 +2323,24 @@
           "step": "Step 1",
           "summary": "Agent controls, designed: change what your agent is made of",
           "shipped": "2026-09-26",
-          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of"
-        },
-        {
-          "key": "SITE-38",
-          "title": "The site catches up to Yui 0.3.0 (build 138 VALID)",
-          "shipped": "2026-09-26"
+          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f9f5c58"
         },
         {
           "key": "YUI-106",
           "title": "Send and drawer taps under 100 ms (YUI-101 follow-up)",
           "summary": "Send and the menu drawer answer faster",
           "shipped": "2026-09-26",
-          "progress": "/progress#send-and-the-menu-drawer-answer-faster"
+          "progress": "/progress#send-and-the-menu-drawer-answer-faster",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/29ee8a5"
         },
         {
           "key": "YUI-102",
           "title": "Speed reporting, step 2 (native)",
           "summary": "Yui now times itself: speed numbers from real phones, every day",
           "shipped": "2026-09-26",
-          "progress": "/progress#yui-now-times-itself-speed-numbers-from-real-phones-every-day"
+          "progress": "/progress#yui-now-times-itself-speed-numbers-from-real-phones-every-day",
+          "commit": "https://github.com/postscarcityai/yui/commit/9385fc2"
         },
         {
           "key": "YUI-104",
@@ -1926,21 +2353,24 @@
           "title": "Telegram-smooth",
           "summary": "Taps answer at once, and a long thread scrolls smooth",
           "shipped": "2026-09-26",
-          "progress": "/progress#taps-answer-at-once-and-a-long-thread-scrolls-smooth"
+          "progress": "/progress#taps-answer-at-once-and-a-long-thread-scrolls-smooth",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ac398ba"
         },
         {
           "key": "YUI-99",
           "title": "Typing keeps up",
           "summary": "Typing keeps up, even on a long thread",
           "shipped": "2026-09-25",
-          "progress": "/progress#typing-keeps-up-even-on-a-long-thread"
+          "progress": "/progress#typing-keeps-up-even-on-a-long-thread",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/088a700"
         },
         {
           "key": "INT-22",
           "title": "Yui-mcp and Telegram read Yui Lines like the app again (their parser copies are stale since tables)",
           "summary": "The MCP server and Telegram read Yui Lines like the app again",
           "shipped": "2026-09-25",
-          "progress": "/progress#the-mcp-server-and-telegram-read-yui-lines-like-the-app-again"
+          "progress": "/progress#the-mcp-server-and-telegram-read-yui-lines-like-the-app-again",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c8f25d9"
         },
         {
           "key": "YUI-97",
@@ -1968,7 +2398,8 @@
           "title": "Speed reporting",
           "summary": "What fast means for Yui, in milliseconds",
           "shipped": "2026-09-25",
-          "progress": "/progress#what-fast-means-for-yui-in-milliseconds"
+          "progress": "/progress#what-fast-means-for-yui-in-milliseconds",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6008cfb"
         },
         {
           "key": "YUI-96",
@@ -1992,22 +2423,11 @@
           "progress": "/progress#make-yui-feel-like-autumn-restyle-the-app-by-asking-on-paper-and-in-the-playgrou"
         },
         {
-          "key": "SITE-37",
-          "title": "0.2.0 catch-up",
-          "summary": "YUI-92 version block on /progress and See it, group threads labelled next",
-          "shipped": "2026-09-25"
-        },
-        {
           "key": "YUI-57",
           "title": "Default agents per invite",
           "summary": "Invite a client and their agents are already there, on paper and in the playground",
           "shipped": "2026-09-25",
           "progress": "/progress#invite-a-client-and-their-agents-are-already-there-on-paper-and-in-the-playgroun"
-        },
-        {
-          "key": "SITE-36",
-          "title": "The site catches up to Yui 0.2.0 the moment build 118 is VALID",
-          "shipped": "2026-09-25"
         },
         {
           "key": "YUI-93",
@@ -2056,7 +2476,8 @@
           "title": "Agent tables on the phone",
           "summary": "Agents keep data on your phone: tables",
           "shipped": "2026-09-25",
-          "progress": "/progress#agents-keep-data-on-your-phone-tables"
+          "progress": "/progress#agents-keep-data-on-your-phone-tables",
+          "commit": "https://github.com/postscarcityai/yui/commit/6730547"
         },
         {
           "key": "YUI-86",
@@ -2076,28 +2497,32 @@
           "title": "Cron failures never reach Chris, Yui handles them (Yui beta feedback)",
           "summary": "Cron failures go to Yui, not to your chat",
           "shipped": "2026-09-25",
-          "progress": "/progress#cron-failures-go-to-yui-not-to-your-chat"
+          "progress": "/progress#cron-failures-go-to-yui-not-to-your-chat",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e19ff68"
         },
         {
           "key": "YUI-58",
           "title": "Yui for macOS, a matching desktop app",
           "summary": "Yui for macOS has a brief, open for contributors",
           "shipped": "2026-09-25",
-          "progress": "/progress#yui-for-macos-has-a-brief-open-for-contributors"
+          "progress": "/progress#yui-for-macos-has-a-brief-open-for-contributors",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6957559"
         },
         {
           "key": "YUI-75",
           "title": "Ids on a page patch across replies, so the war room refreshes in place",
           "summary": "Screens update in place instead of piling up",
           "shipped": "2026-09-25",
-          "progress": "/progress#screens-update-in-place-instead-of-piling-up"
+          "progress": "/progress#screens-update-in-place-instead-of-piling-up",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5d7739d"
         },
         {
           "key": "FLOW-2",
           "title": "Yui library/store on yuigui.com",
           "summary": "The library: every screen and flow, live and searchable",
           "shipped": "2026-09-25",
-          "progress": "/progress#the-library-every-screen-and-flow-live-and-searchable"
+          "progress": "/progress#the-library-every-screen-and-flow-live-and-searchable",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/37923ca"
         },
         {
           "key": "YUI-54",
@@ -2111,7 +2536,8 @@
           "title": "Yui in the browser",
           "summary": "Yui in the browser has a brief, open for contributors",
           "shipped": "2026-09-25",
-          "progress": "/progress#yui-in-the-browser-has-a-brief-open-for-contributors"
+          "progress": "/progress#yui-in-the-browser-has-a-brief-open-for-contributors",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2fdd701"
         },
         {
           "key": "SITE-34",
@@ -2125,14 +2551,16 @@
           "title": "Flows",
           "summary": "Flows, written in Mermaid",
           "shipped": "2026-09-25",
-          "progress": "/progress#flows-written-in-mermaid"
+          "progress": "/progress#flows-written-in-mermaid",
+          "commit": "https://github.com/postscarcityai/yui/commit/deec1f8"
         },
         {
           "key": "YUI-56",
           "title": "Invites end to end",
           "summary": "Invites: ask, get approved, Apple emails you, sign in and you're in",
           "shipped": "2026-09-25",
-          "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in"
+          "progress": "/progress#invites-ask-get-approved-apple-emails-you-sign-in-and-you-re-in",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/146d5bf"
         },
         {
           "key": "YUI-72",
@@ -2210,12 +2638,6 @@
           "progress": "/progress#microsoft-agent-framework-agents-in-yui"
         },
         {
-          "key": "YUI-81",
-          "title": "The build-ready deck reads like a changelog for people",
-          "summary": "A real title per page, plain words, nothing cut off",
-          "shipped": "2026-09-25"
-        },
-        {
           "key": "INT-15",
           "title": "CrewAI adapter",
           "summary": "CrewAI agents in Yui",
@@ -2268,7 +2690,8 @@
           "key": "YUI-80",
           "title": "The chat never gets stuck shrunk",
           "shipped": "2026-09-25",
-          "progress": "/progress#the-chat-never-gets-stuck-shrunk"
+          "progress": "/progress#the-chat-never-gets-stuck-shrunk",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ff2d01f"
         },
         {
           "key": "INT-9",
@@ -2289,69 +2712,79 @@
           "title": "No text bombs",
           "summary": "No more text bombs",
           "shipped": "2026-09-25",
-          "progress": "/progress#no-more-text-bombs"
+          "progress": "/progress#no-more-text-bombs",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ff2d01f"
         },
         {
           "key": "INT-12",
           "title": "Model connector for any OpenAI-compatible API (Ollama, LM Studio, vLLM)",
           "summary": "Your own model, in Yui",
           "shipped": "2026-09-25",
-          "progress": "/progress#your-own-model-in-yui"
+          "progress": "/progress#your-own-model-in-yui",
+          "commit": "https://github.com/postscarcityai/yui/commit/e015c15"
         },
         {
           "key": "YUI-74",
           "title": "After sending a photo, check the thread settles on the newest message (nothing under the page pill)",
           "summary": "The chat stays on your newest message",
           "shipped": "2026-09-25",
-          "progress": "/progress#the-chat-stays-on-your-newest-message"
+          "progress": "/progress#the-chat-stays-on-your-newest-message",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ff2d01f"
         },
         {
           "key": "INT-18",
           "title": "A2A client, add any agent by its Agent Card",
           "summary": "Add any A2A agent by its Agent Card",
           "shipped": "2026-09-25",
-          "progress": "/progress#add-any-a2a-agent-by-its-agent-card"
+          "progress": "/progress#add-any-a2a-agent-by-its-agent-card",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7d2cb66"
         },
         {
           "key": "YUI-64",
           "title": "An agent that is paired but not listening says so",
           "summary": "An agent that isn't listening yet says so",
           "shipped": "2026-09-25",
-          "progress": "/progress#an-agent-that-isn-t-listening-yet-says-so"
+          "progress": "/progress#an-agent-that-isn-t-listening-yet-says-so",
+          "commit": "https://github.com/postscarcityai/yui/commit/580a604"
         },
         {
           "key": "INT-6",
           "title": "Research",
           "summary": "Where the hosted connector will run",
           "shipped": "2026-09-25",
-          "progress": "/progress#where-the-hosted-connector-will-run"
+          "progress": "/progress#where-the-hosted-connector-will-run",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/306da78"
         },
         {
           "key": "YUI-63",
           "title": "One working row instead of dots plus a timer",
           "shipped": "2026-09-25",
-          "progress": "/progress#one-working-row-instead-of-dots-plus-a-timer"
+          "progress": "/progress#one-working-row-instead-of-dots-plus-a-timer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/273622a"
         },
         {
           "key": "YUI-44",
           "title": "@mention an agent, then group threads",
           "summary": "@ another agent from any thread",
           "shipped": "2026-09-25",
-          "progress": "/progress#another-agent-from-any-thread"
+          "progress": "/progress#another-agent-from-any-thread",
+          "commit": "https://github.com/postscarcityai/yui/commit/1783873"
         },
         {
           "key": "YUI-61",
           "title": "Slash commands in the composer",
           "summary": "Type / to see what your agent can do",
           "shipped": "2026-09-25",
-          "progress": "/progress#type-to-see-what-your-agent-can-do"
+          "progress": "/progress#type-to-see-what-your-agent-can-do",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/881bbc2"
         },
         {
           "key": "INT-19",
           "title": "Yui MCP server step 2, OAuth (Sign in with Apple through Yui)",
           "summary": "Add Yui to Claude or ChatGPT by pasting one URL",
           "shipped": "2026-09-25",
-          "progress": "/progress#add-yui-to-claude-or-chatgpt-by-pasting-one-url"
+          "progress": "/progress#add-yui-to-claude-or-chatgpt-by-pasting-one-url",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4cb9c8e"
         },
         {
           "key": "YUI-67",
@@ -2364,21 +2797,24 @@
           "key": "YUI-73",
           "title": "The war room, built out",
           "shipped": "2026-09-25",
-          "progress": "/progress#the-war-room-built-out"
+          "progress": "/progress#the-war-room-built-out",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0216ee8"
         },
         {
           "key": "YUI-68",
           "title": "Reply to a message",
           "summary": "Reply to one message",
           "shipped": "2026-09-25",
-          "progress": "/progress#reply-to-one-message"
+          "progress": "/progress#reply-to-one-message",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ba629f0"
         },
         {
           "key": "INT-3",
           "title": "Yui MCP server",
           "summary": "Claude Code can put a screen on your phone now",
           "shipped": "2026-09-25",
-          "progress": "/progress#claude-code-can-put-a-screen-on-your-phone-now"
+          "progress": "/progress#claude-code-can-put-a-screen-on-your-phone-now",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3e04944"
         },
         {
           "key": "SITE-32",
@@ -2392,28 +2828,32 @@
           "title": "Game presets",
           "summary": "Games: tic-tac-toe, snake and memory",
           "shipped": "2026-09-25",
-          "progress": "/progress#games-tic-tac-toe-snake-and-memory"
+          "progress": "/progress#games-tic-tac-toe-snake-and-memory",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/10d063d"
         },
         {
           "key": "SITE-30",
           "title": "Thoughts, Yui's blog",
           "summary": "Thoughts: Yui's own blog, pictures first",
           "shipped": "2026-09-25",
-          "progress": "/progress#thoughts-yui-s-own-blog-pictures-first"
+          "progress": "/progress#thoughts-yui-s-own-blog-pictures-first",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2ae22ff"
         },
         {
           "key": "YUI-66",
           "title": "Reorder mode",
           "summary": "Drag the war room queue into your own order",
           "shipped": "2026-09-25",
-          "progress": "/progress#drag-the-war-room-queue-into-your-own-order"
+          "progress": "/progress#drag-the-war-room-queue-into-your-own-order",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4295a92"
         },
         {
           "key": "YUI-65",
           "title": "War room dashboard",
           "summary": "A timeline for the war room",
           "shipped": "2026-09-25",
-          "progress": "/progress#a-timeline-for-the-war-room"
+          "progress": "/progress#a-timeline-for-the-war-room",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/77f9f16"
         },
         {
           "key": "SITE-31",
@@ -2434,33 +2874,40 @@
           "title": "Multi-step screens that fold back into chat as your own messages",
           "summary": "Read, answer, send once: a plan is now one full-screen flow",
           "shipped": "2026-09-25",
-          "progress": "/progress#read-answer-send-once-a-plan-is-now-one-full-screen-flow"
+          "progress": "/progress#read-answer-send-once-a-plan-is-now-one-full-screen-flow",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9c83f86"
         },
         {
           "key": "YUI-32",
           "title": "Named screens",
           "summary": "Save a screen, bring it back with two tokens: every agent gets a shelf",
           "shipped": "2026-09-25",
-          "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf"
+          "progress": "/progress#save-a-screen-bring-it-back-with-two-tokens-every-agent-gets-a-shelf",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/169cc77"
         },
         {
           "key": "YUI-31",
           "title": "Three screens per agent with animated transitions",
           "summary": "Three screens per agent: the chat, then screens 2 and 3 a swipe away",
           "shipped": "2026-09-25",
-          "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away"
+          "progress": "/progress#three-screens-per-agent-the-chat-then-screens-2-and-3-a-swipe-away",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a903fbe"
         },
         {
-          "key": "SITE-27",
-          "title": "Build to earn, V1 page on yuigui.com",
-          "shipped": "2026-09-24"
+          "key": "YUI-70",
+          "title": "Chat gestures",
+          "summary": "Swipe a bubble left to reply, hold for reactions + copy, drag the background to switch screens",
+          "shipped": "2026-09-25",
+          "progress": "/progress#agent-controls-designed-change-what-your-agent-is-made-of",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/22ca48b"
         },
         {
           "key": "YUI-49",
           "title": "React to a message (👍 build it, 👎, 🤔 ask me, ❤️, ⏳, 🔥)",
           "summary": "React to a message: hold it, tap 👍, and your agent builds it",
           "shipped": "2026-09-24",
-          "progress": "/progress#react-to-a-message-hold-it-tap-and-your-agent-builds-it"
+          "progress": "/progress#react-to-a-message-hold-it-tap-and-your-agent-builds-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a67e85c"
         },
         {
           "key": "YUI-52",
@@ -2468,7 +2915,8 @@
           "summary": "Build 57: every fix you sent is on your phone",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#build-57-every-fix-you-sent-is-on-your-phone"
+          "progress": "/progress#build-57-every-fix-you-sent-is-on-your-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9d0b023"
         },
         {
           "key": "YUI-50",
@@ -2476,63 +2924,72 @@
           "summary": "Scroll up, and one arrow brings you back",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#scroll-up-and-one-arrow-brings-you-back"
+          "progress": "/progress#scroll-up-and-one-arrow-brings-you-back",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/35b7021"
         },
         {
           "key": "YUI-53",
           "title": "No dead buttons",
           "summary": "No dead buttons: a plan ends in Send, and agents stop adding 'Got it'",
           "shipped": "2026-09-24",
-          "progress": "/progress#no-dead-buttons-a-plan-ends-in-send-and-agents-stop-adding-got-it"
+          "progress": "/progress#no-dead-buttons-a-plan-ends-in-send-and-agents-stop-adding-got-it",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/65216e2"
         },
         {
           "key": "YUI-30",
           "title": "Timer on the lock screen",
           "summary": "The timer keeps counting on the lock screen",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-timer-keeps-counting-on-the-lock-screen"
+          "progress": "/progress#the-timer-keeps-counting-on-the-lock-screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e0b7132"
         },
         {
           "key": "SITE-26",
           "title": "'Request an invite' replaces the waitlist",
           "summary": "Request an invite: the waitlist is now the way into the beta",
           "shipped": "2026-09-24",
-          "progress": "/progress#request-an-invite-the-waitlist-is-now-the-way-into-the-beta"
+          "progress": "/progress#request-an-invite-the-waitlist-is-now-the-way-into-the-beta",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b79e435"
         },
         {
           "key": "YUI-55",
           "title": "Test builds by link",
           "summary": "Test builds by link: new app builds on the phone without TestFlight",
           "shipped": "2026-09-24",
-          "progress": "/progress#test-builds-by-link-new-app-builds-on-the-phone-without-testflight"
+          "progress": "/progress#test-builds-by-link-new-app-builds-on-the-phone-without-testflight",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0857232"
         },
         {
           "key": "SITE-25",
           "title": "yuigui.com fully current before the switch back to the app (9 fixes from the 19:10 audit)",
           "summary": "The site catches up: what is on your phone, and what comes with build 57",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-site-catches-up-what-is-on-your-phone-and-what-comes-with-build-57"
+          "progress": "/progress#the-site-catches-up-what-is-on-your-phone-and-what-comes-with-build-57",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a6d1856"
         },
         {
           "key": "SITE-24",
           "title": "Yui@home story",
           "summary": "Yui@home: lend your idle agent to Yui",
           "shipped": "2026-09-24",
-          "progress": "/progress#yui-home-lend-your-idle-agent-to-yui"
+          "progress": "/progress#yui-home-lend-your-idle-agent-to-yui",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2d30ed2"
         },
         {
           "key": "SITE-23",
           "title": "Polish pass on /start, /yl, /channel and /privacy",
           "summary": "Get started, the specs and Privacy, checked for strangers",
           "shipped": "2026-09-24",
-          "progress": "/progress#get-started-the-specs-and-privacy-checked-for-strangers"
+          "progress": "/progress#get-started-the-specs-and-privacy-checked-for-strangers",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7382044"
         },
         {
           "key": "SITE-22",
           "title": "Polish pass on / (home) and /business",
           "summary": "Home and Business pages, cleaned up for a first visit",
           "shipped": "2026-09-24",
-          "progress": "/progress#home-and-business-pages-cleaned-up-for-a-first-visit"
+          "progress": "/progress#home-and-business-pages-cleaned-up-for-a-first-visit",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1be95bd"
         },
         {
           "key": "YUI-22",
@@ -2540,182 +2997,190 @@
           "summary": "Anyone can try Yui",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#anyone-can-try-yui"
+          "progress": "/progress#anyone-can-try-yui",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7418986"
         },
         {
           "key": "SOC-3",
           "title": "Three marketing videos",
           "shipped": "2026-09-24",
-          "progress": "/progress#three-short-videos-yui-in-15-seconds-yui-lines-in-30-your-hermes-on-your-phone-i"
+          "progress": "/progress#three-short-videos-yui-in-15-seconds-yui-lines-in-30-your-hermes-on-your-phone-i",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e8aac8f"
         },
         {
           "key": "SITE-21",
           "title": "Polish pass on /roadmap, /board, /progress and /changelog",
           "summary": "Polish: the Roadmap tabs read current",
           "shipped": "2026-09-24",
-          "progress": "/progress#polish-the-roadmap-tabs-read-current"
+          "progress": "/progress#polish-the-roadmap-tabs-read-current",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/680825b"
         },
         {
           "key": "SITE-19",
           "title": "Shareable moments",
           "summary": "Share any screen: a link with a real preview, a Share button, an embed and a badge",
           "shipped": "2026-09-24",
-          "progress": "/progress#share-any-screen-a-link-with-a-real-preview-a-share-button-an-embed-and-a-badge"
+          "progress": "/progress#share-any-screen-a-link-with-a-real-preview-a-share-button-an-embed-and-a-badge",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/06161c4"
         },
         {
           "key": "OSS-5",
           "title": "Grassroots kit for Yui Lines",
           "summary": "Draw your best screen in three lines: a community page and the first open challenge",
           "shipped": "2026-09-24",
-          "progress": "/progress#draw-your-best-screen-in-three-lines-a-community-page-and-the-first-open-challen"
+          "progress": "/progress#draw-your-best-screen-in-three-lines-a-community-page-and-the-first-open-challen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f25d5a2"
         },
         {
           "key": "SITE-20",
           "title": "Go-to-market plan on the site",
           "summary": "The go-to-market plan is public",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-go-to-market-plan-is-public"
+          "progress": "/progress#the-go-to-market-plan-is-public",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/95c545f"
         },
         {
           "key": "INT-1",
           "title": "OpenClaw adapter",
           "summary": "OpenClaw agents can talk in Yui now",
           "shipped": "2026-09-24",
-          "progress": "/progress#openclaw-agents-can-talk-in-yui-now"
+          "progress": "/progress#openclaw-agents-can-talk-in-yui-now",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b5c3af6"
         },
         {
           "key": "SITE-18",
           "title": "Polish pass on /developers and /playground",
           "summary": "Polish: Developers and the playground",
           "shipped": "2026-09-24",
-          "progress": "/progress#polish-developers-and-the-playground"
+          "progress": "/progress#polish-developers-and-the-playground",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5f72dc2"
         },
         {
           "key": "INT-2",
           "title": "Generic webhook adapter, Python and Node",
           "summary": "Not on Hermes? Any agent that answers a web request can talk in Yui now",
           "shipped": "2026-09-24",
-          "progress": "/progress#not-on-hermes-any-agent-that-answers-a-web-request-can-talk-in-yui-now"
+          "progress": "/progress#not-on-hermes-any-agent-that-answers-a-web-request-can-talk-in-yui-now",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7eddcda"
         },
         {
           "key": "YUI-42",
           "title": "The preset flywheel",
           "summary": "The preset flywheel: custom screens that keep coming back become presets",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-preset-flywheel-custom-screens-that-keep-coming-back-become-presets"
+          "progress": "/progress#the-preset-flywheel-custom-screens-that-keep-coming-back-become-presets",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/10a9420"
         },
         {
           "key": "SITE-17",
           "title": "Polish pass on /mockups, /start and /timeline",
           "summary": "A polish pass on See it, Get started and Timeline",
           "shipped": "2026-09-24",
-          "progress": "/progress#a-polish-pass-on-see-it-get-started-and-timeline"
+          "progress": "/progress#a-polish-pass-on-see-it-get-started-and-timeline",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5069132"
         },
         {
           "key": "SITE-16",
           "title": "Evolution timeline from GitHub history (was SITE-5, key already used by /notes)",
           "summary": "Watch Yui grow: the whole history on one page",
           "shipped": "2026-09-24",
-          "progress": "/progress#watch-yui-grow-the-whole-history-on-one-page"
+          "progress": "/progress#watch-yui-grow-the-whole-history-on-one-page",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3e40af4"
         },
         {
           "key": "SITE-15",
           "title": "Yui Lines back in sight",
           "summary": "Yui Lines back on the front page, and every spec on the site",
           "shipped": "2026-09-24",
-          "progress": "/progress#yui-lines-back-on-the-front-page-and-every-spec-on-the-site"
+          "progress": "/progress#yui-lines-back-on-the-front-page-and-every-spec-on-the-site",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/61973cf"
         },
         {
           "key": "OSS-2",
           "title": "Yui Lines parsers in more languages",
           "summary": "Yui Lines in Python and Kotlin",
           "shipped": "2026-09-24",
-          "progress": "/progress#yui-lines-in-python-and-kotlin"
+          "progress": "/progress#yui-lines-in-python-and-kotlin",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/bd87ddd"
         },
         {
           "key": "SITE-5",
           "title": "/notes long-form route on yuigui.com",
           "summary": "Notes: longer pieces, starting with why Yui is open source",
           "shipped": "2026-09-24",
-          "progress": "/progress#notes-longer-pieces-starting-with-why-yui-is-open-source"
+          "progress": "/progress#notes-longer-pieces-starting-with-why-yui-is-open-source",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3ae8bb4"
         },
         {
           "key": "SITE-14",
           "title": "Mockups show everything built, each tied to its roadmap item and ship date",
           "summary": "See everything Yui can draw",
           "shipped": "2026-09-24",
-          "progress": "/progress#see-everything-yui-can-draw"
-        },
-        {
-          "key": "SITE-7",
-          "title": "Preset gallery",
-          "summary": "Every screen, live, with its line",
-          "shipped": "2026-09-24"
+          "progress": "/progress#see-everything-yui-can-draw",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/07330fa"
         },
         {
           "key": "SITE-6",
           "title": "Playground a11y labels (Lighthouse 89 -> 95+)",
           "summary": "The playground reads right to a screen reader",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-playground-reads-right-to-a-screen-reader"
+          "progress": "/progress#the-playground-reads-right-to-a-screen-reader",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/cb36513"
         },
         {
           "key": "BIZ-6",
           "title": "Private beta list",
           "shipped": "2026-09-24",
-          "progress": "/progress#who-the-first-outside-testers-are"
+          "progress": "/progress#who-the-first-outside-testers-are",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f58b06b"
         },
         {
           "key": "SITE-13",
           "title": "yuigui.com overhaul",
           "summary": "One story, five menu items",
           "shipped": "2026-09-24",
-          "progress": "/progress#one-story-five-menu-items"
+          "progress": "/progress#one-story-five-menu-items",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/282af27"
         },
         {
           "key": "SITE-11",
           "title": "Full freshness + polish pass on yuigui.com",
           "summary": "The site catches up with the app",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-site-catches-up-with-the-app"
+          "progress": "/progress#the-site-catches-up-with-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f23fcd9"
         },
         {
           "key": "SITE-10",
           "title": "Phases on yuigui.com are out of date, bring them current",
           "summary": "The roadmap catches up with the work",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-roadmap-catches-up-with-the-work"
+          "progress": "/progress#the-roadmap-catches-up-with-the-work",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/da8742d"
         },
         {
           "key": "SITE-9",
           "title": "Kill horizontal scroll on every yuigui.com page",
           "summary": "No page scrolls sideways on a phone",
           "shipped": "2026-09-24",
-          "progress": "/progress#no-page-scrolls-sideways-on-a-phone"
+          "progress": "/progress#no-page-scrolls-sideways-on-a-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/808c485"
         },
         {
           "key": "SITE-8",
           "title": "Responsive navigation on yuigui.com (mobile menu)",
           "summary": "The site menu works on a phone",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-site-menu-works-on-a-phone"
-        },
-        {
-          "key": "SOC-2",
-          "title": "Yui demo clip pipeline (simulator recording per preset)",
-          "shipped": "2026-09-24"
+          "progress": "/progress#the-site-menu-works-on-a-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5a19f91"
         },
         {
           "key": "SITE-12",
           "title": "Reposition yuigui.com around the generative UI, sell the MVP",
           "summary": "The site now leads with what Yui is: a generative user interface",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-site-now-leads-with-what-yui-is-a-generative-user-interface"
-        },
-        {
-          "key": "SOC-1",
-          "title": "Yui social drafter cron + copy validator (drafts only, Chris approves)",
-          "shipped": "2026-09-24"
+          "progress": "/progress#the-site-now-leads-with-what-yui-is-a-generative-user-interface",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b4619d9"
         },
         {
           "key": "YUI-27",
@@ -2723,7 +3188,8 @@
           "summary": "Ready for Apple's beta review: a demo agent, help, and a full privacy page",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#ready-for-apple-s-beta-review-a-demo-agent-help-and-a-full-privacy-page"
+          "progress": "/progress#ready-for-apple-s-beta-review-a-demo-agent-help-and-a-full-privacy-page",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/218dddf"
         },
         {
           "key": "YUI-26",
@@ -2731,7 +3197,8 @@
           "summary": "Safe for strangers: limits, an off switch, and 90 days of history",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#safe-for-strangers-limits-an-off-switch-and-90-days-of-history"
+          "progress": "/progress#safe-for-strangers-limits-an-off-switch-and-90-days-of-history",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8ce48cf"
         },
         {
           "key": "YUI-28",
@@ -2739,7 +3206,8 @@
           "summary": "Nothing gets lost: sleeping Macs, dropped networks, killed apps",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#nothing-gets-lost-sleeping-macs-dropped-networks-killed-apps"
+          "progress": "/progress#nothing-gets-lost-sleeping-macs-dropped-networks-killed-apps",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2fc5fba"
         },
         {
           "key": "YUI-25",
@@ -2747,7 +3215,8 @@
           "summary": "First run: from sign in to your agent's first screen",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#first-run-from-sign-in-to-your-agent-s-first-screen"
+          "progress": "/progress#first-run-from-sign-in-to-your-agent-s-first-screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7cd6dbd"
         },
         {
           "key": "YUI-24",
@@ -2755,7 +3224,8 @@
           "summary": "A buzz when your agent answers",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#a-buzz-when-your-agent-answers"
+          "progress": "/progress#a-buzz-when-your-agent-answers",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/752b061"
         },
         {
           "key": "YUI-23",
@@ -2763,21 +3233,24 @@
           "summary": "Connect your agent in three steps",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#connect-your-agent-in-three-steps"
+          "progress": "/progress#connect-your-agent-in-three-steps",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/49b101f"
         },
         {
           "key": "YUI-19",
           "title": "Native SwiftUI versions of the YUI-16/17/18 presets",
           "summary": "Every preset, native on iPhone",
           "shipped": "2026-09-24",
-          "progress": "/progress#every-preset-native-on-iphone"
+          "progress": "/progress#every-preset-native-on-iphone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6540a11"
         },
         {
           "key": "YUI-21",
           "title": "Media pipeline",
           "summary": "Pictures in, photos out",
           "shipped": "2026-09-24",
-          "progress": "/progress#pictures-in-photos-out"
+          "progress": "/progress#pictures-in-photos-out",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/13ce7da"
         },
         {
           "key": "YUI-10",
@@ -2785,7 +3258,8 @@
           "summary": "The channel guide, now tested",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#the-channel-guide-now-tested"
+          "progress": "/progress#the-channel-guide-now-tested",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a5ef916"
         },
         {
           "key": "YUI-12",
@@ -2793,75 +3267,80 @@
           "summary": "Change your answer",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#change-your-answer"
+          "progress": "/progress#change-your-answer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4a499fe"
         },
         {
           "key": "YUI-13",
           "title": "Immersive full-screen mode, agent decides; workouts always full screen",
           "summary": "Full screen when it matters",
           "shipped": "2026-09-24",
-          "progress": "/progress#full-screen-when-it-matters"
+          "progress": "/progress#full-screen-when-it-matters",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/88c9648"
         },
         {
           "key": "YUI-20",
           "title": "Every agent has its own look and feel (theme per agent, light + dark, preferred screens)",
           "summary": "Every agent has its own look",
           "shipped": "2026-09-24",
-          "progress": "/progress#every-agent-has-its-own-look"
+          "progress": "/progress#every-agent-has-its-own-look",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9985a2f"
         },
         {
           "key": "INT-0",
           "title": "Agent framework adapters roadmap (every framework, Hermes first)",
           "summary": "A plan for every agent framework",
           "shipped": "2026-09-24",
-          "progress": "/progress#a-plan-for-every-agent-framework"
+          "progress": "/progress#a-plan-for-every-agent-framework",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/162aa3c"
         },
         {
           "key": "SITE-4",
           "title": "Site drives traffic to the open source repo and the app (CTAs, waitlist, TestFlight)",
           "summary": "Every page points to the code and the beta",
           "shipped": "2026-09-24",
-          "progress": "/progress#every-page-points-to-the-code-and-the-beta"
+          "progress": "/progress#every-page-points-to-the-code-and-the-beta",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b1b87bb"
         },
         {
           "key": "YUI-8",
           "title": "Push handoff",
           "summary": "Pick it up in Yui",
           "shipped": "2026-09-24",
-          "progress": "/progress#pick-it-up-in-yui"
+          "progress": "/progress#pick-it-up-in-yui",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9df2b89"
         },
         {
           "key": "SITE-3",
           "title": "Screenshots on the site + changelog with screenshots",
           "summary": "Screenshots everywhere, and a changelog",
           "shipped": "2026-09-24",
-          "progress": "/progress#screenshots-everywhere-and-a-changelog"
-        },
-        {
-          "key": "BIZ-5",
-          "title": "yuiguiai social handles",
-          "shipped": "2026-09-24"
+          "progress": "/progress#screenshots-everywhere-and-a-changelog",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/62dc14a"
         },
         {
           "key": "YUI-18",
           "title": "Learn + plan",
           "summary": "Decks, plan mode and narrated walkthroughs",
           "shipped": "2026-09-24",
-          "progress": "/progress#decks-plan-mode-and-narrated-walkthroughs"
+          "progress": "/progress#decks-plan-mode-and-narrated-walkthroughs",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a1c12a4"
         },
         {
           "key": "SITE-2",
           "title": "Live kanban board on yuigui.com",
           "summary": "The board is public",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-board-is-public"
+          "progress": "/progress#the-board-is-public",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4830100"
         },
         {
           "key": "MVP-0",
           "title": "MVP roadmap + deep backlog, reflected on yuigui.com",
           "summary": "The MVP, and a bar that shows how close it is",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-mvp-and-a-bar-that-shows-how-close-it-is"
+          "progress": "/progress#the-mvp-and-a-bar-that-shows-how-close-it-is",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9385580"
         },
         {
           "key": "BIZ-4",
@@ -2881,14 +3360,16 @@
           "summary": "Talk to your agent in Yui",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#talk-to-your-agent-in-yui"
+          "progress": "/progress#talk-to-your-agent-in-yui",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/dd0e152"
         },
         {
           "key": "SITE-1",
           "title": "yuigui.com rebrand",
           "summary": "The site now looks like the app",
           "shipped": "2026-09-24",
-          "progress": "/progress#the-site-now-looks-like-the-app"
+          "progress": "/progress#the-site-now-looks-like-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3fe3402"
         },
         {
           "key": "BIZ-1",
@@ -2901,7 +3382,8 @@
           "title": "Charts, graphs and science tools (spec + web)",
           "summary": "Yui Lines learn charts, equations and experiments",
           "shipped": "2026-09-24",
-          "progress": "/progress#yui-lines-learn-charts-equations-and-experiments"
+          "progress": "/progress#yui-lines-learn-charts-equations-and-experiments",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/913bd93"
         },
         {
           "key": "OSS-1",
@@ -2916,14 +3398,16 @@
           "summary": "Your agents are yours to add",
           "mvp": true,
           "shipped": "2026-09-24",
-          "progress": "/progress#your-agents-are-yours-to-add"
+          "progress": "/progress#your-agents-are-yours-to-add",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/439e66a"
         },
         {
           "key": "YUI-16",
           "title": "Media presets (spec + web)",
           "summary": "Yui Lines learn pictures and video",
           "shipped": "2026-09-24",
-          "progress": "/progress#yui-lines-learn-pictures-and-video"
+          "progress": "/progress#yui-lines-learn-pictures-and-video",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3117160"
         },
         {
           "key": "YUI-11",
@@ -2931,15 +3415,16 @@
           "summary": "Beta feedback: the debug screen is gone",
           "mvp": true,
           "shipped": "2026-09-23",
-          "progress": "/progress#beta-feedback-the-debug-screen-is-gone"
+          "progress": "/progress#beta-feedback-the-debug-screen-is-gone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0e98316"
         },
         {
           "key": "YUI-6",
-          "title": "Accounts and the relay on Supabase Realtime",
+          "title": "Accounts",
           "summary": "Accounts: Sign in with Apple, and delete it in the app",
-          "mvp": true,
           "shipped": "2026-09-23",
-          "progress": "/progress#accounts-sign-in-with-apple-and-delete-it-in-the-app"
+          "progress": "/progress#accounts-sign-in-with-apple-and-delete-it-in-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/faa0993"
         },
         {
           "key": "YUI-9",
@@ -2964,6 +3449,15 @@
           "mvp": true,
           "shipped": "2026-09-23",
           "progress": "/progress#the-wordmark-moves-into-the-app"
+        },
+        {
+          "key": "YUI-6",
+          "title": "Accounts and the relay on Supabase Realtime",
+          "summary": "Relay v0 on Supabase Realtime + Hermes yui skill",
+          "mvp": true,
+          "shipped": "2026-09-23",
+          "progress": "/progress#accounts-sign-in-with-apple-and-delete-it-in-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/faa0993"
         },
         {
           "key": "YUI-3",
