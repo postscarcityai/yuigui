@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 366,
-    "site": 832,
+    "app": 368,
+    "site": 835,
     "builds": 49,
-    "shipped": 413,
-    "screenshots": 1009
+    "shipped": 416,
+    "screenshots": 1018
   },
   "days": [
     {
@@ -13,7 +13,91 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T02:37:26.396Z",
+          "at": "2026-09-30T02:58:29.651Z",
+          "title": "Four looks for the stage, none of them a blob",
+          "card": null,
+          "anchor": "four-looks-for-the-stage-none-of-them-a-blob",
+          "images": [
+            {
+              "src": "/progress/shaderlook2-currents-running-dark.webp",
+              "alt": "Dark mode: thin lavender lines running across the stage like wind, with bright short packets racing along them. The running state of Currents."
+            },
+            {
+              "src": "/progress/shaderlook2-terrain-searching-dark.webp",
+              "alt": "Dark mode: a navy topographic map with contour lines, and a small peak with tight rings on the right where the search is looking. The searching state of Terrain."
+            },
+            {
+              "src": "/progress/shaderlook2-dots-reading-dark.webp",
+              "alt": "Dark mode: rows of dots laid out like a page of text; the first rows are large pink dots, the rest small blue ones. The reading state of Dots."
+            },
+            {
+              "src": "/progress/shaderlook2-type-thinking-light.webp",
+              "alt": "Light mode: a cream stage with a cloud of tiny blue made-up letters, denser toward the bottom left. The thinking state of Type."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 368,
+            "site": 835,
+            "builds": 49,
+            "shipped": 416
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T02:42:16.000Z",
+          "title": "Shipped tiles now link their demos",
+          "card": "SITE-111",
+          "anchor": "shipped-tiles-now-link-their-demos",
+          "images": [
+            {
+              "src": "/progress/site110-board-desktop.webp",
+              "alt": "The board before: Up next holds 50 cards and Shipped (last 30 days) counts 362."
+            },
+            {
+              "src": "/progress/site111-board-after.webp",
+              "alt": "The board after: Up next holds 13 cards and Shipped (last 30 days) counts 404, with the newest shipped tiles linking their log and code."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 367,
+            "site": 835,
+            "builds": 49,
+            "shipped": 415
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T02:42:16.000Z",
+          "title": "The Agent tab: Keys, Model and your chats",
+          "card": "YUI-128",
+          "anchor": "the-agent-tab-keys-model-and-your-chats",
+          "images": [
+            {
+              "src": "/progress/yui128-agent-model-dark.webp",
+              "alt": "Dark mode: the Model and tools area of the Agent tab, showing the model, where it runs, and hermes-cli and kanban on, browser off."
+            },
+            {
+              "src": "/progress/yui34-keys-list.webp",
+              "alt": "Settings with a Keys card: a key on this iPhone only and this month's spend against its cap."
+            },
+            {
+              "src": "/progress/yui169-app-drawer-dark.webp",
+              "alt": "Dark mode: the drawer with a New chat button and three chats newest first."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 367,
+            "site": 835,
+            "builds": 49,
+            "shipped": 414
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T02:37:31.000Z",
           "title": "A question from your agent now reads as a question",
           "card": "NOTE-41795",
           "anchor": "a-question-from-your-agent-now-reads-as-a-question",
@@ -30,7 +114,7 @@
           "commits": 0,
           "totals": {
             "app": 366,
-            "site": 832,
+            "site": 833,
             "builds": 49,
             "shipped": 413
           }
@@ -1758,6 +1842,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "9f34443",
+          "at": "2026-09-30T02:44:22.000Z",
+          "text": "A logged meal lands on Today: the asked-about page is sent last (YUI-183b)",
+          "url": "https://github.com/postscarcityai/yui/commit/9f34443"
+        },
+        {
+          "repo": "site",
+          "sha": "63afd06",
+          "at": "2026-09-30T02:42:16.000Z",
+          "text": "Progress: SITE-111 linked demos, YUI-128 Agent tab neighbours (SITE-113)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/63afd06"
+        },
+        {
+          "repo": "app",
+          "sha": "a7e3f9b",
+          "at": "2026-09-30T02:42:06.000Z",
+          "text": "A lone ask heads itself: drop 'One question' and the filler subtitle (YUI-219,",
+          "url": "https://github.com/postscarcityai/yui/commit/a7e3f9b"
+        },
+        {
+          "repo": "site",
+          "sha": "6a6b83a",
+          "at": "2026-09-30T02:41:52.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6a6b83a"
+        },
+        {
+          "repo": "site",
+          "sha": "47d8591",
+          "at": "2026-09-30T02:37:31.000Z",
+          "text": "progress: an ask reads as a plain question with the card's shots (NOTE-41795)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/47d8591"
+        },
         {
           "repo": "site",
           "sha": "939fd40",
