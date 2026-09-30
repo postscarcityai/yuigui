@@ -425,6 +425,28 @@ export const STARTER_FLOWS = [
   %% again: choose "When should I quiz you again?" Tomorrow|"In 3 days"|"Next week" body="Three cards from this lesson go in your review for then."
   again[Again] --> saved((Cards))`,
   },
+  {
+    // Any agent's first plan (YUI-226), from Arnold's (YUI-217): a few questions, one a screen, Not sure and
+    // Skip on each, one submit. The answers come back as {goal, days, time, gear, experience}; the agent
+    // builds the week from them and treats Not sure and Skip as "pick a sensible default".
+    name: "first-plan",
+    id: "firstplan",
+    title: "Your first plan",
+    submit: "Build my week",
+    agent: "Coach",
+    blurb: "A trainer's first minute: your goal, days, time, gear and experience, each with Not sure and Skip. One tap builds the week.",
+    source: `flowchart TD
+  %% goal: choose "What's the goal?" "Get stronger"|"Lose weight"|"Build a habit"|"Feel better"|"Not sure"|Skip
+  goal[Goal] --> days
+  %% days: pick "Which days can you train?" Mon|Tue|Wed|Thu|Fri|Sat|Sun|"Not sure"|Skip
+  days[Days] --> time
+  %% time: choose "How long is a session?" "15 minutes"|"30 minutes"|"45 minutes"|"An hour"|"Not sure"|Skip
+  time[Time] --> gear
+  %% gear: pick "What do you have?" Dumbbells|Kettlebell|Bands|"A gym"|"Nothing"|"Not sure"|Skip
+  gear[Gear] --> experience
+  %% experience: choose "How much have you trained?" "Brand new"|"On and off"|"Regularly"|"Not sure"|Skip
+  experience[Experience] --> done((Plan))`,
+  },
 ];
 
 // The trainer's answer to trainer-session's event: the session its page showed, as the lines that

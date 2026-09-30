@@ -105,6 +105,8 @@ const SC = [
   ["planner-week", "a full week, the deadline first: due in a few days, mornings, reminders", { on: ["A work deadline", "Appointments", "Errands", "Workouts"], top: "A work deadline", due: "In a few days", when: "Mornings", pace: "2 or 3", remind: "10 minutes before" }],
   ["planner-week", "errands and bills, whenever: nothing timed, no reminders", { on: ["Errands", "Bills"], top: "Bills", when: "Whenever it fits", pace: "3 to 5" }],
   ["planner-week", "family time after work, at the time", { on: ["Family time", "Errands"], top: "Family time", when: "After work", pace: "2 or 3", remind: "At the time" }],
+  ["first-plan", "every answer given", { goal: "Get stronger", days: ["Mon", "Wed", "Fri"], time: "30 minutes", gear: ["Dumbbells"], experience: "On and off" }],
+  ["first-plan", "not sure and skip", { goal: "Not sure", days: ["Skip"], time: "Skip", gear: ["Not sure"], experience: "Skip" }],
   ["study-quiz", "vaccines, brand new, a miss: the why page", { topic: "How vaccines work", know: "Brand new", vq: "Nucleus", again: "Tomorrow" }],
   ["study-quiz", "vaccines, the basics, right: skips the first page", { topic: "How vaccines work", know: "I know the basics", vq: "Cytoplasm", again: "Next week" }],
   ["study-quiz", "a ball, a little, a miss", { topic: "How a ball flies", know: "A little", bq: "60 degrees", again: "In 3 days" }],
