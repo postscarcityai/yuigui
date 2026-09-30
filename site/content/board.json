@@ -1,11 +1,11 @@
 {
-  "updated": "2026-09-30T16:11:05.489Z",
+  "updated": "2026-09-30T16:41:09.032Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
-    "status": "shipping",
+    "status": "shipped",
     "startedAt": "2026-09-30T12:03:07.000Z",
-    "shippedAt": null,
+    "shippedAt": "2026-09-30T16:31:07.000Z",
     "cards": [
       {
         "key": "YUI-230",
@@ -361,10 +361,6 @@
           "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags"
         },
         {
-          "key": "SITE-129",
-          "title": "Thought + See it for Yui 0.6.2, the first minute fixed"
-        },
-        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -434,14 +430,17 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-215",
-          "title": "Jev at our first two decision points, measured against today",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-215",
+          "title": "Jev at our first two decision points, measured against today",
+          "summary": "Jev at two decision points, measured against today",
+          "blocked": "chris",
+          "progress": "/progress#jev-at-two-decision-points-measured-against-today",
           "owner": "CJohnDesign"
         }
       ]
@@ -450,6 +449,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-129",
+          "title": "Thought + See it for Yui 0.6.2, the first minute fixed",
+          "summary": "Yui 0.6.2: the first minute, fixed, in one post",
+          "shipped": "2026-09-30",
+          "progress": "/progress#yui-0-6-2-the-first-minute-fixed-in-one-post",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/25ca16c"
+        },
         {
           "key": "YUI-236",
           "title": "Restore stage header, X and drawer after plan build on a real account",

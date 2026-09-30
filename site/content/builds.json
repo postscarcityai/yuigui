@@ -1,6 +1,55 @@
 {
   "builds": [
     {
+      "build": 392,
+      "date": "2026-09-30",
+      "uploaded": "2026-09-30T09:25:53-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Open on an agent's card lands on its first question until the first plan is built",
+          "card": "YUI-225"
+        },
+        {
+          "text": "The plan is built right after the intake: plan words get the runtime's intake, the agent's soul stops running his own wizard",
+          "card": "YUI-228"
+        },
+        {
+          "text": "Live sim test: a stranger's first plan builds the week after Send, no second wizard",
+          "card": "YUI-228"
+        },
+        {
+          "text": "Add an agent in the drawer, and pairing is one command",
+          "card": "YUI-229"
+        },
+        {
+          "text": "Notifications ask comes after the first plan: one plain line, Yes raises the system prompt, sign-in ask only as a later-launch fallback",
+          "card": "YUI-230"
+        },
+        {
+          "text": "Bump version to 0.6.2"
+        },
+        {
+          "text": "Open on Yui's card lands on the agent's first question on a real account: Yui answers the first-choice tap with the Open card, and a first plan pending shows its question on the chat-first path [YUI-233]"
+        },
+        {
+          "text": "Approve and Decline on a war room invite request now run invite.py and clear the row, instead of falling through to an agent turn [YUI-214]"
+        },
+        {
+          "text": "Open on an agent's card no longer closes the first question: a notification landing on a message with nothing staged (the hello's words) stops opening an empty stage over the plan; the real-account test now holds the question for 14 s [YUI-234]"
+        },
+        {
+          "text": "The vector blob is gone: the shader draws the agent, and its blob changes shape with what the agent does (circle, cloud, football, rounded square, drop, pill); every default is the blob [YUI-232]"
+        },
+        {
+          "text": "Every crew default is the shader blob: an agent, Basil, Gouda and Penny ship look orb in their profiles, the runtime crew table and the bundled _native copy, each keeping its own hears, strength and pace [YUI-235]"
+        },
+        {
+          "text": "A screen is no dead end: menu and chat buttons over every screen page, so the plan landing on its last screen still reaches the drawer and Add an agent [YUI-235]"
+        }
+      ]
+    },
+    {
       "build": 380,
       "date": "2026-09-30",
       "uploaded": "2026-09-30T01:49:40-07:00",
@@ -1719,45 +1768,8 @@
   ],
   "next": [
     {
-      "text": "Open on an agent's card lands on its first question until the first plan is built",
-      "card": "YUI-225"
-    },
-    {
-      "text": "The plan is built right after the intake: plan words get the runtime's intake, the agent's soul stops running his own wizard",
-      "card": "YUI-228"
-    },
-    {
-      "text": "Live sim test: a stranger's first plan builds the week after Send, no second wizard",
-      "card": "YUI-228"
-    },
-    {
-      "text": "Add an agent in the drawer, and pairing is one command",
-      "card": "YUI-229"
-    },
-    {
-      "text": "Notifications ask comes after the first plan: one plain line, Yes raises the system prompt, sign-in ask only as a later-launch fallback",
-      "card": "YUI-230"
-    },
-    {
-      "text": "Bump version to 0.6.2"
-    },
-    {
-      "text": "Open on Yui's card lands on the agent's first question on a real account: Yui answers the first-choice tap with the Open card, and a first plan pending shows its question on the chat-first path [YUI-233]"
-    },
-    {
-      "text": "Approve and Decline on a war room invite request now run invite.py and clear the row, instead of falling through to an agent turn [YUI-214]"
-    },
-    {
-      "text": "Open on an agent's card no longer closes the first question: a notification landing on a message with nothing staged (the hello's words) stops opening an empty stage over the plan; the real-account test now holds the question for 14 s [YUI-234]"
-    },
-    {
-      "text": "The vector blob is gone: the shader draws the agent, and its blob changes shape with what the agent does (circle, cloud, football, rounded square, drop, pill); every default is the blob [YUI-232]"
-    },
-    {
-      "text": "Every crew default is the shader blob: an agent, Basil, Gouda and Penny ship look orb in their profiles, the runtime crew table and the bundled _native copy, each keeping its own hears, strength and pace [YUI-235]"
-    },
-    {
-      "text": "A screen is no dead end: menu and chat buttons over every screen page, so the plan landing on its last screen still reaches the drawer and Add an agent [YUI-235]"
+      "text": "Jev at two decision points, in shadow: the reply shape in the Hermes plugin and a tool router for the native crew, measured against today",
+      "card": "YUI-215"
     }
   ]
 }
