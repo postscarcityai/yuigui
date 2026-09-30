@@ -1,9 +1,9 @@
 {
-  "updated": "2026-09-30T13:10:37.832Z",
+  "updated": "2026-09-30T13:42:42.319Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
-    "status": "open",
+    "status": "shipping",
     "startedAt": "2026-09-30T12:03:07.000Z",
     "shippedAt": null,
     "cards": [
@@ -17,7 +17,9 @@
       {
         "key": "YUI-233",
         "title": "On a real account",
-        "status": "now"
+        "status": "done",
+        "shipped": "2026-09-30",
+        "progress": "/progress#open-on-yui-s-card-lands-on-the-first-question"
       }
     ]
   },
@@ -235,11 +237,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-132",
-          "title": "The first plan's link row on /crew has uneven baselines and weights",
-          "waiting": true
-        },
-        {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors",
           "waiting": true
@@ -362,11 +359,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-214",
-          "title": "Tapping Decline on an invite request does nothing; the row stays 'requested' and the ask comes back",
-          "waiting": true
-        },
-        {
           "key": "YUI-215",
           "title": "Jev at our first two decision points, measured against today",
           "waiting": true
@@ -431,6 +423,11 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "SITE-132",
+          "title": "The first plan's link row on /crew has uneven baselines and weights",
+          "needsDemo": true
         }
       ]
     },
@@ -446,26 +443,9 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-233",
-          "title": "On a real account",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-131",
-          "title": "The chat bubble covers the crew demo phone's Start button on a phone",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-231",
-          "title": "Show me means in the app",
-          "summary": "Pictures and the pick on the phone, a site link only as a small extra",
-          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
@@ -474,6 +454,37 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-214",
+          "title": "Tapping Decline on an invite request does nothing; the row stays 'requested' and the ask comes back",
+          "summary": "Declining an invite request works",
+          "shipped": "2026-09-30",
+          "progress": "/progress#declining-an-invite-request-works",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/291010d"
+        },
+        {
+          "key": "YUI-231",
+          "title": "Show me means in the app",
+          "summary": "Show me is answered in the app",
+          "shipped": "2026-09-30",
+          "progress": "/progress#show-me-is-answered-in-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4f1c5fb"
+        },
+        {
+          "key": "YUI-233",
+          "title": "On a real account",
+          "summary": "Open on Yui's card lands on the first question",
+          "shipped": "2026-09-30",
+          "progress": "/progress#open-on-yui-s-card-lands-on-the-first-question",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e46b0f5"
+        },
+        {
+          "key": "SITE-131",
+          "title": "The chat bubble covers the crew demo phone's Start button on a phone",
+          "summary": "The chat bubble steps off the crew phones",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-chat-bubble-steps-off-the-crew-phones"
+        },
         {
           "key": "SITE-130",
           "title": "A stranger's first minute on the site, timed on a phone",

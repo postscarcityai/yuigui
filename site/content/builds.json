@@ -1740,6 +1740,12 @@
     },
     {
       "text": "Bump version to 0.6.2"
+    },
+    {
+      "text": "Open on Yui's card lands on the agent's first question on a real account: Yui answers the first-choice tap with the Open card, and a first plan pending shows its question on the chat-first path [YUI-233]"
+    },
+    {
+      "text": "Approve and Decline on a war room invite request now run invite.py and clear the row, instead of falling through to an agent turn [YUI-214]"
     }
   ]
 }
