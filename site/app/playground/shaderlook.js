@@ -1,24 +1,29 @@
 "use client";
 
-// The shader look (spec/SHADER.md, t_b8ab6ac3 step 1): the app's line blob
-// retires and the WebGL blob shows what the agent is doing. The big stage
-// runs one agent and one action; the row under it runs every agent's look on
-// the same blob at the same time; "Today" is the line blob, struck out. The
-// doing words are the real rule (actionOf): type one and the state follows.
+// The shader look (spec/SHADER.md, t_b8ab6ac3): the app's line blob retires
+// and the WebGL stage shows what the agent is doing. Round 2 (Chris: "still
+// kind of blobby") offers four directions that are not a blob; the round 1
+// blob stays last to compare. The big stage runs one direction, one agent and
+// one action; the row under it runs every agent in the same direction at the
+// same time; the line blob is struck out. The doing words are the real rule
+// (actionOf): pick one and the state follows.
 
 import { useEffect, useRef, useState } from "react";
 import { ACTIONS, ACTION_INFO, KNOBS, LOOKS_BY_AGENT, actionOf, easeWeights, startWeights } from "../../lib/visual/action.mjs";
-import { ACTION_FRAGMENT, VERTEX, vec3 } from "../../lib/visual/actionshader.mjs";
+import { ACTION_FRAGMENT, DIRECTIONS, DIRECTION_IDS, VERTEX, vec3 } from "../../lib/visual/directions.mjs";
 import { visualColors } from "../../lib/yl/visual.mjs";
 import { SETS } from "../../lib/yl/look.mjs";
 import { useReduced } from "./stagemotion";
 import "./shaderlook.css";
 
 const AGENT_IDS = Object.keys(LOOKS_BY_AGENT);
+const DIRS = [...DIRECTION_IDS, "blob"];
+const DIR_NAME = (d) => (d === "blob" ? "Round 1 blob" : DIRECTIONS[d].name);
+const fragmentOf = (d) => (d === "blob" ? ACTION_FRAGMENT : DIRECTIONS[d].fragment);
 const SAMPLES = ["Pondering", "Reading your calendar", "Running the tests", "Searching the web", "Looking up flights"];
 
 // One blob. `action` is a state name; it eases in, and `done` restarts its ring each time it is picked.
-function Blob({ agent, action, dark, mini = false, still = false }) {
+function Blob({ dir, agent, action, dark, mini = false, still = false }) {
   const canvas = useRef(null);
   const live = useRef({});
   live.current = { agent, action, dark, still };
@@ -39,7 +44,7 @@ function Blob({ agent, action, dark, mini = false, still = false }) {
     try {
       prog = g.createProgram();
       g.attachShader(prog, compile(g.VERTEX_SHADER, VERTEX));
-      g.attachShader(prog, compile(g.FRAGMENT_SHADER, ACTION_FRAGMENT));
+      g.attachShader(prog, compile(g.FRAGMENT_SHADER, fragmentOf(dir)));
       g.linkProgram(prog);
       if (!g.getProgramParameter(prog, g.LINK_STATUS)) throw new Error(g.getProgramInfoLog(prog));
     } catch (e) {
@@ -70,7 +75,7 @@ function Blob({ agent, action, dark, mini = false, still = false }) {
       const target = st ? "idle" : act;
       w = easeWeights(w, target, dt);
       if (!st) { clock += dt * look.pace; since += dt; } else { clock = 8; since = 9; }
-      const scale = Math.min(2, window.devicePixelRatio || 1) * (mini ? 0.75 : 0.6);
+      const scale = Math.min(2, window.devicePixelRatio || 1) * (mini ? 0.75 : 0.6) * (dir === "type" ? 1.5 : 1);
       const cw = Math.max(1, Math.round(cv.clientWidth * scale)), ch = Math.max(1, Math.round(cv.clientHeight * scale));
       if (cv.width !== cw || cv.height !== ch) { cv.width = cw; cv.height = ch; }
       g.viewport(0, 0, cw, ch);
@@ -97,10 +102,10 @@ function Blob({ agent, action, dark, mini = false, still = false }) {
     };
     raf = requestAnimationFrame(draw);
     return () => { cancelAnimationFrame(raf); g.deleteProgram(prog); g.deleteBuffer(buf); };
-  }, [mini]);
+  }, [mini, dir]);
 
   const c = visualColors(SETS[LOOKS_BY_AGENT[agent].set].accent, dark);
-  return gl ? <canvas ref={canvas} className="sl-canvas" aria-hidden="true" data-agent={agent} data-action={action} /> : (
+  return gl ? <canvas ref={canvas} className="sl-canvas" aria-hidden="true" data-agent={agent} data-action={action} data-dir={dir} /> : (
     <div className="sl-canvas" aria-hidden="true" style={{ background: `radial-gradient(40% 30% at 50% 45%, ${c.a}, ${c.b} 55%, transparent 75%), ${c.ground}` }} />
   );
 }
@@ -122,6 +127,7 @@ function LineBlob({ color }) {
 }
 
 export function ShaderLookDemo({ dark = true }) {
+  const [dir, setDir] = useState("currents");
   const [agent, setAgent] = useState("gouda");
   const [action, setAction] = useState("thinking");
   const [word, setWord] = useState("");
@@ -131,12 +137,14 @@ export function ShaderLookDemo({ dark = true }) {
 
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
+    if (DIRS.includes(q.get("dir"))) setDir(q.get("dir"));
     if (LOOKS_BY_AGENT[q.get("agent")]) setAgent(q.get("agent"));
     if (ACTIONS.includes(q.get("action"))) setAction(q.get("action"));
     if (q.get("still") === "on") setStill(true);
   }, []);
 
   const info = ACTION_INFO[action];
+  const motion = dir === "blob" ? info.motion : DIRECTIONS[dir].states[action];
   const look = LOOKS_BY_AGENT[agent];
   const say = (text) => { setWord(text); setAction(actionOf(text)); };
   const accent = visualColors(SETS[look.set].accent, dark).a;
@@ -144,14 +152,21 @@ export function ShaderLookDemo({ dark = true }) {
   return (
     <div className={`sl-app ${dark ? "" : "sl-light"}`} style={{ "--sl-c": accent }}>
       <div className="sl-stage" data-still={off ? "on" : undefined}>
-        <Blob agent={agent} action={action} dark={dark} still={off} />
+        <Blob dir={dir} agent={agent} action={action} dark={dark} still={off} />
         <div className="sl-bar">
-          <b>{look.name}</b>
+          <b>{DIR_NAME(dir)} · {look.name}</b>
           <span className="sl-tag">{off ? "Reduce Motion: still" : `${info.name}${word && actionOf(word) === action ? ` · ${word}` : ""}`}</span>
         </div>
         <LineBlob color={accent} />
       </div>
       <div className="sl-panel">
+        <div className="sl-row">
+          <span className="sl-label">Look</span>
+          <div className="sl-chips">
+            {DIRS.map((d) => <button key={d} className={`sl-chip ${d === dir ? "on" : ""}`} onClick={() => setDir(d)}>{DIR_NAME(d)}</button>)}
+          </div>
+        </div>
+        {dir === "blob" ? null : <p className="sl-note"><b>{DIRECTIONS[dir].name}.</b> {DIRECTIONS[dir].idea} Phone cost: {DIRECTIONS[dir].cost}</p>}
         <div className="sl-row">
           <span className="sl-label">Doing</span>
           <div className="sl-chips">
@@ -166,17 +181,17 @@ export function ShaderLookDemo({ dark = true }) {
             {SAMPLES.map((s) => <button key={s} className={`sl-chip ${word === s ? "on" : ""}`} onClick={() => say(s)}>{s}</button>)}
           </div>
         </div>
-        <p className="sl-note"><b>{info.name}.</b> {info.motion} Picked by: {info.when}.</p>
+        <p className="sl-note"><b>{info.name}.</b> {motion} Picked by: {info.when}.</p>
         <div className="sl-row">
           <span className="sl-label">Agent</span>
           <div className="sl-chips">
             {AGENT_IDS.map((id) => <button key={id} className={`sl-chip ${id === agent ? "on" : ""}`} style={{ "--sl-dot": visualColors(SETS[LOOKS_BY_AGENT[id].set].accent, dark).a }} onClick={() => setAgent(id)}>{LOOKS_BY_AGENT[id].name}</button>)}
           </div>
         </div>
-        <div className="sl-grid" aria-label="Every agent, same blob, same action">
+        <div className="sl-grid" aria-label="Every agent, same look, same action">
           {AGENT_IDS.map((id) => (
             <button key={id} className={`sl-mini ${id === agent ? "on" : ""}`} onClick={() => setAgent(id)} aria-label={`${LOOKS_BY_AGENT[id].name}'s look`}>
-              <Blob agent={id} action={action} dark={dark} mini still={off} />
+              <Blob dir={dir} agent={id} action={action} dark={dark} mini still={off} />
               <span>{LOOKS_BY_AGENT[id].name}</span>
             </button>
           ))}
