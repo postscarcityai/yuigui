@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T01:40:36.302Z",
+  "updated": "2026-09-30T02:10:48.273Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -176,11 +176,6 @@
           "summary": "Rolling updates, daily backups, a kill switch per sandbox"
         },
         {
-          "key": "YUI-169",
-          "title": "Several chats per agent, listed in the drawer",
-          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock"
-        },
-        {
           "key": "YUI-172",
           "title": "Register Yui iOS app in Firebase, save GoogleService-Info.plist",
           "waiting": true
@@ -333,11 +328,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-128",
-          "title": "About and Controls become one drawer tab",
-          "waiting": true
-        },
-        {
           "key": "YUI-183b",
           "title": "After a meal is logged, land on that meal's calories, then Today's macros, not the grocery list",
           "waiting": true
@@ -391,6 +381,12 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "SITE-111",
+          "title": "Link the 36 shipped cards that still say Needs its demo",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/504aebb",
+          "needsDemo": true
         }
       ]
     },
@@ -406,15 +402,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-169",
-          "title": "TestFlight build, progress.json entry, demo live on yuigui.com",
-          "step": "Ship",
-          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-111",
-          "title": "Link the 36 shipped cards that still say Needs its demo",
+          "key": "YUI-128",
+          "title": "About and Controls become one drawer tab",
           "owner": "CJohnDesign"
         },
         {
@@ -430,14 +419,6 @@
           "title": "One look: shader, no line blob",
           "blocked": "chris",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-169",
-          "title": "Native app drawer chat list, New chat, runtime thread ids",
-          "step": "Step 2b",
-          "blocked": "chris",
-          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -445,6 +426,38 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-112",
+          "title": "The release post for TestFlight build 370, several chats, your own keys, icon shortcuts",
+          "summary": "Thought: Yui 0.6.0, build 370",
+          "shipped": "2026-09-29",
+          "progress": "/progress#thought-yui-0-6-0-build-370",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3de651d"
+        },
+        {
+          "key": "YUI-169",
+          "title": "Several chats per agent, listed in the drawer",
+          "summary": "Several chats, on your phone",
+          "shipped": "2026-09-29",
+          "progress": "/progress#several-chats-on-your-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b"
+        },
+        {
+          "key": "YUI-169",
+          "title": "Native app drawer chat list, New chat, runtime thread ids",
+          "step": "Step 2b",
+          "shipped": "2026-09-29",
+          "progress": "/progress#several-chats-on-your-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b"
+        },
+        {
+          "key": "YUI-169",
+          "title": "TestFlight build, progress.json entry, demo live on yuigui.com",
+          "step": "Ship",
+          "shipped": "2026-09-29",
+          "progress": "/progress#several-chats-on-your-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b"
+        },
         {
           "key": "NOTE-62105",
           "title": "Show it here, don't link out",
@@ -464,8 +477,8 @@
           "title": "Relay + DB threads per chat, Hermes plugin thread ids",
           "step": "Step 2a",
           "shipped": "2026-09-29",
-          "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4ebf773"
+          "progress": "/progress#several-chats-on-your-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b"
         },
         {
           "key": "YUI-169",
@@ -474,7 +487,7 @@
           "summary": "Several chats with one agent: the spec and a mock",
           "shipped": "2026-09-29",
           "progress": "/progress#several-chats-with-one-agent-the-spec-and-a-mock",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4ebf773"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/6caa93b"
         },
         {
           "key": "NOTE-45760",

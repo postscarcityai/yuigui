@@ -1,6 +1,76 @@
 {
   "builds": [
     {
+      "build": 370,
+      "date": "2026-09-29",
+      "uploaded": "2026-09-29T18:39:46-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Deploys refuse to run ahead of unapplied migrations; a crew health probe; logs via the ClickHouse endpoint",
+          "card": "YUI-211"
+        },
+        {
+          "text": "Hold the icon: your agents' drawer shortcuts on the home screen, you pick which four",
+          "card": "YUI-191"
+        },
+        {
+          "text": "Icon menu test: send, don't type, so the shot has no keyboard",
+          "card": "YUI-191"
+        },
+        {
+          "text": "Key vault plugin: yui_key_ask, vault_call, key_answer line (YUI-34 step 2, plugin lane)"
+        },
+        {
+          "text": "Wire the key vault into the Yui adapter and test it (YUI-34 step 2, plugin lane)"
+        },
+        {
+          "text": "Key vault relay: sealed keys, per-agent grants, audited uses, cap holds, key_ask no-nag (YUI-34 backend)"
+        },
+        {
+          "text": "Vault relay checks: RLS, sealed column, grants, holds, once, lapse, key_ask and key_answer (YUI-34 backend)"
+        },
+        {
+          "text": "yui-vault Edge Function: HPKE-opened keys, token/grant/path/cap checks, fixed hosts, scrubbed logs; connector public key (YUI-34 backend)"
+        },
+        {
+          "text": "Vault proxy tests: wrong agent, revoked, path, cap and holds, once, provider refusal, CryptoKit interop, no key in any log line (YUI-34 backend)"
+        },
+        {
+          "text": "Key vault in the app: Keychain store, Settings > Keys (add by paste or scan, Face ID, no reveal, iCloud off), key-shaped sends held, key_ask sheet, HPKE sealing, Controls > Keys with Revoke (YUI-34 step 2)"
+        },
+        {
+          "text": "Pin the real vault connector key yvk-1 in the app and the function (YUI-34 step 2)"
+        },
+        {
+          "text": "Yui plugin: a typed line gets a note naming the agent's newest message"
+        },
+        {
+          "text": "Yui plugin: channel guide v41"
+        },
+        {
+          "text": "Reply quotes the screen: title plus its first rows"
+        },
+        {
+          "text": "yui-mcp reads the semibold type base (YUI-211, yuigui a2d0291)"
+        },
+        {
+          "text": "Stage polish: six-line question, mic stays with a quiet Back home, roomy Type your own"
+        },
+        {
+          "text": "Drawer chat list loads even when a chat was opened before the list arrived",
+          "card": "YUI-169"
+        },
+        {
+          "text": "CONTRIBUTING-AGENTS: a claim shows your GitHub username on the board; done means the tile links the demo and the PR",
+          "card": "SITE-110"
+        },
+        {
+          "text": "Reply quotes a list's items; card + ask reply regression test"
+        }
+      ]
+    },
+    {
       "build": 351,
       "date": "2026-09-29",
       "uploaded": "2026-09-29T14:41:16-07:00",
@@ -1607,68 +1677,6 @@
     }
   ],
   "next": [
-    {
-      "text": "Deploys refuse to run ahead of unapplied migrations; a crew health probe; logs via the ClickHouse endpoint",
-      "card": "YUI-211"
-    },
-    {
-      "text": "Hold the icon: your agents' drawer shortcuts on the home screen, you pick which four",
-      "card": "YUI-191"
-    },
-    {
-      "text": "Icon menu test: send, don't type, so the shot has no keyboard",
-      "card": "YUI-191"
-    },
-    {
-      "text": "Key vault plugin: yui_key_ask, vault_call, key_answer line (YUI-34 step 2, plugin lane)"
-    },
-    {
-      "text": "Wire the key vault into the Yui adapter and test it (YUI-34 step 2, plugin lane)"
-    },
-    {
-      "text": "Key vault relay: sealed keys, per-agent grants, audited uses, cap holds, key_ask no-nag (YUI-34 backend)"
-    },
-    {
-      "text": "Vault relay checks: RLS, sealed column, grants, holds, once, lapse, key_ask and key_answer (YUI-34 backend)"
-    },
-    {
-      "text": "yui-vault Edge Function: HPKE-opened keys, token/grant/path/cap checks, fixed hosts, scrubbed logs; connector public key (YUI-34 backend)"
-    },
-    {
-      "text": "Vault proxy tests: wrong agent, revoked, path, cap and holds, once, provider refusal, CryptoKit interop, no key in any log line (YUI-34 backend)"
-    },
-    {
-      "text": "Key vault in the app: Keychain store, Settings > Keys (add by paste or scan, Face ID, no reveal, iCloud off), key-shaped sends held, key_ask sheet, HPKE sealing, Controls > Keys with Revoke (YUI-34 step 2)"
-    },
-    {
-      "text": "Pin the real vault connector key yvk-1 in the app and the function (YUI-34 step 2)"
-    },
-    {
-      "text": "Yui plugin: a typed line gets a note naming the agent's newest message"
-    },
-    {
-      "text": "Yui plugin: channel guide v41"
-    },
-    {
-      "text": "Reply quotes the screen: title plus its first rows"
-    },
-    {
-      "text": "yui-mcp reads the semibold type base (YUI-211, yuigui a2d0291)"
-    },
-    {
-      "text": "Stage polish: six-line question, mic stays with a quiet Back home, roomy Type your own"
-    },
-    {
-      "text": "Drawer chat list loads even when a chat was opened before the list arrived",
-      "card": "YUI-169"
-    },
-    {
-      "text": "CONTRIBUTING-AGENTS: a claim shows your GitHub username on the board; done means the tile links the demo and the PR",
-      "card": "SITE-110"
-    },
-    {
-      "text": "Reply quotes a list's items; card + ask reply regression test"
-    },
     {
       "text": "Plugin guide v42: show it here, don't link out"
     }
