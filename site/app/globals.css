@@ -98,6 +98,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--link); outline-offset: 2px; border-radius: 8px; }
 
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+/* SITE-130: after a menu tap Next scrolls the page's first block to the top of the window, under the sticky nav. The margin lets the page settle at its true top. */
+main.wrap > :first-child { scroll-margin-top: 240px; }
 
 /* Announcement bar over the nav (components/TopBar.js). */
 .topbar { background: var(--brand); color: var(--on-brand); font-size: 15px; }
