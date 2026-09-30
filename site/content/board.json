@@ -1,12 +1,27 @@
 {
-  "updated": "2026-09-30T17:11:17.841Z",
+  "updated": "2026-09-30T17:42:00.698Z",
   "shippedDays": 30,
   "release": {
-    "version": null,
-    "status": "shipping",
-    "startedAt": "2026-09-30T17:09:53.000Z",
-    "shippedAt": null,
-    "cards": []
+    "version": "0.6.2",
+    "status": "shipped",
+    "startedAt": "2026-09-30T12:03:07.000Z",
+    "shippedAt": "2026-09-30T16:31:07.000Z",
+    "cards": [
+      {
+        "key": "YUI-230",
+        "title": "Allow notifications shows once, after the first plan",
+        "status": "done",
+        "shipped": "2026-09-30",
+        "progress": "/progress#yui-asks-about-notifications-after-your-first-plan"
+      },
+      {
+        "key": "YUI-233",
+        "title": "On a real account",
+        "status": "done",
+        "shipped": "2026-09-30",
+        "progress": "/progress#open-on-yui-s-card-lands-on-the-first-question"
+      }
+    ]
   },
   "columns": [
     {
@@ -390,6 +405,12 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "SITE-134",
+          "title": "The site says a new build lands every morning",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3b83a01",
+          "needsDemo": true
         }
       ]
     },
@@ -405,8 +426,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-208",
-          "title": "Last page keeps the mic; Back home and New chat move onto the page, and a spoken note goes in with the picks as one answer",
+          "key": "NOTE-14923",
+          "title": "Send up to 12 photos",
           "owner": "CJohnDesign"
         },
         {
@@ -422,12 +443,6 @@
           "blocked": "chris",
           "progress": "/progress#jev-at-two-decision-points-measured-against-today",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-14923",
-          "title": "Send up to 12 photos",
-          "blocked": "chris",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -435,6 +450,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-208",
+          "title": "Last page keeps the mic; Back home and New chat move onto the page, and a spoken note goes in with the picks as one answer",
+          "summary": "The last page keeps the mic",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-last-page-keeps-the-mic",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/68dc50f"
+        },
         {
           "key": "SITE-129",
           "title": "Thought + See it for Yui 0.6.2, the first minute fixed",

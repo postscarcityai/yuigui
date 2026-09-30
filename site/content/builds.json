@@ -1776,6 +1776,21 @@
     },
     {
       "text": "Send up to 12 photos in one message; the native agent sees all 12"
+    },
+    {
+      "text": "testflight.sh --daily: one upload per calendar day for the 06:00 release cron; 24 h rule stays otherwise [YUI-SHIP]"
+    },
+    {
+      "text": "Last page keeps the mic: Back home and New chat sit on the page, and typed or spoken words go in with the picks as one answer",
+      "card": "YUI-208"
+    },
+    {
+      "text": "One line and a picture: the plugin rewrites a wall or a second prose bubble, in shadow first; guide v44; vis_score.py",
+      "card": "VIS-1"
+    },
+    {
+      "text": "The native crew gets the one-line gate: same rules as the plugin, shadow first with counts on the saved row",
+      "card": "VIS-3"
     }
   ]
 }
