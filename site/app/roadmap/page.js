@@ -30,6 +30,7 @@ export default function Roadmap() {
       <Films
         id="concepts"
         layout="feature"
+        eager
         title="The ideas, as films."
         lede="Where the roadmap points, drawn before it is built: history as a map that moves, a year of markets under one finger, and an outage fixed at 3 am with one Send. Concept films, not built yet."
         ids={["film-mongols-by-map", "film-markets-2020", "film-3am-incident"]}

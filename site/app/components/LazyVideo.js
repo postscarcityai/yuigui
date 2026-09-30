@@ -3,9 +3,10 @@
 // and See it has dozens, so they crowded out the page itself on a phone connection.
 import { useEffect, useRef, useState } from "react";
 
-export default function LazyVideo({ poster, ...props }) {
+// eager: the poster is in the page itself, for a film that sits in the first screen and is the largest thing on it (SITE-133).
+export default function LazyVideo({ poster, eager = false, ...props }) {
   const ref = useRef(null);
-  const [near, setNear] = useState(false);
+  const [near, setNear] = useState(eager);
   useEffect(() => {
     const el = ref.current;
     if (!el || near) return;

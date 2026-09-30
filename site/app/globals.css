@@ -285,6 +285,10 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .log { list-style: none; padding: 0; margin: 24px 0; border-left: 2px dashed var(--outline); }
 .log li { position: relative; padding: 0 0 26px 26px; }
 .log li::before { content: ""; position: absolute; left: -8px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 4px var(--background); }
+/* SITE-133: /progress is 400 entries. Below the first screens the browser skips their layout and paint until they near the view. The dot moves inside each entry's box (same place on screen) because skipped-paint boxes clip what hangs outside them. */
+ul.log > li { margin-left: -12px; padding-left: 38px; }
+ul.log > li::before { left: 4px; }
+ul.log > li:nth-child(n+7) { content-visibility: auto; contain-intrinsic-size: auto 480px; }
 .log .date { color: var(--mint-ink); font-size: 14px; font-weight: 700; }
 .log .logimg { display: block; width: 100%; max-width: 720px; height: auto; margin-top: 12px; border-radius: 20px; border: 1.5px solid var(--outline); box-shadow: var(--shadow); }
 
