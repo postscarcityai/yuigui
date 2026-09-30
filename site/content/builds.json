@@ -1815,6 +1815,15 @@
     },
     {
       "text": "Saved screens as widgets: app group copy, Saved screen widget (stat, chart, list, timer, card, timeline, table; small, medium, lock screen), Pin as widget on the shelf, widget tap opens the screen (YUI-40 step 1)"
+    },
+    {
+      "text": "Widget push relay: yui_widgets table, yui-widgets function (register, event, read), widgets push in yui-push with 15 minute coalescing, timer at once (YUI-40 step 4)"
+    },
+    {
+      "text": "Widget buttons, Siri intents and the widget relay in the app: +check toggles and cta on the widget, timer Start as a Live Activity intent, offline queue, push catch-up, pin registration, App Shortcuts, Talk to Yui control, indexed entities (YUI-40 steps 2 to 4)"
+    },
+    {
+      "text": "Widget button tests: gallery shows queue and last event, resets for UI tests, pin test waits for all four screens (YUI-40 steps 2 to 4)"
     }
   ]
 }
