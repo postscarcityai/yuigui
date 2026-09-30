@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 405,
-    "site": 953,
+    "app": 406,
+    "site": 954,
     "builds": 51,
-    "shipped": 476,
-    "screenshots": 1203
+    "shipped": 477,
+    "screenshots": 1209
   },
   "days": [
     {
@@ -13,7 +13,47 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T22:42:41.000Z",
+          "at": "2026-09-30T22:52:24.650Z",
+          "title": "Basil builds your first week of meals",
+          "card": "YUI-221",
+          "anchor": "basil-builds-your-first-week-of-meals",
+          "images": [
+            {
+              "src": "/progress/yui221-first-question-dark.webp",
+              "alt": "Dark mode: Your first meal plan, What's the goal, with Eat better, Lose weight, Build muscle, Save time, Not sure and Skip, and the days question below."
+            },
+            {
+              "src": "/progress/yui221-leave-out-dark.webp",
+              "alt": "Dark mode: Mon, Wed and Fri picked, 3 meals picked, and Dairy picked under What should I leave out."
+            },
+            {
+              "src": "/progress/yui221-week-dark.webp",
+              "alt": "Dark mode: the built week, a card each for Monday and Wednesday with their meals and a swap button per meal, and nothing on Tuesday."
+            },
+            {
+              "src": "/progress/yui221-first-question-light.webp",
+              "alt": "Light mode: the first meal plan question on a white screen."
+            },
+            {
+              "src": "/progress/yui221-leave-out-light.webp",
+              "alt": "Light mode: Mon, Wed and Fri, 3 meals and Dairy picked."
+            },
+            {
+              "src": "/progress/yui221-week-light.webp",
+              "alt": "Light mode: the built week of meals, a card a day with a swap button per meal."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 406,
+            "site": 954,
+            "builds": 51,
+            "shipped": 477
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T22:43:31.000Z",
           "title": "Watch the trainer's workout run on the site",
           "card": "SITE-141",
           "anchor": "watch-the-trainer-s-workout-run-on-the-site",
@@ -35,10 +75,10 @@
               "alt": "The same to-failure set in light mode."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 405,
-            "site": 953,
+            "site": 954,
             "builds": 51,
             "shipped": 476
           }
@@ -1613,6 +1653,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "75f0170",
+          "at": "2026-09-30T22:50:59.000Z",
+          "text": "Basil's first plan: five questions on the first open build a week of meals from the answers (YUI-221)",
+          "url": "https://github.com/postscarcityai/yui/commit/75f0170"
+        },
+        {
+          "repo": "site",
+          "sha": "74dca9b",
+          "at": "2026-09-30T22:43:31.000Z",
+          "text": "Progress entry for SITE-141 without the agent name in title or alts (SITE-141)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/74dca9b"
+        },
         {
           "repo": "site",
           "sha": "e7499dd",
