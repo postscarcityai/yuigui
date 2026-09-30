@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T06:40:27.710Z",
+  "updated": "2026-09-30T07:10:35.100Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -481,10 +481,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-120",
-          "title": "Every link, image and share card resolves after the Sep 29-30 pages",
-          "summary": "Every link and share card, checked again",
-          "progress": "/progress#every-link-and-share-card-checked-again",
+          "key": "SITE-121",
+          "title": "The new pages look right on a phone (390px polish pass, Sep 28-30 pages)",
           "owner": "CJohnDesign"
         },
         {
@@ -499,6 +497,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-120",
+          "title": "Every link, image and share card resolves after the Sep 29-30 pages",
+          "summary": "Every link and share card, checked again",
+          "shipped": "2026-09-30",
+          "progress": "/progress#every-link-and-share-card-checked-again"
+        },
         {
           "key": "SITE-119",
           "title": "A Thought on no empty chats, why a new agent opens on a plan",
