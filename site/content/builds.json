@@ -1665,6 +1665,9 @@
     {
       "text": "CONTRIBUTING-AGENTS: a claim shows your GitHub username on the board; done means the tile links the demo and the PR",
       "card": "SITE-110"
+    },
+    {
+      "text": "Reply quotes a list's items; card + ask reply regression test"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T01:01:48.175Z",
+  "updated": "2026-09-30T01:10:37.394Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -399,10 +399,6 @@
           "waiting": true
         },
         {
-          "key": "NOTE-62105",
-          "title": "Show it here, don't link out"
-        },
-        {
           "key": "SITE-95",
           "title": "Checks go green on yuigui main and run before every push, no more failure emails every hour",
           "needsDemo": true
@@ -618,6 +614,11 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "NOTE-62105",
+          "title": "Show it here, don't link out",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-139",
