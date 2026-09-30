@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T00:54:54.328Z",
+  "updated": "2026-09-30T01:01:48.175Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -399,6 +399,10 @@
           "waiting": true
         },
         {
+          "key": "NOTE-62105",
+          "title": "Show it here, don't link out"
+        },
+        {
           "key": "SITE-95",
           "title": "Checks go green on yuigui main and run before every push, no more failure emails every hour",
           "needsDemo": true
@@ -616,13 +620,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-110",
-          "title": "Clean the board, show who has each story, done means linked",
-          "summary": "The board says who has each card, and done means linked",
-          "progress": "/progress#the-board-says-who-has-each-card-and-done-means-linked",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-139",
           "title": "Score Claude, ChatGPT, Gemini, Grok, then turn them on",
           "step": "Step 2d",
@@ -650,6 +647,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-110",
+          "title": "Clean the board, show who has each story, done means linked",
+          "summary": "The board says who has each card, and done means linked",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-board-says-who-has-each-card-and-done-means-linked",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4cf7a6a"
+        },
         {
           "key": "YUI-169",
           "title": "Relay + DB threads per chat, Hermes plugin thread ids",
