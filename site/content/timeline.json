@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 387,
-    "site": 916,
-    "builds": 50,
-    "shipped": 458,
-    "screenshots": 1141
+    "app": 398,
+    "site": 932,
+    "builds": 51,
+    "shipped": 467,
+    "screenshots": 1167
   },
   "days": [
     {
@@ -13,7 +13,231 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T16:32:30.694Z",
+          "at": "2026-09-30T18:28:42.018Z",
+          "title": "Send up to 10 photos in one message",
+          "card": null,
+          "anchor": "send-up-to-10-photos-in-one-message",
+          "images": [
+            {
+              "src": "/progress/t82dc3a4b-picker-4.webp",
+              "alt": "Dark mode: the photo picker before, headed Select up to 4 photos."
+            },
+            {
+              "src": "/progress/t82dc3a4b-picker-10.webp",
+              "alt": "Dark mode: the photo picker now, headed Select up to 10 photos."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 398,
+            "site": 932,
+            "builds": 51,
+            "shipped": 467
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T18:12:43.000Z",
+          "title": "A Thought on drawn replies",
+          "card": "SITE-135",
+          "anchor": "a-thought-on-drawn-replies",
+          "images": [
+            {
+              "src": "/progress/site135-thought-dark.webp",
+              "alt": "Dark mode, phone width: the Show, don't tell Thought with the before numbers and the before and after shots."
+            },
+            {
+              "src": "/progress/site135-thought-light.webp",
+              "alt": "Light mode, phone width: the same Thought."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 396,
+            "site": 930,
+            "builds": 51,
+            "shipped": 466
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T18:07:24.000Z",
+          "title": "One page holds up to 3 ideas",
+          "card": "VIS-4",
+          "anchor": "one-page-holds-up-to-3-ideas",
+          "images": [
+            {
+              "src": "/progress/vis4-pages-light.jpg",
+              "alt": "The same release reply on the stage: three pages before (left three phones), one page with three ideas after (right phone)."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 396,
+            "site": 928,
+            "builds": 51,
+            "shipped": 465
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T18:02:07.000Z",
+          "title": "The changelog says when the next build lands",
+          "card": "SITE-134",
+          "anchor": "the-changelog-says-when-the-next-build-lands",
+          "images": [
+            {
+              "src": "/progress/ship-daily-changelog-dark.webp",
+              "alt": "Dark mode: the changelog line under Next build that says Next build: tomorrow, 6 am ET."
+            },
+            {
+              "src": "/progress/ship-daily-changelog-light.webp",
+              "alt": "Light mode: the same Next build line on the changelog."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 395,
+            "site": 927,
+            "builds": 51,
+            "shipped": 464
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T17:40:14.000Z",
+          "title": "YL can draw a flowchart and recreate a screen",
+          "card": "DRAW-1",
+          "anchor": "yl-can-draw-a-flowchart-and-recreate-a-screen",
+          "images": [
+            {
+              "src": "/progress/draw1-flowchart-dark.webp",
+              "alt": "Dark mode: a flowchart of how an ask ships, with a dashed The fleet box, a diamond and a dashed way back."
+            },
+            {
+              "src": "/progress/draw1-sequence-light.webp",
+              "alt": "Light mode: a sequence diagram of sending a message, numbered, with a loop box and a note."
+            },
+            {
+              "src": "/progress/draw1-mock-agents-dark.webp",
+              "alt": "Dark mode: a phone mock of the Agents screen with a nav bar, rows, a highlighted row with a note, a button and a tab bar."
+            },
+            {
+              "src": "/progress/draw1-mock-browser-light.webp",
+              "alt": "Light mode: a browser mock of a pricing page with a segmented control, cards, a grid and a button."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 393,
+            "site": 924,
+            "builds": 51,
+            "shipped": 463
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T17:34:17.000Z",
+          "title": "One build every morning",
+          "card": "YUI-SHIP",
+          "anchor": "one-build-every-morning",
+          "images": [
+            {
+              "src": "/progress/ship-daily-changelog-light.webp",
+              "alt": "Light mode: the changelog line under Next build that says Next build: tomorrow, 6 am ET."
+            },
+            {
+              "src": "/progress/ship-daily-changelog-dark.webp",
+              "alt": "Dark mode: the same Next build line on the changelog."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 391,
+            "site": 923,
+            "builds": 51,
+            "shipped": 462
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T17:32:39.000Z",
+          "title": "Replies are one line and a drawing",
+          "card": "VIS-1",
+          "anchor": "replies-are-one-line-and-a-drawing",
+          "images": [
+            {
+              "src": "/progress/vis1-card-light.webp",
+              "alt": "Light mode, before and after: Put a card in for a daily morning release. Before is paragraphs of prose in separate bubbles, after is one short line and a drawing."
+            },
+            {
+              "src": "/progress/vis1-card-dark.webp",
+              "alt": "Dark mode, before and after: Put a card in for a daily morning release. Before is paragraphs of prose in separate bubbles, after is one short line and a drawing."
+            },
+            {
+              "src": "/progress/vis1-misread-light.webp",
+              "alt": "Light mode, before and after: You misread me: I meant the left drawer. Before is paragraphs of prose in separate bubbles, after is one short line and a drawing."
+            },
+            {
+              "src": "/progress/vis1-misread-dark.webp",
+              "alt": "Dark mode, before and after: You misread me: I meant the left drawer. Before is paragraphs of prose in separate bubbles, after is one short line and a drawing."
+            },
+            {
+              "src": "/progress/vis1-briefing-light.webp",
+              "alt": "Light mode, before and after: The morning briefing. Before is paragraphs of prose in separate bubbles, after is one short line and a drawing."
+            },
+            {
+              "src": "/progress/vis1-briefing-dark.webp",
+              "alt": "Dark mode, before and after: The morning briefing. Before is paragraphs of prose in separate bubbles, after is one short line and a drawing."
+            },
+            {
+              "src": "/progress/vis1-warroom-light.webp",
+              "alt": "Light mode, before and after: A war room row in the left drawer. Before is paragraphs of prose in separate bubbles, after is one short line and a drawing."
+            },
+            {
+              "src": "/progress/vis1-warroom-dark.webp",
+              "alt": "Dark mode, before and after: A war room row in the left drawer. Before is paragraphs of prose in separate bubbles, after is one short line and a drawing."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 391,
+            "site": 922,
+            "builds": 51,
+            "shipped": 461
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T17:26:40.000Z",
+          "title": "The last page keeps the mic",
+          "card": "YUI-208",
+          "anchor": "the-last-page-keeps-the-mic",
+          "images": [
+            {
+              "src": "/progress/yui208-last-page-dark.webp",
+              "alt": "Dark mode: the last page with a question, a Send button, then Back home and New chat side by side, and the mic still in the bar."
+            },
+            {
+              "src": "/progress/yui208-typed-light.webp",
+              "alt": "Light mode: a pick made and a note typed in the field, ready to go with it."
+            },
+            {
+              "src": "/progress/yui208-spoken-sent-dark.webp",
+              "alt": "Dark mode: after the mic, the pick and the spoken words went out as one answer and the agent is working."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 391,
+            "site": 921,
+            "builds": 51,
+            "shipped": 460
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T16:32:58.000Z",
           "title": "Yui 0.6.2: the first minute, fixed, in one post",
           "card": "SITE-129",
           "anchor": "yui-0-6-2-the-first-minute-fixed-in-one-post",
@@ -31,11 +255,35 @@
               "alt": "Dark mode: the drawer with an Add an agent button."
             }
           ],
-          "commits": 0,
+          "commits": 2,
+          "totals": {
+            "app": 387,
+            "site": 917,
+            "builds": 51,
+            "shipped": 459
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T16:31:34.000Z",
+          "title": "Jev at two decision points, measured against today",
+          "card": "YUI-215",
+          "anchor": "jev-at-two-decision-points-measured-against-today",
+          "images": [
+            {
+              "src": "/progress/yui215-jev-vs-today-dark.webp",
+              "alt": "Dark chart of Jev against today. Tool router: today's patterns 52%, Jev alone 92%, patterns then Jev 97%. Reply shape hint right 93% on real messages against 29% for the agent today. Channel eval pass rate 91% without a hint, 82% with a hint on every shape, 86% without and 100% with a hint on card, pages and full screen. Median 248 milliseconds, 3 cents per 1,000 turns."
+            },
+            {
+              "src": "/progress/yui215-jev-vs-today-light.webp",
+              "alt": "The same chart in light mode."
+            }
+          ],
+          "commits": 2,
           "totals": {
             "app": 387,
             "site": 916,
-            "builds": 50,
+            "builds": 51,
             "shipped": 458
           }
         },
@@ -67,8 +315,20 @@
           "totals": {
             "app": 386,
             "site": 915,
-            "builds": 50,
+            "builds": 51,
             "shipped": 457
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-09-30T16:25:53.000Z",
+          "build": 392,
+          "changes": 12,
+          "totals": {
+            "app": 386,
+            "site": 914,
+            "builds": 51,
+            "shipped": 456
           }
         },
         {
@@ -1065,6 +1325,195 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "40b85e1",
+          "at": "2026-09-30T18:27:04.000Z",
+          "text": "UI tests: an 11th photo is refused with the flash; 10 photos in one send on a real account, the native agent names all 10; picker shot",
+          "url": "https://github.com/postscarcityai/yui/commit/40b85e1"
+        },
+        {
+          "repo": "app",
+          "sha": "c4b8b35",
+          "at": "2026-09-30T18:23:27.000Z",
+          "text": "The app draws a diagram and a mock: native SwiftUI views on chat and deck pages, Reduce Motion stills, older builds get the words; Swift...",
+          "url": "https://github.com/postscarcityai/yui/commit/c4b8b35"
+        },
+        {
+          "repo": "site",
+          "sha": "7e99f05",
+          "at": "2026-09-30T18:13:58.000Z",
+          "text": "Python, Kotlin and Rust parse diagram and mock: the js- vectors become 40 and 41, 790 pass in all four (DRAW-2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7e99f05"
+        },
+        {
+          "repo": "site",
+          "sha": "9c24640",
+          "at": "2026-09-30T18:13:54.000Z",
+          "text": "Python, Kotlin and Rust parse diagram and mock: the js- vectors become 40 and 41, 790 pass in all four (DRAW-2)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9c24640"
+        },
+        {
+          "repo": "site",
+          "sha": "d29849e",
+          "at": "2026-09-30T18:12:43.000Z",
+          "text": "Thought: Show, don't tell, one line and a drawing (SITE-135)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d29849e"
+        },
+        {
+          "repo": "site",
+          "sha": "a7760cd",
+          "at": "2026-09-30T18:11:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a7760cd"
+        },
+        {
+          "repo": "site",
+          "sha": "00334f6",
+          "at": "2026-09-30T18:07:24.000Z",
+          "text": "One page holds up to 3 ideas: packPages reference, progress entry with before/after (VIS-4)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/00334f6"
+        },
+        {
+          "repo": "app",
+          "sha": "b780f03",
+          "at": "2026-09-30T18:06:43.000Z",
+          "text": "The stage packs up to 3 ideas on a page, line then drawing, scenes at half width so three fit the phone (VIS-4)",
+          "url": "https://github.com/postscarcityai/yui/commit/b780f03"
+        },
+        {
+          "repo": "site",
+          "sha": "2dec411",
+          "at": "2026-09-30T18:02:07.000Z",
+          "text": "Progress: the changelog says when the next build lands (SITE-134)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2dec411"
+        },
+        {
+          "repo": "site",
+          "sha": "eefe0e6",
+          "at": "2026-09-30T18:01:25.000Z",
+          "text": "Channel guide v45: agents draw a flow as a diagram and a screen as a mock, with evals (DRAW-3)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/eefe0e6"
+        },
+        {
+          "repo": "app",
+          "sha": "64d09ba",
+          "at": "2026-09-30T17:48:54.000Z",
+          "text": "The photo cap is 10 per send: one number in the app, the runtime and yui_limits, a test for no 11th",
+          "url": "https://github.com/postscarcityai/yui/commit/64d09ba"
+        },
+        {
+          "repo": "app",
+          "sha": "92efb5a",
+          "at": "2026-09-30T17:43:23.000Z",
+          "text": "Photo limit is the server's number: photos_per_message (100) read by the app and yui-native, one send takes it all, uploads four at a...",
+          "url": "https://github.com/postscarcityai/yui/commit/92efb5a"
+        },
+        {
+          "repo": "site",
+          "sha": "c133981",
+          "at": "2026-09-30T17:43:16.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c133981"
+        },
+        {
+          "repo": "site",
+          "sha": "89976fd",
+          "at": "2026-09-30T17:40:14.000Z",
+          "text": "YL draws: diagram (Mermaid flowchart, sequence, state) and mock (a UI from parts), JS parser, playground demos, gap audit (DRAW-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/89976fd"
+        },
+        {
+          "repo": "app",
+          "sha": "bb63160",
+          "at": "2026-09-30T17:39:50.000Z",
+          "text": "The native crew gets the one-line gate: same rules as the plugin, shadow first with counts on the saved row (VIS-3)",
+          "url": "https://github.com/postscarcityai/yui/commit/bb63160"
+        },
+        {
+          "repo": "app",
+          "sha": "b5204bd",
+          "at": "2026-09-30T17:37:04.000Z",
+          "text": "One line and a picture: the plugin rewrites a wall or a second prose bubble, in shadow first; guide v44; vis_score.py (VIS-1)",
+          "url": "https://github.com/postscarcityai/yui/commit/b5204bd"
+        },
+        {
+          "repo": "site",
+          "sha": "3b83a01",
+          "at": "2026-09-30T17:34:17.000Z",
+          "text": "Changelog says when the next build ships: 6 am ET every morning, plus the YUI-SHIP progress entry (SITE-134)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3b83a01"
+        },
+        {
+          "repo": "site",
+          "sha": "2c1a6d8",
+          "at": "2026-09-30T17:32:39.000Z",
+          "text": "Replies are one line and a drawing: guide v44, eval checks, playground demo (VIS-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2c1a6d8"
+        },
+        {
+          "repo": "site",
+          "sha": "68dc50f",
+          "at": "2026-09-30T17:26:40.000Z",
+          "text": "Progress: the last page keeps the mic (YUI-208)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/68dc50f"
+        },
+        {
+          "repo": "app",
+          "sha": "ac0737a",
+          "at": "2026-09-30T17:26:07.000Z",
+          "text": "Last page keeps the mic: Back home and New chat sit on the page, and typed or spoken words go in with the picks as one answer (YUI-208)",
+          "url": "https://github.com/postscarcityai/yui/commit/ac0737a"
+        },
+        {
+          "repo": "app",
+          "sha": "c98dfec",
+          "at": "2026-09-30T17:15:02.000Z",
+          "text": "testflight.sh --daily: one upload per calendar day for the 06:00 release cron; 24 h rule stays otherwise [YUI-SHIP]",
+          "url": "https://github.com/postscarcityai/yui/commit/c98dfec"
+        },
+        {
+          "repo": "site",
+          "sha": "04ac88b",
+          "at": "2026-09-30T17:11:30.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/04ac88b"
+        },
+        {
+          "repo": "app",
+          "sha": "055e00e",
+          "at": "2026-09-30T17:06:39.000Z",
+          "text": "Send up to 12 photos in one message; the native agent sees all 12",
+          "url": "https://github.com/postscarcityai/yui/commit/055e00e"
+        },
+        {
+          "repo": "app",
+          "sha": "d76f7c7",
+          "at": "2026-09-30T17:06:13.000Z",
+          "text": "testflight.sh refuses a second upload inside 24 h, --hotfix \"<reason>\" overrides [YUI-SHIP]",
+          "url": "https://github.com/postscarcityai/yui/commit/d76f7c7"
+        },
+        {
+          "repo": "site",
+          "sha": "9bd1065",
+          "at": "2026-09-30T16:41:20.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9bd1065"
+        },
+        {
+          "repo": "site",
+          "sha": "25ca16c",
+          "at": "2026-09-30T16:35:42.000Z",
+          "text": "Share captures for the Yui 0.6.2 See it entries (SITE-129)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/25ca16c"
+        },
+        {
+          "repo": "site",
+          "sha": "8b9bcd4",
+          "at": "2026-09-30T16:32:58.000Z",
+          "text": "Thought and See it for Yui 0.6.2, the first minute fixed (SITE-129)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8b9bcd4"
+        },
         {
           "repo": "site",
           "sha": "591b1db",
