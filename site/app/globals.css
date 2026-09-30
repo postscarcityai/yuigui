@@ -1220,3 +1220,15 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
 }
 .inv-check { display: flex; align-items: center; gap: 10px; font-weight: 400; font-size: 14px; }
 .inv-check input { width: auto; margin: 0; }
+
+/* Phones, 390px pass (SITE-121): long bare URLs in log entries wrap instead of widening the page,
+   and board card links get a full 44px tap target. */
+.log li, .changes > li { overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .btile-foot { gap: 0 14px; margin-top: 4px; }
+  .btile-foot > a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+  .btile-foot > span { display: inline-flex; align-items: center; min-height: 44px; }
+  .btile .bowner a { display: inline-flex; align-items: center; min-height: 44px; }
+  .btile-top a.pill { position: relative; }
+  .btile-top a.pill::after { content: ""; position: absolute; inset: -11px -4px; }
+}
