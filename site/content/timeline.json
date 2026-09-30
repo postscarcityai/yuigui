@@ -1,19 +1,166 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 370,
-    "site": 843,
+    "app": 372,
+    "site": 847,
     "builds": 49,
-    "shipped": 419,
-    "screenshots": 1025
+    "shipped": 423,
+    "screenshots": 1037
   },
   "days": [
+    {
+      "date": "2026-09-30",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-30T04:23:18.621Z",
+          "title": "Typing, trash and looper fixes",
+          "card": "NOTE-typing-trash-looper",
+          "anchor": "typing-trash-and-looper-fixes",
+          "images": [
+            {
+              "src": "/progress/note-long-answer-after-dark.webp",
+              "alt": "Dark mode, after: a long typed answer wraps across five lines in a rounded box under two short choices, every word visible."
+            },
+            {
+              "src": "/progress/note-looper-nosend-light.webp",
+              "alt": "Light mode, after: the looper grid with play, tempo and swing, and no Send button under it."
+            },
+            {
+              "src": "/progress/note-trash-target-dark.webp",
+              "alt": "Dark mode, after: hold to talk with the mic still a mic and a separate trash armed to its left, reading Let go to cancel."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 372,
+            "site": 847,
+            "builds": 49,
+            "shipped": 423
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T04:05:30.000Z",
+          "title": "Try picking your crew on the site",
+          "card": "SITE-116",
+          "anchor": "try-picking-your-crew-on-the-site",
+          "images": [
+            {
+              "src": "/progress/site116-before-dark.webp",
+              "alt": "Dark mode, before: the Meet the crew page with no picker."
+            },
+            {
+              "src": "/progress/site116-after-dark.webp",
+              "alt": "Dark mode, after: the Pick your crew phone with five starter rows and a disabled Pick at least one button."
+            },
+            {
+              "src": "/progress/site116-before-light.webp",
+              "alt": "Light mode, before: the Meet the crew page with no picker."
+            },
+            {
+              "src": "/progress/site116-after-light.webp",
+              "alt": "Light mode, after: the same picker phone."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 370,
+            "site": 846,
+            "builds": 49,
+            "shipped": 422
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "app",
+          "sha": "bfb4991",
+          "at": "2026-09-30T04:23:08.000Z",
+          "text": "Chat mic keeps its own trash in the listening bar, no second one; stage trash shot test",
+          "url": "https://github.com/postscarcityai/yui/commit/bfb4991"
+        },
+        {
+          "repo": "app",
+          "sha": "91151d9",
+          "at": "2026-09-30T04:17:52.000Z",
+          "text": "Long own answers wrap whole, the mic trash is its own target, the looper drops its Send button",
+          "url": "https://github.com/postscarcityai/yui/commit/91151d9"
+        },
+        {
+          "repo": "site",
+          "sha": "0bdbc4d",
+          "at": "2026-09-30T04:11:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0bdbc4d"
+        },
+        {
+          "repo": "site",
+          "sha": "359f684",
+          "at": "2026-09-30T04:05:30.000Z",
+          "text": "Crew: play the Pick your crew first minute on /crew, PROP-1 built in the app (SITE-116)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/359f684"
+        }
+      ]
+    },
     {
       "date": "2026-09-29",
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T03:38:22.000Z",
+          "at": "2026-09-30T03:45:25.000Z",
+          "title": "A lone question heads itself",
+          "card": "YUI-219",
+          "anchor": "a-lone-question-heads-itself",
+          "images": [
+            {
+              "src": "/progress/site115-before-light.webp",
+              "alt": "Light mode, before: the question page with a big 'One question' title and 'One quick question.' above the card 'What should dinner be?' with Bibimbap, Tacos and Something light."
+            },
+            {
+              "src": "/progress/site115-after-light.webp",
+              "alt": "Light mode, after: the same page with no title. The card 'What should dinner be?' is the top of the page, with Bibimbap, Tacos and Something light under it."
+            },
+            {
+              "src": "/progress/site115-before-dark.webp",
+              "alt": "Dark mode, before: the question page with a big 'One question' title and 'One quick question.' above the card."
+            },
+            {
+              "src": "/progress/site115-after-dark.webp",
+              "alt": "Dark mode, after: the same page with the question as the first thing on it."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 370,
+            "site": 845,
+            "builds": 49,
+            "shipped": 421
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T03:45:25.000Z",
+          "title": "The board links its demos, and See it is caught up",
+          "card": "SITE-113",
+          "anchor": "the-board-links-its-demos-and-see-it-is-caught-up",
+          "images": [
+            {
+              "src": "/progress/site111-board-after.webp",
+              "alt": "The board's Shipped column: cards with 'Read the log' and 'The code' links, including the release post for TestFlight build 370."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 370,
+            "site": 845,
+            "builds": 49,
+            "shipped": 420
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T03:41:49.000Z",
           "title": "Pick your crew",
           "card": "YUI-216",
           "anchor": "pick-your-crew",
@@ -23,10 +170,10 @@
               "alt": "Dark mode: the same picker."
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 370,
-            "site": 842,
+            "site": 844,
             "builds": 49,
             "shipped": 419
           }
@@ -47,7 +194,7 @@
               "alt": "Dark mode: the same picker."
             }
           ],
-          "commits": 3,
+          "commits": 4,
           "totals": {
             "app": 370,
             "site": 842,
@@ -1918,6 +2065,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "5ade13f",
+          "at": "2026-09-30T03:45:25.000Z",
+          "text": "Progress: lone ask before/after (YUI-219), board links (SITE-113) (SITE-115)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5ade13f"
+        },
+        {
+          "repo": "site",
+          "sha": "b5007bf",
+          "at": "2026-09-30T03:41:49.000Z",
+          "text": "Progress: Pick your crew (YUI-216) with shots, light and dark",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b5007bf"
+        },
         {
           "repo": "site",
           "sha": "4880439",
