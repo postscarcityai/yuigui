@@ -2797,6 +2797,95 @@
         "no_text": "\\b(however|so|now|also|currently)\\b"
       },
       "good": "A small drawing of the worker at its task: shapes with the busy part +pulse (Worker, arrow, the card), or a one-row sketch or timeline. A few words. No paragraph."
+    },
+    {
+      "id": "context-sample-not-ask",
+      "category": "context",
+      "agent": "Yui",
+      "message": "Show me a sample status board so I can see how the tiles look.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "sketch",
+          "row",
+          "after",
+          "say",
+          "choose",
+          "ask"
+        ],
+        "need": [
+          "sketch"
+        ],
+        "example": true,
+        "max_words": 20
+      },
+      "good": "One sketch of Label: verdict rows marked as an example (note=\"example\" or a sample title). No row says \"waiting on you\": a sample is not a real ask."
+    },
+    {
+      "id": "context-about-this",
+      "category": "context",
+      "agent": "Yui",
+      "history": [
+        {
+          "role": "user",
+          "text": "Show me what the new guide does."
+        },
+        {
+          "role": "agent",
+          "text": "Guide v40 is live now.\n```yui\nsketch \"Board\" frame=window\nrow \"Site: good\"\nrow \"New feature: needs help\" +hi note=\"example\"\nrow \"SEO: strong\"\ncard \"Before and after\" body=\"Guide v40 is live now\" cta=\"See it\" url=https://www.yuigui.com/channel\n```"
+        }
+      ],
+      "message": "[yui] note: your newest message here is 4 min old and is what they are looking at: \"Guide v40 is live now. | screen: Board; Before and after | rows: Site: good; New feature: needs help; SEO: strong\". Words like \"this\", \"that\" or \"it\" mean that message. Answer about it first. Sample rows in it are examples, not their open items. Bring up another open item only if they ask, and then say when they last saw it and what they answered.\nWhat are you waiting on me for with this? (What you just looked up: nothing on that screen is open, it was a sample. An older ask, testing the four new models with a capped key, is still open: he tapped Not yet on it at 6:54 pm.)",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "say",
+          "card",
+          "sketch",
+          "row",
+          "after",
+          "ask",
+          "choose"
+        ],
+        "need_text": "\\b(nothing|example|sample)\\b",
+        "no_text": "\\b(models?|capped|spend|key)\\b",
+        "max_words": 30,
+        "max_pages": 0
+      },
+      "good": "One line about the screen just shown: nothing, it was a sample. The old model-testing ask is not brought up as the answer."
+    },
+    {
+      "id": "context-old-ask-when",
+      "category": "context",
+      "agent": "Yui",
+      "history": [
+        {
+          "role": "user",
+          "text": "Show me what the new guide does."
+        },
+        {
+          "role": "agent",
+          "text": "Guide v40 is live now.\n```yui\nsketch \"Board\" frame=window\nrow \"Site: good\"\nrow \"New feature: needs help\" +hi note=\"example\"\nrow \"SEO: strong\"\ncard \"Before and after\" body=\"Guide v40 is live now\" cta=\"See it\" url=https://www.yuigui.com/channel\n```"
+        }
+      ],
+      "message": "[yui] note: your newest message here is 4 min old and is what they are looking at: \"Guide v40 is live now. | screen: Board; Before and after | rows: Site: good; New feature: needs help; SEO: strong\". Words like \"this\", \"that\" or \"it\" mean that message. Answer about it first. Sample rows in it are examples, not their open items. Bring up another open item only if they ask, and then say when they last saw it and what they answered.\nIs anything else waiting on me? (What you just looked up: one ask is open, testing the four new models with a capped key. He tapped Not yet on it at 6:54 pm today.)",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "say",
+          "card",
+          "sketch",
+          "row",
+          "after",
+          "ask",
+          "choose",
+          "list"
+        ],
+        "need_text": "(not yet|6:54|earlier|today)",
+        "max_words": 40,
+        "max_pages": 0
+      },
+      "good": "The old ask comes second and is named for what it is: still open, he said Not yet at 6:54 pm. Not presented as new."
     }
   ]
 }

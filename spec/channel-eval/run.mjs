@@ -346,6 +346,14 @@ export function score(c, reply) {
     if (app.length !== 1) fails.push(`app theme: ${app.length} theme app lines, want 1`);
     else if (app[0].props.name !== e.app_theme) fails.push(`app theme: ${app[0].props.name || "keys only"}, want ${e.app_theme} :: ${app[0].line.trim()}`);
   }
+  // Examples are not asks (t_53b06721, Chris: it read a sample row as a real "waiting on you"):
+  // a sample screen marks its rows as an example and never says "waiting on you";
+  // an answer about the screen just shown says what the screen was, and old asks come with when he saw them.
+  if (e.example) {
+    if (adds.some((o) => o.preset === "row" && /waiting on you/i.test(String(o.props?.note || "")))) fails.push('example: a sample row says "waiting on you"');
+    if (!/\b(example|sample)\b/i.test(reply)) fails.push("example: nothing marks the rows as an example");
+  }
+  if (e.need_text && !new RegExp(e.need_text, "i").test(reply)) fails.push(`text: none of /${e.need_text}/`);
   if (e.no_text) {
     const m = text.match(new RegExp(e.no_text, "i"));
     if (m) fails.push(`text: "${m[0]}"`);

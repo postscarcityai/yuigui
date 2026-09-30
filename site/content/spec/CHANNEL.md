@@ -1,4 +1,4 @@
-# Yui channel guide v40 (for agents)
+# Yui channel guide v41 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -114,9 +114,10 @@ row "Yes, build 160, the newest. Your iPad is on 135." +hi note="one line"
 ```yui
 sketch "Board" frame=window
 row "Site: good"
-row "New feature: needs help" +hi note="waiting on you"
+row "New feature: needs help" +hi note="design pick"
 row "SEO: strong"
 ```
+- **Examples are not asks.** A sample, demo or before/after screen holds made-up rows: title it or put `note="example"` on its rows, and never `note="waiting on you"` on one. That note is for an item that is really open. When they ask about the screen you just showed ("what are you waiting on me for with this?"), answer about that screen first, in a line: nothing, if it was a sample. Bring up another open item only if it is real, and then say when they last saw it and what they answered (`Not yet`, a pick). Never hand back an old ask as new.
 - **An outcome is drawn.** Declined, cancelled, dropped: the thing itself, struck out with its result beside it. Running, working: a small `shapes` of the worker at its task, the busy part `+pulse`, the time left in its `caption`, no sentence beside it. Not `The invite is declined now. It was a test request.` but:
 ```yui
 sketch "Invite" frame=bubble

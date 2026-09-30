@@ -563,7 +563,7 @@ end`,
 row "Mostly. The site lane is clean, the new feature has one card waiting on you, and SEO scores 94 after yesterday's fixes." +x note="a paragraph"
 after
 row "Site: good"
-row "New feature: needs help" +hi note="waiting on you"
+row "New feature: needs help" +hi note="design pick"
 row "SEO: strong"`,
   },
   {
@@ -1699,5 +1699,19 @@ put meals Day=today Food="Greek yogurt" Cal=150 Protein=20 Carbs=8 Fat=4
 say "Snap your plate. I'll guess the macros, you fix what I got wrong, and it goes in your log."
 camera@plate "Snap your meal" +inline
 gallery@samples "No meal handy? Try one of mine" /demo/meal-pancakes.jpg|Pancakes /demo/meal-salmon.jpg|"Grilled salmon" /demo/meal-poke.jpg|"Poke bowl" layout=grid +pick max=1 submit="Use this photo"`,
+  },
+  {
+    // Guide v41: answer about the screen just shown; a sample is marked as one (spec/CHANNEL.md "Examples are not asks").
+    name: "Answer about the screen I just showed",
+    slug: "context-this-screen",
+    agent: "Yui",
+    yl: `sketch "What are you waiting on me for with this?" frame=bubble
+row "One thing: OK the spend to test the four new models before they go live in Yui." +x note="an old ask, not this screen"
+after
+row "Nothing. That board was a sample." +hi note="answers what he asked"
+sketch "A sample board" frame=window
+row "Site: good"
+row "New feature: needs help" +hi note="example"
+row "SEO: strong"`,
   },
 ];
