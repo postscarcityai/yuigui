@@ -447,6 +447,76 @@ export const STARTER_FLOWS = [
   %% experience: choose "How much have you trained?" "Brand new"|"On and off"|"Regularly"|"Not sure"|Skip
   experience[Experience] --> done((Plan))`,
   },
+  {
+    // Saved first plan (YUI-227): a question a screen, Not sure and Skip on each, one submit.
+    name: "first-meals",
+    id: "firstmeals",
+    title: "Your first meal plan",
+    submit: "Plan my meals",
+    agent: "Nutritionist",
+    blurb: "A meal plan from your goal, days, meals a day, what to leave out and cook time, each with Not sure and Skip.",
+    source: `flowchart TD
+  %% goal: choose "What's the goal?" "Eat better"|"Lose weight"|"Build muscle"|"Save time"|"Not sure"|Skip
+  goal[Goal] --> days
+  %% days: pick "Which days should I plan?" Mon|Tue|Wed|Thu|Fri|Sat|Sun|"Not sure"|Skip
+  days[Days] --> meals
+  %% meals: choose "How many meals a day?" "2"|"3"|"3 and a snack"|"4 or more"|"Not sure"|Skip
+  meals[Meals] --> avoid
+  %% avoid: pick "What should I leave out?" Meat|Fish|Dairy|Gluten|Nuts|Eggs|"Nothing"|"Not sure"|Skip
+  avoid[Avoid] --> cook
+  %% cook: choose "How long can you cook?" "15 minutes"|"30 minutes"|"An hour"|"I like a project"|"Not sure"|Skip
+  cook[Cook] --> done((Plan))`,
+  },
+  {
+    // Saved first plan (YUI-227): a question a screen, Not sure and Skip on each, one submit.
+    name: "first-practice",
+    id: "firstpractice",
+    title: "Your first practice plan",
+    submit: "Build my practice",
+    agent: "Musician",
+    blurb: "A practice routine from your instrument, level, minutes a day and what you want to play, each with Not sure and Skip.",
+    source: `flowchart TD
+  %% instrument: choose "What do you play?" Guitar|Piano|Drums|Bass|Voice|"Not yet"|"Not sure"|Skip
+  instrument[Instrument] --> level
+  %% level: choose "How would you rate yourself?" "Brand new"|"Know a few things"|"Getting there"|"Pretty good"|"Not sure"|Skip
+  level[Level] --> minutes
+  %% minutes: choose "Minutes a day?" "10"|"20"|"30"|"An hour"|"Not sure"|Skip
+  minutes[Minutes] --> want
+  %% want: pick "What do you want to play?" Songs|Scales|Chords|"Make my own"|"Play by ear"|"Not sure"|Skip
+  want[Want] --> done((Plan))`,
+  },
+  {
+    // Saved first plan (YUI-227): a question a screen, Not sure and Skip on each, one submit.
+    name: "first-week",
+    id: "firstweek",
+    title: "Your first routine",
+    submit: "Set my routine",
+    agent: "Planner",
+    blurb: "A weekly routine from your busy days, when you plan and how you want reminders, each with Not sure and Skip.",
+    source: `flowchart TD
+  %% busy: pick "Which days are packed?" Mon|Tue|Wed|Thu|Fri|Sat|Sun|"None"|"Not sure"|Skip
+  busy[Busy] --> plan
+  %% plan: choose "When do you plan?" "Sunday night"|"Monday morning"|"Each morning"|"Each night"|"Not sure"|Skip
+  plan[Plan] --> remind
+  %% remind: choose "How do you want reminders?" "At the time"|"10 minutes before"|"The night before"|"None"|"Not sure"|Skip
+  remind[Remind] --> done((Plan))`,
+  },
+  {
+    // Saved first plan (YUI-227): a question a screen, Not sure and Skip on each, one submit.
+    name: "first-study",
+    id: "firststudy",
+    title: "Your first study plan",
+    submit: "Build my study plan",
+    agent: "Tutor",
+    blurb: "A study plan from what you are learning, how long you have and how you like to be quizzed, each with Not sure and Skip.",
+    source: `flowchart TD
+  %% topic: choose "What are you learning?" "A language"|"A school subject"|"A skill for work"|"Something for fun"|"Not sure"|Skip
+  topic[Topic] --> time
+  %% time: choose "How long do you have?" "A week"|"A month"|"3 months"|"No deadline"|"Not sure"|Skip
+  time[Time] --> quiz
+  %% quiz: choose "How do you like to be quizzed?" "Flash cards"|"Multiple choice"|"Write it out"|"Out loud"|"Not sure"|Skip
+  quiz[Quiz] --> done((Plan))`,
+  },
 ];
 
 // The trainer's answer to trainer-session's event: the session its page showed, as the lines that
