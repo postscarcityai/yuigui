@@ -74,6 +74,20 @@ Chris's TestFlight note: a sample status board said "New feature: needs help, wa
 
 Ten cases failed on the new run while an old run passed them. Rerun on v41 (t53-full-new-r2, r3): nine of the ten pass, the word-cap cases included. The one that still misses is `react-no` (a struck-out sketch for a dropped follow-up, the v40 "outcome is drawn" rule; the old guide's second run misses it the same way). `list-no-escaped-breaks` had failed once with `exit null` (the CLI call died, no reply) and passed on the rerun. The old guide's one miss on the new cases is `context-sample-not-ask`: a sample board that says nothing about being a sample. The 99 older cases swing 84 to 90 on the same guide, the usual noise; nothing the new rule touches got worse.
 
+## Show it here, don't link out (t_1d7bf299, guide v42)
+
+Chris's TestFlight note: he asked "what are you waiting on me for with this?" and the answer paged to a card, "Before and after shots / On the progress page / Open". He wrote: "We have components to show before and after. Let's not do so much linking out." Guide v42 adds **Show it here, don't link out**: shots are `compare`, `image` or `gallery`, a UI change is a `sketch` with `after`, a page's content is its parts drawn, and a `card ... url=` is only a small follow-up under what is already shown. The scorer has a new `show_here` check: a card that leaves the thread (url or open) fails when nothing is drawn beside it, and two link-out cards fail. Ten new `show` cases: before and after of a hero, what changed on the progress page, "just show me here" after a link-out card, a demo, and six where the looked-up facts carry a url and little more than a sentence about the change.
+
+| run | guide | model | passed | of the ten new cases |
+|---|---|---|---|---|
+| t1d7-full-old-r1 | v41 | Opus | 96/112 | 10 |
+| t1d7-full-old-r2 | v41 | Opus | 99/112 | 9 (`showlink-demo-page`: a card that only opens the playground) |
+| t1d7-full-new-r1 | v42 | Opus | 97/112 | 10 |
+| focus, link and lean runs, Opus, 2 each | v41 / v42 | Opus | old 19/20, new 19/20 | new miss: `showhere-after-linkout` r1, no ```yui block at all |
+| focus, link and lean runs, Sonnet 5.5, 2 each | v41 / v42 | Sonnet | old 19/20, new 19/20 | `showlean-new-hero` over the word cap on both |
+
+Honest read: the new cases are a guard, not a big win. Opus with the v41 guide already drew the shots in nearly every case once the looked-up facts held the image paths; its one link-only answer was the demo page. The harness cannot separate the two guides on these cases: the counts are a tie. The live miss needs the long context Chris had (a 14-page answer), which the harness cannot replay. The full suite swings 96 to 99 on the same v41 guide, and v42 sits inside that range: the 15 misses on the new run are the known noise set (`menu-shortcut`, `doing-long-turn`, `short-release-go-ahead`, `flow-interview-old-app`, the `exit null` cases).
+
 ## Models on the same guide (YUI-132)
 
 Native Yui runs on GLM through OpenRouter (spec/NATIVE.md section 6), so both GLM models got the full suite on the v37 guide, beside Opus and Sonnet on the same 88 cases. Each model ran once; every miss ran a second time. A case that failed both times is a steady miss; one that passed the second time is noise. Scores are the first pass. Drawn on [/channel](https://www.yuigui.com/channel).

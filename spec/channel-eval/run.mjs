@@ -353,6 +353,17 @@ export function score(c, reply) {
     if (adds.some((o) => o.preset === "row" && /waiting on you/i.test(String(o.props?.note || "")))) fails.push('example: a sample row says "waiting on you"');
     if (!/\b(example|sample)\b/i.test(reply)) fails.push("example: nothing marks the rows as an example");
   }
+  // Show it here, don't link out (t_1d7bf299, Chris: a card that only said "Open" for a before and after):
+  // a card that leaves the thread (url or open) only follows something already drawn, and never
+  // stands as the answer. Drawn = one of the parts that show a thing in the thread.
+  if (e.show_here) {
+    const SHOWN = ["compare", "image", "gallery", "sketch", "timeline", "list", "stat", "chart", "table", "shapes", "deck", "plan", "video", "storyboard", "map"];
+    const links = adds.filter((o) => o.preset === "card" && (o.props?.url || o.props?.open));
+    const drawn = adds.some((o) => SHOWN.includes(o.preset));
+    if (links.length && !drawn) fails.push(`show here: a link-out card is the whole answer :: ${links[0].line.trim().slice(0, 80)}`);
+    if (links.length > 1) fails.push("show here: more than one link-out card");
+    if (!drawn) fails.push("show here: nothing drawn in the thread");
+  }
   if (e.need_text && !new RegExp(e.need_text, "i").test(reply)) fails.push(`text: none of /${e.need_text}/`);
   if (e.no_text) {
     const m = text.match(new RegExp(e.no_text, "i"));

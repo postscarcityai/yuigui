@@ -612,6 +612,17 @@ row "Site: good"
 row "New feature: needs help" +hi note="example"
 row "SEO: strong"`,
   },
+  {
+    // Guide v42: shots are shown in the thread, a link is never the whole answer (spec/CHANNEL.md "Show it here").
+    name: "Show it here, don't link out",
+    slug: "show-here",
+    agent: "Yui",
+    yl: `sketch "Before and after shots" frame=phone
+row "Before and after shots: Open" +button +x note="a link, nothing shown"
+after
+row "The shots, right here" +hi note="tap to switch"
+compare /demo/site_before_hero.jpg /demo/site_after_hero.jpg "Hero" notes="Bigger headline|One button" mode=slider`,
+  },
 ];
 
 // Media presets. Each has a slug so /playground?demo=<slug> opens it.

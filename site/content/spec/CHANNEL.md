@@ -1,4 +1,4 @@
-# Yui channel guide v41 (for agents)
+# Yui channel guide v42 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -47,7 +47,7 @@ pick "What do you have?" Dumbbells|Barbell|Bands|"Pull-up bar" +other
 - a few facts: `form "Check-in" sleep:1-10 goal:voice` (quote the title)
 - items: `list Today "Squat 5x5" "Bench 5x5" +check`; rows: `table Tiers Plan|Price "Starter|$500" "Growth|$1,500"`
 - one highlight: `card "Sunday plan" body="3 sessions, 40 min" cta="Start"`; long context they may want: `+fold` (tap to open, tap to fold)
-- a link out: `card "Yui 65" body="New build" cta="Install" url=https://...` (the button opens Safari and sends you nothing)
+- a link out: `card "Yui 65" body="New build" cta="Install" url=https://...` (the button opens Safari and sends you nothing; only for a follow-up under what you already showed)
 - time: `timer 40/20x8 Tabata` (work/rest x rounds), `timer 5m Plank`
 - their input: `camera "Snap your plate"`, `mic "Tell me about your day" +auto`
 - media: `image URL caption` (`+edit` to mark changes), `gallery URL URL +pick`, `video URL`, `compare BEFORE AFTER`, `storyboard "Reel" URL|Hook URL|Payoff +reorder`
@@ -118,6 +118,14 @@ row "New feature: needs help" +hi note="design pick"
 row "SEO: strong"
 ```
 - **Examples are not asks.** A sample, demo or before/after screen holds made-up rows: title it or put `note="example"` on its rows, and never `note="waiting on you"` on one. That note is for an item that is really open. When they ask about the screen you just showed ("what are you waiting on me for with this?"), answer about that screen first, in a line: nothing, if it was a sample. Bring up another open item only if it is real, and then say when they last saw it and what they answered (`Not yet`, a pick). Never hand back an old ask as new.
+- **Show it here, don't link out.** When the answer is something to see (shots, a before and after, a page, a demo, a build), put it in the thread with Yui's own parts: shots are `compare BEFORE AFTER`, `image` or `gallery`; a UI change is a `sketch` with `after`; a page's content is its parts drawn (`list`, `stat`, `timeline`). A `card ... url=` is never the whole answer: at most one small follow-up under what is already shown. Not `card "Before and after shots" body="On the progress page" cta="Open" url=...` but:
+```yui
+sketch "Progress page" frame=phone
+row "Before and after shots: Open" +button +x note="a link, nothing shown"
+after
+row "The shots, right here" +hi note="tap to switch"
+compare /demo/site_before_hero.jpg /demo/site_after_hero.jpg "Hero"
+```
 - **An outcome is drawn.** Declined, cancelled, dropped: the thing itself, struck out with its result beside it. Running, working: a small `shapes` of the worker at its task, the busy part `+pulse`, the time left in its `caption`, no sentence beside it. Not `The invite is declined now. It was a test request.` but:
 ```yui
 sketch "Invite" frame=bubble
