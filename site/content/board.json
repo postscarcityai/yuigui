@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T10:11:03.571Z",
+  "updated": "2026-09-30T10:41:08.102Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -357,13 +357,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-183b",
-          "title": "After a meal is logged, land on that meal's calories, then Today's macros, not the grocery list",
-          "summary": "A logged meal lands on today's calories",
-          "waiting": true,
-          "progress": "/progress#a-logged-meal-lands-on-today-s-calories"
-        },
-        {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4",
@@ -401,13 +394,6 @@
         {
           "key": "YUI-218",
           "title": "Snag",
-          "summary": "After the intake",
-          "waiting": true,
-          "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags"
-        },
-        {
-          "key": "YUI-218",
-          "title": "Snag",
           "summary": "A stranger runs Yui cold: about 6 minutes, five snags",
           "waiting": true,
           "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags"
@@ -429,17 +415,20 @@
         {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#typing-trash-and-looper-fixes"
         },
         {
           "key": "NOTE-4811",
           "title": "Typed answers grow past the pill",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#typing-trash-and-looper-fixes"
         },
         {
           "key": "NOTE-5633",
           "title": "Drop the looper's Send button",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#typing-trash-and-looper-fixes"
         },
         {
           "key": "NOTE-18306",
@@ -479,8 +468,8 @@
           "waiting": true
         },
         {
-          "key": "NOTE-45919",
-          "title": "Typing, trash and looper fixes",
+          "key": "SITE-125",
+          "title": "A logged meal lands on today's calories, on the site (YUI-183b demo)",
           "needsDemo": true
         }
       ]
@@ -497,8 +486,13 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-125",
-          "title": "A logged meal lands on today's calories, on the site (YUI-183b demo)",
+          "key": "YUI-228",
+          "title": "The plan is built right after the intake, no second wizard",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-126",
+          "title": "On the site, Open on a crew card lands on the first question",
           "owner": "CJohnDesign"
         },
         {
@@ -513,6 +507,27 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-225",
+          "title": "Open on a crew card lands on the first question",
+          "shipped": "2026-09-30",
+          "progress": "/progress#open-on-a-crew-card-lands-on-the-first-question",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/47c8ee9"
+        },
+        {
+          "key": "YUI-183b",
+          "title": "After a meal is logged, land on that meal's calories, then Today's macros, not the grocery list",
+          "summary": "A logged meal lands on today's calories",
+          "shipped": "2026-09-30",
+          "progress": "/progress#a-logged-meal-lands-on-today-s-calories",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a4123f3"
+        },
+        {
+          "key": "NOTE-45919",
+          "title": "Typing, trash and looper fixes",
+          "shipped": "2026-09-30",
+          "progress": "/progress#typing-trash-and-looper-fixes"
+        },
         {
           "key": "YUI-217",
           "title": "A first plan in every agent",

@@ -1717,5 +1717,14 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Open on an agent's card lands on its first question until the first plan is built",
+      "card": "YUI-225"
+    },
+    {
+      "text": "The plan is built right after the intake: plan words get the runtime's intake, the agent's soul stops running his own wizard",
+      "card": "YUI-228"
+    }
+  ]
 }
