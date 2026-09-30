@@ -185,11 +185,11 @@ export default function ChatsMock({ theme = "dark", startOpen = false }) {
       <aside className={`cm-drawer${drawer ? " on" : ""}`} aria-hidden={!drawer}>
         <div className="cm-dhead">
           <h2>Basil</h2>
-          <button className="cm-round" aria-label="Agent settings" onClick={() => { setTab("controls"); }}>{Icon.gear}</button>
+          <button className="cm-round" aria-label="Agent settings" onClick={() => { setTab("agent"); }}>{Icon.gear}</button>
           <button className="cm-round" aria-label="Close the drawer" onClick={() => setDrawer(false)}>{Icon.x}</button>
         </div>
         <nav className="cm-tabs">
-          {[["home", "Home"], ["review", "Review"], ["controls", "Controls"], ["about", "About"]].map(([k, l]) => (
+          {[["home", "Home"], ["review", "Review"], ["agent", "Agent"]].map(([k, l]) => (
             <button key={k} className={tab === k ? "on" : ""} onClick={() => setTab(k)}>
               {l}{k === "review" ? <i>1</i> : null}
             </button>
@@ -236,7 +236,7 @@ export default function ChatsMock({ theme = "dark", startOpen = false }) {
           </div>
         ) : (
           <div className="cm-dbody cm-other">
-            <p>{tab === "review" ? "Where to start? Pick one." : tab === "controls" ? "Personality, memory and schedules, as today." : "What Basil does, as today."}</p>
+            <p>{tab === "review" ? "Where to start? Pick one." : "What Basil does, and its personality, memory and schedules, as today."}</p>
             <button className="cm-new" onClick={() => setTab("home")}>Back to chats</button>
           </div>
         )}

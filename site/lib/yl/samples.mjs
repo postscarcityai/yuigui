@@ -449,7 +449,7 @@ theme app autumn`,
   },
   {
     // Agent controls (spec/CONTROLS.md, YUI-70 step 1): a mock of the drawer's
-    // Controls tab drawn with plain presets, one screen per area. In the app
+    // Agent tab (Controls areas) drawn with plain presets, one screen per area. In the app
     // these are native screens that talk to the host with no chat turn.
     name: "Agent controls: personality, memory, skills, schedules",
     slug: "controls",

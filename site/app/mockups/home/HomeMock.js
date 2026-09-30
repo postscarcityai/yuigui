@@ -113,7 +113,7 @@ export default function HomeMock({ agent = "arnold", theme = "dark", startPage =
     <div className={`hm-phone hm-${theme}`} role="group" aria-label={`${h.name}'s home, ${theme}`}>
       <div className="hm-status"><span>6:14</span><span>89</span></div>
       <header className="hm-head">
-        <button className="hm-round" aria-label="Open the drawer" onClick={() => flash("The drawer: Home, Review, Controls, About")}>{Icon.menu}</button>
+        <button className="hm-round" aria-label="Open the drawer" onClick={() => flash("The drawer: Home, Review, Agent")}>{Icon.menu}</button>
         <span className="hm-pill"><span className="hm-face sm">{h.face}</span><b>{h.name}</b></span>
         <button className="hm-round" aria-label="Waiting on you" onClick={() => { goTo(0); if (asks[0]) setAsk(asks[0]); else flash("Nothing waiting on you"); }}>
           {Icon.bell}{asks.length ? <i className="hm-badge">{asks.length}</i> : null}
