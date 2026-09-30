@@ -135,6 +135,7 @@ function Presence({ mood, flavor }) {
 }
 
 const MicIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="3" width="7" height="12" rx="3.5" /><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" fill="none" strokeWidth="2" strokeLinecap="round" /></svg>;
+const TrashIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12M10 11v5M14 11v5" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 const StopIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" /></svg>;
 const RecordIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H10l-4 3v-3H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z" strokeWidth="2" fill="none" strokeLinejoin="round" /></svg>;
 
@@ -184,7 +185,7 @@ export default function ChatFab() {
   const [halted, setHalted] = useState(false);    // the last turn was stopped: the stage says so
   const flight = useRef(null);                    // the turn in flight (lib/chat/stop.mjs)
   if (!flight.current) flight.current = turns();
-  const input = useRef(null), list = useRef(null), ready = useRef(false), rec = useRef(null), heardRef = useRef("");
+  const input = useRef(null), list = useRef(null), ready = useRef(false), rec = useRef(null), heardRef = useRef(""), cancelled = useRef(false);
   const reduced = useReduced();
   const look = useMemo(() => motionLook({ motion: "bouncy" }, null, reduced), [reduced]);
 
@@ -374,6 +375,7 @@ export default function ChatFab() {
     const SR = speechApi();
     if (!SR) { setVoice(false); setTyping(true); return; }
     if (listening) { try { rec.current?.stop(); } catch {} return; }
+    cancelled.current = false;
     if (busy) return;
     const r = new SR();
     r.lang = navigator.language || "en-US";
@@ -396,11 +398,15 @@ export default function ChatFab() {
       rec.current = null;
       const t = heardRef.current.trim();
       setHeard("");
-      if (t) sayRef.current(t);
+      if (t && !cancelled.current) sayRef.current(t);
+      cancelled.current = false;
     };
     rec.current = r;
     try { r.start(); setListening(true); } catch { setVoice(false); setTyping(true); }
   };
+
+  // The trash beside the live mic: stop listening and throw the words away, nothing is sent.
+  const discard = () => { cancelled.current = true; try { rec.current?.stop(); } catch {} };
 
   function toggle() {
     setOpen((o) => { if (!o) trackCta("chat-open", path); return !o; });
@@ -550,7 +556,9 @@ export default function ChatFab() {
               <div className="ys-bottom" data-talk={canTalk ? undefined : "off"}>
                 <div className="ys-dotroom" data-arrows={onChat && stageUp && parts > 1 ? "1" : undefined}>{dots}</div>
                 {canTalk ? <>
-                  <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type">T</button>
+                  {listening
+                    ? <button className="ys-small ys-trash" onClick={discard} aria-label="Cancel, throw away what I said"><TrashIcon /></button>
+                    : <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type">T</button>}
                   {busy && !listening ? <button className="ys-mic ys-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
                     : (
                     <button className={`ys-mic${listening ? " live" : ""}`} onClick={listen} aria-label={listening ? "Stop listening" : "Talk to Yui"}>

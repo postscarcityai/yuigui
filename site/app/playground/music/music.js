@@ -57,7 +57,7 @@ export function Loop({ p, emit, vid }) {
   const [swing, setSwing] = useState(clampInt(p.swing, 0, 75, 0));
   const [playing, setPlaying] = useState(false);
   const [head, setHead] = useState(-1);
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState(true); // nothing to send until something changes
   const clk = useRef(null);
   const live = useRef(null);
   const voices = loopVoices(rows, p.sound);
@@ -104,9 +104,10 @@ export function Loop({ p, emit, vid }) {
     setGrid(grid.map((row, ri) => (ri === r ? row.map((x, ki) => (ki === k ? on : x)) : row)));
     setSent(false);
   };
-  const send = () => {
-    emit({ bpm, swing, steps, rows, p: toPattern(grid) });
-    setSent(true);
+  // No Send button: the changes go to the agent when the loop stops.
+  const stopAndSend = () => {
+    stop();
+    if (!sent) { emit({ bpm, swing, steps, rows, p: toPattern(grid) }); setSent(true); }
   };
 
   return (
@@ -134,15 +135,14 @@ export function Loop({ p, emit, vid }) {
         </div>
       ))}
       <div className="mu-bar">
-        <button className={`mu-btn mu-play${playing ? " on" : ""}`} onClick={playing ? stop : start}>{playing ? "■ Stop" : "▶ Play"}</button>
+        <button className={`mu-btn mu-play${playing ? " on" : ""}`} onClick={playing ? stopAndSend : start}>{playing ? "■ Stop" : "▶ Play"}</button>
         <div className="mu-step" role="group" aria-label="Tempo">
-          <button className="mu-btn" aria-label="Slower" onClick={() => setBpm((b) => Math.max(40, b - 2))}>−</button>
+          <button className="mu-btn" aria-label="Slower" onClick={() => { setBpm((b) => Math.max(40, b - 2)); setSent(false); }}>−</button>
           <span>{bpm}</span>
-          <button className="mu-btn" aria-label="Faster" onClick={() => setBpm((b) => Math.min(240, b + 2))}>+</button>
+          <button className="mu-btn" aria-label="Faster" onClick={() => { setBpm((b) => Math.min(240, b + 2)); setSent(false); }}>+</button>
         </div>
-        <button className="mu-btn" onClick={() => setSwing((s) => (s >= 75 ? 0 : s + 25))} aria-label="Swing">Swing {swing}%</button>
+        <button className="mu-btn" onClick={() => { setSwing((s) => (s >= 75 ? 0 : s + 25)); setSent(false); }} aria-label="Swing">Swing {swing}%</button>
       </div>
-      <button className="mu-btn mu-send" onClick={send}>{sent ? "Sent ✓" : "Send"}</button>
     </div>
   );
 }
