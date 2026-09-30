@@ -32,7 +32,7 @@ export const MEMBERS = [
       { t: "Runs today's workout: one move a page, sets to tick, rest starts itself", card: "YUI-182" },
       { t: "Logs every set, with a chart for each lift" },
     ],
-    share: "trainer-session", try: "Answer four questions, then the timer runs",
+    share: "trainer-session", try: "Answer five questions, then the timer runs",
   },
   {
     handle: "basil", color: "mint", look: "bloom",

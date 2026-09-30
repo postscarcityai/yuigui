@@ -1,72 +1,104 @@
-// The playable first plan (SITE-118, web parity for PROP-4 / YUI-217). Four taps, then the split as a table.
-// Pure: questions, the split for a set of answers, and the Yui Lines for each screen. The component only
-// holds the answers; /crew#first-plan and /playground?yl= draw the same lines.
+// The playable first plan (SITE-118, rebuilt for SITE-123 to match Yui 0.6.1, YUI-217). Five questions, one at a
+// time, the same ones in the same order as the app: what you train for, days, time, what you have, how much you have
+// lifted. Not sure on four of them, and Skip keeps the starter week. Then the built week with today's session.
+// Pure: questions, the week for a set of answers, and the Yui Lines for each screen. The component only holds the
+// answers; /crew#first-plan and /playground?yl= draw the same lines. The week maths mirrors runtime/src/workouts.ts.
+export const NOT_SURE = "Not sure";
+
 export const ASK = [
-  { id: "days", say: "Hi, I'm Arnold. Four taps and you have a plan.", q: "How many days a week can you train?", options: ["2", "3", "4", "5", "6"], base: "3" },
-  { id: "kind", say: "Good. What kind of training?", q: "Pick one", options: ["Lift heavy", "Lift and cardio", "Mostly cardio", "Just move more"], base: "Lift heavy" },
-  { id: "gear", say: "Got it. What can you lift with?", q: "Your gear", options: ["Full gym", "Barbell", "Dumbbells", "Bands", "Bodyweight only"], base: "Full gym" },
-  { id: "effort", say: "Here is how I coach. Heavy weight, and the last set of every lift goes to failure. Safe stop, never a grind that hurts.", q: "How hard do we go?", options: ["To failure, the way I like it", "One rep short", "Ease me in", "Skip, use the default"], base: "To failure, the way I like it" },
+  { id: "goal", label: "Training for", say: "Hi, I'm Arnold. Five taps and you have a week you'll actually do.", q: "What are we training for?", options: ["Lift heavy", "Lift and cardio", "Mostly cardio", "Just move more", NOT_SURE] },
+  { id: "days", label: "Days", say: "Good. Next.", q: "How many days a week?", options: ["2", "3", "4", "5", "6", NOT_SURE] },
+  { id: "time", label: "Session", say: "Nearly there.", q: "How long per session?", options: ["30 min", "45 min", "60 min", NOT_SURE] },
+  { id: "gear", label: "Gear", say: "What can you train with?", q: "What do you have?", options: ["Just me", "Bands", "Dumbbells", "Barbell", "A gym"] },
+  { id: "level", label: "Lifted", say: "Last one. Heavy lifters finish the last set of each lift at failure with a safe stop. New lifters stop well short.", q: "How much have you lifted?", options: ["New to lifting", "Some experience", "Lifted for years", NOT_SURE] },
 ];
 
-export const DEFAULTS = Object.fromEntries(ASK.map((a) => [a.id, a.base]));
+// Skip is the starter week: every answer is Not sure, and gear is the smallest kit.
+export const SKIPPED = { goal: NOT_SURE, days: NOT_SURE, time: NOT_SURE, gear: "Just me", level: NOT_SURE };
 
-const DAYS = { 2: ["Mon", "Thu"], 3: ["Mon", "Wed", "Fri"], 4: ["Mon", "Tue", "Thu", "Fri"], 5: ["Mon", "Tue", "Wed", "Fri", "Sat"], 6: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] };
-const SPLIT = { 2: ["Full body", "Full body"], 3: ["Push", "Pull", "Legs"], 4: ["Upper", "Lower", "Upper", "Lower"], 5: ["Push", "Pull", "Legs", "Upper", "Lower"], 6: ["Push", "Pull", "Legs", "Push", "Pull", "Legs"] };
-const LIFT = {
-  "Full gym": { Push: "Bench press", Pull: "Cable row", Legs: "Leg press" },
-  Barbell: { Push: "Bench press", Pull: "Barbell row", Legs: "Back squat" },
-  Dumbbells: { Push: "Dumbbell press", Pull: "Dumbbell row", Legs: "Goblet squat" },
-  Bands: { Push: "Band press", Pull: "Band row", Legs: "Banded squat" },
-  "Bodyweight only": { Push: "Push-ups", Pull: "Inverted row", Legs: "Split squat" },
+const DAY_KEYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+const DAYS_FOR = { 2: ["mon", "thu"], 3: ["mon", "wed", "fri"], 4: ["mon", "tue", "thu", "fri"], 5: ["mon", "tue", "wed", "fri", "sat"], 6: ["mon", "tue", "wed", "thu", "fri", "sat"] };
+const HEAVY = { 2: ["Full body", "Full body"], 3: ["Full body", "Full body", "Full body"], 4: ["Upper", "Lower", "Upper", "Lower"], 5: ["Push", "Pull", "Legs", "Upper", "Lower"], 6: ["Push", "Pull", "Legs", "Push", "Pull", "Legs"] };
+const MIXED = { 2: ["Full body", "Cardio"], 3: ["Full body", "Cardio", "Full body"], 4: ["Upper", "Cardio", "Lower", "Cardio"], 5: ["Upper", "Cardio", "Lower", "Cardio", "Full body"], 6: ["Push", "Cardio", "Pull", "Cardio", "Legs", "Cardio"] };
+const MOVES = {
+  "Full body": ["Squat", "Bench press", "Lat pulldown", "Romanian deadlift", "Plank"],
+  Push: ["Bench press", "Overhead press", "Push-up", "Plank"],
+  Pull: ["Lat pulldown", "Dumbbell row", "Pull-up", "Dead bug"],
+  Legs: ["Squat", "Romanian deadlift", "Step-up", "Glute bridge"],
+  Upper: ["Bench press", "Dumbbell row", "Overhead press", "Lat pulldown"],
+  Lower: ["Deadlift", "Squat", "Step-up", "Dead bug"],
 };
-const main = (gear, s) => LIFT[gear][s === "Upper" ? "Push" : s === "Lower" || s === "Full body" ? "Legs" : s];
+const SWAPS = {
+  "A gym": {},
+  Barbell: { "Lat pulldown": "Pull-up", "Step-up": "Reverse lunge" },
+  Dumbbells: { Squat: "Goblet squat", "Bench press": "Dumbbell bench press", Deadlift: "Romanian deadlift", "Lat pulldown": "Dumbbell row", "Pull-up": "Dumbbell row", "Step-up": "Reverse lunge" },
+  Bands: { Squat: "Banded squat", "Bench press": "Push-up", Deadlift: "Glute bridge", "Romanian deadlift": "Glute bridge", "Lat pulldown": "Banded row", "Dumbbell row": "Banded row", "Pull-up": "Banded row", "Step-up": "Reverse lunge", "Overhead press": "Banded overhead press" },
+  "Just me": { Squat: "Air squat", "Bench press": "Push-up", Deadlift: "Glute bridge", "Romanian deadlift": "Glute bridge", "Lat pulldown": "Bird dog", "Dumbbell row": "Bird dog", "Pull-up": "Bird dog", "Step-up": "Reverse lunge", "Overhead press": "Pike push-up" },
+};
+const CORE = new Set(["Plank", "Dead bug", "Bird dog", "Glute bridge"]);
+const GOALS = ASK[0].options.slice(0, 4);
 
 export const norm = (a = {}) => {
-  const v = { ...DEFAULTS, ...a };
-  if (!DAYS[v.days]) v.days = DEFAULTS.days;
-  if (!LIFT[v.gear]) v.gear = DEFAULTS.gear;
-  if (!ASK[3].options.includes(v.effort) || v.effort.startsWith("Skip")) v.effort = DEFAULTS.effort;
+  const v = { ...SKIPPED, ...a };
+  for (const q of ASK) if (!q.options.includes(v[q.id])) v[q.id] = SKIPPED[q.id];
   return v;
 };
 
-// Rows of [day, session, main lift]. Heavy adds ", heavy" to a lift day.
-export function splitFor(answers) {
+// The kit that counts is the biggest one picked. The app's "gear" answer can hold several; the site asks for one.
+const tier = (gear) => (SWAPS[gear] ? gear : "Just me");
+const effort = (level) => (/years/i.test(level) ? "failure" : /^new/i.test(level) ? "ease" : "short");
+const num = (s) => { const n = parseInt(s, 10); return Number.isFinite(n) ? n : null; };
+
+const focuses = (goal, n) => {
+  if (goal === "Lift heavy") return HEAVY[n];
+  if (goal === "Lift and cardio") return MIXED[n];
+  return Array.from({ length: n }, (_, i) => (i === 1 ? "Full body" : "Cardio"));
+};
+
+function workout(focus, kit, eff, heavy) {
+  const swaps = SWAPS[kit];
+  const moves = MOVES[focus].map((m) => swaps[m] ?? m).filter((m, i, a) => a.indexOf(m) === i);
+  const [sets, reps] = heavy && eff === "failure" ? [4, 6] : eff === "ease" ? [2, 10] : heavy ? [3, 8] : [3, 10];
+  return moves.map((m) => (m === "Plank" ? "Plank 3x30s" : CORE.has(m) ? `${m} 3x10` : `${m} ${sets}x${reps}`)).join(", ");
+}
+
+// Rows of { day, focus, workout, minutes }: seven days, rest days included, like This week in the app.
+export function weekFor(answers) {
   const a = norm(answers);
-  const days = DAYS[a.days], parts = SPLIT[a.days];
-  const heavy = a.kind === "Lift heavy" ? ", heavy" : "";
-  return days.map((d, i) => {
-    const last = i === days.length - 1;
-    if (a.kind === "Just move more") return [d, last ? "Stretch and mobility" : "Walk, 30 min", last ? "Ten easy holds" : "Steady pace"];
-    if (a.kind === "Mostly cardio") return i === 0 ? [d, "Full body, light", main(a.gear, "Legs")] : [d, i % 2 ? "Run or bike, easy" : "Intervals", i % 2 ? "30 min, chatty pace" : "6 x 1 min hard"];
-    if (a.kind === "Lift and cardio" && last && days.length > 2) return [d, "Cardio, 30 min", "Run, bike or row"];
-    return [d, `${parts[i]}${heavy}`, main(a.gear, parts[i])];
+  const goal = GOALS.includes(a.goal) ? a.goal : GOALS[0];
+  const n = Math.max(2, Math.min(6, num(a.days) ?? 3));
+  const minutes = num(a.time) ?? 45;
+  const kit = tier(a.gear), eff = effort(a.level), heavy = /^Lift/.test(goal);
+  const plan = new Map(DAYS_FOR[n].map((k, i) => [k, focuses(goal, n)[i]]));
+  return DAY_KEYS.map((k) => {
+    const focus = plan.get(k), day = k[0].toUpperCase() + k.slice(1);
+    if (!focus) return { day, focus: "Rest", workout: "Rest", minutes: 0 };
+    if (focus === "Cardio") return { day, focus, workout: goal === "Just move more" ? "A brisk walk, easy pace" : "Run or bike, easy pace", minutes };
+    return { day, focus, workout: workout(focus, kit, eff, heavy), minutes };
   });
 }
 
-const EFFORT = {
-  "To failure, the way I like it": "5 lifts. Last set of each to failure, safe stop.",
-  "One rep short": "5 lifts. Last set stops one rep short of failure.",
-  "Ease me in": "5 lifts, 2 sets each. Stop with plenty left.",
-};
+const LAST = { failure: "The last set of each lift goes to failure, with a safe stop.", short: "The last set of each lift stops one rep short.", ease: "We ease in. Every set stays well short of failure." };
 
 export function today(answers) {
   const a = norm(answers);
-  const [, session, lift] = splitFor(a)[0];
-  const lifting = /Push|Pull|Legs|Upper|Lower|Full body/.test(session);
-  return { title: `Today: ${session}`, body: lifting ? `${EFFORT[a.effort]} Starts with ${lift.toLowerCase()}.` : `${lift}. Easy and steady.` };
+  const d = weekFor(a).find((r) => r.focus !== "Rest");
+  const lifting = d.focus !== "Cardio";
+  return { day: d.day, title: `Today: ${d.focus}`, body: lifting ? `${d.workout}. ${LAST[effort(a.level)]}` : `${d.workout}. ${d.minutes} min.` };
 }
 
 const q = (s) => `"${s}"`;
+const opt = (o) => (/[ ,]/.test(o) ? q(o) : o);
 export const askLines = (step) => {
   const s = ASK[step];
-  return `say ${s.say}\nchoose ${q(s.q)} ${s.options.map((o) => (/[ ,]/.test(o) ? q(o) : o)).join("|")}`;
+  return `say ${s.say}\nchoose ${q(s.q)} ${s.options.map(opt).join("|")}\ncard@first-skip "Not now" "Keep the starter week. Build yours any time from This week." cta="Skip for now"`;
 };
 
 export function planLines(answers) {
   const a = norm(answers);
   const t = today(a);
-  const rows = splitFor(a).map((r) => q(r.join("|"))).join(" ");
-  return `say Your first split is saved. It is a starting point. Change any day, any time.\ntable Split Day|Session|Lift ${rows}\ncard ${q(t.title)} body=${q(t.body)} cta="Start"`;
+  const rows = weekFor(a).map((r) => q(`${r.day}|${r.focus}|${r.focus === "Rest" ? "-" : `${r.minutes} min`}`)).join(" ");
+  return `say Your week is built. It is a starting point. Change any day, any time.\ntable Week Day|Focus|Time ${rows}\ncard ${q(t.title)} body=${q(t.body)} cta="Start"`;
 }
 
 export const startLines = (answers) => {
@@ -74,5 +106,5 @@ export const startLines = (answers) => {
   return `say ${t.title}. Warm up two minutes, then go.\ntimer 2m Warm-up +inline\nlist "Warm up"|"Work sets"|"Last set, safe stop"|"Cool down" +check`;
 };
 
-// The playground link opens all four questions and the finished plan on one screen.
-export const wholeLines = (answers) => `${ASK.map((_, i) => askLines(i)).join("\n")}\n${planLines(answers)}`;
+// The playground link opens all five questions and the built week on one screen.
+export const wholeLines = (answers) => `${ASK.map((s) => `choose ${q(s.q)} ${s.options.map(opt).join("|")}`).join("\n")}\n${planLines(answers)}`;
