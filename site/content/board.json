@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T03:40:57.449Z",
+  "updated": "2026-09-30T04:11:23.312Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -318,9 +318,9 @@
         {
           "key": "YUI-216",
           "title": "Pick your crew, the first-run picker",
-          "summary": "Pick your crew: a first minute that is yours",
+          "summary": "Pick your crew",
           "waiting": true,
-          "progress": "/progress#pick-your-crew-a-first-minute-that-is-yours"
+          "progress": "/progress#pick-your-crew"
         },
         {
           "key": "YUI-217",
@@ -420,11 +420,6 @@
           "waiting": true
         },
         {
-          "key": "NOTE-45919",
-          "title": "Typing, trash and looper fixes",
-          "waiting": true
-        },
-        {
           "key": "NOTE-49492",
           "title": "About and Controls in one tab",
           "waiting": true,
@@ -441,15 +436,9 @@
           "waiting": true
         },
         {
-          "key": "YUI-219",
-          "title": "A lone ask heading reads the question, not 'One question'",
-          "commit": "https://github.com/postscarcityai/yui/commit/a7e3f9b",
-          "needsDemo": true
-        },
-        {
-          "key": "SITE-113",
-          "title": "Link SITE-111 on the board, and the See it page shows tonight's app changes",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/63afd06",
+          "key": "SITE-115",
+          "title": "Link YUI-219 and SITE-113 on the site, with a before/after of the lone ask",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/5ade13f",
           "needsDemo": true
         }
       ]
@@ -466,8 +455,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-115",
-          "title": "Link YUI-219 and SITE-113 on the site, with a before/after of the lone ask",
+          "key": "NOTE-45919",
+          "title": "Typing, trash and looper fixes",
           "owner": "CJohnDesign"
         }
       ]
@@ -476,6 +465,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-116",
+          "title": "Try Pick your crew on the site, web parity for YUI-216",
+          "summary": "Try picking your crew on the site",
+          "shipped": "2026-09-30",
+          "progress": "/progress#try-picking-your-crew-on-the-site",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/359f684"
+        },
         {
           "key": "SITE-114",
           "title": "The site catches up to one Agent tab (YUI-128 web parity)",
@@ -491,6 +488,22 @@
           "shipped": "2026-09-29",
           "progress": "/progress#your-own-key-at-every-stop",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d2966a5"
+        },
+        {
+          "key": "SITE-113",
+          "title": "Link SITE-111 on the board, and the See it page shows tonight's app changes",
+          "summary": "The board links its demos, and See it is caught up",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-board-links-its-demos-and-see-it-is-caught-up",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/63afd06"
+        },
+        {
+          "key": "YUI-219",
+          "title": "A lone ask heading reads the question, not 'One question'",
+          "summary": "A lone question heads itself",
+          "shipped": "2026-09-29",
+          "progress": "/progress#a-lone-question-heads-itself",
+          "commit": "https://github.com/postscarcityai/yui/commit/a7e3f9b"
         },
         {
           "key": "NOTE-41795",
