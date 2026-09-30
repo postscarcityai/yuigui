@@ -1706,6 +1706,9 @@
     {
       "text": "the agent's first plan: one intake (goal, days, time, gear, experience, Not sure, Skip) builds the week and saves the answers",
       "card": "YUI-217"
+    },
+    {
+      "text": "Bump version to 0.6.1"
     }
   ]
 }
