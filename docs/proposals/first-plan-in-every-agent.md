@@ -2,7 +2,8 @@
 id: PROP-4
 title: A first plan in every agent
 summary: The first time you open an agent, it asks a few taps and builds your first plan. Arnold is the worked example.
-status: Exploring
+status: Building
+card: YUI-217
 date: 2026-09-29
 becomes: A first-open flow in the app for each crew agent (Arnold first, then Basil, Gouda, Penny, Quill), cards to follow. The dead Build my split button on Arnold's screen is fixed in YUI-182.
 cost: M

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 372,
-    "site": 847,
+    "app": 373,
+    "site": 850,
     "builds": 49,
-    "shipped": 423,
-    "screenshots": 1037
+    "shipped": 426,
+    "screenshots": 1050
   },
   "days": [
     {
@@ -13,7 +13,107 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T04:23:18.621Z",
+          "at": "2026-09-30T05:02:21.938Z",
+          "title": "A first plan from Coach",
+          "card": "YUI-217",
+          "anchor": "a-first-plan-from-coach",
+          "images": [
+            {
+              "src": "/progress/yui217-questions-dark.webp",
+              "alt": "Dark mode: the intake questions, session length, gear and how much you have lifted, each with tappable answers."
+            },
+            {
+              "src": "/progress/yui217-this-week-dark.webp",
+              "alt": "Dark mode: This week after the send, 0 of 3 workouts with the three training days listed."
+            },
+            {
+              "src": "/progress/yui217-questions-light.webp",
+              "alt": "Light mode: the intake questions."
+            },
+            {
+              "src": "/progress/yui217-this-week-light.webp",
+              "alt": "Light mode: This week built from the answers."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 373,
+            "site": 850,
+            "builds": 49,
+            "shipped": 426
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T04:43:28.000Z",
+          "title": "The site catches up on typing",
+          "card": "SITE-117",
+          "anchor": "the-site-catches-up-on-typing",
+          "images": [
+            {
+              "src": "/progress/site117-answer-before-dark.webp",
+              "alt": "Dark mode, before: a long typed answer in a three-line box, the first line cut off at the top."
+            },
+            {
+              "src": "/progress/site117-answer-after-dark.webp",
+              "alt": "Dark mode, after: the same answer in a taller box with every word visible."
+            },
+            {
+              "src": "/progress/site117-mic-before-dark.webp",
+              "alt": "Dark mode, before: the listening screen with a T button left of the big mic."
+            },
+            {
+              "src": "/progress/site117-mic-after-dark.webp",
+              "alt": "Dark mode, after: while listening, a trash button sits left of the mic in place of the T."
+            },
+            {
+              "src": "/progress/site117-looper-before-dark.webp",
+              "alt": "Dark mode, before: the looper grid with a red Send button under it."
+            },
+            {
+              "src": "/progress/site117-looper-after-dark.webp",
+              "alt": "Dark mode, after: the same looper with no Send button."
+            },
+            {
+              "src": "/progress/site117-looper-after-light.webp",
+              "alt": "Light mode, after: the looper with no Send button."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 372,
+            "site": 850,
+            "builds": 49,
+            "shipped": 425
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T04:43:28.000Z",
+          "title": "The lone ask, on the site",
+          "card": "SITE-115",
+          "anchor": "the-lone-ask-on-the-site",
+          "images": [
+            {
+              "src": "/progress/site115-before-dark.webp",
+              "alt": "Dark mode, before: the question page with a big 'One question' title above the card."
+            },
+            {
+              "src": "/progress/site115-after-dark.webp",
+              "alt": "Dark mode, after: the question is the first thing on the page, with its buttons under it."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 372,
+            "site": 850,
+            "builds": 49,
+            "shipped": 424
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T04:23:47.000Z",
           "title": "Typing, trash and looper fixes",
           "card": "NOTE-typing-trash-looper",
           "anchor": "typing-trash-and-looper-fixes",
@@ -34,7 +134,7 @@
           "commits": 0,
           "totals": {
             "app": 372,
-            "site": 847,
+            "site": 848,
             "builds": 49,
             "shipped": 423
           }
@@ -73,6 +173,34 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "79229f2",
+          "at": "2026-09-30T05:00:55.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yui/commit/79229f2"
+        },
+        {
+          "repo": "site",
+          "sha": "3a324c4",
+          "at": "2026-09-30T04:43:28.000Z",
+          "text": "Site catches up on typing: growing answer box, trash by the live mic, looper sends on stop; progress entries (SITE-117, SITE-115)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3a324c4"
+        },
+        {
+          "repo": "site",
+          "sha": "2c4294a",
+          "at": "2026-09-30T04:41:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2c4294a"
+        },
+        {
+          "repo": "site",
+          "sha": "9d4919a",
+          "at": "2026-09-30T04:23:47.000Z",
+          "text": "progress: typing, trash and looper fixes (NOTE-typing-trash-looper)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9d4919a"
+        },
         {
           "repo": "app",
           "sha": "bfb4991",
