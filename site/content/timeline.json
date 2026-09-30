@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 374,
-    "site": 875,
+    "app": 383,
+    "site": 901,
     "builds": 50,
-    "shipped": 438,
-    "screenshots": 1089
+    "shipped": 453,
+    "screenshots": 1127
   },
   "days": [
     {
@@ -13,7 +13,401 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T10:04:47.419Z",
+          "at": "2026-09-30T14:34:17.585Z",
+          "title": "The blob changes shape with what your agent does",
+          "card": "YUI-232",
+          "anchor": "the-blob-changes-shape-with-what-your-agent-does",
+          "images": [
+            {
+              "src": "/progress/yui232-shapes-dark.webp",
+              "alt": "Dark mode: seven tiles of the shader blob, one per action. A circle for idle, a five-puff cloud for thinking, a football for reading, a rounded square for running, a drop for searching, a tall pill for talking, a circle for done."
+            },
+            {
+              "src": "/progress/yui232-shapes-light.webp",
+              "alt": "Light mode: the same seven blob shapes on a light ground."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 383,
+            "site": 901,
+            "builds": 50,
+            "shipped": 453
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T14:20:01.000Z",
+          "title": "The first question stays on screen",
+          "card": "YUI-234",
+          "anchor": "the-first-question-stays-on-screen",
+          "images": [
+            {
+              "src": "/progress/yui234-before-dark.webp",
+              "alt": "Dark mode, before: the Coach's chat with a collapsed first plan chip, a Skip for now card and a reply, the first question nowhere on screen."
+            },
+            {
+              "src": "/progress/yui234-after-dark.webp",
+              "alt": "Dark mode, after: the first plan full screen at step 1 of 5, asking what we are training for, with the goal choices."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 383,
+            "site": 901,
+            "builds": 50,
+            "shipped": 452
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T13:41:47.000Z",
+          "title": "Open on Yui's card lands on the first question",
+          "card": "YUI-233",
+          "anchor": "open-on-yui-s-card-lands-on-the-first-question",
+          "images": [],
+          "commits": 3,
+          "totals": {
+            "app": 382,
+            "site": 897,
+            "builds": 50,
+            "shipped": 451
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T13:37:09.000Z",
+          "title": "Declining an invite request works",
+          "card": "YUI-214",
+          "anchor": "declining-an-invite-request-works",
+          "images": [
+            {
+              "src": "/progress/yui214-before-dark.webp",
+              "alt": "Dark mode, before: the invite ask with Approve and Decline buttons, which did nothing when tapped."
+            },
+            {
+              "src": "/progress/yui214-after-dark.webp",
+              "alt": "Dark mode, after: a Declined card saying the request is off your list and the row is gone."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 382,
+            "site": 896,
+            "builds": 50,
+            "shipped": 450
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T13:28:39.000Z",
+          "title": "Show me is answered in the app",
+          "card": "YUI-231",
+          "anchor": "show-me-is-answered-in-the-app",
+          "images": [
+            {
+              "src": "/progress/yui231-before-dark.webp",
+              "alt": "Before: one Shader looks card with an Open button and nothing shown."
+            },
+            {
+              "src": "/progress/yui231-after-dark.webp",
+              "alt": "After: the four looks as a swipeable gallery with a pick circle, a Done button, and a small Open card under it."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 381,
+            "site": 895,
+            "builds": 50,
+            "shipped": 449
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T13:18:38.000Z",
+          "title": "The chat bubble steps off the crew phones",
+          "card": [
+            "SITE-131",
+            "SITE-132"
+          ],
+          "anchor": "the-chat-bubble-steps-off-the-crew-phones",
+          "images": [
+            {
+              "src": "/progress/site131-before-crew-dark.webp",
+              "alt": "Dark mode, before: the pick-your-crew phone with the chat bubble over the right end of Start with 1."
+            },
+            {
+              "src": "/progress/site131-after-crew-dark.webp",
+              "alt": "Dark mode, after: the bubble is gone and Start with 1 is fully visible."
+            },
+            {
+              "src": "/progress/site131-before-links-dark.webp",
+              "alt": "Dark mode, before: Start over sits lower than Open it in the playground, in a different weight."
+            },
+            {
+              "src": "/progress/site131-after-links-dark.webp",
+              "alt": "Dark mode, after: Start over, Open it in the playground and Read the proposal in one column, one style."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 380,
+            "site": 893,
+            "builds": 50,
+            "shipped": 448
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T12:38:51.000Z",
+          "title": "A stranger's first minute on the site, timed",
+          "card": "SITE-130",
+          "anchor": "a-stranger-s-first-minute-on-the-site-timed",
+          "images": [
+            {
+              "src": "/progress/site130-before-start-dark.webp",
+              "alt": "Dark mode, before: /start after a menu tap, scrolled down so the top card's heading is hidden under the bar."
+            },
+            {
+              "src": "/progress/site130-after-start-dark.webp",
+              "alt": "Dark mode, after: /start lands at the top with the card fully visible."
+            },
+            {
+              "src": "/progress/site130-before-start-light.webp",
+              "alt": "Light mode, before: /start after a menu tap, scrolled down."
+            },
+            {
+              "src": "/progress/site130-after-start-light.webp",
+              "alt": "Light mode, after: /start lands at the top."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 380,
+            "site": 890,
+            "builds": 50,
+            "shipped": 447
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T12:00:18.000Z",
+          "title": "Yui asks about notifications after your first plan",
+          "card": "YUI-230",
+          "anchor": "yui-asks-about-notifications-after-your-first-plan",
+          "images": [
+            {
+              "src": "/progress/yui230-nudge-dark.webp",
+              "alt": "Dark mode: the same nudge card with Not now and Yes."
+            },
+            {
+              "src": "/progress/yui230-prompt-light.webp",
+              "alt": "Light mode: the iOS Allow notifications prompt after tapping Yes."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 379,
+            "site": 888,
+            "builds": 50,
+            "shipped": 446
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T11:38:15.000Z",
+          "title": "The start page shows one pairing command",
+          "card": "SITE-128",
+          "anchor": "the-start-page-shows-one-pairing-command",
+          "images": [
+            {
+              "src": "/progress/site128-before-start-dark.webp",
+              "alt": "Dark mode, before: the start page with Install the Yui plugin and Pair and restart the gateway as separate steps."
+            },
+            {
+              "src": "/progress/site128-after-start-dark.webp",
+              "alt": "Dark mode, after: one step, Run one command, with a single Copy button and the code below."
+            },
+            {
+              "src": "/progress/site128-before-start-light.webp",
+              "alt": "Light mode, before: the start page with three commands over two steps."
+            },
+            {
+              "src": "/progress/site128-after-start-light.webp",
+              "alt": "Light mode, after: one command in one block with a Copy button."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 378,
+            "site": 886,
+            "builds": 50,
+            "shipped": 445
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T11:17:13.000Z",
+          "title": "Add an agent is in the drawer, and pairing is one command",
+          "card": "YUI-229",
+          "anchor": "add-an-agent-is-in-the-drawer-and-pairing-is-one-command",
+          "images": [
+            {
+              "src": "/progress/yui229-before-drawer-dark.webp",
+              "alt": "Dark mode, before: the drawer with no Add an agent row."
+            },
+            {
+              "src": "/progress/yui229-after-drawer-dark.webp",
+              "alt": "Dark mode, after: the drawer with an Add an agent button above the agent bar."
+            },
+            {
+              "src": "/progress/yui229-before-pairing-dark.webp",
+              "alt": "Dark mode, before: the add agent sheet."
+            },
+            {
+              "src": "/progress/yui229-after-pairing-dark.webp",
+              "alt": "Dark mode, after: the pairing sheet with one command, a Copy button and the code 123 456."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 378,
+            "site": 885,
+            "builds": 50,
+            "shipped": 444
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T11:07:41.000Z",
+          "title": "Your first minute, now faster",
+          "card": "SITE-127",
+          "anchor": "your-first-minute-now-faster",
+          "images": [
+            {
+              "src": "/progress/site127-timings-dark.webp",
+              "alt": "Dark mode: the timings before and after, then the trainer's first question and the built week."
+            },
+            {
+              "src": "/progress/site127-timings-light.webp",
+              "alt": "Light mode: the same timings and screens on a white page."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 377,
+            "site": 883,
+            "builds": 50,
+            "shipped": 443
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T11:07:41.000Z",
+          "title": "A logged meal lands on today's calories, on the site",
+          "card": "SITE-125",
+          "anchor": "a-logged-meal-lands-on-today-s-calories-on-the-site",
+          "images": [
+            {
+              "src": "/progress/yui183b-before-dark.webp",
+              "alt": "Dark mode, before: after logging a meal the phone shows Basil's grocery list."
+            },
+            {
+              "src": "/progress/yui183b-after-dark.webp",
+              "alt": "Dark mode, after: the phone shows Today, Calories today with a kcal total and a Macros vs goal chart."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 377,
+            "site": 883,
+            "builds": 50,
+            "shipped": 442
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T10:51:28.000Z",
+          "title": "Your plan is built the moment you tap Send",
+          "card": "YUI-228",
+          "anchor": "your-plan-is-built-the-moment-you-tap-send",
+          "images": [
+            {
+              "src": "/progress/yui228-send-dark.webp",
+              "alt": "Dark mode: the five answers filled in on Coach's first plan, with one Build my week button."
+            },
+            {
+              "src": "/progress/yui228-built-week-dark.webp",
+              "alt": "Dark mode: This week right after Send, 0 of 3 workouts with Mon, Wed and Fri Full body."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 376,
+            "site": 882,
+            "builds": 50,
+            "shipped": 441
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T10:42:44.000Z",
+          "title": "On the site, Open on a crew card lands on the first question",
+          "card": "SITE-126",
+          "anchor": "on-the-site-open-on-a-crew-card-lands-on-the-first-question",
+          "images": [
+            {
+              "src": "/progress/site126-before-dark.webp",
+              "alt": "Dark mode, before: the trainer's thread after Open, a hello line and an empty screen below it."
+            },
+            {
+              "src": "/progress/site126-after-dark.webp",
+              "alt": "Dark mode, after: Your first plan, step 1 of 5, with What are we training for? and its answers."
+            },
+            {
+              "src": "/progress/site126-after-light.webp",
+              "alt": "Light mode, after: the same first question on a light screen."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 376,
+            "site": 881,
+            "builds": 50,
+            "shipped": 440
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T10:18:32.000Z",
+          "title": "Open on a crew card lands on the first question",
+          "card": "YUI-225",
+          "anchor": "open-on-a-crew-card-lands-on-the-first-question",
+          "images": [
+            {
+              "src": "/progress/yui225-before-dark.webp",
+              "alt": "Dark mode, before: the trainer's page after Open, showing Workouts this week, 0 of 5, and a This week list."
+            },
+            {
+              "src": "/progress/yui225-after-dark.webp",
+              "alt": "Dark mode, after: Your first plan, 5 quick questions, with What are we training for? and its answers."
+            },
+            {
+              "src": "/progress/yui225-after-light.webp",
+              "alt": "Light mode, after: the same first question on a light screen."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 375,
+            "site": 878,
+            "builds": 50,
+            "shipped": 439
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T10:05:15.000Z",
           "title": "A logged meal lands on today's calories",
           "card": "YUI-183b",
           "anchor": "a-logged-meal-lands-on-today-s-calories",
@@ -30,7 +424,7 @@
           "commits": 0,
           "totals": {
             "app": 374,
-            "site": 875,
+            "site": 876,
             "builds": 50,
             "shipped": 438
           }
@@ -474,7 +868,10 @@
           "kind": "ship",
           "at": "2026-09-30T04:23:47.000Z",
           "title": "Typing, trash and looper fixes",
-          "card": "NOTE-typing-trash-looper",
+          "card": [
+            "NOTE-typing-trash-looper",
+            "NOTE-45919"
+          ],
           "anchor": "typing-trash-and-looper-fixes",
           "images": [
             {
@@ -532,6 +929,251 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "e8f0cc2",
+          "at": "2026-09-30T14:20:01.000Z",
+          "text": "Progress: the first question stays on screen (YUI-234)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e8f0cc2"
+        },
+        {
+          "repo": "app",
+          "sha": "39a4eda",
+          "at": "2026-09-30T14:18:55.000Z",
+          "text": "Open on an agent's card no longer closes the first question: a notification landing on a message with nothing staged (the hello's words)...",
+          "url": "https://github.com/postscarcityai/yui/commit/39a4eda"
+        },
+        {
+          "repo": "site",
+          "sha": "7615c20",
+          "at": "2026-09-30T14:10:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7615c20"
+        },
+        {
+          "repo": "site",
+          "sha": "d45bcf8",
+          "at": "2026-09-30T14:02:51.000Z",
+          "text": "progress: link SITE-132 to the SITE-131 entry (same pass, same shots)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d45bcf8"
+        },
+        {
+          "repo": "site",
+          "sha": "f0ae5e9",
+          "at": "2026-09-30T13:42:51.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f0ae5e9"
+        },
+        {
+          "repo": "site",
+          "sha": "632411c",
+          "at": "2026-09-30T13:41:47.000Z",
+          "text": "Progress: neutral title for YUI-233 (public guard blocks a private name in the slug)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/632411c"
+        },
+        {
+          "repo": "site",
+          "sha": "291010d",
+          "at": "2026-09-30T13:37:09.000Z",
+          "text": "Progress: declining an invite request works (YUI-214)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/291010d"
+        },
+        {
+          "repo": "app",
+          "sha": "0370df6",
+          "at": "2026-09-30T13:34:27.000Z",
+          "text": "Approve and Decline on a war room invite request now run invite.py and clear the row, instead of falling through to an agent turn [YUI-214]",
+          "url": "https://github.com/postscarcityai/yui/commit/0370df6"
+        },
+        {
+          "repo": "site",
+          "sha": "4f1c5fb",
+          "at": "2026-09-30T13:28:39.000Z",
+          "text": "Show me is answered in the app: guide v43, pick eval cases, progress (YUI-231)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4f1c5fb"
+        },
+        {
+          "repo": "site",
+          "sha": "e46b0f5",
+          "at": "2026-09-30T13:22:41.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e46b0f5"
+        },
+        {
+          "repo": "app",
+          "sha": "3558afa",
+          "at": "2026-09-30T13:22:17.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yui/commit/3558afa"
+        },
+        {
+          "repo": "site",
+          "sha": "9906469",
+          "at": "2026-09-30T13:18:38.000Z",
+          "text": "SITE-131: chat bubble steps off the crew demo phones; SITE-132: first-plan link row lines up",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9906469"
+        },
+        {
+          "repo": "site",
+          "sha": "df99e42",
+          "at": "2026-09-30T13:10:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/df99e42"
+        },
+        {
+          "repo": "site",
+          "sha": "f899e8e",
+          "at": "2026-09-30T12:40:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f899e8e"
+        },
+        {
+          "repo": "site",
+          "sha": "855e436",
+          "at": "2026-09-30T12:38:51.000Z",
+          "text": "SITE-130: pages land at the top after a menu tap; first-minute timings on /progress",
+          "url": "https://github.com/postscarcityai/yuigui/commit/855e436"
+        },
+        {
+          "repo": "site",
+          "sha": "b976655",
+          "at": "2026-09-30T12:11:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b976655"
+        },
+        {
+          "repo": "app",
+          "sha": "a41c3f6",
+          "at": "2026-09-30T12:03:28.000Z",
+          "text": "Bump version to 0.6.2",
+          "url": "https://github.com/postscarcityai/yui/commit/a41c3f6"
+        },
+        {
+          "repo": "site",
+          "sha": "3101736",
+          "at": "2026-09-30T12:00:18.000Z",
+          "text": "Progress: notifications ask after the first plan (YUI-230)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3101736"
+        },
+        {
+          "repo": "app",
+          "sha": "0f99745",
+          "at": "2026-09-30T11:59:45.000Z",
+          "text": "Notifications ask comes after the first plan: one plain line, Yes raises the system prompt, sign-in ask only as a later-launch fallback...",
+          "url": "https://github.com/postscarcityai/yui/commit/0f99745"
+        },
+        {
+          "repo": "site",
+          "sha": "57fab39",
+          "at": "2026-09-30T11:40:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/57fab39"
+        },
+        {
+          "repo": "site",
+          "sha": "2a29a11",
+          "at": "2026-09-30T11:38:15.000Z",
+          "text": "The start page shows one pairing command, like the app (SITE-128)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2a29a11"
+        },
+        {
+          "repo": "site",
+          "sha": "33f7cc2",
+          "at": "2026-09-30T11:17:13.000Z",
+          "text": "progress: YUI-229 Add an agent in the drawer, one pairing command",
+          "url": "https://github.com/postscarcityai/yuigui/commit/33f7cc2"
+        },
+        {
+          "repo": "app",
+          "sha": "d8b1792",
+          "at": "2026-09-30T11:16:55.000Z",
+          "text": "Add an agent in the drawer, and pairing is one command (YUI-229)",
+          "url": "https://github.com/postscarcityai/yui/commit/d8b1792"
+        },
+        {
+          "repo": "site",
+          "sha": "7f40f39",
+          "at": "2026-09-30T11:11:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7f40f39"
+        },
+        {
+          "repo": "site",
+          "sha": "8932856",
+          "at": "2026-09-30T11:07:41.000Z",
+          "text": "SITE-127: the first minute, before and after the fixes; link the meal demo tile (SITE-125)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8932856"
+        },
+        {
+          "repo": "app",
+          "sha": "ce09044",
+          "at": "2026-09-30T10:55:09.000Z",
+          "text": "Live sim test: a stranger's first plan builds the week after Send, no second wizard (YUI-228)",
+          "url": "https://github.com/postscarcityai/yui/commit/ce09044"
+        },
+        {
+          "repo": "site",
+          "sha": "018390a",
+          "at": "2026-09-30T10:51:28.000Z",
+          "text": "Progress: the plan is built right after the intake (YUI-228)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/018390a"
+        },
+        {
+          "repo": "site",
+          "sha": "0743da8",
+          "at": "2026-09-30T10:42:44.000Z",
+          "text": "Open on a crew card lands on the first plan question, on the site (SITE-126)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0743da8"
+        },
+        {
+          "repo": "site",
+          "sha": "a01b357",
+          "at": "2026-09-30T10:41:22.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a01b357"
+        },
+        {
+          "repo": "app",
+          "sha": "8524fe4",
+          "at": "2026-09-30T10:40:01.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yui/commit/8524fe4"
+        },
+        {
+          "repo": "site",
+          "sha": "b5b0805",
+          "at": "2026-09-30T10:32:14.000Z",
+          "text": "progress: link the typing fixes entry to its TestFlight note (NOTE-45919)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b5b0805"
+        },
+        {
+          "repo": "site",
+          "sha": "47c8ee9",
+          "at": "2026-09-30T10:18:32.000Z",
+          "text": "progress: Open on a crew card lands on the first question (YUI-225)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/47c8ee9"
+        },
+        {
+          "repo": "app",
+          "sha": "96c475a",
+          "at": "2026-09-30T10:15:48.000Z",
+          "text": "Open on an agent's card lands on its first question until the first plan is built (YUI-225)",
+          "url": "https://github.com/postscarcityai/yui/commit/96c475a"
+        },
+        {
+          "repo": "site",
+          "sha": "cedbcd5",
+          "at": "2026-09-30T10:11:04.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cedbcd5"
+        },
+        {
+          "repo": "site",
+          "sha": "a4123f3",
+          "at": "2026-09-30T10:05:15.000Z",
+          "text": "SITE-125: a logged meal lands on today's calories (YUI-183b)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a4123f3"
+        },
         {
           "repo": "site",
           "sha": "235d8ac",
