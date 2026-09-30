@@ -257,12 +257,12 @@ a.card:hover { transform: translateY(-3px) scale(1.01); text-decoration: none; }
 .th-shot .thumbs { margin: 0; }
 .th-clip video { display: block; width: 100%; max-height: 80vh; border-radius: 22px; background: #0f1019; }
 .th-phone { padding: 8px 0; }
-.th-yl { margin: 0; max-width: 360px; width: 100%; background: #0a0b10; color: #d9dcff; border-radius: 14px; padding: 12px 14px; font: 13px/1.6 ui-monospace, "SF Mono", Menlo, monospace; white-space: pre-wrap; word-break: break-word; }
+.th-yl { margin: 0; max-width: 360px; width: 100%; background: #0a0b10; color: #d9dcff; border-radius: 14px; padding: 12px 14px; font: 14px/1.6 ui-monospace, "SF Mono", Menlo, monospace; white-space: pre-wrap; word-break: break-word; }
 .th-compare.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .th-side { background: var(--surface); border: 1.5px solid var(--outline); border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 .th-side figcaption { margin: 0; color: var(--ink); font-weight: 700; }
 .th-side.after { border-color: var(--brand); }
-.th-side pre { margin: 0; background: #0a0b10; color: #d9dcff; border-radius: 12px; padding: 12px; font: 12.5px/1.55 ui-monospace, "SF Mono", Menlo, monospace; white-space: pre-wrap; word-break: break-word; overflow: auto; max-height: 360px; }
+.th-side pre { margin: 0; background: #0a0b10; color: #d9dcff; border-radius: 12px; padding: 12px; font: 14px/1.55 ui-monospace, "SF Mono", Menlo, monospace; white-space: pre-wrap; word-break: break-word; overflow: auto; max-height: 360px; }
 .th-side img { width: 100%; border-radius: 12px; }
 .th-wipe { position: relative; border-radius: 22px; overflow: hidden; max-width: 340px; margin: 0 auto; }
 .th-compare.wipe figcaption { max-width: 340px; margin-left: auto; margin-right: auto; }
@@ -1238,3 +1238,8 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
   .btile-top a.pill { position: relative; }
   .btile-top a.pill::after { content: ""; position: absolute; inset: -11px -4px; }
 }
+
+/* SITE-138: a phone pass on today's drawings: 14px text and 44px taps on a Thought. */
+.thought .eyebrow a { display: inline-block; padding: 13px 6px; margin: -13px -6px; }
+.thought .pill { font-size: 14px; }
+.sc-wait { font-size: 14px; }

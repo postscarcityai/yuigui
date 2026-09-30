@@ -5,7 +5,7 @@
 // wrote them (`order`, then DELAY seconds apart).
 
 export const DELAY = 0.22; // one node to the next, in seconds
-const CHAR = 7.4; // px per character at the 13px label size
+const CHAR = 8; // px per character at the 14px label size
 const PAD = 8;
 
 // A label broken into lines of at most `max` characters, on spaces.
@@ -235,14 +235,14 @@ export function layoutSequence(g) {
   const n = actors.length;
   if (!n) return { w: 0, h: 0, actors: [], items: [], life: [0, 0] };
   const idx = new Map(actors.map((a, i) => [a.id, i]));
-  const wA = actors.map((a) => Math.max(84, widest(a.lines) + 24));
+  const wA = actors.map((a) => Math.max(72, widest(a.lines) + 20));
   // Gaps between neighbouring lifelines grow until every message text fits.
-  const gap = wA.map((w, i) => (i < n - 1 ? Math.max(40, (w + wA[i + 1]) / 2 + 18) : 0));
+  const gap = wA.map((w, i) => (i < n - 1 ? Math.max(40, (w + wA[i + 1]) / 2 + 10) : 0));
   for (const s of steps) {
     if (s.type !== "msg" && s.type !== "note") continue;
     const ids = s.type === "msg" ? [s.from, s.to] : s.on;
     const lo = Math.min(...ids.map((x) => idx.get(x))), hi = Math.max(...ids.map((x) => idx.get(x)));
-    const need = widest(wrap(s.text, 34)) + 28;
+    const need = widest(wrap(s.text, 22)) + 28;
     if (hi === lo) continue;
     const have = gap.slice(lo, hi).reduce((a, b) => a + b, 0);
     if (have < need) for (let i = lo; i < hi; i++) gap[i] += (need - have) / (hi - lo);
@@ -262,13 +262,13 @@ export function layoutSequence(g) {
   steps.forEach((s, order) => {
     if (s.type === "msg") {
       const a = xs[idx.get(s.from)], b = xs[idx.get(s.to)];
-      const lines = wrap(s.text, 34);
+      const lines = wrap(s.text, 22);
       const h = Math.max(ROW, lines.length * 16 + 22);
       const self = a === b;
       items.push({ ...s, kind: "msg", order, x1: a, x2: b, self, y: y + h - 12, textY: y + 4, lines, tw: widest(lines), n: g.numbered ? ++num : 0, depth: stack.length });
       y += self ? h + 14 : h;
     } else if (s.type === "note") {
-      const lines = wrap(s.text, 28);
+      const lines = wrap(s.text, 22);
       const xsOn = s.on.map((id) => xs[idx.get(id)]);
       const w = Math.max(90, widest(lines) + 20);
       let nx, nw = w;

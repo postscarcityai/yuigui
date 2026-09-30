@@ -62,7 +62,7 @@ function Graph({ g, id }) {
   const L = layoutGraph(g);
   if (!L.nodes.length) return null;
   return (
-    <svg className="dg-svg" viewBox={`0 0 ${L.w} ${L.h}`} style={{ minWidth: Math.round(L.w * 0.72), maxWidth: Math.round(L.w * 1.2) }} role="img" aria-label={`${g.type === "state" ? "State diagram" : "Flowchart"} of ${L.nodes.length} parts`}>
+    <svg className="dg-svg" viewBox={`0 0 ${L.w} ${L.h}`} style={{ minWidth: Math.round(L.w * 0.8), maxWidth: Math.round(L.w * 1.1) }} role="img" aria-label={`${g.type === "state" ? "State diagram" : "Flowchart"} of ${L.nodes.length} parts`}>
       <Defs id={id} />
       {L.groups.map((b) => (
         <g key={b.id}>
@@ -75,7 +75,7 @@ function Graph({ g, id }) {
           <path className={`dg-edge ${e.line ? `dg-${e.line}` : ""}`} d={path(e.pts)} markerEnd={e.plain ? undefined : `url(#${id}-a)`} markerStart={e.both ? `url(#${id}-a)` : undefined} />
           {e.label ? (
             <g>
-              <rect className="dg-elbg" x={f1(e.mid[0] - e.label.length * 3.4 - 6)} y={f1(e.mid[1] - 10)} width={f1(e.label.length * 6.8 + 12)} height={20} rx={6} />
+              <rect className="dg-elbg" x={f1(e.mid[0] - e.label.length * 3.9 - 6)} y={f1(e.mid[1] - 10)} width={f1(e.label.length * 7.8 + 12)} height={20} rx={6} />
               <text className="dg-elabel" x={f1(e.mid[0])} y={f1(e.mid[1])} textAnchor="middle" dominantBaseline="central">{e.label}</text>
             </g>
           ) : null}
@@ -95,7 +95,7 @@ function Sequence({ g, id }) {
   const L = layoutSequence(g);
   if (!L.actors.length) return null;
   return (
-    <svg className="dg-svg" viewBox={`0 0 ${L.w} ${L.h}`} style={{ minWidth: Math.round(L.w * 0.72), maxWidth: Math.round(L.w * 1.2) }} role="img" aria-label={`Sequence diagram of ${L.actors.length} actors`}>
+    <svg className="dg-svg" viewBox={`0 0 ${L.w} ${L.h}`} style={{ minWidth: Math.round(L.w * 0.8), maxWidth: Math.round(L.w * 1.1) }} role="img" aria-label={`Sequence diagram of ${L.actors.length} actors`}>
       <Defs id={id} />
       <g transform={`translate(${f1(L.dx)} 0)`}>
         {L.items.filter((i) => i.kind === "block").map((b, k) => {
@@ -103,9 +103,9 @@ function Sequence({ g, id }) {
           return (
             <g key={`b${k}`} className="dg-in" style={{ animationDelay: d(b.order * DELAY * 1.4) }}>
               <rect className="dg-block" x={f1(x0)} y={f1(b.y)} width={f1(x1 - x0)} height={f1(b.h)} rx={6} />
-              <path className="dg-tab" d={`M${f1(x0)} ${f1(b.y)}h${b.block.length * 7 + 18}v14l-6 6H${f1(x0)}z`} />
+              <path className="dg-tab" d={`M${f1(x0)} ${f1(b.y)}h${b.block.length * 8.4 + 18}v14l-6 6H${f1(x0)}z`} />
               <text className="dg-btag" x={f1(x0 + 8)} y={f1(b.y + 11)} dominantBaseline="central">{b.block}</text>
-              {b.text ? <text className="dg-btext" x={f1(x0 + b.block.length * 7 + 26)} y={f1(b.y + 11)} dominantBaseline="central">[{b.text}]</text> : null}
+              {b.text ? <text className="dg-btext" x={f1(x0 + b.block.length * 8.4 + 26)} y={f1(b.y + 11)} dominantBaseline="central">[{b.text}]</text> : null}
               {b.divs.map((dv, j) => (
                 <g key={j}>
                   <line className="dg-div" x1={f1(x0)} x2={f1(x1)} y1={f1(dv.y + 8)} y2={f1(dv.y + 8)} />
