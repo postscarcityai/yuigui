@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T23:10:36.971Z",
+  "updated": "2026-09-30T23:40:34.138Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -392,6 +392,11 @@
         {
           "key": "YUI-115",
           "title": "The app runs flows, then My flows (FLOW-1 app half)",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-143",
+          "title": "Every link and image on the site resolves after this week's pages",
           "owner": "CJohnDesign"
         },
         {
