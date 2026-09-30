@@ -1,7 +1,7 @@
 // Stage first (YL.md section 5): how replies split into chunks.
 //   node site/lib/yl/chunks.test.mjs     exit 1 on any failure
 import { apply, initialState, pageOf, parse } from "./yl.mjs";
-import { splitSentences, stageChunks, textChunks } from "./chunks.mjs";
+import { packPages, splitSentences, stageChunks, textChunks } from "./chunks.mjs";
 import { BASIL_KNOWN, BASIL_WEEK } from "./basil-week.mjs";
 
 const nodesOf = (text, known = {}, chat = false) => {
@@ -89,6 +89,36 @@ eq("split: ! and ? and quotes", splitSentences('Really? "Yes." Wow! ok'), ['Real
 eq("split: ends at text end", splitSentences("Done."), ["Done."]);
 const ver = Array.from({ length: 3 }, () => `Yui 0.6.0 ships and is built to work for other agents too ${filler}.`).join(" ");
 eq("text: no chunk starts mid-number", textChunks(ver).every((c) => !/^\d+ /.test(c)), true);
+
+const pages = (text) => packPages(stageChunks(nodesOf(text)).chunks).map((p) => 1 + p.more.length);
+eq("three ideas share one page", pages(`say "Build is live."
+shapes
+shape box Build
+say "Keys ride along."
+sketch "In 0.3.2"
+row Keys +hi
+say "Chords next."
+sketch "Next"
+row Chords +hi`), [3]);
+eq("a fourth idea starts a new page", pages(`say "One."
+sketch
+row A +hi
+say "Two."
+sketch
+row B +hi
+say "Three."
+sketch
+row C +hi
+say "Four."
+sketch
+row D +hi`), [3, 1]);
+eq("a deck page stands alone", pages(`say "Hi."
+deck "D"
+page "P"
+sketch
+row A +hi
+say "Bye."
+end`), [1, 1, 1]);
 
 console.log(`${n - bad} passed, ${bad} failed`);
 process.exit(bad ? 1 : 0);

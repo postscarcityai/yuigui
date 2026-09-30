@@ -103,3 +103,28 @@ export function textChunks(text, most = 70) {
   }
   return out;
 }
+
+// Ideas on one page (VIS-4, Chris 2026-09-30: "we can put up to 3 ideas on a card, as long as
+// we're showing them"). Packs a turn's chunks onto pages, up to 3 each and 60 words. A deck or
+// plan page, a map, a game, a timer and any other non-drawing is a page of its own. Returns pages:
+// [{ ...first chunk, more: [chunk, ...] }]. The Swift mirror is StageChunks.pack.
+export const PER_PAGE = 3;
+export const PAGE_WORDS = 60;
+const STACKABLE = new Set(["sketch", "shapes", "chart", "stat", "timeline", "list", "table", "row", "card", "compare", "math", "step"]);
+const canStack = (c) => !c.page && (c.pic ? STACKABLE.has(c.pic.preset) : !!c.line);
+export function packPages(chunks) {
+  const out = [];
+  let words = 0;
+  for (const c of chunks) {
+    const w = c.line ? c.line.split(/\s+/).filter(Boolean).length : 0;
+    const last = out[out.length - 1];
+    if (canStack(c) && last && canStack(last) && 1 + last.more.length < PER_PAGE && words + w <= PAGE_WORDS) {
+      last.more.push(c);
+      words += w;
+    } else {
+      out.push({ ...c, more: [] });
+      words = canStack(c) ? w : PAGE_WORDS;
+    }
+  }
+  return out;
+}
