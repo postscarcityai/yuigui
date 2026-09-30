@@ -1692,6 +1692,10 @@
     },
     {
       "text": "YUI-139 2d: turn on Claude, ChatGPT, Gemini, Grok (Chris: no spend, he tests with his own keys)"
+    },
+    {
+      "text": "Pick your crew: the first-run picker, a page per agent, Bring my own agent into pairing, the pick saved on the account",
+      "card": "YUI-216"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T03:11:32.685Z",
+  "updated": "2026-09-30T03:40:57.449Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -316,6 +316,13 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-216",
+          "title": "Pick your crew, the first-run picker",
+          "summary": "Pick your crew: a first minute that is yours",
+          "waiting": true,
+          "progress": "/progress#pick-your-crew-a-first-minute-that-is-yours"
+        },
+        {
           "key": "YUI-217",
           "title": "A first plan in every agent",
           "waiting": true
@@ -459,8 +466,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-216",
-          "title": "Pick your crew, the first-run picker",
+          "key": "SITE-115",
+          "title": "Link YUI-219 and SITE-113 on the site, with a before/after of the lone ask",
           "owner": "CJohnDesign"
         }
       ]
