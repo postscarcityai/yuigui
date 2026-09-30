@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 361,
-    "site": 817,
+    "app": 364,
+    "site": 826,
     "builds": 48,
-    "shipped": 390,
-    "screenshots": 985
+    "shipped": 409,
+    "screenshots": 996
   },
   "days": [
     {
@@ -13,9 +13,102 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T00:40:04.473Z",
-          "title": "Your question shows in full, the mic stays, Type your own has room",
+          "at": "2026-09-30T01:36:01.176Z",
+          "title": "The Yui MCP look file is back in step, so main checks go green",
+          "card": "YUI-213",
+          "anchor": "the-yui-mcp-look-file-is-back-in-step-so-main-checks-go-green",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 364,
+            "site": 826,
+            "builds": 48,
+            "shipped": 409
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T01:26:09.000Z",
+          "title": "Show it here, don't link out",
+          "card": [
+            "NOTE-62105"
+          ],
+          "anchor": "show-it-here-don-t-link-out",
+          "images": [
+            {
+              "src": "/progress/show-here.jpg",
+              "alt": "Before: a struck-out card that only says Open, a link, nothing shown. After: the shots, right here, and below it a compare of the old and new hero with a slider."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 364,
+            "site": 826,
+            "builds": 48,
+            "shipped": 408
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T00:57:01.000Z",
+          "title": "The board says who has each card, and done means linked",
+          "card": "SITE-110",
+          "anchor": "the-board-says-who-has-each-card-and-done-means-linked",
+          "images": [
+            {
+              "src": "/progress/site110-board-desktop.webp",
+              "alt": "The board on a wide screen: Building has five tiles, each with a Taken by line naming a GitHub username, and a pull request link on the claimed card."
+            },
+            {
+              "src": "/progress/site110-building-phone.webp",
+              "alt": "The Building column on a phone: OSS-8 and SITE-110, each Taken by @CJohnDesign."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 362,
+            "site": 822,
+            "builds": 48,
+            "shipped": 407
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T00:48:45.000Z",
+          "title": "A reply quotes the whole screen",
           "card": null,
+          "anchor": "a-reply-quotes-the-whole-screen",
+          "images": [
+            {
+              "src": "/progress/yui-replyrows-before-light.webp",
+              "alt": "Before: the reply bar shows only Saturday plan."
+            },
+            {
+              "src": "/progress/yui-replyrows-after-light.webp",
+              "alt": "After: the reply bar shows Saturday plan and its first line, Squats 5x5 at 185, then a 20 minute tabata."
+            },
+            {
+              "src": "/progress/yui-replyrows-after-dark.webp",
+              "alt": "After, dark: the same reply bar in the dark look."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 361,
+            "site": 820,
+            "builds": 48,
+            "shipped": 406
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T00:40:33.000Z",
+          "title": "Your question shows in full, the mic stays, Type your own has room",
+          "card": [
+            "NOTE-45760",
+            "NOTE-55641",
+            "NOTE-14928"
+          ],
           "anchor": "your-question-shows-in-full-the-mic-stays-type-your-own-has-room",
           "images": [
             {
@@ -46,9 +139,9 @@
           "commits": 0,
           "totals": {
             "app": 361,
-            "site": 817,
+            "site": 818,
             "builds": 48,
-            "shipped": 390
+            "shipped": 405
           }
         },
         {
@@ -76,7 +169,7 @@
             "app": 360,
             "site": 815,
             "builds": 48,
-            "shipped": 389
+            "shipped": 404
           }
         },
         {
@@ -91,14 +184,16 @@
             "app": 359,
             "site": 814,
             "builds": 48,
-            "shipped": 388
+            "shipped": 403
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-30T00:24:40.000Z",
           "title": "Answers that know what I asked",
-          "card": null,
+          "card": [
+            "NOTE-26401"
+          ],
           "anchor": "answers-that-know-what-i-asked",
           "images": [
             {
@@ -111,7 +206,7 @@
             "app": 357,
             "site": 812,
             "builds": 48,
-            "shipped": 387
+            "shipped": 402
           }
         },
         {
@@ -151,7 +246,7 @@
             "app": 357,
             "site": 811,
             "builds": 48,
-            "shipped": 386
+            "shipped": 401
           }
         },
         {
@@ -179,7 +274,7 @@
             "app": 356,
             "site": 808,
             "builds": 48,
-            "shipped": 385
+            "shipped": 400
           }
         },
         {
@@ -199,7 +294,7 @@
             "app": 356,
             "site": 806,
             "builds": 48,
-            "shipped": 384
+            "shipped": 399
           }
         },
         {
@@ -223,14 +318,17 @@
             "app": 356,
             "site": 806,
             "builds": 48,
-            "shipped": 383
+            "shipped": 398
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-29T23:31:58.000Z",
           "title": "Shorter answers, drawn not typed",
-          "card": "SITE-107",
+          "card": [
+            "SITE-107",
+            "NOTE-43932"
+          ],
           "anchor": "shorter-answers-drawn-not-typed",
           "images": [
             {
@@ -251,7 +349,7 @@
             "app": 353,
             "site": 805,
             "builds": 48,
-            "shipped": 382
+            "shipped": 397
           }
         },
         {
@@ -271,7 +369,7 @@
             "app": 353,
             "site": 804,
             "builds": 48,
-            "shipped": 381
+            "shipped": 396
           }
         },
         {
@@ -303,7 +401,7 @@
             "app": 353,
             "site": 803,
             "builds": 48,
-            "shipped": 380
+            "shipped": 395
           }
         },
         {
@@ -335,7 +433,7 @@
             "app": 345,
             "site": 800,
             "builds": 48,
-            "shipped": 379
+            "shipped": 394
           }
         },
         {
@@ -347,7 +445,7 @@
             "app": 345,
             "site": 793,
             "builds": 48,
-            "shipped": 378
+            "shipped": 393
           }
         },
         {
@@ -367,7 +465,7 @@
             "app": 345,
             "site": 793,
             "builds": 47,
-            "shipped": 378
+            "shipped": 393
           }
         },
         {
@@ -403,7 +501,7 @@
             "app": 345,
             "site": 792,
             "builds": 47,
-            "shipped": 377
+            "shipped": 392
           }
         },
         {
@@ -423,7 +521,7 @@
             "app": 344,
             "site": 790,
             "builds": 47,
-            "shipped": 376
+            "shipped": 391
           }
         },
         {
@@ -455,7 +553,7 @@
             "app": 344,
             "site": 788,
             "builds": 47,
-            "shipped": 375
+            "shipped": 390
           }
         },
         {
@@ -491,14 +589,16 @@
             "app": 343,
             "site": 786,
             "builds": 47,
-            "shipped": 374
+            "shipped": 389
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-29T19:48:22.000Z",
           "title": "The chat top bar is quiet: the drawer is the one agent picker",
-          "card": null,
+          "card": [
+            "NOTE-31134"
+          ],
           "anchor": "the-chat-top-bar-is-quiet-the-drawer-is-the-one-agent-picker",
           "images": [
             {
@@ -519,7 +619,7 @@
             "app": 338,
             "site": 781,
             "builds": 47,
-            "shipped": 373
+            "shipped": 388
           }
         },
         {
@@ -539,7 +639,7 @@
             "app": 337,
             "site": 773,
             "builds": 47,
-            "shipped": 372
+            "shipped": 387
           }
         },
         {
@@ -571,7 +671,7 @@
             "app": 336,
             "site": 771,
             "builds": 47,
-            "shipped": 371
+            "shipped": 386
           }
         },
         {
@@ -583,7 +683,7 @@
             "app": 336,
             "site": 769,
             "builds": 47,
-            "shipped": 370
+            "shipped": 385
           }
         },
         {
@@ -603,7 +703,7 @@
             "app": 336,
             "site": 766,
             "builds": 46,
-            "shipped": 370
+            "shipped": 385
           }
         },
         {
@@ -623,7 +723,7 @@
             "app": 336,
             "site": 764,
             "builds": 46,
-            "shipped": 369
+            "shipped": 384
           }
         },
         {
@@ -647,7 +747,7 @@
             "app": 335,
             "site": 759,
             "builds": 46,
-            "shipped": 368
+            "shipped": 383
           }
         },
         {
@@ -679,7 +779,7 @@
             "app": 334,
             "site": 756,
             "builds": 46,
-            "shipped": 367
+            "shipped": 382
           }
         },
         {
@@ -703,7 +803,7 @@
             "app": 332,
             "site": 752,
             "builds": 46,
-            "shipped": 366
+            "shipped": 381
           }
         },
         {
@@ -723,7 +823,7 @@
             "app": 331,
             "site": 751,
             "builds": 46,
-            "shipped": 365
+            "shipped": 380
           }
         },
         {
@@ -755,7 +855,7 @@
             "app": 329,
             "site": 747,
             "builds": 46,
-            "shipped": 364
+            "shipped": 379
           }
         },
         {
@@ -791,7 +891,7 @@
             "app": 328,
             "site": 746,
             "builds": 46,
-            "shipped": 363
+            "shipped": 378
           }
         },
         {
@@ -823,7 +923,7 @@
             "app": 327,
             "site": 743,
             "builds": 46,
-            "shipped": 362
+            "shipped": 377
           }
         },
         {
@@ -835,7 +935,7 @@
             "app": 327,
             "site": 742,
             "builds": 46,
-            "shipped": 361
+            "shipped": 376
           }
         },
         {
@@ -867,7 +967,7 @@
             "app": 327,
             "site": 742,
             "builds": 45,
-            "shipped": 361
+            "shipped": 376
           }
         },
         {
@@ -891,7 +991,7 @@
             "app": 327,
             "site": 741,
             "builds": 45,
-            "shipped": 360
+            "shipped": 375
           }
         },
         {
@@ -903,7 +1003,7 @@
             "app": 326,
             "site": 740,
             "builds": 45,
-            "shipped": 359
+            "shipped": 374
           }
         },
         {
@@ -927,7 +1027,7 @@
             "app": 326,
             "site": 740,
             "builds": 44,
-            "shipped": 359
+            "shipped": 374
           }
         },
         {
@@ -951,7 +1051,7 @@
             "app": 325,
             "site": 738,
             "builds": 44,
-            "shipped": 358
+            "shipped": 373
           }
         },
         {
@@ -971,7 +1071,7 @@
             "app": 324,
             "site": 736,
             "builds": 44,
-            "shipped": 357
+            "shipped": 372
           }
         },
         {
@@ -995,7 +1095,7 @@
             "app": 322,
             "site": 735,
             "builds": 44,
-            "shipped": 356
+            "shipped": 371
           }
         },
         {
@@ -1027,7 +1127,7 @@
             "app": 321,
             "site": 733,
             "builds": 44,
-            "shipped": 355
+            "shipped": 370
           }
         },
         {
@@ -1055,7 +1155,7 @@
             "app": 320,
             "site": 731,
             "builds": 44,
-            "shipped": 354
+            "shipped": 369
           }
         },
         {
@@ -1087,7 +1187,7 @@
             "app": 319,
             "site": 729,
             "builds": 44,
-            "shipped": 353
+            "shipped": 368
           }
         },
         {
@@ -1115,7 +1215,7 @@
             "app": 319,
             "site": 727,
             "builds": 44,
-            "shipped": 352
+            "shipped": 367
           }
         },
         {
@@ -1155,7 +1255,7 @@
             "app": 318,
             "site": 726,
             "builds": 44,
-            "shipped": 351
+            "shipped": 366
           }
         },
         {
@@ -1183,7 +1283,7 @@
             "app": 318,
             "site": 723,
             "builds": 44,
-            "shipped": 350
+            "shipped": 365
           }
         },
         {
@@ -1231,7 +1331,7 @@
             "app": 316,
             "site": 722,
             "builds": 44,
-            "shipped": 349
+            "shipped": 364
           }
         },
         {
@@ -1259,7 +1359,7 @@
             "app": 316,
             "site": 719,
             "builds": 44,
-            "shipped": 348
+            "shipped": 363
           }
         },
         {
@@ -1274,11 +1374,95 @@
             "app": 315,
             "site": 717,
             "builds": 44,
-            "shipped": 347
+            "shipped": 362
           }
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "97f6453",
+          "at": "2026-09-30T01:26:09.000Z",
+          "text": "Channel guide v42: show it here, don't link out",
+          "url": "https://github.com/postscarcityai/yuigui/commit/97f6453"
+        },
+        {
+          "repo": "site",
+          "sha": "bdcf049",
+          "at": "2026-09-30T01:10:50.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bdcf049"
+        },
+        {
+          "repo": "app",
+          "sha": "1dcf4ca",
+          "at": "2026-09-30T01:02:47.000Z",
+          "text": "Reply quotes a list's items; card + ask reply regression test",
+          "url": "https://github.com/postscarcityai/yui/commit/1dcf4ca"
+        },
+        {
+          "repo": "site",
+          "sha": "4210059",
+          "at": "2026-09-30T01:01:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4210059"
+        },
+        {
+          "repo": "site",
+          "sha": "4471977",
+          "at": "2026-09-30T00:58:48.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4471977"
+        },
+        {
+          "repo": "app",
+          "sha": "3652a07",
+          "at": "2026-09-30T00:58:04.000Z",
+          "text": "CONTRIBUTING-AGENTS: a claim shows your GitHub username on the board; done means the tile links the demo and the PR (SITE-110)",
+          "url": "https://github.com/postscarcityai/yui/commit/3652a07"
+        },
+        {
+          "repo": "site",
+          "sha": "4cf7a6a",
+          "at": "2026-09-30T00:57:01.000Z",
+          "text": "Board: who has each card, done means linked, and a clean board (SITE-110)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4cf7a6a"
+        },
+        {
+          "repo": "app",
+          "sha": "6cdc520",
+          "at": "2026-09-30T00:54:25.000Z",
+          "text": "Drawer chat list loads even when a chat was opened before the list arrived (YUI-169)",
+          "url": "https://github.com/postscarcityai/yui/commit/6cdc520"
+        },
+        {
+          "repo": "site",
+          "sha": "1fa8c6a",
+          "at": "2026-09-30T00:49:44.000Z",
+          "text": "Site: share card for the reply-quotes-screen entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1fa8c6a"
+        },
+        {
+          "repo": "site",
+          "sha": "f24df20",
+          "at": "2026-09-30T00:48:45.000Z",
+          "text": "Site: a reply quotes the whole screen, before and after",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f24df20"
+        },
+        {
+          "repo": "site",
+          "sha": "01fc079",
+          "at": "2026-09-30T00:40:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/01fc079"
+        },
+        {
+          "repo": "site",
+          "sha": "db3984a",
+          "at": "2026-09-30T00:40:33.000Z",
+          "text": "Progress: six-line question, mic stays, roomy Type your own",
+          "url": "https://github.com/postscarcityai/yuigui/commit/db3984a"
+        },
         {
           "repo": "app",
           "sha": "837526c",
@@ -2334,7 +2518,7 @@
             "app": 314,
             "site": 713,
             "builds": 44,
-            "shipped": 346
+            "shipped": 361
           }
         },
         {
@@ -2358,7 +2542,7 @@
             "app": 313,
             "site": 712,
             "builds": 44,
-            "shipped": 345
+            "shipped": 360
           }
         },
         {
@@ -2390,7 +2574,7 @@
             "app": 310,
             "site": 706,
             "builds": 44,
-            "shipped": 344
+            "shipped": 359
           }
         },
         {
@@ -2414,7 +2598,7 @@
             "app": 310,
             "site": 705,
             "builds": 44,
-            "shipped": 343
+            "shipped": 358
           }
         },
         {
@@ -2446,7 +2630,7 @@
             "app": 310,
             "site": 698,
             "builds": 44,
-            "shipped": 342
+            "shipped": 357
           }
         },
         {
@@ -2474,7 +2658,7 @@
             "app": 310,
             "site": 697,
             "builds": 44,
-            "shipped": 341
+            "shipped": 356
           }
         },
         {
@@ -2489,7 +2673,7 @@
             "app": 310,
             "site": 694,
             "builds": 44,
-            "shipped": 340
+            "shipped": 355
           }
         },
         {
@@ -2513,7 +2697,7 @@
             "app": 310,
             "site": 693,
             "builds": 44,
-            "shipped": 339
+            "shipped": 354
           }
         },
         {
@@ -2537,7 +2721,7 @@
             "app": 310,
             "site": 691,
             "builds": 44,
-            "shipped": 338
+            "shipped": 353
           }
         },
         {
@@ -2561,7 +2745,52 @@
             "app": 310,
             "site": 690,
             "builds": 44,
-            "shipped": 337
+            "shipped": 352
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T16:00:00.000Z",
+          "title": "Checks go green on main and run before every push",
+          "card": "SITE-95",
+          "anchor": "checks-go-green-on-main-and-run-before-every-push",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 310,
+            "site": 685,
+            "builds": 44,
+            "shipped": 351
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T16:00:00.000Z",
+          "title": "Where Jev fits in Yui: every decision in a turn",
+          "card": "SITE-92",
+          "anchor": "where-jev-fits-in-yui-every-decision-in-a-turn",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 310,
+            "site": 685,
+            "builds": 44,
+            "shipped": 350
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-28T16:00:00.000Z",
+          "title": "Jev research: what the decision model is, what it costs",
+          "card": "SITE-91",
+          "anchor": "jev-research-what-the-decision-model-is-what-it-costs",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 310,
+            "site": 685,
+            "builds": 44,
+            "shipped": 349
           }
         },
         {
@@ -2593,7 +2822,7 @@
             "app": 310,
             "site": 685,
             "builds": 44,
-            "shipped": 336
+            "shipped": 348
           }
         },
         {
@@ -2608,7 +2837,7 @@
             "app": 308,
             "site": 682,
             "builds": 44,
-            "shipped": 335
+            "shipped": 347
           }
         },
         {
@@ -2640,7 +2869,7 @@
             "app": 308,
             "site": 680,
             "builds": 44,
-            "shipped": 334
+            "shipped": 346
           }
         },
         {
@@ -2672,7 +2901,7 @@
             "app": 308,
             "site": 679,
             "builds": 44,
-            "shipped": 333
+            "shipped": 345
           }
         },
         {
@@ -2704,7 +2933,7 @@
             "app": 308,
             "site": 677,
             "builds": 44,
-            "shipped": 332
+            "shipped": 344
           }
         },
         {
@@ -2728,7 +2957,7 @@
             "app": 305,
             "site": 675,
             "builds": 44,
-            "shipped": 331
+            "shipped": 343
           }
         },
         {
@@ -2760,7 +2989,7 @@
             "app": 305,
             "site": 674,
             "builds": 44,
-            "shipped": 330
+            "shipped": 342
           }
         },
         {
@@ -2784,7 +3013,7 @@
             "app": 305,
             "site": 673,
             "builds": 44,
-            "shipped": 329
+            "shipped": 341
           }
         },
         {
@@ -2816,7 +3045,7 @@
             "app": 305,
             "site": 672,
             "builds": 44,
-            "shipped": 328
+            "shipped": 340
           }
         },
         {
@@ -2844,7 +3073,7 @@
             "app": 302,
             "site": 670,
             "builds": 44,
-            "shipped": 327
+            "shipped": 339
           }
         },
         {
@@ -2876,7 +3105,7 @@
             "app": 302,
             "site": 668,
             "builds": 44,
-            "shipped": 326
+            "shipped": 338
           }
         },
         {
@@ -2908,7 +3137,7 @@
             "app": 301,
             "site": 666,
             "builds": 44,
-            "shipped": 325
+            "shipped": 337
           }
         },
         {
@@ -2944,7 +3173,7 @@
             "app": 300,
             "site": 664,
             "builds": 44,
-            "shipped": 324
+            "shipped": 336
           }
         },
         {
@@ -2980,7 +3209,7 @@
             "app": 299,
             "site": 662,
             "builds": 44,
-            "shipped": 323
+            "shipped": 335
           }
         },
         {
@@ -3012,7 +3241,7 @@
             "app": 298,
             "site": 659,
             "builds": 44,
-            "shipped": 322
+            "shipped": 334
           }
         },
         {
@@ -3044,7 +3273,7 @@
             "app": 298,
             "site": 657,
             "builds": 44,
-            "shipped": 321
+            "shipped": 333
           }
         },
         {
@@ -3076,7 +3305,7 @@
             "app": 297,
             "site": 655,
             "builds": 44,
-            "shipped": 320
+            "shipped": 332
           }
         },
         {
@@ -3108,7 +3337,7 @@
             "app": 294,
             "site": 652,
             "builds": 44,
-            "shipped": 319
+            "shipped": 331
           }
         },
         {
@@ -3140,7 +3369,7 @@
             "app": 294,
             "site": 649,
             "builds": 44,
-            "shipped": 318
+            "shipped": 330
           }
         },
         {
@@ -3172,7 +3401,7 @@
             "app": 293,
             "site": 647,
             "builds": 44,
-            "shipped": 317
+            "shipped": 329
           }
         },
         {
@@ -3204,7 +3433,7 @@
             "app": 290,
             "site": 645,
             "builds": 44,
-            "shipped": 316
+            "shipped": 328
           }
         },
         {
@@ -3236,7 +3465,7 @@
             "app": 290,
             "site": 644,
             "builds": 44,
-            "shipped": 315
+            "shipped": 327
           }
         },
         {
@@ -3268,7 +3497,7 @@
             "app": 288,
             "site": 642,
             "builds": 44,
-            "shipped": 314
+            "shipped": 326
           }
         },
         {
@@ -3300,7 +3529,7 @@
             "app": 287,
             "site": 641,
             "builds": 44,
-            "shipped": 313
+            "shipped": 325
           }
         },
         {
@@ -3332,7 +3561,7 @@
             "app": 286,
             "site": 640,
             "builds": 44,
-            "shipped": 312
+            "shipped": 324
           }
         },
         {
@@ -3364,7 +3593,7 @@
             "app": 284,
             "site": 637,
             "builds": 44,
-            "shipped": 311
+            "shipped": 323
           }
         },
         {
@@ -3396,7 +3625,7 @@
             "app": 284,
             "site": 636,
             "builds": 44,
-            "shipped": 310
+            "shipped": 322
           }
         },
         {
@@ -3424,7 +3653,7 @@
             "app": 282,
             "site": 634,
             "builds": 44,
-            "shipped": 309
+            "shipped": 321
           }
         },
         {
@@ -3436,7 +3665,7 @@
             "app": 282,
             "site": 633,
             "builds": 44,
-            "shipped": 308
+            "shipped": 320
           }
         },
         {
@@ -3468,7 +3697,7 @@
             "app": 282,
             "site": 633,
             "builds": 43,
-            "shipped": 308
+            "shipped": 320
           }
         },
         {
@@ -3496,7 +3725,7 @@
             "app": 279,
             "site": 631,
             "builds": 43,
-            "shipped": 307
+            "shipped": 319
           }
         },
         {
@@ -3532,14 +3761,17 @@
             "app": 279,
             "site": 630,
             "builds": 43,
-            "shipped": 306
+            "shipped": 318
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-28T05:40:27.000Z",
           "title": "Yui 0.5.1 is on TestFlight: switching agents no longer crashes",
-          "card": "YUI-181",
+          "card": [
+            "YUI-181",
+            "NOTE-23261"
+          ],
           "anchor": "yui-0-5-1-is-on-testflight-switching-agents-no-longer-crashes",
           "images": [
             {
@@ -3551,12 +3783,12 @@
               "alt": "Switched to Gouda: Beats, chords and practice, right on screen"
             }
           ],
-          "commits": 2,
+          "commits": 0,
           "totals": {
             "app": 277,
             "site": 628,
             "builds": 43,
-            "shipped": 305
+            "shipped": 317
           }
         },
         {
@@ -3568,7 +3800,7 @@
             "app": 277,
             "site": 627,
             "builds": 43,
-            "shipped": 304
+            "shipped": 316
           }
         },
         {
@@ -3600,7 +3832,7 @@
             "app": 277,
             "site": 626,
             "builds": 42,
-            "shipped": 304
+            "shipped": 316
           }
         },
         {
@@ -3632,7 +3864,7 @@
             "app": 273,
             "site": 621,
             "builds": 42,
-            "shipped": 303
+            "shipped": 315
           }
         },
         {
@@ -3652,7 +3884,7 @@
             "app": 273,
             "site": 616,
             "builds": 42,
-            "shipped": 302
+            "shipped": 314
           }
         }
       ],
@@ -4680,7 +4912,7 @@
             "app": 273,
             "site": 614,
             "builds": 42,
-            "shipped": 301
+            "shipped": 313
           }
         },
         {
@@ -4704,7 +4936,7 @@
             "app": 273,
             "site": 612,
             "builds": 42,
-            "shipped": 300
+            "shipped": 312
           }
         },
         {
@@ -4716,7 +4948,7 @@
             "app": 272,
             "site": 611,
             "builds": 42,
-            "shipped": 299
+            "shipped": 311
           }
         },
         {
@@ -4744,7 +4976,7 @@
             "app": 271,
             "site": 606,
             "builds": 41,
-            "shipped": 299
+            "shipped": 311
           }
         },
         {
@@ -4776,7 +5008,7 @@
             "app": 269,
             "site": 602,
             "builds": 41,
-            "shipped": 298
+            "shipped": 310
           }
         },
         {
@@ -4800,7 +5032,7 @@
             "app": 268,
             "site": 601,
             "builds": 41,
-            "shipped": 297
+            "shipped": 309
           }
         },
         {
@@ -4832,7 +5064,7 @@
             "app": 267,
             "site": 599,
             "builds": 41,
-            "shipped": 296
+            "shipped": 308
           }
         },
         {
@@ -4847,7 +5079,7 @@
             "app": 267,
             "site": 598,
             "builds": 41,
-            "shipped": 295
+            "shipped": 307
           }
         },
         {
@@ -4879,7 +5111,7 @@
             "app": 264,
             "site": 597,
             "builds": 41,
-            "shipped": 294
+            "shipped": 306
           }
         },
         {
@@ -4911,7 +5143,7 @@
             "app": 260,
             "site": 594,
             "builds": 41,
-            "shipped": 293
+            "shipped": 305
           }
         },
         {
@@ -4939,7 +5171,7 @@
             "app": 259,
             "site": 591,
             "builds": 41,
-            "shipped": 292
+            "shipped": 304
           }
         },
         {
@@ -4967,7 +5199,7 @@
             "app": 254,
             "site": 589,
             "builds": 41,
-            "shipped": 291
+            "shipped": 303
           }
         },
         {
@@ -4979,7 +5211,7 @@
             "app": 254,
             "site": 588,
             "builds": 41,
-            "shipped": 290
+            "shipped": 302
           }
         },
         {
@@ -5003,7 +5235,7 @@
             "app": 254,
             "site": 588,
             "builds": 40,
-            "shipped": 290
+            "shipped": 302
           }
         },
         {
@@ -5027,7 +5259,7 @@
             "app": 251,
             "site": 584,
             "builds": 40,
-            "shipped": 289
+            "shipped": 301
           }
         },
         {
@@ -5063,14 +5295,16 @@
             "app": 251,
             "site": 582,
             "builds": 40,
-            "shipped": 288
+            "shipped": 300
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-27T23:31:04.000Z",
           "title": "Swipe sideways on the full screen again",
-          "card": "Feedback",
+          "card": [
+            "NOTE-11943"
+          ],
           "anchor": "swipe-sideways-on-the-full-screen-again",
           "images": [
             {
@@ -5091,14 +5325,16 @@
             "app": 251,
             "site": 581,
             "builds": 40,
-            "shipped": 287
+            "shipped": 299
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-27T23:28:50.000Z",
           "title": "Agents answer on a screen, not in markdown",
-          "card": "Feedback",
+          "card": [
+            "NOTE-50101"
+          ],
           "anchor": "agents-answer-on-a-screen-not-in-markdown",
           "images": [
             {
@@ -5119,7 +5355,7 @@
             "app": 251,
             "site": 579,
             "builds": 40,
-            "shipped": 286
+            "shipped": 298
           }
         },
         {
@@ -5146,12 +5382,12 @@
               "alt": "Dark mock of a new, empty chat: Basil's face, Hi. Tap the mic and talk., and two starter asks"
             }
           ],
-          "commits": 5,
+          "commits": 6,
           "totals": {
             "app": 251,
             "site": 578,
             "builds": 40,
-            "shipped": 285
+            "shipped": 297
           }
         },
         {
@@ -5179,14 +5415,16 @@
             "app": 242,
             "site": 567,
             "builds": 40,
-            "shipped": 284
+            "shipped": 296
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-27T22:16:32.000Z",
           "title": "A new install starts at Sign in",
-          "card": "Feedback",
+          "card": [
+            "NOTE-65452"
+          ],
           "anchor": "a-new-install-starts-at-sign-in",
           "images": [
             {
@@ -5203,7 +5441,7 @@
             "app": 242,
             "site": 566,
             "builds": 40,
-            "shipped": 283
+            "shipped": 295
           }
         },
         {
@@ -5215,7 +5453,7 @@
             "app": 238,
             "site": 563,
             "builds": 40,
-            "shipped": 282
+            "shipped": 294
           }
         },
         {
@@ -5239,7 +5477,7 @@
             "app": 236,
             "site": 562,
             "builds": 39,
-            "shipped": 282
+            "shipped": 294
           }
         },
         {
@@ -5263,7 +5501,7 @@
             "app": 235,
             "site": 561,
             "builds": 39,
-            "shipped": 281
+            "shipped": 293
           }
         },
         {
@@ -5287,7 +5525,7 @@
             "app": 233,
             "site": 559,
             "builds": 39,
-            "shipped": 280
+            "shipped": 292
           }
         },
         {
@@ -5302,7 +5540,7 @@
             "app": 228,
             "site": 556,
             "builds": 39,
-            "shipped": 279
+            "shipped": 291
           }
         },
         {
@@ -5322,7 +5560,7 @@
             "app": 225,
             "site": 555,
             "builds": 39,
-            "shipped": 278
+            "shipped": 290
           }
         },
         {
@@ -5342,7 +5580,7 @@
             "app": 224,
             "site": 554,
             "builds": 39,
-            "shipped": 277
+            "shipped": 289
           }
         },
         {
@@ -5354,7 +5592,7 @@
             "app": 223,
             "site": 551,
             "builds": 39,
-            "shipped": 276
+            "shipped": 288
           }
         },
         {
@@ -5386,7 +5624,7 @@
             "app": 223,
             "site": 551,
             "builds": 38,
-            "shipped": 276
+            "shipped": 288
           }
         },
         {
@@ -5410,7 +5648,7 @@
             "app": 222,
             "site": 549,
             "builds": 38,
-            "shipped": 275
+            "shipped": 287
           }
         },
         {
@@ -5434,7 +5672,7 @@
             "app": 221,
             "site": 548,
             "builds": 38,
-            "shipped": 274
+            "shipped": 286
           }
         },
         {
@@ -5466,7 +5704,7 @@
             "app": 219,
             "site": 545,
             "builds": 38,
-            "shipped": 273
+            "shipped": 285
           }
         },
         {
@@ -5490,7 +5728,7 @@
             "app": 218,
             "site": 543,
             "builds": 38,
-            "shipped": 272
+            "shipped": 284
           }
         },
         {
@@ -5518,7 +5756,7 @@
             "app": 217,
             "site": 541,
             "builds": 38,
-            "shipped": 271
+            "shipped": 283
           }
         },
         {
@@ -5546,7 +5784,7 @@
             "app": 215,
             "site": 540,
             "builds": 38,
-            "shipped": 270
+            "shipped": 282
           }
         },
         {
@@ -5578,14 +5816,17 @@
             "app": 215,
             "site": 537,
             "builds": 38,
-            "shipped": 269
+            "shipped": 281
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-27T17:45:45.000Z",
           "title": "Maps in the app",
-          "card": "YUI-158",
+          "card": [
+            "YUI-158",
+            "NOTE-38321"
+          ],
           "anchor": "maps-in-the-app",
           "images": [
             {
@@ -5605,12 +5846,12 @@
               "alt": "The same page in dark mode, pinched in on the map, lines and label still sharp"
             }
           ],
-          "commits": 12,
+          "commits": 0,
           "totals": {
             "app": 214,
             "site": 536,
             "builds": 38,
-            "shipped": 268
+            "shipped": 280
           }
         },
         {
@@ -5630,7 +5871,7 @@
             "app": 213,
             "site": 534,
             "builds": 38,
-            "shipped": 267
+            "shipped": 279
           }
         },
         {
@@ -5658,7 +5899,7 @@
             "app": 213,
             "site": 533,
             "builds": 38,
-            "shipped": 266
+            "shipped": 278
           }
         },
         {
@@ -5678,7 +5919,22 @@
             "app": 212,
             "site": 532,
             "builds": 38,
-            "shipped": 265
+            "shipped": 277
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-27T16:00:00.000Z",
+          "title": "Feedback receipts sit in the drawer, off the stage",
+          "card": "NOTE-4592",
+          "anchor": "feedback-receipts-sit-in-the-drawer-off-the-stage",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 211,
+            "site": 530,
+            "builds": 38,
+            "shipped": 276
           }
         },
         {
@@ -5702,7 +5958,7 @@
             "app": 211,
             "site": 529,
             "builds": 38,
-            "shipped": 264
+            "shipped": 275
           }
         },
         {
@@ -5714,7 +5970,7 @@
             "app": 211,
             "site": 528,
             "builds": 38,
-            "shipped": 263
+            "shipped": 274
           }
         },
         {
@@ -5742,14 +5998,17 @@
             "app": 210,
             "site": 527,
             "builds": 37,
-            "shipped": 263
+            "shipped": 274
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-27T14:13:26.000Z",
           "title": "One Send per screen, forms too",
-          "card": "YUI-156",
+          "card": [
+            "YUI-156",
+            "NOTE-13279"
+          ],
           "anchor": "one-send-per-screen-forms-too",
           "images": [
             {
@@ -5765,19 +6024,22 @@
               "alt": "The form filled in, Chris, Founder, I build agents, and Clients picked below"
             }
           ],
-          "commits": 2,
+          "commits": 0,
           "totals": {
             "app": 209,
             "site": 525,
             "builds": 37,
-            "shipped": 262
+            "shipped": 273
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-27T13:45:21.000Z",
           "title": "Flows never dead-end",
-          "card": "YUI-155",
+          "card": [
+            "YUI-155",
+            "NOTE-4137"
+          ],
           "anchor": "flows-never-dead-end",
           "images": [
             {
@@ -5793,12 +6055,12 @@
               "alt": "Step 3 of 7: What are we building? New site, Redesign, Shop or Landing page"
             }
           ],
-          "commits": 2,
+          "commits": 0,
           "totals": {
             "app": 207,
             "site": 523,
             "builds": 37,
-            "shipped": 261
+            "shipped": 272
           }
         },
         {
@@ -5826,7 +6088,7 @@
             "app": 205,
             "site": 521,
             "builds": 37,
-            "shipped": 260
+            "shipped": 271
           }
         },
         {
@@ -5854,7 +6116,7 @@
             "app": 204,
             "site": 520,
             "builds": 37,
-            "shipped": 259
+            "shipped": 270
           }
         },
         {
@@ -5878,7 +6140,7 @@
             "app": 204,
             "site": 517,
             "builds": 37,
-            "shipped": 258
+            "shipped": 269
           }
         },
         {
@@ -5902,7 +6164,7 @@
             "app": 204,
             "site": 514,
             "builds": 37,
-            "shipped": 257
+            "shipped": 268
           }
         },
         {
@@ -5926,7 +6188,7 @@
             "app": 204,
             "site": 513,
             "builds": 37,
-            "shipped": 256
+            "shipped": 267
           }
         },
         {
@@ -5954,7 +6216,7 @@
             "app": 204,
             "site": 511,
             "builds": 37,
-            "shipped": 255
+            "shipped": 266
           }
         },
         {
@@ -5978,7 +6240,7 @@
             "app": 203,
             "site": 505,
             "builds": 37,
-            "shipped": 254
+            "shipped": 265
           }
         },
         {
@@ -6006,7 +6268,7 @@
             "app": 203,
             "site": 503,
             "builds": 37,
-            "shipped": 253
+            "shipped": 264
           }
         },
         {
@@ -6018,7 +6280,7 @@
             "app": 203,
             "site": 502,
             "builds": 37,
-            "shipped": 252
+            "shipped": 263
           }
         },
         {
@@ -6042,7 +6304,7 @@
             "app": 203,
             "site": 501,
             "builds": 36,
-            "shipped": 252
+            "shipped": 263
           }
         },
         {
@@ -6074,7 +6336,7 @@
             "app": 202,
             "site": 500,
             "builds": 36,
-            "shipped": 251
+            "shipped": 262
           }
         },
         {
@@ -6089,7 +6351,7 @@
             "app": 200,
             "site": 496,
             "builds": 36,
-            "shipped": 250
+            "shipped": 261
           }
         },
         {
@@ -6113,14 +6375,17 @@
             "app": 200,
             "site": 495,
             "builds": 36,
-            "shipped": 249
+            "shipped": 260
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-27T06:54:58.000Z",
           "title": "A tuner and a metronome in the app",
-          "card": "YUI-116",
+          "card": [
+            "YUI-116",
+            "YUI-136"
+          ],
           "anchor": "a-tuner-and-a-metronome-in-the-app",
           "images": [
             {
@@ -6140,12 +6405,12 @@
               "alt": "Dark mode: the metronome stopped at 69 BPM with the line Practice sent: 12 s at 69 BPM, and the reply Practiced 12 s at 69 BPM in the chat."
             }
           ],
-          "commits": 21,
+          "commits": 0,
           "totals": {
             "app": 200,
             "site": 493,
             "builds": 36,
-            "shipped": 248
+            "shipped": 259
           }
         },
         {
@@ -6177,7 +6442,7 @@
             "app": 199,
             "site": 491,
             "builds": 36,
-            "shipped": 247
+            "shipped": 258
           }
         },
         {
@@ -6205,7 +6470,7 @@
             "app": 199,
             "site": 490,
             "builds": 36,
-            "shipped": 246
+            "shipped": 257
           }
         },
         {
@@ -6233,7 +6498,7 @@
             "app": 199,
             "site": 489,
             "builds": 36,
-            "shipped": 245
+            "shipped": 256
           }
         },
         {
@@ -6245,7 +6510,7 @@
             "app": 199,
             "site": 487,
             "builds": 36,
-            "shipped": 244
+            "shipped": 255
           }
         }
       ],
@@ -7755,7 +8020,7 @@
             "app": 195,
             "site": 482,
             "builds": 35,
-            "shipped": 244
+            "shipped": 255
           }
         },
         {
@@ -7791,7 +8056,7 @@
             "app": 192,
             "site": 480,
             "builds": 35,
-            "shipped": 243
+            "shipped": 254
           }
         },
         {
@@ -7831,7 +8096,7 @@
             "app": 191,
             "site": 477,
             "builds": 35,
-            "shipped": 242
+            "shipped": 253
           }
         },
         {
@@ -7863,14 +8128,16 @@
             "app": 190,
             "site": 474,
             "builds": 35,
-            "shipped": 241
+            "shipped": 252
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-27T01:05:30.000Z",
           "title": "Pictures show whole, never cropped",
-          "card": "Feedback",
+          "card": [
+            "NOTE-17226"
+          ],
           "anchor": "pictures-show-whole-never-cropped",
           "images": [
             {
@@ -7895,7 +8162,7 @@
             "app": 190,
             "site": 472,
             "builds": 35,
-            "shipped": 240
+            "shipped": 251
           }
         },
         {
@@ -7927,7 +8194,7 @@
             "app": 189,
             "site": 471,
             "builds": 35,
-            "shipped": 239
+            "shipped": 250
           }
         },
         {
@@ -7967,7 +8234,7 @@
             "app": 189,
             "site": 470,
             "builds": 35,
-            "shipped": 238
+            "shipped": 249
           }
         },
         {
@@ -7987,7 +8254,7 @@
             "app": 187,
             "site": 468,
             "builds": 35,
-            "shipped": 237
+            "shipped": 248
           }
         },
         {
@@ -8015,7 +8282,7 @@
             "app": 187,
             "site": 466,
             "builds": 35,
-            "shipped": 236
+            "shipped": 247
           }
         },
         {
@@ -8030,14 +8297,17 @@
             "app": 187,
             "site": 463,
             "builds": 35,
-            "shipped": 235
+            "shipped": 246
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-26T23:46:56.000Z",
           "title": "The full screen stage, drawn",
-          "card": "YUI-119",
+          "card": [
+            "YUI-119",
+            "NOTE-46346"
+          ],
           "anchor": "the-full-screen-stage-drawn",
           "images": [
             {
@@ -8081,27 +8351,30 @@
               "alt": "Light mode: settings with switches for the mic, T for the text field and plus for attach."
             }
           ],
-          "commits": 4,
+          "commits": 0,
           "totals": {
             "app": 186,
             "site": 462,
             "builds": 35,
-            "shipped": 234
+            "shipped": 245
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-26T22:34:25.000Z",
           "title": "Help: why a beat is silent",
-          "card": "SITE-53",
+          "card": [
+            "SITE-53",
+            "NOTE-62835"
+          ],
           "anchor": "help-why-a-beat-is-silent",
           "images": [],
-          "commits": 1,
+          "commits": 0,
           "totals": {
             "app": 186,
             "site": 457,
             "builds": 35,
-            "shipped": 233
+            "shipped": 244
           }
         },
         {
@@ -8125,7 +8398,7 @@
             "app": 179,
             "site": 450,
             "builds": 35,
-            "shipped": 232
+            "shipped": 243
           }
         },
         {
@@ -8149,7 +8422,7 @@
             "app": 179,
             "site": 449,
             "builds": 35,
-            "shipped": 231
+            "shipped": 242
           }
         },
         {
@@ -8181,7 +8454,7 @@
             "app": 178,
             "site": 447,
             "builds": 35,
-            "shipped": 230
+            "shipped": 241
           }
         },
         {
@@ -8193,7 +8466,7 @@
             "app": 178,
             "site": 446,
             "builds": 35,
-            "shipped": 229
+            "shipped": 240
           }
         },
         {
@@ -8217,7 +8490,7 @@
             "app": 177,
             "site": 446,
             "builds": 34,
-            "shipped": 229
+            "shipped": 240
           }
         },
         {
@@ -8249,7 +8522,7 @@
             "app": 177,
             "site": 442,
             "builds": 34,
-            "shipped": 228
+            "shipped": 239
           }
         },
         {
@@ -8273,14 +8546,16 @@
             "app": 175,
             "site": 440,
             "builds": 34,
-            "shipped": 227
+            "shipped": 238
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-26T20:59:26.000Z",
           "title": "The working row says how long it usually takes",
-          "card": "Feedback",
+          "card": [
+            "NOTE-54650"
+          ],
           "anchor": "the-working-row-says-how-long-it-usually-takes",
           "images": [
             {
@@ -8301,7 +8576,7 @@
             "app": 174,
             "site": 439,
             "builds": 34,
-            "shipped": 226
+            "shipped": 237
           }
         },
         {
@@ -8325,7 +8600,7 @@
             "app": 173,
             "site": 438,
             "builds": 34,
-            "shipped": 225
+            "shipped": 236
           }
         },
         {
@@ -8357,7 +8632,7 @@
             "app": 171,
             "site": 436,
             "builds": 34,
-            "shipped": 224
+            "shipped": 235
           }
         },
         {
@@ -8385,7 +8660,7 @@
             "app": 169,
             "site": 432,
             "builds": 34,
-            "shipped": 223
+            "shipped": 234
           }
         },
         {
@@ -8405,7 +8680,7 @@
             "app": 169,
             "site": 430,
             "builds": 34,
-            "shipped": 222
+            "shipped": 233
           }
         },
         {
@@ -8425,7 +8700,7 @@
             "app": 169,
             "site": 427,
             "builds": 34,
-            "shipped": 221
+            "shipped": 232
           }
         },
         {
@@ -8449,7 +8724,7 @@
             "app": 169,
             "site": 426,
             "builds": 34,
-            "shipped": 220
+            "shipped": 231
           }
         },
         {
@@ -8481,7 +8756,7 @@
             "app": 169,
             "site": 425,
             "builds": 34,
-            "shipped": 219
+            "shipped": 230
           }
         },
         {
@@ -8496,7 +8771,7 @@
             "app": 169,
             "site": 423,
             "builds": 34,
-            "shipped": 218
+            "shipped": 229
           }
         },
         {
@@ -8511,7 +8786,7 @@
             "app": 167,
             "site": 422,
             "builds": 34,
-            "shipped": 217
+            "shipped": 228
           }
         },
         {
@@ -8535,7 +8810,7 @@
             "app": 167,
             "site": 421,
             "builds": 34,
-            "shipped": 216
+            "shipped": 227
           }
         },
         {
@@ -8563,7 +8838,7 @@
             "app": 166,
             "site": 420,
             "builds": 34,
-            "shipped": 215
+            "shipped": 226
           }
         },
         {
@@ -8591,7 +8866,7 @@
             "app": 166,
             "site": 417,
             "builds": 34,
-            "shipped": 214
+            "shipped": 225
           }
         },
         {
@@ -8619,7 +8894,7 @@
             "app": 166,
             "site": 416,
             "builds": 34,
-            "shipped": 213
+            "shipped": 224
           }
         },
         {
@@ -8643,7 +8918,7 @@
             "app": 164,
             "site": 413,
             "builds": 34,
-            "shipped": 212
+            "shipped": 223
           }
         },
         {
@@ -8675,7 +8950,7 @@
             "app": 163,
             "site": 410,
             "builds": 34,
-            "shipped": 211
+            "shipped": 222
           }
         },
         {
@@ -8703,14 +8978,16 @@
             "app": 163,
             "site": 409,
             "builds": 34,
-            "shipped": 210
+            "shipped": 221
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-26T17:43:48.000Z",
           "title": "A quiet dot on the menu button",
-          "card": "Feedback",
+          "card": [
+            "NOTE-56419"
+          ],
           "anchor": "a-quiet-dot-on-the-menu-button",
           "images": [
             {
@@ -8735,7 +9012,7 @@
             "app": 163,
             "site": 408,
             "builds": 34,
-            "shipped": 209
+            "shipped": 220
           }
         },
         {
@@ -8755,7 +9032,7 @@
             "app": 162,
             "site": 404,
             "builds": 34,
-            "shipped": 208
+            "shipped": 219
           }
         },
         {
@@ -8767,14 +9044,16 @@
             "app": 161,
             "site": 403,
             "builds": 34,
-            "shipped": 207
+            "shipped": 218
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-26T16:48:27.000Z",
           "title": "Hold to reply, no more swipe",
-          "card": "Feedback",
+          "card": [
+            "NOTE-25814"
+          ],
           "anchor": "hold-to-reply-no-more-swipe",
           "images": [
             {
@@ -8791,7 +9070,7 @@
             "app": 160,
             "site": 403,
             "builds": 33,
-            "shipped": 207
+            "shipped": 218
           }
         },
         {
@@ -8819,14 +9098,16 @@
             "app": 159,
             "site": 400,
             "builds": 33,
-            "shipped": 206
+            "shipped": 217
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-26T16:09:28.000Z",
           "title": "The war room, stripped down",
-          "card": "Feedback",
+          "card": [
+            "NOTE-25876"
+          ],
           "anchor": "the-war-room-stripped-down",
           "images": [
             {
@@ -8847,7 +9128,7 @@
             "app": 159,
             "site": 399,
             "builds": 33,
-            "shipped": 205
+            "shipped": 216
           }
         },
         {
@@ -8875,7 +9156,144 @@
             "app": 159,
             "site": 398,
             "builds": 33,
-            "shipped": 204
+            "shipped": 215
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:00:00.000Z",
+          "title": "About and Controls in one drawer tab: planned",
+          "card": "NOTE-64712",
+          "anchor": "about-and-controls-in-one-drawer-tab-planned",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 158,
+            "site": 397,
+            "builds": 33,
+            "shipped": 214
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:00:00.000Z",
+          "title": "Hermes for everyone: the spec",
+          "card": "YUI-149",
+          "anchor": "hermes-for-everyone-the-spec",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 158,
+            "site": 397,
+            "builds": 33,
+            "shipped": 213
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:00:00.000Z",
+          "title": "Native Yui: the spec",
+          "card": "YUI-129",
+          "anchor": "native-yui-the-spec",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 158,
+            "site": 397,
+            "builds": 33,
+            "shipped": 212
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:00:00.000Z",
+          "title": "Every drum name plays a real drum",
+          "card": "YUI-127",
+          "anchor": "every-drum-name-plays-a-real-drum",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 158,
+            "site": 397,
+            "builds": 33,
+            "shipped": 211
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:00:00.000Z",
+          "title": "The war room moves into Yui's left drawer",
+          "card": "YUI-126",
+          "anchor": "the-war-room-moves-into-yui-s-left-drawer",
+          "images": [
+            {
+              "src": "/progress/yui126-drawer-home-light.webp",
+              "alt": "The left drawer on Home: pinned screens, the next thing waiting for you, and the backlog as rows."
+            },
+            {
+              "src": "/progress/yui126-drawer-review-light.webp",
+              "alt": "The drawer on Review: two things waiting on you, each a card with its question."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 158,
+            "site": 397,
+            "builds": 33,
+            "shipped": 210
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:00:00.000Z",
+          "title": "The store listing is named Yui Gui",
+          "card": "YUI-114",
+          "anchor": "the-store-listing-is-named-yui-gui",
+          "images": [],
+          "commits": 4,
+          "totals": {
+            "app": 158,
+            "site": 397,
+            "builds": 33,
+            "shipped": 209
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:00:00.000Z",
+          "title": "Test builds install beside the TestFlight Yui",
+          "card": "YUI-91",
+          "anchor": "test-builds-install-beside-the-testflight-yui",
+          "images": [
+            {
+              "src": "/progress/yui91-dev-icon.webp",
+              "alt": "The Yui Dev icon: the pink Yui mark on cream with a dark DEV banner along the bottom."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 158,
+            "site": 397,
+            "builds": 33,
+            "shipped": 208
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-26T16:00:00.000Z",
+          "title": "Yui 0.3.0 on the site: the release and a Thought",
+          "card": [
+            "SITE-38",
+            "SITE-39"
+          ],
+          "anchor": "yui-0-3-0-on-the-site-the-release-and-a-thought",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 158,
+            "site": 397,
+            "builds": 33,
+            "shipped": 207
           }
         },
         {
@@ -8890,7 +9308,7 @@
             "app": 158,
             "site": 397,
             "builds": 33,
-            "shipped": 203
+            "shipped": 206
           }
         },
         {
@@ -8905,7 +9323,7 @@
             "app": 157,
             "site": 394,
             "builds": 33,
-            "shipped": 202
+            "shipped": 205
           }
         },
         {
@@ -8933,7 +9351,7 @@
             "app": 157,
             "site": 393,
             "builds": 33,
-            "shipped": 201
+            "shipped": 204
           }
         },
         {
@@ -8953,7 +9371,7 @@
             "app": 157,
             "site": 391,
             "builds": 33,
-            "shipped": 200
+            "shipped": 203
           }
         },
         {
@@ -8973,7 +9391,7 @@
             "app": 156,
             "site": 389,
             "builds": 33,
-            "shipped": 199
+            "shipped": 202
           }
         },
         {
@@ -9009,7 +9427,7 @@
             "app": 156,
             "site": 388,
             "builds": 33,
-            "shipped": 198
+            "shipped": 201
           }
         },
         {
@@ -9033,7 +9451,7 @@
             "app": 156,
             "site": 387,
             "builds": 33,
-            "shipped": 197
+            "shipped": 200
           }
         },
         {
@@ -9061,7 +9479,7 @@
             "app": 155,
             "site": 384,
             "builds": 33,
-            "shipped": 196
+            "shipped": 199
           }
         },
         {
@@ -9073,7 +9491,7 @@
             "app": 155,
             "site": 382,
             "builds": 33,
-            "shipped": 195
+            "shipped": 198
           }
         },
         {
@@ -9101,7 +9519,7 @@
             "app": 155,
             "site": 382,
             "builds": 32,
-            "shipped": 195
+            "shipped": 198
           }
         },
         {
@@ -9129,7 +9547,7 @@
             "app": 155,
             "site": 381,
             "builds": 32,
-            "shipped": 194
+            "shipped": 197
           }
         },
         {
@@ -9157,7 +9575,7 @@
             "app": 155,
             "site": 379,
             "builds": 32,
-            "shipped": 193
+            "shipped": 196
           }
         },
         {
@@ -9185,7 +9603,7 @@
             "app": 154,
             "site": 378,
             "builds": 32,
-            "shipped": 192
+            "shipped": 195
           }
         },
         {
@@ -9217,7 +9635,7 @@
             "app": 153,
             "site": 375,
             "builds": 32,
-            "shipped": 191
+            "shipped": 194
           }
         },
         {
@@ -9241,7 +9659,7 @@
             "app": 152,
             "site": 373,
             "builds": 32,
-            "shipped": 190
+            "shipped": 193
           }
         },
         {
@@ -9256,7 +9674,7 @@
             "app": 150,
             "site": 371,
             "builds": 32,
-            "shipped": 189
+            "shipped": 192
           }
         },
         {
@@ -9268,7 +9686,7 @@
             "app": 148,
             "site": 366,
             "builds": 32,
-            "shipped": 188
+            "shipped": 191
           }
         },
         {
@@ -9292,7 +9710,7 @@
             "app": 148,
             "site": 363,
             "builds": 31,
-            "shipped": 188
+            "shipped": 191
           }
         },
         {
@@ -9307,7 +9725,7 @@
             "app": 147,
             "site": 360,
             "builds": 31,
-            "shipped": 187
+            "shipped": 190
           }
         },
         {
@@ -9327,7 +9745,7 @@
             "app": 147,
             "site": 359,
             "builds": 31,
-            "shipped": 186
+            "shipped": 189
           }
         },
         {
@@ -9371,7 +9789,7 @@
             "app": 146,
             "site": 356,
             "builds": 31,
-            "shipped": 185
+            "shipped": 188
           }
         },
         {
@@ -9386,7 +9804,7 @@
             "app": 144,
             "site": 354,
             "builds": 31,
-            "shipped": 184
+            "shipped": 187
           }
         },
         {
@@ -9410,7 +9828,7 @@
             "app": 144,
             "site": 352,
             "builds": 31,
-            "shipped": 183
+            "shipped": 186
           }
         },
         {
@@ -9425,7 +9843,7 @@
             "app": 142,
             "site": 350,
             "builds": 31,
-            "shipped": 182
+            "shipped": 185
           }
         },
         {
@@ -9449,7 +9867,7 @@
             "app": 141,
             "site": 347,
             "builds": 31,
-            "shipped": 181
+            "shipped": 184
           }
         },
         {
@@ -9485,7 +9903,7 @@
             "app": 141,
             "site": 346,
             "builds": 31,
-            "shipped": 180
+            "shipped": 183
           }
         },
         {
@@ -9509,7 +9927,7 @@
             "app": 139,
             "site": 344,
             "builds": 31,
-            "shipped": 179
+            "shipped": 182
           }
         },
         {
@@ -9533,7 +9951,7 @@
             "app": 139,
             "site": 343,
             "builds": 31,
-            "shipped": 178
+            "shipped": 181
           }
         },
         {
@@ -9561,7 +9979,7 @@
             "app": 139,
             "site": 341,
             "builds": 31,
-            "shipped": 177
+            "shipped": 180
           }
         },
         {
@@ -9589,7 +10007,7 @@
             "app": 139,
             "site": 337,
             "builds": 31,
-            "shipped": 176
+            "shipped": 179
           }
         },
         {
@@ -9601,7 +10019,7 @@
             "app": 138,
             "site": 333,
             "builds": 31,
-            "shipped": 175
+            "shipped": 178
           }
         },
         {
@@ -9625,7 +10043,7 @@
             "app": 137,
             "site": 332,
             "builds": 30,
-            "shipped": 175
+            "shipped": 178
           }
         }
       ],
@@ -11144,7 +11562,7 @@
             "app": 136,
             "site": 329,
             "builds": 30,
-            "shipped": 174
+            "shipped": 177
           }
         },
         {
@@ -11156,7 +11574,7 @@
             "app": 135,
             "site": 328,
             "builds": 30,
-            "shipped": 173
+            "shipped": 176
           }
         },
         {
@@ -11180,7 +11598,7 @@
             "app": 135,
             "site": 328,
             "builds": 29,
-            "shipped": 173
+            "shipped": 176
           }
         },
         {
@@ -11204,7 +11622,7 @@
             "app": 134,
             "site": 326,
             "builds": 29,
-            "shipped": 172
+            "shipped": 175
           }
         },
         {
@@ -11219,7 +11637,7 @@
             "app": 133,
             "site": 324,
             "builds": 29,
-            "shipped": 171
+            "shipped": 174
           }
         },
         {
@@ -11251,7 +11669,7 @@
             "app": 132,
             "site": 321,
             "builds": 29,
-            "shipped": 170
+            "shipped": 173
           }
         },
         {
@@ -11283,7 +11701,7 @@
             "app": 131,
             "site": 319,
             "builds": 29,
-            "shipped": 169
+            "shipped": 172
           }
         },
         {
@@ -11307,7 +11725,7 @@
             "app": 130,
             "site": 318,
             "builds": 29,
-            "shipped": 168
+            "shipped": 171
           }
         },
         {
@@ -11339,7 +11757,7 @@
             "app": 130,
             "site": 317,
             "builds": 29,
-            "shipped": 167
+            "shipped": 170
           }
         },
         {
@@ -11371,7 +11789,7 @@
             "app": 128,
             "site": 313,
             "builds": 29,
-            "shipped": 166
+            "shipped": 169
           }
         },
         {
@@ -11395,7 +11813,7 @@
             "app": 128,
             "site": 312,
             "builds": 29,
-            "shipped": 165
+            "shipped": 168
           }
         },
         {
@@ -11435,7 +11853,7 @@
             "app": 128,
             "site": 310,
             "builds": 29,
-            "shipped": 164
+            "shipped": 167
           }
         },
         {
@@ -11471,7 +11889,7 @@
             "app": 126,
             "site": 308,
             "builds": 29,
-            "shipped": 163
+            "shipped": 166
           }
         },
         {
@@ -11503,7 +11921,7 @@
             "app": 126,
             "site": 306,
             "builds": 29,
-            "shipped": 162
+            "shipped": 165
           }
         },
         {
@@ -11531,7 +11949,7 @@
             "app": 125,
             "site": 305,
             "builds": 29,
-            "shipped": 161
+            "shipped": 164
           }
         },
         {
@@ -11563,7 +11981,7 @@
             "app": 123,
             "site": 304,
             "builds": 29,
-            "shipped": 160
+            "shipped": 163
           }
         },
         {
@@ -11599,7 +12017,7 @@
             "app": 122,
             "site": 302,
             "builds": 29,
-            "shipped": 159
+            "shipped": 162
           }
         },
         {
@@ -11614,7 +12032,7 @@
             "app": 122,
             "site": 301,
             "builds": 29,
-            "shipped": 158
+            "shipped": 161
           }
         },
         {
@@ -11626,7 +12044,7 @@
             "app": 122,
             "site": 300,
             "builds": 29,
-            "shipped": 157
+            "shipped": 160
           }
         },
         {
@@ -11658,7 +12076,7 @@
             "app": 122,
             "site": 300,
             "builds": 28,
-            "shipped": 157
+            "shipped": 160
           }
         },
         {
@@ -11690,7 +12108,7 @@
             "app": 120,
             "site": 296,
             "builds": 28,
-            "shipped": 156
+            "shipped": 159
           }
         },
         {
@@ -11722,14 +12140,18 @@
             "app": 119,
             "site": 293,
             "builds": 28,
-            "shipped": 155
+            "shipped": 158
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-25T21:41:25.000Z",
           "title": "See it catches up with 0.2.0",
-          "card": "SITE-35",
+          "card": [
+            "SITE-35",
+            "SITE-36",
+            "SITE-37"
+          ],
           "anchor": "see-it-catches-up-with-0-2-0",
           "images": [
             {
@@ -11741,12 +12163,12 @@
               "alt": "Light mode: Screens update in place with a live leg day timeline, and The app draws with a live sketch of a phone that keeps Install and strikes out Got it."
             }
           ],
-          "commits": 1,
+          "commits": 0,
           "totals": {
             "app": 119,
             "site": 292,
             "builds": 28,
-            "shipped": 154
+            "shipped": 157
           }
         },
         {
@@ -11774,7 +12196,7 @@
             "app": 116,
             "site": 288,
             "builds": 28,
-            "shipped": 153
+            "shipped": 156
           }
         },
         {
@@ -11802,7 +12224,7 @@
             "app": 116,
             "site": 287,
             "builds": 28,
-            "shipped": 152
+            "shipped": 155
           }
         },
         {
@@ -11817,7 +12239,7 @@
             "app": 116,
             "site": 285,
             "builds": 28,
-            "shipped": 151
+            "shipped": 154
           }
         },
         {
@@ -11841,7 +12263,7 @@
             "app": 116,
             "site": 284,
             "builds": 28,
-            "shipped": 150
+            "shipped": 153
           }
         },
         {
@@ -11856,7 +12278,7 @@
             "app": 115,
             "site": 283,
             "builds": 28,
-            "shipped": 149
+            "shipped": 152
           }
         },
         {
@@ -11880,7 +12302,7 @@
             "app": 115,
             "site": 282,
             "builds": 28,
-            "shipped": 148
+            "shipped": 151
           }
         },
         {
@@ -11895,7 +12317,7 @@
             "app": 112,
             "site": 279,
             "builds": 28,
-            "shipped": 147
+            "shipped": 150
           }
         },
         {
@@ -11923,7 +12345,7 @@
             "app": 109,
             "site": 274,
             "builds": 28,
-            "shipped": 146
+            "shipped": 149
           }
         },
         {
@@ -11951,7 +12373,7 @@
             "app": 108,
             "site": 273,
             "builds": 28,
-            "shipped": 145
+            "shipped": 148
           }
         },
         {
@@ -11966,7 +12388,7 @@
             "app": 108,
             "site": 271,
             "builds": 28,
-            "shipped": 144
+            "shipped": 147
           }
         },
         {
@@ -11990,7 +12412,7 @@
             "app": 108,
             "site": 269,
             "builds": 28,
-            "shipped": 143
+            "shipped": 146
           }
         },
         {
@@ -12014,7 +12436,7 @@
             "app": 108,
             "site": 268,
             "builds": 28,
-            "shipped": 142
+            "shipped": 145
           }
         },
         {
@@ -12042,7 +12464,7 @@
             "app": 104,
             "site": 265,
             "builds": 28,
-            "shipped": 141
+            "shipped": 144
           }
         },
         {
@@ -12057,7 +12479,7 @@
             "app": 104,
             "site": 263,
             "builds": 28,
-            "shipped": 140
+            "shipped": 143
           }
         },
         {
@@ -12093,7 +12515,7 @@
             "app": 104,
             "site": 262,
             "builds": 28,
-            "shipped": 139
+            "shipped": 142
           }
         },
         {
@@ -12117,7 +12539,7 @@
             "app": 103,
             "site": 260,
             "builds": 28,
-            "shipped": 138
+            "shipped": 141
           }
         },
         {
@@ -12132,7 +12554,7 @@
             "app": 103,
             "site": 259,
             "builds": 28,
-            "shipped": 137
+            "shipped": 140
           }
         },
         {
@@ -12172,7 +12594,7 @@
             "app": 102,
             "site": 256,
             "builds": 28,
-            "shipped": 136
+            "shipped": 139
           }
         },
         {
@@ -12200,7 +12622,7 @@
             "app": 100,
             "site": 254,
             "builds": 28,
-            "shipped": 135
+            "shipped": 138
           }
         },
         {
@@ -12224,7 +12646,7 @@
             "app": 100,
             "site": 252,
             "builds": 28,
-            "shipped": 134
+            "shipped": 137
           }
         },
         {
@@ -12239,7 +12661,7 @@
             "app": 100,
             "site": 251,
             "builds": 28,
-            "shipped": 133
+            "shipped": 136
           }
         },
         {
@@ -12267,7 +12689,7 @@
             "app": 100,
             "site": 250,
             "builds": 28,
-            "shipped": 132
+            "shipped": 135
           }
         },
         {
@@ -12282,7 +12704,7 @@
             "app": 98,
             "site": 248,
             "builds": 28,
-            "shipped": 131
+            "shipped": 134
           }
         },
         {
@@ -12297,7 +12719,7 @@
             "app": 97,
             "site": 244,
             "builds": 28,
-            "shipped": 130
+            "shipped": 133
           }
         },
         {
@@ -12309,7 +12731,7 @@
             "app": 96,
             "site": 242,
             "builds": 28,
-            "shipped": 129
+            "shipped": 132
           }
         },
         {
@@ -12324,7 +12746,22 @@
             "app": 96,
             "site": 240,
             "builds": 27,
-            "shipped": 129
+            "shipped": 132
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-25T16:00:00.000Z",
+          "title": "The build-ready message reads like a changelog for people",
+          "card": "YUI-81",
+          "anchor": "the-build-ready-message-reads-like-a-changelog-for-people",
+          "images": [],
+          "commits": 1,
+          "totals": {
+            "app": 95,
+            "site": 239,
+            "builds": 27,
+            "shipped": 131
           }
         },
         {
@@ -12356,7 +12793,7 @@
             "app": 95,
             "site": 239,
             "builds": 27,
-            "shipped": 128
+            "shipped": 130
           }
         },
         {
@@ -12380,7 +12817,7 @@
             "app": 94,
             "site": 237,
             "builds": 27,
-            "shipped": 127
+            "shipped": 129
           }
         },
         {
@@ -12395,7 +12832,7 @@
             "app": 93,
             "site": 236,
             "builds": 27,
-            "shipped": 126
+            "shipped": 128
           }
         },
         {
@@ -12410,7 +12847,7 @@
             "app": 92,
             "site": 232,
             "builds": 27,
-            "shipped": 125
+            "shipped": 127
           }
         },
         {
@@ -12422,7 +12859,7 @@
             "app": 91,
             "site": 231,
             "builds": 27,
-            "shipped": 124
+            "shipped": 126
           }
         },
         {
@@ -12446,7 +12883,7 @@
             "app": 91,
             "site": 230,
             "builds": 26,
-            "shipped": 124
+            "shipped": 126
           }
         },
         {
@@ -12461,7 +12898,7 @@
             "app": 91,
             "site": 228,
             "builds": 26,
-            "shipped": 123
+            "shipped": 125
           }
         },
         {
@@ -12476,7 +12913,7 @@
             "app": 89,
             "site": 227,
             "builds": 26,
-            "shipped": 122
+            "shipped": 124
           }
         },
         {
@@ -12504,7 +12941,7 @@
             "app": 88,
             "site": 225,
             "builds": 26,
-            "shipped": 121
+            "shipped": 123
           }
         },
         {
@@ -12536,7 +12973,7 @@
             "app": 86,
             "site": 223,
             "builds": 26,
-            "shipped": 120
+            "shipped": 122
           }
         },
         {
@@ -12564,7 +13001,7 @@
             "app": 84,
             "site": 221,
             "builds": 26,
-            "shipped": 119
+            "shipped": 121
           }
         },
         {
@@ -12588,7 +13025,7 @@
             "app": 83,
             "site": 220,
             "builds": 26,
-            "shipped": 118
+            "shipped": 120
           }
         },
         {
@@ -12600,7 +13037,7 @@
             "app": 82,
             "site": 214,
             "builds": 26,
-            "shipped": 117
+            "shipped": 119
           }
         },
         {
@@ -12632,7 +13069,7 @@
             "app": 82,
             "site": 214,
             "builds": 25,
-            "shipped": 117
+            "shipped": 119
           }
         },
         {
@@ -12664,7 +13101,7 @@
             "app": 81,
             "site": 212,
             "builds": 25,
-            "shipped": 116
+            "shipped": 118
           }
         },
         {
@@ -12679,7 +13116,7 @@
             "app": 80,
             "site": 210,
             "builds": 25,
-            "shipped": 115
+            "shipped": 117
           }
         },
         {
@@ -12703,7 +13140,7 @@
             "app": 80,
             "site": 208,
             "builds": 25,
-            "shipped": 114
+            "shipped": 116
           }
         },
         {
@@ -12731,7 +13168,7 @@
             "app": 79,
             "site": 207,
             "builds": 25,
-            "shipped": 113
+            "shipped": 115
           }
         },
         {
@@ -12763,7 +13200,7 @@
             "app": 78,
             "site": 204,
             "builds": 25,
-            "shipped": 112
+            "shipped": 114
           }
         },
         {
@@ -12795,7 +13232,7 @@
             "app": 76,
             "site": 201,
             "builds": 25,
-            "shipped": 111
+            "shipped": 113
           }
         },
         {
@@ -12823,7 +13260,7 @@
             "app": 76,
             "site": 197,
             "builds": 25,
-            "shipped": 110
+            "shipped": 112
           }
         },
         {
@@ -12851,7 +13288,7 @@
             "app": 75,
             "site": 195,
             "builds": 25,
-            "shipped": 109
+            "shipped": 111
           }
         },
         {
@@ -12863,7 +13300,7 @@
             "app": 74,
             "site": 193,
             "builds": 25,
-            "shipped": 108
+            "shipped": 110
           }
         },
         {
@@ -12895,7 +13332,7 @@
             "app": 74,
             "site": 192,
             "builds": 24,
-            "shipped": 108
+            "shipped": 110
           }
         },
         {
@@ -12927,7 +13364,7 @@
             "app": 73,
             "site": 190,
             "builds": 24,
-            "shipped": 107
+            "shipped": 109
           }
         },
         {
@@ -12942,7 +13379,7 @@
             "app": 72,
             "site": 188,
             "builds": 24,
-            "shipped": 106
+            "shipped": 108
           }
         },
         {
@@ -12966,7 +13403,7 @@
             "app": 72,
             "site": 187,
             "builds": 24,
-            "shipped": 105
+            "shipped": 107
           }
         },
         {
@@ -12994,7 +13431,7 @@
             "app": 71,
             "site": 185,
             "builds": 24,
-            "shipped": 104
+            "shipped": 106
           }
         },
         {
@@ -13026,7 +13463,7 @@
             "app": 71,
             "site": 183,
             "builds": 24,
-            "shipped": 103
+            "shipped": 105
           }
         },
         {
@@ -13058,7 +13495,7 @@
             "app": 70,
             "site": 182,
             "builds": 24,
-            "shipped": 102
+            "shipped": 104
           }
         },
         {
@@ -13090,7 +13527,7 @@
             "app": 70,
             "site": 180,
             "builds": 24,
-            "shipped": 101
+            "shipped": 103
           }
         },
         {
@@ -13122,7 +13559,7 @@
             "app": 68,
             "site": 178,
             "builds": 24,
-            "shipped": 100
+            "shipped": 102
           }
         },
         {
@@ -13150,7 +13587,7 @@
             "app": 68,
             "site": 177,
             "builds": 24,
-            "shipped": 99
+            "shipped": 101
           }
         },
         {
@@ -13174,7 +13611,7 @@
             "app": 68,
             "site": 175,
             "builds": 24,
-            "shipped": 98
+            "shipped": 100
           }
         },
         {
@@ -13198,7 +13635,7 @@
             "app": 68,
             "site": 174,
             "builds": 24,
-            "shipped": 97
+            "shipped": 99
           }
         },
         {
@@ -13218,7 +13655,7 @@
             "app": 67,
             "site": 169,
             "builds": 24,
-            "shipped": 96
+            "shipped": 98
           }
         },
         {
@@ -13230,7 +13667,7 @@
             "app": 64,
             "site": 164,
             "builds": 24,
-            "shipped": 95
+            "shipped": 97
           }
         },
         {
@@ -13262,7 +13699,7 @@
             "app": 64,
             "site": 164,
             "builds": 23,
-            "shipped": 95
+            "shipped": 97
           }
         }
       ],
@@ -14963,7 +15400,9 @@
           "kind": "ship",
           "at": "2026-09-25T03:44:07.000Z",
           "title": "Build to earn, a first draft",
-          "card": null,
+          "card": [
+            "SITE-27"
+          ],
           "anchor": "build-to-earn-a-first-draft",
           "images": [
             {
@@ -14980,7 +15419,7 @@
             "app": 63,
             "site": 163,
             "builds": 23,
-            "shipped": 94
+            "shipped": 96
           }
         },
         {
@@ -15004,7 +15443,7 @@
             "app": 63,
             "site": 160,
             "builds": 23,
-            "shipped": 93
+            "shipped": 95
           }
         },
         {
@@ -15036,7 +15475,7 @@
             "app": 62,
             "site": 159,
             "builds": 23,
-            "shipped": 92
+            "shipped": 94
           }
         },
         {
@@ -15051,7 +15490,7 @@
             "app": 61,
             "site": 158,
             "builds": 23,
-            "shipped": 91
+            "shipped": 93
           }
         },
         {
@@ -15063,7 +15502,7 @@
             "app": 61,
             "site": 157,
             "builds": 23,
-            "shipped": 90
+            "shipped": 92
           }
         },
         {
@@ -15095,7 +15534,7 @@
             "app": 60,
             "site": 154,
             "builds": 22,
-            "shipped": 90
+            "shipped": 92
           }
         },
         {
@@ -15119,7 +15558,7 @@
             "app": 59,
             "site": 152,
             "builds": 22,
-            "shipped": 89
+            "shipped": 91
           }
         },
         {
@@ -15143,7 +15582,7 @@
             "app": 59,
             "site": 151,
             "builds": 22,
-            "shipped": 88
+            "shipped": 90
           }
         },
         {
@@ -15155,7 +15594,7 @@
             "app": 58,
             "site": 150,
             "builds": 22,
-            "shipped": 87
+            "shipped": 89
           }
         },
         {
@@ -15170,7 +15609,7 @@
             "app": 58,
             "site": 148,
             "builds": 21,
-            "shipped": 87
+            "shipped": 89
           }
         },
         {
@@ -15194,7 +15633,7 @@
             "app": 57,
             "site": 144,
             "builds": 21,
-            "shipped": 86
+            "shipped": 88
           }
         },
         {
@@ -15226,7 +15665,7 @@
             "app": 57,
             "site": 141,
             "builds": 21,
-            "shipped": 85
+            "shipped": 87
           }
         },
         {
@@ -15258,7 +15697,7 @@
             "app": 57,
             "site": 139,
             "builds": 21,
-            "shipped": 84
+            "shipped": 86
           }
         },
         {
@@ -15286,7 +15725,7 @@
             "app": 57,
             "site": 136,
             "builds": 21,
-            "shipped": 83
+            "shipped": 85
           }
         },
         {
@@ -15301,7 +15740,7 @@
             "app": 57,
             "site": 135,
             "builds": 21,
-            "shipped": 82
+            "shipped": 84
           }
         },
         {
@@ -15333,7 +15772,7 @@
             "app": 57,
             "site": 132,
             "builds": 21,
-            "shipped": 81
+            "shipped": 83
           }
         },
         {
@@ -15361,7 +15800,7 @@
             "app": 56,
             "site": 130,
             "builds": 21,
-            "shipped": 80
+            "shipped": 82
           }
         },
         {
@@ -15393,7 +15832,7 @@
             "app": 56,
             "site": 128,
             "builds": 21,
-            "shipped": 79
+            "shipped": 81
           }
         },
         {
@@ -15421,7 +15860,7 @@
             "app": 55,
             "site": 126,
             "builds": 21,
-            "shipped": 78
+            "shipped": 80
           }
         },
         {
@@ -15445,7 +15884,7 @@
             "app": 55,
             "site": 125,
             "builds": 21,
-            "shipped": 77
+            "shipped": 79
           }
         },
         {
@@ -15469,7 +15908,7 @@
             "app": 55,
             "site": 124,
             "builds": 21,
-            "shipped": 76
+            "shipped": 78
           }
         },
         {
@@ -15497,7 +15936,7 @@
             "app": 53,
             "site": 121,
             "builds": 21,
-            "shipped": 75
+            "shipped": 77
           }
         },
         {
@@ -15525,7 +15964,7 @@
             "app": 53,
             "site": 120,
             "builds": 21,
-            "shipped": 74
+            "shipped": 76
           }
         },
         {
@@ -15549,7 +15988,7 @@
             "app": 53,
             "site": 119,
             "builds": 21,
-            "shipped": 73
+            "shipped": 75
           }
         },
         {
@@ -15564,7 +16003,7 @@
             "app": 51,
             "site": 116,
             "builds": 21,
-            "shipped": 72
+            "shipped": 74
           }
         },
         {
@@ -15592,7 +16031,7 @@
             "app": 49,
             "site": 115,
             "builds": 21,
-            "shipped": 71
+            "shipped": 73
           }
         },
         {
@@ -15620,7 +16059,7 @@
             "app": 49,
             "site": 114,
             "builds": 21,
-            "shipped": 70
+            "shipped": 72
           }
         },
         {
@@ -15652,7 +16091,7 @@
             "app": 48,
             "site": 113,
             "builds": 21,
-            "shipped": 69
+            "shipped": 71
           }
         },
         {
@@ -15684,7 +16123,7 @@
             "app": 48,
             "site": 112,
             "builds": 21,
-            "shipped": 68
+            "shipped": 70
           }
         },
         {
@@ -15708,7 +16147,7 @@
             "app": 47,
             "site": 111,
             "builds": 21,
-            "shipped": 67
+            "shipped": 69
           }
         },
         {
@@ -15728,7 +16167,7 @@
             "app": 47,
             "site": 110,
             "builds": 21,
-            "shipped": 66
+            "shipped": 68
           }
         },
         {
@@ -15760,7 +16199,7 @@
             "app": 46,
             "site": 108,
             "builds": 21,
-            "shipped": 65
+            "shipped": 67
           }
         },
         {
@@ -15792,7 +16231,7 @@
             "app": 45,
             "site": 105,
             "builds": 21,
-            "shipped": 64
+            "shipped": 66
           }
         },
         {
@@ -15812,7 +16251,7 @@
             "app": 45,
             "site": 103,
             "builds": 21,
-            "shipped": 63
+            "shipped": 65
           }
         },
         {
@@ -15844,7 +16283,7 @@
             "app": 45,
             "site": 102,
             "builds": 21,
-            "shipped": 62
+            "shipped": 64
           }
         },
         {
@@ -15868,14 +16307,17 @@
             "app": 44,
             "site": 99,
             "builds": 21,
-            "shipped": 61
+            "shipped": 63
           }
         },
         {
           "kind": "ship",
           "at": "2026-09-24T17:12:04.000Z",
           "title": "See everything Yui can draw",
-          "card": "SITE-14",
+          "card": [
+            "SITE-14",
+            "SITE-7"
+          ],
           "anchor": "see-everything-yui-can-draw",
           "images": [
             {
@@ -15891,12 +16333,12 @@
               "alt": "A planned entry: the onboarding interview drawn on the web with a dashed outline and a yellow Planned, not built label, linked to card YUI-38"
             }
           ],
-          "commits": 1,
+          "commits": 0,
           "totals": {
             "app": 43,
             "site": 97,
             "builds": 21,
-            "shipped": 60
+            "shipped": 62
           }
         },
         {
@@ -15911,7 +16353,7 @@
             "app": 43,
             "site": 95,
             "builds": 21,
-            "shipped": 59
+            "shipped": 61
           }
         },
         {
@@ -15926,7 +16368,7 @@
             "app": 43,
             "site": 94,
             "builds": 21,
-            "shipped": 58
+            "shipped": 60
           }
         },
         {
@@ -15950,7 +16392,7 @@
             "app": 43,
             "site": 93,
             "builds": 21,
-            "shipped": 57
+            "shipped": 59
           }
         },
         {
@@ -15974,7 +16416,7 @@
             "app": 41,
             "site": 90,
             "builds": 21,
-            "shipped": 56
+            "shipped": 58
           }
         },
         {
@@ -15997,6 +16439,45 @@
           "totals": {
             "app": 41,
             "site": 89,
+            "builds": 21,
+            "shipped": 57
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T16:00:00.000Z",
+          "title": "Demo clips of every preset, recorded from the app",
+          "card": "SOC-2",
+          "anchor": "demo-clips-of-every-preset-recorded-from-the-app",
+          "images": [
+            {
+              "src": "/demo/clips/timer-9x16.jpg",
+              "alt": "A Tabata timer on the phone, one line from an agent, counting a work interval."
+            },
+            {
+              "src": "/demo/clips/choose-9x16.jpg",
+              "alt": "A choice screen: the agent asks and three answers wait to be tapped."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 40,
+            "site": 88,
+            "builds": 21,
+            "shipped": 56
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-24T16:00:00.000Z",
+          "title": "A drafter writes Yui's social posts, and a person signs off",
+          "card": "SOC-1",
+          "anchor": "a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
+          "images": [],
+          "commits": 7,
+          "totals": {
+            "app": 40,
+            "site": 88,
             "builds": 21,
             "shipped": 55
           }
@@ -16722,7 +17203,9 @@
           "kind": "ship",
           "at": "2026-09-24T04:52:23.000Z",
           "title": "Who Yui is on each platform",
-          "card": null,
+          "card": [
+            "BIZ-5"
+          ],
           "anchor": "who-yui-is-on-each-platform",
           "images": [],
           "commits": 0,
