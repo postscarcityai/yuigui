@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T05:41:14.850Z",
+  "updated": "2026-09-30T06:11:42.032Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -483,6 +483,11 @@
         {
           "key": "YUI-218",
           "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-120",
+          "title": "Every link, image and share card resolves after the Sep 29-30 pages",
           "owner": "CJohnDesign"
         }
       ]
