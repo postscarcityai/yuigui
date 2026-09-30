@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T00:10:34.182Z",
+  "updated": "2026-09-30T00:40:28.555Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.3",
@@ -301,10 +301,6 @@
           "title": "A nicer Type your own"
         },
         {
-          "key": "NOTE-27331",
-          "title": "One look: shader, no line blob"
-        },
-        {
           "key": "NOTE-55641",
           "title": "Keep the mic, move Back home"
         }
@@ -383,16 +379,12 @@
           "waiting": true
         },
         {
-          "key": "SITE-108",
-          "title": "The site stage shows more of your question, keeps the mic, a readable Type your own"
-        },
-        {
           "key": "NOTE-45760",
           "title": "Show more of my question"
         },
         {
-          "key": "NOTE-26401",
-          "title": "Answers that know what I asked"
+          "key": "NOTE-27331",
+          "title": "One look: shader, no line blob"
         },
         {
           "key": "YUI-169",
@@ -415,6 +407,25 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-109",
+          "title": "A Thought, show me don't tell me",
+          "summary": "Show me, don't tell me: why Yui draws its answers",
+          "shipped": "2026-09-29",
+          "progress": "/progress#show-me-don-t-tell-me-why-yui-draws-its-answers"
+        },
+        {
+          "key": "NOTE-26401",
+          "title": "Answers that know what I asked",
+          "shipped": "2026-09-29"
+        },
+        {
+          "key": "SITE-108",
+          "title": "The site stage shows more of your question, keeps the mic, a readable Type your own",
+          "summary": "The site stage matches the app: more of your question, the mic stays, a roomy Type your own",
+          "shipped": "2026-09-29",
+          "progress": "/progress#the-site-stage-matches-the-app-more-of-your-question-the-mic-stays-a-roomy-type-"
+        },
         {
           "key": "SITE-107",
           "title": "Every story shipped Sep 27-29 shows a demo a visitor can see on yuigui.com",
