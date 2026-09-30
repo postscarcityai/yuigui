@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T17:42:00.698Z",
+  "updated": "2026-09-30T18:11:06.958Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -405,12 +405,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "SITE-134",
-          "title": "The site says a new build lands every morning",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/3b83a01",
-          "needsDemo": true
         }
       ]
     },
@@ -426,8 +420,9 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "NOTE-14923",
-          "title": "Send up to 12 photos",
+          "key": "SITE-135",
+          "title": "A Thought, show don't tell",
+          "summary": "Replies are one line and a drawing",
           "owner": "CJohnDesign"
         },
         {
@@ -450,6 +445,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-134",
+          "title": "The site says a new build lands every morning",
+          "summary": "The changelog says when the next build lands",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-changelog-says-when-the-next-build-lands",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2dec411"
+        },
         {
           "key": "YUI-208",
           "title": "Last page keeps the mic; Back home and New chat move onto the page, and a spoken note goes in with the picks as one answer",

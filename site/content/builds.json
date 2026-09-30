@@ -1791,6 +1791,16 @@
     {
       "text": "The native crew gets the one-line gate: same rules as the plugin, shadow first with counts on the saved row",
       "card": "VIS-3"
+    },
+    {
+      "text": "Photo limit is the server's number: photos_per_message (100) read by the app and yui-native, one send takes it all, uploads four at a time, 2000 px per side"
+    },
+    {
+      "text": "The photo cap is 10 per send: one number in the app, the runtime and yui_limits, a test for no 11th"
+    },
+    {
+      "text": "The stage packs up to 3 ideas on a page, line then drawing, scenes at half width so three fit the phone",
+      "card": "VIS-4"
     }
   ]
 }
