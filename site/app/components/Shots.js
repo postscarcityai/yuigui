@@ -22,7 +22,7 @@ export default function Shots({ images, label }) {
       <div className={`thumbs${images.length === 1 ? " one" : ""}`}>
         {images.map((im, i) => (
           <button key={im.src} type="button" className="thumb" onClick={() => setOpen(i)} aria-label={`Enlarge: ${im.alt}`}>
-            <img src={im.src} alt={im.alt} loading="lazy" />
+            <img src={im.src} alt={im.alt} width={im.width} height={im.height} loading="lazy" />
           </button>
         ))}
       </div>

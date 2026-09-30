@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from "node:fs";
+import { readFileSync, readdirSync, openSync, readSync, closeSync } from "node:fs";
 import path from "node:path";
 
 // Thoughts (SITE-30): Yui's blog, rendered from docs/thoughts/*.md (synced to content/thoughts).
@@ -30,6 +30,21 @@ function parse(src) {
   return { meta, md: src.slice(m[0].length) };
 }
 
+// Width and height of a local .webp screenshot, so the page can reserve its space before it loads (SITE-133).
+function webpSize(src) {
+  try {
+    const fd = openSync(path.join(path.dirname(new URL(import.meta.url).pathname), "..", "public", src), "r");
+    const b = Buffer.alloc(32);
+    readSync(fd, b, 0, 32, 0);
+    closeSync(fd);
+    const kind = b.toString("ascii", 12, 16);
+    if (kind === "VP8X") return { width: 1 + b.readUIntLE(24, 3), height: 1 + b.readUIntLE(27, 3) };
+    if (kind === "VP8 ") return { width: b.readUInt16LE(26) & 0x3fff, height: b.readUInt16LE(28) & 0x3fff };
+    if (kind === "VP8L") { const v = b.readUInt32LE(21); return { width: (v & 0x3fff) + 1, height: ((v >> 14) & 0x3fff) + 1 }; }
+  } catch {}
+  return {};
+}
+
 const pair = (l) => {
   const [a, ...b] = l.split(" | ");
   return [a.trim(), b.join(" | ").trim()];
@@ -38,7 +53,7 @@ const isSrc = (s) => /^\/\S+\.(webp|png|jpe?g|gif)$/i.test(s);
 
 function block(kind, body) {
   const lines = body.split("\n").filter((l) => l.trim());
-  if (kind === "shot") return { kind, images: lines.map((l) => { const [src, alt] = pair(l); return { src, alt }; }) };
+  if (kind === "shot") return { kind, images: lines.map((l) => { const [src, alt] = pair(l); return { src, alt, ...webpSize(src) }; }) };
   if (kind === "clip") { const [src, caption] = pair(lines[0] || ""); return { kind, src, poster: src.replace(/\.mp4$/, ".jpg"), caption }; }
   if (kind === "phone") {
     const cap = lines[0]?.match(/^caption:\s*(.*)$/);
