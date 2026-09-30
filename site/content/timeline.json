@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 374,
-    "site": 867,
+    "site": 868,
     "builds": 49,
-    "shipped": 432,
-    "screenshots": 1070
+    "shipped": 433,
+    "screenshots": 1073
   },
   "days": [
     {
@@ -13,7 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T08:51:32.600Z",
+          "at": "2026-09-30T08:55:54.300Z",
+          "title": "Thought: Your first minute with Yui",
+          "card": "SITE-122",
+          "anchor": "thought-your-first-minute-with-yui",
+          "images": [
+            {
+              "src": "/progress/ship061-crew-dark.webp",
+              "alt": "Dark mode: the crew picker with three agents added and a Start button."
+            },
+            {
+              "src": "/progress/ship061-intake-dark.webp",
+              "alt": "Dark mode: step 3 of 5 of Your first plan, How long per session, with 45 min chosen."
+            },
+            {
+              "src": "/progress/yui218-pairing-dark.webp",
+              "alt": "Dark mode: the Add agent sheet with three commands to run on the computer and a six digit code."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 374,
+            "site": 868,
+            "builds": 49,
+            "shipped": 433
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T08:52:25.000Z",
           "title": "Yui 0.6.1: pick your crew, get a first week built",
           "card": null,
           "anchor": "yui-0-6-1-pick-your-crew-get-a-first-week-built",
@@ -42,7 +70,7 @@
           "commits": 0,
           "totals": {
             "app": 374,
-            "site": 867,
+            "site": 868,
             "builds": 49,
             "shipped": 432
           }
@@ -348,6 +376,13 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "a19fd87",
+          "at": "2026-09-30T08:52:25.000Z",
+          "text": "Progress: Yui 0.6.1, build 380 (pick your crew, first week built)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a19fd87"
+        },
         {
           "repo": "site",
           "sha": "af35723",
