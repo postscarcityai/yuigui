@@ -5,6 +5,7 @@ import Link from "next/link";
 import LivePhone from "../mockups/LivePhone";
 import CrewVisual from "./CrewVisual";
 import FirstPlanPlay from "./FirstPlanPlay";
+import CrewFirstPlan from "./CrewFirstPlan";
 import { CREW_VISUALS } from "../../lib/yl/visual.mjs";
 import FirstRunHero from "../proposals/FirstRunHero";
 import AgentBox from "../components/AgentBox";
@@ -81,7 +82,18 @@ export default async function Crew() {
             </ul>
           </div>
           <div className="crew-demo">
-            <LivePhone yl={m.yl} agent={m.name} label={`A live demo of the ${m.role.toLowerCase()}'s screens. ${m.try}.`} />
+            {m.handle === "yui" ? (
+              <LivePhone yl={m.yl} agent={m.name} label={`A live demo of the ${m.role.toLowerCase()}'s screens. ${m.try}.`} />
+            ) : m.handle === "arnold" ? (
+              <>
+                <LivePhone yl={m.yl} agent={m.name} label={`A live demo of the ${m.role.toLowerCase()}'s screens. ${m.try}.`} />
+                <p className="crew-links crew-firstplan"><a className="fp-try" href="#first-plan">Try their first plan</a></p>
+              </>
+            ) : (
+              <CrewFirstPlan handle={m.handle} name={m.name}>
+                <LivePhone yl={m.yl} agent={m.name} label={`A live demo of the ${m.role.toLowerCase()}'s screens. ${m.try}.`} />
+              </CrewFirstPlan>
+            )}
             <p className="crew-try">{m.try}</p>
             <p className="crew-links">
               {open(m).map((l) => <Link key={l.href} href={l.href} prefetch={false}>{l.label}</Link>)}

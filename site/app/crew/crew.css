@@ -92,3 +92,9 @@
 @media (max-width: 760px) {
   .fp { grid-template-columns: 1fr; gap: 20px; margin: 40px 0; }
 }
+
+/* Try a crew member's first plan (SITE-124). */
+.crew-firstplan { margin-top: 10px; }
+.fp-try { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1.5px solid var(--cm); background: var(--surface); color: var(--ink); font: inherit; font-weight: 800; text-decoration: none; cursor: pointer; }
+.fp-try:hover { background: color-mix(in srgb, var(--cm) 18%, var(--surface)); }
+.crew-links .fp-again { min-height: 44px; padding: 0 6px; }
