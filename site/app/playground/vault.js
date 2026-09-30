@@ -247,7 +247,7 @@ function Drawer({ agent, keys, revoke, goKeys }) {
   const agents = [...new Set([agent, "Quill"])];
   return (
     <div className="vk-page">
-      <div className="vk-tabs" role="tablist">{["Home", "Review", "Controls", "About"].map((t) => <span key={t} className={t === "Controls" ? "on" : ""}>{t}</span>)}</div>
+      <div className="vk-tabs" role="tablist">{["Home", "Review", "Agent"].map((t) => <span key={t} className={t === "Agent" ? "on" : ""}>{t}</span>)}</div>
       <div className="vk-seg vk-agents" role="radiogroup" aria-label="Agent">
         {agents.map((a) => <button key={a} role="radio" aria-checked={a === who} className={a === who ? "on" : ""} onClick={() => setWho(a)}><Face name={a} size={20} /> {a}</button>)}
       </div>

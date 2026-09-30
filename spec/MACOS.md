@@ -20,7 +20,7 @@ An agent cannot tell the Mac from the phone. Its taps arrive as the same event r
 
 One window with a `NavigationSplitView`: the sidebar on the left, the thread on the right.
 
-- **The sidebar is the agent drawer** (YUI-54). On the phone the drawer slides in from the left and the switcher springs up from the agent at its bottom. On the Mac both stay open. At the top, the agents: face, name, honest presence (`yui_agent_list.presence`), an unread dot. Under them, the selected agent's home with the drawer's four tabs as a segmented control: Home (pinned screens, what's next, the agent's screens, shortcuts), Review (what's waiting on you, answered in place), Controls and About.
+- **The sidebar is the agent drawer** (YUI-54). On the phone the drawer slides in from the left and the switcher springs up from the agent at its bottom. On the Mac both stay open. At the top, the agents: face, name, honest presence (`yui_agent_list.presence`), an unread dot. Under them, the selected agent's home with the drawer's three tabs as a segmented control: Home (pinned screens, what's next, the agent's screens, shortcuts), Review (what's waiting on you, answered in place) and Agent (who it is and its settings).
 - **The detail column is the thread**: bubbles, Yui Lines screens, the composer at the bottom. Each agent's look (`spec/AGENTS.md`, Look) colors the thread, and the same `YuiTheme` tokens drive light and dark.
 - **The stage** (`>full`) opens in its own window, sized to the content, that can go full screen with the green button or Control-Command-F. Closing it leaves the pill in the thread, as a swipe down does on the phone.
 - **Pages** `2` to `12` stay in the thread window: one page at a time with the same dot row.

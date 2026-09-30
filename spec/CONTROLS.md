@@ -1,6 +1,6 @@
 # Agent controls | spec v1 (YUI-70, draft)
 
-The drawer (YUI-54) has four tabs: Home, Review, Controls and About. Controls is where you look after what the agent you are talking to is made of: its personality, what it remembers, its skills, its schedules, and which model and tools it runs on. Plain create, read, update and delete, one tap from the chat.
+The drawer (YUI-54) has three tabs: Home, Review and Agent (YUI-128 merged the old Controls and About). Agent shows who the agent is and where it runs, then is where you look after what the agent you are talking to is made of: its personality, what it remembers, its skills, its schedules, and which model and tools it runs on. Plain create, read, update and delete, one tap from the chat.
 
 A change goes straight to the machine the agent runs on. There is no chat turn in between: nothing is typed to the agent, no model is called, the change lands in a second and the screen shows the new state. The agent hears about it afterwards in one short line.
 
@@ -81,7 +81,7 @@ Before the app shows anything, it needs to know what this agent's host can do. T
 - `r` read, `w` write, `d` delete. A section the host leaves out is not shown.
 - Stored in `yui_agents.controls`, written only by the service role through `yui-connect`, read by the app with the agent list (`yui_agent_list`). `controls: null` clears it.
 - The Hermes plugin sends it when the gateway starts and when a profile binds, like `commands`.
-- **Hosts other than Hermes show only what they report.** An OpenClaw, webhook, A2A, MCP or model-bridge agent reports nothing today, so its Controls tab shows the About card and one line: "This agent's host doesn't share its settings yet."
+- **Hosts other than Hermes show only what they report.** An OpenClaw, webhook, A2A, MCP or model-bridge agent reports nothing today, so its Agent tab shows identity, the facts card and a dashed "What it does" card (one message, no second line).
 
 ### Control rows
 
@@ -116,7 +116,7 @@ Host to app (`sender = 'agent'`), one answer per request, same `req`:
 
 - **Versioning, two ways.** `v` is the protocol version: a host that gets a `v` it does not know answers `{"ok": false, "error": "version"}` and the app shows "Update the Yui plugin on your Mac". `rev` is the item's version (the first 12 hex of a SHA-256 of what the host holds). A `put` or `delete` whose `rev` is not current is refused with `conflict` and the current item, so two edits (the phone and a terminal, or two phones) never clobber each other. The app shows both and lets the person pick.
 - **Hidden.** The app never draws control rows in the thread. The plugin never hands them to the agent as a turn. Row retention: control rows are deleted after 7 days (they are not history).
-- **Answer time.** The host answers within 5 seconds or the app shows "Your Mac didn't answer" with Try again. A host that is offline (no heartbeat for 2 minutes) greys out the Controls tab instead of queueing edits.
+- **Answer time.** The host answers within 5 seconds or the app shows "Your Mac didn't answer" with Try again. A host that is offline (no heartbeat for 2 minutes) greys out the host rows on the Agent tab instead of queueing edits.
 - **Afterwards.** On its next turn the agent gets one line, the way it hears about a board reorder: `[yui] Your settings changed in Controls: one memory forgotten, "morning brief" paused.`
 
 ### What the Hermes plugin maps each section to
@@ -136,7 +136,7 @@ Every write goes through the same code the CLI uses, so the host's own checks ru
 
 The host is the last line and does not trust the phone. It answers `ok: false` with a plain `message` for:
 
-- **Not the owner.** Any control row from anyone but the agent's owner (`yui_agents.user_id`). A person an agent is shared with (spec/AGENTS.md, Shared agents, YUI-95 and YUI-97) never gets Controls: the app does not show the tab, the relay does not accept the row (section 5), and the host refuses it anyway.
+- **Not the owner.** Any control row from anyone but the agent's owner (`yui_agents.user_id`). A person an agent is shared with (spec/AGENTS.md, Shared agents, YUI-95 and YUI-97) never gets Controls: the app does not show the settings rows, the relay does not accept the row (section 5), and the host refuses it anyway.
 - **Anything outside the section's files.** Ids are names from the host's own `list`, never paths. `..`, `/`, and names that are not in the last list are refused.
 - **Secrets, always.** See section 4.
 - **A stale `rev`** (`conflict`), a missing `confirmed: true` on a delete, an unknown `op`, `section` or `verb`, or a `v` it does not speak.
@@ -184,10 +184,10 @@ Plus `yui_retention` deletes `kind = 'control'` rows older than 7 days, and push
 
 Done when all of this is true, with proof on the card:
 
-1. **Capability report.** The Hermes plugin sends `controls` through `yui-connect` at gateway start and on bind; `yui_agents.controls` holds it; `yui_agent_list` returns it. A non-Hermes agent's Controls tab shows only the About card and the "doesn't share its settings yet" line.
+1. **Capability report.** The Hermes plugin sends `controls` through `yui-connect` at gateway start and on bind; `yui_agents.controls` holds it; `yui_agent_list` returns it. A non-Hermes agent's Agent tab shows identity, facts and the dashed "What it does" card.
 2. **Migration applied** (section 5): the `control` kind, the owner-only insert policy, the `controls` column, retention and no push for control rows.
 3. **Plugin.** `hermes-plugin/yui/controls.py` serves `list`, `get`, `put`, `act` and `delete` for soul, memory, skills and schedules, and `list` and `get` for model and channels. Control rows never reach the agent as a turn; the agent gets the one-line note on its next turn. Tests cover each op, a `conflict`, a grantee refused, a path id refused, a secret redacted and the redacted item read only, a bundled skill refused for delete, the trash copy and the log line.
-4. **App.** The drawer's Controls tab for the current agent, one screen per area, light and dark, rendered markdown with an Edit toggle, a confirm on every delete, the conflict screen, the offline state. Only the owner sees the tab; a shared agent's drawer has no Controls.
+4. **App.** The drawer's Agent tab for the current agent (identity and facts on top, then In Yui and the host areas), one screen per area, light and dark, rendered markdown with an Edit toggle, a confirm on every delete, the conflict screen, the offline state. Only the owner sees the settings rows; a shared agent's Agent tab shows identity, facts and "Shared by <owner>" only.
 5. **Round trips on a real phone,** each with a screenshot before and after: edit SOUL.md and see it on the host; forget one memory; switch a skill off and on; pause a schedule, resume it, run it now.
 6. **No secrets.** A test profile with keys in `.env` and a token-shaped line in a memory entry: nothing key-shaped reaches `yui_messages` (checked with a query after the round trips).
 7. Shipped in a VALID TestFlight build, with a progress entry and screenshots.
@@ -199,6 +199,6 @@ Done when all of this is true, with proof on the card:
 - **Answers** carry `meta.for` (the request row's id), not `meta.turn`, so no mention or group trigger wakes on a settings answer. The app finds its answer by `meta->>req`.
 - **Plugin.** `hermes-plugin/yui/controls.py`, wired in the adapter before any other routing. Ids: `SOUL.md`; `mem-<hash>` and `user-<hash>` for memory entries (the id follows the entry's text, so an edit answers with a new id); a skill's folder name; a cron job id; `model`; a platform name. Memory writes take the memory tool's lock and pass its injection scan and size limit. Switching a skill off writes `skills.disabled` through `hermes_cli.skills_config`. Schedules go through `cron.jobs` (update, pause, resume, trigger, remove). The capability report goes out on gateway start and when the gateway serves a new agent. Tests: `hermes-plugin/tests/test_controls.py`.
 - **Secrets.** Each line of an outgoing text is checked with the host's redaction (`agent.redact`, forced) and a set of token shapes of its own; a matching line goes out whole as `[hidden on your Mac]` and the item is read only. The model screen names the provider in words and never the key or URL.
-- **App.** The drawer's Controls tab lists the areas its host reports. Each opens its own screen; a pushed item has Edit (a full-screen editor with a draft kept on the phone), and every delete is an alert with the action and Keep it. A save on a stale rev opens the conflict screen: your version and the Mac's, Keep mine or Use the Mac's. The host not answering in 5 seconds reads "Your Mac didn't answer" with Try again. A host that is not online greys the rows out with one line. No report: the About card and "This agent's host doesn't share its settings yet." A shared agent's drawer has no Controls tab.
+- **App.** The drawer's Agent tab lists the areas its host reports under the agent's identity and facts. Each opens its own screen; a pushed item has Edit (a full-screen editor with a draft kept on the phone), and every delete is an alert with the action and Keep it. A save on a stale rev opens the conflict screen: your version and the Mac's, Keep mine or Use the Mac's. The host not answering in 5 seconds reads "Your Mac didn't answer" with Try again. A host that is not online greys the rows out with one line. No report: the dashed "What it does" card, no second line. A shared agent's Agent tab has no settings rows.
 - **Proof.** `supabase/tests/controls_test.py` (live relay), `supabase/tests/controls_e2e.py --sim` (the simulator's round trips against a throwaway host served by the plugin's own code, then a query for anything key-shaped in `yui_messages`), `YuiUITests/ControlsTests` (every screen in light and dark on the demo host).
 

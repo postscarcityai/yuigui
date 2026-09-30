@@ -82,9 +82,9 @@ export default function Help() {
 
       <h3>What is the menu button for?</h3>
       <p>
-        The button top left opens the agent&apos;s menu. A swipe right on the chat opens it too. It has four tabs:{" "}
+        The button top left opens the agent&apos;s menu. A swipe right on the chat opens it too. It has three tabs:{" "}
         <strong>Home</strong> for pinned screens and what is next, <strong>Review</strong> for what waits on you,{" "}
-        <strong>Controls</strong> for the agent&apos;s settings, and <strong>About</strong>. Tap the agent at the bottom
+        and <strong>Agent</strong> for who it is and its settings. Tap the agent at the bottom
         to switch to another one.
       </p>
 
