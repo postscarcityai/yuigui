@@ -1,9 +1,9 @@
 {
-  "updated": "2026-09-30T13:42:42.319Z",
+  "updated": "2026-09-30T14:10:39.294Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
-    "status": "shipping",
+    "status": "open",
     "startedAt": "2026-09-30T12:03:07.000Z",
     "shippedAt": null,
     "cards": [
@@ -317,11 +317,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-232",
-          "title": "The blob, drawn by the shader, changes shape with what the agent does; the vector blob is removed",
-          "waiting": true
-        },
-        {
           "key": "YUI-40",
           "title": "Widgets native in the app",
           "step": "Step 2",
@@ -423,11 +418,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "SITE-132",
-          "title": "The first plan's link row on /crew has uneven baselines and weights",
-          "needsDemo": true
         }
       ]
     },
@@ -441,6 +431,11 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "YUI-232",
+          "title": "The blob, drawn by the shader, changes shape with what the agent does; the vector blob is removed",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-218b",
@@ -477,6 +472,13 @@
           "shipped": "2026-09-30",
           "progress": "/progress#open-on-yui-s-card-lands-on-the-first-question",
           "commit": "https://github.com/postscarcityai/yuigui/commit/e46b0f5"
+        },
+        {
+          "key": "SITE-132",
+          "title": "The first plan's link row on /crew has uneven baselines and weights",
+          "summary": "The chat bubble steps off the crew phones",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-chat-bubble-steps-off-the-crew-phones"
         },
         {
           "key": "SITE-131",
