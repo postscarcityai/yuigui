@@ -1,9 +1,9 @@
 {
-  "updated": "2026-09-30T12:10:46.493Z",
+  "updated": "2026-09-30T12:40:35.810Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
-    "status": "shipping",
+    "status": "open",
     "startedAt": "2026-09-30T12:03:07.000Z",
     "shippedAt": null,
     "cards": [
@@ -13,6 +13,11 @@
         "status": "done",
         "shipped": "2026-09-30",
         "progress": "/progress#yui-asks-about-notifications-after-your-first-plan"
+      },
+      {
+        "key": "YUI-231",
+        "title": "On a real account",
+        "status": "now"
       }
     ]
   },
@@ -236,6 +241,16 @@
           "waiting": true
         },
         {
+          "key": "SITE-131",
+          "title": "The chat bubble covers the crew demo phone's Start button on a phone",
+          "waiting": true
+        },
+        {
+          "key": "SITE-132",
+          "title": "The first plan's link row on /crew has uneven baselines and weights",
+          "waiting": true
+        },
+        {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors",
           "waiting": true
@@ -440,6 +455,18 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "YUI-231",
+          "title": "On a real account",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-130",
+          "title": "A stranger's first minute on the site, timed on a phone",
+          "summary": "A stranger's first minute on the site, timed",
+          "progress": "/progress#a-stranger-s-first-minute-on-the-site-timed",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-218b",
