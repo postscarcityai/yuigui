@@ -623,6 +623,24 @@ after
 row "The shots, right here" +hi note="tap to switch"
 compare /demo/site_before_hero.jpg /demo/site_after_hero.jpg "Hero" notes="Bigger headline|One button" mode=slider`,
   },
+  {
+    // One line and a picture (VIS-1, spec/CHANNEL.md): a reply is one short line and a drawing,
+    // never paragraphs. Compare the two replies to "you misread me": the first is what Yui sent,
+    // the second is the same answer as one line and a drawing.
+    name: "One line and a picture",
+    slug: "one-line",
+    agent: "Yui",
+    yl: `say Before: three bubbles of prose, then a sketch under them.
+say You're right, I misread you. You meant the left drawer, not TestFlight.
+say The drawer had stopped updating. One card with badly saved text crashed every refresh, so a finished card stayed under Now.
+say After: one line, and the drawing says the rest.
+say You're right, I misread you.
+sketch "Left drawer" frame=phone before=Then
+row "Done card  ·  Now" +x note="stuck"
+after Now
+row "Done card gone" +hi note="fixed"
+row "Closed cards leave in seconds" +hi note="new card, not built"`,
+  },
 ];
 
 // Media presets. Each has a slug so /playground?demo=<slug> opens it.

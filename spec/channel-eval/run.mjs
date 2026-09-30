@@ -153,6 +153,11 @@ const NARRATE = /\b(here (are|is) (some|a|the|your) (buttons?|options?|form|scre
 // A button that only acknowledges (YUI-53): tapping it does nothing for anyone.
 // What counts as a picture for an explainer (the `drawn` check): not a list, card or table of words.
 const DRAWN = new Set(["map", "sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "timeline"]);
+// A drawing made of Yui Lines (VIS-1): not an image model render.
+const DRAW = new Set(["sketch", "shapes", "timeline", "map", "chart", "stat"]);
+// Filler (VIS-1, caveman words): an opening "so", "now", "well", an intro, an apology, a hedge.
+const FILLER_LEAD = /^(so|now|well|okay|ok|sure|alright|anyway|however|basically|overall|actually|great|absolutely|of course|got it|understood)\b[,.!]?\s|^(i'?ll|i will|let me|i wanted to|here'?s|here is)\b/i;
+const FILLER_ANY = /\b(a few things|a couple of things|just to let you know|i hope this helps|sorry about that|i apologi[sz]e|as you can see|it'?s worth noting)\b/i;
 const ACK = /^(got it|ok(ay)?|k|nice|cool|great|sweet|awesome|perfect|thanks|thank you|understood|noted|sounds good|love it|will do)[.!]*$/i;
 const HTML = /<\/?(div|button|input|table|tr|td|span|form|select|ul|li|html|style|svg)\b/i;
 const HEADS = /^\s*(>[\w-]+\s+)?(~[\w-]+|(timer|ask|choose|pick|slide|form|list|table|card|image|camera|mic|gallery|video|compare|storyboard|chart|stat|math|step|calc|deck|page|plan|project|narrate|say|theme)(@[\w-]+)?)\s+\S/;
@@ -252,6 +257,29 @@ export function score(c, reply) {
   if (e.need && !e.need.some((p) => used.has(p))) fails.push(`need: none of [${e.need.join(" ")}]`);
   if (components > e.max_components) fails.push(`components: ${components} > ${e.max_components}`);
   if (words > e.max_words) fails.push(`words: ${words} > ${e.max_words}`);
+  // One line and a picture (VIS-1, Chris 2026-09-30: "texts on multiple slides ... I want to show things visually"):
+  // at most 30 chat words in one text bubble (a blank line or a block splits one), and a drawn picture
+  // carries the answer. Prose around the picture fails, however good the prose is. Same rule as the
+  // plugin's gate (yui/hermes-plugin/yui/oneline.py).
+  if (e.one_line) {
+    const bubbles = reply.replace(/```yui[^\n]*\n[\s\S]*?(```|$)/g, "\u0000").split("\u0000")
+      .flatMap((chunk) => chunk.split(/\n\s*\n/)).filter((p) => p.trim()).length;
+    if (bubbles > 1) fails.push(`one line: ${bubbles} text bubbles, want one line then the picture`);
+    if (words > 30) fails.push(`one line: ${words} words of prose, want 30 or fewer`);
+    // A drawing made of Yui Lines. An image model render (an `image` line, `hermes yui media`) is a miss: Chris, 2026-09-30,
+    // "I want you to draw on the screen using the YL framework."
+    if (!adds.some((o) => DRAW.has(o.preset))) fails.push("one line: no drawing (sketch, shapes, timeline, map, chart or stat) carries the answer");
+    if (adds.some((o) => o.preset === "image") || /hermes yui media/.test(reply)) fails.push("one line: a generated image, draw it with Yui Lines");
+  }
+  // Caveman words (VIS-1, Chris 2026-09-30): nouns and verdicts, no filler, no intro, no apology.
+  if (e.caveman) {
+    const lead = text.split("\n").find((l) => l.trim()) || "";
+    if (FILLER_LEAD.test(lead.trim())) fails.push(`caveman: filler lead "${lead.trim().split(/\s+/).slice(0, 3).join(" ")}"`);
+    const fill = reply.match(FILLER_ANY);
+    if (fill) fails.push(`caveman: filler "${fill[0]}"`);
+    const long = adds.filter((o) => o.preset === "row" && !o.props?.x && String(o.props?.text || "").split(/\s+/).filter(Boolean).length > 12);
+    if (long.length) fails.push(`caveman: a sketch row runs over 12 words :: ${long[0].line.trim().slice(0, 60)}`);
+  }
   const nar = text.match(NARRATE);
   if (nar) fails.push(`narrates: "${nar[0]}"`);
   for (const o of adds.filter((o) => o.preset === "form")) {
