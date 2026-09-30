@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-29T23:40:19.906Z",
+  "updated": "2026-09-30T00:10:34.182Z",
   "shippedDays": 30,
   "release": {
     "version": "0.5.3",
@@ -305,10 +305,6 @@
           "title": "One look: shader, no line blob"
         },
         {
-          "key": "NOTE-45760",
-          "title": "Show more of my question"
-        },
-        {
           "key": "NOTE-55641",
           "title": "Keep the mic, move Back home"
         }
@@ -385,6 +381,18 @@
           "key": "YUI-210",
           "title": "Jev at our first two decision points, measured against today",
           "waiting": true
+        },
+        {
+          "key": "SITE-108",
+          "title": "The site stage shows more of your question, keeps the mic, a readable Type your own"
+        },
+        {
+          "key": "NOTE-45760",
+          "title": "Show more of my question"
+        },
+        {
+          "key": "NOTE-26401",
+          "title": "Answers that know what I asked"
         },
         {
           "key": "YUI-169",

@@ -1642,6 +1642,9 @@
     },
     {
       "text": "Pin the real vault connector key yvk-1 in the app and the function (YUI-34 step 2)"
+    },
+    {
+      "text": "Yui plugin: a typed line gets a note naming the agent's newest message"
     }
   ]
 }
