@@ -185,6 +185,17 @@
       ]
     },
     {
+      "id": "release-062",
+      "title": "Yui 0.6.2",
+      "lede": "What reached phones with Yui 0.6.2 (build 392, Sep 30): the first minute of a new user, fixed. Shots are real captures from the iPhone simulator.",
+      "entries": [
+        {"id": "release-062-open", "title": "Open lands on the first question", "what": "Tap Open on a crew card and the first question of the first plan is on screen, and it stays there. Before, it dropped back to a small chip after a second.", "cards": ["YUI-225"], "agent": "Yui", "app": "native", "shots": ["/progress/yui225-after-dark.webp", "/progress/yui225-after-light.webp"]},
+        {"id": "release-062-week", "title": "Your week builds right after Send", "what": "Answer the five questions, tap Send, and the week is built then. No second ask.", "cards": ["YUI-228"], "agent": "Yui", "app": "native", "shots": ["/progress/yui228-send-dark.webp", "/progress/yui228-built-week-dark.webp"]},
+        {"id": "release-062-notify", "title": "The notifications ask comes once, after the plan", "what": "After the first plan, one line asks if you want a nudge when your trainer checks in. It shows once and does not come back.", "cards": ["YUI-230"], "agent": "Yui", "app": "native", "shots": ["/progress/yui230-nudge-dark.webp", "/progress/yui230-nudge-light.webp"]},
+        {"id": "release-062-add-agent", "title": "Add an agent sits in the drawer", "what": "Open the drawer and Add an agent is there, with one command to copy. Every screen has a menu button and a chat button, so the drawer is one tap away.", "cards": ["YUI-229", "YUI-236"], "agent": "Yui", "app": "native", "shots": ["/progress/yui229-after-drawer-dark.webp", "/progress/yui229-after-pairing-dark.webp", "/progress/ship062-add-agent-dark.webp"]}
+      ]
+    },
+    {
       "id": "release-060",
       "title": "Yui 0.6.0",
       "lede": "What reached phones with Yui 0.6.0 (build 342, Sep 29): every one of the five has its own tools, flows and default screens now, not just chat, and a quiet visual behind all of them. Shots are real captures from the iPhone simulator.",

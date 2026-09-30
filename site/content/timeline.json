@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 383,
-    "site": 901,
+    "app": 387,
+    "site": 916,
     "builds": 50,
-    "shipped": 453,
-    "screenshots": 1127
+    "shipped": 458,
+    "screenshots": 1141
   },
   "days": [
     {
@@ -13,7 +13,143 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-09-30T14:34:17.585Z",
+          "at": "2026-09-30T16:32:30.694Z",
+          "title": "Yui 0.6.2: the first minute, fixed, in one post",
+          "card": "SITE-129",
+          "anchor": "yui-0-6-2-the-first-minute-fixed-in-one-post",
+          "images": [
+            {
+              "src": "/progress/ship062-first-question-dark.webp",
+              "alt": "Dark mode: Your first plan, step 1 of 5, asking what you are training for."
+            },
+            {
+              "src": "/progress/ship062-nudge-dark.webp",
+              "alt": "Dark mode: the week is built and one line asks about a nudge."
+            },
+            {
+              "src": "/progress/ship062-add-agent-dark.webp",
+              "alt": "Dark mode: the drawer with an Add an agent button."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 387,
+            "site": 916,
+            "builds": 50,
+            "shipped": 458
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T16:27:16.000Z",
+          "title": "Yui 0.6.2: the first minute works on a real account",
+          "card": null,
+          "anchor": "yui-0-6-2-the-first-minute-works-on-a-real-account",
+          "images": [
+            {
+              "src": "/progress/ship062-first-question-dark.webp",
+              "alt": "Dark mode: Your first plan, step 1 of 5, asking what we are training for, with the goal choices."
+            },
+            {
+              "src": "/progress/ship062-nudge-dark.webp",
+              "alt": "Dark mode: the week is built and one line asks if you want a nudge when your trainer checks in."
+            },
+            {
+              "src": "/progress/ship062-add-agent-dark.webp",
+              "alt": "Dark mode: the drawer with a chat, pinned screens and an Add an agent button."
+            },
+            {
+              "src": "/progress/ship062-add-agent-light.webp",
+              "alt": "Light mode: the drawer with an Add an agent button."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 386,
+            "site": 915,
+            "builds": 50,
+            "shipped": 457
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T16:02:04.000Z",
+          "title": "A screen is never a dead end",
+          "card": "YUI-236",
+          "anchor": "a-screen-is-never-a-dead-end",
+          "images": [
+            {
+              "src": "/progress/yui236-after-dark-plan.webp",
+              "alt": "Dark mode: the Streak screen after the plan, with a round menu button top left and a chat button top right."
+            },
+            {
+              "src": "/progress/yui236-before-dark-plan.webp",
+              "alt": "Before, dark mode: the same Streak screen with nothing at the top, no menu and no way back to the chat."
+            },
+            {
+              "src": "/progress/yui236-after-light-plan.webp",
+              "alt": "Light mode: the Streak screen with the menu and chat buttons at the top."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 386,
+            "site": 913,
+            "builds": 50,
+            "shipped": 456
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T15:44:25.000Z",
+          "title": "The site is faster again, and the newest post no longer jumps",
+          "card": "SITE-133",
+          "anchor": "the-site-is-faster-again-and-the-newest-post-no-longer-jumps",
+          "images": [
+            {
+              "src": "/progress/site133-playground-dark.webp",
+              "alt": "Dark mode: Lighthouse on the playground page, before and after. Performance 74 to 85, accessibility 100 and best practices 100 both times, largest paint 4.3 to 4.0 seconds, blocking time 392 to 135 milliseconds."
+            },
+            {
+              "src": "/progress/site133-playground-light.webp",
+              "alt": "Light mode: the same before and after scores for the playground page."
+            }
+          ],
+          "commits": 5,
+          "totals": {
+            "app": 385,
+            "site": 912,
+            "builds": 50,
+            "shipped": 455
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T15:29:57.000Z",
+          "title": "Every crew agent is the shader blob, on the site too",
+          "card": "YUI-235",
+          "anchor": "every-crew-agent-is-the-shader-blob-on-the-site-too",
+          "images": [
+            {
+              "src": "/progress/yui235-stage-working-dark.webp",
+              "alt": "Dark mode: the stage while the agent works. The blob is a five-puff pink cloud for the doing word Asking your devices, with the word and a progress bar under it."
+            },
+            {
+              "src": "/progress/yui235-stage-working-light.webp",
+              "alt": "Light mode: the same working stage with the blob on a light ground."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 385,
+            "site": 909,
+            "builds": 50,
+            "shipped": 454
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-09-30T14:34:39.000Z",
           "title": "The blob changes shape with what your agent does",
           "card": "YUI-232",
           "anchor": "the-blob-changes-shape-with-what-your-agent-does",
@@ -27,10 +163,10 @@
               "alt": "Light mode: the same seven blob shapes on a light ground."
             }
           ],
-          "commits": 0,
+          "commits": 3,
           "totals": {
             "app": 383,
-            "site": 901,
+            "site": 903,
             "builds": 50,
             "shipped": 453
           }
@@ -54,7 +190,7 @@
           "commits": 2,
           "totals": {
             "app": 383,
-            "site": 901,
+            "site": 902,
             "builds": 50,
             "shipped": 452
           }
@@ -931,6 +1067,132 @@
       "commits": [
         {
           "repo": "site",
+          "sha": "591b1db",
+          "at": "2026-09-30T16:31:34.000Z",
+          "text": "Jev results: the tool router catches 97% of asks against 52% today, the reply-shape hint helps on cards, pages and full screens and...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/591b1db"
+        },
+        {
+          "repo": "app",
+          "sha": "ffbd579",
+          "at": "2026-09-30T16:31:24.000Z",
+          "text": "Jev at two decision points, in shadow: the reply shape in the Hermes plugin and a tool router for the native crew, measured against...",
+          "url": "https://github.com/postscarcityai/yui/commit/ffbd579"
+        },
+        {
+          "repo": "site",
+          "sha": "0fbe597",
+          "at": "2026-09-30T16:27:16.000Z",
+          "text": "Progress: Yui 0.6.2, the first minute works on a real account (build 392)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0fbe597"
+        },
+        {
+          "repo": "site",
+          "sha": "c887b89",
+          "at": "2026-09-30T16:11:21.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c887b89"
+        },
+        {
+          "repo": "site",
+          "sha": "18e306d",
+          "at": "2026-09-30T16:02:04.000Z",
+          "text": "Progress: a screen is never a dead end (YUI-236)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/18e306d"
+        },
+        {
+          "repo": "app",
+          "sha": "d046474",
+          "at": "2026-09-30T15:46:47.000Z",
+          "text": "A screen is no dead end: menu and chat buttons over every screen page, so the plan landing on its last screen still reaches the drawer...",
+          "url": "https://github.com/postscarcityai/yui/commit/d046474"
+        },
+        {
+          "repo": "site",
+          "sha": "982aadf",
+          "at": "2026-09-30T15:44:25.000Z",
+          "text": "Progress: the speed check again (SITE-133)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/982aadf"
+        },
+        {
+          "repo": "site",
+          "sha": "29a74d6",
+          "at": "2026-09-30T15:41:10.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/29a74d6"
+        },
+        {
+          "repo": "site",
+          "sha": "fd58d10",
+          "at": "2026-09-30T15:39:43.000Z",
+          "text": "A single thought screenshot reserves its width so nothing jumps when it loads (SITE-133)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fd58d10"
+        },
+        {
+          "repo": "site",
+          "sha": "dde9c05",
+          "at": "2026-09-30T15:29:57.000Z",
+          "text": "The crew's default is the blob on the site too: CREW_VISUALS and the crew page say orb, and the crew page and the stage-first working...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dde9c05"
+        },
+        {
+          "repo": "app",
+          "sha": "f9d4a5a",
+          "at": "2026-09-30T15:29:53.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yui/commit/f9d4a5a"
+        },
+        {
+          "repo": "site",
+          "sha": "ea5c6b2",
+          "at": "2026-09-30T15:22:46.000Z",
+          "text": "Roadmap film poster in the first paint; /progress skips off-screen entries until they near (SITE-133)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ea5c6b2"
+        },
+        {
+          "repo": "site",
+          "sha": "ecee31f",
+          "at": "2026-09-30T15:16:55.000Z",
+          "text": "Thought screenshots hold their space before they load (SITE-133)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ecee31f"
+        },
+        {
+          "repo": "site",
+          "sha": "6b62fd3",
+          "at": "2026-09-30T15:11:48.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6b62fd3"
+        },
+        {
+          "repo": "app",
+          "sha": "3500587",
+          "at": "2026-09-30T14:58:21.000Z",
+          "text": "The vector blob is gone: the shader draws the agent, and its blob changes shape with what the agent does (circle, cloud, football,...",
+          "url": "https://github.com/postscarcityai/yui/commit/3500587"
+        },
+        {
+          "repo": "site",
+          "sha": "28292a4",
+          "at": "2026-09-30T14:56:25.000Z",
+          "text": "Faster first paint: the chat loads after the page; crew and thoughts accessibility (SITE-133)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/28292a4"
+        },
+        {
+          "repo": "site",
+          "sha": "6955e04",
+          "at": "2026-09-30T14:43:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6955e04"
+        },
+        {
+          "repo": "site",
+          "sha": "5561ffe",
+          "at": "2026-09-30T14:34:39.000Z",
+          "text": "Progress: the blob changes shape with what your agent does (YUI-232)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5561ffe"
+        },
+        {
+          "repo": "site",
           "sha": "e8f0cc2",
           "at": "2026-09-30T14:20:01.000Z",
           "text": "Progress: the first question stays on screen (YUI-234)",
@@ -942,6 +1204,13 @@
           "at": "2026-09-30T14:18:55.000Z",
           "text": "Open on an agent's card no longer closes the first question: a notification landing on a message with nothing staged (the hello's words)...",
           "url": "https://github.com/postscarcityai/yui/commit/39a4eda"
+        },
+        {
+          "repo": "site",
+          "sha": "0030621",
+          "at": "2026-09-30T14:12:19.000Z",
+          "text": "The shader blob changes shape with what the agent does: circle, cloud, football, rounded square, drop, pill; Terrain out,...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0030621"
         },
         {
           "repo": "site",
