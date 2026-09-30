@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T22:40:27.804Z",
+  "updated": "2026-09-30T23:10:36.971Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -301,11 +301,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-115",
-          "title": "The app runs flows, then My flows (FLOW-1 app half)",
-          "waiting": true
-        },
-        {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4",
@@ -395,14 +390,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-141",
-          "title": "The web twin of YUI-220",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-221",
-          "title": "Basil's first plan",
-          "summary": "How you eat, then a week of meals",
+          "key": "YUI-115",
+          "title": "The app runs flows, then My flows (FLOW-1 app half)",
           "owner": "CJohnDesign"
         },
         {
@@ -425,6 +414,30 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-142",
+          "title": "/crew builds Basil's real week, the web twin of YUI-221",
+          "summary": "Try Basil's real week on /crew",
+          "shipped": "2026-09-30",
+          "progress": "/progress#try-basil-s-real-week-on-crew",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2d522bd"
+        },
+        {
+          "key": "YUI-221",
+          "title": "Basil's first plan",
+          "summary": "Basil builds your first week of meals",
+          "shipped": "2026-09-30",
+          "progress": "/progress#basil-builds-your-first-week-of-meals",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ffa2c6c"
+        },
+        {
+          "key": "SITE-141",
+          "title": "The web twin of YUI-220",
+          "summary": "Watch the trainer's workout run on the site",
+          "shipped": "2026-09-30",
+          "progress": "/progress#watch-the-trainer-s-workout-run-on-the-site",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/74dca9b"
+        },
         {
           "key": "YUI-220",
           "title": "Start to finish",

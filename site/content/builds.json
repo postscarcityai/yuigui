@@ -1831,6 +1831,10 @@
     {
       "text": "an agent coaches a timed workout: Start opens a session that runs on its own clock, coach cue per move, Next line on each rest, failure last set for heavy lifters only, finish writes the log",
       "card": "YUI-220"
+    },
+    {
+      "text": "Basil's first plan: five questions on the first open build a week of meals from the answers",
+      "card": "YUI-221"
     }
   ]
 }
