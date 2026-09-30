@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T19:41:32.498Z",
+  "updated": "2026-09-30T20:12:05.374Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -407,9 +407,14 @@
         },
         {
           "key": "YUI-40",
-          "title": "Widgets native in the app",
-          "step": "Step 2",
+          "title": "Steps 2-4",
+          "summary": "Siri intents, widget buttons, widget push relay",
           "progress": "/progress#widgets-and-siri-planned",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-138",
+          "title": "Today's drawings at phone width and in dark mode",
           "owner": "CJohnDesign"
         },
         {
@@ -432,6 +437,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-40",
+          "title": "Widgets native in the app",
+          "step": "Step 2",
+          "shipped": "2026-09-30",
+          "progress": "/progress#widgets-and-siri-planned",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/693a54c"
+        },
         {
           "key": "SITE-137",
           "title": "The site chat answers like the app, one line and a drawing",
@@ -2553,7 +2566,7 @@
           "summary": "Widgets and Siri, planned",
           "shipped": "2026-09-26",
           "progress": "/progress#widgets-and-siri-planned",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/693a54c"
+          "commit": "https://github.com/postscarcityai/yui/commit/cfd7e49"
         },
         {
           "key": "SITE-40",

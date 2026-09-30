@@ -1812,6 +1812,9 @@
     {
       "text": "Settings: Account right under Appearance, Delete account in reach",
       "card": "YUI-237"
+    },
+    {
+      "text": "Saved screens as widgets: app group copy, Saved screen widget (stat, chart, list, timer, card, timeline, table; small, medium, lock screen), Pin as widget on the shelf, widget tap opens the screen (YUI-40 step 1)"
     }
   ]
 }
