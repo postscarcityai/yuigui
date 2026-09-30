@@ -1729,6 +1729,10 @@
     {
       "text": "Live sim test: a stranger's first plan builds the week after Send, no second wizard",
       "card": "YUI-228"
+    },
+    {
+      "text": "Add an agent in the drawer, and pairing is one command",
+      "card": "YUI-229"
     }
   ]
 }

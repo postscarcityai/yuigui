@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T11:11:17.066Z",
+  "updated": "2026-09-30T11:40:22.145Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -394,13 +394,6 @@
         {
           "key": "YUI-218",
           "title": "Snag",
-          "summary": "No notification permission prompt and the test push never shows",
-          "waiting": true,
-          "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags"
-        },
-        {
-          "key": "YUI-218",
-          "title": "Snag",
           "summary": "Delete account takes 17 seconds to reach",
           "waiting": true,
           "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags"
@@ -474,8 +467,15 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-229",
-          "title": "Add an agent hides behind the agent bar, and the pairing sheet is three commands, not one",
+          "key": "YUI-230",
+          "title": "Allow notifications shows once, after the first plan",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-128",
+          "title": "The start page shows the one pairing command, like the app",
+          "summary": "The start page shows one pairing command",
+          "progress": "/progress#the-start-page-shows-one-pairing-command",
           "owner": "CJohnDesign"
         },
         {
@@ -490,6 +490,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-229",
+          "title": "Add an agent hides behind the agent bar, and the pairing sheet is three commands, not one",
+          "summary": "Add an agent is in the drawer, and pairing is one command",
+          "shipped": "2026-09-30",
+          "progress": "/progress#add-an-agent-is-in-the-drawer-and-pairing-is-one-command",
+          "commit": "https://github.com/postscarcityai/yui/commit/d8b1792"
+        },
         {
           "key": "SITE-127",
           "title": "The first minute, before and after the fixes, and the meal demo tile linked",
