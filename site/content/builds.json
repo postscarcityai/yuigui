@@ -1,6 +1,47 @@
 {
   "builds": [
     {
+      "build": 380,
+      "date": "2026-09-30",
+      "uploaded": "2026-09-30T01:49:40-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Plugin guide v42: show it here, don't link out"
+        },
+        {
+          "text": "About and Controls become one Agent drawer tab",
+          "card": "YUI-128"
+        },
+        {
+          "text": "A lone ask heads itself: drop 'One question' and the filler subtitle (YUI-219,)"
+        },
+        {
+          "text": "A logged meal lands on Today: the asked-about page is sent last (YUI-183b)"
+        },
+        {
+          "text": "YUI-139 2d: turn on Claude, ChatGPT, Gemini, Grok (Chris: no spend, he tests with his own keys)"
+        },
+        {
+          "text": "Pick your crew: the first-run picker, a page per agent, Bring my own agent into pairing, the pick saved on the account",
+          "card": "YUI-216"
+        },
+        {
+          "text": "Long own answers wrap whole, the mic trash is its own target, the looper drops its Send button"
+        },
+        {
+          "text": "Chat mic keeps its own trash in the listening bar, no second one; stage trash shot test"
+        },
+        {
+          "text": "the agent's first plan: one intake (goal, days, time, gear, experience, Not sure, Skip) builds the week and saves the answers",
+          "card": "YUI-217"
+        },
+        {
+          "text": "Bump version to 0.6.1"
+        }
+      ]
+    },
+    {
       "build": 370,
       "date": "2026-09-29",
       "uploaded": "2026-09-29T18:39:46-07:00",
@@ -1676,39 +1717,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Plugin guide v42: show it here, don't link out"
-    },
-    {
-      "text": "About and Controls become one Agent drawer tab",
-      "card": "YUI-128"
-    },
-    {
-      "text": "A lone ask heads itself: drop 'One question' and the filler subtitle (YUI-219,)"
-    },
-    {
-      "text": "A logged meal lands on Today: the asked-about page is sent last (YUI-183b)"
-    },
-    {
-      "text": "YUI-139 2d: turn on Claude, ChatGPT, Gemini, Grok (Chris: no spend, he tests with his own keys)"
-    },
-    {
-      "text": "Pick your crew: the first-run picker, a page per agent, Bring my own agent into pairing, the pick saved on the account",
-      "card": "YUI-216"
-    },
-    {
-      "text": "Long own answers wrap whole, the mic trash is its own target, the looper drops its Send button"
-    },
-    {
-      "text": "Chat mic keeps its own trash in the listening bar, no second one; stage trash shot test"
-    },
-    {
-      "text": "the agent's first plan: one intake (goal, days, time, gear, experience, Not sure, Skip) builds the week and saves the answers",
-      "card": "YUI-217"
-    },
-    {
-      "text": "Bump version to 0.6.1"
-    }
-  ]
+  "next": []
 }
