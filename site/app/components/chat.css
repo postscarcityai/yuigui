@@ -43,6 +43,10 @@
 @keyframes yc-turn { to { rotate: 360deg; } }
 @keyframes yc-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
 
+/* SITE-131: over a /crew demo phone the bubble steps aside so the phone's own button is tappable. */
+.yc.is-away, .yc.is-away .yc-fab { pointer-events: none; }
+.yc.is-away .yc-fab { opacity: 0; }
+.yc-fab { transition: opacity .2s ease; }
 .yc.is-open { z-index: 1000; }
 .yc.is-open .yc-fab { display: none; }
 html.yc-on, html.yc-on body { overflow: hidden; }

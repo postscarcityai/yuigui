@@ -98,3 +98,12 @@
 .fp-try { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1.5px solid var(--cm); background: var(--surface); color: var(--ink); font: inherit; font-weight: 800; text-decoration: none; cursor: pointer; }
 .fp-try:hover { background: color-mix(in srgb, var(--cm) 18%, var(--surface)); }
 .crew-links .fp-again { min-height: 44px; padding: 0 6px; }
+/* SITE-132: in the first-plan link row Start over reads like its neighbours: one weight, one colour, one baseline. */
+.crew-links:has(.fp-again) { align-items: center; }
+.crew-links:has(.fp-again) > a, .crew-links:has(.fp-again) > .fp-again { display: inline-flex; align-items: center; min-height: 44px; padding: 0 6px; font: inherit; font-weight: 700; color: var(--link); text-decoration: none; }
+.crew-links:has(.fp-again) > .fp-again:hover, .crew-links:has(.fp-again) > a:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* On a phone the row is a tidy column, never two on a line and one orphaned below. */
+@media (max-width: 520px) {
+  .crew-links:has(.fp-again) { flex-direction: column; gap: 0; }
+  .fp-links:has(.fp-again) { align-items: flex-start; }
+}

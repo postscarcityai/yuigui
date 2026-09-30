@@ -183,10 +183,33 @@ export default function ChatFab() {
   const [jump, setJump] = useState(0);            // bumps when a reply lands, to bring its page forward
   const [ended, setEnded] = useState(false);       // the stage is on its last part (SITE-98): a quiet Back to home shows under the content, the mic stays
   const [halted, setHalted] = useState(false);    // the last turn was stopped: the stage says so
+  const [away, setAway] = useState(false);        // SITE-131: a demo phone is under the bubble on /crew, so it steps aside
   const flight = useRef(null);                    // the turn in flight (lib/chat/stop.mjs)
   if (!flight.current) flight.current = turns();
   const input = useRef(null), list = useRef(null), ready = useRef(false), rec = useRef(null), heardRef = useRef(""), cancelled = useRef(false);
   const reduced = useReduced();
+  // SITE-131: on /crew the demo phones hold their own buttons (Start with N, Start). While one sits under the
+  // bubble's corner, the bubble fades out and stops taking taps; it comes back as soon as the phone scrolls away.
+  useEffect(() => {
+    if (!path.startsWith("/crew")) { setAway(false); return undefined; }
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const w = window.innerWidth, h = window.innerHeight;
+      const hit = [...document.querySelectorAll("#pick-your-crew .phone, #first-plan .phone, .crew-demo .phone, .crew-stage .phone")].some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.right > w - 96 && r.bottom > h - 96 && r.top < h && r.left < w;
+      });
+      setAway(hit);
+    };
+    const queue = () => { if (!raf) raf = requestAnimationFrame(check); };
+    queue();
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    const mo = new MutationObserver(queue);
+    mo.observe(document.body, { childList: true, subtree: true });
+    return () => { cancelAnimationFrame(raf); window.removeEventListener("scroll", queue); window.removeEventListener("resize", queue); mo.disconnect(); };
+  }, [path]);
   const look = useMemo(() => motionLook({ motion: "bouncy" }, null, reduced), [reduced]);
 
   // The pages (SITE-83): every reply so far, folded into screens 2 to 12.
@@ -517,7 +540,7 @@ export default function ChatFab() {
 
   return (
     <KeepCtx.Provider value={true}>
-    <div className={`yc${open ? " is-open" : ""}`}>
+    <div className={`yc${open ? " is-open" : ""}${away && !open ? " is-away" : ""}`}>
       {open && (
         <div className="yc-layer" onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}>
           <section className={`yc-panel ys p-${look.pulse} e-${look.enter}${look.reduced ? " mo-still" : ""}`} role="dialog" aria-label="Chat with Yui"
