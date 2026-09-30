@@ -12,6 +12,13 @@ const headline = (text) => short(text.split(/\s\(|\.\s/)[0].trim(), 56);
 const cardOf = (c) => c.card || (c.text.match(/\b(YUI-\d+)\b/) || [])[1];
 const ROW = { done: "done", now: "now", next: "next" };
 
+// When the changes on main ship (YUI-SHIP): one TestFlight build every morning at 6 am ET.
+// Before 6 am ET it is today, after it is tomorrow. Plain words for the changelog and the release tile.
+export function nextBuildWhen(now = new Date()) {
+  const hour = Number(new Intl.DateTimeFormat("en-US", { hour: "numeric", hourCycle: "h23", timeZone: "America/New_York" }).format(now));
+  return `Next build: ${hour < 6 ? "today" : "tomorrow"}, 6 am ET.`;
+}
+
 // The build that carried the release: the newest one uploaded while its ship card was open.
 export function releaseBuild(rel, builds) {
   if (!rel?.startedAt) return null;

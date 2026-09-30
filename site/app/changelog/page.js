@@ -9,9 +9,12 @@ import { slug } from "../../lib/slug.mjs";
 import { day as date } from "../../lib/day.mjs";
 import { shotsOf } from "../../lib/shots.mjs";
 import Shots from "../components/Shots";
-import { releaseBuild } from "../../lib/release.mjs";
+import { releaseBuild, nextBuildWhen } from "../../lib/release.mjs";
 import Films from "../components/Films";
 import { pageMeta } from "../../lib/og/meta.mjs";
+
+// The "when" line depends on the clock, so refresh the page every 10 minutes.
+export const revalidate = 600;
 
 export const metadata = pageMeta({
   path: "/changelog",
@@ -62,7 +65,7 @@ function ReleaseTile() {
   const landed = rel.cards.filter((c) => c.status === "done").length;
   const waiting = builds.next.filter((c) => !CHORE.test(c.text)).length;
   const said = rel.status === "shipped"
-    ? `${name} shipped${b ? ` as build ${b.build}` : ""}.${waiting ? ` ${waiting} ${waiting === 1 ? "change is" : "changes are"} on main for the next one.` : ""}`
+    ? `${name} shipped${b ? ` as build ${b.build}` : ""}.${waiting ? ` ${waiting} ${waiting === 1 ? "change is" : "changes are"} on main for the next one. ${nextBuildWhen()}` : ""}`
     : `${name}: ${landed} of ${rel.cards.length} cards landed${rel.status === "shipping" ? ", shipping now" : ""}.`;
   return (
     <a className="card note-card release-tile" href="/playground?demo=release">
@@ -92,11 +95,11 @@ export default function Changelog() {
         <section className="build" id="next">
           <div className="build-head">
             <h2>Next build</h2>
-            <span className="pill wait">Waiting on Apple</span>
+            <span className="pill wait">Ships at 6 am ET</span>
           </div>
           <p className="build-note">
-            Done in the code, not on TestFlight yet. We upload once per release and Apple caps uploads per day, so
-            these go up together as the next build. It gets its number when it uploads.
+            <strong>{nextBuildWhen()}</strong> Done in the code, not on TestFlight yet. One build goes up every morning, and only when the
+            app changed, so these ride it together. It gets its number when it uploads.
           </p>
           <Changes changes={builds.next} />
         </section>
