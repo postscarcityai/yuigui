@@ -46,6 +46,25 @@ Five: no push banner showed on the simulator. We need a real phone to know if th
 
 The whole run, sign in to a paired agent answering, took about 6 minutes. Deleting the account took 17 seconds to reach and 4 to finish, and left nothing behind.
 
+## After the fixes
+
+Two of the five snags are fixed, and we timed them again.
+
+```compare
+before: Open to the first question: about 25 s\nSend to a built week: over 120 s | The cold run
+after: Open to the first question: under 5 s\nSend to a built week: about 2 s | Now
+```
+
+```compare
+before: /progress/yui225-before-dark.webp | Before: Open landed on the trainer's page
+after: /progress/yui225-after-dark.webp | After: Open lands on step 1 of 5
+```
+
+```compare
+before: /progress/yui228-send-dark.webp | Send, with the five answers in
+after: /progress/yui228-built-week-dark.webp | About 2 seconds later: the week is built
+```
+
 ## What to try
 
 Build 380 is on TestFlight. Delete Yui, install it fresh, and time your own first minute. Something slow or confusing? The feedback button in TestFlight goes straight onto the board.
