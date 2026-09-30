@@ -2,15 +2,47 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 405,
-    "site": 950,
+    "site": 953,
     "builds": 51,
-    "shipped": 475,
-    "screenshots": 1199
+    "shipped": 476,
+    "screenshots": 1203
   },
   "days": [
     {
       "date": "2026-09-30",
       "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-09-30T22:42:41.000Z",
+          "title": "Watch the trainer's workout run on the site",
+          "card": "SITE-141",
+          "anchor": "watch-the-trainer-s-workout-run-on-the-site",
+          "images": [
+            {
+              "src": "/progress/site141-dark-heavy-work.webp",
+              "alt": "The trainer's session on a phone, dark: Work, move 1 of 3, set 1 of 3, a 0:04 ring, Squat, and the cue Brace. Knees out. Drive up."
+            },
+            {
+              "src": "/progress/site141-dark-heavy-rest.webp",
+              "alt": "The rest screen, dark: Rest, a 0:03 countdown, Next: Squat, set 2 of 3, and Skip rest and Pause buttons."
+            },
+            {
+              "src": "/progress/site141-dark-heavy-fail.webp",
+              "alt": "The last set for a heavy lifter, dark: To failure. Stop when form breaks. and a big Stop button."
+            },
+            {
+              "src": "/progress/site141-light-heavy-fail.webp",
+              "alt": "The same to-failure set in light mode."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 405,
+            "site": 953,
+            "builds": 51,
+            "shipped": 476
+          }
+        },
         {
           "kind": "ship",
           "at": "2026-09-30T22:23:45.000Z",
@@ -1581,6 +1613,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "e7499dd",
+          "at": "2026-09-30T22:42:41.000Z",
+          "text": "A change with private details, left out here",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e7499dd"
+        },
+        {
+          "repo": "site",
+          "sha": "382f660",
+          "at": "2026-09-30T22:40:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/382f660"
+        },
+        {
+          "repo": "site",
+          "sha": "1fd2430",
+          "at": "2026-09-30T22:30:58.000Z",
+          "text": "Social drafts: 5 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1fd2430"
+        },
         {
           "repo": "site",
           "sha": "c7ae519",
@@ -3164,7 +3217,7 @@
           "card": "SOC-1",
           "anchor": "a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
           "images": [],
-          "commits": 7,
+          "commits": 8,
           "totals": {
             "app": 365,
             "site": 827,
