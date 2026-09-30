@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T09:11:55.981Z",
+  "updated": "2026-09-30T09:43:34.813Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -439,6 +439,10 @@
           "progress": "/progress#a-stranger-runs-yui-cold-about-6-minutes-five-snags"
         },
         {
+          "key": "SITE-124",
+          "title": "Try every crew member's first plan on /crew"
+        },
+        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true
@@ -509,10 +513,10 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-123",
-          "title": "The site's first-plan demo asks the same five questions as the app",
-          "summary": "The site's first plan asks the same five questions",
-          "progress": "/progress#the-site-s-first-plan-asks-the-same-five-questions",
+          "key": "YUI-227",
+          "title": "First-plan flows for Basil, Gouda, Penny and Quill",
+          "summary": "A first plan for Basil, Gouda, Penny and Quill",
+          "progress": "/progress#a-first-plan-for-basil-gouda-penny-and-quill",
           "owner": "CJohnDesign"
         },
         {
@@ -527,6 +531,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-123",
+          "title": "The site's first-plan demo asks the same five questions as the app",
+          "summary": "The site's first plan asks the same five questions",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-site-s-first-plan-asks-the-same-five-questions"
+        },
         {
           "key": "YUI-226",
           "title": "A saved first-plan flow any agent can send",
