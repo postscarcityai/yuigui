@@ -2,9 +2,9 @@
 id: PROP-2
 title: The Jev layer
 summary: One fast Jev call on every turn picks the shape of the reply, so the agent writes into it.
-status: Open for votes
+status: Building
 date: 2026-09-28
-becomes: A four-step epic: spec and mock, shadow mode on the Hermes plugin, Jev routing behind a flag, an on-device fallback (YUI-41). Cards in the backlog, Chris picks.
+becomes: A four-step epic: spec and mock, shadow mode on the Hermes plugin, Jev routing behind a flag, an on-device fallback (YUI-41). Steps 2 and 3 are built and measured (YUI-215, 2026-09-30): shadow mode and the hint flag are in the plugin and off, the crew tool router runs in shadow. Whether to turn the hint on is Chris's call. Step 4 stays in the backlog.
 cost: L
 call: recommend
 by: Chris
@@ -75,13 +75,20 @@ This is one extra step on every call to an agent:
 5. On long replies only, a second call checks the draft against the shape it should have had. At first it only writes a log line.
 6. Later, the same questions go to more places: the photo intent on a meal turn, and the tool router that catches "could you sort my week out".
 
-What is real and what is a claim. TypeSafe says: 70 to 500 ms, $0.042 per million input tokens, output free, and answers that are "calibrated", so 0.9 means right about nine times in ten. Those are TypeSafe's claims. We have not run a call. We have no key.
+What is real and what is a claim. TypeSafe says: 70 to 500 ms, $0.042 per million input tokens, output free, and answers that are "calibrated", so 0.9 means right about nine times in ten. Since this page went up, Jev became available on OpenRouter (`typesafe/jev-1.13`, billed to our own OpenRouter key), so we ran it: about 770 calls on the channel eval's messages, real Yui messages and made-up phrasings for the crew's tools. The measured numbers are in [the results](https://github.com/postscarcityai/yuigui/blob/main/docs/research/jev-results.md):
+
+- **Speed and cost hold.** Median 248 ms, 95th percentile 323 ms. About 3 cents per 1,000 shape calls.
+- **The crew's tool router is a clear win.** Today's patterns catch 52% of the ways to ask for a tool. Jev catches 92%, and 97% with the patterns first. "Get my week into some kind of order" reaches plan my week.
+- **The reply-shape hint depends on the shape.** On every shape it made the channel eval worse. On card, pages and full screen only, it lost no case in two runs. So the plugin hints only those, and the whole hint is off until Chris says.
+- **Confidence is honest on real messages** (0.9 and up: right 96% of the time) and overconfident in the middle on the eval's richer asks.
+
+The labels behind these are hand-made by the Yui agent, and nothing has run on live turns yet. The results page says where that limits each number.
 
 What we can work out from those claims:
 
 | | Per turn | Per 1,000 turns |
 |---|---|---|
-| Shape call, about 800 tokens in | about $0.00003 | about 3 cents |
+| Shape call, about 800 tokens in (measured: $0.034 per 1,000) | about $0.00003 | about 3 cents |
 | Check call on a long reply, about 1,500 tokens | about $0.00006 | about 6 cents |
 | Both, worst case | under $0.0001 | under 10 cents |
 | Added wait, shape call | 70 to 500 ms claimed | runs beside the work the plugin already does |
@@ -109,9 +116,9 @@ Cost is not the limit. Privacy and trust are.
 
 L. The hint plumbing in the plugin is a few days. The real work is the eval set (about 100 labelled turns), the shadow run and the tuning. Steps, each a backlog card:
 
-1. **Spec and playground mock.** Write the questions and the hint line down, and mock the diagram and the hint in the playground. No key, no call. Card: SITE, "Jev layer spec and playground mock". S.
-2. **Shadow mode on the Hermes plugin.** Jev decides and logs. The model still decides. We compare on real turns and score Jev against the eval set. Needs the key and a yes on question 1 below. Card: YUI, "Jev shadow mode in the Hermes plugin". M.
-3. **Jev routes for real, behind a flag.** The hint goes into the turn, owner turns only, with a switch in Settings. The post check stays log only. Card: YUI, "Jev shape hint behind a flag". M.
+1. **Spec and playground mock.** Write the questions and the hint line down, and mock the diagram and the hint in the playground. No key, no call. Card: SITE, "Jev layer spec and playground mock". S. (Done: the hero on this page.)
+2. **Shadow mode on the Hermes plugin.** Jev decides and logs. The model still decides. We compare on real turns and score Jev against the eval set. Needs the key and a yes on question 1 below. Card: YUI, "Jev shadow mode in the Hermes plugin". M. (Built in YUI-215 and scored offline. Live logging waits for the key in the gateway's environment.)
+3. **Jev routes for real, behind a flag.** The hint goes into the turn, owner turns only, with a switch in Settings. The post check stays log only. Card: YUI, "Jev shape hint behind a flag". M. (Built in YUI-215, off. It hints card, pages and full screen only. The Settings switch is not built: the flag is in the profile's config.)
 4. **An on-device fallback.** The easy calls (shape, camera) run on the phone with the small model from YUI-41, so no words leave the phone. Jev stays for the rest. Card: YUI-41 (exists), extended. L.
 
 Chris picks which of these become work, and in what order.
@@ -122,15 +129,15 @@ Chris picks which of these become work, and in what order.
 - **Shared agents carry someone else's words.** Start with owner turns only.
 - **Wrong hints.** A wrong hint could make a worse screen. Mitigation: the model can overrule, two clashing hints are dropped, and shadow mode measures before any hint reaches a person.
 - **Vendor risk.** Early access, an outage at launch, price unknown. Every row falls back to today's behavior, so the loss is the gain, not the app.
-- **Claims not yet checked.** Speed, price and calibration are TypeSafe's. We watch p95 latency and the wrong-shape rate in shadow mode, and stop if either is bad.
+- **Claims checked once, offline.** Speed and price held in about 770 calls (p95 323 ms, 3 cents per 1,000). Calibration held on real messages and not in the middle range on the eval. We keep watching p95 and the wrong-shape rate in shadow mode, and stop if either is bad.
 
 ## Open questions
 
 - **Can a person's message leave the phone for Jev?** (a) Yes, owner turns only, 400 characters, behind a switch in Settings. (b) No, Jev only on our own test turns. (c) Only for agents the person marks. Yui would start with (a).
-- **Who makes the Jev account and key?** It is a browser sign-up at console.typesafe.ai, so it is Chris's step. Nothing is built against a real key until then. The early-access waitlist was reported closed on 2026-09-27, but that is one third-party report.
+- **Who makes the Jev account and key?** Answered: Jev is on OpenRouter, so our existing OpenRouter key works and bills there. No TypeSafe account is needed. Putting the key in the yui gateway's environment is what turns the live shadow on.
 - **Where does the call run?** On the Hermes plugin (one place, easy to log), in the app (works with any agent, the phone holds a key), or through a proxy on yuigui.com. Yui would start on the plugin.
 - **Groups: wait for the on-device model or use Jev?** On-device keeps the words on the phone. Jev works on every phone. Yui would wait.
 
 ## Yui's call
 
-Recommend, as a small step first. Build the spec and the mock, then run Jev in shadow mode and let real turns say whether it picks the right shape before a hint reaches anyone.
+Recommend, as a small step first. The mock, the shadow mode and the flag are built and measured. The crew's tool router is worth turning on after a live shadow week. For the reply shape, hint card, pages and full screen only, and leave lines and yes/no to the agent until live turns say more.

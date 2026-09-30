@@ -5,6 +5,8 @@
 //   node run.mjs --guide /tmp/CHANNEL.md  try a draft without touching the spec
 //   node run.mjs --rescore reports/v1.json  re-score saved replies (no model calls)
 //   node run.mjs --only meal-photo --into reports/v1.json --label v1  re-run cases into a report
+//   node run.mjs --cases other.json      run another suite file (same shape as cases.json)
+//   node run.mjs --hints jev-hints.json   add each case's Jev hint line (id -> line) to its turn, as the plugin does (YUI-215)
 //
 //   OPENROUTER_API_KEY=... node run.mjs --model z-ai/glm-5.2   a model on OpenRouter, as Yui's own runtime calls it
 //
@@ -54,10 +56,11 @@ export function splitGuide(body) {
   return { fixed: body.replace(RESTYLE, ""), restyle: text };
 }
 
-function system(g, suite, c) {
+// `hint` (YUI-215): the one line the plugin adds to the turn when Jev is sure of the reply shape, after the look line.
+function system(g, suite, c, hint) {
   const { fixed, restyle } = splitGuide(g.body);
   return [suite.agents[c.agent], suite.context, "You are on the Yui channel with Chris.",
-    `Yui channel guide ${g.version}\n\n${fixed.trim()}`, [LOOK, restyle].filter(Boolean).join("\n")].join("\n\n");
+    `Yui channel guide ${g.version}\n\n${fixed.trim()}`, [LOOK, restyle, hint].filter(Boolean).join("\n")].join("\n\n");
 }
 
 function prompt(c) {
@@ -463,7 +466,8 @@ function report(run) {
 // ---------- main ----------
 
 async function main() {
-  const suite = JSON.parse(readFileSync(new URL("cases.json", HERE), "utf8"));
+  // --cases: another suite file, same shape (YUI-215: real messages kept outside the repo, run to see the shape a hint moves)
+  const suite = JSON.parse(readFileSync(arg("cases") ?? new URL("cases.json", HERE), "utf8"));
   const cases = suite.cases;
   const rescore = arg("rescore");
   let run;
@@ -481,13 +485,14 @@ async function main() {
     // --only takes an id prefix or a category, or several joined by commas.
     const todo = cases.filter((c) => !only || only.split(",").some((o) => c.id.startsWith(o) || c.category === o));
     const jobs = Number(arg("jobs", 4));
+    const hints = arg("hints") ? JSON.parse(readFileSync(arg("hints"), "utf8")) : {};
     run = { label: arg("label", guide.version), guide, model, date: new Date().toISOString().slice(0, 16), results: [] };
     const results = new Array(todo.length);
     let next = 0;
     await Promise.all(Array.from({ length: jobs }, async () => {
       while (next < todo.length) {
         const i = next++, c = todo[i];
-        const r = await ask(system(guide, suite, c), prompt(c), model);
+        const r = await ask(system(guide, suite, c, hints[c.id]), prompt(c), model);
         const s = r.reply ? score(c, r.reply) : { pass: false, fails: [`no reply: ${r.error}`] };
         results[i] = { id: c.id, category: c.category, message: c.message, good: c.good, reply: r.reply, error: r.error, score: s,
           ...(r.provider ? { provider: r.provider, finish: r.finish, usage: r.usage } : {}), ...(r.retried ? { retried: true } : {}) };
