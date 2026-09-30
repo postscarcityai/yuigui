@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-30T06:11:42.032Z",
+  "updated": "2026-09-30T06:40:27.710Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.0",
@@ -481,13 +481,16 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-218",
-          "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
+          "key": "SITE-120",
+          "title": "Every link, image and share card resolves after the Sep 29-30 pages",
+          "summary": "Every link and share card, checked again",
+          "progress": "/progress#every-link-and-share-card-checked-again",
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-120",
-          "title": "Every link, image and share card resolves after the Sep 29-30 pages",
+          "key": "YUI-218",
+          "title": "The stranger run, the whole path on a fresh Apple ID with a stopwatch",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
