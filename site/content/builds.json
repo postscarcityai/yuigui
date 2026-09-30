@@ -1733,6 +1733,13 @@
     {
       "text": "Add an agent in the drawer, and pairing is one command",
       "card": "YUI-229"
+    },
+    {
+      "text": "Notifications ask comes after the first plan: one plain line, Yes raises the system prompt, sign-in ask only as a later-launch fallback",
+      "card": "YUI-230"
+    },
+    {
+      "text": "Bump version to 0.6.2"
     }
   ]
 }
