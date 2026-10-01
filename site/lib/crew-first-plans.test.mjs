@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { HANDLES, NAMES, NOT_SURE, ask, askLines, norm, pennyWeek, resultLines, skipped, wholeLines } from "./crew-first-plans.mjs";
+import { HANDLES, NAMES, NOT_SURE, ask, askLines, norm, pennyWeek, quillWeek, resultLines, skipped, wholeLines } from "./crew-first-plans.mjs";
 import { parse } from "./yl/yl.mjs";
 
 const ok = (text) => assert.ok(parse(text).every((o) => o.op !== "error"), text);
@@ -9,7 +9,7 @@ test("questions match the saved flows of YUI-227", () => {
   assert.deepEqual(ask("basil").map((s) => s.q), ["What's the goal?", "Which days should I plan?", "How many meals a day?", "What should I leave out?", "How long can you cook?"]);
   assert.deepEqual(ask("gouda").map((s) => s.q), ["What do you play?", "How would you rate yourself?", "Minutes a day?", "What do you want to play?"]);
   assert.deepEqual(ask("penny").map((s) => s.q), ["Which days are packed?", "When do you plan?", "How do you want reminders?"]);
-  assert.deepEqual(ask("quill").map((s) => s.q), ["What are you learning?", "How long do you have?", "How do you like to be quizzed?"]);
+  assert.deepEqual(ask("quill").map((s) => s.q), ["What are you learning?", "How many minutes a day?", "How do you like to be quizzed?"]);
   for (const h of HANDLES) for (const s of ask(h)) assert.equal(s.options.at(-1), NOT_SURE);
 });
 
@@ -31,7 +31,7 @@ test("each answer changes the example", () => {
 });
 
 test("the example is labelled as one", () => {
-  for (const h of HANDLES.filter((x) => x !== "penny")) assert.match(resultLines(h, {}), /Example/); // Penny builds the real routine (SITE-146)
+  for (const h of HANDLES.filter((x) => x !== "penny" && x !== "quill")) assert.match(resultLines(h, {}), /Example/); // Penny and Quill build the real plan (SITE-146, SITE-147)
 });
 
 // SITE-141: Arnold's timed session, the web twin of YUI-220.
@@ -258,4 +258,37 @@ test("Penny: Skip on everything still builds a routine", () => {
   assert.match(out, /Pick your one must-do for today/);
   assert.match(out, /cta="Add a to-do"/);
   ok(startLines("penny", skipped("penny"), 2));
+});
+
+test("Quill: no day runs past the minutes picked, in any style", () => {
+  for (const minutes of ["10 minutes", "20 minutes", "30 minutes", "An hour"]) for (const quiz of ["Flash cards", "Multiple choice", "Write it out", "Out loud"]) {
+    const w = quillWeek({ minutes, quiz }, 2);
+    const max = minutes === "An hour" ? 60 : parseInt(minutes, 10);
+    assert.equal(w.days.length, 7);
+    for (const d of w.days) assert.ok(d.lesson + d.quiz <= max && d.lesson > 0 && d.items >= 1, `${minutes} ${quiz}`);
+  }
+});
+
+test("Quill: the quiz style matches the pick", () => {
+  assert.match(resultLines("quill", { topic: "A language", minutes: "20 minutes", quiz: "Flash cards" }, 2), /12 minute lesson, then 16 flash cards/);
+  assert.match(resultLines("quill", { minutes: "20 minutes", quiz: "Write it out" }, 2), /write-it-out prompts/);
+  assert.match(resultLines("quill", { minutes: "20 minutes", quiz: "Out loud" }, 2), /say-it-out-loud prompts/);
+});
+
+test("Quill: today's lesson has a Start button, and no Example title", () => {
+  const out = resultLines("quill", { topic: "A language", minutes: "20 minutes", quiz: "Flash cards" }, 2);
+  assert.match(out, /cta="Start today's lesson"/);
+  assert.doesNotMatch(out, /Example/);
+  assert.match(out, /Today: The basics/);
+});
+
+test("Quill: Skip on everything still builds a plan", () => {
+  const w = quillWeek(skipped("quill"), 2);
+  assert.equal(w.subject, "A general topic");
+  assert.equal(w.minutes, 10);
+  assert.equal(w.style, "Multiple choice");
+  assert.deepEqual(quillWeek({}, 2), w);
+  const out = resultLines("quill", skipped("quill"), 2);
+  assert.match(out, /A general topic, 10 minutes a day, quizzed with multiple choice/);
+  ok(out); ok(startLines("quill", skipped("quill"), 2));
 });

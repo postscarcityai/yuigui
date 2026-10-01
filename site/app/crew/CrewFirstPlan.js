@@ -39,7 +39,7 @@ export default function CrewFirstPlan({ handle, name, children }) {
     <>
       {on ? (
         <>
-          <div className="phone sc-phone" role="group" aria-label={`A live demo of ${name}'s first plan. Answer ${LAST} questions and a small example plan is built.`}>
+          <div className="phone sc-phone" role="group" aria-label={`A live demo of ${name}'s first plan. Answer ${LAST} questions and your plan is built.`}>
             <div className="fp-in" key={`${step}${go}${dark}`}>
               <Live yl={lines} agent={name} light={!dark} onTap={tap} />
             </div>

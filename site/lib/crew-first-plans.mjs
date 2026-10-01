@@ -35,7 +35,7 @@ const MEALS = {
   quill: {
     ask: [
       S("topic", "Learning", "Hi, I'm Quill. Three taps and you have a study plan.", "What are you learning?", ["A language", "A school subject", "A skill for work", "Something for fun"]),
-      S("time", "Time", "Good. Next.", "How long do you have?", ["A week", "A month", "3 months", "No deadline"]),
+      S("minutes", "Minutes", "Good. Next.", "How many minutes a day?", ["10 minutes", "20 minutes", "30 minutes", "An hour"]),
       S("quiz", "Quiz", "Last one.", "How do you like to be quizzed?", ["Flash cards", "Multiple choice", "Write it out", "Out loud"]),
     ],
   },
@@ -218,6 +218,29 @@ export function pennyLine(w) {
   return `Your routine is set. ${plan}.${busy}${how}`;
 }
 
+// Quill's study week (the web twin of the app's buildStudyPlan, YUI-224 / SITE-147). One session a day for seven days:
+// a lesson then a quiz in the style picked, never longer than the minutes picked. Not sure and Skip: a general topic,
+// 10 minutes a day, multiple choice. `today` is 0 for Monday.
+const FOCUS = ["The basics", "Key ideas", "Worked examples", "Practice", "Common mistakes", "Putting it together", "Review the week"];
+const ITEM_MIN = { "Flash cards": 0.5, "Multiple choice": 1, "Write it out": 2, "Out loud": 1.5 };
+const NOUN = { "Flash cards": "flash cards", "Multiple choice": "multiple choice questions", "Write it out": "write-it-out prompts", "Out loud": "say-it-out-loud prompts" };
+const QUILL_MIN = { "10 minutes": 10, "20 minutes": 20, "30 minutes": 30, "An hour": 60 };
+
+export function quillWeek(a = {}, today = todayIndex()) {
+  const n = norm("quill", a);
+  const subject = n.topic ?? "A general topic";
+  const minutes = QUILL_MIN[n.minutes] ?? 10;
+  const style = n.quiz ?? "Multiple choice";
+  const lesson = Math.round(minutes * 0.6);
+  const quiz = minutes - lesson;
+  const items = Math.max(1, Math.floor(quiz / ITEM_MIN[style]));
+  const days = FOCUS.map((focus, i) => ({ day: i === 0 ? "Today" : WEEK[(today + i) % 7], focus, lesson, quiz, items }));
+  return { subject, minutes, style, days };
+}
+
+const quillSession = (d, style) => `${d.lesson} minute lesson, then ${d.items} ${NOUN[style]}.`;
+export const quillLine = (w) => `Your plan is set. ${w.subject}, ${w.minutes} minutes a day, quizzed with ${w.style.toLowerCase()}.`;
+
 // What the example says it built. Each returns { say, head, cols, rows, title, body }.
 const BUILD = {
   basil(a) {
@@ -248,12 +271,13 @@ const BUILD = {
       list: w.today.length ? `list Today ${w.today.map((t) => q(t)).join(" ")} +check` : "",
     };
   },
-  quill(a) {
-    const topic = a.topic || "A skill for work", time = a.time || "A month", mode = a.quiz || "Flash cards";
-    const step = { "A week": ["Day 1-2|Learn the basics|5 min", "Day 3-5|Practice|10 min", "Day 6-7|Review and test|10 min"], "A month": ["Week 1|Learn the basics|5 min a day", "Week 2-3|Practice a little each day|10 min a day", "Week 4|Review and test|10 min a day"], "3 months": ["Month 1|Learn the basics|5 min a day", "Month 2|Practice and build|10 min a day", "Month 3|Review and test|15 min a day"], "No deadline": ["Now|Learn one idea a day|5 min", "Every week|Review what you learned|10 min", "Every month|A short test|15 min"] }[time];
+  quill(a, today) {
+    const w = quillWeek(a, today);
+    const t = w.days[0];
     return {
-      say: `Your study plan is built. ${topic}, ${time.toLowerCase()}, quizzed with ${mode.toLowerCase()}. It is an example. Change any step.`,
-      head: "When|Focus|Time", rows: step.map((r) => q(r)), table: "Study", title: "Example: Quill's plan", body: `${topic}. Quizzed with ${mode.toLowerCase()}, on a schedule that gets further apart as you remember.`,
+      say: quillLine(w),
+      head: "Day|Lesson|Quiz", rows: w.days.map((d) => row(d.day, `${d.lesson} min`, `${d.items} ${NOUN[w.style]}`)), table: "Week",
+      title: `Today: ${t.focus}`, body: quillSession(t, w.style), cta: "Start today's lesson",
     };
   },
 };
@@ -273,9 +297,10 @@ export function resultLines(handle, answers, today) {
 }
 
 // Gouda: Start today opens the timer for today's session, full screen, the way the app's Practice page does.
-export const hasTimer = (handle) => handle === "gouda" || handle === "penny";
+export const hasTimer = (handle) => handle === "gouda" || handle === "penny" || handle === "quill";
 export function startLines(handle, answers, today) {
   if (handle === "penny") return `say Say it, or pick one. It lands on Today and your week.\nchoose "Your one must-do" "Call someone back"|"Send the invoice"|"Go for a run" +other`;
+  if (handle === "quill") return `say Lesson one. Pick what you know and I teach from there.\nchoose "What do you know already?" "Nothing yet"|"The basics"|"Quite a bit"`;
   const b = BUILD[handle](norm(handle, answers), today);
   return `say ${b.title}. Tap Start when you're ready.\n${b.timer}`;
 }
