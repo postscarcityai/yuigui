@@ -148,3 +148,4 @@ body:has(.web-root) main.wrap { padding: 0; max-width: none; }
 .wb-shelf-ask { display: inline-flex; gap: 8px; flex: none; }
 .wb-shelf-rm { background: #d6336c; border: 0; color: #fff; }
 .wb-shelf-keep { background: none; border: 1px solid currentColor; opacity: 0.7; }
+.wb-perf { position: fixed; left: 8px; bottom: calc(env(safe-area-inset-bottom, 0px) + 4px); z-index: 90; padding: 2px 8px; border-radius: 8px; background: rgba(0, 0, 0, .66); color: #fff; font: 600 11px/1.4 ui-monospace, Menlo, monospace; pointer-events: none; }

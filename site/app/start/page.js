@@ -1,6 +1,7 @@
 // Getting started: connect a Hermes agent to the Yui app (YUI-23), then every other way in (SITE-46).
 // The Hermes commands stay written out here so the site chat can search them (lib/chat/search.mjs);
 // lib/start-paths.mjs holds the same ones, and every other path, for the agent copy at /md/start (SITE-77).
+import Link from "next/link";
 import links from "../../content/links.json";
 import Cmd from "../components/Cmd";
 import Shots from "../components/Shots";
@@ -64,6 +65,7 @@ export default function Start() {
                   open the public link, install, then sign in with Apple.
                 </p>
                 <p><a className="btn start-tf" href={links.testflight}>Download on TestFlight</a></p>
+                <p>No iPhone handy? <Link href="/web">Open Yui in your browser</Link>. Same Apple sign in, same agents, and the same pairing code works there.</p>
                 <p>No agent yet, or want us to set you up? <a href="#invite">Ask for a hand</a> at the bottom of this page.</p>
               </>
             ) : (

@@ -402,7 +402,7 @@ function Speed() {
   if (!shown) return null;
   return (
     <section className="st-about" data-testid="st-speed">
-      <Row title="Speed" sub="Log every timing and show the frame rate. Dev links only." on={on} onChange={(v) => { try { if (v) localStorage.setItem(PERF_KEY, "1"); else localStorage.removeItem(PERF_KEY); } catch { /* private mode */ } setOn(v); }} testid="speed-switch" />
+      <Row title="Speed" sub="Log every timing and show the frame rate. Dev links only." on={on} onChange={(v) => { try { if (v) localStorage.setItem(PERF_KEY, "1"); else localStorage.removeItem(PERF_KEY); } catch { /* private mode */ } window.dispatchEvent(new Event("yui-perf")); setOn(v); }} testid="speed-switch" />
     </section>
   );
 }

@@ -109,6 +109,15 @@ export function lookName(look) {
 }
 export const setAgentsKeep = (s, on) => ({ ...s, agentsKeep: !!on });
 export const resetLook = (s) => (s.look ? { ...s, prev: s.look, look: null, via: null } : s);
+// A `theme app` offer taken (RestyleCard Use): a named set starts fresh, keys change only what they say, reset is
+// Yui's own. The look from before is kept as `prev` so Undo can put it back, and the agent's name rides as `via`.
+export function takeOffer(s, props, via = null) {
+  if (props.name === "reset") return resetLook(s);
+  const base = props.name ? { preset: props.name } : { ...(s.look || { preset: "yui" }) };
+  for (const k of RECIPE_KEYS) if (k !== "preset" && props[k]) base[k] = props[k];
+  return { ...s, prev: s.look, look: base, via: via || null };
+}
+export const undoOffer = (s) => ({ ...s, look: s.prev || null, prev: null, via: null });
 
 // The recipe a stored look compiles from: its set, then what it changes on top.
 export function recipeOf(look) {

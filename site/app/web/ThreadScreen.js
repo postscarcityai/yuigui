@@ -12,6 +12,7 @@ import { Render, StepGroup, TABLES } from "../playground/presets";
 import { Group, groupNodes } from "../playground/flows";
 import { ScreenCtx } from "../playground/science";
 import { LiveSlot, Stage, StagePill } from "../playground/stage";
+import RestyleOffer from "./RestyleOffer";
 import "../playground/flows.css";
 
 export default function ThreadScreen({ message, agent, light, onTap, live, onPage, fresh = false }) {
@@ -67,7 +68,7 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
   const closeStage = useCallback(() => setState((s) => ({ ...s, stage: false })), []);
   const ctx = (list, screen) => ({ nodes: list, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, agent, screen, dispatch, ...(screen === "full" ? { closeStage, stageHome: true } : {}) });
 
-  if (!nodes.length && !staged.length && !pages.length) return null;
+  if (!nodes.length && !staged.length && !pages.length && !state.restyle) return null;
   return (
     <div className={`screen wb-screen ${light ? "light" : ""}`} data-live={live ? "1" : "0"} ref={box}>
       <div className="pg-screen">
@@ -75,6 +76,9 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
           {groupNodes(nodes).map(renderNode)}
           {staged.length ? <StagePill nodes={staged} live={liveTimers} onOpen={() => setState((s) => ({ ...s, stage: true }))} /> : null}
         </ScreenCtx.Provider>
+        {state.restyle ? (
+          <div className="pg-node"><RestyleOffer id={message.id || message.key || "r"} props={{ scope: "app", ...state.restyle }} agent={agent} dark={!light} onTap={onTap} /></div>
+        ) : null}
         {pages.map((k) => <button key={`page:${k}`} className="wb-onpage" onClick={() => onPage?.(k)}>On screen {k} ›</button>)}
       </div>
       {staged.length && host ? createPortal(

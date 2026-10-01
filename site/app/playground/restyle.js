@@ -29,7 +29,7 @@ const WEIGHT = { regular: 500, semibold: 600, bold: 700, heavy: 800 };
 const title = (s) => s[0].toUpperCase() + s.slice(1);
 
 // CSS variables for one look in one mode.
-function vars(look, dark) {
+export function vars(look, dark) {
   const p = dark ? look.dark : look.light;
   return {
     "--rs-bg": p.background, "--rs-surface": p.surface, "--rs-ink": p.ink, "--rs-soft": p.inkSoft,
@@ -102,7 +102,7 @@ function Tabs({ tab, onTab }) {
 }
 
 // The card a `theme app` line draws in the thread: Now beside the new look.
-function Preview({ now, next, props, dark, state, onApply, onKeep }) {
+export function Preview({ now, next, props, dark, state, onApply, onKeep }) {
   const [mode, setMode] = useState(dark ? "dark" : "light");
   const d = mode === "dark";
   const g = guardLine(props, next);

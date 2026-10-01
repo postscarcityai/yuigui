@@ -442,5 +442,17 @@
       "seconds": 54.0,
       "mb": 4.0
     }
+  },
+  "film-yui-on-the-web": {
+    "title": "Yui is on the web",
+    "what": "The same Yui in a laptop browser beside the phone: ask, the answer plays on the stage, ask Yui to restyle itself, sign in with Apple. Sound on.",
+    "made": "2026-10-01",
+    "sound": true,
+    "16x9": {
+      "src": "/demo/videos/film-yui-on-the-web-16x9.mp4",
+      "poster": "/demo/videos/film-yui-on-the-web-16x9.jpg",
+      "seconds": 36.0,
+      "mb": 5.6
+    }
   }
 }

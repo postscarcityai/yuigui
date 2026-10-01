@@ -15,6 +15,9 @@
       "browser": { "dark": "/progress/yui244-menu-desktop-dark.webp" } },
     { "card": "YUI-249", "label": "One Yui", "say": "Start a message on the phone, finish it in the browser.",
       "phone": { "light": "/progress/yui249-draft-390-light.webp", "dark": "/progress/yui249-draft-390-dark.webp" },
-      "browser": { "light": "/progress/yui249-draft-desktop-light.webp", "dark": "/progress/yui249-draft-desktop-dark.webp" } }
+      "browser": { "light": "/progress/yui249-draft-desktop-light.webp", "dark": "/progress/yui249-draft-desktop-dark.webp" } },
+    { "card": "YUI-250", "label": "Make it yours", "say": "Ask Yui for a new look, then use it or keep yours.",
+      "phone": { "light": "/progress/web250-restyle-offer-390-light.webp" },
+      "browser": { "light": "/progress/web250-restyle-applied-desktop-light.webp" } }
   ]
 }

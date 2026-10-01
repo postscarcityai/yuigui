@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 431,
-    "site": 1070,
+    "app": 434,
+    "site": 1087,
     "builds": 51,
-    "shipped": 529,
-    "screenshots": 1400
+    "shipped": 532,
+    "screenshots": 1408
   },
   "days": [
     {
@@ -13,7 +13,87 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T19:30:44.328Z",
+          "at": "2026-10-01T21:09:25.364Z",
+          "title": "Yui on the web ships: every row of the parity map closed",
+          "card": "YUI-250",
+          "anchor": "yui-on-the-web-ships-every-row-of-the-parity-map-closed",
+          "images": [
+            {
+              "src": "/progress/web250-restyle-offer-390-light.webp",
+              "alt": "Yui on the web at phone width: a restyle card with Now beside Autumn and two buttons, Use autumn and Keep mine."
+            },
+            {
+              "src": "/progress/web250-crew-pick-390-light.webp",
+              "alt": "The first run at phone width: Hi, I am Yui, let's pick your crew, with a row for each starter and a Start with Yui button."
+            },
+            {
+              "src": "/progress/web250-thread-desktop-light.webp",
+              "alt": "Yui in a laptop browser: the drawer with chats on the left and a thread with Penny on the right."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 434,
+            "site": 1087,
+            "builds": 51,
+            "shipped": 532
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T20:10:09.000Z",
+          "title": "See it catches up: what landed in the app on Oct 1",
+          "card": "SITE-163",
+          "anchor": "see-it-catches-up-what-landed-in-the-app-on-oct-1",
+          "images": [
+            {
+              "src": "/progress/site163-oct1-group-390-dark.webp",
+              "alt": "Dark mode, 390 pixels wide: the top of the Oct 1 in the app group on See it, its lede, then the group chats entry with two simulator shots."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 434,
+            "site": 1081,
+            "builds": 51,
+            "shipped": 531
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T19:47:03.000Z",
+          "title": "Group chats on the web",
+          "card": "SITE-162",
+          "anchor": "group-chats-on-the-web",
+          "images": [
+            {
+              "src": "/progress/site162-thread-handoff-390-dark.webp",
+              "alt": "Dark, phone width: a group thread with a handoff row from Penny to Yui, an asleep line for Basil, and bubbles in each agent's look."
+            },
+            {
+              "src": "/progress/site162-guard-390-dark.webp",
+              "alt": "Dark, phone width: the guard row, Penny wants to ask Basil, with Let it and Stop here."
+            },
+            {
+              "src": "/progress/site162-new-group-390-dark.webp",
+              "alt": "Dark, phone width: the New group sheet with two agents picked, a name and the lead chosen."
+            },
+            {
+              "src": "/progress/site162-list-desktop-light.webp",
+              "alt": "Light, desktop: the agent list with a Groups section and the Race week group in stacked faces."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 432,
+            "site": 1073,
+            "builds": 51,
+            "shipped": 530
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T19:45:02.000Z",
           "title": "One Yui across phone and web: your half-typed words follow you",
           "card": "YUI-249",
           "anchor": "one-yui-across-phone-and-web-your-half-typed-words-follow-you",
@@ -31,10 +111,10 @@
               "alt": "Light, desktop: the same draft in the web composer."
             }
           ],
-          "commits": 0,
+          "commits": 3,
           "totals": {
             "app": 431,
-            "site": 1070,
+            "site": 1072,
             "builds": 51,
             "shipped": 529
           }
@@ -489,7 +569,7 @@
               "alt": "The top of the tokenomics page: the title, the short version and the first section on the cap."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 422,
             "site": 1024,
@@ -1252,6 +1332,146 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "6d047f8d",
+          "at": "2026-10-01T21:07:53.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6d047f8d"
+        },
+        {
+          "repo": "site",
+          "sha": "23e5c56f",
+          "at": "2026-10-01T21:00:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/23e5c56f"
+        },
+        {
+          "repo": "site",
+          "sha": "7e61c382",
+          "at": "2026-10-01T20:36:25.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7e61c382"
+        },
+        {
+          "repo": "site",
+          "sha": "d600859d",
+          "at": "2026-10-01T20:25:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d600859d"
+        },
+        {
+          "repo": "site",
+          "sha": "04b9d445",
+          "at": "2026-10-01T20:17:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/04b9d445"
+        },
+        {
+          "repo": "site",
+          "sha": "63da085a",
+          "at": "2026-10-01T20:10:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/63da085a"
+        },
+        {
+          "repo": "site",
+          "sha": "257b8306",
+          "at": "2026-10-01T20:10:09.000Z",
+          "text": "Progress: See it catches up with Oct 1 in the app (SITE-163)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/257b8306"
+        },
+        {
+          "repo": "site",
+          "sha": "420bbfe8",
+          "at": "2026-10-01T20:09:38.000Z",
+          "text": "Roadmap: BIZ-8 has its progress entry, label it shipped (freshness)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/420bbfe8"
+        },
+        {
+          "repo": "site",
+          "sha": "b1c89f76",
+          "at": "2026-10-01T20:09:07.000Z",
+          "text": "See it: an Oct 1 group for what landed in the app (SITE-163)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b1c89f76"
+        },
+        {
+          "repo": "app",
+          "sha": "462c164",
+          "at": "2026-10-01T20:06:37.000Z",
+          "text": "ChatsRelayTests: the push test waits for the chat list before reading the title (it raced and read Hi Basil) [YUI-259]",
+          "url": "https://github.com/postscarcityai/yui/commit/462c164"
+        },
+        {
+          "repo": "site",
+          "sha": "e89b3285",
+          "at": "2026-10-01T20:05:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e89b3285"
+        },
+        {
+          "repo": "app",
+          "sha": "0413863",
+          "at": "2026-10-01T20:03:08.000Z",
+          "text": "ChatsRelayTests: a push opens the untitled first chat as Earlier once a second chat exists (YUI-254 renamed it; the 06:00 run held on...",
+          "url": "https://github.com/postscarcityai/yui/commit/0413863"
+        },
+        {
+          "repo": "site",
+          "sha": "cb74dd7f",
+          "at": "2026-10-01T20:00:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cb74dd7f"
+        },
+        {
+          "repo": "site",
+          "sha": "bfbda47b",
+          "at": "2026-10-01T19:55:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bfbda47b"
+        },
+        {
+          "repo": "site",
+          "sha": "205ff8a8",
+          "at": "2026-10-01T19:52:47.000Z",
+          "text": "web parity: BROWSER.md summary counts match the map again (YUI-249)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/205ff8a8"
+        },
+        {
+          "repo": "site",
+          "sha": "c8794357",
+          "at": "2026-10-01T19:50:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c8794357"
+        },
+        {
+          "repo": "site",
+          "sha": "d1b0bb22",
+          "at": "2026-10-01T19:47:03.000Z",
+          "text": "Group chats on the web: New group, the group row, the thread with handoff and guard rows, @ and replies, a marked demo sample (SITE-162)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d1b0bb22"
+        },
+        {
+          "repo": "app",
+          "sha": "412f3c5",
+          "at": "2026-10-01T19:45:03.000Z",
+          "text": "Drafts follow the person across phone and web: yui_sync_state table and the app's DraftSync (YUI-249)",
+          "url": "https://github.com/postscarcityai/yui/commit/412f3c5"
+        },
+        {
+          "repo": "site",
+          "sha": "4023fee2",
+          "at": "2026-10-01T19:45:02.000Z",
+          "text": "One Yui across phone and web: drafts and the shelf's removed names follow you through yui_sync_state, web client, spec, demo clip (YUI-249)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4023fee2"
+        },
+        {
+          "repo": "site",
+          "sha": "a4ee84d2",
+          "at": "2026-10-01T19:35:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a4ee84d2"
+        },
         {
           "repo": "site",
           "sha": "13143c04",

@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Yui is on the web</title>
+<link rel="stylesheet" href="../kit/kit.css">
+<style>
+/* the laptop and the phone: real /web frames from the demo account, filmed in a browser */
+.lap { position: absolute; left: 110px; top: 290px; width: 1008px; height: 648px; border-radius: 20px; background: var(--bezel); padding: 14px 14px 22px; box-shadow: 0 40px 90px rgba(58,51,64,.22), 0 10px 26px rgba(58,51,64,.12), inset 0 0 0 2px #3A3340; transform-origin: 50% 50%; visibility: hidden; }
+.lap .scr { position: relative; width: 980px; height: 612px; border-radius: 8px; overflow: hidden; background: var(--background); }
+.lap .base { position: absolute; left: -40px; right: -40px; bottom: -22px; height: 14px; border-radius: 0 0 22px 22px; background: #2B2533; }
+.fr { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ph { position: absolute; left: 1290px; top: 244px; width: 340px; height: 712px; border-radius: 52px; background: var(--bezel); padding: 10px; box-shadow: 0 50px 100px rgba(58,51,64,.20), 0 12px 32px rgba(58,51,64,.12), inset 0 0 0 2px #3A3340; transform-origin: 50% 50%; visibility: hidden; }
+.ph .scr { position: relative; width: 320px; height: 692px; border-radius: 42px; overflow: hidden; background: var(--background); }
+/* captions sit across the top: ink first, coral second */
+.cap.L, .cap.R { left: 110px; width: 1700px; font-size: 64px; }
+.cap.L { top: 92px; }
+.cap.R { top: 188px; }
+</style>
+<script src="score.js"></script>
+<script src="work/frames.js"></script>
+</head>
+<body>
+<div id="stage"><div id="glow"></div>
+  <div class="cap L" id="c0L">Yui lives on your phone.</div>
+  <div class="cap R accent" id="c0R">Now it is on the web too.</div>
+  <div class="cap L" id="c1L">Ask on the laptop.</div>
+  <div class="cap R accent" id="c1R">Same agent. Same thread.</div>
+  <div class="cap L" id="c2L">The answer plays on the stage.</div>
+  <div class="cap R accent" id="c2R">On the phone and the laptop.</div>
+  <div class="cap L" id="c3L">Ask Yui to restyle itself.</div>
+  <div class="cap R accent" id="c3R">Use the look, or keep yours.</div>
+  <div class="cap L" id="c4L">Sign in with Apple.</div>
+  <div class="cap R accent" id="c4R">Nothing to install.</div>
+  <div class="kpill" id="p3" style="left:110px;top:270px;display:none"><b>theme app</b> autumn</div>
+
+  <div class="lap" id="lap"><div class="scr"><img class="fr" id="fL" alt=""></div><div class="base"></div></div>
+  <div class="ph" id="ph"><div class="scr"><img class="fr" id="fP" alt=""></div></div>
+
+  <div id="outro">
+    <img id="owm" src="../kit/yui-wordmark-coral.png" alt="">
+    <div id="otag">Yui is on the web.</div>
+    <div id="ourl">yuigui.com/web</div>
+    <div id="onote">Same account as the app. Public beta.</div>
+  </div>
+</div>
+<script src="../kit/kit.js"></script>
+<script>
+const S = window.SCORE, F = window.FRAMES;
+const { $, prog, clamp, eo, ei, eio, back, lerp } = K;
+const pending = [];
+function setImg(id, src) {
+  const im = $(id);
+  if (im.getAttribute("src") !== src) { im.setAttribute("src", src); pending.push(Promise.race([im.decode().catch(() => {}), new Promise((r) => setTimeout(r, 1500))])); }
+}
+// A clip plays from its first frame at t0, and holds its last frame.
+function clip(scene, t0, t) {
+  const n = clamp(Math.round((t - t0) * 30) + 1, 1, F[scene]);
+  return `work/frames/${scene}/f${String(n).padStart(5, "0")}.jpg`;
+}
+function render(t) {
+  pending.length = 0;
+  // the phone alone, centred, then it steps right as the laptop slides in from the left
+  const inp = eio(prog(t, S.slide, S.slide + 0.7)), out = ei(prog(t, S.outro - 0.5, S.outro));
+  const ph = $("ph"), lap = $("lap");
+  ph.style.visibility = lap.style.visibility = t < S.outro ? "visible" : "hidden";
+  const bob = Math.sin(t * 0.9) * 3;
+  ph.style.transform = `translate(${(1 - inp) * -500}px, ${bob + out * 900}px) scale(${lerp(1.12, 1, inp)})`;
+  lap.style.transform = `translate(${(1 - inp) * -1300}px, ${out * 900}px)`;
+  lap.style.opacity = inp;
+  const scene = t < S.look[0] ? "ask" : "look";
+  const t0 = t < S.look[0] ? S.ask[0] - 1.0 : S.look[0];
+  if (t >= S.ask[0] - 1.0) { setImg("fL", clip(`${scene}-laptop`, t0, t)); setImg("fP", clip(`${scene}-phone`, t0, t)); }
+  else setImg("fP", "work/frames/ask-phone/f00040.jpg");
+  K.caps(t, [["c0L", 0.3, 2.2], ["c0R", 1.0, 2.2], ["c1L", 3.0, 9.2], ["c1R", 4.4, 9.2], ["c2L", 9.6, 15.0], ["c2R", 10.8, 15.0],
+    ["c3L", 15.6, 22.0], ["c3R", 17.0, 22.0], ["c4L", 22.8, 28.0], ["c4R", 24.0, 28.0]]);
+  K.outro(t, S.outro);
+  return Promise.all(pending);
+}
+window.ready = K.ready(async () => { await render(3.0); });
+window.render = render; window.DURATION = 36; window.POSTER = 11.0;
+</script></body></html>

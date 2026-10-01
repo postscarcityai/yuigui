@@ -139,7 +139,7 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   pg = await open(vp, theme);
   await switcher(pg, vp);
   ok((await pg.getByTestId("agents-greeting").innerText()) === "Who do you want to talk to?", `${T}: your agents, with the app's line over them`);
-  ok(await pg.locator(".ag-row").count() === 3, `${T}: three agents`);
+  ok(await pg.locator(".ag-list:not([data-testid=groups-list]) .ag-row").count() === 3, `${T}: three agents`);
   ok((await pg.locator(".ag-row.on .wb-agent-words b").innerText()).startsWith("Penny") && await pg.locator(".ag-row.on .ag-check").count() === 1, `${T}: the one you are talking to has the check`);
   ok((await pg.getByTestId("agent-demo-basil").innerText()).includes("Asleep"), `${T}: honest presence on every row`);
   await shot(pg, `web-agents-list-${tag}-${theme}`);

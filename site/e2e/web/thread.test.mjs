@@ -32,7 +32,7 @@ for (const theme of ["light", "dark"]) {
   await pg.getByRole("button", { name: "Your agents" }).click();
   await pg.waitForTimeout(450);
   await pg.getByTestId("agent-bar").click(); // the bar at the drawer's foot switches agents (YUI-245)
-  ok(await pg.locator(".wb-agent-row").count() === 3, `${theme} 390: the drawer lists three agents`);
+  ok(await pg.locator(".ag-list:not([data-testid=groups-list]) .wb-agent-row").count() === 3, `${theme} 390: the drawer lists three agents`);
   if (SHOTS) await pg.screenshot({ path: `${SHOTS}/web-thread-drawer-390-${theme}.png` });
   await pg.locator(".wb-agent-row", { hasText: "Yui" }).first().click();
   await pg.waitForTimeout(700);

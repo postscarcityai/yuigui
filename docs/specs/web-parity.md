@@ -50,7 +50,7 @@ Every one is a row below too. This is the short list, with the web way for each.
 | App Review code path | `Account/Account.swift` (review grant) | same: the `review` grant, for demo access on the site | 241 | done |
 | Sign out (revokes the session) | `Account/Account.swift` | same: `sign_out` grant, clears IndexedDB, ends only this session; the button is in Settings > Account (and the drawer's foot), and it clears the outbox like the app | 247 | done |
 | Delete account | `Account/Account.swift`, `supabase/functions/yui-delete` | same: Settings > Account > Delete account asks first with the app's words (account, paired agents and devices, every stored message, removed from your Apple ID, can't be undone), then `yui-delete` (it revokes the Apple token of the web Services ID too), then this browser forgets the session in every tab. A refusal or no network leaves you signed in and says nothing was removed | 247 | done |
-| First run, pick your crew (Arnold, Basil, Gouda, Penny, Quill, bring your own) | `Agents/CrewPick.swift` | same: the same flow on full screens | 245 | open |
+| First run, pick your crew (Arnold, Basil, Gouda, Penny, Quill, bring your own) | `Agents/CrewPick.swift` | same: the same flow on full screens. Built in `app/web/CrewPick.js` and `lib/web/crewpick.mjs`: Yui is always on the crew, one tap and an info page per starter, Bring my own agent leads into pairing, one button saves the pick (`crew_choose`) so it never comes back. e2e: `site/e2e/web/restyle.test.mjs` | 245, 250 | done |
 | Build info (version, build, commit, guide) | `Account/BuildInfo.swift` | web way: Settings > About this build: the web build's commit and date (Vercel's commit, else the local checkout; a plain local build says so), the channel guide version the site carries, and the browser. Tap to copy | 247 | done |
 | Backend host, publishable key | `Account/YuiBackend.swift` | same: the same project (yuigui), same anon key; CORS answers for the web origin | 241 | done |
 
@@ -58,7 +58,7 @@ Every one is a row below too. This is the short list, with the web way for each.
 
 | Feature | App file | Web twin | Story | Status |
 | --- | --- | --- | --- | --- |
-| One thread per agent over the relay (`yui_messages`, REST plus Realtime, ordering, dedupe) | `Chat/Thread.swift`, `Presets/ChatStore.swift` | same: `lib/web/relay.mjs` and `sync.mjs`, the same query, ordering, 10 s overlap and dedupe, an outbox, Realtime as a faster path. Built and proved on the demo relay; the live smoke waits on 241's session | 242 | open |
+| One thread per agent over the relay (`yui_messages`, REST plus Realtime, ordering, dedupe) | `Chat/Thread.swift`, `Presets/ChatStore.swift` | same: `lib/web/relay.mjs` and `sync.mjs`, the same query, ordering, 10 s overlap and dedupe, an outbox, Realtime as a faster path. Built and proved on the demo relay, then live on Oct 1 (YUI-250): `site/e2e/web/live/web_composer_live.py` ran the web client's own relay, thread, sync and outbox against a throwaway real account and the real Yui platform adapter, 18 of 18 checks (words, a reaction copied onto the agent's message, a reply with its quote, a photo to the private bucket and back, a resent row id is one row, the account deleted after) | 242, 250 | done |
 | Chats: several conversations per agent, New chat, titles, rename, delete | `Chat/Chats.swift`, `Agents/DrawerChats.swift` | same: `lib/web/chats.mjs` is the app's `Chats` ported (titles, last lines, `when`, order, merge, search past ten, the only chat is cleared not deleted, the server's refusals in plain words). A chat is `/web/agent/<id>/chat/<chat>`; the thread opens on the newest. Rename and Delete sit behind the row's button (the app's hold and swipe have no mouse twin); New chat is a draft until a word is said, then the outbox makes the chat first. The server gates a second chat on the account's newest phone build (`chats_min_build`, 320 today) | 245 | done |
 | Text bubbles, agent bubble shapes and colors, the agent's look | `Chat/ReactionViews.swift`, `Theme/AgentLook.swift` | same: the look's accent from `look.mjs` (bubble shapes per look: 247) | 242 | done |
 | Markdown in agent words | `Chat/BubbleMarkdown.swift` | same: `marked`, sanitized | 242 | done |
@@ -68,7 +68,7 @@ Every one is a row below too. This is the short list, with the web way for each.
 | A reply in Yui Lines drawn as presets, not a bubble | `Presets/PresetViews.swift`, `Presets/YLScreen.swift` | same: `Render` from `presets.js` | 242 | done |
 | Taps send the same `[yui] ...` event rows; changed answers too | `Presets/ChatStore.swift` | same: `eventLine`, `echoFor`, `relays` from `mcp-app/src/events.mjs`, byte for byte | 242 | done |
 | Patches (`~id`), lasting ids, `known` | `Presets/ChatStore.swift` lastingIds | same: `lastingIds(state)` in `yl.mjs` | 242 | done |
-| Presence (`yui_agent_list.presence`), paused, handoff | `Agents/AgentStore.swift`, `Agents/GatewayWait.swift` | same | 242 | open |
+| Presence (`yui_agent_list.presence`), paused, handoff | `Agents/AgentStore.swift`, `Agents/GatewayWait.swift` | same. Proved in `site/e2e/web/agents.test.mjs` (honest words on every row, Paused by its owner) | 242, 250 | done |
 | Working row (`doing`), Stop | `ChatView.swift`, `Chat/Thread.swift` | same: `site/lib/chat/stop.mjs`, `stage.mjs` | 242 | done |
 | Reply to one message | `Chat/Reply.swift` | same: hold (touch) or right-click, or the button on a focused bubble; the `[yui] reply ...` line and `meta.reply_to`, byte for byte (`lib/web/compose.mjs`); a sent reply wears the quote chip, a tap goes back to the message | 244 | done |
 | Reactions (six) | `Chat/Reactions.swift`, `Chat/ReactionViews.swift` | same: the hold menu, the six in `spec/REACTIONS.md` (a test reads the table), `[yui] react ...` with `meta.react`, one per message, the same again takes it back, the badge at once and on reload (`yui_messages.reaction`). Your own messages take none | 244 | done |
@@ -79,12 +79,12 @@ Every one is a row below too. This is the short list, with the web way for each.
 | Hands free | `Chat/HandsFree.swift` | same rules (`lib/web/handsfree.mjs`, the app's state machine and tests ported): tap once, a 0.7 s quiet sends, the reply lands, a beat, it opens again; 30 s of quiet pauses it. A tap per page load: the browser asks for the mic once | 244 | done |
 | Snap and say | `Chat/SnapSay.swift` | web way: pick or take a photo, then say or type, one message (the tray is over the field). The live camera preview is the `camera` preset (246) | 244 | done |
 | Talk about this | `Chat/TalkAbout.swift` | same: the button on a Controls item puts it on the composer as a chip (`[yui] attach section= id= rev=` first, `meta.about`, the bubble says "About SOUL.md"); x takes it off, it stays for the whole talk, another agent drops it. Sent from the record's composer | 245 | done |
-| Chat with a screen (`>N talk`, `[yui] screen=N`) | `Chat/ScreenTalk.swift` | same | 243 | open |
+| Chat with a screen (`>N talk`, `[yui] screen=N`) | `Chat/ScreenTalk.swift` | same. Proved in `site/e2e/web/sweep.test.mjs`: a page that keeps talking sends `[yui] screen=2` then the words | 243, 250 | done |
 | Outbox (kept until the server has it; a 409 resend counts as sent) | `Chat/Outbox.swift` | web way: IndexedDB (`lib/web/outbox.mjs`), the app's rules: written before the first try, oldest first, the row id is the primary key, 1 s to 30 s backoff, a refusal that never passes is dropped. A photo's bytes wait in it too. Several tabs: one Web Lock flusher and every pass re-reads the disk, so a row goes out once. Survives a closed tab and a killed browser | 244 | done |
 | Typing stays fast (draft kept off the thread view) | `Chat/Composer.swift` | same: the words live in a store (`lib/web/composer.mjs`) only the field reads, kept per agent in `localStorage`, never a pasted key | 244 | done |
 | Draft shared between devices | `Chat/Composer.swift` Drafts, `Account/SyncState.swift` | same, new on both: the half-typed words of a thread ride `yui_sync_state` (`draft`, one row per person and agent, the server stamps the time). The phone and the browser poll every 5 s while open and on focus; a newer remote value wins unless words here are waiting to go up; sending clears both; a pasted key is never sent. `lib/web/state.mjs`, `app/web/ThreadView.js`; live check `site/e2e/web/live/web_sync_live.py` | 249 | done |
-| Mixed chat plus cards inside one reply | `Presets/PresetViews.swift` | same | 242 | draws |
-| `theme app` restyle card (Use or keep) | `Chat/RestyleCard.swift` | same: `restyle.js` draws it. Not on the thread yet: Settings > Look reads, wears and resets the look (247), but an agent's `theme app` offer does not draw its Use or Keep card in the web thread; a follow-up card holds it | 247 | open |
+| Mixed chat plus cards inside one reply | `Presets/PresetViews.swift` | same. Proved in `site/e2e/web/sweep.test.mjs` | 242, 250 | done |
+| `theme app` restyle card (Use or keep) | `Chat/RestyleCard.swift` | same: `app/web/RestyleOffer.js` draws it on the thread, Now beside the offered look in light or dark, then Use or Keep mine; Use wears the look through Settings > Look's own save (`takeOffer`), one line and Undo after, the outcome kept per reply in this browser, and the agent hears `[yui] restyle theme choice=apply scope=app name=<set>` like the app's tap. e2e: `site/e2e/web/restyle.test.mjs` | 247, 250 | done |
 
 ## 4. The stage, pages and home
 
@@ -96,15 +96,15 @@ Every one is a row below too. This is the short list, with the web way for each.
 | Components that open on the stage by themselves (`timer`, `camera`, `mic`, `deck`, `plan`, `game`, row3d gallery) | `Presets/Stage.swift` | same: `onStage` in `yl.mjs`; a new answer opens it by itself, history waits as a pill | 243 | done |
 | A way home (X, Back home, pull down 110 points) | `Presets/FullScreenExit.swift` | same: `dragdown.js` (`useDragDown`), the X, Esc | 243 | done |
 | Stage motion (the mark breathes, thinking, speaking) | `Stage/StageMotion.swift` | same: `stagemotion.js`; `prefers-reduced-motion` swaps motion for fades | 243 | done |
-| The visual and what it hears | `Stage/StageVisual.swift`, `Stage/VisualPlan.swift`, `Stage/VisualSound.swift`, `Stage/VisualDefault.swift` | web way: WebGL, `AnalyserNode` for sound, the same plan and budget | 243 | draws |
-| Pages 2 to 12: swipe, arrow keys, dots, kept across replies | `Presets/Pages.swift` | same: `pages.mjs` | 243 | draws |
+| The visual and what it hears | `Stage/StageVisual.swift`, `Stage/VisualPlan.swift`, `Stage/VisualSound.swift`, `Stage/VisualDefault.swift` | web way: WebGL, `AnalyserNode` for sound, the same plan and budget. Drawn behind the stage and proved in `site/e2e/web/shader.test.mjs` (a WebGL canvas that fills the stage and moves, still under Reduce Motion) | 243, 250 | done |
+| Pages 2 to 12: swipe, arrow keys, dots, kept across replies | `Presets/Pages.swift` | same: `pages.mjs`. Proved in `site/e2e/web/stage.test.mjs` (pills, arrow keys, a swipe back) | 243, 250 | done |
 | Agent home: shortcut chips, review rows, show saved screen | `Stage/StageHome.swift` | same | 243 | done |
 | Top bar (settings, agent picker, chat record with new count) | `Stage/TopBar.swift` | same | 243 | done |
 | Bottom bar (big mic, T, +; settings toggle each) | `Stage/BottomBar.swift` | same: mic (hold or tap), text field, attach, with the tray, reply and mention bars over it | 243, 244 | done |
-| Story pages full screen | `Presets/StoryPage.swift` | same | 243 | draws |
-| Time under the stage answer (Yesterday 9:41 PM) | `Stage/StageFirst.swift` | same: `stageTime` in `when.mjs` | 243 | draws |
+| Story pages full screen | `Presets/StoryPage.swift` | same. Proved in `site/e2e/web/stage.test.mjs` and the 390 px shots under /progress | 243, 250 | done |
+| Time under the stage answer (Yesterday 9:41 PM) | `Stage/StageFirst.swift` | same: `stageTime` in `when.mjs`. Unit-tested in `site/lib/chat/when.test.mjs` | 243, 250 | done |
 | Sound keeps playing across screens | `Presets/MusicPresets.swift` | same: `music/keep.js`; the thread provides the keep scope, so a loop, metronome or latched chord that loses its screen parks its voice and takes it back, and it stops when the person leaves the thread or the page goes | 246 | done |
-| A saved screen opens with no turn | `Presets/Shelf.swift` | same: zero requests (site/scripts/layer-e2e.mjs) | 243 | draws |
+| A saved screen opens with no turn | `Presets/Shelf.swift` | same: zero requests (site/scripts/layer-e2e.mjs). Proved in `site/e2e/web/presets.test.mjs` (the shelf opens a screen and sends nothing) | 243, 246 | done |
 | Saved screens and the shelf (`save`, `show`, `forget`) | `Presets/Shelf.swift` | same: shelf chips at the top of the thread (`lib/web/shelf.mjs`, `ShelfBar.js`), newest save first, a tap reopens the screen on the stage with no turn, a long press (or a right click, or Delete on the focused chip) offers Remove. Removed names stay off on this device until the agent saves them again | 246 | done |
 
 ## 5. Agents and the drawer
@@ -139,7 +139,7 @@ Every one is a row below too. This is the short list, with the web way for each.
 | Web search key (Firecrawl) | `SettingsView.swift` | same as the app: `yui-native` `search_key_set`, free searches left, last four, Remove | 247 | done |
 | Help and feedback | `SettingsView.swift`, `Account/YuiBackend.swift` | web way: Help and questions, Connect an agent, Privacy policy, and the feedback mail (see Feedback mail above) | 247 | done |
 | About this build | `Account/BuildInfo.swift` | web way: see Build info above | 247 | done |
-| Speed switch (dev builds only) | `Perf/*.swift` | web way: `?perf=1` shows the Speed switch in Settings (kept for this browser, `?perf=0` clears it); a person never sees it. The timings it turns on are story 250 | 247, 250 | switch done |
+| Speed switch (dev builds only) | `Perf/*.swift` | web way: `?perf=1` shows the Speed switch in Settings (kept for this browser, `?perf=0` clears it); a person never sees it. The HUD (`app/web/PerfHud.js`, `lib/web/perf.mjs`) shows frames per second, the worst frame and the paint timings | 247, 250 | done |
 | Invites (requests, approve, template) | spec/AGENTS.md, `supabase/scripts/invite.py` | same as the app: there is no invite screen in the app; the owner invites by asking Yui (spec/AGENTS.md, "The owner's side"). The claim side is on the web since 241 (`/i/<code>`, the invite code field). No owner screen on the web either | 247 | done |
 
 ## 7. Presets (every one in spec/YL.md section 4)
@@ -150,19 +150,19 @@ Status `draws` means the playground draws the preset from a line today. The live
 | --- | --- | --- | --- | --- |
 | `timer` (rounds, rest, `+up`, beeps on the last 3 seconds) | `Presets/TimerPreset.swift`, `Presets/LiveTimer.swift` | web way: the same rules on a timestamp clock (`timer-clock.mjs`); tab-title countdown and a Wake Lock while it runs; no lock-screen pill | 246 | done |
 | Workouts and Arnold's runner | `Presets/WorkoutRunner.swift` | web way: the same runner (`lib/web/runner.mjs` is `WorkoutRunner.swift` rule for rule: sets, Skip, reps and weight nudges, rest 10 to 600 s from the plan's words, +15s, "done" by voice where the browser has Web Speech). The rest rings on the wall clock in a background tab, a Wake Lock holds the screen, the place is kept per plan on this device. The answers go as the plan's one line | 246 | done |
-| `ask`, `choose`, `pick`, `slide` | `Presets/PresetViews.swift` | same | 242 | draws |
-| `form` (fields, photo, voice, one Send inside a plan) | `Presets/FormPreset.swift` | same: photo is a file picker, voice is the mic button | 242 | draws |
+| `ask`, `choose`, `pick`, `slide` | `Presets/PresetViews.swift` | same. `site/e2e/web/presets.test.mjs` walks every sample in /library.json: it renders, a tap goes up and the line sent is the app's wire format | 242 | done |
+| `form` (fields, photo, voice, one Send inside a plan) | `Presets/FormPreset.swift` | same: photo is a file picker, voice is the mic button. `site/e2e/web/presets.test.mjs` walks every sample in /library.json: it renders, a tap goes up and the line sent is the app's wire format | 242 | done |
 | `list` (ticks kept on the device) | `Presets/ListTicks.swift` | same: ticks kept per agent and list id in the browser's storage (`lib/web/kept.mjs`), pruned when the agent draws the list again without an item | 246 | done |
 | `table` (units, sort) | `Presets/SciencePresets.swift` | same (library walk renders and taps it) | 246 | done |
-| Agent tables (`table create`, `put`, `query`, spec/TABLES.md) | not in the app yet | web way once the app has it: rows kept in IndexedDB, never leave the browser; a phone's rows reach the web only through the sync of YUI-249 once the app has the tables (the sync table takes `draft` and `shelf-removed` today) | 249 | open |
-| `card` (links open a new tab) | `Presets/PresetViews.swift` | same | 242 | draws |
+| Agent tables (`table create`, `put`, `query`, spec/TABLES.md) | not in the app yet | web way once the app has it: rows kept in IndexedDB, never leave the browser; a phone's rows reach the web only through the sync of YUI-249 once the app has the tables (the sync table takes `draft` and `shelf-removed` today). The app has no tables yet, so there is nothing to match: the web draws a `table` reply from the reply's own state today. The IndexedDB store waits for the app (its own backlog card) | 249 | n/a |
+| `card` (links open a new tab) | `Presets/PresetViews.swift` | same. `site/e2e/web/presets.test.mjs` walks every sample in /library.json: it renders, a tap goes up and the line sent is the app's wire format | 242 | done |
 | `image`, `image +edit` | `Presets/MediaPresets.swift` | web way: pointer events draw with a mouse, pen or finger | 246 | done |
 | `camera` | `Presets/MediaPresets.swift` | web way: `getUserMedia`; with no camera or permission a file picker (a phone's offers the camera and the library). The photo is shrunk to 2048 px as JPEG, uploaded to the thread's media and sent as `{photo: path}` with the echo `Photo`, like the phone. `+say` is the composer's snap and say | 246 | done |
 | `mic` (`+auto`, `{transcript}`) | `Presets/MicPreset.swift` | web way: Web Speech where the browser has it, typing where it does not; `+auto` starts listening where the browser allows it, otherwise it waits for a tap | 246 | done |
 | `gallery`, `video`, `compare`, `storyboard` | `Presets/MediaSetPresets.swift`, `Presets/MediaPresets.swift` | same (library walk renders and taps them) | 246 | done |
 | `chart`, `stat`, `math`, `step`, `calc` | `Presets/SciencePresets.swift` | same: `science.js`, KaTeX | 246 | done |
 | `deck`, `page`, quiz members | `Presets/FlowPresets.swift` | same | 246 | done |
-| `plan` with its questions | `Presets/FlowPresets.swift` | same: one Send, one `{plan: ...}` event, answers land in the record | 243 | draws |
+| `plan` with its questions | `Presets/FlowPresets.swift` | same: one Send, one `{plan: ...}` event, answers land in the record. `site/e2e/web/presets.test.mjs` walks every sample in /library.json: it renders, a tap goes up and the line sent is the app's wire format | 243 | done |
 | `flow` and starter flows | not in the app yet (YUI-115; `compat.py` runs a flow as a plan on phones until then) | web is ahead: `flow-run.mjs` and `starter-flows.mjs` already run it. The web keeps it; the app catches up on YUI-115 | 246 | done |
 | `project` | `Presets/FlowPresets.swift` | same | 246 | done |
 | `narrate` | `Presets/FlowPresets.swift` (`NarratePreset`) | web way: speech synthesis where the browser has it | 246 | done |
@@ -180,12 +180,12 @@ Status `draws` means the playground draws the preset from a line today. The live
 | Record on the looper, drums, keys, chords (`.m4a`, `.mid`) | `Presets/MusicTake.swift` | web way: MediaRecorder on the master chain (never the mic) and `lib/music/take.mjs` for the `.mid` (type 1, 480 ticks a beat, drums on channel 10, one named track per pitched sound). Stop and send uploads both to the thread's media and sends `{audio, midi, seconds}` as signed links with the echo `Sent a take, N s`; `drums +record` carries the same fields on its pattern take. `.m4a` where the browser writes AAC, else `.webm`. Up to 2 minutes, one take at a time | 246 | done |
 | MIDI clock out | `Presets/MusicTake.swift` | web way: not sent. Browsers have no MIDI clock out worth the name (Safari has no Web MIDI at all), so the tab plays the beat and does not drive other gear. On the iPhone it is there | 246 | done |
 | Loop drafts (a beat kept until sent) | `Presets/LoopDrafts.swift` | same: `lib/web/kept.mjs`, per agent and looper id, on the loop the agent drew; a different loop from the agent drops the draft | 246 | done |
-| `say` (words on the stage, not a bubble) | `Presets/PresetViews.swift`, `Stage/StageChunks.swift` | same | 243 | draws |
-| Body text renderers | `Theme/ReadingText.swift` | same: `readtext.mjs` | 242 | draws |
-| `theme`, `theme app` | `Theme/AgentLook.swift`, `Theme/AppLook.swift` | same: `look.mjs` | 247 | draws |
+| `say` (words on the stage, not a bubble) | `Presets/PresetViews.swift`, `Stage/StageChunks.swift` | same. `site/e2e/web/presets.test.mjs` walks every sample in /library.json: it renders, a tap goes up and the line sent is the app's wire format | 243 | done |
+| Body text renderers | `Theme/ReadingText.swift` | same: `readtext.mjs`. `site/e2e/web/presets.test.mjs` walks every sample in /library.json: it renders, a tap goes up and the line sent is the app's wire format | 242 | done |
+| `theme`, `theme app` | `Theme/AgentLook.swift`, `Theme/AppLook.swift` | same: `look.mjs`. `site/e2e/web/presets.test.mjs` walks every sample in /library.json: it renders, a tap goes up and the line sent is the app's wire format | 247 | done |
 | Reminders (`meta.native.reminders`) | `Presets/Reminders.swift` | web way: Notifications API while the tab is open (`lib/web/reminders.mjs`). A closed tab waits for a scheduled Web Push (backlog card, section 1) | 246 | done |
-| `custom {json}` | `Presets/PresetViews.swift` | same: replaced, not patched | 242 | draws |
-| Errors in a line (the error row) | `Presets/YLScreen.swift` | same: the playground shows the same error row | 242 | draws |
+| `custom {json}` | `Presets/PresetViews.swift` | same: replaced, not patched. `site/e2e/web/presets.test.mjs` walks every sample in /library.json: it renders, a tap goes up and the line sent is the app's wire format | 242 | done |
+| Errors in a line (the error row) | `Presets/YLScreen.swift` | same: the playground shows the same error row. `site/e2e/web/presets.test.mjs` walks every sample in /library.json: it renders, a tap goes up and the line sent is the app's wire format | 242, 250 | done |
 | Telegram fallback text | spec/YL.md section 10 | not needed in the browser | none | n/a |
 
 ## 8. Push, links, system

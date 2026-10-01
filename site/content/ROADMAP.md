@@ -100,7 +100,7 @@ Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20
 - YUI-247: settings and account: look, keys, web search, invites, help, sign out, delete.
 - YUI-248: notifications: Web Push, a click opens the thread, install to the dock or home screen.
 - YUI-249: one Yui across phone and web: continue a conversation, read state, drafts (folds in YUI-146).
-- YUI-250: ships: parity sweep, the e2e suite in CI, the launch demo, the release post draft.
+- YUI-250 (shipped Oct 1): ships: parity sweep, the e2e suite in CI, the launch demo, the release post draft.
 
 - YUI-114 (done Sep 26: store and TestFlight now say Yui Gui; Chris Sep 26: "I don't like the name Yui Bot anymore"): the App Store and TestFlight listing dropped the placeholder Yui Bot and says Yui Gui. Chris kept Yui Gui for now; the product is called Yui everywhere else, and the home screen says Yui.
 
@@ -206,7 +206,7 @@ Chris, Sep 26: use counts too. People pay AI companies and hand over their data;
 
 - SITE-27 (shipped Sep 24): Build to earn, a V1 page on the site, marked draft.
 - SITE-29 (shipped Sep 25): the proposal. Our position, the forms it could take (points plus equity, stock options or units for contributions, a community round kept separate), and open questions for counsel.
-- BIZ-8 (backlog): tokenomics v1: supply, emissions, how value holds.
+- BIZ-8 (shipped Oct 1): tokenomics v1: supply, emissions, how value holds.
 - BIZ-9 (backlog): the chain. Chris picked Sui on Sep 24; Polygon is the fallback.
 - BIZ-10 (backlog): legal review, token and equity.
 - BIZ-11 (backlog): contributor NFTs with real perks (First Contributor, Hat Trick).

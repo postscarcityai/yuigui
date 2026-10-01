@@ -76,6 +76,7 @@ export default function Home() {
             {links.testflight
               ? <CtaLink cta="testflight" where="/hero" href={links.testflight}>Download on TestFlight</CtaLink>
               : <a className="btn" href="#invite">Ask for a hand</a>}
+            <Link className="btn soft" href="/web">Open Yui in your browser</Link>
             <CtaLink cta="github" where="/hero" className="btn ghost" href={links.github}>Star on GitHub</CtaLink>
           </div>
           <p className="hero-note">

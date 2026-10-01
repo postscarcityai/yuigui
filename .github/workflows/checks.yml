@@ -47,6 +47,22 @@ jobs:
       - run: cd site && npm ci && npm run build
       # Every share link has its committed preview capture (SITE-48).
       - run: cd site && node scripts/og-check.mjs
+  web-e2e:
+    # YUI-250: Yui on the web, in a real browser, on the demo account only (no sign in, no network, no secrets).
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm, cache-dependency-path: site/package-lock.json }
+      - run: cd site && npm ci && npm run build
+      - run: cd site && npm i --no-save playwright && npx playwright install --with-deps chromium
+      - name: /web e2e (390 px and desktop, light and dark)
+        run: cd site && SHOTS=$RUNNER_TEMP/web-shots node e2e/web/run-all.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: web-shots, path: "${{ runner.temp }}/web-shots", if-no-files-found: ignore }
   hands-off:
     # A pull request from a fork may not touch CI, deploy scripts or generated files (CONTRIBUTING-AGENTS.md, "Never touch").
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork

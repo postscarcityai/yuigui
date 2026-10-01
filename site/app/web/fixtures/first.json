@@ -1,0 +1,133 @@
+{
+ "first_name": "Maya",
+ "crew_pending": true,
+ "agents": [],
+ "threads": {
+  "demo-yui": [
+   {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "sender": "agent",
+    "body": "Hi Maya. I am Yui. Ask me for anything, or add an agent.",
+    "kind": "text",
+    "meta": null,
+    "ago_min": 1
+   }
+  ]
+ },
+ "replies": {
+  "text": [
+   {
+    "doing": [
+     "Reading your week 1/2",
+     "Picking the best days 2/2"
+    ],
+    "body": "Friday is the rest day. Want it kept clear?\n```yui\nchoose@rest \"Keep Friday clear?\" Yes|No\n```"
+   }
+  ],
+  "event": [
+   {
+    "doing": [
+     "Writing it down"
+    ],
+    "body": "Got it. I will remember that."
+   }
+  ],
+  "mention": [
+   {
+    "doing": [
+     "Reading the thread"
+    ],
+    "body": "Yes. Thursday works for me too."
+   }
+  ],
+  "timer": [
+   {
+    "doing": [
+     "Setting it up 1/1"
+    ],
+    "body": "Here. Two minutes.\n```yui\ntimer 2m Quick walk\n```"
+   }
+  ]
+ },
+ "crew": [
+  {
+   "base": "yui",
+   "name": "Yui",
+   "role": "Helper and maker",
+   "color": "brand",
+   "agent_id": null,
+   "tagline": "Ask anything, or make a new agent"
+  },
+  {
+   "base": "arnold",
+   "name": "Arnold",
+   "role": "Trainer",
+   "color": "coral",
+   "agent_id": null,
+   "tagline": "Workouts built around your week and body",
+   "about": "A training week around your days, your gear and anything that hurts. Timers run on screen and every set gets logged.",
+   "can": [
+    "Build me a week of workouts",
+    "Start a 20 minute timer",
+    "My knee hurts, what instead?"
+   ]
+  },
+  {
+   "base": "basil",
+   "name": "Basil",
+   "role": "Nutritionist",
+   "color": "forest",
+   "agent_id": null,
+   "tagline": "Eat better without counting everything",
+   "about": "Plans your week of meals around your goal and what you can't eat, with the grocery list by aisle. Snap a plate and today's macros fill in.",
+   "can": [
+    "Plan my meals this week",
+    "What can I cook with eggs and rice?",
+    "Add this plate"
+   ]
+  },
+  {
+   "base": "gouda",
+   "name": "Gouda",
+   "role": "Musician",
+   "color": "sunset",
+   "agent_id": null,
+   "tagline": "Beats, chords and practice, right on screen",
+   "about": "Keeps a shared list and the small chores of a house in one place, ticked off as they happen.",
+   "can": [
+    "What's on the list?",
+    "Add milk",
+    "Remind me about the bins"
+   ]
+  },
+  {
+   "base": "penny",
+   "name": "Penny",
+   "role": "Planner",
+   "color": "candy",
+   "agent_id": null,
+   "tagline": "Get your week out of your head",
+   "about": "Plans your week around what already fills it, and keeps the free hours free.",
+   "can": [
+    "What does my week look like?",
+    "Keep Friday clear",
+    "Find me an hour to write"
+   ]
+  },
+  {
+   "base": "quill",
+   "name": "Quill",
+   "role": "Study buddy",
+   "color": "wizard",
+   "agent_id": null,
+   "tagline": "Learn anything fast, then get quizzed",
+   "about": "Helps you study: quizzes, flash cards and a plan that works back from the exam.",
+   "can": [
+    "Quiz me on chapter 4",
+    "Make flash cards",
+    "Plan my revision"
+   ]
+  }
+ ],
+ "chats": {}
+}

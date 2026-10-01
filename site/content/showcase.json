@@ -1,6 +1,7 @@
 {
   "note": "SITE-14. Every shipped screen, tied to its card and ship date. Shipped dates come from the kanban board. `demo` names a playground sample (slug or name in lib/yl/samples.mjs); `yl` is inline. `shots` are real simulator captures from public/progress; `clip` is a real simulator recording in public/demo/clips. `app`: native = drawn by the iPhone app, later = web renderer only so far, site = a page on yuigui.com (`link` opens it). `release` on a group or card (\"0.2.0\") labels it In 0.2.0 until that version is VALID on TestFlight; then drop it and give the cards `shipped` dates. `change` (a fix with no card) is the opening words of its app commit, so the entry reads Next build until that commit is on TestFlight.",
   "cards": {
+    "YUI-250": {"title": "Yui on the web ships: restyle card, crew picker, e2e in CI, the launch film", "shipped": "2026-10-01"},
     "YUI-138": {"title": "Start blank: make an agent in five taps", "release": "0.6.3"},
     "YUI-202": {"title": "Every message shows when it was sent", "shipped": "2026-09-29"},
     "YUI-201": {"title": "Hold to talk: slide to cancel, slide to lock", "shipped": "2026-09-29"},
@@ -151,6 +152,7 @@
       "title": "Videos",
       "lede": "The films come first: a minute each, sound on, one idea per film. They are drawn frame by frame from real screenshots of the app, with Yui's own music, and the agent's words are scripted on the demo account. Below them, the short cuts, sound off, recorded in the iPhone simulator. Download any of them from the press kit at the bottom of this page.",
       "entries": [
+        { "id": "film-yui-on-the-web", "title": "Yui is on the web", "what": "The same Yui in a laptop browser beside the phone: ask, the answer plays on the stage, ask Yui to restyle itself, sign in with Apple. Turn your sound on.", "cards": ["YUI-250"], "app": "site", "video": "film-yui-on-the-web" },
         { "id": "film-crew", "title": "Yui 0.5.0: the crew feels ready", "what": "The 0.5.0 release in two minutes: hold to snap and say what's in it, a meal without a scale, meet each agent and see what each one does, every agent's home and Gouda's looper, Yui handing you to Basil, and your tables moving to a Claude agent. Then the six agents that ship with Yui. Turn your sound on.", "cards": ["YUI-166", "YUI-103", "YUI-167", "YUI-168", "YUI-144", "YUI-171"], "app": "native", "video": "film-crew" },
         { "id": "film-meet-yui-home", "title": "Meet Yui, one evening", "what": "One evening with Yui: talk and the words show as you say them, dinner as three recipes to tap and a timer on the lock screen, Saturday planned with one Send, Coach in its own look, then lessons, charts, games, music and timers. Your agents, on the whole screen.", "cards": ["SITE-62"], "app": "site", "video": "film-meet-yui-home" },
         { "id": "film-meet-yui", "title": "Meet Yui", "what": "You asked for a timer and got an essay. In Yui, one line from your agent becomes the whole screen.", "cards": ["SITE-62"], "app": "site", "video": "film-meet-yui" },

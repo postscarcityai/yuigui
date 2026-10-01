@@ -39,6 +39,8 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
   // The agent list lives here, so add, rename, remove and reorder act on something (yui-agents in a tab).
   const roster = (fixture.agents || []).map((a) => JSON.parse(JSON.stringify(a)));
   const crew = (fixture.crew || []).map((c) => ({ ...c }));
+  // A new account has not picked its crew yet (yui-agents `crew_pending`): the first run screen asks.
+  let crewPending = !!fixture.crew_pending;
   // Several chats per agent. A row with no chat_id belongs to the agent's first chat.
   const chatsOf = {};
   const firstChat = (agentId) => (chatsOf[agentId] ||= [{ id: `${agentId}-c1`, title: null, is_first: true, last_at: iso(now()), seen_at: iso(now()), unread: false }])[0];
@@ -98,7 +100,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
   function manage(b) {
     const find = (id) => roster.find((a) => a.id === id) || (() => { throw refused("not_found", 404); })();
     switch (b.action) {
-      case "list": return { agents: SORTED(roster).map(view), crew: crew.map((c) => ({ ...c })), crew_pending: false, first_name: fixture.first_name || null };
+      case "list": return { agents: SORTED(roster).map(view), crew: crew.map((c) => ({ ...c })), crew_pending: crewPending, first_name: fixture.first_name || null };
       case "create": {
         const name = String(b.name || "").replace(/\s+/g, " ").trim().slice(0, 40);
         if (!name) throw refused("invalid_name");
@@ -131,7 +133,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
         const c = crew.find((x) => x.base === b.base);
         if (!c) throw refused("not_found", 404);
         let a = roster.find((x) => x.id === c.agent_id);
-        if (!a) { a = addAgent({ id: `demo-${c.base}`, name: c.name, handle: c.base, color: c.color, kind: "hosted", status: "connected", presence: "online", tagline: c.tagline, theme: { preset: c.color } }); c.agent_id = a.id; }
+        if (!a) { a = addAgent({ id: `demo-${c.base}`, name: c.name, handle: c.base, color: c.color, kind: "hosted", status: "connected", presence: "online", tagline: c.tagline, theme: { preset: c.base === "yui" ? "yui" : c.color }, ...(c.base === "yui" ? { avatar: "yui" } : {}) }); c.agent_id = a.id; }
         return { agent: view(a) };
       }
       case "crew_add_all": {
@@ -139,7 +141,16 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
         for (const c of crew) if (!roster.some((x) => x.id === c.agent_id)) { manage({ action: "crew_add", base: c.base }); added.push(c.base); }
         return { added };
       }
-      case "crew_choose": { const added = []; for (const base of b.bases || []) { manage({ action: "crew_add", base }); added.push(base); } return { added }; }
+      case "crew_choose": {
+        // Yui is always there, then each pick in the crew's order; the choice is saved, so the picker never comes back.
+        const asked = (b.bases || []).map(String);
+        if (asked.some((x) => !crew.some((c) => c.base === x))) throw refused("invalid_base");
+        const added = [];
+        for (const c of crew) if ((c.base === "yui" || asked.includes(c.base)) && !roster.some((x) => x.id === c.agent_id)) { manage({ action: "crew_add", base: c.base }); added.push(c.base); }
+        if (roster.length && !roster.some((x) => x.is_default)) SORTED(roster)[0].is_default = true;
+        crewPending = false;
+        return { added };
+      }
       default: throw refused("unknown_action");
     }
   }
@@ -184,7 +195,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
       settings.answered(meta);
       rows(agentId).push({ id: id(), sender: "agent", body: askLine({ ...meta, purpose }), kind: "text", meta: null, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null });
     },
-    async agents() { return { agents: SORTED(roster).map((a) => ({ ...a })), crew: crew.map((c) => ({ ...c })), crew_pending: false, first_name: fixture.first_name || null }; },
+    async agents() { return { agents: SORTED(roster).map((a) => ({ ...a })), crew: crew.map((c) => ({ ...c })), crew_pending: crewPending, first_name: fixture.first_name || null }; },
     // yui-agents and yui-oauth in a tab: the same actions and replies, kept in this page.
     async call(fn, body) {
       if (this.offline) throw refused("network", 0);

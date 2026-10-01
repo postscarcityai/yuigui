@@ -3,7 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   APPEARANCE_KEY, STAGE_DEFAULT, accountLine, browserLine, buildSummary, feedbackMail, fixStage, guideOf, loadAppearance, loadPicks, loadStage,
-  lookBody, lookName, lookState, lookVars, modelLeft, movePick, nativeError, perfOn, recipeOf, resetLook, resolveAppearance, saveAppearance,
+  lookBody, lookName, undoOffer, takeOffer, lookState, lookVars, modelLeft, movePick, nativeError, perfOn, recipeOf, resetLook, resolveAppearance, saveAppearance,
   savePicks, saveStage, searchLeft, sectionOf, setAgentsKeep, setStage, togglePick, usedWords,
 } from "./settings.mjs";
 
@@ -152,4 +152,18 @@ test("a deep link names a section or nothing", () => {
   assert.equal(sectionOf("key"), "key");
   assert.equal(sectionOf("search"), "search");
   assert.equal(sectionOf("nope"), null);
+});
+
+test("a theme app offer: a set starts fresh, keys merge, reset is Yui's own, Undo puts the old look back", () => {
+  const start = lookState({ preset: "forest", accent: "#33AA55" });
+  const set = takeOffer(start, { scope: "app", name: "autumn" }, "Penny");
+  assert.deepEqual(set.look, { preset: "autumn" });
+  assert.deepEqual(set.prev, { preset: "forest", accent: "#33AA55" });
+  assert.equal(set.via, "Penny");
+  const keys = takeOffer(start, { scope: "app", radius: "square", font: "serif" });
+  assert.deepEqual(keys.look, { preset: "forest", accent: "#33AA55", radius: "square", font: "serif" });
+  assert.equal(takeOffer(start, { scope: "app", name: "reset" }).look, null);
+  assert.deepEqual(undoOffer(set).look, { preset: "forest", accent: "#33AA55" });
+  assert.equal(undoOffer(set).prev, null);
+  assert.equal(undoOffer(takeOffer(lookState(null), { scope: "app", name: "autumn" })).look, null);
 });

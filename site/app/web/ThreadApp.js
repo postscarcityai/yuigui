@@ -14,6 +14,7 @@ import { controlSections, revoked, sortAgents, unsharedLine } from "../../lib/we
 import { chatErrorOf, draft as newDraft, merge as mergeChats, openAfterDeleting, append as appendChats, PAGE_SIZE } from "../../lib/web/chats.mjs";
 import fixture from "./fixtures/penny.json";
 import sharedFixture from "./fixtures/shared.json";
+import firstFixture from "./fixtures/first.json";
 import ThreadView from "./ThreadView";
 import DrawerPanel from "./DrawerPanel";
 import { useEarn } from "./YourU";
@@ -30,14 +31,17 @@ import { usePush } from "./usePush";
 import { KeyAskSheet } from "./SettingsKeys";
 import { PrefsContext, useAppLook, useAppearance, useDark, usePicks, useStagePrefs } from "./useSettings";
 import { loadAnswered, markAnswered, nextAsk, answerMeta } from "../../lib/web/vault.mjs";
-import { sectionOf } from "../../lib/web/settings.mjs";
+import { perfOn, sectionOf } from "../../lib/web/settings.mjs";
 import { loadUsed, markUsed, menuFromRows } from "../../lib/web/quick.mjs";
+import PerfHud from "./PerfHud";
+import CrewPick from "./CrewPick";
 import { Face } from "./parts";
 import "./thread.css";
+import "./stage.css"; // the Stage button and Play on the stage live here; a ?view=chat link never loads StageLayer first
 import "./composer.css";
 import "./agents.css";
 
-const FIXTURES = { penny: fixture, shared: sharedFixture };
+const FIXTURES = { penny: fixture, shared: sharedFixture, first: firstFixture };
 
 const GIVE_UP_FAST = { giveUpMs: 3000, stuckMs: 3000, pollMs: 300 };
 
@@ -47,10 +51,15 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const go = useCallback((url) => { window.history.pushState(null, "", url); }, []);
   const search = useSearchParams();
   const theme = search.get("theme");
+  // The Speed switch (?perf=1, Settings > Speed): the frame rate line shows while it is on.
+  const [perf, setPerf] = useState(false);
+  useEffect(() => { const sync = () => setPerf(perfOn(window.location.search)); sync(); window.addEventListener("yui-perf", sync); return () => window.removeEventListener("yui-perf", sync); }, []);
   const fast = search.get("pairing") === "fast" ? GIVE_UP_FAST : {};
   const [mounted, setMounted] = useState(false);
   const [agents, setAgents] = useState(null);
   const [crew, setCrew] = useState([]);
+  // A new account has not picked its crew: the first run screen shows until it has (yui-agents `crew_pending`).
+  const [crewPending, setCrewPending] = useState(false);
   const [firstName, setFirstName] = useState(null);
   const [unshared, setUnshared] = useState([]);
   const [notice, setNotice] = useState("");
@@ -183,7 +192,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
         if (gone.closeOpen) setNotice(unsharedLine(gone.names[0]));
       }
       agentsRef.current = list;
-      setAgents(list); setCrew(r.crew || []); setFirstName(r.first_name || null); setError(null);
+      setAgents(list); setCrew(r.crew || []); setCrewPending(!!r.crew_pending); setFirstName(r.first_name || null); setError(null);
       return list;
     } catch (e) { setError(e); return null; }
   }, [relay]);
@@ -427,10 +436,16 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   if (!mounted) return <div className="web-root"><div className="wb-wait center">Opening Yui...</div></div>;
   if (!relay) return <div className="web-root"><div className="wb-wait center">Opening Yui...</div></div>;
 
+  // First run: pick your crew, full screen, before any thread. Done opens Yui; "Bring my own agent" opens Add agent.
+  if (crewPending && relay.manage && agents) {
+    const done = async (add) => { const list = await load(); setCrewPending(false); if (add) setSheet("add"); else if (list?.length) go(hrefOf(sortAgents(list).find((a) => a.is_default) || sortAgents(list)[0])); };
+    return <PrefsContext.Provider value={{ stage: stagePrefs[0], picks: picks[0], look: look.state, saveLook: look.save, agentsKeep: look.state.agentsKeep }}><div className={`web-root${light ? " is-light" : ""}`}><CrewPick crew={crew} manage={relay.manage} onDone={() => done(false)} onOwn={() => done(true)} /></div></PrefsContext.Provider>;
+  }
+
   const ready = chats.loaded || !!chat;
   const threadKey = `${open?.id}:${openChatId || ""}:${bump}`;
 
-  const prefs = { stage: stagePrefs[0], picks: picks[0], look: look.state, agentsKeep: look.state.agentsKeep };
+  const prefs = { stage: stagePrefs[0], picks: picks[0], look: look.state, saveLook: look.save, agentsKeep: look.state.agentsKeep };
   // "Agents keep their own looks" off: every thread wears Yui's look (Settings > Look).
   const threadAgent = !look.state.agentsKeep && open ? { ...open, theme: look.state.look || { preset: "yui" } } : open;
   const foot = (
@@ -446,6 +461,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   return (
     <PrefsContext.Provider value={prefs}>
     <div className={`web-root${light ? " is-light" : ""}`}>
+      {perf ? <PerfHud /> : null}
       <aside className={`wb-side${drawer ? " open" : ""}`} aria-label="Drawer">
         {open ? (
           <DrawerPanel agent={open} api={api} chats={drawerChats} email={email} earn={earn} onSettings={() => { setDrawer(false); setSheet({ settings: "" }); }} onClose={() => setDrawer(false)} onSwitch={() => setSwitcher(true)} onAdd={() => { setDrawer(false); setSheet("add"); }} onQuick={openPalette}

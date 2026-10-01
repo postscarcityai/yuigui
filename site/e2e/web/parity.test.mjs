@@ -3,6 +3,7 @@
 // every app file a row names exists in the app checkout (when YUI_APP points at one), and the summary
 // table on spec/BROWSER.md carries the same counts as the map.
 import { readFileSync, existsSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
@@ -20,7 +21,7 @@ const rowsOf = (s) => s.split("\n").filter((l) => l.startsWith("| ") && !l.start
 
 const AREAS = [2, 3, 4, 5, 6, 7, 8];
 const STATUS = new Set(["open", "draws", "done", "n/a"]);
-const stories = new Set(["none", ...Array.from({ length: 10 }, (_, i) => String(241 + i))]);
+const stories = new Set(["none", "162", ...Array.from({ length: 10 }, (_, i) => String(241 + i))]);
 const counts = {};
 for (const n of AREAS) {
   const rows = rowsOf(section(n));
@@ -52,11 +53,14 @@ for (const h of names) {
   }
 }
 
-// Every Swift file a row names exists, when an app checkout is at hand.
+// Every Swift file a row names exists, when an app checkout is at hand. A shared checkout may lag its remote
+// (a file the app gained last night is not on disk yet), so a git checkout is read at origin/main first.
 const app = process.env.YUI_APP || join(process.env.HOME || "", "dev/yui");
 if (existsSync(join(app, "Yui/Sources"))) {
-  for (const m of map.matchAll(/`((?:Account|Agents|Chat|Perf|Presets|Push|Stage|Theme|Vault)\/[A-Za-z]+\.swift|(?:SettingsView|AgentsView|ChatView|ModelKeyForm)\.swift)`/g)) {
-    ok(existsSync(join(app, "Yui/Sources", m[1])), `app file ${m[1]} exists`);
+  let tracked = null;
+  try { tracked = new Set(execFileSync("git", ["-C", app, "ls-tree", "-r", "--name-only", "origin/main", "Yui/Sources"], { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] }).split("\n")); } catch { /* not a git checkout */ }
+  for (const m of map.matchAll(/`((?:Account|Agents|Chat|Groups|Perf|Presets|Push|Stage|Theme|Vault)\/[A-Za-z]+\.swift|(?:SettingsView|AgentsView|ChatView|ModelKeyForm)\.swift)`/g)) {
+    ok(existsSync(join(app, "Yui/Sources", m[1])) || !!tracked?.has(`Yui/Sources/${m[1]}`), `app file ${m[1]} exists`);
   }
 } else console.log("  skip  app files (no checkout at", app + ")");
 
