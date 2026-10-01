@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T00:40:30.257Z",
+  "updated": "2026-10-01T01:10:35.950Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -198,12 +198,6 @@
           "summary": "Your profile top left, your $U top right, counting up when you open it"
         },
         {
-          "key": "YUI-224",
-          "title": "Quill's first plan",
-          "summary": "What you are learning and how long you have, then a study plan",
-          "waiting": true
-        },
-        {
           "key": "YUI-238",
           "title": "My flows in the app",
           "summary": "See, run and remove your saved flows and variants",
@@ -384,14 +378,16 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-223",
-          "title": "Penny's first plan",
-          "summary": "When your week is busy, then a planning routine",
+          "key": "YUI-224",
+          "title": "Quill's first plan",
+          "summary": "What you are learning and how long you have, then a study plan",
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-145",
-          "title": "/crew builds Gouda's real practice week",
+          "key": "SITE-146",
+          "title": "/crew builds Penny's real planning week",
+          "summary": "Penny's first plan builds the real week on the site",
+          "progress": "/progress#penny-s-first-plan-builds-the-real-week-on-the-site",
           "owner": "CJohnDesign"
         },
         {
@@ -406,6 +402,22 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-223",
+          "title": "Penny's first plan",
+          "summary": "Penny sets up your planning routine",
+          "shipped": "2026-09-30",
+          "progress": "/progress#penny-sets-up-your-planning-routine",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/06934bac"
+        },
+        {
+          "key": "SITE-145",
+          "title": "/crew builds Gouda's real practice week",
+          "summary": "The site builds your practice week",
+          "shipped": "2026-09-30",
+          "progress": "/progress#the-site-builds-your-practice-week",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e0869bf0"
+        },
         {
           "key": "YUI-215",
           "title": "Jev at our first two decision points, measured against today",
