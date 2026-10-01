@@ -465,6 +465,14 @@
           "commit": "https://github.com/postscarcityai/yuigui/commit/d39d1396"
         },
         {
+          "key": "YUI-257",
+          "title": "The shader on the web stage",
+          "summary": "The shader is the orb on the web stage",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-shader-is-the-orb-on-the-web-stage",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9093de85"
+        },
+        {
           "key": "YUI-243",
           "title": "The stage on the web",
           "summary": "Yui on the web: the stage",
