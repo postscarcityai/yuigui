@@ -14,12 +14,12 @@ import { ScreenCtx } from "../playground/science";
 import { LiveSlot, Stage, StagePill } from "../playground/stage";
 import "../playground/flows.css";
 
-export default function ThreadScreen({ message, agent, light, onTap, live, onPage }) {
+export default function ThreadScreen({ message, agent, light, onTap, live, onPage, fresh = false }) {
   // The screen the reply drew, then every later patch, in order. Local state keeps the person's own
   // moves (a tick, a slider) that no row carries.
   const [state, setState] = useState(() => {
-    // A staged part (a timer, a deck) is a pill in the thread; the stage itself opens on a tap (full stage: YUI-243).
-    return { ...message.state, stage: false };
+    // A new answer with a staged part opens it; one from the history is a pill, and the stage opens on a tap.
+    return fresh ? message.state : { ...message.state, stage: false };
   });
   const done = useRef(message.ops.length);
   useEffect(() => {
@@ -44,7 +44,11 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
   const emits = useRef(new Map());
   const emit = useCallback((node) => {
     const k = `${node.key}:${node.preset}:${node.seq}`;
-    if (!emits.current.has(k)) emits.current.set(k, (value) => tapRef.current?.({ id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) }));
+    if (!emits.current.has(k)) emits.current.set(k, (value) => {
+      tapRef.current?.({ id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) });
+      // Answering on the stage folds it back to the thread, as on the phone.
+      if (node.stage && (value?.done || value?.plan || value?.choice != null || value?.answer != null || value?.form)) setState((s) => ({ ...s, stage: false }));
+    });
     return emits.current.get(k);
   }, []);
 
@@ -60,7 +64,8 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
     <div key={`${n.key}:${n.preset}`} className="pg-node"><Render node={n} emit={emit(n)} /></div>
   );
   const stageOpen = state.stage && staged.length > 0;
-  const ctx = (list, screen) => ({ nodes: list, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, agent, screen, dispatch });
+  const closeStage = useCallback(() => setState((s) => ({ ...s, stage: false })), []);
+  const ctx = (list, screen) => ({ nodes: list, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, agent, screen, dispatch, ...(screen === "full" ? { closeStage, stageHome: true } : {}) });
 
   if (!nodes.length && !staged.length && !pages.length) return null;
   return (
@@ -74,7 +79,7 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
       </div>
       {staged.length && host ? createPortal(
         <div className={`screen wb-stagehost ${light ? "light" : ""}`}>
-          <Stage open={stageOpen} onClose={() => setState((s) => ({ ...s, stage: false }))} agent={agent}>
+          <Stage open={stageOpen} onClose={closeStage} agent={agent} native>
             <ScreenCtx.Provider value={ctx(staged, "full")}>
               {groupNodes(staged).map((n) => <LiveSlot key={`${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
             </ScreenCtx.Provider>

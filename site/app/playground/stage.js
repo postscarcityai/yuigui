@@ -24,10 +24,27 @@ export function LiveSlot({ id, onLive, children }) {
   return <LiveCtx.Provider value={value.current}>{children}</LiveCtx.Provider>;
 }
 
-export function Stage({ open, onClose, agent, children }) {
+export function Stage({ open, onClose, agent, children, native = false }) {
   const [drag, setDrag] = useState(0);
   const start = useRef(null);
   const pull = useDragDown(onClose);   // touch: pull the card anywhere down (SITE-98); the bar keeps the mouse drag
+
+  // The keyboard goes when a full screen opens (the app's Keyboard.dismiss), whoever held it.
+  useEffect(() => { if (open && native) document.activeElement?.blur?.(); }, [open, native]);
+  // The browser's own full screen, behind a button (web only): a window that hides the address bar and tabs.
+  const [fs, setFs] = useState(false);
+  useEffect(() => {
+    if (!native) return undefined;
+    const on = () => setFs(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", on);
+    return () => document.removeEventListener("fullscreenchange", on);
+  }, [native]);
+  useEffect(() => { if (!open && document.fullscreenElement) document.exitFullscreen?.().catch(() => {}); }, [open]);
+  const toggleFs = (e) => {
+    const el = e.currentTarget.closest(".yl-stage");
+    if (document.fullscreenElement) document.exitFullscreen?.().catch(() => {});
+    else el?.requestFullscreen?.().catch(() => {});
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -53,6 +70,7 @@ export function Stage({ open, onClose, agent, children }) {
       <div className="yl-stagebar" onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up}>
         <span className="yl-stagegrab" />
         <span className="yl-stagewho">{agent}</span>
+        {native && typeof document !== "undefined" && document.fullscreenEnabled ? <button className="yl-stagex yl-stagefs" onPointerDown={(e) => e.stopPropagation()} onClick={toggleFs} aria-label={fs ? "Leave the browser's full screen" : "Fill the browser's full screen"} data-testid="stage-fullscreen">{fs ? "⤡" : "⤢"}</button> : null}
         <button className="yl-stagex" onPointerDown={(e) => e.stopPropagation()} onClick={onClose} aria-label="Close full screen">×</button>
       </div>
       <div className="yl-stagebody">{children}</div>

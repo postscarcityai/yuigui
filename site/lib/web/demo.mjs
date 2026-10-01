@@ -35,7 +35,9 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
 
   async function answer(agentId, userRow) {
     const kind = userRow.kind === "event" ? "event" : "text";
-    const script = (fixture.replies[kind] || fixture.replies.text || [])[0];
+    // A line asking for a timer gets the one that takes the whole window (a staged part opens by itself).
+    const key = kind === "text" && /\btimer\b/i.test(userRow.body || "") && fixture.replies.timer ? "timer" : kind;
+    const script = (fixture.replies[key] || fixture.replies.text || [])[0];
     if (!script) return;
     await sleep(500);
     userRow.delivered_at = bump();

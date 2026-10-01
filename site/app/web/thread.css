@@ -136,3 +136,6 @@ body:has(.web-root) main.wrap { padding: 0; max-width: none; }
 .wb-stagehost .yl-stage { border-radius: 0; background: var(--background); }
 .wb-stagehost .yl-stage.open { pointer-events: auto; }
 .wb-stagehost .yl-stagebody { width: min(680px, 100%); margin: 0 auto; }
+/* The browser's full screen button sits left of the X (web only). */
+.wb-stagehost .yl-stagefs { right: 66px; font-size: 18px; }
+@media (prefers-reduced-motion: reduce) { .wb-stagehost .yl-stage, .wb-stagehost .yl-stage.open { transition: opacity .15s; transform: none; } }

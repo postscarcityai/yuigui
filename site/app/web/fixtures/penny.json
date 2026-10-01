@@ -199,6 +199,14 @@
     ],
     "body": "Yes. Thursday works for me too."
    }
+  ],
+  "timer": [
+   {
+    "doing": [
+     "Setting it up 1/1"
+    ],
+    "body": "Here. Two minutes.\n```yui\ntimer 2m Quick walk\n```"
+   }
   ]
  }
 }

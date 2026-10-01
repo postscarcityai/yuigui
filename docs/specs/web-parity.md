@@ -92,9 +92,9 @@ Every one is a row below too. This is the short list, with the web way for each.
 | --- | --- | --- | --- | --- |
 | Stage first: first send opens the stage, reply plays as chunks, questions last under one Send | `Stage/StageFirst.swift`, `Stage/StageChunks.swift` | same: `chunks.mjs`, `stagefirst.js` | 243 | done |
 | The chat is the record, a chunk chip reopens the stage there | `Stage/StageFirst.swift` | same | 243 | done |
-| `>full` as a full-window layer, close returns to chat | `Presets/Stage.swift` | same: a layer over the window; Fullscreen API behind a button | 243 | draws |
-| Components that open on the stage by themselves (`timer`, `camera`, `mic`, `deck`, `plan`, `game`, row3d gallery) | `Presets/Stage.swift` | same: `onStage` in `yl.mjs` | 243 | draws |
-| A way home (X, Back home, pull down 110 points) | `Presets/FullScreenExit.swift` | same: `dragdown.js` (`useDragDown`), Esc | 243 | draws |
+| `>full` as a full-window layer, close returns to chat | `Presets/Stage.swift` | same: a layer over the chat window (the whole window on a phone, the chat column beside the agent list on a computer); the browser's own full screen behind a button | 243 | done |
+| Components that open on the stage by themselves (`timer`, `camera`, `mic`, `deck`, `plan`, `game`, row3d gallery) | `Presets/Stage.swift` | same: `onStage` in `yl.mjs`; a new answer opens it by itself, history waits as a pill | 243 | done |
+| A way home (X, Back home, pull down 110 points) | `Presets/FullScreenExit.swift` | same: `dragdown.js` (`useDragDown`), the X, Esc | 243 | done |
 | Stage motion (the mark breathes, thinking, speaking) | `Stage/StageMotion.swift` | same: `stagemotion.js`; `prefers-reduced-motion` swaps motion for fades | 243 | done |
 | The visual and what it hears | `Stage/StageVisual.swift`, `Stage/VisualPlan.swift`, `Stage/VisualSound.swift`, `Stage/VisualDefault.swift` | web way: WebGL, `AnalyserNode` for sound, the same plan and budget | 243 | draws |
 | Pages 2 to 12: swipe, arrow keys, dots, kept across replies | `Presets/Pages.swift` | same: `pages.mjs` | 243 | draws |

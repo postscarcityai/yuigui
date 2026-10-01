@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 417,
-    "site": 993,
+    "app": 419,
+    "site": 1002,
     "builds": 51,
-    "shipped": 501,
-    "screenshots": 1294
+    "shipped": 505,
+    "screenshots": 1312
   },
   "days": [
     {
@@ -13,7 +13,106 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T14:02:56.266Z",
+          "at": "2026-10-01T14:51:58.000Z",
+          "title": "Yui on the web: the composer",
+          "card": "YUI-244",
+          "anchor": "yui-on-the-web-the-composer",
+          "images": [
+            {
+              "src": "/progress/yui244-photos-390-light.webp",
+              "alt": "Phone width, light: a message with two photos and a caption, the agent working."
+            },
+            {
+              "src": "/progress/yui244-menu-390-dark.webp",
+              "alt": "Phone width, dark: the hold menu with the six reactions, Reply and Copy."
+            },
+            {
+              "src": "/progress/yui244-reply-390-light.webp",
+              "alt": "Phone width, light: Replying to Penny above the field."
+            },
+            {
+              "src": "/progress/yui244-mention-390-dark.webp",
+              "alt": "Phone width, dark: typing @pe suggests Penny and says who gets it."
+            },
+            {
+              "src": "/progress/yui244-voice-390-dark.webp",
+              "alt": "Phone width, dark: the mic held, the words as heard and the waveform."
+            },
+            {
+              "src": "/progress/yui244-menu-desktop-dark.webp",
+              "alt": "Desktop, dark: the same menu beside the message."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 418,
+            "site": 999,
+            "builds": 51,
+            "shipped": 505
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T14:39:39.000Z",
+          "title": "The chat bubble keeps your past chats",
+          "card": "SITE-153",
+          "anchor": "the-chat-bubble-keeps-your-past-chats",
+          "images": [
+            {
+              "src": "/progress/site153-list-dark.webp",
+              "alt": "Phone width: the Chats drawer with a New chat button and two past chats, each with a title, a last line and a time."
+            },
+            {
+              "src": "/progress/site153-reopened-dark.webp",
+              "alt": "Phone width: an older chat reopened, with its first question and Yui's answer in the record."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 418,
+            "site": 997,
+            "builds": 51,
+            "shipped": 504
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T14:33:46.000Z",
+          "title": "Past chats show in the drawer",
+          "card": [
+            "YUI-254",
+            "NOTE-54934"
+          ],
+          "anchor": "past-chats-show-in-the-drawer",
+          "images": [
+            {
+              "src": "/progress/yui254-drawer-light.webp",
+              "alt": "Drawer, light: New chat, then How much protein on rest days, Tuesday groceries and Earlier, each with its last line and age"
+            },
+            {
+              "src": "/progress/yui254-drawer-dark.webp",
+              "alt": "Drawer, dark: the same list"
+            },
+            {
+              "src": "/progress/yui254-earlier-top-light.webp",
+              "alt": "Earlier scrolled back to its first message, light"
+            },
+            {
+              "src": "/progress/yui254-earlier-top-dark.webp",
+              "alt": "Earlier scrolled back to its first message, dark"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 418,
+            "site": 996,
+            "builds": 51,
+            "shipped": 503
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T14:04:13.000Z",
           "title": "Yui comes to the web: the story",
           "card": "SITE-152",
           "anchor": "yui-comes-to-the-web-the-story",
@@ -27,12 +126,12 @@
               "alt": "Dark mode, phone width: the same home."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 417,
-            "site": 993,
+            "site": 994,
             "builds": 51,
-            "shipped": 501
+            "shipped": 502
           }
         },
         {
@@ -65,6 +164,46 @@
             {
               "src": "/progress/yui243-home-desktop-dark.webp",
               "alt": "Dark mode, desktop: the agent column and the stage."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 417,
+            "site": 993,
+            "builds": 51,
+            "shipped": 501
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T13:58:43.000Z",
+          "title": "Yui on the web: full screen and the way home",
+          "card": "YUI-243",
+          "anchor": "yui-on-the-web-full-screen-and-the-way-home",
+          "images": [
+            {
+              "src": "/progress/yui243-full-390-light.webp",
+              "alt": "Light mode, phone width: a two minute timer taking the whole window."
+            },
+            {
+              "src": "/progress/yui243-full-390-dark.webp",
+              "alt": "Dark mode, phone width: the same timer layer."
+            },
+            {
+              "src": "/progress/yui243-full-desktop-light.webp",
+              "alt": "Light mode, desktop: the timer layer over the chat column."
+            },
+            {
+              "src": "/progress/yui243-sbs-home-dark.webp",
+              "alt": "Dark mode: the app's home beside the web home."
+            },
+            {
+              "src": "/progress/yui243-sbs-home-light.webp",
+              "alt": "Light mode: the app's home beside the web home."
+            },
+            {
+              "src": "/progress/yui243-sbs-timer-dark.webp",
+              "alt": "Dark mode, phone width: the timer layer on the web."
             }
           ],
           "commits": 1,
@@ -380,6 +519,83 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "c863219c",
+          "at": "2026-10-01T15:13:20.000Z",
+          "text": "Siri logs food and starts the workout: progress entry, shots, WIDGETS spec phrases (YUI-253)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c863219c"
+        },
+        {
+          "repo": "app",
+          "sha": "6078cf5",
+          "at": "2026-10-01T15:13:08.000Z",
+          "text": "Siri logs food and starts the workout: Log my food opens Basil's camera, Tell Yui what I ate logs the words and says Logged, Start my...",
+          "url": "https://github.com/postscarcityai/yui/commit/6078cf5"
+        },
+        {
+          "repo": "site",
+          "sha": "726a6054",
+          "at": "2026-10-01T15:12:54.000Z",
+          "text": "Phone pass: 44px tap areas, 16px code box, Try Yui in your browser on every page (SITE-154)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/726a6054"
+        },
+        {
+          "repo": "site",
+          "sha": "19118adf",
+          "at": "2026-10-01T15:10:50.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/19118adf"
+        },
+        {
+          "repo": "site",
+          "sha": "2e7f277c",
+          "at": "2026-10-01T14:51:58.000Z",
+          "text": "Yui on the web: the composer, photos, voice, replies, reactions, mentions, an outbox that survives a closed tab (YUI-244)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2e7f277c"
+        },
+        {
+          "repo": "site",
+          "sha": "d4f69616",
+          "at": "2026-10-01T14:40:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d4f69616"
+        },
+        {
+          "repo": "site",
+          "sha": "f48be331",
+          "at": "2026-10-01T14:39:39.000Z",
+          "text": "SITE-153: the site chat keeps your past chats",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f48be331"
+        },
+        {
+          "repo": "site",
+          "sha": "72e93592",
+          "at": "2026-10-01T14:33:46.000Z",
+          "text": "Progress: past chats show in the drawer (YUI-254, NOTE-54934)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/72e93592"
+        },
+        {
+          "repo": "app",
+          "sha": "b84dd55",
+          "at": "2026-10-01T14:33:14.000Z",
+          "text": "Past chats show in the drawer on a real account: old messages read as one Earlier chat, and a long chat scrolls back past the 100 it...",
+          "url": "https://github.com/postscarcityai/yui/commit/b84dd55"
+        },
+        {
+          "repo": "site",
+          "sha": "3471c8d6",
+          "at": "2026-10-01T14:10:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3471c8d6"
+        },
+        {
+          "repo": "site",
+          "sha": "1d91d319",
+          "at": "2026-10-01T14:04:13.000Z",
+          "text": "Thought: Yui comes to the web (SITE-152)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1d91d319"
+        },
         {
           "repo": "site",
           "sha": "19b71ecf",

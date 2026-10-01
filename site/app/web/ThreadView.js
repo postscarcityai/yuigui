@@ -71,7 +71,7 @@ const Badge = ({ emoji, onOpen }) => emoji ? (
   <button type="button" className="wb-badge" onClick={(e) => onOpen(e.currentTarget.closest(".wb-hold") || e.currentTarget)} aria-label={`You reacted ${emoji} ${reactionOf(emoji)?.meaning || ""}. Change`} data-testid="reaction-badge">{emoji}</button>
 ) : null;
 
-function Bubble({ m, agent, light, onTap, live, onPage, relay, reaction, wears, onMenu, onPicture, onOpenAgent, onJump }) {
+function Bubble({ m, agent, light, onTap, live, onPage, fresh, relay, reaction, wears, onMenu, onPicture, onOpenAgent, onJump }) {
   const hold = useHold((el) => onMenu(m, el));
   const more = (
     <button type="button" className="wb-more" onClick={(e) => onMenu(m, e.currentTarget.closest(".wb-hold") || e.currentTarget)} aria-label="Message actions" data-testid="msg-more">{Icon.more}</button>
@@ -80,7 +80,7 @@ function Bubble({ m, agent, light, onTap, live, onPage, relay, reaction, wears, 
   if (m.yl) return (
     <div className={`wb-row wb-agent wb-screenrow${wears && reaction ? " reacted" : ""}`}>
       <div className="wb-hold" {...hold} data-testid="card-hold">
-        <ThreadScreen message={m} agent={agent?.name || "Yui"} light={light} onTap={onTap} live={live} onPage={onPage} />
+        <ThreadScreen message={m} agent={agent?.name || "Yui"} light={light} onTap={onTap} live={live} onPage={onPage} fresh={fresh} />
         {wears ? <Badge emoji={reaction} onOpen={(el) => onMenu(m, el)} /> : null}
         {more}
       </div>
@@ -282,6 +282,11 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   const toStage = useCallback((r) => { setReq((q) => ({ ...r, key: q.key + 1 })); setView("stage"); }, [setView]);
   const askOf = (i) => { for (let k = i; k >= 0; k--) if (list[k].role === "user" && !list[k].card) return list[k].id; return null; };
   const stageOn = view === "stage";
+  // What was already in the thread when it opened is history: its timers and decks wait as pills. What lands
+  // after is new, and takes the whole window by itself (>full, a timer, a deck, a plan), like the phone.
+  const oldIds = useRef(null);
+  if (thread.loaded && !oldIds.current) oldIds.current = new Set(list.map((m) => m.id));
+  const old = oldIds.current || new Set(list.map((m) => m.id));
 
   const onTap = useCallback((ev) => { sync.tap(ev); }, [sync]);
   // The typed message: words, photos, a reply, an @ (compose.mjs). Voice words leave the typed draft alone.
@@ -327,7 +332,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
           {list.map((m, i) => (
             <div key={m.id} className="wb-item" data-id={m.id}>
               {marks[i]?.day ? <Day label={marks[i].day} /> : null}
-              <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay}
+              <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay} fresh={!old.has(m.id)}
                 reaction={thread.reactions.get(rowOf(m.id))} wears={wearers.get(rowOf(m.id)) === m.id} onMenu={openMenu} onPicture={setViewer} onOpenAgent={onOpenAgent} onJump={jump} />
               {m.role === "agent" && !m.from && (i === list.length - 1 || list[i + 1].role === "user") && askOf(i) ? (
                 <button className="wb-play" data-testid="play-on-stage" onClick={() => toStage({ ask: askOf(i) })}>Play on the stage</button>
