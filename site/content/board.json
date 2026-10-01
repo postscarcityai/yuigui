@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T16:42:07.021Z",
+  "updated": "2026-10-01T16:44:52.309Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -75,6 +75,11 @@
           "key": "YUI-48",
           "title": "Text a number",
           "summary": "SMS channel",
+          "waiting": true
+        },
+        {
+          "key": "YUI-89b",
+          "title": "Tables guide + compat gate + MCP app",
           "waiting": true
         },
         {
@@ -362,12 +367,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "BIZ-8",
-          "title": "Tokenomics v1, supply, emissions, value",
-          "progress": "/progress#how-u-could-be-given-out-the-tokenomics-brief",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-138",
           "title": "Start blank",
           "summary": "A new empty agent runs a setup flow to make itself",
@@ -384,12 +383,6 @@
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-89b",
-          "title": "Tables guide + compat gate + MCP app",
-          "blocked": "chris",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -397,6 +390,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "BIZ-8",
+          "title": "Tokenomics v1, supply, emissions, value",
+          "shipped": "2026-10-01",
+          "progress": "/progress#how-u-could-be-given-out-the-tokenomics-brief",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f1446c1a"
+        },
         {
           "key": "SITE-157",
           "title": "The roadmap says what shipped",
