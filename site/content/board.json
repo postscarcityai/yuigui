@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T15:40:41.966Z",
+  "updated": "2026-10-01T16:10:40.737Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -275,6 +275,16 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-256",
+          "title": "Voice on the web hears nothing",
+          "summary": "The mic says Listening but no words show and nothing sends"
+        },
+        {
+          "key": "YUI-257",
+          "title": "The shader on the web stage",
+          "summary": "Drop the old vector blob, the shader is the voice orb"
+        },
+        {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
           "summary": "The thread offline at /web"
@@ -378,16 +388,15 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-89",
-          "title": "Agent tables in the app",
-          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers",
+          "key": "YUI-245",
+          "title": "Agents on the web",
+          "summary": "The drawer, add, rename, remove, connect a new agent, groups, controls",
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-155",
-          "title": "The coach's workout tables on the web, a starter you can try",
-          "summary": "The coach's workout tables, to try on the web",
-          "progress": "/progress#the-coach-s-workout-tables-to-try-on-the-web",
+          "key": "YUI-89",
+          "title": "Agent tables in the app",
+          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers",
           "owner": "CJohnDesign"
         },
         {
@@ -403,13 +412,6 @@
           "blocked": "chris",
           "progress": "/progress#sign-in-with-apple-on-the-web",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-245",
-          "title": "Agents on the web",
-          "summary": "The drawer, add, rename, remove, connect a new agent, groups, controls",
-          "blocked": "other",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -417,6 +419,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-156",
+          "title": "/web shows what works so far, phone and browser side by side",
+          "shipped": "2026-10-01",
+          "progress": "/progress#web-shows-what-works-so-far-phone-and-browser-side-by-side",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0b424a7e"
+        },
+        {
+          "key": "SITE-155",
+          "title": "The coach's workout tables on the web, a starter you can try",
+          "summary": "The coach's workout tables, to try on the web",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-coach-s-workout-tables-to-try-on-the-web",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d39d1396"
+        },
         {
           "key": "YUI-243",
           "title": "The stage on the web",
