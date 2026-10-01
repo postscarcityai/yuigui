@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T18:27:54.364Z",
+  "updated": "2026-10-01T18:42:26.263Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -271,11 +271,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-248",
-          "title": "Notifications on the web",
-          "summary": "Web Push through yui-push, a tap opens the thread, a home screen install"
-        },
-        {
           "key": "YUI-249",
           "title": "One Yui across phone and web",
           "summary": "Continue a conversation, read state, drafts, saved screens in sync"
@@ -334,25 +329,28 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-247",
-          "title": "Settings and account on the web",
-          "summary": "Look and themes, agent looks, keys, web search, invites, help, sign out, delete account",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-94",
-          "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "SITE-160",
           "title": "Every link and image on yuigui.com resolves after Oct 1's pages",
+          "summary": "Every link checked after the big October 1 push",
+          "progress": "/progress#every-link-checked-after-the-big-october-1-push",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-248",
+          "title": "Notifications on the web",
+          "summary": "Web Push through yui-push, a tap opens the thread, a home screen install",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-94",
+          "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
@@ -361,6 +359,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-247",
+          "title": "Settings and account on the web",
+          "summary": "Yui on the web: Settings and your account",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-on-the-web-settings-and-your-account",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/51f6530a"
+        },
         {
           "key": "INT-8",
           "title": "Add live screenshots to listing draft, post 🔴 sign-off ask",
