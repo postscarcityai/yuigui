@@ -55,26 +55,28 @@ async function settings(pg, vp) {
 }
 const pushWire = (pg) => pg.evaluate(() => window.yuiWebDemo.pushCalls.map((c) => ({ ...c })));
 const worker = async (pg) => {
-  for (let i = 0; i < 40; i++) { const w = pg.ctx.serviceWorkers().find((x) => x.url().endsWith("/web/sw.js")); if (w) return w; await pg.waitForTimeout(150); }
+  for (let i = 0; i < 40; i++) { const w = pg.ctx.serviceWorkers().find((x) => x.url().endsWith("/web-sw.js")); if (w) return w; await pg.waitForTimeout(150); }
   return null;
 };
 const send = (w, msg) => w.evaluate(async (m) => { self.dispatchEvent(Object.assign(new PushEvent("push", { data: JSON.stringify(m) }))); await new Promise((r) => setTimeout(r, 400)); }, msg);
-const shown = (pg) => pg.evaluate(async () => (await (await navigator.serviceWorker.getRegistration("/web/")).getNotifications()).map((n) => ({ title: n.title, body: n.body, tag: n.tag, url: n.data?.url })));
+const shown = (pg) => pg.evaluate(async () => (await (await navigator.serviceWorker.getRegistration("/web")).getNotifications()).map((n) => ({ title: n.title, body: n.body, tag: n.tag, url: n.data?.url })));
 
 console.log("manifest and install");
 {
-  const pg = await open(DESK, "light");
+  const pg = await open(DESK, "light", { path: "/web" });
   const href = await pg.locator('link[rel=manifest]').getAttribute("href");
   ok(href === "/web/manifest.webmanifest", "the page links the manifest");
   const m = await (await pg.request.get(`${BASE}${href}`)).json();
-  ok(m.name === "Yui" && m.start_url === "/web" && m.scope === "/web/" && m.display === "standalone", "manifest: Yui, /web, standalone, scope /web/");
+  ok(m.name === "Yui" && m.start_url === "/web" && m.scope === "/web" && m.display === "standalone", "manifest: Yui, /web, standalone, scope /web");
   const sizes = [];
   for (const i of m.icons) { const r = await pg.request.get(`${BASE}${i.src}`); sizes.push(r.status()); }
   ok(sizes.every((s) => s === 200), "manifest: every icon is served");
   ok(m.icons.some((i) => i.sizes === "192x192") && m.icons.some((i) => i.sizes === "512x512" && i.purpose === "maskable"), "manifest: 192 and 512 icons, one maskable");
-  await pg.waitForFunction(async () => !!(await navigator.serviceWorker.getRegistration("/web/"))?.active, null, { timeout: 8000 });
-  ok(true, "the service worker is registered and active at /web/");
-  const sw = await pg.request.get(`${BASE}/web/sw.js`);
+  await pg.waitForFunction(async () => !!(await navigator.serviceWorker.getRegistration("/web"))?.active, null, { timeout: 8000 });
+  ok(true, "the service worker is registered and active at /web");
+  const scope = await pg.evaluate(async () => (await navigator.serviceWorker.getRegistration("/web"))?.scope);
+  ok(scope === `${BASE}/web`, `the worker's scope is /web, so the install's start page is under it (${scope})`);
+  const sw = await pg.request.get(`${BASE}/web-sw.js`);
   ok(sw.status() === 200 && /javascript/.test(sw.headers()["content-type"] || ""), "sw.js is served as javascript");
   ok(pg.errs.length === 0, `no page errors (${pg.errs.join(" | ")})`);
   await pg.ctx.close();

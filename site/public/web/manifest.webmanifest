@@ -4,7 +4,7 @@
   "description": "Your agents answer with screens. Yui in a browser tab, on your Mac or your phone's home screen.",
   "id": "/web",
   "start_url": "/web",
-  "scope": "/web/",
+  "scope": "/web",
   "display": "standalone",
   "background_color": "#fbf6ec",
   "theme_color": "#ff6b57",

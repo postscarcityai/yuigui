@@ -1,13 +1,15 @@
 // Notifications on the web (YUI-248, Push/Push.swift): Web Push through yui-push in place of APNs. The browser makes
 // a subscription (an endpoint on its own push service plus two keys), yui-push stores it next to the phones' tokens
 // (`register_web`) and sends a reply to every device, the phone and this browser. The service worker
-// (public/web/sw.js) shows it and opens the thread on a click. Pure decisions here, the browser bits come in as
+// (public/web-sw.js) shows it and opens the thread on a click. Pure decisions here, the browser bits come in as
 // arguments, so node tests drive all of it.
 
 // The public half of yui-push's VAPID key (secret YUI_VAPID_PUBLIC). It identifies the sender, it is not a credential.
 export const VAPID_PUBLIC = "BDh45d7MbvpG8in-s7EuG86UH-XdvTgfe8WNozMSx0YzQ8SMM5nvx_QD80U0_dS45NRzjNZ2iVtPo3tfANUAeZk";
-export const SW_URL = "/web/sw.js";
-export const SW_SCOPE = "/web/";
+// The worker sits at the site root so its scope can be "/web" itself: the page at /web (the install's start_url)
+// is under it, not only /web/agent/... .
+export const SW_URL = "/web-sw.js";
+export const SW_SCOPE = "/web";
 export const WANT_KEY = "yui-web-push";
 // The app tells yui-push once a minute while a thread is open (PRESENCE_MS there is 90 s).
 export const PRESENCE_EVERY = 60000;
@@ -67,6 +69,18 @@ export function onWorkerMessage(data) {
   return { refreshList: data?.yui === "push" && data.kind === "revoked" };
 }
 
+// Resolves when the worker is active. Not navigator.serviceWorker.ready: that waits for the registration that controls
+// *this* page, and a page the scope does not cover never gets one.
+export function activated(reg) {
+  const w = reg.active || reg.waiting || reg.installing;
+  if (!w || w.state === "activated") return Promise.resolve(reg);
+  return new Promise((resolve) => {
+    const on = () => { if (w.state === "activated") { w.removeEventListener?.("statechange", on); resolve(reg); } };
+    w.addEventListener("statechange", on);
+    on();
+  });
+}
+
 // The client. `call(fn, body)` is the signed-in call (auth.call); `env` carries the browser's own objects.
 export function createPush({ call, env }) {
   const store = env.storage;
@@ -79,7 +93,7 @@ export function createPush({ call, env }) {
   const worker = async () => {
     if (registration_) return registration_;
     registration_ = await env.serviceWorker.register(SW_URL, { scope: SW_SCOPE });
-    await env.serviceWorker.ready;
+    await activated(registration_);
     return registration_;
   };
   const existing = async () => {

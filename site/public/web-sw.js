@@ -1,4 +1,4 @@
-// Yui on the web: the service worker (YUI-248). It does three things and nothing else: shows a reply that
+// Yui on the web: the service worker (YUI-248), served at /web-sw.js with scope /web. It does three things and nothing else: shows a reply that
 // yui-push sent through Web Push, opens the agent's thread when the notification is clicked, and keeps the
 // badge and the other notifications honest ("one reply, one buzz"). No caching: the page is always live.
 // The messages are built by supabase/functions/yui-push/payload.ts (webPayload, webQuiet):

@@ -4,7 +4,7 @@ import { createRequire } from "node:module";
 import { createPush, deviceName, onWorkerMessage, pushState, registration, support, urlBase64ToBytes, VAPID_PUBLIC, WANT_KEY } from "./push.mjs";
 
 const require = createRequire(import.meta.url);
-const sw = require("../../public/web/sw.js");
+const sw = require("../../public/web-sw.js");
 
 const mem = () => { const m = new Map(); return { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => m.set(k, v) }; };
 const AGENT = "11111111-1111-4111-8111-111111111111";
@@ -53,11 +53,11 @@ function rig({ permission = "default", ask = "granted", ua = "Chrome/130 Safari/
     getSubscription: async () => subscription,
     subscribe: async (o) => { assert.equal(o.userVisibleOnly, true); assert.equal(o.applicationServerKey.length, 65); subscription = { endpoint: "https://web.push.apple.com/abc", toJSON() { return { endpoint: this.endpoint, keys: { p256dh: "p256", auth: "auth" } }; }, unsubscribe: async () => { subscription = null; return true; } }; return subscription; },
   };
-  const reg = { pushManager, getNotifications: async () => notes.slice(), };
+  const reg = { active: { state: "activated" }, pushManager, getNotifications: async () => notes.slice(), };
   const Notification = { permission, requestPermission: async () => { Notification.permission = ask; return ask; } };
   const env = {
     storage: mem(), ua, hasPush: true, Notification,
-    serviceWorker: { register: async (url, o) => { assert.equal(url, "/web/sw.js"); assert.equal(o.scope, "/web/"); return reg; }, ready: Promise.resolve(reg), getRegistration: async () => reg },
+    serviceWorker: { register: async (url, o) => { assert.equal(url, "/web-sw.js"); assert.equal(o.scope, "/web"); return reg; }, getRegistration: async () => reg },
     navigator: { setAppBadge: async (n) => badge.push(n), clearAppBadge: async () => badge.push(0) },
   };
   const p = createPush({ call: async (fn, body) => { calls.push([fn, body]); return { ok: true }; }, env });
