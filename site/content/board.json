@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T19:20:14.065Z",
+  "updated": "2026-10-01T19:35:16.939Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -332,6 +332,16 @@
           "key": "YUI-249",
           "title": "One Yui across phone and web",
           "summary": "Continue a conversation, read state, drafts, saved screens in sync",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-259",
+          "title": "Tomorrow's 06:00 build ships green",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-162",
+          "title": "Group chats on the web",
           "owner": "CJohnDesign"
         },
         {
