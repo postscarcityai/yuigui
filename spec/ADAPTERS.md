@@ -98,7 +98,7 @@ Effort is for one person and assumes the path's shared piece already exists. S =
 - **Effort:** S for the connector, M for a listed app with a web-renderer MCP App.
 - **Depends on:** INT-3. A directory listing is public outreach, so Chris signs off first.
 - **Priority:** 3.
-- **Status:** the connector shipped Sep 25: add Yui in ChatGPT developer mode by its URL (`spec/MCP.md` "ChatGPT"), OAuth approved in the app, the screen drawn in the chat as the same MCP App. yui-mcp 0.3.0 adds ChatGPT's own metadata and the view falls back to `window.openai`. Checked in a ChatGPT-shaped test host; one look inside chatgpt.com is still to come. Not listed in the directory.
+- **Status:** the connector shipped Sep 25: add Yui in ChatGPT developer mode by its URL (`spec/MCP.md` "ChatGPT"), OAuth approved in the app, the screen drawn in the chat as the same MCP App. yui-mcp 0.3.0 adds ChatGPT's own metadata and the view falls back to `window.openai`. Checked in a ChatGPT-shaped test host. **The look inside chatgpt.com is still open**: it needs a signed-in ChatGPT account with developer mode plus a tap in the Yui app, so it waits on Chris. Re-checked Oct 1 2026 against the yuigui backend and OpenAI's live pages: the endpoint answers (POST 401 with `resource_metadata`, GET 405), discovery answers under the MCP URL, the add steps still match OpenAI's page, and one trap turned up, that a `/mcp` suffix on the URL breaks OAuth with `invalid_target` (`spec/MCP.md` step 3). A directory listing is drafted and unsubmitted in `spec/CHATGPT_LISTING.md`. Not listed in the directory.
 
 ### Gemini | INT-9
 
