@@ -5,6 +5,7 @@ import Link from "next/link";
 import LivePhone from "../mockups/LivePhone";
 import CrewVisual from "./CrewVisual";
 import FirstPlanPlay from "./FirstPlanPlay";
+import MakeYourOwn from "./MakeYourOwn";
 import GoudaTuner from "./GoudaTuner";
 import CrewFirstPlan from "./CrewFirstPlan";
 import { CREW_VISUALS } from "../../lib/yl/visual.mjs";
@@ -108,6 +109,8 @@ export default async function Crew() {
           </div>
         </section>
       ))}
+
+      <MakeYourOwn />
 
       <section className="crew-end">
         <h2>Want them on your phone?</h2>

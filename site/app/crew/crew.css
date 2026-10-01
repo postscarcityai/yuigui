@@ -136,3 +136,17 @@
 .ss-stats span { font-size: var(--fs-small); color: var(--muted); font-weight: 700; }
 .ss-done .ss-btn { background: var(--brand); border-color: transparent; color: #2A2238; }
 @media (prefers-reduced-motion: reduce) { .ss-arc { transition: none; } }
+
+/* Make your own (SITE-159): the dashed Start blank row, then the same demo phone as the first plan. */
+.myo { margin: 56px 0 0; }
+.myo-tile { display: flex; align-items: center; gap: 16px; width: 100%; padding: 20px 22px; border-radius: var(--r-card); border: 2px dashed var(--muted); background: transparent; color: var(--ink); font: inherit; text-align: left; cursor: pointer; min-height: 44px; }
+.myo-tile:hover { background: var(--surface); border-color: var(--brand); }
+.myo-plus { display: grid; place-items: center; flex: none; width: 48px; height: 48px; border-radius: 50%; border: 2px dashed var(--muted); font-size: 28px; font-weight: 800; }
+.myo-copy { display: grid; gap: 2px; min-width: 0; }
+.myo-copy b { font-size: var(--fs-h3, 20px); }
+.myo-copy span { color: var(--muted); }
+.myo-go { margin-left: auto; font-weight: 800; padding: 0 16px; min-height: 44px; display: inline-flex; align-items: center; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--surface); }
+.myo-open { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: start; }
+.myo-open .fp-text { max-width: 520px; }
+@media (max-width: 900px) { .myo-open { grid-template-columns: 1fr; } .myo-open .fp-demo { justify-self: center; } }
+@media (max-width: 480px) { .myo-tile { padding: 16px; gap: 12px; } .myo-go { display: none; } }
