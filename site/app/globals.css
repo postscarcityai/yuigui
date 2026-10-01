@@ -892,6 +892,7 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .start-byo { background: var(--raised); border: 1.5px solid var(--outline); border-radius: 18px; padding: 14px 18px; margin: 20px 0; }
 .start-byo p { margin: 0 0 10px; }
 .steps .card .start-tf { min-height: 44px; margin-top: 2px; }
+.start-cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 4px 0 18px; }
 /* /start "Not on Hermes?" (SITE-46): one card per path, two columns on a wide screen */
 .start-paths { margin: 36px 0 8px; scroll-margin-top: 80px; }
 .start-paths .paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr)); gap: 16px; margin-top: 16px; }

@@ -81,7 +81,8 @@ export default function Home() {
           </div>
           <p className="hero-note">
             Yui is in {STAGE.name}, open to anyone with an iPhone on iOS 26. Bring your own agent: Hermes, OpenClaw, Claude
-            Code, a model you run, or anything behind a webhook.
+            Code, a model you run, or anything behind a webhook. Just looking?{" "}
+            <Link href="/web?demo=penny">Tap a live demo</Link>, no sign in.
           </p>
         </div>
         <HeroVideo />

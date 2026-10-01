@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 434,
-    "site": 1087,
+    "app": 435,
+    "site": 1091,
     "builds": 51,
-    "shipped": 532,
-    "screenshots": 1408
+    "shipped": 534,
+    "screenshots": 1412
   },
   "days": [
     {
@@ -13,7 +13,54 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T21:09:25.364Z",
+          "at": "2026-10-01T21:21:27.593Z",
+          "title": "A stranger's first five minutes on yuigui.com",
+          "card": "SITE-164",
+          "anchor": "a-stranger-s-first-five-minutes-on-yuigui-com",
+          "images": [
+            {
+              "src": "/progress/site164-start-before-390-dark.webp",
+              "alt": "Get started at phone width, before: a hand-to-your-agent card, then the title and a paragraph, and no download button."
+            },
+            {
+              "src": "/progress/site164-start-after-390-dark.webp",
+              "alt": "Get started at phone width, after: the paragraph now ends with what Hermes is, then a Download on TestFlight button and a Tap a live demo first button."
+            },
+            {
+              "src": "/progress/site164-start-before-390-light.webp",
+              "alt": "Get started in the light theme, before: no download button on the first screen."
+            },
+            {
+              "src": "/progress/site164-start-after-390-light.webp",
+              "alt": "Get started in the light theme, after: Download on TestFlight and Tap a live demo first on the first screen."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 435,
+            "site": 1091,
+            "builds": 51,
+            "shipped": 534
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T21:17:14.000Z",
+          "title": "Tomorrow's 6am build checks its disk first",
+          "card": "YUI-259",
+          "anchor": "tomorrow-s-6am-build-checks-its-disk-first",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 435,
+            "site": 1090,
+            "builds": 51,
+            "shipped": 533
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T21:09:49.000Z",
           "title": "Yui on the web ships: every row of the parity map closed",
           "card": "YUI-250",
           "anchor": "yui-on-the-web-ships-every-row-of-the-parity-map-closed",
@@ -31,10 +78,10 @@
               "alt": "Yui in a laptop browser: the drawer with chats on the left and a thread with Penny on the right."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 434,
-            "site": 1087,
+            "site": 1088,
             "builds": 51,
             "shipped": 532
           }
@@ -1332,6 +1379,41 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "230480ee",
+          "at": "2026-10-01T21:20:45.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/230480ee"
+        },
+        {
+          "repo": "site",
+          "sha": "43b1ad6c",
+          "at": "2026-10-01T21:17:14.000Z",
+          "text": "progress: YUI-259 the morning build checks its disk first (app 0413863, 462c164, 5a10162)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/43b1ad6c"
+        },
+        {
+          "repo": "app",
+          "sha": "5a10162",
+          "at": "2026-10-01T21:17:06.000Z",
+          "text": "memory.sh: peak limit 340 MB. A long chat now scrolls back through every older row (YUI-254), so the 500-row session draws all of it...",
+          "url": "https://github.com/postscarcityai/yui/commit/5a10162"
+        },
+        {
+          "repo": "site",
+          "sha": "a62a3c5f",
+          "at": "2026-10-01T21:15:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a62a3c5f"
+        },
+        {
+          "repo": "site",
+          "sha": "a60aade5",
+          "at": "2026-10-01T21:09:49.000Z",
+          "text": "Yui on the web ships: restyle card, crew picker, e2e suite in CI, launch film (YUI-250)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a60aade5"
+        },
         {
           "repo": "site",
           "sha": "6d047f8d",

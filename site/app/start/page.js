@@ -38,8 +38,12 @@ export default function Start() {
       <h1>Connect your agent in two steps.</h1>
       <p className="lede">
         Yui talks to Hermes running on your own Mac or Linux box. If Hermes already answers you somewhere, this takes
-        about five minutes.
+        about five minutes. Hermes is the free, open source agent you run yourself.
       </p>
+      <div className="cta start-cta">
+        {links.testflight ? <a className="btn start-tf" href={links.testflight}>Download on TestFlight</a> : <a className="btn" href="#invite">Ask for a hand</a>}
+        <Link className="btn soft" href="/web?demo=penny">Tap a live demo first</Link>
+      </div>
       <p className="start-crew">
         Want to see what an agent can do first? <a href="/crew">Meet the crew</a>: Yui and five starter agents, each with a demo to tap.
       </p>
