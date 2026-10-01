@@ -153,7 +153,7 @@ export default function Home() {
           <h2 id="earn-tease-h">Use Yui early. It counts.</h2>
           <p>
             Most AI apps ask you to pay and hand over your data. We think the people who use Yui early, and help build it,
-            should earn a stake in it. So we are starting a private ledger that counts every day you use Yui, back to day one.
+            should earn a stake in it. So a private ledger counts how you use Yui, back to day one, and turns it into a score called $U. No cash value. Not a token yet.
           </p>
           <p className="earn-fine">What it turns into is being worked out in the open. The plan is that people who use and build Yui earn $U. One day you might spend it in Yui, like an in-game currency, or own part of Yui with it, because equity is part of the idea. Probably both. It is an idea Yui wants to explore, not a product. No token exists and nothing is for sale.</p>
           <Link className="btn soft" href="/earn#use">How use to earn works</Link>

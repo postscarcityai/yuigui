@@ -47,7 +47,7 @@ const ORDER = [
   ["meal", "Meal photo to macros", null, "Snap a meal, get a macro estimate that says how sure it is, fix the portion, and save it to your meals table. Two replies, no new words."],
   ["music", "Music tools (draft)", null, "A musician's best friend: a looper, drum pads, an easy keyboard, chord buttons, a tuner and a metronome, one line each, on one sound engine."],
   ["games", "Games (draft)", null, "Draft: how an agent could describe a whole new game in lines, a board kit with rule words, not code."],
-  ["ledger", "Ledger (draft)", null, "The private ledger behind use to earn: facts about use and contributions back to day one, never what anyone said, and how it switches on."],
+  ["ledger", "Ledger", null, "The private ledger behind use to earn: facts about use and contributions back to day one, never what anyone said, and how it switches on."],
   ["flywheel", "Preset flywheel", null, "How custom screens agents keep sending become presets: the shape log, the weekly report and the checklist."],
   ["admin", "Admin console (scope)", null, "Who runs Yui from the top: five roles, what each controls, why it lives in the app, and what admins can never see."],
 ];

@@ -1,0 +1,5 @@
+{
+  "about": "Bots and the team's own accounts earn no $U. The recorder copies this list into the database on every run. Add a Yui account id under users, a GitHub login under github.",
+  "users": [],
+  "github": ["CJohnDesign", "dependabot", "github-actions", "renovate", "claude", "copilot"]
+}

@@ -6,6 +6,7 @@ import links from "../../content/links.json";
 import s from "./earn.module.css";
 import Films from "../components/Films";
 import { pageMeta } from "../../lib/og/meta.mjs";
+import { USE_ROWS, STREAK_ROWS, JOIN_ROWS, BUILD_ROWS, SOFT_CAP, FORMULA_VERSION } from "../../lib/earn-formula.mjs";
 
 export const metadata = pageMeta({
   path: "/earn",
@@ -66,12 +67,24 @@ const badges = [
 
 const faq = [
   ["Is this an investment?", "No. Nothing is for sale, and nothing ever will be on this page. You earn by building."],
-  ["When do tokens exist?", "After the legal review. Until then there is a private ledger of facts, and that is all."],
-  ["What does the ledger know about me?", "The day you joined, the days you used Yui, and what you helped build. Never what you said. Only you will see yours, and deleting your account deletes it."],
+  ["When do tokens exist?", "After the legal review. Until then there is a private ledger of facts and a score called $U, and that is all. No cash value. Not a token yet."],
+  ["What does the ledger know about me?", "The day you joined, how many messages, screens and finished jobs you had each day, and what you helped build. Never what you said. Only you see yours, and deleting your account deletes it."],
   ["Can my agent do this alone?", "Yes. An agent can read the backlog, pick a card and open a pull request by itself. A person reviews every pull request before it merges."],
   ["Do I need a wallet today?", "No. If you want one on file, put a Sui wallet address in your pull request. Only the address, never a key or a recovery phrase."],
   ["Who decides what counts?", "The merge. A pull request counts when it merges. Feedback counts when the change it asked for ships."],
 ];
+
+// A formula table: first column the thing, last column the rule, the numbers between.
+function FormulaTable({ head, rows }) {
+  return (
+    <div className={`md-table ${s.ftable}`}>
+      <table>
+        <thead><tr>{head.map((h) => <th key={h}>{h}</th>)}</tr></thead>
+        <tbody>{rows.map((r) => <tr key={r[0]}>{r.map((c, i) => <td key={i}>{c}</td>)}</tr>)}</tbody>
+      </table>
+    </div>
+  );
+}
 
 export default function Earn() {
   return (
@@ -160,15 +173,42 @@ export default function Earn() {
       <h2 id="use">Use counts too</h2>
       <div className="card">
         <p>
-          Using Yui is part of building it. From day one, the days you use Yui count, next to merged pull requests and
-          feedback that ships. They go on a private ledger: the day you joined and the days you used Yui, never what you
-          said, and only you will ever see yours.
+          Using Yui is part of building it. Since Sep 23 2026, day one, what you do counts, next to merged pull
+          requests and feedback that ships. It goes on a private ledger: how many messages, screens and finished jobs
+          you had each day, never what you said, and only you will ever see yours. The ledger is on. $U is the number
+          it adds up to, and it is a score today: <strong>No cash value. Not a token yet.</strong>
         </p>
         <p style={{ marginTop: 10 }}>
-          The ledger is designed and tested, and it fills in back to day one when it switches on. The long version is{" "}
-          <Link href="/business/use-to-earn">Use to earn</Link>, how $U could be given out is in <Link href="/business/tokenomics">Tokenomics</Link>, and the details are in the <Link href="/developers/ledger">ledger spec</Link>.
+          The long version is <Link href="/business/use-to-earn">Use to earn</Link>, how $U could be given out is in{" "}
+          <Link href="/business/tokenomics">Tokenomics</Link>, the proposal is{" "}
+          <Link href="/proposals/earn-u-by-using-yui">Earn $U by using Yui</Link>, and the details are in the{" "}
+          <Link href="/developers/ledger">ledger spec</Link>.
         </p>
       </div>
+
+      <h2 id="formula">The $U formula, v{FORMULA_VERSION}</h2>
+      <p>
+        The ledger keeps facts. This formula turns them into $U the same way for everyone. It lives in one place, a
+        database function, so a change to it is published with a date and re-scores everyone&apos;s history the same way,
+        back to day one. No cash value. Not a token yet.
+      </p>
+      <h3>Use trickles in</h3>
+      <FormulaTable head={["What happened", "$U", "Rule"]} rows={USE_ROWS} />
+      <p>
+        <strong>Soft cap.</strong> Use earns at full speed up to {SOFT_CAP} $U a day, then at a tenth. A normal day (30
+        messages, 10 screens, 5 jobs) is about 85 $U. Spamming past {SOFT_CAP} barely moves it.
+      </p>
+      <h3>Streaks speed it up</h3>
+      <FormulaTable head={["Streak", "Use earns", "Bonus that day", "Rule"]} rows={STREAK_ROWS} />
+      <p>Streaks only speed up use. They never touch building, and nothing ever pings you to keep one alive.</p>
+      <h3>Joining</h3>
+      <FormulaTable head={["What happened", "$U", "Rule"]} rows={JOIN_ROWS} />
+      <h3>Building is worth far more</h3>
+      <FormulaTable head={["What happened", "$U", "Rule"]} rows={BUILD_ROWS} />
+      <p>
+        Bots and the team&apos;s own accounts are off the scoreboard. A maintainer can take back $U earned by spam or
+        gaming: it is a new fact on the ledger with the reason, never a delete, and your balance never goes below zero.
+      </p>
 
       <h2>How earning works today</h2>
       <p>
@@ -209,14 +249,13 @@ export default function Earn() {
 
       <h2>What counts</h2>
       <div className="grid">
-        <div className="card"><h3>A day you use Yui</h3><p>You sent a message or answered a screen. The day counts, never what you said.</p></div>
+        <div className="card"><h3>Using Yui</h3><p>A message an agent answers, a screen you answer, a job done for you. It trickles in, and the count is kept, never what you said.</p></div>
         <div className="card"><h3>A merged pull request</h3><p>Code, docs, a spec, a fix. It counts when it merges.</p></div>
         <div className="card"><h3>Feedback that ships</h3><p>A TestFlight note that turns into a real change in Yui.</p></div>
       </div>
       <p>
-        One private ledger for all three. Each person will see their own facts, and nobody sees anyone else&apos;s. A
-        points formula is published before anything is distributed, and it counts back to day one. $U later, only
-        after the legal review.
+        One private ledger for all three. Each person sees their own facts, and nobody sees anyone else&apos;s. The
+        formula above is published, and it counts back to day one. A real token, only after the legal review.
       </p>
 
       <h2>Badges</h2>

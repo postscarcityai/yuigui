@@ -151,14 +151,16 @@ export default function Privacy() {
         on, stays on that computer, and is never uploaded.
       </p>
 
-      <h2 id="ledger">Planned: the private ledger</h2>
+      <h2 id="ledger">The private ledger</h2>
       <p>
-        Not recording yet. For <a href="/earn#use">use to earn</a>, Yui plans a private ledger of facts: the day your
-        account was made, the days you sent a message or answered a screen, and pull requests or feedback of yours that
-        shipped. It never holds what you said: it reads when a message was sent and by whom, never the words. Only Yui&apos;s
-        server can read it today, a view of your own rows comes later, and deleting your account deletes them. When it
-        starts, it fills in back to your first day, and this page will say the date. Details in the{" "}
-        <a href="/developers/ledger">ledger spec</a>.
+        Recording since Oct 1 2026, and filled in back to Sep 23, the first day. For <a href="/earn#use">use to earn</a>,
+        Yui keeps a private ledger of facts: the day your account was made, how many messages, screens and finished jobs
+        you had each day, and pull requests, issues or feedback of yours that shipped. It keeps counts, never the words.
+        To tell a repeated message from a new one, the database compares a one-way fingerprint of each message while it
+        counts them; the fingerprint is not stored and nothing reads the message. The count turns into a score called $U,
+        which has no cash value and is not a token. Only you can read your own rows (the app shows them in a coming
+        release), and nobody can ask for anyone else&apos;s. Nothing public shows names, handles or totals by person. Deleting your account deletes your
+        rows. Details in the <a href="/developers/ledger">ledger spec</a>.
       </p>
 
       <h2>Deleting your account</h2>
