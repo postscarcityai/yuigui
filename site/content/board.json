@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T16:44:52.309Z",
+  "updated": "2026-10-01T16:49:28.333Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -376,6 +376,12 @@
           "key": "YUI-257",
           "title": "The shader on the web stage",
           "summary": "Drop the old vector blob, the shader is the voice orb",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-158",
+          "title": "The board on the site never goes stale",
+          "summary": "Refresh on every card move, and a worker's deploy can't roll it back",
           "owner": "CJohnDesign"
         },
         {
