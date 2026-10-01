@@ -248,8 +248,8 @@ const BUILD = {
     const n = week.slots.length, days = week.rows.length;
     const out = week.avoid.length ? `, nothing with ${week.avoid.map((x) => x.toLowerCase()).join(" or ")}` : "";
     return {
-      say: `Example: your week of meals is set. ${days} ${days === 1 ? "day" : "days"}, ${n === 4 ? "3 meals and a snack" : `${n} meals`} a day${out}.`,
-      head: "Day|Meals", rows: week.rows.map((r) => row(`${r.long}, ${r.cal.toLocaleString("en-US")} kcal`, r.meals.map((m) => m.name).join(", "))), table: "Week", title: "Example: Basil's week", body: "",
+      say: `Your week of meals is set. ${days} ${days === 1 ? "day" : "days"}, ${n === 4 ? "3 meals and a snack" : `${n} meals`} a day${out}.`,
+      head: "Day|Meals", rows: week.rows.map((r) => row(`${r.long}, ${r.cal.toLocaleString("en-US")} kcal`, r.meals.map((m) => m.name).join(", "))), table: "Week", title: "Basil's week", body: "",
     };
   },
   gouda(a, today) {
@@ -257,7 +257,7 @@ const BUILD = {
     const t = plan.days[today ?? todayIndex()];
     const on = plan.instrument && plan.instrument !== "Not yet" ? ` on ${plan.instrument.toLowerCase()}` : "";
     return {
-      say: `Example: your practice week is set. ${plan.minutes} minutes a day${on}, ${plan.level} level.`,
+      say: `Your practice week is set. ${plan.minutes} minutes a day${on}, ${plan.level} level.`,
       head: "Day|Focus|Time", rows: plan.days.map((d) => row(d.day, d.focus, `${d.minutes} min`)), table: "Week",
       title: `Today: ${LONG[t.day]}, ${t.focus}`, body: sessionBody(t), timer: `timer ${t.minutes}m Today`,
     };

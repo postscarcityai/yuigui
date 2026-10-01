@@ -34,13 +34,14 @@ export default function CrewVisual({ handle }) {
   const wrap = useRef(null);
   const dark = useFlag(null, "data-theme");
   const reduced = useFlag("(prefers-reduced-motion: reduce)");
-  const [seen, setSeen] = useState(true);
+  const [seen, setSeen] = useState(false);
+  const [shown, setShown] = useState(false); // the blob mounts the first time it is near the screen, so six shaders do not compile at load (SITE-148)
   const def = CREW_VISUALS[handle];
 
   // Draws only while on screen; off screen (or Reduce Motion) it holds one still frame.
   useEffect(() => {
     if (typeof IntersectionObserver === "undefined" || !wrap.current) return undefined;
-    const io = new IntersectionObserver(([e]) => setSeen(e.isIntersecting), { rootMargin: "80px" });
+    const io = new IntersectionObserver(([e]) => { setSeen(e.isIntersecting); if (e.isIntersecting) setShown(true); }, { rootMargin: "80px" });
     io.observe(wrap.current);
     return () => io.disconnect();
   }, []);
@@ -48,7 +49,7 @@ export default function CrewVisual({ handle }) {
   if (!def) return null;
   return (
     <div ref={wrap} className="crew-viz" data-look={def.look} data-still={reduced ? "on" : undefined} aria-hidden="true">
-      <ActionBlob handle={handle} doing="" dark={dark} still={reduced || !seen} mini />
+      {shown ? <ActionBlob handle={handle} doing="" dark={dark} still={reduced || !seen} mini /> : null}
     </div>
   );
 }

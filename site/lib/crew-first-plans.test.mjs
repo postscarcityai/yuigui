@@ -30,8 +30,8 @@ test("each answer changes the example", () => {
   }
 });
 
-test("the example is labelled as one", () => {
-  for (const h of HANDLES.filter((x) => x !== "penny" && x !== "quill")) assert.match(resultLines(h, {}), /Example/); // Penny and Quill build the real plan (SITE-146, SITE-147)
+test("no first plan is labelled an example, every crew member builds the real plan (SITE-148)", () => {
+  for (const h of HANDLES) assert.doesNotMatch(resultLines(h, {}), /Example/);
 });
 
 // SITE-141: Arnold's timed session, the web twin of YUI-220.
@@ -203,7 +203,7 @@ test("Gouda: Skip on everything still builds a 15-minute plan", () => {
 
 test("Gouda: the reply is one line, the week a day a row, today's session, then a Start button", () => {
   const lines = resultLines("gouda", { instrument: "Guitar", level: "Getting there", minutes: "20", want: "Scales" }, 1).split("\n");
-  assert.ok(lines[0].split(/\s+/).length <= 30 && lines[0].startsWith("say Example"));
+  assert.ok(lines[0].split(/\s+/).length <= 30 && lines[0].startsWith("say Your practice week"));
   assert.match(lines[1], /^table Week Day\|Focus\|Time /);
   assert.equal((lines[1].match(/"[^"]*\|[^"]*\|[^"]*"/g) || []).length, 7);
   assert.match(lines[2], /^card "Today: Tuesday, Scales" body="20 minutes\..*" cta="Start today"$/);

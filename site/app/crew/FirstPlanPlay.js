@@ -20,6 +20,15 @@ export default function FirstPlanPlay() {
   const [ans, setAns] = useState({});
   const [code, setCode] = useState("");
   const wait = useRef(null);
+  const box = useRef(null);
+  const [near, setNear] = useState(false); // the screen draws a screen or so before it scrolls into view (SITE-148)
+  useEffect(() => {
+    const el = box.current;
+    if (!el || near) return undefined;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setNear(true); io.disconnect(); } }, { rootMargin: "800px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, [near]);
   useEffect(() => () => clearTimeout(wait.current), []);
   useEffect(() => { encodeYL(wholeLines(ans)).then(setCode, () => setCode("")); }, [ans]);
 
@@ -44,7 +53,7 @@ export default function FirstPlanPlay() {
       <div className="fp-text">
         <div className="eyebrow">Try the first plan</div>
         <h2 id="fp-h">The trainer's first plan.</h2>
-        <p className="lede">Open the trainer for the first time and it does not start blank. Five questions, one at a time: what you train for, how many days, how long per session, what you have and how much you have lifted. Not sure and Skip are always there. Then your week is built as a table, with today's session ready.</p>
+        <p className="lede">Open the trainer for the first time and it does not start blank. Five questions, one at a time: what you train for, how many days, how long per session, what you have and how much you have lifted. Skip is always there, and Not sure on most. Then your week is built as a table, with today's session ready.</p>
         <ol className="fp-steps" aria-label="The five questions">
           {ASK.map(({ label: l }, i) => (
             <li key={l} className={step > i ? "done" : step === i ? "now" : ""}>
@@ -59,9 +68,9 @@ export default function FirstPlanPlay() {
         </p>
       </div>
       <div className="crew-demo fp-demo">
-        <div className="phone sc-phone" role="group" aria-label="A live demo of the first plan. Answer five questions and your week is built as a table.">
+        <div className="phone sc-phone" ref={box} role="group" aria-label="A live demo of the first plan. Answer five questions and your week is built as a table.">
           <div className="fp-in" key={`${step}${dark}`}>
-            {step > LAST ? <SessionPlay answers={ans} reduced={reduced} onAgain={() => setStep(LAST)} /> : <Live yl={lines} agent="Arnold" light={!dark} onTap={tap} />}
+            {step > LAST ? <SessionPlay answers={ans} reduced={reduced} onAgain={() => setStep(LAST)} /> : near ? <Live yl={lines} agent="Arnold" light={!dark} onTap={tap} /> : <div className="fp-wait">Drawing the screen...</div>}
           </div>
         </div>
         <p className="crew-try">{step < LAST ? "Tap an answer, Not sure or Skip" : step === LAST ? "Tap Start today, or start over and change an answer" : "It runs on its own. No taps between sets"}</p>
