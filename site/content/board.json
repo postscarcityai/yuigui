@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T22:50:30.833Z",
+  "updated": "2026-10-01T22:55:31.099Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -324,6 +324,12 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "SOC-7",
+          "title": "Social drafts slot from today, never months out",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c307d06f",
+          "needsDemo": true
         }
       ]
     },
@@ -339,11 +345,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-165",
-          "title": "Home page trimmed to what a stranger needs",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-260",
           "title": "Scroll back through a long chat without the 310 MB spike",
           "owner": "CJohnDesign"
@@ -351,11 +352,6 @@
         {
           "key": "YUI-261",
           "title": "A stranger's first tap on /web works",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SOC-7",
-          "title": "Social drafts slot from today, never months out",
           "owner": "CJohnDesign"
         },
         {
@@ -370,6 +366,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-165",
+          "title": "Home page trimmed to what a stranger needs",
+          "summary": "The home page is under ten screens",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-home-page-is-under-ten-screens"
+        },
         {
           "key": "SITE-164",
           "title": "A stranger's first five minutes on yuigui.com",
