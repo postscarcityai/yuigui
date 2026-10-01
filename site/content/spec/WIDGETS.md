@@ -10,7 +10,7 @@ Status: built, riding the next daily build. Steps 2 to 4 landed in the app on Se
 | `+check` ticks and `cta` buttons on the widget | **Live** |
 | Timer Start and Pause on the widget, as a Live Activity | **Live** |
 | Offline queue: a tap with no signal goes out later, in order | **Live** |
-| Siri and Shortcuts: Ask an agent, Show a saved screen, Start a timer | **Live** |
+| Siri and Shortcuts: Ask an agent, Show a saved screen, Start a timer, Log my food, Tell Basil what I ate, Start my workout | **Live** |
 | Talk to Yui control: Control Center, lock screen, Action button | **Live** |
 | Spotlight finds agents and saved screens by name | **Live** |
 | Widget push relay (`yui_widgets`, `yui-widgets`, 15 minute coalescing) | **Live** |
@@ -111,15 +111,18 @@ Yui's widget buttons send the same event a tap in the thread sends, with two ext
 
 ## 6. Siri, Shortcuts and the Action button (live)
 
-Three App Intents, each with an entity parameter so one intent covers every agent and every saved screen ([App Intents](https://developer.apple.com/documentation/appintents)):
+Six App Intents. The first three each take an entity so one intent covers every agent and every saved screen ([App Intents](https://developer.apple.com/documentation/appintents)):
 
 | Intent | Say it | What happens |
 |---|---|---|
 | Ask an agent | "Ask Coach in Yui" or "Message Coach in Yui" | Siri asks "What do you want to ask?", sends the words to that agent's thread as a normal message, and answers "Sent to Coach". The reply comes as a push, screens and all. |
 | Show a saved screen | "Show workout in Yui" or "Open workout in Yui" | Opens Yui on that agent's thread with the saved screen on the stage. (A widget-sized view in Siri's sheet first is later.) |
 | Start a timer | "Start Tabata in Yui" | Starts the saved timer's Live Activity without opening the app (a `LiveActivityIntent`), and sends `started` like the widget button. |
+| Log my food (YUI-253) | "Log my food in Yui", "Log a meal in Yui" or "Snap my food in Yui" | Opens Yui straight on Basil's camera (`yui://snap?agent=basil`), from any thread. No chat first. Hold to say what it is, let go to send. |
+| Tell Basil what I ate (YUI-253) | "Tell Yui what I ate" or "I ate something in Yui", then say "a bacon cheeseburger with fries" | Sends `Log a meal: <your words>` to Basil through the outbox and answers "Logged" without opening the app. Basil's answer, the meal and today's calories, arrives as a push. |
+| Start my workout (YUI-253) | "Start my workout in Yui" | Opens Arnold's thread (`yui://agent/arnold/thread?workout=1`) and asks for today's workout, the same as the drawer's Start a workout. Start on that card runs the coached session (YUI-220). |
 
-- **App Shortcuts.** An app can have at most 10 ([AppShortcutsProvider](https://developer.apple.com/documentation/appintents/appshortcutsprovider)). Yui ships exactly these three (the build's metadata lists three App Shortcuts), each phrase with the app's name in it, and lets the entity (the agent, the screen, the timer) fill the rest. They show in the Shortcuts app and in Spotlight with no setup.
+- **App Shortcuts.** An app can have at most 10 ([AppShortcutsProvider](https://developer.apple.com/documentation/appintents/appshortcutsprovider)). Yui ships exactly these six (the build's metadata lists six App Shortcuts), each phrase with the app's name in it, and lets the entity (the agent, the screen, the timer) fill the rest. They show in the Shortcuts app and in Spotlight with no setup.
 - **Entities.** `AgentEntity` (the person's agents, by name), `ScreenEntity` (saved screens, by agent and name) and `TimerEntity` (saved timers) come from the app group's copy, so Siri can list them without the network.
 - **Action button.** The person can put any App Shortcut on it. Yui also ships one control, "Talk to Yui" (a `ControlWidget`, iOS 18: Control Center, the lock screen and the Action button, [ControlWidget](https://developer.apple.com/documentation/widgetkit/controlwidget)), which opens the thread of the agent the person picked with hands-free voice on (YUI-14).
 - **The app icon (YUI-191, shipped).** Drawer shortcuts go on the icon too. Hold the Yui icon and the shortcuts your agents put in their drawers show as home screen quick actions, up to four, newest used first and one per agent before any agent gets a second. An agent sends nothing new: `menu shortcut@log-food "Log food" say="Log food: "` is the same line as before, and Basil's now shows as "Log food, Basil". A tap opens that agent's thread and does what the drawer tap does (a `say=` ending in a space fills the composer, anything else is sent). The person picks in Settings > Home screen actions: toggle up to four, drag to order, and their picks win over the default. A shared agent's shortcuts show only for the person it is shared with, and a revoke removes them. No app group and no extension: the app sets them at runtime.
