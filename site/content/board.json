@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T21:15:45.577Z",
+  "updated": "2026-10-01T21:20:44.299Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -324,11 +324,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-259",
-          "title": "Tomorrow's 06:00 build ships green",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "SITE-164",
           "title": "A stranger's first five minutes on yuigui.com",
           "owner": "CJohnDesign"
@@ -345,6 +340,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-259",
+          "title": "Tomorrow's 06:00 build ships green",
+          "summary": "Tomorrow's 6am build checks its disk first",
+          "shipped": "2026-10-01",
+          "progress": "/progress#tomorrow-s-6am-build-checks-its-disk-first"
+        },
         {
           "key": "YUI-250",
           "title": "Yui on the web ships",
