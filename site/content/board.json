@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T18:46:25.382Z",
+  "updated": "2026-10-01T19:05:14.854Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -331,7 +331,13 @@
         {
           "key": "YUI-248",
           "title": "Notifications on the web",
-          "summary": "Web Push through yui-push, a tap opens the thread, a home screen install",
+          "summary": "Yui on the web: notifications and install",
+          "progress": "/progress#yui-on-the-web-notifications-and-install",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-161",
+          "title": "Your $U in the web drawer",
           "owner": "CJohnDesign"
         },
         {
@@ -343,7 +349,9 @@
         {
           "key": "YUI-94",
           "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
+          "summary": "Group chats in the app",
           "blocked": "other",
+          "progress": "/progress#group-chats-in-the-app",
           "owner": "CJohnDesign"
         }
       ]
