@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T22:41:12.434Z",
+  "updated": "2026-10-01T22:50:30.833Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -351,6 +351,11 @@
         {
           "key": "YUI-261",
           "title": "A stranger's first tap on /web works",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SOC-7",
+          "title": "Social drafts slot from today, never months out",
           "owner": "CJohnDesign"
         },
         {
