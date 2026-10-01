@@ -150,3 +150,76 @@ test("the reply is one line, then the week last", () => {
   assert.ok(lines[0].split(/\s+/).length <= 30);
   ok(lines.join("\n"));
 });
+
+import { DRILLS, goudaWeek, hasTimer, split, startLines, todayIndex } from "./crew-first-plans.mjs";
+
+const tierOf = (text) => DRILLS.find((d) => d.text === text)?.tier;
+const mins = (s) => Math.max(...s.steps.map((x) => x.minutes));
+
+test("Gouda: Brand new never shows an advanced drill, for every instrument and want", () => {
+  for (const instrument of ["Guitar", "Piano", "Drums", "Bass", "Voice", "Not yet"]) {
+    for (const want of ["Songs", "Scales", "Chords", "Make my own", "Play by ear", NOT_SURE]) {
+      for (const level of ["Brand new", NOT_SURE]) {
+        const w = goudaWeek(norm("gouda", { instrument, level, minutes: "30", want }));
+        for (const d of w.days) for (const st of d.steps) {
+          const t = tierOf(st.text);
+          assert.ok(t === undefined || t === 0, `${instrument}/${want}: tier ${t} in "${st.text}"`);
+        }
+      }
+    }
+  }
+  const adv = goudaWeek(norm("gouda", { level: "Pretty good", minutes: "30" }));
+  assert.ok(adv.days.some((d) => d.steps.some((s) => tierOf(s.text) === 2)), "Pretty good reaches advanced drills");
+});
+
+test("Gouda: sessions add up to exactly the minutes picked, 10 never builds a longer one", () => {
+  for (const m of ["10", "20", "30", "An hour"]) {
+    const total = m === "An hour" ? 60 : Number(m);
+    for (const d of goudaWeek(norm("gouda", { minutes: m })).days) {
+      assert.equal(d.minutes, total);
+      assert.equal(d.steps.reduce((t, x) => t + x.minutes, 0), total, `${m}: ${d.day}`);
+      assert.ok(d.steps.every((x) => x.minutes >= 1));
+    }
+  }
+  for (let n = 1; n <= 90; n++) assert.equal(split(n).reduce((t, x) => t + x, 0), n);
+  const ten = goudaWeek(norm("gouda", { minutes: "10" }));
+  assert.ok(ten.days.every((d) => mins(d) <= 8 && d.minutes === 10));
+  assert.match(startLines("gouda", { minutes: "10" }, 0), /timer 10m Today$/);
+});
+
+test("Gouda: Skip on everything still builds a 15-minute plan", () => {
+  const a = skipped("gouda");
+  const w = goudaWeek(norm("gouda", a));
+  assert.equal(w.minutes, 15);
+  assert.equal(w.level, "beginner");
+  assert.equal(w.instrument, "");
+  assert.equal(w.days.length, 7);
+  assert.ok(w.days.every((d) => d.steps.reduce((t, x) => t + x.minutes, 0) === 15));
+  const r = resultLines("gouda", a, 2);
+  assert.match(r, /15 minutes a day/);
+  assert.match(startLines("gouda", a, 2), /timer 15m Today$/);
+  assert.equal(resultLines("gouda", {}, 2), r);
+});
+
+test("Gouda: the reply is one line, the week a day a row, today's session, then a Start button", () => {
+  const lines = resultLines("gouda", { instrument: "Guitar", level: "Getting there", minutes: "20", want: "Scales" }, 1).split("\n");
+  assert.ok(lines[0].split(/\s+/).length <= 30 && lines[0].startsWith("say Example"));
+  assert.match(lines[1], /^table Week Day\|Focus\|Time /);
+  assert.equal((lines[1].match(/"[^"]*\|[^"]*\|[^"]*"/g) || []).length, 7);
+  assert.match(lines[2], /^card "Today: Tuesday, Scales" body="20 minutes\..*" cta="Start today"$/);
+  assert.equal(lines.length, 3);
+  ok(lines.join("\n"));
+  const go = startLines("gouda", { instrument: "Guitar", level: "Getting there", minutes: "20", want: "Scales" }, 1);
+  assert.match(go, /\ntimer 20m Today$/);
+  ok(go);
+  assert.ok(hasTimer("gouda") && !hasTimer("basil"));
+});
+
+test("Gouda: the instrument and the level reach the plan; today follows the day", () => {
+  assert.match(resultLines("gouda", { instrument: "Drums" }, 0), /on drums/);
+  assert.match(resultLines("gouda", { instrument: "Voice" }, 0), /hum, lip trills/);
+  assert.match(resultLines("gouda", { instrument: "Not yet" }, 0), /white keys/);
+  assert.match(resultLines("gouda", {}, 6), /Today: Sunday, Play for fun/);
+  assert.equal(todayIndex(new Date(2026, 8, 28)), 0); // a Monday
+  assert.equal(todayIndex(new Date(2026, 8, 27)), 6); // a Sunday
+});

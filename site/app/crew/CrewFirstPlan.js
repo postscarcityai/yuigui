@@ -5,7 +5,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ask, askLines, resultLines, skipped, wholeLines } from "../../lib/crew-first-plans.mjs";
+import { ask, askLines, hasTimer, resultLines, skipped, startLines, wholeLines } from "../../lib/crew-first-plans.mjs";
 import { encodeYL } from "../../lib/share-code.mjs";
 import usePrefs from "../proposals/usePrefs";
 
@@ -16,15 +16,16 @@ export default function CrewFirstPlan({ handle, name, children }) {
   const [on, setOn] = useState(false);
   const [step, setStep] = useState(0);
   const [ans, setAns] = useState({});
+  const [go, setGo] = useState(false);
   const [code, setCode] = useState("");
   const wait = useRef(null);
   const qs = ask(handle), LAST = qs.length;
   useEffect(() => () => clearTimeout(wait.current), []);
   useEffect(() => { if (on) encodeYL(wholeLines(handle, ans)).then(setCode, () => setCode("")); }, [on, handle, ans]);
 
-  const start = () => { clearTimeout(wait.current); setAns({}); setStep(0); setOn(true); };
+  const start = () => { clearTimeout(wait.current); setAns({}); setStep(0); setGo(false); setOn(true); };
   const tap = (value) => {
-    if (step >= LAST) return;
+    if (step >= LAST) { if (value.cta && hasTimer(handle)) setGo(true); return; } // Start today opens the timer
     clearTimeout(wait.current);
     if (value.cta) { setAns(skipped(handle)); setStep(LAST); } // Skip for now keeps the starter plan
     else if (value.choice != null) {
@@ -32,14 +33,14 @@ export default function CrewFirstPlan({ handle, name, children }) {
       wait.current = setTimeout(() => setStep(step + 1), reduced ? 120 : 520);
     }
   };
-  const lines = step < LAST ? askLines(handle, step) : resultLines(handle, ans);
+  const lines = step < LAST ? askLines(handle, step) : go ? startLines(handle, ans) : resultLines(handle, ans);
 
   return (
     <>
       {on ? (
         <>
           <div className="phone sc-phone" role="group" aria-label={`A live demo of ${name}'s first plan. Answer ${LAST} questions and a small example plan is built.`}>
-            <div className="fp-in" key={`${step}${dark}`}>
+            <div className="fp-in" key={`${step}${go}${dark}`}>
               <Live yl={lines} agent={name} light={!dark} onTap={tap} />
             </div>
           </div>

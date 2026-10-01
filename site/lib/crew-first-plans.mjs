@@ -19,10 +19,10 @@ const MEALS = {
   },
   gouda: {
     ask: [
-      S("instrument", "Instrument", "Hey, I'm Gouda. Four taps and you have a practice routine.", "What do you play?", ["Guitar", "Piano", "Drums", "Voice"]),
-      S("level", "Level", "Good. Next.", "How would you rate yourself?", ["Brand new", "Know a few things", "Getting there"]),
+      S("instrument", "Instrument", "Hey, I'm Gouda. Four taps and you have a practice routine.", "What do you play?", ["Guitar", "Piano", "Drums", "Bass", "Voice", "Not yet"]),
+      S("level", "Level", "Good. Next.", "How would you rate yourself?", ["Brand new", "Know a few things", "Getting there", "Pretty good"]),
       S("minutes", "Minutes", "Nearly there.", "Minutes a day?", ["10", "20", "30", "An hour"]),
-      S("want", "Play", "Last one.", "What do you want to play?", ["Songs", "Scales", "Chords", "Make my own"]),
+      S("want", "Play", "Last one.", "What do you want to play?", ["Songs", "Scales", "Chords", "Make my own", "Play by ear"]),
     ],
   },
   penny: {
@@ -117,6 +117,75 @@ export function basilWeek(a = {}) {
   return { rows, slots, avoid: tag ? [a.avoid] : [], limit };
 }
 
+// Gouda's practice week, the web twin of the app's buildFirstPlan (YUI-222, runtime/src/music.ts): the instrument picked,
+// sessions that add up to exactly the minutes picked, drills no harder than the level. Not sure and Skip: an
+// instrument-agnostic beginner, 15 minutes a day, a bit of everything.
+const D = (kind, tier, text) => ({ kind, tier, text });
+export const DRILLS = [
+  D("chords", 0, "Switch between two chords, one a beat, with the click at 60"),
+  D("chords", 1, "Play four chords in a loop with clean changes, click at 70"),
+  D("chords", 2, "Add 7th and slash chords to your loop, click at 90"),
+  D("songs", 0, "Learn the first verse of an easy song on the Chords page, half speed"),
+  D("songs", 1, "Play a whole easy song through at 75%, then at full speed"),
+  D("songs", 2, "Learn a song with a bridge and loop the hard bar until it is easy"),
+  D("scales", 0, "One major scale, slow, up and down, click at 60"),
+  D("scales", 1, "A pentatonic scale in one position, click at 80"),
+  D("scales", 2, "A scale in every position, click at 100, then in thirds"),
+  D("write", 0, "Pick three notes and make a short phrase you like"),
+  D("write", 1, "Write four bars over a chord loop and repeat them until they stick"),
+  D("write", 2, "Write a verse and a chorus, then record a take"),
+  D("ear", 0, "Hum the top note of a song you know, then find it"),
+  D("ear", 1, "Play back a four-note phrase by ear"),
+  D("ear", 2, "Work out a song's chords by ear, then check them"),
+];
+const WARM = {
+  guitar: "Fret each string slowly, one finger a fret, up and down",
+  piano: "C major scale, both hands, slow, up and down",
+  drums: "Single strokes on a pad or your knees, slow to fast to slow",
+  bass: "Open strings, then walk up a fret at a time on the click",
+  voice: "Hum, lip trills, then slide up and down on an oo",
+  "not yet": "Open Keys and play the white keys up and back, one a beat",
+  any: "Shake out your hands, then play slow, even notes with the click",
+};
+const LEVELS = ["Brand new", "Know a few things", "Getting there", "Pretty good"];
+const TIER_NAME = ["beginner", "intermediate", "advanced"];
+const KIND_FOR = { songs: "songs", scales: "scales", chords: "chords", "make my own": "write", "play by ear": "ear" };
+const KIND_LABEL = { chords: "Chords", songs: "A song", scales: "Scales", write: "Your own music", ear: "Ear training" };
+
+// A session of `total` minutes cut into steps that add up to exactly that: never longer, never a step of nothing.
+export function split(total) {
+  const parts = total <= 10 ? [0.2, 0.5, 0.3] : [0.2, 0.4, 0.25, 0.15];
+  const out = parts.map((f) => Math.max(1, Math.round(total * f)));
+  out[1] += total - out.reduce((x, y) => x + y, 0);
+  return out;
+}
+const drillFor = (kind, tier) => DRILLS.filter((d) => d.kind === kind && d.tier <= tier).sort((x, y) => y.tier - x.tier)[0];
+const lower = (t) => t.replace(/^\w/, (c) => c.toLowerCase());
+export const sessionBody = (s) => `${s.minutes} minutes. ${s.steps.map((x) => `${x.minutes} min, ${lower(x.text)}`).join(". ")}.`;
+// Monday is 0, the app's week.
+export const todayIndex = (d = new Date()) => (d.getDay() + 6) % 7;
+
+export function goudaWeek(a = {}) {
+  const instrument = ["Guitar", "Piano", "Drums", "Bass", "Voice", "Not yet"].includes(a.instrument) ? a.instrument : "";
+  const lv = LEVELS.indexOf(a.level);
+  const tier = lv < 2 ? 0 : lv - 1;
+  const minutes = a.minutes === "An hour" ? 60 : parseInt(a.minutes, 10) || 15;
+  const want = KIND_FOR[String(a.want || "").toLowerCase()];
+  const cycle = want ? [want] : ["chords", "songs", "scales", "ear"];
+  const warm = WARM[instrument.toLowerCase()] || WARM.any;
+  const cuts = split(minutes);
+  const days = WEEK.map((day, i) => {
+    if (i === 6) return { day, focus: "Play for fun", minutes, steps: [{ minutes: cuts[0], text: warm }, { minutes: minutes - cuts[0], text: "Play what you love, no rules, and no click unless you want it" }] };
+    const main = cycle[i % cycle.length], second = cycle[(i + 1) % cycle.length];
+    const other = second === main ? ["chords", "songs", "scales", "ear", "write"].find((k) => k !== main) : second;
+    const steps = [{ minutes: cuts[0], text: warm }, { minutes: cuts[1], text: drillFor(main, tier).text }];
+    if (cuts.length === 4) steps.push({ minutes: cuts[2], text: drillFor(other, tier).text });
+    steps.push({ minutes: cuts[cuts.length - 1], text: "Play something you like, then note what felt hard" });
+    return { day, focus: KIND_LABEL[main], minutes, steps };
+  });
+  return { instrument, level: TIER_NAME[tier], tier, minutes, days };
+}
+
 // What the example says it built. Each returns { say, head, cols, rows, title, body }.
 const BUILD = {
   basil(a) {
@@ -128,17 +197,14 @@ const BUILD = {
       head: "Day|Meals", rows: week.rows.map((r) => row(`${r.long}, ${r.cal.toLocaleString("en-US")} kcal`, r.meals.map((m) => m.name).join(", "))), table: "Week", title: "Example: Basil's week", body: "",
     };
   },
-  gouda(a) {
-    const ins = a.instrument || "Guitar", lvl = a.level || "Brand new", mins = a.minutes === "An hour" ? 60 : parseInt(a.minutes, 10) || 20, want = a.want || "Songs";
-    const easy = lvl === "Brand new";
-    const warm = Math.max(2, Math.round(mins * 0.2)), tech = Math.max(3, Math.round(mins * 0.3)), play = Math.max(3, Math.round(mins * 0.4));
-    const free = Math.max(1, mins - warm - tech - play);
-    const tech0 = { Guitar: easy ? "Open chords, slow" : "Barre chords and scales", Piano: easy ? "Five-finger patterns" : "Scales and arpeggios", Drums: easy ? "Single strokes on the pad" : "Rudiments at 80 bpm", Voice: easy ? "Breathing and easy slides" : "Scales and intervals" }[ins];
-    const play0 = { Songs: "One song, a bar at a time", Scales: "Scales, up and back", Chords: "Chord changes with the click", "Make my own": "Build a four bar idea" }[want];
+  gouda(a, today) {
+    const plan = goudaWeek(a);
+    const t = plan.days[today ?? todayIndex()];
+    const on = plan.instrument && plan.instrument !== "Not yet" ? ` on ${plan.instrument.toLowerCase()}` : "";
     return {
-      say: `Your practice is built. ${mins} minutes a day for ${ins.toLowerCase()}. It is an example. Change any step.`,
-      head: "Step|What|Time", rows: [row("Warm up", "Loose hands, slow tempo", `${warm} min`), row("Technique", tech0, `${tech} min`), row("Play", play0, `${play} min`), row("Free play", "Whatever you feel like", `${free} min`)],
-      table: "Practice", title: "Example: Gouda's routine", body: `${ins}, ${lvl.toLowerCase()}. The click counts you in and a streak starts today.`,
+      say: `Example: your practice week is set. ${plan.minutes} minutes a day${on}, ${plan.level} level.`,
+      head: "Day|Focus|Time", rows: plan.days.map((d) => row(d.day, d.focus, `${d.minutes} min`)), table: "Week",
+      title: `Today: ${LONG[t.day]}, ${t.focus}`, body: sessionBody(t), timer: `timer ${t.minutes}m Today`,
     };
   },
   penny(a) {
@@ -165,10 +231,19 @@ export const askLines = (handle, step) => {
   return `say ${s.say}\nchoose ${q(s.q)} ${s.options.map(opt).join("|")}\ncard@first-skip "Not now" "Keep the starter plan. Build yours any time." cta="Skip for now"`;
 };
 
-export function resultLines(handle, answers) {
-  const b = BUILD[handle](norm(handle, answers));
+// `today` (0 is Monday) picks the session Gouda starts; it defaults to the real day.
+export function resultLines(handle, answers, today) {
+  const b = BUILD[handle](norm(handle, answers), today);
   const t = `say ${b.say}\ntable ${b.table} ${b.head} ${b.rows.join(" ")}`;
-  return b.body ? `${t}\ncard ${q(b.title)} body=${q(b.body)}` : t; // Basil's week ends on the week itself
+  // Basil's week ends on the week itself; Gouda's card starts today's timer (startLines).
+  return b.body ? `${t}\ncard ${q(b.title)} body=${q(b.body)}${b.timer ? ' cta="Start today"' : ""}` : t;
+}
+
+// Gouda: Start today opens the timer for today's session, full screen, the way the app's Practice page does.
+export const hasTimer = (handle) => handle === "gouda";
+export function startLines(handle, answers, today) {
+  const b = BUILD[handle](norm(handle, answers), today);
+  return `say ${b.title}. Tap Start when you're ready.\n${b.timer}`;
 }
 
 // The playground link opens every question and the example on one screen.
