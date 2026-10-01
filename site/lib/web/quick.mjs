@@ -58,10 +58,10 @@ export function shortcutWords(item) {
 
 // The palette's rows for a query. `open` is the agent in the thread; `can` says what the person may do (an invited
 // account cannot add an agent, a shared agent has no Controls).
-export function entries({ agents = [], menus = {}, open = null, used = {}, query = "", light = false, can = {}, controls = [] } = {}) {
+export function entries({ agents = [], menus = {}, open = null, used = {}, picks = null, query = "", light = false, can = {}, controls = [] } = {}) {
   const q = String(query || "").trim().toLowerCase();
   const all = candidates(agents, menus);
-  const hotKeys = pick(all, { used }).map((c) => c.id);
+  const hotKeys = pick(all, { picks, used }).map((c) => c.id);
   const rows = [];
   for (const c of all) rows.push({ kind: "shortcut", id: `s:${c.id}`, title: c.item.label, sub: c.agentName, agentId: c.agentId, item: c.item, hot: hotKeys.includes(c.id), text: `${c.item.label} ${c.agentName} ${c.item.say || ""}` });
   for (const a of agents) rows.push({ kind: "agent", id: `a:${a.id}`, title: `Talk to ${a.name}`, sub: a.id === open?.id ? "Open now" : "Switch agent", agentId: a.id, text: `${a.name} talk to switch agent` });
@@ -70,6 +70,7 @@ export function entries({ agents = [], menus = {}, open = null, used = {}, query
   if (open && can.edit !== false) rows.push({ kind: "do", id: "d:edit", title: `Name, look and notifications for ${open.name}`, sub: "Do", action: "edit", text: `edit rename look notifications ${open.name}` });
   for (const s of controls) rows.push({ kind: "do", id: `d:ctl-${s.id}`, title: `${s.title} for ${open?.name}`, sub: "Controls", action: "controls", section: s.id, text: `${s.title} controls ${open?.name}` });
   rows.push({ kind: "do", id: "d:look", title: light ? "Switch to the dark look" : "Switch to the light look", sub: "Do", action: "look", text: "dark light look theme" });
+  rows.push({ kind: "do", id: "d:settings", title: "Settings", sub: "Do", action: "settings", text: "settings account appearance look keys help sign out delete about" });
   if (!q) {
     // No query: the ones you use first, then the agents, then what you can do.
     const hot = hotKeys.map((k) => rows.find((r) => r.id === `s:${k}`));

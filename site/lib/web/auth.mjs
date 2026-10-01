@@ -185,6 +185,15 @@ export function createAuth(deps) {
       if (saved?.refresh) { try { await post("yui-auth", { grant_type: "sign_out", refresh_token: saved.refresh }); } catch { /* the token is gone from this browser either way */ } }
     },
 
+    /** Delete account (yui-delete, App Store 5.1.1(v)): the server removes the account, then this browser forgets
+     * the session, here and in the other tabs. A refusal (or no network) leaves the person signed in. */
+    async deleteAccount() {
+      await this.call("yui-delete", {});
+      await store.del();
+      drop();
+      if (channel) channel.post({ type: "signed-out" });
+    },
+
     close() { channel?.close?.(); },
   };
 }

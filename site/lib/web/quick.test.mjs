@@ -76,3 +76,13 @@ test("used marks live in storage", () => {
   assert.deepEqual(loadUsed(storage), { "a/x": 1000, "b/z": 2000 });
   assert.deepEqual(loadUsed({ getItem: () => "{broken" }), {});
 });
+
+test("the palette: Settings picks lead it, and Settings is one of the things you can do (YUI-247)", () => {
+  const agents = [{ id: "a", name: "Penny" }, { id: "b", name: "Basil" }];
+  const menus = { a: { shortcut: [{ id: "x", label: "Log a run" }, { id: "y", label: "Plan week" }] }, b: { shortcut: [{ id: "z", label: "Menu" }] } };
+  const lead = (picks) => entries({ agents, menus, picks }).filter((r) => r.kind === "shortcut" && r.hot).map((r) => r.id);
+  assert.deepEqual(lead(["b/z", "a/y"]), ["s:b/z", "s:a/y"]);
+  assert.equal(lead(null).length, 3);
+  assert.ok(entries({ agents, menus, query: "settings" }).some((r) => r.action === "settings"));
+  assert.ok(entries({ agents, menus, query: "sign out" }).some((r) => r.action === "settings"));
+});

@@ -8,6 +8,7 @@
 // agent and the chat record with its new count; the bottom bar is the big mic, T and the pages' own
 // talk rule (`>2 talk`, `[yui] screen=2`). Everything here is local: nothing is sent but what the
 // person says or taps, through ThreadSync, as the phone sends it.
+import { usePrefs } from "./useSettings";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { answerOf } from "../../lib/chat/stage.mjs";
@@ -136,6 +137,8 @@ function Chips({ items, small, onTap }) {
 
 export default function StageLayer({ agent, agents = [], commands, store, thread, sync, light, fresh, offline, req, onRecord, onMenu }) {
   const reduced = useReduced();
+  // Settings > Full screen: which of the mic, T and + the bar shows (one of the mic and T always stays).
+  const bar = usePrefs().stage;
   const look = useMemo(() => motionLook(agent.theme || {}, null, reduced), [agent.theme, reduced]);
   const accent = accentOf(agent);
   const messages = thread.messages;
@@ -392,7 +395,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
         ) : null}
         {typing && canTalk && !voice.listening ? (
           <form className="yc-input ys-field" onSubmit={submit} data-testid="stage-field">
-            <AttachButton onFiles={(f) => store.addFiles(f)} className="ys-small ys-attach" testId="stage-attach" />
+            {bar.attach ? <AttachButton onFiles={(f) => store.addFiles(f)} className="ys-small ys-attach" testId="stage-attach" /> : null}
             <textarea ref={input} rows={1} value={draft} maxLength={32000} placeholder={`Message ${agent.name}`} aria-label={`Message ${agent.name}`}
               role="combobox" aria-expanded={keys.open} aria-controls={keys.open ? "suggestions" : undefined} aria-autocomplete="list" aria-activedescendant={keys.open ? `suggestions-${keys.index}` : undefined}
               enterKeyHint="send"
@@ -401,7 +404,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
               onKeyDown={(e) => { if (keys.onKey(e)) return; if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) submit(e); }} />
             {busy && !ready ? <button type="button" className="yc-send yc-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
               : <button className="yc-send" disabled={!ready} aria-label="Send" data-testid="stage-send">↑</button>}
-            {voice.supported ? <button type="button" className="ys-small" onClick={() => setTyping(false)} aria-label="Back to the mic"><MicIcon /></button> : null}
+            {voice.supported && bar.mic ? <button type="button" className="ys-small" onClick={() => setTyping(false)} aria-label="Back to the mic"><MicIcon /></button> : null}
           </form>
         ) : (
           <div className="ys-bottom" data-talk={canTalk ? undefined : "off"}>
@@ -409,16 +412,16 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
             {canTalk ? <>
               {voice.listening
                 ? <button className="ys-small ys-trash" onClick={discard} aria-label="Cancel, throw away what I said" data-testid="stage-trash"><TrashIcon /></button>
-                : <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type" data-testid="stage-type">T</button>}
+                : bar.type || !voice.supported ? <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type" data-testid="stage-type">T</button> : <span className="ys-small ys-gap" aria-hidden="true" />}
               {busy && !voice.listening && !voice.handsFree ? <button className="ys-mic ys-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
-                : voice.supported ? (
+                : voice.supported && bar.mic ? (
                   <button type="button" className={`ys-mic${voice.listening ? " live" : ""}${voice.cancel ? " cancel" : ""}`} data-testid="stage-mic" aria-pressed={listening || undefined}
                     aria-label={listening ? "Stop listening" : `Talk to ${agent.name}`} {...voice.mic} style={{ touchAction: "none" }}>
                     <span className="mo-ring" /><span className="mo-ring r2" />
                     <MicIcon />
                   </button>
                 ) : null}
-              {!voice.listening ? <AttachButton onFiles={(f) => store.addFiles(f)} className="ys-small ys-attach" testId="stage-attach" /> : null}
+              {!voice.listening ? (bar.attach ? <AttachButton onFiles={(f) => store.addFiles(f)} className="ys-small ys-attach" testId="stage-attach" /> : <span className="ys-small ys-gap" aria-hidden="true" />) : null}
             </> : null}
           </div>
         )}

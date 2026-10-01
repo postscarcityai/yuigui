@@ -8,10 +8,10 @@ import { Dialog } from "./parts";
 
 const KIND = { shortcut: "✦", agent: "→", do: "•" };
 
-export default function Palette({ agents, menus, loading, open, used, light, can, controls, onRun, onClose }) {
+export default function Palette({ agents, menus, loading, open, used, picks = null, light, can, controls, onRun, onClose }) {
   const [query, setQuery] = useState("");
   const [at, setAt] = useState(0);
-  const list = useMemo(() => entries({ agents, menus, open, used, query, light, can, controls }), [agents, menus, open, used, query, light, can, controls]);
+  const list = useMemo(() => entries({ agents, menus, open, used, picks, query, light, can, controls }), [agents, menus, open, used, picks, query, light, can, controls]);
   const box = useRef(null);
   const id = useId();
   useEffect(() => { setAt(0); }, [query]);

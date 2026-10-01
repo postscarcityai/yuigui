@@ -145,6 +145,20 @@ export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch
       return rows[0]?.meta || null;
     },
 
+    // The host's `key_ask` control rows from the last two days (ThreadClient.keyAsks, spec/VAULT.md section 3). The
+    // caller drops the ones already answered.
+    async keyAsks(agentId) {
+      const since = new Date(Date.now() - 2 * 86_400_000).toISOString();
+      const q = [["select", "id,meta,created_at"], ["agent_id", `eq.${agentId}`], ["kind", "eq.control"], ["sender", "eq.agent"], ["meta->>op", "eq.key_ask"], ["created_at", `gt.${since}`], ["order", "created_at.asc"], ["limit", "20"]];
+      return (await request(`rest/v1/yui_messages?${queryString(q)}`)).json();
+    },
+
+    // The person's answer to an ask: a control row, op `key_answer`. The relay writes the one `[yui]` line into the
+    // agent's next turn.
+    async answerKeyAsk({ userId, agentId, meta }) {
+      await relay.post({ id: globalThis.crypto.randomUUID(), userId, agentId, body: "controls: key_answer", kind: "control", meta });
+    },
+
     // Realtime: every INSERT on this agent's rows, pushed. `onRow(record)` gets each; `onState("open"|"closed")`
     // says whether the socket is up, so the poll can ease off while it is. Returns the unsubscribe.
     subscribe({ agentId }, onRow, onState = () => {}) {
@@ -176,6 +190,8 @@ export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch
       return () => { stopped = true; clearInterval(beat); clearTimeout(retry); try { ws?.close(); } catch { /* gone */ } onState("closed"); };
     },
   };
+  // PostgREST and storage with the person's token, for the screens that read a table of their own (the vault).
+  relay.rest = request;
   relay.chats = createChatsClient(request);
   relay.manage = createAgentsClient((fn, body) => relay.call(fn, body));
   return relay;

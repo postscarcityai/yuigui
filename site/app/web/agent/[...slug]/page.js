@@ -2,6 +2,7 @@
 // or a yui:// link opens. The same app as /web; the client reads the path.
 import { Suspense } from "react";
 import WebApp from "../../WebApp";
+import { readBuild } from "../../../../lib/web/build.mjs";
 import { pageMeta } from "../../../../lib/og/meta.mjs";
 
 export const metadata = pageMeta({
@@ -11,5 +12,5 @@ export const metadata = pageMeta({
 });
 
 export default function WebThread() {
-  return <Suspense><WebApp /></Suspense>;
+  return <Suspense><WebApp build={readBuild()} /></Suspense>;
 }

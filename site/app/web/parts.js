@@ -63,14 +63,14 @@ export function SheetBar({ title, left = null, right = null }) {
 }
 
 // A confirm in the page: the question, a note, the red button and "Keep it". The safe one is first in tab order.
-export function Confirm({ question, note, confirm, keep = "Keep it", onConfirm, onKeep, busy = false }) {
+export function Confirm({ question, note, confirm, keep = "Keep it", onConfirm, onKeep, busy = false, tone = "danger" }) {
   return (
     <Dialog label={question} onClose={onKeep} testid="confirm">
       <div className="ag-confirm">
         <h2>{question}</h2>
         {note ? <p>{note}</p> : null}
         <button type="button" className="ag-btn quiet" data-autofocus onClick={onKeep}>{keep}</button>
-        <button type="button" className="ag-btn danger" disabled={busy} onClick={onConfirm} data-testid="confirm-yes">{confirm}</button>
+        <button type="button" className={`ag-btn${tone === "danger" ? " danger" : ""}`} disabled={busy} onClick={onConfirm} data-testid="confirm-yes">{confirm}</button>
       </div>
     </Dialog>
   );

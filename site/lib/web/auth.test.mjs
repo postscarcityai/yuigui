@@ -128,3 +128,29 @@ test("review sign in asks for a web session", async () => {
   assert.deepEqual(seen, { grant_type: "review", code: "DEMO-CODE", client: "web" });
   assert.equal(t.snapshot().signedIn, true);
 });
+
+test("delete account asks the server, then forgets the session in every tab", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  const calls = [];
+  const orig = srv.fetch;
+  srv.fetch = async (url, init) => { if (String(url).endsWith("/yui-delete")) { calls.push(init.headers.authorization); return { ok: true, status: 200, json: async () => ({ deleted: true }) }; } return orig(url, init); };
+  const t1 = b.tab(); await sign(t1);
+  const t2 = b.tab(); await t2.restore();
+  await t1.deleteAccount();
+  assert.equal(calls.length, 1);
+  assert.match(calls[0], /^Bearer a/);
+  assert.equal(t1.snapshot().signedIn, false);
+  assert.equal(b.peek(), undefined, "nothing left in the store");
+  await new Promise((r) => setTimeout(r, 10));
+  assert.equal(t2.snapshot().signedIn, false, "the other tab drops it too");
+});
+
+test("delete account that the server refuses leaves the person signed in", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  const orig = srv.fetch;
+  srv.fetch = async (url, init) => (String(url).endsWith("/yui-delete") ? { ok: false, status: 500, json: async () => ({ error: "server_error" }) } : orig(url, init));
+  const t1 = b.tab(); await sign(t1);
+  await assert.rejects(t1.deleteAccount(), (e) => e.code === "server_error");
+  assert.equal(t1.snapshot().signedIn, true);
+  assert.equal(b.peek().refresh, "r1");
+});

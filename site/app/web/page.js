@@ -5,6 +5,7 @@ import WebApp from "./WebApp";
 import story from "../../content/web-story.json";
 import log from "../../content/progress.json";
 import { webStory } from "../../lib/webstory.mjs";
+import { readBuild } from "../../lib/web/build.mjs";
 import { pageMeta } from "../../lib/og/meta.mjs";
 
 export const metadata = pageMeta({
@@ -15,5 +16,5 @@ export const metadata = pageMeta({
 });
 
 export default function Web() {
-  return <Suspense><WebApp story={webStory(story, log)} /></Suspense>;
+  return <Suspense><WebApp story={webStory(story, log)} build={readBuild()} /></Suspense>;
 }

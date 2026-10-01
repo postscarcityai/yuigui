@@ -20,6 +20,11 @@ import EditAgent from "./EditAgent";
 import ControlsPanel from "./ControlsPanel";
 import ConnectApproval from "./ConnectApproval";
 import Palette from "./Palette";
+import SettingsPanel from "./SettingsPanel";
+import { KeyAskSheet } from "./SettingsKeys";
+import { PrefsContext, useAppLook, useAppearance, useDark, usePicks, useStagePrefs } from "./useSettings";
+import { loadAnswered, markAnswered, nextAsk, answerMeta } from "../../lib/web/vault.mjs";
+import { sectionOf } from "../../lib/web/settings.mjs";
 import { loadUsed, markUsed, menuFromRows } from "../../lib/web/quick.mjs";
 import { Face } from "./parts";
 import "./thread.css";
@@ -30,7 +35,7 @@ const FIXTURES = { penny: fixture, shared: sharedFixture };
 
 const GIVE_UP_FAST = { giveUpMs: 3000, stuckMs: 3000, pollMs: 300 };
 
-export default function ThreadApp({ demo, auth, user, agent: agentId, chat, connect }) {
+export default function ThreadApp({ demo, auth, user, agent: agentId, chat, connect, build = {} }) {
   // In-app moves (an agent, a chat) use the History API, which Next folds into usePathname: the page stays
   // mounted, so the open sheets, the drafts and the relay survive a tap on a chat.
   const go = useCallback((url) => { window.history.pushState(null, "", url); }, []);
@@ -53,27 +58,33 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const [menusLoading, setMenusLoading] = useState(false);
   const [used, setUsed] = useState({});
   const [pendingTap, setPendingTap] = useState(null);
-  const [light, setLight] = useState(false);
   // The app opens on the stage (Stage first); the chat is the record, one tap away. ?view=chat opens the record.
   const [view, setView] = useState(search.get("view") === "chat" ? "chat" : "stage");
 
   useEffect(() => { setMounted(true); }, []);
 
-  // The theme is the site's: the moon button's choice is in localStorage and on <html>; ?theme= wins for a link.
-  useEffect(() => {
-    if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
-    setLight(document.documentElement.dataset.theme === "light");
-  }, [theme]);
-  const flip = () => {
-    const next = light ? "dark" : "light";
-    document.documentElement.dataset.theme = next;
-    try { localStorage.setItem("yui-theme", next); } catch { /* private mode */ }
-    setLight(!light);
-  };
+  // The theme is the site's `data-theme` on <html>. Settings > Appearance picks system, light or dark (system is the
+  // default and follows the browser); ?theme= wins for a link until a pick is made; the Dark / Light look button in
+  // the drawer is a quick flip of the same pick.
+  const appearance = useAppearance(theme);
+  const dark = useDark();
+  const light = !dark;
+  const flip = () => appearance[1](light ? "dark" : "light");
+  const stagePrefs = useStagePrefs();
+  const picks = usePicks();
 
   const relay = useMemo(() => {
     if (!mounted) return null;
-    if (demo) return createDemoRelay(FIXTURES[demo] || fixture);
+    if (demo) {
+      const r = createDemoRelay(FIXTURES[demo] || fixture);
+      // Demo switches for the settings checks: a look on, a vault with spend, a host's key ask (agent|provider|why|cap|est).
+      const applook = search.get("applook");
+      if (applook) r.settings.call("yui-account", { action: "set_look", look: { preset: applook } });
+      if (search.get("demovault")) r.settings.seedVault("demo-penny");
+      const [ag, provider, why, cap, est] = (search.get("keyask") || "").split("|");
+      if (provider) r.settings.ask(ag || "demo-penny", { provider, why, cap, est });
+      return r;
+    }
     if (!auth) return null;
     return createRelay({ token: () => auth.accessToken() });
   }, [mounted, demo, auth]);
@@ -89,6 +100,18 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   }, [auth]);
   const email = me?.email || user?.email;
   const userId = demo ? "demo-user" : user?.id;
+  // Yui's look (Settings > Look): the account's copy, worn by the chrome through the site's tokens.
+  const callFn = useMemo(() => (relay ? (fn, body) => relay.call(fn, body) : null), [relay]);
+  const look = useAppLook(callFn, dark);
+  // With Full screen off the chat is where answers land; one tap puts the stage up (the app's Stage first switch).
+  const stageOn = stagePrefs[0].on;
+  const stageFirst = useRef(true);
+  useEffect(() => {
+    if (search.get("view")) return;
+    if (stageFirst.current && stageOn) { stageFirst.current = false; return; }
+    stageFirst.current = false;
+    setView(stageOn ? "stage" : "chat");
+  }, [stageOn]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // A chat the person started here is not on the server until something is said in it: the outbox makes it
   // first, then sends the row (the app inserts the chat, then the message).
@@ -264,6 +287,54 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     asked.current = true;
     setSheet({ controls: controlsParam === "1" ? null : controlsParam });
   }, [open?.id, controlsParam]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Settings straight from a link (?settings=1, or ?settings=key for one section, like yui://settings/key).
+  const askedSettings = useRef(false);
+  const settingsParam = search.get("settings");
+  useEffect(() => {
+    if (!relay || askedSettings.current || !settingsParam || !sorted) return;
+    askedSettings.current = true;
+    setSheet({ settings: sectionOf(settingsParam) || "" });
+  }, [relay, sorted, settingsParam]);
+  // Sign out (and the end of a deleted account): what was not sent belonged to that account, so the outbox goes too.
+  const onSignOut = async (how = {}) => {
+    await outbox?.clear();
+    if (demo) { setSheet(null); setNotice(how.deleted ? "Account deleted (demo). Nothing left the tab." : "Signed out (demo). Nothing left the tab."); return; }
+    if (how.deleted) return; // deleteAccount already ended the session here
+    await auth.signOut();
+  };
+  // A host's key ask (VAULT.md section 3): the sheet is Yui's own chrome, one at a time, never an agent's screen.
+  const [keyAsk, setKeyAsk] = useState(null);
+  const answerAsk = useCallback(async (meta) => {
+    if (!keyAsk) return;
+    try {
+      await relay.answerKeyAsk({ userId, agentId: keyAsk.agentId, meta, purpose: keyAsk.ask.purpose });
+      markAnswered(keyAsk.ask.req);
+      setKeyAsk(null);
+    } catch { /* not sent: the ask stays up and comes back on the next look */ }
+  }, [relay, userId, keyAsk]);
+  useEffect(() => {
+    if (!relay?.keyAsks || !open?.id) return undefined;
+    let live = true;
+    const look = async () => {
+      if (document.hidden) return;
+      try {
+        const rows = await relay.keyAsks(open.id);
+        const r = nextAsk(rows, loadAnswered());
+        // A shared agent never spends its client's keys (contract decision 4): a no, nothing shown. A refusal is a no too.
+        for (const x of r.refused) {
+          if (x.ignore) { markAnswered(x.req); continue; }
+          await relay.answerKeyAsk({ userId, agentId: open.id, meta: answerMeta({ req: x.req, decision: "deny", provider: x.provider }) });
+          markAnswered(x.req);
+        }
+        if (r.ask && open.shared) { await relay.answerKeyAsk({ userId, agentId: open.id, meta: answerMeta({ req: r.ask.req, decision: "deny", provider: r.ask.provider }) }); markAnswered(r.ask.req); return; }
+        if (live) setKeyAsk((cur) => cur || (r.ask ? { agentId: open.id, ask: r.ask } : null));
+      } catch { /* the next look */ }
+    };
+    look();
+    const t = setInterval(look, 8000);
+    return () => { live = false; clearInterval(t); };
+  }, [relay, open?.id, open?.shared, userId]);
+
   // Talk about this (TalkAbout.swift): the item goes on the composer as a chip, in the record, with the field up.
   const talk = (item) => {
     const area = controlSections(open).find((s) => s.id === item.section);
@@ -281,8 +352,9 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     return () => window.removeEventListener("keydown", k);
   }, []);
   // Every agent's drawer, read when the palette opens (a minute's cache): the shortcuts are in their rows.
+  const settingsOpen = sheet && sheet.settings !== undefined;
   useEffect(() => {
-    if (!palette || !relay?.menuRows || !agentsRef.current) return;
+    if (!(palette || settingsOpen) || !relay?.menuRows || !agentsRef.current) return;
     if (Date.now() - menusAt.current < 60000) return;
     let live = true;
     setMenusLoading(true);
@@ -293,7 +365,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       setMenusLoading(false);
     });
     return () => { live = false; setMenusLoading(false); };
-  }, [palette, relay]);
+  }, [palette, settingsOpen, relay]);
   // The open agent's own drawer is live in the thread: it wins over what the read found.
   const paletteMenus = useMemo(() => (open && api?.agentId === open.id && api.home ? { ...menus, [open.id]: { review: api.home.waiting, backlog: api.home.backlog, shortcut: api.home.shortcuts } } : menus), [menus, open, api]);
   // A shortcut tapped for an agent whose thread is not open yet waits for that thread.
@@ -309,16 +381,21 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const ready = chats.loaded || !!chat;
   const threadKey = `${open?.id}:${openChatId || ""}:${bump}`;
 
+  const prefs = { stage: stagePrefs[0], picks: picks[0], look: look.state, agentsKeep: look.state.agentsKeep };
+  // "Agents keep their own looks" off: every thread wears Yui's look (Settings > Look).
+  const threadAgent = !look.state.agentsKeep && open ? { ...open, theme: look.state.look || { preset: "yui" } } : open;
   const foot = (
     <div className="wb-side-foot">
       {demo ? <span className="wb-demo" title="A recorded thread. Nothing leaves this tab.">Demo</span> : null}
       {!demo && auth ? <div className="wb-who" data-testid="account" title="Signed in on this browser"><span data-testid="account-email">{email || "Hidden email"}</span></div> : null}
+      <button className="wb-linkish" data-testid="open-settings" onClick={() => { setDrawer(false); setSheet({ settings: "" }); }}>Settings</button>
       <button className="wb-linkish" onClick={flip}>{light ? "Dark" : "Light"} look</button>
       {!demo && auth ? <button className="wb-linkish" onClick={async () => { await outbox?.clear(); auth.signOut(); }}>Sign out</button> : null}
     </div>
   );
 
   return (
+    <PrefsContext.Provider value={prefs}>
     <div className={`web-root${light ? " is-light" : ""}`}>
       <aside className={`wb-side${drawer ? " open" : ""}`} aria-label="Drawer">
         {open ? (
@@ -355,7 +432,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
           ) : <span className="wb-head-words"><b>Yui</b></span>}
           {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
         </header>
-        {open && ready ? <ThreadView key={threadKey} relay={relay} userId={userId} agent={open} agents={sorted} outbox={outbox} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
+        {open && ready ? <ThreadView key={threadKey} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
           onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} />
           : error && !sorted ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
           : sorted && !sorted.length ? (
@@ -366,9 +443,12 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       {sheet === "add" && manage ? <AddAgent manage={manage} agents={sorted || []} crew={crew} refresh={load} onClose={() => setSheet(null)} onOpenAgent={(id) => go(`/web/agent/${id}${keep}`)} {...fast} /> : null}
       {editing && manage ? <EditAgent manage={manage} agent={editing} agents={sorted} refresh={load} onClose={() => setSheet(null)} onRemoved={onRemoved} {...fast} /> : null}
       {sheet && sheet.controls !== undefined && open && relay ? <ControlsPanel relay={relay} agent={open} userId={userId} light={light} section={sheet.controls || null} onClose={() => setSheet(null)} onTalkAbout={talk} /> : null}
+      {settingsOpen && relay ? <SettingsPanel relay={relay} auth={demo ? null : auth} demo={!!demo} userId={userId} email={email} review={!!demo} agents={sorted || []} menus={paletteMenus} build={build} focus={sheet.settings || null}
+        appearance={appearance} stage={stagePrefs} picks={picks} look={look} onSignOut={onSignOut} onClose={() => setSheet(null)} /> : null}
+      {keyAsk && relay ? <KeyAskSheet relay={relay} userId={userId} ask={keyAsk.ask} agent={(sorted || []).find((a) => a.id === keyAsk.agentId)} answer={answerAsk} /> : null}
       {connect && relay ? <ConnectApproval key={connect} relay={relay} id={connect} agents={sorted || []} refresh={load} onOpenAgent={(id) => go(`/web/agent/${id}${keep}`)} onClose={() => go(`/web${keep}`)} /> : null}
       {palette && sorted ? (
-        <Palette agents={sorted} menus={paletteMenus} loading={menusLoading} open={open} used={used} light={light}
+        <Palette agents={sorted} menus={paletteMenus} loading={menusLoading} open={open} used={used} picks={picks[0]} light={light}
           can={{ add: !(sorted.length && sorted.every((a) => a.shared)), edit: !!open && !open.shared }} controls={open && !open.shared ? controlSections(open) : []}
           onClose={() => setPalette(false)}
           onRun={(r) => {
@@ -383,9 +463,11 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
             else if (r.action === "edit" && open) setSheet({ edit: open.id });
             else if (r.action === "controls") setSheet({ controls: r.section });
             else if (r.action === "look") flip();
+            else if (r.action === "settings") setSheet({ settings: "" });
           }} />
       ) : null}
       {notice ? <div className="wc-toast" role="status" data-testid="agent-notice">{notice}</div> : null}
     </div>
+    </PrefsContext.Provider>
   );
 }

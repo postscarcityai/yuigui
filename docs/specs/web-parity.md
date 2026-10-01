@@ -22,7 +22,7 @@ Every one is a row below too. This is the short list, with the web way for each.
 | --- | --- | --- | --- |
 | Haptics (15 files use them: games, taps, timers, reactions) | No haptics API on desktop; Vibration API is Android-only | Dropped, silently. A short sound or a visual pulse stands in only where the haptic carried meaning (a timer phase change already beeps). | 246 |
 | Keychain (session, vault keys, `Account/Keychain.swift`) | No secure enclave for pages | Access token in memory. Refresh token in IndexedDB under a strict CSP. Keys: never in the browser; the web adds a key through `yui-vault` sealed on the server, or says "Add it on your iPhone" (decision in section 4, story 247). | 241, 247 |
-| Face ID on keys (`Vault/VaultStore.swift`, LocalAuthentication) | No biometric prompt for pages | WebAuthn user verification (passkey or Touch ID) on add, replace, remove and grant, where the browser has it. Where not: a fresh Sign in with Apple popup. | 247 |
+| Face ID on keys (`Vault/VaultStore.swift`, LocalAuthentication) | No biometric prompt for pages | web way: every add, replace, remove and grant asks first in Yui's own sheet (an explicit tap). A page cannot ask for Face ID, and a passkey check would need a credential store on the server; neither was built. The key never sits in the browser, so there is nothing for a biometric to unlock | 247 | done |
 | APNs push (`Push/Push.swift`) | Different protocol | Web Push with VAPID through `yui-push`. A reply read on one device clears the others where the platform allows. | 248 |
 | Live Activity and Dynamic Island (`Presets/LiveTimer.swift`, `YuiWidgets/TimerLiveActivity.swift`) | iOS only | Done (246): the timer counts the time that really passed between two looks, so a background tab lands where the clock says, across every phase it missed (`lib/web/timer-clock.mjs`). The tab title shows the time left and the round while it runs, a screen Wake Lock keeps the phone awake, and the rest between workout sets rings on the wall clock. A closed tab stops the timer; there is no lock-screen pill and no favicon countdown. | 246 |
 | Home and lock screen widgets (`YuiWidgets/YuiWidgets.swift`) | iOS only | iPhone. The saved screens a widget would show are on the shelf and pinned rows in the web drawer. | 248 |
@@ -37,7 +37,7 @@ Every one is a row below too. This is the short list, with the web way for each.
 | Share sheet (`Chat/ReactionViews.swift`, `Presets/Pages.swift`) | No system sheet on desktop | Web Share API where it exists, else copy link. | 242 |
 | MetricKit and speed reports (`Perf/`) | iOS only | The same seven intervals from `performance.mark`, sent as `yui_perf` with `client=web`. Dev switch only, as in the app. | 250 |
 | On-device model (spec/ON-DEVICE.md, Apple Foundation Models) | iOS only | iPhone. Nothing leaves the phone; the web does not run it. | none |
-| Feedback mail (`Account/YuiBackend.swift` feedbackMail) | TestFlight button | A "Send feedback" form that goes to the same feedback card path, plus a mailto fallback. | 247 |
+| Feedback mail (`Account/YuiBackend.swift` feedbackMail) | TestFlight button | web way: Settings > Help and feedback: a text box and "Email us", a mail draft that already names the web build and the guide (the app's own Email us). There is no web path into the TestFlight feedback card watcher, so a note reaches the board when someone reads the mail | 247 | done |
 
 ## 2. Account and session
 
@@ -48,10 +48,10 @@ Every one is a row below too. This is the short list, with the web way for each.
 | One refresh in flight (a refresh token spent twice ends every session) | `Account/Account.swift` | web way: Web Locks plus BroadcastChannel across tabs | 241 | done |
 | Invite code, claim after sign in | `Account/SignInView.swift`, `Account/Account.swift` | same: `/i/<code>` hands to `/web`, claim grant after sign in | 241 | done |
 | App Review code path | `Account/Account.swift` (review grant) | same: the `review` grant, for demo access on the site | 241 | done |
-| Sign out (revokes the session) | `Account/Account.swift` | same: `sign_out` grant, clears IndexedDB, ends only this session (built in 241, the Settings screen that holds the button is 247) | 247 | open |
-| Delete account | `Account/Account.swift`, `supabase/functions/yui-delete` | same: asks first, then `yui-delete`; says what is deleted | 247 | open |
+| Sign out (revokes the session) | `Account/Account.swift` | same: `sign_out` grant, clears IndexedDB, ends only this session; the button is in Settings > Account (and the drawer's foot), and it clears the outbox like the app | 247 | done |
+| Delete account | `Account/Account.swift`, `supabase/functions/yui-delete` | same: Settings > Account > Delete account asks first with the app's words (account, paired agents and devices, every stored message, removed from your Apple ID, can't be undone), then `yui-delete` (it revokes the Apple token of the web Services ID too), then this browser forgets the session in every tab. A refusal or no network leaves you signed in and says nothing was removed | 247 | done |
 | First run, pick your crew (Arnold, Basil, Gouda, Penny, Quill, bring your own) | `Agents/CrewPick.swift` | same: the same flow on full screens | 245 | open |
-| Build info (version, build, commit, guide) | `Account/BuildInfo.swift` | web way: the web build's commit and the guide it speaks, in About | 247 | open |
+| Build info (version, build, commit, guide) | `Account/BuildInfo.swift` | web way: Settings > About this build: the web build's commit and date (Vercel's commit, else the local checkout; a plain local build says so), the channel guide version the site carries, and the browser. Tap to copy | 247 | done |
 | Backend host, publishable key | `Account/YuiBackend.swift` | same: the same project (yuigui), same anon key; CORS answers for the web origin | 241 | done |
 
 ## 3. The thread
@@ -84,7 +84,7 @@ Every one is a row below too. This is the short list, with the web way for each.
 | Typing stays fast (draft kept off the thread view) | `Chat/Composer.swift` | same: the words live in a store (`lib/web/composer.mjs`) only the field reads, kept per agent in `localStorage`, never a pasted key | 244 | done |
 | Draft shared between devices | none today | web way: new on both, see story | 249 | open |
 | Mixed chat plus cards inside one reply | `Presets/PresetViews.swift` | same | 242 | draws |
-| `theme app` restyle card (Use or keep) | `Chat/RestyleCard.swift` | same: `restyle.js` draws it | 247 | draws |
+| `theme app` restyle card (Use or keep) | `Chat/RestyleCard.swift` | same: `restyle.js` draws it. Not on the thread yet: Settings > Look reads, wears and resets the look (247), but an agent's `theme app` offer does not draw its Use or Keep card in the web thread; a follow-up card holds it | 247 | open |
 
 ## 4. The stage, pages and home
 
@@ -127,19 +127,19 @@ Every one is a row below too. This is the short list, with the web way for each.
 
 | Feature | App file | Web twin | Story | Status |
 | --- | --- | --- | --- | --- |
-| Appearance (system, light, dark) | `SettingsView.swift` | same: follows `prefers-color-scheme`, a toggle overrides | 247 | open |
-| Stage first section (which of mic, T, + show) | `SettingsView.swift` | same | 247 | open |
-| Home actions section | `SettingsView.swift` | same | 247 | open |
-| Look: Yui's own look and each agent's | `Theme/AppLook.swift`, `Theme/AppLookStore.swift`, `Theme/AgentLook.swift`, `Theme/YuiTheme.swift` | same: synced through the account where the app syncs it | 247 | open |
-| Agent access (management tokens) | `SettingsView.swift`, spec/AGENTS.md | same: create, show once, revoke | 247 | open |
-| Keys vault (fal, Replicate, OpenRouter, Anthropic, OpenAI; caps; grants) | `Vault/*.swift`, `Vault/VaultViews.swift` | web way: no key stored in the browser, ever. A key is sealed to the hosted connector in the page (HPKE, same format as `Vault/VaultSeal.swift`) and handed to `yui-vault`; the page keeps only the handle. Where WebCrypto lacks the cipher, or the browser has no user verification: "Add it on your iPhone". | 247 | open |
-| Vault ask sheet (an agent asks to use a key) | `Vault/VaultAskViews.swift` | same: Yui's own chrome, never drawn from an agent's screen | 247 | open |
-| Your model key | `ModelKeyForm.swift`, `Account/Account.swift` | web way: sealed the same way as above | 247 | open |
-| Web search key (Firecrawl) | `SettingsView.swift` | web way: sealed the same way | 247 | open |
-| Help and feedback | `SettingsView.swift`, `Account/YuiBackend.swift` | web way: form into the feedback path, mailto fallback | 247 | open |
-| About this build | `Account/BuildInfo.swift` | web way | 247 | open |
-| Speed switch (dev builds only) | `Perf/*.swift` | web way: `?perf=1`, never visible to a person | 250 | open |
-| Invites (requests, approve, template) | spec/AGENTS.md, `supabase/scripts/invite.py` | same: owner screens only | 247 | open |
+| Appearance (system, light, dark) | `SettingsView.swift` | same: System follows `prefers-color-scheme` and changes with it, Light and Dark override, kept in `yui-web-appearance` (and the site's `yui-theme`); a link's `?theme=` wins until you pick one | 247 | done |
+| Stage first section (which of mic, T, + show) | `SettingsView.swift` | same: Answers on the full screen, Mic, T for typing, + to attach; one of the mic and T always stays; with the first off the chat is where answers land. Kept on this device | 247 | done |
+| Home actions section | `SettingsView.swift` | web way: the command palette (Cmd or Ctrl + K) has no icon to hold, so Settings > Home actions picks and orders up to four of your agents' shortcuts; they lead the palette. Back to the default. Kept on this device | 247 | done |
+| Look: Yui's own look and each agent's | `Theme/AppLook.swift`, `Theme/AppLookStore.swift`, `Theme/AgentLook.swift`, `Theme/YuiTheme.swift` | same: the account's look (`yui-account`) is read at load, named (Yui's own, a set's name, Your own mix), worn by the chrome through the site's tokens in light and dark, and written back on the tap only; "Agents keep their own looks" off makes every thread wear Yui's look; Back to Yui's look keeps one step to undo | 247 | done |
+| Agent access (management tokens) | `SettingsView.swift`, spec/AGENTS.md | same: create (shown once, copy, never stored by the page), list with last used, revoke | 247 | done |
+| Keys vault (fal, Replicate, ElevenLabs, Anthropic, OpenAI; caps; grants) | `Vault/*.swift`, `Vault/VaultViews.swift` | web way: no key stored in the browser, ever. A key is sealed to the hosted connector in the page (HPKE, DHKEM X25519, ChaCha20-Poly1305, the format of `Vault/VaultSeal.swift`, via `@hpke/*`, loaded when you first add one), put on the relay as the app's `yui_vault_keys` row, and forgotten; the page keeps the last four. The list is what the relay holds sealed (keys added here, and keys the phone sealed when it made a grant); a key only on the iPhone stays there. Add, remove, grants (agent, what for, cap, once, the limit confirm for a provider without a price list), revoke, this month's spend, the lapse note | 247 | done |
+| Vault ask sheet (an agent asks to use a key) | `Vault/VaultAskViews.swift` | same: Yui's own sheet over the app, from the host's `key_ask` control row (looked for every 8 s in the open thread, the same query as the app), never an agent's screen. Allow, Allow once, Don't allow answer with the `key_answer` row; a key-shaped or long reason is refused and answered no; a shared agent is answered no. No key for the provider: add one in the sheet | 247 | done |
+| Your model key | `ModelKeyForm.swift`, `Account/Account.swift` | same as the app: the key goes once to `yui-native` over the session, which checks it with the provider and keeps it in Vault server-side; the page shows only the last four. The app does not keep it in the keychain either, so no change in where keys live | 247 | done |
+| Web search key (Firecrawl) | `SettingsView.swift` | same as the app: `yui-native` `search_key_set`, free searches left, last four, Remove | 247 | done |
+| Help and feedback | `SettingsView.swift`, `Account/YuiBackend.swift` | web way: Help and questions, Connect an agent, Privacy policy, and the feedback mail (see Feedback mail above) | 247 | done |
+| About this build | `Account/BuildInfo.swift` | web way: see Build info above | 247 | done |
+| Speed switch (dev builds only) | `Perf/*.swift` | web way: `?perf=1` shows the Speed switch in Settings (kept for this browser, `?perf=0` clears it); a person never sees it. The timings it turns on are story 250 | 247, 250 | switch done |
+| Invites (requests, approve, template) | spec/AGENTS.md, `supabase/scripts/invite.py` | same as the app: there is no invite screen in the app; the owner invites by asking Yui (spec/AGENTS.md, "The owner's side"). The claim side is on the web since 241 (`/i/<code>`, the invite code field). No owner screen on the web either | 247 | done |
 
 ## 7. Presets (every one in spec/YL.md section 4)
 

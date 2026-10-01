@@ -9,6 +9,8 @@
 
 import { demoControlHost } from "./controls-demo.mjs";
 import { createAgentsClient } from "./agents.mjs";
+import { createSettingsDemo } from "./settings-demo.mjs";
+import { askLine } from "./vault.mjs";
 
 let n = 9000;
 const id = () => `00000000-0000-4000-8000-${String(++n).padStart(12, "0")}`;
@@ -163,6 +165,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
   }
   // The host answers a control request in the same table, one row, the same `req` (CONTROLS.md section 2).
   const controlHost = demoControlHost();
+  const settings = createSettingsDemo({ now });
   function controlled(agentId, userRow) {
     const reply = (meta) => rows(agentId).push({ id: id(), sender: "agent", body: "controls", kind: "control", meta, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null });
     Promise.resolve(controlHost.handle(agentId, userRow.meta || {}, { agent: roster.find((a) => a.id === agentId) })).then((meta) => { if (meta) setTimeout(() => reply(meta), 120 / speed); });
@@ -171,12 +174,22 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
   const relay = {
     demo: true,
     userId,
+    settings,
+    rest: (path, init) => settings.rest(path, init),
+    async keyAsks(agentId) { return settings.asksFor(agentId); },
+    // The relay would write the one line into the agent's next turn; the demo shows it (the app's demo does too).
+    async answerKeyAsk({ agentId, meta, purpose = "" }) {
+      settings.answered(meta);
+      rows(agentId).push({ id: id(), sender: "agent", body: askLine({ ...meta, purpose }), kind: "text", meta: null, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null });
+    },
     async agents() { return { agents: SORTED(roster).map((a) => ({ ...a })), crew: crew.map((c) => ({ ...c })), crew_pending: false, first_name: fixture.first_name || null }; },
     // yui-agents and yui-oauth in a tab: the same actions and replies, kept in this page.
     async call(fn, body) {
       if (this.offline) throw refused("network", 0);
       await sleep(30);
       if (fn === "yui-oauth") return connectDemo(body);
+      const own = settings.call(fn, body);
+      if (own !== undefined) return own;
       if (fn !== "yui-agents") throw refused("unknown_function");
       return manage(body);
     },

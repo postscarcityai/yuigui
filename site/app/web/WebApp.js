@@ -9,6 +9,7 @@ import { APPLE_JS, APPLE_WEB_CLIENT_ID, REDIRECT_URI } from "../../lib/web/confi
 import { cleanInvite, inviteFromLocation, inviteNotice } from "../../lib/web/invite.mjs";
 import { sha256Hex, randomHex } from "../../lib/web/nonce.mjs";
 import ThreadApp from "./ThreadApp";
+import { useAppearance } from "./useSettings";
 import WebStory from "./WebStory";
 import "./web.css";
 
@@ -26,9 +27,10 @@ export function connectOf(path) {
   return m ? m[1] : null;
 }
 
-export default function WebApp({ story }) {
+export default function WebApp({ story, build }) {
   const path = usePathname();
-  const demo = useSearchParams().get("demo");
+  const params = useSearchParams();
+  const demo = params.get("demo");
   const auth = useMemo(() => (typeof window === "undefined" ? null : createAuth(browserDeps())), []);
   const [snap, setSnap] = useState({ ready: false, signedIn: false, user: null });
   const [invite, setInvite] = useState(null);
@@ -57,12 +59,13 @@ export default function WebApp({ story }) {
   }, [auth, snap.signedIn, invite]);
 
   // ?demo=<sample>: a recorded thread on a fake relay, no sign in, nothing leaves the tab (YUI-242).
-  if (demo) return <ThreadApp demo={demo.slice(0, 40)} connect={connectOf(path)} {...threadOf(path)} />;
+  if (demo) return <ThreadApp demo={demo.slice(0, 40)} build={build} connect={connectOf(path)} {...threadOf(path)} />;
   // Signed in: the agents and the open thread. Sign in, the invite and the demo code stay on this page (YUI-241).
-  if (snap.ready && snap.signedIn) return <ThreadApp auth={auth} user={snap.user} connect={connectOf(path)} {...threadOf(path)} />;
+  if (snap.ready && snap.signedIn) return <ThreadApp auth={auth} user={snap.user} build={build} connect={connectOf(path)} {...threadOf(path)} />;
 
   return (
     <div className="web">
+      <Appearance forced={params.get("theme")} />
       <ThemeButton />
       {!snap.ready ? <div className="web-boot" role="status" aria-label="Loading"><span className="web-dot" /></div>
         : <SignIn auth={auth} invite={invite} setInvite={setInvite} notice={notice} setNotice={setNotice} />}
@@ -70,6 +73,9 @@ export default function WebApp({ story }) {
     </div>
   );
 }
+
+// The signed out pages follow the same Appearance pick (system by default) as the app does once you are in.
+function Appearance({ forced }) { useAppearance(forced); return null; }
 
 function ThemeButton() {
   const [dark, setDark] = useState(false);
