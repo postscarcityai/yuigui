@@ -1939,6 +1939,9 @@
     },
     {
       "text": "ChatsRelayTests: the push test waits for the chat list before reading the title (it raced and read Hi Basil) [YUI-259]"
+    },
+    {
+      "text": "memory.sh: peak limit 340 MB. A long chat now scrolls back through every older row (YUI-254), so the 500-row session draws all of it once: 310 MB for 13 s, steady 177, no new leaks, growth +6 [YUI-259]"
     }
   ]
 }

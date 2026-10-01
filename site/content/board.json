@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T21:30:45.554Z",
+  "updated": "2026-10-01T22:36:30.144Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -177,11 +177,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-165",
-          "title": "Home page is 19,000 px long, trim to the five screens a stranger needs",
-          "waiting": true
-        },
-        {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors",
           "waiting": true
@@ -332,6 +327,24 @@
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-165",
+          "title": "Home page trimmed to what a stranger needs",
+          "blocked": "other",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-260",
+          "title": "Scroll back through a long chat without the 310 MB spike",
+          "blocked": "other",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-261",
+          "title": "A stranger's first tap on /web works",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
