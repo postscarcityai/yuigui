@@ -4,6 +4,8 @@ import Link from "next/link";
 import links from "../../content/links.json";
 import { specDocs } from "../../lib/spec.mjs";
 import Cmd from "../components/Cmd";
+import LivePhone from "../mockups/LivePhone";
+import bench from "../../content/benchmark.json";
 import AgentBox from "../components/AgentBox";
 import { BADGE_HTML, BADGE_MD, embedSnippet } from "../../lib/share-code.mjs";
 import { pageMeta } from "../../lib/og/meta.mjs";
@@ -13,6 +15,13 @@ export const metadata = pageMeta({
   title: "Developers | Yui",
   description: "How Yui works under the hood: connect your agent, the Yui Lines screen language, the channel guide, the playground and the source.",
 });
+
+// How it works (SITE-15, moved here from the home page in SITE-165): the benchmark ratios come from the same
+// file the playground reads.
+const tokens = (k) => bench.rows.reduce((a, r) => a + r.counts[k].o200k, 0);
+const vsMin = (tokens("min") / tokens("yl")).toFixed(1);
+const vsTree = (tokens("tree") / tokens("yl")).toFixed(1);
+const HOW = "timer 40/20x8 Tabata";
 
 const cards = [
   ["/start", "Connect your agent", "Install the Hermes plugin and pair it with the app. About five minutes."],
@@ -57,6 +66,28 @@ export default function Developers() {
         Works today on iPhone, with Hermes, OpenClaw, any MCP client, any A2A agent or any agent behind a webhook. Your agent sends short lines of text, and the app turns each line into a
         native screen: a timer, a form, a choice. The agent never sends code, and it keeps running on your own machine.
       </p>
+
+      <section className="how" id="how" aria-labelledby="how-title">
+        <div className="how-text">
+          <div className="eyebrow">How it works | Yui Lines</div>
+          <h2 id="how-title">One line of text. One whole screen.</h2>
+          <p>Agents answer Yui in <strong>Yui Lines</strong>, a tiny screen language. This one line is the whole timer you see here, and it is live:</p>
+          <pre className="how-line"><code>{HOW}</code></pre>
+          <p>No code, no JSON, no layout. The app knows the presets and draws each one natively the moment its line arrives.</p>
+          <div className="how-stats">
+            <div><b>{vsMin}x</b><span>fewer tokens than minified JSON</span></div>
+            <div><b>{vsTree}x</b><span>fewer than a component tree</span></div>
+          </div>
+          <p className="how-note">Measured on ten real screens. <Link href="/developers/benchmark">See the benchmark</Link>.</p>
+          <div className="cta">
+            <Link className="btn" href="/yl">Read the Yui Lines spec</Link>
+            <Link className="btn soft" href="/playground">Try it in the playground</Link>
+          </div>
+        </div>
+        <div className="how-phone">
+          <LivePhone yl={HOW} label="A Tabata interval timer, drawn live from one line of Yui Lines" />
+        </div>
+      </section>
 
       <h2>Start here</h2>
       <div className="grid">

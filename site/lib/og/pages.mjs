@@ -20,6 +20,11 @@ timer 40/20x8 Tabata`,
 card "An agent-ready card" tag=OPEN body="Sized for one pull request" cta="Claim it"
 list "Draft PR titled with the key" "Push the work" "A person reviews it" +num`,
   },
+  "/films": {
+    eyebrow: "FILMS | THE REAL APP",
+    yl: `say A minute each, sound on.
+choose "Which film first?" "Meet Yui"|"Plan to launch"|"Tune up" title="Yui, on film"`,
+  },
   "/earn": {
     eyebrow: "BUILD TO EARN | DRAFT",
     yl: `choose "How should work earn a stake?" "Points now"|"Options for work"|"Profits interest"|"A round, later" title="Build to earn" body="A draft. Counsel picks."`,
