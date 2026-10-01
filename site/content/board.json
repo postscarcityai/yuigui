@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T18:13:46.577Z",
+  "updated": "2026-10-01T18:21:16.328Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -344,12 +344,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "INT-8",
-          "title": "Add live screenshots to listing draft, post 🔴 sign-off ask",
-          "progress": "/progress#yui-screens-in-chatgpt-too",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "SITE-160",
           "title": "Every link and image on yuigui.com resolves after Oct 1's pages",
           "owner": "CJohnDesign"
@@ -368,10 +362,17 @@
       "cards": [
         {
           "key": "INT-8",
+          "title": "Add live screenshots to listing draft, post 🔴 sign-off ask",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-in-chatgpt-checked-on-the-real-thing",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/953f8eda"
+        },
+        {
+          "key": "INT-8",
           "title": "Live-verify Yui MCP connector in chatgpt.com, update specs",
           "shipped": "2026-10-01",
-          "progress": "/progress#yui-screens-in-chatgpt-too",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/67557f4f"
+          "progress": "/progress#yui-in-chatgpt-checked-on-the-real-thing",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/953f8eda"
         },
         {
           "key": "YUI-210",
@@ -406,9 +407,10 @@
         {
           "key": "INT-8",
           "title": "Draft ChatGPT app directory listing package (do not submit)",
+          "summary": "Yui in ChatGPT, checked on the real thing",
           "shipped": "2026-10-01",
-          "progress": "/progress#yui-screens-in-chatgpt-too",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/67557f4f"
+          "progress": "/progress#yui-in-chatgpt-checked-on-the-real-thing",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/953f8eda"
         },
         {
           "key": "YUI-138",
