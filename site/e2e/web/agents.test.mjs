@@ -257,7 +257,6 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   await pg.getByTestId("tab-agent").click();
   await pg.getByTestId("drawer-controls-soul").click();
   await pg.getByRole("dialog", { name: "Controls" }).waitFor();
-  await pg.locator(".ctl-sheet [data-testid=controls-soul]").click();
   await pg.getByTestId("controls-talk-about").waitFor({ timeout: 8000 });
   await shot(pg, `web-agents-controls-soul-${tag}-${theme}`);
   await pg.getByTestId("controls-talk-about").click();
@@ -273,6 +272,43 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   ok(await pg.getByTestId("about-chip").count() === 1, `${T}: the chip stays for the whole talk`);
   await pg.getByTestId("about-chip-remove").click();
   ok(await pg.getByTestId("about-chip").count() === 0, `${T}: x takes it off`);
+  ok(pg.errs.length === 0, `${T}: no page errors ${pg.errs.join("|")}`);
+  await pg.close();
+}
+
+// ---------- quick actions: the shortcuts of every agent, one palette ----------
+for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of ["light", "dark"]) {
+  const T = `${theme} ${tag}`;
+  const pg = await open(vp, theme);
+  if (vp.width < 760) { await drawer(pg, vp); await pg.getByTestId("quick-actions-btn").click(); }
+  else await pg.keyboard.press("Control+k");
+  await pg.getByTestId("palette").waitFor();
+  ok(await pg.getByTestId("palette-input").evaluate((e) => e === document.activeElement), `${T}: the field is up as it opens`);
+  await pg.waitForTimeout(400);
+  ok(await pg.getByTestId("pal-a:demo-basil").isVisible(), `${T}: every agent is one row away`);
+  await shot(pg, `web-agents-palette-${tag}-${theme}`);
+  await pg.getByTestId("palette-input").fill("grocer");
+  const first = await pg.locator("[data-testid^=pal-] b").first().innerText();
+  ok(first === "Grocery list" && (await pg.locator("[data-testid^=pal-] small").first().innerText()) === "Basil", `${T}: another agent's shortcut is found by its words (${first})`);
+  await shot(pg, `web-agents-palette-found-${tag}-${theme}`);
+  await pg.keyboard.press("Enter");
+  await pg.waitForTimeout(1200);
+  ok(pg.url().includes("/web/agent/demo-basil"), `${T}: Enter opens that agent`);
+  ok((await wire(pg, "demo-basil")).at(-1) === "Show my grocery list", `${T}: and sends its words as your message`);
+  // used first next time
+  if (vp.width < 760) { await drawer(pg, vp); await pg.getByTestId("quick-actions-btn").click(); } else await pg.keyboard.press("Control+k");
+  await pg.getByTestId("palette").waitFor();
+  await pg.waitForTimeout(300);
+  const lead = await pg.locator("[data-testid^=pal-] b").first().innerText();
+  ok(lead === "Grocery list", `${T}: what you used leads the empty palette (${lead})`);
+  await pg.keyboard.press("Escape");
+  ok(await pg.getByTestId("palette").count() === 0, `${T}: Escape closes it`);
+  // an action: New chat, and the agent's own area
+  if (vp.width < 760) { await drawer(pg, vp); await pg.getByTestId("quick-actions-btn").click(); } else await pg.keyboard.press("Control+k");
+  await pg.getByTestId("palette-input").fill("new chat");
+  await pg.keyboard.press("Enter");
+  await pg.waitForTimeout(500);
+  ok(/\/chat\/[0-9a-f-]{36}/.test(pg.url()), `${T}: New chat from the palette`);
   ok(pg.errs.length === 0, `${T}: no page errors ${pg.errs.join("|")}`);
   await pg.close();
 }

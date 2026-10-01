@@ -161,7 +161,7 @@ function AgentTab({ agent, api, close, handlers }) {
   );
 }
 
-export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSwitch, onAdd, canAdd, children, review = 0 }) {
+export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSwitch, onAdd, onQuick, canAdd, children, review = 0 }) {
   const [tab, setTab] = useState("Home");
   useEffect(() => { setTab("Home"); }, [agent?.id]);
   const waitingN = (api?.home?.waiting || []).length;
@@ -169,6 +169,11 @@ export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSw
     <div className="dr" data-testid="drawer">
       <header className="dr-head">
         <h2 className="dr-name">{agent?.name || "Yui"}</h2>
+        {onQuick ? (
+          <button type="button" className="wb-iconbtn dr-quick" onClick={onQuick} aria-label="Quick actions" title="Quick actions (Ctrl K)" data-testid="quick-actions-btn">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" strokeWidth="2.2" /><path d="M16 16l4.5 4.5" fill="none" strokeWidth="2.2" strokeLinecap="round" /></svg>
+          </button>
+        ) : null}
         <button className="wb-iconbtn wb-close" onClick={onClose} aria-label="Close the drawer">Close</button>
       </header>
       <Tabs tab={tab} setTab={setTab} review={waitingN + review} />

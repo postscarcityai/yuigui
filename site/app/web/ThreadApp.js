@@ -19,6 +19,8 @@ import AddAgent from "./AddAgent";
 import EditAgent from "./EditAgent";
 import ControlsPanel from "./ControlsPanel";
 import ConnectApproval from "./ConnectApproval";
+import Palette from "./Palette";
+import { loadUsed, markUsed, menuFromRows } from "../../lib/web/quick.mjs";
 import { Face } from "./parts";
 import "./thread.css";
 import "./composer.css";
@@ -46,6 +48,11 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const [switcher, setSwitcher] = useState(false);
   const [sheet, setSheet] = useState(null); // "add" | { edit: <agent id> }
   const [api, setApi] = useState(null);
+  const [palette, setPalette] = useState(false);
+  const [menus, setMenus] = useState({});
+  const [menusLoading, setMenusLoading] = useState(false);
+  const [used, setUsed] = useState({});
+  const [pendingTap, setPendingTap] = useState(null);
   const [light, setLight] = useState(false);
   // The app opens on the stage (Stage first); the chat is the record, one tap away. ?view=chat opens the record.
   const [view, setView] = useState(search.get("view") === "chat" ? "chat" : "stage");
@@ -265,6 +272,37 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     api?.about({ ...item, areaTitle: area?.title || item.section, icon: area?.icon });
   };
 
+  // ---------------------------------------------------------------- quick actions (QuickActions.swift)
+  const menusAt = useRef(0);
+  const openPalette = useCallback(() => { setUsed(loadUsed()); setPalette(true); }, []);
+  useEffect(() => {
+    const k = (e) => { if ((e.metaKey || e.ctrlKey) && !e.altKey && e.key.toLowerCase() === "k") { e.preventDefault(); setPalette((v) => { if (!v) setUsed(loadUsed()); return !v; }); } };
+    window.addEventListener("keydown", k);
+    return () => window.removeEventListener("keydown", k);
+  }, []);
+  // Every agent's drawer, read when the palette opens (a minute's cache): the shortcuts are in their rows.
+  useEffect(() => {
+    if (!palette || !relay?.menuRows || !agentsRef.current) return;
+    if (Date.now() - menusAt.current < 60000) return;
+    let live = true;
+    setMenusLoading(true);
+    Promise.allSettled(agentsRef.current.map((a) => relay.menuRows(a.id).then((rows) => [a.id, menuFromRows(rows)]))).then((out) => {
+      if (!live) return;
+      menusAt.current = Date.now();
+      setMenus(Object.fromEntries(out.filter((o) => o.status === "fulfilled").map((o) => o.value)));
+      setMenusLoading(false);
+    });
+    return () => { live = false; setMenusLoading(false); };
+  }, [palette, relay]);
+  // The open agent's own drawer is live in the thread: it wins over what the read found.
+  const paletteMenus = useMemo(() => (open && api?.agentId === open.id && api.home ? { ...menus, [open.id]: { review: api.home.waiting, backlog: api.home.backlog, shortcut: api.home.shortcuts } } : menus), [menus, open, api]);
+  // A shortcut tapped for an agent whose thread is not open yet waits for that thread.
+  useEffect(() => {
+    if (!pendingTap || !api || api.agentId !== pendingTap.agentId || !api.loaded) return;
+    api.run(pendingTap.item, "shortcut");
+    setPendingTap(null);
+  }, [pendingTap, api]);
+
   if (!mounted) return <div className="web-root"><div className="wb-wait center">Opening Yui...</div></div>;
   if (!relay) return <div className="web-root"><div className="wb-wait center">Opening Yui...</div></div>;
 
@@ -284,7 +322,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     <div className={`web-root${light ? " is-light" : ""}`}>
       <aside className={`wb-side${drawer ? " open" : ""}`} aria-label="Drawer">
         {open ? (
-          <DrawerPanel agent={open} api={api} chats={drawerChats} onClose={() => setDrawer(false)} onSwitch={() => setSwitcher(true)} onAdd={() => { setDrawer(false); setSheet("add"); }}
+          <DrawerPanel agent={open} api={api} chats={drawerChats} onClose={() => setDrawer(false)} onSwitch={() => setSwitcher(true)} onAdd={() => { setDrawer(false); setSheet("add"); }} onQuick={openPalette}
             canAdd={!!sorted && !(sorted.length && sorted.every((a) => a.shared))} review={0}
             handlers={{ onNewChat, onOpenChat, onRename, onDeleteChat, onMoreChats, onEdit: (a) => { setDrawer(false); setSheet({ edit: a.id }); }, onControls: (section) => { setDrawer(false); setSheet({ controls: section }); } }}>
             {foot}
@@ -329,6 +367,24 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       {editing && manage ? <EditAgent manage={manage} agent={editing} agents={sorted} refresh={load} onClose={() => setSheet(null)} onRemoved={onRemoved} {...fast} /> : null}
       {sheet && sheet.controls !== undefined && open && relay ? <ControlsPanel relay={relay} agent={open} userId={userId} light={light} section={sheet.controls || null} onClose={() => setSheet(null)} onTalkAbout={talk} /> : null}
       {connect && relay ? <ConnectApproval key={connect} relay={relay} id={connect} agents={sorted || []} refresh={load} onOpenAgent={(id) => go(`/web/agent/${id}${keep}`)} onClose={() => go(`/web${keep}`)} /> : null}
+      {palette && sorted ? (
+        <Palette agents={sorted} menus={paletteMenus} loading={menusLoading} open={open} used={used} light={light}
+          can={{ add: !(sorted.length && sorted.every((a) => a.shared)), edit: !!open && !open.shared }} controls={open && !open.shared ? controlSections(open) : []}
+          onClose={() => setPalette(false)}
+          onRun={(r) => {
+            setPalette(false); setDrawer(false);
+            if (r.kind === "shortcut") {
+              setUsed(markUsed(`${r.agentId}/${r.item.id}`));
+              if (open && r.agentId === open.id && api?.agentId === open.id) api.run(r.item, "shortcut");
+              else { setPendingTap({ agentId: r.agentId, item: r.item }); const a = sorted.find((x) => x.id === r.agentId); if (a) go(hrefOf(a)); }
+            } else if (r.kind === "agent") { const a = sorted.find((x) => x.id === r.agentId); if (a) pick(a); }
+            else if (r.action === "new-chat") onNewChat();
+            else if (r.action === "add") setSheet("add");
+            else if (r.action === "edit" && open) setSheet({ edit: open.id });
+            else if (r.action === "controls") setSheet({ controls: r.section });
+            else if (r.action === "look") flip();
+          }} />
+      ) : null}
       {notice ? <div className="wc-toast" role="status" data-testid="agent-notice">{notice}</div> : null}
     </div>
   );

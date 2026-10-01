@@ -188,6 +188,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
       roster: () => roster.map((a) => ({ ...a })),
       pairingFor: (agentId) => pairings.get(agentId) || null,
     },
+    async menuRows(agentId) { return rows(agentId).filter((r) => r.sender === "agent" && r.kind !== "control" && /menu /.test(r.body || "")).map((r) => ({ id: r.id, sender: r.sender, kind: r.kind, body: r.body, created_at: r.created_at })); },
     async controlAnswer({ agentId, req }) {
       const hit = rows(agentId).find((r) => r.kind === "control" && r.sender === "agent" && r.meta?.req === req);
       return hit ? { ...hit.meta } : null;

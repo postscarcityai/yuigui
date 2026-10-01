@@ -86,7 +86,7 @@ export default function ConnectApproval({ relay, id, agents = [], refresh, onOpe
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#2FB58C" /><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
             <h2 data-testid="connect-result">Connected</h2>
             <p>{client} talks as {result.name} now. Go back to {client} to finish. Remove it any time in your agents.</p>
-            <button type="button" className="ag-btn" data-testid="connect-open" onClick={() => { onOpenAgent(result.id); onClose(); }}>Open {result.name}'s thread</button>
+            <button type="button" className="ag-btn" data-testid="connect-open" onClick={() => onOpenAgent(result.id)}>Open {result.name}'s thread</button>
           </div>
         ) : null}
         {phase === "denied" ? <><h2 data-testid="connect-result">Not connected</h2><p className="ag-hint">{client} won't get in. Go back to it if you change your mind.</p></> : null}

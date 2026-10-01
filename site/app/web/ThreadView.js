@@ -305,7 +305,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
     else if (a.tap) sync.tap(a.tap, a.said);
   }, [home, sync, store, view, toStage]);
   useEffect(() => {
-    onApi?.({ home, run, version: thread.version, loaded: thread.loaded, about: (item) => { store.setAbout(item); setView("chat"); }, send: (words) => sync.send(words), compose: (words) => (view === "stage" ? toStage({ compose: words }) : store.setDraft(words)) });
+    onApi?.({ agentId: agent.id, home, run, version: thread.version, loaded: thread.loaded, about: (item) => { store.setAbout(item); setView("chat"); }, send: (words) => sync.send(words), compose: (words) => (view === "stage" ? toStage({ compose: words }) : store.setDraft(words)) });
   }, [home, run, thread.loaded]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => () => onApi?.(null), []); // eslint-disable-line react-hooks/exhaustive-deps
 

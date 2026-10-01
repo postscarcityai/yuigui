@@ -34,7 +34,7 @@ function Row({ chat, agent, open, renaming, onOpen, onStartRename, onRename, onC
     <li className={`dc-row${open ? " open" : ""}`} data-testid={`chat-${chat.id}`} onContextMenu={(e) => { e.preventDefault(); setMenu(true); }}>
       <button type="button" className="dc-main" aria-current={open ? "true" : undefined} onClick={() => onOpen(chat.id)}>
         <span className="dc-top"><b>{label}</b><small>{whenOf(chat)}</small></span>
-        <span className="dc-line">{chat.unread ? <i className="dc-unread" aria-label="Unread" /> : null}{line || "Nothing said yet"}</span>
+        <span className="dc-line">{chat.unread ? <i className="dc-unread" aria-label="Unread" /> : null}<span className="dc-text">{line || "Nothing said yet"}</span></span>
       </button>
       <button type="button" className="dc-more" aria-label={`More for ${label}`} aria-haspopup="menu" aria-expanded={menu} onClick={() => setMenu((v) => !v)}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.8" /><circle cx="12" cy="12" r="1.8" /><circle cx="19" cy="12" r="1.8" /></svg>

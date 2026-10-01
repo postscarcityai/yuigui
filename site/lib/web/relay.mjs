@@ -130,6 +130,14 @@ export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch
       return res.json();
     },
 
+    // An agent's recent rows that carry `menu` lines, oldest first: what its drawer holds, read without opening its
+    // thread (the command palette lists every agent's shortcuts).
+    async menuRows(agentId) {
+      const q = [["select", "id,sender,kind,body,created_at"], ["agent_id", `eq.${agentId}`], ["sender", "eq.agent"], ["body", "ilike.*menu *"], ["order", "created_at.desc"], ["limit", "40"]];
+      const rows = await (await request(`rest/v1/yui_messages?${queryString(q)}`)).json();
+      return rows.reverse();
+    },
+
     // The host's answer to a control request (ThreadClient.controlAnswer), by its `req`. Null until it lands.
     async controlAnswer({ agentId, req }) {
       const q = [["select", "meta"], ["agent_id", `eq.${agentId}`], ["kind", "eq.control"], ["sender", "eq.agent"], ["meta->>req", `eq.${req}`], ["limit", "1"]];
