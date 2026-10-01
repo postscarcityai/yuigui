@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T17:10:42.173Z",
+  "updated": "2026-10-01T17:23:36.937Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -33,13 +33,6 @@
           "title": "Optional encrypted sync for agent tables",
           "waiting": true,
           "progress": "/progress#sync-decided-not-in-v1"
-        },
-        {
-          "key": "YUI-40",
-          "title": "Widgets and Siri",
-          "summary": "Agents outside the app",
-          "waiting": true,
-          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay"
         },
         {
           "key": "YUI-41",
@@ -134,11 +127,6 @@
           "summary": "Rolling updates, daily backups, a kill switch per sandbox"
         },
         {
-          "key": "YUI-172",
-          "title": "Register Yui iOS app in Firebase, save GoogleService-Info.plist",
-          "waiting": true
-        },
-        {
           "key": "YUI-173",
           "title": "Yui for Android, first PR",
           "summary": "The app builds and draws a demo thread",
@@ -179,11 +167,6 @@
           "summary": "Timers and the stage on the big screen"
         },
         {
-          "key": "YUI-210",
-          "title": "Your $U in the left drawer",
-          "summary": "Your profile top left, your $U top right, counting up when you open it"
-        },
-        {
           "key": "YUI-255",
           "title": "A recording keeps you playing",
           "waiting": true
@@ -199,21 +182,10 @@
           "waiting": true
         },
         {
-          "key": "OSS-9",
-          "title": "Sign in with GitHub, so pull requests and issues earn $U"
-        },
-        {
           "key": "INT-5",
           "title": "Zero-install connect",
           "summary": "Hosted connector via hermes gateway enroll",
           "waiting": true
-        },
-        {
-          "key": "INT-8",
-          "title": "ChatGPT adapter through the Yui MCP server",
-          "summary": "Yui screens in ChatGPT too",
-          "waiting": true,
-          "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
           "key": "INT-20",
@@ -263,6 +235,12 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "INT-8",
+          "title": "Verify the Yui MCP connector live in chatgpt.com, prep directory listing for sign-off",
+          "summary": "Yui screens in ChatGPT too",
+          "progress": "/progress#yui-screens-in-chatgpt-too"
+        },
+        {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
           "summary": "The thread offline at /web"
@@ -305,6 +283,11 @@
           "key": "YUI-250",
           "title": "Yui on the web ships",
           "summary": "Parity sweep, e2e suite in CI, the launch demo and the release post draft"
+        },
+        {
+          "key": "INT-8",
+          "title": "Add live screenshots to listing draft, post 🔴 sign-off ask",
+          "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
           "key": "NOTE-2295",
@@ -355,9 +338,34 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "OSS-7",
-          "title": "The ledger on, and $U balances from formula v0",
-          "step": "Step 2",
+          "key": "YUI-40",
+          "title": "Widgets and Siri",
+          "summary": "Agents outside the app",
+          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-210",
+          "title": "Your $U in the left drawer",
+          "summary": "Your profile top left, your $U top right, counting up when you open it",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "INT-8",
+          "title": "Live-verify Yui MCP connector in chatgpt.com, update specs",
+          "progress": "/progress#yui-screens-in-chatgpt-too",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "INT-8",
+          "title": "Draft ChatGPT app directory listing package (do not submit)",
+          "progress": "/progress#yui-screens-in-chatgpt-too",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-172",
+          "title": "Get Yui iOS GoogleService-Info.plist from the existing Firebase project",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         },
         {
@@ -376,8 +384,15 @@
         {
           "key": "YUI-138",
           "title": "Start blank",
-          "summary": "A new empty agent runs a setup flow to make itself",
+          "summary": "Start blank: make an agent in five taps",
           "blocked": "other",
+          "progress": "/progress#start-blank-make-an-agent-in-five-taps",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "OSS-9",
+          "title": "Sign in with GitHub, so pull requests and issues earn $U",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
@@ -386,6 +401,15 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "OSS-7",
+          "title": "The ledger on, and $U balances from formula v0",
+          "step": "Step 2",
+          "summary": "The $U ledger is on, and the formula is public",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-u-ledger-is-on-and-the-formula-is-public",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/69afe5be"
+        },
         {
           "key": "YUI-257",
           "title": "The shader on the web stage",
