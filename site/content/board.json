@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T23:05:37.775Z",
+  "updated": "2026-10-01T23:10:33.531Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -172,6 +172,11 @@
           "waiting": true
         },
         {
+          "key": "YUI-262",
+          "title": "An Apple-only web account lands on the crew picker, not a silent empty account",
+          "waiting": true
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -334,6 +339,12 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "SITE-166",
+          "title": "SOC-7 gets its site entry",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/818788b0",
+          "needsDemo": true
         }
       ]
     },
@@ -354,16 +365,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-261",
-          "title": "A stranger's first tap on /web works",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-166",
-          "title": "SOC-7 gets its site entry",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -375,6 +376,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-261",
+          "title": "A stranger's first tap on /web works",
+          "summary": "A stranger's first tap on the web demo works",
+          "shipped": "2026-10-01",
+          "progress": "/progress#a-stranger-s-first-tap-on-the-web-demo-works",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/85cf6f03"
+        },
         {
           "key": "SITE-165",
           "title": "Home page trimmed to what a stranger needs",
