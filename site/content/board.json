@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T14:10:24.878Z",
+  "updated": "2026-10-01T14:40:27.756Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -312,6 +312,12 @@
           "waiting": true
         },
         {
+          "key": "YUI-243",
+          "title": "The stage on the web",
+          "summary": "Yui on the web: the stage",
+          "progress": "/progress#yui-on-the-web-the-stage"
+        },
+        {
           "key": "YUI-245",
           "title": "Agents on the web",
           "summary": "The drawer, add, rename, remove, connect a new agent, groups, controls"
@@ -368,7 +374,8 @@
         {
           "key": "NOTE-54934",
           "title": "Past chats in the drawer",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#past-chats-show-in-the-drawer"
         },
         {
           "key": "NOTE-61013",
@@ -389,14 +396,10 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-254",
-          "title": "Past chats show in the drawer on a real account",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-244",
-          "title": "The composer on the web",
-          "summary": "Photos and files, voice, mentions, replies, reactions, suggestions, an outbox that survives a closed tab",
+          "key": "SITE-153",
+          "title": "The site chat keeps your past chats",
+          "summary": "The chat bubble keeps your past chats",
+          "progress": "/progress#the-chat-bubble-keeps-your-past-chats",
           "owner": "CJohnDesign"
         },
         {
@@ -412,6 +415,13 @@
           "blocked": "chris",
           "progress": "/progress#sign-in-with-apple-on-the-web",
           "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-244",
+          "title": "The composer on the web",
+          "summary": "Photos and files, voice, mentions, replies, reactions, suggestions, an outbox that survives a closed tab",
+          "blocked": "other",
+          "owner": "CJohnDesign"
         }
       ]
     },
@@ -420,20 +430,20 @@
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "YUI-254",
+          "title": "Past chats show in the drawer on a real account",
+          "summary": "Past chats show in the drawer",
+          "shipped": "2026-10-01",
+          "progress": "/progress#past-chats-show-in-the-drawer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/72e93592"
+        },
+        {
           "key": "SITE-152",
           "title": "A Thought on the site, Yui comes to the web",
           "summary": "Yui comes to the web: the story",
           "shipped": "2026-10-01",
           "progress": "/progress#yui-comes-to-the-web-the-story",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1d91d319"
-        },
-        {
-          "key": "YUI-243",
-          "title": "The stage on the web",
-          "summary": "Yui on the web: the stage",
-          "shipped": "2026-10-01",
-          "progress": "/progress#yui-on-the-web-the-stage",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/19b71ecf"
         },
         {
           "key": "YUI-251",
