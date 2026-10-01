@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 410,
-    "site": 964,
+    "app": 411,
+    "site": 966,
     "builds": 51,
-    "shipped": 484,
-    "screenshots": 1231
+    "shipped": 485,
+    "screenshots": 1235
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T00:39:30.458Z",
+          "at": "2026-10-01T00:43:55.278Z",
+          "title": "Penny sets up your planning routine",
+          "card": "YUI-223",
+          "anchor": "penny-sets-up-your-planning-routine",
+          "images": [
+            {
+              "src": "/progress/yui223-first-question-dark.webp",
+              "alt": "Penny's first routine in dark mode: Which days are packed with a row of day buttons, then Not sure and Skip."
+            },
+            {
+              "src": "/progress/yui223-first-question-light.webp",
+              "alt": "Penny's first routine in light mode: the day picker and When do you plan, with Sunday night, Monday morning, Each morning and Each night."
+            },
+            {
+              "src": "/progress/yui223-routine-dark.webp",
+              "alt": "Penny's reply in dark mode: your routine is set, planning Sunday at 7 pm, Wed and Fri stay light, with a Start this week card and an Add a to-do button."
+            },
+            {
+              "src": "/progress/yui223-week-light.webp",
+              "alt": "This week in light mode with Pick your one must-do for today and Plan your week on Sunday at 7 pm."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 411,
+            "site": 966,
+            "builds": 51,
+            "shipped": 485
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T00:40:25.000Z",
           "title": "The site builds your practice week",
           "card": "SITE-145",
           "anchor": "the-site-builds-your-practice-week",
@@ -35,10 +67,10 @@
               "alt": "The timer for today's session in light mode, 20:00 with Reset and Start."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 410,
-            "site": 964,
+            "site": 965,
             "builds": 51,
             "shipped": 484
           }
@@ -1851,6 +1883,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "0e668d9",
+          "at": "2026-10-01T00:42:58.000Z",
+          "text": "Penny's first routine: three questions on the first open set a planning slot on the day picked, busy days kept light, reminders in the...",
+          "url": "https://github.com/postscarcityai/yui/commit/0e668d9"
+        },
+        {
+          "repo": "site",
+          "sha": "1c409a36",
+          "at": "2026-10-01T00:40:45.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1c409a36"
+        },
+        {
+          "repo": "site",
+          "sha": "e0869bf0",
+          "at": "2026-10-01T00:40:25.000Z",
+          "text": "Crew: Gouda builds a real practice week with today's timer (SITE-145)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e0869bf0"
+        },
         {
           "repo": "site",
           "sha": "e7f8b53a",
