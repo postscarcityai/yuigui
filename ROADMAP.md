@@ -206,7 +206,7 @@ Chris, Sep 26: use counts too. People pay AI companies and hand over their data;
 
 - SITE-27 (shipped Sep 24): Build to earn, a V1 page on the site, marked draft.
 - SITE-29 (shipped Sep 25): the proposal. Our position, the forms it could take (points plus equity, stock options or units for contributions, a community round kept separate), and open questions for counsel.
-- BIZ-8 (backlog): tokenomics v1: supply, emissions, how value holds.
+- BIZ-8 (shipped Oct 1): tokenomics v1: supply, emissions, how value holds.
 - BIZ-9 (backlog): the chain. Chris picked Sui on Sep 24; Polygon is the fallback.
 - BIZ-10 (backlog): legal review, token and equity.
 - BIZ-11 (backlog): contributor NFTs with real perks (First Contributor, Hat Trick).
