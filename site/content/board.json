@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T22:55:31.099Z",
+  "updated": "2026-10-01T23:05:37.775Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -255,6 +255,16 @@
           "waiting": true
         },
         {
+          "key": "NOTE-35030",
+          "title": "Status replies, a new look",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-50900",
+          "title": "The working screen, more alive",
+          "waiting": true
+        },
+        {
           "key": "YUI-172",
           "title": "Get Yui iOS GoogleService-Info.plist from the existing Firebase project",
           "waiting": true
@@ -324,12 +334,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "SOC-7",
-          "title": "Social drafts slot from today, never months out",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/c307d06f",
-          "needsDemo": true
         }
       ]
     },
@@ -355,6 +359,11 @@
           "owner": "CJohnDesign"
         },
         {
+          "key": "SITE-166",
+          "title": "SOC-7 gets its site entry",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -372,6 +381,13 @@
           "summary": "The home page is under ten screens",
           "shipped": "2026-10-01",
           "progress": "/progress#the-home-page-is-under-ten-screens"
+        },
+        {
+          "key": "SOC-7",
+          "title": "Social drafts slot from today, never months out",
+          "shipped": "2026-10-01",
+          "progress": "/progress#social-drafts-now-start-today-and-stay-within-two-weeks",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c307d06f"
         },
         {
           "key": "SITE-164",
