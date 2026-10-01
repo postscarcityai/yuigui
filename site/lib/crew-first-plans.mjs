@@ -186,6 +186,38 @@ export function goudaWeek(a = {}) {
   return { instrument, level: TIER_NAME[tier], tier, minutes, days };
 }
 
+
+// Penny's routine (the web twin of the app's buildRoutine and applyFirst, YUI-223 / SITE-146). The planning slot lands on
+// the day and time picked, a busy day never holds more than one item, reminders go the style picked. Not sure and Skip:
+// Sunday evening planning, no busy days, one nudge in the morning. `today` is 0 for Monday.
+const PENNY_BUSY = { Weekdays: ["Mon", "Tue", "Wed", "Thu", "Fri"], Weekends: ["Sat", "Sun"], "Mid-week": ["Tue", "Wed", "Thu"], None: [] };
+const PENNY_WHEN = { "Sunday night": ["weekly", "Sun", "7:00 pm"], "Monday morning": ["weekly", "Mon", "8:00 am"], "Each morning": ["daily", "", "8:00 am"], "Each night": ["daily", "", "8:00 pm"] };
+export const MUST_DO = "Pick your one must-do for today";
+
+export function pennyWeek(a = {}, today = todayIndex()) {
+  const n = norm("penny", a);
+  const busyDays = PENNY_BUSY[n.busy] ?? [];
+  const when = PENNY_WHEN[n.plan] ? n.plan : "Sunday night";
+  const [kind, slotDay, time] = PENNY_WHEN[when];
+  const remind = n.remind ?? "A morning nudge";
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const day = WEEK[(today + i) % 7];
+    const slot = kind === "daily" ? { label: `Plan your day, ${time}`, task: "Plan your day" } : day === slotDay ? { label: `Plan your week, ${time}`, task: "Plan your week" } : null;
+    return { day: i === 0 ? "Today" : day, short: day, busy: busyDays.includes(day), items: slot ? [slot] : [] };
+  });
+  // The first must-do prompt lands on today when the slot does not.
+  if (!days[0].items.length) days[0].items.push({ label: MUST_DO, task: MUST_DO });
+  return { when, kind, time, remind, busy: days.filter((d) => d.busy).map((d) => d.short).sort((x, y) => WEEK.indexOf(x) - WEEK.indexOf(y)), days, today: days[0].items.map((i) => i.task) };
+}
+
+export function pennyLine(w) {
+  const slot = w.days.find((d) => d.items.some((i) => /^Plan your/.test(i.task)));
+  const plan = w.kind === "daily" ? `Planning is every ${w.when === "Each night" ? "night" : "morning"} at ${w.time}` : `Planning is ${LONG[slot.short]} at ${w.time}`;
+  const busy = w.busy.length ? ` ${w.busy.join(", ")} stay${w.busy.length === 1 ? "s" : ""} light.` : "";
+  const how = { "At the time": " Reminders go at the time.", "10 minutes before": " Reminders go 10 minutes before.", "The night before": " Reminders go the night before.", None: " No reminders." }[w.remind] ?? " Reminders go as a nudge that morning.";
+  return `Your routine is set. ${plan}.${busy}${how}`;
+}
+
 // What the example says it built. Each returns { say, head, cols, rows, title, body }.
 const BUILD = {
   basil(a) {
@@ -207,13 +239,13 @@ const BUILD = {
       title: `Today: ${LONG[t.day]}, ${t.focus}`, body: sessionBody(t), timer: `timer ${t.minutes}m Today`,
     };
   },
-  penny(a) {
-    const busy = a.busy || "Weekdays", plan = a.plan || "Sunday night", rem = a.remind || "10 minutes before";
-    const light = busy === "None" ? "Nothing is packed. Every day is open." : `${busy} are packed, so they get three things at most.`;
+  penny(a, today) {
+    const w = pennyWeek(a, today);
     return {
-      say: `Your routine is set. ${light} It is an example. Change any of it.`,
-      head: "Part|Yours", rows: [row("Packed", busy === "None" ? "None" : busy), row("Plan", plan), row("Reminders", rem === "None" ? "Off" : rem), row("Evening", "A two minute review of what is left")],
-      table: "Routine", title: "Example: Penny's routine", body: `${plan}, you lay out the week. ${rem === "None" ? "No reminders." : `Reminders: ${rem.toLowerCase()}.`}`,
+      say: pennyLine(w),
+      head: "Day|Plan", rows: w.days.map((d) => row(d.day, d.busy ? `${[...d.items.map((i) => i.label), "light day"].join(", ").replace(/^l/, "L")}` : d.items.map((i) => i.label).join(", ") || "Open")), table: "Week",
+      title: "Start this week", body: "Add your first must-do. It lands on Today and your week.", cta: "Add a to-do",
+      list: w.today.length ? `list Today ${w.today.map((t) => q(t)).join(" ")} +check` : "",
     };
   },
   quill(a) {
@@ -236,12 +268,14 @@ export function resultLines(handle, answers, today) {
   const b = BUILD[handle](norm(handle, answers), today);
   const t = `say ${b.say}\ntable ${b.table} ${b.head} ${b.rows.join(" ")}`;
   // Basil's week ends on the week itself; Gouda's card starts today's timer (startLines).
-  return b.body ? `${t}\ncard ${q(b.title)} body=${q(b.body)}${b.timer ? ' cta="Start today"' : ""}` : t;
+  const cta = b.timer ? ' cta="Start today"' : b.cta ? ` cta=${q(b.cta)}` : "";
+  return b.body ? `${t}${b.list ? `\n${b.list}` : ""}\ncard ${q(b.title)} body=${q(b.body)}${cta}` : t;
 }
 
 // Gouda: Start today opens the timer for today's session, full screen, the way the app's Practice page does.
-export const hasTimer = (handle) => handle === "gouda";
+export const hasTimer = (handle) => handle === "gouda" || handle === "penny";
 export function startLines(handle, answers, today) {
+  if (handle === "penny") return `say Say it, or pick one. It lands on Today and your week.\nchoose "Your one must-do" "Call someone back"|"Send the invoice"|"Go for a run" +other`;
   const b = BUILD[handle](norm(handle, answers), today);
   return `say ${b.title}. Tap Start when you're ready.\n${b.timer}`;
 }

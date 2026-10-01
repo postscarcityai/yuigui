@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { HANDLES, NAMES, NOT_SURE, ask, askLines, norm, resultLines, skipped, wholeLines } from "./crew-first-plans.mjs";
+import { HANDLES, NAMES, NOT_SURE, ask, askLines, norm, pennyWeek, resultLines, skipped, wholeLines } from "./crew-first-plans.mjs";
 import { parse } from "./yl/yl.mjs";
 
 const ok = (text) => assert.ok(parse(text).every((o) => o.op !== "error"), text);
@@ -31,7 +31,7 @@ test("each answer changes the example", () => {
 });
 
 test("the example is labelled as one", () => {
-  for (const h of HANDLES) assert.match(resultLines(h, {}), /Example/);
+  for (const h of HANDLES.filter((x) => x !== "penny")) assert.match(resultLines(h, {}), /Example/); // Penny builds the real routine (SITE-146)
 });
 
 // SITE-141: Arnold's timed session, the web twin of YUI-220.
@@ -222,4 +222,40 @@ test("Gouda: the instrument and the level reach the plan; today follows the day"
   assert.match(resultLines("gouda", {}, 6), /Today: Sunday, Play for fun/);
   assert.equal(todayIndex(new Date(2026, 8, 28)), 0); // a Monday
   assert.equal(todayIndex(new Date(2026, 8, 27)), 6); // a Sunday
+});
+
+test("Penny: a busy day never holds more than one item, on any start day", () => {
+  for (const plan of ["Sunday night", "Monday morning", "Each morning", "Each night"]) {
+    for (let today = 0; today < 7; today++) {
+      const w = pennyWeek({ busy: "Weekdays", plan, remind: "At the time" }, today);
+      assert.equal(w.days.length, 7);
+      for (const d of w.days) if (d.busy) assert.ok(d.items.length <= 1, `${plan} ${d.day}`);
+    }
+  }
+});
+
+test("Penny: the planning slot lands on the picked day and time", () => {
+  const sun = pennyWeek({ plan: "Sunday night" }, 2);
+  assert.deepEqual(sun.days.filter((d) => d.items.some((i) => i.task === "Plan your week")).map((d) => d.short), ["Sun"]);
+  assert.equal(sun.time, "7:00 pm");
+  const mon = pennyWeek({ plan: "Monday morning" }, 2);
+  assert.deepEqual(mon.days.filter((d) => d.items.some((i) => i.task === "Plan your week")).map((d) => d.short), ["Mon"]);
+  assert.equal(mon.time, "8:00 am");
+  assert.match(resultLines("penny", { plan: "Sunday night", busy: "Mid-week" }, 2), /Planning is Sunday at 7:00 pm\. Tue, Wed, Thu stay light/);
+});
+
+test("Penny: reminders match the pick", () => {
+  assert.match(resultLines("penny", { remind: "The night before" }, 0), /Reminders go the night before/);
+  assert.match(resultLines("penny", { remind: "None" }, 0), /No reminders/);
+});
+
+test("Penny: Skip on everything still builds a routine", () => {
+  const out = resultLines("penny", skipped("penny"), 2);
+  ok(out);
+  assert.match(out, /Planning is Sunday at 7:00 pm\. Reminders go as a nudge that morning/);
+  assert.doesNotMatch(out, /light/);
+  assert.doesNotMatch(out, /example/i);
+  assert.match(out, /Pick your one must-do for today/);
+  assert.match(out, /cta="Add a to-do"/);
+  ok(startLines("penny", skipped("penny"), 2));
 });

@@ -44,7 +44,7 @@ export default function CrewFirstPlan({ handle, name, children }) {
               <Live yl={lines} agent={name} light={!dark} onTap={tap} />
             </div>
           </div>
-          <p className="crew-try">{step < LAST ? `Question ${step + 1} of ${LAST}. Tap an answer, Not sure or Skip` : "That is an example. Start over and change an answer"}</p>
+          <p className="crew-try">{step < LAST ? `Question ${step + 1} of ${LAST}. Tap an answer, Not sure or Skip` : "Start over and change an answer"}</p>
           <p className="crew-links">
             <button type="button" className="fp-again" onClick={start}>Start over</button>
             <button type="button" className="fp-again" onClick={() => setOn(false)}>Back to {name}'s demo</button>
