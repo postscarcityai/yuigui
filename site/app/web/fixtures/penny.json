@@ -30,6 +30,12 @@
      "name": "help",
      "description": "What I can do"
     }
+   ],
+   "about": "Yui is the app's own helper. Ask it for a screen, or to make a new agent.",
+   "can": [
+    "What's new in Yui?",
+    "Make me a timer",
+    "Add an agent"
    ]
   },
   {
@@ -37,7 +43,7 @@
    "name": "Penny",
    "handle": "penny",
    "color": "candy",
-   "kind": "hosted",
+   "kind": "hermes",
    "status": "connected",
    "presence": "online",
    "is_default": false,
@@ -45,7 +51,30 @@
    "theme": {
     "preset": "candy"
    },
-   "tagline": "Plans your week"
+   "tagline": "Plans your week",
+   "about": "Penny keeps your week. Lists, plans and the evening review.",
+   "can": [
+    "What's next today?",
+    "Add a to-do",
+    "Plan my week"
+   ],
+   "controls": {
+    "v": 1,
+    "sections": {
+     "soul": "rw",
+     "memory": "rwd",
+     "skills": "rwd",
+     "schedules": "rwd",
+     "model": "r",
+     "channels": "r"
+    }
+   },
+   "connector_name": "Maya's Mac",
+   "remote_ref": "penny",
+   "client_safe": false,
+   "share_why": [
+    "terminal: local shell"
+   ]
   },
   {
    "id": "demo-basil",
@@ -60,7 +89,9 @@
    "theme": {
     "preset": "forest"
    },
-   "tagline": "Meals and groceries"
+   "tagline": "Meals and groceries",
+   "connector_name": "Maya's Mac",
+   "last_seen_at": "2026-10-01T12:00:00+00:00"
   }
  ],
  "threads": {
@@ -161,6 +192,28 @@
     "kind": "text",
     "meta": {},
     "ago_min": 2
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000031",
+    "sender": "user",
+    "body": "Plan my race week",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 302,
+    "chat_id": "demo-penny-c2"
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000032",
+    "sender": "agent",
+    "body": "Easy Monday, sharp Thursday, rest Friday. Saturday is race day.",
+    "kind": "text",
+    "meta": {
+     "turn": [
+      "00000000-0000-4000-8000-000000000031"
+     ]
+    },
+    "ago_min": 300,
+    "chat_id": "demo-penny-c2"
    }
   ],
   "demo-basil": [
@@ -206,6 +259,76 @@
      "Setting it up 1/1"
     ],
     "body": "Here. Two minutes.\n```yui\ntimer 2m Quick walk\n```"
+   }
+  ]
+ },
+ "crew": [
+  {
+   "base": "yui",
+   "name": "Yui",
+   "role": "Helper and maker",
+   "color": "brand",
+   "agent_id": "demo-yui",
+   "tagline": "Ask anything, or make a new agent"
+  },
+  {
+   "base": "arnold",
+   "name": "Arnold",
+   "role": "Trainer",
+   "color": "coral",
+   "agent_id": null,
+   "tagline": "Workouts built around your week and body"
+  },
+  {
+   "base": "basil",
+   "name": "Basil",
+   "role": "Nutritionist",
+   "color": "forest",
+   "agent_id": "demo-basil",
+   "tagline": "Eat better without counting everything"
+  },
+  {
+   "base": "gouda",
+   "name": "Gouda",
+   "role": "Musician",
+   "color": "sunset",
+   "agent_id": null,
+   "tagline": "Beats, chords and practice, right on screen"
+  },
+  {
+   "base": "penny",
+   "name": "Penny",
+   "role": "Planner",
+   "color": "candy",
+   "agent_id": "demo-penny",
+   "tagline": "Get your week out of your head"
+  },
+  {
+   "base": "quill",
+   "name": "Quill",
+   "role": "Study buddy",
+   "color": "wizard",
+   "agent_id": null,
+   "tagline": "Learn anything fast, then get quizzed"
+  }
+ ],
+ "chats": {
+  "demo-penny": [
+   {
+    "id": "demo-penny-c1",
+    "title": null,
+    "is_first": true,
+    "ago_min": 0
+   },
+   {
+    "id": "demo-penny-c2",
+    "title": "Race week plan",
+    "ago_min": 300
+   },
+   {
+    "id": "demo-penny-c3",
+    "title": "Groceries",
+    "ago_min": 3000
    }
   ]
  }

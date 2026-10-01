@@ -8,6 +8,9 @@ export const BACKEND = "https://txuibjxyfpalzvpneqgp.supabase.co";
 // A public client key: it only grants the anon role, which can read no yui_ table (YuiBackend.swift).
 export const PUBLISHABLE_KEY = "sb_publishable_9DhcBgazmSHaoOJChYtqwA_qyHvI_zc";
 
+import { createChatsClient } from "./chats.mjs";
+import { createAgentsClient } from "./agents.mjs";
+
 export const COLUMNS = "id,sender,body,kind,meta,created_at,delivered_at,handled_at,reaction,doing";
 
 // The query of a thread read (ThreadClient.fetchItems): the agent's rows, or one chat's. Controls ride the
@@ -110,6 +113,30 @@ export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch
       return res.json();
     },
 
+    // One edge function call with the person's session (AgentStore.call). A refusal throws with the function's
+    // own `{error}` as `.code`; a dead network throws code "network".
+    async call(fn, body) {
+      let res;
+      try {
+        res = await request(`functions/v1/${fn}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      } catch (e) {
+        if (e instanceof RelayError) {
+          let code = `http_${e.status}`;
+          try { code = JSON.parse(e.detail || "{}").error || code; } catch { /* not JSON */ }
+          const err = new Error(code); err.code = code; err.status = e.status; throw err;
+        }
+        const err = new Error("network"); err.code = "network"; throw err;
+      }
+      return res.json();
+    },
+
+    // The host's answer to a control request (ThreadClient.controlAnswer), by its `req`. Null until it lands.
+    async controlAnswer({ agentId, req }) {
+      const q = [["select", "meta"], ["agent_id", `eq.${agentId}`], ["kind", "eq.control"], ["sender", "eq.agent"], ["meta->>req", `eq.${req}`], ["limit", "1"]];
+      const rows = await (await request(`rest/v1/yui_messages?${queryString(q)}`)).json();
+      return rows[0]?.meta || null;
+    },
+
     // Realtime: every INSERT on this agent's rows, pushed. `onRow(record)` gets each; `onState("open"|"closed")`
     // says whether the socket is up, so the poll can ease off while it is. Returns the unsubscribe.
     subscribe({ agentId }, onRow, onState = () => {}) {
@@ -141,5 +168,7 @@ export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch
       return () => { stopped = true; clearInterval(beat); clearTimeout(retry); try { ws?.close(); } catch { /* gone */ } onState("closed"); };
     },
   };
+  relay.chats = createChatsClient(request);
+  relay.manage = createAgentsClient((fn, body) => relay.call(fn, body));
   return relay;
 }
