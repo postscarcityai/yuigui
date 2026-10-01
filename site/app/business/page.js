@@ -5,7 +5,7 @@ import { pageMeta } from "../../lib/og/meta.mjs";
 export const metadata = pageMeta({ path: "/business", title: "Business docs | Yui", description: "How Yui plans to find its people, earn its keep and stay honest. Start with the one-page plan." });
 
 // Reading order: the plan, then how Yui finds its first testers (GTM-1), then the detail.
-const first = ["plan", "gtm", "use-to-earn", "beta-list", "biz-1-marketing-positioning"];
+const first = ["plan", "gtm", "use-to-earn", "tokenomics", "beta-list", "biz-1-marketing-positioning"];
 
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 

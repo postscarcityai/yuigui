@@ -166,7 +166,7 @@ export default function Earn() {
         </p>
         <p style={{ marginTop: 10 }}>
           The ledger is designed and tested, and it fills in back to day one when it switches on. The long version is{" "}
-          <Link href="/business/use-to-earn">Use to earn</Link>, and the details are in the <Link href="/developers/ledger">ledger spec</Link>.
+          <Link href="/business/use-to-earn">Use to earn</Link>, how $U could be given out is in <Link href="/business/tokenomics">Tokenomics</Link>, and the details are in the <Link href="/developers/ledger">ledger spec</Link>.
         </p>
       </div>
 

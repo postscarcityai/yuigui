@@ -27,6 +27,7 @@ export const BLURBS = {
   plan: "Start here. The whole plan on one page.",
   gtm: "How Yui finds its people. The current plan.",
   "use-to-earn": "Why early users should earn a stake, and what we record from day one.",
+  tokenomics: "How $U could be given out: cap, seasons, sizing, anti-gaming. A design, not an offer.",
   "beta-list": "The first 20 to 50 outside testers, and where to find them.",
   "biz-1-marketing-positioning": "Who Yui is for and what we say.",
   "biz-1-competitors": "The research behind the positioning.",
