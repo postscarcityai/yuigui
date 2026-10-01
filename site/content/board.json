@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T18:01:07.617Z",
+  "updated": "2026-10-01T18:05:55.585Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -73,11 +73,6 @@
         {
           "key": "YUI-89b",
           "title": "Tables guide + compat gate + MCP app",
-          "waiting": true
-        },
-        {
-          "key": "YUI-94",
-          "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
           "waiting": true
         },
         {
@@ -362,6 +357,11 @@
           "owner": "CJohnDesign"
         },
         {
+          "key": "YUI-94",
+          "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -401,7 +401,7 @@
           "title": "Draft ChatGPT app directory listing package (do not submit)",
           "shipped": "2026-10-01",
           "progress": "/progress#yui-screens-in-chatgpt-too",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/58ee89dc"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/67557f4f"
         },
         {
           "key": "YUI-138",
