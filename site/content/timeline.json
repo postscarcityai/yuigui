@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 411,
-    "site": 966,
+    "app": 412,
+    "site": 968,
     "builds": 51,
-    "shipped": 485,
-    "screenshots": 1235
+    "shipped": 487,
+    "screenshots": 1243
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T00:43:55.278Z",
+          "at": "2026-10-01T01:10:01.165Z",
+          "title": "Quill builds your study plan",
+          "card": "YUI-224",
+          "anchor": "quill-builds-your-study-plan",
+          "images": [
+            {
+              "src": "/progress/yui224-first-question-dark.webp",
+              "alt": "Quill's first questions in dark mode: what are you learning, with Not sure and Skip beside the choices."
+            },
+            {
+              "src": "/progress/yui224-plan-dark.webp",
+              "alt": "Dark mode: the plan is set, a 12 minute lesson then 16 flash cards, and a Start today's lesson button."
+            },
+            {
+              "src": "/progress/yui224-first-question-light.webp",
+              "alt": "The same questions in light mode."
+            },
+            {
+              "src": "/progress/yui224-plan-light.webp",
+              "alt": "Light mode: the plan is set with a Start today's lesson button."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 412,
+            "site": 968,
+            "builds": 51,
+            "shipped": 487
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T01:08:03.000Z",
+          "title": "Penny's first plan builds the real week on the site",
+          "card": "SITE-146",
+          "anchor": "penny-s-first-plan-builds-the-real-week-on-the-site",
+          "images": [
+            {
+              "src": "/progress/site146-penny-dark-week.webp",
+              "alt": "Penny's routine on the site in dark mode: planning Sunday at 7 pm, Tue Wed Thu stay light, then the week a row a day."
+            },
+            {
+              "src": "/progress/site146-penny-dark-today.webp",
+              "alt": "Dark mode: Sunday and Monday rows, the Today list with Pick your one must-do for today, and the Add a to-do card."
+            },
+            {
+              "src": "/progress/site146-penny-light-week.webp",
+              "alt": "The same week in light mode."
+            },
+            {
+              "src": "/progress/site146-penny-light-today.webp",
+              "alt": "Light mode: the Today list and the Add a to-do card."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 411,
+            "site": 968,
+            "builds": 51,
+            "shipped": 486
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T00:43:59.000Z",
           "title": "Penny sets up your planning routine",
           "card": "YUI-223",
           "anchor": "penny-sets-up-your-planning-routine",
@@ -35,10 +99,10 @@
               "alt": "This week in light mode with Pick your one must-do for today and Plan your week on Sunday at 7 pm."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 411,
-            "site": 966,
+            "site": 967,
             "builds": 51,
             "shipped": 485
           }
@@ -1883,6 +1947,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "38bb3ce",
+          "at": "2026-10-01T01:09:24.000Z",
+          "text": "Quill's first study plan: three questions on the first open build a week of lessons and quizzes that fit the minutes picked, today's...",
+          "url": "https://github.com/postscarcityai/yui/commit/38bb3ce"
+        },
+        {
+          "repo": "site",
+          "sha": "a9ff59fb",
+          "at": "2026-10-01T01:08:03.000Z",
+          "text": "SITE-146: /crew Penny builds the real planning week",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a9ff59fb"
+        },
+        {
+          "repo": "site",
+          "sha": "06934bac",
+          "at": "2026-10-01T00:43:59.000Z",
+          "text": "Progress: Penny sets up your planning routine (YUI-223)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/06934bac"
+        },
         {
           "repo": "app",
           "sha": "0e668d9",
