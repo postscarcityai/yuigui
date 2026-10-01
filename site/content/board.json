@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T22:36:30.144Z",
+  "updated": "2026-10-01T22:41:12.434Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -240,6 +240,21 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "NOTE-6865",
+          "title": "Push tap opens the new answer",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-30524",
+          "title": "New answers open full screen",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-27775",
+          "title": "Hide raw cron errors",
+          "waiting": true
+        },
+        {
           "key": "YUI-172",
           "title": "Get Yui iOS GoogleService-Info.plist from the existing Firebase project",
           "waiting": true
@@ -324,27 +339,24 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-218b",
-          "title": "An outside tester runs the stranger path",
-          "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "SITE-165",
           "title": "Home page trimmed to what a stranger needs",
-          "blocked": "other",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-260",
           "title": "Scroll back through a long chat without the 310 MB spike",
-          "blocked": "other",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-261",
           "title": "A stranger's first tap on /web works",
-          "blocked": "other",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-218b",
+          "title": "An outside tester runs the stranger path",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
@@ -4090,7 +4102,7 @@
           "title": "Yui social drafter cron + copy validator (drafts only, Chris approves)",
           "shipped": "2026-09-24",
           "progress": "/progress#a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/1fd24301"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2b1c1152"
         },
         {
           "key": "YUI-27",
