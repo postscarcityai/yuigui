@@ -1905,6 +1905,10 @@
     {
       "text": "The App Shortcuts test counts eight now",
       "card": "YUI-40"
+    },
+    {
+      "text": "Your U in the left drawer: your picture and name top left, your coin and number top right, counts up once when it grew, Your U screen",
+      "card": "YUI-210"
     }
   ]
 }
