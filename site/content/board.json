@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T03:41:02.456Z",
+  "updated": "2026-10-01T04:10:56.479Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -198,6 +198,11 @@
           "summary": "Your profile top left, your $U top right, counting up when you open it"
         },
         {
+          "key": "YUI-239",
+          "title": "Stay signed in. A lost refresh reply ends every session",
+          "waiting": true
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -372,18 +377,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-238",
-          "title": "My flows in the app",
-          "summary": "See, run and remove your saved flows and variants",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-148",
-          "title": "/crew after five first plans",
-          "summary": "Every demo plays, links resolve, fast on a phone",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -395,6 +388,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-148",
+          "title": "/crew after five first plans",
+          "summary": "The crew page, checked on a phone after five new first plans",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-crew-page-checked-on-a-phone-after-five-new-first-plans"
+        },
+        {
+          "key": "YUI-238",
+          "title": "My flows in the app",
+          "summary": "My flows: your saved flows, in the app",
+          "shipped": "2026-10-01",
+          "progress": "/progress#my-flows-your-saved-flows-in-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/23da47a4"
+        },
         {
           "key": "SITE-147",
           "title": "/crew builds Quill's real study week",
