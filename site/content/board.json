@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T20:17:22.814Z",
+  "updated": "2026-10-01T20:25:26.906Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -324,11 +324,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-259",
-          "title": "Tomorrow's 06:00 build ships green",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-250",
           "title": "Yui on the web ships",
           "summary": "Parity sweep, e2e suite in CI, the launch demo and the release post draft",
@@ -338,6 +333,12 @@
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-259",
+          "title": "Tomorrow's 06:00 build ships green",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
