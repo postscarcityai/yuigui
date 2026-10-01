@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T19:50:35.557Z",
+  "updated": "2026-10-01T19:55:22.932Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -358,7 +358,7 @@
           "summary": "One Yui across phone and web: your half-typed words follow you",
           "shipped": "2026-10-01",
           "progress": "/progress#one-yui-across-phone-and-web-your-half-typed-words-follow-you",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/4023fee2"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/205ff8a8"
         },
         {
           "key": "SITE-161",
