@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 417,
-    "site": 990,
+    "site": 993,
     "builds": 51,
-    "shipped": 499,
-    "screenshots": 1286
+    "shipped": 501,
+    "screenshots": 1294
   },
   "days": [
     {
@@ -13,7 +13,71 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T05:42:07.216Z",
+          "at": "2026-10-01T14:02:56.266Z",
+          "title": "Yui comes to the web: the story",
+          "card": "SITE-152",
+          "anchor": "yui-comes-to-the-web-the-story",
+          "images": [
+            {
+              "src": "/progress/yui243-home-390-light.webp",
+              "alt": "Light mode, phone width: Penny's home on the web with the face, what waits on you, two shortcut chips and the composer."
+            },
+            {
+              "src": "/progress/yui243-home-390-dark.webp",
+              "alt": "Dark mode, phone width: the same home."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 417,
+            "site": 993,
+            "builds": 51,
+            "shipped": 501
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T13:58:43.000Z",
+          "title": "Yui on the web: the stage",
+          "card": "YUI-243",
+          "anchor": "yui-on-the-web-the-stage",
+          "images": [
+            {
+              "src": "/progress/yui243-home-390-light.webp",
+              "alt": "Light mode, phone width: Penny's home with the face, what waits on you, two shortcut chips and the composer."
+            },
+            {
+              "src": "/progress/yui243-answer-390-light.webp",
+              "alt": "Light mode, phone width: a reply played on the stage, a line and a choice, the pills for two screens above."
+            },
+            {
+              "src": "/progress/yui243-home-390-dark.webp",
+              "alt": "Dark mode, phone width: the same home."
+            },
+            {
+              "src": "/progress/yui243-answer-390-dark.webp",
+              "alt": "Dark mode, phone width: the reply on the stage."
+            },
+            {
+              "src": "/progress/yui243-home-desktop-light.webp",
+              "alt": "Light mode, desktop: the agent column beside Penny's stage."
+            },
+            {
+              "src": "/progress/yui243-home-desktop-dark.webp",
+              "alt": "Dark mode, desktop: the agent column and the stage."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 417,
+            "site": 993,
+            "builds": 51,
+            "shipped": 500
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T05:42:10.000Z",
           "title": "Gouda's tuner on the site",
           "card": "SITE-151",
           "anchor": "gouda-s-tuner-on-the-site",
@@ -27,10 +91,10 @@
               "alt": "Gouda's tuner on the crew page, dark"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 417,
-            "site": 990,
+            "site": 991,
             "builds": 51,
             "shipped": 499
           }
@@ -316,6 +380,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "19b71ecf",
+          "at": "2026-10-01T13:58:43.000Z",
+          "text": "Yui on the web: the stage, home chips, pages and bars (YUI-243)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/19b71ecf"
+        },
+        {
+          "repo": "site",
+          "sha": "188baeca",
+          "at": "2026-10-01T07:40:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/188baeca"
+        },
+        {
+          "repo": "site",
+          "sha": "cc72bed4",
+          "at": "2026-10-01T05:42:10.000Z",
+          "text": "Gouda's last screen on /crew is the tuner, and Tune up jumps straight to it (SITE-151)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cc72bed4"
+        },
         {
           "repo": "site",
           "sha": "20b87931",
