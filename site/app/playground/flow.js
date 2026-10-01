@@ -4,9 +4,10 @@
 // one full-screen series of steps. Plan mode with branches: Next follows the
 // edge the answers pick, Back walks the path taken, the review lists only the
 // answered steps on that path, and one {flow, path} event goes at submit.
-import { useContext, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { flowAhead, flowEvent, flowFirst, flowNext, flowPath, resolve } from "../../lib/yl/yl.mjs";
 import { savedGraph, variantGraph } from "../../lib/yl/starter-flows.mjs";
+import { loadRun, missingFlow, runKey, saveRun } from "../../lib/yl/flow-run.mjs";
 import { ScreenCtx } from "./science";
 import { BackHome, Facts, Page, VALUE, foldText, question, show } from "./flows";
 
@@ -30,12 +31,33 @@ export function Flow({ node, emit, Render }) {
   const [ans, setAns] = useState({});
   const [fromReview, setFromReview] = useState(false);
   const [done, setDone] = useState(false);
+  // A reload halfway opens on the same step, answers kept; a sent flow stays
+  // sent. Restored after mount (the server draws the first step), saved on change.
+  const runId = runKey(node.key, node.id || p.title);
+  const stepIds = g ? g.nodes.filter((n) => n.preset).map((n) => n.id) : [];
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const r = g ? loadRun(window.sessionStorage, runId, stepIds) : null;
+    if (r) { setAt(r.at); setAns(r.ans); setFromReview(r.fromReview); setDone(r.done); }
+    setReady(true);
+  }, [runId]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (ready && g) saveRun(window.sessionStorage, runId, { at, ans, fromReview, done });
+  }, [ready, at, ans, fromReview, done]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (missing !== undefined) {
+    const way = missingFlow(missing);
     return (
       <div className="yl-block yl-plan">
-        <div className="yl-q">{missing || "Flow"}</div>
-        <div className="yl-sub">No saved flow by that name on this phone yet.</div>
+        <div className="yl-q">{way.title}</div>
+        <div className="yl-sub">{way.note}</div>
+        {way.near.length ? <div className="yl-sub">Closest:</div> : null}
+        <div className="chips">
+          {way.near.map((nm) => <a key={nm} className="chip" href={`${way.library.href}#flow-${nm}`}>{nm}</a>)}
+        </div>
+        <div className="bigbtns">
+          <a className="bigbtn p acc" href={`${way.library.href}#flows`}>{way.library.label}</a>
+        </div>
       </div>
     );
   }
