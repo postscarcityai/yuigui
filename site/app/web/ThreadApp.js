@@ -14,6 +14,7 @@ import fixture from "./fixtures/penny.json";
 import sharedFixture from "./fixtures/shared.json";
 import ThreadView from "./ThreadView";
 import DrawerPanel from "./DrawerPanel";
+import { useEarn } from "./YourU";
 import AgentsPanel from "./AgentsPanel";
 import AddAgent from "./AddAgent";
 import EditAgent from "./EditAgent";
@@ -101,6 +102,17 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   }, [auth]);
   const email = me?.email || user?.email;
   const userId = demo ? "demo-user" : user?.id;
+  // Your $U in the drawer's header (SITE-161). On a computer the drawer is a column that is always in view, so it
+  // counts as open; on a phone it counts when it slides out. ?earnseen=<n> on a demo link: the total "last seen".
+  const [column, setColumn] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 761px)");
+    const on = () => setColumn(mq.matches);
+    on(); mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  const seenParam = Number(search.get("earnseen"));
+  const earn = useEarn({ relay, userId, sample: !!demo, open: drawer || column, seenOverride: search.get("earnseen") !== null && Number.isInteger(seenParam) && seenParam >= 0 ? seenParam : null });
   // Yui's look (Settings > Look): the account's copy, worn by the chrome through the site's tokens.
   const callFn = useMemo(() => (relay ? (fn, body) => relay.call(fn, body) : null), [relay]);
   const look = useAppLook(callFn, dark);
@@ -403,7 +415,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     <div className={`web-root${light ? " is-light" : ""}`}>
       <aside className={`wb-side${drawer ? " open" : ""}`} aria-label="Drawer">
         {open ? (
-          <DrawerPanel agent={open} api={api} chats={drawerChats} onClose={() => setDrawer(false)} onSwitch={() => setSwitcher(true)} onAdd={() => { setDrawer(false); setSheet("add"); }} onQuick={openPalette}
+          <DrawerPanel agent={open} api={api} chats={drawerChats} email={email} earn={earn} onSettings={() => { setDrawer(false); setSheet({ settings: "" }); }} onClose={() => setDrawer(false)} onSwitch={() => setSwitcher(true)} onAdd={() => { setDrawer(false); setSheet("add"); }} onQuick={openPalette}
             canAdd={!!sorted && !(sorted.length && sorted.every((a) => a.shared))} review={0}
             handlers={{ onNewChat, onOpenChat, onRename, onDeleteChat, onMoreChats, onEdit: (a) => { setDrawer(false); setSheet({ edit: a.id }); }, onControls: (section) => { setDrawer(false); setSheet({ controls: section }); } }}>
             {foot}

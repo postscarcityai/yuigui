@@ -1,0 +1,41 @@
+/* Your $U on the web (SITE-161): the drawer header and the Your U sheet. The site's tokens in light and dark,
+   44 px touch targets, nothing waits on hover. */
+.dr-me { display: flex; align-items: center; gap: 8px; flex: 0 1 auto; margin-right: auto; min-width: 92px; min-height: 44px; padding: 0; border: 0; background: none; color: var(--ink); font: inherit; text-align: left; cursor: pointer; border-radius: 999px; }
+.dr-me:focus-visible, .u-pill:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+.dr-pic { flex: none; width: 36px; height: 36px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--brand); color: var(--on-brand); font-weight: 800; font-size: 16px; }
+.dr-head .dr-name { font-size: 20px; line-height: 1.15; flex: 0 1 auto; min-width: 0; }
+.u-pill { flex: none; display: inline-flex; align-items: center; gap: 5px; min-height: 40px; padding: 0 10px; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; position: relative; isolation: isolate; }
+.u-pill::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: #38b86b; opacity: 0; z-index: -1; transition: opacity .4s ease-in-out; }
+.u-pill.climbing::before { opacity: .32; }
+:root[data-theme="dark"] .u-pill.climbing::before { opacity: .45; }
+.u-num { font-weight: 800; font-size: 15px; font-variant-numeric: tabular-nums; }
+.u-tag { font-size: 10px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.u-coin { display: block; flex: none; }
+@media (prefers-reduced-motion: reduce) { .u-pill::before { transition: none; } }
+
+.u-body { gap: 12px; }
+.u-hero { display: flex; align-items: center; gap: 10px; }
+.u-hero b { font-size: 44px; line-height: 1.1; font-weight: 800; font-variant-numeric: tabular-nums; }
+.u-sample { margin: 0; padding: 10px 14px; border-radius: 16px; background: color-mix(in srgb, var(--brand) 12%, var(--surface)); border: 1.5px dashed color-mix(in srgb, var(--brand) 45%, var(--outline)); font-weight: 700; font-size: 14px; }
+.u-card { border: 1.5px solid var(--outline); background: var(--surface); border-radius: 22px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.u-card p { margin: 0; }
+.u-h { margin: 6px 2px 0; font-size: 17px; font-weight: 800; }
+.u-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.u-row span { color: var(--muted); font-size: 15px; }
+.u-row b { font-size: 15px; font-weight: 800; text-align: right; }
+.u-table { display: flex; flex-direction: column; gap: 6px; padding-bottom: 6px; }
+.u-table + .u-table { border-top: 1.5px solid var(--outline); padding-top: 10px; }
+.u-table:last-child { padding-bottom: 0; }
+.u-bar { height: 8px; border-radius: 4px; background: var(--raised); overflow: hidden; }
+.u-bar i { display: block; height: 100%; background: var(--brand); border-radius: 4px; }
+.u-soft { color: var(--muted); font-size: 13px; }
+.u-note { margin: 4px 2px 0; color: var(--muted); font-size: 13px; font-weight: 800; }
+/* Phone: your name, the number, search and Close share one row of a ~340 px drawer. */
+.dr-head { gap: 6px; padding-left: 14px; padding-right: 12px; }
+.dr-head .wb-close { flex: none; margin-left: 0; padding-left: 8px; padding-right: 8px; }
+.dr-head .wb-close { width: 40px; height: 40px; padding: 0; font-size: 0; place-items: center; }
+.dr-head .wb-close::before { content: "✕"; font-size: 17px; line-height: 1; }
+.dr-pic { width: 32px; height: 32px; font-size: 15px; }
+.dr-head .dr-quick { min-width: 38px; }
+.dr-head .wb-close { width: 38px; min-width: 38px; }
+.dr-me { min-width: 80px; gap: 6px; }

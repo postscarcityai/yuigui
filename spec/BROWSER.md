@@ -31,7 +31,7 @@ Where the app lags the web (`flow`, `diagram`, `mock`, agent tables are drawn on
 | Account and session | 10 | 6 same, 4 web way | YUI-241, 245, 247 |
 | The thread | 27 | 22 same, 5 web way | YUI-242, 243, 244, 245 |
 | The stage, pages and home | 16 | 15 same, 1 web way | YUI-243, 246 |
-| Agents and the drawer | 11 | 10 same, 1 web way | YUI-242, 245, 249 |
+| Agents and the drawer | 12 | 11 same, 1 web way | YUI-242, 245, 249 |
 | Settings and account | 13 | 7 same, 6 web way | YUI-247, 250 |
 | Presets (every one in YL section 4) | 39 | 23 same, 11 web way, 1 iPhone, 3 web is ahead | YUI-242, 243, 246, 248, 249 |
 | Push, links, system | 8 | 1 same, 5 web way, 2 iPhone | YUI-248, 249 |

@@ -7,8 +7,10 @@ import { useEffect, useState } from "react";
 import { controlSections, statusLine, isShared, isYui } from "../../lib/web/agents.mjs";
 import { liveness } from "../../lib/web/presence.mjs";
 import { pageTitle } from "../../lib/web/stage.mjs";
+import { firstName, initialOf } from "../../lib/web/earn.mjs";
 import DrawerChats from "./DrawerChats";
 import { Face } from "./parts";
+import { UPill, YourU } from "./YourU";
 
 const TABS = ["Home", "Review", "Agent"];
 const https = (u) => (typeof u === "string" && /^https:\/\//i.test(u) ? u : null);
@@ -161,14 +163,20 @@ function AgentTab({ agent, api, close, handlers }) {
   );
 }
 
-export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSwitch, onAdd, onQuick, canAdd, children, review = 0 }) {
+export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSwitch, onAdd, onQuick, onSettings, email, earn, canAdd, children, review = 0 }) {
   const [tab, setTab] = useState("Home");
+  const [showU, setShowU] = useState(false);
   useEffect(() => { setTab("Home"); }, [agent?.id]);
   const waitingN = (api?.home?.waiting || []).length;
   return (
     <div className="dr" data-testid="drawer">
       <header className="dr-head">
-        <h2 className="dr-name">{agent?.name || "Yui"}</h2>
+        {/* Your picture and name top left (a tap opens Settings), your $U top right: the app's header (YUI-210, SITE-161). */}
+        <button type="button" className="dr-me" onClick={onSettings} aria-label={`Settings, ${firstName(email)}`} data-testid="drawer-me">
+          <span className="dr-pic" aria-hidden="true">{initialOf(email)}</span>
+          <h2 className="dr-name" data-testid="drawer-me-name">{firstName(email)}</h2>
+        </button>
+        {earn ? <UPill earn={earn} onOpen={() => setShowU(true)} /> : null}
         {onQuick ? (
           <button type="button" className="wb-iconbtn dr-quick" onClick={onQuick} aria-label="Quick actions" title="Quick actions (Ctrl K)" data-testid="quick-actions-btn">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" strokeWidth="2.2" /><path d="M16 16l4.5 4.5" fill="none" strokeWidth="2.2" strokeLinecap="round" /></svg>
@@ -189,6 +197,7 @@ export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSw
         <span className="dr-go" aria-hidden="true">⌄</span>
       </button>
       {children}
+      {showU && earn?.summary ? <YourU earn={earn} onClose={() => setShowU(false)} /> : null}
     </div>
   );
 }

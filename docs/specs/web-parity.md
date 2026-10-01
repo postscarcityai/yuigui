@@ -122,6 +122,7 @@ Every one is a row below too. This is the short list, with the web way for each.
 | Safe to share indicator | `Agents/AgentStore.swift` | same: "Safe to share" or "Not safe to share: it has a shell on your computer" in Edit agent | 245 | done |
 | Home screen quick actions | `Agents/QuickActions.swift` | web way: a command palette (Cmd or Ctrl + K, and a button in the drawer): every agent's `menu shortcut` rows (read from their rows), what you use leads, a jump to any agent, New chat, Add an agent, Edit, Controls areas, the look | 245 | done |
 | Starter crew and the native Yui in the browser | `Agents/CrewPick.swift`, spec/NATIVE.md | same: the crew in Add agent (one tap each, Add all). The native agents answer through the relay like any agent, so the thread needs no code of its own | 245 | done |
+| Your $U in the drawer, and the Your U screen | `Earn/EarnStore.swift`, `Earn/YourU.swift`, `Earn/UCoin.swift`, `Agents/AgentDrawer.swift` | same: your picture and name top left (a tap opens Settings), the U coin and your number top right (`app/web/YourU.js`, `lib/web/earn.mjs`). It reads `yui_my_u` and your own `yui_ledger` rows with your session (RLS, no service key in the browser), counts up once when the number grew since this browser last showed it (localStorage; not under reduced motion), and a tap on the number opens Your U: today against the cap, streak, speed, the days, what you helped build, how it adds up. The demo and `?demo=penny` show a sample marked as a sample, never a balance | 245 | done |
 
 ## 6. Settings and account
 

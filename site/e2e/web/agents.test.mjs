@@ -47,7 +47,8 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   let pg = await open(vp, theme);
   await drawer(pg, vp);
   ok(await pg.getByTestId("tab-home").isVisible() && await pg.getByTestId("tab-review").isVisible() && await pg.getByTestId("tab-agent").isVisible(), `${T}: the drawer has Home, Review and Agent`);
-  ok((await pg.locator(".dr-name").innerText()) === "Penny", `${T}: it wears the open agent's name`);
+  ok((await pg.getByTestId("agent-bar").innerText()).includes("Penny"), `${T}: the foot bar names the open agent`);
+  ok((await pg.locator(".dr-name").innerText()) === "You", `${T}: the header wears your name (SITE-161), not the agent's`);
   ok(await pg.getByTestId("new-chat").isVisible(), `${T}: New chat is first`);
   const titles = await pg.locator(".dc-row .dc-top b").allInnerTexts();
   ok(titles.join("|") === "Hi Penny|Race week plan|Groceries", `${T}: the chats list, newest first (${titles.join("|")})`);
@@ -161,7 +162,7 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   await pg.waitForTimeout(600);
   const roster = await pg.evaluate(() => window.yuiWebDemo.host.roster().find((a) => a.id === "demo-penny"));
   ok(roster.name === "Penelope" && roster.push_muted === true && roster.theme.preset === "ocean" && roster.theme.by === "user", `${T}: Save writes the name, look and mute (${roster.name}, ${roster.theme.preset}, muted ${roster.push_muted})`);
-  ok((await pg.locator(".dr-name").innerText()) === "Penelope", `${T}: and the drawer wears it`);
+  ok((await pg.getByTestId("agent-bar").innerText()).includes("Penelope"), `${T}: and the drawer wears it`);
 
   // remove asks first
   ok(await pg.getByTestId("agents-panel").isVisible(), `${T}: back on your agents after Save`);
