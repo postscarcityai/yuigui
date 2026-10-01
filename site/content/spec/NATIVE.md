@@ -52,6 +52,7 @@ Ways to get a new agent:
 - **The shelf.** Ready-made profiles, one tap each.
 - **Ask Yui.** She asks two or three questions on one screen, then makes the profile on your connector, with a look (YUI-20).
 - **Start blank.** A new empty agent runs a setup flow on its own first turn: name, how it talks, look, favorite screens, model. When the flow ends, the answers become its profile.
+  Built (YUI-138): Add agent and the first-run picker end with a Start blank row (`yui-agents` `blank_add`; one not yet set up opens instead of a second). The agent's first message is `plan@setup`, five questions one screen at a time (name, voice, look, screens, model), Not sure and Skip on each. The answers arrive as one `{plan}`; the runtime (`runtime/src/setup.ts`) writes name, color, favorites, model and a soul in the chosen voice into its profile with no model turn, then greets as itself. Try it: /playground, Start blank.
 - **Fork.** "A copy of Arnold, but gentler" makes a new version beside the old one.
 
 ## 5. The starter crew

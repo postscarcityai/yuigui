@@ -1110,6 +1110,21 @@ pick@gear "What do you have?" Dumbbells|Barbell|Bands|Kettlebell|"Just me"
 mic@notes "Anything I should know? Injuries, schedule, what you hate."`,
   },
   {
+    // Start blank (YUI-138, yui runtime/profiles/blank/first.yui): a new empty agent opens on this flow. Its answers
+    // arrive as one {plan}; the runtime (runtime/src/setup.ts) writes the name, voice, look, screens and model into
+    // its profile with no model turn, and it greets as itself.
+    slug: "start-blank",
+    name: "Plan: Start blank, make an agent",
+    agent: "Yui",
+    yl: `say "I'm new here and I can be anything. Five taps and I'm yours. Not sure and Skip are always there."
+plan@setup "Make me yours" submit="Make me"
+choose@name "What should I be called?" "Nova"|"Sage"|"Pip"|"Kit"|"Not sure"|"Skip" +other
+choose@voice "How should I talk?" "Warm"|"Short"|"Playful"|"Calm"|"Blunt"|"Not sure"|"Skip" +other
+choose@look "What should I look like?" "Lavender"|"Mint"|"Butter"|"Not sure"|"Skip"
+pick@screens "Which screens should I reach for?" "Buttons"|"Lists"|"Cards"|"Timers"|"Forms"|"Charts"|"Decks"|"Not sure"|"Skip"
+choose@model "Which model should I run on?" "Yui's pick"|"GLM 5.2"|"GLM-5V-Turbo"|"Not sure"|"Skip"`,
+  },
+  {
     // Arnold's runner (YUI-182, yui runtime/src/workouts.ts): "Start today's workout" turns today's split row
     // into one full-screen plan. What the session holds first, then per move its sets to tick, reps and weight
     // to nudge (from the last weight logged), how it felt last, one Send. The runtime writes the log itself.
