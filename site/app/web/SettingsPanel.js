@@ -9,11 +9,12 @@ import {
   accountLine, browserLine, buildSummary, deleteError, feedbackMail, keyShapeOk, lookName, modelLeft, movePick, nativeError, perfOn, PERF_KEY,
   resetLook, searchLeft, setAgentsKeep, setStage, togglePick, tokenName, usedWords,
 } from "../../lib/web/settings.mjs";
+import { PUSH_WORDS } from "../../lib/web/push.mjs";
 import { Confirm, Dialog, SheetBar, Spinner, Switch } from "./parts";
 import SettingsKeys from "./SettingsKeys";
 import "./settings.css";
 
-export default function SettingsPanel({ relay, auth, demo, userId, email, review, agents, menus, build, focus, appearance, stage, picks, look, onSignOut, onClose }) {
+export default function SettingsPanel({ relay, auth, demo, userId, email, review, agents, menus, build, focus, appearance, stage, picks, look, push, onSignOut, onClose }) {
   const call = useCallback((fn, body) => relay.call(fn, body), [relay]);
   const hosted = (agents || []).some((a) => a.kind === "hosted");
   const owns = (agents || []).some((a) => !a.shared);
@@ -58,6 +59,8 @@ export default function SettingsPanel({ relay, auth, demo, userId, email, review
           ) : null}
         </Card>
 
+        <Notifications push={push} />
+
         <HomeActions agents={agents} menus={menus} picks={picked} setPicks={setPicked} />
 
         <LookSection look={look} />
@@ -96,6 +99,22 @@ function Row({ title, sub, on, onChange, disabled = false, testid }) {
       <div><b>{title}</b>{sub ? <small>{sub}</small> : null}</div>
       <Switch on={on} onChange={onChange} label={title} disabled={disabled} />
     </div>
+  );
+}
+
+// ---------------------------------------------------------------- Notifications (Push/Push.swift, YUI-248)
+
+function Notifications({ push }) {
+  const s = push?.state;
+  if (!s) return null;
+  const w = PUSH_WORDS[s];
+  const can = s === "on" || s === "off";
+  return (
+    <Card title="Notifications" id="notifications">
+      {can ? <Row title={w.title} sub={w.sub} on={s === "on"} onChange={(v) => (v ? push.enable() : push.disable())} testid="push-switch" />
+        : <div className="st-row" data-testid="push-note"><div><b>{w.title}</b><small>{w.sub}</small></div></div>}
+      {push.error ? <p className="ag-error" role="alert" data-testid="push-error">{push.error}</p> : null}
+    </Card>
   );
 }
 

@@ -170,6 +170,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     const reply = (meta) => rows(agentId).push({ id: id(), sender: "agent", body: "controls", kind: "control", meta, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null });
     Promise.resolve(controlHost.handle(agentId, userRow.meta || {}, { agent: roster.find((a) => a.id === agentId) })).then((meta) => { if (meta) setTimeout(() => reply(meta), 120 / speed); });
   }
+  const pushCalls = [];
 
   const relay = {
     demo: true,
@@ -188,11 +189,14 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
       if (this.offline) throw refused("network", 0);
       await sleep(30);
       if (fn === "yui-oauth") return connectDemo(body);
+      // yui-push (YUI-248): kept in this page so the checks read what the browser told it.
+      if (fn === "yui-push") { pushCalls.push(body); return { ok: true, tracked: true }; }
       const own = settings.call(fn, body);
       if (own !== undefined) return own;
       if (fn !== "yui-agents") throw refused("unknown_function");
       return manage(body);
     },
+    pushCalls,
     // The host side of a pairing, for the e2e checks: its computer claims the code, then its gateway listens.
     host: {
       pair(agentId) { const a = roster.find((x) => x.id === agentId); if (a) Object.assign(a, { status: "connected", presence: "not_listening", connector_name: "Maya's Mac", remote_ref: a.handle, last_seen_at: iso(now()) }); },

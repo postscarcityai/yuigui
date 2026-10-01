@@ -172,6 +172,12 @@ yui-push  (edge function)
   -> {tracked}  (false when this phone is not registered to the caller)
   register and presence also carry "build" (the app's CFBundleVersion); without it the
   "Yui/<build> CFNetwork" user agent every build sends is read instead. Stored per phone.
+{"action":"register_web","endpoint","keys":{"p256dh","auth"},"name"?}   Bearer app access token   (YUI-248)
+  a browser's Web Push subscription (VAPID; the public key is the site's lib/web/push.mjs). One row per
+  browser in yui_devices, with no apns_token. An endpoint that was on another account moves to this one.
+{"action":"unregister_web","endpoint"}               Bearer app access token   (sign out, or the switch off)
+  presence also takes "endpoint" in place of "token". When a device reports it is reading an agent's
+  thread, the person's other browsers get a quiet {kind:"clear"} push and close that agent's notification.
 {"action":"notify","message_id","from"?,"handoff"?}  Bearer yui_ct_...
   push agent message `message_id` to every phone of its user. Only for threads of agents
   bound to this connector, written in the last 10 minutes.
@@ -181,6 +187,7 @@ yui-push  (edge function)
 - **When it pushes (YUI-24).** Not for an agent the person muted (`yui_agents.push_muted`, the Notifications switch in that agent's settings): `{muted: true, devices: 0}`, handoffs included. Not to a phone that is open on that agent's thread right now (presence younger than 90 s): the answer is already on screen, so it would ring twice; those count in `skipped`. A phone open on another agent's thread still gets it and shows the banner.
 
 - Alert: title is the thread's agent; body is "<from or agent> has something for you in Yui" for a handoff, otherwise a preview of the text outside the ```yui fences. Payload carries `agent_id`, `message_id` and `url: yui://agent/<agent id>/thread`.
+- Web Push (YUI-248): `notify` also sends every browser of that person the same words as `{kind:"reply", title, body, agent_id, message_id, chat?, tag, url}` with `url: /web/agent/<id>[/chat/<chat>]`. The same rules apply (muted agent, a browser open on that thread skipped). A revoke sends `{kind:"revoked"}` quietly. A 404 or 410 from the browser's push service deletes the row. Secrets: `YUI_VAPID_PUBLIC`, `YUI_VAPID_PRIVATE`, `YUI_VAPID_SUBJECT`.
 - The app opens `yui://agent/<id>/thread` from a tap or any link, and shows no banner for the thread already on screen.
 - APNs token auth (ES256), HTTP/2 straight to Apple from the function. The key never leaves the function's secrets; hosts never see device tokens (the connector role has no grant on `yui_devices`). A 410 from Apple deletes the row.
 - The plugin calls `notify` after every insert. In-gateway, a send is a handoff when it comes from another profile or the thread had no inbound for 15 minutes; out-of-process sends (cron, `hermes send`, another channel's session) are always handoffs.

@@ -21,6 +21,7 @@ import ControlsPanel from "./ControlsPanel";
 import ConnectApproval from "./ConnectApproval";
 import Palette from "./Palette";
 import SettingsPanel from "./SettingsPanel";
+import { usePush } from "./usePush";
 import { KeyAskSheet } from "./SettingsKeys";
 import { PrefsContext, useAppLook, useAppearance, useDark, usePicks, useStagePrefs } from "./useSettings";
 import { loadAnswered, markAnswered, nextAsk, answerMeta } from "../../lib/web/vault.mjs";
@@ -182,6 +183,8 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const sorted = useMemo(() => (agents ? sortAgents(agents) : null), [agents]);
   const open = sorted ? sorted.find((a) => a.id === agentId) || sorted.find((a) => a.is_default) || sorted[0] : null;
   openRef.current = open?.id || null;
+  // Notifications (YUI-248): Web Push through yui-push. Presence for the open thread and the switch in Settings.
+  const push = usePush({ relay, ready: mounted, openId: open?.id || null, onList: load });
   const q = [demo ? `demo=${encodeURIComponent(demo)}` : "", theme ? `theme=${theme}` : "", search.get("view") === "chat" ? "view=chat" : "", search.get("pairing") === "fast" ? "pairing=fast" : ""].filter(Boolean).join("&");
   const keep = q ? `?${q}` : "";
   const hrefOf = (a) => `/web/agent/${a.id}${keep}`;
@@ -300,6 +303,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     await outbox?.clear();
     if (demo) { setSheet(null); setNotice(how.deleted ? "Account deleted (demo). Nothing left the tab." : "Signed out (demo). Nothing left the tab."); return; }
     if (how.deleted) return; // deleteAccount already ended the session here
+    await push.forget();
     await auth.signOut();
   };
   // A host's key ask (VAULT.md section 3): the sheet is Yui's own chrome, one at a time, never an agent's screen.
@@ -390,7 +394,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       {!demo && auth ? <div className="wb-who" data-testid="account" title="Signed in on this browser"><span data-testid="account-email">{email || "Hidden email"}</span></div> : null}
       <button className="wb-linkish" data-testid="open-settings" onClick={() => { setDrawer(false); setSheet({ settings: "" }); }}>Settings</button>
       <button className="wb-linkish" onClick={flip}>{light ? "Dark" : "Light"} look</button>
-      {!demo && auth ? <button className="wb-linkish" onClick={async () => { await outbox?.clear(); auth.signOut(); }}>Sign out</button> : null}
+      {!demo && auth ? <button className="wb-linkish" onClick={async () => { await outbox?.clear(); await push.forget(); auth.signOut(); }}>Sign out</button> : null}
     </div>
   );
 
@@ -444,7 +448,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       {editing && manage ? <EditAgent manage={manage} agent={editing} agents={sorted} refresh={load} onClose={() => setSheet(null)} onRemoved={onRemoved} {...fast} /> : null}
       {sheet && sheet.controls !== undefined && open && relay ? <ControlsPanel relay={relay} agent={open} userId={userId} light={light} section={sheet.controls || null} onClose={() => setSheet(null)} onTalkAbout={talk} /> : null}
       {settingsOpen && relay ? <SettingsPanel relay={relay} auth={demo ? null : auth} demo={!!demo} userId={userId} email={email} review={!!demo} agents={sorted || []} menus={paletteMenus} build={build} focus={sheet.settings || null}
-        appearance={appearance} stage={stagePrefs} picks={picks} look={look} onSignOut={onSignOut} onClose={() => setSheet(null)} /> : null}
+        appearance={appearance} stage={stagePrefs} picks={picks} look={look} push={push} onSignOut={onSignOut} onClose={() => setSheet(null)} /> : null}
       {keyAsk && relay ? <KeyAskSheet relay={relay} userId={userId} ask={keyAsk.ask} agent={(sorted || []).find((a) => a.id === keyAsk.agentId)} answer={answerAsk} /> : null}
       {connect && relay ? <ConnectApproval key={connect} relay={relay} id={connect} agents={sorted || []} refresh={load} onOpenAgent={(id) => go(`/web/agent/${id}${keep}`)} onClose={() => go(`/web${keep}`)} /> : null}
       {palette && sorted ? (
