@@ -163,6 +163,10 @@ ask "Delete my data?" Delete|Cancel`,
     eyebrow: "YOU'RE INVITED",
     yl: `list Steps "Get TestFlight" "Open this link" "Sign in with Apple" +num`,
   },
+  "/web": {
+    eyebrow: "YUI ON THE WEB",
+    yl: `choose "What do you want to try first?" Timer|Form|Choice title="Yui on the web" body="Your agents and their screens, in a browser tab."`,
+  },
   "/tg": {
     eyebrow: "TELEGRAM",
     yl: `choose "Where to next?" "Open the screen"|"Stay in chat" title="Yui in Telegram" body="Questions as buttons, the rest in a Mini App."`,

@@ -2,16 +2,26 @@
 // Yui on the web, the shell and the sign in (YUI-241). The session lives in lib/web/auth.mjs; this draws it:
 // Sign in with Apple (a popup, a per attempt nonce and state), an invite that rides along like the app's,
 // the demo code, then the signed in account. Sign out ends this browser's session only.
+import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createAuth, browserDeps } from "../../lib/web/auth.mjs";
 import { APPLE_JS, APPLE_WEB_CLIENT_ID, REDIRECT_URI } from "../../lib/web/config.mjs";
 import { cleanInvite, inviteFromLocation, inviteNotice } from "../../lib/web/invite.mjs";
 import { sha256Hex, randomHex } from "../../lib/web/nonce.mjs";
+import ThreadApp from "./ThreadApp";
 import "./web.css";
 
 const INVITE_KEY = "yui-web-invite";
 
+// /web/agent/<id> and /web/agent/<id>/chat/<chat> name a thread (YUI-242).
+export function threadOf(path) {
+  const m = /^\/web\/agent\/([^/]+)(?:\/chat\/([^/]+))?/.exec(path || "");
+  return { agent: m ? decodeURIComponent(m[1]) : null, chat: m?.[2] ? decodeURIComponent(m[2]) : null };
+}
+
 export default function WebApp() {
+  const path = usePathname();
+  const demo = useSearchParams().get("demo");
   const auth = useMemo(() => (typeof window === "undefined" ? null : createAuth(browserDeps())), []);
   const [snap, setSnap] = useState({ ready: false, signedIn: false, user: null });
   const [invite, setInvite] = useState(null);
@@ -39,11 +49,15 @@ export default function WebApp() {
     return () => { live = false; };
   }, [auth, snap.signedIn, invite]);
 
+  // ?demo=<sample>: a recorded thread on a fake relay, no sign in, nothing leaves the tab (YUI-242).
+  if (demo) return <ThreadApp demo={demo.slice(0, 40)} {...threadOf(path)} />;
+  // Signed in: the agents and the open thread. Sign in, the invite and the demo code stay on this page (YUI-241).
+  if (snap.ready && snap.signedIn) return <ThreadApp auth={auth} user={snap.user} {...threadOf(path)} />;
+
   return (
     <div className="web">
       <ThemeButton />
       {!snap.ready ? <div className="web-boot" role="status" aria-label="Loading"><span className="web-dot" /></div>
-        : snap.signedIn ? <Account auth={auth} snap={snap} notice={notice} />
         : <SignIn auth={auth} invite={invite} setInvite={setInvite} notice={notice} setNotice={setNotice} />}
     </div>
   );
@@ -175,36 +189,6 @@ function CodeForm({ label, hint, cta, check, onSubmit, busy }) {
       {err && <p className="web-error" role="alert">{err}</p>}
       <button type="submit" className="web-btn" disabled={busy || !v.trim()}>{cta}</button>
     </form>
-  );
-}
-
-function Account({ auth, snap, notice }) {
-  const [me, setMe] = useState(null);
-  const [error, setError] = useState("");
-  useEffect(() => {
-    let live = true;
-    auth.call("yui-account", { action: "get" })
-      .then((r) => live && setMe(r.user))
-      .catch((e) => live && setError(e.code === "network" ? "You look offline. Your session is kept." : "Could not load your account."));
-    return () => { live = false; };
-  }, [auth]);
-  const email = me?.email || snap.user?.email;
-  return (
-    <main className="web-card" aria-labelledby="web-h">
-      <Wordmark />
-      <h1 id="web-h">You are signed in</h1>
-      <div className="web-account" data-testid="account">
-        <div className="web-avatar" aria-hidden="true">{(email || "Y")[0].toUpperCase()}</div>
-        <div>
-          <div className="web-email" data-testid="account-email">{email || "Hidden email"}</div>
-          <div className="web-hint">Signed in on this browser</div>
-        </div>
-      </div>
-      {notice && <p className="web-note" role="status">{notice}</p>}
-      {error && <p className="web-error" role="alert">{error}</p>}
-      <p className="web-hint">Your agents and threads land here next. Open this page in another tab or reload: you stay signed in.</p>
-      <button type="button" className="web-btn ghost" onClick={() => auth.signOut()}>Sign out</button>
-    </main>
   );
 }
 

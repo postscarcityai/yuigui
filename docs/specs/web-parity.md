@@ -58,18 +58,18 @@ Every one is a row below too. This is the short list, with the web way for each.
 
 | Feature | App file | Web twin | Story | Status |
 | --- | --- | --- | --- | --- |
-| One thread per agent over the relay (`yui_messages`, REST plus Realtime, ordering, dedupe) | `Chat/Thread.swift`, `Presets/ChatStore.swift` | same: a relay client with the same ordering and dedupe rules | 242 | open |
+| One thread per agent over the relay (`yui_messages`, REST plus Realtime, ordering, dedupe) | `Chat/Thread.swift`, `Presets/ChatStore.swift` | same: `lib/web/relay.mjs` and `sync.mjs`, the same query, ordering, 10 s overlap and dedupe, an outbox, Realtime as a faster path. Built and proved on the demo relay; the live smoke waits on 241's session | 242 | open |
 | Chats: several conversations per agent, New chat, titles, rename, delete | `Chat/Chats.swift`, `Agents/DrawerChats.swift` | same | 245 | open |
-| Text bubbles, agent bubble shapes and colors, the agent's look | `Chat/ReactionViews.swift`, `Theme/AgentLook.swift` | same: `look.mjs` compiles the recipe | 242 | draws |
-| Markdown in agent words | `Chat/BubbleMarkdown.swift` | same: `marked`, sanitized | 242 | open |
-| Long answers fold | `Chat/LongText.swift` | same: `readtext.mjs` has the fold rule | 242 | open |
-| Reading text style (headline or one liner, body) | `Theme/ReadingText.swift` | same: `readtext.mjs` | 242 | draws |
-| Sent times and day dividers | `Chat/SentTimes.swift` | same: `site/lib/chat/when.mjs` | 242 | draws |
-| A reply in Yui Lines drawn as presets, not a bubble | `Presets/PresetViews.swift`, `Presets/YLScreen.swift` | same: `Render` from `presets.js` | 242 | draws |
-| Taps send the same `[yui] ...` event rows; changed answers too | `Presets/ChatStore.swift` | same: `eventLine`, `echoFor`, `relays` from `mcp-app/src/events.mjs`, byte for byte | 242 | draws |
-| Patches (`~id`), lasting ids, `known` | `Presets/ChatStore.swift` lastingIds | same: `lastingIds(state)` in `yl.mjs` | 242 | draws |
+| Text bubbles, agent bubble shapes and colors, the agent's look | `Chat/ReactionViews.swift`, `Theme/AgentLook.swift` | same: the look's accent from `look.mjs` (bubble shapes per look: 247) | 242 | done |
+| Markdown in agent words | `Chat/BubbleMarkdown.swift` | same: `marked`, sanitized | 242 | done |
+| Long answers fold | `Chat/LongText.swift` | same: fold past 60 words, "Read it all" in place (`lib/web/thread.mjs`); the deck "Read as pages" comes with the stage (243) | 242 | done |
+| Reading text style (headline or one liner, body) | `Theme/ReadingText.swift` | same: `readtext.mjs` | 242 | done |
+| Sent times and day dividers | `Chat/SentTimes.swift` | same: `site/lib/chat/when.mjs` | 242 | done |
+| A reply in Yui Lines drawn as presets, not a bubble | `Presets/PresetViews.swift`, `Presets/YLScreen.swift` | same: `Render` from `presets.js` | 242 | done |
+| Taps send the same `[yui] ...` event rows; changed answers too | `Presets/ChatStore.swift` | same: `eventLine`, `echoFor`, `relays` from `mcp-app/src/events.mjs`, byte for byte | 242 | done |
+| Patches (`~id`), lasting ids, `known` | `Presets/ChatStore.swift` lastingIds | same: `lastingIds(state)` in `yl.mjs` | 242 | done |
 | Presence (`yui_agent_list.presence`), paused, handoff | `Agents/AgentStore.swift`, `Agents/GatewayWait.swift` | same | 242 | open |
-| Working row (`doing`), Stop | `ChatView.swift`, `Chat/Thread.swift` | same: `site/lib/chat/stop.mjs`, `stage.mjs` | 242 | draws |
+| Working row (`doing`), Stop | `ChatView.swift`, `Chat/Thread.swift` | same: `site/lib/chat/stop.mjs`, `stage.mjs` | 242 | done |
 | Reply to one message | `Chat/Reply.swift` | same: right-click or hold, the `[yui] reply ...` line | 244 | open |
 | Reactions (six) | `Chat/Reactions.swift`, `Chat/ReactionViews.swift` | same: right-click or hold, `spec/reactions.mjs` | 244 | open |
 | @mention other agents | `Chat/Mentions.swift` | same | 244 | open |

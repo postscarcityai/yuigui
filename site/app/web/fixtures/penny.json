@@ -1,0 +1,180 @@
+{
+ "agents": [
+  {
+   "id": "demo-yui",
+   "name": "Yui",
+   "handle": "yui",
+   "color": "brand",
+   "avatar": "yui",
+   "kind": "hermes",
+   "status": "connected",
+   "presence": "online",
+   "is_default": true,
+   "sort": 0,
+   "theme": {
+    "preset": "yui"
+   },
+   "tagline": "Your agent, drawn as screens"
+  },
+  {
+   "id": "demo-penny",
+   "name": "Penny",
+   "handle": "penny",
+   "color": "candy",
+   "kind": "hosted",
+   "status": "connected",
+   "presence": "online",
+   "is_default": false,
+   "sort": 1,
+   "theme": {
+    "preset": "candy"
+   },
+   "tagline": "Plans your week"
+  },
+  {
+   "id": "demo-basil",
+   "name": "Basil",
+   "handle": "basil",
+   "color": "forest",
+   "kind": "hosted",
+   "status": "connected",
+   "presence": "asleep",
+   "is_default": false,
+   "sort": 2,
+   "theme": {
+    "preset": "forest"
+   },
+   "tagline": "Meals and groceries"
+  }
+ ],
+ "threads": {
+  "demo-yui": [
+   {
+    "id": "00000000-0000-4000-8000-000000000021",
+    "sender": "agent",
+    "body": "Hi. I am Yui. Ask me for a screen: a timer, a form, a choice.\n```yui\nchoose \"What do you want to try first?\" Timer|Form|Choice\n```",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 2400
+   }
+  ],
+  "demo-penny": [
+   {
+    "id": "00000000-0000-4000-8000-000000000001",
+    "sender": "user",
+    "body": "Can you plan my running week?",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 1620
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000002",
+    "sender": "agent",
+    "body": "Three runs fit. Thursday is dry, so the long one goes there.\n```yui\nlist \"Mon easy 5k\"|\"Thu long 10k\"|\"Sat tempo 6k\" +check\nchoose \"Put them on your calendar?\" \"Add all three\"|\"Just Thursday\"\n```",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 1619
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000003",
+    "sender": "user",
+    "body": "[yui] n2 choose choice=\"Add all three\"",
+    "kind": "event",
+    "meta": {
+     "id": "n2",
+     "preset": "choose",
+     "value": {
+      "choice": "Add all three"
+     },
+     "echo": "Add all three"
+    },
+    "ago_min": 1560
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000004",
+    "sender": "agent",
+    "body": "Done. All three are on your calendar.",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 1559
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000005",
+    "sender": "user",
+    "body": "What about the rest of the week?",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 300
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000006",
+    "sender": "agent",
+    "body": "Here is how I would run your week. Monday is an easy five kilometers to loosen up after the weekend. Tuesday is strides only, short and quick, so your legs stay fresh. Thursday carries the long one, because the forecast is dry that day. Friday is a full rest day, no screens before bed. Saturday is a tempo run at a pace you can still talk through. If anything feels off, tell me and I will move the pieces around instead of dropping the week.",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 299
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000007",
+    "sender": "user",
+    "body": "Start a 5 minute cooldown",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 14
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000008",
+    "sender": "agent",
+    "body": "Five minutes. Walk it out.\n```yui\ntimer 5m Cooldown walk\n```",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 13
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000009",
+    "sender": "user",
+    "body": "How did the week look?",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 3
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000010",
+    "sender": "agent",
+    "body": "Good. Three runs, all dry.\n```yui\nstat 8km \"Saturday\" sub=\"easy pace\"\nchoose@ping \"Ping you before each run?\" Yes|No\n```",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 2
+   }
+  ],
+  "demo-basil": [
+   {
+    "id": "00000000-0000-4000-8000-000000000031",
+    "sender": "agent",
+    "body": "Hungry? Tell me what is in the fridge.",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 3000
+   }
+  ]
+ },
+ "replies": {
+  "text": [
+   {
+    "doing": [
+     "Reading your week 1/2",
+     "Picking the best days 2/2"
+    ],
+    "body": "Friday is the rest day. Want it kept clear?\n```yui\nchoose@rest \"Keep Friday clear?\" Yes|No\n```"
+   }
+  ],
+  "event": [
+   {
+    "doing": [
+     "Writing it down"
+    ],
+    "body": "Got it. I will remember that."
+   }
+  ]
+ }
+}
