@@ -1893,6 +1893,18 @@
     {
       "text": "Agent tables: rows that load before the thread knows its agent wait for it, streamed replies write once, UI tests for the starters and the agent's workouts",
       "card": "YUI-89"
+    },
+    {
+      "text": "Start blank: a new empty agent opens on a five step setup flow and writes itself from the answers",
+      "card": "YUI-138"
+    },
+    {
+      "text": "Shortcuts, Spotlight and the Action button know every agent: an agent roster in the app group, Talk to an agent (default agent), Open an agent and Open a saved screen",
+      "card": "YUI-40"
+    },
+    {
+      "text": "The App Shortcuts test counts eight now",
+      "card": "YUI-40"
     }
   ]
 }
