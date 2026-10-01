@@ -1,5 +1,6 @@
 // A thread's own address (YUI-242): /web/agent/<id> and /web/agent/<id>/chat/<chat>, what a notification click
 // or a yui:// link opens. The same app as /web; the client reads the path.
+import { Suspense } from "react";
 import WebApp from "../../WebApp";
 import { pageMeta } from "../../../../lib/og/meta.mjs";
 
@@ -10,5 +11,5 @@ export const metadata = pageMeta({
 });
 
 export default function WebThread() {
-  return <WebApp />;
+  return <Suspense><WebApp /></Suspense>;
 }

@@ -64,9 +64,9 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
   const relay = useMemo(() => {
     if (!mounted) return null;
     if (demo) return createDemoRelay(FIXTURES[demo] || fixture);
-    if (!account) return null;
-    return createRelay({ token: account.token });
-  }, [mounted, demo, account]);
+    if (!auth) return null;
+    return createRelay({ token: () => auth.accessToken() });
+  }, [mounted, demo, auth]);
   // The e2e checks read the wire (what a tap sent), not the screen. The committed relay, not a render's spare.
   useEffect(() => { if (demo && relay) window.yuiWebDemo = relay; }, [demo, relay]);
   // Who is signed in, as the account says it (the sign in only knew the Apple email it was given).
@@ -78,7 +78,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
     return () => { live = false; };
   }, [auth]);
   const email = me?.email || user?.email;
-  const userId = demo ? "demo-user" : account?.userId;
+  const userId = demo ? "demo-user" : user?.id;
 
   const load = useCallback(async () => {
     if (!relay) return;
@@ -122,18 +122,19 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
       </aside>
       {drawer ? <button className="wb-scrim" aria-label="Close the agent list" onClick={() => setDrawer(false)} /> : null}
       <main className="wb-main">
-        {open ? (
-          <>
-            <header className="wb-head">
-              <button className="wb-iconbtn wb-menu" onClick={() => setDrawer(true)} aria-label="Your agents">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" strokeWidth="2.2" strokeLinecap="round" /></svg>
-              </button>
+        <header className="wb-head">
+          <button className="wb-iconbtn wb-menu" onClick={() => setDrawer(true)} aria-label="Your agents">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" strokeWidth="2.2" strokeLinecap="round" /></svg>
+          </button>
+          {open ? (
+            <>
               <Face agent={open} />
               <span className="wb-head-words"><b>{open.name}</b><small><i className={`wb-dot ${liveness(open)}`} />{presenceLabel(open)}</small></span>
-            </header>
-            <ThreadView key={`${open.id}:${chat || ""}`} relay={relay} userId={userId} agent={open} chat={chat} light={light} />
-          </>
-        ) : error ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
+            </>
+          ) : <span className="wb-head-words"><b>Yui</b></span>}
+        </header>
+        {open ? <ThreadView key={`${open.id}:${chat || ""}`} relay={relay} userId={userId} agent={open} chat={chat} light={light} />
+          : error ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
           : <div className="wb-wait center">Loading your agents...</div>}
       </main>
     </div>

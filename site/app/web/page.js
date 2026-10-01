@@ -1,5 +1,6 @@
 // Yui on the web (YUI-240 to YUI-250, spec/BROWSER.md). This story, YUI-241: sign in with Apple, a session
 // that stays signed in, sign out. The thread, the stage and the rest follow in YUI-242 and on.
+import { Suspense } from "react";
 import WebApp from "./WebApp";
 import { pageMeta } from "../../lib/og/meta.mjs";
 
@@ -11,5 +12,5 @@ export const metadata = pageMeta({
 });
 
 export default function Web() {
-  return <WebApp />;
+  return <Suspense><WebApp /></Suspense>;
 }

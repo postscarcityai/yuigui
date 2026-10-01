@@ -34,6 +34,7 @@ function backend() {
     s.log.push({ fn, body, auth, apikey: req.headers().apikey });
     const reply = (status, json) => route.fulfill({ status, headers: { ...CORS, "content-type": "application/json" }, body: JSON.stringify(json) });
     if (fn === "yui-account") return auth.startsWith("Bearer at") ? reply(200, { user: { id: "u1", email: s.email }, look: null }) : reply(401, { error: "unauthorized" });
+    if (fn === "yui-agents") return auth.startsWith("Bearer at") ? reply(200, { agents: [] }) : reply(401, { error: "unauthorized" }); // the agent list (YUI-242)
     if (fn !== "yui-auth") return reply(404, {});
     switch (body.grant_type) {
       case "apple": s.nonceSeen = body.nonce; return reply(200, { ...mint("web"), ...(body.invite_code ? { invite: { first_name: "Maya" } } : {}) });
@@ -116,6 +117,9 @@ for (const [name, vp] of [["390", { width: 390, height: 844 }], ["desktop", { wi
 
     // Sign out in one tab ends this browser's session, signs the siblings out, and leaves another device alone.
     const phone = srv.sessions.size; srv.sessions.set("phone-rt", { revoked: false, client: "app" });
+    // At phone width the agents (and Sign out) are a drawer (YUI-242).
+    const menu = tab2.getByRole("button", { name: "Your agents" });
+    if (await menu.isVisible()) { await menu.click(); await tab2.waitForTimeout(450); }
     await tab2.getByRole("button", { name: "Sign out" }).click();
     await tab2.getByRole("button", { name: "Sign in with Apple" }).waitFor();
     await pg.getByRole("button", { name: "Sign in with Apple" }).waitFor({ timeout: 4000 });
