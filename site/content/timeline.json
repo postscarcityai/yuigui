@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 409,
-    "site": 960,
+    "app": 410,
+    "site": 962,
     "builds": 51,
-    "shipped": 481,
-    "screenshots": 1223
+    "shipped": 482,
+    "screenshots": 1227
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T00:06:54.640Z",
+          "at": "2026-10-01T00:15:18.511Z",
+          "title": "Gouda builds your practice plan",
+          "card": "YUI-222",
+          "anchor": "gouda-builds-your-practice-plan",
+          "images": [
+            {
+              "src": "/progress/yui222-first-question-dark.webp",
+              "alt": "Gouda's first questions: what do you play and how would you rate yourself, with Not sure and Skip on each, dark theme"
+            },
+            {
+              "src": "/progress/yui222-first-question-light.webp",
+              "alt": "The same questions in light theme"
+            },
+            {
+              "src": "/progress/yui222-timer-dark.webp",
+              "alt": "Practice page with today's session and a 20 minute timer to start it, dark theme"
+            },
+            {
+              "src": "/progress/yui222-timer-light.webp",
+              "alt": "The same Practice page in light theme"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 410,
+            "site": 962,
+            "builds": 51,
+            "shipped": 482
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T00:07:13.000Z",
           "title": "Site flows keep your place",
           "card": "SITE-144",
           "anchor": "site-flows-keep-your-place",
@@ -35,10 +67,10 @@
               "alt": "The same unknown-name card in light theme"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 409,
-            "site": 960,
+            "site": 961,
             "builds": 51,
             "shipped": 481
           }
@@ -1772,6 +1804,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "app",
+          "sha": "e2531f8",
+          "at": "2026-10-01T00:14:33.000Z",
+          "text": "Gouda's first plan: four questions on the first open build a week of practice from the answers, today's session and a timer on Practice...",
+          "url": "https://github.com/postscarcityai/yui/commit/e2531f8"
+        },
+        {
+          "repo": "site",
+          "sha": "7a9d9b09",
+          "at": "2026-10-01T00:11:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7a9d9b09"
+        },
+        {
+          "repo": "site",
+          "sha": "26888b59",
+          "at": "2026-10-01T00:07:13.000Z",
+          "text": "Playground flows resume after a reload and an unknown name gets a way on (SITE-144)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/26888b59"
+        },
         {
           "repo": "site",
           "sha": "9cb7b871",
