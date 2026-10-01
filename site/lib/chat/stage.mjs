@@ -38,9 +38,15 @@ function playsOwnSteps(nodes) {
 //   questions: [{ part, node }] in line order
 //   plan:      { part, node } when the questions came from a plan (Send answers as the plan)
 export function readAnswer(content) {
+  return answerOf(splitReply(content).map((p) => (p.text ? { text: p.text } : { yl: p.yl })));
+}
+
+// The same from a run of pieces: { text } words, { yl } a fence's lines, or { state } a screen already built
+// (the web thread keeps each fence's state with later patches applied, so a patched answer plays patched).
+export function answerOf(pieces) {
   const parts = [], chunks = [], questions = [];
   let plan = null, open = null; // open: a text chunk still waiting for its picture
-  for (const p of splitReply(content)) {
+  for (const p of pieces) {
     if (p.text) {
       for (const t of textParts(p.text)) {
         const c = { key: `t${chunks.length}`, part: null, text: t, line: null, page: null, pic: null };
@@ -49,8 +55,11 @@ export function readAnswer(content) {
       }
       continue;
     }
-    let state = initialState();
-    for (const op of parse(p.yl)) state = apply(state, op);
+    let state = p.state;
+    if (!state) {
+      state = initialState();
+      for (const op of parse(p.yl)) state = apply(state, op);
+    }
     // Lines for a page (screens 2 to 12) sit on that page, not on the stage (SITE-83, pages.mjs).
     const nodes = Object.entries(state.screens).flatMap(([k, l]) => l.filter((n) => inThread(k, n))).sort((a, b) => a.seq - b.seq);
     const part = parts.push({ nodes, state }) - 1;

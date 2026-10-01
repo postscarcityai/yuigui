@@ -90,17 +90,17 @@ Every one is a row below too. This is the short list, with the web way for each.
 
 | Feature | App file | Web twin | Story | Status |
 | --- | --- | --- | --- | --- |
-| Stage first: first send opens the stage, reply plays as chunks, questions last under one Send | `Stage/StageFirst.swift`, `Stage/StageChunks.swift` | same: `chunks.mjs`, `stagefirst.js` | 243 | draws |
-| The chat is the record, a chunk chip reopens the stage there | `Stage/StageFirst.swift` | same | 243 | open |
+| Stage first: first send opens the stage, reply plays as chunks, questions last under one Send | `Stage/StageFirst.swift`, `Stage/StageChunks.swift` | same: `chunks.mjs`, `stagefirst.js` | 243 | done |
+| The chat is the record, a chunk chip reopens the stage there | `Stage/StageFirst.swift` | same | 243 | done |
 | `>full` as a full-window layer, close returns to chat | `Presets/Stage.swift` | same: a layer over the window; Fullscreen API behind a button | 243 | draws |
 | Components that open on the stage by themselves (`timer`, `camera`, `mic`, `deck`, `plan`, `game`, row3d gallery) | `Presets/Stage.swift` | same: `onStage` in `yl.mjs` | 243 | draws |
 | A way home (X, Back home, pull down 110 points) | `Presets/FullScreenExit.swift` | same: `dragdown.js` (`useDragDown`), Esc | 243 | draws |
-| Stage motion (the mark breathes, thinking, speaking) | `Stage/StageMotion.swift` | same: `stagemotion.js`; `prefers-reduced-motion` swaps motion for fades | 243 | draws |
+| Stage motion (the mark breathes, thinking, speaking) | `Stage/StageMotion.swift` | same: `stagemotion.js`; `prefers-reduced-motion` swaps motion for fades | 243 | done |
 | The visual and what it hears | `Stage/StageVisual.swift`, `Stage/VisualPlan.swift`, `Stage/VisualSound.swift`, `Stage/VisualDefault.swift` | web way: WebGL, `AnalyserNode` for sound, the same plan and budget | 243 | draws |
 | Pages 2 to 12: swipe, arrow keys, dots, kept across replies | `Presets/Pages.swift` | same: `pages.mjs` | 243 | draws |
-| Agent home: shortcut chips, review rows, show saved screen | `Stage/StageHome.swift` | same | 243 | open |
-| Top bar (settings, agent picker, chat record with new count) | `Stage/TopBar.swift` | same | 243 | open |
-| Bottom bar (big mic, T, +; settings toggle each) | `Stage/BottomBar.swift` | same: mic, text field, attach | 243 | open |
+| Agent home: shortcut chips, review rows, show saved screen | `Stage/StageHome.swift` | same | 243 | done |
+| Top bar (settings, agent picker, chat record with new count) | `Stage/TopBar.swift` | same | 243 | done |
+| Bottom bar (big mic, T, +; settings toggle each) | `Stage/BottomBar.swift` | same: mic, text field, attach | 243 | mic and T done, attach waits on 244 |
 | Story pages full screen | `Presets/StoryPage.swift` | same | 243 | draws |
 | Time under the stage answer (Yesterday 9:41 PM) | `Stage/StageFirst.swift` | same: `stageTime` in `when.mjs` | 243 | draws |
 | Sound keeps playing across screens | `Presets/MusicPresets.swift` | same: `music/keep.js` | 246 | draws |

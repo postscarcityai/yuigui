@@ -1,0 +1,76 @@
+/* Yui's stage on the web (YUI-243). The stage is a layer over the thread: the site chat's own stage
+   styles (chat.css ys-*, stagemotion.css mo-*, playground/flows.css) do the playing; these rules set the
+   frame (a centered column on a computer, the whole window on a phone), the home, the pills and the chips. */
+.wb-main { position: relative; }
+.wb-stage {
+  position: absolute; inset: 0; z-index: 8; display: flex; justify-content: center; overflow: hidden;
+  background: radial-gradient(120% 45% at 50% -8%, color-mix(in srgb, var(--mo-c, var(--brand)) 20%, transparent), transparent 72%), var(--background);
+  color: var(--ink); font-family: var(--font-phone, var(--font));
+}
+.wb-stage-in { position: relative; width: min(680px, 100%); height: 100%; display: flex; flex-direction: column; min-height: 0; }
+.wb-stage .ys-top { padding: 14px 16px 6px; }
+.wb-stage .wb-stage-menu { display: none; }
+.wb-stage-title { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.wb-stage .ys-who { flex: 1; }
+.wb-stage .ys-who strong { color: var(--ink); }
+.wb-stage .ys-who span { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.wb-stage .ys-round:focus-visible, .wb-stage .ys-small:focus-visible, .wb-stage .ys-mic:focus-visible, .wb-stage .wb-chip:focus-visible,
+.wb-stage .wb-pill:focus-visible, .wb-stage .wb-ask:focus-visible, .wb-stage .ys-sendall:focus-visible, .wb-stage .ys-homeq:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+.wb-stage .ys-mid { width: 100%; max-width: 560px; margin: 0 auto; }
+.wb-stage .ys-scroll { width: 100%; max-width: 620px; margin: 0 auto; }
+.wb-stage .ys-play { width: 100%; }
+.wb-stage .ys-hint { text-align: center; padding: 2px 18px 12px; }
+.wb-stage .ys-bottom { padding-bottom: 6px; }
+.wb-stage .ys-field { padding: 8px 16px 4px; }
+.wb-stage .ys-nav { left: 18px; }
+.wb-stage .ys-mic, .wb-stage .ys-small, .wb-stage .ys-round { cursor: pointer; }
+
+/* the agent's home: the face and what it does, what waits on you */
+.wb-home { gap: 8px; }
+.wb-home .wb-face { border-radius: 24px; box-shadow: 0 6px 28px color-mix(in srgb, var(--face) 38%, transparent); }
+.wb-home-name { margin: 6px 0 0; font-size: 30px; font-weight: 800; line-height: 1.1; }
+.wb-home-line { margin: 0; font-size: 17px; color: var(--muted); max-width: 32ch; }
+.wb-quiet { margin: 14px 0 0; font-size: 14px; font-weight: 600; color: var(--muted); max-width: 34ch; }
+.wb-waiting { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 18px; text-align: left; }
+.wb-waiting-head { display: flex; align-items: center; justify-content: space-between; font-size: 13px; font-weight: 800; color: var(--muted); padding: 0 4px; }
+.wb-waiting-head button { background: none; border: 0; color: var(--link); font: inherit; font-weight: 800; cursor: pointer; min-height: 32px; }
+.wb-ask { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 12px 14px; border-radius: 18px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.wb-ask:hover { background: var(--raised); }
+.wb-ask i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--mo-c, var(--brand)); }
+.wb-ask span { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.wb-ask b { font-size: 16px; font-weight: 800; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; }
+.wb-ask small { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wb-ask svg { width: 18px; height: 18px; stroke: var(--muted); flex: none; }
+
+/* the shortcuts as chips over the bar: two to a row and big on the home, one small row over an answer */
+.wb-chips { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 6px 16px 4px; z-index: 2; }
+.wb-chips.small { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 8px; scrollbar-width: none; padding-bottom: 2px; }
+.wb-chips.small::-webkit-scrollbar { display: none; }
+.wb-chip { display: flex; align-items: center; justify-content: flex-start; min-height: 58px; padding: 10px 16px; border-radius: 22px; border: 1.5px solid color-mix(in srgb, var(--mo-c, var(--brand)) 45%, transparent); background: color-mix(in srgb, var(--mo-c, var(--brand)) 14%, transparent); color: var(--ink); font: inherit; font-size: 16px; font-weight: 800; text-align: left; cursor: pointer; transition: transform .15s cubic-bezier(.3, 1.6, .5, 1); }
+.wb-chip:hover { transform: translateY(-1px); }
+.wb-chip:active { transform: scale(.97); }
+.wb-chips.small .wb-chip { flex: none; min-height: 40px; padding: 6px 14px; border-radius: 20px; font-size: 14px; white-space: nowrap; background: color-mix(in srgb, var(--mo-c, var(--brand)) 10%, transparent); }
+
+/* the pills: one per screen, the first the home; they scroll sideways and fade at the right edge */
+.wb-pills { display: flex; gap: 8px; padding: 2px 16px 6px; overflow-x: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); }
+.wb-pills::-webkit-scrollbar { display: none; }
+.wb-pill { flex: none; min-height: 38px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; white-space: nowrap; }
+.wb-pill:hover { background: var(--raised); }
+.wb-pill.on { background: var(--mo-c, var(--brand)); border-color: transparent; color: #2a1020; }
+
+/* the record's "Play on the stage" chip and a message typed on a page */
+.wb-play { align-self: flex-start; margin: 4px 0 0 6px; background: none; border: 0; padding: 4px 2px; color: var(--link); font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; min-height: 32px; }
+.wb-from-screen { align-self: flex-end; margin: 0 6px 2px; background: none; border: 0; padding: 2px; color: var(--link); font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.wb-viewbtn { margin-left: auto; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-size: 14px; font-weight: 800; cursor: pointer; }
+.wb-viewbtn:hover { background: var(--raised); }
+
+@media (max-width: 760px) {
+  .wb-stage .wb-stage-menu { display: grid; }
+}
+@media (min-width: 761px) {
+  .wb-stage .ys-top { padding-top: 18px; }
+  .wb-stage .ys-hint { padding-bottom: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wb-chip { transition: none; }
+}

@@ -18,6 +18,8 @@ async function open(vp, theme, path = "/web/agent/demo-penny") {
   pg.errs = [];
   pg.on("pageerror", (e) => pg.errs.push(e.message));
   await pg.goto(`${BASE}${path}?demo=penny&theme=${theme}`);
+  await pg.waitForSelector("[data-testid=stage-record]");
+  await pg.locator("[data-testid=stage-record]").click(); // the stage is first (YUI-243); the thread is its record
   await pg.waitForSelector(".wb-item");
   await pg.waitForTimeout(600);
   return pg;

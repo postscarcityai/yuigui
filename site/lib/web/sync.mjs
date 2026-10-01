@@ -6,6 +6,7 @@
 import { before } from "./thread.mjs";
 import { createOutbox } from "./relay.mjs";
 import { echoFor, eventLine, relays, valueOf } from "../../../mcp-app/src/events.mjs";
+import { typedBody } from "../yl/yl.mjs";
 
 export const IDLE_POLL = 1500;   // ChatStore.idlePoll
 export const SOCKET_POLL = 6000; // the socket is up: the poll is only the safety net
@@ -74,18 +75,20 @@ export class ThreadSync {
   }
 
   // The person typed something. False when it is empty.
-  send(text) {
-    const body = String(text || "").trim();
-    if (!body) return false;
-    this.#out({ id: uuid(), body, kind: "text", meta: null });
+  send(text, { screen = null } = {}) {
+    const words = String(text || "").trim();
+    if (!words) return false;
+    // Said on a page that keeps talking (`>2 talk`, ScreenTalk.swift): `[yui] screen=2`, then the words.
+    const body = screen ? typedBody(String(screen), words) : words;
+    this.#out({ id: uuid(), body, kind: "text", meta: body === words ? null : { screen: String(screen) } });
     return true;
   }
 
   // A tap on a screen: the same row the phone sends (Presets/ChatStore.swift `receive`). It shows its echo at
   // once; it goes to the agent only when the person answered something, something finished, or it is a
   // game move. A quiet event (a timer starting, a checklist tick) stays on the page.
-  tap(ev) {
-    const echo = echoFor(ev);
+  tap(ev, said = null) {
+    const echo = said ?? echoFor(ev);
     if (!relays(ev, echo)) return null;
     const meta = { id: ev.id, preset: ev.preset, value: valueOf(ev), ...(echo != null ? { echo } : {}) };
     const row = { id: uuid(), body: eventLine(ev), kind: "event", meta };

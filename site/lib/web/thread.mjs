@@ -3,7 +3,7 @@
 // Pure, no DOM and no network: the relay client (relay.mjs) and the fake relay (demo.mjs) both feed
 // `add(row)`; the page reads `messages`. Rows can arrive twice or out of order across polls and the
 // realtime socket, so the ids dedupe (lowercased, like the app) and `add` says whether the row was new.
-import { apply, initialState, lastingIds, parse } from "../yl/yl.mjs";
+import { apply, initialState, lastingIds, pageOf, parse, readTyped } from "../yl/yl.mjs";
 
 // ---------- fences (Thread.swift YuiFence.split) ----------
 // Only a ```yui fence is Yui Lines. Everything else is a bubble. An unclosed fence still renders.
@@ -91,6 +91,9 @@ const firstLine = (s) => String(s || "").split("\n")[0];
 
 // A reply or mention row starts with one line the app wrote (RELAY.md). The words are what follows.
 function userWords(body, meta) {
+  // Typed on a page (ScreenTalk.swift): a `[yui] screen=2` line, then the words.
+  const typed = meta?.screen && pageOf(String(meta.screen)) > 1 ? readTyped(String(body || "")) : null;
+  if (typed) return typed.words.trim();
   let lines = String(body || "").split("\n");
   if (meta?.mention && lines[0]?.startsWith("[yui] mention to=")) lines = lines.slice(1);
   else if (meta?.reply_to && lines[0]?.startsWith("[yui] reply to=")) lines = lines.slice(1);
@@ -231,6 +234,7 @@ export class Thread {
         return typeof echo === "string";
       }
       const m = { id, role: "user", text: userWords(row.body, meta), at };
+      if (meta.screen && pageOf(String(meta.screen)) > 1) m.screen = String(meta.screen);
       if (meta.reply_to?.quote) m.replyTo = { from: meta.reply_to.from === "user" ? "You" : "agent", quote: meta.reply_to.quote };
       if (meta.mention?.name) m.to = `To ${meta.mention.name}`;
       if (meta.mentioned?.from_name) m.to = `You, from ${meta.mentioned.from_name}'s thread`;

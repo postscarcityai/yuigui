@@ -4,7 +4,8 @@
 // `[yui] ...` line). The message brings its state and the ops of later patches (lib/web/thread.mjs): a
 // patch that lands after the screen is drawn is applied to what is on the page, so a tick or a typed
 // answer the person already made is not lost. Its own file so the renderers load only when a reply has a screen.
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { apply, pageOf } from "../../lib/yl/yl.mjs";
 import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, StepGroup, TABLES } from "../playground/presets";
@@ -13,7 +14,7 @@ import { ScreenCtx } from "../playground/science";
 import { LiveSlot, Stage, StagePill } from "../playground/stage";
 import "../playground/flows.css";
 
-export default function ThreadScreen({ message, agent, light, onTap, live }) {
+export default function ThreadScreen({ message, agent, light, onTap, live, onPage }) {
   // The screen the reply drew, then every later patch, in order. Local state keeps the person's own
   // moves (a tick, a slider) that no row carries.
   const [state, setState] = useState(() => {
@@ -27,6 +28,13 @@ export default function ThreadScreen({ message, agent, light, onTap, live }) {
     done.current = message.ops.length;
     setState((s) => more.reduce((acc, op) => apply(acc, op), s));
   }, [message.ops]);
+
+  // `>full` and the parts that take the stage (a timer, a deck, a plan) open as a full-window layer over the
+  // thread (YUI-243), not inside the bubble: the stage is drawn into the main column (a portal), so nothing
+  // in the thread can sit on top of it. Close puts the chat back.
+  const box = useRef(null);
+  const [host, setHost] = useState(null);
+  useLayoutEffect(() => { setHost(box.current?.closest(".wb-main") || null); }, []);
 
   const [liveTimers, setLive] = useState({});
   const onLive = useCallback((k, t) => setLive((l) => (l[k] === t ? l : { ...l, [k]: t })), []);
@@ -56,19 +64,22 @@ export default function ThreadScreen({ message, agent, light, onTap, live }) {
 
   if (!nodes.length && !staged.length && !pages.length) return null;
   return (
-    <div className={`screen wb-screen ${light ? "light" : ""} ${stageOpen ? "staged" : ""}`} data-live={live ? "1" : "0"}>
+    <div className={`screen wb-screen ${light ? "light" : ""}`} data-live={live ? "1" : "0"} ref={box}>
       <div className="pg-screen">
         <ScreenCtx.Provider value={ctx(nodes, "1")}>
           {groupNodes(nodes).map(renderNode)}
           {staged.length ? <StagePill nodes={staged} live={liveTimers} onOpen={() => setState((s) => ({ ...s, stage: true }))} /> : null}
         </ScreenCtx.Provider>
-        {pages.map((k) => <div key={`page:${k}`} className="wb-onpage">On screen {k}</div>)}
+        {pages.map((k) => <button key={`page:${k}`} className="wb-onpage" onClick={() => onPage?.(k)}>On screen {k} ›</button>)}
       </div>
-      <Stage open={stageOpen} onClose={() => setState((s) => ({ ...s, stage: false }))} agent={agent}>
-        <ScreenCtx.Provider value={ctx(staged, "full")}>
-          {groupNodes(staged).map((n) => <LiveSlot key={`${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
-        </ScreenCtx.Provider>
-      </Stage>
+      {staged.length && host ? createPortal(
+        <div className={`screen wb-stagehost ${light ? "light" : ""}`}>
+          <Stage open={stageOpen} onClose={() => setState((s) => ({ ...s, stage: false }))} agent={agent}>
+            <ScreenCtx.Provider value={ctx(staged, "full")}>
+              {groupNodes(staged).map((n) => <LiveSlot key={`${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
+            </ScreenCtx.Provider>
+          </Stage>
+        </div>, host) : null}
     </div>
   );
 }

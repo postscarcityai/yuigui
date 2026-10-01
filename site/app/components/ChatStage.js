@@ -32,13 +32,13 @@ function Ctx({ part, agent, home, children }) {
   return <ScreenCtx.Provider value={value}>{children}</ScreenCtx.Provider>;
 }
 
-function Chunk({ a, c, dir, emitFor, Text, go, small, home }) {
+function Chunk({ a, c, dir, emitFor, Text, go, small, home, agent }) {
   const part = c.part != null ? a.parts[c.part] : null;
   const words = c.text || c.line;
   const long = textRole(words || "") === "body";
   return (
     <div className={`mo-chunk ys-chunk${small ? " small" : ""}`} data-dir={dir}>
-      {c.pic && part ? <div className="ys-pic yc-screen pg-screen"><Ctx part={part} agent="Yui" home={home}><Picture part={part} node={c.pic} emitFor={emitFor} /></Ctx></div> : null}
+      {c.pic && part ? <div className="ys-pic yc-screen pg-screen"><Ctx part={part} agent={agent} home={home}><Picture part={part} node={c.pic} emitFor={emitFor} /></Ctx></div> : null}
       {c.text ? <div className={`ys-line ys-text${long ? " long" : ""}`}><Text text={c.text} go={go} /></div> : null}
       {c.line ? <div className={`ys-line${long ? " long" : ""}`}><RichText text={c.line} go={go} /></div> : null}
       {c.page?.body ? <div className="ys-body"><RichText text={c.page.body} go={go} /></div> : null}
@@ -47,8 +47,9 @@ function Chunk({ a, c, dir, emitFor, Text, go, small, home }) {
   );
 }
 
-export default function ChatStage({ content, live, onTap, onAnswers, Text, go, active = true, onEdge, onHome, onEnd, at: sentAt }) {
-  const a = useMemo(() => readAnswer(content), [content]);
+export default function ChatStage({ content, answer, agent = "Yui", live, onTap, onAnswers, Text, go, active = true, onEdge, onHome, onEnd, at: sentAt }) {
+  // `answer` is an answer already read (the web thread builds its own from the screens it holds, YUI-243).
+  const a = useMemo(() => answer || readAnswer(content), [answer, content]);
   const n = a.chunks.length;
   const [at, setAt] = useState(0);
   const [dir, setDir] = useState(1);
@@ -83,7 +84,7 @@ export default function ChatStage({ content, live, onTap, onAnswers, Text, go, a
     return () => window.removeEventListener("keydown", onKey);
   }, [active, step, at, last, onEdge]);
 
-  const emitFor = useCallback((node) => (value) => { if (live) onTap?.({ id: node.id, preset: node.preset, ...value }); }, [live, onTap]);
+  const emitFor = useCallback((node) => (value) => { if (live) onTap?.({ id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) }); }, [live, onTap]);
 
   // A tap on the stage itself: the left third goes back, anywhere else goes on. Taps inside a picture
   // or a question belong to it.
@@ -118,12 +119,12 @@ export default function ChatStage({ content, live, onTap, onAnswers, Text, go, a
       ) : null}
       <div className="ys-scroll">
         {sentAt ? <time className="ys-when" dateTime={new Date(sentAt).toISOString()}>{stageTime(sentAt)}</time> : null}
-        {c ? <Chunk key={`${c.key}:${at}`} a={a} c={c} dir={dir} emitFor={emitFor} Text={Text} go={go} small={asking} home={onHome} /> : null}
+        {c ? <Chunk key={`${c.key}:${at}`} a={a} c={c} dir={dir} emitFor={emitFor} Text={Text} go={go} small={asking} home={onHome} agent={agent} /> : null}
         {asking ? (
           <div className="ys-qs">
             {a.questions.map((q, i) => (
               <div key={q.node.key} className="mo-q" style={{ "--n": i }}>
-                <Ctx part={a.parts[q.part]} agent="Yui" home={onHome}>
+                <Ctx part={a.parts[q.part]} agent={agent} home={onHome}>
                   <div className="yc-screen pg-screen"><CrewOr node={q.node} emit={one ? emitFor(q.node) : capture(q)} Render={Render} /></div>
                 </Ctx>
               </div>

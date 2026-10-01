@@ -11,6 +11,7 @@ import { ThreadSync } from "../../lib/web/sync.mjs";
 import { waitingNote, workingLine } from "../../lib/web/presence.mjs";
 
 const ThreadScreen = dynamic(() => import("./ThreadScreen"), { ssr: false, loading: () => <div className="wb-wait">Drawing...</div> });
+const StageLayer = dynamic(() => import("./StageLayer"), { ssr: false, loading: () => <div className="wb-stage"><div className="wb-wait center">Opening the stage...</div></div> });
 
 // Words an agent wrote: markdown drawn as elements (RichText never uses innerHTML), a long answer folded to
 // its first sentences with a way to read it all (LongText.swift: past 60 words, an excerpt of about 40).
@@ -25,13 +26,14 @@ const AgentText = memo(function AgentText({ text }) {
   );
 });
 
-function Bubble({ m, agent, light, onTap, live }) {
+function Bubble({ m, agent, light, onTap, live, onPage }) {
   if (m.card === "stopped") return <div className="wb-note" role="status">Stopped.</div>;
-  if (m.yl) return <div className="wb-row wb-agent wb-screenrow"><ThreadScreen message={m} agent={agent?.name || "Yui"} light={light} onTap={onTap} live={live} /></div>;
+  if (m.yl) return <div className="wb-row wb-agent wb-screenrow"><ThreadScreen message={m} agent={agent?.name || "Yui"} light={light} onTap={onTap} live={live} onPage={onPage} /></div>;
   if (m.role === "user") {
     return (
       <div className={`wb-row wb-user${m.pending ? " pending" : ""}${m.failed ? " failed" : ""}`}>
         {m.to ? <div className="wb-to">{m.to}</div> : null}
+        {m.screen ? <button className="wb-from-screen" onClick={() => onPage?.(m.screen)}>From screen {m.screen}</button> : null}
         <div className="wb-bubble">
           {m.replyTo ? <div className="wb-quote"><b>{m.replyTo.from === "agent" ? agent?.name || "Yui" : "You"}</b> {m.replyTo.quote}</div> : null}
           {m.text}
@@ -62,7 +64,7 @@ function Working({ agent, thread, onStop, note }) {
 }
 
 // The draft lives here and nowhere else, so typing never redraws the thread above it.
-function Composer({ agent, waiting, onSend, onStop, offline }) {
+function Composer({ agent, waiting, onSend, onStop, offline, inert }) {
   const [draft, setDraft] = useState("");
   const box = useRef(null);
   const grow = () => { const el = box.current; if (el) { el.style.height = "auto"; el.style.height = `${Math.min(el.scrollHeight, 160)}px`; } };
@@ -70,7 +72,7 @@ function Composer({ agent, waiting, onSend, onStop, offline }) {
   const submit = () => { if (onSend(draft)) { setDraft(""); box.current?.focus(); } };
   const stop = waiting && !draft.trim();
   return (
-    <form className="wb-composer" onSubmit={(e) => { e.preventDefault(); stop ? onStop() : submit(); }}>
+    <form className="wb-composer" inert={inert || undefined} onSubmit={(e) => { e.preventDefault(); stop ? onStop() : submit(); }}>
       {offline ? <div className="wb-offline" role="status">Not sent yet. It goes the moment you're back online.</div> : null}
       <div className="wb-compose">
         <textarea ref={box} rows={1} value={draft} maxLength={32000} aria-label={`Message ${agent?.name || "Yui"}`} placeholder={`Message ${agent?.name || "Yui"}`}
@@ -85,7 +87,7 @@ function Composer({ agent, waiting, onSend, onStop, offline }) {
   );
 }
 
-export default function ThreadView({ relay, userId, agent, chat, light, live = true }) {
+export default function ThreadView({ relay, userId, agent, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {} }) {
   const thread = useMemo(() => new Thread(), [agent.id, chat]);
   const [, tick] = useReducer((n) => n + 1, 0);
   const [net, setNet] = useState({ offline: false, pending: 0 });
@@ -104,6 +106,15 @@ export default function ThreadView({ relay, userId, agent, chat, light, live = t
     if (el && (stuck.current || thread.version <= 1)) el.scrollTop = el.scrollHeight;
   }, [thread.version, thread.waiting]);
 
+  // The stage is a layer over this record. `seen` is what the record last showed: the rest is the new count
+  // on the stage's record button. A chip in the record plays a turn again; "On screen 2" goes to that page.
+  const [seen, setSeen] = useState(0);
+  const [req, setReq] = useState({ key: 0 });
+  useEffect(() => { if (view === "chat") setSeen(list.length); }, [view, list.length]);
+  const toStage = useCallback((r) => { setReq((q) => ({ ...r, key: q.key + 1 })); setView("stage"); }, [setView]);
+  const askOf = (i) => { for (let k = i; k >= 0; k--) if (list[k].role === "user" && !list[k].card) return list[k].id; return null; };
+  const stageOn = view === "stage";
+
   const onTap = useCallback((ev) => { sync.tap(ev); }, [sync]);
   const onSend = useCallback((text) => sync.send(text), [sync]);
   const onStop = useCallback(() => sync.stopTurn(), [sync]);
@@ -111,21 +122,26 @@ export default function ThreadView({ relay, userId, agent, chat, light, live = t
 
   return (
     <section className="wb-thread" aria-label={`${agent.name}'s thread`} data-loaded={thread.loaded ? "1" : "0"}>
-      <div className="wb-scroll" ref={scroller} onScroll={onScroll}>
+      <div className="wb-scroll" ref={scroller} onScroll={onScroll} inert={stageOn || undefined}>
         <div className="wb-messages">
           {!thread.loaded ? <div className="wb-wait">Opening {agent.name}...</div> : null}
           {thread.loaded && !list.length ? <div className="wb-empty">{agent.firstMessage || `Say hi to ${agent.name}.`}</div> : null}
           {list.map((m, i) => (
             <div key={m.id} className="wb-item" data-id={m.id}>
               {marks[i]?.day ? <Day label={marks[i].day} /> : null}
-              <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} />
+              <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} />
+              {m.role === "agent" && !m.from && (i === list.length - 1 || list[i + 1].role === "user") && askOf(i) ? (
+                <button className="wb-play" data-testid="play-on-stage" onClick={() => toStage({ ask: askOf(i) })}>Play on the stage</button>
+              ) : null}
               {marks[i]?.time ? <div className={`wb-time ${m.role === "user" ? "user" : ""}`}>{marks[i].time}</div> : null}
             </div>
           ))}
           {thread.waiting ? <Working agent={agent} thread={thread} onStop={onStop} note={note} /> : null}
         </div>
       </div>
-      <Composer agent={agent} waiting={thread.waiting} onSend={onSend} onStop={onStop} offline={net.offline} />
+      <Composer agent={agent} waiting={thread.waiting} onSend={onSend} onStop={onStop} offline={net.offline} inert={stageOn} />
+      {stageOn ? <StageLayer agent={agent} thread={thread} sync={sync} light={light} fresh={Math.max(0, list.length - seen)} offline={net.offline} req={req}
+        onRecord={() => setView("chat")} onMenu={onMenu} /> : null}
     </section>
   );
 }

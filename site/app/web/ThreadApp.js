@@ -46,6 +46,8 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
   const [error, setError] = useState(null);
   const [drawer, setDrawer] = useState(false);
   const [light, setLight] = useState(false);
+  // The app opens on the stage (Stage first); the chat is the record, one tap away. ?view=chat opens the record.
+  const [view, setView] = useState(search.get("view") === "chat" ? "chat" : "stage");
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -94,7 +96,8 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
 
   const sorted = useMemo(() => (agents ? [...agents].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0)) : null), [agents]);
   const open = sorted ? sorted.find((a) => a.id === agentId) || sorted.find((a) => a.is_default) || sorted[0] : null;
-  const keep = demo ? `?demo=${encodeURIComponent(demo)}${theme ? `&theme=${theme}` : ""}` : theme ? `?theme=${theme}` : "";
+  const q = [demo ? `demo=${encodeURIComponent(demo)}` : "", theme ? `theme=${theme}` : "", search.get("view") === "chat" ? "view=chat" : ""].filter(Boolean).join("&");
+  const keep = q ? `?${q}` : "";
   const hrefOf = (a) => `/web/agent/${a.id}${keep}`;
   const pick = (a) => { setDrawer(false); router.push(hrefOf(a), { scroll: false }); };
 
@@ -132,8 +135,9 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
               <span className="wb-head-words"><b>{open.name}</b><small><i className={`wb-dot ${liveness(open)}`} />{presenceLabel(open)}</small></span>
             </>
           ) : <span className="wb-head-words"><b>Yui</b></span>}
+          {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
         </header>
-        {open ? <ThreadView key={`${open.id}:${chat || ""}`} relay={relay} userId={userId} agent={open} chat={chat} light={light} />
+        {open ? <ThreadView key={`${open.id}:${chat || ""}`} relay={relay} userId={userId} agent={open} chat={chat} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} />
           : error ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
           : <div className="wb-wait center">Loading your agents...</div>}
       </main>
