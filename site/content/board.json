@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T16:49:28.333Z",
+  "updated": "2026-10-01T16:55:55.606Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -375,13 +375,8 @@
         {
           "key": "YUI-257",
           "title": "The shader on the web stage",
-          "summary": "Drop the old vector blob, the shader is the voice orb",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-158",
-          "title": "The board on the site never goes stale",
-          "summary": "Refresh on every card move, and a worker's deploy can't roll it back",
+          "summary": "The shader is the orb on the web stage",
+          "progress": "/progress#the-shader-is-the-orb-on-the-web-stage",
           "owner": "CJohnDesign"
         },
         {
@@ -396,6 +391,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-158",
+          "title": "The board on the site never goes stale",
+          "summary": "The board follows card moves within five minutes",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-board-follows-card-moves-within-five-minutes",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/72528017"
+        },
         {
           "key": "BIZ-8",
           "title": "Tokenomics v1, supply, emissions, value",
@@ -463,14 +466,6 @@
           "shipped": "2026-10-01",
           "progress": "/progress#the-coach-s-workout-tables-to-try-on-the-web",
           "commit": "https://github.com/postscarcityai/yuigui/commit/d39d1396"
-        },
-        {
-          "key": "YUI-257",
-          "title": "The shader on the web stage",
-          "summary": "The shader is the orb on the web stage",
-          "shipped": "2026-10-01",
-          "progress": "/progress#the-shader-is-the-orb-on-the-web-stage",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/0982175f"
         },
         {
           "key": "YUI-243",
