@@ -1250,3 +1250,4 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
 .md .shot-dark { display: none; }
 [data-theme="dark"] .md .shot-dark { display: inline; }
 [data-theme="dark"] .md .shot-light { display: none; }
+.md p > img { max-width: 46%; height: auto; border-radius: 20px; border: 1.5px solid var(--outline); vertical-align: top; margin: 4px 6px 4px 0; }

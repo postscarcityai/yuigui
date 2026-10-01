@@ -1,8 +1,10 @@
 "use client";
 
-// My flows (spec/FLOWS.md, section 8): a mock of the app's list of saved flows.
-// The five starters plus the person's own copies, each with its last run. Run
-// one and it plays in the real flow runtime (./flow.js); at submit the {flow,
+// My flows (spec/FLOWS.md, section 8): a mock of the app's list of saved flows
+// (YUI-238). Each starter in the app's order, its variants nested under it,
+// the step count on every row. Tap a row to run it; hold it (or right-click) to
+// Remove. A starter cannot be removed, a variant goes alone, and one with
+// variants of its own asks first and takes them along. Run one and it plays in the real flow runtime (./flow.js); at submit the {flow,
 // path} event goes to the wire log and the Path tab draws the way it went:
 // the steps taken in order with each answer, the ones skipped greyed out, and
 // the branch each answer picked. Nothing leaves the page.
@@ -10,7 +12,7 @@
 import { useMemo, useRef, useState } from "react";
 import { flowEvent, flowTest, parse, resolve } from "../../lib/yl/yl.mjs";
 import { FLOW_VARIANTS, STARTER_FLOWS, savedGraph, variantLines } from "../../lib/yl/starter-flows.mjs";
-import { encodeYL } from "../../lib/share-code.mjs";
+import { APP_STARTERS, confirmText, listRows, removal, rowSub } from "../../lib/yl/myflows.mjs";
 import { Render } from "./presets";
 import { question, show } from "./flows";
 import "./myflows.css";
@@ -23,48 +25,38 @@ export const MYFLOWS_VIEWS = [
 
 const LOOK = { Coach: "#ff6b3d", Scout: "#4fd1c5", Yui: "#8b7cff" };
 
-const CHECKIN = STARTER_FLOWS.find((f) => f.name === "workout-checkin");
-// The person's own copy of the check-in, edited with Coach: a water question before the note.
-const MINE = {
-  key: "checkin-mine",
-  id: "checkin",
-  title: "Workout check-in (mine)",
-  submit: CHECKIN.submit,
-  agent: "Coach",
-  mine: true,
-  from: CHECKIN.title,
-  source: CHECKIN.source.replace(
-    "time[Time] --> note",
-    `time[Time] --> water
-  %% water: choose "Water so far today?" "Not yet"|"A glass or two"|"Plenty"
-  water[Water] --> note`,
-  ),
+const STARTERS = APP_STARTERS.map((n) => STARTER_FLOWS.find((f) => f.name === n)).filter(Boolean);
+const CHECKIN = STARTERS.find((f) => f.name === "workout-checkin");
+// Variants an agent made (FLOWS.md, section 9): each is its base's name plus the lines that change.
+// Scout's restaurant intake ships with the hub; the brunch one is made from it, to show a variant of a variant.
+const BRUNCH = {
+  name: "brunch-intake",
+  base: "restaurant-intake",
+  id: "brunch",
+  agent: "Scout",
+  lines: 'drop orders\n%% kind: choose "What kind of place?" "Cafe"|Bakery|Both',
 };
-// A variant Scout made (FLOWS.md, section 9): kept as the intake's name plus
-// the lines that change, listed under Yours with the flow it came from.
-const RESTAURANT = FLOW_VARIANTS.find((v) => v.name === "restaurant-intake");
-const VARIANT = {
-  key: RESTAURANT.name,
-  name: RESTAURANT.name,
-  id: RESTAURANT.id,
-  title: savedGraph(RESTAURANT.name).title,
-  submit: savedGraph(RESTAURANT.name).submit,
-  agent: RESTAURANT.agent,
-  mine: true,
-  variant: RESTAURANT,
-  from: STARTER_FLOWS.find((f) => f.name === RESTAURANT.base).title,
-};
-// When each starter last ran (made up, so the list looks lived in).
-const LAST = {
-  intake: { when: "Mon", steps: 9 },
-  checkin: { when: "Sat", steps: 6 },
-  onboard: { when: "Sep 2", steps: 7 },
-};
-const STARTERS = STARTER_FLOWS.map((f) => ({ key: f.name, id: f.id, title: f.title, submit: f.submit, agent: f.agent, source: f.source, last: LAST[f.id] || null }));
+const VARIANTS = [...FLOW_VARIANTS, BRUNCH];
+const variantInfo = (name) => VARIANTS.find((v) => v.name === name);
+const resolved = (name) => savedGraph(name, [BRUNCH]);
+const titleOf = (name) => (STARTERS.find((f) => f.name === name) || resolved(name) || { title: name }).title;
 
-const linesOf = (f) => (f.variant ? variantLines(f.variant) : `flow@${f.id} "${f.title}" submit="${f.submit}"\n${f.source}\nend`);
+const rowsFor = (removed) =>
+  listRows({
+    starters: STARTERS.map((f) => ({ name: f.name, title: f.title })),
+    variants: VARIANTS.map((v) => ({ name: v.name, title: titleOf(v.name), base: v.base })),
+    removed,
+    steps: (name) => {
+      const v = variantInfo(name);
+      const g = v ? resolved(name) : savedGraph(name);
+      return g ? stepsOf(g.g || g).length : 0;
+    },
+  }).map((r) => ({ ...r, id: (variantInfo(r.name) || STARTERS.find((f) => f.name === r.name)).id, agent: (variantInfo(r.name) || STARTERS.find((f) => f.name === r.name)).agent }));
+
+const linesOf = (f) => (variantInfo(f.name) ? variantLines(variantInfo(f.name)) : `flow@${f.id} "${f.title}" submit="${f.submit}"\n${f.source}\nend`);
 function graphOf(f) {
-  if (f.variant) return { ...savedGraph(f.variant.name).g, title: f.title, submit: f.submit };
+  const v = variantInfo(f.name);
+  if (v) { const r = resolved(f.name); return { ...r.g, title: r.title, submit: r.submit }; }
   const ops = parse(linesOf(f));
   const add = ops.find((o) => o.op === "add") || { props: {} };
   const patch = ops.find((o) => o.op === "patch") || { props: {} };
@@ -73,8 +65,8 @@ function graphOf(f) {
 const stepsOf = (g) => (g.nodes || []).filter((n) => n.preset);
 
 // The seeded run: the check-in after a bad night, so Path is never empty.
-const SEED_ANSWERS = { sleep: 3, energy: "Low", sore: ["Legs"], hurt: "Just sore", today: "Lighter version", time: 30, water: "A glass or two", note: "Knees felt tight on the stairs" };
-const SEED = { id: "seed", flowKey: MINE.key, when: "Tue", ev: flowEvent(graphOf(MINE), SEED_ANSWERS) };
+const SEED_ANSWERS = { sleep: 3, energy: "Low", sore: ["Legs"], hurt: "Just sore", today: "Lighter version", time: 30, note: "Knees felt tight on the stairs" };
+const SEED = { id: "seed", flowKey: CHECKIN.name, when: "Tue", ev: flowEvent(graphOf(CHECKIN), SEED_ANSWERS) };
 
 // The edges a run took out of `from` until the next step: only the ones that
 // were a real choice (a node with more than one way out).
@@ -145,62 +137,53 @@ function Nav({ title, back, onBack, right }) {
     </div>
   );
 }
-const lastText = (l) => (l ? `Ran ${l.when}, ${l.steps} steps` : "Not run yet");
-
-function Row({ f, steps, onRun, onMore, fresh }) {
+function Row({ f, onRun, onHold }) {
+  // Hold (or right-click) a flow of yours to remove it. A starter has nothing to remove.
+  const timer = useRef(null);
+  const held = useRef(false);
+  const start = () => { held.current = false; clearTimeout(timer.current); if (!f.starter) timer.current = setTimeout(() => { held.current = true; onHold(f.name); }, 480); };
+  const stop = () => clearTimeout(timer.current);
   return (
-    <div className={`mf-row ${fresh ? "mf-fresh" : ""}`}>
-      <Face name={f.agent} />
+    <button
+      className="mf-row"
+      data-name={f.name}
+      aria-label={`${f.title}, ${rowSub(f)}`}
+      disabled={f.steps === 0}
+      onClick={() => { if (held.current) { held.current = false; return; } onRun(f.name); }}
+      onPointerDown={start} onPointerUp={stop} onPointerLeave={stop} onPointerCancel={stop}
+      onContextMenu={(e) => { e.preventDefault(); if (!f.starter) onHold(f.name); }}
+    >
+      {f.depth > 0 ? <span className="mf-turn" style={{ marginLeft: (f.depth - 1) * 14 }} aria-hidden="true">↳</span> : null}
       <span className="mf-row-txt">
         <b>{f.title}</b>
-        <span className="mf-sub">{steps} steps · to {f.agent}</span>
-        <span className="mf-sub">{lastText(f.last)}</span>
+        <span className="mf-sub">{rowSub(f)}</span>
       </span>
-      <button className="mf-more" aria-label={`More for ${f.title}`} onClick={onMore}>⋯</button>
-      <button className="mf-run" onClick={onRun}>Run</button>
-    </div>
+      <span className="mf-play" aria-hidden="true">▶</span>
+    </button>
   );
 }
 
-function List({ flows, graphs, run, more, fresh, toast, undo, ask }) {
-  const mine = flows.filter((f) => f.mine);
-  const starters = flows.filter((f) => !f.mine);
-  const row = (f) => <Row key={f.key} f={f} steps={stepsOf(graphs[f.key]).length} fresh={fresh === f.key} onRun={() => run(f.key)} onMore={() => more(f.key)} />;
+function List({ rows, run, hold, toast }) {
   return (
     <div className="mf-page">
-      <Nav title="My flows" right={<button className="mf-back mf-right" onClick={() => ask(null)}>+ New</button>} />
+      <Nav title="My flows" />
       <div className="mf-scroll">
-        <div className="mf-lede">Screens you run again and again. Tap Run, answer, and it goes to the agent.</div>
-        <div className="mf-label">Yours</div>
-        {mine.length ? <div className="mf-card mf-list">{mine.map(row)}</div>
-          : <div className="mf-card"><div className="mf-sub">No flows of your own yet. Duplicate a starter to make one.</div></div>}
-        <div className="mf-label">Starters</div>
-        <div className="mf-card mf-list">{starters.map(row)}</div>
-        <div className="mf-fine">Starters come with every Yui and stay as they are. Duplicate one to make it yours, then ask your agent to change it.</div>
+        <div className="mf-list">{rows.map((f) => <Row key={f.name} f={f} onRun={run} onHold={hold} />)}</div>
+        <div className="mf-fine">Starters come with every Yui and stay as they are. Ask your agent to make a variant, and it lands under the flow it came from. Hold one of yours to remove it.</div>
       </div>
-      {toast ? (
-        <div className="mf-toast" role="status">
-          <span>{toast}</span>
-          {undo ? <button onClick={undo}>Undo</button> : null}
-        </div>
-      ) : null}
+      {toast ? <div className="mf-toast" role="status"><span>{toast}</span></div> : null}
     </div>
   );
 }
 
-// The ⋯ sheet: run, duplicate, share, edit with the agent, delete your own.
-function Actions({ f, close, run, duplicate, share, ask, remove }) {
+// The app's sheet for a held flow: Run, or Remove (not on a starter).
+function Actions({ f, close, run, remove }) {
   return (
     <div className="mf-shade" onClick={close}>
       <div className="mf-sheet" role="dialog" aria-label={f.title} onClick={(e) => e.stopPropagation()}>
-        <div className="mf-sheet-h">{f.title}</div>
-        <div className="mf-sub mf-center">{f.variant ? `${f.agent} made it from ${f.from}, and keeps only what changed` : f.mine ? `Yours, from ${f.from}` : "Starter"} · to {f.agent}</div>
         <div className="mf-sheet-btns">
-          <button className="mf-btn" onClick={() => { close(); run(f.key); }}>Run it</button>
-          <button className="mf-btn mf-ghost" onClick={() => { close(); duplicate(f.key); }}>Duplicate</button>
-          <button className="mf-btn mf-ghost" onClick={() => { close(); share(f.key); }}>Share a link</button>
-          <button className="mf-btn mf-ghost" onClick={() => { close(); ask(f.key); }}>{f.mine ? `Change it with ${f.agent}` : `Change a copy with ${f.agent}`}</button>
-          {f.mine ? <button className="mf-btn mf-red" onClick={() => { close(); remove(f.key); }}>Delete</button> : null}
+          <button className="mf-btn" onClick={() => { close(); run(f.name); }}>Run</button>
+          {f.starter ? null : <button className="mf-btn mf-red" onClick={() => remove(f)}>Remove</button>}
           <button className="mf-btn mf-plain" onClick={close}>Cancel</button>
         </div>
       </div>
@@ -208,38 +191,25 @@ function Actions({ f, close, run, duplicate, share, ask, remove }) {
   );
 }
 
-// What a person might ask to change, per flow.
-const HINTS = {
-  intake: "Add a question about brand colors after the pages",
-  scope: "Ask who signs off before the timing",
-  checkin: "Ask about protein at breakfast after energy",
-  onboard: "Ask what time of day suits them best",
-  connect: "Add Slack to the tools",
-};
-
-// Ask the agent to change a flow (or make a new one). The agent sends the new
-// version back inline; here the ask goes to the wire log.
-function Ask({ f, close, send }) {
-  const [text, setText] = useState("");
-  const hint = f ? HINTS[f.id] || "Add a question at the end" : "A check-in for my Sunday review";
+// The app's alert: always asks, and says what goes with it.
+function Confirm({ f, keep, remove }) {
+  const t = confirmText(f);
   return (
-    <div className="mf-shade" onClick={close}>
-      <form className="mf-sheet" role="dialog" aria-label="Ask the agent" onClick={(e) => e.stopPropagation()}
-        onSubmit={(e) => { e.preventDefault(); send(text.trim() || hint); }}>
-        <div className="mf-sheet-h">{f ? `Change ${f.title}` : "Make a new flow"}</div>
-        <div className="mf-sub mf-center">{f ? `${f.agent} sends back a new version. The old one stays until you keep it.` : "Say what it is for. Yui drafts the steps and you run it before you keep it."}</div>
-        <textarea className="mf-input" rows={3} value={text} placeholder={hint} onChange={(e) => setText(e.target.value)} aria-label="What to change" />
-        <div className="mf-sheet-btns">
-          <button className="mf-btn">Send to {f ? f.agent : "Yui"}</button>
-          <button type="button" className="mf-btn mf-plain" onClick={close}>Cancel</button>
+    <div className="mf-shade mf-mid" onClick={keep}>
+      <div className="mf-alert" role="alertdialog" aria-label={t.title} onClick={(e) => e.stopPropagation()}>
+        <div className="mf-alert-h">{t.title}</div>
+        <div className="mf-alert-m">{t.message}</div>
+        <div className="mf-alert-btns">
+          <button className="mf-btn mf-ghost" onClick={keep}>Keep it</button>
+          <button className="mf-btn mf-red" onClick={remove}>Remove</button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
 
 function Run({ f, g, runN, onSubmit, go }) {
-  const node = useMemo(() => ({ key: `mf:${f.key}:${runN}`, id: f.id, preset: "flow", seq: runN, props: g }), [f.key, f.id, g, runN]);
+  const node = useMemo(() => ({ key: `mf:${f.name}:${runN}`, id: f.id, preset: "flow", seq: runN, props: g }), [f.name, f.id, g, runN]);
   return (
     <div className="mf-page">
       <Nav title="Run" back="My flows" onBack={() => go("list")} />
@@ -274,7 +244,7 @@ function Path({ run, f, g, runs, pickRun, again, go, flows }) {
         {runs.length > 1 ? (
           <div className="mf-runs" role="tablist" aria-label="Runs">
             {runs.map((r) => {
-              const rf = flows.find((x) => x.key === r.flowKey);
+              const rf = flows.find((x) => x.name === r.flowKey);
               return (
                 <button key={r.id} role="tab" aria-selected={r.id === run.id} className={`mf-chip ${r.id === run.id ? "on" : ""}`} onClick={() => pickRun(r.id)}>
                   {r.when} · {rf ? rf.title : "Deleted flow"}
@@ -318,91 +288,49 @@ function Path({ run, f, g, runs, pickRun, again, go, flows }) {
         <div className="mf-fine">{skipped ? `${skipped} step${skipped === 1 ? "" : "s"} skipped by the answers.` : "Every step was on this path."} {f.agent} got only the answers on the path.</div>
         <button className="mf-btn mf-ghost" onClick={() => setRaw(!raw)} aria-expanded={raw}>{raw ? "Hide what was sent" : `See what ${f.agent} got`}</button>
         {raw ? <pre className="mf-code">{JSON.stringify({ id: f.id, preset: "flow", ...run.ev })}</pre> : null}
-        <button className="mf-btn" onClick={() => again(f.key)}>Run it again</button>
+        <button className="mf-btn" onClick={() => again(f.name)}>Run it again</button>
       </div>
     </div>
   );
 }
 
 export function MyFlowsDemo({ view, setView, onEvent }) {
-  const [flows, setFlows] = useState(() => [{ ...MINE, last: { when: "Tue", steps: SEED.ev.path.length } }, VARIANT, ...STARTERS]);
-  const graphs = useMemo(() => Object.fromEntries(flows.map((f) => [f.key, graphOf(f)])), [flows]);
+  const [removed, setRemoved] = useState([]);
+  const flows = useMemo(() => rowsFor(removed), [removed]);
+  const graphs = useMemo(() => Object.fromEntries(flows.map((f) => [f.name, graphOf({ ...f, ...(STARTERS.find((s) => s.name === f.name) || {}), name: f.name })])), [flows]);
   const [runs, setRuns] = useState([SEED]);
-  const [runKey, setRunKey] = useState(MINE.key);
+  const [runKey, setRunKey] = useState(CHECKIN.name);
   const [runN, setRunN] = useState(1);
   const [pathId, setPathId] = useState("seed");
-  const [sheet, setSheet] = useState(null); // flow key for the ⋯ sheet
-  const [asking, setAsking] = useState(undefined); // undefined: closed; null: a new flow; else a flow key
+  const [sheet, setSheet] = useState(null); // flow name for the hold sheet
+  const [asking, setAsking] = useState(null); // flow name for the remove confirm
   const [toast, setToast] = useState(null);
-  const [undo, setUndo] = useState(null);
-  const [fresh, setFresh] = useState(null);
   const n = useRef(1);
   const tt = useRef(null);
-  const say = (t, u = null) => {
-    setToast(t); setUndo(() => u);
+  const say = (t) => {
+    setToast(t);
     clearTimeout(tt.current);
-    tt.current = setTimeout(() => { setToast(null); setUndo(null); }, 4000);
+    tt.current = setTimeout(() => setToast(null), 3500);
   };
-  const byKey = (k) => flows.find((f) => f.key === k);
+  const byKey = (k) => flows.find((f) => f.name === k);
 
   const run = (k) => { setRunKey(k); setRunN((x) => x + 1); setView("run"); };
-  const duplicate = (k, quiet = false) => {
-    const f = byKey(k);
-    const base = f.title.replace(/ \((mine|copy)( \d+)?\)$/, "");
-    const copies = flows.filter((x) => x.title.startsWith(`${base} (copy`)).length;
-    const copy = { ...f, key: `${f.id}-copy-${n.current++}`, title: `${base} (copy${copies ? ` ${copies + 1}` : ""})`, mine: true, from: f.title, last: null };
-    setFlows((fs) => [copy, ...fs]);
-    setFresh(copy.key);
-    onEvent({ myflows: "duplicate", from: f.title, title: copy.title });
-    if (!quiet) say(`Copied. ${copy.title} is under Yours.`);
-    return copy;
-  };
-  const share = async (k) => {
-    const f = byKey(k);
-    let url = null;
-    try {
-      const u = new URL(window.location.href);
-      u.search = "";
-      u.searchParams.set("yl", await encodeYL(linesOf(f)));
-      u.searchParams.set("as", f.agent);
-      url = u.toString();
-      await navigator.clipboard.writeText(url);
-      say("Link copied. It opens this flow, ready to run.");
-    } catch {
-      say(url ? "Link ready. Copy it from the wire log." : "Could not make a link here.");
-    }
-    onEvent({ myflows: "share", flow: f.title, ...(url ? { url } : {}) });
-  };
-  const remove = (k) => {
-    const i = flows.findIndex((f) => f.key === k);
-    const f = flows[i];
-    setFlows((fs) => fs.filter((x) => x.key !== k));
-    onEvent({ myflows: "delete", flow: f.title });
-    say(`${f.title} deleted.`, () => {
-      setFlows((fs) => (fs.some((x) => x.key === k) ? fs : [...fs.slice(0, i), f, ...fs.slice(i)]));
-      onEvent({ myflows: "undo delete", flow: f.title });
-      setToast(null); setUndo(null);
-    });
-  };
-  const send = (ask) => {
-    const k = asking;
-    setAsking(undefined);
-    if (k === null) {
-      onEvent({ myflows: "new", ask, to: "Yui" });
-      return say("Sent to Yui. The draft shows up here to try.");
-    }
-    let f = byKey(k);
-    // A starter stays as it is: the agent edits a copy.
-    if (!f.mine) f = duplicate(k, true);
-    onEvent({ myflows: "edit", flow: f.title, ask, to: f.agent });
-    say(`Sent to ${f.agent}. The new version of ${f.title} lands here.`);
+  const hold = (k) => setSheet(k);
+  const confirm = (f) => { setSheet(null); setAsking(f.name); };
+  const remove = () => {
+    const names = removal(flows, asking);
+    const f = byKey(asking);
+    setAsking(null);
+    if (!names.length) return;
+    setRemoved((r) => [...r, ...names]);
+    onEvent({ myflows: "remove", flow: f.title, ...(names.length > 1 ? { with: names.length - 1 } : {}) });
+    say(names.length > 1 ? `Removed ${f.title} and ${names.length - 1} variant${names.length > 2 ? "s" : ""}.` : `Removed ${f.title}.`);
   };
   const onSubmit = (ev) => {
     const f = byKey(runKey);
     const r = { id: `r${n.current++}`, flowKey: runKey, when: "just now", ev: { flow: ev.flow, path: ev.path } };
     onEvent({ id: f.id, preset: "flow", ...r.ev, saved: f.title });
     setRuns((rs) => [r, ...rs.map((x) => (x.when === "just now" ? { ...x, when: "earlier" } : x))].slice(0, 4));
-    setFlows((fs) => fs.map((x) => (x.key === runKey ? { ...x, last: { when: "just now", steps: ev.path.length } } : x)));
     setPathId(r.id);
     setTimeout(() => setView("path"), 900);
   };
@@ -412,11 +340,11 @@ export function MyFlowsDemo({ view, setView, onEvent }) {
   const pf = pr && byKey(pr.flowKey);
   return (
     <div className="mf-app">
-      {view === "run" ? <Run f={cur} g={graphs[cur.key]} runN={runN} onSubmit={onSubmit} go={setView} />
-        : view === "path" ? <Path run={pf ? pr : null} f={pf} g={pf ? graphs[pf.key] : null} runs={runs.filter((r) => byKey(r.flowKey))} pickRun={setPathId} again={run} go={setView} flows={flows} />
-        : <List flows={flows} graphs={graphs} run={run} more={setSheet} fresh={fresh} toast={toast} undo={undo} ask={setAsking} />}
-      {sheet && byKey(sheet) && view === "list" ? <Actions f={byKey(sheet)} close={() => setSheet(null)} run={run} duplicate={duplicate} share={share} ask={setAsking} remove={remove} /> : null}
-      {asking !== undefined && view === "list" ? <Ask f={asking ? byKey(asking) : null} close={() => setAsking(undefined)} send={send} /> : null}
+      {view === "run" ? <Run f={cur} g={graphs[cur.name]} runN={runN} onSubmit={onSubmit} go={setView} />
+        : view === "path" ? <Path run={pf ? pr : null} f={pf} g={pf ? graphs[pf.name] : null} runs={runs.filter((r) => byKey(r.flowKey))} pickRun={setPathId} again={run} go={setView} flows={flows} />
+        : <List rows={flows} run={run} hold={hold} toast={toast} />}
+      {sheet && byKey(sheet) && view === "list" ? <Actions f={byKey(sheet)} close={() => setSheet(null)} run={run} remove={confirm} /> : null}
+      {asking && byKey(asking) && view === "list" ? <Confirm f={byKey(asking)} keep={() => setAsking(null)} remove={remove} /> : null}
     </div>
   );
 }

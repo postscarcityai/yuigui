@@ -149,6 +149,19 @@ The crew brings its own (SITE-70 to SITE-74), each from a check-in to that membe
 
 To tailor one to a person, the agent sends a variant with only what changes (section 9), or, for new branches, the whole flow inline with its own wording, keeping the ids and edges so the answers still line up.
 
+### My flows | on main, in the next build (YUI-238)
+
+Every saved flow in one list, in the agent's drawer. The starters come with every Yui and stay as they are. A variant an agent sends (section 9) lands under the flow it starts from, and a variant of that variant lands under it, up to five deep. Each row shows its title, how many steps its chart has, and `Starter` or `from <the flow it starts from>`.
+
+![My flows in the app: ten starters, Restaurant intake nested under Client website intake](/demo/myflows-app-list.webp) ![The Remove confirm for Restaurant intake](/demo/myflows-app-confirm.webp)
+
+- **Tap a row** to run it on the stage. A flow whose base is gone says so and cannot run; it stays listed so it can be removed.
+- **Swipe a row, or hold it, to Remove.** A starter has no Remove: it ships in the app and stays.
+- **Remove always asks first.** A variant alone says "Your agent can send it again any time." One with variants of its own says they go with it ("Its variant goes with it", or "Its 2 variants go with it"), and a run already started keeps going.
+- **Removing is not deleting for good.** The agent can send the variant again by name and it comes back. A variant that shipped with the hub is hidden, not erased.
+
+Try it on the web: [/playground?demo=myflows](/playground?demo=myflows) is the same list, with Run and Path tabs next to it. Hold Restaurant intake to see the base confirm, hold Brunch intake to remove a variant alone.
+
 ## 9. Variants
 
 An agent often wants a saved flow with a few things changed: the website intake, but for a restaurant. It does not copy the whole chart. It names the flow it starts from, gives the new one a name with `as=`, and says only what changes, up to `end`:

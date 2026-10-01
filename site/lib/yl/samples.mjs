@@ -1712,8 +1712,9 @@ say "2 is a beat to edit, 3 drum pads that record, 4 keys in A minor, 5 chords i
   {
     // My flows (spec/FLOWS.md, section 8): the lines are Yui saving a flow. The
     // tabs above the phone are the app's My flows screen (playground/myflows.js):
-    // the starters and the person's own copies, running one in the real flow
-    // runtime, and the path a run took, branches and all.
+    // the starters with variants nested under their base, hold one to remove it
+    // (a base asks first), running one in the real flow runtime, and the path a
+    // run took, branches and all.
     name: "My flows: your saved flows, a run, and its path",
     slug: "myflows",
     agent: "Yui",

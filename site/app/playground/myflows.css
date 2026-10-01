@@ -16,10 +16,18 @@
 .mf-face { border-radius: 50%; display: inline-grid; place-items: center; color: #fff; font-weight: 800; font-size: 13px; flex: none; }
 
 /* The list */
-.mf-list { padding: 2px 12px; gap: 0; }
-.mf-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #23263a; min-height: 56px; }
-.screen.light .mf-row { border-bottom-color: #eceef5; }
-.mf-row:last-child { border-bottom: 0; }
+.mf-list { display: flex; flex-direction: column; gap: 10px; }
+.mf-row { display: flex; align-items: center; gap: 10px; padding: 12px 12px 12px 14px; min-height: 60px; width: 100%; text-align: left; font: inherit; color: inherit; border-radius: 18px; background: #171927; border: 1px solid #2a2d40; cursor: pointer; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.screen.light .mf-row { background: #fff; border-color: #e3e4ee; }
+.mf-row:disabled { opacity: .5; cursor: default; }
+.mf-turn { color: var(--muted); font-size: 16px; font-weight: 800; flex: none; }
+.mf-play { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--accent, #8b7cff); color: #fff; font-size: 11px; flex: none; padding-left: 2px; }
+.mf-mid { justify-content: center; align-items: center; }
+.mf-alert { width: calc(100% - 40px); padding: 18px 16px 14px; border-radius: 24px; background: #1d2031; box-shadow: 0 10px 40px rgba(0, 0, 0, .45); display: flex; flex-direction: column; gap: 8px; }
+.screen.light .mf-alert { background: #fff; box-shadow: 0 10px 40px rgba(20, 20, 40, .2); }
+.mf-alert-h { font-size: 16px; font-weight: 800; line-height: 1.3; }
+.mf-alert-m { font-size: 13px; color: var(--muted); line-height: 1.4; }
+.mf-alert-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
 .mf-fresh { animation: mf-in .5s ease-out; }
 @keyframes mf-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 .mf-row-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
