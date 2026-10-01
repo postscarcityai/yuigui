@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T17:05:42.147Z",
+  "updated": "2026-10-01T17:10:42.173Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -355,18 +355,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-246",
-          "title": "Every preset at parity on the web",
-          "summary": "Music, tuner, games, maps, diagrams, flows, workouts, the shelf",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-138",
-          "title": "Start blank",
-          "summary": "A new empty agent runs a setup flow to make itself",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "OSS-7",
           "title": "The ledger on, and $U balances from formula v0",
           "step": "Step 2",
@@ -376,6 +364,20 @@
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-246",
+          "title": "Every preset at parity on the web",
+          "summary": "Music, tuner, games, maps, diagrams, flows, workouts, the shelf",
+          "blocked": "other",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-138",
+          "title": "Start blank",
+          "summary": "A new empty agent runs a setup flow to make itself",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
