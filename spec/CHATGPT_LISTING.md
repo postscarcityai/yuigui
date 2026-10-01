@@ -1,6 +1,6 @@
 # ChatGPT directory listing (INT-8), DRAFT
 
-Status: draft only. Nothing is submitted to OpenAI, no draft exists in the submission portal, nothing is published. A public listing is outreach, so Chris signs off first. Today Yui works in ChatGPT as a personal custom connector in developer mode (`spec/MCP.md`, "ChatGPT").
+Status: draft only. Nothing is submitted to OpenAI, no draft exists in the submission portal, nothing is published. A public listing is outreach, so Chris signs off first. Today Yui works in ChatGPT as a personal custom connector in developer mode (`spec/MCP.md`, "ChatGPT"), checked live on a real chatgpt.com account on 2026-10-01.
 
 Read against OpenAI's live docs on 2026-10-01 (sources at the end). Three things changed since the first pass of this page:
 
@@ -17,7 +17,7 @@ Five things stop a submission today. Everything else on this page is drafted and
 | # | Blocker | Why it blocks | Fix |
 |---|---|---|---|
 | 1 | Domain verification | The portal makes you serve an exact token at `https://<mcp-host>/.well-known/openai-apps-challenge`. Yui's MCP host is a Supabase shared host and only answers under `/functions/v1/`; that URL 404s (checked 2026-10-01). The challenge base must be an origin on the MCP hostname or a parent we own, and we own neither | Serve the MCP endpoint from a host we control, `https://mcp.yuigui.com`, before the first submission. The MCP origin cannot change later without starting a whole new plugin, so this is a one-way door |
-| 2 | Reviewer sign-in | OpenAI wants a login and password for a full demo account with sample data that works at once: no sign-up step, no 2FA, no email or SMS code, no magic link. Yui signs in with Apple and the connection is approved by a tap in the app. Neither hands over a password | A review account with a password and an auto-approved connect request. See [Test credentials](#test-credentials) |
+| 2 | Reviewer sign-in | OpenAI wants a login and password for a full demo account with sample data that works at once: no sign-up step, no 2FA, no email or SMS code, no magic link. Yui signs in with Apple and the connection is approved by a tap in the app. Neither hands over a password. Measured, not guessed: the live run on 2026-10-01 needed an Add agent code from the phone and a tap on **Allow** before ChatGPT saw a single tool | A review account with a password and an auto-approved connect request. See [Test credentials](#test-credentials) |
 | 3 | No terms of service | All four listing URLs are required for public review of a plugin with MCP. `www.yuigui.com/terms` is 404 (checked 2026-10-01) | A `/terms` page. Chris's call on the wording |
 | 4 | No widget domain | `_meta.ui.domain` (alias `_meta["openai/widgetDomain"]`) is required when a submitted plugin has UI, and must be unique per plugin. `yui-mcp` sets neither, so the screen renders on OpenAI's default sandbox origin | Host the screen bundle on its own origin, `https://widget.yuigui.com`, and set `ui.domain` to it |
 | 5 | The app is a TestFlight alpha | The guidelines reject trial and demo plugins, and the plugin's second screen is an iPhone app a listing visitor cannot install from the App Store | Chris's call: ship to the App Store first, or lead the listing with the screen that draws in the chat and treat the phone as the second screen |
@@ -104,11 +104,11 @@ Not a submission, a starting point. The ZIP layout is `plugin.json` + `mcp.json`
         "logoDark": "./assets/yui-logo-square-cream-on-ink.png",
         "composerIcon": "./assets/yui-mark-y-ink.png",
         "composerIconDark": "./assets/yui-mark-y.png",
-        "screenshots": ["./assets/chatgpt-screen-in-chat.png", "./assets/chatgpt-tap-answered.png"]
+        "screenshots": ["./assets/int8-live-1-connector.webp", "./assets/int8-live-2-screen.webp", "./assets/int8-live-3-tap.webp"]
       },
       "review": {
         "test_cases": { "positive": "<the five below>", "negative": "<the three below>" },
-        "demo_recording_url": "TODO: needs the live chatgpt.com recording",
+        "demo_recording_url": "TODO: nothing recorded yet. The flow it has to show is live and working",
         "commerce": false,
         "commerce_description": "Yui sells nothing and takes no payment."
       },
@@ -147,13 +147,21 @@ Rules: PNG, JPEG, WebP or SVG, at most 5 MiB each. Icons and logos must be squar
 
 Do not use `brand/yui-logo-coral.png`: it is 1701x1177, and a listing icon has to be square.
 
-Screenshots, placeholders for now. They are optional and no longer shown in the directory, so they are the last thing to chase:
+Screenshots are real now, captured inside chatgpt.com on 2026-10-01 during the live check (`spec/MCP.md`, "ChatGPT"). They are optional and no longer shown in the directory, so they are evidence for the reviewer rather than listing art. All light theme, sidebar cropped out, no chat titles, no tokens.
 
-- `spec/assets/chatgpt/screen-in-chat.png`, the Lunch screen drawn inside a ChatGPT answer. TODO, a sibling card captures it.
-- `spec/assets/chatgpt/tap-answered.png`, the same screen after a tap, with ChatGPT's reply. TODO, same card.
-- `spec/assets/chatgpt/phone-mirror.png`, the same screen on the phone. TODO, same card.
+| Manifest asset | File in this repo | Size | What it shows |
+|---|---|---|---|
+| `screenshots[0]` | `site/public/progress/int8-live-1-connector-light.webp` | 680x601, 28 KiB | The Yui plugin added: **Connected accounts**, the permissions row, and the tools ChatGPT imported from the server, starting at `yui_answers` |
+| `screenshots[1]` | `site/public/progress/int8-live-2-screen-light.webp` | 840x898, 20 KiB | "Ask me on my phone what we are having for lunch" and the three-option screen drawn inline in the answer, badged "also on your phone" |
+| `screenshots[2]` | `site/public/progress/int8-live-3-tap-light.webp` | 840x898, 24 KiB | The same screen after a tap on Soup: "Sent: Soup", the `[yui] n1 choose choice=Soup` line posted as the next message, and ChatGPT's "Soup it is." |
 
-The required artifact is the **video walkthrough** (`review.demo_recording_url`): one recording that runs the five positive cases end to end on a reviewer-accessible URL. It cannot be made until the live chatgpt.com check passes.
+A fourth shot, `site/public/progress/int8-live-4-openai-light.webp` (740x900, 20 KiB), covers the `window.openai` fallback on a second screen. That one is engineering evidence, not listing material.
+
+Two things to know about these shots before they go in a package. Each carries ChatGPT's **CSP off** badge, because "Enforce CSP in developer mode" is off by default, and the agent is named `ChatGPTc7be`, the throwaway account the live check used. Both are developer-mode artefacts. Retake them on the review account once blocker 2 is built, or crop.
+
+No phone-side shot was taken, so the "same screen on the phone" image the first draft planned does not exist. Nothing in the submission needs it; the phone belongs in the video.
+
+The required artifact is still the **video walkthrough** (`review.demo_recording_url`): one recording that runs the five positive cases end to end on a reviewer-accessible URL. The live check clears the path for it, since the whole flow is now known to work on a real account, but nothing has been recorded.
 
 ## Auth, as the reviewer meets it
 
@@ -167,6 +175,9 @@ Everything in this section was probed live on 2026-10-01 against the endpoint in
 - **Scope.** `yui`, one scope, one agent thread per connection. No OIDC scopes are advertised, which is fine: Yui is not using Sign in with ChatGPT.
 - **Resource indicator.** `resource=` is sent on `/authorize` and `/token` and checked; `iss` comes back on the redirect.
 - **Consent.** The person approves the connection in the Yui app, or in the web Yui at `/web`, and picks which agent the client talks as. That is the step a reviewer cannot do today. See below.
+- **Live.** The whole path ran on a real chatgpt.com account on 2026-10-01, free plan, developer mode. ChatGPT found Yui's OAuth settings from the server URL alone, registered itself and came back connected, so path-based discovery is not a submission risk for ChatGPT. Two things the live run added that a submission has to carry:
+  - **The `/mcp` suffix breaks OAuth.** OpenAI's own page tells you to enter the server URL "including the `/mcp` path". With the suffix the 401 and its `resource_metadata` still look correct, and then `/authorize` fails with `invalid_target`, because `yui-oauth` only accepts a `resource` equal to the bare MCP URL. The `mcp.json` above names `https://mcp.yuigui.com/mcp`, so whichever service serves that origin has to accept that exact string as the `resource`. Settle it while blocker 1 is being built, not at submission: the MCP origin is a one-way door.
+  - **The CSP was never exercised.** "Enforce CSP in developer mode" is off by default, so the chat marked the Yui card **CSP off** and the `openai/widgetCSP` we declare was not applied. Review runs with it on, so the exact-domains fix below is still untested under enforcement.
 
 ## Test credentials
 
@@ -184,13 +195,13 @@ A connection token (`yui_ct_...`) is not a way around this: ChatGPT's connectors
 
 ## Review test cases
 
-Initial review needs exactly five positive and three negative cases. Each positive one needs the prompt, the tools it should trigger, and an observable expected result. None of these has been run inside chatgpt.com yet, so they are drafts until the live check passes.
+Initial review needs exactly five positive and three negative cases. Each positive one needs the prompt, the tools it should trigger, and an observable expected result. Case 1 was run for real inside chatgpt.com on 2026-10-01 and passed, screen and tap both ways. The other seven are drafts: they have to be run, and recorded, before a submission.
 
 Positive:
 
 | # | Prompt | `tools_triggered` | `expected_behavior` |
 |---|---|---|---|
-| 1 | Ask me on my phone what we are having for lunch: salad, soup or tacos. | `yui_show`, `yui_answers` | A three-option choice screen draws in the chat and on the phone. A tap in either place returns one pick, and the answer names it. |
+| 1 | Ask me on my phone what we are having for lunch: salad, soup or tacos. | `yui_show`, `yui_answers` | A three-option choice screen draws in the chat and on the phone. A tap in either place returns one pick, and the answer names it. **Run live 2026-10-01, passed:** the screen drew inline, a tap on Soup posted `[yui] n1 choose choice=Soup` and ChatGPT answered "Soup it is." |
 | 2 | Put a 5 minute focus timer on my phone. | `yui_show` | A 5 minute timer screen draws and starts. The answer says it is on the phone and nothing else. |
 | 3 | Check in with me on my phone tonight: sleep 1 to 10 and one line about the day. | `yui_show`, `yui_answers` | A two-field form draws. The submitted values come back once, and the answer repeats only what was entered. |
 | 4 | What ready-made Yui screen fits a client intake? | `yui_library` | A short list of matching presets or flows. No screen is drawn and nothing reaches the phone. |
@@ -256,10 +267,10 @@ Each item is met, unmet or unknown today.
 | MCP server public, HTTPS, streamable HTTP, no allowlist | met | Live, answers 401 then works on a token |
 | Stable MCP origin chosen before the first submission | unmet | Blocker 1. The origin cannot change later |
 | Domain verification token served at `/.well-known/openai-apps-challenge` | unmet | Blocker 1 |
-| OAuth works from a clean account with no device | unmet | Blocker 2 |
+| OAuth works from a clean account with no device | unmet | Blocker 2. Confirmed live 2026-10-01: the connect popup wanted an Add agent code and a tap in Yui |
 | Reviewer login and password with sample data | unmet | Blocker 2 |
-| Five positive and three negative test cases, each run | unmet | Drafted above, none run in chatgpt.com |
-| Video walkthrough on a reachable URL | unmet | Needs the live check first |
+| Five positive and three negative test cases, each run | unmet | Drafted above. Case 1 run live on chatgpt.com 2026-10-01 and passed; the other seven not run |
+| Video walkthrough on a reachable URL | unmet | The live check is done, so it can be recorded now. Nothing recorded yet |
 | `websiteURL` | met | Live |
 | `supportURL` | met | `/help` is live |
 | `privacyPolicyURL` | met | `/privacy` is live |
@@ -272,24 +283,25 @@ Each item is met, unmet or unknown today.
 | Inputs minimal, no history, no transcripts, no precise location | met | Schemas above |
 | Responses carry no telemetry, trace or session ids | unknown | Needs one audit pass over real tool results: the ids returned are the ones the next call needs, but the timestamps want a second look |
 | Privacy policy covers everything the tools return | unknown | Same audit. Also add a line about health data a person chooses to send |
-| Widget CSP lists exact domains | unmet | Wildcard `*.fal.media` |
+| Widget CSP lists exact domains | unmet | Wildcard `*.fal.media`, and never enforced live: developer mode had CSP off |
 | `_meta.ui.domain` set and unique | unmet | Blocker 4 |
 | No iframes, or a justification | met | None used |
-| Works on ChatGPT desktop and mobile | unknown | The live check covers desktop. Mobile needs its own pass |
+| Works on ChatGPT desktop and mobile | unknown | Desktop web confirmed live 2026-10-01. Mobile needs its own pass |
 | App reachable by a listing visitor | unmet | Blocker 5, TestFlight alpha |
 | No secrets in the package, the repo or the listing text | met | Reviewer credentials go in the portal only |
 | Chris's sign-off to submit | unmet | Red line. Outreach |
 
 ## Open work, in order
 
-1. Decide the MCP origin and stand it up at `mcp.yuigui.com`, with the challenge file served there.
-2. The live chatgpt.com check (Chris's browser, steps in `spec/MCP.md`).
-3. A `/terms` page.
-4. The review account: password sign-in behind a flag, auto-approve, seeded sample data.
-5. `_meta.ui.domain` on its own origin, and exact CSP domains.
-6. The tool-response audit against the privacy policy.
-7. Record the walkthrough, run all eight test cases on it.
-8. Chris's call on blocker 5 and on country availability, then his sign-off.
+1. Decide the MCP origin and stand it up at `mcp.yuigui.com`, with the challenge file served there, and settle whether its MCP URL carries a `/mcp` suffix that `yui-oauth` will accept as the `resource`.
+2. A `/terms` page.
+3. The review account: password sign-in behind a flag, auto-approve, seeded sample data.
+4. `_meta.ui.domain` on its own origin, and exact CSP domains, checked with "Enforce CSP in developer mode" on.
+5. The tool-response audit against the privacy policy.
+6. Record the walkthrough, run all eight test cases on it, and retake the screenshots on the review account.
+7. Chris's call on blocker 5 and on country availability, then his sign-off.
+
+Done since the first pass: the live chatgpt.com check, 2026-10-01. The screen drew in the chat, a tap was answered, the `window.openai` fallback worked, and the three listing screenshots came out of it.
 
 ## Sources
 
