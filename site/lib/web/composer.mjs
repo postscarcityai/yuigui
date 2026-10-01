@@ -5,14 +5,18 @@
 // clears them; a pasted key is never kept. Pure: the picker, the storage and the photo reader are injected.
 import { MAX_PHOTOS, draftKey, keepable, mentionTarget, suggestions } from "./compose.mjs";
 
-export function createComposer({ agentId, storage = globalThis.localStorage, prepare, onProblem = () => {}, now = () => Date.now() }) {
+export function createComposer({ agentId, storage = globalThis.localStorage, prepare, onProblem = () => {}, onDraft = () => {}, now = () => Date.now() }) {
   let state = { draft: "", photos: [], reply: null, about: null, busy: 0, problem: "" };
   const listeners = new Set();
   const emit = () => { for (const fn of listeners) fn(); };
   const set = (patch) => { state = { ...state, ...patch }; emit(); };
   const read = () => { try { return storage?.getItem(draftKey(agentId)) || ""; } catch { return ""; } };
-  const save = (words) => {
-    try { if (keepable(words)) storage?.setItem(draftKey(agentId), words); else storage?.removeItem(draftKey(agentId)); } catch { /* private mode */ }
+  const atKey = `${draftKey(agentId)}.at`;
+  const save = (words, stamp = true) => {
+    try {
+      if (keepable(words)) storage?.setItem(draftKey(agentId), words); else storage?.removeItem(draftKey(agentId));
+      if (stamp) storage?.setItem(atKey, String(now()));
+    } catch { /* private mode */ }
   };
   state.draft = read();
   let seq = 0;
@@ -20,7 +24,10 @@ export function createComposer({ agentId, storage = globalThis.localStorage, pre
   const api = {
     subscribe(fn) { listeners.add(fn); return () => listeners.delete(fn); },
     get: () => state,
-    setDraft(words) { if (words === state.draft) return; save(words); set({ draft: words, problem: state.problem && words ? "" : state.problem }); },
+    setDraft(words) { if (words === state.draft) return; save(words); set({ draft: words, problem: state.problem && words ? "" : state.problem }); onDraft(words); },
+    // The same words arriving from the person's other device (state.mjs): kept and shown, not sent back as a new edit.
+    adopt(words) { if (words === state.draft) return; save(words, false); set({ draft: words }); },
+    draftAt() { try { return Number(storage?.getItem(atKey)) || 0; } catch { return 0; } },
     // Files from the picker, a drop or a paste. Each is shrunk before it shows; the first that cannot be
     // read says why, the rest still land. Resolves to how many were added.
     async addFiles(files) {
@@ -75,7 +82,7 @@ export function createComposer({ agentId, storage = globalThis.localStorage, pre
       };
       for (const p of state.photos) { try { URL.revokeObjectURL(p.preview); } catch { /* gone */ } }
       // Voice words leave the typed draft alone: someone half-typing keeps it.
-      if (words == null) { save(""); state = { ...state, draft: "" }; }
+      if (words == null) { save(""); state = { ...state, draft: "" }; onDraft(""); }
       state = { ...state, photos: [], reply: null, problem: "" };
       emit();
       return out;

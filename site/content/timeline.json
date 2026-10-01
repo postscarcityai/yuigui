@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 426,
-    "site": 1059,
+    "app": 431,
+    "site": 1070,
     "builds": 51,
-    "shipped": 524,
-    "screenshots": 1374
+    "shipped": 529,
+    "screenshots": 1400
   },
   "days": [
     {
@@ -13,7 +13,131 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T18:35:52.379Z",
+          "at": "2026-10-01T19:30:44.328Z",
+          "title": "One Yui across phone and web: your half-typed words follow you",
+          "card": "YUI-249",
+          "anchor": "one-yui-across-phone-and-web-your-half-typed-words-follow-you",
+          "images": [
+            {
+              "src": "/progress/yui249-draft-390-dark.webp",
+              "alt": "Dark, phone width: the web composer already holds the words 'milk, eggs and the good bread' that were typed on the iPhone."
+            },
+            {
+              "src": "/progress/yui249-draft-390-light.webp",
+              "alt": "Light, phone width: the same draft in the web composer."
+            },
+            {
+              "src": "/progress/yui249-draft-desktop-light.webp",
+              "alt": "Light, desktop: the same draft in the web composer."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 431,
+            "site": 1070,
+            "builds": 51,
+            "shipped": 529
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T19:15:50.000Z",
+          "title": "Your coin on the web",
+          "card": "SITE-161",
+          "anchor": "your-coin-on-the-web",
+          "images": [
+            {
+              "src": "/progress/site161-drawer-390-dark.webp",
+              "alt": "Dark, phone width: the drawer with your picture and name top left, the U coin and 1,284 marked sample top right."
+            },
+            {
+              "src": "/progress/site161-your-u-390-dark.webp",
+              "alt": "Dark, phone width: Your U with the total, today against the cap, streak and speed, what you helped build and each day."
+            },
+            {
+              "src": "/progress/site161-drawer-390-light.webp",
+              "alt": "Light, phone width: the same drawer header."
+            },
+            {
+              "src": "/progress/site161-your-u-desktop-light.webp",
+              "alt": "Light, desktop: Your U open over the web app."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 431,
+            "site": 1069,
+            "builds": 51,
+            "shipped": 528
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T19:00:57.000Z",
+          "title": "Group chats in the app",
+          "card": "YUI-94",
+          "anchor": "group-chats-in-the-app",
+          "images": [
+            {
+              "src": "/progress/yui94-new-group-light.webp",
+              "alt": "Light mode: the New group sheet with the agents to pick and the name Race week."
+            },
+            {
+              "src": "/progress/yui94-handoff-guard-light.webp",
+              "alt": "Light mode: a handoff row from Alpha to Bravo, then Bravo's guard row with Let it and Stop here."
+            },
+            {
+              "src": "/progress/yui94-thread-dark.webp",
+              "alt": "Dark mode: the group thread with handoff rows, an offline line for Cleo and a Stopped line."
+            },
+            {
+              "src": "/progress/yui94-list-dark.webp",
+              "alt": "Dark mode: the agent list with the Race week group, its faces stacked, and New group under it."
+            }
+          ],
+          "commits": 5,
+          "totals": {
+            "app": 431,
+            "site": 1065,
+            "builds": 51,
+            "shipped": 527
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T19:00:08.000Z",
+          "title": "Yui on the web: notifications and install",
+          "card": "YUI-248",
+          "anchor": "yui-on-the-web-notifications-and-install",
+          "images": [
+            {
+              "src": "/progress/yui248-switch-390-dark.webp",
+              "alt": "Dark, phone width: Settings with a Notifications card, Notifications on this browser, switched on."
+            },
+            {
+              "src": "/progress/yui248-switch-off-390-light.webp",
+              "alt": "Light, phone width: the Notifications card with the switch off."
+            },
+            {
+              "src": "/progress/yui248-denied-390-light.webp",
+              "alt": "Light, phone width: the browser said no, so the card explains it and the switch stays off."
+            },
+            {
+              "src": "/progress/yui248-switch-desktop-light.webp",
+              "alt": "Light, desktop: the Notifications card in Settings, switched on."
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 431,
+            "site": 1064,
+            "builds": 51,
+            "shipped": 526
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T18:36:41.000Z",
           "title": "Every link checked after the big October 1 push",
           "card": "SITE-160",
           "anchor": "every-link-checked-after-the-big-october-1-push",
@@ -23,10 +147,70 @@
               "alt": "Light mode, phone width: the earn page, one of the four new pages checked after October 1."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
-            "app": 426,
-            "site": 1059,
+            "app": 429,
+            "site": 1061,
+            "builds": 51,
+            "shipped": 525
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T18:36:08.000Z",
+          "title": "Yui on the web: Settings and your account",
+          "card": "YUI-247",
+          "anchor": "yui-on-the-web-settings-and-your-account",
+          "images": [
+            {
+              "src": "/progress/yui247-top-390-light.webp",
+              "alt": "Light, phone width: Settings with Appearance (System, Light, Dark) and the Full screen switches."
+            },
+            {
+              "src": "/progress/yui247-top-390-dark.webp",
+              "alt": "Dark, phone width: the same Settings sheet."
+            },
+            {
+              "src": "/progress/yui247-keys-390-light.webp",
+              "alt": "Light, phone width: Keys, a fal key shown by its last four with a grant and this month's spend."
+            },
+            {
+              "src": "/progress/yui247-keys-add-390-dark.webp",
+              "alt": "Dark, phone width: adding a key, pasted into a password field and sealed in the page."
+            },
+            {
+              "src": "/progress/yui247-key-ask-390-light.webp",
+              "alt": "Light, phone width: Penny asks to use your fal key, in Yui's own sheet."
+            },
+            {
+              "src": "/progress/yui247-key-ask-390-dark.webp",
+              "alt": "Dark, phone width: the same ask."
+            },
+            {
+              "src": "/progress/yui247-look-on-390-dark.webp",
+              "alt": "Dark, phone width: Look with Forest on and Back to Yui's look."
+            },
+            {
+              "src": "/progress/yui247-modelkey-390-light.webp",
+              "alt": "Light, phone width: Your model key with the free turns left and the provider pick."
+            },
+            {
+              "src": "/progress/yui247-delete-390-dark.webp",
+              "alt": "Dark, phone width: Delete your Yui account? with exactly what goes."
+            },
+            {
+              "src": "/progress/yui247-access-desktop-light.webp",
+              "alt": "Light, desktop: Agent access with a token shown once."
+            },
+            {
+              "src": "/progress/yui247-fullscreen-bar-390-dark.webp",
+              "alt": "Dark, phone width: the full screen bar with the mic and + turned off in Settings."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 429,
+            "site": 1060,
             "builds": 51,
             "shipped": 524
           }
@@ -57,7 +241,7 @@
           ],
           "commits": 9,
           "totals": {
-            "app": 426,
+            "app": 427,
             "site": 1056,
             "builds": 51,
             "shipped": 523
@@ -1070,10 +1254,115 @@
       "commits": [
         {
           "repo": "site",
+          "sha": "13143c04",
+          "at": "2026-10-01T19:20:15.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/13143c04"
+        },
+        {
+          "repo": "site",
+          "sha": "21646f4e",
+          "at": "2026-10-01T19:15:50.000Z",
+          "text": "Your U in the web drawer: your picture and name top left, your coin and number top right, counts up once when it grew, Your U screen, a...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/21646f4e"
+        },
+        {
+          "repo": "site",
+          "sha": "d9c24de9",
+          "at": "2026-10-01T19:11:08.000Z",
+          "text": "Web push worker at /web-sw.js with scope /web: the install's start page is under it, and activation no longer waits on a page the scope...",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d9c24de9"
+        },
+        {
+          "repo": "site",
+          "sha": "d1509e23",
+          "at": "2026-10-01T19:10:28.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d1509e23"
+        },
+        {
+          "repo": "site",
+          "sha": "cf629404",
+          "at": "2026-10-01T19:05:15.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cf629404"
+        },
+        {
+          "repo": "site",
+          "sha": "9549413c",
+          "at": "2026-10-01T19:00:57.000Z",
+          "text": "Group chats in the app: progress entry with shots, roadmap and spec status (YUI-94)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9549413c"
+        },
+        {
+          "repo": "site",
+          "sha": "007a2cd6",
+          "at": "2026-10-01T19:00:08.000Z",
+          "text": "Yui on the web: notifications and install, Web Push through yui-push, a click opens the thread, manifest and service worker (YUI-248)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/007a2cd6"
+        },
+        {
+          "repo": "app",
+          "sha": "68602c7",
+          "at": "2026-10-01T18:56:43.000Z",
+          "text": "Groups: UI test on the sim with real hosts, light and dark; an offline agent waits instead of working; row fixes (YUI-94)",
+          "url": "https://github.com/postscarcityai/yui/commit/68602c7"
+        },
+        {
+          "repo": "site",
+          "sha": "c669681a",
+          "at": "2026-10-01T18:46:35.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c669681a"
+        },
+        {
+          "repo": "app",
+          "sha": "dd4fd24",
+          "at": "2026-10-01T18:44:21.000Z",
+          "text": "yui-push: Web Push (VAPID) next to APNs, register_web, quiet clear and revoked pushes (YUI-248)",
+          "url": "https://github.com/postscarcityai/yui/commit/dd4fd24"
+        },
+        {
+          "repo": "site",
+          "sha": "2146e12a",
+          "at": "2026-10-01T18:42:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2146e12a"
+        },
+        {
+          "repo": "site",
+          "sha": "9f6ca9ad",
+          "at": "2026-10-01T18:36:41.000Z",
+          "text": "progress: Every link checked after the big October 1 push (SITE-160)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9f6ca9ad"
+        },
+        {
+          "repo": "site",
+          "sha": "51f6530a",
+          "at": "2026-10-01T18:36:08.000Z",
+          "text": "Yui on the web: settings and account (YUI-247)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/51f6530a"
+        },
+        {
+          "repo": "site",
           "sha": "174bebe9",
           "at": "2026-10-01T18:28:06.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/174bebe9"
+        },
+        {
+          "repo": "app",
+          "sha": "9b69a8c",
+          "at": "2026-10-01T18:25:36.000Z",
+          "text": "Group e2e: two real Yui adapters in one group, handoff, guard, Let it, Stop, offline line (YUI-94)",
+          "url": "https://github.com/postscarcityai/yui/commit/9b69a8c"
+        },
+        {
+          "repo": "app",
+          "sha": "efb37c4",
+          "at": "2026-10-01T18:22:22.000Z",
+          "text": "Group rows: unit tests for the row mapping, @ and swipe-reply addressing, errors in words (YUI-94)",
+          "url": "https://github.com/postscarcityai/yui/commit/efb37c4"
         },
         {
           "repo": "site",
@@ -1095,6 +1384,13 @@
           "at": "2026-10-01T18:14:47.000Z",
           "text": "progress: Yui in ChatGPT, checked on the real thing (INT-8)",
           "url": "https://github.com/postscarcityai/yuigui/commit/347d61d0"
+        },
+        {
+          "repo": "app",
+          "sha": "86e1b6f",
+          "at": "2026-10-01T18:14:16.000Z",
+          "text": "Group threads in the app: New group sheet, groups in the agent list, group thread with handoff and guard rows, working rows with Stop,...",
+          "url": "https://github.com/postscarcityai/yui/commit/86e1b6f"
         },
         {
           "repo": "site",

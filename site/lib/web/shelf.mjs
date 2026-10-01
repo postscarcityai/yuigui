@@ -36,3 +36,9 @@ export function remove(agentId, name, now = Date.now(), storage = globalThis.loc
   try { storage?.setItem(key(agentId), JSON.stringify(next)); } catch { /* private mode: it comes back on reload */ }
   return next;
 }
+
+// The removed list as one string, for the person's other devices (state.mjs): read it, and take theirs in.
+export const removedText = (agentId, storage = globalThis.localStorage) => JSON.stringify(loadRemoved(agentId, storage));
+export function setRemovedText(agentId, text, storage = globalThis.localStorage) {
+  try { storage?.setItem(key(agentId), text || "{}"); } catch { /* private mode */ }
+}

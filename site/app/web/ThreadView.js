@@ -16,7 +16,8 @@ import { stamps } from "../../lib/chat/when.mjs";
 import { Thread, excerpt, folds } from "../../lib/web/thread.mjs";
 import { ThreadSync } from "../../lib/web/sync.mjs";
 import { relayTakeHost, setTakeHost } from "../../lib/web/take-host.mjs";
-import { loadRemoved, remove as removeShelf, shelfOf } from "../../lib/web/shelf.mjs";
+import { loadRemoved, remove as removeShelf, removedText, setRemovedText, shelfOf } from "../../lib/web/shelf.mjs";
+import { createKeySync, deviceName, mergeRemoved } from "../../lib/web/state.mjs";
 import ShelfBar from "./ShelfBar";
 import { KeepCtx, stopVoices } from "../playground/music/keep";
 import { KeptCtx } from "../playground/kept";
@@ -262,8 +263,17 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   useEffect(() => { if (!toast) return undefined; const t = setTimeout(() => setToast(""), 2200); return () => clearTimeout(t); }, [toast]);
 
   // What is being written, per agent: kept across threads and reloads, never redraws the thread (composer.mjs).
-  const store = useMemo(() => createComposer({ agentId: agent.id, prepare: preparePhoto }), [agent.id]);
+  const draftSync = useRef(null);
+  const store = useMemo(() => createComposer({ agentId: agent.id, prepare: preparePhoto, onDraft: (words) => { if (words) draftSync.current?.changed(); else draftSync.current?.flush(); } }), [agent.id]);
   useEffect(() => () => store.destroy(), [store]);
+  // One Yui across phone and web (YUI-249): the words half typed here are on the phone, and the phone's are here.
+  useEffect(() => {
+    if (!relay?.state) return undefined;
+    const sync = createKeySync({ client: relay.state, userId, agentId: agent.id, key: "draft", device: deviceName(), read: () => store.get().draft, write: (v) => store.adopt(v), at: () => store.draftAt() });
+    draftSync.current = sync;
+    sync.start();
+    return () => { sync.stop(); draftSync.current = null; };
+  }, [relay, userId, agent.id, store]);
   const commands = agent.commands;
 
   const list = thread.messages;
@@ -305,6 +315,16 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   // The shelf: what the thread saved, less what the person took off by hand (per agent, on this device).
   const [removed, setRemoved] = useState(() => loadRemoved(agent.id));
   useEffect(() => setRemoved(loadRemoved(agent.id)), [agent.id]);
+  // The shelf's hand-removed names follow the person too (merged by newest time per name).
+  const shelfSync = useRef(null);
+  useEffect(() => {
+    if (!relay?.state) return undefined;
+    const sync = createKeySync({ client: relay.state, userId, agentId: agent.id, key: "shelf-removed", device: deviceName(), merge: mergeRemoved,
+      read: () => removedText(agent.id), write: (v) => { setRemovedText(agent.id, v); setRemoved(loadRemoved(agent.id)); } });
+    shelfSync.current = sync;
+    sync.start();
+    return () => { sync.stop(); shelfSync.current = null; };
+  }, [relay, userId, agent.id]);
   const shelf = useMemo(() => shelfOf(thread.messages, removed), [thread.version, removed]); // eslint-disable-line react-hooks/exhaustive-deps
   const toStage = useCallback((r) => { setReq((q) => ({ ...r, key: q.key + 1 })); setView("stage"); }, [setView]);
   const askOf = (i) => { for (let k = i; k >= 0; k--) if (list[k].role === "user" && !list[k].card) return list[k].id; return null; };
@@ -372,7 +392,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
     <KeepCtx.Provider value={true}>
     <KeptCtx.Provider value={agent.id}>
     <section className="wb-thread" aria-label={`${agent.name}'s thread`} data-loaded={thread.loaded ? "1" : "0"} {...fileDrop((f) => store.addFiles(f))}>
-      {!stageOn && shelf.length ? <ShelfBar screens={shelf} onOpen={(name) => toStage({ show: name })} onRemove={(name) => setRemoved(removeShelf(agent.id, name))} /> : null}
+      {!stageOn && shelf.length ? <ShelfBar screens={shelf} onOpen={(name) => toStage({ show: name })} onRemove={(name) => { setRemoved(removeShelf(agent.id, name)); shelfSync.current?.changed(); }} /> : null}
       <div className="wb-scroll" ref={scroller} onScroll={onScroll} inert={stageOn || undefined}>
         <div className="wb-messages" ref={content}>
           {!thread.loaded ? <div className="wb-wait">Opening {agent.name}...</div> : null}

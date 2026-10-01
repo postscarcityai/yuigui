@@ -237,6 +237,10 @@ Pictures and videos travel as URLs, never inside a message row. They live in one
 - **Limits.** 50 MB per object (the bucket's cap). Video is stored and played as sent: no transcoding yet, so send mp4 (H.264) or mov; webm will not play on iPhone and is refused. Transcoding waits until someone needs it.
 - **Deletion and cleanup.** Account deletion (`yui-delete`) removes every object under the user before the user row. `supabase/scripts/media_sweep.py --delete` removes orphans: media whose owner or agent is gone, and uploads older than a day that no message references (a send that failed, or a message the person deleted). The rule lives in SQL, `yui_media_orphans(grace)`. Run the sweep daily.
 
+## One Yui across devices (YUI-249)
+
+Thread, chats, screens, the shelf's saves and read state (`yui_chats.seen_at`) are the same rows on every device. The few per-device things ride `yui_sync_state` (one row per person, agent and key; `key` is `draft` or `shelf-removed`; `value` text, empty = cleared; `device` a short name; the server stamps `updated_at` on every write). Same rules as the other account tables: `user_id`, RLS for `yui_user`, no grant for the connector, a host never reads a draft. A client upserts with `POST /rest/v1/yui_sync_state?on_conflict=user_id,agent_id,key` (`Prefer: resolution=merge-duplicates`) after a pause in typing (700 ms; at once when the words are sent or deleted), and reads the agent's rows every 5 s while the thread is open and on focus. A newer remote value wins unless words here are waiting to go up; those win and go up. A key-shaped draft is stored as empty. `shelf-removed` is a JSON map of name to ms, merged by newest time per name. Code: `site/lib/web/state.mjs`, `Account/SyncState.swift`.
+
 ## Not yet
 
 - The app polls its open thread every 1.5 s. Realtime on the app side comes later; when the app is closed, pushes (YUI-8) cover it.

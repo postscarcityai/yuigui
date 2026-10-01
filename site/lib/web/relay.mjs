@@ -9,6 +9,7 @@ export const BACKEND = "https://txuibjxyfpalzvpneqgp.supabase.co";
 export const PUBLISHABLE_KEY = "sb_publishable_9DhcBgazmSHaoOJChYtqwA_qyHvI_zc";
 
 import { createChatsClient } from "./chats.mjs";
+import { createStateClient } from "./state.mjs";
 import { createAgentsClient } from "./agents.mjs";
 
 export const COLUMNS = "id,sender,body,kind,meta,created_at,delivered_at,handled_at,reaction,doing";
@@ -193,6 +194,7 @@ export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch
   // PostgREST and storage with the person's token, for the screens that read a table of their own (the vault).
   relay.rest = request;
   relay.chats = createChatsClient(request);
+  relay.state = createStateClient(request);
   relay.manage = createAgentsClient((fn, body) => relay.call(fn, body));
   return relay;
 }

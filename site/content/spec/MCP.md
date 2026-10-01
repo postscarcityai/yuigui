@@ -1,4 +1,4 @@
-# Yui MCP server | spec v4 (INT-3, OAuth INT-19, Claude + MCP App INT-7, ChatGPT INT-8, Grok INT-10, n8n INT-17, Sep 25 2026)
+# Yui MCP server | spec v5 (INT-3, OAuth INT-19, Claude + MCP App INT-7, ChatGPT INT-8 live on chatgpt.com, Grok INT-10, n8n INT-17, Oct 1 2026)
 
 Path D of `spec/ADAPTERS.md`. The code lives in the app repo, [postscarcityai/yui `supabase/functions/yui-mcp`](https://github.com/postscarcityai/yui/tree/main/supabase/functions/yui-mcp); this page is what an MCP client needs.
 
@@ -78,32 +78,38 @@ An agent that runs as a service with its own HTTP endpoint can use the [webhook 
 
 ChatGPT adds Yui the same way Claude does: one URL, OAuth, approved in the Yui app. It is your own connection in developer mode, visible only to you. Nothing here lists Yui in ChatGPT's app directory.
 
+Checked live on chatgpt.com on Oct 1 2026, not only in a ChatGPT-shaped test host. The screen drew in the chat, a tap in it was answered, and `window.openai` carried the same tap on its own. Shots: `/progress/int8-live-1-connector-light.webp` through `int8-live-4-openai-light.webp`.
+
 ### Add Yui in ChatGPT
 
-Needs an account whose plan and workspace allow developer mode. Do it on chatgpt.com in a browser.
+Do it on chatgpt.com in a browser. ChatGPT now calls these **plugins**; the wording below is what the site said on Oct 1 2026. A **Free** account was enough: developer mode and a custom MCP plugin both worked on one, even though the directory's own apps offered "Upgrade to install".
 
-1. **Settings > Security and login**, turn on **Developer mode**.
-2. Open [chatgpt.com/plugins](https://chatgpt.com/plugins) and press **+**.
-3. Name **Yui**, description "Screens on my phone". Public endpoint, URL: `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`. Authentication: OAuth. Create.
-4. ChatGPT opens www.yuigui.com/connect. Scan its QR with your iPhone (or type an Add agent code from the app) and tap **Allow** in Yui ([OAuth](#oauth) below). A new agent named ChatGPT shows up in Yui.
-5. Start a new chat, add Yui from the tools menu, and ask: "Ask me on my phone what we are having for lunch: Salad, Soup or Tacos."
-
-After Yui's server changes, open the connection at chatgpt.com/plugins and press **Refresh** so ChatGPT reads the new tool list.
+1. **Settings > Security and login > Developer mode**, turn it on. (Beside it sits **Enforce CSP in developer mode**, off by default. Left off, the chat marks the Yui card **CSP off** and the `openai/widgetCSP` we declare is not applied. Turn it on to see the CSP we ship.)
+2. Open [chatgpt.com/plugins](https://chatgpt.com/plugins), press **Add plugin**, then **Create app**, then **Create MCP App**.
+3. Name **Yui**, description "Screens on my phone". Server URL: `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`. Authentication: **OAuth**. Tick "I understand and want to continue". **Create**. Fill the URL before you look at **Advanced OAuth settings**: it reads Yui's metadata off the URL and shows what it discovered.
+   **Use that URL exactly, with no `/mcp` on the end.** OpenAI's own page says to enter the server URL "including the `/mcp` path", and that is wrong for Yui. A `/mcp` suffix looks fine at first, because the function ignores the path and answers the same 401 with the same `resource_metadata` header, but the OAuth step then fails with `invalid_target`: `yui-oauth` only accepts `resource` equal to the bare function URL. Measured Oct 1 2026.
+4. On the plugin's page press **Connect another account**. ChatGPT opens www.yuigui.com/connect in a popup. Scan its QR with your iPhone (or type an Add agent code from **Agents > Add agent** in the app) and tap **Allow** in Yui ([OAuth](#oauth) below). The popup closes itself and ChatGPT shows the account under **Connected accounts**. A new agent named ChatGPT shows up in Yui.
+5. Press **Refresh** on the plugin's page. Until you do, it says "No app tools available yet" — this is needed on the first connect, not only after a server change.
+6. Start a new chat, press **+** in the composer and pick **Yui — Screens on my phone**, then ask: "Ask me on my phone what we are having for lunch: Salad, Soup or Tacos."
 
 ### What works
 
 - Everything Claude gets: `yui_show`, `yui_answers`, `yui_say`, `yui_threads`, the channel guide, taps back.
-- The screen draws in the chat too ([MCP App](#mcp-app)), and a tap there reaches ChatGPT as your next message, while the phone thread shows it as your reply.
+- The screen draws in the chat too ([MCP App](#mcp-app)), and a tap there reaches ChatGPT as your next message, while the phone thread shows it as your reply. Live: a tap on Soup posted `[yui] n1 choose choice=Soup` as the next message and ChatGPT answered "Soup it is."
 - ChatGPT shows a short status while a tool runs: "Putting it on your phone", then "On your phone".
+- The model's list holds six tools (`yui_answers`, `yui_library`, `yui_say`, `yui_show`, `yui_tables`, `yui_threads`). `yui_tap` is not among them, which is `openai/visibility: "private"` doing its job, and the view still calls it.
+- Each tap writes the same `kind: event` row a phone tap writes, delivered and handled, with `meta.via` of `mcp-app`.
 
 ### What differs from Claude
 
 - **Developer mode only.** A listed app in ChatGPT's directory is a public submission with a review, and needs a fixed widget domain (`_meta.ui.domain`). That waits for Chris's sign-off.
 - **Confidential client.** ChatGPT registers itself with a client secret (`client_secret_post`) and comes back to `https://chatgpt.com/connector_platform_oauth_redirect`, or `https://chatgpt.com/connector/oauth/<id>` on older paths. Both register like any https callback. It sends `resource=` with the MCP URL on `/authorize` and `/token`, and Yui returns `iss` on the redirect.
-- **Discovery.** Yui's issuer sits under a path on Supabase's shared host, so the two root `.well-known` URLs answer 401. The MCP spec's third try, `{issuer}/.well-known/openid-configuration`, answers. If a client only tries the root, it cannot find Yui (the same thing Claude Code does cold, see above).
+- **Discovery.** Yui's issuer sits under a path on Supabase's shared host, so the two root `.well-known` URLs never answer. On the yuigui backend they 404 with Supabase's own `{"error":"requested path is invalid"}` (measured Oct 1 2026; the retired PROOF project answered 401 there instead, so expect either). The MCP spec's third try, `{issuer}/.well-known/openid-configuration`, answers, and so does every `.well-known` under the MCP URL, since the function matches those paths by suffix. ChatGPT is fine either way: the 401 carries `resource_metadata` and OpenAI follows it, and live on chatgpt.com it found Yui's OAuth settings from the URL alone and the connect flow went straight through. A client that only tries the root cannot find Yui (the same thing Claude Code does cold, see above).
+- **Where the view runs.** The screen is framed twice: an `https://<app-id>.web-sandbox.oaiusercontent.com` iframe, and the view itself in an `about:blank` document inside it. Nothing of ours needs to know, but it is why the screen's text is not in the page's own DOM.
 - **Extra metadata.** ChatGPT reads the MCP Apps keys and, for its older paths, its own: `openai/outputTemplate` (same URI as `ui.resourceUri`), `openai/toolInvocation/invoking` and `invoked`, `securitySchemes` per tool (`oauth2`, scope `yui`, top level and in `_meta`), `openai/visibility: "private"` plus `openai/widgetAccessible: true` on `yui_tap`, and on the resource `openai/widgetCSP` (the same image domains, `connect_domains: []`), `openai/widgetDescription` and `openai/widgetPrefersBorder`. Other hosts ignore them.
-- **window.openai.** If the host never answers the MCP Apps bridge, the view falls back to ChatGPT's older `window.openai`: it reads `toolInput`, `toolOutput` and `theme`, and sends a tap with `sendFollowUpMessage` and `callTool("yui_tap")`.
+- **window.openai.** If the host never answers the MCP Apps bridge, the view falls back to ChatGPT's older `window.openai`: it reads `toolInput`, `toolOutput` and `theme`, and sends a tap with `sendFollowUpMessage` and `callTool("yui_tap")`. Live on chatgpt.com both halves are there and work: `toolInput` held the `choose` line, `toolOutput` the `screen_id`, `ids` and `chat`, `theme` read `light`, and driving the fallback by hand (`callTool("yui_tap", …)` then `sendFollowUpMessage`) wrote the same handled event row and ChatGPT answered "Tea it is." Day to day the bridge answers first, so the fallback stays dormant: it is the belt, not the braces.
 - **One agent per connection.** Like every OAuth client, ChatGPT talks as the one agent you picked when you allowed it.
+- **The account's name.** Under **Connected accounts** ChatGPT labels the connection "Chris's Yui account" and "Primary" whoever signs in. It is ChatGPT's own wording, not something Yui sends.
 
 ## Grok
 

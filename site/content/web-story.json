@@ -12,6 +12,9 @@
       "browser": { "light": "/progress/yui243-home-desktop-light.webp", "dark": "/progress/yui243-home-desktop-dark.webp" } },
     { "card": "YUI-244", "label": "Composer", "say": "Photos, voice, replies and @mentions, and what you send survives a closed tab.",
       "phone": { "dark": "/progress/yui244-menu-390-dark.webp" },
-      "browser": { "dark": "/progress/yui244-menu-desktop-dark.webp" } }
+      "browser": { "dark": "/progress/yui244-menu-desktop-dark.webp" } },
+    { "card": "YUI-249", "label": "One Yui", "say": "Start a message on the phone, finish it in the browser.",
+      "phone": { "light": "/progress/yui249-draft-390-light.webp", "dark": "/progress/yui249-draft-390-dark.webp" },
+      "browser": { "light": "/progress/yui249-draft-desktop-light.webp", "dark": "/progress/yui249-draft-desktop-dark.webp" } }
   ]
 }

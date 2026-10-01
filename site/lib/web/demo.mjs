@@ -172,6 +172,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
   }
   const pushCalls = [];
 
+  const syncRows = new Map();
   const relay = {
     demo: true,
     userId,
@@ -209,6 +210,12 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     async controlAnswer({ agentId, req }) {
       const hit = rows(agentId).find((r) => r.kind === "control" && r.sender === "agent" && r.meta?.req === req);
       return hit ? { ...hit.meta } : null;
+    },
+    // yui_sync_state in the page (state.mjs): `phone(agent, key, value)` is the other device writing.
+    state: {
+      list: async (agentId) => [...syncRows.entries()].filter(([k]) => k.startsWith(`${agentId}|`)).map(([k, r]) => ({ key: k.split("|")[1], ...r })),
+      put: async ({ agentId, key, value, device }) => { syncRows.set(`${agentId}|${key}`, { value, device, updated_at: new Date(now()).toISOString() }); },
+      phone: (agentId, key, value) => { syncRows.set(`${agentId}|${key}`, { value, device: "phone", updated_at: new Date(now() + 1000).toISOString() }); },
     },
     chats: {
       list: async (agentId, { limit = 30, offset = 0 } = {}) => {
