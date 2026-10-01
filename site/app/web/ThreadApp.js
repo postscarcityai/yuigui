@@ -74,7 +74,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const [used, setUsed] = useState({});
   const [pendingTap, setPendingTap] = useState(null);
   // The app opens on the stage (Stage first); the chat is the record, one tap away. ?view=chat opens the record.
-  const [view, setView] = useState(search.get("view") === "chat" ? "chat" : "stage");
+  const [view, setView] = useState(search.get("view") === "chat" || (demo && !agentId && !connect && !groupId && !search.get("view")) ? "chat" : "stage");
 
   useEffect(() => { setMounted(true); }, []);
 

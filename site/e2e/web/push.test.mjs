@@ -63,7 +63,7 @@ const shown = (pg) => pg.evaluate(async () => (await (await navigator.serviceWor
 
 console.log("manifest and install");
 {
-  const pg = await open(DESK, "light", { path: "/web" });
+  const pg = await open(DESK, "light", { path: "/web", extra: "&view=stage" });
   const href = await pg.locator('link[rel=manifest]').getAttribute("href");
   ok(href === "/web/manifest.webmanifest", "the page links the manifest");
   const m = await (await pg.request.get(`${BASE}${href}`)).json();
