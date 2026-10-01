@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T05:11:03.777Z",
+  "updated": "2026-10-01T05:41:09.721Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -289,11 +289,6 @@
           "progress": "/progress#the-trash-sits-flush-left"
         },
         {
-          "key": "YUI-252",
-          "title": "The Tuner is Gouda's last screen, Tune goes straight there",
-          "waiting": true
-        },
-        {
           "key": "YUI-254",
           "title": "Past chats show in the drawer on a real account",
           "waiting": true
@@ -377,7 +372,8 @@
         {
           "key": "NOTE-18306",
           "title": "Tuner as Gouda's last screen",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#tune-up-goes-straight-to-the-tuner"
         },
         {
           "key": "NOTE-21045",
@@ -415,16 +411,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-242",
-          "title": "The thread, live in the browser",
-          "summary": "Agents, messages, screens, taps that send the same [yui] lines as the phone",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-150",
-          "title": "The site chat's trash sits flush left, mirroring the mic",
-          "summary": "The site chat's trash sits flush left",
-          "progress": "/progress#the-site-chat-s-trash-sits-flush-left",
+          "key": "SITE-151",
+          "title": "On /crew, Gouda's last screen is the Tuner, and Tune jumps straight to it",
           "owner": "CJohnDesign"
         },
         {
@@ -447,6 +435,29 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-252",
+          "title": "The Tuner is Gouda's last screen, Tune goes straight there",
+          "summary": "Tune up goes straight to the tuner",
+          "shipped": "2026-10-01",
+          "progress": "/progress#tune-up-goes-straight-to-the-tuner",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0137b8bc"
+        },
+        {
+          "key": "YUI-242",
+          "title": "The thread, live in the browser",
+          "summary": "Yui on the web: the thread",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-on-the-web-the-thread",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/76c00f25"
+        },
+        {
+          "key": "SITE-150",
+          "title": "The site chat's trash sits flush left, mirroring the mic",
+          "summary": "The site chat's trash sits flush left",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-site-chat-s-trash-sits-flush-left"
+        },
         {
           "key": "NOTE-49492",
           "title": "About and Controls in one tab",

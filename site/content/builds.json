@@ -1871,6 +1871,9 @@
     },
     {
       "text": "Stage trash sits flush left, mirroring the mic's inset (YUI-251, NOTE-2295)"
+    },
+    {
+      "text": "Tune up is covered in light and dark: it lands on Gouda's last screen, the tuner, with no message and no crash (YUI-252, NOTE-18306)"
     }
   ]
 }
