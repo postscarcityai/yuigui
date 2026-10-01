@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 414,
-    "site": 981,
+    "app": 417,
+    "site": 990,
     "builds": 51,
-    "shipped": 494,
-    "screenshots": 1272
+    "shipped": 499,
+    "screenshots": 1286
   },
   "days": [
     {
@@ -13,7 +13,146 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T04:59:21.828Z",
+          "at": "2026-10-01T05:42:07.216Z",
+          "title": "Gouda's tuner on the site",
+          "card": "SITE-151",
+          "anchor": "gouda-s-tuner-on-the-site",
+          "images": [
+            {
+              "src": "/progress/site151-tuner-light.webp",
+              "alt": "Gouda's tuner on the crew page, light"
+            },
+            {
+              "src": "/progress/site151-tuner-dark.webp",
+              "alt": "Gouda's tuner on the crew page, dark"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 417,
+            "site": 990,
+            "builds": 51,
+            "shipped": 499
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T05:37:53.000Z",
+          "title": "Tune up goes straight to the tuner",
+          "card": [
+            "YUI-252",
+            "NOTE-18306"
+          ],
+          "anchor": "tune-up-goes-straight-to-the-tuner",
+          "images": [
+            {
+              "src": "/progress/yui252-tuner-light.webp",
+              "alt": "Gouda's tuner, screen 6 of 6, light"
+            },
+            {
+              "src": "/progress/yui252-tuner-dark.webp",
+              "alt": "Gouda's tuner, screen 6 of 6, dark"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 417,
+            "site": 989,
+            "builds": 51,
+            "shipped": 498
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T05:08:19.000Z",
+          "title": "The site chat's trash sits flush left",
+          "card": "SITE-150",
+          "anchor": "the-site-chat-s-trash-sits-flush-left",
+          "images": [
+            {
+              "src": "/progress/site150-listening-dark.webp",
+              "alt": "Dark mode, listening: the trash at the far left of the bottom bar, the mic at the far right."
+            },
+            {
+              "src": "/progress/site150-listening-light.webp",
+              "alt": "Light mode, listening: the trash at the far left of the bottom bar, the mic at the far right."
+            },
+            {
+              "src": "/progress/site150-idle-dark.webp",
+              "alt": "Dark mode, idle: the T button sits beside the mic."
+            },
+            {
+              "src": "/progress/site150-idle-light.webp",
+              "alt": "Light mode, idle: the T button sits beside the mic."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 416,
+            "site": 986,
+            "builds": 51,
+            "shipped": 497
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T05:06:21.000Z",
+          "title": "The trash sits flush left",
+          "card": "YUI-251",
+          "anchor": "the-trash-sits-flush-left",
+          "images": [
+            {
+              "src": "/progress/yui251-trash-light.webp",
+              "alt": "Holding the mic: trash flush left, mic flush right, light"
+            },
+            {
+              "src": "/progress/yui251-trash-dark.webp",
+              "alt": "Holding the mic: trash flush left, mic flush right, dark"
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 416,
+            "site": 985,
+            "builds": 51,
+            "shipped": 496
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T05:06:21.000Z",
+          "title": "Yui on the web: the thread",
+          "card": "YUI-242",
+          "anchor": "yui-on-the-web-the-thread",
+          "images": [
+            {
+              "src": "/progress/yui242-thread-390-light.webp",
+              "alt": "Light mode, phone width: Penny's thread with a stat and a choice screen drawn in the thread, sent times under each message and the composer."
+            },
+            {
+              "src": "/progress/yui242-thread-390-dark.webp",
+              "alt": "Dark mode, phone width: the same thread."
+            },
+            {
+              "src": "/progress/yui242-thread-desktop-light.webp",
+              "alt": "Light mode, desktop: the agent list as a column beside Penny's thread."
+            },
+            {
+              "src": "/progress/yui242-thread-desktop-dark.webp",
+              "alt": "Dark mode, desktop: the agent column and the thread."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 416,
+            "site": 985,
+            "builds": 51,
+            "shipped": 495
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T05:00:24.000Z",
           "title": "Sign in with Apple, on the web",
           "card": "YUI-241",
           "anchor": "sign-in-with-apple-on-the-web",
@@ -35,10 +174,10 @@
               "alt": "Light, desktop: the signed in card with the account email and Sign out."
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
-            "app": 414,
-            "site": 981,
+            "app": 415,
+            "site": 982,
             "builds": 51,
             "shipped": 494
           }
@@ -177,6 +316,90 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "20b87931",
+          "at": "2026-10-01T05:41:16.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/20b87931"
+        },
+        {
+          "repo": "site",
+          "sha": "0137b8bc",
+          "at": "2026-10-01T05:37:53.000Z",
+          "text": "Progress: Tune up goes straight to the tuner (YUI-252, NOTE-18306)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0137b8bc"
+        },
+        {
+          "repo": "app",
+          "sha": "4f47a11",
+          "at": "2026-10-01T05:37:34.000Z",
+          "text": "Tune up is covered in light and dark: it lands on Gouda's last screen, the tuner, with no message and no crash (YUI-252, NOTE-18306)",
+          "url": "https://github.com/postscarcityai/yui/commit/4f47a11"
+        },
+        {
+          "repo": "site",
+          "sha": "76c00f25",
+          "at": "2026-10-01T05:13:57.000Z",
+          "text": "Yui on the web: the thread rides the signed in session; sign out in the drawer (YUI-242)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/76c00f25"
+        },
+        {
+          "repo": "site",
+          "sha": "e84d9170",
+          "at": "2026-10-01T05:11:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e84d9170"
+        },
+        {
+          "repo": "site",
+          "sha": "b154cb24",
+          "at": "2026-10-01T05:08:19.000Z",
+          "text": "SITE-150: the site chat's trash sits flush left while listening, mirroring the mic",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b154cb24"
+        },
+        {
+          "repo": "site",
+          "sha": "a5ebcb87",
+          "at": "2026-10-01T05:06:21.000Z",
+          "text": "Yui on the web: the thread, live in the browser (YUI-242)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a5ebcb87"
+        },
+        {
+          "repo": "site",
+          "sha": "330abf5a",
+          "at": "2026-10-01T05:06:21.000Z",
+          "text": "progress: the trash sits flush left (YUI-251, NOTE-2295)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/330abf5a"
+        },
+        {
+          "repo": "app",
+          "sha": "aae26f8",
+          "at": "2026-10-01T05:06:05.000Z",
+          "text": "Stage trash sits flush left, mirroring the mic's inset (YUI-251, NOTE-2295)",
+          "url": "https://github.com/postscarcityai/yui/commit/aae26f8"
+        },
+        {
+          "repo": "site",
+          "sha": "eb95da05",
+          "at": "2026-10-01T05:04:12.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/eb95da05"
+        },
+        {
+          "repo": "site",
+          "sha": "2b9e762f",
+          "at": "2026-10-01T05:00:24.000Z",
+          "text": "Yui on the web: Sign in with Apple, a session that stays signed in, sign out (YUI-241)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2b9e762f"
+        },
+        {
+          "repo": "app",
+          "sha": "39b3fda",
+          "at": "2026-10-01T04:49:19.000Z",
+          "text": "Web sign in: a web Apple audience, client=web sessions, CORS for the site (YUI-241)",
+          "url": "https://github.com/postscarcityai/yui/commit/39b3fda"
+        },
         {
           "repo": "site",
           "sha": "be86b7ac",

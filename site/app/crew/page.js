@@ -5,6 +5,7 @@ import Link from "next/link";
 import LivePhone from "../mockups/LivePhone";
 import CrewVisual from "./CrewVisual";
 import FirstPlanPlay from "./FirstPlanPlay";
+import GoudaTuner from "./GoudaTuner";
 import CrewFirstPlan from "./CrewFirstPlan";
 import { CREW_VISUALS } from "../../lib/yl/visual.mjs";
 import FirstRunHero from "../proposals/FirstRunHero";
@@ -89,6 +90,12 @@ export default async function Crew() {
                 <LivePhone yl={m.yl} agent={m.name} label={`A live demo of the ${m.role.toLowerCase()}'s screens. ${m.try}.`} />
                 <p className="crew-links crew-firstplan"><a className="fp-try" href="#first-plan">Try their first plan</a></p>
               </>
+            ) : m.handle === "gouda" ? (
+              <CrewFirstPlan handle={m.handle} name={m.name}>
+                <GoudaTuner name={m.name} label="Tune up: jump to the tuner, the last screen">
+                  <LivePhone yl={m.yl} agent={m.name} label={`A live demo of the ${m.role.toLowerCase()}'s screens. ${m.try}.`} />
+                </GoudaTuner>
+              </CrewFirstPlan>
             ) : (
               <CrewFirstPlan handle={m.handle} name={m.name}>
                 <LivePhone yl={m.yl} agent={m.name} label={`A live demo of the ${m.role.toLowerCase()}'s screens. ${m.try}.`} />

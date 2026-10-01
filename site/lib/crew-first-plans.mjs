@@ -307,3 +307,6 @@ export function startLines(handle, answers, today) {
 
 // The playground link opens every question and the example on one screen.
 export const wholeLines = (handle, answers) => `${MEALS[handle].ask.map((s) => `choose ${q(s.q)} ${s.options.map(opt).join("|")}`).join("\n")}\n${resultLines(handle, answers)}`;
+
+// Gouda's last screen on /crew (YUI-252, SITE-151): the guitar tuner the playground draws, inline so it fills the phone.
+export const TUNER_YL = "tuner guitar +inline";
