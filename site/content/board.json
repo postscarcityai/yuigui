@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T04:41:01.133Z",
+  "updated": "2026-10-01T04:47:21.813Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -421,19 +421,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-239",
-          "title": "Stay signed in. A lost refresh reply ends every session",
-          "summary": "You stay signed in",
-          "progress": "/progress#you-stay-signed-in",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-240",
-          "title": "Yui on the web, the parity map",
-          "summary": "Every app feature, its web twin, its story",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -445,6 +432,22 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-240",
+          "title": "Yui on the web, the parity map",
+          "summary": "Yui on the web: the parity map",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-on-the-web-the-parity-map",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/14c83334"
+        },
+        {
+          "key": "YUI-239",
+          "title": "Stay signed in. A lost refresh reply ends every session",
+          "summary": "You stay signed in",
+          "shipped": "2026-10-01",
+          "progress": "/progress#you-stay-signed-in",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/204f380f"
+        },
         {
           "key": "SITE-149",
           "title": "My flows on the web matches the app",
