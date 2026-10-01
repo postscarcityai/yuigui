@@ -18,6 +18,8 @@ import { useVoice } from "./useVoice";
 import { voiceProblem } from "../../lib/web/voice.mjs";
 import { SETS } from "../../lib/yl/look.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
+import { CREW_VISUALS, FALLBACK_VISUAL, stageVisual, visualPlan } from "../../lib/yl/visual.mjs";
+import { VisualCanvas } from "../playground/VisualCanvas";
 import { RichText } from "../playground/richtext";
 import { usePager } from "../components/ChatDots";
 import "../playground/stagemotion.css";
@@ -50,13 +52,23 @@ function useReduced() {
   return r;
 }
 
-// The mark in the agent's color, the one thing that moves (stage motion): it breathes, turns, sweeps, bursts.
+// The shader is the orb (YUI-257): the playground's visualizer behind the stage, in the agent's colors and
+// motion look. The voice moves it, smoothed by the look's envelope; behind words it dims and lays a scrim;
+// under Reduce Motion it is one still frame; with no WebGL the canvas draws a still gradient.
+function StageShader({ agent, theme, light, words, reduced, read }) {
+  const def = CREW_VISUALS[(agent.name || "").toLowerCase()] || FALLBACK_VISUAL;
+  const plan = visualPlan(stageVisual(def), { theme, dark: !light, words, reduced });
+  return (
+    <div className="wb-shader" data-testid="stage-shader" data-look={plan.look} data-still={plan.still ? plan.why : undefined} aria-hidden="true">
+      <VisualCanvas plan={plan} read={read} meter={false} />
+    </div>
+  );
+}
+
+// The stage's burst when the answer lands (mo-spark); the orb itself is the shader.
 function Presence({ mood, flavor }) {
   return (
     <div className={`mo-presence m-${mood} ${flavor ? `f-${flavor}` : ""}`} aria-hidden="true">
-      <span className="mo-halo" />
-      <span className="mo-sweep" />
-      <span className="mo-orb"><i /><i /><i /></span>
       <span className="mo-spark">{Array.from({ length: 8 }, (_, i) => <b key={i} style={{ "--i": i }} />)}</span>
     </div>
   );
@@ -290,6 +302,9 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   }, [typing, voice.supported, listening, answer, onHomeScreen, canTalk, goHome]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ---- what the middle shows ----
+  const levelRef = useRef(0);
+  levelRef.current = voice.listening ? voice.levels[voice.levels.length - 1] || 0 : 0;
+  const readLevel = useCallback(() => levelRef.current, []);
   const failed = false;
   const stoppedNow = turn?.stopped && !busy && !answer;
   const mood = (() => {
@@ -306,7 +321,6 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   if (voice.listening) {
     center = (
       <div className="ys-mid" data-testid="stage-listening">
-        <Presence mood="listen" />
         <div className="ys-heard">{heard || " "}<span className="mo-caret" /></div>
         <Waveform levels={voice.levels} />
       </div>
@@ -344,6 +358,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   return (
     <section className={`wb-stage ys p-${look.pulse} e-${look.enter}${look.reduced ? " mo-still" : ""}`} aria-label={`${agent.name} on the stage`} data-testid="stage" data-mood={mood.mood}
       style={{ "--mo-c": accent, "--accent": accent, ...motionVars(look) }}>
+      <StageShader agent={agent} theme={agent.theme || {}} light={light} words={!!answer || !!heard} reduced={reduced} read={readLevel} />
       {mood.mood !== "idle" ? <span className="mo-wash" key={`wash:${version > 0 ? messages.length : 0}`} /> : null}
       <div className="wb-stage-in">
         <header className="ys-top">
