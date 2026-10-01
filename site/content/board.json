@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T01:40:45.184Z",
+  "updated": "2026-10-01T03:41:02.456Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -375,6 +375,12 @@
           "key": "YUI-238",
           "title": "My flows in the app",
           "summary": "See, run and remove your saved flows and variants",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-148",
+          "title": "/crew after five first plans",
+          "summary": "Every demo plays, links resolve, fast on a phone",
           "owner": "CJohnDesign"
         },
         {
