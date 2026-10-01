@@ -49,7 +49,7 @@ Where the app lags the web (`flow`, `diagram`, `mock`, agent tables are drawn on
 | Siri, Shortcuts, Action button | iPhone. The app has none yet. |
 | Home screen quick actions | The same `menu shortcut` rows as chips and a command palette (Cmd or Ctrl and K). |
 | `yui://` deep links | `/web/agent/<id>` routes; a notification click opens them. |
-| Speech recognition | MediaRecorder to the same upload and transcript path; the Web Speech API for live words where it exists; typing last. |
+| Speech recognition | The Web Speech API for the words, `getUserMedia` and an `AnalyserNode` for the waveform; only the words are sent, as text, like the app (no audio is uploaded, so no `MediaRecorder` here); typing where the browser has no recognizer. Hold the mic to talk, tap it for hands-free (YUI-244). |
 | Camera and photo library | `getUserMedia`, a file picker, drag and drop, paste. |
 | MIDI | Web MIDI in where the browser has it (Chromium); Safari says "Open on your iPhone" for the keyboard and clock. |
 | Metal shaders for the visual | WebGL from the same plan, a 2D canvas under a budget, a still with reduced motion. |

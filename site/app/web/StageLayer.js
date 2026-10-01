@@ -10,9 +10,11 @@
 // person says or taps, through ThreadSync, as the phone sends it.
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { answerOf, micLine } from "../../lib/chat/stage.mjs";
+import { answerOf } from "../../lib/chat/stage.mjs";
 import { homeOf, chipAction, waitingAction, pageTitle, reopened, turnOf, MAX_WAITING } from "../../lib/web/stage.mjs";
 import { liveness, presenceLabel, waitingNote, workingLine } from "../../lib/web/presence.mjs";
+import { AttachButton, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, Waveform, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
+import { useVoice } from "./useVoice";
 import { SETS } from "../../lib/yl/look.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
 import { RichText } from "../playground/richtext";
@@ -34,11 +36,6 @@ const ChevIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6
 
 const StageText = ({ text }) => <RichText text={text} />;
 const accentOf = (agent) => SETS[agent?.theme?.preset]?.accent || SETS[agent?.color]?.accent || "#FF7E8A";
-
-function speechApi() {
-  if (typeof window === "undefined") return null;
-  return window.SpeechRecognition || window.webkitSpeechRecognition || null;
-}
 
 function useReduced() {
   const [r, setR] = useState(false);
@@ -124,7 +121,7 @@ function Chips({ items, small, onTap }) {
   );
 }
 
-export default function StageLayer({ agent, thread, sync, light, fresh, offline, req, onRecord, onMenu }) {
+export default function StageLayer({ agent, agents = [], commands, store, thread, sync, light, fresh, offline, req, onRecord, onMenu }) {
   const reduced = useReduced();
   const look = useMemo(() => motionLook(agent.theme || {}, null, reduced), [agent.theme, reduced]);
   const accent = accentOf(agent);
@@ -175,15 +172,14 @@ export default function StageLayer({ agent, thread, sync, light, fresh, offline,
   // ---- the bar ----
   const [pageAt, setPageAt] = useState("1");
   const [typing, setTyping] = useState(false);
-  const [draft, setDraft] = useState("");
-  const [listening, setListening] = useState(false);
-  const [heard, setHeard] = useState("");
-  const [blocked, setBlocked] = useState(false);
-  const [voice, setVoice] = useState(false);
   const [secs, setSecs] = useState(0);
   const [toast, setToast] = useState("");
-  const input = useRef(null), rec = useRef(null), heardRef = useRef(""), cancelled = useRef(false);
+  const input = useRef(null);
+  const st = useComposerState(store);
+  const draft = st.draft;
   const busy = thread.waiting;
+  const sayRef = useRef(() => false);
+  const voice = useVoice({ send: (w) => sayRef.current(w), busy });
   const at = Math.max(0, names.indexOf(pageAt));
   const onHomeScreen = at === 0;
   const canTalk = onHomeScreen || home.talk.includes(pageAt);
@@ -198,10 +194,9 @@ export default function StageLayer({ agent, thread, sync, light, fresh, offline,
       if (!answerAfter(thread, ask)) setPageAt(home.forward);
     }
   }, [home.forward, version]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => { setVoice(!!speechApi()); }, []);
   useEffect(() => { if (typing) setTimeout(() => input.current?.focus(), 30); }, [typing]);
   // No voice here (Firefox): the field is the way in, so it starts open.
-  useEffect(() => { if (!voice && onHomeScreen) setTyping(true); }, [voice]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (!voice.supported && onHomeScreen) setTyping(true); }, [voice.supported]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (!busy) return undefined;
     const t0 = Date.now();
@@ -217,60 +212,44 @@ export default function StageLayer({ agent, thread, sync, light, fresh, offline,
     return undefined;
   }, [busy]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { if (!toast) return undefined; const t = setTimeout(() => setToast(""), 2600); return () => clearTimeout(t); }, [toast]);
-  useEffect(() => () => { try { rec.current?.abort(); } catch { /* gone */ } }, []);
 
   // ---- sending ----
   const here = useRef("1");
   here.current = !onHomeScreen && canTalk ? pageAt : "1";
-  const say = useCallback((t) => { const k = here.current; return sync.send(t, k !== "1" ? { screen: k } : {}); }, [sync]);
-  const sayRef = useRef(say);
+  const agentsRef = useRef(agents);
+  agentsRef.current = agents;
+  // Everything the person has put in the bar (words, photos, a reply, an @) goes as one message, on the page
+  // that keeps talking when it is one (`>2 talk`, `[yui] screen=2`). Voice words leave the typed draft alone.
+  const say = useCallback((words = null) => {
+    const out = store.take({ words, agents: agentsRef.current, current: agent.id });
+    if (!out) return false;
+    const k = here.current;
+    return sync.send(out.text, { photos: out.photos, reply: out.reply, mention: out.mention, ...(k !== "1" ? { screen: k } : {}) });
+  }, [sync, store, agent.id]);
   sayRef.current = say;
+  const listening = voice.listening || voice.handsFree;
+  const heard = voice.words;
+  const blocked = voice.phase === "denied";
+  const hints = useMemo(() => store.hints({ agents, current: agent.id, commands }), [st.draft, agents, agent.id, commands]); // eslint-disable-line react-hooks/exhaustive-deps
+  const pick = (sug) => { store.setDraft(sug.fill); input.current?.focus(); };
+  const keys = useSuggestKeys(hints.list, pick);
   const tap = useCallback((ev, said) => { sync.tap(ev, said); }, [sync]);
   const answerAll = useCallback((events) => { for (const ev of events) sync.tap(ev); }, [sync]);
   const stop = useCallback(() => sync.stopTurn(), [sync]);
+  const ready = (!!draft.trim() || st.photos.length > 0) && !st.busy;
   const submit = (e) => {
-    e.preventDefault();
-    const t = draft;
-    if (!t.trim()) return;
-    if (say(t)) { setDraft(""); if (voice) setTyping(false); }
+    e?.preventDefault();
+    if (!ready) return;
+    if (say()) { if (voice.supported) setTyping(false); }
   };
-
-  // The big mic: tap and talk, the words appear as they are heard, it sends when the person stops.
-  const listen = () => {
-    const SR = speechApi();
-    if (!SR) { setVoice(false); setTyping(true); return; }
-    if (listening) { try { rec.current?.stop(); } catch { /* gone */ } return; }
-    if (busy) return;
-    cancelled.current = false;
-    const r = new SR();
-    r.lang = navigator.language || "en-US";
-    r.interimResults = true;
-    r.continuous = false;
-    heardRef.current = "";
-    setHeard(""); setBlocked(false);
-    r.onresult = (e) => { let t = ""; for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript; heardRef.current = t; setHeard(t); };
-    r.onerror = (e) => {
-      if (e.error === "not-allowed" || e.error === "service-not-allowed") { setBlocked(true); setTyping(true); }
-      else if (e.error === "network" || e.error === "audio-capture") { setVoice(false); setTyping(true); }
-    };
-    r.onend = () => {
-      setListening(false); rec.current = null;
-      const t = heardRef.current.trim();
-      setHeard("");
-      if (t && !cancelled.current) sayRef.current(t);
-      cancelled.current = false;
-    };
-    rec.current = r;
-    try { r.start(); setListening(true); } catch { setVoice(false); setTyping(true); }
-  };
-  const discard = () => { cancelled.current = true; try { rec.current?.stop(); } catch { /* gone */ } };
+  const discard = voice.discard;
 
   // ---- home taps ----
   const tapChip = (item) => {
     const a = chipAction(item, home);
     if (a.go) goIndex(names.indexOf(a.go));
     else if (a.show) { const s = reopened(messages, a.show); if (s) { setShown({ name: a.show, state: s }); setAsk(null); setEnded(false); setPlayKey((k) => k + 1); setPageAt("1"); } }
-    else if (a.compose) { setDraft(a.compose); setTyping(true); }
+    else if (a.compose) { store.setDraft(a.compose); setTyping(true); }
     else if (a.send) { setPageAt("1"); sync.send(a.send); }
   };
   const tapWaiting = (item) => {
@@ -291,7 +270,7 @@ export default function StageLayer({ agent, thread, sync, light, fresh, offline,
       if (e.key === "Escape") {
         if (document.querySelector(".wb-stage .yl-stage.open")) return;
         if (listening) discard();
-        else if (typing && voice) setTyping(false);
+        else if (typing && voice.supported) setTyping(false);
         else if (answer && onHomeScreen) goHome();
         return;
       }
@@ -304,13 +283,13 @@ export default function StageLayer({ agent, thread, sync, light, fresh, offline,
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [typing, voice, listening, answer, onHomeScreen, canTalk, goHome]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [typing, voice.supported, listening, answer, onHomeScreen, canTalk, goHome]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ---- what the middle shows ----
   const failed = false;
   const stoppedNow = turn?.stopped && !busy && !answer;
   const mood = (() => {
-    const t = listening ? { listening: true } : busy ? { sent: true, doing: thread.doing } : found ? { sent: true, arrived: true } : answer ? { sent: true, chunk: 0 } : failed ? { failed: true } : {};
+    const t = voice.listening ? { listening: true } : busy ? { sent: true, doing: thread.doing } : found ? { sent: true, arrived: true } : answer ? { sent: true, chunk: 0 } : failed ? { failed: true } : {};
     return stageMood(t);
   })();
   const stageUp = !!answer;
@@ -320,11 +299,12 @@ export default function StageLayer({ agent, thread, sync, light, fresh, offline,
   const working = busy && !answer;
 
   let center;
-  if (listening) {
+  if (voice.listening) {
     center = (
-      <div className="ys-mid">
+      <div className="ys-mid" data-testid="stage-listening">
         <Presence mood="listen" />
         <div className="ys-heard">{heard || " "}<span className="mo-caret" /></div>
+        <Waveform levels={voice.levels} />
       </div>
     );
   } else if (working || (found && !answer)) {
@@ -382,39 +362,66 @@ export default function StageLayer({ agent, thread, sync, light, fresh, offline,
           </div>
         </div>
         {showChips ? <Chips items={chips} small={!!answer || (!!turn && !!turn.replies)} onTap={tapChip} /> : null}
-        {typing && canTalk ? (
-          <form className="yc-input ys-field" onSubmit={submit}>
+        {canTalk && !voice.listening ? (
+          <div className="wc-over wc-over-stage">
+            {keys.open ? <SuggestionList items={hints.list} index={keys.index} onPick={pick} /> : null}
+            {!keys.open ? <MentionBar agent={hints.to} /> : null}
+            <ReplyBar quote={st.reply} agentName={agent.name} onCancel={() => store.clearReply()} />
+            <Problem code={st.problem} onClose={() => store.clearProblem()} />
+            <PhotoTray photos={st.photos} busy={st.busy > 0} onRemove={(id) => store.removePhoto(id)} />
+          </div>
+        ) : null}
+        {typing && canTalk && !voice.listening ? (
+          <form className="yc-input ys-field" onSubmit={submit} data-testid="stage-field">
+            <AttachButton onFiles={(f) => store.addFiles(f)} className="ys-small ys-attach" testId="stage-attach" />
             <textarea ref={input} rows={1} value={draft} maxLength={32000} placeholder={`Message ${agent.name}`} aria-label={`Message ${agent.name}`}
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) submit(e); }} />
-            {busy && !draft.trim() ? <button type="button" className="yc-send yc-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
-              : <button className="yc-send" disabled={!draft.trim()} aria-label="Send">↑</button>}
-            {voice ? <button type="button" className="ys-small" onClick={() => setTyping(false)} aria-label="Back to the mic"><MicIcon /></button> : null}
+              role="combobox" aria-expanded={keys.open} aria-controls={keys.open ? "suggestions" : undefined} aria-autocomplete="list" aria-activedescendant={keys.open ? `suggestions-${keys.index}` : undefined}
+              enterKeyHint="send"
+              onChange={(e) => store.setDraft(e.target.value)}
+              onPaste={(e) => { const f = pastedFiles(e); if (f) { e.preventDefault(); store.addFiles(f); } }}
+              onKeyDown={(e) => { if (keys.onKey(e)) return; if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) submit(e); }} />
+            {busy && !ready ? <button type="button" className="yc-send yc-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
+              : <button className="yc-send" disabled={!ready} aria-label="Send" data-testid="stage-send">↑</button>}
+            {voice.supported ? <button type="button" className="ys-small" onClick={() => setTyping(false)} aria-label="Back to the mic"><MicIcon /></button> : null}
           </form>
         ) : (
           <div className="ys-bottom" data-talk={canTalk ? undefined : "off"}>
             <div className="ys-dotroom" data-arrows={onHomeScreen && stageUp && parts > 1 ? "1" : undefined} />
             {canTalk ? <>
-              {listening
-                ? <button className="ys-small ys-trash" onClick={discard} aria-label="Cancel, throw away what I said"><TrashIcon /></button>
-                : <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type">T</button>}
-              {busy && !listening ? <button className="ys-mic ys-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
-                : (
-                  <button className={`ys-mic${listening ? " live" : ""}`} onClick={listen} aria-label={listening ? "Stop listening" : `Talk to ${agent.name}`}>
+              {voice.listening
+                ? <button className="ys-small ys-trash" onClick={discard} aria-label="Cancel, throw away what I said" data-testid="stage-trash"><TrashIcon /></button>
+                : <button className="ys-small ys-t" onClick={() => setTyping(true)} aria-label="Type" data-testid="stage-type">T</button>}
+              {busy && !voice.listening && !voice.handsFree ? <button className="ys-mic ys-stop" onClick={stop} aria-label="Stop"><StopIcon /></button>
+                : voice.supported ? (
+                  <button type="button" className={`ys-mic${voice.listening ? " live" : ""}${voice.cancel ? " cancel" : ""}`} data-testid="stage-mic" aria-pressed={listening || undefined}
+                    aria-label={listening ? "Stop listening" : `Talk to ${agent.name}`} {...voice.mic} style={{ touchAction: "none" }}>
                     <span className="mo-ring" /><span className="mo-ring r2" />
                     <MicIcon />
                   </button>
-                )}
+                ) : null}
+              {!voice.listening ? <AttachButton onFiles={(f) => store.addFiles(f)} className="ys-small ys-attach" testId="stage-attach" /> : null}
             </> : null}
           </div>
         )}
         <p className="yc-note ys-hint" data-testid="stage-hint">
-          {offline ? "Not sent yet. It goes the moment you're back online." : canTalk ? micLine({ voice, listening, heard, blocked }) : "Swipe back to the home to talk."}
+          {offline ? "Not sent yet. It goes the moment you're back online."
+            : !canTalk ? "Swipe back to the home to talk."
+            : voice.cancel ? "Let go to throw it away."
+            : voice.handsFree && !voice.listening ? `Hands-free is on. Tap the mic to end it.`
+            : webMicLine({ supported: voice.supported, listening: voice.listening, free: voice.handsFree, heard, blocked })}
         </p>
         {toast ? <div className="ys-went" role="status">{toast}</div> : null}
       </div>
     </section>
   );
+}
+
+// The line under the bar (the app's hold to talk: lib/chat/stage.mjs micLine says it for the site chat).
+function webMicLine({ supported, listening, free, heard, blocked }) {
+  if (listening) return free ? (heard ? "Listening. It sends when you pause." : "Listening. Go ahead, I'll send it when you pause.") : "Listening. Let go to send, slide left to cancel.";
+  if (blocked) return "The mic is blocked. Allow it in the address bar, or type.";
+  if (!supported) return "Voice needs Chrome or Safari here. Type instead.";
+  return "Hold the mic to talk, tap it for hands-free, or T to type.";
 }
 
 // Did an agent reply land after the person's last words, with something to play on the stage?

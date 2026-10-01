@@ -113,10 +113,56 @@ test("the app's reply and mention header lines are not shown; the quote is a chi
   t.add(row({ sender: "user", body: "[yui] reply to=abc from=agent quote=\"Three runs fit.\"\nMove Thursday", meta: { reply_to: { msg: "abc", from: "agent", quote: "Three runs fit." } } }));
   t.add(row({ sender: "user", body: "[yui] mention to=coach Does this fit my knee?", meta: { mention: { to: "x", handle: "coach", name: "Coach" } } }));
   assert.equal(t.messages[0].text, "Move Thursday");
-  assert.deepEqual(t.messages[0].replyTo, { from: "agent", quote: "Three runs fit." });
+  assert.deepEqual(t.messages[0].replyTo, { msg: "abc", from: "agent", quote: "Three runs fit.", rows: [] });
   assert.equal(t.messages[1].to, "To Coach");
 });
 
 test("before() moves a timestamp back for the overlapping poll", () => {
   assert.equal(before("2026-10-01T12:00:10.123456+00:00", 10), "2026-10-01T12:00:00+00:00");
+});
+
+const U = "11111111-1111-4111-8111-111111111111", A = "22222222-2222-4222-8222-222222222222";
+
+test("photos: a row's meta.photos draws as pictures, the stand-in body as no caption, a bad path never", () => {
+  const t = new Thread();
+  const good = `${U}/${A}/user/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa.jpg`;
+  t.add(row({ id: "p1", sender: "user", body: "Photo", meta: { photos: [good, "../../x"] } }));
+  t.add(row({ id: "p2", sender: "user", body: "look at this", meta: { photos: [good] } }));
+  assert.deepEqual(t.messages[0].photos, [good]);
+  assert.equal(t.messages[0].text, "");
+  assert.equal(t.messages[1].text, "look at this");
+});
+
+test("reactions: the row's own column, then react events, newest wins, take-back clears; the events never show", () => {
+  const t = new Thread();
+  t.load([
+    row({ id: "R1", sender: "agent", body: "Want it kept clear?", reaction: "👍" }),
+    row({ id: "e1", sender: "user", kind: "event", body: "[yui] react msg=r1 emoji=🔥 meaning=priority changed=true", meta: { react: { msg: "r1", emoji: "🔥" } } }),
+  ]);
+  assert.equal(t.reactions.get("r1"), "🔥");
+  assert.equal(t.messages.length, 1); // the event is hidden
+  t.load([row({ id: "e2", sender: "user", kind: "event", body: "[yui] react msg=r1 emoji=none", meta: { react: { msg: "r1", emoji: null } } })]);
+  assert.equal(t.reactions.has("r1"), false);
+  t.setReaction("R1#0", "❤️");
+  assert.equal(t.reactions.get("r1"), "❤️");
+});
+
+test("the badge sits on the last bubble of the agent's row, never on another agent's answer", () => {
+  const t = new Thread();
+  t.add(row({ id: "r1", sender: "agent", body: "One.\n```yui\nlist \"x\" a|b\n```\nTwo." }));
+  t.add(row({ id: "r2", sender: "agent", body: "Hello from Coach", meta: { mention_reply: { agent: "AA", name: "Coach", handle: "coach" } } }));
+  const w = t.wearers();
+  assert.equal(w.get("r1"), "r1#2");
+  assert.equal(w.has("r2"), false);
+  assert.deepEqual(t.messages.find((m) => m.from).from, { name: "Coach", handle: "coach", agent: "aa", status: null });
+});
+
+test("a local send shows its blob previews; a mention the agent will not answer does not start the working row", () => {
+  const t = new Thread();
+  t.addLocal({ id: "m1", sender: "user", body: "[yui] mention to=coach\nhi", kind: "text", meta: { mention: { to: "x", handle: "coach", name: "Coach" } } }, { owes: false });
+  assert.equal(t.waiting, false);
+  assert.equal(t.messages[0].to, "To Coach");
+  t.addLocal({ id: "m2", sender: "user", body: "Photo", kind: "text", meta: { photos: [`${U}/${A}/user/aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa.jpg`] }, _local: ["blob:x"] });
+  assert.equal(t.waiting, true);
+  assert.deepEqual(t.messages[1].local, ["blob:x"]);
 });

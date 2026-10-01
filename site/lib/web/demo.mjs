@@ -28,6 +28,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
   const threads = materialize(fixture, now());
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms / speed));
   const rows = (agentId) => (threads[agentId] ||= []);
+  const blobs = new Map(), links = new Map();
   let tick = 0;
   // Strictly increasing, so a row posted in the same millisecond still sorts after the last one.
   const bump = () => { tick = Math.max(now(), tick + 1); return iso(tick); };
@@ -48,6 +49,18 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     userRow.handled_at = bump();
   }
 
+  // A mention goes to the other agent; its answer comes back here as an agent row with `mention_reply`
+  // (spec/RELAY.md, Mentions), and this agent is not asked.
+  async function mentioned(agentId, userRow) {
+    const to = userRow.meta.mention;
+    const script = (fixture.replies.mention || [])[0] || { body: `${to.name} here. Got it.` };
+    await sleep(500);
+    userRow.delivered_at = bump();
+    for (const step of script.doing || []) { userRow.doing = { text: step }; await sleep(700); }
+    rows(agentId).push({ id: id(), sender: "agent", body: script.body, kind: "text", meta: { mention_reply: { agent: to.to, name: to.name, handle: to.handle } }, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null });
+    userRow.handled_at = bump();
+  }
+
   return {
     demo: true,
     userId,
@@ -65,14 +78,26 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
       const r = mine[mine.length - 1];
       return r ? { ...r } : null;
     },
+    // The e2e checks cut the network with `offline = true`: every write then fails the way a dropped one does.
+    offline: false,
     async post({ id: rid, agentId, body, kind = "text", meta = null }) {
+      if (this.offline) throw new TypeError("network down");
       const list = rows(agentId);
       if (list.some((r) => r.id === rid)) return; // the primary key: a resend counts as sent
       const row = { id: rid, sender: "user", body, kind, meta: meta || {}, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null };
       list.push(row);
       if (kind === "control") return;
+      // The database copies a reaction onto the agent's row (spec/REACTIONS.md).
+      if (row.meta.react) { const hit = list.find((r) => r.id === row.meta.react.msg && r.sender === "agent"); if (hit) hit.reaction = row.meta.react.emoji; }
+      if (row.meta.mention) { mentioned(agentId, row); return; }
       answer(agentId, row);
     },
+    // A photo into the bucket, kept for the page's life; the bytes never leave the tab.
+    async upload({ path, blob }) { if (this.offline) throw new TypeError("network down"); if (!blobs.has(path)) blobs.set(path, blob); },
+    // What went up, for the e2e checks: the path, the type and the size in bytes.
+    uploads() { return [...blobs].map(([path, b]) => ({ path, type: b.type, size: b.size })); },
+    async sign(path) { const b = blobs.get(path); if (!b) return ""; if (!links.has(path)) links.set(path, URL.createObjectURL(b)); return links.get(path); },
+    async deliver(item) { for (const u of item.uploads || []) await this.upload(u); await this.post(item); },
     subscribe() { return () => {}; },
     // Every row the demo agent ever wrote or was sent, for the e2e checks (they read the wire, not the screen).
     wire(agentId) { return rows(agentId).filter((r) => r.sender === "user").map((r) => ({ kind: r.kind, body: r.body, meta: r.meta })); },

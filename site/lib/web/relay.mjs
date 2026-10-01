@@ -34,6 +34,7 @@ export class RelayError extends Error {
 }
 
 export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch: doFetch = (...a) => globalThis.fetch(...a), WebSocket: WS = globalThis.WebSocket } = {}) {
+  const signed = new Map();
   async function request(path, init = {}) {
     const res = await doFetch(`${url}/${path}`, {
       ...init,
@@ -74,6 +75,35 @@ export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch
       }
     },
 
+    // A photo into the private media bucket under the person's own path (YuiMedia.upload). Nobody overwrites:
+    // the same path again (a retry after the first try landed) is a duplicate, which counts as uploaded.
+    async upload({ path, blob, type }) {
+      try {
+        await request(`storage/v1/object/yui-media/${path}`, { method: "POST", headers: { "Content-Type": type || blob.type || "image/jpeg" }, body: blob });
+      } catch (e) {
+        if (e instanceof RelayError && (e.status === 409 || /duplicate/i.test(e.detail || ""))) return;
+        throw e;
+      }
+    },
+
+    // A link to one of the person's own bucket paths, good for 7 days, kept until it is near expiry (YuiMedia.link).
+    async sign(path) {
+      const hit = signed.get(path);
+      if (hit && hit.until > Date.now() + 300000) return hit.url;
+      const res = await request(`storage/v1/object/sign/yui-media/${path}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ expiresIn: 604800 }) });
+      const link = (await res.json()).signedURL;
+      if (typeof link !== "string") throw new RelayError(502, "no_signed_url");
+      const out = `${url}/storage/v1${link}`;
+      signed.set(path, { url: out, until: Date.now() + 604800000 });
+      return out;
+    },
+
+    // What the outbox sends for one item: its photos go up first, then the row (the outbox holds rows).
+    async deliver(item) {
+      for (const u of item.uploads || []) await relay.upload(u);
+      await relay.post(item);
+    },
+
     // The person's agents (yui-agents `list`, like AgentStore.refresh).
     async agents() {
       const res = await request("functions/v1/yui-agents", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "list", crew_pick: true }) });
@@ -112,47 +142,4 @@ export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch
     },
   };
   return relay;
-}
-
-// ---------- the outbox (Chat/Outbox.swift) ----------
-// Rows go out oldest first, one at a time, each with an id the sender chose. A failure backs off quietly
-// (1 s up to 30 s) and starts over when the network returns or the tab comes forward. A 409 counts as
-// sent. The browser's copy lives in memory for the tab; keeping it across a reload is the composer story (YUI-244).
-export function createOutbox({ send, onSent = () => {}, onState = () => {}, wait = (ms) => new Promise((r) => setTimeout(r, ms)) }) {
-  const queue = [];
-  let running = false, failures = 0, kick = null;
-  const state = () => onState({ pending: queue.length, offline: failures > 0 });
-  async function run() {
-    if (running) return;
-    running = true;
-    while (queue.length) {
-      const item = queue[0];
-      try {
-        await send(item);
-        queue.shift();
-        failures = 0;
-        onSent(item);
-        state();
-      } catch (e) {
-        // A refusal that will never pass (not a network blip): drop it so it cannot block the rest.
-        if (e instanceof RelayError && e.status >= 400 && e.status < 500 && e.status !== 401 && e.status !== 408 && e.status !== 429) {
-          queue.shift();
-          onSent(item, e);
-          state();
-          continue;
-        }
-        failures += 1;
-        state();
-        await Promise.race([wait(Math.min(30000, 1000 * 2 ** (failures - 1))), new Promise((r) => { kick = r; })]);
-        kick = null;
-      }
-    }
-    running = false;
-  }
-  return {
-    add(item) { queue.push(item); state(); run(); },
-    // The network came back or the tab came forward: try now.
-    retry() { kick?.(); run(); },
-    pending: () => queue.slice(),
-  };
 }

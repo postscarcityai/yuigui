@@ -14,7 +14,23 @@
    "theme": {
     "preset": "yui"
    },
-   "tagline": "Your agent, drawn as screens"
+   "tagline": "Your agent, drawn as screens",
+   "commands": [
+    {
+     "name": "new",
+     "description": "Start a new session",
+     "args": "[name]"
+    },
+    {
+     "name": "model",
+     "description": "Show or change the model",
+     "args": "[name]"
+    },
+    {
+     "name": "help",
+     "description": "What I can do"
+    }
+   ]
   },
   {
    "id": "demo-penny",
@@ -174,6 +190,14 @@
      "Writing it down"
     ],
     "body": "Got it. I will remember that."
+   }
+  ],
+  "mention": [
+   {
+    "doing": [
+     "Reading the thread"
+    ],
+    "body": "Yes. Thursday works for me too."
    }
   ]
  }

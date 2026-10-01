@@ -4,7 +4,8 @@
 // agent works (pickup, `doing`, finished), and the realtime socket as a faster path that never replaces the
 // poll. Sending goes through the outbox, so a dropped network never loses a message.
 import { before } from "./thread.mjs";
-import { createOutbox } from "./relay.mjs";
+import { createOutbox } from "./outbox.mjs";
+import { mediaPath, mentionBody, mentionMeta, photoBody, photoMeta, reactionBody, reactionMeta, reactionOf, replyBody, replyMeta, rowOf } from "./compose.mjs";
 import { echoFor, eventLine, relays, valueOf } from "../../../mcp-app/src/events.mjs";
 import { typedBody } from "../yl/yl.mjs";
 
@@ -15,22 +16,42 @@ export const TURN_CHECK = 900;   // ChatStore.turnCheck
 const uuid = () => (globalThis.crypto?.randomUUID?.() ?? "10000000-1000-4000-8000-100000000000".replace(/[018]/g, (c) => (c ^ (Math.random() * 16 >> c / 4)).toString(16)));
 
 export class ThreadSync {
-  constructor({ relay, thread, userId, agentId, chatId = null, timers = { set: (fn, ms) => setTimeout(fn, ms), clear: (t) => clearTimeout(t) }, onStatus = () => {}, turnCheck = TURN_CHECK }) {
+  // `outbox` is the one the whole page shares (what a closed tab left behind goes out from there); a thread
+  // opened on its own (the tests) gets a private one that lives in memory.
+  constructor({ relay, thread, userId, agentId, chatId = null, outbox = null, timers = { set: (fn, ms) => setTimeout(fn, ms), clear: (t) => clearTimeout(t) }, onStatus = () => {}, turnCheck = TURN_CHECK }) {
     Object.assign(this, { relay, thread, userId, agentId, chatId, timers, onStatus, turnCheck });
     this.socket = false;
     this.offline = false;
     this.alive = false;
     this.turnCheckedAt = 0;
-    this.outbox = createOutbox({
-      send: (item) => relay.post({ ...item, userId, agentId, chatId }),
-      onSent: (item, refusal) => { this.#pending(item.id, false); if (refusal) this.#failed(item.id); },
-      onState: (s) => { this.offline = s.offline; this.onStatus({ offline: s.offline, pending: s.pending }); },
-    });
+    this.outbox = outbox || createOutbox({ send: (item) => (relay.deliver ? relay.deliver(item) : relay.post(item)), owner: userId });
+  }
+
+  #mine(item) { return item.agentId === this.agentId && (item.chatId || null) === (this.chatId || null); }
+
+  // What this thread's outbox events mean for it: a row that landed stops looking pending; a refused one says so.
+  #listen(e) {
+    if (e.type === "state") { this.offline = e.offline; this.onStatus({ offline: e.offline, pending: e.pending }); return; }
+    if (!e.item || !this.#mine(e.item)) return;
+    // A row this thread never showed (sent in the gap before it opened) is one poll away: fetch it now.
+    if (e.type === "sent") { this.#pending(e.item.id, false); if (!this.thread.seen.has(e.item.id.toLowerCase()) && this.alive) this.refresh(); }
+    else if (e.type === "refused") { this.#pending(e.item.id, false); this.#failed(e.item.id); }
+  }
+
+  // Rows a closed tab left in the outbox are still the person's: show them, pending, in order.
+  #rehydrate() {
+    for (const item of this.outbox.pending()) {
+      if (!this.#mine(item) || this.thread.seen.has(item.id)) continue;
+      const row = { id: item.id, sender: "user", body: item.body, kind: item.kind, meta: item.meta || {}, created_at: new Date(item.queuedAt || Date.now()).toISOString(), _local: (item.uploads || []).map((u) => u.blob).filter(Boolean).map((b) => URL.createObjectURL(b)) };
+      if (this.thread.addLocal(row, { owes: !item.meta?.mention })) this.#pending(item.id, true);
+    }
   }
 
   async start() {
     this.alive = true;
+    this.unlisten = this.outbox.subscribe((e) => this.#listen(e));
     await this.refresh(true);
+    this.#rehydrate();
     this.unsubscribe = this.relay.subscribe?.({ agentId: this.agentId }, (row) => {
       // A realtime row lands the same way a polled one does.
       if (this.thread.add(row)) this.thread.cursor = row.created_at > (this.thread.cursor || "") ? row.created_at : this.thread.cursor;
@@ -47,6 +68,7 @@ export class ThreadSync {
     this.alive = false;
     this.timers.clear(this.timer);
     this.unsubscribe?.();
+    this.unlisten?.();
     if (this.onShow) { document.removeEventListener("visibilitychange", this.onShow); globalThis.removeEventListener?.("online", this.onShow); }
   }
 
@@ -74,13 +96,48 @@ export class ThreadSync {
     }
   }
 
-  // The person typed something. False when it is empty.
-  send(text, { screen = null } = {}) {
+  // The person typed something (and maybe attached photos). False when there is nothing to send.
+  //   screen   said on a page that keeps talking (`>2 talk`, ScreenTalk.swift): `[yui] screen=2`, then the words
+  //   mention  an agent (compose.mjs `mentionTarget`): the words go to that one, with this thread's last lines
+  //   reply    the quote this answers (compose.mjs `replyQuote`), above the words
+  //   photos   [{ blob, type }] already shrunk (photo.mjs); they go up first, the row carries their bucket paths
+  send(text, { screen = null, mention = null, reply = null, photos = [] } = {}) {
     const words = String(text || "").trim();
-    if (!words) return false;
-    // Said on a page that keeps talking (`>2 talk`, ScreenTalk.swift): `[yui] screen=2`, then the words.
-    const body = screen ? typedBody(String(screen), words) : words;
-    this.#out({ id: uuid(), body, kind: "text", meta: body === words ? null : { screen: String(screen) } });
+    if (!words && !photos.length) return false;
+    const command = words.startsWith("/");
+    if (screen && !command && !photos.length) {
+      const body = typedBody(String(screen), words);
+      this.#out({ id: uuid(), body, kind: "text", meta: body === words ? null : { screen: String(screen) } });
+      return true;
+    }
+    const uploads = photos.map((p) => ({ path: mediaPath(this.userId, this.agentId, uuid()), blob: p.blob, type: p.type || p.blob.type || "image/jpeg" }));
+    const said = photoBody(words, uploads.length);
+    const base = photoMeta(uploads.map((u) => u.path));
+    const local = uploads.map((u) => URL.createObjectURL(u.blob));
+    if (mention) {
+      // A reply quote would point at a row the other agent cannot see, so it stays here.
+      this.#out({ id: uuid(), body: mentionBody(said, mention), kind: "text", meta: mentionMeta(base, mention), uploads }, { owes: false, local });
+    } else {
+      const q = command ? null : reply;
+      this.#out({ id: uuid(), body: replyBody(said, q), kind: "text", meta: replyMeta(base, q), uploads }, { local });
+    }
+    return true;
+  }
+
+  // A reaction on the agent's message (Presets/ChatStore.swift `react`): the same one again takes it back,
+  // another replaces it. It goes to the agent as one event turn and the badge shows at once.
+  react(messageId, pick) {
+    const t = this.thread;
+    const m = t.messages.find((x) => x.id === messageId);
+    if (!m || m.role !== "agent" || m.from) return false;
+    const row = rowOf(m.id);
+    const old = reactionOf(t.reactions.get(row));
+    const next = pick && old && pick.emoji === old.emoji ? null : pick;
+    if (!next && !old) return false;
+    if (next && old && next.emoji === old.emoji) return false;
+    t.setReaction(row, next ? next.emoji : null);
+    const quoting = t.messages.filter((x) => rowOf(x.id) === row && x.role === "agent" && x.yl == null).map((x) => x.text).join("\n");
+    this.#out({ id: uuid(), body: reactionBody({ msg: row, reaction: next, changed: !!old && !!next, quoting }), kind: "event", meta: reactionMeta({ msg: row, reaction: next }) }, { owes: true });
     return true;
   }
 
@@ -101,12 +158,16 @@ export class ThreadSync {
     this.#out({ id: uuid(), body: "stop", kind: "control", meta: null });
   }
 
-  #out(row) {
+  #out(row, { owes = true, local = null } = {}) {
     const t = this.thread;
-    const full = { ...row, sender: "user", created_at: new Date().toISOString() };
+    const item = { ...row, userId: this.userId, agentId: this.agentId, chatId: this.chatId || null };
+    const full = { ...row, sender: "user", created_at: new Date().toISOString(), ...(local?.length ? { _local: local } : {}) };
+    delete full.uploads;
     if (row.kind === "control") t.add(full);
-    else if (t.addLocal(full)) this.#pending(row.id, true);
-    this.outbox.add(row);
+    else if (t.addLocal(full, { owes })) this.#pending(row.id, true);
+    // A reaction has no bubble, but the agent still owes it an answer (every reaction is a turn).
+    else if (row.kind === "event" && owes && row.meta?.react) { t.owe(); t.changed(); }
+    this.outbox.add(item);
   }
 
   #pending(id, on) {

@@ -67,6 +67,7 @@ for (const theme of ["light", "dark"]) {
   await pg.getByLabel("Message Penny").fill("can you move friday?");
   await pg.getByRole("button", { name: "Send" }).click();
   ok(await pg.locator(".wb-user .wb-bubble", { hasText: "can you move friday?" }).count() === 1, `${theme}: the sent bubble is there at once`);
+  await pg.waitForTimeout(250); // the outbox keeps it on disk first, then sends
   ok((await wire(pg)).at(-1) === "can you move friday?", `${theme}: the text went out as typed`);
   await pg.waitForSelector(".wb-working");
   ok(await pg.getByRole("button", { name: "Stop" }).count() >= 1, `${theme}: Send becomes Stop while the agent works`);

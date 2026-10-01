@@ -60,6 +60,7 @@ for (const theme of ["light", "dark"]) {
     await pg.locator("[data-testid=home-chip-]").first().count(); // ids vary; click by label
     await pg.locator(".wb-chip", { hasText: "Plan my week" }).click();
     await pg.waitForSelector("[data-testid=stage-working]", { timeout: 6000 });
+    await pg.waitForTimeout(250); // the outbox keeps it on disk first, then sends
     ok((await wire(pg)).at(-1) === "Plan my week", `${t}: the chip went out as the person's words`);
     ok(await pg.locator("[data-testid=stage]").getAttribute("data-mood").then((m) => m !== "idle"), `${t}: the stage is working`);
     if (SHOTS) await pg.screenshot({ path: `${SHOTS}/web-stage-working-${name}-${theme}.png` });

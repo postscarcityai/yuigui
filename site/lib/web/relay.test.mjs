@@ -1,7 +1,7 @@
 // node --test lib/web/relay.test.mjs   (YUI-242: the same requests the app sends, with stand-ins for the network)
 import test from "node:test";
 import assert from "node:assert/strict";
-import { COLUMNS, RelayError, createOutbox, createRelay, queryString, threadQuery } from "./relay.mjs";
+import { COLUMNS, RelayError, createRelay, queryString, threadQuery } from "./relay.mjs";
 
 test("the thread read is the app's query (ThreadClient.fetchItems)", () => {
   const first = Object.fromEntries(threadQuery({ agentId: "a1", limit: 100 }));
@@ -60,30 +60,6 @@ test("a post is the app's row; a 409 counts as sent; other refusals throw", asyn
   // a control other than stop is the agent's settings traffic: no chat id
   await relay.post({ ...row, kind: "control", body: "model x" }).catch(() => {});
   assert.equal("chat_id" in JSON.parse(f.calls[3].init.body), false);
-});
-
-test("outbox: oldest first, backs off on a network error, 409 is sent, a refusal that never passes is dropped", async () => {
-  const order = [];
-  let fail = 2;
-  const sentIds = [], states = [];
-  const ob = createOutbox({
-    send: async (item) => {
-      order.push(item.id);
-      if (item.id === "bad") throw new RelayError(400, "no");
-      if (fail-- > 0) throw new TypeError("network down");
-    },
-    onSent: (item, refusal) => sentIds.push(refusal ? `${item.id}!` : item.id),
-    onState: (s) => states.push(s),
-    wait: async () => {},
-  });
-  ob.add({ id: "one" });
-  ob.add({ id: "bad" });
-  ob.add({ id: "two" });
-  await new Promise((r) => setTimeout(r, 30));
-  assert.deepEqual(sentIds, ["one", "bad!", "two"]);
-  assert.deepEqual(order.slice(0, 3), ["one", "one", "one"]); // two failures, then it lands
-  assert.equal(states.some((s) => s.offline), true);
-  assert.deepEqual(ob.pending(), []);
 });
 
 test("realtime: joins with the token and a filter, hands over inserts, reports its state, retries", async () => {

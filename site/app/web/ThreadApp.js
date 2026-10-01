@@ -6,11 +6,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { createDemoRelay } from "../../lib/web/demo.mjs";
 import { createRelay } from "../../lib/web/relay.mjs";
+import { createOutbox, idbStore } from "../../lib/web/outbox.mjs";
 import { SETS } from "../../lib/yl/look.mjs";
 import { liveness, presenceLabel } from "../../lib/web/presence.mjs";
 import fixture from "./fixtures/penny.json";
 import ThreadView from "./ThreadView";
 import "./thread.css";
+import "./composer.css";
 
 const FIXTURES = { penny: fixture };
 
@@ -82,6 +84,36 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
   const email = me?.email || user?.email;
   const userId = demo ? "demo-user" : user?.id;
 
+  // What the person sent that the relay does not have yet lives on this device (IndexedDB) until it does: a
+  // closed tab or a dead network loses nothing, and it goes out once, from here, whichever thread is open.
+  const outbox = useMemo(() => (relay && userId ? createOutbox({ send: (item) => relay.deliver(item), store: idbStore(demo ? "yui-web-demo" : "yui-web"), owner: userId }) : null), [relay, userId, demo]);
+  useEffect(() => {
+    if (!outbox) return undefined;
+    outbox.load();
+    if (demo) window.yuiWebOutbox = outbox;
+    const now = () => { if (!document.hidden) outbox.retry(); };
+    window.addEventListener("online", now);
+    document.addEventListener("visibilitychange", now);
+    return () => { window.removeEventListener("online", now); document.removeEventListener("visibilitychange", now); };
+  }, [outbox, demo]);
+
+  // A phone's on-screen keyboard covers the bottom of the layout viewport: the app follows the visible part,
+  // so the composer stays above the keys (iOS Safari does not resize the page for it).
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return undefined;
+    const root = document.documentElement;
+    const on = () => {
+      root.style.setProperty("--wb-vh", `${Math.round(vv.height)}px`);
+      root.style.setProperty("--wb-vt", `${Math.round(vv.offsetTop)}px`);
+      root.dataset.kbd = window.innerHeight - vv.height > 140 ? "1" : "0";
+    };
+    on();
+    vv.addEventListener("resize", on);
+    vv.addEventListener("scroll", on);
+    return () => { vv.removeEventListener("resize", on); vv.removeEventListener("scroll", on); root.style.removeProperty("--wb-vh"); root.style.removeProperty("--wb-vt"); delete root.dataset.kbd; };
+  }, []);
+
   const load = useCallback(async () => {
     if (!relay) return;
     try { const r = await relay.agents(); setAgents(r.agents || []); setError(null); } catch (e) { setError(e); }
@@ -120,7 +152,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
         <div className="wb-side-foot">
           {!demo && auth ? <div className="wb-who" data-testid="account" title="Signed in on this browser"><span data-testid="account-email">{email || "Hidden email"}</span></div> : null}
           <button className="wb-linkish" onClick={flip}>{light ? "Dark" : "Light"} look</button>
-          {!demo && auth ? <button className="wb-linkish" onClick={() => auth.signOut()}>Sign out</button> : null}
+          {!demo && auth ? <button className="wb-linkish" onClick={async () => { await outbox?.clear(); auth.signOut(); }}>Sign out</button> : null}
         </div>
       </aside>
       {drawer ? <button className="wb-scrim" aria-label="Close the agent list" onClick={() => setDrawer(false)} /> : null}
@@ -137,7 +169,8 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
           ) : <span className="wb-head-words"><b>Yui</b></span>}
           {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
         </header>
-        {open ? <ThreadView key={`${open.id}:${chat || ""}`} relay={relay} userId={userId} agent={open} chat={chat} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} />
+        {open ? <ThreadView key={`${open.id}:${chat || ""}`} relay={relay} userId={userId} agent={open} agents={sorted} outbox={outbox} chat={chat} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)}
+          onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} />
           : error ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
           : <div className="wb-wait center">Loading your agents...</div>}
       </main>

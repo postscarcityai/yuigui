@@ -4,6 +4,11 @@
 // Presets/ChatStore.swift, Chat/BubbleMarkdown.swift, Chat/LongText.swift, Chat/SentTimes.swift.
 import dynamic from "next/dynamic";
 import { memo, useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { cardWords, replyQuote, rowOf, REACTIONS, reactionOf } from "../../lib/web/compose.mjs";
+import { createComposer } from "../../lib/web/composer.mjs";
+import { preparePhoto } from "../../lib/web/photo.mjs";
+import { AttachButton, Icon, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, VoiceRow, fileDrop, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
+import { useVoice } from "./useVoice";
 import { RichText } from "../playground/richtext";
 import { stamps } from "../../lib/chat/when.mjs";
 import { Thread, excerpt, folds } from "../../lib/web/thread.mjs";
@@ -26,26 +31,143 @@ const AgentText = memo(function AgentText({ text }) {
   );
 });
 
-function Bubble({ m, agent, light, onTap, live, onPage }) {
+// One picture on a bubble: still on this device (a blob link) or in the bucket, signed with the person's own token.
+function Picture({ path, local, relay, onOpen }) {
+  const [url, setUrl] = useState(local || null);
+  useEffect(() => {
+    if (local || !path) return undefined;
+    let live = true;
+    relay.sign?.(path).then((u) => live && u && setUrl(u)).catch(() => {});
+    return () => { live = false; };
+  }, [path, local, relay]);
+  if (!url) return <span className="wb-photo wb-photo-wait" aria-label="Loading photo" />;
+  return (
+    <button type="button" className="wb-photo" onClick={() => onOpen(url)} aria-label="Open photo" data-testid="bubble-photo">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={url} alt="Photo" loading="lazy" />
+    </button>
+  );
+}
+
+// Hold (touch) or right-click opens the message menu; the small button does the same for a mouse or a keyboard.
+function useHold(open) {
+  const t = useRef(null), at = useRef(null);
+  const clear = () => { clearTimeout(t.current); t.current = null; };
+  return {
+    onPointerDown(e) {
+      if (e.pointerType === "mouse") return;
+      at.current = { x: e.clientX, y: e.clientY };
+      clear();
+      const el = e.currentTarget;
+      t.current = setTimeout(() => { t.current = null; open(el); }, 420);
+    },
+    onPointerMove(e) { if (t.current && at.current && Math.hypot(e.clientX - at.current.x, e.clientY - at.current.y) > 10) clear(); },
+    onPointerUp: clear, onPointerCancel: clear, onPointerLeave: clear,
+    onContextMenu(e) { e.preventDefault(); clear(); open(e.currentTarget); },
+  };
+}
+
+const Badge = ({ emoji, onOpen }) => emoji ? (
+  <button type="button" className="wb-badge" onClick={(e) => onOpen(e.currentTarget.closest(".wb-hold") || e.currentTarget)} aria-label={`You reacted ${emoji} ${reactionOf(emoji)?.meaning || ""}. Change`} data-testid="reaction-badge">{emoji}</button>
+) : null;
+
+function Bubble({ m, agent, light, onTap, live, onPage, relay, reaction, wears, onMenu, onPicture, onOpenAgent, onJump }) {
+  const hold = useHold((el) => onMenu(m, el));
+  const more = (
+    <button type="button" className="wb-more" onClick={(e) => onMenu(m, e.currentTarget.closest(".wb-hold") || e.currentTarget)} aria-label="Message actions" data-testid="msg-more">{Icon.more}</button>
+  );
   if (m.card === "stopped") return <div className="wb-note" role="status">Stopped.</div>;
-  if (m.yl) return <div className="wb-row wb-agent wb-screenrow"><ThreadScreen message={m} agent={agent?.name || "Yui"} light={light} onTap={onTap} live={live} onPage={onPage} /></div>;
+  if (m.yl) return (
+    <div className={`wb-row wb-agent wb-screenrow${wears && reaction ? " reacted" : ""}`}>
+      <div className="wb-hold" {...hold} data-testid="card-hold">
+        <ThreadScreen message={m} agent={agent?.name || "Yui"} light={light} onTap={onTap} live={live} onPage={onPage} />
+        {wears ? <Badge emoji={reaction} onOpen={(el) => onMenu(m, el)} /> : null}
+        {more}
+      </div>
+    </div>
+  );
   if (m.role === "user") {
+    const photos = m.local?.length ? m.local : m.photos || [];
     return (
       <div className={`wb-row wb-user${m.pending ? " pending" : ""}${m.failed ? " failed" : ""}`}>
         {m.to ? <div className="wb-to">{m.to}</div> : null}
         {m.screen ? <button className="wb-from-screen" onClick={() => onPage?.(m.screen)}>From screen {m.screen}</button> : null}
-        <div className="wb-bubble">
-          {m.replyTo ? <div className="wb-quote"><b>{m.replyTo.from === "agent" ? agent?.name || "Yui" : "You"}</b> {m.replyTo.quote}</div> : null}
-          {m.text}
-        </div>
+        {m.replyTo ? (
+          <button type="button" className="wb-replychip" onClick={() => onJump(m.replyTo.msg)} aria-label={`Reply to ${m.replyTo.from === "agent" ? agent?.name || "Yui" : "You"}: ${m.replyTo.quote}. Show the message`} data-testid="reply-chip">
+            <b>{m.replyTo.from === "agent" ? agent?.name || "Yui" : "You"}</b><span>{m.replyTo.quote}</span>
+          </button>
+        ) : null}
+        {photos.length ? (
+          <div className={`wb-photos n${Math.min(photos.length, 4)}`} data-testid="bubble-photos">
+            {photos.map((p, i) => <Picture key={`${m.id}:${i}`} path={m.local?.length ? null : p} local={m.local?.length ? p : null} relay={relay} onOpen={onPicture} />)}
+          </div>
+        ) : null}
+        {m.text ? (
+          <div className="wb-hold" {...hold}>
+            <div className="wb-bubble">{m.text}</div>
+            {more}
+          </div>
+        ) : null}
         {m.failed ? <div className="wb-sub bad">Not sent.</div> : null}
       </div>
     );
   }
   return (
-    <div className="wb-row wb-agent">
-      {m.from ? <div className="wb-from">{m.from.name}</div> : null}
-      <div className="wb-bubble"><AgentText text={m.text} /></div>
+    <div className={`wb-row wb-agent${wears && reaction ? " reacted" : ""}`}>
+      {m.from ? (
+        <div className="wb-from">
+          <b style={{ color: "var(--mention, inherit)" }}>{m.from.name}</b>
+          {m.from.agent && onOpenAgent ? <button type="button" className="wb-openthread" onClick={() => onOpenAgent(m.from.agent)} aria-label={`Open ${m.from.name}'s thread`} data-testid="mention-open">Open its thread ↗</button> : null}
+        </div>
+      ) : null}
+      <div className="wb-hold" {...hold}>
+        <div className="wb-bubble"><AgentText text={m.text} /></div>
+        {wears ? <Badge emoji={reaction} onOpen={(el) => onMenu(m, el)} /> : null}
+        {more}
+      </div>
+    </div>
+  );
+}
+
+// The hold menu (Chat/ReactionViews.swift): the six reactions on an agent's message, then Reply and Copy.
+function MessageMenu({ menu, agent, reaction, onReact, onReply, onCopy, onClose }) {
+  const ref = useRef(null);
+  const m = menu.m;
+  const canReact = m.role === "agent" && !m.from;
+  const [hint, setHint] = useState(reaction ? reactionOf(reaction)?.meaning : "");
+  useEffect(() => {
+    ref.current?.querySelector("button")?.focus();
+    const key = (e) => {
+      if (e.key === "Escape") { e.preventDefault(); onClose(); }
+      if (e.key === "Tab") { // keep focus inside
+        const list = [...ref.current.querySelectorAll("button")];
+        const i = list.indexOf(document.activeElement);
+        if (e.shiftKey && i <= 0) { e.preventDefault(); list.at(-1).focus(); } else if (!e.shiftKey && i === list.length - 1) { e.preventDefault(); list[0].focus(); }
+      }
+    };
+    document.addEventListener("keydown", key);
+    return () => document.removeEventListener("keydown", key);
+  }, [onClose]);
+  const r = menu.rect;
+  const wide = typeof window !== "undefined" && window.matchMedia("(min-width: 761px)").matches;
+  const style = wide && r ? { top: Math.min(Math.max(8, r.bottom + 8), window.innerHeight - 220), left: Math.min(Math.max(8, (m.role === "user" ? r.right - 296 : r.left)), window.innerWidth - 304) } : undefined;
+  return (
+    <div className="wc-menu-wrap" data-testid="msg-menu">
+      <button type="button" className="wc-menu-back" aria-label="Close" tabIndex={-1} onClick={onClose} />
+      <div className="wc-menu" role="menu" aria-label="Message actions" ref={ref} style={style}>
+        {canReact ? (
+          <div className="wc-reacts" role="group" aria-label="React">
+            {REACTIONS.map((x) => (
+              <button type="button" key={x.emoji} role="menuitemradio" aria-checked={reaction === x.emoji} className={`wc-react${reaction === x.emoji ? " on" : ""}`} data-testid={`react-${x.meaning.replace(/\s/g, "-")}`}
+                aria-label={`${x.emoji} ${x.meaning}`} onMouseEnter={() => setHint(x.meaning)} onFocus={() => setHint(x.meaning)} onClick={() => onReact(x)}>{x.emoji}</button>
+            ))}
+          </div>
+        ) : null}
+        {canReact ? <div className="wc-react-hint" aria-live="polite">{hint || "Your answer to this message"}</div> : null}
+        <button type="button" role="menuitem" className="wc-act" data-testid="menu-reply" onClick={onReply}>{Icon.reply}<span>Reply</span></button>
+        <button type="button" role="menuitem" className="wc-act" data-testid="menu-copy" onClick={onCopy}>{Icon.copy}<span>Copy</span></button>
+        {canReact && reaction ? <button type="button" role="menuitem" className="wc-act" data-testid="menu-unreact" onClick={() => onReact(reactionOf(reaction))}>{Icon.x}<span>Remove reaction</span></button> : null}
+      </div>
     </div>
   );
 }
@@ -63,43 +185,89 @@ function Working({ agent, thread, onStop, note }) {
   );
 }
 
-// The draft lives here and nowhere else, so typing never redraws the thread above it.
-function Composer({ agent, waiting, onSend, onStop, offline, inert }) {
-  const [draft, setDraft] = useState("");
+// The field. The words live in the composer store, so typing redraws only this, never the thread above it.
+function Composer({ agent, agents, store, waiting, onSend, onSendWords, onStop, offline, inert, commands }) {
+  const st = useComposerState(store);
+  const voice = useVoice({ send: onSendWords, busy: waiting, enabled: !inert });
   const box = useRef(null);
   const grow = () => { const el = box.current; if (el) { el.style.height = "auto"; el.style.height = `${Math.min(el.scrollHeight, 160)}px`; } };
-  useEffect(grow, [draft]);
-  const submit = () => { if (onSend(draft)) { setDraft(""); box.current?.focus(); } };
-  const stop = waiting && !draft.trim();
+  useEffect(grow, [st.draft]);
+  // Answering a message: the field is where the person goes next.
+  useEffect(() => { if (st.reply) box.current?.focus(); }, [st.reply]);
+  const hints = useMemo(() => store.hints({ agents, current: agent.id, commands }), [st.draft, agents, agent.id, commands]); // eslint-disable-line react-hooks/exhaustive-deps
+  const pick = (s) => { store.setDraft(s.fill); box.current?.focus(); };
+  const keys = useSuggestKeys(hints.list, pick);
+  const ready = (!!st.draft.trim() || st.photos.length > 0) && !st.busy;
+  const stop = waiting && !st.draft.trim() && !st.photos.length;
+  const submit = () => { if (ready && onSend()) box.current?.focus(); };
+  const mic = voice.supported && !ready && !stop && !st.busy;
+  const listening = voice.listening || voice.handsFree;
   return (
-    <form className="wb-composer" inert={inert || undefined} onSubmit={(e) => { e.preventDefault(); stop ? onStop() : submit(); }}>
+    <form className="wb-composer" inert={inert || undefined} data-testid="composer" onSubmit={(e) => { e.preventDefault(); stop ? onStop() : submit(); }}>
       {offline ? <div className="wb-offline" role="status">Not sent yet. It goes the moment you're back online.</div> : null}
-      <div className="wb-compose">
-        <textarea ref={box} rows={1} value={draft} maxLength={32000} aria-label={`Message ${agent?.name || "Yui"}`} placeholder={`Message ${agent?.name || "Yui"}`}
-          onChange={(e) => setDraft(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); if (draft.trim()) submit(); } }} />
-        <button className={`wb-send${stop ? " stop" : ""}`} type="submit" disabled={!stop && !draft.trim()} aria-label={stop ? "Stop" : "Send"}>
-          {stop ? <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" /></svg>
-            : <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V6M6 11.5l6-6 6 6" fill="none" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>}
-        </button>
+      <div className="wc-over">
+        {keys.open ? <SuggestionList items={hints.list} index={keys.index} onPick={pick} /> : null}
+        {!keys.open ? <MentionBar agent={hints.to} /> : null}
+        <ReplyBar quote={st.reply} agentName={agent.name} onCancel={() => store.clearReply()} />
+        <Problem code={st.problem} onClose={() => store.clearProblem()} />
+      </div>
+      <PhotoTray photos={st.photos} busy={st.busy > 0} onRemove={(id) => store.removePhoto(id)} />
+      <div className={`wb-compose${listening ? " listening" : ""}`}>
+        {listening ? <VoiceRow voice={voice} agentName={agent.name} onDiscard={voice.discard} /> : (
+          <>
+            <AttachButton onFiles={(f) => store.addFiles(f)} />
+            <textarea ref={box} rows={1} value={st.draft} maxLength={32000} aria-label={`Message ${agent?.name || "Yui"}`} placeholder={`Message ${agent?.name || "Yui"}`}
+              role="combobox" aria-expanded={keys.open} aria-controls={keys.open ? "suggestions" : undefined} aria-autocomplete="list" aria-activedescendant={keys.open ? `suggestions-${keys.index}` : undefined}
+              enterKeyHint="send" autoCapitalize="sentences"
+              onChange={(e) => store.setDraft(e.target.value)}
+              onPaste={(e) => { const f = pastedFiles(e); if (f) { e.preventDefault(); store.addFiles(f); } }}
+              onKeyDown={(e) => { if (keys.onKey(e)) return; if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); submit(); } }} />
+          </>
+        )}
+        {mic || listening ? (
+          <button type="button" className={`wb-send wc-mic${listening ? " live" : ""}`} data-testid="mic" aria-label={listening ? "Stop listening" : `Talk to ${agent.name}`}
+            aria-pressed={listening || undefined} {...voice.mic} style={{ touchAction: "none" }}>{Icon.mic}</button>
+        ) : (
+          <button className={`wb-send${stop ? " stop" : ""}`} type="submit" disabled={!stop && !ready} aria-label={stop ? "Stop" : "Send"} data-testid="send">
+            {stop ? Icon.stop : Icon.up}
+          </button>
+        )}
       </div>
     </form>
   );
 }
 
-export default function ThreadView({ relay, userId, agent, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {} }) {
+export default function ThreadView({ relay, userId, agent, agents = [], outbox = null, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {}, onOpenAgent = null }) {
   const thread = useMemo(() => new Thread(), [agent.id, chat]);
   const [, tick] = useReducer((n) => n + 1, 0);
   const [net, setNet] = useState({ offline: false, pending: 0 });
-  const sync = useMemo(() => new ThreadSync({ relay, thread, userId, agentId: agent.id, chatId: chat || null, onStatus: setNet }), [relay, thread, userId, agent.id, chat]);
+  const sync = useMemo(() => new ThreadSync({ relay, thread, userId, agentId: agent.id, chatId: chat || null, outbox, onStatus: setNet }), [relay, thread, userId, agent.id, chat, outbox]);
   useEffect(() => thread.subscribe(tick), [thread]);
   useEffect(() => { sync.start(); return () => sync.stop(); }, [sync]);
+  const [toast, setToast] = useState("");
+  useEffect(() => { if (!toast) return undefined; const t = setTimeout(() => setToast(""), 2200); return () => clearTimeout(t); }, [toast]);
+
+  // What is being written, per agent: kept across threads and reloads, never redraws the thread (composer.mjs).
+  const store = useMemo(() => createComposer({ agentId: agent.id, prepare: preparePhoto }), [agent.id]);
+  useEffect(() => () => store.destroy(), [store]);
+  const commands = agent.commands;
 
   const list = thread.messages;
   const marks = useMemo(() => stamps(list), [list, thread.version]);
+  const wearers = useMemo(() => thread.wearers(), [list, thread.version]); // eslint-disable-line react-hooks/exhaustive-deps
   const scroller = useRef(null);
   const stuck = useRef(true);
   const onScroll = () => { const el = scroller.current; if (el) stuck.current = el.scrollHeight - el.scrollTop - el.clientHeight < 120; };
+  // A screen finishing its draw or a picture its load makes the thread taller, below where the person is: stay on
+  // the newest message if that is where they were.
+  const content = useRef(null);
+  useEffect(() => {
+    const el = scroller.current, c = content.current;
+    if (!el || !c || !window.ResizeObserver) return undefined;
+    const ro = new ResizeObserver(() => { if (stuck.current) el.scrollTop = el.scrollHeight; });
+    ro.observe(c);
+    return () => ro.disconnect();
+  }, []);
   // Follow the newest message while the person is at the bottom; a first load always lands there.
   useEffect(() => {
     const el = scroller.current;
@@ -116,20 +284,51 @@ export default function ThreadView({ relay, userId, agent, chat, light, live = t
   const stageOn = view === "stage";
 
   const onTap = useCallback((ev) => { sync.tap(ev); }, [sync]);
-  const onSend = useCallback((text) => sync.send(text), [sync]);
+  // The typed message: words, photos, a reply, an @ (compose.mjs). Voice words leave the typed draft alone.
+  const onSend = useCallback(() => {
+    const out = store.take({ agents, current: agent.id });
+    return out ? sync.send(out.text, { photos: out.photos, reply: out.reply, mention: out.mention }) : false;
+  }, [store, sync, agents, agent.id]);
+  const onSendWords = useCallback((words) => {
+    const out = store.take({ words, agents, current: agent.id });
+    return out ? sync.send(out.text, { photos: out.photos, reply: out.reply, mention: out.mention }) : false;
+  }, [store, sync, agents, agent.id]);
   const onStop = useCallback(() => sync.stopTurn(), [sync]);
   const note = thread.waiting ? waitingNote(agent) : null;
 
+  // ---- the hold menu, photos, jumping back to a quoted message ----
+  const [menu, setMenu] = useState(null);
+  const [viewer, setViewer] = useState(null);
+  const openMenu = useCallback((m, el) => setMenu({ m, rect: el?.getBoundingClientRect?.() || null }), []);
+  const closeMenu = useCallback(() => setMenu(null), []);
+  const jump = useCallback((msg) => {
+    const el = scroller.current?.querySelector(`[data-id="${CSS.escape(msg)}"], [data-id^="${CSS.escape(msg)}#"]`);
+    if (!el) { setToast("That message is further up."); return; }
+    el.scrollIntoView({ block: "center", behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+  }, []);
+  const wordsOf = (m) => (m.yl != null ? cardWords(m.state).join("\n") : m.text || "");
+  const doReply = () => { const q = replyQuote(menu.m); closeMenu(); if (q) store.setReply(q); };
+  const doCopy = async () => {
+    const text = wordsOf(menu.m);
+    closeMenu();
+    try { await navigator.clipboard.writeText(text); setToast("Copied"); } catch { setToast("Couldn't copy"); }
+  };
+  const doReact = (r) => { const id = menu.m.id; closeMenu(); sync.react(id, r); };
+  const menuReaction = menu ? thread.reactions.get(rowOf(menu.m.id)) : null;
+  useEffect(() => { if (!viewer) return undefined; const k = (e) => e.key === "Escape" && setViewer(null); document.addEventListener("keydown", k); return () => document.removeEventListener("keydown", k); }, [viewer]);
+
   return (
-    <section className="wb-thread" aria-label={`${agent.name}'s thread`} data-loaded={thread.loaded ? "1" : "0"}>
+    <section className="wb-thread" aria-label={`${agent.name}'s thread`} data-loaded={thread.loaded ? "1" : "0"} {...fileDrop((f) => store.addFiles(f))}>
       <div className="wb-scroll" ref={scroller} onScroll={onScroll} inert={stageOn || undefined}>
-        <div className="wb-messages">
+        <div className="wb-messages" ref={content}>
           {!thread.loaded ? <div className="wb-wait">Opening {agent.name}...</div> : null}
           {thread.loaded && !list.length ? <div className="wb-empty">{agent.firstMessage || `Say hi to ${agent.name}.`}</div> : null}
           {list.map((m, i) => (
             <div key={m.id} className="wb-item" data-id={m.id}>
               {marks[i]?.day ? <Day label={marks[i].day} /> : null}
-              <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} />
+              <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay}
+                reaction={thread.reactions.get(rowOf(m.id))} wears={wearers.get(rowOf(m.id)) === m.id} onMenu={openMenu} onPicture={setViewer} onOpenAgent={onOpenAgent} onJump={jump} />
               {m.role === "agent" && !m.from && (i === list.length - 1 || list[i + 1].role === "user") && askOf(i) ? (
                 <button className="wb-play" data-testid="play-on-stage" onClick={() => toStage({ ask: askOf(i) })}>Play on the stage</button>
               ) : null}
@@ -139,9 +338,18 @@ export default function ThreadView({ relay, userId, agent, chat, light, live = t
           {thread.waiting ? <Working agent={agent} thread={thread} onStop={onStop} note={note} /> : null}
         </div>
       </div>
-      <Composer agent={agent} waiting={thread.waiting} onSend={onSend} onStop={onStop} offline={net.offline} inert={stageOn} />
-      {stageOn ? <StageLayer agent={agent} thread={thread} sync={sync} light={light} fresh={Math.max(0, list.length - seen)} offline={net.offline} req={req}
+      <Composer agent={agent} agents={agents} store={store} waiting={thread.waiting} onSend={onSend} onSendWords={onSendWords} onStop={onStop} offline={net.offline} inert={stageOn} commands={commands} />
+      {stageOn ? <StageLayer agent={agent} agents={agents} commands={commands} store={store} thread={thread} sync={sync} light={light} fresh={Math.max(0, list.length - seen)} offline={net.offline} req={req}
         onRecord={() => setView("chat")} onMenu={onMenu} /> : null}
+      {menu ? <MessageMenu menu={menu} agent={agent} reaction={menuReaction} onReact={doReact} onReply={doReply} onCopy={doCopy} onClose={closeMenu} /> : null}
+      {viewer ? (
+        <div className="wc-viewer" role="dialog" aria-modal="true" aria-label="Photo" onClick={() => setViewer(null)}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={viewer} alt="Photo" />
+          <button type="button" className="wc-iconbtn wc-viewer-x" onClick={() => setViewer(null)} aria-label="Close photo" autoFocus>{Icon.x}</button>
+        </div>
+      ) : null}
+      {toast ? <div className="wc-toast" role="status">{toast}</div> : null}
     </section>
   );
 }

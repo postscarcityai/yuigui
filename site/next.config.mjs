@@ -18,7 +18,9 @@ export default {
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' https://appleid.cdn-apple.com",
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob:",
+      // A person's photos and an agent's pictures are signed links into the private media bucket (spec/RELAY.md, Media).
+      `img-src 'self' data: blob: ${backend}`,
+      `media-src 'self' blob: ${backend}`,
       "font-src 'self' data:",
       `connect-src 'self' ${backend} wss://txuibjxyfpalzvpneqgp.supabase.co https://appleid.apple.com`,
       "frame-src https://appleid.apple.com",

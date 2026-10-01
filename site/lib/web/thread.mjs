@@ -4,6 +4,7 @@
 // `add(row)`; the page reads `messages`. Rows can arrive twice or out of order across polls and the
 // realtime socket, so the ids dedupe (lowercased, like the app) and `add` says whether the row was new.
 import { apply, initialState, lastingIds, pageOf, parse, readTyped } from "../yl/yl.mjs";
+import { photoCaption, photoPaths, reactionFrom, rowOf } from "./compose.mjs";
 
 // ---------- fences (Thread.swift YuiFence.split) ----------
 // Only a ```yui fence is Yui Lines. Everything else is a bubble. An unclosed fence still renders.
@@ -139,6 +140,7 @@ export class Thread {
     this.version = 0;
     this.listeners = new Set();
     this.stopped = new Set();
+    this.reactions = new Map(); // thread row id -> the emoji on it (Reactions.swift `reactions`)
   }
 
   subscribe(fn) { this.listeners.add(fn); return () => this.listeners.delete(fn); }
@@ -153,11 +155,30 @@ export class Thread {
 
   // A tap's echo and a typed message are shown before the relay has them: the outbox calls this with the
   // id it chose, and the poll that brings the same id back adds nothing.
-  addLocal(row) {
+  addLocal(row, { owes = true } = {}) {
     const added = this.add({ created_at: new Date().toISOString(), ...row }, { quiet: true });
-    if (added && row.sender === "user" && row.kind !== "control") this.owe();
+    if (added && owes && row.sender === "user" && row.kind !== "control") this.owe();
     this.changed();
     return added;
+  }
+
+  // The reaction on a thread row (null takes it off), as the person set it here.
+  setReaction(row, emoji) {
+    const id = rowOf(row);
+    if (emoji) this.reactions.set(id, emoji); else this.reactions.delete(id);
+    this.changed();
+  }
+
+  // The bubble that wears a row's badge: the agent's last bubble of that row (a text, else its last card).
+  wearers() {
+    const out = new Map();
+    for (let i = this.messages.length - 1; i >= 0; i--) {
+      const m = this.messages[i];
+      if (m.role !== "agent" || m.from) continue;
+      const row = rowOf(m.id);
+      if (!out.has(row)) out.set(row, m.id);
+    }
+    return out;
   }
 
   // The person sent something the agent has to answer: the working row starts.
@@ -222,6 +243,10 @@ export class Thread {
     const at = sentAt(row);
     const meta = row.meta && typeof row.meta === "object" ? row.meta : {};
     if (row.sender === "agent" && row.kind === "text" && row.created_at > (this.newestAgentAt || "")) this.newestAgentAt = row.created_at;
+    // The reaction the row wears (the server copies it onto the agent's row) and the react events that move it.
+    if (row.sender === "agent" && row.reaction) this.reactions.set(id, row.reaction);
+    const react = row.sender === "user" && row.kind === "event" ? reactionFrom(meta) : null;
+    if (react) { if (react.emoji) this.reactions.set(react.msg, react.emoji); else this.reactions.delete(react.msg); return false; }
     const mentionedAnswer = row.sender === "agent" && meta.mention_reply;
     // Another agent's answer copied in doesn't end this agent's turn.
     if (row.sender === "agent" && !mentionedAnswer) { this.waiting = false; this.pickedUpAt = null; this.doing = null; }
@@ -233,16 +258,19 @@ export class Thread {
         if (typeof echo === "string") this.messages.push({ id, role: "user", text: echo, at });
         return typeof echo === "string";
       }
-      const m = { id, role: "user", text: userWords(row.body, meta), at };
+      const photos = photoPaths(meta);
+      const m = { id, role: "user", text: photoCaption(userWords(row.body, meta), photos.length), at };
+      if (photos.length) m.photos = photos;
+      if (row._local?.length) m.local = row._local; // the pictures still on this device (blob: links) until the row is back from the relay
       if (meta.screen && pageOf(String(meta.screen)) > 1) m.screen = String(meta.screen);
-      if (meta.reply_to?.quote) m.replyTo = { from: meta.reply_to.from === "user" ? "You" : "agent", quote: meta.reply_to.quote };
+      if (meta.reply_to?.quote) m.replyTo = { msg: String(meta.reply_to.msg || "").toLowerCase(), from: meta.reply_to.from === "user" ? "You" : "agent", quote: meta.reply_to.quote, rows: Array.isArray(meta.reply_to.rows) ? meta.reply_to.rows : [] };
       if (meta.mention?.name) m.to = `To ${meta.mention.name}`;
       if (meta.mentioned?.from_name) m.to = `You, from ${meta.mentioned.from_name}'s thread`;
       this.messages.push(m);
       return true;
     }
 
-    const from = mentionedAnswer ? { name: meta.mention_reply.name, handle: meta.mention_reply.handle } : null;
+    const from = mentionedAnswer ? { name: meta.mention_reply.name, handle: meta.mention_reply.handle, agent: String(meta.mention_reply.agent || "").toLowerCase() || null, status: meta.mention_reply.status || null } : null;
     const segs = splitFence(row.body);
     const out = [];
     segs.forEach((seg, i) => {
