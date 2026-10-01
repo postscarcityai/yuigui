@@ -43,7 +43,7 @@ Every one is a row below too. This is the short list, with the web way for each.
 
 | Feature | App file | Web twin | Story | Status |
 | --- | --- | --- | --- | --- |
-| Sign in with Apple (nonce, identity token, `yui-auth` apple grant) | `Account/Account.swift`, `Account/SignInView.swift` | web way: Sign in with Apple JS in a popup, `sha256(nonce)` to Apple, raw nonce to `yui-auth`, a web Services ID (`com.yuigui.web`) as a second audience, sessions marked `client=web`. Live once the Services ID exists at Apple (a browser step). | 241 | done |
+| Sign in with Apple (nonce, identity token, `yui-auth` apple grant) | `Account/Account.swift`, `Account/SignInView.swift` | web way: Sign in with Apple JS in a popup, `sha256(nonce)` to Apple, raw nonce to `yui-auth`, a web Services ID (`yuigui`, as registered at Apple) as a second audience, sessions marked `client=web`. Live once the Services ID exists at Apple (a browser step). | 241 | done |
 | Session (userID, access token, refresh token, expiry) | `Account/Account.swift` | web way: access token in memory, refresh token in IndexedDB (section 4) | 241 | done |
 | One refresh in flight (a refresh token spent twice ends every session) | `Account/Account.swift` | web way: Web Locks plus BroadcastChannel across tabs | 241 | done |
 | Invite code, claim after sign in | `Account/SignInView.swift`, `Account/Account.swift` | same: `/i/<code>` hands to `/web`, claim grant after sign in | 241 | done |

@@ -83,7 +83,7 @@ for (const [name, vp] of [["390", { width: 390, height: 844 }], ["desktop", { wi
     ok(!(await pg.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1)), `${tag}: no sideways scroll`);
     await pg.waitForFunction(() => window.__apple);
     const cfg = await pg.evaluate(() => window.__apple);
-    ok(cfg.clientId === "com.yuigui.web" && cfg.usePopup === true && cfg.redirectURI === "https://www.yuigui.com/web/auth/apple" && cfg.scope === "email", `${tag}: Apple gets the Services ID, the popup mode and the return URL`);
+    ok(cfg.clientId === "yuigui" && cfg.usePopup === true && cfg.redirectURI === "https://www.yuigui.com/web/auth/apple" && cfg.scope === "email", `${tag}: Apple gets the Services ID, the popup mode and the return URL`);
     ok(/^[0-9a-f]{64}$/.test(cfg.nonce) && cfg.state.length >= 16, `${tag}: Apple gets a hashed nonce and a state`);
     await shot(pg, `signin-${name}-${scheme}`);
 
