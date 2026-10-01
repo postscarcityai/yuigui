@@ -2,9 +2,9 @@
 id: PROP-2
 title: The Jev layer
 summary: One fast Jev call on every turn picks the shape of the reply, so the agent writes into it.
-status: Building
+status: Shipped
 date: 2026-09-28
-becomes: A four-step epic: spec and mock, shadow mode on the Hermes plugin, Jev routing behind a flag, an on-device fallback (YUI-41). Steps 2 and 3 are built and measured (YUI-215, 2026-09-30): shadow mode and the hint flag are in the plugin and off, the crew tool router runs in shadow. Whether to turn the hint on is Chris's call. Step 4 stays in the backlog.
+becomes: A four-step epic: spec and mock, shadow mode on the Hermes plugin, Jev routing behind a flag, an on-device fallback (YUI-41). Steps 2 and 3 shipped 2026-09-30 (YUI-215): the shape hint is on for cards, pages and full screens, every other shape is logged in shadow, and the crew tool router runs in shadow on the server. You never see Jev in the app. Step 4 stays in the backlog.
 cost: L
 call: recommend
 by: Chris
