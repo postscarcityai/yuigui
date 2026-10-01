@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T23:35:43.759Z",
+  "updated": "2026-10-01T23:40:37.067Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -354,11 +354,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-262",
-          "title": "An Apple-only web account lands on the crew picker, not a silent empty screen",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "SITE-167",
           "title": "A stranger's first chat with the site bubble works on a phone",
           "owner": "CJohnDesign"
@@ -375,6 +370,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-262",
+          "title": "An Apple-only web account lands on the crew picker, not a silent empty screen",
+          "summary": "A new Apple-only web account lands on the crew picker",
+          "shipped": "2026-10-01",
+          "progress": "/progress#a-new-apple-only-web-account-lands-on-the-crew-picker",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/590e7fcb"
+        },
         {
           "key": "YUI-261",
           "title": "A stranger's first tap on /web works",
