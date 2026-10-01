@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T14:40:27.756Z",
+  "updated": "2026-10-01T15:10:48.101Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -312,17 +312,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-243",
-          "title": "The stage on the web",
-          "summary": "Yui on the web: the stage",
-          "progress": "/progress#yui-on-the-web-the-stage"
-        },
-        {
-          "key": "YUI-245",
-          "title": "Agents on the web",
-          "summary": "The drawer, add, rename, remove, connect a new agent, groups, controls"
-        },
-        {
           "key": "YUI-246",
           "title": "Every preset at parity on the web",
           "summary": "Music, tuner, games, maps, diagrams, flows, workouts, the shelf"
@@ -396,10 +385,21 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-153",
-          "title": "The site chat keeps your past chats",
-          "summary": "The chat bubble keeps your past chats",
-          "progress": "/progress#the-chat-bubble-keeps-your-past-chats",
+          "key": "YUI-243",
+          "title": "The stage on the web",
+          "summary": "Yui on the web: the stage",
+          "progress": "/progress#yui-on-the-web-the-stage",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-245",
+          "title": "Agents on the web",
+          "summary": "The drawer, add, rename, remove, connect a new agent, groups, controls",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-154",
+          "title": "Every yuigui.com page works on a phone, and points to Yui on the web",
           "owner": "CJohnDesign"
         },
         {
@@ -415,13 +415,6 @@
           "blocked": "chris",
           "progress": "/progress#sign-in-with-apple-on-the-web",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-244",
-          "title": "The composer on the web",
-          "summary": "Photos and files, voice, mentions, replies, reactions, suggestions, an outbox that survives a closed tab",
-          "blocked": "other",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -429,6 +422,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-244",
+          "title": "The composer on the web",
+          "summary": "Yui on the web: the composer",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-on-the-web-the-composer",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/2e7f277c"
+        },
+        {
+          "key": "SITE-153",
+          "title": "The site chat keeps your past chats",
+          "summary": "The chat bubble keeps your past chats",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-chat-bubble-keeps-your-past-chats"
+        },
         {
           "key": "YUI-254",
           "title": "Past chats show in the drawer on a real account",
