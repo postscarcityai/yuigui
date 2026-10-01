@@ -5,6 +5,7 @@
 import { useState } from "react";
 import { greeting, isMuted, isShared, moved, onlyShared, sharedFooter, statusLine, unsharedLine } from "../../lib/web/agents.mjs";
 import { Face } from "./parts";
+import { GroupRow } from "./Groups";
 
 function Row({ agent, selected, href, first, last, ordering, onPick, onEdit, onMove }) {
   return (
@@ -35,7 +36,7 @@ function Row({ agent, selected, href, first, last, ordering, onPick, onEdit, onM
   );
 }
 
-export default function AgentsPanel({ agents, openId, firstName, unshared, error, hrefOf, onPick, onEdit, onAdd, onReorder, onClose, inline = false }) {
+export default function AgentsPanel({ agents, openId, firstName, unshared, error, hrefOf, onPick, onEdit, onAdd, onReorder, onClose, inline = false, groups = [], openGroupId = null, groupHref = () => "#", onOpenGroup, onNewGroup }) {
   const [ordering, setOrdering] = useState(false);
   const empty = !agents.length;
   const footer = sharedFooter(agents);
@@ -63,6 +64,16 @@ export default function AgentsPanel({ agents, openId, firstName, unshared, error
               ))}
             </ul>
             {footer ? <p className="ag-hint" data-testid="shared-footer">{footer}</p> : null}
+            {onNewGroup && (agents.length > 1 || groups.length) ? (
+              <>
+                <div className="gr-list-head"><h3>Groups</h3>{agents.length > 1 ? <button type="button" className="gr-new" data-testid="new-group-btn" onClick={onNewGroup}>+ New group</button> : null}</div>
+                {groups.length ? (
+                  <ul className="ag-list" data-testid="groups-list">
+                    {groups.map((g) => <GroupRow key={g.id} group={g} agents={agents} selected={g.id === openGroupId} href={groupHref(g)} onOpen={onOpenGroup} />)}
+                  </ul>
+                ) : <p className="ag-hint">Two or more of your agents in one conversation.</p>}
+              </>
+            ) : null}
           </>
         )}
         {unshared.length ? <ul className="ag-unshared" data-testid="unshared">{unshared.map((n) => <li key={n}>{unsharedLine(n)}</li>)}</ul> : null}

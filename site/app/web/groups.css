@@ -1,0 +1,87 @@
+/* Group threads on the web (SITE-162). The site's tokens (globals.css) in light and dark; 44 px touch targets; nothing
+   waits on hover. Each agent's bubbles wear its own look through variables set on its row (GroupThread.js lookOf). */
+
+/* ---------- faces and the lead's crown ---------- */
+.gr-faces { --gr-size: 32px; display: inline-flex; align-items: center; flex: none; min-width: calc(var(--gr-size) + 12px); }
+.gr-face { position: relative; display: inline-flex; margin-left: calc(var(--gr-size) * -0.32); }
+.gr-face:first-child { margin-left: 0; }
+.gr-face .wb-face { box-shadow: 0 0 0 2.5px var(--surface); }
+.gr-headface .wb-face, .gr-head .gr-face .wb-face { box-shadow: 0 0 0 2.5px var(--background); }
+.gr-crown { position: absolute; top: -9px; right: -5px; width: 16px; height: 16px; fill: #F2B600; stroke: rgba(0, 0, 0, .35); stroke-width: 1; stroke-linejoin: round; pointer-events: none; filter: drop-shadow(0 1px 1px rgba(0, 0, 0, .3)); }
+.gr-more { display: inline-grid; place-items: center; margin-left: calc(var(--gr-size) * -0.32); width: var(--gr-size); height: var(--gr-size); border-radius: 50%; background: var(--raised); color: var(--muted); font-size: 12px; font-weight: 800; box-shadow: 0 0 0 2.5px var(--surface); }
+.gr-row .gr-faces { margin-right: 2px; }
+.gr-list-head { display: flex; align-items: center; justify-content: space-between; margin: 10px 4px 0; }
+.gr-list-head h3 { margin: 0; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 800; }
+.gr-new { min-height: 44px; display: inline-flex; align-items: center; gap: 6px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--raised); color: var(--ink); font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
+.gr-new:hover { background: var(--surface); }
+.gr-new:focus-visible, .gr-pick:focus-visible, .gr-facebtn:focus-visible, .gr-handoff:focus-visible, .gr-reply:focus-visible, .gr-go:focus-visible, .gr-quiet:focus-visible, .gr-atchip:focus-visible, .gr-menu button:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+
+/* ---------- the new group sheet ---------- */
+.gr-form label { margin-top: 4px; }
+.gr-form label h4 { margin: 0; }
+.gr-picks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.gr-pick { width: 100%; min-height: 56px; display: flex; align-items: center; gap: 12px; padding: 8px 14px; border-radius: 18px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.gr-pick b { flex: 1; min-width: 0; font-size: 16px; font-weight: 800; }
+.gr-pick.on { border-color: var(--brand); background: color-mix(in srgb, var(--brand) 12%, var(--surface)); }
+.gr-tick { flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid var(--outline); color: var(--on-brand); font-weight: 800; position: relative; }
+.gr-pick.on .gr-tick { background: var(--brand); border-color: var(--brand); }
+.gr-tick .gr-crown { position: static; width: 18px; height: 18px; }
+[role="radio"].gr-pick.on .gr-tick { background: transparent; border-color: transparent; }
+
+/* ---------- the header ---------- */
+.gr-head { position: relative; }
+.gr-headfaces { margin-right: 4px; }
+.gr-facebtn { padding: 0; border: 0; background: none; border-radius: 14px; cursor: pointer; display: inline-flex; }
+.gr-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 40; min-width: 180px; padding: 4px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--outline); box-shadow: var(--shadow); }
+.gr-menu button { width: 100%; min-height: 44px; border: 0; border-radius: 12px; background: none; color: var(--ink); font: inherit; font-weight: 700; text-align: left; padding: 0 12px; cursor: pointer; white-space: nowrap; }
+.gr-menu button:hover { background: var(--raised); }
+.gr-sample { margin-left: auto; flex: none; }
+
+/* ---------- the transcript ---------- */
+.gr-line { display: flex; align-items: flex-start; gap: 10px; max-width: 100%; }
+.gr-col { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; align-items: flex-start; }
+.gr-name { font-size: 13px; font-weight: 800; color: var(--ink-soft, var(--muted)); margin: 0 6px; }
+.gr-bubblerow { display: flex; align-items: flex-end; gap: 2px; max-width: 100%; }
+.gr-bubblerow .wb-bubble { max-width: min(100%, 560px); }
+.gr-line .wb-bubble { background: var(--agent-bubble); color: var(--agent-ink); border: 1.5px solid var(--outline); border-bottom-left-radius: var(--r-tail); }
+.gr-reply { flex: none; width: 36px; height: 36px; border: 0; border-radius: 50%; background: none; color: var(--muted); display: grid; place-items: center; cursor: pointer; opacity: .75; }
+.gr-reply svg { width: 18px; height: 18px; fill: currentColor; }
+.gr-reply:hover { opacity: 1; background: var(--raised); }
+.gr-screen { width: 100%; }
+.gr-screen .wb-screen { width: min(100%, 560px); }
+
+.gr-handoff { align-self: center; max-width: min(100%, 520px); display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: var(--r-bubble, 18px); border: 1.5px dashed var(--outline); background: var(--surface); color: var(--ink); font: inherit; text-align: left; cursor: pointer; min-height: 44px; }
+.gr-handoff.cancelled { opacity: .55; }
+.gr-arrow { color: var(--muted); font-weight: 800; }
+.gr-hwords { display: flex; flex-direction: column; min-width: 0; }
+.gr-hwords b { font-size: 13px; font-weight: 800; }
+.gr-hwords small { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.gr-guardcard { min-width: 0; max-width: min(100%, 520px); padding: 12px 14px; border-radius: var(--r-bubble, 18px); border-bottom-left-radius: var(--r-tail); background: var(--agent-bubble); color: var(--agent-ink); border: 2px solid color-mix(in srgb, var(--brand) 60%, transparent); display: flex; flex-direction: column; gap: 8px; }
+.gr-guardcard p { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.4; }
+.gr-guardcard p.gr-sub { font-size: 14px; font-weight: 500; opacity: .85; }
+.gr-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.gr-go, .gr-quiet { min-height: 44px; padding: 0 18px; border-radius: 999px; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
+.gr-go { border: 0; background: var(--brand); color: var(--on-brand); }
+.gr-quiet { border: 1.5px solid var(--outline); background: transparent; color: var(--agent-ink); }
+.gr-state { font-weight: 800; color: var(--muted); }
+
+.gr-status { align-self: center; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--muted); padding: 2px 0; text-align: center; }
+.gr-working { padding: 6px 4px; }
+.gr-working .wb-working-text { flex: 1; min-width: 0; }
+.gr-retry { margin-left: 4px; }
+
+/* ---------- the composer ---------- */
+.gr-composer { display: flex; flex-direction: column; gap: 6px; }
+.gr-composer > * { width: 100%; max-width: 760px; margin-left: auto; margin-right: auto; }
+.gr-notice { text-align: center; font-size: 14px; }
+.gr-replybar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 12px 4px 16px; border-radius: 16px; background: var(--raised); color: var(--muted); font-size: 14px; font-weight: 700; }
+.gr-replybar b { color: var(--ink); }
+.gr-replybar button { width: 44px; height: 36px; border: 0; background: none; color: var(--muted); font-size: 22px; cursor: pointer; }
+.gr-at { display: flex; gap: 8px; overflow-x: auto; padding: 2px 0; }
+.gr-atchip { flex: none; min-height: 40px; display: inline-flex; align-items: center; gap: 6px; padding: 0 12px 0 8px; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-weight: 800; font-size: 14px; cursor: pointer; }
+
+@media (max-width: 760px) {
+  .gr-head .wb-sample, .gr-sample { font-size: 11px; padding: 2px 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .gr-reply, .gr-pick { transition: none; } }

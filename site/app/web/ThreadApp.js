@@ -6,6 +6,8 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createDemoRelay } from "../../lib/web/demo.mjs";
 import { createRelay } from "../../lib/web/relay.mjs";
+import { createGroupsClient } from "../../lib/web/groups.mjs";
+import { createDemoGroups } from "../../lib/web/groups-demo.mjs";
 import { createOutbox, idbStore } from "../../lib/web/outbox.mjs";
 import { liveness, presenceLabel } from "../../lib/web/presence.mjs";
 import { controlSections, revoked, sortAgents, unsharedLine } from "../../lib/web/agents.mjs";
@@ -16,6 +18,8 @@ import ThreadView from "./ThreadView";
 import DrawerPanel from "./DrawerPanel";
 import { useEarn } from "./YourU";
 import AgentsPanel from "./AgentsPanel";
+import GroupThread from "./GroupThread";
+import { NewGroupSheet } from "./Groups";
 import AddAgent from "./AddAgent";
 import EditAgent from "./EditAgent";
 import ControlsPanel from "./ControlsPanel";
@@ -37,7 +41,7 @@ const FIXTURES = { penny: fixture, shared: sharedFixture };
 
 const GIVE_UP_FAST = { giveUpMs: 3000, stuckMs: 3000, pollMs: 300 };
 
-export default function ThreadApp({ demo, auth, user, agent: agentId, chat, connect, build = {} }) {
+export default function ThreadApp({ demo, auth, user, agent: agentId, chat, connect, group: groupId = null, build = {} }) {
   // In-app moves (an agent, a chat) use the History API, which Next folds into usePathname: the page stays
   // mounted, so the open sheets, the drafts and the relay survive a tap on a chat.
   const go = useCallback((url) => { window.history.pushState(null, "", url); }, []);
@@ -282,6 +286,35 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   };
   const drawerChats = { ...chats, openId: openChatId, draftOpen: !!openChatId && !saved && !!chat };
 
+  // ---------------------------------------------------------------- group threads (SITE-162, spec/GROUPS.md)
+  // The same calls the app makes, with the signed in session. The demo keeps one sample group in the page.
+  const groupsApi = useMemo(() => {
+    if (!relay) return null;
+    if (demo) return createDemoGroups({ agents: () => (FIXTURES[demo] || fixture).agents });
+    return relay.rest && userId ? createGroupsClient(relay.rest, { userId }) : null;
+  }, [relay, demo, userId]);
+  useEffect(() => { if (demo && groupsApi) window.yuiWebGroups = groupsApi; }, [demo, groupsApi]);
+  const [groups, setGroups] = useState(null);
+  const refreshGroups = useCallback(async () => {
+    if (!groupsApi) return;
+    try { setGroups(await groupsApi.list()); } catch { setGroups((g) => g || []); }
+  }, [groupsApi]);
+  useEffect(() => {
+    if (!groupsApi) return undefined;
+    refreshGroups();
+    const t = setInterval(refreshGroups, 15000);
+    return () => clearInterval(t);
+  }, [groupsApi, refreshGroups]);
+  const groupHref = (g) => `/web/group/${g.id}${keep}`;
+  const openGroup = (g) => { setDrawer(false); setSwitcher(false); go(groupHref(g)); };
+  const group = groupId && groups ? groups.find((g) => g.id === groupId) || null : null;
+  // A group that is not there (archived, or not yours): say so and go home.
+  useEffect(() => {
+    if (!groupId || !groups || group) return;
+    setNotice("That group is gone.");
+    go(`/web${keep}`);
+  }, [groupId, groups, group]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // ---------------------------------------------------------------- agents: edit, add, remove, order
   const manage = relay?.manage;
   const onRemoved = (id) => {
@@ -424,19 +457,21 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
           <div className="dr">
             <header className="dr-head"><h2 className="dr-name">Yui</h2><button className="wb-iconbtn wb-close" onClick={() => setDrawer(false)} aria-label="Close the drawer">Close</button></header>
             <div className="dr-scroll">
-              {sorted ? <AgentsPanel agents={sorted} openId={null} firstName={firstName} unshared={unshared} error={null} hrefOf={hrefOf} onPick={pick} onEdit={(a) => setSheet({ edit: a.id })} onAdd={() => setSheet("add")} onReorder={reorder} onClose={() => {}} inline /> : <div className="wb-wait">Loading your agents...</div>}
+              {sorted ? <AgentsPanel agents={sorted} openId={null} firstName={firstName} unshared={unshared} error={null} hrefOf={hrefOf} onPick={pick} onEdit={(a) => setSheet({ edit: a.id })} onAdd={() => setSheet("add")} onReorder={reorder} onClose={() => {}} inline
+                groups={groups || []} openGroupId={groupId} groupHref={groupHref} onOpenGroup={openGroup} onNewGroup={groupsApi ? () => { setSwitcher(false); setDrawer(false); setSheet("newgroup"); } : null} /> : <div className="wb-wait">Loading your agents...</div>}
             </div>
             {foot}
           </div>
         )}
         {switcher && sorted ? (
           <AgentsPanel agents={sorted} openId={open?.id} firstName={firstName} unshared={unshared} error={error && sorted ? "Yui could not refresh your agents just now." : null} hrefOf={hrefOf}
-            onPick={pick} onEdit={(a) => setSheet({ edit: a.id })} onAdd={() => { setSwitcher(false); setSheet("add"); }} onReorder={reorder} onClose={() => setSwitcher(false)} />
+            onPick={pick} onEdit={(a) => setSheet({ edit: a.id })} onAdd={() => { setSwitcher(false); setSheet("add"); }} onReorder={reorder} onClose={() => setSwitcher(false)}
+            groups={groups || []} openGroupId={groupId} groupHref={groupHref} onOpenGroup={openGroup} onNewGroup={groupsApi ? () => { setSwitcher(false); setDrawer(false); setSheet("newgroup"); } : null} />
         ) : null}
       </aside>
       {drawer ? <button className="wb-scrim" aria-label="Close the agent list" onClick={() => setDrawer(false)} /> : null}
       <main className="wb-main">
-        <header className="wb-head">
+        {!groupId ? <header className="wb-head">
           <button className="wb-iconbtn wb-menu" onClick={() => setDrawer(true)} aria-label="Your agents">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" strokeWidth="2.2" strokeLinecap="round" /></svg>
           </button>
@@ -447,8 +482,9 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
             </>
           ) : <span className="wb-head-words"><b>Yui</b></span>}
           {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
-        </header>
-        {open && ready ? <ThreadView key={threadKey} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
+        </header> : null}
+        {groupId ? (group && sorted ? <GroupThread key={group.id} api={groupsApi} group={group} agents={sorted} light={light} userId={userId} onMenu={() => setDrawer(true)} onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} onChanged={refreshGroups} /> : <div className="wb-wait center">Opening the group...</div>)
+          : open && ready ? <ThreadView key={threadKey} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
           onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} />
           : error && !sorted ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
           : sorted && !sorted.length ? (
@@ -457,6 +493,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
           : <div className="wb-wait center">Loading your agents...</div>}
       </main>
       {sheet === "add" && manage ? <AddAgent manage={manage} agents={sorted || []} crew={crew} refresh={load} onClose={() => setSheet(null)} onOpenAgent={(id) => go(`/web/agent/${id}${keep}`)} {...fast} /> : null}
+      {sheet === "newgroup" && groupsApi && sorted ? <NewGroupSheet agents={sorted} api={groupsApi} onClose={() => setSheet(null)} onMade={async (id) => { setSheet(null); await refreshGroups(); go(`/web/group/${id}${keep}`); }} /> : null}
       {editing && manage ? <EditAgent manage={manage} agent={editing} agents={sorted} refresh={load} onClose={() => setSheet(null)} onRemoved={onRemoved} {...fast} /> : null}
       {sheet && sheet.controls !== undefined && open && relay ? <ControlsPanel relay={relay} agent={open} userId={userId} light={light} section={sheet.controls || null} onClose={() => setSheet(null)} onTalkAbout={talk} /> : null}
       {settingsOpen && relay ? <SettingsPanel relay={relay} auth={demo ? null : auth} demo={!!demo} userId={userId} email={email} review={!!demo} agents={sorted || []} menus={paletteMenus} build={build} focus={sheet.settings || null}
