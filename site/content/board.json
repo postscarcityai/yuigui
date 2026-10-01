@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T16:55:55.606Z",
+  "updated": "2026-10-01T17:00:42.006Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -373,13 +373,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-257",
-          "title": "The shader on the web stage",
-          "summary": "The shader is the orb on the web stage",
-          "progress": "/progress#the-shader-is-the-orb-on-the-web-stage",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -391,6 +384,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-257",
+          "title": "The shader on the web stage",
+          "summary": "The shader is the orb on the web stage",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-shader-is-the-orb-on-the-web-stage"
+        },
         {
           "key": "SITE-158",
           "title": "The board on the site never goes stale",
