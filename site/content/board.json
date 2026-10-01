@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T16:35:29.429Z",
+  "updated": "2026-10-01T16:42:07.021Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -264,11 +264,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-257",
-          "title": "The shader on the web stage",
-          "summary": "Drop the old vector blob, the shader is the voice orb"
-        },
-        {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
           "summary": "The thread offline at /web"
@@ -367,15 +362,9 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-256",
-          "title": "Voice on the web hears nothing",
-          "summary": "Voice on the web says what it hears, or why not",
-          "progress": "/progress#voice-on-the-web-says-what-it-hears-or-why-not",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "BIZ-8",
           "title": "Tokenomics v1, supply, emissions, value",
+          "progress": "/progress#how-u-could-be-given-out-the-tokenomics-brief",
           "owner": "CJohnDesign"
         },
         {
@@ -385,8 +374,9 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-157",
-          "title": "The roadmap says what shipped",
+          "key": "YUI-257",
+          "title": "The shader on the web stage",
+          "summary": "Drop the old vector blob, the shader is the voice orb",
           "owner": "CJohnDesign"
         },
         {
@@ -407,6 +397,21 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-157",
+          "title": "The roadmap says what shipped",
+          "summary": "The roadmap stops calling shipped work backlog",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-roadmap-stops-calling-shipped-work-backlog"
+        },
+        {
+          "key": "YUI-256",
+          "title": "Voice on the web hears nothing",
+          "summary": "Voice on the web says what it hears, or why not",
+          "shipped": "2026-10-01",
+          "progress": "/progress#voice-on-the-web-says-what-it-hears-or-why-not",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1e936436"
+        },
         {
           "key": "YUI-34",
           "title": "Key vault for bring-your-own keys",
