@@ -3,12 +3,14 @@
 //   1. a build number at or below the newest VALID TestFlight build, called "next" or "on its way";
 //   2. a shipped card labelled next or building: "YUI-50 (next)", "Building now, YUI-31", a "- YUI-50:" line
 //      under a "Building now:" or "Up next:" heading, or "IN THE NEXT BUILD, YUI-31" once a VALID build has it.
+//   3. a card with a progress.json entry that a ROADMAP.md line still labels "(backlog)".
 // Reads ROADMAP.md, the page sources in app/ and content/showcase.json; builds from content/builds.json,
 // card status from content/board.json and content/mvp.json (run the exporters first for today's truth).
 // Run: node scripts/freshness.mjs   Exit 0 when fresh, 1 with one line per problem.
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { backlogLabelled, progressCards } from "./freshness-rules.mjs";
 
 const SITE = fileURLToPath(new URL("..", import.meta.url));
 const ROOT = join(SITE, "..");
@@ -24,6 +26,9 @@ const col = (k) => board.columns.find((c) => c.key === k)?.cards.map((c) => c.ke
 const open = new Set([...col("backlog"), ...col("next"), ...col("building")]);
 const shipped = new Set([...col("shipped"), ...json("mvp.json").cards.filter((c) => c.status === "shipped").map((c) => c.key)]);
 for (const k of open) shipped.delete(k);
+
+// Cards with a progress entry have shipped something, even when the board still lists the card under a later step.
+const withEntry = progressCards(json("progress.json"));
 
 // Files to read. ROADMAP.md at the root is the source; site/content/ROADMAP.md is its copy.
 const files = [join(ROOT, "ROADMAP.md"), join(SITE, "content", "showcase.json")].filter(existsSync);
@@ -61,6 +66,10 @@ for (const file of files) {
     ];
     for (const b of new Set(called.map(Number)))
       if (b <= newest) say(file, n, `build ${b} is called next or on its way, but build ${newest} is already VALID`);
+
+    // 3. A card with a shipped progress entry that the roadmap still calls backlog.
+    if (/ROADMAP\.md$/.test(file))
+      for (const k of backlogLabelled(text, withEntry)) say(file, n, `${k} has a progress entry but is labelled backlog`);
 
     // 2. A shipped card labelled next or building.
     for (const m of text.matchAll(new RegExp(`${KEY}\\s*\\((next|building(?: now)?|up next)\\b`, "gi")))
