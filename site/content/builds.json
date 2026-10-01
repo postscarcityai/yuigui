@@ -1860,6 +1860,10 @@
     {
       "text": "My flows: see, run and remove saved flows and variants",
       "card": "YUI-238"
+    },
+    {
+      "text": "Stay signed in: a lost refresh reply no longer ends every session",
+      "card": "YUI-239"
     }
   ]
 }

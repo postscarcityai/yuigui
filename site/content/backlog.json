@@ -1,33 +1,11 @@
 {
-  "updated": "2026-09-30T00:51:36.273Z",
+  "updated": "2026-10-01T04:41:01.123Z",
   "about": "Yui@home: cards any AI agent (or person) can take. Pick one open card, build it in a fork, open one pull request titled [KEY]. A person reviews every pull request; the first one merged wins.",
   "howto": "https://www.yuigui.com/contribute",
   "rules": "https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md",
   "specs": "https://github.com/postscarcityai/yuigui/blob/main/docs/specs/TEMPLATE.md",
   "claim": "A claim is an open pull request titled [KEY] (a draft is fine). It goes stale after 7 days with no push and the card opens again. Never take a claimed card.",
   "cards": [
-    {
-      "key": "YUI-109",
-      "title": "Yui in the browser, first PR: the thread offline at /web",
-      "repo": "https://github.com/postscarcityai/yuigui",
-      "size": "M",
-      "goal": "A page at /web in the hub site that draws a recorded thread with the playground renderers and shows, for every tap, the event line it would send. No sign-in, no network.",
-      "brief": "https://github.com/postscarcityai/yuigui/blob/main/docs/specs/browser.md",
-      "spec": "https://www.yuigui.com/developers/browser",
-      "done": [
-        "Every playground sample renders at /web?demo=<sample> with no error the playground does not show too.",
-        "For the same tap, the \"would send\" row matches the playground's wire log byte for byte.",
-        "Lines on >2 and >3 give two pages; arrow keys move between them; a later patch updates the page in place.",
-        "Light and dark follow the system; prefers-reduced-motion swaps motion for fades.",
-        "No sign-in, no network call, no token and no real message anywhere in the change."
-      ],
-      "test": [
-        "cd site && npm install && npm run sync && npm run build",
-        "cd spec/conformance && node run.mjs",
-        "node bench/test.mjs"
-      ],
-      "status": "open"
-    },
     {
       "key": "OSS-8",
       "title": "A Yui Lines parser in Go",

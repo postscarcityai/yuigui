@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T04:10:56.479Z",
+  "updated": "2026-10-01T04:41:01.133Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -94,12 +94,6 @@
           "key": "YUI-94",
           "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
           "waiting": true
-        },
-        {
-          "key": "YUI-109",
-          "title": "Yui in the browser, first PR",
-          "summary": "The thread offline at /web",
-          "agentReady": true
         },
         {
           "key": "YUI-110",
@@ -198,11 +192,6 @@
           "summary": "Your profile top left, your $U top right, counting up when you open it"
         },
         {
-          "key": "YUI-239",
-          "title": "Stay signed in. A lost refresh reply ends every session",
-          "waiting": true
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -288,6 +277,11 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-109",
+          "title": "Yui in the browser, first PR",
+          "summary": "The thread offline at /web"
+        },
+        {
           "key": "YUI-116",
           "title": "Tuner + metronome in the app",
           "step": "Step 4",
@@ -311,6 +305,56 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "YUI-241",
+          "title": "Sign in with Apple on the web",
+          "summary": "A Services ID, a web audience in yui-auth, CORS, a web session that stays signed in"
+        },
+        {
+          "key": "YUI-242",
+          "title": "The thread, live in the browser",
+          "summary": "Agents, messages, screens, taps that send the same [yui] lines as the phone"
+        },
+        {
+          "key": "YUI-243",
+          "title": "The stage on the web",
+          "summary": "Full screen answers, screens 2 to 12, talk on a screen, the home chips, top and bottom bar"
+        },
+        {
+          "key": "YUI-244",
+          "title": "The composer on the web",
+          "summary": "Photos and files, voice, mentions, replies, reactions, suggestions, an outbox that survives a closed tab"
+        },
+        {
+          "key": "YUI-245",
+          "title": "Agents on the web",
+          "summary": "The drawer, add, rename, remove, connect a new agent, groups, controls"
+        },
+        {
+          "key": "YUI-246",
+          "title": "Every preset at parity on the web",
+          "summary": "Music, tuner, games, maps, diagrams, flows, workouts, the shelf"
+        },
+        {
+          "key": "YUI-247",
+          "title": "Settings and account on the web",
+          "summary": "Look and themes, agent looks, keys, web search, invites, help, sign out, delete account"
+        },
+        {
+          "key": "YUI-248",
+          "title": "Notifications on the web",
+          "summary": "Web Push through yui-push, a tap opens the thread, a home screen install"
+        },
+        {
+          "key": "YUI-249",
+          "title": "One Yui across phone and web",
+          "summary": "Continue a conversation, read state, drafts, saved screens in sync"
+        },
+        {
+          "key": "YUI-250",
+          "title": "Yui on the web ships",
+          "summary": "Parity sweep, e2e suite in CI, the launch demo and the release post draft"
         },
         {
           "key": "NOTE-2295",
@@ -377,6 +421,19 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
+          "key": "YUI-239",
+          "title": "Stay signed in. A lost refresh reply ends every session",
+          "summary": "You stay signed in",
+          "progress": "/progress#you-stay-signed-in",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-240",
+          "title": "Yui on the web, the parity map",
+          "summary": "Every app feature, its web twin, its story",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -388,6 +445,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-149",
+          "title": "My flows on the web matches the app",
+          "summary": "My flows on the web now works like the app",
+          "shipped": "2026-10-01",
+          "progress": "/progress#my-flows-on-the-web-now-works-like-the-app"
+        },
         {
           "key": "SITE-148",
           "title": "/crew after five first plans",
