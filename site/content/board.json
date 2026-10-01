@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T19:05:14.854Z",
+  "updated": "2026-10-01T19:20:14.065Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -167,6 +167,11 @@
           "waiting": true
         },
         {
+          "key": "YUI-258",
+          "title": "Reminders fire from a closed tab through Web Push",
+          "waiting": true
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -271,11 +276,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-249",
-          "title": "One Yui across phone and web",
-          "summary": "Continue a conversation, read state, drafts, saved screens in sync"
-        },
-        {
           "key": "YUI-250",
           "title": "Yui on the web ships",
           "summary": "Parity sweep, e2e suite in CI, the launch demo and the release post draft"
@@ -329,29 +329,15 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-248",
-          "title": "Notifications on the web",
-          "summary": "Yui on the web: notifications and install",
-          "progress": "/progress#yui-on-the-web-notifications-and-install",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-161",
-          "title": "Your $U in the web drawer",
+          "key": "YUI-249",
+          "title": "One Yui across phone and web",
+          "summary": "Continue a conversation, read state, drafts, saved screens in sync",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-94",
-          "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
-          "summary": "Group chats in the app",
-          "blocked": "other",
-          "progress": "/progress#group-chats-in-the-app",
           "owner": "CJohnDesign"
         }
       ]
@@ -360,6 +346,30 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-161",
+          "title": "Your $U in the web drawer",
+          "summary": "Your coin on the web",
+          "shipped": "2026-10-01",
+          "progress": "/progress#your-coin-on-the-web",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/21646f4e"
+        },
+        {
+          "key": "YUI-94",
+          "title": "Group threads in the app, step 3 of YUI-77 (New group sheet, thread, guard, e2e)",
+          "summary": "Group chats in the app",
+          "shipped": "2026-10-01",
+          "progress": "/progress#group-chats-in-the-app",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9549413c"
+        },
+        {
+          "key": "YUI-248",
+          "title": "Notifications on the web",
+          "summary": "Yui on the web: notifications and install",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-on-the-web-notifications-and-install",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/d9c24de9"
+        },
         {
           "key": "SITE-160",
           "title": "Every link and image on yuigui.com resolves after Oct 1's pages",
