@@ -49,7 +49,7 @@ Annotations are the ones yui-mcp 0.3.0 sends today.
 
 ## Screenshots
 
-Have (test host, not chatgpt.com): `~/.hermes/kanban/artifacts/t_85ea7583/chatgpt-host/` (screen drawn, tapped, dark and light).
+Have (test host, not chatgpt.com): the local test-host capture folder (screen drawn, tapped, dark and light).
 Need: real chatgpt.com captures (connector added, screen drawn, tap answered). These come from the live check.
 
 ## Review checklist (**check** each against the live form)
