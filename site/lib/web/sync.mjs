@@ -7,7 +7,7 @@ import { before } from "./thread.mjs";
 import { createOutbox } from "./outbox.mjs";
 import { mediaPath, mentionBody, mentionMeta, photoBody, photoMeta, reactionBody, reactionMeta, reactionOf, replyBody, replyMeta, rowOf } from "./compose.mjs";
 import { echoFor, eventLine, relays, valueOf } from "../../../mcp-app/src/events.mjs";
-import { typedBody } from "../yl/yl.mjs";
+import { attachBody, typedBody } from "../yl/yl.mjs";
 
 export const IDLE_POLL = 1500;   // ChatStore.idlePoll
 export const SOCKET_POLL = 6000; // the socket is up: the poll is only the safety net
@@ -101,7 +101,8 @@ export class ThreadSync {
   //   mention  an agent (compose.mjs `mentionTarget`): the words go to that one, with this thread's last lines
   //   reply    the quote this answers (compose.mjs `replyQuote`), above the words
   //   photos   [{ blob, type }] already shrunk (photo.mjs); they go up first, the row carries their bucket paths
-  send(text, { screen = null, mention = null, reply = null, photos = [] } = {}) {
+  //   about    the Controls item the words are about (TalkAbout.swift): `[yui] attach section= id= rev=` first
+  send(text, { screen = null, mention = null, reply = null, photos = [], about = null } = {}) {
     const words = String(text || "").trim();
     if (!words && !photos.length) return false;
     const command = words.startsWith("/");
@@ -119,7 +120,10 @@ export class ThreadSync {
       this.#out({ id: uuid(), body: mentionBody(said, mention), kind: "text", meta: mentionMeta(base, mention), uploads }, { owes: false, local });
     } else {
       const q = command ? null : reply;
-      this.#out({ id: uuid(), body: replyBody(said, q), kind: "text", meta: replyMeta(base, q), uploads }, { local });
+      const talk = command ? null : about;
+      const body = talk ? attachBody(talk, replyBody(said, q)) : replyBody(said, q);
+      const meta = replyMeta(base, q);
+      this.#out({ id: uuid(), body, kind: "text", meta: talk && body !== replyBody(said, q) ? { ...(meta || {}), about: { section: talk.section, id: talk.id, title: talk.title } } : meta, uploads }, { local });
     }
     return true;
   }

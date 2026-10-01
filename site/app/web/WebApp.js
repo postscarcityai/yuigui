@@ -20,6 +20,12 @@ export function threadOf(path) {
   return { agent: m ? decodeURIComponent(m[1]) : null, chat: m?.[2] ? decodeURIComponent(m[2]) : null };
 }
 
+// /web/connect/<id>: an MCP client asking to connect, approved here (INT-19, YUI-245).
+export function connectOf(path) {
+  const m = /^\/web\/connect\/([0-9A-Za-z-]{3,64})\/?$/.exec(path || "");
+  return m ? m[1] : null;
+}
+
 export default function WebApp({ story }) {
   const path = usePathname();
   const demo = useSearchParams().get("demo");
@@ -51,9 +57,9 @@ export default function WebApp({ story }) {
   }, [auth, snap.signedIn, invite]);
 
   // ?demo=<sample>: a recorded thread on a fake relay, no sign in, nothing leaves the tab (YUI-242).
-  if (demo) return <ThreadApp demo={demo.slice(0, 40)} {...threadOf(path)} />;
+  if (demo) return <ThreadApp demo={demo.slice(0, 40)} connect={connectOf(path)} {...threadOf(path)} />;
   // Signed in: the agents and the open thread. Sign in, the invite and the demo code stay on this page (YUI-241).
-  if (snap.ready && snap.signedIn) return <ThreadApp auth={auth} user={snap.user} {...threadOf(path)} />;
+  if (snap.ready && snap.signedIn) return <ThreadApp auth={auth} user={snap.user} connect={connectOf(path)} {...threadOf(path)} />;
 
   return (
     <div className="web">

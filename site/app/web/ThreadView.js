@@ -7,8 +7,9 @@ import { memo, useCallback, useEffect, useMemo, useReducer, useRef, useState } f
 import { cardWords, replyQuote, rowOf, REACTIONS, reactionOf } from "../../lib/web/compose.mjs";
 import { createComposer } from "../../lib/web/composer.mjs";
 import { preparePhoto } from "../../lib/web/photo.mjs";
-import { AttachButton, Icon, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, VoiceRow, fileDrop, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
+import { AboutChip, AttachButton, Icon, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, VoiceRow, fileDrop, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
 import { useVoice } from "./useVoice";
+import { Dialog, SheetBar } from "./parts";
 import { RichText } from "../playground/richtext";
 import { stamps } from "../../lib/chat/when.mjs";
 import { Thread, excerpt, folds } from "../../lib/web/thread.mjs";
@@ -92,6 +93,7 @@ function Bubble({ m, agent, light, onTap, live, onPage, fresh, relay, reaction, 
     return (
       <div className={`wb-row wb-user${m.pending ? " pending" : ""}${m.failed ? " failed" : ""}`}>
         {m.to ? <div className="wb-to">{m.to}</div> : null}
+        {m.about ? <div className="wb-about" data-testid="about-tag">About {m.about}</div> : null}
         {m.screen ? <button className="wb-from-screen" onClick={() => onPage?.(m.screen)}>From screen {m.screen}</button> : null}
         {m.replyTo ? (
           <button type="button" className="wb-replychip" onClick={() => onJump(m.replyTo.msg)} aria-label={`Reply to ${m.replyTo.from === "agent" ? agent?.name || "Yui" : "You"}: ${m.replyTo.quote}. Show the message`} data-testid="reply-chip">
@@ -187,7 +189,7 @@ function Working({ agent, thread, onStop, note }) {
 }
 
 // The field. The words live in the composer store, so typing redraws only this, never the thread above it.
-function Composer({ agent, agents, store, waiting, onSend, onSendWords, onStop, offline, inert, commands }) {
+function Composer({ agent, agents, store, waiting, onSend, onSendWords, onStop, offline, inert, commands, onAbout }) {
   const st = useComposerState(store);
   const voice = useVoice({ send: onSendWords, busy: waiting, enabled: !inert });
   const box = useRef(null);
@@ -210,6 +212,7 @@ function Composer({ agent, agents, store, waiting, onSend, onSendWords, onStop, 
         {keys.open ? <SuggestionList items={hints.list} index={keys.index} onPick={pick} /> : null}
         {!keys.open ? <MentionBar agent={hints.to} /> : null}
         <ReplyBar quote={st.reply} agentName={agent.name} onCancel={() => store.clearReply()} />
+        <AboutChip item={st.about} onOpen={() => onAbout?.(st.about)} onRemove={() => store.clearAbout()} />
         <Problem code={st.problem} onClose={() => store.clearProblem()} />
       </div>
       <PhotoTray photos={st.photos} busy={st.busy > 0} onRemove={(id) => store.removePhoto(id)} />
@@ -302,7 +305,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
     else if (a.tap) sync.tap(a.tap, a.said);
   }, [home, sync, store, view, toStage]);
   useEffect(() => {
-    onApi?.({ home, run, version: thread.version, loaded: thread.loaded, send: (words) => sync.send(words), compose: (words) => (view === "stage" ? toStage({ compose: words }) : store.setDraft(words)) });
+    onApi?.({ home, run, version: thread.version, loaded: thread.loaded, about: (item) => { store.setAbout(item); setView("chat"); }, send: (words) => sync.send(words), compose: (words) => (view === "stage" ? toStage({ compose: words }) : store.setDraft(words)) });
   }, [home, run, thread.loaded]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => () => onApi?.(null), []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -310,11 +313,11 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   // The typed message: words, photos, a reply, an @ (compose.mjs). Voice words leave the typed draft alone.
   const onSend = useCallback(() => {
     const out = store.take({ agents, current: agent.id });
-    return out ? sync.send(out.text, { photos: out.photos, reply: out.reply, mention: out.mention }) : false;
+    return out ? sync.send(out.text, { photos: out.photos, reply: out.reply, mention: out.mention, about: out.about }) : false;
   }, [store, sync, agents, agent.id]);
   const onSendWords = useCallback((words) => {
     const out = store.take({ words, agents, current: agent.id });
-    return out ? sync.send(out.text, { photos: out.photos, reply: out.reply, mention: out.mention }) : false;
+    return out ? sync.send(out.text, { photos: out.photos, reply: out.reply, mention: out.mention, about: out.about }) : false;
   }, [store, sync, agents, agent.id]);
   const onStop = useCallback(() => sync.stopTurn(), [sync]);
   const note = thread.waiting ? waitingNote(agent) : null;
@@ -322,6 +325,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   // ---- the hold menu, photos, jumping back to a quoted message ----
   const [menu, setMenu] = useState(null);
   const [viewer, setViewer] = useState(null);
+  const [aboutView, setAboutView] = useState(null);
   const openMenu = useCallback((m, el) => setMenu({ m, rect: el?.getBoundingClientRect?.() || null }), []);
   const closeMenu = useCallback(() => setMenu(null), []);
   const jump = useCallback((msg) => {
@@ -361,7 +365,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
           {thread.waiting ? <Working agent={agent} thread={thread} onStop={onStop} note={note} /> : null}
         </div>
       </div>
-      <Composer agent={agent} agents={agents} store={store} waiting={thread.waiting} onSend={onSend} onSendWords={onSendWords} onStop={onStop} offline={net.offline} inert={stageOn} commands={commands} />
+      <Composer agent={agent} agents={agents} store={store} waiting={thread.waiting} onSend={onSend} onSendWords={onSendWords} onStop={onStop} offline={net.offline} inert={stageOn} commands={commands} onAbout={setAboutView} />
       {stageOn ? <StageLayer agent={agent} agents={agents} commands={commands} store={store} thread={thread} sync={sync} light={light} fresh={Math.max(0, list.length - seen)} offline={net.offline} req={req}
         onRecord={() => setView("chat")} onMenu={onMenu} /> : null}
       {menu ? <MessageMenu menu={menu} agent={agent} reaction={menuReaction} onReact={doReact} onReply={doReply} onCopy={doCopy} onClose={closeMenu} /> : null}
@@ -371,6 +375,12 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
           <img src={viewer} alt="Photo" />
           <button type="button" className="wc-iconbtn wc-viewer-x" onClick={() => setViewer(null)} aria-label="Close photo" autoFocus>{Icon.x}</button>
         </div>
+      ) : null}
+      {aboutView ? (
+        <Dialog label={aboutView.title} onClose={() => setAboutView(null)} testid="about-view">
+          <SheetBar title={aboutView.title} right={<button type="button" className="ag-barbtn" onClick={() => setAboutView(null)}>Done</button>} />
+          <div className="ag-body"><p className="ag-hint">{aboutView.areaTitle || aboutView.section}</p><pre className="wc-about-text">{aboutView.text || "Nothing to show."}</pre></div>
+        </Dialog>
       ) : null}
       {toast ? <div className="wc-toast" role="status">{toast}</div> : null}
     </section>

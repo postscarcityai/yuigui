@@ -3,7 +3,8 @@
 // An MCP client (Claude, ChatGPT, Cursor) sends the browser here from
 // yui-oauth/authorize with a request id. The person approves on their phone:
 // "Open Yui" (same phone) or a QR of the universal link /a/<id> (a laptop),
-// or types the 6-digit code from Agents > Add agent. The page polls yui-oauth;
+// or types the 6-digit code from Agents > Add agent, or approves in Yui on the web (YUI-245, a new tab on
+// /web/connect/<id>). The page polls yui-oauth;
 // once approved it goes back to the client with the code. The page never sees
 // a token: the code it forwards only works with the client's PKCE verifier.
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -127,6 +128,13 @@ export default function ConnectFlow({ id }) {
               <a className="btn" href={`yui://connect/${id}`}>Open Yui</a>
               {qr && <div className="connect-qr" role="img" aria-label="QR code that opens Yui" dangerouslySetInnerHTML={{ __html: qr }} />}
             </div>
+          </div>
+        </li>
+        <li>
+          <div className="card connect-web">
+            <h3>Or approve on the web</h3>
+            <p>Signed in to Yui in this browser? Open Yui on the web in a new tab, pick which agent {name} talks as, and tap Allow. Keep this page open: it takes you back to {name} once you do.</p>
+            <p style={{ marginTop: 14 }}><a className="btn" href={`/web/connect/${id}`} target="_blank" rel="noopener" data-testid="connect-on-web">Approve in Yui on the web</a></p>
           </div>
         </li>
         <li>

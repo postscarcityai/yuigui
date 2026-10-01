@@ -121,7 +121,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
         delete threads[a.id]; delete chatsOf[a.id];
         for (const c of crew) if (c.agent_id === a.id) c.agent_id = null;
         if (a.is_default && roster.length) SORTED(roster)[0].is_default = true;
-        roster.forEach((x, i) => { x.sort = i; });
+        SORTED(roster).forEach((x, i) => { x.sort = i; });
         return { deleted: true };
       }
       case "reorder": { (b.ids || []).forEach((id, i) => { const a = roster.find((x) => x.id === id); if (a) a.sort = i; }); return { ok: true }; }
@@ -208,6 +208,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
       rename: async (cid, title) => { for (const l of Object.values(chatsOf)) { const c = l.find((x) => x.id === cid); if (c) c.title = title; } },
       seen: async (cid, at) => { for (const l of Object.values(chatsOf)) { const c = l.find((x) => x.id === cid); if (c) c.seen_at = at; } },
       remove: async (cid) => {
+        for (const a of roster) firstChat(a.id);
         for (const [agentId, l] of Object.entries(chatsOf)) {
           const at = l.findIndex((x) => x.id === cid);
           if (at < 0) continue;

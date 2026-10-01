@@ -6,7 +6,7 @@
 import { MAX_PHOTOS, draftKey, keepable, mentionTarget, suggestions } from "./compose.mjs";
 
 export function createComposer({ agentId, storage = globalThis.localStorage, prepare, onProblem = () => {}, now = () => Date.now() }) {
-  let state = { draft: "", photos: [], reply: null, busy: 0, problem: "" };
+  let state = { draft: "", photos: [], reply: null, about: null, busy: 0, problem: "" };
   const listeners = new Set();
   const emit = () => { for (const fn of listeners) fn(); };
   const set = (patch) => { state = { ...state, ...patch }; emit(); };
@@ -48,6 +48,10 @@ export function createComposer({ agentId, storage = globalThis.localStorage, pre
     },
     setReply(quote) { set({ reply: quote }); },
     clearReply() { if (state.reply) set({ reply: null }); },
+    // Talk about this (TalkAbout.swift): one Controls item on the chip. It stays for the whole talk, until x, an
+    // applied proposal or another agent; sending does not clear it.
+    setAbout(item) { set({ about: item || null }); },
+    clearAbout() { if (state.about) set({ about: null }); },
     clearProblem() { if (state.problem) set({ problem: "" }); },
     // Something to send: words, or photos (Attachments: a photo alone is a message).
     get canSend() { return !!state.draft.trim() || state.photos.length > 0; },
@@ -66,6 +70,7 @@ export function createComposer({ agentId, storage = globalThis.localStorage, pre
         text,
         photos: state.photos.map((p) => ({ blob: p.blob, type: p.type })),
         reply: state.reply,
+        about: state.about,
         mention: text.startsWith("/") ? null : mentionTarget(text, agents, current),
       };
       for (const p of state.photos) { try { URL.revokeObjectURL(p.preview); } catch { /* gone */ } }

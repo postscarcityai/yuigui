@@ -96,6 +96,8 @@ function userWords(body, meta) {
   const typed = meta?.screen && pageOf(String(meta.screen)) > 1 ? readTyped(String(body || "")) : null;
   if (typed) return typed.words.trim();
   let lines = String(body || "").split("\n");
+  // About a Controls item: `[yui] attach section= id= rev=`, then the words (TalkAbout.words).
+  if (meta?.about && lines[0]?.startsWith("[yui] attach ")) lines = lines.slice(1);
   if (meta?.mention && lines[0]?.startsWith("[yui] mention to=")) lines = lines.slice(1);
   else if (meta?.reply_to && lines[0]?.startsWith("[yui] reply to=")) lines = lines.slice(1);
   else if (meta?.mentioned) lines = lines.filter((l) => !l.startsWith("[yui] mention from=") && !l.startsWith(">"));
@@ -264,6 +266,7 @@ export class Thread {
       if (row._local?.length) m.local = row._local; // the pictures still on this device (blob: links) until the row is back from the relay
       if (meta.screen && pageOf(String(meta.screen)) > 1) m.screen = String(meta.screen);
       if (meta.reply_to?.quote) m.replyTo = { msg: String(meta.reply_to.msg || "").toLowerCase(), from: meta.reply_to.from === "user" ? "You" : "agent", quote: meta.reply_to.quote, rows: Array.isArray(meta.reply_to.rows) ? meta.reply_to.rows : [] };
+      if (meta.about?.title) m.about = String(meta.about.title);
       if (meta.mention?.name) m.to = `To ${meta.mention.name}`;
       if (meta.mentioned?.from_name) m.to = `You, from ${meta.mentioned.from_name}'s thread`;
       this.messages.push(m);

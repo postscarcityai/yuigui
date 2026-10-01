@@ -146,8 +146,8 @@ function AgentTab({ agent, api, close, handlers }) {
           {sections.length ? (
             <>
               <h3 className="dr-heading">On its computer</h3>
-              {!live ? <p className="dr-offline" data-testid="controls-offline">{agent.name}'s computer is {liveness(agent) === "not_listening" ? "not listening yet" : liveness(agent) === "pending" ? "offline" : liveness(agent)}. Controls come back when it's online.</p> : null}
-              {sections.map((s) => <Row key={s.id} icon={s.icon} title={s.title} sub={s.sub(agent.name)} disabled={!live} testid={`controls-${s.id}`} onClick={() => handlers.onControls(s.id)} />)}
+              {!live ? <p className="dr-offline" data-testid="drawer-controls-offline">{agent.name}'s computer is {liveness(agent) === "not_listening" ? "not listening yet" : liveness(agent) === "pending" ? "offline" : liveness(agent)}. Controls come back when it's online.</p> : null}
+              {sections.map((s) => <Row key={s.id} icon={s.icon} title={s.title} sub={s.sub(agent.name)} disabled={!live} testid={`drawer-controls-${s.id}`} onClick={() => handlers.onControls(s.id)} />)}
             </>
           ) : !agent.about && !starters.length && !isYui(agent) ? (
             <div className="dr-dashed" data-testid="about-not-shared">

@@ -76,6 +76,20 @@ export function PhotoTray({ photos, busy, onRemove }) {
   );
 }
 
+// Above the composer: the Controls item the words are about (AboutChip). A tap shows it, x lets it go.
+export function AboutChip({ item, onOpen, onRemove }) {
+  if (!item) return null;
+  return (
+    <div className="wc-about" data-testid="about-chip">
+      <button type="button" className="wc-about-main" onClick={onOpen} aria-label={`About ${item.title}, ${item.areaTitle || item.section}. Shows it`}>
+        <span className="wc-about-ico" aria-hidden="true">{item.icon || "✎"}</span>
+        <span className="wc-about-words"><b>{item.title}</b><small>{item.areaTitle || item.section}</small></span>
+      </button>
+      <button type="button" className="wc-iconbtn" onClick={onRemove} aria-label={`Stop talking about ${item.title}`} data-testid="about-chip-remove">{Icon.x}</button>
+    </div>
+  );
+}
+
 export function ReplyBar({ quote, agentName, onCancel }) {
   if (!quote) return null;
   return (

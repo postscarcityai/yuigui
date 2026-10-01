@@ -142,3 +142,13 @@ html[data-kbd="1"] .wb-stage .ys-hint { display: none; }
   .wc-react, .wb-more, .wc-wave i { transition: none; }
   .wb-item.flash .wb-bubble, .wb-item.flash .wb-screen { animation: none; outline: 3px solid var(--brand); }
 }
+
+/* Talk about this: the Controls item the words are about (YUI-245) */
+.wc-about { display: flex; align-items: center; gap: 4px; margin: 0 0 6px; padding: 4px 4px 4px 8px; border-radius: 18px; background: var(--surface); border: 1.5px solid color-mix(in srgb, var(--brand) 45%, var(--outline)); }
+.wc-about-main { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; min-height: 44px; border: 0; background: none; color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+.wc-about-ico { flex: none; display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: color-mix(in srgb, var(--brand) 16%, transparent); font-size: 15px; }
+.wc-about-words { display: flex; flex-direction: column; min-width: 0; }
+.wc-about-words b { font-size: 14px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wc-about-words small { font-size: 12px; color: var(--muted); font-weight: 600; }
+.wc-about-text { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: 500 14px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--surface); border: 1.5px solid var(--outline); border-radius: 16px; padding: 14px; }
+.wb-about { align-self: flex-end; font-size: 12px; font-weight: 800; color: var(--muted); margin: 0 6px 2px; }

@@ -8,7 +8,7 @@ import { createDemoRelay } from "../../lib/web/demo.mjs";
 import { createRelay } from "../../lib/web/relay.mjs";
 import { createOutbox, idbStore } from "../../lib/web/outbox.mjs";
 import { liveness, presenceLabel } from "../../lib/web/presence.mjs";
-import { revoked, sortAgents, unsharedLine } from "../../lib/web/agents.mjs";
+import { controlSections, revoked, sortAgents, unsharedLine } from "../../lib/web/agents.mjs";
 import { chatErrorOf, draft as newDraft, merge as mergeChats, openAfterDeleting, append as appendChats, PAGE_SIZE } from "../../lib/web/chats.mjs";
 import fixture from "./fixtures/penny.json";
 import sharedFixture from "./fixtures/shared.json";
@@ -17,6 +17,8 @@ import DrawerPanel from "./DrawerPanel";
 import AgentsPanel from "./AgentsPanel";
 import AddAgent from "./AddAgent";
 import EditAgent from "./EditAgent";
+import ControlsPanel from "./ControlsPanel";
+import ConnectApproval from "./ConnectApproval";
 import { Face } from "./parts";
 import "./thread.css";
 import "./composer.css";
@@ -26,7 +28,7 @@ const FIXTURES = { penny: fixture, shared: sharedFixture };
 
 const GIVE_UP_FAST = { giveUpMs: 3000, stuckMs: 3000, pollMs: 300 };
 
-export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
+export default function ThreadApp({ demo, auth, user, agent: agentId, chat, connect }) {
   // In-app moves (an agent, a chat) use the History API, which Next folds into usePathname: the page stays
   // mounted, so the open sheets, the drafts and the relay survive a tap on a chat.
   const go = useCallback((url) => { window.history.pushState(null, "", url); }, []);
@@ -247,6 +249,21 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
     try { await manage.reorder(list.map((a) => a.id)); } catch { load(); }
   };
   const editing = sheet?.edit ? (sorted || []).find((a) => a.id === sheet.edit) : null;
+  // Controls straight from a link (?controls=1, or ?controls=memory for one area).
+  const asked = useRef(false);
+  const controlsParam = search.get("controls");
+  useEffect(() => {
+    if (!open || asked.current || !controlsParam) return;
+    asked.current = true;
+    setSheet({ controls: controlsParam === "1" ? null : controlsParam });
+  }, [open?.id, controlsParam]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Talk about this (TalkAbout.swift): the item goes on the composer as a chip, in the record, with the field up.
+  const talk = (item) => {
+    const area = controlSections(open).find((s) => s.id === item.section);
+    setSheet(null);
+    setDrawer(false);
+    api?.about({ ...item, areaTitle: area?.title || item.section, icon: area?.icon });
+  };
 
   if (!mounted) return <div className="web-root"><div className="wb-wait center">Opening Yui...</div></div>;
   if (!relay) return <div className="web-root"><div className="wb-wait center">Opening Yui...</div></div>;
@@ -310,6 +327,8 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat }) {
       </main>
       {sheet === "add" && manage ? <AddAgent manage={manage} agents={sorted || []} crew={crew} refresh={load} onClose={() => setSheet(null)} onOpenAgent={(id) => go(`/web/agent/${id}${keep}`)} {...fast} /> : null}
       {editing && manage ? <EditAgent manage={manage} agent={editing} agents={sorted} refresh={load} onClose={() => setSheet(null)} onRemoved={onRemoved} {...fast} /> : null}
+      {sheet && sheet.controls !== undefined && open && relay ? <ControlsPanel relay={relay} agent={open} userId={userId} light={light} section={sheet.controls || null} onClose={() => setSheet(null)} onTalkAbout={talk} /> : null}
+      {connect && relay ? <ConnectApproval key={connect} relay={relay} id={connect} agents={sorted || []} refresh={load} onOpenAgent={(id) => go(`/web/agent/${id}${keep}`)} onClose={() => go(`/web${keep}`)} /> : null}
       {notice ? <div className="wc-toast" role="status" data-testid="agent-notice">{notice}</div> : null}
     </div>
   );

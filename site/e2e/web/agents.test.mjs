@@ -130,7 +130,7 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   await drawer(pg, vp);
   await pg.getByTestId("tab-agent").click();
   ok(await pg.getByTestId("about-facts").isVisible(), `${T}: the Agent tab says where it runs`);
-  ok(await pg.getByTestId("controls-offline").isVisible() && await pg.getByTestId("controls-soul").isDisabled(), `${T}: an asleep agent greys Controls out and says why`);
+  ok(await pg.getByTestId("drawer-controls-offline").isVisible() && await pg.getByTestId("drawer-controls-soul").isDisabled(), `${T}: an asleep agent greys Controls out and says why`);
   await shot(pg, `web-agents-about-${tag}-${theme}`);
   await pg.close();
 
@@ -236,6 +236,77 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   ok((await pg.getByTestId("shared-by").innerText()).includes("Shared by Sam"), `${T}: Shared by Sam`);
   ok(await pg.getByTestId("remove-agent").count() === 0 && await pg.getByTestId("rename").count() === 0, `${T}: not yours to rename or remove`);
   ok(await pg.getByRole("switch", { name: /Notifications from Basil/ }).isVisible(), `${T}: notifications are yours`);
+  await pg.close();
+}
+
+// ---------- Controls from the drawer, and Talk about this ----------
+for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of ["light", "dark"]) {
+  const T = `${theme} ${tag}`;
+  const pg = await open(vp, theme);
+  await drawer(pg, vp);
+  await pg.getByTestId("tab-agent").click();
+  ok((await pg.getByTestId("about-what").innerText()).startsWith("Penny keeps your week"), `${T}: the Agent tab says what it does, in its own words`);
+  ok((await pg.getByTestId("about-can-0").innerText()).includes("What's next today?"), `${T}: and three things to ask it`);
+  const rows = await pg.locator("[data-testid^=drawer-controls-]:not([data-testid=drawer-controls-offline])").evaluateAll((e) => e.map((x) => x.dataset.testid.replace("drawer-controls-", "")));
+  ok(rows.join() === "soul,memory,skills,schedules,model,channels", `${T}: its host's areas, in the app's order (${rows.join()})`);
+  await shot(pg, `web-agents-about-controls-${tag}-${theme}`);
+  await pg.getByTestId("about-can-1").click();
+  await pg.waitForTimeout(500);
+  ok((await wire(pg)).at(-1) === "Add a to-do", `${T}: a starter goes as your message`);
+  await drawer(pg, vp);
+  await pg.getByTestId("tab-agent").click();
+  await pg.getByTestId("drawer-controls-soul").click();
+  await pg.getByRole("dialog", { name: "Controls" }).waitFor();
+  await pg.locator(".ctl-sheet [data-testid=controls-soul]").click();
+  await pg.getByTestId("controls-talk-about").waitFor({ timeout: 8000 });
+  await shot(pg, `web-agents-controls-soul-${tag}-${theme}`);
+  await pg.getByTestId("controls-talk-about").click();
+  await pg.getByTestId("about-chip").waitFor();
+  ok((await pg.getByTestId("about-chip").innerText()).includes("SOUL.md") && (await pg.getByTestId("about-chip").innerText()).includes("Personality"), `${T}: the item is a chip over the field`);
+  await shot(pg, `web-agents-about-chip-${tag}-${theme}`);
+  await pg.locator("textarea[aria-label^='Message']").fill("Calmer after 9pm");
+  await pg.getByTestId("send").click();
+  await pg.waitForTimeout(500);
+  const w = (await wire(pg)).at(-1);
+  ok(/^\[yui\] attach section=soul id=SOUL\.md rev=[0-9a-f]+\nCalmer after 9pm$/.test(w), `${T}: it goes with the attach line first (${JSON.stringify(w).slice(0, 70)})`);
+  ok((await pg.getByTestId("about-tag").last().innerText()) === "About SOUL.md" && (await pg.locator(".wb-user .wb-bubble").last().innerText()) === "Calmer after 9pm", `${T}: the bubble shows the words and About SOUL.md`);
+  ok(await pg.getByTestId("about-chip").count() === 1, `${T}: the chip stays for the whole talk`);
+  await pg.getByTestId("about-chip-remove").click();
+  ok(await pg.getByTestId("about-chip").count() === 0, `${T}: x takes it off`);
+  ok(pg.errs.length === 0, `${T}: no page errors ${pg.errs.join("|")}`);
+  await pg.close();
+}
+
+// ---------- an MCP client asks to connect: approved on the web ----------
+for (const theme of ["light", "dark"]) {
+  const T = `${theme} 390`;
+  let pg = await open(PHONE, theme, { path: "/web/connect/req-123" });
+  await pg.getByTestId("connect-approval").waitFor();
+  ok((await pg.getByTestId("connect-title").innerText()) === "Connect Claude?", `${T}: connect asks by the client's name`);
+  ok((await pg.getByTestId("connect-approval").innerText()).includes("in one thread. It can't see your other threads."), `${T}: and says what it gets`);
+  ok(await pg.getByTestId("connect-pick-new").getAttribute("aria-checked") === "true", `${T}: a new agent named after it is the default`);
+  await shot(pg, `web-agents-connect-${theme}`);
+  await pg.getByTestId("connect-allow").click();
+  await pg.getByTestId("connect-result").waitFor();
+  ok((await pg.getByTestId("connect-result").innerText()) === "Connected", `${T}: Allow connects it`);
+  ok((await pg.getByTestId("connect-approval").innerText()).includes("Claude talks as Claude now."), `${T}: and says who it talks as`);
+  ok((await pg.evaluate(() => window.yuiWebDemo.host.roster().some((a) => a.kind === "mcp" && a.name === "Claude"))), `${T}: the agent exists`);
+  await shot(pg, `web-agents-connect-done-${theme}`);
+  await pg.getByTestId("connect-open").click();
+  await pg.waitForTimeout(600);
+  ok(pg.url().includes("/web/agent/demo-claude") && await pg.getByTestId("connect-approval").count() === 0, `${T}: Open its thread`);
+  await pg.close();
+  pg = await open(PHONE, theme, { path: "/web/connect/req-456" });
+  await pg.getByTestId("connect-deny").click();
+  ok((await pg.getByTestId("connect-result").innerText()) === "Not connected", `${T}: Don't allow says so`);
+  await pg.close();
+  pg = await open(PHONE, theme, { path: "/web/connect/demo-expired" });
+  await pg.getByTestId("connect-result").waitFor();
+  ok((await pg.getByTestId("connect-approval").innerText()).includes("This request expired. Add Yui in Claude again."), `${T}: an old request says it expired`);
+  await pg.close();
+  pg = await open(PHONE, theme, { path: "/web/connect/demo-missing" });
+  await pg.getByTestId("connect-result").waitFor();
+  ok((await pg.getByTestId("connect-approval").innerText()).includes("This connect link doesn't exist."), `${T}: a bad link says so`);
   await pg.close();
 }
 
