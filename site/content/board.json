@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T21:07:51.587Z",
+  "updated": "2026-10-01T21:15:45.577Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -276,10 +276,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-164",
-          "title": "A stranger's first five minutes on yuigui.com"
-        },
-        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -333,9 +329,8 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-250",
-          "title": "Yui on the web ships",
-          "summary": "Parity sweep, e2e suite in CI, the launch demo and the release post draft",
+          "key": "SITE-164",
+          "title": "A stranger's first five minutes on yuigui.com",
           "owner": "CJohnDesign"
         },
         {
@@ -350,6 +345,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-250",
+          "title": "Yui on the web ships",
+          "summary": "Yui on the web ships: every row of the parity map closed",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-on-the-web-ships-every-row-of-the-parity-map-closed",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/a60aade5"
+        },
         {
           "key": "SITE-163",
           "title": "What landed in the app on Oct 1, in See it",
