@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T21:25:45.223Z",
+  "updated": "2026-10-01T21:30:45.554Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -177,6 +177,11 @@
           "waiting": true
         },
         {
+          "key": "SITE-165",
+          "title": "Home page is 19,000 px long, trim to the five screens a stranger needs",
+          "waiting": true
+        },
+        {
           "key": "OSS-3",
           "title": "Open backlog on GitHub for contributors",
           "waiting": true
@@ -324,12 +329,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-164",
-          "title": "A stranger's first five minutes on yuigui.com",
-          "progress": "/progress#a-stranger-s-first-five-minutes-on-yuigui-com",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -341,6 +340,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-164",
+          "title": "A stranger's first five minutes on yuigui.com",
+          "shipped": "2026-10-01",
+          "progress": "/progress#a-stranger-s-first-five-minutes-on-yuigui-com",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c1d636ac"
+        },
         {
           "key": "YUI-259",
           "title": "Tomorrow's 06:00 build ships green",
