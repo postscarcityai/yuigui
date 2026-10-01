@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T20:36:22.160Z",
+  "updated": "2026-10-01T21:00:37.674Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -333,15 +333,16 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-250",
-          "title": "Yui on the web ships",
-          "summary": "Parity sweep, e2e suite in CI, the launch demo and the release post draft",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-250",
+          "title": "Yui on the web ships",
+          "summary": "Parity sweep, e2e suite in CI, the launch demo and the release post draft",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
