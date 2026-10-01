@@ -14,6 +14,8 @@ import {
 } from "../../../lib/music/theory.mjs";
 import { audio, claim, clock, drop, keep, note, play, hold, running, session, startTake, stopTake } from "./engine";
 import { KeepCtx } from "./keep";
+import { useKeptAgent } from "../kept";
+import { clearDraft, draft, loopBase, pruneDraft, setDraft } from "../../../lib/web/kept.mjs";
 import { keySemitone, midiChip, parseMidi } from "../../../lib/music/midi-in.mjs";
 import { useLive } from "../stage";
 import "./music.css";
@@ -50,27 +52,40 @@ function useKept(vid, clk, rebuild, show, live) {
 }
 
 // ---------- loop ----------
-export function Loop({ p, emit, vid }) {
+export function Loop({ p, emit, vid, nid }) {
   const steps = clampInt(p.steps, 4, 16, 8);
   const rows = (Array.isArray(p.rows) && p.rows.length ? p.rows : KIT.slice(0, 8)).slice(0, 16);
   const sig = JSON.stringify([p.p, rows, steps]);
-  const [grid, setGrid] = useState(() => fromPattern(p.p, rows, steps));
-  const [bpm, setBpm] = useState(clampInt(p.bpm, 40, 240, 96));
-  const [swing, setSwing] = useState(clampInt(p.swing, 0, 75, 0));
+  // A beat kept on this device until it is sent (LoopDrafts.swift): taps on the grid, the tempo and the swing say nothing
+  // back until Send, so a reload or another agent and back must not throw the beat away. It sits on the loop the agent drew.
+  const agent = useKeptAgent();
+  const drawnBpm = clampInt(p.bpm, 40, 240, 96);
+  const drawnSwing = clampInt(p.swing, 0, 75, 0);
+  const base = loopBase({ p: p.p, rows, steps, bpm: drawnBpm, swing: drawnSwing });
+  const kept = useRef(undefined);
+  if (kept.current === undefined) kept.current = draft(agent, nid, base);
+  const [grid, setGrid] = useState(() => fromPattern(kept.current ? kept.current.p : p.p, rows, steps));
+  const [bpm, setBpm] = useState(kept.current ? kept.current.bpm : drawnBpm);
+  const [swing, setSwing] = useState(kept.current ? kept.current.swing : drawnSwing);
   const [playing, setPlaying] = useState(false);
   const [head, setHead] = useState(-1);
-  const [sent, setSent] = useState(true); // nothing to send until something changes
+  const [sent, setSent] = useState(!kept.current); // nothing to send until something changes
   const clk = useRef(null);
   const live = useRef(null);
   const voices = loopVoices(rows, p.sound);
   live.current = { grid, bpm, swing, steps, rows, voices, sound: p.sound };
 
+  useEffect(() => { pruneDraft(agent, nid, base); }, [agent, nid, base]);
+  useEffect(() => { if (!sent) setDraft(agent, nid, { base, p: toPattern(grid), bpm, swing }); }, [grid, bpm, swing, sent]); // eslint-disable-line react-hooks/exhaustive-deps
   // A patch lands without stopping the music: the grid, tempo or swing change
   // and the clock keeps going.
   const first = useRef(true);
   useEffect(() => { if (first.current) { first.current = false; return; } setGrid(fromPattern(p.p, rows, steps)); }, [sig]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => { setBpm(clampInt(p.bpm, 40, 240, 96)); }, [p.bpm]);
-  useEffect(() => { setSwing(clampInt(p.swing, 0, 75, 0)); }, [p.swing]);
+  // The agent patching the tempo or swing wins over a draft; the first look keeps the draft.
+  const bootTempo = useRef(true);
+  useEffect(() => { if (bootTempo.current) { bootTempo.current = false; return; } setBpm(clampInt(p.bpm, 40, 240, 96)); }, [p.bpm]);
+  const bootSwing = useRef(true);
+  useEffect(() => { if (bootSwing.current) { bootSwing.current = false; return; } setSwing(clampInt(p.swing, 0, 75, 0)); }, [p.swing]);
 
   // Row `ri` by its voice, so rows with names the kit does not know still sound apart.
   const sound = (ri, when, s = live.current) => {
@@ -109,7 +124,7 @@ export function Loop({ p, emit, vid }) {
   // No Send button: the changes go to the agent when the loop stops.
   const stopAndSend = () => {
     stop();
-    if (!sent) { emit({ bpm, swing, steps, rows, p: toPattern(grid) }); setSent(true); }
+    if (!sent) { emit({ bpm, swing, steps, rows, p: toPattern(grid) }); setSent(true); clearDraft(agent, nid); }
   };
 
   return (

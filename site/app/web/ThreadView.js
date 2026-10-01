@@ -18,6 +18,8 @@ import { ThreadSync } from "../../lib/web/sync.mjs";
 import { relayTakeHost, setTakeHost } from "../../lib/web/take-host.mjs";
 import { loadRemoved, remove as removeShelf, shelfOf } from "../../lib/web/shelf.mjs";
 import ShelfBar from "./ShelfBar";
+import { KeepCtx, stopVoices } from "../playground/music/keep";
+import { KeptCtx } from "../playground/kept";
 import { sharedReminders } from "../../lib/web/reminders.mjs";
 import { waitingNote, workingLine } from "../../lib/web/presence.mjs";
 import { chipAction, homeOf, waitingAction } from "../../lib/web/stage.mjs";
@@ -266,6 +268,9 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
 
   const list = thread.messages;
   // Reminders (YUI-246): while this tab is open the Notifications API fires them at their time (a closed tab: Web Push, YUI-248).
+  // Sound started on any screen keeps playing across the thread's screens (spec/YL.md section 5, Sound keeps playing);
+  // it stops when the person leaves this thread or the page goes.
+  useEffect(() => { window.addEventListener("pagehide", stopVoices); return () => { window.removeEventListener("pagehide", stopVoices); stopVoices(); }; }, [agent.id, chat]);
   const reminders = sharedReminders();
   useEffect(() => { reminders?.resume(agent.id); }, [reminders, agent.id]);
   useEffect(() => {
@@ -364,6 +369,8 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   useEffect(() => { if (!viewer) return undefined; const k = (e) => e.key === "Escape" && setViewer(null); document.addEventListener("keydown", k); return () => document.removeEventListener("keydown", k); }, [viewer]);
 
   return (
+    <KeepCtx.Provider value={true}>
+    <KeptCtx.Provider value={agent.id}>
     <section className="wb-thread" aria-label={`${agent.name}'s thread`} data-loaded={thread.loaded ? "1" : "0"} {...fileDrop((f) => store.addFiles(f))}>
       {!stageOn && shelf.length ? <ShelfBar screens={shelf} onOpen={(name) => toStage({ show: name })} onRemove={(name) => setRemoved(removeShelf(agent.id, name))} /> : null}
       <div className="wb-scroll" ref={scroller} onScroll={onScroll} inert={stageOn || undefined}>
@@ -403,5 +410,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
       ) : null}
       {toast ? <div className="wc-toast" role="status">{toast}</div> : null}
     </section>
+    </KeptCtx.Provider>
+    </KeepCtx.Provider>
   );
 }

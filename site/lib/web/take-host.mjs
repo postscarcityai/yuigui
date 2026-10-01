@@ -11,6 +11,12 @@ export function setTakeHost(next) { host = next; return () => { if (host === nex
 // The uploader a thread registers: bytes up to the one private bucket, back as a signed link.
 export function relayTakeHost({ relay, userId, agentId, uuid = () => crypto.randomUUID() }) {
   return {
+    // The bytes up to the one private bucket and back as the storage path (a camera photo is sent as its path, like the composer's).
+    async uploadPath(blob, type, ext) {
+      const path = mediaPath(userId, agentId, uuid(), ext);
+      await relay.upload({ path, blob, type });
+      return path;
+    },
     async upload(blob, type, ext) {
       const path = mediaPath(userId, agentId, uuid(), ext);
       await relay.upload({ path, blob, type });

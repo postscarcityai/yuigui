@@ -139,3 +139,12 @@ body:has(.web-root) main.wrap { padding: 0; max-width: none; }
 /* The browser's full screen button sits left of the X (web only). */
 .wb-stagehost .yl-stagefs { right: 66px; font-size: 18px; }
 @media (prefers-reduced-motion: reduce) { .wb-stagehost .yl-stage, .wb-stagehost .yl-stage.open { transition: opacity .15s; transform: none; } }
+
+/* The shelf (ShelfBar.js): saved screens as chips at the top of the thread */
+.wb-shelf { display: flex; gap: 8px; overflow-x: auto; padding: 8px 14px; flex: none; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.wb-shelf::-webkit-scrollbar { display: none; }
+.wb-shelf-chip, .wb-shelf-rm, .wb-shelf-keep { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border-radius: 999px; font: inherit; font-size: 13px; font-weight: 800; cursor: pointer; color: inherit; -webkit-touch-callout: none; user-select: none; }
+.wb-shelf-chip { background: color-mix(in srgb, var(--accent, #ff7e8a) 16%, transparent); border: 1px solid color-mix(in srgb, var(--accent, #ff7e8a) 35%, transparent); }
+.wb-shelf-ask { display: inline-flex; gap: 8px; flex: none; }
+.wb-shelf-rm { background: #d6336c; border: 0; color: #fff; }
+.wb-shelf-keep { background: none; border: 1px solid currentColor; opacity: 0.7; }

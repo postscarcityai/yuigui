@@ -20,6 +20,10 @@ import { Flow } from "./flow";
 import { Query } from "./data";
 import { useLive } from "./stage";
 import { useTabTitle, useWakeLock } from "./keepawake";
+import { useKeptAgent } from "./kept";
+import { takeHost } from "../../lib/web/take-host.mjs";
+import { preparePhoto } from "../../lib/web/photo.mjs";
+import { pruneTicks, setTick, ticked } from "../../lib/web/kept.mjs";
 import { advance, tabTitle } from "../../lib/web/timer-clock.mjs";
 import { RichText } from "./richtext";
 
@@ -358,8 +362,11 @@ function Form({ p, emit }) {
   );
 }
 
-function List({ p, emit }) {
-  const [done, setDone] = useState({});
+function List({ p, emit, nid }) {
+  const agent = useKeptAgent();
+  // Ticks kept on this device for a list the agent named (ListTicks.swift): a reload comes back to the same marks.
+  const [done, setDone] = useState(() => Object.fromEntries(p.items.map((it, i) => [i, ticked(agent, nid, p.items).has(it)]).filter(([, on]) => on)));
+  useEffect(() => { pruneTicks(agent, nid, p.items); }, [agent, nid, p.items.join("\u0001")]); // eslint-disable-line react-hooks/exhaustive-deps
   const Tag = p.num ? "ol" : "ul";
   return (
     <div className="yl-block">
@@ -367,7 +374,7 @@ function List({ p, emit }) {
       <Tag className={`yl-list ${p.check ? "check" : ""}`}>
         {p.items.map((it, i) => (
           <li key={i} className={done[i] ? "done" : ""}
-            onClick={p.check ? () => { const n = !done[i]; setDone({ ...done, [i]: n }); emit({ item: it, checked: n }); } : undefined}>
+            onClick={p.check ? () => { const n = !done[i]; setDone({ ...done, [i]: n }); setTick(agent, nid, it, n); emit({ item: it, checked: n }); } : undefined}>
             {p.check ? <span className="box">{done[i] ? "✓" : ""}</span> : null}
             <span>{it}</span>
           </li>
@@ -743,42 +750,61 @@ function Camera({ p, emit }) {
   const [stream, setStream] = useState(null);
   const [shot, setShot] = useState(null);
   const [fallback, setFallback] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [problem, setProblem] = useState("");
   useEffect(() => () => stream && stream.getTracks().forEach((t) => t.stop()), [stream]);
+  // The preview takes the stream once the <video> is on the page (a timer after setStream raced the render).
+  useEffect(() => { if (stream && vid.current) { vid.current.srcObject = stream; vid.current.play?.().catch(() => {}); } }, [stream]);
   const open = async () => {
+    setProblem("");
     try {
       const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: p.facing === "front" ? "user" : "environment" } });
+      setReady(false);
       setStream(s);
-      setTimeout(() => { if (vid.current) { vid.current.srcObject = s; vid.current.play(); } }, 0);
     } catch { setFallback(true); }
+  };
+  // One photo, uploaded to the thread's media, sent as `{photo: path}` like the phone (MediaPresets.swift CameraPreset,
+  // shrunk to 2048 px and sent as JPEG, preparePhoto). With no thread to upload to (the playground) it says what it got.
+  const send = async (blob, desc) => {
+    const host = takeHost();
+    if (!host?.uploadPath) { emit({ photo: desc, scan: p.scan }); return; }
+    setBusy(true); setProblem("");
+    try {
+      const ready = await preparePhoto(blob instanceof File ? blob : new File([blob], "photo.jpg", { type: blob.type || "image/jpeg" }));
+      emit({ photo: await host.uploadPath(ready.blob, "image/jpeg", "jpg"), _echo: "Photo" });
+    } catch { setProblem("Couldn't send it. Try again."); } finally { setBusy(false); }
   };
   const snap = () => {
     const v = vid.current;
+    if (!v || !v.videoWidth) { setProblem("The camera is not ready yet. Try again."); return; }
     const c = document.createElement("canvas");
     c.width = v.videoWidth; c.height = v.videoHeight;
     c.getContext("2d").drawImage(v, 0, 0);
-    const url = c.toDataURL("image/jpeg", 0.7);
-    setShot(url);
+    setShot(c.toDataURL("image/jpeg", 0.7));
     stream.getTracks().forEach((t) => t.stop());
     setStream(null);
-    emit({ photo: `jpeg ${Math.round(url.length * 0.75 / 1024)} KB`, scan: p.scan });
+    c.toBlob((blob) => blob && send(blob, `jpeg ${Math.round(blob.size / 1024)} KB`), "image/jpeg", 0.85);
   };
   const file = (e) => {
     const f = e.target.files[0];
     if (!f) return;
     setShot(URL.createObjectURL(f));
-    emit({ photo: `${f.type} ${Math.round(f.size / 1024)} KB`, scan: p.scan });
+    send(f, `${f.type} ${Math.round(f.size / 1024)} KB`);
   };
   return (
     <div className="yl-block">
       <div className="yl-q">{p.prompt}</div>
       <div className="yl-cam">
-        {shot ? <img src={shot} alt="capture" /> : stream ? <video ref={vid} playsInline muted /> : (
+        {shot ? <img src={shot} alt="capture" /> : stream ? <video ref={vid} playsInline muted onLoadedMetadata={() => setReady(true)} /> : (
           <div className="yl-camph">{p.scan ? "Document scan" : "Camera"} · {p.facing}</div>
         )}
       </div>
-      {stream ? <button className="bigbtn p acc full" onClick={snap}>Capture</button>
-        : fallback ? <input type="file" accept="image/*" capture={p.facing === "front" ? "user" : "environment"} onChange={file} />
-        : <button className="bigbtn p acc full" onClick={shot ? () => { setShot(null); open(); } : open}>{shot ? "Retake" : "Open camera"}</button>}
+      {busy ? <div className="yl-sub" aria-live="polite">Sending your photo</div> : null}
+      {problem ? <div className="yl-sub" role="alert">{problem}</div> : null}
+      {stream ? <button className="bigbtn p acc full" disabled={!ready} onClick={snap}>Capture</button>
+        : fallback ? <input type="file" accept="image/*" capture={p.facing === "front" ? "user" : "environment"} onChange={file} data-testid="camera-file" />
+        : <button className="bigbtn p acc full" disabled={busy} onClick={shot ? () => { setShot(null); open(); } : open}>{shot ? "Retake" : "Open camera"}</button>}
     </div>
   );
 }
@@ -865,5 +891,5 @@ export function Render({ node, emit }) {
   if (node.preset === "flow") return <Flow node={node} emit={emit} Render={Render} />;
   const C = MAP[node.preset];
   if (!C) return null;
-  return <C p={resolve(node.preset, node.props)} emit={emit} vid={node.key} />;
+  return <C p={resolve(node.preset, node.props)} emit={emit} vid={node.key} nid={node.id} />;
 }

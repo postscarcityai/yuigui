@@ -63,8 +63,9 @@ What each preset does in a browser. A row not listed renders as it does in the p
 | YL | In the browser |
 | --- | --- |
 | haptics (games, taps, timers) | dropped, silently |
-| `timer` | keeps running while the tab is open. Time is kept from a start timestamp, so a background tab that throttles `setInterval` still shows the right time when it comes back. A workout holds a Wake Lock. Beeps need one tap first (browsers block sound until then). |
-| `camera` | `getUserMedia`, `facing` as `facingMode`. With no camera or no permission: a file picker (the fallback YL already names). `+scan` takes a plain photo. |
+| `timer` | keeps running while the tab is open and counts the time that really passed between two looks, so a background tab that throttles `setInterval` lands where the clock says, across every phase it missed (`lib/web/timer-clock.mjs`). The tab title shows the time left and the round, and a Wake Lock keeps the screen on while it runs. A closed tab stops it; there is no lock-screen pill. Beeps need one tap first (browsers block sound until then). |
+| a plan shaped like a workout (set `pick`s with rep and weight `slide`s) | Arnold's runner, rule for rule as the app's `WorkoutRunner`: one move per page, sets to tick, Skip, reps and weight with - and +, a rest that starts by itself after a set (+15s, Skip rest, rings on the wall clock in a background tab), "done" said out loud where the browser has Web Speech, a Wake Lock, and the place kept per plan on the device. The answers go as the plan's one line. |
+| `camera` | `getUserMedia`, `facing` as `facingMode`. With no camera or no permission: a file picker (the fallback YL already names). One photo, shrunk to 2048 px as JPEG, uploaded to the thread's media and sent as `{photo: path}` with the echo `Photo`, like the phone. |
 | `mic` | MediaRecorder, and the Web Speech API where the browser has it. Where it has neither: typing, as YL already says. `+auto` waits for a tap, because browsers need one. |
 | `form` fields `photo`, `voice` | a file picker, and the mic button as in `mic` |
 | `image +edit` | pointer events: draw with a mouse, pen or finger |
@@ -72,6 +73,11 @@ What each preset does in a browser. A row not listed renders as it does in the p
 | pages `2` to `12` | one page at a time with the same dot row; swipe, arrow keys or a tap on a dot |
 | reactions, reply | hold, or right-click, a message |
 | `loop`, `drums`, `keys`, `chords`, `metronome` | Web Audio, the same sound bank, one engine and one clock for the whole page, so sound keeps playing across screens |
+| Record on `loop`, `drums`, `keys`, `chords` | records what the engine plays (the master chain, never the mic) with MediaRecorder: `.m4a` where the browser writes AAC, else `.webm`. The notes of the same take become a `.mid` (type 1, 480 ticks a beat, drums on channel 10, one named track per pitched sound, `lib/music/take.mjs`). Stop and send uploads both to the thread's media and sends `{audio, midi, seconds}` as signed links. |
+| a MIDI keyboard on `keys` | Web MIDI in, where the browser has it (Chrome, Edge); a chip names the keyboard. The computer keyboard plays too (A to ; white, W to P black). MIDI clock out is not sent. Safari has no Web MIDI: the keys play with a finger or the keyboard. |
+| `list@id` ticks, `loop@id` drafts | kept per agent on the device until sent (`lib/web/kept.mjs`), the twins of `ListTicks` and `LoopDrafts`. |
+| `save`, `show`, `forget` | the shelf: chips at the top of the thread, newest first; a tap reopens the screen on the stage with no turn; a long press, a right click or Delete offers Remove (`lib/web/shelf.mjs`). |
+| `meta.native.reminders` | the Notifications API at the time while the tab is open (`lib/web/reminders.mjs`); permission is asked once, on the first live reply that carries one. Closed: Web Push (YUI-248). |
 | `tuner` | `getUserMedia` and a pitch detector |
 | `game` | playable with a pointer and the arrow keys |
 | anything that needs the phone | "Open on your iPhone" with a `yui://agent/<id>/thread` link, never a broken block |

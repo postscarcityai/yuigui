@@ -253,9 +253,16 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     async upload({ path, blob }) { if (this.offline) throw new TypeError("network down"); if (!blobs.has(path)) blobs.set(path, blob); },
     // What went up, for the e2e checks: the path, the type and the size in bytes.
     uploads() { return [...blobs].map(([path, b]) => ({ path, type: b.type, size: b.size })); },
+    // The first `n` bytes of what went up at `path`, for the e2e checks (a take's .mid is read here: the page's CSP keeps fetch off blob links).
+    async head(path, n = 14) { const b = blobs.get(path); return b ? [...new Uint8Array(await b.slice(0, n).arrayBuffer())] : []; },
     async sign(path) { const b = blobs.get(path); if (!b) return ""; if (!links.has(path)) links.set(path, URL.createObjectURL(b)); return links.get(path); },
     async deliver(item) { for (const u of item.uploads || []) await this.upload(u); await this.post(item); },
     subscribe() { return () => {}; },
+    // The e2e checks drop a reply into a thread as the agent would write it: Yui Lines in a fence, an optional
+    // `meta` (a reply's `native` reminders ride there).
+    say(agentId, yl, meta = {}) {
+      rows(agentId).push({ id: id(), sender: "agent", body: "```yui\n" + yl + "\n```", kind: "text", meta, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null });
+    },
     // Every row the demo agent ever wrote or was sent, for the e2e checks (they read the wire, not the screen).
     wire(agentId) { return rows(agentId).filter((r) => r.sender === "user").map((r) => ({ kind: r.kind, body: r.body, meta: r.meta })); },
   };

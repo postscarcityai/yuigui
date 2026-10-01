@@ -24,16 +24,16 @@ Every one is a row below too. This is the short list, with the web way for each.
 | Keychain (session, vault keys, `Account/Keychain.swift`) | No secure enclave for pages | Access token in memory. Refresh token in IndexedDB under a strict CSP. Keys: never in the browser; the web adds a key through `yui-vault` sealed on the server, or says "Add it on your iPhone" (decision in section 4, story 247). | 241, 247 |
 | Face ID on keys (`Vault/VaultStore.swift`, LocalAuthentication) | No biometric prompt for pages | WebAuthn user verification (passkey or Touch ID) on add, replace, remove and grant, where the browser has it. Where not: a fresh Sign in with Apple popup. | 247 |
 | APNs push (`Push/Push.swift`) | Different protocol | Web Push with VAPID through `yui-push`. A reply read on one device clears the others where the platform allows. | 248 |
-| Live Activity and Dynamic Island (`Presets/LiveTimer.swift`, `YuiWidgets/TimerLiveActivity.swift`) | iOS only | Timer keeps true time from a start timestamp while the tab is open; a pill in the thread; the tab title and favicon show the time left. A closed tab stops the timer and the pill says so on return. | 246 |
+| Live Activity and Dynamic Island (`Presets/LiveTimer.swift`, `YuiWidgets/TimerLiveActivity.swift`) | iOS only | Done (246): the timer counts the time that really passed between two looks, so a background tab lands where the clock says, across every phase it missed (`lib/web/timer-clock.mjs`). The tab title shows the time left and the round while it runs, a screen Wake Lock keeps the phone awake, and the rest between workout sets rings on the wall clock. A closed tab stops the timer; there is no lock-screen pill and no favicon countdown. | 246 |
 | Home and lock screen widgets (`YuiWidgets/YuiWidgets.swift`) | iOS only | iPhone. The saved screens a widget would show are on the shelf and pinned rows in the web drawer. | 248 |
 | Siri, Shortcuts, Action button (spec/WIDGETS.md, not shipped in the app yet) | iOS only | iPhone. Nothing in the app today either. | none |
 | Home screen quick actions (`Agents/QuickActions.swift`) | iOS only | The same `menu shortcut` rows, as the agent's chips and a command palette (Cmd/Ctrl+K) in the web. | 245 |
 | `yui://` deep links, Universal links (`Push/Push.swift`) | The app owns the scheme | `/web/agent/<id>` and `/web/agent/<id>/chat/<chat>` routes, and a notification click opens them. `yui://` links in screens become "Open on your iPhone" unless the person is on the web already, when they route inside it. | 242, 248 |
 | Speech recognition (`Chat/PushToTalk.swift`, `Chat/HandsFree.swift`, `Presets/MicPreset.swift`, Speech framework) | Web Speech API exists only in Chromium and Safari, with different quality | The Web Speech API for the words (shown as heard, sent as text, the app's own rule: voice in, text out), `getUserMedia` and an `AnalyserNode` for the waveform. No `MediaRecorder` and no audio upload: the app uploads none either, so there is no transcript path to share, and nothing would read it. Typing is the way in where the API is missing (Firefox), and the field says so. Built in `lib/web/voice.mjs`, `handsfree.mjs` and `app/web/useVoice.js` (YUI-244). | 244 |
 | Camera and photo library (`Chat/Attachments.swift`, `Chat/SnapSay.swift`, `Presets/MediaPresets.swift`) | No library; permission per site | A file picker (a phone's offers the camera and the library), drag and drop and paste, in the composer. Every photo is shrunk to 2048 px and sent as JPEG like the app's. The in-page camera preview is the `camera` preset (246). | 244, 246 |
-| MIDI over USB and Bluetooth (`Presets/MIDIFeed.swift`, `Presets/MusicTake.swift`) | Web MIDI is Chromium only; no MIDI clock out on Safari | Web MIDI in for the keys where it exists; Record sends the take as `.m4a` and `.mid` (MediaRecorder and a small writer). Safari: "Open on your iPhone" for the keyboard and clock, everything else plays. | 246 |
+| MIDI over USB and Bluetooth (`Presets/MIDIFeed.swift`, `Presets/MusicTake.swift`) | Web MIDI is Chromium only; no MIDI clock out on Safari | Done (246): Web MIDI in plays the keys where the browser has it (a chip names the keyboard, `lib/music/midi-in.mjs`); the computer keyboard plays them too (A to ; are the white keys, W to P the black). Record sends the take as `.m4a` (`.webm` where the browser cannot write AAC) and `.mid` (MediaRecorder and `lib/music/take.mjs`, the same writer as the app). Safari has no Web MIDI: the keys play with a finger or the keyboard, and the MIDI chip never shows. MIDI clock out is not sent (see the row below). | 246 |
 | Metal shaders for the visual (`Stage/Visual.metal`, `Stage/StageVisual.swift`) | No Metal | WebGL fragment shaders from the same plan (spec/VISUAL.md); `site/app/playground/visualizer.js` and `shaderlook.js` already draw it. 2D canvas below a budget, a still above it when reduced motion is on. | 243 |
-| Local notifications for reminders (`Presets/Reminders.swift`) | A closed tab cannot fire one | While the tab is open: the Notifications API at the time. Closed: Web Push, scheduled by `yui-push` from the same `meta.native.reminders` set. | 246, 248 |
+| Local notifications for reminders (`Presets/Reminders.swift`) | A closed tab cannot fire one | Done while the tab is open (246, `lib/web/reminders.mjs`): the same `meta.native.reminders` set, replaced by each newer reply and never undone by an older one, fires through the Notifications API at its time with the agent's name; permission is asked once, on the first live reply that carries a reminder. Closed: Web Push, scheduled by `yui-push` from the same set (248). | 246, 248 |
 | Share sheet (`Chat/ReactionViews.swift`, `Presets/Pages.swift`) | No system sheet on desktop | Web Share API where it exists, else copy link. | 242 |
 | MetricKit and speed reports (`Perf/`) | iOS only | The same seven intervals from `performance.mark`, sent as `yui_perf` with `client=web`. Dev switch only, as in the app. | 250 |
 | On-device model (spec/ON-DEVICE.md, Apple Foundation Models) | iOS only | iPhone. Nothing leaves the phone; the web does not run it. | none |
@@ -103,9 +103,9 @@ Every one is a row below too. This is the short list, with the web way for each.
 | Bottom bar (big mic, T, +; settings toggle each) | `Stage/BottomBar.swift` | same: mic (hold or tap), text field, attach, with the tray, reply and mention bars over it | 243, 244 | done |
 | Story pages full screen | `Presets/StoryPage.swift` | same | 243 | draws |
 | Time under the stage answer (Yesterday 9:41 PM) | `Stage/StageFirst.swift` | same: `stageTime` in `when.mjs` | 243 | draws |
-| Sound keeps playing across screens | `Presets/MusicPresets.swift` | same: `music/keep.js` | 246 | draws |
+| Sound keeps playing across screens | `Presets/MusicPresets.swift` | same: `music/keep.js`; the thread provides the keep scope, so a loop, metronome or latched chord that loses its screen parks its voice and takes it back, and it stops when the person leaves the thread or the page goes | 246 | done |
 | A saved screen opens with no turn | `Presets/Shelf.swift` | same: zero requests (site/scripts/layer-e2e.mjs) | 243 | draws |
-| Saved screens and the shelf (`save`, `show`, `forget`) | `Presets/Shelf.swift` | same: shelf chips at the top of the thread | 246 | open |
+| Saved screens and the shelf (`save`, `show`, `forget`) | `Presets/Shelf.swift` | same: shelf chips at the top of the thread (`lib/web/shelf.mjs`, `ShelfBar.js`), newest save first, a tap reopens the screen on the stage with no turn, a long press (or a right click, or Delete on the focused chip) offers Remove. Removed names stay off on this device until the agent saves them again | 246 | done |
 
 ## 5. Agents and the drawer
 
@@ -147,42 +147,42 @@ Status `draws` means the playground draws the preset from a line today. The live
 
 | YL preset | App file | Web twin | Story | Status |
 | --- | --- | --- | --- | --- |
-| `timer` (rounds, rest, `+up`, beeps on the last 3 seconds) | `Presets/TimerPreset.swift`, `Presets/LiveTimer.swift` | web way: start timestamp, tab-title countdown, no lock screen | 246 | draws |
-| Workouts and Arnold's runner | `Presets/WorkoutRunner.swift` | web way: same runner, true time in a background tab, a Wake Lock while it runs | 246 | draws |
+| `timer` (rounds, rest, `+up`, beeps on the last 3 seconds) | `Presets/TimerPreset.swift`, `Presets/LiveTimer.swift` | web way: the same rules on a timestamp clock (`timer-clock.mjs`); tab-title countdown and a Wake Lock while it runs; no lock-screen pill | 246 | done |
+| Workouts and Arnold's runner | `Presets/WorkoutRunner.swift` | web way: the same runner (`lib/web/runner.mjs` is `WorkoutRunner.swift` rule for rule: sets, Skip, reps and weight nudges, rest 10 to 600 s from the plan's words, +15s, "done" by voice where the browser has Web Speech). The rest rings on the wall clock in a background tab, a Wake Lock holds the screen, the place is kept per plan on this device. The answers go as the plan's one line | 246 | done |
 | `ask`, `choose`, `pick`, `slide` | `Presets/PresetViews.swift` | same | 242 | draws |
 | `form` (fields, photo, voice, one Send inside a plan) | `Presets/FormPreset.swift` | same: photo is a file picker, voice is the mic button | 242 | draws |
-| `list` (ticks kept on the device) | `Presets/ListTicks.swift` | same: ticks kept in IndexedDB, the same marks | 246 | draws |
-| `table` (units, sort) | `Presets/SciencePresets.swift` | same | 246 | draws |
+| `list` (ticks kept on the device) | `Presets/ListTicks.swift` | same: ticks kept per agent and list id in the browser's storage (`lib/web/kept.mjs`), pruned when the agent draws the list again without an item | 246 | done |
+| `table` (units, sort) | `Presets/SciencePresets.swift` | same (library walk renders and taps it) | 246 | done |
 | Agent tables (`table create`, `put`, `query`, spec/TABLES.md) | not in the app yet | web way once the app has it: rows kept in IndexedDB, never leave the browser; a phone's rows reach the web only through the sync of YUI-249 | 249 | open |
 | `card` (links open a new tab) | `Presets/PresetViews.swift` | same | 242 | draws |
-| `image`, `image +edit` | `Presets/MediaPresets.swift` | web way: pointer events draw with a mouse, pen or finger | 246 | draws |
-| `camera` | `Presets/MediaPresets.swift` | web way: `getUserMedia`, a file picker with no camera or permission | 246 | draws |
-| `mic` (`+auto`, `{transcript}`) | `Presets/MicPreset.swift` | web way: Web Speech or MediaRecorder; `+auto` waits for a tap | 246 | draws |
-| `gallery`, `video`, `compare`, `storyboard` | `Presets/MediaSetPresets.swift`, `Presets/MediaPresets.swift` | same | 246 | draws |
-| `chart`, `stat`, `math`, `step`, `calc` | `Presets/SciencePresets.swift` | same: `science.js`, KaTeX | 246 | draws |
-| `deck`, `page`, quiz members | `Presets/FlowPresets.swift` | same | 246 | draws |
+| `image`, `image +edit` | `Presets/MediaPresets.swift` | web way: pointer events draw with a mouse, pen or finger | 246 | done |
+| `camera` | `Presets/MediaPresets.swift` | web way: `getUserMedia`; with no camera or permission a file picker (a phone's offers the camera and the library). The photo is shrunk to 2048 px as JPEG, uploaded to the thread's media and sent as `{photo: path}` with the echo `Photo`, like the phone. `+say` is the composer's snap and say | 246 | done |
+| `mic` (`+auto`, `{transcript}`) | `Presets/MicPreset.swift` | web way: Web Speech where the browser has it, typing where it does not; `+auto` starts listening where the browser allows it, otherwise it waits for a tap | 246 | done |
+| `gallery`, `video`, `compare`, `storyboard` | `Presets/MediaSetPresets.swift`, `Presets/MediaPresets.swift` | same (library walk renders and taps them) | 246 | done |
+| `chart`, `stat`, `math`, `step`, `calc` | `Presets/SciencePresets.swift` | same: `science.js`, KaTeX | 246 | done |
+| `deck`, `page`, quiz members | `Presets/FlowPresets.swift` | same | 246 | done |
 | `plan` with its questions | `Presets/FlowPresets.swift` | same: one Send, one `{plan: ...}` event, answers land in the record | 243 | draws |
-| `flow` and starter flows | not in the app yet (YUI-115; `compat.py` runs a flow as a plan on phones until then) | web is ahead: `flow-run.mjs` and `starter-flows.mjs` already run it. The web keeps it; the app catches up on YUI-115 | 246 | draws |
-| `project` | `Presets/FlowPresets.swift` | same | 246 | draws |
-| `narrate` | `Presets/FlowPresets.swift` (`NarratePreset`) | web way: speech synthesis where the browser has it | 246 | draws |
-| `timeline`, `done`, `now`, `next`, reorder | `Presets/TimelinePreset.swift` | same: drag to reorder with a pointer | 246 | draws |
-| `sketch`, `row`, `after` | `Presets/SketchPreset.swift` | same | 246 | draws |
-| `shapes`, `shape` | `Presets/ShapesPreset.swift`, `Presets/ShapesScene.swift` | same: `shapes.mjs` is the line-for-line source | 246 | draws |
-| `diagram` | not in the app yet (no case in `Presets/PresetViews.swift`) | web is ahead: `diagram.mjs` is the reference and draws it | 246 | draws |
-| `mock`, `part` | not in the app yet (no case in `Presets/PresetViews.swift`) | web is ahead: the playground draws it | 246 | draws |
-| `map`, `area`, `pin`, `route` (world scale) | `Presets/MapPreset.swift`, `Presets/MapScene.swift` | same: `map.mjs` is the line-for-line source | 246 | draws |
-| `game` (tictactoe and the rest) | `Presets/GamePreset.swift` | web way: pointer and arrow keys, no haptics | 246 | draws |
-| `loop`, `drums` | `Presets/MusicPresets.swift`, `Packages/YuiSound` | same: Web Audio, the same sound bank, one engine, one clock | 246 | draws |
-| `keys`, `chords` (scale lock, glide, several fingers) | `Presets/MusicKeys.swift` | same: pointer events and the computer keyboard; Web MIDI in where it exists | 246 | draws |
-| `tuner` | `Presets/MusicTools.swift` | web way: `getUserMedia` and a pitch detector | 246 | draws |
-| `metronome` | `Presets/MusicTools.swift` | same | 246 | draws |
-| Record on the looper, drums, keys, chords (`.m4a`, `.mid`) | `Presets/MusicTake.swift` | web way: MediaRecorder and a small MIDI writer | 246 | open |
-| MIDI clock out | `Presets/MusicTake.swift` | iPhone on Safari; Chrome and Edge via Web MIDI | 246 | open |
-| Loop drafts (a beat kept until sent) | `Presets/LoopDrafts.swift` | same | 246 | open |
+| `flow` and starter flows | not in the app yet (YUI-115; `compat.py` runs a flow as a plan on phones until then) | web is ahead: `flow-run.mjs` and `starter-flows.mjs` already run it. The web keeps it; the app catches up on YUI-115 | 246 | done |
+| `project` | `Presets/FlowPresets.swift` | same | 246 | done |
+| `narrate` | `Presets/FlowPresets.swift` (`NarratePreset`) | web way: speech synthesis where the browser has it | 246 | done |
+| `timeline`, `done`, `now`, `next`, reorder | `Presets/TimelinePreset.swift` | same: drag to reorder with a pointer | 246 | done |
+| `sketch`, `row`, `after` | `Presets/SketchPreset.swift` | same | 246 | done |
+| `shapes`, `shape` | `Presets/ShapesPreset.swift`, `Presets/ShapesScene.swift` | same: `shapes.mjs` is the line-for-line source | 246 | done |
+| `diagram` | not in the app yet (no case in `Presets/PresetViews.swift`) | web is ahead: `diagram.mjs` is the reference and draws it | 246 | done |
+| `mock`, `part` | not in the app yet (no case in `Presets/PresetViews.swift`) | web is ahead: the playground draws it | 246 | done |
+| `map`, `area`, `pin`, `route` (world scale) | `Presets/MapPreset.swift`, `Presets/MapScene.swift` | same: `map.mjs` is the line-for-line source | 246 | done |
+| `game` (tictactoe and the rest) | `Presets/GamePreset.swift` | web way: pointer and arrow keys, no haptics | 246 | done |
+| `loop`, `drums` | `Presets/MusicPresets.swift`, `Packages/YuiSound` | same: Web Audio, the same sound bank, one engine, one clock. A beat on a looper the agent named is kept on this device until it is sent (`lib/web/kept.mjs`, `LoopDrafts.swift`) | 246 | done |
+| `keys`, `chords` (scale lock, glide, several fingers) | `Presets/MusicKeys.swift` | same: pointer events, the computer keyboard and Web MIDI in where it exists; the scale lock still silences the wrong keys | 246 | done |
+| `tuner` | `Presets/MusicTools.swift` | web way: `getUserMedia` and a pitch detector | 246 | done |
+| `metronome` | `Presets/MusicTools.swift` | same: its clicks stay out of a take's MIDI file, like the app's | 246 | done |
+| Record on the looper, drums, keys, chords (`.m4a`, `.mid`) | `Presets/MusicTake.swift` | web way: MediaRecorder on the master chain (never the mic) and `lib/music/take.mjs` for the `.mid` (type 1, 480 ticks a beat, drums on channel 10, one named track per pitched sound). Stop and send uploads both to the thread's media and sends `{audio, midi, seconds}` as signed links with the echo `Sent a take, N s`; `drums +record` carries the same fields on its pattern take. `.m4a` where the browser writes AAC, else `.webm`. Up to 2 minutes, one take at a time | 246 | done |
+| MIDI clock out | `Presets/MusicTake.swift` | web way: not sent. Browsers have no MIDI clock out worth the name (Safari has no Web MIDI at all), so the tab plays the beat and does not drive other gear. On the iPhone it is there | 246 | done |
+| Loop drafts (a beat kept until sent) | `Presets/LoopDrafts.swift` | same: `lib/web/kept.mjs`, per agent and looper id, on the loop the agent drew; a different loop from the agent drops the draft | 246 | done |
 | `say` (words on the stage, not a bubble) | `Presets/PresetViews.swift`, `Stage/StageChunks.swift` | same | 243 | draws |
 | Body text renderers | `Theme/ReadingText.swift` | same: `readtext.mjs` | 242 | draws |
 | `theme`, `theme app` | `Theme/AgentLook.swift`, `Theme/AppLook.swift` | same: `look.mjs` | 247 | draws |
-| Reminders (`meta.native.reminders`) | `Presets/Reminders.swift` | web way: Notifications API while open; Web Push closed (section 1) | 246, 248 | open |
+| Reminders (`meta.native.reminders`) | `Presets/Reminders.swift` | web way: Notifications API while the tab is open (`lib/web/reminders.mjs`); Web Push closed (section 1, 248) | 246, 248 | done |
 | `custom {json}` | `Presets/PresetViews.swift` | same: replaced, not patched | 242 | draws |
 | Errors in a line (the error row) | `Presets/YLScreen.swift` | same: the playground shows the same error row | 242 | draws |
 | Telegram fallback text | spec/YL.md section 10 | not needed in the browser | none | n/a |

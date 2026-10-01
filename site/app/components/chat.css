@@ -105,8 +105,12 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-play { flex: 1; min-height: 0; display: flex; flex-direction: column; cursor: pointer; }
 .ys-segs { margin: 8px 18px 0; }
 .ys-segs i { height: 4px; }
-.ys-scroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 14px 22px 8px; cursor: auto; }
+.ys-scroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; justify-content: flex-start; gap: 16px; padding: 14px 22px 8px; cursor: auto; }
+/* Centered when it fits, scrollable from the top when it does not (justify-content: center clipped a tall part above the bar) */
+.ys-scroll > :first-child { margin-top: auto; }
+.ys-scroll > :last-child { margin-bottom: auto; }
 .ys-play[data-asking] .ys-scroll { justify-content: flex-start; }
+.ys-play[data-asking] .ys-scroll > :first-child, .ys-play[data-asking] .ys-scroll > :last-child { margin-top: 0; margin-bottom: 0; }
 .ys-chunk { gap: 16px; }
 .ys-chunk.small .ys-line { font-size: 19px; }
 .ys-chunk.small .ys-line.long { font-size: 16.5px; }
