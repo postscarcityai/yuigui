@@ -91,7 +91,14 @@
    },
    "tagline": "Meals and groceries",
    "connector_name": "Maya's Mac",
-   "last_seen_at": "2026-10-01T12:00:00+00:00"
+   "last_seen_at": "2026-10-01T12:00:00+00:00",
+   "controls": {
+    "v": 1,
+    "sections": {
+     "soul": "rw",
+     "memory": "rwd"
+    }
+   }
   }
  ],
  "threads": {
@@ -194,7 +201,7 @@
     "ago_min": 2
    },
    {
-    "id": "00000000-0000-4000-8000-000000000031",
+    "id": "00000000-0000-4000-8000-000000000041",
     "sender": "user",
     "body": "Plan my race week",
     "kind": "text",
@@ -203,13 +210,13 @@
     "chat_id": "demo-penny-c2"
    },
    {
-    "id": "00000000-0000-4000-8000-000000000032",
+    "id": "00000000-0000-4000-8000-000000000042",
     "sender": "agent",
     "body": "Easy Monday, sharp Thursday, rest Friday. Saturday is race day.",
     "kind": "text",
     "meta": {
      "turn": [
-      "00000000-0000-4000-8000-000000000031"
+      "00000000-0000-4000-8000-000000000041"
      ]
     },
     "ago_min": 300,
@@ -220,7 +227,7 @@
    {
     "id": "00000000-0000-4000-8000-000000000031",
     "sender": "agent",
-    "body": "Hungry? Tell me what is in the fridge.",
+    "body": "Hungry? Tell me what is in the fridge.\n```yui\nmenu shortcut@groceries \"Grocery list\" say=\"Show my grocery list\"\nmenu shortcut@log \"Log a meal\" say=\"Log a meal: \"\nmenu backlog@plan \"Planning your week\" sub=\"Back tonight\"\nmenu review@swap \"Swap dinner Thursday?\" sub=\"Fish or tofu\"\n```",
     "kind": "text",
     "meta": {},
     "ago_min": 3000

@@ -1,0 +1,82 @@
+{
+ "first_name": "Maya",
+ "agents": [
+  {
+   "id": "demo-basil",
+   "name": "Basil",
+   "handle": "basil",
+   "color": "forest",
+   "kind": "hosted",
+   "status": "connected",
+   "presence": "online",
+   "is_default": true,
+   "sort": 0,
+   "theme": {
+    "preset": "forest"
+   },
+   "tagline": "Meals and groceries",
+   "shared": true,
+   "shared_by": "Sam",
+   "push_muted": false
+  },
+  {
+   "id": "demo-quill",
+   "name": "Quill",
+   "handle": "quill",
+   "color": "wizard",
+   "kind": "hosted",
+   "status": "connected",
+   "presence": "paused",
+   "is_default": false,
+   "sort": 1,
+   "theme": {
+    "preset": "wizard"
+   },
+   "tagline": "Study buddy",
+   "shared": true,
+   "shared_by": "Sam",
+   "push_muted": true
+  }
+ ],
+ "crew": [],
+ "threads": {
+  "demo-basil": [
+   {
+    "id": "00000000-0000-4000-8000-000000000051",
+    "sender": "agent",
+    "body": "Hi Maya. Sam set me up for you.",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 60
+   }
+  ],
+  "demo-quill": []
+ },
+ "replies": {
+  "text": [
+   {
+    "doing": [
+     "Reading your week 1/2",
+     "Picking the best days 2/2"
+    ],
+    "body": "Friday is the rest day. Want it kept clear?\n```yui\nchoose@rest \"Keep Friday clear?\" Yes|No\n```"
+   }
+  ],
+  "event": [
+   {
+    "doing": [
+     "Writing it down"
+    ],
+    "body": "Got it. I will remember that."
+   }
+  ],
+  "mention": [
+   {
+    "doing": [
+     "Reading the thread"
+    ],
+    "body": "Yes. Thursday works for me too."
+   }
+  ]
+ }
+}

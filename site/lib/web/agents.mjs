@@ -204,3 +204,20 @@ export function moved(list, from, to) {
   next.splice(Math.max(0, Math.min(next.length, to)), 0, x);
   return next.map((a, i) => ({ ...a, sort: i }));
 }
+
+// ---------------------------------------------------------------- the Agent tab's rows
+
+// The areas an agent's host says it can show, in the drawer's order (ControlSection, AgentControls.shown).
+const AREAS = [
+  ["soul", "Personality", "🎭", (n) => `Who ${n} is and how it talks`],
+  ["memory", "Memory", "🧠", () => "What it remembers, and about you"],
+  ["skills", "Skills", "🪄", () => "Switch on, off, edit"],
+  ["schedules", "Schedules", "🗓", () => "Pause, resume, run now"],
+  ["model", "Model and tools", "⚙️", () => "What it runs on"],
+  ["channels", "Channels", "💬", () => "Where else it answers"],
+];
+export function controlSections(agent) {
+  const report = agent?.controls?.sections;
+  if (!report || isShared(agent)) return [];
+  return AREAS.filter(([id]) => report[id]).map(([id, title, icon, sub]) => ({ id, title, icon, sub, mode: report[id] }));
+}

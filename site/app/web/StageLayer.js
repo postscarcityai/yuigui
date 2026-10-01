@@ -157,6 +157,9 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   useEffect(() => {
     if (!req?.key) return;
     if (req.page) { setPageAt(req.page); return; }
+    // From the drawer (YUI-245): a saved screen back on the stage, or words to finish in the field.
+    if (req.show) { const s = reopened(messages, req.show); if (s) { setShown({ name: req.show, state: s }); setAsk(null); setEnded(false); setPlayKey((k) => k + 1); setPageAt("1"); } return; }
+    if (req.compose != null) { store.setDraft(req.compose); setTyping(true); return; }
     setAsk(req.ask); setShown(null); setEnded(false); setPlayKey((k) => k + 1); setPageAt("1");
   }, [req?.key]); // eslint-disable-line react-hooks/exhaustive-deps
 

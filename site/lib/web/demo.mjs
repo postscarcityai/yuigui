@@ -8,6 +8,7 @@
 // while it works, answers with one row carrying `meta.turn`, and marks the row handled.
 
 import { demoControlHost } from "./controls-demo.mjs";
+import { createAgentsClient } from "./agents.mjs";
 
 let n = 9000;
 const id = () => `00000000-0000-4000-8000-${String(++n).padStart(12, "0")}`;
@@ -167,7 +168,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     Promise.resolve(controlHost.handle(agentId, userRow.meta || {}, { agent: roster.find((a) => a.id === agentId) })).then((meta) => { if (meta) setTimeout(() => reply(meta), 120 / speed); });
   }
 
-  return {
+  const relay = {
     demo: true,
     userId,
     async agents() { return { agents: SORTED(roster).map((a) => ({ ...a })), crew: crew.map((c) => ({ ...c })), crew_pending: false, first_name: fixture.first_name || null }; },
@@ -256,4 +257,6 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     // Every row the demo agent ever wrote or was sent, for the e2e checks (they read the wire, not the screen).
     wire(agentId) { return rows(agentId).filter((r) => r.sender === "user").map((r) => ({ kind: r.kind, body: r.body, meta: r.meta })); },
   };
+  relay.manage = createAgentsClient((fn, body) => relay.call(fn, body));
+  return relay;
 }

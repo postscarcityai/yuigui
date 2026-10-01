@@ -14,6 +14,7 @@ import { stamps } from "../../lib/chat/when.mjs";
 import { Thread, excerpt, folds } from "../../lib/web/thread.mjs";
 import { ThreadSync } from "../../lib/web/sync.mjs";
 import { waitingNote, workingLine } from "../../lib/web/presence.mjs";
+import { chipAction, homeOf, waitingAction } from "../../lib/web/stage.mjs";
 
 const ThreadScreen = dynamic(() => import("./ThreadScreen"), { ssr: false, loading: () => <div className="wb-wait">Drawing...</div> });
 const StageLayer = dynamic(() => import("./StageLayer"), { ssr: false, loading: () => <div className="wb-stage"><div className="wb-wait center">Opening the stage...</div></div> });
@@ -237,7 +238,7 @@ function Composer({ agent, agents, store, waiting, onSend, onSendWords, onStop, 
   );
 }
 
-export default function ThreadView({ relay, userId, agent, agents = [], outbox = null, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {}, onOpenAgent = null }) {
+export default function ThreadView({ relay, userId, agent, agents = [], outbox = null, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {}, onOpenAgent = null, onApi = null }) {
   const thread = useMemo(() => new Thread(), [agent.id, chat]);
   const [, tick] = useReducer((n) => n + 1, 0);
   const [net, setNet] = useState({ offline: false, pending: 0 });
@@ -287,6 +288,23 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   const oldIds = useRef(null);
   if (thread.loaded && !oldIds.current) oldIds.current = new Set(list.map((m) => m.id));
   const old = oldIds.current || new Set(list.map((m) => m.id));
+
+  // The drawer (YUI-245) reads this thread's menu rows and runs their taps: the same lines the stage's chips
+  // send. `api` changes only when the thread does.
+  const home = useMemo(() => homeOf(list), [thread.version]); // eslint-disable-line react-hooks/exhaustive-deps
+  const run = useCallback((item, bucket) => {
+    const a = bucket === "shortcut" ? chipAction(item, home) : waitingAction(item, home);
+    if (a.go) toStage({ page: a.go });
+    else if (a.show) toStage({ show: a.show });
+    else if (a.compose != null) { if (view === "stage") toStage({ compose: a.compose }); else store.setDraft(a.compose); }
+    else if (a.send) { sync.send(a.send); if (view === "stage") toStage({ page: "1" }); }
+    else if (a.open) window.open(a.open, "_blank", "noopener,noreferrer");
+    else if (a.tap) sync.tap(a.tap, a.said);
+  }, [home, sync, store, view, toStage]);
+  useEffect(() => {
+    onApi?.({ home, run, version: thread.version, loaded: thread.loaded, send: (words) => sync.send(words), compose: (words) => (view === "stage" ? toStage({ compose: words }) : store.setDraft(words)) });
+  }, [home, run, thread.loaded]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => () => onApi?.(null), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onTap = useCallback((ev) => { sync.tap(ev); }, [sync]);
   // The typed message: words, photos, a reply, an @ (compose.mjs). Voice words leave the typed draft alone.

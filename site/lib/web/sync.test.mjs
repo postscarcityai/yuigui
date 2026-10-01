@@ -29,7 +29,7 @@ test("the recorded thread opens: bubbles and screens in order, nothing waiting",
 });
 
 test("fixture rows keep the real column shape (spec/RELAY.md)", () => {
-  const cols = new Set(["id", "sender", "body", "kind", "meta", "ago_min"]);
+  const cols = new Set(["id", "sender", "body", "kind", "meta", "ago_min", "chat_id"]);
   for (const [agent, rows] of Object.entries(fixture.threads)) for (const r of rows) {
     assert.deepEqual(Object.keys(r).filter((k) => !cols.has(k)), [], `${agent}/${r.id}`);
     assert.match(r.id, /^[0-9a-f-]{36}$/);

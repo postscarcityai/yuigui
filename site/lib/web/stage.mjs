@@ -71,6 +71,8 @@ export function homeOf(messages) {
   const saved = savedPages(messages);
   return {
     chips: menu.shortcut.slice(0, MAX_CHIPS),
+    // Every shortcut the agent put in its drawer (the chips are the newest few).
+    shortcuts: menu.shortcut,
     waiting: menu.review,
     backlog: menu.backlog,
     pages: pg.pages,
