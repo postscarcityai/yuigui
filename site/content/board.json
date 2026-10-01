@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T07:40:23.803Z",
+  "updated": "2026-10-01T14:10:24.878Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -282,13 +282,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-251",
-          "title": "The trash sits flush left, mirroring the mic",
-          "summary": "The trash sits flush left",
-          "waiting": true,
-          "progress": "/progress#the-trash-sits-flush-left"
-        },
-        {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
           "summary": "The thread offline at /web"
@@ -317,11 +310,6 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
-        },
-        {
-          "key": "YUI-244",
-          "title": "The composer on the web",
-          "summary": "Photos and files, voice, mentions, replies, reactions, suggestions, an outbox that survives a closed tab"
         },
         {
           "key": "YUI-245",
@@ -401,6 +389,17 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
+          "key": "YUI-254",
+          "title": "Past chats show in the drawer on a real account",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-244",
+          "title": "The composer on the web",
+          "summary": "Photos and files, voice, mentions, replies, reactions, suggestions, an outbox that survives a closed tab",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -413,19 +412,6 @@
           "blocked": "chris",
           "progress": "/progress#sign-in-with-apple-on-the-web",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-243",
-          "title": "The stage on the web",
-          "summary": "Full screen answers, screens 2 to 12, talk on a screen, the home chips, top and bottom bar",
-          "blocked": "other",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-254",
-          "title": "Past chats show in the drawer on a real account",
-          "blocked": "other",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -433,6 +419,30 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-152",
+          "title": "A Thought on the site, Yui comes to the web",
+          "summary": "Yui comes to the web: the story",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-comes-to-the-web-the-story",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1d91d319"
+        },
+        {
+          "key": "YUI-243",
+          "title": "The stage on the web",
+          "summary": "Yui on the web: the stage",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-on-the-web-the-stage",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/19b71ecf"
+        },
+        {
+          "key": "YUI-251",
+          "title": "The trash sits flush left, mirroring the mic",
+          "summary": "The trash sits flush left",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-trash-sits-flush-left",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/330abf5a"
+        },
         {
           "key": "SITE-151",
           "title": "On /crew, Gouda's last screen is the Tuner, and Tune jumps straight to it",
