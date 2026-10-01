@@ -13,6 +13,9 @@
 // SITE-69: or Meet the crew. A crew member's answer (their flow, what it made) wears their color and name.
 // SITE-83: like the app, lines for screens 2 to 12 are pages beside the chat, a swipe away (touch, a
 // trackpad, the arrow keys), with the dots centered in the bottom bar (ChatDots, lib/chat/pages.mjs).
+// SITE-153: past chats, like the app's (YUI-254). New chat files the current thread away, the Chats button
+// top left opens a left drawer (New chat on top, past chats newest first), and a tap reopens one in the
+// record. Up to 20 threads live in localStorage (lib/chat/threads.mjs); the old single thread is the first.
 // SITE-84: while Yui works, the send button (or the mic) is a stop square, like the app's (YUI-190).
 // Stop aborts the request, a reply that lands late is dropped, and the record keeps a quiet "Stopped."
 import dynamic from "next/dynamic";
@@ -26,6 +29,7 @@ import { micLine, readAnswer } from "../../lib/chat/stage.mjs";
 import { threadPages } from "../../lib/chat/pages.mjs";
 import { STOPPED, kept, stoppedRow, turns } from "../../lib/chat/stop.mjs";
 import { stageTime, stamps } from "../../lib/chat/when.mjs";
+import * as chats from "../../lib/chat/threads.mjs";
 import { readTyped, typedBody } from "../../lib/yl/yl.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
 import { echoFor, relays } from "../../../mcp-app/src/events.mjs";
@@ -41,14 +45,15 @@ const Screen = dynamic(() => import("./ChatScreen"), { ssr: false, loading: () =
 const StageAnswer = dynamic(() => import("./ChatStage"), { ssr: false, loading: () => null });
 const PagesView = dynamic(() => import("./ChatPages"), { ssr: false, loading: () => null });
 
-const KEY = "yui-chat-v1";
+const KEY = chats.LEGACY;
 const OPEN = "yui-chat-open";   // sessionStorage: reopen on reload in this tab only
 const YUI = "#FF7E8A";
 
 // Outside links only to places Yui lives. Anything else shows as plain text.
 const SAFE = /^https:\/\/(www\.)?(yuigui\.com|postscarcity\.ai|testflight\.apple\.com|github\.com\/postscarcityai)(\/|$)/;
 const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || "null"); } catch { return null; } };
-const save = (v) => { try { localStorage.setItem(KEY, JSON.stringify(v)); } catch {} };
+const loadChats = () => { try { return JSON.parse(localStorage.getItem(chats.KEY) || "null"); } catch { return null; } };
+const saveChats = (v) => { try { localStorage.setItem(chats.KEY, JSON.stringify(v)); } catch {} };
 
 // The site goes dark while the chat is open. The visitor's own choice (the moon button's
 // `yui-theme`) is never written here, so closing reads it back.
@@ -138,6 +143,7 @@ function Presence({ mood, flavor }) {
 const MicIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="3" width="7" height="12" rx="3.5" /><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" fill="none" strokeWidth="2" strokeLinecap="round" /></svg>;
 const TrashIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12M10 11v5M14 11v5" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 const StopIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" /></svg>;
+const ChatsIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10" fill="none" strokeWidth="2" strokeLinecap="round" /></svg>;
 const RecordIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H10l-4 3v-3H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z" strokeWidth="2" fill="none" strokeLinejoin="round" /></svg>;
 
 // Voice to text: the Web Speech API (Chrome, Edge, Safari). Firefox has none, so the chat types.
@@ -174,6 +180,9 @@ export default function ChatFab({ autoOpen = false }) {
   const [secs, setSecs] = useState(0);
   const [typing, setTyping] = useState(false);    // the text field is open
   const [record, setRecord] = useState(false);    // the chat record is up
+  const [drawer, setDrawer] = useState(false);    // SITE-153: the Chats drawer is up
+  const [past, setPast] = useState([]);           // its rows (lib/chat/threads.mjs list)
+  const store = useRef(null);                     // { cur, threads }, the chats kept in this browser
   const [seen, setSeen] = useState(0);            // messages the record has shown
   const [voice, setVoice] = useState(false);      // this browser can hear
   const [listening, setListening] = useState(false);
@@ -232,13 +241,19 @@ export default function ChatFab({ autoOpen = false }) {
   here.current = !onChat && canTalk ? pageAt : "1";
 
   useEffect(() => {
-    const s = load();
-    if (s?.msgs) { setMsgs(s.msgs); setSeen(s.msgs.length); }
+    store.current = chats.open(loadChats(), load());
+    const s = chats.current(store.current);
+    if (s.msgs.length) { setMsgs(s.msgs); setSeen(s.msgs.length); }
     setVoice(!!speechApi());
     try { if (sessionStorage.getItem(OPEN) === "1" && window.innerWidth > 760) setOpen(true); } catch {}
     ready.current = true;
   }, []);
-  useEffect(() => { if (ready.current) save({ msgs: msgs.slice(-60) }); }, [msgs]);
+  const loaded = useRef(false);                   // the first run sees the empty state before the saved thread lands: skip it
+  useEffect(() => {
+    if (!ready.current) return;
+    if (!loaded.current) { loaded.current = true; return; }
+    store.current = chats.write(store.current, msgs); saveChats(store.current);
+  }, [msgs]);
   useEffect(() => { if (ready.current) try { sessionStorage.setItem(OPEN, open ? "1" : "0"); } catch {} }, [open]);
   useEffect(() => { if (record) { setSeen(msgs.length); list.current?.scrollTo({ top: list.current.scrollHeight }); } }, [record, msgs]);
   useEffect(() => { if (typing) setTimeout(() => input.current?.focus(), 30); }, [typing]);
@@ -258,7 +273,8 @@ export default function ChatFab({ autoOpen = false }) {
     const onKey = (e) => {
       if (e.key === "Escape") {
         if (document.querySelector(".yc .yl-stage.open")) return;
-        if (record) setRecord(false);
+        if (drawer) setDrawer(false);
+        else if (record) setRecord(false);
         else if (typing && voice) setTyping(false);
         else setOpen(false);
         return;
@@ -277,7 +293,7 @@ export default function ChatFab({ autoOpen = false }) {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, record, typing, voice]);
+  }, [open, record, typing, voice, drawer]);
   // Dark while open; the visitor's own theme back on close. The page stops scrolling under it.
   useEffect(() => {
     if (!open) return undefined;
@@ -443,11 +459,21 @@ export default function ChatFab({ autoOpen = false }) {
     say(t);
     if (voice) setTyping(false);
   }
+  // The thread on show changes (New chat, or a past chat picked): the stage starts clean on the other one.
+  function swap(next, show) {
+    flight.current.stop();
+    store.current = next;
+    saveChats(next);
+    const m = chats.current(next).msgs;
+    setMsgs(m); setSeen(m.length); setError(""); setPlaying(-1); setBusy(false); setHalted(false); setSaid(""); setVerify(null); setFound(false);
+    setPageAt("1"); setDrawer(false); setRecord(show);
+  }
   function startOver() {
     fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "new" }) }).catch(() => {});
-    flight.current.stop();
-    setMsgs([]); setError(""); setPlaying(-1); setBusy(false); setHalted(false); setSaid(""); setRecord(false); setSeen(0); setPageAt("1");
+    swap(chats.fresh(store.current), false);
   }
+  function openChat(id) { swap(chats.pick(store.current, id), true); }
+  function showDrawer() { setPast(chats.list(store.current)); setDrawer(true); }
 
   // One row of the record; null draws nothing (cards from before the Yui form).
   const rowOf = (m, i) => {
@@ -548,6 +574,9 @@ export default function ChatFab({ autoOpen = false }) {
             style={{ "--mo-c": who?.c || YUI, ...(who ? { "--accent": who.c } : {}), ...motionVars(look) }} data-mood={mood} data-crew={who?.handle}>
             {mood !== "idle" ? <span className="mo-wash" key={`wash:${msgs.length}`} /> : null}
             <header className="ys-top">
+              <button className="ys-round ys-chats" onClick={showDrawer} aria-label="Chats" aria-haspopup="dialog">
+                <ChatsIcon />
+              </button>
               {who ? <span className="yc-avatar yc-crew-face" style={{ "--cm": who.c }} aria-hidden="true">{who.name[0]}</span> : <span className="yc-avatar" aria-hidden="true"><span /></span>}
               <div className="ys-who">{who ? <><strong>{who.name}</strong><span>{who.role} · Yui&apos;s crew</span></> : <><strong>Yui</strong><span>Answers with screens</span></>}</div>
               <button className="ys-round ys-rec" onClick={() => setRecord(true)} aria-label={`Chat record${fresh > 0 ? `, ${fresh} new` : ""}`}>
@@ -594,6 +623,26 @@ export default function ChatFab({ autoOpen = false }) {
               </div>
             )}
             <p className="yc-note ys-hint">{canTalk ? micLine({ voice, listening, heard, blocked }) : "Swipe back to the chat to talk."} <span>Chats are saved so we learn what people want. <a href="/privacy#chat">Privacy</a></span></p>
+
+            {drawer ? (
+              <div className="ys-drawer-wrap" onClick={(e) => { if (e.target === e.currentTarget) setDrawer(false); }}>
+                <nav className="ys-drawer" role="dialog" aria-label="Chats">
+                  <div className="ys-drawhead"><b>Chats</b><button className="ys-round" onClick={() => setDrawer(false)} aria-label="Close chats">×</button></div>
+                  <button className="ys-newchat" autoFocus onClick={startOver}><span aria-hidden="true">+</span> New chat</button>
+                  <ul className="ys-chatlist">
+                    {past.map((r) => (
+                      <li key={r.id}>
+                        <button className="ys-chatrow" aria-current={r.id === store.current?.cur ? "true" : undefined} onClick={() => openChat(r.id)}>
+                          <span className="ys-chat-top"><strong>{r.title}</strong><time>{stageTime(r.at)}</time></span>
+                          {r.last ? <span className="ys-chat-last">{r.last}</span> : null}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                  {!past.length ? <p className="ys-sub ys-chatnone">Past chats land here.</p> : null}
+                </nav>
+              </div>
+            ) : null}
 
             {record ? (
               <div className="ys-record" role="dialog" aria-label="Chat record">

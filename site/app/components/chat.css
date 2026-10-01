@@ -165,6 +165,25 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-hint span { display: block; font-size: 14px; opacity: .8; margin-top: 2px; }
 
 /* The record: the chat, over the stage. X or a swipe down puts the stage back. */
+/* ---------- past chats (SITE-153): the left drawer, like the app's ---------- */
+.ys-chats svg { stroke-linecap: round; }
+.ys-drawer-wrap { position: absolute; inset: 0; z-index: 30; background: rgba(0, 0, 0, .5); animation: yc-fade .2s ease-out; }
+.ys-drawer { position: absolute; top: 0; bottom: 0; left: 0; width: min(86%, 340px); display: flex; flex-direction: column; gap: 10px; padding: 14px 12px 20px; background: var(--background); border-right: 1.5px solid var(--outline); box-shadow: 8px 0 40px rgba(0, 0, 0, .4); animation: yc-left .26s cubic-bezier(.2, .9, .3, 1); overflow-y: auto; overscroll-behavior: contain; }
+.ys-drawhead { display: flex; align-items: center; justify-content: space-between; padding: 0 4px 0 6px; }
+.ys-drawhead b { font-size: 17px; }
+.ys-newchat { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; border: 0; border-radius: 16px; background: var(--brand); color: #fff; font: inherit; font-size: 16px; font-weight: 800; cursor: pointer; }
+.ys-newchat span { font-size: 22px; line-height: 1; }
+.ys-chatlist { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.ys-chatrow { width: 100%; display: flex; flex-direction: column; gap: 3px; text-align: left; padding: 10px 12px; border: 0; border-radius: 14px; background: none; color: var(--ink); font: inherit; cursor: pointer; }
+.ys-chatrow:hover, .ys-chatrow[aria-current] { background: var(--surface); }
+.ys-chat-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.ys-chat-top strong { font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ys-chat-top time { flex: none; font-size: 12px; color: var(--muted); }
+.ys-chat-last { font-size: 14px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ys-chatnone { padding: 8px 10px; }
+.ys-newchat:focus-visible, .ys-chatrow:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+@keyframes yc-left { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes yc-fade { from { opacity: 0; } to { opacity: 1; } }
 .ys-record { position: absolute; inset: 0; z-index: 20; display: flex; flex-direction: column; background: var(--background); animation: yc-up .3s cubic-bezier(.2, .9, .3, 1); }
 .ys-rechead { position: relative; display: flex; align-items: center; gap: 8px; padding: 18px 12px 10px 18px; }
 .ys-rechead b { font-size: 17px; }
@@ -310,7 +329,7 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 }
 @keyframes yc-up { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
-  .yc-panel, .yc-layer, .ys-record { animation: none; }
+  .yc-panel, .yc-layer, .ys-record, .ys-drawer, .ys-drawer-wrap { animation: none; }
   .yc-typing i { animation: none; opacity: .6; }
   .yc-fab, .yc-blob, .yc-mark, .yc-avatar { animation: none; }
 }
