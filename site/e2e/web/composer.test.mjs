@@ -35,7 +35,7 @@ const FAKES = `
   window.__sr = { last: null };
   class FakeSR {
     constructor() { window.__sr.last = this; this.started = false; }
-    start() { this.started = true; setTimeout(() => this.onstart && this.onstart(), 0); }
+    start() { this.started = true; setTimeout(() => { this.onstart && this.onstart(); this.onaudiostart && this.onaudiostart(); }, 0); }
     stop() { setTimeout(() => this.onend && this.onend(), 20); }
     abort() { setTimeout(() => this.onend && this.onend(), 0); }
     say(text, final) { const res = [{ transcript: text }]; res.isFinal = !!final; this.onresult && this.onresult({ results: [res] }); }

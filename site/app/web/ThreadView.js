@@ -9,6 +9,7 @@ import { createComposer } from "../../lib/web/composer.mjs";
 import { preparePhoto } from "../../lib/web/photo.mjs";
 import { AboutChip, AttachButton, Icon, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, VoiceRow, fileDrop, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
 import { useVoice } from "./useVoice";
+import { voiceProblem } from "../../lib/web/voice.mjs";
 import { Dialog, SheetBar } from "./parts";
 import { RichText } from "../playground/richtext";
 import { stamps } from "../../lib/chat/when.mjs";
@@ -214,6 +215,7 @@ function Composer({ agent, agents, store, waiting, onSend, onSendWords, onStop, 
         <ReplyBar quote={st.reply} agentName={agent.name} onCancel={() => store.clearReply()} />
         <AboutChip item={st.about} onOpen={() => onAbout?.(st.about)} onRemove={() => store.clearAbout()} />
         <Problem code={st.problem} onClose={() => store.clearProblem()} />
+        {voice.problem && !listening ? <div className="wc-problem" role="alert" data-testid="voice-problem"><span>{voiceProblem(voice.problem)}</span></div> : null}
       </div>
       <PhotoTray photos={st.photos} busy={st.busy > 0} onRemove={(id) => store.removePhoto(id)} />
       <div className={`wb-compose${listening ? " listening" : ""}`}>

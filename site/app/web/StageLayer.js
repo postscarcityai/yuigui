@@ -15,6 +15,7 @@ import { homeOf, chipAction, waitingAction, pageTitle, reopened, turnOf, MAX_WAI
 import { liveness, presenceLabel, waitingNote, workingLine } from "../../lib/web/presence.mjs";
 import { AttachButton, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, Waveform, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
 import { useVoice } from "./useVoice";
+import { voiceProblem } from "../../lib/web/voice.mjs";
 import { SETS } from "../../lib/yl/look.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
 import { RichText } from "../playground/richtext";
@@ -411,7 +412,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
             : !canTalk ? "Swipe back to the home to talk."
             : voice.cancel ? "Let go to throw it away."
             : voice.handsFree && !voice.listening ? `Hands-free is on. Tap the mic to end it.`
-            : webMicLine({ supported: voice.supported, listening: voice.listening, free: voice.handsFree, heard, blocked })}
+            : webMicLine({ supported: voice.supported, listening: voice.listening, free: voice.handsFree, heard, blocked, problem: voice.problem })}
         </p>
         {toast ? <div className="ys-went" role="status">{toast}</div> : null}
       </div>
@@ -420,8 +421,9 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
 }
 
 // The line under the bar (the app's hold to talk: lib/chat/stage.mjs micLine says it for the site chat).
-function webMicLine({ supported, listening, free, heard, blocked }) {
+function webMicLine({ supported, listening, free, heard, blocked, problem }) {
   if (listening) return free ? (heard ? "Listening. It sends when you pause." : "Listening. Go ahead, I'll send it when you pause.") : "Listening. Let go to send, slide left to cancel.";
+  if (problem) return voiceProblem(problem);
   if (blocked) return "The mic is blocked. Allow it in the address bar, or type.";
   if (!supported) return "Voice needs Chrome or Safari here. Type instead.";
   return "Hold the mic to talk, tap it for hands-free, or T to type.";
