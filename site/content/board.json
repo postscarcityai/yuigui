@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T00:11:04.699Z",
+  "updated": "2026-10-01T00:40:30.257Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -198,12 +198,6 @@
           "summary": "Your profile top left, your $U top right, counting up when you open it"
         },
         {
-          "key": "YUI-223",
-          "title": "Penny's first plan",
-          "summary": "When your week is busy, then a planning routine",
-          "waiting": true
-        },
-        {
           "key": "YUI-224",
           "title": "Quill's first plan",
           "summary": "What you are learning and how long you have, then a study plan",
@@ -390,30 +384,20 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-222",
-          "title": "Gouda's first plan",
-          "summary": "Your instrument and level, then a practice plan",
+          "key": "YUI-223",
+          "title": "Penny's first plan",
+          "summary": "When your week is busy, then a planning routine",
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-144",
-          "title": "The playground flow player resumes after a reload and never dead-ends on an unknown name",
-          "summary": "Site flows keep your place",
-          "progress": "/progress#site-flows-keep-your-place",
+          "key": "SITE-145",
+          "title": "/crew builds Gouda's real practice week",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-215",
-          "title": "Jev at our first two decision points, measured against today",
-          "summary": "Jev at two decision points, measured against today",
-          "blocked": "chris",
-          "progress": "/progress#jev-at-two-decision-points-measured-against-today",
           "owner": "CJohnDesign"
         }
       ]
@@ -422,6 +406,30 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-215",
+          "title": "Jev at our first two decision points, measured against today",
+          "summary": "Jev is on",
+          "shipped": "2026-09-30",
+          "progress": "/progress#jev-is-on",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e7f8b53a"
+        },
+        {
+          "key": "YUI-222",
+          "title": "Gouda's first plan",
+          "summary": "Gouda builds your practice plan",
+          "shipped": "2026-09-30",
+          "progress": "/progress#gouda-builds-your-practice-plan",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/bb6f9184"
+        },
+        {
+          "key": "SITE-144",
+          "title": "The playground flow player resumes after a reload and never dead-ends on an unknown name",
+          "summary": "Site flows keep your place",
+          "shipped": "2026-09-30",
+          "progress": "/progress#site-flows-keep-your-place",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/26888b59"
+        },
         {
           "key": "SITE-143",
           "title": "Every link and image on the site resolves after this week's pages",
