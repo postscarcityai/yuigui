@@ -1835,6 +1835,15 @@
     {
       "text": "Basil's first plan: five questions on the first open build a week of meals from the answers",
       "card": "YUI-221"
+    },
+    {
+      "text": "YuiLines reads flows and flow variants: Mermaid graph, route, event, variants; 26-flow and 36-flow-variant pass (YUI-115 step 1)"
+    },
+    {
+      "text": "The app runs flows: one step at a time on the stage, Back walks the path, review lists the path's answers, one {flow, path} event, a run kept by message and flow id survives a kill, starter flows website-intake and first-plan ship in the app, an unknown name shows a note and a way on (YUI-115 steps 2 and 3)"
+    },
+    {
+      "text": "Plugin: builds from 414 run flows, older ones still get the plan (YUI-115 step 4)"
     }
   ]
 }
