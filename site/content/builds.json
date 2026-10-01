@@ -1868,6 +1868,9 @@
     {
       "text": "Web sign in: a web Apple audience, client=web sessions, CORS for the site",
       "card": "YUI-241"
+    },
+    {
+      "text": "Stage trash sits flush left, mirroring the mic's inset (YUI-251, NOTE-2295)"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T05:04:04.616Z",
+  "updated": "2026-10-01T05:11:03.777Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -282,6 +282,13 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-251",
+          "title": "The trash sits flush left, mirroring the mic",
+          "summary": "The trash sits flush left",
+          "waiting": true,
+          "progress": "/progress#the-trash-sits-flush-left"
+        },
+        {
           "key": "YUI-252",
           "title": "The Tuner is Gouda's last screen, Tune goes straight there",
           "waiting": true
@@ -408,32 +415,30 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-241",
-          "title": "Sign in with Apple on the web",
-          "summary": "Sign in with Apple, on the web",
-          "progress": "/progress#sign-in-with-apple-on-the-web",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-242",
           "title": "The thread, live in the browser",
           "summary": "Agents, messages, screens, taps that send the same [yui] lines as the phone",
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-251",
-          "title": "The trash sits flush left, mirroring the mic",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "SITE-150",
           "title": "The site chat's trash sits flush left, mirroring the mic",
+          "summary": "The site chat's trash sits flush left",
+          "progress": "/progress#the-site-chat-s-trash-sits-flush-left",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-241",
+          "title": "Sign in with Apple on the web",
+          "summary": "Sign in with Apple, on the web",
+          "blocked": "chris",
+          "progress": "/progress#sign-in-with-apple-on-the-web",
           "owner": "CJohnDesign"
         }
       ]
