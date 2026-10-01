@@ -23,6 +23,7 @@ export default function GetYui() {
               <div className="cta">
                 <CtaLink cta="testflight" where={where} href={links.testflight}>Download on TestFlight</CtaLink>
                 <Link className="btn soft" href="/start" onClick={() => trackCta("start", where)}>Connect your agent</Link>
+                <Link className="btn soft" href="/web" onClick={() => trackCta("web", where)}>Try Yui in your browser</Link>
               </div>
             </>
           ) : (

@@ -1251,3 +1251,15 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
 [data-theme="dark"] .md .shot-dark { display: inline; }
 [data-theme="dark"] .md .shot-light { display: none; }
 .md p > img { max-width: 46%; height: auto; border-radius: 20px; border: 1.5px solid var(--outline); vertical-align: top; margin: 4px 6px 4px 0; }
+
+/* Phone tap targets (SITE-154): small chips and links keep their look and grow an invisible 44px hit area. */
+@media (max-width: 759px) {
+  .next-build .pill, .tl-build .pill, .btile-top a.pill, .lib-doc, .crew-links a, .crew-links button, .fr-more { position: relative; }
+  .next-build .pill::after, .tl-build .pill::after, .btile-top a.pill::after, .lib-doc::after, .crew-links a::after, .crew-links button::after, .fr-more::after { content: ""; position: absolute; inset: -10px -4px; }
+  .lib-acts { gap: 12px 14px; }
+  .next-build .pill, .tl-build .pill { margin-bottom: 6px; }
+  .lost-tag button { min-height: 44px; padding: 2px 14px; }
+  .lost-tag { bottom: 4px; }
+  /* 16px or more in a field, or iOS zooms the page on focus. */
+  textarea.pg-code { font-size: 16px; }
+}

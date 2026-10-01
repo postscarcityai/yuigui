@@ -206,8 +206,8 @@ footer { flex: none; }
   .fr .prop-hero-phone { order: -1; }
   .fr-phone.phone { max-width: 380px; height: calc(100svh - 240px); min-height: 500px; }
   .fr-rail { display: none; }
-  .fr-dots { display: flex; justify-content: center; gap: 8px; }
-  .fr-dots button { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; }
+  .fr-dots { display: flex; justify-content: center; gap: 0; }
+  .fr-dots button { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: none; cursor: pointer; }
   .fr-dots button::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--outline); transition: width .3s var(--spring), background .2s; }
   .fr-dots .fr-n { display: none; }
   .fr-dots li.past button::after { background: var(--mint); }
