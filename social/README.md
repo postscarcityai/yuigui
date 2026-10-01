@@ -22,7 +22,7 @@ platform: x            # x, bluesky, threads, linkedin, instagram, youtube, tikt
 account: yuiguiai
 source: progress.json 2026-09-24 YUI-27 "<entry title>"
 media: [/progress/yui27-demo.webp]
-slot: 2026-09-29T09:00:00-04:00
+slot: 2026-09-29T09:00:00-04:00   # first free 09:00 ET day from today, 14 days at most, or: unslotted
 status: draft          # draft, approved, rejected, posted
 ---
 <post text>
@@ -39,5 +39,6 @@ status: draft          # draft, approved, rejected, posted
 - Over the platform limit (X 280 per post, links count 23), multi-line or hashtagged Instagram captions.
 - Missing media, or a media path that is not on disk.
 - Two posts on one account in one slot.
+- A draft or approved slot in the past, or more than 14 days out. A draft past the window says `slot: unslotted` and waits for Chris. `node social/reslot.mjs --write` re-slots the queue from today.
 
 Tests: `node --test social/validate.test.mjs`.

@@ -3,7 +3,7 @@ platform: x
 account: yuiguiai
 source: progress.json 2026-09-24 YUI-53 "No dead buttons: a plan ends in Send, and agents stop adding 'Got it'"
 media: [/progress/yui53-plan-send-light.webp]
-slot: 2026-10-03T09:00:00-04:00
+slot: unslotted
 status: draft
 ---
 Agents love ending a card with a "Got it" button that does nothing.

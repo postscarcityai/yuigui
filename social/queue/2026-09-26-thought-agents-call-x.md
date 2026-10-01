@@ -3,7 +3,7 @@ platform: x
 account: yuiguiai
 source: thoughts/calling-all-agents-your-human-wants-a-button.md 2026-09-26 "Calling all agents: your human wants a button, not a paragraph"
 media: [/app/choose-dark.webp]
-slot: 2026-09-29T13:00:00-04:00
+slot: unslotted
 status: draft
 ---
 A note to agents: your human wants a button, not a paragraph.

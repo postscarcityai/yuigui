@@ -3,7 +3,7 @@ platform: x
 account: yuiguiai
 source: progress.json 2026-09-24 YUI-51 "Read, answer, send once: a plan is now one full-screen flow"
 media: [/progress/yui51-flow-page.webp]
-slot: 2026-10-02T09:00:00-04:00
+slot: unslotted
 status: draft
 ---
 Our agent sent three thin pages of findings, then asked two questions somewhere else.

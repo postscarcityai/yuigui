@@ -5,6 +5,9 @@ import { mkdtempSync, mkdirSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { parseDraft, validateDraft, validateQueue, postLength, run } from "./validate.mjs";
+import { plan, slotAt } from "./reslot.mjs";
+
+const now = new Date("2026-09-29T14:00:00-04:00");
 import { pending, advance, entryKey } from "./pending.mjs";
 
 const root = mkdtempSync(join(tmpdir(), "yui-social-"));
@@ -16,7 +19,7 @@ const draft = (text, meta = {}) => {
   const fm = Object.entries(m).map(([k, v]) => `${k}: ${v}`).join("\n");
   return parseDraft(`---\n${fm}\n---\n${text}\n`, `${m.platform}-${m.slot}.md`);
 };
-const errs = (text, meta) => validateDraft(draft(text, meta), { root });
+const errs = (text, meta) => validateDraft(draft(text, meta), { root, now });
 const fails = (text, pattern, meta) => {
   const e = errs(text, meta);
   assert.ok(e.some((x) => pattern.test(x)), `expected ${pattern} in ${JSON.stringify(e)}`);
@@ -85,7 +88,7 @@ test("platform limits", () => {
 test("threads split on ---, each post checked", () => {
   const d = draft(`First post is fine here.\n---\n${"b".repeat(300)}`.replace("First", "One"));
   assert.equal(d.posts.length, 2);
-  const e = validateDraft(d, { root });
+  const e = validateDraft(d, { root, now });
   assert.ok(e.some((x) => /\(post 2\)/.test(x)), JSON.stringify(e));
   fails("one\n---\ntwo", /does not take threads/, { platform: "linkedin" });
 });
@@ -116,9 +119,9 @@ test("run() over a directory exits 1 on any failure", () => {
   mkdirSync(q, { recursive: true });
   const lines = [];
   writeFileSync(join(q, "ok.md"), "---\nplatform: x\naccount: yuiguiai\nsource: t\nmedia: [/progress/shot.webp]\nslot: 2026-09-29T09:00:00-04:00\nstatus: draft\n---\nOne line in, one screen out.\n");
-  assert.equal(run([q], { root, log: (l) => lines.push(l) }), 0);
+  assert.equal(run([q], { root, now, log: (l) => lines.push(l) }), 0);
   writeFileSync(join(q, "bad.md"), "---\nplatform: x\naccount: yuiguiai\nsource: t\nmedia: [/progress/shot.webp]\nslot: 2026-09-30T09:00:00-04:00\nstatus: draft\n---\nA seamless experience.\n");
-  assert.equal(run([q], { root, log: (l) => lines.push(l) }), 1);
+  assert.equal(run([q], { root, now, log: (l) => lines.push(l) }), 1);
   assert.ok(lines.some((l) => l.includes("bad.md") && l.includes("seamless")));
 });
 
@@ -137,4 +140,50 @@ test("high-water mark: new entries only, nothing dropped on a missed run", () =>
   const late = { date: "2026-09-24", card: "YUI-26", title: "late" };
   const old = { date: "2026-09-01", card: "YUI-1", title: "old" };
   assert.deepEqual(pending([e3, e2, late, e1, old], state).map((e) => e.card ?? e.title), ["YUI-26", "Week of Sep 21: c"]);
+});
+
+test("a slot in the past fails, today passes", () => {
+  fails("One line in, one screen out.", /in the past/, { slot: "2026-09-28T09:00:00-04:00" });
+  assert.deepEqual(errs("One line in, one screen out.", { slot: "2026-09-29T09:00:00-04:00" }), []);
+});
+
+test("a slot past the 14 day window fails, the last day passes", () => {
+  fails("One line in, one screen out.", /more than 14 days/, { slot: "2026-10-14T09:00:00-04:00" });
+  assert.deepEqual(errs("One line in, one screen out.", { slot: "2026-10-13T09:00:00-04:00" }), []);
+});
+
+test("unslotted passes for a draft, not for an approved one", () => {
+  assert.deepEqual(errs("One line in, one screen out.", { slot: "unslotted" }), []);
+  fails("One line in, one screen out.", /no slot/, { slot: "unslotted", status: "approved" });
+});
+
+test("posted and rejected drafts keep old slots", () => {
+  assert.deepEqual(errs("One line in, one screen out.", { slot: "2026-09-01T09:00:00-04:00", status: "posted" }), []);
+  assert.deepEqual(errs("One line in, one screen out.", { slot: "2027-01-04T09:00:00-05:00", status: "rejected" }), []);
+});
+
+test("reslot starts today, one a day per account, rest unslotted", () => {
+  const drafts = Array.from({ length: 20 }, (_, i) => ({ file: `d${i}`, meta: { platform: "x", account: "yuiguiai", status: "draft", slot: "2027-01-01T09:00:00-05:00" } }));
+  drafts.push({ file: "b", meta: { platform: "bluesky", account: "yuiguiai", status: "draft", slot: "2027-01-01T09:00:00-05:00" } });
+  const out = plan(drafts, now);
+  assert.equal(out.get("d0"), "2026-09-29T09:00:00-04:00");
+  assert.equal(out.get("d1"), "2026-09-30T09:00:00-04:00");
+  assert.equal(out.get("d14"), "2026-10-13T09:00:00-04:00");
+  assert.equal(out.get("d15"), "unslotted");
+  assert.equal(out.get("b"), "2026-09-29T09:00:00-04:00");
+});
+
+test("reslot keeps an approved slot inside the window and works around it", () => {
+  const drafts = [
+    { file: "a", meta: { platform: "x", account: "yuiguiai", status: "draft", slot: "x" } },
+    { file: "ok", meta: { platform: "x", account: "yuiguiai", status: "approved", slot: "2026-09-29T09:00:00-04:00" } },
+  ];
+  const out = plan(drafts, now);
+  assert.equal(out.has("ok"), false);
+  assert.equal(out.get("a"), "2026-09-30T09:00:00-04:00");
+});
+
+test("slotAt uses the New York offset for the date", () => {
+  assert.equal(slotAt("2026-10-01"), "2026-10-01T09:00:00-04:00");
+  assert.equal(slotAt("2026-12-25"), "2026-12-25T09:00:00-05:00");
 });

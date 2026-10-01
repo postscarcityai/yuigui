@@ -87,8 +87,15 @@ export function parseDraft(source, file = "") {
   return { file, meta, posts };
 }
 
+// Slots start today and stay close. A draft past the window waits unslotted until Chris approves it (SOC-7).
+export const SLOT_WINDOW_DAYS = 14;
+export const UNSLOTTED = "unslotted";
+const LIVE = ["draft", "approved"];
+export const etDay = (now) => new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York" }).format(now);
+export const addDays = (day, n) => new Date(Date.parse(`${day}T12:00:00Z`) + n * 864e5).toISOString().slice(0, 10);
+
 // Every problem with one draft, as strings. Empty array = pass.
-export function validateDraft(draft, { root = ROOT } = {}) {
+export function validateDraft(draft, { root = ROOT, now = new Date() } = {}) {
   if (draft.error) return [draft.error];
   const errs = [];
   const { meta, posts } = draft;
@@ -96,7 +103,15 @@ export function validateDraft(draft, { root = ROOT } = {}) {
   if (!spec) errs.push(`unknown platform "${meta.platform ?? ""}"`);
   for (const k of ["account", "source", "slot", "status"]) if (!meta[k]) errs.push(`missing ${k}`);
   if (meta.status && !STATUSES.includes(meta.status)) errs.push(`bad status "${meta.status}"`);
-  if (meta.slot && Number.isNaN(Date.parse(meta.slot))) errs.push(`bad slot "${meta.slot}"`);
+  if (meta.slot === UNSLOTTED) {
+    if (meta.status && meta.status !== "draft") errs.push(`${meta.status} draft has no slot`);
+  } else if (meta.slot && Number.isNaN(Date.parse(meta.slot))) errs.push(`bad slot "${meta.slot}"`);
+  else if (meta.slot && LIVE.includes(meta.status)) {
+    const day = meta.slot.slice(0, 10);
+    const today = etDay(now);
+    if (day < today) errs.push(`slot ${day} is in the past (today is ${today})`);
+    else if (day > addDays(today, SLOT_WINDOW_DAYS)) errs.push(`slot ${day} is more than ${SLOT_WINDOW_DAYS} days out (use "slot: ${UNSLOTTED}")`);
+  }
 
   const media = Array.isArray(meta.media) ? meta.media : meta.media ? [meta.media] : [];
   if (!media.length) errs.push("no media (a draft without real media is dropped, not posted as text)");
@@ -141,7 +156,7 @@ export function validateQueue(drafts) {
   const errs = new Map();
   const seen = new Map();
   for (const d of drafts) {
-    if (d.error || d.meta.status === "rejected") continue;
+    if (d.error || d.meta.status === "rejected" || d.meta.slot === UNSLOTTED) continue;
     const key = `${d.meta.platform}|${d.meta.account}|${Date.parse(d.meta.slot)}`;
     if (seen.has(key)) {
       const msg = `same ${d.meta.platform} account and slot as ${seen.get(key)}`;
@@ -161,13 +176,13 @@ function collect(paths) {
   return files;
 }
 
-export function run(paths, { root = ROOT, log = console.log } = {}) {
+export function run(paths, { root = ROOT, log = console.log, now = new Date() } = {}) {
   const files = collect(paths.length ? paths : [join(root, "social/queue")]);
   const drafts = files.map((f) => parseDraft(readFileSync(f, "utf8"), f));
   const cross = validateQueue(drafts);
   let failed = 0;
   for (const d of drafts) {
-    const errs = [...validateDraft(d, { root }), ...(cross.get(d.file) ?? [])];
+    const errs = [...validateDraft(d, { root, now }), ...(cross.get(d.file) ?? [])];
     if (errs.length) {
       failed++;
       for (const e of errs) log(`FAIL ${d.file}: ${e}`);
