@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T21:20:44.299Z",
+  "updated": "2026-10-01T21:25:45.223Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -326,6 +326,7 @@
         {
           "key": "SITE-164",
           "title": "A stranger's first five minutes on yuigui.com",
+          "progress": "/progress#a-stranger-s-first-five-minutes-on-yuigui-com",
           "owner": "CJohnDesign"
         },
         {
