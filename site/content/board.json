@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T23:10:33.531Z",
+  "updated": "2026-10-01T23:35:43.759Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -172,11 +172,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-262",
-          "title": "An Apple-only web account lands on the crew picker, not a silent empty account",
-          "waiting": true
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -339,12 +334,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "SITE-166",
-          "title": "SOC-7 gets its site entry",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/818788b0",
-          "needsDemo": true
         }
       ]
     },
@@ -362,6 +351,16 @@
         {
           "key": "YUI-260",
           "title": "Scroll back through a long chat without the 310 MB spike",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-262",
+          "title": "An Apple-only web account lands on the crew picker, not a silent empty screen",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-167",
+          "title": "A stranger's first chat with the site bubble works on a phone",
           "owner": "CJohnDesign"
         },
         {
@@ -383,6 +382,14 @@
           "shipped": "2026-10-01",
           "progress": "/progress#a-stranger-s-first-tap-on-the-web-demo-works",
           "commit": "https://github.com/postscarcityai/yuigui/commit/85cf6f03"
+        },
+        {
+          "key": "SITE-166",
+          "title": "SOC-7 gets its site entry",
+          "summary": "Social drafts now start today and stay within two weeks",
+          "shipped": "2026-10-01",
+          "progress": "/progress#social-drafts-now-start-today-and-stay-within-two-weeks",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/818788b0"
         },
         {
           "key": "SITE-165",
