@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T18:42:26.263Z",
+  "updated": "2026-10-01T18:46:25.382Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -329,13 +329,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-160",
-          "title": "Every link and image on yuigui.com resolves after Oct 1's pages",
-          "summary": "Every link checked after the big October 1 push",
-          "progress": "/progress#every-link-checked-after-the-big-october-1-push",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-248",
           "title": "Notifications on the web",
           "summary": "Web Push through yui-push, a tap opens the thread, a home screen install",
@@ -359,6 +352,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-160",
+          "title": "Every link and image on yuigui.com resolves after Oct 1's pages",
+          "summary": "Every link checked after the big October 1 push",
+          "shipped": "2026-10-01",
+          "progress": "/progress#every-link-checked-after-the-big-october-1-push",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9f6ca9ad"
+        },
         {
           "key": "YUI-247",
           "title": "Settings and account on the web",
