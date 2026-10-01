@@ -1909,6 +1909,26 @@
     {
       "text": "Your U in the left drawer: your picture and name top left, your coin and number top right, counts up once when it grew, Your U screen",
       "card": "YUI-210"
+    },
+    {
+      "text": "yui-push: Web Push (VAPID) next to APNs, register_web, quiet clear and revoked pushes",
+      "card": "YUI-248"
+    },
+    {
+      "text": "Group threads in the app: New group sheet, groups in the agent list, group thread with handoff and guard rows, working rows with Stop, settings",
+      "card": "YUI-94"
+    },
+    {
+      "text": "Group rows: unit tests for the row mapping, @ and swipe-reply addressing, errors in words",
+      "card": "YUI-94"
+    },
+    {
+      "text": "Group e2e: two real Yui adapters in one group, handoff, guard, Let it, Stop, offline line",
+      "card": "YUI-94"
+    },
+    {
+      "text": "Groups: UI test on the sim with real hosts, light and dark; an offline agent waits instead of working; row fixes",
+      "card": "YUI-94"
     }
   ]
 }
