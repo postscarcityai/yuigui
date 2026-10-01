@@ -173,7 +173,7 @@ if (ONLY !== "1") {
         await pg.waitForTimeout(900);
         const plan = (await wire(pg)).slice(wBefore).find((r) => r.kind === "event" && r.meta?.preset === "plan");
         ok(!!plan && plan.body === eventLine({ id: plan.meta.id, preset: "plan", ...plan.meta.value }), `${t}: the session goes up as the plan's one line in the app's wire format`);
-        ok(!!plan && /plan\.e1-sets="Set 1\|Set 2"/.test(plan.body) && /plan\.e1-lb=25/.test(plan.body) && /plan\.e1-reps=10/.test(plan.body) && /plan\.feel=Easy/.test(plan.body), `${t}: carrying the ticked sets, the nudged weight and how it felt (${plan ? plan.body.slice(0, 120) : "none"})`);
+        ok(!!plan && /plan\.e1-sets="Set 1"\|"Set 2"/.test(plan.body) && /plan\.e1-lb=25/.test(plan.body) && /plan\.e1-reps=10/.test(plan.body) && /plan\.feel=Easy/.test(plan.body), `${t}: carrying the ticked sets, the nudged weight and how it felt (${plan ? plan.body.slice(0, 120) : "none"})`);
       }
 
       ok(pg.errs.length === 0, `${t}: no page errors ${pg.errs.join(" | ")}`);
