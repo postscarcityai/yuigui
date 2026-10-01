@@ -1929,6 +1929,16 @@
     {
       "text": "Groups: UI test on the sim with real hosts, light and dark; an offline agent waits instead of working; row fixes",
       "card": "YUI-94"
+    },
+    {
+      "text": "Drafts follow the person across phone and web: yui_sync_state table and the app's DraftSync",
+      "card": "YUI-249"
+    },
+    {
+      "text": "ChatsRelayTests: a push opens the untitled first chat as Earlier once a second chat exists (YUI-254 renamed it; the 06:00 run held on this) [YUI-259]"
+    },
+    {
+      "text": "ChatsRelayTests: the push test waits for the chat list before reading the title (it raced and read Hi Basil) [YUI-259]"
     }
   ]
 }
