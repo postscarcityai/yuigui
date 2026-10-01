@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T20:05:34.739Z",
+  "updated": "2026-10-01T20:17:22.814Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -335,11 +335,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-163",
-          "title": "What landed in the app on Oct 1, in See it",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -351,6 +346,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-163",
+          "title": "What landed in the app on Oct 1, in See it",
+          "summary": "See it catches up: what landed in the app on Oct 1",
+          "shipped": "2026-10-01",
+          "progress": "/progress#see-it-catches-up-what-landed-in-the-app-on-oct-1",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/257b8306"
+        },
         {
           "key": "SITE-162",
           "title": "Group chats on the web",
