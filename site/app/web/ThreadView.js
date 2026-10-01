@@ -15,6 +15,10 @@ import { RichText } from "../playground/richtext";
 import { stamps } from "../../lib/chat/when.mjs";
 import { Thread, excerpt, folds } from "../../lib/web/thread.mjs";
 import { ThreadSync } from "../../lib/web/sync.mjs";
+import { relayTakeHost, setTakeHost } from "../../lib/web/take-host.mjs";
+import { loadRemoved, remove as removeShelf, shelfOf } from "../../lib/web/shelf.mjs";
+import ShelfBar from "./ShelfBar";
+import { sharedReminders } from "../../lib/web/reminders.mjs";
 import { waitingNote, workingLine } from "../../lib/web/presence.mjs";
 import { chipAction, homeOf, waitingAction } from "../../lib/web/stage.mjs";
 
@@ -248,6 +252,8 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   const [, tick] = useReducer((n) => n + 1, 0);
   const [net, setNet] = useState({ offline: false, pending: 0 });
   const sync = useMemo(() => new ThreadSync({ relay, thread, userId, agentId: agent.id, chatId: chat || null, outbox, onStatus: setNet }), [relay, thread, userId, agent.id, chat, outbox]);
+  // A music take (YUI-246) uploads to this thread's media and comes back as a signed link.
+  useEffect(() => (relay?.upload && relay?.sign ? setTakeHost(relayTakeHost({ relay, userId, agentId: agent.id })) : undefined), [relay, userId, agent.id]);
   useEffect(() => thread.subscribe(tick), [thread]);
   useEffect(() => { sync.start(); return () => sync.stop(); }, [sync]);
   const [toast, setToast] = useState("");
@@ -259,6 +265,12 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   const commands = agent.commands;
 
   const list = thread.messages;
+  // Reminders (YUI-246): while this tab is open the Notifications API fires them at their time (a closed tab: Web Push, YUI-248).
+  const reminders = sharedReminders();
+  useEffect(() => { reminders?.resume(agent.id); }, [reminders, agent.id]);
+  useEffect(() => {
+    for (const r of thread.drainReminders()) reminders?.take({ ...r, agent: agent.id, name: agent.name });
+  }, [thread.version]); // eslint-disable-line react-hooks/exhaustive-deps
   const marks = useMemo(() => stamps(list), [list, thread.version]);
   const wearers = useMemo(() => thread.wearers(), [list, thread.version]); // eslint-disable-line react-hooks/exhaustive-deps
   const scroller = useRef(null);
@@ -285,6 +297,10 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   const [seen, setSeen] = useState(0);
   const [req, setReq] = useState({ key: 0 });
   useEffect(() => { if (view === "chat") setSeen(list.length); }, [view, list.length]);
+  // The shelf: what the thread saved, less what the person took off by hand (per agent, on this device).
+  const [removed, setRemoved] = useState(() => loadRemoved(agent.id));
+  useEffect(() => setRemoved(loadRemoved(agent.id)), [agent.id]);
+  const shelf = useMemo(() => shelfOf(thread.messages, removed), [thread.version, removed]); // eslint-disable-line react-hooks/exhaustive-deps
   const toStage = useCallback((r) => { setReq((q) => ({ ...r, key: q.key + 1 })); setView("stage"); }, [setView]);
   const askOf = (i) => { for (let k = i; k >= 0; k--) if (list[k].role === "user" && !list[k].card) return list[k].id; return null; };
   const stageOn = view === "stage";
@@ -349,6 +365,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
 
   return (
     <section className="wb-thread" aria-label={`${agent.name}'s thread`} data-loaded={thread.loaded ? "1" : "0"} {...fileDrop((f) => store.addFiles(f))}>
+      {!stageOn && shelf.length ? <ShelfBar screens={shelf} onOpen={(name) => toStage({ show: name })} onRemove={(name) => setRemoved(removeShelf(agent.id, name))} /> : null}
       <div className="wb-scroll" ref={scroller} onScroll={onScroll} inert={stageOn || undefined}>
         <div className="wb-messages" ref={content}>
           {!thread.loaded ? <div className="wb-wait">Opening {agent.name}...</div> : null}

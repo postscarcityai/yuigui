@@ -4,6 +4,7 @@
 // metronome, playing real sound through the engine (engine.js). Each gets
 // resolved props and emit(value); emit is the event that goes back to the
 // agent, in the same words the agent writes.
+import { TakeControl, sendTake } from "./take";
 import { useContext, useEffect, useRef, useState } from "react";
 import { KIT } from "../../../lib/yl/yl.mjs";
 import {
@@ -11,8 +12,9 @@ import {
   loopVoices, nearestString, noteToMidi, parseKey, pitchRange, pitchWindow, progression, quantize, soundFor,
   stepBeats, stepTime, toPattern, tunerStrings,
 } from "../../../lib/music/theory.mjs";
-import { audio, claim, clock, drop, keep, note, play, hold, running, session } from "./engine";
+import { audio, claim, clock, drop, keep, note, play, hold, running, session, startTake, stopTake } from "./engine";
 import { KeepCtx } from "./keep";
+import { keySemitone, midiChip, parseMidi } from "../../../lib/music/midi-in.mjs";
 import { useLive } from "../stage";
 import "./music.css";
 
@@ -143,6 +145,7 @@ export function Loop({ p, emit, vid }) {
         </div>
         <button className="mu-btn" onClick={() => { setSwing((s) => (s >= 75 ? 0 : s + 25)); setSent(false); }} aria-label="Swing">Swing {swing}%</button>
       </div>
+      <TakeControl bpm={bpm} extra={() => ({ bpm })} emit={emit} />
     </div>
   );
 }
@@ -188,6 +191,7 @@ export function Drums({ p, emit }) {
       onShow: (i) => { setPos(i); if (i === 16) setPhase("rec"); },
     });
     rec.current = { at: clk.current.start + 16 * d, hits: [] };
+    startTake(); // the count-in click is in the .mid as the GM metronome click (YUI-246)
     setPhase("count");
     setPos(0);
   };
@@ -195,9 +199,11 @@ export function Drums({ p, emit }) {
     clk.current?.stop();
     const take = quantize(rec.current?.hits || [], pads, bpm, 32);
     rec.current = null;
+    const audioTake = stopTake();
     if (!take.rows.length) { setPhase("empty"); return; }
     setPhase("done");
-    emit(take);
+    // The pattern take carries the same audio, midi and seconds when this browser can record and has a thread to send to.
+    sendTake(audioTake, bpm).then((f) => emit(f ? { ...take, ...f } : take));
   };
   useEffect(() => () => clk.current?.stop(), []);
   useLive(phase === "count" ? "Count in" : phase === "rec" ? "Recording" : null);
@@ -225,7 +231,7 @@ export function Drums({ p, emit }) {
           {status ? <div className="mu-note" aria-live="polite">{status}</div> : null}
           <button className={`mu-btn mu-send${busy ? " rec" : ""}`} disabled={busy} onClick={record}>{busy ? "● Recording" : phase === "done" ? "Record again" : "● Record"}</button>
         </>
-      ) : null}
+      ) : <TakeControl bpm={bpm} extra={() => ({ bpm })} emit={emit} />}
     </div>
   );
 }
@@ -304,6 +310,43 @@ export function Keys({ p, emit, vid }) {
       else entry.current?.stop();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // The computer keyboard and a MIDI keyboard (Web MIDI where the browser has it) play the same keys as a finger.
+  // The scale lock still silences the wrong ones.
+  const api = useRef(null);
+  api.current = { on, off, base };
+  const [midiNames, setMidiNames] = useState([]);
+  useEffect(() => {
+    const typing = (e) => /^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName || "") || e.target?.isContentEditable || e.metaKey || e.ctrlKey || e.altKey;
+    const down = (e) => {
+      const s = e.repeat || typing(e) ? null : keySemitone(e.key);
+      if (s == null) return;
+      e.preventDefault();
+      api.current.on(`k:${e.key.toLowerCase()}`, api.current.base + s);
+    };
+    const up = (e) => { if (keySemitone(e.key) != null) api.current.off(`k:${e.key.toLowerCase()}`); };
+    window.addEventListener("keydown", down);
+    window.addEventListener("keyup", up);
+    let access = null;
+    const listen = (a) => {
+      const ins = [...a.inputs.values()].filter((i) => i.state !== "disconnected");
+      setMidiNames(ins.map((i) => i.name || "MIDI"));
+      for (const i of ins) {
+        i.onmidimessage = (m) => {
+          const ev = parseMidi(m.data);
+          if (!ev) return;
+          if (ev.on) api.current.on(`m:${ev.note}`, ev.note); else api.current.off(`m:${ev.note}`);
+        };
+      }
+    };
+    if (typeof navigator !== "undefined" && navigator.requestMIDIAccess) {
+      navigator.requestMIDIAccess().then((a) => { access = a; listen(a); a.onstatechange = () => listen(a); }).catch(() => {});
+    }
+    return () => {
+      window.removeEventListener("keydown", down);
+      window.removeEventListener("keyup", up);
+      if (access) { access.onstatechange = null; for (const i of access.inputs.values()) i.onmidimessage = null; }
+    };
+  }, []);
   const at = (e) => {
     const el = document.elementFromPoint(e.clientX, e.clientY)?.closest?.("[data-midi]");
     return el ? Number(el.dataset.midi) : null;
@@ -330,6 +373,7 @@ export function Keys({ p, emit, vid }) {
       <div className="mu-head">
         <div className="yl-q">{p.title || "Keys"}</div>
         <span className="yl-sub">{key.name} {scale}</span>
+        {midiNames.length ? <span className="mu-midi" data-testid="keys-midi" aria-label={`MIDI keyboard ${midiNames[0]}`}>{midiChip(midiNames)}</span> : null}
       </div>
       <div className="mu-sounds" role="radiogroup" aria-label="Sound">
         {PITCHED.map((s) => <button key={s} role="radio" aria-checked={s === sound} className={`mu-chip${s === sound ? " on" : ""}`} onClick={() => { setSound(s); audio(); note(s, base + key.root, { dur: 0.4 }); }}>{s}</button>)}
@@ -346,6 +390,7 @@ export function Keys({ p, emit, vid }) {
         <span className="mu-played">{played.slice(-6).join(" ")}</span>
       </div>
       {p.send ? <button className="mu-btn mu-send" disabled={!played.length} onClick={() => { emit({ played, key: key.name, scale }); setSent(true); }}>{sent ? "Sent ✓" : "Send"}</button> : null}
+      <TakeControl emit={emit} />
     </div>
   );
 }
@@ -390,6 +435,7 @@ export function Chords({ p, emit }) {
       </div>
       {played.length ? <div className="mu-played">{played.slice(-8).join(" · ")}</div> : null}
       {p.send ? <button className="mu-btn mu-send" disabled={!played.length} onClick={() => { emit({ played, key: key.name }); setSent(true); }}>{sent ? "Sent ✓" : "Send"}</button> : null}
+      <TakeControl emit={emit} />
     </div>
   );
 }
@@ -541,9 +587,9 @@ export function Metronome({ p, emit, vid }) {
     onTick: (i, t) => {
       const s = live.current;
       const k = i % (s.beats * s.sub);
-      if (k === 0) play("tick", { when: t, vel: 1, hz: 3000 });
-      else if (k % s.sub === 0) play("tick", { when: t, vel: 0.65, hz: 2000 });
-      else play("tick", { when: t, vel: 0.3, hz: 2000 });
+      if (k === 0) play("tick", { when: t, vel: 1, hz: 3000, take: false });
+      else if (k % s.sub === 0) play("tick", { when: t, vel: 0.65, hz: 2000, take: false });
+      else play("tick", { when: t, vel: 0.3, hz: 2000, take: false });
     },
     onShow: (i) => { const s = live.current; setBeat(Math.floor((i % (s.beats * s.sub)) / s.sub)); },
   });
@@ -579,7 +625,7 @@ export function Metronome({ p, emit, vid }) {
       const gaps = taps.current.slice(1).map((x, i) => x - taps.current[i]);
       setBpm(Math.max(30, Math.min(300, Math.round(60000 / (gaps.reduce((a, b) => a + b, 0) / gaps.length)))));
     }
-    if (!on) play("tick", { vel: 0.6, hz: 2000 });
+    if (!on) play("tick", { vel: 0.6, hz: 2000, take: false });
   };
 
   return (

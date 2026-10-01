@@ -139,6 +139,7 @@ export class Thread {
     this.pickedUpAt = null;
     this.doing = null;
     this.newestAgentAt = null;
+    this.reminderRows = [];
     this.version = 0;
     this.listeners = new Set();
     this.stopped = new Set();
@@ -147,6 +148,9 @@ export class Thread {
 
   subscribe(fn) { this.listeners.add(fn); return () => this.listeners.delete(fn); }
   changed() { this.version += 1; for (const fn of this.listeners) fn(this.version); }
+
+  // The reminder sets that arrived since the last call, oldest first.
+  drainReminders() { const out = this.reminderRows; this.reminderRows = []; return out; }
 
   // The ids that last across the thread's screens, so a patch can reach a component an earlier reply drew.
   lasting() {
@@ -245,6 +249,8 @@ export class Thread {
     const at = sentAt(row);
     const meta = row.meta && typeof row.meta === "object" ? row.meta : {};
     if (row.sender === "agent" && row.kind === "text" && row.created_at > (this.newestAgentAt || "")) this.newestAgentAt = row.created_at;
+    // Reminders the agent keeps (YUI-246, reminders.mjs): every set that arrives, `live` once the thread has loaded.
+    if (row.sender === "agent" && Array.isArray(meta.native?.reminders)) this.reminderRows.push({ meta, createdAt: row.created_at, live: this.loaded });
     // The reaction the row wears (the server copies it onto the agent's row) and the react events that move it.
     if (row.sender === "agent" && row.reaction) this.reactions.set(id, row.reaction);
     const react = row.sender === "user" && row.kind === "event" ? reactionFrom(meta) : null;

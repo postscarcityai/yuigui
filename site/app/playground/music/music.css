@@ -98,3 +98,15 @@
 .mu-dots i.on { background: var(--yl-ink); border-color: var(--yl-ink); transform: scale(1.15); }
 .mu-dots i.first.on { background: var(--accent); border-color: var(--accent); }
 .mu-metro .mu-bar .mu-btn { flex: 1; }
+
+/* Record, Stop and send (take.js) */
+.mu-take { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+.mu-take .mu-btn { min-height: 44px; }
+.mu-take-status { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; opacity: 0.8; }
+.mu-take-status i { width: 8px; height: 8px; border-radius: 50%; background: var(--yl-accent, #ff7e8a); animation: mu-blink 1s steps(2) infinite; }
+.mu-take-files { display: inline-flex; gap: 12px; font-size: 13px; font-weight: 700; }
+.mu-take-files a { color: inherit; text-underline-offset: 3px; min-height: 44px; display: inline-flex; align-items: center; }
+@keyframes mu-blink { 50% { opacity: 0.2; } }
+@media (prefers-reduced-motion: reduce) { .mu-take-status i { animation: none; } }
+.mu-midi { font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--yl-accent, #ff7e8a) 18%, transparent); }
+.mu-midi { font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--yl-accent, #ff7e8a) 18%, transparent); }

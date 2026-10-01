@@ -19,6 +19,8 @@ import { MUSIC } from "./music/music";
 import { Flow } from "./flow";
 import { Query } from "./data";
 import { useLive } from "./stage";
+import { useTabTitle, useWakeLock } from "./keepawake";
+import { advance, tabTitle } from "../../lib/web/timer-clock.mjs";
 import { RichText } from "./richtext";
 
 // Sample agent data tables, so `table meals` has something to bind to.
@@ -72,27 +74,30 @@ function Timer({ p, emit }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [p.work, p.rest, p.rounds]);
 
+  // True time (timer-clock.mjs): each look counts the seconds that really passed since the last one, so a tab in the
+  // background (timers slowed to once a second or worse) still lands where the clock says, across every phase it missed.
   useEffect(() => {
-    if (!run) return;
-    const t = setInterval(() => {
-      const { round, phase, left, p } = st.current;
-      if (p.up) { setLeft(left + 0.1); return; }
-      const nl = left - 0.1;
-      if (nl > 0.05) {
-        if (p.sound && Math.ceil(nl) !== Math.ceil(left) && Math.ceil(nl) <= 3) beep(660, 90);
-        setLeft(nl);
-        return;
+    if (!run) return undefined;
+    let last = performance.now();
+    const look = () => {
+      const now = performance.now();
+      const dt = (now - last) / 1000;
+      last = now;
+      const cur = st.current;
+      const o = advance({ round: cur.round, phase: cur.phase, left: cur.left }, cur.p, dt);
+      if (cur.p.up) { setLeft(o.left); return; }
+      if (cur.p.sound) {
+        // Beeps for the last 3 seconds as they arrive; after a long absence only the newest phase change sounds.
+        if (o.cross.length) { const c = o.cross[o.cross.length - 1]; beep(c === "rest" ? 440 : c === "done" ? 1200 : 990, c === "done" ? 500 : 260); }
+        else for (const _ of o.beeps) beep(660, 90);
       }
-      if (phase === "work" && p.rest > 0 && round < p.rounds) {
-        setPhase("rest"); setLeft(p.rest); if (p.sound) beep(440, 260);
-      } else if (round < p.rounds) {
-        setRound(round + 1); setPhase("work"); setLeft(p.work); if (p.sound) beep(990, 260);
-      } else {
-        setLeft(0); setRun(false); setDone(true); if (p.sound) beep(1200, 500);
-        emit({ done: true, rounds: p.rounds });
-      }
-    }, 100);
-    return () => clearInterval(t);
+      setRound(o.round); setPhase(o.phase); setLeft(o.left);
+      if (o.done) { setRun(false); setDone(true); emit({ done: true, rounds: cur.p.rounds }); }
+    };
+    const t = setInterval(look, 100);
+    const vis = () => { if (document.visibilityState === "visible") look(); };
+    document.addEventListener("visibilitychange", vis);
+    return () => { clearInterval(t); document.removeEventListener("visibilitychange", vis); };
   }, [run, emit]);
 
   const dur = phase === "work" ? p.work : p.rest;
@@ -101,6 +106,9 @@ function Timer({ p, emit }) {
   const reset = () => { setRun(false); setDone(false); setRound(1); setPhase("work"); setLeft(p.up ? 0 : p.work); };
   // What the stage pill in the chat shows while this timer is on the stage.
   useLive(done ? "Done" : run ? `${fmt(left)}${p.rounds > 1 ? ` · ${round}/${p.rounds}` : ""}` : null);
+  // The Live Activity's twin: the time left in the tab title, and the screen kept on while it runs.
+  useTabTitle(run ? (base) => tabTitle(base, left, round, p.rounds) : null, run ? `${Math.ceil(left)}:${round}` : "off");
+  useWakeLock(run);
 
   return (
     <div className="yl-timer">

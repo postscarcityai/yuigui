@@ -4,6 +4,7 @@
 // of brag-output/work/synth.py. Theory (notes, scales, chords) lives in
 // lib/music/theory.mjs.
 import { midiToHz, soundFor } from "../../../lib/music/theory.mjs";
+import { MAX_TAKE_SECONDS, takeFormat, takeNotes } from "../../../lib/music/take.mjs";
 
 let ctx = null;
 const per = new WeakMap(); // per context: out, noise buffer, shaper curves
@@ -46,6 +47,9 @@ function chain(c) {
   const meter = c.createAnalyser();
   meter.fftSize = 1024;
   master.connect(lim).connect(meter).connect(c.destination);
+  // What a take records (YUI-246): the master after the limiter, never the mic.
+  const record = c.createMediaStreamDestination();
+  lim.connect(record);
   const noise = c.createBuffer(1, c.sampleRate * 2, c.sampleRate);
   const d = noise.getChannelData(0);
   for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
@@ -56,7 +60,7 @@ function chain(c) {
   const wet = c.createGain();
   wet.gain.value = 0.18;
   tone.connect(room).connect(wet).connect(master);
-  g = { out: master, tone, meter, noise, curves: {} };
+  g = { out: master, tone, meter, noise, curves: {}, record };
   per.set(c, g);
   return g;
 }
@@ -327,11 +331,54 @@ function plucked(c, out, t, v, m, tau, slow, len) {
 // Plays a sound word into context `c` at time `t`. Drum words ignore `midi`
 // (bell on a pad plays C5). Returns a release function for held notes.
 // `hz` sets the pitch of a tick (the metronome's accent).
-export function voice(c, out, word, t, { midi = 60, vel = 1, pitched = false, hz } = {}) {
+// `take: false` keeps a sound out of a take's MIDI file (the metronome's clicks).
+export function voice(c, out, word, t, { midi = 60, vel = 1, pitched = false, hz, take = true } = {}) {
   const name = soundFor(word, pitched);
-  if (TONE[name]) return TONE[name](c, out === chain(c).out ? chain(c).tone : out, t, vel, name === "bell" && !pitched ? 72 : midi);
+  const ev = recording && take ? { word, midi: name === "bell" && !pitched ? 72 : midi, pitched, vel, at: t } : null;
+  if (ev) recording.events.push(ev);
+  if (TONE[name]) {
+    const release = TONE[name](c, out === chain(c).out ? chain(c).tone : out, t, vel, name === "bell" && !pitched ? 72 : midi);
+    return ev ? (at) => { ev.until = at ?? c.currentTime; release(at); } : release;
+  }
   DRUM[name](c, out, t, vel, { midi, pitched, hz });
   return NOOP;
+}
+
+// ---------- takes (YUI-246, spec/MUSIC.md section 3) ----------
+// Record on the looper, drums, keys and chords records what the engine plays: the audio of the master chain in a
+// MediaRecorder, and every voice started meanwhile as a note for the .mid. Never the mic.
+let recording = null;
+export const takeSupport = () => typeof MediaRecorder !== "undefined" && !!takeFormat((t) => MediaRecorder.isTypeSupported(t));
+export function startTake() {
+  const c = audio();
+  const fmt = typeof MediaRecorder !== "undefined" ? takeFormat((t) => MediaRecorder.isTypeSupported(t)) : null;
+  if (!c || !fmt || recording) return false;
+  const rec = new MediaRecorder(chain(c).record.stream, { mimeType: fmt.type, audioBitsPerSecond: 160000 });
+  const chunks = [];
+  rec.ondataavailable = (e) => { if (e.data?.size) chunks.push(e.data); };
+  const start = c.currentTime;
+  recording = { events: [], start, rec, chunks, fmt, wall: performance.now() };
+  rec.start(250);
+  return true;
+}
+export const takeSeconds = () => (recording ? (performance.now() - recording.wall) / 1000 : 0);
+export const takeIsOn = () => !!recording;
+// Stops the take; resolves { audio: Blob, ext, mime, seconds, notes } or null when nothing was recorded.
+export function stopTake() {
+  const r = recording;
+  if (!r) return Promise.resolve(null);
+  recording = null;
+  const c = audio();
+  const seconds = Math.min(MAX_TAKE_SECONDS, (performance.now() - r.wall) / 1000);
+  const end = r.start + seconds;
+  return new Promise((resolve) => {
+    r.rec.onstop = () => {
+      const blob = new Blob(r.chunks, { type: r.fmt.mime });
+      if (!blob.size) { resolve(null); return; }
+      resolve({ audio: blob, ext: r.fmt.ext, mime: r.fmt.mime, seconds, notes: takeNotes(r.events.map((e) => ({ ...e, until: e.until != null ? Math.min(e.until, end) : undefined })), { start: r.start, seconds }) });
+    };
+    try { r.rec.state !== "inactive" ? r.rec.stop() : r.rec.onstop(); } catch { resolve(null); }
+  });
 }
 
 // Plays now (or at `when` on the context clock) through the master chain.
@@ -452,4 +499,4 @@ export function clock({ gap, onTick, onShow, lead = 0.06, id, kind }) {
 }
 
 // For tests and the curious: window.yuiMusic.play("kick"), .level(), .renderOffline("bell").
-if (typeof window !== "undefined") window.yuiMusic = { play, note, level, renderOffline, audio, running, active, stopAll };
+if (typeof window !== "undefined") window.yuiMusic = { play, note, level, renderOffline, audio, running, active, stopAll, startTake, stopTake, takeIsOn };

@@ -148,8 +148,10 @@ export class ThreadSync {
   // A tap on a screen: the same row the phone sends (Presets/ChatStore.swift `receive`). It shows its echo at
   // once; it goes to the agent only when the person answered something, something finished, or it is a
   // game move. A quiet event (a timer starting, a checklist tick) stays on the page.
-  tap(ev, said = null) {
-    const echo = said ?? echoFor(ev);
+  // `_echo` is the words a screen picks for its own echo (a take: "Sent a take, 7 s"); it never rides the wire.
+  tap(full, said = null) {
+    const { _echo, ...ev } = full;
+    const echo = said ?? _echo ?? echoFor(ev);
     if (!relays(ev, echo)) return null;
     const meta = { id: ev.id, preset: ev.preset, value: valueOf(ev), ...(echo != null ? { echo } : {}) };
     const row = { id: uuid(), body: eventLine(ev), kind: "event", meta };

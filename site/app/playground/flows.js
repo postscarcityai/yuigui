@@ -14,6 +14,8 @@ import { Shapes } from "./shapes";
 import { Mock } from "./mock";
 import { MapView } from "./map";
 import { RichText } from "./richtext";
+import { RunnerMove, useRunner } from "./runner";
+import { runnerPlan } from "../../lib/web/runner.mjs";
 
 const isVideo = (src) => /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src || "");
 const Media = ({ src, className }) => (isVideo(src)
@@ -233,7 +235,12 @@ export function foldText(steps, ans) {
 
 export function Plan({ g, emitFor, Render }) {
   const p = resolve("plan", g.group.props);
-  const steps = stepsOf(g.members);
+  const all = stepsOf(g.members);
+  // A plan shaped like a workout (set picks with rep and weight slides) runs as one (YUI-246, Arnold's runner):
+  // the slides are drawn inside their move, and what was ticked and nudged goes back as the plan's answers.
+  const runner = runnerPlan(all);
+  const run = useRunner(runner, g.group.id);
+  const steps = runner ? all.filter((m) => !runner.absorbed.has(m.id)) : all;
   // Pages are steps to read; only questions are answered and reviewed.
   const questions = steps.filter((m) => m.preset !== "page");
   const n = steps.length;
@@ -242,18 +249,20 @@ export function Plan({ g, emitFor, Render }) {
   const [ans, setAns] = useState({});
   const [done, setDone] = useState(false);
   const cur = Math.min(at, n);
-  const has = (m) => ans[m.id] !== undefined;
+  const has = (m) => ans[m.id] !== undefined || run.answers[m.id] !== undefined;
 
   const submit = (a) => {
     const plan = Object.fromEntries(questions.filter((m) => a[m.id] !== undefined).map((m) => [m.id, a[m.id]]));
+    if (runner) Object.assign(plan, run.answers);
     emitFor(g.group)({ plan });
+    if (runner) run.forget();
     setDone(true);
     // Fold back into the chat: a summary chip plus the answers as the person's message.
     screen?.fold?.(g.group.key, {
       title: p.title || "Plan",
       pages: steps.filter((m) => m.preset === "page").map((m) => resolve("page", m.props)),
       answers: questions.length,
-      text: foldText(steps, a),
+      text: foldText(steps, runner ? { ...a, ...run.answers } : a),
     });
     screen?.closeStage?.();
   };
@@ -270,7 +279,7 @@ export function Plan({ g, emitFor, Render }) {
     if (m.preset === "ask" || m.preset === "choose") setTimeout(() => next(a), 380);
     else if (m.preset !== "slide") next(a);
   };
-  const nextOk = cur < n && (has(steps[cur]) || steps[cur].preset === "slide" || steps[cur].preset === "page");
+  const nextOk = cur < n && (has(steps[cur]) || steps[cur].preset === "slide" || steps[cur].preset === "page" || !!runner?.move(steps[cur].id));
   const onNext = () => {
     const m = steps[cur];
     if (m.preset === "slide" && !has(m)) {
@@ -306,7 +315,9 @@ export function Plan({ g, emitFor, Render }) {
       </div>
       {steps.map((m, i) => (
         <div key={m.key} className="yl-planstep" style={{ display: i === cur ? undefined : "none" }}>
-          {m.preset === "page" ? <div className="yl-planpage">{slidePage(m, emitFor, Render)}</div> : <Render node={m} emit={capture(m)} />}
+          {m.preset === "page" ? <div className="yl-planpage">{slidePage(m, emitFor, Render)}</div>
+            : runner?.move(m.id) ? <RunnerMove move={runner.move(m.id)} runner={runner} step={m} progress={run.progress} setProgress={run.setProgress} active={i === cur && !review} />
+            : <Render node={m} emit={capture(m)} />}
         </div>
       ))}
       {review ? (
@@ -314,7 +325,7 @@ export function Plan({ g, emitFor, Render }) {
           {steps.map((m, i) => m.preset === "page" ? null : (
             <button key={m.key} className="yl-planrow" onClick={() => setAt(i)}>
               <span className="lbl">{question(m) || `Step ${i + 1}`}</span>
-              <b>{has(m) ? show(ans[m.id]) : <i>Not answered</i>}</b>
+              <b>{has(m) ? show(ans[m.id] ?? run.answers[m.id]) : <i>Not answered</i>}</b>
               <span className="yl-flink">Edit</span>
             </button>
           ))}
