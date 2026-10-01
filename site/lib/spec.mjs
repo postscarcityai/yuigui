@@ -29,7 +29,7 @@ const ORDER = [
   ["a2a", "A2A bridge", null, "Add any A2A agent (ADK, LangGraph, CrewAI) by its Agent Card: how turns, tasks and restarts map."],
   ["agui", "AG-UI bridge", null, "Add any AG-UI agent (Agent Framework, CopilotKit, Mastra) by its URL: screens as a tool the agent calls, the tap as its result."],
   ["models", "Model bridge", null, "A model you run yourself (Ollama, LM Studio, vLLM) in Yui: what it is sent each turn, and how restarts work."],
-  ["browser", "Browser (draft)", null, "Yui in a browser tab: Sign in with Apple, the same relay and renderer, and what each preset does there. Open for contributors."],
+  ["browser", "Browser (building)", null, "Yui on the web, one to one with the iPhone app: Sign in with Apple, the same relay and renderer, the parity map, the session model and what each preset does there."],
   ["macos", "macOS (draft)", null, "Yui for macOS: a native Mac app on the same account, the drawer as a sidebar, a keyboard map, and what each preset does there. Open for contributors."],
   ["telegram", "Telegram", null, "Yui Lines in Telegram: questions as buttons, the rest in a Mini App, taps back as the phone's line."],
   ["mcp", "MCP server", null, "Any MCP client (Claude Code, Cursor, n8n) puts a screen on your phone and reads the taps back."],

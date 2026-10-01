@@ -87,6 +87,21 @@ Still on the board from the MVP, to run during the alpha:
 
 Several of these shipped early, on Sep 24, while the MVP was being built: YUI-20 (every agent has its own look), YUI-8 (pick it up in Yui from Telegram), YUI-13 (full-screen mode), YUI-16 to YUI-19 (media, charts and science, learn and plan presets, on the web and native in the app), YUI-21 (agents send real images and videos), YUI-42 (the preset flywheel: custom screens agents keep sending get flagged for promotion to presets, checklist in spec/FLYWHEEL.md), SITE-15 (Yui Lines back on the home page, and every spec doc readable on the site), SITE-16 (watch Yui grow: the whole GitHub history, builds and screenshots, day by day, at /timeline), INT-0 (the adapters plan), INT-1 (OpenClaw agents talk in Yui) and INT-2 (a webhook bridge for any agent that answers HTTP). Build 57 (Sep 24) brought more to phones: YUI-49 (hold a message to react: 👍 build it, 👎 no, 🤔 ask me, ❤️ love it, ⏳ later, 🔥 priority; definitions in spec/REACTIONS.md, live at /reactions), YUI-53 (no dead buttons: a plan ends in Send, and the channel guide bans "Got it" buttons), YUI-51 (one full-screen flow holds the pages and the questions with one Send, and afterwards the chat keeps an expandable record and your answers as your own message), YUI-32 (named screens: an agent saves a screen, it sits on a shelf at the top of the thread, and `show busy day` or one tap brings it back), YUI-31 (screens per agent: the chat plus screens a swipe away, which keep what the agent puts there) and YUI-30 (the timer keeps counting on the lock screen). Builds 61 and 64 (Sep 24 and 25) followed from TestFlight feedback: hold to talk no longer crashes and now works like WhatsApp (a waveform, let go sends, slide to the trash cancels), screens go from 2 to 12 and each one gets the whole phone. YUI-55 sends test builds by link, and YUI-67 (links in a card open Safari) reached phones in build 74. What is left to pull once the MVP passes, roughly in this order:
 
+
+**Yui on the web (Chris, Oct 1: "Let's bring Yui to the web!"), first in line.** One to one feature parity with the iPhone app in a browser tab at www.yuigui.com/web, Sign in with Apple, built by us. Web and phone may handle ins and outs a little differently (haptics, widgets, the keychain, Live Activities, push); the map says the web way for each, and what only the phone can do says "Open on your iPhone". The parity map is [docs/specs/web-parity.md](https://github.com/postscarcityai/yuigui/blob/main/docs/specs/web-parity.md), the spec is [/developers/browser](/developers/browser). It replaces YUI-71 and folds in YUI-109 (the offline thread) and YUI-146 (one Yui across phone and web). Stories, each a card on the board:
+
+- YUI-240: the parity map, the URL, the session model, the e2e harness, this entry. Every app feature has a row.
+- YUI-241: Sign in with Apple on the web: a Services ID, a web audience in `yui-auth`, CORS, a session that stays signed in.
+- YUI-242: the thread, live: agents, messages, every preset drawn, taps that send the phone's `[yui]` lines (folds in YUI-109).
+- YUI-243: the stage: full screen answers, screens 2 to 12, talk on a screen, home, the top and bottom bar.
+- YUI-244: the composer: photos, voice, mentions, replies, reactions, suggestions, an outbox that survives a closed tab.
+- YUI-245: agents: the drawer, add, rename, remove, connect, groups, controls.
+- YUI-246: every preset at parity: music, tuner, games, maps, diagrams, flows, workouts, the shelf.
+- YUI-247: settings and account: look, keys, web search, invites, help, sign out, delete.
+- YUI-248: notifications: Web Push, a click opens the thread, install to the dock or home screen.
+- YUI-249: one Yui across phone and web: continue a conversation, read state, drafts (folds in YUI-146).
+- YUI-250: ships: parity sweep, the e2e suite in CI, the launch demo, the release post draft.
+
 - YUI-114 (done Sep 26: store and TestFlight now say Yui Gui; Chris Sep 26: "I don't like the name Yui Bot anymore"): the App Store and TestFlight listing dropped the placeholder Yui Bot and says Yui Gui. Chris kept Yui Gui for now; the product is called Yui everywhere else, and the home screen says Yui.
 
 **Music first (Chris, Sep 26).** The app backlog below is good but a long way away, so it is parked until Chris names a card. Marketing, site and release cards keep running.
@@ -525,8 +540,8 @@ Parked cards, so the build never runs dry. None of these start until the MVP lan
 
 - YUI-45: pay-as-you-go credits for images and hosted models.
 - YUI-58: Yui for macOS, a matching desktop app under the same App Store listing. The first card marked for Yui@home contributors. Build to earn.
-- YUI-71: Yui in the browser, on the same relay with the web renderer. Build to earn. Watch, desktop and browser each translate Yui Lines where they must: what fits renders, the rest says "open on your iPhone".
-- YUI-109 and YUI-110 (agent-ready): the first pull request of the browser and of the Mac app, open to outside contributors on [/contribute](/contribute).
+- YUI-71: Yui in the browser. Replaced on Oct 1 by the epic YUI-240 to YUI-250, first in line under Next after the MVP, at full parity and built by us. Watch and desktop still translate Yui Lines where they must: what fits renders, the rest says "open on your iPhone".
+- YUI-109 (folded into YUI-242, no longer agent-ready) and YUI-110 (agent-ready): the first pull request of the Mac app stays open to outside contributors on [/contribute](/contribute); the browser's first pull request is built in house.
 
 **Running Yui**
 
