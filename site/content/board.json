@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T16:10:40.737Z",
+  "updated": "2026-10-01T16:35:29.429Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -28,12 +28,6 @@
       "key": "backlog",
       "title": "Backlog",
       "cards": [
-        {
-          "key": "YUI-34",
-          "title": "Key vault for bring-your-own keys",
-          "waiting": true,
-          "progress": "/progress#a-key-vault-planned"
-        },
         {
           "key": "YUI-36",
           "title": "Optional encrypted sync for agent tables",
@@ -244,11 +238,6 @@
           "title": "Brand direction"
         },
         {
-          "key": "BIZ-8",
-          "title": "Tokenomics v1, supply, emissions, value",
-          "waiting": true
-        },
-        {
           "key": "BIZ-9",
           "title": "Chain pick, Sui vs Polygon vs Solana vs Bitcoin",
           "waiting": true
@@ -275,11 +264,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-256",
-          "title": "Voice on the web hears nothing",
-          "summary": "The mic says Listening but no words show and nothing sends"
-        },
-        {
           "key": "YUI-257",
           "title": "The shader on the web stage",
           "summary": "Drop the old vector blob, the shader is the voice orb"
@@ -303,21 +287,10 @@
           "summary": "Create, edit, fork and remove a native agent from chat"
         },
         {
-          "key": "YUI-138",
-          "title": "Start blank",
-          "summary": "A new empty agent runs a setup flow to make itself",
-          "waiting": true
-        },
-        {
           "key": "YUI-146",
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
-        },
-        {
-          "key": "YUI-246",
-          "title": "Every preset at parity on the web",
-          "summary": "Music, tuner, games, maps, diagrams, flows, workouts, the shelf"
         },
         {
           "key": "YUI-247",
@@ -388,15 +361,32 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-245",
-          "title": "Agents on the web",
-          "summary": "The drawer, add, rename, remove, connect a new agent, groups, controls",
+          "key": "YUI-246",
+          "title": "Every preset at parity on the web",
+          "summary": "Music, tuner, games, maps, diagrams, flows, workouts, the shelf",
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-89",
-          "title": "Agent tables in the app",
-          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers",
+          "key": "YUI-256",
+          "title": "Voice on the web hears nothing",
+          "summary": "Voice on the web says what it hears, or why not",
+          "progress": "/progress#voice-on-the-web-says-what-it-hears-or-why-not",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "BIZ-8",
+          "title": "Tokenomics v1, supply, emissions, value",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-138",
+          "title": "Start blank",
+          "summary": "A new empty agent runs a setup flow to make itself",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-157",
+          "title": "The roadmap says what shipped",
           "owner": "CJohnDesign"
         },
         {
@@ -406,11 +396,9 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-241",
-          "title": "Sign in with Apple on the web",
-          "summary": "Sign in with Apple, on the web",
+          "key": "YUI-89b",
+          "title": "Tables guide + compat gate + MCP app",
           "blocked": "chris",
-          "progress": "/progress#sign-in-with-apple-on-the-web",
           "owner": "CJohnDesign"
         }
       ]
@@ -419,6 +407,37 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-34",
+          "title": "Key vault for bring-your-own keys",
+          "shipped": "2026-10-01",
+          "progress": "/progress#a-key-vault-planned",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9f650e5e"
+        },
+        {
+          "key": "YUI-241",
+          "title": "Sign in with Apple on the web",
+          "summary": "Sign in with Apple, on the web",
+          "shipped": "2026-10-01",
+          "progress": "/progress#sign-in-with-apple-on-the-web",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/647d1f35"
+        },
+        {
+          "key": "YUI-89",
+          "title": "Agent tables in the app",
+          "summary": "Agent tables run on the phone: the coach keeps your workouts",
+          "shipped": "2026-10-01",
+          "progress": "/progress#agent-tables-run-on-the-phone-the-coach-keeps-your-workouts",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f8d381df"
+        },
+        {
+          "key": "YUI-245",
+          "title": "Agents on the web",
+          "summary": "Yui on the web: your agents, the drawer, adding one",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-on-the-web-your-agents-the-drawer-adding-one",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/69fc6aa5"
+        },
         {
           "key": "SITE-156",
           "title": "/web shows what works so far, phone and browser side by side",
@@ -2943,7 +2962,7 @@
           "summary": "Agent tables in the Python, Kotlin and Rust parsers",
           "shipped": "2026-09-26",
           "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/094e6f7b"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f8d381df"
         },
         {
           "key": "YUI-85",
