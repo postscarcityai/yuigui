@@ -1864,6 +1864,10 @@
     {
       "text": "Stay signed in: a lost refresh reply no longer ends every session",
       "card": "YUI-239"
+    },
+    {
+      "text": "Web sign in: a web Apple audience, client=web sessions, CORS for the site",
+      "card": "YUI-241"
     }
   ]
 }

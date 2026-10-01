@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T04:47:21.813Z",
+  "updated": "2026-10-01T05:04:04.616Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -192,6 +192,11 @@
           "summary": "Your profile top left, your $U top right, counting up when you open it"
         },
         {
+          "key": "YUI-255",
+          "title": "A recording keeps you playing",
+          "waiting": true
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -277,6 +282,16 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-252",
+          "title": "The Tuner is Gouda's last screen, Tune goes straight there",
+          "waiting": true
+        },
+        {
+          "key": "YUI-254",
+          "title": "Past chats show in the drawer on a real account",
+          "waiting": true
+        },
+        {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
           "summary": "The thread offline at /web"
@@ -305,16 +320,6 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
-        },
-        {
-          "key": "YUI-241",
-          "title": "Sign in with Apple on the web",
-          "summary": "A Services ID, a web audience in yui-auth, CORS, a web session that stays signed in"
-        },
-        {
-          "key": "YUI-242",
-          "title": "The thread, live in the browser",
-          "summary": "Agents, messages, screens, taps that send the same [yui] lines as the phone"
         },
         {
           "key": "YUI-243",
@@ -363,18 +368,6 @@
           "progress": "/progress#typing-trash-and-looper-fixes"
         },
         {
-          "key": "NOTE-4811",
-          "title": "Typed answers grow past the pill",
-          "waiting": true,
-          "progress": "/progress#typing-trash-and-looper-fixes"
-        },
-        {
-          "key": "NOTE-5633",
-          "title": "Drop the looper's Send button",
-          "waiting": true,
-          "progress": "/progress#typing-trash-and-looper-fixes"
-        },
-        {
           "key": "NOTE-18306",
           "title": "Tuner as Gouda's last screen",
           "waiting": true
@@ -390,12 +383,6 @@
           "title": "A real coach for workouts",
           "waiting": true,
           "progress": "/progress#a-first-plan-from-coach"
-        },
-        {
-          "key": "NOTE-49492",
-          "title": "About and Controls in one tab",
-          "waiting": true,
-          "progress": "/progress#the-agent-tab-keys-model-and-your-chats"
         },
         {
           "key": "NOTE-54934",
@@ -421,6 +408,29 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
+          "key": "YUI-241",
+          "title": "Sign in with Apple on the web",
+          "summary": "Sign in with Apple, on the web",
+          "progress": "/progress#sign-in-with-apple-on-the-web",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-242",
+          "title": "The thread, live in the browser",
+          "summary": "Agents, messages, screens, taps that send the same [yui] lines as the phone",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-251",
+          "title": "The trash sits flush left, mirroring the mic",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-150",
+          "title": "The site chat's trash sits flush left, mirroring the mic",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-218b",
           "title": "An outside tester runs the stranger path",
           "blocked": "chris",
@@ -432,6 +442,24 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-49492",
+          "title": "About and Controls in one tab",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-agent-tab-keys-model-and-your-chats"
+        },
+        {
+          "key": "NOTE-5633",
+          "title": "Drop the looper's Send button",
+          "shipped": "2026-10-01",
+          "progress": "/progress#typing-trash-and-looper-fixes"
+        },
+        {
+          "key": "NOTE-4811",
+          "title": "Typed answers grow past the pill",
+          "shipped": "2026-10-01",
+          "progress": "/progress#typing-trash-and-looper-fixes"
+        },
         {
           "key": "YUI-240",
           "title": "Yui on the web, the parity map",
