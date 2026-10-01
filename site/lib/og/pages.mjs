@@ -167,6 +167,10 @@ ask "Delete my data?" Delete|Cancel`,
     eyebrow: "TELEGRAM",
     yl: `choose "Where to next?" "Open the screen"|"Stay in chat" title="Yui in Telegram" body="Questions as buttons, the rest in a Mini App."`,
   },
+  "/web": {
+    eyebrow: "ON THE WEB",
+    yl: `choose "Open Yui in your browser?" "Sign in with Apple"|"Not now" title="Yui on the web" body="Same account, same agents, same screens."`,
+  },
   "/confirm": {
     eyebrow: "EMAIL",
     yl: `card "Confirm your email" body="One tap and you're on the list." cta="Confirm"`,

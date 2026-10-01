@@ -1,10 +1,10 @@
 import "./globals.css";
-import Script from "next/script";
 import { Nunito } from "next/font/google";
 import ChatFab from "./components/ChatFabLoader";
 import Nav from "./components/Nav";
 import GetYui from "./components/GetYui";
 import NotOnEmbed from "./components/NotOnEmbed";
+import Analytics from "./components/Analytics";
 // No announcement bar for now (Chris, Sep 28: the 0.5.0 bar is off). components/TopBar.js is kept for the next one.
 import { chatOn } from "../lib/chat/config.mjs";
 
@@ -37,22 +37,7 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: themeInit + topbarInit }} />
       </head>
       <body>
-        {/* Google tag (gtag.js). It waits for the page to finish loading so its 170KB never slows the first paint (SITE-41). */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="lazyOnload"
-        />
-        <Script id="google-analytics" strategy="lazyOnload">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            // An invite link's code never reaches analytics (YUI-56), nor a Mini App's screen (INT-4).
-            gtag('config', '${GA_ID}', location.pathname.indexOf('/i/') === 0
-              ? { page_location: location.origin + '/i/', page_referrer: document.referrer.split('/i/')[0] }
-              : location.pathname === '/tg' ? { page_location: location.origin + '/tg', page_referrer: '' } : {});
-          `}
-        </Script>
+        <Analytics id={GA_ID} />
         <NotOnEmbed><Nav /></NotOnEmbed>
         <main className="wrap">{children}</main>
         <NotOnEmbed>

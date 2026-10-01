@@ -4,7 +4,7 @@ Yui in a browser tab, at https://www.yuigui.com/web. The same account, the same 
 
 Chris, 2026-10-01: "Let's bring Yui to the web!" One to one feature parity with the iPhone app. Web and phone may handle ins and outs a little differently; the web gets as close as it can.
 
-Status: building. Scope is full parity, built by us (it was a build-to-earn contributor card, YUI-71; YUI-109, the first pull request, is folded into YUI-242). The map of every app feature and its web twin is [docs/specs/web-parity.md](https://github.com/postscarcityai/yuigui/blob/main/docs/specs/web-parity.md); this page carries its summary. Siblings: YUI-47 (Apple Watch), YUI-58 (macOS).
+Status: building. YUI-241 landed: sign in, the session, sign out and CORS (live once the Apple Services ID is registered). Scope is full parity, built by us (it was a build-to-earn contributor card, YUI-71; YUI-109, the first pull request, is folded into YUI-242). The map of every app feature and its web twin is [docs/specs/web-parity.md](https://github.com/postscarcityai/yuigui/blob/main/docs/specs/web-parity.md); this page carries its summary. Siblings: YUI-47 (Apple Watch), YUI-58 (macOS).
 
 ## What it is
 
@@ -101,8 +101,8 @@ What each preset does in a browser. A row not listed renders as it does in the p
 - The access token (the short-lived `yui_user` JWT from `yui-auth`) lives in memory only.
 - The refresh token is the one thing stored, in IndexedDB, so a closed tab stays signed in for the 60 days the app's session has. Each refresh rotates it, and `yui-auth`'s reuse check ends every session on a double spend, so a stolen token shows itself.
 - One refresh at a time across tabs: a Web Lock around the refresh, the new access token passed on a `BroadcastChannel`. The browser twin of the app's single refresh in flight.
-- No cookies, so there is no cookie CSRF: the edge functions read the `Authorization` header only, which a forged cross-site request does not carry. The Apple sign in uses a per attempt `state` and nonce kept in the tab's `sessionStorage`.
-- `/web` is served with a strict Content Security Policy: scripts from the page and Apple's sign in script only, `connect-src` the Yui backend only, no framing. Agent words are sanitized markdown, never raw HTML.
+- No cookies, so there is no cookie CSRF: the edge functions read the `Authorization` header only, which a forged cross-site request does not carry. The Apple sign in uses a per attempt `state` and nonce kept in the page's memory.
+- `/web` is served with a Content Security Policy: scripts from the page and Apple's sign in script only (inline scripts allowed, for Next's own; no nonce yet), `connect-src` the Yui backend and Apple only, no framing, no analytics on the page. Agent words are sanitized markdown, never raw HTML.
 - Sign out calls the `sign_out` grant for this session only, and clears the stored token.
 
 ## Reuse and the harness

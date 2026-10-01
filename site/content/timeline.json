@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 414,
-    "site": 979,
+    "site": 981,
     "builds": 51,
-    "shipped": 493,
-    "screenshots": 1268
+    "shipped": 494,
+    "screenshots": 1272
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T04:44:17.899Z",
+          "at": "2026-10-01T04:59:21.828Z",
+          "title": "Sign in with Apple, on the web",
+          "card": "YUI-241",
+          "anchor": "sign-in-with-apple-on-the-web",
+          "images": [
+            {
+              "src": "/progress/yui241-signin-390-light.webp",
+              "alt": "Light, phone width: Yui on the web, a coral wordmark and a black Sign in with Apple button, with How it works, Your data, Invite code and Demo code underneath."
+            },
+            {
+              "src": "/progress/yui241-account-390-dark.webp",
+              "alt": "Dark, phone width: You are signed in, the account email and Signed in on this browser, and a Sign out button."
+            },
+            {
+              "src": "/progress/yui241-signin-desktop-dark.webp",
+              "alt": "Dark, desktop: the same sign in card centered on the page."
+            },
+            {
+              "src": "/progress/yui241-account-desktop-light.webp",
+              "alt": "Light, desktop: the signed in card with the account email and Sign out."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 414,
+            "site": 981,
+            "builds": 51,
+            "shipped": 494
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T04:44:06.000Z",
           "title": "Yui on the web: the parity map",
           "card": "YUI-240",
           "anchor": "yui-on-the-web-the-parity-map",
@@ -35,10 +67,10 @@
               "alt": "Dark mode, desktop: the same differences table."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 414,
-            "site": 979,
+            "site": 980,
             "builds": 51,
             "shipped": 493
           }
@@ -145,6 +177,20 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "be86b7ac",
+          "at": "2026-10-01T04:47:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/be86b7ac"
+        },
+        {
+          "repo": "site",
+          "sha": "14c83334",
+          "at": "2026-10-01T04:44:06.000Z",
+          "text": "Yui on the web: the parity map, the decisions, the roadmap epic (YUI-240)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/14c83334"
+        },
         {
           "repo": "site",
           "sha": "c59dc185",

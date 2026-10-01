@@ -47,6 +47,7 @@ export default async function Invite({ params }) {
             <h3>Open Yui with your invite</h3>
             <p>With Yui installed, open this page on your iPhone and tap the button. Your invite goes along.</p>
             <p style={{ marginTop: 14 }}><a className="btn" href={`yui://invite/${code}`}>Open in Yui</a></p>
+            <p className="invite-web">At a computer? <a href={`/web?invite=${code}`}>Open Yui on the web</a> and sign in with Apple there.</p>
           </div>
         </li>
         <li>
