@@ -1,0 +1,17 @@
+{
+  "note": "SITE-156. One row per landed Yui on the web story, drawn on /web as 'What works so far'. `card` is the progress.json card key: the title and the link come from that entry. Shots are the same screen on a phone (390 px) and in a browser (desktop), `light` and `dark`; a missing theme falls back to the other. A new story adds one row here, newest last.",
+  "rows": [
+    { "card": "YUI-241", "label": "Sign in", "say": "Sign in with Apple, close the tab, come back, still signed in.",
+      "phone": { "light": "/progress/site156-signin-390-light.webp", "dark": "/progress/site156-signin-390-dark.webp" },
+      "browser": { "light": "/progress/site156-signin-desktop-light.webp", "dark": "/progress/site156-signin-desktop-dark.webp" } },
+    { "card": "YUI-242", "label": "Thread", "say": "Your agents in a column, the thread beside them, like the phone.",
+      "phone": { "light": "/progress/yui242-thread-390-light.webp", "dark": "/progress/yui242-thread-390-dark.webp" },
+      "browser": { "light": "/progress/yui242-thread-desktop-light.webp", "dark": "/progress/yui242-thread-desktop-dark.webp" } },
+    { "card": "YUI-243", "label": "Stage", "say": "An agent's home shows its screen first, then the answer.",
+      "phone": { "light": "/progress/yui243-home-390-light.webp", "dark": "/progress/yui243-home-390-dark.webp" },
+      "browser": { "light": "/progress/yui243-home-desktop-light.webp", "dark": "/progress/yui243-home-desktop-dark.webp" } },
+    { "card": "YUI-244", "label": "Composer", "say": "Photos, voice, replies and @mentions, and what you send survives a closed tab.",
+      "phone": { "dark": "/progress/yui244-menu-390-dark.webp" },
+      "browser": { "dark": "/progress/yui244-menu-desktop-dark.webp" } }
+  ]
+}

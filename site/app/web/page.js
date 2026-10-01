@@ -2,6 +2,9 @@
 // that stays signed in, sign out. The thread, the stage and the rest follow in YUI-242 and on.
 import { Suspense } from "react";
 import WebApp from "./WebApp";
+import story from "../../content/web-story.json";
+import log from "../../content/progress.json";
+import { webStory } from "../../lib/webstory.mjs";
 import { pageMeta } from "../../lib/og/meta.mjs";
 
 export const metadata = pageMeta({
@@ -12,5 +15,5 @@ export const metadata = pageMeta({
 });
 
 export default function Web() {
-  return <Suspense><WebApp /></Suspense>;
+  return <Suspense><WebApp story={webStory(story, log)} /></Suspense>;
 }

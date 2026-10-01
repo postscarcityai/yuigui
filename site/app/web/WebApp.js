@@ -9,6 +9,7 @@ import { APPLE_JS, APPLE_WEB_CLIENT_ID, REDIRECT_URI } from "../../lib/web/confi
 import { cleanInvite, inviteFromLocation, inviteNotice } from "../../lib/web/invite.mjs";
 import { sha256Hex, randomHex } from "../../lib/web/nonce.mjs";
 import ThreadApp from "./ThreadApp";
+import WebStory from "./WebStory";
 import "./web.css";
 
 const INVITE_KEY = "yui-web-invite";
@@ -19,7 +20,7 @@ export function threadOf(path) {
   return { agent: m ? decodeURIComponent(m[1]) : null, chat: m?.[2] ? decodeURIComponent(m[2]) : null };
 }
 
-export default function WebApp() {
+export default function WebApp({ story }) {
   const path = usePathname();
   const demo = useSearchParams().get("demo");
   const auth = useMemo(() => (typeof window === "undefined" ? null : createAuth(browserDeps())), []);
@@ -59,6 +60,7 @@ export default function WebApp() {
       <ThemeButton />
       {!snap.ready ? <div className="web-boot" role="status" aria-label="Loading"><span className="web-dot" /></div>
         : <SignIn auth={auth} invite={invite} setInvite={setInvite} notice={notice} setNotice={setNotice} />}
+      {snap.ready && <WebStory rows={story} />}
     </div>
   );
 }

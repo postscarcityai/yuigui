@@ -1263,3 +1263,7 @@ body:has(.tg-root) main.wrap { padding: 0; max-width: none; }
   /* 16px or more in a field, or iOS zooms the page on focus. */
   textarea.pg-code { font-size: 16px; }
 }
+
+/* One push, many cards (SITE-156): the entries sit inside their epic's heading on /progress. */
+.log li.epic > .epic-log { margin: 10px 0 0 -4px; }
+.log li.epic { padding-bottom: 12px; }
