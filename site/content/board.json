@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T15:10:48.101Z",
+  "updated": "2026-10-01T15:40:41.966Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -82,13 +82,6 @@
           "title": "Text a number",
           "summary": "SMS channel",
           "waiting": true
-        },
-        {
-          "key": "YUI-89",
-          "title": "Agent tables in the app",
-          "summary": "SQLite store, native query views, the other parsers",
-          "waiting": true,
-          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers"
         },
         {
           "key": "YUI-94",
@@ -385,21 +378,16 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-243",
-          "title": "The stage on the web",
-          "summary": "Yui on the web: the stage",
-          "progress": "/progress#yui-on-the-web-the-stage",
+          "key": "YUI-89",
+          "title": "Agent tables in the app",
+          "progress": "/progress#agent-tables-in-the-python-kotlin-and-rust-parsers",
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-245",
-          "title": "Agents on the web",
-          "summary": "The drawer, add, rename, remove, connect a new agent, groups, controls",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-154",
-          "title": "Every yuigui.com page works on a phone, and points to Yui on the web",
+          "key": "SITE-155",
+          "title": "The coach's workout tables on the web, a starter you can try",
+          "summary": "The coach's workout tables, to try on the web",
+          "progress": "/progress#the-coach-s-workout-tables-to-try-on-the-web",
           "owner": "CJohnDesign"
         },
         {
@@ -415,6 +403,13 @@
           "blocked": "chris",
           "progress": "/progress#sign-in-with-apple-on-the-web",
           "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-245",
+          "title": "Agents on the web",
+          "summary": "The drawer, add, rename, remove, connect a new agent, groups, controls",
+          "blocked": "other",
+          "owner": "CJohnDesign"
         }
       ]
     },
@@ -422,6 +417,29 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-243",
+          "title": "The stage on the web",
+          "summary": "Yui on the web: the stage",
+          "shipped": "2026-10-01",
+          "progress": "/progress#yui-on-the-web-the-stage",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ecc659e1"
+        },
+        {
+          "key": "SITE-154",
+          "title": "Every yuigui.com page works on a phone, and points to Yui on the web",
+          "summary": "The whole site works on a phone, and points to Yui on the web",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-whole-site-works-on-a-phone-and-points-to-yui-on-the-web",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/726a6054"
+        },
+        {
+          "key": "YUI-253",
+          "title": "Siri logs your food and starts your workout",
+          "shipped": "2026-10-01",
+          "progress": "/progress#siri-logs-your-food-and-starts-your-workout",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c863219c"
+        },
         {
           "key": "YUI-244",
           "title": "The composer on the web",

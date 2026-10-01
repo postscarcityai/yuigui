@@ -1877,6 +1877,10 @@
     },
     {
       "text": "Past chats show in the drawer on a real account: old messages read as one Earlier chat, and a long chat scrolls back past the 100 it opens on (YUI-254, NOTE-54934)"
+    },
+    {
+      "text": "Siri logs food and starts the workout: Log my food opens Basil's camera, Tell Yui what I ate logs the words and says Logged, Start my workout opens the agent's session",
+      "card": "YUI-253"
     }
   ]
 }
