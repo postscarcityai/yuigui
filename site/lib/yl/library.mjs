@@ -467,6 +467,36 @@ keys C major "Warm up" +send +inline`,
   },
 ];
 
+// Ready-made data screens (SITE-155): whole replies built on agent tables, kind "screen", shelf
+// "data". The lines make the tables and write their rows, so the screen plays alone in the playground.
+export const DATA_SCREENS = [
+  {
+    name: "build-my-workout",
+    title: "Build my workout",
+    purpose: "The coach keeps moves, their swaps and your week in tables. Today's session is rows you tick off, and a swap is one put on a row.",
+    tags: ["workout", "tables", "variations", "fitness", "custom workout", "swap", "strength", "log"],
+    yl: `table create variations Move:text Swap:text Cue:text
+put variations goblet-squat Move="Goblet squat" Swap="Front squat" Cue="Elbows up, chest tall"
+put variations split-squat Move="Split squat" Swap="Reverse lunge" Cue="Front shin tall, drop straight down"
+put variations push-up Move="Push-up" Swap="Incline push-up" Cue="One line from head to heel"
+put variations row Move="Dumbbell row" Swap="Cable row" Cue="Pull to the hip, not the chest"
+put variations hinge Move="Romanian deadlift" Swap="Hip thrust" Cue="Hips back, soft knees"
+table create workouts Day:date Name:text Focus:text Done:bool
+put workouts w1 Day=today-4 Name="Legs A" Focus=Legs +Done
+put workouts w2 Day=today-2 Name="Push" Focus=Chest +Done
+put workouts w3 Day=today Name="Legs B" Focus=Legs
+put workouts w4 Day=today+2 Name="Pull" Focus=Back
+table create session Slot:number Move:text Sets:number Reps:number Done:bool
+put session 1 Slot=1 Move="Goblet squat" Sets=3 Reps=8
+put session 2 Slot=2 Move="Split squat" Sets=3 Reps=10
+put session 3 Slot=3 Move="Romanian deadlift" Sets=3 Reps=8
+put session 4 Slot=4 Move="Push-up" Sets=2 Reps=12
+query workouts sort=Day cols=Day|Name|Focus|Done as table "This week"
+query session sort=Slot cols=Move|Sets|Reps|Done as list check=Done "Today: Legs B"
+query variations cols=Move|Swap|Cue as table "Swaps I know"`,
+  },
+];
+
 // What an agent means when it reaches for each entry, in its own words. Search reads
 // these first after the name, so "get a client's website brief" finds the intake flow.
 export const INTENTS = {
@@ -528,6 +558,7 @@ export const INTENTS = {
   "chord-chart": ["show the chords of a song", "strum along to a song", "change the key of a song"],
   "jam-beat": ["give them a beat to jam over", "make a drum loop", "a backing track to play along"],
   "songwriting-checkin": ["check in on a song they are writing", "capture a melody idea", "songwriting session"],
+  "build-my-workout": ["build today's workout", "keep exercise variations", "swap a move for a variation", "a custom workout I can edit", "a workout plan on tables"],
   "scale-warm-up": ["practice scales", "warm up on piano", "teach a scale"],
 };
 
@@ -558,9 +589,14 @@ export const flows = () => STARTER_FLOWS.flatMap((f) => [{
   docs: `${SITE}/developers/flows`,
 }, ...FLOW_VARIANTS.filter((v) => v.base === f.name).map((v) => variantEntry(v, f))]);
 
-export const screens = () => MUSIC_SCREENS.map((s) => ({
-  ...s, kind: "screen", shelf: "music", doc: "music", ...(usesComing(s.yl) ? { app: "coming" } : {}), intents: INTENTS[s.name] || [], docs: docUrl("music"),
-}));
+export const screens = () => [
+  ...MUSIC_SCREENS.map((s) => ({
+    ...s, kind: "screen", shelf: "music", doc: "music", ...(usesComing(s.yl) ? { app: "coming" } : {}), intents: INTENTS[s.name] || [], docs: docUrl("music"),
+  })),
+  ...DATA_SCREENS.map((s) => ({
+    ...s, kind: "screen", shelf: "data", doc: "agent-tables-table-create-put-query", intents: INTENTS[s.name] || [], docs: docUrl("agent-tables-table-create-put-query"),
+  })),
+];
 
 function variantEntry(v, base) {
   const yl = `flow ${v.base} as=${v.name}\n${v.lines}\nend`;

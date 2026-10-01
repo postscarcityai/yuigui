@@ -5,7 +5,7 @@
 // Run: node scripts/library-check.mjs   Exit 0 when whole, 1 with one line per problem.
 import { PRESETS, parse } from "../lib/yl/yl.mjs";
 import { FLOW_VARIANTS, STARTER_FLOWS, savedGraph } from "../lib/yl/starter-flows.mjs";
-import { APP_COMING, INTENTS, MUSIC_SCREENS, PRESET_ENTRIES, SHELVES, libraryIndex, libraryLeaks, presets, search } from "../lib/yl/library.mjs";
+import { APP_COMING, DATA_SCREENS, INTENTS, MUSIC_SCREENS, PRESET_ENTRIES, SHELVES, libraryIndex, libraryLeaks, presets, search } from "../lib/yl/library.mjs";
 
 const problems = [];
 const shelves = new Set(SHELVES.map(([k]) => k));
@@ -53,6 +53,16 @@ for (const s of MUSIC_SCREENS) {
   if (!item) problems.push(`screen ${s.name}: missing from library.json`);
   else if ((item.app === "coming") !== coming) problems.push(`screen ${s.name}: app "coming" is ${item.app === "coming"}, but it ${coming ? "uses" : "does not use"} ${APP_COMING.join(" or ")}`);
 }
+// A data screen (SITE-155): lines parse clean, draw a query, and the screen is in library.json and search.
+for (const s of DATA_SCREENS) {
+  const ops = parse(s.yl);
+  const err = ops.find((o) => o.op === "error");
+  if (err) problems.push(`screen ${s.name}: an error line: ${err.message} (${err.line})`);
+  if (!ops.some((o) => o.op === "add" && o.preset === "query")) problems.push(`screen ${s.name}: draws no query`);
+  if (PRESETS.includes(s.name) || names.has(s.name)) problems.push(`screen ${s.name}: name taken by a preset or a flow`);
+  if (!index.items.some((i) => i.kind === "screen" && i.name === s.name)) problems.push(`screen ${s.name}: missing from library.json`);
+}
+if (!search(index.items, "workout", { kind: "screen" }).some((h) => h.name === "build-my-workout")) problems.push('search "workout": does not find build-my-workout');
 for (const k of Object.keys(INTENTS)) if (!index.items.some((i) => i.name === k)) problems.push(`${k}: intents for an entry the library does not have`);
 for (const q of ["music", "guitar"]) if (search(index.items, q, { kind: "screen" }).length < 2) problems.push(`search "${q}": finds fewer than 2 music screens`);
 // Search finds what an agent asks for (the same search as the page, /api/library and yui_library).

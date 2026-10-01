@@ -1847,6 +1847,34 @@ query crm sort=Next cols=Name|Stage|Won as list check=Won "Mark a deal won"`,
     next: "put crm cedar Stage=Proposal Next=today+3",
   },
   {
+    // The coach's workout tables (SITE-155, web half of YUI-89): moves and their swaps in one table,
+    // a custom workout as rows the person edits, the week as a query. Ticking a row writes it; the
+    // agent line swaps a move for its variation with one put.
+    name: "Tables: build my workout",
+    slug: "tables-workouts",
+    agent: "Coach",
+    yl: `table create variations Move:text Swap:text Cue:text
+put variations goblet-squat Move="Goblet squat" Swap="Front squat" Cue="Elbows up, chest tall"
+put variations split-squat Move="Split squat" Swap="Reverse lunge" Cue="Front shin tall, drop straight down"
+put variations push-up Move="Push-up" Swap="Incline push-up" Cue="One line from head to heel"
+put variations row Move="Dumbbell row" Swap="Cable row" Cue="Pull to the hip, not the chest"
+put variations hinge Move="Romanian deadlift" Swap="Hip thrust" Cue="Hips back, soft knees"
+table create workouts Day:date Name:text Focus:text Done:bool
+put workouts w1 Day=today-4 Name="Legs A" Focus=Legs +Done
+put workouts w2 Day=today-2 Name="Push" Focus=Chest +Done
+put workouts w3 Day=today Name="Legs B" Focus=Legs
+put workouts w4 Day=today+2 Name="Pull" Focus=Back
+table create session Slot:number Move:text Sets:number Reps:number Done:bool
+put session 1 Slot=1 Move="Goblet squat" Sets=3 Reps=8
+put session 2 Slot=2 Move="Split squat" Sets=3 Reps=10
+put session 3 Slot=3 Move="Romanian deadlift" Sets=3 Reps=8
+put session 4 Slot=4 Move="Push-up" Sets=2 Reps=12
+query workouts sort=Day cols=Day|Name|Focus|Done as table "This week"
+query session sort=Slot cols=Move|Sets|Reps|Done as list check=Done "Today: Legs B"
+query variations cols=Move|Swap|Cue as table "Swaps I know"`,
+    next: `put session 1 Move="Front squat"`,
+  },
+  {
     // Meal photo to macros (spec/MEAL.md, YUI-35 step 1). Pick a sample photo
     // (or take one) and a stand-in agent answers with the estimate; fix the
     // portion, tap Save, and the row lands in the meals table with today's totals.

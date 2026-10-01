@@ -1692,6 +1692,468 @@
      }
     ]
    }
+  },
+  {
+   "name": "workouts: swap a move for its variation, the row keeps its sets",
+   "input": "table create variations Move:text Swap:text\nput variations goblet Move=\"Goblet squat\" Swap=\"Front squat\"\nput variations pushup Move=\"Push-up\" Swap=\"Incline push-up\"\ntable create session Slot:number Move:text Sets:number Reps:number Done:bool\nput session 1 Slot=1 Move=\"Goblet squat\" Sets=3 Reps=8\nput session 2 Slot=2 Move=\"Push-up\" Sets=2 Reps=12\nput session 3 Slot=3 Move=Plank Sets=3 Reps=1\nput session 1 Move=\"Front squat\"\nquery session sort=Slot cols=Move|Sets|Reps as table \"Today\"\nquery variations where=Move~squat cols=Move|Swap as list \"Swaps\"",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "variations",
+     "cols": [
+      {
+       "name": "Move",
+       "type": "text"
+      },
+      {
+       "name": "Swap",
+       "type": "text"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "variations",
+     "key": "goblet",
+     "values": {
+      "Move": "Goblet squat",
+      "Swap": "Front squat"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "variations",
+     "key": "pushup",
+     "values": {
+      "Move": "Push-up",
+      "Swap": "Incline push-up"
+     }
+    },
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "session",
+     "cols": [
+      {
+       "name": "Slot",
+       "type": "number"
+      },
+      {
+       "name": "Move",
+       "type": "text"
+      },
+      {
+       "name": "Sets",
+       "type": "number"
+      },
+      {
+       "name": "Reps",
+       "type": "number"
+      },
+      {
+       "name": "Done",
+       "type": "bool"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "1",
+     "values": {
+      "Slot": 1,
+      "Move": "Goblet squat",
+      "Sets": 3,
+      "Reps": 8
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "2",
+     "values": {
+      "Slot": 2,
+      "Move": "Push-up",
+      "Sets": 2,
+      "Reps": 12
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "3",
+     "values": {
+      "Slot": 3,
+      "Move": "Plank",
+      "Sets": 3,
+      "Reps": 1
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "1",
+     "values": {
+      "Move": "Front squat"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "session",
+      "as": "table",
+      "title": "Today",
+      "sort": [
+       "Slot"
+      ],
+      "cols": [
+       "Move",
+       "Sets",
+       "Reps"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n2",
+     "props": {
+      "table": "variations",
+      "as": "list",
+      "title": "Swaps",
+      "where": [
+       "Move~squat"
+      ],
+      "cols": [
+       "Move",
+       "Swap"
+      ]
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Move",
+        "type": "text"
+       },
+       {
+        "name": "Sets",
+        "type": "number"
+       },
+       {
+        "name": "Reps",
+        "type": "number"
+       }
+      ],
+      "rows": [
+       [
+        "Front squat",
+        3,
+        8
+       ],
+       [
+        "Push-up",
+        2,
+        12
+       ],
+       [
+        "Plank",
+        3,
+        1
+       ]
+      ],
+      "keys": [
+       "1",
+       "2",
+       "3"
+      ],
+      "count": 3
+     },
+     {
+      "cols": [
+       {
+        "name": "Move",
+        "type": "text"
+       },
+       {
+        "name": "Swap",
+        "type": "text"
+       }
+      ],
+      "rows": [
+       [
+        "Goblet squat",
+        "Front squat"
+       ]
+      ],
+      "keys": [
+       "goblet"
+      ],
+      "count": 1
+     }
+    ]
+   }
+  },
+  {
+   "name": "workouts: edit a custom workout, tick a move, change the sets, drop one",
+   "input": "table create variations Move:text Swap:text\nput variations goblet Move=\"Goblet squat\" Swap=\"Front squat\"\nput variations pushup Move=\"Push-up\" Swap=\"Incline push-up\"\ntable create session Slot:number Move:text Sets:number Reps:number Done:bool\nput session 1 Slot=1 Move=\"Goblet squat\" Sets=3 Reps=8\nput session 2 Slot=2 Move=\"Push-up\" Sets=2 Reps=12\nput session 3 Slot=3 Move=Plank Sets=3 Reps=1\nput session 1 +Done\nput session 2 Sets=4 Reps=10\nput session 3 +delete\nput session 4 Slot=4 Move=\"Farmer carry\" Sets=3 Reps=1\nquery session sort=Slot cols=Move|Sets|Done as list check=Done \"Today\"\nquery session sum=Sets +count as table \"Totals\"",
+   "expected": [
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "variations",
+     "cols": [
+      {
+       "name": "Move",
+       "type": "text"
+      },
+      {
+       "name": "Swap",
+       "type": "text"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "variations",
+     "key": "goblet",
+     "values": {
+      "Move": "Goblet squat",
+      "Swap": "Front squat"
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "variations",
+     "key": "pushup",
+     "values": {
+      "Move": "Push-up",
+      "Swap": "Incline push-up"
+     }
+    },
+    {
+     "op": "table",
+     "screen": "1",
+     "name": "session",
+     "cols": [
+      {
+       "name": "Slot",
+       "type": "number"
+      },
+      {
+       "name": "Move",
+       "type": "text"
+      },
+      {
+       "name": "Sets",
+       "type": "number"
+      },
+      {
+       "name": "Reps",
+       "type": "number"
+      },
+      {
+       "name": "Done",
+       "type": "bool"
+      }
+     ]
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "1",
+     "values": {
+      "Slot": 1,
+      "Move": "Goblet squat",
+      "Sets": 3,
+      "Reps": 8
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "2",
+     "values": {
+      "Slot": 2,
+      "Move": "Push-up",
+      "Sets": 2,
+      "Reps": 12
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "3",
+     "values": {
+      "Slot": 3,
+      "Move": "Plank",
+      "Sets": 3,
+      "Reps": 1
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "1",
+     "values": {
+      "Done": true
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "2",
+     "values": {
+      "Sets": 4,
+      "Reps": 10
+     }
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "3",
+     "values": {},
+     "delete": true
+    },
+    {
+     "op": "put",
+     "screen": "1",
+     "table": "session",
+     "key": "4",
+     "values": {
+      "Slot": 4,
+      "Move": "Farmer carry",
+      "Sets": 3,
+      "Reps": 1
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n1",
+     "props": {
+      "table": "session",
+      "as": "list",
+      "title": "Today",
+      "sort": [
+       "Slot"
+      ],
+      "cols": [
+       "Move",
+       "Sets",
+       "Done"
+      ],
+      "check": "Done"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "query",
+     "id": "n2",
+     "props": {
+      "table": "session",
+      "as": "table",
+      "title": "Totals",
+      "count": true,
+      "sum": [
+       "Sets"
+      ]
+     }
+    }
+   ],
+   "tables": {
+    "today": "2026-09-25",
+    "now": "2026-09-25T12:30",
+    "results": [
+     {
+      "cols": [
+       {
+        "name": "Move",
+        "type": "text"
+       },
+       {
+        "name": "Sets",
+        "type": "number"
+       },
+       {
+        "name": "Done",
+        "type": "bool"
+       }
+      ],
+      "rows": [
+       [
+        "Goblet squat",
+        3,
+        true
+       ],
+       [
+        "Push-up",
+        4,
+        null
+       ],
+       [
+        "Farmer carry",
+        3,
+        null
+       ]
+      ],
+      "keys": [
+       "1",
+       "2",
+       "4"
+      ],
+      "count": 3
+     },
+     {
+      "cols": [
+       {
+        "name": "Sets",
+        "type": "number"
+       },
+       {
+        "name": "Count",
+        "type": "number"
+       }
+      ],
+      "rows": [
+       [
+        10,
+        3
+       ]
+      ],
+      "keys": [
+       null
+      ],
+      "count": 1
+     }
+    ]
+   }
   }
  ]
 }

@@ -24,6 +24,10 @@ Waiting for the app (YUI-144): hand-offs, one agent opening another (YL.md, card
 
 > To pass the person to another of their agents, say why in one line and add one card: `card "Basil" body="She just finished leg day, wants dinner ideas" url=yui://agent/basil cta="Open Basil"`. Yui takes them there and that agent gets your note. One a reply, never when you answer a mention or a group.
 
+Waiting for the app (SITE-155 web half, YUI-89 app half): agent tables, for a coach that keeps moves and builds sessions (TABLES.md, section 5; the playground starter tables-workouts). When the build that keeps tables on the phone goes VALID, this line joins **Use it well**, with a version bump and an eval case:
+
+> - **Keep what you know in a table, never ask for it twice.** A coach keeps its moves and their swaps once: `table create variations Move:text Swap:text Cue:text`, then `put variations goblet-squat Move="Goblet squat" Swap="Front squat" Cue="Elbows up"`. Today's session is rows they edit: `table create session Slot:number Move:text Sets:number Reps:number Done:bool`, a `put session 1 Slot=1 Move="Goblet squat" Sets=3 Reps=8` for each move, and `query session sort=Slot cols=Move|Sets|Done as list check=Done "Today"` draws it; a tick writes the row and tells you. To swap a move, read the swap from `variations` and `put session 1 Move="Front squat"`: the sets stay. If a table already has the answer, use it instead of asking.
+
 ---
 
 ## You are talking to someone in Yui
