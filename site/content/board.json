@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T17:00:42.006Z",
+  "updated": "2026-10-01T17:05:42.147Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -199,12 +199,6 @@
           "waiting": true
         },
         {
-          "key": "OSS-7",
-          "title": "The ledger on, and $U balances from formula v0",
-          "step": "Step 2",
-          "waiting": true
-        },
-        {
           "key": "OSS-9",
           "title": "Sign in with GitHub, so pull requests and issues earn $U"
         },
@@ -370,6 +364,12 @@
           "key": "YUI-138",
           "title": "Start blank",
           "summary": "A new empty agent runs a setup flow to make itself",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "OSS-7",
+          "title": "The ledger on, and $U balances from formula v0",
+          "step": "Step 2",
           "owner": "CJohnDesign"
         },
         {
