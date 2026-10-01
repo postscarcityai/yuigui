@@ -4,7 +4,7 @@ Yui in a browser tab, at https://www.yuigui.com/web. The same account, the same 
 
 Chris, 2026-10-01: "Let's bring Yui to the web!" One to one feature parity with the iPhone app. Web and phone may handle ins and outs a little differently; the web gets as close as it can.
 
-Status: building. YUI-241 landed: sign in, the session, sign out and CORS (live once the Apple Services ID is registered). Scope is full parity, built by us (it was a build-to-earn contributor card, YUI-71; YUI-109, the first pull request, is folded into YUI-242). The map of every app feature and its web twin is [docs/specs/web-parity.md](https://github.com/postscarcityai/yuigui/blob/main/docs/specs/web-parity.md); this page carries its summary. Siblings: YUI-47 (Apple Watch), YUI-58 (macOS).
+Status: building. YUI-241 landed: sign in, the session, sign out and CORS (live, signed in with a real Apple ID). Scope is full parity, built by us (it was a build-to-earn contributor card, YUI-71; YUI-109, the first pull request, is folded into YUI-242). The map of every app feature and its web twin is [docs/specs/web-parity.md](https://github.com/postscarcityai/yuigui/blob/main/docs/specs/web-parity.md); this page carries its summary. Siblings: YUI-47 (Apple Watch), YUI-58 (macOS).
 
 ## What it is
 
