@@ -178,6 +178,21 @@
       ]
     },
     {
+      "id": "oct-1",
+      "title": "Oct 1 in the app",
+      "lede": "What landed in the app on Oct 1: group chats, your $U, past chats, My flows, Siri, the tuner and a steadier sign-in. These are on main and ride the next TestFlight build. Shots are real captures from the iPhone simulator.",
+      "entries": [
+        { "id": "oct1-group-chats", "title": "Group chats: two or more agents, one thread", "what": "Pick two or more agents in the agent list, name the group and choose the lead. Each agent answers in its own look. When one asks another, a handoff row shows it, and past the hop budget a guard asks: Let it or Stop here.", "cards": ["YUI-94"], "agent": "Yui", "app": "native", "shots": ["/progress/yui94-new-group-light.webp", "/progress/yui94-handoff-guard-light.webp", "/progress/yui94-thread-dark.webp", "/progress/yui94-list-dark.webp"] },
+        { "id": "oct1-your-u", "title": "Your $U in the left drawer", "what": "Your picture and name sit top left of the drawer, your coin and $U top right. Tap the coin for Your U: today against the soft cap, your streak and how it adds up. A number, not a token.", "cards": ["YUI-210"], "agent": "Yui", "app": "native", "link": "/earn#formula", "shots": ["/progress/yui210-1-dark-1-settled.webp", "/progress/yui210-2-light-1-settled.webp", "/progress/yui210-3-dark-2-your-u.webp"] },
+        { "id": "oct1-past-chats", "title": "Past chats live in the drawer", "what": "Open the drawer and your earlier chats with an agent are listed there. Tap one to read it, newest first.", "cards": ["YUI-254"], "agent": "Yui", "app": "native", "shots": ["/progress/yui254-drawer-dark.webp", "/progress/yui254-drawer-light.webp", "/progress/yui254-earlier-top-dark.webp", "/progress/yui254-earlier-top-light.webp"] },
+        { "id": "oct1-my-flows", "title": "My flows: your saved flows, in the app", "what": "Open an agent's drawer and every saved flow is there with its variants. Tap one to run it, hold one to remove it. A base flow asks first because its variants go with it.", "cards": ["YUI-238"], "agent": "Yui", "app": "native", "demo": "myflows", "shots": ["/progress/yui238-dark-list.webp", "/progress/yui238-light-list.webp", "/progress/yui238-dark-confirm.webp", "/progress/yui238-dark-run.webp"] },
+        { "id": "oct1-siri", "title": "Siri logs your food and starts your workout", "what": "Say Log my food and Basil's camera opens, ready for a photo or what you ate. Say Start my workout and Arnold's thread is ready to go.", "cards": ["YUI-253"], "agent": "Yui", "app": "native", "shots": ["/progress/yui253-log-my-food-light.webp", "/progress/yui253-log-my-food-dark.webp", "/progress/yui253-start-my-workout-light.webp"] },
+        { "id": "oct1-tuner-last", "title": "The tuner is the last thing on screen", "what": "Ask for a tuner and it sits at the bottom of the chat, where your thumb is, with the string you play lit and the needle turning green when you are in tune.", "cards": ["YUI-252"], "agent": "Yui", "app": "native", "yl": "tuner guitar", "shots": ["/progress/yui252-tuner-dark.webp", "/progress/yui252-tuner-light.webp"] },
+        { "id": "oct1-trash-left", "title": "The trash sits flush left", "what": "Hold the mic and the trash waits at the far left edge, as far from the edge as the mic is on the right.", "cards": ["YUI-251"], "agent": "Yui", "app": "native", "shots": ["/progress/yui251-trash-dark.webp", "/progress/yui251-trash-light.webp"] },
+        { "id": "oct1-signed-in", "title": "You stay signed in", "what": "A dropped connection in the middle of a session refresh no longer ends your session. Yui stops asking you to sign in again.", "cards": ["YUI-239"], "agent": "Yui", "app": "native", "shots": ["/progress/yui239-dropped-reply.webp"] }
+      ]
+    },
+    {
       "id": "own-key",
       "title": "Your own key",
       "lede": "What is on main for the next build: when the free turns run out, bring your own key, from one sheet, at every stop. Shots are real captures from the iPhone simulator.",
