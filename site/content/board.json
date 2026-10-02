@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T14:40:40.278Z",
+  "updated": "2026-10-02T14:50:40.490Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,11 +348,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-172",
-          "title": "The Yui on the web film re-cut with today's faster /web",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -379,6 +374,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-172",
+          "title": "The Yui on the web film re-cut with today's faster /web",
+          "summary": "The web film, re-shot with today's faster /web",
+          "shipped": "2026-10-02",
+          "progress": "/progress#the-web-film-re-shot-with-today-s-faster-web"
+        },
         {
           "key": "YUI-275",
           "title": "/web opens a group chat already drawn, like a one-agent chat",
