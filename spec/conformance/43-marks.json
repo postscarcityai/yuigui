@@ -1,0 +1,488 @@
+{
+ "version": "YL v0",
+ "area": "marks",
+ "vectors": [
+  {
+   "name": "shape venn: sets and pairs are lists, the label is the middle",
+   "input": "shape venn Yui sets=Chat|Drawing",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n1",
+     "props": {
+      "kind": "venn",
+      "label": "Yui",
+      "sets": [
+       "Chat",
+       "Drawing"
+      ]
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "label": "Yui",
+     "kind": "venn",
+     "sets": [
+      "Chat",
+      "Drawing"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "shape venn: three sets, quoted, and their pair overlaps",
+   "input": "shape venn All sets=\"Design|Code|Words\" pairs=Mock|Sketch|Docs tone=mint",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n1",
+     "props": {
+      "kind": "venn",
+      "label": "All",
+      "sets": [
+       "Design",
+       "Code",
+       "Words"
+      ],
+      "pairs": [
+       "Mock",
+       "Sketch",
+       "Docs"
+      ],
+      "tone": "mint"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "label": "All",
+     "kind": "venn",
+     "sets": [
+      "Design",
+      "Code",
+      "Words"
+     ],
+     "pairs": [
+      "Mock",
+      "Sketch",
+      "Docs"
+     ],
+     "tone": "mint"
+    }
+   ]
+  },
+  {
+   "name": "shape venn: one set is still a list",
+   "input": "shape venn sets=Ask",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n1",
+     "props": {
+      "kind": "venn",
+      "sets": [
+       "Ask"
+      ]
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "label": "",
+     "kind": "venn",
+     "sets": [
+      "Ask"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "shape region and doodle: points stay as written",
+   "input": "shapes \"Mark it\" w=10 h=6\nshape region Field pts=1,1|6,0.8|8.6,2.4 +fill tone=butter\nshape doodle pts=2,5|4,4.4|6,5\nshape doodle Here at=5,3 size=3,2",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shapes",
+     "id": "n1",
+     "props": {
+      "title": "Mark it",
+      "w": 10,
+      "h": 6
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "region",
+      "label": "Field",
+      "fill": true,
+      "pts": [
+       "1,1",
+       "6,0.8",
+       "8.6,2.4"
+      ],
+      "tone": "butter"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "doodle",
+      "pts": [
+       "2,5",
+       "4,4.4",
+       "6,5"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n4",
+     "in": "n1",
+     "props": {
+      "kind": "doodle",
+      "label": "Here",
+      "at": "5,3",
+      "size": "3,2"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "title": "Mark it",
+     "caption": "",
+     "w": 10,
+     "h": 6
+    },
+    {
+     "label": "Field",
+     "kind": "region",
+     "fill": true,
+     "pts": [
+      "1,1",
+      "6,0.8",
+      "8.6,2.4"
+     ],
+     "tone": "butter"
+    },
+    {
+     "label": "",
+     "kind": "doodle",
+     "pts": [
+      "2,5",
+      "4,4.4",
+      "6,5"
+     ]
+    },
+    {
+     "label": "Here",
+     "kind": "doodle",
+     "at": "5,3",
+     "size": "3,2"
+    }
+   ]
+  },
+  {
+   "name": "shape contour: rings is a number",
+   "input": "shape contour Peak at=6,3 size=3.4,2.6 rings=5 +fill",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n1",
+     "props": {
+      "kind": "contour",
+      "label": "Peak",
+      "fill": true,
+      "at": "6,3",
+      "size": "3.4,2.6",
+      "rings": 5
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "label": "Peak",
+     "kind": "contour",
+     "fill": true,
+     "at": "6,3",
+     "size": "3.4,2.6",
+     "rings": 5
+    }
+   ]
+  },
+  {
+   "name": "shape arrow: bend is a number, either way",
+   "input": "shapes\nshape@a box A\nshape@b box B\nshape arrow from=a to=b bend=0.3\nshape line from=b to=a bend=-0.25 +dash",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shapes",
+     "id": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "a",
+     "in": "n1",
+     "props": {
+      "kind": "box",
+      "label": "A"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "b",
+     "in": "n1",
+     "props": {
+      "kind": "box",
+      "label": "B"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "arrow",
+      "from": "a",
+      "to": "b",
+      "bend": 0.3
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "line",
+      "dash": true,
+      "from": "b",
+      "to": "a",
+      "bend": -0.25
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "title": "",
+     "caption": "",
+     "w": 10,
+     "h": 6
+    },
+    {
+     "label": "A",
+     "kind": "box"
+    },
+    {
+     "label": "B",
+     "kind": "box"
+    },
+    {
+     "label": "",
+     "kind": "arrow",
+     "from": "a",
+     "to": "b",
+     "bend": 0.3
+    },
+    {
+     "label": "",
+     "kind": "line",
+     "dash": true,
+     "from": "b",
+     "to": "a",
+     "bend": -0.25
+    }
+   ]
+  },
+  {
+   "name": "shapes: img= puts a picture under the drawing",
+   "input": "shapes \"Fix this\" img=/demo/site_before_hero.jpg w=16 h=9\nshape doodle at=5,3 size=4,2 tone=butter\nshape arrow \"this one\" from=13,2 to=7,3 bend=0.3",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shapes",
+     "id": "n1",
+     "props": {
+      "title": "Fix this",
+      "img": "/demo/site_before_hero.jpg",
+      "w": 16,
+      "h": 9
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "doodle",
+      "at": "5,3",
+      "size": "4,2",
+      "tone": "butter"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "arrow",
+      "label": "this one",
+      "from": "13,2",
+      "to": "7,3",
+      "bend": 0.3
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "title": "Fix this",
+     "caption": "",
+     "w": 16,
+     "h": 9,
+     "img": "/demo/site_before_hero.jpg"
+    },
+    {
+     "label": "",
+     "kind": "doodle",
+     "at": "5,3",
+     "size": "4,2",
+     "tone": "butter"
+    },
+    {
+     "label": "this one",
+     "kind": "arrow",
+     "from": "13,2",
+     "to": "7,3",
+     "bend": 0.3
+    }
+   ]
+  },
+  {
+   "name": "plan: shapes after a page joins the plan, its shapes join it, the next page goes back to the plan",
+   "input": "plan P\npage One\nshapes Overlap\nshape venn Yui sets=Chat|Drawing\npage Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "plan",
+     "id": "n1",
+     "props": {
+      "title": "P"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shapes",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "title": "Overlap"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "kind": "venn",
+      "label": "Yui",
+      "sets": [
+       "Chat",
+       "Drawing"
+      ]
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n5",
+     "in": "n1",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "title": "P",
+     "submit": "Send",
+     "review": true
+    },
+    {
+     "title": "One",
+     "body": "",
+     "points": [],
+     "notes": ""
+    },
+    {
+     "title": "Overlap",
+     "caption": "",
+     "w": 10,
+     "h": 6
+    },
+    {
+     "label": "Yui",
+     "kind": "venn",
+     "sets": [
+      "Chat",
+      "Drawing"
+     ]
+    },
+    {
+     "title": "Two",
+     "body": "",
+     "points": [],
+     "notes": ""
+    }
+   ]
+  }
+ ]
+}

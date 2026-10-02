@@ -61,7 +61,7 @@ export const CORE = ["say", "custom", "save", "show", "forget", "clear", "end", 
 // can hold another group (a deck), a deck or plan a sketch (a page's picture).
 export const GROUPS = {
   deck: ["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "draw", "map", "math", "chart", "stat", "calc"],
-  plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "draw", "map"],
+  plan: ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "shapes", "diagram", "mock", "draw", "map"],
   narrate: ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
   timeline: ["done", "now", "next"],
   sketch: ["row", "after"],
@@ -664,7 +664,7 @@ const LISTS = {
   project: ["facts", "next"],
   pick: ["answer"],
   game: ["items"],
-  shape: ["pts"],
+  shape: ["pts", "sets", "pairs"],
   part: ["items"],
   area: ["codes", "pts"],
   route: ["pts"],

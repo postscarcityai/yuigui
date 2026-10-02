@@ -46,6 +46,24 @@ shape Circle Two
 shape path pts=1,1
 shape line`],
   ["a lone shape", `shape circle Hello +pulse`],
+  ["a Venn of two and a Venn of three, overlaps labelled", `shapes "Where Yui sits" w=12 h=5 caption="Chat and drawing overlap in Yui."
+shape venn Yui sets=Chat|Drawing at=3.2,2.5 +grow
+shape venn sets=Design|Code|Words pairs=Mock|Sketch|Docs at=9,2.5 size=4.6 tone=mint`],
+  ["a Venn in the auto row joins an arrow", `shapes
+shape venn Both sets=Ask|Answer
+shape arrow
+shape circle Done`],
+  ["a region, a contour and curved connectors", `shapes "Where the heat is" w=10 h=6 caption="The hot spot sits east of the middle."
+shape region Field pts=1,1|6,0.8|8.6,2.4|7.4,5|2.6,5.2|0.8,3.4 tone=butter +fill
+shape@hot contour Peak at=6,3 size=3.4,2.6 rings=5 +fill
+shape arrow "look here" from=1,5.6 to=hot bend=0.35
+shape line from=1,0.5 to=9,0.5 bend=-0.2 tone=mute +dash`],
+  ["doodles over a picture, short ones dropped", `shapes "Fix this" img=/demo/site_before_hero.jpg w=16 h=9
+shape doodle at=5,3 size=4,2 tone=butter
+shape doodle pts=9,7|11,6.2|13,6.8
+shape arrow "this one" from=13,2 to=7,3 bend=0.3
+shape region pts=1,1|3,1
+shape doodle`],
 ];
 const TIMES = [0.2, 0.9, 2, 4.3, "still"];
 const r = (v) => (typeof v === "number" ? Math.round(v * 1e4) / 1e4 : Array.isArray(v) ? v.map(r) : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, r(x)])) : v);
@@ -63,6 +81,7 @@ const out = INPUTS.map(([name, input]) => {
       const o = { i: f.i, o: f.o, s: f.s, d: f.d };
       if (f.c) o.c = f.c;
       if (f.a) { o.a = f.a; o.b = f.b; }
+      if (f.q) o.q = f.q;
       return o;
     });
   }

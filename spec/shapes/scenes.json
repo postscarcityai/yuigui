@@ -2672,6 +2672,1340 @@
     ]
    },
    "text": "Hello"
+  },
+  {
+   "name": "a Venn of two and a Venn of three, overlaps labelled",
+   "input": "shapes \"Where Yui sits\" w=12 h=5 caption=\"Chat and drawing overlap in Yui.\"\nshape venn Yui sets=Chat|Drawing at=3.2,2.5 +grow\nshape venn sets=Design|Code|Words pairs=Mock|Sketch|Docs at=9,2.5 size=4.6 tone=mint",
+   "members": [
+    {
+     "id": "n2",
+     "props": {
+      "kind": "venn",
+      "label": "Yui",
+      "grow": true,
+      "sets": [
+       "Chat",
+       "Drawing"
+      ],
+      "at": "3.2,2.5"
+     }
+    },
+    {
+     "id": "n3",
+     "props": {
+      "kind": "venn",
+      "sets": [
+       "Design",
+       "Code",
+       "Words"
+      ],
+      "pairs": [
+       "Mock",
+       "Sketch",
+       "Docs"
+      ],
+      "at": "9,2.5",
+      "size": 4.6,
+      "tone": "mint"
+     }
+    }
+   ],
+   "head": {
+    "title": "Where Yui sits",
+    "w": 12,
+    "h": 5,
+    "caption": "Chat and drawing overlap in Yui."
+   },
+   "scene": {
+    "w": 12,
+    "h": 5,
+    "fs": 0.504,
+    "title": "Where Yui sits",
+    "caption": "Chat and drawing overlap in Yui.",
+    "items": [
+     {
+      "i": 0,
+      "id": "n2",
+      "kind": "venn",
+      "label": "Yui",
+      "tone": "accent",
+      "fill": true,
+      "dash": false,
+      "motion": "grow",
+      "pulse": false,
+      "start": 0,
+      "at": [
+       3.2,
+       2.5
+      ],
+      "size": [
+       5.2,
+       3.2
+      ],
+      "sets": [
+       "Chat",
+       "Drawing"
+      ],
+      "dur": 0.5
+     },
+     {
+      "i": 1,
+      "id": "n3",
+      "kind": "venn",
+      "label": "",
+      "tone": "mint",
+      "fill": true,
+      "dash": false,
+      "motion": "fade",
+      "pulse": false,
+      "start": 0.35,
+      "at": [
+       9,
+       2.5
+      ],
+      "size": [
+       4.6,
+       4.37
+      ],
+      "sets": [
+       "Design",
+       "Code",
+       "Words"
+      ],
+      "pairs": [
+       "Mock",
+       "Sketch",
+       "Docs"
+      ],
+      "dur": 0.35
+     }
+    ],
+    "total": 0.7
+   },
+   "frames": {
+    "2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       3.2,
+       2.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       9,
+       2.5
+      ]
+     }
+    ],
+    "0.2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 0.9568,
+      "d": 1,
+      "c": [
+       3.2,
+       2.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 0,
+      "s": 1,
+      "d": 1,
+      "c": [
+       9,
+       2.5
+      ]
+     }
+    ],
+    "0.9": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       3.2,
+       2.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       9,
+       2.5
+      ]
+     }
+    ],
+    "4.3": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       3.2,
+       2.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       9,
+       2.5
+      ]
+     }
+    ],
+    "still": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       3.2,
+       2.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       9,
+       2.5
+      ]
+     }
+    ]
+   },
+   "labels": {
+    "0": [
+     "Yui"
+    ]
+   },
+   "text": "Where Yui sits. Chat and Drawing overlap: Yui, Design, Code and Words overlap. Chat and drawing overlap in Yui."
+  },
+  {
+   "name": "a Venn in the auto row joins an arrow",
+   "input": "shapes\nshape venn Both sets=Ask|Answer\nshape arrow\nshape circle Done",
+   "members": [
+    {
+     "id": "n2",
+     "props": {
+      "kind": "venn",
+      "label": "Both",
+      "sets": [
+       "Ask",
+       "Answer"
+      ]
+     }
+    },
+    {
+     "id": "n3",
+     "props": {
+      "kind": "arrow"
+     }
+    },
+    {
+     "id": "n4",
+     "props": {
+      "kind": "circle",
+      "label": "Done"
+     }
+    }
+   ],
+   "head": {},
+   "scene": {
+    "w": 10,
+    "h": 4.6,
+    "fs": 0.42,
+    "title": "",
+    "caption": "",
+    "items": [
+     {
+      "i": 0,
+      "id": "n2",
+      "kind": "venn",
+      "label": "Both",
+      "tone": "accent",
+      "fill": true,
+      "dash": false,
+      "motion": "fade",
+      "pulse": false,
+      "start": 0,
+      "at": [
+       3.75,
+       2.3
+      ],
+      "size": [
+       5.2,
+       3.2
+      ],
+      "sets": [
+       "Ask",
+       "Answer"
+      ],
+      "dur": 0.35
+     },
+     {
+      "i": 1,
+      "id": "n3",
+      "kind": "arrow",
+      "label": "",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0.35,
+      "from": {
+       "ref": 0
+      },
+      "to": {
+       "ref": 2
+      },
+      "dur": 0.7
+     },
+     {
+      "i": 2,
+      "id": "n4",
+      "kind": "circle",
+      "label": "Done",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "fade",
+      "pulse": false,
+      "start": 0.7,
+      "at": [
+       8.1,
+       2.3
+      ],
+      "size": [
+       1.5,
+       1.5
+      ],
+      "dur": 0.35
+     }
+    ],
+    "total": 1.05
+   },
+   "frames": {
+    "2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       3.75,
+       2.3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       6.5,
+       2.3
+      ],
+      "b": [
+       7.2,
+       2.3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       8.1,
+       2.3
+      ]
+     }
+    ],
+    "0.2": [
+     {
+      "i": 0,
+      "o": 0.9213,
+      "s": 1,
+      "d": 1,
+      "c": [
+       3.75,
+       2.3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 0,
+      "s": 1,
+      "d": 0,
+      "a": [
+       6.5,
+       2.3
+      ],
+      "b": [
+       7.2,
+       2.3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 0,
+      "s": 1,
+      "d": 1,
+      "c": [
+       8.1,
+       2.3
+      ]
+     }
+    ],
+    "0.9": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       3.75,
+       2.3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 0.9902,
+      "a": [
+       6.5,
+       2.3
+      ],
+      "b": [
+       7.2,
+       2.3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 0.9213,
+      "s": 1,
+      "d": 1,
+      "c": [
+       8.1,
+       2.3
+      ]
+     }
+    ],
+    "4.3": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       3.75,
+       2.3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       6.5,
+       2.3
+      ],
+      "b": [
+       7.2,
+       2.3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       8.1,
+       2.3
+      ]
+     }
+    ],
+    "still": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       3.75,
+       2.3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       6.5,
+       2.3
+      ],
+      "b": [
+       7.2,
+       2.3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       8.1,
+       2.3
+      ]
+     }
+    ]
+   },
+   "labels": {
+    "0": [
+     "Both"
+    ],
+    "2": [
+     "Done"
+    ]
+   },
+   "text": "Both → Done"
+  },
+  {
+   "name": "a region, a contour and curved connectors",
+   "input": "shapes \"Where the heat is\" w=10 h=6 caption=\"The hot spot sits east of the middle.\"\nshape region Field pts=1,1|6,0.8|8.6,2.4|7.4,5|2.6,5.2|0.8,3.4 tone=butter +fill\nshape@hot contour Peak at=6,3 size=3.4,2.6 rings=5 +fill\nshape arrow \"look here\" from=1,5.6 to=hot bend=0.35\nshape line from=1,0.5 to=9,0.5 bend=-0.2 tone=mute +dash",
+   "members": [
+    {
+     "id": "n2",
+     "props": {
+      "kind": "region",
+      "label": "Field",
+      "fill": true,
+      "pts": [
+       "1,1",
+       "6,0.8",
+       "8.6,2.4",
+       "7.4,5",
+       "2.6,5.2",
+       "0.8,3.4"
+      ],
+      "tone": "butter"
+     }
+    },
+    {
+     "id": "hot",
+     "props": {
+      "kind": "contour",
+      "label": "Peak",
+      "fill": true,
+      "at": "6,3",
+      "size": "3.4,2.6",
+      "rings": 5
+     }
+    },
+    {
+     "id": "n3",
+     "props": {
+      "kind": "arrow",
+      "label": "look here",
+      "from": "1,5.6",
+      "to": "hot",
+      "bend": 0.35
+     }
+    },
+    {
+     "id": "n4",
+     "props": {
+      "kind": "line",
+      "dash": true,
+      "from": "1,0.5",
+      "to": "9,0.5",
+      "bend": -0.2,
+      "tone": "mute"
+     }
+    }
+   ],
+   "head": {
+    "title": "Where the heat is",
+    "w": 10,
+    "h": 6,
+    "caption": "The hot spot sits east of the middle."
+   },
+   "scene": {
+    "w": 10,
+    "h": 6,
+    "fs": 0.42,
+    "title": "Where the heat is",
+    "caption": "The hot spot sits east of the middle.",
+    "items": [
+     {
+      "i": 0,
+      "id": "n2",
+      "kind": "region",
+      "label": "Field",
+      "tone": "butter",
+      "fill": true,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0,
+      "pts": [
+       [
+        1,
+        1
+       ],
+       [
+        6,
+        0.8
+       ],
+       [
+        8.6,
+        2.4
+       ],
+       [
+        7.4,
+        5
+       ],
+       [
+        2.6,
+        5.2
+       ],
+       [
+        0.8,
+        3.4
+       ]
+      ],
+      "dur": 0.7
+     },
+     {
+      "i": 1,
+      "id": "hot",
+      "kind": "contour",
+      "label": "Peak",
+      "tone": "accent",
+      "fill": true,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0.35,
+      "at": [
+       6,
+       3
+      ],
+      "size": [
+       3.4,
+       2.6
+      ],
+      "rings": 5,
+      "dur": 0.7
+     },
+     {
+      "i": 2,
+      "id": "n3",
+      "kind": "arrow",
+      "label": "look here",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0.7,
+      "from": {
+       "pt": [
+        1,
+        5.6
+       ]
+      },
+      "to": {
+       "ref": 1
+      },
+      "bend": 0.35,
+      "dur": 0.7
+     },
+     {
+      "i": 3,
+      "id": "n4",
+      "kind": "line",
+      "label": "",
+      "tone": "mute",
+      "fill": false,
+      "dash": true,
+      "motion": "draw",
+      "pulse": false,
+      "start": 1.05,
+      "from": {
+       "pt": [
+        1,
+        0.5
+       ]
+      },
+      "to": {
+       "pt": [
+        9,
+        0.5
+       ]
+      },
+      "bend": -0.2,
+      "dur": 0.7
+     }
+    ],
+    "total": 1.75
+   },
+   "frames": {
+    "2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       6,
+       3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       1,
+       5.6
+      ],
+      "b": [
+       4.4514,
+       2.2114
+      ],
+      "q": [
+       1.68,
+       0.8
+      ]
+     },
+     {
+      "i": 3,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       1,
+       0.5
+      ],
+      "b": [
+       9,
+       0.5
+      ],
+      "q": [
+       5,
+       3.7
+      ]
+     }
+    ],
+    "0.2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 0.6356
+     },
+     {
+      "i": 1,
+      "o": 0,
+      "s": 1,
+      "d": 0,
+      "c": [
+       6,
+       3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 0,
+      "s": 1,
+      "d": 0,
+      "a": [
+       1,
+       5.6
+      ],
+      "b": [
+       4.4514,
+       2.2114
+      ],
+      "q": [
+       1.68,
+       0.8
+      ]
+     },
+     {
+      "i": 3,
+      "o": 0,
+      "s": 1,
+      "d": 0,
+      "a": [
+       1,
+       0.5
+      ],
+      "b": [
+       9,
+       0.5
+      ],
+      "q": [
+       5,
+       3.7
+      ]
+     }
+    ],
+    "0.9": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 0.9902,
+      "c": [
+       6,
+       3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 0.6356,
+      "a": [
+       1,
+       5.6
+      ],
+      "b": [
+       4.4514,
+       2.2114
+      ],
+      "q": [
+       1.68,
+       0.8
+      ]
+     },
+     {
+      "i": 3,
+      "o": 0,
+      "s": 1,
+      "d": 0,
+      "a": [
+       1,
+       0.5
+      ],
+      "b": [
+       9,
+       0.5
+      ],
+      "q": [
+       5,
+       3.7
+      ]
+     }
+    ],
+    "4.3": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       6,
+       3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       1,
+       5.6
+      ],
+      "b": [
+       4.4514,
+       2.2114
+      ],
+      "q": [
+       1.68,
+       0.8
+      ]
+     },
+     {
+      "i": 3,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       1,
+       0.5
+      ],
+      "b": [
+       9,
+       0.5
+      ],
+      "q": [
+       5,
+       3.7
+      ]
+     }
+    ],
+    "still": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       6,
+       3
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       1,
+       5.6
+      ],
+      "b": [
+       4.4514,
+       2.2114
+      ],
+      "q": [
+       1.68,
+       0.8
+      ]
+     },
+     {
+      "i": 3,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       1,
+       0.5
+      ],
+      "b": [
+       9,
+       0.5
+      ],
+      "q": [
+       5,
+       3.7
+      ]
+     }
+    ]
+   },
+   "labels": {
+    "0": [
+     "Field"
+    ],
+    "1": [
+     "Peak"
+    ],
+    "2": [
+     "look here"
+    ]
+   },
+   "text": "Where the heat is. Field, Peak, look here. The hot spot sits east of the middle."
+  },
+  {
+   "name": "doodles over a picture, short ones dropped",
+   "input": "shapes \"Fix this\" img=/demo/site_before_hero.jpg w=16 h=9\nshape doodle at=5,3 size=4,2 tone=butter\nshape doodle pts=9,7|11,6.2|13,6.8\nshape arrow \"this one\" from=13,2 to=7,3 bend=0.3\nshape region pts=1,1|3,1\nshape doodle",
+   "members": [
+    {
+     "id": "n2",
+     "props": {
+      "kind": "doodle",
+      "at": "5,3",
+      "size": "4,2",
+      "tone": "butter"
+     }
+    },
+    {
+     "id": "n3",
+     "props": {
+      "kind": "doodle",
+      "pts": [
+       "9,7",
+       "11,6.2",
+       "13,6.8"
+      ]
+     }
+    },
+    {
+     "id": "n4",
+     "props": {
+      "kind": "arrow",
+      "label": "this one",
+      "from": "13,2",
+      "to": "7,3",
+      "bend": 0.3
+     }
+    },
+    {
+     "id": "n5",
+     "props": {
+      "kind": "region",
+      "pts": [
+       "1,1",
+       "3,1"
+      ]
+     }
+    },
+    {
+     "id": "n6",
+     "props": {
+      "kind": "doodle"
+     }
+    }
+   ],
+   "head": {
+    "title": "Fix this",
+    "img": "/demo/site_before_hero.jpg",
+    "w": 16,
+    "h": 9
+   },
+   "scene": {
+    "w": 16,
+    "h": 9,
+    "fs": 0.672,
+    "title": "Fix this",
+    "caption": "",
+    "items": [
+     {
+      "i": 0,
+      "id": "n2",
+      "kind": "doodle",
+      "label": "",
+      "tone": "butter",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0,
+      "pts": [
+       [
+        4.2787,
+        2.0891
+       ],
+       [
+        5.7607,
+        2.1126
+       ],
+       [
+        6.8042,
+        2.6355
+       ],
+       [
+        6.8751,
+        3.3941
+       ],
+       [
+        5.738,
+        3.8952
+       ],
+       [
+        4.1913,
+        3.981
+       ],
+       [
+        3.2006,
+        3.3782
+       ],
+       [
+        2.9805,
+        2.592
+       ],
+       [
+        4.2106,
+        2.0791
+       ],
+       [
+        5.8085,
+        1.979
+       ]
+      ],
+      "dur": 0.7
+     },
+     {
+      "i": 1,
+      "id": "n3",
+      "kind": "doodle",
+      "label": "",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0.35,
+      "pts": [
+       [
+        9,
+        7
+       ],
+       [
+        11,
+        6.2
+       ],
+       [
+        13,
+        6.8
+       ]
+      ],
+      "dur": 0.7
+     },
+     {
+      "i": 2,
+      "id": "n4",
+      "kind": "arrow",
+      "label": "this one",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0.7,
+      "from": {
+       "pt": [
+        13,
+        2
+       ]
+      },
+      "to": {
+       "pt": [
+        7,
+        3
+       ]
+      },
+      "bend": 0.3,
+      "dur": 0.7
+     }
+    ],
+    "total": 1.4
+   },
+   "frames": {
+    "2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       13,
+       2
+      ],
+      "b": [
+       7,
+       3
+      ],
+      "q": [
+       10.6,
+       6.1
+      ]
+     }
+    ],
+    "0.2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 0.6356
+     },
+     {
+      "i": 1,
+      "o": 0,
+      "s": 1,
+      "d": 0
+     },
+     {
+      "i": 2,
+      "o": 0,
+      "s": 1,
+      "d": 0,
+      "a": [
+       13,
+       2
+      ],
+      "b": [
+       7,
+       3
+      ],
+      "q": [
+       10.6,
+       6.1
+      ]
+     }
+    ],
+    "0.9": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 0.9902
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 0.6356,
+      "a": [
+       13,
+       2
+      ],
+      "b": [
+       7,
+       3
+      ],
+      "q": [
+       10.6,
+       6.1
+      ]
+     }
+    ],
+    "4.3": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       13,
+       2
+      ],
+      "b": [
+       7,
+       3
+      ],
+      "q": [
+       10.6,
+       6.1
+      ]
+     }
+    ],
+    "still": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       13,
+       2
+      ],
+      "b": [
+       7,
+       3
+      ],
+      "q": [
+       10.6,
+       6.1
+      ]
+     }
+    ]
+   },
+   "labels": {
+    "2": [
+     "this one"
+    ]
+   },
+   "text": "Fix this. this one"
   }
  ]
 }
