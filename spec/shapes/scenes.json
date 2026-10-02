@@ -652,6 +652,7 @@
      "Phone"
     ]
    },
+   "marks": {},
    "text": "How an ask reaches your phone. You → Board → Lane → Phone (ships). You ask, it lands on the board."
   },
   {
@@ -1304,6 +1305,7 @@
      "coil"
     ]
    },
+   "marks": {},
    "text": "Heat pump loop. Outside air → Outdoor coil → Compressor → Indoor coil"
   },
   {
@@ -1765,6 +1767,7 @@
      "drawing"
     ]
    },
+   "marks": {},
    "text": "Where the time goes. drawing, Thinking → dot. Most of it is thinking."
   },
   {
@@ -2243,6 +2246,7 @@
      "Edge"
     ]
    },
+   "marks": {},
    "text": "Where your idea is. Backlog, Shapes, Live, Edge"
   },
   {
@@ -2557,6 +2561,7 @@
      "Two"
     ]
    },
+   "marks": {},
    "text": "Six → Two"
   },
   {
@@ -2671,6 +2676,7 @@
      "Hello"
     ]
    },
+   "marks": {},
    "text": "Hello"
   },
   {
@@ -2897,6 +2903,121 @@
    "labels": {
     "0": [
      "Yui"
+    ]
+   },
+   "marks": {
+    "0": [
+     {
+      "at": [
+       1.6095,
+       2.5
+      ],
+      "text": "Chat",
+      "width": 1.7108,
+      "lines": [
+       "Chat"
+      ],
+      "fs": 0.4284
+     },
+     {
+      "at": [
+       4.7905,
+       2.5
+      ],
+      "text": "Drawing",
+      "width": 1.7108,
+      "lines": [
+       "Drawing"
+      ],
+      "fs": 0.4284
+     },
+     {
+      "at": [
+       3.2,
+       2.5
+      ],
+      "text": "Yui",
+      "width": 1.1044,
+      "lines": [
+       "Yui"
+      ],
+      "fs": 0.504,
+      "middle": true
+     }
+    ],
+    "1": [
+     {
+      "at": [
+       7.5879,
+       1.6381
+      ],
+      "text": "Design",
+      "width": 1.5151,
+      "lines": [
+       "Design"
+      ],
+      "fs": 0.4284
+     },
+     {
+      "at": [
+       10.4121,
+       1.6381
+      ],
+      "text": "Code",
+      "width": 1.5151,
+      "lines": [
+       "Code"
+      ],
+      "fs": 0.4284
+     },
+     {
+      "at": [
+       9,
+       3.4769
+      ],
+      "text": "Words",
+      "width": 2.4413,
+      "lines": [
+       "Words"
+      ],
+      "fs": 0.4284
+     },
+     {
+      "at": [
+       9,
+       1.5231
+      ],
+      "text": "Mock",
+      "width": 0.8888,
+      "lines": [
+       "Mock"
+      ],
+      "fs": 0.3856
+     },
+     {
+      "at": [
+       8.2071,
+       2.8315
+      ],
+      "text": "Sketch",
+      "width": 0.8698,
+      "lines": [
+       "Sketch"
+      ],
+      "fs": 0.2999
+     },
+     {
+      "at": [
+       9.7929,
+       2.8315
+      ],
+      "text": "Docs",
+      "width": 0.8698,
+      "lines": [
+       "Docs"
+      ],
+      "fs": 0.3856
+     }
     ]
    },
    "text": "Where Yui sits. Chat and Drawing overlap: Yui, Design, Code and Words overlap. Chat and drawing overlap in Yui."
@@ -3194,6 +3315,47 @@
     ],
     "2": [
      "Done"
+    ]
+   },
+   "marks": {
+    "0": [
+     {
+      "at": [
+       2.1566,
+       2.3
+      ],
+      "text": "Ask",
+      "width": 1.7161,
+      "lines": [
+       "Ask"
+      ],
+      "fs": 0.357
+     },
+     {
+      "at": [
+       5.3434,
+       2.3
+      ],
+      "text": "Answer",
+      "width": 1.7161,
+      "lines": [
+       "Answer"
+      ],
+      "fs": 0.357
+     },
+     {
+      "at": [
+       3.75,
+       2.3
+      ],
+      "text": "Both",
+      "width": 1.119,
+      "lines": [
+       "Both"
+      ],
+      "fs": 0.42,
+      "middle": true
+     }
     ]
    },
    "text": "Both → Done"
@@ -3661,6 +3823,33 @@
      "look here"
     ]
    },
+   "marks": {
+    "0": [
+     {
+      "at": [
+       4.6092,
+       2.6333
+      ],
+      "width": 7.1889,
+      "lines": [
+       "Field"
+      ],
+      "fs": 0.378
+     }
+    ],
+    "1": [
+     {
+      "at": [
+       5.9819,
+       2.8549
+      ],
+      "lines": [
+       "Peak"
+      ],
+      "fs": 0.42
+     }
+    ]
+   },
    "text": "Where the heat is. Field, Peak, look here. The hot spot sits east of the middle."
   },
   {
@@ -4005,7 +4194,923 @@
      "this one"
     ]
    },
+   "marks": {},
    "text": "Fix this. this one"
+  },
+  {
+   "name": "long names are capped and fitted, a region labelled in its widest part",
+   "input": "shapes \"Who does what\" w=12 h=6\nshape venn \"The people who design every screen\" sets=\"Product design team\"|\"Engineering and platform\"|Words pairs=\"Mocks and prototypes\"|Sketch|\"Docs\" at=4,3\nshape region \"A very long name for a small field\" pts=7,1|11.5,1.2|11,5|7.5,4.6\nshape contour \"The highest point of the whole map\" at=9.2,3 size=3,2.4",
+   "members": [
+    {
+     "id": "n2",
+     "props": {
+      "kind": "venn",
+      "label": "The people who design every screen",
+      "sets": [
+       "Product design team",
+       "Engineering and platform",
+       "Words"
+      ],
+      "pairs": [
+       "Mocks and prototypes",
+       "Sketch",
+       "Docs"
+      ],
+      "at": "4,3"
+     }
+    },
+    {
+     "id": "n3",
+     "props": {
+      "kind": "region",
+      "label": "A very long name for a small field",
+      "pts": [
+       "7,1",
+       "11.5,1.2",
+       "11,5",
+       "7.5,4.6"
+      ]
+     }
+    },
+    {
+     "id": "n4",
+     "props": {
+      "kind": "contour",
+      "label": "The highest point of the whole map",
+      "at": "9.2,3",
+      "size": "3,2.4"
+     }
+    }
+   ],
+   "head": {
+    "title": "Who does what",
+    "w": 12,
+    "h": 6
+   },
+   "scene": {
+    "w": 12,
+    "h": 6,
+    "fs": 0.504,
+    "title": "Who does what",
+    "caption": "",
+    "items": [
+     {
+      "i": 0,
+      "id": "n2",
+      "kind": "venn",
+      "label": "The people who…",
+      "tone": "accent",
+      "fill": true,
+      "dash": false,
+      "motion": "fade",
+      "pulse": false,
+      "start": 0,
+      "at": [
+       4,
+       3
+      ],
+      "size": [
+       4.8,
+       4.56
+      ],
+      "sets": [
+       "Product design…",
+       "Engineering and…",
+       "Words"
+      ],
+      "pairs": [
+       "Mocks and…",
+       "Sketch",
+       "Docs"
+      ],
+      "dur": 0.35
+     },
+     {
+      "i": 1,
+      "id": "n3",
+      "kind": "region",
+      "label": "A very long…",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0.35,
+      "pts": [
+       [
+        7,
+        1
+       ],
+       [
+        11.5,
+        1.2
+       ],
+       [
+        11,
+        5
+       ],
+       [
+        7.5,
+        4.6
+       ]
+      ],
+      "dur": 0.7
+     },
+     {
+      "i": 2,
+      "id": "n4",
+      "kind": "contour",
+      "label": "The highest point…",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0.7,
+      "at": [
+       9.2,
+       3
+      ],
+      "size": [
+       3,
+       2.4
+      ],
+      "rings": 4,
+      "dur": 0.7
+     }
+    ],
+    "total": 1.4
+   },
+   "frames": {
+    "2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       4,
+       3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       9.2,
+       3
+      ]
+     }
+    ],
+    "0.2": [
+     {
+      "i": 0,
+      "o": 0.9213,
+      "s": 1,
+      "d": 1,
+      "c": [
+       4,
+       3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 0,
+      "s": 1,
+      "d": 0
+     },
+     {
+      "i": 2,
+      "o": 0,
+      "s": 1,
+      "d": 0,
+      "c": [
+       9.2,
+       3
+      ]
+     }
+    ],
+    "0.9": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       4,
+       3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 0.9902
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 0.6356,
+      "c": [
+       9.2,
+       3
+      ]
+     }
+    ],
+    "4.3": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       4,
+       3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       9.2,
+       3
+      ]
+     }
+    ],
+    "still": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       4,
+       3
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       9.2,
+       3
+      ]
+     }
+    ]
+   },
+   "labels": {
+    "0": [
+     "The",
+     "people",
+     "who…"
+    ],
+    "1": [
+     "A very long…"
+    ],
+    "2": [
+     "The",
+     "highest",
+     "point…"
+    ]
+   },
+   "marks": {
+    "0": [
+     {
+      "at": [
+       2.5251,
+       2.1006
+      ],
+      "text": "Product design…",
+      "width": 1.5834,
+      "lines": [
+       "Product",
+       "design…"
+      ],
+      "fs": 0.3856
+     },
+     {
+      "at": [
+       5.4749,
+       2.1006
+      ],
+      "text": "Engineering and…",
+      "width": 1.5834,
+      "lines": [
+       "Engineering",
+       "and…"
+      ],
+      "fs": 0.2999
+     },
+     {
+      "at": [
+       4,
+       4.0194
+      ],
+      "text": "Words",
+      "width": 2.5542,
+      "lines": [
+       "Words"
+      ],
+      "fs": 0.4284
+     },
+     {
+      "at": [
+       4,
+       2.6541
+      ],
+      "text": "The people who…",
+      "width": 0.7454,
+      "lines": [
+       "The",
+       "people who…"
+      ],
+      "fs": 0.3528,
+      "middle": true
+     },
+     {
+      "at": [
+       4,
+       1.9806
+      ],
+      "text": "Mocks and…",
+      "width": 0.9342,
+      "lines": [
+       "Mocks",
+       "and…"
+      ],
+      "fs": 0.3213
+     },
+     {
+      "at": [
+       3.1737,
+       3.3459
+      ],
+      "text": "Sketch",
+      "width": 0.9194,
+      "lines": [
+       "Sketch"
+      ],
+      "fs": 0.2999
+     },
+     {
+      "at": [
+       4.8263,
+       3.3459
+      ],
+      "text": "Docs",
+      "width": 0.9194,
+      "lines": [
+       "Docs"
+      ],
+      "fs": 0.407
+     }
+    ],
+    "1": [
+     {
+      "at": [
+       9.2544,
+       2.2222
+      ],
+      "width": 4.5633,
+      "lines": [
+       "A very long…"
+      ],
+      "fs": 0.4536
+     }
+    ],
+    "2": [
+     {
+      "at": [
+       9.2224,
+       2.875
+      ],
+      "lines": [
+       "The",
+       "highest point…"
+      ],
+      "fs": 0.3528
+     }
+    ]
+   },
+   "text": "Who does what. Product design…, Engineering and… and Words overlap: The people who…, A very long…, The highest point…"
+  },
+  {
+   "name": "a tap and swipes, one by its direction",
+   "input": "shapes \"Hold to talk\" w=10 h=6\nshape@mic tap \"hold to talk\" at=5,4.5 +pulse\nshape swipe \"slide to cancel\" at=5,4.5 dir=left\nshape swipe from=5,4.5 to=5,1.5 bend=0.2 tone=mint\nshape swipe \"nowhere\" at=5,4.5 dir=sideways",
+   "members": [
+    {
+     "id": "mic",
+     "props": {
+      "kind": "tap",
+      "label": "hold to talk",
+      "pulse": true,
+      "at": "5,4.5"
+     }
+    },
+    {
+     "id": "n2",
+     "props": {
+      "kind": "swipe",
+      "label": "slide to cancel",
+      "at": "5,4.5",
+      "dir": "left"
+     }
+    },
+    {
+     "id": "n3",
+     "props": {
+      "kind": "swipe",
+      "from": "5,4.5",
+      "to": "5,1.5",
+      "bend": 0.2,
+      "tone": "mint"
+     }
+    },
+    {
+     "id": "n4",
+     "props": {
+      "kind": "swipe",
+      "label": "nowhere",
+      "at": "5,4.5",
+      "dir": "sideways"
+     }
+    }
+   ],
+   "head": {
+    "title": "Hold to talk",
+    "w": 10,
+    "h": 6
+   },
+   "scene": {
+    "w": 10,
+    "h": 6,
+    "fs": 0.42,
+    "title": "Hold to talk",
+    "caption": "",
+    "items": [
+     {
+      "i": 0,
+      "id": "mic",
+      "kind": "tap",
+      "label": "hold to talk",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "grow",
+      "pulse": true,
+      "start": 0,
+      "at": [
+       5,
+       4.5
+      ],
+      "size": [
+       0.9,
+       0.9
+      ],
+      "dur": 0.5
+     },
+     {
+      "i": 1,
+      "id": "n2",
+      "kind": "swipe",
+      "label": "slide to cancel",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0.35,
+      "from": {
+       "pt": [
+        5,
+        4.5
+       ]
+      },
+      "to": {
+       "pt": [
+        2,
+        4.5
+       ]
+      },
+      "dur": 0.7
+     },
+     {
+      "i": 2,
+      "id": "n3",
+      "kind": "swipe",
+      "label": "",
+      "tone": "mint",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0.7,
+      "from": {
+       "pt": [
+        5,
+        4.5
+       ]
+      },
+      "to": {
+       "pt": [
+        5,
+        1.5
+       ]
+      },
+      "bend": 0.2,
+      "dur": 0.7
+     }
+    ],
+    "total": 1.4
+   },
+   "frames": {
+    "2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 0.977,
+      "d": 1,
+      "c": [
+       5,
+       4.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       2,
+       4.5
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       5,
+       1.5
+      ],
+      "q": [
+       3.8,
+       3
+      ]
+     }
+    ],
+    "0.2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 0.9568,
+      "d": 1,
+      "c": [
+       5,
+       4.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 0,
+      "s": 1,
+      "d": 0,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       2,
+       4.5
+      ]
+     },
+     {
+      "i": 2,
+      "o": 0,
+      "s": 1,
+      "d": 0,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       5,
+       1.5
+      ],
+      "q": [
+       3.8,
+       3
+      ]
+     }
+    ],
+    "0.9": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1.06,
+      "d": 1,
+      "c": [
+       5,
+       4.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 0.9902,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       2,
+       4.5
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 0.6356,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       5,
+       1.5
+      ],
+      "q": [
+       3.8,
+       3
+      ]
+     }
+    ],
+    "4.3": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1.0424,
+      "d": 1,
+      "c": [
+       5,
+       4.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       2,
+       4.5
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       5,
+       1.5
+      ],
+      "q": [
+       3.8,
+       3
+      ]
+     }
+    ],
+    "still": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "c": [
+       5,
+       4.5
+      ]
+     },
+     {
+      "i": 1,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       2,
+       4.5
+      ]
+     },
+     {
+      "i": 2,
+      "o": 1,
+      "s": 1,
+      "d": 1,
+      "a": [
+       5,
+       4.5
+      ],
+      "b": [
+       5,
+       1.5
+      ],
+      "q": [
+       3.8,
+       3
+      ]
+     }
+    ]
+   },
+   "labels": {
+    "0": [
+     "hold to talk"
+    ],
+    "1": [
+     "slide to cancel"
+    ]
+   },
+   "marks": {},
+   "text": "Hold to talk. tap, hold to talk, swipe, slide to cancel, swipe"
+  },
+  {
+   "name": "a picture with no h takes its own shape",
+   "input": "shapes \"Fix this\" img=/demo/site_before_hero.jpg\nshape doodle at=5,3 size=3,2",
+   "opts": {
+    "ratio": 0.5625
+   },
+   "members": [
+    {
+     "id": "n2",
+     "props": {
+      "kind": "doodle",
+      "at": "5,3",
+      "size": "3,2"
+     }
+    }
+   ],
+   "head": {
+    "title": "Fix this",
+    "img": "/demo/site_before_hero.jpg"
+   },
+   "scene": {
+    "w": 10,
+    "h": 16,
+    "fs": 0.42,
+    "title": "Fix this",
+    "caption": "",
+    "items": [
+     {
+      "i": 0,
+      "id": "n2",
+      "kind": "doodle",
+      "label": "",
+      "tone": "accent",
+      "fill": false,
+      "dash": false,
+      "motion": "draw",
+      "pulse": false,
+      "start": 0,
+      "pts": [
+       [
+        4.459,
+        2.0891
+       ],
+       [
+        5.5705,
+        2.1126
+       ],
+       [
+        6.3531,
+        2.6355
+       ],
+       [
+        6.4063,
+        3.3941
+       ],
+       [
+        5.5535,
+        3.8952
+       ],
+       [
+        4.3935,
+        3.981
+       ],
+       [
+        3.6505,
+        3.3782
+       ],
+       [
+        3.4854,
+        2.592
+       ],
+       [
+        4.408,
+        2.0791
+       ],
+       [
+        5.6064,
+        1.979
+       ]
+      ],
+      "dur": 0.7
+     }
+    ],
+    "total": 0.7
+   },
+   "frames": {
+    "2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     }
+    ],
+    "0.2": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 0.6356
+     }
+    ],
+    "0.9": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     }
+    ],
+    "4.3": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     }
+    ],
+    "still": [
+     {
+      "i": 0,
+      "o": 1,
+      "s": 1,
+      "d": 1
+     }
+    ]
+   },
+   "labels": {},
+   "marks": {},
+   "text": "Fix this"
   }
  ]
 }

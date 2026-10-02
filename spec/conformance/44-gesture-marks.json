@@ -1,0 +1,267 @@
+{
+ "version": "YL v0",
+ "area": "gesture marks",
+ "vectors": [
+  {
+   "name": "mock: shape lines are gesture marks, they join the mock and point at parts by id",
+   "input": "mock \"Hold to talk\"\npart@send button Send\nshape tap at=send\nshape swipe \"slide to cancel\" at=send dir=left\nsay Done.",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n1",
+     "props": {
+      "title": "Hold to talk"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "send",
+     "in": "n1",
+     "props": {
+      "kind": "button",
+      "text": "Send"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "tap",
+      "at": "send"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "swipe",
+      "label": "slide to cancel",
+      "at": "send",
+      "dir": "left"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n4",
+     "props": {
+      "text": "Done."
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "title": "Hold to talk",
+     "frame": "phone"
+    },
+    {
+     "text": "Send",
+     "items": [],
+     "kind": "button"
+    },
+    {
+     "label": "",
+     "kind": "tap",
+     "at": "send"
+    },
+    {
+     "label": "slide to cancel",
+     "kind": "swipe",
+     "at": "send",
+     "dir": "left"
+    },
+    {
+     "text": "Done."
+    }
+   ]
+  },
+  {
+   "name": "mock: in a deck, the marks join the mock and the next page goes back to the deck",
+   "input": "deck D\npage One\nmock\npart button Go\nshape tap at=5,5\npage Two",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "deck",
+     "id": "n1",
+     "props": {
+      "title": "D"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "title": "One"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n3",
+     "in": "n1",
+     "props": {}
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "n4",
+     "in": "n3",
+     "props": {
+      "kind": "button",
+      "text": "Go"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n5",
+     "in": "n3",
+     "props": {
+      "kind": "tap",
+      "at": "5,5"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "page",
+     "id": "n6",
+     "in": "n1",
+     "props": {
+      "title": "Two"
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "title": "D",
+     "layout": "slides",
+     "full": false,
+     "notes": false
+    },
+    {
+     "title": "One",
+     "body": "",
+     "points": [],
+     "notes": ""
+    },
+    {
+     "title": "",
+     "frame": "phone"
+    },
+    {
+     "text": "Go",
+     "items": [],
+     "kind": "button"
+    },
+    {
+     "label": "",
+     "kind": "tap",
+     "at": "5,5"
+    },
+    {
+     "title": "Two",
+     "body": "",
+     "points": [],
+     "notes": ""
+    }
+   ]
+  },
+  {
+   "name": "mock: a doodle ring round a part and an arrow to it",
+   "input": "mock frame=phone\npart@total row Total value=\"$U 12\"\nshape doodle at=total tone=butter\nshape arrow \"new\" from=1,1 to=total bend=0.2",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "mock",
+     "id": "n1",
+     "props": {
+      "frame": "phone"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "part",
+     "id": "total",
+     "in": "n1",
+     "props": {
+      "kind": "row",
+      "text": "Total",
+      "value": "$U 12"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n2",
+     "in": "n1",
+     "props": {
+      "kind": "doodle",
+      "at": "total",
+      "tone": "butter"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "shape",
+     "id": "n3",
+     "in": "n1",
+     "props": {
+      "kind": "arrow",
+      "label": "new",
+      "from": "1,1",
+      "to": "total",
+      "bend": 0.2
+     }
+    }
+   ],
+   "resolved": [
+    {
+     "title": "",
+     "frame": "phone"
+    },
+    {
+     "text": "Total",
+     "items": [],
+     "kind": "row",
+     "value": "$U 12"
+    },
+    {
+     "label": "",
+     "kind": "doodle",
+     "at": "total",
+     "tone": "butter"
+    },
+    {
+     "label": "new",
+     "kind": "arrow",
+     "from": "1,1",
+     "to": "total",
+     "bend": 0.2
+    }
+   ]
+  }
+ ]
+}
