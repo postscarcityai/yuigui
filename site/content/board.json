@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T07:45:43.968Z",
+  "updated": "2026-10-02T08:00:47.752Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -365,6 +365,8 @@
         {
           "key": "YUI-269",
           "title": "/web scrolls back past the newest 100 rows, fetching older ones from the server",
+          "summary": "Web chats scroll back to the first message",
+          "progress": "/progress#web-chats-scroll-back-to-the-first-message",
           "owner": "CJohnDesign"
         },
         {
