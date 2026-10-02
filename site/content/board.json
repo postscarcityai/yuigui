@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T01:40:49.706Z",
+  "updated": "2026-10-02T02:22:13.098Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -309,12 +309,14 @@
         {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
           "key": "NOTE-13658",
           "title": "Drawings that look designed",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
           "key": "NOTE-18306",
@@ -337,12 +339,14 @@
         {
           "key": "NOTE-43312",
           "title": "Drawings that look designed",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
           "key": "NOTE-54787",
           "title": "Drawings that look designed",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
           "key": "NOTE-54934",
@@ -354,11 +358,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-35030",
-          "title": "Status replies, a new look. Guide rule pushed (yuigui 1fa9402d) and published; screen sent to Chris.",
-          "needsDemo": true
         }
       ]
     },
@@ -377,6 +376,12 @@
           "key": "YUI-266",
           "title": "/web shows the agent's name on the menu button, and no end screen while a reply is still coming",
           "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-267",
+          "title": "Drawings that look designed",
+          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
+          "owner": "CJohnDesign"
         }
       ]
     },
@@ -384,6 +389,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-35030",
+          "title": "Status replies, a new look. Guide rule pushed (yuigui 1fa9402d) and published; screen sent to Chris.",
+          "shipped": "2026-10-01",
+          "progress": "/progress#a-board-update-is-a-number-and-a-list"
+        },
         {
           "key": "SITE-168",
           "title": "See it gets a Yui on the web group",
