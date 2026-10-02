@@ -1,0 +1,179 @@
+{
+ "agents": [
+  {
+   "id": "demo-yui",
+   "name": "Yui",
+   "handle": "yui",
+   "color": "brand",
+   "avatar": "yui",
+   "kind": "hermes",
+   "status": "connected",
+   "presence": "online",
+   "is_default": true,
+   "sort": 0,
+   "theme": {
+    "preset": "yui"
+   },
+   "tagline": "Your agent, drawn as screens",
+   "commands": [
+    {
+     "name": "new",
+     "description": "Start a new session",
+     "args": "[name]"
+    },
+    {
+     "name": "model",
+     "description": "Show or change the model",
+     "args": "[name]"
+    },
+    {
+     "name": "help",
+     "description": "What I can do"
+    }
+   ],
+   "about": "Yui is the app's own helper. Ask it for a screen, or to make a new agent.",
+   "can": [
+    "What's new in Yui?",
+    "Make me a timer",
+    "Add an agent"
+   ]
+  },
+  {
+   "id": "demo-gouda",
+   "name": "Gouda",
+   "handle": "gouda",
+   "color": "sunset",
+   "kind": "hosted",
+   "status": "connected",
+   "presence": "online",
+   "is_default": false,
+   "sort": 1,
+   "theme": {
+    "preset": "sunset"
+   },
+   "tagline": "Your music teacher",
+   "about": "Gouda teaches your keys and your guitar. Beats, chords, a tuner, a streak.",
+   "can": [
+    "Make me a beat to jam on",
+    "Learn a song",
+    "Log practice"
+   ]
+  }
+ ],
+ "threads": {
+  "demo-yui": [
+   {
+    "id": "00000000-0000-4000-8000-000000000021",
+    "sender": "agent",
+    "body": "Hi. I am Yui. Ask me for a screen: a timer, a form, a choice.\n```yui\nchoose \"What do you want to try first?\" Timer|Form|Choice\n```",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 2400
+   }
+  ],
+  "demo-gouda": [
+   {
+    "id": "00000000-0000-4000-8000-000000000041",
+    "sender": "agent",
+    "body": "```yui\n>2\nloop@looper 92 \"Lazy Sunday\" p=x...x...|..x...x.|........|x.x.x.x. +inline\nchoose@sessions \"Open a beat\" \"Lazy Sunday\"|\"Boom bap\"|\"Four on the floor\"|\"Rock backbeat\"|\"One drop\" body=\"Stop the looper and your changes go to Gouda.\"\nsave looper\n>3\ncard@lesson \"Learn a song\" \"Pick a song or paste its chords. The click counts you in and your keys stay in key.\" cta=\"Learn a song\"\nchords@chords C I-V-vi-IV \"Chords\" +inline\nmetronome@click 90 \"Click\"\nsave chords\n>4\nkeys@keys C major \"Keys\" +inline\nchoose@scale \"Scale\" \"Major\"|\"Minor\"|\"Pentatonic\"|\"Blues\" body=\"C major. Keys outside it stay quiet.\"\nsave keys\n>5\nstat@streak \"0 days\" \"Streak\" sub=\"Practice today and this starts.\"\nstat@week-min \"0 min\" \"This week\" sub=\"The click logs itself after 10 seconds\"\nchart@practice-chart bar \"Minutes a day\" x=Mon|Tue|Wed|Thu|Fri|Sat|Sun y=0|0|0|0|0|0|0 unit=min\ncard@next-up \"Next: ten minutes\" \"Pick a song on Chords and play along with the click. It all counts toward your streak.\" cta=\"Log practice\"\nlist@recent title=\"Lately\" \"Nothing logged yet\"\nsave practice\n>6\ntuner@tuner guitar +inline\nsave tuner\n```",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 600
+   },
+   {
+    "id": "00000000-0000-4000-8000-000000000042",
+    "sender": "agent",
+    "body": "```yui\nmenu shortcut@tune \"Tune up\" show=tuner\nmenu shortcut@jam \"Jam\" say=\"Make me a beat to jam on\"\nmenu shortcut@log \"Log practice\" say=\"Log practice\"\nmenu shortcut@learn \"Learn a song\" say=\"Learn a song\"\n```",
+    "kind": "text",
+    "meta": {},
+    "ago_min": 599
+   }
+  ]
+ },
+ "replies": {
+  "text": [
+   {
+    "doing": [
+     "Reading your week 1/2",
+     "Picking the best days 2/2"
+    ],
+    "body": "Friday is the rest day. Want it kept clear?\n```yui\nchoose@rest \"Keep Friday clear?\" Yes|No\n```"
+   }
+  ],
+  "event": [
+   {
+    "doing": [
+     "Writing it down"
+    ],
+    "body": "Got it. I will remember that."
+   }
+  ],
+  "mention": [
+   {
+    "doing": [
+     "Reading the thread"
+    ],
+    "body": "Yes. Thursday works for me too."
+   }
+  ],
+  "timer": [
+   {
+    "doing": [
+     "Setting it up 1/1"
+    ],
+    "body": "Here. Two minutes.\n```yui\ntimer 2m Quick walk\n```"
+   }
+  ]
+ },
+ "crew": [
+  {
+   "base": "yui",
+   "name": "Yui",
+   "role": "Helper and maker",
+   "color": "brand",
+   "agent_id": "demo-yui",
+   "tagline": "Ask anything, or make a new agent"
+  },
+  {
+   "base": "arnold",
+   "name": "Arnold",
+   "role": "Trainer",
+   "color": "coral",
+   "agent_id": null,
+   "tagline": "Workouts built around your week and body"
+  },
+  {
+   "base": "basil",
+   "name": "Basil",
+   "role": "Nutritionist",
+   "color": "forest",
+   "agent_id": "demo-basil",
+   "tagline": "Eat better without counting everything"
+  },
+  {
+   "base": "gouda",
+   "name": "Gouda",
+   "role": "Musician",
+   "color": "sunset",
+   "agent_id": null,
+   "tagline": "Beats, chords and practice, right on screen"
+  },
+  {
+   "base": "penny",
+   "name": "Penny",
+   "role": "Planner",
+   "color": "candy",
+   "agent_id": "demo-penny",
+   "tagline": "Get your week out of your head"
+  },
+  {
+   "base": "quill",
+   "name": "Quill",
+   "role": "Study buddy",
+   "color": "wizard",
+   "agent_id": null,
+   "tagline": "Learn anything fast, then get quizzed"
+  }
+ ],
+ "chats": {}
+}
