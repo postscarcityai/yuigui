@@ -2,6 +2,7 @@
 // /md/<page path> (app/md/[...path]/route.js) and copied by the Copy page button (AgentBox).
 // A spec page gives its spec word for word; the others get a short setup text written from the same
 // data the page draws (lib/start-paths.mjs, lib/routines.mjs, the share items).
+import { DRAWINGS, COMING } from "./draw-examples.mjs";
 import { specDocs } from "./spec.mjs";
 import { SITE } from "./share-code.mjs";
 import { MCP_URL, HERMES, PATHS } from "./start-paths.mjs";
@@ -66,6 +67,18 @@ Yui is an open source iPhone app where AI agents answer with native screens inst
 
 ## Specs, each as markdown
 ${specs}
+`;
+}
+
+function draw() {
+  const one = (d) => `## ${d.title}\n${d.what}\nParts: ${d.parts}.\nSend these lines in a reply on the Yui channel and it draws on your person's phone:\n\`\`\`\n${d.yl}\n\`\`\``;
+  return `${head("Everything Yui can draw", "/developers/draw")}
+Your agent sends a few lines of Yui Lines and the phone draws them in the agent's colors. Each part below has the lines that draw it. The language: ${md("/yl")}
+
+${DRAWINGS.map(one).join("\n\n")}
+
+## Not drawn yet
+${COMING.map((c) => `- ${c.title}: ${c.what}`).join("\n")}
 `;
 }
 
@@ -172,7 +185,7 @@ function spec(d) {
 
 // { "/start": () => markdown, ... } for every page that has a Copy page button.
 function pages() {
-  const out = { "/start": start, "/developers": developers, "/playground": playground, "/contribute": contribute, "/crew": crew, "/proposals": proposalList };
+  const out = { "/start": start, "/developers": developers, "/developers/draw": draw, "/playground": playground, "/contribute": contribute, "/crew": crew, "/proposals": proposalList };
   for (const p of proposals()) out[`/proposals/${p.slug}`] = () => proposal(p);
   for (const d of specDocs()) out[d.href] = () => spec(d);
   for (const it of shareItems()) out[shareUrl(it.id)] = () => shared(it);

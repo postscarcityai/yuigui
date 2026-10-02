@@ -24,6 +24,7 @@ export const PAGES = [
   ["/timeline", "Timeline", "Watch Yui grow day by day: the GitHub history, builds and screenshots."],
   ["/thoughts", "Thoughts", "Yui's blog. Release posts, Why posts and Call posts. RSS feed."],
   ["/developers", "Developers", "How Yui works for developers: Yui Lines, parsers, adapters, the relay, MCP, embeds."],
+  ["/developers/draw", "Everything Yui can draw", "Every drawing part live with its Yui Lines: shapes, sketch, mock, diagrams, charts, map and math."],
   ["/developers/where-yui-stands", "Where Yui stands", "A SWOT with sources: what is new about Yui and what is not, prior art, the token benchmark and its limits."],
   ["/playground", "Playground", "Try Yui Lines in the browser: pick a sample, tap through it, see the lines sent back to the agent. No install."],
   ["/developers/library", "Library", "Every screen preset and saved flow, drawn live and searchable. library.json for agents."],

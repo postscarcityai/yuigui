@@ -98,6 +98,10 @@ end`,
     eyebrow: "DEVELOPERS | COMMUNITY",
     yl: `card "Draw your best screen in three lines" tag=Challenge body="Parsers, presets, renderers, adapters." cta="Join in"`,
   },
+  "/developers/draw": {
+    eyebrow: "DEVELOPERS | DRAW",
+    yl: `chart donut "What Yui can draw" x=Shapes|Sketch|Mock|Diagram|Chart|Map|Math y=1|1|1|1|1|1|1`,
+  },
   "/developers/where-yui-stands": {
     eyebrow: "DEVELOPERS | WHERE YUI STANDS",
     yl: `list SWOT Strengths Weaknesses Opportunities Threats +num

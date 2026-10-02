@@ -35,6 +35,7 @@ const cards = [
   ["/developers/mcp#claude", "Claude", "Add Yui to Claude on the web, desktop or phone, Claude Code, or an Agent SDK agent. Where Claude draws MCP Apps, the screen shows in the chat too."],
   ["/developers/mcp#chatgpt", "ChatGPT", "Add Yui to ChatGPT in developer mode with one URL. The screen shows in the chat and on your phone, and a tap in either place answers."],
   ["/developers/where-yui-stands", "Where Yui stands", "A SWOT with the data behind it: the token numbers and their limits, 27 years of prior art and the nearest systems."],
+  ["/developers/draw", "Everything Yui can draw", "Shapes, sketches, mocks, diagrams, charts, maps and math, each live with the lines that draw it."],
   ["/playground", "Playground", "Edit a line and watch the screen draw, in your browser. Includes the token benchmark."],
   ["/developers/values", "Values", "What makes a screen feel like Yui: one idea per page, type tells the story, draw it, don't describe it."],
   ["/developers/music", "Music tools", "A looper, drum pads, an easy keyboard, chord buttons, a tuner and a metronome, one line each. The mock plays in your browser."],
