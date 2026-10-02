@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T13:10:29.454Z",
+  "updated": "2026-10-02T13:35:37.391Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -346,6 +346,16 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "YUI-275",
+          "title": "/web opens a group chat already drawn, like a one-agent chat",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-170",
+          "title": "How the web app got fast, told in pictures",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-40",
