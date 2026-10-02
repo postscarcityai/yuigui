@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T17:30:13.300Z",
+  "updated": "2026-10-02T17:35:17.529Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -257,6 +257,13 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
+          "key": "YUI-40",
+          "title": "New builds stuck at Apple, widget App Group. Daily release held",
+          "summary": "Upload failed",
+          "waiting": true,
+          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay"
+        },
+        {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
           "summary": "The thread offline at /web"
@@ -308,16 +315,32 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
+          "key": "NOTE-15980",
+          "title": "Faster screen switching"
+        },
+        {
+          "key": "NOTE-18275",
+          "title": "Calories reset each day"
+        },
+        {
           "key": "NOTE-18306",
           "title": "Tuner as Gouda's last screen",
           "waiting": true,
           "progress": "/progress#tune-up-goes-straight-to-the-tuner"
         },
         {
+          "key": "NOTE-19357",
+          "title": "Forms keep your answers"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does"
+        },
+        {
+          "key": "NOTE-24156",
+          "title": "No X, just arrows"
         },
         {
           "key": "NOTE-35460",
@@ -330,6 +353,14 @@
           "title": "Tap left to go back"
         },
         {
+          "key": "NOTE-37260",
+          "title": "Fewer buttons on the stage"
+        },
+        {
+          "key": "NOTE-40679",
+          "title": "Speak to fill a form"
+        },
+        {
           "key": "NOTE-42080",
           "title": "Ask and answer on one screen"
         },
@@ -338,6 +369,10 @@
           "title": "Drawings that look designed",
           "waiting": true,
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
+        },
+        {
+          "key": "NOTE-48549",
+          "title": "Voice first, everywhere"
         },
         {
           "key": "NOTE-54787",
@@ -370,11 +405,18 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-40",
-          "title": "New builds stuck at Apple, widget App Group. Daily release held",
-          "summary": "Upload failed",
-          "blocked": "chris",
-          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
+          "key": "NOTE-4897",
+          "title": "Yui gave up on a question",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-177",
+          "title": "Thought for build 450, the stage redrawn, in pictures",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-278",
+          "title": "/web, tap the left side to go back a page",
           "owner": "CJohnDesign"
         },
         {
