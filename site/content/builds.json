@@ -1942,6 +1942,9 @@
     },
     {
       "text": "memory.sh: peak limit 340 MB. A long chat now scrolls back through every older row (YUI-254), so the 500-row session draws all of it once: 310 MB for 13 s, steady 177, no new leaks, growth +6 [YUI-259]"
+    },
+    {
+      "text": "ChatView: a long chat draws one older batch per arrival at the top, not the whole thread at once; memory.sh peak limit back to 300 (peak 304 -> 180 MB, growth -6, 0 new leaks) [YUI-260]"
     }
   ]
 }

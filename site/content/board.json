@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T23:40:37.067Z",
+  "updated": "2026-10-02T00:05:46.949Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -351,11 +351,19 @@
         {
           "key": "YUI-260",
           "title": "Scroll back through a long chat without the 310 MB spike",
+          "summary": "Scrolling back through a long chat stays light",
+          "progress": "/progress#scrolling-back-through-a-long-chat-stays-light",
           "owner": "CJohnDesign"
         },
         {
           "key": "SITE-167",
           "title": "A stranger's first chat with the site bubble works on a phone",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-263",
+          "title": "Group settings on the web",
+          "summary": "Max hops, add or leave, lead, archive",
           "owner": "CJohnDesign"
         },
         {
