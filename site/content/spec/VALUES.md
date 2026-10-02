@@ -52,6 +52,14 @@ A button acts. Nothing that only says "Got it", "OK" or "Nice", and a submit is 
 
 Example: `plan "Trip" submit="Book it"`, and a card with nothing to act on has no button at all.
 
+## 9. One decision, one screen
+
+What you are deciding and the buttons to decide it sit on the same screen. A choice is never split into context on one page and answers on the next.
+
+Example: "Which drawing look should Yui use?" and the three drawings and A, B, C under it, together. Not the drawings on page 1 and a bare question with A, B, C on page 2.
+
+![Before: the question and its A, B, C buttons with no drawings, after a page of drawings. After: the three drawings and the buttons on one screen.](/progress/site173-one-decision-one-screen.webp)
+
 ## Where these live
 
 - Agents: the [channel guide](/channel) teaches them turn by turn ("Answer first, in one line").
