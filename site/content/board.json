@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T14:15:38.816Z",
+  "updated": "2026-10-02T14:20:39.915Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,6 +348,11 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
+          "key": "YUI-275",
+          "title": "/web opens a group chat already drawn, like a one-agent chat",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -366,12 +371,6 @@
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-275",
-          "title": "/web opens a group chat already drawn, like a one-agent chat",
-          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
