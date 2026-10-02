@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 export default {
   reactStrictMode: true,
+  // Board sync builds on a busy Mac mini: each Thought's preview image can take over the 60s default.
+  staticPageGenerationTimeout: 300,
   // SITE-19: /og and each share link's preview image draw at request time with these fonts and captured screens.
   outputFileTracingIncludes: {
     // SITE-86: release cards read the roadmap's Latest release line and the release's picture.
