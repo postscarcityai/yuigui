@@ -244,6 +244,14 @@
     "body": "Friday is the rest day. Want it kept clear?\n```yui\nchoose@rest \"Keep Friday clear?\" Yes|No\n```"
    }
   ],
+  "parts": [
+   {
+    "doing": [
+     "Writing it down"
+    ],
+    "body": "Monday is easy.\n\nThursday is sharp.\n\nFriday is the rest day."
+   }
+  ],
   "event": [
    {
     "doing": [

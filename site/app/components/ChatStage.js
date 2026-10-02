@@ -1,7 +1,7 @@
 "use client";
 // One answer on the site chat's stage (SITE-66, spec/YL.md section 5, Stage first): the chunks play one
 // at a time, a line and one picture each, drawn with the playground's renderers. A tap goes on, a tap
-// on the left third goes back, the arrow keys too. Questions come after the last chunk, under it, with
+// on the left quarter goes back, the arrow keys too. Questions come after the last chunk, under it, with
 // one Send (a single question sends on its own tap). The chat under it is the record (ChatFab).
 // SITE-99: the answer's own time sits above it in small type, so an old answer never reads as new.
 // Its own file so the renderers load only when there is an answer to play.
@@ -86,12 +86,12 @@ export default function ChatStage({ content, answer, agent = "Yui", live, onTap,
 
   const emitFor = useCallback((node) => (value) => { if (live) onTap?.({ id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) }); }, [live, onTap]);
 
-  // A tap on the stage itself: the left third goes back, anywhere else goes on. Taps inside a picture
+  // A tap on the stage itself: the left quarter goes back, anywhere else goes on. Taps inside a picture
   // or a question belong to it.
   const onStageTap = (e) => {
     if (e.target.closest("button, a, input, textarea, select, label, [role=button], .ys-pic, .ys-qs")) return;
     const r = box.current?.getBoundingClientRect();
-    if (r && e.clientX - r.left < r.width / 3) step(-1);
+    if (r && e.clientX - r.left < r.width / 4) step(-1);
     else step(1);
   };
 
