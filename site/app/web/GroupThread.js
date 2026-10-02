@@ -158,12 +158,15 @@ function Header({ group, members, onMenu, onMakeLead, onSettings }) {
   );
 }
 
-export default function GroupThread({ api, group, agents, light, userId, onMenu, onOpenAgent, onChanged, onArchived }) {
+export default function GroupThread({ api, cache = null, group, agents, light, userId, onMenu, onOpenAgent, onChanged, onArchived }) {
   const [settings, setSettings] = useState(false);
   const members = useMemo(() => membersOf(group, agents), [group, agents]);
   const agentOf = useCallback((id) => agents.find((a) => a.id === id) || null, [agents]);
   const [rows, setRows] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  // YUI-275: the kept rows draw at once on a repeat visit; the first live read then rebuilds the thread from itself.
+  const [fromLive, setFromLive] = useState(false);
+  const liveRef = useRef(false);
   const [sending, setSending] = useState([]);
   const [failed, setFailed] = useState({});
   const [notice, setNotice] = useState("");
@@ -188,11 +191,35 @@ export default function GroupThread({ api, group, agents, light, userId, onMenu,
     });
   }, []);
 
+  // The kept newest rows, drawn before the network answers. They are never a promise that anyone is working.
+  useEffect(() => {
+    if (!cache) return undefined;
+    let live = true;
+    cache.groupRows.get(group.id).then((kept) => {
+      if (!live || liveRef.current || !Array.isArray(kept) || !kept.length) return;
+      setRows((prev) => (prev.length ? prev : kept));
+      setLoaded(true);
+    });
+    return () => { live = false; };
+  }, [cache, group.id]);
+
   // One read when it opens, then a poll: quick while anyone works, easy when quiet.
   const busyRef = useRef(false);
   const refresh = useCallback(async () => {
-    try { merge(await api.rows({ thread: group.id, since: cursor.current })); } catch { /* the next look */ } finally { setLoaded(true); }
-  }, [api, group.id, merge]);
+    try {
+      if (liveRef.current) merge(await api.rows({ thread: group.id, since: cursor.current }));
+      else {
+        // The first live read replaces what was kept: a changed row shows as it is now, a gone row is gone.
+        const fresh = await api.rows({ thread: group.id, since: null });
+        liveRef.current = true;
+        thread.current = new Thread();
+        cursor.current = fresh[fresh.length - 1]?.created_at || cursor.current;
+        setRows(fresh);
+        setFromLive(true);
+        if (!fresh.length) cache?.groupRows.drop(group.id);
+      }
+    } catch { /* the next look */ } finally { setLoaded(true); }
+  }, [api, group.id, merge, cache]);
   useEffect(() => {
     let live = true, timer = null;
     const tick = async () => { await refresh(); if (live) timer = setTimeout(tick, busyRef.current ? BUSY_POLL : IDLE_POLL); };
@@ -200,9 +227,12 @@ export default function GroupThread({ api, group, agents, light, userId, onMenu,
     return () => { live = false; clearTimeout(timer); };
   }, [refresh]);
 
+  // What the thread knows is kept for the next visit: written when the live read or a poll brings something.
+  useEffect(() => { if (cache && fromLive && rows.length) cache.groupRows.put(group.id, rows); }, [cache, fromLive, rows, group.id]);
+
   // Agent rows go through the web Thread, so a fence is a screen and a later patch lands on the screen it names.
   const items = useMemo(() => groupItems(rows), [rows]);
-  const working = useMemo(() => groupWorking(rows, group.lead), [rows, group.lead]);
+  const working = useMemo(() => (fromLive ? groupWorking(rows, group.lead) : []), [rows, group.lead, fromLive]);
   const messages = useMemo(() => {
     const t = thread.current;
     for (const r of rows) if (r.sender === "agent" && r.kind === "text" && !r.meta?.group?.guard && !r.meta?.group?.status) t.add(r);

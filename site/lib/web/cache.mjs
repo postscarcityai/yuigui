@@ -3,6 +3,9 @@
 // live read is still on its way; the live read then replaces them (Thread.swap), so newest wins and nothing
 // shows twice. Sign out wipes it. The demo never gets one (ThreadApp hands it no cache).
 //
+// Group threads (YUI-275) keep the same way: the newest rows of each group the person opened, keyed by group id, and
+// the group list. A group that is archived or gone drops its rows (drop), so nothing outlives the group.
+//
 // Pure: the IndexedDB factory is injected, and a browser without one (a private window) keeps nothing.
 
 export const DB = "yui-web-cache";
@@ -46,7 +49,21 @@ export function createCache({ userId, idb = globalThis.indexedDB } = {}) {
     if (dead) return;
     try { await run(store, "readwrite", (s) => s.put({ user: userId, value, at: Date.now() }, k)); } catch { /* a cache that cannot write is just empty */ }
   };
+  const forget = async (store, k) => {
+    if (dead) return;
+    try { await run(store, "readwrite", (s) => s.delete(k)); } catch { /* nothing was kept */ }
+  };
   return {
+    // A group thread's rows live in the same store under their own key, so the agents' keys never meet them.
+    groupRows: {
+      get: (groupId) => read("rows", key("group", groupId)),
+      put: (groupId, rows) => write("rows", key("group", groupId), newest(rows)),
+      drop: (groupId) => forget("rows", key("group", groupId)),
+    },
+    groups: {
+      get: () => read("agents", key("groups")),
+      put: (list) => write("agents", key("groups"), list),
+    },
     rows: {
       get: (agentId, chatId = null) => read("rows", key(agentId, chatId || "")),
       put: (agentId, chatId, rows) => write("rows", key(agentId, chatId || ""), newest(rows)),

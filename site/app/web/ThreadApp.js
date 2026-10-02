@@ -338,10 +338,25 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   }, [relay, demo, userId, kit]);
   useEffect(() => { if (demo && groupsApi) window.yuiWebGroups = groupsApi; }, [demo, groupsApi]);
   const [groups, setGroups] = useState(null);
+  // The kept group list (YUI-275) draws the group before the live list answers; only the live list may say a group is gone.
+  const [groupsLive, setGroupsLive] = useState(false);
+  const groupsRef = useRef(null);
+  groupsRef.current = groups;
   const refreshGroups = useCallback(async () => {
     if (!groupsApi) return;
-    try { setGroups(await groupsApi.list()); } catch { setGroups((g) => g || []); }
-  }, [groupsApi]);
+    let list;
+    try { list = await groupsApi.list(); } catch { setGroups((g) => g || []); return; }
+    // A group that left the live list (archived elsewhere) takes its kept rows with it.
+    if (cache) for (const g of groupsRef.current || []) if (!list.some((x) => x.id === g.id)) cache.groupRows.drop(g.id);
+    setGroups(list); setGroupsLive(true);
+    cache?.groups.put(list);
+  }, [groupsApi, cache]);
+  useEffect(() => {
+    if (!cache || !groupsApi) return;
+    let live = true;
+    cache.groups.get().then((kept) => { if (live && Array.isArray(kept) && kept.length) setGroups((g) => g || kept); });
+    return () => { live = false; };
+  }, [cache, groupsApi]);
   useEffect(() => {
     if (!groupsApi) return undefined;
     refreshGroups();
@@ -353,10 +368,11 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const group = groupId && groups ? groups.find((g) => g.id === groupId) || null : null;
   // A group that is not there (archived, or not yours): say so and go home.
   useEffect(() => {
-    if (!groupId || !groups || group) return;
+    if (!groupId || !groups || !groupsLive || group) return;
+    cache?.groupRows.drop(groupId);
     setNotice("That group is gone.");
     go(`/web${keep}`);
-  }, [groupId, groups, group]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [groupId, groups, groupsLive, group]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ---------------------------------------------------------------- agents: edit, add, remove, order
   const manage = relay?.manage;
@@ -534,7 +550,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
           ) : <span className="wb-head-words"><b>Yui</b></span>}
           {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
         </header> : null}
-        {groupId ? (group && sorted ? <GroupThread key={group.id} api={groupsApi} group={group} agents={sorted} light={light} userId={userId} onMenu={() => setDrawer(true)} onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} onChanged={refreshGroups} onArchived={() => { refreshGroups(); go(`/web${keep}`); }} /> : <div className="wb-wait center">Opening the group...</div>)
+        {groupId ? (group && sorted ? <GroupThread key={group.id} api={groupsApi} cache={cache} group={group} agents={sorted} light={light} userId={userId} onMenu={() => setDrawer(true)} onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} onChanged={refreshGroups} onArchived={() => { cache?.groupRows.drop(group.id); refreshGroups(); go(`/web${keep}`); }} /> : <div className="wb-wait center">Opening the group...</div>)
           : open && ready ? <ThreadView key={threadKey} landing={landing} onLanded={landed} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} cache={cache} early={earlyRows.current} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
           onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} />
           : error && !sorted ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>

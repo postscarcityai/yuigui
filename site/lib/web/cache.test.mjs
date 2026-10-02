@@ -30,6 +30,7 @@ function fakeIdb() {
               get: (k) => { const r = { result: undefined }; later(() => { r.result = data[s].get(k); }); done(); return r; },
               put: (v, k) => { data[s].set(k, structuredClone(v)); done(); return {}; },
               clear: () => { data[s].clear(); done(); return {}; },
+              delete: (k) => { data[s].delete(k); done(); return {}; },
             });
             void names;
             return tx;
@@ -134,4 +135,51 @@ test("no kept rows (a first visit): the live read draws as before", async () => 
   await sync.start();
   assert.deepEqual(thread.messages.map((m) => m.text), ["Row 1", "Row 2"]);
   sync.stop();
+});
+
+// ---- YUI-275: group threads ----
+test("group rows: the newest KEEP_ROWS, keyed by group, kept per person", async () => {
+  const idb = fakeIdb();
+  const a = createCache({ userId: "u1", idb }), b = createCache({ userId: "u2", idb });
+  await a.groupRows.put("g1", Array.from({ length: 70 }, (_, i) => row(i)));
+  await a.groupRows.put("g2", [row(5)]);
+  await a.rows.put("g1", null, [row(9)]);
+  const kept = await a.groupRows.get("g1");
+  assert.equal(kept.length, KEEP_ROWS);
+  assert.equal(kept.at(-1).id, "r069");
+  assert.deepEqual((await a.groupRows.get("g2")).map((r) => r.id), ["r005"]);
+  assert.deepEqual((await a.rows.get("g1", null)).map((r) => r.id), ["r009"], "an agent id that looks like a group id never meets it");
+  assert.equal(await b.groupRows.get("g1"), null, "another person reads nothing");
+  assert.equal(await a.groupRows.get("g3"), null, "a group never opened has nothing");
+});
+
+test("the group list comes back as it was written", async () => {
+  const idb = fakeIdb();
+  const a = createCache({ userId: "u1", idb });
+  await a.groups.put([{ id: "g1", title: "Penny and Basil", lead: "penny", members: ["penny", "basil"] }]);
+  assert.equal((await createCache({ userId: "u1", idb }).groups.get())[0].title, "Penny and Basil");
+  assert.equal(await createCache({ userId: "u2", idb }).groups.get(), null);
+  assert.equal(await a.agents.get(), null, "the agent list is its own record");
+});
+
+test("leaving or archiving a group (drop) takes only that group's rows", async () => {
+  const idb = fakeIdb();
+  const a = createCache({ userId: "u1", idb });
+  await a.groupRows.put("g1", [row(1)]);
+  await a.groupRows.put("g2", [row(2)]);
+  await a.groupRows.drop("g1");
+  assert.equal(await a.groupRows.get("g1"), null);
+  assert.equal((await a.groupRows.get("g2")).length, 1);
+});
+
+test("sign out clears group rows and the group list too, and nothing is written after", async () => {
+  const idb = fakeIdb();
+  const a = createCache({ userId: "u1", idb });
+  await a.groupRows.put("g1", [row(1)]);
+  await a.groups.put([{ id: "g1" }]);
+  await a.clear();
+  await a.groupRows.put("g1", [row(2)]);
+  const fresh = createCache({ userId: "u1", idb });
+  assert.equal(await fresh.groupRows.get("g1"), null);
+  assert.equal(await fresh.groups.get(), null);
 });

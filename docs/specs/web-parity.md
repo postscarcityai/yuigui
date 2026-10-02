@@ -344,9 +344,26 @@ The repeat visit draws its rows 0.8 s before the live read lands, from IndexedDB
 
 How it reconciles: the page opens on the stored session while the renewal is on the wire (`provisional` in the auth snapshot); the kept rows are drawn without starting a wait (a kept last row of yours never says the agent is working); when the live first read lands the thread is rebuilt from it in one pass (`Thread.swap`), so a row that changed shows as it is now, a gone row is gone, nothing shows twice, and there is one redraw. A refused session ends the provisional screen at once. If the network is down the kept rows stay.
 
-Clearing: sign out clears it (and the instance stops writing, so a read in flight cannot put it back). A tab that finds itself signed out (another tab signed out, the session was refused) wipes it too. The demo never writes it. Nothing is kept for a group thread yet.
+Clearing: sign out clears it (and the instance stops writing, so a read in flight cannot put it back). A tab that finds itself signed out (another tab signed out, the session was refused) wipes it too. The demo never writes it. Group threads keep the same way since YUI-275 (below).
 
 What did not move: the cold visit. A first visit has nothing kept, and its row waits on the same four trips and the same 240 KB of script as in YUI-272. Next levers: carry the first screen's rows in the server HTML for a signed in person (needs a cookie the server can read, a privacy decision), or start the agent and chat reads before the session renewal ends.
+
+### YUI-275: a group chat opens already drawn
+
+A repeat visit that landed on `/web/group/<id>` still waited on the network for its first row, while a one-agent chat opened from the cache. Group threads now keep the same way. Same rig as YUI-273 (`CASE=group node scripts/web-speed-signed.mjs 5`: 390 wide, 4x CPU, slow 4G, a stored session, the stand-in backend at 450 ms then 250 ms per call, production build, median of 5, Oct 2). The group case serves 100 rows and the group list (`yui_threads`).
+
+| Number | Before | After |
+| --- | --- | --- |
+| Group, repeat visit: first real row | 1074 ms | 459 ms |
+| Group, cold visit: first real row | 3515 ms | 3532 ms |
+| One agent chat, repeat visit: first real row | 500 ms | 451 ms |
+| Group, repeat visit: live rows answer at | 582 ms | 590 ms |
+
+What is kept (same database, `yui-web-cache`, same person key): the newest 40 rows of each group the person opened, keyed by group id (`groupRows`, in the `rows` store under `<user>|group|<id>`), and the group list (`groups`, in the `agents` store), written when the live read or a poll brings something new. The kept list lets the thread mount before `yui_threads` answers; only the live list may say a group is gone.
+
+Reconcile: kept rows draw at once; the first live read replaces them in one pass (a changed row shows as it is now, a gone row is gone, nothing shows twice); a kept last row of yours never shows as "working" (working rows come from live rows only).
+
+Clearing: sign out and a tab that finds itself signed out wipe everything, group rows included. Archiving a group, a group missing from the live list, and the "That group is gone." screen drop that group's rows. The demo never writes.
 
 ### YUI-274: a first visit starts its reads while the session renews
 

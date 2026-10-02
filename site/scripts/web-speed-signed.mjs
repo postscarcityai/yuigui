@@ -6,6 +6,7 @@
 // The supabase host is mapped to that server (a host resolver rule, a throwaway certificate), not stubbed with
 // page.route: Playwright turns the HTTP cache off while a route is on, and a repeat visit needs it.
 //   cd site && npm run build && npx next start -p 3273 &   then   node scripts/web-speed-signed.mjs [runs]
+// CASE=group times /web/group/<id> instead of a one-agent chat (YUI-275): the same 100 rows, drawn as a group thread.
 // BASE overrides the origin, PLAYWRIGHT the module. Prints one JSON object: medians over the runs.
 //   cold    a new browser profile: no HTTP cache, nothing stored but the session
 //   repeat  the same profile a moment later: the HTTP cache is warm (Next's chunks are immutable), the page has
@@ -20,7 +21,10 @@ const { chromium } = createRequire(import.meta.url)(process.env.PLAYWRIGHT || "p
 const BASE = process.env.BASE || "http://localhost:3273";
 const RUNS = Number(process.argv[2] || 3);
 const FIRST_MS = Number(process.env.FIRST_MS || 450), NEXT_MS = Number(process.env.NEXT_MS || 250);
-const URL_ = `${BASE}/web/agent/demo-penny?view=chat&theme=dark`;
+const GROUP = process.env.CASE === "group";
+const GID = "20000000-0000-4000-8000-000000000001";
+const URL_ = GROUP ? `${BASE}/web/group/${GID}?theme=dark` : `${BASE}/web/agent/demo-penny?view=chat&theme=dark`;
+const FIRST_ROW = GROUP ? '[data-testid="group-you"], [data-testid="group-agent"]' : ".wb-item";
 const med = (a) => a.slice().sort((x, y) => x - y)[Math.floor(a.length / 2)];
 const penny = JSON.parse(readFileSync(new URL("../app/web/fixtures/penny.json", import.meta.url), "utf8"));
 const CORS = { "access-control-allow-origin": "*", "access-control-allow-headers": "*", "access-control-allow-methods": "GET, POST, PATCH, OPTIONS" };
@@ -32,7 +36,9 @@ const rows = Array.from({ length: 100 }, (_, i) => ({
   sender: i % 2 ? "agent" : "user",
   body: i % 2 ? `Row ${i}. Three runs fit this week, and Thursday is dry.\n\`\`\`yui\nchoose "Add them?" Yes|No\n\`\`\`` : `Question ${i}: can you plan my running week?`,
   kind: "text", meta: {}, created_at: new Date(NOW - (100 - i) * 60000).toISOString(), delivered_at: null, handled_at: null, reaction: null, doing: null,
+  ...(GROUP ? { agent_id: "demo-penny" } : {}),
 }));
+const group = { id: GID, title: "Penny and Basil", lead: "demo-penny", max_hops: 3, max_turns: 8, archived_at: null, created_at: rows[0].created_at, yui_thread_members: [{ agent_id: "demo-penny", left_at: null }, { agent_id: "demo-basil", left_at: null }] };
 const chat = { id: "10000000-0000-4000-8000-000000000001", title: null, is_first: true, last_at: rows[99].created_at, seen_at: rows[99].created_at, unread: false, last_body: "x", last_sender: "agent", last_message_at: rows[99].created_at };
 
 let t0 = 0, calls = 0, liveRows = null;
@@ -54,6 +60,7 @@ const backend = createServer({ key: readFileSync(join(dir, "k.pem")), cert: read
     return json(rows.slice(-Number(u.searchParams.get("limit") || 100)).reverse());
   }
   if (fn === "yui_chat_list") return json([chat]);
+  if (fn === "yui_threads") return json([group]);
   return json(u.pathname.includes("/rest/") ? [] : {});
 });
 await new Promise((r) => backend.listen(0, "127.0.0.1", r));
@@ -84,12 +91,12 @@ for (let i = 0; i < RUNS; i++) {
     await pg.addInitScript(() => { try { new PerformanceObserver((l) => l.getEntries().forEach((e) => { if (e.name === "first-contentful-paint") window.__fcp = e.startTime; })).observe({ type: "paint", buffered: true }); } catch {} });
     t0 = Date.now();
     await pg.goto(URL_, { waitUntil: "commit" });
-    await pg.waitForSelector(".wb-item", { timeout: 120000 });
+    await pg.waitForSelector(FIRST_ROW, { timeout: 120000 });
     const firstRow = Date.now() - t0;
     const fcp = await pg.evaluate(() => performance.getEntriesByName("first-contentful-paint")[0]?.startTime ?? null);
-    const drawn = await pg.locator(".wb-item").count();
+    const drawn = await pg.locator(FIRST_ROW).count();
     await pg.waitForTimeout(3000);
-    const after = await pg.locator(".wb-item").count();
+    const after = await pg.locator(FIRST_ROW).count();
     await pg.close();
     return { fcp, firstRow, rowsAtFirst: drawn, rowsAfter3s: after, liveRowsAnsweredAt: liveRows };
   };
