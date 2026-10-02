@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T13:45:33.059Z",
+  "updated": "2026-10-02T14:05:44.737Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -350,6 +350,11 @@
         {
           "key": "YUI-275",
           "title": "/web opens a group chat already drawn, like a one-agent chat",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-171",
+          "title": "Every page shares with its own picture and title",
           "owner": "CJohnDesign"
         },
         {
