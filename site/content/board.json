@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T15:20:45.014Z",
+  "updated": "2026-10-02T15:52:53.473Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -326,6 +326,10 @@
           "progress": "/progress#a-first-plan-from-coach"
         },
         {
+          "key": "NOTE-35492",
+          "title": "Tap left to go back"
+        },
+        {
           "key": "NOTE-42080",
           "title": "Ask and answer on one screen"
         },
@@ -368,6 +372,11 @@
         {
           "key": "YUI-277",
           "title": "/web asks on the same screen as what it asks about",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-174",
+          "title": "/developers/draw, every drawing part Yui has, live, with its Yui Lines",
           "owner": "CJohnDesign"
         },
         {
