@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T01:36:00.268Z",
+  "updated": "2026-10-02T01:40:49.706Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -354,6 +354,11 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-35030",
+          "title": "Status replies, a new look. Guide rule pushed (yuigui 1fa9402d) and published; screen sent to Chris.",
+          "needsDemo": true
         }
       ]
     },
@@ -367,11 +372,6 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
-        },
-        {
-          "key": "NOTE-35030",
-          "title": "Drawings that look designed",
-          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-266",
