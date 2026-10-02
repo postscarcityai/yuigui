@@ -678,6 +678,21 @@ sequenceDiagram
 end`,
   },
   {
+    // draw: when no preset draws it, the agent draws it in SVG, in the look's classes (docs/STAGE-REDESIGN.md in yui).
+    name: "Draw: anything, in SVG (draw)",
+    slug: "draw-push-tap",
+    agent: "Yui",
+    yl: `draw "Push tap" caption="Tap the banner. The answer plays itself."
+<svg viewBox="0 0 360 250">
+  <rect class="draw soft" x="30" y="14" width="120" height="222" rx="20"/>
+  <circle class="pop accent pulse" cx="118" cy="46" r="13"/>
+  <path class="draw accent" d="M158 125 C 178 105, 190 105, 208 125"/>
+  <rect class="draw accent" x="216" y="14" width="120" height="222" rx="20"/>
+  <text class="fade" x="230" y="96" font-size="15" font-weight="800">Push tap fixed.</text>
+</svg>
+end`,
+  },
+  {
     name: "Draw: states a build goes through (state)",
     slug: "diagram-state",
     agent: "Yui",
