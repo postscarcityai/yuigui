@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T00:30:41.853Z",
+  "updated": "2026-10-02T00:36:01.742Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -240,11 +240,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "NOTE-6865",
-          "title": "Push tap opens the new answer",
-          "waiting": true
-        },
-        {
           "key": "NOTE-30524",
           "title": "New answers open full screen",
           "waiting": true
@@ -349,10 +344,13 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-167",
-          "title": "A stranger's first chat with the site bubble works on a phone",
-          "summary": "The site chat opens ready to talk, and its next arrow can be tapped",
-          "progress": "/progress#the-site-chat-opens-ready-to-talk-and-its-next-arrow-can-be-tapped",
+          "key": "YUI-264",
+          "title": "/web scripts locked to a nonce, no inline loophole",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-6865",
+          "title": "Push tap opens the new answer",
           "owner": "CJohnDesign"
         },
         {
@@ -367,6 +365,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-167",
+          "title": "A stranger's first chat with the site bubble works on a phone",
+          "summary": "The site chat opens ready to talk, and its next arrow can be tapped",
+          "shipped": "2026-10-01",
+          "progress": "/progress#the-site-chat-opens-ready-to-talk-and-its-next-arrow-can-be-tapped",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c8eb9040"
+        },
         {
           "key": "YUI-263",
           "title": "Group settings on the web",
