@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T15:10:45.574Z",
+  "updated": "2026-10-02T15:20:45.014Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -240,6 +240,11 @@
       "title": "Up next",
       "cards": [
         {
+          "key": "YUI-267",
+          "title": "Drawings that look designed",
+          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes"
+        },
+        {
           "key": "YUI-172",
           "title": "Get Yui iOS GoogleService-Info.plist from the existing Firebase project",
           "waiting": true
@@ -366,25 +371,11 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-173",
-          "title": "The values page gets One decision, one screen",
-          "summary": "One decision, one screen",
-          "progress": "/progress#one-decision-one-screen",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
           "blocked": "chris",
           "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-267",
-          "title": "Drawings that look designed",
-          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
-          "blocked": "chris",
           "owner": "CJohnDesign"
         },
         {
@@ -399,6 +390,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-173",
+          "title": "The values page gets One decision, one screen",
+          "summary": "One decision, one screen",
+          "shipped": "2026-10-02",
+          "progress": "/progress#one-decision-one-screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4901027f"
+        },
         {
           "key": "SITE-172",
           "title": "The Yui on the web film re-cut with today's faster /web",
