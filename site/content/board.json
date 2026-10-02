@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T06:50:37.502Z",
+  "updated": "2026-10-02T07:05:40.365Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -250,11 +250,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "NOTE-35762",
-          "title": "No end screen while still working",
-          "waiting": true
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "waiting": true
@@ -353,11 +348,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-50620",
-          "title": "Agent name on the menu button",
-          "needsDemo": true
         }
       ]
     },
@@ -371,6 +361,11 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "NOTE-35762",
+          "title": "No end screen while still working",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-267",
@@ -392,6 +387,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-50620",
+          "title": "Agent name on the menu button",
+          "shipped": "2026-10-02",
+          "progress": "/progress#the-menu-button-names-your-agent"
+        },
         {
           "key": "NOTE-27775",
           "title": "Hide raw cron errors",
