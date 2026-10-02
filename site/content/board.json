@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T07:35:42.792Z",
+  "updated": "2026-10-02T07:45:43.968Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -343,6 +343,11 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-35762",
+          "title": "No end screen while still working",
+          "needsDemo": true
         }
       ]
     },
@@ -356,11 +361,6 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
-        },
-        {
-          "key": "NOTE-35762",
-          "title": "No end screen while still working",
-          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-269",
