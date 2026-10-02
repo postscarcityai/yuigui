@@ -12,7 +12,8 @@ import { usePrefs } from "./useSettings";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { answerOf } from "../../lib/chat/stage.mjs";
-import { arrivalOf, homeOf, chipAction, isRow, landingOf, playFor, waitingAction, pageTitle, reopened, turnOf, MAX_WAITING } from "../../lib/web/stage.mjs";
+import { arrivalOf, homeOf, chipAction, dismissEvent, isHostAsk, isRow, landingOf, notYetEvent, playFor, waitingAction, pageTitle, reopened, turnOf, MAX_WAITING } from "../../lib/web/stage.mjs";
+import { useDismissed } from "./useDismissed";
 import { liveness, presenceLabel, waitingNote, workingLine } from "../../lib/web/presence.mjs";
 import { AttachButton, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, Waveform, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
 import { useVoice } from "./useVoice";
@@ -96,7 +97,7 @@ function Pills({ names, at, titles, onGo }) {
 }
 
 // The agent's home on screen 1 (HomeHead): face, name, what it does, then what is waiting on you.
-function HomeHead({ agent, home, quiet, hasScreens, onWaiting, onSeeAll, seeAll }) {
+function HomeHead({ agent, home, quiet, hasScreens, onWaiting, onDismiss, onNotYet, onSeeAll, seeAll }) {
   const list = seeAll ? home.waiting : home.waiting.slice(0, MAX_WAITING);
   return (
     <div className="ys-mid wb-home" data-testid="stage-home">
@@ -110,11 +111,19 @@ function HomeHead({ agent, home, quiet, hasScreens, onWaiting, onSeeAll, seeAll 
             {home.waiting.length > MAX_WAITING && !seeAll ? <button onClick={onSeeAll}>See all {home.waiting.length}</button> : null}
           </div>
           {list.map((w) => (
-            <button key={w.id} className="wb-ask" data-testid={`home-menu-${w.id}`} onClick={() => onWaiting(w)}>
-              <i aria-hidden="true" />
-              <span><b>{w.label}</b>{w.sub ? <small>{w.sub}</small> : null}</span>
-              <ChevIcon />
-            </button>
+            <div key={w.id} className="wb-ask-row">
+              <button className="wb-ask" data-testid={`home-menu-${w.id}`} onClick={() => onWaiting(w)}>
+                <i aria-hidden="true" />
+                <span><b>{w.label}</b>{w.sub ? <small>{w.sub}</small> : null}</span>
+                <ChevIcon />
+              </button>
+              {isHostAsk(w) ? (
+                <div className="wb-ask-acts">
+                  <button type="button" data-testid={`home-notyet-${w.id}`} title="Keeps it quiet for a week" onClick={() => onNotYet(w)}>Not yet</button>
+                  <button type="button" data-testid={`home-dismiss-${w.id}`} title="Takes it off your list for good" onClick={() => onDismiss(w)}>Dismiss</button>
+                </div>
+              ) : null}
+            </div>
           ))}
         </div>
       ) : <p className="wb-quiet" data-testid="home-quiet">{quiet ? quiet : hasScreens ? "Nothing waiting on you. Swipe left for your screens." : "Nothing waiting on you."}</p>}
@@ -146,7 +155,8 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   const accent = accentOf(agent);
   const messages = thread.messages;
   const version = thread.version;
-  const home = useMemo(() => homeOf(messages), [version]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [dismissed, markDismissed] = useDismissed(agent.id);
+  const home = useMemo(() => homeOf(messages, dismissed), [version, dismissed]); // eslint-disable-line react-hooks/exhaustive-deps
   const names = useMemo(() => ["1", ...home.pages], [home.pages]);
   const titles = useMemo(() => Object.fromEntries(home.pages.map((k) => [k, pageTitle(home.state, k)])), [home]);
 
@@ -325,6 +335,9 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
     else if (a.open) window.open(a.open, "_blank", "noopener,noreferrer");
     else if (a.tap) tap(a.tap, a.said);
   };
+  // Dismiss and Not yet on a Needs you row (YUI-270): a quiet event to the host, and the row leaves at once.
+  const dismissWaiting = (item) => { tap(dismissEvent(item)); markDismissed(item.id); };
+  const notYetWaiting = (item) => { tap(notYetEvent(item), "Not yet"); markDismissed(item.id); };
   // Back to the agent's home (YUI-195): the answer goes down, nothing is sent, the record keeps it.
   const goHome = useCallback(() => { setAsk(null); setShown(null); setEnded(false); setFound(false); }, []);
 
@@ -397,7 +410,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
     );
   } else {
     center = (
-      <HomeHead agent={agent} home={home} hasScreens={home.pages.length > 0} seeAll={seeAll} onSeeAll={() => setSeeAll(true)} onWaiting={tapWaiting}
+      <HomeHead agent={agent} home={home} hasScreens={home.pages.length > 0} seeAll={seeAll} onSeeAll={() => setSeeAll(true)} onWaiting={tapWaiting} onDismiss={dismissWaiting} onNotYet={notYetWaiting}
         quiet={stoppedNow ? "Stopped." : turn && turn.replies && !stageUp && !busy && turn.ask?.id === newest ? "Anything else?" : ""} />
     );
   }

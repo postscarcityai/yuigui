@@ -163,10 +163,12 @@ export class ThreadSync {
   tap(full, said = null) {
     const { _echo, ...ev } = full;
     const echo = said ?? _echo ?? echoFor(ev);
-    if (!relays(ev, echo)) return null;
+    // A Dismiss on a Needs you row reaches the host with no echo and no turn (YUI-270, Presets/ChatStore.swift `dismissMenu`).
+    const quiet = ev.preset === "menu" && ev.dismissed === true;
+    if (!quiet && !relays(ev, echo)) return null;
     const meta = { id: ev.id, preset: ev.preset, value: valueOf(ev), ...(echo != null ? { echo } : {}) };
     const row = { id: uuid(), body: eventLine(ev), kind: "event", meta };
-    this.#out(row);
+    this.#out(row, quiet ? { owes: false } : undefined);
     return row;
   }
 

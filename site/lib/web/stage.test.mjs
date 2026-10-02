@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { Thread } from "./thread.mjs";
-import { arrivalOf, chipAction, homeOf, isRow, landingOf, playFor, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
+import { arrivalOf, chipAction, dismissEvent, homeOf, isHostAsk, isRow, notYetEvent, landingOf, playFor, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
 
 const T0 = Date.parse("2026-10-01T12:00:00Z");
 const iso = (s) => new Date(T0 + s * 1000).toISOString().replace("Z", "000+00:00");
@@ -65,4 +65,16 @@ test("YUI-252: the tuner is a page of the signed-in web (Gouda's sixth screen)",
   const h = homeOf(m);
   assert.deepEqual(h.pages, ["2", "6"]);
   assert.equal(h.saved.tuner, "6");
+});
+
+test("YUI-270: a dismissed ask leaves the home until the host draws it again", () => {
+  const body = yl("menu review@need-t_0a0b0c \"Outside testers\"\nmenu review@dana \"Invite Dana?\"");
+  const msgs = thread([row({ body })]);
+  assert.equal(homeOf(msgs).waiting.length, 2);
+  assert.deepEqual(homeOf(msgs, { "need-t_0a0b0c": Date.now() + 60000 }).waiting.map((w) => w.id), ["dana"]);
+  assert.equal(homeOf(msgs, { "need-t_0a0b0c": msgs[0].at - 1 }).waiting.length, 2, "drawn again after the tap: it is back");
+  assert.equal(isHostAsk({ id: "need-t_0a0b0c" }), true);
+  assert.equal(isHostAsk({ id: "dana" }), false);
+  assert.deepEqual(dismissEvent({ id: "need-t_0a0b0c" }), { id: "need-t_0a0b0c", preset: "menu", bucket: "review", dismissed: true });
+  assert.deepEqual(notYetEvent({ id: "need-t_0a0b0c" }), { id: "need-t_0a0b0c", preset: "choose", choice: "Not yet" });
 });

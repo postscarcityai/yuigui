@@ -99,10 +99,14 @@ const SIGNED_IN = new Set(["tuner"]);
 
 // Everything the agent's home draws: the newest shortcuts as chips, the review items, the pages and
 // where a `show=` goes. `opened` is the thread's own opening line when it has one.
-export function homeOf(messages) {
+export function homeOf(messages, dismissed = {}) {
   const ops = [];
-  for (const m of messages) if (m.role === "agent" && m.ops) ops.push(...m.ops.filter((o) => o.op === "menu"));
+  const seen = {};
+  for (const m of messages) if (m.role === "agent" && m.ops) for (const o of m.ops) if (o.op === "menu") { ops.push(o); seen[o.id] = m.at; }
   const menu = menuOf(ops);
+  // YUI-270: a Dismiss or Not yet takes the row off the list at once, like the app. It stays off until the host
+  // draws that ask again after the answer (a new block on the card), which is newer than the tap.
+  menu.review = menu.review.filter((it) => !(dismissed[it.id] > 0 && !(seen[it.id] > dismissed[it.id])));
   const pg = threadPages(repliesOf(messages), SIGNED_IN);
   const saved = savedPages(messages);
   return {
@@ -140,6 +144,15 @@ export function waitingAction(item, home) {
   if (typeof item.url === "string" && /^https:\/\//i.test(item.url)) return { open: item.url };
   return { tap: { id: item.id, preset: "menu", bucket: "review", tapped: true }, said: item.label };
 }
+
+// A Needs you row is a host ask (`need-<task id>`); only those can be dismissed or put off.
+export const isHostAsk = (item) => /^need-t_[0-9a-f]{4,}$/.test(String(item?.id || ""));
+
+// Dismiss on a Needs you row (YUI-265's twin): one quiet event, no echo and no agent turn. The host closes the ask.
+export const dismissEvent = (item) => ({ id: item.id, preset: "menu", bucket: "review", dismissed: true });
+
+// Not yet on the row is the same answer the ask screen sends: the host keeps the ask quiet for a week.
+export const notYetEvent = (item) => ({ id: item.id, preset: "choose", choice: "Not yet" });
 
 // The title a page's pill carries: the first title-like thing on it, else "Screen N" (the app asks the
 // page's content for a title; the web reads the first node with one).

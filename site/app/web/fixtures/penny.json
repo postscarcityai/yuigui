@@ -163,7 +163,7 @@
    {
     "id": "00000000-0000-4000-8000-000000000006",
     "sender": "agent",
-    "body": "Here is how I would run your week. Monday is an easy five kilometers to loosen up after the weekend. Tuesday is strides only, short and quick, so your legs stay fresh. Thursday carries the long one, because the forecast is dry that day. Friday is a full rest day, no screens before bed. Saturday is a tempo run at a pace you can still talk through. If anything feels off, tell me and I will move the pieces around instead of dropping the week.\n```yui\nmenu shortcut \"Plan my week\"\nmenu shortcut \"Log a run: \" say=\"Log a run: \"\nmenu review@dana \"Invite Dana?\" sub=\"asked yesterday\"\n>2 stat 12 \"Runs this month\"\n```",
+    "body": "Here is how I would run your week. Monday is an easy five kilometers to loosen up after the weekend. Tuesday is strides only, short and quick, so your legs stay fresh. Thursday carries the long one, because the forecast is dry that day. Friday is a full rest day, no screens before bed. Saturday is a tempo run at a pace you can still talk through. If anything feels off, tell me and I will move the pieces around instead of dropping the week.\n```yui\nmenu shortcut \"Plan my week\"\nmenu shortcut \"Log a run: \" say=\"Log a run: \"\nmenu review@dana \"Invite Dana?\" sub=\"asked yesterday\"\nmenu review@need-t_0a0b0c \"Outside testers\" sub=\"Do you know one?\"\n>2 stat 12 \"Runs this month\"\n```",
     "kind": "text",
     "meta": {},
     "ago_min": 299

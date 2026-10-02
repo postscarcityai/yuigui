@@ -6,7 +6,7 @@
 import { useEffect, useState } from "react";
 import { controlSections, statusLine, isShared, isYui } from "../../lib/web/agents.mjs";
 import { liveness } from "../../lib/web/presence.mjs";
-import { pageTitle } from "../../lib/web/stage.mjs";
+import { isHostAsk, pageTitle } from "../../lib/web/stage.mjs";
 import { firstName, initialOf } from "../../lib/web/earn.mjs";
 import DrawerChats from "./DrawerChats";
 import { Face } from "./parts";
@@ -100,11 +100,19 @@ function Review({ agent, api, close }) {
     <>
       <p className="dr-count-line">{waiting.length === 1 ? "1 thing is waiting on you" : `${waiting.length} things are waiting on you`}</p>
       {waiting.map((it) => (
-        <button key={it.id} type="button" className="dr-card" data-testid={`review-${it.id}`} onClick={() => { close(); api.run(it, "review"); }}>
-          <small className="dr-kick">From {agent.name}</small>
-          <b>{it.label}</b>
-          {it.sub ? <span>{it.sub}</span> : null}
-        </button>
+        <div key={it.id} className="dr-ask">
+          <button type="button" className="dr-card" data-testid={`review-${it.id}`} onClick={() => { close(); api.run(it, "review"); }}>
+            <small className="dr-kick">From {agent.name}</small>
+            <b>{it.label}</b>
+            {it.sub ? <span>{it.sub}</span> : null}
+          </button>
+          {isHostAsk(it) ? (
+            <div className="dr-ask-acts">
+              <button type="button" data-testid={`review-notyet-${it.id}`} title="Keeps it quiet for a week" onClick={() => api.notYet(it)}>Not yet</button>
+              <button type="button" data-testid={`review-dismiss-${it.id}`} title="Takes it off your list for good" onClick={() => api.dismiss(it)}>Dismiss</button>
+            </div>
+          ) : null}
+        </div>
       ))}
     </>
   );

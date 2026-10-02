@@ -283,6 +283,7 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
       // The database copies a reaction onto the agent's row (spec/REACTIONS.md).
       if (row.meta.react) { const hit = list.find((r) => r.id === row.meta.react.msg && r.sender === "agent"); if (hit) hit.reaction = row.meta.react.emoji; }
       if (row.meta.mention) { mentioned(agentId, row); return; }
+      if (row.meta.preset === "menu" && row.meta.value?.dismissed === true) return; // a Dismiss is quiet: no agent turn (YUI-270)
       answer(agentId, row);
     },
     // A photo into the bucket, kept for the page's life; the bytes never leave the tab.

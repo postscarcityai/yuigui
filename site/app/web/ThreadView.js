@@ -23,7 +23,8 @@ import { KeepCtx, stopVoices } from "../playground/music/keep";
 import { KeptCtx } from "../playground/kept";
 import { sharedReminders } from "../../lib/web/reminders.mjs";
 import { waitingNote, workingLine } from "../../lib/web/presence.mjs";
-import { chipAction, homeOf, waitingAction } from "../../lib/web/stage.mjs";
+import { chipAction, dismissEvent, homeOf, notYetEvent, waitingAction } from "../../lib/web/stage.mjs";
+import { useDismissed } from "./useDismissed";
 
 const ThreadScreen = dynamic(() => import("./ThreadScreen"), { ssr: false, loading: () => <div className="wb-wait">Drawing...</div> });
 const WINDOW_STEP = 60;
@@ -378,7 +379,11 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
 
   // The drawer (YUI-245) reads this thread's menu rows and runs their taps: the same lines the stage's chips
   // send. `api` changes only when the thread does.
-  const home = useMemo(() => homeOf(list), [thread.version]); // eslint-disable-line react-hooks/exhaustive-deps
+  const [dismissed, markDismissed] = useDismissed(agent.id);
+  const home = useMemo(() => homeOf(list, dismissed), [thread.version, dismissed]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Dismiss and Not yet on a Needs you row (YUI-270): a quiet event to the host, and the row leaves at once.
+  const dismiss = useCallback((item) => { sync.tap(dismissEvent(item)); markDismissed(item.id); }, [sync, markDismissed]);
+  const notYet = useCallback((item) => { sync.tap(notYetEvent(item), "Not yet"); markDismissed(item.id); }, [sync, markDismissed]);
   const run = useCallback((item, bucket) => {
     const a = bucket === "shortcut" ? chipAction(item, home) : waitingAction(item, home);
     if (a.go) toStage({ page: a.go });
@@ -389,8 +394,8 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
     else if (a.tap) sync.tap(a.tap, a.said);
   }, [home, sync, store, view, toStage]);
   useEffect(() => {
-    onApi?.({ agentId: agent.id, home, run, version: thread.version, loaded: thread.loaded, about: (item) => { store.setAbout(item); setView("chat"); }, send: (words) => sync.send(words), compose: (words) => (view === "stage" ? toStage({ compose: words }) : store.setDraft(words)) });
-  }, [home, run, thread.loaded]); // eslint-disable-line react-hooks/exhaustive-deps
+    onApi?.({ agentId: agent.id, home, run, dismiss, notYet, version: thread.version, loaded: thread.loaded, about: (item) => { store.setAbout(item); setView("chat"); }, send: (words) => sync.send(words), compose: (words) => (view === "stage" ? toStage({ compose: words }) : store.setDraft(words)) });
+  }, [home, run, dismiss, notYet, thread.loaded]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => () => onApi?.(null), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onTap = useCallback((ev) => { sync.tap(ev); }, [sync]);

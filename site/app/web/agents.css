@@ -27,6 +27,7 @@
 .dr-next { background: color-mix(in srgb, var(--brand) 12%, var(--surface)); border-color: color-mix(in srgb, var(--brand) 40%, var(--outline)); }
 .dr-count { font-style: normal; min-width: 26px; height: 26px; border-radius: 13px; display: inline-grid; place-items: center; background: var(--brand); color: var(--on-brand); font-weight: 800; font-size: 13px; }
 .dr-card { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; width: 100%; padding: 14px 16px; border-radius: 22px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; text-align: left; cursor: pointer; min-height: 56px; }
+.dr-ask { display: flex; flex-direction: column; gap: 6px; }
 .dr-card b { font-size: 19px; line-height: 1.25; }
 .dr-card span { color: var(--muted); font-size: 15px; }
 .dr-kick { text-transform: uppercase; letter-spacing: .08em; font-weight: 800; color: var(--brand); font-size: 12px; }
