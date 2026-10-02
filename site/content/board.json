@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T03:21:07.218Z",
+  "updated": "2026-10-02T03:37:00.896Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -250,11 +250,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "NOTE-50620",
-          "title": "Agent name on the menu button",
-          "waiting": true
-        },
-        {
           "key": "NOTE-35762",
           "title": "No end screen while still working",
           "waiting": true
@@ -358,11 +353,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-27775",
-          "title": "Hide raw cron errors",
-          "needsDemo": true
         }
       ]
     },
@@ -384,6 +374,11 @@
           "owner": "CJohnDesign"
         },
         {
+          "key": "NOTE-50620",
+          "title": "Agent name on the menu button",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-267",
           "title": "Drawings that look designed",
           "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
@@ -396,6 +391,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-27775",
+          "title": "Hide raw cron errors",
+          "shipped": "2026-10-01",
+          "progress": "/progress#system-failure-lines-stay-out-of-the-chat"
+        },
         {
           "key": "YUI-266",
           "title": "/web shows the agent's name on the menu button, and no end screen while a reply is still coming",
