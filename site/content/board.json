@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T14:50:40.490Z",
+  "updated": "2026-10-02T15:00:42.666Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,18 +348,17 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
+          "key": "YUI-267",
+          "title": "Drawings that look designed",
+          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
           "blocked": "chris",
           "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-267",
-          "title": "Drawings that look designed",
-          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
-          "blocked": "chris",
           "owner": "CJohnDesign"
         },
         {
