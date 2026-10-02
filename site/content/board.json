@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T15:00:42.666Z",
+  "updated": "2026-10-02T15:05:49.543Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -276,10 +276,19 @@
           "waiting": true
         },
         {
+          "key": "YUI-276",
+          "title": "Draw anything on any screen",
+          "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
+        },
+        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
           "progress": "/progress#typing-trash-and-looper-fixes"
+        },
+        {
+          "key": "NOTE-3651",
+          "title": "Add an agent, tucked away"
         },
         {
           "key": "NOTE-3941",
@@ -310,6 +319,10 @@
           "title": "A real coach for workouts",
           "waiting": true,
           "progress": "/progress#a-first-plan-from-coach"
+        },
+        {
+          "key": "NOTE-42080",
+          "title": "Ask and answer on one screen"
         },
         {
           "key": "NOTE-43312",
@@ -348,9 +361,13 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-267",
-          "title": "Drawings that look designed",
-          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
+          "key": "YUI-277",
+          "title": "/web asks on the same screen as what it asks about",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-173",
+          "title": "The values page gets One decision, one screen",
           "owner": "CJohnDesign"
         },
         {
@@ -359,6 +376,13 @@
           "summary": "Upload failed",
           "blocked": "chris",
           "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-267",
+          "title": "Drawings that look designed",
+          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         },
         {
