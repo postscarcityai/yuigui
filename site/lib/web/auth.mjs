@@ -1,6 +1,8 @@
 // The web session (YUI-241), the browser twin of Yui/Sources/Account/Account.swift.
 //
-//   access token   in memory only, never written anywhere
+//   access token   in memory; the one a renewal just got is also kept beside the refresh token, so the next page
+//                  load can start its reads on it while the renewal is on the wire (YUI-274, `early`). It is
+//                  an hour old at most, and the refresh token next to it is the stronger secret already.
 //   refresh token  the one thing stored (IndexedDB), so a closed tab stays signed in for the
 //                  60 days yui-auth gives a session. Every refresh rotates it.
 //   one refresh    at a time across tabs: a Web Lock around the refresh, and the tab re-reads
@@ -30,6 +32,7 @@ export function createAuth(deps) {
   let signedIn = false;
   let ready = false;
   let provisional = false; // a stored session is being renewed: the page may open on what it kept (YUI-273)
+  let early = null; // the access token a closed tab left (stored, unexpired): good for reads until the renewal lands
   let inflight = null;
   let peerAccess = null; // resolves the wait for a peer tab's fresh access token
   const listeners = new Set();
@@ -59,7 +62,8 @@ export function createAuth(deps) {
   async function adopt(reply) {
     access = { token: reply.access_token, expiresAt: now() + reply.expires_in * 1000 };
     user = reply.user ? { id: reply.user.id, email: reply.user.email ?? null } : user;
-    await store.set({ refresh: reply.refresh_token, user, at: now() });
+    early = null;
+    await store.set({ refresh: reply.refresh_token, user, at: now(), access: access.token, accessExpiresAt: access.expiresAt });
     signedIn = true;
     ready = true;
     provisional = false;
@@ -67,7 +71,7 @@ export function createAuth(deps) {
   }
 
   function drop() {
-    access = null; user = null; signedIn = false; ready = true; provisional = false;
+    access = null; early = null; user = null; signedIn = false; ready = true; provisional = false;
     emit();
   }
 
@@ -77,6 +81,7 @@ export function createAuth(deps) {
       if (m.type === "access" && m.token) {
         // Another tab refreshed: take its fresh access token, never spend the refresh token again.
         access = { token: m.token, expiresAt: m.expiresAt };
+        early = null;
         if (m.user) user = m.user;
         signedIn = true; ready = true; emit();
         peerAccess?.();
@@ -137,6 +142,9 @@ export function createAuth(deps) {
       const saved = await store.get();
       if (!saved?.refresh) { drop(); return snapshot(); }
       user = saved.user ?? null;
+      // A stored access token that is still good lets the page's reads leave now, not after the renewal (YUI-274).
+      // The renewal still runs (refreshLocked does not look at `early`), so the session keeps rotating.
+      if (saved.access && saved.accessExpiresAt - now() > SKEW_MS) early = { token: saved.access, expiresAt: saved.accessExpiresAt };
       // The page can open on what this person last saw while the renewal is on the wire: a refused token ends it (drop).
       if (user?.id) { provisional = true; emit(); }
       try { await refresh(); } catch (e) {
@@ -148,6 +156,17 @@ export function createAuth(deps) {
 
     /** A bearer for a function call; refreshes first when it is about to lapse. */
     async accessToken() {
+      if (fresh()) return access.token;
+      if (early && early.expiresAt - now() > SKEW_MS) return early.token;
+      return refresh();
+    },
+
+    /** A call came back 401 on `rejected`: the token to retry with, once. Waits for the renewal that is already on
+     * the wire (never a second spend of the refresh token), or starts one. */
+    async renewed(rejected) {
+      if (early?.token === rejected) early = null;
+      if (access?.token === rejected) access = null;
+      if (inflight) return inflight;
       if (fresh()) return access.token;
       return refresh();
     },

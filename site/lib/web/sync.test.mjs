@@ -204,3 +204,38 @@ test("what a closed tab left behind shows pending when the thread opens, and goe
   assert.equal(relay.wire("demo-penny").filter((r) => r.body === "left behind").length, 1);
   sync.stop();
 });
+
+test("the first read the page already started is the one the thread opens on, used once (YUI-274)", async () => {
+  const relay = createDemoRelay(fixture, { speed: 5 });
+  let reads = 0;
+  const real = relay.fetchRows.bind(relay);
+  relay.fetchRows = (o) => { reads++; return real(o); };
+  const ask = { agentId: "demo-penny", chatId: null, since: null, limit: 100 };
+  const early = { ...ask, promise: relay.fetchRows(ask) };
+  const thread = new Thread();
+  const sync = new ThreadSync({ relay, thread, userId: "demo-user", agentId: "demo-penny", early, timers: { set: (fn, ms) => setTimeout(fn, ms / 50), clear: clearTimeout }, turnCheck: 5 });
+  await sync.start();
+  assert.equal(thread.loaded, true);
+  assert.equal(reads, 1, "start() used the early read, it made none of its own");
+  assert.equal(early.taken, true);
+  sync.stop();
+});
+
+test("an early read for another chat is ignored, and one that failed is read again (YUI-274)", async () => {
+  const relay = createDemoRelay(fixture, { speed: 5 });
+  let reads = 0;
+  const real = relay.fetchRows.bind(relay);
+  relay.fetchRows = (o) => { reads++; return real(o); };
+  const timers = { set: (fn, ms) => setTimeout(fn, ms / 50), clear: clearTimeout };
+  const other = { agentId: "demo-penny", chatId: "c-other", promise: Promise.resolve([]) };
+  const a = new ThreadSync({ relay, thread: new Thread(), userId: "demo-user", agentId: "demo-penny", early: other, timers, turnCheck: 5 });
+  await a.start(); a.stop();
+  assert.equal(reads, 1); assert.equal(other.taken, undefined);
+  const dead = { agentId: "demo-penny", chatId: null, promise: Promise.reject(new Error("network")) };
+  const thread = new Thread();
+  const b = new ThreadSync({ relay, thread, userId: "demo-user", agentId: "demo-penny", early: dead, timers, turnCheck: 5 });
+  await b.start();
+  assert.equal(thread.loaded, true); assert.equal(reads, 2);
+  assert.equal(thread.messages.length > 0, true);
+  b.stop();
+});

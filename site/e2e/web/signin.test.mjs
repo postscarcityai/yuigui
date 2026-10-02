@@ -107,7 +107,7 @@ for (const [name, vp] of [["390", { width: 390, height: 844 }], ["desktop", { wi
       const idb = await new Promise((res) => { const r = indexedDB.open("yui-web", 1); r.onsuccess = () => { const g = r.result.transaction("session").objectStore("session").get("session"); g.onsuccess = () => res(g.result); }; });
       return { idb, ls: JSON.stringify({ ...localStorage }), ss: JSON.stringify({ ...sessionStorage }), cookie: document.cookie };
     });
-    ok(keep.idb?.refresh === "rt1" && !JSON.stringify(keep.idb).includes("at1"), `${tag}: IndexedDB holds the refresh token and no access token`);
+    ok(keep.idb?.refresh === "rt1" && keep.idb?.access === "at1" && keep.idb?.accessExpiresAt > Date.now(), `${tag}: IndexedDB holds the refresh token and the access token with its expiry (YUI-274), nothing in local or session storage`);
     ok(!/rt1|at1/.test(keep.ls + keep.ss + keep.cookie), `${tag}: nothing in localStorage, sessionStorage or cookies`);
     await shot(pg, `account-${name}-${scheme}`);
 

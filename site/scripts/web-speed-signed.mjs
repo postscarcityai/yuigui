@@ -61,7 +61,8 @@ const b = await chromium.launch({ args: [`--host-resolver-rules=MAP txuibjxyfpal
 const out = [];
 for (let i = 0; i < RUNS; i++) {
   const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true });
-  // The session a signed in person has stored (lib/web/auth.mjs browserDeps): only when there is none yet.
+  // The session a signed in person has stored (lib/web/auth.mjs browserDeps): only when there is none yet. A returning
+  // person has an access token from the last renewal that is still good (YUI-274); the old code ignores the extra fields.
   await ctx.addInitScript(() => {
     const r = indexedDB.open("yui-web", 1);
     r.onupgradeneeded = () => r.result.createObjectStore("session");
@@ -69,7 +70,7 @@ for (let i = 0; i < RUNS; i++) {
       const db = r.result;
       if (!db.objectStoreNames.contains("session")) return db.close();
       const g = db.transaction("session").objectStore("session").get("session");
-      g.onsuccess = () => { if (!g.result) db.transaction("session", "readwrite").objectStore("session").put({ refresh: "rt0", user: { id: "u1", email: "chris@example.com" }, at: Date.now() }, "session"); };
+      g.onsuccess = () => { if (!g.result) db.transaction("session", "readwrite").objectStore("session").put({ refresh: "rt0", user: { id: "u1", email: "chris@example.com" }, at: Date.now(), access: "at0", accessExpiresAt: Date.now() + 1800000 }, "session"); };
     };
   });
   const visit = async (cacheOff) => {

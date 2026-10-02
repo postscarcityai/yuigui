@@ -18,8 +18,8 @@ const uuid = () => (globalThis.crypto?.randomUUID?.() ?? "10000000-1000-4000-800
 export class ThreadSync {
   // `outbox` is the one the whole page shares (what a closed tab left behind goes out from there); a thread
   // opened on its own (the tests) gets a private one that lives in memory.
-  constructor({ relay, thread, userId, agentId, chatId = null, outbox = null, cache = null, timers = { set: (fn, ms) => setTimeout(fn, ms), clear: (t) => clearTimeout(t) }, onStatus = () => {}, turnCheck = TURN_CHECK }) {
-    Object.assign(this, { relay, thread, userId, agentId, chatId, timers, onStatus, turnCheck, cache });
+  constructor({ relay, thread, userId, agentId, chatId = null, outbox = null, cache = null, early = null, timers = { set: (fn, ms) => setTimeout(fn, ms), clear: (t) => clearTimeout(t) }, onStatus = () => {}, turnCheck = TURN_CHECK }) {
+    Object.assign(this, { relay, thread, userId, agentId, chatId, timers, onStatus, turnCheck, cache, early });
     this.raw = new Map(); // the rows the relay sent, by id: what the cache keeps (YUI-273)
     this.drawnFromCache = false;
     this.socket = false;
@@ -85,10 +85,20 @@ export class ThreadSync {
     this.timer = this.timers.set(async () => { await this.refresh(); this.#schedule(); }, this.socket ? SOCKET_POLL : IDLE_POLL);
   }
 
+  // The first read of this thread may already be on the wire (YUI-274: the page started it with the agent list). Used
+  // once, and only for the same agent and chat; if it failed, the read is made again here.
+  #takeEarly() {
+    const e = this.early;
+    if (!e || e.taken || e.agentId !== this.agentId || (e.chatId || null) !== (this.chatId || null)) return null;
+    e.taken = true;
+    return e.promise.catch(() => this.relay.fetchRows({ agentId: this.agentId, chatId: this.chatId, since: null, limit: OPEN_ROWS }));
+  }
+
   async refresh(first = false) {
     const t = this.thread;
     try {
-      const rows = await this.relay.fetchRows({ agentId: this.agentId, chatId: this.chatId, since: first ? null : t.cursor && before(t.cursor, 10), limit: OPEN_ROWS });
+      const ask = { agentId: this.agentId, chatId: this.chatId, since: first ? null : t.cursor && before(t.cursor, 10), limit: OPEN_ROWS };
+      const rows = await ((first && this.#takeEarly()) || this.relay.fetchRows(ask));
       if (first && this.drawnFromCache) { this.drawnFromCache = false; t.swap(rows); this.#rehydrate(); }
       else t.load(rows, { first });
       this.#remember(rows);

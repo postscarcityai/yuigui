@@ -41,13 +41,14 @@ export class RelayError extends Error {
   }
 }
 
-export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, fetch: doFetch = (...a) => globalThis.fetch(...a), WebSocket: WS = globalThis.WebSocket } = {}) {
+export function createRelay({ url = BACKEND, key = PUBLISHABLE_KEY, token, renew = null, fetch: doFetch = (...a) => globalThis.fetch(...a), WebSocket: WS = globalThis.WebSocket } = {}) {
   const signed = new Map();
   async function request(path, init = {}) {
-    const res = await doFetch(`${url}/${path}`, {
-      ...init,
-      headers: { apikey: key, Authorization: `Bearer ${await token()}`, ...init.headers },
-    });
+    const go = (bearer) => doFetch(`${url}/${path}`, { ...init, headers: { apikey: key, Authorization: `Bearer ${bearer}`, ...init.headers } });
+    let bearer = await token();
+    let res = await go(bearer);
+    // A read that left on a stored access token the server refuses (YUI-274) waits for the renewal and goes once more.
+    if (res.status === 401 && renew) res = await go(await renew(bearer));
     if (!res.ok) throw new RelayError(res.status, await res.text().catch(() => ""));
     return res;
   }

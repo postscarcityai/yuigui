@@ -51,12 +51,12 @@ function browser(srv, clock) {
 
 const sign = (a) => a.signInApple({ identityToken: "tok", nonce: "n" });
 
-test("sign in keeps only the refresh token, and a new tab restores from it", async () => {
+test("sign in keeps the refresh token (and the access token for a quick next load), and a new tab restores from it", async () => {
   const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
   const t1 = b.tab(); await sign(t1);
   assert.equal(t1.snapshot().signedIn, true);
   assert.equal(b.peek().refresh, "r1");
-  assert.equal(JSON.stringify(b.peek()).includes("a1"), false, "the access token is never stored");
+  assert.equal(b.peek().access, "a1", "the access token rides beside the refresh token (YUI-274)");
   const t2 = b.tab();
   const s = await t2.restore();
   assert.equal(s.signedIn, true); assert.equal(s.user.email, "c@x.com");
@@ -168,4 +168,62 @@ test("delete account that the server refuses leaves the person signed in", async
   await assert.rejects(t1.deleteAccount(), (e) => e.code === "server_error");
   assert.equal(t1.snapshot().signedIn, true);
   assert.equal(b.peek().refresh, "r1");
+});
+
+// A restore that the renewal has not answered yet: the page's reads ask for a token meanwhile.
+const slow = (srv, ms) => { const f = srv.fetch; srv.fetch = async (...a) => { await new Promise((r) => setTimeout(r, ms)); return f(...a); }; };
+
+test("a stored, unexpired access token serves reads while the renewal is on the wire (YUI-274)", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  await sign(b.tab());
+  slow(srv, 40);
+  const t = b.tab();
+  const restoring = t.restore();
+  await new Promise((r) => setTimeout(r, 5));
+  assert.equal(await t.accessToken(), "a1", "the stored token answers at once");
+  assert.equal(srv.refreshes, 0, "no renewal has landed yet, and the read did not wait for one");
+  await restoring;
+  assert.equal(srv.refreshes, 1, "the renewal still runs once");
+  assert.equal(await t.accessToken(), "a2");
+});
+
+test("an expired stored access token is never used: the read waits for the renewal (YUI-274)", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  await sign(b.tab());
+  clock.t += 3_600_000;
+  slow(srv, 20);
+  const t = b.tab();
+  const restoring = t.restore();
+  await new Promise((r) => setTimeout(r, 5));
+  assert.equal(await t.accessToken(), "a2");
+  await restoring;
+  assert.equal(srv.refreshes, 1);
+});
+
+test("a 401 on the stored token waits for the renewal already on the wire and retries on its token, one spend (YUI-274)", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  await sign(b.tab());
+  slow(srv, 30);
+  const t = b.tab();
+  const restoring = t.restore();
+  await new Promise((r) => setTimeout(r, 5));
+  const first = await t.accessToken();
+  assert.equal(first, "a1");
+  const retry = await t.renewed(first);
+  assert.equal(retry, "a2");
+  await restoring;
+  assert.equal(srv.refreshes, 1, "the refresh token was spent once");
+  assert.equal(srv.ended, false);
+  // The rejected token is not offered again.
+  assert.equal(await t.accessToken(), "a2");
+});
+
+test("a 401 with no renewal on the wire starts exactly one (YUI-274)", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  const t = b.tab(); await sign(t);
+  const tok = await t.accessToken();
+  const [x, y] = await Promise.all([t.renewed(tok), t.renewed(tok)]);
+  assert.equal(x, y);
+  assert.equal(srv.refreshes, 1);
+  assert.equal(srv.ended, false);
 });

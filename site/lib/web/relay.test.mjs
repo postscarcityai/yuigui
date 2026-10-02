@@ -95,3 +95,28 @@ test("the way back through a long chat is the app's fetchOlder: the rows said ju
   assert.equal(q.limit, "100");
   assert.equal(Object.fromEntries(threadQuery({ agentId: "a1" })).created_at, undefined);
 });
+
+test("a 401 on a read asks for a renewed token and goes once more, with it (YUI-274)", async () => {
+  const f = fakeFetch(async (url, init) => (init.headers.Authorization === "Bearer OLD" ? { status: 401, json: {}, text: "jwt expired" } : { status: 200, json: [{ id: "a" }] }));
+  const asked = [];
+  const relay = createRelay({ url: "https://x.test", token: async () => "OLD", renew: async (rejected) => { asked.push(rejected); return "NEW"; }, fetch: f });
+  assert.deepEqual((await relay.fetchRows({ agentId: "a1" })).map((r) => r.id), ["a"]);
+  assert.deepEqual(asked, ["OLD"]);
+  assert.equal(f.calls.length, 2);
+  assert.equal(f.calls[1].init.headers.Authorization, "Bearer NEW");
+});
+
+test("a 401 that the renewed token also gets is an error, and no third try is made (YUI-274)", async () => {
+  const f = fakeFetch(async () => ({ status: 401, json: {}, text: "no" }));
+  const relay = createRelay({ url: "https://x.test", token: async () => "OLD", renew: async () => "NEW", fetch: f });
+  await assert.rejects(relay.fetchRows({ agentId: "a1" }), (e) => e instanceof RelayError && e.status === 401);
+  assert.equal(f.calls.length, 2);
+});
+
+test("a read that was not refused makes no renewal (YUI-274)", async () => {
+  const f = fakeFetch(async () => ({ status: 200, json: [] }));
+  let renewed = 0;
+  const relay = createRelay({ url: "https://x.test", token: async () => "T", renew: async () => { renewed++; return "N"; }, fetch: f });
+  await relay.fetchRows({ agentId: "a1" });
+  assert.equal(renewed, 0);
+});

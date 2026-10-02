@@ -24,6 +24,7 @@ import AgentsPanel from "./AgentsPanel";
 import CrewPick from "./CrewPick";
 import { Face } from "./parts";
 import { GroupThread, NewGroupSheet, AddAgent, EditAgent, ControlsPanel, ConnectApproval, Palette, SettingsPanel, KeyAskSheet, PerfHud, preloadPanels } from "./lazy";
+import { OPEN_ROWS } from "../../lib/web/thread.mjs";
 import "./thread.css";
 import "./stage.css"; // the Stage button and Play on the stage live here; a ?view=chat link never loads StageLayer first
 import "./composer.css";
@@ -104,7 +105,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       return r;
     }
     if (!auth) return null;
-    return createRelay({ token: () => auth.accessToken() });
+    return createRelay({ token: () => auth.accessToken(), renew: (rejected) => auth.renewed(rejected) });
   }, [mounted, demo, auth, kit]);
   // The e2e checks read the wire (what a tap sent), not the screen. The committed relay, not a render's spare.
   useEffect(() => { if (demo && relay) window.yuiWebDemo = relay; }, [demo, relay]);
@@ -232,27 +233,39 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   useEffect(() => (chats.loaded ? preloadPanels() : undefined), [chats.loaded]);
   const chatsAgent = useRef(null);
   const chatsApi = relay?.chats;
+  // The agent whose chats to read: the open one, or the one the address names while the agent list is still on its way
+  // (YUI-274: the chat list and the rows leave with the list, not after it).
+  const watchId = open?.id || (!demo && agentId) || null;
+  const earlyRows = useRef(null);
   useEffect(() => {
-    if (!chatsApi || !open?.id) return undefined;
+    if (!chatsApi || !watchId) return undefined;
     let live = true;
-    chatsAgent.current = open.id;
+    chatsAgent.current = watchId;
+    // The thread's first read leaves now too: the agent's own rows, or the chat the address names. A thread with several
+    // chats and no chat in the address opens on its newest chat instead, and then reads its own rows as before.
+    if (!demo && !earlyRows.current) {
+      const asked = { agentId: watchId, chatId: chat || null, since: null, limit: OPEN_ROWS };
+      const promise = relay.fetchRows(asked);
+      promise.catch(() => {});
+      earlyRows.current = { ...asked, promise };
+    }
     setChats({ items: [], more: false, loaded: false, note: null, draft: null });
     // A repeat visit: the chat list kept last time opens the thread now, so its rows need not wait for this call.
     let answered = false;
-    cache?.chats.get(open.id).then((kept) => {
+    cache?.chats.get(watchId).then((kept) => {
       if (!live || answered || !kept?.length) return;
       for (const c of kept) known.current.add(c.id);
       setChats((c) => (c.loaded ? c : { ...c, items: mergeChats([], kept), more: false, loaded: true }));
     });
-    chatsApi.list(open.id).then((page) => {
+    chatsApi.list(watchId).then((page) => {
       answered = true;
       if (!live) return;
       for (const c of page) known.current.add(c.id);
       setChats((c) => ({ ...c, items: mergeChats([], page), more: page.length >= PAGE_SIZE, loaded: true }));
-      cache?.chats.put(open.id, page);
+      cache?.chats.put(watchId, page);
     }).catch(() => live && setChats((c) => ({ ...c, loaded: true })));
     return () => { live = false; };
-  }, [chatsApi, open?.id, cache]);
+  }, [chatsApi, watchId, cache, relay, demo]); // eslint-disable-line react-hooks/exhaustive-deps
   const refreshChats = useCallback(async () => {
     if (!chatsApi || !openRef.current) return;
     const id = openRef.current;
@@ -522,7 +535,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
           {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
         </header> : null}
         {groupId ? (group && sorted ? <GroupThread key={group.id} api={groupsApi} group={group} agents={sorted} light={light} userId={userId} onMenu={() => setDrawer(true)} onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} onChanged={refreshGroups} onArchived={() => { refreshGroups(); go(`/web${keep}`); }} /> : <div className="wb-wait center">Opening the group...</div>)
-          : open && ready ? <ThreadView key={threadKey} landing={landing} onLanded={landed} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} cache={cache} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
+          : open && ready ? <ThreadView key={threadKey} landing={landing} onLanded={landed} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} cache={cache} early={earlyRows.current} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
           onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} />
           : error && !sorted ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
           : sorted && !sorted.length ? (

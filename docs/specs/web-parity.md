@@ -347,3 +347,24 @@ How it reconciles: the page opens on the stored session while the renewal is on 
 Clearing: sign out clears it (and the instance stops writing, so a read in flight cannot put it back). A tab that finds itself signed out (another tab signed out, the session was refused) wipes it too. The demo never writes it. Nothing is kept for a group thread yet.
 
 What did not move: the cold visit. A first visit has nothing kept, and its row waits on the same four trips and the same 240 KB of script as in YUI-272. Next levers: carry the first screen's rows in the server HTML for a signed in person (needs a cookie the server can read, a privacy decision), or start the agent and chat reads before the session renewal ends.
+
+### YUI-274: a first visit starts its reads while the session renews
+
+The four trips of a cold visit (renew the session, agent list, chat list, rows) now overlap. Same rig as YUI-273 (`site/scripts/web-speed-signed.mjs`: 390 wide, 4x CPU, slow 4G, stand-in backend at 450 ms for the first call and 250 ms after, median of 5, production build, Oct 2). The rig's stored session now also carries the access token the last renewal left, still good for half an hour, which is what a person coming back within the hour has. Three runs of 5 after the change: 3015, 3013, 3011 ms.
+
+| Number | Before | After |
+| --- | --- | --- |
+| Cold visit: first real row | 4024 ms | 3013 ms |
+| Cold visit: live rows answer at | 3272 ms | 2227 ms |
+| Repeat visit: first real row | 449 ms | 452 ms (448, 436 on two more runs) |
+| Repeat visit: first paint | 180 ms | 188 ms |
+
+What changed, in `lib/web/auth.mjs`, `relay.mjs`, `sync.mjs` and `app/web/ThreadApp.js`:
+
+- The access token a renewal returns is stored beside the refresh token (IndexedDB, same record). On the next load `restore()` keeps it as `early` when it has more than 30 s left, and `accessToken()` hands it to reads at once. The renewal still runs and still rotates the refresh token (it never looks at `early`), so the 60 day session keeps sliding. An expired stored token is never used: the read waits for the renewal, as before.
+- The chat list and the thread's first rows start from the agent in the address, not from the agent list's answer, so agents, chats and rows leave together. The rows go with the chat in the address, or the agent's own rows. A person with several chats and no chat in the address opens on the newest chat, so the early rows are not used for them and the thread reads its own as before (one wasted read, no wrong rows). A `/web` address that names no agent has nothing to start from; its first visit is unchanged.
+- A 401 on a read (the stored token was revoked, or lapsed in transit) calls `auth.renewed(rejected)`: it waits for the renewal already on the wire, or starts exactly one, and the read goes once more on the new token. One refresh token spend either way (the in-flight promise, the Web Lock and the re-read of the stored token from YUI-239/242 are untouched). A second 401 is an error, no third try.
+
+Trade-off: the access token (an hour old at most) now sits in IndexedDB next to the refresh token, which is the stronger secret and was already there. No cookie, no server change.
+
+What did not move: the other 3 s. The page still waits for the framework and shell bytes (YUI-272), and the first call's 450 ms. With the reads overlapped, the first row now needs the script, one backend round, and the render. Next lever left: keep the last-open agent's id in the session record, so a bare `/web` address can start its reads too.
