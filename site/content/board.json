@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T13:40:31.288Z",
+  "updated": "2026-10-02T13:45:33.059Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -353,13 +353,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-170",
-          "title": "How the web app got fast, told in pictures",
-          "summary": "How the web app got fast, in pictures",
-          "progress": "/progress#how-the-web-app-got-fast-in-pictures",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -386,6 +379,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-170",
+          "title": "How the web app got fast, told in pictures",
+          "summary": "How the web app got fast, in pictures",
+          "shipped": "2026-10-02",
+          "progress": "/progress#how-the-web-app-got-fast-in-pictures",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/19ba675b"
+        },
         {
           "key": "SITE-169",
           "title": "The /web page shows how fast it opens, before and after",
