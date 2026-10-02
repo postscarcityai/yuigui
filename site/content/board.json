@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T01:10:45.239Z",
+  "updated": "2026-10-02T01:15:45.839Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -169,6 +169,11 @@
         {
           "key": "YUI-258",
           "title": "Reminders fire from a closed tab through Web Push",
+          "waiting": true
+        },
+        {
+          "key": "YUI-265",
+          "title": "An ask you dismiss never comes back",
           "waiting": true
         },
         {
@@ -351,12 +356,8 @@
         {
           "key": "SITE-168",
           "title": "See it gets a Yui on the web group",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-218b",
-          "title": "An outside tester runs the stranger path",
-          "blocked": "chris",
+          "summary": "See it has a Yui on the web group",
+          "progress": "/progress#see-it-has-a-yui-on-the-web-group",
           "owner": "CJohnDesign"
         }
       ]
