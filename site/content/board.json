@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T06:45:36.985Z",
+  "updated": "2026-10-02T06:50:37.502Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -353,6 +353,11 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-50620",
+          "title": "Agent name on the menu button",
+          "needsDemo": true
         }
       ]
     },
@@ -366,11 +371,6 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
-        },
-        {
-          "key": "NOTE-50620",
-          "title": "Agent name on the menu button",
-          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-267",
