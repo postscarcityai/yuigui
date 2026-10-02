@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T02:46:00.747Z",
+  "updated": "2026-10-02T02:51:02.276Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -373,13 +373,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-266",
-          "title": "/web shows the agent's name on the menu button, and no end screen while a reply is still coming",
-          "summary": "On the web, the menu button names your agent",
-          "progress": "/progress#on-the-web-the-menu-button-names-your-agent",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-267",
           "title": "Drawings that look designed",
           "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
@@ -392,6 +385,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-266",
+          "title": "/web shows the agent's name on the menu button, and no end screen while a reply is still coming",
+          "summary": "On the web, the menu button names your agent",
+          "shipped": "2026-10-01",
+          "progress": "/progress#on-the-web-the-menu-button-names-your-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/3f9a69a1"
+        },
         {
           "key": "NOTE-35030",
           "title": "Status replies, a new look. Guide rule pushed (yuigui 1fa9402d) and published; screen sent to Chris.",
