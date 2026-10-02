@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T02:51:02.276Z",
+  "updated": "2026-10-02T03:06:05.665Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -255,11 +255,6 @@
           "waiting": true
         },
         {
-          "key": "NOTE-27775",
-          "title": "Hide raw cron errors",
-          "waiting": true
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "waiting": true
@@ -371,6 +366,17 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "NOTE-27775",
+          "title": "Hide raw cron errors",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-268",
+          "title": "/web catches up to Oct 1's app fixes",
+          "summary": "Trash left, Tune, past chats, push click, long scroll-back",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-267",
