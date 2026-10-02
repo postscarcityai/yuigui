@@ -8,10 +8,12 @@
 // Sends nothing.
 // YUI-276 (marks on any screen): Venns, contours, regions, doodles, bent
 // connectors and `img=`, a picture under the marks with a halo of the page's
-// ground round every line and label. The app's ShapesPreset.swift draws the same.
+// ground round every line and label; taps and swipes; labels capped and fitted
+// to their part; a picture with no h= sets the canvas's shape; and gesture marks
+// over a mock (MarksOver, used by mock.js). The app's ShapesPreset.swift draws the same.
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { resolve } from "../../lib/yl/yl.mjs";
-import { LABEL, bent, blobPoints, contour, describe, doodle, frame, labelWidth, scene, smooth, venn, wrap } from "../../lib/yl/shapes.mjs";
+import { LABEL, PULSE, bent, blobPoints, contour, describe, doodle, frame, labelWidth, marksOver, regionLabel, scene, smooth, venn, wrap } from "../../lib/yl/shapes.mjs";
 
 const TONE = {
   accent: "var(--accent)", mint: "var(--yl-c3)", lavender: "var(--yl-c1)",
@@ -82,6 +84,21 @@ function Label({ text, x, y, fs, width, top, className, style, opacity }) {
 }
 
 const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
+
+// A label already fitted (lines and size worked out by shapes.mjs), centred on [x, y].
+function FitLabel({ lines, fs, x, y, className, opacity }) {
+  if (!lines || !lines.length) return null;
+  const lh = fs * 1.15;
+  const y0 = y - ((lines.length - 1) * lh) / 2 + fs * 0.35;
+  return (
+    <text x={f2(x)} y={f2(y0)} fontSize={f2(fs)} textAnchor="middle" className={className} opacity={opacity}>
+      {lines.map((l, j) => <tspan key={j} x={f2(x)} dy={j ? f2(lh) : 0}>{l}</tspan>)}
+    </text>
+  );
+}
+
+// How far through its breath a pulsing part is, after it landed: 0 to 1.
+const breath = (f, t) => (((t - f.start - f.dur) / PULSE) % 1 + 1) % 1;
 const trace = (d) => (d < 1 ? `${f2(d)} 1` : undefined);
 
 // An arrowhead at [hx, hy] heading [ux, uy] (a unit vector).
@@ -90,10 +107,50 @@ function headPath([hx, hy], [ux, uy], sw) {
   return `M${P([hx - k * (ux * c - uy * s), hy - k * (uy * c + ux * s)])}L${P([hx, hy])}L${P([hx - k * (ux * c + uy * s), hy - k * (uy * c - ux * s)])}`;
 }
 
-function Part({ f, sw, fs, k, W }) {
+function Part({ f, sw, fs, k, W, t }) {
   const color = TONE[f.tone];
   if (f.o <= 0) return null;
   const dash = f.dash ? `${sw * 3} ${sw * 2.5}` : undefined;
+  const live = Number.isFinite(t);
+  if (f.kind === "swipe" && f.a) {
+    // A finger sliding: a trail that thickens and darkens toward a moving fingertip.
+    const d = f.pulse && live && t > f.start + f.dur ? breath(f, t) : f.d;
+    const at = (u) => (f.q ? bent(f.a, f.q, f.b, u).p : [f.a[0] + (f.b[0] - f.a[0]) * u, f.a[1] + (f.b[1] - f.a[1]) * u]);
+    const segs = [];
+    for (let i = 0; i < 12; i++) {
+      const w = (i + 1) / 12;
+      segs.push(<path key={i} d={`M${P(at((d * i) / 12))}L${P(at((d * (i + 1)) / 12))}`} stroke={color} strokeOpacity={0.15 + 0.85 * w}
+        strokeWidth={sw * (1 + 2 * w)} strokeLinecap="round" fill="none" />);
+    }
+    const tip = at(d);
+    const mid = at(0.5);
+    return (
+      <g opacity={f.o}>
+        {d > 0 ? segs : null}
+        {d > 0 ? <circle cx={f2(tip[0])} cy={f2(tip[1])} r={f2(0.028 * W)} fill={color} fillOpacity="0.3" stroke={color} strokeWidth={sw} /> : null}
+        {f.label ? <Label text={f.label} x={mid[0]} y={mid[1] - fs * 0.75} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel" opacity={f.d} /> : null}
+      </g>
+    );
+  }
+  if (f.kind === "tap" && f.c) {
+    // A fingertip landing: a washed disc, a dot, a ring that spreads as it lands (and each breath with +pulse).
+    const [cx, cy] = f.c;
+    const r = (f.size[0] * f.s) / 2;
+    let ring = null;
+    if (live && t >= f.start) {
+      const k0 = (t - f.start) / f.dur;
+      const kk = k0 < 1 ? k0 : f.pulse ? breath(f, t) : null;
+      if (kk !== null) ring = { r: r * (1 + 0.9 * kk), o: 0.55 * (1 - kk) };
+    }
+    return (
+      <g opacity={f.o}>
+        <circle cx={f2(cx)} cy={f2(cy)} r={f2(r)} fill={color} fillOpacity="0.28" stroke={color} strokeWidth={sw} />
+        <circle cx={f2(cx)} cy={f2(cy)} r={f2(r * 0.3)} fill={color} />
+        {ring ? <circle cx={f2(cx)} cy={f2(cy)} r={f2(ring.r)} fill="none" stroke={color} strokeWidth={sw} opacity={f2(ring.o)} /> : null}
+        {f.label ? <Label text={f.label} x={cx} y={cy + (f.size[1] * f.s) / 2 + fs * 0.25} top fs={fs} width={labelWidth(f, k)} className="yl-shlabel" /> : null}
+      </g>
+    );
+  }
   if (f.a && f.q) {
     // A bent line or arrow: a quadratic through q, traced on by cutting it at t = d.
     const d = f.d;
@@ -131,12 +188,12 @@ function Part({ f, sw, fs, k, W }) {
   }
   if (f.pts && f.kind === "region") {
     // A free closed outline; +fill washes it. Its label sits at the middle of its points.
-    const mx = f.pts.reduce((a, q) => a + q[0], 0) / f.pts.length, my = f.pts.reduce((a, q) => a + q[1], 0) / f.pts.length;
+    const lab = f.label ? regionLabel(f, fs) : null;
     return (
       <g opacity={f.o}>
         <path d={curve(f.pts, true)} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw} strokeLinejoin="round"
           fill={f.fill ? color : "none"} fillOpacity={0.18 * f.d} strokeDasharray={dash || trace(f.d)} />
-        {f.label ? <Label text={f.label} x={mx} y={my} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel sh-in" opacity={f.d} /> : null}
+        {lab ? <FitLabel lines={lab.lines} fs={lab.fs} x={lab.at[0]} y={lab.at[1]} className="yl-shlabel sh-in" opacity={f.d} /> : null}
       </g>
     );
   }
@@ -153,7 +210,7 @@ function Part({ f, sw, fs, k, W }) {
   }
   if (f.kind === "venn" && f.c) {
     // Circles washed in their own tones, so where they overlap reads darker.
-    const v = venn(f, f.c, f.s);
+    const v = venn(f, f.c, f.s, fs);
     return (
       <g opacity={f.o}>
         {v.circles.map((ci, j) => (
@@ -161,15 +218,14 @@ function Part({ f, sw, fs, k, W }) {
             stroke={TONE[ci.tone] || color} strokeWidth={sw} fill={TONE[ci.tone] || color} fillOpacity={0.16 * f.d} strokeDasharray={dash || trace(f.d)} />
         ))}
         {v.labels.map((l, j) => (
-          <Label key={j} text={l.text} x={l.at[0]} y={l.at[1]} fs={(l.middle ? 1 : 0.85) * fs * f.s} width={l.width}
-            className={`yl-shlabel ${l.middle ? "sh-in" : ""}`} opacity={f.d} />
+          <FitLabel key={j} lines={l.lines} fs={l.fs} x={l.at[0]} y={l.at[1]} className={`yl-shlabel ${l.middle ? "sh-in" : ""}`} opacity={f.d} />
         ))}
       </g>
     );
   }
   if (f.kind === "contour" && f.c) {
     // Rings like a height map, traced on outside in; +fill stacks the washes toward the peak.
-    const { rings, peak } = contour(f, f.c, f.s);
+    const { rings, peak, label } = contour(f, f.c, f.s, fs);
     const n = rings.length;
     return (
       <g opacity={f.o}>
@@ -181,7 +237,7 @@ function Part({ f, sw, fs, k, W }) {
               strokeWidth={sw} strokeLinejoin="round" fill={f.fill ? color : "none"} fillOpacity={0.08 * f.d} strokeDasharray={dash || (dj < 1 ? `${f2(dj)} 1` : undefined)} />
           );
         })}
-        {f.label ? <Label text={f.label} x={peak[0]} y={peak[1]} fs={fs * f.s} width={labelWidth(f, k)} className="yl-shlabel sh-in" opacity={f.d} /> : null}
+        {f.label ? <FitLabel lines={label.lines} fs={label.fs} x={peak[0]} y={peak[1]} className="yl-shlabel sh-in" opacity={f.d} /> : null}
       </g>
     );
   }
@@ -213,12 +269,36 @@ function Part({ f, sw, fs, k, W }) {
   );
 }
 
+// A picture's shape (width over height) by its URL, so a second view lays out at once.
+const RATIOS = new Map();
+
+// img= with no h=: the canvas takes the picture's shape once it is known. Until then
+// `waiting` is true and the parts hold off. A picture that fails starts without it.
+function usePictureRatio(img, needed) {
+  const [, tick] = useState(0);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    if (!needed || !img || RATIOS.has(img)) return undefined;
+    let live = true;
+    const im = new Image();
+    im.onload = () => { if (im.naturalWidth && im.naturalHeight) RATIOS.set(img, im.naturalWidth / im.naturalHeight); if (live) tick((n) => n + 1); };
+    im.onerror = () => { if (live) setFailed(true); };
+    im.src = img;
+    return () => { live = false; };
+  }, [img, needed]);
+  const ratio = needed && img ? RATIOS.get(img) : undefined;
+  return { ratio, waiting: !!(needed && img && ratio === undefined && !failed) };
+}
+
 function Drawing({ head, members }) {
   const hk = JSON.stringify(head);
-  const sc = useMemo(() => scene(head, members), [hk, members]); // eslint-disable-line react-hooks/exhaustive-deps
+  const pic = typeof head?.img === "string" && head.img.trim() ? head.img.trim() : "";
+  const { ratio, waiting } = usePictureRatio(pic, !!pic && (head?.h === undefined || head?.h === null));
+  const sc = useMemo(() => scene(head, members, ratio ? { ratio } : {}), [hk, members, ratio]); // eslint-disable-line react-hooks/exhaustive-deps
   const reduce = useReduceMotion();
   const [run, setRun] = useState(0);
-  const t = useClock(sc, reduce, run);
+  const clock = useClock(sc, reduce, `${run}:${waiting}`);
+  const t = waiting ? -1 : clock;
   const parts = frame(sc, t);
   const sw = 0.0075 * sc.w;
   const fs = sc.fs;
@@ -228,7 +308,7 @@ function Drawing({ head, members }) {
   // page's ground under every line and label so they read on any photo.
   const img = typeof head?.img === "string" && head.img.trim() ? head.img.trim() : "";
   const uid = useId().replace(/[^\w-]/g, "");
-  const drawn = parts.map((f) => <Part key={f.i} f={f} sw={sw} fs={fs} k={k} W={sc.w} />);
+  const drawn = parts.map((f) => <Part key={f.i} f={f} sw={sw} fs={fs} k={k} W={sc.w} t={t} />);
   return (
     <div className="yl-block yl-shapes">
       {sc.title ? <div className="yl-shtitle">{sc.title}</div> : null}
@@ -266,4 +346,24 @@ export function Shapes({ g }) {
 export function LoneShape({ p, id }) {
   const members = useMemo(() => [{ id, props: p }], [id, JSON.stringify(p)]); // eslint-disable-line react-hooks/exhaustive-deps
   return <Drawing head={resolve("shapes", {})} members={members} />;
+}
+
+// Gesture marks over a mock (YUI-276): `members` are the mock's shape lines,
+// `cells` each part's box on the screen by id ([x, y, w, h] in points from the
+// screen's top left) and `box` the screen's [w, h]. marksOver in shapes.mjs
+// turns them into a scene 10 wide and as tall as the screen; it draws over it.
+export function MarksOver({ members, cells, box }) {
+  const key = JSON.stringify([members, cells, box]);
+  const sc = useMemo(() => marksOver(members, cells, box), [key]); // eslint-disable-line react-hooks/exhaustive-deps
+  const reduce = useReduceMotion();
+  const t = useClock(sc, reduce, 0);
+  const parts = frame(sc, t);
+  const sw = 0.0075 * sc.w;
+  const k = sc.fs / (LABEL * sc.w);
+  return (
+    <svg viewBox={`0 0 ${sc.w} ${f2(sc.h)}`} preserveAspectRatio="none" aria-hidden="true" className="mk-marks"
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", overflow: "visible", pointerEvents: "none" }}>
+      {parts.map((f) => <Part key={f.i} f={f} sw={sw} fs={sc.fs} k={k} W={sc.w} t={t} />)}
+    </svg>
+  );
 }
