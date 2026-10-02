@@ -1948,6 +1948,9 @@
     },
     {
       "text": "A push tap lands on the reply it names, and a reply that lands on the home comes up full screen: the tap matched row ids against the bare message id (rows are id#part) and the stage-first path was cut off by a chat-only staged check; arrivals open the stage on their own; a tap waits for a message not fetched yet [YUI-262]"
+    },
+    {
+      "text": "Hide Hermes cron failure lines from chat and push (feedback AOT6HtDztEGJPipFz9PrGK4)"
     }
   ]
 }
