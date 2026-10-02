@@ -66,7 +66,7 @@ CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "clo
 # so does `end`. Comments, blank lines and error lines do not.
 GROUPS = {
     "deck": ["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "draw", "map", "math", "chart", "stat", "calc"],
-    "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "draw", "map"],
+    "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "shapes", "diagram", "mock", "draw", "map"],
     "narrate": ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
     "timeline": ["done", "now", "next"],
     "sketch": ["row", "after"],
@@ -810,7 +810,7 @@ LISTS = {
     "project": ["facts", "next"],
     "pick": ["answer"],
     "game": ["items"],
-    "shape": ["pts"],
+    "shape": ["pts", "sets", "pairs"],
     "part": ["items"],
     "area": ["codes", "pts"],
     "route": ["pts"],

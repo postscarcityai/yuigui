@@ -36,7 +36,7 @@ val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "th
 // so does `end`. Comments, blank lines and error lines do not.
 val GROUPS = mapOf(
     "deck" to listOf("page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "draw", "map", "math", "chart", "stat", "calc"),
-    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "draw", "map"),
+    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "shapes", "diagram", "mock", "draw", "map"),
     "narrate" to listOf("page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"),
     "timeline" to listOf("done", "now", "next"),
     "sketch" to listOf("row", "after"),
@@ -637,7 +637,7 @@ private val LISTS = mapOf(
     "project" to listOf("facts", "next"),
     "pick" to listOf("answer"),
     "game" to listOf("items"),
-    "shape" to listOf("pts"),
+    "shape" to listOf("pts", "sets", "pairs"),
     "part" to listOf("items"),
     "area" to listOf("codes", "pts"),
     "route" to listOf("pts"),

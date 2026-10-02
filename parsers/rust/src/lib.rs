@@ -64,7 +64,7 @@ pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", 
 pub fn group_members(preset: &str) -> Option<&'static [&'static str]> {
     Some(match preset {
         "deck" => &["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "draw", "map", "math", "chart", "stat", "calc"],
-        "plan" => &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "draw", "map"],
+        "plan" => &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "shapes", "diagram", "mock", "draw", "map"],
         "narrate" => &["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
         "timeline" => &["done", "now", "next"],
         "sketch" => &["row", "after"],
@@ -1282,7 +1282,7 @@ fn list_props(preset: &str) -> &'static [&'static str] {
         "project" => &["facts", "next"],
         "pick" => &["answer"],
         "game" => &["items"],
-        "shape" => &["pts"],
+        "shape" => &["pts", "sets", "pairs"],
         "part" => &["items"],
         "area" => &["codes", "pts"],
         "route" => &["pts"],
