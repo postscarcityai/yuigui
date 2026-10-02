@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T11:35:23.471Z",
+  "updated": "2026-10-02T12:05:26.747Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -357,7 +357,7 @@
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
-          "blocked": "other",
+          "blocked": "chris",
           "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
           "owner": "CJohnDesign"
         },
