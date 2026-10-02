@@ -312,8 +312,8 @@ Eight presets are **group heads**. A group head collects the lines that follow i
 
 | Head | Members | What the group is |
 |---|---|---|
-| `deck` | `page`, `ask`, `choose`, `pick`, `sketch`, `shapes`, `diagram`, `mock`, `map`, `math`, `chart`, `stat`, `calc` | a swipeable presentation |
-| `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, `sketch`, `diagram`, `mock`, `map` | one full-screen flow: pages to read, then questions, one answer at the end |
+| `deck` | `page`, `ask`, `choose`, `pick`, `sketch`, `shapes`, `diagram`, `mock`, `draw`, `map`, `math`, `chart`, `stat`, `calc` | a swipeable presentation |
+| `plan` | `page`, `ask`, `choose`, `pick`, `slide`, `form`, `mic`, `camera`, `sketch`, `diagram`, `mock`, `draw`, `map` | one full-screen flow: pages to read, then questions, one answer at the end |
 | `narrate` | `page`, `compare`, `image`, `video`, `card`, `stat`, `chart`, `math`, `storyboard`, `gallery`, `deck` | a spoken walkthrough |
 | `timeline` | `done`, `now`, `next` | what has shipped, what is running, what is queued |
 | `sketch` | `row`, `after` | a small drawn picture: rows struck out, highlighted, called out |
@@ -335,7 +335,7 @@ ask "Ready for the real thing?"
 `deck [title...] [layout=slides|scroll] [+full] [+notes]`, then one `page` line per slide. Swipe, arrows or dots move between pages; a Full screen button (or `+full`, which opens that way) puts the deck over the whole screen, where arrow keys also work. Each page's `notes` are speaker notes behind a Notes toggle (`+notes` shows them open).
 - `layout`: `slides` [default] one page at a time, `scroll` every page in a vertical feed.
 - **Quiz pages.** An `ask`, `choose` or `pick` inside a deck is a page of its own. Give it `answer=` and it is graded (see Quiz below), which is how an agent ends a lesson with a check.
-- **A page's picture.** A `sketch`, `shapes`, `diagram`, `mock`, `map`, `math`, `chart`, `stat` or `calc` right after a `page` is that page's picture: it draws where the page's `img` would go, above the words (a page with both draws the picture). One with no page right before it (first in the deck, after a question, or after a page that already has one) is a page of its own, just the picture. So a whole lesson is one deck: the diagram, the formula, the chart and the number each on their page, a quiz, and the calculator on the last page. A calc's sliders still send their events; a drag on a slider is never a swipe.
+- **A page's picture.** A `sketch`, `shapes`, `diagram`, `mock`, `draw`, `map`, `math`, `chart`, `stat` or `calc` right after a `page` is that page's picture: it draws where the page's `img` would go, above the words (a page with both draws the picture). One with no page right before it (first in the deck, after a question, or after a page that already has one) is a page of its own, just the picture. So a whole lesson is one deck: the diagram, the formula, the chart and the number each on their page, a quiz, and the calculator on the last page. A calc's sliders still send their events; a drag on a slider is never a swipe.
 - When the person has seen every page and answered every question, the deck emits `{done: true, pages}`, plus `score` and `of` when some questions were graded. Quiz pages also send their own events as they are answered.
 Props: `title`, `layout` [slides], `+full`, `+notes`.
 A lesson as one deck:
@@ -589,6 +589,30 @@ stateDiagram-v2
 end
 ```
 Why this shape: the agent already writes Mermaid (a model has seen a million of them), `flow` already reads the flowchart subset, and Mermaid is the one diagram language that stays a readable fence on GitHub, in Telegram and in a log. The drawing is the phone's job, so it takes the agent's look and the phone's width; the agent never places a box. `shapes` stays for a picture that moves or is not a graph.
+
+#### draw
+`draw [title...] [caption=] [ratio=]`, then markup up to a line that is only `end`. The agent just draws: SVG it writes itself, for what no preset draws (a gesture, a finger on a button, a chart nobody planned for). Every model already writes SVG well, so there is no new grammar to learn, and the phone gives the drawing the agent's colors, a blueprint's lines and four words of motion for free. A `draw` sends no events.
+- **The block.** The head is an add; every line after it, up to a line that is only `end`, is the drawing's own markup and not YL, so a line that reads like a preset (`<text>timer 60</text>`) is still the drawing's. The `end` (or the end of the reply) gives one patch on the draw with `source`: the markup as written, lines joined with a newline, exactly as `diagram` does with Mermaid. Blank lines before the markup are skipped. If the first line after the head does not open a tag (it does not start with `<`), the draw stays empty and that line is read as YL; a draw that never gets markup gives no patch.
+- **A cap.** A drawing is cut at 600 lines or 60,000 characters: the lines past either are dropped, and the `end` still closes it.
+- **Colors.** `var(--ink)`, `--soft`, `--accent`, `--mint`, `--lavender`, `--butter`, `--good` and `--bad`, or the classes `.ink`, `.soft`, `.accent`, `.mint`, `.lavender`, `.butter`, `.good`, `.bad` (stroke) and `.fill-accent`, `.fill-mint`, ... `.fill-ground` (fill). The drawing matches the agent in light and dark with no hex in it. Use the classes, not hex.
+- **Lines.** A shape with no stroke of its own is a 1.5 pt line in ink with no fill, so plain SVG already looks like a blueprint. `.dash` dashes a line. Text is ink.
+- **Motion.** `class="draw"` traces a line on, `pop` springs a part up, `fade` brings it in, `pulse` keeps it breathing. Parts with one of these come on in the order they are written, a beat apart: order is the story, as in `shapes`. A script or a CSS animation of the agent's own also runs. **Reduce Motion** (and a printout, the Telegram picture) shows it finished.
+- **Shape.** Width over height from `ratio=` (`16:9`, `4/3` or `1.6`), else the SVG's own `viewBox`, else 4:3, kept between 7:10 and 4:1 so a wrong number never makes a sliver.
+- **The box.** A renderer draws the markup in a sandbox of its own: a content policy of `default-src 'none'` (only inline style and script run, nothing loads from anywhere), no stored data, no base URL or origin, every navigation refused, no touch. A drawing cannot fetch, open or send anything. Drawing libraries are not in this version: nothing can load from the network by design, so a library would have to ship inside the app.
+- **On a page.** Inside a `deck` or a `plan`, a draw right after a `page` is that page's picture (see A page's picture under deck).
+Props on the add: `title`, `caption`, `ratio`. The patch adds `source`.
+```
+draw "Push tap" caption="Tap the banner. The answer plays itself."
+<svg viewBox="0 0 360 250">
+  <rect class="draw soft" x="30" y="14" width="120" height="222" rx="20"/>
+  <circle class="pop accent pulse" cx="118" cy="46" r="13"/>
+  <path class="draw accent" d="M158 125 C 178 105, 190 105, 208 125"/>
+  <rect class="draw accent" x="216" y="14" width="120" height="222" rx="20"/>
+  <text class="fade" x="230" y="96" font-size="15" font-weight="800">Push tap fixed.</text>
+</svg>
+end
+```
+Why SVG: it covers what the presets cannot, and the worry that it is long, fragile and unsafe is answered by the box it runs in and by what the phone gives it. Reach for a preset first (`shapes`, `diagram`, `mock`, `chart`); when no preset draws it, draw it.
 
 #### mock
 `mock [title...] [frame=phone] [url=]`, then one `part` per line. A UI recreated from parts, so an agent can redraw a Yui screen, a screen it is proposing or a client's page instead of describing it: a frame (`phone`, `window`, `watch` or `browser`) with a nav bar, content, tabs and sheets in it, marked up like a `sketch`. It is drawn on the phone from the lines, in the agent's look, and sends no events; nothing in it can be tapped.
