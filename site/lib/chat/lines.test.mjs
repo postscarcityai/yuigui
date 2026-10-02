@@ -31,6 +31,9 @@ test("links: Yui's own kept, site paths made whole, others removed", () => {
   assert.equal(cleanLines('card "Play" cta=Go url=/playground'), 'card "Play" cta=Go url=https://www.yuigui.com/playground');
   assert.equal(cleanLines('card "Bad" cta=Go url=https://evil.example/'), 'card "Bad" cta=Go');
   assert.equal(cleanLines('card "Bad" cta=Go url="javascript:alert(1)"'), 'card "Bad" cta=Go');
+  // A picture under shapes (YUI-276) loads from Yui's own places only.
+  assert.equal(cleanLines('shapes "Fix" img=/demo/site_before_hero.jpg w=16 h=9'), 'shapes "Fix" img=https://www.yuigui.com/demo/site_before_hero.jpg w=16 h=9');
+  assert.equal(cleanLines('shapes "Fix" img=https://evil.example/x.png w=16'), 'shapes "Fix" w=16');
 });
 
 test("patches keep their preset", () => {

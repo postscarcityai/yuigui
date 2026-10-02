@@ -138,9 +138,11 @@ function oneLine(line, extra = null) {
   const h = head(line);
   if (!ALLOWED.has(h) && !extra?.has(h) && !(line.trim().startsWith("~") && !PRESETS.includes(h))) return null;
   let bad = false;
-  const fixed = line.replace(/\burl=("([^"]*)"|(\S+))/g, (all, _q, quoted, bare) => {
+  // `shapes img=` (YUI-276) loads a picture: like a link, it may only come from Yui's own places.
+  const key = h === "shapes" ? /\b(url|img)=("([^"]*)"|(\S+))/g : /\b(url)=("([^"]*)"|(\S+))/g;
+  const fixed = line.replace(key, (all, name, _q, quoted, bare) => {
     const u = quoted ?? bare;
-    if (/^\/(?!\/)/.test(u)) return `url=https://www.yuigui.com${u}`;
+    if (/^\/(?!\/)/.test(u)) return `${name}=https://www.yuigui.com${u}`;
     if (SAFE_URL.test(u)) return all;
     bad = true;
     return "";

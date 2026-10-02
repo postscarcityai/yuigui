@@ -6,9 +6,12 @@
 // requestAnimationFrame until the last part lands (a pulse keeps breathing).
 // Reduce Motion draws the final still. A tap on the drawing plays it again.
 // Sends nothing.
-import { useEffect, useMemo, useRef, useState } from "react";
+// YUI-276 (marks on any screen): Venns, contours, regions, doodles, bent
+// connectors and `img=`, a picture under the marks with a halo of the page's
+// ground round every line and label. The app's ShapesPreset.swift draws the same.
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { resolve } from "../../lib/yl/yl.mjs";
-import { LABEL, blobPoints, describe, frame, labelWidth, scene, smooth, wrap } from "../../lib/yl/shapes.mjs";
+import { LABEL, bent, blobPoints, contour, describe, doodle, frame, labelWidth, scene, smooth, venn, wrap } from "../../lib/yl/shapes.mjs";
 
 const TONE = {
   accent: "var(--accent)", mint: "var(--yl-c3)", lavender: "var(--yl-c1)",
@@ -78,9 +81,35 @@ function Label({ text, x, y, fs, width, top, className, style, opacity }) {
   );
 }
 
-function Part({ f, sw, fs, k }) {
+const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
+const trace = (d) => (d < 1 ? `${f2(d)} 1` : undefined);
+
+// An arrowhead at [hx, hy] heading [ux, uy] (a unit vector).
+function headPath([hx, hy], [ux, uy], sw) {
+  const k = 0.34 * (sw / 0.07), s = Math.sin(0.5), c = Math.cos(0.5);
+  return `M${P([hx - k * (ux * c - uy * s), hy - k * (uy * c + ux * s)])}L${P([hx, hy])}L${P([hx - k * (ux * c + uy * s), hy - k * (uy * c - ux * s)])}`;
+}
+
+function Part({ f, sw, fs, k, W }) {
   const color = TONE[f.tone];
   if (f.o <= 0) return null;
+  const dash = f.dash ? `${sw * 3} ${sw * 2.5}` : undefined;
+  if (f.a && f.q) {
+    // A bent line or arrow: a quadratic through q, traced on by cutting it at t = d.
+    const d = f.d;
+    const c1 = [f.a[0] + (f.q[0] - f.a[0]) * d, f.a[1] + (f.q[1] - f.a[1]) * d];
+    const at = bent(f.a, f.q, f.b, d);
+    const len = Math.hypot(at.dir[0], at.dir[1]);
+    const u = len ? [at.dir[0] / len, at.dir[1] / len] : [1, 0];
+    const mid = bent(f.a, f.q, f.b, 0.5).p;
+    return (
+      <g opacity={f.o}>
+        <path d={`M${P(f.a)}Q${P(c1)} ${P(at.p)}`} stroke={color} strokeWidth={sw} strokeLinecap="round" fill="none" strokeDasharray={dash} />
+        {f.kind === "arrow" && d > 0.05 ? <path d={headPath(at.p, u, sw)} stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" fill="none" /> : null}
+        {f.label ? <Label text={f.label} x={mid[0]} y={mid[1] - fs * 0.75} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel" opacity={f.d} /> : null}
+      </g>
+    );
+  }
   if (f.a) {
     // line or arrow
     const [ax, ay] = f.a, [bx, by] = f.b;
@@ -97,6 +126,62 @@ function Part({ f, sw, fs, k }) {
         <path d={`M${P(f.a)}L${P([hx, hy])}`} stroke={color} strokeWidth={sw} strokeLinecap="round" fill="none" strokeDasharray={f.dash ? `${sw * 3} ${sw * 2.5}` : undefined} />
         {head ? <path d={head} stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" fill="none" /> : null}
         {f.label ? <Label text={f.label} x={mid[0]} y={mid[1] - fs * 0.75} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel" opacity={f.d} /> : null}
+      </g>
+    );
+  }
+  if (f.pts && f.kind === "region") {
+    // A free closed outline; +fill washes it. Its label sits at the middle of its points.
+    const mx = f.pts.reduce((a, q) => a + q[0], 0) / f.pts.length, my = f.pts.reduce((a, q) => a + q[1], 0) / f.pts.length;
+    return (
+      <g opacity={f.o}>
+        <path d={curve(f.pts, true)} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw} strokeLinejoin="round"
+          fill={f.fill ? color : "none"} fillOpacity={0.18 * f.d} strokeDasharray={dash || trace(f.d)} />
+        {f.label ? <Label text={f.label} x={mx} y={my} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel sh-in" opacity={f.d} /> : null}
+      </g>
+    );
+  }
+  if (f.pts && f.kind === "doodle") {
+    // A hand-drawn stroke, a little heavier, wobbling the same way every time.
+    const top = f.pts.reduce((a, q) => (q[1] < a[1] ? q : a), f.pts[0]);
+    return (
+      <g opacity={f.o}>
+        <path d={curve(doodle(f.pts, f.i, W), false)} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw * 1.6}
+          strokeLinecap="round" strokeLinejoin="round" fill="none" strokeDasharray={dash || trace(f.d)} />
+        {f.label ? <Label text={f.label} x={top[0]} y={top[1] - fs * 0.85} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel" opacity={f.d} /> : null}
+      </g>
+    );
+  }
+  if (f.kind === "venn" && f.c) {
+    // Circles washed in their own tones, so where they overlap reads darker.
+    const v = venn(f, f.c, f.s);
+    return (
+      <g opacity={f.o}>
+        {v.circles.map((ci, j) => (
+          <circle key={j} cx={f2(ci.c[0])} cy={f2(ci.c[1])} r={f2(ci.r)} pathLength={f.dash ? undefined : "1"}
+            stroke={TONE[ci.tone] || color} strokeWidth={sw} fill={TONE[ci.tone] || color} fillOpacity={0.16 * f.d} strokeDasharray={dash || trace(f.d)} />
+        ))}
+        {v.labels.map((l, j) => (
+          <Label key={j} text={l.text} x={l.at[0]} y={l.at[1]} fs={(l.middle ? 1 : 0.85) * fs * f.s} width={l.width}
+            className={`yl-shlabel ${l.middle ? "sh-in" : ""}`} opacity={f.d} />
+        ))}
+      </g>
+    );
+  }
+  if (f.kind === "contour" && f.c) {
+    // Rings like a height map, traced on outside in; +fill stacks the washes toward the peak.
+    const { rings, peak } = contour(f, f.c, f.s);
+    const n = rings.length;
+    return (
+      <g opacity={f.o}>
+        {rings.map((r, j) => {
+          const step = n > 1 ? j / (n - 1) : 1;
+          const dj = clamp01(f.d * 1.6 - 0.6 * step);
+          return (
+            <path key={j} d={curve(r, true)} pathLength={f.dash ? undefined : "1"} stroke={color} strokeOpacity={0.5 + 0.5 * step}
+              strokeWidth={sw} strokeLinejoin="round" fill={f.fill ? color : "none"} fillOpacity={0.08 * f.d} strokeDasharray={dash || (dj < 1 ? `${f2(dj)} 1` : undefined)} />
+          );
+        })}
+        {f.label ? <Label text={f.label} x={peak[0]} y={peak[1]} fs={fs * f.s} width={labelWidth(f, k)} className="yl-shlabel sh-in" opacity={f.d} /> : null}
       </g>
     );
   }
@@ -139,12 +224,31 @@ function Drawing({ head, members }) {
   const fs = sc.fs;
   const k = sc.fs / (LABEL * sc.w);
   const text = describe(sc);
+  // img= (YUI-276): a picture under the marks, cropped to the canvas, and a halo of the
+  // page's ground under every line and label so they read on any photo.
+  const img = typeof head?.img === "string" && head.img.trim() ? head.img.trim() : "";
+  const uid = useId().replace(/[^\w-]/g, "");
+  const drawn = parts.map((f) => <Part key={f.i} f={f} sw={sw} fs={fs} k={k} W={sc.w} />);
   return (
     <div className="yl-block yl-shapes">
       {sc.title ? <div className="yl-shtitle">{sc.title}</div> : null}
       <svg viewBox={`0 0 ${sc.w} ${sc.h}`} role="img" aria-label={text} className="yl-shsvg"
         onClick={() => !reduce && setRun((n) => n + 1)}>
-        {parts.map((f) => <Part key={f.i} f={f} sw={sw} fs={fs} k={k} />)}
+        {img ? (
+          <>
+            <defs>
+              <clipPath id={`${uid}-clip`}><rect width={sc.w} height={sc.h} rx={f2(sc.w * 0.025)} /></clipPath>
+              <filter id={`${uid}-halo`} x="-5%" y="-5%" width="110%" height="110%">
+                <feMorphology in="SourceAlpha" operator="dilate" radius={f2(sw * 0.7)} result="grown" />
+                <feFlood style={{ floodColor: "var(--screen-bg)" }} floodOpacity="0.9" />
+                <feComposite in2="grown" operator="in" result="halo" />
+                <feMerge><feMergeNode in="halo" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+            </defs>
+            <image href={img} x="0" y="0" width={sc.w} height={sc.h} preserveAspectRatio="xMidYMid slice" clipPath={`url(#${uid}-clip)`} />
+            <g filter={`url(#${uid}-halo)`}>{drawn}</g>
+          </>
+        ) : drawn}
       </svg>
       {sc.caption ? <p className="yl-shcap">{sc.caption}</p> : null}
     </div>
