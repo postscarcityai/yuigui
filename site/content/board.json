@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T12:05:26.747Z",
+  "updated": "2026-10-02T12:20:22.133Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,12 +348,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-273",
-          "title": "/web opens with your last chat already drawn",
-          "summary": "Cached rows on a repeat visit",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -380,6 +374,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-273",
+          "title": "/web opens with your last chat already drawn",
+          "summary": "Web opens on your last chat",
+          "shipped": "2026-10-02",
+          "progress": "/progress#web-opens-on-your-last-chat",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/16add230"
+        },
         {
           "key": "YUI-272",
           "title": "/web draws the first row sooner",
