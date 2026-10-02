@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T00:36:01.742Z",
+  "updated": "2026-10-02T01:05:53.744Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -329,6 +329,11 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-6865",
+          "title": "Push tap opens the new answer",
+          "needsDemo": true
         }
       ]
     },
@@ -344,13 +349,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-264",
-          "title": "/web scripts locked to a nonce, no inline loophole",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-6865",
-          "title": "Push tap opens the new answer",
+          "key": "SITE-168",
+          "title": "See it gets a Yui on the web group",
           "owner": "CJohnDesign"
         },
         {
@@ -365,6 +365,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-264",
+          "title": "/web scripts locked to a nonce, no inline loophole",
+          "summary": "Web page scripts are locked to a one-time code",
+          "shipped": "2026-10-01",
+          "progress": "/progress#web-page-scripts-are-locked-to-a-one-time-code"
+        },
         {
           "key": "SITE-167",
           "title": "A stranger's first chat with the site bubble works on a phone",
