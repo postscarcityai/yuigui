@@ -2,29 +2,24 @@
 // Yui on the web (YUI-242): the agent list and the open thread. A column on a computer, a drawer at 390 px.
 // It draws whoever YUI-241 signed in (`auth`, lib/web/auth.mjs) or, with ?demo=<sample>, a fake relay in the
 // page: no sign in, no network (lib/web/demo.mjs). Same account, same agents, same threads as the phone.
+import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { createDemoRelay } from "../../lib/web/demo.mjs";
 import { createRelay } from "../../lib/web/relay.mjs";
 import { createGroupsClient } from "../../lib/web/groups.mjs";
-import { createDemoGroups } from "../../lib/web/groups-demo.mjs";
 import { createOutbox, idbStore } from "../../lib/web/outbox.mjs";
 import { liveness, presenceLabel } from "../../lib/web/presence.mjs";
 import { controlSections, revoked, sortAgents, unsharedLine } from "../../lib/web/agents.mjs";
 import { chatErrorOf, draft as newDraft, merge as mergeChats, openAfterDeleting, append as appendChats, PAGE_SIZE } from "../../lib/web/chats.mjs";
-import fixture from "./fixtures/penny.json";
-import sharedFixture from "./fixtures/shared.json";
-import goudaFixture from "./fixtures/gouda.json";
-import firstFixture from "./fixtures/first.json";
 import ThreadView from "./ThreadView";
-import DrawerPanel from "./DrawerPanel";
 import { useEarn } from "./YourU";
-import AgentsPanel from "./AgentsPanel";
 import { usePush } from "./usePush";
 import { PrefsContext, useAppLook, useAppearance, useDark, usePicks, useStagePrefs } from "./useSettings";
 import { loadAnswered, markAnswered, nextAsk, answerMeta } from "../../lib/web/vault.mjs";
 import { perfOn, sectionOf } from "../../lib/web/settings.mjs";
 import { loadUsed, markUsed, menuFromRows } from "../../lib/web/quick.mjs";
+import DrawerPanel from "./DrawerPanel";
+import AgentsPanel from "./AgentsPanel";
 import CrewPick from "./CrewPick";
 import { Face } from "./parts";
 import { GroupThread, NewGroupSheet, AddAgent, EditAgent, ControlsPanel, ConnectApproval, Palette, SettingsPanel, KeyAskSheet, PerfHud, preloadPanels } from "./lazy";
@@ -33,7 +28,7 @@ import "./stage.css"; // the Stage button and Play on the stage live here; a ?vi
 import "./composer.css";
 import "./agents.css";
 
-const FIXTURES = { penny: fixture, shared: sharedFixture, first: firstFixture, gouda: goudaFixture };
+const DemoKit = dynamic(() => import("./demoKit"));
 
 const GIVE_UP_FAST = { giveUpMs: 3000, stuckMs: 3000, pollMs: 300 };
 
@@ -76,7 +71,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   // The app opens on the stage (Stage first); the chat is the record, one tap away. ?view=chat opens the record.
   const [view, setView] = useState(search.get("view") === "chat" || (demo && !agentId && !connect && !groupId && !search.get("view")) ? "chat" : "stage");
 
-  useEffect(() => { setMounted(true); return preloadPanels(); }, []);
+  useEffect(() => { setMounted(true); }, []);
 
   // The theme is the site's `data-theme` on <html>. Settings > Appearance picks system, light or dark (system is the
   // default and follows the browser); ?theme= wins for a link until a pick is made; the Dark / Light look button in
@@ -88,10 +83,13 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const stagePrefs = useStagePrefs();
   const picks = usePicks();
 
+  // The demo's relay and fixtures are their own chunk (YUI-272): a signed-in tab never fetches them.
+  const [kit, setKit] = useState(null);
   const relay = useMemo(() => {
     if (!mounted) return null;
     if (demo) {
-      const r = createDemoRelay(FIXTURES[demo] || fixture);
+      if (!kit) return null;
+      const r = kit.createDemoRelay(kit.FIXTURES[demo] || kit.FIXTURES.penny);
       // Demo switches for the settings checks: a look on, a vault with spend, a host's key ask (agent|provider|why|cap|est).
       const applook = search.get("applook");
       if (applook) r.settings.call("yui-account", { action: "set_look", look: { preset: applook } });
@@ -106,7 +104,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     }
     if (!auth) return null;
     return createRelay({ token: () => auth.accessToken() });
-  }, [mounted, demo, auth]);
+  }, [mounted, demo, auth, kit]);
   // The e2e checks read the wire (what a tap sent), not the screen. The committed relay, not a render's spare.
   useEffect(() => { if (demo && relay) window.yuiWebDemo = relay; }, [demo, relay]);
   // Who is signed in, as the account says it (the sign in only knew the Apple email it was given).
@@ -222,6 +220,8 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
 
   // ---------------------------------------------------------------- the open agent's chats (Chats.swift)
   const [chats, setChats] = useState({ items: [], more: false, loaded: false, note: null, draft: null });
+  // Warm the sheets only once the thread's rows are in (YUI-272): idle time before that belongs to the first row.
+  useEffect(() => (chats.loaded ? preloadPanels() : undefined), [chats.loaded]);
   const chatsAgent = useRef(null);
   const chatsApi = relay?.chats;
   useEffect(() => {
@@ -303,9 +303,9 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   // The same calls the app makes, with the signed in session. The demo keeps one sample group in the page.
   const groupsApi = useMemo(() => {
     if (!relay) return null;
-    if (demo) return createDemoGroups({ agents: () => (FIXTURES[demo] || fixture).agents });
+    if (demo) return kit ? kit.createDemoGroups({ agents: () => (kit.FIXTURES[demo] || kit.FIXTURES.penny).agents }) : null;
     return relay.rest && userId ? createGroupsClient(relay.rest, { userId }) : null;
-  }, [relay, demo, userId]);
+  }, [relay, demo, userId, kit]);
   useEffect(() => { if (demo && groupsApi) window.yuiWebGroups = groupsApi; }, [demo, groupsApi]);
   const [groups, setGroups] = useState(null);
   const refreshGroups = useCallback(async () => {
@@ -437,8 +437,8 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     setPendingTap(null);
   }, [pendingTap, api]);
 
-  if (!mounted) return <div className="web-root"><div className="wb-wait center">Opening Yui...</div></div>;
-  if (!relay) return <div className="web-root"><div className="wb-wait center">Opening Yui...</div></div>;
+  // The demo's kit renders from the server's first HTML, so its chunk is fetched with the shell, not after it.
+  if (!mounted || !relay) return <div className="web-root"><div className="wb-wait center">Opening Yui...</div><div className="wb-skel" aria-hidden="true"><i className="a" /><i className="u" /><i className="a" /><i className="a s" /><i className="u s" /></div>{demo && !kit ? <DemoKit onKit={setKit} /> : null}</div>;
 
   // First run: pick your crew, full screen, before any thread. Done opens Yui; "Bring my own agent" opens Add agent.
   if (crewPending && relay.manage && agents) {

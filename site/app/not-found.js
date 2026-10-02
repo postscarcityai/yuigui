@@ -1,5 +1,5 @@
 // The 404 (SITE-104): a new ASCII scene, colors and line from Yui on every visit. It still answers HTTP 404.
-import Lost from "../lib/lost/Lost";
+import Lost from "../lib/lost/LostLazy";
 import { proposals } from "../lib/proposals.mjs";
 
 export const metadata = { title: "Page not found | Yui", robots: { index: false, follow: false } };

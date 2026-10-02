@@ -303,3 +303,24 @@ What was worst: the page shipped 466 KB of script, 75 KB of it KaTeX that the th
 - The music kit, games, diagrams, flows and queries load on the first reply that draws one (`later()` in `app/playground/presets.js`).
 
 What did not move: first paint and the first row. They wait on the framework and the app shell (about 240 KB on a 200 KB/s link), not on the parts that were split off. Smaller next steps, if wanted: split the demo relay and its fixtures out of the signed-in bundle, and cut the shell's own size. The signed-in path loads the same bundle; its relay calls go to the live backend, which a throttle cannot make comparable, so only the demo thread is timed. The long task counter read 0 under the throttle and is not reported.
+
+### YUI-272: a lighter first screen
+
+Same rig, same URL, median of 3, run on a production build on Oct 2.
+
+| Number | Before | After |
+| --- | --- | --- |
+| First paint | 736 ms | 720 ms |
+| First message row drawn | 2519 ms | 2517 ms |
+| Page draws as a chat (grey bubbles, from the server) | not there, "Opening Yui..." text | about 1000 ms |
+| First tap that answers (open the drawer) | 199 ms | 204 ms |
+| Open the drawer, open the agents list, switch agent | 313 ms | 314 ms |
+| JS before the first row | 243 KB | 237 KB |
+| JS on the page after 5 s | 364 KB | 359 KB |
+
+What changed, no feature change:
+
+- The demo relay, its sample group, its settings and controls fixtures are one chunk (`app/web/demoKit.js`). A signed-in tab never fetches it (15 KB gzip off its first screen). A `?demo=` link gets it as a preload in the first HTML, so the demo thread did not get slower.
+- The server draws five grey bubbles under "Opening Yui..." (`.wb-skel`, `thread.css`), so the page reads as a chat from the first paint of its own CSS.
+
+What did not move, and why: the first real row. A 3 run profile at 4x CPU shows the main thread idle for 1.8 s of the 2.5 s: the page waits for bytes. The 243 KB is about 100 KB of framework (React, Next) we cannot split, 62 KB of app shell, 21 KB of the Yui Lines parser the rows need, and a dozen small chunks. At 200 KB/s every KB costs about 5 ms, so a lighter shell buys milliseconds, not the second asked for. Tried and dropped: loading the drawer, the agents list and the crew pick after the first row. The first row stayed put and the agent switch got slower (316 to 579 ms), because the idle warm-up had not finished. Next levers, in order: Brotli on the real host (Vercel already sends it, so real numbers are lower than this local gzip run), and cached last rows per agent on a repeat visit so the real rows draw at hydration instead of after the relay call.
