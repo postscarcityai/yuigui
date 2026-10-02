@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T14:05:44.737Z",
+  "updated": "2026-10-02T14:15:38.816Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,16 +348,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-275",
-          "title": "/web opens a group chat already drawn, like a one-agent chat",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-171",
-          "title": "Every page shares with its own picture and title",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -377,6 +367,12 @@
           "title": "The working screen, more alive",
           "blocked": "chris",
           "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-275",
+          "title": "/web opens a group chat already drawn, like a one-agent chat",
+          "blocked": "other",
+          "owner": "CJohnDesign"
         }
       ]
     },
@@ -384,6 +380,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-171",
+          "title": "Every page shares with its own picture and title",
+          "shipped": "2026-10-02",
+          "progress": "/progress#every-page-shares-with-its-own-picture-and-title"
+        },
         {
           "key": "SITE-170",
           "title": "How the web app got fast, told in pictures",
