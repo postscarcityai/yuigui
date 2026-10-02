@@ -16,6 +16,7 @@ import { MapView } from "./map";
 import { RichText } from "./richtext";
 import { RunnerMove, useRunner } from "./runner";
 import { runnerPlan } from "../../lib/web/runner.mjs";
+import { askHere, compareOf, questionOf } from "../../lib/yl/askhere.mjs";
 
 const isVideo = (src) => /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src || "");
 const Media = ({ src, className }) => (isVideo(src)
@@ -233,6 +234,34 @@ export function foldText(steps, ans) {
   return lines.length ? lines.join("\n") : "Sent";
 }
 
+// YUI-277: the question of a plan step, drawn on the same screen as its page. When its options name earlier
+// pages (A / B / C looks), those pictures sit small above the options, and a tap picks the option.
+function PlanAsk({ steps, at, emitFor, Render, capture, ans }) {
+  const box = useRef(null);
+  const q = questionOf(steps[at]);
+  const cmp = compareOf(steps, at);
+  // The option buttons hold their own state: a tap on a picture presses the matching one.
+  const press = (o) => [...(box.current?.querySelectorAll(".yl-planaskq button") || [])].find((b) => b.textContent.trim() === o)?.click();
+  return (
+    <div className="yl-planask" ref={box}>
+      {cmp.length ? (
+        <div className="yl-cmp" role="group" aria-label="Compare">
+          {cmp.map(({ option, page }) => {
+            const pg = resolve("page", page.props);
+            return (
+              <button key={option} className={`yl-cmpitem ${ans[q.id] === option ? "on" : ""}`} disabled={q.preset === "pick"} onClick={() => press(option)} aria-label={`Pick ${option}`}>
+                <span className="yl-cmpbox">{page.pic ? picture(page.pic, emitFor, Render) : <Media src={pg.img} className="yl-pageimg" />}</span>
+                <b>{option}</b>
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+      <div className="yl-planaskq"><Render node={q} emit={capture(q)} /></div>
+    </div>
+  );
+}
+
 export function Plan({ g, emitFor, Render }) {
   const p = resolve("plan", g.group.props);
   const all = stepsOf(g.members);
@@ -240,16 +269,17 @@ export function Plan({ g, emitFor, Render }) {
   // the slides are drawn inside their move, and what was ticked and nudged goes back as the plan's answers.
   const runner = runnerPlan(all);
   const run = useRunner(runner, g.group.id);
-  const steps = runner ? all.filter((m) => !runner.absorbed.has(m.id)) : all;
+  // YUI-277: a choose / pick / ask right after a page is drawn on that page, under its picture.
+  const steps = askHere(runner ? all.filter((m) => !runner.absorbed.has(m.id)) : all, (m) => !!runner?.move(m.id));
   // Pages are steps to read; only questions are answered and reviewed.
-  const questions = steps.filter((m) => m.preset !== "page");
+  const questions = steps.map(questionOf).filter(Boolean);
   const n = steps.length;
   const screen = useContext(ScreenCtx);
   const [at, setAt] = useState(0);
   const [ans, setAns] = useState({});
   const [done, setDone] = useState(false);
   const cur = Math.min(at, n);
-  const has = (m) => ans[m.id] !== undefined || run.answers[m.id] !== undefined;
+  const has = (m) => { const q = questionOf(m); return !q || ans[q.id] !== undefined || run.answers[q.id] !== undefined; };
 
   const submit = (a) => {
     const plan = Object.fromEntries(questions.filter((m) => a[m.id] !== undefined).map((m) => [m.id, a[m.id]]));
@@ -262,7 +292,7 @@ export function Plan({ g, emitFor, Render }) {
       title: p.title || "Plan",
       pages: steps.filter((m) => m.preset === "page").map((m) => resolve("page", m.props)),
       answers: questions.length,
-      text: foldText(steps, runner ? { ...a, ...run.answers } : a),
+      text: foldText(questions, runner ? { ...a, ...run.answers } : a),
     });
     screen?.closeStage?.();
   };
@@ -279,7 +309,7 @@ export function Plan({ g, emitFor, Render }) {
     if (m.preset === "ask" || m.preset === "choose") setTimeout(() => next(a), 380);
     else if (m.preset !== "slide") next(a);
   };
-  const nextOk = cur < n && (has(steps[cur]) || steps[cur].preset === "slide" || steps[cur].preset === "page" || !!runner?.move(steps[cur].id));
+  const nextOk = cur < n && (has(steps[cur]) || steps[cur].preset === "slide" || (steps[cur].preset === "page" && !steps[cur].ask) || !!runner?.move(steps[cur].id));
   const onNext = () => {
     const m = steps[cur];
     if (m.preset === "slide" && !has(m)) {
@@ -309,26 +339,29 @@ export function Plan({ g, emitFor, Render }) {
         {p.title ? <div className="yl-q">{p.title}</div> : null}
         <div className="yl-sub">{!n ? "Waiting for questions" : review ? "Review" : `Step ${cur + 1} of ${n}`}</div>
         <div className="yl-plansegs">
-          {steps.map((m, i) => <button key={m.key} className={`${i < cur || has(m) ? "d" : ""} ${i === cur ? "now" : ""}`} onClick={() => setAt(i)} aria-label={`Step ${i + 1}`} />)}
+          {steps.map((m, i) => <button key={m.key} className={`${i < cur || (questionOf(m) && has(m)) ? "d" : ""} ${i === cur ? "now" : ""}`} onClick={() => setAt(i)} aria-label={`Step ${i + 1}`} />)}
           {p.review ? <button className={review ? "now" : ""} onClick={() => setAt(n)} aria-label="Review" /> : null}
         </div>
       </div>
       {steps.map((m, i) => (
         <div key={m.key} className="yl-planstep" style={{ display: i === cur ? undefined : "none" }}>
-          {m.preset === "page" ? <div className="yl-planpage">{slidePage(m, emitFor, Render)}</div>
+          {m.preset === "page" ? <>
+            <div className="yl-planpage">{slidePage(m, emitFor, Render)}</div>
+            {m.ask ? <PlanAsk steps={steps} at={i} emitFor={emitFor} Render={Render} capture={capture} ans={ans} /> : null}
+          </>
             : runner?.move(m.id) ? <RunnerMove move={runner.move(m.id)} runner={runner} step={m} progress={run.progress} setProgress={run.setProgress} active={i === cur && !review} />
-            : <Render node={m} emit={capture(m)} />}
+            : <PlanAsk steps={steps} at={i} emitFor={emitFor} Render={Render} capture={capture} ans={ans} />}
         </div>
       ))}
       {review ? (
         <div className="yl-planreview">
-          {steps.map((m, i) => m.preset === "page" ? null : (
+          {steps.map((m, i) => { const q = questionOf(m); return !q ? null : (
             <button key={m.key} className="yl-planrow" onClick={() => setAt(i)}>
-              <span className="lbl">{question(m) || `Step ${i + 1}`}</span>
-              <b>{has(m) ? show(ans[m.id] ?? run.answers[m.id]) : <i>Not answered</i>}</b>
+              <span className="lbl">{question(q) || `Step ${i + 1}`}</span>
+              <b>{has(m) ? show(ans[q.id] ?? run.answers[q.id]) : <i>Not answered</i>}</b>
               <span className="yl-flink">Edit</span>
             </button>
-          ))}
+          ); })}
         </div>
       ) : null}
       <div className="bigbtns">

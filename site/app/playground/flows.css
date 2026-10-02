@@ -314,3 +314,15 @@
 .rn-nudge b { min-width: 84px; text-align: center; font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; }
 .rn-nudge button { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--yl-grid, #eee); font: inherit; font-size: 20px; font-weight: 900; color: inherit; cursor: pointer; }
 .rn-nudge button:disabled { opacity: 0.35; cursor: default; }
+
+/* YUI-277: the question sits on the page it asks about; earlier pages it compares are small pictures above its options. */
+.yl-planask { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.yl-planask > .yl-planaskq > .yl-block { margin: 0; }
+.yl-cmp { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 4px; }
+.yl-cmpitem { flex: 0 0 auto; width: 92px; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px; border-radius: 12px; border: 1px solid #343850; background: none; color: inherit; cursor: pointer; }
+.yl-cmpitem:disabled { cursor: default; }
+.yl-cmpitem.on { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.yl-cmpitem b { font-size: 12px; }
+.yl-cmpbox { display: block; width: 80px; height: 56px; overflow: hidden; border-radius: 8px; pointer-events: none; position: relative; }
+.yl-cmpbox > * { zoom: .3; width: 267px; }
+.yl-cmpbox .yl-pageimg { zoom: 1; width: 100%; height: 100%; object-fit: cover; }
