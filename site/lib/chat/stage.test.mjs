@@ -46,7 +46,7 @@ test("a list stays one chunk", () => {
 
 test("the mic line says what works here", () => {
   assert.equal(micLine({ voice: false }), "Voice needs Chrome or Safari here. Type instead.");
-  assert.equal(micLine({ voice: true }), "Tap the mic and talk, or T to type.");
+  assert.equal(micLine({ voice: true }), "Tap the mic and talk, or tap T to type.");
   assert.equal(micLine({ voice: true, blocked: true }), "The mic is blocked. Allow it in the address bar, or type.");
   assert.match(micLine({ voice: true, listening: true }), /^Listening/);
 });

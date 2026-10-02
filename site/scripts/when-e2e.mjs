@@ -53,7 +53,7 @@ for (const theme of ["light", "dark"]) {
   const t0 = await pg.locator(".ys-when").textContent();
   ok(/^\d{1,2}:\d{2}\s?(AM|PM)$/i.test(t0), `${theme}: today's answer shows its clock time, got ${t0}`);
   if (SHOTS) await pg.locator(".yc-panel").screenshot({ path: `${SHOTS}/when-stage-today-${theme}.png` });
-  await pg.getByRole("button", { name: "Close, back home" }).click();
+  await pg.getByRole("button", { name: "Back to home" }).click();
   await pg.getByRole("button", { name: /Chat record/ }).click();
   await pg.locator(".yc-answer:not(.yc-hello)").nth(1).getByRole("button", { name: "Play on the stage" }).click();
   await pg.waitForSelector(".ys-when");

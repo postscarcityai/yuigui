@@ -16,9 +16,9 @@ const opts = (a) => a.map((o) => (/^[\w.-]+$/.test(o) ? o : `"${o}"`)).join("|")
 // Like and dislike: one full-screen flow, one Send at the end.
 export const FEEDBACK_PLAN = [
   `plan@feedback "What you think" submit="Send it"`,
-  `pick@likes "What do you like?" ${opts(LIKES)} +other`,
-  `pick@dislikes "What's not landing?" ${opts(DISLIKES)} +other`,
-  `form@line "One thing you'd change or add" idea:text`,
+  `pick@likes "What do you like?" ${opts(LIKES)} +other submit=Next`,
+  `pick@dislikes "What's not landing?" ${opts(DISLIKES)} +other submit=Next`,
+  `form@line "One thing you'd change or add" idea:text submit=Review`,
   `end`,
 ].join("\n");
 

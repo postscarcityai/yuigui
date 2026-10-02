@@ -111,7 +111,7 @@ export default function ChatStage({ content, answer, agent = "Yui", live, onTap,
   const c = a.chunks[Math.min(at, last)];
   return (
     <div className="ys-play" ref={box} onClick={onStageTap} data-asking={asking ? "1" : undefined} data-pull={pull.dragging ? "1" : undefined} style={pull.style} {...pull.handlers}>
-      {onHome ? <button className="ys-homex" onClick={onHome} aria-label="Close, back home">Close</button> : null}
+      {onHome ? <button className="ys-homex" onClick={onHome} aria-label="Back to home">Back to home</button> : null}
       {n > 1 ? (
         <div className="mo-segs ys-segs" aria-label={`Part ${at + 1} of ${n}`}>
           {a.chunks.map((x, i) => <i key={x.key} className={i <= at ? "on" : ""} />)}

@@ -131,6 +131,13 @@ html.yc-on, html.yc-on body { overflow: hidden; }
 .ys-nav button { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-size: 24px; font-weight: 800; line-height: 1; cursor: pointer; }
 .ys-nav button.acc { background: var(--mo-c); border-color: var(--mo-c); color: #2a1020; }
 .ys-nav button:disabled { opacity: .35; cursor: default; }
+/* typing mode: the field takes the mic row, so the arrows sit on the stage above it (SITE-167) */
+.yc-panel:has(form.yc-input) .ys-nav { bottom: 10px; left: auto; right: 18px; }
+.yc-panel:has(form.yc-input) .ys-play:has(.ys-nav) .ys-scroll { padding-bottom: 64px; }
+/* a pick inside a plan has its own Next: hide the plan's twin, which stays dead until it is tapped (SITE-167) */
+.yc-panel .yl-plan:has(.yl-planstep:not([style*="none"]) .bigbtn.full) > .bigbtns .bigbtn.p { display: none; }
+/* at the end the bottom Back to home is the one; the top pill would be a second (SITE-167) */
+.yc-panel:has(.ys-homeq) .ys-homex { display: none; }
 .ys-went { padding: 4px 18px 0; font-size: 14px; color: var(--muted); }
 .ys-went a { color: var(--link); font-weight: 800; }
 

@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 435,
-    "site": 1091,
+    "app": 436,
+    "site": 1113,
     "builds": 51,
-    "shipped": 534,
-    "screenshots": 1412
+    "shipped": 541,
+    "screenshots": 1431
   },
   "days": [
     {
@@ -13,7 +13,198 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-01T21:21:27.593Z",
+          "at": "2026-10-02T00:26:54.604Z",
+          "title": "The site chat opens ready to talk, and its next arrow can be tapped",
+          "card": "SITE-167",
+          "anchor": "the-site-chat-opens-ready-to-talk-and-its-next-arrow-can-be-tapped",
+          "images": [
+            {
+              "src": "/progress/site167-open-before-390-dark.webp",
+              "alt": "Before, phone width: the chat opens with a text field already out and no mic."
+            },
+            {
+              "src": "/progress/site167-open-after-390-dark.webp",
+              "alt": "After, phone width: the chat opens with the mic and a T button."
+            },
+            {
+              "src": "/progress/site167-pitch-before-390-dark.webp",
+              "alt": "Before, phone width: Give me the pitch shows one line, and the field covers the next arrow."
+            },
+            {
+              "src": "/progress/site167-pitch-after-390-dark.webp",
+              "alt": "After, phone width: page 2 of the pitch, with back and next arrows beside the mic."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 436,
+            "site": 1113,
+            "builds": 51,
+            "shipped": 541
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T00:05:14.000Z",
+          "title": "Group settings on the web",
+          "card": "YUI-263",
+          "anchor": "group-settings-on-the-web",
+          "images": [
+            {
+              "src": "/progress/yui263-group-settings-390-dark.webp",
+              "alt": "Dark, phone width: the group settings sheet for Race week with a name field, max hops 3 with minus and plus, Penny as lead with a crown, Yui and Basil with Make lead and Leave group, and a red Archive group button."
+            },
+            {
+              "src": "/progress/yui263-group-settings-390-light.webp",
+              "alt": "Light, phone width: the same group settings sheet."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 436,
+            "site": 1111,
+            "builds": 51,
+            "shipped": 540
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T00:02:21.000Z",
+          "title": "Scrolling back through a long chat stays light",
+          "card": "YUI-260",
+          "anchor": "scrolling-back-through-a-long-chat-stays-light",
+          "images": [
+            {
+              "src": "/progress/yui260-memory-peak.webp",
+              "alt": "Bar chart of peak memory scrolling back through a 500-message chat: 212 MB before past chats, 304 with them, 180 with the fix, a dashed 300 MB limit."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 436,
+            "site": 1110,
+            "builds": 51,
+            "shipped": 539
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T23:35:36.000Z",
+          "title": "A new Apple-only web account lands on the crew picker",
+          "card": "YUI-262",
+          "anchor": "a-new-apple-only-web-account-lands-on-the-crew-picker",
+          "images": [
+            {
+              "src": "/progress/yui262-firstrun-390-dark.webp",
+              "alt": "Dark, phone width: the same crew picker."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 435,
+            "site": 1107,
+            "builds": 51,
+            "shipped": 538
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T23:07:04.000Z",
+          "title": "A stranger's first tap on the web demo works",
+          "card": "YUI-261",
+          "anchor": "a-stranger-s-first-tap-on-the-web-demo-works",
+          "images": [
+            {
+              "src": "/progress/yui261-demo-before-390-light.webp",
+              "alt": "Before, phone width: the web demo opens on the stage with Nothing waiting on you and nothing to tap."
+            },
+            {
+              "src": "/progress/yui261-demo-390-light.webp",
+              "alt": "After, light, phone width: the demo opens in Yui's thread with a first screen, What do you want to try first, and Timer, Form and Choice buttons."
+            },
+            {
+              "src": "/progress/yui261-demo-390-dark.webp",
+              "alt": "After, dark, phone width: the same first screen."
+            },
+            {
+              "src": "/progress/yui261-signin-before-390-light.webp",
+              "alt": "Before, phone width: the web sign in page with a build log called What works so far under the Sign in card."
+            },
+            {
+              "src": "/progress/yui261-signin-390-light.webp",
+              "alt": "After, light, phone width: Sign in with Apple and a Try a demo first button, nothing below them but links."
+            },
+            {
+              "src": "/progress/yui261-signin-390-dark.webp",
+              "alt": "After, dark, phone width: the same sign in page."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 435,
+            "site": 1104,
+            "builds": 51,
+            "shipped": 537
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T23:03:17.000Z",
+          "title": "Social drafts now start today and stay within two weeks",
+          "card": [
+            "SOC-7",
+            "SITE-166"
+          ],
+          "anchor": "social-drafts-now-start-today-and-stay-within-two-weeks",
+          "images": [
+            {
+              "src": "/progress/soc7-queue-dates-light.webp",
+              "alt": "Before and after of the social queue dates: 110 drafts spread from Sep 25 to Jan 4, now 21 drafts in the next 14 days and 89 waiting for Chris."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 435,
+            "site": 1102,
+            "builds": 51,
+            "shipped": 536
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T22:52:05.000Z",
+          "title": "The home page is under ten screens",
+          "card": "SITE-165",
+          "anchor": "the-home-page-is-under-ten-screens",
+          "images": [
+            {
+              "src": "/progress/site165-home-before-390-dark.webp",
+              "alt": "The whole home page at phone width, before: a very long page with films, clips, cards, a code block and thoughts."
+            },
+            {
+              "src": "/progress/site165-home-after-390-dark.webp",
+              "alt": "The whole home page at phone width, after: the hero, then the clips, then a short run of cards."
+            },
+            {
+              "src": "/progress/site165-home-before-390-light.webp",
+              "alt": "The home page in the light theme, before: more than twice as long."
+            },
+            {
+              "src": "/progress/site165-home-after-390-light.webp",
+              "alt": "The home page in the light theme, after: under ten screens."
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 435,
+            "site": 1100,
+            "builds": 51,
+            "shipped": 535
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-01T21:20:42.000Z",
           "title": "A stranger's first five minutes on yuigui.com",
           "card": "SITE-164",
           "anchor": "a-stranger-s-first-five-minutes-on-yuigui-com",
@@ -35,7 +226,7 @@
               "alt": "Get started in the light theme, after: Download on TestFlight and Tap a live demo first on the first screen."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 435,
             "site": 1091,
@@ -1381,10 +1572,171 @@
       "commits": [
         {
           "repo": "site",
+          "sha": "673d09c4",
+          "at": "2026-10-02T00:10:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/673d09c4"
+        },
+        {
+          "repo": "site",
+          "sha": "7767652c",
+          "at": "2026-10-02T00:05:54.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7767652c"
+        },
+        {
+          "repo": "site",
+          "sha": "58d71859",
+          "at": "2026-10-02T00:05:14.000Z",
+          "text": "Group settings on the web: max hops, members, lead, archive (YUI-263)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/58d71859"
+        },
+        {
+          "repo": "site",
+          "sha": "22b44d9e",
+          "at": "2026-10-02T00:02:21.000Z",
+          "text": "progress: YUI-260 long chat scroll-back peaks at 180 MB, not 304",
+          "url": "https://github.com/postscarcityai/yuigui/commit/22b44d9e"
+        },
+        {
+          "repo": "app",
+          "sha": "ed89812",
+          "at": "2026-10-02T00:01:50.000Z",
+          "text": "ChatView: a long chat draws one older batch per arrival at the top, not the whole thread at once; memory.sh peak limit back to 300 (peak...",
+          "url": "https://github.com/postscarcityai/yui/commit/ed89812"
+        },
+        {
+          "repo": "site",
+          "sha": "b777b2f4",
+          "at": "2026-10-01T23:40:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b777b2f4"
+        },
+        {
+          "repo": "site",
+          "sha": "56cc31b3",
+          "at": "2026-10-01T23:35:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/56cc31b3"
+        },
+        {
+          "repo": "site",
+          "sha": "590e7fcb",
+          "at": "2026-10-01T23:35:36.000Z",
+          "text": "A new Apple-only web account lands on the crew picker: live check and progress entry (YUI-262)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/590e7fcb"
+        },
+        {
+          "repo": "site",
+          "sha": "4112dcc4",
+          "at": "2026-10-01T23:31:33.000Z",
+          "text": "Progress: SOC-7 entry also links SITE-166 (done means linked)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4112dcc4"
+        },
+        {
+          "repo": "site",
+          "sha": "3785715b",
+          "at": "2026-10-01T23:10:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3785715b"
+        },
+        {
+          "repo": "site",
+          "sha": "85cf6f03",
+          "at": "2026-10-01T23:07:04.000Z",
+          "text": "Web demo opens in the agent's thread; sign in drops the build log, adds Try a demo first (YUI-261)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/85cf6f03"
+        },
+        {
+          "repo": "site",
+          "sha": "896f57a5",
+          "at": "2026-10-01T23:05:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/896f57a5"
+        },
+        {
+          "repo": "site",
+          "sha": "818788b0",
+          "at": "2026-10-01T23:03:17.000Z",
+          "text": "Progress entry for SOC-7: social drafts start today (SITE-166)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/818788b0"
+        },
+        {
+          "repo": "site",
+          "sha": "55263116",
+          "at": "2026-10-01T22:55:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/55263116"
+        },
+        {
+          "repo": "site",
+          "sha": "5adc38f8",
+          "at": "2026-10-01T22:52:05.000Z",
+          "text": "SITE-165: home page under ten phone screens, first demo in the first two",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5adc38f8"
+        },
+        {
+          "repo": "site",
+          "sha": "8e458520",
+          "at": "2026-10-01T22:50:31.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8e458520"
+        },
+        {
+          "repo": "site",
+          "sha": "c307d06f",
+          "at": "2026-10-01T22:50:29.000Z",
+          "text": "Social slots start today and stay within 14 days (SOC-7)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c307d06f"
+        },
+        {
+          "repo": "site",
+          "sha": "c55058df",
+          "at": "2026-10-01T22:41:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c55058df"
+        },
+        {
+          "repo": "site",
+          "sha": "2b1c1152",
+          "at": "2026-10-01T22:37:25.000Z",
+          "text": "Social drafts: 10 new (SOC-1)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2b1c1152"
+        },
+        {
+          "repo": "site",
+          "sha": "d137a8af",
+          "at": "2026-10-01T22:36:39.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d137a8af"
+        },
+        {
+          "repo": "site",
+          "sha": "a59bbc4e",
+          "at": "2026-10-01T21:30:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a59bbc4e"
+        },
+        {
+          "repo": "site",
+          "sha": "f55802ea",
+          "at": "2026-10-01T21:25:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f55802ea"
+        },
+        {
+          "repo": "site",
           "sha": "230480ee",
           "at": "2026-10-01T21:20:45.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/230480ee"
+        },
+        {
+          "repo": "site",
+          "sha": "c1d636ac",
+          "at": "2026-10-01T21:20:42.000Z",
+          "text": "Get started: beta and demo buttons on the first screen, a live demo link on home (SITE-164)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c1d636ac"
         },
         {
           "repo": "site",
@@ -6164,7 +6516,7 @@
           "card": "SOC-1",
           "anchor": "a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
           "images": [],
-          "commits": 8,
+          "commits": 9,
           "totals": {
             "app": 365,
             "site": 827,

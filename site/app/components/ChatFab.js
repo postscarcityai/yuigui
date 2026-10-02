@@ -258,7 +258,8 @@ export default function ChatFab({ autoOpen = false }) {
   useEffect(() => { if (record) { setSeen(msgs.length); list.current?.scrollTo({ top: list.current.scrollHeight }); } }, [record, msgs]);
   useEffect(() => { if (typing) setTimeout(() => input.current?.focus(), 30); }, [typing]);
   // No voice here (Firefox): the field is the way in, so it starts open.
-  useEffect(() => { if (open && !voice) setTyping(true); }, [open, voice]);
+  // Ask the browser, not the voice state: the bubble can mount already open, before setVoice has landed (SITE-167).
+  useEffect(() => { if (open && !voice && !speechApi()) setTyping(true); }, [open, voice]);
   // Thinking · 3s, like the app's working row.
   useEffect(() => {
     if (!busy) return undefined;

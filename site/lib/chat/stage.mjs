@@ -82,5 +82,5 @@ export function micLine({ voice, listening, heard, blocked }) {
   if (listening) return heard ? "Listening. It sends when you stop." : "Listening. Go ahead.";
   if (blocked) return "The mic is blocked. Allow it in the address bar, or type.";
   if (!voice) return "Voice needs Chrome or Safari here. Type instead.";
-  return "Tap the mic and talk, or T to type.";
+  return "Tap the mic and talk, or tap T to type.";
 }
