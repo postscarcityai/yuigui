@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T13:35:37.391Z",
+  "updated": "2026-10-02T13:40:31.288Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -355,6 +355,8 @@
         {
           "key": "SITE-170",
           "title": "How the web app got fast, told in pictures",
+          "summary": "How the web app got fast, in pictures",
+          "progress": "/progress#how-the-web-app-got-fast-in-pictures",
           "owner": "CJohnDesign"
         },
         {
