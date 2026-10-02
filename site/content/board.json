@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T11:05:18.082Z",
+  "updated": "2026-10-02T11:30:16.764Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,12 +348,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-272",
-          "title": "/web draws the first row sooner",
-          "summary": "A lighter shell, the demo split out",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -380,6 +374,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-272",
+          "title": "/web draws the first row sooner",
+          "summary": "The web app shows a chat sooner",
+          "shipped": "2026-10-02",
+          "progress": "/progress#the-web-app-shows-a-chat-sooner",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/16822c62"
+        },
         {
           "key": "YUI-271",
           "title": "/web timed on a phone after the night's stories, the worst numbers fixed",
