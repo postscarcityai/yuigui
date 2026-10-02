@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T01:15:45.839Z",
+  "updated": "2026-10-02T01:20:46.050Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -352,13 +352,6 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
-        },
-        {
-          "key": "SITE-168",
-          "title": "See it gets a Yui on the web group",
-          "summary": "See it has a Yui on the web group",
-          "progress": "/progress#see-it-has-a-yui-on-the-web-group",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -366,6 +359,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-168",
+          "title": "See it gets a Yui on the web group",
+          "summary": "See it has a Yui on the web group",
+          "shipped": "2026-10-01",
+          "progress": "/progress#see-it-has-a-yui-on-the-web-group"
+        },
         {
           "key": "YUI-264",
           "title": "/web scripts locked to a nonce, no inline loophole",
