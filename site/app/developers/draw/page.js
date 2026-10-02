@@ -2,8 +2,8 @@
 // The examples live in lib/draw-examples.mjs and are parsed by scripts/draw-check.mjs.
 import Link from "next/link";
 import AgentBox from "../../components/AgentBox";
-import LivePhone from "../../mockups/LivePhone";
-import { COMING, DRAWINGS, playgroundHref } from "../../../lib/draw-examples.mjs";
+import DrawPart from "./DrawPart";
+import { COMING, DRAWINGS } from "../../../lib/draw-examples.mjs";
 import { pageMeta } from "../../../lib/og/meta.mjs";
 import "./draw.css";
 
@@ -34,7 +34,7 @@ export default function Draw() {
       <h1>Everything Yui can draw.</h1>
       <p className="lede">
         Your agent does not send a picture. It sends a few lines of text, and your phone draws them in your agent&apos;s colors. Each part below is live, with its lines beside it.
-        Change a word in the playground and watch it redraw.
+        Edit the lines beside any part and watch it redraw.
       </p>
       <nav className="dr-jump" aria-label="Drawing parts">
         {DRAWINGS.map((d) => <a key={d.id} href={`#${d.id}`}>{d.title}</a>)}
@@ -43,16 +43,7 @@ export default function Draw() {
 
       {DRAWINGS.map((d) => (
         <section key={d.id} id={d.id} className="dr-part" aria-labelledby={`${d.id}-h`}>
-          <div className="dr-media">
-            <LivePhone yl={d.yl} label={`${d.title}, drawn live from Yui Lines`} />
-          </div>
-          <div className="dr-text">
-            <h2 id={`${d.id}-h`}>{d.title} <a href={`#${d.id}`} className="sc-hash" aria-label={`Link to ${d.title}`}>#</a></h2>
-            <p>{d.what}</p>
-            <p className="dr-parts"><b>Parts:</b> {d.parts}</p>
-            <pre className="dr-yl"><code>{d.yl}</code></pre>
-            <p className="dr-open"><Link href={playgroundHref(d.yl)}>Open in playground</Link></p>
-          </div>
+          <DrawPart d={d} />
         </section>
       ))}
 
