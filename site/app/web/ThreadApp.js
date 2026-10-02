@@ -20,23 +20,14 @@ import ThreadView from "./ThreadView";
 import DrawerPanel from "./DrawerPanel";
 import { useEarn } from "./YourU";
 import AgentsPanel from "./AgentsPanel";
-import GroupThread from "./GroupThread";
-import { NewGroupSheet } from "./Groups";
-import AddAgent from "./AddAgent";
-import EditAgent from "./EditAgent";
-import ControlsPanel from "./ControlsPanel";
-import ConnectApproval from "./ConnectApproval";
-import Palette from "./Palette";
-import SettingsPanel from "./SettingsPanel";
 import { usePush } from "./usePush";
-import { KeyAskSheet } from "./SettingsKeys";
 import { PrefsContext, useAppLook, useAppearance, useDark, usePicks, useStagePrefs } from "./useSettings";
 import { loadAnswered, markAnswered, nextAsk, answerMeta } from "../../lib/web/vault.mjs";
 import { perfOn, sectionOf } from "../../lib/web/settings.mjs";
 import { loadUsed, markUsed, menuFromRows } from "../../lib/web/quick.mjs";
-import PerfHud from "./PerfHud";
 import CrewPick from "./CrewPick";
 import { Face } from "./parts";
+import { GroupThread, NewGroupSheet, AddAgent, EditAgent, ControlsPanel, ConnectApproval, Palette, SettingsPanel, KeyAskSheet, PerfHud, preloadPanels } from "./lazy";
 import "./thread.css";
 import "./stage.css"; // the Stage button and Play on the stage live here; a ?view=chat link never loads StageLayer first
 import "./composer.css";
@@ -85,7 +76,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   // The app opens on the stage (Stage first); the chat is the record, one tap away. ?view=chat opens the record.
   const [view, setView] = useState(search.get("view") === "chat" || (demo && !agentId && !connect && !groupId && !search.get("view")) ? "chat" : "stage");
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => { setMounted(true); return preloadPanels(); }, []);
 
   // The theme is the site's `data-theme` on <html>. Settings > Appearance picks system, light or dark (system is the
   // default and follows the browser); ?theme= wins for a link until a pick is made; the Dark / Light look button in

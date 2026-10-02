@@ -5,7 +5,6 @@
 // their colors from the theme (--yl-c1..6 on .screen, stepped for light and
 // dark), so they follow the per-agent look.
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from "react";
-import katex from "katex";
 // Its styles ride with the renderers, so math draws right wherever they load (the site chat too, SITE-74).
 import "katex/dist/katex.min.css";
 import { quantity } from "../../lib/yl/yl.mjs";
@@ -70,14 +69,22 @@ function useUnit(unit) {
 
 // ---------- math ----------
 
+// YUI-271: KaTeX is 75 KB of script, so it loads the first time a formula is drawn, not with the page.
+let katexP = null;
+const loadKatex = () => (katexP ||= import("katex").then((m) => m.default || m));
+
 export function TeX({ tex, block = true, className }) {
+  const [katex, setKatex] = useState(null);
+  useEffect(() => { let live = true; loadKatex().then((k) => live && setKatex(k)).catch(() => {}); return () => { live = false; }; }, []);
   const html = useMemo(() => {
+    if (!katex) return undefined;
     try {
       return katex.renderToString(tex || "", { displayMode: block, throwOnError: true, strict: "ignore", output: "html" });
     } catch {
       return null;
     }
-  }, [tex, block]);
+  }, [katex, tex, block]);
+  if (html === undefined) return <span className={className} aria-busy="true"><code className="yl-texerr">{tex}</code></span>;
   if (html == null) return <code className="yl-texerr" title="TeX did not parse">{tex}</code>;
   return <span className={className} dangerouslySetInnerHTML={{ __html: html }} />;
 }

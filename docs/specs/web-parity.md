@@ -280,3 +280,26 @@ The separate repo `postscarcityai/yui-web` (opened Sep 27 as a place for outside
 | A Services ID is an Apple developer site step | Story 241 builds everything else first and blocks with an ASK naming the clicks for Chris | 241 |
 | iPhone Safari Web Push | Only for a web app added to the home screen; the app stays the way to get Yui on a phone. Settings says so in a tab (Share, Add to Home Screen) and offers the switch from the installed app. | 248, done |
 | What "one to one" means where the browser lacks a feature | The row says `web way` or `iPhone` and the web names it in one line | each story |
+
+## 12. Speed (YUI-271)
+
+Timed on Oct 2 after the nine /web stories (262 to 270). `site/scripts/web-speed.mjs` drives one headless Chrome against a production build: the demo thread (`/web/agent/demo-penny?demo=penny&view=chat&demohistory=400`) at 390 wide, 4x CPU throttle, slow 4G (1.6 Mbps down, 150 ms round trip), cache off, median of 3 runs. JS is what the wire carried (gzip, a local server; Vercel sends brotli, so the real numbers are smaller).
+
+| Number | Before | After |
+| --- | --- | --- |
+| First paint | 752 ms | 736 ms |
+| First message row drawn | 2509 ms | 2506 ms |
+| First tap that answers (open the drawer) | 195 ms | 199 ms |
+| Open the drawer, open the agents list, switch agent | 308 ms | 313 ms |
+| JS before the first row | 263 KB | 243 KB |
+| JS on the page after 5 s (everything it warms) | 466 KB | 364 KB |
+| JS files after 5 s | 18 | 25 |
+| JS heap after scrolling back 300 rows | 10.0 MB | 8.9 MB |
+
+What was worst: the page shipped 466 KB of script, 75 KB of it KaTeX that the thread loaded even when no reply had a formula, and every sheet (settings, controls, add agent, groups, palette, the key vault) plus the music kit, games, diagrams, flows and queries in the first bundle. Fixed, no feature change:
+
+- KaTeX loads the first time a formula is drawn (`app/playground/science.js`).
+- The sheets and panels a tap opens are their own chunks (`app/web/lazy.js`), warmed when the browser is idle so the first tap still answers at once.
+- The music kit, games, diagrams, flows and queries load on the first reply that draws one (`later()` in `app/playground/presets.js`).
+
+What did not move: first paint and the first row. They wait on the framework and the app shell (about 240 KB on a 200 KB/s link), not on the parts that were split off. Smaller next steps, if wanted: split the demo relay and its fixtures out of the signed-in bundle, and cut the shell's own size. The signed-in path loads the same bundle; its relay calls go to the live backend, which a throttle cannot make comparable, so only the demo thread is timed. The long task counter read 0 under the throttle and is not reported.

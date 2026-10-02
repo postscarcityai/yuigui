@@ -11,13 +11,8 @@ import { LonePage, Project } from "./flows";
 import { LoneRow, Timeline } from "./timeline";
 import { LoneSketchRow, Sketch } from "./sketch";
 import { LoneShape, Shapes } from "./shapes";
-import { Diagram } from "./diagram";
 import { LonePart, Mock } from "./mock";
 import { LoneMapPart, MapView } from "./map";
-import { Game } from "./games";
-import { MUSIC } from "./music/music";
-import { Flow } from "./flow";
-import { Query } from "./data";
 import { useLive } from "./stage";
 import { useTabTitle, useWakeLock } from "./keepawake";
 import { useKeptAgent } from "./kept";
@@ -857,6 +852,23 @@ function Custom({ spec, emit }) {
   };
   return <div className="yl-block yl-custom"><span className="yl-bound">custom</span>{r(spec, 0)}</div>;
 }
+
+// YUI-271: the music kit, games, diagrams, flows and queries are each their own chunk, fetched the first time a reply
+// draws one, so a plain chat never downloads them. Each loader runs once; the first draw is empty for a moment.
+function later(load, pick) {
+  let C = null, p = null;
+  const get = () => (p ||= load().then((m) => { C = pick(m); }));
+  return function Later(props) {
+    const [, tick] = useState(0);
+    useEffect(() => { let live = true; if (!C) get().then(() => live && tick(1)).catch(() => {}); return () => { live = false; }; }, []);
+    return C ? <C {...props} /> : null;
+  };
+}
+const Diagram = later(() => import("./diagram"), (m) => m.Diagram);
+const Game = later(() => import("./games"), (m) => m.Game);
+const Flow = later(() => import("./flow"), (m) => m.Flow);
+const Query = later(() => import("./data"), (m) => m.Query);
+const MUSIC = Object.fromEntries(["loop", "drums", "keys", "chords", "tuner", "metronome"].map((k) => [k, later(() => import("./music/music"), (m) => m.MUSIC[k])]));
 
 const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, form: Form, list: List, table: Table, card: Card, image: Image, camera: Camera, mic: Mic, say: Say,
   gallery: Gallery, video: Video, compare: Compare, storyboard: Storyboard,
