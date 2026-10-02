@@ -9,4 +9,8 @@ export const metadata = {
   appleWebApp: { capable: true, title: "Yui", statusBarStyle: "black-translucent" },
 };
 
+// YUI-264: /web renders on each request so Next can stamp its inline scripts with the nonce middleware.js minted.
+// The rest of the site stays static.
+export const dynamic = "force-dynamic";
+
 export default function WebLayout({ children }) { return children; }

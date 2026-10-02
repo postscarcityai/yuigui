@@ -78,7 +78,11 @@ for (const [name, vp] of [["390", { width: 390, height: 844 }], ["desktop", { wi
     const pg = await ctx.newPage();
     const res = await pg.goto(`${BASE}/web`, { waitUntil: "networkidle" });
     ok(res.status() === 200, `${tag}: /web answers 200`);
-    ok(/script-src 'self' 'unsafe-inline' https:\/\/appleid\.cdn-apple\.com/.test(res.headers()["content-security-policy"] || "") && /frame-ancestors 'none'/.test(res.headers()["content-security-policy"] || ""), `${tag}: the strict policy is on the page`);
+    const csp = res.headers()["content-security-policy"] || "";
+    ok(/script-src 'self' 'nonce-[A-Za-z0-9+/=]{16,}' 'sha256-[A-Za-z0-9+/=]{44}' 'strict-dynamic' https:\/\/appleid\.cdn-apple\.com/.test(csp) && !/unsafe-inline[^;]*;|script-src[^;]*unsafe-inline/.test(csp.split(";").filter((d) => d.trim().startsWith("script-src")).join(";")) && /frame-ancestors 'none'/.test(csp), `${tag}: the strict nonce policy is on the page, no unsafe-inline in script-src`);
+    const nonce = /'nonce-([^']+)'/.exec(csp)?.[1];
+    ok(nonce && (await pg.evaluate((n) => [...document.querySelectorAll("script[nonce]")].length > 3 && [...document.querySelectorAll("script[nonce]")].every((x) => x.nonce === n), nonce)), `${tag}: Next stamped its scripts with this request's nonce`);
+    ok(await pg.evaluate(() => [...document.querySelectorAll("script:not([src])")].every((x) => x.nonce || x.textContent.startsWith("try{var t=localStorage"))), `${tag}: every inline script carries a nonce, bar the hashed theme setup`);
     ok((await pg.locator("html").getAttribute("data-theme")) === scheme, `${tag}: the page is ${scheme}`);
     ok(await pg.getByRole("button", { name: "Sign in with Apple" }).isVisible(), `${tag}: the Sign in with Apple button shows when signed out`);
     ok(await pg.locator("nav.nav, header nav").count() === 0 || !(await pg.locator(".foot").count()), `${tag}: no site nav or footer on /web`);
@@ -190,6 +194,24 @@ for (const [name, vp] of [["390", { width: 390, height: 844 }], ["desktop", { wi
   ok(/ABCDE-FGHJK/.test(await p3.getByTestId("pending-invite").innerText()), "invite code field: a typed code becomes the pending invite");
   await c3.ctx.close();
   ok(errs.length === 0, `no console errors on the invite page${errs.length ? " " + errs[0] : ""}`);
+}
+
+// YUI-264: an inline script injected into our own page is refused. The route adds one to the page's HTML on the
+// way in (what an XSS would do), keeping the real headers.
+{
+  const { ctx, errs } = await context({ width: 390, height: 844 }, "light", backend());
+  await ctx.route(`${BASE}/web`, async (route) => {
+    const r = await route.fetch();
+    const html = (await r.text()).replace("</head>", "<script>window.__injected = 1</script></head>");
+    await route.fulfill({ response: r, body: html });
+  });
+  const pg = await ctx.newPage();
+  const res = await pg.goto(`${BASE}/web`, { waitUntil: "networkidle" });
+  ok(res.status() === 200, "injection: the page still answers 200");
+  ok((await pg.evaluate(() => window.__injected)) === undefined, "injection: an inline script in the page's HTML does not run");
+  ok(errs.some((e) => /Content Security Policy/i.test(e) && /script/i.test(e)), "injection: the browser reports the CSP violation in the console");
+  ok(await pg.getByRole("button", { name: "Sign in with Apple" }).isVisible(), "injection: the real page still hydrates and shows its button");
+  await ctx.close();
 }
 
 // The return URL Apple is given answers a GET and a POST.

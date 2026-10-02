@@ -108,7 +108,7 @@ What each preset does in a browser. A row not listed renders as it does in the p
 - The refresh token is the one thing stored, in IndexedDB, so a closed tab stays signed in for the 60 days the app's session has. Each refresh rotates it, and `yui-auth`'s reuse check ends every session on a double spend, so a stolen token shows itself.
 - One refresh at a time across tabs: a Web Lock around the refresh, the new access token passed on a `BroadcastChannel`. The browser twin of the app's single refresh in flight.
 - No cookies, so there is no cookie CSRF: the edge functions read the `Authorization` header only, which a forged cross-site request does not carry. The Apple sign in uses a per attempt `state` and nonce kept in the page's memory.
-- `/web` is served with a Content Security Policy: scripts from the page and Apple's sign in script only (inline scripts allowed, for Next's own; no nonce yet), `connect-src` the Yui backend and Apple only, no framing, no analytics on the page. Agent words are sanitized markdown, never raw HTML.
+- `/web` is served with a Content Security Policy: scripts locked to a per request nonce (`strict-dynamic`, Apple's sign in script allowed, no `unsafe-inline`, so an injected inline script on our own page is refused; `/web` renders on each request for it), `connect-src` the Yui backend and Apple only, no framing, no analytics on the page. Agent words are sanitized markdown, never raw HTML.
 - Sign out calls the `sign_out` grant for this session only, and clears the stored token.
 
 ## Reuse and the harness

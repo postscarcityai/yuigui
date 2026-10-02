@@ -9,30 +9,13 @@ export default {
     // SITE-64: the chat searches the whole site at request time, including the pages written as JSX.
     "/api/chat": ["./content/**/*", "./app/page.js", "./app/help/page.js", "./app/start/page.js", "./app/privacy/page.js", "./app/earn/page.js", "./app/contribute/page.js"],
   },
-  // YUI-241: Yui in the browser holds a refresh token, so /web runs under a strict policy: scripts from the page
-  // and Apple's sign in script, requests to Yui's backend and Apple only, nothing framing it, no plugins.
-  // script-src keeps 'unsafe-inline' because Next writes its hydration data inline; see docs/specs/web-parity.md.
+  // YUI-241: Yui in the browser holds a refresh token, so /web runs under a strict policy. The policy itself
+  // (YUI-264: scripts locked to a per request nonce) is set by middleware.js from lib/web/csp.mjs, one source.
+  // These are the other headers /web carries.
   async headers() {
-    const backend = "https://txuibjxyfpalzvpneqgp.supabase.co";
-    const csp = [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://appleid.cdn-apple.com",
-      "style-src 'self' 'unsafe-inline'",
-      // A person's photos and an agent's pictures are signed links into the private media bucket (spec/RELAY.md, Media).
-      `img-src 'self' data: blob: ${backend}`,
-      `media-src 'self' blob: ${backend}`,
-      "font-src 'self' data:",
-      `connect-src 'self' ${backend} wss://txuibjxyfpalzvpneqgp.supabase.co https://appleid.apple.com`,
-      "frame-src https://appleid.apple.com",
-      "frame-ancestors 'none'",
-      "base-uri 'self'",
-      "form-action 'self' https://appleid.apple.com",
-      "object-src 'none'",
-    ].join("; ");
     return [{
       source: "/web/:path*",
       headers: [
-        { key: "Content-Security-Policy", value: csp },
         { key: "Referrer-Policy", value: "no-referrer" },
         { key: "X-Content-Type-Options", value: "nosniff" },
         { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },

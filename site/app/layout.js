@@ -6,14 +6,12 @@ import GetYui from "./components/GetYui";
 import NotOnEmbed from "./components/NotOnEmbed";
 import Analytics from "./components/Analytics";
 // No announcement bar for now (Chris, Sep 28: the 0.5.0 bar is off). components/TopBar.js is kept for the next one.
+import { themeInit } from "../lib/theme-init.mjs";
 import { chatOn } from "../lib/chat/config.mjs";
 
 const GA_ID = "G-VYENQDDF00";
 // Apple devices get SF Rounded through ui-rounded, like the app. Everyone else gets Nunito.
 const nunito = Nunito({ subsets: ["latin"], weight: ["400", "600", "700", "800"], variable: "--font-nunito", display: "swap" });
-const themeInit = `try{var t=localStorage.getItem("yui-theme");document.documentElement.dataset.theme=t==="dark"?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}`;
-// A closed announcement stays closed, with no flash on the next load (components/TopBar.js).
-const topbarInit = `try{if(localStorage.getItem("yui-topbar-0.5.0-crew"))document.documentElement.dataset.topbar="off"}catch(e){}`;
 
 export const metadata = {
   metadataBase: new URL("https://www.yuigui.com"),
@@ -34,7 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light" className={nunito.variable} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInit + topbarInit }} />
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body>
         <Analytics id={GA_ID} />
