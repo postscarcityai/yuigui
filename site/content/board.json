@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T10:36:17.866Z",
+  "updated": "2026-10-02T11:05:18.082Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -351,6 +351,14 @@
           "key": "YUI-272",
           "title": "/web draws the first row sooner",
           "summary": "A lighter shell, the demo split out",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-40",
+          "title": "New builds stuck at Apple, widget App Group. Daily release held",
+          "summary": "Upload failed",
+          "blocked": "other",
+          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
           "owner": "CJohnDesign"
         },
         {
