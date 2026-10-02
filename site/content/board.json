@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T10:11:04.984Z",
+  "updated": "2026-10-02T10:36:17.866Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -346,6 +346,12 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "YUI-272",
+          "title": "/web draws the first row sooner",
+          "summary": "A lighter shell, the demo split out",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-267",
