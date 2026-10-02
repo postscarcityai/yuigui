@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T11:30:16.764Z",
+  "updated": "2026-10-02T11:35:23.471Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -346,6 +346,12 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "YUI-273",
+          "title": "/web opens with your last chat already drawn",
+          "summary": "Cached rows on a repeat visit",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-40",
