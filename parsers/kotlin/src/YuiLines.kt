@@ -41,7 +41,7 @@ val GROUPS = mapOf(
     "timeline" to listOf("done", "now", "next"),
     "sketch" to listOf("row", "after"),
     "shapes" to listOf("shape"),
-    "mock" to listOf("part"),
+    "mock" to listOf("part", "shape"),
     "map" to listOf("area", "pin", "route"),
 )
 

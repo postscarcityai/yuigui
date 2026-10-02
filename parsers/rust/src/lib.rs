@@ -69,7 +69,7 @@ pub fn group_members(preset: &str) -> Option<&'static [&'static str]> {
         "timeline" => &["done", "now", "next"],
         "sketch" => &["row", "after"],
         "shapes" => &["shape"],
-        "mock" => &["part"],
+        "mock" => &["part", "shape"],
         "map" => &["area", "pin", "route"],
         _ => return None,
     })
