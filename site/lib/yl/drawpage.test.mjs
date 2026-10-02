@@ -25,6 +25,7 @@ eq("the agent's accent is a variable", html.includes("--accent:#e8663a"), true);
 eq("the markup is in the page", html.includes('<circle class="draw"'), true);
 eq("a color cannot break out of its rule", drawPage("", { accent: "red;}</style><script>x()</script>" }).includes("x()"), false);
 eq("Reduce Motion shows it finished", drawPage("", {}, { still: true }).includes("*{animation:none!important"), true);
+eq("rough and wash are defined, the filter is on the page", [html.includes(".rough{filter:url(#yui-rough)}"), html.includes(".wash{fill-opacity:.18}"), html.includes('id="yui-rough"')], [true, true, true]);
 eq("light pages say so", drawPage("", {}, { dark: false }).includes("color-scheme:light"), true);
 
 eq("words: the caption", drawWords({ title: "Push tap", caption: "Tap the banner." }), "Tap the banner.");

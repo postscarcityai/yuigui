@@ -3,7 +3,7 @@
 // content policy that allows nothing but what is written inline, so it cannot fetch,
 // open or send anything. The page gives it the agent's colors as CSS variables and
 // classes, a blueprint's line defaults and four words of motion (draw, pop, fade,
-// pulse). Pure: the web renderer (app/playground/drawing.js) builds its frame from it.
+// pulse), and two marks: `rough` draws a part by hand, `wash` makes a fill see-through. Pure: the web renderer (app/playground/drawing.js) builds its frame from it.
 // The app's reference is DrawPage in the yui repo (Yui/Sources/Presets/DrawPreset.swift);
 // keep the two the same.
 
@@ -60,7 +60,8 @@ export function drawPage(source, colors = {}, { dark = true, still = false } = {
 :root{${vars};color-scheme:${dark ? "dark" : "light"}}
 html,body{margin:0;padding:0;height:100%;background:transparent;color:var(--ink);overflow:hidden;
   font:600 15px -apple-system,system-ui,sans-serif;-webkit-user-select:none;user-select:none;-webkit-text-size-adjust:none}
-body>svg,body>canvas{display:block;width:100%;height:100%;overflow:visible}
+body>svg:not(.yui-defs),body>canvas{display:block;width:100%;height:100%;overflow:visible}
+.yui-defs{position:absolute;width:0;height:0;overflow:hidden}
 :where(svg text){fill:var(--ink);stroke:none;font-family:-apple-system,system-ui,sans-serif}
 :where(svg :is(path,line,polyline,polygon,rect,circle,ellipse):not([fill])){fill:none}
 :where(svg :is(path,line,polyline,polygon,rect,circle,ellipse):not([stroke])){stroke:var(--ink);stroke-width:1.5}
@@ -70,6 +71,7 @@ ${fill}
 svg text:is(${DRAW_COLORS.map((k) => `.${k}`).join(",")}){stroke:none}
 ${textFill}
 .dash{stroke-dasharray:5 5}
+.wash{fill-opacity:.18}.rough{filter:url(#yui-rough)}
 .draw,.pop,.fade{animation-delay:calc(var(--i,0)*.22s + .1s);animation-fill-mode:both}
 .draw{animation-name:yui-draw;animation-duration:.8s;animation-timing-function:ease-in-out}
 .pop{animation-name:yui-pop;animation-duration:.5s;animation-timing-function:cubic-bezier(.3,1.6,.5,1);transform-box:fill-box;transform-origin:center}
@@ -81,6 +83,9 @@ ${textFill}
 @keyframes yui-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
 ${still ? "*{animation:none!important;transition:none!important}" : ""}
 </style></head><body>
+<svg class="yui-defs" aria-hidden="true"><filter id="yui-rough" filterUnits="userSpaceOnUse" x="-10%" y="-10%" width="120%" height="120%">
+<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7"/>
+<feDisplacementMap in="SourceGraphic" scale="2.5" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
 ${source}
 <script>
 (function(){var i=0;document.querySelectorAll('.draw,.pop,.fade,.pulse').forEach(function(e){
