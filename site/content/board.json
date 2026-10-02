@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T07:15:41.864Z",
+  "updated": "2026-10-02T07:35:42.792Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -174,11 +174,6 @@
         {
           "key": "YUI-265",
           "title": "An ask you dismiss never comes back",
-          "waiting": true
-        },
-        {
-          "key": "YUI-269",
-          "title": "/web scrolls back past the newest 100 rows, fetching older ones from the server",
           "waiting": true
         },
         {
@@ -365,6 +360,11 @@
         {
           "key": "NOTE-35762",
           "title": "No end screen while still working",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-269",
+          "title": "/web scrolls back past the newest 100 rows, fetching older ones from the server",
           "owner": "CJohnDesign"
         },
         {
