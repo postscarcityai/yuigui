@@ -8,6 +8,7 @@ import Shots from "../../components/Shots";
 import AgentBox from "../../components/AgentBox";
 import VideoDownloads from "../../components/VideoDownloads";
 import { shareItem, shareItems, shareUrl } from "../../../lib/share.mjs";
+import { oneLine } from "../../../lib/og/meta.mjs";
 import { encodeYL } from "../../../lib/share-code.mjs";
 
 export const dynamicParams = false;
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }) {
   const it = shareItem((await params).id);
   if (!it) return {};
   const title = `${it.title} | Yui`;
-  const description = describe(it);
+  const description = oneLine(describe(it));
   return {
     title,
     description,

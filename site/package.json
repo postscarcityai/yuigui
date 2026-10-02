@@ -11,6 +11,7 @@
     "freshness": "node scripts/freshness.mjs",
     "links": "node scripts/links.mjs",
     "og": "node scripts/og-check.mjs",
+    "og:live": "node scripts/share-previews.mjs",
     "og:pages": "node scripts/og-pages-check.mjs",
     "og:refresh": "node scripts/og-refresh.mjs",
     "og:sheet": "node scripts/og-sheet.mjs"

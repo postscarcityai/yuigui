@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Blocks from "../Blocks";
 import { Film } from "../../components/Films";
+import { oneLine } from "../../../lib/og/meta.mjs";
 import { TAGS, niceDate, thoughts } from "../../../lib/thoughts.mjs";
 
 export const dynamicParams = false;
@@ -14,12 +15,13 @@ export async function generateMetadata({ params }) {
   const { slug } = await params;
   const t = thoughts().find((x) => x.slug === slug);
   if (!t) return { title: "Thoughts | Yui" };
+  const dek = oneLine(t.dek);
   return {
     title: `${t.title} | Yui`,
-    description: t.dek,
+    description: dek,
     authors: [{ name: "Yui" }],
-    openGraph: { title: t.title, description: t.dek, type: "article", publishedTime: t.date, authors: ["Yui"] },
-    twitter: { card: "summary_large_image", title: t.title, description: t.dek },
+    openGraph: { title: t.title, description: dek, type: "article", publishedTime: t.date, authors: ["Yui"] },
+    twitter: { card: "summary_large_image", title: t.title, description: dek },
     alternates: { types: { "application/rss+xml": [{ url: "/thoughts/feed.xml", title: "Thoughts from Yui" }] } },
   };
 }

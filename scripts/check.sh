@@ -1,6 +1,6 @@
 #!/bin/bash
 # The same checks CI runs (.github/workflows/checks.yml), fastest first, so a red one stops here and not on main.
-#   scripts/check.sh          conformance (JS, Python, Rust), bench, share previews (og-check), site build
+#   scripts/check.sh          conformance (JS, Python, Rust), bench, share previews (og-check, live crawl), site build
 #   scripts/check.sh --fast   everything but the site build (a few seconds)
 # Exit 0 when green, 1 on the first red step. The pre-push hook (.githooks/pre-push) runs this.
 set -uo pipefail
@@ -34,6 +34,7 @@ step "bench"                bash -c 'cd bench && { [ -d node_modules ] || npm ci
 [ -d site/node_modules ] || step "site npm ci" bash -c 'cd site && npm ci --no-audit --no-fund'
 step "proposal credits"       bash -c 'cd site && node scripts/proposals-check.mjs'
 step "share previews (og-check)" bash -c 'cd site && node scripts/og-check.mjs'
+step "share previews (live crawl)" bash -c 'cd site && node scripts/share-previews.mjs'
 if [ "$fast" = 0 ]; then
   step "site build"         bash -c 'cd site && npm run build'
 fi
