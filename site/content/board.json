@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T17:05:10.292Z",
+  "updated": "2026-10-02T17:20:15.760Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -286,10 +286,6 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
-          "key": "SITE-176",
-          "title": "Thought, one decision on one screen, told in pictures"
-        },
-        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -374,8 +370,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-277",
-          "title": "/web asks on the same screen as what it asks about",
+          "key": "SITE-176",
+          "title": "Thought, one decision on one screen, told in pictures",
           "owner": "CJohnDesign"
         },
         {
@@ -404,6 +400,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-277",
+          "title": "/web asks on the same screen as what it asks about",
+          "summary": "A question now sits on the page it asks about, on web",
+          "shipped": "2026-10-02",
+          "progress": "/progress#a-question-now-sits-on-the-page-it-asks-about-on-web",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/eec744c5"
+        },
         {
           "key": "SITE-175",
           "title": "/developers/draw, edit any example's Yui Lines and the drawing redraws in place",

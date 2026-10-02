@@ -1,6 +1,212 @@
 {
   "builds": [
     {
+      "build": 450,
+      "date": "2026-10-02",
+      "uploaded": "2026-10-02T10:08:27-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Jev at two decision points, in shadow: the reply shape in the Hermes plugin and a tool router for the native crew, measured against today",
+          "card": "YUI-215"
+        },
+        {
+          "text": "testflight.sh refuses a second upload inside 24 h, --hotfix \"<reason>\" overrides [YUI-SHIP]"
+        },
+        {
+          "text": "Send up to 12 photos in one message; the native agent sees all 12"
+        },
+        {
+          "text": "testflight.sh --daily: one upload per calendar day for the 06:00 release cron; 24 h rule stays otherwise [YUI-SHIP]"
+        },
+        {
+          "text": "Last page keeps the mic: Back home and New chat sit on the page, and typed or spoken words go in with the picks as one answer",
+          "card": "YUI-208"
+        },
+        {
+          "text": "One line and a picture: the plugin rewrites a wall or a second prose bubble, in shadow first; guide v44; vis_score.py",
+          "card": "VIS-1"
+        },
+        {
+          "text": "The native crew gets the one-line gate: same rules as the plugin, shadow first with counts on the saved row",
+          "card": "VIS-3"
+        },
+        {
+          "text": "Photo limit is the server's number: photos_per_message (100) read by the app and yui-native, one send takes it all, uploads four at a time, 2000 px per side"
+        },
+        {
+          "text": "The photo cap is 10 per send: one number in the app, the runtime and yui_limits, a test for no 11th"
+        },
+        {
+          "text": "The stage packs up to 3 ideas on a page, line then drawing, scenes at half width so three fit the phone",
+          "card": "VIS-4"
+        },
+        {
+          "text": "The app draws a diagram and a mock: native SwiftUI views on chat and deck pages, Reduce Motion stills, older builds get the words; Swift and plugin parsers pass vectors 40 and 41",
+          "card": "DRAW-2"
+        },
+        {
+          "text": "UI tests: an 11th photo is refused with the flash; 10 photos in one send on a real account, the native agent names all 10; picker shot"
+        },
+        {
+          "text": "Settings: Account right under Appearance, Delete account in reach",
+          "card": "YUI-237"
+        },
+        {
+          "text": "Saved screens as widgets: app group copy, Saved screen widget (stat, chart, list, timer, card, timeline, table; small, medium, lock screen), Pin as widget on the shelf, widget tap opens the screen (YUI-40 step 1)"
+        },
+        {
+          "text": "Widget push relay: yui_widgets table, yui-widgets function (register, event, read), widgets push in yui-push with 15 minute coalescing, timer at once (YUI-40 step 4)"
+        },
+        {
+          "text": "Widget buttons, Siri intents and the widget relay in the app: +check toggles and cta on the widget, timer Start as a Live Activity intent, offline queue, push catch-up, pin registration, App Shortcuts, Talk to Yui control, indexed entities (YUI-40 steps 2 to 4)"
+        },
+        {
+          "text": "Widget button tests: gallery shows queue and last event, resets for UI tests, pin test waits for all four screens (YUI-40 steps 2 to 4)"
+        },
+        {
+          "text": "A tick made on a widget survives the next shelf publish (YUI-40 step 3)"
+        },
+        {
+          "text": "an agent coaches a timed workout: Start opens a session that runs on its own clock, coach cue per move, Next line on each rest, failure last set for heavy lifters only, finish writes the log",
+          "card": "YUI-220"
+        },
+        {
+          "text": "Basil's first plan: five questions on the first open build a week of meals from the answers",
+          "card": "YUI-221"
+        },
+        {
+          "text": "YuiLines reads flows and flow variants: Mermaid graph, route, event, variants; 26-flow and 36-flow-variant pass (YUI-115 step 1)"
+        },
+        {
+          "text": "The app runs flows: one step at a time on the stage, Back walks the path, review lists the path's answers, one {flow, path} event, a run kept by message and flow id survives a kill, starter flows website-intake and first-plan ship in the app, an unknown name shows a note and a way on (YUI-115 steps 2 and 3)"
+        },
+        {
+          "text": "Plugin: builds from 414 run flows, older ones still get the plan (YUI-115 step 4)"
+        },
+        {
+          "text": "Gouda's first plan: four questions on the first open build a week of practice from the answers, today's session and a timer on Practice",
+          "card": "YUI-222"
+        },
+        {
+          "text": "Penny's first routine: three questions on the first open set a planning slot on the day picked, busy days kept light, reminders in the style chosen",
+          "card": "YUI-223"
+        },
+        {
+          "text": "Quill's first study plan: three questions on the first open build a week of lessons and quizzes that fit the minutes picked, today's lesson on What you're studying",
+          "card": "YUI-224"
+        },
+        {
+          "text": "My flows: see, run and remove saved flows and variants",
+          "card": "YUI-238"
+        },
+        {
+          "text": "Stay signed in: a lost refresh reply no longer ends every session",
+          "card": "YUI-239"
+        },
+        {
+          "text": "Web sign in: a web Apple audience, client=web sessions, CORS for the site",
+          "card": "YUI-241"
+        },
+        {
+          "text": "Stage trash sits flush left, mirroring the mic's inset (YUI-251, NOTE-2295)"
+        },
+        {
+          "text": "Tune up is covered in light and dark: it lands on Gouda's last screen, the tuner, with no message and no crash (YUI-252, NOTE-18306)"
+        },
+        {
+          "text": "Past chats show in the drawer on a real account: old messages read as one Earlier chat, and a long chat scrolls back past the 100 it opens on (YUI-254, NOTE-54934)"
+        },
+        {
+          "text": "Siri logs food and starts the workout: Log my food opens Basil's camera, Tell Yui what I ate logs the words and says Logged, Start my workout opens the agent's session",
+          "card": "YUI-253"
+        },
+        {
+          "text": "YuiLines learns table create, put and query, with the table store",
+          "card": "YUI-89"
+        },
+        {
+          "text": "Agent tables on the phone: SQLite store per agent, query views, row events, delete, limits",
+          "card": "YUI-89"
+        },
+        {
+          "text": "Agent tables: rows that load before the thread knows its agent wait for it, streamed replies write once, UI tests for the starters and the agent's workouts",
+          "card": "YUI-89"
+        },
+        {
+          "text": "Start blank: a new empty agent opens on a five step setup flow and writes itself from the answers",
+          "card": "YUI-138"
+        },
+        {
+          "text": "Shortcuts, Spotlight and the Action button know every agent: an agent roster in the app group, Talk to an agent (default agent), Open an agent and Open a saved screen",
+          "card": "YUI-40"
+        },
+        {
+          "text": "The App Shortcuts test counts eight now",
+          "card": "YUI-40"
+        },
+        {
+          "text": "Your U in the left drawer: your picture and name top left, your coin and number top right, counts up once when it grew, Your U screen",
+          "card": "YUI-210"
+        },
+        {
+          "text": "yui-push: Web Push (VAPID) next to APNs, register_web, quiet clear and revoked pushes",
+          "card": "YUI-248"
+        },
+        {
+          "text": "Group threads in the app: New group sheet, groups in the agent list, group thread with handoff and guard rows, working rows with Stop, settings",
+          "card": "YUI-94"
+        },
+        {
+          "text": "Group rows: unit tests for the row mapping, @ and swipe-reply addressing, errors in words",
+          "card": "YUI-94"
+        },
+        {
+          "text": "Group e2e: two real Yui adapters in one group, handoff, guard, Let it, Stop, offline line",
+          "card": "YUI-94"
+        },
+        {
+          "text": "Groups: UI test on the sim with real hosts, light and dark; an offline agent waits instead of working; row fixes",
+          "card": "YUI-94"
+        },
+        {
+          "text": "Drafts follow the person across phone and web: yui_sync_state table and the app's DraftSync",
+          "card": "YUI-249"
+        },
+        {
+          "text": "ChatsRelayTests: a push opens the untitled first chat as Earlier once a second chat exists (YUI-254 renamed it; the 06:00 run held on this) [YUI-259]"
+        },
+        {
+          "text": "ChatsRelayTests: the push test waits for the chat list before reading the title (it raced and read Hi Basil) [YUI-259]"
+        },
+        {
+          "text": "memory.sh: peak limit 340 MB. A long chat now scrolls back through every older row (YUI-254), so the 500-row session draws all of it once: 310 MB for 13 s, steady 177, no new leaks, growth +6 [YUI-259]"
+        },
+        {
+          "text": "ChatView: a long chat draws one older batch per arrival at the top, not the whole thread at once; memory.sh peak limit back to 300 (peak 304 -> 180 MB, growth -6, 0 new leaks) [YUI-260]"
+        },
+        {
+          "text": "A push tap lands on the reply it names, and a reply that lands on the home comes up full screen: the tap matched row ids against the bare message id (rows are id#part) and the stage-first path was cut off by a chat-only staged check; arrivals open the stage on their own; a tap waits for a message not fetched yet [YUI-262]"
+        },
+        {
+          "text": "Hide Hermes cron failure lines from chat and push (feedback AOT6HtDztEGJPipFz9PrGK4)"
+        },
+        {
+          "text": "Menu button is a pill with the agent's name (feedback ANG8AA-7k)"
+        },
+        {
+          "text": "The stage's end screen never shows while a turn is in flight (feedback APO8y7eU_NQKRDyLpUdwhX0)"
+        },
+        {
+          "text": "A dismissed ask never comes back: Dismiss on Needs you rows, ASK-CLOSED and ASK-SNOOZED on the card",
+          "card": "YUI-265"
+        },
+        {
+          "text": "Merge pull request #6 from postscarcityai/claude/yuigui-redesign-16b071"
+        }
+      ]
+    },
+    {
       "build": 392,
       "date": "2026-09-30",
       "uploaded": "2026-09-30T09:25:53-07:00",
@@ -1766,201 +1972,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "Jev at two decision points, in shadow: the reply shape in the Hermes plugin and a tool router for the native crew, measured against today",
-      "card": "YUI-215"
-    },
-    {
-      "text": "testflight.sh refuses a second upload inside 24 h, --hotfix \"<reason>\" overrides [YUI-SHIP]"
-    },
-    {
-      "text": "Send up to 12 photos in one message; the native agent sees all 12"
-    },
-    {
-      "text": "testflight.sh --daily: one upload per calendar day for the 06:00 release cron; 24 h rule stays otherwise [YUI-SHIP]"
-    },
-    {
-      "text": "Last page keeps the mic: Back home and New chat sit on the page, and typed or spoken words go in with the picks as one answer",
-      "card": "YUI-208"
-    },
-    {
-      "text": "One line and a picture: the plugin rewrites a wall or a second prose bubble, in shadow first; guide v44; vis_score.py",
-      "card": "VIS-1"
-    },
-    {
-      "text": "The native crew gets the one-line gate: same rules as the plugin, shadow first with counts on the saved row",
-      "card": "VIS-3"
-    },
-    {
-      "text": "Photo limit is the server's number: photos_per_message (100) read by the app and yui-native, one send takes it all, uploads four at a time, 2000 px per side"
-    },
-    {
-      "text": "The photo cap is 10 per send: one number in the app, the runtime and yui_limits, a test for no 11th"
-    },
-    {
-      "text": "The stage packs up to 3 ideas on a page, line then drawing, scenes at half width so three fit the phone",
-      "card": "VIS-4"
-    },
-    {
-      "text": "The app draws a diagram and a mock: native SwiftUI views on chat and deck pages, Reduce Motion stills, older builds get the words; Swift and plugin parsers pass vectors 40 and 41",
-      "card": "DRAW-2"
-    },
-    {
-      "text": "UI tests: an 11th photo is refused with the flash; 10 photos in one send on a real account, the native agent names all 10; picker shot"
-    },
-    {
-      "text": "Settings: Account right under Appearance, Delete account in reach",
-      "card": "YUI-237"
-    },
-    {
-      "text": "Saved screens as widgets: app group copy, Saved screen widget (stat, chart, list, timer, card, timeline, table; small, medium, lock screen), Pin as widget on the shelf, widget tap opens the screen (YUI-40 step 1)"
-    },
-    {
-      "text": "Widget push relay: yui_widgets table, yui-widgets function (register, event, read), widgets push in yui-push with 15 minute coalescing, timer at once (YUI-40 step 4)"
-    },
-    {
-      "text": "Widget buttons, Siri intents and the widget relay in the app: +check toggles and cta on the widget, timer Start as a Live Activity intent, offline queue, push catch-up, pin registration, App Shortcuts, Talk to Yui control, indexed entities (YUI-40 steps 2 to 4)"
-    },
-    {
-      "text": "Widget button tests: gallery shows queue and last event, resets for UI tests, pin test waits for all four screens (YUI-40 steps 2 to 4)"
-    },
-    {
-      "text": "A tick made on a widget survives the next shelf publish (YUI-40 step 3)"
-    },
-    {
-      "text": "an agent coaches a timed workout: Start opens a session that runs on its own clock, coach cue per move, Next line on each rest, failure last set for heavy lifters only, finish writes the log",
-      "card": "YUI-220"
-    },
-    {
-      "text": "Basil's first plan: five questions on the first open build a week of meals from the answers",
-      "card": "YUI-221"
-    },
-    {
-      "text": "YuiLines reads flows and flow variants: Mermaid graph, route, event, variants; 26-flow and 36-flow-variant pass (YUI-115 step 1)"
-    },
-    {
-      "text": "The app runs flows: one step at a time on the stage, Back walks the path, review lists the path's answers, one {flow, path} event, a run kept by message and flow id survives a kill, starter flows website-intake and first-plan ship in the app, an unknown name shows a note and a way on (YUI-115 steps 2 and 3)"
-    },
-    {
-      "text": "Plugin: builds from 414 run flows, older ones still get the plan (YUI-115 step 4)"
-    },
-    {
-      "text": "Gouda's first plan: four questions on the first open build a week of practice from the answers, today's session and a timer on Practice",
-      "card": "YUI-222"
-    },
-    {
-      "text": "Penny's first routine: three questions on the first open set a planning slot on the day picked, busy days kept light, reminders in the style chosen",
-      "card": "YUI-223"
-    },
-    {
-      "text": "Quill's first study plan: three questions on the first open build a week of lessons and quizzes that fit the minutes picked, today's lesson on What you're studying",
-      "card": "YUI-224"
-    },
-    {
-      "text": "My flows: see, run and remove saved flows and variants",
-      "card": "YUI-238"
-    },
-    {
-      "text": "Stay signed in: a lost refresh reply no longer ends every session",
-      "card": "YUI-239"
-    },
-    {
-      "text": "Web sign in: a web Apple audience, client=web sessions, CORS for the site",
-      "card": "YUI-241"
-    },
-    {
-      "text": "Stage trash sits flush left, mirroring the mic's inset (YUI-251, NOTE-2295)"
-    },
-    {
-      "text": "Tune up is covered in light and dark: it lands on Gouda's last screen, the tuner, with no message and no crash (YUI-252, NOTE-18306)"
-    },
-    {
-      "text": "Past chats show in the drawer on a real account: old messages read as one Earlier chat, and a long chat scrolls back past the 100 it opens on (YUI-254, NOTE-54934)"
-    },
-    {
-      "text": "Siri logs food and starts the workout: Log my food opens Basil's camera, Tell Yui what I ate logs the words and says Logged, Start my workout opens the agent's session",
-      "card": "YUI-253"
-    },
-    {
-      "text": "YuiLines learns table create, put and query, with the table store",
-      "card": "YUI-89"
-    },
-    {
-      "text": "Agent tables on the phone: SQLite store per agent, query views, row events, delete, limits",
-      "card": "YUI-89"
-    },
-    {
-      "text": "Agent tables: rows that load before the thread knows its agent wait for it, streamed replies write once, UI tests for the starters and the agent's workouts",
-      "card": "YUI-89"
-    },
-    {
-      "text": "Start blank: a new empty agent opens on a five step setup flow and writes itself from the answers",
-      "card": "YUI-138"
-    },
-    {
-      "text": "Shortcuts, Spotlight and the Action button know every agent: an agent roster in the app group, Talk to an agent (default agent), Open an agent and Open a saved screen",
-      "card": "YUI-40"
-    },
-    {
-      "text": "The App Shortcuts test counts eight now",
-      "card": "YUI-40"
-    },
-    {
-      "text": "Your U in the left drawer: your picture and name top left, your coin and number top right, counts up once when it grew, Your U screen",
-      "card": "YUI-210"
-    },
-    {
-      "text": "yui-push: Web Push (VAPID) next to APNs, register_web, quiet clear and revoked pushes",
-      "card": "YUI-248"
-    },
-    {
-      "text": "Group threads in the app: New group sheet, groups in the agent list, group thread with handoff and guard rows, working rows with Stop, settings",
-      "card": "YUI-94"
-    },
-    {
-      "text": "Group rows: unit tests for the row mapping, @ and swipe-reply addressing, errors in words",
-      "card": "YUI-94"
-    },
-    {
-      "text": "Group e2e: two real Yui adapters in one group, handoff, guard, Let it, Stop, offline line",
-      "card": "YUI-94"
-    },
-    {
-      "text": "Groups: UI test on the sim with real hosts, light and dark; an offline agent waits instead of working; row fixes",
-      "card": "YUI-94"
-    },
-    {
-      "text": "Drafts follow the person across phone and web: yui_sync_state table and the app's DraftSync",
-      "card": "YUI-249"
-    },
-    {
-      "text": "ChatsRelayTests: a push opens the untitled first chat as Earlier once a second chat exists (YUI-254 renamed it; the 06:00 run held on this) [YUI-259]"
-    },
-    {
-      "text": "ChatsRelayTests: the push test waits for the chat list before reading the title (it raced and read Hi Basil) [YUI-259]"
-    },
-    {
-      "text": "memory.sh: peak limit 340 MB. A long chat now scrolls back through every older row (YUI-254), so the 500-row session draws all of it once: 310 MB for 13 s, steady 177, no new leaks, growth +6 [YUI-259]"
-    },
-    {
-      "text": "ChatView: a long chat draws one older batch per arrival at the top, not the whole thread at once; memory.sh peak limit back to 300 (peak 304 -> 180 MB, growth -6, 0 new leaks) [YUI-260]"
-    },
-    {
-      "text": "A push tap lands on the reply it names, and a reply that lands on the home comes up full screen: the tap matched row ids against the bare message id (rows are id#part) and the stage-first path was cut off by a chat-only staged check; arrivals open the stage on their own; a tap waits for a message not fetched yet [YUI-262]"
-    },
-    {
-      "text": "Hide Hermes cron failure lines from chat and push (feedback AOT6HtDztEGJPipFz9PrGK4)"
-    },
-    {
-      "text": "Menu button is a pill with the agent's name (feedback ANG8AA-7k)"
-    },
-    {
-      "text": "The stage's end screen never shows while a turn is in flight (feedback APO8y7eU_NQKRDyLpUdwhX0)"
-    },
-    {
-      "text": "A dismissed ask never comes back: Dismiss on Needs you rows, ASK-CLOSED and ASK-SNOOZED on the card",
-      "card": "YUI-265"
-    }
-  ]
+  "next": []
 }
