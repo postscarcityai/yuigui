@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T08:25:49.872Z",
+  "updated": "2026-10-02T08:35:51.716Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -172,11 +172,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-265",
-          "title": "An ask you dismiss never comes back",
-          "waiting": true
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -281,6 +276,10 @@
           "waiting": true
         },
         {
+          "key": "YUI-270",
+          "title": "/web review rows get Dismiss and Not yet, like the app (YUI-265 twin)"
+        },
+        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -351,6 +350,11 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "YUI-265",
+          "title": "An ask you dismiss never comes back",
+          "owner": "CJohnDesign"
         },
         {
           "key": "YUI-267",
