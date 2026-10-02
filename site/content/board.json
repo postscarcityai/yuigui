@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T08:35:51.716Z",
+  "updated": "2026-10-02T08:55:54.428Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -276,10 +276,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-270",
-          "title": "/web review rows get Dismiss and Not yet, like the app (YUI-265 twin)"
-        },
-        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -352,8 +348,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-265",
-          "title": "An ask you dismiss never comes back",
+          "key": "YUI-270",
+          "title": "/web review rows get Dismiss and Not yet, like the app (YUI-265 twin)",
           "owner": "CJohnDesign"
         },
         {
@@ -375,6 +371,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-265",
+          "title": "An ask you dismiss never comes back",
+          "shipped": "2026-10-02",
+          "progress": "/progress#an-ask-you-dismiss-never-comes-back",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8c3013c9"
+        },
         {
           "key": "YUI-269",
           "title": "/web scrolls back past the newest 100 rows, fetching older ones from the server",
