@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T03:37:00.896Z",
+  "updated": "2026-10-02T06:32:01.399Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -374,15 +374,16 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "NOTE-50620",
-          "title": "Agent name on the menu button",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-267",
           "title": "Drawings that look designed",
           "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-50620",
+          "title": "Agent name on the menu button",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
