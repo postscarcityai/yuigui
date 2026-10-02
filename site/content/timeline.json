@@ -1,19 +1,1376 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 436,
-    "site": 1113,
-    "builds": 51,
-    "shipped": 541,
-    "screenshots": 1431
+    "app": 442,
+    "site": 1218,
+    "builds": 52,
+    "shipped": 570,
+    "screenshots": 1500
   },
   "days": [
+    {
+      "date": "2026-10-02",
+      "moments": [
+        {
+          "kind": "ship",
+          "at": "2026-10-02T17:35:12.349Z",
+          "title": "Release Thought for build 450: the stage, redrawn",
+          "card": "SITE-177",
+          "anchor": "release-thought-for-build-450-the-stage-redrawn",
+          "images": [
+            {
+              "src": "/progress/stage-redesign-ledger.webp",
+              "alt": "Dark mode: a reply as a ledger with a tick, dot, arrow and cross"
+            },
+            {
+              "src": "/progress/feedback-menu-pill-after-dark.webp",
+              "alt": "Dark mode: the menu pill with the agent's name"
+            },
+            {
+              "src": "/progress/yui265-dismiss-dark.webp",
+              "alt": "Dark mode: Dismiss on an ask"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 442,
+            "site": 1218,
+            "builds": 52,
+            "shipped": 570
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T17:28:53.000Z",
+          "title": "The stage, redrawn as a blueprint",
+          "card": null,
+          "anchor": "the-stage-redrawn-as-a-blueprint",
+          "images": [
+            {
+              "src": "/progress/stage-redesign-ledger.webp",
+              "alt": "Dark, phone width: four rows with a tick, a dot, an arrow and a cross, each with a small label and a larger value"
+            },
+            {
+              "src": "/progress/stage-redesign-mock.webp",
+              "alt": "Dark, phone width: a headline above a thin blueprint drawing of the drawer, with two numbered notes beneath it"
+            },
+            {
+              "src": "/progress/stage-redesign-draw.webp",
+              "alt": "Dark, phone width: a push banner drawn on one phone, an arrow, and the full-screen reply on a second phone"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 442,
+            "site": 1217,
+            "builds": 52,
+            "shipped": 569
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T17:20:22.000Z",
+          "title": "One decision, one screen, told in pictures",
+          "card": [
+            "SITE-176"
+          ],
+          "anchor": "one-decision-one-screen-told-in-pictures",
+          "images": [
+            {
+              "src": "/progress/site176-split-question-light.webp",
+              "alt": "Light, phone width: a question screen that asks which drawing look to use, with buttons A, B and C and nothing to look at"
+            },
+            {
+              "src": "/progress/site176-one-screen-light.webp",
+              "alt": "Light, phone width: the look, the three looks as small pictures and the question with its options, all on one screen"
+            },
+            {
+              "src": "/progress/site176-split-question-dark.webp",
+              "alt": "Dark, phone width: the same question screen with nothing to look at"
+            },
+            {
+              "src": "/progress/site176-one-screen-dark.webp",
+              "alt": "Dark, phone width: the same one-screen version"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 442,
+            "site": 1214,
+            "builds": 52,
+            "shipped": 568
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T17:15:17.000Z",
+          "title": "A question now sits on the page it asks about, on web",
+          "card": [
+            "YUI-277"
+          ],
+          "anchor": "a-question-now-sits-on-the-page-it-asks-about-on-web",
+          "images": [
+            {
+              "src": "/progress/yui277-before-page-dark.jpg",
+              "alt": "Before, dark: the last look, Chalk, on a screen with no question and a Next button."
+            },
+            {
+              "src": "/progress/yui277-before-question-dark.jpg",
+              "alt": "Before, dark: the next screen holds only the question Which drawing look should Yui use, with no pictures to compare."
+            },
+            {
+              "src": "/progress/yui277-after-dark.jpg",
+              "alt": "After, dark: look C, then looks A, B and C as small pictures, then the question and its options, all on one screen."
+            },
+            {
+              "src": "/progress/yui277-after-light.jpg",
+              "alt": "After, light: the same screen in the light theme."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 442,
+            "site": 1213,
+            "builds": 52,
+            "shipped": 567
+          }
+        },
+        {
+          "kind": "build",
+          "at": "2026-10-02T17:08:27.000Z",
+          "build": 450,
+          "changes": 56,
+          "totals": {
+            "app": 442,
+            "site": 1212,
+            "builds": 52,
+            "shipped": 566
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T16:36:02.000Z",
+          "title": "Edit any drawing and watch it change",
+          "card": [
+            "SITE-175"
+          ],
+          "anchor": "edit-any-drawing-and-watch-it-change",
+          "images": [
+            {
+              "src": "/progress/site175-draw-edit-light.jpg",
+              "alt": "The Draw page in light mode: the Shapes example after its lines were edited, the phone showing the new drawing"
+            },
+            {
+              "src": "/progress/site175-draw-edit-dark.jpg",
+              "alt": "The Draw page in dark mode on a phone: an edited Shapes example drawn from the changed lines"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1209,
+            "builds": 51,
+            "shipped": 566
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T16:01:04.000Z",
+          "title": "Everything Yui can draw, on one page",
+          "card": [
+            "SITE-174"
+          ],
+          "anchor": "everything-yui-can-draw-on-one-page",
+          "images": [
+            {
+              "src": "/progress/site174-draw-flow.jpg",
+              "alt": "The Draw page in light mode: a phone drawing the flowchart How an ask ships, with its Yui Lines beside it"
+            },
+            {
+              "src": "/progress/site174-draw-map.jpg",
+              "alt": "The Draw page in dark mode: a phone drawing a map of the Mongol Empire, with its Yui Lines beside it"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1207,
+            "builds": 51,
+            "shipped": 565
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T15:07:47.000Z",
+          "title": "One decision, one screen",
+          "card": [
+            "SITE-173"
+          ],
+          "anchor": "one-decision-one-screen",
+          "images": [
+            {
+              "src": "/progress/site173-one-decision-one-screen.webp",
+              "alt": "A phone showing two small screens: Split in two, with the drawings page and the Which look question each struck out as context alone and answers alone, and One screen, with Three drawings, the question and the A, B and C buttons together"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1203,
+            "builds": 51,
+            "shipped": 564
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T14:46:12.000Z",
+          "title": "The web film, re-shot with today's faster /web",
+          "card": [
+            "SITE-172"
+          ],
+          "anchor": "the-web-film-re-shot-with-today-s-faster-web",
+          "images": [
+            {
+              "src": "/progress/site172-web-film-poster.jpg",
+              "alt": "A laptop and a phone showing Yui on the web, the home with a Needs you row dismissed, under the captions Not now? Dismiss. One tap. It stays gone."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1199,
+            "builds": 51,
+            "shipped": 563
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T14:29:14.000Z",
+          "title": "Group chats open already drawn on web",
+          "card": [
+            "YUI-275"
+          ],
+          "anchor": "group-chats-open-already-drawn-on-web",
+          "images": [
+            {
+              "src": "/progress/yui275-web-group-cached-dark.webp",
+              "alt": "Dark: bars before and after. Group chat repeat visit first real row 1074 to 459 ms, one agent chat 500 to 451 ms, group cold visit 3515 to 3532 ms."
+            },
+            {
+              "src": "/progress/yui275-web-group-cached-light.webp",
+              "alt": "Light: the same before and after bars."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1196,
+            "builds": 51,
+            "shipped": 562
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T14:11:34.000Z",
+          "title": "Every page shares with its own picture and title",
+          "card": [
+            "SITE-171"
+          ],
+          "anchor": "every-page-shares-with-its-own-picture-and-title",
+          "images": [
+            {
+              "src": "/progress/site171-home.webp",
+              "alt": "The home page card: its own fixed picture."
+            },
+            {
+              "src": "/progress/site171-screen.webp",
+              "alt": "A share link card for a screen, drawn from the screen itself."
+            },
+            {
+              "src": "/progress/site171-thought.webp",
+              "alt": "A Thought card with the post's own picture and title."
+            },
+            {
+              "src": "/progress/site171-spec.webp",
+              "alt": "A spec page card, titled with the spec's name."
+            },
+            {
+              "src": "/progress/site171-shipped.webp",
+              "alt": "The Shipped page card."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1193,
+            "builds": 51,
+            "shipped": 561
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T13:37:45.000Z",
+          "title": "How the web app got fast, in pictures",
+          "card": [
+            "SITE-170"
+          ],
+          "anchor": "how-the-web-app-got-fast-in-pictures",
+          "images": [
+            {
+              "src": "/progress/site170-post-390-light.webp",
+              "alt": "Light, phone width: the top of the post How the web app got fast, with a drag to wipe compare of grey loading bubbles against a last chat already drawn."
+            },
+            {
+              "src": "/progress/site170-post-390-dark.webp",
+              "alt": "Dark, phone width: the same post top and compare."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1188,
+            "builds": 51,
+            "shipped": 560
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T13:04:27.000Z",
+          "title": "How fast /web opens, in two charts",
+          "card": [
+            "SITE-169"
+          ],
+          "anchor": "how-fast-web-opens-in-two-charts",
+          "images": [
+            {
+              "src": "/progress/site169-speed-390-dark.webp",
+              "alt": "Dark, phone width: two bar charts. Script on the page after 5 s, 466 KB before and 359 KB after. Repeat visit first chat row, 2057 ms before and 452 ms after."
+            },
+            {
+              "src": "/progress/site169-speed-390-light.webp",
+              "alt": "Light, phone width: the same two bar charts."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1184,
+            "builds": 51,
+            "shipped": 559
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T13:03:03.000Z",
+          "title": "Web opens a second faster the first time",
+          "card": [
+            "YUI-274"
+          ],
+          "anchor": "web-opens-a-second-faster-the-first-time",
+          "images": [
+            {
+              "src": "/progress/yui274-web-cold-reads-dark.webp",
+              "alt": "Dark: bars before and after. Cold visit first real row 4024 to 3013 ms, repeat visit 449 to 452 ms."
+            },
+            {
+              "src": "/progress/yui274-web-cold-reads-light.webp",
+              "alt": "Light: the same before and after bars."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1183,
+            "builds": 51,
+            "shipped": 558
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T12:15:33.000Z",
+          "title": "Web opens on your last chat",
+          "card": [
+            "YUI-273"
+          ],
+          "anchor": "web-opens-on-your-last-chat",
+          "images": [
+            {
+              "src": "/progress/yui273-web-repeat-visit-dark.webp",
+              "alt": "Dark: bars before and after. Repeat visit first real row 2057 to 452 ms, cold visit first real row 4025 to 4020 ms."
+            },
+            {
+              "src": "/progress/yui273-web-repeat-visit-light.webp",
+              "alt": "Light: the same before and after bars."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1180,
+            "builds": 51,
+            "shipped": 557
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T11:21:05.000Z",
+          "title": "The web app shows a chat sooner",
+          "card": [
+            "YUI-272"
+          ],
+          "anchor": "the-web-app-shows-a-chat-sooner",
+          "images": [
+            {
+              "src": "/progress/yui272-web-first-screen-dark.webp",
+              "alt": "Dark: bars before and after. Script before the first row 243 to 237 KB, after settling 364 to 359 KB, first row 2519 to 2517 ms, chat-shaped screen 2519 to 1005 ms."
+            },
+            {
+              "src": "/progress/yui272-web-first-screen-light.webp",
+              "alt": "Light: the same before and after bars."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1176,
+            "builds": 51,
+            "shipped": 556
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T10:07:47.000Z",
+          "title": "The web app, made faster",
+          "card": [
+            "YUI-271"
+          ],
+          "anchor": "the-web-app-made-faster",
+          "images": [
+            {
+              "src": "/progress/yui271-web-speed-dark.webp",
+              "alt": "Dark: bars for script before the first row 263 to 243 KB, script after settling 466 to 364 KB, memory 10.0 to 8.9 MB."
+            },
+            {
+              "src": "/progress/yui271-web-speed-light.webp",
+              "alt": "Light: the same before and after bars."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1172,
+            "builds": 51,
+            "shipped": 555
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T09:16:40.000Z",
+          "title": "Dismiss and Not yet on the web",
+          "card": [
+            "YUI-270"
+          ],
+          "anchor": "dismiss-and-not-yet-on-the-web",
+          "images": [
+            {
+              "src": "/progress/yui270-web-dismiss-dark.webp",
+              "alt": "Dark: the web home for Penny, a Waiting on you row with Not yet and Dismiss under it."
+            },
+            {
+              "src": "/progress/yui270-web-dismiss-light.webp",
+              "alt": "Light: the same web home with Not yet and Dismiss under the ask."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1169,
+            "builds": 51,
+            "shipped": 554
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T08:47:29.000Z",
+          "title": "An ask you dismiss never comes back",
+          "card": [
+            "YUI-265"
+          ],
+          "anchor": "an-ask-you-dismiss-never-comes-back",
+          "images": [
+            {
+              "src": "/progress/yui265-dismiss-dark.webp",
+              "alt": "Dark: the drawer's Review tab with two asks, each with a Dismiss button under it."
+            },
+            {
+              "src": "/progress/yui265-dismiss-light.webp",
+              "alt": "Light: the same Review tab with two asks and a Dismiss button on each."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 441,
+            "site": 1166,
+            "builds": 51,
+            "shipped": 553
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T07:59:10.000Z",
+          "title": "Web chats scroll back to the first message",
+          "card": [
+            "YUI-269"
+          ],
+          "anchor": "web-chats-scroll-back-to-the-first-message",
+          "images": [
+            {
+              "src": "/progress/web-scrollback-dark.webp",
+              "alt": "Dark, phone width: the top of a long chat on the web, Earlier answer 1 under the date Wed 30 Sep."
+            },
+            {
+              "src": "/progress/web-scrollback-light.webp",
+              "alt": "Light, phone width: the top of a long chat on the web, Earlier answer 1 under the date Wed 30 Sep."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 440,
+            "site": 1160,
+            "builds": 51,
+            "shipped": 552
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T07:40:58.000Z",
+          "title": "No end screen while the agent is still working",
+          "card": [
+            "NOTE-35762",
+            "APO8y7eU_NQKRDyLpUdwhX0"
+          ],
+          "anchor": "no-end-screen-while-the-agent-is-still-working",
+          "images": [
+            {
+              "src": "/progress/feedback-in-flight-before-dark.webp",
+              "alt": "Before, dark: the end screen Anything else? over the transcript while the agent is still working."
+            },
+            {
+              "src": "/progress/feedback-in-flight-dark-working.webp",
+              "alt": "After, dark: the stage stays on the working state, On its way, until the reply lands."
+            },
+            {
+              "src": "/progress/feedback-in-flight-dark-answered.webp",
+              "alt": "After, dark: the reply on the stage once it lands."
+            },
+            {
+              "src": "/progress/feedback-in-flight-light-working.webp",
+              "alt": "After, light: the same working state."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 440,
+            "site": 1158,
+            "builds": 51,
+            "shipped": 551
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T07:09:20.000Z",
+          "title": "The web catches up to the phone's Oct 1 fixes",
+          "card": [
+            "YUI-268"
+          ],
+          "anchor": "the-web-catches-up-to-the-phone-s-oct-1-fixes",
+          "images": [
+            {
+              "src": "/progress/web-oct1-trash-dark.webp",
+              "alt": "Dark, phone width: Penny is listening, the trash bottom left and the mic bottom right."
+            },
+            {
+              "src": "/progress/web-oct1-trash-light.webp",
+              "alt": "Light, phone width: Penny is listening, the trash bottom left and the mic bottom right."
+            },
+            {
+              "src": "/progress/web-oct1-tune-dark.webp",
+              "alt": "Dark, phone width: Gouda's Tuner screen, opened by Tune up with no message sent."
+            },
+            {
+              "src": "/progress/web-oct1-tune-light.webp",
+              "alt": "Light, phone width: Gouda's Tuner screen, opened by Tune up with no message sent."
+            },
+            {
+              "src": "/progress/web-oct1-long-dark.webp",
+              "alt": "Dark, phone width: a long chat showing its newest rows."
+            },
+            {
+              "src": "/progress/web-oct1-long-light.webp",
+              "alt": "Light, phone width: a long chat showing its newest rows."
+            },
+            {
+              "src": "/progress/web-oct1-push-dark.webp",
+              "alt": "Dark, phone width: the reply a push click named, full screen."
+            },
+            {
+              "src": "/progress/web-oct1-push-light.webp",
+              "alt": "Light, phone width: the reply a push click named, full screen."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 439,
+            "site": 1153,
+            "builds": 51,
+            "shipped": 550
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T06:43:57.000Z",
+          "title": "The menu button names your agent",
+          "card": [
+            "NOTE-50620",
+            "ANG8AA-7k6WmMJEx633zmMg"
+          ],
+          "anchor": "the-menu-button-names-your-agent",
+          "images": [
+            {
+              "src": "/progress/feedback-menu-pill-before-dark.webp",
+              "alt": "Before, dark: the top-left menu is a bare round hamburger button, no sign of which agent you are in."
+            },
+            {
+              "src": "/progress/feedback-menu-pill-after-dark.webp",
+              "alt": "After, dark: a pill with the hamburger, an orange C chip and the name Coach."
+            },
+            {
+              "src": "/progress/feedback-menu-pill-long-dark.webp",
+              "alt": "Dark: a long agent name, Coach of the Quarterly Planning Council, truncated with an ellipsis inside the pill."
+            },
+            {
+              "src": "/progress/feedback-menu-pill-long-light.webp",
+              "alt": "Light: the same long name truncated in the pill."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 439,
+            "site": 1148,
+            "builds": 51,
+            "shipped": 549
+          }
+        }
+      ],
+      "commits": [
+        {
+          "repo": "site",
+          "sha": "f46969c8",
+          "at": "2026-10-02T17:30:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f46969c8"
+        },
+        {
+          "repo": "site",
+          "sha": "618aa9f1",
+          "at": "2026-10-02T17:28:53.000Z",
+          "text": "Progress: the stage redrawn as a blueprint (build 450)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/618aa9f1"
+        },
+        {
+          "repo": "site",
+          "sha": "bb6d8bcc",
+          "at": "2026-10-02T17:25:14.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bb6d8bcc"
+        },
+        {
+          "repo": "site",
+          "sha": "31452902",
+          "at": "2026-10-02T17:20:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/31452902"
+        },
+        {
+          "repo": "site",
+          "sha": "c7276e92",
+          "at": "2026-10-02T17:20:22.000Z",
+          "text": "SITE-176: Thought, one decision on one screen, told in pictures",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c7276e92"
+        },
+        {
+          "repo": "site",
+          "sha": "eec744c5",
+          "at": "2026-10-02T17:15:17.000Z",
+          "text": "web: a plan question draws on the page it asks about (YUI-277)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/eec744c5"
+        },
+        {
+          "repo": "site",
+          "sha": "52401ee7",
+          "at": "2026-10-02T17:05:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/52401ee7"
+        },
+        {
+          "repo": "app",
+          "sha": "ac0f3a9",
+          "at": "2026-10-02T17:01:55.000Z",
+          "text": "Merge pull request #6 from postscarcityai/claude/yuigui-redesign-16b071",
+          "url": "https://github.com/postscarcityai/yui/commit/ac0f3a9"
+        },
+        {
+          "repo": "site",
+          "sha": "9158a453",
+          "at": "2026-10-02T16:51:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9158a453"
+        },
+        {
+          "repo": "site",
+          "sha": "fabe2cb2",
+          "at": "2026-10-02T16:36:37.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fabe2cb2"
+        },
+        {
+          "repo": "site",
+          "sha": "5eb3651f",
+          "at": "2026-10-02T16:36:02.000Z",
+          "text": "Draw page: edit any example's Yui Lines and the drawing redraws in place",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5eb3651f"
+        },
+        {
+          "repo": "site",
+          "sha": "d7d1b1dd",
+          "at": "2026-10-02T16:22:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d7d1b1dd"
+        },
+        {
+          "repo": "site",
+          "sha": "b0671419",
+          "at": "2026-10-02T16:01:04.000Z",
+          "text": "SITE-174: /developers/draw, every drawing part live with its Yui Lines",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b0671419"
+        },
+        {
+          "repo": "site",
+          "sha": "b375c482",
+          "at": "2026-10-02T15:52:55.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b375c482"
+        },
+        {
+          "repo": "site",
+          "sha": "76da02b5",
+          "at": "2026-10-02T15:20:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/76da02b5"
+        },
+        {
+          "repo": "site",
+          "sha": "378de8f6",
+          "at": "2026-10-02T15:10:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/378de8f6"
+        },
+        {
+          "repo": "site",
+          "sha": "4901027f",
+          "at": "2026-10-02T15:07:47.000Z",
+          "text": "values: one decision, one screen (SITE-173)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4901027f"
+        },
+        {
+          "repo": "site",
+          "sha": "206dc91e",
+          "at": "2026-10-02T15:05:50.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/206dc91e"
+        },
+        {
+          "repo": "site",
+          "sha": "892bf0a4",
+          "at": "2026-10-02T15:00:43.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/892bf0a4"
+        },
+        {
+          "repo": "site",
+          "sha": "88c2835d",
+          "at": "2026-10-02T14:50:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/88c2835d"
+        },
+        {
+          "repo": "site",
+          "sha": "8f1ce241",
+          "at": "2026-10-02T14:46:12.000Z",
+          "text": "SITE-172: the Yui on the web film re-shot with today's faster /web",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8f1ce241"
+        },
+        {
+          "repo": "site",
+          "sha": "809a8461",
+          "at": "2026-10-02T14:40:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/809a8461"
+        },
+        {
+          "repo": "site",
+          "sha": "5351e846",
+          "at": "2026-10-02T14:35:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5351e846"
+        },
+        {
+          "repo": "site",
+          "sha": "ea9b1ee7",
+          "at": "2026-10-02T14:29:14.000Z",
+          "text": "YUI-275: /web opens a group chat already drawn from the cache",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ea9b1ee7"
+        },
+        {
+          "repo": "site",
+          "sha": "476e4aa2",
+          "at": "2026-10-02T14:20:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/476e4aa2"
+        },
+        {
+          "repo": "site",
+          "sha": "73843140",
+          "at": "2026-10-02T14:15:40.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/73843140"
+        },
+        {
+          "repo": "site",
+          "sha": "363458af",
+          "at": "2026-10-02T14:11:34.000Z",
+          "text": "SITE-171: progress entry, preview gallery, crawl table",
+          "url": "https://github.com/postscarcityai/yuigui/commit/363458af"
+        },
+        {
+          "repo": "site",
+          "sha": "cec670d5",
+          "at": "2026-10-02T14:06:11.000Z",
+          "text": "SITE-171: every page's share card fits one line, live crawl check",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cec670d5"
+        },
+        {
+          "repo": "site",
+          "sha": "84daf261",
+          "at": "2026-10-02T14:05:45.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/84daf261"
+        },
+        {
+          "repo": "site",
+          "sha": "a6a82c33",
+          "at": "2026-10-02T13:45:34.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a6a82c33"
+        },
+        {
+          "repo": "site",
+          "sha": "40358e1a",
+          "at": "2026-10-02T13:40:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/40358e1a"
+        },
+        {
+          "repo": "site",
+          "sha": "19ba675b",
+          "at": "2026-10-02T13:37:45.000Z",
+          "text": "Thought: how the web app got fast, in pictures (SITE-170)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/19ba675b"
+        },
+        {
+          "repo": "site",
+          "sha": "5a61abac",
+          "at": "2026-10-02T13:35:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5a61abac"
+        },
+        {
+          "repo": "site",
+          "sha": "ebf73f25",
+          "at": "2026-10-02T13:10:30.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ebf73f25"
+        },
+        {
+          "repo": "site",
+          "sha": "1a590267",
+          "at": "2026-10-02T13:05:36.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1a590267"
+        },
+        {
+          "repo": "site",
+          "sha": "d689df20",
+          "at": "2026-10-02T13:04:27.000Z",
+          "text": "SITE-169: How fast it opens, two charts in the web group",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d689df20"
+        },
+        {
+          "repo": "site",
+          "sha": "56c08b08",
+          "at": "2026-10-02T13:03:03.000Z",
+          "text": "YUI-274: /web cold visit starts its reads while the session renews",
+          "url": "https://github.com/postscarcityai/yuigui/commit/56c08b08"
+        },
+        {
+          "repo": "site",
+          "sha": "58280375",
+          "at": "2026-10-02T12:35:32.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/58280375"
+        },
+        {
+          "repo": "site",
+          "sha": "16d3edc9",
+          "at": "2026-10-02T12:20:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/16d3edc9"
+        },
+        {
+          "repo": "site",
+          "sha": "16add230",
+          "at": "2026-10-02T12:15:33.000Z",
+          "text": "web: a repeat visit opens on the last chat, kept rows draw before the live read (YUI-273)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/16add230"
+        },
+        {
+          "repo": "site",
+          "sha": "fbb79907",
+          "at": "2026-10-02T12:05:27.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fbb79907"
+        },
+        {
+          "repo": "site",
+          "sha": "c764bf86",
+          "at": "2026-10-02T11:35:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c764bf86"
+        },
+        {
+          "repo": "site",
+          "sha": "07b8bac8",
+          "at": "2026-10-02T11:30:18.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/07b8bac8"
+        },
+        {
+          "repo": "site",
+          "sha": "16822c62",
+          "at": "2026-10-02T11:21:05.000Z",
+          "text": "web: demo kit as its own chunk, grey chat skeleton, 404 scene off the first-row path (YUI-272)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/16822c62"
+        },
+        {
+          "repo": "site",
+          "sha": "a4df9663",
+          "at": "2026-10-02T11:05:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a4df9663"
+        },
+        {
+          "repo": "site",
+          "sha": "69a4714c",
+          "at": "2026-10-02T10:36:19.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/69a4714c"
+        },
+        {
+          "repo": "site",
+          "sha": "58fd09c3",
+          "at": "2026-10-02T10:11:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/58fd09c3"
+        },
+        {
+          "repo": "site",
+          "sha": "10945b01",
+          "at": "2026-10-02T10:07:47.000Z",
+          "text": "Speed up /web: lazy sheets, KaTeX and presets, timed before and after (YUI-271)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/10945b01"
+        },
+        {
+          "repo": "site",
+          "sha": "2bf3cfbf",
+          "at": "2026-10-02T09:36:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2bf3cfbf"
+        },
+        {
+          "repo": "site",
+          "sha": "9eb7de21",
+          "at": "2026-10-02T09:21:00.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/9eb7de21"
+        },
+        {
+          "repo": "site",
+          "sha": "6c255c14",
+          "at": "2026-10-02T09:16:40.000Z",
+          "text": "Dismiss and Not yet on /web Needs you rows, like the app (YUI-270)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/6c255c14"
+        },
+        {
+          "repo": "site",
+          "sha": "54671985",
+          "at": "2026-10-02T09:11:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/54671985"
+        },
+        {
+          "repo": "site",
+          "sha": "e4a33e0c",
+          "at": "2026-10-02T08:55:55.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e4a33e0c"
+        },
+        {
+          "repo": "site",
+          "sha": "8c3013c9",
+          "at": "2026-10-02T08:47:29.000Z",
+          "text": "progress: an ask you dismiss never comes back (YUI-265)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8c3013c9"
+        },
+        {
+          "repo": "app",
+          "sha": "cca1842",
+          "at": "2026-10-02T08:47:01.000Z",
+          "text": "A dismissed ask never comes back: Dismiss on Needs you rows, ASK-CLOSED and ASK-SNOOZED on the card (YUI-265)",
+          "url": "https://github.com/postscarcityai/yui/commit/cca1842"
+        },
+        {
+          "repo": "site",
+          "sha": "970cf357",
+          "at": "2026-10-02T08:35:52.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/970cf357"
+        },
+        {
+          "repo": "site",
+          "sha": "4c9e13a3",
+          "at": "2026-10-02T08:25:50.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4c9e13a3"
+        },
+        {
+          "repo": "site",
+          "sha": "abe6d4ba",
+          "at": "2026-10-02T08:05:48.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/abe6d4ba"
+        },
+        {
+          "repo": "site",
+          "sha": "07a37714",
+          "at": "2026-10-02T08:01:54.000Z",
+          "text": "progress: link NOTE-35762 to the no-early-end entry",
+          "url": "https://github.com/postscarcityai/yuigui/commit/07a37714"
+        },
+        {
+          "repo": "site",
+          "sha": "8030fccb",
+          "at": "2026-10-02T08:00:49.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/8030fccb"
+        },
+        {
+          "repo": "site",
+          "sha": "baafc31d",
+          "at": "2026-10-02T07:59:10.000Z",
+          "text": "web: prove scroll-back past the newest 100 rows, parity row, progress entry (YUI-269)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/baafc31d"
+        },
+        {
+          "repo": "site",
+          "sha": "937fd9e0",
+          "at": "2026-10-02T07:45:45.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/937fd9e0"
+        },
+        {
+          "repo": "site",
+          "sha": "61b3ad88",
+          "at": "2026-10-02T07:40:58.000Z",
+          "text": "Progress: no end screen while the agent is still working (APO8y7eU_NQKRDyLpUdwhX0)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/61b3ad88"
+        },
+        {
+          "repo": "site",
+          "sha": "7241b853",
+          "at": "2026-10-02T07:40:56.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7241b853"
+        },
+        {
+          "repo": "app",
+          "sha": "e3b9290",
+          "at": "2026-10-02T07:40:37.000Z",
+          "text": "The stage's end screen never shows while a turn is in flight (feedback APO8y7eU_NQKRDyLpUdwhX0)",
+          "url": "https://github.com/postscarcityai/yui/commit/e3b9290"
+        },
+        {
+          "repo": "site",
+          "sha": "d50b55bc",
+          "at": "2026-10-02T07:35:44.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d50b55bc"
+        },
+        {
+          "repo": "site",
+          "sha": "dc19d3c0",
+          "at": "2026-10-02T07:15:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dc19d3c0"
+        },
+        {
+          "repo": "site",
+          "sha": "96a05a5e",
+          "at": "2026-10-02T07:11:58.000Z",
+          "text": "web: add the gouda fixture ThreadApp imports (YUI-268), main build was red",
+          "url": "https://github.com/postscarcityai/yuigui/commit/96a05a5e"
+        },
+        {
+          "repo": "site",
+          "sha": "4ee5ed03",
+          "at": "2026-10-02T07:09:20.000Z",
+          "text": "web: catch up to Oct 1 app fixes, trash left, Tune, past chats, push click, long scroll-back (YUI-268)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4ee5ed03"
+        },
+        {
+          "repo": "site",
+          "sha": "27e866b6",
+          "at": "2026-10-02T07:05:41.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/27e866b6"
+        },
+        {
+          "repo": "site",
+          "sha": "5de81cb4",
+          "at": "2026-10-02T07:01:48.000Z",
+          "text": "progress: link the menu-pill entry to its TestFlight note (NOTE-50620)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5de81cb4"
+        },
+        {
+          "repo": "site",
+          "sha": "4374ae8c",
+          "at": "2026-10-02T06:50:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4374ae8c"
+        },
+        {
+          "repo": "site",
+          "sha": "dbfb7447",
+          "at": "2026-10-02T06:45:38.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/dbfb7447"
+        },
+        {
+          "repo": "site",
+          "sha": "b2f3c956",
+          "at": "2026-10-02T06:43:57.000Z",
+          "text": "Progress: the menu button names your agent (feedback ANG8AA-7k)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b2f3c956"
+        },
+        {
+          "repo": "app",
+          "sha": "c2e2805",
+          "at": "2026-10-02T06:43:33.000Z",
+          "text": "Menu button is a pill with the agent's name (feedback ANG8AA-7k)",
+          "url": "https://github.com/postscarcityai/yui/commit/c2e2805"
+        },
+        {
+          "repo": "site",
+          "sha": "7319a559",
+          "at": "2026-10-02T06:41:11.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7319a559"
+        },
+        {
+          "repo": "site",
+          "sha": "1b08125e",
+          "at": "2026-10-02T06:32:09.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1b08125e"
+        },
+        {
+          "repo": "site",
+          "sha": "89391a0d",
+          "at": "2026-10-02T06:04:11.000Z",
+          "text": "site: allow 300s per static page so board sync builds survive a busy host",
+          "url": "https://github.com/postscarcityai/yuigui/commit/89391a0d"
+        }
+      ]
+    },
     {
       "date": "2026-10-01",
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-02T00:26:54.604Z",
+          "at": "2026-10-02T03:03:52.000Z",
+          "title": "System failure lines stay out of the chat",
+          "card": [
+            "AOT6HtDztEGJPipFz9PrGK4",
+            "NOTE-27775"
+          ],
+          "anchor": "system-failure-lines-stay-out-of-the-chat",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 438,
+            "site": 1138,
+            "builds": 51,
+            "shipped": 548
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T02:41:52.000Z",
+          "title": "On the web, the menu button names your agent",
+          "card": [
+            "YUI-266"
+          ],
+          "anchor": "on-the-web-the-menu-button-names-your-agent",
+          "images": [
+            {
+              "src": "/progress/web-menu-pill-dark.webp",
+              "alt": "The /web menu button: one pill with the menu icon and the name Penny."
+            },
+            {
+              "src": "/progress/web-no-early-end-working-dark.webp",
+              "alt": "A reply is coming: the stage keeps the working state, no end screen."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 437,
+            "site": 1135,
+            "builds": 51,
+            "shipped": 547
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T02:10:55.000Z",
+          "title": "A board update is a number and a list",
+          "card": [
+            "NOTE-35030"
+          ],
+          "anchor": "a-board-update-is-a-number-and-a-list",
+          "images": [],
+          "commits": 0,
+          "totals": {
+            "app": 437,
+            "site": 1132,
+            "builds": 51,
+            "shipped": 546
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T01:14:03.000Z",
+          "title": "See it has a Yui on the web group",
+          "card": "SITE-168",
+          "anchor": "see-it-has-a-yui-on-the-web-group",
+          "images": [
+            {
+              "src": "/progress/site168-web-group-390-dark.webp",
+              "alt": "See it at phone width, dark: the Yui on the web group with the sign in and crew picker entry and its shots."
+            },
+            {
+              "src": "/progress/site168-web-group-390-light.webp",
+              "alt": "See it at phone width, light: the Yui on the web group with the sign in and crew picker entry and its shots."
+            }
+          ],
+          "commits": 2,
+          "totals": {
+            "app": 437,
+            "site": 1123,
+            "builds": 51,
+            "shipped": 545
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T01:05:05.000Z",
+          "title": "A new reply comes up full screen, no tap",
+          "card": [
+            "AAVcUALaFPOFtUcnFIn9Eow",
+            "NOTE-30524"
+          ],
+          "anchor": "a-new-reply-comes-up-full-screen-no-tap",
+          "images": [
+            {
+              "src": "/progress/feedback-pushtap-after-arrival-dark.webp",
+              "alt": "A reply landed on the home and came up full screen on its own."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 437,
+            "site": 1120,
+            "builds": 51,
+            "shipped": 544
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T01:02:01.000Z",
+          "title": "A push tap opens the reply, full screen",
+          "card": [
+            "ALow3VlIbEJq0fn6Wc001ao",
+            "NOTE-6865"
+          ],
+          "anchor": "a-push-tap-opens-the-reply-full-screen",
+          "images": [
+            {
+              "src": "/progress/feedback-pushtap-before-dark.webp",
+              "alt": "Before: the tap leaves the agent's empty home with a 1 on the chat button."
+            },
+            {
+              "src": "/progress/feedback-pushtap-after-cold-dark.webp",
+              "alt": "After, cold tap: the reply is on the stage."
+            },
+            {
+              "src": "/progress/feedback-pushtap-after-arrival-dark.webp",
+              "alt": "After, reply landing on the home: it comes up full screen on its own."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 437,
+            "site": 1119,
+            "builds": 51,
+            "shipped": 543
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T01:00:49.000Z",
+          "title": "Web page scripts are locked to a one-time code",
+          "card": "YUI-264",
+          "anchor": "web-page-scripts-are-locked-to-a-one-time-code",
+          "images": [],
+          "commits": 2,
+          "totals": {
+            "app": 436,
+            "site": 1118,
+            "builds": 51,
+            "shipped": 542
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-02T00:26:45.000Z",
           "title": "The site chat opens ready to talk, and its next arrow can be tapped",
           "card": "SITE-167",
           "anchor": "the-site-chat-opens-ready-to-talk-and-its-next-arrow-can-be-tapped",
@@ -35,10 +1392,10 @@
               "alt": "After, phone width: page 2 of the pitch, with back and next arrows beside the mic."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 436,
-            "site": 1113,
+            "site": 1114,
             "builds": 51,
             "shipped": 541
           }
@@ -99,7 +1456,7 @@
               "alt": "Dark, phone width: the same crew picker."
             }
           ],
-          "commits": 1,
+          "commits": 2,
           "totals": {
             "app": 435,
             "site": 1107,
@@ -1570,6 +2927,237 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "598b9e7a",
+          "at": "2026-10-02T03:37:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/598b9e7a"
+        },
+        {
+          "repo": "site",
+          "sha": "385e6044",
+          "at": "2026-10-02T03:31:52.000Z",
+          "text": "progress: link the cron-error fix to its TestFlight note (NOTE-27775)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/385e6044"
+        },
+        {
+          "repo": "site",
+          "sha": "d8537f90",
+          "at": "2026-10-02T03:21:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d8537f90"
+        },
+        {
+          "repo": "site",
+          "sha": "40549df0",
+          "at": "2026-10-02T03:16:05.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/40549df0"
+        },
+        {
+          "repo": "site",
+          "sha": "a909c8cb",
+          "at": "2026-10-02T03:11:22.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a909c8cb"
+        },
+        {
+          "repo": "site",
+          "sha": "b93ffb10",
+          "at": "2026-10-02T03:06:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b93ffb10"
+        },
+        {
+          "repo": "site",
+          "sha": "0cfd7cc9",
+          "at": "2026-10-02T03:03:52.000Z",
+          "text": "progress: system failure lines stay out of the chat (feedback AOT6HtDztEGJPipFz9PrGK4)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/0cfd7cc9"
+        },
+        {
+          "repo": "app",
+          "sha": "64b3603",
+          "at": "2026-10-02T03:03:27.000Z",
+          "text": "Hide Hermes cron failure lines from chat and push (feedback AOT6HtDztEGJPipFz9PrGK4)",
+          "url": "https://github.com/postscarcityai/yui/commit/64b3603"
+        },
+        {
+          "repo": "site",
+          "sha": "f7a45089",
+          "at": "2026-10-02T02:51:03.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f7a45089"
+        },
+        {
+          "repo": "site",
+          "sha": "f7d782b2",
+          "at": "2026-10-02T02:46:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f7d782b2"
+        },
+        {
+          "repo": "site",
+          "sha": "3f9a69a1",
+          "at": "2026-10-02T02:41:52.000Z",
+          "text": "Web: the menu button names the agent, no end screen while a reply is coming (YUI-266)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3f9a69a1"
+        },
+        {
+          "repo": "site",
+          "sha": "f283b7f4",
+          "at": "2026-10-02T02:41:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/f283b7f4"
+        },
+        {
+          "repo": "site",
+          "sha": "689e64c8",
+          "at": "2026-10-02T02:22:23.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/689e64c8"
+        },
+        {
+          "repo": "site",
+          "sha": "4f42ae70",
+          "at": "2026-10-02T02:10:55.000Z",
+          "text": "Progress: a board update is a number and a list (NOTE-35030)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4f42ae70"
+        },
+        {
+          "repo": "site",
+          "sha": "4ae22568",
+          "at": "2026-10-02T01:41:51.000Z",
+          "text": "Channel guide: drop a private agent name from the backlog example",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4ae22568"
+        },
+        {
+          "repo": "site",
+          "sha": "12f3256d",
+          "at": "2026-10-02T01:40:50.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/12f3256d"
+        },
+        {
+          "repo": "site",
+          "sha": "4afc39fe",
+          "at": "2026-10-02T01:36:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4afc39fe"
+        },
+        {
+          "repo": "site",
+          "sha": "1fa9402d",
+          "at": "2026-10-02T01:36:00.000Z",
+          "text": "Channel guide: a backlog update is a stat and a list, never struck rows with arrows",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1fa9402d"
+        },
+        {
+          "repo": "site",
+          "sha": "a8039a1b",
+          "at": "2026-10-02T01:32:53.000Z",
+          "text": "Progress: link the push-tap notes (NOTE-6865, NOTE-30524) to their entries",
+          "url": "https://github.com/postscarcityai/yuigui/commit/a8039a1b"
+        },
+        {
+          "repo": "site",
+          "sha": "d9126ee8",
+          "at": "2026-10-02T01:20:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/d9126ee8"
+        },
+        {
+          "repo": "site",
+          "sha": "3d279314",
+          "at": "2026-10-02T01:15:47.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3d279314"
+        },
+        {
+          "repo": "site",
+          "sha": "3c83bd24",
+          "at": "2026-10-02T01:15:16.000Z",
+          "text": "SITE-168: share previews for the Yui on the web entries",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3c83bd24"
+        },
+        {
+          "repo": "site",
+          "sha": "ad863202",
+          "at": "2026-10-02T01:14:03.000Z",
+          "text": "SITE-168: See it gets a Yui on the web group",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ad863202"
+        },
+        {
+          "repo": "site",
+          "sha": "72dcb2c6",
+          "at": "2026-10-02T01:10:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/72dcb2c6"
+        },
+        {
+          "repo": "site",
+          "sha": "ee6c9a92",
+          "at": "2026-10-02T01:06:01.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ee6c9a92"
+        },
+        {
+          "repo": "site",
+          "sha": "eedf0424",
+          "at": "2026-10-02T01:05:05.000Z",
+          "text": "Progress: a new reply comes up full screen (AAVcUALaFPOFtUcnFIn9Eow)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/eedf0424"
+        },
+        {
+          "repo": "site",
+          "sha": "7d9bc88e",
+          "at": "2026-10-02T01:02:01.000Z",
+          "text": "Progress: a push tap opens the reply, full screen (ALow3VlIbEJq0fn6Wc001ao)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7d9bc88e"
+        },
+        {
+          "repo": "app",
+          "sha": "3a2c90e",
+          "at": "2026-10-02T01:01:33.000Z",
+          "text": "A push tap lands on the reply it names, and a reply that lands on the home comes up full screen: the tap matched row ids against the...",
+          "url": "https://github.com/postscarcityai/yui/commit/3a2c90e"
+        },
+        {
+          "repo": "site",
+          "sha": "bda66b43",
+          "at": "2026-10-02T01:00:49.000Z",
+          "text": "YUI-264: progress entry, nonce policy live",
+          "url": "https://github.com/postscarcityai/yuigui/commit/bda66b43"
+        },
+        {
+          "repo": "site",
+          "sha": "2570440d",
+          "at": "2026-10-02T00:57:59.000Z",
+          "text": "YUI-264: /web scripts locked to a per request nonce, no unsafe-inline",
+          "url": "https://github.com/postscarcityai/yuigui/commit/2570440d"
+        },
+        {
+          "repo": "site",
+          "sha": "51aa5aa1",
+          "at": "2026-10-02T00:36:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/51aa5aa1"
+        },
+        {
+          "repo": "site",
+          "sha": "7f3a842e",
+          "at": "2026-10-02T00:30:42.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7f3a842e"
+        },
+        {
+          "repo": "site",
+          "sha": "c8eb9040",
+          "at": "2026-10-02T00:26:45.000Z",
+          "text": "Site chat: mic first on open, next arrow reachable, first tap never lost (SITE-167)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c8eb9040"
+        },
         {
           "repo": "site",
           "sha": "673d09c4",
