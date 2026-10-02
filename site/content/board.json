@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T12:35:31.137Z",
+  "updated": "2026-10-02T13:05:35.870Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,8 +348,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-274",
-          "title": "/web cold visit starts its reads before the session renewal ends",
+          "key": "SITE-169",
+          "title": "The /web page shows how fast it opens, before and after",
           "owner": "CJohnDesign"
         },
         {
@@ -374,9 +374,11 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-169",
-          "title": "The /web page shows how fast it opens, before and after",
-          "blocked": "chris",
+          "key": "YUI-274",
+          "title": "/web cold visit starts its reads before the session renewal ends",
+          "summary": "Web opens a second faster the first time",
+          "blocked": "other",
+          "progress": "/progress#web-opens-a-second-faster-the-first-time",
           "owner": "CJohnDesign"
         }
       ]
