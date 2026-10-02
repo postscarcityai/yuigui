@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T01:05:53.744Z",
+  "updated": "2026-10-02T01:10:45.239Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -240,11 +240,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "NOTE-30524",
-          "title": "New answers open full screen",
-          "waiting": true
-        },
-        {
           "key": "NOTE-27775",
           "title": "Hide raw cron errors",
           "waiting": true
@@ -333,6 +328,11 @@
         {
           "key": "NOTE-6865",
           "title": "Push tap opens the new answer",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-30524",
+          "title": "New answers open full screen",
           "needsDemo": true
         }
       ]
