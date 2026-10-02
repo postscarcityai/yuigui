@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T16:51:17.289Z",
+  "updated": "2026-10-02T17:05:10.292Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -286,6 +286,10 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
+          "key": "SITE-176",
+          "title": "Thought, one decision on one screen, told in pictures"
+        },
+        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -385,6 +389,12 @@
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
+          "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-267",
+          "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
           "owner": "CJohnDesign"
         }
