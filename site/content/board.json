@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T00:10:40.539Z",
+  "updated": "2026-10-02T00:30:41.853Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -351,6 +351,8 @@
         {
           "key": "SITE-167",
           "title": "A stranger's first chat with the site bubble works on a phone",
+          "summary": "The site chat opens ready to talk, and its next arrow can be tapped",
+          "progress": "/progress#the-site-chat-opens-ready-to-talk-and-its-next-arrow-can-be-tapped",
           "owner": "CJohnDesign"
         },
         {
