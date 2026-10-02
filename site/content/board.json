@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T14:35:44.987Z",
+  "updated": "2026-10-02T14:40:40.278Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -252,10 +252,6 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "SITE-172",
-          "title": "The Yui on the web film re-cut with today's faster /web"
-        },
-        {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
           "summary": "The thread offline at /web"
@@ -352,10 +348,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-275",
-          "title": "/web opens a group chat already drawn, like a one-agent chat",
-          "summary": "Group chats open already drawn on web",
-          "progress": "/progress#group-chats-open-already-drawn-on-web",
+          "key": "SITE-172",
+          "title": "The Yui on the web film re-cut with today's faster /web",
           "owner": "CJohnDesign"
         },
         {
@@ -385,6 +379,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-275",
+          "title": "/web opens a group chat already drawn, like a one-agent chat",
+          "summary": "Group chats open already drawn on web",
+          "shipped": "2026-10-02",
+          "progress": "/progress#group-chats-open-already-drawn-on-web"
+        },
         {
           "key": "SITE-171",
           "title": "Every page shares with its own picture and title",
