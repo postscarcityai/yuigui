@@ -17,3 +17,5 @@ Storyboard
 | 28.8 | outro | Yui is on the web. yuigui.com/web |
 
 Beyond the spec: none. Publishing the video on social is Chris's call.
+
+Re-cut Oct 2 (SITE-172): 40.8 s, filmed on the live demo account. open (last chat drawn, scroll back past 100 rows via ?demohistory=250; group chat drawn on the phone), dismiss (a Needs you row), ask (reply draws a screen). The restyle scene is gone. Same file names.

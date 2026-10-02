@@ -24,15 +24,16 @@
 <div id="stage"><div id="glow"></div>
   <div class="cap L" id="c0L">Yui lives on your phone.</div>
   <div class="cap R accent" id="c0R">Now it is on the web too.</div>
-  <div class="cap L" id="c1L">Ask on the laptop.</div>
-  <div class="cap R accent" id="c1R">Same agent. Same thread.</div>
-  <div class="cap L" id="c2L">The answer plays on the stage.</div>
-  <div class="cap R accent" id="c2R">On the phone and the laptop.</div>
-  <div class="cap L" id="c3L">Ask Yui to restyle itself.</div>
-  <div class="cap R accent" id="c3R">Use the look, or keep yours.</div>
-  <div class="cap L" id="c4L">Sign in with Apple.</div>
-  <div class="cap R accent" id="c4R">Nothing to install.</div>
-  <div class="kpill" id="p3" style="left:110px;top:270px;display:none"><b>theme app</b> autumn</div>
+  <div class="cap L" id="c1L">Your last chat is already there.</div>
+  <div class="cap R accent" id="c1R">Groups open drawn too.</div>
+  <div class="cap L" id="c2L">Scroll back past 100 rows.</div>
+  <div class="cap R accent" id="c2R">It keeps your place.</div>
+  <div class="cap L" id="c3L">Not now? Dismiss.</div>
+  <div class="cap R accent" id="c3R">One tap. It stays gone.</div>
+  <div class="cap L" id="c4L">Ask. The answer draws a screen.</div>
+  <div class="cap R accent" id="c4R">On the phone and the laptop.</div>
+  <div class="cap L" id="c5L">Sign in with Apple.</div>
+  <div class="cap R accent" id="c5R">Nothing to install.</div>
 
   <div class="lap" id="lap"><div class="scr"><img class="fr" id="fL" alt=""></div><div class="base"></div></div>
   <div class="ph" id="ph"><div class="scr"><img class="fr" id="fP" alt=""></div></div>
@@ -46,7 +47,7 @@
 </div>
 <script src="../kit/kit.js"></script>
 <script>
-const S = window.SCORE, F = window.FRAMES;
+const S = window.SCORE, F = window.FRAMES, M = window.MARKS;
 const { $, prog, clamp, eo, ei, eio, back, lerp } = K;
 const pending = [];
 function setImg(id, src) {
@@ -68,15 +69,16 @@ function render(t) {
   ph.style.transform = `translate(${(1 - inp) * -500}px, ${bob + out * 900}px) scale(${lerp(1.12, 1, inp)})`;
   lap.style.transform = `translate(${(1 - inp) * -1300}px, ${out * 900}px)`;
   lap.style.opacity = inp;
-  const scene = t < S.look[0] ? "ask" : "look";
-  const t0 = t < S.look[0] ? S.ask[0] - 1.0 : S.look[0];
-  if (t >= S.ask[0] - 1.0) { setImg("fL", clip(`${scene}-laptop`, t0, t)); setImg("fP", clip(`${scene}-phone`, t0, t)); }
-  else setImg("fP", "work/frames/ask-phone/f00040.jpg");
-  K.caps(t, [["c0L", 0.3, 2.2], ["c0R", 1.0, 2.2], ["c1L", 3.0, 9.2], ["c1R", 4.4, 9.2], ["c2L", 9.6, 15.0], ["c2R", 10.8, 15.0],
-    ["c3L", 15.6, 22.0], ["c3R", 17.0, 22.0], ["c4L", 22.8, 28.0], ["c4R", 24.0, 28.0]]);
+  // three scenes, each filmed on both screens; a scene starts when its page is ready (MARKS) plus a short lead
+  const sc = t < S.scenes[1][1] ? S.scenes[0] : t < S.scenes[2][1] ? S.scenes[1] : S.scenes[2];
+  const [name, start] = sc;
+  if (t >= S.scenes[0][1]) { setImg("fL", clip(`${name}-laptop`, start - M[`${name}-laptop`] + 0.3, t)); setImg("fP", clip(`${name}-phone`, start - M[`${name}-phone`] + 0.3, t)); }
+  else { for (const [id, v] of [["fL", "laptop"], ["fP", "phone"]]) setImg(id, `work/frames/open-${v}/f${String(Math.round(M[`open-${v}`] * 30) + 9).padStart(5, "0")}.jpg`); }
+  K.caps(t, [["c0L", 0.3, 2.2], ["c0R", 1.0, 2.2], ["c1L", 3.0, 7.8], ["c1R", 4.4, 7.8], ["c2L", 8.2, 11.8], ["c2R", 9.3, 11.8],
+    ["c3L", 12.4, 18.8], ["c3R", 13.6, 18.8], ["c4L", 19.6, 25.0], ["c4R", 20.8, 25.0], ["c5L", 25.6, 32.4], ["c5R", 26.8, 32.4]]);
   K.outro(t, S.outro);
   return Promise.all(pending);
 }
 window.ready = K.ready(async () => { await render(3.0); });
-window.render = render; window.DURATION = 36; window.POSTER = 11.0;
+window.render = render; window.DURATION = 40.8; window.POSTER = 14.2;
 </script></body></html>
