@@ -3786,6 +3786,40 @@
         "max_components": 4
       },
       "good": "One line, then a `mock` of the checkout from parts: card, row with value, field, button +hi. Not a sketch, not a paragraph."
+    },
+    {
+      "id": "draw-gesture",
+      "category": "draw",
+      "agent": "Yui",
+      "message": "Show me how the new pull to refresh works. (What you know: a finger drags the list down, a ring fills as it goes, let go and the list reloads.)",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "draw",
+          "diagram",
+          "mock",
+          "shapes",
+          "sketch",
+          "row",
+          "after",
+          "card",
+          "say",
+          "stat",
+          "choose",
+          "ask",
+          "end",
+          "part"
+        ],
+        "need": [
+          "draw"
+        ],
+        "one_line": true,
+        "caveman": true,
+        "max_words": 40,
+        "max_pages": 0,
+        "max_components": 4
+      },
+      "good": "One line, then a `draw` with SVG: the list, a finger dragging down, a ring that fills. Colors as classes (accent, soft), never hex. Not a paragraph."
     }
   ]
 }

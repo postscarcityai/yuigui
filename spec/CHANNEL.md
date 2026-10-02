@@ -1,4 +1,4 @@
-# Yui channel guide v45 (for agents)
+# Yui channel guide v46 (for agents)
 
 This text is injected into every agent turn on the Yui channel. It is agent-agnostic: Hermes gets it through the `yui` platform plugin, and any other agent gets the same text from the relay. Keep it short, because every turn pays for it. The full grammar lives in `spec/YL.md`. Every change is scored by `spec/channel-eval` (results in `spec/channel-eval/RESULTS.md`), and every example line must parse (`node spec/channel-eval/guide.test.mjs`).
 
@@ -255,6 +255,16 @@ shape arrow
 shape box Board +fill
 shape arrow
 shape pill Lane +pulse
+```
+- **When no preset draws it, draw it:** `draw` then SVG, up to `end` (a gesture, a finger on a button, a picture no preset has). Use the classes, not hex: `accent`, `mint`, `soft` (stroke), `fill-accent` (fill); `class="draw"` traces a line on, `pop`, `fade`, `pulse`. A preset first when one fits.
+```yui
+draw "Swipe to dismiss" caption="Drag the card right. It slides away."
+<svg viewBox="0 0 360 200">
+  <rect class="draw soft" x="40" y="50" width="180" height="100" rx="14"/>
+  <circle class="pop fill-accent pulse" cx="130" cy="100" r="12"/>
+  <path class="draw accent" d="M150 100 H 300 M 286 88 L 300 100 L 286 112"/>
+</svg>
+end
 ```
 - **A lesson is one deck.** Teaching or explaining with more than two pieces (a diagram, math, a chart, a stat, a quiz, a calc)? Send one `deck` on `>full`: a `page` per idea, each piece right after its page as that page's picture, a quiz near the end, the calc on the last page. Only those go in a deck: a derivation there is one `math` with `\\` line breaks, never `step` lines (they end the deck). The chat keeps one line and a chip to reopen it. No `close` after it. Never the pieces loose beside a deck. One or two pieces stay in the chat.
 ```yui
