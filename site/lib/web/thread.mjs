@@ -125,6 +125,7 @@ export function doingOf(v) {
   return d.text == null && d.step == null ? null : d;
 }
 
+export const OPEN_ROWS = 100; // a thread opens on its newest 100 rows; older ones are one `addOlder` away
 export const TURN_WINDOW = 30 * 60 * 1000; // the host's own 30 minutes
 const isStop = (row) => row.sender === "user" && row.body === "stop";
 
@@ -134,6 +135,10 @@ export class Thread {
     this.seen = new Set();
     this.cursor = null; // newest created_at seen, for the next poll
     this.loaded = false;
+    // The oldest row read so far, and whether the chat holds older ones (YUI-254).
+    this.oldestAt = null;
+    this.hasOlder = false;
+    this.history = false;
     this.waiting = false;
     this.waitingSince = null;
     this.pickedUpAt = null;
@@ -199,12 +204,25 @@ export class Thread {
   load(rows, { first = false } = {}) {
     let any = false;
     for (const row of rows) if (this.add(row, { quiet: true })) any = true;
-    if (first) this.resume(rows);
+    if (first) { this.resume(rows); this.oldestAt = rows[0]?.created_at || null; this.hasOlder = rows.length >= OPEN_ROWS; }
     const last = rows[rows.length - 1]?.created_at;
     if (last && last > (this.cursor || "")) this.cursor = last;
     this.loaded = true;
     this.changed();
     return any;
+  }
+
+  // A batch of older rows (YUI-254, `ThreadClient.fetchOlder`), oldest first, goes in front and changes nothing else:
+  // history never ends a wait, never moves the cursor, never fires a reminder and never patches a newer screen.
+  addOlder(rows, limit = OPEN_ROWS) {
+    const n = this.messages.length;
+    this.history = true;
+    try { for (const row of rows) this.add(row, { quiet: true }); } finally { this.history = false; }
+    this.messages.unshift(...this.messages.splice(n));
+    this.hasOlder = rows.length >= limit;
+    if (rows[0]?.created_at) this.oldestAt = rows[0].created_at;
+    this.changed();
+    return this.messages.length - n;
   }
 
   // The thread was opened mid-turn: its newest row is the person's and the agent has not finished it.
@@ -240,7 +258,7 @@ export class Thread {
       // Settings traffic never shows; the person's Stop is one quiet note.
       if (!isStop(row) || this.seen.has(id)) return false;
       this.seen.add(id);
-      this.waiting = false; this.pickedUpAt = null; this.doing = null;
+      if (!this.history) { this.waiting = false; this.pickedUpAt = null; this.doing = null; }
       this.messages.push({ id, role: "user", card: "stopped", at: sentAt(row) });
       return true;
     }
@@ -248,16 +266,17 @@ export class Thread {
     this.seen.add(id);
     const at = sentAt(row);
     const meta = row.meta && typeof row.meta === "object" ? row.meta : {};
-    if (row.sender === "agent" && row.kind === "text" && row.created_at > (this.newestAgentAt || "")) this.newestAgentAt = row.created_at;
+    if (!this.history && row.sender === "agent" && row.kind === "text" && row.created_at > (this.newestAgentAt || "")) this.newestAgentAt = row.created_at;
     // Reminders the agent keeps (YUI-246, reminders.mjs): every set that arrives, `live` once the thread has loaded.
-    if (row.sender === "agent" && Array.isArray(meta.native?.reminders)) this.reminderRows.push({ meta, createdAt: row.created_at, live: this.loaded });
+    if (!this.history && row.sender === "agent" && Array.isArray(meta.native?.reminders)) this.reminderRows.push({ meta, createdAt: row.created_at, live: this.loaded });
     // The reaction the row wears (the server copies it onto the agent's row) and the react events that move it.
     if (row.sender === "agent" && row.reaction) this.reactions.set(id, row.reaction);
     const react = row.sender === "user" && row.kind === "event" ? reactionFrom(meta) : null;
+    if (react && this.history) return false; // an older toggle must not undo a newer one; the agent's row carries the reaction itself
     if (react) { if (react.emoji) this.reactions.set(react.msg, react.emoji); else this.reactions.delete(react.msg); return false; }
     const mentionedAnswer = row.sender === "agent" && meta.mention_reply;
     // Another agent's answer copied in doesn't end this agent's turn.
-    if (row.sender === "agent" && !mentionedAnswer) { this.waiting = false; this.pickedUpAt = null; this.doing = null; }
+    if (!this.history && row.sender === "agent" && !mentionedAnswer) { this.waiting = false; this.pickedUpAt = null; this.doing = null; }
 
     if (row.sender === "user") {
       if (row.kind === "event") {
@@ -295,11 +314,11 @@ export class Thread {
   // One fence: its screen. A patch for something an earlier reply drew lands on that reply's screen
   // (`~choose +lock` after the booking is confirmed): the newest match wins.
   #screen(id, text, at) {
-    const known = this.lasting();
+    const known = this.history ? {} : this.lasting();
     let state = initialState();
     const ops = [];
     for (const op of parse(text, known)) {
-      if (op.op === "patch" && op.target && !has(state, op.target)) {
+      if (!this.history && op.op === "patch" && op.target && !has(state, op.target)) {
         const j = this.#lastIndex((m) => m.state && has(m.state, op.target));
         if (j >= 0) {
           const m = this.messages[j];

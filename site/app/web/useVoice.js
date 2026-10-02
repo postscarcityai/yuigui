@@ -7,10 +7,9 @@
 // Only the words are sent, as text. `send(words)` returns true when it went.
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createEndOfSpeech, createHandsFree, QUIET_LIMIT, READ_BEAT } from "../../lib/web/handsfree.mjs";
-import { createListener, speechApi } from "../../lib/web/voice.mjs";
+import { createListener, speechApi, trashReach } from "../../lib/web/voice.mjs";
 
 const HOLD_MS = 320;   // shorter than this is a tap
-const CANCEL_PX = 70;  // slide this far left to cancel
 
 export function useVoice({ send, busy, enabled = true }) {
   // Only ever rendered after mount (ThreadApp waits), so the browser can be asked right away: the stage opens on
@@ -127,19 +126,21 @@ export function useVoice({ send, busy, enabled = true }) {
       if (r.hf.on) { stopHandsFree(); return; } // tapping an open mic closes it
       e.currentTarget.setPointerCapture?.(e.pointerId);
       r.x0 = e.clientX; r.holding = true;
+      // Slide left as far as the trash (it sits flush left, mirroring the mic): the bar's width sets the reach.
+      r.reach = trashReach(e.currentTarget.closest(".wb-stage-in, .wb-thread")?.clientWidth || window.innerWidth);
       begin("hold");
     },
     onPointerMove(e) {
       const r = ref.current;
       if (!r.holding) return;
-      const cancel = e.clientX - r.x0 < -CANCEL_PX;
+      const cancel = e.clientX - r.x0 < -r.reach;
       setUi((u) => (u.cancel === cancel ? u : { ...u, cancel }));
     },
     onPointerUp(e) {
       const r = ref.current;
       if (!r.holding) return;
       r.holding = false;
-      if (e.clientX - r.x0 < -CANCEL_PX) { discard(); return; }
+      if (e.clientX - r.x0 < -r.reach) { discard(); return; }
       if (Date.now() - r.t0 < HOLD_MS) {
         // A tap: hands-free. The session is already open, so it becomes the loop's listening state.
         r.mode = "free"; r.hf.handle("tap"); r.hf.handle("micOpen"); r.eos.reset(); r.spoke = Date.now();

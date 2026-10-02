@@ -17,12 +17,16 @@ export const COLUMNS = "id,sender,body,kind,meta,created_at,delivered_at,handled
 // The query of a thread read (ThreadClient.fetchItems): the agent's rows, or one chat's. Controls ride the
 // same table and never show, except the person's Stop. Newest `limit` rows (read back-to-front), or
 // everything after `since`, oldest first with the id as the tie-break.
-export function threadQuery({ agentId, chatId = null, since = null, limit = 100 }) {
+// `before` (YUI-254) is the way back through a long chat: the `limit` rows said just before that time.
+export function threadQuery({ agentId, chatId = null, since = null, before = null, limit = 100 }) {
   const q = [["select", COLUMNS], ["agent_id", `eq.${agentId}`]];
   if (chatId) q.push(["chat_id", `eq.${chatId}`]);
   q.push(["or", "(kind.neq.control,and(sender.eq.user,body.eq.stop))"]);
   if (since) q.push(["created_at", `gt.${since}`], ["order", "created_at.asc,id.asc"]);
-  else q.push(["order", "created_at.desc"], ["limit", String(limit)]);
+  else {
+    if (before) q.push(["created_at", `lt.${before}`]);
+    q.push(["order", "created_at.desc"], ["limit", String(limit)]);
+  }
   return q;
 }
 

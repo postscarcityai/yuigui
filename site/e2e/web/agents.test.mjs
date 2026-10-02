@@ -51,8 +51,8 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   ok((await pg.locator(".dr-name").innerText()) === "You", `${T}: the header wears your name (SITE-161), not the agent's`);
   ok(await pg.getByTestId("new-chat").isVisible(), `${T}: New chat is first`);
   const titles = await pg.locator(".dc-row .dc-top b").allInnerTexts();
-  ok(titles.join("|") === "Hi Penny|Race week plan|Groceries", `${T}: the chats list, newest first (${titles.join("|")})`);
-  ok(await pg.locator(".dc-row.open .dc-top b").innerText() === "Hi Penny", `${T}: the open one is lit`);
+  ok(titles.join("|") === "Earlier|Race week plan|Groceries", `${T}: the chats list, newest first (${titles.join("|")})`);
+  ok(await pg.locator(".dc-row.open .dc-top b").innerText() === "Earlier", `${T}: the open one is lit`);
   await shot(pg, `web-agents-drawer-${tag}-${theme}`);
 
   // open an older chat: its own messages, its own address

@@ -14,6 +14,7 @@ import { controlSections, revoked, sortAgents, unsharedLine } from "../../lib/we
 import { chatErrorOf, draft as newDraft, merge as mergeChats, openAfterDeleting, append as appendChats, PAGE_SIZE } from "../../lib/web/chats.mjs";
 import fixture from "./fixtures/penny.json";
 import sharedFixture from "./fixtures/shared.json";
+import goudaFixture from "./fixtures/gouda.json";
 import firstFixture from "./fixtures/first.json";
 import ThreadView from "./ThreadView";
 import DrawerPanel from "./DrawerPanel";
@@ -41,7 +42,7 @@ import "./stage.css"; // the Stage button and Play on the stage live here; a ?vi
 import "./composer.css";
 import "./agents.css";
 
-const FIXTURES = { penny: fixture, shared: sharedFixture, first: firstFixture };
+const FIXTURES = { penny: fixture, shared: sharedFixture, first: firstFixture, gouda: goudaFixture };
 
 const GIVE_UP_FAST = { giveUpMs: 3000, stuckMs: 3000, pollMs: 300 };
 
@@ -54,6 +55,14 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   // The Speed switch (?perf=1, Settings > Speed): the frame rate line shows while it is on.
   const [perf, setPerf] = useState(false);
   useEffect(() => { const sync = () => setPerf(perfOn(window.location.search)); sync(); window.addEventListener("yui-perf", sync); return () => window.removeEventListener("yui-perf", sync); }, []);
+  // A push click opens `?m=<message id>`: the reply the notification names (YUI-262). Read once, then taken off the address
+  // so a reload does not play it again.
+  const named = search.get("m");
+  const [landing] = useState(() => (/^[0-9a-z-]{1,64}$/i.test(named || "") ? named : null));
+  const landed = useCallback(() => {
+    const u = new URL(window.location.href);
+    if (u.searchParams.has("m")) { u.searchParams.delete("m"); window.history.replaceState(window.history.state, "", `${u.pathname}${u.search}${u.hash}`); }
+  }, []);
   const fast = search.get("pairing") === "fast" ? GIVE_UP_FAST : {};
   const [mounted, setMounted] = useState(false);
   const [agents, setAgents] = useState(null);
@@ -96,6 +105,10 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       const applook = search.get("applook");
       if (applook) r.settings.call("yui-account", { action: "set_look", look: { preset: applook } });
       if (search.get("demovault")) r.settings.seedVault("demo-penny");
+      // A long chat (?demohistory=<rows> older rows) and an unprompted line (?demoarrive=<words>, after ?arriveafter=<s>) for the e2e checks.
+      const hist = Number(search.get("demohistory"));
+      if (Number.isInteger(hist) && hist > 0 && hist <= 2000) r.seedHistory("demo-penny", hist);
+      if (search.get("demoarrive")) setTimeout(() => r.arrive("demo-penny", search.get("demoarrive").replace(/\\n/g, "\n")), Number(search.get("arriveafter") ?? 3) * 1000);
       const [ag, provider, why, cap, est] = (search.get("keyask") || "").split("|");
       if (provider) r.settings.ask(ag || "demo-penny", { provider, why, cap, est });
       return r;
@@ -500,7 +513,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
           {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
         </header> : null}
         {groupId ? (group && sorted ? <GroupThread key={group.id} api={groupsApi} group={group} agents={sorted} light={light} userId={userId} onMenu={() => setDrawer(true)} onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} onChanged={refreshGroups} onArchived={() => { refreshGroups(); go(`/web${keep}`); }} /> : <div className="wb-wait center">Opening the group...</div>)
-          : open && ready ? <ThreadView key={threadKey} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
+          : open && ready ? <ThreadView key={threadKey} landing={landing} onLanded={landed} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
           onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} />
           : error && !sorted ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
           : sorted && !sorted.length ? (

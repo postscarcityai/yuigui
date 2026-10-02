@@ -12,7 +12,7 @@ import { usePrefs } from "./useSettings";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { answerOf } from "../../lib/chat/stage.mjs";
-import { homeOf, chipAction, waitingAction, pageTitle, reopened, turnOf, MAX_WAITING } from "../../lib/web/stage.mjs";
+import { arrivalOf, homeOf, chipAction, isRow, landingOf, playFor, waitingAction, pageTitle, reopened, turnOf, MAX_WAITING } from "../../lib/web/stage.mjs";
 import { liveness, presenceLabel, waitingNote, workingLine } from "../../lib/web/presence.mjs";
 import { AttachButton, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, Waveform, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
 import { useVoice } from "./useVoice";
@@ -135,7 +135,10 @@ function Chips({ items, small, onTap }) {
   );
 }
 
-export default function StageLayer({ agent, agents = [], commands, store, thread, sync, light, fresh, offline, req, onRecord, onMenu }) {
+// How long a tap waits for the message it names to reach the thread before the newest thing said stands in (PushLanding.patience).
+const PATIENCE_MS = 8000;
+
+export default function StageLayer({ agent, agents = [], commands, store, thread, sync, light, fresh, offline, req, landing = null, onLanded, onRecord, onMenu }) {
   const reduced = useReduced();
   // Settings > Full screen: which of the mic, T and + the bar shows (one of the mic and T always stays).
   const bar = usePrefs().stage;
@@ -206,13 +209,58 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   const pager = usePager(names.length, at, goIndex);
   useEffect(() => { if (!names.includes(pageAt)) setPageAt("1"); }, [names, pageAt]);
   // A reply that sends a line to a page brings it forward; a patch or a redraw beside an answer does not.
+  // What was already in the thread when it opened does not: the stage opens on the home (YUI-252, "1 of 6").
   const forwarded = useRef(null);
+  const opened = useRef(false);
   useEffect(() => {
-    if (home.forward && forwarded.current !== `${home.forward}:${version}` && base.current !== undefined && thread.loaded) {
-      forwarded.current = `${home.forward}:${version}`;
+    if (!thread.loaded || base.current === undefined) return;
+    // Keyed on the newest agent row, not the thread's version: a poll that redraws the same rows is not a new reply.
+    let tail = ""; for (let i = messages.length - 1; i >= 0; i--) if (messages[i].role === "agent") { tail = messages[i].id.split("#")[0]; break; }
+    const key = `${home.forward}:${tail}`;
+    if (!opened.current) { opened.current = true; forwarded.current = key; return; }
+    if (home.forward && forwarded.current !== key) {
+      forwarded.current = key;
       if (!answerAfter(thread, ask)) setPageAt(home.forward);
     }
-  }, [home.forward, version]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [home.forward, version, thread.loaded]); // eslint-disable-line react-hooks/exhaustive-deps
+  // What plays: a turn the person started, or something the agent said that nobody asked for (YUI-262).
+  const play = useCallback((id) => { setAsk(id); setShown(null); setEnded(false); setFound(false); setPlayKey((k) => k + 1); setPageAt("1"); }, []);
+  // A push click (`?m=<message id>`, YUI-262) lands on the reply it names, up full screen. The message may not have
+  // reached the thread yet (a cold start, a slow fetch): wait for it, never open an older turn in its place. After
+  // PATIENCE_MS the newest thing said stands in.
+  const landed = useRef(false);
+  const [patient, setPatient] = useState(false);
+  useEffect(() => {
+    if (!landing) return undefined;
+    const t = setTimeout(() => setPatient(true), PATIENCE_MS);
+    return () => clearTimeout(t);
+  }, [landing]);
+  useEffect(() => {
+    if (!landing || landed.current || !thread.loaded || base.current === undefined) return;
+    if (!messages.some((m) => m.role === "agent" && isRow(m.id, landing)) && !patient) return;
+    landed.current = true;
+    onLanded?.();
+    const id = landingOf(messages, landing);
+    if (id) play(playFor(messages, id));
+  }, [landing, patient, version, thread.loaded]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Something the agent said lands in the thread on screen while the stage is on the home (no turn playing, no field
+  // out, nothing else asked for): it comes up full screen on that message. A turn already playing is left alone.
+  const lastId = useRef(undefined);
+  useEffect(() => {
+    const last = messages.length ? messages[messages.length - 1].id : null;
+    if (!thread.loaded || base.current === undefined) return;
+    const old = lastId.current;
+    lastId.current = last;
+    if (old === undefined || old === last) return;
+    if (ask || shown || typing || busy || voice.listening || pageAt !== "1" || (landing && !landed.current)) return;
+    if (typeof document !== "undefined" && document.visibilityState !== "visible") return;
+    const at = messages.findIndex((m) => m.id === old);
+    const id = arrivalOf(messages.slice(at < 0 ? messages.length : at + 1));
+    // Pages and menus the agent files quietly (a screen only for the drawer or a page) have nothing to play.
+    const t = id ? turnOf(messages, id) : null;
+    const a = t && t.replies ? answerOf(t.pieces) : null;
+    if (a && (a.chunks.length || a.questions.length)) play(id);
+  }, [version, thread.loaded]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { if (typing) setTimeout(() => input.current?.focus(), 30); }, [typing]);
   // No voice here (Firefox): the field is the way in, so it starts open.
   useEffect(() => { if (!voice.supported && onHomeScreen) setTyping(true); }, [voice.supported]); // eslint-disable-line react-hooks/exhaustive-deps

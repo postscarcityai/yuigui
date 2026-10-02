@@ -7,10 +7,10 @@ import { useEffect, useRef, useState } from "react";
 import { deletePlan, deleteWords, filter, lastLine, SEARCH_AFTER, title as titleOf, validTitle, whenOf } from "../../lib/web/chats.mjs";
 import { Confirm } from "./parts";
 
-function Row({ chat, agent, open, renaming, onOpen, onStartRename, onRename, onCancel, onDelete }) {
+function Row({ chat, agent, among, open, renaming, onOpen, onStartRename, onRename, onCancel, onDelete }) {
   const [menu, setMenu] = useState(false);
   const input = useRef(null);
-  const label = titleOf(chat, agent);
+  const label = titleOf(chat, agent, among);
   const line = lastLine(chat);
   useEffect(() => { if (renaming) { input.current?.focus(); input.current?.select(); } }, [renaming]);
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function DrawerChats({ agent, chats, openId, draftOpen, onNewChat
   const name = agent.name;
   const rows = filter(chats.items, name, query);
   const plan = deletePlan(chats.items.length);
-  const words = deleting ? deleteWords(plan, titleOf(deleting, name), name) : null;
+  const words = deleting ? deleteWords(plan, titleOf(deleting, name, chats.items.length), name) : null;
   return (
     <div className="dc" data-testid="drawer-chats">
       <button type="button" className="dc-new" data-testid="new-chat" onClick={onNewChat}>
@@ -74,7 +74,7 @@ export default function DrawerChats({ agent, chats, openId, draftOpen, onNewChat
           ) : null}
           <ul className="dc-list">
             {rows.map((c) => (
-              <Row key={c.id} chat={c} agent={name} open={c.id === openId} renaming={renaming === c.id}
+              <Row key={c.id} chat={c} agent={name} among={chats.items.length} open={c.id === openId} renaming={renaming === c.id}
                 onOpen={onOpenChat} onStartRename={setRenaming} onCancel={() => setRenaming(null)}
                 onRename={(t) => { setRenaming(null); const v = validTitle(t); if (v && v !== c.title) onRename(c.id, v); }}
                 onDelete={setDeleting} />

@@ -3,7 +3,7 @@
 // relay (lib/web/relay.mjs) or the demo's fake one. The rules are the app's: Chat/Thread.swift,
 // Presets/ChatStore.swift, Chat/BubbleMarkdown.swift, Chat/LongText.swift, Chat/SentTimes.swift.
 import dynamic from "next/dynamic";
-import { memo, useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState } from "react";
 import { cardWords, replyQuote, rowOf, REACTIONS, reactionOf } from "../../lib/web/compose.mjs";
 import { createComposer } from "../../lib/web/composer.mjs";
 import { preparePhoto } from "../../lib/web/photo.mjs";
@@ -26,6 +26,7 @@ import { waitingNote, workingLine } from "../../lib/web/presence.mjs";
 import { chipAction, homeOf, waitingAction } from "../../lib/web/stage.mjs";
 
 const ThreadScreen = dynamic(() => import("./ThreadScreen"), { ssr: false, loading: () => <div className="wb-wait">Drawing...</div> });
+const WINDOW_STEP = 60;
 const StageLayer = dynamic(() => import("./StageLayer"), { ssr: false, loading: () => <div className="wb-stage"><div className="wb-wait center">Opening the stage...</div></div> });
 
 // Words an agent wrote: markdown drawn as elements (RichText never uses innerHTML), a long answer folded to
@@ -250,7 +251,7 @@ function Composer({ agent, agents, store, waiting, onSend, onSendWords, onStop, 
   );
 }
 
-export default function ThreadView({ relay, userId, agent, agents = [], outbox = null, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {}, onOpenAgent = null, onApi = null }) {
+export default function ThreadView({ relay, userId, agent, agents = [], outbox = null, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {}, onOpenAgent = null, onApi = null, landing = null, onLanded = () => {} }) {
   const thread = useMemo(() => new Thread(), [agent.id, chat]);
   const [, tick] = useReducer((n) => n + 1, 0);
   const [net, setNet] = useState({ offline: false, pending: 0 });
@@ -290,7 +291,47 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   const wearers = useMemo(() => thread.wearers(), [list, thread.version]); // eslint-disable-line react-hooks/exhaustive-deps
   const scroller = useRef(null);
   const stuck = useRef(true);
-  const onScroll = () => { const el = scroller.current; if (el) stuck.current = el.scrollHeight - el.scrollTop - el.clientHeight < 120; };
+  // A long chat draws its newest rows only (the app's window, YUI-260). Near the top one older batch is drawn per arrival;
+  // when everything held is drawn, the next older batch comes from the server (YUI-254). A drag or a trip away re-arms it.
+  const [win, setWin] = useState(WINDOW_STEP);
+  const base = Math.max(0, list.length - win);
+  const shown = base ? list.slice(base) : list;
+  const nearTop = useRef(false);
+  const topGrown = useRef(false);
+  const anchor = useRef(null);
+  const grow = useRef(() => {});
+  grow.current = () => {
+    const el = scroller.current;
+    if (!el || !nearTop.current || topGrown.current) return;
+    anchor.current = { h: el.scrollHeight, top: el.scrollTop };
+    if (list.length > win) { setWin((w) => w + WINDOW_STEP); topGrown.current = true; }
+    else if (thread.hasOlder) sync.loadOlder().finally(() => requestAnimationFrame(() => { anchor.current = null; }));
+    else anchor.current = null;
+  };
+  const onScroll = () => {
+    const el = scroller.current;
+    if (!el) return;
+    stuck.current = el.scrollHeight - el.scrollTop - el.clientHeight < 120;
+    nearTop.current = el.scrollTop < el.clientHeight;
+    if (!nearTop.current) topGrown.current = false;
+    grow.current();
+  };
+  // What the person is reading stays where it is when rows are added above it.
+  useLayoutEffect(() => {
+    const el = scroller.current, a = anchor.current;
+    if (!el || !a || el.scrollHeight <= a.h) return;
+    el.scrollTop = a.top + (el.scrollHeight - a.h);
+    anchor.current = null;
+  }, [win, list.length]);
+  useEffect(() => { grow.current(); }, [win, list.length, thread.hasOlder]);
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return undefined;
+    const rearm = (e) => { if (e.type === "wheel" && e.deltaY > 0) return; topGrown.current = false; nearTop.current = el.scrollTop < el.clientHeight; grow.current(); };
+    const kinds = ["wheel", "touchstart", "pointerdown", "keydown"];
+    for (const k of kinds) el.addEventListener(k, rearm, { passive: true });
+    return () => { for (const k of kinds) el.removeEventListener(k, rearm); };
+  }, []);
   // A screen finishing its draw or a picture its load makes the thread taller, below where the person is: stay on
   // the newest message if that is where they were.
   const content = useRef(null);
@@ -397,7 +438,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
         <div className="wb-messages" ref={content}>
           {!thread.loaded ? <div className="wb-wait">Opening {agent.name}...</div> : null}
           {thread.loaded && !list.length ? <div className="wb-empty">{agent.firstMessage || `Say hi to ${agent.name}.`}</div> : null}
-          {list.map((m, i) => (
+          {shown.map((m, k) => { const i = base + k; return (
             <div key={m.id} className="wb-item" data-id={m.id}>
               {marks[i]?.day ? <Day label={marks[i].day} /> : null}
               <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay} fresh={!old.has(m.id)}
@@ -407,12 +448,12 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
               ) : null}
               {marks[i]?.time ? <div className={`wb-time ${m.role === "user" ? "user" : ""}`}>{marks[i].time}</div> : null}
             </div>
-          ))}
+          ); })}
           {thread.waiting ? <Working agent={agent} thread={thread} onStop={onStop} note={note} /> : null}
         </div>
       </div>
       <Composer agent={agent} agents={agents} store={store} waiting={thread.waiting} onSend={onSend} onSendWords={onSendWords} onStop={onStop} offline={net.offline} inert={stageOn} commands={commands} onAbout={setAboutView} />
-      {stageOn ? <StageLayer agent={agent} agents={agents} commands={commands} store={store} thread={thread} sync={sync} light={light} fresh={Math.max(0, list.length - seen)} offline={net.offline} req={req}
+      {stageOn ? <StageLayer agent={agent} agents={agents} commands={commands} store={store} thread={thread} sync={sync} light={light} fresh={Math.max(0, list.length - seen)} offline={net.offline} req={req} landing={landing} onLanded={onLanded}
         onRecord={() => setView("chat")} onMenu={onMenu} /> : null}
       {menu ? <MessageMenu menu={menu} agent={agent} reaction={menuReaction} onReact={doReact} onReply={doReply} onCopy={doCopy} onClose={closeMenu} /> : null}
       {viewer ? (

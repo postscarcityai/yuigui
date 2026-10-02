@@ -166,3 +166,30 @@ test("a local send shows its blob previews; a mention the agent will not answer 
   assert.equal(t.waiting, true);
   assert.deepEqual(t.messages[1].local, ["blob:x"]);
 });
+
+test("older rows go in front and change nothing else (YUI-254)", () => {
+  const t = new Thread();
+  const recent = Array.from({ length: 3 }, (_, i) => row({ id: `n${i}`, sender: i === 2 ? "user" : "agent", body: `new ${i}`, created_at: iso(1000 + i) }));
+  t.load(recent, { first: true });
+  assert.equal(t.hasOlder, false, "a short first page is the whole chat");
+  assert.equal(t.oldestAt, recent[0].created_at);
+  const waiting = t.waiting, cursor = t.cursor, newest = t.newestAgentAt;
+  const old = Array.from({ length: 4 }, (_, i) => row({ id: `o${i}`, sender: i % 2 ? "user" : "agent", body: `old ${i}`, created_at: iso(100 + i), meta: i === 0 ? { native: { reminders: [{ id: "x" }] } } : {} }));
+  assert.equal(t.addOlder(old, 4), 4);
+  assert.deepEqual(t.messages.map((m) => m.text), ["old 0", "old 1", "old 2", "old 3", "new 0", "new 1", "new 2"]);
+  assert.equal(t.hasOlder, true, "a full batch means there may be more");
+  assert.equal(t.oldestAt, old[0].created_at);
+  assert.equal(t.waiting, waiting, "history never ends a wait");
+  assert.equal(t.cursor, cursor, "or moves the poll");
+  assert.equal(t.newestAgentAt, newest);
+  assert.equal(t.drainReminders().length, 0, "or fires a reminder");
+  assert.equal(t.addOlder(old, 4), 0, "the same batch twice adds nothing");
+  assert.equal(t.addOlder([], 4), 0);
+  assert.equal(t.hasOlder, false);
+});
+
+test("a thread that opens on a full page may hold older rows", () => {
+  const t = new Thread();
+  t.load(Array.from({ length: 100 }, (_, i) => row({ id: `f${i}`, body: `m${i}`, created_at: iso(5000 + i) })), { first: true });
+  assert.equal(t.hasOlder, true);
+});

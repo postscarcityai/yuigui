@@ -296,7 +296,7 @@ for (const [name, vp] of process.env.SKIP_MATRIX ? [] : [["390", PHONE], ["deskt
   await pg.waitForSelector("[data-testid=voice-row]");
   await pg.evaluate(() => window.__sr.last.say("never mind", false));
   await pg.waitForTimeout(450);
-  await pg.mouse.move(cx - 120, cy, { steps: 4 });
+  await pg.mouse.move(Math.max(2, cx - 900), cy, { steps: 4 });
   await pg.waitForTimeout(100);
   ok(await pg.locator(".wc-voice.cancel").count() === 1, `${tag}: sliding left says it will be thrown away`);
   n0 = await sent(pg);

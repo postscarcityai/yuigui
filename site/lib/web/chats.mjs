@@ -22,11 +22,13 @@ export function chatErrorOf(e) {
   return chatError(msg);
 }
 
-// The row's title: what it is called, "Hi <agent>" for the first chat with no title, "New chat" for any other.
-export function title(chat, agent) {
+// The row's title: what it is called, "Earlier" for the first chat with no title once there are other chats
+// (everything said before chats were many, YUI-254), "Hi <agent>" while it is the only one, "New chat" for any other.
+export function title(chat, agent, among = 1) {
   const t = (chat.title || "").trim();
   if (t) return t;
-  return chat.is_first ? `Hi ${agent}` : "New chat";
+  if (!chat.is_first) return "New chat";
+  return among > 1 ? "Earlier" : `Hi ${agent}`;
 }
 
 // A body as one quiet line: no screens, no line breaks.
@@ -101,7 +103,7 @@ export function merge(current, page, pageSize = PAGE_SIZE) {
 export function filter(chats, agent, query) {
   const q = String(query || "").trim().toLowerCase();
   if (!q) return chats;
-  return chats.filter((c) => title(c, agent).toLowerCase().includes(q) || lastLine(c).toLowerCase().includes(q));
+  return chats.filter((c) => title(c, agent, chats.length).toLowerCase().includes(q) || lastLine(c).toLowerCase().includes(q));
 }
 
 // A delete among this many saved chats: the only chat is cleared, not deleted.

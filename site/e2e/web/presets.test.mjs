@@ -44,9 +44,11 @@ async function open(vp, theme, touch = {}, view = "chat") {
 const items = (pg) => pg.locator(".wb-item").count();
 // The agent writes a reply; resolves when the thread has drawn one more row.
 async function say(pg, yl, meta) {
-  const n = await items(pg);
+  // The thread draws its newest 60 rows (YUI-260), so past that the count stops growing: watch the newest row instead.
+  const tail = () => pg.evaluate(() => { const e = document.querySelectorAll(".wb-item"); return `${e.length}:${e[e.length - 1]?.innerHTML.length || 0}:${e[e.length - 1]?.innerText.slice(-40) || ""}`; });
+  const n = await tail();
   await pg.evaluate(([y, m]) => window.yuiWebDemo.say("demo-penny", y, m || {}), [yl, meta]);
-  await pg.waitForFunction((k) => document.querySelectorAll(".wb-item").length > k, n, { timeout: 15000 });
+  await pg.waitForFunction((k) => { const e = document.querySelectorAll(".wb-item"); return `${e.length}:${e[e.length - 1]?.innerHTML.length || 0}:${e[e.length - 1]?.innerText.slice(-40) || ""}` !== k; }, n, { timeout: 15000 });
   await pg.waitForTimeout(300);
 }
 const wire = (pg) => pg.evaluate(() => window.yuiWebDemo.wire("demo-penny"));

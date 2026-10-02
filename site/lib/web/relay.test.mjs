@@ -87,3 +87,11 @@ test("realtime: joins with the token and a filter, hands over inserts, reports i
   off();
   assert.equal(states.at(-1), "closed");
 });
+
+test("the way back through a long chat is the app's fetchOlder: the rows said just before a time (YUI-254)", () => {
+  const q = Object.fromEntries(threadQuery({ agentId: "a1", before: "2026-10-01T12:00:00+00:00", limit: 100 }));
+  assert.equal(q.created_at, "lt.2026-10-01T12:00:00+00:00");
+  assert.equal(q.order, "created_at.desc");
+  assert.equal(q.limit, "100");
+  assert.equal(Object.fromEntries(threadQuery({ agentId: "a1" })).created_at, undefined);
+});

@@ -3,7 +3,7 @@
 // 10 s (a row can commit after a later one; ids dedupe), a ~1 s look at the person's newest row while the
 // agent works (pickup, `doing`, finished), and the realtime socket as a faster path that never replaces the
 // poll. Sending goes through the outbox, so a dropped network never loses a message.
-import { before } from "./thread.mjs";
+import { before, OPEN_ROWS } from "./thread.mjs";
 import { createOutbox } from "./outbox.mjs";
 import { mediaPath, mentionBody, mentionMeta, photoBody, photoMeta, reactionBody, reactionMeta, reactionOf, replyBody, replyMeta, rowOf } from "./compose.mjs";
 import { echoFor, eventLine, relays, valueOf } from "../../../mcp-app/src/events.mjs";
@@ -80,7 +80,7 @@ export class ThreadSync {
   async refresh(first = false) {
     const t = this.thread;
     try {
-      const rows = await this.relay.fetchRows({ agentId: this.agentId, chatId: this.chatId, since: first ? null : t.cursor && before(t.cursor, 10), limit: 100 });
+      const rows = await this.relay.fetchRows({ agentId: this.agentId, chatId: this.chatId, since: first ? null : t.cursor && before(t.cursor, 10), limit: OPEN_ROWS });
       t.load(rows, { first });
       // About once a second while the agent works: the host writes `doing` onto the person's row.
       if (t.waiting && Date.now() - this.turnCheckedAt > this.turnCheck && this.outbox.pending().length === 0) {
@@ -94,6 +94,17 @@ export class ThreadSync {
       t.loaded = true;
       t.changed();
     }
+  }
+
+  // Scrolled to the top of a long chat (YUI-254): the next older batch goes in front. True when rows came.
+  async loadOlder() {
+    const t = this.thread;
+    if (!t.hasOlder || this.loadingOlder || !t.loaded || !t.oldestAt) return false;
+    this.loadingOlder = true;
+    try {
+      const rows = await this.relay.fetchRows({ agentId: this.agentId, chatId: this.chatId, before: t.oldestAt, limit: OPEN_ROWS });
+      return this.alive ? t.addOlder(rows) > 0 : false;
+    } catch { return false; } finally { this.loadingOlder = false; }
   }
 
   // The person typed something (and maybe attached photos). False when there is nothing to send.

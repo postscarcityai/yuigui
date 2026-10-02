@@ -16,13 +16,18 @@ const isAsk = (m) => m.role === "user" && !m.card;
 // The turn the person started with message `askId` (their newest when null): every reply after it, up to
 // the next thing they said. `pieces` is what answerOf plays; `stopped` is a Stop in the turn (a note in
 // the record, never a chunk).
+//
+// `askId` can also name something the agent said that nobody asked for (YUI-262: a reply from another channel, a
+// check-in, a push tap on a thread the person never spoke in): that turn has no ask and plays from that message on
+// (StageChunks.hello `from:`).
 export function turnOf(messages, askId = null) {
   let i = askId ? messages.findIndex((m) => m.id === askId) : -1;
   if (i < 0) for (let k = messages.length - 1; k >= 0; k--) if (isAsk(messages[k])) { i = k; break; }
   if (i < 0) return { ask: null, pieces: [], stopped: false, replies: 0 };
-  const turn = { ask: messages[i], pieces: [], stopped: false, replies: 0, at: null };
+  const lead = !isAsk(messages[i]);
+  const turn = { ask: lead ? null : messages[i], pieces: [], stopped: false, replies: 0, at: null };
   const seen = new Set();
-  for (const m of messages.slice(i + 1)) {
+  for (const m of messages.slice(lead ? i : i + 1)) {
     if (isAsk(m)) break;
     if (m.card === "stopped") { turn.stopped = true; continue; }
     if (m.role !== "agent" || m.from) continue;
@@ -33,6 +38,34 @@ export function turnOf(messages, askId = null) {
   turn.replies = seen.size;
   return turn;
 }
+
+// A thread row is `<message id>#<part>` (one agent message splits into a text or a screen per fence), while a push
+// names the bare message id: either form is the same message (PushLanding.isRow).
+export const isRow = (rowId, named) => {
+  const r = String(rowId).toLowerCase(), n = String(named).toLowerCase();
+  return r === n || r.startsWith(`${n}#`);
+};
+const said = (m) => m.role === "agent" && !m.from;
+
+// Where a push tap lands (PushLanding.message): the message it names, else the first thing the agent said in its
+// newest turn (what came after the person's last word). Null when there is nothing to open.
+export function landingOf(messages, named = null) {
+  if (named) { const hit = messages.find((m) => isRow(m.id, named) && said(m)); if (hit) return hit.id; }
+  let from = 0;
+  for (let k = messages.length - 1; k >= 0; k--) if (isAsk(messages[k])) { from = k + 1; break; }
+  return messages.slice(from).find(said)?.id ?? null;
+}
+
+// The turn that plays for a message: the person's ask before it, else (nothing said before it) the message itself.
+export function playFor(messages, id) {
+  const i = messages.findIndex((m) => m.id === id);
+  if (i < 0) return null;
+  for (let k = i; k >= 0; k--) if (isAsk(messages[k])) return messages[k].id;
+  return id;
+}
+
+// The first thing the agent said among rows that just arrived (PushLanding.arrival), else null.
+export const arrivalOf = (added) => added.find(said)?.id ?? null;
 
 export const answerOfTurn = (turn) => answerOf(turn.pieces);
 
@@ -61,13 +94,16 @@ export function savedPages(messages) {
   return out;
 }
 
+// The signed-in web draws what the app draws: the tuner is a page of Gouda's (YUI-252), not only the public chat's set.
+const SIGNED_IN = new Set(["tuner"]);
+
 // Everything the agent's home draws: the newest shortcuts as chips, the review items, the pages and
 // where a `show=` goes. `opened` is the thread's own opening line when it has one.
 export function homeOf(messages) {
   const ops = [];
   for (const m of messages) if (m.role === "agent" && m.ops) ops.push(...m.ops.filter((o) => o.op === "menu"));
   const menu = menuOf(ops);
-  const pg = threadPages(repliesOf(messages));
+  const pg = threadPages(repliesOf(messages), SIGNED_IN);
   const saved = savedPages(messages);
   return {
     chips: menu.shortcut.slice(0, MAX_CHIPS),

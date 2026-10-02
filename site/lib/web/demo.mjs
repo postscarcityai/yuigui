@@ -255,14 +255,15 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
       },
       clear: async (cid) => { for (const agentId of Object.keys(chatsOf)) threads[agentId] = rows(agentId).filter((r) => chatIdOf(r, agentId) !== cid); },
     },
-    async fetchRows({ agentId, chatId = null, since, limit = 100 }) {
+    async fetchRows({ agentId, chatId = null, since, before = null, limit = 100 }) {
       firstChat(agentId);
       const all = rows(agentId).filter((r) => (r.kind !== "control" || (r.sender === "user" && r.body === "stop")) && (!chatId || chatIdOf(r, agentId) === chatId));
       if (since) {
         const from = Date.parse(since);
         return all.filter((r) => Date.parse(r.created_at) > from).map((r) => ({ ...r }));
       }
-      return all.slice(-limit).map((r) => ({ ...r }));
+      const upTo = before ? all.filter((r) => Date.parse(r.created_at) < Date.parse(before)) : all;
+      return upTo.slice(-limit).map((r) => ({ ...r }));
     },
     async newestFromUser({ agentId, chatId = null }) {
       const mine = rows(agentId).filter((r) => r.sender === "user" && r.kind !== "control" && (!chatId || chatIdOf(r, agentId) === chatId));
@@ -297,6 +298,22 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     // `meta` (a reply's `native` reminders ride there).
     say(agentId, yl, meta = {}) {
       rows(agentId).push({ id: id(), sender: "agent", body: "```yui\n" + yl + "\n```", kind: "text", meta, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null });
+    },
+    // A long chat (YUI-254, YUI-260): `n` older rows go in front of the thread, an agent line and a person's line in turn,
+    // every one dated before the oldest row there, so the way back through the chat has somewhere to go.
+    seedHistory(agentId, n) {
+      const list = rows(agentId);
+      const oldest = list.length ? Date.parse(list[0].created_at) : now();
+      const old = Array.from({ length: n }, (_, i) => {
+        const mine = i % 2 === 1;
+        return { id: `00000000-0000-4000-9000-${String(i + 1).padStart(12, "0")}`, sender: mine ? "user" : "agent", body: mine ? `Earlier question ${i + 1}` : `Earlier answer ${i + 1}`, kind: "text", meta: {}, created_at: iso(oldest - (n - i) * 60000), delivered_at: null, handled_at: iso(oldest - (n - i) * 60000 + 1000), reaction: null, doing: null };
+      });
+      list.unshift(...old);
+    },
+    // The agent says something with nothing owed (a check-in, a reply from another channel). Its id is `arrive-1`, the
+    // message id a push names (YUI-262).
+    arrive(agentId, body) {
+      rows(agentId).push({ id: "arrive-1", sender: "agent", body, kind: "text", meta: {}, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null });
     },
     // Every row the demo agent ever wrote or was sent, for the e2e checks (they read the wire, not the screen).
     wire(agentId) { return rows(agentId).filter((r) => r.sender === "user").map((r) => ({ kind: r.kind, body: r.body, meta: r.meta })); },

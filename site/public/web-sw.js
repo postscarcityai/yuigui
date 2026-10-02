@@ -34,7 +34,7 @@ function replyNotice(msg, clients) {
       renotify: true,
       icon: ICON,
       badge: BADGE,
-      data: { url: msg.url || `/web/agent/${msg.agent_id}`, agent_id: msg.agent_id },
+      data: { url: msg.url || `/web/agent/${msg.agent_id}`, agent_id: msg.agent_id, message_id: msg.message_id || null },
     },
   };
 }
@@ -42,6 +42,16 @@ function replyNotice(msg, clients) {
 // Only our own thread addresses open; anything else (a forged message cannot reach here, but be sure) goes home.
 function safeUrl(url) {
   return typeof url === "string" && /^\/web(\/|$)/.test(url) && !url.startsWith("//") ? url : "/web";
+}
+
+// The address a click opens: the thread, with the message the push names (YUI-262), so the page lands on that reply.
+function clickUrl(url, messageId) {
+  const safe = safeUrl(url);
+  if (!messageId || !/^[0-9a-z-]{1,64}$/i.test(String(messageId))) return safe;
+  const [path, query = ""] = safe.split("?");
+  const params = new URLSearchParams(query);
+  params.set("m", String(messageId));
+  return `${path}?${params}`;
 }
 
 // A window of ours to take over for a click: one already on this agent first, else any /web window.
@@ -86,7 +96,7 @@ if (typeof self !== "undefined" && typeof self.addEventListener === "function") 
 
   self.addEventListener("notificationclick", (event) => {
     event.notification.close();
-    const url = safeUrl(event.notification.data?.url);
+    const url = clickUrl(event.notification.data?.url, event.notification.data?.message_id);
     event.waitUntil((async () => {
       const mine = pickClient(await windows(), url);
       if (mine) {
@@ -102,4 +112,4 @@ if (typeof self !== "undefined" && typeof self.addEventListener === "function") 
   });
 }
 
-if (typeof module !== "undefined") module.exports = { agentOf, watching, replyNotice, safeUrl, pickClient };
+if (typeof module !== "undefined") module.exports = { agentOf, watching, replyNotice, safeUrl, pickClient, clickUrl };

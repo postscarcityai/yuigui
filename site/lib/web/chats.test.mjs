@@ -118,3 +118,13 @@ test("a chat that is already there counts as made (409)", async () => {
   const api2 = createChatsClient(async () => { const e = new Error("http_403"); e.status = 403; e.detail = '{"message":"limit_reached"}'; throw e; });
   await assert.rejects(() => api2.insert({ id: "c1", userId: "u", agentId: "a" }), (e) => chatErrorOf(e).kind === "limitReached");
 });
+
+test("the first chat with no title reads Earlier once there are other chats (YUI-254), Hi <agent> while it is alone", () => {
+  assert.equal(title({ title: null, is_first: true }, "Penny", 1), "Hi Penny");
+  assert.equal(title({ title: null, is_first: true }, "Penny", 3), "Earlier");
+  assert.equal(title({ title: "Race week", is_first: true }, "Penny", 3), "Race week");
+  assert.equal(title({ title: null, is_first: false }, "Penny", 3), "New chat");
+  // the search finds the row by the name it wears
+  const list = [{ id: "a", is_first: true, title: null }, { id: "b", is_first: false, title: "Race week" }];
+  assert.deepEqual(filter(list, "Penny", "earlier").map((c) => c.id), ["a"]);
+});

@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { Thread } from "./thread.mjs";
-import { chipAction, homeOf, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
+import { arrivalOf, chipAction, homeOf, isRow, landingOf, playFor, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
 
 const T0 = Date.parse("2026-10-01T12:00:00Z");
 const iso = (s) => new Date(T0 + s * 1000).toISOString().replace("Z", "000+00:00");
@@ -43,4 +43,26 @@ test("a saved screen comes back with no turn; an unknown name does not", () => {
   const m = thread([row({ body: yl("stat 8km \"Saturday\"\nsave run") })]);
   assert.equal(reopened(m, "nope"), null);
   assert.ok(reopened(m, "run"));
+});
+
+test("YUI-262: a push names a message, a row is that id or its #part", () => {
+  assert.equal(isRow("ABC#2", "abc"), true);
+  assert.equal(isRow("abcd", "abc"), false);
+  const m = thread([row({ id: "u1", sender: "user", body: "hi" }), row({ id: "a1", body: "one" }), row({ id: "a2", body: "two" })]);
+  const ids = m.map((x) => x.id);
+  assert.equal(isRow(ids[2], "a2"), true);
+  assert.equal(landingOf(m, "a2"), ids[2]);
+  assert.equal(landingOf(m, "a1"), ids[1]);
+  assert.equal(landingOf(m, "nope"), ids[1]); // not found: the first thing said after the person's last word
+  assert.equal(playFor(m, ids[2]), ids[0]);
+  assert.equal(playFor(thread([row({ id: "x", body: "hello" })]), thread([row({ id: "x", body: "hello" })])[0].id).startsWith("x"), true);
+  assert.equal(arrivalOf(m.slice(1)), ids[1]);
+  assert.equal(arrivalOf(m.slice(0, 1)), null);
+});
+
+test("YUI-252: the tuner is a page of the signed-in web (Gouda's sixth screen)", () => {
+  const m = thread([row({ id: "g1", body: yl(">2\nloop@l 92 \"Lazy\" p=x...|....\nsave looper\n>6\ntuner@tuner guitar +inline\nsave tuner") })]);
+  const h = homeOf(m);
+  assert.deepEqual(h.pages, ["2", "6"]);
+  assert.equal(h.saved.tuner, "6");
 });

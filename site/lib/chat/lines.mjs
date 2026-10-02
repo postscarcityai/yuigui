@@ -22,7 +22,7 @@ export const SAFE_URL = /^https:\/\/(www\.)?(yuigui\.com|postscarcity\.ai|testfl
 const FENCE = /```(?:yui|yl)[^\n]*\n([\s\S]*?)(?:```|$)/g;
 
 // "Hi.\n```yui\nask ...\n```\nMore." -> [{ text: "Hi." }, { yl: "ask ..." }, { text: "More." }]
-export function splitReply(reply) {
+export function splitReply(reply, extra = null) {
   const out = [];
   const s = String(reply || "");
   let at = 0, m;
@@ -30,7 +30,7 @@ export function splitReply(reply) {
   while ((m = FENCE.exec(s))) {
     const before = s.slice(at, m.index).trim();
     if (before) out.push({ text: before });
-    const yl = cleanLines(m[1]);
+    const yl = cleanLines(m[1], extra);
     if (yl) out.push({ yl });
     at = FENCE.lastIndex;
   }
@@ -74,7 +74,7 @@ const MERMAID = /^(flowchart|graph)\b/i;
 // block is dropped and the reply's line carries the words.
 const DGM_DRAWN = /^(flowchart|graph|sequenceDiagram|stateDiagram(?:-v2)?)(?=\s|;|$)/;
 const DGM_OPENS = /^(subgraph|loop|alt|opt|par|critical|break|rect)(?=\s|$)/;
-export function cleanLines(yl) {
+export function cleanLines(yl, extra = null) {
   const keep = [];
   const lines = String(yl || "").split("\n");
   for (let i = 0; i < lines.length; i++) {
@@ -119,7 +119,7 @@ export function cleanLines(yl) {
       continue;
     }
     if (!t || t.startsWith("#")) continue;
-    const ok = oneLine(line);
+    const ok = oneLine(line, extra);
     if (ok !== null) keep.push(ok);
   }
   return keep.join("\n").trim();
@@ -131,12 +131,12 @@ const ROUTE = /^(?:1|chat|[2-9]|1[0-2])$/;
 const PAGE_OPS = /^(clear|talk(\s+(on|off))?)$/;
 
 // One line the chat can draw, with outside links cut and site paths made whole, or null.
-function oneLine(line) {
+function oneLine(line, extra = null) {
   if (PAGE_OPS.test(line.trim())) return line.trim();
   // A patch by @id (`~runs 2`) reaches a component an earlier reply drew on a page; a patch named
   // for a preset the chat does not draw (`~image`) is still dropped.
   const h = head(line);
-  if (!ALLOWED.has(h) && !(line.trim().startsWith("~") && !PRESETS.includes(h))) return null;
+  if (!ALLOWED.has(h) && !extra?.has(h) && !(line.trim().startsWith("~") && !PRESETS.includes(h))) return null;
   let bad = false;
   const fixed = line.replace(/\burl=("([^"]*)"|(\S+))/g, (all, _q, quoted, bare) => {
     const u = quoted ?? bare;

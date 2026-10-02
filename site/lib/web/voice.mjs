@@ -8,6 +8,11 @@ export const BARS = 36;       // the waveform's bars, oldest first
 export const BAR_EVERY = 80;  // ms between bars
 export const SPEAKING = 0.4;  // louder than this counts as talking
 export const NO_AUDIO_MS = 4000; // the recognizer must have opened the mic by now (one fresh try at half)
+export const TRASH_INSET = 16;  // the bar's side inset, the same on the trash and the mic (BarButtons.trashReach)
+export const MIC_SIZE = 72;
+// How far left a held finger goes to arm the trash (YUI-251): the trash sits flush left, mirroring the mic's inset
+// on the right, so the reach is the bar's width less both insets and a mic, less a thumb of slack. Never under 110.
+export const trashReach = (width, inset = TRASH_INSET, mic = MIC_SIZE) => Math.max(110, width - 2 * inset - mic - 40);
 export const DEAF_MS = 2500;     // this much loud mic with no words at all: the recognizer is deaf
 
 export function speechApi() {

@@ -16,7 +16,8 @@ export const inThread = (screen, node) => pageOf(String(screen)) === 1 || !!node
 //   pages:   page names with something on them, in number order ("2", "5")
 //   forward: the page the newest reply brings forward, or null to stay
 //   talk:    pages whose composer is on
-export function threadPages(replies) {
+// `extra`: presets this reader draws beyond what the public chat allows (the web client adds the tuner).
+export function threadPages(replies, extra = null) {
   let state = initialState();
   let forward = null;
   for (const content of replies) {
@@ -25,7 +26,7 @@ export function threadPages(replies) {
     const screens = Object.fromEntries(Object.entries(state.screens).filter(([k]) => pageOf(k) > 1));
     state = { ...state, screens: { ...screens, 1: [] }, focus: "1", stage: false };
     const ops = [];
-    for (const p of splitReply(content || "")) {
+    for (const p of splitReply(content || "", extra)) {
       if (!p.yl) continue;
       for (const op of parse(p.yl, lastingIds(state))) { ops.push(op); state = apply(state, op); }
     }
