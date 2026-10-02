@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T13:05:35.870Z",
+  "updated": "2026-10-02T13:10:29.454Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,11 +348,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-169",
-          "title": "The /web page shows how fast it opens, before and after",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -372,14 +367,6 @@
           "title": "The working screen, more alive",
           "blocked": "chris",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-274",
-          "title": "/web cold visit starts its reads before the session renewal ends",
-          "summary": "Web opens a second faster the first time",
-          "blocked": "other",
-          "progress": "/progress#web-opens-a-second-faster-the-first-time",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -387,6 +374,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-169",
+          "title": "The /web page shows how fast it opens, before and after",
+          "summary": "How fast /web opens, in two charts",
+          "shipped": "2026-10-02",
+          "progress": "/progress#how-fast-web-opens-in-two-charts"
+        },
+        {
+          "key": "YUI-274",
+          "title": "/web cold visit starts its reads before the session renewal ends",
+          "summary": "Web opens a second faster the first time",
+          "shipped": "2026-10-02",
+          "progress": "/progress#web-opens-a-second-faster-the-first-time"
+        },
         {
           "key": "YUI-273",
           "title": "/web opens with your last chat already drawn",
