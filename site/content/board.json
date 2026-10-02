@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T01:20:46.050Z",
+  "updated": "2026-10-02T01:36:00.268Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -245,13 +245,18 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "NOTE-27775",
-          "title": "Hide raw cron errors",
+          "key": "NOTE-50620",
+          "title": "Agent name on the menu button",
           "waiting": true
         },
         {
-          "key": "NOTE-35030",
-          "title": "Status replies, a new look",
+          "key": "NOTE-35762",
+          "title": "No end screen while still working",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-27775",
+          "title": "Hide raw cron errors",
           "waiting": true
         },
         {
@@ -302,6 +307,16 @@
           "progress": "/progress#typing-trash-and-looper-fixes"
         },
         {
+          "key": "NOTE-3941",
+          "title": "Drawings that look designed",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-13658",
+          "title": "Drawings that look designed",
+          "waiting": true
+        },
+        {
           "key": "NOTE-18306",
           "title": "Tuner as Gouda's last screen",
           "waiting": true,
@@ -320,6 +335,16 @@
           "progress": "/progress#a-first-plan-from-coach"
         },
         {
+          "key": "NOTE-43312",
+          "title": "Drawings that look designed",
+          "waiting": true
+        },
+        {
+          "key": "NOTE-54787",
+          "title": "Drawings that look designed",
+          "waiting": true
+        },
+        {
           "key": "NOTE-54934",
           "title": "Past chats in the drawer",
           "waiting": true,
@@ -329,16 +354,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-6865",
-          "title": "Push tap opens the new answer",
-          "needsDemo": true
-        },
-        {
-          "key": "NOTE-30524",
-          "title": "New answers open full screen",
-          "needsDemo": true
         }
       ]
     },
@@ -352,6 +367,16 @@
           "agentReady": true,
           "owner": "CJohnDesign",
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
+        },
+        {
+          "key": "NOTE-35030",
+          "title": "Drawings that look designed",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-266",
+          "title": "/web shows the agent's name on the menu button, and no end screen while a reply is still coming",
+          "owner": "CJohnDesign"
         }
       ]
     },
@@ -365,6 +390,18 @@
           "summary": "See it has a Yui on the web group",
           "shipped": "2026-10-01",
           "progress": "/progress#see-it-has-a-yui-on-the-web-group"
+        },
+        {
+          "key": "NOTE-30524",
+          "title": "New answers open full screen",
+          "shipped": "2026-10-01",
+          "progress": "/progress#a-new-reply-comes-up-full-screen-no-tap"
+        },
+        {
+          "key": "NOTE-6865",
+          "title": "Push tap opens the new answer",
+          "shipped": "2026-10-01",
+          "progress": "/progress#a-push-tap-opens-the-reply-full-screen"
         },
         {
           "key": "YUI-264",
