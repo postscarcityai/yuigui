@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T08:05:47.591Z",
+  "updated": "2026-10-02T08:25:49.872Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -353,14 +353,15 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "NOTE-50900",
-          "title": "The working screen, more alive",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-267",
           "title": "Drawings that look designed",
           "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
+          "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-50900",
+          "title": "The working screen, more alive",
           "blocked": "chris",
           "owner": "CJohnDesign"
         }
