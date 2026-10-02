@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T08:00:47.752Z",
+  "updated": "2026-10-02T08:05:47.591Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -245,11 +245,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "NOTE-50900",
-          "title": "The working screen, more alive",
-          "waiting": true
-        },
-        {
           "key": "YUI-172",
           "title": "Get Yui iOS GoogleService-Info.plist from the existing Firebase project",
           "waiting": true
@@ -343,11 +338,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-35762",
-          "title": "No end screen while still working",
-          "needsDemo": true
         }
       ]
     },
@@ -363,10 +353,8 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "YUI-269",
-          "title": "/web scrolls back past the newest 100 rows, fetching older ones from the server",
-          "summary": "Web chats scroll back to the first message",
-          "progress": "/progress#web-chats-scroll-back-to-the-first-message",
+          "key": "NOTE-50900",
+          "title": "The working screen, more alive",
           "owner": "CJohnDesign"
         },
         {
@@ -382,6 +370,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-269",
+          "title": "/web scrolls back past the newest 100 rows, fetching older ones from the server",
+          "summary": "Web chats scroll back to the first message",
+          "shipped": "2026-10-02",
+          "progress": "/progress#web-chats-scroll-back-to-the-first-message",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/baafc31d"
+        },
+        {
+          "key": "NOTE-35762",
+          "title": "No end screen while still working",
+          "shipped": "2026-10-02",
+          "progress": "/progress#no-end-screen-while-the-agent-is-still-working"
+        },
         {
           "key": "YUI-268",
           "title": "/web catches up to Oct 1's app fixes",
