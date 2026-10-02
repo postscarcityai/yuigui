@@ -29,10 +29,11 @@ export function createAuth(deps) {
   let user = null;
   let signedIn = false;
   let ready = false;
+  let provisional = false; // a stored session is being renewed: the page may open on what it kept (YUI-273)
   let inflight = null;
   let peerAccess = null; // resolves the wait for a peer tab's fresh access token
   const listeners = new Set();
-  const snapshot = () => ({ ready, signedIn, user });
+  const snapshot = () => ({ ready, signedIn, user, ...(provisional ? { provisional: true } : {}) });
   const emit = () => { for (const l of listeners) l(snapshot()); };
 
   async function post(fn, body, bearer) {
@@ -61,11 +62,12 @@ export function createAuth(deps) {
     await store.set({ refresh: reply.refresh_token, user, at: now() });
     signedIn = true;
     ready = true;
+    provisional = false;
     emit();
   }
 
   function drop() {
-    access = null; user = null; signedIn = false; ready = true;
+    access = null; user = null; signedIn = false; ready = true; provisional = false;
     emit();
   }
 
@@ -135,9 +137,11 @@ export function createAuth(deps) {
       const saved = await store.get();
       if (!saved?.refresh) { drop(); return snapshot(); }
       user = saved.user ?? null;
+      // The page can open on what this person last saw while the renewal is on the wire: a refused token ends it (drop).
+      if (user?.id) { provisional = true; emit(); }
       try { await refresh(); } catch (e) {
         // Offline: stay signed in, the next call retries. Refused: refresh() already dropped it.
-        if (e.code === "network" || e.status >= 500) { signedIn = true; ready = true; emit(); }
+        if (e.code === "network" || e.status >= 500) { signedIn = true; ready = true; provisional = false; emit(); }
       }
       return snapshot();
     },

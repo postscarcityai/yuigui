@@ -252,11 +252,11 @@ function Composer({ agent, agents, store, waiting, onSend, onSendWords, onStop, 
   );
 }
 
-export default function ThreadView({ relay, userId, agent, agents = [], outbox = null, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {}, onOpenAgent = null, onApi = null, landing = null, onLanded = () => {} }) {
+export default function ThreadView({ relay, userId, agent, agents = [], outbox = null, cache = null, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {}, onOpenAgent = null, onApi = null, landing = null, onLanded = () => {} }) {
   const thread = useMemo(() => new Thread(), [agent.id, chat]);
   const [, tick] = useReducer((n) => n + 1, 0);
   const [net, setNet] = useState({ offline: false, pending: 0 });
-  const sync = useMemo(() => new ThreadSync({ relay, thread, userId, agentId: agent.id, chatId: chat || null, outbox, onStatus: setNet }), [relay, thread, userId, agent.id, chat, outbox]);
+  const sync = useMemo(() => new ThreadSync({ relay, thread, userId, agentId: agent.id, chatId: chat || null, outbox, cache, onStatus: setNet }), [relay, thread, userId, agent.id, chat, outbox, cache]);
   // A music take (YUI-246) uploads to this thread's media and comes back as a signed link.
   useEffect(() => (relay?.upload && relay?.sign ? setTakeHost(relayTakeHost({ relay, userId, agentId: agent.id })) : undefined), [relay, userId, agent.id]);
   useEffect(() => thread.subscribe(tick), [thread]);

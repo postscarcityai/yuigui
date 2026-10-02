@@ -131,6 +131,13 @@ const isStop = (row) => row.sender === "user" && row.body === "stop";
 
 export class Thread {
   constructor() {
+    this.version = 0;
+    this.listeners = new Set();
+    this.reset();
+  }
+
+  // Everything the rows built, back to an empty thread (the listeners stay).
+  reset() {
     this.messages = [];
     this.seen = new Set();
     this.cursor = null; // newest created_at seen, for the next poll
@@ -145,8 +152,6 @@ export class Thread {
     this.doing = null;
     this.newestAgentAt = null;
     this.reminderRows = [];
-    this.version = 0;
-    this.listeners = new Set();
     this.stopped = new Set();
     this.reactions = new Map(); // thread row id -> the emoji on it (Reactions.swift `reactions`)
   }
@@ -210,6 +215,14 @@ export class Thread {
     this.loaded = true;
     this.changed();
     return any;
+  }
+
+  // The rows a repeat visit kept (YUI-273) are on the screen; the live read comes and is the truth: the thread is
+  // rebuilt from it in one pass (`changed` once, after), so a row that changed while the tab was shut shows as it
+  // is now, a row that is gone goes, and the rows that stayed keep their place (their ids are the keys).
+  swap(rows) {
+    this.reset();
+    this.load(rows, { first: true });
   }
 
   // A batch of older rows (YUI-254, `ThreadClient.fetchOlder`), oldest first, goes in front and changes nothing else:

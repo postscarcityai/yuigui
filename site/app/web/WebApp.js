@@ -5,6 +5,7 @@
 import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createAuth, browserDeps } from "../../lib/web/auth.mjs";
+import { wipe } from "../../lib/web/cache.mjs";
 import { APPLE_JS, APPLE_WEB_CLIENT_ID, REDIRECT_URI } from "../../lib/web/config.mjs";
 import { cleanInvite, inviteFromLocation, inviteNotice } from "../../lib/web/invite.mjs";
 import { sha256Hex, randomHex } from "../../lib/web/nonce.mjs";
@@ -52,6 +53,9 @@ export default function WebApp({ build }) {
     return () => { off(); auth.close(); };
   }, [auth]);
 
+  // Signed out (here, in another tab, or the session was refused): what the page kept for a repeat visit goes with it.
+  useEffect(() => { if (snap.ready && !snap.signedIn && !snap.provisional) wipe(); }, [snap.ready, snap.signedIn, snap.provisional]);
+
   // Signed in with an invite waiting (a link opened after sign in): claim it now, like the app.
   useEffect(() => {
     if (!auth || !snap.signedIn || !invite) return;
@@ -66,7 +70,8 @@ export default function WebApp({ build }) {
   // ?demo=<sample>: a recorded thread on a fake relay, no sign in, nothing leaves the tab (YUI-242).
   if (demo) return <ThreadApp demo={demo.slice(0, 40)} build={build} connect={connectOf(path)} group={groupOf(path)} {...threadOf(path)} />;
   // Signed in: the agents and the open thread. Sign in, the invite and the demo code stay on this page (YUI-241).
-  if (snap.ready && snap.signedIn) return <ThreadApp auth={auth} user={snap.user} build={build} connect={connectOf(path)} group={groupOf(path)} {...threadOf(path)} />;
+  // A repeat visit (YUI-273): the stored session is being renewed, and the thread opens on the rows it kept meanwhile.
+  if ((snap.ready && snap.signedIn) || (snap.provisional && snap.user?.id)) return <ThreadApp auth={auth} user={snap.user} build={build} connect={connectOf(path)} group={groupOf(path)} {...threadOf(path)} />;
 
   return (
     <div className="web">

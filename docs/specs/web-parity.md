@@ -324,3 +324,26 @@ What changed, no feature change:
 - The server draws five grey bubbles under "Opening Yui..." (`.wb-skel`, `thread.css`), so the page reads as a chat from the first paint of its own CSS.
 
 What did not move, and why: the first real row. A 3 run profile at 4x CPU shows the main thread idle for 1.8 s of the 2.5 s: the page waits for bytes. The 243 KB is about 100 KB of framework (React, Next) we cannot split, 62 KB of app shell, 21 KB of the Yui Lines parser the rows need, and a dozen small chunks. At 200 KB/s every KB costs about 5 ms, so a lighter shell buys milliseconds, not the second asked for. Tried and dropped: loading the drawer, the agents list and the crew pick after the first row. The first row stayed put and the agent switch got slower (316 to 579 ms), because the idle warm-up had not finished. Next levers, in order: Brotli on the real host (Vercel already sends it, so real numbers are lower than this local gzip run), and cached last rows per agent on a repeat visit so the real rows draw at hydration instead of after the relay call.
+
+### YUI-273: a repeat visit opens on the last chat
+
+The first real row on a repeat visit no longer waits on the network. `site/scripts/web-speed-signed.mjs` times the signed in page (the demo thread cannot show this): 390 wide, 4x CPU, slow 4G, a stored session, and a local HTTPS stand-in for the backend that answers the first call after 450 ms and every later one after 250 ms (the throttle does not reach localhost). Cold is a fresh browser profile with the HTTP cache off, like the rig above. Repeat is the same profile a moment later with the HTTP cache on (Next's chunks are immutable) and whatever the page kept. Median of 5, production build, Oct 2.
+
+| Number | Before | After |
+| --- | --- | --- |
+| Cold visit: first real row | 4025 ms | 4020 ms |
+| Repeat visit: first real row | 2057 ms | 452 ms |
+| Repeat visit: first paint | 180 ms | 188 ms |
+| Repeat visit: live rows answer at | 1604 ms | 1293 ms |
+
+The repeat visit draws its rows 0.8 s before the live read lands, from IndexedDB (database `yui-web-cache`, `site/lib/web/cache.mjs`). Before, the rows waited for the session renewal, the agent list and the chat list, one after the other, then the rows (four round trips). What is kept, per signed in person (every record carries the user id, and a person never reads another's):
+
+- the newest 40 rows of each thread the person opened, keyed by agent and chat, written when the live read or the socket brings something new;
+- each agent's chat list (the first page), so the thread can mount before `yui_chat_list` answers;
+- the agent list with the crew and first name (never `crew_pending`, so the first run screen cannot flash).
+
+How it reconciles: the page opens on the stored session while the renewal is on the wire (`provisional` in the auth snapshot); the kept rows are drawn without starting a wait (a kept last row of yours never says the agent is working); when the live first read lands the thread is rebuilt from it in one pass (`Thread.swap`), so a row that changed shows as it is now, a gone row is gone, nothing shows twice, and there is one redraw. A refused session ends the provisional screen at once. If the network is down the kept rows stay.
+
+Clearing: sign out clears it (and the instance stops writing, so a read in flight cannot put it back). A tab that finds itself signed out (another tab signed out, the session was refused) wipes it too. The demo never writes it. Nothing is kept for a group thread yet.
+
+What did not move: the cold visit. A first visit has nothing kept, and its row waits on the same four trips and the same 240 KB of script as in YUI-272. Next levers: carry the first screen's rows in the server HTML for a signed in person (needs a cookie the server can read, a privacy decision), or start the agent and chat reads before the session renewal ends.

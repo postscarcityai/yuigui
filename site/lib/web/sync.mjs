@@ -18,8 +18,10 @@ const uuid = () => (globalThis.crypto?.randomUUID?.() ?? "10000000-1000-4000-800
 export class ThreadSync {
   // `outbox` is the one the whole page shares (what a closed tab left behind goes out from there); a thread
   // opened on its own (the tests) gets a private one that lives in memory.
-  constructor({ relay, thread, userId, agentId, chatId = null, outbox = null, timers = { set: (fn, ms) => setTimeout(fn, ms), clear: (t) => clearTimeout(t) }, onStatus = () => {}, turnCheck = TURN_CHECK }) {
-    Object.assign(this, { relay, thread, userId, agentId, chatId, timers, onStatus, turnCheck });
+  constructor({ relay, thread, userId, agentId, chatId = null, outbox = null, cache = null, timers = { set: (fn, ms) => setTimeout(fn, ms), clear: (t) => clearTimeout(t) }, onStatus = () => {}, turnCheck = TURN_CHECK }) {
+    Object.assign(this, { relay, thread, userId, agentId, chatId, timers, onStatus, turnCheck, cache });
+    this.raw = new Map(); // the rows the relay sent, by id: what the cache keeps (YUI-273)
+    this.drawnFromCache = false;
     this.socket = false;
     this.offline = false;
     this.alive = false;
@@ -50,11 +52,17 @@ export class ThreadSync {
   async start() {
     this.alive = true;
     this.unlisten = this.outbox.subscribe((e) => this.#listen(e));
+    // A repeat visit: the rows kept last time are drawn before the relay has answered (YUI-273). Cached rows never
+    // start a wait (no `first`): whether the agent is still working is for the live read to say.
+    if (this.cache) {
+      const kept = await this.cache.rows.get(this.agentId, this.chatId);
+      if (kept?.length && this.alive && !this.thread.loaded) { this.thread.load(kept); this.drawnFromCache = true; this.#rehydrate(); }
+    }
     await this.refresh(true);
     this.#rehydrate();
     this.unsubscribe = this.relay.subscribe?.({ agentId: this.agentId }, (row) => {
       // A realtime row lands the same way a polled one does.
-      if (this.thread.add(row)) this.thread.cursor = row.created_at > (this.thread.cursor || "") ? row.created_at : this.thread.cursor;
+      if (this.thread.add(row)) { this.thread.cursor = row.created_at > (this.thread.cursor || "") ? row.created_at : this.thread.cursor; this.#remember([row]); }
     }, (s) => { this.socket = s === "open"; });
     this.#schedule();
     if (typeof document !== "undefined") {
@@ -81,7 +89,9 @@ export class ThreadSync {
     const t = this.thread;
     try {
       const rows = await this.relay.fetchRows({ agentId: this.agentId, chatId: this.chatId, since: first ? null : t.cursor && before(t.cursor, 10), limit: OPEN_ROWS });
-      t.load(rows, { first });
+      if (first && this.drawnFromCache) { this.drawnFromCache = false; t.swap(rows); this.#rehydrate(); }
+      else t.load(rows, { first });
+      this.#remember(rows);
       // About once a second while the agent works: the host writes `doing` onto the person's row.
       if (t.waiting && Date.now() - this.turnCheckedAt > this.turnCheck && this.outbox.pending().length === 0) {
         this.turnCheckedAt = Date.now();
@@ -94,6 +104,17 @@ export class ThreadSync {
       t.loaded = true;
       t.changed();
     }
+  }
+
+  // What the cache keeps for this thread: the newest rows the relay has sent, written when something came in.
+  #remember(rows) {
+    if (!this.cache || !this.alive || !rows.length) return;
+    let fresh = false;
+    for (const r of rows) { const old = this.raw.get(r.id); if (!old || old.handled_at !== r.handled_at || old.reaction !== r.reaction) fresh = true; this.raw.set(r.id, r); }
+    if (!fresh) return;
+    const keep = [...this.raw.values()];
+    this.cache.rows.put(this.agentId, this.chatId, keep);
+    if (this.raw.size > 80) { this.raw.clear(); for (const r of keep.slice(-40)) this.raw.set(r.id, r); }
   }
 
   // Scrolled to the top of a long chat (YUI-254): the next older batch goes in front. True when rows came.

@@ -121,6 +121,21 @@ test("restore with nothing stored is signed out, no request made", async () => {
   assert.equal(srv.refreshes, 0);
 });
 
+test("restore opens provisionally while the stored session renews (YUI-273), and a refused token ends it", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  await sign(b.tab());
+  const t = b.tab(); const seen = []; t.subscribe((s) => seen.push(s));
+  await t.restore();
+  const prov = seen.find((s) => s.provisional);
+  assert.ok(prov && prov.user?.id && !prov.ready && !prov.signedIn, "a stored person is shown before the renewal answers");
+  assert.deepEqual(Object.keys(t.snapshot()).sort(), ["ready", "signedIn", "user"], "no provisional flag once renewed");
+  assert.equal(t.snapshot().signedIn, true);
+  // Nothing stored: never provisional.
+  const t2 = browser(srv, clock).tab(); const seen2 = []; t2.subscribe((s) => seen2.push(s));
+  await t2.restore();
+  assert.equal(seen2.some((s) => s.provisional), false);
+});
+
 test("review sign in asks for a web session", async () => {
   const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
   let seen; const f = srv.fetch; srv.fetch = (u, i) => { seen = JSON.parse(i.body); return f(u, i); };

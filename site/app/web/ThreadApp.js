@@ -8,6 +8,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRelay } from "../../lib/web/relay.mjs";
 import { createGroupsClient } from "../../lib/web/groups.mjs";
 import { createOutbox, idbStore } from "../../lib/web/outbox.mjs";
+import { createCache } from "../../lib/web/cache.mjs";
 import { liveness, presenceLabel } from "../../lib/web/presence.mjs";
 import { controlSections, revoked, sortAgents, unsharedLine } from "../../lib/web/agents.mjs";
 import { chatErrorOf, draft as newDraft, merge as mergeChats, openAfterDeleting, append as appendChats, PAGE_SIZE } from "../../lib/web/chats.mjs";
@@ -117,6 +118,9 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   }, [auth]);
   const email = me?.email || user?.email;
   const userId = demo ? "demo-user" : user?.id;
+  // The last rows, chats and agents of a signed in person, kept here so a repeat visit draws them at once (YUI-273).
+  // The demo never writes one.
+  const cache = useMemo(() => (!demo && mounted && userId ? createCache({ userId }) : null), [demo, mounted, userId]);
   // Your $U in the drawer's header (SITE-161). On a computer the drawer is a column that is always in view, so it
   // counts as open; on a phone it counts when it slides out. ?earnseen=<n> on a demo link: the total "last seen".
   const [column, setColumn] = useState(false);
@@ -195,16 +199,20 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       }
       agentsRef.current = list;
       setAgents(list); setCrew(r.crew || []); setCrewPending(!!r.crew_pending); setFirstName(r.first_name || null); setError(null);
+      if (list.length) cache?.agents.put({ agents: list, crew: r.crew || [], first_name: r.first_name || null });
       return list;
     } catch (e) { setError(e); return null; }
-  }, [relay]);
+  }, [relay, cache]);
   // The list now and then, so presence (asleep, back online) stays honest.
   useEffect(() => {
     if (!relay) return undefined;
+    let live = true;
+    // A repeat visit: the list kept last time is drawn until the live one answers (it replaces it).
+    cache?.agents.get().then((kept) => { if (live && kept?.agents?.length && !agentsRef.current) { setAgents((a) => a || kept.agents); setCrew((c) => (c.length ? c : kept.crew || [])); setFirstName((n) => n || kept.first_name || null); } });
     load();
     const t = setInterval(load, 15000);
-    return () => clearInterval(t);
-  }, [relay, load]);
+    return () => { live = false; clearInterval(t); };
+  }, [relay, load, cache]);
   useEffect(() => { if (!notice) return undefined; const t = setTimeout(() => setNotice(""), 5000); return () => clearTimeout(t); }, [notice]);
 
   const sorted = useMemo(() => (agents ? sortAgents(agents) : null), [agents]);
@@ -229,13 +237,22 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     let live = true;
     chatsAgent.current = open.id;
     setChats({ items: [], more: false, loaded: false, note: null, draft: null });
+    // A repeat visit: the chat list kept last time opens the thread now, so its rows need not wait for this call.
+    let answered = false;
+    cache?.chats.get(open.id).then((kept) => {
+      if (!live || answered || !kept?.length) return;
+      for (const c of kept) known.current.add(c.id);
+      setChats((c) => (c.loaded ? c : { ...c, items: mergeChats([], kept), more: false, loaded: true }));
+    });
     chatsApi.list(open.id).then((page) => {
+      answered = true;
       if (!live) return;
       for (const c of page) known.current.add(c.id);
       setChats((c) => ({ ...c, items: mergeChats([], page), more: page.length >= PAGE_SIZE, loaded: true }));
+      cache?.chats.put(open.id, page);
     }).catch(() => live && setChats((c) => ({ ...c, loaded: true })));
     return () => { live = false; };
-  }, [chatsApi, open?.id]);
+  }, [chatsApi, open?.id, cache]);
   const refreshChats = useCallback(async () => {
     if (!chatsApi || !openRef.current) return;
     const id = openRef.current;
@@ -359,6 +376,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   // Sign out (and the end of a deleted account): what was not sent belonged to that account, so the outbox goes too.
   const onSignOut = async (how = {}) => {
     await outbox?.clear();
+    await cache?.clear();
     if (demo) { setSheet(null); setNotice(how.deleted ? "Account deleted (demo). Nothing left the tab." : "Signed out (demo). Nothing left the tab."); return; }
     if (how.deleted) return; // deleteAccount already ended the session here
     await push.forget();
@@ -504,7 +522,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
           {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
         </header> : null}
         {groupId ? (group && sorted ? <GroupThread key={group.id} api={groupsApi} group={group} agents={sorted} light={light} userId={userId} onMenu={() => setDrawer(true)} onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} onChanged={refreshGroups} onArchived={() => { refreshGroups(); go(`/web${keep}`); }} /> : <div className="wb-wait center">Opening the group...</div>)
-          : open && ready ? <ThreadView key={threadKey} landing={landing} onLanded={landed} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
+          : open && ready ? <ThreadView key={threadKey} landing={landing} onLanded={landed} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} cache={cache} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
           onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} />
           : error && !sorted ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
           : sorted && !sorted.length ? (
