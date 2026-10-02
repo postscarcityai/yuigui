@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T17:25:12.745Z",
+  "updated": "2026-10-02T17:30:13.300Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -370,13 +370,6 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "SITE-176",
-          "title": "Thought, one decision on one screen, told in pictures",
-          "summary": "One decision, one screen, told in pictures",
-          "progress": "/progress#one-decision-one-screen-told-in-pictures",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -402,6 +395,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-176",
+          "title": "Thought, one decision on one screen, told in pictures",
+          "summary": "One decision, one screen, told in pictures",
+          "shipped": "2026-10-02",
+          "progress": "/progress#one-decision-one-screen-told-in-pictures"
+        },
         {
           "key": "YUI-277",
           "title": "/web asks on the same screen as what it asks about",
