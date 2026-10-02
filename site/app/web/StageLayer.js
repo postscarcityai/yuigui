@@ -350,7 +350,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   } else {
     center = (
       <HomeHead agent={agent} home={home} hasScreens={home.pages.length > 0} seeAll={seeAll} onSeeAll={() => setSeeAll(true)} onWaiting={tapWaiting}
-        quiet={stoppedNow ? "Stopped." : turn && turn.replies && !stageUp ? "Anything else?" : ""} />
+        quiet={stoppedNow ? "Stopped." : turn && turn.replies && !stageUp && !busy && turn.ask?.id === newest ? "Anything else?" : ""} />
     );
   }
 
@@ -365,7 +365,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
       {mood.mood !== "idle" ? <span className="mo-wash" key={`wash:${version > 0 ? messages.length : 0}`} /> : null}
       <div className="wb-stage-in">
         <header className="ys-top">
-          <button className="ys-round wb-stage-menu" onClick={onMenu} aria-label="Your agents"><MenuIcon /></button>
+          <button className="wb-stage-menu" onClick={onMenu} aria-label={`Your agents, ${agent.name}`} data-testid="stage-menu"><MenuIcon /><Face agent={agent} size={22} /><span className="wb-stage-menu-name">{agent.name}</span></button>
           <div className="wb-stage-title" data-testid="stage-agent">
             <Face agent={agent} size={34} />
             <div className="ys-who"><strong>{agent.name}</strong><span><i className={`wb-dot ${liveness(agent)}`} />{status}</span></div>

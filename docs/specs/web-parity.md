@@ -100,6 +100,8 @@ Every one is a row below too. This is the short list, with the web way for each.
 | Pages 2 to 12: swipe, arrow keys, dots, kept across replies | `Presets/Pages.swift` | same: `pages.mjs`. Proved in `site/e2e/web/stage.test.mjs` (pills, arrow keys, a swipe back) | 243, 250 | done |
 | Agent home: shortcut chips, review rows, show saved screen | `Stage/StageHome.swift` | same | 243 | done |
 | Top bar (settings, agent picker, chat record with new count) | `Stage/TopBar.swift` | same | 243 | done |
+| Menu button names the agent: one pill, menu icon left, the agent's name right, the whole pill opens the drawer; a long name truncates (TestFlight note, t_deedc5bc) | `Stage/TopBar.swift` | same: `.wb-stage-menu` in `StageLayer.js`, on a phone width. Proved in `site/e2e/web/menu-pill.test.mjs` | 266 | done |
+| No end screen while a reply is coming ("Anything else?" waits for the turn to be over) (TestFlight note, t_043d8bb2) | `Stage/StageHome.swift` | same: the home line shows only when the played turn is the person's newest and nothing is in flight. Proved in `site/e2e/web/menu-pill.test.mjs` | 266 | done |
 | Bottom bar (big mic, T, +; settings toggle each) | `Stage/BottomBar.swift` | same: mic (hold or tap), text field, attach, with the tray, reply and mention bars over it | 243, 244 | done |
 | Story pages full screen | `Presets/StoryPage.swift` | same. Proved in `site/e2e/web/stage.test.mjs` and the 390 px shots under /progress | 243, 250 | done |
 | Time under the stage answer (Yesterday 9:41 PM) | `Stage/StageFirst.swift` | same: `stageTime` in `when.mjs`. Unit-tested in `site/lib/chat/when.test.mjs` | 243, 250 | done |
