@@ -1,7 +1,7 @@
 // Stage first (YL.md section 5): how replies split into chunks.
 //   node site/lib/yl/chunks.test.mjs     exit 1 on any failure
 import { apply, initialState, pageOf, parse } from "./yl.mjs";
-import { packPages, splitSentences, stageChunks, textChunks } from "./chunks.mjs";
+import { isLabelChunk, packPages, splitSentences, stageChunks, textChunks } from "./chunks.mjs";
 import { BASIL_KNOWN, BASIL_WEEK } from "./basil-week.mjs";
 
 const nodesOf = (text, known = {}, chat = false) => {
@@ -119,6 +119,42 @@ sketch
 row A +hi
 say "Bye."
 end`), [1, 1, 1]);
+
+// The stage redesign (the app's StageRedesignTests): `Label: value` lines read as one ledger.
+const lines = (text) => packPages(stageChunks(nodesOf(text)).chunks).map((p) => [p.line, ...p.more.map((m) => m.line)]);
+eq("label lines share one page as one ledger", lines(`say "Push tap: fixed"
+say "New reply: plays itself"
+say "Ships: next build"`), [["Push tap: fixed\nNew reply: plays itself\nShips: next build"]]);
+const under = lines(`say "Push tap fixed."
+sketch
+row "Tap opens the reply" +hi
+say "Push tap: fixed"
+say "Ships: next build"`);
+eq("a ledger never rides under a drawing", [under.length, under[1]], [2, ["Push tap: fixed\nShips: next build"]]);
+eq("prose after a ledger starts its own page", lines(`say "Site: good"
+say "SEO: strong"
+say "Three builds shipped this week."`), [["Site: good\nSEO: strong"], ["Three builds shipped this week."]]);
+eq("a ledger holds six rows, the seventh starts the next", lines(Array.from({ length: 7 }, (_, i) => `say "Row ${i + 1}: ok"`).join("\n")).map((p) => p[0].split("\n").length), [6, 1]);
+eq("a bold label is a label", isLabelChunk({ line: "**Push tap:** fixed" }), true);
+eq("a time is not a label", isLabelChunk({ line: "Meet at 9:30 tomorrow." }), false);
+eq("a label of five words is not a label", isLabelChunk({ line: "One two three four five: six" }), false);
+eq("a list of labels is not a ledger", isLabelChunk({ line: "- Site: good\n- SEO: strong" }), false);
+eq("one bullet on its own reads as its label", isLabelChunk({ line: "- Site: good" }), true);
+eq("a blank line between labels is not a ledger", isLabelChunk({ line: "Site: good\n\nSEO: strong" }), false);
+eq("a chunk with a picture is not a ledger", isLabelChunk({ line: "Site: good", pic: { preset: "stat" } }), false);
+eq("a draw is the picture of the line before it", view(`say "Tap a push."
+draw "Push tap"
+<svg viewBox="0 0 4 3">
+<circle cx="2" cy="1" r="1"/>
+</svg>
+end`), { chunks: [["Tap a push.", "draw"]], questions: [], plan: null });
+eq("a draw stacks with other drawings", pages(`say "One."
+draw
+<svg viewBox="0 0 4 3"></svg>
+end
+say "Two."
+sketch
+row B +hi`), [2]);
 
 console.log(`${n - bad} passed, ${bad} failed`);
 process.exit(bad ? 1 : 0);

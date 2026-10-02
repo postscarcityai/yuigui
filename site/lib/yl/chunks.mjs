@@ -10,7 +10,7 @@
 // Things to answer. On the stage they wait for the end, all on one screen.
 export const QUESTIONS = new Set(["ask", "choose", "pick", "slide", "form", "mic", "camera"]);
 // Things to look at: each is the picture of the line before it.
-export const PICTURES = new Set(["sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "step", "card", "list", "table", "timeline", "shape", "row", "diagram", "mock", "part"]);
+export const PICTURES = new Set(["sketch", "shapes", "image", "gallery", "video", "compare", "storyboard", "chart", "stat", "math", "calc", "step", "card", "list", "table", "timeline", "shape", "row", "diagram", "mock", "part", "draw"]);
 // Groups whose pages become chunks and whose questions join the end.
 const FLOWS = new Set(["deck", "plan"]);
 
@@ -108,16 +108,60 @@ export function textChunks(text, most = 70) {
 // we're showing them"). Packs a turn's chunks onto pages, up to 3 each and 60 words. A deck or
 // plan page, a map, a game, a timer and any other non-drawing is a page of its own. Returns pages:
 // [{ ...first chunk, more: [chunk, ...] }]. The Swift mirror is StageChunks.pack.
+//
+// Lines that are each one `Label: value` read as one ledger, not as separate ideas (the stage
+// redesign, feedback ACHcboRE): consecutive ones join into one chunk, up to six rows, and a
+// ledger's first row starts its own page, so it never rides under a drawing.
 export const PER_PAGE = 3;
 export const PAGE_WORDS = 60;
-const STACKABLE = new Set(["sketch", "shapes", "chart", "stat", "timeline", "list", "table", "row", "card", "compare", "math", "step"]);
+export const LEDGER_ROWS = 6;
+const STACKABLE = new Set(["sketch", "shapes", "chart", "stat", "timeline", "list", "table", "row", "card", "compare", "math", "step", "draw"]);
 const canStack = (c) => !c.page && (c.pic ? STACKABLE.has(c.pic.preset) : !!c.line);
+
+// One line that opens with a short label, as the app reads it (ReadingBlock.lead in
+// Yui/Sources/Theme/ReadingText.swift): `**Label:** rest`, `**Label**: rest`, or a plain
+// `Label: rest` whose label is at most 4 words and holds no . ! ? * _ ` [ ].
+const BOLD_LEAD = /^\*\*(.{1,40}?):\*\*\s*(.*)$|^\*\*(.{1,40}?)\*\*:\s*(.*)$/u;
+const PLAIN_LEAD = /^([\p{L}\p{N}][^:\n.!?*_`[\]]{0,30}?):\s+(\S.*)$/u;
+const BULLET = /^(\s*)[-*+]\s+(.*)$/u;
+const NUMBER = /^(\s*)(\d{1,3})[.)]\s+(.*)$/u;
+const HEADING = /^\s{0,3}#{1,6}\s+(.*?)\s*#*\s*$/u;
+const FENCE = /^\s*```/;
+const isLead = (s) => BOLD_LEAD.test(s) || (PLAIN_LEAD.test(s) && PLAIN_LEAD.exec(s)[1].split(/\s+/).filter(Boolean).length <= 4);
+
+// Words alone, every line of them a `Label: value` (StageChunks.isLabel in the app). A blank
+// line between them, a list, a heading or a code fence is not a ledger. One bullet on its own
+// is read without its marker, as the app does.
+export function isLabelChunk(c) {
+  if (c.pic || c.page || !c.line) return false;
+  const lines = String(c.line).replace(/\r\n/g, "\n").split("\n");
+  const filled = lines.filter((l) => l.trim());
+  if (!filled.length) return false;
+  const sole = filled.length === 1 && BULLET.test(filled[0]);
+  let seen = false, gap = false;
+  for (const l of lines) {
+    if (!l.trim()) { if (seen) gap = true; continue; }
+    if (gap || FENCE.test(l)) return false;
+    seen = true;
+    const b = BULLET.exec(l);
+    if (b) { if (!sole || !isLead(b[2])) return false; continue; }
+    if (NUMBER.test(l) || HEADING.test(l) || !isLead(l)) return false;
+  }
+  return true;
+}
+
 export function packPages(chunks) {
   const out = [];
   let words = 0;
   for (const c of chunks) {
-    const w = c.line ? c.line.split(/\s+/).filter(Boolean).length : 0;
     const last = out[out.length - 1];
+    if (isLabelChunk(c) && last && !last.more.length && isLabelChunk(last)
+      && String(last.line).split("\n").filter(Boolean).length < LEDGER_ROWS) {
+      last.line = `${last.line}\n${c.line}`;
+      continue;
+    }
+    if (isLabelChunk(c)) { out.push({ ...c, more: [] }); words = PAGE_WORDS; continue; }
+    const w = c.line ? c.line.split(/\s+/).filter(Boolean).length : 0;
     if (canStack(c) && last && canStack(last) && 1 + last.more.length < PER_PAGE && words + w <= PAGE_WORDS) {
       last.more.push(c);
       words += w;
