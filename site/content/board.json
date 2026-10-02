@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T02:22:13.098Z",
+  "updated": "2026-10-02T02:41:07.486Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -381,6 +381,7 @@
           "key": "YUI-267",
           "title": "Drawings that look designed",
           "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
