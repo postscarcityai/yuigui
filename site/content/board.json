@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T16:22:16.187Z",
+  "updated": "2026-10-02T16:36:35.108Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -372,6 +372,11 @@
         {
           "key": "YUI-277",
           "title": "/web asks on the same screen as what it asks about",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-175",
+          "title": "/developers/draw, edit any example's Yui Lines and the drawing redraws in place",
           "owner": "CJohnDesign"
         },
         {
