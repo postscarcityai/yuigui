@@ -1957,6 +1957,10 @@
     },
     {
       "text": "The stage's end screen never shows while a turn is in flight (feedback APO8y7eU_NQKRDyLpUdwhX0)"
+    },
+    {
+      "text": "A dismissed ask never comes back: Dismiss on Needs you rows, ASK-CLOSED and ASK-SNOOZED on the card",
+      "card": "YUI-265"
     }
   ]
 }
