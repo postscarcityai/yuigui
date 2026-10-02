@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T15:05:49.543Z",
+  "updated": "2026-10-02T15:10:45.574Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -368,6 +368,8 @@
         {
           "key": "SITE-173",
           "title": "The values page gets One decision, one screen",
+          "summary": "One decision, one screen",
+          "progress": "/progress#one-decision-one-screen",
           "owner": "CJohnDesign"
         },
         {
