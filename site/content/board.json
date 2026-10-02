@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T07:05:40.365Z",
+  "updated": "2026-10-02T07:15:41.864Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -373,13 +373,6 @@
           "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
           "blocked": "chris",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-268",
-          "title": "/web catches up to Oct 1's app fixes",
-          "summary": "Trash left, Tune, past chats, push click, long scroll-back",
-          "blocked": "other",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -387,6 +380,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-268",
+          "title": "/web catches up to Oct 1's app fixes",
+          "summary": "The web catches up to the phone's Oct 1 fixes",
+          "shipped": "2026-10-02",
+          "progress": "/progress#the-web-catches-up-to-the-phone-s-oct-1-fixes",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4ee5ed03"
+        },
         {
           "key": "NOTE-50620",
           "title": "Agent name on the menu button",
