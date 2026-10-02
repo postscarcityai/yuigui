@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T02:41:07.486Z",
+  "updated": "2026-10-02T02:46:00.747Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -375,6 +375,8 @@
         {
           "key": "YUI-266",
           "title": "/web shows the agent's name on the menu button, and no end screen while a reply is still coming",
+          "summary": "On the web, the menu button names your agent",
+          "progress": "/progress#on-the-web-the-menu-button-names-your-agent",
           "owner": "CJohnDesign"
         },
         {
