@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T16:36:35.108Z",
+  "updated": "2026-10-02T16:51:17.289Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -375,11 +375,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-175",
-          "title": "/developers/draw, edit any example's Yui Lines and the drawing redraws in place",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -399,6 +394,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-175",
+          "title": "/developers/draw, edit any example's Yui Lines and the drawing redraws in place",
+          "summary": "Edit any drawing and watch it change",
+          "shipped": "2026-10-02",
+          "progress": "/progress#edit-any-drawing-and-watch-it-change"
+        },
         {
           "key": "SITE-174",
           "title": "/developers/draw, every drawing part Yui has, live, with its Yui Lines",
