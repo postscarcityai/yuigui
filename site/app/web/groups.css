@@ -85,3 +85,21 @@
   .gr-head .wb-sample, .gr-sample { font-size: 11px; padding: 2px 8px; }
 }
 @media (prefers-reduced-motion: reduce) { .gr-reply, .gr-pick { transition: none; } }
+
+/* ---------- group settings (YUI-263) ---------- */
+.gr-gear { margin-left: auto; }
+.gr-hops { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; padding: 6px 10px; border-radius: 18px; border: 1.5px solid var(--outline); background: var(--surface); }
+.gr-hops b { flex: 1; text-align: center; font-size: 16px; font-weight: 800; }
+.gr-step { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--outline); background: var(--raised); color: var(--ink); font: inherit; font-size: 22px; font-weight: 800; cursor: pointer; }
+.gr-step:disabled { opacity: .35; cursor: default; }
+.gr-step:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+.gr-member { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; min-height: 56px; padding: 8px 14px; border-radius: 18px; border: 1.5px solid var(--outline); background: var(--surface); }
+.gr-member b { flex: 1; min-width: 80px; font-size: 16px; font-weight: 800; }
+.gr-leadmark .gr-crown { position: static; width: 20px; height: 20px; }
+.gr-member-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.gr-quiet.danger { color: #D7263D; }
+[data-theme="dark"] .gr-quiet.danger { color: #FF7E8A; }
+.gr-member .gr-quiet { min-height: 44px; padding: 0 14px; border-radius: 999px; font: inherit; font-weight: 800; font-size: 14px; color: var(--ink); cursor: pointer; }
+.gr-member .gr-quiet.danger { color: #D7263D; }
+[data-theme="dark"] .gr-member .gr-quiet.danger { color: #FF7E8A; }
+.gr-member .gr-quiet:disabled { opacity: .4; }

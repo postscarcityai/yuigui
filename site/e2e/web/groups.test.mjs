@@ -178,6 +178,44 @@ for (const theme of ["dark", "light"]) for (const [vp, tag] of [[PHONE, "390"], 
   await pg.close();
 }
 
+// ---------- YUI-263: group settings (max hops, make lead, leave, add, archive) ----------
+for (const theme of ["dark", "light"]) {
+  const T = `settings ${theme} 390`;
+  const pg = await open(PHONE, theme, `/web/group/${SAMPLE}`);
+  await pg.getByTestId("group-settings-open").click();
+  await pg.getByTestId("group-settings").waitFor();
+  ok((await pg.getByTestId("group-hops").innerText()).includes("3"), `${T}: the sheet opens with max hops 3`);
+  ok((await pg.getByTestId("group-member-penny").locator(".gr-crown").count()) === 1 && !(await pg.getByTestId("group-leave-penny").count()), `${T}: the lead wears the crown and has no Leave`);
+  await shot(pg, `yui263-settings-${theme}`);
+  await pg.getByTestId("group-hops-up").click();
+  await pg.getByTestId("group-hops-up").click();
+  await pg.waitForFunction(() => /Max hops: 5/.test(document.querySelector("[data-testid=group-hops]")?.textContent || ""));
+  ok(await pg.getByTestId("group-hops-up").isDisabled(), `${T}: max hops stops at 5`);
+  ok((await pg.evaluate(() => window.yuiWebGroups.list())).find((g) => g.id === SAMPLE)?.maxHops === 5, `${T}: the change is on the group row`);
+  await pg.getByTestId("group-lead-set-basil").click();
+  await pg.waitForFunction(() => document.querySelector("[data-testid=group-member-basil] .gr-crown"));
+  ok(!(await pg.getByTestId("group-member-penny").locator(".gr-crown").count()) && !!(await pg.getByTestId("group-leave-penny").count()), `${T}: Make lead moves the crown`);
+  await pg.getByTestId("group-leave-yui").click();
+  await pg.waitForFunction(() => !document.querySelector("[data-testid=group-member-yui]"));
+  ok(!!(await pg.getByTestId("group-add-yui").count()), `${T}: a member who left can be added again`);
+  await pg.getByTestId("group-add-yui").click();
+  await pg.waitForFunction(() => document.querySelector("[data-testid=group-member-yui]"));
+  ok(true, `${T}: Add seats it again`);
+  await pg.getByTestId("group-settings-done").click();
+  ok(!(await pg.getByTestId("group-settings").count()), `${T}: Done closes the sheet`);
+  await pg.getByTestId("group-settings-open").click();
+  await pg.getByTestId("group-archive").click();
+  await pg.getByTestId("confirm").waitFor();
+  await pg.getByText("Keep it").click();
+  ok((await pg.evaluate(() => window.yuiWebGroups.list())).length === 1, `${T}: Keep it leaves the group`);
+  await pg.getByTestId("group-archive").click();
+  await pg.getByTestId("confirm-yes").click();
+  await pg.waitForFunction(() => !location.pathname.includes("/group/"));
+  ok((await pg.evaluate(() => window.yuiWebGroups.list())).length === 0, `${T}: Archive takes the group out of the list`);
+  ok(pg.errs.length === 0, `${T}: no page errors (${pg.errs.join("; ")})`);
+  await pg.close();
+}
+
 await b.close();
 console.log(`${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

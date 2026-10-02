@@ -13,6 +13,7 @@ import { rowOf } from "../../lib/web/compose.mjs";
 import { addressees, completing, groupError, groupItems, groupWorking, membersOf, suggest, tapOf } from "../../lib/web/groups.mjs";
 import { Face } from "./parts";
 import { Crown, GroupFaces } from "./Groups";
+import GroupSettings from "./GroupSettings";
 import "./groups.css";
 
 const ThreadScreen = dynamic(() => import("./ThreadScreen"), { ssr: false, loading: () => <div className="wb-wait">Drawing...</div> });
@@ -122,7 +123,7 @@ function WorkingRow({ w, agent, now, onStop }) {
   );
 }
 
-function Header({ group, members, onMenu, onMakeLead }) {
+function Header({ group, members, onMenu, onMakeLead, onSettings }) {
   const [menu, setMenu] = useState(null);
   return (
     <header className="wb-head gr-head" data-testid="group-header">
@@ -150,11 +151,15 @@ function Header({ group, members, onMenu, onMakeLead }) {
         <small>{members.map((a) => a.name).join(", ")}</small>
       </span>
       {group.sample ? <span className="wb-demo gr-sample" title="A recorded group. Nothing leaves this tab." data-testid="group-sample">Sample</span> : null}
+      <button type="button" className="wb-iconbtn gr-gear" aria-label="Group settings" aria-haspopup="dialog" onClick={onSettings} data-testid="group-settings-open">
+        <svg viewBox="0 0 24 24" fill="none" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8" /></svg>
+      </button>
     </header>
   );
 }
 
-export default function GroupThread({ api, group, agents, light, userId, onMenu, onOpenAgent, onChanged }) {
+export default function GroupThread({ api, group, agents, light, userId, onMenu, onOpenAgent, onChanged, onArchived }) {
+  const [settings, setSettings] = useState(false);
   const members = useMemo(() => membersOf(group, agents), [group, agents]);
   const agentOf = useCallback((id) => agents.find((a) => a.id === id) || null, [agents]);
   const [rows, setRows] = useState([]);
@@ -276,7 +281,8 @@ export default function GroupThread({ api, group, agents, light, userId, onMenu,
 
   return (
     <>
-      <Header group={group} members={members} onMenu={onMenu} onMakeLead={makeLead} />
+      <Header group={group} members={members} onMenu={onMenu} onMakeLead={makeLead} onSettings={() => setSettings(true)} />
+      {settings ? <GroupSettings api={api} group={group} agents={agents} onClose={() => setSettings(false)} onChanged={onChanged} onArchived={onArchived} /> : null}
       <div className="wb-thread gr-thread" data-testid="group-thread">
         <div className="wb-scroll" ref={scroller} onScroll={onScroll}>
           <div className="wb-messages" aria-live="polite">

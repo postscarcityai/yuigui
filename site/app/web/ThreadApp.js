@@ -499,7 +499,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
           ) : <span className="wb-head-words"><b>Yui</b></span>}
           {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
         </header> : null}
-        {groupId ? (group && sorted ? <GroupThread key={group.id} api={groupsApi} group={group} agents={sorted} light={light} userId={userId} onMenu={() => setDrawer(true)} onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} onChanged={refreshGroups} /> : <div className="wb-wait center">Opening the group...</div>)
+        {groupId ? (group && sorted ? <GroupThread key={group.id} api={groupsApi} group={group} agents={sorted} light={light} userId={userId} onMenu={() => setDrawer(true)} onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} onChanged={refreshGroups} onArchived={() => { refreshGroups(); go(`/web${keep}`); }} /> : <div className="wb-wait center">Opening the group...</div>)
           : open && ready ? <ThreadView key={threadKey} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
           onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} />
           : error && !sorted ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>

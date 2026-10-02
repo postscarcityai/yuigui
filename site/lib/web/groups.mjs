@@ -64,6 +64,19 @@ export function membersOf(group, agents) {
   const mine = agents.filter((a) => group.members.includes(a.id));
   return [...mine.filter((a) => a.id === group.lead), ...mine.filter((a) => a.id !== group.lead)];
 }
+// The settings sheet's rules (GroupSettings): max hops 1 to 5, who is in, who can be added, who can be asked to leave
+// (anyone but the lead; the server refuses the lead too).
+export const MIN_HOPS = 1, MAX_HOPS = 5;
+export const clampHops = (n) => Math.min(MAX_HOPS, Math.max(MIN_HOPS, Math.round(Number(n) || MIN_HOPS)));
+export function settingsOf(group, agents) {
+  return {
+    hops: group.maxHops,
+    inGroup: membersOf(group, agents),
+    outside: agents.filter((a) => !group.members.includes(a.id)),
+    canLeave: (id) => id !== group.lead,
+    canAdd: group.members.length < MAX_MEMBERS,
+  };
+}
 // The new group sheet's rule: two or more agents and a name.
 export const canStart = (picked, title, names) => picked.length >= 2 && !!(validTitle(title) || validTitle(suggestedTitle(names)));
 

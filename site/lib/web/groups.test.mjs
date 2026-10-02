@@ -1,7 +1,7 @@
 // node --test lib/web/groups.test.mjs   (SITE-162: group threads on the web follow the app's rules, GroupRowsTests.swift)
 import test from "node:test";
 import assert from "node:assert/strict";
-import { addressed, addressees, askOf, canStart, completing, createGroupsClient, groupError, groupItem, groupItems, groupOf, groupWorking, membersOf, orderedGroups, partialMention, plain, suggest, suggestedTitle, tapOf, validTitle } from "./groups.mjs";
+import { MAX_HOPS, MIN_HOPS, clampHops, settingsOf, addressed, addressees, askOf, canStart, completing, createGroupsClient, groupError, groupItem, groupItems, groupOf, groupWorking, membersOf, orderedGroups, partialMention, plain, suggest, suggestedTitle, tapOf, validTitle } from "./groups.mjs";
 import { createDemoGroups, SAMPLE_ID } from "./groups-demo.mjs";
 
 const coach = "c0000000-0000-4000-8000-000000000001", sage = "c0000000-0000-4000-8000-000000000002", quill = "c0000000-0000-4000-8000-000000000003";
@@ -211,4 +211,35 @@ test("a tap on a screen goes as the event line, quiet events stay on the page", 
   const picked = tapOf({ id: "n2", preset: "choose", choice: "Legs" });
   assert.equal(picked.words.startsWith("[yui] n2 choose"), true); assert.equal(picked.echo, "Legs");
   assert.equal(tapOf({ id: "n3", preset: "list", checked: [0] }), null);
+});
+
+test("settings: hops stay 1 to 5, the lead cannot leave, outsiders can be added", () => {
+  assert.deepEqual([0, 1, 3, 5, 9, "x", 2.6].map(clampHops), [1, 1, 3, 5, 5, 1, 3]);
+  assert.equal(MIN_HOPS, 1); assert.equal(MAX_HOPS, 5);
+  const agents = [{ id: "a", name: "A" }, { id: "b", name: "B" }, { id: "c", name: "C" }];
+  const grp = groupOf({ id: "g", title: "G", lead: "b", max_hops: 4, yui_thread_members: [{ agent_id: "a", left_at: null }, { agent_id: "b", left_at: null }, { agent_id: "c", left_at: "2026-01-01T00:00:00+00:00" }] });
+  const s = settingsOf(grp, agents);
+  assert.equal(s.hops, 4);
+  assert.deepEqual(s.inGroup.map((a) => a.id), ["b", "a"]);
+  assert.deepEqual(s.outside.map((a) => a.id), ["c"]);
+  assert.equal(s.canLeave("b"), false); assert.equal(s.canLeave("a"), true); assert.equal(s.canAdd, true);
+});
+
+test("settings writes: the demo group takes hops, add, leave, make lead and archive, reading back on list", async () => {
+  const agents = [{ id: "demo-penny", handle: "penny", name: "Penny" }, { id: "demo-basil", handle: "basil", name: "Basil" }, { id: "demo-yui", handle: "yui", name: "Yui" }, { id: "demo-sage", handle: "sage", name: "Sage" }];
+  const d = createDemoGroups({ agents: () => agents, speed: 100 });
+  await d.setMaxHops(5, SAMPLE_ID); await d.add(["demo-sage"], SAMPLE_ID); await d.leave("demo-basil", SAMPLE_ID); await d.makeLead("demo-yui", SAMPLE_ID);
+  const [g1] = await d.list();
+  assert.equal(g1.maxHops, 5); assert.equal(g1.lead, "demo-yui"); assert.equal(g1.members.includes("demo-sage"), true); assert.equal(g1.members.includes("demo-basil"), false);
+  await d.archive(SAMPLE_ID);
+  assert.deepEqual(await d.list(), []);
+});
+
+test("settings writes on the real client are the app's PATCHes on the group row", async () => {
+  const calls = [];
+  const c = createGroupsClient(async (path, init) => { calls.push([path, init?.method, init?.body]); return { json: async () => [] }; }, { userId: "u" });
+  await c.setMaxHops(2, "g1"); await c.makeLead("a", "g1"); await c.leave("b", "g1"); await c.archive("g1");
+  assert.deepEqual(calls.map((x) => [x[0].split("?")[0], x[1]]), [["rest/v1/yui_threads", "PATCH"], ["rest/v1/yui_threads", "PATCH"], ["rest/v1/yui_thread_members", "PATCH"], ["rest/v1/yui_threads", "PATCH"]]);
+  assert.equal(calls[0][2], '{"max_hops":2}'); assert.equal(calls[1][2], '{"lead":"a"}');
+  assert.match(calls[2][0], /thread_id=eq\.g1/); assert.match(calls[3][2], /"archived_at":"20/);
 });
