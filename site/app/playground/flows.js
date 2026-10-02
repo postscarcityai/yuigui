@@ -103,7 +103,7 @@ const QUIZ = new Set(["ask", "choose", "pick"]);
 // A deck's or plan's steps: a picture (a sketch, shapes, math, chart, stat or
 // calc) belongs to the page right before it; one with no page there (or after
 // a page that has one) is a page itself.
-const PICS = new Set(["sketch", "shapes", "diagram", "mock", "map", "math", "chart", "stat", "calc"]);
+const PICS = new Set(["sketch", "shapes", "diagram", "mock", "draw", "map", "math", "chart", "stat", "calc"]);
 export function stepsOf(members) {
   const out = [];
   for (const m of members) {

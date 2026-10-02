@@ -12,6 +12,7 @@ import { LoneRow, Timeline } from "./timeline";
 import { LoneSketchRow, Sketch } from "./sketch";
 import { LoneShape, Shapes } from "./shapes";
 import { LonePart, Mock } from "./mock";
+import { Drawing } from "./drawing";
 import { LoneMapPart, MapView } from "./map";
 import { useLive } from "./stage";
 import { useTabTitle, useWakeLock } from "./keepawake";
@@ -885,6 +886,7 @@ const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, 
   shape: LoneShape,
   diagram: ({ p, vid }) => <Diagram p={p} vid={vid} />,
   mock: ({ p }) => <Mock g={{ group: { props: p }, members: [] }} />,
+  draw: Drawing,
   part: LonePart,
   map: ({ p }) => <MapView g={{ group: { props: p }, members: [] }} />,
   area: ({ p }) => <LoneMapPart p={p} preset="area" />,

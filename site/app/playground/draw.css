@@ -34,6 +34,14 @@
 @keyframes dg-in { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .dg-in { animation: none; } }
 
+/* draw: the agent's own SVG in a sandboxed frame (lib/yl/drawpage.mjs). The frame's box
+   sets the shape; nothing in it can be touched, so a tap or a swipe stays the page's. */
+.yl-drawing { display: flex; flex-direction: column; gap: 8px; }
+.dr-title { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--yl-ink2); }
+.dr-frame { position: relative; width: 100%; }
+.dr-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; background: transparent; pointer-events: none; }
+.dr-cap { margin: 0; font-size: 14px; line-height: 1.45; color: var(--yl-ink2); }
+
 /* mock: a frame with parts in it. */
 .yl-mock { gap: 8px; }
 .mk-top { font-size: 14px; font-weight: 800; color: var(--yl-ink2); }
