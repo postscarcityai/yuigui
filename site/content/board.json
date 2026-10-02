@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T12:20:22.133Z",
+  "updated": "2026-10-02T12:35:31.137Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,6 +348,11 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
+          "key": "YUI-274",
+          "title": "/web cold visit starts its reads before the session renewal ends",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -365,6 +370,12 @@
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
+          "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-169",
+          "title": "The /web page shows how fast it opens, before and after",
           "blocked": "chris",
           "owner": "CJohnDesign"
         }
