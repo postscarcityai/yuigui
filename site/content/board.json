@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T17:35:17.529Z",
+  "updated": "2026-10-02T17:41:04.787Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -329,10 +329,6 @@
           "progress": "/progress#tune-up-goes-straight-to-the-tuner"
         },
         {
-          "key": "NOTE-19357",
-          "title": "Forms keep your answers"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -390,6 +386,11 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-4897",
+          "title": "Yui gave up on a question",
+          "needsDemo": true
         }
       ]
     },
@@ -405,18 +406,13 @@
           "pr": "https://github.com/postscarcityai/yuigui/pull/1"
         },
         {
-          "key": "NOTE-4897",
-          "title": "Yui gave up on a question",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-177",
-          "title": "Thought for build 450, the stage redrawn, in pictures",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-278",
           "title": "/web, tap the left side to go back a page",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-19357",
+          "title": "Forms keep your answers",
           "owner": "CJohnDesign"
         },
         {
@@ -437,6 +433,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-177",
+          "title": "Thought for build 450, the stage redrawn, in pictures",
+          "summary": "Release Thought for build 450: the stage, redrawn",
+          "shipped": "2026-10-02",
+          "progress": "/progress#release-thought-for-build-450-the-stage-redrawn",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c942ed5b"
+        },
         {
           "key": "SITE-176",
           "title": "Thought, one decision on one screen, told in pictures",
