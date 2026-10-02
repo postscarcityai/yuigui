@@ -52,7 +52,7 @@ PRESETS = [
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
-    "diagram", "mock", "part",
+    "diagram", "mock", "part", "draw",
     "map", "area", "pin", "route",
     "game",
     "query", "flow",
@@ -65,8 +65,8 @@ CORE = ["say", "custom", "save", "show", "forget", "clear", "end", "theme", "clo
 # as long as each one is a member preset. Anything else ends the group, and
 # so does `end`. Comments, blank lines and error lines do not.
 GROUPS = {
-    "deck": ["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "map", "math", "chart", "stat", "calc"],
-    "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "map"],
+    "deck": ["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "draw", "map", "math", "chart", "stat", "calc"],
+    "plan": ["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "draw", "map"],
     "narrate": ["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
     "timeline": ["done", "now", "next"],
     "sketch": ["row", "after"],
@@ -744,7 +744,7 @@ P = {
     "sketch": _titled,
     "shapes": _titled,
     "shape": _kinded("label"),
-    "diagram": _titled, "mock": _titled,
+    "diagram": _titled, "mock": _titled, "draw": _titled,
     "part": _kinded("text"),
     "map": _titled,
     "area": _area, "pin": _pin, "route": _route,
@@ -1276,6 +1276,17 @@ def _flow_graph(f):
         when = flow_when(e.get("label"), e["from"] if e["from"] in is_step else None)
         edges.append({**e, "when": when} if when else e)
     return _clean({"dir": f["dir"], "start": first.get("id"), "nodes": nodes, "edges": edges, "source": "\n".join(f["src"])})
+
+
+# ---------- draw (spec/YL.md, draw) ----------
+# The agent's own markup (SVG, with CSS or a script to move it) between `draw`
+# and a line that is only `end`. Not YL and not read: the end gives one patch
+# with `source`, the lines as written. If the first line after the head does
+# not open a tag, the draw stays empty and that line is read as YL. A drawing
+# past DRAW_LINES lines or DRAW_CHARS characters is cut (later lines dropped,
+# its `end` still closes it). Characters are counted as code points.
+DRAW_LINES = 600
+DRAW_CHARS = 60000
 
 
 # ---------- diagram (spec/YL.md, diagram) ----------
@@ -2012,6 +2023,7 @@ class Parser:
         self.flow_head = None  # a flow head just added: {id, screen, pre}
         self.flow = None  # an open flow's Mermaid, being read
         self.dgm = None  # an open diagram's Mermaid, being read
+        self.drw = None  # an open draw's markup, being read
 
     def group(self, op):
         """Group bookkeeping for one parsed op. Errors (and None) leave groups open."""
@@ -2049,6 +2061,10 @@ class Parser:
             op = self.dgm_line(src)
             if op is not _NOT_DGM:
                 return op
+        if self.drw:
+            op = self.drw_line(src)
+            if op is not _NOT_DGM:
+                return op
         if self.flow_head:
             # The line after a flow head decides: a Mermaid header starts the
             # chart (inline flow), anything else leaves it a saved flow by name.
@@ -2066,6 +2082,8 @@ class Parser:
         op = self.group(self.parse_line(src))
         if op and op["op"] == "add" and op["preset"] == "diagram":
             self.dgm = _new_diagram(op)
+        if op and op["op"] == "add" and op["preset"] == "draw":
+            self.drw = {"id": op["id"], "screen": op["screen"], "src": [], "chars": 0}
         if op and op["op"] == "add" and op["preset"] == "flow":
             # `as=` makes it a variant of the saved flow it names: its lines follow.
             if "as" in op["props"]:
@@ -2079,6 +2097,8 @@ class Parser:
         self.flow_head = None
         if self.dgm:
             return self.dgm_done("")
+        if self.drw:
+            return self.drw_done("")
         return self.flow_done("") if self.flow else None
 
     def dgm_line(self, src):
@@ -2133,6 +2153,32 @@ class Parser:
         if not d["kind"]:
             return None
         return {"op": "patch", "screen": d["screen"], "target": d["id"], "props": _diagram_graph(d), "line": line}
+
+    def drw_line(self, src):
+        """One line of an open draw: markup, not YL. _NOT_DGM means the line is
+        not the draw's (no tag opened after the head), so the caller reads it
+        as YL."""
+        d = self.drw
+        line = src[:-1] if src.endswith("\r") else src
+        t = _trim(line)
+        if t == "end":
+            return self.drw_done(line)
+        if not d["src"]:
+            if not t:
+                return None
+            if not t.startswith("<"):
+                self.drw = None
+                return _NOT_DGM
+        if len(d["src"]) < DRAW_LINES and d["chars"] + len(line) <= DRAW_CHARS:
+            d["src"].append(line)
+            d["chars"] += len(line) + 1
+        return None
+
+    def drw_done(self, line):
+        d, self.drw = self.drw, None
+        if not d["src"]:
+            return None
+        return {"op": "patch", "screen": d["screen"], "target": d["id"], "props": {"source": "\n".join(d["src"])}, "line": line}
 
     def flow_line(self, src):
         """One line of an open flow: Mermaid, not YL. `end` closes a subgraph
@@ -2470,6 +2516,7 @@ _DEFAULTS = {
     "shapes": {"title": "", "caption": "", "w": 10, "h": 6},
     "shape": {"kind": "box", "label": ""},
     "diagram": {"title": "", "caption": ""},
+    "draw": {"title": "", "caption": ""},
     "mock": {"title": "", "frame": "phone"},
     "map": {"title": "", "caption": "", "fit": "auto"},
     "area": {"label": "", "codes": [], "pts": []},

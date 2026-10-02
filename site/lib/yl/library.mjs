@@ -310,6 +310,22 @@ part row Basil sub="Groceries" +chev +hi note="new badge"
 part button "New agent"
 part tabs items=Home|Agents|Me tab=Agents`,
   },
+  // The agent just draws: SVG of its own (spec/YL.md, draw). `draft` until phones on the
+  // build that draws it are the norm, so it plays here but stays out of search and library.json.
+  draw: {
+    shelf: "show", doc: "draw", draft: true,
+    purpose: "Draw what no preset draws: SVG in the agent's colors, lines that trace on, in a sandbox that loads nothing.",
+    tags: ["draw", "svg", "illustration", "gesture", "sketch", "animation", "picture"],
+    yl: `draw "Push tap" caption="Tap the banner. The answer plays itself."
+<svg viewBox="0 0 360 250">
+  <rect class="draw soft" x="30" y="14" width="120" height="222" rx="20"/>
+  <circle class="pop accent pulse" cx="118" cy="46" r="13"/>
+  <path class="draw accent" d="M158 125 C 178 105, 190 105, 208 125"/>
+  <rect class="draw accent" x="216" y="14" width="120" height="222" rx="20"/>
+  <text class="fade" x="230" y="96" font-size="15" font-weight="800">Push tap fixed.</text>
+</svg>
+end`,
+  },
   part: {
     shelf: "show", doc: "part", draft: true,
     purpose: "One part of a mock: a nav bar, tabs, row, field, button, toggle, card, grid, sheet or keyboard.",

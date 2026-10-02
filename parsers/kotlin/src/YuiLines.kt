@@ -21,7 +21,7 @@ val PRESETS = listOf(
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
-    "diagram", "mock", "part",
+    "diagram", "mock", "part", "draw",
     "map", "area", "pin", "route",
     "game", "flow",
     "query",
@@ -35,8 +35,8 @@ val CORE = listOf("say", "custom", "save", "show", "forget", "clear", "end", "th
 // as long as each one is a member preset. Anything else ends the group, and
 // so does `end`. Comments, blank lines and error lines do not.
 val GROUPS = mapOf(
-    "deck" to listOf("page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "map", "math", "chart", "stat", "calc"),
-    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "map"),
+    "deck" to listOf("page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "draw", "map", "math", "chart", "stat", "calc"),
+    "plan" to listOf("page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "draw", "map"),
     "narrate" to listOf("page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"),
     "timeline" to listOf("done", "now", "next"),
     "sketch" to listOf("row", "after"),
@@ -568,7 +568,7 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "chart" -> chart(pos)
     "stat" -> stat(pos)
     "step" -> step(pos)
-    "calc", "deck", "plan", "flow", "narrate", "timeline", "sketch", "shapes", "diagram", "mock", "map" -> titled("title", pos)
+    "calc", "deck", "plan", "flow", "narrate", "timeline", "sketch", "shapes", "diagram", "mock", "draw", "map" -> titled("title", pos)
     "area" -> area(pos)
     "pin" -> pin(pos)
     "route" -> route(pos)
@@ -1528,6 +1528,21 @@ private val HEAD = rx("([a-z]+)(?:@([\\w-]+))?")
 private fun op(vararg kv: Pair<String, Any?>): Op = linkedMapOf(*kv)
 private val PASS: Op = emptyMap() // dgmLine: the line is not the diagram's
 
+// ---------- draw (spec/YL.md, draw) ----------
+// The agent's own markup (SVG, with CSS or a script to move it) between `draw`
+// and a line that is only `end`. Not YL and not read: the end gives one patch
+// with `source`, the lines as written. If the first line after the head does
+// not open a tag, the draw stays empty and that line is read as YL. A drawing
+// past DRAW_LINES lines or DRAW_CHARS characters is cut (later lines dropped,
+// its `end` still closes it). Characters are counted as code points.
+const val DRAW_LINES = 600
+const val DRAW_CHARS = 60000
+
+private class Draw(val id: String, val screen: String) {
+    val src = ArrayList<String>()
+    var chars = 0
+}
+
 // ---------- theme app (spec/YL.md, theme app; RESTYLE.md) ----------
 // `theme app [set] key=value...`: a restyle of Yui's own chrome, not the
 // agent's look. Stricter than an agent's theme: an unknown set, key or value
@@ -1763,6 +1778,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
     private var flow: Flow? = null // an open flow's Mermaid, being read
     private var variant: Variant? = null // an open flow variant's lines, being read
     private var dgm: Diagram? = null // an open diagram's Mermaid, being read
+    private var drw: Draw? = null // an open draw's markup, being read
 
     // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
     private fun group(o: Op?): Op? {
@@ -1793,6 +1809,10 @@ class Parser(known: Map<String, String> = emptyMap()) {
             val o = dgmLine(src)
             if (o !== PASS) return o
         }
+        if (drw != null) {
+            val o = drwLine(src)
+            if (o !== PASS) return o
+        }
         val h = flowHead
         if (h != null) {
             // The line after a flow head decides: a Mermaid header starts the
@@ -1806,6 +1826,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
         }
         val o = group(parseLine(src))
         if (o != null && o["op"] == "add" && o["preset"] == "diagram") dgm = newDiagram(o)
+        if (o != null && o["op"] == "add" && o["preset"] == "draw") drw = Draw(o["id"] as String, o["screen"] as String)
         if (o != null && o["op"] == "add" && o["preset"] == "flow") {
             // `as=` makes it a variant of the saved flow it names: its lines follow.
             @Suppress("UNCHECKED_CAST")
@@ -1839,6 +1860,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
     fun finish(): Op? {
         flowHead = null
         if (dgm != null) return dgmDone("")
+        if (drw != null) return drwDone("")
         if (variant != null) return variantDone("")
         return if (flow != null) flowDone("") else null
     }
@@ -1887,6 +1909,34 @@ class Parser(known: Map<String, String> = emptyMap()) {
         dgm = null
         if (d.kind == null) return null
         return op("op" to "patch", "screen" to d.screen, "target" to d.id, "props" to diagramGraph(d), "line" to line)
+    }
+
+    // One line of an open draw: markup, not YL. PASS means the line is not
+    // the draw's (no tag opened after the head), so the caller reads it as YL.
+    private fun drwLine(src: String): Op? {
+        val d = drw!!
+        val line = src.removeSuffix("\r")
+        val t = trim(line)
+        if (t == "end") return drwDone(line)
+        if (d.src.isEmpty()) {
+            if (t.isEmpty()) return null
+            if (!t.startsWith("<")) { drw = null; return PASS }
+        }
+        val n = line.codePointCount(0, line.length)
+        if (d.src.size < DRAW_LINES && d.chars + n <= DRAW_CHARS) {
+            d.src.add(line)
+            d.chars += n + 1
+        }
+        return null
+    }
+
+    private fun drwDone(line: String): Op? {
+        val d = drw!!
+        drw = null
+        if (d.src.isEmpty()) return null
+        val props = Obj()
+        props["source"] = d.src.joinToString("\n")
+        return op("op" to "patch", "screen" to d.screen, "target" to d.id, "props" to props, "line" to line)
     }
 
     // One line of an open flow: Mermaid, not YL. `end` closes a subgraph
@@ -2166,6 +2216,7 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "shapes" to mapOf("title" to "", "caption" to "", "w" to 10.0, "h" to 6.0),
     "shape" to mapOf("kind" to "box", "label" to ""),
     "diagram" to mapOf("title" to "", "caption" to ""),
+    "draw" to mapOf("title" to "", "caption" to ""),
     "mock" to mapOf("title" to "", "frame" to "phone"),
     "map" to mapOf("title" to "", "caption" to "", "fit" to "auto"),
     "area" to mapOf("label" to "", "codes" to emptyList<String>(), "pts" to emptyList<String>()),

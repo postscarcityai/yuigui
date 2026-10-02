@@ -1,0 +1,84 @@
+{
+  "version": "YL v0",
+  "area": "draw",
+  "vectors": [
+    {
+      "name": "draw: the head is an add, the markup up to a line that is only end is one patch with source (a line that reads like a preset is the drawing's)",
+      "input": "draw \"Push tap\" caption=\"Tap the banner. The answer plays itself.\" ratio=16:9\n\n<svg viewBox=\"0 0 360 250\">\n  <rect class=\"draw soft\" x=\"30\" y=\"14\" width=\"120\" height=\"222\" rx=\"20\"/>\n\n  <text class=\"fade\" x=\"50\" y=\"43\">timer 60</text>\n  <!-- end -->\n</svg>\n  end  \nsay Done.",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "draw",
+          "id": "n1",
+          "props": {
+            "title": "Push tap",
+            "caption": "Tap the banner. The answer plays itself.",
+            "ratio": "16:9"
+          }
+        },
+        {
+          "op": "patch",
+          "screen": "1",
+          "target": "n1",
+          "props": {
+            "source": "<svg viewBox=\"0 0 360 250\">\n  <rect class=\"draw soft\" x=\"30\" y=\"14\" width=\"120\" height=\"222\" rx=\"20\"/>\n\n  <text class=\"fade\" x=\"50\" y=\"43\">timer 60</text>\n  <!-- end -->\n</svg>"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "say",
+          "id": "n2",
+          "props": {
+            "text": "Done."
+          }
+        }
+      ]
+    },
+    {
+      "name": "draw: no markup after the head (the first line does not open a tag), the draw stays empty, that line is YL and a later end closes nothing",
+      "input": "draw \"Empty\"\n\ntimer 60\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "draw",
+          "id": "n1",
+          "props": {
+            "title": "Empty"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "timer",
+          "id": "n2",
+          "props": {
+            "work": 60
+          }
+        },
+        {
+          "op": "error",
+          "screen": "1"
+        }
+      ],
+      "error": true,
+      "resolved": [
+        {
+          "title": "Empty",
+          "caption": ""
+        },
+        {
+          "work": 60,
+          "rest": 0,
+          "rounds": 1,
+          "label": "",
+          "up": false,
+          "auto": false,
+          "sound": true
+        }
+      ]
+    }
+  ]
+}

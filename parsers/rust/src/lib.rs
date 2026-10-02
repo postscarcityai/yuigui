@@ -39,7 +39,7 @@ pub const PRESETS: &[&str] = &[
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
-    "diagram", "mock", "part",
+    "diagram", "mock", "part", "draw",
     "map", "area", "pin", "route",
     "game", "flow",
     "query",
@@ -63,8 +63,8 @@ pub const CORE: &[&str] = &["say", "custom", "save", "show", "forget", "clear", 
 /// can hold another group (a deck), a deck or plan a sketch (a page's picture).
 pub fn group_members(preset: &str) -> Option<&'static [&'static str]> {
     Some(match preset {
-        "deck" => &["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "map", "math", "chart", "stat", "calc"],
-        "plan" => &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "map"],
+        "deck" => &["page", "ask", "choose", "pick", "sketch", "shapes", "diagram", "mock", "draw", "map", "math", "chart", "stat", "calc"],
+        "plan" => &["page", "ask", "choose", "pick", "slide", "form", "mic", "camera", "sketch", "diagram", "mock", "draw", "map"],
         "narrate" => &["page", "compare", "image", "video", "card", "stat", "chart", "math", "storyboard", "gallery", "deck"],
         "timeline" => &["done", "now", "next"],
         "sketch" => &["row", "after"],
@@ -1118,7 +1118,7 @@ fn preset_props(preset: &str, pos: &[&Token]) -> Map {
         "chart" => chart(pos),
         "stat" => stat(pos),
         "step" => step(pos),
-        "calc" | "deck" | "plan" | "flow" | "narrate" | "timeline" | "sketch" | "shapes" | "map" | "diagram" | "mock" => all_text(pos, "title"),
+        "calc" | "deck" | "plan" | "flow" | "narrate" | "timeline" | "sketch" | "shapes" | "map" | "diagram" | "mock" | "draw" => all_text(pos, "title"),
         "area" => area(pos),
         "pin" => pin(pos),
         "route" => map_route(pos),
@@ -3688,6 +3688,24 @@ pub struct Parser {
     flow: Option<Flow>,          // an open flow's Mermaid, being read
     variant: Option<Variant>,    // an open flow variant's lines, being read
     dgm: Option<Diagram>,        // an open diagram's Mermaid, being read
+    drw: Option<Draw>,           // an open draw's markup, being read
+}
+
+// ---------- draw (spec/YL.md, draw) ----------
+// The agent's own markup (SVG, with CSS or a script to move it) between `draw`
+// and a line that is only `end`. Not YL and not read: the end gives one patch
+// with `source`, the lines as written. If the first line after the head does
+// not open a tag, the draw stays empty and that line is read as YL. A drawing
+// past DRAW_LINES lines or DRAW_CHARS characters is cut (later lines dropped,
+// its `end` still closes it). Characters are counted as code points.
+pub const DRAW_LINES: usize = 600;
+pub const DRAW_CHARS: usize = 60000;
+
+struct Draw {
+    id: String,
+    screen: String,
+    src: Vec<String>,
+    chars: usize,
 }
 
 impl Default for Parser {
@@ -3698,7 +3716,7 @@ impl Default for Parser {
 
 impl Parser {
     pub fn new() -> Self {
-        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new(), flow_head: None, flow: None, variant: None, dgm: None }
+        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new(), flow_head: None, flow: None, variant: None, dgm: None, drw: None }
     }
 
     pub fn with_known(known: &HashMap<String, String>) -> Self {
@@ -3771,6 +3789,11 @@ impl Parser {
                 return o;
             }
         }
+        if self.drw.is_some() {
+            if let Some(o) = self.drw_line(src) {
+                return o;
+            }
+        }
         let unr = src.strip_suffix('\r').unwrap_or(src);
         if let Some(h) = self.flow_head.as_mut() {
             // The line after a flow head decides: a Mermaid header starts the
@@ -3797,6 +3820,10 @@ impl Parser {
                 let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
                 self.dgm = Some(new_diagram(text("id"), text("screen")));
             }
+            if m.get("op") == Some(&Value::str("add")) && m.get("preset") == Some(&Value::str("draw")) {
+                let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
+                self.drw = Some(Draw { id: text("id"), screen: text("screen"), src: Vec::new(), chars: 0 });
+            }
             if m.get("op") == Some(&Value::str("add")) && m.get("preset") == Some(&Value::str("flow")) {
                 let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
                 // `as=` makes it a variant of the saved flow it names: its lines follow.
@@ -3815,6 +3842,9 @@ impl Parser {
         self.flow_head = None;
         if self.dgm.is_some() {
             return self.dgm_done("");
+        }
+        if self.drw.is_some() {
+            return self.drw_done("");
         }
         if self.variant.is_some() {
             return Some(self.variant_done(""));
@@ -3897,6 +3927,48 @@ impl Parser {
             ("screen", Value::str(&d.screen)),
             ("target", Value::str(&d.id)),
             ("props", Value::Obj(diagram_graph(&d))),
+            ("line", Value::str(line)),
+        ]))
+    }
+
+    /// One line of an open draw: markup, not YL. None means the line is not
+    /// the draw's (no tag opened after the head), so the caller reads it as YL.
+    fn drw_line(&mut self, src: &str) -> Option<Option<Value>> {
+        let line = src.strip_suffix('\r').unwrap_or(src);
+        let t = trim(line);
+        if t == "end" {
+            return Some(self.drw_done(line));
+        }
+        let d = self.drw.as_mut().unwrap();
+        if d.src.is_empty() {
+            if t.is_empty() {
+                return Some(None);
+            }
+            if !t.starts_with('<') {
+                self.drw = None;
+                return None;
+            }
+        }
+        let n = line.chars().count();
+        if d.src.len() < DRAW_LINES && d.chars + n <= DRAW_CHARS {
+            d.src.push(line.to_string());
+            d.chars += n + 1;
+        }
+        Some(None)
+    }
+
+    fn drw_done(&mut self, line: &str) -> Option<Value> {
+        let d = self.drw.take().unwrap();
+        if d.src.is_empty() {
+            return None;
+        }
+        let mut props = Map::new();
+        props.set("source", Value::str(&d.src.join("\n")));
+        Some(op(vec![
+            ("op", Value::str("patch")),
+            ("screen", Value::str(&d.screen)),
+            ("target", Value::str(&d.id)),
+            ("props", Value::Obj(props)),
             ("line", Value::str(line)),
         ]))
     }
@@ -4369,6 +4441,7 @@ fn defaults(preset: &str) -> Map {
         "shapes" => vec![("title", s("")), ("caption", s("")), ("w", n(10.0)), ("h", n(6.0))],
         "shape" => vec![("kind", s("box")), ("label", s(""))],
         "diagram" => vec![("title", s("")), ("caption", s(""))],
+        "draw" => vec![("title", s("")), ("caption", s(""))],
         "mock" => vec![("title", s("")), ("frame", s("phone"))],
         "part" => vec![("text", s("")), ("items", e())],
         "map" => vec![("title", s("")), ("caption", s("")), ("fit", s("auto"))],
