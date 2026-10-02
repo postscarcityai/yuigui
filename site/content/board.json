@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T15:52:53.473Z",
+  "updated": "2026-10-02T16:22:16.187Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -375,11 +375,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-174",
-          "title": "/developers/draw, every drawing part Yui has, live, with its Yui Lines",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-40",
           "title": "New builds stuck at Apple, widget App Group. Daily release held",
           "summary": "Upload failed",
@@ -399,6 +394,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-174",
+          "title": "/developers/draw, every drawing part Yui has, live, with its Yui Lines",
+          "summary": "Everything Yui can draw, on one page",
+          "shipped": "2026-10-02",
+          "progress": "/progress#everything-yui-can-draw-on-one-page"
+        },
         {
           "key": "SITE-173",
           "title": "The values page gets One decision, one screen",
