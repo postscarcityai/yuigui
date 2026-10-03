@@ -965,7 +965,8 @@ ol.yl-list li::before { counter-increment: n; content: counter(n); color: var(--
 .pk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; margin-top: 16px; }
 .pk-item { border: 1.5px solid var(--outline); border-radius: 20px; padding: 16px; min-width: 0; }
 .pk-item img { width: 100%; height: auto; border-radius: 12px; display: block; }
-.pk-item img.pk-mark { background: #FFF9F0; padding: 28px 40px; box-sizing: border-box; aspect-ratio: 16 / 9; object-fit: contain; }
+/* The padded logo file carries the wordmark's optical centering (brand/README.md), so it is shown whole. */
+.pk-item img.pk-mark { background: #FFF9F0; padding: 12px 24px; box-sizing: border-box; aspect-ratio: 16 / 9; object-fit: contain; }
 .pk-item h3 { margin: 12px 0 4px; }
 .pk-item p { margin: 0 0 4px; }
 .sc-entry.planned .sc-phone { opacity: .92; outline: 2px dashed var(--butter); outline-offset: 6px; }
