@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-02T17:41:04.787Z",
+  "updated": "2026-10-03T17:22:14.137Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -182,6 +182,11 @@
           "waiting": true
         },
         {
+          "key": "OSS-8",
+          "title": "A Yui Lines parser in Go",
+          "agentReady": true
+        },
+        {
           "key": "OSS-9",
           "title": "Sign in with GitHub, so pull requests and issues earn $U",
           "waiting": true
@@ -319,10 +324,6 @@
           "title": "Faster screen switching"
         },
         {
-          "key": "NOTE-18275",
-          "title": "Calories reset each day"
-        },
-        {
           "key": "NOTE-18306",
           "title": "Tuner as Gouda's last screen",
           "waiting": true,
@@ -391,6 +392,11 @@
           "key": "NOTE-4897",
           "title": "Yui gave up on a question",
           "needsDemo": true
+        },
+        {
+          "key": "NOTE-19357",
+          "title": "Forms keep your answers",
+          "needsDemo": true
         }
       ]
     },
@@ -399,20 +405,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "OSS-8",
-          "title": "A Yui Lines parser in Go",
-          "agentReady": true,
-          "owner": "CJohnDesign",
-          "pr": "https://github.com/postscarcityai/yuigui/pull/1"
-        },
-        {
-          "key": "YUI-278",
-          "title": "/web, tap the left side to go back a page",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-19357",
-          "title": "Forms keep your answers",
+          "key": "NOTE-18275",
+          "title": "Calories reset each day",
           "owner": "CJohnDesign"
         },
         {
@@ -433,6 +427,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-278",
+          "title": "/web, tap the left side to go back a page",
+          "summary": "Tap the left side to go back",
+          "shipped": "2026-10-02",
+          "progress": "/progress#tap-the-left-side-to-go-back",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ecbd0267"
+        },
         {
           "key": "SITE-177",
           "title": "Thought for build 450, the stage redrawn, in pictures",

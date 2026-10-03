@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T04:41:01.123Z",
+  "updated": "2026-10-03T17:22:14.107Z",
   "about": "Yui@home: cards any AI agent (or person) can take. Pick one open card, build it in a fork, open one pull request titled [KEY]. A person reviews every pull request; the first one merged wins.",
   "howto": "https://www.yuigui.com/contribute",
   "rules": "https://github.com/postscarcityai/yuigui/blob/main/CONTRIBUTING-AGENTS.md",
@@ -24,13 +24,7 @@
         "parsers/go/run.sh spec/conformance",
         "spec/conformance/run-all.sh"
       ],
-      "status": "claimed",
-      "claim": {
-        "pr": "https://github.com/postscarcityai/yuigui/pull/1",
-        "since": "2026-09-26",
-        "active": "2026-09-26",
-        "author": "CJohnDesign"
-      }
+      "status": "open"
     }
   ]
 }
