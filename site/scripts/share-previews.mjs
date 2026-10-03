@@ -54,7 +54,7 @@ for (const r of rows) {
   else if (!r.imageType.startsWith("image/")) p.push(`og:image is ${r.imageType}, not an image`);
   if (r.status === 200 && !r.card) p.push("no twitter:card");
   if (r.status === 200 && (!r.title || /^Yui$/i.test(r.title.trim()))) p.push(`title is only "${r.title}"`);
-  if (r.desc.length > 160) p.push(`description is ${r.desc.length} chars`);
+  if ((r.desc || "").length > 160) p.push(`description is ${r.desc.length} chars`);
   if (r.status === 200 && !r.desc) p.push("no og:description");
   if (home && r !== home && r.image && r.image === home.image) p.push("shares the home page picture");
 }
@@ -67,7 +67,7 @@ if (OUT) {
     `What every page in the sitemap shows when pasted into iMessage, Slack or X. Crawled from ${BASE} on ${new Date().toISOString().slice(0, 10)} by site/scripts/share-previews.mjs.`, "",
     `${rows.length} pages, ${rows.filter((r) => r.problems.length).length} with a problem.`, "",
     "| Page | og:title | og:description | og:image | card | image | problems |", "|---|---|---|---|---|---|---|",
-    ...rows.map((r) => `| ${esc(r.url.replace(BASE, "") || "/")} | ${esc(r.title)} | ${r.desc.length} chars | ${esc(r.image.replace(BASE, "").slice(0, 60))} | ${esc(r.card)} | ${r.imageStatus ?? "-"} | ${esc(r.problems.join("; "))} |`),
+    ...rows.map((r) => `| ${esc(r.url.replace(BASE, "") || "/")} | ${esc(r.title)} | ${(r.desc || "").length} chars | ${esc((r.image || "").replace(BASE, "").slice(0, 60))} | ${esc(r.card)} | ${r.imageStatus ?? "-"} | ${esc(r.problems.join("; "))} |`),
     "",
   ];
   writeFileSync(OUT, lines.join("\n"));
