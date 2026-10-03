@@ -9,6 +9,7 @@ Ports of the Yui Lines parser. The spec is `spec/YL.md`. Every parser passes the
 | Python | `parsers/python` | `python3 parsers/python/conformance.py` |
 | Kotlin (JVM) | `parsers/kotlin` | `parsers/kotlin/run.sh` |
 | Rust | `parsers/rust` | `parsers/rust/run.sh` |
+| Go | `parsers/go` | `parsers/go/run.sh` |
 
 `spec/conformance/run-all.sh` runs every language in this repo and prints one pass count per language.
 

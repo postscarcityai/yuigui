@@ -31,6 +31,7 @@ run JavaScript bash -c "command -v node >/dev/null || { echo 'node not found'; e
 run Python     bash -c "command -v python3 >/dev/null || { echo 'python3 not found'; exit 2; }; python3 '$root/parsers/python/conformance.py' '$here'"
 run Kotlin     "$root/parsers/kotlin/run.sh" "$here"
 run Rust       "$root/parsers/rust/run.sh" "$here"
+run Go         "$root/parsers/go/run.sh" "$here"
 
 printf '\n%s' "$summary"
 exit $status
