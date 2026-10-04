@@ -50,3 +50,61 @@ export function pruneDraft(agent, id, base, storage) {
 }
 export function setDraft(agent, id, d, storage) { if (keeps(agent, id)) write(dk(agent, id), d, storage); }
 export function clearDraft(agent, id, storage) { if (keeps(agent, id)) write(dk(agent, id), null, storage); }
+
+// ---- a flow or plan in progress, and what its forms and mics hold (YUI-279) ----
+// The twin of Presets/FlowPresets.swift's kept answers (578c978): the step, the answers, the review, a form's fields
+// and a mic's words come back after Back, another agent or a reload, until the flow or plan is sent. Per agent and per
+// flow / plan id (`scope`); a form or mic inside one is also kept under it, so the one drop at Send clears them all.
+const rk = (agent, id) => `yui.run.${agent}.${id}`;
+const fk = (agent, scope, nid) => `yui.form.${agent}.${scope}.${nid}`;
+const mk = (agent, scope, nid) => `yui.mic.${agent}.${scope}.${nid}`;
+
+// The run kept for `id`, cut down to what the steps still hold. Reads only.
+export function heldRun(agent, id, stepIds, storage) {
+  if (!keeps(agent, id)) return null;
+  const r = read(rk(agent, id), storage);
+  if (!r || typeof r !== "object") return null;
+  const ids = new Set(stepIds);
+  const ans = {};
+  if (r.ans && typeof r.ans === "object") for (const [k, v] of Object.entries(r.ans)) if (ids.has(k)) ans[k] = v;
+  return { at: typeof r.at === "number" ? r.at : r.at === "review" || ids.has(r.at) ? r.at : null, ans, fromReview: !!r.fromReview };
+}
+export function holdRun(agent, id, run, storage) {
+  if (keeps(agent, id)) write(rk(agent, id), { at: run.at ?? null, ans: run.ans, fromReview: !!run.fromReview }, storage);
+}
+// Sent: the run goes, and so does every form and mic kept under it.
+export function dropRun(agent, id, storage) {
+  if (!keeps(agent, id)) return;
+  const st = store(storage);
+  write(rk(agent, id), null, storage);
+  try {
+    const gone = [];
+    for (let i = 0; i < (st?.length || 0); i++) {
+      const k = st.key(i);
+      if (k && (k.startsWith(`yui.form.${agent}.${id}.`) || k.startsWith(`yui.mic.${agent}.${id}.`))) gone.push(k);
+    }
+    gone.forEach((k) => st.removeItem(k));
+  } catch { /* nothing kept */ }
+}
+
+// A form's fields: only the keys it still has. `scope` is the flow or plan it sits in ("" on its own).
+export function heldForm(agent, scope, nid, keys, storage) {
+  if (!keeps(agent, nid)) return {};
+  const d = read(fk(agent, scope, nid), storage);
+  const out = {};
+  if (d && typeof d === "object") for (const [k, v] of Object.entries(d)) if (keys.includes(k)) out[k] = v;
+  return out;
+}
+export function holdForm(agent, scope, nid, v, storage) {
+  if (keeps(agent, nid)) write(fk(agent, scope, nid), Object.keys(v).length ? v : null, storage);
+}
+
+// A mic's words and what was typed in its box: kept only inside a flow or plan, dropped with it.
+export function heldMic(agent, scope, nid, storage) {
+  if (!scope || !keeps(agent, nid)) return { text: "", typed: "" };
+  const d = read(mk(agent, scope, nid), storage);
+  return { text: typeof d?.text === "string" ? d.text : "", typed: typeof d?.typed === "string" ? d.typed : "" };
+}
+export function holdMic(agent, scope, nid, m, storage) {
+  if (scope && keeps(agent, nid)) write(mk(agent, scope, nid), m.text || m.typed ? { text: m.text || "", typed: m.typed || "" } : null, storage);
+}

@@ -17,6 +17,8 @@ import { RichText } from "./richtext";
 import { RunnerMove, useRunner } from "./runner";
 import { runnerPlan } from "../../lib/web/runner.mjs";
 import { askHere, compareOf, questionOf } from "../../lib/yl/askhere.mjs";
+import { KeptScopeCtx, useKeptAgent } from "./kept";
+import { dropRun, heldRun, holdRun } from "../../lib/web/kept.mjs";
 
 const isVideo = (src) => /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src || "");
 const Media = ({ src, className }) => (isVideo(src)
@@ -278,13 +280,26 @@ export function Plan({ g, emitFor, Render }) {
   const [at, setAt] = useState(0);
   const [ans, setAns] = useState({});
   const [done, setDone] = useState(false);
+  // The step and the answers are kept per agent and plan id until Send (YUI-279); the steps are the plan's own
+  // positions, so a plan drawn again with fewer steps clamps and an answer to a question that is gone is dropped.
+  const agent = useKeptAgent();
+  const pid = agent ? g.group.id : null;
+  const qids = questions.map((m) => m.id).join("|");
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const r = pid ? heldRun(agent, pid, qids.split("|").filter(Boolean)) : null;
+    if (r) { setAns(r.ans); setAt(typeof r.at === "number" ? r.at : 0); }
+    setReady(true);
+  }, [pid]); // eslint-disable-line react-hooks/exhaustive-deps
   const cur = Math.min(at, n);
+  useEffect(() => { if (ready && pid && !done) holdRun(agent, pid, { at: cur, ans }); }, [ready, cur, ans, done]); // eslint-disable-line react-hooks/exhaustive-deps
   const has = (m) => { const q = questionOf(m); return !q || ans[q.id] !== undefined || run.answers[q.id] !== undefined; };
 
   const submit = (a) => {
     const plan = Object.fromEntries(questions.filter((m) => a[m.id] !== undefined).map((m) => [m.id, a[m.id]]));
     if (runner) Object.assign(plan, run.answers);
     emitFor(g.group)({ plan });
+    if (pid) dropRun(agent, pid);
     if (runner) run.forget();
     setDone(true);
     // Fold back into the chat: a summary chip plus the answers as the person's message.
@@ -334,6 +349,7 @@ export function Plan({ g, emitFor, Render }) {
 
   const review = cur >= n && p.review;
   return (
+    <KeptScopeCtx.Provider value={pid || ""}>
     <div className="yl-block yl-plan">
       <div className="yl-stephead">
         {p.title ? <div className="yl-q">{p.title}</div> : null}
@@ -370,6 +386,7 @@ export function Plan({ g, emitFor, Render }) {
           : <button className="bigbtn p acc" disabled={!nextOk} onClick={onNext}>{cur >= n - 1 ? (p.review ? "Review" : p.submit) : "Next"}</button>}
       </div>
     </div>
+    </KeptScopeCtx.Provider>
   );
 }
 

@@ -9,6 +9,8 @@ import { flowAhead, flowEvent, flowFirst, flowNext, flowPath, resolve } from "..
 import { savedGraph, variantGraph } from "../../lib/yl/starter-flows.mjs";
 import { loadRun, missingFlow, runKey, saveRun } from "../../lib/yl/flow-run.mjs";
 import { ScreenCtx } from "./science";
+import { KeptScopeCtx, useKeptAgent } from "./kept";
+import { dropRun, heldRun, holdRun } from "../../lib/web/kept.mjs";
 import { BackHome, Facts, Page, VALUE, foldText, question, show } from "./flows";
 
 // The graph: sent inline (the patch at `end`), a variant of a saved flow
@@ -35,14 +37,24 @@ export function Flow({ node, emit, Render }) {
   // sent. Restored after mount (the server draws the first step), saved on change.
   const runId = runKey(node.key, node.id || p.title);
   const stepIds = g ? g.nodes.filter((n) => n.preset).map((n) => n.id) : [];
+  // In an agent's thread the run is also kept on the device per agent and flow id until Send (YUI-279): a switch of
+  // agent, Back or a new tab comes back to the same step, fields and mic words. A sent flow stays sent for the tab.
+  const agent = useKeptAgent();
+  const kid = agent ? (/^n\d+$/.test(String(node.id || "")) || !node.id ? p.title : node.id) : null;
   const [ready, setReady] = useState(false);
   useEffect(() => {
-    const r = g ? loadRun(window.sessionStorage, runId, stepIds) : null;
-    if (r) { setAt(r.at); setAns(r.ans); setFromReview(r.fromReview); setDone(r.done); }
+    const sent = g ? loadRun(window.sessionStorage, runId, stepIds) : null;
+    const r = g ? (sent?.done ? sent : (kid && heldRun(agent, kid, stepIds)) || sent) : null;
+    if (r) { setAt(r.at); setAns(r.ans); setFromReview(!!r.fromReview); setDone(!!r.done); }
     setReady(true);
   }, [runId]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (ready && g) saveRun(window.sessionStorage, runId, { at, ans, fromReview, done });
+    if (!ready || !g) return;
+    if (!kid) return saveRun(window.sessionStorage, runId, { at, ans, fromReview, done });
+    if (done) { dropRun(agent, kid); saveRun(window.sessionStorage, runId, { at, ans, fromReview, done }); } else {
+      holdRun(agent, kid, { at, ans, fromReview });
+      saveRun(window.sessionStorage, runId, { at: null, ans: {}, fromReview: false, done: false });
+    }
   }, [ready, at, ans, fromReview, done]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (missing !== undefined) {
@@ -137,6 +149,7 @@ export function Flow({ node, emit, Render }) {
   }
 
   return (
+    <KeptScopeCtx.Provider value={kid || ""}>
     <div className="yl-block yl-plan yl-flow">
       <div className="yl-stephead">
         <div className="yl-q">{title}</div>
@@ -171,5 +184,6 @@ export function Flow({ node, emit, Render }) {
           : <button className="bigbtn p acc" disabled={!nextOk} onClick={onNext}>{last ? (p.review ? "Review" : submitLabel) : "Next"}</button>}
       </div>
     </div>
+    </KeptScopeCtx.Provider>
   );
 }

@@ -15,10 +15,10 @@ import { LonePart, Mock } from "./mock";
 import { LoneMapPart, MapView } from "./map";
 import { useLive } from "./stage";
 import { useTabTitle, useWakeLock } from "./keepawake";
-import { useKeptAgent } from "./kept";
+import { useKeptAgent, useKeptScope } from "./kept";
 import { takeHost } from "../../lib/web/take-host.mjs";
 import { preparePhoto } from "../../lib/web/photo.mjs";
-import { pruneTicks, setTick, ticked } from "../../lib/web/kept.mjs";
+import { heldForm, heldMic, holdForm, holdMic, pruneTicks, setTick, ticked } from "../../lib/web/kept.mjs";
 import { advance, tabTitle } from "../../lib/web/timer-clock.mjs";
 import { RichText } from "./richtext";
 
@@ -305,15 +305,19 @@ function VoiceField({ value, onChange }) {
 
 const human = (k) => k.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());
 
-function Form({ p, emit }) {
-  const [v, setV] = useState({});
+function Form({ p, emit, nid }) {
+  const agent = useKeptAgent();
+  const scope = useKeptScope();
+  // What was typed comes back after Back, another agent or a reload, until sent (YUI-279); a flow's Send drops it.
+  const [v, setV] = useState(() => heldForm(agent, scope, nid, p.fields.map((f) => f.key)));
   const [err, setErr] = useState("");
-  const set = (k, x) => setV((o) => ({ ...o, [k]: x }));
+  const set = (k, x) => setV((o) => { const n = { ...o, [k]: x }; holdForm(agent, scope, nid, n); return n; });
   const submit = (e) => {
     e.preventDefault();
     const miss = p.fields.filter((f) => f.required && (v[f.key] == null || v[f.key] === "")).map((f) => f.label || human(f.key));
     if (miss.length) return setErr(`Needed: ${miss.join(", ")}`);
     setErr("");
+    if (!scope) holdForm(agent, scope, nid, {});
     emit({ form: v });
   };
   return (
@@ -804,9 +808,17 @@ function Camera({ p, emit }) {
   );
 }
 
-function Mic({ p, emit }) {
-  const [text, setText] = useState("");
-  const [typed, setTyped] = useState(false);
+function Mic({ p, emit, nid }) {
+  const agent = useKeptAgent();
+  const scope = useKeptScope();
+  const held = useRef(null);
+  if (!held.current) held.current = heldMic(agent, scope, nid);
+  const [text, setTextNow] = useState(held.current.text);
+  const [draft, setDraftNow] = useState(held.current.typed);
+  const [typed, setTyped] = useState(!!held.current.typed);
+  const keep = useRef(held.current);
+  const setText = (t) => { setTextNow(t); keep.current = { ...keep.current, text: t }; holdMic(agent, scope, nid, keep.current); };
+  const setDraft = (t) => { setDraftNow(t); keep.current = { ...keep.current, typed: t }; holdMic(agent, scope, nid, keep.current); };
   const sp = useSpeech((t, fin) => { setText(t); if (fin) emit({ transcript: t }); });
   useEffect(() => { if (p.auto) sp.start(); /* eslint-disable-next-line */ }, []);
   return (
@@ -818,8 +830,8 @@ function Mic({ p, emit }) {
       <div className="yl-sub">{sp.on ? "Listening..." : sp.ok ? "Tap to talk" : "Voice needs Chrome or Safari. Type instead."}</div>
       {text ? <div className="b in">{text}</div> : null}
       {typed || !sp.ok ? (
-        <form className="yl-otherin" onSubmit={(e) => { e.preventDefault(); const t = e.target.t.value.trim(); if (t) { setText(t); emit({ transcript: t, typed: true }); e.target.reset(); } }}>
-          <input name="t" placeholder="Type it" />
+        <form className="yl-otherin" onSubmit={(e) => { e.preventDefault(); const t = draft.trim(); if (t) { setText(t); setDraft(""); emit({ transcript: t, typed: true }); } }}>
+          <input name="t" placeholder="Type it" value={draft} onChange={(e) => setDraft(e.target.value)} />
           <button className="chip on">Send</button>
         </form>
       ) : null}
