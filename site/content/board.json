@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T16:01:03.846Z",
+  "updated": "2026-10-04T16:10:09.107Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -402,6 +402,19 @@
         {
           "key": "NOTE-18275",
           "title": "Calories reset each day",
+          "progress": "/progress#basil-counts-calories-by-day",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-279",
+          "title": "/web, a flow or plan keeps what you typed until you send",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-178",
+          "title": "The push check retries a page that fails to load once, so one blip never blocks a push",
+          "summary": "Pushes no longer fail on one network blip",
+          "progress": "/progress#pushes-no-longer-fail-on-one-network-blip",
           "owner": "CJohnDesign"
         },
         {
@@ -414,18 +427,6 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-279",
-          "title": "/web, a flow or plan keeps what you typed until you send",
-          "blocked": "other",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-178",
-          "title": "The push check retries a page that fails to load once, so one blip never blocks a push",
-          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
