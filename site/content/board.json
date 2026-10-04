@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T17:35:27.604Z",
+  "updated": "2026-10-04T17:40:20.684Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -298,10 +298,6 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
-          "key": "SITE-180",
-          "title": "The web speed chart adds the bare /web visit"
-        },
-        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -405,8 +401,8 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-281",
-          "title": "A bare /web opens your last agent at once",
+          "key": "SITE-180",
+          "title": "The web speed chart adds the bare /web visit",
           "owner": "CJohnDesign"
         },
         {
@@ -427,6 +423,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-281",
+          "title": "A bare /web opens your last agent at once",
+          "summary": "Web opens your last agent",
+          "shipped": "2026-10-04",
+          "progress": "/progress#web-opens-your-last-agent",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ec699f48"
+        },
         {
           "key": "SITE-179",
           "title": "Thought, the web caught up with the phone, in pictures",
