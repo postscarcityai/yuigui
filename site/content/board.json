@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T21:49:40.694Z",
+  "updated": "2026-10-04T22:06:48.732Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -390,6 +390,11 @@
           "owner": "CJohnDesign"
         },
         {
+          "key": "SITE-185",
+          "title": "The Yui on the web film shows talking to it",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -399,12 +404,6 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-185",
-          "title": "The Yui on the web film shows talking to it",
-          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
