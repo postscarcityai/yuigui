@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T17:00:22.615Z",
+  "updated": "2026-10-04T17:05:17.701Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -298,6 +298,10 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
+          "key": "SITE-180",
+          "title": "The web speed chart adds the bare /web visit"
+        },
+        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -396,6 +400,16 @@
       "title": "Building",
       "cards": [
         {
+          "key": "NOTE-15980",
+          "title": "Faster screen switching",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-281",
+          "title": "A bare /web opens your last agent at once",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -405,12 +419,6 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-15980",
-          "title": "Faster screen switching",
-          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
