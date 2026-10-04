@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-03T17:22:14.137Z",
+  "updated": "2026-10-04T16:01:03.846Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -314,6 +314,11 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
+          "key": "NOTE-4897",
+          "title": "Yui gave up on a question",
+          "waiting": true
+        },
+        {
           "key": "NOTE-13658",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -387,16 +392,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-4897",
-          "title": "Yui gave up on a question",
-          "needsDemo": true
-        },
-        {
-          "key": "NOTE-19357",
-          "title": "Forms keep your answers",
-          "needsDemo": true
         }
       ]
     },
@@ -420,6 +415,18 @@
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
           "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-279",
+          "title": "/web, a flow or plan keeps what you typed until you send",
+          "blocked": "other",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-178",
+          "title": "The push check retries a page that fails to load once, so one blip never blocks a push",
+          "blocked": "other",
+          "owner": "CJohnDesign"
         }
       ]
     },
@@ -427,6 +434,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-19357",
+          "title": "Forms keep your answers",
+          "shipped": "2026-10-02",
+          "progress": "/progress#your-answers-stay-put-until-you-send"
+        },
         {
           "key": "YUI-278",
           "title": "/web, tap the left side to go back a page",
@@ -4432,7 +4445,7 @@
           "title": "Yui social drafter cron + copy validator (drafts only, Chris approves)",
           "shipped": "2026-09-24",
           "progress": "/progress#a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/2b1c1152"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7b9d5bfe"
         },
         {
           "key": "YUI-27",
