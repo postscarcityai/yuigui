@@ -60,6 +60,14 @@ Example: "Which drawing look should Yui use?" and the three drawings and A, B, C
 
 ![Before: the question and its A, B, C buttons with no drawings, after a page of drawings. After: the three drawings and the buttons on one screen.](/progress/site173-one-decision-one-screen.webp)
 
+## 10. Say it, don't type it
+
+Every field you can type in, you can say. Nothing sends until you tap. The only fields without a mic are secrets and code: a key is never spoken, and an editor needs exact characters.
+
+Example: a form field on the phone with a small mic beside it, and the same field on /web with the same mic.
+
+![The same form on the phone and on the web: each field wears a small mic, and nothing sends until you tap.](/progress/site187-say-it-pair.webp)
+
 ## Where these live
 
 - Agents: the [channel guide](/channel) teaches them turn by turn ("Answer first, in one line").
