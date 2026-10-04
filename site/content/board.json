@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T23:40:41.966Z",
+  "updated": "2026-10-04T23:45:43.073Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -299,12 +299,6 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
-          "key": "NOTE-2295",
-          "title": "Slide left to a trash can",
-          "waiting": true,
-          "progress": "/progress#typing-trash-and-looper-fixes"
-        },
-        {
           "key": "NOTE-3651",
           "title": "Add an agent, tucked away"
         },
@@ -326,22 +320,10 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
-          "key": "NOTE-18306",
-          "title": "Tuner as Gouda's last screen",
-          "waiting": true,
-          "progress": "/progress#tune-up-goes-straight-to-the-tuner"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does"
-        },
-        {
-          "key": "NOTE-35460",
-          "title": "A real coach for workouts",
-          "waiting": true,
-          "progress": "/progress#a-first-plan-from-coach"
         },
         {
           "key": "NOTE-35492",
@@ -368,12 +350,6 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
-          "key": "NOTE-54934",
-          "title": "Past chats in the drawer",
-          "waiting": true,
-          "progress": "/progress#past-chats-show-in-the-drawer"
-        },
-        {
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
@@ -385,6 +361,11 @@
       "title": "Building",
       "cards": [
         {
+          "key": "SITE-187",
+          "title": "Values page gets value 10, say it, don't type it",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -394,12 +375,6 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-187",
-          "title": "Values page gets value 10, say it, don't type it",
-          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
