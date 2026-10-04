@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T20:46:21.714Z",
+  "updated": "2026-10-04T21:04:31.537Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -384,8 +384,13 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-284",
-          "title": "/web group chats get the mic, T and +, like the phone",
+          "key": "YUI-285",
+          "title": "/web name and search fields get a small mic, like the phone",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-185",
+          "title": "The Yui on the web film shows talking to it",
           "owner": "CJohnDesign"
         },
         {
@@ -406,6 +411,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-284",
+          "title": "/web group chats get the mic, T and +, like the phone",
+          "summary": "Talk in group chats on the web",
+          "shipped": "2026-10-04",
+          "progress": "/progress#talk-in-group-chats-on-the-web",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1a83b326"
+        },
         {
           "key": "SITE-184",
           "title": "Thought, the web fills forms by voice too",
