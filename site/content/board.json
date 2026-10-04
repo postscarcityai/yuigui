@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T18:55:36.409Z",
+  "updated": "2026-10-04T19:31:10.834Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -376,11 +376,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-48549",
-          "title": "Voice first, everywhere",
-          "needsDemo": true
         }
       ]
     },
@@ -388,6 +383,18 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-283",
+          "title": "/web forms and plan pages fill by voice, like the phone",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-183",
+          "title": "Developers docs, people can say their answers",
+          "summary": "Docs: people can say their answers",
+          "progress": "/progress#docs-people-can-say-their-answers",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
@@ -420,6 +427,12 @@
           "summary": "Say it and the form fills, in pictures",
           "shipped": "2026-10-04",
           "progress": "/progress#say-it-and-the-form-fills-in-pictures"
+        },
+        {
+          "key": "NOTE-48549",
+          "title": "Voice first, everywhere",
+          "shipped": "2026-10-04",
+          "progress": "/progress#voice-first-everywhere-the-audit"
         },
         {
           "key": "NOTE-40679",
