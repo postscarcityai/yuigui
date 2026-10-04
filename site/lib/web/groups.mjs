@@ -227,8 +227,8 @@ export function createGroupsClient(request, { userId }) {
       return since ? rows : rows.reverse();
     },
     // The person's words. `agent` is any member (the trigger picks the real one); `to` the addressed ids.
-    say({ id, thread, agent, words, to, echo = null }) {
-      const meta = { group: { to }, ...(echo ? { echo } : {}) };
+    say({ id, thread, agent, words, to, echo = null, photos = [] }) {
+      const meta = { group: { to }, ...(echo ? { echo } : {}), ...(photos.length ? { photos } : {}) };
       return insert({ id, user_id: userId, agent_id: agent, thread_id: thread, sender: "user", kind: "text", body: words, meta });
     },
     // Let it: the held ask goes out on a fresh budget. Stop: every handoff not picked up yet is cancelled.

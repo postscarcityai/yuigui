@@ -5,6 +5,7 @@
 import { useMemo, useState } from "react";
 import { MAX_MEMBERS, canStart, groupError, membersOf, suggestedTitle, validTitle } from "../../lib/web/groups.mjs";
 import { Dialog, Face, SheetBar, Spinner } from "./parts";
+import FieldMic from "./FieldMic";
 import "./groups.css";
 
 export function Crown() {
@@ -100,7 +101,10 @@ export function NewGroupSheet({ agents, api, onClose, onMade }) {
           })}
         </ul>
         <label htmlFor="gr-name"><h4>Name</h4></label>
-        <input id="gr-name" className="ag-input" value={title} maxLength={60} placeholder={suggested || "Name the group"} autoComplete="off" onChange={(e) => setTitle(e.target.value)} data-testid="group-name" />
+        <div className="gr-namerow">
+          <input id="gr-name" className="ag-input" value={title} maxLength={60} placeholder={suggested || "Name the group"} autoComplete="off" onChange={(e) => setTitle(e.target.value)} data-testid="group-name" />
+          <FieldMic onWords={(t) => setTitle(t.slice(0, 60))} testId="group-name-mic" />
+        </div>
         {picked.length >= 2 ? (
           <>
             <h4>The lead answers anything you don't @.</h4>

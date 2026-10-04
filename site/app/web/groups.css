@@ -103,3 +103,20 @@
 .gr-member .gr-quiet.danger { color: #D7263D; }
 [data-theme="dark"] .gr-member .gr-quiet.danger { color: #FF7E8A; }
 .gr-member .gr-quiet:disabled { opacity: .4; }
+
+/* ---------- the talk bar and the field mic (YUI-284) ---------- */
+.gr-talkbar { display: flex; align-items: center; justify-content: center; gap: 22px; padding: 4px 0 2px; }
+.gr-barbtn { flex: none; width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-size: 21px; font-weight: 700; cursor: pointer; padding: 0; }
+.gr-barbtn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; }
+.gr-barbtn:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+.gr-bigmic { width: 66px; height: 66px; }
+.gr-bigmic svg { width: 28px; height: 28px; }
+.gr-bar.listening { align-items: center; }
+.gr-namerow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.gr-namerow .ag-input { flex: 1; min-width: 0; }
+.gr-fieldmic { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--brand); color: var(--on-brand); cursor: pointer; padding: 0; }
+.gr-fieldmic svg { width: 20px; height: 20px; stroke: currentColor; fill: none; }
+.gr-fieldmic.live { background: #D7263D; color: #fff; }
+.gr-fieldmic:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+.gr-fieldmic-note { flex-basis: 100%; margin: 4px 0 0; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) { .gr-fieldmic { transition: none; } }

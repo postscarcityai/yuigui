@@ -9,9 +9,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { RichText } from "../playground/richtext";
 import { lookVars } from "../../lib/web/settings.mjs";
 import { Thread, excerpt, folds } from "../../lib/web/thread.mjs";
-import { rowOf } from "../../lib/web/compose.mjs";
+import { photoBody, mediaPath, rowOf } from "../../lib/web/compose.mjs";
+import { createComposer } from "../../lib/web/composer.mjs";
+import { preparePhoto } from "../../lib/web/photo.mjs";
+import { voiceProblem } from "../../lib/web/voice.mjs";
 import { addressees, completing, groupError, groupItems, groupWorking, membersOf, suggest, tapOf } from "../../lib/web/groups.mjs";
 import { Face } from "./parts";
+import { AttachButton, Icon, PhotoTray, Problem, VoiceRow, pastedFiles, useComposerState } from "./ComposerParts";
+import { useVoice } from "./useVoice";
 import { Crown, GroupFaces } from "./Groups";
 import GroupSettings from "./GroupSettings";
 import "./groups.css";
@@ -158,7 +163,7 @@ function Header({ group, members, onMenu, onMakeLead, onSettings }) {
   );
 }
 
-export default function GroupThread({ api, cache = null, group, agents, light, userId, onMenu, onOpenAgent, onChanged, onArchived }) {
+export default function GroupThread({ api, relay = null, cache = null, group, agents, light, userId, onMenu, onOpenAgent, onChanged, onArchived }) {
   const [settings, setSettings] = useState(false);
   const members = useMemo(() => membersOf(group, agents), [group, agents]);
   const agentOf = useCallback((id) => agents.find((a) => a.id === id) || null, [agents]);
@@ -172,6 +177,11 @@ export default function GroupThread({ api, cache = null, group, agents, light, u
   const [notice, setNotice] = useState("");
   const [replyTarget, setReplyTarget] = useState(null);
   const [draft, setDraft] = useState("");
+  // The bar is the agent thread's: T opens the field, the mic talks, + attaches. Photos live in the same composer store.
+  const store = useMemo(() => createComposer({ agentId: `group-${group.id}`, prepare: preparePhoto, storage: null }), [group.id]);
+  const st = useComposerState(store);
+  useEffect(() => () => store.destroy(), [store]);
+  const [typing, setTyping] = useState(false);
   const [now, setNow] = useState(() => Date.now());
   const cursor = useRef(null);
   const thread = useRef(null);
@@ -258,30 +268,48 @@ export default function GroupThread({ api, cache = null, group, agents, light, u
   }, [shown.length, working.length, messages]);
   const onScroll = () => { const el = scroller.current; if (el) stick.current = el.scrollHeight - el.scrollTop - el.clientHeight < 160; };
 
-  const post = useCallback(async ({ id, words, to, echo = null }) => {
+  const post = useCallback(async ({ id, words, to, echo = null, photos = [] }) => {
     setNotice("");
     setFailed((f) => { const { [id]: _, ...rest } = f; return rest; });
-    if (echo || !words.startsWith("[yui]")) setSending((s) => (s.some((x) => x.id === id) ? s : [...s, { kind: "you", id, text: echo || words, to, at: Date.now(), pending: true }]));
+    if (echo || !words.startsWith("[yui]")) setSending((s) => (s.some((x) => x.id === id) ? s : [...s, { kind: "you", id, text: echo || photoBody(words, photos.length), to, at: Date.now(), pending: true }]));
     stick.current = true;
     try {
-      await api.say({ id, thread: group.id, agent: to[0] || group.lead, words, to, echo });
+      const agent = to[0] || group.lead;
+      // Photos go up first, under the lead's path like the app's; the row carries their bucket paths.
+      const paths = [];
+      for (const p of photos) {
+        const path = mediaPath(userId, agent, newId());
+        await relay.upload({ path, blob: p.blob, type: p.type || p.blob.type || "image/jpeg" });
+        paths.push(path);
+      }
+      await api.say({ id, thread: group.id, agent, words: photoBody(words, paths.length), to, echo, photos: paths });
       await refresh();
     } catch (e) {
       setSending((s) => s.filter((x) => x.id !== id));
-      if (echo || !words.startsWith("[yui]")) setSending((s) => [...s, { kind: "you", id, text: echo || words, to, at: Date.now(), failed: true }]);
-      setFailed((f) => ({ ...f, [id]: { words, to, echo } }));
+      if (echo || !words.startsWith("[yui]")) setSending((s) => [...s, { kind: "you", id, text: echo || photoBody(words, photos.length), to, at: Date.now(), failed: true }]);
+      setFailed((f) => ({ ...f, [id]: { words, to, echo, photos } }));
       setNotice((e.group || groupError(e.cause || e)).spoken);
     }
-  }, [api, group.id, group.lead, refresh]);
+  }, [api, relay, userId, group.id, group.lead, refresh]);
 
-  const send = (e) => {
-    e?.preventDefault();
-    const words = draft.trim();
-    if (!words) return;
+  // Typed words and photos, or words that were said (voice): one message, to who the words @ or the reply names.
+  const deliver = (said) => {
+    const words = (said ?? draft).trim();
+    const photos = said == null ? st.photos.map((p) => ({ blob: p.blob, type: p.type })) : [];
+    if (!words && !photos.length) return false;
+    if (photos.length && !relay?.upload) { setNotice("Photos can't go up from here yet."); return false; }
     const to = addressees(words, members, replyTarget);
-    setDraft(""); setReplyTarget(null);
-    post({ id: newId(), words, to });
+    if (said == null) { setDraft(""); store.take(); }
+    setReplyTarget(null);
+    post({ id: newId(), words, to, photos });
+    return true;
   };
+  const send = (e) => { e?.preventDefault(); deliver(); };
+  const voice = useVoice({ send: (words) => deliver(words), busy: working.length > 0 });
+  const listening = voice.listening || voice.handsFree;
+  const field = typing || !voice.supported;
+  const ready = (!!draft.trim() || st.photos.length > 0) && !st.busy;
+  useEffect(() => { if (field && typing) setTimeout(() => box.current?.focus(), 30); }, [field, typing]);
   const retry = (id) => { const f = failed[id]; if (!f) return; setSending((s) => s.filter((x) => x.id !== id)); post({ id, ...f }); };
   const onTap = useCallback((ev, agent) => { const t = tapOf(ev); if (t) post({ id: newId(), words: t.words, to: [agent], echo: t.echo }); }, [post]);
   const guarded = async (fn) => { try { await fn(); await refresh(); } catch (e) { setNotice((e.group || groupError(e.cause || e)).spoken); await refresh(); } };
@@ -342,14 +370,36 @@ export default function GroupThread({ api, cache = null, group, agents, light, u
               ))}
             </div>
           ) : null}
-          <form className="wb-compose" onSubmit={send}>
-            <textarea ref={box} rows={1} value={draft} maxLength={32000} aria-label="Message the group" placeholder="Message the group" data-testid="group-field"
-              onChange={(e) => setDraft(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); send(); } }} />
-            <button className="wb-send" type="submit" disabled={!draft.trim()} aria-label="Send" data-testid="group-send">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            </button>
-          </form>
+          <Problem code={st.problem} onClose={() => store.clearProblem()} />
+          {voice.problem && !listening ? <div className="wc-problem" role="alert" data-testid="group-voice-problem"><span>{voiceProblem(voice.problem)}</span></div> : null}
+          <PhotoTray photos={st.photos} busy={st.busy > 0} onRemove={(id) => store.removePhoto(id)} />
+          {listening ? (
+            <div className="wb-compose listening gr-bar" data-testid="group-listening">
+              <VoiceRow voice={voice} agentName={lead?.name || "the group"} onDiscard={voice.discard} />
+              <button type="button" className="wb-send wc-mic live" data-testid="group-mic" aria-label="Stop listening" aria-pressed {...voice.mic} style={{ touchAction: "none" }}>{Icon.mic}</button>
+            </div>
+          ) : field ? (
+            <form className="wb-compose gr-bar" onSubmit={send}>
+              <AttachButton onFiles={(f) => store.addFiles(f)} testId="group-attach" label="Add photos" />
+              <textarea ref={box} rows={1} value={draft} maxLength={32000} aria-label="Message the group" placeholder="Message the group" data-testid="group-field"
+                onChange={(e) => setDraft(e.target.value)}
+                onPaste={(e) => { const f = pastedFiles(e); if (f) { e.preventDefault(); store.addFiles(f); } }}
+                onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); send(); } }} />
+              {voice.supported && !ready ? (
+                <button type="button" className="wb-send wc-mic" data-testid="group-mic" aria-label="Talk to the group" {...voice.mic} style={{ touchAction: "none" }}>{Icon.mic}</button>
+              ) : (
+                <button className="wb-send" type="submit" disabled={!ready} aria-label="Send" data-testid="group-send">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" fill="none" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </button>
+              )}
+            </form>
+          ) : (
+            <div className="gr-talkbar" data-testid="group-bar">
+              <button type="button" className="gr-barbtn gr-t" onClick={() => setTyping(true)} aria-label="Type" data-testid="group-type">T</button>
+              <button type="button" className="wb-send wc-mic gr-bigmic" data-testid="group-mic" aria-label="Talk to the group" {...voice.mic} style={{ touchAction: "none" }}>{Icon.mic}</button>
+              <AttachButton onFiles={(f) => store.addFiles(f)} testId="group-attach" label="Add photos" className="gr-barbtn" />
+            </div>
+          )}
         </div>
       </div>
     </>

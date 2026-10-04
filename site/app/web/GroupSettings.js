@@ -6,6 +6,7 @@ import { useState } from "react";
 import { MAX_HOPS, MIN_HOPS, clampHops, groupError, settingsOf, validTitle } from "../../lib/web/groups.mjs";
 import { Confirm, Dialog, Face, SheetBar } from "./parts";
 import { Crown } from "./Groups";
+import FieldMic from "./FieldMic";
 import "./groups.css";
 
 export default function GroupSettings({ api, group, agents, onClose, onChanged, onArchived }) {
@@ -35,7 +36,10 @@ export default function GroupSettings({ api, group, agents, onClose, onChanged, 
         <SheetBar title={group.title} right={<button type="button" className="ag-barbtn" onClick={done} data-testid="group-settings-done">Done</button>} />
         <div className="ag-body gr-form">
           <label htmlFor="gr-set-name"><h4>Name</h4></label>
-          <input id="gr-set-name" className="ag-input" value={title} maxLength={60} autoComplete="off" onChange={(e) => setTitle(e.target.value)} onBlur={rename} data-testid="group-settings-name" />
+          <div className="gr-namerow">
+            <input id="gr-set-name" className="ag-input" value={title} maxLength={60} autoComplete="off" onChange={(e) => setTitle(e.target.value)} onBlur={rename} data-testid="group-settings-name" />
+            <FieldMic onWords={(t) => setTitle(t.slice(0, 60))} testId="group-settings-name-mic" />
+          </div>
 
           <h4>Max hops</h4>
           <div className="gr-hops" role="group" aria-label="Max hops">

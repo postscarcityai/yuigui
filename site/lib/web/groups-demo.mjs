@@ -88,7 +88,7 @@ export function createDemoGroups({ agents, now = Date.now, speed = 1 }) {
       if (since) { const from = Date.parse(since) - 5000; return all.filter((r) => Date.parse(r.created_at) > from).map((r) => ({ ...r })); }
       return all.slice(-limit).map((r) => ({ ...r }));
     },
-    async say({ id: rid, thread, agent, words, to, echo = null }) {
+    async say({ id: rid, thread, agent, words, to, echo = null, photos = [] }) {
       const g = find(thread);
       if (g.archivedAt) throw Object.assign(new Error("group_archived"), { group: { kind: "group_archived", spoken: "That group is archived. Nothing more goes in it." } });
       const list2 = rows(thread);
@@ -97,7 +97,7 @@ export function createDemoGroups({ agents, now = Date.now, speed = 1 }) {
       const targets = to.length ? to : [g.lead];
       const body = `[yui] group "${g.title}" thread=${thread} lead=${name(g.lead)} hop=0 from=person\n${words}`;
       targets.forEach((t, i) => {
-        const meta = i === 0 ? { group: { words, to, hop: 0 }, ...(echo ? { echo } : {}) } : { group: { copy_of: rid, hop: 0 } };
+        const meta = i === 0 ? { group: { words, to, hop: 0 }, ...(echo ? { echo } : {}), ...(photos.length ? { photos } : {}) } : { group: { copy_of: rid, hop: 0 } };
         const row = { id: i === 0 ? rid : id(), sender: "user", kind: "text", agent_id: t, body, meta, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null };
         list2.push(row);
         answer(thread, row, t, (who) => (words.startsWith("[yui]") ? `${who} here. Noted, that is set.` : /\bdinner|meal|eat\b/i.test(words) ? `${who} here. Light and early on run days, heavier the night before the 10k.` : `${who} here. Got it: ${words.replace(/@\w[\w-]*\s*/g, "").slice(0, 80)}`));

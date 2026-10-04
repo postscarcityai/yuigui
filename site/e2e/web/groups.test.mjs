@@ -111,6 +111,8 @@ for (const theme of ["dark", "light"]) for (const [vp, tag] of [[PHONE, "390"], 
   ok(!(await pg.getByTestId("group-letit").count()), `${T}: the buttons go once it is handled`);
 
   // @ suggests members; the words go to the @ed one and meta.group.to says so
+  // The bar opens on the mic (YUI-284): T opens the field where the browser has speech, else the field is already there.
+  if (await pg.getByTestId("group-type").count()) await pg.getByTestId("group-type").click();
   const field = pg.getByTestId("group-field");
   await field.fill("hello @b");
   ok(await pg.getByTestId("group-at-basil").isVisible() && !(await pg.getByTestId("group-at-yui").count()), `${T}: a typed @ suggests the members that match`);
