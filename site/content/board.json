@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T23:35:40.920Z",
+  "updated": "2026-10-04T23:40:41.966Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -299,10 +299,6 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
-          "key": "SITE-187",
-          "title": "Values page gets value 10, say it, don't type it"
-        },
-        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -398,6 +394,12 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-187",
+          "title": "Values page gets value 10, say it, don't type it",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
