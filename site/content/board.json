@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T23:11:31.532Z",
+  "updated": "2026-10-04T23:20:40.825Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -392,6 +392,8 @@
         {
           "key": "SITE-186",
           "title": "The /web page shows voice first, one strip of fields you can say",
+          "summary": "Voice first, shown on the web page",
+          "progress": "/progress#voice-first-shown-on-the-web-page",
           "owner": "CJohnDesign"
         },
         {
