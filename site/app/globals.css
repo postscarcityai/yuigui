@@ -518,6 +518,12 @@ ul.log > li:nth-child(n+7) { content-visibility: auto; contain-intrinsic-size: a
 .yl-field.row { flex-direction: row; align-items: center; justify-content: space-between; }
 .yl-voicefield { display: flex; gap: 8px; align-items: center; }
 .yl-voicefield .mic { border: 0; flex: none; }
+.yl-formtalk { display: flex; gap: 10px; align-items: center; }
+.yl-formtalk .mic { border: 0; flex: none; cursor: pointer; }
+.yl-formtalk.slim .mic { width: 34px; height: 34px; }
+.yl-heard { display: inline-grid; place-items: center; vertical-align: -3px; margin-left: 6px; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); }
+.yl-heard svg { width: 11px; height: 11px; fill: #fff; }
+.yl-voicenote { opacity: .85; }
 .mic.live, .yl-micbig.live { background: #ff4d6d; box-shadow: 0 0 0 6px rgba(255,77,109,.25); }
 .yl-toggle { width: 50px; height: 30px; border-radius: 15px; background: #2a2e42; border: 0; position: relative; }
 .yl-toggle span { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #fff; transition: left .15s; }

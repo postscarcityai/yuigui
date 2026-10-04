@@ -19,6 +19,8 @@ import { liveness, presenceLabel, waitingNote, workingLine } from "../../lib/web
 import { AttachButton, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, Waveform, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
 import { useVoice } from "./useVoice";
 import { voiceProblem } from "../../lib/web/voice.mjs";
+import { createPageVoice } from "../../lib/web/pagevoice.mjs";
+import { PageVoiceCtx, StepActiveCtx } from "../playground/pagevoice";
 import { SETS } from "../../lib/yl/look.mjs";
 import { motionLook, motionVars, stageMood } from "../../lib/yl/motion.mjs";
 import { CREW_VISUALS, FALLBACK_VISUAL, stageVisual, visualPlan } from "../../lib/yl/visual.mjs";
@@ -213,6 +215,10 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   const busy = thread.waiting;
   const sayRef = useRef(() => false);
   const voice = useVoice({ send: (w) => sayRef.current(w), busy });
+  // Said words go to the page on show when it has fields to fill (YUI-283); the page registers what it can fill.
+  const pageVoice = useMemo(() => createPageVoice(), []);
+  // Set in the render that swaps the page for the heard words, so the page's unmount does not clear its registration.
+  pageVoice.listening = voice.listening;
   const at = Math.max(0, names.indexOf(pageAt));
   const onHomeScreen = at === 0;
   const canTalk = onHomeScreen || home.talk.includes(pageAt);
@@ -304,7 +310,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
     const k = here.current;
     return sync.send(out.text, { photos: out.photos, reply: out.reply, mention: out.mention, ...(k !== "1" ? { screen: k } : {}) });
   }, [sync, store, agent.id]);
-  sayRef.current = say;
+  sayRef.current = (w) => (w && pageVoice.hear(w)) || say(w);
   const listening = voice.listening || voice.handsFree;
   const heard = voice.words;
   const blocked = voice.phase === "denied";
@@ -446,8 +452,14 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
         <div className="ys-center" aria-live="polite">
           <div className="ys-pager" ref={pager.box} {...pager.handlers} data-drag={pager.dragging ? "1" : undefined} style={{ "--at": at, "--drag": `${pager.drag}px` }}>
             <div className="ys-track">
-              <div className="ys-slide" aria-hidden={!onHomeScreen || undefined} inert={!onHomeScreen}>{center}</div>
-              {home.pages.length ? <PagesView state={home.state} pages={home.pages} at={at} onTap={tap} agent={agent.name} /> : null}
+              <PageVoiceCtx.Provider value={pageVoice}>
+                <StepActiveCtx.Provider value={onHomeScreen}>
+                  <div className="ys-slide" aria-hidden={!onHomeScreen || undefined} inert={!onHomeScreen}>{center}</div>
+                </StepActiveCtx.Provider>
+                <StepActiveCtx.Provider value={!onHomeScreen}>
+                  {home.pages.length ? <PagesView state={home.state} pages={home.pages} at={at} onTap={tap} agent={agent.name} /> : null}
+                </StepActiveCtx.Provider>
+              </PageVoiceCtx.Provider>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@
 // one full-screen series of steps. Plan mode with branches: Next follows the
 // edge the answers pick, Back walks the path taken, the review lists only the
 // answered steps on that path, and one {flow, path} event goes at submit.
+import { StepActiveCtx } from "./pagevoice";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { flowAhead, flowEvent, flowFirst, flowNext, flowPath, resolve } from "../../lib/yl/yl.mjs";
 import { savedGraph, variantGraph } from "../../lib/yl/starter-flows.mjs";
@@ -164,7 +165,9 @@ export function Flow({ node, emit, Render }) {
       </div>
       {steps.map((x) => (
         <div key={x.key} className="yl-planstep" data-step={x.id} style={{ display: x.id === cur ? undefined : "none" }}>
-          {x.preset === "page" ? <div className="yl-planpage"><Page p={resolve("page", x.props)} /></div> : <Render node={x} emit={capture(x)} />}
+          <StepActiveCtx.Provider value={x.id === cur && !review}>
+            {x.preset === "page" ? <div className="yl-planpage"><Page p={resolve("page", x.props)} /></div> : <Render node={x} emit={capture(x)} />}
+          </StepActiveCtx.Provider>
         </div>
       ))}
       {review ? (

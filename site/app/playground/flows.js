@@ -5,6 +5,7 @@
 // walkthrough), plus page and project. A group gets its member nodes from
 // groupNodes(); members render with the normal preset renderers, passed in as
 // `Render` so this file does not import presets.js.
+import { StepActiveCtx } from "./pagevoice";
 import { useContext, useEffect, useRef, useState } from "react";
 import { GROUPS, resolve } from "../../lib/yl/yl.mjs";
 import { ScreenCtx } from "./science";
@@ -361,12 +362,14 @@ export function Plan({ g, emitFor, Render }) {
       </div>
       {steps.map((m, i) => (
         <div key={m.key} className="yl-planstep" style={{ display: i === cur ? undefined : "none" }}>
+          <StepActiveCtx.Provider value={i === cur && !review}>
           {m.preset === "page" ? <>
             <div className="yl-planpage">{slidePage(m, emitFor, Render)}</div>
             {m.ask ? <PlanAsk steps={steps} at={i} emitFor={emitFor} Render={Render} capture={capture} ans={ans} /> : null}
           </>
             : runner?.move(m.id) ? <RunnerMove move={runner.move(m.id)} runner={runner} step={m} progress={run.progress} setProgress={run.setProgress} active={i === cur && !review} />
             : <PlanAsk steps={steps} at={i} emitFor={emitFor} Render={Render} capture={capture} ans={ans} />}
+          </StepActiveCtx.Provider>
         </div>
       ))}
       {review ? (

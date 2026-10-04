@@ -244,6 +244,14 @@
     "body": "Friday is the rest day. Want it kept clear?\n```yui\nchoose@rest \"Keep Friday clear?\" Yes|No\n```"
    }
   ],
+  "intake": [
+   {
+    "doing": [
+     "Writing your questions"
+    ],
+    "body": "Let's build your personal brand site. A few quick questions first.\n```yui\nplan@intake \"Client website intake\" submit=\"Send the brief\"\npage \"Let's plan your site\" body=\"About ten questions. Your answers become the brief.\"\nform@biz \"Your business\" \"Business name\":text! \"What you do\":long \"Who it is for\":text\nchoose@kind \"What are we building?\" \"New site\"|Redesign|Shop|\"Landing page\"\nform@brand \"Your brand\" logo:yes colors:text \"A site you like\":url\nend\n```"
+   }
+  ],
   "parts": [
    {
     "doing": [

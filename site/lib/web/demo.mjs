@@ -62,7 +62,8 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     const kind = userRow.kind === "event" ? "event" : "text";
     // A line asking for a timer gets the one that takes the whole window (a staged part opens by itself).
     const key = kind === "text" && /\btimer\b/i.test(userRow.body || "") && fixture.replies.timer ? "timer"
-      : kind === "text" && /\bthree parts\b/i.test(userRow.body || "") && fixture.replies.parts ? "parts" : kind;
+      : kind === "text" && /\bthree parts\b/i.test(userRow.body || "") && fixture.replies.parts ? "parts"
+      : kind === "text" && /\bintake\b/i.test(userRow.body || "") && fixture.replies.intake ? "intake" : kind;
     const script = (fixture.replies[key] || fixture.replies.text || [])[0];
     if (!script) return;
     await sleep(500);

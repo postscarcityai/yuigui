@@ -444,10 +444,11 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
         <div className="wb-messages" ref={content}>
           {!thread.loaded ? <div className="wb-wait">Opening {agent.name}...</div> : null}
           {thread.loaded && !list.length ? <div className="wb-empty">{agent.firstMessage || `Say hi to ${agent.name}.`}</div> : null}
+          {/* On the stage a staged part (a plan, a timer) is drawn by the stage, with its bar; the thread under it does not open a layer of its own over the bar (YUI-283). */}
           {shown.map((m, k) => { const i = base + k; return (
             <div key={m.id} className="wb-item" data-id={m.id}>
               {marks[i]?.day ? <Day label={marks[i].day} /> : null}
-              <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay} fresh={!old.has(m.id)}
+              <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay} fresh={!old.has(m.id) && !stageOn}
                 reaction={thread.reactions.get(rowOf(m.id))} wears={wearers.get(rowOf(m.id)) === m.id} onMenu={openMenu} onPicture={setViewer} onOpenAgent={onOpenAgent} onJump={jump} />
               {m.role === "agent" && !m.from && (i === list.length - 1 || list[i + 1].role === "user") && askOf(i) ? (
                 <button className="wb-play" data-testid="play-on-stage" onClick={() => toStage({ ask: askOf(i) })}>Play on the stage</button>

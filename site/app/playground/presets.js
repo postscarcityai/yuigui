@@ -3,7 +3,7 @@
 // Web renderers for the YL presets, plus say and custom.
 // Each preset gets resolved props and emit(value). emit() is the event that
 // goes back to the agent.
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { resolve } from "../../lib/yl/yl.mjs";
 import { Calc, Chart, DataTable, MathBlock, Stat, Steps } from "./science";
@@ -21,6 +21,8 @@ import { preparePhoto } from "../../lib/web/photo.mjs";
 import { heldForm, heldMic, holdForm, holdMic, pruneTicks, setTick, ticked } from "../../lib/web/kept.mjs";
 import { advance, tabTitle } from "../../lib/web/timer-clock.mjs";
 import { RichText } from "./richtext";
+import { PageVoiceCtx, StepActiveCtx } from "./pagevoice";
+import { canFill, fill as voiceFill } from "../../lib/web/voicefill.mjs";
 
 // Sample agent data tables, so `table meals` has something to bind to.
 export const TABLES = {
@@ -308,10 +310,46 @@ const human = (k) => k.replace(/_/g, " ").replace(/^./, (c) => c.toUpperCase());
 function Form({ p, emit, nid }) {
   const agent = useKeptAgent();
   const scope = useKeptScope();
+  const pv = useContext(PageVoiceCtx);
+  const stepOn = useContext(StepActiveCtx);
   // What was typed comes back after Back, another agent or a reload, until sent (YUI-279); a flow's Send drops it.
   const [v, setV] = useState(() => heldForm(agent, scope, nid, p.fields.map((f) => f.key)));
   const [err, setErr] = useState("");
   const set = (k, x) => setV((o) => { const n = { ...o, [k]: x }; holdForm(agent, scope, nid, n); return n; });
+  // Speak to fill (YUI-283): said answers land in their fields, each marked with a small mic until the person edits it.
+  const voiceOk = canFill(p.fields);
+  const [heard, setHeard] = useState(() => (pv ? pv.marked(nid) : []));
+  const [note, setNote] = useState("");
+  const put = (values) => {
+    const keys = Object.keys(values);
+    if (!keys.length) return false;
+    setV((o) => { const n = { ...o, ...values }; holdForm(agent, scope, nid, n); return n; });
+    setHeard((h) => [...new Set([...h, ...keys])]);
+    pv?.mark(nid, keys);
+    setNote(`Filled ${keys.length}. Check them, fix by tapping, then go on.`);
+    return true;
+  };
+  const putRef = useRef(put);
+  putRef.current = put;
+  const typed = (k, x) => { set(k, x); if (heard.includes(k)) { setHeard((h) => h.filter((y) => y !== k)); pv?.unmark(nid, k); } };
+  // The stage's mic fills the page on show; it registers what it can fill, with what the fields hold now.
+  useEffect(() => {
+    if (pv && stepOn && voiceOk) pv.register({ id: nid, fields: p.fields, current: v });
+  }, [pv, stepOn, voiceOk, v]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => () => pv?.clear(nid), [pv]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Words heard while this page was unmounted (the stage draws them in its place) land when it is back.
+  useEffect(() => {
+    if (!pv) return undefined;
+    const take = (f) => { if (f && f.id === nid && f.values && pv.fill === f) { putRef.current(f.values); pv.consume(f); } };
+    take(pv.fill);
+    return pv.subscribe(take);
+  }, [pv, nid]);
+  // The page's own mic, for a tap on the page (hidden where the browser has no speech recognition).
+  const holdOn = useRef(v);
+  holdOn.current = v;
+  const talk = useSpeech((t, fin) => { if (fin) putRef.current(voiceFill(t, p.fields, holdOn.current)); });
+  const [micShown, setMicShown] = useState(false);
+  useEffect(() => { setMicShown(talk.ok); }, [talk.ok]);
   const submit = (e) => {
     e.preventDefault();
     const miss = p.fields.filter((f) => f.required && (v[f.key] == null || v[f.key] === "")).map((f) => f.label || human(f.key));
@@ -323,38 +361,46 @@ function Form({ p, emit, nid }) {
   return (
     <form className="yl-block yl-form" onSubmit={submit}>
       {p.title ? <div className="yl-q">{p.title}</div> : null}
+      {voiceOk && micShown ? (
+        <div className={`yl-formtalk${pv ? " slim" : ""}`}>
+          <button type="button" className={`mic ${talk.on ? "live" : ""}`} data-testid={`form-talk-${nid}`} aria-pressed={talk.on}
+            aria-label={talk.on ? "Stop listening" : "Fill this form by voice"} onClick={() => (talk.on ? talk.stop() : talk.start())}><MicIcon /></button>
+          <span className="yl-sub">{talk.on ? "Listening. Tap to stop." : heard.length ? "Tap to add more" : "Say a field's name, then its answer"}</span>
+        </div>
+      ) : null}
       {p.fields.map((f) => {
         const label = (f.label || human(f.key)) + (f.required ? " *" : "");
         const t = f.type || "text";
         let input;
-        if (t === "voice") input = <VoiceField value={v[f.key]} onChange={(x) => set(f.key, x)} />;
-        else if (t === "long") input = <textarea rows={3} value={v[f.key] || ""} onChange={(e) => set(f.key, e.target.value)} />;
+        if (t === "voice") input = <VoiceField value={v[f.key]} onChange={(x) => typed(f.key, x)} />;
+        else if (t === "long") input = <textarea rows={3} value={v[f.key] || ""} onChange={(e) => typed(f.key, e.target.value)} />;
         else if (t === "yes") input = (
-          <button type="button" className={`yl-toggle ${v[f.key] ? "on" : ""}`} onClick={() => set(f.key, !v[f.key])}><span /></button>
+          <button type="button" className={`yl-toggle ${v[f.key] ? "on" : ""}`} onClick={() => typed(f.key, !v[f.key])}><span /></button>
         );
         else if (t === "range") {
           const cur = v[f.key] ?? Math.round((f.min + f.max) / 2);
           input = (
             <div className="yl-inlinerange">
-              <input type="range" className="yl-range" min={f.min} max={f.max} value={cur} onChange={(e) => set(f.key, Number(e.target.value))} />
+              <input type="range" className="yl-range" min={f.min} max={f.max} value={cur} onChange={(e) => typed(f.key, Number(e.target.value))} />
               <b>{cur}</b>
             </div>
           );
         } else if (t === "choice") input = (
-          <div className="chips">{f.options.map((o) => <button type="button" key={o} className={`chip ${v[f.key] === o ? "on" : ""}`} onClick={() => set(f.key, o)}>{o}</button>)}</div>
+          <div className="chips">{f.options.map((o) => <button type="button" key={o} className={`chip ${v[f.key] === o ? "on" : ""}`} onClick={() => typed(f.key, o)}>{o}</button>)}</div>
         );
-        else if (t === "photo") input = <input type="file" accept="image/*" capture="environment" onChange={(e) => set(f.key, e.target.files[0] && e.target.files[0].name)} />;
+        else if (t === "photo") input = <input type="file" accept="image/*" capture="environment" onChange={(e) => typed(f.key, e.target.files[0] && e.target.files[0].name)} />;
         else {
           const map = { number: "number", email: "email", phone: "tel", date: "date", time: "time", url: "url" };
-          input = <input type={map[t] || "text"} value={v[f.key] || ""} onChange={(e) => set(f.key, t === "number" ? Number(e.target.value) : e.target.value)} />;
+          input = <input type={map[t] || "text"} value={v[f.key] || ""} onChange={(e) => typed(f.key, t === "number" ? Number(e.target.value) : e.target.value)} />;
         }
         return (
           <label key={f.key} className={`yl-field ${t === "yes" ? "row" : ""}`}>
-            <span className="lbl">{label}</span>
+            <span className="lbl">{label}{heard.includes(f.key) ? <span className="yl-heard" data-testid={`heard-${f.key}`} role="img" aria-label="Filled by voice"><MicIcon /></span> : null}</span>
             {input}
           </label>
         );
       })}
+      {note ? <div className="yl-sub yl-voicenote" role="status" data-testid={`form-note-${nid}`}>{note}</div> : null}
       {err ? <div className="yl-err">{err}</div> : null}
       <button className="bigbtn p acc full">{p.submit}</button>
     </form>
@@ -821,6 +867,19 @@ function Mic({ p, emit, nid }) {
   const setDraft = (t) => { setDraftNow(t); keep.current = { ...keep.current, typed: t }; holdMic(agent, scope, nid, keep.current); };
   const sp = useSpeech((t, fin) => { setText(t); if (fin) emit({ transcript: t }); });
   useEffect(() => { if (p.auto) sp.start(); /* eslint-disable-next-line */ }, []);
+  // The stage's mic gives this page the words as they are said (YUI-283): they become the transcript.
+  const pv = useContext(PageVoiceCtx);
+  const stepOn = useContext(StepActiveCtx);
+  const wordsRef = useRef(null);
+  wordsRef.current = (w) => { setText(w); emit({ transcript: w }); };
+  useEffect(() => { if (pv && stepOn) pv.register({ id: nid, words: true, current: text }); }, [pv, stepOn, text]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => () => pv?.clear(nid), [pv]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (!pv) return undefined;
+    const take = (f) => { if (f && f.id === nid && f.words && pv.fill === f) { wordsRef.current(f.words); pv.consume(f); } };
+    take(pv.fill);
+    return pv.subscribe(take);
+  }, [pv, nid]);
   return (
     <div className="yl-block yl-mic">
       <div className="yl-q">{p.prompt}</div>
