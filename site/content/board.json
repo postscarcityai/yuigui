@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T16:35:12.875Z",
+  "updated": "2026-10-04T16:50:13.785Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -407,6 +407,8 @@
         {
           "key": "YUI-280",
           "title": "/web says when no answer came back, with Try again",
+          "summary": "The web says when no answer came back",
+          "progress": "/progress#the-web-says-when-no-answer-came-back",
           "owner": "CJohnDesign"
         },
         {
