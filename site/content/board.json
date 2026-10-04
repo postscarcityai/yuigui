@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T16:55:16.204Z",
+  "updated": "2026-10-04T17:00:22.615Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -396,18 +396,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-15980",
-          "title": "Faster screen switching",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-179",
-          "title": "Thought, the web caught up with the phone, in pictures",
-          "summary": "The web caught up with the phone",
-          "progress": "/progress#the-web-caught-up-with-the-phone",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -418,6 +406,12 @@
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
           "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-15980",
+          "title": "Faster screen switching",
+          "blocked": "other",
+          "owner": "CJohnDesign"
         }
       ]
     },
@@ -425,6 +419,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-179",
+          "title": "Thought, the web caught up with the phone, in pictures",
+          "summary": "The web caught up with the phone",
+          "shipped": "2026-10-04",
+          "progress": "/progress#the-web-caught-up-with-the-phone",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/601fad66"
+        },
         {
           "key": "YUI-280",
           "title": "/web says when no answer came back, with Try again",
