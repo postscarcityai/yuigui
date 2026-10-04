@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T16:15:10.949Z",
+  "updated": "2026-10-04T16:30:16.250Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -396,11 +396,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-279",
-          "title": "/web, a flow or plan keeps what you typed until you send",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-15980",
           "title": "Faster screen switching",
           "owner": "CJohnDesign"
@@ -423,6 +418,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-279",
+          "title": "/web, a flow or plan keeps what you typed until you send",
+          "summary": "The web keeps your answers until you send",
+          "shipped": "2026-10-04",
+          "progress": "/progress#the-web-keeps-your-answers-until-you-send",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/fa6b75a3"
+        },
         {
           "key": "NOTE-18275",
           "title": "Calories reset each day",
