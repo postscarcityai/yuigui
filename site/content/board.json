@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T18:10:26.896Z",
+  "updated": "2026-10-04T18:15:27.832Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -398,11 +398,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-181",
-          "title": "Thought, switching screens got instant, in pictures",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -420,6 +415,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-181",
+          "title": "Thought, switching screens got instant, in pictures",
+          "summary": "Switching screens got instant, in pictures",
+          "shipped": "2026-10-04",
+          "progress": "/progress#switching-screens-got-instant-in-pictures"
+        },
         {
           "key": "NOTE-24156",
           "title": "No X, just arrows",
