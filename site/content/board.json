@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T20:16:00.459Z",
+  "updated": "2026-10-04T20:36:17.179Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -391,6 +391,8 @@
         {
           "key": "SITE-184",
           "title": "Thought, the web fills forms by voice too",
+          "summary": "The web fills forms by voice too, in pictures",
+          "progress": "/progress#the-web-fills-forms-by-voice-too-in-pictures",
           "owner": "CJohnDesign"
         },
         {
