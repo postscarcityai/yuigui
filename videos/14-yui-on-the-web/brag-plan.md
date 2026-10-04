@@ -19,3 +19,5 @@ Storyboard
 Beyond the spec: none. Publishing the video on social is Chris's call.
 
 Re-cut Oct 2 (SITE-172): 40.8 s, filmed on the live demo account. open (last chat drawn, scroll back past 100 rows via ?demohistory=250; group chat drawn on the phone), dismiss (a Needs you row), ask (reply draws a screen). The restyle scene is gone. Same file names.
+
+Re-cut Oct 4 (SITE-185): 52.8 s. A voice beat after open: hold the mic on the laptop and the intake form fills; talk in the group chat on the phone and the message lands. The recognizer is faked in the capture. Same file names.

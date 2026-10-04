@@ -1,4 +1,4 @@
-"""Music for 14-yui-on-the-web, "Yui is on the web". 100 BPM, 17 bars (40.8 s), swing 30. The times come from score.js."""
+"""Music for 14-yui-on-the-web, "Yui is on the web". 100 BPM, 22 bars (52.8 s), swing 30. The times come from score.js."""
 import json
 import sys
 from pathlib import Path
@@ -19,8 +19,8 @@ MOTIF = {
     3: [(0, 6, 72), (8, 2, 76), (10, 2, 77), (12, 4, 79)],
 }
 dub(song, [(0, 1, 1)], ["Dm7"])                                   # the phone alone, thin
-dub(song, [(1, 5, 3), (5, 9, 3), (9, 13, 4), (13, 16, 4)], PROG, MOTIF)  # laptop and phone, three scenes
-dub(song, [(16, 17, 2)], ["Fmaj7"] * 16 + ["C"])
+dub(song, [(1, 6, 3), (6, 11, 3), (11, 17, 4), (17, 21, 4)], PROG, MOTIF)  # laptop and phone, four scenes
+dub(song, [(21, 22, 2)], ["Fmaj7"] * 21 + ["C"])
 drop(song, S["slide"], bars_before=1.0)
 for t in S["cuts"]:
     accent(song, t, "swell")

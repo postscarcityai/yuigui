@@ -28,6 +28,10 @@
   <div class="cap R accent" id="c1R">Groups open drawn too.</div>
   <div class="cap L" id="c2L">Scroll back past 100 rows.</div>
   <div class="cap R accent" id="c2R">It keeps your place.</div>
+  <div class="cap L" id="c6L">Talk to it. Hold the mic.</div>
+  <div class="cap R accent" id="c6R">The form fills itself.</div>
+  <div class="cap L" id="c7L">Talk in a group too.</div>
+  <div class="cap R accent" id="c7R">Your message lands.</div>
   <div class="cap L" id="c3L">Not now? Dismiss.</div>
   <div class="cap R accent" id="c3R">One tap. It stays gone.</div>
   <div class="cap L" id="c4L">Ask. The answer draws a screen.</div>
@@ -70,15 +74,18 @@ function render(t) {
   lap.style.transform = `translate(${(1 - inp) * -1300}px, ${out * 900}px)`;
   lap.style.opacity = inp;
   // three scenes, each filmed on both screens; a scene starts when its page is ready (MARKS) plus a short lead
-  const sc = t < S.scenes[1][1] ? S.scenes[0] : t < S.scenes[2][1] ? S.scenes[1] : S.scenes[2];
+  const sc = [...S.scenes].reverse().find((s) => t >= s[1]) || S.scenes[0];
   const [name, start] = sc;
-  if (t >= S.scenes[0][1]) { setImg("fL", clip(`${name}-laptop`, start - M[`${name}-laptop`] + 0.3, t)); setImg("fP", clip(`${name}-phone`, start - M[`${name}-phone`] + 0.3, t)); }
+  // the voice scene aligns each clip on the moment its mic is pressed (the page's load time varies from run to run)
+  const at = (v) => (name === "voice" ? S.say[v] - M[`voice-${v}-say`] : start - M[`${name}-${v}`] + 0.3);
+  if (t >= S.scenes[0][1]) { setImg("fL", clip(`${name}-laptop`, at("laptop"), t)); setImg("fP", clip(`${name}-phone`, at("phone"), t)); }
   else { for (const [id, v] of [["fL", "laptop"], ["fP", "phone"]]) setImg(id, `work/frames/open-${v}/f${String(Math.round(M[`open-${v}`] * 30) + 9).padStart(5, "0")}.jpg`); }
   K.caps(t, [["c0L", 0.3, 2.2], ["c0R", 1.0, 2.2], ["c1L", 3.0, 7.8], ["c1R", 4.4, 7.8], ["c2L", 8.2, 11.8], ["c2R", 9.3, 11.8],
-    ["c3L", 12.4, 18.8], ["c3R", 13.6, 18.8], ["c4L", 19.6, 25.0], ["c4R", 20.8, 25.0], ["c5L", 25.6, 32.4], ["c5R", 26.8, 32.4]]);
+    ["c6L", 12.4, 19.2], ["c6R", 13.6, 19.2], ["c7L", 19.6, 23.9], ["c7R", 20.8, 23.9],
+    ["c3L", 24.4, 30.8], ["c3R", 25.6, 30.8], ["c4L", 31.6, 37.0], ["c4R", 32.8, 37.0], ["c5L", 37.6, 44.4], ["c5R", 38.8, 44.4]]);
   K.outro(t, S.outro);
   return Promise.all(pending);
 }
 window.ready = K.ready(async () => { await render(3.0); });
-window.render = render; window.DURATION = 40.8; window.POSTER = 14.2;
+window.render = render; window.DURATION = 52.8; window.POSTER = 14.2;
 </script></body></html>
