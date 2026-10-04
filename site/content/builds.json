@@ -2010,6 +2010,9 @@
     },
     {
       "text": "Group thread bar: +, T, mic like the agent chat; mic on the group name fields (YUI)"
+    },
+    {
+      "text": "Media sets: mic on the storyboard comment field and the image edit field (YUI)"
     }
   ]
 }

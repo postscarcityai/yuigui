@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T23:50:42.713Z",
+  "updated": "2026-10-04T23:58:41.616Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -361,13 +361,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-187",
-          "title": "Values page gets value 10, say it, don't type it",
-          "summary": "Value 10: say it, don't type it",
-          "progress": "/progress#value-10-say-it-don-t-type-it",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -385,6 +378,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-187",
+          "title": "Values page gets value 10, say it, don't type it",
+          "summary": "Value 10: say it, don't type it",
+          "shipped": "2026-10-04",
+          "progress": "/progress#value-10-say-it-don-t-type-it"
+        },
         {
           "key": "YUI-286",
           "title": "/web feedback box gets the mic, plus a check that every field has one",
