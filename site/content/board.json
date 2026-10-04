@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T22:35:58.033Z",
+  "updated": "2026-10-04T22:50:34.241Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -385,13 +385,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-185",
-          "title": "The Yui on the web film shows talking to it",
-          "summary": "The web film now shows you talking to Yui",
-          "progress": "/progress#the-web-film-now-shows-you-talking-to-yui",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -409,6 +402,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-185",
+          "title": "The Yui on the web film shows talking to it",
+          "summary": "The web film now shows you talking to Yui",
+          "shipped": "2026-10-04",
+          "progress": "/progress#the-web-film-now-shows-you-talking-to-yui"
+        },
         {
           "key": "YUI-285",
           "title": "/web name and search fields get a small mic, like the phone",
@@ -4558,7 +4558,7 @@
           "title": "Yui social drafter cron + copy validator (drafts only, Chris approves)",
           "shipped": "2026-09-24",
           "progress": "/progress#a-drafter-writes-yui-s-social-posts-and-a-person-signs-off",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/7b9d5bfe"
+          "commit": "https://github.com/postscarcityai/yuigui/commit/8d5b4e1e"
         },
         {
           "key": "YUI-27",
