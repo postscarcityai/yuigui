@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T22:06:48.732Z",
+  "updated": "2026-10-04T22:35:58.033Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -385,13 +385,10 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-285",
-          "title": "/web name and search fields get a small mic, like the phone",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "SITE-185",
           "title": "The Yui on the web film shows talking to it",
+          "summary": "The web film now shows you talking to Yui",
+          "progress": "/progress#the-web-film-now-shows-you-talking-to-yui",
           "owner": "CJohnDesign"
         },
         {
@@ -412,6 +409,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-285",
+          "title": "/web name and search fields get a small mic, like the phone",
+          "summary": "Say the name, say the search, on the web",
+          "shipped": "2026-10-04",
+          "progress": "/progress#say-the-name-say-the-search-on-the-web",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9ec7ca11"
+        },
         {
           "key": "YUI-284",
           "title": "/web group chats get the mic, T and +, like the phone",
