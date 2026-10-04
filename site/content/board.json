@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T23:25:48.242Z",
+  "updated": "2026-10-04T23:35:40.920Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -299,6 +299,10 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
+          "key": "SITE-187",
+          "title": "Values page gets value 10, say it, don't type it"
+        },
+        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -385,11 +389,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-286",
-          "title": "/web feedback box gets the mic, plus a check that every field has one",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -407,6 +406,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-286",
+          "title": "/web feedback box gets the mic, plus a check that every field has one",
+          "summary": "Say your feedback on the web",
+          "shipped": "2026-10-04",
+          "progress": "/progress#say-your-feedback-on-the-web",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/077dc7dc"
+        },
         {
           "key": "SITE-186",
           "title": "The /web page shows voice first, one strip of fields you can say",
