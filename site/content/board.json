@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T19:46:23.168Z",
+  "updated": "2026-10-04T20:01:27.461Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -384,11 +384,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-283",
-          "title": "/web forms and plan pages fill by voice, like the phone",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -406,6 +401,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-283",
+          "title": "/web forms and plan pages fill by voice, like the phone",
+          "summary": "Web forms and plan pages fill by voice",
+          "shipped": "2026-10-04",
+          "progress": "/progress#web-forms-and-plan-pages-fill-by-voice",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f3b7aa5a"
+        },
         {
           "key": "SITE-183",
           "title": "Developers docs, people can say their answers",
