@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T18:45:29.827Z",
+  "updated": "2026-10-04T18:55:36.409Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -389,11 +389,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-282",
-          "title": "/web switches screens the moment you tap",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -411,6 +406,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-282",
+          "title": "/web switches screens the moment you tap",
+          "summary": "Web screens switch at once",
+          "shipped": "2026-10-04",
+          "progress": "/progress#web-screens-switch-at-once",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/21630b8b"
+        },
         {
           "key": "SITE-182",
           "title": "Thought, say it and the form fills, in pictures",
