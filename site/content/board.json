@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T17:40:20.684Z",
+  "updated": "2026-10-04T17:45:20.596Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -337,10 +337,6 @@
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does"
         },
         {
-          "key": "NOTE-24156",
-          "title": "No X, just arrows"
-        },
-        {
           "key": "NOTE-35460",
           "title": "A real coach for workouts",
           "waiting": true,
@@ -388,6 +384,11 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-15980",
+          "title": "Faster screen switching",
+          "needsDemo": true
         }
       ]
     },
@@ -396,13 +397,15 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-15980",
-          "title": "Faster screen switching",
+          "key": "SITE-180",
+          "title": "The web speed chart adds the bare /web visit",
+          "summary": "The speed chart adds the bare /web visit",
+          "progress": "/progress#the-speed-chart-adds-the-bare-web-visit",
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-180",
-          "title": "The web speed chart adds the bare /web visit",
+          "key": "NOTE-24156",
+          "title": "No X, just arrows",
           "owner": "CJohnDesign"
         },
         {
