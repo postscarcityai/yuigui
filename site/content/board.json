@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T23:20:40.825Z",
+  "updated": "2026-10-04T23:25:48.242Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -390,13 +390,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-186",
-          "title": "The /web page shows voice first, one strip of fields you can say",
-          "summary": "Voice first, shown on the web page",
-          "progress": "/progress#voice-first-shown-on-the-web-page",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -414,6 +407,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-186",
+          "title": "The /web page shows voice first, one strip of fields you can say",
+          "summary": "Voice first, shown on the web page",
+          "shipped": "2026-10-04",
+          "progress": "/progress#voice-first-shown-on-the-web-page",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/23f7c9eb"
+        },
         {
           "key": "SITE-185",
           "title": "The Yui on the web film shows talking to it",
