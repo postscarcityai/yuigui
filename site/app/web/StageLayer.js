@@ -217,7 +217,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   const onHomeScreen = at === 0;
   const canTalk = onHomeScreen || home.talk.includes(pageAt);
   const goIndex = useCallback((i) => setPageAt(names[Math.min(Math.max(i, 0), names.length - 1)] || "1"), [names]);
-  const pager = usePager(names.length, at, goIndex);
+  const pager = usePager(names.length, at, goIndex, true);
   useEffect(() => { if (!names.includes(pageAt)) setPageAt("1"); }, [names, pageAt]);
   // A reply that sends a line to a page brings it forward; a patch or a redraw beside an answer does not.
   // What was already in the thread when it opened does not: the stage opens on the home (YUI-252, "1 of 6").

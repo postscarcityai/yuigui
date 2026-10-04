@@ -12,7 +12,8 @@ const OWN_DRAG = "input, textarea, select, [role=slider], canvas, .yl-map, .yl-k
 const EASE = (t) => 1 + 2.2 * Math.pow(t - 1, 3) + 1.2 * Math.pow(t - 1, 2); // a little past, then settles
 
 // The sideways gesture. n screens, `at` the one on show, go(i) moves there.
-export function usePager(n, at, go) {
+// live: the finger writes --drag straight onto the pager (no render per move); the dots need `progress`, so they leave it off.
+export function usePager(n, at, go, live = false) {
   const [drag, setDrag] = useState(0);
   const [dragging, setDragging] = useState(false);
   const box = useRef(null), touch = useRef(null), wheel = useRef({ sum: 0, until: 0, t: null });
@@ -33,9 +34,11 @@ export function usePager(n, at, go) {
     t.dx = dx;
     // Past the first or the last screen it pulls, a third as far.
     const edge = (at === 0 && dx > 0) || (at === n - 1 && dx < 0);
-    setDrag(edge ? dx / 3 : dx);
+    const d = edge ? dx / 3 : dx;
+    if (live && box.current) box.current.style.setProperty("--drag", `${d}px`);
+    else setDrag(d);
     setDragging(true);
-  }, [at, n]);
+  }, [at, n, live]);
   const onTouchEnd = useCallback(() => {
     const t = touch.current;
     touch.current = null;
@@ -44,9 +47,10 @@ export function usePager(n, at, go) {
     const v = t.dx / Math.max(1, Date.now() - t.t0);
     if ((t.dx < -w * 0.18 || v < -0.45) && at < n - 1) go(at + 1);
     else if ((t.dx > w * 0.18 || v > 0.45) && at > 0) go(at - 1);
+    if (live) box.current?.style.removeProperty("--drag");
     setDrag(0);
     setDragging(false);
-  }, [at, n, go]);
+  }, [at, n, go, live]);
   // A trackpad's two-finger swipe: one page per swipe, then it waits for the swipe to end.
   const onWheel = useCallback((e) => {
     if (n < 2 || Math.abs(e.deltaX) <= Math.abs(e.deltaY) || e.target.closest?.(OWN_DRAG)) return;

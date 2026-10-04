@@ -407,3 +407,18 @@ How it works:
 - Sign out (and a refused session) clears the whole record, so the next person starts with none. The demo never reads or writes it. The address stays `/web`.
 
 Proof: `lib/web/auth.test.mjs` (set, survives a renewal, never overwrites a rotation, cleared on sign out), `lib/web/agents.test.mjs` (a gone agent falls back), `e2e/web/lastagent.test.mjs` (on a prod build: the kept agent's rows leave before the list answers, the wrong thread never shows, gone falls back, sign out clears; 390 px light and dark).
+
+## 13. Switching screens (YUI-282)
+
+The web twin of the phone fix (t_e8223e6c). `site/e2e/web/switch-bench.mjs` times it: 390 wide, 4x CPU, production build, median of 5 runs of 20 switches.
+
+| Number | Before | After |
+| --- | --- | --- |
+| Pill tap to commit (p50) | 3.8 ms | 3.6 ms |
+| Pill tap to the frame that shows the new screen (p50, two frames) | 44 ms | 45 ms |
+| Swipe lift to the frame that shows the new screen (p50) | 60 ms | 62 ms |
+| One finger move, work until the last DOM change (p50) | 1.7 ms | 0.2 ms |
+
+A pill tap already switched on the first frame (nothing waits; 45 ms is the two-frame floor the timer waits for). The cost was the drag: `usePager` set state on every touch move, so the whole stage rendered per move. With `live` on, the move writes `--drag` onto the pager and the stage renders once, on the lift. The site chat's dots keep the old path (they need `progress`).
+
+Proof: `e2e/web/switch.test.mjs` (pill, swipe, drag cleared, light and dark), `stage.test.mjs` and `scrollback.test.mjs` green.
