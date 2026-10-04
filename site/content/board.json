@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T16:10:09.107Z",
+  "updated": "2026-10-04T16:15:10.949Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -325,10 +325,6 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
-          "key": "NOTE-15980",
-          "title": "Faster screen switching"
-        },
-        {
           "key": "NOTE-18306",
           "title": "Tuner as Gouda's last screen",
           "waiting": true,
@@ -400,21 +396,13 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-18275",
-          "title": "Calories reset each day",
-          "progress": "/progress#basil-counts-calories-by-day",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-279",
           "title": "/web, a flow or plan keeps what you typed until you send",
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-178",
-          "title": "The push check retries a page that fails to load once, so one blip never blocks a push",
-          "summary": "Pushes no longer fail on one network blip",
-          "progress": "/progress#pushes-no-longer-fail-on-one-network-blip",
+          "key": "NOTE-15980",
+          "title": "Faster screen switching",
           "owner": "CJohnDesign"
         },
         {
@@ -435,6 +423,19 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-18275",
+          "title": "Calories reset each day",
+          "shipped": "2026-10-04",
+          "progress": "/progress#basil-counts-calories-by-day"
+        },
+        {
+          "key": "SITE-178",
+          "title": "The push check retries a page that fails to load once, so one blip never blocks a push",
+          "summary": "Pushes no longer fail on one network blip",
+          "shipped": "2026-10-04",
+          "progress": "/progress#pushes-no-longer-fail-on-one-network-blip"
+        },
         {
           "key": "NOTE-19357",
           "title": "Forms keep your answers",
