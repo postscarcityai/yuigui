@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T18:35:30.589Z",
+  "updated": "2026-10-04T18:45:29.827Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -394,11 +394,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-182",
-          "title": "Thought, say it and the form fills, in pictures",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -416,6 +411,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-182",
+          "title": "Thought, say it and the form fills, in pictures",
+          "summary": "Say it and the form fills, in pictures",
+          "shipped": "2026-10-04",
+          "progress": "/progress#say-it-and-the-form-fills-in-pictures"
+        },
         {
           "key": "NOTE-40679",
           "title": "Speak to fill a form",
