@@ -17,14 +17,29 @@ const meta = (html, re) => {
   return "";
 };
 
-const sitemap = await (await fetch(`${BASE}/sitemap.xml`)).text();
+// One network blip must not block a push (SITE-178): a thrown fetch (reset, DNS, timeout) or a 502/503/504
+// is retried up to 2 more times with a short backoff. A 404 or a wrong picture is a real problem and fails at once.
+const RETRIES = 2;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const fetchRetry = async (url) => {
+  for (let n = 0; ; n++) {
+    try {
+      const res = await fetch(url, { redirect: "follow", signal: AbortSignal.timeout(15000) });
+      if (![502, 503, 504].includes(res.status) || n >= RETRIES) return res;
+      await res.arrayBuffer();
+    } catch (e) { if (n >= RETRIES) throw e; }
+    await sleep(300 * (n + 1));
+  }
+};
+
+const sitemap = await (await fetchRetry(`${BASE}/sitemap.xml`)).text();
 const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(/^https?:\/\/[^/]+/, BASE));
 const rows = [];
 let i = 0;
 const grab = async (u) => {
   const row = { url: u, problems: [] };
   try {
-    const res = await fetch(u, { redirect: "follow" });
+    const res = await fetchRetry(u);
     const html = await res.text();
     row.status = res.status;
     row.title = meta(html, /^og:title$/);
@@ -32,7 +47,7 @@ const grab = async (u) => {
     row.image = meta(html, /^og:image$/);
     row.card = meta(html, /^twitter:card$/);
     if (row.image) {
-      const img = await fetch(new URL(row.image, BASE), { redirect: "follow" });
+      const img = await fetchRetry(new URL(row.image, BASE));
       row.imageStatus = img.status;
       row.imageType = img.headers.get("content-type") || "";
       await img.arrayBuffer();

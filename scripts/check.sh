@@ -34,6 +34,7 @@ step "bench"                bash -c 'cd bench && { [ -d node_modules ] || npm ci
 [ -d site/node_modules ] || step "site npm ci" bash -c 'cd site && npm ci --no-audit --no-fund'
 step "proposal credits"       bash -c 'cd site && node scripts/proposals-check.mjs'
 step "share previews (og-check)" bash -c 'cd site && node scripts/og-check.mjs'
+step "share previews (retry test)" bash -c 'cd site && node scripts/share-previews-retry.test.mjs'
 step "share previews (live crawl)" bash -c 'cd site && node scripts/share-previews.mjs'
 if [ "$fast" = 0 ]; then
   step "site build"         bash -c 'cd site && npm run build'
