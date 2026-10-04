@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T23:45:43.073Z",
+  "updated": "2026-10-04T23:50:42.713Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -363,6 +363,8 @@
         {
           "key": "SITE-187",
           "title": "Values page gets value 10, say it, don't type it",
+          "summary": "Value 10: say it, don't type it",
+          "progress": "/progress#value-10-say-it-don-t-type-it",
           "owner": "CJohnDesign"
         },
         {
