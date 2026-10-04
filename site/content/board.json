@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T17:05:17.701Z",
+  "updated": "2026-10-04T17:10:17.097Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -400,11 +400,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-15980",
-          "title": "Faster screen switching",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-281",
           "title": "A bare /web opens your last agent at once",
           "owner": "CJohnDesign"
@@ -419,6 +414,12 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-15980",
+          "title": "Faster screen switching",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
