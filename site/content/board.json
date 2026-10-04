@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T17:45:20.596Z",
+  "updated": "2026-10-04T17:50:22.051Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -397,13 +397,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-180",
-          "title": "The web speed chart adds the bare /web visit",
-          "summary": "The speed chart adds the bare /web visit",
-          "progress": "/progress#the-speed-chart-adds-the-bare-web-visit",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-24156",
           "title": "No X, just arrows",
           "owner": "CJohnDesign"
@@ -426,6 +419,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-180",
+          "title": "The web speed chart adds the bare /web visit",
+          "summary": "The speed chart adds the bare /web visit",
+          "shipped": "2026-10-04",
+          "progress": "/progress#the-speed-chart-adds-the-bare-web-visit"
+        },
         {
           "key": "YUI-281",
           "title": "A bare /web opens your last agent at once",
