@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T20:01:27.461Z",
+  "updated": "2026-10-04T20:16:00.459Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -383,6 +383,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-284",
+          "title": "/web group chats get the mic, T and +, like the phone",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-184",
+          "title": "Thought, the web fills forms by voice too",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
