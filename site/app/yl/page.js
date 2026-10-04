@@ -1,5 +1,6 @@
 import DocShell from "../components/DocShell";
 import QuickStart from "./QuickStart";
+import VoiceFillDemo from "./VoiceFillDemo";
 import { pageMeta } from "../../lib/og/meta.mjs";
 
 export const metadata = pageMeta({
@@ -12,6 +13,7 @@ export default function YLSpec() {
   return (
     <>
       <QuickStart />
+      <VoiceFillDemo />
       <DocShell
         slug="yl"
         film="film-presets-not-code"

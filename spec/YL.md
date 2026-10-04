@@ -127,6 +127,7 @@ Props: `title`, `fields`, `submit` [Submit].
 form name:text! goal:voice level:1-5 submit="Next"
 form "Check-in" sleep:1-10 "Home gym":yes split:Push|Pull|Legs
 ```
+**Said, not typed.** The phone can fill a form from speech: one mic, the person says each label and its answer, the words land in the fields marked with a mic, and they check them before Send. It happens on the phone, and what the agent receives is the same `{form: {...}}` as a typed answer, with no flag (live demo: `/yl#people-can-say-their-answers`). Nothing to do differently, except label fields the way a person says them.
 
 ### list
 `list [Title] items...`. The first token, if it is a bare word, is the title. Every token after it is an item: quoted tokens, each part of an options token, and each bare word on its own (`list Groceries milk eggs` has two items). Emits `{item, checked}` when `+check` is on.
