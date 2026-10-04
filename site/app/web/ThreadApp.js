@@ -10,7 +10,7 @@ import { createGroupsClient } from "../../lib/web/groups.mjs";
 import { createOutbox, idbStore } from "../../lib/web/outbox.mjs";
 import { createCache } from "../../lib/web/cache.mjs";
 import { liveness, presenceLabel } from "../../lib/web/presence.mjs";
-import { controlSections, revoked, sortAgents, unsharedLine } from "../../lib/web/agents.mjs";
+import { controlSections, openAgent, revoked, sortAgents, unsharedLine } from "../../lib/web/agents.mjs";
 import { chatErrorOf, draft as newDraft, merge as mergeChats, openAfterDeleting, append as appendChats, PAGE_SIZE } from "../../lib/web/chats.mjs";
 import ThreadView from "./ThreadView";
 import { useEarn } from "./YourU";
@@ -54,6 +54,16 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const fast = search.get("pairing") === "fast" ? GIVE_UP_FAST : {};
   const [mounted, setMounted] = useState(false);
   const [agents, setAgents] = useState(null);
+  // A bare /web names no agent: the one this browser had open last, kept beside the session (YUI-281). undefined while it
+  // is being read, null when there is none (or the address already names one): the page then opens as it always did.
+  const bare = !demo && !agentId && !connect && !groupId;
+  const [kept, setKept] = useState(bare ? undefined : null);
+  useEffect(() => {
+    if (!bare || !auth) { setKept(null); return undefined; }
+    let live = true;
+    auth.lastAgent().then((id) => live && setKept(id), () => live && setKept(null));
+    return () => { live = false; };
+  }, [bare, auth]);
   const [crew, setCrew] = useState([]);
   // A new account has not picked its crew: the first run screen shows until it has (yui-agents `crew_pending`).
   const [crewPending, setCrewPending] = useState(false);
@@ -186,6 +196,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
 
   // ---------------------------------------------------------------- the agents
   const agentsRef = useRef(null);
+  const [liveList, setLiveList] = useState(false);
   const openRef = useRef(null);
   const load = useCallback(async () => {
     if (!relay) return null;
@@ -199,6 +210,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
         if (gone.closeOpen) setNotice(unsharedLine(gone.names[0]));
       }
       agentsRef.current = list;
+      setLiveList(true);
       setAgents(list); setCrew(r.crew || []); setCrewPending(!!r.crew_pending); setFirstName(r.first_name || null); setError(null);
       if (list.length) cache?.agents.put({ agents: list, crew: r.crew || [], first_name: r.first_name || null });
       return list;
@@ -217,8 +229,11 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   useEffect(() => { if (!notice) return undefined; const t = setTimeout(() => setNotice(""), 5000); return () => clearTimeout(t); }, [notice]);
 
   const sorted = useMemo(() => (agents ? sortAgents(agents) : null), [agents]);
-  const open = sorted ? sorted.find((a) => a.id === agentId) || sorted.find((a) => a.is_default) || sorted[0] : null;
+  // Until the kept agent is read, no thread opens: a kept agent list must not draw the default's thread and then swap.
+  const open = kept === undefined ? null : openAgent(sorted, agentId || kept);
   openRef.current = open?.id || null;
+  // The live list has said who is open: keep it for the next bare /web. (A list kept from last time never writes.)
+  useEffect(() => { if (liveList && open?.id && !demo && auth) auth.rememberAgent(open.id); }, [liveList, open?.id, demo, auth]);
   // Notifications (YUI-248): Web Push through yui-push. Presence for the open thread and the switch in Settings.
   const push = usePush({ relay, ready: mounted, openId: open?.id || null, onList: load });
   const q = [demo ? `demo=${encodeURIComponent(demo)}` : "", theme ? `theme=${theme}` : "", search.get("view") === "chat" ? "view=chat" : "", search.get("pairing") === "fast" ? "pairing=fast" : ""].filter(Boolean).join("&");
@@ -235,7 +250,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const chatsApi = relay?.chats;
   // The agent whose chats to read: the open one, or the one the address names while the agent list is still on its way
   // (YUI-274: the chat list and the rows leave with the list, not after it).
-  const watchId = open?.id || (!demo && agentId) || null;
+  const watchId = open?.id || (!demo && (agentId || kept)) || null;
   const earlyRows = useRef(null);
   useEffect(() => {
     if (!chatsApi || !watchId) return undefined;
@@ -243,7 +258,8 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
     chatsAgent.current = watchId;
     // The thread's first read leaves now too: the agent's own rows, or the chat the address names. A thread with several
     // chats and no chat in the address opens on its newest chat instead, and then reads its own rows as before.
-    if (!demo && !earlyRows.current) {
+    // A kept agent that is not in the live list opens the default instead: its early rows are not the ones to use.
+    if (!demo && earlyRows.current?.agentId !== watchId) {
       const asked = { agentId: watchId, chatId: chat || null, since: null, limit: OPEN_ROWS };
       const promise = relay.fetchRows(asked);
       promise.catch(() => {});

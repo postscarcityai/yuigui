@@ -3,7 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   INSTALL, RESTART, agentError, clock, cleanName, controlSections, createAgentsClient, crewMissing, gatewayPhase, greeting,
-  isConnected, isPaired, moved, onlyShared, pairCommand, plainRule, removeWords, restartCommand, revoked, secondsLeft,
+  isConnected, isPaired, moved, onlyShared, pairCommand, plainRule, removeWords, restartCommand, openAgent, revoked, secondsLeft,
   seenAgo, shareLine, sharedFooter, sharers, spacedCode, statusLine, stylePrefs, unsharedLine,
 } from "./agents.mjs";
 
@@ -151,4 +151,14 @@ test("the client sends the same bodies the app does", async () => {
   assert.deepEqual(look.theme.style, { screen: "full" });
   assert.equal(look.theme.by, "user");
   assert.match(look.theme.at, /^\d{4}-\d\d-\d\dT/);
+});
+
+test("a page opens on the named agent, else the default, else the first; a gone one is skipped (YUI-281)", () => {
+  const list = [{ id: "a", is_default: true }, { id: "b" }, { id: "c" }];
+  assert.equal(openAgent(list, "c").id, "c", "the kept last-open agent");
+  assert.equal(openAgent(list, "gone").id, "a", "an agent that left the list falls back to the default");
+  assert.equal(openAgent(list, null).id, "a", "nothing kept: today's path");
+  assert.equal(openAgent([{ id: "x" }, { id: "y" }], "gone").id, "x", "no default: the first");
+  assert.equal(openAgent(null, "a"), null, "no list yet");
+  assert.equal(openAgent([], "a"), null);
 });

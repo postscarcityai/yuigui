@@ -7,6 +7,8 @@
 //                  60 days yui-auth gives a session. Every refresh rotates it.
 //   one refresh    at a time across tabs: a Web Lock around the refresh, and the tab re-reads
 //                  the stored token inside the lock, so two tabs never spend one token twice.
+//   last agent     the id of the agent the person last had open, in the same record (YUI-281), so a bare /web
+//                  address can start that agent's reads before the agent list answers. Sign out clears it.
 //   sign out       revokes this session only (the sign_out grant), clears the store, and tells
 //                  the other tabs of this browser (they share the session) to drop it.
 //
@@ -32,6 +34,7 @@ export function createAuth(deps) {
   let signedIn = false;
   let ready = false;
   let provisional = false; // a stored session is being renewed: the page may open on what it kept (YUI-273)
+  let last = null; // the last-open agent id kept in the session record (YUI-281)
   let early = null; // the access token a closed tab left (stored, unexpired): good for reads until the renewal lands
   let inflight = null;
   let peerAccess = null; // resolves the wait for a peer tab's fresh access token
@@ -63,7 +66,7 @@ export function createAuth(deps) {
     access = { token: reply.access_token, expiresAt: now() + reply.expires_in * 1000 };
     user = reply.user ? { id: reply.user.id, email: reply.user.email ?? null } : user;
     early = null;
-    await store.set({ refresh: reply.refresh_token, user, at: now(), access: access.token, accessExpiresAt: access.expiresAt });
+    await store.set({ refresh: reply.refresh_token, user, at: now(), access: access.token, accessExpiresAt: access.expiresAt, ...(last ? { lastAgent: last } : {}) });
     signedIn = true;
     ready = true;
     provisional = false;
@@ -71,7 +74,7 @@ export function createAuth(deps) {
   }
 
   function drop() {
-    access = null; early = null; user = null; signedIn = false; ready = true; provisional = false;
+    access = null; early = null; last = null; user = null; signedIn = false; ready = true; provisional = false;
     emit();
   }
 
@@ -99,6 +102,7 @@ export function createAuth(deps) {
     if (fresh()) return access.token;
     let saved = await store.get();
     if (!saved?.refresh) { drop(); throw new AuthError("signed_out"); }
+    if (saved.lastAgent) last = saved.lastAgent; // another tab may have moved it (YUI-281)
     if (channel && saved.at >= waitedSince) {
       // A peer rotated while we queued. Give its access token a moment to arrive, so one
       // sign-in's worth of refreshing is one refresh, not one per tab.
@@ -142,6 +146,7 @@ export function createAuth(deps) {
       const saved = await store.get();
       if (!saved?.refresh) { drop(); return snapshot(); }
       user = saved.user ?? null;
+      last = saved.lastAgent ?? null;
       // A stored access token that is still good lets the page's reads leave now, not after the renewal (YUI-274).
       // The renewal still runs (refreshLocked does not look at `early`), so the session keeps rotating.
       if (saved.access && saved.accessExpiresAt - now() > SKEW_MS) early = { token: saved.access, expiresAt: saved.accessExpiresAt };
@@ -152,6 +157,25 @@ export function createAuth(deps) {
         if (e.code === "network" || e.status >= 500) { signedIn = true; ready = true; provisional = false; emit(); }
       }
       return snapshot();
+    },
+
+    /** The agent this browser had open last, or null (YUI-281). Read from the store, so a page can ask before restore() ends. */
+    async lastAgent() {
+      const saved = await store.get().catch(() => null);
+      return saved?.refresh && typeof saved.lastAgent === "string" ? saved.lastAgent : null;
+    },
+
+    /** Keep `id` as the last-open agent, beside the session. Runs inside the refresh lock: the record is read and written
+     * back whole, and a rotation landing in between must not be overwritten with the old refresh token. */
+    async rememberAgent(id) {
+      if (!id || id === last) return;
+      const write = async () => {
+        const saved = await store.get();
+        if (!saved?.refresh) return; // signed out: nothing to attach it to
+        last = id;
+        await store.set({ ...saved, lastAgent: id });
+      };
+      try { await (locks ? locks.request(LOCK, write) : write()); } catch { /* a nicety: the next open tries again */ }
     },
 
     /** A bearer for a function call; refreshes first when it is about to lapse. */

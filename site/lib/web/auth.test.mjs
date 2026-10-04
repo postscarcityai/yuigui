@@ -227,3 +227,52 @@ test("a 401 with no renewal on the wire starts exactly one (YUI-274)", async () 
   assert.equal(srv.refreshes, 1);
   assert.equal(srv.ended, false);
 });
+
+test("the last-open agent is kept in the session record, and survives a renewal (YUI-281)", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  const t1 = b.tab(); await sign(t1);
+  assert.equal(await t1.lastAgent(), null, "nothing open yet");
+  await t1.rememberAgent("demo-basil");
+  assert.equal(b.peek().lastAgent, "demo-basil");
+  assert.equal(b.peek().refresh, "r1", "the session itself is untouched");
+  const t2 = b.tab();
+  assert.equal(await t2.lastAgent(), "demo-basil", "a new page reads it before the renewal lands");
+  await t2.restore();
+  assert.equal(b.peek().refresh, "r2", "the renewal rotated the token");
+  assert.equal(b.peek().lastAgent, "demo-basil", "and kept the agent");
+});
+
+test("a renewal in another tab does not undo a newer last-open agent (YUI-281)", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  const t1 = b.tab(); await sign(t1);
+  const t2 = b.tab(); await t2.restore();
+  await t1.rememberAgent("demo-penny");
+  clock.t += 700_000;
+  await t2.accessToken();
+  assert.equal(b.peek().lastAgent, "demo-penny");
+  assert.equal(srv.ended, false);
+});
+
+test("remembering an agent never overwrites a rotated refresh token (YUI-281)", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  const t = b.tab(); await sign(t);
+  clock.t += 700_000;
+  slow(srv, 20);
+  const refreshing = t.accessToken();
+  await Promise.all([t.rememberAgent("demo-penny"), refreshing]);
+  assert.equal(b.peek().refresh, "r2");
+  assert.equal(b.peek().lastAgent, "demo-penny");
+});
+
+test("sign out clears the last-open agent; nothing is kept when signed out (YUI-281)", async () => {
+  const srv = server(), clock = { t: 1e9, now: () => clock.t }, b = browser(srv, clock);
+  const t = b.tab(); await sign(t);
+  await t.rememberAgent("demo-penny");
+  await t.signOut();
+  assert.equal(b.peek(), undefined);
+  assert.equal(await t.lastAgent(), null);
+  await t.rememberAgent("demo-basil");
+  assert.equal(b.peek(), undefined, "no record is created for a signed out browser");
+  await sign(t);
+  assert.equal(b.peek().lastAgent, undefined, "the next person starts with none");
+});

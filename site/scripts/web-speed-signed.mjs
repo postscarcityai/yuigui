@@ -7,6 +7,7 @@
 // page.route: Playwright turns the HTTP cache off while a route is on, and a repeat visit needs it.
 //   cd site && npm run build && npx next start -p 3273 &   then   node scripts/web-speed-signed.mjs [runs]
 // CASE=group times /web/group/<id> instead of a one-agent chat (YUI-275): the same 100 rows, drawn as a group thread.
+// CASE=bare times the bare /web address (YUI-281): no agent in it, the stored session names the last-open agent.
 // BASE overrides the origin, PLAYWRIGHT the module. Prints one JSON object: medians over the runs.
 //   cold    a new browser profile: no HTTP cache, nothing stored but the session
 //   repeat  the same profile a moment later: the HTTP cache is warm (Next's chunks are immutable), the page has
@@ -22,8 +23,9 @@ const BASE = process.env.BASE || "http://localhost:3273";
 const RUNS = Number(process.argv[2] || 3);
 const FIRST_MS = Number(process.env.FIRST_MS || 450), NEXT_MS = Number(process.env.NEXT_MS || 250);
 const GROUP = process.env.CASE === "group";
+const BARE = process.env.CASE === "bare";
 const GID = "20000000-0000-4000-8000-000000000001";
-const URL_ = GROUP ? `${BASE}/web/group/${GID}?theme=dark` : `${BASE}/web/agent/demo-penny?view=chat&theme=dark`;
+const URL_ = BARE ? `${BASE}/web?view=chat&theme=dark` : GROUP ? `${BASE}/web/group/${GID}?theme=dark` : `${BASE}/web/agent/demo-penny?view=chat&theme=dark`;
 const FIRST_ROW = GROUP ? '[data-testid="group-you"], [data-testid="group-agent"]' : ".wb-item";
 const med = (a) => a.slice().sort((x, y) => x - y)[Math.floor(a.length / 2)];
 const penny = JSON.parse(readFileSync(new URL("../app/web/fixtures/penny.json", import.meta.url), "utf8"));
@@ -77,7 +79,7 @@ for (let i = 0; i < RUNS; i++) {
       const db = r.result;
       if (!db.objectStoreNames.contains("session")) return db.close();
       const g = db.transaction("session").objectStore("session").get("session");
-      g.onsuccess = () => { if (!g.result) db.transaction("session", "readwrite").objectStore("session").put({ refresh: "rt0", user: { id: "u1", email: "chris@example.com" }, at: Date.now(), access: "at0", accessExpiresAt: Date.now() + 1800000 }, "session"); };
+      g.onsuccess = () => { if (!g.result) db.transaction("session", "readwrite").objectStore("session").put({ refresh: "rt0", user: { id: "u1", email: "chris@example.com" }, at: Date.now(), access: "at0", accessExpiresAt: Date.now() + 1800000, lastAgent: "demo-penny" }, "session"); };
     };
   });
   const visit = async (cacheOff) => {

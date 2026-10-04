@@ -71,6 +71,10 @@ export const isMuted = (a) => !!a?.push_muted;
 export const isYui = (a) => a?.avatar === "yui";
 export const sortAgents = (list) => [...(list || [])].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
 
+/** The agent a page opens on (YUI-281): the one named (the address, else the one kept as last open), else the default,
+ * else the first. A named agent that is not in the live list is simply skipped: the page opens the default. */
+export const openAgent = (sorted, wantedId) => (sorted ? sorted.find((a) => a.id === wantedId) || sorted.find((a) => a.is_default) || sorted[0] || null : null);
+
 // Who shared agents with this person: "Sam", "Sam and Maya", nothing when none (AgentStore.sharers).
 export function sharers(agents) {
   const names = [];

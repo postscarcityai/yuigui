@@ -385,3 +385,25 @@ What changed, in `lib/web/auth.mjs`, `relay.mjs`, `sync.mjs` and `app/web/Thread
 Trade-off: the access token (an hour old at most) now sits in IndexedDB next to the refresh token, which is the stronger secret and was already there. No cookie, no server change.
 
 What did not move: the other 3 s. The page still waits for the framework and shell bytes (YUI-272), and the first call's 450 ms. With the reads overlapped, the first row now needs the script, one backend round, and the render. Next lever left: keep the last-open agent's id in the session record, so a bare `/web` address can start its reads too.
+
+### YUI-281: a bare /web opens your last agent
+
+The lever YUI-274 left. A plain `www.yuigui.com/web` names no agent, so it waited for the agent list to pick who to open, and the chat list and rows waited behind it. Now the id of the agent last open is kept beside the session (IndexedDB `yui-web`, same record as the tokens, `lastAgent` in `lib/web/auth.mjs`), and a bare `/web` starts that agent's reads at once, in parallel with the session renewal, exactly as `/web/agent/<id>` does. Same rig as YUI-273 (`CASE=bare node scripts/web-speed-signed.mjs 5`: 390 wide, 4x CPU, slow 4G, a stored session that names the last agent, stand-in backend at 450 ms then 250 ms per call, production build, median of 5, Oct 4).
+
+| Number | Before | After |
+| --- | --- | --- |
+| Bare /web, cold visit: live rows answer at | 2537 ms | 2260, 2239 ms (two runs) |
+| Bare /web, cold visit: first real row | 3028 ms | 3041, 3025 ms |
+| Bare /web, repeat visit: first real row | 449 ms | 472, 468 ms |
+| Bare /web, repeat visit: live rows answer at | 584 ms | 602, 582 ms |
+
+What moved: the live read, by about 290 ms, because the agent and chat reads no longer wait for the list. What did not: the first real row of a cold visit (still the script bytes, as in YUI-274) and the repeat visit (it already drew from the cache). Before is one run of 5, after is two.
+
+How it works:
+
+- `auth.rememberAgent(id)` writes `lastAgent` into the session record inside the refresh lock, so a rotation landing at the same moment is never overwritten with the old refresh token; `auth.lastAgent()` reads it without waiting for the renewal. A renewal keeps it (and takes a newer one another tab wrote).
+- `ThreadApp` asks for it only when the address names no agent. Until it is read no thread opens, so a kept agent list cannot draw the default and then swap. The open agent is the address's, else the kept one, else the default (`openAgent` in `lib/web/agents.mjs`).
+- It is written only once the live list has said who is open, so a list kept from last time never writes. An agent that is gone from the live list opens the default and the default replaces the stored id; the early rows that were started for the gone agent are not used, and the default's reads start instead. No flash of the wrong thread.
+- Sign out (and a refused session) clears the whole record, so the next person starts with none. The demo never reads or writes it. The address stays `/web`.
+
+Proof: `lib/web/auth.test.mjs` (set, survives a renewal, never overwrites a rotation, cleared on sign out), `lib/web/agents.test.mjs` (a gone agent falls back), `e2e/web/lastagent.test.mjs` (on a prod build: the kept agent's rows leave before the list answers, the wrong thread never shows, gone falls back, sign out clears; 390 px light and dark).
