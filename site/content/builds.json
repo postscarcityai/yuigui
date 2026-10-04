@@ -1,6 +1,17 @@
 {
   "builds": [
     {
+      "build": 451,
+      "date": "2026-10-04",
+      "uploaded": "2026-10-04T10:42:21-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "A turn nobody answered says so with Try again, never a bare Nothing to show (feedback AClUWC-D8VpsUHE98ZgCDik)"
+        }
+      ]
+    },
+    {
       "build": 450,
       "date": "2026-10-02",
       "uploaded": "2026-10-02T10:08:27-07:00",
@@ -1974,9 +1985,6 @@
   ],
   "next": [
     {
-      "text": "A turn nobody answered says so with Try again, never a bare Nothing to show (feedback AClUWC-D8VpsUHE98ZgCDik)"
-    },
-    {
       "text": "A flow or plan keeps what you typed: forms and mics come back filled after Back, a kill or a relaunch (feedback AFeoOWB5ZWdBuf4yoBBL5Hw)"
     },
     {
@@ -1984,6 +1992,15 @@
     },
     {
       "text": "Basil by date: a UI test shoots Today at 0 kcal and Calories over time, light and dark"
+    },
+    {
+      "text": "Switching screens is lighter: a drag moves the pages without re-running the stage's body each frame (feedback ANRhjGE0nCBvjnHKIE2SNls,)"
+    },
+    {
+      "text": "A tap on a screen pill turns at once: no quarter-second wait, and a test that times 24 switches (feedback ANRhjGE0nCBvjnHKIE2SNls,)"
+    },
+    {
+      "text": "Stage bar: no X in the bottom left, just back and next; pull-down and Back home still close (feedback AFxMozFA0OX-QAJPXMxh6ck,)"
     }
   ]
 }

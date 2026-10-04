@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T17:50:22.051Z",
+  "updated": "2026-10-04T18:00:29.213Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -351,10 +351,6 @@
           "title": "Fewer buttons on the stage"
         },
         {
-          "key": "NOTE-40679",
-          "title": "Speak to fill a form"
-        },
-        {
           "key": "NOTE-42080",
           "title": "Ask and answer on one screen"
         },
@@ -389,6 +385,11 @@
           "key": "NOTE-15980",
           "title": "Faster screen switching",
           "needsDemo": true
+        },
+        {
+          "key": "NOTE-24156",
+          "title": "No X, just arrows",
+          "needsDemo": true
         }
       ]
     },
@@ -397,8 +398,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-24156",
-          "title": "No X, just arrows",
+          "key": "NOTE-40679",
+          "title": "Speak to fill a form",
           "owner": "CJohnDesign"
         },
         {
