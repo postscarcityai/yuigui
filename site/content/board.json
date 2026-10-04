@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T19:31:10.834Z",
+  "updated": "2026-10-04T19:46:23.168Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -389,13 +389,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-183",
-          "title": "Developers docs, people can say their answers",
-          "summary": "Docs: people can say their answers",
-          "progress": "/progress#docs-people-can-say-their-answers",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -413,6 +406,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-183",
+          "title": "Developers docs, people can say their answers",
+          "summary": "Docs: people can say their answers",
+          "shipped": "2026-10-04",
+          "progress": "/progress#docs-people-can-say-their-answers",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9e03430a"
+        },
         {
           "key": "YUI-282",
           "title": "/web switches screens the moment you tap",
