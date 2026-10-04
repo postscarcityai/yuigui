@@ -11,6 +11,7 @@ import {
 } from "../../lib/web/settings.mjs";
 import { PUSH_WORDS } from "../../lib/web/push.mjs";
 import { Confirm, Dialog, SheetBar, Spinner, Switch } from "./parts";
+import FieldMic from "./FieldMic";
 import SettingsKeys from "./SettingsKeys";
 import "./settings.css";
 
@@ -338,7 +339,10 @@ function Help({ build }) {
         <li><a href={PRIVACY}>✋ Privacy policy</a></li>
       </ul>
       <label htmlFor="st-feedback"><b>Tell us what felt off</b></label>
-      <textarea id="st-feedback" className="ag-input st-area" rows={3} maxLength={4000} value={text} onChange={(e) => setText(e.target.value)} placeholder="What happened, and where?" data-testid="feedback-text" />
+      <div className="st-voicerow">
+        <textarea id="st-feedback" className="ag-input st-area" rows={3} maxLength={4000} value={text} onChange={(e) => setText(e.target.value)} placeholder="What happened, and where?" data-testid="feedback-text" />
+        <FieldMic label="Feedback" onWords={(t) => setText((was) => (was.trim() ? `${was.trimEnd()} ${/[.!?]$/.test(was.trimEnd()) || !/^[A-Z][a-z]/.test(t) ? t : t[0].toLowerCase() + t.slice(1)}` : t).slice(0, 4000))} testId="feedback-mic" />
+      </div>
       <a className="ag-btn quiet st-mail" href={href} data-testid="feedback-send">✉ Email us</a>
       <p className="ag-hint">Opens a mail that already names this build, so a report says which one it is about.</p>
     </Card>

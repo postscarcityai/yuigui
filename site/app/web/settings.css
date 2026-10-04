@@ -72,3 +72,6 @@
 .wb-stage .ys-gap { visibility: hidden; pointer-events: none; }
 /* A switch is 32 px tall; its tap target is 44. */
 .st-row .ag-switch::before { content: ""; position: absolute; inset: -8px -6px; }
+.st-voicerow { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; }
+.st-voicerow .st-area { flex: 1 1 0; min-width: 0; }
+.st-voicerow .gr-fieldmic { width: 44px; height: 44px; }
