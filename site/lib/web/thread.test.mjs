@@ -193,3 +193,20 @@ test("a thread that opens on a full page may hold older rows", () => {
   t.load(Array.from({ length: 100 }, (_, i) => row({ id: `f${i}`, body: `m${i}`, created_at: iso(5000 + i) })), { first: true });
   assert.equal(t.hasOlder, true);
 });
+
+test("YUI-280: a turn that ends with no reply keeps the person's words as the unanswered ask, until anything newer", () => {
+  const t = new Thread();
+  const now = Date.parse(iso(60));
+  t.load([row({ id: "u1", sender: "user", body: "Find a cafe", created_at: iso(1), delivered_at: iso(2), handled_at: iso(3) })]);
+  t.owe();
+  assert.equal(t.lostAsk, null, "not while it works");
+  t.track({ delivered_at: iso(2), handled_at: iso(3) }, now);
+  assert.equal(t.waiting, false);
+  assert.equal(t.lostAsk?.text, "Find a cafe");
+  t.add(row({ id: "u2", sender: "user", body: "Hello?", created_at: iso(20) }));
+  assert.equal(t.lostAsk, null, "a newer message ends the offer");
+  t.owe(); t.track({ handled_at: iso(21) }, now + 60000);
+  assert.equal(t.lostAsk?.text, "Hello?");
+  t.add(row({ id: "a1", body: "Here.", created_at: iso(50) }));
+  assert.equal(t.lostAsk, null, "a real reply clears it");
+});

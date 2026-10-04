@@ -122,3 +122,15 @@ export function CommandBox({ command, label = "Copy command", testid }) {
 export function Spinner({ label }) {
   return <span className="ag-wait" role="status"><i className="ag-spin" aria-hidden="true" />{label}</span>;
 }
+
+// A turn that ended with nothing back (YUI-280, StageTurn.unanswered): a quiet row that says so, and Try again,
+// which sends the person's last words as a fresh turn. A photo-only message has nothing to resend, so no button.
+export function NoAnswer({ ask, onTry, stage = false }) {
+  const can = !!ask?.text && !ask.photos?.length;
+  return (
+    <div className={`wb-noanswer${stage ? " stage" : ""}`} role="status" data-testid={stage ? "stage-noanswer" : "no-answer"}>
+      <span className="wb-noanswer-text">No answer came back</span>
+      {can ? <button type="button" className="wb-stoplink" data-testid="try-again" onClick={() => onTry(ask.text)}>Try again</button> : null}
+    </div>
+  );
+}

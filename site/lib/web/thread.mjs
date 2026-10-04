@@ -148,6 +148,7 @@ export class Thread {
     this.history = false;
     this.waiting = false;
     this.waitingSince = null;
+    this.unanswered = null; // the id of the person's message whose turn ended with no reply (YUI-280)
     this.pickedUpAt = null;
     this.doing = null;
     this.newestAgentAt = null;
@@ -199,6 +200,7 @@ export class Thread {
 
   // The person sent something the agent has to answer: the working row starts.
   owe() {
+    this.unanswered = null;
     this.waiting = true;
     this.waitingSince = Date.now();
     this.pickedUpAt = null;
@@ -254,8 +256,25 @@ export class Thread {
   // a grace period (a command, a turn that errored): stop waiting.
   track(row, now = Date.now()) {
     if (row.delivered_at) { this.pickedUpAt = Date.parse(row.delivered_at); this.doing = doingOf(row.doing); }
-    if (row.handled_at && now - Date.parse(row.handled_at) > 20000) this.waiting = false;
+    const ended = (row.handled_at && now - Date.parse(row.handled_at) > 20000) || (this.waitingSince && now - this.waitingSince >= TURN_WINDOW);
+    if (ended && this.waiting) { this.waiting = false; this.#lost(); }
     this.changed();
+  }
+
+  // The turn is over and nothing came back: remember whose words went unanswered.
+  #lost() {
+    for (let k = this.messages.length - 1; k >= 0; k--) {
+      const m = this.messages[k];
+      if (m.role === "user" && !m.card) { this.unanswered = m.id; return; }
+    }
+  }
+
+  // The message nobody answered, while that is still true: not waiting, and nothing newer from either side
+  // (a real reply, a stop note or a newer message all end it). Null otherwise.
+  get lostAsk() {
+    if (this.waiting || !this.unanswered) return null;
+    const last = this.messages[this.messages.length - 1];
+    return last && last.id === this.unanswered && !last.pending && !last.failed ? last : null;
   }
 
   // True when the row was new.
@@ -289,7 +308,7 @@ export class Thread {
     if (react) { if (react.emoji) this.reactions.set(react.msg, react.emoji); else this.reactions.delete(react.msg); return false; }
     const mentionedAnswer = row.sender === "agent" && meta.mention_reply;
     // Another agent's answer copied in doesn't end this agent's turn.
-    if (!this.history && row.sender === "agent" && !mentionedAnswer) { this.waiting = false; this.pickedUpAt = null; this.doing = null; }
+    if (!this.history && row.sender === "agent" && !mentionedAnswer) { this.unanswered = null; this.waiting = false; this.pickedUpAt = null; this.doing = null; }
 
     if (row.sender === "user") {
       if (row.kind === "event") {

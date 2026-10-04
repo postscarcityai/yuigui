@@ -67,6 +67,8 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     if (!script) return;
     await sleep(500);
     userRow.delivered_at = bump();
+    // A turn that ends with nothing said (the e2e line "go quiet", YUI-280): handled, long enough ago to count as over.
+    if (kind === "text" && /\bgo quiet\b/i.test(userRow.body || "")) { userRow.handled_at = iso(now() - 21000); return; }
     // The host writes what it is doing, one phrase after another.
     for (const step of script.doing || []) {
       const m = /^(.*?)(?: (\d+)\/(\d+))?$/.exec(step);

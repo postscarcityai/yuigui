@@ -94,6 +94,12 @@ body:has(.web-root) main.wrap { padding: 0; max-width: none; }
 @media (prefers-reduced-motion: reduce) { .wb-dots i { animation: none; opacity: .8; } }
 .wb-stoplink { margin-left: auto; background: none; border: 0; color: var(--link); font-weight: 800; font-size: 14px; cursor: pointer; min-height: 32px; padding: 0 6px; }
 
+/* a turn that ended with nothing back (YUI-280) */
+.wb-noanswer { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; padding: 8px 4px; color: var(--muted); font-size: 14px; }
+.wb-noanswer-text { font-weight: 700; }
+.wb-noanswer.stage { justify-content: center; font-size: 18px; flex-direction: column; gap: 8px; }
+.wb-noanswer.stage .wb-stoplink { margin: 0; font-size: 16px; min-height: 44px; }
+
 /* the composer */
 .wb-composer { padding: 6px 18px 16px; }
 .wb-offline { max-width: 760px; margin: 0 auto 6px; font-size: 13px; color: var(--muted); text-align: center; }

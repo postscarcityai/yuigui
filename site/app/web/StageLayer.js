@@ -14,6 +14,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { answerOf } from "../../lib/chat/stage.mjs";
 import { arrivalOf, homeOf, chipAction, dismissEvent, isHostAsk, isRow, landingOf, notYetEvent, playFor, waitingAction, pageTitle, reopened, turnOf, MAX_WAITING } from "../../lib/web/stage.mjs";
 import { useDismissed } from "./useDismissed";
+import { NoAnswer } from "./parts";
 import { liveness, presenceLabel, waitingNote, workingLine } from "../../lib/web/presence.mjs";
 import { AttachButton, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, Waveform, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
 import { useVoice } from "./useVoice";
@@ -407,6 +408,12 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
           Text={StageText} active={!typing && onHomeScreen} onEdge={(d) => goIndex(at + d)} onHome={goHome} onEnd={setEnded} at={sentAt} />
         {onHomeScreen && ended && !listening ? <button className="ys-homeq" onClick={goHome}>Back to home</button> : null}
       </>
+    );
+  } else if (thread.lostAsk) {
+    center = (
+      <div className="ys-mid" data-testid="stage-lost">
+        <NoAnswer ask={thread.lostAsk} onTry={(words) => { setPageAt("1"); sync.send(words); }} stage />
+      </div>
     );
   } else {
     center = (

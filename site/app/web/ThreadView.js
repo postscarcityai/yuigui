@@ -19,6 +19,7 @@ import { relayTakeHost, setTakeHost } from "../../lib/web/take-host.mjs";
 import { loadRemoved, remove as removeShelf, removedText, setRemovedText, shelfOf } from "../../lib/web/shelf.mjs";
 import { createKeySync, deviceName, mergeRemoved } from "../../lib/web/state.mjs";
 import ShelfBar from "./ShelfBar";
+import { NoAnswer } from "./parts";
 import { KeepCtx, stopVoices } from "../playground/music/keep";
 import { KeptCtx } from "../playground/kept";
 import { sharedReminders } from "../../lib/web/reminders.mjs";
@@ -454,7 +455,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
               {marks[i]?.time ? <div className={`wb-time ${m.role === "user" ? "user" : ""}`}>{marks[i].time}</div> : null}
             </div>
           ); })}
-          {thread.waiting ? <Working agent={agent} thread={thread} onStop={onStop} note={note} /> : null}
+          {thread.waiting ? <Working agent={agent} thread={thread} onStop={onStop} note={note} /> : thread.lostAsk ? <NoAnswer ask={thread.lostAsk} onTry={(words) => sync.send(words)} /> : null}
         </div>
       </div>
       <Composer agent={agent} agents={agents} store={store} waiting={thread.waiting} onSend={onSend} onSendWords={onSendWords} onStop={onStop} offline={net.offline} inert={stageOn} commands={commands} onAbout={setAboutView} />
