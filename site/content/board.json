@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T22:50:34.241Z",
+  "updated": "2026-10-04T23:11:31.532Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -384,6 +384,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-286",
+          "title": "/web feedback box gets the mic, plus a check that every field has one",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-186",
+          "title": "The /web page shows voice first, one strip of fields you can say",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
