@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T16:30:16.250Z",
+  "updated": "2026-10-04T16:35:12.875Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -298,6 +298,10 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
+          "key": "SITE-179",
+          "title": "Thought, the web caught up with the phone, in pictures"
+        },
+        {
           "key": "NOTE-2295",
           "title": "Slide left to a trash can",
           "waiting": true,
@@ -398,6 +402,11 @@
         {
           "key": "NOTE-15980",
           "title": "Faster screen switching",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-280",
+          "title": "/web says when no answer came back, with Try again",
           "owner": "CJohnDesign"
         },
         {
