@@ -10,6 +10,7 @@ import { APPLE_JS, APPLE_WEB_CLIENT_ID, REDIRECT_URI } from "../../lib/web/confi
 import { cleanInvite, inviteFromLocation, inviteNotice } from "../../lib/web/invite.mjs";
 import { sha256Hex, randomHex } from "../../lib/web/nonce.mjs";
 import ThreadApp from "./ThreadApp";
+import VoiceStrip from "./VoiceStrip";
 import { useAppearance } from "./useSettings";
 import "./web.css";
 
@@ -79,6 +80,7 @@ export default function WebApp({ build }) {
       <ThemeButton />
       {!snap.ready ? <div className="web-boot" role="status" aria-label="Loading"><span className="web-dot" /></div>
         : <SignIn auth={auth} invite={invite} setInvite={setInvite} notice={notice} setNotice={setNotice} />}
+      {snap.ready && <VoiceStrip />}
     </div>
   );
 }

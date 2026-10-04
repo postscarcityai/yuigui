@@ -53,3 +53,19 @@ html:has(.web) main.wrap { max-width: none; padding: 0; margin: 0; }
 [data-theme="dark"] .ws-dark { display: block; }
 @media (min-width: 760px) { .ws-row { grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); align-items: center; padding: 22px; } }
 .web-try { display: inline-flex; align-items: center; justify-content: center; width: 100%; height: 48px; margin-top: 10px; text-decoration: none; box-sizing: border-box; }
+
+/* Say it, do not type it (SITE-186): under the sign in card, four fields with a mic, phone and web side by side. */
+.web:has(.voice-strip) { align-content: center; gap: 28px; padding-bottom: 56px; }
+.voice-strip { width: 100%; max-width: 920px; }
+.voice-strip h2 { font-size: 22px; margin: 0 0 14px; text-align: center; }
+.vs-tiles { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; grid-template-columns: 1fr; }
+.vs-tile { display: flex; flex-direction: column; gap: 10px; background: var(--surface); border: 1.5px solid var(--outline); border-radius: var(--r-card); padding: 14px; box-shadow: var(--shadow); }
+.vs-tile p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.45; text-align: center; }
+.vs-shots { display: flex; justify-content: center; gap: 10px; }
+.vs-cell { flex: 0 1 168px; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.vs-cap { font-size: 12px; font-weight: 700; color: var(--muted); text-align: center; }
+.vs-img { width: 100%; height: auto; aspect-ratio: 780 / 1688; object-fit: cover; object-position: top; border-radius: 12px; border: 1px solid var(--outline); display: block; }
+.vs-dark { display: none; }
+[data-theme="dark"] .vs-light { display: none; }
+[data-theme="dark"] .vs-dark { display: block; }
+@media (min-width: 760px) { .vs-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } .vs-tile { padding: 18px; } }
