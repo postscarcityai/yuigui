@@ -114,9 +114,3 @@
 .gr-bar.listening { align-items: center; }
 .gr-namerow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .gr-namerow .ag-input { flex: 1; min-width: 0; }
-.gr-fieldmic { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--brand); color: var(--on-brand); cursor: pointer; padding: 0; }
-.gr-fieldmic svg { width: 20px; height: 20px; stroke: currentColor; fill: none; }
-.gr-fieldmic.live { background: #D7263D; color: #fff; }
-.gr-fieldmic:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
-.gr-fieldmic-note { flex-basis: 100%; margin: 4px 0 0; font-size: 14px; }
-@media (prefers-reduced-motion: reduce) { .gr-fieldmic { transition: none; } }

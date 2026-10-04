@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { fill } from "../../lib/web/voicefill.mjs";
 import { createListener, speechApi, voiceProblem } from "../../lib/web/voice.mjs";
 import { Icon } from "./ComposerParts";
+import "./fieldmic.css";
 
 export default function FieldMic({ label = "Name", onWords, testId = "field-mic" }) {
   const [supported, setSupported] = useState(false);

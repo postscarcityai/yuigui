@@ -4,6 +4,7 @@
 // Up and Down to move, Enter to run, Escape to close.
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { entries } from "../../lib/web/quick.mjs";
+import FieldMic from "./FieldMic";
 import { Dialog } from "./parts";
 
 const KIND = { shortcut: "✦", agent: "→", do: "•" };
@@ -28,6 +29,7 @@ export default function Palette({ agents, menus, loading, open, used, picks = nu
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" strokeWidth="2.2" /><path d="M16 16l4.5 4.5" strokeWidth="2.2" strokeLinecap="round" /></svg>
           <input data-autofocus value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={key} placeholder="Find a shortcut, an agent, an action" aria-label="Find a shortcut, an agent or an action"
             role="combobox" aria-expanded="true" aria-controls={`${id}-list`} aria-activedescendant={list[at] ? `${id}-${at}` : undefined} aria-autocomplete="list" autoComplete="off" autoCapitalize="none" spellCheck="false" enterKeyHint="go" data-testid="palette-input" />
+          <FieldMic label="Search" onWords={setQuery} testId="palette-mic" />
           <button type="button" className="pal-x" onClick={onClose} aria-label="Close quick actions">Esc</button>
         </div>
         <ul className="pal-list" id={`${id}-list`} role="listbox" aria-label="Results" ref={box} data-testid="palette-list">

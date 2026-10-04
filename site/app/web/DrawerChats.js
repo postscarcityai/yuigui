@@ -5,6 +5,7 @@
 // swipe has no mouse twin). Delete asks first.
 import { useEffect, useRef, useState } from "react";
 import { deletePlan, deleteWords, filter, lastLine, SEARCH_AFTER, title as titleOf, validTitle, whenOf } from "../../lib/web/chats.mjs";
+import FieldMic from "./FieldMic";
 import { Confirm } from "./parts";
 
 function Row({ chat, agent, among, open, renaming, onOpen, onStartRename, onRename, onCancel, onDelete }) {
@@ -25,6 +26,7 @@ function Row({ chat, agent, among, open, renaming, onOpen, onStartRename, onRena
       <li className="dc-row open">
         <form className="dc-rename" onSubmit={(e) => { e.preventDefault(); onRename(input.current.value); }}>
           <input ref={input} defaultValue={label} maxLength={60} aria-label="Chat name" enterKeyHint="done" onKeyDown={(e) => { if (e.key === "Escape") onCancel(); }} onBlur={(e) => { if (!e.relatedTarget?.closest?.(".dc-rename")) onCancel(); }} />
+          <span className="dc-mic" onMouseDown={(e) => e.preventDefault()}><FieldMic label="Chat name" onWords={(t) => { input.current.value = t.slice(0, 60); input.current.focus(); }} testId="chat-rename-mic" /></span>
           <button type="submit" className="dc-save" aria-label="Save name">Save</button>
         </form>
       </li>
@@ -70,6 +72,7 @@ export default function DrawerChats({ agent, chats, openId, draftOpen, onNewChat
           {chats.items.length > SEARCH_AFTER ? (
             <div className="dc-search">
               <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search chats" aria-label="Search chats" />
+              <FieldMic label="Search" onWords={setQuery} testId="chat-search-mic" />
             </div>
           ) : null}
           <ul className="dc-list">

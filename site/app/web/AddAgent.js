@@ -8,6 +8,7 @@ import {
   GATEWAY_GIVE_UP_MS, GATEWAY_POLL_MS, PAIR_STUCK_MS, agentError, cleanName, clock, crewHere, crewMissing,
   gatewayPhase, isConnected, isPaired, pairCommand, restartCommand, secondsLeft, spacedCode, statusLine,
 } from "../../lib/web/agents.mjs";
+import FieldMic from "./FieldMic";
 import { Face, CommandBox, Dialog, LookPicker, SheetBar, Spinner } from "./parts";
 
 const GUIDE = "/start";
@@ -201,7 +202,10 @@ export default function AddAgent({ manage, agents, crew, refresh, onClose, onOpe
             <form className="ag-form" onSubmit={create}>
               <div className="ag-preview"><Face agent={preview} size={72} /></div>
               <label htmlFor="ag-name"><b>What should we call them?</b></label>
+              <div className="ag-namerow">
               <input id="ag-name" className="ag-input" value={name} maxLength={60} placeholder="Name, like Nova" autoComplete="off" enterKeyHint="next" data-autofocus={crew?.length ? undefined : ""} onChange={(e) => { setName(e.target.value); setError(""); }} />
+              <FieldMic onWords={(t) => { setName(t.slice(0, 60)); setError(""); }} testId="agent-name-mic" />
+              </div>
               <h4>Look</h4>
               <LookPicker value={look} onChange={setLook} name={clean} />
               {error ? <p className="ag-error" role="alert">{error}</p> : null}

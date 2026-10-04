@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { agentError, cleanName, isShared, removeWords, restartCommand, shareLine, statusLine, stylePrefs } from "../../lib/web/agents.mjs";
 import { liveness } from "../../lib/web/presence.mjs";
 import { Confirm, CommandBox, Dialog, Face, LookPicker, SheetBar, Switch } from "./parts";
+import FieldMic from "./FieldMic";
 import { PairingStep } from "./AddAgent";
 
 export default function EditAgent({ manage, agent, agents, refresh, onClose, onRemoved, pollMs, giveUpMs, stuckMs }) {
@@ -68,7 +69,10 @@ export default function EditAgent({ manage, agent, agents, refresh, onClose, onR
                 {safety ? <p className={`ag-share${safety.safe ? " safe" : ""}`} data-testid="share-safety">{safety.safe ? "✓ " : "🔒 "}{safety.text}</p> : null}
                 {liveness(live) === "not_listening" ? <div className="ag-restart"><h3>One step left</h3><p>{agent.name} is paired{agent.connector_name ? ` with ${agent.connector_name}` : ""}, but its gateway isn't listening yet. On that computer, run:</p><CommandBox command={restartCommand(live)} testid="restart-command" /></div> : null}
                 <label htmlFor="ag-rename"><b>Name</b></label>
+                <div className="ag-namerow">
                 <input id="ag-rename" className="ag-input" value={name} maxLength={60} autoComplete="off" onChange={(e) => setName(e.target.value)} data-testid="rename" />
+                <FieldMic onWords={(t) => setName(t.slice(0, 60))} testId="agent-rename-mic" />
+                </div>
                 <h4>Look</h4>
                 <LookPicker value={look} onChange={setLook} name={agent.name} />
                 <p className="ag-hint">{prefs ? `Prefers ${prefs}. ` : ""}{agent.name} can change its look itself: ask it.</p>
