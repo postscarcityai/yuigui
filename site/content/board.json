@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T03:46:06.670Z",
+  "updated": "2026-10-05T03:56:09.975Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -366,13 +366,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-289",
-          "title": "/web plan and form answers survive a reload",
-          "summary": "A half-filled plan survives a reload on the web",
-          "progress": "/progress#a-half-filled-plan-survives-a-reload-on-the-web",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -390,6 +383,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-289",
+          "title": "/web plan and form answers survive a reload",
+          "summary": "A half-filled plan survives a reload on the web",
+          "shipped": "2026-10-04",
+          "progress": "/progress#a-half-filled-plan-survives-a-reload-on-the-web"
+        },
         {
           "key": "SITE-188",
           "title": "Thought",

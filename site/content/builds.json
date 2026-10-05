@@ -2016,6 +2016,9 @@
     },
     {
       "text": "Voice first: mics on the agent name, chat search and title, Find an agent and the stage caption (YUI)"
+    },
+    {
+      "text": "Voice first guard: a unit test fails when a text field has no mic and is not on the exempt list (YUI)"
     }
   ]
 }
