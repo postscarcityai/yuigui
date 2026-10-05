@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T12:11:02.888Z",
+  "updated": "2026-10-05T12:36:51.420Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,15 +290,14 @@
           "waiting": true
         },
         {
-          "key": "SITE-189",
-          "title": "Thought for the build that ships voice first",
-          "waiting": true
-        },
-        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
+        },
+        {
+          "key": "NOTE-7746",
+          "title": "A calmer home screen, chats first"
         },
         {
           "key": "NOTE-13658",
@@ -343,11 +342,18 @@
         {
           "key": "YUI-301",
           "title": "The drawing kit on /web gets its own e2e test",
+          "summary": "The drawings on the web are checked on every run",
+          "progress": "/progress#the-drawings-on-the-web-are-checked-on-every-run",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-302",
           "title": "Every drawing on the phone matches the hub, side by side",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-189",
+          "title": "Thought for the build that ships voice first",
           "owner": "CJohnDesign"
         },
         {
