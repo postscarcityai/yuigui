@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T03:36:07.361Z",
+  "updated": "2026-10-05T03:46:06.670Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -368,6 +368,8 @@
         {
           "key": "YUI-289",
           "title": "/web plan and form answers survive a reload",
+          "summary": "A half-filled plan survives a reload on the web",
+          "progress": "/progress#a-half-filled-plan-survives-a-reload-on-the-web",
           "owner": "CJohnDesign"
         },
         {
