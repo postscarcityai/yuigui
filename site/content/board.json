@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T10:17:50.888Z",
+  "updated": "2026-10-05T11:10:57.194Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -361,11 +361,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-196",
-          "title": "Every link and image on the site resolves, sweep after the drawing and tables week",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -375,6 +370,12 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-196",
+          "title": "Every link and image on the site resolves, sweep after the drawing and tables week",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
