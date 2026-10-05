@@ -121,7 +121,7 @@ function PressKit() {
           </article>
         ))}
         <article className="pk-item">
-          <img src="/brand/yui-wordmark-coral.png" alt="The Yui wordmark in coral" loading="lazy" className="pk-mark" />
+          <img src="/brand/yui-logo-coral.png" alt="The Yui wordmark in coral" loading="lazy" className="pk-mark" />
           <h3>Wordmark</h3>
           <p>Coral #FF7E8A on cream #FFF9F0. Type only, no mascot. Keep it coral or ink, and give it room.</p>
           <ul className="pk-downloads"><li><a href="/brand/yui-wordmark-coral.png" download>Wordmark PNG</a> <span>coral, transparent</span></li></ul>
