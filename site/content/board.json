@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T07:51:05.335Z",
+  "updated": "2026-10-05T08:06:28.447Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -28,12 +28,6 @@
       "key": "backlog",
       "title": "Backlog",
       "cards": [
-        {
-          "key": "YUI-36",
-          "title": "Optional encrypted sync for agent tables",
-          "waiting": true,
-          "progress": "/progress#sync-decided-not-in-v1"
-        },
         {
           "key": "YUI-41",
           "title": "On-device model for routing and quick replies",
@@ -169,11 +163,6 @@
         {
           "key": "YUI-258",
           "title": "Reminders fire from a closed tab through Web Push",
-          "waiting": true
-        },
-        {
-          "key": "YUI-299",
-          "title": "+hand and marks on the phone",
           "waiting": true
         },
         {
@@ -364,6 +353,23 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-36",
+          "title": "Optional encrypted sync for agent tables",
+          "step": "Step 1",
+          "progress": "/progress#sync-decided-not-in-v1",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-299",
+          "title": "+hand and marks on the phone",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-193",
+          "title": "Thought, your agent's tables on the phone and the web",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
