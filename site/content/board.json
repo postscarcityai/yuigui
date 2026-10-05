@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T19:38:08.030Z",
+  "updated": "2026-10-05T19:51:02.472Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -351,11 +351,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-61729",
-          "title": "Drop the agent roster page",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-45868",
           "title": "Decks that fill the screen and move",
           "owner": "CJohnDesign"
@@ -398,6 +393,12 @@
         {
           "key": "YUI-305",
           "title": "Workouts with music and live edits",
+          "blocked": "other",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-61729",
+          "title": "Drop the agent roster page",
           "blocked": "other",
           "owner": "CJohnDesign"
         }
