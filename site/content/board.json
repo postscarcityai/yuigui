@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T04:16:23.440Z",
+  "updated": "2026-10-05T04:26:09.540Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -371,12 +371,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-190",
-          "title": "The spec says half-filled answers are kept",
-          "progress": "/progress#the-spec-says-half-filled-answers-are-kept",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -394,6 +388,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-190",
+          "title": "The spec says half-filled answers are kept",
+          "shipped": "2026-10-05",
+          "progress": "/progress#the-spec-says-half-filled-answers-are-kept",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/4757892c"
+        },
         {
           "key": "YUI-289",
           "title": "/web plan and form answers survive a reload",
