@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T12:36:51.420Z",
+  "updated": "2026-10-05T12:41:08.891Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -349,6 +349,8 @@
         {
           "key": "YUI-302",
           "title": "Every drawing on the phone matches the hub, side by side",
+          "summary": "Every drawing on the phone matches the web",
+          "progress": "/progress#every-drawing-on-the-phone-matches-the-web",
           "owner": "CJohnDesign"
         },
         {
