@@ -127,6 +127,7 @@ Props: `title`, `fields`, `submit` [Submit].
 form name:text! goal:voice level:1-5 submit="Next"
 form "Check-in" sleep:1-10 "Home gym":yes split:Push|Pull|Legs
 ```
+**Said, not typed.** The phone can fill a form from speech: one mic, the person says each label and its answer, the words land in the fields marked with a mic, and they check them before Send. It happens on the phone, and what the agent receives is the same `{form: {...}}` as a typed answer, with no flag (live demo: `/yl#people-can-say-their-answers`). Nothing to do differently, except label fields the way a person says them.
 
 ### list
 `list [Title] items...`. The first token, if it is a bare word, is the title. Every token after it is an item: quoted tokens, each part of an options token, and each bare word on its own (`list Groceries milk eggs` has two items). Emits `{item, checked}` when `+check` is on.
@@ -376,6 +377,11 @@ choose "Where is the mRNA read?" Nucleus|Cytoplasm|"The blood" answer=Cytoplasm 
 - `submit` [Send] labels the last button. `review=off` skips the review; the last answer submits.
 Props: `title`, `submit` [Send], `review` [on].
 Plan mode is the first workflow, and it is linear: every step shows, in line order. A plan is a flow with no branches.
+
+#### Answers are kept
+A half-filled `plan`, `flow` or `form` is not lost when the person leaves. The client keeps what they did, per message, until they press Send: typed fields, taps, a slider, a mic transcript and the page they were on. A reload, a relaunch, another agent and back all come back to the same place. Send clears it, and a plan or flow that changed shape starts clean. Fields named like a secret (key, password, code, PIN, token) are never kept; they come back empty. An agent never re-sends a plan to restore answers: the screen is still there, and a second copy asks the person to start over. Wait for the `{plan}` event.
+- **Web** keeps a plan, flow, form or mic in the browser, per agent and component id, through a reload or another agent and back. A named id (`plan@intake`) is kept; an auto id like `n3` is only a place in one reply, so it is not.
+- **Phone** keeps flows, plans, forms and mics through Back, a kill and a relaunch. The stage questions screen (loose answers on the full-screen questions) does not survive a relaunch yet; until it lands, an answer there is lost on a relaunch.
 
 #### flow
 `flow [title or name] [submit=] [review=off]`, then a Mermaid flowchart up to `end`: plan mode with branches. Each node carries one step (`%% kind: choose "What are we building?" Website|Shop`), edge labels are conditions on earlier answers (`kind -->|Shop| products`, `-->|budget>=15| meet`), Back walks the path taken and the review lists only the answered steps on it. One event at submit: `{flow: {id: answer, ...}, path: [...]}`, the same shape as `{plan}` plus the path. `flow website-intake` alone runs a saved flow by name. The head is an add; the flow's `end` gives one patch with the graph. Everything else is in its own spec: [FLOWS.md](FLOWS.md).
