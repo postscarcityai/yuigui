@@ -2082,6 +2082,15 @@
     },
     {
       "text": "YUI-297: the app draws callout, bracket and arc shapes like the hub"
+    },
+    {
+      "text": "YUI-299: the phone draws +hand and the marks scribble, underline, check like the hub"
+    },
+    {
+      "text": "YUI-299: -yuiDemoHand launch arg shows the hand drawn sample"
+    },
+    {
+      "text": "YUI-36 step 1: yui_sync_rows and yui_sync_pairings for encrypted table sync"
     }
   ]
 }

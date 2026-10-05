@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T08:16:04.297Z",
+  "updated": "2026-10-05T08:21:09.953Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -357,7 +357,8 @@
           "key": "YUI-36",
           "title": "Optional encrypted sync for agent tables",
           "step": "Step 1",
-          "progress": "/progress#sync-decided-not-in-v1",
+          "summary": "Your tables, synced and private",
+          "progress": "/progress#your-tables-synced-and-private",
           "owner": "CJohnDesign"
         },
         {
