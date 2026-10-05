@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T19:31:27.974Z",
+  "updated": "2026-10-05T19:38:08.030Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -358,6 +358,11 @@
         {
           "key": "NOTE-45868",
           "title": "Decks that fill the screen and move",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-306",
+          "title": "/web side pages named for what is on them, never Screen N",
           "owner": "CJohnDesign"
         },
         {
