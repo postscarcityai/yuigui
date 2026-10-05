@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T05:20:48.860Z",
+  "updated": "2026-10-05T05:36:16.423Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -304,10 +304,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-191",
-          "title": "The spec says the phone keeps stage answers too"
-        },
-        {
           "key": "NOTE-3651",
           "title": "Add an agent, tucked away"
         },
@@ -316,11 +312,6 @@
           "title": "Drawings that look designed",
           "waiting": true,
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
-          "key": "NOTE-4897",
-          "title": "Yui gave up on a question",
-          "waiting": true
         },
         {
           "key": "NOTE-13658",
@@ -370,6 +361,21 @@
       "title": "Building",
       "cards": [
         {
+          "key": "NOTE-4897",
+          "title": "Yui gave up on a question",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-291",
+          "title": "Drawing kit step 1, Venn overlaps, closed regions, contours, curved arrows in the spec, parsers and playground",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-191",
+          "title": "The spec says the phone keeps stage answers too",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -379,12 +385,6 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-291",
-          "title": "Drawing kit step 1, Venn overlaps, closed regions, contours, curved arrows in the spec, parsers and playground",
-          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
