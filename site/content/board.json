@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T12:51:08.802Z",
+  "updated": "2026-10-05T13:05:20.282Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,14 +290,14 @@
           "waiting": true
         },
         {
+          "key": "YUI-303",
+          "title": "/web home calms down too, chats first, the twin of Chris's home-screen pick"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
-          "key": "NOTE-7746",
-          "title": "A calmer home screen, chats first"
         },
         {
           "key": "NOTE-13658",
@@ -310,11 +310,6 @@
           "title": "The shader is the agent, no blob",
           "waiting": true,
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does"
-        },
-        {
-          "key": "NOTE-37260",
-          "title": "Fewer buttons on the stage",
-          "progress": "/progress#fewer-buttons-on-the-stage"
         },
         {
           "key": "NOTE-43312",
@@ -340,6 +335,16 @@
       "title": "Building",
       "cards": [
         {
+          "key": "NOTE-7746",
+          "title": "A calmer home screen, chats first",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-197",
+          "title": "Thought, every drawing checked on both screens",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -357,6 +362,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-37260",
+          "title": "Fewer buttons on the stage",
+          "shipped": "2026-10-05",
+          "progress": "/progress#fewer-buttons-on-the-stage"
+        },
         {
           "key": "SITE-189",
           "title": "Thought for the build that ships voice first",
