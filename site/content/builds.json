@@ -2065,6 +2065,17 @@
     },
     {
       "text": "The stage questions screen keeps typed answers: per question id, back after a relaunch or another thread, gone on Send, secret-looking fields never stored (YUI)"
+    },
+    {
+      "text": "Stop only counts when sent after the newest row of the batch (an old Stop cancelled a fresh question)"
+    },
+    {
+      "text": "YuiLines vectors and the plugin's Python parser come level with the drawing kit",
+      "card": "YUI-292"
+    },
+    {
+      "text": "yui-mcp: serve the YUI-291 drawing kit bundle",
+      "card": "YUI-293"
     }
   ]
 }
