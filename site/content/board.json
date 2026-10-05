@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T13:10:12.551Z",
+  "updated": "2026-10-05T13:15:13.077Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -335,11 +335,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-7746",
-          "title": "A calmer home screen, chats first",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -348,6 +343,12 @@
         {
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
+          "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-7746",
+          "title": "A calmer home screen, chats first",
           "blocked": "chris",
           "owner": "CJohnDesign"
         }
