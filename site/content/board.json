@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T23:45:45.912Z",
+  "updated": "2026-10-05T23:50:45.554Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -338,6 +338,8 @@
         {
           "key": "SITE-199",
           "title": "Thought, side pages say what is on them",
+          "summary": "A Thought: a page is named for what is on it",
+          "progress": "/progress#a-thought-a-page-is-named-for-what-is-on-it",
           "owner": "CJohnDesign"
         },
         {
