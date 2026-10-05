@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T17:26:43.574Z",
+  "updated": "2026-10-05T17:46:05.286Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -316,10 +316,6 @@
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does"
         },
         {
-          "key": "NOTE-28767",
-          "title": "Workouts with music and live edits"
-        },
-        {
           "key": "NOTE-43312",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -328,10 +324,6 @@
         {
           "key": "NOTE-44205",
           "title": "Pages that morph, not a line"
-        },
-        {
-          "key": "NOTE-45868",
-          "title": "Decks that fill the screen and move"
         },
         {
           "key": "NOTE-50415",
@@ -351,10 +343,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-61729",
-          "title": "Drop the agent roster page"
         }
       ]
     },
@@ -362,6 +350,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "NOTE-7746",
+          "title": "A calmer home screen, chats first",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-26959",
           "title": "Tabs named for what is on them",
@@ -373,6 +366,21 @@
           "owner": "CJohnDesign"
         },
         {
+          "key": "NOTE-28767",
+          "title": "Workouts with music and live edits",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-61729",
+          "title": "Drop the agent roster page",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-45868",
+          "title": "Decks that fill the screen and move",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -381,12 +389,6 @@
         {
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
-          "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-7746",
-          "title": "A calmer home screen, chats first",
           "blocked": "chris",
           "owner": "CJohnDesign"
         }
