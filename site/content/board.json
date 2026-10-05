@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T23:05:48.762Z",
+  "updated": "2026-10-05T23:15:45.666Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -350,6 +350,8 @@
         {
           "key": "YUI-305",
           "title": "Workouts with music and live edits",
+          "summary": "Music and edits on the fly, inside the workout",
+          "progress": "/progress#music-and-edits-on-the-fly-inside-the-workout",
           "owner": "CJohnDesign"
         },
         {
