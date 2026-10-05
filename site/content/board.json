@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T22:55:40.880Z",
+  "updated": "2026-10-05T23:05:48.762Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -300,6 +300,11 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
+          "key": "NOTE-8417",
+          "title": "One thought per full screen",
+          "waiting": true
+        },
+        {
           "key": "NOTE-13658",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -335,16 +340,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-7746",
-          "title": "A calmer home screen, chats first",
-          "needsDemo": true
-        },
-        {
-          "key": "NOTE-50415",
-          "title": "A cleaner drawer",
-          "needsDemo": true
         }
       ]
     },
@@ -352,6 +347,21 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-305",
+          "title": "Workouts with music and live edits",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-61729",
+          "title": "Drop the agent roster page",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-45868",
+          "title": "Decks that fill the screen and move",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "YUI-303",
           "title": "/web home calms down too, chats first, the twin of Chris's home-screen pick",
@@ -380,24 +390,6 @@
           "title": "Questions that say what they ask",
           "blocked": "other",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-305",
-          "title": "Workouts with music and live edits",
-          "blocked": "other",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-61729",
-          "title": "Drop the agent roster page",
-          "blocked": "other",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-45868",
-          "title": "Decks that fill the screen and move",
-          "blocked": "other",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -405,6 +397,18 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-50415",
+          "title": "A cleaner drawer",
+          "shipped": "2026-10-05",
+          "progress": "/progress#the-drawer-is-the-chats-and-calm"
+        },
+        {
+          "key": "NOTE-7746",
+          "title": "A calmer home screen, chats first",
+          "shipped": "2026-10-05",
+          "progress": "/progress#the-drawer-is-the-chats-and-calm"
+        },
         {
           "key": "YUI-306",
           "title": "/web side pages named for what is on them, never Screen N",
