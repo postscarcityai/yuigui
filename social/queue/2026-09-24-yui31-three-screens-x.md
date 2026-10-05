@@ -3,7 +3,7 @@ platform: x
 account: yuiguiai
 source: progress.json 2026-09-24 YUI-31 "Three screens per agent: the chat, then screens 2 and 3 a swipe away"
 media: [/progress/yui31-chat-pills.webp]
-slot: 2026-10-18T09:00:00-04:00
+slot: 2026-10-19T09:00:00-04:00
 status: draft
 ---
 Cooking with an agent used to mean scrolling up to find the timer.

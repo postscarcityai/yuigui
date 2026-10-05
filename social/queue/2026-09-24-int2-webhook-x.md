@@ -3,7 +3,7 @@ platform: x
 account: yuiguiai
 source: progress.json 2026-09-24 INT-2 "Not on Hermes? Any agent that answers a web request can talk in Yui now"
 media: [/progress/int2-webhook-spec.webp]
-slot: 2026-10-06T09:00:00-04:00
+slot: 2026-10-07T09:00:00-04:00
 status: draft
 ---
 Not on Hermes? If your agent answers a web request, it can talk in Yui now.
