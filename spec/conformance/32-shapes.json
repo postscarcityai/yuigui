@@ -1148,6 +1148,138 @@
           "target": "n1"
         }
       ]
+    },
+    {
+      "name": "shapes: +hand is a flag on any shape",
+      "input": "shapes w=8 h=4\nshape@a box Sketch +hand\nshape circle Round tone=mint +hand +fill\nshape arrow +hand",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "w": 8,
+            "h": 4
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "a",
+          "in": "n1",
+          "props": {
+            "kind": "box",
+            "label": "Sketch",
+            "hand": true
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "circle",
+            "label": "Round",
+            "hand": true,
+            "fill": true,
+            "tone": "mint"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "kind": "arrow",
+            "hand": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "shapes: scribble, underline and check are kinds, to= names a shape",
+      "input": "shapes w=10 h=5\nshape@card box \"Pricing page\" at=3,1.2 size=4,1.2 +hand\nshape scribble to=card\nshape underline to=card tone=butter\nshape check to=card\nshape scribble at=8,2.6 size=2.4,2.6 tone=lavender +fill +draw",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "w": 10,
+            "h": 5
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "card",
+          "in": "n1",
+          "props": {
+            "kind": "box",
+            "label": "Pricing page",
+            "hand": true,
+            "at": "3,1.2",
+            "size": "4,1.2"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "scribble",
+            "to": "card"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "kind": "underline",
+            "to": "card",
+            "tone": "butter"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "in": "n1",
+          "props": {
+            "kind": "check",
+            "to": "card"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n5",
+          "in": "n1",
+          "props": {
+            "kind": "scribble",
+            "fill": true,
+            "draw": true,
+            "at": "8,2.6",
+            "size": "2.4,2.6",
+            "tone": "lavender"
+          }
+        }
+      ]
     }
   ]
 }

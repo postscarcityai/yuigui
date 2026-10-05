@@ -185,6 +185,7 @@ Status `draws` means the playground draws the preset from a line today. The live
 | `sketch`, `row`, `after` | `Presets/SketchPreset.swift` | same | 246 | done |
 | `shapes`, `shape` | `Presets/ShapesPreset.swift`, `Presets/ShapesScene.swift` | same: `shapes.mjs` is the line-for-line source | 246 | done |
 | `shapes` drawing kit: `+close` regions, overlap blend, `contour`, `bend=`, `arc`, `bracket`, `callout`, `shapes` as a plan page's picture | not in the app yet (`Presets/ShapesScene.swift` has none of it; YUI-276 on t_501bc98e follows the look pick) | web is ahead: `shapes.mjs` and the playground draw it (YUI-291) | 246 | done |
+| `shapes` hand drawn: `+hand` and the marks `shape scribble`, `underline`, `check` | not in the app yet (`Presets/ShapesScene.swift` has none of it; YUI-299 follows) | web is ahead: `shapes.mjs` (`rough`, `markPoints`) and the playground draw it (YUI-298) | 246 | done |
 | `diagram` | not in the app yet (no case in `Presets/PresetViews.swift`) | web is ahead: `diagram.mjs` is the reference and draws it | 246 | done |
 | `mock`, `part` | not in the app yet (no case in `Presets/PresetViews.swift`) | web is ahead: the playground draws it | 246 | done |
 | `map`, `area`, `pin`, `route` (world scale) | `Presets/MapPreset.swift`, `Presets/MapScene.swift` | same: `map.mjs` is the line-for-line source | 246 | done |

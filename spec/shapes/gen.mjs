@@ -63,6 +63,16 @@ shape arc from=ask to=build
 shape arrow from=build to=ask bend=-0.3
 shape arrow from=1,5.5 to=4,5.5 bend=0.2 label=bent
 shape bracket from=1,3 to=1,5 label=Span`],
+  ["hand drawn: +hand shapes and the three marks", `shapes w=10 h=6
+shape@card box "Pricing page" at=3,1.4 size=4,1.2 +hand
+shape scribble to=card
+shape@word text "Ship it today" at=3,3
+shape underline to=word tone=butter
+shape@task pill "Fix login" at=3,4.4 size=4,0.9 +hand
+shape check to=task
+shape circle Round at=8,1.4 size=1.8 tone=mint +hand
+shape arrow from=7.2,3 to=8.6,3.8 +hand
+shape scribble at=8,5 size=2.4,1.2 tone=lavender +fill`],
 ];
 const TIMES = [0.2, 0.9, 2, 4.3, "still"];
 const r = (v) => (typeof v === "number" ? Math.round(v * 1e4) / 1e4 : Array.isArray(v) ? v.map(r) : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, r(x)])) : v);

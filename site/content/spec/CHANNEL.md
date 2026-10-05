@@ -123,6 +123,7 @@ row "Yes. Your phone is on build 160, the newest on TestFlight. A few things to 
 after
 row "Yes, build 160, the newest. Your iPad is on 135." +hi note="one line"
 ```
+- **Mark the spot, don't describe it.** To point at a part of a picture, draw a `scribble` (rings or fills it), an `underline` (under a label) or a `check` (done) on that `shape` with `to=id`, never a text note or a sentence beside it; `+hand` on the shapes makes the whole drawing look sketched: `shape@card box "Pricing page" +hand`, then `shape scribble to=card`.
 - **Status is `Label: verdict`, drawn.** "Is the board up to date?", "how is the site?", "what's running?" is one `sketch frame=window`: a row per thing, `Label: verdict` in one to three words, `+hi` on the row that needs the person, `note=` for why in three words. Never a sentence, a count in words or an intro. Caveman words: nouns and verdicts, no "so", "now", "however", "a few things". The line above the drawing is six words or fewer, or none: the drawing says the rest. Not `Overall the board is in good shape, though the new feature could use some help and SEO looks strong` but:
 ```yui
 sketch "Board" frame=window

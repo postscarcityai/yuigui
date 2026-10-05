@@ -15,7 +15,10 @@ import { resolve } from "./yl.mjs";
 export const CLOSED = ["circle", "box", "pill", "dot", "blob", "text", "callout", "contour"];
 // `arc` is an arrow that bends; `bracket` spans two places with a label beyond it.
 export const CONNECTORS = ["line", "arrow", "arc", "bracket"];
-export const KINDS = [...CLOSED, ...CONNECTORS, "path"];
+// Marks (YUI-298) are drawn on top of the picture, hand drawn and animated on:
+// a scribble fills or rings a spot, an underline sits under a shape, a check is a tick.
+export const MARKS = ["scribble", "underline", "check"];
+export const KINDS = [...CLOSED, ...CONNECTORS, "path", ...MARKS];
 export const TONES = ["accent", "mint", "lavender", "butter", "ink", "mute"];
 
 // Default sizes in canvas units, [width, height].
@@ -31,9 +34,13 @@ export const OVERLAP = 0.3;
 
 // The clock, in seconds.
 export const STEP = 0.35; // one part to the next
-export const DUR = { fade: 0.35, grow: 0.5, draw: 0.7 };
+export const DUR = { fade: 0.35, grow: 0.5, draw: 0.7, mark: 0.5 };
 export const MOVE = 0.8;
 export const PULSE = 1.6; // one breath
+// The hand: how far a hand drawn stroke strays from its true line, as a share
+// of the drawing's width, and how far apart its wobble points sit (canvas units).
+export const HAND = 0.009;
+export const HAND_STEP = 0.35;
 // Label size as a share of the drawing's width, so text reads the same at any w.
 export const LABEL = 0.042;
 
@@ -63,7 +70,7 @@ function motion(p, kind) {
   if (p.draw) return "draw";
   if (p.grow) return "grow";
   // Lines, arrows and paths trace themselves on unless told otherwise.
-  if (CONNECTORS.includes(kind) || kind === "path" || kind === "contour") return "draw";
+  if (CONNECTORS.includes(kind) || kind === "path" || kind === "contour" || MARKS.includes(kind)) return "draw";
   return "fade";
 }
 
@@ -99,6 +106,8 @@ export function scene(head, members) {
       fill: !!p.fill || kind === "dot", dash: !!p.dash, motion: motion(p, kind), pulse: !!p.pulse,
       start: t,
     };
+    // +hand: a seeded roughened stroke (the seed is the part's place in the scene).
+    if (p.hand && !MARKS.includes(kind) && !["text", "dot", "contour", "bracket", "callout"].includes(kind)) item.hand = true;
     if (s.closed) {
       // A contour is placed, never in the row: with no at= it sits in the middle.
       let at = point(p.at) || (kind === "contour" ? [W / 2, H / 2] : null);
@@ -118,6 +127,15 @@ export function scene(head, members) {
         const to = end(p.to, null, parts, s.i, 1);
         if (to) { item.from = { ref: s.i }; item.to = to; item.leader = true; }
       }
+    } else if (MARKS.includes(kind)) {
+      // A mark sits on a shape written before it (to=id) or at a place (at=).
+      const pts = markPoints(kind, p, items, parts, W, H, s.i);
+      if (!pts) continue;
+      item.mark = kind;
+      item.pts = pts;
+      item.tone = TONES.includes(p.tone) ? p.tone : kind === "check" ? "mint" : "accent";
+      item.fill = kind === "scribble" && !!p.fill;
+      item.motion = "draw";
     } else if (kind === "path") {
       const pts = (Array.isArray(p.pts) ? p.pts : []).map(point).filter(Boolean);
       if (pts.length < 2) continue;
@@ -135,13 +153,111 @@ export function scene(head, members) {
       if (kind === "bracket") item.side = (num(p.bend) ?? 1) < 0 ? -1 : 1;
       else if (kind === "arc" || p.bend !== undefined) item.bend = clamp(num(p.bend) ?? BEND, -2, 2);
     }
-    item.dur = DUR[item.motion];
+    item.dur = item.mark ? DUR.mark : DUR[item.motion];
     items.push(item);
     t += STEP;
   }
   blend(items);
   const last = items.reduce((m, it) => Math.max(m, it.start + it.dur + (it.move ? MOVE : 0)), 0);
   return { w: W, h: H, fs: LABEL * W * k, title: h0.title ? String(h0.title) : "", caption: h0.caption ? String(h0.caption) : "", items, total: last };
+}
+
+// The hand drawn look. wobble(seed, k) is a smooth noise in [-1, 1] along a
+// stroke, so a line drifts like a hand instead of buzzing; the same seed gives
+// the same stroke on every renderer.
+export const wobble = (seed, k) => 0.6 * Math.sin((seed + 1) * 12.9898 + k * 0.9) + 0.4 * Math.sin((seed + 1) * 78.233 + k * 2.1);
+const r3 = (v) => Math.round(v * 1000) / 1000;
+
+// A polyline roughened: every segment is cut into steps of about HAND_STEP and
+// each point is pushed `amp` times wobble sideways. Open strokes end where they
+// started (the last point is pushed too); closed ones join up. step=Infinity
+// keeps the points you gave it.
+export function rough(pts, seed, amp, closed = false, step = HAND_STEP) {
+  const out = [];
+  const n = pts.length;
+  const segs = closed ? n : n - 1;
+  let k = 0;
+  for (let s = 0; s < segs; s++) {
+    const a = pts[s], b = pts[(s + 1) % n];
+    const dx = b[0] - a[0], dy = b[1] - a[1];
+    const len = Math.hypot(dx, dy) || 1;
+    const m = Number.isFinite(step) ? Math.max(1, Math.ceil(len / step)) : 1;
+    for (let j = 0; j < m; j++) {
+      const t = j / m, o = amp * wobble(seed, k++);
+      out.push([r3(a[0] + dx * t - (dy / len) * o), r3(a[1] + dy * t + (dx / len) * o)]);
+    }
+  }
+  if (!closed) {
+    const a = pts[n - 2] || pts[0], b = pts[n - 1];
+    const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
+    const o = amp * wobble(seed, k);
+    out.push([r3(b[0] - ((b[1] - a[1]) / len) * o), r3(b[1] + ((b[0] - a[0]) / len) * o)]);
+  }
+  return out;
+}
+
+// A closed shape's true outline as points around (0, 0), for rough(): a
+// circle as an ellipse, a box and a pill as their rectangle and stadium.
+export function handOutline(kind, [w, h], seed, amp) {
+  const x = w / 2, y = h / 2;
+  if (kind === "blob") return { pts: rough(blobPoints(w, h, seed), seed, amp, true, Infinity), closed: true };
+  if (kind === "circle") {
+    const n = 20;
+    return { pts: rough(Array.from({ length: n }, (_, j) => [Math.cos((2 * Math.PI * j) / n - Math.PI / 2) * x, Math.sin((2 * Math.PI * j) / n - Math.PI / 2) * y]), seed, amp, true, Infinity), closed: true };
+  }
+  if (kind === "pill") {
+    const r = y, cx = Math.max(0, x - r);
+    const arc = (c, a0) => Array.from({ length: 7 }, (_, j) => [c + Math.cos(a0 + (Math.PI * j) / 6) * r, Math.sin(a0 + (Math.PI * j) / 6) * r]);
+    return { pts: rough([...arc(cx, -Math.PI / 2), ...arc(-cx, Math.PI / 2)], seed, amp, true), closed: true };
+  }
+  return { pts: rough([[-x, -y], [x, -y], [x, y], [-x, y]], seed, amp, true), closed: true };
+}
+
+// A mark's points in canvas units, already roughened (the numbers are in
+// spec/shapes/scenes.json). `target` is the closed shape written before it
+// that to= names; with no to=, at= (and size=) place it.
+function markPoints(kind, p, items, parts, W, H, i) {
+  const byId = typeof p.to === "string" && parts.find((s) => s.closed && s.id === p.to && s.i < i);
+  const tgt = byId ? items.find((it) => it.i === byId.i && it.at) : null;
+  if (typeof p.to === "string" && !tgt) return null;
+  const at = point(p.at);
+  const amp = HAND * W;
+  const seed = i;
+  const sz = size(p.size, "box");
+  if (kind === "scribble") {
+    const box = tgt ? [tgt.at[0], tgt.at[1], tgt.size[0] + 0.5, tgt.size[1] + 0.5] : at ? [at[0], at[1], ...(sz || [2, 1.2])] : null;
+    if (!box) return null;
+    const [cx, cy, bw, bh] = box;
+    if (p.fill) {
+      // Back and forth strokes down the box.
+      const rows = clamp(Math.round(bh / 0.2), 3, 14);
+      const pts = [];
+      for (let r = 0; r <= rows; r++) {
+        const y = cy - bh / 2 + (bh * r) / rows;
+        pts.push(r % 2 ? [cx + bw / 2, y] : [cx - bw / 2, y]);
+        pts.push(r % 2 ? [cx - bw / 2, y] : [cx + bw / 2, y]);
+      }
+      return rough(pts, seed, amp * 0.5);
+    }
+    // Two loops round the spot, the second a little wider, ending open.
+    const n = 44;
+    const pts = Array.from({ length: n + 1 }, (_, j) => {
+      const a = -Math.PI / 2 + (2.15 * 2 * Math.PI * j) / n;
+      const g = 1 + 0.08 * (j / n) * 2;
+      return [cx + Math.cos(a) * (bw / 2) * g, cy + Math.sin(a) * (bh / 2) * g];
+    });
+    return rough(pts, seed, amp * 0.6, false, Infinity);
+  }
+  if (kind === "underline") {
+    const c = tgt ? [tgt.at[0], tgt.at[1] + tgt.size[1] / 2 + 0.2, tgt.size[0] * 0.95] : at ? [at[0], at[1], sz ? sz[0] : 2] : null;
+    if (!c) return null;
+    return rough([[c[0] - c[2] / 2, c[1] + 0.03], [c[0] + c[2] / 2, c[1] - 0.04]], seed, amp * 0.7);
+  }
+  // check: a short stroke down, a long one up.
+  const s = num(p.size) ?? 1;
+  const c = tgt ? [tgt.at[0] + tgt.size[0] / 2 + 0.6 * s, tgt.at[1]] : at;
+  if (!c) return null;
+  return rough([[c[0] - 0.4 * s, c[1] + 0.02 * s], [c[0] - 0.12 * s, c[1] + 0.34 * s], [c[0] + 0.42 * s, c[1] - 0.36 * s]], seed, amp * 0.4, false, 0.18);
 }
 
 // Filled shapes that cross read as an overlap (a Venn): each of two filled

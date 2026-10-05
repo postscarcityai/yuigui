@@ -1640,6 +1640,33 @@ choose@pick "Build it?" Yes|Later
 end`,
   },
   {
+    // Hand drawn shapes and marks (YUI-298): +hand roughens a stroke, and a
+    // scribble, an underline and a check draw on over the picture.
+    slug: "handdrawn",
+    name: "Hand drawn: a +hand box, a scribble, an underline and a check",
+    agent: "Yui",
+    yl: `deck "Mark it by hand"
+page "Draw it like a sketch" body="+hand wobbles a stroke. The same line wobbles the same on the phone and the web."
+shapes w=10 h=5 caption="Same three parts, plain then hand drawn."
+shape@a box Plain at=2.2,1.4 size=3,1.3
+shape@b box Sketch at=2.2,3.6 size=3,1.3 +hand
+shape circle Plain at=6,1.4 size=1.6 tone=mint
+shape circle Sketch at=6,3.6 size=1.6 tone=mint +hand
+shape@c blob Blob at=8.7,1.4 size=2,1.6 tone=lavender +fill
+shape blob Blob at=8.7,3.6 size=2,1.6 tone=lavender +fill +hand
+page "Mark the spot" body="A scribble rings or fills a place. An underline sits under a shape. A check ticks it off."
+shapes w=10 h=5 caption="Look here, this one, done."
+shape@card box "Pricing page" at=3,1.2 size=4,1.2 +hand
+shape scribble to=card
+shape@word text "Ship it today" at=3,2.9 size=4,0.8
+shape underline to=word tone=butter
+shape@task pill "Fix the login" at=3,4.1 size=4,0.9 +hand
+shape check to=task
+shape scribble at=8,2.6 size=2.4,2.6 tone=lavender +fill
+shape arrow from=5.6,1.4 to=6.8,2.3 +hand
+end`,
+  },
+  {
     // Maps (YUI-158 step 1, Chris on the Mongol Empire answer: "this
     // should be a Map"). A drawn outline for a border that is not today's,
     // countries by code, a pin and four ways out of it.

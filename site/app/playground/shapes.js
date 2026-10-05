@@ -8,7 +8,7 @@
 // Sends nothing.
 import { useEffect, useMemo, useRef, useState } from "react";
 import { resolve } from "../../lib/yl/yl.mjs";
-import { LABEL, OVERLAP, TICK, along, blobPoints, bracketPoints, control, describe, frame, labelWidth, ringPoints, scene, smooth, wrap } from "../../lib/yl/shapes.mjs";
+import { HAND, LABEL, OVERLAP, TICK, along, blobPoints, bracketPoints, control, describe, frame, handOutline, labelWidth, ringPoints, rough, scene, smooth, wrap } from "../../lib/yl/shapes.mjs";
 
 const TONE = {
   accent: "var(--accent)", mint: "var(--yl-c3)", lavender: "var(--yl-c1)",
@@ -79,9 +79,19 @@ function Label({ text, x, y, fs, width, top, className, style, opacity }) {
   );
 }
 
-function Part({ f, sw, fs, k }) {
+function Part({ f, sw, fs, k, W }) {
   const color = TONE[f.tone];
   if (f.o <= 0) return null;
+  if (f.mark) {
+    // A hand drawn mark: the points come from the scene, the stroke draws on.
+    const sharp = f.mark === "check" || f.fill;
+    return (
+      <g opacity={f.o} className="sh-mark">
+        <path d={sharp ? poly(f.pts, false) : curve(f.pts, false)} pathLength="1" stroke={color} strokeWidth={sw * (f.fill ? 1.1 : 1.3)}
+          strokeLinecap="round" strokeLinejoin="round" fill="none" strokeOpacity={f.fill ? 0.55 : 1} strokeDasharray={`${f2(f.d)} 1`} />
+      </g>
+    );
+  }
   if (f.a && !f.c) {
     // line, arrow, arc or bracket
     const dash = f.dash ? `${sw * 3} ${sw * 2.5}` : undefined;
@@ -111,7 +121,11 @@ function Part({ f, sw, fs, k }) {
     const mid = along(f.a, c, f.b, 0.5).tip;
     return (
       <g opacity={f.o}>
-        <path d={`M${P(f.a)}Q${P(cut.q0)} ${P(cut.tip)}`} stroke={color} strokeWidth={sw} strokeLinecap="round" fill="none" strokeDasharray={dash} />
+        {f.hand ? (
+          <path d={curve(rough(Array.from({ length: 13 }, (_, j) => along(f.a, c, f.b, j / 12).tip), f.i, HAND * W, false, Infinity), false)} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw} strokeLinecap="round" fill="none" strokeDasharray={f.dash ? dash : `${f2(f.d)} 1`} />
+        ) : (
+          <path d={`M${P(f.a)}Q${P(cut.q0)} ${P(cut.tip)}`} stroke={color} strokeWidth={sw} strokeLinecap="round" fill="none" strokeDasharray={dash} />
+        )}
         {head ? <path d={head} stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" fill="none" /> : null}
         {f.label ? <Label text={f.label} x={mid[0]} y={mid[1] - fs * 0.75} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel" opacity={f.d} /> : null}
       </g>
@@ -119,7 +133,8 @@ function Part({ f, sw, fs, k }) {
   }
   if (f.pts) {
     const mid = f.pts[Math.floor(f.pts.length / 2)];
-    const d = f.close ? (f.sharp ? poly(f.pts, true) : curve(f.pts, true)) : f.sharp ? poly(f.pts, false) : curve(f.pts, false);
+    const pts = f.hand ? rough(f.pts, f.i, HAND * W, !!f.close) : f.pts;
+    const d = f.close ? (f.sharp ? poly(pts, true) : curve(pts, true)) : f.sharp ? poly(pts, false) : curve(pts, false);
     return (
       <g opacity={f.o} className={f.blend ? "sh-blend" : undefined}>
         <path d={d} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round"
@@ -160,7 +175,7 @@ function Part({ f, sw, fs, k }) {
     {leader}
     <g opacity={f.o} transform={`translate(${f2(cx)} ${f2(cy)}) scale(${f2(f.s)})`} className={f.blend ? "sh-blend" : undefined}>
       {f.kind !== "text" ? (
-        <path d={outline(f.kind, f.size, f.i)} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw} strokeLinejoin="round"
+        <path d={f.hand ? curve(handOutline(f.kind, f.size, f.i, HAND * W).pts, true) : outline(f.kind, f.size, f.i)} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw} strokeLinejoin="round"
           fill={f.fill ? color : "none"} fillOpacity={f.kind === "dot" ? f.d : (f.blend ? OVERLAP : 0.18) * f.d}
           strokeDasharray={f.dash ? `${sw * 3} ${sw * 2.5}` : f.d < 1 ? `${f2(f.d)} 1` : undefined} />
       ) : null}
@@ -189,7 +204,7 @@ function Drawing({ head, members }) {
       {sc.title ? <div className="yl-shtitle">{sc.title}</div> : null}
       <svg viewBox={`0 0 ${sc.w} ${sc.h}`} role="img" aria-label={text} className="yl-shsvg"
         onClick={() => !reduce && setRun((n) => n + 1)}>
-        {parts.map((f) => <Part key={f.i} f={f} sw={sw} fs={fs} k={k} />)}
+        {parts.map((f) => <Part key={f.i} f={f} sw={sw} fs={fs} k={k} W={sc.w} />)}
       </svg>
       {sc.caption ? <p className="yl-shcap">{sc.caption}</p> : null}
     </div>
