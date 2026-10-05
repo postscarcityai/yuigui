@@ -45,6 +45,8 @@ body:has(.web-root) main.wrap { padding: 0; max-width: none; }
 .wb-head-words b { font-size: 17px; font-weight: 800; }
 .wb-head-words small { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
 .wb-head .wb-menu { display: none; }
+.wb-head .wb-pen { margin-left: auto; }
+.wb-head .wb-pen + .wb-viewbtn { margin-left: 0; }
 .wb-iconbtn { display: inline-grid; place-items: center; min-width: 44px; min-height: 44px; border: 0; border-radius: 14px; background: none; color: var(--ink); cursor: pointer; font-size: 14px; font-weight: 700; }
 .wb-iconbtn svg { width: 24px; height: 24px; stroke: currentColor; }
 .wb-iconbtn:hover { background: var(--raised); }

@@ -49,7 +49,8 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   ok(await pg.getByTestId("tab-home").isVisible() && await pg.getByTestId("tab-review").isVisible() && await pg.getByTestId("tab-agent").isVisible(), `${T}: the drawer has Home, Review and Agent`);
   ok((await pg.getByTestId("agent-bar").innerText()).includes("Penny"), `${T}: the foot bar names the open agent`);
   ok((await pg.locator(".dr-name").innerText()) === "You", `${T}: the header wears your name (SITE-161), not the agent's`);
-  ok(await pg.getByTestId("new-chat").isVisible(), `${T}: New chat is first`);
+  ok(await pg.getByTestId("drawer").getByRole("button", { name: /new chat/i }).count() === 0 && await pg.getByTestId("drawer").getByTestId("new-chat").count() === 0, `${T}: the drawer has no New chat button (YUI-287)`);
+  ok(await pg.getByTestId("drawer").getByRole("button", { name: /add an agent|add agent/i }).count() === 0 && await pg.getByTestId("drawer-add-agent").count() === 0, `${T}: the drawer has no Add an agent bar (YUI-287)`);
   const titles = await pg.locator(".dc-row .dc-top b").allInnerTexts();
   ok(titles.join("|") === "Earlier|Race week plan|Groceries", `${T}: the chats list, newest first (${titles.join("|")})`);
   ok(await pg.locator(".dc-row.open .dc-top b").innerText() === "Earlier", `${T}: the open one is lit`);
@@ -66,14 +67,18 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   ok(said.some((t) => t.includes("Plan my race week")) && !said.some((t) => t.includes("Add all three")), `${T}: that chat shows its own messages only`);
 
   // New chat: a draft until something is said, then it is in the list
-  await drawer(pg, vp);
-  await pg.getByTestId("new-chat").click();
+  await pg.keyboard.press("Escape");
+  if (vp.width < 760 && await pg.locator(".wb-side.open").count()) await pg.getByRole("button", { name: "Close the drawer" }).click();
+  await pg.waitForTimeout(300);
+  await pg.locator("[data-testid=new-chat]:visible, [data-testid=head-new-chat]:visible").first().click();
   await pg.waitForTimeout(500);
   ok(/\/chat\/[0-9a-f-]{36}/.test(pg.url()), `${T}: New chat opens a fresh address`);
   const draftUrl = pg.url();
   await drawer(pg, vp);
   ok(await pg.getByTestId("draft-chat").isVisible(), `${T}: it says it is new and waits for a word`);
-  await pg.getByTestId("new-chat").click();
+  if (vp.width < 760) await pg.getByRole("button", { name: "Close the drawer" }).click();
+  await pg.waitForTimeout(300);
+  await pg.locator("[data-testid=new-chat]:visible, [data-testid=head-new-chat]:visible").first().click();
   await pg.waitForTimeout(300);
   ok(pg.url() === draftUrl, `${T}: New chat twice is the same chat (${draftUrl.slice(-60)} / ${pg.url().slice(-60)})`);
   const record = pg.locator("[data-testid=stage-record]");
@@ -183,6 +188,8 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   // ---------- Add agent: the crew, then your own end to end ----------
   pg = await open(vp, theme);
   await switcher(pg, vp);
+  ok(await pg.locator("[data-testid=agents-panel] .ag-list").first().locator("> li").last().getByTestId("add-agent-btn").isVisible(), `${T}: Add an agent is the last row of the agents list (YUI-287)`);
+  await shot(pg, `web-agents-list-add-row-${tag}-${theme}`);
   await pg.getByTestId("add-agent-btn").click();
   await pg.getByTestId("add-agent").waitFor();
   ok(await pg.getByTestId("crew-arnold").isVisible() && (await pg.getByTestId("crew-penny").innerText()).includes("In your list"), `${T}: the crew, with who is already here`);

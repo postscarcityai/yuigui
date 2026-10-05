@@ -62,6 +62,7 @@ export default function AgentsPanel({ agents, openId, firstName, unshared, error
                 <Row key={a.id} agent={a} selected={a.id === openId} href={hrefOf(a)} first={i === 0} last={i === agents.length - 1} ordering={ordering}
                   onPick={onPick} onEdit={onEdit} onMove={(d) => move(i, d)} />
               ))}
+              {!onlyShared(agents) ? <li className="ag-add-row"><button type="button" className="ag-add" data-testid="add-agent-btn" onClick={onAdd}>+ Add an agent</button></li> : null}
             </ul>
             {footer ? <p className="ag-hint" data-testid="shared-footer">{footer}</p> : null}
             {onNewGroup && (agents.length > 1 || groups.length) ? (
@@ -77,7 +78,7 @@ export default function AgentsPanel({ agents, openId, firstName, unshared, error
           </>
         )}
         {unshared.length ? <ul className="ag-unshared" data-testid="unshared">{unshared.map((n) => <li key={n}>{unsharedLine(n)}</li>)}</ul> : null}
-        {!onlyShared(agents) ? <button type="button" className="ag-btn" data-testid="add-agent-btn" onClick={onAdd}>Add agent</button> : null}
+        {empty && !onlyShared(agents) ? <button type="button" className="ag-btn" data-testid="add-agent-btn" onClick={onAdd}>Add agent</button> : null}
         {error ? <p className="ag-error" role="alert">{error}</p> : null}
       </div>
     </section>

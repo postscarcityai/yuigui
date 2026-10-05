@@ -1,5 +1,5 @@
 "use client";
-// The drawer's chats (Agents/DrawerChats.swift, YUI-169): New chat, then the list, newest activity first.
+// The drawer's chats (Agents/DrawerChats.swift, YUI-169): the list (New chat is the pen on the main screen, YUI-287), newest activity first.
 // A row says its title, then the last line said and when; a coral dot when the agent said something you have
 // not read; a soft fill on the open one. Rename and Delete sit behind the row's own button (the app's hold or
 // swipe has no mouse twin). Delete asks first.
@@ -51,7 +51,7 @@ function Row({ chat, agent, among, open, renaming, onOpen, onStartRename, onRena
   );
 }
 
-export default function DrawerChats({ agent, chats, openId, draftOpen, onNewChat, onOpenChat, onRename, onDelete, onMore, note }) {
+export default function DrawerChats({ agent, chats, openId, draftOpen, onOpenChat, onRename, onDelete, onMore, note }) {
   const [query, setQuery] = useState("");
   const [renaming, setRenaming] = useState(null);
   const [deleting, setDeleting] = useState(null);
@@ -61,10 +61,6 @@ export default function DrawerChats({ agent, chats, openId, draftOpen, onNewChat
   const words = deleting ? deleteWords(plan, titleOf(deleting, name, chats.items.length), name) : null;
   return (
     <div className="dc" data-testid="drawer-chats">
-      <button type="button" className="dc-new" data-testid="new-chat" onClick={onNewChat}>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" strokeWidth="2.6" strokeLinecap="round" /></svg>
-        New chat
-      </button>
       {draftOpen ? <p className="dc-draft" data-testid="draft-chat">New chat. Say something and it shows up here.</p> : null}
       {chats.items.length ? (
         <>

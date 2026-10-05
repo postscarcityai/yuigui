@@ -253,7 +253,7 @@ function Composer({ agent, agents, store, waiting, onSend, onSendWords, onStop, 
   );
 }
 
-export default function ThreadView({ relay, userId, agent, agents = [], outbox = null, cache = null, early = null, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {}, onOpenAgent = null, onApi = null, landing = null, onLanded = () => {} }) {
+export default function ThreadView({ relay, userId, agent, agents = [], outbox = null, cache = null, early = null, chat, light, live = true, view = "chat", setView = () => {}, onMenu = () => {}, onNewChat = null, onOpenAgent = null, onApi = null, landing = null, onLanded = () => {} }) {
   const thread = useMemo(() => new Thread(), [agent.id, chat]);
   const [, tick] = useReducer((n) => n + 1, 0);
   const [net, setNet] = useState({ offline: false, pending: 0 });
@@ -461,7 +461,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
       </div>
       <Composer agent={agent} agents={agents} store={store} waiting={thread.waiting} onSend={onSend} onSendWords={onSendWords} onStop={onStop} offline={net.offline} inert={stageOn} commands={commands} onAbout={setAboutView} />
       {stageOn ? <StageLayer agent={agent} agents={agents} commands={commands} store={store} thread={thread} sync={sync} light={light} fresh={Math.max(0, list.length - seen)} offline={net.offline} req={req} landing={landing} onLanded={onLanded}
-        onRecord={() => setView("chat")} onMenu={onMenu} /> : null}
+        onRecord={() => setView("chat")} onMenu={onMenu} onNewChat={onNewChat} /> : null}
       {menu ? <MessageMenu menu={menu} agent={agent} reaction={menuReaction} onReact={doReact} onReply={doReply} onCopy={doCopy} onClose={closeMenu} /> : null}
       {viewer ? (
         <div className="wc-viewer" role="dialog" aria-modal="true" aria-label="Photo" onClick={() => setViewer(null)}>

@@ -49,7 +49,7 @@ function Home({ agent, api, chats, close, handlers, goReview }) {
   return (
     <>
       <DrawerChats agent={agent} chats={chats} openId={chats.openId} draftOpen={chats.draftOpen} note={chats.note}
-        onNewChat={handlers.onNewChat} onOpenChat={handlers.onOpenChat} onRename={handlers.onRename} onDelete={handlers.onDeleteChat} onMore={handlers.onMoreChats} />
+        onOpenChat={handlers.onOpenChat} onRename={handlers.onRename} onDelete={handlers.onDeleteChat} onMore={handlers.onMoreChats} />
       {waiting.length ? (
         <>
           <h3 className="dr-heading">Next up for you</h3>
@@ -171,7 +171,7 @@ function AgentTab({ agent, api, close, handlers }) {
   );
 }
 
-export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSwitch, onAdd, onQuick, onSettings, email, earn, canAdd, children, review = 0 }) {
+export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSwitch, onQuick, onSettings, email, earn, children, review = 0 }) {
   const [tab, setTab] = useState("Home");
   const [showU, setShowU] = useState(false);
   useEffect(() => { setTab("Home"); }, [agent?.id]);
@@ -198,7 +198,6 @@ export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSw
         {tab === "Review" ? <Review agent={agent} api={api} close={onClose} /> : null}
         {tab === "Agent" ? <AgentTab agent={agent} api={api} close={onClose} handlers={handlers} /> : null}
       </div>
-      {canAdd ? <button type="button" className="dr-add" data-testid="drawer-add-agent" onClick={onAdd}>+ Add an agent</button> : null}
       <button type="button" className="dr-bar" data-testid="agent-bar" onClick={onSwitch} aria-label="Switch agent">
         <Face agent={agent} size={32} />
         <span className="dr-words"><small>Talking to</small><b>{agent?.name}</b></span>

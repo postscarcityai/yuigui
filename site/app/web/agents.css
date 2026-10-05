@@ -48,15 +48,12 @@
 .dr-dashed { border: 1.5px dashed var(--outline); border-radius: 20px; padding: 16px; }
 .dr-dashed h3 { margin: 0 0 6px; font-size: 18px; }
 .dr-dashed p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.45; }
-.dr-add { margin: 4px 14px 8px; min-height: 48px; border-radius: 999px; border: 0; background: var(--brand); color: var(--on-brand); font: inherit; font-weight: 800; font-size: 16px; cursor: pointer; }
 .dr-bar { display: flex; align-items: center; gap: 12px; margin: 0 14px 8px; min-height: 52px; padding: 8px 14px; border-radius: 20px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
 .dr-bar .dr-words small { font-size: 12px; }
 .dr .wb-side-foot { padding: 8px 18px 14px; }
 
 /* chats */
 .dc { display: flex; flex-direction: column; gap: 6px; }
-.dc-new { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; border: 0; border-radius: 16px; background: var(--brand); color: var(--on-brand); font: inherit; font-weight: 800; font-size: 16px; cursor: pointer; }
-.dc-new svg { width: 20px; height: 20px; stroke: currentColor; }
 .dc-draft { margin: 0; font-size: 13px; color: var(--muted); padding: 0 4px; }
 .dc-search input { width: 100%; height: 44px; border-radius: 999px; border: 1.5px solid var(--outline); background: var(--surface); color: var(--ink); font: inherit; font-size: 16px; padding: 0 16px; }
 .dc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
@@ -87,6 +84,10 @@
 .ag-panel-body { flex: 1; min-height: 0; overflow-y: auto; padding: 0 12px 14px; display: flex; flex-direction: column; gap: 10px; }
 .ag-greeting { margin: 4px 4px 0; color: var(--muted); font-weight: 700; font-size: 15px; }
 .ag-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.ag-add-row { display: flex; }
+.ag-add { flex: 1; min-height: 44px; padding: 0 14px; border: 0; border-radius: 18px; background: transparent; color: var(--muted); font: inherit; font-size: 15px; font-weight: 700; text-align: left; cursor: pointer; }
+.ag-add:hover { background: var(--raised); color: var(--ink); }
+.ag-add:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
 .ag-row { display: flex; align-items: center; gap: 4px; border-radius: 18px; }
 .ag-row .wb-agent-row { flex: 1; min-width: 0; }
 .ag-row .wb-agent-words b { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
@@ -154,7 +155,7 @@
 .ag-switch i { position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: #fff; transition: transform .2s; box-shadow: 0 1px 3px rgba(0, 0, 0, .3); }
 .ag-switch.on { background: var(--brand); }
 .ag-switch.on i { transform: translateX(20px); }
-.ag-switch:focus-visible, .ag-btn:focus-visible, .ag-barbtn:focus-visible, .ag-link:focus-visible, .dr-row:focus-visible, .dc-main:focus-visible, .dr-tabs button:focus-visible, .dr-bar:focus-visible, .dr-add:focus-visible, .ag-crew-chip:focus-visible, .ag-look:focus-visible, .ag-copy:focus-visible, .ag-edit:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
+.ag-switch:focus-visible, .ag-btn:focus-visible, .ag-barbtn:focus-visible, .ag-link:focus-visible, .dr-row:focus-visible, .dc-main:focus-visible, .dr-tabs button:focus-visible, .dr-bar:focus-visible, .ag-crew-chip:focus-visible, .ag-look:focus-visible, .ag-copy:focus-visible, .ag-edit:focus-visible { outline: 3px solid var(--link); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { .ag-switch, .ag-switch i { transition: none; } }
 
 /* the look picker */
@@ -250,7 +251,6 @@
 
 /* compact foot, ellipsis on a chat's last line */
 .dc-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.dr-add { min-height: 44px; margin: 2px 14px 6px; }
 .dr-bar { min-height: 48px; margin-bottom: 4px; }
 .dr .wb-side-foot { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 2px 16px; padding: 4px 18px 10px; }
 .dr .wb-who { padding: 0; }

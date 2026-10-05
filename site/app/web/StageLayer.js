@@ -39,6 +39,8 @@ const MicIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" 
 const TrashIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12M10 11v5M14 11v5" fill="none" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 const StopIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2.5" /></svg>;
 const RecordIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8a1.5 1.5 0 0 1-1.5 1.5H10l-4 3v-3H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z" strokeWidth="2" fill="none" strokeLinejoin="round" /></svg>;
+// The pen on a page: a new chat (the app's ChatView top bar).
+const PenIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19l-4 1zM14.5 6.5l3 3" strokeWidth="2" fill="none" strokeLinejoin="round" strokeLinecap="round" /></svg>;
 const MenuIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 12h14M5 17h14" strokeWidth="2.2" strokeLinecap="round" fill="none" /></svg>;
 const ChevIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>;
 
@@ -150,7 +152,7 @@ function Chips({ items, small, onTap }) {
 // How long a tap waits for the message it names to reach the thread before the newest thing said stands in (PushLanding.patience).
 const PATIENCE_MS = 8000;
 
-export default function StageLayer({ agent, agents = [], commands, store, thread, sync, light, fresh, offline, req, landing = null, onLanded, onRecord, onMenu }) {
+export default function StageLayer({ agent, agents = [], commands, store, thread, sync, light, fresh, offline, req, landing = null, onLanded, onRecord, onMenu, onNewChat }) {
   const reduced = useReduced();
   // Settings > Full screen: which of the mic, T and + the bar shows (one of the mic and T always stays).
   const bar = usePrefs().stage;
@@ -444,9 +446,12 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
             <Face agent={agent} size={34} />
             <div className="ys-who"><strong>{agent.name}</strong><span><i className={`wb-dot ${liveness(agent)}`} />{status}</span></div>
           </div>
-          <button className="ys-round ys-rec" onClick={onRecord} aria-label={`Chat record${fresh > 0 ? `, ${fresh} new` : ""}`} data-testid="stage-record">
-            <RecordIcon />{fresh > 0 ? <i>{fresh}</i> : null}
-          </button>
+          <span className="ys-tools">
+            {onNewChat ? <button className="ys-round" onClick={onNewChat} aria-label="New chat" data-testid="new-chat"><PenIcon /></button> : null}
+            <button className="ys-round ys-rec" onClick={onRecord} aria-label={`Chat record${fresh > 0 ? `, ${fresh} new` : ""}`} data-testid="stage-record">
+              <RecordIcon />{fresh > 0 ? <i>{fresh}</i> : null}
+            </button>
+          </span>
         </header>
         {names.length > 1 ? <Pills names={names} at={at} titles={titles} onGo={goIndex} /> : null}
         <div className="ys-center" aria-live="polite">

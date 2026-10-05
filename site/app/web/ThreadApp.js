@@ -531,8 +531,8 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       {perf ? <PerfHud /> : null}
       <aside className={`wb-side${drawer ? " open" : ""}`} aria-label="Drawer">
         {open ? (
-          <DrawerPanel agent={open} api={api} chats={drawerChats} email={email} earn={earn} onSettings={() => { setDrawer(false); setSheet({ settings: "" }); }} onClose={() => setDrawer(false)} onSwitch={() => setSwitcher(true)} onAdd={() => { setDrawer(false); setSheet("add"); }} onQuick={openPalette}
-            canAdd={!!sorted && !(sorted.length && sorted.every((a) => a.shared))} review={0}
+          <DrawerPanel agent={open} api={api} chats={drawerChats} email={email} earn={earn} onSettings={() => { setDrawer(false); setSheet({ settings: "" }); }} onClose={() => setDrawer(false)} onSwitch={() => setSwitcher(true)} onQuick={openPalette}
+            review={0}
             handlers={{ onNewChat, onOpenChat, onRename, onDeleteChat, onMoreChats, onEdit: (a) => { setDrawer(false); setSheet({ edit: a.id }); }, onControls: (section) => { setDrawer(false); setSheet({ controls: section }); } }}>
             {foot}
           </DrawerPanel>
@@ -564,10 +564,13 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
               <span className="wb-head-words"><b>{open.name}</b><small><i className={`wb-dot ${liveness(open)}`} />{presenceLabel(open)}</small></span>
             </>
           ) : <span className="wb-head-words"><b>Yui</b></span>}
+          {open ? <button className="wb-iconbtn wb-pen" onClick={onNewChat} aria-label="New chat" title="New chat" data-testid="head-new-chat">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19l-4 1zM14.5 6.5l3 3" fill="none" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" /></svg>
+          </button> : null}
           {open ? <button className="wb-viewbtn" data-testid="to-stage" onClick={() => setView("stage")}>Stage</button> : null}
         </header> : null}
         {groupId ? (group && sorted ? <GroupThread key={group.id} api={groupsApi} relay={relay} cache={cache} group={group} agents={sorted} light={light} userId={userId} onMenu={() => setDrawer(true)} onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} onChanged={refreshGroups} onArchived={() => { cache?.groupRows.drop(group.id); refreshGroups(); go(`/web${keep}`); }} /> : <div className="wb-wait center">Opening the group...</div>)
-          : open && ready ? <ThreadView key={threadKey} landing={landing} onLanded={landed} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} cache={cache} early={earlyRows.current} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onApi={setApi}
+          : open && ready ? <ThreadView key={threadKey} landing={landing} onLanded={landed} relay={relay} userId={userId} agent={threadAgent} agents={sorted} outbox={outbox} cache={cache} early={earlyRows.current} chat={openChatId} light={light} view={view} setView={setView} onMenu={() => setDrawer(true)} onNewChat={onNewChat} onApi={setApi}
           onOpenAgent={(id) => { const a = sorted.find((x) => x.id === id); if (a) pick(a); }} />
           : error && !sorted ? <div className="wb-signed-out"><p>Yui could not reach your agents. Try again in a moment.</p><button className="wb-cta" onClick={load}>Try again</button></div>
           : sorted && !sorted.length ? (
