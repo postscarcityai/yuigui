@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T22:45:38.930Z",
+  "updated": "2026-10-05T22:55:40.880Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,10 +290,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-303",
-          "title": "/web home calms down too, chats first, the twin of Chris's home-screen pick"
-        },
-        {
           "key": "SITE-199",
           "title": "Thought, side pages say what is on them"
         },
@@ -326,10 +322,6 @@
           "title": "Pages that morph, not a line"
         },
         {
-          "key": "NOTE-50415",
-          "title": "A cleaner drawer"
-        },
-        {
           "key": "NOTE-54787",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -343,6 +335,16 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-7746",
+          "title": "A calmer home screen, chats first",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-50415",
+          "title": "A cleaner drawer",
+          "needsDemo": true
         }
       ]
     },
@@ -351,8 +353,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-7746",
-          "title": "A calmer home screen, chats first",
+          "key": "YUI-303",
+          "title": "/web home calms down too, chats first, the twin of Chris's home-screen pick",
           "owner": "CJohnDesign"
         },
         {
