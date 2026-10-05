@@ -20,3 +20,5 @@ body, .yui-embed, .yui-embed button, .yui-embed input, .yui-embed textarea { fon
 .yui-note.ok { color: var(--accent2); }
 .is-light .yui-note.ok { color: #0f7a6c; }
 .yui-note.bad { color: #ff8a8a; }
+/* YUI-295: a drawing never grows past a phone-sized column in a wide host frame; it keeps its aspect and sits centred. /web and the playground already cap their column, so only the MCP view needs it. */
+.yui-embed .yl-shsvg, .yui-embed .yl-mapsvg { max-width: 420px; margin-left: auto; margin-right: auto; }
