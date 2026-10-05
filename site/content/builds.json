@@ -2076,6 +2076,9 @@
     {
       "text": "yui-mcp: serve the YUI-291 drawing kit bundle",
       "card": "YUI-293"
+    },
+    {
+      "text": "YUI-295: sync MCP App with the capped drawing"
     }
   ]
 }
