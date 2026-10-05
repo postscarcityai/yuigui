@@ -61,9 +61,7 @@ for (const theme of ["dark", "light"]) {
   await pg.waitForTimeout(2500);
   ok(await pill() === "Home", `${theme}: Gouda opens on the home, not on its newest screen (${await pill()})`);
   const sent0 = await pg.evaluate(() => window.yuiWebDemo.wire("demo-gouda").length);
-  await pg.getByTestId("stage-menu").click();
-  await pg.waitForTimeout(600);
-  await pg.getByTestId("shortcut-tune").click();
+  await pg.getByTestId("home-chip-tune").click();
   await pg.waitForFunction(() => document.querySelector(".wb-pill.on")?.textContent !== "Home", null, { timeout: 8000 });
   await pg.waitForTimeout(1500);
   const body = await pg.locator("[data-testid=stage]").innerText();

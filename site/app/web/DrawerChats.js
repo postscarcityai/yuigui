@@ -64,7 +64,6 @@ export default function DrawerChats({ agent, chats, openId, draftOpen, onOpenCha
       {draftOpen ? <p className="dc-draft" data-testid="draft-chat">New chat. Say something and it shows up here.</p> : null}
       {chats.items.length ? (
         <>
-          <h3 className="dr-heading">Chats</h3>
           {chats.items.length > SEARCH_AFTER ? (
             <div className="dc-search">
               <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search chats" aria-label="Search chats" />

@@ -30,9 +30,8 @@ for (const theme of ["dark", "light"]) {
   if (SHOTS) await pg.screenshot({ path: `${SHOTS}/web-page-name-pill-${theme}.png` });
 
   await pg.locator("[data-testid=stage-menu]").click();
-  await pg.waitForSelector("[data-testid=screen-3]", { timeout: 5000 });
-  const row = await pg.locator("[data-testid=screen-3]").innerText();
-  ok(/Timer/.test(row), `${t}: the drawer row says Timer (${row.replace(/\n/g, " ")})`);
+  await pg.waitForSelector("[data-testid=drawer]", { timeout: 5000 });
+  ok(await pg.locator("[data-testid=screen-3]").count() === 0, `${t}: the drawer holds no screen rows, the pills name them`);
   if (SHOTS) await pg.screenshot({ path: `${SHOTS}/web-page-name-drawer-${theme}.png` });
   ok(!/Screen \d/.test(await pg.locator("body").innerText()), `${t}: "Screen N" is nowhere on the page`);
   ok(errs.length === 0, `${t}: no page errors ${errs.join("|")}`);

@@ -1,12 +1,12 @@
 "use client";
-// The agent drawer (Agents/AgentDrawer.swift, AgentMenu.swift): Home (chats, what is next, the backlog, its
-// screens, its shortcuts), Review (what waits on you), Agent (who it is, its settings). `menu` lines draw
+// The agent drawer (Agents/AgentDrawer.swift, AgentMenu.swift): Home (the chats, nothing else), Review (what
+// waits on you), Agent (who it is, its backlog under More, its settings). `menu` lines draw
 // nothing in the chat; they land here, and a tap sends the same bucket line the phone sends. The bar at the
 // foot switches agents and Add agent is always in reach, so a stranger finds it.
 import { useEffect, useState } from "react";
 import { controlSections, statusLine, isShared, isYui } from "../../lib/web/agents.mjs";
 import { liveness } from "../../lib/web/presence.mjs";
-import { isHostAsk, pageTitle } from "../../lib/web/stage.mjs";
+import { isHostAsk } from "../../lib/web/stage.mjs";
 import { firstName, initialOf } from "../../lib/web/earn.mjs";
 import DrawerChats from "./DrawerChats";
 import { Face } from "./parts";
@@ -38,50 +38,25 @@ function Tabs({ tab, setTab, review }) {
   );
 }
 
-function Home({ agent, api, chats, close, handlers, goReview }) {
-  const home = api?.home;
-  const waiting = home?.waiting || [];
-  const backlog = home?.backlog || [];
-  const shortcuts = home?.shortcuts || [];
-  const commands = (agent.commands || []).slice(0, 6);
-  const pages = home?.pages || [];
-  const go = (fn) => () => { close(); fn(); };
+function Home({ agent, chats, handlers }) {
+  return (
+    <DrawerChats agent={agent} chats={chats} openId={chats.openId} draftOpen={chats.draftOpen} note={chats.note}
+      onOpenChat={handlers.onOpenChat} onRename={handlers.onRename} onDelete={handlers.onDeleteChat} onMore={handlers.onMoreChats} />
+  );
+}
+
+// What the agent is working on for you (`menu backlog`), one quiet list on the Agent tab. It left Home (Chris, Oct 5:
+// "keep the first screen just to the chats"); Next up, the Screens rows and the Shortcuts rows are cut, not moved:
+// Review's count, the pills beside the chat and the chips over the bar already do those jobs.
+function More({ api, close }) {
+  const backlog = api?.home?.backlog || [];
+  if (!backlog.length) return null;
   return (
     <>
-      <DrawerChats agent={agent} chats={chats} openId={chats.openId} draftOpen={chats.draftOpen} note={chats.note}
-        onOpenChat={handlers.onOpenChat} onRename={handlers.onRename} onDelete={handlers.onDeleteChat} onMore={handlers.onMoreChats} />
-      {waiting.length ? (
-        <>
-          <h3 className="dr-heading">Next up for you</h3>
-          <button type="button" className="dr-next" data-testid="next-up" onClick={goReview}>
-            <span className="dr-ico on" aria-hidden="true">☝</span>
-            <span className="dr-words"><b>{waiting[0].label}</b><small>{waiting[0].sub || "For you"}</small></span>
-            <em className="dr-count">{waiting.length}</em>
-          </button>
-        </>
-      ) : null}
-      {backlog.length ? (
-        <>
-          <h3 className="dr-heading">Backlog</h3>
-          {backlog.map((it) => <Row key={it.id} icon={iconOf(it, "⏳")} title={it.label} sub={it.sub} testid={`backlog-${it.id}`} onClick={go(() => api.run(it, "backlog"))} />)}
-        </>
-      ) : null}
-      {pages.length ? (
-        <>
-          <h3 className="dr-heading">Screens</h3>
-          {pages.map((k) => <Row key={k} icon="▭" title={pageTitle(home.state, k, home.saved)} testid={`screen-${k}`} onClick={go(() => api.run({ go: k }, "page"))} />)}
-        </>
-      ) : null}
-      {shortcuts.length || commands.length ? (
-        <>
-          <h3 className="dr-heading">Shortcuts</h3>
-          {shortcuts.map((it) => <Row key={it.id} icon="✦" title={it.label} sub={it.sub} testid={`shortcut-${it.id}`} onClick={go(() => api.run(it, "shortcut"))} />)}
-          {commands.map((cmd) => (
-            <Row key={cmd.name} icon="⚡" title={cmd.description || `/${cmd.name}`} sub={`/${cmd.name}${cmd.args ? ` ${cmd.args}` : ""}`} testid={`command-${cmd.name}`}
-              onClick={go(() => (cmd.args ? api.compose(`/${cmd.name} `) : api.send(`/${cmd.name}`)))} />
-          ))}
-        </>
-      ) : null}
+      <h3 className="dr-heading">More</h3>
+      <div className="dr-more" data-testid="drawer-more">
+        {backlog.map((it) => <Row key={it.id} icon={iconOf(it, "⏳")} title={it.label} sub={it.sub} testid={`backlog-${it.id}`} onClick={() => { close(); api.run(it, "backlog"); }} />)}
+      </div>
     </>
   );
 }
@@ -141,6 +116,7 @@ function AgentTab({ agent, api, close, handlers }) {
           {starters.map((w, i) => <Row key={w} icon="💬" title={w} testid={`about-can-${i}`} onClick={() => { close(); api.send(w); }} />)}
         </>
       ) : null}
+      <More api={api} close={close} />
       <dl className="dr-facts" data-testid="about-facts">
         <div><dt>Runs on</dt><dd>{agent.connector_name || HOSTS[agent.kind] || agent.kind}</dd></div>
         {agent.remote_ref ? <div><dt>Profile</dt><dd>{agent.remote_ref}</dd></div> : null}
@@ -194,7 +170,7 @@ export default function DrawerPanel({ agent, api, chats, handlers, onClose, onSw
       </header>
       <Tabs tab={tab} setTab={setTab} review={waitingN + review} />
       <div className="dr-scroll" id="dr-pane" role="tabpanel" aria-labelledby={`dr-tab-${tab}`}>
-        {tab === "Home" ? <Home agent={agent} api={api} chats={chats} close={onClose} handlers={handlers} goReview={() => setTab("Review")} /> : null}
+        {tab === "Home" ? <Home agent={agent} chats={chats} handlers={handlers} /> : null}
         {tab === "Review" ? <Review agent={agent} api={api} close={onClose} /> : null}
         {tab === "Agent" ? <AgentTab agent={agent} api={api} close={onClose} handlers={handlers} /> : null}
       </div>

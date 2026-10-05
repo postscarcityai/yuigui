@@ -292,3 +292,4 @@
 .dc-search { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .dc-search input { flex: 1; min-width: 0; width: auto; }
 .dc-mic { display: contents; }
+.dr-more { display: flex; flex-direction: column; gap: 6px; }

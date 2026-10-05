@@ -116,14 +116,20 @@ for (const [vp, tag] of [[PHONE, "390"], [DESK, "desktop"]]) for (const theme of
   // ---------- menu rows from the agent, the Review tab, the Agent tab ----------
   pg = await open(vp, theme, { path: "/web/agent/demo-basil" });
   await drawer(pg, vp);
-  ok(await pg.getByTestId("next-up").isVisible(), `${T}: Next up for you shows the review item`);
-  ok(await pg.getByTestId("backlog-plan").isVisible() && await pg.getByTestId("shortcut-groceries").isVisible(), `${T}: backlog and shortcut rows come from the agent's menu lines`);
+  // YUI-303: Home in the drawer is the chats and nothing else; the backlog sits under Agent > More; the shortcuts are the chips over the bar.
+  for (const id of ["next-up", "backlog-plan", "shortcut-groceries", "shortcut-log"]) ok(await pg.getByTestId(id).count() === 0, `${T}: no ${id} row on Home`);
+  ok(await pg.locator(".dr-heading").count() === 0, `${T}: Home has no headings`);
+  await pg.getByTestId("tab-agent").click();
+  ok(await pg.getByTestId("drawer-more").isVisible() && await pg.getByTestId("backlog-plan").isVisible(), `${T}: the backlog comes from the agent's menu lines, under Agent > More`);
   await shot(pg, `web-agents-menu-${tag}-${theme}`);
-  await pg.getByTestId("shortcut-groceries").click();
+  await pg.getByTestId("tab-home").click();
+  await pg.keyboard.press("Escape");
+  if (vp.width < 760) await pg.locator(".wb-side.open .wb-close, .wb-side.open [aria-label='Close the drawer']").first().click().catch(() => {});
+  await pg.waitForTimeout(450);
+  await pg.getByTestId("home-chip-groceries").click();
   await pg.waitForTimeout(500);
-  ok((await wire(pg, "demo-basil")).at(-1) === "Show my grocery list", `${T}: a shortcut sends its words as your message`);
-  await drawer(pg, vp);
-  await pg.getByTestId("shortcut-log").click();
+  ok((await wire(pg, "demo-basil")).at(-1) === "Show my grocery list", `${T}: a shortcut chip sends its words as your message`);
+  await pg.getByTestId("home-chip-log").click().catch(() => {});
   await pg.waitForTimeout(400);
   ok((await wire(pg, "demo-basil")).length === 1, `${T}: words ending in a space wait in the field instead of sending`);
   await drawer(pg, vp);
