@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T09:40:15.806Z",
+  "updated": "2026-10-05T10:17:50.888Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -355,6 +355,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-301",
+          "title": "The drawing kit on /web gets its own e2e test",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-196",
+          "title": "Every link and image on the site resolves, sweep after the drawing and tables week",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
