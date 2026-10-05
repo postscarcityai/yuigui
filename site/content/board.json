@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T03:05:57.024Z",
+  "updated": "2026-10-05T03:10:58.024Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -299,11 +299,6 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
-          "key": "SITE-188",
-          "title": "Thought",
-          "summary": "Every field you can say, phone and web"
-        },
-        {
           "key": "NOTE-3651",
           "title": "Add an agent, tucked away"
         },
@@ -368,6 +363,12 @@
         {
           "key": "YUI-289",
           "title": "/web plan and form answers survive a reload",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-188",
+          "title": "Thought",
+          "summary": "Every field you can say, phone and web",
           "owner": "CJohnDesign"
         },
         {
