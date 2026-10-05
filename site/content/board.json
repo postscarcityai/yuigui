@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T08:21:09.953Z",
+  "updated": "2026-10-05T08:26:05.107Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -28,6 +28,13 @@
       "key": "backlog",
       "title": "Backlog",
       "cards": [
+        {
+          "key": "YUI-36",
+          "title": "Encrypted sync of agent tables in the app",
+          "step": "Step 2",
+          "waiting": true,
+          "progress": "/progress#your-tables-synced-and-private"
+        },
         {
           "key": "YUI-41",
           "title": "On-device model for routing and quick replies",
@@ -354,14 +361,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-36",
-          "title": "Optional encrypted sync for agent tables",
-          "step": "Step 1",
-          "summary": "Your tables, synced and private",
-          "progress": "/progress#your-tables-synced-and-private",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -379,6 +378,15 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-36",
+          "title": "Optional encrypted sync for agent tables",
+          "step": "Step 1",
+          "summary": "Your tables, synced and private",
+          "shipped": "2026-10-05",
+          "progress": "/progress#your-tables-synced-and-private",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0b2d64ca"
+        },
         {
           "key": "YUI-299",
           "title": "+hand and marks on the phone",
