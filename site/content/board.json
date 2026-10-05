@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T19:51:02.472Z",
+  "updated": "2026-10-05T20:47:09.073Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -351,11 +351,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-45868",
-          "title": "Decks that fill the screen and move",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-306",
           "title": "/web side pages named for what is on them, never Screen N",
           "owner": "CJohnDesign"
@@ -399,6 +394,12 @@
         {
           "key": "NOTE-61729",
           "title": "Drop the agent roster page",
+          "blocked": "other",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-45868",
+          "title": "Decks that fill the screen and move",
           "blocked": "other",
           "owner": "CJohnDesign"
         }
