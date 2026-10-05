@@ -2126,6 +2126,20 @@
     },
     {
       "text": "Yui's home is a calm chat: no agent roster page; an old crew page drops on launch (feedback AIO9slfx)"
+    },
+    {
+      "text": "Workout runner: music strip and edits on the fly; the answer's edits say what changed",
+      "card": "YUI-305"
+    },
+    {
+      "text": "Decks are a stage that morphs: no card, no dots, shapes carry from page to page (NOTE-45868, NOTE-60149, NOTE-44205)"
+    },
+    {
+      "text": "Deck stage runs edge to edge on the stage; page turners labelled; light fades in under the header",
+      "card": "NOTE-45868"
+    },
+    {
+      "text": "ScreenNameTabTests: run light and dark, shot per look (feedback AHcav8vW)"
     }
   ]
 }
