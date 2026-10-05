@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T05:40:41.507Z",
+  "updated": "2026-10-05T05:45:41.632Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -363,6 +363,7 @@
         {
           "key": "NOTE-4897",
           "title": "Yui gave up on a question",
+          "progress": "/progress#a-question-nobody-answered-says-so-with-try-again",
           "owner": "CJohnDesign"
         },
         {
