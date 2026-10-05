@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T01:51:52.570Z",
+  "updated": "2026-10-05T02:06:16.144Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -366,6 +366,11 @@
       "title": "Building",
       "cards": [
         {
+          "key": "YUI-288",
+          "title": "/web full-screen pages go back with a tap on the left third",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -376,14 +381,6 @@
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-287",
-          "title": "/web drawer drops New chat and Add an agent; Add an agent is the last row of the agents list",
-          "summary": "A quieter drawer on the web",
-          "blocked": "other",
-          "progress": "/progress#a-quieter-drawer-on-the-web",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -391,6 +388,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-287",
+          "title": "/web drawer drops New chat and Add an agent; Add an agent is the last row of the agents list",
+          "summary": "A quieter drawer on the web",
+          "shipped": "2026-10-04",
+          "progress": "/progress#a-quieter-drawer-on-the-web",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b5280563"
+        },
         {
           "key": "SITE-187",
           "title": "Values page gets value 10, say it, don't type it",
