@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-04T23:58:41.616Z",
+  "updated": "2026-10-05T00:08:19.898Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -299,6 +299,11 @@
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
         },
         {
+          "key": "SITE-188",
+          "title": "Thought",
+          "summary": "Every field you can say, phone and web"
+        },
+        {
           "key": "NOTE-3651",
           "title": "Add an agent, tucked away"
         },
@@ -360,6 +365,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-287",
+          "title": "/web drawer drops New chat and Add an agent; Add an agent is the last row of the agents list",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
