@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T16:00:47.681Z",
+  "updated": "2026-10-05T16:12:06.548Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -294,6 +294,10 @@
           "title": "/web home calms down too, chats first, the twin of Chris's home-screen pick"
         },
         {
+          "key": "SITE-199",
+          "title": "Thought, side pages say what is on them"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -331,6 +335,10 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-61729",
+          "title": "Drop the agent roster page"
         }
       ]
     },
@@ -338,13 +346,6 @@
       "key": "building",
       "title": "Building",
       "cards": [
-        {
-          "key": "YUI-304",
-          "title": "/web workout, Start opens the runner full screen, sets and rest",
-          "summary": "Start opens the workout on the web too, one set at a time",
-          "progress": "/progress#start-opens-the-workout-on-the-web-too-one-set-at-a-time",
-          "owner": "CJohnDesign"
-        },
         {
           "key": "NOTE-26959",
           "title": "Tabs named for what is on them",
@@ -374,6 +375,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-304",
+          "title": "/web workout, Start opens the runner full screen, sets and rest",
+          "summary": "Start opens the workout on the web too, one set at a time",
+          "shipped": "2026-10-05",
+          "progress": "/progress#start-opens-the-workout-on-the-web-too-one-set-at-a-time"
+        },
         {
           "key": "SITE-198",
           "title": "Thought, a workout you do, not a list you read",
