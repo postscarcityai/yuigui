@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T06:05:44.524Z",
+  "updated": "2026-10-05T06:10:45.565Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -363,16 +363,22 @@
         {
           "key": "YUI-292",
           "title": "The app's parser reads the drawing kit (Swift, look-free)",
+          "summary": "The phone reads Venns and contours",
+          "progress": "/progress#the-phone-reads-venns-and-contours",
           "owner": "CJohnDesign"
         },
         {
           "key": "YUI-293",
           "title": "The drawing kit goes live in the MCP App",
+          "summary": "Claude and ChatGPT draw the Venn and the contour too",
+          "progress": "/progress#claude-and-chatgpt-draw-the-venn-and-the-contour-too",
           "owner": "CJohnDesign"
         },
         {
           "key": "SITE-192",
           "title": "Thought, agents can draw a Venn now",
+          "summary": "A new Thought: agents can draw a Venn now",
+          "progress": "/progress#a-new-thought-agents-can-draw-a-venn-now",
           "owner": "CJohnDesign"
         },
         {
