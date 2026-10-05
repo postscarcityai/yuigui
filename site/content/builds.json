@@ -2114,6 +2114,9 @@
   "next": [
     {
       "text": "YUI-302: drawings match the hub: path +close/+fill/+sharp zone, rest state, parity UI test"
+    },
+    {
+      "text": "YUI-303: Start opens the workout runner full screen; sets ask reps and weight, then rest; Review never plays it in the drawer"
     }
   ]
 }
