@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T06:45:50.968Z",
+  "updated": "2026-10-05T06:55:51.410Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -305,7 +305,8 @@
         },
         {
           "key": "NOTE-3651",
-          "title": "Add an agent, tucked away"
+          "title": "Add an agent, tucked away",
+          "progress": "/progress#add-an-agent-tucked-away"
         },
         {
           "key": "NOTE-3941",
@@ -327,15 +328,18 @@
         },
         {
           "key": "NOTE-35492",
-          "title": "Tap left to go back"
+          "title": "Tap left to go back",
+          "progress": "/progress#tap-left-to-go-back"
         },
         {
           "key": "NOTE-37260",
-          "title": "Fewer buttons on the stage"
+          "title": "Fewer buttons on the stage",
+          "progress": "/progress#fewer-buttons-on-the-stage"
         },
         {
           "key": "NOTE-42080",
-          "title": "Ask and answer on one screen"
+          "title": "Ask and answer on one screen",
+          "progress": "/progress#ask-and-answer-on-one-screen"
         },
         {
           "key": "NOTE-43312",
