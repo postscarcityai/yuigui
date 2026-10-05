@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T13:05:20.282Z",
+  "updated": "2026-10-05T13:10:12.551Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -340,11 +340,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-197",
-          "title": "Thought, every drawing checked on both screens",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -362,6 +357,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-197",
+          "title": "Thought, every drawing checked on both screens",
+          "summary": "A Thought on checking every drawing twice",
+          "shipped": "2026-10-05",
+          "progress": "/progress#a-thought-on-checking-every-drawing-twice",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1ed37fa3"
+        },
         {
           "key": "NOTE-37260",
           "title": "Fewer buttons on the stage",
