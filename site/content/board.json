@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T05:36:16.423Z",
+  "updated": "2026-10-05T05:40:41.507Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -371,11 +371,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-191",
-          "title": "The spec says the phone keeps stage answers too",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -393,6 +388,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-191",
+          "title": "The spec says the phone keeps stage answers too",
+          "summary": "The docs say the phone keeps stage answers too",
+          "shipped": "2026-10-05",
+          "progress": "/progress#the-docs-say-the-phone-keeps-stage-answers-too"
+        },
         {
           "key": "YUI-290",
           "title": "/web choice cards' type-your-own field gets a mic, audit covers preset fields",
