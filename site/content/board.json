@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T09:25:13.554Z",
+  "updated": "2026-10-05T09:30:14.471Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -295,10 +295,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-195",
-          "title": "Thought, every agent can draw a table"
-        },
-        {
           "key": "NOTE-3651",
           "title": "Add an agent, tucked away",
           "progress": "/progress#add-an-agent-tucked-away"
@@ -360,11 +356,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-89b",
-          "title": "Tables guide + compat gate + MCP app",
-          "summary": "Agents keep tables instead of asking twice",
-          "blocked": "chris",
-          "progress": "/progress#agents-keep-tables-instead-of-asking-twice",
+          "key": "SITE-195",
+          "title": "Thought, every agent can draw a table",
           "owner": "CJohnDesign"
         },
         {
@@ -385,6 +378,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-89b",
+          "title": "Tables guide + compat gate + MCP app",
+          "summary": "Agents keep tables instead of asking twice",
+          "shipped": "2026-10-05",
+          "progress": "/progress#agents-keep-tables-instead-of-asking-twice"
+        },
         {
           "key": "SITE-194",
           "title": "Thought, agents mark the spot by hand",
