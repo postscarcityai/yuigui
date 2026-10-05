@@ -1065,6 +1065,47 @@ row "Hungary · Karakorum · Korea, on a map" +hi note="where: a map"
 row "Mongol 24 · Russian 22.8 · Qing 14.7 · Roman 5" +hi note="how big: a chart"`,
   },
   {
+    // t_88023cf2 (TestFlight feedback, Oct 5: "Eli5 string theory" came back as pages of plain text). The reply the native
+    // Home agent (GLM 5.2) wrote with the teaching block in its prompt: one line, one deck, a drawing right after every page.
+    slug: "explainer-eli5",
+    name: "Explainer: ELI5 string theory, a picture per page",
+    agent: "Yui",
+    yl: `say "Everything is made of tiny vibrating strings, and each vibration is a different particle."
+>full
+deck "String theory, simple"
+page "Tiny strings, not dots" body="We used to think the smallest bits of stuff were dots. String theory says they are tiny loops, like rubber bands."
+shapes caption="A dot becomes a loop."
+shape dot Dot
+shape arrow
+shape circle String +pulse tone=mint
+page "Wiggles make everything" body="A string can wiggle in many ways. Each wiggle is a different thing: light, matter, gravity."
+sketch "One string, many wiggles" frame=bubble
+row "Fast wiggle: light" +hi
+row "Slow wiggle: a heavy particle"
+row "A special wiggle: gravity"
+page "Hidden dimensions" body="The math only works if space has extra dimensions, curled up so tiny we can never see them."
+shapes caption="Tiny curled-up dimensions we can't see."
+shape box "3D space we see" +pulse
+shape arrow
+shape dot "6 more, curled tight" tone=lavender
+page "It's not proven" body="No one has seen a string. The math is beautiful but we have no proof yet."
+stat 0 "Strings found so far" spark=0|0|0|0
+choose "Where next?" "What is a dimension?"|"What is light made of?"|"What is gravity?"
+end`,
+  },
+  {
+    // t_88023cf2: the same ask before and after, as the screen draws it.
+    slug: "explainer-eli5-before-after",
+    name: "Explainer: text pages, then a drawing on each",
+    agent: "Yui",
+    yl: `sketch "Eli5 string theory" frame=phone before=Before
+row "More rooms than you see" +x note="a title over a paragraph"
+row "The strings need extra space to wiggle in, so string theory says the world has more dimensions than the three we see..." +x note="no drawing"
+after After
+row "Hidden dimensions: 3D space we see, then 6 more curled tight" +hi note="shapes on the page"
+row "Every page has its drawing" +hi note="the ask, not a second try"`,
+  },
+  {
     slug: "step-derivation",
     name: "Step: a derivation, one step at a time",
     agent: "Yui",

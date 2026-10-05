@@ -57,10 +57,14 @@ export function splitGuide(body) {
 }
 
 // `hint` (YUI-215): the one line the plugin adds to the turn when Jev is sure of the reply shape, after the look line.
+// --extra <file> (t_88023cf2): the native runtime's own system text (`node runtime/scripts/native_system.ts` in the yui repo:
+// its rules, the agent's soul, what it keeps), added after the guide the way runtime/src/prompt.ts buildTurn() does.
+const EXTRA = arg("extra") ? readFileSync(arg("extra"), "utf8").trim() : "";
+
 function system(g, suite, c, hint) {
   const { fixed, restyle } = splitGuide(g.body);
   return [suite.agents[c.agent], suite.context, "You are on the Yui channel with Chris.",
-    `Yui channel guide ${g.version}\n\n${fixed.trim()}`, [LOOK, restyle, hint].filter(Boolean).join("\n")].join("\n\n");
+    `Yui channel guide ${g.version}\n\n${fixed.trim()}`, [LOOK, restyle, hint].filter(Boolean).join("\n"), EXTRA].filter(Boolean).join("\n\n");
 }
 
 function prompt(c) {
@@ -362,6 +366,20 @@ export function score(c, reply) {
     const inDeck = (o) => { for (let x = o; x?.in; x = adds.find((a) => a.id === x.in)) if (adds.find((a) => a.id === x.in)?.preset === "deck") return true; return false; };
     if (top.length !== 1 || top[0].preset !== "deck") fails.push(`one deck: ${top.length} top-level pieces (${top.map((o) => o.preset).join(", ")}), want one deck`);
     for (const p of e.need || []) if (!adds.some((o) => o.preset === p && inDeck(o))) fails.push(`one deck: no ${p} inside the deck`);
+  }
+  // Explain with a picture on every page (t_88023cf2, Chris Oct 5: "Eli5 string theory" came back as text pages):
+  // an explainer is one deck of 2 to 4 pages and each page has its drawing right after it, no page is a paragraph.
+  if (e.explain) {
+    const PIC = new Set(["sketch", "shapes", "map", "chart", "stat", "math", "image", "diagram", "mock", "calc", "compare", "gallery", "timeline", "video"]);
+    const pages = adds.filter((o) => o.preset === "page");
+    if (!adds.some((o) => o.preset === "deck")) fails.push("explain: no deck");
+    if (pages.length < 2 || pages.length > 4) fails.push(`explain: ${pages.length} pages, want 2 to 4`);
+    for (const pg of pages) {
+      const next = adds[adds.indexOf(pg) + 1];
+      if (!next || !PIC.has(next.preset) || next.in !== pg.in) fails.push(`explain: a page with no picture :: ${pg.line.trim()}`);
+      const n = String(pg.props?.body || "").split(/\s+/).filter(Boolean).length;
+      if (n > 40) fails.push(`explain: a page that is a paragraph (${n} words) :: ${pg.line.trim()}`);
+    }
   }
   // The working row (YUI-63): a long turn says what it is doing, at least this many
   // times, in plain words (no card ids, file names, tool names or code).
