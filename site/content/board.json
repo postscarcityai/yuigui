@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T01:18:51.748Z",
+  "updated": "2026-10-05T01:51:52.570Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -366,11 +366,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-287",
-          "title": "/web drawer drops New chat and Add an agent; Add an agent is the last row of the agents list",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -380,6 +375,14 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-287",
+          "title": "/web drawer drops New chat and Add an agent; Add an agent is the last row of the agents list",
+          "summary": "A quieter drawer on the web",
+          "blocked": "other",
+          "progress": "/progress#a-quieter-drawer-on-the-web",
           "owner": "CJohnDesign"
         }
       ]
