@@ -23,7 +23,9 @@
           "choose",
           "pick",
           "slide",
-          "table"
+          "table",
+          "query",
+          "put"
         ],
         "need": [
           "list",
@@ -728,7 +730,9 @@
           "choose",
           "pick",
           "slide",
-          "table"
+          "table",
+          "query",
+          "put"
         ],
         "no_add": [],
         "max_words": 30
@@ -3786,6 +3790,48 @@
         "max_components": 4
       },
       "good": "One line, then a `mock` of the checkout from parts: card, row with value, field, button +hi. Not a sketch, not a paragraph."
+    },
+    {
+      "id": "table-coach-asked-twice",
+      "category": "table",
+      "agent": "Arnold",
+      "history": [
+        {
+          "role": "user",
+          "text": "Leg day, build me the session."
+        },
+        {
+          "role": "agent",
+          "text": "Leg day, built. Moves and their swaps are saved.\n```yui\ntable create variations Move:text Swap:text Cue:text\nput variations goblet-squat Move=\"Goblet squat\" Swap=\"Front squat\" Cue=\"Elbows up\"\nput variations rdl Move=\"Romanian deadlift\" Swap=\"Hip thrust\" Cue=\"Hips back\"\ntable create session Slot:number Move:text Sets:number Reps:number Done:bool\nput session 1 Slot=1 Move=\"Goblet squat\" Sets=3 Reps=8\nput session 2 Slot=2 Move=\"Romanian deadlift\" Sets=3 Reps=10\nquery session sort=Slot cols=Move|Sets|Done as list check=Done \"Today\"\n```"
+        },
+        {
+          "role": "user",
+          "text": "[yui] r1 check Done=true"
+        },
+        {
+          "role": "agent",
+          "text": "Squats down. Next up."
+        }
+      ],
+      "message": "Swap the goblet squats today, same swap as last time.",
+      "expect": {
+        "screen": "any",
+        "presets": [
+          "query",
+          "put",
+          "say",
+          "list",
+          "card",
+          "stat",
+          "table"
+        ],
+        "need": [
+          "query"
+        ],
+        "max_words": 40,
+        "need_text": "query variations"
+      },
+      "good": "One line. Reads the saved swap with `query variations ...` (a read, no screen) instead of asking which move to use, then puts it in the session on the next turn."
     }
   ]
 }

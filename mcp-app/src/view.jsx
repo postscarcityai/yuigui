@@ -16,11 +16,12 @@
 // frame (its Apps SDK API, older than the bridge): when that is there, the
 // view reads the tool result and theme from it too, and when the bridge never
 // answers, taps go out with window.openai.callTool and sendFollowUpMessage.
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { apply, initialState, parse } from "../../site/lib/yl/yl.mjs";
 import { Render, StepGroup, TABLES } from "../../site/app/playground/presets";
 import { Group, groupNodes } from "../../site/app/playground/flows";
+import { boundTables } from "../../site/lib/yl/tables.mjs";
 import { ScreenCtx } from "../../site/app/playground/science";
 import { LiveSlot, Stage, StagePill } from "../../site/app/playground/stage";
 import { echoFor, eventLine, relays } from "./events.mjs";
@@ -95,6 +96,8 @@ function Screen({ lines, agent, light, send }) {
   const [live, setLive] = useState({});
   const onLive = useCallback((k, t) => setLive((l) => (l[k] === t ? l : { ...l, [k]: t })), []);
   const dispatch = useCallback((op) => setState((s) => apply(s, op)), []);
+  // Agent tables (YL.md section 8): rows the reply wrote, and the ticks and edits on a bound screen, live in this view only.
+  const tables = useMemo(() => ({ ...TABLES, ...boundTables(state.data) }), [state.data]);
   const emits = useRef(new Map());
   const sendRef = useRef(send);
   sendRef.current = send;
@@ -119,13 +122,13 @@ function Screen({ lines, agent, light, send }) {
   return (
     <div className={`screen ${light ? "light" : ""} ${stageOpen ? "staged" : ""}`}>
       <div className="pg-screen">
-        <ScreenCtx.Provider value={{ nodes, tables: TABLES, agent, screen: shown, dispatch }}>
+        <ScreenCtx.Provider value={{ nodes, tables, data: state.data, write: dispatch, agent, screen: shown, dispatch }}>
           {groupNodes(nodes).map(renderNode)}
           {staged.length ? <StagePill nodes={staged} live={live} onOpen={() => setState((s) => ({ ...s, stage: true }))} /> : null}
         </ScreenCtx.Provider>
       </div>
       <Stage open={stageOpen} onClose={() => setState((s) => ({ ...s, stage: false }))} agent={agent}>
-        <ScreenCtx.Provider value={{ nodes: staged, tables: TABLES, agent, screen: "full", dispatch }}>
+        <ScreenCtx.Provider value={{ nodes: staged, tables, data: state.data, write: dispatch, agent, screen: "full", dispatch }}>
           {groupNodes(staged).map((n) => <LiveSlot key={`${n.key}:slot`} id={n.key} onLive={onLive}>{renderNode(n)}</LiveSlot>)}
         </ScreenCtx.Provider>
       </Stage>
