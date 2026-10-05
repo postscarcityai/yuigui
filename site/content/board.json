@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T05:55:42.432Z",
+  "updated": "2026-10-05T06:05:44.524Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -360,6 +360,21 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-292",
+          "title": "The app's parser reads the drawing kit (Swift, look-free)",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-293",
+          "title": "The drawing kit goes live in the MCP App",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-192",
+          "title": "Thought, agents can draw a Venn now",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
