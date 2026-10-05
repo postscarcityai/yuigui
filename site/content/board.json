@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T08:36:07.527Z",
+  "updated": "2026-10-05T08:41:07.589Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -363,6 +363,8 @@
         {
           "key": "SITE-194",
           "title": "Thought, agents mark the spot by hand",
+          "summary": "A Thought: agents mark the spot by hand",
+          "progress": "/progress#a-thought-agents-mark-the-spot-by-hand",
           "owner": "CJohnDesign"
         },
         {
