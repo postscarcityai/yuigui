@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T21:01:21.707Z",
+  "updated": "2026-10-05T21:26:43.915Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -397,12 +397,6 @@
           "title": "Decks that fill the screen and move",
           "blocked": "other",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-306",
-          "title": "/web side pages named for what is on them, never Screen N",
-          "blocked": "other",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -410,6 +404,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-306",
+          "title": "/web side pages named for what is on them, never Screen N",
+          "summary": "Web pages are named for what is on them",
+          "shipped": "2026-10-05",
+          "progress": "/progress#web-pages-are-named-for-what-is-on-them"
+        },
         {
           "key": "YUI-304",
           "title": "/web workout, Start opens the runner full screen, sets and rest",
