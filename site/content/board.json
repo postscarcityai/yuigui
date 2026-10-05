@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T18:54:48.804Z",
+  "updated": "2026-10-05T19:31:27.974Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -351,16 +351,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-7746",
-          "title": "A calmer home screen, chats first",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-305",
-          "title": "Workouts with music and live edits",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-61729",
           "title": "Drop the agent roster page",
           "owner": "CJohnDesign"
@@ -383,6 +373,12 @@
           "owner": "CJohnDesign"
         },
         {
+          "key": "NOTE-7746",
+          "title": "A calmer home screen, chats first",
+          "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-26959",
           "title": "Tabs named for what is on them",
           "blocked": "chris",
@@ -391,6 +387,12 @@
         {
           "key": "NOTE-57356",
           "title": "Questions that say what they ask",
+          "blocked": "other",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-305",
+          "title": "Workouts with music and live edits",
           "blocked": "other",
           "owner": "CJohnDesign"
         }
