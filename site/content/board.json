@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T18:08:39.757Z",
+  "updated": "2026-10-05T18:54:48.804Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -356,7 +356,7 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "NOTE-28767",
+          "key": "YUI-305",
           "title": "Workouts with music and live edits",
           "owner": "CJohnDesign"
         },
