@@ -209,6 +209,8 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
 
   // ---- the bar ----
   const [pageAt, setPageAt] = useState("1");
+  const pageAtRef = useRef("1");
+  pageAtRef.current = pageAt;
   const [typing, setTyping] = useState(false);
   const [secs, setSecs] = useState(0);
   const [toast, setToast] = useState("");
@@ -328,7 +330,13 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   const hints = useMemo(() => store.hints({ agents, current: agent.id, commands }), [st.draft, agents, agent.id, commands]); // eslint-disable-line react-hooks/exhaustive-deps
   const pick = (sug) => { store.setDraft(sug.fill); input.current?.focus(); };
   const keys = useSuggestKeys(hints.list, pick);
-  const tap = useCallback((ev, said) => { sync.tap(ev, said); }, [sync]);
+  // A card's button on a page beside the home (Today's workout: Start) asks the agent for something that answers on
+  // the home: go there, where the working line and the answer are. Left on the page, the reply landed out of sight
+  // (the app's twin, ChatStore: goToPage(1); build 522 "Start does nothing").
+  const tap = useCallback((ev, said) => {
+    sync.tap(ev, said);
+    if (ev?.preset === "card" && ev.cta && pageAtRef.current !== "1") setPageAt("1");
+  }, [sync]);
   const answerAll = useCallback((events) => { for (const ev of events) sync.tap(ev); }, [sync]);
   const stop = useCallback(() => sync.stopTurn(), [sync]);
   const ready = (!!draft.trim() || st.photos.length > 0) && !st.busy;

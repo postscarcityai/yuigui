@@ -97,6 +97,10 @@ export function savedPages(messages) {
 // The signed-in web draws what the app draws: the tuner is a page of Gouda's (YUI-252), not only the public chat's set.
 const SIGNED_IN = new Set(["tuner"]);
 
+// A reply that holds a workout (YUI-304): a `plan` with set picks ("Set 1".."Set N") in it. It plays full screen as
+// the runner, never inside the drawer (AgentDrawer.swift `holdsWorkout`).
+export const holdsWorkout = (yl) => typeof yl === "string" && /^\s*plan\b/m.test(yl) && /^\s*pick\b[^\n]*"?Set 1"?/m.test(yl);
+
 // Everything the agent's home draws: the newest shortcuts as chips, the review items, the pages and
 // where a `show=` goes. `opened` is the thread's own opening line when it has one.
 export function homeOf(messages, dismissed = {}) {
@@ -109,7 +113,10 @@ export function homeOf(messages, dismissed = {}) {
   menu.review = menu.review.filter((it) => !(dismissed[it.id] > 0 && !(seen[it.id] > dismissed[it.id])));
   const pg = threadPages(repliesOf(messages), SIGNED_IN);
   const saved = savedPages(messages);
+  // The newest workout the agent sent: where a Review row for a workout plays it, on the stage.
+  const workout = [...messages].reverse().find((m) => m.role === "agent" && !m.from && holdsWorkout(m.yl))?.id ?? null;
   return {
+    workout,
     chips: menu.shortcut.slice(0, MAX_CHIPS),
     // Every shortcut the agent put in its drawer (the chips are the newest few).
     shortcuts: menu.shortcut,
@@ -142,6 +149,8 @@ export function chipAction(item, home) {
 export function waitingAction(item, home) {
   if (item.show && home.saved[item.show]) return { show: item.show };
   if (typeof item.url === "string" && /^https:\/\//i.test(item.url)) return { open: item.url };
+  // A workout never plays in the drawer: the drawer closes and the runner opens on the stage (Chris, build 522).
+  if (home.workout && /\bworkout\b/i.test(item.label || "")) return { play: home.workout };
   return { tap: { id: item.id, preset: "menu", bucket: "review", tapped: true }, said: item.label };
 }
 

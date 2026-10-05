@@ -96,6 +96,68 @@ export function targetOf(runner, move, progress) {
   }).filter(Boolean).join(" · ");
 }
 
+// ---- one set at a time (YUI-304, the web twin of WorkoutSession.swift's log step, YUI-303) ----
+// A set tapped does not tick at once: the runner asks what was done (reps or seconds, weight), chips around the plan's
+// number, a stepper and a mic. "Log set" ticks it, keeps the numbers and starts the rest.
+
+// The reps nudge (reps or seconds) and the weight nudge of a move.
+export const repsNudge = (move) => move.nudges.find((n) => !String(n.id).endsWith("-lb")) || null;
+export const weightNudge = (move) => move.nudges.find((n) => String(n.id).endsWith("-lb")) || null;
+const valueOf = (progress, n) => (n ? progress.values[n.id] ?? (typeof n.props?.value === "number" ? n.props.value : null) : null);
+
+// What the log step starts from: the move's numbers as they stand (the last set's, else the plan's).
+export function logStart(move, progress) {
+  const r = repsNudge(move), w = weightNudge(move);
+  const timed = !!r && String(r.id).endsWith("-secs");
+  return {
+    timed,
+    reps: valueOf(progress, r) ?? 8,
+    weight: w ? valueOf(progress, w) ?? 0 : null,
+    repsStep: Math.max(Number.isFinite(r?.props?.step) ? r.props.step : 1, 1),
+    repsMin: Number.isFinite(r?.props?.min) ? r.props.min : 1,
+    repsMax: Math.max(Number.isFinite(r?.props?.max) ? r.props.max : 60, 1),
+    weightStep: Math.max(Number.isFinite(w?.props?.step) ? w.props.step : 5, 0.5),
+    weightMin: Number.isFinite(w?.props?.min) ? w.props.min : 0,
+    weightMax: Number.isFinite(w?.props?.max) ? w.props.max : 500,
+  };
+}
+
+// The plan's number and two either side, never under the floor or over the ceiling.
+export function chipsAround(value, step, lo, hi) {
+  return [-2, -1, 0, 1, 2].map((k) => value + k * step).filter((v) => v >= lo && v <= hi).map((v) => Number(v.toFixed(1)));
+}
+
+// "8 reps at 135" said out loud: the first number is the reps (or seconds), the second the weight.
+export function hearRepsWeight(words) {
+  const nums = String(words).match(/\d+(?:\.\d+)?/g) || [];
+  if (!nums.length) return null;
+  return { reps: Number(nums[0]), weight: nums[1] != null ? Number(nums[1]) : null };
+}
+
+// Set `label` of `move` is over and the numbers are given: the row ticks, the numbers are kept for the set and as the
+// move's numbers from here on (the next set starts where this one ended), and the rest starts. The next set of this
+// move is the first not ticked, so the person is asked set by set.
+export function logSet(runner, progress, move, label, { reps, weight }, now) {
+  const ticked = toggle({ ...progress, ticked: { ...progress.ticked, [move.id]: (progress.ticked[move.id] || []).filter((x) => x !== label) } }, label, move).progress;
+  const tag = String(move.id).endsWith("-sets") ? String(move.id).slice(0, -5) : move.id;
+  const n = move.labels.indexOf(label) + 1;
+  const values = { ...progress.values };
+  const r = repsNudge(move), w = weightNudge(move);
+  if (r && reps != null) { values[r.id] = reps; values[`${tag}-s${n}-reps`] = reps; }
+  if (w && weight != null) { values[w.id] = weight; values[`${tag}-s${n}-lb`] = weight; }
+  return { ...ticked, values, rest: restStart(runner.rest, now) };
+}
+
+// Set N of M, the log step's title.
+export const logTitle = (move, label) => `Set ${move.labels.indexOf(label) + 1} of ${move.labels.length} done`;
+
+// The next set not yet ticked on a move, or null when it is finished or skipped.
+export function nextSet(progress, move) {
+  const t = progress.ticked[move.id] || [];
+  if (move.skip && t.includes(move.skip)) return null;
+  return move.labels.find((l) => !t.includes(l)) || null;
+}
+
 // Kept per plan id in the browser (UserDefaults `yui.runner.<id>`).
 const key = (plan) => `yui.runner.${plan}`;
 export function loadProgress(plan, storage = globalThis.localStorage) {

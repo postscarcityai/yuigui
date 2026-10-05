@@ -387,7 +387,8 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   const notYet = useCallback((item) => { sync.tap(notYetEvent(item), "Not yet"); markDismissed(item.id); }, [sync, markDismissed]);
   const run = useCallback((item, bucket) => {
     const a = bucket === "shortcut" ? chipAction(item, home) : waitingAction(item, home);
-    if (a.go) toStage({ page: a.go });
+    if (a.play) toStage({ ask: a.play });
+    else if (a.go) toStage({ page: a.go });
     else if (a.show) toStage({ show: a.show });
     else if (a.compose != null) { if (view === "stage") toStage({ compose: a.compose }); else store.setDraft(a.compose); }
     else if (a.send) { sync.send(a.send); if (view === "stage") toStage({ page: "1" }); }

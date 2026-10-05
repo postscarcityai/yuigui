@@ -318,6 +318,13 @@
 .rn-nudge b { min-width: 84px; text-align: center; font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; }
 .rn-nudge button { width: 44px; height: 44px; border-radius: 50%; border: 0; background: var(--yl-grid, #eee); font: inherit; font-size: 20px; font-weight: 900; color: inherit; cursor: pointer; }
 .rn-nudge button:disabled { opacity: 0.35; cursor: default; }
+.rn-log { display: flex; flex-direction: column; gap: 12px; padding: 14px; border-radius: 18px; border: 1.5px solid var(--yl-c1, #ff7e8a); }
+.rn-logtitle { font-size: 18px; font-weight: 900; }
+.rn-logrow { display: flex; flex-direction: column; gap: 8px; }
+.rn-chips { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.rn-chip { min-width: 48px; min-height: 40px; padding: 0 8px; border-radius: 999px; border: 1.5px solid var(--yl-axis, #d8d8e0); background: none; font: inherit; font-weight: 800; color: inherit; cursor: pointer; font-variant-numeric: tabular-nums; }
+.rn-chip.on { background: var(--yl-c1, #ff7e8a); color: #fff; border-color: transparent; }
+.rn-logdone { flex: 2; min-height: 48px; border-radius: 999px; border: 0; background: var(--yl-c1, #ff7e8a); color: #fff; font: inherit; font-weight: 900; cursor: pointer; }
 
 /* YUI-277: the question sits on the page it asks about; earlier pages it compares are small pictures above its options. */
 .yl-planask { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }

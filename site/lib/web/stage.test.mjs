@@ -2,7 +2,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { Thread } from "./thread.mjs";
-import { arrivalOf, chipAction, dismissEvent, homeOf, isHostAsk, isRow, notYetEvent, landingOf, playFor, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
+import { arrivalOf, chipAction, dismissEvent, holdsWorkout, homeOf, isHostAsk, isRow, notYetEvent, landingOf, playFor, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
 
 const T0 = Date.parse("2026-10-01T12:00:00Z");
 const iso = (s) => new Date(T0 + s * 1000).toISOString().replace("Z", "000+00:00");
@@ -77,4 +77,21 @@ test("YUI-270: a dismissed ask leaves the home until the host draws it again", (
   assert.equal(isHostAsk({ id: "dana" }), false);
   assert.deepEqual(dismissEvent({ id: "need-t_0a0b0c" }), { id: "need-t_0a0b0c", preset: "menu", bucket: "review", dismissed: true });
   assert.deepEqual(notYetEvent({ id: "need-t_0a0b0c" }), { id: "need-t_0a0b0c", preset: "choose", choice: "Not yet" });
+});
+
+test("a Review row for a workout plays the workout on the stage, never in the drawer (YUI-304)", () => {
+  const wk = "plan@wk \"Full body A\"\npage \"Full body A\" body=\"Rest 90 seconds.\"\npick@e1-sets \"Squat\" \"Set 1\"|\"Set 2\"|Skip\nslide@e1-reps \"Reps\" 1-30 value=10";
+  const m = thread([row({ sender: "user", body: "Start today's workout" }), row({ body: yl(wk) }), row({ body: yl("menu review@need-w \"Today's workout\"") })]);
+  assert.equal(holdsWorkout(wk), true);
+  assert.equal(holdsWorkout("plan@p \"Trip\"\npick@x \"Where\" Rome|Paris"), false);
+  const h = homeOf(m);
+  assert.ok(h.workout);
+  assert.deepEqual(waitingAction({ id: "need-w", label: "Today's workout" }, h), { play: h.workout });
+  // it plays from the workout's own message (a lead turn), not from whatever the person asked before it
+  assert.equal(turnOf(m, h.workout).ask, null);
+  assert.ok(turnOf(m, h.workout).replies >= 1);
+  // another row still goes back to the agent
+  assert.equal(waitingAction({ id: "dana", label: "Invite Dana?" }, h).tap.id, "dana");
+  // no workout in the thread: the row is an ordinary ask
+  assert.equal(waitingAction({ id: "w", label: "Today's workout" }, homeOf(thread([row({ body: "Hi." })]))).tap.id, "w");
 });

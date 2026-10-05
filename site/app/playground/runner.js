@@ -7,8 +7,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createListener, speechApi } from "../../lib/web/voice.mjs";
 import {
-  answersOf, clearProgress, emptyProgress, loadProgress, nudged, restAdd, restLabel, restLeft, restProgress, restStart, saveProgress,
-  targetOf, tickNext, toggle, voiceDone,
+  answersOf, chipsAround, clearProgress, emptyProgress, hearRepsWeight, loadProgress, logSet, logStart, logTitle, nudged, restAdd, restLabel, restLeft,
+  restProgress, restStart, saveProgress, targetOf, tickNext, toggle, voiceDone,
 } from "../../lib/web/runner.mjs";
 import { useTabTitle, useWakeLock } from "./keepawake";
 
@@ -70,7 +70,13 @@ export function RunnerMove({ move, runner, step, progress, setProgress, active =
 
   const startRest = () => { rang.current = false; setNow(Date.now()); return restStart(runner.rest, Date.now()); };
   const set = (next, went) => setProgress({ ...next, rest: went ? startRest() : next.rest });
-  const tap = (label) => { const o = toggle(progress, label, move); set(o.progress, o.went && label !== move.skip); };
+  // A set tapped asks what was done (YUI-304); a ticked set or Skip toggles as before.
+  const [logging, setLogging] = useState(null); // the set label being logged, or null
+  const tap = (label) => {
+    if (label === move.skip || ticked.includes(label)) { setLogging(null); const o = toggle(progress, label, move); set(o.progress, o.went && label !== move.skip); return; }
+    setLogging(label);
+  };
+  const logged = (nums) => { setLogging(null); rang.current = false; setNow(Date.now()); setProgress(logSet(runner, progress, move, logging, nums, Date.now())); };
 
   // "done" out loud ticks the next set, once per word heard.
   const stop = useCallback(() => { ear.current?.cancel(); ear.current = null; setListening(false); }, []);
@@ -113,7 +119,8 @@ export function RunnerMove({ move, runner, step, progress, setProgress, active =
           );
         })}
       </div>
-      {rest ? (
+      {logging ? <RunnerLog move={move} progress={progress} label={logging} tag={tag} onLog={logged} onCancel={() => setLogging(null)} /> : null}
+      {rest && !logging ? (
         <div className="rn-rest" data-testid={`runner-${tag}-rest`} role="timer" aria-live="off">
           <span className="rn-ring" style={{ "--p": Math.round(restProgress(rest, now) * 100) }} aria-hidden="true" />
           <span className="rn-resttext"><small>{left > 0 ? "Rest" : "Rest done"}</small><b>{left > 0 ? restLabel(left) : "Next set"}</b></span>
@@ -147,6 +154,59 @@ export function RunnerMove({ move, runner, step, progress, setProgress, active =
           </div>
         );
       })}
+    </div>
+  );
+}
+
+// What the set just done was: reps (or seconds) and weight, chips around the plan's number, a stepper and a mic.
+function RunnerLog({ move, progress, label, tag, onLog, onCancel }) {
+  const start = logStart(move, progress);
+  const [reps, setReps] = useState(start.reps);
+  const [weight, setWeight] = useState(start.weight);
+  const [mic, setMic] = useState(typeof window === "undefined" ? "none" : speechApi() ? "idle" : "none");
+  const ear = useRef(null);
+  const stop = useCallback(() => { ear.current?.cancel(); ear.current = null; setMic((m) => (m === "on" ? "idle" : m)); }, []);
+  useEffect(() => stop, [stop]);
+  const talk = async () => {
+    if (mic === "on") { stop(); return; }
+    const l = createListener({
+      onWords: (words) => { const h = hearRepsWeight(words); if (!h) return; setReps(Math.min(start.repsMax, Math.max(start.repsMin, h.reps))); if (h.weight != null && start.weight != null) setWeight(h.weight); },
+      onError: (e) => { setMic(e === "denied" ? "denied" : "idle"); },
+      onEnd: () => { ear.current = null; setMic((m) => (m === "on" ? "idle" : m)); },
+    });
+    ear.current = l;
+    try { await l.start(); setMic("on"); } catch { setMic("none"); ear.current = null; }
+  };
+  const show = (v) => (Number.isInteger(v) ? v : Number(v.toFixed(1)));
+  const row = (what, key, value, setValue, step, lo, hi, unit) => (
+    <div className="rn-logrow">
+      <div className="rn-nudge">
+        <span>{what}</span>
+        <button aria-label={`Less ${what.toLowerCase()}`} data-testid={`runner-${tag}-log-${key}-minus`} disabled={value <= lo} onClick={() => setValue(Math.max(lo, value - step))}>−</button>
+        <b data-testid={`runner-${tag}-log-${key}-value`}>{show(value)}{unit}</b>
+        <button aria-label={`More ${what.toLowerCase()}`} data-testid={`runner-${tag}-log-${key}-plus`} disabled={value >= hi} onClick={() => setValue(Math.min(hi, value + step))}>+</button>
+      </div>
+      <div className="rn-chips">
+        {chipsAround(key === "reps" ? start.reps : start.weight, step, lo, hi).map((v) => (
+          <button key={v} className={`rn-chip${v === value ? " on" : ""}`} aria-pressed={v === value} data-testid={`runner-${tag}-log-${key}-chip-${show(v)}`} onClick={() => setValue(v)}>{show(v)}</button>
+        ))}
+      </div>
+    </div>
+  );
+  return (
+    <div className="rn-log" data-testid={`runner-${tag}-log`} role="group" aria-label="Log the set">
+      <div className="rn-logtitle" data-testid={`runner-${tag}-log-title`}>{logTitle(move, label)}</div>
+      {row(start.timed ? "Seconds" : "Reps", "reps", reps, setReps, start.repsStep, start.repsMin, start.repsMax, start.timed ? "s" : "")}
+      {start.weight != null ? row("Weight", "lb", weight, setWeight, start.weightStep, start.weightMin, start.weightMax, " lb") : null}
+      {mic !== "none" ? (
+        <button className={`rn-voice${mic === "on" ? " on" : ""}`} data-testid={`runner-${tag}-log-voice`} aria-pressed={mic === "on"} disabled={mic === "denied"} onClick={talk}>
+          {mic === "on" ? "Listening" : mic === "denied" ? "Mic is off" : "Say reps and weight"}
+        </button>
+      ) : null}
+      <div className="rn-row">
+        <button className="rn-logdone" data-testid={`runner-${tag}-log-done`} onClick={() => onLog({ reps, weight: start.weight != null ? weight : null })}>Log set</button>
+        <button className="rn-skip" data-testid={`runner-${tag}-log-cancel`} onClick={onCancel}>Not yet</button>
+      </div>
     </div>
   );
 }

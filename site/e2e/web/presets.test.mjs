@@ -144,10 +144,13 @@ if (ONLY !== "1") {
         await pg.locator("[data-testid=runner-e1-lb-plus]").click();
         ok(/25 lb/.test(await pg.locator("[data-testid=runner-e1-lb-value]").innerText()), `${t}: + nudges the weight by its step`);
         await pg.locator("[data-testid=runner-e1-set-1]").click();
-        ok(await pg.locator("[data-testid=runner-e1-rest]").count() === 1, `${t}: ticking a set starts the rest`);
+        ok(await pg.locator("[data-testid=runner-e1-log-title]").innerText() === "Set 1 of 3 done", `${t}: a set tapped asks what was done`);
+        await pg.locator("[data-testid=runner-e1-log-done]").click();
+        ok(await pg.locator("[data-testid=runner-e1-rest]").count() === 1, `${t}: logging a set starts the rest`);
         ok(/^\d:\d\d$/.test((await pg.locator("[data-testid=runner-e1-rest] b").innerText()).trim()), `${t}: the rest counts down`);
         await pg.locator("[data-testid=runner-e1-rest-more]").click();
         await pg.locator("[data-testid=runner-e1-set-2]").click();
+        await pg.locator("[data-testid=runner-e1-log-done]").click();
         await pg.locator("[data-testid=runner-e1-rest-skip]").click();
         ok(await pg.locator("[data-testid=runner-e1-rest]").count() === 0, `${t}: Skip rest puts it away`);
         const tickedBtn = await pg.locator("[data-testid=runner-e1-set-1]").getAttribute("aria-pressed");
