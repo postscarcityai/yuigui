@@ -19,7 +19,13 @@ import { useDragDown } from "../playground/dragdown";
 import "../playground/flows.css";
 
 function Picture({ part, node, emitFor }) {
-  const heads = useMemo(() => new Map(groupNodes(part.nodes).filter((x) => x.group).map((x) => [x.key, x])), [part]);
+  // A picture inside a deck or plan page is a group nested in its parent: collect every head, not only the top level.
+  const heads = useMemo(() => {
+    const all = new Map();
+    const walk = (list) => list.forEach((x) => { if (x.group) { all.set(x.key, x); walk(x.members); } });
+    walk(groupNodes(part.nodes));
+    return all;
+  }, [part]);
   const g = heads.get(node.key);
   return g ? <Group g={g} emitFor={emitFor} Render={Render} /> : <Render node={node} emit={emitFor(node)} />;
 }
