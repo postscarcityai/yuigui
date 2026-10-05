@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T02:51:00.417Z",
+  "updated": "2026-10-05T03:05:57.024Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -365,6 +365,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-289",
+          "title": "/web plan and form answers survive a reload",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
