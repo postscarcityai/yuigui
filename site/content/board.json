@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T07:05:52.885Z",
+  "updated": "2026-10-05T07:10:54.255Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -294,11 +294,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-276",
-          "title": "Draw anything on any screen",
-          "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
-        },
-        {
           "key": "SITE-189",
           "title": "Thought for the build that ships voice first",
           "waiting": true
@@ -364,6 +359,17 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-276",
+          "title": "Draw anything on any screen",
+          "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-296",
+          "title": "Agent tables work in the browser, the same as on the phone",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
