@@ -2117,6 +2117,9 @@
     },
     {
       "text": "YUI-303: Start opens the workout runner full screen; sets ask reps and weight, then rest; Review never plays it in the drawer"
+    },
+    {
+      "text": "Tabs named for what is on them: saved name, else first title, else a word; never Screen N"
     }
   ]
 }
