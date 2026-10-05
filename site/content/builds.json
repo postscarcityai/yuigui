@@ -2015,10 +2015,53 @@
       "text": "Media sets: mic on the storyboard comment field and the image edit field (YUI)"
     },
     {
-      "text": "Voice first: mics on the agent name, chat search and title, Find an agent and the stage caption (YUI)"
+      "text": "Merge pull request 7 (claude/elegant-johnson-stn1u8): Liquid Glass chrome, one decision on one screen, compare pictures, draw anywhere, gesture marks, forms that keep answers, the agent's load coaching"
     },
     {
-      "text": "Voice first guard: a unit test fails when a text field has no mic and is not on the exempt list (YUI)"
+      "text": "The wordmark is optically centered: 5% of its width left"
+    },
+    {
+      "text": "Every Yui has a repo: the README, AGENTS.md and CONTRIBUTING-AGENTS.md point to the platform repos"
+    },
+    {
+      "text": "The orb is drawn clean and has a place in the layout; the working screen is light words under it"
+    },
+    {
+      "text": "The first screen is for a new person: what Yui is in one breath, no fake page dots, no flash at launch"
+    },
+    {
+      "text": "The photo limit is read from the server in every build, not only debug ones"
+    },
+    {
+      "text": "The notifications nudge names the agent whose plan was built, not always an agent"
+    },
+    {
+      "text": "The drawer shows Pinned screens once something is pinned, not an empty box of instructions"
+    },
+    {
+      "text": "A sketch's phone reads as a phone: the time, the island, the bars and battery, and a home bar",
+      "card": "YUI-267"
+    },
+    {
+      "text": "compat: the marks gate is 492, the build where they reached main"
+    },
+    {
+      "text": "One mic per job: FieldMic and NameMic are one button, and a form on the stage draws no second mic"
+    },
+    {
+      "text": "The unread count shows again on the stage's chat button; small cleanups"
+    },
+    {
+      "text": "The searching drop sways across the top and the talking pill stays shorter, clear of the words; the redesign notes say what was picked"
+    },
+    {
+      "text": "Holding the mic and sliding to the lock or the trash works again"
+    },
+    {
+      "text": "Merge origin/main: mics on the naming and search fields, and the voice first guard"
+    },
+    {
+      "text": "Three stale tests brought up to date"
     }
   ]
 }

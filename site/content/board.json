@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T04:26:09.540Z",
+  "updated": "2026-10-05T05:20:48.860Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -304,6 +304,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-191",
+          "title": "The spec says the phone keeps stage answers too"
+        },
+        {
           "key": "NOTE-3651",
           "title": "Add an agent, tucked away"
         },
@@ -366,11 +370,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-290",
-          "title": "/web choice cards' type-your-own field gets a mic, audit covers preset fields",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -381,6 +380,12 @@
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
           "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-291",
+          "title": "Drawing kit step 1, Venn overlaps, closed regions, contours, curved arrows in the spec, parsers and playground",
+          "blocked": "other",
+          "owner": "CJohnDesign"
         }
       ]
     },
@@ -388,6 +393,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-290",
+          "title": "/web choice cards' type-your-own field gets a mic, audit covers preset fields",
+          "summary": "Say your own answer on the web",
+          "shipped": "2026-10-05",
+          "progress": "/progress#say-your-own-answer-on-the-web"
+        },
         {
           "key": "SITE-190",
           "title": "The spec says half-filled answers are kept",
