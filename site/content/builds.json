@@ -2091,6 +2091,15 @@
     },
     {
       "text": "YUI-36 step 1: yui_sync_rows and yui_sync_pairings for encrypted table sync"
+    },
+    {
+      "text": "YUI-89b: compat gates table create, put and query below build 450; sync the MCP App that draws bound tables"
+    },
+    {
+      "text": "YUI-89b: plugin guide copy v47 (published to yui_channel_guides)"
+    },
+    {
+      "text": "YUI-300: test_flywheel window covers the Jev shape lines between record and media.rewrite"
     }
   ]
 }
