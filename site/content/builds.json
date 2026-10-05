@@ -2079,6 +2079,9 @@
     },
     {
       "text": "YUI-295: sync MCP App with the capped drawing"
+    },
+    {
+      "text": "YUI-297: the app draws callout, bracket and arc shapes like the hub"
     }
   ]
 }

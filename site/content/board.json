@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T07:45:58.104Z",
+  "updated": "2026-10-05T07:51:05.335Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -169,6 +169,11 @@
         {
           "key": "YUI-258",
           "title": "Reminders fire from a closed tab through Web Push",
+          "waiting": true
+        },
+        {
+          "key": "YUI-299",
+          "title": "+hand and marks on the phone",
           "waiting": true
         },
         {
@@ -360,12 +365,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-298",
-          "title": "Hand-drawn shapes and marks",
-          "summary": "+hand, scribble, underline, check",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -383,6 +382,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-298",
+          "title": "Hand-drawn shapes and marks",
+          "summary": "Mark the spot by hand: scribbles, underlines and ticks",
+          "shipped": "2026-10-05",
+          "progress": "/progress#mark-the-spot-by-hand-scribbles-underlines-and-ticks"
+        },
         {
           "key": "YUI-297",
           "title": "The app draws callout, bracket and arc shapes, the same as the playground",
