@@ -2013,6 +2013,9 @@
     },
     {
       "text": "Media sets: mic on the storyboard comment field and the image edit field (YUI)"
+    },
+    {
+      "text": "Voice first: mics on the agent name, chat search and title, Find an agent and the stage caption (YUI)"
     }
   ]
 }

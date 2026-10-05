@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T03:10:58.024Z",
+  "updated": "2026-10-05T03:21:39.120Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -368,7 +368,8 @@
         {
           "key": "SITE-188",
           "title": "Thought",
-          "summary": "Every field you can say, phone and web",
+          "summary": "Voice first, the wrap-up in pictures",
+          "progress": "/progress#voice-first-the-wrap-up-in-pictures",
           "owner": "CJohnDesign"
         },
         {
