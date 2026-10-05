@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T13:15:13.077Z",
+  "updated": "2026-10-05T13:35:23.517Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -294,6 +294,10 @@
           "title": "/web home calms down too, chats first, the twin of Chris's home-screen pick"
         },
         {
+          "key": "SITE-198",
+          "title": "Thought, a workout you do, not a list you read"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -306,10 +310,22 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
+          "key": "NOTE-14531",
+          "title": "Workouts never start in the drawer"
+        },
+        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does"
+        },
+        {
+          "key": "NOTE-26959",
+          "title": "Tabs named for what is on them"
+        },
+        {
+          "key": "NOTE-28767",
+          "title": "Workouts with music and live edits"
         },
         {
           "key": "NOTE-43312",
@@ -334,6 +350,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "NOTE-31307",
+          "title": "Start opens the workout, full screen",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
