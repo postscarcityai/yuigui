@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T07:21:00.204Z",
+  "updated": "2026-10-05T07:25:55.072Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -365,12 +365,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-276",
-          "title": "Draw anything on any screen",
-          "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -388,6 +382,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-276",
+          "title": "Draw anything on any screen",
+          "summary": "Drawing on the phone, proven",
+          "shipped": "2026-10-05",
+          "progress": "/progress#drawing-on-the-phone-proven",
+          "commit": "https://github.com/postscarcityai/yui/commit/b54f03e"
+        },
         {
           "key": "YUI-296",
           "title": "Agent tables work in the browser, the same as on the phone",
