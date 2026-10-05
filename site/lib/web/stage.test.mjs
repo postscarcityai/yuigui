@@ -27,7 +27,7 @@ test("home: the newest four shortcuts, review items, pages and where show= goes"
   assert.equal(h.waiting.length, 1);
   assert.deepEqual(h.pages, ["2"]);
   assert.equal(pageTitle(h.state, "2"), "Runs");
-  assert.equal(pageTitle(h.state, "9"), "Screen 9");
+  assert.equal(pageTitle(h.state, "9"), "Page");
 });
 
 test("a chip sends its words, or fills the field when they end in a space", () => {
@@ -94,4 +94,15 @@ test("a Review row for a workout plays the workout on the stage, never in the dr
   assert.equal(waitingAction({ id: "dana", label: "Invite Dana?" }, h).tap.id, "dana");
   // no workout in the thread: the row is an ordinary ask
   assert.equal(waitingAction({ id: "w", label: "Today's workout" }, homeOf(thread([row({ body: "Hi." })]))).tap.id, "w");
+});
+
+test("YUI-306: a page is named by its saved name, its title, then a word for its kind, never Screen N", () => {
+  const m = thread([row({ body: yl(">2 timer 5m\n>3 list \"a\" \"b\"\nsave this-week\n>4 stat 12 \"A very long title that overruns the pill\"") })]);
+  const h = homeOf(m);
+  assert.equal(pageTitle(h.state, "2"), "Timer");
+  assert.equal(pageTitle(h.state, "4"), "A very long title tha…");
+  assert.equal(pageTitle(h.state, "4").length, 22);
+  assert.equal(pageTitle(h.state, "3", { "this-week": "3" }), "This week");
+  assert.equal(pageTitle(h.state, "7"), "Page");
+  for (const k of h.pages) assert.doesNotMatch(pageTitle(h.state, k, h.saved), /^Screen \d/);
 });

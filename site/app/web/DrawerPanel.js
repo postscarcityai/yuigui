@@ -69,7 +69,7 @@ function Home({ agent, api, chats, close, handlers, goReview }) {
       {pages.length ? (
         <>
           <h3 className="dr-heading">Screens</h3>
-          {pages.map((k) => <Row key={k} icon="▭" title={pageTitle(home.state, k)} sub={`Screen ${k}`} testid={`screen-${k}`} onClick={go(() => api.run({ go: k }, "page"))} />)}
+          {pages.map((k) => <Row key={k} icon="▭" title={pageTitle(home.state, k, home.saved)} testid={`screen-${k}`} onClick={go(() => api.run({ go: k }, "page"))} />)}
         </>
       ) : null}
       {shortcuts.length || commands.length ? (

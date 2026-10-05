@@ -164,7 +164,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   const [dismissed, markDismissed] = useDismissed(agent.id);
   const home = useMemo(() => homeOf(messages, dismissed), [version, dismissed]); // eslint-disable-line react-hooks/exhaustive-deps
   const names = useMemo(() => ["1", ...home.pages], [home.pages]);
-  const titles = useMemo(() => Object.fromEntries(home.pages.map((k) => [k, pageTitle(home.state, k)])), [home]);
+  const titles = useMemo(() => Object.fromEntries(home.pages.map((k) => [k, pageTitle(home.state, k, home.saved)])), [home]);
 
   // ---- what the stage plays: nothing (the home), a turn, or a saved screen back ----
   const [ask, setAsk] = useState(null);

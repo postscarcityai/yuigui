@@ -163,15 +163,32 @@ export const dismissEvent = (item) => ({ id: item.id, preset: "menu", bucket: "r
 // Not yet on the row is the same answer the ask screen sends: the host keeps the ask quiet for a week.
 export const notYetEvent = (item) => ({ id: item.id, preset: "choose", choice: "Not yet" });
 
-// The title a page's pill carries: the first title-like thing on it, else "Screen N" (the app asks the
-// page's content for a title; the web reads the first node with one).
-export function pageTitle(state, k) {
-  for (const n of state?.screens?.[k] || []) {
-    if (n.stage) continue;
-    const t = n.props?.title ?? n.props?.text ?? n.props?.label;
-    if (typeof t === "string" && t.trim()) return t.trim().length > 18 ? `${t.trim().slice(0, 17).trimEnd()}…` : t.trim();
-  }
-  return `Screen ${k}`;
+// What a page is called (ScreenName.pick in the app): its saved name, else the first title on it, else a word
+// for what it holds, else "Page". "Screen N" never shows. `saved` is the home's name -> page map.
+const PAGE_MAX = 22;
+const KIND_WORD = {
+  list: "List", table: "Table", timer: "Timer", stat: "Numbers", chart: "Chart", card: "Card",
+  timeline: "Timeline", sketch: "Sketch", shapes: "Diagram", diagram: "Diagram", mock: "Mock",
+  map: "Map", image: "Photo", gallery: "Photos", video: "Video", deck: "Deck", plan: "Plan",
+  choose: "Question", pick: "Question", ask: "Question", form: "Form", slide: "Question",
+  game: "Game", loop: "Beat", drums: "Pads", keys: "Keys", chords: "Chords", tuner: "Tuner",
+  metronome: "Metronome", math: "Math", calc: "Calculator", compare: "Compare", storyboard: "Storyboard",
+  say: "Note", camera: "Camera", mic: "Voice",
+};
+function cleanName(raw) {
+  let s = typeof raw === "string" ? raw.trim() : "";
+  if (!s) return null;
+  if (!s.includes(" ")) s = s.replace(/[-_]/g, " ");
+  s = s.charAt(0).toUpperCase() + s.slice(1);
+  return s.length > PAGE_MAX ? `${s.slice(0, PAGE_MAX - 1).trimEnd()}…` : s;
+}
+export function pageTitle(state, k, saved) {
+  const name = Object.keys(saved || {}).find((n) => String(saved[n]) === String(k));
+  const nodes = (state?.screens?.[k] || []).filter((n) => !n.stage);
+  const first = cleanName(name)
+    ?? nodes.map((n) => cleanName(n.props?.title) ?? cleanName(n.props?.q) ?? cleanName(n.props?.label) ?? cleanName(n.props?.text)).find(Boolean)
+    ?? nodes.map((n) => KIND_WORD[n.preset]).find(Boolean);
+  return first ?? "Page";
 }
 
 // A saved screen back on the stage, fresh, with no turn (ChatStore.reopen): the thread's ops replayed so the
