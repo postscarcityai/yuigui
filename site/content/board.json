@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T15:31:02.309Z",
+  "updated": "2026-10-05T15:37:26.260Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -355,13 +355,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-198",
-          "title": "Thought, a workout you do, not a list you read",
-          "summary": "A Thought: a workout is something you do",
-          "progress": "/progress#a-thought-a-workout-is-something-you-do",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-26959",
           "title": "Tabs named for what is on them",
           "owner": "CJohnDesign"
@@ -390,6 +383,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-198",
+          "title": "Thought, a workout you do, not a list you read",
+          "summary": "A Thought: a workout is something you do",
+          "shipped": "2026-10-05",
+          "progress": "/progress#a-thought-a-workout-is-something-you-do",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/11fd7d13"
+        },
         {
           "key": "SITE-197",
           "title": "Thought, every drawing checked on both screens",
