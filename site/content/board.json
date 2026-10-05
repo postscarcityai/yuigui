@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T08:46:08.102Z",
+  "updated": "2026-10-05T09:05:11.314Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -293,6 +293,10 @@
           "key": "SITE-189",
           "title": "Thought for the build that ships voice first",
           "waiting": true
+        },
+        {
+          "key": "SITE-195",
+          "title": "Thought, every agent can draw a table"
         },
         {
           "key": "NOTE-3651",
