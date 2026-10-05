@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T15:37:26.260Z",
+  "updated": "2026-10-05T15:47:28.043Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -331,17 +331,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-14531",
-          "title": "Workouts never start in the drawer",
-          "needsDemo": true
-        },
-        {
-          "key": "NOTE-31307",
-          "title": "Start opens the workout, full screen",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/82d3e900",
-          "needsDemo": true
         }
       ]
     },
@@ -390,6 +379,19 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-a-workout-is-something-you-do",
           "commit": "https://github.com/postscarcityai/yuigui/commit/11fd7d13"
+        },
+        {
+          "key": "NOTE-31307",
+          "title": "Start opens the workout, full screen",
+          "shipped": "2026-10-05",
+          "progress": "/progress#start-opens-the-workout-full-screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/82d3e900"
+        },
+        {
+          "key": "NOTE-14531",
+          "title": "Workouts never start in the drawer",
+          "shipped": "2026-10-05",
+          "progress": "/progress#start-opens-the-workout-full-screen"
         },
         {
           "key": "SITE-197",
