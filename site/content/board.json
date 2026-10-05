@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T03:31:02.346Z",
+  "updated": "2026-10-05T03:36:07.361Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -297,6 +297,11 @@
           "key": "YUI-276",
           "title": "Draw anything on any screen",
           "summary": "Regions, Venn overlaps, contours, doodle strokes, curved arrows, marks over images"
+        },
+        {
+          "key": "SITE-189",
+          "title": "Thought for the build that ships voice first",
+          "waiting": true
         },
         {
           "key": "NOTE-3651",
