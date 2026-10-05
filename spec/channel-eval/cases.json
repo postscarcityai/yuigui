@@ -25,16 +25,54 @@
           "slide",
           "table",
           "query",
-          "put"
+          "put",
+          "plan",
+          "page",
+          "end"
         ],
         "need": [
           "list",
           "card",
           "timer",
-          "table"
+          "table",
+          "plan"
         ]
       },
-      "good": "A short line, then the session on screen (a checklist or a card) with a way to start (ask or timer). No interrogation: he already said time and gear."
+      "good": "A short line, then the session to do: the runner `plan` (a page, then per move a sets pick with its reps and weight slides), or a checklist or card with a way to start. No interrogation: he already said time and gear."
+    },
+    {
+      "id": "workout-start-runner",
+      "category": "workout",
+      "agent": "Arnold",
+      "history": [
+        {
+          "role": "user",
+          "text": "What is today?"
+        },
+        {
+          "role": "agent",
+          "text": "Full body A today: goblet squat 3x10 at 20 lb, push-up 3x8, dumbbell row 3x10 at 20 lb, plank 3x30s. Rest 90 seconds."
+        }
+      ],
+      "message": "Start my workout.",
+      "expect": {
+        "screen": "yes",
+        "presets": [
+          "plan",
+          "page",
+          "pick",
+          "slide",
+          "choose",
+          "end",
+          "save"
+        ],
+        "need": [
+          "plan"
+        ],
+        "need_text": "Set 1.{0,6}Set 2",
+        "no_text": "how many reps|what weight"
+      },
+      "good": "One line, then the runner plan: a page with the rest, per move a `pick@eN-sets` of Set 1..N and Skip with title= and work=, its reps (or secs) and weight slides, `choose@feel` last. Not the moves as a list, not a deck, not questions about sets."
     },
     {
       "id": "workout-tabata",
