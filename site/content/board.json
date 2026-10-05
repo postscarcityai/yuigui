@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T12:06:17.158Z",
+  "updated": "2026-10-05T12:11:02.888Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -346,13 +346,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-196",
-          "title": "Every link and image on the site resolves, sweep after the drawing and tables week",
-          "summary": "Link sweep: nothing broken",
-          "progress": "/progress#link-sweep-nothing-broken",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-302",
           "title": "Every drawing on the phone matches the hub, side by side",
           "owner": "CJohnDesign"
@@ -375,6 +368,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-196",
+          "title": "Every link and image on the site resolves, sweep after the drawing and tables week",
+          "summary": "Link sweep: nothing broken",
+          "shipped": "2026-10-05",
+          "progress": "/progress#link-sweep-nothing-broken"
+        },
         {
           "key": "NOTE-42080",
           "title": "Ask and answer on one screen",
