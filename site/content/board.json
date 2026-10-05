@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T03:56:09.975Z",
+  "updated": "2026-10-05T04:06:05.710Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -365,6 +365,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-290",
+          "title": "/web choice cards' type-your-own field gets a mic, audit covers preset fields",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-190",
+          "title": "The spec says half-filled answers are kept",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
