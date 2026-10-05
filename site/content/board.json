@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T08:11:04.086Z",
+  "updated": "2026-10-05T08:16:04.297Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -361,20 +361,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-299",
-          "title": "+hand and marks on the phone",
-          "summary": "Hand drawn marks on the phone",
-          "progress": "/progress#hand-drawn-marks-on-the-phone",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-193",
-          "title": "Thought, your agent's tables on the phone and the web",
-          "summary": "A Thought: your agent keeps its own tables",
-          "progress": "/progress#a-thought-your-agent-keeps-its-own-tables",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -392,6 +378,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-299",
+          "title": "+hand and marks on the phone",
+          "summary": "Hand drawn marks on the phone",
+          "shipped": "2026-10-05",
+          "progress": "/progress#hand-drawn-marks-on-the-phone"
+        },
+        {
+          "key": "SITE-193",
+          "title": "Thought, your agent's tables on the phone and the web",
+          "summary": "A Thought: your agent keeps its own tables",
+          "shipped": "2026-10-05",
+          "progress": "/progress#a-thought-your-agent-keeps-its-own-tables"
+        },
         {
           "key": "YUI-298",
           "title": "Hand-drawn shapes and marks",
