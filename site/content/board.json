@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T07:00:52.766Z",
+  "updated": "2026-10-05T07:05:52.885Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -357,11 +357,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "YUI-294",
-          "title": "Four TestFlight notes fixed on main, shots and close-out",
-          "needsDemo": true
         }
       ]
     },
@@ -387,6 +382,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-294",
+          "title": "Four TestFlight notes fixed on main, shots and close-out",
+          "summary": "Four tester notes, proven",
+          "shipped": "2026-10-05",
+          "progress": "/progress#four-tester-notes-proven"
+        },
         {
           "key": "YUI-295",
           "title": "Venn fits the frame in the MCP App at desktop width",
