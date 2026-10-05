@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T17:46:05.286Z",
+  "updated": "2026-10-05T18:08:39.757Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -356,16 +356,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "NOTE-26959",
-          "title": "Tabs named for what is on them",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-57356",
-          "title": "Questions that say what they ask",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-28767",
           "title": "Workouts with music and live edits",
           "owner": "CJohnDesign"
@@ -390,6 +380,18 @@
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-26959",
+          "title": "Tabs named for what is on them",
+          "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-57356",
+          "title": "Questions that say what they ask",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
