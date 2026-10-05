@@ -1579,6 +1579,67 @@ shape pill Shapes at=1.7,2.3 size=2.6 +fill move=5,2.3
 shape@dot dot at=5,3.4 tone=mint +pulse`,
   },
   {
+    // The drawing kit (YUI-291, Chris Oct 2: "we can draw whatever we want. A
+    // contour line, a venn diagram, charts, doodles, anything."). Closed
+    // regions, overlap, contours, bent arrows, brackets and callouts, all
+    // plain `shape` lines, four pages of a deck.
+    slug: "drawkit",
+    name: "Drawing kit: a Venn, a contour, an annotated mock, a loop",
+    agent: "Yui",
+    yl: `deck "Draw anything"
+page "Where circles cross" body="Filled shapes blend where they meet. The word in the middle names the overlap."
+shapes w=10 h=7 caption="Three circles, three washes, one middle."
+shape circle at=3.8,2.6 size=4 tone=accent +fill +draw
+shape circle at=6.2,2.6 size=4 tone=mint +fill +draw
+shape circle at=5,4.6 size=4 tone=lavender +fill +draw
+shape text Design at=2.8,2.1
+shape text Code at=7.2,2.1
+shape text Words at=5,5.9
+shape text Yui at=5,3.5
+page "Lines of equal height" body="Nested closed rings from a center. Add a zone, a dot and a callout."
+shapes w=10 h=6 caption="A hill, a flood zone, and the one place to look."
+shape contour at=4.4,3 size=7,4.8 rings=6 tone=mint +fill
+shape dot Peak at=4.4,3 tone=accent
+shape path pts=7,0.8|9.2,1.4|9.4,3|8,3.8|6.9,2.4 +close +fill +dash tone=butter
+shape callout "Flood zone" at=8.2,5.2 to=8.3,2.6 tone=butter
+page "Mark up a screen" body="Boxes make the phone. Callouts point at parts, a bracket spans a group."
+shapes w=10 h=6 caption="A feed screen, annotated."
+shape box at=4.6,3 size=3.4,5.4 tone=mute
+shape pill Search at=4.6,0.9 size=2.8,0.7 +fill
+shape box Card at=4.6,2.3 size=2.8,1.1 +fill tone=lavender
+shape box Card at=4.6,3.7 size=2.8,1.1 +fill tone=lavender
+shape pill Tabs at=4.6,5.1 size=2.8,0.6 +fill tone=mint
+shape callout "Starts here" at=8.3,0.9 to=6,0.9 tone=accent
+shape callout "Swipe to dismiss" at=8.3,3 to=6,3.2 tone=butter
+shape bracket from=2.6,1.5 to=2.6,4.5 label=Feed tone=mute
+page "Round and round" body="Arrows bend. Three steps and the loop closes."
+shapes w=10 h=6 caption="Ask, build, ship. Then you ask again."
+shape@ask circle Ask at=5,1.2 size=1.8 +fill +grow
+shape@build circle Build at=8,4.6 size=1.8 +fill tone=mint +grow
+shape@ship circle Ship at=2,4.6 size=1.8 +fill tone=lavender +grow
+shape arc from=ask to=build
+shape arc from=build to=ship
+shape arc from=ship to=ask
+end`,
+  },
+  {
+    // The same drawing as a step of a plan: shapes are a page's picture there too.
+    slug: "drawkit-plan",
+    name: "Drawing kit: a Venn as a plan page",
+    agent: "Yui",
+    yl: `>full
+plan "Pick the overlap" submit=Send
+page "Where does it fit?" body="Your idea sits between what you like and what pays."
+shapes w=10 h=6.4 caption="The middle is the one to build."
+shape circle at=3.7,3 size=4.4 tone=accent +fill +draw
+shape circle at=6.3,3 size=4.4 tone=mint +fill +draw
+shape text "Likes" at=2.6,3
+shape text "Pays" at=7.4,3
+shape text "Build" at=5,3
+choose@pick "Build it?" Yes|Later
+end`,
+  },
+  {
     // Maps (YUI-158 step 1, Chris on the Mongol Empire answer: "this
     // should be a Map"). A drawn outline for a border that is not today's,
     // countries by code, a pin and four ways out of it.

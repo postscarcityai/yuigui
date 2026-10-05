@@ -8,7 +8,7 @@
 // Sends nothing.
 import { useEffect, useMemo, useRef, useState } from "react";
 import { resolve } from "../../lib/yl/yl.mjs";
-import { LABEL, blobPoints, describe, frame, labelWidth, scene, smooth, wrap } from "../../lib/yl/shapes.mjs";
+import { LABEL, OVERLAP, TICK, along, blobPoints, bracketPoints, control, describe, frame, labelWidth, ringPoints, scene, smooth, wrap } from "../../lib/yl/shapes.mjs";
 
 const TONE = {
   accent: "var(--accent)", mint: "var(--yl-c3)", lavender: "var(--yl-c1)",
@@ -17,6 +17,7 @@ const TONE = {
 
 const f2 = (n) => Math.round(n * 1000) / 1000;
 const P = ([x, y]) => `${f2(x)} ${f2(y)}`;
+const poly = (pts, closed) => `M${P(pts[0])}` + pts.slice(1).map((q) => `L${P(q)}`).join("") + (closed ? "Z" : "");
 const curve = (pts, closed) => `M${P(pts[0])}` + smooth(pts, closed).map(([a, b, c]) => `C${P(a)} ${P(b)} ${P(c)}`).join("") + (closed ? "Z" : "");
 
 // A closed shape's outline around (0, 0).
@@ -81,20 +82,36 @@ function Label({ text, x, y, fs, width, top, className, style, opacity }) {
 function Part({ f, sw, fs, k }) {
   const color = TONE[f.tone];
   if (f.o <= 0) return null;
-  if (f.a) {
-    // line or arrow
+  if (f.a && !f.c) {
+    // line, arrow, arc or bracket
+    const dash = f.dash ? `${sw * 3} ${sw * 2.5}` : undefined;
+    if (f.kind === "bracket") {
+      const { pts, n } = bracketPoints(f.a, f.b, f.side, TICK * (sw / 0.075) * 1.0);
+      // The label sits beyond the spine, clear of it by half its own width when the bracket runs up and down.
+      const off = fs * 0.9 + Math.abs(n[0]) * (String(f.label || "").length * 0.56 * fs * 0.9) / 2;
+      const mid = [(f.a[0] + f.b[0]) / 2 - n[0] * off, (f.a[1] + f.b[1]) / 2 - n[1] * off];
+      return (
+        <g opacity={f.o}>
+          <path d={poly(pts, false)} pathLength="1" stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" fill="none" strokeDasharray={f.dash ? dash : `${f2(f.d)} 1`} />
+          {f.label ? <Label text={f.label} x={mid[0]} y={mid[1]} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel" opacity={f.d} /> : null}
+        </g>
+      );
+    }
     const [ax, ay] = f.a, [bx, by] = f.b;
-    const len = Math.hypot(bx - ax, by - ay) || 1;
-    const ux = (bx - ax) / len, uy = (by - ay) / len;
-    const hx = ax + (bx - ax) * f.d, hy = ay + (by - ay) * f.d;
-    const k = 0.34 * (sw / 0.07), s = Math.sin(0.5), c = Math.cos(0.5);
-    const head = f.kind === "arrow" && f.d > 0.05
-      ? `M${P([hx - k * (ux * c - uy * s), hy - k * (uy * c + ux * s)])}L${P([hx, hy])}L${P([hx - k * (ux * c + uy * s), hy - k * (uy * c - ux * s)])}`
+    const c = control(f.a, f.b, f.bend || 0);
+    // Cut the curve at the part drawn so far: the arrowhead rides the tip.
+    const cut = along(f.a, c, f.b, f.d);
+    const dl = Math.hypot(cut.dir[0], cut.dir[1]) || 1;
+    const ux = cut.dir[0] / dl, uy = cut.dir[1] / dl;
+    const [hx, hy] = cut.tip;
+    const hk = 0.34 * (sw / 0.07), s = Math.sin(0.5), co = Math.cos(0.5);
+    const head = (f.kind === "arrow" || f.kind === "arc") && f.d > 0.05
+      ? `M${P([hx - hk * (ux * co - uy * s), hy - hk * (uy * co + ux * s)])}L${P([hx, hy])}L${P([hx - hk * (ux * co + uy * s), hy - hk * (uy * co - ux * s)])}`
       : null;
-    const mid = [(ax + bx) / 2, (ay + by) / 2];
+    const mid = along(f.a, c, f.b, 0.5).tip;
     return (
       <g opacity={f.o}>
-        <path d={`M${P(f.a)}L${P([hx, hy])}`} stroke={color} strokeWidth={sw} strokeLinecap="round" fill="none" strokeDasharray={f.dash ? `${sw * 3} ${sw * 2.5}` : undefined} />
+        <path d={`M${P(f.a)}Q${P(cut.q0)} ${P(cut.tip)}`} stroke={color} strokeWidth={sw} strokeLinecap="round" fill="none" strokeDasharray={dash} />
         {head ? <path d={head} stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" fill="none" /> : null}
         {f.label ? <Label text={f.label} x={mid[0]} y={mid[1] - fs * 0.75} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel" opacity={f.d} /> : null}
       </g>
@@ -102,9 +119,11 @@ function Part({ f, sw, fs, k }) {
   }
   if (f.pts) {
     const mid = f.pts[Math.floor(f.pts.length / 2)];
+    const d = f.close ? (f.sharp ? poly(f.pts, true) : curve(f.pts, true)) : f.sharp ? poly(f.pts, false) : curve(f.pts, false);
     return (
-      <g opacity={f.o}>
-        <path d={curve(f.pts, false)} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw} strokeLinecap="round" fill="none"
+      <g opacity={f.o} className={f.blend ? "sh-blend" : undefined}>
+        <path d={d} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round"
+          fill={f.close && f.fill ? color : "none"} fillOpacity={(f.blend ? OVERLAP : 0.18) * f.d}
           strokeDasharray={f.dash ? `${sw * 3} ${sw * 2.5}` : `${f2(f.d)} 1`} />
         {f.label ? <Label text={f.label} x={mid[0]} y={mid[1] - fs * 0.85} fs={fs * 0.9} width={labelWidth(f, k)} className="yl-shlabel" opacity={f.d} /> : null}
       </g>
@@ -112,12 +131,37 @@ function Part({ f, sw, fs, k }) {
   }
   const [cx, cy] = f.c;
   const [w, h] = f.size;
-  const inside = f.kind !== "dot" && f.kind !== "text";
+  const inside = f.kind !== "dot" && f.kind !== "text" && f.kind !== "contour";
+  const leader = f.leader && f.a && f.b ? (
+    <g opacity={f.o}>
+      <path d={`M${P(f.a)}L${P(f.b)}`} stroke={color} strokeWidth={sw} strokeLinecap="round" fill="none" strokeDasharray={f.dash ? `${sw * 3} ${sw * 2.5}` : undefined} />
+      <circle cx={f2(f.b[0])} cy={f2(f.b[1])} r={f2(sw * 1.6)} fill={color} />
+    </g>
+  ) : null;
+  if (f.kind === "contour") {
+    // Nested closed rings from the centre out; each draws on in turn.
+    const n = f.rings;
+    return (
+      <g opacity={f.o} transform={`translate(${f2(cx)} ${f2(cy)}) scale(${f2(f.s)})`} className={f.blend ? "sh-blend" : undefined}>
+        {Array.from({ length: n }, (_, r) => {
+          const k2 = Math.min(1, Math.max(0, f.d * n - r));
+          return k2 > 0 ? (
+            <path key={r} d={curve(ringPoints(w, h, f.i, r, n), true)} pathLength="1" stroke={color} strokeWidth={sw} strokeLinejoin="round"
+              strokeOpacity={0.45 + 0.55 * ((r + 1) / n)} fill={f.fill ? color : "none"} fillOpacity={0.1 * k2}
+              strokeDasharray={f.dash ? `${sw * 3} ${sw * 2.5}` : k2 < 1 ? `${f2(k2)} 1` : undefined} />
+          ) : null;
+        })}
+        {f.label ? <Label text={f.label} x={0} y={0} fs={fs} width={labelWidth(f, k)} className="yl-shlabel" opacity={f.d} /> : null}
+      </g>
+    );
+  }
   return (
-    <g opacity={f.o} transform={`translate(${f2(cx)} ${f2(cy)}) scale(${f2(f.s)})`}>
+    <>
+    {leader}
+    <g opacity={f.o} transform={`translate(${f2(cx)} ${f2(cy)}) scale(${f2(f.s)})`} className={f.blend ? "sh-blend" : undefined}>
       {f.kind !== "text" ? (
         <path d={outline(f.kind, f.size, f.i)} pathLength={f.dash ? undefined : "1"} stroke={color} strokeWidth={sw} strokeLinejoin="round"
-          fill={f.fill ? color : "none"} fillOpacity={f.kind === "dot" ? f.d : 0.18 * f.d}
+          fill={f.fill ? color : "none"} fillOpacity={f.kind === "dot" ? f.d : (f.blend ? OVERLAP : 0.18) * f.d}
           strokeDasharray={f.dash ? `${sw * 3} ${sw * 2.5}` : f.d < 1 ? `${f2(f.d)} 1` : undefined} />
       ) : null}
       {f.label ? (
@@ -125,6 +169,7 @@ function Part({ f, sw, fs, k }) {
           className={`yl-shlabel ${inside ? "sh-in" : ""}`} style={f.kind === "text" ? { fill: color } : undefined} />
       ) : null}
     </g>
+    </>
   );
 }
 

@@ -46,6 +46,23 @@ shape Circle Two
 shape path pts=1,1
 shape line`],
   ["a lone shape", `shape circle Hello +pulse`],
+  ["drawing kit: a Venn, filled circles that cross blend", `shapes w=10 h=7
+shape circle at=3.8,2.6 size=4 tone=accent +fill +draw
+shape circle at=6.2,2.6 size=4 tone=mint +fill +draw
+shape circle at=5,4.6 size=4 tone=lavender +fill +draw
+shape text Yui at=5,3.5`],
+  ["drawing kit: a closed path, a contour, a callout with a leader", `shapes w=10 h=6
+shape contour at=4.4,3 size=7,4.8 rings=6 tone=mint +fill
+shape dot Peak at=4.4,3 tone=accent
+shape path pts=7,0.8|9.2,1.4|9.4,3|8,3.8|6.9,2.4 +close +fill +dash tone=butter
+shape callout "Flood zone" at=8.2,5.2 to=8.3,2.6 tone=butter`],
+  ["drawing kit: bent arrows, arc and bracket", `shapes w=10 h=6
+shape@ask circle Ask at=5,1.2 size=1.8 +fill
+shape@build circle Build at=8,4.6 size=1.8 +fill
+shape arc from=ask to=build
+shape arrow from=build to=ask bend=-0.3
+shape arrow from=1,5.5 to=4,5.5 bend=0.2 label=bent
+shape bracket from=1,3 to=1,5 label=Span`],
 ];
 const TIMES = [0.2, 0.9, 2, 4.3, "still"];
 const r = (v) => (typeof v === "number" ? Math.round(v * 1e4) / 1e4 : Array.isArray(v) ? v.map(r) : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, r(x)])) : v);

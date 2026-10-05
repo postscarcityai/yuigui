@@ -842,6 +842,312 @@
           "kind": "box"
         }
       ]
+    },
+    {
+      "name": "shape: +close and +fill make a closed region",
+      "input": "shape path pts=1,1|3,0.5|4,2 +close +fill tone=butter",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "path",
+            "close": true,
+            "fill": true,
+            "pts": [
+              "1,1",
+              "3,0.5",
+              "4,2"
+            ],
+            "tone": "butter"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: +sharp keeps straight sides on a closed path",
+      "input": "shape path pts=1,1|3,0.5|4,2|2,3 +close +sharp +dash",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "path",
+            "close": true,
+            "sharp": true,
+            "dash": true,
+            "pts": [
+              "1,1",
+              "3,0.5",
+              "4,2",
+              "2,3"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: a contour has a ring count and a size",
+      "input": "shape contour Peak at=4.4,3 size=7,4.8 rings=6 tone=mint +fill",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "contour",
+            "label": "Peak",
+            "fill": true,
+            "at": "4.4,3",
+            "size": "7,4.8",
+            "rings": 6,
+            "tone": "mint"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: overlapping fills, a label in the overlap",
+      "input": "shapes w=10 h=7\nshape circle at=3.8,2.6 size=4 tone=accent +fill +draw\nshape circle at=6.2,2.6 size=4 tone=mint +fill +draw\nshape text Both at=5,2.6",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {
+            "w": 10,
+            "h": 7
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "circle",
+            "fill": true,
+            "draw": true,
+            "at": "3.8,2.6",
+            "size": 4,
+            "tone": "accent"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "kind": "circle",
+            "fill": true,
+            "draw": true,
+            "at": "6.2,2.6",
+            "size": 4,
+            "tone": "mint"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "in": "n1",
+          "props": {
+            "kind": "text",
+            "label": "Both",
+            "at": "5,2.6"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: arc and a negative bend",
+      "input": "shapes\nshape@a circle A\nshape@b circle B\nshape arc from=a to=b\nshape arrow from=b to=a bend=-0.4",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n1",
+          "props": {}
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "a",
+          "in": "n1",
+          "props": {
+            "kind": "circle",
+            "label": "A"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "b",
+          "in": "n1",
+          "props": {
+            "kind": "circle",
+            "label": "B"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "kind": "arc",
+            "from": "a",
+            "to": "b"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "kind": "arrow",
+            "from": "b",
+            "to": "a",
+            "bend": -0.4
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: a bracket spans two points with a label",
+      "input": "shape bracket from=1,3 to=1,5 label=Span",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "bracket",
+            "from": "1,3",
+            "to": "1,5",
+            "label": "Span"
+          }
+        }
+      ]
+    },
+    {
+      "name": "shape: a callout points at a place with to=",
+      "input": "shape callout \"Flood zone\" at=8.2,5.2 to=8.3,2.6 tone=butter",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n1",
+          "props": {
+            "kind": "callout",
+            "label": "Flood zone",
+            "at": "8.2,5.2",
+            "to": "8.3,2.6",
+            "tone": "butter"
+          }
+        }
+      ]
+    },
+    {
+      "name": "plan: a shapes diagram is a page picture and the plan goes on",
+      "input": "plan \"Pick\"\npage \"Fit\" body=\"Where it sits.\"\nshapes w=10 h=6 caption=\"The middle.\"\nshape circle at=3.7,3 size=4.4 +fill\nshape circle at=6.3,3 size=4.4 +fill\nchoose@pick \"Build it?\" Yes|Later\nend",
+      "expected": [
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "plan",
+          "id": "n1",
+          "props": {
+            "title": "Pick"
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "page",
+          "id": "n2",
+          "in": "n1",
+          "props": {
+            "title": "Fit",
+            "body": "Where it sits."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shapes",
+          "id": "n3",
+          "in": "n1",
+          "props": {
+            "w": 10,
+            "h": 6,
+            "caption": "The middle."
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n4",
+          "in": "n3",
+          "props": {
+            "kind": "circle",
+            "fill": true,
+            "at": "3.7,3",
+            "size": 4.4
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "shape",
+          "id": "n5",
+          "in": "n3",
+          "props": {
+            "kind": "circle",
+            "fill": true,
+            "at": "6.3,3",
+            "size": 4.4
+          }
+        },
+        {
+          "op": "add",
+          "screen": "1",
+          "preset": "choose",
+          "id": "pick",
+          "in": "n1",
+          "props": {
+            "options": [
+              "Yes",
+              "Later"
+            ],
+            "q": "Build it?"
+          }
+        },
+        {
+          "op": "end",
+          "screen": "1",
+          "target": "n1"
+        }
+      ]
     }
   ]
 }

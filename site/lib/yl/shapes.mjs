@@ -12,13 +12,22 @@
 import { resolve } from "./yl.mjs";
 
 // Closed shapes sit somewhere; connectors join two places.
-export const CLOSED = ["circle", "box", "pill", "dot", "blob", "text"];
-export const CONNECTORS = ["line", "arrow"];
+export const CLOSED = ["circle", "box", "pill", "dot", "blob", "text", "callout", "contour"];
+// `arc` is an arrow that bends; `bracket` spans two places with a label beyond it.
+export const CONNECTORS = ["line", "arrow", "arc", "bracket"];
 export const KINDS = [...CLOSED, ...CONNECTORS, "path"];
 export const TONES = ["accent", "mint", "lavender", "butter", "ink", "mute"];
 
 // Default sizes in canvas units, [width, height].
-const SIZE = { circle: [2, 2], box: [3, 2], pill: [3, 1.2], dot: [0.5, 0.5], blob: [2.6, 2.2], text: [3, 0.9] };
+const SIZE = { circle: [2, 2], box: [3, 2], pill: [3, 1.2], dot: [0.5, 0.5], blob: [2.6, 2.2], text: [3, 0.9], callout: [2.6, 1], contour: [4.4, 3.4] };
+
+// The drawing kit: how far an arc bends by default (a share of its length,
+// the side is the sign), how deep a bracket's ticks run, how many rings a
+// contour has by default, and how strongly an overlapping fill shows.
+export const BEND = 0.35;
+export const TICK = 0.3;
+export const RINGS = 4;
+export const OVERLAP = 0.3;
 
 // The clock, in seconds.
 export const STEP = 0.35; // one part to the next
@@ -54,7 +63,7 @@ function motion(p, kind) {
   if (p.draw) return "draw";
   if (p.grow) return "grow";
   // Lines, arrows and paths trace themselves on unless told otherwise.
-  if (kind === "line" || kind === "arrow" || kind === "path") return "draw";
+  if (CONNECTORS.includes(kind) || kind === "path" || kind === "contour") return "draw";
   return "fade";
 }
 
@@ -72,7 +81,7 @@ export function scene(head, members) {
   // Closed shapes with no at= share one row across the middle, in line
   // order, each sized to hold its label (rowLayout). A crowded row scales
   // down as a whole, labels too, never below ROW_MIN.
-  const loose = parts.filter((s) => s.closed && !point(s.p.at));
+  const loose = parts.filter((s) => s.closed && s.kind !== "contour" && !point(s.p.at));
   const joined = parts.some((s) => CONNECTORS.includes(s.kind));
   const row = rowLayout(loose, W, LABEL * W, joined, parts);
   const k = row.k;
@@ -91,7 +100,8 @@ export function scene(head, members) {
       start: t,
     };
     if (s.closed) {
-      let at = point(p.at);
+      // A contour is placed, never in the row: with no at= it sits in the middle.
+      let at = point(p.at) || (kind === "contour" ? [W / 2, H / 2] : null);
       let sz = (size(p.size, kind) || SIZE[kind]).map((v) => v * k);
       if (!at) {
         const r = row.places[loose.indexOf(s)];
@@ -102,27 +112,62 @@ export function scene(head, members) {
       item.size = sz;
       const mv = point(p.move);
       if (mv) item.move = inside(mv, sz, W, H);
+      if (kind === "contour") item.rings = clamp(Math.round(num(p.rings) ?? RINGS), 2, 8);
+      // A callout points at where `to=` says (a shape's id or a point).
+      if (kind === "callout" && p.to !== undefined && p.to !== true) {
+        const to = end(p.to, null, parts, s.i, 1);
+        if (to) { item.from = { ref: s.i }; item.to = to; item.leader = true; }
+      }
     } else if (kind === "path") {
       const pts = (Array.isArray(p.pts) ? p.pts : []).map(point).filter(Boolean);
       if (pts.length < 2) continue;
       item.pts = pts;
+      // +close joins the last point back to the first (a zone, a contour);
+      // +sharp keeps straight sides instead of the smooth curve.
+      if (p.close && pts.length >= 3) { item.close = true; item.fill = !!p.fill; }
+      if (p.sharp) item.sharp = true;
     } else {
       // A connector: from= and to= are a shape's id or a point. With neither,
       // it joins the closed shape before it to the one after it.
       item.from = end(p.from, p.at, parts, s.i, -1);
       item.to = end(p.to, null, parts, s.i, 1);
       if (!item.from || !item.to) continue;
+      if (kind === "bracket") item.side = (num(p.bend) ?? 1) < 0 ? -1 : 1;
+      else if (kind === "arc" || p.bend !== undefined) item.bend = clamp(num(p.bend) ?? BEND, -2, 2);
     }
     item.dur = DUR[item.motion];
     items.push(item);
     t += STEP;
   }
+  blend(items);
   const last = items.reduce((m, it) => Math.max(m, it.start + it.dur + (it.move ? MOVE : 0)), 0);
   return { w: W, h: H, fs: LABEL * W * k, title: h0.title ? String(h0.title) : "", caption: h0.caption ? String(h0.caption) : "", items, total: last };
 }
 
+// Filled shapes that cross read as an overlap (a Venn): each of two filled
+// parts whose boxes meet takes the blend, so the CSS multiply (screen in the
+// dark look) shows where they cross and the wash is a little stronger.
+function box(it) {
+  if (it.at) return [it.at[0] - it.size[0] / 2, it.at[1] - it.size[1] / 2, it.at[0] + it.size[0] / 2, it.at[1] + it.size[1] / 2];
+  if (it.pts && it.close) {
+    const xs = it.pts.map((q) => q[0]), ys = it.pts.map((q) => q[1]);
+    return [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
+  }
+  return null;
+}
+function blend(items) {
+  const filled = items.filter((it) => it.fill && it.kind !== "dot" && it.kind !== "text" && box(it));
+  for (const a of filled) {
+    for (const b of filled) {
+      if (a === b) continue;
+      const [x0, y0, x1, y1] = box(a), [u0, v0, u1, v1] = box(b);
+      if (x0 < u1 && u0 < x1 && y0 < v1 && v0 < y1) { a.blend = true; break; }
+    }
+  }
+}
+
 // How much of a closed shape's width its label may use.
-const SHARE = { circle: 0.78, blob: 0.74, box: 0.88, pill: 0.8 };
+const SHARE = { circle: 0.78, blob: 0.74, box: 0.88, pill: 0.8, callout: 0.88, contour: 0.4 };
 export const ROW_MIN = 0.7;
 const GLYPH = 0.56; // a glyph's width as a share of the font size
 const LINE = 1.15; // line height as a share of the font size
@@ -140,7 +185,7 @@ function rowLayout(loose, W, fs, joined, parts) {
     const widest = wordW(p.label);
     let sz;
     if (given) sz = given;
-    else if (kind === "box") { const w = Math.max(2.25, widest / SHARE.box + 0.3); sz = [w, Math.max(1.5, lines(p.label, w * SHARE.box) * LINE * fs + 0.5)]; }
+    else if (kind === "box" || kind === "callout") { const w = Math.max(2.25, widest / SHARE.box + 0.3); sz = [w, Math.max(1.5, lines(p.label, w * SHARE.box) * LINE * fs + 0.5)]; }
     else if (kind === "pill") { const w = Math.max(2.25, widest / SHARE.pill + 0.4); sz = [w, Math.max(0.9, lines(p.label, w * SHARE.pill) * LINE * fs + 0.35)]; }
     else if (kind === "circle") { let d = Math.max(1.5, widest / SHARE.circle + 0.2); d = Math.max(d, lines(p.label, d * SHARE.circle) * LINE * fs + 0.5); sz = [d, d]; }
     else if (kind === "blob") { const w = Math.max(1.95, widest / SHARE.blob + 0.3); sz = [w, Math.max(w * 0.85, lines(p.label, w * SHARE.blob) * LINE * fs + 0.6)]; }
@@ -297,6 +342,47 @@ export function blobPoints(w, h, seed) {
   return pts;
 }
 
+// A contour's rings around (0, 0), inner to outer: `n` closed outlines of
+// the w by h box, each a coherent wobble of the same noise so they nest
+// like the lines of a map. Points to join with the smooth curve.
+export function ringPoints(w, h, seed, ring, n) {
+  const m = 9;
+  const scale = (ring + 1) / n;
+  const pts = [];
+  for (let j = 0; j < m; j++) {
+    const ang = (2 * Math.PI * j) / m - Math.PI / 2;
+    const r = 1 + 0.1 * Math.sin((seed + 1) * 12.9898 + j * 78.233 + ring * 0.5);
+    pts.push([Math.cos(ang) * (w / 2) * r * scale * 0.94, Math.sin(ang) * (h / 2) * r * scale * 0.94]);
+  }
+  return pts;
+}
+
+// A bent connector as a quadratic: its control point. The middle of the curve
+// is pushed `bend` times the connector's length to the left of a to b (up,
+// when it runs left to right; a negative bend pushes the other way), so the
+// control sits twice as far.
+export function control(a, b, bend) {
+  const dx = b[0] - a[0], dy = b[1] - a[1];
+  return [(a[0] + b[0]) / 2 + 2 * bend * dy, (a[1] + b[1]) / 2 - 2 * bend * dx];
+}
+
+// The quadratic a to b through c, cut at t: the point and the direction there.
+export function along(a, c, b, t) {
+  const q0 = [a[0] + (c[0] - a[0]) * t, a[1] + (c[1] - a[1]) * t];
+  const q1 = [c[0] + (b[0] - c[0]) * t, c[1] + (b[1] - c[1]) * t];
+  return { q0, tip: [q0[0] + (q1[0] - q0[0]) * t, q0[1] + (q1[1] - q0[1]) * t], dir: [q1[0] - q0[0], q1[1] - q0[1]] };
+}
+
+// A bracket from a to b: tick, spine, tick, ticks to the side `side`
+// (1: up when a to b runs left to right). Returns the three corner points
+// and the unit direction the ticks point, so the label sits on the other side.
+export function bracketPoints(a, b, side, depth) {
+  const dx = b[0] - a[0], dy = b[1] - a[1];
+  const len = Math.hypot(dx, dy) || 1;
+  const n = [(dy / len) * side, (-dx / len) * side];
+  return { pts: [[a[0] + n[0] * depth, a[1] + n[1] * depth], a, b, [b[0] + n[0] * depth, b[1] + n[1] * depth]], n };
+}
+
 // Catmull-Rom through points, as cubic Bezier segments [c1, c2, p]. Closed
 // joins the last point back to the first.
 export function smooth(pts, closed) {
@@ -324,11 +410,11 @@ export function describe(sc) {
     return it ? it.label || it.kind : null;
   };
   const joined = new Set();
-  for (const it of sc.items) if (it.from && name(it.from) && name(it.to)) { joined.add(it.from.ref); joined.add(it.to.ref); }
+  for (const it of sc.items) if (it.from && !it.leader && name(it.from) && name(it.to)) { joined.add(it.from.ref); joined.add(it.to.ref); }
   const bits = [];
   let tail = null; // the ref the last chain ended on
   for (const it of sc.items) {
-    if (it.from) {
+    if (it.from && !it.leader) {
       const a = name(it.from), b = name(it.to);
       if (!a || !b) { if (it.label) bits.push(it.label); tail = null; continue; }
       const sign = `${it.kind === "arrow" ? " → " : " – "}${b}${it.label ? ` (${it.label})` : ""}`;

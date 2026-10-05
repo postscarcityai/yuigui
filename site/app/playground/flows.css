@@ -276,6 +276,10 @@
 .yl-shsvg { display: block; width: 100%; height: auto; overflow: visible; cursor: pointer; }
 .yl-shlabel { fill: var(--yl-ink); font-weight: 700; font-family: inherit; }
 .yl-shlabel.sh-in { font-weight: 800; }
+/* The drawing kit (YUI-291): filled parts that cross blend, multiply on the light screen, screen on the dark one, so two or three fills make a Venn. */
+.yl-shsvg { isolation: isolate; }
+.sh-blend { mix-blend-mode: screen; }
+.screen.light .sh-blend { mix-blend-mode: multiply; }
 .yl-shcap { margin: 0; font-size: 13px; line-height: 1.45; color: var(--yl-ink2); }
 
 /* map (YUI-158): land in the ink at a whisper, areas and routes in the agent's tones. */
