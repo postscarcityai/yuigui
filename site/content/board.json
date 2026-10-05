@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T04:06:05.710Z",
+  "updated": "2026-10-05T04:16:23.440Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -373,6 +373,7 @@
         {
           "key": "SITE-190",
           "title": "The spec says half-filled answers are kept",
+          "progress": "/progress#the-spec-says-half-filled-answers-are-kept",
           "owner": "CJohnDesign"
         },
         {
