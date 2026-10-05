@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T23:25:43.717Z",
+  "updated": "2026-10-05T23:30:44.067Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -323,20 +323,10 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
-          "key": "NOTE-44205",
-          "title": "Pages that morph, not a line",
-          "progress": "/progress#decks-are-a-stage-that-morphs"
-        },
-        {
           "key": "NOTE-54787",
           "title": "Drawings that look designed",
           "waiting": true,
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
-          "key": "NOTE-60149",
-          "title": "No more cards inside cards",
-          "progress": "/progress#decks-are-a-stage-that-morphs"
         },
         {
           "key": "NOTE-61013",
@@ -350,14 +340,10 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-45868",
-          "title": "Decks that fill the screen and move",
-          "progress": "/progress#decks-are-a-stage-that-morphs",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "YUI-303",
           "title": "/web home calms down too, chats first, the twin of Chris's home-screen pick",
+          "summary": "The web drawer is calm too: chats first, nothing else",
+          "progress": "/progress#the-web-drawer-is-calm-too-chats-first-nothing-else",
           "owner": "CJohnDesign"
         },
         {
@@ -390,6 +376,24 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-60149",
+          "title": "No more cards inside cards",
+          "shipped": "2026-10-05",
+          "progress": "/progress#decks-are-a-stage-that-morphs"
+        },
+        {
+          "key": "NOTE-45868",
+          "title": "Decks that fill the screen and move",
+          "shipped": "2026-10-05",
+          "progress": "/progress#decks-are-a-stage-that-morphs"
+        },
+        {
+          "key": "NOTE-44205",
+          "title": "Pages that morph, not a line",
+          "shipped": "2026-10-05",
+          "progress": "/progress#decks-are-a-stage-that-morphs"
+        },
         {
           "key": "NOTE-61729",
           "title": "Drop the agent roster page",
