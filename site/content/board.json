@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T09:30:14.471Z",
+  "updated": "2026-10-05T09:35:14.350Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -356,8 +356,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-195",
-          "title": "Thought, every agent can draw a table",
+          "key": "YUI-300",
+          "title": "Function deploys run clean again, the table sync migration recorded, test_flywheel green",
           "owner": "CJohnDesign"
         },
         {
@@ -378,6 +378,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-195",
+          "title": "Thought, every agent can draw a table",
+          "summary": "A Thought: every agent can draw a table",
+          "shipped": "2026-10-05",
+          "progress": "/progress#a-thought-every-agent-can-draw-a-table",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f987db31"
+        },
         {
           "key": "YUI-89b",
           "title": "Tables guide + compat gate + MCP app",
