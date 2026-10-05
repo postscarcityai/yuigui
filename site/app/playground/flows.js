@@ -18,7 +18,8 @@ import { RichText } from "./richtext";
 import { RunnerMove, useRunner } from "./runner";
 import { runnerPlan } from "../../lib/web/runner.mjs";
 import { askHere, compareOf, questionOf } from "../../lib/yl/askhere.mjs";
-import { KeptScopeCtx, useKeptAgent } from "./kept";
+import { KeptAnsCtx, KeptScopeCtx, useKeptAgent, useKeptMsg } from "./kept";
+import { keepScope } from "../../lib/web/stagekeep.mjs";
 import { dropRun, heldRun, holdRun } from "../../lib/web/kept.mjs";
 
 const isVideo = (src) => /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src || "");
@@ -284,7 +285,8 @@ export function Plan({ g, emitFor, Render }) {
   // The step and the answers are kept per agent and plan id until Send (YUI-279); the steps are the plan's own
   // positions, so a plan drawn again with fewer steps clamps and an answer to a question that is gone is dropped.
   const agent = useKeptAgent();
-  const pid = agent ? g.group.id : null;
+  const msg = useKeptMsg();
+  const pid = agent ? keepScope(msg, g.group.id) || null : null;
   const qids = questions.map((m) => m.id).join("|");
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -351,6 +353,7 @@ export function Plan({ g, emitFor, Render }) {
   const review = cur >= n && p.review;
   return (
     <KeptScopeCtx.Provider value={pid || ""}>
+    <KeptAnsCtx.Provider value={ans}>
     <div className="yl-block yl-plan">
       <div className="yl-stephead">
         {p.title ? <div className="yl-q">{p.title}</div> : null}
@@ -389,6 +392,7 @@ export function Plan({ g, emitFor, Render }) {
           : <button className="bigbtn p acc" disabled={!nextOk} onClick={onNext}>{cur >= n - 1 ? (p.review ? "Review" : p.submit) : "Next"}</button>}
       </div>
     </div>
+    </KeptAnsCtx.Provider>
     </KeptScopeCtx.Provider>
   );
 }

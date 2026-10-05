@@ -15,10 +15,11 @@ import { LonePart, Mock } from "./mock";
 import { LoneMapPart, MapView } from "./map";
 import { useLive } from "./stage";
 import { useTabTitle, useWakeLock } from "./keepawake";
-import { useKeptAgent, useKeptScope } from "./kept";
+import { useKeptAgent, useKeptAns, useKeptScope } from "./kept";
+import { keepable, secretField } from "../../lib/web/stagekeep.mjs";
 import { takeHost } from "../../lib/web/take-host.mjs";
 import { preparePhoto } from "../../lib/web/photo.mjs";
-import { heldForm, heldMic, holdForm, holdMic, pruneTicks, setTick, ticked } from "../../lib/web/kept.mjs";
+import { heldForm, heldMic, heldSlide, holdForm, holdMic, holdSlide, pruneTicks, setTick, ticked } from "../../lib/web/kept.mjs";
 import { advance, tabTitle } from "../../lib/web/timer-clock.mjs";
 import { RichText } from "./richtext";
 import { PageVoiceCtx, StepActiveCtx } from "./pagevoice";
@@ -157,8 +158,10 @@ function useAnswer(emit) {
   return (v) => emit(n.current++ ? { ...v, changed: true } : v);
 }
 
-function Ask({ p, emit }) {
-  const [a, setA] = useState(null);
+function Ask({ p, emit, nid }) {
+  const held = useKeptAns(nid);
+  const [a, setA] = useState(() => (typeof held === "string" ? held : null));
+  useEffect(() => { if (typeof held === "string") setA(held); }, [held]);
   const send = useAnswer(emit);
   const quiz = graded(p);
   return (
@@ -201,8 +204,11 @@ function AskHead({ p }) {
   );
 }
 
-function Choose({ p, emit }) {
-  const [sel, setSel] = useState(null);
+function Choose({ p, emit, nid }) {
+  const held = useKeptAns(nid);
+  const [sel, setSel] = useState(() => (typeof held === "string" ? held : null));
+  // The plan hands its kept answer over a moment after it mounts (a reload): show it pressed.
+  useEffect(() => { if (typeof held === "string") setSel(held); }, [held]);
   const send = useAnswer(emit);
   const quiz = graded(p);
   const pickIt = (o, other) => {
@@ -224,10 +230,13 @@ function Choose({ p, emit }) {
   );
 }
 
-function Pick({ p, emit }) {
-  const [sel, setSel] = useState([]);
-  const [extra, setExtra] = useState([]);
-  const [sent, setSent] = useState(null);
+function Pick({ p, emit, nid }) {
+  const held = useKeptAns(nid);
+  const [sel, setSel] = useState(() => (Array.isArray(held) ? held : []));
+  const [extra, setExtra] = useState(() => (Array.isArray(held) ? held.filter((o) => !p.options.includes(o)) : []));
+  const [sent, setSent] = useState(() => (Array.isArray(held) ? held : null));
+  const heldKey = Array.isArray(held) ? held.join("\u0001") : null;
+  useEffect(() => { if (Array.isArray(held)) { setSel(held); setSent(held); setExtra(held.filter((o) => !p.options.includes(o))); } }, [heldKey]); // eslint-disable-line react-hooks/exhaustive-deps
   const [shown, setShown] = useState(null); // the last sent picks, for the quiz marks
   const send = useAnswer(emit);
   const quiz = graded(p);
@@ -253,12 +262,18 @@ function Pick({ p, emit }) {
   );
 }
 
-function Slide({ p, emit }) {
-  const [v, setV] = useState(p.value);
+function Slide({ p, emit, nid }) {
+  const agent = useKeptAgent();
+  const scope = useKeptScope();
+  // Inside a kept plan or flow the slider's place comes back after a reload, until the plan is sent (YUI-289).
+  const [v, setV] = useState(() => heldSlide(agent, scope, nid, p.min, p.max) ?? p.value);
   const last = useRef(null);
   const send = useAnswer(emit);
   const release = () => { if (v === last.current) return; last.current = v; send({ value: v }); };
-  useEffect(() => setV(p.value), [p.value]);
+  useEffect(() => setV(heldSlide(agent, scope, nid, p.min, p.max) ?? p.value), [p.value]); // eslint-disable-line react-hooks/exhaustive-deps
+  // A place kept before a reload is the person's answer, as if they had let go of it there.
+  useEffect(() => { const h = heldSlide(agent, scope, nid, p.min, p.max); if (h != null && h !== p.value) { last.current = h; send({ value: h }); } }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { holdSlide(agent, scope, nid, v === p.value ? null : v); }, [v]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className={`yl-block ${p.lock ? "locked" : ""}`}>
       {p.label ? <div className="yl-q">{p.label}</div> : null}
@@ -313,9 +328,9 @@ function Form({ p, emit, nid }) {
   const pv = useContext(PageVoiceCtx);
   const stepOn = useContext(StepActiveCtx);
   // What was typed comes back after Back, another agent or a reload, until sent (YUI-279); a flow's Send drops it.
-  const [v, setV] = useState(() => heldForm(agent, scope, nid, p.fields.map((f) => f.key)));
+  const [v, setV] = useState(() => heldForm(agent, scope, nid, p.fields.filter((f) => !secretField(f)).map((f) => f.key)));
   const [err, setErr] = useState("");
-  const set = (k, x) => setV((o) => { const n = { ...o, [k]: x }; holdForm(agent, scope, nid, n); return n; });
+  const set = (k, x) => setV((o) => { const n = { ...o, [k]: x }; holdForm(agent, scope, nid, keepable(p.fields, n)); return n; });
   // Speak to fill (YUI-283): said answers land in their fields, each marked with a small mic until the person edits it.
   const voiceOk = canFill(p.fields);
   const [heard, setHeard] = useState(() => (pv ? pv.marked(nid) : []));
@@ -323,7 +338,7 @@ function Form({ p, emit, nid }) {
   const put = (values) => {
     const keys = Object.keys(values);
     if (!keys.length) return false;
-    setV((o) => { const n = { ...o, ...values }; holdForm(agent, scope, nid, n); return n; });
+    setV((o) => { const n = { ...o, ...values }; holdForm(agent, scope, nid, keepable(p.fields, n)); return n; });
     setHeard((h) => [...new Set([...h, ...keys])]);
     pv?.mark(nid, keys);
     setNote(`Filled ${keys.length}. Check them, fix by tapping, then go on.`);

@@ -9,3 +9,11 @@ export const useKeptAgent = () => useContext(KeptCtx);
 // The flow or plan a screen is drawn in (YUI-279): a form or mic inside one keeps what it holds under that id.
 export const KeptScopeCtx = createContext("");
 export const useKeptScope = () => useContext(KeptScopeCtx);
+
+// The message a screen is drawn for (YUI-289): a plan or form the agent did not name is kept under it (lib/web/stagekeep.mjs).
+export const KeptMsgCtx = createContext("");
+export const useKeptMsg = () => useContext(KeptMsgCtx);
+
+// What a kept plan holds as answers, by step id (YUI-289): an ask, choose or pick drawn again shows its answer pressed.
+export const KeptAnsCtx = createContext({});
+export const useKeptAns = (nid) => useContext(KeptAnsCtx)?.[nid];

@@ -58,6 +58,9 @@ export function clearDraft(agent, id, storage) { if (keeps(agent, id)) write(dk(
 const rk = (agent, id) => `yui.run.${agent}.${id}`;
 const fk = (agent, scope, nid) => `yui.form.${agent}.${scope}.${nid}`;
 const mk = (agent, scope, nid) => `yui.mic.${agent}.${scope}.${nid}`;
+const sk = (agent, scope, nid) => `yui.slide.${agent}.${scope}.${nid}`;
+// Inside a kept plan or flow the scope is already one message's, so a part's own place in it (`n2`) is enough.
+const keepsIn = (agent, scope, nid) => !!agent && !!nid && (keeps(agent, nid) || !!scope);
 
 // The run kept for `id`, cut down to what the steps still hold. Reads only.
 export function heldRun(agent, id, stepIds, storage) {
@@ -81,7 +84,7 @@ export function dropRun(agent, id, storage) {
     const gone = [];
     for (let i = 0; i < (st?.length || 0); i++) {
       const k = st.key(i);
-      if (k && (k.startsWith(`yui.form.${agent}.${id}.`) || k.startsWith(`yui.mic.${agent}.${id}.`))) gone.push(k);
+      if (k && (k.startsWith(`yui.form.${agent}.${id}.`) || k.startsWith(`yui.mic.${agent}.${id}.`) || k.startsWith(`yui.slide.${agent}.${id}.`))) gone.push(k);
     }
     gone.forEach((k) => st.removeItem(k));
   } catch { /* nothing kept */ }
@@ -89,22 +92,32 @@ export function dropRun(agent, id, storage) {
 
 // A form's fields: only the keys it still has. `scope` is the flow or plan it sits in ("" on its own).
 export function heldForm(agent, scope, nid, keys, storage) {
-  if (!keeps(agent, nid)) return {};
+  if (!keepsIn(agent, scope, nid)) return {};
   const d = read(fk(agent, scope, nid), storage);
   const out = {};
   if (d && typeof d === "object") for (const [k, v] of Object.entries(d)) if (keys.includes(k)) out[k] = v;
   return out;
 }
 export function holdForm(agent, scope, nid, v, storage) {
-  if (keeps(agent, nid)) write(fk(agent, scope, nid), Object.keys(v).length ? v : null, storage);
+  if (keepsIn(agent, scope, nid)) write(fk(agent, scope, nid), Object.keys(v).length ? v : null, storage);
 }
 
 // A mic's words and what was typed in its box: kept only inside a flow or plan, dropped with it.
 export function heldMic(agent, scope, nid, storage) {
-  if (!scope || !keeps(agent, nid)) return { text: "", typed: "" };
+  if (!scope || !keepsIn(agent, scope, nid)) return { text: "", typed: "" };
   const d = read(mk(agent, scope, nid), storage);
   return { text: typeof d?.text === "string" ? d.text : "", typed: typeof d?.typed === "string" ? d.typed : "" };
 }
 export function holdMic(agent, scope, nid, m, storage) {
-  if (scope && keeps(agent, nid)) write(mk(agent, scope, nid), m.text || m.typed ? { text: m.text || "", typed: m.typed || "" } : null, storage);
+  if (scope && keepsIn(agent, scope, nid)) write(mk(agent, scope, nid), m.text || m.typed ? { text: m.text || "", typed: m.typed || "" } : null, storage);
+}
+
+// A slider's place inside a plan or flow, before it is answered (YUI-289): a number, within the slider's own range.
+export function heldSlide(agent, scope, nid, min, max, storage) {
+  if (!scope || !keepsIn(agent, scope, nid)) return null;
+  const v = read(sk(agent, scope, nid), storage);
+  return typeof v === "number" && Number.isFinite(v) && v >= min && v <= max ? v : null;
+}
+export function holdSlide(agent, scope, nid, v, storage) {
+  if (scope && keepsIn(agent, scope, nid)) write(sk(agent, scope, nid), Number.isFinite(v) ? v : null, storage);
 }

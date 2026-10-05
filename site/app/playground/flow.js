@@ -10,7 +10,8 @@ import { flowAhead, flowEvent, flowFirst, flowNext, flowPath, resolve } from "..
 import { savedGraph, variantGraph } from "../../lib/yl/starter-flows.mjs";
 import { loadRun, missingFlow, runKey, saveRun } from "../../lib/yl/flow-run.mjs";
 import { ScreenCtx } from "./science";
-import { KeptScopeCtx, useKeptAgent } from "./kept";
+import { KeptScopeCtx, useKeptAgent, useKeptMsg } from "./kept";
+import { keepScope } from "../../lib/web/stagekeep.mjs";
 import { dropRun, heldRun, holdRun } from "../../lib/web/kept.mjs";
 import { BackHome, Facts, Page, VALUE, foldText, question, show } from "./flows";
 
@@ -41,7 +42,8 @@ export function Flow({ node, emit, Render }) {
   // In an agent's thread the run is also kept on the device per agent and flow id until Send (YUI-279): a switch of
   // agent, Back or a new tab comes back to the same step, fields and mic words. A sent flow stays sent for the tab.
   const agent = useKeptAgent();
-  const kid = agent ? (/^n\d+$/.test(String(node.id || "")) || !node.id ? p.title : node.id) : null;
+  const msg = useKeptMsg();
+  const kid = agent ? keepScope(msg, node.id) || p.title || null : null;
   const [ready, setReady] = useState(false);
   useEffect(() => {
     const sent = g ? loadRun(window.sessionStorage, runId, stepIds) : null;

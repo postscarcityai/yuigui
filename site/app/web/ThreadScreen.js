@@ -11,6 +11,7 @@ import { boundTables } from "../../lib/yl/tables.mjs";
 import { Render, StepGroup, TABLES } from "../playground/presets";
 import { Group, groupNodes } from "../playground/flows";
 import { ScreenCtx } from "../playground/science";
+import { KeptMsgCtx } from "../playground/kept";
 import { LiveSlot, Stage, StagePill } from "../playground/stage";
 import RestyleOffer from "./RestyleOffer";
 import "../playground/flows.css";
@@ -70,6 +71,7 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
 
   if (!nodes.length && !staged.length && !pages.length && !state.restyle) return null;
   return (
+    <KeptMsgCtx.Provider value={message.id || ""}>
     <div className={`screen wb-screen ${light ? "light" : ""}`} data-live={live ? "1" : "0"} ref={box}>
       <div className="pg-screen">
         <ScreenCtx.Provider value={ctx(nodes, "1")}>
@@ -90,5 +92,6 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
           </Stage>
         </div>, host) : null}
     </div>
+    </KeptMsgCtx.Provider>
   );
 }
