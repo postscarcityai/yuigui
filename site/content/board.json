@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T17:07:07.174Z",
+  "updated": "2026-10-05T17:26:43.574Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -368,6 +368,11 @@
           "owner": "CJohnDesign"
         },
         {
+          "key": "NOTE-57356",
+          "title": "Questions that say what they ask",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -383,12 +388,6 @@
           "key": "NOTE-7746",
           "title": "A calmer home screen, chats first",
           "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "NOTE-57356",
-          "title": "Questions that say what they ask",
-          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
