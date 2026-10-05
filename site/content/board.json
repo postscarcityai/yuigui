@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T13:35:23.517Z",
+  "updated": "2026-10-05T15:05:35.223Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -294,10 +294,6 @@
           "title": "/web home calms down too, chats first, the twin of Chris's home-screen pick"
         },
         {
-          "key": "SITE-198",
-          "title": "Thought, a workout you do, not a list you read"
-        },
-        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -310,18 +306,10 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
-          "key": "NOTE-14531",
-          "title": "Workouts never start in the drawer"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does"
-        },
-        {
-          "key": "NOTE-26959",
-          "title": "Tabs named for what is on them"
         },
         {
           "key": "NOTE-28767",
@@ -343,6 +331,17 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-14531",
+          "title": "Workouts never start in the drawer",
+          "needsDemo": true
+        },
+        {
+          "key": "NOTE-31307",
+          "title": "Start opens the workout, full screen",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/82d3e900",
+          "needsDemo": true
         }
       ]
     },
@@ -351,8 +350,18 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-31307",
-          "title": "Start opens the workout, full screen",
+          "key": "YUI-304",
+          "title": "/web workout, Start opens the runner full screen, sets and rest",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-198",
+          "title": "Thought, a workout you do, not a list you read",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-26959",
+          "title": "Tabs named for what is on them",
           "owner": "CJohnDesign"
         },
         {
