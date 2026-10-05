@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T09:35:14.350Z",
+  "updated": "2026-10-05T09:40:15.806Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -356,11 +356,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-300",
-          "title": "Function deploys run clean again, the table sync migration recorded, test_flywheel green",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -378,6 +373,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-300",
+          "title": "Function deploys run clean again, the table sync migration recorded, test_flywheel green",
+          "summary": "Function deploys unstuck, tests green",
+          "shipped": "2026-10-05",
+          "progress": "/progress#function-deploys-unstuck-tests-green"
+        },
         {
           "key": "SITE-195",
           "title": "Thought, every agent can draw a table",
