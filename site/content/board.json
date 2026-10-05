@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T05:45:41.632Z",
+  "updated": "2026-10-05T05:50:49.606Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -367,11 +367,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-291",
-          "title": "Drawing kit step 1, Venn overlaps, closed regions, contours, curved arrows in the spec, parsers and playground",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -389,6 +384,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-291",
+          "title": "Drawing kit step 1, Venn overlaps, closed regions, contours, curved arrows in the spec, parsers and playground",
+          "summary": "Draw a Venn, a contour or a loop with a few lines",
+          "shipped": "2026-10-05",
+          "progress": "/progress#draw-a-venn-a-contour-or-a-loop-with-a-few-lines",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1d7ae74e"
+        },
         {
           "key": "SITE-191",
           "title": "The spec says the phone keeps stage answers too",
