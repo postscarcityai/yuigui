@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T09:15:12.332Z",
+  "updated": "2026-10-05T09:25:13.554Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -362,7 +362,9 @@
         {
           "key": "YUI-89b",
           "title": "Tables guide + compat gate + MCP app",
+          "summary": "Agents keep tables instead of asking twice",
           "blocked": "chris",
+          "progress": "/progress#agents-keep-tables-instead-of-asking-twice",
           "owner": "CJohnDesign"
         },
         {
