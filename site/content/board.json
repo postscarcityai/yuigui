@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T08:26:05.107Z",
+  "updated": "2026-10-05T08:36:07.527Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -69,11 +69,6 @@
           "key": "YUI-48",
           "title": "Text a number",
           "summary": "SMS channel",
-          "waiting": true
-        },
-        {
-          "key": "YUI-89b",
-          "title": "Tables guide + compat gate + MCP app",
           "waiting": true
         },
         {
@@ -360,6 +355,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-89b",
+          "title": "Tables guide + compat gate + MCP app",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-194",
+          "title": "Thought, agents mark the spot by hand",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
