@@ -9,6 +9,8 @@ import { createRelay } from "../../lib/web/relay.mjs";
 import { createGroupsClient } from "../../lib/web/groups.mjs";
 import { createOutbox, idbStore } from "../../lib/web/outbox.mjs";
 import { createCache } from "../../lib/web/cache.mjs";
+import { createTables } from "../../lib/web/tablestore.mjs";
+import { TablesCtx } from "./tablesctx";
 import { liveness, presenceLabel } from "../../lib/web/presence.mjs";
 import { controlSections, openAgent, revoked, sortAgents, unsharedLine } from "../../lib/web/agents.mjs";
 import { chatErrorOf, draft as newDraft, merge as mergeChats, openAfterDeleting, append as appendChats, PAGE_SIZE } from "../../lib/web/chats.mjs";
@@ -132,6 +134,9 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   // The last rows, chats and agents of a signed in person, kept here so a repeat visit draws them at once (YUI-273).
   // The demo never writes one.
   const cache = useMemo(() => (!demo && mounted && userId ? createCache({ userId }) : null), [demo, mounted, userId]);
+  // The agents' tables (YUI-296): kept in this browser per person and agent, never sent anywhere. The demo keeps
+  // them for the visit only.
+  const tables = useMemo(() => (mounted && userId ? createTables({ userId, idb: demo ? null : undefined }) : null), [demo, mounted, userId]);
   // Your $U in the drawer's header (SITE-161). On a computer the drawer is a column that is always in view, so it
   // counts as open; on a phone it counts when it slides out. ?earnseen=<n> on a demo link: the total "last seen".
   const [column, setColumn] = useState(false);
@@ -394,6 +399,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   const manage = relay?.manage;
   const onRemoved = (id) => {
     setSheet(null);
+    tables?.agent(id).remove(); // its tables go with it (spec/TABLES.md section 4)
     const rest = (sorted || []).filter((a) => a.id !== id);
     if (open?.id === id && rest.length) go(hrefOf(rest[0]));
   };
@@ -527,6 +533,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
 
   return (
     <PrefsContext.Provider value={prefs}>
+    <TablesCtx.Provider value={tables}>
     <div className={`web-root${light ? " is-light" : ""}`}>
       {perf ? <PerfHud /> : null}
       <aside className={`wb-side${drawer ? " open" : ""}`} aria-label="Drawer">
@@ -607,6 +614,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       ) : null}
       {notice ? <div className="wc-toast" role="status" data-testid="agent-notice">{notice}</div> : null}
     </div>
+    </TablesCtx.Provider>
     </PrefsContext.Provider>
   );
 }

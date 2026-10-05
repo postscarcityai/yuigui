@@ -146,7 +146,7 @@ function AsSend({ p, r, title, emit, ctx }) {
   const n = Math.min(r.rows.length, 200);
   const send = () => {
     setSent(true);
-    emit({ op: "query", table: p.table, cols: r.cols.map((c) => c.name), rows: r.rows.slice(0, 200), count: r.count });
+    emit({ op: "query", table: p.table, cols: r.cols.map((c) => c.name), rows: r.rows.slice(0, 200), count: r.count, _echo: `Sent ${n} row${n === 1 ? "" : "s"} from ${p.table}` });
   };
   return (
     <div className="yl-card">

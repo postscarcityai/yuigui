@@ -14,15 +14,18 @@ import { ScreenCtx } from "../playground/science";
 import { KeptMsgCtx } from "../playground/kept";
 import { LiveSlot, Stage, StagePill } from "../playground/stage";
 import RestyleOffer from "./RestyleOffer";
+import { useAgentTables } from "./tablesctx";
 import "../playground/flows.css";
 
-export default function ThreadScreen({ message, agent, light, onTap, live, onPage, fresh = false }) {
+export default function ThreadScreen({ message, agent, agentId, light, onTap, live, onPage, fresh = false }) {
   // The screen the reply drew, then every later patch, in order. Local state keeps the person's own
   // moves (a tick, a slider) that no row carries.
   const [state, setState] = useState(() => {
     // A new answer with a staged part opens it; one from the history is a pill, and the stage opens on a tap.
     return fresh ? message.state : { ...message.state, stage: false };
   });
+  const tapRef = useRef(onTap);
+  tapRef.current = onTap;
   const done = useRef(message.ops.length);
   useEffect(() => {
     if (message.ops.length <= done.current) return;
@@ -30,6 +33,18 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
     done.current = message.ops.length;
     setState((s) => more.reduce((acc, op) => apply(acc, op), s));
   }, [message.ops]);
+
+  // The agent's tables in this browser (YUI-296). The reply's `table create` and `put` lines are filed once; a
+  // refused one is told to the agent once, after a new reply (spec/TABLES.md section 3). Every `query` reads the
+  // store, so a tick in one reply shows in the others and is still there after a reload.
+  const tb = useAgentTables(agentId);
+  useEffect(() => {
+    tb?.file(message.id, message.ops, {
+      done: (refused) => { if (fresh) for (const r of refused) tapRef.current?.({ id: "tables", preset: "query", op: "row", table: r.table, ...(r.key != null ? { key: r.key } : {}), error: r.message, line: r.line }); },
+    });
+  }, [tb, message.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  const data = tb?.ready ? tb.store : state.data;
+  const write = useCallback((op) => { if (tb) tb.set(op.table, op.key, op.values); else setState((s) => apply(s, op)); }, [tb]);
 
   // `>full` and the parts that take the stage (a timer, a deck, a plan) open as a full-window layer over the
   // thread (YUI-243), not inside the bubble: the stage is drawn into the main column (a portal), so nothing
@@ -41,8 +56,6 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
   const [liveTimers, setLive] = useState({});
   const onLive = useCallback((k, t) => setLive((l) => (l[k] === t ? l : { ...l, [k]: t })), []);
   const dispatch = useCallback((op) => setState((s) => apply(s, op)), []);
-  const tapRef = useRef(onTap);
-  tapRef.current = onTap;
   const emits = useRef(new Map());
   const emit = useCallback((node) => {
     const k = `${node.key}:${node.preset}:${node.seq}`;
@@ -67,7 +80,7 @@ export default function ThreadScreen({ message, agent, light, onTap, live, onPag
   );
   const stageOpen = state.stage && staged.length > 0;
   const closeStage = useCallback(() => setState((s) => ({ ...s, stage: false })), []);
-  const ctx = (list, screen) => ({ nodes: list, tables: { ...TABLES, ...boundTables(state.data) }, data: state.data, agent, screen, dispatch, ...(screen === "full" ? { closeStage, stageHome: true } : {}) });
+  const ctx = (list, screen) => ({ nodes: list, tables: { ...TABLES, ...boundTables(data) }, data, write, agent, screen, dispatch, ...(screen === "full" ? { closeStage, stageHome: true } : {}) });
 
   if (!nodes.length && !staged.length && !pages.length && !state.restyle) return null;
   return (

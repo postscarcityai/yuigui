@@ -6,6 +6,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createAuth, browserDeps } from "../../lib/web/auth.mjs";
 import { wipe } from "../../lib/web/cache.mjs";
+import { wipe as wipeTables } from "../../lib/web/tablestore.mjs";
 import { APPLE_JS, APPLE_WEB_CLIENT_ID, REDIRECT_URI } from "../../lib/web/config.mjs";
 import { cleanInvite, inviteFromLocation, inviteNotice } from "../../lib/web/invite.mjs";
 import { sha256Hex, randomHex } from "../../lib/web/nonce.mjs";
@@ -55,7 +56,7 @@ export default function WebApp({ build }) {
   }, [auth]);
 
   // Signed out (here, in another tab, or the session was refused): what the page kept for a repeat visit goes with it.
-  useEffect(() => { if (snap.ready && !snap.signedIn && !snap.provisional) wipe(); }, [snap.ready, snap.signedIn, snap.provisional]);
+  useEffect(() => { if (snap.ready && !snap.signedIn && !snap.provisional) { wipe(); wipeTables(); } }, [snap.ready, snap.signedIn, snap.provisional]);
 
   // Signed in with an invite waiting (a link opened after sign in): claim it now, like the app.
   useEffect(() => {

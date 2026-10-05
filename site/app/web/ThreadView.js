@@ -93,7 +93,7 @@ function Bubble({ m, agent, light, onTap, live, onPage, fresh, relay, reaction, 
   if (m.yl) return (
     <div className={`wb-row wb-agent wb-screenrow${wears && reaction ? " reacted" : ""}`}>
       <div className="wb-hold" {...hold} data-testid="card-hold">
-        <ThreadScreen message={m} agent={agent?.name || "Yui"} light={light} onTap={onTap} live={live} onPage={onPage} fresh={fresh} />
+        <ThreadScreen message={m} agent={agent?.name || "Yui"} agentId={agent?.id} light={light} onTap={onTap} live={live} onPage={onPage} fresh={fresh} />
         {wears ? <Badge emoji={reaction} onOpen={(el) => onMenu(m, el)} /> : null}
         {more}
       </div>

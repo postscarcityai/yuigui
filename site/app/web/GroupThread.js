@@ -54,7 +54,7 @@ function AgentBubbles({ item, agent, messages, light, onReply, onTap, onOpenAgen
         <b className="gr-name">{agent?.name || "Yui"}</b>
         {messages.map((m) => (m.yl ? (
           <div key={m.id} className="wb-screenrow gr-screen">
-            <ThreadScreen message={m} agent={agent?.name || "Yui"} light={light} onTap={(ev) => onTap(ev, item.agent)} live onPage={() => onOpenAgent(item.agent)} fresh={false} />
+            <ThreadScreen message={m} agent={agent?.name || "Yui"} agentId={item.agent} light={light} onTap={(ev) => onTap(ev, item.agent)} live onPage={() => onOpenAgent(item.agent)} fresh={false} />
           </div>
         ) : (
           <div key={m.id} className="gr-bubblerow">

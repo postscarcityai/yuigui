@@ -196,10 +196,12 @@ export class ThreadSync {
     const echo = said ?? _echo ?? echoFor(ev);
     // A Dismiss on a Needs you row reaches the host with no echo and no turn (YUI-270, Presets/ChatStore.swift `dismissMenu`).
     const quiet = ev.preset === "menu" && ev.dismissed === true;
-    if (!quiet && !relays(ev, echo)) return null;
+    // A refused table write is told to the agent once, with no echo and no wait (spec/TABLES.md section 3).
+    const refusal = ev.preset === "query" && ev.op === "row" && typeof ev.error === "string";
+    if (!quiet && !refusal && !relays(ev, echo)) return null;
     const meta = { id: ev.id, preset: ev.preset, value: valueOf(ev), ...(echo != null ? { echo } : {}) };
     const row = { id: uuid(), body: eventLine(ev), kind: "event", meta };
-    this.#out(row, quiet ? { owes: false } : undefined);
+    this.#out(row, quiet || refusal ? { owes: false } : undefined);
     return row;
   }
 

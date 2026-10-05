@@ -71,6 +71,24 @@ test("a tap sends the phone's line byte for byte; a quiet one stays on the page"
   sync.stop();
 });
 
+test("table events (YUI-296): a refused write and Send reach the agent, a tick stays on the page", async () => {
+  const { thread, sync, relay } = await open("demo-yui");
+  // A tick has no echo: the phone has written the row, the agent is not asked.
+  assert.equal(sync.tap({ id: "n2", preset: "query", op: "row", table: "session", key: "1", values: { Done: true } }), null);
+  // A refused write is told once, with no bubble and no wait.
+  const refused = sync.tap({ id: "tables", preset: "query", op: "row", table: "t", key: "x", error: 'N: "lots" is not a number', line: "put t x N=lots" });
+  assert.match(refused.body, /^\[yui\] tables query error=/);
+  assert.equal(refused.meta.echo, undefined);
+  assert.equal(thread.waiting, false);
+  assert.equal(thread.messages.some((m) => m.role === "user"), false);
+  // Send hands the rows over, and the person sees what went.
+  const sent = sync.tap({ id: "n4", preset: "query", op: "query", table: "meals", cols: ["Food"], rows: [["Oats"]], count: 1, _echo: "Sent 1 row from meals" });
+  assert.equal(sent.meta.echo, "Sent 1 row from meals");
+  assert.equal(thread.messages.at(-1).text, "Sent 1 row from meals");
+  await until(() => relay.wire("demo-yui").length === 2);
+  sync.stop();
+});
+
 test("the same row coming back from the poll adds nothing twice", async () => {
   const { thread, sync } = await open();
   sync.send("one");

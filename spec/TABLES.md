@@ -95,7 +95,7 @@ Writes are quiet: a `put` that lands sends nothing back. The agent hears about t
 
 ## 4. Privacy
 
-- **A connected agent's tables live on the phone.** In the app, one SQLite file per agent in the app's own storage (YUI-89). In the playground, the browser's `localStorage`. They are never written to Yui's server, never to a `yui_` table, never into a push.
+- **A connected agent's tables live on the phone.** In the app, one SQLite file per agent in the app's own storage (YUI-89). In the playground, the browser's `localStorage`. On /web, the browser's IndexedDB, per person and agent (YUI-296). They are never written to Yui's server, never to a `yui_` table, never into a push.
 - **A native agent's tables live with the agent.** A native agent (Yui and the starter crew) already runs on Yui's server, so its tables are kept there too, one set per agent, readable only by the runtime. Section 7.
 - **What does travel.** The `put` lines an agent writes are part of its reply, and a reply goes through the relay like any message (kept 90 days, then deleted). The agent sees table data only when the person sends it: a changed row (event 2) or rows they chose to send (event 3). There is no way for an agent to read a table silently.
 - **One agent, its own tables.** An agent cannot query another agent's tables. Removing an agent removes its tables. Deleting the account removes all of them.
