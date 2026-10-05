@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T08:41:07.589Z",
+  "updated": "2026-10-05T08:46:08.102Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -361,13 +361,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-194",
-          "title": "Thought, agents mark the spot by hand",
-          "summary": "A Thought: agents mark the spot by hand",
-          "progress": "/progress#a-thought-agents-mark-the-spot-by-hand",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -385,6 +378,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-194",
+          "title": "Thought, agents mark the spot by hand",
+          "summary": "A Thought: agents mark the spot by hand",
+          "shipped": "2026-10-05",
+          "progress": "/progress#a-thought-agents-mark-the-spot-by-hand",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/c1da1695"
+        },
         {
           "key": "YUI-36",
           "title": "Optional encrypted sync for agent tables",
