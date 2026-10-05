@@ -21,7 +21,7 @@ const rowsOf = (s) => s.split("\n").filter((l) => l.startsWith("| ") && !l.start
 
 const AREAS = [2, 3, 4, 5, 6, 7, 8];
 const STATUS = new Set(["open", "draws", "done", "n/a"]);
-const stories = new Set(["none", "162", ...Array.from({ length: 30 }, (_, i) => String(241 + i))]);
+const stories = new Set(["none", "162", ...Array.from({ length: 80 }, (_, i) => String(241 + i))]);
 const counts = {};
 for (const n of AREAS) {
   const rows = rowsOf(section(n));

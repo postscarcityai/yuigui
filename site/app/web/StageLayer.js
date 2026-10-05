@@ -27,6 +27,7 @@ import { CREW_VISUALS, FALLBACK_VISUAL, stageVisual, visualPlan } from "../../li
 import { VisualCanvas } from "../playground/VisualCanvas";
 import { RichText } from "../playground/richtext";
 import { usePager } from "../components/ChatDots";
+import { tapTarget, isControl } from "../../lib/web/tapzone.mjs";
 import "../playground/stagemotion.css";
 import "../playground/draw.css";
 import "../components/chat.css";
@@ -226,6 +227,14 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
   const canTalk = onHomeScreen || home.talk.includes(pageAt);
   const goIndex = useCallback((i) => setPageAt(names[Math.min(Math.max(i, 0), names.length - 1)] || "1"), [names]);
   const pager = usePager(names.length, at, goIndex, true);
+  // YUI-288: a tap on a page goes back from its left third, forward from the rest, like the app. Controls keep their tap.
+  const onPageTap = (e) => {
+    if (e.button || isControl(e.target, window.getSelection?.()?.toString())) return;
+    if (document.querySelector(".wb-stage .yl-stage.open")) return;
+    const r = pager.box.current?.getBoundingClientRect();
+    const to = r && tapTarget({ x: e.clientX, left: r.left, width: r.width, at, n: names.length });
+    if (to != null) goIndex(to);
+  };
   useEffect(() => { if (!names.includes(pageAt)) setPageAt("1"); }, [names, pageAt]);
   // A reply that sends a line to a page brings it forward; a patch or a redraw beside an answer does not.
   // What was already in the thread when it opened does not: the stage opens on the home (YUI-252, "1 of 6").
@@ -455,7 +464,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
         </header>
         {names.length > 1 ? <Pills names={names} at={at} titles={titles} onGo={goIndex} /> : null}
         <div className="ys-center" aria-live="polite">
-          <div className="ys-pager" ref={pager.box} {...pager.handlers} data-drag={pager.dragging ? "1" : undefined} style={{ "--at": at, "--drag": `${pager.drag}px` }}>
+          <div className="ys-pager" ref={pager.box} {...pager.handlers} onClick={onPageTap} data-drag={pager.dragging ? "1" : undefined} style={{ "--at": at, "--drag": `${pager.drag}px` }}>
             <div className="ys-track">
               <PageVoiceCtx.Provider value={pageVoice}>
                 <StepActiveCtx.Provider value={onHomeScreen}>
