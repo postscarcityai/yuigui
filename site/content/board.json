@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T09:05:11.314Z",
+  "updated": "2026-10-05T09:15:12.332Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -362,6 +362,7 @@
         {
           "key": "YUI-89b",
           "title": "Tables guide + compat gate + MCP app",
+          "blocked": "chris",
           "owner": "CJohnDesign"
         },
         {
