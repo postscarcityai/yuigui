@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T11:51:02.656Z",
+  "updated": "2026-10-05T12:06:17.158Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -295,11 +295,6 @@
           "waiting": true
         },
         {
-          "key": "NOTE-3651",
-          "title": "Add an agent, tucked away",
-          "progress": "/progress#add-an-agent-tucked-away"
-        },
-        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -318,19 +313,9 @@
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does"
         },
         {
-          "key": "NOTE-35492",
-          "title": "Tap left to go back",
-          "progress": "/progress#tap-left-to-go-back"
-        },
-        {
           "key": "NOTE-37260",
           "title": "Fewer buttons on the stage",
           "progress": "/progress#fewer-buttons-on-the-stage"
-        },
-        {
-          "key": "NOTE-42080",
-          "title": "Ask and answer on one screen",
-          "progress": "/progress#ask-and-answer-on-one-screen"
         },
         {
           "key": "NOTE-43312",
@@ -356,6 +341,23 @@
       "title": "Building",
       "cards": [
         {
+          "key": "YUI-301",
+          "title": "The drawing kit on /web gets its own e2e test",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-196",
+          "title": "Every link and image on the site resolves, sweep after the drawing and tables week",
+          "summary": "Link sweep: nothing broken",
+          "progress": "/progress#link-sweep-nothing-broken",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-302",
+          "title": "Every drawing on the phone matches the hub, side by side",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -366,18 +368,6 @@
           "title": "Pick the drawing look, A, B or C",
           "blocked": "chris",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-301",
-          "title": "The drawing kit on /web gets its own e2e test",
-          "blocked": "other",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-196",
-          "title": "Every link and image on the site resolves, sweep after the drawing and tables week",
-          "blocked": "other",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -385,6 +375,24 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-42080",
+          "title": "Ask and answer on one screen",
+          "shipped": "2026-10-05",
+          "progress": "/progress#ask-and-answer-on-one-screen"
+        },
+        {
+          "key": "NOTE-35492",
+          "title": "Tap left to go back",
+          "shipped": "2026-10-05",
+          "progress": "/progress#tap-left-to-go-back"
+        },
+        {
+          "key": "NOTE-3651",
+          "title": "Add an agent, tucked away",
+          "shipped": "2026-10-05",
+          "progress": "/progress#add-an-agent-tucked-away"
+        },
         {
           "key": "YUI-300",
           "title": "Function deploys run clean again, the table sync migration recorded, test_flywheel green",

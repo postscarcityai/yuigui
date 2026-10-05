@@ -1,6 +1,134 @@
 {
   "builds": [
     {
+      "build": 522,
+      "date": "2026-10-05",
+      "uploaded": "2026-10-05T04:56:13-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "A flow or plan keeps what you typed: forms and mics come back filled after Back, a kill or a relaunch (feedback AFeoOWB5ZWdBuf4yoBBL5Hw)"
+        },
+        {
+          "text": "Basil's calories are by date: Today redraws at midnight and a calories-over-time page (7 and 30 days) joins it"
+        },
+        {
+          "text": "Basil by date: a UI test shoots Today at 0 kcal and Calories over time, light and dark"
+        },
+        {
+          "text": "Switching screens is lighter: a drag moves the pages without re-running the stage's body each frame (feedback ANRhjGE0nCBvjnHKIE2SNls,)"
+        },
+        {
+          "text": "A tap on a screen pill turns at once: no quarter-second wait, and a test that times 24 switches (feedback ANRhjGE0nCBvjnHKIE2SNls,)"
+        },
+        {
+          "text": "Stage bar: no X in the bottom left, just back and next; pull-down and Back home still close (feedback AFxMozFA0OX-QAJPXMxh6ck,)"
+        },
+        {
+          "text": "Speak to fill a form: a mic on every form card fills the fields from what is said, marked for a check before Next (feedback AKNFDrNVFCY4IO44-4fjAnc,)"
+        },
+        {
+          "text": "Plan and form pages keep +, T and the mic beside Back/Next; the mic fills the page, and pages sit under the progress bar (feedback AF-LecIdpo5GenYXnYNhdm0,)"
+        },
+        {
+          "text": "Group thread bar: +, T, mic like the agent chat; mic on the group name fields (YUI)"
+        },
+        {
+          "text": "Media sets: mic on the storyboard comment field and the image edit field (YUI)"
+        },
+        {
+          "text": "Merge pull request 7 (claude/elegant-johnson-stn1u8): Liquid Glass chrome, one decision on one screen, compare pictures, draw anywhere, gesture marks, forms that keep answers, the agent's load coaching"
+        },
+        {
+          "text": "The wordmark is optically centered: 5% of its width left"
+        },
+        {
+          "text": "Every Yui has a repo: the README, AGENTS.md and CONTRIBUTING-AGENTS.md point to the platform repos"
+        },
+        {
+          "text": "The orb is drawn clean and has a place in the layout; the working screen is light words under it"
+        },
+        {
+          "text": "The first screen is for a new person: what Yui is in one breath, no fake page dots, no flash at launch"
+        },
+        {
+          "text": "The photo limit is read from the server in every build, not only debug ones"
+        },
+        {
+          "text": "The notifications nudge names the agent whose plan was built, not always an agent"
+        },
+        {
+          "text": "The drawer shows Pinned screens once something is pinned, not an empty box of instructions"
+        },
+        {
+          "text": "A sketch's phone reads as a phone: the time, the island, the bars and battery, and a home bar",
+          "card": "YUI-267"
+        },
+        {
+          "text": "compat: the marks gate is 492, the build where they reached main"
+        },
+        {
+          "text": "One mic per job: FieldMic and NameMic are one button, and a form on the stage draws no second mic"
+        },
+        {
+          "text": "The unread count shows again on the stage's chat button; small cleanups"
+        },
+        {
+          "text": "The searching drop sways across the top and the talking pill stays shorter, clear of the words; the redesign notes say what was picked"
+        },
+        {
+          "text": "Holding the mic and sliding to the lock or the trash works again"
+        },
+        {
+          "text": "Merge origin/main: mics on the naming and search fields, and the voice first guard"
+        },
+        {
+          "text": "Three stale tests brought up to date"
+        },
+        {
+          "text": "The stage questions screen keeps typed answers: per question id, back after a relaunch or another thread, gone on Send, secret-looking fields never stored (YUI)"
+        },
+        {
+          "text": "Stop only counts when sent after the newest row of the batch (an old Stop cancelled a fresh question)"
+        },
+        {
+          "text": "YuiLines vectors and the plugin's Python parser come level with the drawing kit",
+          "card": "YUI-292"
+        },
+        {
+          "text": "yui-mcp: serve the YUI-291 drawing kit bundle",
+          "card": "YUI-293"
+        },
+        {
+          "text": "YUI-295: sync MCP App with the capped drawing"
+        },
+        {
+          "text": "YUI-297: the app draws callout, bracket and arc shapes like the hub"
+        },
+        {
+          "text": "YUI-299: the phone draws +hand and the marks scribble, underline, check like the hub"
+        },
+        {
+          "text": "YUI-299: -yuiDemoHand launch arg shows the hand drawn sample"
+        },
+        {
+          "text": "YUI-36 step 1: yui_sync_rows and yui_sync_pairings for encrypted table sync"
+        },
+        {
+          "text": "YUI-89b: compat gates table create, put and query below build 450; sync the MCP App that draws bound tables"
+        },
+        {
+          "text": "YUI-89b: plugin guide copy v47 (published to yui_channel_guides)"
+        },
+        {
+          "text": "YUI-300: test_flywheel window covers the Jev shape lines between record and media.rewrite"
+        },
+        {
+          "text": "Yui 0.6.3: daily release, 2026-10-05 [YUI-SHIP]"
+        }
+      ]
+    },
+    {
       "build": 451,
       "date": "2026-10-04",
       "uploaded": "2026-10-04T10:42:21-07:00",
@@ -1983,123 +2111,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "A flow or plan keeps what you typed: forms and mics come back filled after Back, a kill or a relaunch (feedback AFeoOWB5ZWdBuf4yoBBL5Hw)"
-    },
-    {
-      "text": "Basil's calories are by date: Today redraws at midnight and a calories-over-time page (7 and 30 days) joins it"
-    },
-    {
-      "text": "Basil by date: a UI test shoots Today at 0 kcal and Calories over time, light and dark"
-    },
-    {
-      "text": "Switching screens is lighter: a drag moves the pages without re-running the stage's body each frame (feedback ANRhjGE0nCBvjnHKIE2SNls,)"
-    },
-    {
-      "text": "A tap on a screen pill turns at once: no quarter-second wait, and a test that times 24 switches (feedback ANRhjGE0nCBvjnHKIE2SNls,)"
-    },
-    {
-      "text": "Stage bar: no X in the bottom left, just back and next; pull-down and Back home still close (feedback AFxMozFA0OX-QAJPXMxh6ck,)"
-    },
-    {
-      "text": "Speak to fill a form: a mic on every form card fills the fields from what is said, marked for a check before Next (feedback AKNFDrNVFCY4IO44-4fjAnc,)"
-    },
-    {
-      "text": "Plan and form pages keep +, T and the mic beside Back/Next; the mic fills the page, and pages sit under the progress bar (feedback AF-LecIdpo5GenYXnYNhdm0,)"
-    },
-    {
-      "text": "Group thread bar: +, T, mic like the agent chat; mic on the group name fields (YUI)"
-    },
-    {
-      "text": "Media sets: mic on the storyboard comment field and the image edit field (YUI)"
-    },
-    {
-      "text": "Merge pull request 7 (claude/elegant-johnson-stn1u8): Liquid Glass chrome, one decision on one screen, compare pictures, draw anywhere, gesture marks, forms that keep answers, the agent's load coaching"
-    },
-    {
-      "text": "The wordmark is optically centered: 5% of its width left"
-    },
-    {
-      "text": "Every Yui has a repo: the README, AGENTS.md and CONTRIBUTING-AGENTS.md point to the platform repos"
-    },
-    {
-      "text": "The orb is drawn clean and has a place in the layout; the working screen is light words under it"
-    },
-    {
-      "text": "The first screen is for a new person: what Yui is in one breath, no fake page dots, no flash at launch"
-    },
-    {
-      "text": "The photo limit is read from the server in every build, not only debug ones"
-    },
-    {
-      "text": "The notifications nudge names the agent whose plan was built, not always an agent"
-    },
-    {
-      "text": "The drawer shows Pinned screens once something is pinned, not an empty box of instructions"
-    },
-    {
-      "text": "A sketch's phone reads as a phone: the time, the island, the bars and battery, and a home bar",
-      "card": "YUI-267"
-    },
-    {
-      "text": "compat: the marks gate is 492, the build where they reached main"
-    },
-    {
-      "text": "One mic per job: FieldMic and NameMic are one button, and a form on the stage draws no second mic"
-    },
-    {
-      "text": "The unread count shows again on the stage's chat button; small cleanups"
-    },
-    {
-      "text": "The searching drop sways across the top and the talking pill stays shorter, clear of the words; the redesign notes say what was picked"
-    },
-    {
-      "text": "Holding the mic and sliding to the lock or the trash works again"
-    },
-    {
-      "text": "Merge origin/main: mics on the naming and search fields, and the voice first guard"
-    },
-    {
-      "text": "Three stale tests brought up to date"
-    },
-    {
-      "text": "The stage questions screen keeps typed answers: per question id, back after a relaunch or another thread, gone on Send, secret-looking fields never stored (YUI)"
-    },
-    {
-      "text": "Stop only counts when sent after the newest row of the batch (an old Stop cancelled a fresh question)"
-    },
-    {
-      "text": "YuiLines vectors and the plugin's Python parser come level with the drawing kit",
-      "card": "YUI-292"
-    },
-    {
-      "text": "yui-mcp: serve the YUI-291 drawing kit bundle",
-      "card": "YUI-293"
-    },
-    {
-      "text": "YUI-295: sync MCP App with the capped drawing"
-    },
-    {
-      "text": "YUI-297: the app draws callout, bracket and arc shapes like the hub"
-    },
-    {
-      "text": "YUI-299: the phone draws +hand and the marks scribble, underline, check like the hub"
-    },
-    {
-      "text": "YUI-299: -yuiDemoHand launch arg shows the hand drawn sample"
-    },
-    {
-      "text": "YUI-36 step 1: yui_sync_rows and yui_sync_pairings for encrypted table sync"
-    },
-    {
-      "text": "YUI-89b: compat gates table create, put and query below build 450; sync the MCP App that draws bound tables"
-    },
-    {
-      "text": "YUI-89b: plugin guide copy v47 (published to yui_channel_guides)"
-    },
-    {
-      "text": "YUI-300: test_flywheel window covers the Jev shape lines between record and media.rewrite"
-    }
-  ]
+  "next": []
 }
