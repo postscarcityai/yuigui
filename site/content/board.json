@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T16:49:11.995Z",
+  "updated": "2026-10-05T17:07:07.174Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -326,10 +326,26 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
+          "key": "NOTE-44205",
+          "title": "Pages that morph, not a line"
+        },
+        {
+          "key": "NOTE-45868",
+          "title": "Decks that fill the screen and move"
+        },
+        {
+          "key": "NOTE-50415",
+          "title": "A cleaner drawer"
+        },
+        {
           "key": "NOTE-54787",
           "title": "Drawings that look designed",
           "waiting": true,
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
+        },
+        {
+          "key": "NOTE-60149",
+          "title": "No more cards inside cards"
         },
         {
           "key": "NOTE-61013",
@@ -352,11 +368,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "NOTE-57356",
-          "title": "Questions that say what they ask",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -372,6 +383,12 @@
           "key": "NOTE-7746",
           "title": "A calmer home screen, chats first",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-57356",
+          "title": "Questions that say what they ask",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
