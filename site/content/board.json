@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T23:15:45.666Z",
+  "updated": "2026-10-05T23:20:45.901Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,15 +348,9 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-305",
-          "title": "Workouts with music and live edits",
-          "summary": "Music and edits on the fly, inside the workout",
-          "progress": "/progress#music-and-edits-on-the-fly-inside-the-workout",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-61729",
           "title": "Drop the agent roster page",
+          "progress": "/progress#yui-s-home-is-a-calm-chat-again",
           "owner": "CJohnDesign"
         },
         {
@@ -399,6 +393,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-305",
+          "title": "Workouts with music and live edits",
+          "summary": "Music and edits on the fly, inside the workout",
+          "shipped": "2026-10-05",
+          "progress": "/progress#music-and-edits-on-the-fly-inside-the-workout",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/751f5a2e"
+        },
         {
           "key": "NOTE-50415",
           "title": "A cleaner drawer",
