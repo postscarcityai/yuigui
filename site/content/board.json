@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T05:50:49.606Z",
+  "updated": "2026-10-05T05:55:42.432Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -361,12 +361,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-4897",
-          "title": "Yui gave up on a question",
-          "progress": "/progress#a-question-nobody-answered-says-so-with-try-again",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -384,6 +378,12 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "NOTE-4897",
+          "title": "Yui gave up on a question",
+          "shipped": "2026-10-05",
+          "progress": "/progress#a-question-nobody-answered-says-so-with-try-again"
+        },
         {
           "key": "YUI-291",
           "title": "Drawing kit step 1, Venn overlaps, closed regions, contours, curved arrows in the spec, parsers and playground",
