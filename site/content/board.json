@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T06:36:08.767Z",
+  "updated": "2026-10-05T06:45:50.968Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -366,11 +366,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-295",
-          "title": "Venn fits the frame in the MCP App at desktop width",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -388,6 +383,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-295",
+          "title": "Venn fits the frame in the MCP App at desktop width",
+          "summary": "Venns fit on a laptop too",
+          "shipped": "2026-10-05",
+          "progress": "/progress#venns-fit-on-a-laptop-too"
+        },
         {
           "key": "YUI-292",
           "title": "The app's parser reads the drawing kit (Swift, look-free)",
