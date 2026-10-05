@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T06:15:45.723Z",
+  "updated": "2026-10-05T06:36:08.767Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -360,6 +360,16 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-294",
+          "title": "Four TestFlight notes fixed on main, shots and close-out",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-295",
+          "title": "Venn fits the frame in the MCP App at desktop width",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
