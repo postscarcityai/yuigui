@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T06:10:45.565Z",
+  "updated": "2026-10-05T06:15:45.723Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -361,27 +361,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-292",
-          "title": "The app's parser reads the drawing kit (Swift, look-free)",
-          "summary": "The phone reads Venns and contours",
-          "progress": "/progress#the-phone-reads-venns-and-contours",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-293",
-          "title": "The drawing kit goes live in the MCP App",
-          "summary": "Claude and ChatGPT draw the Venn and the contour too",
-          "progress": "/progress#claude-and-chatgpt-draw-the-venn-and-the-contour-too",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "SITE-192",
-          "title": "Thought, agents can draw a Venn now",
-          "summary": "A new Thought: agents can draw a Venn now",
-          "progress": "/progress#a-new-thought-agents-can-draw-a-venn-now",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -399,6 +378,29 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-292",
+          "title": "The app's parser reads the drawing kit (Swift, look-free)",
+          "summary": "The phone reads Venns and contours",
+          "shipped": "2026-10-05",
+          "progress": "/progress#the-phone-reads-venns-and-contours",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/0edfd388"
+        },
+        {
+          "key": "SITE-192",
+          "title": "Thought, agents can draw a Venn now",
+          "summary": "A new Thought: agents can draw a Venn now",
+          "shipped": "2026-10-05",
+          "progress": "/progress#a-new-thought-agents-can-draw-a-venn-now"
+        },
+        {
+          "key": "YUI-293",
+          "title": "The drawing kit goes live in the MCP App",
+          "summary": "Claude and ChatGPT draw the Venn and the contour too",
+          "shipped": "2026-10-05",
+          "progress": "/progress#claude-and-chatgpt-draw-the-venn-and-the-contour-too",
+          "commit": "https://github.com/postscarcityai/yui/commit/66d3cc5"
+        },
         {
           "key": "NOTE-4897",
           "title": "Yui gave up on a question",
