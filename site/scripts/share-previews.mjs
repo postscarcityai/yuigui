@@ -32,6 +32,9 @@ const fetchRetry = async (url) => {
   }
 };
 
+// AbortSignal.timeout's timer is unref'd: a stalled socket could let Node exit mid-crawl ("unsettled top-level
+// await") instead of timing out. This ref'd tick keeps the loop alive until the crawl settles.
+const keepAlive = setInterval(() => {}, 1000);
 const sitemap = await (await fetchRetry(`${BASE}/sitemap.xml`)).text();
 const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(/^https?:\/\/[^/]+/, BASE));
 const rows = [];
@@ -58,6 +61,7 @@ const grab = async (u) => {
 await Promise.all(Array.from({ length: 8 }, async () => {
   while (i < urls.length) rows.push(await grab(urls[i++]));
 }));
+clearInterval(keepAlive);
 rows.sort((a, b) => a.url.localeCompare(b.url));
 
 const home = rows.find((r) => r.url === BASE || r.url === `${BASE}/`);
