@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T16:12:06.548Z",
+  "updated": "2026-10-05T16:49:11.995Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -349,6 +349,11 @@
         {
           "key": "NOTE-26959",
           "title": "Tabs named for what is on them",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-57356",
+          "title": "Questions that say what they ask",
           "owner": "CJohnDesign"
         },
         {
