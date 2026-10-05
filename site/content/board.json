@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T07:25:55.072Z",
+  "updated": "2026-10-05T07:36:11.927Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -169,11 +169,6 @@
         {
           "key": "YUI-258",
           "title": "Reminders fire from a closed tab through Web Push",
-          "waiting": true
-        },
-        {
-          "key": "YUI-297",
-          "title": "The app draws callout, bracket and arc shapes, +hand on any shape, and scribble/underline/check marks",
           "waiting": true
         },
         {
@@ -364,6 +359,17 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-297",
+          "title": "The app draws callout, bracket and arc shapes, the same as the playground",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-298",
+          "title": "Hand-drawn shapes and marks",
+          "summary": "+hand, scribble, underline, check",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
