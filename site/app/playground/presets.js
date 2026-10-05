@@ -24,6 +24,7 @@ import { advance, tabTitle } from "../../lib/web/timer-clock.mjs";
 import { RichText } from "./richtext";
 import { PageVoiceCtx, StepActiveCtx } from "./pagevoice";
 import { canFill, fill as voiceFill } from "../../lib/web/voicefill.mjs";
+import FieldMic from "../web/FieldMic";
 
 // Sample agent data tables, so `table meals` has something to bind to.
 export const TABLES = {
@@ -178,15 +179,22 @@ function Ask({ p, emit, nid }) {
   );
 }
 
+// A field mic's words land after what is typed, the way the feedback box takes them (YUI-290): the mapper capitalizes a phrase, so
+// it is lowered again when it carries on from an unfinished sentence.
+const addWords = (was, t, max) => (was && was.trim() ? `${was.trimEnd()} ${/[.!?]$/.test(was.trimEnd()) || !/^[A-Z][a-z]/.test(t) ? t : t[0].toLowerCase() + t.slice(1)}` : t).slice(0, max);
+
 function Other({ onSubmit }) {
   const [open, setOpen] = useState(false);
   const [v, setV] = useState("");
   if (!open) return <button className="chip" onClick={() => setOpen(true)}>Type your own</button>;
   return (
     <form className="yl-otherin roomy" onSubmit={(e) => { e.preventDefault(); if (v.trim()) onSubmit(v.trim()); }}>
-      <textarea autoFocus rows={3} value={v} maxLength={500} aria-label="Type your own" placeholder="Type your own answer"
-        onChange={(e) => { setV(e.target.value); e.target.style.height = "auto"; e.target.style.height = `${e.target.scrollHeight}px`; }}
-        onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); if (v.trim()) onSubmit(v.trim()); } }} />
+      <div className="yl-fieldrow">
+        <textarea autoFocus rows={3} value={v} maxLength={500} aria-label="Type your own" placeholder="Type your own answer"
+          onChange={(e) => { setV(e.target.value); e.target.style.height = "auto"; e.target.style.height = `${e.target.scrollHeight}px`; }}
+          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) { e.preventDefault(); if (v.trim()) onSubmit(v.trim()); } }} />
+        <FieldMic label="Answer" onWords={(t) => setV((was) => addWords(was, t, 500))} testId="other-mic" />
+      </div>
       <button className="chip on" disabled={!v.trim()}>Send</button>
     </form>
   );
@@ -314,7 +322,7 @@ function VoiceField({ value, onChange }) {
   const sp = useSpeech((t) => onChange(t));
   return (
     <div className="yl-voicefield">
-      <input value={value || ""} onChange={(e) => onChange(e.target.value)} placeholder={sp.ok ? "Talk or type" : "Type (voice needs Chrome/Safari)"} />
+      <input value={value || ""} aria-label="Voice answer" onChange={(e) => onChange(e.target.value)} placeholder={sp.ok ? "Talk or type" : "Type (voice needs Chrome/Safari)"} />
       <button type="button" className={`mic ${sp.on ? "live" : ""}`} onClick={() => (sp.on ? sp.stop() : sp.start())}><MicIcon /></button>
     </div>
   );
@@ -388,7 +396,12 @@ function Form({ p, emit, nid }) {
         const t = f.type || "text";
         let input;
         if (t === "voice") input = <VoiceField value={v[f.key]} onChange={(x) => typed(f.key, x)} />;
-        else if (t === "long") input = <textarea rows={3} value={v[f.key] || ""} onChange={(e) => typed(f.key, e.target.value)} />;
+        else if (t === "long") input = (
+          <div className="yl-fieldrow">
+            <textarea rows={3} value={v[f.key] || ""} aria-label={label} data-testid={`form-${nid}-${f.key}`} onChange={(e) => typed(f.key, e.target.value)} />
+            <FieldMic label={f.label || human(f.key)} onWords={(w) => typed(f.key, addWords(v[f.key], w, 4000))} testId={`form-${nid}-${f.key}-mic`} />
+          </div>
+        );
         else if (t === "yes") input = (
           <button type="button" className={`yl-toggle ${v[f.key] ? "on" : ""}`} onClick={() => typed(f.key, !v[f.key])}><span /></button>
         );
@@ -406,7 +419,12 @@ function Form({ p, emit, nid }) {
         else if (t === "photo") input = <input type="file" accept="image/*" capture="environment" onChange={(e) => typed(f.key, e.target.files[0] && e.target.files[0].name)} />;
         else {
           const map = { number: "number", email: "email", phone: "tel", date: "date", time: "time", url: "url" };
-          input = <input type={map[t] || "text"} value={v[f.key] || ""} onChange={(e) => typed(f.key, t === "number" ? Number(e.target.value) : e.target.value)} />;
+          input = (
+            <div className="yl-fieldrow">
+              <input type={map[t] || "text"} value={v[f.key] || ""} aria-label={label} data-testid={`form-${nid}-${f.key}`} onChange={(e) => typed(f.key, t === "number" ? Number(e.target.value) : e.target.value)} />
+              {t === "text" ? <FieldMic label={f.label || human(f.key)} onWords={(w) => typed(f.key, addWords(v[f.key], w, 4000))} testId={`form-${nid}-${f.key}-mic`} /> : null}
+            </div>
+          );
         }
         return (
           <label key={f.key} className={`yl-field ${t === "yes" ? "row" : ""}`}>
@@ -683,6 +701,7 @@ function Storyboard({ p, emit }) {
   const [moved, setMoved] = useState(false);
   const [open, setOpen] = useState(null); // frame whose comment box is open
   const [said, setSaid] = useState({});
+  const [note, setNote] = useState("");
   const v = useViewer(emit);
   useEffect(() => { setOrder(Array.from({ length: count }, (_, i) => i)); setMoved(false); }, [count]);
   const swap = (at, d) => {
@@ -693,8 +712,9 @@ function Storyboard({ p, emit }) {
   };
   const send = (e, f) => {
     e.preventDefault();
-    const t = e.target.c.value.trim();
+    const t = note.trim();
     if (!t) return;
+    setNote("");
     setSaid((s) => ({ ...s, [f]: [...(s[f] || []), t] }));
     emit({ frame: f, comment: t });
     setOpen(null);
@@ -711,7 +731,8 @@ function Storyboard({ p, emit }) {
             {(said[f] || []).map((c, i) => <div key={i} className="yl-fcom">{c}</div>)}
             {open === f ? (
               <form className="yl-otherin" onSubmit={(e) => send(e, f)}>
-                <input name="c" autoFocus placeholder="Comment on this frame" />
+                <input autoFocus value={note} onChange={(e) => setNote(e.target.value)} placeholder="Comment on this frame" aria-label="Comment on this frame" />
+                <FieldMic label="Comment" onWords={(t) => setNote((was) => addWords(was, t, 500))} testId="frame-mic" />
                 <button className="chip on">Send</button>
               </form>
             ) : p.comment ? <button className="yl-flink" onClick={() => setOpen(f)}>Comment</button> : null}
@@ -798,7 +819,8 @@ function ImageEdit({ p, emit }) {
         <button onClick={clear}>Clear</button>
       </div>
       <form className="yl-otherin" onSubmit={submit}>
-        <input value={text} onChange={(e) => setText(e.target.value)} placeholder={b ? "What should change here?" : "Mark an area first"} />
+        <input value={text} onChange={(e) => setText(e.target.value)} placeholder={b ? "What should change here?" : "Mark an area first"} aria-label="What should change" />
+        <FieldMic label="Change" onWords={(t) => setText((was) => addWords(was, t, 500))} testId="edit-mic" />
         <button className={`chip ${b && text.trim() ? "on" : ""}`}>{sent ? "Sent" : "Send"}</button>
       </form>
     </div>
@@ -905,7 +927,7 @@ function Mic({ p, emit, nid }) {
       {text ? <div className="b in">{text}</div> : null}
       {typed || !sp.ok ? (
         <form className="yl-otherin" onSubmit={(e) => { e.preventDefault(); const t = draft.trim(); if (t) { setText(t); setDraft(""); emit({ transcript: t, typed: true }); } }}>
-          <input name="t" placeholder="Type it" value={draft} onChange={(e) => setDraft(e.target.value)} />
+          <input name="t" aria-label="Type it" placeholder="Type it" value={draft} onChange={(e) => setDraft(e.target.value)} />
           <button className="chip on">Send</button>
         </form>
       ) : null}

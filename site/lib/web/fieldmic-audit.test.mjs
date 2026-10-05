@@ -16,3 +16,10 @@ test("a new field with neither is caught", () => {
   assert.match(bad[0], /New\.js#x: no FieldMic/);
 });
 test("the feedback box is covered", () => assert.ok(WITH_MIC.includes("SettingsPanel.js#st-feedback")));
+test("the preset renderers are scanned, and the +other answer box has a mic (YUI-290)", () => {
+  const keys = fields().map((x) => x.key);
+  assert.ok(keys.includes("presets.js#Type your own"));
+  assert.ok(WITH_MIC.includes("presets.js#Type your own"));
+  const bad = audit([...fields(), { file: "presets.js", name: "New field", key: "presets.js#New field", after: "" }]);
+  assert.match(bad.join("\n"), /presets\.js#New field: no FieldMic/);
+});

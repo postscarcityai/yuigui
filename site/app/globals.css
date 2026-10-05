@@ -508,6 +508,9 @@ ul.log > li:nth-child(n+7) { content-visibility: auto; contain-intrinsic-size: a
 .yl-otherin.roomy textarea { width: 100%; min-height: 84px; max-height: 320px; resize: vertical; box-sizing: border-box; background: #1a1d2c; border: 1px solid #2f3348; color: var(--text); border-radius: 14px; padding: 12px 14px; font: inherit; font-size: 16px; line-height: 1.4; }
 .yl-otherin.roomy .chip { align-self: flex-end; padding: 10px 22px; }
 .screen.light .yl-otherin.roomy textarea { background: #f4f5fa; border-color: #d6d9e6; }
+.yl-fieldrow { display: flex; gap: 8px; align-items: flex-start; flex-wrap: wrap; width: 100%; }
+.yl-fieldrow > input, .yl-fieldrow > textarea { flex: 1; min-width: 0; }
+.yl-otherin.roomy .yl-fieldrow textarea { width: auto; }
 .yl-otherin input, .yl-field input:not([type=range]):not([type=file]), .yl-field textarea, .yl-voicefield input { flex: 1; min-width: 0; background: #1a1d2c; border: 1px solid #2f3348; color: var(--text); border-radius: 12px; padding: 10px 12px; font: inherit; font-size: 14px; }
 .yl-timer { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 10px 0; }
 .yl-timer .ring { transition: background .1s linear; }
