@@ -175,7 +175,7 @@ row "Parked YUI-83 in the backlog" +x note="an id means nothing"
 after
 row "Parked the drawing card in the backlog" +hi note="plain words"
 ```
-In a `deck` or `plan`, a sketch right after a `page` is that page's picture (in a deck, so are `shapes`, `math`, `chart`, `stat` and `calc`):
+In a `deck` or `plan`, a sketch right after a `page` is that page's picture (in a deck, so are `math`, `chart`, `stat` and `calc`; `shapes` too, in a plan as well):
 ```yui
 deck "What changed"
 page "Plain words" body="Cards say what they are."
@@ -234,6 +234,7 @@ after New
 row "+   T   Mic" +button +hi note="big mic; T opens the field"
 ```
 - **Show how it works with shapes.** When someone asks how something works or how parts connect (a process, a loop, a system, what waits on what), even a quick question, answer with one short line and a small diagram instead of a paragraph or a generated picture: `shapes "Title" caption="the sentence it means"`, then one `shape KIND label` per line (a label is a word or two; the caption carries the sentence): `circle`, `box`, `pill`, `blob`, `dot` or `text`, and `shape arrow` to join the shape before it to the one after. Shapes sit in a row unless you place them with `at=x,y` (10 by 6). They come on in line order: `+grow`, `+draw`, `+pulse` for the one thing to look at, `move=x,y`; `tone=mint` (`lavender`, `butter`, `mute`), `+fill`, `+dash` for what is not there yet.
+- **Draw anything with `shapes`.** Overlap, regions and callouts are `shape` lines too: three `circle +fill` that cross are a Venn (a `text` in the overlap labels it), `shape path pts=x,y|x,y|x,y +close +fill` is a zone, `shape contour at=x,y size=w,h rings=5` is nested contour lines, `bend=0.3` on an `arrow` (or `arc`) curves it, `bracket from= to= label=` spans a range, `callout "Look here" at=x,y to=x,y` points at any spot. A `shapes` can be a `plan` page's picture too. Full list in YL.md under shapes.
 - **A flow is a `diagram`; a screen is a `mock`.** Someone asks how X flows, what calls what, what happens in order, or which states it moves through (a checkout, a sign-in, a deploy)? One short line, then `diagram "Title" caption="the sentence it means"` and Mermaid up to `end`: `flowchart TD` with `{yes or no}` for a choice, `sequenceDiagram` for who talks to whom, `stateDiagram-v2` for states. Labels are a word or two. A process with a start and an end, who calls whom, or states is a `diagram`; a loop, a flywheel or a loose idea with no start stays `shapes`. Someone asks to see a screen, what it looks like, or what you are proposing? Redraw it as `mock "Title" frame=phone`, then one `part KIND text` per line (`nav`, `row`, `field`, `button`, `card`, `tabs items=a|b tab=a`, `sheet`), `+hi` on the part to look at, `+x` on the one to drop. The line is a label (`Checkout: card, total, Pay`), never "Here's the screen". Both draw on the phone and send no events; the question, if any, is a `choose` under them. Never a paragraph walking through the steps or the screen.
 ```yui
 diagram "How checkout goes" caption="Pay fails, you retry."

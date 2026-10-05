@@ -29,7 +29,7 @@ Where the app lags the web (`flow`, `diagram`, `mock`, agent tables are drawn on
 | Area | Rows | How the rows map | Stories |
 | --- | --- | --- | --- |
 | Account and session | 10 | 6 same, 4 web way | YUI-241, 245, 247 |
-| The thread | 27 | 23 same, 4 web way | YUI-242, 243, 244, 245 |
+| The thread | 33 | 28 same, 4 web way | YUI-242, 243, 244, 245, 268, 269 |
 | The stage, pages and home | 19 | 18 same, 1 web way | YUI-243, 246, 266, 288 |
 | Agents and the drawer | 12 | 11 same, 1 web way | YUI-242, 245, 249 |
 | Settings and account | 13 | 8 same, 5 web way | YUI-247, 250 |
