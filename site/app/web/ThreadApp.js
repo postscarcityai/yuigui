@@ -10,6 +10,7 @@ import { createGroupsClient } from "../../lib/web/groups.mjs";
 import { createOutbox, idbStore } from "../../lib/web/outbox.mjs";
 import { createCache } from "../../lib/web/cache.mjs";
 import { createTables } from "../../lib/web/tablestore.mjs";
+import { createSync, demoRest, idbState, memoryState, relayRest } from "../../lib/web/tablesync.mjs";
 import { TablesCtx } from "./tablesctx";
 import { liveness, presenceLabel } from "../../lib/web/presence.mjs";
 import { controlSections, openAgent, revoked, sortAgents, unsharedLine } from "../../lib/web/agents.mjs";
@@ -137,6 +138,18 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   // The agents' tables (YUI-296): kept in this browser per person and agent, never sent anywhere. The demo keeps
   // them for the visit only.
   const tables = useMemo(() => (mounted && userId ? createTables({ userId, idb: demo ? null : undefined }) : null), [demo, mounted, userId]);
+  // Optional encrypted sync of those tables (YUI-36). Off until the person turns it on in Settings > Data; once on,
+  // it reads on open, on focus and every half minute, and sends a change soon after it is made.
+  const agentIds = useRef([]);
+  const sync = useMemo(() => (tables && relay && userId ? createSync({ userId, tables, agents: () => agentIds.current, rest: demo ? demoRest() : relayRest(relay.rest), state: demo ? memoryState() : idbState({ userId }) }) : null), [tables, relay, userId, demo]);
+  useEffect(() => {
+    if (!sync) return undefined;
+    const go = () => { if (sync.on) sync.sync().catch(() => {}); };
+    sync.ready().then(go).catch(() => {});
+    window.addEventListener("focus", go);
+    const t = setInterval(go, 30000);
+    return () => { window.removeEventListener("focus", go); clearInterval(t); sync.stop(); };
+  }, [sync]);
   // Your $U in the drawer's header (SITE-161). On a computer the drawer is a column that is always in view, so it
   // counts as open; on a phone it counts when it slides out. ?earnseen=<n> on a demo link: the total "last seen".
   const [column, setColumn] = useState(false);
@@ -234,6 +247,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
   useEffect(() => { if (!notice) return undefined; const t = setTimeout(() => setNotice(""), 5000); return () => clearTimeout(t); }, [notice]);
 
   const sorted = useMemo(() => (agents ? sortAgents(agents) : null), [agents]);
+  agentIds.current = (sorted || []).filter((a) => !a.shared).map((a) => a.id);
   // Until the kept agent is read, no thread opens: a kept agent list must not draw the default's thread and then swap.
   const open = kept === undefined ? null : openAgent(sorted, agentId || kept);
   openRef.current = open?.id || null;
@@ -590,7 +604,7 @@ export default function ThreadApp({ demo, auth, user, agent: agentId, chat, conn
       {editing && manage ? <EditAgent manage={manage} agent={editing} agents={sorted} refresh={load} onClose={() => setSheet(null)} onRemoved={onRemoved} {...fast} /> : null}
       {sheet && sheet.controls !== undefined && open && relay ? <ControlsPanel relay={relay} agent={open} userId={userId} light={light} section={sheet.controls || null} onClose={() => setSheet(null)} onTalkAbout={talk} /> : null}
       {settingsOpen && relay ? <SettingsPanel relay={relay} auth={demo ? null : auth} demo={!!demo} userId={userId} email={email} review={!!demo} agents={sorted || []} menus={paletteMenus} build={build} focus={sheet.settings || null}
-        appearance={appearance} stage={stagePrefs} picks={picks} look={look} push={push} onSignOut={onSignOut} onClose={() => setSheet(null)} /> : null}
+        appearance={appearance} stage={stagePrefs} picks={picks} look={look} push={push} sync={sync} onSignOut={onSignOut} onClose={() => setSheet(null)} /> : null}
       {keyAsk && relay ? <KeyAskSheet relay={relay} userId={userId} ask={keyAsk.ask} agent={(sorted || []).find((a) => a.id === keyAsk.agentId)} answer={answerAsk} /> : null}
       {connect && relay ? <ConnectApproval key={connect} relay={relay} id={connect} agents={sorted || []} refresh={load} onOpenAgent={(id) => go(`/web/agent/${id}${keep}`)} onClose={() => go(`/web${keep}`)} /> : null}
       {palette && sorted ? (

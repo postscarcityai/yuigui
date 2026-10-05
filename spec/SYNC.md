@@ -2,7 +2,22 @@
 
 Agent tables (spec/TABLES.md) live on one iPhone. This page decides whether Yui v1 needs to copy them anywhere else, and designs the sync for when it does: end to end encrypted, off by default, no new account.
 
-The mock is in the playground: [/playground?demo=sync](/playground?demo=sync). Step 1 (this page and the mock) is design only. Nothing here is built.
+The mock is in the playground: [/playground?demo=sync](/playground?demo=sync). Step 1 is built on the web: [Step 1 on the web](#step-1-on-the-web-built). The app twin is step 2 and is not built.
+
+## Step 1 on the web (built)
+
+The browser is the first Yui client that syncs, so step 1 is the whole path on the web: the relay tables, the client and the setting. The rules in sections 1, 4, 5 and 7 hold. Where the web differs from the app design below, this section wins until step 2 reconciles them.
+
+- **The setting.** Settings > Data > Keep my tables in sync. Off by default. Off sends nothing and holds no key.
+- **The unit.** One sealed unit per row, and one per table's columns. A unit is `{ table, key, values | null, clock, device }` as JSON, padded to the next 512 bytes, sealed with AES-GCM (WebCrypto). The sealing key and the id key come from one random 256-bit sync key by HKDF-SHA256 (`yui-sync-v1 ops`, `yui-sync-v1 ids`). The relay's row id is a 24-byte HMAC of `agent / table / key`. The seal binds `user | agent | id | clock`, so a box moved to another row, account or clock fails to open and is dropped.
+- **The key.** Made in the browser, kept in this browser's IndexedDB, never sent. Not a password and never typed.
+- **Pairing.** On a device that syncs, Add a device shows a code of 10 letters and numbers. It is good for 2 minutes and works once. It is not the key: it is stretched (PBKDF2-SHA256, 200,000 rounds) into a relay id and a sealing key, and the sync key is sealed under it. The new device, signed in to the same account, types the code, opens the key and deletes the row. The relay holds the sealed key and a hash-derived id, never the code. Only the account's own token can read a pairing row.
+- **Conflicts.** Per unit, not per cell: the newest clock wins. The clock is wall time times 1024 plus a counter; a tie goes to the larger device name. The relay also drops an older clock that arrives late, so a slow request cannot overwrite a newer row. Per-cell merging in section 4 stays the app's design for step 2.
+- **Reading.** On open, on focus and every 30 seconds while on; a change is sent about half a second after it is made, batched. Rows arrive in the relay's order (`rev`), columns before rows.
+- **What the relay stores.** Table `yui_sync_rows`: user, agent, opaque id, box, clock, a delete flag, a key fingerprint (8 bytes of an HMAC, so a device with the wrong key is told at once), device, a server order. Table `yui_sync_pairings`: the sealed key for 2 minutes. RLS lets only the account's own session read or write either, and the `yui_connector` role has no grant, so an agent host cannot see them. Removing an agent or deleting the account deletes their rows (foreign keys). Delete markers go after 30 days; the account is held to 50 MB and 64 KB a unit.
+- **Turning off.** Deletes every relay row and pairing for the account in one call, drops the key, and leaves every device's tables as they are. Signing out of the browser clears the key and the tables from that browser.
+- **Not in the web step.** Removing one device (turn sync off and on again to start a new key), a new key epoch, Face ID confirms, and per-agent switches. The app twin (step 2) takes the QR flow in section 3 and per-cell merging, and joins the same relay tables.
+- **Proof.** `node --test site/lib/web/tablesync.test.mjs`: two clients converge, the relay copy shows no table name, column, key or value, a wrong code finds nothing, a code works once, turning off leaves zero relay rows. `site/e2e/web/tablesync.test.mjs`: the setting, light and dark, phone and desktop. The migration `20261005000000_yui_table_sync.sql` is checked on Postgres 16 (owner only, an older clock cannot clobber, no `yui_connector` grant, cascade on agent and account removal).
 
 ## Does v1 need sync?
 
@@ -151,7 +166,7 @@ create table yui_sync_pairings (
 
 ## 10. Not yet
 
-- A web or Mac client joining sync (they need the Keychain story of their platform).
+- A Mac client joining sync (it needs the Keychain story of its platform). The web client joined in step 1.
 - Syncing saved screens, looks or drafts.
 - Sharing one table between two people.
 - Letting an agent's host keep a copy (that would be a different feature: tables on the host, not on the phone).

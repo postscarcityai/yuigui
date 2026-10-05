@@ -33,6 +33,9 @@ export function createTables({ userId = "", idb = globalThis.indexedDB } = {}) {
   // One record per person and agent, so a person who signs in after another never reads the other's rows.
   const key = (agentId) => `${userId}|${agentId}`;
   const handles = new Map();
+  // Sync (tablesync.mjs) hears every change made here: (agentId, before, after). A change a sync brings in is not one.
+  const watchers = new Set();
+  const heard = (id, before, after) => { for (const fn of watchers) { try { fn(id, before, after); } catch { /* a listener must not break a write */ } } };
 
   function agent(agentId) {
     const id = String(agentId || "");
@@ -79,6 +82,7 @@ export function createTables({ userId = "", idb = globalThis.indexedDB } = {}) {
           const writes = (ops || []).filter(isData);
           if (!writes.length || (reply && applied.includes(reply))) { done?.([]); return; }
           if (reply) applied.push(reply);
+          const before = store;
           const refused = [];
           for (const op of writes) {
             const r = write(store, op, ctx);
@@ -87,6 +91,7 @@ export function createTables({ userId = "", idb = globalThis.indexedDB } = {}) {
           }
           persist();
           changed();
+          heard(id, before, store);
           done?.(refused);
         };
         if (ready) run1(); else waiting.push(run1);
@@ -95,10 +100,18 @@ export function createTables({ userId = "", idb = globalThis.indexedDB } = {}) {
       set(table, rowKey, values, ctx = {}) {
         const r = write(store, { op: "put", table, key: rowKey, values, line: `put ${table} ${rowKey}` }, ctx);
         if (r.error) return r;
+        const before = store;
         store = r.store;
         persist();
         changed();
+        heard(id, before, store);
         return r;
+      },
+      // A store a sync brought in from another device: kept and drawn, not sent back.
+      replace(next) {
+        store = next;
+        persist();
+        changed();
       },
       // Tables with their row counts, for an agent's settings.
       summary() {
@@ -122,6 +135,7 @@ export function createTables({ userId = "", idb = globalThis.indexedDB } = {}) {
 
   return {
     agent,
+    watch(fn) { watchers.add(fn); return () => watchers.delete(fn); },
     // Sign out or delete the account: every agent's tables go, and this instance writes nothing more.
     async clear() {
       dead = true;

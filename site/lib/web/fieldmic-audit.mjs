@@ -24,6 +24,7 @@ export const WITH_MIC = [
 export const EXEMPT = {
   "SettingsPanel.js#st-key": "secret: an API key is never spoken",
   "SettingsPanel.js#st-search": "secret: a search key is never spoken",
+  "SettingsPanel.js#st-pair": "a pairing code, not words",
   "SettingsPanel.js#st-base": "a server address, not words",
   "SettingsPanel.js#st-model": "a model id, not words",
   "SettingsKeys.js#g-why-${k.id}": "key vault form: the vault pages carry secrets, no mic anywhere on them",

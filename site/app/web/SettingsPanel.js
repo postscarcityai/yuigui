@@ -10,12 +10,13 @@ import {
   resetLook, searchLeft, setAgentsKeep, setStage, togglePick, tokenName, usedWords,
 } from "../../lib/web/settings.mjs";
 import { PUSH_WORDS } from "../../lib/web/push.mjs";
+import { SYNC_WORDS, syncError, syncLine } from "../../lib/web/tablesync.mjs";
 import { Confirm, Dialog, SheetBar, Spinner, Switch } from "./parts";
 import FieldMic from "./FieldMic";
 import SettingsKeys from "./SettingsKeys";
 import "./settings.css";
 
-export default function SettingsPanel({ relay, auth, demo, userId, email, review, agents, menus, build, focus, appearance, stage, picks, look, push, onSignOut, onClose }) {
+export default function SettingsPanel({ relay, auth, demo, userId, email, review, agents, menus, build, focus, appearance, stage, picks, look, push, sync, onSignOut, onClose }) {
   const call = useCallback((fn, body) => relay.call(fn, body), [relay]);
   const hosted = (agents || []).some((a) => a.kind === "hosted");
   const owns = (agents || []).some((a) => !a.shared);
@@ -72,6 +73,8 @@ export default function SettingsPanel({ relay, auth, demo, userId, email, review
 
         {hosted ? <ModelKey call={call} /> : null}
         {hosted ? <SearchKey call={call} /> : null}
+
+        {sync ? <Data sync={sync} /> : null}
 
         <Help build={build} />
 
@@ -345,6 +348,61 @@ function Help({ build }) {
       </div>
       <a className="ag-btn quiet st-mail" href={href} data-testid="feedback-send">✉ Email us</a>
       <p className="ag-hint">Opens a mail that already names this build, so a report says which one it is about.</p>
+    </Card>
+  );
+}
+
+// ---------------------------------------------------------------- Data (YUI-36: optional encrypted sync of tables)
+
+function Data({ sync }) {
+  const [st, setSt] = useState(() => sync.status());
+  const [pair, setPair] = useState(null); // { code, left }
+  const [joining, setJoining] = useState(false);
+  const [typed, setTyped] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  useEffect(() => { setSt(sync.status()); return sync.subscribe((x) => setSt(x)); }, [sync]);
+  // The code on screen counts down and goes when it runs out.
+  useEffect(() => {
+    if (!pair) return undefined;
+    const t = setInterval(() => setPair((p) => (p && p.until > Date.now() ? { ...p, left: Math.ceil((p.until - Date.now()) / 1000) } : null)), 500);
+    return () => clearInterval(t);
+  }, [pair]);
+  const run = async (work) => { setBusy(true); setError(""); try { await work(); } catch (e) { setError(syncError(e?.code || "network")); } finally { setBusy(false); } };
+  const toggle = (on) => run(async () => { setPair(null); setJoining(false); if (on) await sync.enable(); else await sync.disable(); });
+  const add = () => run(async () => { const r = await sync.pair(); setPair({ code: r.code, until: r.expiresAt, left: Math.ceil((r.expiresAt - Date.now()) / 1000) }); });
+  const join = (e) => { e.preventDefault(); run(async () => { await sync.join(typed); setJoining(false); setTyped(""); }); };
+  const line = syncLine(st);
+  return (
+    <Card title="Data" id="data">
+      <Row title={SYNC_WORDS.title} sub={st.on ? SYNC_WORDS.on : SYNC_WORDS.off} on={st.on} disabled={busy} onChange={toggle} testid="sync-switch" />
+      {st.on ? (
+        <>
+          <p className="ag-hint" role="status" data-testid="sync-line">{line}</p>
+          {pair ? (
+            <div className="st-pair" data-testid="sync-pair">
+              <code className="st-code" data-testid="sync-code" aria-label={`Pairing code ${pair.code.split("").join(" ")}`}>{pair.code}</code>
+              <small>{SYNC_WORDS.addNote}</small>
+              <small data-testid="sync-left">{pair.left} s left</small>
+            </div>
+          ) : (
+            <div className="st-two">
+              <button type="button" className="ag-btn quiet" disabled={busy} onClick={add} data-testid="sync-add">{SYNC_WORDS.add}</button>
+              <button type="button" className="ag-btn quiet" disabled={busy || st.busy} onClick={() => run(() => sync.sync())} data-testid="sync-now">{SYNC_WORDS.sync}</button>
+            </div>
+          )}
+          <p className="ag-hint">{SYNC_WORDS.seen}</p>
+        </>
+      ) : joining ? (
+        <form className="st-form" onSubmit={join}>
+          <label htmlFor="st-pair">Pairing code from your other device</label>
+          <input id="st-pair" className="ag-input st-codein" value={typed} onChange={(e) => setTyped(e.target.value)} maxLength={12} autoCapitalize="characters" autoComplete="off" autoCorrect="off" spellCheck="false" placeholder="ABCDE-FGHJK" data-testid="sync-code-field" />
+          <button type="submit" className="ag-btn quiet" disabled={busy || !typed} data-testid="sync-join-go">{busy ? "Joining" : SYNC_WORDS.joinGo}</button>
+        </form>
+      ) : (
+        <button type="button" className="st-link" onClick={() => setJoining(true)} data-testid="sync-join">{SYNC_WORDS.join}</button>
+      )}
+      {error ? <p className="ag-error" role="alert" data-testid="sync-error">{error}</p> : null}
     </Card>
   );
 }
