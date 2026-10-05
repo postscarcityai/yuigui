@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T12:41:08.891Z",
+  "updated": "2026-10-05T12:46:08.995Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -340,22 +340,10 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-301",
-          "title": "The drawing kit on /web gets its own e2e test",
-          "summary": "The drawings on the web are checked on every run",
-          "progress": "/progress#the-drawings-on-the-web-are-checked-on-every-run",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-302",
-          "title": "Every drawing on the phone matches the hub, side by side",
-          "summary": "Every drawing on the phone matches the web",
-          "progress": "/progress#every-drawing-on-the-phone-matches-the-web",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "SITE-189",
           "title": "Thought for the build that ships voice first",
+          "summary": "A Thought for build 522: say it first",
+          "progress": "/progress#a-thought-for-build-522-say-it-first",
           "owner": "CJohnDesign"
         },
         {
@@ -376,6 +364,20 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-301",
+          "title": "The drawing kit on /web gets its own e2e test",
+          "summary": "The drawings on the web are checked on every run",
+          "shipped": "2026-10-05",
+          "progress": "/progress#the-drawings-on-the-web-are-checked-on-every-run"
+        },
+        {
+          "key": "YUI-302",
+          "title": "Every drawing on the phone matches the hub, side by side",
+          "summary": "Every drawing on the phone matches the web",
+          "shipped": "2026-10-05",
+          "progress": "/progress#every-drawing-on-the-phone-matches-the-web"
+        },
         {
           "key": "SITE-196",
           "title": "Every link and image on the site resolves, sweep after the drawing and tables week",
