@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T20:47:09.073Z",
+  "updated": "2026-10-05T21:01:21.707Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -351,11 +351,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-306",
-          "title": "/web side pages named for what is on them, never Screen N",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -400,6 +395,12 @@
         {
           "key": "NOTE-45868",
           "title": "Decks that fill the screen and move",
+          "blocked": "other",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-306",
+          "title": "/web side pages named for what is on them, never Screen N",
           "blocked": "other",
           "owner": "CJohnDesign"
         }
