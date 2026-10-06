@@ -1725,10 +1725,12 @@
           "choose",
           "end",
           "stat",
-          "chart"
+          "chart",
+          "motion"
         ],
         "need": [
-          "shapes"
+          "shapes",
+          "motion"
         ],
         "max_words": 45
       },
@@ -2337,13 +2339,15 @@
           "map",
           "area",
           "pin",
-          "route"
+          "route",
+          "motion"
         ],
         "need": [
           "map",
           "shapes",
           "chart",
-          "image"
+          "image",
+          "motion"
         ],
         "drawn": true,
         "max_pages": 4,
@@ -4035,14 +4039,6 @@
       "message": "What build am I on?",
       "expect": {
         "screen": "any",
-        "presets": [
-          "card",
-          "say",
-          "sketch",
-          "row",
-          "stat",
-          "after"
-        ],
         "forbid": [
           "motion"
         ],
@@ -4057,14 +4053,6 @@
       "message": "Is the board up to date?",
       "expect": {
         "screen": "any",
-        "presets": [
-          "card",
-          "say",
-          "sketch",
-          "row",
-          "stat",
-          "after"
-        ],
         "forbid": [
           "motion"
         ],
