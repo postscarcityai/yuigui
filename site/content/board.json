@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T12:45:29.042Z",
+  "updated": "2026-10-06T13:05:32.682Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -277,6 +277,11 @@
           "waiting": true
         },
         {
+          "key": "SITE-217",
+          "title": "A Thought",
+          "summary": "Small models write films"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -310,11 +315,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-52023",
-          "title": "Ship the drawings now",
-          "needsDemo": true
         }
       ]
     },
@@ -359,6 +359,12 @@
           "shipped": "2026-10-06",
           "progress": "/progress#a-thought-on-explainers-drawing-every-page",
           "commit": "https://github.com/postscarcityai/yuigui/commit/b40bde66"
+        },
+        {
+          "key": "NOTE-52023",
+          "title": "Ship the drawings now",
+          "shipped": "2026-10-06",
+          "progress": "/progress#explainers-draw-every-page"
         },
         {
           "key": "SITE-215",
