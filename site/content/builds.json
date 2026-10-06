@@ -1,6 +1,35 @@
 {
   "builds": [
     {
+      "build": 545,
+      "date": "2026-10-06",
+      "uploaded": "2026-10-05T23:55:48-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "MotionView: native full-screen streamed film player (harness, watchdog, say cues, native chrome)"
+        },
+        {
+          "text": "Plugin: motion lines become streamed films, older phones get a sketch (MOTION-1e)"
+        },
+        {
+          "text": "Plugin: yuilines.py copy gains the motion head (MOTION-1e)"
+        },
+        {
+          "text": "Plugin: a film's sketch fallback keeps rows to 12 words (MOTION-1e)"
+        },
+        {
+          "text": "Plugin: flywheel knows the motion preset, test_motion restores what it patches (MOTION-1e)"
+        },
+        {
+          "text": "Plugin: bundled channel guide v49+b5a477c0 (MOTION-1e)"
+        },
+        {
+          "text": "MotionView plays the v2 film kit: motion block, film store, tile, Reduce Motion still, offline three.js (MOTION-1d)"
+        }
+      ]
+    },
+    {
       "build": 538,
       "date": "2026-10-05",
       "uploaded": "2026-10-05T20:32:57-07:00",
@@ -2167,27 +2196,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "MotionView: native full-screen streamed film player (harness, watchdog, say cues, native chrome)"
-    },
-    {
-      "text": "Plugin: motion lines become streamed films, older phones get a sketch (MOTION-1e)"
-    },
-    {
-      "text": "Plugin: yuilines.py copy gains the motion head (MOTION-1e)"
-    },
-    {
-      "text": "Plugin: a film's sketch fallback keeps rows to 12 words (MOTION-1e)"
-    },
-    {
-      "text": "Plugin: flywheel knows the motion preset, test_motion restores what it patches (MOTION-1e)"
-    },
-    {
-      "text": "Plugin: bundled channel guide v49+b5a477c0 (MOTION-1e)"
-    },
-    {
-      "text": "MotionView plays the v2 film kit: motion block, film store, tile, Reduce Motion still, offline three.js (MOTION-1d)"
-    }
-  ]
+  "next": []
 }
