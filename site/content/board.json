@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T08:45:51.049Z",
+  "updated": "2026-10-06T08:50:53.751Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -326,6 +326,8 @@
         {
           "key": "SITE-210",
           "title": "Thought, films in your browser, timed",
+          "summary": "A Thought: films play in your browser too, timed",
+          "progress": "/progress#a-thought-films-play-in-your-browser-too-timed",
           "owner": "CJohnDesign"
         },
         {
