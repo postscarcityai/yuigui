@@ -3,7 +3,7 @@ platform: linkedin
 account: yuiguiai
 source: progress.json 2026-09-24 SOC-3 "Three short videos: Yui in 15 seconds, Yui Lines in 30, your Hermes on your phone in 60"
 media: [/demo/videos/your-hermes-60s-16x9.mp4]
-slot: 2026-10-05T09:00:00-04:00
+slot: 2026-10-06T09:00:00-04:00
 status: draft
 ---
 If you run a Hermes agent, it can answer you on your iPhone with screens you tap instead of text you read.
