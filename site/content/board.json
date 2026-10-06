@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T13:55:43.894Z",
+  "updated": "2026-10-06T14:00:38.438Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -318,13 +318,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-217",
-          "title": "A Thought",
-          "summary": "A Thought: small models write films",
-          "progress": "/progress#a-thought-small-models-write-films",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -348,6 +341,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-217",
+          "title": "A Thought",
+          "summary": "A Thought: small models write films",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-thought-small-models-write-films",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ba4801a8"
+        },
         {
           "key": "INT-28",
           "title": "Small models write films",
