@@ -2229,6 +2229,10 @@
     },
     {
       "text": "Native: copy fences.ts into _native (thread.ts imports it; yui-native failed to bundle)"
+    },
+    {
+      "text": "Bridge: a small model's explain answer is one line and a film",
+      "card": "INT-28"
     }
   ]
 }
