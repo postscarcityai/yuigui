@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T01:01:02.762Z",
+  "updated": "2026-10-06T01:06:10.949Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,6 +290,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-202",
+          "title": "Thought, change the workout without stopping it"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -335,6 +339,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-309",
+          "title": "/web workout runner gets edits on the fly and a music strip, the twin of YUI-305",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
