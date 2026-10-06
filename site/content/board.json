@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T12:25:32.186Z",
+  "updated": "2026-10-06T12:35:27.142Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -301,11 +301,6 @@
           "progress": "/progress#a-board-update-is-a-number-and-a-list"
         },
         {
-          "key": "NOTE-52023",
-          "title": "Ship the drawings now",
-          "waiting": true
-        },
-        {
           "key": "NOTE-54787",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -315,6 +310,11 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-52023",
+          "title": "Ship the drawings now",
+          "needsDemo": true
         }
       ]
     },
@@ -322,6 +322,18 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "INT-28",
+          "title": "Small models write films",
+          "summary": "An explain answer is one line and a motion line",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-216",
+          "title": "A Thought",
+          "summary": "Explainers draw every page",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
