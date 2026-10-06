@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T12:35:27.142Z",
+  "updated": "2026-10-06T12:40:28.604Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -331,7 +331,8 @@
         {
           "key": "SITE-216",
           "title": "A Thought",
-          "summary": "Explainers draw every page",
+          "summary": "A Thought on explainers drawing every page",
+          "progress": "/progress#a-thought-on-explainers-drawing-every-page",
           "owner": "CJohnDesign"
         },
         {
