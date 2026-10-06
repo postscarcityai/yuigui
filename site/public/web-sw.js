@@ -3,6 +3,7 @@
 // badge and the other notifications honest ("one reply, one buzz"). No caching: the page is always live.
 // The messages are built by supabase/functions/yui-push/payload.ts (webPayload, webQuiet):
 //   { kind: "reply", title, body, agent_id, message_id, chat?, tag, url }  show it
+//   { kind: "reminder", title, body, agent_id, key, tag, url }              an agent's reminder is due (YUI-258), shown even with that thread open
 //   { kind: "clear", agent_id, tag }                                        that thread was read on another device
 //   { kind: "revoked", agent_id, tag }                                      an agent left the list: the page refreshes it
 // The decisions are plain functions below, so node tests drive them without a browser (lib/web/sw.test.mjs).
@@ -35,6 +36,24 @@ function replyNotice(msg, clients) {
       icon: ICON,
       badge: BADGE,
       data: { url: msg.url || `/web/agent/${msg.agent_id}`, agent_id: msg.agent_id, message_id: msg.message_id || null },
+    },
+  };
+}
+
+// The notification for a "reminder" message (YUI-258), or null when it is not one. Never skipped for an open thread: a
+// reminder is a time the person asked for, not a reply the page already draws. Its tag is the one the open tab's
+// Notifications API uses (lib/web/reminders.mjs), so the two never stack, and `renotify` is off so a second one is silent.
+function reminderNotice(msg) {
+  if (!msg || msg.kind !== "reminder" || !msg.agent_id || !msg.key) return null;
+  return {
+    title: String(msg.title || "Yui"),
+    options: {
+      body: String(msg.body || ""),
+      tag: `yui.reminder.${msg.agent_id}.${msg.key}`,
+      renotify: false,
+      icon: ICON,
+      badge: BADGE,
+      data: { url: msg.url || `/web/agent/${msg.agent_id}`, agent_id: msg.agent_id, message_id: null },
     },
   };
 }
@@ -82,6 +101,16 @@ if (typeof self !== "undefined" && typeof self.addEventListener === "function") 
         await setBadge();
         return;
       }
+      const due = reminderNotice(msg);
+      if (due) {
+        // The tab may have rung it already (same tag): then there is nothing to add. Tell the pages either way, so a
+        // tab that has not rung it yet keeps quiet.
+        const shown = await self.registration.getNotifications({ tag: due.options.tag });
+        if (!shown.length) await self.registration.showNotification(due.title, due.options);
+        for (const c of open) c.postMessage({ yui: "push", kind: "reminder", agent_id: msg.agent_id, key: msg.key });
+        await setBadge();
+        return;
+      }
       const notice = replyNotice(msg, open);
       if (!notice) {
         // The thread is open in front of the person: the page draws the reply. Tell it to refresh now.
@@ -112,4 +141,4 @@ if (typeof self !== "undefined" && typeof self.addEventListener === "function") 
   });
 }
 
-if (typeof module !== "undefined") module.exports = { agentOf, watching, replyNotice, safeUrl, pickClient, clickUrl };
+if (typeof module !== "undefined") module.exports = { agentOf, watching, replyNotice, reminderNotice, safeUrl, pickClient, clickUrl };

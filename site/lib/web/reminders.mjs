@@ -79,6 +79,15 @@ export function createReminders({ storage = globalThis.localStorage, now = () =>
       arm(agent);
       return true;
     },
+    // The closed-tab push already rang this one (YUI-258): the tab must not ring it again. A reminder never rung is
+    // not in `fired` until its time, so this puts it there early; a set that replaces this one carries the mark on.
+    markFired(agent, key) {
+      const p = plans.get(agent);
+      if (!p || !p.items.some((it) => it.key === key)) return false;
+      p.fired.add(key);
+      arm(agent);
+      return true;
+    },
     stop() { for (const p of plans.values()) clearTimer(p.timer); plans.clear(); },
     pending(agent) { const p = plans.get(agent); return p ? p.items.filter((it) => !p.fired.has(it.key)).map((it) => it.key) : []; },
   };
@@ -101,9 +110,23 @@ export function browserNotifier(onOpen) {
   };
 }
 
+// What the service worker tells a page when a reminder push rang: { yui: "push", kind: "reminder", agent_id, key }.
+export function reminderRung(data) {
+  return data?.yui === "push" && data.kind === "reminder" && data.agent_id && data.key ? { agent: String(data.agent_id).toLowerCase(), key: String(data.key) } : null;
+}
+
 // One clock for the whole tab, so a reminder set in one agent's thread still goes off while another is open.
 let shared = null;
 export function sharedReminders() {
-  if (!shared && typeof window !== "undefined") shared = createReminders(browserNotifier());
+  if (!shared && typeof window !== "undefined") {
+    shared = createReminders(browserNotifier());
+    // A push that rang with this tab open: the Notifications API path stays quiet for it (dedupe by reminder id).
+    try {
+      navigator.serviceWorker?.addEventListener("message", (e) => {
+        const hit = reminderRung(e.data);
+        if (hit) shared.markFired(hit.agent, hit.key);
+      });
+    } catch { /* no service worker here */ }
+  }
   return shared;
 }

@@ -50,6 +50,11 @@ export const PUSH_WORDS = {
   on: { title: "Notifications on this browser", sub: "A reply shows up even with the tab closed. A tap opens that thread. Mute one agent in its own settings." },
 };
 
+// The zone this browser is set to ("America/New_York"), or null when it will not say.
+export function browserZone() {
+  try { return Intl.DateTimeFormat().resolvedOptions().timeZone || null; } catch { return null; }
+}
+
 export function deviceName(ua = "") {
   const browser = /Edg\//.test(ua) ? "Edge" : /Firefox\//.test(ua) ? "Firefox" : /Chrome\//.test(ua) ? "Chrome" : /Safari\//.test(ua) ? "Safari" : "Browser";
   const os = /iPhone/.test(ua) ? "iPhone" : /iPad/.test(ua) ? "iPad" : /Android/.test(ua) ? "Android" : /Mac OS X/.test(ua) ? "Mac" : /Windows/.test(ua) ? "Windows" : /Linux/.test(ua) ? "Linux" : "";
@@ -57,10 +62,11 @@ export function deviceName(ua = "") {
 }
 
 // The body register_web takes, from a PushSubscription (or its toJSON).
-export function registration(sub, name) {
+// `tz` is the browser's time zone (YUI-258): a reminder's time is the person's local time, and the closed-tab push reads it in this zone.
+export function registration(sub, name, tz) {
   const j = typeof sub?.toJSON === "function" ? sub.toJSON() : sub;
   if (!j?.endpoint || !j.keys?.p256dh || !j.keys?.auth) return null;
-  return { action: "register_web", endpoint: j.endpoint, keys: { p256dh: j.keys.p256dh, auth: j.keys.auth }, name };
+  return { action: "register_web", endpoint: j.endpoint, keys: { p256dh: j.keys.p256dh, auth: j.keys.auth }, name, ...(typeof tz === "string" && tz ? { tz } : {}) };
 }
 
 // What a message from the service worker means to the page: an agent that left the list refreshes it at once
@@ -104,7 +110,7 @@ export function createPush({ call, env }) {
     return (await reg.pushManager.getSubscription()) || null;
   };
   const tell = (s) => {
-    const body = registration(s, deviceName(env.ua));
+    const body = registration(s, deviceName(env.ua), env.tz ?? browserZone());
     return body ? call("yui-push", body) : Promise.reject(Object.assign(new Error("bad subscription"), { code: "invalid_keys" }));
   };
 

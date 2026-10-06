@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createReminders, reminderDate, reminderItems } from "./reminders.mjs";
+import { createReminders, reminderDate, reminderItems, reminderRung } from "./reminders.mjs";
 
 const mem = () => { const m = new Map(); return { getItem: (k) => m.get(k) ?? null, setItem: (k, v) => m.set(k, v) }; };
 const at = (d) => { const p = (n) => String(n).padStart(2, "0"); return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; };
@@ -92,4 +92,31 @@ test("resume puts the kept set back on the clock after a reload", () => {
   b.advance(31 * 60000);
   assert.equal(b.shown.length, 1);
   assert.ok(at(new Date()));
+});
+
+test("a reminder the closed-tab push already rang is not rung again by the tab (dedupe by id)", () => {
+  const { r, shown, advance } = rig();
+  r.take(row([{ key: "dentist", text: "Call", at: "2026-09-29T08:50" }, { key: "gym", text: "Gym", at: "2026-09-29T08:50" }]));
+  assert.equal(r.markFired("penny", "dentist"), true);
+  assert.deepEqual(r.pending("penny"), ["gym"]);
+  advance(50 * 60000);
+  assert.deepEqual(shown.map((n) => n.key), ["gym"]);
+  assert.equal(r.markFired("penny", "nope"), false);
+  assert.equal(r.markFired("other", "gym"), false);
+});
+
+test("the mark survives a newer reply that keeps the reminder", () => {
+  const { r, shown, advance } = rig();
+  r.take(row([{ key: "dentist", text: "Call", at: "2026-09-29T08:50" }]));
+  r.markFired("penny", "dentist");
+  r.take(row([{ key: "dentist", text: "Call", at: "2026-09-29T08:50" }], "2026-09-29T12:30:00Z"));
+  advance(50 * 60000);
+  assert.equal(shown.length, 0);
+});
+
+test("what the worker says about a rung reminder", () => {
+  assert.deepEqual(reminderRung({ yui: "push", kind: "reminder", agent_id: "ABC", key: "k" }), { agent: "abc", key: "k" });
+  assert.equal(reminderRung({ yui: "push", kind: "reply", agent_id: "abc" }), null);
+  assert.equal(reminderRung({ yui: "push", kind: "reminder", agent_id: "abc" }), null);
+  assert.equal(reminderRung(null), null);
 });

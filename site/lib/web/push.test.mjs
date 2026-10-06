@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
-import { createPush, deviceName, onWorkerMessage, pushState, registration, support, urlBase64ToBytes, VAPID_PUBLIC, WANT_KEY } from "./push.mjs";
+import { browserZone, createPush, deviceName, onWorkerMessage, pushState, registration, support, urlBase64ToBytes, VAPID_PUBLIC, WANT_KEY } from "./push.mjs";
 
 const require = createRequire(import.meta.url);
 const sw = require("../../public/web-sw.js");
@@ -56,7 +56,7 @@ function rig({ permission = "default", ask = "granted", ua = "Chrome/130 Safari/
   const reg = { active: { state: "activated" }, pushManager, getNotifications: async () => notes.slice(), };
   const Notification = { permission, requestPermission: async () => { Notification.permission = ask; return ask; } };
   const env = {
-    storage: mem(), ua, hasPush: true, Notification,
+    storage: mem(), ua, tz: "America/New_York", hasPush: true, Notification,
     serviceWorker: { register: async (url, o) => { assert.equal(url, "/web-sw.js"); assert.equal(o.scope, "/web"); return reg; }, getRegistration: async () => reg },
     navigator: { setAppBadge: async (n) => badge.push(n), clearAppBadge: async () => badge.push(0) },
   };
@@ -70,7 +70,7 @@ test("turning it on asks once, subscribes with the key, tells yui-push", async (
   assert.equal(await r.p.enable(), "on");
   assert.equal(r.calls.length, 1);
   assert.equal(r.calls[0][0], "yui-push");
-  assert.deepEqual(r.calls[0][1], { action: "register_web", endpoint: "https://web.push.apple.com/abc", keys: { p256dh: "p256", auth: "auth" }, name: "Chrome on Mac" });
+  assert.deepEqual(r.calls[0][1], { action: "register_web", endpoint: "https://web.push.apple.com/abc", keys: { p256dh: "p256", auth: "auth" }, name: "Chrome on Mac", tz: "America/New_York" });
   assert.equal(await r.p.state(), "on");
 });
 
@@ -164,4 +164,24 @@ test("sw: a click takes over the window already on that agent, else any /web win
   assert.equal(sw.pickClient([b, a], `/web/agent/${AGENT}`), a);
   assert.equal(sw.pickClient([c, b], `/web/agent/${AGENT}`), b);
   assert.equal(sw.pickClient([c], `/web/agent/${AGENT}`), null);
+});
+
+test("registration carries the browser's time zone for reminders (YUI-258)", () => {
+  const sub = { endpoint: "https://x/y", keys: { p256dh: "a", auth: "b" } };
+  assert.equal(registration(sub, "n", "America/New_York").tz, "America/New_York");
+  assert.equal("tz" in registration(sub, "n"), false);
+  assert.equal("tz" in registration(sub, "n", ""), false);
+  assert.match(browserZone() ?? "UTC", /^[A-Za-z0-9_+\/-]+$/);
+});
+
+test("a reminder push shows even with its thread open, under the open tab's tag, and is not a reply", () => {
+  const msg = { kind: "reminder", title: "Penny", body: "Call the dentist", agent_id: "a1", key: "k1", tag: "yui.reminder.a1.k1", url: "/web/agent/a1" };
+  const n = sw.reminderNotice(msg);
+  assert.equal(n.title, "Penny");
+  assert.equal(n.options.tag, "yui.reminder.a1.k1");
+  assert.equal(n.options.renotify, false);
+  assert.equal(n.options.data.url, "/web/agent/a1");
+  assert.equal(sw.reminderNotice({ kind: "reply", agent_id: "a1" }), null);
+  assert.equal(sw.reminderNotice({ kind: "reminder", agent_id: "a1" }), null);
+  assert.equal(sw.replyNotice(msg, []), null);
 });
