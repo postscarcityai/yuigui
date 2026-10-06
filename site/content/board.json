@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T17:35:29.638Z",
+  "updated": "2026-10-06T17:40:29.950Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,17 +273,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-267",
-          "title": "Web (WEB)",
-          "summary": "A drawn phone is an animated wireframe",
-          "progress": "/progress#a-drawn-phone-is-an-animated-wireframe"
-        },
-        {
-          "key": "SITE-222",
-          "title": "A Thought",
-          "summary": "Yui makes its own design picks"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -299,7 +288,22 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "YUI-267",
+          "title": "Web (WEB)",
+          "summary": "A drawn phone is an animated wireframe",
+          "progress": "/progress#a-drawn-phone-is-an-animated-wireframe",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-222",
+          "title": "A Thought",
+          "summary": "A Thought: Yui makes its own design picks",
+          "progress": "/progress#a-thought-yui-makes-its-own-design-picks",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
