@@ -2213,6 +2213,10 @@
     {
       "text": "Small models of a second family draw screens: fence repairs, ask again on an empty answer, model table",
       "card": "INT-25"
+    },
+    {
+      "text": "Your own model remembers the thread: the live guide (~10k tokens) gets the short one on 8k and 16k windows, so history is kept",
+      "card": "INT-26"
     }
   ]
 }
