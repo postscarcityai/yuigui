@@ -196,6 +196,20 @@ choose "Which one is light?" Electron|Photon|Graviton
 - **Accessibility.** Motion is large. Reduce Motion shows a still, captions are text.
 - **Telegram, the MCP app or an old build.** `compat.py` rewrites `motion` into a `sketch` plus `shapes`.
 
+## 3b. Live timing on production /web (YUI-312, Oct 6)
+
+A real agent (the plugin's own film writer) behind a throwaway account, a real browser on www.yuigui.com/web, three runs per ask. Harness: `site/e2e/web/live/web_motion_live.py`. Seconds from ask sent to first frame.
+
+| ask | run 1 | run 2 | run 3 | scenes | film ends |
+|---|---|---|---|---|---|
+| how a car engine works | 28.7 | 5.7 | 20.1 | 5 to 6 | 32 to 60 s |
+| what changed on the settings screen | 5.6 | 5.7 | 7.1 | 6 | 39 s |
+| how compound interest grows | 5.3 | 6.7 | 12.9 | 5 to 6 | 38 to 40 s |
+
+- 6 of 9 first frames under 10 s (median 6.7 s). The goal was 8 of 9. The three misses are the plugin's claude-CLI writer on a busy host, not the site: the player starts the instant scene 1 arrives. Follow-up: a small fast model for scene 1.
+- No raw motion text on any run. Close returns to the thread with one line and one Watch again chip per film, every run.
+- Gateway arm: the gateway's plugin still carries the MOTION_BUILD sentinel, so the same ask draws as a sketch, never raw text. Streaming films there needs the gateway restarted onto the lifted sentinel (Urza's).
+
 ## 4. Cards
 
 Parked: the native `MotionView` player (APP). Then, in order: the `motion` component, streaming and eval in the guide and the site (WEB); the compat fallback (WEB); a fast first scene from a small model (WEB); voice-over sync (with the voice card). C stays as a harness mode with `api.hit` for turns that need a tap.
