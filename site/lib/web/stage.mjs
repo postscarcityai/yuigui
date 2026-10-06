@@ -28,6 +28,12 @@ export function newestAnswer(replies) {
   return replies.slice(from);
 }
 
+// Something to look at, not just to read or answer (pick A, Oct 6): a drawing, a timer, a deck or plan page, a form,
+// a film. Plain words and plain questions stay in the chat, buttons inline. Twin of StageTurn.visual; `answer` is
+// answerOf's result, `film` is filmOfPieces(turn.pieces).
+export const isVisual = (answer, film = null) =>
+  !!film || !!answer && (!!answer.plan || answer.chunks.some((c) => c.pic || c.page) || answer.questions.some((q) => q.node?.preset === "form"));
+
 // The turn the person started with message `askId` (their newest when null): every reply after it, up to
 // the next thing they said. `pieces` is what answerOf plays; `stopped` is a Stop in the turn (a note in
 // the record, never a chunk).

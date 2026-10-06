@@ -2,7 +2,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { Thread } from "./thread.mjs";
-import { arrivalOf, chipAction, dismissEvent, holdsWorkout, homeOf, isHostAsk, isRow, notYetEvent, landingOf, playFor, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
+import { answerOf } from "../chat/stage.mjs";
+import { isVisual, arrivalOf, chipAction, dismissEvent, holdsWorkout, homeOf, isHostAsk, isRow, notYetEvent, landingOf, playFor, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
 
 const T0 = Date.parse("2026-10-01T12:00:00Z");
 const iso = (s) => new Date(T0 + s * 1000).toISOString().replace("Z", "000+00:00");
@@ -119,4 +120,12 @@ test("the stage holds only the newest answer; replies minutes apart are separate
   const t = turnOf(m);
   assert.deepEqual(t.pieces.map((p) => p.text), ["Push card.", "Two lines."]);
   assert.equal(t.replies, 2);
+});
+
+test("only a real visual holds the stage; plain words and plain questions stay in the chat (pick A)", () => {
+  const of = (body) => answerOf(turnOf(thread([row({ sender: "user", body: "hi" }), row({ body })])).pieces);
+  assert.equal(isVisual(of("Board is green.")), false);
+  assert.equal(isVisual(of(yl("say \"Ping you?\"\nchoose \"Ping you?\" Yes|No"))), false);
+  assert.equal(isVisual(of(yl("say Three\ntimer 5m Focus"))), true);
+  assert.equal(isVisual(of(yl("say Look\nstat 135 iPad"))), true);
 });

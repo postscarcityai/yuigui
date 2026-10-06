@@ -12,7 +12,7 @@ import { usePrefs } from "./useSettings";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { answerOf } from "../../lib/chat/stage.mjs";
-import { arrivalOf, homeOf, chipAction, dismissEvent, isHostAsk, isRow, landingOf, notYetEvent, playFor, waitingAction, pageTitle, reopened, turnOf, MAX_WAITING } from "../../lib/web/stage.mjs";
+import { arrivalOf, homeOf, isVisual, chipAction, dismissEvent, isHostAsk, isRow, landingOf, notYetEvent, playFor, waitingAction, pageTitle, reopened, turnOf, MAX_WAITING } from "../../lib/web/stage.mjs";
 import { useDismissed } from "./useDismissed";
 import { filmOfPieces, filmsOfMessages } from "../../lib/web/film.mjs";
 import { NoAnswer } from "./parts";
@@ -208,6 +208,12 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
     const a = answerOf(turn.pieces);
     return a.chunks.length || a.questions.length ? a : null;
   }, [shown, turn]);
+  // Chat is home (pick A, Oct 6): an answer of plain words and questions goes down to the chat once it lands.
+  // A turn the person reopened from the record (`shown`) or a stage they are typing on stays.
+  useEffect(() => {
+    if (shown || !turn?.replies || !answer || thread.waiting || typing || isVisual(answer, filmOfPieces(turn.pieces))) return;
+    onRecord?.();
+  }, [answer, thread.waiting]); // eslint-disable-line react-hooks/exhaustive-deps
   const sentAt = shown ? null : turn?.at || null;
 
   // ---- a motion film (YUI-311): full screen over the stage, scene 1 as soon as it is written, the rest appended ----
