@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T15:01:08.280Z",
+  "updated": "2026-10-06T15:06:08.442Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -277,6 +277,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-219",
+          "title": "The small-models Thought says what the llama fix did"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -318,6 +322,13 @@
       "title": "Building",
       "cards": [
         {
+          "key": "INT-29",
+          "title": "llama3.2:3b writes its film too",
+          "summary": "The small llama gets its film back",
+          "progress": "/progress#the-small-llama-gets-its-film-back",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -332,13 +343,6 @@
         {
           "key": "NOTE-8417",
           "title": "One thought per full screen",
-          "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "INT-29",
-          "title": "llama3.2:3b writes its film too",
-          "summary": "Generic fixes for dropped quotes and stray lines",
           "blocked": "chris",
           "owner": "CJohnDesign"
         }
