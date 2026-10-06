@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T03:55:28.668Z",
+  "updated": "2026-10-06T04:05:31.014Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,6 +290,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-208",
+          "title": "Thought, Yui draws anything"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -323,12 +327,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-34872",
-          "title": "Explainers as motion graphics",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/e87c05b4",
-          "needsDemo": true
         }
       ]
     },
@@ -367,6 +365,13 @@
           "shipped": "2026-10-05",
           "progress": "/progress#explainers-become-real-motion-a-thought-with-the-film",
           "commit": "https://github.com/postscarcityai/yuigui/commit/972f3510"
+        },
+        {
+          "key": "NOTE-34872",
+          "title": "Explainers as motion graphics",
+          "shipped": "2026-10-05",
+          "progress": "/progress#motion-explainers-the-film-starts-playing-in-7-seconds",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e87c05b4"
         },
         {
           "key": "SITE-206",
