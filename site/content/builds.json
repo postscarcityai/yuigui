@@ -2170,6 +2170,21 @@
   "next": [
     {
       "text": "MotionView: native full-screen streamed film player (harness, watchdog, say cues, native chrome)"
+    },
+    {
+      "text": "Plugin: motion lines become streamed films, older phones get a sketch (MOTION-1e)"
+    },
+    {
+      "text": "Plugin: yuilines.py copy gains the motion head (MOTION-1e)"
+    },
+    {
+      "text": "Plugin: a film's sketch fallback keeps rows to 12 words (MOTION-1e)"
+    },
+    {
+      "text": "Plugin: flywheel knows the motion preset, test_motion restores what it patches (MOTION-1e)"
+    },
+    {
+      "text": "Plugin: bundled channel guide v49+b5a477c0 (MOTION-1e)"
     }
   ]
 }
