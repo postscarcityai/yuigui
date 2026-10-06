@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T19:35:46.219Z",
+  "updated": "2026-10-06T20:40:53.997Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,10 +273,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-225",
-          "title": "A Thought, films get a look pass"
-        },
-        {
           "key": "NOTE-21045",
           "title": "The shader is the agent, no blob",
           "waiting": true,
@@ -292,7 +288,13 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": []
+      "cards": [
+        {
+          "key": "SITE-225",
+          "title": "A Thought, films get a look pass",
+          "owner": "CJohnDesign"
+        }
+      ]
     },
     {
       "key": "shipped",
