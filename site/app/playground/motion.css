@@ -23,3 +23,4 @@
 .mo-bleed .mo-frame { background: #0b0813; }
 .mo-ttff { position: absolute; left: 12px; right: 12px; bottom: 14px; text-align: center; font: 600 10.5px/1.3 system-ui, sans-serif; color: rgba(246, 238, 247, .55); pointer-events: none; animation: mo-note 6s ease forwards; }
 @keyframes mo-note { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }
+.mo-pick { position: absolute; left: 10px; top: 10px; z-index: 3; max-width: 52%; min-height: 30px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, .25); background: rgba(20, 14, 34, .78); color: #f6eef7; font: 700 11px system-ui, sans-serif; padding: 0 8px; }

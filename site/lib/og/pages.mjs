@@ -20,6 +20,11 @@ timer 40/20x8 Tabata`,
 card "An agent-ready card" tag=OPEN body="Sized for one pull request" cta="Claim it"
 list "Draft PR titled with the key" "Push the work" "A person reviews it" +num`,
   },
+  "/motion": {
+    eyebrow: "MOTION | DRAW ANYTHING",
+    yl: `say A film the model drew, scene by scene.
+shapes "Ask" "Draw" "Move" +arrows`,
+  },
   "/films": {
     eyebrow: "FILMS | THE REAL APP",
     yl: `say A minute each, sound on.

@@ -10,6 +10,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { evalScene, parseScene } from "../../lib/motion/scene.mjs";
 import { useReduced } from "./stagemotion";
+import MotionFilm from "../components/MotionFilm";
+import gallery from "../../lib/motion/gallery.json";
 import "./motion.css";
 
 const BASE = "/demo/motion";
@@ -254,7 +256,26 @@ export function SceneView({ full = true }) {
   );
 }
 
+// The motion kit (MOTION-1): any of the 20 test asks, either run, streamed on the recorded clock.
+// ?film=heart-r2 picks one; the picker below changes it.
+function KitPiece() {
+  const films = gallery.asks.flatMap((a) => a.runs.map((r) => ({ id: `${a.id}-r${r.run}`, label: `${a.ask.replace(/\.$/, "")} (run ${r.run})` })));
+  const [film, setFilm] = useState(() => {
+    const q = typeof window === "undefined" ? null : new URLSearchParams(window.location.search).get("film");
+    return films.some((f) => f.id === q) ? q : "heart-r1";
+  });
+  return (
+    <div className="mo-piece mo-full mo-bleed">
+      <MotionFilm film={film} stream fill label="Motion film" />
+      <select className="mo-pick" aria-label="Pick a film" value={film} onChange={(e) => setFilm(e.target.value)}>
+        {films.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}
+      </select>
+    </div>
+  );
+}
+
 export function MotionDemo({ kind }) {
+  if (kind === "kit") return <KitPiece />;
   if (kind !== "free") return <SceneView />;
   return variant() === ".old" ? <FreePiece /> : <StreamPiece />;
 }

@@ -159,7 +159,7 @@ export default function Playground({ release = "" }) {
   // The working row (YL.md section 5): the turn plays, `doing` lines in the row, then the reply.
   const working = shared ? null : ALL[idx].working;
   const [turn, playTurn] = useWorkingTurn(text, working ? idx : null);
-  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!weekdeck || !!stagemotion || !!stagetopics || !!motionlooks || !!visualizer || !!shaderlook || motion === "free" || motion === "yl";
+  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!weekdeck || !!stagemotion || !!stagetopics || !!motionlooks || !!visualizer || !!shaderlook || motion === "free" || motion === "yl" || motion === "kit";
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
@@ -643,7 +643,7 @@ export default function Playground({ release = "" }) {
             {motionlooks ? <MotionLooksDemo key={`ml:${epoch}`} text={text} /> : null}
             {visualizer ? <VisualizerDemo key={`vz:${epoch}`} text={text} dark={!light} agent={agent} /> : null}
             {shaderlook ? <ShaderLookDemo key={`sl:${epoch}`} dark={!light} /> : null}
-            {motion === "free" || motion === "yl" ? <MotionDemo key={`mo:${epoch}`} kind={motion} /> : null}
+            {motion === "free" || motion === "yl" || motion === "kit" ? <MotionDemo key={`mo:${epoch}`} kind={motion} /> : null}
             {client ? null : group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
               <div className="ahead">
                 <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>

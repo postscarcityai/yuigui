@@ -250,6 +250,15 @@ say "Breathe in for four. Out for six."`,
     yl: `say "ELI5 string theory. One page the model wrote."`,
   },
   {
+    // The motion kit (MOTION-1): the model draws any ask as a streamed film against a small drawing kit,
+    // in the player the app bundles. Pick any of the 20 test asks, either run.
+    name: "Motion: draw anything (the kit)",
+    slug: "motion",
+    agent: "Yui",
+    motion: "kit",
+    yl: `say "A film the model drew, scene by scene."`,
+  },
+  {
     name: "Motion B: YL grows a scene layer",
     slug: "motion-yl",
     agent: "Yui",

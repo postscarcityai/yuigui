@@ -1,0 +1,27 @@
+/* Motion gallery (MOTION-1). Every class is mg- or mf-. */
+.mf { position: relative; width: 100%; aspect-ratio: 390 / 844; border-radius: 28px; overflow: hidden; background: #0b0813; border: 1.5px solid var(--outline); box-shadow: var(--shadow); }
+.mf.fill { aspect-ratio: auto; height: 100%; border-radius: 0; border: 0; box-shadow: none; }
+.mf-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #0b0813; }
+.mf-wait, .mf-error { position: absolute; left: 10px; right: 10px; top: 10px; padding: 8px 12px; border-radius: 12px; font: 600 13px system-ui, sans-serif; background: rgba(20, 14, 34, .9); color: #ffd479; z-index: 2; }
+.mf-error { color: #ff9fb3; }
+.mf-tools { position: absolute; right: 10px; top: 10px; z-index: 2; display: flex; gap: 6px; opacity: .85; }
+.mf-tools button { min-height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, .25); background: rgba(20, 14, 34, .72); color: #f6eef7; font: 700 12px system-ui, sans-serif; cursor: pointer; }
+.mf-note { position: absolute; left: 12px; right: 12px; bottom: 10px; text-align: center; font: 600 10.5px/1.3 system-ui, sans-serif; color: rgba(246, 238, 247, .6); pointer-events: none; }
+.mg-stats { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 8px; }
+.mg-stat { background: var(--surface); border: 1.5px solid var(--outline); border-radius: 18px; padding: 10px 16px; }
+.mg-stat b { display: block; font-size: 24px; letter-spacing: -.01em; }
+.mg-stat span { font-size: 12.5px; color: var(--muted); }
+.mg-group { margin: 34px 0 6px; }
+.mg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; margin-top: 12px; }
+.mg-card { background: var(--surface); border: 1.5px solid var(--outline); border-radius: var(--r-card); padding: 14px; box-shadow: var(--shadow); }
+.mg-card p { margin: 0 0 10px; font-size: 14.5px; line-height: 1.4; color: var(--ink); }
+.mg-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mg-thumb { position: relative; display: block; width: 100%; padding: 0; border: 1.5px solid var(--outline); border-radius: 16px; overflow: hidden; background: #0b0813; cursor: pointer; aspect-ratio: 390 / 844; }
+.mg-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mg-thumb span { position: absolute; left: 6px; bottom: 6px; font: 800 11px system-ui, sans-serif; background: rgba(0, 0, 0, .62); color: #fff; padding: 2px 8px; border-radius: 10px; }
+.mg-thumb:hover, .mg-thumb:focus-visible { outline: 3px solid var(--brand); outline-offset: 1px; }
+.mg-meta { margin-top: 8px; font-size: 12px; color: var(--muted); }
+.mg-modal { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; background: rgba(12, 8, 22, .72); padding: 16px; }
+.mg-modal-in { width: min(390px, calc((100vh - 32px) * 390 / 844), 100%); }
+.mg-close { position: fixed; right: 16px; top: 14px; z-index: 61; min-height: 36px; padding: 0 16px; border-radius: 18px; border: 0; background: #fff; color: #222; font: 800 13px system-ui, sans-serif; cursor: pointer; }
+.mg-demo { max-width: 420px; }

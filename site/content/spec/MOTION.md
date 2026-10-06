@@ -6,6 +6,70 @@ Decision: Chris picked A (free code) as the default, with B's camera and morph a
 
 This is the design answer. Three working prototypes of the same ask ("ELI5 string theory"), what each costs, how each fails, and one recommendation. No app code changed and the live guide is untouched. Try them: [A](/playground?demo=motion-free), [B](/playground?demo=motion-yl), [C](/playground?demo=motion-hybrid). Each also plays a second model run of the same prompt with `&v=run2`, so you can see that the same ask gives a different piece.
 
+## 0. The motion system (MOTION-1, Oct 5 to 6): draw anything, any agent, mid-anything
+
+Chris, Oct 5: "Don't ship until you have a fully revamped motion system. It needs to be able to generate all types of different animations for any concept." And: "I want a really flexible system for drawing. It's not necessarily all teaching, it's just explaining something. We could be working together on a project and you're trying to explain visually what you're doing, or it could be a concept."
+
+So the goal is SHOWING. An agent, in the middle of anything, can draw what it means: a concept, or the work itself (what changed and where, a plan and where we are in it, how two parts connect, a bug and its fix, a status, a quick sketch, a mood). Flexibility is the first requirement. There are no templates and no kinds the model has to pick from. The model gets primitives and helpers and composes freely.
+
+### 0.1 What exists
+
+- **The kit** (`site/public/demo/motion/kit.js`, no dependencies, about 60 KB). A scene is `function (t, c, api)`, a pure function of time, so a film can be scrubbed, replayed and sampled headless. The kit is what the model draws with:
+  - Primitives that draw on: line, arrow, curve, rect, box, circle, ellipse, arc, poly, dot, glow, and `path` for any SVG path string. Every one takes `k` (draw-on 0..1), colour, width, fill, dash, glow and a hand-drawn wobble.
+  - 30 stock shapes (heart, gear, person, house, cup, flask, bulb, phone, lock, tree and more), text, kinetic type (rise, pop, drop, wave, scatter, type, slide), labels, captions.
+  - Explaining tools: `callout` (a dot on a part, a line, a label), `pin`, `dim`, `brace`, `scribble`, `underline`, `highlight`, `node` and `link` (boxes that return anchors, arrows between them with dots flowing), `compare` (a before/after wipe), `lens` (a magnifier that redraws zoomed), `clipRect`, `timeline`, `grid`.
+  - Data that animates: `counter`, `bars`, `lineChart`, `donut`, `progress`.
+  - Motion: a camera (`cam`, `focus`, `layer` for parallax, `shake`), easing and springs, an analytic orbit and wave, a cached physics step (`sim`), stateless particles (`swarm` in seven modes, `along` a path, `stars`), morphing between point lists.
+  - Looks: `look('agent'|'paper'|'sketch'|'blueprint'|'chalk'|'neon'|'noir')` sets the background, palette and wobble for the film. `agent` and no call keep the agent's own colours (the palette comes from the theme the host passes in).
+  - 3D without a library: a small software renderer (camera, box, sphere, torus, cylinder, cone, helix, plane, shaded solids or wire).
+  - Maps: Natural Earth 110m countries, orthographic globe or flat, highlight a country, great-circle routes, pins.
+- **The player** (`player.html`): one canvas, one film clock, two homes with the same file. In an iframe on the site it takes `postMessage`; in the app's web view it takes `window.yui.scene/end/pause/seek/replay/still/theme` and reports through one message handler (`ready`, `first-frame`, `error`, `stall`, `slow`, `ended`, `time`, `timeline`, `cues`, `tap`). Scenes stream in as they are written; the clock holds at the end of what is known. A scene that throws is cut short and the film goes on. `api.say` cues are probed per scene so a narrator (YUI-310) can speak them ahead of the clock. No network, no storage.
+- **The generator** (`prompt-kit.md`, `scripts/motion/film.py`): the model gets a two page reference (the kit, the output format, the direction) and the ask, and writes `=== scene <name> <seconds> ===` blocks. `film.py` streams it and logs the second each scene lands.
+- **The checks** (`scripts/motion/check.py`): the real player renders every film frame by frame in headless Chrome. A film fails on a scene that throws or does not parse, or on a stretch of 1.2 s or more that draws nothing. It writes a contact sheet and a report.
+- **The test set** (`asks.json`, `scripts/motion/run_set.py`): 20 asks, each run twice, half work and half concepts. Results in 0.3 and on [/motion](/motion).
+
+### 0.2 How a film is written
+
+- Scene 1 is small (25 lines at most) and already shows the subject, so it can play within seconds. The rest is decided while it plays.
+- Every scene is the same few moves: `k = api.seg(t, from, to)` gives each part its own window, so a drawing builds one part after another; a callout points at a part; the camera pushes in; a lens magnifies a detail; a compare wipes before to after.
+- Few words on screen. Captions are `api.say` cues of six words or fewer, because a voice will speak them.
+- Unique every time: the prompt asks for the model's own metaphor, look and camera plan, and forbids slide layouts.
+
+### 0.3 Results
+
+- **Range.** 20 asks, each run twice, 40 films, all made by Sonnet 5.5 at low effort through the same prompt. Half are work between a person and their agent (a settings change, a plan and where we are, how five parts fit, a bug and its fix, a launch status, a sketch of a robot, two services talking, a day), half are concepts (a heart, an engine, Rome, a roast chicken, a workout, a dog-toy business, anxiety, a jump start, rent or buy, tax brackets, a quiet Sunday, population). The tiles on [/motion](/motion) play every one.
+- **Checked.** Every film renders in headless Chrome through the real player. On the first try 57 of 60 films passed (the 40 of the set plus the 20 timing films); the three that did not were one scene that used an undefined variable twice and one whose last scene header the harvester could not read, and the set holds regenerated runs of them. At runtime the player cuts a scene that throws and the film goes on. All 40 published films pass: no scene throws, none fails to parse, no stretch of 1.2 s or more draws nothing. (The checker earned its keep: it caught a scene that referenced an undefined variable and a film whose last scene header the harvester could not read, so the harvester now accepts `=== name 6 ===` as well as `=== scene name 6 ===`.)
+- **Unique.** The two runs of an ask never match: different look, different metaphor, different layout. A Sunday morning is a rain-streaked window over a steaming cup in one run and a cup with three columns of steam in the other; the engine is a blueprint cutaway in one and a labelled stroke wheel in the other.
+- **Fast.** One at a time on an idle machine, scene 1 is complete 5.25 s after the request (median, worst 10.2 s over 20 films), through the `claude` CLI, which adds about 3 to 5 s of process start. The player boots in about a second. A film is 27.25 s long and takes about 17 s to write, so the player never waits after scene 1. Median cost to make one: $0.076. Five films at once is slower (median 5.9 s to scene 1), which is the number to expect when many people ask together.
+
+### 0.4 What is left, and where it lives
+
+The kit, player, generator and checks are the system. Three connections remain before a person gets it from their phone: (1) the channel guide teaches agents to ask for motion, (2) the plugin turns that ask into a streamed film, (3) the app plays it full screen. The design for (2) and (3), decided here and built under MOTION-1:
+
+- **One line from the agent.** `motion "<what to show, with the facts>"`. The agent does not write scenes and the guide does not carry the kit: a weak model and a strong one both get a film, and the guide stays small. The ask carries the facts the film needs ("I moved Log out to the bottom, added Dark mode, removed Help"), because the maker sees only the line.
+- **The plugin makes the film.** It runs the generator on the same prompt and the agent's own colours (`THEME`), sends each scene the moment it is complete as its own row, then a closing row, so a phone that polls shows scene 1 in seconds. A film that fails the same checks in the plugin (a scene that does not parse) is dropped from the row; the player already cuts a scene that throws.
+- **The app.** `MotionView` plays the film full bleed on the stage, with no card; Reduce Motion shows the last frame; a failure falls back to the agent's `shapes` drawing and tells the agent. Older phones get the words (compat gate).
+
+### 0.5 The wire (so the app and the plugin can be built apart)
+
+A film travels in Yui Lines as a raw block, the way `draw` carries SVG:
+
+````
+motion "How a heart pumps blood" film=m7 part=1
+=== scene hook 4 ===
+<JavaScript body of (t, c, api)>
+=== scene dive 6 ===
+<...>
+end
+````
+
+- `motion [title...] film=<id> part=<n> [last]`, then scene blocks up to a line that is only `end` (or the end of the reply). The head is an add with preset `motion` (props `title`, `film`, `part`, `last`); the reply gives one patch with `source`, the scene text as written. A line after the head that is not a `=== scene` header leaves the block empty and is read as YL. Cut at 40 scenes or 120,000 characters.
+- A film is one or more parts. The plugin sends part 1 with scene 1 the moment it is complete, then each next scene as its own row (`part=2`, ...); when the maker is done a closing row with no scene (`motion film=m7 part=5 +last`) says the film is whole. The app joins parts with the same `film` into one player, so the film starts at scene 1 while the rest is written. A part with no earlier part (a phone that missed it) starts the film from there.
+- Scene header: `=== scene <name> <seconds> ===` (the word `scene` may be left out). Name: one word. Seconds: 0.5 to 20.
+- The agent never writes this. It writes `motion "<ask>"` in the channel guide's plain form, and the plugin replaces that line with the block above (the way table words are expanded before a reply is saved).
+- Phones that cannot play it (compat gate): the title and the scenes' `say` lines in order, as words.
+- Sends no events, except taps on `api.hit` targets, which come back as `[yui] n1 motion tap=<id>`; a failure comes back as `[yui] n1 motion error=<reason>`.
+
 ## 1. The three prototypes
 
 | | A. Free code | B. YL grows motion | C. Hybrid |

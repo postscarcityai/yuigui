@@ -1,0 +1,514 @@
+{
+ "asks": [
+  {
+   "id": "heart",
+   "kind": "draw",
+   "ask": "Draw how a heart pumps blood.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 8.4,
+     "total_s": 15.7,
+     "film_s": 23.0,
+     "scenes": 4,
+     "cost_usd": 0.665,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 6.6,
+     "total_s": 16.9,
+     "film_s": 27.5,
+     "scenes": 5,
+     "cost_usd": 0.058,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "engine",
+   "kind": "draw",
+   "ask": "Show how a four-stroke engine works.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 7.2,
+     "total_s": 21.9,
+     "film_s": 33.0,
+     "scenes": 6,
+     "cost_usd": 0.092,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 5.9,
+     "total_s": 18.5,
+     "film_s": 31.0,
+     "scenes": 6,
+     "cost_usd": 0.088,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "rome",
+   "kind": "history",
+   "ask": "How the Roman Empire grew and then fell, 27 BC to 476 AD.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 9.0,
+     "total_s": 22.5,
+     "film_s": 33.0,
+     "scenes": 6,
+     "cost_usd": 0.675,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 5.5,
+     "total_s": 17.5,
+     "film_s": 31.5,
+     "scenes": 6,
+     "cost_usd": 0.084,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "chicken",
+   "kind": "recipe",
+   "ask": "Roast a lemon-garlic chicken: the steps and the timing.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 5.9,
+     "total_s": 15.5,
+     "film_s": 26.5,
+     "scenes": 5,
+     "cost_usd": 0.081,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 7.4,
+     "total_s": 18.9,
+     "film_s": 27.5,
+     "scenes": 5,
+     "cost_usd": 0.083,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "workout",
+   "kind": "workout",
+   "ask": "A 20 minute no-equipment workout. Show the moves and the rhythm.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 5.6,
+     "total_s": 16.4,
+     "film_s": 26.5,
+     "scenes": 5,
+     "cost_usd": 0.084,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 4.9,
+     "total_s": 19.0,
+     "film_s": 26.5,
+     "scenes": 5,
+     "cost_usd": 0.053,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "dogbox",
+   "kind": "business",
+   "ask": "A business idea: a monthly subscription box of toys for rescue dogs. Show the model and where the money comes from.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 9.0,
+     "total_s": 15.8,
+     "film_s": 21.5,
+     "scenes": 4,
+     "cost_usd": 0.077,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 5.8,
+     "total_s": 14.9,
+     "film_s": 29.0,
+     "scenes": 5,
+     "cost_usd": 0.079,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "anxiety",
+   "kind": "feeling",
+   "ask": "What it feels like when anxiety builds and then lets go.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 5.5,
+     "total_s": 20.9,
+     "film_s": 32.0,
+     "scenes": 6,
+     "cost_usd": 0.092,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 2.9,
+     "total_s": 15.3,
+     "film_s": 27.5,
+     "scenes": 5,
+     "cost_usd": 0.046,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "jumpstart",
+   "kind": "how-to",
+   "ask": "How to jump-start a dead car battery safely.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 4.3,
+     "total_s": 22.0,
+     "film_s": 29.5,
+     "scenes": 5,
+     "cost_usd": 0.058,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 6.6,
+     "total_s": 20.3,
+     "film_s": 24.5,
+     "scenes": 5,
+     "cost_usd": 0.065,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "rentbuy",
+   "kind": "comparison",
+   "ask": "Compare renting and buying a home over 10 years.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 5.9,
+     "total_s": 15.8,
+     "film_s": 28.5,
+     "scenes": 5,
+     "cost_usd": 0.056,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 6.2,
+     "total_s": 20.0,
+     "film_s": 34.5,
+     "scenes": 6,
+     "cost_usd": 0.087,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "tax",
+   "kind": "numbers",
+   "ask": "Show how US federal tax brackets work, with a $90,000 income.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 11.4,
+     "total_s": 21.6,
+     "film_s": 27.5,
+     "scenes": 5,
+     "cost_usd": 0.089,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 11.9,
+     "total_s": 24.4,
+     "film_s": 28.5,
+     "scenes": 5,
+     "cost_usd": 0.057,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "settings",
+   "kind": "work",
+   "ask": "I changed the settings screen today: Log out moved to the bottom, a Dark mode switch was added, and the Help row was removed. Show what changed.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 5.9,
+     "total_s": 13.2,
+     "film_s": 14.5,
+     "scenes": 3,
+     "cost_usd": 0.078,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 3.7,
+     "total_s": 15.7,
+     "film_s": 26.0,
+     "scenes": 5,
+     "cost_usd": 0.048,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "plan",
+   "kind": "work",
+   "ask": "Show the plan: Monday design the new onboarding, Tuesday and Wednesday build it, Thursday test with 5 users, Friday ship. We are at Wednesday.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 5.2,
+     "total_s": 13.7,
+     "film_s": 22.0,
+     "scenes": 4,
+     "cost_usd": 0.078,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 3.1,
+     "total_s": 15.4,
+     "film_s": 21.5,
+     "scenes": 4,
+     "cost_usd": 0.048,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "pieces",
+   "kind": "work",
+   "ask": "Show how the pieces fit: phone app, gateway, agent, model, database. A message goes from the phone to the model and back.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 3.7,
+     "total_s": 12.1,
+     "film_s": 26.5,
+     "scenes": 5,
+     "cost_usd": 0.043,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 16.3,
+     "total_s": 30.2,
+     "film_s": 32.6,
+     "scenes": 6,
+     "cost_usd": 0.068,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "bug",
+   "kind": "work",
+   "ask": "A bug and its fix: the app crashed when a thread had more than 400 rows because it loaded all rows at once. The fix loads 50 at a time. Show the bug and the fix.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 4.5,
+     "total_s": 15.7,
+     "film_s": 27.0,
+     "scenes": 5,
+     "cost_usd": 0.046,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 8.9,
+     "total_s": 16.6,
+     "film_s": 21.0,
+     "scenes": 4,
+     "cost_usd": 0.077,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "status",
+   "kind": "work",
+   "ask": "Status of the launch: 14 of 20 tasks are done, 3 are blocked on App Review, 3 have not started. Launch is Friday. Show where we are.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 7.4,
+     "total_s": 15.8,
+     "film_s": 26.0,
+     "scenes": 5,
+     "cost_usd": 0.079,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 7.1,
+     "total_s": 20.0,
+     "film_s": 32.0,
+     "scenes": 6,
+     "cost_usd": 0.05,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "robot",
+   "kind": "work",
+   "ask": "A quick sketch of an idea: a tiny robot that waters houseplants and tells you when its water tank is low.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 6.4,
+     "total_s": 19.9,
+     "film_s": 27.0,
+     "scenes": 5,
+     "cost_usd": 0.089,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 5.0,
+     "total_s": 19.2,
+     "film_s": 27.5,
+     "scenes": 5,
+     "cost_usd": 0.053,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "checkout",
+   "kind": "work",
+   "ask": "Show how two parts connect: the checkout page sends an order to the payments service, which confirms with the bank and then tells the warehouse.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 5.0,
+     "total_s": 10.5,
+     "film_s": 14.5,
+     "scenes": 3,
+     "cost_usd": 0.073,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 7.3,
+     "total_s": 16.3,
+     "film_s": 27.5,
+     "scenes": 5,
+     "cost_usd": 0.055,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "today",
+   "kind": "work",
+   "ask": "Explain what I did today: I answered 12 customer emails, fixed 2 broken links on the website, and drafted next week's newsletter. Show my day.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 3.3,
+     "total_s": 16.8,
+     "film_s": 27.5,
+     "scenes": 5,
+     "cost_usd": 0.049,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 5.7,
+     "total_s": 16.8,
+     "film_s": 28.0,
+     "scenes": 5,
+     "cost_usd": 0.083,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "sunday",
+   "kind": "feeling",
+   "ask": "A mood: a calm Sunday morning, rain on the window, a warm cup of coffee.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 3.9,
+     "total_s": 15.1,
+     "film_s": 26.5,
+     "scenes": 5,
+     "cost_usd": 0.046,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 9.0,
+     "total_s": 20.6,
+     "film_s": 26.0,
+     "scenes": 5,
+     "cost_usd": 0.058,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  },
+  {
+   "id": "people",
+   "kind": "numbers",
+   "ask": "Show how many people live on each continent and which one is growing fastest.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 5.3,
+     "total_s": 13.1,
+     "film_s": 21.5,
+     "scenes": 4,
+     "cost_usd": 0.076,
+     "model": "claude-sonnet-5-5"
+    },
+    {
+     "run": 2,
+     "first_scene_s": 5.7,
+     "total_s": 13.5,
+     "film_s": 21.5,
+     "scenes": 4,
+     "cost_usd": 0.078,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
+  }
+ ],
+ "summary": {
+  "films": 40,
+  "first_scene_median_s": 5.9,
+  "first_scene_max_s": 16.3,
+  "cost_median_usd": 0.076,
+  "film_median_s": 27.25,
+  "first_scene_serial_median_s": 5.25,
+  "first_scene_serial_max_s": 10.2,
+  "serial_films": 20
+ }
+}
