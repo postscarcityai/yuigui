@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T06:36:03.235Z",
+  "updated": "2026-10-06T06:46:05.663Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,10 +290,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-208",
-          "title": "Thought, Yui draws anything"
-        },
-        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -337,6 +333,11 @@
         {
           "key": "YUI-312",
           "title": "A real agent's film on /web, live and timed",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-208",
+          "title": "Thought, Yui draws anything",
           "owner": "CJohnDesign"
         },
         {
