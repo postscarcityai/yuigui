@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T01:06:10.949Z",
+  "updated": "2026-10-06T01:21:07.493Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -342,6 +342,8 @@
         {
           "key": "YUI-309",
           "title": "/web workout runner gets edits on the fly and a music strip, the twin of YUI-305",
+          "summary": "Change the workout mid-set, on the web too",
+          "progress": "/progress#change-the-workout-mid-set-on-the-web-too",
           "owner": "CJohnDesign"
         },
         {
