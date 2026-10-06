@@ -2,10 +2,10 @@
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
     "app": 506,
-    "site": 1549,
+    "site": 1552,
     "builds": 57,
-    "shipped": 672,
-    "screenshots": 1804
+    "shipped": 673,
+    "screenshots": 1805
   },
   "days": [
     {
@@ -13,15 +13,35 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-06T09:35:48.192Z",
+          "at": "2026-10-06T09:46:09.018Z",
+          "title": "A Thought: films start in about six seconds",
+          "card": "SITE-212",
+          "anchor": "a-thought-films-start-in-about-six-seconds",
+          "images": [
+            {
+              "src": "/progress/site212-chart-dark.webp",
+              "alt": "Dot chart of seconds to the first frame for nine live runs before and after. Before, three runs sit past ten seconds. After, all nine sit between 4.9 and 8.0."
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 506,
+            "site": 1552,
+            "builds": 57,
+            "shipped": 673
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T09:35:36.000Z",
           "title": "The site sync no longer stops on card ids",
           "card": "SITE-211",
           "anchor": "the-site-sync-no-longer-stops-on-card-ids",
           "images": [],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 506,
-            "site": 1549,
+            "site": 1550,
             "builds": 57,
             "shipped": 672
           }
@@ -246,6 +266,27 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "1b25bc6a",
+          "at": "2026-10-06T09:41:24.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1b25bc6a"
+        },
+        {
+          "repo": "site",
+          "sha": "1dd5dba6",
+          "at": "2026-10-06T09:35:59.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/1dd5dba6"
+        },
+        {
+          "repo": "site",
+          "sha": "59a64357",
+          "at": "2026-10-06T09:35:36.000Z",
+          "text": "SITE-211: drop raw task ids from four progress entries so the content sync passes again",
+          "url": "https://github.com/postscarcityai/yuigui/commit/59a64357"
+        },
         {
           "repo": "site",
           "sha": "d23d5b65",
