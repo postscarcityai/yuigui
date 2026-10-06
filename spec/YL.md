@@ -778,7 +778,7 @@ query meals where=Day=today sum=Cal|Protein as stat y=Cal label="Today"
 query meals group=Day sum=Cal sort=Day as chart bar x=Day y=Cal
 ```
 
-### motion (a film, MOTION-1)
+### motion
 `motion "<what to show, with the facts>"`: a drawing that moves and explains, full screen, made from that one line. It is for anything better said as a picture in motion: a concept (how a heart pumps), or the work itself (what changed and where, how two parts connect, a bug and its fix, where a plan stands). A plain fact, a yes/no and a status stay one line or a `Label: verdict` sketch. Full design and the kit: `spec/MOTION.md`.
 
 - **The agent writes one line and never scenes.** The ask carries every fact the film needs (names, numbers, order, what moves where), because the maker sees only that line. The head takes the ask as its title: `{op:"add", preset:"motion", props:{title}}`. Say it in the one line before it, not after.

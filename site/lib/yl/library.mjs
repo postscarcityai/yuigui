@@ -300,6 +300,13 @@ flowchart LR
   lane -->|green| phone((Phone))
 end`,
   },
+  // A film (MOTION-1). `draft` until the build that plays films goes VALID (compat.py MOTION_BUILD).
+  motion: {
+    shelf: "show", doc: "motion", draft: true,
+    purpose: "A drawing that moves and explains, full screen, made from one line: a concept or the work itself, scene 1 playing in seconds.",
+    tags: ["motion", "film", "animation", "explainer", "video", "animate", "draw", "explain"],
+    yl: `motion "Settings change: Log out moved to the bottom, Dark mode added above it, Help removed"`,
+  },
   mock: {
     shelf: "show", doc: "mock", draft: true,
     purpose: "Recreate a screen from parts: a phone, window, watch or browser with nav, rows, fields, buttons, tabs and sheets.",
