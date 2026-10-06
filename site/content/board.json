@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T07:20:39.832Z",
+  "updated": "2026-10-06T07:35:42.026Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -259,13 +259,6 @@
           "progress": "/progress#yui-screens-in-chatgpt-too"
         },
         {
-          "key": "YUI-40",
-          "title": "New builds stuck at Apple, widget App Group. Daily release held",
-          "summary": "Upload failed",
-          "waiting": true,
-          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay"
-        },
-        {
           "key": "YUI-109",
           "title": "Yui in the browser, first PR",
           "summary": "The thread offline at /web"
@@ -288,6 +281,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-210",
+          "title": "Thought, films in your browser, timed"
         },
         {
           "key": "NOTE-3941",
@@ -359,6 +356,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-40",
+          "title": "New builds stuck at Apple, widget App Group. Daily release held",
+          "summary": "Upload failed",
+          "shipped": "2026-10-06",
+          "progress": "/progress#buttons-on-widgets-siri-and-the-widget-push-relay",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/90ab4219"
+        },
         {
           "key": "SITE-209",
           "title": "Films on your phone, the build note",
