@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T06:46:05.663Z",
+  "updated": "2026-10-06T06:51:08.077Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -336,11 +336,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-208",
-          "title": "Thought, Yui draws anything",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -364,6 +359,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-208",
+          "title": "Thought, Yui draws anything",
+          "summary": "Yui draws anything: a Thought with the films",
+          "shipped": "2026-10-06",
+          "progress": "/progress#yui-draws-anything-a-thought-with-the-films",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/f9350ac9"
+        },
         {
           "key": "YUI-311",
           "title": "/web plays motion films full screen, twin of MOTION-1d",
