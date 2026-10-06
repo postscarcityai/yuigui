@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T03:30:35.967Z",
+  "updated": "2026-10-06T03:35:24.820Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,6 +288,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-207",
+          "title": "Thought, explainers become real motion"
         },
         {
           "key": "NOTE-3941",
