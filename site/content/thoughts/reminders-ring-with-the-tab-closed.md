@@ -1,6 +1,6 @@
 ---
 date: 2026-10-05
-tag: update
+tag: release
 title: "Reminders ring with the tab closed"
 dek: An agent sets a reminder in a reply. You close Yui in your browser. The reminder still lands at its time.
 ---
