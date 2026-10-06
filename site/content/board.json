@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T00:20:51.989Z",
+  "updated": "2026-10-06T00:25:55.707Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -336,13 +336,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-307",
-          "title": "/web decks fill the stage and morph between pages, the twin of the app fix",
-          "summary": "Web decks morph too",
-          "progress": "/progress#web-decks-morph-too",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -360,6 +353,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-307",
+          "title": "/web decks fill the stage and morph between pages, the twin of the app fix",
+          "summary": "Web decks morph too",
+          "shipped": "2026-10-05",
+          "progress": "/progress#web-decks-morph-too",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ded28580"
+        },
         {
           "key": "NOTE-57356",
           "title": "Questions that say what they ask",
@@ -388,7 +389,7 @@
           "title": "Tabs named for what is on them",
           "shipped": "2026-10-05",
           "progress": "/progress#tabs-named-for-what-is-on-them",
-          "commit": "https://github.com/postscarcityai/yui/commit/3610bec"
+          "commit": "https://github.com/postscarcityai/yui/commit/3610bec0"
         },
         {
           "key": "YUI-303",
@@ -612,7 +613,7 @@
           "summary": "Drawing on the phone, proven",
           "shipped": "2026-10-05",
           "progress": "/progress#drawing-on-the-phone-proven",
-          "commit": "https://github.com/postscarcityai/yui/commit/b54f03e"
+          "commit": "https://github.com/postscarcityai/yui/commit/b54f03e9"
         },
         {
           "key": "YUI-296",
@@ -656,7 +657,7 @@
           "summary": "Claude and ChatGPT draw the Venn and the contour too",
           "shipped": "2026-10-05",
           "progress": "/progress#claude-and-chatgpt-draw-the-venn-and-the-contour-too",
-          "commit": "https://github.com/postscarcityai/yui/commit/66d3cc5"
+          "commit": "https://github.com/postscarcityai/yui/commit/66d3cc59"
         },
         {
           "key": "NOTE-4897",
@@ -1861,7 +1862,7 @@
           "summary": "Add an agent is in the drawer, and pairing is one command",
           "shipped": "2026-09-30",
           "progress": "/progress#add-an-agent-is-in-the-drawer-and-pairing-is-one-command",
-          "commit": "https://github.com/postscarcityai/yui/commit/d8b1792"
+          "commit": "https://github.com/postscarcityai/yui/commit/d8b17926"
         },
         {
           "key": "SITE-127",
@@ -2057,7 +2058,7 @@
           "summary": "A lone question heads itself",
           "shipped": "2026-09-29",
           "progress": "/progress#a-lone-question-heads-itself",
-          "commit": "https://github.com/postscarcityai/yui/commit/a7e3f9b"
+          "commit": "https://github.com/postscarcityai/yui/commit/a7e3f9b0"
         },
         {
           "key": "NOTE-41795",
@@ -2285,7 +2286,7 @@
           "summary": "Pick which key each agent runs on",
           "shipped": "2026-09-29",
           "progress": "/progress#pick-which-key-each-agent-runs-on",
-          "commit": "https://github.com/postscarcityai/yui/commit/b212548"
+          "commit": "https://github.com/postscarcityai/yui/commit/b2125481"
         },
         {
           "key": "YUI-139",
@@ -2293,7 +2294,7 @@
           "step": "Step 2f",
           "shipped": "2026-09-29",
           "progress": "/progress#pick-which-key-each-agent-runs-on",
-          "commit": "https://github.com/postscarcityai/yui/commit/9adb9d9"
+          "commit": "https://github.com/postscarcityai/yui/commit/9adb9d96"
         },
         {
           "key": "YUI-139",
@@ -2301,7 +2302,7 @@
           "step": "Step 2e",
           "shipped": "2026-09-29",
           "progress": "/progress#your-own-key-at-every-stop",
-          "commit": "https://github.com/postscarcityai/yui/commit/be451a8"
+          "commit": "https://github.com/postscarcityai/yui/commit/be451a8b"
         },
         {
           "key": "YUI-139",
@@ -2317,7 +2318,7 @@
           "step": "Step 2c",
           "shipped": "2026-09-29",
           "progress": "/progress#pick-which-key-each-agent-runs-on",
-          "commit": "https://github.com/postscarcityai/yui/commit/b2a9aef"
+          "commit": "https://github.com/postscarcityai/yui/commit/b2a9aef0"
         },
         {
           "key": "YUI-139",
@@ -2333,7 +2334,7 @@
           "title": "Agent picker only in the drawer",
           "shipped": "2026-09-29",
           "progress": "/progress#the-chat-top-bar-is-quiet-the-drawer-is-the-one-agent-picker",
-          "commit": "https://github.com/postscarcityai/yui/commit/8935804"
+          "commit": "https://github.com/postscarcityai/yui/commit/89358046"
         },
         {
           "key": "YUI-206",
@@ -2483,7 +2484,7 @@
           "summary": "Long answers read as body text, and markdown is drawn",
           "shipped": "2026-09-29",
           "progress": "/progress#long-answers-read-as-body-text-and-markdown-is-drawn",
-          "commit": "https://github.com/postscarcityai/yui/commit/efd340f"
+          "commit": "https://github.com/postscarcityai/yui/commit/efd340f1"
         },
         {
           "key": "YUI-195",
@@ -3021,7 +3022,7 @@
           "summary": "A new install opens with Yui and the crew already there",
           "shipped": "2026-09-27",
           "progress": "/progress#a-new-install-opens-with-yui-and-the-crew-already-there",
-          "commit": "https://github.com/postscarcityai/yui/commit/802b510"
+          "commit": "https://github.com/postscarcityai/yui/commit/802b5104"
         },
         {
           "key": "YUI-161",
@@ -3108,7 +3109,7 @@
           "summary": "Basil reads your meal",
           "shipped": "2026-09-27",
           "progress": "/progress#basil-reads-your-meal",
-          "commit": "https://github.com/postscarcityai/yui/commit/ff0800a"
+          "commit": "https://github.com/postscarcityai/yui/commit/ff0800a5"
         },
         {
           "key": "YUI-158",
@@ -3134,7 +3135,7 @@
           "summary": "Maps in the app",
           "shipped": "2026-09-27",
           "progress": "/progress#maps-in-the-app",
-          "commit": "https://github.com/postscarcityai/yui/commit/63fdc90"
+          "commit": "https://github.com/postscarcityai/yui/commit/63fdc905"
         },
         {
           "key": "YUI-133",
@@ -3205,7 +3206,7 @@
           "summary": "Maps: answer where with the place",
           "shipped": "2026-09-27",
           "progress": "/progress#maps-answer-where-with-the-place",
-          "commit": "https://github.com/postscarcityai/yui/commit/bf2d657"
+          "commit": "https://github.com/postscarcityai/yui/commit/bf2d6571"
         },
         {
           "key": "YUI-157",
@@ -3220,7 +3221,7 @@
           "title": "Places get a map",
           "shipped": "2026-09-27",
           "progress": "/progress#maps-in-the-app",
-          "commit": "https://github.com/postscarcityai/yui/commit/63fdc90"
+          "commit": "https://github.com/postscarcityai/yui/commit/63fdc905"
         },
         {
           "key": "NOTE-4592",
@@ -3346,7 +3347,7 @@
           "step": "Step 2",
           "shipped": "2026-09-27",
           "progress": "/progress#a-live-picture-behind-the-words",
-          "commit": "https://github.com/postscarcityai/yui/commit/49a943f"
+          "commit": "https://github.com/postscarcityai/yui/commit/49a943f8"
         },
         {
           "key": "YUI-120",
@@ -3387,7 +3388,7 @@
           "step": "Step 3",
           "shipped": "2026-09-26",
           "progress": "/progress#your-agent-says-what-it-is-doing",
-          "commit": "https://github.com/postscarcityai/yui/commit/6fb9174"
+          "commit": "https://github.com/postscarcityai/yui/commit/6fb9174a"
         },
         {
           "key": "YUI-123",
@@ -3521,7 +3522,7 @@
           "title": "Beats that play on silent, and page 2 cleared",
           "shipped": "2026-09-26",
           "progress": "/progress#help-why-a-beat-is-silent",
-          "commit": "https://github.com/postscarcityai/yui/commit/43c4126"
+          "commit": "https://github.com/postscarcityai/yui/commit/43c41269"
         },
         {
           "key": "YUI-63",
@@ -3577,7 +3578,7 @@
           "summary": "Agents send a tuner and a metronome",
           "shipped": "2026-09-26",
           "progress": "/progress#agents-send-a-tuner-and-a-metronome",
-          "commit": "https://github.com/postscarcityai/yui/commit/56b38a3"
+          "commit": "https://github.com/postscarcityai/yui/commit/56b38a33"
         },
         {
           "key": "YUI-117",
@@ -3821,7 +3822,7 @@
           "summary": "Widgets and Siri, planned",
           "shipped": "2026-09-26",
           "progress": "/progress#widgets-and-siri-planned",
-          "commit": "https://github.com/postscarcityai/yui/commit/cfd7e49"
+          "commit": "https://github.com/postscarcityai/yui/commit/cfd7e49c"
         },
         {
           "key": "SITE-40",
@@ -4012,7 +4013,7 @@
           "summary": "Yui now times itself: speed numbers from real phones, every day",
           "shipped": "2026-09-26",
           "progress": "/progress#yui-now-times-itself-speed-numbers-from-real-phones-every-day",
-          "commit": "https://github.com/postscarcityai/yui/commit/9385fc2"
+          "commit": "https://github.com/postscarcityai/yui/commit/9385fc2e"
         },
         {
           "key": "YUI-104",
@@ -4163,7 +4164,7 @@
           "summary": "Agents keep data on your phone: tables",
           "shipped": "2026-09-25",
           "progress": "/progress#agents-keep-data-on-your-phone-tables",
-          "commit": "https://github.com/postscarcityai/yui/commit/6730547"
+          "commit": "https://github.com/postscarcityai/yui/commit/67305471"
         },
         {
           "key": "YUI-86",
@@ -4238,7 +4239,7 @@
           "summary": "Flows, written in Mermaid",
           "shipped": "2026-09-25",
           "progress": "/progress#flows-written-in-mermaid",
-          "commit": "https://github.com/postscarcityai/yui/commit/deec1f8"
+          "commit": "https://github.com/postscarcityai/yui/commit/deec1f81"
         },
         {
           "key": "YUI-56",
@@ -4414,7 +4415,7 @@
           "summary": "Your own model, in Yui",
           "shipped": "2026-09-25",
           "progress": "/progress#your-own-model-in-yui",
-          "commit": "https://github.com/postscarcityai/yui/commit/e015c15"
+          "commit": "https://github.com/postscarcityai/yui/commit/e015c151"
         },
         {
           "key": "YUI-74",
@@ -4438,7 +4439,7 @@
           "summary": "An agent that isn't listening yet says so",
           "shipped": "2026-09-25",
           "progress": "/progress#an-agent-that-isn-t-listening-yet-says-so",
-          "commit": "https://github.com/postscarcityai/yui/commit/580a604"
+          "commit": "https://github.com/postscarcityai/yui/commit/580a6045"
         },
         {
           "key": "INT-6",
@@ -4461,7 +4462,7 @@
           "summary": "@ another agent from any thread",
           "shipped": "2026-09-25",
           "progress": "/progress#another-agent-from-any-thread",
-          "commit": "https://github.com/postscarcityai/yui/commit/1783873"
+          "commit": "https://github.com/postscarcityai/yui/commit/1783873c"
         },
         {
           "key": "YUI-61",
@@ -4887,7 +4888,7 @@
           "title": "Yui demo clip pipeline (simulator recording per preset)",
           "shipped": "2026-09-24",
           "progress": "/progress#demo-clips-of-every-preset-recorded-from-the-app",
-          "commit": "https://github.com/postscarcityai/yui/commit/6fc0cbb"
+          "commit": "https://github.com/postscarcityai/yui/commit/6fc0cbb3"
         },
         {
           "key": "SITE-12",
