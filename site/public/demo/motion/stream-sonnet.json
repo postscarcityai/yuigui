@@ -1,0 +1,57 @@
+{
+ "scenes": [
+  {
+   "name": "hook",
+   "dur": 4.0,
+   "code": "const W=api.w,H=api.h,cx=W/2,cy=H/2;\nconst k=api.ease(api.seg(t,0,4));\napi.cam(0,0,api.lerp(1,1.6,k),k*0.3);\nfor(let i=0;i<40;i++){\n  const a=i/40*6.283+t*0.5, r=api.lerp(W*0.5,12,k)*(0.5+api.rand(i)*0.5);\n  c.fillStyle=i%5==0?'#ff6a3d':'#5ad1ff';\n  c.globalAlpha=0.3+0.5*api.rand(i+9);\n  c.beginPath();c.arc(cx+Math.cos(a)*r*1.2,cy+Math.sin(a)*r*1.2,2+api.rand(i+3)*3,0,6.283);c.fill();\n}\nc.globalAlpha=1;\napi.cam(0,0,1,0);\napi.say(\"What is everything made of?\",0.4,3.8);",
+   "at": 6.6
+  },
+  {
+   "name": "dive",
+   "dur": 6.0,
+   "code": "const W=api.w,H=api.h,cx=W/2,cy=H/2;\nconst k=api.ease(api.seg(t,0,6));\nconst z=Math.pow(10,k*1.5);\napi.cam(0,0,1,0);\nconst g=c.createRadialGradient(cx,cy,0,cx,cy,W*0.6);\ng.addColorStop(0,'rgba(90,209,255,0.25)');g.addColorStop(1,'rgba(0,0,0,0)');\nc.fillStyle=g;c.fillRect(0,0,W,H);\nc.strokeStyle='#5ad1ff';c.lineWidth=1.5;\nfor(let i=0;i<4;i++){\n  const s=((i/4+k*1.2)%1);\n  const r=12+s*s*W*0.9;\n  c.globalAlpha=Math.sin(s*3.14159)*0.8;\n  api.path(api.pts.poly(48,i%2?6:3+i,r).map(p=>[cx+p[0],cy+p[1]]),true);c.stroke();\n}\nc.globalAlpha=1;\nc.fillStyle='#ff6a3d';c.beginPath();c.arc(cx,cy,5+k*10,0,6.283);c.fill();\napi.say(api.seg(t,0,1)>=0&&k<0.5?\"Zoom in. And in.\":\"Smaller than atoms.\",0.3,5.5);",
+   "at": 9.9
+  },
+  {
+   "name": "dot",
+   "dur": 5.0,
+   "code": "const W=api.w,H=api.h,cx=W/2,cy=H/2;\nconst k=api.ease(api.seg(t,0,5));\nconst glow=c.createRadialGradient(cx,cy,0,cx,cy,90);\nglow.addColorStop(0,'rgba(255,106,61,0.6)');glow.addColorStop(1,'rgba(255,106,61,0)');\nc.fillStyle=glow;c.fillRect(cx-100,cy-100,200,200);\nc.fillStyle='#ff6a3d';c.beginPath();c.arc(cx,cy,10,0,6.283);c.fill();\nconst m=api.seg(t,2,5);\nconst ring=api.morph(api.pts.circle(60,10+m*0),api.pts.circle(60,10+m*0),0);\nc.strokeStyle='#ffd0bd';c.lineWidth=2;\nc.globalAlpha=m;\napi.path(api.pts.circle(60,10+m*60).map(p=>[cx+p[0],cy+p[1]]),true);c.stroke();\nc.globalAlpha=1;\napi.say(\"Scientists guess: not dots.\",0.3,4.7);",
+   "at": 12.4
+  },
+  {
+   "name": "string",
+   "dur": 6.0,
+   "code": "const W=api.w,H=api.h,cx=W/2,cy=H/2;\nconst k=api.ease(api.seg(t,0,2.5));\nconst a=api.lerp(0,W*0.38,k);\nconst ring=api.pts.circle(80,70*(1-k)+10).map(p=>[cx+p[0],cy+p[1]]);\nconst line=api.pts.wave(80,W*0.8,6+Math.sin(t*4)*6,t*3).map(p=>[cx-W*0.4+p[0],cy+p[1]]);\nc.strokeStyle='#ff6a3d';c.lineWidth=4;c.shadowColor='#ff6a3d';c.shadowBlur=16;\napi.path(api.morph(ring,line,k),false);c.stroke();\nc.shadowBlur=0;\napi.say(\"Tiny wiggling strings.\",0.4,5.6);",
+   "at": 14.4
+  },
+  {
+   "name": "notes",
+   "dur": 7.0,
+   "code": "const W=api.w,H=api.h,cx=W/2,cy=H/2;\nconst cols=['#5ad1ff','#7a8cff','#ff6a3d'];\nfor(let i=0;i<3;i++){\n  const y=cy-130+i*130, n=i+1;\n  const pts=api.pts.wave(80,W*0.8,28+8*Math.sin(t*2+i),t*(2+i)).map(p=>[cx-W*0.4+p[0],y+p[1]*Math.sin(n*3.14159*(p[0]/(W*0.8)+0.0001))*0+Math.sin(n*3.14159*p[0]/(W*0.8))*20*Math.sin(t*(3+i))]);\n  c.strokeStyle=cols[i];c.lineWidth=3;c.shadowColor=cols[i];c.shadowBlur=12;\n  api.path(pts,false);c.stroke();\n}\nc.shadowBlur=0;\napi.say(\"Each wiggle is a note.\",0.3,6.6);",
+   "at": 16.8
+  },
+  {
+   "name": "particles",
+   "dur": 6.0,
+   "code": "const W=api.w,H=api.h,cx=W/2,cy=H/2;\nconst k=api.seg(t,0,6);\nconst names=['#5ad1ff','#7a8cff','#ff6a3d'];\nfor(let i=0;i<3;i++){\n  const ang=i/3*6.283+t*0.6, r=80+Math.sin(t*1.5+i)*10;\n  const x=cx+Math.cos(ang)*r,y=cy+Math.sin(ang)*r;\n  const g=c.createRadialGradient(x,y,0,x,y,40);\n  g.addColorStop(0,names[i]);g.addColorStop(1,'rgba(0,0,0,0)');\n  c.fillStyle=g;c.globalAlpha=0.9;c.fillRect(x-40,y-40,80,80);\n  c.globalAlpha=1;c.fillStyle='#fff';c.beginPath();c.arc(x,y,4,0,6.283);c.fill();\n}\napi.say(k<0.5?\"Different note, different particle.\":\"Light. Electrons. Quarks.\",0.3,5.7);",
+   "at": 18.8
+  },
+  {
+   "name": "end",
+   "dur": 5.0,
+   "code": "const W=api.w,H=api.h,cx=W/2,cy=H/2;\nconst k=api.ease(api.seg(t,0,5));\napi.cam(0,0,api.lerp(1,0.4,k),0);\nfor(let i=0;i<60;i++){\n  const a=api.rand(i)*6.283, r=api.rand(i+50)*W*1.2;\n  c.fillStyle=i%7==0?'#ff6a3d':'#5ad1ff';\n  c.globalAlpha=0.5;\n  c.beginPath();c.arc(cx+Math.cos(a)*r*0.6,cy+Math.sin(a)*r*0.6,2+api.rand(i)*2,0,6.283);c.fill();\n}\nc.globalAlpha=1;\napi.cam(0,0,1,0);\nc.fillStyle='#ff6a3d';c.beginPath();c.arc(cx,cy,6,0,6.283);c.fill();\napi.say(\"One string. Everything.\",0.4,4.6);",
+   "at": 20.9
+  }
+ ],
+ "stats": {
+  "model": "claude-sonnet-5-5",
+  "effort": "low",
+  "first_token_s": 4.1,
+  "first_scene_s": 6.6,
+  "total_s": 21.2,
+  "scenes": 7,
+  "output_tokens": 2674,
+  "thinking_tokens": 0,
+  "cost_usd": 0.7024239999999999
+ }
+}

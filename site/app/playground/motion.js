@@ -33,15 +33,69 @@ function useText(path) {
   return text;
 }
 
-// A: a whole page the model wrote, sandboxed. No same-origin, no network (CSP), scripts only.
+// A (v1): a whole page the model wrote, sandboxed. No same-origin, no network (CSP), scripts only.
+// Kept at ?v=old: it shows why A had to be streamed (8 minutes before one frame).
 export function FreePiece({ full = true }) {
-  const [v] = useState(variant);
-  const html = useText(`free${v}.html`);
+  const html = useText("free.html");
   const [run, setRun] = useState(0);
   return (
     <div className={`mo-piece ${full ? "mo-full" : ""}`}>
       {html ? <iframe key={run} className="mo-frame" title="Free-code motion explainer" sandbox="allow-scripts" srcDoc={withCsp(html)} onLoad={() => { window.__moFirst = performance.now(); }} /> : <div className="mo-wait">Loading</div>}
       <button className="mo-replay" onClick={() => setRun((x) => x + 1)} aria-label="Replay">Replay</button>
+    </div>
+  );
+}
+
+// A (v2): the default explainer. The model writes the film scene by scene; each scene is posted into a
+// full-bleed sandboxed player the moment it is complete, so scene 1 plays while the rest is written.
+// A recorded run (scripts/motion/stream.py) is replayed on its own clock: scene i is posted at its `at`
+// second, so what plays is what a live stream would do. ?v=opus plays the Opus run, default is Sonnet 5.5.
+const STREAMS = { sonnet: "stream-sonnet.json", opus: "stream.json" };
+export function StreamPiece() {
+  const harness = useText("harness-stream.html");
+  const [vq] = useState(() => (variant() || ".sonnet").slice(1));
+  const file = STREAMS[vq] || STREAMS.sonnet;
+  const [film, setFilm] = useState(null);
+  const frame = useRef(null);
+  const [run, setRun] = useState(0);
+  const [info, setInfo] = useState(null);
+  const [err, setErr] = useState(null);
+  useEffect(() => {
+    let live = true;
+    fetch(`${BASE}/${file}`).then((r) => r.json()).then((j) => live && setFilm(j)).catch(() => live && setErr("film missing"));
+    return () => { live = false; };
+  }, [file]);
+  useEffect(() => {
+    if (!film || !harness) return undefined;
+    const timers = [];
+    let t0 = 0;
+    const on = (e) => {
+      const w = frame.current?.contentWindow;
+      if (e.source !== w || !e.data || !e.data.motion) return;
+      const m = e.data.motion;
+      if (m === "ready") {
+        t0 = performance.now();
+        window.__moReady = t0;
+        // the model's clock starts at the ask; the page's clock starts now, so scene i lands at `at` seconds
+        film.scenes.forEach((s) => timers.push(setTimeout(() => w.postMessage({ scene: { name: s.name, dur: s.dur, code: s.code } }, "*"), s.at * 1000)));
+        timers.push(setTimeout(() => w.postMessage({ end: true }, "*"), film.stats.total_s * 1000));
+      }
+      if (m === "first-frame") {
+        window.__moFirst = performance.now();
+        // time to first frame from the ask = the first scene's write time + the player's boot
+        setInfo({ first: ((performance.now() - t0) / 1000), written: film.scenes[0].at, scenes: film.scenes.length, total: film.stats.total_s, model: film.stats.model });
+      }
+      if (m === "error") setErr(`${e.data.scene}: ${e.data.message}`);
+    };
+    window.addEventListener("message", on);
+    return () => { window.removeEventListener("message", on); timers.forEach(clearTimeout); };
+  }, [film, harness, run]);
+  return (
+    <div className="mo-piece mo-full mo-bleed">
+      {film && harness ? <iframe key={run} ref={frame} className="mo-frame" title="Motion explainer" sandbox="allow-scripts" srcDoc={withCsp(harness)} /> : <div className="mo-wait">{err || "Loading"}</div>}
+      <button className="mo-replay" onClick={() => { setErr(null); setInfo(null); setRun((x) => x + 1); }} aria-label="Replay">Replay</button>
+      {info ? <div className="mo-ttff" data-first={info.first.toFixed(2)}>First scene written in {info.written} s. Whole film {info.total} s. Recorded run, replayed on its own clock.</div> : null}
+      {err && film ? <div className="mo-error">{err}</div> : null}
     </div>
   );
 }
@@ -201,5 +255,6 @@ export function SceneView({ full = true }) {
 }
 
 export function MotionDemo({ kind }) {
-  return kind === "free" ? <FreePiece /> : <SceneView />;
+  if (kind !== "free") return <SceneView />;
+  return variant() === ".old" ? <FreePiece /> : <StreamPiece />;
 }

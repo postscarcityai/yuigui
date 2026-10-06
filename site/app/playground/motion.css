@@ -18,3 +18,8 @@
 .mo-wait, .mo-error { padding: 12px; font-size: 13px; color: #ffd479; }
 .mo-error { position: absolute; left: 8px; right: 8px; top: 8px; border-radius: 10px; background: rgba(40, 10, 20, .92); color: #ff9fb3; z-index: 3; }
 .mo-tap { position: absolute; left: 10px; top: 12px; padding: 3px 9px; border-radius: 12px; background: rgba(94, 240, 194, .16); color: #5ef0c2; font: 800 11px system-ui, sans-serif; }
+/* streamed A: the film owns the whole screen, the only chrome is a replay and a note that fades */
+.mo-bleed { background: #0b0813; }
+.mo-bleed .mo-frame { background: #0b0813; }
+.mo-ttff { position: absolute; left: 12px; right: 12px; bottom: 14px; text-align: center; font: 600 10.5px/1.3 system-ui, sans-serif; color: rgba(246, 238, 247, .55); pointer-events: none; animation: mo-note 6s ease forwards; }
+@keyframes mo-note { 0%, 70% { opacity: 1; } 100% { opacity: 0; } }

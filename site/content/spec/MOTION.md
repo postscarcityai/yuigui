@@ -1,6 +1,8 @@
-# Motion explainers | spec v0 (proposal)
+# Motion explainers | spec v1 (decided: streamed A)
 
 Chris, Oct 5: "I want this to look like a professionally designed explainer video more than these boring slide by slide explanations. Some camera movements, some shapes that transform, some motion, the ability to make something totally unique every time even if I ask for the same thing. I'm about to give up on this app and I need you to save it." He also asked whether YL is the wrong layer and the agent should just write code.
+
+Decision: Chris picked A (free code) as the default, with B's camera and morph as helpers, and C only where a turn needs a tap. Section 2 says what that means and measures the streamed version. The three-way comparison that led to it stays below.
 
 This is the design answer. Three working prototypes of the same ask ("ELI5 string theory"), what each costs, how each fails, and one recommendation. No app code changed and the live guide is untouched. Try them: [A](/playground?demo=motion-free), [B](/playground?demo=motion-yl), [C](/playground?demo=motion-hybrid). Each also plays a second model run of the same prompt with `&v=run2`, so you can see that the same ask gives a different piece.
 
@@ -41,74 +43,98 @@ The scene in prototype B was written by hand for this spike. To check that a mod
 - It is flatter than the hand-written scene and it fails the way B was always going to: the model has to do the coordinate arithmetic of nested frames and fades, and it got some of it wrong. The cup, atom and nucleus read, then the camera lands in a frame it had already faded out and the screen is blank around 26 s.
 - So B is fast and cheap to generate, and the language is learnable, but it needs checking (the same 60-frame, non-blank eval as in 2.1) and it does not reach the look of A or C.
 
-## 2. The recommendation: C, with B's primitives inside it, and A as the escape hatch
+## 2. Decision (Chris, Oct 5): A is the default, a little B, C only where taps are needed
 
-**Make the motion piece a first-class screen part, written by the agent as code, played in a sandboxed harness, framed by native YL.**
+Chris's pick: "I like A, a little B, not a fan of C but it might have a place." So:
 
-Why C:
+- **A is the default explainer.** The model writes the motion as code, full screen, no card and no box around it.
+- **A has to be fast.** It is written scene by scene and streamed, so the first scene plays within seconds while the rest is made. Target: first frame under 10 s.
+- **B becomes helpers A can call**, plus a cheap fast tier for small asks. The camera, morph and path helpers are now `api.cam`, `api.morph`, `api.pts` and `api.path` in A's player.
+- **C only where the turn needs a tap mid-piece** (a quiz, a pick). Even then the motion stays full bleed and the buttons float over it at the end. Never a card under a box.
+- **Room for voice-over.** Few words on screen. Every caption is an `api.say` cue, so a narrator can speak the same lines.
 
-1. It answers Chris's ask head on: camera moves, shapes that transform, a different piece every time, no flow charts. The agent gets a canvas and an API, not a menu.
-2. It keeps what is good about Yui. The line, the question and the buttons stay native, so the person still taps, the answer still comes back as an event, and the same turn works on a phone, in Telegram's fallback and in the MCP app (which shows the sketch instead).
-3. It is a third of the cost and time of A, because the harness owns everything that is the same each time.
-4. It is the safer of the two code options: one fixed page, a message handler with one verb, and a scene function that only sees a canvas.
+### 2.1 Streamed A: what was built and measured
 
-What B gives C: the camera (`cam at zoom roll`, log-space zoom with a dolly), morphing between outlines, nested scale frames, hum modes. They go into the harness API as helpers (`api.cam`, `api.morph`, `api.frame`), so a model that wants them writes one line instead of 40. B's own renderer stays as the **fallback**: when the code fails or the phone is in Low Power, the agent's `shapes`/`sketch` drawing plays instead.
+Prototype: `?demo=motion-free` (the old one-page version is at `&v=old`). Same ask, "ELI5 string theory", the model told to write scene 1 first and small, then the rest.
 
-What A is for: a single hero explainer the person asks for by name ("make a movie of it"). One full page, in the same sandbox, behind a "this takes a few minutes" working row. It is not the default.
+| | Old A (one page) | Streamed A, Sonnet 5.5 low effort | Streamed A, Opus 5.5 low effort |
+|---|---|---|---|
+| First scene complete | 473 to 527 s | **6.6 s** | 16.8 s |
+| Whole film written | 473 to 527 s | 21.2 s (7 scenes, 40 s of film) | 40.1 s (7 scenes, 40 s of film) |
+| Output tokens | 48 to 53k | 2.7k | 3.9k (0.5k thinking) |
+| Cost per film | $1.0 to $2.4 | $0.70 | $0.44 |
+| Time to first frame | 8 minutes | about 7 s | about 17 s |
 
-### 2.1 What changes in the guide
+Measured through the `claude` CLI, which adds about 3 to 5 s of process start to every call (a plain "say hi" on Haiku takes 5.7 s). A direct API stream would start about 3 s sooner. Haiku 4.5 with thinking on took 97 s to the first scene: it thinks first. Thinking is the cost, so the prompt asks for no planning and the effort is low. The film is written faster than it plays (21 s to write, 40 s to watch), so the player never waits after scene 1.
 
-One new component and one rule. The piece is a block, like `diagram`, because code is many lines:
+How it works:
+
+- The prompt (`public/demo/motion/prompt-stream.md`) asks for `=== scene <name> <seconds> ===` blocks of a JavaScript body, `(t, c, api)`, each 4 to 8 s, scene 1 at most 25 lines.
+- `scripts/motion/stream.py` streams the model and marks each scene complete when the next marker arrives, logging the second it landed.
+- `harness-stream.html` is a full-bleed player in a sandboxed iframe (opaque origin, CSP with no network). It plays scene 1 at once, queues the rest, dissolves between scenes over 0.6 s, holds the last frame if a scene is late, and shows a breathing ring before scene 1.
+- It reports `ready`, `first-frame`, `stall`, `error` (scene name and message) and `ended` to the parent. A scene that throws is cut short and the film goes on.
+- The playground replays a recorded run on its own clock: scene i is posted at its landing second. What plays is what a live stream does. It is not a live model call; the site has no model key.
+
+Recordings: `motion-stream-sonnet.mp4` and `motion-stream-opus.mp4` on /progress and in the card's artifacts.
+
+How it fails (seen in the two runs): Sonnet's film is the plainer one, with strings that sit half off the centre line in one scene, which is a layout the model did not check. Opus is richer (a hex-to-atom dive, a glowing loop that changes note) but its first scene lands at 16.8 s. Neither run has a camera move as bold as old A, because the scene function is short. A film is only as good as the checks on it, so the eval below matters.
+
+### 2.2 What changes in the guide (not yet, no live guide change)
+
+`motion` becomes a full-screen part, like a `deck` on `>full`, written by the agent as scene blocks. One line says what it is, the film plays, and a `choose` appears over its last frame only when the turn needs an answer.
 
 ````
-Here is string theory in motion.
+Here is string theory as a film.
 ```yui
-motion "ELI5 string theory" caption="One string, many notes."
-...the scene function body...
-end
-choose "Which particle was a hum?" Electron|Photon|Graviton
+motion "ELI5 string theory"
+=== scene hook 4 ===
+...body...
+=== scene dive 6 ===
+...body...
+=== end ===
+choose "Which one is light?" Electron|Photon|Graviton
 ```
 ````
 
-- `motion "Title" [caption=] [+full] [+loop]` takes the lines up to `end` as the scene function body. A tap target the scene registers (`api.hit`) comes back as `[yui] n1 motion tap=graviton`.
-- The rule, in **Use it well**: an explainer, a "how does X work" with a story, a "show me" about scale or change is one line, one `motion` and one `choose`. A fact, a status or a plan stays a line and a sketch. Never both: no `deck` of the same idea.
-- `motion` replaces the "Explainers draw every page" rule for stories. The `deck` of `map`/`chart`/`shapes` pages stays for facts and figures.
-- The harness contract (the same as `public/demo/motion/prompt-hybrid.md`): `scene(t, c, api)`, `api.w x api.h` fixed at 390 x 420, `ease`, `lerp`, `seg`, `cam`, `noise`, `caption`, `hit`. Nothing else exists: no window, document, fetch or import.
-- Eval cases: a scene parses, runs 60 frames headless without throwing, stays inside a time budget per frame, draws something non-blank, and uses no forbidden global.
+- The rule: an explainer, a how-does-it-work story, a "show me" about scale or change is one line and one `motion`. A fact, a status or a plan stays a line and a sketch. Never both for one idea.
+- Scenes stream: the plugin sends each scene as it is written, and the phone starts playing scene 1 at once.
+- The contract is the one in `prompt-stream.md`: `t`, `c`, `api.w`, `api.h`, `ease`, `eout`, `lerp`, `clamp`, `seg`, `noise`, `rand`, `cam`, `pts`, `morph`, `path`, `say`. Nothing else exists.
+- Eval cases for the channel eval: every scene parses, runs 60 frames headless without throwing, draws something non-blank, keeps its pixels on screen, stays inside a frame budget, and uses no forbidden global.
+- A tap target is `api.hit(id, x, y, r)` as in the hybrid harness, used only by C turns.
 
-### 2.2 What changes in the app
+### 2.3 What changes in the app
 
-- `MotionView`: a WKWebView with a bundled `harness.html`, no network (`WKContentRuleList` blocks every load, CSP `default-src 'none'`), no cookies, a non-persistent data store, and a single script message handler (`motion`) for `ready`, `first-frame`, `tap` and `error`. The agent's code goes in through `evaluateJavaScript` after `ready`.
-- Native chrome around it: pause, scrub, replay, Reduce Motion (the end frame, still), VoiceOver reads the captions as one string.
-- Watchdog: no `first-frame` in 2 s, an `error` message, or a frame over 50 ms for 2 s, and `MotionView` swaps in the fallback drawing and tells the agent (`[yui] n1 motion error=...`) so it can retry.
-- The full-screen stage plays a `motion` like it plays a `deck`.
-- Scenes are saved on the shelf with `save`, so a replay costs nothing.
-- The site playground and the MCP app render `motion` the way these prototypes do (an iframe with the same harness).
+- `MotionView`: a WKWebView with a bundled `harness-stream.html`, no network (`WKContentRuleList` blocks every load, CSP `default-src 'none'`), non-persistent data store, one script message handler for `ready`, `first-frame`, `stall`, `error`, `ended` and `tap`. Scenes go in through `evaluateJavaScript` as they arrive.
+- Full bleed on the stage, like a deck on `>full`. Native chrome only: pause, scrub, replay, close.
+- Reduce Motion shows the last frame still. VoiceOver reads the `say` cues as one string.
+- Watchdog: no `first-frame` in 3 s, an `error`, or frames over 50 ms for 2 s, and the app swaps in the agent's `shapes` drawing and tells the agent (`[yui] n1 motion error=...`).
+- Voice-over: the `say` cues are the script. The player exposes `{text, from, to}` per scene so a narration track (YUI-310) can speak them and sync to the clock.
+- Scenes save on the shelf, so a replay costs nothing.
 
-### 2.3 Speed: the hard part
+### 2.4 Speed beyond this prototype
 
-Opus 5.5 took 155 to 217 s for a piece, nearly all of it thinking. That is too slow for a chat turn. Things that make it a turn:
-
-- **Chapters.** The agent sends the first 8 to 10 seconds as one `motion` (about a quarter of the tokens), the next chapter appends while the first plays (`motion +next`), the harness stitches them on one clock. The person watches while the rest is written.
-- **A faster model for the piece.** The harness contract is small and the helpers do the camera and morph work. Try Sonnet 5.5 and Haiku 4.5 on the same prompt before deciding; the eval above scores them.
-- **A working row** with the real step (`doing "Drawing the zoom" 2/4`), as the guide already says.
-- **Templates the agent edits** (the cup-to-quark dive is a scene the agent can reuse and re-skin), saved to the shelf like any screen.
+- Direct API streaming instead of the CLI saves about 3 s.
+- A fast first scene from a small model, the rest from a bigger one, is the next step if 7 s is not fast enough. Same prompt, scene 1 only, no thinking.
+- A cheap tier for a small ask: one scene of 6 s, no stream.
+- A working row (`doing "Drawing the next scene" 2/7`) while scenes arrive.
 
 ## 3. Risks
 
-- **Safety of generated code.** The sandbox must be real: opaque origin, no network, no storage, one message verb. The prototypes do the first three in an iframe; the app must do it in WKWebView (non-persistent data store, content rule list, no `WKUserScript` bridge beyond `motion`). Remaining: an infinite loop or a huge allocation freezes the web process. Mitigation: the watchdog above, and a long term move to a Worker with OffscreenCanvas so the main thread never runs the model's code.
-- **Prompt injection into code.** A scene that came from content the agent read (a web page, an email) is untrusted code. Only the person's own agents may send `motion`, and the app asks once per agent the first time ("Yui can show motion pieces").
-- **App Store 2.5.2.** Downloaded code may run when it is interpreted by Apple's WebKit, does not change the app's advertised purpose and gets no new access. A motion piece is a picture. Worth one line to App Review in the notes.
-- **Cost.** $0.33 to $0.47 a piece on Opus 5.5 with no caching; a saved scene replays free.
-- **Quality swings.** The model can write a dull piece. The prompt carries the direction (one camera move, shapes that transform, six word captions); the eval scores that a frame is non-blank and moves.
-- **Accessibility.** Motion is large. Reduce Motion shows the end frame, captions are text, the question under it is native.
-- **Fallback in Telegram, the MCP app, or an old build.** `compat.py` rewrites `motion` into the same `sketch` plus `shapes` it would have drawn (the agent writes both, the plugin keeps the one that fits).
+- **Safety of generated code.** The sandbox must be real: opaque origin, no network, no storage, one message verb. The prototype does this in an iframe. The app must do it in WKWebView. Left over: an infinite loop freezes the web process. Mitigation: the watchdog, and later a Worker with OffscreenCanvas.
+- **Prompt injection into code.** A scene written from content the agent read is untrusted code. Only the person's own agents may send `motion`, and the app asks once per agent.
+- **App Store 2.5.2.** Downloaded code that runs in Apple's WebKit, does not change the app's purpose and gets no new access is allowed. A film is a picture. Say so in the review notes.
+- **Cost.** $0.44 to $0.70 a film in the CLI measurements, with no caching. A saved film replays free.
+- **Quality swings.** A film can be plain or misplaced. The prompt carries the direction and the eval checks that each scene draws, moves and stays on screen. Next: a quick look pass on one frame per scene.
+- **Accessibility.** Motion is large. Reduce Motion shows a still, captions are text.
+- **Telegram, the MCP app or an old build.** `compat.py` rewrites `motion` into a `sketch` plus `shapes`.
 
-## 4. If Chris picks C
+## 4. Cards
 
-Cards (parked, backlog, in this order): the `motion` component and harness in the guide and the site (WEB); `MotionView` in the app (APP); the compat fallback and eval cases (WEB); the chapters protocol (WEB + APP); a Sonnet and Haiku run of the same prompt (WEB). A: keep as a one-off `+hero` form later. B: its camera and morph become helpers in the harness; its renderer stays as the fallback and the Telegram and widget still.
+Parked: the native `MotionView` player (APP). Then, in order: the `motion` component, streaming and eval in the guide and the site (WEB); the compat fallback (WEB); a fast first scene from a small model (WEB); voice-over sync (with the voice card). C stays as a harness mode with `api.hit` for turns that need a tap.
 
 ## 5. Files
+
+- `site/public/demo/motion/prompt-stream.md`, `harness-stream.html`, `stream-sonnet.json`, `stream.json` (Opus): the streamed A prompt, player and the two recorded runs. `site/scripts/motion/stream.py` makes a run.
 
 - `site/public/demo/motion/prompt-free.md`, `prompt-hybrid.md`, `prompt-yl.md`: the exact prompts.
 - `site/public/demo/motion/free.html`, `hybrid.js`, `eli5-string.scene`, `harness.html`, `*.run2.*`: what the model made and the harness.

@@ -1,0 +1,57 @@
+{
+ "scenes": [
+  {
+   "name": "hook",
+   "dur": 4.0,
+   "code": "const cx = api.w/2, cy = api.h/2, k = api.eout(api.seg(t, 0, 1.2));\nconst r = 6 + 4*Math.sin(t*3);\nconst g = c.createRadialGradient(cx, cy, 0, cx, cy, 90*k + 1);\ng.addColorStop(0, 'rgba(255,107,74,0.55)'); g.addColorStop(1, 'rgba(255,107,74,0)');\nc.fillStyle = g; c.beginPath(); c.arc(cx, cy, 90*k + 1, 0, 6.283); c.fill();\nc.fillStyle = '#ffd2c4'; c.beginPath(); c.arc(cx, cy, r*k + 1, 0, 6.283); c.fill();\nc.strokeStyle = 'rgba(95,211,224,' + (0.6*(1 - (t%1.3)/1.3)) + ')'; c.lineWidth = 2;\nc.beginPath(); c.arc(cx, cy, 20 + 120*((t%1.3)/1.3), 0, 6.283); c.stroke();\napi.say('What is everything made of?', 0.3, 3.8);",
+   "at": 16.8
+  },
+  {
+   "name": "sand",
+   "dur": 6.0,
+   "code": "const cx = api.w/2, cy = api.h/2, m = Math.min(api.w, api.h);\nconst z = api.lerp(1, 3.2, api.ease(api.seg(t, 0.5, 5.5)));\napi.cam(0, 0, z, 0.25*api.ease(api.seg(t, 0, 6)));\nfor (let i = 0; i < 70; i++) {\n  const a = api.rand(i)*6.283, d = (0.1 + api.rand(i+99)*0.4)*m;\n  const x = cx + Math.cos(a)*d, y = cy + Math.sin(a)*d*1.6;\n  c.fillStyle = i%3 ? 'rgba(138,125,255,0.5)' : 'rgba(95,211,224,0.5)';\n  c.beginPath(); c.arc(x, y, 3 + api.rand(i+7)*5, 0, 6.283); c.fill();\n}\nconst k = api.ease(api.seg(t, 2.5, 5.8));\nconst pts = api.morph(api.pts.poly(60, 6, m*0.09), api.pts.circle(60, m*0.06), k).map(p => [cx+p[0], cy+p[1]]);\nc.shadowColor = '#ff6b4a'; c.shadowBlur = 20;\nc.fillStyle = 'rgba(255,107,74,0.85)'; c.beginPath(); api.path(pts, true); c.fill();\nc.shadowBlur = 0; api.cam(0,0,1,0);\napi.say('Zoom into one grain of sand', 0.4, 5.6);",
+   "at": 21.2
+  },
+  {
+   "name": "atom",
+   "dur": 6.0,
+   "code": "const cx = api.w/2, cy = api.h/2, m = Math.min(api.w, api.h);\nconst z = api.lerp(1, 4, api.ease(api.seg(t, 3, 6)));\napi.cam(0, 0, z, -0.3*api.ease(api.seg(t, 0, 6)));\nc.lineWidth = 1.5;\nfor (let i = 0; i < 3; i++) {\n  const rot = i*1.047 + t*0.2, rx = m*0.38, ry = m*0.13;\n  c.strokeStyle = 'rgba(95,211,224,0.4)';\n  c.beginPath(); c.ellipse(cx, cy, rx, ry, rot, 0, 6.283); c.stroke();\n  const a = t*(2 + i*0.6) + i*2, ex = Math.cos(a)*rx, ey = Math.sin(a)*ry;\n  c.fillStyle = '#8a7dff'; c.shadowColor = '#8a7dff'; c.shadowBlur = 14;\n  c.beginPath(); c.arc(cx + ex*Math.cos(rot) - ey*Math.sin(rot), cy + ex*Math.sin(rot) + ey*Math.cos(rot), 6, 0, 6.283); c.fill();\n}\nc.fillStyle = '#ff6b4a'; c.shadowColor = '#ff6b4a'; c.shadowBlur = 24;\nc.beginPath(); c.arc(cx, cy, m*0.05, 0, 6.283); c.fill();\nc.shadowBlur = 0; api.cam(0,0,1,0);\napi.say('Inside: an atom', 0.3, 2.8);\napi.say('Inside that: tiny bits', 3.1, 5.8);",
+   "at": 25.8
+  },
+  {
+   "name": "string",
+   "dur": 6.0,
+   "code": "const cx = api.w/2, cy = api.h/2, m = Math.min(api.w, api.h);\nconst k = api.ease(api.seg(t, 0.5, 3));\nconst R = api.lerp(m*0.2, m*0.32, k), amp = api.lerp(0, 14, api.seg(t, 2.5, 4.5));\napi.cam(0, 0, api.lerp(1.15, 1, api.eout(api.seg(t, 0, 2))), 0.1*Math.sin(t*0.6));\nconst pts = api.pts.circle(90, R).map((p, i) => {\n  const a = i/90*6.283, s = 1 + amp/R*Math.sin(3*a + t*4);\n  return [cx + p[0]*s, cy + p[1]*s];\n});\nc.shadowColor = '#ff6b4a'; c.shadowBlur = 24;\nc.fillStyle = 'rgba(255,107,74,' + (0.9*(1-k)) + ')'; c.beginPath(); api.path(pts, true); c.fill();\nc.strokeStyle = '#ff8a6a'; c.lineWidth = 4; c.beginPath(); api.path(pts, true); c.stroke();\nc.shadowBlur = 0; api.cam(0,0,1,0);\napi.say('Look closer...', 0.3, 2.4);\napi.say('It is a tiny string!', 2.7, 5.8);",
+   "at": 29.8
+  },
+  {
+   "name": "notes",
+   "dur": 7.0,
+   "code": "const cx = api.w/2, cy = api.h/2, m = Math.min(api.w, api.h), R = m*0.32;\nconst n = t < 2.3 ? 3 : t < 4.6 ? 5 : 8;\nconst amp = 14*(0.5 + 0.5*Math.sin(t*1.4 - 1.5)) + 6;\nconst col = n === 3 ? '#ff8a6a' : n === 5 ? '#5fd3e0' : '#8a7dff';\napi.cam(0, 0, 1, 0.15*api.ease(api.seg(t, 0, 7)));\nconst pts = api.pts.circle(120, R).map((p, i) => {\n  const a = i/120*6.283, s = 1 + amp/R*Math.sin(n*a + t*6);\n  return [cx + p[0]*s, cy + p[1]*s];\n});\nc.shadowColor = col; c.shadowBlur = 26; c.strokeStyle = col; c.lineWidth = 4;\nc.beginPath(); api.path(pts, true); c.stroke();\nc.shadowBlur = 0; api.cam(0,0,1,0);\napi.say('It wiggles like a guitar', 0.3, 3.4);\napi.say('Each wiggle is a note', 3.6, 6.8);",
+   "at": 33.2
+  },
+  {
+   "name": "particles",
+   "dur": 6.0,
+   "code": "const cx = api.w/2, cy = api.h/2, m = Math.min(api.w, api.h);\nconst cols = ['#ff8a6a', '#5fd3e0', '#8a7dff'], ns = [3, 5, 8];\nconst sp = api.ease(api.seg(t, 0, 2));\nfor (let j = 0; j < 3; j++) {\n  const R = api.lerp(m*0.32, m*0.12, sp);\n  const y = cy + (j - 1)*api.lerp(0, api.h*0.22, sp);\n  const pts = api.pts.circle(80, R).map((p, i) => {\n    const a = i/80*6.283, s = 1 + 0.12*Math.sin(ns[j]*a + t*(4 + j*2));\n    return [cx + p[0]*s, y + p[1]*s];\n  });\n  c.shadowColor = cols[j]; c.shadowBlur = 20; c.strokeStyle = cols[j]; c.lineWidth = 3;\n  c.beginPath(); api.path(pts, true); c.stroke();\n}\nc.shadowBlur = 0;\napi.say('Different notes, different particles', 1.8, 5.8);",
+   "at": 36.3
+  },
+  {
+   "name": "universe",
+   "dur": 5.0,
+   "code": "const cx = api.w/2, cy = api.h/2, m = Math.min(api.w, api.h), cols = ['#ff8a6a', '#5fd3e0', '#8a7dff'];\nconst k = api.ease(api.seg(t, 0, 3.5));\napi.cam(0, 0, api.lerp(1, 0.7, k), -0.2*k);\nfor (let i = 0; i < 60; i++) {\n  const a = api.rand(i)*6.283, d = api.lerp(0, (0.1 + api.rand(i+5)*0.35)*api.h, k);\n  const x = cx + Math.cos(a + t*0.1)*d*0.5, y = cy + Math.sin(a + t*0.1)*d;\n  const r = 4 + 3*api.rand(i+3), col = cols[i%3];\n  c.strokeStyle = col; c.shadowColor = col; c.shadowBlur = 10; c.lineWidth = 2;\n  c.beginPath(); c.arc(x, y, r*(1 + 0.2*Math.sin(t*6 + i)), 0, 6.283); c.stroke();\n}\nc.shadowBlur = 0; api.cam(0,0,1,0);\napi.say('Everything is strings, playing music', 0.6, 4.8);",
+   "at": 39.6
+  }
+ ],
+ "stats": {
+  "model": "claude-opus-5-5",
+  "effort": "low",
+  "first_token_s": 13.1,
+  "first_scene_s": 16.8,
+  "total_s": 40.1,
+  "scenes": 7,
+  "output_tokens": 3924,
+  "thinking_tokens": 543,
+  "cost_usd": 0.436664
+ }
+}

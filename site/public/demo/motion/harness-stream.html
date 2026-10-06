@@ -1,0 +1,125 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yui motion stream player</title>
+<style>html,body{margin:0;height:100%;background:#0b0813;overflow:hidden}canvas{display:block;width:100%;height:100%}</style>
+<canvas id="cv"></canvas>
+<script>
+// Streamed full-screen motion player (spec/MOTION.md, prototype A v2). The page owns the canvas, the
+// clock, the camera, the dissolves and the captions. The parent posts scenes in as the model finishes
+// them ({scene:{name,dur,code}}), then {end:true}. Scene 1 plays the moment it lands; the next ones queue
+// behind it. It runs in a sandboxed iframe (opaque origin) under a CSP with no network.
+const cv = document.getElementById("cv"), c = cv.getContext("2d");
+const snap = document.createElement("canvas"), sc2 = snap.getContext("2d");
+const dpr = Math.min(2, devicePixelRatio || 1);
+let W = 390, H = 844;
+function size() {
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = snap.width = Math.round(W * dpr); cv.height = snap.height = Math.round(H * dpr);
+}
+addEventListener("resize", size); size();
+const base = () => c.setTransform(dpr, 0, 0, dpr, 0, 0);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = (x) => { x = clamp(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
+const hash = (n) => { const s = Math.sin(n * 127.1) * 43758.5453; return s - Math.floor(s); };
+let caps = [];
+const api = {
+  get w() { return W; }, get h() { return H; },
+  ease, clamp, eout: (x) => 1 - Math.pow(1 - clamp(x), 3), lerp: (a, b, k) => a + (b - a) * k,
+  seg: (t, a, b) => clamp((t - a) / (b - a)),
+  rand: hash,
+  noise: (x) => { const i = Math.floor(x), f = x - i; return hash(i) + (hash(i + 1) - hash(i)) * (f * f * (3 - 2 * f)); },
+  cam(cx, cy, z, roll) { base(); c.translate(W / 2, H / 2); c.rotate(roll || 0); c.scale(z || 1, z || 1); c.translate(-(W / 2 + (cx || 0)), -(H / 2 + (cy || 0))); },
+  pts: {
+    circle: (n, r) => Array.from({ length: n }, (_, i) => [Math.cos(i / n * 6.2832) * r, Math.sin(i / n * 6.2832) * r]),
+    wave: (n, w, amp, ph) => Array.from({ length: n }, (_, i) => [(i / (n - 1) - 0.5) * w, Math.sin(i / (n - 1) * 6.2832 * 2 + (ph || 0)) * amp]),
+    poly: (n, sides, r) => Array.from({ length: n }, (_, i) => {
+      const a = i / n * 6.2832, s = 6.2832 / sides, m = (a % s) / s, k = Math.cos(Math.PI / sides) / Math.cos((m - 0.5) * s);
+      return [Math.cos(a) * r * k, Math.sin(a) * r * k];
+    }),
+  },
+  morph: (a, b, k) => a.map((p, i) => [p[0] + (b[i % b.length][0] - p[0]) * k, p[1] + (b[i % b.length][1] - p[1]) * k]),
+  path(pts, close) {
+    c.beginPath();
+    const n = pts.length; if (n < 2) return;
+    if (close) {
+      const m = (i) => [(pts[i % n][0] + pts[(i + 1) % n][0]) / 2, (pts[i % n][1] + pts[(i + 1) % n][1]) / 2];
+      c.moveTo(...m(n - 1));
+      for (let i = 0; i < n; i++) c.quadraticCurveTo(pts[i][0], pts[i][1], ...m(i));
+      c.closePath();
+    } else {
+      c.moveTo(pts[0][0], pts[0][1]);
+      for (let i = 1; i < n - 1; i++) c.quadraticCurveTo(pts[i][0], pts[i][1], (pts[i][0] + pts[i + 1][0]) / 2, (pts[i][1] + pts[i + 1][1]) / 2);
+      c.lineTo(pts[n - 1][0], pts[n - 1][1]);
+    }
+  },
+  say(text, from, to) { caps.push({ text, from, to }); },
+};
+const queue = [];
+let cur = null, ended = false, sentFirst = false, failed = 0, lastT = 0, fade = 0, stall = 0, doneSent = false, paused = false, clock = 0;
+const run = (s) => { try { return new Function("t", "c", "api", s.code); } catch (e) { return null; } };
+function drawCaps(t) {
+  base();
+  for (const k of caps) {
+    if (t < k.from || t > k.to) continue;
+    const a = ease(Math.min((t - k.from) / 0.45, (k.to - t) / 0.45, 1));
+    c.globalAlpha = a; c.fillStyle = "#f6eef7"; c.shadowColor = "rgba(0,0,0,.7)"; c.shadowBlur = 14;
+    c.font = "800 30px system-ui, -apple-system, sans-serif"; c.textAlign = "center";
+    const words = k.text.split(" "), lines = []; let ln = "";
+    for (const w of words) { if (c.measureText(ln + " " + w).width > W - 48 && ln) { lines.push(ln); ln = w; } else ln = ln ? ln + " " + w : w; }
+    lines.push(ln);
+    lines.forEach((l, i) => c.fillText(l, W / 2, H - 120 - (lines.length - 1 - i) * 36 + (1 - a) * 10));
+    c.shadowBlur = 0; c.globalAlpha = 1;
+  }
+  caps = [];
+}
+function next(now) {
+  const s = queue.shift(); if (!s) return false;
+  s.fn = s.fn || run(s);
+  if (!s.fn) { parent.postMessage({ motion: "error", scene: s.name, message: "scene does not parse" }, "*"); failed++; return next(now); }
+  if (cur) { sc2.setTransform(1, 0, 0, 1, 0, 0); sc2.clearRect(0, 0, snap.width, snap.height); sc2.drawImage(cv, 0, 0); fade = now; }
+  cur = s; s.t0 = now; return true;
+}
+function frame(now) {
+  requestAnimationFrame(frame);
+  if (paused) return;
+  if (!cur && !next(now)) {
+    // waiting for scene 1: a small breathing ring, so the screen is never dead
+    c.setTransform(1, 0, 0, 1, 0, 0); c.fillStyle = "#0b0813"; c.fillRect(0, 0, cv.width, cv.height); base();
+    const k = (Math.sin(now / 420) + 1) / 2;
+    c.strokeStyle = "rgba(255,107,139," + (0.25 + 0.4 * k) + ")"; c.lineWidth = 2;
+    c.beginPath(); c.arc(W / 2, H / 2, 16 + k * 8, 0, 6.2832); c.stroke();
+    return;
+  }
+  let t = (now - cur.t0) / 1000;
+  if (t >= cur.dur) {
+    if (queue.length) { next(now); t = 0; }
+    else if (ended) { if (!doneSent) { doneSent = true; parent.postMessage({ motion: "ended" }, "*"); } t = cur.dur; }
+    else { t = cur.dur; if (!stall) { stall = now; parent.postMessage({ motion: "stall" }, "*"); } }
+  } else stall = 0;
+  c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.shadowBlur = 0;
+  c.fillStyle = "#0b0813"; c.fillRect(0, 0, cv.width, cv.height);
+  base(); caps = [];
+  try { c.save(); cur.fn(t, c, api); c.restore(); } catch (e) {
+    c.restore(); parent.postMessage({ motion: "error", scene: cur.name, message: String((e && e.message) || e) }, "*");
+    cur.fn = () => {}; cur.dur = Math.min(cur.dur, t);
+  }
+  c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.shadowBlur = 0;
+  drawCaps(t);
+  if (fade) {
+    const k = (now - fade) / 600;
+    if (k < 1) { c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1 - ease(k); c.drawImage(snap, 0, 0); c.globalAlpha = 1; } else fade = 0;
+  }
+  if (!sentFirst) { sentFirst = true; parent.postMessage({ motion: "first-frame" }, "*"); }
+  // thin progress line along the top: scenes so far (the film is still being written until "end")
+  lastT = now;
+}
+addEventListener("message", (e) => {
+  if (e.source !== parent || !e.data) return;
+  if (e.data.scene && typeof e.data.scene.code === "string") queue.push({ ...e.data.scene });
+  if (e.data.end) ended = true;
+  if (e.data.pause !== undefined) paused = !!e.data.pause;
+});
+requestAnimationFrame(frame);
+parent.postMessage({ motion: "ready" }, "*");
+</script>
