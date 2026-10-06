@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T17:30:29.644Z",
+  "updated": "2026-10-06T17:35:29.638Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -273,16 +273,15 @@
           "waiting": true
         },
         {
-          "key": "NOTE-3941",
-          "title": "Drawings that look designed",
-          "waiting": true,
-          "progress": "/progress#a-board-update-is-a-number-and-a-list"
+          "key": "YUI-267",
+          "title": "Web (WEB)",
+          "summary": "A drawn phone is an animated wireframe",
+          "progress": "/progress#a-drawn-phone-is-an-animated-wireframe"
         },
         {
-          "key": "NOTE-13658",
-          "title": "Drawings that look designed",
-          "waiting": true,
-          "progress": "/progress#a-board-update-is-a-number-and-a-list"
+          "key": "SITE-222",
+          "title": "A Thought",
+          "summary": "Yui makes its own design picks"
         },
         {
           "key": "NOTE-21045",
@@ -291,56 +290,68 @@
           "progress": "/progress#the-blob-changes-shape-with-what-your-agent-does"
         },
         {
-          "key": "NOTE-43312",
-          "title": "Drawings that look designed",
-          "waiting": true,
-          "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
-          "key": "NOTE-54787",
-          "title": "Drawings that look designed",
-          "waiting": true,
-          "progress": "/progress#a-board-update-is-a-number-and-a-list"
-        },
-        {
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-8417",
-          "title": "One thought per full screen",
-          "needsDemo": true
-        },
-        {
-          "key": "NOTE-50900",
-          "title": "The working screen, more alive",
-          "needsDemo": true
         }
       ]
     },
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "YUI-267",
-          "title": "Drawings that look designed",
-          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
-          "blocked": "chris",
-          "progress": "/progress#a-drawn-phone-is-an-animated-wireframe",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
         {
+          "key": "NOTE-54787",
+          "title": "Drawings that look designed",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-board-update-is-a-number-and-a-list"
+        },
+        {
+          "key": "NOTE-3941",
+          "title": "Drawings that look designed",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-board-update-is-a-number-and-a-list"
+        },
+        {
+          "key": "NOTE-43312",
+          "title": "Drawings that look designed",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-board-update-is-a-number-and-a-list"
+        },
+        {
+          "key": "NOTE-13658",
+          "title": "Drawings that look designed",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-board-update-is-a-number-and-a-list"
+        },
+        {
+          "key": "YUI-267",
+          "title": "Drawings that look designed",
+          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-drawn-phone-is-an-animated-wireframe",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/1e47082a"
+        },
+        {
+          "key": "NOTE-8417",
+          "title": "One thought per full screen",
+          "shipped": "2026-10-06",
+          "progress": "/progress#one-thought-per-full-screen-built"
+        },
+        {
+          "key": "NOTE-50900",
+          "title": "The working screen, more alive",
+          "shipped": "2026-10-06",
+          "progress": "/progress#the-working-screen-is-lighter-and-more-alive"
+        },
+        {
           "key": "YUI-267",
           "title": "Pick the drawing look, A, B or C",
-          "summary": "A drawn phone is an animated wireframe",
           "shipped": "2026-10-06",
           "progress": "/progress#a-drawn-phone-is-an-animated-wireframe",
           "commit": "https://github.com/postscarcityai/yuigui/commit/1e47082a"
