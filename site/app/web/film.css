@@ -1,0 +1,26 @@
+/* A motion film full screen on /web (YUI-311). Every class is mfs- or wb-film. The film paints its own ink, so the
+   chrome rides on top of it with its own scrim and reads in both themes. */
+.mfs { position: absolute; inset: 0; z-index: 30; background: var(--mfs-ink, #0b0813); color: var(--mfs-fg, #f6eef7); overflow: hidden; animation: mfs-in .28s ease both; }
+.mfs-frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: var(--mfs-ink, #0b0813); }
+.mfs-top { position: absolute; left: 0; right: 0; top: 0; z-index: 2; display: flex; align-items: center; gap: 10px; padding: calc(12px + env(safe-area-inset-top)) 14px 0; pointer-events: none; }
+.mfs-top > * { pointer-events: auto; }
+.mfs-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 700 13px/1.2 var(--font, system-ui, sans-serif); padding: 7px 12px; border-radius: 16px; background: color-mix(in srgb, var(--mfs-ink, #000) 72%, transparent); backdrop-filter: blur(8px); }
+.mfs-tools { display: inline-flex; gap: 6px; }
+.mfs-btn { min-height: 36px; min-width: 36px; padding: 0 14px; border-radius: 18px; border: 1.5px solid color-mix(in srgb, var(--mfs-fg, #fff) 30%, transparent); background: color-mix(in srgb, var(--mfs-ink, #000) 72%, transparent); color: var(--mfs-fg, #fff); font: 700 13px var(--font, system-ui, sans-serif); cursor: pointer; backdrop-filter: blur(8px); }
+.mfs-btn:hover:not(:disabled) { border-color: var(--mfs-accent, #ff7e8a); }
+.mfs-btn:focus-visible { outline: 3px solid var(--mfs-accent, #ff7e8a); outline-offset: 2px; }
+.mfs-btn:disabled { opacity: .4; cursor: default; }
+.mfs-wait { position: absolute; inset: 0; display: grid; place-items: center; z-index: 1; pointer-events: none; }
+.mfs-wait i { width: 46px; height: 46px; border-radius: 50%; border: 3px solid color-mix(in srgb, var(--mfs-fg, #fff) 22%, transparent); border-top-color: var(--mfs-accent, #ff7e8a); animation: mfs-spin 1s linear infinite; }
+.mfs-err { position: absolute; left: 14px; right: 14px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 3; padding: 9px 14px; border-radius: 14px; background: color-mix(in srgb, var(--mfs-ink, #000) 88%, transparent); color: var(--mfs-fg, #fff); border: 1.5px solid var(--mfs-accent, #ff7e8a); font: 600 13px var(--font, system-ui, sans-serif); text-align: center; }
+.mfs-still { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 2; padding: 6px 10px; border-radius: 24px; background: color-mix(in srgb, var(--mfs-ink, #0b0813) 90%, transparent); backdrop-filter: blur(10px); border: 1.5px solid color-mix(in srgb, var(--mfs-fg, #fff) 22%, transparent); text-align: center; }
+.mfs-cap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } /* the player draws the line in the frame; this is the same words for a screen reader */
+.mfs-nav { display: inline-flex; align-items: center; gap: 14px; font: 600 13px var(--font, system-ui, sans-serif); opacity: .9; }
+/* The chat's one line for a film: its title and a chip that plays it again (presets.js MotionRow). */
+.wb-film { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 10px 14px; border-radius: 18px; background: var(--surface); border: 1.5px solid var(--outline); color: var(--ink); }
+.wb-film b { font-weight: 700; font-size: 15px; }
+.wb-film-chip { min-height: 34px; padding: 0 14px; border-radius: 17px; border: 0; background: var(--brand, #ff7e8a); color: #fff; font: 700 13px var(--font, system-ui, sans-serif); cursor: pointer; }
+.wb-film-chip:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+@keyframes mfs-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mfs-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .mfs { animation: none; } .mfs-wait i { animation: none; } }

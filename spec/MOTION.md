@@ -52,6 +52,8 @@ The kit, player, generator and checks are the system. Three connections remain b
 
 Status (MOTION-1e, Oct 6): the first two are done. The channel guide (v49, `spec/CHANNEL.md`) teaches the one-line `motion "<ask>"` and when to use it (any explain-by-picture, the work itself included; a plain fact stays a line); `spec/YL.md` has the `motion` preset; the yui plugin (`motion.py`, `adapter.py`) makes the film and streams each scene as its own row; `compat.py` gates it behind `MOTION_BUILD` (a sentinel until the build that plays films is VALID) and draws it as a sketch on older phones. The eval holds eight `motion-*` cases.
 
+Status (YUI-311, Oct 6): the web plays it. /web draws a film full screen on the stage (`site/app/web/MotionStage.js`, the one `player.html` in a sandboxed iframe, `site/lib/web/film.mjs` joins the rows of a film and hands scenes to the player as they land). Scene 1 plays at once, later scenes append to the running player, Close, Esc or a tap after the end goes back, the record keeps one line and a Watch again chip, an ask with no film is drawn as a sketch, and Reduce Motion shows a still per scene. `frame-src 'self'` was added to /web's CSP for the player. Test: `site/e2e/web/film.test.mjs`.
+
 ### 0.5 The wire (so the app and the plugin can be built apart)
 
 A film travels in Yui Lines as a raw block, the way `draw` carries SVG:

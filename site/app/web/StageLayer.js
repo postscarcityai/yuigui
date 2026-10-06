@@ -14,6 +14,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { answerOf } from "../../lib/chat/stage.mjs";
 import { arrivalOf, homeOf, chipAction, dismissEvent, isHostAsk, isRow, landingOf, notYetEvent, playFor, waitingAction, pageTitle, reopened, turnOf, MAX_WAITING } from "../../lib/web/stage.mjs";
 import { useDismissed } from "./useDismissed";
+import { filmOfPieces, filmsOfMessages } from "../../lib/web/film.mjs";
 import { NoAnswer } from "./parts";
 import { liveness, presenceLabel, waitingNote, workingLine } from "../../lib/web/presence.mjs";
 import { AttachButton, MentionBar, PhotoTray, Problem, ReplyBar, SuggestionList, Waveform, pastedFiles, useComposerState, useSuggestKeys } from "./ComposerParts";
@@ -34,6 +35,7 @@ import "../components/chat.css";
 import "./stage.css";
 
 const StageAnswer = dynamic(() => import("../components/ChatStage"), { ssr: false, loading: () => null });
+const MotionStage = dynamic(() => import("./MotionStage"), { ssr: false, loading: () => null });
 const PagesView = dynamic(() => import("../components/ChatPages"), { ssr: false, loading: () => null });
 
 const MicIcon = () => <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="3" width="7" height="12" rx="3.5" /><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" fill="none" strokeWidth="2" strokeLinecap="round" /></svg>;
@@ -193,6 +195,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
     if (!req?.key) return;
     if (req.page) { setPageAt(req.page); return; }
     // From the drawer (YUI-245): a saved screen back on the stage, or words to finish in the field.
+    if (req.film) { closedFilm.current = null; setPlaying(req.film); setPageAt("1"); return; }
     if (req.show) { const s = reopened(messages, req.show); if (s) { setShown({ name: req.show, state: s }); setAsk(null); setEnded(false); setPlayKey((k) => k + 1); setPageAt("1"); } return; }
     if (req.compose != null) { store.setDraft(req.compose); setTyping(true); return; }
     setAsk(req.ask); setShown(null); setEnded(false); setPlayKey((k) => k + 1); setPageAt("1");
@@ -206,6 +209,19 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
     return a.chunks.length || a.questions.length ? a : null;
   }, [shown, turn]);
   const sentAt = shown ? null : turn?.at || null;
+
+  // ---- a motion film (YUI-311): full screen over the stage, scene 1 as soon as it is written, the rest appended ----
+  // A turn that holds a film plays it first. Close (or Escape, or a tap after the end) puts the stage back; the chip in the
+  // record plays it again. `playing` is the film's id; the film itself is read from the thread every change, so a later scene
+  // reaches the player that is already running.
+  const turnFilm = useMemo(() => (turn && !shown ? filmOfPieces(turn.pieces) : null), [turn, shown]);
+  const [playing, setPlaying] = useState(null);
+  const closedFilm = useRef(null);
+  useEffect(() => {
+    if (turnFilm && closedFilm.current !== `${playKey}:${turnFilm.id}`) setPlaying(turnFilm.id);
+  }, [turnFilm?.id, playKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  const film = useMemo(() => (playing ? filmsOfMessages(messages).find((f) => f.id === playing && !f.sketch) || null : null), [playing, version]); // eslint-disable-line react-hooks/exhaustive-deps
+  const closeFilm = useCallback(() => { closedFilm.current = `${playKey}:${playing}`; setPlaying(null); }, [playKey, playing]);
 
   // ---- the bar ----
   const [pageAt, setPageAt] = useState("1");
@@ -289,7 +305,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
     // Pages and menus the agent files quietly (a screen only for the drawer or a page) have nothing to play.
     const t = id ? turnOf(messages, id) : null;
     const a = t && t.replies ? answerOf(t.pieces) : null;
-    if (a && (a.chunks.length || a.questions.length)) play(id);
+    if ((a && (a.chunks.length || a.questions.length)) || (t && t.replies && filmOfPieces(t.pieces))) play(id);
   }, [version, thread.loaded]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { if (typing) setTimeout(() => input.current?.focus(), 30); }, [typing]);
   // No voice here (Firefox): the field is the way in, so it starts open.
@@ -536,6 +552,7 @@ export default function StageLayer({ agent, agents = [], commands, store, thread
         </p>
         {toast ? <div className="ys-went" role="status">{toast}</div> : null}
       </div>
+      {film ? <MotionStage key={film.id} film={film} accent={accent} light={light} reduced={reduced} onClose={closeFilm} /> : null}
     </section>
   );
 }
@@ -555,5 +572,5 @@ function answerAfter(thread, ask) {
   const t = turnOf(thread.messages, ask);
   if (!t.replies) return false;
   const a = answerOf(t.pieces);
-  return a.chunks.length > 0 || a.questions.length > 0;
+  return a.chunks.length > 0 || a.questions.length > 0 || !!filmOfPieces(t.pieces);
 }

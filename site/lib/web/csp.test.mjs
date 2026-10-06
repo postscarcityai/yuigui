@@ -30,7 +30,7 @@ test("the other directives are unchanged", async () => {
   assert.equal(dir(csp, "frame-ancestors"), "frame-ancestors 'none'");
   assert.equal(dir(csp, "object-src"), "object-src 'none'");
   assert.equal(dir(csp, "base-uri"), "base-uri 'self'");
-  assert.equal(dir(csp, "frame-src"), "frame-src https://appleid.apple.com");
+  assert.equal(dir(csp, "frame-src"), "frame-src 'self' https://appleid.apple.com");
   assert.ok(dir(csp, "connect-src").includes("wss://txuibjxyfpalzvpneqgp.supabase.co"));
   assert.ok(dir(csp, "connect-src").includes("https://appleid.apple.com"));
 });

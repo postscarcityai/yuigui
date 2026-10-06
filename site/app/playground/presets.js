@@ -3,7 +3,7 @@
 // Web renderers for the YL presets, plus say and custom.
 // Each preset gets resolved props and emit(value). emit() is the event that
 // goes back to the agent.
-import { useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { resolve } from "../../lib/yl/yl.mjs";
 import { Calc, Chart, DataTable, MathBlock, Stat, Steps } from "./science";
@@ -978,6 +978,24 @@ const Flow = later(() => import("./flow"), (m) => m.Flow);
 const Query = later(() => import("./data"), (m) => m.Query);
 const MUSIC = Object.fromEntries(["loop", "drums", "keys", "chords", "tuner", "metronome"].map((k) => [k, later(() => import("./music/music"), (m) => m.MUSIC[k])]));
 
+// A motion line (YUI-311, spec/MOTION.md 0.5). A film plays full screen on the stage, so in a thread it is one line and a
+// chip that plays it (the host gives the chip its action through FilmPlayCtx; with none, only the line). A line that is
+// only the agent's ask, from a plugin that made no film, is drawn as a sketch: never the raw text.
+export const FilmPlayCtx = createContext(null);
+function MotionRow({ p, nid }) {
+  const play = useContext(FilmPlayCtx);
+  const title = String(p.title || "").trim() || "A film";
+  if (p.film === undefined && typeof p.source !== "string") {
+    return <Sketch g={{ group: { props: { title, frame: "window", before: "Picture coming" } }, members: [{ preset: "row", props: { text: "Drawing it as a film" } }] }} />;
+  }
+  return (
+    <div className="wb-film" data-testid="film-line">
+      <b>{title}</b>
+      {play ? <button className="wb-film-chip" onClick={() => play(p.film ?? nid)} data-testid="film-replay-chip">Watch again</button> : null}
+    </div>
+  );
+}
+
 const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, form: Form, list: List, table: Table, card: Card, image: Image, camera: Camera, mic: Mic, say: Say,
   gallery: Gallery, video: Video, compare: Compare, storyboard: Storyboard,
   chart: Chart, stat: Stat, math: MathBlock, calc: Calc,
@@ -992,6 +1010,7 @@ const MAP = { timer: Timer, ask: Ask, choose: Choose, pick: Pick, slide: Slide, 
   shapes: ({ p }) => <Shapes g={{ group: { props: p }, members: [] }} />,
   shape: LoneShape,
   diagram: ({ p, vid }) => <Diagram p={p} vid={vid} />,
+  motion: MotionRow,
   mock: ({ p }) => <Mock g={{ group: { props: p }, members: [] }} />,
   part: LonePart,
   map: ({ p }) => <MapView g={{ group: { props: p }, members: [] }} />,

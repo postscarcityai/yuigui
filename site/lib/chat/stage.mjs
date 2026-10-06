@@ -25,7 +25,12 @@ export function textParts(text) {
 
 // A plan's members leave the run and its head stands in as one picture (stageChunks would make its
 // pages chunks and hold its questions for the end). The stand-in carries the real head as `steps`.
-function playsOwnSteps(nodes) {
+// A motion film plays full screen on its own (web/film.mjs), so it is not a chunk. A motion line that is only the
+// agent's ask (an old plugin made no film) stays one and is drawn as a sketch (presets.js).
+const isFilm = (n) => n.preset === "motion" && (n.props?.film !== undefined || typeof n.props?.source === "string");
+
+function playsOwnSteps(all) {
+  const nodes = all.filter((n) => !isFilm(n));
   const plans = new Set(nodes.filter((n) => n.preset === "plan").map((n) => n.id));
   if (!plans.size) return nodes;
   return nodes.filter((n) => !plans.has(n.in)).map((n) => (plans.has(n.id) && n.preset === "plan" ? { ...n, preset: "steps", steps: n } : n));

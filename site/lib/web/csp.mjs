@@ -19,7 +19,8 @@ export function webCsp(nonce, themeHash) {
     `media-src 'self' blob: ${BACKEND}`,
     "font-src 'self' data:",
     `connect-src 'self' ${BACKEND} wss://txuibjxyfpalzvpneqgp.supabase.co https://appleid.apple.com`,
-    "frame-src https://appleid.apple.com",
+    // The motion player (YUI-311): a sandboxed iframe of our own page, scripts only, no origin, no network.
+    "frame-src 'self' https://appleid.apple.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self' https://appleid.apple.com",

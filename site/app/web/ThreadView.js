@@ -24,6 +24,8 @@ import { KeepCtx, stopVoices } from "../playground/music/keep";
 import { KeptCtx } from "../playground/kept";
 import { sharedReminders } from "../../lib/web/reminders.mjs";
 import { waitingNote, workingLine } from "../../lib/web/presence.mjs";
+import { foldFilmRows } from "../../lib/web/film.mjs";
+import { FilmPlayCtx } from "../playground/presets";
 import { chipAction, dismissEvent, homeOf, notYetEvent, waitingAction } from "../../lib/web/stage.mjs";
 import { useDismissed } from "./useDismissed";
 
@@ -279,7 +281,8 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   }, [relay, userId, agent.id, store]);
   const commands = agent.commands;
 
-  const list = thread.messages;
+  // One row per film in the record; the stage reads every row (lib/web/film.mjs).
+  const list = useMemo(() => foldFilmRows(thread.messages), [thread.version]); // eslint-disable-line react-hooks/exhaustive-deps
   // Reminders (YUI-246): while this tab is open the Notifications API fires them at their time (a closed tab: Web Push, YUI-248).
   // Sound started on any screen keeps playing across the thread's screens (spec/YL.md section 5, Sound keeps playing);
   // it stops when the person leaves this thread or the page goes.
@@ -370,6 +373,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   }, [relay, userId, agent.id]);
   const shelf = useMemo(() => shelfOf(thread.messages, removed), [thread.version, removed]); // eslint-disable-line react-hooks/exhaustive-deps
   const toStage = useCallback((r) => { setReq((q) => ({ ...r, key: q.key + 1 })); setView("stage"); }, [setView]);
+  const playFilm = useCallback((film) => toStage({ film }), [toStage]);
   const askOf = (i) => { for (let k = i; k >= 0; k--) if (list[k].role === "user" && !list[k].card) return list[k].id; return null; };
   const stageOn = view === "stage";
   // What was already in the thread when it opened is history: its timers and decks wait as pills. What lands
@@ -439,6 +443,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   return (
     <KeepCtx.Provider value={true}>
     <KeptCtx.Provider value={agent.id}>
+    <FilmPlayCtx.Provider value={playFilm}>
     <section className="wb-thread" aria-label={`${agent.name}'s thread`} data-loaded={thread.loaded ? "1" : "0"} {...fileDrop((f) => store.addFiles(f))}>
       {!stageOn && shelf.length ? <ShelfBar screens={shelf} onOpen={(name) => toStage({ show: name })} onRemove={(name) => { setRemoved(removeShelf(agent.id, name)); shelfSync.current?.changed(); }} /> : null}
       <div className="wb-scroll" ref={scroller} onScroll={onScroll} inert={stageOn || undefined}>
@@ -479,6 +484,7 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
       ) : null}
       {toast ? <div className="wc-toast" role="status">{toast}</div> : null}
     </section>
+    </FilmPlayCtx.Provider>
     </KeptCtx.Provider>
     </KeepCtx.Provider>
   );
