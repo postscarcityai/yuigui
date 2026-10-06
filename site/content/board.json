@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T15:11:09.292Z",
+  "updated": "2026-10-06T15:20:17.204Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -310,6 +310,12 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "SITE-219",
+          "title": "The small-models Thought says what the llama fix did",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/9a1f5b60",
+          "needsDemo": true
         }
       ]
     },
@@ -317,11 +323,6 @@
       "key": "building",
       "title": "Building",
       "cards": [
-        {
-          "key": "SITE-219",
-          "title": "The small-models Thought says what the llama fix did",
-          "owner": "CJohnDesign"
-        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",

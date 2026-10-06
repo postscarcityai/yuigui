@@ -2233,6 +2233,10 @@
     {
       "text": "Bridge: a small model's explain answer is one line and a film",
       "card": "INT-28"
+    },
+    {
+      "text": "Bridge: repair a small model's explain film from its replies",
+      "card": "INT-29"
     }
   ]
 }
