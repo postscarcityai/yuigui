@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T02:30:14.166Z",
+  "updated": "2026-10-06T02:35:55.006Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -163,6 +163,11 @@
           "waiting": true
         },
         {
+          "key": "YUI-310",
+          "title": "Voice-over, body copy is spoken on the phone so the screen shows a few words",
+          "waiting": true
+        },
+        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -285,6 +290,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-205",
+          "title": "Thought, the question sits with its answer"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -326,6 +335,16 @@
       "title": "Building",
       "cards": [
         {
+          "key": "NOTE-30326",
+          "title": "Question and answers on one page",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "NOTE-34872",
+          "title": "Explainers as motion graphics",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -340,12 +359,6 @@
         {
           "key": "NOTE-8417",
           "title": "One thought per full screen",
-          "blocked": "chris",
-          "owner": "CJohnDesign"
-        },
-        {
-          "key": "YUI-310",
-          "title": "Voice-over, body copy is spoken on the phone so the screen shows a few words",
           "blocked": "chris",
           "owner": "CJohnDesign"
         }
