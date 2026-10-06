@@ -7,7 +7,8 @@
       "state": "live",
       "changes": [
         {
-          "text": "MotionView: native full-screen streamed film player (harness, watchdog, say cues, native chrome)"
+          "text": "MotionView: native full-screen streamed film player (harness, watchdog, say cues, native chrome)",
+          "card": "MOTION-1d"
         },
         {
           "text": "Plugin: motion lines become streamed films, older phones get a sketch (MOTION-1e)"

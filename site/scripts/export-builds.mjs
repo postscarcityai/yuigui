@@ -23,6 +23,8 @@ const KEYS = {
   "8e71550": "YUI-93",
   // Ends with a quote after the key.
   "430289c": "YUI-92",
+  // MotionView, the first half of the native film player; its card is MOTION-1d.
+  "4488cba5": "MOTION-1d",
 };
 
 const asc = (path) => {

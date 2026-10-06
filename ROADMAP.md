@@ -4,7 +4,7 @@ yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch re
 
 ## Where Yui is now (Oct 5)
 
-- **On phones:** Yui 0.6.4, build 535, on TestFlight since Oct 5. Decks fill the screen and morph from page to page, Home is a calm chat again, tabs are named for what is on them, each question says what it asks about, and Start opens the workout full screen. [Read it](/thoughts/yui-0-6-4-build-535-calmer-and-fuller).
+- **On phones:** Yui 0.6.4, build 545, on TestFlight since Oct 6. Films play full screen: an agent draws what it means and it moves. [Watch one](/thoughts/films-are-on-your-phone). Build 535 added: decks fill the screen and morph from page to page, Home is a calm chat again, tabs are named for what is on them, each question says what it asks about, and Start opens the workout full screen. [Read it](/thoughts/yui-0-6-4-build-535-calmer-and-fuller).
 - **Before that:** Yui 0.6.3, build 522, on Oct 5. Say it first: every field you can type in has a mic. [Read it](/thoughts/yui-build-522-say-it-first).
 - **On the web:** Yui runs in your browser at [www.yuigui.com/web](/web). Same chats and screens as the phone, with the mic, forms, the workout runner and reminders that ring with the tab closed.
 - **Drawing:** agents draw Venns, contour lines, callouts, bent arrows and hand drawn marks, on the phone and the web, and every drawing is checked on every run.
