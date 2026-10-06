@@ -2237,6 +2237,12 @@
     {
       "text": "Bridge: repair a small model's explain film from its replies",
       "card": "INT-29"
+    },
+    {
+      "text": "Stage: hold only the newest answer (pick A)"
+    },
+    {
+      "text": "Stage: chat is home, the stage stays up only for a real visual (pick A)"
     }
   ]
 }
