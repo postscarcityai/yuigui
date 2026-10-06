@@ -2209,6 +2209,10 @@
     {
       "text": "OpenAICompatTests opens Qwen's thread and waits for the keyboard",
       "card": "INT-23"
+    },
+    {
+      "text": "Small models of a second family draw screens: fence repairs, ask again on an empty answer, model table",
+      "card": "INT-25"
     }
   ]
 }
