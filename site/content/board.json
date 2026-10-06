@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T15:55:15.162Z",
+  "updated": "2026-10-06T16:00:16.331Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -319,13 +319,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-220",
-          "title": "A Thought, Yui is the screen for any model",
-          "summary": "A Thought: Yui is the screen for any model",
-          "progress": "/progress#a-thought-yui-is-the-screen-for-any-model",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -349,6 +342,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-220",
+          "title": "A Thought, Yui is the screen for any model",
+          "summary": "A Thought: Yui is the screen for any model",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-thought-yui-is-the-screen-for-any-model",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/7528caf8"
+        },
         {
           "key": "INT-24",
           "title": "Where Yui can plug in today, every model provider",
