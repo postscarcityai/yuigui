@@ -141,8 +141,8 @@ Meta points agent work at its Responses API, because Chat Completions does not c
 | Model | Size | Screens | Films | Window | Verdict |
 | --- | --- | --- | --- | --- | --- |
 | gemma4:e4b | 9.6 GB | [9 of 9](/progress#your-own-model-remembers-the-thread) | [9 of 9](/thoughts/small-models-write-films) | 4,096 | Tidy. Draws screens and writes films every run. |
-| qwen2.5:7b | 4.7 GB | [9 of 9](/progress#your-own-model-remembers-the-thread) | [8 of 9](/thoughts/small-models-write-films) | 4,096 | Tidy. Once chained its facts into one sentence. |
-| llama3.2:3b | 2.0 GB | [9 of 9](/progress#your-own-model-remembers-the-thread) | [5 of 9](/thoughts/small-models-write-films) | 4,096 | Roughest. Films miss with plain lines and no fence, or an invented line like `sign`. |
+| qwen2.5:7b | 4.7 GB | [9 of 9](/progress#your-own-model-remembers-the-thread) | [9 of 9](/progress#the-small-llama-gets-its-film-back) | 4,096 | Tidy. Chained its facts into one sentence once in INT-28; 9 of 9 on the latest run. |
+| llama3.2:3b | 2.0 GB | [9 of 9](/progress#your-own-model-remembers-the-thread) | [1 to 2 of 9](/progress#the-small-llama-gets-its-film-back) | 4,096 | Roughest. Films miss with plain unmarked sentences, cards or picks. Repairs lifted 90 saved replies from 4 to 36 films. |
 
 Screens are the Drink ask (a choose screen with Tea and Coffee), [3 live runs each](/progress#a-second-small-local-model-family-draws-screens), and the Ollama suite after [INT-27's fix](/progress#small-models-stop-talking-to-themselves). Films are three explain questions, three runs each, nine per model ([INT-28](/progress#small-models-explain-with-a-film)). Misses stay in the numbers, raw. Write-ups: [a model on your laptop draws](/thoughts/a-laptop-model-draws-screens), [every small model draws](/thoughts/every-small-model-draws), [small models write films](/thoughts/small-models-write-films). The channel guide eval (YUI-10) shipped Sep 24; these numbers are the per-model scores it left open.
 
