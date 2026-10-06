@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T01:31:06.319Z",
+  "updated": "2026-10-06T01:36:12.885Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -163,11 +163,6 @@
           "waiting": true
         },
         {
-          "key": "YUI-258",
-          "title": "Reminders fire from a closed tab through Web Push",
-          "waiting": true
-        },
-        {
           "key": "SITE-28",
           "title": "Earn calls to action around the site + agent open call",
           "waiting": true
@@ -290,6 +285,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-203",
+          "title": "Thought for Yui 0.6.4, Chris's Oct 5 notes"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -335,6 +334,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-258",
+          "title": "Reminders fire from a closed tab through Web Push",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",

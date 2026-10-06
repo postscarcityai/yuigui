@@ -1,6 +1,55 @@
 {
   "builds": [
     {
+      "build": 535,
+      "date": "2026-10-05",
+      "uploaded": "2026-10-05T18:31:38-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "YUI-302: drawings match the hub: path +close/+fill/+sharp zone, rest state, parity UI test"
+        },
+        {
+          "text": "YUI-303: Start opens the workout runner full screen; sets ask reps and weight, then rest; Review never plays it in the drawer"
+        },
+        {
+          "text": "Tabs named for what is on them: saved name, else first title, else a word; never Screen N"
+        },
+        {
+          "text": "Drawer Home is the chats and nothing else (feedback AIfHO1cOmCQce0abL4a4zUQ)"
+        },
+        {
+          "text": "Yui's home is a calm chat: no agent roster page; an old crew page drops on launch (feedback AIO9slfx)"
+        },
+        {
+          "text": "Workout runner: music strip and edits on the fly; the answer's edits say what changed",
+          "card": "YUI-305"
+        },
+        {
+          "text": "Decks are a stage that morphs: no card, no dots, shapes carry from page to page (NOTE-45868, NOTE-60149, NOTE-44205)"
+        },
+        {
+          "text": "Deck stage runs edge to edge on the stage; page turners labelled; light fades in under the header",
+          "card": "NOTE-45868"
+        },
+        {
+          "text": "ScreenNameTabTests: run light and dark, shot per look (feedback AHcav8vW)"
+        },
+        {
+          "text": "Each question shows what it asks about right above it: context and buttons on one screen (feedback ADoBKyIK)"
+        },
+        {
+          "text": "Plugin guide v48+cd72ae5c: a question's title names its subject (feedback ADoBKyIK)"
+        },
+        {
+          "text": "Workout edit sheet: a mic beside the swap and add-a-move fields (FieldMicAudit red on the ship run, YUI-305)"
+        },
+        {
+          "text": "Yui 0.6.4: Chris asked for a build, 2026-10-05 [YUI-SHIP]"
+        }
+      ]
+    },
+    {
       "build": 522,
       "date": "2026-10-05",
       "uploaded": "2026-10-05T04:56:13-07:00",
@@ -2100,44 +2149,5 @@
       ]
     }
   ],
-  "next": [
-    {
-      "text": "YUI-302: drawings match the hub: path +close/+fill/+sharp zone, rest state, parity UI test"
-    },
-    {
-      "text": "YUI-303: Start opens the workout runner full screen; sets ask reps and weight, then rest; Review never plays it in the drawer"
-    },
-    {
-      "text": "Tabs named for what is on them: saved name, else first title, else a word; never Screen N"
-    },
-    {
-      "text": "Drawer Home is the chats and nothing else (feedback AIfHO1cOmCQce0abL4a4zUQ)"
-    },
-    {
-      "text": "Yui's home is a calm chat: no agent roster page; an old crew page drops on launch (feedback AIO9slfx)"
-    },
-    {
-      "text": "Workout runner: music strip and edits on the fly; the answer's edits say what changed",
-      "card": "YUI-305"
-    },
-    {
-      "text": "Decks are a stage that morphs: no card, no dots, shapes carry from page to page (NOTE-45868, NOTE-60149, NOTE-44205)"
-    },
-    {
-      "text": "Deck stage runs edge to edge on the stage; page turners labelled; light fades in under the header",
-      "card": "NOTE-45868"
-    },
-    {
-      "text": "ScreenNameTabTests: run light and dark, shot per look (feedback AHcav8vW)"
-    },
-    {
-      "text": "Each question shows what it asks about right above it: context and buttons on one screen (feedback ADoBKyIK)"
-    },
-    {
-      "text": "Plugin guide v48+cd72ae5c: a question's title names its subject (feedback ADoBKyIK)"
-    },
-    {
-      "text": "Workout edit sheet: a mic beside the swap and add-a-move fields (FieldMicAudit red on the ship run, YUI-305)"
-    }
-  ]
+  "next": []
 }
