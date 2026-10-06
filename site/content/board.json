@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T21:46:10.881Z",
+  "updated": "2026-10-06T21:51:05.002Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-226",
           "title": "A Thought, films start fast",
+          "summary": "A Thought: Films did not start faster",
+          "progress": "/progress#a-thought-films-did-not-start-faster",
           "owner": "CJohnDesign"
         }
       ]
