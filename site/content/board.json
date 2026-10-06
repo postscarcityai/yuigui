@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T13:05:32.682Z",
+  "updated": "2026-10-06T13:35:36.246Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -323,12 +323,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "INT-28",
-          "title": "Small models write films",
-          "summary": "An explain answer is one line and a motion line",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -344,6 +338,13 @@
           "key": "NOTE-8417",
           "title": "One thought per full screen",
           "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "INT-28",
+          "title": "Small models write films",
+          "summary": "An explain answer is one line and a motion line",
+          "blocked": "other",
           "owner": "CJohnDesign"
         }
       ]
