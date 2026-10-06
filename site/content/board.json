@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T00:46:00.295Z",
+  "updated": "2026-10-06T00:51:07.571Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,10 +290,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-201",
-          "title": "Thought, a question carries its own context"
-        },
-        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -340,10 +336,8 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-308",
-          "title": "/web questions show what they ask about, right above the buttons",
-          "summary": "Web questions say what they ask about",
-          "progress": "/progress#web-questions-say-what-they-ask-about",
+          "key": "SITE-201",
+          "title": "Thought, a question carries its own context",
           "owner": "CJohnDesign"
         },
         {
@@ -364,6 +358,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "YUI-308",
+          "title": "/web questions show what they ask about, right above the buttons",
+          "summary": "Web questions say what they ask about",
+          "shipped": "2026-10-05",
+          "progress": "/progress#web-questions-say-what-they-ask-about",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/ebf805e8"
+        },
         {
           "key": "YUI-307",
           "title": "/web decks fill the stage and morph between pages, the twin of the app fix",
