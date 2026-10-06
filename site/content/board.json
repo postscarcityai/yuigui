@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T01:46:08.294Z",
+  "updated": "2026-10-06T01:51:08.327Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -333,6 +333,8 @@
         {
           "key": "YUI-258",
           "title": "Reminders fire from a closed tab through Web Push",
+          "summary": "Reminders ring on the web with the tab closed",
+          "progress": "/progress#reminders-ring-on-the-web-with-the-tab-closed",
           "owner": "CJohnDesign"
         },
         {
