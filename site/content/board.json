@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T20:40:53.997Z",
+  "updated": "2026-10-06T20:55:56.533Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,18 +288,19 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-225",
-          "title": "A Thought, films get a look pass",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-225",
+          "title": "A Thought, films get a look pass",
+          "summary": "A Thought: Films get a look pass",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-thought-films-get-a-look-pass"
+        },
         {
           "key": "SITE-224",
           "title": "The chat-is-home Thought gets a Try it link and a clip",
