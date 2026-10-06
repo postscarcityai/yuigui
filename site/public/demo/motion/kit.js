@@ -125,13 +125,13 @@
     host = host || {};
     var W = 390, H = 844, DPR = 1;
     var api = {}, S = {};
-    var base = null, pal = null, st = null, camS = null, caps = null, hits = [], cues = [], cueSeen = {};
+    var base = null, pal = null, st = null, camS = null, caps = null, placed = [], hits = [], cues = [], cueSeen = {};
     api.S = S; api.cues = cues;
     function reset() {
       pal = {}; for (var k in PAL0) pal[k] = (base && base[k]) || PAL0[k];
       st = { rough: 0, lw: 3, font: "sans" };
       camS = { cx: 0, cy: 0, z: 1, roll: 0 };
-      caps = []; hits = [];
+      caps = []; hits = []; placed = [];
       api.pal = pal;
     }
     api.theme = function (t) { base = Object.assign({}, PAL0, t || {}); reset(); api.light = lum(base.ink) > 0.55; };
@@ -345,6 +345,19 @@
       var pad0 = o.bg ? (o.pad == null ? size * 0.4 : o.pad) : 0;
       if (still && !o.free) { if (al === "center") x = Math.min(W - 8 - pad0 - w / 2, Math.max(8 + pad0 + w / 2, x)); else if (al === "left") x = Math.max(8 + pad0, Math.min(x, W - 8 - pad0 - w)); else x = Math.min(W - 8 - pad0, Math.max(x, 8 + pad0 + w)); }
       var h = lh * lines.length, left = al === "left" ? x : al === "right" ? x - w : x - w / 2, top = o.base === "top" ? y : y - h / 2;
+      if (still && !o.free) {  // look pass (MOTION-2): a text never lands on another text, and never in the caption band
+        var pv = o.bg ? (o.pad == null ? size * 0.4 : o.pad) * 0.6 : 0, lim = H - 168, tries = 0, hit;
+        do {
+          hit = null;
+          for (var pi = 0; pi < placed.length; pi++) {
+            var q = placed[pi];
+            if (q.s !== str && left < q.x + q.w + 2 && left + w > q.x - 2 && top - pv < q.y + q.h + 2 && top + h + pv > q.y - 2) { hit = q; break; }
+          }
+          if (hit) { var below = hit.y + hit.h + 6 + pv; top = below + h + pv <= lim ? below : hit.y - 6 - pv - h; }
+        } while (hit && ++tries < 4);
+        if (top + h + pv > lim) top = lim - h - pv;
+        placed.push({ x: left, y: top, w: w, h: h, s: str });
+      }
       var box = { x: left, y: top, w: w, h: h, cx: left + w / 2, cy: top + h / 2 };
       var vis = o.type ? Math.floor(str.length * k) : str.length, A = (o.type ? 1 : eout(k)) * (o.a == null ? 1 : o.a);
       if (o.bg) { var pad = o.pad == null ? size * 0.4 : o.pad; c.globalAlpha *= A; c.fillStyle = C(o.bg); var pp = rrPts(left - pad, top - pad * 0.6, w + pad * 2, h + pad * 1.2, o.r == null ? 10 : o.r); traceP(pp, true); c.fill(); if (o.border) { c.strokeStyle = C(o.border); c.lineWidth = 2; c.stroke(); } c.globalAlpha /= A || 1; }
