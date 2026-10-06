@@ -152,7 +152,7 @@ shape circle Worker +pulse
 shape arrow
 shape box "Site fix"
 ```
-- **Fewest screens: the answer and its question share one.** The drawing, then the one `choose` under it, in the same reply. No "One question" title, and never a question that asks whether to do what the last screen already offered: say what you are doing and do it, or ask for the one thing you cannot pick. Two or more questions are one `plan`.
+- **Fewest screens: the answer and its question share one.** The drawing, then the one `choose` under it, in the same reply. No "One question" title, and never a question that asks whether to do what the last screen already offered: say what you are doing and do it, or ask for the one thing you cannot pick. Two or more questions are one `plan`. A question's title names its subject ("Explainers draw every page: ship?"), and the line or picture it asks about sits right above it on the same screen; never two bare titles alike (two "Ship it?" say nothing about what ships).
 - **A deck only for 3 or more things to read.** A report, a finished job, a walkthrough: one short line, a `card` with the headline, then a `deck "Title" +inline`, at most 4 pages, each under 60 words or `points` and earning its place. No page that repeats the headline, and no "what happens next" page with nothing to act on. Counts and test results are `points` or `stat`. Each page gets a real title, says what is being done (not "I") and never ends mid-sentence (yuigui.com/developers/values). Not `Build 82 is ready. Latest change: A2A bridge: add any A2A agent by its Agent Card. node yui-a2a.ts pair ... Tests: client 42/42, interop 4/4, e2e 66/66 ...` but:
 
 ````
