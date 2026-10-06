@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ELI5: String theory</title>
+<style>
+html,body{margin:0;height:100%;background:#0a0b14;overflow:hidden}
+canvas{display:block;width:100vw;height:100vh;touch-action:manipulation;cursor:pointer;-webkit-tap-highlight-color:transparent}
+</style>
+</head>
+<body>
+<canvas id="c" role="img" aria-label="A short animated explainer: zoom from a cup of cocoa into an atom, a nucleus, a quark, and a tiny vibrating string. Different notes make an electron, light, and gravity. Everything is tiny music."></canvas>
+<script>
+(() => {
+'use strict';
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+const T = 32, TAU = Math.PI * 2;
+const FF = 'system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif';
+
+// palette: ink, one hot accent, two cool supports, paper for type
+const INK = [10, 11, 20], HOT = [255, 106, 61], CY = [63, 208, 255], VI = [139, 125, 255], PA = [243, 239, 230];
+const rgba = (c, a) => `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
+const clamp = (x, a = 0, b = 1) => x < a ? a : x > b ? b : x;
+const sm = (a, b, x) => { x = clamp((x - a) / (b - a)); return x * x * (3 - 2 * x); };
+const eio = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eos = x => -(Math.cos(Math.PI * x) - 1) / 2;
+const eo3 = x => 1 - Math.pow(1 - x, 3);
+const band = (a, b, c, d, x) => sm(a, b, x) * (1 - sm(c, d, x));
+const mix = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
+const frac = x => ((x % 1) + 1) % 1;
+
+let seed = 1337;
+const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+
+// ---------- the world: nested scales, one camera ----------
+const L = [0, 4, 6.6, 7.85, 10.25];          // log-zoom of each level
+const S = L.map(v => Math.exp(-v));          // world size of one local unit
+const NT = [0.36, -0.22];                    // target proton inside nucleus
+const QT = [0.38, 0.22];                     // target quark inside proton
+const QR = Math.exp(-(L[4] - L[3]));         // quark radius in proton units = string loop radius 1
+const NR = 0.285;                            // nucleon radius in nucleus units
+const O = [[0, 0], [0.15, -0.40]];
+O[2] = O[1];
+O[3] = [O[2][0] + NT[0] * S[2], O[2][1] + NT[1] * S[2]];
+O[4] = [O[3][0] + QT[0] * S[3], O[3][1] + QT[1] * S[3]];
+const C0 = [0, -0.12];
+
+// camera keyframes: [time, logZoom, ease 1=sine creep 2=cubic move]
+const K = [[0, -0.25, 1], [3.4, 0.1, 1], [7.0, 4.0, 2], [9.6, 4.2, 1], [12.4, 6.6, 2], [13.3, 6.72, 1],
+           [16.2, 7.85, 2], [17.6, 7.97, 1], [20.6, 10.25, 2], [28.4, 10.33, 1], [30.6, 8.4, 2], [T, 8.3, 1]];
+function camAt(t) {
+  if (t <= K[0][0]) return K[0][1];
+  for (let i = 0; i < K.length - 1; i++) {
+    if (t <= K[i + 1][0]) {
+      const u = (t - K[i][0]) / (K[i + 1][0] - K[i][0]);
+      const e = K[i + 1][2] === 2 ? eio(u) : eos(u);
+      return K[i][1] + (K[i + 1][1] - K[i][1]) * e;
+    }
+  }
+  return K[K.length - 1][1];
+}
+function centerAt(cam) {
+  const P = [C0, O[1], O[2], O[3], O[4]];
+  if (cam <= 0) return C0;
+  for (let k = 0; k < 4; k++) {
+    if (cam <= L[k + 1]) {
+      const u = eo3(clamp((cam - L[k]) / (L[k + 1] - L[k])));
+      return [P[k][0] + (P[k + 1][0] - P[k][0]) * u, P[k][1] + (P[k + 1][1] - P[k][1]) * u];
+    }
+  }
+  return O[4];
+}
+
+// ---------- string notes ----------
+const MODES = [
+  { n: 1, A: .10, f: 1.1, c: HOT },  // idle sway
+  { n: 1, A: .42, f: 1.4, c: CY },   // electron, low note
+  { n: 3, A: .30, f: 2.9, c: HOT },  // photon, higher
+  { n: 6, A: .19, f: 5.2, c: VI }    // graviton, highest
+];
+const LH = 1.0;
+const wts = t => [band(20.6, 21.6, 22.0, 22.8, t), band(22.0, 22.8, 24.3, 24.9, t),
+                  band(24.3, 24.9, 26.3, 26.9, t), band(26.3, 26.9, 28.3, 29.0, t)];
+function strCol(w) {
+  const ws = w[1] + w[2] + w[3];
+  if (ws < 1e-3) return HOT;
+  const c = [0, 0, 0];
+  for (let k = 1; k < 4; k++) for (let j = 0; j < 3; j++) c[j] += MODES[k].c[j] * w[k];
+  for (let j = 0; j < 3; j++) c[j] /= ws;
+  return mix(HOT, c, Math.min(1, ws));
+}
+function pluck(t) {
+  let p = 0;
+  for (const ts of [22.3, 24.5, 26.5]) if (t >= ts) p += Math.exp(-(t - ts) * 4);
+  return p;
+}
+
+const NS = 140, buf = new Float32Array((NS + 1) * 2);
+function strPts(tt, m, open, w, amp) {
+  for (let i = 0; i <= NS; i++) {
+    const s = i / NS, th = -Math.PI / 2 - TAU * s;
+    const r = 1 + open * (1 - m) * (.06 * Math.sin(3 * th - 5 * tt) + .035 * Math.sin(5 * th + 7 * tt));
+    const x0 = Math.cos(th) * r, y0 = Math.sin(th) * r;
+    const x1 = -LH + 2 * LH * s;
+    let y1 = 0;
+    for (let k = 0; k < 4; k++) {
+      if (w[k] < .001) continue;
+      const M = MODES[k];
+      y1 += w[k] * M.A * amp * Math.sin(M.n * Math.PI * s) * Math.sin(TAU * M.f * tt);
+    }
+    buf[2 * i] = x0 + (x1 - x0) * m;
+    buf[2 * i + 1] = y0 + (y1 - y0) * m;
+  }
+}
+function tracePts() {
+  ctx.beginPath();
+  ctx.moveTo(buf[0], buf[1]);
+  for (let i = 1; i <= NS; i++) ctx.lineTo(buf[2 * i], buf[2 * i + 1]);
+}
+
+// ---------- scenery data ----------
+const FA = [];
+for (let gx = -4; gx <= 4; gx++) for (let gy = -4; gy <= 4; gy++) {
+  if (!gx && !gy) continue;
+  const x = gx * 2.6 + (rnd() - .5) * 1.2, y = gy * 2.6 + (rnd() - .5) * 1.2;
+  FA.push({ x, y, d: Math.hypot(x, y), r: rnd() * Math.PI, sp: .8 + rnd() * 1.2, o: rnd() < .5 ? 1 : 2 });
+}
+const NU = [[-0.2, -0.32, 0], [0.05, 0.3, 1], [-0.43, 0.12, 1], [0.33, 0.36, 0], [-0.06, -0.02, 0],
+            [0.02, -0.6, 1], [-0.5, -0.34, 0], [0.62, 0.02, 0], [-0.22, 0.52, 1]];
+const FL = [];
+for (let gx = -4; gx <= 4; gx++) for (let gy = -6; gy <= 6; gy++) {
+  if (!gx && !gy) continue;
+  const x = gx * 3.3 + (rnd() - .5) * 1.4, y = gy * 3.3 + (rnd() - .5) * 1.4;
+  FL.push({ x, y, d: Math.hypot(x, y), c: [CY, HOT, VI][(rnd() * 3) | 0], n: 2 + ((rnd() * 4) | 0), f: .6 + rnd() * 1.2, ph: rnd() * TAU, sc: .7 + rnd() * .5 });
+}
+const DU = [];
+for (let i = 0; i < 70; i++) DU.push({ a: rnd() * TAU, d: rnd(), z: .5 + rnd() * .8 });
+
+// ---------- sprites ----------
+const SPR = new Map();
+function spr(c) {
+  const k = c.join();
+  if (SPR.has(k)) return SPR.get(k);
+  const s = document.createElement('canvas');
+  s.width = s.height = 128;
+  const g = s.getContext('2d');
+  const gr = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  gr.addColorStop(0, rgba(c, .95)); gr.addColorStop(.15, rgba(c, .45));
+  gr.addColorStop(.45, rgba(c, .12)); gr.addColorStop(1, rgba(c, 0));
+  g.fillStyle = gr; g.fillRect(0, 0, 128, 128);
+  SPR.set(k, s);
+  return s;
+}
+[HOT, CY, VI, PA].forEach(spr);
+function glow(c, x, y, r, a) {
+  if (a <= .002) return;
+  ctx.globalAlpha = a;
+  ctx.drawImage(spr(c), x - r, y - r, 2 * r, 2 * r);
+  ctx.globalAlpha = 1;
+}
+function ball(x, y, r, c, a) {
+  if (a <= .002) return;
+  const g = ctx.createRadialGradient(x - r * .35, y - r * .4, r * .05, x, y, r);
+  g.addColorStop(0, rgba(mix(c, PA, .55), a));
+  g.addColorStop(.55, rgba(c, a));
+  g.addColorStop(1, rgba(mix(c, INK, .55), a));
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(x, y, r, 0, TAU); ctx.fill();
+}
+
+const grain = document.createElement('canvas');
+grain.width = grain.height = 160;
+{
+  const g = grain.getContext('2d'), id = g.createImageData(160, 160);
+  for (let i = 0; i < 160 * 160; i++) {
+    const v = Math.random() * 255;
+    id.data[i * 4] = id.data[i * 4 + 1] = id.data[i * 4 + 2] = v;
+    id.data[i * 4 + 3] = Math.random() * 22;
+  }
+  g.putImageData(id, 0, 0);
+}
+let grainPat = null;
+
+// ---------- layout ----------
+let W = 390, H = 700, dpr = 1, base = 156, CX = 195, CY0 = 301;
+function resize() {
+  W = window.innerWidth || 390; H = window.innerHeight || 700;
+  dpr = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  base = Math.min(W, H) * .4;
+  CX = W / 2; CY0 = H * .43;
+  grainPat = ctx.createPattern(grain, 'repeat');
+  capCache.clear();
+}
+
+// level transform state
+let LS = 1, LOX = 0, LOY = 0, LCR = 1, LSR = 0;
+let cur = { Z: 1, cc: C0, cr: 1, sr: 0, shx: 0, shy: 0 };
+function lv(k) {
+  const s = S[k] * cur.Z;
+  const dx = (O[k][0] - cur.cc[0]) * cur.Z, dy = (O[k][1] - cur.cc[1]) * cur.Z;
+  LOX = CX + dx * cur.cr - dy * cur.sr + cur.shx;
+  LOY = CY0 + dx * cur.sr + dy * cur.cr + cur.shy;
+  LS = s; LCR = cur.cr; LSR = cur.sr;
+  ctx.setTransform(dpr * s * LCR, dpr * s * LSR, -dpr * s * LSR, dpr * s * LCR, dpr * LOX, dpr * LOY);
+  return s;
+}
+const onScreen = (x, y, r) => {
+  const sx = LOX + LS * (LCR * x - LSR * y), sy = LOY + LS * (LSR * x + LCR * y), m = r * LS + 8;
+  return sx > -m && sx < W + m && sy > -m && sy < H + m;
+};
+
+let tNow = 0;
+
+// ---------- drawing pieces ----------
+function drawCup(t, s, a) {
+  const px = 1 / s;
+  ctx.globalAlpha = a;
+  // saucer
+  ctx.fillStyle = '#141729';
+  ctx.beginPath(); ctx.ellipse(0, .62, 1.0, .15, 0, 0, TAU); ctx.fill();
+  ctx.strokeStyle = rgba(PA, .12); ctx.lineWidth = 1.5 * px; ctx.stroke();
+  // handle
+  ctx.strokeStyle = '#232848'; ctx.lineWidth = .11;
+  ctx.beginPath(); ctx.ellipse(.64, .02, .24, .26, 0, -Math.PI / 2, Math.PI / 2); ctx.stroke();
+  ctx.strokeStyle = rgba(PA, .18); ctx.lineWidth = 1.2 * px;
+  ctx.beginPath(); ctx.ellipse(.64, .02, .3, .32, 0, -Math.PI / 2.4, Math.PI / 2.4); ctx.stroke();
+  // body
+  ctx.beginPath();
+  ctx.moveTo(-.7, -.45);
+  ctx.bezierCurveTo(-.7, .15, -.6, .52, -.36, .56);
+  ctx.lineTo(.36, .56);
+  ctx.bezierCurveTo(.6, .52, .7, .15, .7, -.45);
+  ctx.closePath();
+  const g = ctx.createLinearGradient(-.7, 0, .7, 0);
+  g.addColorStop(0, '#2a2f5a'); g.addColorStop(1, '#151832');
+  ctx.fillStyle = g; ctx.fill();
+  ctx.save(); ctx.clip();
+  ctx.fillStyle = rgba(HOT, .9); ctx.fillRect(-1, .04, 2, .07);
+  ctx.fillStyle = rgba(PA, .05); ctx.fillRect(-.62, -.4, .12, .9);
+  ctx.restore();
+  // rim and cocoa
+  ctx.fillStyle = '#2f3563';
+  ctx.beginPath(); ctx.ellipse(0, -.45, .7, .15, 0, 0, TAU); ctx.fill();
+  const cg = ctx.createRadialGradient(.1, -.46, .02, 0, -.44, .62);
+  cg.addColorStop(0, '#8a4227'); cg.addColorStop(1, '#3a180f');
+  ctx.fillStyle = cg;
+  ctx.beginPath(); ctx.ellipse(0, -.44, .62, .12, 0, 0, TAU); ctx.fill();
+  ctx.strokeStyle = rgba(PA, .5); ctx.lineWidth = 1.5 * px;
+  ctx.beginPath(); ctx.ellipse(0, -.45, .7, .15, 0, 0, TAU); ctx.stroke();
+  // swirl
+  ctx.strokeStyle = 'rgba(255,190,150,.28)'; ctx.lineWidth = 1.3 * px;
+  for (let i = 0; i < 2; i++) {
+    ctx.beginPath();
+    ctx.ellipse(0, -.44, .38 - i * .16, .07 - i * .03, 0, t * .6 + i * 2, t * .6 + i * 2 + 2.2);
+    ctx.stroke();
+  }
+  // steam
+  ctx.lineCap = 'round';
+  for (let i = 0; i < 3; i++) {
+    const x0 = -.25 + .25 * i;
+    const sg = ctx.createLinearGradient(0, -.55, 0, -1.35);
+    sg.addColorStop(0, rgba(PA, .22)); sg.addColorStop(1, rgba(PA, 0));
+    ctx.strokeStyle = sg; ctx.lineWidth = .045;
+    ctx.beginPath();
+    for (let j = 0; j <= 24; j++) {
+      const y = -.55 - j / 24 * .8;
+      const x = x0 + .06 * Math.sin(y * 7 + t * 1.6 + i * 2) * (1 + (-y - .5) * 1.5);
+      j ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }
+    ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+  // a spark marks where we dive
+  const sp = band(1.0, 2.0, 3.6, 4.6, t) * a;
+  if (sp > 0) {
+    ctx.globalCompositeOperation = 'lighter';
+    glow(PA, O[1][0], O[1][1], (.05 + .015 * Math.sin(t * 6)), sp);
+    glow(HOT, O[1][0], O[1][1], .12, sp * .7);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+}
+
+function atom(x, y, rot, sp, orb, a, px, small) {
+  ctx.lineWidth = px * 1.1;
+  ctx.strokeStyle = rgba(CY, .32 * a);
+  for (let o = 0; o < orb; o++) {
+    ctx.beginPath(); ctx.ellipse(x, y, 1, .32, rot + o * Math.PI / orb, 0, TAU); ctx.stroke();
+  }
+  ctx.globalCompositeOperation = 'lighter';
+  for (let o = 0; o < orb; o++) {
+    const ph = rot + o * Math.PI / orb;
+    const ang = tNow * sp * (1 + o * .35) * 2 + o * 2.1;
+    const ex = Math.cos(ang), ey = .32 * Math.sin(ang), c = Math.cos(ph), s = Math.sin(ph);
+    const X = x + ex * c - ey * s, Y = y + ex * s + ey * c;
+    glow(CY, X, Y, .16, a * .9);
+    glow(PA, X, Y, .05, a);
+  }
+  if (small) { glow(HOT, x, y, .3, a * .6); glow(PA, x, y, .07, a * .8); }
+  ctx.globalCompositeOperation = 'source-over';
+}
+
+function strokeGlow(c, a, px) {
+  ctx.strokeStyle = rgba(c, .06 * a); ctx.lineWidth = 16 * px; ctx.stroke();
+  ctx.strokeStyle = rgba(c, .16 * a); ctx.lineWidth = 7 * px; ctx.stroke();
+  ctx.strokeStyle = rgba(mix(c, PA, .35), .92 * a); ctx.lineWidth = 2.6 * px; ctx.stroke();
+}
+
+// ---------- captions ----------
+const CAPS = [
+  [0.4, 3.3, 'Look at your cocoa.|h'],
+  [3.5, 6.6, 'Zoom in. Way, way in.'],
+  [6.8, 9.5, 'Atoms!|c Tiny buzzing balls.'],
+  [9.7, 12.9, 'Every atom has a heart.|h'],
+  [13.1, 15.6, 'Inside: even tinier bits.'],
+  [15.8, 18.3, 'Pick one. Look closer.'],
+  [18.5, 20.8, "It's a little loop!|h"],
+  [20.9, 22.4, 'Like a guitar string.'],
+  [22.5, 24.4, 'Low note makes an electron.|c'],
+  [24.6, 26.4, 'Higher note makes light.|h'],
+  [26.6, 28.4, 'Even higher makes gravity.|v'],
+  [28.6, 30.0, 'One string. Many songs.']
+];
+const CMAP = { h: HOT, c: CY, v: VI };
+const capCache = new Map();
+function capLayout(i, fs) {
+  if (capCache.has(i)) return capCache.get(i);
+  ctx.font = `800 ${fs}px ${FF}`;
+  const words = CAPS[i][2].split(' ').map(w => {
+    const p = w.split('|');
+    return { s: p[0], c: p[1] ? CMAP[p[1]] : PA, w: ctx.measureText(p[0]).width };
+  });
+  const sp = ctx.measureText(' ').width, maxW = W - 48, lines = [[]];
+  let lw = 0;
+  for (const w of words) {
+    if (lines[lines.length - 1].length && lw + sp + w.w > maxW) { lines.push([]); lw = 0; }
+    lw += (lines[lines.length - 1].length ? sp : 0) + w.w;
+    lines[lines.length - 1].push(w);
+  }
+  const lh = fs * 1.08, out = [];
+  lines.forEach((ln, li) => {
+    const tw = ln.reduce((a, w) => a + w.w, 0) + sp * (ln.length - 1);
+    let x = (W - tw) / 2;
+    for (const w of ln) { out.push({ ...w, x, y: H * .86 - (lines.length - 1 - li) * lh }); x += w.w + sp; }
+  });
+  capCache.set(i, out);
+  return out;
+}
+function drawCaptions(t) {
+  const fs = Math.round(clamp(W * .088, 24, 40));
+  ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+  for (let i = 0; i < CAPS.length; i++) {
+    const [t0, t1] = CAPS[i];
+    if (t < t0 || t > t1 + .05) continue;
+    const lay = capLayout(i, fs);
+    ctx.font = `800 ${fs}px ${FF}`;
+    lay.forEach((w, j) => {
+      const pin = eo3(clamp((t - t0 - j * .07) / .45));
+      const pout = eos(clamp((t1 - t) / .35));
+      const a = pin * pout;
+      if (a <= .002) return;
+      ctx.globalAlpha = a;
+      ctx.fillStyle = rgba(w.c, 1);
+      ctx.fillText(w.s, w.x, w.y + (1 - pin) * fs * .45 - (1 - pout) * fs * .25);
+    });
+    ctx.globalAlpha = 1;
+  }
+}
+function spaced(text, x, y, em, size) {
+  if ('letterSpacing' in ctx) { ctx.letterSpacing = em * size + 'px'; ctx.fillText(text, x + em * size / 2, y); ctx.letterSpacing = '0px'; }
+  else ctx.fillText(text, x, y);
+}
+
+// ---------- the frame ----------
+let ripP = 0;
+function frame(t) {
+  tNow = t;
+  const cam = camAt(t), Z = Math.exp(cam) * base;
+  const cc = t > 27 ? O[4] : centerAt(cam);
+  const roll = .2 * Math.sin(cam * .55) * (1 - sm(8.4, 10.2, cam)) + .012 * Math.sin(t * .5);
+  const pk = pluck(t);
+  cur = { Z, cc, cr: Math.cos(roll), sr: Math.sin(roll), shx: pk * 2.4 * Math.sin(t * 71), shy: pk * 2.4 * Math.cos(t * 59) };
+  const kill = 1 - sm(28, 28.5, t);
+  const w = wts(t), ws = Math.min(1, w[1] + w[2] + w[3]), col = strCol(w);
+
+  // background
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+  ctx.fillStyle = rgba(INK, 1); ctx.fillRect(0, 0, W, H);
+  const tint = cam < 6 ? mix(HOT, VI, sm(0, 5, cam)) : mix(VI, col, sm(8, 10, cam));
+  const R = Math.max(W, H) * .75;
+  let g = ctx.createRadialGradient(CX, CY0, 0, CX, CY0, R);
+  g.addColorStop(0, rgba(tint, .16 + pk * .12)); g.addColorStop(1, rgba(tint, 0));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+  // dust that streams past as we travel through scale
+  const md = Math.min(W, H);
+  ctx.fillStyle = rgba(PA, 1);
+  for (const p of DU) {
+    const f = frac(p.d + cam * .18 * p.z + t * .008);
+    const r = md * .06 * Math.exp(3.4 * f), ang = p.a + roll;
+    const x = CX + Math.cos(ang) * r, y = CY0 + Math.sin(ang) * r;
+    if (x < -4 || x > W + 4 || y < -4 || y > H + 4) continue;
+    ctx.globalAlpha = Math.sin(Math.PI * f) * .3;
+    ctx.beginPath(); ctx.arc(x, y, .5 + f * 1.4, 0, TAU); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
+  // L0 cup
+  const a0 = (1 - sm(1.4, 3.0, cam)) * kill;
+  if (a0 > .003) drawCup(t, lv(0), a0);
+
+  // L1 atoms
+  const aF = sm(1, 2.4, cam) * (1 - sm(4.6, 5.8, cam)) * kill;
+  const aA = sm(1, 2.4, cam) * (1 - sm(5.6, 6.8, cam)) * kill;
+  if (aF > .003 || aA > .003) {
+    const s = lv(1), px = 1 / s;
+    if (aF > .003) for (const p of FA) {
+      const a = aF * sm(1 + p.d * .12, 2 + p.d * .12, cam);
+      if (a < .003 || !onScreen(p.x, p.y, 1.2)) continue;
+      atom(p.x, p.y, p.r + t * .15, p.sp, p.o, a, px, true);
+    }
+    if (aA > .003) atom(0, 0, t * .12, 1.2, 3, aA, px, false);
+  }
+
+  // L2 nucleus
+  const an = sm(1.5, 3, cam) * kill, ao = an * (1 - sm(8.1, 8.9, cam)), nOpen = sm(7.0, 7.8, cam);
+  if (an > .003) {
+    lv(2);
+    ctx.globalCompositeOperation = 'lighter';
+    glow(HOT, 0, 0, 2, .3 * ao);
+    ctx.globalCompositeOperation = 'source-over';
+    NU.forEach((n, i) => {
+      const jx = .025 * Math.sin(t * 5 + i * 1.7), jy = .025 * Math.cos(t * 4.3 + i * 2.3);
+      ball(n[0] + jx, n[1] + jy, NR, n[2] ? HOT : VI, ao);
+    });
+    ball(NT[0], NT[1], NR, HOT, an * (1 - nOpen));
+  }
+
+  // L3 proton: three quarks on springy glue
+  const pr = sm(7.0, 7.8, cam) * (1 - sm(9.2, 9.9, cam)) * kill;
+  const qo = sm(6.9, 7.7, cam) * (1 - sm(9.0, 9.8, cam)) * kill;
+  if (pr > .003 || qo > .003) {
+    const s = lv(3), px = 1 / s;
+    ctx.globalCompositeOperation = 'lighter';
+    glow(HOT, 0, 0, 1.4, .14 * pr);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.strokeStyle = rgba(HOT, .55 * pr); ctx.lineWidth = 1.5 * px;
+    ctx.beginPath(); ctx.arc(0, 0, 1, 0, TAU); ctx.stroke();
+    const q = [QT,
+      [-.42 + .03 * Math.sin(t * 4), .2 + .03 * Math.cos(t * 5)],
+      [.02 + .03 * Math.sin(t * 4.6 + 1), -.45 + .03 * Math.cos(t * 3.7)]];
+    ctx.strokeStyle = rgba(PA, .4 * qo); ctx.lineWidth = 1.4 * px;
+    for (const [i, j] of [[0, 1], [1, 2], [2, 0]]) {
+      const ax = q[i][0], ay = q[i][1], bx = q[j][0], by = q[j][1];
+      const dx = bx - ax, dy = by - ay, len = Math.hypot(dx, dy), nx = -dy / len, ny = dx / len;
+      ctx.beginPath();
+      for (let k = 0; k <= 28; k++) {
+        const u = k / 28, o = .035 * Math.sin(u * Math.PI * 6 - t * 9) * Math.sin(u * Math.PI);
+        const x = ax + dx * u + nx * o, y = ay + dy * u + ny * o;
+        k ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+      }
+      ctx.stroke();
+    }
+    ctx.globalCompositeOperation = 'lighter';
+    glow(CY, q[1][0], q[1][1], QR * 3, .7 * qo);
+    glow(VI, q[2][0], q[2][1], QR * 3, .7 * qo);
+    ctx.globalCompositeOperation = 'source-over';
+    ball(q[1][0], q[1][1], QR, CY, qo);
+    ball(q[2][0], q[2][1], QR, VI, qo);
+  }
+
+  // L4: the string, and its many cousins at the end
+  const qa = sm(6.9, 7.7, cam);
+  if (qa > .003) {
+    const s = lv(4), px = 1 / s;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+    const ef = sm(28.6, 30.4, t);
+    if (ef > .003) {
+      ctx.globalCompositeOperation = 'lighter';
+      for (const p of FL) {
+        const a = sm(28.6 + p.d * .06, 29.6 + p.d * .06, t) * .75;
+        if (a < .003 || !onScreen(p.x, p.y, 1.5 * p.sc)) continue;
+        ctx.beginPath();
+        for (let k = 0; k <= 40; k++) {
+          const th = k / 40 * TAU, r = p.sc * (1 + .1 * Math.sin(p.n * th + TAU * p.f * t + p.ph));
+          const x = p.x + Math.cos(th) * r, y = p.y + Math.sin(th) * r;
+          k ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.strokeStyle = rgba(p.c, .14 * a); ctx.lineWidth = 7 * px; ctx.stroke();
+        ctx.strokeStyle = rgba(mix(p.c, PA, .3), .8 * a); ctx.lineWidth = 1.8 * px; ctx.stroke();
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    const open = sm(19.0, 20.4, t);
+    const m = eio(clamp((t - 20.7) / 1.6)) * (1 - eio(clamp((t - 28.5) / 1.4)));
+    const amp = 1 + .6 * pk;
+
+    // ripples: the note you can see
+    if (ws > .03) {
+      ctx.lineWidth = 1.5 * px;
+      for (let i = 0; i < 5; i++) {
+        const p = frac(ripP + i / 5), a = (1 - p) * (1 - p) * .28 * ws;
+        ctx.strokeStyle = rgba(col, a);
+        ctx.beginPath(); ctx.ellipse(0, 0, 1.25 + p * 3.2, (1.25 + p * 3.2) * .62, 0, 0, TAU); ctx.stroke();
+      }
+    }
+
+    // the quark as a ball, before it opens
+    ctx.globalCompositeOperation = 'lighter';
+    glow(HOT, 0, 0, 3, .5 * qa * (1 - open * .6));
+    ctx.globalCompositeOperation = 'source-over';
+    if (open < 1) ball(0, 0, 1, HOT, qa * (1 - open));
+
+    if (open > .003) {
+      ctx.globalCompositeOperation = 'lighter';
+      if (ws > .05) for (let j = 1; j <= 3; j++) {
+        strPts(t - j * .016, m, open, w, amp);
+        tracePts();
+        ctx.strokeStyle = rgba(col, .22 / j * ws * qa); ctx.lineWidth = 2 * px; ctx.stroke();
+      }
+      strPts(t, m, open, w, amp);
+      tracePts();
+      strokeGlow(col, qa * open, px);
+      if (m > .4) {
+        const ea = sm(.4, .9, m) * qa;
+        glow(col, buf[0], buf[1], .16, ea); glow(PA, buf[0], buf[1], .05, ea);
+        glow(col, buf[2 * NS], buf[2 * NS + 1], .16, ea); glow(PA, buf[2 * NS], buf[2 * NS + 1], .05, ea);
+      }
+      ctx.globalCompositeOperation = 'source-over';
+    }
+  }
+
+  // ---------- screen overlays ----------
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  g = ctx.createRadialGradient(CX, H * .45, md * .35, CX, H * .45, Math.max(W, H) * .8);
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,.55)');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  g = ctx.createLinearGradient(0, H * .6, 0, H);
+  g.addColorStop(0, rgba(INK, 0)); g.addColorStop(1, rgba(INK, .8));
+  ctx.fillStyle = g; ctx.fillRect(0, H * .6, W, H * .4);
+
+  if (grainPat) {
+    const gx = (Math.random() * 160) | 0, gy = (Math.random() * 160) | 0;
+    ctx.save(); ctx.translate(-gx, -gy);
+    ctx.fillStyle = grainPat; ctx.fillRect(gx, gy, W, H);
+    ctx.restore();
+  }
+
+  // particle name, top
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const lfs = 13;
+  ctx.font = `700 ${lfs}px ${FF}`;
+  [['\u266A ELECTRON', CY, w[1]], ['\u266A LIGHT \u00B7 PHOTON', HOT, w[2]], ['\u266A GRAVITY \u00B7 GRAVITON', VI, w[3]]].forEach(([s, c, a]) => {
+    if (a < .01) return;
+    ctx.globalAlpha = a; ctx.fillStyle = rgba(c, 1);
+    spaced(s, CX, H * .12 + (1 - a) * 8, .28, lfs);
+  });
+  ctx.globalAlpha = 1;
+
+  drawCaptions(t);
+
+  // end card
+  const e1 = eo3(sm(30.0, 30.7, t)), e2 = eo3(sm(30.2, 30.9, t)), e3 = eo3(sm(30.4, 31.1, t)), e4 = eo3(sm(30.8, 31.5, t));
+  if (e1 > .002) {
+    const fs2 = Math.round(clamp(W * .115, 30, 52)), y0 = H * .69;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+    ctx.font = `700 12px ${FF}`; ctx.globalAlpha = e1; ctx.fillStyle = rgba(CY, 1);
+    spaced('STRING THEORY', CX, y0 + (1 - e1) * 10, .32, 12);
+    ctx.font = `800 ${fs2}px ${FF}`;
+    ctx.globalAlpha = e2; ctx.fillStyle = rgba(PA, 1);
+    ctx.fillText('Everything is', CX, y0 + fs2 * 1.15 + (1 - e2) * 14);
+    const wa = ctx.measureText('tiny '), wb = ctx.measureText('music.');
+    const x0 = CX - (wa.width + wb.width) / 2, y2 = y0 + fs2 * 2.2 + (1 - e3) * 14;
+    ctx.textAlign = 'left'; ctx.globalAlpha = e3;
+    ctx.fillStyle = rgba(PA, 1); ctx.fillText('tiny ', x0, y2);
+    ctx.fillStyle = rgba(HOT, 1); ctx.fillText('music.', x0 + wa.width, y2);
+    ctx.textAlign = 'center'; ctx.globalAlpha = e4 * .62;
+    ctx.font = `500 15px ${FF}`; ctx.fillStyle = rgba(PA, 1);
+    ctx.fillText('Scientists are still checking.', CX, y0 + fs2 * 2.2 + 34 + (1 - e4) * 8);
+    ctx.globalAlpha = 1;
+  }
+
+  // progress line
+  ctx.fillStyle = rgba(PA, .1); ctx.fillRect(0, H - 2, W, 2);
+  ctx.fillStyle = rgba(HOT, .9); ctx.fillRect(0, H - 2, W * clamp(t / T), 2);
+
+  if (paused && !done) {
+    ctx.fillStyle = rgba(PA, .7);
+    ctx.fillRect(W - 30, 20, 4, 14); ctx.fillRect(W - 22, 20, 4, 14);
+  }
+}
+
+// ---------- clock ----------
+let t = 0, last = null, paused = false, done = false, raf = 0;
+const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function tick(now) {
+  raf = 0;
+  if (last === null) last = now;
+  const dt = Math.min(.05, (now - last) / 1000);
+  last = now;
+  if (!paused && !done) {
+    t += dt;
+    if (t >= T) { t = T; done = true; }
+    const w = wts(t), ws = w[1] + w[2] + w[3];
+    if (ws > .001) ripP += dt * .55 * (w[1] * MODES[1].f + w[2] * MODES[2].f + w[3] * MODES[3].f) / ws;
+  }
+  frame(t);
+  if (!paused && !done) raf = requestAnimationFrame(tick);
+}
+function start() { if (!raf) { last = null; raf = requestAnimationFrame(tick); } }
+
+window.addEventListener('pointerdown', () => {
+  if (reduce || done) return;
+  paused = !paused;
+  if (paused) frame(t); else start();
+});
+window.addEventListener('keydown', e => {
+  if (e.code === 'Space' && !reduce && !done) { e.preventDefault(); paused = !paused; paused ? frame(t) : start(); }
+});
+window.addEventListener('resize', () => { resize(); frame(t); });
+
+resize();
+if (reduce) { t = T; done = true; ripP = 0; frame(T); }
+else start();
+})();
+</script>
+</body>
+</html>

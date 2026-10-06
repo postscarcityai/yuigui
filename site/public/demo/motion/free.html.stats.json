@@ -1,0 +1,9 @@
+{
+ "model": "claude-opus-5-5",
+ "first_token_s": 441.1,
+ "total_s": 527.1,
+ "output_tokens": 53145,
+ "thinking_tokens": 40499,
+ "chars": 19408,
+ "cost_usd": 2.4129959999999997
+}

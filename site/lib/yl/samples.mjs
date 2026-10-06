@@ -240,6 +240,31 @@ say "Breathe in for four. Out for six."`,
     yl: `say "This light is mine. It stays quiet unless you talk."`,
   },
   {
+    // Motion explainers (spec/MOTION.md): the same ask, "ELI5 string theory", three ways
+    // (playground/motion.js). A: the model writes the whole page. B: a small scene layer of YL.
+    // C: YL frames the turn, the model writes only the motion piece.
+    name: "Motion A: the model writes the page (free code)",
+    slug: "motion-free",
+    agent: "Yui",
+    motion: "free",
+    yl: `say "ELI5 string theory. One page the model wrote."`,
+  },
+  {
+    name: "Motion B: YL grows a scene layer",
+    slug: "motion-yl",
+    agent: "Yui",
+    motion: "yl",
+    yl: `say "ELI5 string theory. A short scene in YL, drawn by our renderer."`,
+  },
+  {
+    name: "Motion C: YL frames it, the model writes the motion",
+    slug: "motion-hybrid",
+    agent: "Yui",
+    motion: "hybrid",
+    yl: `say "ELI5 string theory. Native frame, model-made motion."
+choose "Which particle was a hum?" Electron|Photon|Graviton|"Show me again"`,
+  },
+  {
     // The shader blob (spec/SHADER.md, YUI-232): the line blob retires; one
     // shader blob for every agent changes shape with what it is doing
     // (playground/shaderlook.js). Currents, Type and Dots are alternates.

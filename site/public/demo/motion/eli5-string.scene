@@ -1,0 +1,90 @@
+scene "ELI5: string theory" dur=40 bg=ink
+
+# level 0: a cup, seen from above
+shape@cup circle r=24 tone=butter fill=1 +glow
+shape@coffee circle of=cup r=19 tone=#3a2230 fill=1
+shape@handle ring of=cup at=29,0 r=6 tone=butter sw=3
+key cup t=0 dur=1.2 r=24 from=0 ease=pop
+key cup t=5 dur=2.5 op=0
+key cup t=36 dur=2 op=1
+
+# level 1: the atom (frame at 1/50 of the cup), two orbits, a speck in the middle
+shape@atom frame s=0.02
+shape@or1 ring of=atom r=38 tone=mute sw=1
+shape@or2 ring of=atom r=26 tone=mute sw=1
+shape@o1 frame of=atom
+shape@o2 frame of=atom rot=140
+shape@o3 frame of=atom rot=250
+shape@e1 dot of=o1 at=38,0 r=3 tone=sky +glow
+shape@e2 dot of=o2 at=26,0 r=3 tone=sky +glow
+shape@e3 dot of=o3 at=38,0 r=3 tone=sky +glow
+key o1 t=0 dur=40 rot=720 ease=linear
+key o2 t=0 dur=40 rot=-1080 from=140 ease=linear
+key o3 t=0 dur=40 rot=1000 from=250 ease=linear
+shape@speck dot of=atom r=3 tone=pink +glow
+key speck t=10 dur=2 op=0
+
+# level 2: the nucleus (a proton, a ball of pink)
+shape@nuc frame of=atom s=0.07
+shape@proton ring of=nuc r=32 tone=pink sw=2 op=0
+key proton t=9 dur=2 op=1
+key proton t=14 dur=2.5 op=0
+
+# level 3: inside the proton, three quarks and the glue between them
+shape@in frame of=nuc s=0.07
+shape@A dot of=in at=0,-16 r=7 tone=pink +glow
+shape@B dot of=in at=-20,14 r=7 tone=mint +glow
+shape@C dot of=in at=20,14 r=7 tone=sky +glow
+shape@g1 wave of=in at=-10,-1 r=11 rot=123.7 n=6 amp=0.25 hz=2.2 tone=mute sw=1
+shape@g2 wave of=in at=10,-1 r=11 rot=56.3 n=6 amp=0.25 hz=2.2 tone=mute sw=1
+shape@g3 wave of=in at=0,14 r=12.5 n=6 amp=0.25 hz=2.2 tone=mute sw=1
+key A t=0 op=0
+key A t=13 dur=2 op=1
+key A t=20 dur=0.2 op=0
+key B t=13 dur=2 op=1
+key C t=13 dur=2 op=1
+key B t=19.4 dur=1.6 op=0
+key C t=19.4 dur=1.6 op=0
+key g1 t=19.4 dur=1.6 op=0
+key g2 t=19.4 dur=1.6 op=0
+key g3 t=19.4 dur=1.6 op=0
+
+# level 4: the string. It starts as the quark's dot, then hollows into a loop
+shape@sf frame of=in at=0,-16 s=0.175
+shape@str circle into=wave of=sf r=40 tone=pink fill=1 sw=2.4 +glow
+key str t=0 op=0
+key str t=19.4 dur=0.1 op=1
+key str t=22.4 dur=1.2 fill=0
+key str t=24 dur=1 m2=0.22 tone=mint
+key str t=27 dur=0.8 m2=0 m3=0.2 tone=butter
+key str t=30 dur=0.8 m3=0 m4=0.16 tone=lilac
+key str t=32.5 dur=2 m4=0 morph=1 r=30 amp=0.5 n=3 tone=pink
+shape@l1 text "electron" of=sf at=0,-62 r=11 tone=mint op=0
+shape@l2 text "photon" of=sf at=0,-62 r=11 tone=butter op=0
+shape@l3 text "graviton" of=sf at=0,-62 r=11 tone=lilac op=0
+key l1 t=24.4 dur=0.5 op=1
+key l1 t=26.6 dur=0.4 op=0
+key l2 t=27.4 dur=0.5 op=1
+key l2 t=29.6 dur=0.4 op=0
+key l3 t=30.4 dur=0.5 op=1
+key l3 t=32.2 dur=0.4 op=0
+
+# camera: dive through the scales, then pull all the way back
+cam t=3.2 dur=5.5 zoom=50 roll=-6
+cam t=10.5 dur=3 zoom=@nuc roll=0
+cam t=14 dur=3.2 zoom=@in roll=4
+cam t=19 dur=3 at=@A zoom=@sf roll=0
+cam t=34.2 dur=4.4 at=0,0 zoom=1 roll=-5
+
+say "This cup is made of stuff." t=0.5 dur=2.8
+say "Zoom in. Atoms." t=3.6 dur=2.6
+say "Mostly empty space." t=7 dur=2.6
+say "A nucleus." t=10.8 dur=2.4
+say "Quarks. The tiniest dots." t=14.6 dur=3.4
+say "Is a quark really a dot?" t=19.2 dur=3
+say "Or a tiny loop of string?" t=22.4 dur=1.9
+say "It hums. One note: electron." t=24.2 dur=2.6
+say "New note. A photon." t=27.2 dur=2.6
+say "Lower hum. Gravity." t=30.2 dur=2.4
+say "Like a guitar string." t=32.8 dur=1.8
+say "Everything is a note." t=37.2 dur=2.8 +big

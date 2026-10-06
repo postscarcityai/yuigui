@@ -1,0 +1,20 @@
+/* Motion explainers (spec/MOTION.md). Every class is mo-. */
+.mo-piece { position: relative; display: flex; flex-direction: column; background: #0e0a18; color: #f6eef7; }
+.mo-full { flex: 1; min-height: 0; }
+.mo-inline { aspect-ratio: 390 / 420; margin: 8px 0; border-radius: 16px; overflow: hidden; border: 1px solid #262a40; }
+.mo-frame { flex: 1; width: 100%; border: 0; background: #0e0a18; }
+.mo-stage { position: relative; flex: 1; min-height: 0; overflow: hidden; cursor: pointer; background: radial-gradient(120% 80% at 50% 40%, #1f1530 0%, #120d1c 55%, #0b0813 100%); }
+.mo-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mo-bar { position: absolute; left: 12px; right: 12px; top: 10px; height: 3px; border-radius: 2px; background: rgba(246, 238, 247, .16); overflow: hidden; }
+.mo-bar i { display: block; height: 100%; background: #ff6b8b; transform-origin: left; transform: scaleX(0); }
+.mo-cap { position: absolute; left: 16px; right: 16px; bottom: 9%; text-align: center; font: 700 26px/1.15 system-ui, -apple-system, sans-serif; letter-spacing: -.01em; color: #f6eef7; text-shadow: 0 2px 14px rgba(0, 0, 0, .7); opacity: 0; pointer-events: none; }
+.mo-cap.big { font-size: 38px; background: linear-gradient(90deg, #ff6b8b, #ffd479); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; }
+.mo-pause { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 6px 14px; border-radius: 16px; background: rgba(0, 0, 0, .55); font-size: 13px; font-weight: 800; pointer-events: none; }
+.mo-tools { display: flex; gap: 8px; padding: 8px 12px; background: #0e0a18; }
+.mo-tools button, .mo-replay { min-height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid #3a3558; background: #181a29; color: #f6eef7; font: 700 12px system-ui, sans-serif; cursor: pointer; }
+.mo-replay { position: absolute; right: 10px; top: 10px; z-index: 2; opacity: .8; }
+.mo-full > .mo-replay { top: 22px; }
+.mo-src { max-height: 220px; overflow: auto; margin: 0; padding: 10px 12px; background: #0b0813; color: #cfc8e6; font: 11px/1.45 ui-monospace, Menlo, monospace; white-space: pre; }
+.mo-wait, .mo-error { padding: 12px; font-size: 13px; color: #ffd479; }
+.mo-error { position: absolute; left: 8px; right: 8px; top: 8px; border-radius: 10px; background: rgba(40, 10, 20, .92); color: #ff9fb3; z-index: 3; }
+.mo-tap { position: absolute; left: 10px; top: 12px; padding: 3px 9px; border-radius: 12px; background: rgba(94, 240, 194, .16); color: #5ef0c2; font: 800 11px system-ui, sans-serif; }

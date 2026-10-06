@@ -27,6 +27,7 @@ import { STAGEMOTION_VIEWS, StageMotionDemo } from "./stagemotion";
 import { STAGETOPICS_VIEWS, StageTopicsDemo } from "./stagetopics";
 import { WEEKDECK_VIEWS, WeekDeckDemo } from "./weekdeck";
 import { MotionLooksDemo } from "./motionlooks";
+import { HybridPiece, MotionDemo } from "./motion";
 import { VisualizerDemo } from "./visualizer";
 import { ShaderLookDemo } from "./shaderlook";
 import { mealReply } from "./meal";
@@ -153,10 +154,12 @@ export default function Playground({ release = "" }) {
   const visualizer = shared ? null : ALL[idx].visualizer;
   // The shader look (spec/SHADER.md): one WebGL blob for every agent, moving with what it is doing.
   const shaderlook = shared ? null : ALL[idx].shaderlook;
+  // Motion explainers (spec/MOTION.md): free and yl fill the phone; hybrid sits inside the native reply.
+  const motion = shared ? null : ALL[idx].motion;
   // The working row (YL.md section 5): the turn plays, `doing` lines in the row, then the reply.
   const working = shared ? null : ALL[idx].working;
   const [turn, playTurn] = useWorkingTurn(text, working ? idx : null);
-  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!weekdeck || !!stagemotion || !!stagetopics || !!motionlooks || !!visualizer || !!shaderlook;
+  const client = (invite && inviteView !== "make") || !!restyle || !!widgets || !!ondevice || !!vault || !!sync || !!myflows || !!stagefirst || !!weekdeck || !!stagemotion || !!stagetopics || !!motionlooks || !!visualizer || !!shaderlook || motion === "free" || motion === "yl";
   const goRestyle = useCallback((k) => {
     const url = new URL(window.location.href);
     if (k === "ask") url.searchParams.delete("view"); else url.searchParams.set("view", k);
@@ -640,6 +643,7 @@ export default function Playground({ release = "" }) {
             {motionlooks ? <MotionLooksDemo key={`ml:${epoch}`} text={text} /> : null}
             {visualizer ? <VisualizerDemo key={`vz:${epoch}`} text={text} dark={!light} agent={agent} /> : null}
             {shaderlook ? <ShaderLookDemo key={`sl:${epoch}`} dark={!light} /> : null}
+            {motion === "free" || motion === "yl" ? <MotionDemo key={`mo:${epoch}`} kind={motion} /> : null}
             {client ? null : group ? <GroupHead group={group} status={streaming ? `${agent} is answering...` : null} /> : (
               <div className="ahead">
                 <div className="avatar" style={{ background: COLORS[agent] || "var(--accent)" }}>{agent[0]}</div>
@@ -679,7 +683,7 @@ export default function Playground({ release = "" }) {
                 ) : (
                   <>
                     {pillAt(null).map(pill)}
-                    {groupNodes(nodes).flatMap((n) => [renderNode(n), ...pillAt(n.key).map(pill)])}
+                    {groupNodes(nodes).flatMap((n, i) => [renderNode(n), ...pillAt(n.key).map(pill), ...(motion === "hybrid" && i === 0 ? [<HybridPiece key={`mo:${epoch}`} onTap={(id) => groupEvent({ kind: "motion", tap: id })} />] : [])])}
                     {pills.filter((p) => p.end).map(pill)}
                   </>
                 )}

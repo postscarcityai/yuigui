@@ -1,0 +1,89 @@
+scene "ELI5 string theory" dur=36 bg=ink
+# level 0: a cup of tea, seen from above
+shape@rim ring r=28 tone=paper sw=2 op=0.8
+shape@cup circle r=24 tone=butter fill=1 +glow
+# level 1: an atom inside the tea
+shape@atom frame s=0.02
+shape@shell ring of=atom r=30 tone=mute sw=0.6
+shape@orb frame of=atom
+shape@e1 dot of=orb at=30,0 r=2.5 tone=sky +glow
+shape@e2 dot of=orb at=-30,0 r=2.5 tone=sky +glow
+shape@core dot of=atom r=1.5 tone=pink +glow
+# level 2: the nucleus
+shape@nucleus frame of=atom s=0.02
+shape@p1 circle of=nucleus r=14 tone=pink fill=1
+shape@n1 circle of=nucleus at=24,6 r=14 tone=mint fill=1
+shape@p2 circle of=nucleus at=-22,12 r=14 tone=pink fill=1
+shape@n2 circle of=nucleus at=6,-25 r=14 tone=mint fill=1
+# level 3: three quarks inside one proton
+shape@inp frame of=nucleus s=0.35
+shape@q1 dot of=inp at=-12,-8 r=5 tone=butter +glow
+shape@q2 dot of=inp at=12,-8 r=5 tone=sky +glow
+shape@q3 dot of=inp at=0,14 r=5 tone=lilac +glow
+# level 4: the string inside a quark
+shape@sf frame of=inp at=-12,-8 s=0.04
+shape@str loop of=sf r=22 tone=paper sw=2 fill=1 op=0 into=wave +glow
+shape@lab1 text "electron" of=sf at=0,40 r=8 tone=sky op=0
+shape@lab2 text "light" of=sf at=0,40 r=8 tone=butter op=0
+shape@lab3 text "gravity" of=sf at=0,40 r=8 tone=lilac op=0
+# open on the cup
+key cup t=0 dur=1 r=24 from=0 ease=pop
+key rim t=0.2 dur=1 r=28 from=0 ease=pop
+say "Zoom into a cup of tea." t=0.5 dur=2.5
+key orb t=0 dur=36 rot=1080 from=0 ease=linear
+# dive to the atom
+cam t=3 dur=4 zoom=@atom ease=inout
+key cup t=5.5 dur=1.5 op=0 from=1
+key rim t=5 dur=1.5 op=0 from=0.8
+say "Atoms. Mostly empty space." t=7 dur=2
+# dive to the nucleus
+cam t=9 dur=3.5 zoom=@nucleus ease=inout
+key shell t=10.5 dur=1.5 op=0 from=1
+key e1 t=10.5 dur=1.5 op=0 from=1
+key e2 t=10.5 dur=1.5 op=0 from=1
+key core t=11 dur=1.5 op=0 from=1
+say "Protons and neutrons, packed tight." t=12.5 dur=2
+# dive into one proton
+cam t=14.5 dur=3 zoom=@inp ease=inout
+key n1 t=16 dur=1.2 op=0 from=1
+key p2 t=16 dur=1.2 op=0 from=1
+key n2 t=16 dur=1.2 op=0 from=1
+key p1 t=16.5 dur=1.2 op=0.2 from=1
+say "Inside: three quarks." t=17.5 dur=1.8
+# dive into one quark
+cam t=19 dur=3.5 zoom=@sf ease=inout
+key q2 t=19.5 dur=1 op=0 from=1
+key q3 t=19.5 dur=1 op=0 from=1
+key p1 t=20 dur=1 op=0 from=0.2
+key q1 t=20.5 dur=1.5 op=0 from=1
+key str t=20.5 dur=1.5 op=1 from=0
+# the dot hollows into a loop
+key str t=21.5 dur=1.5 fill=0 from=1 ease=inout
+key str t=21.5 dur=1.5 sw=3 from=2 ease=out
+say "Look closer: a tiny loop." t=22 dur=2
+# note one: electron
+key str t=24 dur=0.6 m2=0.25 from=0 ease=out
+key lab1 t=24 dur=0.5 op=1 from=0
+say "Hum one way: electron." t=24.2 dur=2
+key lab1 t=26 dur=0.4 op=0 from=1
+# note two: photon
+key str t=26.3 dur=0.6 m2=0 ease=inout
+key str t=26.3 dur=0.6 m3=0.22 from=0 ease=out
+key lab2 t=26.4 dur=0.5 op=1 from=0
+say "Another way: light." t=26.5 dur=2
+key lab2 t=28.3 dur=0.4 op=0 from=1
+# note three: graviton
+key str t=28.6 dur=0.6 m3=0 ease=inout
+key str t=28.6 dur=0.6 m4=0.2 from=0 ease=out
+key lab3 t=28.7 dur=0.5 op=1 from=0
+say "And another: gravity." t=28.8 dur=2
+key lab3 t=30.6 dur=0.4 op=0 from=1
+# the loop opens into a wave
+key str t=30.9 dur=0.5 m4=0 ease=inout
+key str t=31 dur=1.5 morph=1 from=0 ease=inout
+say "Different notes, different things." t=31 dur=1.8
+# pull back out to the cup
+cam t=32.5 dur=3 zoom=1 at=0,0 ease=inout
+key cup t=33.5 dur=1.5 op=1 from=0
+key rim t=33.5 dur=1.5 op=0.8 from=0
+say "Everything is music." t=33.5 dur=2.5 +big
