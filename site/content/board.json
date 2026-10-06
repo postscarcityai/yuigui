@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T04:05:31.014Z",
+  "updated": "2026-10-06T06:05:58.618Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -334,6 +334,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-311",
+          "title": "/web plays motion films full screen, twin of MOTION-1d",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
