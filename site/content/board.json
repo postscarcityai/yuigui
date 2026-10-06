@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T06:26:07.858Z",
+  "updated": "2026-10-06T06:36:03.235Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -334,6 +334,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-312",
+          "title": "A real agent's film on /web, live and timed",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
