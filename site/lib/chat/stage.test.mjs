@@ -84,3 +84,12 @@ test("a plan plays its own pages, so its last page is never repeated above a que
 test("a question with nothing before it has no context", () => {
   assert.equal(readAnswer('```yui\nchoose "Pick one" A|B\n```').questions[0].about, null);
 });
+
+// Feedback AAY2aTG4 (Oct 5): a question sits on the page it asks about. ChatStage draws the questions
+// under the last chunk and swaps that chunk for the question's context, so a short line and its choose
+// are one chunk and one screen. The app's StageChunks.lift does the same.
+test("a short line and its question are one page", () => {
+  const a = readAnswer('```yui\nsay "I just sent you the kid version. Want a grown-up take?"\nchoose "Grown-up take?" Yes|"Kid one was enough"\n```');
+  assert.equal(a.chunks.length, 1);
+  assert.equal(a.questions[0].about, a.chunks[0]);
+});

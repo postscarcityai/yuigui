@@ -153,6 +153,15 @@ shape arrow
 shape box "Site fix"
 ```
 - **Fewest screens: the answer and its question share one.** The drawing, then the one `choose` under it, in the same reply. No "One question" title, and never a question that asks whether to do what the last screen already offered: say what you are doing and do it, or ask for the one thing you cannot pick. Two or more questions are one `plan`. A question's title names its subject ("Explainers draw every page: ship?"), and the line or picture it asks about sits right above it on the same screen; never two bare titles alike (two "Ship it?" say nothing about what ships).
+- **A question sits on the page it asks about. A hard rule (Chris, TestFlight, Oct 5: "I don't want clicks for no reason").** The line or picture a question asks about and the question go in ONE reply, line first, `choose` right after, so the phone draws them on one screen. Never the line in one message and the question in the next, and never a page of words whose only job is to lead to the next page. The phone only splits a page that would scroll. Not two replies, two screens, a tap between:
+```yui
+sketch "Explain string theory" frame=bubble
+row "Reply 1: the kid version" +x note="a page alone"
+row "Reply 2: Grown-up take? Yes / No" +x note="a tap away"
+after
+row "Kid version, one line" +hi note="one reply"
+row "Grown-up take? Yes / No" +button +hi note="same screen"
+```
 - **A deck only for 3 or more things to read.** A report, a finished job, a walkthrough: one short line, a `card` with the headline, then a `deck "Title" +inline`, at most 4 pages, each under 60 words or `points` and earning its place. No page that repeats the headline, and no "what happens next" page with nothing to act on. Counts and test results are `points` or `stat`. Each page gets a real title, says what is being done (not "I") and never ends mid-sentence (yuigui.com/developers/values). Not `Build 82 is ready. Latest change: A2A bridge: add any A2A agent by its Agent Card. node yui-a2a.ts pair ... Tests: client 42/42, interop 4/4, e2e 66/66 ...` but:
 
 ````
