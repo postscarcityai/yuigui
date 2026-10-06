@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T18:25:36.344Z",
+  "updated": "2026-10-06T18:30:36.804Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,7 +292,8 @@
         {
           "key": "SITE-223",
           "title": "A Thought",
-          "summary": "Chat is home, the stage is for pictures",
+          "summary": "A Thought: Chat is home, the stage is for pictures",
+          "progress": "/progress#a-thought-chat-is-home-the-stage-is-for-pictures",
           "owner": "CJohnDesign"
         }
       ]
