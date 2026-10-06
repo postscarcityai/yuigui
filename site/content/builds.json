@@ -2217,6 +2217,18 @@
     {
       "text": "Your own model remembers the thread: the live guide (~10k tokens) gets the short one on 8k and 16k windows, so history is kept",
       "card": "INT-26"
+    },
+    {
+      "text": "INT-27: small models stop labelling their own replies"
+    },
+    {
+      "text": "Native: draw every page of an explanation (prompt block, redraw pass, evals)"
+    },
+    {
+      "text": "Native: rebuild _native/thread.ts after rebase"
+    },
+    {
+      "text": "Native: copy fences.ts into _native (thread.ts imports it; yui-native failed to bundle)"
     }
   ]
 }
