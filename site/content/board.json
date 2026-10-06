@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T11:20:15.633Z",
+  "updated": "2026-10-06T11:35:18.279Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -277,6 +277,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-215",
+          "title": "The small-models Thought shows the llama fix, before and after"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -317,6 +321,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "INT-27",
+          "title": "Small models stop labelling their own replies, no stray [Response:] bubble",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
