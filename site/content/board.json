@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T11:05:14.525Z",
+  "updated": "2026-10-06T11:10:14.593Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -318,11 +318,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-214",
-          "title": "Thought, small local models of every family draw Yui screens",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "INT-26",
           "title": "Your own model remembers the thread again, 3 stream checks green",
           "owner": "CJohnDesign"
@@ -351,6 +346,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-214",
+          "title": "Thought, small local models of every family draw Yui screens",
+          "summary": "A Thought: every small model draws",
+          "shipped": "2026-10-06",
+          "progress": "/progress#a-thought-every-small-model-draws",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/42425a45"
+        },
         {
           "key": "INT-25",
           "title": "A second small local model family draws Yui screens (gemma, llama 3.2)",
