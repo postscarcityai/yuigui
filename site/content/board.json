@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T02:35:55.006Z",
+  "updated": "2026-10-06T02:55:17.825Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,10 +290,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-205",
-          "title": "Thought, the question sits with its answer"
-        },
-        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -327,6 +323,12 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "NOTE-30326",
+          "title": "Question and answers on one page",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b5487da0",
+          "needsDemo": true
         }
       ]
     },
@@ -335,13 +337,15 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-30326",
-          "title": "Question and answers on one page",
+          "key": "NOTE-34872",
+          "title": "Explainers as motion graphics",
           "owner": "CJohnDesign"
         },
         {
-          "key": "NOTE-34872",
-          "title": "Explainers as motion graphics",
+          "key": "SITE-205",
+          "title": "Thought, the question sits with its answer",
+          "summary": "A Thought: a question sits with its answers",
+          "progress": "/progress#a-thought-a-question-sits-with-its-answers",
           "owner": "CJohnDesign"
         },
         {
