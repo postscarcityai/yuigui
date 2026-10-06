@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T15:50:22.338Z",
+  "updated": "2026-10-06T15:55:15.162Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -321,6 +321,8 @@
         {
           "key": "SITE-220",
           "title": "A Thought, Yui is the screen for any model",
+          "summary": "A Thought: Yui is the screen for any model",
+          "progress": "/progress#a-thought-yui-is-the-screen-for-any-model",
           "owner": "CJohnDesign"
         },
         {
