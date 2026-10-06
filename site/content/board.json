@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T09:41:23.648Z",
+  "updated": "2026-10-06T09:46:01.479Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -277,10 +277,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-212",
-          "title": "Thought, films start in about 6 seconds"
-        },
-        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -322,15 +318,13 @@
       "title": "Building",
       "cards": [
         {
-          "key": "SITE-211",
-          "title": "Content sync stops refusing timeline.json, no task ids on the site",
-          "summary": "The site sync no longer stops on card ids",
-          "progress": "/progress#the-site-sync-no-longer-stops-on-card-ids",
+          "key": "INT-23",
+          "title": "A small local model draws screens again (qwen2.5:7b)",
           "owner": "CJohnDesign"
         },
         {
-          "key": "INT-23",
-          "title": "A small local model draws screens again (qwen2.5:7b)",
+          "key": "SITE-212",
+          "title": "Thought, films start in about 6 seconds",
           "owner": "CJohnDesign"
         },
         {
@@ -357,6 +351,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-211",
+          "title": "Content sync stops refusing timeline.json, no task ids on the site",
+          "summary": "The site sync no longer stops on card ids",
+          "shipped": "2026-10-06",
+          "progress": "/progress#the-site-sync-no-longer-stops-on-card-ids"
+        },
         {
           "key": "YUI-313",
           "title": "Faster scene 1, 9 of 9 first frames under 10 s",
