@@ -1,4 +1,4 @@
-# Yui MCP server | spec v5 (INT-3, OAuth INT-19, Claude + MCP App INT-7, ChatGPT INT-8 live on chatgpt.com, Grok INT-10, n8n INT-17, Oct 1 2026)
+# Yui MCP server | spec v5 (INT-3, OAuth INT-19, Claude + MCP App INT-7, ChatGPT INT-8 live on chatgpt.com, Grok INT-10, n8n INT-17, Grok app, Le Chat and Gemini app guides INT-24, Oct 6 2026)
 
 Path D of `spec/ADAPTERS.md`. The code lives in the app repo, [postscarcityai/yui `supabase/functions/yui-mcp`](https://github.com/postscarcityai/yui/tree/main/supabase/functions/yui-mcp); this page is what an MCP client needs.
 
@@ -11,7 +11,7 @@ Any AI app that speaks MCP can put a screen on your phone. You keep talking to C
 
 - **Endpoint:** `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`
 - **Transport:** MCP streamable HTTP, stateless. Every request is one POST with a JSON-RPC message (or a batch) and gets `application/json` back. No session id, no SSE stream: GET answers 405.
-- **Auth:** either OAuth 2.1 (paste the URL, sign in, approve it in Yui: [below](#oauth)) or `Authorization: Bearer yui_ct_...`, a connection token you get by pairing (the three steps below). The Claude and ChatGPT apps' custom connectors only do OAuth; Claude Code, Cursor and n8n ([below](#n8n)) can use either.
+- **Auth:** either OAuth 2.1 (paste the URL, sign in, approve it in Yui: [below](#oauth)) or `Authorization: Bearer yui_ct_...`, a connection token you get by pairing (the three steps below). The Claude, ChatGPT, Grok, Le Chat and Gemini apps take the URL and sign you in with OAuth; Claude Code, Cursor and n8n ([below](#n8n)) can use either.
 
 ## Claude
 
@@ -113,6 +113,24 @@ Do it on chatgpt.com in a browser. ChatGPT now calls these **plugins**; the word
 
 ## Grok
 
+### Grok app (grok.com)
+
+Grok's connectors page takes a custom MCP server by URL. Yui is your own connector, visible only to you; nothing here lists it in Grok's catalog. xAI says connectors are open to all Grok users. On Grok Business and Enterprise a team admin has to provision connectors first.
+
+1. Open [grok.com/connectors](https://grok.com/connectors).
+2. Click **New Connector**, then **Custom**.
+3. Enter the URL: `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`. Name it Yui if it asks.
+4. Finish the sign-in. Grok opens www.yuigui.com/connect; approve it in the Yui app ([OAuth](#oauth)).
+5. In a chat, ask: "Put a 5 minute focus timer on my phone." Grok lists the tools Yui exposes (`yui_show`, `yui_answers`, `yui_say`, `yui_threads`) and uses them in the conversation.
+
+- **Auth.** xAI's page says "complete any required authentication" and does not name the methods a custom server may use. Yui answers a cold request with a 401 and the `WWW-Authenticate` header that points at its OAuth metadata, which is what an OAuth client needs.
+- **Public server.** Grok needs a server reachable on the internet. Yui's is.
+- **No screen in the chat.** Grok does not draw MCP Apps; the screen shows on the phone, and your taps come back as tool results.
+- **Source:** [docs.x.ai/grok/connectors](https://docs.x.ai/grok/connectors), page dated July 17 2026, read Oct 6 2026.
+- **Not tried live yet.** It needs an xAI account, which is Chris's to use. The server side was checked without one (the checks under [Guides checked without an account](#guides-checked-without-an-account)).
+
+### Grok API
+
 xAI's Responses API takes remote MCP servers as tools in the request itself, so a Grok agent you run calls Yui's server with no MCP client of its own (INT-10). xAI's servers make the calls, over streamable HTTP, with the header you give them.
 
 1. Pair with a code and keep the `yui_ct_...` token ([three steps](#pair-with-a-code-three-steps)). Grok has no OAuth step for remote MCP, so it takes the token.
@@ -149,6 +167,64 @@ The shell fills in `$YUI_TOKEN`; the example holds no token. In xAI's Python SDK
 - **The token leaves your machine.** xAI's servers hold it for the request so they can call Yui. It reaches only the agents paired to it, and removing that computer in the app revokes it.
 - **No screen in the chat.** Grok does not draw MCP Apps; the screen shows on the phone.
 - **Not run yet.** This follows xAI's remote MCP docs. The first live run waits on an xAI key, like the model path (`spec/MODELS.md`, "Grok").
+
+## Le Chat
+
+Mistral's Le Chat takes a custom MCP connector by URL (Mistral's docs now call the app "Work", under Vibe; the Connectors page is the same). Yui is your own connector. Nothing here lists it in Mistral's curated directory.
+
+1. Open the Connectors page in Le Chat.
+2. Click **+ Add Connector** and switch to the **Custom MCP Connector** tab.
+3. Connector name: `yui` (a unique name, no spaces or special characters). Server URL: `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`. Description is optional: "Screens on my phone".
+4. Click **Connect**. Le Chat detects the sign-in method on its own: it finds OAuth 2.1 with dynamic client registration and sends you to www.yuigui.com/connect. Approve it in the Yui app ([OAuth](#oauth)).
+5. After it connects, open **My Connectors**, then the Yui card, then **Functions**. Read functions can be set to **Always allow**; write functions ask each time until you say otherwise.
+6. In a chat, ask: "Put a 5 minute focus timer on my phone."
+
+- **Admin only.** Adding a connector needs an administrator. On Free, Pro and Student plans the account owner is the administrator.
+- **What it does not use yet.** Mistral says custom connectors do not yet support dynamic tool discovery, resources or prompt templates. Yui's tools are a fixed list and it needs none of those.
+- **If it says "MCP connection requires additional information or is invalid".** Check the URL is exactly the one above (no `/sse`), that the server answers over HTTPS, and that the 401 carries `WWW-Authenticate`. Yui's does.
+- **No screen in the chat.** The screen shows on the phone, and your taps come back as tool results.
+- **Source:** [docs.mistral.ai MCP Connectors](https://docs.mistral.ai/le-chat/knowledge-integrations/connectors/mcp-connectors), read Oct 6 2026.
+- **Not tried live yet.** It needs a Mistral account, which is Chris's to use. The server side was checked without one (the checks under [Guides checked without an account](#guides-checked-without-an-account)).
+
+## Gemini
+
+The Gemini app takes a custom app by MCP server URL. Yui is your own connection, visible only to you; nothing here lists it anywhere in Google's apps.
+
+Google's page sets the limits, so check them first:
+
+- 18 or over and in the US.
+- Signed in with a personal Google Account (a work or school account cannot yet).
+- Keep Activity on.
+- English only, for now.
+- You add the app in the **Gemini web app**; once connected it also works in the Gemini phone app.
+
+1. On a computer, go to gemini.google.com.
+2. At the bottom, click **Settings**, then **Connected Apps**. If Connected Apps is not there, click **Personal Intelligence** first, then **Connected Apps**.
+3. Under **Custom apps**, find "Add a custom app link to get started" (or click **Add a custom app** if you have one already).
+4. Enter the URL: `https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp`. Yui supports dynamic client registration, so leave **Advanced features** closed.
+5. Click **Next** and follow the screens. Gemini sends you to www.yuigui.com/connect; approve it in the Yui app ([OAuth](#oauth)).
+6. In a chat, type `@` and pick Yui so Gemini uses it, then ask: "Put a 5 minute focus timer on my phone."
+
+- **Writes ask first.** Google says Gemini asks you to confirm any write action. `yui_show` and `yui_say` write to your phone, so expect a confirmation.
+- **Disconnect.** Under the same Custom apps list, turn it off, or use **More details**, then **Disconnect** (revokes the link) or **Remove app**. Removing it in the Yui app (the computer called after the client) also revokes the token at once.
+- **No screen in the chat.** The screen shows on the phone, and your taps come back as tool results.
+- **Not Gemini Enterprise.** That product has its own custom MCP server setup for companies, which this page does not cover.
+- **Source:** [Connect & manage custom apps for Gemini Apps](https://support.google.com/gemini/answer/17209137), read Oct 6 2026.
+- **Not tried live yet.** It needs a personal US Google account signed in to Gemini, which is Chris's to use. The server side was checked without one (the checks under [Guides checked without an account](#guides-checked-without-an-account)).
+
+### Guides checked without an account
+
+What the Grok app, Le Chat and Gemini guides each rely on, run against the live server on Oct 6 2026 with `curl` and no sign-in:
+
+| Check | Result |
+| --- | --- |
+| `POST` the MCP URL with no token | 401, and `WWW-Authenticate: Bearer ... resource_metadata="https://txuibjxyfpalzvpneqgp.supabase.co/functions/v1/yui-mcp/.well-known/oauth-protected-resource"` |
+| Fetch that protected-resource metadata | 200, names the authorization server `.../functions/v1/yui-oauth` |
+| `.../yui-oauth/.well-known/oauth-authorization-server` | 200, with `registration_endpoint`, `authorization_endpoint`, `token_endpoint`, S256 PKCE, `authorization_code` and `refresh_token` |
+| `.../yui-oauth/.well-known/openid-configuration` | 200 |
+| `GET` the MCP URL | 405 (stateless streamable HTTP, POST only) |
+
+That is what Le Chat's own curl checks and an OAuth 2.1 client with dynamic registration need. The signed-in step (the real app tap, the approval in Yui, a tool call) is the part marked "Not tried live yet" above. For the signed-in path against Yui itself, `supabase/tests/mcp_test.py` and `mcp_oauth_e2e.py` ([Checks](#checks)) run a generic OAuth client the same way.
 
 ## n8n
 
