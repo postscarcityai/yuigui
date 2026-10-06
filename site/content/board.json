@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T16:55:23.439Z",
+  "updated": "2026-10-06T17:05:27.929Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -237,11 +237,6 @@
       "title": "Up next",
       "cards": [
         {
-          "key": "YUI-267",
-          "title": "Drawings that look designed",
-          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes"
-        },
-        {
           "key": "YUI-172",
           "title": "Get Yui iOS GoogleService-Info.plist from the existing Firebase project",
           "waiting": true
@@ -311,6 +306,12 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
+        },
+        {
+          "key": "YUI-267",
+          "title": "Pick the drawing look, A, B or C",
+          "commit": "https://github.com/postscarcityai/yui/commit/3076482",
+          "needsDemo": true
         }
       ]
     },
@@ -319,21 +320,19 @@
       "title": "Building",
       "cards": [
         {
-          "key": "NOTE-50900",
-          "title": "The working screen, more alive",
-          "blocked": "chris",
+          "key": "YUI-267",
+          "title": "Drawings that look designed",
+          "summary": "Liquid Glass, headlines, checkmarks, animated wireframes",
           "owner": "CJohnDesign"
         },
         {
-          "key": "YUI-267",
-          "title": "Pick the drawing look, A, B or C",
-          "blocked": "chris",
+          "key": "NOTE-50900",
+          "title": "The working screen, more alive",
           "owner": "CJohnDesign"
         },
         {
           "key": "NOTE-8417",
           "title": "One thought per full screen",
-          "blocked": "chris",
           "owner": "CJohnDesign"
         }
       ]
