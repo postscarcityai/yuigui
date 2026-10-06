@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 506,
-    "site": 1552,
+    "app": 508,
+    "site": 1558,
     "builds": 57,
-    "shipped": 673,
-    "screenshots": 1805
+    "shipped": 675,
+    "screenshots": 1810
   },
   "days": [
     {
@@ -13,7 +13,59 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-06T09:46:09.018Z",
+          "at": "2026-10-06T10:08:03.014Z",
+          "title": "A Thought: a model on your laptop draws Yui screens",
+          "card": "SITE-213",
+          "anchor": "a-thought-a-model-on-your-laptop-draws-yui-screens",
+          "images": [
+            {
+              "src": "/progress/site213-chart-dark.webp",
+              "alt": "Bars for the full guide, 10,242 tokens, and the short guide, 339 tokens, against a 4,096 token window"
+            },
+            {
+              "src": "/progress/site213-before-light.webp",
+              "alt": "Before: the stage shows the model's raw yml text"
+            }
+          ],
+          "commits": 0,
+          "totals": {
+            "app": 508,
+            "site": 1558,
+            "builds": 57,
+            "shipped": 675
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T09:50:33.000Z",
+          "title": "A small local model draws screens again",
+          "card": "INT-23",
+          "anchor": "a-small-local-model-draws-screens-again",
+          "images": [
+            {
+              "src": "/progress/int23-remembers-dark.webp",
+              "alt": "Dark: the local model answers TEA when asked which drink was picked"
+            },
+            {
+              "src": "/progress/int23-screen-light.webp",
+              "alt": "Light: qwen2.5:7b drew a Drink screen with Tea and Coffee buttons"
+            },
+            {
+              "src": "/progress/int23-tap-light.webp",
+              "alt": "Light: after the tap on Tea the model answers in the thread"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 508,
+            "site": 1555,
+            "builds": 57,
+            "shipped": 674
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T09:47:35.000Z",
           "title": "A Thought: films start in about six seconds",
           "card": "SITE-212",
           "anchor": "a-thought-films-start-in-about-six-seconds",
@@ -23,10 +75,10 @@
               "alt": "Dot chart of seconds to the first frame for nine live runs before and after. Before, three runs sit past ten seconds. After, all nine sit between 4.9 and 8.0."
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
-            "app": 506,
-            "site": 1552,
+            "app": 507,
+            "site": 1554,
             "builds": 57,
             "shipped": 673
           }
@@ -268,10 +320,66 @@
       "commits": [
         {
           "repo": "site",
+          "sha": "b88be4e1",
+          "at": "2026-10-06T10:01:04.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b88be4e1"
+        },
+        {
+          "repo": "site",
+          "sha": "e8b43eda",
+          "at": "2026-10-06T09:56:26.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/e8b43eda"
+        },
+        {
+          "repo": "site",
+          "sha": "c04ac1d2",
+          "at": "2026-10-06T09:51:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/c04ac1d2"
+        },
+        {
+          "repo": "site",
+          "sha": "ca8e000d",
+          "at": "2026-10-06T09:50:33.000Z",
+          "text": "Progress and See it: a small local model draws screens again (INT-23)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ca8e000d"
+        },
+        {
+          "repo": "app",
+          "sha": "7be82b77",
+          "at": "2026-10-06T09:49:51.000Z",
+          "text": "OpenAICompatTests opens Qwen's thread and waits for the keyboard (INT-23)",
+          "url": "https://github.com/postscarcityai/yui/commit/7be82b77"
+        },
+        {
+          "repo": "site",
+          "sha": "200ad4cb",
+          "at": "2026-10-06T09:47:35.000Z",
+          "text": "SITE-212: Thought, films start in about six seconds",
+          "url": "https://github.com/postscarcityai/yuigui/commit/200ad4cb"
+        },
+        {
+          "repo": "site",
+          "sha": "33ba6ff6",
+          "at": "2026-10-06T09:46:02.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/33ba6ff6"
+        },
+        {
+          "repo": "site",
           "sha": "1b25bc6a",
           "at": "2026-10-06T09:41:24.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/1b25bc6a"
+        },
+        {
+          "repo": "app",
+          "sha": "be8e4036",
+          "at": "2026-10-06T09:40:56.000Z",
+          "text": "A small local model draws screens again: retag yml fences, short guide for small windows (INT-23)",
+          "url": "https://github.com/postscarcityai/yui/commit/be8e4036"
         },
         {
           "repo": "site",
