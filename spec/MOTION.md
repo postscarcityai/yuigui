@@ -183,6 +183,7 @@ choose "Which one is light?" Electron|Photon|Graviton
 
 - Direct API streaming instead of the CLI saves about 3 s.
 - A fast first scene from a small model, the rest from a bigger one, is the next step if 7 s is not fast enough. Same prompt, scene 1 only, no thinking.
+- **Tried (MOTION-3, Oct 6): both together, measured, not shipped.** Scene 1 streamed over the API (no process start) from Gemini 2.5 Flash Lite with thinking off, the rest from the big model in parallel. 20 asks x 2. First scene median 5.1 s before, 4.9 s after (max 8.1 to 9.4 s); target was 2.5 s. Frame pass rate 47.6% to 42.6%, films with 80% passing 15% to 7.5%, plain drawings 18 to 26. The process start is not the cost: one full scene is about 4 s of generation on any small model. Not kept. Next: a shorter first scene (one idea, few calls) so there is less to write before the film starts.
 - A cheap tier for a small ask: one scene of 6 s, no stream.
 - A working row (`doing "Drawing the next scene" 2/7`) while scenes arrive.
 
