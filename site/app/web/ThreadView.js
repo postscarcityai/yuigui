@@ -26,7 +26,7 @@ import { sharedReminders } from "../../lib/web/reminders.mjs";
 import { waitingNote, workingLine } from "../../lib/web/presence.mjs";
 import { foldFilmRows } from "../../lib/web/film.mjs";
 import { FilmPlayCtx } from "../playground/presets";
-import { chipAction, dismissEvent, homeOf, notYetEvent, waitingAction } from "../../lib/web/stage.mjs";
+import { chipAction, dismissEvent, foldStage, homeOf, notYetEvent, waitingAction } from "../../lib/web/stage.mjs";
 import { useDismissed } from "./useDismissed";
 
 const ThreadScreen = dynamic(() => import("./ThreadScreen"), { ssr: false, loading: () => <div className="wb-wait">Drawing...</div> });
@@ -301,6 +301,9 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
   const [win, setWin] = useState(WINDOW_STEP);
   const base = Math.max(0, list.length - win);
   const shown = base ? list.slice(base) : list;
+  // Older stage replies fold into one chip (pick A, Oct 6); a tap opens them in place.
+  const fold = useMemo(() => foldStage(shown), [shown]);
+  const [foldOpen, setFoldOpen] = useState(false);
   const nearTop = useRef(false);
   const topGrown = useRef(false);
   const anchor = useRef(null);
@@ -451,12 +454,17 @@ export default function ThreadView({ relay, userId, agent, agents = [], outbox =
           {!thread.loaded ? <div className="wb-wait">Opening {agent.name}...</div> : null}
           {thread.loaded && !list.length ? <div className="wb-empty">{agent.firstMessage || `Say hi to ${agent.name}.`}</div> : null}
           {/* On the stage a staged part (a plan, a timer) is drawn by the stage, with its bar; the thread under it does not open a layer of its own over the bar (YUI-283). */}
-          {shown.map((m, k) => { const i = base + k; return (
+          {shown.map((m, k) => { const i = base + k; if (!foldOpen && fold.folded.includes(m.id) && m.id !== fold.chipAt) return null; return (
             <div key={m.id} className="wb-item" data-id={m.id}>
               {marks[i]?.day ? <Day label={marks[i].day} /> : null}
-              <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay} fresh={!old.has(m.id) && !stageOn}
-                reaction={thread.reactions.get(rowOf(m.id))} wears={wearers.get(rowOf(m.id)) === m.id} onMenu={openMenu} onPicture={setViewer} onOpenAgent={onOpenAgent} onJump={jump} />
-              {m.role === "agent" && !m.from && (i === list.length - 1 || list[i + 1].role === "user") && askOf(i) ? (
+              {m.id === fold.chipAt ? (
+                <button type="button" className="wb-foldchip" data-testid="stage-fold-chip" aria-expanded={foldOpen} onClick={() => setFoldOpen((o) => !o)}>
+                  {foldOpen ? "Fold earlier screens" : `${fold.folded.length} earlier screens`}
+                </button>
+              ) : null}
+              {m.id === fold.chipAt && !foldOpen ? null : <Bubble m={m} agent={agent} light={light} onTap={onTap} live={live} onPage={(k) => toStage({ page: String(k) })} relay={relay} fresh={!old.has(m.id) && !stageOn}
+                reaction={thread.reactions.get(rowOf(m.id))} wears={wearers.get(rowOf(m.id)) === m.id} onMenu={openMenu} onPicture={setViewer} onOpenAgent={onOpenAgent} onJump={jump} />}
+              {m.role === "agent" && !m.from && !(m.id === fold.chipAt && !foldOpen) && (i === list.length - 1 || list[i + 1].role === "user") && askOf(i) ? (
                 <button className="wb-play" data-testid="play-on-stage" onClick={() => toStage({ ask: askOf(i) })}>Play on the stage</button>
               ) : null}
               {marks[i]?.time ? <div className={`wb-time ${m.role === "user" ? "user" : ""}`}>{marks[i].time}</div> : null}

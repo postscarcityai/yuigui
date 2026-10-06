@@ -34,6 +34,22 @@ export function newestAnswer(replies) {
 export const isVisual = (answer, film = null) =>
   !!film || !!answer && (!!answer.plan || answer.chunks.some((c) => c.pic || c.page) || answer.questions.some((q) => q.node?.preset === "form"));
 
+// Older stage replies fold into one chip in the chat (pick A, Oct 6). A reply that is only stage pills, nothing to
+// read or answer, folds once there are MIN_FOLDED older ones; the newest stays in place. Twin of StageFold.plan.
+export const MIN_FOLDED = 2;
+export const pillsOnly = (m) => {
+  if (m.role !== "agent" || m.from || m.card || m.yl == null || !m.state) return false;
+  const screens = Object.entries(m.state.screens || {});
+  const nodes = screens.flatMap(([, list]) => list);
+  return !m.state.restyle && nodes.length > 0 && nodes.every((n) => n.stage) && screens.every(([k]) => pageOf(k) === 1 || !(m.state.screens[k] || []).some((n) => !n.stage));
+};
+export function foldStage(messages) {
+  const staged = messages.filter(pillsOnly).map((m) => m.id);
+  if (staged.length <= MIN_FOLDED) return { chipAt: null, folded: [] };
+  const folded = staged.slice(0, -1);
+  return { chipAt: folded[0], folded };
+}
+
 // The turn the person started with message `askId` (their newest when null): every reply after it, up to
 // the next thing they said. `pieces` is what answerOf plays; `stopped` is a Stop in the turn (a note in
 // the record, never a chunk).

@@ -3,7 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { Thread } from "./thread.mjs";
 import { answerOf } from "../chat/stage.mjs";
-import { isVisual, arrivalOf, chipAction, dismissEvent, holdsWorkout, homeOf, isHostAsk, isRow, notYetEvent, landingOf, playFor, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
+import { foldStage, isVisual, arrivalOf, chipAction, dismissEvent, holdsWorkout, homeOf, isHostAsk, isRow, notYetEvent, landingOf, playFor, pageTitle, reopened, turnOf, waitingAction, MAX_CHIPS } from "./stage.mjs";
 
 const T0 = Date.parse("2026-10-01T12:00:00Z");
 const iso = (s) => new Date(T0 + s * 1000).toISOString().replace("Z", "000+00:00");
@@ -128,4 +128,16 @@ test("only a real visual holds the stage; plain words and plain questions stay i
   assert.equal(isVisual(of(yl("say \"Ping you?\"\nchoose \"Ping you?\" Yes|No"))), false);
   assert.equal(isVisual(of(yl("say Three\ntimer 5m Focus"))), true);
   assert.equal(isVisual(of(yl("say Look\nstat 135 iPad"))), true);
+});
+
+test("older stage-only replies fold into one chip, the newest stays; words never fold (pick A)", () => {
+  const th = (...bodies) => thread(bodies.map((body) => row({ body })));
+  const t = (n) => yl(`timer ${n}m Tea`);
+  const ms = th(t(1), t(2), t(3));
+  assert.deepEqual(foldStage(ms.slice(0, 2)), { chipAt: null, folded: [] }, "two do not fold");
+  const f = foldStage(ms);
+  assert.deepEqual(f.folded, [ms[0].id, ms[1].id]);
+  assert.equal(f.chipAt, ms[0].id);
+  const mixed = th(t(1), "Board is green.", t(2), t(3), yl("say Ready\ntimer 4m Tea"));
+  assert.deepEqual(foldStage(mixed).folded, [mixed[0].id, mixed[2].id]);
 });
