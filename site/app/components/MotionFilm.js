@@ -45,6 +45,7 @@ export default function MotionFilm({ film, stream = false, autoPlay = true, onFi
         setInfo({ first });
         onFirst?.(first);
       }
+      if (m.motion === "need-three") fetch(`${BASE}/three.min.js`).then((r) => r.text()).then((src) => w.postMessage({ three: src }, "*")).catch(() => setErr("three.js missing"));
       if (m.motion === "error") setErr(`${m.scene}: ${m.message}`);
     };
     window.addEventListener("message", on);

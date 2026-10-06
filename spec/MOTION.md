@@ -205,3 +205,14 @@ Parked: the native `MotionView` player (APP). Then, in order: the `motion` compo
 - `site/scripts/motion/generate.py` (runs the model and records time, tokens, cost), `record.py` (records a demo as a phone-sized mp4).
 - `site/lib/motion/scene.mjs` and `scene.test.mjs`: the B language (parse, evaluate, camera, morph), 4 tests.
 - `site/app/playground/motion.js`, `motion.css`: the three demos.
+
+### api.three() (real three.js, MOTION-1a)
+
+A scene that contains `api.three(` gets real three.js. The player asks its host for the library only then:
+it sends `need-three`; the site host (`MotionFilm.js`) fetches `/demo/motion/three.min.js` and posts `{three: src}`,
+the app host answers `window.yui.three(src)` from a bundled resource. The film clock holds on the first scene that needs it
+(breathing ring) until the source arrives. `api.three()` returns `{THREE, scene, camera, once(fn), color(name), draw()}`,
+one `THREE.Scene` per film scene on a shared transparent WebGL canvas, composited into the 2D canvas at `T.draw()`
+(auto at scene end if never called). Nothing is created for a film that never asks. Rebuild the library with
+`site/scripts/motion/build_three.sh` (tree-shaken, v0.181.2, 579 KB, 150 KB gzipped). Heap in headless Chromium:
++1.2 MB with the library parsed, +1.5 MB more with a drawn scene; zero when unused.

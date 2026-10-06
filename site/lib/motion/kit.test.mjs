@@ -32,6 +32,7 @@ test("every api.name the prompt teaches exists in the kit", () => {
   const miss = [];
   for (const m of prompt.matchAll(/api\.([a-zA-Z0-9]+)(?:\.([a-zA-Z0-9]+))?/g)) {
     const [, a, b] = m;
+    if (a === "three") continue; // added by the player, not the kit (needs the host to send three.js)
     if (!(a in api)) miss.push(a);
     else if (b && api[a] && typeof api[a] === "object" && !(b in api[a]) && !["S"].includes(a)) miss.push(`${a}.${b}`);
   }

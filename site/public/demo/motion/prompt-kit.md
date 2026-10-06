@@ -71,6 +71,18 @@ MOTION: api.cam(cx,cy,zoom,roll) moves the camera for everything drawn after it 
  api.geo.route(lon1,lat1,lon2,lat2,P,{k}) + api.geo.pin(lon,lat,P) for maps.
  api.S is a plain object that persists across scenes (share layout between scenes).
 
+REAL 3D (only when the subject is a solid thing seen from several sides: a planet, an engine, a molecule,
+ a city block): const T = api.three(), THREE = T.THREE; gives real three.js. Scenes are redrawn every
+ frame, so build objects once in T.once(() => { ...T.scene.add(mesh) }), keep them on T (T.moon = ...), then
+ each frame only set positions/rotations from t. T.camera is a perspective camera at z 5 (T.camera.position
+ .set(...), lookAt). T.color('accent') gives a THREE.Color from the palette. Lights: DirectionalLight about 1.5,
+ AmbientLight about 0.5. Call T.draw() when the 3D should sit under your 2D labels, then draw the labels
+ (if you never call it, it draws at the end of the scene). Keep it under 3000 triangles; no textures, no loaders.
+ The 2D look and the background stay yours; 3D sits transparent on top of api.bg.
+ const T = api.three(); T.once(()=>{T.cube=new T.THREE.Mesh(new T.THREE.BoxGeometry(1,1,1),new T.THREE.MeshStandardMaterial({color:T.color('accent')}));
+ const L=new T.THREE.DirectionalLight(0xffffff,1.6);L.position.set(3,4,5);T.scene.add(T.cube,L,new T.THREE.AmbientLight(0xffffff,.5));});
+ T.cube.rotation.set(t*.6,t,0); T.draw(); api.text('A cube',api.w/2,140,{size:30});
+
 EXAMPLE of one scene, to show the calls (not the style; yours should look nothing like it):
 === scene kettle 6 ===
 api.look('sketch');

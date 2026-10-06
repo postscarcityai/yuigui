@@ -32,7 +32,7 @@ def frames(film, dt=0.5, theme=None, w=390, h=844, scale=1, shots=None):
     srv, port = serve()
     out, errs, console = [], [], []
     with sync_playwright() as p:
-        b = p.chromium.launch()
+        b = p.chromium.launch(args=["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"])
         ctx = b.new_context(viewport={"width": w, "height": h}, device_scale_factor=scale)
         pg = ctx.new_page()
         pg.on("console", lambda m: console.append(m.text) if m.type == "error" else None)
@@ -41,6 +41,8 @@ def frames(film, dt=0.5, theme=None, w=390, h=844, scale=1, shots=None):
         pg.wait_for_function("window.__motion")
         if theme:
             pg.evaluate("t => window.__motion.theme(t)", theme)
+        if any("api.three(" in s["code"] for s in film["scenes"]):  # the host's job: answer need-three
+            pg.evaluate("src => window.__motion.loadThree(src)", open(os.path.join(MOTION, "three.min.js")).read())
         for s in film["scenes"]:
             pg.evaluate("s => window.__motion.add(s)", {"name": s["name"], "dur": s["dur"], "code": s["code"]})
         pg.evaluate("window.__motion.end()")

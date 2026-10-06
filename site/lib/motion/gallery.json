@@ -499,6 +499,22 @@
      "model": "claude-sonnet-5-5"
     }
    ]
+  },
+  {
+   "id": "three",
+   "kind": "3d",
+   "ask": "Show the Earth, Moon and Sun in real 3D (api.three): the Moon orbits the Earth and the sun lights one side, so we see phases. Camera moves around them.",
+   "runs": [
+    {
+     "run": 1,
+     "first_scene_s": 8.6,
+     "total_s": 21.7,
+     "film_s": 29.0,
+     "scenes": 5,
+     "cost_usd": 0.096,
+     "model": "claude-sonnet-5-5"
+    }
+   ]
   }
  ],
  "summary": {

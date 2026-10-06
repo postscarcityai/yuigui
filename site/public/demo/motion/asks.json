@@ -18,5 +18,6 @@
  {"id":"checkout","kind":"work","ask":"Show how two parts connect: the checkout page sends an order to the payments service, which confirms with the bank and then tells the warehouse."},
  {"id":"today","kind":"work","ask":"Explain what I did today: I answered 12 customer emails, fixed 2 broken links on the website, and drafted next week's newsletter. Show my day."},
  {"id":"sunday","kind":"feeling","ask":"A mood: a calm Sunday morning, rain on the window, a warm cup of coffee."},
- {"id":"people","kind":"numbers","ask":"Show how many people live on each continent and which one is growing fastest."}
+ {"id":"people","kind":"numbers","ask":"Show how many people live on each continent and which one is growing fastest."},
+ {"id":"three","kind":"3d","extra":true,"ask":"Show the Earth, Moon and Sun in real 3D (api.three): the Moon orbits the Earth and the sun lights one side, so we see phases. Camera moves around them."}
 ]

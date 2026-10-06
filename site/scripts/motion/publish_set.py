@@ -14,7 +14,7 @@ serial = sys.argv[sys.argv.index("--serial") + 1] if "--serial" in sys.argv else
 dst = os.path.join(ROOT, "public", "demo", "motion", "gallery")
 os.makedirs(dst, exist_ok=True)
 rows, firsts, costs, lens = [], [], [], []
-for a in asks:
+for a in [x for x in asks if not x.get("extra")]:  # extras (hand-added, one run) are not republished
     runs = []
     for r in (1, 2):
         n = f"{a['id']}-r{r}"
