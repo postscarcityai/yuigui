@@ -578,6 +578,21 @@ row "Your ZIP  33410" +hi note="the new field"
 row "See My Coverage Options" +button`,
   },
   {
+    // YUI-267: a drawn phone is one device that plays the before into the after and loops.
+    name: "A drawn phone plays before into after",
+    slug: "sketch-phone-loop",
+    agent: "Yui",
+    yl: `say "Watch the phone. It plays the old screen, then the new one."
+sketch "Build ready" frame=phone before=Before
+row "Build 97 is ready" +x note="no way to open it"
+row "Tap to install" +x
+row "A link in the chat" +dim
+after
+row "Build 97 is ready" +hi note="one tap to open"
+row "Open build 97" +button +hi note="the app opens right here"
+row "Release notes" +dim`,
+  },
+  {
     // YUI-203: when is a timeline (spec/CHANNEL.md "When is a timeline").
     name: "When is a timeline",
     slug: "when-timeline",
@@ -680,7 +695,7 @@ say After: one line, and the drawing says the rest.
 say You're right, I misread you.
 sketch "Left drawer" frame=phone before=Then
 row "Done card  ·  Now" +x note="stuck"
-after Now
+after
 row "Done card gone" +hi note="fixed"
 row "Closed cards leave in seconds" +hi note="new card, not built"`,
   },

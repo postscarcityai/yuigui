@@ -5,11 +5,13 @@
 // greyed (+dim), +button rows drawn as buttons, a blank row as a filler bar,
 // and a note= callout beside the frame with an arrow to its row. One `after`
 // line splits it into a before|after pair of the same frame. Sends nothing.
+import { useEffect, useState } from "react";
 import { resolve } from "../../lib/yl/yl.mjs";
+import { PHONE_HOLD_MS, phoneBadge, phoneNotes, phoneSide } from "../../lib/yl/sketchphone.mjs";
 
 const FRAMES = ["window", "phone", "bubble"];
 
-function Row({ p, i }) {
+function Row({ p, i, n }) {
   const text = p.text ? (
     p.x ? <s>{p.text}</s> : p.hi ? <mark>{p.text}</mark> : <span>{p.text}</span>
   ) : null;
@@ -19,6 +21,7 @@ function Row({ p, i }) {
   return (
     <div className={cls}>
       {p.button ? <span className="yl-skbtn">{text}</span> : text || <span className="yl-skfill" style={style} />}
+      {n ? <b className={`yl-sknum ${p.x ? "sk-bad" : ""}`} aria-hidden="true">{n}</b> : null}
       {p.x ? <span className="yl-sr"> (crossed out)</span> : p.hi ? <span className="yl-sr"> (highlighted)</span> : null}
     </div>
   );
@@ -55,6 +58,65 @@ function Side({ frame, title, label, rows }) {
   );
 }
 
+// A phone is one glass device (YUI-267): bezel, status bar, home bar. With an
+// `after` it plays the before into the after and loops, a red BEFORE or green
+// AFTER badge on top and the numbered notes of the side on show underneath.
+// Reduced motion holds the after. Both sides sit in one grid cell, one lit, so
+// the phone never changes height mid-loop.
+function PhoneDevice({ title, before, after, beforeLabel, afterLabel }) {
+  const hasAfter = !!after;
+  const [tick, setTick] = useState(0);
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const q = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const on = () => setReduced(q.matches);
+    on();
+    q.addEventListener("change", on);
+    return () => q.removeEventListener("change", on);
+  }, []);
+  useEffect(() => {
+    if (!hasAfter || reduced) return undefined;
+    const t = setInterval(() => setTick((k) => k + 1), PHONE_HOLD_MS);
+    return () => clearInterval(t);
+  }, [hasAfter, reduced]);
+  const side = phoneSide(tick, hasAfter, reduced);
+  const sides = hasAfter ? [before, after] : [before];
+  const badge = phoneBadge(side, hasAfter, beforeLabel, afterLabel);
+  const notes = phoneNotes(sides[side]);
+  return (
+    <figure className="yl-skside yl-skphone" data-side={side} data-sides={sides.length}>
+      {badge ? (
+        <figcaption className={`yl-skbadge sk-${badge.tone}`} data-testid="sketch-label">
+          <svg viewBox="0 0 12 12" aria-hidden="true"><path d={badge.icon === "check" ? "M2 6.5 5 9.5 10 3" : "M3 3 9 9M9 3 3 9"} /></svg>
+          {badge.text}
+        </figcaption>
+      ) : null}
+      <div className="yl-skdevice" data-testid="sketch-phone">
+        <div className="yl-skbar" aria-hidden="true"><b>9:41</b><i className="yl-sknotch" /><span className="yl-sksig"><u /><u /><u /><em /></span></div>
+        {title ? <div className="yl-sktitle">{title}</div> : null}
+        <div className="yl-skscreen">
+          {sides.map((rows, k) => {
+            const nums = phoneNotes(rows);
+            return (
+              <div key={k} className={`yl-skpage ${k === side ? "lit" : ""} ${hasAfter && k === 0 ? "sk-before" : ""}`} aria-hidden={k === side ? undefined : "true"}>
+                {rows.map((p, i) => <Row key={i} p={p} i={i} n={nums.find((m) => m.row === i)?.n} />)}
+              </div>
+            );
+          })}
+        </div>
+        <div className="yl-skhome" aria-hidden="true" />
+      </div>
+      {notes.length ? (
+        <ol className="yl-skkey" aria-hidden="true">
+          {notes.map((m) => (
+            <li key={m.n}><b className={`yl-sknum ${m.x ? "sk-bad" : ""}`}>{m.n}</b><span>{m.note}</span></li>
+          ))}
+        </ol>
+      ) : null}
+    </figure>
+  );
+}
+
 function Frames({ p, members }) {
   const frame = FRAMES.includes(p.frame) ? p.frame : "window";
   const cut = members.findIndex((m) => m.preset === "after");
@@ -62,6 +124,20 @@ function Frames({ p, members }) {
   // A bubble's title sits above it, so a pair shows it once, over both.
   const top = frame === "bubble" && p.title ? <div className="yl-sktop">{p.title}</div> : null;
   const title = frame === "bubble" ? "" : p.title;
+  if (frame === "phone") {
+    const after = cut < 0 ? null : resolve("after", members[cut].props);
+    return (
+      <div className={`yl-block yl-sk ${after ? "sk-pair" : ""}`}>
+        <PhoneDevice
+          title={title}
+          before={rows(cut < 0 ? members : members.slice(0, cut))}
+          after={after ? rows(members.slice(cut + 1)) : null}
+          beforeLabel={p.before}
+          afterLabel={after?.label}
+        />
+      </div>
+    );
+  }
   if (cut < 0) {
     return (
       <div className="yl-block yl-sk">

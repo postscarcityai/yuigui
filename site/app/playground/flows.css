@@ -365,3 +365,36 @@ html[data-theme=light] .rn-sheet .rn-chip.on, html[data-theme=light] .rn-sheet .
 .rn-musictext b, .rn-musictext small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .rn-musictext small { opacity: 0.7; }
 .rn-music button { min-width: 44px; min-height: 44px; border-radius: 50%; border: 0; background: none; font: inherit; font-weight: 900; color: inherit; cursor: pointer; }
+
+/* A drawn phone is one glass device that plays before into after (YUI-267, web twin of SketchPhone.swift). */
+.yl-skphone { align-items: center; gap: 10px; }
+.yl-skbadge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; border: 1px solid currentColor; font-size: 11px; font-weight: 800; letter-spacing: .9px; text-transform: uppercase; transition: color .22s, background .22s; background: color-mix(in srgb, currentColor 10%, transparent); }
+.yl-skbadge svg { width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.yl-skbadge.sk-bad { color: var(--yl-bad); }
+.yl-skbadge.sk-good { color: var(--yl-good); }
+.yl-sk.sk-pair .yl-skphone .yl-sklabel { color: inherit; }
+.yl-skdevice { width: min(248px, 100%); padding: 5px; border-radius: 43px; border: 1px solid var(--yl-axis); background: color-mix(in srgb, var(--yl-axis) 35%, transparent); box-shadow: 0 8px 24px rgba(0, 0, 0, .18), inset 0 1px 0 rgba(255, 255, 255, .18); display: flex; flex-direction: column; overflow: hidden; }
+.yl-skdevice > * { background: var(--screen-bg); }
+.yl-skbar { position: relative; display: flex; align-items: center; justify-content: space-between; height: 28px; padding: 0 18px; border-radius: 38px 38px 0 0; font-size: 10px; color: var(--yl-ink); }
+.yl-skbar .yl-sknotch { position: absolute; left: 50%; top: 8px; width: 52px; height: 11px; margin-left: -26px; border-radius: 11px; background: var(--yl-axis); }
+.yl-sksig { display: inline-flex; align-items: flex-end; gap: 2px; color: var(--yl-ink2); }
+.yl-sksig u { width: 3px; background: currentColor; border-radius: 2px; }
+.yl-sksig u:nth-child(1) { height: 4px; } .yl-sksig u:nth-child(2) { height: 6px; } .yl-sksig u:nth-child(3) { height: 8px; }
+.yl-sksig em { width: 16px; height: 8px; margin-left: 3px; border: 1px solid currentColor; border-radius: 3px; }
+.yl-skdevice .yl-sktitle { padding: 2px 16px 0; font-size: 13px; color: var(--yl-ink); }
+.yl-skscreen { display: grid; padding: 6px 12px 10px; min-height: 190px; align-content: start; }
+.yl-skpage { grid-area: 1 / 1; display: flex; flex-direction: column; gap: 6px; opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; pointer-events: none; }
+.yl-skpage.lit { opacity: 1; transform: none; pointer-events: auto; }
+.yl-skpage.sk-before .yl-skrow { opacity: .8; }
+.yl-skpage .yl-skrow { display: flex; align-items: center; gap: 6px; padding: 2px 4px; }
+.yl-skpage .yl-skrow.sk-btn { display: flex; }
+.yl-skhome { height: 18px; border-radius: 0 0 38px 38px; position: relative; }
+.yl-skhome::after { content: ""; position: absolute; left: 50%; top: 7px; width: 92px; height: 4px; margin-left: -46px; border-radius: 4px; background: var(--yl-ink2); opacity: .55; }
+.yl-sknum { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: var(--yl-good); color: var(--screen-bg); font-size: 10px; font-weight: 800; }
+.yl-sknum.sk-bad { background: var(--yl-bad); }
+.yl-skkey { list-style: none; margin: 0; padding: 0; width: min(258px, 100%); display: flex; flex-direction: column; gap: 5px; }
+.yl-skkey li { display: flex; align-items: baseline; gap: 6px; font-size: 12px; font-weight: 600; line-height: 1.3; color: var(--yl-ink2); }
+.yl-skkey li .yl-sknum { align-self: flex-start; }
+@media (prefers-reduced-motion: reduce) {
+  .yl-skpage, .yl-skbadge { transition: none; }
+}
