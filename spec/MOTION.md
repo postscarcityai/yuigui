@@ -208,7 +208,7 @@ A real agent (the plugin's own film writer) behind a throwaway account, a real b
 
 - 6 of 9 first frames under 10 s (median 6.7 s). The goal was 8 of 9. The three misses are the plugin's claude-CLI writer on a busy host, not the site: the player starts the instant scene 1 arrives. Follow-up: a small fast model for scene 1.
 - No raw motion text on any run. Close returns to the thread with one line and one Watch again chip per film, every run.
-- Gateway arm: the gateway's plugin still carries the MOTION_BUILD sentinel, so the same ask draws as a sketch, never raw text. Streaming films there needs the gateway restarted onto the lifted sentinel (Urza's).
+- Gateway arm: the gateway's plugin still carries the MOTION_BUILD sentinel, so the same ask draws as a sketch, never raw text. Streaming films there needs the gateway restarted onto the lifted sentinel.
 
 ## 4. Cards
 
