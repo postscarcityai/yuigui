@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T14:05:39.165Z",
+  "updated": "2026-10-06T14:30:44.094Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -326,6 +326,8 @@
         {
           "key": "SITE-218",
           "title": "The models page shows which small models draw screens and films",
+          "summary": "The models page shows which small models draw",
+          "progress": "/progress#the-models-page-shows-which-small-models-draw",
           "owner": "CJohnDesign"
         },
         {
