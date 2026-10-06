@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T00:06:20.215Z",
+  "updated": "2026-10-06T00:15:51.151Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -348,6 +348,8 @@
         {
           "key": "SITE-200",
           "title": "Thought, decks that morph instead of slides",
+          "summary": "A Thought: a deck is one drawing that morphs",
+          "progress": "/progress#a-thought-a-deck-is-one-drawing-that-morphs",
           "owner": "CJohnDesign"
         },
         {
