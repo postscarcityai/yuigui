@@ -13,7 +13,7 @@ This is the design answer. Three working prototypes of the same ask ("ELI5 strin
 | Look ceiling | highest: its own metaphor, type, particles, glow | capped by our vocabulary (camera, morph, hum modes) | high, close to A |
 | Unique each time | yes (run 1 and run 2 differ completely) | only as much as the vocabulary allows | yes (run 1 and run 2 differ completely) |
 | Output of the model | 19 KB of HTML, 48 to 53k tokens | ~3.4 KB, 90 lines; the model wrote the same size, 5.5k tokens with thinking (see 1.3) | 6 to 7 KB of JS, 15 to 22k tokens |
-| Time to first frame in the page | ~1 s after load | ~1 s after load | ~1 s after load |
+| Time to first frame once the code exists (live page) | 2.7 s (iframe boot) | 1.3 s | 2.3 s |
 | Time until the model has made it | 473 to 527 s | 56 s | 155 to 217 s |
 | Cost per piece (Opus 5.5) | $1.0 to $2.4 | $0.13 | $0.33 to $0.47 |
 | Runs natively on iPhone | WKWebView only | SwiftUI Canvas, or JavaScriptCore + Canvas | WKWebView harness |
