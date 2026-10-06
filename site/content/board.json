@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T14:30:44.094Z",
+  "updated": "2026-10-06T14:35:45.405Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -324,13 +324,6 @@
           "owner": "CJohnDesign"
         },
         {
-          "key": "SITE-218",
-          "title": "The models page shows which small models draw screens and films",
-          "summary": "The models page shows which small models draw",
-          "progress": "/progress#the-models-page-shows-which-small-models-draw",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -354,6 +347,13 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-218",
+          "title": "The models page shows which small models draw screens and films",
+          "summary": "The models page shows which small models draw",
+          "shipped": "2026-10-06",
+          "progress": "/progress#the-models-page-shows-which-small-models-draw"
+        },
         {
           "key": "SITE-217",
           "title": "A Thought",
