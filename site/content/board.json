@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T18:35:38.051Z",
+  "updated": "2026-10-06T19:00:41.018Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,7 @@
         {
           "key": "YUI-315",
           "title": "Try chat is home in the playground",
+          "progress": "/progress#try-chat-is-home-in-the-playground",
           "owner": "CJohnDesign"
         }
       ]
