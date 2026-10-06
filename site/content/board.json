@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T07:35:42.026Z",
+  "updated": "2026-10-06T07:40:42.122Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -328,11 +328,6 @@
       "title": "Building",
       "cards": [
         {
-          "key": "YUI-312",
-          "title": "A real agent's film on /web, live and timed",
-          "owner": "CJohnDesign"
-        },
-        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -347,6 +342,12 @@
         {
           "key": "NOTE-8417",
           "title": "One thought per full screen",
+          "blocked": "chris",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "YUI-312",
+          "title": "A real agent's film on /web, live and timed",
           "blocked": "chris",
           "owner": "CJohnDesign"
         }
