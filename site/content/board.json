@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T19:15:48.920Z",
+  "updated": "2026-10-06T19:20:43.539Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -288,20 +288,20 @@
     {
       "key": "building",
       "title": "Building",
-      "cards": [
-        {
-          "key": "SITE-224",
-          "title": "The chat-is-home Thought gets a Try it link and a clip",
-          "summary": "The chat-is-home Thought now has a clip and a Try it link",
-          "progress": "/progress#the-chat-is-home-thought-now-has-a-clip-and-a-try-it-link",
-          "owner": "CJohnDesign"
-        }
-      ]
+      "cards": []
     },
     {
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "SITE-224",
+          "title": "The chat-is-home Thought gets a Try it link and a clip",
+          "summary": "The chat-is-home Thought now has a clip and a Try it link",
+          "shipped": "2026-10-06",
+          "progress": "/progress#the-chat-is-home-thought-now-has-a-clip-and-a-try-it-link",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/e8e8f97b"
+        },
         {
           "key": "YUI-315",
           "title": "Try chat is home in the playground",
