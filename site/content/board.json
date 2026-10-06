@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T15:35:13.223Z",
+  "updated": "2026-10-06T15:40:13.639Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -202,7 +202,8 @@
           "key": "INT-24",
           "title": "Yui plugs into every model provider's ecosystem on launch day",
           "summary": "Sign in with ChatGPT, ChatGPT plugin extensions, the app marketplaces; a standing watch across providers",
-          "waiting": true
+          "waiting": true,
+          "progress": "/progress#where-yui-can-plug-in-every-model-provider"
         },
         {
           "key": "BIZ-7",
@@ -325,6 +326,8 @@
           "key": "INT-24",
           "title": "Where Yui can plug in today, every model provider",
           "step": "Step 1",
+          "summary": "Where Yui can plug in, every model provider",
+          "progress": "/progress#where-yui-can-plug-in-every-model-provider",
           "owner": "CJohnDesign"
         },
         {
