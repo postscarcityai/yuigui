@@ -5,13 +5,13 @@
 
 Opens /playground?demo=<slug>, records the page, crops to the .pg-phone box, writes <slug>[-light].mp4
 and a poster png of the last second, and prints first_frame_ms (page load to first drawn frame)."""
-import os, subprocess, sys, tempfile, time
+import os, re, subprocess, sys, tempfile, time
 from playwright.sync_api import sync_playwright
 
 slug, secs, out = sys.argv[1], float(sys.argv[2]), sys.argv[3]
 light = "--light" in sys.argv
 base = sys.argv[sys.argv.index("--base") + 1] if "--base" in sys.argv else "https://www.yuigui.com"
-name = slug.replace("&v=", "-") + ("-light" if light else "")
+name = re.sub(r"[^A-Za-z0-9_-]+", "-", slug) + ("-light" if light else "")
 os.makedirs(out, exist_ok=True)
 tmp = tempfile.mkdtemp()
 with sync_playwright() as p:
