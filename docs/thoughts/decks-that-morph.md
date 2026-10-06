@@ -7,6 +7,9 @@ dek: Decks used to be a card with dots under it, like a slide show. Now the draw
 
 ```clip
 /demo/videos/deck-morph-string-theory.mp4 | Dark: the string theory deck. One shape slides, grows and recolours into the next page as you swipe.
+```
+
+```clip
 /demo/videos/deck-morph-string-theory-light.mp4 | Light: the same deck, the same morph.
 ```
 
