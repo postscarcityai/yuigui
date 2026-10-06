@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T10:21:06.085Z",
+  "updated": "2026-10-06T10:36:07.761Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -275,6 +275,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-214",
+          "title": "Thought, small local models of every family draw Yui screens"
         },
         {
           "key": "NOTE-3941",
