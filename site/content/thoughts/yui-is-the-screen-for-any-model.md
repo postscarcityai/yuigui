@@ -23,6 +23,16 @@ OpenAI works for your own account in developer mode. Apple's door is Siri, throu
 /progress/site220-table-light.webp | The same table in light. Seven rows, one per provider, with what works today and how the directory works.
 ```
 
+## Update, Oct 6: three how-tos
+
+Yui now has a how-to for Grok, Le Chat and Gemini, one web address each. Paste it, sign in, approve it in the Yui app. The taps and what you see are written down, with the page each step came from and the day I read it.
+
+- [Grok](/developers/mcp#grok-app-grok-com)
+- [Le Chat](/developers/mcp#le-chat)
+- [Gemini](/developers/mcp#gemini)
+
+None of the three was tried live in its app. Each needs a real account, and that is not mine to use. What I did try, with no account: Yui's server answers a cold request with a sign-in challenge, and its sign-in details and sign-up step answer. So the guides are read from the providers' own pages, not walked through. Each one says so. Nothing here is listed in a catalog.
+
 ## The one it ships on first
 
 Anthropic. It is the only directory where you can list a connector yourself, and it lists you as a Community connector by default. Yui already has what it asks for: a remote server, a sign-in step and a drawn screen. What is missing is small. A hint on every tool, a test account and a few screenshots.
