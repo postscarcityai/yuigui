@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T13:45:37.211Z",
+  "updated": "2026-10-06T13:50:38.133Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -277,11 +277,6 @@
           "waiting": true
         },
         {
-          "key": "SITE-217",
-          "title": "A Thought",
-          "summary": "Small models write films"
-        },
-        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -323,6 +318,12 @@
       "title": "Building",
       "cards": [
         {
+          "key": "SITE-217",
+          "title": "A Thought",
+          "summary": "Small models write films",
+          "owner": "CJohnDesign"
+        },
+        {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
           "blocked": "chris",
@@ -339,14 +340,6 @@
           "title": "One thought per full screen",
           "blocked": "chris",
           "owner": "CJohnDesign"
-        },
-        {
-          "key": "INT-28",
-          "title": "Small models write films",
-          "summary": "Small models explain with a film",
-          "blocked": "other",
-          "progress": "/progress#small-models-explain-with-a-film",
-          "owner": "CJohnDesign"
         }
       ]
     },
@@ -354,6 +347,14 @@
       "key": "shipped",
       "title": "Shipped (last 30 days)",
       "cards": [
+        {
+          "key": "INT-28",
+          "title": "Small models write films",
+          "summary": "Small models explain with a film",
+          "shipped": "2026-10-06",
+          "progress": "/progress#small-models-explain-with-a-film",
+          "commit": "https://github.com/postscarcityai/yui/commit/d3d24d6"
+        },
         {
           "key": "SITE-216",
           "title": "A Thought",
