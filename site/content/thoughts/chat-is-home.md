@@ -10,6 +10,10 @@ before: /progress/stage-topics-now-dark.jpg | Before, dark: every answer took th
 after: /progress/yui314-web-plain-answer-dark.webp | After, dark: a plain answer sits in the chat, buttons right under it.
 ```
 
+```try
+/playground?demo=chat-is-home | Try it in the playground
+```
+
 On Sep 26 Chris wrote: "I was writing in the text box and then a new answer came in and took over the screen with a full screen." A yes or a short question did not need the whole screen. So now it does not get it.
 
 The rule is short. Plain words and plain questions stay in the chat, with their buttons inline. The stage opens for a real visual: a deck, a plan, a drawing, a timer, a film or a form.
@@ -24,6 +28,14 @@ The stage also holds one thing at a time. When two or more older stage replies p
 ```compare
 before: /progress/yui314-web-fold-chip-before-dark.webp | Dark: older stage replies behind one chip.
 after: /progress/yui314-web-fold-chip-after-dark.webp | Dark: the chip tapped, the earlier replies back in place.
+```
+
+```clip
+/demo/videos/chat-is-home-demo.mp4 | The same demo, sped up: a sketch, a deck, then timers take the stage and fold into one chip. Dark first, then light.
+```
+
+```try
+/playground?demo=chat-is-home | Play it yourself
 ```
 
 This is in the app and on /web. The app change rides the next TestFlight build. On the web it was checked in a real browser, dark and light, and that check found two bugs: the chip did not appear as new replies arrived, and opening it threw a timer over the chat. Both are fixed.
