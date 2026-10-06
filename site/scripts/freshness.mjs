@@ -10,6 +10,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
+import { staleWhereHeading, onPhonesBuild } from "./freshness-rules.mjs";
 import { backlogLabelled, progressCards } from "./freshness-rules.mjs";
 
 const SITE = fileURLToPath(new URL("..", import.meta.url));
@@ -57,6 +58,12 @@ for (const file of files) {
       const m = text.match(new RegExp(`^\\s*-\\s+${KEY}`));
       if (m && shipped.has(m[1])) say(file, n, `${m[1]} is shipped but listed under "${heading}"`);
     }
+
+    // 0. The "Where Yui is now (<date>)" heading is older than 3 days, or its "On phones:" build is below the newest VALID.
+    const age = staleWhereHeading(text, new Date());
+    if (age) say(file, n, `"Where Yui is now" is dated ${age} days ago; rewrite it from the newest builds and the board`);
+    const phones = onPhonesBuild(text);
+    if (phones !== null && phones < newest) say(file, n, `"On phones" says build ${phones}, but build ${newest} is already VALID`);
 
     // 1. A build at or below the newest VALID one, called next or on its way:
     //    "Next release: build 57", "the next build, 57", "build 57 is on its way", "build 57 comes next".

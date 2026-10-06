@@ -2,17 +2,15 @@
 
 yuigui.com. Generative UI front end for your AI agents. Source: Chris's pitch recording 366 (transcript `pitch/rec366.txt`, summary `pitch/SUMMARY.md`). The recording calls it "Nexus". This document says Yui throughout.
 
-## Where Yui is now (Sep 30)
+## Where Yui is now (Oct 5)
 
-- **On phones:** Yui 0.6.2, build 392, on TestFlight since Sep 30. The first minute works on a real account: Open lands on your trainer's first question, your week builds after Send, the notifications ask comes once, after that first plan, and Add an agent sits in the drawer with one pairing command. [See it](/mockups#release-062), [read it](/thoughts/yui-0-6-2-the-first-minute-fixed).
-- **Also on phones:** Yui 0.6.1, build 380, since Sep 30. Pick your crew on first launch, then your trainer builds your first week from five taps.
-- **Also on phones:** Yui 0.6.0, build 370, since Sep 29 (first out as build 342 that morning). The crew gets real tools: Arnold runs today's workout, Basil keeps your macros and grocery list, Gouda teaches a song and plays along, Penny plans your week from a voice brain dump, Quill teaches a topic and turns it into cards. Then several chats and your own keys. [See it](/mockups#release-060), [read it](/thoughts/yui-0-6-0-build-370-several-chats-your-own-keys).
-- **Also on phones:** Yui 0.5.3, build 332, since Sep 29: a way home from every full screen, screens as pills, and Add agent no longer hangs.
-- **Older releases:** 0.3.0 to 0.5.2 are on the [progress](/progress) page and in [thoughts](/thoughts).
-- **Replies draw (Sep 30):** a reply is one short line and a drawing, never paragraphs. It can draw a flowchart or a whole screen, and one page holds up to 3 ideas. It is on main and reaches phones in the next build. [Read it](/thoughts/show-dont-tell-one-line-and-a-drawing).
-- **A build every morning (Sep 30):** TestFlight gets one Yui build at 6 am ET, and only when the app changed. If a check fails, nothing goes up and a fix card opens. The changelog says when the next one lands.
-- **Building now (Sep 30):** a stranger runs the whole path on a fresh Apple ID with a stopwatch, and we measure a small model that picks the shape of a reply against what runs today. What is being built this minute, and who has it, is on the [board](/board).
-- **Next release:** tomorrow morning, at the daily run. Replies as one line and a drawing, up to 3 ideas on a page, sending up to 10 photos in one message, and a last page that keeps the mic. After it, from the board: widgets in the app, flows you run and keep, and Yui making agents from chat.
+- **On phones:** Yui 0.6.4, build 535, on TestFlight since Oct 5. Decks fill the screen and morph from page to page, Home is a calm chat again, tabs are named for what is on them, each question says what it asks about, and Start opens the workout full screen. [Read it](/thoughts/yui-0-6-4-build-535-calmer-and-fuller).
+- **Before that:** Yui 0.6.3, build 522, on Oct 5. Say it first: every field you can type in has a mic. [Read it](/thoughts/yui-build-522-say-it-first).
+- **On the web:** Yui runs in your browser at [www.yuigui.com/web](/web). Same chats and screens as the phone, with the mic, forms, the workout runner and reminders that ring with the tab closed.
+- **Drawing:** agents draw Venns, contour lines, callouts, bent arrows and hand drawn marks, on the phone and the web, and every drawing is checked on every run.
+- **Older releases:** 0.3.0 to 0.6.2 are on the [progress](/progress) page and in [thoughts](/thoughts).
+- **Building now:** what is being built this minute, and who has it, is on the [board](/board).
+- **Next release:** tomorrow at 6 am ET, the daily run. It goes up only when the app changed.
 - **After that:** what people tell us, then the backlog in the order below. Feel and ease of use first; integration work waits in the backlog.
 - **MVP:** done. Chris called it on Sep 26: the MVP is complete, and Yui is in alpha, open to anyone on TestFlight. The board still carries YUI-29 (a stranger running the whole path alone) as a check to run during the alpha.
 - **Use to earn (Sep 26):** use counts, not only work. A private ledger of use and contributions is designed, back to day one ([Ledger](/developers/ledger)); switching it on waits on Chris. The thinking is in [Use to earn](/business/use-to-earn).
