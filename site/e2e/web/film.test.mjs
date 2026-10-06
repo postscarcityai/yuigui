@@ -42,23 +42,58 @@ for (const theme of ["dark", "light"]) {
     await pg.keyboard.press("Enter");
     await pg.waitForSelector("[data-testid=stage-working], .ys-play", { timeout: 8000 });
 
+    // MOTION-5: the host says what it is drawing; the stage shows it in a second, in place of "Thinking".
+    const word = (pg) => pg.locator("[data-testid=stage-working] .ys-word").innerText().catch(() => "");
+    const t0 = Date.now();
+    // (the demo host writes its own scripted steps every 700 ms, so the film host's words are re-written until the film lands)
+    await pg.evaluate(() => { window.__m5 = setInterval(() => window.yuiWebDemo.doing("demo-penny", "Drawing the first scene"), 100); });
+    await pg.waitForFunction(() => /Drawing the first scene/.test(document.querySelector("[data-testid=stage-working] .ys-word")?.textContent || ""), null, { timeout: 3000 });
+    const took = Date.now() - t0;
+    ok(took < 2500, `${t}: the stage says "Drawing the first scene" ${took} ms after the host writes it (demo pickup 0.5 s + 1 s poll)`);
+    if (SHOTS) await pg.screenshot({ path: `${SHOTS}/web-film-working-before-${name}-${theme}.png` });
+
     // Scene 1 alone: the film is up and playing before the rest is written.
+    await pg.evaluate(() => { // the ring is short: watch for the line instead of racing it
+      clearInterval(window.__m5);
+      window.__ring = "";
+      new MutationObserver(() => { const e = document.querySelector("[data-testid=film-working]"); if (e && !window.__ring) window.__ring = e.textContent; }).observe(document.body, { childList: true, subtree: true });
+    });
     await say(pg, row(1, film.scenes[0]));
     await pg.waitForSelector("[data-testid=film]", { timeout: 8000 });
     ok(true, `${t}: scene 1 arrives and the film takes the stage`);
     const box = await pg.locator("[data-testid=film]").boundingBox();
     const main = await pg.locator(".wb-main").boundingBox();
     ok(box.width >= main.width - 2 && box.height >= main.height - 2, `${t}: it is full screen (the whole window)`);
+    // The ring's wait carries the same words, and they are gone the instant a frame plays.
+    ok(/Drawing the first scene/.test(await pg.evaluate(() => window.__ring)), `${t}: the ring says "Drawing the first scene" while scene 1 loads`);
     for (let i = 0; i < 40 && (await scenes(pg)) < 1; i++) await wait(pg, 250);
     ok((await scenes(pg)) === 1, `${t}: the player holds scene 1`);
     for (let i = 0; i < 40 && (await pg.locator(".mfs-wait").count()); i++) await wait(pg, 250);
     ok((await pg.locator(".mfs-wait").count()) === 0, `${t}: scene 1 is on screen (first frame)`);
+    ok((await pg.locator("[data-testid=film-working]").count()) === 0, `${t}: the line is gone while scene 1 plays`);
+    if (SHOTS) { await wait(pg, 600); await pg.screenshot({ path: `${SHOTS}/web-film-working-playing-${name}-${theme}.png` }); }
     const frame = player(pg);
 
-    // Later scenes append to the same player, which is not rebuilt.
+    // Scene 1 runs out before scene 2 is written: the held last frame says what is being drawn. It never shows while a scene plays.
+    let playingWithLine = 0;
+    for (let i = 0; i < 80 && !(await pg.locator("[data-testid=film-working]").count()); i++) {
+      await wait(pg, 150);
+    }
+    ok(/Drawing scene 2/.test(await pg.locator("[data-testid=film-working]").innerText().catch(() => "")), `${t}: between scenes it says "Drawing scene 2"`);
+    if (SHOTS) await pg.screenshot({ path: `${SHOTS}/web-film-working-between-${name}-${theme}.png` });
     await say(pg, row(2, film.scenes[1]));
     for (let i = 0; i < 20 && (await scenes(pg)) < 2; i++) await wait(pg, 250);
     ok((await scenes(pg)) === 2, `${t}: scene 2 is appended`);
+    ok((await pg.locator("[data-testid=film-working]").count()) === 0, `${t}: the line goes the moment scene 2 lands`);
+    for (let i = 0; i < 12; i++) { // scene 2 is playing: the line must not come back
+      await wait(pg, 150);
+      playingWithLine += await pg.locator("[data-testid=film-working]").count();
+    }
+    ok(playingWithLine === 0, `${t}: no frame of a playing scene has the line on top`);
+    for (let i = 0; i < 100 && !(await pg.locator("[data-testid=film-working]").count()); i++) await wait(pg, 150);
+    ok(/Drawing scene 3/.test(await pg.locator("[data-testid=film-working]").innerText().catch(() => "")), `${t}: and it updates to "Drawing scene 3"`);
+
+    // Later scenes append to the same player, which is not rebuilt.
     ok(player(pg) === frame, `${t}: the same player took it (no restart)`);
     await say(pg, row(3, film.scenes[2]));
     await say(pg, row(4, null));

@@ -21,6 +21,7 @@ export default function MotionStage({ film, accent, light, reduced, onClose, lab
   const [first, setFirst] = useState(false);
   const [err, setErr] = useState(null);
   const [at, setAt] = useState(0);
+  const [stalledAt, setStalledAt] = useState(null); // how many scenes the film had when the player ran out of film and held its last frame
   const theme = useMemo(() => themeFor(accent, light), [accent, light]);
   const frames = useMemo(() => (reduced ? stills(film) : []), [reduced, film]);
   const shown = frames[Math.min(at, Math.max(0, frames.length - 1))];
@@ -39,12 +40,13 @@ export default function MotionStage({ film, accent, light, reduced, onClose, lab
   // A new player (first mount or Replay) is owed everything again.
   useEffect(() => {
     sent.current = fresh(); ready.current = false;
-    over.current = false; setEnded(false); setFirst(false); setErr(null); setPaused(false);
+    over.current = false; setEnded(false); setFirst(false); setErr(null); setPaused(false); setStalledAt(null);
     const on = (e) => {
       if (e.source !== frame.current?.contentWindow || !e.data || !e.data.motion) return;
       const m = e.data;
       if (m.motion === "ready") { ready.current = true; feed(); if (reduced) post({ pause: true }); }
       else if (m.motion === "first-frame") setFirst(true);
+      else if (m.motion === "stall") setStalledAt(sent.current.scenes);
       else if (m.motion === "need-three") fetch(`${BASE}/three.min.js`).then((r) => r.text()).then((src) => post({ three: src })).catch(() => setErr("The 3D part did not load."));
       else if (m.motion === "ended") { over.current = true; setEnded(true); }
       else if (m.motion === "tap") { if (over.current) onClose?.(); }
@@ -70,12 +72,21 @@ export default function MotionStage({ film, accent, light, reduced, onClose, lab
   const toggle = () => { const n = !paused; setPaused(n); post({ pause: n }); };
   const replay = () => { setRun((x) => x + 1); };
   const words = film.title || "A film";
+  // What the film is doing while the person waits (MOTION-5): the ring before the first frame, and the held last frame
+  // while the next scene is still being drawn. It is never over a frame that is playing: a scene arriving, the film
+  // closing, or a frame going up takes it away on the same render.
+  const n = film.scenes.length;
+  const working = err || film.done ? ""
+    : !first ? "Drawing the first scene"
+    : reduced ? (at >= n - 1 ? `Drawing scene ${n + 1}` : "")
+    : stalledAt !== null && stalledAt === n ? `Drawing scene ${n + 1}` : "";
 
   return (
     <div className="mfs" data-testid="film" data-light={light ? "1" : undefined} data-reduced={reduced ? "1" : undefined} data-ended={ended ? "1" : undefined} role="dialog" aria-modal="true" aria-label={label || words}
       style={{ "--mfs-ink": theme.ink, "--mfs-fg": theme.fg, "--mfs-accent": theme.accent }}>
       <iframe key={run} ref={frame} className="mfs-frame" title={words} src={`${BASE}/player.html`} sandbox="allow-scripts" />
       {!first && !err ? <div className="mfs-wait" aria-hidden="true"><i /></div> : null}
+      {working ? <p className={first ? "mfs-work mfs-work-held" : "mfs-work"} data-testid="film-working" role="status">{working}</p> : null}
       <header className="mfs-top">
         <button className="mfs-btn" onClick={onClose} data-testid="film-close" aria-label="Close the film">Close</button>
         <span className="mfs-title">{words}</span>

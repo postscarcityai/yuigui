@@ -304,6 +304,12 @@ export function createDemoRelay(fixture, { now = Date.now, speed = 1, userId = "
     say(agentId, yl, meta = {}) {
       rows(agentId).push({ id: id(), sender: "agent", body: "```yui\n" + yl + "\n```", kind: "text", meta, created_at: bump(), delivered_at: null, handled_at: null, reaction: null, doing: null });
     },
+    // What the host is doing right now (the working row's words), on the person's newest row: the e2e checks drive it.
+    doing(agentId, text) {
+      const mine = rows(agentId).filter((r) => r.sender === "user" && r.kind !== "control");
+      const r = mine[mine.length - 1];
+      if (r) r.doing = text ? { text } : null;
+    },
     // A long chat (YUI-254, YUI-260): `n` older rows go in front of the thread, an agent line and a person's line in turn,
     // every one dated before the oldest row there, so the way back through the chat has somewhere to go.
     seedHistory(agentId, n) {
