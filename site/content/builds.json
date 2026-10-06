@@ -2197,5 +2197,18 @@
       ]
     }
   ],
-  "next": []
+  "next": [
+    {
+      "text": "Film scene 1 from a small fast model (haiku, no thinking), the rest from sonnet in parallel",
+      "card": "YUI-313"
+    },
+    {
+      "text": "A small local model draws screens again: retag yml fences, short guide for small windows",
+      "card": "INT-23"
+    },
+    {
+      "text": "OpenAICompatTests opens Qwen's thread and waits for the keyboard",
+      "card": "INT-23"
+    }
+  ]
 }
