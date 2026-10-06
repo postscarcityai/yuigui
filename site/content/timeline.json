@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 508,
-    "site": 1559,
+    "app": 509,
+    "site": 1564,
     "builds": 57,
-    "shipped": 675,
-    "screenshots": 1810
+    "shipped": 676,
+    "screenshots": 1814
   },
   "days": [
     {
@@ -13,7 +13,39 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-06T10:11:45.431Z",
+          "at": "2026-10-06T10:53:04.179Z",
+          "title": "A second small local model family draws screens",
+          "card": "INT-25",
+          "anchor": "a-second-small-local-model-family-draws-screens",
+          "images": [
+            {
+              "src": "/progress/int25-gemma-remembers-dark.webp",
+              "alt": "gemma4:e4b remembers the tap: it answers TEA in the dark thread"
+            },
+            {
+              "src": "/progress/int25-llama-remembers-dark.webp",
+              "alt": "llama3.2:3b remembers the tap: it answers TEA in the dark thread, under a form it drew on its own"
+            },
+            {
+              "src": "/progress/int25-gemma-screen-light.webp",
+              "alt": "gemma4:e4b draws a Drink screen with Tea and Coffee buttons"
+            },
+            {
+              "src": "/progress/int25-llama-screen-light.webp",
+              "alt": "llama3.2:3b draws the Drink screen, then adds a stray [Response:] bubble"
+            }
+          ],
+          "commits": 1,
+          "totals": {
+            "app": 509,
+            "site": 1564,
+            "builds": 57,
+            "shipped": 676
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T10:10:53.000Z",
           "title": "A Thought: a model on your laptop draws Yui screens",
           "card": "SITE-213",
           "anchor": "a-thought-a-model-on-your-laptop-draws-yui-screens",
@@ -27,7 +59,7 @@
               "alt": "Before: the stage shows the model's raw yml text"
             }
           ],
-          "commits": 0,
+          "commits": 2,
           "totals": {
             "app": 508,
             "site": 1559,
@@ -319,11 +351,53 @@
       ],
       "commits": [
         {
+          "repo": "app",
+          "sha": "4d8850e4",
+          "at": "2026-10-06T10:52:40.000Z",
+          "text": "Small models of a second family draw screens: fence repairs, ask again on an empty answer, model table (INT-25)",
+          "url": "https://github.com/postscarcityai/yui/commit/4d8850e4"
+        },
+        {
+          "repo": "site",
+          "sha": "ae88f0f4",
+          "at": "2026-10-06T10:36:08.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ae88f0f4"
+        },
+        {
+          "repo": "site",
+          "sha": "4b013b53",
+          "at": "2026-10-06T10:21:07.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/4b013b53"
+        },
+        {
+          "repo": "site",
+          "sha": "cf747fb8",
+          "at": "2026-10-06T10:16:06.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/cf747fb8"
+        },
+        {
+          "repo": "site",
+          "sha": "3b81bffb",
+          "at": "2026-10-06T10:12:25.000Z",
+          "text": "Refresh timeline (SITE-213)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3b81bffb"
+        },
+        {
           "repo": "site",
           "sha": "02709d1a",
           "at": "2026-10-06T10:11:05.000Z",
           "text": "board: sync from kanban and TestFlight",
           "url": "https://github.com/postscarcityai/yuigui/commit/02709d1a"
+        },
+        {
+          "repo": "site",
+          "sha": "5861b8de",
+          "at": "2026-10-06T10:10:53.000Z",
+          "text": "A Thought: a model on your laptop draws Yui screens (SITE-213)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5861b8de"
         },
         {
           "repo": "site",
