@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T22:45:20.097Z",
+  "updated": "2026-10-06T23:05:15.360Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -271,6 +271,10 @@
           "title": "The same Yui on the web",
           "summary": "Plug and play proof in the browser client",
           "waiting": true
+        },
+        {
+          "key": "SITE-228",
+          "title": "A Thought, films say what they are drawing"
         },
         {
           "key": "NOTE-21045",
