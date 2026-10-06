@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T23:15:21.641Z",
+  "updated": "2026-10-06T23:20:20.115Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -292,6 +292,8 @@
         {
           "key": "SITE-228",
           "title": "A Thought, films say what they are drawing",
+          "summary": "A Thought: Films now say what they are drawing",
+          "progress": "/progress#a-thought-films-now-say-what-they-are-drawing",
           "owner": "CJohnDesign"
         }
       ]
