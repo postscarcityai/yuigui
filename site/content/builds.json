@@ -1,6 +1,24 @@
 {
   "builds": [
     {
+      "build": 538,
+      "date": "2026-10-05",
+      "uploaded": "2026-10-05T20:32:57-07:00",
+      "state": "live",
+      "changes": [
+        {
+          "text": "Reminders ring in a closed browser tab through Web Push",
+          "card": "YUI-258"
+        },
+        {
+          "text": "Stage: a short page and its question share one screen (feedback AAY2aTG4)"
+        },
+        {
+          "text": "Guide v48+777182e1: a question sits on the page it asks about"
+        }
+      ]
+    },
+    {
       "build": 535,
       "date": "2026-10-05",
       "uploaded": "2026-10-05T18:31:38-07:00",
@@ -2151,14 +2169,7 @@
   ],
   "next": [
     {
-      "text": "Reminders ring in a closed browser tab through Web Push",
-      "card": "YUI-258"
-    },
-    {
-      "text": "Stage: a short page and its question share one screen (feedback AAY2aTG4)"
-    },
-    {
-      "text": "Guide v48+777182e1: a question sits on the page it asks about"
+      "text": "MotionView: native full-screen streamed film player (harness, watchdog, say cues, native chrome)"
     }
   ]
 }
