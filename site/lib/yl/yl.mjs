@@ -44,7 +44,7 @@ export const PRESETS = [
   "timeline", "done", "now", "next",
   "sketch", "row", "after",
   "shapes", "shape",
-  "diagram", "mock", "part",
+  "diagram", "mock", "part", "motion",
   "map", "area", "pin", "route",
   "game", "flow",
   "query",
@@ -492,6 +492,9 @@ const P = {
   // diagram [title...] (caption=): a Mermaid block up to `end`, read by the
   // parser (see the diagram section below), so the head takes a title only.
   diagram(pos) { return P.calc(pos); },
+  // motion "<what to show>" (an agent's ask, one line), or the film the plugin makes from it:
+  // motion [title...] film= part= +last, then scenes up to `end` (read as text, see motionLine).
+  motion(pos) { return P.calc(pos); },
   // mock [title...] (frame= url= dark), then `part KIND [text...]` lines: the
   // first bare word is the kind, wherever it sits (as in shape and game).
   mock(pos) { return P.calc(pos); },
@@ -1362,6 +1365,7 @@ export function flowEvent(g, answers) {
 // so "~hiit rounds=10" knows to parse its args as a timer. `known` is the ids
 // that last from earlier replies (spec section 5, Ids that last), id -> preset,
 // as `lastingIds(state)` gives them; this reply's own ids shadow them.
+const MOTION_MAX_CHARS = 120000; // a film longer than this is cut, its `end` still closes it
 export class Parser {
   constructor(known = {}) {
     this.screen = "1";
@@ -1371,6 +1375,7 @@ export class Parser {
     this.flowHead = null; // a flow head just added: { id, screen }
     this.flow = null; // an open flow's Mermaid, being read
     this.dgm = null; // an open diagram's Mermaid, being read
+    this.mot = null; // an open motion's scenes, being read
   }
 
   // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
@@ -1396,6 +1401,10 @@ export class Parser {
   }
 
   line(src) {
+    if (this.mot) {
+      const op = this.motionLine(src);
+      if (op !== undefined) return op;
+    }
     if (this.flow) return this.flowLine(src);
     if (this.dgm) {
       const op = this.dgmLine(src);
@@ -1414,6 +1423,7 @@ export class Parser {
     }
     const op = this.group(this.parseLine(src));
     if (op && op.op === "add" && op.preset === "diagram") this.dgm = newDiagram(op);
+    if (op && op.op === "add" && op.preset === "motion") this.mot = { id: op.id, screen: op.screen, src: [], chars: 0 };
     if (op && op.op === "add" && op.preset === "flow") {
       // `as=` makes it a variant of the saved flow it names: its lines follow.
       if (op.props.as !== undefined) this.flow = newVariant(op);
@@ -1425,8 +1435,31 @@ export class Parser {
   // Ends the input: an open flow gives its graph now.
   finish() {
     this.flowHead = null;
+    if (this.mot) return this.motionDone("");
     if (this.dgm) return this.dgmDone("");
     return this.flow ? this.flowDone("") : null;
+  }
+
+  // One line of an open motion: a scene header or JavaScript, not YL (spec/MOTION.md 0.5). undefined means the
+  // first line after the head is not a scene header (the agent's own one-line ask): it is read as YL.
+  motionLine(src) {
+    const m = this.mot;
+    const line = src.replace(/\r$/, "");
+    const t = line.trim();
+    if (t === "end") return this.motionDone(line);
+    if (!m.src.length) {
+      if (!t) return null;
+      if (!t.startsWith("===")) { this.mot = null; return undefined; }
+    }
+    if (m.chars + line.length <= MOTION_MAX_CHARS) { m.src.push(line); m.chars += line.length + 1; }
+    return null;
+  }
+
+  motionDone(line) {
+    const m = this.mot;
+    this.mot = null;
+    if (!m || !m.src.length) return null;
+    return { op: "patch", screen: m.screen, target: m.id, props: { source: m.src.join("\n") }, line };
   }
 
   // One line of an open diagram: Mermaid, not YL. undefined means the line is
@@ -2078,6 +2111,8 @@ export function resolve(preset, props) {
     }
     case "diagram":
       return { title: "", caption: "", ...p };
+    case "motion":
+      return { title: "", ...p };
     case "mock":
       return { title: "", frame: "phone", ...p };
     case "part": {

@@ -50,6 +50,8 @@ The kit, player, generator and checks are the system. Three connections remain b
 - **The plugin makes the film.** It runs the generator on the same prompt and the agent's own colours (`THEME`), sends each scene the moment it is complete as its own row, then a closing row, so a phone that polls shows scene 1 in seconds. A film that fails the same checks in the plugin (a scene that does not parse) is dropped from the row; the player already cuts a scene that throws.
 - **The app.** `MotionView` plays the film full bleed on the stage, with no card; Reduce Motion shows the last frame; a failure falls back to the agent's `shapes` drawing and tells the agent. Older phones get the words (compat gate).
 
+Status (MOTION-1e, Oct 6): the first two are done. The channel guide (v49, `spec/CHANNEL.md`) teaches the one-line `motion "<ask>"` and when to use it (any explain-by-picture, the work itself included; a plain fact stays a line); `spec/YL.md` has the `motion` preset; the yui plugin (`motion.py`, `adapter.py`) makes the film and streams each scene as its own row; `compat.py` gates it behind `MOTION_BUILD` (a sentinel until the build that plays films is VALID) and draws it as a sketch on older phones. The eval holds eight `motion-*` cases.
+
 ### 0.5 The wire (so the app and the plugin can be built apart)
 
 A film travels in Yui Lines as a raw block, the way `draw` carries SVG:

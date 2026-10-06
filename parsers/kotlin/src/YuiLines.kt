@@ -21,7 +21,7 @@ val PRESETS = listOf(
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
-    "diagram", "mock", "part",
+    "diagram", "mock", "part", "motion",
     "map", "area", "pin", "route",
     "game", "flow",
     "query",
@@ -568,7 +568,7 @@ private fun preset(name: String, pos: List<Token>): Obj = when (name) {
     "chart" -> chart(pos)
     "stat" -> stat(pos)
     "step" -> step(pos)
-    "calc", "deck", "plan", "flow", "narrate", "timeline", "sketch", "shapes", "diagram", "mock", "map" -> titled("title", pos)
+    "calc", "deck", "plan", "flow", "narrate", "timeline", "sketch", "shapes", "diagram", "mock", "map", "motion" -> titled("title", pos)
     "area" -> area(pos)
     "pin" -> pin(pos)
     "route" -> route(pos)
@@ -1526,7 +1526,9 @@ private val PATCH_AT = rx("([a-z]+)@([\\w-]+)")
 private val HEAD = rx("([a-z]+)(?:@([\\w-]+))?")
 
 private fun op(vararg kv: Pair<String, Any?>): Op = linkedMapOf(*kv)
-private val PASS: Op = emptyMap() // dgmLine: the line is not the diagram's
+private val PASS: Op = emptyMap() // dgmLine, motionLine: the line is not the diagram's or the film's
+private const val MOTION_MAX_CHARS = 120000 // a film longer than this is cut, its `end` still closes it
+private class Motion(val id: String, val screen: String) { val src = ArrayList<String>(); var chars = 0 }
 
 // ---------- theme app (spec/YL.md, theme app; RESTYLE.md) ----------
 // `theme app [set] key=value...`: a restyle of Yui's own chrome, not the
@@ -1763,6 +1765,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
     private var flow: Flow? = null // an open flow's Mermaid, being read
     private var variant: Variant? = null // an open flow variant's lines, being read
     private var dgm: Diagram? = null // an open diagram's Mermaid, being read
+    private var mot: Motion? = null // an open motion's scenes, being read
 
     // Group bookkeeping for one parsed op. Errors (and null) leave groups open.
     private fun group(o: Op?): Op? {
@@ -1787,6 +1790,10 @@ class Parser(known: Map<String, String> = emptyMap()) {
     }
 
     fun line(src: String): Op? {
+        if (mot != null) {
+            val o = motionLine(src)
+            if (o !== PASS) return o
+        }
         if (flow != null) return flowLine(src)
         if (variant != null) return variantLine(src)
         if (dgm != null) {
@@ -1806,6 +1813,7 @@ class Parser(known: Map<String, String> = emptyMap()) {
         }
         val o = group(parseLine(src))
         if (o != null && o["op"] == "add" && o["preset"] == "diagram") dgm = newDiagram(o)
+        if (o != null && o["op"] == "add" && o["preset"] == "motion") mot = Motion(o["id"] as String, o["screen"] as String)
         if (o != null && o["op"] == "add" && o["preset"] == "flow") {
             // `as=` makes it a variant of the saved flow it names: its lines follow.
             @Suppress("UNCHECKED_CAST")
@@ -1838,9 +1846,32 @@ class Parser(known: Map<String, String> = emptyMap()) {
     // Ends the input: an open flow gives its graph now.
     fun finish(): Op? {
         flowHead = null
+        if (mot != null) return motionDone("")
         if (dgm != null) return dgmDone("")
         if (variant != null) return variantDone("")
         return if (flow != null) flowDone("") else null
+    }
+
+    // One line of an open motion: a scene header or JavaScript, not YL (spec/MOTION.md 0.5). PASS means the
+    // first line after the head is not a scene header (the agent's own one-line ask), so the caller reads it as YL.
+    private fun motionLine(src: String): Op? {
+        val m = mot!!
+        val line = src.removeSuffix("\r")
+        val t = line.trim()
+        if (t == "end") return motionDone(line)
+        if (m.src.isEmpty()) {
+            if (t.isEmpty()) return null
+            if (!t.startsWith("===")) { mot = null; return PASS }
+        }
+        if (m.chars + line.length <= MOTION_MAX_CHARS) { m.src.add(line); m.chars += line.length + 1 }
+        return null
+    }
+
+    private fun motionDone(line: String): Op? {
+        val m = mot ?: return null
+        mot = null
+        if (m.src.isEmpty()) return null
+        return op("op" to "patch", "screen" to m.screen, "target" to m.id, "props" to linkedMapOf<String, Any?>("source" to m.src.joinToString("\n")), "line" to line)
     }
 
     // One line of an open diagram: Mermaid, not YL. PASS means the line is
@@ -2166,6 +2197,7 @@ private val DEFAULTS: Map<String, Map<String, Any?>> = mapOf(
     "shapes" to mapOf("title" to "", "caption" to "", "w" to 10.0, "h" to 6.0),
     "shape" to mapOf("kind" to "box", "label" to ""),
     "diagram" to mapOf("title" to "", "caption" to ""),
+    "motion" to mapOf("title" to ""),
     "mock" to mapOf("title" to "", "frame" to "phone"),
     "map" to mapOf("title" to "", "caption" to "", "fit" to "auto"),
     "area" to mapOf("label" to "", "codes" to emptyList<String>(), "pts" to emptyList<String>()),

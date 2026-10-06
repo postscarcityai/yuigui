@@ -52,7 +52,7 @@ PRESETS = [
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
-    "diagram", "mock", "part",
+    "diagram", "mock", "part", "motion",
     "map", "area", "pin", "route",
     "game",
     "query", "flow",
@@ -744,7 +744,7 @@ P = {
     "sketch": _titled,
     "shapes": _titled,
     "shape": _kinded("label"),
-    "diagram": _titled, "mock": _titled,
+    "diagram": _titled, "mock": _titled, "motion": _titled,
     "part": _kinded("text"),
     "map": _titled,
     "area": _area, "pin": _pin, "route": _route,
@@ -1998,6 +1998,10 @@ def _put_line(screen, tokens, line):
 _NOT_DGM = object()
 
 
+_NOT_MOTION = object()
+MOTION_MAX_CHARS = 120000  # a film longer than this is cut, its `end` still closes it
+
+
 class Parser:
     """Stateful: remembers the focused screen and which preset each id belongs
     to, so "~hiit rounds=10" knows to parse its args as a timer. `known` is the
@@ -2012,6 +2016,7 @@ class Parser:
         self.flow_head = None  # a flow head just added: {id, screen, pre}
         self.flow = None  # an open flow's Mermaid, being read
         self.dgm = None  # an open diagram's Mermaid, being read
+        self.mot = None  # an open motion's scenes, being read
 
     def group(self, op):
         """Group bookkeeping for one parsed op. Errors (and None) leave groups open."""
@@ -2043,6 +2048,10 @@ class Parser:
         return out
 
     def line(self, src):
+        if self.mot:
+            op = self.motion_line(src)
+            if op is not _NOT_MOTION:
+                return op
         if self.flow:
             return self.flow_line(src)
         if self.dgm:
@@ -2066,6 +2075,8 @@ class Parser:
         op = self.group(self.parse_line(src))
         if op and op["op"] == "add" and op["preset"] == "diagram":
             self.dgm = _new_diagram(op)
+        if op and op["op"] == "add" and op["preset"] == "motion":
+            self.mot = {"id": op["id"], "screen": op["screen"], "src": [], "chars": 0}
         if op and op["op"] == "add" and op["preset"] == "flow":
             # `as=` makes it a variant of the saved flow it names: its lines follow.
             if "as" in op["props"]:
@@ -2077,9 +2088,36 @@ class Parser:
     def finish(self):
         """Ends the input: an open flow gives its graph now."""
         self.flow_head = None
+        if self.mot:
+            return self.motion_done("")
         if self.dgm:
             return self.dgm_done("")
         return self.flow_done("") if self.flow else None
+
+    def motion_line(self, src):
+        """One line of an open motion: a scene header or JavaScript, not YL (spec/MOTION.md 0.5). _NOT_MOTION
+        when the first line after the head is not a scene header (the agent's own one-line ask)."""
+        m = self.mot
+        line = src[:-1] if src.endswith("\r") else src
+        t = line.strip()
+        if t == "end":
+            return self.motion_done(line)
+        if not m["src"]:
+            if not t:
+                return None
+            if not t.startswith("==="):
+                self.mot = None
+                return _NOT_MOTION
+        if m["chars"] + len(line) <= MOTION_MAX_CHARS:
+            m["src"].append(line)
+            m["chars"] += len(line) + 1
+        return None
+
+    def motion_done(self, line):
+        m, self.mot = self.mot, None
+        if not m or not m["src"]:
+            return None
+        return {"op": "patch", "screen": m["screen"], "target": m["id"], "props": {"source": "\n".join(m["src"])}, "line": line}
 
     def dgm_line(self, src):
         """One line of an open diagram: Mermaid, not YL. _NOT_DGM means the line
@@ -2470,6 +2508,7 @@ _DEFAULTS = {
     "shapes": {"title": "", "caption": "", "w": 10, "h": 6},
     "shape": {"kind": "box", "label": ""},
     "diagram": {"title": "", "caption": ""},
+    "motion": {"title": ""},
     "mock": {"title": "", "frame": "phone"},
     "map": {"title": "", "caption": "", "fit": "auto"},
     "area": {"label": "", "codes": [], "pts": []},

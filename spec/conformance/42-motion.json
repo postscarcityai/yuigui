@@ -1,0 +1,139 @@
+{
+ "version": "YL v0",
+ "area": "motion",
+ "vectors": [
+  {
+   "name": "the agent's one-line ask is a head with a title",
+   "input": "motion \"How a heart pumps. Blood in on the right, out on the left.\"",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "motion",
+     "id": "n1",
+     "props": {
+      "title": "How a heart pumps. Blood in on the right, out on the left."
+     }
+    }
+   ]
+  },
+  {
+   "name": "a film head carries film and part, scenes up to end are one patch with their text",
+   "input": "motion \"How a heart pumps\" film=m7 part=1\n=== scene hook 4 ===\nc.fillRect(0, 0, 10, 10);\nsay hi\n=== scene dive 6 ===\napi.say(\"in\");\nend\nsay after",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "motion",
+     "id": "n1",
+     "props": {
+      "title": "How a heart pumps",
+      "film": "m7",
+      "part": 1
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "source": "=== scene hook 4 ===\nc.fillRect(0, 0, 10, 10);\nsay hi\n=== scene dive 6 ===\napi.say(\"in\");"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n2",
+     "props": {
+      "text": "after"
+     }
+    }
+   ]
+  },
+  {
+   "name": "a later part has no title; the closing row is +last",
+   "input": "motion film=m7 part=2\n=== scene end 3 ===\nx();\nend\nmotion film=m7 part=3 +last",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "motion",
+     "id": "n1",
+     "props": {
+      "film": "m7",
+      "part": 2
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "source": "=== scene end 3 ===\nx();"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "motion",
+     "id": "n2",
+     "props": {
+      "last": true,
+      "film": "m7",
+      "part": 3
+     }
+    }
+   ]
+  },
+  {
+   "name": "a line after the head that is not a scene header is read as YL",
+   "input": "motion \"ask\"\nsay hello",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "motion",
+     "id": "n1",
+     "props": {
+      "title": "ask"
+     }
+    },
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "say",
+     "id": "n2",
+     "props": {
+      "text": "hello"
+     }
+    }
+   ]
+  },
+  {
+   "name": "a film with no end gives its patch at the end of the reply",
+   "input": "motion \"T\" film=m1 part=1\n=== scene a 4 ===\nx();",
+   "expected": [
+    {
+     "op": "add",
+     "screen": "1",
+     "preset": "motion",
+     "id": "n1",
+     "props": {
+      "title": "T",
+      "film": "m1",
+      "part": 1
+     }
+    },
+    {
+     "op": "patch",
+     "screen": "1",
+     "target": "n1",
+     "props": {
+      "source": "=== scene a 4 ===\nx();"
+     }
+    }
+   ]
+  }
+ ]
+}

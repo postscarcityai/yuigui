@@ -39,7 +39,7 @@ pub const PRESETS: &[&str] = &[
     "timeline", "done", "now", "next",
     "sketch", "row", "after",
     "shapes", "shape",
-    "diagram", "mock", "part",
+    "diagram", "mock", "part", "motion",
     "map", "area", "pin", "route",
     "game", "flow",
     "query",
@@ -1118,7 +1118,7 @@ fn preset_props(preset: &str, pos: &[&Token]) -> Map {
         "chart" => chart(pos),
         "stat" => stat(pos),
         "step" => step(pos),
-        "calc" | "deck" | "plan" | "flow" | "narrate" | "timeline" | "sketch" | "shapes" | "map" | "diagram" | "mock" => all_text(pos, "title"),
+        "calc" | "deck" | "plan" | "flow" | "narrate" | "timeline" | "sketch" | "shapes" | "map" | "diagram" | "mock" | "motion" => all_text(pos, "title"),
         "area" => area(pos),
         "pin" => pin(pos),
         "route" => map_route(pos),
@@ -3688,7 +3688,19 @@ pub struct Parser {
     flow: Option<Flow>,          // an open flow's Mermaid, being read
     variant: Option<Variant>,    // an open flow variant's lines, being read
     dgm: Option<Diagram>,        // an open diagram's Mermaid, being read
+    mot: Option<Motion>,         // an open motion's scenes, being read
 }
+
+/// A film's own text between `motion` and `end` (spec/MOTION.md 0.5): scene headers over JavaScript, not YL.
+struct Motion {
+    id: String,
+    screen: String,
+    src: Vec<String>,
+    chars: usize,
+}
+
+/// A film longer than this is cut, its `end` still closes it.
+const MOTION_MAX_CHARS: usize = 120_000;
 
 impl Default for Parser {
     fn default() -> Self {
@@ -3698,7 +3710,7 @@ impl Default for Parser {
 
 impl Parser {
     pub fn new() -> Self {
-        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new(), flow_head: None, flow: None, variant: None, dgm: None }
+        Parser { screen: "1".into(), ids: HashMap::new(), auto: 0, open: Vec::new(), flow_head: None, flow: None, variant: None, dgm: None, mot: None }
     }
 
     pub fn with_known(known: &HashMap<String, String>) -> Self {
@@ -3760,6 +3772,11 @@ impl Parser {
 
     /// One line in, at most one op out.
     pub fn line(&mut self, src: &str) -> Option<Value> {
+        if self.mot.is_some() {
+            if let Some(o) = self.motion_line(src) {
+                return o;
+            }
+        }
         if self.flow.is_some() {
             return self.flow_line(src);
         }
@@ -3797,6 +3814,10 @@ impl Parser {
                 let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
                 self.dgm = Some(new_diagram(text("id"), text("screen")));
             }
+            if m.get("op") == Some(&Value::str("add")) && m.get("preset") == Some(&Value::str("motion")) {
+                let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
+                self.mot = Some(Motion { id: text("id"), screen: text("screen"), src: Vec::new(), chars: 0 });
+            }
             if m.get("op") == Some(&Value::str("add")) && m.get("preset") == Some(&Value::str("flow")) {
                 let text = |k: &str| m.get(k).and_then(Value::as_str).unwrap_or("").to_string();
                 // `as=` makes it a variant of the saved flow it names: its lines follow.
@@ -3813,6 +3834,9 @@ impl Parser {
     /// Ends the input: an open flow gives its graph now.
     pub fn finish(&mut self) -> Option<Value> {
         self.flow_head = None;
+        if self.mot.is_some() {
+            return self.motion_done("");
+        }
         if self.dgm.is_some() {
             return self.dgm_done("");
         }
@@ -3821,6 +3845,46 @@ impl Parser {
         }
         self.flow.as_ref()?;
         Some(self.flow_done(""))
+    }
+
+    /// One line of an open motion: a scene header or JavaScript, not YL. None means the first line after the
+    /// head is not a scene header (the agent's own one-line ask), so the caller reads it as YL.
+    fn motion_line(&mut self, src: &str) -> Option<Option<Value>> {
+        let line = src.strip_suffix('\r').unwrap_or(src);
+        let t = line.trim();
+        if t == "end" {
+            return Some(self.motion_done(line));
+        }
+        let m = self.mot.as_mut().unwrap();
+        if m.src.is_empty() {
+            if t.is_empty() {
+                return Some(None);
+            }
+            if !t.starts_with("===") {
+                self.mot = None;
+                return None;
+            }
+        }
+        let n = line.chars().count();
+        if m.chars + n <= MOTION_MAX_CHARS {
+            m.src.push(line.to_string());
+            m.chars += n + 1;
+        }
+        Some(None)
+    }
+
+    fn motion_done(&mut self, line: &str) -> Option<Value> {
+        let m = self.mot.take()?;
+        if m.src.is_empty() {
+            return None;
+        }
+        Some(op(vec![
+            ("op", Value::str("patch")),
+            ("screen", Value::str(&m.screen)),
+            ("target", Value::str(&m.id)),
+            ("props", Value::Obj(Map(vec![("source".to_string(), Value::str(&m.src.join("\n")))]))),
+            ("line", Value::str(line)),
+        ]))
     }
 
     /// One line of an open diagram: Mermaid, not YL. None means the line is
@@ -4369,6 +4433,7 @@ fn defaults(preset: &str) -> Map {
         "shapes" => vec![("title", s("")), ("caption", s("")), ("w", n(10.0)), ("h", n(6.0))],
         "shape" => vec![("kind", s("box")), ("label", s(""))],
         "diagram" => vec![("title", s("")), ("caption", s(""))],
+        "motion" => vec![("title", s(""))],
         "mock" => vec![("title", s("")), ("frame", s("phone"))],
         "part" => vec![("text", s("")), ("items", e())],
         "map" => vec![("title", s("")), ("caption", s("")), ("fit", s("auto"))],
