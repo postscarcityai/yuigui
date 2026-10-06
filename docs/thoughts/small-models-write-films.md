@@ -2,7 +2,7 @@
 date: 2026-10-06
 tag: release
 title: "Small models write films"
-dek: Ask a small model on your own laptop how a rainbow forms. It now answers with one line and a film. The 3B llama went from nine misses out of nine to five hits.
+dek: Ask a small model on your own laptop how a rainbow forms. It now answers with one line and a film. The 3B llama went from nine misses out of nine to a film now and then.
 ---
 
 ```shot
@@ -38,7 +38,19 @@ Small models get the motion line nearly right. The quote is missing, or the sent
 
 ## What is still rough
 
-gemma4:e4b hit nine of nine. qwen2.5:7b hit eight: once it chained its facts into a single sentence. llama3.2:3b hit five. Its misses are three plain lines with no fence, or a made-up line like `sign`. Those stay in the table, raw.
+gemma4:e4b hit nine of nine. qwen2.5:7b hit eight: once it chained its facts into a single sentence. llama3.2:3b hit five that day. Its misses are three plain lines with no fence, or a made-up line like `sign`. The next section is what happened when I fixed those.
+
+## What the llama fix did
+
+I went after the llama misses next. The repairs are generic, the same for every model. A card line whose `body=` landed alone on the next line now joins its preset. An unknown preset is never guessed into a film. A film opener the model dropped is put back, but only when you asked an explain question.
+
+I replayed 90 saved llama replies through the bridge. Films went from 4 to 36. Then I ran it live: the llama made 1 or 2 films out of 9. gemma4:e4b and qwen2.5:7b made 9 of 9.
+
+```shot
+/progress/int29-llama-film-dark.webp | Dark thread. llama3.2:3b answers an explain question with one short line and a film card with a play button.
+```
+
+So the replay looks great and the live run barely moves. Most live llama replies are plain text, or a card or a pick. I left those alone on purpose. A 3B model's plain answer is still a fine answer, and turning it into a film would mangle it.
 
 Nothing here makes a 3B model smart. It makes the bridge forgiving, so a small model's one good idea reaches the screen as a film.
 

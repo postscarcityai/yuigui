@@ -1,11 +1,11 @@
 {
   "since": "2026-09-23T21:31:33.000Z",
   "totals": {
-    "app": 515,
-    "site": 1596,
+    "app": 516,
+    "site": 1604,
     "builds": 57,
-    "shipped": 685,
-    "screenshots": 1834
+    "shipped": 686,
+    "screenshots": 1836
   },
   "days": [
     {
@@ -13,7 +13,31 @@
       "moments": [
         {
           "kind": "ship",
-          "at": "2026-10-06T14:14:44.877Z",
+          "at": "2026-10-06T15:01:10.000Z",
+          "title": "The small llama gets its film back",
+          "card": "INT-29",
+          "anchor": "the-small-llama-gets-its-film-back",
+          "images": [
+            {
+              "src": "/progress/int29-llama-film-dark.webp",
+              "alt": "Dark: llama3.2:3b answers how a bill becomes law with one line and a film card"
+            },
+            {
+              "src": "/progress/int29-llama-film-light.webp",
+              "alt": "Light: the first frame of the llama's film, a pink ring and a play bar on a cream screen"
+            }
+          ],
+          "commits": 3,
+          "totals": {
+            "app": 516,
+            "site": 1601,
+            "builds": 57,
+            "shipped": 686
+          }
+        },
+        {
+          "kind": "ship",
+          "at": "2026-10-06T14:27:03.000Z",
           "title": "The models page shows which small models draw",
           "card": "SITE-218",
           "anchor": "the-models-page-shows-which-small-models-draw",
@@ -27,10 +51,10 @@
               "alt": "Light: the same table, with the linked 9 of 9, 8 of 9 and 5 of 9 scores"
             }
           ],
-          "commits": 0,
+          "commits": 1,
           "totals": {
             "app": 515,
-            "site": 1596,
+            "site": 1597,
             "builds": 57,
             "shipped": 685
           }
@@ -551,6 +575,69 @@
         }
       ],
       "commits": [
+        {
+          "repo": "site",
+          "sha": "52f9df19",
+          "at": "2026-10-06T15:11:10.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/52f9df19"
+        },
+        {
+          "repo": "site",
+          "sha": "b66e6412",
+          "at": "2026-10-06T15:06:09.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/b66e6412"
+        },
+        {
+          "repo": "site",
+          "sha": "5e4db93f",
+          "at": "2026-10-06T15:05:50.000Z",
+          "text": "Models page: measured llama and qwen film numbers (INT-29)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/5e4db93f"
+        },
+        {
+          "repo": "site",
+          "sha": "fa7d8e9e",
+          "at": "2026-10-06T15:01:10.000Z",
+          "text": "Progress: the small llama gets its film back (INT-29)",
+          "url": "https://github.com/postscarcityai/yuigui/commit/fa7d8e9e"
+        },
+        {
+          "repo": "site",
+          "sha": "7e7021e8",
+          "at": "2026-10-06T15:01:09.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/7e7021e8"
+        },
+        {
+          "repo": "app",
+          "sha": "69c5c8df",
+          "at": "2026-10-06T14:56:02.000Z",
+          "text": "Bridge: repair a small model's explain film from its replies (INT-29)",
+          "url": "https://github.com/postscarcityai/yui/commit/69c5c8df"
+        },
+        {
+          "repo": "site",
+          "sha": "44a1f59f",
+          "at": "2026-10-06T14:35:46.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/44a1f59f"
+        },
+        {
+          "repo": "site",
+          "sha": "3853ec52",
+          "at": "2026-10-06T14:30:45.000Z",
+          "text": "board: sync from kanban and TestFlight",
+          "url": "https://github.com/postscarcityai/yuigui/commit/3853ec52"
+        },
+        {
+          "repo": "site",
+          "sha": "ce44ef30",
+          "at": "2026-10-06T14:27:03.000Z",
+          "text": "SITE-218: models page shows which small models draw screens and films",
+          "url": "https://github.com/postscarcityai/yuigui/commit/ce44ef30"
+        },
         {
           "repo": "site",
           "sha": "44f1662c",
