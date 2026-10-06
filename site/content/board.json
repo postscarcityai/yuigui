@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T03:00:18.835Z",
+  "updated": "2026-10-06T03:05:24.526Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,6 +290,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-206",
+          "title": "Roadmap 'Where Yui is now' says Oct 5, freshness catches a stale one"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -323,12 +327,6 @@
           "key": "NOTE-61013",
           "title": "Recording keeps you playing",
           "waiting": true
-        },
-        {
-          "key": "NOTE-30326",
-          "title": "Question and answers on one page",
-          "commit": "https://github.com/postscarcityai/yuigui/commit/b5487da0",
-          "needsDemo": true
         }
       ]
     },
@@ -372,6 +370,13 @@
           "shipped": "2026-10-05",
           "progress": "/progress#a-thought-a-question-sits-with-its-answers",
           "commit": "https://github.com/postscarcityai/yuigui/commit/7f64a695"
+        },
+        {
+          "key": "NOTE-30326",
+          "title": "Question and answers on one page",
+          "shipped": "2026-10-05",
+          "progress": "/progress#a-question-sits-on-the-page-it-asks-about",
+          "commit": "https://github.com/postscarcityai/yuigui/commit/b5487da0"
         },
         {
           "key": "SITE-204",
