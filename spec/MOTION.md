@@ -1,4 +1,4 @@
-# Motion explainers | spec v0 (proposal, t_0e5a8838)
+# Motion explainers | spec v0 (proposal)
 
 Chris, Oct 5: "I want this to look like a professionally designed explainer video more than these boring slide by slide explanations. Some camera movements, some shapes that transform, some motion, the ability to make something totally unique every time even if I ask for the same thing. I'm about to give up on this app and I need you to save it." He also asked whether YL is the wrong layer and the agent should just write code.
 
