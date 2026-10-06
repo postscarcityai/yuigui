@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T00:25:55.707Z",
+  "updated": "2026-10-06T00:36:03.841Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -290,6 +290,10 @@
           "waiting": true
         },
         {
+          "key": "SITE-201",
+          "title": "Thought, a question carries its own context"
+        },
+        {
           "key": "NOTE-3941",
           "title": "Drawings that look designed",
           "waiting": true,
@@ -335,6 +339,11 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "YUI-308",
+          "title": "/web questions show what they ask about, right above the buttons",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
