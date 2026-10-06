@@ -16,6 +16,8 @@ import { RichText } from "../playground/richtext";
 import { textRole } from "../../lib/yl/readtext.mjs";
 import { CrewOr } from "./ChatCrew";
 import { useDragDown } from "../playground/dragdown";
+import { deckOf } from "../../lib/web/deckmorph.mjs";
+import MorphDeck from "./MorphDeck";
 import "../playground/flows.css";
 
 function Picture({ part, node, emitFor }) {
@@ -56,6 +58,8 @@ function Chunk({ a, c, dir, emitFor, Text, go, small, home, agent }) {
 export default function ChatStage({ content, answer, agent = "Yui", live, onTap, onAnswers, Text, go, active = true, onEdge, onHome, onEnd, at: sentAt }) {
   // `answer` is an answer already read (the web thread builds its own from the screens it holds, YUI-243).
   const a = useMemo(() => answer || readAnswer(content), [answer, content]);
+  // YUI-307: an answer that is only a deck of drawings is one stage that morphs from page to page, with no card, dots or arrows.
+  const deck = useMemo(() => deckOf(a), [a]);
   const n = a.chunks.length;
   const [at, setAt] = useState(0);
   const [dir, setDir] = useState(1);
@@ -80,7 +84,7 @@ export default function ChatStage({ content, answer, agent = "Yui", live, onTap,
   // The arrow keys page the stage when nobody is typing. Past the last part, right goes on to the
   // chat's pages (SITE-83, onEdge).
   useEffect(() => {
-    if (!active) return undefined;
+    if (!active || deck) return undefined;
     const onKey = (e) => {
       if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target?.tagName || "") || e.target?.isContentEditable) return;
       if (e.key === "ArrowRight") { if (at >= last) onEdge?.(1); else step(1); }
@@ -88,7 +92,7 @@ export default function ChatStage({ content, answer, agent = "Yui", live, onTap,
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [active, step, at, last, onEdge]);
+  }, [active, deck, step, at, last, onEdge]);
 
   const emitFor = useCallback((node) => (value) => { if (live) onTap?.({ id: node.id, preset: node.preset, ...value, ...(node.saved ? { saved: node.saved } : {}) }); }, [live, onTap]);
 
@@ -115,6 +119,16 @@ export default function ChatStage({ content, answer, agent = "Yui", live, onTap,
   };
 
   const c = a.chunks[Math.min(at, last)];
+  if (deck) {
+    const title = a.parts[0].nodes.find((nd) => nd.preset === "deck")?.props?.title;
+    return (
+      <div className="ys-play ys-deck" ref={box} data-pull={pull.dragging ? "1" : undefined} style={pull.style} {...pull.handlers}>
+        {onHome ? <button className="ys-homex" onClick={onHome} aria-label="Back to home">Back to home</button> : null}
+        <MorphDeck pages={deck} title={title} active={active} onPage={setAt} onEdge={onEdge}
+          renderPic={(p) => <div className="ys-pic yc-screen pg-screen"><Ctx part={a.parts[0]} agent={agent} home={onHome}><Picture part={a.parts[0]} node={p.pic} emitFor={emitFor} /></Ctx></div>} />
+      </div>
+    );
+  }
   return (
     <div className="ys-play" ref={box} onClick={onStageTap} data-asking={asking ? "1" : undefined} data-pull={pull.dragging ? "1" : undefined} style={pull.style} {...pull.handlers}>
       {onHome ? <button className="ys-homex" onClick={onHome} aria-label="Back to home">Back to home</button> : null}

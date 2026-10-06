@@ -1,0 +1,28 @@
+/* A deck on the stage (YUI-307, MorphDeck.js): no card, no border, no dots. The drawing runs edge to edge. */
+.md-deck {
+  --md-ink: var(--ink, #eceef6); --md-mute: var(--muted, #9aa0b8);
+  --md-lavender: #8b7cff; --md-mint: #199e8f; --md-butter: #c98500;
+  position: relative; flex: 1; min-height: 0; width: 100%; display: flex; flex-direction: column; overflow: hidden;
+  touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; border: 0; background: none; box-shadow: none;
+}
+.web-root.is-light .md-deck { --md-lavender: #6a5ae0; --md-mint: #0f8a7a; --md-butter: #b37600; }
+.md-art { position: relative; flex: 0 0 62%; min-height: 0; }
+.md-svg { position: absolute; inset: 0; display: block; overflow: visible; pointer-events: none; }
+.md-label { fill: var(--md-ink); font-weight: 700; font-family: inherit; paint-order: stroke; stroke: color-mix(in srgb, var(--background, #0f1019) 55%, transparent); stroke-width: 3px; stroke-linejoin: round; }
+.md-label.heavy { font-weight: 800; }
+.md-pic { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 0 22px; pointer-events: none; z-index: 2; }
+.md-pic[data-on] { pointer-events: auto; }
+.md-words { position: relative; flex: 1; min-height: 0; }
+.md-page { position: absolute; inset: 0; padding: 4px 22px 0; display: flex; flex-direction: column; gap: 10px; pointer-events: none; will-change: transform, opacity; }
+.md-title { font-size: clamp(26px, 7vw, 38px); line-height: 1.12; letter-spacing: -.02em; }
+/* The two halves that turn the page: clear, so the drawing shows through. Left third back, the rest on (YUI-288). */
+.md-turn { position: absolute; inset: 0; display: flex; z-index: 1; }
+.md-turn button { appearance: none; border: 0; padding: 0; margin: 0; background: transparent; cursor: pointer; height: 100%; -webkit-tap-highlight-color: transparent; }
+.md-turn-back { flex: 0 0 33.333%; }
+.md-turn-next { flex: 1; }
+.md-turn button:disabled { cursor: default; }
+.md-turn button:focus-visible { outline: 3px solid var(--link); outline-offset: -3px; }
+.md-deck:active { cursor: grabbing; }
+/* In the stage, a deck uses the whole column, not the reading measure. */
+.ys-play.ys-deck { cursor: auto; }
+.ys-play.ys-deck .ys-homex { z-index: 4; }
