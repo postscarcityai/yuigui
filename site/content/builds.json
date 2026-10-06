@@ -2249,6 +2249,10 @@
     },
     {
       "text": "A drawn phone is an animated wireframe: one glass device plays the before into the after (YUI-267, direction B)"
+    },
+    {
+      "text": "Motion prompt: LAYOUT and SUBJECT blocks from the look pass",
+      "card": "MOTION-2"
     }
   ]
 }
