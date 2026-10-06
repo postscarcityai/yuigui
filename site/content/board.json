@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-06T14:00:38.438Z",
+  "updated": "2026-10-06T14:05:39.165Z",
   "shippedDays": 30,
   "release": {
     "version": "0.6.2",
@@ -317,6 +317,17 @@
       "key": "building",
       "title": "Building",
       "cards": [
+        {
+          "key": "INT-29",
+          "title": "llama3.2:3b writes its film too",
+          "summary": "Generic fixes for dropped quotes and stray lines",
+          "owner": "CJohnDesign"
+        },
+        {
+          "key": "SITE-218",
+          "title": "The models page shows which small models draw screens and films",
+          "owner": "CJohnDesign"
+        },
         {
           "key": "NOTE-50900",
           "title": "The working screen, more alive",
