@@ -13,6 +13,21 @@ export const MAX_WAITING = 3;  // AgentHome.maxWaiting: asks and notes before Se
 
 const isAsk = (m) => m.role === "user" && !m.card;
 
+// Seconds between replies that still belong to one answer (StageChunks.answerGap).
+export const ANSWER_GAP = 120;
+
+// The stage holds the newest answer, not every message since the person spoke (pick A, Oct 6): the replies that
+// came close together, ending at the newest one. Older answers stay in the chat. Twin of StageChunks.newest.
+export function newestAnswer(replies) {
+  let from = replies.length, last = null;
+  for (let i = replies.length - 1; i >= 0; i--) {
+    if (last != null && (last - replies[i].at) / 1000 > ANSWER_GAP) break;
+    last = replies[i].at;
+    from = i;
+  }
+  return replies.slice(from);
+}
+
 // The turn the person started with message `askId` (their newest when null): every reply after it, up to
 // the next thing they said. `pieces` is what answerOf plays; `stopped` is a Stop in the turn (a note in
 // the record, never a chunk).
@@ -27,10 +42,14 @@ export function turnOf(messages, askId = null) {
   const lead = !isAsk(messages[i]);
   const turn = { ask: lead ? null : messages[i], pieces: [], stopped: false, replies: 0, at: null };
   const seen = new Set();
+  const replies = [];
   for (const m of messages.slice(lead ? i : i + 1)) {
     if (isAsk(m)) break;
     if (m.card === "stopped") { turn.stopped = true; continue; }
     if (m.role !== "agent" || m.from) continue;
+    replies.push(m);
+  }
+  for (const m of newestAnswer(replies)) {
     turn.at = m.at;
     turn.pieces.push(m.yl != null ? { state: m.state, rev: m.rev || 0 } : { text: m.text });
     seen.add(m.id.split("#")[0]);

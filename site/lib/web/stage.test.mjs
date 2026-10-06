@@ -106,3 +106,17 @@ test("YUI-306: a page is named by its saved name, its title, then a word for its
   assert.equal(pageTitle(h.state, "7"), "Page");
   for (const k of h.pages) assert.doesNotMatch(pageTitle(h.state, k, h.saved), /^Screen \d/);
 });
+
+test("the stage holds only the newest answer; replies minutes apart are separate answers", () => {
+  const at = (s) => iso(s);
+  const m = thread([
+    row({ sender: "user", body: "status?", created_at: at(0) }),
+    row({ body: "Build news.", created_at: at(1) }),
+    row({ body: "Board is green.", created_at: at(601) }),
+    row({ body: "Push card.", created_at: at(6001) }),
+    row({ body: "Two lines.", created_at: at(6031) }),
+  ]);
+  const t = turnOf(m);
+  assert.deepEqual(t.pieces.map((p) => p.text), ["Push card.", "Two lines."]);
+  assert.equal(t.replies, 2);
+});
