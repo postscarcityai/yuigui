@@ -136,7 +136,15 @@ Meta points agent work at its Responses API, because Chat Completions does not c
 
 - **Yui holds the thread.** A chat API remembers nothing, so every turn carries the guide, then as much of the thread as fits `--context` (tokens, default 4096), then the new messages. Rows drop off whole, oldest first, never from the middle. Runs of one role are joined, because many open models' chat templates want the two sides to take turns. The bridge's own status lines never go in.
 - **Room.** The guide is about 2,500 tokens. Ollama and LM Studio load models with 4,096 by default and silently cut longer prompts, so a real conversation wants more (`OLLAMA_CONTEXT_LENGTH=16384 ollama serve`), with the same number on `--context`. The bridge logs what it left out.
-- **Small models.** qwen2.5:7b on a Mac mini draws simple screens (choices, lists) and answers taps. Harder layouts want a bigger model. YUI-10's eval will score each model we list as supported; a model under the bar gets plain text only.
+- **Small models.** Three local models, measured on a stock Ollama (nothing tuned, window 4,096) and rerun on Oct 6 2026. A model under 8,000 tokens of window gets a short guide of about 600 tokens instead of the full one, so a stock install works. Harder layouts still want a bigger model.
+
+| Model | Size | Screens | Films | Window | Verdict |
+| --- | --- | --- | --- | --- | --- |
+| gemma4:e4b | 9.6 GB | [9 of 9](/progress#your-own-model-remembers-the-thread) | [9 of 9](/thoughts/small-models-write-films) | 4,096 | Tidy. Draws screens and writes films every run. |
+| qwen2.5:7b | 4.7 GB | [9 of 9](/progress#your-own-model-remembers-the-thread) | [8 of 9](/thoughts/small-models-write-films) | 4,096 | Tidy. Once chained its facts into one sentence. |
+| llama3.2:3b | 2.0 GB | [9 of 9](/progress#your-own-model-remembers-the-thread) | [5 of 9](/thoughts/small-models-write-films) | 4,096 | Roughest. Films miss with plain lines and no fence, or an invented line like `sign`. |
+
+Screens are the Drink ask (a choose screen with Tea and Coffee), [3 live runs each](/progress#a-second-small-local-model-family-draws-screens), and the Ollama suite after [INT-27's fix](/progress#small-models-stop-talking-to-themselves). Films are three explain questions, three runs each, nine per model ([INT-28](/progress#small-models-explain-with-a-film)). Misses stay in the numbers, raw. Write-ups: [a model on your laptop draws](/thoughts/a-laptop-model-draws-screens), [every small model draws](/thoughts/every-small-model-draws), [small models write films](/thoughts/small-models-write-films). The channel guide eval (YUI-10) shipped Sep 24; these numbers are the per-model scores it left open.
 
 ## Streams, errors and restarts
 
