@@ -51,7 +51,7 @@ export const restLabel = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart
 // "Done" said out loud: every new "done" (or "next set") in the words heard ticks a set.
 export const voiceDone = (words) => (String(words).toLowerCase().match(/\b(?:done|next set|set done)\b/g) || []).length;
 
-export const emptyProgress = () => ({ at: 0, ticked: {}, values: {}, rest: null });
+export const emptyProgress = () => ({ at: 0, ticked: {}, values: {}, rest: null, edits: null });
 
 // A set row tapped: on, or back off. Returns { progress, went } (went = it went on, so the rest starts).
 export function toggle(progress, label, move) {
@@ -72,10 +72,13 @@ export function tickNext(progress, move) {
 
 export const nudged = (progress, id, value) => ({ ...progress, values: { ...progress.values, [id]: value } });
 
-// The plan answers it stands for: ticked sets as picks, every nudge as its number.
+// The plan answers it stands for: ticked sets as picks, every nudge as its number. Edited, the moves are the plan as
+// edited (an added move answers by its own ids) and `edits` says what changed, one line per change (YUI-309).
 export function answersOf(runner, progress) {
   const out = {};
-  for (const mv of runner.moves) {
+  const changes = changesOf(runner, progress);
+  if (changes.length) out.edits = changes;
+  for (const mv of applyEdits(runner, progress.edits).moves) {
     const t = progress.ticked[mv.id];
     if (t?.length) out[mv.id] = t;
     for (const n of mv.nudges) {
@@ -165,3 +168,201 @@ export function loadProgress(plan, storage = globalThis.localStorage) {
 }
 export function saveProgress(plan, progress, storage = globalThis.localStorage) { try { storage?.setItem(key(plan), JSON.stringify(progress)); } catch { /* private mode */ } }
 export function clearProgress(plan, storage = globalThis.localStorage) { try { storage?.removeItem(key(plan)); } catch { /* nothing kept */ } }
+
+// ---- edits on the fly (YUI-309, the web twin of Presets/WorkoutEdits.swift, YUI-305) ----
+// A move can be swapped, its sets, reps and weight changed, a move added after it or skipped, from the runner. The
+// edits are kept with the runner's place, the plan is read as edited, and the plan's answer carries one `edits` line
+// per change: same keys, same words as the app, so an agent reads one format.
+
+export const emptyEdits = () => ({ swaps: {}, sets: {}, reps: {}, lb: {}, added: [] });
+export const editsEmpty = (e) => !e || (!Object.keys(e.swaps || {}).length && !Object.keys(e.sets || {}).length && !Object.keys(e.reps || {}).length && !Object.keys(e.lb || {}).length && !(e.added || []).length);
+
+// A move's tag ("e1-sets" -> "e1") and its name (what the page calls it).
+export const tagOf = (move) => (String(move.id).endsWith("-sets") ? String(move.id).slice(0, -5) : String(move.id));
+export const nameOf = (move) => String(move.sets.props?.title || move.sets.props?.q || move.sets.props?.prompt || tagOf(move));
+// 8 -> "8", 7.5 -> "7.5" (the app's YLComponent.format).
+export const fmt = (v) => String(Number(Number(v).toFixed(1)));
+
+// The next free tag for a move added here: add1, add2.
+export const nextTag = (e) => `add${Math.max(0, ...(e?.added || []).map((a) => Number(String(a.tag).slice(3)) || 0)) + 1}`;
+
+// Moves to swap to, by what the move is: the first three are offered as chips.
+const ALTERNATES = [
+  ["squat", ["Leg press", "Split squat", "Box squat"]],
+  ["lunge", ["Split squat", "Step-up", "Goblet squat"]],
+  ["deadlift", ["Romanian deadlift", "Hip thrust", "Kettlebell swing"]],
+  ["push-up", ["Incline push-up", "Bench press", "Knee push-up"]],
+  ["push up", ["Incline push-up", "Bench press", "Knee push-up"]],
+  ["bench", ["Dumbbell press", "Push-up", "Incline press"]],
+  ["overhead", ["Arnold press", "Landmine press", "Pike push-up"]],
+  ["press", ["Dumbbell press", "Push-up", "Landmine press"]],
+  ["row", ["Cable row", "Band row", "Inverted row"]],
+  ["pull", ["Lat pulldown", "Band pull-down", "Inverted row"]],
+  ["plank", ["Dead bug", "Side plank", "Hollow hold"]],
+  ["curl", ["Hammer curl", "Band curl", "Chin-up"]],
+  ["bridge", ["Hip thrust", "Single-leg bridge", "Kettlebell swing"]],
+];
+export const alternates = (name) => { const n = String(name).toLowerCase(); return (ALTERNATES.find(([k]) => n.includes(k)) || [null, ["Push-up", "Goblet squat", "Plank"]])[1]; };
+// Moves to add, the usual fillers.
+export const EXTRAS = ["Lunge", "Plank", "Burpee", "Curl"];
+
+// A move added in the runner, as if the plan had sent it: a sets pick and a reps (and weight) slide.
+function addedMove(a) {
+  const name = String(a.name).replace(/"/g, "");
+  const n = Math.max(1, a.sets);
+  const labels = Array.from({ length: n }, (_, i) => `Set ${i + 1}`);
+  const sets = { id: `${a.tag}-sets`, key: `added-${a.tag}`, preset: "pick", props: { title: name, options: [...labels, "Skip"] } };
+  const nudges = [{ id: `${a.tag}-reps`, preset: "slide", props: { label: `${name}: reps per set`, min: 1, max: 60, value: a.reps } }];
+  if (a.lb != null) nudges.push({ id: `${a.tag}-lb`, preset: "slide", props: { label: `${name}: weight in lb`, min: 0, max: 500, value: a.lb, step: 5, unit: "lb" } });
+  return { sets, id: sets.id, labels, skip: "Skip", nudges, added: true };
+}
+
+// The plan as edited: swaps renamed, set counts changed, added moves in after the move they follow.
+export function applyEdits(runner, edits) {
+  if (!runner || editsEmpty(edits)) return runner;
+  let moves = [...runner.moves];
+  for (const a of edits.added || []) {
+    const m = addedMove(a);
+    // After its anchor and after any move added there before it.
+    let i = (moves.findIndex((x) => tagOf(x) === a.after) >= 0 ? moves.findIndex((x) => tagOf(x) === a.after) : moves.length - 1) + 1;
+    while (i < moves.length && (edits.added || []).some((x) => x.tag === tagOf(moves[i]) && x.after === a.after)) i++;
+    moves.splice(Math.min(i, moves.length), 0, m);
+  }
+  moves = moves.map((m) => {
+    const tag = tagOf(m);
+    let out = m;
+    // The cue and the load call were for the old move.
+    if (edits.swaps?.[tag]) out = { ...out, sets: { ...out.sets, props: { ...out.sets.props, title: edits.swaps[tag], body: undefined, why: undefined } } };
+    const n = edits.sets?.[tag];
+    if (n != null && n !== out.labels.length) out = { ...out, labels: Array.from({ length: Math.max(1, Math.min(n, 12)) }, (_, i) => `Set ${i + 1}`) };
+    return out;
+  });
+  return {
+    ...runner,
+    moves,
+    absorbed: new Set(moves.flatMap((mv) => mv.nudges.map((n) => n.id))),
+    move: (id) => moves.find((mv) => mv.id === id) || null,
+  };
+}
+
+// One line per change, in move order: what the plan's `edits` answer says.
+export function changesOf(runner, progress) {
+  const e = progress.edits;
+  if (!runner || editsEmpty(e)) return [];
+  const live = applyEdits(runner, e);
+  const out = [];
+  for (const m of live.moves) {
+    const tag = tagOf(m);
+    const base = runner.moves.find((x) => tagOf(x) === tag);
+    const t = progress.ticked[m.id] || [];
+    const skipped = !!m.skip && t.length === 1 && t[0] === m.skip;
+    const a = (e.added || []).find((x) => x.tag === tag);
+    if (a) {
+      if (skipped) continue;
+      const reps = progress.values[`${a.tag}-reps`] ?? a.reps;
+      const lbv = progress.values[`${a.tag}-lb`] ?? a.lb;
+      out.push(`Added ${nameOf(m)} ${m.labels.length}x${fmt(reps)}${lbv != null ? ` at ${fmt(lbv)} lb` : ""}`);
+      continue;
+    }
+    if (!base) continue;
+    if (e.swaps?.[tag]) out.push(`Swapped ${nameOf(base)} for ${e.swaps[tag]}`);
+    // A skip is in the move's own answer (its sets pick says Skip).
+    if (skipped) continue;
+    if (m.labels.length !== base.labels.length) out.push(`${nameOf(m)}: ${m.labels.length} sets (was ${base.labels.length})`);
+    const r = repsNudge(base);
+    if (e.reps?.[tag] != null && r) {
+      const secs = String(r.id).endsWith("-secs");
+      const was = typeof r.props?.value === "number" ? fmt(r.props.value) : "?";
+      out.push(secs ? `${nameOf(m)}: ${fmt(e.reps[tag])}s (was ${was}s)` : `${nameOf(m)}: ${fmt(e.reps[tag])} reps (was ${was})`);
+    }
+    const w = weightNudge(base);
+    if (e.lb?.[tag] != null && w) {
+      const was = typeof w.props?.value === "number" ? fmt(w.props.value) : "?";
+      out.push(`${nameOf(m)}: ${fmt(e.lb[tag])} lb (was ${was} lb)`);
+    }
+  }
+  return out;
+}
+
+// Change the plan mid-session: `f` edits a copy of the edits, an edited number becomes the move's number from here on
+// (undone, it is the plan's again), and sets ticked past a cut are dropped. An added move keeps its own numbers, so the
+// change list says "Added Lunge 4x12", not a change on top. Returns the new progress.
+export function editPlan(runner, progress, f) {
+  const before = progress.edits || emptyEdits();
+  const e = structuredClone({ ...emptyEdits(), ...before });
+  f(e);
+  // Back to the plan's own number: no change left to report.
+  for (const m of runner.moves) {
+    const tag = tagOf(m);
+    if (e.sets[tag] === m.labels.length) delete e.sets[tag];
+    const r = repsNudge(m), w = weightNudge(m);
+    if (r && e.reps[tag] === r.props?.value) delete e.reps[tag];
+    if (w && e.lb[tag] === w.props?.value) delete e.lb[tag];
+  }
+  for (const a of e.added) {
+    if (e.sets[a.tag] != null) { a.sets = e.sets[a.tag]; delete e.sets[a.tag]; }
+    if (e.reps[a.tag] != null) { a.reps = e.reps[a.tag]; delete e.reps[a.tag]; }
+    if (e.lb[a.tag] != null) { a.lb = e.lb[a.tag]; delete e.lb[a.tag]; }
+    delete e.swaps[a.tag];
+  }
+  const next = { ...progress, edits: editsEmpty(e) ? null : e, ticked: { ...progress.ticked }, values: { ...progress.values } };
+  const num = (ed, tag, k) => (ed.added || []).find((a) => a.tag === tag)?.[k === "reps" ? "reps" : "lb"] ?? ed[k]?.[tag];
+  for (const m of applyEdits(runner, next.edits).moves) {
+    const tag = tagOf(m);
+    if (next.ticked[m.id]) next.ticked[m.id] = next.ticked[m.id].filter((x) => m.labels.includes(x) || x === m.skip);
+    const r = repsNudge(m), w = weightNudge(m);
+    if (r && num(before, tag, "reps") !== num(e, tag, "reps")) next.values[r.id] = num(e, tag, "reps") ?? r.props?.value;
+    if (w && num(before, tag, "lb") !== num(e, tag, "lb")) next.values[w.id] = num(e, tag, "lb") ?? w.props?.value;
+  }
+  return next;
+}
+
+// The common edits, as the sheet offers them. Each returns the new progress.
+export const swapMove = (runner, progress, move, name) => {
+  const to = String(name).trim();
+  if (!to) return progress;
+  const tag = tagOf(move);
+  const base = runner.moves.find((x) => tagOf(x) === tag);
+  return editPlan(runner, progress, (e) => {
+    const a = e.added.find((x) => x.tag === tag);
+    if (a) { a.name = to; return; }
+    if (base && to === nameOf(base)) delete e.swaps[tag]; else e.swaps[tag] = to;
+  });
+};
+export const setSets = (runner, progress, move, n) => editPlan(runner, progress, (e) => { e.sets[tagOf(move)] = Math.max(1, Math.min(12, n)); });
+export const setReps = (runner, progress, move, v) => editPlan(runner, progress, (e) => { e.reps[tagOf(move)] = v; });
+export const setWeight = (runner, progress, move, v) => editPlan(runner, progress, (e) => { e.lb[tagOf(move)] = v; });
+export function addMove(runner, progress, move, name) {
+  const nm = String(name).trim();
+  if (!nm) return progress;
+  const timed = /plank|hold/i.test(nm);
+  return editPlan(runner, progress, (e) => { e.added.push({ tag: nextTag(e), name: nm, sets: 3, reps: timed ? 30 : 10, lb: null, after: tagOf(move) }); });
+}
+// Skip the move (its sets pick says Skip), or take the skip back. A move with no way out has no skip.
+export const skipMove = (progress, move) => (move.skip ? toggle(progress, move.skip, move).progress : progress);
+export const isSkipped = (progress, move) => !!move.skip && (progress.ticked[move.id] || []).includes(move.skip);
+
+// The steps of a plan with the added moves drawn in after the move they follow (and after earlier adds there).
+export function withAdded(steps, edits) {
+  const out = [...steps];
+  for (const a of edits?.added || []) {
+    const step = addedMove(a).sets;
+    let i = out.findIndex((s) => s.id === `${a.after}-sets`);
+    i = (i >= 0 ? i : out.length - 1) + 1;
+    while (i < out.length && (edits.added || []).some((x) => out[i].id === `${x.tag}-sets` && x.after === a.after)) i++;
+    out.splice(i, 0, step);
+  }
+  return out;
+}
+
+// What the browser is playing, as a strip would show it: null when nothing is (no strip, no dead control). `audio` is a
+// media element on the page, `session` the page's Media Session, `handlers` the actions the page registered on it. A
+// button shows only where there is something behind it: next needs a "nexttrack" handler.
+export function nowPlaying(session, audio, handlers = {}) {
+  const md = session?.metadata;
+  const playing = session?.playbackState === "playing" || (!!audio && !audio.paused && !audio.ended);
+  const paused = session?.playbackState === "paused" || (!!audio && audio.paused && audio.currentTime > 0 && !audio.ended);
+  if (!playing && !paused) return null;
+  const canToggle = !!audio || !!(playing ? handlers.pause : handlers.play);
+  return { title: md?.title || audio?.title || "Music", artist: md?.artist || "", playing, canToggle, canNext: !!handlers.nexttrack };
+}

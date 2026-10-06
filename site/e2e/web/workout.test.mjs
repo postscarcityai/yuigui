@@ -1,7 +1,9 @@
 // YUI-304 e2e (the web twin of YUI-303): Start on Today's workout opens the runner full screen, a set asks reps and
 // weight and then rests, and a Review row for a workout never draws the runner in the drawer. Demo relay, no sign in.
 //   npx next start -p 3304 &   then   PLAYWRIGHT=<path to playwright> node e2e/web/workout.test.mjs
-// SHOTS=<folder> writes dark and light shots of Start -> runner -> log -> rest timer.
+// YUI-309: Edit swaps a move mid-workout (and changes sets, adds a move), the music strip shows only while something plays,
+// and the answer's `edits` names the swap.
+// SHOTS=<folder> writes dark and light shots of Start -> runner -> log -> rest timer -> the edit sheet.
 import { createRequire } from "node:module";
 import { mkdirSync } from "node:fs";
 import { FLOWS } from "../../lib/yl/samples.mjs";
@@ -86,6 +88,59 @@ for (const theme of ["dark", "light"]) {
   ok(await pg.locator(".wb-stage [data-testid=runner-e1-rest]").count() === 0, `${t}: Skip rest goes to the next set`);
   await pg.locator(".wb-stage [data-testid=runner-e1-set-2]").click();
   ok(await pg.locator(".wb-stage [data-testid=runner-e1-log-reps-value]").innerText() === "9", `${t}: the next set starts where the last ended`);
+
+  // ---- edits on the fly (YUI-309): swap the move, a set more, a move added, then finish ----
+  // The sheet is drawn over the whole screen, so it sits outside the stage.
+  const st = (id) => pg.locator(id.startsWith("runner-edit") ? `[data-testid=${id}]` : `.wb-stage [data-testid=${id}]`);
+  ok(await st("runner-music").count() === 0, `${t}: no strip while nothing plays`);
+  await st("runner-e1-edit").click();
+  ok(/Edit Goblet squat/.test(await st("runner-edit-title").innerText()), `${t}: Edit opens the sheet for this move`);
+  await st("runner-edit-swap-leg-press").click();
+  ok(/Edit Leg press/.test(await st("runner-edit-title").innerText()), `${t}: swapping renames it`);
+  await st("runner-edit-sets-plus").click();
+  ok(await st("runner-edit-sets-value").innerText() === "4", `${t}: a set more`);
+  await st("runner-edit-add-lunge").click();
+  const lines = await st("runner-edit-changes").innerText();
+  ok(/Swapped Goblet squat for Leg press/.test(lines) && /Leg press: 4 sets \(was 3\)/.test(lines) && /Added Lunge 3x10/.test(lines), `${t}: the sheet lists what changed`);
+  if (SHOTS) await pg.screenshot({ path: `${SHOTS}/web-workout-edit-${theme}.png` });
+  await st("runner-edit-close").click();
+  ok(await st("runner-e1-set-4").count() === 1, `${t}: the move has its fourth set`);
+  ok(/Leg press/.test(await pg.locator(".wb-stage [data-testid=runner-e1] .rn-title").innerText()), `${t}: the page says Leg press`);
+  ok(await st("runner-e1-set-1").getAttribute("aria-pressed") === "true", `${t}: the ticked set stays ticked`);
+
+  // ---- music: the strip is there only while the page has something playing; every button does something ----
+  await pg.evaluate(() => {
+    window.__music = { next: 0, pause: 0 };
+    navigator.mediaSession.metadata = new MediaMetadata({ title: "Midnight City", artist: "M83" });
+    navigator.mediaSession.setActionHandler("nexttrack", () => { window.__music.next++; });
+    navigator.mediaSession.setActionHandler("pause", () => { window.__music.pause++; });
+    navigator.mediaSession.playbackState = "playing";
+  });
+  await pg.waitForSelector(".wb-stage [data-testid=runner-music]", { timeout: 4000 });
+  ok(await st("runner-music-title").innerText() === "Midnight City", `${t}: the strip names the song`);
+  await st("runner-music-next").click();
+  await st("runner-music-play").click();
+  ok(await pg.evaluate(() => window.__music.next === 1 && window.__music.pause === 1), `${t}: next and pause reach the page's player`);
+  if (SHOTS) await pg.screenshot({ path: `${SHOTS}/web-workout-music-${theme}.png` });
+  await pg.evaluate(() => { navigator.mediaSession.playbackState = "none"; navigator.mediaSession.metadata = null; });
+  await pg.waitForFunction(() => !document.querySelector("[data-testid=runner-music]"), null, { timeout: 4000 });
+  ok(true, `${t}: nothing playing, the strip is gone`);
+
+  // ---- finish: the answer's edits names the swap ----
+  const sent0 = (await wire(pg)).length;
+  for (let i = 0; i < 14; i++) {
+    const fin = pg.locator(".wb-stage .yl-plan .bigbtn.p").first();
+    if (!(await fin.isVisible().catch(() => false))) break;
+    const label = (await fin.innerText()).trim();
+    if (label === "Finish workout") { await fin.click(); break; }
+    // The last page asks how it felt: one tap answers it and goes on to the review.
+    if (await fin.isDisabled()) { await pg.locator(".wb-stage").getByRole("button", { name: "Easy", exact: true }).first().click(); await pg.waitForTimeout(900); continue; }
+    await fin.click(); await pg.waitForTimeout(350);
+  }
+  await pg.waitForTimeout(500);
+  const sent = JSON.stringify((await wire(pg)).slice(sent0));
+  ok(/Swapped Goblet squat for Leg press/.test(sent), `${t}: the answer's edits names the swap`);
+  ok(/Added Lunge 3x10/.test(sent) && /add1-reps/.test(sent), `${t}: and the added move, answered by its own ids`);
 
   // ---- a Review row for a workout closes the drawer and opens the runner on the stage ----
   await pg.reload();

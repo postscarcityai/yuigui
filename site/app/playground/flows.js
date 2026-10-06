@@ -15,8 +15,8 @@ import { Shapes } from "./shapes";
 import { Mock } from "./mock";
 import { MapView } from "./map";
 import { RichText } from "./richtext";
-import { RunnerMove, useRunner } from "./runner";
-import { runnerPlan } from "../../lib/web/runner.mjs";
+import { MusicStrip, RunnerMove, useRunner } from "./runner";
+import { applyEdits, changesOf, runnerPlan, withAdded } from "../../lib/web/runner.mjs";
 import { askHere, compareOf, questionOf } from "../../lib/yl/askhere.mjs";
 import { KeptAnsCtx, KeptScopeCtx, useKeptAgent, useKeptMsg } from "./kept";
 import { keepScope } from "../../lib/web/stagekeep.mjs";
@@ -274,7 +274,9 @@ export function Plan({ g, emitFor, Render }) {
   const runner = runnerPlan(all);
   const run = useRunner(runner, g.group.id);
   // YUI-277: a choose / pick / ask right after a page is drawn on that page, under its picture.
-  const steps = askHere(runner ? all.filter((m) => !runner.absorbed.has(m.id)) : all, (m) => !!runner?.move(m.id));
+  // Edited on the fly (YUI-309): the plan as edited, its added moves drawn in after the move they follow.
+  const live = runner ? applyEdits(runner, run.progress.edits) : null;
+  const steps = askHere(runner ? withAdded(all.filter((m) => !runner.absorbed.has(m.id)), run.progress.edits) : all, (m) => !!live?.move(m.id));
   // Pages are steps to read; only questions are answered and reviewed.
   const questions = steps.map(questionOf).filter(Boolean);
   const n = steps.length;
@@ -310,7 +312,7 @@ export function Plan({ g, emitFor, Render }) {
       title: p.title || "Plan",
       pages: steps.filter((m) => m.preset === "page").map((m) => resolve("page", m.props)),
       answers: questions.length,
-      text: foldText(questions, runner ? { ...a, ...run.answers } : a),
+      text: foldText(questions, runner ? { ...a, ...run.answers } : a) + (runner && changesOf(runner, run.progress).length ? `\nChanged: ${changesOf(runner, run.progress).join("; ")}` : ""),
     });
     screen?.closeStage?.();
   };
@@ -327,7 +329,7 @@ export function Plan({ g, emitFor, Render }) {
     if (m.preset === "ask" || m.preset === "choose") setTimeout(() => next(a), 380);
     else if (m.preset !== "slide") next(a);
   };
-  const nextOk = cur < n && (has(steps[cur]) || steps[cur].preset === "slide" || (steps[cur].preset === "page" && !steps[cur].ask) || !!runner?.move(steps[cur].id));
+  const nextOk = cur < n && (has(steps[cur]) || steps[cur].preset === "slide" || (steps[cur].preset === "page" && !steps[cur].ask) || !!live?.move(steps[cur].id));
   const onNext = () => {
     const m = steps[cur];
     if (m.preset === "slide" && !has(m)) {
@@ -363,6 +365,7 @@ export function Plan({ g, emitFor, Render }) {
           {p.review ? <button className={review ? "now" : ""} onClick={() => setAt(n)} aria-label="Review" /> : null}
         </div>
       </div>
+      {runner ? <MusicStrip /> : null}
       {steps.map((m, i) => (
         <div key={m.key} className="yl-planstep" style={{ display: i === cur ? undefined : "none" }}>
           <StepActiveCtx.Provider value={i === cur && !review}>
@@ -370,7 +373,7 @@ export function Plan({ g, emitFor, Render }) {
             <div className="yl-planpage">{slidePage(m, emitFor, Render)}</div>
             {m.ask ? <PlanAsk steps={steps} at={i} emitFor={emitFor} Render={Render} capture={capture} ans={ans} /> : null}
           </>
-            : runner?.move(m.id) ? <RunnerMove move={runner.move(m.id)} runner={runner} step={m} progress={run.progress} setProgress={run.setProgress} active={i === cur && !review} />
+            : live?.move(m.id) ? <RunnerMove move={live.move(m.id)} runner={live} base={runner} step={m} progress={run.progress} setProgress={run.setProgress} active={i === cur && !review} />
             : <PlanAsk steps={steps} at={i} emitFor={emitFor} Render={Render} capture={capture} ans={ans} />}
           </StepActiveCtx.Provider>
         </div>

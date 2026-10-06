@@ -5,10 +5,12 @@
 // device. The rest keeps true time from its end moment, so a tab in the background still rings on time; the screen
 // stays on while it runs (Wake Lock).
 import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { createListener, speechApi } from "../../lib/web/voice.mjs";
 import {
-  answersOf, chipsAround, clearProgress, emptyProgress, hearRepsWeight, loadProgress, logSet, logStart, logTitle, nudged, restAdd, restLabel, restLeft,
-  restProgress, restStart, saveProgress, targetOf, tickNext, toggle, voiceDone,
+  EXTRAS, addMove, alternates, answersOf, applyEdits, changesOf, chipsAround, clearProgress, emptyProgress, fmt, hearRepsWeight, isSkipped, loadProgress,
+  logSet, logStart, logTitle, nameOf, nowPlaying, nudged, repsNudge, restAdd, restLabel, restLeft, restProgress, restStart, saveProgress, setReps, setSets,
+  setWeight, skipMove, swapMove, tagOf, targetOf, tickNext, toggle, voiceDone, weightNudge,
 } from "../../lib/web/runner.mjs";
 import { useTabTitle, useWakeLock } from "./keepawake";
 
@@ -41,7 +43,10 @@ const beep = () => {
   } catch { /* no sound here */ }
 };
 
-export function RunnerMove({ move, runner, step, progress, setProgress, active = true }) {
+// `runner` is the plan as edited, `base` as the agent sent it (what an edit is measured against).
+export function RunnerMove({ move, runner, base = runner, step, progress, setProgress, active = true }) {
+  const [editing, setEditing] = useState(false);
+  const anchor = useRef(null);
   const [now, setNow] = useState(() => Date.now());
   const [listening, setListening] = useState(false);
   const [mic, setMic] = useState(typeof window === "undefined" ? "off" : speechApi() ? "idle" : "none"); // idle | on | denied | none
@@ -105,7 +110,12 @@ export function RunnerMove({ move, runner, step, progress, setProgress, active =
   return (
     <div className="yl-block yl-runner" data-testid={`runner-${tag}`}>
       {props.tag ? <span className="rn-tag">{props.tag}</span> : null}
-      <div className="rn-title">{props.title || props.q || props.prompt || tag}</div>
+      <div className="rn-titlerow">
+        <div className="rn-title">{props.title || props.q || props.prompt || tag}</div>
+        <button className="rn-edit" data-testid={`runner-${tag}-edit`} onClick={() => setEditing(true)}>Edit</button>
+      </div>
+      <span ref={anchor} hidden />
+      {editing ? <RunnerEditSheet base={base} move={move} progress={progress} setProgress={setProgress} anchor={anchor} onClose={() => setEditing(false)} /> : null}
       {props.body ? <p className="rn-body">{props.body}</p> : null}
       <div className="rn-sets">
         {move.labels.map((label, i) => {
@@ -207,6 +217,137 @@ function RunnerLog({ move, progress, label, tag, onLog, onCancel }) {
         <button className="rn-logdone" data-testid={`runner-${tag}-log-done`} onClick={() => onLog({ reps, weight: start.weight != null ? weight : null })}>Log set</button>
         <button className="rn-skip" data-testid={`runner-${tag}-log-cancel`} onClick={onCancel}>Not yet</button>
       </div>
+    </div>
+  );
+}
+
+// ---- edits on the fly (YUI-309, the web twin of WorkoutEdits.swift's RunnerEditSheet) ----
+// Edit the move in focus without leaving the runner: swap it, its sets, reps and weight, add a move after it, skip it.
+function RunnerEditSheet({ base, move, progress, setProgress, anchor, onClose }) {
+  // Drawn over the whole screen, not inside the page that holds the move (a moving page would clip it).
+  const [host, setHost] = useState(null);
+  useEffect(() => { setHost((anchor.current && anchor.current.closest(".screen")) || document.body); }, [anchor]);
+  useEffect(() => { const k = (e) => { if (e.key === "Escape") onClose(); }; window.addEventListener("keydown", k); return () => window.removeEventListener("keydown", k); }, [onClose]);
+  const [other, setOther] = useState("");
+  const [adding, setAdding] = useState("");
+  const live = applyEdits(base, progress.edits);
+  const m = live.move(move.id) || move;
+  const tag = tagOf(m);
+  const original = base.moves.find((x) => tagOf(x) === tag);
+  const added = (progress.edits?.added || []).some((a) => a.tag === tag);
+  const apply = (next) => setProgress(next);
+  const rn = repsNudge(m), wn = weightNudge(m);
+  const timed = !!rn && String(rn.id).endsWith("-secs");
+  const val = (n) => (n ? progress.values[n.id] ?? (typeof n.props?.value === "number" ? n.props.value : null) : null);
+  const reps = val(rn), lb = val(wn);
+  const repsStep = Math.max(Number.isFinite(rn?.props?.step) ? rn.props.step : timed ? 5 : 1, 1);
+  const lbStep = Math.max(Number.isFinite(wn?.props?.step) ? wn.props.step : 5, 0.5);
+  const stepper = (what, id, value, less, more) => (
+    <div className="rn-nudge rn-editrow">
+      <span>{what}</span>
+      <button aria-label={`Less ${what.toLowerCase()}`} data-testid={`runner-edit-${id}-minus`} disabled={!less} onClick={() => less && less()}>−</button>
+      <b data-testid={`runner-edit-${id}-value`}>{value}</b>
+      <button aria-label={`More ${what.toLowerCase()}`} data-testid={`runner-edit-${id}-plus`} disabled={!more} onClick={() => more && more()}>+</button>
+    </div>
+  );
+  const name = nameOf(m);
+  const options = alternates(original ? nameOf(original) : name).filter((o) => o !== name).slice(0, 3);
+  const slug = (o) => o.toLowerCase().replace(/ /g, "-");
+  const lines = changesOf(base, progress);
+  const field = (hint, text, setText, id, go, run) => (
+    <div className="rn-field">
+      <input value={text} placeholder={hint} data-testid={id} aria-label={hint} onChange={(e) => setText(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter" && text.trim()) { run(); setText(""); } }} />
+      {text.trim() ? <button className="rn-chip on" data-testid={`${id}-go`} onClick={() => { run(); setText(""); }}>{go}</button> : null}
+    </div>
+  );
+  if (!host) return null;
+  return createPortal(
+    <div className="rn-sheetwrap" data-testid="runner-edit">
+      <button className="rn-scrim" aria-label="Back to it" onClick={onClose} />
+      <div className="rn-sheet" role="dialog" aria-modal="true" aria-label={`Edit ${name}`}>
+        <div className="rn-sheethead">
+          <h3 data-testid="runner-edit-title">Edit {name}</h3>
+          <button className="rn-logdone rn-back" data-testid="runner-edit-close" onClick={onClose}>Back to it</button>
+        </div>
+        {stepper("Sets", "sets", m.labels.length,
+          m.labels.length > 1 ? () => apply(setSets(base, progress, m, m.labels.length - 1)) : null,
+          m.labels.length < 12 ? () => apply(setSets(base, progress, m, m.labels.length + 1)) : null)}
+        {reps != null ? stepper(timed ? "Seconds" : "Reps", "reps", `${fmt(reps)}${timed ? "s" : ""}`,
+          reps - repsStep >= 1 ? () => apply(setReps(base, progress, m, reps - repsStep)) : null, () => apply(setReps(base, progress, m, reps + repsStep))) : null}
+        {lb != null ? stepper("Weight", "lb", `${fmt(lb)} lb`,
+          lb - lbStep >= 0 ? () => apply(setWeight(base, progress, m, lb - lbStep)) : null, () => apply(setWeight(base, progress, m, lb + lbStep))) : null}
+        {added ? <p className="rn-note">Added in this session.</p> : null}
+        <h4>Swap it for</h4>
+        <div className="rn-chips rn-left">
+          {original && nameOf(original) !== name && progress.edits?.swaps?.[tag] ? (
+            <button className="rn-chip" data-testid="runner-edit-unswap" onClick={() => apply(swapMove(base, progress, m, nameOf(original)))}>Back to {nameOf(original)}</button>
+          ) : null}
+          {options.map((o) => <button key={o} className="rn-chip" data-testid={`runner-edit-swap-${slug(o)}`} onClick={() => apply(swapMove(base, progress, m, o))}>{o}</button>)}
+        </div>
+        {field("Something else", other, setOther, "runner-edit-swap-other", "Swap", () => apply(swapMove(base, progress, m, other)))}
+        <h4>Add a move after it</h4>
+        <div className="rn-chips rn-left">
+          {EXTRAS.filter((x) => !live.moves.some((mv) => nameOf(mv) === x)).map((x) => (
+            <button key={x} className="rn-chip" data-testid={`runner-edit-add-${x.toLowerCase()}`} onClick={() => apply(addMove(base, progress, m, x))}>+ {x}</button>
+          ))}
+        </div>
+        {field("Another move", adding, setAdding, "runner-edit-add-other", "Add", () => apply(addMove(base, progress, m, adding)))}
+        {m.skip ? (
+          <button className={`rn-skip${isSkipped(progress, m) ? " on" : ""}`} data-testid="runner-edit-skip" aria-pressed={isSkipped(progress, m)} onClick={() => apply(skipMove(progress, m))}>
+            {isSkipped(progress, m) ? "Take the skip back" : "Skip this move"}
+          </button>
+        ) : null}
+        <div data-testid="runner-edit-changes">
+          {lines.length ? <><h4>Changed</h4>{lines.map((l) => <div key={l} className="rn-change">✎ {l}</div>)}</> : null}
+        </div>
+      </div>
+    </div>,
+    host,
+  );
+}
+
+// ---- music (YUI-309) ----
+// The browser cannot drive Apple Music. What it can: a page's own media. The strip shows when this page has audio
+// or video playing or paused mid-way (a media element, or a Media Session a page set up), with play or pause and, only
+// where the page registered a next-track handler, next. Nothing playing: no strip, nothing dead on screen.
+const handlers = {};
+function trackSession() {
+  if (typeof navigator === "undefined" || !navigator.mediaSession || navigator.mediaSession.__yuiTracked) return;
+  const ms = navigator.mediaSession;
+  const orig = ms.setActionHandler.bind(ms);
+  ms.setActionHandler = (action, fn) => { if (fn) handlers[action] = fn; else delete handlers[action]; return orig(action, fn); };
+  ms.__yuiTracked = true;
+}
+const mediaEl = () => {
+  const all = typeof document === "undefined" ? [] : [...document.querySelectorAll("audio, video")];
+  return all.find((el) => !el.paused && !el.ended) || all.find((el) => el.paused && el.currentTime > 0 && !el.ended) || null;
+};
+export function useNowPlaying() {
+  const [np, setNp] = useState(null);
+  useEffect(() => {
+    trackSession();
+    const look = () => setNp(nowPlaying(navigator.mediaSession, mediaEl(), handlers));
+    look();
+    const t = setInterval(look, 1000);
+    for (const ev of ["play", "pause", "ended"]) document.addEventListener(ev, look, true);
+    return () => { clearInterval(t); for (const ev of ["play", "pause", "ended"]) document.removeEventListener(ev, look, true); };
+  }, []);
+  return np;
+}
+export function MusicStrip() {
+  const np = useNowPlaying();
+  if (!np) return null;
+  const toggle = () => {
+    const el = mediaEl();
+    if (el) { if (el.paused) el.play(); else el.pause(); return; }
+    (np.playing ? handlers.pause : handlers.play)?.();
+  };
+  return (
+    <div className="rn-music" data-testid="runner-music" role="group" aria-label="Now playing">
+      <span className="rn-musicicon" aria-hidden="true">{np.playing ? "♫" : "♪"}</span>
+      <span className="rn-musictext"><b data-testid="runner-music-title">{np.title}</b>{np.artist ? <small>{np.artist}</small> : null}</span>
+      {np.canToggle ? <button data-testid="runner-music-play" aria-label={np.playing ? "Pause music" : "Play music"} onClick={toggle}>{np.playing ? "❚❚" : "▶"}</button> : null}
+      {np.canNext ? <button data-testid="runner-music-next" aria-label="Next song" onClick={() => handlers.nexttrack?.()}>▶❚</button> : null}
     </div>
   );
 }
